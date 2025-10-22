@@ -17,8 +17,7 @@ package org.activiti.engine.impl.bpmn.parser.handler;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.bpmn.model.BaseElement;
 import org.activiti.bpmn.model.EventGateway;
@@ -31,23 +30,20 @@ import org.junit.experimental.categories.Category;
 
 public class EventBasedGatewayParseHandlerDiffblueTest {
   /**
-   * Test {@link EventBasedGatewayParseHandler#executeParse(BpmnParse, EventGateway)} with {@code
-   * BpmnParse}, {@code EventGateway}.
-   *
-   * <p>Method under test: {@link EventBasedGatewayParseHandler#executeParse(BpmnParse,
-   * EventGateway)}
+   * Test {@link EventBasedGatewayParseHandler#executeParse(BpmnParse, EventGateway)} with {@code BpmnParse}, {@code EventGateway}.
+   * <p>
+   * Method under test: {@link EventBasedGatewayParseHandler#executeParse(BpmnParse, EventGateway)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void EventBasedGatewayParseHandler.executeParse(BpmnParse, EventGateway)"})
   public void testExecuteParseWithBpmnParseEventGateway() {
     // Arrange
-    EventBasedGatewayParseHandler eventBasedGatewayParseHandler =
-        new EventBasedGatewayParseHandler();
+    EventBasedGatewayParseHandler eventBasedGatewayParseHandler = new EventBasedGatewayParseHandler();
 
-    BpmnParse bpmnParse = new BpmnParse(new BpmnParser());
-    bpmnParse.setActivityBehaviorFactory(new DefaultActivityBehaviorFactory());
+    BpmnParser parser = new BpmnParser();
+    parser.setActivityBehaviorFactory(new DefaultActivityBehaviorFactory());
+    BpmnParse bpmnParse = new BpmnParse(parser);
     EventGateway gateway = new EventGateway();
 
     // Act
@@ -59,25 +55,20 @@ public class EventBasedGatewayParseHandlerDiffblueTest {
 
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>default or parameterless constructor of {@link EventBasedGatewayParseHandler}
    *   <li>{@link EventBasedGatewayParseHandler#getHandledType()}
    * </ul>
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void EventBasedGatewayParseHandler.<init>()",
-    "Class EventBasedGatewayParseHandler.getHandledType()"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void EventBasedGatewayParseHandler.<init>()",
+      "Class EventBasedGatewayParseHandler.getHandledType()"})
   public void testGettersAndSetters() {
     // Arrange and Act
-    Class<? extends BaseElement> actualHandledType =
-        new EventBasedGatewayParseHandler().getHandledType();
+    Class<? extends BaseElement> actualHandledType = (new EventBasedGatewayParseHandler()).getHandledType();
 
     // Assert
     Class<EventGateway> expectedHandledType = EventGateway.class;

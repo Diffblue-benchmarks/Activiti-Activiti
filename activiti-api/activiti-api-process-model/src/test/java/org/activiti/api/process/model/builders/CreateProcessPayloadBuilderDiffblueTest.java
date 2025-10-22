@@ -16,7 +16,6 @@
 package org.activiti.api.process.model.builders;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.api.process.model.payloads.CreateProcessInstancePayload;
 import org.junit.jupiter.api.DisplayName;
@@ -26,9 +25,8 @@ import org.junit.jupiter.api.Test;
 class CreateProcessPayloadBuilderDiffblueTest {
   /**
    * Test {@link CreateProcessPayloadBuilder#build()}.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>{@link CreateProcessPayloadBuilder#build()}
    *   <li>default or parameterless constructor of {@link CreateProcessPayloadBuilder}
@@ -40,31 +38,25 @@ class CreateProcessPayloadBuilderDiffblueTest {
    */
   @Test
   @DisplayName("Test build()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void CreateProcessPayloadBuilder.<init>()",
-    "CreateProcessInstancePayload CreateProcessPayloadBuilder.build()",
-    "CreateProcessPayloadBuilder CreateProcessPayloadBuilder.withBusinessKey(String)",
-    "CreateProcessPayloadBuilder CreateProcessPayloadBuilder.withName(String)",
-    "CreateProcessPayloadBuilder CreateProcessPayloadBuilder.withProcessDefinitionId(String)",
-    "CreateProcessPayloadBuilder CreateProcessPayloadBuilder.withProcessDefinitionKey(String)"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void CreateProcessPayloadBuilder.<init>()",
+      "CreateProcessInstancePayload CreateProcessPayloadBuilder.build()",
+      "CreateProcessPayloadBuilder CreateProcessPayloadBuilder.withBusinessKey(String)",
+      "CreateProcessPayloadBuilder CreateProcessPayloadBuilder.withName(String)",
+      "CreateProcessPayloadBuilder CreateProcessPayloadBuilder.withProcessDefinitionId(String)",
+      "CreateProcessPayloadBuilder CreateProcessPayloadBuilder.withProcessDefinitionKey(String)"})
   void testBuild() {
     // Arrange and Act
-    CreateProcessInstancePayload actualCreateProcessInstancePayload =
-        new CreateProcessPayloadBuilder()
-            .withBusinessKey("Business Key")
-            .withName("Name")
-            .withProcessDefinitionId("42")
-            .withProcessDefinitionKey("Process Definition Key")
-            .build();
+    CreateProcessInstancePayload actualBuildResult = (new CreateProcessPayloadBuilder()).withBusinessKey("Business Key")
+        .withName("Name")
+        .withProcessDefinitionId("42")
+        .withProcessDefinitionKey("Process Definition Key")
+        .build();
 
     // Assert
-    assertEquals("42", actualCreateProcessInstancePayload.getProcessDefinitionId());
-    assertEquals("Business Key", actualCreateProcessInstancePayload.getBusinessKey());
-    assertEquals("Name", actualCreateProcessInstancePayload.getName());
-    assertEquals(
-        "Process Definition Key", actualCreateProcessInstancePayload.getProcessDefinitionKey());
+    assertEquals("42", actualBuildResult.getProcessDefinitionId());
+    assertEquals("Business Key", actualBuildResult.getBusinessKey());
+    assertEquals("Name", actualBuildResult.getName());
+    assertEquals("Process Definition Key", actualBuildResult.getProcessDefinitionKey());
   }
 }

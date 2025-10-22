@@ -19,8 +19,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
@@ -28,18 +27,16 @@ import org.junit.experimental.categories.Category;
 public class ScriptTaskActivityBehaviorDiffblueTest {
   /**
    * Test {@link ScriptTaskActivityBehavior#ScriptTaskActivityBehavior(String, String, String)}.
-   *
-   * <p>Method under test: {@link ScriptTaskActivityBehavior#ScriptTaskActivityBehavior(String,
-   * String, String)}
+   * <p>
+   * Method under test: {@link ScriptTaskActivityBehavior#ScriptTaskActivityBehavior(String, String, String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void ScriptTaskActivityBehavior.<init>(String, String, String)"})
   public void testNewScriptTaskActivityBehavior() {
     // Arrange and Act
-    ScriptTaskActivityBehavior actualScriptTaskActivityBehavior =
-        new ScriptTaskActivityBehavior("Script", "en", "Result Variable");
+    ScriptTaskActivityBehavior actualScriptTaskActivityBehavior = new ScriptTaskActivityBehavior("Script", "en",
+        "Result Variable");
 
     // Assert
     assertEquals("Result Variable", actualScriptTaskActivityBehavior.resultVariable);
@@ -53,22 +50,17 @@ public class ScriptTaskActivityBehaviorDiffblueTest {
   }
 
   /**
-   * Test {@link ScriptTaskActivityBehavior#ScriptTaskActivityBehavior(String, String, String,
-   * String, boolean)}.
-   *
-   * <p>Method under test: {@link ScriptTaskActivityBehavior#ScriptTaskActivityBehavior(String,
-   * String, String, String, boolean)}
+   * Test {@link ScriptTaskActivityBehavior#ScriptTaskActivityBehavior(String, String, String, String, boolean)}.
+   * <p>
+   * Method under test: {@link ScriptTaskActivityBehavior#ScriptTaskActivityBehavior(String, String, String, String, boolean)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void ScriptTaskActivityBehavior.<init>(String, String, String, String, boolean)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void ScriptTaskActivityBehavior.<init>(String, String, String, String, boolean)"})
   public void testNewScriptTaskActivityBehavior2() {
     // Arrange and Act
-    ScriptTaskActivityBehavior actualScriptTaskActivityBehavior =
-        new ScriptTaskActivityBehavior("42", "Script", "en", "Result Variable", true);
+    ScriptTaskActivityBehavior actualScriptTaskActivityBehavior = new ScriptTaskActivityBehavior("42", "Script", "en",
+        "Result Variable", true);
 
     // Assert
     assertEquals("42", actualScriptTaskActivityBehavior.scriptTaskId);

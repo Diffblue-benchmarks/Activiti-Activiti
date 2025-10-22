@@ -22,8 +22,7 @@ import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
 import java.util.List;
@@ -33,17 +32,15 @@ import org.junit.experimental.categories.Category;
 public class ActivitiListenerDiffblueTest {
   /**
    * Test {@link ActivitiListener#clone()}.
-   *
    * <ul>
-   *   <li>Given {@link ActivitiListener} (default constructor) FieldExtensions is {@code null}.
-   *   <li>Then return Instance is {@code null}.
+   *   <li>Given {@link ActivitiListener} (default constructor) FieldExtensions is {@code null}.</li>
+   *   <li>Then return Instance is {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ActivitiListener#clone()}
+   * <p>
+   * Method under test: {@link ActivitiListener#clone()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"ActivitiListener ActivitiListener.clone()"})
   public void testClone_givenActivitiListenerFieldExtensionsIsNull_thenReturnInstanceIsNull() {
     // Arrange
@@ -71,21 +68,19 @@ public class ActivitiListenerDiffblueTest {
 
   /**
    * Test {@link ActivitiListener#clone()}.
-   *
    * <ul>
-   *   <li>Given {@link ActivitiListener} (default constructor).
-   *   <li>Then return Instance is {@code null}.
+   *   <li>Given {@link ActivitiListener} (default constructor).</li>
+   *   <li>Then return Instance is {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ActivitiListener#clone()}
+   * <p>
+   * Method under test: {@link ActivitiListener#clone()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"ActivitiListener ActivitiListener.clone()"})
   public void testClone_givenActivitiListener_thenReturnInstanceIsNull() {
     // Arrange and Act
-    ActivitiListener actualCloneResult = new ActivitiListener().clone();
+    ActivitiListener actualCloneResult = (new ActivitiListener()).clone();
 
     // Assert
     assertNull(actualCloneResult.getInstance());
@@ -105,17 +100,15 @@ public class ActivitiListenerDiffblueTest {
 
   /**
    * Test {@link ActivitiListener#clone()}.
-   *
    * <ul>
-   *   <li>Given {@link ArrayList#ArrayList()} add {@link FieldExtension} (default constructor).
-   *   <li>Then return FieldExtensions size is one.
+   *   <li>Given {@link ArrayList#ArrayList()} add {@link FieldExtension} (default constructor).</li>
+   *   <li>Then return FieldExtensions size is one.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ActivitiListener#clone()}
+   * <p>
+   * Method under test: {@link ActivitiListener#clone()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"ActivitiListener ActivitiListener.clone()"})
   public void testClone_givenArrayListAddFieldExtension_thenReturnFieldExtensionsSizeIsOne() {
     // Arrange
@@ -141,21 +134,18 @@ public class ActivitiListenerDiffblueTest {
 
   /**
    * Test {@link ActivitiListener#setValues(ActivitiListener)} with {@code otherListener}.
-   *
    * <ul>
-   *   <li>Then calls {@link FieldExtension#clone()}.
+   *   <li>Then calls {@link FieldExtension#clone()}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ActivitiListener#setValues(ActivitiListener)}
+   * <p>
+   * Method under test: {@link ActivitiListener#setValues(ActivitiListener)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void ActivitiListener.setValues(ActivitiListener)"})
   public void testSetValuesWithOtherListener_thenCallsClone() {
     // Arrange
     ActivitiListener activitiListener = new ActivitiListener();
-
     FieldExtension fieldExtension = mock(FieldExtension.class);
     when(fieldExtension.clone()).thenReturn(new FieldExtension());
 
@@ -174,9 +164,8 @@ public class ActivitiListenerDiffblueTest {
 
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>default or parameterless constructor of {@link ActivitiListener}
    *   <li>{@link ActivitiListener#setCustomPropertiesResolverImplementation(String)}
@@ -198,34 +187,24 @@ public class ActivitiListenerDiffblueTest {
    * </ul>
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void ActivitiListener.<init>()",
-    "String ActivitiListener.getCustomPropertiesResolverImplementation()",
-    "String ActivitiListener.getCustomPropertiesResolverImplementationType()",
-    "String ActivitiListener.getEvent()",
-    "List ActivitiListener.getFieldExtensions()",
-    "String ActivitiListener.getImplementation()",
-    "String ActivitiListener.getImplementationType()",
-    "Object ActivitiListener.getInstance()",
-    "String ActivitiListener.getOnTransaction()",
-    "void ActivitiListener.setCustomPropertiesResolverImplementation(String)",
-    "void ActivitiListener.setCustomPropertiesResolverImplementationType(String)",
-    "void ActivitiListener.setEvent(String)",
-    "void ActivitiListener.setFieldExtensions(List)",
-    "void ActivitiListener.setImplementation(String)",
-    "void ActivitiListener.setImplementationType(String)",
-    "void ActivitiListener.setInstance(Object)",
-    "void ActivitiListener.setOnTransaction(String)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void ActivitiListener.<init>()",
+      "String ActivitiListener.getCustomPropertiesResolverImplementation()",
+      "String ActivitiListener.getCustomPropertiesResolverImplementationType()", "String ActivitiListener.getEvent()",
+      "List ActivitiListener.getFieldExtensions()", "String ActivitiListener.getImplementation()",
+      "String ActivitiListener.getImplementationType()", "Object ActivitiListener.getInstance()",
+      "String ActivitiListener.getOnTransaction()",
+      "void ActivitiListener.setCustomPropertiesResolverImplementation(String)",
+      "void ActivitiListener.setCustomPropertiesResolverImplementationType(String)",
+      "void ActivitiListener.setEvent(String)", "void ActivitiListener.setFieldExtensions(List)",
+      "void ActivitiListener.setImplementation(String)", "void ActivitiListener.setImplementationType(String)",
+      "void ActivitiListener.setInstance(Object)", "void ActivitiListener.setOnTransaction(String)"})
   public void testGettersAndSetters() {
     // Arrange and Act
     ActivitiListener actualActivitiListener = new ActivitiListener();
-    actualActivitiListener.setCustomPropertiesResolverImplementation(
-        "Custom Properties Resolver Implementation");
-    actualActivitiListener.setCustomPropertiesResolverImplementationType(
-        "Custom Properties Resolver Implementation Type");
+    actualActivitiListener.setCustomPropertiesResolverImplementation("Custom Properties Resolver Implementation");
+    actualActivitiListener
+        .setCustomPropertiesResolverImplementationType("Custom Properties Resolver Implementation Type");
     actualActivitiListener.setEvent("Event");
     ArrayList<FieldExtension> fieldExtensions = new ArrayList<>();
     actualActivitiListener.setFieldExtensions(fieldExtensions);
@@ -233,10 +212,10 @@ public class ActivitiListenerDiffblueTest {
     actualActivitiListener.setImplementationType("Implementation Type");
     actualActivitiListener.setInstance("Instance");
     actualActivitiListener.setOnTransaction("On Transaction");
-    String actualCustomPropertiesResolverImplementation =
-        actualActivitiListener.getCustomPropertiesResolverImplementation();
-    String actualCustomPropertiesResolverImplementationType =
-        actualActivitiListener.getCustomPropertiesResolverImplementationType();
+    String actualCustomPropertiesResolverImplementation = actualActivitiListener
+        .getCustomPropertiesResolverImplementation();
+    String actualCustomPropertiesResolverImplementationType = actualActivitiListener
+        .getCustomPropertiesResolverImplementationType();
     String actualEvent = actualActivitiListener.getEvent();
     List<FieldExtension> actualFieldExtensions = actualActivitiListener.getFieldExtensions();
     String actualImplementation = actualActivitiListener.getImplementation();
@@ -244,11 +223,8 @@ public class ActivitiListenerDiffblueTest {
     Object actualInstance = actualActivitiListener.getInstance();
 
     // Assert
-    assertEquals(
-        "Custom Properties Resolver Implementation Type",
-        actualCustomPropertiesResolverImplementationType);
-    assertEquals(
-        "Custom Properties Resolver Implementation", actualCustomPropertiesResolverImplementation);
+    assertEquals("Custom Properties Resolver Implementation Type", actualCustomPropertiesResolverImplementationType);
+    assertEquals("Custom Properties Resolver Implementation", actualCustomPropertiesResolverImplementation);
     assertEquals("Event", actualEvent);
     assertEquals("Implementation Type", actualImplementationType);
     assertEquals("Implementation", actualImplementation);

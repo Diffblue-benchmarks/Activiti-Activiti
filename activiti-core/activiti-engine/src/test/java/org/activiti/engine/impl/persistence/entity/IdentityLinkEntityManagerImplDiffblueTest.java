@@ -17,11 +17,11 @@ package org.activiti.engine.impl.persistence.entity;
 
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
 import java.util.List;
@@ -40,239 +40,189 @@ import org.mockito.junit.MockitoJUnitRunner;
 
 @RunWith(MockitoJUnitRunner.class)
 public class IdentityLinkEntityManagerImplDiffblueTest {
-  @Mock private IdentityLinkDataManager identityLinkDataManager;
+  @Mock
+  private IdentityLinkDataManager identityLinkDataManager;
 
-  @InjectMocks private IdentityLinkEntityManagerImpl identityLinkEntityManagerImpl;
+  @InjectMocks
+  private IdentityLinkEntityManagerImpl identityLinkEntityManagerImpl;
 
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
-   *   <li>{@link
-   *       IdentityLinkEntityManagerImpl#IdentityLinkEntityManagerImpl(ProcessEngineConfigurationImpl,
-   *       IdentityLinkDataManager)}
+   *   <li>{@link IdentityLinkEntityManagerImpl#IdentityLinkEntityManagerImpl(ProcessEngineConfigurationImpl, IdentityLinkDataManager)}
    *   <li>{@link IdentityLinkEntityManagerImpl#setIdentityLinkDataManager(IdentityLinkDataManager)}
    *   <li>{@link IdentityLinkEntityManagerImpl#getDataManager()}
    *   <li>{@link IdentityLinkEntityManagerImpl#getIdentityLinkDataManager()}
    * </ul>
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({
-    "void IdentityLinkEntityManagerImpl.<init>(ProcessEngineConfigurationImpl, IdentityLinkDataManager)",
-    "DataManager IdentityLinkEntityManagerImpl.getDataManager()",
-    "IdentityLinkDataManager IdentityLinkEntityManagerImpl.getIdentityLinkDataManager()",
-    "void IdentityLinkEntityManagerImpl.setIdentityLinkDataManager(IdentityLinkDataManager)"
-  })
+      "void IdentityLinkEntityManagerImpl.<init>(ProcessEngineConfigurationImpl, IdentityLinkDataManager)",
+      "DataManager IdentityLinkEntityManagerImpl.getDataManager()",
+      "IdentityLinkDataManager IdentityLinkEntityManagerImpl.getIdentityLinkDataManager()",
+      "void IdentityLinkEntityManagerImpl.setIdentityLinkDataManager(IdentityLinkDataManager)"})
   public void testGettersAndSetters() {
     // Arrange
     JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();
 
     // Act
-    IdentityLinkEntityManagerImpl actualIdentityLinkEntityManagerImpl =
-        new IdentityLinkEntityManagerImpl(
-            processEngineConfiguration,
-            new MybatisIdentityLinkDataManager(new JtaProcessEngineConfiguration()));
-    MybatisIdentityLinkDataManager identityLinkDataManager =
-        new MybatisIdentityLinkDataManager(new JtaProcessEngineConfiguration());
+    IdentityLinkEntityManagerImpl actualIdentityLinkEntityManagerImpl = new IdentityLinkEntityManagerImpl(
+        processEngineConfiguration, new MybatisIdentityLinkDataManager(new JtaProcessEngineConfiguration()));
+    MybatisIdentityLinkDataManager identityLinkDataManager = new MybatisIdentityLinkDataManager(
+        new JtaProcessEngineConfiguration());
     actualIdentityLinkEntityManagerImpl.setIdentityLinkDataManager(identityLinkDataManager);
-    DataManager<IdentityLinkEntity> actualDataManager =
-        actualIdentityLinkEntityManagerImpl.getDataManager();
+    DataManager<IdentityLinkEntity> actualDataManager = actualIdentityLinkEntityManagerImpl.getDataManager();
 
     // Assert
     assertSame(identityLinkDataManager, actualDataManager);
-    assertSame(
-        identityLinkDataManager, actualIdentityLinkEntityManagerImpl.getIdentityLinkDataManager());
+    assertSame(identityLinkDataManager, actualIdentityLinkEntityManagerImpl.getIdentityLinkDataManager());
   }
 
   /**
    * Test {@link IdentityLinkEntityManagerImpl#findIdentityLinksByTaskId(String)}.
-   *
-   * <p>Method under test: {@link IdentityLinkEntityManagerImpl#findIdentityLinksByTaskId(String)}
+   * <p>
+   * Method under test: {@link IdentityLinkEntityManagerImpl#findIdentityLinksByTaskId(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"List IdentityLinkEntityManagerImpl.findIdentityLinksByTaskId(String)"})
   public void testFindIdentityLinksByTaskId() {
     // Arrange
-    when(identityLinkDataManager.findIdentityLinksByTaskId(Mockito.<String>any()))
-        .thenReturn(new ArrayList<>());
+    when(identityLinkDataManager.findIdentityLinksByTaskId(Mockito.<String>any())).thenReturn(new ArrayList<>());
 
     // Act
-    List<IdentityLinkEntity> actualFindIdentityLinksByTaskIdResult =
-        identityLinkEntityManagerImpl.findIdentityLinksByTaskId("42");
+    List<IdentityLinkEntity> actualFindIdentityLinksByTaskIdResult = identityLinkEntityManagerImpl
+        .findIdentityLinksByTaskId("42");
 
     // Assert
-    verify(identityLinkDataManager).findIdentityLinksByTaskId("42");
+    verify(identityLinkDataManager).findIdentityLinksByTaskId(eq("42"));
     assertTrue(actualFindIdentityLinksByTaskIdResult.isEmpty());
   }
 
   /**
    * Test {@link IdentityLinkEntityManagerImpl#findIdentityLinksByProcessInstanceId(String)}.
-   *
-   * <p>Method under test: {@link
-   * IdentityLinkEntityManagerImpl#findIdentityLinksByProcessInstanceId(String)}
+   * <p>
+   * Method under test: {@link IdentityLinkEntityManagerImpl#findIdentityLinksByProcessInstanceId(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "List IdentityLinkEntityManagerImpl.findIdentityLinksByProcessInstanceId(String)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"List IdentityLinkEntityManagerImpl.findIdentityLinksByProcessInstanceId(String)"})
   public void testFindIdentityLinksByProcessInstanceId() {
     // Arrange
     when(identityLinkDataManager.findIdentityLinksByProcessInstanceId(Mockito.<String>any()))
         .thenReturn(new ArrayList<>());
 
     // Act
-    List<IdentityLinkEntity> actualFindIdentityLinksByProcessInstanceIdResult =
-        identityLinkEntityManagerImpl.findIdentityLinksByProcessInstanceId("42");
+    List<IdentityLinkEntity> actualFindIdentityLinksByProcessInstanceIdResult = identityLinkEntityManagerImpl
+        .findIdentityLinksByProcessInstanceId("42");
 
     // Assert
-    verify(identityLinkDataManager).findIdentityLinksByProcessInstanceId("42");
+    verify(identityLinkDataManager).findIdentityLinksByProcessInstanceId(eq("42"));
     assertTrue(actualFindIdentityLinksByProcessInstanceIdResult.isEmpty());
   }
 
   /**
    * Test {@link IdentityLinkEntityManagerImpl#findIdentityLinksByProcessDefinitionId(String)}.
-   *
-   * <p>Method under test: {@link
-   * IdentityLinkEntityManagerImpl#findIdentityLinksByProcessDefinitionId(String)}
+   * <p>
+   * Method under test: {@link IdentityLinkEntityManagerImpl#findIdentityLinksByProcessDefinitionId(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "List IdentityLinkEntityManagerImpl.findIdentityLinksByProcessDefinitionId(String)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"List IdentityLinkEntityManagerImpl.findIdentityLinksByProcessDefinitionId(String)"})
   public void testFindIdentityLinksByProcessDefinitionId() {
     // Arrange
     when(identityLinkDataManager.findIdentityLinksByProcessDefinitionId(Mockito.<String>any()))
         .thenReturn(new ArrayList<>());
 
     // Act
-    List<IdentityLinkEntity> actualFindIdentityLinksByProcessDefinitionIdResult =
-        identityLinkEntityManagerImpl.findIdentityLinksByProcessDefinitionId("42");
+    List<IdentityLinkEntity> actualFindIdentityLinksByProcessDefinitionIdResult = identityLinkEntityManagerImpl
+        .findIdentityLinksByProcessDefinitionId("42");
 
     // Assert
-    verify(identityLinkDataManager).findIdentityLinksByProcessDefinitionId("42");
+    verify(identityLinkDataManager).findIdentityLinksByProcessDefinitionId(eq("42"));
     assertTrue(actualFindIdentityLinksByProcessDefinitionIdResult.isEmpty());
   }
 
   /**
-   * Test {@link IdentityLinkEntityManagerImpl#findIdentityLinkByTaskUserGroupAndType(String,
-   * String, String, String)}.
-   *
-   * <p>Method under test: {@link
-   * IdentityLinkEntityManagerImpl#findIdentityLinkByTaskUserGroupAndType(String, String, String,
-   * String)}
+   * Test {@link IdentityLinkEntityManagerImpl#findIdentityLinkByTaskUserGroupAndType(String, String, String, String)}.
+   * <p>
+   * Method under test: {@link IdentityLinkEntityManagerImpl#findIdentityLinkByTaskUserGroupAndType(String, String, String, String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({
-    "List IdentityLinkEntityManagerImpl.findIdentityLinkByTaskUserGroupAndType(String, String, String, String)"
-  })
+      "List IdentityLinkEntityManagerImpl.findIdentityLinkByTaskUserGroupAndType(String, String, String, String)"})
   public void testFindIdentityLinkByTaskUserGroupAndType() {
     // Arrange
-    when(identityLinkDataManager.findIdentityLinkByTaskUserGroupAndType(
-            Mockito.<String>any(),
-            Mockito.<String>any(),
-            Mockito.<String>any(),
-            Mockito.<String>any()))
-        .thenReturn(new ArrayList<>());
+    when(identityLinkDataManager.findIdentityLinkByTaskUserGroupAndType(Mockito.<String>any(), Mockito.<String>any(),
+        Mockito.<String>any(), Mockito.<String>any())).thenReturn(new ArrayList<>());
 
     // Act
-    List<IdentityLinkEntity> actualFindIdentityLinkByTaskUserGroupAndTypeResult =
-        identityLinkEntityManagerImpl.findIdentityLinkByTaskUserGroupAndType(
-            "42", "42", "42", "Type");
+    List<IdentityLinkEntity> actualFindIdentityLinkByTaskUserGroupAndTypeResult = identityLinkEntityManagerImpl
+        .findIdentityLinkByTaskUserGroupAndType("42", "42", "42", "Type");
 
     // Assert
-    verify(identityLinkDataManager)
-        .findIdentityLinkByTaskUserGroupAndType("42", "42", "42", "Type");
+    verify(identityLinkDataManager).findIdentityLinkByTaskUserGroupAndType(eq("42"), eq("42"), eq("42"), eq("Type"));
     assertTrue(actualFindIdentityLinkByTaskUserGroupAndTypeResult.isEmpty());
   }
 
   /**
-   * Test {@link
-   * IdentityLinkEntityManagerImpl#findIdentityLinkByProcessInstanceUserGroupAndType(String, String,
-   * String, String)}.
-   *
-   * <p>Method under test: {@link
-   * IdentityLinkEntityManagerImpl#findIdentityLinkByProcessInstanceUserGroupAndType(String, String,
-   * String, String)}
+   * Test {@link IdentityLinkEntityManagerImpl#findIdentityLinkByProcessInstanceUserGroupAndType(String, String, String, String)}.
+   * <p>
+   * Method under test: {@link IdentityLinkEntityManagerImpl#findIdentityLinkByProcessInstanceUserGroupAndType(String, String, String, String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({
-    "List IdentityLinkEntityManagerImpl.findIdentityLinkByProcessInstanceUserGroupAndType(String, String, String, String)"
-  })
+      "List IdentityLinkEntityManagerImpl.findIdentityLinkByProcessInstanceUserGroupAndType(String, String, String, String)"})
   public void testFindIdentityLinkByProcessInstanceUserGroupAndType() {
     // Arrange
-    when(identityLinkDataManager.findIdentityLinkByProcessInstanceUserGroupAndType(
-            Mockito.<String>any(),
-            Mockito.<String>any(),
-            Mockito.<String>any(),
-            Mockito.<String>any()))
-        .thenReturn(new ArrayList<>());
+    when(identityLinkDataManager.findIdentityLinkByProcessInstanceUserGroupAndType(Mockito.<String>any(),
+        Mockito.<String>any(), Mockito.<String>any(), Mockito.<String>any())).thenReturn(new ArrayList<>());
 
     // Act
-    List<IdentityLinkEntity> actualFindIdentityLinkByProcessInstanceUserGroupAndTypeResult =
-        identityLinkEntityManagerImpl.findIdentityLinkByProcessInstanceUserGroupAndType(
-            "42", "42", "42", "Type");
+    List<IdentityLinkEntity> actualFindIdentityLinkByProcessInstanceUserGroupAndTypeResult = identityLinkEntityManagerImpl
+        .findIdentityLinkByProcessInstanceUserGroupAndType("42", "42", "42", "Type");
 
     // Assert
-    verify(identityLinkDataManager)
-        .findIdentityLinkByProcessInstanceUserGroupAndType("42", "42", "42", "Type");
+    verify(identityLinkDataManager).findIdentityLinkByProcessInstanceUserGroupAndType(eq("42"), eq("42"), eq("42"),
+        eq("Type"));
     assertTrue(actualFindIdentityLinkByProcessInstanceUserGroupAndTypeResult.isEmpty());
   }
 
   /**
-   * Test {@link
-   * IdentityLinkEntityManagerImpl#findIdentityLinkByProcessDefinitionUserAndGroup(String, String,
-   * String)}.
-   *
-   * <p>Method under test: {@link
-   * IdentityLinkEntityManagerImpl#findIdentityLinkByProcessDefinitionUserAndGroup(String, String,
-   * String)}
+   * Test {@link IdentityLinkEntityManagerImpl#findIdentityLinkByProcessDefinitionUserAndGroup(String, String, String)}.
+   * <p>
+   * Method under test: {@link IdentityLinkEntityManagerImpl#findIdentityLinkByProcessDefinitionUserAndGroup(String, String, String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({
-    "List IdentityLinkEntityManagerImpl.findIdentityLinkByProcessDefinitionUserAndGroup(String, String, String)"
-  })
+      "List IdentityLinkEntityManagerImpl.findIdentityLinkByProcessDefinitionUserAndGroup(String, String, String)"})
   public void testFindIdentityLinkByProcessDefinitionUserAndGroup() {
     // Arrange
-    when(identityLinkDataManager.findIdentityLinkByProcessDefinitionUserAndGroup(
-            Mockito.<String>any(), Mockito.<String>any(), Mockito.<String>any()))
-        .thenReturn(new ArrayList<>());
+    when(identityLinkDataManager.findIdentityLinkByProcessDefinitionUserAndGroup(Mockito.<String>any(),
+        Mockito.<String>any(), Mockito.<String>any())).thenReturn(new ArrayList<>());
 
     // Act
-    List<IdentityLinkEntity> actualFindIdentityLinkByProcessDefinitionUserAndGroupResult =
-        identityLinkEntityManagerImpl.findIdentityLinkByProcessDefinitionUserAndGroup(
-            "42", "42", "42");
+    List<IdentityLinkEntity> actualFindIdentityLinkByProcessDefinitionUserAndGroupResult = identityLinkEntityManagerImpl
+        .findIdentityLinkByProcessDefinitionUserAndGroup("42", "42", "42");
 
     // Assert
-    verify(identityLinkDataManager)
-        .findIdentityLinkByProcessDefinitionUserAndGroup("42", "42", "42");
+    verify(identityLinkDataManager).findIdentityLinkByProcessDefinitionUserAndGroup(eq("42"), eq("42"), eq("42"));
     assertTrue(actualFindIdentityLinkByProcessDefinitionUserAndGroupResult.isEmpty());
   }
 
   /**
    * Test {@link IdentityLinkEntityManagerImpl#deleteIdentityLinksByProcDef(String)}.
-   *
-   * <p>Method under test: {@link
-   * IdentityLinkEntityManagerImpl#deleteIdentityLinksByProcDef(String)}
+   * <p>
+   * Method under test: {@link IdentityLinkEntityManagerImpl#deleteIdentityLinksByProcDef(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void IdentityLinkEntityManagerImpl.deleteIdentityLinksByProcDef(String)"})
   public void testDeleteIdentityLinksByProcDef() {
     // Arrange
@@ -282,6 +232,6 @@ public class IdentityLinkEntityManagerImplDiffblueTest {
     identityLinkEntityManagerImpl.deleteIdentityLinksByProcDef("42");
 
     // Assert
-    verify(identityLinkDataManager).deleteIdentityLinksByProcDef("42");
+    verify(identityLinkDataManager).deleteIdentityLinksByProcDef(eq("42"));
   }
 }

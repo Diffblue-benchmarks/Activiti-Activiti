@@ -16,8 +16,7 @@
 package org.activiti.engine.impl.jobexecutor;
 
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.engine.impl.cmd.JobRetryCmd;
 import org.junit.Test;
@@ -26,26 +25,18 @@ import org.junit.experimental.categories.Category;
 public class DefaultFailedJobCommandFactoryDiffblueTest {
   /**
    * Test {@link DefaultFailedJobCommandFactory#getCommand(String, Throwable)}.
-   *
-   * <ul>
-   *   <li>Then return {@link JobRetryCmd}.
-   * </ul>
-   *
-   * <p>Method under test: {@link DefaultFailedJobCommandFactory#getCommand(String, Throwable)}
+   * <p>
+   * Method under test: {@link DefaultFailedJobCommandFactory#getCommand(String, Throwable)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({
-    "org.activiti.engine.impl.interceptor.Command DefaultFailedJobCommandFactory.getCommand(String, Throwable)"
-  })
-  public void testGetCommand_thenReturnJobRetryCmd() {
+      "org.activiti.engine.impl.interceptor.Command DefaultFailedJobCommandFactory.getCommand(String, Throwable)"})
+  public void testGetCommand() {
     // Arrange
-    DefaultFailedJobCommandFactory defaultFailedJobCommandFactory =
-        new DefaultFailedJobCommandFactory();
+    DefaultFailedJobCommandFactory defaultFailedJobCommandFactory = new DefaultFailedJobCommandFactory();
 
     // Act and Assert
-    assertTrue(
-        defaultFailedJobCommandFactory.getCommand("42", new Throwable()) instanceof JobRetryCmd);
+    assertTrue(defaultFailedJobCommandFactory.getCommand("42", new Throwable()) instanceof JobRetryCmd);
   }
 }

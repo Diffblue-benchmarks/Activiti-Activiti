@@ -17,8 +17,7 @@ package org.activiti.engine.impl.cmd;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThrows;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.engine.ActivitiIllegalArgumentException;
 import org.junit.Test;
@@ -27,39 +26,50 @@ import org.junit.experimental.categories.Category;
 public class GetDeploymentProcessModelCmdDiffblueTest {
   /**
    * Test {@link GetDeploymentProcessModelCmd#GetDeploymentProcessModelCmd(String)}.
-   *
    * <ul>
-   *   <li>Then throw {@link ActivitiIllegalArgumentException}.
+   *   <li>When {@code 42}.</li>
+   *   <li>Then return {@link GetDeploymentProcessModelCmd#processDefinitionId} is {@code 42}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link GetDeploymentProcessModelCmd#GetDeploymentProcessModelCmd(String)}
+   * <p>
+   * Method under test: {@link GetDeploymentProcessModelCmd#GetDeploymentProcessModelCmd(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void GetDeploymentProcessModelCmd.<init>(String)"})
-  public void testNewGetDeploymentProcessModelCmd_thenThrowActivitiIllegalArgumentException() {
+  public void testNewGetDeploymentProcessModelCmd_when42_thenReturnProcessDefinitionIdIs42() {
     // Arrange, Act and Assert
-    assertThrows(
-        ActivitiIllegalArgumentException.class, () -> new GetDeploymentProcessModelCmd(null));
+    assertEquals("42", (new GetDeploymentProcessModelCmd("42")).processDefinitionId);
   }
 
   /**
    * Test {@link GetDeploymentProcessModelCmd#GetDeploymentProcessModelCmd(String)}.
-   *
    * <ul>
-   *   <li>When {@code 42}.
-   *   <li>Then return {@link GetDeploymentProcessModelCmd#processDefinitionId} is {@code 42}.
+   *   <li>When empty string.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link GetDeploymentProcessModelCmd#GetDeploymentProcessModelCmd(String)}
+   * <p>
+   * Method under test: {@link GetDeploymentProcessModelCmd#GetDeploymentProcessModelCmd(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void GetDeploymentProcessModelCmd.<init>(String)"})
-  public void testNewGetDeploymentProcessModelCmd_when42_thenReturnProcessDefinitionIdIs42() {
+  public void testNewGetDeploymentProcessModelCmd_whenEmptyString() {
     // Arrange, Act and Assert
-    assertEquals("42", new GetDeploymentProcessModelCmd("42").processDefinitionId);
+    assertThrows(ActivitiIllegalArgumentException.class, () -> new GetDeploymentProcessModelCmd(""));
+  }
+
+  /**
+   * Test {@link GetDeploymentProcessModelCmd#GetDeploymentProcessModelCmd(String)}.
+   * <ul>
+   *   <li>When {@code null}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link GetDeploymentProcessModelCmd#GetDeploymentProcessModelCmd(String)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void GetDeploymentProcessModelCmd.<init>(String)"})
+  public void testNewGetDeploymentProcessModelCmd_whenNull() {
+    // Arrange, Act and Assert
+    assertThrows(ActivitiIllegalArgumentException.class, () -> new GetDeploymentProcessModelCmd(null));
   }
 }

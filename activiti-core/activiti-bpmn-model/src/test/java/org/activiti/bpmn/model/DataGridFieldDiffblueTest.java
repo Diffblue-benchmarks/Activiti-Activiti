@@ -18,8 +18,7 @@ package org.activiti.bpmn.model;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
@@ -27,16 +26,15 @@ import org.junit.experimental.categories.Category;
 public class DataGridFieldDiffblueTest {
   /**
    * Test {@link DataGridField#clone()}.
-   *
-   * <p>Method under test: {@link DataGridField#clone()}
+   * <p>
+   * Method under test: {@link DataGridField#clone()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"DataGridField DataGridField.clone()"})
   public void testClone() {
     // Arrange and Act
-    DataGridField actualCloneResult = new DataGridField().clone();
+    DataGridField actualCloneResult = (new DataGridField()).clone();
 
     // Assert
     assertNull(actualCloneResult.getId());
@@ -50,9 +48,8 @@ public class DataGridFieldDiffblueTest {
 
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>default or parameterless constructor of {@link DataGridField}
    *   <li>{@link DataGridField#setName(String)}
@@ -62,15 +59,9 @@ public class DataGridFieldDiffblueTest {
    * </ul>
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void DataGridField.<init>()",
-    "String DataGridField.getName()",
-    "String DataGridField.getValue()",
-    "void DataGridField.setName(String)",
-    "void DataGridField.setValue(String)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void DataGridField.<init>()", "String DataGridField.getName()", "String DataGridField.getValue()",
+      "void DataGridField.setName(String)", "void DataGridField.setValue(String)"})
   public void testGettersAndSetters() {
     // Arrange and Act
     DataGridField actualDataGridField = new DataGridField();

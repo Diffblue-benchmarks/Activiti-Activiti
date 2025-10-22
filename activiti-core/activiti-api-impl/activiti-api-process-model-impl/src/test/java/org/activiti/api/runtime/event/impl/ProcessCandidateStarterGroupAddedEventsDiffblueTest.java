@@ -17,7 +17,6 @@ package org.activiti.api.runtime.event.impl;
 
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
 import java.util.List;
@@ -29,30 +28,25 @@ import org.junit.jupiter.api.Test;
 class ProcessCandidateStarterGroupAddedEventsDiffblueTest {
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
-   *   <li>{@link
-   *       ProcessCandidateStarterGroupAddedEvents#ProcessCandidateStarterGroupAddedEvents(List)}
+   *   <li>{@link ProcessCandidateStarterGroupAddedEvents#ProcessCandidateStarterGroupAddedEvents(List)}
    *   <li>{@link ProcessCandidateStarterGroupAddedEvents#getEvents()}
    * </ul>
    */
   @Test
   @DisplayName("Test getters and setters")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void ProcessCandidateStarterGroupAddedEvents.<init>(List)",
-    "List ProcessCandidateStarterGroupAddedEvents.getEvents()"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void ProcessCandidateStarterGroupAddedEvents.<init>(List)",
+      "List ProcessCandidateStarterGroupAddedEvents.getEvents()"})
   void testGettersAndSetters() {
     // Arrange
     ArrayList<ProcessCandidateStarterGroupAddedEvent> events = new ArrayList<>();
 
     // Act
-    List<ProcessCandidateStarterGroupAddedEvent> actualEvents =
-        new ProcessCandidateStarterGroupAddedEvents(events).getEvents();
+    List<ProcessCandidateStarterGroupAddedEvent> actualEvents = (new ProcessCandidateStarterGroupAddedEvents(events))
+        .getEvents();
 
     // Assert
     assertTrue(actualEvents.isEmpty());

@@ -17,174 +17,123 @@ package org.activiti.engine.impl.variable;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import static org.mockito.ArgumentMatchers.isA;
+import static org.mockito.Mockito.atLeast;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
-import com.fasterxml.jackson.databind.json.JsonMapper;
 import java.io.UnsupportedEncodingException;
-import java.util.Map;
 import org.activiti.engine.impl.persistence.entity.VariableInstanceEntity;
 import org.activiti.engine.impl.persistence.entity.VariableInstanceEntityImpl;
 import org.activiti.engine.impl.util.json.JSONObject;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
+import org.mockito.Mockito;
 
 public class DeserializedObjectDiffblueTest {
   /**
-   * Test {@link DeserializedObject#DeserializedObject(SerializableType, Object, byte[],
-   * VariableInstanceEntity)}.
-   *
-   * <p>Method under test: {@link DeserializedObject#DeserializedObject(SerializableType, Object,
-   * byte[], VariableInstanceEntity)}
+   * Test {@link DeserializedObject#DeserializedObject(SerializableType, Object, byte[], VariableInstanceEntity)}.
+   * <p>
+   * Method under test: {@link DeserializedObject#DeserializedObject(SerializableType, Object, byte[], VariableInstanceEntity)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void DeserializedObject.<init>(SerializableType, Object, byte[], VariableInstanceEntity)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void DeserializedObject.<init>(SerializableType, Object, byte[], VariableInstanceEntity)"})
   public void testNewDeserializedObject() throws UnsupportedEncodingException {
     // Arrange
     SerializableType type = new SerializableType(true);
     byte[] serializedBytes = "AXAXAXAX".getBytes("UTF-8");
 
-    // Act
-    DeserializedObject actualDeserializedObject =
-        new DeserializedObject(
-            type, JSONObject.NULL, serializedBytes, new VariableInstanceEntityImpl());
-
-    // Assert
-    SerializableType serializableType = actualDeserializedObject.type;
+    // Act and Assert
+    SerializableType serializableType = (new DeserializedObject(type, JSONObject.NULL, serializedBytes,
+        new VariableInstanceEntityImpl())).type;
     assertTrue(serializableType.isCachable());
     assertEquals(SerializableType.TYPE_NAME, serializableType.getTypeName());
   }
 
   /**
    * Test {@link DeserializedObject#verifyIfBytesOfSerializedObjectChanged()}.
-   *
-   * <p>Method under test: {@link DeserializedObject#verifyIfBytesOfSerializedObjectChanged()}
+   * <p>
+   * Method under test: {@link DeserializedObject#verifyIfBytesOfSerializedObjectChanged()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void DeserializedObject.verifyIfBytesOfSerializedObjectChanged()"})
   public void testVerifyIfBytesOfSerializedObjectChanged() throws UnsupportedEncodingException {
     // Arrange
+    VariableInstanceEntityImpl variableInstanceEntity = mock(VariableInstanceEntityImpl.class);
+    when(variableInstanceEntity.isDeleted()).thenReturn(true);
+    when(variableInstanceEntity.getCachedValue()).thenReturn(JSONObject.NULL);
     SerializableType type = new SerializableType(true);
-    byte[] serializedBytes = "AXAXAXAX".getBytes("UTF-8");
-
-    DeserializedObject deserializedObject =
-        new DeserializedObject(
-            type, JSONObject.NULL, serializedBytes, new VariableInstanceEntityImpl());
 
     // Act
-    deserializedObject.verifyIfBytesOfSerializedObjectChanged();
+    (new DeserializedObject(type, JSONObject.NULL, "AXAXAXAX".getBytes("UTF-8"), variableInstanceEntity))
+        .verifyIfBytesOfSerializedObjectChanged();
 
-    // Assert that nothing has changed
-    VariableInstanceEntity variableInstanceEntity = deserializedObject.variableInstanceEntity;
-    Object persistentState = variableInstanceEntity.getPersistentState();
-    assertTrue(persistentState instanceof Map);
-    assertTrue(variableInstanceEntity instanceof VariableInstanceEntityImpl);
-    assertTrue(((Map<Object, Object>) persistentState).isEmpty());
+    // Assert
+    verify(variableInstanceEntity).isDeleted();
+    verify(variableInstanceEntity).getCachedValue();
   }
 
   /**
    * Test {@link DeserializedObject#verifyIfBytesOfSerializedObjectChanged()}.
-   *
-   * <p>Method under test: {@link DeserializedObject#verifyIfBytesOfSerializedObjectChanged()}
+   * <p>
+   * Method under test: {@link DeserializedObject#verifyIfBytesOfSerializedObjectChanged()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void DeserializedObject.verifyIfBytesOfSerializedObjectChanged()"})
   public void testVerifyIfBytesOfSerializedObjectChanged2() throws UnsupportedEncodingException {
     // Arrange
-    VariableInstanceEntityImpl variableInstanceEntity = new VariableInstanceEntityImpl();
-    variableInstanceEntity.setDeleted(false);
-    JsonMapper objectMapper = JsonMapper.builder().findAndAddModules().build();
-    JsonMapper objectMapper2 = JsonMapper.builder().findAndAddModules().build();
-    JsonTypeConverter jsonTypeConverter = new JsonTypeConverter(objectMapper2, "null");
-
-    LongJsonType type = new LongJsonType(3, objectMapper, true, jsonTypeConverter);
-
-    DeserializedObject deserializedObject =
-        new DeserializedObject(type, null, "AXAXAXAX".getBytes("UTF-8"), variableInstanceEntity);
+    LongJsonType type = mock(LongJsonType.class);
+    when(type.serialize(Mockito.<Object>any(), Mockito.<ValueFields>any())).thenReturn("AXAXAXAX".getBytes("UTF-8"));
+    VariableInstanceEntityImpl variableInstanceEntity = mock(VariableInstanceEntityImpl.class);
+    when(variableInstanceEntity.isDeleted()).thenReturn(false);
+    when(variableInstanceEntity.getCachedValue()).thenReturn(JSONObject.NULL);
 
     // Act
-    deserializedObject.verifyIfBytesOfSerializedObjectChanged();
-
-    // Assert that nothing has changed
-    VariableInstanceEntity variableInstanceEntity2 = deserializedObject.variableInstanceEntity;
-    Object persistentState = variableInstanceEntity2.getPersistentState();
-    assertTrue(persistentState instanceof Map);
-    assertTrue(variableInstanceEntity2 instanceof VariableInstanceEntityImpl);
-    assertTrue(((Map<Object, Object>) persistentState).isEmpty());
-  }
-
-  /**
-   * Test {@link DeserializedObject#verifyIfBytesOfSerializedObjectChanged()}.
-   *
-   * <p>Method under test: {@link DeserializedObject#verifyIfBytesOfSerializedObjectChanged()}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void DeserializedObject.verifyIfBytesOfSerializedObjectChanged()"})
-  public void testVerifyIfBytesOfSerializedObjectChanged3() throws UnsupportedEncodingException {
-    // Arrange
-    VariableInstanceEntityImpl variableInstanceEntity = new VariableInstanceEntityImpl();
-    variableInstanceEntity.setDeleted(true);
-    DeserializedObject deserializedObject =
-        new DeserializedObject(
-            new SerializableType(true), null, "AXAXAXAX".getBytes("UTF-8"), variableInstanceEntity);
-
-    // Act
-    deserializedObject.verifyIfBytesOfSerializedObjectChanged();
-
-    // Assert that nothing has changed
-    VariableInstanceEntity variableInstanceEntity2 = deserializedObject.variableInstanceEntity;
-    Object persistentState = variableInstanceEntity2.getPersistentState();
-    assertTrue(persistentState instanceof Map);
-    assertTrue(variableInstanceEntity2 instanceof VariableInstanceEntityImpl);
-    assertTrue(((Map<Object, Object>) persistentState).isEmpty());
-  }
-
-  /**
-   * Test {@link DeserializedObject#verifyIfBytesOfSerializedObjectChanged()}.
-   *
-   * <p>Method under test: {@link DeserializedObject#verifyIfBytesOfSerializedObjectChanged()}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void DeserializedObject.verifyIfBytesOfSerializedObjectChanged()"})
-  public void testVerifyIfBytesOfSerializedObjectChanged4() {
-    // Arrange
-    VariableInstanceEntityImpl variableInstanceEntity = new VariableInstanceEntityImpl();
-    variableInstanceEntity.setDeleted(false);
-    JsonMapper objectMapper = JsonMapper.builder().findAndAddModules().build();
-    JsonMapper objectMapper2 = JsonMapper.builder().findAndAddModules().build();
-    JsonTypeConverter jsonTypeConverter = new JsonTypeConverter(objectMapper2, "null");
-
-    LongJsonType type = new LongJsonType(3, objectMapper, true, jsonTypeConverter);
-
-    DeserializedObject deserializedObject =
-        new DeserializedObject(type, null, new byte[] {}, variableInstanceEntity);
-
-    // Act
-    deserializedObject.verifyIfBytesOfSerializedObjectChanged();
+    (new DeserializedObject(type, JSONObject.NULL, "AXAXAXAX".getBytes("UTF-8"), variableInstanceEntity))
+        .verifyIfBytesOfSerializedObjectChanged();
 
     // Assert
-    VariableInstanceEntity variableInstanceEntity2 = deserializedObject.variableInstanceEntity;
-    Object persistentState = variableInstanceEntity2.getPersistentState();
-    assertTrue(persistentState instanceof Map);
-    assertTrue(variableInstanceEntity2 instanceof VariableInstanceEntityImpl);
-    assertEquals(1, ((Map<String, String>) persistentState).size());
-    assertEquals(
-        "com.fasterxml.jackson.databind.node.MissingNode",
-        ((Map<String, String>) persistentState).get("textValue2"));
-    assertEquals(
-        "com.fasterxml.jackson.databind.node.MissingNode", variableInstanceEntity2.getTextValue2());
-    assertEquals("var-null", variableInstanceEntity2.getByteArrayRef().getName());
+    verify(variableInstanceEntity).isDeleted();
+    verify(variableInstanceEntity).getCachedValue();
+    verify(type).serialize(isA(Object.class), isA(ValueFields.class));
+  }
+
+  /**
+   * Test {@link DeserializedObject#verifyIfBytesOfSerializedObjectChanged()}.
+   * <ul>
+   *   <li>Given {@code A}.</li>
+   *   <li>Then calls {@link LongJsonType#deserialize(byte[], ValueFields)}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link DeserializedObject#verifyIfBytesOfSerializedObjectChanged()}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void DeserializedObject.verifyIfBytesOfSerializedObjectChanged()"})
+  public void testVerifyIfBytesOfSerializedObjectChanged_givenA_thenCallsDeserialize()
+      throws UnsupportedEncodingException {
+    // Arrange
+    LongJsonType type = mock(LongJsonType.class);
+    when(type.serialize(Mockito.<Object>any(), Mockito.<ValueFields>any()))
+        .thenReturn(new byte[]{1, 'X', 'A', 'X', 'A', 'X', 'A', 'X'});
+    when(type.deserialize(Mockito.<byte[]>any(), Mockito.<ValueFields>any())).thenReturn(JSONObject.NULL);
+    VariableInstanceEntityImpl variableInstanceEntity = mock(VariableInstanceEntityImpl.class);
+    when(variableInstanceEntity.isDeleted()).thenReturn(false);
+    when(variableInstanceEntity.getCachedValue()).thenReturn(JSONObject.NULL);
+
+    // Act
+    (new DeserializedObject(type, JSONObject.NULL, "AXAXAXAX".getBytes("UTF-8"), variableInstanceEntity))
+        .verifyIfBytesOfSerializedObjectChanged();
+
+    // Assert
+    verify(variableInstanceEntity).isDeleted();
+    verify(variableInstanceEntity).getCachedValue();
+    verify(type).deserialize(isA(byte[].class), isA(ValueFields.class));
+    verify(type, atLeast(1)).serialize(isA(Object.class), isA(ValueFields.class));
   }
 }

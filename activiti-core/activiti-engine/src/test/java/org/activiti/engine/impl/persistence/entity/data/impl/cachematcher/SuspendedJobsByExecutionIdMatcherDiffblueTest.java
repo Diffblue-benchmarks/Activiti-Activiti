@@ -16,12 +16,13 @@
 package org.activiti.engine.impl.persistence.entity.data.impl.cachematcher;
 
 import static org.junit.Assert.assertFalse;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import static org.junit.Assert.assertTrue;
+import static org.mockito.Mockito.atLeast;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
-import java.time.LocalDate;
-import java.time.ZoneOffset;
-import java.util.Date;
 import org.activiti.engine.impl.persistence.entity.SuspendedJobEntity;
 import org.activiti.engine.impl.persistence.entity.SuspendedJobEntityImpl;
 import org.activiti.engine.impl.util.json.JSONObject;
@@ -30,79 +31,74 @@ import org.junit.experimental.categories.Category;
 
 public class SuspendedJobsByExecutionIdMatcherDiffblueTest {
   /**
-   * Test {@link SuspendedJobsByExecutionIdMatcher#isRetained(SuspendedJobEntity, Object)} with
-   * {@code SuspendedJobEntity}, {@code Object}.
-   *
+   * Test {@link SuspendedJobsByExecutionIdMatcher#isRetained(SuspendedJobEntity, Object)} with {@code SuspendedJobEntity}, {@code Object}.
    * <ul>
-   *   <li>Given {@code true}.
+   *   <li>Given {@code 42}.</li>
+   *   <li>Then return {@code false}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link SuspendedJobsByExecutionIdMatcher#isRetained(SuspendedJobEntity,
-   * Object)}
+   * <p>
+   * Method under test: {@link SuspendedJobsByExecutionIdMatcher#isRetained(SuspendedJobEntity, Object)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "boolean SuspendedJobsByExecutionIdMatcher.isRetained(SuspendedJobEntity, Object)"
-  })
-  public void testIsRetainedWithSuspendedJobEntityObject_givenTrue() {
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean SuspendedJobsByExecutionIdMatcher.isRetained(SuspendedJobEntity, Object)"})
+  public void testIsRetainedWithSuspendedJobEntityObject_given42_thenReturnFalse() {
     // Arrange
-    SuspendedJobsByExecutionIdMatcher suspendedJobsByExecutionIdMatcher =
-        new SuspendedJobsByExecutionIdMatcher();
+    SuspendedJobsByExecutionIdMatcher suspendedJobsByExecutionIdMatcher = new SuspendedJobsByExecutionIdMatcher();
+    SuspendedJobEntity jobEntity = mock(SuspendedJobEntity.class);
+    when(jobEntity.getExecutionId()).thenReturn("42");
 
-    SuspendedJobEntityImpl jobEntity = new SuspendedJobEntityImpl();
-    jobEntity.setDeleted(true);
-    jobEntity.setDuedate(
-        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
-    jobEntity.setEndDate(
-        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
-    jobEntity.setExceptionMessage("An error occurred");
-    jobEntity.setExclusive(true);
-    jobEntity.setId("42");
-    jobEntity.setInserted(true);
-    jobEntity.setJobHandlerConfiguration("Job Handler Configuration");
-    jobEntity.setJobHandlerType("Job Handler Type");
-    jobEntity.setJobType("Job Type");
-    jobEntity.setMaxIterations(3);
-    jobEntity.setProcessDefinitionId("42");
-    jobEntity.setProcessInstanceId("42");
-    jobEntity.setRepeat("Repeat");
-    jobEntity.setRetries(1);
-    jobEntity.setRevision(1);
-    jobEntity.setTenantId("42");
-    jobEntity.setUpdated(true);
-    jobEntity.setExecutionId("Job Entity");
+    // Act
+    boolean actualIsRetainedResult = suspendedJobsByExecutionIdMatcher.isRetained(jobEntity, JSONObject.NULL);
 
-    // Act and Assert
-    assertFalse(suspendedJobsByExecutionIdMatcher.isRetained(jobEntity, JSONObject.NULL));
+    // Assert
+    verify(jobEntity, atLeast(1)).getExecutionId();
+    assertFalse(actualIsRetainedResult);
   }
 
   /**
-   * Test {@link SuspendedJobsByExecutionIdMatcher#isRetained(SuspendedJobEntity, Object)} with
-   * {@code SuspendedJobEntity}, {@code Object}.
-   *
+   * Test {@link SuspendedJobsByExecutionIdMatcher#isRetained(SuspendedJobEntity, Object)} with {@code SuspendedJobEntity}, {@code Object}.
    * <ul>
-   *   <li>When {@link SuspendedJobEntityImpl} (default constructor).
+   *   <li>Given {@code 42}.</li>
+   *   <li>When {@code 42}.</li>
+   *   <li>Then return {@code true}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link SuspendedJobsByExecutionIdMatcher#isRetained(SuspendedJobEntity,
-   * Object)}
+   * <p>
+   * Method under test: {@link SuspendedJobsByExecutionIdMatcher#isRetained(SuspendedJobEntity, Object)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "boolean SuspendedJobsByExecutionIdMatcher.isRetained(SuspendedJobEntity, Object)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean SuspendedJobsByExecutionIdMatcher.isRetained(SuspendedJobEntity, Object)"})
+  public void testIsRetainedWithSuspendedJobEntityObject_given42_when42_thenReturnTrue() {
+    // Arrange
+    SuspendedJobsByExecutionIdMatcher suspendedJobsByExecutionIdMatcher = new SuspendedJobsByExecutionIdMatcher();
+    SuspendedJobEntity jobEntity = mock(SuspendedJobEntity.class);
+    when(jobEntity.getExecutionId()).thenReturn("42");
+
+    // Act
+    boolean actualIsRetainedResult = suspendedJobsByExecutionIdMatcher.isRetained(jobEntity, "42");
+
+    // Assert
+    verify(jobEntity, atLeast(1)).getExecutionId();
+    assertTrue(actualIsRetainedResult);
+  }
+
+  /**
+   * Test {@link SuspendedJobsByExecutionIdMatcher#isRetained(SuspendedJobEntity, Object)} with {@code SuspendedJobEntity}, {@code Object}.
+   * <ul>
+   *   <li>When {@link SuspendedJobEntityImpl} (default constructor).</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link SuspendedJobsByExecutionIdMatcher#isRetained(SuspendedJobEntity, Object)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean SuspendedJobsByExecutionIdMatcher.isRetained(SuspendedJobEntity, Object)"})
   public void testIsRetainedWithSuspendedJobEntityObject_whenSuspendedJobEntityImpl() {
     // Arrange
-    SuspendedJobsByExecutionIdMatcher suspendedJobsByExecutionIdMatcher =
-        new SuspendedJobsByExecutionIdMatcher();
+    SuspendedJobsByExecutionIdMatcher suspendedJobsByExecutionIdMatcher = new SuspendedJobsByExecutionIdMatcher();
 
     // Act and Assert
-    assertFalse(
-        suspendedJobsByExecutionIdMatcher.isRetained(
-            new SuspendedJobEntityImpl(), JSONObject.NULL));
+    assertFalse(suspendedJobsByExecutionIdMatcher.isRetained(new SuspendedJobEntityImpl(), JSONObject.NULL));
   }
 }

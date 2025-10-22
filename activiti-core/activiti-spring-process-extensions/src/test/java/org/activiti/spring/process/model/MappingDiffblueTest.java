@@ -16,7 +16,6 @@
 package org.activiti.spring.process.model;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.spring.process.model.Mapping.SourceMappingType;
 import org.junit.jupiter.api.DisplayName;
@@ -26,9 +25,8 @@ import org.junit.jupiter.api.Test;
 class MappingDiffblueTest {
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>default or parameterless constructor of {@link Mapping}
    *   <li>{@link Mapping#setType(SourceMappingType)}
@@ -39,15 +37,9 @@ class MappingDiffblueTest {
    */
   @Test
   @DisplayName("Test getters and setters")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void Mapping.<init>()",
-    "SourceMappingType Mapping.getType()",
-    "Object Mapping.getValue()",
-    "void Mapping.setType(SourceMappingType)",
-    "void Mapping.setValue(Object)"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void Mapping.<init>()", "SourceMappingType Mapping.getType()", "Object Mapping.getValue()",
+      "void Mapping.setType(SourceMappingType)", "void Mapping.setValue(Object)"})
   void testGettersAndSetters() {
     // Arrange and Act
     Mapping actualMapping = new Mapping();

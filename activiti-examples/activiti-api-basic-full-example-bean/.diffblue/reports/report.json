@@ -1,21 +1,21 @@
 {
   "meta" : {
-    "reportVersion" : "2.7"
+    "reportVersion" : "2.6"
   },
   "run" : {
-    "version" : "2025.09.01-44e352d-licensed",
-    "creationTimestamp" : "2025-10-15T18:17:05.474751764Z",
+    "version" : "2025.02.02-08b2a5a-licensed",
+    "creationTimestamp" : "2025-10-21T18:36:58.703503864Z",
     "command" : "dcover create --exclude-modules=org.activiti:activiti-dependency-check,org.activiti:activiti-api-dependencies,org.activiti:activiti-core-common-dependencies,org.activiti:activiti-core-dependencies,org.activiti:activiti-dependencies,org.activiti:activiti-spring-conformance-set0,org.activiti:activiti-spring-conformance-set1,org.activiti:activiti-spring-conformance-set2,org.activiti:activiti-spring-conformance-set3,org.activiti:activiti-spring-conformance-set4,org.activiti:activiti-spring-conformance-set5,org.activiti:activiti-spring-conformance-variables,org.activiti:activiti-spring-conformance-signals --coverage-reports --upload http://localhost:8080 --project-name Activiti-Activiti --name with-diffblue-tests",
-    "totalTime" : 249.151,
-    "environmentDetectionTime" : 0.048,
-    "indexingTime" : 0.577,
-    "entryPointsTime" : 0.035,
-    "generationTime" : 59313.904,
-    "timeToFirstTest" : 66883.416,
-    "timeToLastTest" : 62800.191,
-    "indexQueryTime" : 5.727,
-    "verificationTime" : 1251.873,
-    "validationTime" : 20.979
+    "totalTime" : 213.402,
+    "environmentDetectionTime" : 0.231,
+    "indexingTime" : 0.442,
+    "entryPointsTime" : 0.227,
+    "generationTime" : 60782.715,
+    "timeToFirstTest" : 67880.785,
+    "timeToLastTest" : 64203.728,
+    "indexQueryTime" : 8.620000000000001,
+    "verificationTime" : 1180.949,
+    "validationTime" : 46.104
   },
   "codes" : {
     "R000" : "Success",
@@ -36,9 +36,9 @@
   "summary" : {
     "classesCount" : 5,
     "methodsCount" : 32,
-    "cumulativeDiffblueTestCount" : 5,
+    "cumulativeDiffblueTestCount" : 3,
     "cumulativeManualTestCount" : 1,
-    "completeTestCount" : 5,
+    "completeTestCount" : 3,
     "incompleteTestCount" : 0,
     "skeletonTestCount" : 0,
     "totalPhysicalLineCount" : 264,
@@ -54,19 +54,19 @@
     },
     "perMethodOutcome" : {
       "R000" : 3,
-      "R005" : 8,
+      "R005" : 9,
       "R013" : 5,
       "T003" : 1,
       "T004" : 8,
-      "T005" : 3,
+      "T005" : 2,
       "T006" : 1,
       "T012" : 3
     },
     "perTestOutcome" : {
-      "R000" : 5
+      "R000" : 3
     },
     "perTestValidation" : {
-      "V000" : 5,
+      "V000" : 3,
       "V003" : 1
     }
   },
@@ -96,16 +96,16 @@
         "T012" : 2
       },
       "perMethodOutcome" : {
+        "R005" : 1,
         "R013" : 5,
         "T003" : 1,
-        "T005" : 1,
         "T006" : 1,
         "T012" : 2
       }
     },
     "org.activiti.examples.DemoApplicationConfiguration" : {
       "methodsCount" : 4,
-      "completeTestCount" : 4,
+      "completeTestCount" : 2,
       "incompleteTestCount" : 0,
       "perMethodTestability" : {
         "T000" : 3,
@@ -117,7 +117,7 @@
         "T012" : 1
       },
       "perTestOutcome" : {
-        "R000" : 4
+        "R000" : 2
       }
     },
     "org.activiti.examples.SecurityUtil" : {
@@ -233,7 +233,7 @@
       "completeTestCount" : 0,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
-      "perMethodOutcome" : "T005",
+      "perMethodOutcome" : "R005",
       "lineNumbers" : [
         57,
         47,
@@ -393,12 +393,12 @@
       ]
     },
     "org.activiti.examples.DemoApplicationConfiguration.myUserDetailsService:()Lorg/springframework/security/core/userdetails/UserDetailsService;" : {
-      "completeTestCount" : 2,
+      "completeTestCount" : 1,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 2
+        "R000" : 1
       },
       "lineNumbers" : [
         43,
@@ -414,12 +414,12 @@
       ]
     },
     "org.activiti.examples.DemoApplicationConfiguration.passwordEncoder:()Lorg/springframework/security/crypto/password/PasswordEncoder;" : {
-      "completeTestCount" : 2,
+      "completeTestCount" : 1,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 2
+        "R000" : 1
       },
       "lineNumbers" : [
         68

@@ -16,28 +16,24 @@
 package org.activiti.engine.impl.cmd;
 
 import static org.junit.Assert.assertEquals;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 
 public class ExecuteActivityForAdhocSubProcessCmdDiffblueTest {
   /**
-   * Test {@link ExecuteActivityForAdhocSubProcessCmd#ExecuteActivityForAdhocSubProcessCmd(String,
-   * String)}.
-   *
-   * <p>Method under test: {@link
-   * ExecuteActivityForAdhocSubProcessCmd#ExecuteActivityForAdhocSubProcessCmd(String, String)}
+   * Test {@link ExecuteActivityForAdhocSubProcessCmd#ExecuteActivityForAdhocSubProcessCmd(String, String)}.
+   * <p>
+   * Method under test: {@link ExecuteActivityForAdhocSubProcessCmd#ExecuteActivityForAdhocSubProcessCmd(String, String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void ExecuteActivityForAdhocSubProcessCmd.<init>(String, String)"})
   public void testNewExecuteActivityForAdhocSubProcessCmd() {
     // Arrange and Act
-    ExecuteActivityForAdhocSubProcessCmd actualExecuteActivityForAdhocSubProcessCmd =
-        new ExecuteActivityForAdhocSubProcessCmd("42", "42");
+    ExecuteActivityForAdhocSubProcessCmd actualExecuteActivityForAdhocSubProcessCmd = new ExecuteActivityForAdhocSubProcessCmd(
+        "42", "42");
 
     // Assert
     assertEquals("42", actualExecuteActivityForAdhocSubProcessCmd.activityId);

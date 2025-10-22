@@ -17,8 +17,7 @@ package org.activiti.engine.impl.bpmn.parser;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
@@ -26,9 +25,8 @@ import org.junit.experimental.categories.Category;
 public class EventSubscriptionDeclarationDiffblueTest {
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>{@link EventSubscriptionDeclaration#EventSubscriptionDeclaration(String, String)}
    *   <li>{@link EventSubscriptionDeclaration#setActivityId(String)}
@@ -44,25 +42,18 @@ public class EventSubscriptionDeclarationDiffblueTest {
    * </ul>
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void EventSubscriptionDeclaration.<init>(String, String)",
-    "String EventSubscriptionDeclaration.getActivityId()",
-    "String EventSubscriptionDeclaration.getConfiguration()",
-    "String EventSubscriptionDeclaration.getEventName()",
-    "String EventSubscriptionDeclaration.getEventType()",
-    "boolean EventSubscriptionDeclaration.isAsync()",
-    "boolean EventSubscriptionDeclaration.isStartEvent()",
-    "void EventSubscriptionDeclaration.setActivityId(String)",
-    "void EventSubscriptionDeclaration.setAsync(boolean)",
-    "void EventSubscriptionDeclaration.setConfiguration(String)",
-    "void EventSubscriptionDeclaration.setStartEvent(boolean)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void EventSubscriptionDeclaration.<init>(String, String)",
+      "String EventSubscriptionDeclaration.getActivityId()", "String EventSubscriptionDeclaration.getConfiguration()",
+      "String EventSubscriptionDeclaration.getEventName()", "String EventSubscriptionDeclaration.getEventType()",
+      "boolean EventSubscriptionDeclaration.isAsync()", "boolean EventSubscriptionDeclaration.isStartEvent()",
+      "void EventSubscriptionDeclaration.setActivityId(String)", "void EventSubscriptionDeclaration.setAsync(boolean)",
+      "void EventSubscriptionDeclaration.setConfiguration(String)",
+      "void EventSubscriptionDeclaration.setStartEvent(boolean)"})
   public void testGettersAndSetters() {
     // Arrange and Act
-    EventSubscriptionDeclaration actualEventSubscriptionDeclaration =
-        new EventSubscriptionDeclaration("Event Name", "Event Type");
+    EventSubscriptionDeclaration actualEventSubscriptionDeclaration = new EventSubscriptionDeclaration("Event Name",
+        "Event Type");
     actualEventSubscriptionDeclaration.setActivityId("42");
     actualEventSubscriptionDeclaration.setAsync(true);
     actualEventSubscriptionDeclaration.setConfiguration("Configuration");

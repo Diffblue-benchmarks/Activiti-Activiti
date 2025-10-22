@@ -23,8 +23,7 @@ import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import com.fasterxml.jackson.databind.json.JsonMapper;
 import java.io.UnsupportedEncodingException;
@@ -48,110 +47,92 @@ import org.springframework.core.io.Resource;
 public class AbstractAutoDeploymentStrategyDiffblueTest {
   /**
    * Test {@link AbstractAutoDeploymentStrategy#handlesMode(String)}.
-   *
    * <ul>
-   *   <li>When {@link DefaultAutoDeploymentStrategy#DEPLOYMENT_MODE}.
-   *   <li>Then return {@code true}.
+   *   <li>When {@link DefaultAutoDeploymentStrategy#DEPLOYMENT_MODE}.</li>
+   *   <li>Then return {@code true}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link AbstractAutoDeploymentStrategy#handlesMode(String)}
+   * <p>
+   * Method under test: {@link AbstractAutoDeploymentStrategy#handlesMode(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"boolean AbstractAutoDeploymentStrategy.handlesMode(String)"})
   public void testHandlesMode_whenDeployment_mode_thenReturnTrue() {
     // Arrange
     JsonMapper objectMapper = JsonMapper.builder().findAndAddModules().build();
 
     // Act and Assert
-    assertTrue(
-        new DefaultAutoDeploymentStrategy(
-                new ApplicationUpgradeContextService(
-                    "Path", 1, true, objectMapper, new AnnotationConfigApplicationContext()))
-            .handlesMode(DefaultAutoDeploymentStrategy.DEPLOYMENT_MODE));
+    assertTrue((new DefaultAutoDeploymentStrategy(
+        new ApplicationUpgradeContextService("Path", 1, true, objectMapper, new AnnotationConfigApplicationContext())))
+        .handlesMode(DefaultAutoDeploymentStrategy.DEPLOYMENT_MODE));
   }
 
   /**
    * Test {@link AbstractAutoDeploymentStrategy#handlesMode(String)}.
-   *
    * <ul>
-   *   <li>When {@code Mode}.
-   *   <li>Then return {@code false}.
+   *   <li>When {@code Mode}.</li>
+   *   <li>Then return {@code false}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link AbstractAutoDeploymentStrategy#handlesMode(String)}
+   * <p>
+   * Method under test: {@link AbstractAutoDeploymentStrategy#handlesMode(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"boolean AbstractAutoDeploymentStrategy.handlesMode(String)"})
   public void testHandlesMode_whenMode_thenReturnFalse() {
     // Arrange
     JsonMapper objectMapper = JsonMapper.builder().findAndAddModules().build();
 
     // Act and Assert
-    assertFalse(
-        new DefaultAutoDeploymentStrategy(
-                new ApplicationUpgradeContextService(
-                    "Path", 1, true, objectMapper, new AnnotationConfigApplicationContext()))
-            .handlesMode("Mode"));
+    assertFalse((new DefaultAutoDeploymentStrategy(
+        new ApplicationUpgradeContextService("Path", 1, true, objectMapper, new AnnotationConfigApplicationContext())))
+        .handlesMode("Mode"));
   }
 
   /**
    * Test {@link AbstractAutoDeploymentStrategy#handlesMode(String)}.
-   *
    * <ul>
-   *   <li>When {@code null}.
-   *   <li>Then return {@code false}.
+   *   <li>When {@code null}.</li>
+   *   <li>Then return {@code false}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link AbstractAutoDeploymentStrategy#handlesMode(String)}
+   * <p>
+   * Method under test: {@link AbstractAutoDeploymentStrategy#handlesMode(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"boolean AbstractAutoDeploymentStrategy.handlesMode(String)"})
   public void testHandlesMode_whenNull_thenReturnFalse() {
     // Arrange
     JsonMapper objectMapper = JsonMapper.builder().findAndAddModules().build();
 
     // Act and Assert
-    assertFalse(
-        new DefaultAutoDeploymentStrategy(
-                new ApplicationUpgradeContextService(
-                    "Path", 1, true, objectMapper, new AnnotationConfigApplicationContext()))
-            .handlesMode(null));
+    assertFalse((new DefaultAutoDeploymentStrategy(
+        new ApplicationUpgradeContextService("Path", 1, true, objectMapper, new AnnotationConfigApplicationContext())))
+        .handlesMode(null));
   }
 
   /**
    * Test {@link AbstractAutoDeploymentStrategy#determineResourceName(Resource)}.
-   *
    * <ul>
-   *   <li>Given {@code Path Within Context}.
-   *   <li>Then return {@code Path Within Context}.
+   *   <li>Given {@code Path Within Context}.</li>
+   *   <li>Then return {@code Path Within Context}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link AbstractAutoDeploymentStrategy#determineResourceName(Resource)}
+   * <p>
+   * Method under test: {@link AbstractAutoDeploymentStrategy#determineResourceName(Resource)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"String AbstractAutoDeploymentStrategy.determineResourceName(Resource)"})
   public void testDetermineResourceName_givenPathWithinContext_thenReturnPathWithinContext() {
     // Arrange
     JsonMapper objectMapper = JsonMapper.builder().findAndAddModules().build();
-    DefaultAutoDeploymentStrategy defaultAutoDeploymentStrategy =
-        new DefaultAutoDeploymentStrategy(
-            new ApplicationUpgradeContextService(
-                "Path", 1, true, objectMapper, new AnnotationConfigApplicationContext()));
-
+    DefaultAutoDeploymentStrategy defaultAutoDeploymentStrategy = new DefaultAutoDeploymentStrategy(
+        new ApplicationUpgradeContextService("Path", 1, true, objectMapper, new AnnotationConfigApplicationContext()));
     ContextResource resource = mock(ContextResource.class);
     when(resource.getPathWithinContext()).thenReturn("Path Within Context");
 
     // Act
-    String actualDetermineResourceNameResult =
-        defaultAutoDeploymentStrategy.determineResourceName(resource);
+    String actualDetermineResourceNameResult = defaultAutoDeploymentStrategy.determineResourceName(resource);
 
     // Assert
     verify(resource).getPathWithinContext();
@@ -160,59 +141,43 @@ public class AbstractAutoDeploymentStrategyDiffblueTest {
 
   /**
    * Test {@link AbstractAutoDeploymentStrategy#determineResourceName(Resource)}.
-   *
    * <ul>
-   *   <li>Then return {@code Byte array resource [resource loaded from byte array]}.
+   *   <li>Then return {@code Byte array resource [resource loaded from byte array]}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link AbstractAutoDeploymentStrategy#determineResourceName(Resource)}
+   * <p>
+   * Method under test: {@link AbstractAutoDeploymentStrategy#determineResourceName(Resource)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"String AbstractAutoDeploymentStrategy.determineResourceName(Resource)"})
   public void testDetermineResourceName_thenReturnByteArrayResourceResourceLoadedFromByteArray()
       throws UnsupportedEncodingException {
     // Arrange
     JsonMapper objectMapper = JsonMapper.builder().findAndAddModules().build();
-    DefaultAutoDeploymentStrategy defaultAutoDeploymentStrategy =
-        new DefaultAutoDeploymentStrategy(
-            new ApplicationUpgradeContextService(
-                "Path", 1, true, objectMapper, new AnnotationConfigApplicationContext()));
+    DefaultAutoDeploymentStrategy defaultAutoDeploymentStrategy = new DefaultAutoDeploymentStrategy(
+        new ApplicationUpgradeContextService("Path", 1, true, objectMapper, new AnnotationConfigApplicationContext()));
 
-    // Act
-    String actualDetermineResourceNameResult =
-        defaultAutoDeploymentStrategy.determineResourceName(
-            new ByteArrayResource("AXAXAXAX".getBytes("UTF-8")));
-
-    // Assert
-    assertEquals(
-        "Byte array resource [resource loaded from byte array]", actualDetermineResourceNameResult);
+    // Act and Assert
+    assertEquals("Byte array resource [resource loaded from byte array]",
+        defaultAutoDeploymentStrategy.determineResourceName(new ByteArrayResource("AXAXAXAX".getBytes("UTF-8"))));
   }
 
   /**
    * Test {@link AbstractAutoDeploymentStrategy#validateModel(Resource, RepositoryService)}.
-   *
    * <ul>
-   *   <li>Then return {@code true}.
+   *   <li>Then return {@code true}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link AbstractAutoDeploymentStrategy#validateModel(Resource,
-   * RepositoryService)}
+   * <p>
+   * Method under test: {@link AbstractAutoDeploymentStrategy#validateModel(Resource, RepositoryService)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "boolean AbstractAutoDeploymentStrategy.validateModel(Resource, RepositoryService)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean AbstractAutoDeploymentStrategy.validateModel(Resource, RepositoryService)"})
   public void testValidateModel_thenReturnTrue() throws UnsupportedEncodingException {
     // Arrange
     JsonMapper objectMapper = JsonMapper.builder().findAndAddModules().build();
-    DefaultAutoDeploymentStrategy defaultAutoDeploymentStrategy =
-        new DefaultAutoDeploymentStrategy(
-            new ApplicationUpgradeContextService(
-                "Path", 1, true, objectMapper, new AnnotationConfigApplicationContext()));
+    DefaultAutoDeploymentStrategy defaultAutoDeploymentStrategy = new DefaultAutoDeploymentStrategy(
+        new ApplicationUpgradeContextService("Path", 1, true, objectMapper, new AnnotationConfigApplicationContext()));
     ByteArrayResource resource = new ByteArrayResource("AXAXAXAX".getBytes("UTF-8"));
 
     // Act and Assert
@@ -221,29 +186,21 @@ public class AbstractAutoDeploymentStrategyDiffblueTest {
 
   /**
    * Test {@link AbstractAutoDeploymentStrategy#validateModel(Resource, RepositoryService)}.
-   *
    * <ul>
-   *   <li>When {@link ClassPathResource#ClassPathResource(String)} with path is {@code
-   *       .bpmn20.xml}.
-   *   <li>Then return {@code false}.
+   *   <li>When {@link ClassPathResource#ClassPathResource(String)} with path is {@code .bpmn20.xml}.</li>
+   *   <li>Then return {@code false}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link AbstractAutoDeploymentStrategy#validateModel(Resource,
-   * RepositoryService)}
+   * <p>
+   * Method under test: {@link AbstractAutoDeploymentStrategy#validateModel(Resource, RepositoryService)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "boolean AbstractAutoDeploymentStrategy.validateModel(Resource, RepositoryService)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean AbstractAutoDeploymentStrategy.validateModel(Resource, RepositoryService)"})
   public void testValidateModel_whenClassPathResourceWithPathIsBpmn20Xml_thenReturnFalse() {
     // Arrange
     JsonMapper objectMapper = JsonMapper.builder().findAndAddModules().build();
-    DefaultAutoDeploymentStrategy defaultAutoDeploymentStrategy =
-        new DefaultAutoDeploymentStrategy(
-            new ApplicationUpgradeContextService(
-                "Path", 1, true, objectMapper, new AnnotationConfigApplicationContext()));
+    DefaultAutoDeploymentStrategy defaultAutoDeploymentStrategy = new DefaultAutoDeploymentStrategy(
+        new ApplicationUpgradeContextService("Path", 1, true, objectMapper, new AnnotationConfigApplicationContext()));
     ClassPathResource resource = new ClassPathResource(".bpmn20.xml");
 
     // Act and Assert
@@ -252,38 +209,28 @@ public class AbstractAutoDeploymentStrategyDiffblueTest {
 
   /**
    * Test {@link AbstractAutoDeploymentStrategy#loadApplicationUpgradeContext(DeploymentBuilder)}.
-   *
-   * <p>Method under test: {@link
-   * AbstractAutoDeploymentStrategy#loadApplicationUpgradeContext(DeploymentBuilder)}
+   * <p>
+   * Method under test: {@link AbstractAutoDeploymentStrategy#loadApplicationUpgradeContext(DeploymentBuilder)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({
-    "DeploymentBuilder AbstractAutoDeploymentStrategy.loadApplicationUpgradeContext(DeploymentBuilder)"
-  })
+      "DeploymentBuilder AbstractAutoDeploymentStrategy.loadApplicationUpgradeContext(DeploymentBuilder)"})
   public void testLoadApplicationUpgradeContext() {
     // Arrange
     JsonMapper objectMapper = JsonMapper.builder().findAndAddModules().build();
-    DefaultAutoDeploymentStrategy defaultAutoDeploymentStrategy =
-        new DefaultAutoDeploymentStrategy(
-            new ApplicationUpgradeContextService(
-                "Path", 1, true, objectMapper, new AnnotationConfigApplicationContext()));
+    DefaultAutoDeploymentStrategy defaultAutoDeploymentStrategy = new DefaultAutoDeploymentStrategy(
+        new ApplicationUpgradeContextService("Path", 1, true, objectMapper, new AnnotationConfigApplicationContext()));
     RepositoryServiceImpl repositoryService = new RepositoryServiceImpl();
     DeploymentEntityImpl deployment = new DeploymentEntityImpl();
-    SpringProcessEngineConfiguration processEngineConfiguration =
-        new SpringProcessEngineConfiguration();
-    ResourceEntityManagerImpl resourceEntityManager =
-        new ResourceEntityManagerImpl(
-            processEngineConfiguration,
-            new MybatisResourceDataManager(new SpringProcessEngineConfiguration()));
-
-    DeploymentBuilderImpl deploymentBuilder =
-        new DeploymentBuilderImpl(repositoryService, deployment, resourceEntityManager);
+    SpringProcessEngineConfiguration processEngineConfiguration = new SpringProcessEngineConfiguration();
+    DeploymentBuilderImpl deploymentBuilder = new DeploymentBuilderImpl(repositoryService, deployment,
+        new ResourceEntityManagerImpl(processEngineConfiguration,
+            new MybatisResourceDataManager(new SpringProcessEngineConfiguration())));
 
     // Act
-    DeploymentBuilder actualLoadApplicationUpgradeContextResult =
-        defaultAutoDeploymentStrategy.loadApplicationUpgradeContext(deploymentBuilder);
+    DeploymentBuilder actualLoadApplicationUpgradeContextResult = defaultAutoDeploymentStrategy
+        .loadApplicationUpgradeContext(deploymentBuilder);
 
     // Assert
     assertEquals(1, deploymentBuilder.getEnforcedAppVersion().intValue());
@@ -293,22 +240,18 @@ public class AbstractAutoDeploymentStrategyDiffblueTest {
 
   /**
    * Test {@link AbstractAutoDeploymentStrategy#loadApplicationUpgradeContext(DeploymentBuilder)}.
-   *
    * <ul>
-   *   <li>Then return {@code null}.
+   *   <li>Then return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link
-   * AbstractAutoDeploymentStrategy#loadApplicationUpgradeContext(DeploymentBuilder)}
+   * <p>
+   * Method under test: {@link AbstractAutoDeploymentStrategy#loadApplicationUpgradeContext(DeploymentBuilder)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({
-    "DeploymentBuilder AbstractAutoDeploymentStrategy.loadApplicationUpgradeContext(DeploymentBuilder)"
-  })
+      "DeploymentBuilder AbstractAutoDeploymentStrategy.loadApplicationUpgradeContext(DeploymentBuilder)"})
   public void testLoadApplicationUpgradeContext_thenReturnNull() {
     // Arrange, Act and Assert
-    assertNull(new DefaultAutoDeploymentStrategy(null).loadApplicationUpgradeContext(null));
+    assertNull((new DefaultAutoDeploymentStrategy(null)).loadApplicationUpgradeContext(null));
   }
 }

@@ -16,8 +16,7 @@
 package org.activiti.bpmn.model;
 
 import static org.junit.Assert.assertEquals;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
@@ -25,12 +24,11 @@ import org.junit.experimental.categories.Category;
 public class AssociationDirectionDiffblueTest {
   /**
    * Test {@link AssociationDirection#getValue()}.
-   *
-   * <p>Method under test: {@link AssociationDirection#getValue()}
+   * <p>
+   * Method under test: {@link AssociationDirection#getValue()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"java.lang.String AssociationDirection.getValue()"})
   public void testGetValue() {
     // Arrange, Act and Assert

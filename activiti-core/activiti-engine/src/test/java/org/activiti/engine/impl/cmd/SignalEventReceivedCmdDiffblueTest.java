@@ -19,8 +19,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.HashMap;
 import java.util.Map;
@@ -30,18 +29,15 @@ import org.junit.experimental.categories.Category;
 public class SignalEventReceivedCmdDiffblueTest {
   /**
    * Test {@link SignalEventReceivedCmd#SignalEventReceivedCmd(String, String, boolean, String)}.
-   *
-   * <p>Method under test: {@link SignalEventReceivedCmd#SignalEventReceivedCmd(String, String,
-   * boolean, String)}
+   * <p>
+   * Method under test: {@link SignalEventReceivedCmd#SignalEventReceivedCmd(String, String, boolean, String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void SignalEventReceivedCmd.<init>(String, String, boolean, String)"})
   public void testNewSignalEventReceivedCmd() {
     // Arrange and Act
-    SignalEventReceivedCmd actualSignalEventReceivedCmd =
-        new SignalEventReceivedCmd("Event Name", "42", true, "42");
+    SignalEventReceivedCmd actualSignalEventReceivedCmd = new SignalEventReceivedCmd("Event Name", "42", true, "42");
 
     // Assert
     assertEquals("42", actualSignalEventReceivedCmd.executionId);
@@ -53,23 +49,20 @@ public class SignalEventReceivedCmdDiffblueTest {
 
   /**
    * Test {@link SignalEventReceivedCmd#SignalEventReceivedCmd(String, String, Map, String)}.
-   *
    * <ul>
-   *   <li>When {@link HashMap#HashMap()}.
-   *   <li>Then return {@link SignalEventReceivedCmd#payload} Empty.
+   *   <li>When {@link HashMap#HashMap()}.</li>
+   *   <li>Then return {@link SignalEventReceivedCmd#payload} Empty.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link SignalEventReceivedCmd#SignalEventReceivedCmd(String, String, Map,
-   * String)}
+   * <p>
+   * Method under test: {@link SignalEventReceivedCmd#SignalEventReceivedCmd(String, String, Map, String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void SignalEventReceivedCmd.<init>(String, String, Map, String)"})
   public void testNewSignalEventReceivedCmd_whenHashMap_thenReturnPayloadEmpty() {
     // Arrange and Act
-    SignalEventReceivedCmd actualSignalEventReceivedCmd =
-        new SignalEventReceivedCmd("Event Name", "42", new HashMap<>(), "42");
+    SignalEventReceivedCmd actualSignalEventReceivedCmd = new SignalEventReceivedCmd("Event Name", "42",
+        new HashMap<>(), "42");
 
     // Assert
     assertEquals("42", actualSignalEventReceivedCmd.executionId);
@@ -81,23 +74,19 @@ public class SignalEventReceivedCmdDiffblueTest {
 
   /**
    * Test {@link SignalEventReceivedCmd#SignalEventReceivedCmd(String, String, Map, String)}.
-   *
    * <ul>
-   *   <li>When {@code null}.
-   *   <li>Then return {@link SignalEventReceivedCmd#payload} is {@code null}.
+   *   <li>When {@code null}.</li>
+   *   <li>Then return {@link SignalEventReceivedCmd#payload} is {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link SignalEventReceivedCmd#SignalEventReceivedCmd(String, String, Map,
-   * String)}
+   * <p>
+   * Method under test: {@link SignalEventReceivedCmd#SignalEventReceivedCmd(String, String, Map, String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void SignalEventReceivedCmd.<init>(String, String, Map, String)"})
   public void testNewSignalEventReceivedCmd_whenNull_thenReturnPayloadIsNull() {
     // Arrange and Act
-    SignalEventReceivedCmd actualSignalEventReceivedCmd =
-        new SignalEventReceivedCmd("Event Name", "42", null, "42");
+    SignalEventReceivedCmd actualSignalEventReceivedCmd = new SignalEventReceivedCmd("Event Name", "42", null, "42");
 
     // Assert
     assertEquals("42", actualSignalEventReceivedCmd.executionId);

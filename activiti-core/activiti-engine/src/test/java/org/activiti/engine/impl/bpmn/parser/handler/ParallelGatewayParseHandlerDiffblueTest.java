@@ -17,8 +17,7 @@ package org.activiti.engine.impl.bpmn.parser.handler;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.bpmn.model.BaseElement;
 import org.activiti.bpmn.model.ParallelGateway;
@@ -31,22 +30,20 @@ import org.junit.experimental.categories.Category;
 
 public class ParallelGatewayParseHandlerDiffblueTest {
   /**
-   * Test {@link ParallelGatewayParseHandler#executeParse(BpmnParse, ParallelGateway)} with {@code
-   * BpmnParse}, {@code ParallelGateway}.
-   *
-   * <p>Method under test: {@link ParallelGatewayParseHandler#executeParse(BpmnParse,
-   * ParallelGateway)}
+   * Test {@link ParallelGatewayParseHandler#executeParse(BpmnParse, ParallelGateway)} with {@code BpmnParse}, {@code ParallelGateway}.
+   * <p>
+   * Method under test: {@link ParallelGatewayParseHandler#executeParse(BpmnParse, ParallelGateway)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void ParallelGatewayParseHandler.executeParse(BpmnParse, ParallelGateway)"})
   public void testExecuteParseWithBpmnParseParallelGateway() {
     // Arrange
     ParallelGatewayParseHandler parallelGatewayParseHandler = new ParallelGatewayParseHandler();
 
-    BpmnParse bpmnParse = new BpmnParse(new BpmnParser());
-    bpmnParse.setActivityBehaviorFactory(new DefaultActivityBehaviorFactory());
+    BpmnParser parser = new BpmnParser();
+    parser.setActivityBehaviorFactory(new DefaultActivityBehaviorFactory());
+    BpmnParse bpmnParse = new BpmnParse(parser);
     ParallelGateway gateway = new ParallelGateway();
 
     // Act
@@ -58,25 +55,19 @@ public class ParallelGatewayParseHandlerDiffblueTest {
 
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>default or parameterless constructor of {@link ParallelGatewayParseHandler}
    *   <li>{@link ParallelGatewayParseHandler#getHandledType()}
    * </ul>
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void ParallelGatewayParseHandler.<init>()",
-    "Class ParallelGatewayParseHandler.getHandledType()"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void ParallelGatewayParseHandler.<init>()", "Class ParallelGatewayParseHandler.getHandledType()"})
   public void testGettersAndSetters() {
     // Arrange and Act
-    Class<? extends BaseElement> actualHandledType =
-        new ParallelGatewayParseHandler().getHandledType();
+    Class<? extends BaseElement> actualHandledType = (new ParallelGatewayParseHandler()).getHandledType();
 
     // Assert
     Class<ParallelGateway> expectedHandledType = ParallelGateway.class;

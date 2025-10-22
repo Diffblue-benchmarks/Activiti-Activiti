@@ -20,8 +20,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
 import java.util.List;
@@ -31,46 +30,15 @@ import org.junit.experimental.categories.Category;
 public class ReceiveTaskDiffblueTest {
   /**
    * Test {@link ReceiveTask#clone()}.
-   *
    * <ul>
-   *   <li>Given {@link ArrayList#ArrayList()} add {@link BoundaryEvent} (default constructor).
-   *   <li>Then return BoundaryEvents size is one.
+   *   <li>Given {@link ReceiveTask} (default constructor) ForCompensation is {@code true}.</li>
+   *   <li>Then return ForCompensation.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ReceiveTask#clone()}
+   * <p>
+   * Method under test: {@link ReceiveTask#clone()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"ReceiveTask ReceiveTask.clone()"})
-  public void testClone_givenArrayListAddBoundaryEvent_thenReturnBoundaryEventsSizeIsOne() {
-    // Arrange
-    ArrayList<BoundaryEvent> boundaryEvents = new ArrayList<>();
-    BoundaryEvent boundaryEvent = new BoundaryEvent();
-    boundaryEvents.add(boundaryEvent);
-
-    ReceiveTask receiveTask = new ReceiveTask();
-    receiveTask.setBoundaryEvents(boundaryEvents);
-
-    // Act and Assert
-    List<BoundaryEvent> boundaryEvents2 = receiveTask.clone().getBoundaryEvents();
-    assertEquals(1, boundaryEvents2.size());
-    assertSame(boundaryEvent, boundaryEvents2.get(0));
-  }
-
-  /**
-   * Test {@link ReceiveTask#clone()}.
-   *
-   * <ul>
-   *   <li>Given {@link ReceiveTask} (default constructor) ForCompensation is {@code true}.
-   *   <li>Then return ForCompensation.
-   * </ul>
-   *
-   * <p>Method under test: {@link ReceiveTask#clone()}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"ReceiveTask ReceiveTask.clone()"})
   public void testClone_givenReceiveTaskForCompensationIsTrue_thenReturnForCompensation() {
     // Arrange
@@ -84,86 +52,42 @@ public class ReceiveTaskDiffblueTest {
     assertNull(actualCloneResult.getIoSpecification());
     assertNull(actualCloneResult.getLoopCharacteristics());
     assertFalse(actualCloneResult.hasMultiInstanceLoopCharacteristics());
-    assertTrue(actualCloneResult.getBoundaryEvents().isEmpty());
-    assertTrue(actualCloneResult.getDataInputAssociations().isEmpty());
     assertTrue(actualCloneResult.isForCompensation());
   }
 
   /**
    * Test {@link ReceiveTask#clone()}.
-   *
    * <ul>
-   *   <li>Given {@link ReceiveTask} (default constructor).
-   *   <li>Then return not ForCompensation.
+   *   <li>Given {@link ReceiveTask} (default constructor).</li>
+   *   <li>Then return not ForCompensation.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ReceiveTask#clone()}
+   * <p>
+   * Method under test: {@link ReceiveTask#clone()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"ReceiveTask ReceiveTask.clone()"})
   public void testClone_givenReceiveTask_thenReturnNotForCompensation() {
     // Arrange and Act
-    ReceiveTask actualCloneResult = new ReceiveTask().clone();
+    ReceiveTask actualCloneResult = (new ReceiveTask()).clone();
 
     // Assert
     assertNull(actualCloneResult.getIoSpecification());
     assertNull(actualCloneResult.getLoopCharacteristics());
     assertFalse(actualCloneResult.hasMultiInstanceLoopCharacteristics());
     assertFalse(actualCloneResult.isForCompensation());
-    assertTrue(actualCloneResult.getBoundaryEvents().isEmpty());
-    assertTrue(actualCloneResult.getDataInputAssociations().isEmpty());
   }
 
   /**
    * Test {@link ReceiveTask#clone()}.
-   *
    * <ul>
-   *   <li>Then return DataInputAssociations size is one.
+   *   <li>Then return IoSpecification Id is {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ReceiveTask#clone()}
+   * <p>
+   * Method under test: {@link ReceiveTask#clone()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"ReceiveTask ReceiveTask.clone()"})
-  public void testClone_thenReturnDataInputAssociationsSizeIsOne() {
-    // Arrange
-    ArrayList<DataAssociation> dataInputAssociations = new ArrayList<>();
-    dataInputAssociations.add(new DataAssociation());
-
-    ReceiveTask receiveTask = new ReceiveTask();
-    receiveTask.setDataInputAssociations(dataInputAssociations);
-
-    // Act and Assert
-    List<DataAssociation> dataInputAssociations2 = receiveTask.clone().getDataInputAssociations();
-    assertEquals(1, dataInputAssociations2.size());
-    DataAssociation getResult = dataInputAssociations2.get(0);
-    assertNull(getResult.getId());
-    assertNull(getResult.getSourceRef());
-    assertNull(getResult.getTargetRef());
-    assertNull(getResult.getTransformation());
-    assertEquals(0, getResult.getXmlColumnNumber());
-    assertEquals(0, getResult.getXmlRowNumber());
-    assertTrue(getResult.getAssignments().isEmpty());
-    assertTrue(getResult.getAttributes().isEmpty());
-    assertTrue(getResult.getExtensionElements().isEmpty());
-  }
-
-  /**
-   * Test {@link ReceiveTask#clone()}.
-   *
-   * <ul>
-   *   <li>Then return IoSpecification Id is {@code null}.
-   * </ul>
-   *
-   * <p>Method under test: {@link ReceiveTask#clone()}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"ReceiveTask ReceiveTask.clone()"})
   public void testClone_thenReturnIoSpecificationIdIsNull() {
     // Arrange
@@ -185,16 +109,14 @@ public class ReceiveTaskDiffblueTest {
 
   /**
    * Test {@link ReceiveTask#clone()}.
-   *
    * <ul>
-   *   <li>Then return LoopCharacteristics Id is {@code null}.
+   *   <li>Then return LoopCharacteristics Id is {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ReceiveTask#clone()}
+   * <p>
+   * Method under test: {@link ReceiveTask#clone()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"ReceiveTask ReceiveTask.clone()"})
   public void testClone_thenReturnLoopCharacteristicsIdIsNull() {
     // Arrange
@@ -205,8 +127,7 @@ public class ReceiveTaskDiffblueTest {
     ReceiveTask actualCloneResult = receiveTask.clone();
 
     // Assert
-    MultiInstanceLoopCharacteristics loopCharacteristics =
-        actualCloneResult.getLoopCharacteristics();
+    MultiInstanceLoopCharacteristics loopCharacteristics = actualCloneResult.getLoopCharacteristics();
     assertNull(loopCharacteristics.getId());
     assertNull(loopCharacteristics.getCompletionCondition());
     assertNull(loopCharacteristics.getElementIndexVariable());
@@ -225,17 +146,15 @@ public class ReceiveTaskDiffblueTest {
 
   /**
    * Test {@link ReceiveTask#setValues(ManualTask)} with {@code ManualTask}.
-   *
    * <ul>
-   *   <li>Given {@code true}.
-   *   <li>Then {@link ReceiveTask} (default constructor) ForCompensation.
+   *   <li>Given {@code true}.</li>
+   *   <li>Then {@link ReceiveTask} (default constructor) ForCompensation.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ReceiveTask#setValues(ManualTask)}
+   * <p>
+   * Method under test: {@link ReceiveTask#setValues(ManualTask)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void ReceiveTask.setValues(ManualTask)"})
   public void testSetValuesWithManualTask_givenTrue_thenReceiveTaskForCompensation() {
     // Arrange
@@ -257,57 +176,22 @@ public class ReceiveTaskDiffblueTest {
 
   /**
    * Test {@link ReceiveTask#setValues(ManualTask)} with {@code ManualTask}.
-   *
    * <ul>
-   *   <li>Then {@link ReceiveTask} (default constructor) BoundaryEvents size is one.
+   *   <li>Then {@link ReceiveTask} (default constructor) DataInputAssociations size is one.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ReceiveTask#setValues(ManualTask)}
+   * <p>
+   * Method under test: {@link ReceiveTask#setValues(ManualTask)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void ReceiveTask.setValues(ManualTask)"})
-  public void testSetValuesWithManualTask_thenReceiveTaskBoundaryEventsSizeIsOne() {
-    // Arrange
-    ReceiveTask receiveTask = new ReceiveTask();
-
-    ArrayList<BoundaryEvent> boundaryEvents = new ArrayList<>();
-    BoundaryEvent boundaryEvent = new BoundaryEvent();
-    boundaryEvents.add(boundaryEvent);
-
-    ManualTask otherElement = new ManualTask();
-    otherElement.setLoopCharacteristics(null);
-    otherElement.setIoSpecification(null);
-    otherElement.setDataInputAssociations(null);
-    otherElement.setDataOutputAssociations(null);
-    otherElement.setBoundaryEvents(boundaryEvents);
-
-    // Act
-    receiveTask.setValues(otherElement);
-
-    // Assert
-    List<BoundaryEvent> boundaryEvents2 = receiveTask.getBoundaryEvents();
-    assertEquals(1, boundaryEvents2.size());
-    assertSame(boundaryEvent, boundaryEvents2.get(0));
-  }
-
-  /**
-   * Test {@link ReceiveTask#setValues(ManualTask)} with {@code ManualTask}.
-   *
-   * <ul>
-   *   <li>Then {@link ReceiveTask} (default constructor) DataInputAssociations size is one.
-   * </ul>
-   *
-   * <p>Method under test: {@link ReceiveTask#setValues(ManualTask)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void ReceiveTask.setValues(ManualTask)"})
   public void testSetValuesWithManualTask_thenReceiveTaskDataInputAssociationsSizeIsOne() {
     // Arrange
     ReceiveTask receiveTask = new ReceiveTask();
+
+    IOSpecification ioSpecification = new IOSpecification();
+    ioSpecification.setDataInputs(null);
+    ioSpecification.setDataOutputs(null);
 
     ArrayList<DataAssociation> dataInputAssociations = new ArrayList<>();
     dataInputAssociations.add(new DataAssociation());
@@ -316,8 +200,8 @@ public class ReceiveTaskDiffblueTest {
     boundaryEvents.add(new BoundaryEvent());
 
     ManualTask otherElement = new ManualTask();
+    otherElement.setIoSpecification(ioSpecification);
     otherElement.setLoopCharacteristics(null);
-    otherElement.setIoSpecification(null);
     otherElement.setDataInputAssociations(dataInputAssociations);
     otherElement.setDataOutputAssociations(null);
     otherElement.setBoundaryEvents(boundaryEvents);
@@ -342,20 +226,22 @@ public class ReceiveTaskDiffblueTest {
 
   /**
    * Test {@link ReceiveTask#setValues(ManualTask)} with {@code ManualTask}.
-   *
    * <ul>
-   *   <li>Then {@link ReceiveTask} (default constructor) DataOutputAssociations size is one.
+   *   <li>Then {@link ReceiveTask} (default constructor) DataOutputAssociations size is one.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ReceiveTask#setValues(ManualTask)}
+   * <p>
+   * Method under test: {@link ReceiveTask#setValues(ManualTask)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void ReceiveTask.setValues(ManualTask)"})
   public void testSetValuesWithManualTask_thenReceiveTaskDataOutputAssociationsSizeIsOne() {
     // Arrange
     ReceiveTask receiveTask = new ReceiveTask();
+
+    IOSpecification ioSpecification = new IOSpecification();
+    ioSpecification.setDataInputs(null);
+    ioSpecification.setDataOutputs(null);
 
     ArrayList<DataAssociation> dataOutputAssociations = new ArrayList<>();
     dataOutputAssociations.add(new DataAssociation());
@@ -364,8 +250,8 @@ public class ReceiveTaskDiffblueTest {
     boundaryEvents.add(new BoundaryEvent());
 
     ManualTask otherElement = new ManualTask();
+    otherElement.setIoSpecification(ioSpecification);
     otherElement.setLoopCharacteristics(null);
-    otherElement.setIoSpecification(null);
     otherElement.setDataInputAssociations(null);
     otherElement.setDataOutputAssociations(dataOutputAssociations);
     otherElement.setBoundaryEvents(boundaryEvents);
@@ -390,27 +276,30 @@ public class ReceiveTaskDiffblueTest {
 
   /**
    * Test {@link ReceiveTask#setValues(ManualTask)} with {@code ManualTask}.
-   *
    * <ul>
-   *   <li>Then {@link ReceiveTask} (default constructor) IoSpecification Id is {@code null}.
+   *   <li>Then {@link ReceiveTask} (default constructor) IoSpecification Id is {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ReceiveTask#setValues(ManualTask)}
+   * <p>
+   * Method under test: {@link ReceiveTask#setValues(ManualTask)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void ReceiveTask.setValues(ManualTask)"})
   public void testSetValuesWithManualTask_thenReceiveTaskIoSpecificationIdIsNull() {
     // Arrange
     ReceiveTask receiveTask = new ReceiveTask();
 
+    IOSpecification ioSpecification = new IOSpecification();
+    ioSpecification.setDataInputs(null);
+    ioSpecification.setDataOutputs(null);
+
     ArrayList<BoundaryEvent> boundaryEvents = new ArrayList<>();
-    boundaryEvents.add(new BoundaryEvent());
+    BoundaryEvent boundaryEvent = new BoundaryEvent();
+    boundaryEvents.add(boundaryEvent);
 
     ManualTask otherElement = new ManualTask();
+    otherElement.setIoSpecification(ioSpecification);
     otherElement.setLoopCharacteristics(null);
-    otherElement.setIoSpecification(new IOSpecification());
     otherElement.setDataInputAssociations(null);
     otherElement.setDataOutputAssociations(null);
     otherElement.setBoundaryEvents(boundaryEvents);
@@ -419,37 +308,49 @@ public class ReceiveTaskDiffblueTest {
     receiveTask.setValues(otherElement);
 
     // Assert
-    IOSpecification ioSpecification = receiveTask.getIoSpecification();
-    assertNull(ioSpecification.getId());
-    assertEquals(0, ioSpecification.getXmlColumnNumber());
-    assertEquals(0, ioSpecification.getXmlRowNumber());
-    assertTrue(ioSpecification.getDataInputRefs().isEmpty());
-    assertTrue(ioSpecification.getDataInputs().isEmpty());
-    assertTrue(ioSpecification.getDataOutputRefs().isEmpty());
-    assertTrue(ioSpecification.getDataOutputs().isEmpty());
-    assertTrue(ioSpecification.getAttributes().isEmpty());
-    assertTrue(ioSpecification.getExtensionElements().isEmpty());
+    IOSpecification ioSpecification2 = receiveTask.getIoSpecification();
+    assertNull(ioSpecification2.getId());
+    assertEquals(0, ioSpecification2.getXmlColumnNumber());
+    assertEquals(0, ioSpecification2.getXmlRowNumber());
+    List<BoundaryEvent> boundaryEvents2 = receiveTask.getBoundaryEvents();
+    assertEquals(1, boundaryEvents2.size());
+    assertTrue(ioSpecification2.getDataInputRefs().isEmpty());
+    assertTrue(ioSpecification2.getDataInputs().isEmpty());
+    assertTrue(ioSpecification2.getDataOutputRefs().isEmpty());
+    assertTrue(ioSpecification2.getDataOutputs().isEmpty());
+    assertTrue(ioSpecification2.getAttributes().isEmpty());
+    assertTrue(ioSpecification2.getExtensionElements().isEmpty());
+    assertSame(boundaryEvent, boundaryEvents2.get(0));
   }
 
   /**
    * Test {@link ReceiveTask#setValues(ManualTask)} with {@code ManualTask}.
-   *
    * <ul>
-   *   <li>Then {@link ReceiveTask} (default constructor) LoopCharacteristics Id is {@code null}.
+   *   <li>Then {@link ReceiveTask} (default constructor) LoopCharacteristics Id is {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ReceiveTask#setValues(ManualTask)}
+   * <p>
+   * Method under test: {@link ReceiveTask#setValues(ManualTask)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void ReceiveTask.setValues(ManualTask)"})
   public void testSetValuesWithManualTask_thenReceiveTaskLoopCharacteristicsIdIsNull() {
     // Arrange
     ReceiveTask receiveTask = new ReceiveTask();
 
+    IOSpecification ioSpecification = new IOSpecification();
+    ioSpecification.setDataInputs(null);
+    ioSpecification.setDataOutputs(null);
+
+    ArrayList<BoundaryEvent> boundaryEvents = new ArrayList<>();
+    boundaryEvents.add(new BoundaryEvent());
+
     ManualTask otherElement = new ManualTask();
+    otherElement.setIoSpecification(ioSpecification);
     otherElement.setLoopCharacteristics(new MultiInstanceLoopCharacteristics());
+    otherElement.setDataInputAssociations(null);
+    otherElement.setDataOutputAssociations(null);
+    otherElement.setBoundaryEvents(boundaryEvents);
 
     // Act
     receiveTask.setValues(otherElement);
@@ -474,17 +375,15 @@ public class ReceiveTaskDiffblueTest {
 
   /**
    * Test {@link ReceiveTask#setValues(ManualTask)} with {@code ManualTask}.
-   *
    * <ul>
-   *   <li>When {@link ManualTask} (default constructor).
-   *   <li>Then not {@link ReceiveTask} (default constructor) ForCompensation.
+   *   <li>When {@link ManualTask} (default constructor).</li>
+   *   <li>Then not {@link ReceiveTask} (default constructor) ForCompensation.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ReceiveTask#setValues(ManualTask)}
+   * <p>
+   * Method under test: {@link ReceiveTask#setValues(ManualTask)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void ReceiveTask.setValues(ManualTask)"})
   public void testSetValuesWithManualTask_whenManualTask_thenNotReceiveTaskForCompensation() {
     // Arrange
@@ -503,12 +402,11 @@ public class ReceiveTaskDiffblueTest {
 
   /**
    * Test new {@link ReceiveTask} (default constructor).
-   *
-   * <p>Method under test: default or parameterless constructor of {@link ReceiveTask}
+   * <p>
+   * Method under test: default or parameterless constructor of {@link ReceiveTask}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void ReceiveTask.<init>()"})
   public void testNewReceiveTask() {
     // Arrange and Act

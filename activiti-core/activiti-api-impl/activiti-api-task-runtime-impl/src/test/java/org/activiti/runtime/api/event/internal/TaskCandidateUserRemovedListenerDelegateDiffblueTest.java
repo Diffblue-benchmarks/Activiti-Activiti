@@ -21,9 +21,7 @@ import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
-import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -33,7 +31,6 @@ import org.activiti.engine.delegate.event.ActivitiEntityEvent;
 import org.activiti.engine.delegate.event.ActivitiEvent;
 import org.activiti.engine.delegate.event.ActivitiEventType;
 import org.activiti.engine.delegate.event.impl.ActivitiEntityEventImpl;
-import org.activiti.engine.impl.persistence.entity.IdentityLinkEntityImpl;
 import org.activiti.runtime.api.event.impl.TaskCandidateUserRemovedImpl;
 import org.activiti.runtime.api.event.impl.ToTaskCandidateUserRemovedConverter;
 import org.activiti.runtime.api.model.impl.APITaskCandidateUserConverter;
@@ -45,93 +42,57 @@ import org.mockito.Mockito;
 class TaskCandidateUserRemovedListenerDelegateDiffblueTest {
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
-   *   <li>{@link
-   *       TaskCandidateUserRemovedListenerDelegate#TaskCandidateUserRemovedListenerDelegate(List,
-   *       ToTaskCandidateUserRemovedConverter)}
+   *   <li>{@link TaskCandidateUserRemovedListenerDelegate#TaskCandidateUserRemovedListenerDelegate(List, ToTaskCandidateUserRemovedConverter)}
    *   <li>{@link TaskCandidateUserRemovedListenerDelegate#isFailOnException()}
    * </ul>
    */
   @Test
   @DisplayName("Test getters and setters")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void TaskCandidateUserRemovedListenerDelegate.<init>(List, ToTaskCandidateUserRemovedConverter)",
-    "boolean TaskCandidateUserRemovedListenerDelegate.isFailOnException()"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void TaskCandidateUserRemovedListenerDelegate.<init>(List, ToTaskCandidateUserRemovedConverter)",
+      "boolean TaskCandidateUserRemovedListenerDelegate.isFailOnException()"})
   void testGettersAndSetters() {
     // Arrange
-    ArrayList<TaskRuntimeEventListener<TaskCandidateUserRemovedEvent>> listeners =
-        new ArrayList<>();
+    ArrayList<TaskRuntimeEventListener<TaskCandidateUserRemovedEvent>> listeners = new ArrayList<>();
 
-    // Act
-    TaskCandidateUserRemovedListenerDelegate actualTaskCandidateUserRemovedListenerDelegate =
-        new TaskCandidateUserRemovedListenerDelegate(
-            listeners,
-            new ToTaskCandidateUserRemovedConverter(new APITaskCandidateUserConverter()));
-
-    // Assert
-    assertFalse(actualTaskCandidateUserRemovedListenerDelegate.isFailOnException());
+    // Act and Assert
+    assertFalse((new TaskCandidateUserRemovedListenerDelegate(listeners,
+        new ToTaskCandidateUserRemovedConverter(new APITaskCandidateUserConverter()))).isFailOnException());
   }
 
   /**
    * Test {@link TaskCandidateUserRemovedListenerDelegate#onEvent(ActivitiEvent)}.
-   *
    * <ul>
-   *   <li>Given {@link TaskRuntimeEventListener} {@link
-   *       TaskRuntimeEventListener#onEvent(RuntimeEvent)} does nothing.
-   *   <li>Then calls {@link TaskRuntimeEventListener#onEvent(RuntimeEvent)}.
+   *   <li>Given {@link TaskRuntimeEventListener} {@link TaskRuntimeEventListener#onEvent(RuntimeEvent)} does nothing.</li>
+   *   <li>Then calls {@link TaskRuntimeEventListener#onEvent(RuntimeEvent)}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link TaskCandidateUserRemovedListenerDelegate#onEvent(ActivitiEvent)}
+   * <p>
+   * Method under test: {@link TaskCandidateUserRemovedListenerDelegate#onEvent(ActivitiEvent)}
    */
   @Test
-  @DisplayName(
-      "Test onEvent(ActivitiEvent); given TaskRuntimeEventListener onEvent(RuntimeEvent) does nothing; then calls onEvent(RuntimeEvent)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test onEvent(ActivitiEvent); given TaskRuntimeEventListener onEvent(RuntimeEvent) does nothing; then calls onEvent(RuntimeEvent)")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void TaskCandidateUserRemovedListenerDelegate.onEvent(ActivitiEvent)"})
-  void testOnEvent_givenTaskRuntimeEventListenerOnEventDoesNothing_thenCallsOnEvent()
-      throws UnsupportedEncodingException {
+  void testOnEvent_givenTaskRuntimeEventListenerOnEventDoesNothing_thenCallsOnEvent() {
     // Arrange
-    TaskRuntimeEventListener<TaskCandidateUserRemovedEvent> taskRuntimeEventListener =
-        mock(TaskRuntimeEventListener.class);
-    doNothing()
-        .when(taskRuntimeEventListener)
-        .onEvent(Mockito.<TaskCandidateUserRemovedEvent>any());
+    TaskRuntimeEventListener<TaskCandidateUserRemovedEvent> taskRuntimeEventListener = mock(
+        TaskRuntimeEventListener.class);
+    doNothing().when(taskRuntimeEventListener).onEvent(Mockito.<TaskCandidateUserRemovedEvent>any());
 
-    ArrayList<TaskRuntimeEventListener<TaskCandidateUserRemovedEvent>> listeners =
-        new ArrayList<>();
+    ArrayList<TaskRuntimeEventListener<TaskCandidateUserRemovedEvent>> listeners = new ArrayList<>();
     listeners.add(taskRuntimeEventListener);
-
     ToTaskCandidateUserRemovedConverter converter = mock(ToTaskCandidateUserRemovedConverter.class);
-    Optional<TaskCandidateUserRemovedEvent> ofResult =
-        Optional.of(new TaskCandidateUserRemovedImpl());
+    Optional<TaskCandidateUserRemovedEvent> ofResult = Optional.of(new TaskCandidateUserRemovedImpl());
     when(converter.from(Mockito.<ActivitiEntityEvent>any())).thenReturn(ofResult);
-
-    TaskCandidateUserRemovedListenerDelegate taskCandidateUserRemovedListenerDelegate =
-        new TaskCandidateUserRemovedListenerDelegate(listeners, converter);
-
-    IdentityLinkEntityImpl identityLinkEntityImpl = new IdentityLinkEntityImpl();
-    identityLinkEntityImpl.setDeleted(true);
-    identityLinkEntityImpl.setDetails("AXAXAXAX".getBytes("UTF-8"));
-    identityLinkEntityImpl.setGroupId("42");
-    identityLinkEntityImpl.setId("42");
-    identityLinkEntityImpl.setInserted(true);
-    identityLinkEntityImpl.setProcessDefId("42");
-    identityLinkEntityImpl.setProcessInstanceId("42");
-    identityLinkEntityImpl.setType("Type");
-    identityLinkEntityImpl.setUpdated(true);
-    identityLinkEntityImpl.setUserId(null);
-    identityLinkEntityImpl.setTaskId(null);
+    TaskCandidateUserRemovedListenerDelegate taskCandidateUserRemovedListenerDelegate = new TaskCandidateUserRemovedListenerDelegate(
+        listeners, converter);
 
     // Act
-    taskCandidateUserRemovedListenerDelegate.onEvent(
-        new ActivitiEntityEventImpl(identityLinkEntityImpl, ActivitiEventType.ENTITY_CREATED));
+    taskCandidateUserRemovedListenerDelegate
+        .onEvent(new ActivitiEntityEventImpl("Entity", ActivitiEventType.ENTITY_CREATED));
 
     // Assert
     verify(taskRuntimeEventListener).onEvent(isA(TaskCandidateUserRemovedEvent.class));
@@ -140,43 +101,27 @@ class TaskCandidateUserRemovedListenerDelegateDiffblueTest {
 
   /**
    * Test {@link TaskCandidateUserRemovedListenerDelegate#onEvent(ActivitiEvent)}.
-   *
    * <ul>
-   *   <li>Then calls {@link ToTaskCandidateUserRemovedConverter#from(ActivitiEntityEvent)}.
+   *   <li>Then calls {@link ToTaskCandidateUserRemovedConverter#from(ActivitiEntityEvent)}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link TaskCandidateUserRemovedListenerDelegate#onEvent(ActivitiEvent)}
+   * <p>
+   * Method under test: {@link TaskCandidateUserRemovedListenerDelegate#onEvent(ActivitiEvent)}
    */
   @Test
   @DisplayName("Test onEvent(ActivitiEvent); then calls from(ActivitiEntityEvent)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void TaskCandidateUserRemovedListenerDelegate.onEvent(ActivitiEvent)"})
-  void testOnEvent_thenCallsFrom() throws UnsupportedEncodingException {
+  void testOnEvent_thenCallsFrom() {
     // Arrange
     ToTaskCandidateUserRemovedConverter converter = mock(ToTaskCandidateUserRemovedConverter.class);
-    Optional<TaskCandidateUserRemovedEvent> ofResult =
-        Optional.of(new TaskCandidateUserRemovedImpl());
+    Optional<TaskCandidateUserRemovedEvent> ofResult = Optional.of(new TaskCandidateUserRemovedImpl());
     when(converter.from(Mockito.<ActivitiEntityEvent>any())).thenReturn(ofResult);
-    TaskCandidateUserRemovedListenerDelegate taskCandidateUserRemovedListenerDelegate =
-        new TaskCandidateUserRemovedListenerDelegate(new ArrayList<>(), converter);
-
-    IdentityLinkEntityImpl identityLinkEntityImpl = new IdentityLinkEntityImpl();
-    identityLinkEntityImpl.setDeleted(true);
-    identityLinkEntityImpl.setDetails("AXAXAXAX".getBytes("UTF-8"));
-    identityLinkEntityImpl.setGroupId("42");
-    identityLinkEntityImpl.setId("42");
-    identityLinkEntityImpl.setInserted(true);
-    identityLinkEntityImpl.setProcessDefId("42");
-    identityLinkEntityImpl.setProcessInstanceId("42");
-    identityLinkEntityImpl.setType("Type");
-    identityLinkEntityImpl.setUpdated(true);
-    identityLinkEntityImpl.setUserId(null);
-    identityLinkEntityImpl.setTaskId(null);
+    TaskCandidateUserRemovedListenerDelegate taskCandidateUserRemovedListenerDelegate = new TaskCandidateUserRemovedListenerDelegate(
+        new ArrayList<>(), converter);
 
     // Act
-    taskCandidateUserRemovedListenerDelegate.onEvent(
-        new ActivitiEntityEventImpl(identityLinkEntityImpl, ActivitiEventType.ENTITY_CREATED));
+    taskCandidateUserRemovedListenerDelegate
+        .onEvent(new ActivitiEntityEventImpl("Entity", ActivitiEventType.ENTITY_CREATED));
 
     // Assert
     verify(converter).from(isA(ActivitiEntityEvent.class));

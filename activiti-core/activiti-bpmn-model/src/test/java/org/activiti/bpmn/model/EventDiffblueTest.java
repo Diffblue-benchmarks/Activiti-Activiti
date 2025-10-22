@@ -17,16 +17,17 @@ package org.activiti.bpmn.model;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.atLeast;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
@@ -34,30 +35,27 @@ import org.junit.experimental.categories.Category;
 public class EventDiffblueTest {
   /**
    * Test {@link Event#getEventDefinitions()}.
-   *
-   * <p>Method under test: {@link Event#getEventDefinitions()}
+   * <p>
+   * Method under test: {@link Event#getEventDefinitions()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"List Event.getEventDefinitions()"})
   public void testGetEventDefinitions() {
     // Arrange, Act and Assert
-    assertTrue(new BoundaryEvent().getEventDefinitions().isEmpty());
+    assertTrue((new BoundaryEvent()).getEventDefinitions().isEmpty());
   }
 
   /**
    * Test {@link Event#setEventDefinitions(List)}.
-   *
    * <ul>
-   *   <li>Given {@link CancelEventDefinition} (default constructor).
+   *   <li>Given {@link CancelEventDefinition} (default constructor).</li>
    * </ul>
-   *
-   * <p>Method under test: {@link Event#setEventDefinitions(List)}
+   * <p>
+   * Method under test: {@link Event#setEventDefinitions(List)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void Event.setEventDefinitions(List)"})
   public void testSetEventDefinitions_givenCancelEventDefinition() {
     // Arrange
@@ -75,16 +73,14 @@ public class EventDiffblueTest {
 
   /**
    * Test {@link Event#setEventDefinitions(List)}.
-   *
    * <ul>
-   *   <li>Given {@link CancelEventDefinition} (default constructor).
+   *   <li>Given {@link CancelEventDefinition} (default constructor).</li>
    * </ul>
-   *
-   * <p>Method under test: {@link Event#setEventDefinitions(List)}
+   * <p>
+   * Method under test: {@link Event#setEventDefinitions(List)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void Event.setEventDefinitions(List)"})
   public void testSetEventDefinitions_givenCancelEventDefinition2() {
     // Arrange
@@ -103,16 +99,14 @@ public class EventDiffblueTest {
 
   /**
    * Test {@link Event#setEventDefinitions(List)}.
-   *
    * <ul>
-   *   <li>When {@link ArrayList#ArrayList()}.
+   *   <li>When {@link ArrayList#ArrayList()}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link Event#setEventDefinitions(List)}
+   * <p>
+   * Method under test: {@link Event#setEventDefinitions(List)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void Event.setEventDefinitions(List)"})
   public void testSetEventDefinitions_whenArrayList() {
     // Arrange
@@ -128,12 +122,11 @@ public class EventDiffblueTest {
 
   /**
    * Test {@link Event#addEventDefinition(EventDefinition)}.
-   *
-   * <p>Method under test: {@link Event#addEventDefinition(EventDefinition)}
+   * <p>
+   * Method under test: {@link Event#addEventDefinition(EventDefinition)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void Event.addEventDefinition(EventDefinition)"})
   public void testAddEventDefinition() {
     // Arrange
@@ -151,52 +144,36 @@ public class EventDiffblueTest {
 
   /**
    * Test {@link Event#setValues(Event)} with {@code Event}.
-   *
-   * <p>Method under test: {@link Event#setValues(Event)}
+   * <p>
+   * Method under test: {@link Event#setValues(Event)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void Event.setValues(Event)"})
   public void testSetValuesWithEvent() {
     // Arrange
     BoundaryEvent boundaryEvent = new BoundaryEvent();
 
-    CancelEventDefinition cancelEventDefinition = mock(CancelEventDefinition.class);
-    CancelEventDefinition cancelEventDefinition2 = new CancelEventDefinition();
-    when(cancelEventDefinition.clone()).thenReturn(cancelEventDefinition2);
-
     ArrayList<EventDefinition> eventDefinitionList = new ArrayList<>();
-    eventDefinitionList.add(cancelEventDefinition);
-
-    ArrayList<FieldExtension> fieldExtensions = new ArrayList<>();
-    fieldExtensions.add(new FieldExtension());
-
-    ActivitiListener activitiListener = new ActivitiListener();
-    activitiListener.setFieldExtensions(fieldExtensions);
-
-    ArrayList<ActivitiListener> activitiListenerList = new ArrayList<>();
-    activitiListenerList.add(activitiListener);
-
+    eventDefinitionList.add(new CancelEventDefinition());
     EndEvent otherEvent = mock(EndEvent.class);
-    when(otherEvent.getEventDefinitions()).thenReturn(eventDefinitionList);
-    when(otherEvent.getExecutionListeners()).thenReturn(activitiListenerList);
-    when(otherEvent.getAttributes()).thenReturn(null);
-    when(otherEvent.getExtensionElements()).thenReturn(null);
     when(otherEvent.isAsynchronous()).thenReturn(true);
     when(otherEvent.isNotExclusive()).thenReturn(true);
     when(otherEvent.getId()).thenReturn("42");
     when(otherEvent.getDocumentation()).thenReturn("Documentation");
     when(otherEvent.getName()).thenReturn("Name");
+    when(otherEvent.getEventDefinitions()).thenReturn(eventDefinitionList);
+    when(otherEvent.getExecutionListeners()).thenReturn(new ArrayList<>());
+    when(otherEvent.getAttributes()).thenReturn(new HashMap<>());
+    when(otherEvent.getExtensionElements()).thenReturn(new HashMap<>());
 
     // Act
     boundaryEvent.setValues(otherEvent);
 
     // Assert
-    verify(otherEvent).getAttributes();
-    verify(otherEvent).getExtensionElements();
+    verify(otherEvent, atLeast(1)).getAttributes();
+    verify(otherEvent, atLeast(1)).getExtensionElements();
     verify(otherEvent).getId();
-    verify(cancelEventDefinition).clone();
     verify(otherEvent, atLeast(1)).getEventDefinitions();
     verify(otherEvent).getDocumentation();
     verify(otherEvent, atLeast(1)).getExecutionListeners();
@@ -207,57 +184,49 @@ public class EventDiffblueTest {
     assertEquals(1, eventDefinitions.size());
     EventDefinition getResult = eventDefinitions.get(0);
     assertTrue(getResult instanceof CancelEventDefinition);
-    assertEquals(1, boundaryEvent.getExecutionListeners().size());
-    assertSame(cancelEventDefinition2, getResult);
+    assertNull(getResult.getId());
+    assertEquals(0, getResult.getXmlColumnNumber());
+    assertEquals(0, getResult.getXmlRowNumber());
+    assertTrue(getResult.getAttributes().isEmpty());
+    assertTrue(getResult.getExtensionElements().isEmpty());
   }
 
   /**
    * Test {@link Event#setValues(Event)} with {@code Event}.
-   *
-   * <ul>
-   *   <li>Then {@link BoundaryEvent} (default constructor) EventDefinitions size is one.
-   * </ul>
-   *
-   * <p>Method under test: {@link Event#setValues(Event)}
+   * <p>
+   * Method under test: {@link Event#setValues(Event)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void Event.setValues(Event)"})
-  public void testSetValuesWithEvent_thenBoundaryEventEventDefinitionsSizeIsOne() {
+  public void testSetValuesWithEvent2() {
     // Arrange
     BoundaryEvent boundaryEvent = new BoundaryEvent();
+    CancelEventDefinition cancelEventDefinition = mock(CancelEventDefinition.class);
+    CancelEventDefinition cancelEventDefinition2 = new CancelEventDefinition();
+    when(cancelEventDefinition.clone()).thenReturn(cancelEventDefinition2);
 
     ArrayList<EventDefinition> eventDefinitionList = new ArrayList<>();
-    eventDefinitionList.add(new CancelEventDefinition());
-
-    ArrayList<FieldExtension> fieldExtensions = new ArrayList<>();
-    fieldExtensions.add(new FieldExtension());
-
-    ActivitiListener activitiListener = new ActivitiListener();
-    activitiListener.setFieldExtensions(fieldExtensions);
-
-    ArrayList<ActivitiListener> activitiListenerList = new ArrayList<>();
-    activitiListenerList.add(activitiListener);
-
+    eventDefinitionList.add(cancelEventDefinition);
     EndEvent otherEvent = mock(EndEvent.class);
-    when(otherEvent.getEventDefinitions()).thenReturn(eventDefinitionList);
-    when(otherEvent.getExecutionListeners()).thenReturn(activitiListenerList);
-    when(otherEvent.getAttributes()).thenReturn(null);
-    when(otherEvent.getExtensionElements()).thenReturn(null);
     when(otherEvent.isAsynchronous()).thenReturn(true);
     when(otherEvent.isNotExclusive()).thenReturn(true);
     when(otherEvent.getId()).thenReturn("42");
     when(otherEvent.getDocumentation()).thenReturn("Documentation");
     when(otherEvent.getName()).thenReturn("Name");
+    when(otherEvent.getEventDefinitions()).thenReturn(eventDefinitionList);
+    when(otherEvent.getExecutionListeners()).thenReturn(new ArrayList<>());
+    when(otherEvent.getAttributes()).thenReturn(new HashMap<>());
+    when(otherEvent.getExtensionElements()).thenReturn(new HashMap<>());
 
     // Act
     boundaryEvent.setValues(otherEvent);
 
     // Assert
-    verify(otherEvent).getAttributes();
-    verify(otherEvent).getExtensionElements();
+    verify(otherEvent, atLeast(1)).getAttributes();
+    verify(otherEvent, atLeast(1)).getExtensionElements();
     verify(otherEvent).getId();
+    verify(cancelEventDefinition).clone();
     verify(otherEvent, atLeast(1)).getEventDefinitions();
     verify(otherEvent).getDocumentation();
     verify(otherEvent, atLeast(1)).getExecutionListeners();
@@ -266,48 +235,73 @@ public class EventDiffblueTest {
     verify(otherEvent).isNotExclusive();
     List<EventDefinition> eventDefinitions = boundaryEvent.getEventDefinitions();
     assertEquals(1, eventDefinitions.size());
-    assertTrue(eventDefinitions.get(0) instanceof CancelEventDefinition);
-    assertEquals(1, boundaryEvent.getExecutionListeners().size());
+    assertSame(cancelEventDefinition2, eventDefinitions.get(0));
   }
 
   /**
    * Test {@link Event#setValues(Event)} with {@code Event}.
-   *
    * <ul>
-   *   <li>Then {@link BoundaryEvent} (default constructor) Id is {@code 42}.
+   *   <li>Given {@code null}.</li>
+   *   <li>When {@link BoundaryEvent} (default constructor) EventDefinitions is {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link Event#setValues(Event)}
+   * <p>
+   * Method under test: {@link Event#setValues(Event)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void Event.setValues(Event)"})
-  public void testSetValuesWithEvent_thenBoundaryEventIdIs42() {
+  public void testSetValuesWithEvent_givenNull_whenBoundaryEventEventDefinitionsIsNull() {
     // Arrange
     BoundaryEvent boundaryEvent = new BoundaryEvent();
 
+    BoundaryEvent otherEvent = new BoundaryEvent();
+    otherEvent.setEventDefinitions(null);
+
+    // Act
+    boundaryEvent.setValues((Event) otherEvent);
+
+    // Assert that nothing has changed
+    assertFalse(otherEvent.isAsynchronous());
+    assertFalse(otherEvent.isNotExclusive());
+    assertTrue(otherEvent.isExclusive());
+  }
+
+  /**
+   * Test {@link Event#setValues(Event)} with {@code Event}.
+   * <ul>
+   *   <li>Given {@code true}.</li>
+   *   <li>Then {@link BoundaryEvent} (default constructor) Id is {@code 42}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link Event#setValues(Event)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void Event.setValues(Event)"})
+  public void testSetValuesWithEvent_givenTrue_thenBoundaryEventIdIs42() {
+    // Arrange
+    BoundaryEvent boundaryEvent = new BoundaryEvent();
     EndEvent otherEvent = mock(EndEvent.class);
-    when(otherEvent.getEventDefinitions()).thenReturn(null);
-    when(otherEvent.getExecutionListeners()).thenReturn(null);
-    when(otherEvent.getAttributes()).thenReturn(null);
-    when(otherEvent.getExtensionElements()).thenReturn(null);
     when(otherEvent.isAsynchronous()).thenReturn(true);
     when(otherEvent.isNotExclusive()).thenReturn(true);
     when(otherEvent.getId()).thenReturn("42");
     when(otherEvent.getDocumentation()).thenReturn("Documentation");
     when(otherEvent.getName()).thenReturn("Name");
+    when(otherEvent.getEventDefinitions()).thenReturn(new ArrayList<>());
+    when(otherEvent.getExecutionListeners()).thenReturn(new ArrayList<>());
+    when(otherEvent.getAttributes()).thenReturn(new HashMap<>());
+    when(otherEvent.getExtensionElements()).thenReturn(new HashMap<>());
 
     // Act
     boundaryEvent.setValues(otherEvent);
 
     // Assert
-    verify(otherEvent).getAttributes();
-    verify(otherEvent).getExtensionElements();
+    verify(otherEvent, atLeast(1)).getAttributes();
+    verify(otherEvent, atLeast(1)).getExtensionElements();
     verify(otherEvent).getId();
-    verify(otherEvent).getEventDefinitions();
+    verify(otherEvent, atLeast(1)).getEventDefinitions();
     verify(otherEvent).getDocumentation();
-    verify(otherEvent).getExecutionListeners();
+    verify(otherEvent, atLeast(1)).getExecutionListeners();
     verify(otherEvent).getName();
     verify(otherEvent).isAsynchronous();
     verify(otherEvent).isNotExclusive();
@@ -321,17 +315,14 @@ public class EventDiffblueTest {
 
   /**
    * Test {@link Event#setValues(Event)} with {@code Event}.
-   *
    * <ul>
-   *   <li>When {@link BoundaryEvent} (default constructor) EventDefinitions is {@link
-   *       ArrayList#ArrayList()}.
+   *   <li>When {@link BoundaryEvent} (default constructor) EventDefinitions is {@link ArrayList#ArrayList()}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link Event#setValues(Event)}
+   * <p>
+   * Method under test: {@link Event#setValues(Event)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void Event.setValues(Event)"})
   public void testSetValuesWithEvent_whenBoundaryEventEventDefinitionsIsArrayList() {
     // Arrange
@@ -354,46 +345,15 @@ public class EventDiffblueTest {
 
   /**
    * Test {@link Event#setValues(Event)} with {@code Event}.
-   *
    * <ul>
-   *   <li>When {@link BoundaryEvent} (default constructor) EventDefinitions is {@code null}.
+   *   <li>When {@link BoundaryEvent} (default constructor).</li>
+   *   <li>Then not {@link BoundaryEvent} (default constructor) Asynchronous.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link Event#setValues(Event)}
+   * <p>
+   * Method under test: {@link Event#setValues(Event)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void Event.setValues(Event)"})
-  public void testSetValuesWithEvent_whenBoundaryEventEventDefinitionsIsNull() {
-    // Arrange
-    BoundaryEvent boundaryEvent = new BoundaryEvent();
-
-    BoundaryEvent otherEvent = new BoundaryEvent();
-    otherEvent.setEventDefinitions(null);
-
-    // Act
-    boundaryEvent.setValues((Event) otherEvent);
-
-    // Assert that nothing has changed
-    assertFalse(otherEvent.isAsynchronous());
-    assertFalse(otherEvent.isNotExclusive());
-    assertTrue(otherEvent.isExclusive());
-  }
-
-  /**
-   * Test {@link Event#setValues(Event)} with {@code Event}.
-   *
-   * <ul>
-   *   <li>When {@link BoundaryEvent} (default constructor).
-   *   <li>Then not {@link BoundaryEvent} (default constructor) Asynchronous.
-   * </ul>
-   *
-   * <p>Method under test: {@link Event#setValues(Event)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void Event.setValues(Event)"})
   public void testSetValuesWithEvent_whenBoundaryEvent_thenNotBoundaryEventAsynchronous() {
     // Arrange

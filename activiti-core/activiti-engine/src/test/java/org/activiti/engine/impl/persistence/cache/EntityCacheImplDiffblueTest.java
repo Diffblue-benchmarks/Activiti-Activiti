@@ -23,8 +23,7 @@ import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.List;
 import java.util.Map;
@@ -37,17 +36,14 @@ import org.junit.experimental.categories.Category;
 public class EntityCacheImplDiffblueTest {
   /**
    * Test {@link EntityCacheImpl#findInCache(Class, String)} with {@code entityClass}, {@code id}.
-   *
    * <ul>
-   *   <li>Given {@link EntityCacheImpl} (default constructor) {@link AttachmentEntityImpl} (default
-   *       constructor) is {@code true}.
+   *   <li>Given {@link EntityCacheImpl} (default constructor) {@link AttachmentEntityImpl} (default constructor) is {@code true}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link EntityCacheImpl#findInCache(Class, String)}
+   * <p>
+   * Method under test: {@link EntityCacheImpl#findInCache(Class, String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"Object EntityCacheImpl.findInCache(Class, String)"})
   public void testFindInCacheWithEntityClassId_givenEntityCacheImplAttachmentEntityImplIsTrue() {
     // Arrange
@@ -61,17 +57,15 @@ public class EntityCacheImplDiffblueTest {
 
   /**
    * Test {@link EntityCacheImpl#findInCache(Class, String)} with {@code entityClass}, {@code id}.
-   *
    * <ul>
-   *   <li>Given {@link EntityCacheImpl} (default constructor).
-   *   <li>Then return {@code null}.
+   *   <li>Given {@link EntityCacheImpl} (default constructor).</li>
+   *   <li>Then return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link EntityCacheImpl#findInCache(Class, String)}
+   * <p>
+   * Method under test: {@link EntityCacheImpl#findInCache(Class, String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"Object EntityCacheImpl.findInCache(Class, String)"})
   public void testFindInCacheWithEntityClassId_givenEntityCacheImpl_thenReturnNull() {
     // Arrange
@@ -84,16 +78,14 @@ public class EntityCacheImplDiffblueTest {
 
   /**
    * Test {@link EntityCacheImpl#findInCache(Class, String)} with {@code entityClass}, {@code id}.
-   *
    * <ul>
-   *   <li>Then calls {@link Entity#getId()}.
+   *   <li>Then calls {@link Entity#getId()}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link EntityCacheImpl#findInCache(Class, String)}
+   * <p>
+   * Method under test: {@link EntityCacheImpl#findInCache(Class, String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"Object EntityCacheImpl.findInCache(Class, String)"})
   public void testFindInCacheWithEntityClassId_thenCallsGetId() {
     // Arrange
@@ -115,17 +107,15 @@ public class EntityCacheImplDiffblueTest {
 
   /**
    * Test {@link EntityCacheImpl#findInCache(Class, String)} with {@code entityClass}, {@code id}.
-   *
    * <ul>
-   *   <li>When {@code Class}.
-   *   <li>Then calls {@link Entity#getId()}.
+   *   <li>When {@code Class}.</li>
+   *   <li>Then calls {@link Entity#getId()}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link EntityCacheImpl#findInCache(Class, String)}
+   * <p>
+   * Method under test: {@link EntityCacheImpl#findInCache(Class, String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"Object EntityCacheImpl.findInCache(Class, String)"})
   public void testFindInCacheWithEntityClassId_whenJavaLangClass_thenCallsGetId() {
     // Arrange
@@ -148,17 +138,15 @@ public class EntityCacheImplDiffblueTest {
 
   /**
    * Test {@link EntityCacheImpl#findInCache(Class)} with {@code entityClass}.
-   *
    * <ul>
-   *   <li>Given {@link EntityCacheImpl} (default constructor).
-   *   <li>Then return Empty.
+   *   <li>Given {@link EntityCacheImpl} (default constructor).</li>
+   *   <li>Then return Empty.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link EntityCacheImpl#findInCache(Class)}
+   * <p>
+   * Method under test: {@link EntityCacheImpl#findInCache(Class)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"List EntityCacheImpl.findInCache(Class)"})
   public void testFindInCacheWithEntityClass_givenEntityCacheImpl_thenReturnEmpty() {
     // Arrange
@@ -171,17 +159,15 @@ public class EntityCacheImplDiffblueTest {
 
   /**
    * Test {@link EntityCacheImpl#findInCache(Class)} with {@code entityClass}.
-   *
    * <ul>
-   *   <li>When {@code Class}.
-   *   <li>Then return Empty.
+   *   <li>When {@code Class}.</li>
+   *   <li>Then return Empty.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link EntityCacheImpl#findInCache(Class)}
+   * <p>
+   * Method under test: {@link EntityCacheImpl#findInCache(Class)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"List EntityCacheImpl.findInCache(Class)"})
   public void testFindInCacheWithEntityClass_whenJavaLangClass_thenReturnEmpty() {
     // Arrange
@@ -195,17 +181,15 @@ public class EntityCacheImplDiffblueTest {
 
   /**
    * Test {@link EntityCacheImpl#findInCache(Class)} with {@code entityClass}.
-   *
    * <ul>
-   *   <li>When {@code Object}.
-   *   <li>Then return size is one.
+   *   <li>When {@code Object}.</li>
+   *   <li>Then return size is one.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link EntityCacheImpl#findInCache(Class)}
+   * <p>
+   * Method under test: {@link EntityCacheImpl#findInCache(Class)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"List EntityCacheImpl.findInCache(Class)"})
   public void testFindInCacheWithEntityClass_whenJavaLangObject_thenReturnSizeIsOne() {
     // Arrange
@@ -224,17 +208,15 @@ public class EntityCacheImplDiffblueTest {
 
   /**
    * Test {@link EntityCacheImpl#findClassCacheByCheckingSubclasses(Class)}.
-   *
    * <ul>
-   *   <li>Given {@link EntityCacheImpl} (default constructor).
-   *   <li>Then return {@code null}.
+   *   <li>Given {@link EntityCacheImpl} (default constructor).</li>
+   *   <li>Then return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link EntityCacheImpl#findClassCacheByCheckingSubclasses(Class)}
+   * <p>
+   * Method under test: {@link EntityCacheImpl#findClassCacheByCheckingSubclasses(Class)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"Map EntityCacheImpl.findClassCacheByCheckingSubclasses(Class)"})
   public void testFindClassCacheByCheckingSubclasses_givenEntityCacheImpl_thenReturnNull() {
     // Arrange
@@ -247,17 +229,15 @@ public class EntityCacheImplDiffblueTest {
 
   /**
    * Test {@link EntityCacheImpl#findClassCacheByCheckingSubclasses(Class)}.
-   *
    * <ul>
-   *   <li>When {@code Class}.
-   *   <li>Then return {@code null}.
+   *   <li>When {@code Class}.</li>
+   *   <li>Then return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link EntityCacheImpl#findClassCacheByCheckingSubclasses(Class)}
+   * <p>
+   * Method under test: {@link EntityCacheImpl#findClassCacheByCheckingSubclasses(Class)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"Map EntityCacheImpl.findClassCacheByCheckingSubclasses(Class)"})
   public void testFindClassCacheByCheckingSubclasses_whenJavaLangClass_thenReturnNull() {
     // Arrange
@@ -271,17 +251,15 @@ public class EntityCacheImplDiffblueTest {
 
   /**
    * Test {@link EntityCacheImpl#findClassCacheByCheckingSubclasses(Class)}.
-   *
    * <ul>
-   *   <li>When {@code Object}.
-   *   <li>Then return size is one.
+   *   <li>When {@code Object}.</li>
+   *   <li>Then return size is one.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link EntityCacheImpl#findClassCacheByCheckingSubclasses(Class)}
+   * <p>
+   * Method under test: {@link EntityCacheImpl#findClassCacheByCheckingSubclasses(Class)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"Map EntityCacheImpl.findClassCacheByCheckingSubclasses(Class)"})
   public void testFindClassCacheByCheckingSubclasses_whenJavaLangObject_thenReturnSizeIsOne() {
     // Arrange
@@ -291,8 +269,8 @@ public class EntityCacheImplDiffblueTest {
     Class<Object> entityClass = Object.class;
 
     // Act
-    Map<String, CachedEntity> actualFindClassCacheByCheckingSubclassesResult =
-        entityCacheImpl.findClassCacheByCheckingSubclasses(entityClass);
+    Map<String, CachedEntity> actualFindClassCacheByCheckingSubclassesResult = entityCacheImpl
+        .findClassCacheByCheckingSubclasses(entityClass);
 
     // Assert
     assertEquals(1, actualFindClassCacheByCheckingSubclassesResult.size());
@@ -310,12 +288,11 @@ public class EntityCacheImplDiffblueTest {
 
   /**
    * Test {@link EntityCacheImpl#findInCacheAsCachedObjects(Class)}.
-   *
-   * <p>Method under test: {@link EntityCacheImpl#findInCacheAsCachedObjects(Class)}
+   * <p>
+   * Method under test: {@link EntityCacheImpl#findInCacheAsCachedObjects(Class)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"java.util.Collection EntityCacheImpl.findInCacheAsCachedObjects(Class)"})
   public void testFindInCacheAsCachedObjects() {
     // Arrange
@@ -328,9 +305,8 @@ public class EntityCacheImplDiffblueTest {
 
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>default or parameterless constructor of {@link EntityCacheImpl}
    *   <li>{@link EntityCacheImpl#close()}
@@ -339,14 +315,9 @@ public class EntityCacheImplDiffblueTest {
    * </ul>
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void EntityCacheImpl.<init>()",
-    "void EntityCacheImpl.close()",
-    "void EntityCacheImpl.flush()",
-    "Map EntityCacheImpl.getAllCachedEntities()"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void EntityCacheImpl.<init>()", "void EntityCacheImpl.close()", "void EntityCacheImpl.flush()",
+      "Map EntityCacheImpl.getAllCachedEntities()"})
   public void testGettersAndSetters() {
     // Arrange and Act
     EntityCacheImpl actualEntityCacheImpl = new EntityCacheImpl();

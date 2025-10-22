@@ -19,8 +19,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
 import java.util.Map;
@@ -35,32 +34,26 @@ import org.junit.experimental.categories.Category;
 public class BpmnMessagePayloadMappingProviderDiffblueTest {
   /**
    * Test {@link BpmnMessagePayloadMappingProvider#getMessagePayload(DelegateExecution)}.
-   *
    * <ul>
-   *   <li>Given {@link ArrayList#ArrayList()} add {@link FieldDeclaration#FieldDeclaration()}.
-   *   <li>Then return {@link Optional#get()} {@code null} is {@code null}.
+   *   <li>Given {@link ArrayList#ArrayList()} add {@link FieldDeclaration#FieldDeclaration()}.</li>
+   *   <li>Then return {@link Optional#get()} {@code null} is {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link
-   * BpmnMessagePayloadMappingProvider#getMessagePayload(DelegateExecution)}
+   * <p>
+   * Method under test: {@link BpmnMessagePayloadMappingProvider#getMessagePayload(DelegateExecution)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "Optional BpmnMessagePayloadMappingProvider.getMessagePayload(DelegateExecution)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Optional BpmnMessagePayloadMappingProvider.getMessagePayload(DelegateExecution)"})
   public void testGetMessagePayload_givenArrayListAddFieldDeclaration_thenReturnGetNullIsNull() {
     // Arrange
     ArrayList<FieldDeclaration> fieldDeclarations = new ArrayList<>();
     fieldDeclarations.add(new FieldDeclaration());
-    BpmnMessagePayloadMappingProvider bpmnMessagePayloadMappingProvider =
-        new BpmnMessagePayloadMappingProvider(fieldDeclarations);
+    BpmnMessagePayloadMappingProvider bpmnMessagePayloadMappingProvider = new BpmnMessagePayloadMappingProvider(
+        fieldDeclarations);
 
     // Act
-    Optional<Map<String, Object>> actualMessagePayload =
-        bpmnMessagePayloadMappingProvider.getMessagePayload(
-            ExecutionEntityImpl.createWithEmptyRelationshipCollections());
+    Optional<Map<String, Object>> actualMessagePayload = bpmnMessagePayloadMappingProvider
+        .getMessagePayload(ExecutionEntityImpl.createWithEmptyRelationshipCollections());
 
     // Assert
     Map<String, Object> getResult = actualMessagePayload.get();
@@ -71,33 +64,27 @@ public class BpmnMessagePayloadMappingProviderDiffblueTest {
 
   /**
    * Test {@link BpmnMessagePayloadMappingProvider#getMessagePayload(DelegateExecution)}.
-   *
    * <ul>
-   *   <li>Given {@link ArrayList#ArrayList()} add {@link FieldDeclaration#FieldDeclaration()}.
-   *   <li>Then return {@link Optional#get()} {@code null} is {@code null}.
+   *   <li>Given {@link ArrayList#ArrayList()} add {@link FieldDeclaration#FieldDeclaration()}.</li>
+   *   <li>Then return {@link Optional#get()} {@code null} is {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link
-   * BpmnMessagePayloadMappingProvider#getMessagePayload(DelegateExecution)}
+   * <p>
+   * Method under test: {@link BpmnMessagePayloadMappingProvider#getMessagePayload(DelegateExecution)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "Optional BpmnMessagePayloadMappingProvider.getMessagePayload(DelegateExecution)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Optional BpmnMessagePayloadMappingProvider.getMessagePayload(DelegateExecution)"})
   public void testGetMessagePayload_givenArrayListAddFieldDeclaration_thenReturnGetNullIsNull2() {
     // Arrange
     ArrayList<FieldDeclaration> fieldDeclarations = new ArrayList<>();
     fieldDeclarations.add(new FieldDeclaration());
     fieldDeclarations.add(new FieldDeclaration());
-    BpmnMessagePayloadMappingProvider bpmnMessagePayloadMappingProvider =
-        new BpmnMessagePayloadMappingProvider(fieldDeclarations);
+    BpmnMessagePayloadMappingProvider bpmnMessagePayloadMappingProvider = new BpmnMessagePayloadMappingProvider(
+        fieldDeclarations);
 
     // Act
-    Optional<Map<String, Object>> actualMessagePayload =
-        bpmnMessagePayloadMappingProvider.getMessagePayload(
-            ExecutionEntityImpl.createWithEmptyRelationshipCollections());
+    Optional<Map<String, Object>> actualMessagePayload = bpmnMessagePayloadMappingProvider
+        .getMessagePayload(ExecutionEntityImpl.createWithEmptyRelationshipCollections());
 
     // Assert
     Map<String, Object> getResult = actualMessagePayload.get();
@@ -108,32 +95,25 @@ public class BpmnMessagePayloadMappingProviderDiffblueTest {
 
   /**
    * Test {@link BpmnMessagePayloadMappingProvider#getMessagePayload(DelegateExecution)}.
-   *
    * <ul>
-   *   <li>Then return {@link Optional#get()} containsKey {@code Name}.
+   *   <li>Then return {@link Optional#get()} containsKey {@code Name}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link
-   * BpmnMessagePayloadMappingProvider#getMessagePayload(DelegateExecution)}
+   * <p>
+   * Method under test: {@link BpmnMessagePayloadMappingProvider#getMessagePayload(DelegateExecution)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "Optional BpmnMessagePayloadMappingProvider.getMessagePayload(DelegateExecution)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Optional BpmnMessagePayloadMappingProvider.getMessagePayload(DelegateExecution)"})
   public void testGetMessagePayload_thenReturnGetContainsKeyName() {
     // Arrange
     ArrayList<FieldDeclaration> fieldDeclarations = new ArrayList<>();
-    FieldDeclaration fieldDeclaration = new FieldDeclaration("Name", "Type", JSONObject.NULL);
-    fieldDeclarations.add(fieldDeclaration);
-    BpmnMessagePayloadMappingProvider bpmnMessagePayloadMappingProvider =
-        new BpmnMessagePayloadMappingProvider(fieldDeclarations);
+    fieldDeclarations.add(new FieldDeclaration("Name", "Type", JSONObject.NULL));
+    BpmnMessagePayloadMappingProvider bpmnMessagePayloadMappingProvider = new BpmnMessagePayloadMappingProvider(
+        fieldDeclarations);
 
     // Act
-    Optional<Map<String, Object>> actualMessagePayload =
-        bpmnMessagePayloadMappingProvider.getMessagePayload(
-            ExecutionEntityImpl.createWithEmptyRelationshipCollections());
+    Optional<Map<String, Object>> actualMessagePayload = bpmnMessagePayloadMappingProvider
+        .getMessagePayload(ExecutionEntityImpl.createWithEmptyRelationshipCollections());
 
     // Assert
     Map<String, Object> getResult = actualMessagePayload.get();
@@ -144,29 +124,23 @@ public class BpmnMessagePayloadMappingProviderDiffblueTest {
 
   /**
    * Test {@link BpmnMessagePayloadMappingProvider#getMessagePayload(DelegateExecution)}.
-   *
    * <ul>
-   *   <li>Then return not Present.
+   *   <li>Then return not Present.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link
-   * BpmnMessagePayloadMappingProvider#getMessagePayload(DelegateExecution)}
+   * <p>
+   * Method under test: {@link BpmnMessagePayloadMappingProvider#getMessagePayload(DelegateExecution)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "Optional BpmnMessagePayloadMappingProvider.getMessagePayload(DelegateExecution)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Optional BpmnMessagePayloadMappingProvider.getMessagePayload(DelegateExecution)"})
   public void testGetMessagePayload_thenReturnNotPresent() {
     // Arrange
-    BpmnMessagePayloadMappingProvider bpmnMessagePayloadMappingProvider =
-        new BpmnMessagePayloadMappingProvider(new ArrayList<>());
+    BpmnMessagePayloadMappingProvider bpmnMessagePayloadMappingProvider = new BpmnMessagePayloadMappingProvider(
+        new ArrayList<>());
 
     // Act and Assert
-    assertFalse(
-        bpmnMessagePayloadMappingProvider
-            .getMessagePayload(ExecutionEntityImpl.createWithEmptyRelationshipCollections())
-            .isPresent());
+    assertFalse(bpmnMessagePayloadMappingProvider
+        .getMessagePayload(ExecutionEntityImpl.createWithEmptyRelationshipCollections())
+        .isPresent());
   }
 }

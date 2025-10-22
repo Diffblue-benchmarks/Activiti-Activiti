@@ -24,8 +24,7 @@ import static org.mockito.ArgumentMatchers.isA;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import jakarta.el.ELContext;
 import jakarta.el.ValueExpression;
@@ -39,27 +38,22 @@ import org.mockito.Mockito;
 
 public class ExpressionSetInvocationDiffblueTest {
   /**
-   * Test {@link ExpressionSetInvocation#ExpressionSetInvocation(ValueExpression, ELContext,
-   * Object)}.
-   *
-   * <p>Method under test: {@link ExpressionSetInvocation#ExpressionSetInvocation(ValueExpression,
-   * ELContext, Object)}
+   * Test {@link ExpressionSetInvocation#ExpressionSetInvocation(ValueExpression, ELContext, Object)}.
+   * <p>
+   * Method under test: {@link ExpressionSetInvocation#ExpressionSetInvocation(ValueExpression, ELContext, Object)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void ExpressionSetInvocation.<init>(ValueExpression, ELContext, Object)"})
   public void testNewExpressionSetInvocation() {
     // Arrange
     TypeConverter converter = mock(TypeConverter.class);
     Class<Object> type = Object.class;
-
-    ObjectValueExpression valueExpression =
-        new ObjectValueExpression(converter, JSONObject.NULL, type);
+    ObjectValueExpression valueExpression = new ObjectValueExpression(converter, JSONObject.NULL, type);
 
     // Act
-    ExpressionSetInvocation actualExpressionSetInvocation =
-        new ExpressionSetInvocation(valueExpression, new ParsingElContext(), JSONObject.NULL);
+    ExpressionSetInvocation actualExpressionSetInvocation = new ExpressionSetInvocation(valueExpression,
+        new ParsingElContext(), JSONObject.NULL);
 
     // Assert
     ELContext elContext = actualExpressionSetInvocation.elContext;
@@ -79,28 +73,23 @@ public class ExpressionSetInvocationDiffblueTest {
 
   /**
    * Test {@link ExpressionSetInvocation#invoke()}.
-   *
    * <ul>
-   *   <li>Given {@link ObjectValueExpression} {@link ObjectValueExpression#setValue(ELContext,
-   *       Object)} does nothing.
-   *   <li>Then calls {@link ObjectValueExpression#setValue(ELContext, Object)}.
+   *   <li>Given {@link ValueExpression} {@link ValueExpression#setValue(ELContext, Object)} does nothing.</li>
+   *   <li>Then calls {@link ValueExpression#setValue(ELContext, Object)}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ExpressionSetInvocation#invoke()}
+   * <p>
+   * Method under test: {@link ExpressionSetInvocation#invoke()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void ExpressionSetInvocation.invoke()"})
-  public void testInvoke_givenObjectValueExpressionSetValueDoesNothing_thenCallsSetValue() {
+  public void testInvoke_givenValueExpressionSetValueDoesNothing_thenCallsSetValue() {
     // Arrange
-    ObjectValueExpression valueExpression = mock(ObjectValueExpression.class);
+    ValueExpression valueExpression = mock(ValueExpression.class);
     doNothing().when(valueExpression).setValue(Mockito.<ELContext>any(), Mockito.<Object>any());
-    ExpressionSetInvocation expressionSetInvocation =
-        new ExpressionSetInvocation(valueExpression, new ParsingElContext(), JSONObject.NULL);
 
     // Act
-    expressionSetInvocation.invoke();
+    (new ExpressionSetInvocation(valueExpression, new ParsingElContext(), JSONObject.NULL)).invoke();
 
     // Assert
     verify(valueExpression).setValue(isA(ELContext.class), isA(Object.class));

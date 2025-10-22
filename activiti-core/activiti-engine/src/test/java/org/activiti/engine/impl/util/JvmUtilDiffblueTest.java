@@ -17,8 +17,7 @@ package org.activiti.engine.impl.util;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
@@ -26,12 +25,11 @@ import org.junit.experimental.categories.Category;
 public class JvmUtilDiffblueTest {
   /**
    * Test {@link JvmUtil#getJavaVersion()}.
-   *
-   * <p>Method under test: {@link JvmUtil#getJavaVersion()}
+   * <p>
+   * Method under test: {@link JvmUtil#getJavaVersion()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"java.lang.String JvmUtil.getJavaVersion()"})
   public void testGetJavaVersion() {
     // Arrange, Act and Assert
@@ -40,12 +38,11 @@ public class JvmUtilDiffblueTest {
 
   /**
    * Test {@link JvmUtil#isJDK8()}.
-   *
-   * <p>Method under test: {@link JvmUtil#isJDK8()}
+   * <p>
+   * Method under test: {@link JvmUtil#isJDK8()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"boolean JvmUtil.isJDK8()"})
   public void testIsJDK8() {
     // Arrange, Act and Assert
@@ -54,12 +51,11 @@ public class JvmUtilDiffblueTest {
 
   /**
    * Test {@link JvmUtil#isJDK7()}.
-   *
-   * <p>Method under test: {@link JvmUtil#isJDK7()}
+   * <p>
+   * Method under test: {@link JvmUtil#isJDK7()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"boolean JvmUtil.isJDK7()"})
   public void testIsJDK7() {
     // Arrange, Act and Assert
@@ -68,12 +64,11 @@ public class JvmUtilDiffblueTest {
 
   /**
    * Test {@link JvmUtil#isAtLeastJDK7()}.
-   *
-   * <p>Method under test: {@link JvmUtil#isAtLeastJDK7()}
+   * <p>
+   * Method under test: {@link JvmUtil#isAtLeastJDK7()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"boolean JvmUtil.isAtLeastJDK7()"})
   public void testIsAtLeastJDK7() {
     // Arrange, Act and Assert

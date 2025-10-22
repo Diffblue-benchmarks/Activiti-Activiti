@@ -23,8 +23,7 @@ import static org.mockito.ArgumentMatchers.isA;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
 import java.util.List;
@@ -39,9 +38,8 @@ import org.mockito.Mockito;
 public class ScriptBindingsFactoryDiffblueTest {
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>{@link ScriptBindingsFactory#ScriptBindingsFactory(ProcessEngineConfigurationImpl, List)}
    *   <li>{@link ScriptBindingsFactory#setResolverFactories(List)}
@@ -49,24 +47,19 @@ public class ScriptBindingsFactoryDiffblueTest {
    * </ul>
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void ScriptBindingsFactory.<init>(ProcessEngineConfigurationImpl, List)",
-    "List ScriptBindingsFactory.getResolverFactories()",
-    "void ScriptBindingsFactory.setResolverFactories(List)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void ScriptBindingsFactory.<init>(ProcessEngineConfigurationImpl, List)",
+      "List ScriptBindingsFactory.getResolverFactories()", "void ScriptBindingsFactory.setResolverFactories(List)"})
   public void testGettersAndSetters() {
     // Arrange
     JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();
 
     // Act
-    ScriptBindingsFactory actualScriptBindingsFactory =
-        new ScriptBindingsFactory(processEngineConfiguration, new ArrayList<>());
+    ScriptBindingsFactory actualScriptBindingsFactory = new ScriptBindingsFactory(processEngineConfiguration,
+        new ArrayList<>());
     ArrayList<ResolverFactory> resolverFactories = new ArrayList<>();
     actualScriptBindingsFactory.setResolverFactories(resolverFactories);
-    List<ResolverFactory> actualResolverFactories =
-        actualScriptBindingsFactory.getResolverFactories();
+    List<ResolverFactory> actualResolverFactories = actualScriptBindingsFactory.getResolverFactories();
 
     // Assert
     assertTrue(actualResolverFactories.isEmpty());
@@ -75,63 +68,57 @@ public class ScriptBindingsFactoryDiffblueTest {
 
   /**
    * Test {@link ScriptBindingsFactory#createResolvers(VariableScope)}.
-   *
    * <ul>
-   *   <li>Then return Empty.
+   *   <li>Then return Empty.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ScriptBindingsFactory#createResolvers(VariableScope)}
+   * <p>
+   * Method under test: {@link ScriptBindingsFactory#createResolvers(VariableScope)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"List ScriptBindingsFactory.createResolvers(VariableScope)"})
   public void testCreateResolvers_thenReturnEmpty() {
     // Arrange
     JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();
-    ScriptBindingsFactory scriptBindingsFactory =
-        new ScriptBindingsFactory(processEngineConfiguration, new ArrayList<>());
+    ScriptBindingsFactory scriptBindingsFactory = new ScriptBindingsFactory(processEngineConfiguration,
+        new ArrayList<>());
 
     // Act and Assert
-    assertTrue(
-        scriptBindingsFactory
-            .createResolvers(NoExecutionVariableScope.getSharedInstance())
-            .isEmpty());
+    assertTrue(scriptBindingsFactory.createResolvers(NoExecutionVariableScope.getSharedInstance()).isEmpty());
   }
 
   /**
    * Test {@link ScriptBindingsFactory#createResolvers(VariableScope)}.
-   *
    * <ul>
-   *   <li>Then return size is one.
+   *   <li>Then return size is one.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ScriptBindingsFactory#createResolvers(VariableScope)}
+   * <p>
+   * Method under test: {@link ScriptBindingsFactory#createResolvers(VariableScope)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"List ScriptBindingsFactory.createResolvers(VariableScope)"})
   public void testCreateResolvers_thenReturnSizeIsOne() {
     // Arrange
     ResolverFactory resolverFactory = mock(ResolverFactory.class);
     BeansResolverFactory beansResolverFactory = new BeansResolverFactory();
-    when(resolverFactory.createResolver(
-            Mockito.<ProcessEngineConfigurationImpl>any(), Mockito.<VariableScope>any()))
+    when(resolverFactory.createResolver(Mockito.<ProcessEngineConfigurationImpl>any(), Mockito.<VariableScope>any()))
         .thenReturn(beansResolverFactory);
 
     ArrayList<ResolverFactory> resolverFactories = new ArrayList<>();
     resolverFactories.add(resolverFactory);
-    ScriptBindingsFactory scriptBindingsFactory =
-        new ScriptBindingsFactory(new JtaProcessEngineConfiguration(), resolverFactories);
+    JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();
+
+    ScriptBindingsFactory scriptBindingsFactory = new ScriptBindingsFactory(processEngineConfiguration,
+        new ArrayList<>());
+    scriptBindingsFactory.setResolverFactories(resolverFactories);
 
     // Act
-    List<Resolver> actualCreateResolversResult =
-        scriptBindingsFactory.createResolvers(NoExecutionVariableScope.getSharedInstance());
+    List<Resolver> actualCreateResolversResult = scriptBindingsFactory
+        .createResolvers(NoExecutionVariableScope.getSharedInstance());
 
     // Assert
-    verify(resolverFactory)
-        .createResolver(isA(ProcessEngineConfigurationImpl.class), isA(VariableScope.class));
+    verify(resolverFactory).createResolver(isA(ProcessEngineConfigurationImpl.class), isA(VariableScope.class));
     assertEquals(1, actualCreateResolversResult.size());
     Resolver getResult = actualCreateResolversResult.get(0);
     assertTrue(getResult instanceof BeansResolverFactory);

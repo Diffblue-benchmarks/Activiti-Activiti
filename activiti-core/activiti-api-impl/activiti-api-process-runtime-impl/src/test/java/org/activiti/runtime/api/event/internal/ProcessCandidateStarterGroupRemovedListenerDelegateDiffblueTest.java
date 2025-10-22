@@ -21,9 +21,7 @@ import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
-import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -34,7 +32,6 @@ import org.activiti.engine.delegate.event.ActivitiEntityEvent;
 import org.activiti.engine.delegate.event.ActivitiEvent;
 import org.activiti.engine.delegate.event.ActivitiEventType;
 import org.activiti.engine.delegate.event.impl.ActivitiEntityEventImpl;
-import org.activiti.engine.impl.persistence.entity.IdentityLinkEntityImpl;
 import org.activiti.runtime.api.event.impl.ToAPIProcessCandidateStarterGroupRemovedEventConverter;
 import org.activiti.runtime.api.model.impl.APIProcessCandidateStarterGroupConverter;
 import org.junit.jupiter.api.DisplayName;
@@ -45,158 +42,94 @@ import org.mockito.Mockito;
 class ProcessCandidateStarterGroupRemovedListenerDelegateDiffblueTest {
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
-   *   <li>{@link
-   *       ProcessCandidateStarterGroupRemovedListenerDelegate#ProcessCandidateStarterGroupRemovedListenerDelegate(List,
-   *       ToAPIProcessCandidateStarterGroupRemovedEventConverter)}
+   *   <li>{@link ProcessCandidateStarterGroupRemovedListenerDelegate#ProcessCandidateStarterGroupRemovedListenerDelegate(List, ToAPIProcessCandidateStarterGroupRemovedEventConverter)}
    *   <li>{@link ProcessCandidateStarterGroupRemovedListenerDelegate#isFailOnException()}
    * </ul>
    */
   @Test
   @DisplayName("Test getters and setters")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({
-    "void ProcessCandidateStarterGroupRemovedListenerDelegate.<init>(List, ToAPIProcessCandidateStarterGroupRemovedEventConverter)",
-    "boolean ProcessCandidateStarterGroupRemovedListenerDelegate.isFailOnException()"
-  })
+      "void ProcessCandidateStarterGroupRemovedListenerDelegate.<init>(List, ToAPIProcessCandidateStarterGroupRemovedEventConverter)",
+      "boolean ProcessCandidateStarterGroupRemovedListenerDelegate.isFailOnException()"})
   void testGettersAndSetters() {
     // Arrange
-    ArrayList<ProcessRuntimeEventListener<ProcessCandidateStarterGroupRemovedEvent>> listeners =
-        new ArrayList<>();
+    ArrayList<ProcessRuntimeEventListener<ProcessCandidateStarterGroupRemovedEvent>> listeners = new ArrayList<>();
 
-    // Act
-    ProcessCandidateStarterGroupRemovedListenerDelegate
-        actualProcessCandidateStarterGroupRemovedListenerDelegate =
-            new ProcessCandidateStarterGroupRemovedListenerDelegate(
-                listeners,
-                new ToAPIProcessCandidateStarterGroupRemovedEventConverter(
-                    new APIProcessCandidateStarterGroupConverter()));
-
-    // Assert
-    assertFalse(actualProcessCandidateStarterGroupRemovedListenerDelegate.isFailOnException());
+    // Act and Assert
+    assertFalse((new ProcessCandidateStarterGroupRemovedListenerDelegate(listeners,
+        new ToAPIProcessCandidateStarterGroupRemovedEventConverter(new APIProcessCandidateStarterGroupConverter())))
+        .isFailOnException());
   }
 
   /**
    * Test {@link ProcessCandidateStarterGroupRemovedListenerDelegate#onEvent(ActivitiEvent)}.
-   *
    * <ul>
-   *   <li>Given {@link ProcessRuntimeEventListener} {@link
-   *       ProcessRuntimeEventListener#onEvent(RuntimeEvent)} does nothing.
-   *   <li>Then calls {@link ProcessRuntimeEventListener#onEvent(RuntimeEvent)}.
+   *   <li>Given {@link ProcessRuntimeEventListener} {@link ProcessRuntimeEventListener#onEvent(RuntimeEvent)} does nothing.</li>
+   *   <li>Then calls {@link ProcessRuntimeEventListener#onEvent(RuntimeEvent)}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link
-   * ProcessCandidateStarterGroupRemovedListenerDelegate#onEvent(ActivitiEvent)}
+   * <p>
+   * Method under test: {@link ProcessCandidateStarterGroupRemovedListenerDelegate#onEvent(ActivitiEvent)}
    */
   @Test
-  @DisplayName(
-      "Test onEvent(ActivitiEvent); given ProcessRuntimeEventListener onEvent(RuntimeEvent) does nothing; then calls onEvent(RuntimeEvent)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void ProcessCandidateStarterGroupRemovedListenerDelegate.onEvent(ActivitiEvent)"
-  })
-  void testOnEvent_givenProcessRuntimeEventListenerOnEventDoesNothing_thenCallsOnEvent()
-      throws UnsupportedEncodingException {
+  @DisplayName("Test onEvent(ActivitiEvent); given ProcessRuntimeEventListener onEvent(RuntimeEvent) does nothing; then calls onEvent(RuntimeEvent)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void ProcessCandidateStarterGroupRemovedListenerDelegate.onEvent(ActivitiEvent)"})
+  void testOnEvent_givenProcessRuntimeEventListenerOnEventDoesNothing_thenCallsOnEvent() {
     // Arrange
-    ProcessRuntimeEventListener<ProcessCandidateStarterGroupRemovedEvent>
-        processRuntimeEventListener = mock(ProcessRuntimeEventListener.class);
-    doNothing()
-        .when(processRuntimeEventListener)
-        .onEvent(Mockito.<ProcessCandidateStarterGroupRemovedEvent>any());
+    ProcessRuntimeEventListener<ProcessCandidateStarterGroupRemovedEvent> processRuntimeEventListener = mock(
+        ProcessRuntimeEventListener.class);
+    doNothing().when(processRuntimeEventListener).onEvent(Mockito.<ProcessCandidateStarterGroupRemovedEvent>any());
 
-    ArrayList<ProcessRuntimeEventListener<ProcessCandidateStarterGroupRemovedEvent>> listeners =
-        new ArrayList<>();
+    ArrayList<ProcessRuntimeEventListener<ProcessCandidateStarterGroupRemovedEvent>> listeners = new ArrayList<>();
     listeners.add(processRuntimeEventListener);
-
-    ToAPIProcessCandidateStarterGroupRemovedEventConverter
-        processCandidateStarterGroupRemovedEventConverter =
-            mock(ToAPIProcessCandidateStarterGroupRemovedEventConverter.class);
-    Optional<ProcessCandidateStarterGroupRemovedEvent> ofResult =
-        Optional.of(new ProcessCandidateStarterGroupRemovedEventImpl());
+    ToAPIProcessCandidateStarterGroupRemovedEventConverter processCandidateStarterGroupRemovedEventConverter = mock(
+        ToAPIProcessCandidateStarterGroupRemovedEventConverter.class);
+    Optional<ProcessCandidateStarterGroupRemovedEvent> ofResult = Optional
+        .of(new ProcessCandidateStarterGroupRemovedEventImpl());
     when(processCandidateStarterGroupRemovedEventConverter.from(Mockito.<ActivitiEntityEvent>any()))
         .thenReturn(ofResult);
-
-    ProcessCandidateStarterGroupRemovedListenerDelegate
-        processCandidateStarterGroupRemovedListenerDelegate =
-            new ProcessCandidateStarterGroupRemovedListenerDelegate(
-                listeners, processCandidateStarterGroupRemovedEventConverter);
-
-    IdentityLinkEntityImpl identityLinkEntityImpl = new IdentityLinkEntityImpl();
-    identityLinkEntityImpl.setDeleted(true);
-    identityLinkEntityImpl.setDetails("AXAXAXAX".getBytes("UTF-8"));
-    identityLinkEntityImpl.setId("42");
-    identityLinkEntityImpl.setInserted(true);
-    identityLinkEntityImpl.setProcessInstanceId("42");
-    identityLinkEntityImpl.setTaskId("42");
-    identityLinkEntityImpl.setType("Type");
-    identityLinkEntityImpl.setUpdated(true);
-    identityLinkEntityImpl.setUserId("42");
-    identityLinkEntityImpl.setGroupId(null);
-    identityLinkEntityImpl.setProcessDefId(null);
+    ProcessCandidateStarterGroupRemovedListenerDelegate processCandidateStarterGroupRemovedListenerDelegate = new ProcessCandidateStarterGroupRemovedListenerDelegate(
+        listeners, processCandidateStarterGroupRemovedEventConverter);
 
     // Act
-    processCandidateStarterGroupRemovedListenerDelegate.onEvent(
-        new ActivitiEntityEventImpl(identityLinkEntityImpl, ActivitiEventType.ENTITY_CREATED));
+    processCandidateStarterGroupRemovedListenerDelegate
+        .onEvent(new ActivitiEntityEventImpl("Entity", ActivitiEventType.ENTITY_CREATED));
 
     // Assert
-    verify(processRuntimeEventListener)
-        .onEvent(isA(ProcessCandidateStarterGroupRemovedEvent.class));
+    verify(processRuntimeEventListener).onEvent(isA(ProcessCandidateStarterGroupRemovedEvent.class));
     verify(processCandidateStarterGroupRemovedEventConverter).from(isA(ActivitiEntityEvent.class));
   }
 
   /**
    * Test {@link ProcessCandidateStarterGroupRemovedListenerDelegate#onEvent(ActivitiEvent)}.
-   *
    * <ul>
-   *   <li>Then calls {@link
-   *       ToAPIProcessCandidateStarterGroupRemovedEventConverter#from(ActivitiEntityEvent)}.
+   *   <li>Then calls {@link ToAPIProcessCandidateStarterGroupRemovedEventConverter#from(ActivitiEntityEvent)}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link
-   * ProcessCandidateStarterGroupRemovedListenerDelegate#onEvent(ActivitiEvent)}
+   * <p>
+   * Method under test: {@link ProcessCandidateStarterGroupRemovedListenerDelegate#onEvent(ActivitiEvent)}
    */
   @Test
   @DisplayName("Test onEvent(ActivitiEvent); then calls from(ActivitiEntityEvent)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void ProcessCandidateStarterGroupRemovedListenerDelegate.onEvent(ActivitiEvent)"
-  })
-  void testOnEvent_thenCallsFrom() throws UnsupportedEncodingException {
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void ProcessCandidateStarterGroupRemovedListenerDelegate.onEvent(ActivitiEvent)"})
+  void testOnEvent_thenCallsFrom() {
     // Arrange
-    ToAPIProcessCandidateStarterGroupRemovedEventConverter
-        processCandidateStarterGroupRemovedEventConverter =
-            mock(ToAPIProcessCandidateStarterGroupRemovedEventConverter.class);
-    Optional<ProcessCandidateStarterGroupRemovedEvent> ofResult =
-        Optional.of(new ProcessCandidateStarterGroupRemovedEventImpl());
+    ToAPIProcessCandidateStarterGroupRemovedEventConverter processCandidateStarterGroupRemovedEventConverter = mock(
+        ToAPIProcessCandidateStarterGroupRemovedEventConverter.class);
+    Optional<ProcessCandidateStarterGroupRemovedEvent> ofResult = Optional
+        .of(new ProcessCandidateStarterGroupRemovedEventImpl());
     when(processCandidateStarterGroupRemovedEventConverter.from(Mockito.<ActivitiEntityEvent>any()))
         .thenReturn(ofResult);
-    ProcessCandidateStarterGroupRemovedListenerDelegate
-        processCandidateStarterGroupRemovedListenerDelegate =
-            new ProcessCandidateStarterGroupRemovedListenerDelegate(
-                new ArrayList<>(), processCandidateStarterGroupRemovedEventConverter);
-
-    IdentityLinkEntityImpl identityLinkEntityImpl = new IdentityLinkEntityImpl();
-    identityLinkEntityImpl.setDeleted(true);
-    identityLinkEntityImpl.setDetails("AXAXAXAX".getBytes("UTF-8"));
-    identityLinkEntityImpl.setId("42");
-    identityLinkEntityImpl.setInserted(true);
-    identityLinkEntityImpl.setProcessInstanceId("42");
-    identityLinkEntityImpl.setTaskId("42");
-    identityLinkEntityImpl.setType("Type");
-    identityLinkEntityImpl.setUpdated(true);
-    identityLinkEntityImpl.setUserId("42");
-    identityLinkEntityImpl.setGroupId(null);
-    identityLinkEntityImpl.setProcessDefId(null);
+    ProcessCandidateStarterGroupRemovedListenerDelegate processCandidateStarterGroupRemovedListenerDelegate = new ProcessCandidateStarterGroupRemovedListenerDelegate(
+        new ArrayList<>(), processCandidateStarterGroupRemovedEventConverter);
 
     // Act
-    processCandidateStarterGroupRemovedListenerDelegate.onEvent(
-        new ActivitiEntityEventImpl(identityLinkEntityImpl, ActivitiEventType.ENTITY_CREATED));
+    processCandidateStarterGroupRemovedListenerDelegate
+        .onEvent(new ActivitiEntityEventImpl("Entity", ActivitiEventType.ENTITY_CREATED));
 
     // Assert
     verify(processCandidateStarterGroupRemovedEventConverter).from(isA(ActivitiEntityEvent.class));

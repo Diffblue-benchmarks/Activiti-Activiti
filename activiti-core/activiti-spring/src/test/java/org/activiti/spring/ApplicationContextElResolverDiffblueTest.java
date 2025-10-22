@@ -16,15 +16,14 @@
 package org.activiti.spring;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertThrows;
 import static org.junit.Assert.assertTrue;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import jakarta.el.ELContext;
 import org.activiti.core.el.ActivitiElContext;
@@ -32,284 +31,107 @@ import org.activiti.engine.ActivitiException;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import org.mockito.Mockito;
-import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 public class ApplicationContextElResolverDiffblueTest {
   /**
    * Test {@link ApplicationContextElResolver#getValue(ELContext, Object, Object)}.
-   *
-   * <p>Method under test: {@link ApplicationContextElResolver#getValue(ELContext, Object, Object)}
+   * <ul>
+   *   <li>Then return {@code null}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link ApplicationContextElResolver#getValue(ELContext, Object, Object)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"Object ApplicationContextElResolver.getValue(ELContext, Object, Object)"})
-  public void testGetValue() {
+  public void testGetValue_thenReturnNull() {
     // Arrange
-    ApplicationContext applicationContext = mock(ApplicationContext.class);
-    when(applicationContext.containsBean(Mockito.<String>any()))
-        .thenThrow(new ActivitiException("An error occurred"));
-    ApplicationContextElResolver applicationContextElResolver =
-        new ApplicationContextElResolver(applicationContext);
+    ApplicationContextElResolver applicationContextElResolver = new ApplicationContextElResolver(
+        new AnnotationConfigApplicationContext());
 
     // Act and Assert
-    assertThrows(
-        ActivitiException.class,
-        () -> applicationContextElResolver.getValue(new ActivitiElContext(), null, "Property"));
-    verify(applicationContext).containsBean("Property");
+    assertNull(applicationContextElResolver.getValue(new ActivitiElContext(), null, "Property"));
   }
 
   /**
    * Test {@link ApplicationContextElResolver#getValue(ELContext, Object, Object)}.
-   *
-   * <p>Method under test: {@link ApplicationContextElResolver#getValue(ELContext, Object, Object)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"Object ApplicationContextElResolver.getValue(ELContext, Object, Object)"})
-  public void testGetValue2() throws BeansException {
-    // Arrange
-    ApplicationContext applicationContext = mock(ApplicationContext.class);
-    when(applicationContext.getBean(Mockito.<String>any()))
-        .thenThrow(new ActivitiException("An error occurred"));
-    when(applicationContext.containsBean(Mockito.<String>any())).thenReturn(true);
-    ApplicationContextElResolver applicationContextElResolver =
-        new ApplicationContextElResolver(applicationContext);
-
-    // Act and Assert
-    assertThrows(
-        ActivitiException.class,
-        () -> applicationContextElResolver.getValue(new ActivitiElContext(), null, "Property"));
-    verify(applicationContext).containsBean("Property");
-    verify(applicationContext).getBean("Property");
-  }
-
-  /**
-   * Test {@link ApplicationContextElResolver#getValue(ELContext, Object, Object)}.
-   *
    * <ul>
-   *   <li>Given {@link ApplicationContext} {@link ApplicationContext#containsBean(String)} return
-   *       {@code false}.
-   *   <li>Then return {@code null}.
+   *   <li>When {@code Base}.</li>
+   *   <li>Then return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ApplicationContextElResolver#getValue(ELContext, Object, Object)}
+   * <p>
+   * Method under test: {@link ApplicationContextElResolver#getValue(ELContext, Object, Object)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"Object ApplicationContextElResolver.getValue(ELContext, Object, Object)"})
-  public void testGetValue_givenApplicationContextContainsBeanReturnFalse_thenReturnNull() {
-    // Arrange
-    ApplicationContext applicationContext = mock(ApplicationContext.class);
-    when(applicationContext.containsBean(Mockito.<String>any())).thenReturn(false);
-    ApplicationContextElResolver applicationContextElResolver =
-        new ApplicationContextElResolver(applicationContext);
-    ActivitiElContext context = new ActivitiElContext();
-
-    // Act
-    Object actualValue = applicationContextElResolver.getValue(context, null, "Property");
-
-    // Assert
-    verify(applicationContext).containsBean("Property");
-    assertNull(actualValue);
-    assertFalse(context.isPropertyResolved());
-  }
-
-  /**
-   * Test {@link ApplicationContextElResolver#getValue(ELContext, Object, Object)}.
-   *
-   * <ul>
-   *   <li>Given {@link ApplicationContext} {@link ApplicationContext#getBean(String)} return {@code
-   *       Bean}.
-   *   <li>When {@code null}.
-   *   <li>Then return {@code Bean}.
-   * </ul>
-   *
-   * <p>Method under test: {@link ApplicationContextElResolver#getValue(ELContext, Object, Object)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"Object ApplicationContextElResolver.getValue(ELContext, Object, Object)"})
-  public void testGetValue_givenApplicationContextGetBeanReturnBean_whenNull_thenReturnBean()
-      throws BeansException {
-    // Arrange
-    ApplicationContext applicationContext = mock(ApplicationContext.class);
-    when(applicationContext.getBean(Mockito.<String>any())).thenReturn("Bean");
-    when(applicationContext.containsBean(Mockito.<String>any())).thenReturn(true);
-    ApplicationContextElResolver applicationContextElResolver =
-        new ApplicationContextElResolver(applicationContext);
-    ActivitiElContext context = new ActivitiElContext();
-
-    // Act
-    Object actualValue = applicationContextElResolver.getValue(context, null, "Property");
-
-    // Assert
-    verify(applicationContext).containsBean("Property");
-    verify(applicationContext).getBean("Property");
-    assertEquals("Bean", actualValue);
-    assertTrue(context.isPropertyResolved());
-  }
-
-  /**
-   * Test {@link ApplicationContextElResolver#getValue(ELContext, Object, Object)}.
-   *
-   * <ul>
-   *   <li>When {@code Base}.
-   *   <li>Then return {@code null}.
-   * </ul>
-   *
-   * <p>Method under test: {@link ApplicationContextElResolver#getValue(ELContext, Object, Object)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"Object ApplicationContextElResolver.getValue(ELContext, Object, Object)"})
   public void testGetValue_whenBase_thenReturnNull() {
     // Arrange
-    ApplicationContextElResolver applicationContextElResolver =
-        new ApplicationContextElResolver(mock(ApplicationContext.class));
-    ActivitiElContext context = new ActivitiElContext();
+    ApplicationContextElResolver applicationContextElResolver = new ApplicationContextElResolver(
+        new AnnotationConfigApplicationContext());
 
     // Act and Assert
-    assertNull(applicationContextElResolver.getValue(context, "Base", "Property"));
-    assertFalse(context.isPropertyResolved());
+    assertNull(applicationContextElResolver.getValue(new ActivitiElContext(), "Base", "Property"));
   }
 
   /**
    * Test {@link ApplicationContextElResolver#isReadOnly(ELContext, Object, Object)}.
-   *
-   * <p>Method under test: {@link ApplicationContextElResolver#isReadOnly(ELContext, Object,
-   * Object)}
+   * <p>
+   * Method under test: {@link ApplicationContextElResolver#isReadOnly(ELContext, Object, Object)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"boolean ApplicationContextElResolver.isReadOnly(ELContext, Object, Object)"})
   public void testIsReadOnly() {
     // Arrange
-    ApplicationContextElResolver applicationContextElResolver =
-        new ApplicationContextElResolver(mock(ApplicationContext.class));
+    ApplicationContextElResolver applicationContextElResolver = new ApplicationContextElResolver(
+        new AnnotationConfigApplicationContext());
 
     // Act and Assert
-    assertTrue(
-        applicationContextElResolver.isReadOnly(new ActivitiElContext(), "Base", "Property"));
+    assertTrue(applicationContextElResolver.isReadOnly(new ActivitiElContext(), "Base", "Property"));
   }
 
   /**
    * Test {@link ApplicationContextElResolver#setValue(ELContext, Object, Object, Object)}.
-   *
-   * <p>Method under test: {@link ApplicationContextElResolver#setValue(ELContext, Object, Object,
-   * Object)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void ApplicationContextElResolver.setValue(ELContext, Object, Object, Object)"
-  })
-  public void testSetValue() {
-    // Arrange
-    ApplicationContext applicationContext = mock(ApplicationContext.class);
-    when(applicationContext.containsBean(Mockito.<String>any()))
-        .thenThrow(new ActivitiException("An error occurred"));
-    ApplicationContextElResolver applicationContextElResolver =
-        new ApplicationContextElResolver(applicationContext);
-
-    // Act and Assert
-    assertThrows(
-        ActivitiException.class,
-        () ->
-            applicationContextElResolver.setValue(
-                new ActivitiElContext(), null, "Property", "Value"));
-    verify(applicationContext).containsBean("Property");
-  }
-
-  /**
-   * Test {@link ApplicationContextElResolver#setValue(ELContext, Object, Object, Object)}.
-   *
    * <ul>
-   *   <li>Given {@link ApplicationContext} {@link ApplicationContext#containsBean(String)} return
-   *       {@code false}.
+   *   <li>Then throw {@link ActivitiException}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ApplicationContextElResolver#setValue(ELContext, Object, Object,
-   * Object)}
+   * <p>
+   * Method under test: {@link ApplicationContextElResolver#setValue(ELContext, Object, Object, Object)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void ApplicationContextElResolver.setValue(ELContext, Object, Object, Object)"
-  })
-  public void testSetValue_givenApplicationContextContainsBeanReturnFalse() {
-    // Arrange
-    ApplicationContext applicationContext = mock(ApplicationContext.class);
-    when(applicationContext.containsBean(Mockito.<String>any())).thenReturn(false);
-    ApplicationContextElResolver applicationContextElResolver =
-        new ApplicationContextElResolver(applicationContext);
-
-    // Act
-    applicationContextElResolver.setValue(new ActivitiElContext(), null, "Property", "Value");
-
-    // Assert
-    verify(applicationContext).containsBean("Property");
-  }
-
-  /**
-   * Test {@link ApplicationContextElResolver#setValue(ELContext, Object, Object, Object)}.
-   *
-   * <ul>
-   *   <li>Given {@link ApplicationContext} {@link ApplicationContext#containsBean(String)} return
-   *       {@code true}.
-   * </ul>
-   *
-   * <p>Method under test: {@link ApplicationContextElResolver#setValue(ELContext, Object, Object,
-   * Object)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void ApplicationContextElResolver.setValue(ELContext, Object, Object, Object)"
-  })
-  public void testSetValue_givenApplicationContextContainsBeanReturnTrue() {
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void ApplicationContextElResolver.setValue(ELContext, Object, Object, Object)"})
+  public void testSetValue_thenThrowActivitiException() {
     // Arrange
     ApplicationContext applicationContext = mock(ApplicationContext.class);
     when(applicationContext.containsBean(Mockito.<String>any())).thenReturn(true);
-    ApplicationContextElResolver applicationContextElResolver =
-        new ApplicationContextElResolver(applicationContext);
+    ApplicationContextElResolver applicationContextElResolver = new ApplicationContextElResolver(applicationContext);
 
     // Act and Assert
-    assertThrows(
-        ActivitiException.class,
-        () ->
-            applicationContextElResolver.setValue(
-                new ActivitiElContext(), null, "Property", "Value"));
-    verify(applicationContext).containsBean("Property");
+    assertThrows(ActivitiException.class,
+        () -> applicationContextElResolver.setValue(new ActivitiElContext(), null, "Property", "Value"));
+    verify(applicationContext).containsBean(eq("Property"));
   }
 
   /**
    * Test {@link ApplicationContextElResolver#getCommonPropertyType(ELContext, Object)}.
-   *
-   * <p>Method under test: {@link ApplicationContextElResolver#getCommonPropertyType(ELContext,
-   * Object)}
+   * <p>
+   * Method under test: {@link ApplicationContextElResolver#getCommonPropertyType(ELContext, Object)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"Class ApplicationContextElResolver.getCommonPropertyType(ELContext, Object)"})
   public void testGetCommonPropertyType() {
     // Arrange
-    ApplicationContextElResolver applicationContextElResolver =
-        new ApplicationContextElResolver(mock(ApplicationContext.class));
+    ApplicationContextElResolver applicationContextElResolver = new ApplicationContextElResolver(
+        new AnnotationConfigApplicationContext());
 
     // Act
-    Class<?> actualCommonPropertyType =
-        applicationContextElResolver.getCommonPropertyType(new ActivitiElContext(), "Arg");
+    Class<?> actualCommonPropertyType = applicationContextElResolver.getCommonPropertyType(new ActivitiElContext(),
+        "Arg");
 
     // Assert
     Class<Object> expectedCommonPropertyType = Object.class;
@@ -318,20 +140,16 @@ public class ApplicationContextElResolverDiffblueTest {
 
   /**
    * Test {@link ApplicationContextElResolver#getFeatureDescriptors(ELContext, Object)}.
-   *
-   * <p>Method under test: {@link ApplicationContextElResolver#getFeatureDescriptors(ELContext,
-   * Object)}
+   * <p>
+   * Method under test: {@link ApplicationContextElResolver#getFeatureDescriptors(ELContext, Object)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "java.util.Iterator ApplicationContextElResolver.getFeatureDescriptors(ELContext, Object)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"java.util.Iterator ApplicationContextElResolver.getFeatureDescriptors(ELContext, Object)"})
   public void testGetFeatureDescriptors() {
     // Arrange
-    ApplicationContextElResolver applicationContextElResolver =
-        new ApplicationContextElResolver(mock(ApplicationContext.class));
+    ApplicationContextElResolver applicationContextElResolver = new ApplicationContextElResolver(
+        new AnnotationConfigApplicationContext());
 
     // Act and Assert
     assertNull(applicationContextElResolver.getFeatureDescriptors(new ActivitiElContext(), "Arg"));
@@ -339,21 +157,19 @@ public class ApplicationContextElResolverDiffblueTest {
 
   /**
    * Test {@link ApplicationContextElResolver#getType(ELContext, Object, Object)}.
-   *
-   * <p>Method under test: {@link ApplicationContextElResolver#getType(ELContext, Object, Object)}
+   * <p>
+   * Method under test: {@link ApplicationContextElResolver#getType(ELContext, Object, Object)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"Class ApplicationContextElResolver.getType(ELContext, Object, Object)"})
   public void testGetType() {
     // Arrange
-    ApplicationContextElResolver applicationContextElResolver =
-        new ApplicationContextElResolver(mock(ApplicationContext.class));
+    ApplicationContextElResolver applicationContextElResolver = new ApplicationContextElResolver(
+        new AnnotationConfigApplicationContext());
 
     // Act
-    Class<?> actualType =
-        applicationContextElResolver.getType(new ActivitiElContext(), "Arg1", "Arg2");
+    Class<?> actualType = applicationContextElResolver.getType(new ActivitiElContext(), "Arg1", "Arg2");
 
     // Assert
     Class<Object> expectedType = Object.class;

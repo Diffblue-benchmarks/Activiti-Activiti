@@ -18,12 +18,9 @@ package org.activiti.engine.delegate.event.impl;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
-import static org.junit.Assert.assertThrows;
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
-import org.activiti.engine.ActivitiIllegalArgumentException;
 import org.activiti.engine.delegate.event.ActivitiEventType;
 import org.activiti.engine.impl.persistence.entity.ExecutionEntityImpl;
 import org.activiti.engine.impl.util.json.JSONObject;
@@ -33,45 +30,23 @@ import org.junit.experimental.categories.Category;
 
 public class ActivitiProcessCancelledEventImplDiffblueTest {
   /**
-   * Test {@link
-   * ActivitiProcessCancelledEventImpl#ActivitiProcessCancelledEventImpl(ProcessInstance)}.
-   *
-   * <p>Method under test: {@link
-   * ActivitiProcessCancelledEventImpl#ActivitiProcessCancelledEventImpl(ProcessInstance)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void ActivitiProcessCancelledEventImpl.<init>(ProcessInstance)"})
-  public void testNewActivitiProcessCancelledEventImpl() {
-    // Arrange, Act and Assert
-    assertThrows(
-        ActivitiIllegalArgumentException.class, () -> new ActivitiProcessCancelledEventImpl(null));
-  }
-
-  /**
-   * Test {@link
-   * ActivitiProcessCancelledEventImpl#ActivitiProcessCancelledEventImpl(ProcessInstance)}.
-   *
+   * Test {@link ActivitiProcessCancelledEventImpl#ActivitiProcessCancelledEventImpl(ProcessInstance)}.
    * <ul>
-   *   <li>Then Entity return {@link ExecutionEntityImpl}.
+   *   <li>Then Entity return {@link ExecutionEntityImpl}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link
-   * ActivitiProcessCancelledEventImpl#ActivitiProcessCancelledEventImpl(ProcessInstance)}
+   * <p>
+   * Method under test: {@link ActivitiProcessCancelledEventImpl#ActivitiProcessCancelledEventImpl(ProcessInstance)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void ActivitiProcessCancelledEventImpl.<init>(ProcessInstance)"})
   public void testNewActivitiProcessCancelledEventImpl_thenEntityReturnExecutionEntityImpl() {
     // Arrange
-    ExecutionEntityImpl processInstance =
-        ExecutionEntityImpl.createWithEmptyRelationshipCollections();
+    ExecutionEntityImpl processInstance = ExecutionEntityImpl.createWithEmptyRelationshipCollections();
 
     // Act
-    ActivitiProcessCancelledEventImpl actualActivitiProcessCancelledEventImpl =
-        new ActivitiProcessCancelledEventImpl(processInstance);
+    ActivitiProcessCancelledEventImpl actualActivitiProcessCancelledEventImpl = new ActivitiProcessCancelledEventImpl(
+        processInstance);
 
     // Assert
     Object entity = actualActivitiProcessCancelledEventImpl.getEntity();
@@ -81,33 +56,27 @@ public class ActivitiProcessCancelledEventImplDiffblueTest {
     assertNull(actualActivitiProcessCancelledEventImpl.getProcessDefinitionId());
     assertNull(actualActivitiProcessCancelledEventImpl.getProcessInstanceId());
     assertNull(actualActivitiProcessCancelledEventImpl.getReason());
-    assertEquals(
-        ActivitiEventType.PROCESS_CANCELLED, actualActivitiProcessCancelledEventImpl.getType());
+    assertEquals(ActivitiEventType.PROCESS_CANCELLED, actualActivitiProcessCancelledEventImpl.getType());
     assertSame(processInstance, entity);
   }
 
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>{@link ActivitiProcessCancelledEventImpl#setCause(Object)}
    *   <li>{@link ActivitiProcessCancelledEventImpl#getCause()}
    * </ul>
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "Object ActivitiProcessCancelledEventImpl.getCause()",
-    "void ActivitiProcessCancelledEventImpl.setCause(Object)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Object ActivitiProcessCancelledEventImpl.getCause()",
+      "void ActivitiProcessCancelledEventImpl.setCause(Object)"})
   public void testGettersAndSetters() {
     // Arrange
-    ActivitiProcessCancelledEventImpl activitiProcessCancelledEventImpl =
-        new ActivitiProcessCancelledEventImpl(
-            ExecutionEntityImpl.createWithEmptyRelationshipCollections());
+    ActivitiProcessCancelledEventImpl activitiProcessCancelledEventImpl = new ActivitiProcessCancelledEventImpl(
+        ExecutionEntityImpl.createWithEmptyRelationshipCollections());
     Object object = JSONObject.NULL;
 
     // Act

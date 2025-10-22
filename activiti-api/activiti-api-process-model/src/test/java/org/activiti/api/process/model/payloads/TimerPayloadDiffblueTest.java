@@ -19,7 +19,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.time.LocalDate;
 import java.time.ZoneOffset;
@@ -31,13 +30,12 @@ import org.junit.jupiter.api.Test;
 class TimerPayloadDiffblueTest {
   /**
    * Test new {@link TimerPayload} (default constructor).
-   *
-   * <p>Method under test: default or parameterless constructor of {@link TimerPayload}
+   * <p>
+   * Method under test: default or parameterless constructor of {@link TimerPayload}
    */
   @Test
   @DisplayName("Test new TimerPayload (default constructor)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void TimerPayload.<init>()"})
   void testNewTimerPayload() {
     // Arrange and Act
@@ -54,9 +52,8 @@ class TimerPayloadDiffblueTest {
 
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>{@link TimerPayload#setDuedate(Date)}
    *   <li>{@link TimerPayload#setEndDate(Date)}
@@ -75,33 +72,21 @@ class TimerPayloadDiffblueTest {
    */
   @Test
   @DisplayName("Test getters and setters")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "Date TimerPayload.getDuedate()",
-    "Date TimerPayload.getEndDate()",
-    "String TimerPayload.getExceptionMessage()",
-    "String TimerPayload.getId()",
-    "int TimerPayload.getMaxIterations()",
-    "String TimerPayload.getRepeat()",
-    "int TimerPayload.getRetries()",
-    "void TimerPayload.setDuedate(Date)",
-    "void TimerPayload.setEndDate(Date)",
-    "void TimerPayload.setExceptionMessage(String)",
-    "void TimerPayload.setMaxIterations(int)",
-    "void TimerPayload.setRepeat(String)",
-    "void TimerPayload.setRetries(int)"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"Date TimerPayload.getDuedate()", "Date TimerPayload.getEndDate()",
+      "String TimerPayload.getExceptionMessage()", "String TimerPayload.getId()", "int TimerPayload.getMaxIterations()",
+      "String TimerPayload.getRepeat()", "int TimerPayload.getRetries()", "void TimerPayload.setDuedate(Date)",
+      "void TimerPayload.setEndDate(Date)", "void TimerPayload.setExceptionMessage(String)",
+      "void TimerPayload.setMaxIterations(int)", "void TimerPayload.setRepeat(String)",
+      "void TimerPayload.setRetries(int)"})
   void testGettersAndSetters() {
     // Arrange
     TimerPayload timerPayload = new TimerPayload();
-    Date dueDate =
-        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant());
+    Date dueDate = Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant());
 
     // Act
     timerPayload.setDuedate(dueDate);
-    Date endDate =
-        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant());
+    Date endDate = Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant());
     timerPayload.setEndDate(endDate);
     timerPayload.setExceptionMessage("An error occurred");
     timerPayload.setMaxIterations(3);
@@ -125,14 +110,12 @@ class TimerPayloadDiffblueTest {
 
   /**
    * Test {@link TimerPayload#equals(Object)}, and {@link TimerPayload#hashCode()}.
-   *
    * <ul>
-   *   <li>When other is same.
-   *   <li>Then return equal.
+   *   <li>When other is same.</li>
+   *   <li>Then return equal.</li>
    * </ul>
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>{@link TimerPayload#equals(Object)}
    *   <li>{@link TimerPayload#hashCode()}
@@ -140,16 +123,13 @@ class TimerPayloadDiffblueTest {
    */
   @Test
   @DisplayName("Test equals(Object), and hashCode(); when other is same; then return equal")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"boolean TimerPayload.equals(Object)", "int TimerPayload.hashCode()"})
   void testEqualsAndHashCode_whenOtherIsSame_thenReturnEqual() {
     // Arrange
     TimerPayload timerPayload = new TimerPayload();
-    timerPayload.setDuedate(
-        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
-    timerPayload.setEndDate(
-        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
+    timerPayload.setDuedate(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
+    timerPayload.setEndDate(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
     timerPayload.setExceptionMessage("An error occurred");
     timerPayload.setMaxIterations(3);
     timerPayload.setRepeat("Repeat");
@@ -163,36 +143,30 @@ class TimerPayloadDiffblueTest {
 
   /**
    * Test {@link TimerPayload#equals(Object)}.
-   *
    * <ul>
-   *   <li>When other is different.
-   *   <li>Then return not equal.
+   *   <li>When other is different.</li>
+   *   <li>Then return not equal.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link TimerPayload#equals(Object)}
+   * <p>
+   * Method under test: {@link TimerPayload#equals(Object)}
    */
   @Test
   @DisplayName("Test equals(Object); when other is different; then return not equal")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"boolean TimerPayload.equals(Object)", "int TimerPayload.hashCode()"})
   void testEquals_whenOtherIsDifferent_thenReturnNotEqual() {
     // Arrange
     TimerPayload timerPayload = new TimerPayload();
-    timerPayload.setDuedate(
-        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
-    timerPayload.setEndDate(
-        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
+    timerPayload.setDuedate(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
+    timerPayload.setEndDate(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
     timerPayload.setExceptionMessage("An error occurred");
     timerPayload.setMaxIterations(3);
     timerPayload.setRepeat("Repeat");
     timerPayload.setRetries(1);
 
     TimerPayload timerPayload2 = new TimerPayload();
-    timerPayload2.setDuedate(
-        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
-    timerPayload2.setEndDate(
-        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
+    timerPayload2.setDuedate(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
+    timerPayload2.setEndDate(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
     timerPayload2.setExceptionMessage("An error occurred");
     timerPayload2.setMaxIterations(3);
     timerPayload2.setRepeat("Repeat");
@@ -204,35 +178,30 @@ class TimerPayloadDiffblueTest {
 
   /**
    * Test {@link TimerPayload#equals(Object)}.
-   *
    * <ul>
-   *   <li>When other is different.
-   *   <li>Then return not equal.
+   *   <li>When other is different.</li>
+   *   <li>Then return not equal.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link TimerPayload#equals(Object)}
+   * <p>
+   * Method under test: {@link TimerPayload#equals(Object)}
    */
   @Test
   @DisplayName("Test equals(Object); when other is different; then return not equal")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"boolean TimerPayload.equals(Object)", "int TimerPayload.hashCode()"})
   void testEquals_whenOtherIsDifferent_thenReturnNotEqual2() {
     // Arrange
     TimerPayload timerPayload = new TimerPayload();
-    timerPayload.setDuedate(new Date());
-    timerPayload.setEndDate(
-        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
+    timerPayload.setDuedate(Date.from(LocalDate.now().atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
+    timerPayload.setEndDate(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
     timerPayload.setExceptionMessage("An error occurred");
     timerPayload.setMaxIterations(3);
     timerPayload.setRepeat("Repeat");
     timerPayload.setRetries(1);
 
     TimerPayload timerPayload2 = new TimerPayload();
-    timerPayload2.setDuedate(
-        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
-    timerPayload2.setEndDate(
-        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
+    timerPayload2.setDuedate(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
+    timerPayload2.setEndDate(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
     timerPayload2.setExceptionMessage("An error occurred");
     timerPayload2.setMaxIterations(3);
     timerPayload2.setRepeat("Repeat");
@@ -244,35 +213,30 @@ class TimerPayloadDiffblueTest {
 
   /**
    * Test {@link TimerPayload#equals(Object)}.
-   *
    * <ul>
-   *   <li>When other is different.
-   *   <li>Then return not equal.
+   *   <li>When other is different.</li>
+   *   <li>Then return not equal.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link TimerPayload#equals(Object)}
+   * <p>
+   * Method under test: {@link TimerPayload#equals(Object)}
    */
   @Test
   @DisplayName("Test equals(Object); when other is different; then return not equal")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"boolean TimerPayload.equals(Object)", "int TimerPayload.hashCode()"})
   void testEquals_whenOtherIsDifferent_thenReturnNotEqual3() {
     // Arrange
     TimerPayload timerPayload = new TimerPayload();
     timerPayload.setDuedate(null);
-    timerPayload.setEndDate(
-        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
+    timerPayload.setEndDate(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
     timerPayload.setExceptionMessage("An error occurred");
     timerPayload.setMaxIterations(3);
     timerPayload.setRepeat("Repeat");
     timerPayload.setRetries(1);
 
     TimerPayload timerPayload2 = new TimerPayload();
-    timerPayload2.setDuedate(
-        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
-    timerPayload2.setEndDate(
-        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
+    timerPayload2.setDuedate(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
+    timerPayload2.setEndDate(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
     timerPayload2.setExceptionMessage("An error occurred");
     timerPayload2.setMaxIterations(3);
     timerPayload2.setRepeat("Repeat");
@@ -284,35 +248,30 @@ class TimerPayloadDiffblueTest {
 
   /**
    * Test {@link TimerPayload#equals(Object)}.
-   *
    * <ul>
-   *   <li>When other is different.
-   *   <li>Then return not equal.
+   *   <li>When other is different.</li>
+   *   <li>Then return not equal.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link TimerPayload#equals(Object)}
+   * <p>
+   * Method under test: {@link TimerPayload#equals(Object)}
    */
   @Test
   @DisplayName("Test equals(Object); when other is different; then return not equal")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"boolean TimerPayload.equals(Object)", "int TimerPayload.hashCode()"})
   void testEquals_whenOtherIsDifferent_thenReturnNotEqual4() {
     // Arrange
     TimerPayload timerPayload = new TimerPayload();
-    timerPayload.setDuedate(
-        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
-    timerPayload.setEndDate(new Date());
+    timerPayload.setDuedate(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
+    timerPayload.setEndDate(Date.from(LocalDate.now().atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
     timerPayload.setExceptionMessage("An error occurred");
     timerPayload.setMaxIterations(3);
     timerPayload.setRepeat("Repeat");
     timerPayload.setRetries(1);
 
     TimerPayload timerPayload2 = new TimerPayload();
-    timerPayload2.setDuedate(
-        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
-    timerPayload2.setEndDate(
-        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
+    timerPayload2.setDuedate(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
+    timerPayload2.setEndDate(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
     timerPayload2.setExceptionMessage("An error occurred");
     timerPayload2.setMaxIterations(3);
     timerPayload2.setRepeat("Repeat");
@@ -324,24 +283,21 @@ class TimerPayloadDiffblueTest {
 
   /**
    * Test {@link TimerPayload#equals(Object)}.
-   *
    * <ul>
-   *   <li>When other is different.
-   *   <li>Then return not equal.
+   *   <li>When other is different.</li>
+   *   <li>Then return not equal.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link TimerPayload#equals(Object)}
+   * <p>
+   * Method under test: {@link TimerPayload#equals(Object)}
    */
   @Test
   @DisplayName("Test equals(Object); when other is different; then return not equal")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"boolean TimerPayload.equals(Object)", "int TimerPayload.hashCode()"})
   void testEquals_whenOtherIsDifferent_thenReturnNotEqual5() {
     // Arrange
     TimerPayload timerPayload = new TimerPayload();
-    timerPayload.setDuedate(
-        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
+    timerPayload.setDuedate(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
     timerPayload.setEndDate(null);
     timerPayload.setExceptionMessage("An error occurred");
     timerPayload.setMaxIterations(3);
@@ -349,10 +305,8 @@ class TimerPayloadDiffblueTest {
     timerPayload.setRetries(1);
 
     TimerPayload timerPayload2 = new TimerPayload();
-    timerPayload2.setDuedate(
-        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
-    timerPayload2.setEndDate(
-        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
+    timerPayload2.setDuedate(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
+    timerPayload2.setEndDate(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
     timerPayload2.setExceptionMessage("An error occurred");
     timerPayload2.setMaxIterations(3);
     timerPayload2.setRepeat("Repeat");
@@ -364,36 +318,30 @@ class TimerPayloadDiffblueTest {
 
   /**
    * Test {@link TimerPayload#equals(Object)}.
-   *
    * <ul>
-   *   <li>When other is different.
-   *   <li>Then return not equal.
+   *   <li>When other is different.</li>
+   *   <li>Then return not equal.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link TimerPayload#equals(Object)}
+   * <p>
+   * Method under test: {@link TimerPayload#equals(Object)}
    */
   @Test
   @DisplayName("Test equals(Object); when other is different; then return not equal")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"boolean TimerPayload.equals(Object)", "int TimerPayload.hashCode()"})
   void testEquals_whenOtherIsDifferent_thenReturnNotEqual6() {
     // Arrange
     TimerPayload timerPayload = new TimerPayload();
-    timerPayload.setDuedate(
-        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
-    timerPayload.setEndDate(
-        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
-    timerPayload.setExceptionMessage("676701ba-3ca9-4fbf-8e8b-54e1ec174e9d");
+    timerPayload.setDuedate(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
+    timerPayload.setEndDate(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
+    timerPayload.setExceptionMessage("8eed435c-9a5a-4278-89a8-578676a6dca8");
     timerPayload.setMaxIterations(3);
     timerPayload.setRepeat("Repeat");
     timerPayload.setRetries(1);
 
     TimerPayload timerPayload2 = new TimerPayload();
-    timerPayload2.setDuedate(
-        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
-    timerPayload2.setEndDate(
-        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
+    timerPayload2.setDuedate(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
+    timerPayload2.setEndDate(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
     timerPayload2.setExceptionMessage("An error occurred");
     timerPayload2.setMaxIterations(3);
     timerPayload2.setRepeat("Repeat");
@@ -405,36 +353,30 @@ class TimerPayloadDiffblueTest {
 
   /**
    * Test {@link TimerPayload#equals(Object)}.
-   *
    * <ul>
-   *   <li>When other is different.
-   *   <li>Then return not equal.
+   *   <li>When other is different.</li>
+   *   <li>Then return not equal.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link TimerPayload#equals(Object)}
+   * <p>
+   * Method under test: {@link TimerPayload#equals(Object)}
    */
   @Test
   @DisplayName("Test equals(Object); when other is different; then return not equal")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"boolean TimerPayload.equals(Object)", "int TimerPayload.hashCode()"})
   void testEquals_whenOtherIsDifferent_thenReturnNotEqual7() {
     // Arrange
     TimerPayload timerPayload = new TimerPayload();
-    timerPayload.setDuedate(
-        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
-    timerPayload.setEndDate(
-        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
+    timerPayload.setDuedate(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
+    timerPayload.setEndDate(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
     timerPayload.setExceptionMessage(null);
     timerPayload.setMaxIterations(3);
     timerPayload.setRepeat("Repeat");
     timerPayload.setRetries(1);
 
     TimerPayload timerPayload2 = new TimerPayload();
-    timerPayload2.setDuedate(
-        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
-    timerPayload2.setEndDate(
-        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
+    timerPayload2.setDuedate(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
+    timerPayload2.setEndDate(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
     timerPayload2.setExceptionMessage("An error occurred");
     timerPayload2.setMaxIterations(3);
     timerPayload2.setRepeat("Repeat");
@@ -446,25 +388,22 @@ class TimerPayloadDiffblueTest {
 
   /**
    * Test {@link TimerPayload#equals(Object)}.
-   *
    * <ul>
-   *   <li>When other is different.
-   *   <li>Then return not equal.
+   *   <li>When other is different.</li>
+   *   <li>Then return not equal.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link TimerPayload#equals(Object)}
+   * <p>
+   * Method under test: {@link TimerPayload#equals(Object)}
    */
   @Test
   @DisplayName("Test equals(Object); when other is different; then return not equal")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"boolean TimerPayload.equals(Object)", "int TimerPayload.hashCode()"})
   void testEquals_whenOtherIsDifferent_thenReturnNotEqual8() {
     // Arrange
     TimerPayload timerPayload = new TimerPayload();
     timerPayload.setDuedate(null);
-    timerPayload.setEndDate(
-        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
+    timerPayload.setEndDate(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
     timerPayload.setExceptionMessage("An error occurred");
     timerPayload.setMaxIterations(3);
     timerPayload.setRepeat("Repeat");
@@ -472,8 +411,7 @@ class TimerPayloadDiffblueTest {
 
     TimerPayload timerPayload2 = new TimerPayload();
     timerPayload2.setDuedate(null);
-    timerPayload2.setEndDate(
-        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
+    timerPayload2.setEndDate(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
     timerPayload2.setExceptionMessage("An error occurred");
     timerPayload2.setMaxIterations(3);
     timerPayload2.setRepeat("Repeat");
@@ -485,24 +423,21 @@ class TimerPayloadDiffblueTest {
 
   /**
    * Test {@link TimerPayload#equals(Object)}.
-   *
    * <ul>
-   *   <li>When other is different.
-   *   <li>Then return not equal.
+   *   <li>When other is different.</li>
+   *   <li>Then return not equal.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link TimerPayload#equals(Object)}
+   * <p>
+   * Method under test: {@link TimerPayload#equals(Object)}
    */
   @Test
   @DisplayName("Test equals(Object); when other is different; then return not equal")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"boolean TimerPayload.equals(Object)", "int TimerPayload.hashCode()"})
   void testEquals_whenOtherIsDifferent_thenReturnNotEqual9() {
     // Arrange
     TimerPayload timerPayload = new TimerPayload();
-    timerPayload.setDuedate(
-        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
+    timerPayload.setDuedate(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
     timerPayload.setEndDate(null);
     timerPayload.setExceptionMessage("An error occurred");
     timerPayload.setMaxIterations(3);
@@ -510,8 +445,7 @@ class TimerPayloadDiffblueTest {
     timerPayload.setRetries(1);
 
     TimerPayload timerPayload2 = new TimerPayload();
-    timerPayload2.setDuedate(
-        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
+    timerPayload2.setDuedate(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
     timerPayload2.setEndDate(null);
     timerPayload2.setExceptionMessage("An error occurred");
     timerPayload2.setMaxIterations(3);
@@ -524,36 +458,30 @@ class TimerPayloadDiffblueTest {
 
   /**
    * Test {@link TimerPayload#equals(Object)}.
-   *
    * <ul>
-   *   <li>When other is different.
-   *   <li>Then return not equal.
+   *   <li>When other is different.</li>
+   *   <li>Then return not equal.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link TimerPayload#equals(Object)}
+   * <p>
+   * Method under test: {@link TimerPayload#equals(Object)}
    */
   @Test
   @DisplayName("Test equals(Object); when other is different; then return not equal")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"boolean TimerPayload.equals(Object)", "int TimerPayload.hashCode()"})
   void testEquals_whenOtherIsDifferent_thenReturnNotEqual10() {
     // Arrange
     TimerPayload timerPayload = new TimerPayload();
-    timerPayload.setDuedate(
-        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
-    timerPayload.setEndDate(
-        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
+    timerPayload.setDuedate(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
+    timerPayload.setEndDate(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
     timerPayload.setExceptionMessage(null);
     timerPayload.setMaxIterations(3);
     timerPayload.setRepeat("Repeat");
     timerPayload.setRetries(1);
 
     TimerPayload timerPayload2 = new TimerPayload();
-    timerPayload2.setDuedate(
-        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
-    timerPayload2.setEndDate(
-        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
+    timerPayload2.setDuedate(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
+    timerPayload2.setEndDate(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
     timerPayload2.setExceptionMessage(null);
     timerPayload2.setMaxIterations(3);
     timerPayload2.setRepeat("Repeat");
@@ -565,26 +493,22 @@ class TimerPayloadDiffblueTest {
 
   /**
    * Test {@link TimerPayload#equals(Object)}.
-   *
    * <ul>
-   *   <li>When other is {@code null}.
-   *   <li>Then return not equal.
+   *   <li>When other is {@code null}.</li>
+   *   <li>Then return not equal.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link TimerPayload#equals(Object)}
+   * <p>
+   * Method under test: {@link TimerPayload#equals(Object)}
    */
   @Test
   @DisplayName("Test equals(Object); when other is 'null'; then return not equal")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"boolean TimerPayload.equals(Object)", "int TimerPayload.hashCode()"})
   void testEquals_whenOtherIsNull_thenReturnNotEqual() {
     // Arrange
     TimerPayload timerPayload = new TimerPayload();
-    timerPayload.setDuedate(
-        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
-    timerPayload.setEndDate(
-        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
+    timerPayload.setDuedate(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
+    timerPayload.setEndDate(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
     timerPayload.setExceptionMessage("An error occurred");
     timerPayload.setMaxIterations(3);
     timerPayload.setRepeat("Repeat");
@@ -596,26 +520,22 @@ class TimerPayloadDiffblueTest {
 
   /**
    * Test {@link TimerPayload#equals(Object)}.
-   *
    * <ul>
-   *   <li>When other is wrong type.
-   *   <li>Then return not equal.
+   *   <li>When other is wrong type.</li>
+   *   <li>Then return not equal.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link TimerPayload#equals(Object)}
+   * <p>
+   * Method under test: {@link TimerPayload#equals(Object)}
    */
   @Test
   @DisplayName("Test equals(Object); when other is wrong type; then return not equal")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"boolean TimerPayload.equals(Object)", "int TimerPayload.hashCode()"})
   void testEquals_whenOtherIsWrongType_thenReturnNotEqual() {
     // Arrange
     TimerPayload timerPayload = new TimerPayload();
-    timerPayload.setDuedate(
-        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
-    timerPayload.setEndDate(
-        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
+    timerPayload.setDuedate(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
+    timerPayload.setEndDate(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
     timerPayload.setExceptionMessage("An error occurred");
     timerPayload.setMaxIterations(3);
     timerPayload.setRepeat("Repeat");

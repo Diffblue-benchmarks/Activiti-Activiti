@@ -18,7 +18,6 @@ package org.activiti.api.runtime.event.impl;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.api.process.model.ProcessCandidateStarterUser;
 import org.activiti.api.process.model.events.ProcessCandidateStarterUserEvent;
@@ -30,21 +29,17 @@ import org.junit.jupiter.api.Test;
 
 class ProcessCandidateStarterUserRemovedEventImplDiffblueTest {
   /**
-   * Test {@link
-   * ProcessCandidateStarterUserRemovedEventImpl#ProcessCandidateStarterUserRemovedEventImpl()}.
-   *
-   * <p>Method under test: {@link
-   * ProcessCandidateStarterUserRemovedEventImpl#ProcessCandidateStarterUserRemovedEventImpl()}
+   * Test {@link ProcessCandidateStarterUserRemovedEventImpl#ProcessCandidateStarterUserRemovedEventImpl()}.
+   * <p>
+   * Method under test: {@link ProcessCandidateStarterUserRemovedEventImpl#ProcessCandidateStarterUserRemovedEventImpl()}
    */
   @Test
   @DisplayName("Test new ProcessCandidateStarterUserRemovedEventImpl()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void ProcessCandidateStarterUserRemovedEventImpl.<init>()"})
   void testNewProcessCandidateStarterUserRemovedEventImpl() {
     // Arrange and Act
-    ProcessCandidateStarterUserRemovedEventImpl actualProcessCandidateStarterUserRemovedEventImpl =
-        new ProcessCandidateStarterUserRemovedEventImpl();
+    ProcessCandidateStarterUserRemovedEventImpl actualProcessCandidateStarterUserRemovedEventImpl = new ProcessCandidateStarterUserRemovedEventImpl();
 
     // Assert
     assertNull(actualProcessCandidateStarterUserRemovedEventImpl.getProcessDefinitionVersion());
@@ -54,32 +49,26 @@ class ProcessCandidateStarterUserRemovedEventImplDiffblueTest {
     assertNull(actualProcessCandidateStarterUserRemovedEventImpl.getProcessDefinitionKey());
     assertNull(actualProcessCandidateStarterUserRemovedEventImpl.getProcessInstanceId());
     assertNull(actualProcessCandidateStarterUserRemovedEventImpl.getEntity());
-    assertEquals(
-        ProcessCandidateStarterUserEvents.PROCESS_CANDIDATE_STARTER_USER_REMOVED,
+    assertEquals(ProcessCandidateStarterUserEvents.PROCESS_CANDIDATE_STARTER_USER_REMOVED,
         actualProcessCandidateStarterUserRemovedEventImpl.getEventType());
   }
 
   /**
-   * Test {@link
-   * ProcessCandidateStarterUserRemovedEventImpl#ProcessCandidateStarterUserRemovedEventImpl(ProcessCandidateStarterUser)}.
-   *
-   * <p>Method under test: {@link
-   * ProcessCandidateStarterUserRemovedEventImpl#ProcessCandidateStarterUserRemovedEventImpl(ProcessCandidateStarterUser)}
+   * Test {@link ProcessCandidateStarterUserRemovedEventImpl#ProcessCandidateStarterUserRemovedEventImpl(ProcessCandidateStarterUser)}.
+   * <p>
+   * Method under test: {@link ProcessCandidateStarterUserRemovedEventImpl#ProcessCandidateStarterUserRemovedEventImpl(ProcessCandidateStarterUser)}
    */
   @Test
   @DisplayName("Test new ProcessCandidateStarterUserRemovedEventImpl(ProcessCandidateStarterUser)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void ProcessCandidateStarterUserRemovedEventImpl.<init>(ProcessCandidateStarterUser)"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void ProcessCandidateStarterUserRemovedEventImpl.<init>(ProcessCandidateStarterUser)"})
   void testNewProcessCandidateStarterUserRemovedEventImpl2() {
     // Arrange
     ProcessCandidateStarterUserImpl entity = new ProcessCandidateStarterUserImpl("42", "42");
 
     // Act
-    ProcessCandidateStarterUserRemovedEventImpl actualProcessCandidateStarterUserRemovedEventImpl =
-        new ProcessCandidateStarterUserRemovedEventImpl(entity);
+    ProcessCandidateStarterUserRemovedEventImpl actualProcessCandidateStarterUserRemovedEventImpl = new ProcessCandidateStarterUserRemovedEventImpl(
+        entity);
 
     // Assert
     assertNull(actualProcessCandidateStarterUserRemovedEventImpl.getProcessDefinitionVersion());
@@ -88,28 +77,24 @@ class ProcessCandidateStarterUserRemovedEventImplDiffblueTest {
     assertNull(actualProcessCandidateStarterUserRemovedEventImpl.getProcessDefinitionId());
     assertNull(actualProcessCandidateStarterUserRemovedEventImpl.getProcessDefinitionKey());
     assertNull(actualProcessCandidateStarterUserRemovedEventImpl.getProcessInstanceId());
-    assertEquals(
-        ProcessCandidateStarterUserEvents.PROCESS_CANDIDATE_STARTER_USER_REMOVED,
+    assertEquals(ProcessCandidateStarterUserEvents.PROCESS_CANDIDATE_STARTER_USER_REMOVED,
         actualProcessCandidateStarterUserRemovedEventImpl.getEventType());
     assertSame(entity, actualProcessCandidateStarterUserRemovedEventImpl.getEntity());
   }
 
   /**
    * Test {@link ProcessCandidateStarterUserRemovedEventImpl#getEventType()}.
-   *
-   * <p>Method under test: {@link ProcessCandidateStarterUserRemovedEventImpl#getEventType()}
+   * <p>
+   * Method under test: {@link ProcessCandidateStarterUserRemovedEventImpl#getEventType()}
    */
   @Test
   @DisplayName("Test getEventType()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({
-    "ProcessCandidateStarterUserEvent.ProcessCandidateStarterUserEvents ProcessCandidateStarterUserRemovedEventImpl.getEventType()"
-  })
+      "ProcessCandidateStarterUserEvent.ProcessCandidateStarterUserEvents ProcessCandidateStarterUserRemovedEventImpl.getEventType()"})
   void testGetEventType() {
     // Arrange, Act and Assert
-    assertEquals(
-        ProcessCandidateStarterUserEvents.PROCESS_CANDIDATE_STARTER_USER_REMOVED,
-        new ProcessCandidateStarterUserRemovedEventImpl().getEventType());
+    assertEquals(ProcessCandidateStarterUserEvents.PROCESS_CANDIDATE_STARTER_USER_REMOVED,
+        (new ProcessCandidateStarterUserRemovedEventImpl()).getEventType());
   }
 }

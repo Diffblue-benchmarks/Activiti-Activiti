@@ -19,11 +19,9 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import org.junit.Test;
@@ -32,117 +30,15 @@ import org.junit.experimental.categories.Category;
 public class LaneDiffblueTest {
   /**
    * Test {@link Lane#clone()}.
-   *
    * <ul>
-   *   <li>Given {@link ArrayList#ArrayList()} add {@code foo}.
-   *   <li>Then return FlowReferences size is one.
+   *   <li>Given {@link Lane} (default constructor) ExtensionElements is {@code null}.</li>
+   *   <li>Then return Id is {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link Lane#clone()}
+   * <p>
+   * Method under test: {@link Lane#clone()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"Lane Lane.clone()"})
-  public void testClone_givenArrayListAddFoo_thenReturnFlowReferencesSizeIsOne() {
-    // Arrange
-    ArrayList<String> flowReferences = new ArrayList<>();
-    flowReferences.add("foo");
-
-    Lane lane = new Lane();
-    lane.setFlowReferences(flowReferences);
-    lane.addAttribute(new ExtensionAttribute("Name"));
-
-    // Act
-    Lane actualCloneResult = lane.clone();
-
-    // Assert
-    List<String> flowReferences2 = actualCloneResult.getFlowReferences();
-    assertEquals(1, flowReferences2.size());
-    assertEquals("foo", flowReferences2.get(0));
-    Map<String, List<ExtensionAttribute>> attributes = actualCloneResult.getAttributes();
-    assertEquals(1, attributes.size());
-    assertTrue(attributes.containsKey("Name"));
-  }
-
-  /**
-   * Test {@link Lane#clone()}.
-   *
-   * <ul>
-   *   <li>Given {@link HashMap#HashMap()} {@code 42} is {@link ArrayList#ArrayList()}.
-   *   <li>Then return Attributes {@code Name} size is one.
-   * </ul>
-   *
-   * <p>Method under test: {@link Lane#clone()}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"Lane Lane.clone()"})
-  public void testClone_givenHashMap42IsArrayList_thenReturnAttributesNameSizeIsOne() {
-    // Arrange
-    HashMap<String, List<ExtensionElement>> extensionElements = new HashMap<>();
-    extensionElements.put("42", new ArrayList<>());
-    extensionElements.put("foo", new ArrayList<>());
-
-    Lane lane = new Lane();
-    lane.setExtensionElements(extensionElements);
-    ExtensionAttribute attribute = new ExtensionAttribute("Name");
-    lane.addAttribute(attribute);
-
-    // Act and Assert
-    Map<String, List<ExtensionAttribute>> attributes = lane.clone().getAttributes();
-    assertEquals(1, attributes.size());
-    List<ExtensionAttribute> getResult = attributes.get("Name");
-    assertEquals(1, getResult.size());
-    assertSame(attribute, getResult.get(0));
-  }
-
-  /**
-   * Test {@link Lane#clone()}.
-   *
-   * <ul>
-   *   <li>Given {@link HashMap#HashMap()} {@code foo} is {@link ArrayList#ArrayList()}.
-   *   <li>Then return Attributes {@code Name} size is one.
-   * </ul>
-   *
-   * <p>Method under test: {@link Lane#clone()}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"Lane Lane.clone()"})
-  public void testClone_givenHashMapFooIsArrayList_thenReturnAttributesNameSizeIsOne() {
-    // Arrange
-    HashMap<String, List<ExtensionElement>> extensionElements = new HashMap<>();
-    extensionElements.put("foo", new ArrayList<>());
-
-    Lane lane = new Lane();
-    lane.setExtensionElements(extensionElements);
-    ExtensionAttribute attribute = new ExtensionAttribute("Name");
-    lane.addAttribute(attribute);
-
-    // Act and Assert
-    Map<String, List<ExtensionAttribute>> attributes = lane.clone().getAttributes();
-    assertEquals(1, attributes.size());
-    List<ExtensionAttribute> getResult = attributes.get("Name");
-    assertEquals(1, getResult.size());
-    assertSame(attribute, getResult.get(0));
-  }
-
-  /**
-   * Test {@link Lane#clone()}.
-   *
-   * <ul>
-   *   <li>Given {@link Lane} (default constructor) ExtensionElements is {@code null}.
-   *   <li>Then return Id is {@code null}.
-   * </ul>
-   *
-   * <p>Method under test: {@link Lane#clone()}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"Lane Lane.clone()"})
   public void testClone_givenLaneExtensionElementsIsNull_thenReturnIdIsNull() {
     // Arrange
@@ -166,17 +62,15 @@ public class LaneDiffblueTest {
 
   /**
    * Test {@link Lane#clone()}.
-   *
    * <ul>
-   *   <li>Given {@link Lane} (default constructor) FlowReferences is {@code null}.
-   *   <li>Then return Id is {@code null}.
+   *   <li>Given {@link Lane} (default constructor) FlowReferences is {@code null}.</li>
+   *   <li>Then return Id is {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link Lane#clone()}
+   * <p>
+   * Method under test: {@link Lane#clone()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"Lane Lane.clone()"})
   public void testClone_givenLaneFlowReferencesIsNull_thenReturnIdIsNull() {
     // Arrange
@@ -199,21 +93,19 @@ public class LaneDiffblueTest {
 
   /**
    * Test {@link Lane#clone()}.
-   *
    * <ul>
-   *   <li>Given {@link Lane} (default constructor).
-   *   <li>Then return Id is {@code null}.
+   *   <li>Given {@link Lane} (default constructor).</li>
+   *   <li>Then return Id is {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link Lane#clone()}
+   * <p>
+   * Method under test: {@link Lane#clone()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"Lane Lane.clone()"})
   public void testClone_givenLane_thenReturnIdIsNull() {
     // Arrange and Act
-    Lane actualCloneResult = new Lane().clone();
+    Lane actualCloneResult = (new Lane()).clone();
 
     // Assert
     assertNull(actualCloneResult.getId());
@@ -228,18 +120,16 @@ public class LaneDiffblueTest {
 
   /**
    * Test {@link Lane#clone()}.
-   *
    * <ul>
-   *   <li>Then return Attributes {@code Name} size is one.
+   *   <li>Then return Attributes size is one.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link Lane#clone()}
+   * <p>
+   * Method under test: {@link Lane#clone()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"Lane Lane.clone()"})
-  public void testClone_thenReturnAttributesNameSizeIsOne() {
+  public void testClone_thenReturnAttributesSizeIsOne() {
     // Arrange
     Lane lane = new Lane();
     ExtensionAttribute attribute = new ExtensionAttribute("Name");
@@ -255,16 +145,14 @@ public class LaneDiffblueTest {
 
   /**
    * Test {@link Lane#clone()}.
-   *
    * <ul>
-   *   <li>Then return Attributes size is two.
+   *   <li>Then return Attributes size is two.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link Lane#clone()}
+   * <p>
+   * Method under test: {@link Lane#clone()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"Lane Lane.clone()"})
   public void testClone_thenReturnAttributesSizeIsTwo() {
     // Arrange
@@ -284,9 +172,8 @@ public class LaneDiffblueTest {
 
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>default or parameterless constructor of {@link Lane}
    *   <li>{@link Lane#setFlowReferences(List)}
@@ -298,17 +185,10 @@ public class LaneDiffblueTest {
    * </ul>
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void Lane.<init>()",
-    "List Lane.getFlowReferences()",
-    "String Lane.getName()",
-    "Process Lane.getParentProcess()",
-    "void Lane.setFlowReferences(List)",
-    "void Lane.setName(String)",
-    "void Lane.setParentProcess(Process)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void Lane.<init>()", "List Lane.getFlowReferences()", "String Lane.getName()",
+      "Process Lane.getParentProcess()", "void Lane.setFlowReferences(List)", "void Lane.setName(String)",
+      "void Lane.setParentProcess(Process)"})
   public void testGettersAndSetters() {
     // Arrange and Act
     Lane actualLane = new Lane();

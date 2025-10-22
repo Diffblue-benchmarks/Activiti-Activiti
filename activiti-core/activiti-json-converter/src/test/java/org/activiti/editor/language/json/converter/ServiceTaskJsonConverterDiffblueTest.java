@@ -19,11 +19,11 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.node.DoubleNode;
+import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.JsonNodeFactory;
+import com.fasterxml.jackson.databind.node.MissingNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.fasterxml.jackson.databind.node.TextNode;
 import java.util.ArrayList;
@@ -42,13 +42,12 @@ import org.junit.jupiter.api.Test;
 class ServiceTaskJsonConverterDiffblueTest {
   /**
    * Test {@link ServiceTaskJsonConverter#fillJsonTypes(Map)}.
-   *
-   * <p>Method under test: {@link ServiceTaskJsonConverter#fillJsonTypes(Map)}
+   * <p>
+   * Method under test: {@link ServiceTaskJsonConverter#fillJsonTypes(Map)}
    */
   @Test
   @DisplayName("Test fillJsonTypes(Map)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void ServiceTaskJsonConverter.fillJsonTypes(Map)"})
   void testFillJsonTypes() {
     // Arrange
@@ -65,13 +64,12 @@ class ServiceTaskJsonConverterDiffblueTest {
 
   /**
    * Test {@link ServiceTaskJsonConverter#getStencilId(BaseElement)}.
-   *
-   * <p>Method under test: {@link ServiceTaskJsonConverter#getStencilId(BaseElement)}
+   * <p>
+   * Method under test: {@link ServiceTaskJsonConverter#getStencilId(BaseElement)}
    */
   @Test
   @DisplayName("Test getStencilId(BaseElement)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"String ServiceTaskJsonConverter.getStencilId(BaseElement)"})
   void testGetStencilId() {
     // Arrange
@@ -83,32 +81,25 @@ class ServiceTaskJsonConverterDiffblueTest {
 
   /**
    * Test {@link ServiceTaskJsonConverter#convertJsonToElement(JsonNode, JsonNode, Map)}.
-   *
    * <ul>
-   *   <li>When {@link HashMap#HashMap()}.
-   *   <li>Then return {@link ServiceTask}.
+   *   <li>When {@link ArrayNode#ArrayNode(JsonNodeFactory)} with nf is withExactBigDecimals {@code true}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ServiceTaskJsonConverter#convertJsonToElement(JsonNode, JsonNode,
-   * Map)}
+   * <p>
+   * Method under test: {@link ServiceTaskJsonConverter#convertJsonToElement(JsonNode, JsonNode, Map)}
    */
   @Test
-  @DisplayName(
-      "Test convertJsonToElement(JsonNode, JsonNode, Map); when HashMap(); then return ServiceTask")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "FlowElement ServiceTaskJsonConverter.convertJsonToElement(JsonNode, JsonNode, Map)"
-  })
-  void testConvertJsonToElement_whenHashMap_thenReturnServiceTask() {
+  @DisplayName("Test convertJsonToElement(JsonNode, JsonNode, Map); when ArrayNode(JsonNodeFactory) with nf is withExactBigDecimals 'true'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"FlowElement ServiceTaskJsonConverter.convertJsonToElement(JsonNode, JsonNode, Map)"})
+  void testConvertJsonToElement_whenArrayNodeWithNfIsWithExactBigDecimalsTrue() {
     // Arrange
     ServiceTaskJsonConverter serviceTaskJsonConverter = new ServiceTaskJsonConverter();
-    DoubleNode elementNode = DoubleNode.valueOf(10.0d);
-    DoubleNode modelNode = DoubleNode.valueOf(10.0d);
+    ArrayNode elementNode = new ArrayNode(JsonNodeFactory.withExactBigDecimals(true));
+    MissingNode modelNode = MissingNode.getInstance();
 
     // Act
-    FlowElement actualConvertJsonToElementResult =
-        serviceTaskJsonConverter.convertJsonToElement(elementNode, modelNode, new HashMap<>());
+    FlowElement actualConvertJsonToElementResult = serviceTaskJsonConverter.convertJsonToElement(elementNode, modelNode,
+        new HashMap<>());
 
     // Assert
     assertTrue(actualConvertJsonToElementResult instanceof ServiceTask);
@@ -131,17 +122,14 @@ class ServiceTaskJsonConverterDiffblueTest {
     assertNull(actualConvertJsonToElementResult.getSubProcess());
     assertEquals(0, actualConvertJsonToElementResult.getXmlColumnNumber());
     assertEquals(0, actualConvertJsonToElementResult.getXmlRowNumber());
-    assertFalse(
-        ((ServiceTask) actualConvertJsonToElementResult).hasMultiInstanceLoopCharacteristics());
+    assertFalse(((ServiceTask) actualConvertJsonToElementResult).hasMultiInstanceLoopCharacteristics());
     assertFalse(((ServiceTask) actualConvertJsonToElementResult).isForCompensation());
     assertFalse(((ServiceTask) actualConvertJsonToElementResult).isAsynchronous());
     assertFalse(((ServiceTask) actualConvertJsonToElementResult).isNotExclusive());
     assertFalse(((ServiceTask) actualConvertJsonToElementResult).isExtended());
     assertTrue(((ServiceTask) actualConvertJsonToElementResult).getBoundaryEvents().isEmpty());
-    assertTrue(
-        ((ServiceTask) actualConvertJsonToElementResult).getDataInputAssociations().isEmpty());
-    assertTrue(
-        ((ServiceTask) actualConvertJsonToElementResult).getDataOutputAssociations().isEmpty());
+    assertTrue(((ServiceTask) actualConvertJsonToElementResult).getDataInputAssociations().isEmpty());
+    assertTrue(((ServiceTask) actualConvertJsonToElementResult).getDataOutputAssociations().isEmpty());
     assertTrue(((ServiceTask) actualConvertJsonToElementResult).getMapExceptions().isEmpty());
     assertTrue(actualConvertJsonToElementResult.getExecutionListeners().isEmpty());
     assertTrue(((ServiceTask) actualConvertJsonToElementResult).getIncomingFlows().isEmpty());
@@ -154,31 +142,85 @@ class ServiceTaskJsonConverterDiffblueTest {
   }
 
   /**
-   * Test {@link ServiceTaskJsonConverter#setPropertyFieldValue(String, String, ServiceTask,
-   * ObjectNode)} with {@code propertyName}, {@code fieldName}, {@code task}, {@code
-   * propertiesNode}.
-   *
-   * <p>Method under test: {@link ServiceTaskJsonConverter#setPropertyFieldValue(String, String,
-   * ServiceTask, ObjectNode)}
+   * Test {@link ServiceTaskJsonConverter#convertJsonToElement(JsonNode, JsonNode, Map)}.
+   * <ul>
+   *   <li>When {@link HashMap#HashMap()}.</li>
+   *   <li>Then return {@link ServiceTask}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link ServiceTaskJsonConverter#convertJsonToElement(JsonNode, JsonNode, Map)}
    */
   @Test
-  @DisplayName(
-      "Test setPropertyFieldValue(String, String, ServiceTask, ObjectNode) with 'propertyName', 'fieldName', 'task', 'propertiesNode'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void ServiceTaskJsonConverter.setPropertyFieldValue(String, String, ServiceTask, ObjectNode)"
-  })
+  @DisplayName("Test convertJsonToElement(JsonNode, JsonNode, Map); when HashMap(); then return ServiceTask")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"FlowElement ServiceTaskJsonConverter.convertJsonToElement(JsonNode, JsonNode, Map)"})
+  void testConvertJsonToElement_whenHashMap_thenReturnServiceTask() {
+    // Arrange
+    ServiceTaskJsonConverter serviceTaskJsonConverter = new ServiceTaskJsonConverter();
+    MissingNode elementNode = MissingNode.getInstance();
+    MissingNode modelNode = MissingNode.getInstance();
+
+    // Act
+    FlowElement actualConvertJsonToElementResult = serviceTaskJsonConverter.convertJsonToElement(elementNode, modelNode,
+        new HashMap<>());
+
+    // Assert
+    assertTrue(actualConvertJsonToElementResult instanceof ServiceTask);
+    assertNull(((ServiceTask) actualConvertJsonToElementResult).getBehavior());
+    assertNull(((ServiceTask) actualConvertJsonToElementResult).getDefaultFlow());
+    assertNull(((ServiceTask) actualConvertJsonToElementResult).getFailedJobRetryTimeCycleValue());
+    assertNull(actualConvertJsonToElementResult.getId());
+    assertNull(actualConvertJsonToElementResult.getDocumentation());
+    assertNull(actualConvertJsonToElementResult.getName());
+    assertNull(((ServiceTask) actualConvertJsonToElementResult).getExtensionId());
+    assertNull(((ServiceTask) actualConvertJsonToElementResult).getImplementation());
+    assertNull(((ServiceTask) actualConvertJsonToElementResult).getImplementationType());
+    assertNull(((ServiceTask) actualConvertJsonToElementResult).getOperationRef());
+    assertNull(((ServiceTask) actualConvertJsonToElementResult).getResultVariableName());
+    assertNull(((ServiceTask) actualConvertJsonToElementResult).getSkipExpression());
+    assertNull(((ServiceTask) actualConvertJsonToElementResult).getType());
+    assertNull(actualConvertJsonToElementResult.getParentContainer());
+    assertNull(((ServiceTask) actualConvertJsonToElementResult).getIoSpecification());
+    assertNull(((ServiceTask) actualConvertJsonToElementResult).getLoopCharacteristics());
+    assertNull(actualConvertJsonToElementResult.getSubProcess());
+    assertEquals(0, actualConvertJsonToElementResult.getXmlColumnNumber());
+    assertEquals(0, actualConvertJsonToElementResult.getXmlRowNumber());
+    assertFalse(((ServiceTask) actualConvertJsonToElementResult).hasMultiInstanceLoopCharacteristics());
+    assertFalse(((ServiceTask) actualConvertJsonToElementResult).isForCompensation());
+    assertFalse(((ServiceTask) actualConvertJsonToElementResult).isAsynchronous());
+    assertFalse(((ServiceTask) actualConvertJsonToElementResult).isNotExclusive());
+    assertFalse(((ServiceTask) actualConvertJsonToElementResult).isExtended());
+    assertTrue(((ServiceTask) actualConvertJsonToElementResult).getBoundaryEvents().isEmpty());
+    assertTrue(((ServiceTask) actualConvertJsonToElementResult).getDataInputAssociations().isEmpty());
+    assertTrue(((ServiceTask) actualConvertJsonToElementResult).getDataOutputAssociations().isEmpty());
+    assertTrue(((ServiceTask) actualConvertJsonToElementResult).getMapExceptions().isEmpty());
+    assertTrue(actualConvertJsonToElementResult.getExecutionListeners().isEmpty());
+    assertTrue(((ServiceTask) actualConvertJsonToElementResult).getIncomingFlows().isEmpty());
+    assertTrue(((ServiceTask) actualConvertJsonToElementResult).getOutgoingFlows().isEmpty());
+    assertTrue(((ServiceTask) actualConvertJsonToElementResult).getCustomProperties().isEmpty());
+    assertTrue(((ServiceTask) actualConvertJsonToElementResult).getFieldExtensions().isEmpty());
+    assertTrue(actualConvertJsonToElementResult.getAttributes().isEmpty());
+    assertTrue(actualConvertJsonToElementResult.getExtensionElements().isEmpty());
+    assertTrue(((ServiceTask) actualConvertJsonToElementResult).isExclusive());
+  }
+
+  /**
+   * Test {@link ServiceTaskJsonConverter#setPropertyFieldValue(String, String, ServiceTask, ObjectNode)} with {@code propertyName}, {@code fieldName}, {@code task}, {@code propertiesNode}.
+   * <p>
+   * Method under test: {@link ServiceTaskJsonConverter#setPropertyFieldValue(String, String, ServiceTask, ObjectNode)}
+   */
+  @Test
+  @DisplayName("Test setPropertyFieldValue(String, String, ServiceTask, ObjectNode) with 'propertyName', 'fieldName', 'task', 'propertiesNode'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void ServiceTaskJsonConverter.setPropertyFieldValue(String, String, ServiceTask, ObjectNode)"})
   void testSetPropertyFieldValueWithPropertyNameFieldNameTaskPropertiesNode() {
     // Arrange
     ServiceTaskJsonConverter serviceTaskJsonConverter = new ServiceTaskJsonConverter();
     ServiceTask task = new ServiceTask();
-    JsonNodeFactory nc = JsonNodeFactory.withExactBigDecimals(true);
-    ObjectNode propertiesNode = new ObjectNode(nc);
+    ObjectNode propertiesNode = new ObjectNode(JsonNodeFactory.withExactBigDecimals(true));
 
     // Act
-    serviceTaskJsonConverter.setPropertyFieldValue(
-        "Property Name", "Field Name", task, propertiesNode);
+    serviceTaskJsonConverter.setPropertyFieldValue("Property Name", "Field Name", task, propertiesNode);
 
     // Assert that nothing has changed
     assertEquals("{ }", propertiesNode.toPrettyString());
@@ -188,40 +230,31 @@ class ServiceTaskJsonConverterDiffblueTest {
   }
 
   /**
-   * Test {@link ServiceTaskJsonConverter#setPropertyFieldValue(String, String, ServiceTask,
-   * ObjectNode)} with {@code propertyName}, {@code fieldName}, {@code task}, {@code
-   * propertiesNode}.
-   *
-   * <p>Method under test: {@link ServiceTaskJsonConverter#setPropertyFieldValue(String, String,
-   * ServiceTask, ObjectNode)}
+   * Test {@link ServiceTaskJsonConverter#setPropertyFieldValue(String, String, ServiceTask, ObjectNode)} with {@code propertyName}, {@code fieldName}, {@code task}, {@code propertiesNode}.
+   * <p>
+   * Method under test: {@link ServiceTaskJsonConverter#setPropertyFieldValue(String, String, ServiceTask, ObjectNode)}
    */
   @Test
-  @DisplayName(
-      "Test setPropertyFieldValue(String, String, ServiceTask, ObjectNode) with 'propertyName', 'fieldName', 'task', 'propertiesNode'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void ServiceTaskJsonConverter.setPropertyFieldValue(String, String, ServiceTask, ObjectNode)"
-  })
+  @DisplayName("Test setPropertyFieldValue(String, String, ServiceTask, ObjectNode) with 'propertyName', 'fieldName', 'task', 'propertiesNode'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void ServiceTaskJsonConverter.setPropertyFieldValue(String, String, ServiceTask, ObjectNode)"})
   void testSetPropertyFieldValueWithPropertyNameFieldNameTaskPropertiesNode2() {
     // Arrange
     ServiceTaskJsonConverter serviceTaskJsonConverter = new ServiceTaskJsonConverter();
 
     FieldExtension fieldExtension = new FieldExtension();
-    fieldExtension.setStringValue("not empty");
-    fieldExtension.setExpression("not empty");
+    fieldExtension.setExpression(null);
+    fieldExtension.setStringValue(null);
 
     ArrayList<FieldExtension> fieldExtensions = new ArrayList<>();
     fieldExtensions.add(fieldExtension);
 
     ServiceTask task = new ServiceTask();
     task.setFieldExtensions(fieldExtensions);
-    JsonNodeFactory nc = JsonNodeFactory.withExactBigDecimals(true);
-    ObjectNode propertiesNode = new ObjectNode(nc);
+    ObjectNode propertiesNode = new ObjectNode(JsonNodeFactory.withExactBigDecimals(true));
 
     // Act
-    serviceTaskJsonConverter.setPropertyFieldValue(
-        "Property Name", "Field Name", task, propertiesNode);
+    serviceTaskJsonConverter.setPropertyFieldValue("Property Name", "Field Name", task, propertiesNode);
 
     // Assert that nothing has changed
     assertEquals("{ }", propertiesNode.toPrettyString());
@@ -231,179 +264,32 @@ class ServiceTaskJsonConverterDiffblueTest {
   }
 
   /**
-   * Test {@link ServiceTaskJsonConverter#setPropertyFieldValue(String, String, ServiceTask,
-   * ObjectNode)} with {@code propertyName}, {@code fieldName}, {@code task}, {@code
-   * propertiesNode}.
-   *
-   * <p>Method under test: {@link ServiceTaskJsonConverter#setPropertyFieldValue(String, String,
-   * ServiceTask, ObjectNode)}
+   * Test {@link ServiceTaskJsonConverter#setPropertyFieldValue(String, String, ServiceTask, ObjectNode)} with {@code propertyName}, {@code fieldName}, {@code task}, {@code propertiesNode}.
+   * <p>
+   * Method under test: {@link ServiceTaskJsonConverter#setPropertyFieldValue(String, String, ServiceTask, ObjectNode)}
    */
   @Test
-  @DisplayName(
-      "Test setPropertyFieldValue(String, String, ServiceTask, ObjectNode) with 'propertyName', 'fieldName', 'task', 'propertiesNode'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void ServiceTaskJsonConverter.setPropertyFieldValue(String, String, ServiceTask, ObjectNode)"
-  })
+  @DisplayName("Test setPropertyFieldValue(String, String, ServiceTask, ObjectNode) with 'propertyName', 'fieldName', 'task', 'propertiesNode'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void ServiceTaskJsonConverter.setPropertyFieldValue(String, String, ServiceTask, ObjectNode)"})
   void testSetPropertyFieldValueWithPropertyNameFieldNameTaskPropertiesNode3() {
     // Arrange
     ServiceTaskJsonConverter serviceTaskJsonConverter = new ServiceTaskJsonConverter();
 
     FieldExtension fieldExtension = new FieldExtension();
     fieldExtension.setFieldName("Field Name");
-    fieldExtension.setStringValue("not empty");
-    fieldExtension.setExpression("not empty");
-
-    ArrayList<FieldExtension> fieldExtensions = new ArrayList<>();
-    fieldExtensions.add(fieldExtension);
-
-    ServiceTask task = new ServiceTask();
-    task.setFieldExtensions(fieldExtensions);
-    JsonNodeFactory nc = JsonNodeFactory.withExactBigDecimals(true);
-    ObjectNode propertiesNode = new ObjectNode(nc);
-
-    // Act
-    serviceTaskJsonConverter.setPropertyFieldValue(
-        "Property Name", "Field Name", task, propertiesNode);
-
-    // Assert
-    Iterator<JsonNode> iteratorResult = propertiesNode.iterator();
-    assertTrue(iteratorResult.next() instanceof TextNode);
-    assertEquals("{\n  \"Property Name\" : \"not empty\"\n}", propertiesNode.toPrettyString());
-    assertEquals(1, propertiesNode.size());
-    assertFalse(propertiesNode.isEmpty());
-    assertFalse(iteratorResult.hasNext());
-  }
-
-  /**
-   * Test {@link ServiceTaskJsonConverter#setPropertyFieldValue(String, String, ServiceTask,
-   * ObjectNode)} with {@code propertyName}, {@code fieldName}, {@code task}, {@code
-   * propertiesNode}.
-   *
-   * <p>Method under test: {@link ServiceTaskJsonConverter#setPropertyFieldValue(String, String,
-   * ServiceTask, ObjectNode)}
-   */
-  @Test
-  @DisplayName(
-      "Test setPropertyFieldValue(String, String, ServiceTask, ObjectNode) with 'propertyName', 'fieldName', 'task', 'propertiesNode'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void ServiceTaskJsonConverter.setPropertyFieldValue(String, String, ServiceTask, ObjectNode)"
-  })
-  void testSetPropertyFieldValueWithPropertyNameFieldNameTaskPropertiesNode4() {
-    // Arrange
-    ServiceTaskJsonConverter serviceTaskJsonConverter = new ServiceTaskJsonConverter();
-
-    FieldExtension fieldExtension = new FieldExtension();
-    fieldExtension.setFieldName("Field Name");
-    fieldExtension.setStringValue("");
-    fieldExtension.setExpression("not empty");
-
-    ArrayList<FieldExtension> fieldExtensions = new ArrayList<>();
-    fieldExtensions.add(fieldExtension);
-
-    ServiceTask task = new ServiceTask();
-    task.setFieldExtensions(fieldExtensions);
-    JsonNodeFactory nc = JsonNodeFactory.withExactBigDecimals(true);
-    ObjectNode propertiesNode = new ObjectNode(nc);
-
-    // Act
-    serviceTaskJsonConverter.setPropertyFieldValue(
-        "Property Name", "Field Name", task, propertiesNode);
-
-    // Assert
-    Iterator<JsonNode> iteratorResult = propertiesNode.iterator();
-    assertTrue(iteratorResult.next() instanceof TextNode);
-    assertEquals("{\n  \"Property Name\" : \"not empty\"\n}", propertiesNode.toPrettyString());
-    assertEquals(1, propertiesNode.size());
-    assertFalse(propertiesNode.isEmpty());
-    assertFalse(iteratorResult.hasNext());
-  }
-
-  /**
-   * Test {@link ServiceTaskJsonConverter#setPropertyFieldValue(String, String, ServiceTask,
-   * ObjectNode)} with {@code propertyName}, {@code fieldName}, {@code task}, {@code
-   * propertiesNode}.
-   *
-   * <p>Method under test: {@link ServiceTaskJsonConverter#setPropertyFieldValue(String, String,
-   * ServiceTask, ObjectNode)}
-   */
-  @Test
-  @DisplayName(
-      "Test setPropertyFieldValue(String, String, ServiceTask, ObjectNode) with 'propertyName', 'fieldName', 'task', 'propertiesNode'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void ServiceTaskJsonConverter.setPropertyFieldValue(String, String, ServiceTask, ObjectNode)"
-  })
-  void testSetPropertyFieldValueWithPropertyNameFieldNameTaskPropertiesNode5() {
-    // Arrange
-    ServiceTaskJsonConverter serviceTaskJsonConverter = new ServiceTaskJsonConverter();
-
-    FieldExtension fieldExtension = new FieldExtension();
-    fieldExtension.setFieldName("Field Name");
+    fieldExtension.setExpression(null);
     fieldExtension.setStringValue(null);
-    fieldExtension.setExpression("not empty");
 
     ArrayList<FieldExtension> fieldExtensions = new ArrayList<>();
     fieldExtensions.add(fieldExtension);
 
     ServiceTask task = new ServiceTask();
     task.setFieldExtensions(fieldExtensions);
-    JsonNodeFactory nc = JsonNodeFactory.withExactBigDecimals(true);
-    ObjectNode propertiesNode = new ObjectNode(nc);
+    ObjectNode propertiesNode = new ObjectNode(JsonNodeFactory.withExactBigDecimals(true));
 
     // Act
-    serviceTaskJsonConverter.setPropertyFieldValue(
-        "Property Name", "Field Name", task, propertiesNode);
-
-    // Assert
-    Iterator<JsonNode> iteratorResult = propertiesNode.iterator();
-    assertTrue(iteratorResult.next() instanceof TextNode);
-    assertEquals("{\n  \"Property Name\" : \"not empty\"\n}", propertiesNode.toPrettyString());
-    assertEquals(1, propertiesNode.size());
-    assertFalse(propertiesNode.isEmpty());
-    assertFalse(iteratorResult.hasNext());
-  }
-
-  /**
-   * Test {@link ServiceTaskJsonConverter#setPropertyFieldValue(String, String, ServiceTask,
-   * ObjectNode)} with {@code propertyName}, {@code fieldName}, {@code task}, {@code
-   * propertiesNode}.
-   *
-   * <p>Method under test: {@link ServiceTaskJsonConverter#setPropertyFieldValue(String, String,
-   * ServiceTask, ObjectNode)}
-   */
-  @Test
-  @DisplayName(
-      "Test setPropertyFieldValue(String, String, ServiceTask, ObjectNode) with 'propertyName', 'fieldName', 'task', 'propertiesNode'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void ServiceTaskJsonConverter.setPropertyFieldValue(String, String, ServiceTask, ObjectNode)"
-  })
-  void testSetPropertyFieldValueWithPropertyNameFieldNameTaskPropertiesNode6() {
-    // Arrange
-    ServiceTaskJsonConverter serviceTaskJsonConverter = new ServiceTaskJsonConverter();
-
-    FieldExtension fieldExtension = new FieldExtension();
-    fieldExtension.setFieldName("Field Name");
-    fieldExtension.setStringValue("");
-    fieldExtension.setExpression("");
-
-    ArrayList<FieldExtension> fieldExtensions = new ArrayList<>();
-    fieldExtensions.add(fieldExtension);
-
-    ServiceTask task = new ServiceTask();
-    task.setFieldExtensions(fieldExtensions);
-    JsonNodeFactory nc = JsonNodeFactory.withExactBigDecimals(true);
-    ObjectNode propertiesNode = new ObjectNode(nc);
-
-    // Act
-    serviceTaskJsonConverter.setPropertyFieldValue(
-        "Property Name", "Field Name", task, propertiesNode);
+    serviceTaskJsonConverter.setPropertyFieldValue("Property Name", "Field Name", task, propertiesNode);
 
     // Assert that nothing has changed
     assertEquals("{ }", propertiesNode.toPrettyString());
@@ -413,14 +299,122 @@ class ServiceTaskJsonConverterDiffblueTest {
   }
 
   /**
+   * Test {@link ServiceTaskJsonConverter#setPropertyFieldValue(String, String, ServiceTask, ObjectNode)} with {@code propertyName}, {@code fieldName}, {@code task}, {@code propertiesNode}.
+   * <p>
+   * Method under test: {@link ServiceTaskJsonConverter#setPropertyFieldValue(String, String, ServiceTask, ObjectNode)}
+   */
+  @Test
+  @DisplayName("Test setPropertyFieldValue(String, String, ServiceTask, ObjectNode) with 'propertyName', 'fieldName', 'task', 'propertiesNode'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void ServiceTaskJsonConverter.setPropertyFieldValue(String, String, ServiceTask, ObjectNode)"})
+  void testSetPropertyFieldValueWithPropertyNameFieldNameTaskPropertiesNode4() {
+    // Arrange
+    ServiceTaskJsonConverter serviceTaskJsonConverter = new ServiceTaskJsonConverter();
+
+    FieldExtension fieldExtension = new FieldExtension();
+    fieldExtension.setFieldName("Field Name");
+    fieldExtension.setExpression("Expression");
+    fieldExtension.setStringValue(null);
+
+    ArrayList<FieldExtension> fieldExtensions = new ArrayList<>();
+    fieldExtensions.add(fieldExtension);
+
+    ServiceTask task = new ServiceTask();
+    task.setFieldExtensions(fieldExtensions);
+    ObjectNode propertiesNode = new ObjectNode(JsonNodeFactory.withExactBigDecimals(true));
+
+    // Act
+    serviceTaskJsonConverter.setPropertyFieldValue("Property Name", "Field Name", task, propertiesNode);
+
+    // Assert
+    Iterator<JsonNode> iteratorResult = propertiesNode.iterator();
+    assertTrue(iteratorResult.next() instanceof TextNode);
+    assertEquals("{\n  \"Property Name\" : \"Expression\"\n}", propertiesNode.toPrettyString());
+    assertEquals(1, propertiesNode.size());
+    assertFalse(propertiesNode.isEmpty());
+    assertFalse(iteratorResult.hasNext());
+  }
+
+  /**
+   * Test {@link ServiceTaskJsonConverter#setPropertyFieldValue(String, String, ServiceTask, ObjectNode)} with {@code propertyName}, {@code fieldName}, {@code task}, {@code propertiesNode}.
+   * <p>
+   * Method under test: {@link ServiceTaskJsonConverter#setPropertyFieldValue(String, String, ServiceTask, ObjectNode)}
+   */
+  @Test
+  @DisplayName("Test setPropertyFieldValue(String, String, ServiceTask, ObjectNode) with 'propertyName', 'fieldName', 'task', 'propertiesNode'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void ServiceTaskJsonConverter.setPropertyFieldValue(String, String, ServiceTask, ObjectNode)"})
+  void testSetPropertyFieldValueWithPropertyNameFieldNameTaskPropertiesNode5() {
+    // Arrange
+    ServiceTaskJsonConverter serviceTaskJsonConverter = new ServiceTaskJsonConverter();
+
+    FieldExtension fieldExtension = new FieldExtension();
+    fieldExtension.setFieldName("Field Name");
+    fieldExtension.setExpression("");
+    fieldExtension.setStringValue(null);
+
+    ArrayList<FieldExtension> fieldExtensions = new ArrayList<>();
+    fieldExtensions.add(fieldExtension);
+
+    ServiceTask task = new ServiceTask();
+    task.setFieldExtensions(fieldExtensions);
+    ObjectNode propertiesNode = new ObjectNode(JsonNodeFactory.withExactBigDecimals(true));
+
+    // Act
+    serviceTaskJsonConverter.setPropertyFieldValue("Property Name", "Field Name", task, propertiesNode);
+
+    // Assert that nothing has changed
+    assertEquals("{ }", propertiesNode.toPrettyString());
+    assertEquals(0, propertiesNode.size());
+    assertFalse(propertiesNode.iterator().hasNext());
+    assertTrue(propertiesNode.isEmpty());
+  }
+
+  /**
+   * Test {@link ServiceTaskJsonConverter#setPropertyFieldValue(String, String, ServiceTask, ObjectNode)} with {@code propertyName}, {@code fieldName}, {@code task}, {@code propertiesNode}.
+   * <p>
+   * Method under test: {@link ServiceTaskJsonConverter#setPropertyFieldValue(String, String, ServiceTask, ObjectNode)}
+   */
+  @Test
+  @DisplayName("Test setPropertyFieldValue(String, String, ServiceTask, ObjectNode) with 'propertyName', 'fieldName', 'task', 'propertiesNode'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void ServiceTaskJsonConverter.setPropertyFieldValue(String, String, ServiceTask, ObjectNode)"})
+  void testSetPropertyFieldValueWithPropertyNameFieldNameTaskPropertiesNode6() {
+    // Arrange
+    ServiceTaskJsonConverter serviceTaskJsonConverter = new ServiceTaskJsonConverter();
+
+    FieldExtension fieldExtension = new FieldExtension();
+    fieldExtension.setFieldName("Field Name");
+    fieldExtension.setExpression(null);
+    fieldExtension.setStringValue("42");
+
+    ArrayList<FieldExtension> fieldExtensions = new ArrayList<>();
+    fieldExtensions.add(fieldExtension);
+
+    ServiceTask task = new ServiceTask();
+    task.setFieldExtensions(fieldExtensions);
+    ObjectNode propertiesNode = new ObjectNode(JsonNodeFactory.withExactBigDecimals(true));
+
+    // Act
+    serviceTaskJsonConverter.setPropertyFieldValue("Property Name", "Field Name", task, propertiesNode);
+
+    // Assert
+    Iterator<JsonNode> iteratorResult = propertiesNode.iterator();
+    assertTrue(iteratorResult.next() instanceof TextNode);
+    assertEquals("{\n  \"Property Name\" : \"42\"\n}", propertiesNode.toPrettyString());
+    assertEquals(1, propertiesNode.size());
+    assertFalse(propertiesNode.isEmpty());
+    assertFalse(iteratorResult.hasNext());
+  }
+
+  /**
    * Test new {@link ServiceTaskJsonConverter} (default constructor).
-   *
-   * <p>Method under test: default or parameterless constructor of {@link ServiceTaskJsonConverter}
+   * <p>
+   * Method under test: default or parameterless constructor of {@link ServiceTaskJsonConverter}
    */
   @Test
   @DisplayName("Test new ServiceTaskJsonConverter (default constructor)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void ServiceTaskJsonConverter.<init>()"})
   void testNewServiceTaskJsonConverter() {
     // Arrange and Act

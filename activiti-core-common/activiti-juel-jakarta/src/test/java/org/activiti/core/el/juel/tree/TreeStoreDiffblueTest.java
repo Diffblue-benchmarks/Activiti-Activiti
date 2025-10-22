@@ -17,10 +17,10 @@ package org.activiti.core.el.juel.tree;
 
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
 import org.activiti.core.el.juel.tree.impl.Cache;
@@ -33,9 +33,8 @@ import org.mockito.Mockito;
 class TreeStoreDiffblueTest {
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>{@link TreeStore#TreeStore(TreeBuilder, TreeCache)}
    *   <li>{@link TreeStore#getBuilder()}
@@ -43,160 +42,136 @@ class TreeStoreDiffblueTest {
    */
   @Test
   @DisplayName("Test getters and setters")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void TreeStore.<init>(TreeBuilder, TreeCache)",
-    "TreeBuilder TreeStore.getBuilder()"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void TreeStore.<init>(TreeBuilder, TreeCache)", "TreeBuilder TreeStore.getBuilder()"})
   void testGettersAndSetters() {
     // Arrange
     TreeBuilder builder = mock(TreeBuilder.class);
 
-    // Act
-    TreeStore actualTreeStore = new TreeStore(builder, new Cache(3));
-
-    // Assert
-    assertSame(builder, actualTreeStore.getBuilder());
+    // Act and Assert
+    assertSame(builder, (new TreeStore(builder, new Cache(3))).getBuilder());
   }
 
   /**
    * Test {@link TreeStore#get(String)}.
-   *
-   * <p>Method under test: {@link TreeStore#get(String)}
+   * <p>
+   * Method under test: {@link TreeStore#get(String)}
    */
   @Test
   @DisplayName("Test get(String)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"Tree TreeStore.get(String)"})
   void testGet() throws TreeBuilderException {
     // Arrange
     TreeBuilder builder = mock(TreeBuilder.class);
     AstNull root = new AstNull();
     ArrayList<FunctionNode> functions = new ArrayList<>();
-
     Tree tree = new Tree(root, functions, new ArrayList<>(), true);
+
     when(builder.build(Mockito.<String>any())).thenReturn(tree);
-    TreeStore treeStore = new TreeStore(builder, new Cache(3));
 
     // Act
-    Tree actualGetResult = treeStore.get("Expression");
+    Tree actualGetResult = (new TreeStore(builder, new Cache(3))).get("Expression");
 
     // Assert
-    verify(builder).build("Expression");
+    verify(builder).build(eq("Expression"));
     assertSame(tree, actualGetResult);
   }
 
   /**
    * Test {@link TreeStore#get(String)}.
-   *
-   * <p>Method under test: {@link TreeStore#get(String)}
+   * <p>
+   * Method under test: {@link TreeStore#get(String)}
    */
   @Test
   @DisplayName("Test get(String)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"Tree TreeStore.get(String)"})
   void testGet2() throws TreeBuilderException {
     // Arrange
     Cache cache = new Cache(3);
     AstNull root = new AstNull();
     ArrayList<FunctionNode> functions = new ArrayList<>();
-
     Tree tree = new Tree(root, functions, new ArrayList<>(), true);
+
     cache.put("Expression", tree);
-    TreeStore treeStore = new TreeStore(mock(TreeBuilder.class), cache);
 
     // Act and Assert
-    assertSame(tree, treeStore.get("Expression"));
+    assertSame(tree, (new TreeStore(mock(TreeBuilder.class), cache)).get("Expression"));
   }
 
   /**
    * Test {@link TreeStore#get(String)}.
-   *
    * <ul>
-   *   <li>Given {@link TreeStore#TreeStore(TreeBuilder, TreeCache)} with builder is {@link
-   *       TreeBuilder} and cache is {@code null}.
+   *   <li>Given {@link TreeStore#TreeStore(TreeBuilder, TreeCache)} with builder is {@link TreeBuilder} and cache is {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link TreeStore#get(String)}
+   * <p>
+   * Method under test: {@link TreeStore#get(String)}
    */
   @Test
-  @DisplayName(
-      "Test get(String); given TreeStore(TreeBuilder, TreeCache) with builder is TreeBuilder and cache is 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test get(String); given TreeStore(TreeBuilder, TreeCache) with builder is TreeBuilder and cache is 'null'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"Tree TreeStore.get(String)"})
   void testGet_givenTreeStoreWithBuilderIsTreeBuilderAndCacheIsNull() throws TreeBuilderException {
     // Arrange
     TreeBuilder builder = mock(TreeBuilder.class);
     AstNull root = new AstNull();
     ArrayList<FunctionNode> functions = new ArrayList<>();
-
     Tree tree = new Tree(root, functions, new ArrayList<>(), true);
+
     when(builder.build(Mockito.<String>any())).thenReturn(tree);
-    TreeStore treeStore = new TreeStore(builder, null);
 
     // Act
-    Tree actualGetResult = treeStore.get("Expression");
+    Tree actualGetResult = (new TreeStore(builder, null)).get("Expression");
 
     // Assert
-    verify(builder).build("Expression");
+    verify(builder).build(eq("Expression"));
     assertSame(tree, actualGetResult);
   }
 
   /**
    * Test {@link TreeStore#get(String)}.
-   *
    * <ul>
-   *   <li>Then throw {@link TreeBuilderException}.
+   *   <li>Then throw {@link TreeBuilderException}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link TreeStore#get(String)}
+   * <p>
+   * Method under test: {@link TreeStore#get(String)}
    */
   @Test
   @DisplayName("Test get(String); then throw TreeBuilderException")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"Tree TreeStore.get(String)"})
   void testGet_thenThrowTreeBuilderException() throws TreeBuilderException {
     // Arrange
     TreeBuilder builder = mock(TreeBuilder.class);
-    TreeBuilderException treeBuilderException =
-        new TreeBuilderException("Expression", 1, "3", "Expected", "An error occurred");
-    when(builder.build(Mockito.<String>any())).thenThrow(treeBuilderException);
-    TreeStore treeStore = new TreeStore(builder, new Cache(3));
+    when(builder.build(Mockito.<String>any()))
+        .thenThrow(new TreeBuilderException("Expression", 1, "3", "Expected", "An error occurred"));
 
     // Act and Assert
-    assertThrows(TreeBuilderException.class, () -> treeStore.get("Expression"));
-    verify(builder).build("Expression");
+    assertThrows(TreeBuilderException.class, () -> (new TreeStore(builder, new Cache(3))).get("Expression"));
+    verify(builder).build(eq("Expression"));
   }
 
   /**
    * Test {@link TreeStore#get(String)}.
-   *
    * <ul>
-   *   <li>Then throw {@link TreeBuilderException}.
+   *   <li>Then throw {@link TreeBuilderException}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link TreeStore#get(String)}
+   * <p>
+   * Method under test: {@link TreeStore#get(String)}
    */
   @Test
   @DisplayName("Test get(String); then throw TreeBuilderException")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"Tree TreeStore.get(String)"})
   void testGet_thenThrowTreeBuilderException2() throws TreeBuilderException {
     // Arrange
     TreeBuilder builder = mock(TreeBuilder.class);
-    TreeBuilderException treeBuilderException =
-        new TreeBuilderException("Expression", 1, "3", "Expected", "An error occurred");
-    when(builder.build(Mockito.<String>any())).thenThrow(treeBuilderException);
-    TreeStore treeStore = new TreeStore(builder, null);
+    when(builder.build(Mockito.<String>any()))
+        .thenThrow(new TreeBuilderException("Expression", 1, "3", "Expected", "An error occurred"));
 
     // Act and Assert
-    assertThrows(TreeBuilderException.class, () -> treeStore.get("Expression"));
-    verify(builder).build("Expression");
+    assertThrows(TreeBuilderException.class, () -> (new TreeStore(builder, null)).get("Expression"));
+    verify(builder).build(eq("Expression"));
   }
 }

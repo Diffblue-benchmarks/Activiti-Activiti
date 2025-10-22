@@ -19,7 +19,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
 import java.util.List;
@@ -31,60 +30,49 @@ import org.junit.jupiter.api.Test;
 class GetTasksPayloadBuilderDiffblueTest {
   /**
    * Test {@link GetTasksPayloadBuilder#withGroup(String)}.
-   *
    * <ul>
-   *   <li>Given tasks.
+   *   <li>Given tasks.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link GetTasksPayloadBuilder#withGroup(String)}
+   * <p>
+   * Method under test: {@link GetTasksPayloadBuilder#withGroup(String)}
    */
   @Test
   @DisplayName("Test withGroup(String); given tasks")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"GetTasksPayloadBuilder GetTasksPayloadBuilder.withGroup(String)"})
   void testWithGroup_givenTasks() {
     // Arrange
     GetTasksPayloadBuilder tasksResult = TaskPayloadBuilder.tasks();
 
-    // Act
-    GetTasksPayloadBuilder actualWithGroupResult = tasksResult.withGroup("Group");
-
-    // Assert
-    assertSame(tasksResult, actualWithGroupResult);
+    // Act and Assert
+    assertSame(tasksResult, tasksResult.withGroup("Group"));
   }
 
   /**
    * Test {@link GetTasksPayloadBuilder#withGroup(String)}.
-   *
    * <ul>
-   *   <li>Given tasks withGroups {@link ArrayList#ArrayList()}.
+   *   <li>Given tasks withGroups {@link ArrayList#ArrayList()}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link GetTasksPayloadBuilder#withGroup(String)}
+   * <p>
+   * Method under test: {@link GetTasksPayloadBuilder#withGroup(String)}
    */
   @Test
   @DisplayName("Test withGroup(String); given tasks withGroups ArrayList()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"GetTasksPayloadBuilder GetTasksPayloadBuilder.withGroup(String)"})
   void testWithGroup_givenTasksWithGroupsArrayList() {
     // Arrange
     GetTasksPayloadBuilder tasksResult = TaskPayloadBuilder.tasks();
     tasksResult.withGroups(new ArrayList<>());
 
-    // Act
-    GetTasksPayloadBuilder actualWithGroupResult = tasksResult.withGroup("Group");
-
-    // Assert
-    assertSame(tasksResult, actualWithGroupResult);
+    // Act and Assert
+    assertSame(tasksResult, tasksResult.withGroup("Group"));
   }
 
   /**
    * Test {@link GetTasksPayloadBuilder#build()}.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>{@link GetTasksPayloadBuilder#build()}
    *   <li>default or parameterless constructor of {@link GetTasksPayloadBuilder}
@@ -96,34 +84,29 @@ class GetTasksPayloadBuilderDiffblueTest {
    */
   @Test
   @DisplayName("Test build()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void GetTasksPayloadBuilder.<init>()",
-    "GetTasksPayload GetTasksPayloadBuilder.build()",
-    "GetTasksPayloadBuilder GetTasksPayloadBuilder.withAssignee(String)",
-    "GetTasksPayloadBuilder GetTasksPayloadBuilder.withGroups(List)",
-    "GetTasksPayloadBuilder GetTasksPayloadBuilder.withParentTaskId(String)",
-    "GetTasksPayloadBuilder GetTasksPayloadBuilder.withProcessInstanceId(String)"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void GetTasksPayloadBuilder.<init>()", "GetTasksPayload GetTasksPayloadBuilder.build()",
+      "GetTasksPayloadBuilder GetTasksPayloadBuilder.withAssignee(String)",
+      "GetTasksPayloadBuilder GetTasksPayloadBuilder.withGroups(List)",
+      "GetTasksPayloadBuilder GetTasksPayloadBuilder.withParentTaskId(String)",
+      "GetTasksPayloadBuilder GetTasksPayloadBuilder.withProcessInstanceId(String)"})
   void testBuild() {
-    // Arrange and Act
-    GetTasksPayloadBuilder actualWithGroupResult =
-        new GetTasksPayloadBuilder().withAssignee("Assignee").withGroup("Group");
+    // Arrange
+    GetTasksPayloadBuilder withGroupResult = (new GetTasksPayloadBuilder()).withAssignee("Assignee").withGroup("Group");
     ArrayList<String> groups = new ArrayList<>();
-    GetTasksPayload actualGetTasksPayload =
-        actualWithGroupResult
-            .withGroups(groups)
-            .withParentTaskId("42")
-            .withProcessInstanceId("42")
-            .build();
+
+    // Act
+    GetTasksPayload actualBuildResult = withGroupResult.withGroups(groups)
+        .withParentTaskId("42")
+        .withProcessInstanceId("42")
+        .build();
 
     // Assert
-    assertEquals("42", actualGetTasksPayload.getParentTaskId());
-    assertEquals("42", actualGetTasksPayload.getProcessInstanceId());
-    assertEquals("Assignee", actualGetTasksPayload.getAssigneeId());
-    assertFalse(actualGetTasksPayload.isStandalone());
-    List<String> groups2 = actualGetTasksPayload.getGroups();
+    assertEquals("42", actualBuildResult.getParentTaskId());
+    assertEquals("42", actualBuildResult.getProcessInstanceId());
+    assertEquals("Assignee", actualBuildResult.getAssigneeId());
+    assertFalse(actualBuildResult.isStandalone());
+    List<String> groups2 = actualBuildResult.getGroups();
     assertTrue(groups2.isEmpty());
     assertSame(groups, groups2);
   }

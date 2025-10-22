@@ -17,7 +17,6 @@ package org.activiti.api.runtime.model.impl;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
@@ -26,34 +25,29 @@ import org.junit.jupiter.api.Test;
 class ProcessVariablesMapDiffblueTest {
   /**
    * Test {@link ProcessVariablesMap#clone()}.
-   *
-   * <p>Method under test: {@link ProcessVariablesMap#clone()}
+   * <p>
+   * Method under test: {@link ProcessVariablesMap#clone()}
    */
   @Test
   @DisplayName("Test clone()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"ProcessVariablesMap ProcessVariablesMap.clone()"})
   void testClone() {
     // Arrange
     ProcessVariablesMap<Object, Object> objectObjectMap = new ProcessVariablesMap<>();
 
-    // Act
-    ProcessVariablesMap<Object, Object> actualCloneResult = objectObjectMap.clone();
-
-    // Assert
-    assertEquals(objectObjectMap, actualCloneResult);
+    // Act and Assert
+    assertEquals(objectObjectMap, objectObjectMap.clone());
   }
 
   /**
    * Test new {@link ProcessVariablesMap} (default constructor).
-   *
-   * <p>Method under test: default or parameterless constructor of {@link ProcessVariablesMap}
+   * <p>
+   * Method under test: default or parameterless constructor of {@link ProcessVariablesMap}
    */
   @Test
   @DisplayName("Test new ProcessVariablesMap (default constructor)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void ProcessVariablesMap.<init>()"})
   void testNewProcessVariablesMap() {
     // Arrange and Act

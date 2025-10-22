@@ -17,7 +17,6 @@ package org.activiti.runtime.api.model.impl;
 
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.HashMap;
 import org.activiti.api.process.model.BPMNSignal;
@@ -37,28 +36,25 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 @ContextConfiguration(classes = {ToSignalConverter.class})
 @ExtendWith(SpringExtension.class)
 class ToSignalConverterDiffblueTest {
-  @Autowired private ToSignalConverter toSignalConverter;
+  @Autowired
+  private ToSignalConverter toSignalConverter;
 
   /**
    * Test {@link ToSignalConverter#from(ActivitiSignalEvent)}.
-   *
    * <ul>
-   *   <li>Given {@link HashMap#HashMap()}.
-   *   <li>Then return SignalPayload Variables Empty.
+   *   <li>Given {@link HashMap#HashMap()}.</li>
+   *   <li>Then return SignalPayload Variables Empty.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ToSignalConverter#from(ActivitiSignalEvent)}
+   * <p>
+   * Method under test: {@link ToSignalConverter#from(ActivitiSignalEvent)}
    */
   @Test
-  @DisplayName(
-      "Test from(ActivitiSignalEvent); given HashMap(); then return SignalPayload Variables Empty")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test from(ActivitiSignalEvent); given HashMap(); then return SignalPayload Variables Empty")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"BPMNSignal ToSignalConverter.from(ActivitiSignalEvent)"})
   void testFrom_givenHashMap_thenReturnSignalPayloadVariablesEmpty() {
     // Arrange
-    ActivitiSignalEventImpl internalEvent =
-        new ActivitiSignalEventImpl(ActivitiEventType.ENTITY_CREATED);
+    ActivitiSignalEventImpl internalEvent = new ActivitiSignalEventImpl(ActivitiEventType.ENTITY_CREATED);
     internalEvent.setSignalData(new HashMap<>());
 
     // Act
@@ -76,22 +72,19 @@ class ToSignalConverterDiffblueTest {
 
   /**
    * Test {@link ToSignalConverter#from(ActivitiSignalEvent)}.
-   *
    * <ul>
-   *   <li>Then return SignalPayload Variables is {@code null}.
+   *   <li>Then return SignalPayload Variables is {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ToSignalConverter#from(ActivitiSignalEvent)}
+   * <p>
+   * Method under test: {@link ToSignalConverter#from(ActivitiSignalEvent)}
    */
   @Test
   @DisplayName("Test from(ActivitiSignalEvent); then return SignalPayload Variables is 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"BPMNSignal ToSignalConverter.from(ActivitiSignalEvent)"})
   void testFrom_thenReturnSignalPayloadVariablesIsNull() {
     // Arrange and Act
-    BPMNSignal actualFromResult =
-        toSignalConverter.from(new ActivitiSignalEventImpl(ActivitiEventType.ENTITY_CREATED));
+    BPMNSignal actualFromResult = toSignalConverter.from(new ActivitiSignalEventImpl(ActivitiEventType.ENTITY_CREATED));
 
     // Assert
     assertTrue(actualFromResult instanceof BPMNSignalImpl);

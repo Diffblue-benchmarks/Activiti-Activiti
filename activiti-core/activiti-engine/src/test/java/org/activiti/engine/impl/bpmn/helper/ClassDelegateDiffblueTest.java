@@ -20,9 +20,11 @@ import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertThrows;
 import static org.junit.Assert.assertTrue;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.mock;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
@@ -36,33 +38,27 @@ import org.activiti.bpmn.model.Task;
 import org.activiti.engine.ActivitiIllegalArgumentException;
 import org.activiti.engine.delegate.DelegateExecution;
 import org.activiti.engine.delegate.Expression;
-import org.activiti.engine.impl.bpmn.behavior.AbstractBpmnActivityBehavior;
-import org.activiti.engine.impl.bpmn.behavior.ParallelMultiInstanceBehavior;
+import org.activiti.engine.delegate.VariableScope;
 import org.activiti.engine.impl.bpmn.parser.FieldDeclaration;
-import org.activiti.engine.impl.delegate.ActivityBehavior;
 import org.activiti.engine.impl.el.FixedValue;
 import org.activiti.engine.impl.persistence.entity.ExecutionEntityImpl;
 import org.activiti.engine.impl.util.json.JSONObject;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
-import org.springframework.test.annotation.DirtiesContext;
-import org.springframework.test.annotation.DirtiesContext.ClassMode;
+import org.mockito.Mockito;
 
-@DirtiesContext(classMode = ClassMode.AFTER_EACH_TEST_METHOD)
 public class ClassDelegateDiffblueTest {
   /**
    * Test {@link ClassDelegate#ClassDelegate(Class, List)}.
-   *
    * <ul>
-   *   <li>Given {@link FieldDeclaration#FieldDeclaration()}.
-   *   <li>Then return {@link ClassDelegate#fieldDeclarations} size is one.
+   *   <li>Given {@link FieldDeclaration#FieldDeclaration()}.</li>
+   *   <li>Then return {@link ClassDelegate#fieldDeclarations} size is one.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ClassDelegate#ClassDelegate(Class, List)}
+   * <p>
+   * Method under test: {@link ClassDelegate#ClassDelegate(Class, List)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void ClassDelegate.<init>(Class, List)"})
   public void testNewClassDelegate_givenFieldDeclaration_thenReturnFieldDeclarationsSizeIsOne() {
     // Arrange
@@ -72,28 +68,23 @@ public class ClassDelegateDiffblueTest {
     FieldDeclaration fieldDeclaration = new FieldDeclaration();
     fieldDeclarations.add(fieldDeclaration);
 
-    // Act
-    ClassDelegate actualClassDelegate = new ClassDelegate(clazz, fieldDeclarations);
-
-    // Assert
-    List<FieldDeclaration> fieldDeclarationList = actualClassDelegate.fieldDeclarations;
+    // Act and Assert
+    List<FieldDeclaration> fieldDeclarationList = (new ClassDelegate(clazz, fieldDeclarations)).fieldDeclarations;
     assertEquals(1, fieldDeclarationList.size());
     assertSame(fieldDeclaration, fieldDeclarationList.get(0));
   }
 
   /**
    * Test {@link ClassDelegate#ClassDelegate(Class, List, Expression)}.
-   *
    * <ul>
-   *   <li>Given {@link FieldDeclaration#FieldDeclaration()}.
-   *   <li>Then return {@link ClassDelegate#fieldDeclarations} size is one.
+   *   <li>Given {@link FieldDeclaration#FieldDeclaration()}.</li>
+   *   <li>Then return {@link ClassDelegate#fieldDeclarations} size is one.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ClassDelegate#ClassDelegate(Class, List, Expression)}
+   * <p>
+   * Method under test: {@link ClassDelegate#ClassDelegate(Class, List, Expression)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void ClassDelegate.<init>(Class, List, Expression)"})
   public void testNewClassDelegate_givenFieldDeclaration_thenReturnFieldDeclarationsSizeIsOne2() {
     // Arrange
@@ -103,30 +94,24 @@ public class ClassDelegateDiffblueTest {
     FieldDeclaration fieldDeclaration = new FieldDeclaration();
     fieldDeclarations.add(fieldDeclaration);
 
-    // Act
-    ClassDelegate actualClassDelegate =
-        new ClassDelegate(clazz, fieldDeclarations, new FixedValue(JSONObject.NULL));
-
-    // Assert
-    List<FieldDeclaration> fieldDeclarationList = actualClassDelegate.fieldDeclarations;
+    // Act and Assert
+    List<FieldDeclaration> fieldDeclarationList = (new ClassDelegate(clazz, fieldDeclarations,
+        new FixedValue(JSONObject.NULL))).fieldDeclarations;
     assertEquals(1, fieldDeclarationList.size());
     assertSame(fieldDeclaration, fieldDeclarationList.get(0));
   }
 
   /**
    * Test {@link ClassDelegate#ClassDelegate(String, String, List, Expression, List)}.
-   *
    * <ul>
-   *   <li>Given {@link FieldDeclaration#FieldDeclaration()}.
-   *   <li>Then return {@link ClassDelegate#fieldDeclarations} size is one.
+   *   <li>Given {@link FieldDeclaration#FieldDeclaration()}.</li>
+   *   <li>Then return {@link ClassDelegate#fieldDeclarations} size is one.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ClassDelegate#ClassDelegate(String, String, List, Expression,
-   * List)}
+   * <p>
+   * Method under test: {@link ClassDelegate#ClassDelegate(String, String, List, Expression, List)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void ClassDelegate.<init>(String, String, List, Expression, List)"})
   public void testNewClassDelegate_givenFieldDeclaration_thenReturnFieldDeclarationsSizeIsOne3() {
     // Arrange
@@ -135,29 +120,24 @@ public class ClassDelegateDiffblueTest {
     fieldDeclarations.add(fieldDeclaration);
     FixedValue skipExpression = new FixedValue(JSONObject.NULL);
 
-    // Act
-    ClassDelegate actualClassDelegate =
-        new ClassDelegate("42", "Class Name", fieldDeclarations, skipExpression, new ArrayList<>());
-
-    // Assert
-    List<FieldDeclaration> fieldDeclarationList = actualClassDelegate.fieldDeclarations;
+    // Act and Assert
+    List<FieldDeclaration> fieldDeclarationList = (new ClassDelegate("42", "Class Name", fieldDeclarations,
+        skipExpression, new ArrayList<>())).fieldDeclarations;
     assertEquals(1, fieldDeclarationList.size());
     assertSame(fieldDeclaration, fieldDeclarationList.get(0));
   }
 
   /**
    * Test {@link ClassDelegate#ClassDelegate(String, List)}.
-   *
    * <ul>
-   *   <li>Given {@link FieldDeclaration#FieldDeclaration()}.
-   *   <li>Then return {@link ClassDelegate#fieldDeclarations} size is one.
+   *   <li>Given {@link FieldDeclaration#FieldDeclaration()}.</li>
+   *   <li>Then return {@link ClassDelegate#fieldDeclarations} size is one.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ClassDelegate#ClassDelegate(String, List)}
+   * <p>
+   * Method under test: {@link ClassDelegate#ClassDelegate(String, List)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void ClassDelegate.<init>(String, List)"})
   public void testNewClassDelegate_givenFieldDeclaration_thenReturnFieldDeclarationsSizeIsOne4() {
     // Arrange
@@ -165,28 +145,24 @@ public class ClassDelegateDiffblueTest {
     FieldDeclaration fieldDeclaration = new FieldDeclaration();
     fieldDeclarations.add(fieldDeclaration);
 
-    // Act
-    ClassDelegate actualClassDelegate = new ClassDelegate("Class Name", fieldDeclarations);
-
-    // Assert
-    List<FieldDeclaration> fieldDeclarationList = actualClassDelegate.fieldDeclarations;
+    // Act and Assert
+    List<FieldDeclaration> fieldDeclarationList = (new ClassDelegate("Class Name",
+        fieldDeclarations)).fieldDeclarations;
     assertEquals(1, fieldDeclarationList.size());
     assertSame(fieldDeclaration, fieldDeclarationList.get(0));
   }
 
   /**
    * Test {@link ClassDelegate#ClassDelegate(String, List, Expression)}.
-   *
    * <ul>
-   *   <li>Given {@link FieldDeclaration#FieldDeclaration()}.
-   *   <li>Then return {@link ClassDelegate#fieldDeclarations} size is one.
+   *   <li>Given {@link FieldDeclaration#FieldDeclaration()}.</li>
+   *   <li>Then return {@link ClassDelegate#fieldDeclarations} size is one.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ClassDelegate#ClassDelegate(String, List, Expression)}
+   * <p>
+   * Method under test: {@link ClassDelegate#ClassDelegate(String, List, Expression)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void ClassDelegate.<init>(String, List, Expression)"})
   public void testNewClassDelegate_givenFieldDeclaration_thenReturnFieldDeclarationsSizeIsOne5() {
     // Arrange
@@ -194,29 +170,24 @@ public class ClassDelegateDiffblueTest {
     FieldDeclaration fieldDeclaration = new FieldDeclaration();
     fieldDeclarations.add(fieldDeclaration);
 
-    // Act
-    ClassDelegate actualClassDelegate =
-        new ClassDelegate("Class Name", fieldDeclarations, new FixedValue(JSONObject.NULL));
-
-    // Assert
-    List<FieldDeclaration> fieldDeclarationList = actualClassDelegate.fieldDeclarations;
+    // Act and Assert
+    List<FieldDeclaration> fieldDeclarationList = (new ClassDelegate("Class Name", fieldDeclarations,
+        new FixedValue(JSONObject.NULL))).fieldDeclarations;
     assertEquals(1, fieldDeclarationList.size());
     assertSame(fieldDeclaration, fieldDeclarationList.get(0));
   }
 
   /**
    * Test {@link ClassDelegate#ClassDelegate(Class, List)}.
-   *
    * <ul>
-   *   <li>Given {@link FieldDeclaration#FieldDeclaration()}.
-   *   <li>Then return {@link ClassDelegate#fieldDeclarations} size is two.
+   *   <li>Given {@link FieldDeclaration#FieldDeclaration()}.</li>
+   *   <li>Then return {@link ClassDelegate#fieldDeclarations} size is two.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ClassDelegate#ClassDelegate(Class, List)}
+   * <p>
+   * Method under test: {@link ClassDelegate#ClassDelegate(Class, List)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void ClassDelegate.<init>(Class, List)"})
   public void testNewClassDelegate_givenFieldDeclaration_thenReturnFieldDeclarationsSizeIsTwo() {
     // Arrange
@@ -227,28 +198,23 @@ public class ClassDelegateDiffblueTest {
     FieldDeclaration fieldDeclaration = new FieldDeclaration();
     fieldDeclarations.add(fieldDeclaration);
 
-    // Act
-    ClassDelegate actualClassDelegate = new ClassDelegate(clazz, fieldDeclarations);
-
-    // Assert
-    List<FieldDeclaration> fieldDeclarationList = actualClassDelegate.fieldDeclarations;
+    // Act and Assert
+    List<FieldDeclaration> fieldDeclarationList = (new ClassDelegate(clazz, fieldDeclarations)).fieldDeclarations;
     assertEquals(2, fieldDeclarationList.size());
     assertSame(fieldDeclaration, fieldDeclarationList.get(1));
   }
 
   /**
    * Test {@link ClassDelegate#ClassDelegate(Class, List, Expression)}.
-   *
    * <ul>
-   *   <li>Given {@link FieldDeclaration#FieldDeclaration()}.
-   *   <li>Then return {@link ClassDelegate#fieldDeclarations} size is two.
+   *   <li>Given {@link FieldDeclaration#FieldDeclaration()}.</li>
+   *   <li>Then return {@link ClassDelegate#fieldDeclarations} size is two.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ClassDelegate#ClassDelegate(Class, List, Expression)}
+   * <p>
+   * Method under test: {@link ClassDelegate#ClassDelegate(Class, List, Expression)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void ClassDelegate.<init>(Class, List, Expression)"})
   public void testNewClassDelegate_givenFieldDeclaration_thenReturnFieldDeclarationsSizeIsTwo2() {
     // Arrange
@@ -259,30 +225,24 @@ public class ClassDelegateDiffblueTest {
     FieldDeclaration fieldDeclaration = new FieldDeclaration();
     fieldDeclarations.add(fieldDeclaration);
 
-    // Act
-    ClassDelegate actualClassDelegate =
-        new ClassDelegate(clazz, fieldDeclarations, new FixedValue(JSONObject.NULL));
-
-    // Assert
-    List<FieldDeclaration> fieldDeclarationList = actualClassDelegate.fieldDeclarations;
+    // Act and Assert
+    List<FieldDeclaration> fieldDeclarationList = (new ClassDelegate(clazz, fieldDeclarations,
+        new FixedValue(JSONObject.NULL))).fieldDeclarations;
     assertEquals(2, fieldDeclarationList.size());
     assertSame(fieldDeclaration, fieldDeclarationList.get(1));
   }
 
   /**
    * Test {@link ClassDelegate#ClassDelegate(String, String, List, Expression, List)}.
-   *
    * <ul>
-   *   <li>Given {@link FieldDeclaration#FieldDeclaration()}.
-   *   <li>Then return {@link ClassDelegate#fieldDeclarations} size is two.
+   *   <li>Given {@link FieldDeclaration#FieldDeclaration()}.</li>
+   *   <li>Then return {@link ClassDelegate#fieldDeclarations} size is two.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ClassDelegate#ClassDelegate(String, String, List, Expression,
-   * List)}
+   * <p>
+   * Method under test: {@link ClassDelegate#ClassDelegate(String, String, List, Expression, List)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void ClassDelegate.<init>(String, String, List, Expression, List)"})
   public void testNewClassDelegate_givenFieldDeclaration_thenReturnFieldDeclarationsSizeIsTwo3() {
     // Arrange
@@ -292,29 +252,24 @@ public class ClassDelegateDiffblueTest {
     fieldDeclarations.add(fieldDeclaration);
     FixedValue skipExpression = new FixedValue(JSONObject.NULL);
 
-    // Act
-    ClassDelegate actualClassDelegate =
-        new ClassDelegate("42", "Class Name", fieldDeclarations, skipExpression, new ArrayList<>());
-
-    // Assert
-    List<FieldDeclaration> fieldDeclarationList = actualClassDelegate.fieldDeclarations;
+    // Act and Assert
+    List<FieldDeclaration> fieldDeclarationList = (new ClassDelegate("42", "Class Name", fieldDeclarations,
+        skipExpression, new ArrayList<>())).fieldDeclarations;
     assertEquals(2, fieldDeclarationList.size());
     assertSame(fieldDeclaration, fieldDeclarationList.get(1));
   }
 
   /**
    * Test {@link ClassDelegate#ClassDelegate(String, List)}.
-   *
    * <ul>
-   *   <li>Given {@link FieldDeclaration#FieldDeclaration()}.
-   *   <li>Then return {@link ClassDelegate#fieldDeclarations} size is two.
+   *   <li>Given {@link FieldDeclaration#FieldDeclaration()}.</li>
+   *   <li>Then return {@link ClassDelegate#fieldDeclarations} size is two.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ClassDelegate#ClassDelegate(String, List)}
+   * <p>
+   * Method under test: {@link ClassDelegate#ClassDelegate(String, List)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void ClassDelegate.<init>(String, List)"})
   public void testNewClassDelegate_givenFieldDeclaration_thenReturnFieldDeclarationsSizeIsTwo4() {
     // Arrange
@@ -323,28 +278,24 @@ public class ClassDelegateDiffblueTest {
     FieldDeclaration fieldDeclaration = new FieldDeclaration();
     fieldDeclarations.add(fieldDeclaration);
 
-    // Act
-    ClassDelegate actualClassDelegate = new ClassDelegate("Class Name", fieldDeclarations);
-
-    // Assert
-    List<FieldDeclaration> fieldDeclarationList = actualClassDelegate.fieldDeclarations;
+    // Act and Assert
+    List<FieldDeclaration> fieldDeclarationList = (new ClassDelegate("Class Name",
+        fieldDeclarations)).fieldDeclarations;
     assertEquals(2, fieldDeclarationList.size());
     assertSame(fieldDeclaration, fieldDeclarationList.get(1));
   }
 
   /**
    * Test {@link ClassDelegate#ClassDelegate(String, List, Expression)}.
-   *
    * <ul>
-   *   <li>Given {@link FieldDeclaration#FieldDeclaration()}.
-   *   <li>Then return {@link ClassDelegate#fieldDeclarations} size is two.
+   *   <li>Given {@link FieldDeclaration#FieldDeclaration()}.</li>
+   *   <li>Then return {@link ClassDelegate#fieldDeclarations} size is two.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ClassDelegate#ClassDelegate(String, List, Expression)}
+   * <p>
+   * Method under test: {@link ClassDelegate#ClassDelegate(String, List, Expression)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void ClassDelegate.<init>(String, List, Expression)"})
   public void testNewClassDelegate_givenFieldDeclaration_thenReturnFieldDeclarationsSizeIsTwo5() {
     // Arrange
@@ -353,29 +304,23 @@ public class ClassDelegateDiffblueTest {
     FieldDeclaration fieldDeclaration = new FieldDeclaration();
     fieldDeclarations.add(fieldDeclaration);
 
-    // Act
-    ClassDelegate actualClassDelegate =
-        new ClassDelegate("Class Name", fieldDeclarations, new FixedValue(JSONObject.NULL));
-
-    // Assert
-    List<FieldDeclaration> fieldDeclarationList = actualClassDelegate.fieldDeclarations;
+    // Act and Assert
+    List<FieldDeclaration> fieldDeclarationList = (new ClassDelegate("Class Name", fieldDeclarations,
+        new FixedValue(JSONObject.NULL))).fieldDeclarations;
     assertEquals(2, fieldDeclarationList.size());
     assertSame(fieldDeclaration, fieldDeclarationList.get(1));
   }
 
   /**
    * Test {@link ClassDelegate#ClassDelegate(String, String, List, Expression, List)}.
-   *
    * <ul>
-   *   <li>Then return {@link ClassDelegate#mapExceptions} size is one.
+   *   <li>Then return {@link ClassDelegate#mapExceptions} size is one.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ClassDelegate#ClassDelegate(String, String, List, Expression,
-   * List)}
+   * <p>
+   * Method under test: {@link ClassDelegate#ClassDelegate(String, String, List, Expression, List)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void ClassDelegate.<init>(String, String, List, Expression, List)"})
   public void testNewClassDelegate_thenReturnMapExceptionsSizeIsOne() {
     // Arrange
@@ -383,33 +328,27 @@ public class ClassDelegateDiffblueTest {
     FixedValue skipExpression = new FixedValue(JSONObject.NULL);
 
     ArrayList<MapExceptionEntry> mapExceptions = new ArrayList<>();
-    MapExceptionEntry mapExceptionEntry =
-        new MapExceptionEntry("An error occurred", "Class Name", true);
+    MapExceptionEntry mapExceptionEntry = new MapExceptionEntry("An error occurred", "Class Name", true);
+
     mapExceptions.add(mapExceptionEntry);
 
-    // Act
-    ClassDelegate actualClassDelegate =
-        new ClassDelegate("42", "Class Name", fieldDeclarations, skipExpression, mapExceptions);
-
-    // Assert
-    List<MapExceptionEntry> mapExceptionEntryList = actualClassDelegate.mapExceptions;
+    // Act and Assert
+    List<MapExceptionEntry> mapExceptionEntryList = (new ClassDelegate("42", "Class Name", fieldDeclarations,
+        skipExpression, mapExceptions)).mapExceptions;
     assertEquals(1, mapExceptionEntryList.size());
     assertSame(mapExceptionEntry, mapExceptionEntryList.get(0));
   }
 
   /**
    * Test {@link ClassDelegate#ClassDelegate(String, String, List, Expression, List)}.
-   *
    * <ul>
-   *   <li>Then return {@link ClassDelegate#mapExceptions} size is two.
+   *   <li>Then return {@link ClassDelegate#mapExceptions} size is two.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ClassDelegate#ClassDelegate(String, String, List, Expression,
-   * List)}
+   * <p>
+   * Method under test: {@link ClassDelegate#ClassDelegate(String, String, List, Expression, List)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void ClassDelegate.<init>(String, String, List, Expression, List)"})
   public void testNewClassDelegate_thenReturnMapExceptionsSizeIsTwo() {
     // Arrange
@@ -417,36 +356,29 @@ public class ClassDelegateDiffblueTest {
     FixedValue skipExpression = new FixedValue(JSONObject.NULL);
 
     ArrayList<MapExceptionEntry> mapExceptions = new ArrayList<>();
-    MapExceptionEntry mapExceptionEntry =
-        new MapExceptionEntry("An error occurred", "Class Name", true);
+    mapExceptions.add(new MapExceptionEntry("An error occurred", "Class Name", true));
+    MapExceptionEntry mapExceptionEntry = new MapExceptionEntry("An error occurred", "Class Name", true);
+
     mapExceptions.add(mapExceptionEntry);
-    MapExceptionEntry mapExceptionEntry2 =
-        new MapExceptionEntry("An error occurred", "Class Name", true);
-    mapExceptions.add(mapExceptionEntry2);
 
-    // Act
-    ClassDelegate actualClassDelegate =
-        new ClassDelegate("42", "Class Name", fieldDeclarations, skipExpression, mapExceptions);
-
-    // Assert
-    List<MapExceptionEntry> mapExceptionEntryList = actualClassDelegate.mapExceptions;
+    // Act and Assert
+    List<MapExceptionEntry> mapExceptionEntryList = (new ClassDelegate("42", "Class Name", fieldDeclarations,
+        skipExpression, mapExceptions)).mapExceptions;
     assertEquals(2, mapExceptionEntryList.size());
-    assertSame(mapExceptionEntry2, mapExceptionEntryList.get(1));
+    assertSame(mapExceptionEntry, mapExceptionEntryList.get(1));
   }
 
   /**
    * Test {@link ClassDelegate#ClassDelegate(String, List)}.
-   *
    * <ul>
-   *   <li>When {@link ArrayList#ArrayList()}.
-   *   <li>Then return {@code Class Name}.
+   *   <li>When {@link ArrayList#ArrayList()}.</li>
+   *   <li>Then return {@code Class Name}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ClassDelegate#ClassDelegate(String, List)}
+   * <p>
+   * Method under test: {@link ClassDelegate#ClassDelegate(String, List)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void ClassDelegate.<init>(String, List)"})
   public void testNewClassDelegate_whenArrayList_thenReturnClassName() {
     // Arrange and Act
@@ -469,17 +401,15 @@ public class ClassDelegateDiffblueTest {
 
   /**
    * Test {@link ClassDelegate#ClassDelegate(Class, List)}.
-   *
    * <ul>
-   *   <li>When {@link ArrayList#ArrayList()}.
-   *   <li>Then return ClassName is {@code Object}.
+   *   <li>When {@link ArrayList#ArrayList()}.</li>
+   *   <li>Then return ClassName is {@code Object}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ClassDelegate#ClassDelegate(Class, List)}
+   * <p>
+   * Method under test: {@link ClassDelegate#ClassDelegate(Class, List)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void ClassDelegate.<init>(Class, List)"})
   public void testNewClassDelegate_whenArrayList_thenReturnClassNameIsJavaLangObject() {
     // Arrange
@@ -505,17 +435,15 @@ public class ClassDelegateDiffblueTest {
 
   /**
    * Test {@link ClassDelegate#ClassDelegate(Class, List, Expression)}.
-   *
    * <ul>
-   *   <li>When {@link ArrayList#ArrayList()}.
-   *   <li>Then {@link ClassDelegate#skipExpression} return {@link FixedValue}.
+   *   <li>When {@link ArrayList#ArrayList()}.</li>
+   *   <li>Then {@link ClassDelegate#skipExpression} return {@link FixedValue}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ClassDelegate#ClassDelegate(Class, List, Expression)}
+   * <p>
+   * Method under test: {@link ClassDelegate#ClassDelegate(Class, List, Expression)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void ClassDelegate.<init>(Class, List, Expression)"})
   public void testNewClassDelegate_whenArrayList_thenSkipExpressionReturnFixedValue() {
     // Arrange
@@ -523,8 +451,7 @@ public class ClassDelegateDiffblueTest {
     ArrayList<FieldDeclaration> fieldDeclarations = new ArrayList<>();
 
     // Act
-    ClassDelegate actualClassDelegate =
-        new ClassDelegate(clazz, fieldDeclarations, new FixedValue(JSONObject.NULL));
+    ClassDelegate actualClassDelegate = new ClassDelegate(clazz, fieldDeclarations, new FixedValue(JSONObject.NULL));
 
     // Assert
     assertTrue(actualClassDelegate.skipExpression instanceof FixedValue);
@@ -543,25 +470,23 @@ public class ClassDelegateDiffblueTest {
 
   /**
    * Test {@link ClassDelegate#ClassDelegate(String, List, Expression)}.
-   *
    * <ul>
-   *   <li>When {@link ArrayList#ArrayList()}.
-   *   <li>Then {@link ClassDelegate#skipExpression} return {@link FixedValue}.
+   *   <li>When {@link ArrayList#ArrayList()}.</li>
+   *   <li>Then {@link ClassDelegate#skipExpression} return {@link FixedValue}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ClassDelegate#ClassDelegate(String, List, Expression)}
+   * <p>
+   * Method under test: {@link ClassDelegate#ClassDelegate(String, List, Expression)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void ClassDelegate.<init>(String, List, Expression)"})
   public void testNewClassDelegate_whenArrayList_thenSkipExpressionReturnFixedValue2() {
     // Arrange
     ArrayList<FieldDeclaration> fieldDeclarations = new ArrayList<>();
 
     // Act
-    ClassDelegate actualClassDelegate =
-        new ClassDelegate("Class Name", fieldDeclarations, new FixedValue(JSONObject.NULL));
+    ClassDelegate actualClassDelegate = new ClassDelegate("Class Name", fieldDeclarations,
+        new FixedValue(JSONObject.NULL));
 
     // Assert
     assertTrue(actualClassDelegate.skipExpression instanceof FixedValue);
@@ -580,18 +505,15 @@ public class ClassDelegateDiffblueTest {
 
   /**
    * Test {@link ClassDelegate#ClassDelegate(String, String, List, Expression, List)}.
-   *
    * <ul>
-   *   <li>When {@link FixedValue#FixedValue(Object)} with value is {@link JSONObject#NULL}.
-   *   <li>Then {@link ArrayList#ArrayList()} Empty.
+   *   <li>When {@link FixedValue#FixedValue(Object)} with value is {@link JSONObject#NULL}.</li>
+   *   <li>Then {@link ArrayList#ArrayList()} Empty.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ClassDelegate#ClassDelegate(String, String, List, Expression,
-   * List)}
+   * <p>
+   * Method under test: {@link ClassDelegate#ClassDelegate(String, String, List, Expression, List)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void ClassDelegate.<init>(String, String, List, Expression, List)"})
   public void testNewClassDelegate_whenFixedValueWithValueIsNull_thenArrayListEmpty() {
     // Arrange
@@ -608,16 +530,39 @@ public class ClassDelegateDiffblueTest {
 
   /**
    * Test {@link ClassDelegate#notify(DelegateExecution)} with {@code execution}.
-   *
-   * <ul>
-   *   <li>Then throw {@link ActivitiIllegalArgumentException}.
-   * </ul>
-   *
-   * <p>Method under test: {@link ClassDelegate#notify(DelegateExecution)}
+   * <p>
+   * Method under test: {@link ClassDelegate#notify(DelegateExecution)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void ClassDelegate.notify(DelegateExecution)"})
+  public void testNotifyWithExecution() {
+    // Arrange
+    FieldDeclaration fieldDeclaration = new FieldDeclaration(
+        "Trying to load class with current thread context classloader: {}",
+        "Trying to load class with current thread context classloader: {}", JSONObject.NULL);
+    fieldDeclaration.setValue(42);
+
+    ArrayList<FieldDeclaration> fieldDeclarations = new ArrayList<>();
+    fieldDeclarations.add(fieldDeclaration);
+    Class<Object> clazz = Object.class;
+    ClassDelegate classDelegate = new ClassDelegate(clazz, fieldDeclarations);
+
+    // Act and Assert
+    assertThrows(ActivitiIllegalArgumentException.class,
+        () -> classDelegate.notify(ExecutionEntityImpl.createWithEmptyRelationshipCollections()));
+  }
+
+  /**
+   * Test {@link ClassDelegate#notify(DelegateExecution)} with {@code execution}.
+   * <ul>
+   *   <li>Then throw {@link ActivitiIllegalArgumentException}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link ClassDelegate#notify(DelegateExecution)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void ClassDelegate.notify(DelegateExecution)"})
   public void testNotifyWithExecution_thenThrowActivitiIllegalArgumentException() {
     // Arrange
@@ -625,58 +570,19 @@ public class ClassDelegateDiffblueTest {
     ClassDelegate classDelegate = new ClassDelegate(clazz, new ArrayList<>());
 
     // Act and Assert
-    assertThrows(
-        ActivitiIllegalArgumentException.class,
+    assertThrows(ActivitiIllegalArgumentException.class,
         () -> classDelegate.notify(ExecutionEntityImpl.createWithEmptyRelationshipCollections()));
   }
 
   /**
-   * Test {@link ClassDelegate#notify(DelegateExecution)} with {@code execution}.
-   *
-   * <ul>
-   *   <li>Then throw {@link ActivitiIllegalArgumentException}.
-   * </ul>
-   *
-   * <p>Method under test: {@link ClassDelegate#notify(DelegateExecution)}
+   * Test {@link ClassDelegate#notify(String, String, FlowElement, Map, Map)} with {@code processInstanceId}, {@code executionId}, {@code flowElement}, {@code executionVariables}, {@code customPropertiesMap}.
+   * <p>
+   * Method under test: {@link ClassDelegate#notify(String, String, FlowElement, Map, Map)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void ClassDelegate.notify(DelegateExecution)"})
-  public void testNotifyWithExecution_thenThrowActivitiIllegalArgumentException2() {
-    // Arrange
-    FieldDeclaration fieldDeclaration =
-        new FieldDeclaration(
-            "Trying to load class with current thread context classloader: {}",
-            "Trying to load class with current thread context classloader: {}",
-            JSONObject.NULL);
-    fieldDeclaration.setValue(42);
-
-    ArrayList<FieldDeclaration> fieldDeclarations = new ArrayList<>();
-    fieldDeclarations.add(fieldDeclaration);
-    Class<Object> clazz = Object.class;
-
-    ClassDelegate classDelegate = new ClassDelegate(clazz, fieldDeclarations);
-
-    // Act and Assert
-    assertThrows(
-        ActivitiIllegalArgumentException.class,
-        () -> classDelegate.notify(ExecutionEntityImpl.createWithEmptyRelationshipCollections()));
-  }
-
-  /**
-   * Test {@link ClassDelegate#notify(String, String, FlowElement, Map, Map)} with {@code
-   * processInstanceId}, {@code executionId}, {@code flowElement}, {@code executionVariables},
-   * {@code customPropertiesMap}.
-   *
-   * <p>Method under test: {@link ClassDelegate#notify(String, String, FlowElement, Map, Map)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void ClassDelegate.notify(String, String, FlowElement, Map, Map)"})
-  public void
-      testNotifyWithProcessInstanceIdExecutionIdFlowElementExecutionVariablesCustomPropertiesMap() {
+  public void testNotifyWithProcessInstanceIdExecutionIdFlowElementExecutionVariablesCustomPropertiesMap() {
     // Arrange
     Class<Object> clazz = Object.class;
     ClassDelegate classDelegate = new ClassDelegate(clazz, new ArrayList<>());
@@ -684,59 +590,46 @@ public class ClassDelegateDiffblueTest {
     HashMap<String, Object> executionVariables = new HashMap<>();
 
     // Act and Assert
-    assertThrows(
-        ActivitiIllegalArgumentException.class,
+    assertThrows(ActivitiIllegalArgumentException.class,
         () -> classDelegate.notify("42", "42", flowElement, executionVariables, new HashMap<>()));
   }
 
   /**
-   * Test {@link ClassDelegate#notify(String, String, FlowElement, Map, Map)} with {@code
-   * processInstanceId}, {@code executionId}, {@code flowElement}, {@code executionVariables},
-   * {@code customPropertiesMap}.
-   *
-   * <p>Method under test: {@link ClassDelegate#notify(String, String, FlowElement, Map, Map)}
+   * Test {@link ClassDelegate#notify(String, String, FlowElement, Map, Map)} with {@code processInstanceId}, {@code executionId}, {@code flowElement}, {@code executionVariables}, {@code customPropertiesMap}.
+   * <p>
+   * Method under test: {@link ClassDelegate#notify(String, String, FlowElement, Map, Map)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void ClassDelegate.notify(String, String, FlowElement, Map, Map)"})
-  public void
-      testNotifyWithProcessInstanceIdExecutionIdFlowElementExecutionVariablesCustomPropertiesMap2() {
+  public void testNotifyWithProcessInstanceIdExecutionIdFlowElementExecutionVariablesCustomPropertiesMap2() {
     // Arrange
-    FieldDeclaration fieldDeclaration =
-        new FieldDeclaration(
-            "Trying to load class with current thread context classloader: {}",
-            "Trying to load class with current thread context classloader: {}",
-            JSONObject.NULL);
+    FieldDeclaration fieldDeclaration = new FieldDeclaration(
+        "Trying to load class with current thread context classloader: {}",
+        "Trying to load class with current thread context classloader: {}", JSONObject.NULL);
     fieldDeclaration.setValue(42);
 
     ArrayList<FieldDeclaration> fieldDeclarations = new ArrayList<>();
     fieldDeclarations.add(fieldDeclaration);
     Class<Object> clazz = Object.class;
-
     ClassDelegate classDelegate = new ClassDelegate(clazz, fieldDeclarations);
     AdhocSubProcess flowElement = new AdhocSubProcess();
     HashMap<String, Object> executionVariables = new HashMap<>();
 
     // Act and Assert
-    assertThrows(
-        ActivitiIllegalArgumentException.class,
+    assertThrows(ActivitiIllegalArgumentException.class,
         () -> classDelegate.notify("42", "42", flowElement, executionVariables, new HashMap<>()));
   }
 
   /**
-   * Test {@link ClassDelegate#notify(String, String, Task, Map, Map)} with {@code
-   * processInstanceId}, {@code executionId}, {@code task}, {@code executionVariables}, {@code
-   * customPropertiesMap}.
-   *
-   * <p>Method under test: {@link ClassDelegate#notify(String, String, Task, Map, Map)}
+   * Test {@link ClassDelegate#notify(String, String, Task, Map, Map)} with {@code processInstanceId}, {@code executionId}, {@code task}, {@code executionVariables}, {@code customPropertiesMap}.
+   * <p>
+   * Method under test: {@link ClassDelegate#notify(String, String, Task, Map, Map)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void ClassDelegate.notify(String, String, Task, Map, Map)"})
-  public void
-      testNotifyWithProcessInstanceIdExecutionIdTaskExecutionVariablesCustomPropertiesMap() {
+  public void testNotifyWithProcessInstanceIdExecutionIdTaskExecutionVariablesCustomPropertiesMap() {
     // Arrange
     Class<Object> clazz = Object.class;
     ClassDelegate classDelegate = new ClassDelegate(clazz, new ArrayList<>());
@@ -744,125 +637,72 @@ public class ClassDelegateDiffblueTest {
     HashMap<String, Object> executionVariables = new HashMap<>();
 
     // Act and Assert
-    assertThrows(
-        ActivitiIllegalArgumentException.class,
+    assertThrows(ActivitiIllegalArgumentException.class,
         () -> classDelegate.notify("42", "42", task, executionVariables, new HashMap<>()));
   }
 
   /**
-   * Test {@link ClassDelegate#notify(String, String, Task, Map, Map)} with {@code
-   * processInstanceId}, {@code executionId}, {@code task}, {@code executionVariables}, {@code
-   * customPropertiesMap}.
-   *
-   * <p>Method under test: {@link ClassDelegate#notify(String, String, Task, Map, Map)}
+   * Test {@link ClassDelegate#notify(String, String, Task, Map, Map)} with {@code processInstanceId}, {@code executionId}, {@code task}, {@code executionVariables}, {@code customPropertiesMap}.
+   * <p>
+   * Method under test: {@link ClassDelegate#notify(String, String, Task, Map, Map)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void ClassDelegate.notify(String, String, Task, Map, Map)"})
-  public void
-      testNotifyWithProcessInstanceIdExecutionIdTaskExecutionVariablesCustomPropertiesMap2() {
+  public void testNotifyWithProcessInstanceIdExecutionIdTaskExecutionVariablesCustomPropertiesMap2() {
     // Arrange
-    FieldDeclaration fieldDeclaration =
-        new FieldDeclaration(
-            "Trying to load class with current thread context classloader: {}",
-            "Trying to load class with current thread context classloader: {}",
-            JSONObject.NULL);
+    FieldDeclaration fieldDeclaration = new FieldDeclaration(
+        "Trying to load class with current thread context classloader: {}",
+        "Trying to load class with current thread context classloader: {}", JSONObject.NULL);
     fieldDeclaration.setValue(42);
 
     ArrayList<FieldDeclaration> fieldDeclarations = new ArrayList<>();
     fieldDeclarations.add(fieldDeclaration);
     Class<Object> clazz = Object.class;
-
     ClassDelegate classDelegate = new ClassDelegate(clazz, fieldDeclarations);
     Task task = new Task();
     HashMap<String, Object> executionVariables = new HashMap<>();
 
     // Act and Assert
-    assertThrows(
-        ActivitiIllegalArgumentException.class,
+    assertThrows(ActivitiIllegalArgumentException.class,
         () -> classDelegate.notify("42", "42", task, executionVariables, new HashMap<>()));
-  }
-
-  /**
-   * Test {@link ClassDelegate#trigger(DelegateExecution, String, Object)}.
-   *
-   * <ul>
-   *   <li>Given {@code Object}.
-   *   <li>Then throw {@link ActivitiIllegalArgumentException}.
-   * </ul>
-   *
-   * <p>Method under test: {@link ClassDelegate#trigger(DelegateExecution, String, Object)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void ClassDelegate.trigger(DelegateExecution, String, Object)"})
-  public void testTrigger_givenJavaLangObject_thenThrowActivitiIllegalArgumentException() {
-    // Arrange
-    Class<Object> clazz = Object.class;
-    ClassDelegate classDelegate = new ClassDelegate(clazz, new ArrayList<>());
-
-    // Act and Assert
-    assertThrows(
-        ActivitiIllegalArgumentException.class,
-        () ->
-            classDelegate.trigger(
-                ExecutionEntityImpl.createWithEmptyRelationshipCollections(),
-                "Signal Name",
-                JSONObject.NULL));
-  }
-
-  /**
-   * Test {@link ClassDelegate#trigger(DelegateExecution, String, Object)}.
-   *
-   * <ul>
-   *   <li>Then throw {@link ActivitiIllegalArgumentException}.
-   * </ul>
-   *
-   * <p>Method under test: {@link ClassDelegate#trigger(DelegateExecution, String, Object)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void ClassDelegate.trigger(DelegateExecution, String, Object)"})
-  public void testTrigger_thenThrowActivitiIllegalArgumentException() {
-    // Arrange
-    FieldDeclaration fieldDeclaration =
-        new FieldDeclaration(
-            "Trying to load class with current thread context classloader: {}",
-            "Trying to load class with current thread context classloader: {}",
-            JSONObject.NULL);
-    fieldDeclaration.setValue(42);
-
-    ArrayList<FieldDeclaration> fieldDeclarations = new ArrayList<>();
-    fieldDeclarations.add(fieldDeclaration);
-    Class<Object> clazz = Object.class;
-
-    ClassDelegate classDelegate = new ClassDelegate(clazz, fieldDeclarations);
-
-    // Act and Assert
-    assertThrows(
-        ActivitiIllegalArgumentException.class,
-        () ->
-            classDelegate.trigger(
-                ExecutionEntityImpl.createWithEmptyRelationshipCollections(),
-                "Signal Name",
-                JSONObject.NULL));
   }
 
   /**
    * Test {@link ClassDelegate#getCustomPropertiesMap(DelegateExecution)}.
-   *
-   * <ul>
-   *   <li>Then throw {@link ActivitiIllegalArgumentException}.
-   * </ul>
-   *
-   * <p>Method under test: {@link ClassDelegate#getCustomPropertiesMap(DelegateExecution)}
+   * <p>
+   * Method under test: {@link ClassDelegate#getCustomPropertiesMap(DelegateExecution)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Map ClassDelegate.getCustomPropertiesMap(DelegateExecution)"})
+  public void testGetCustomPropertiesMap() {
+    // Arrange
+    FieldDeclaration fieldDeclaration = new FieldDeclaration(
+        "Trying to load class with current thread context classloader: {}",
+        "Trying to load class with current thread context classloader: {}", JSONObject.NULL);
+    fieldDeclaration.setValue(42);
+
+    ArrayList<FieldDeclaration> fieldDeclarations = new ArrayList<>();
+    fieldDeclarations.add(fieldDeclaration);
+    Class<Object> clazz = Object.class;
+    ClassDelegate classDelegate = new ClassDelegate(clazz, fieldDeclarations);
+
+    // Act and Assert
+    assertThrows(ActivitiIllegalArgumentException.class,
+        () -> classDelegate.getCustomPropertiesMap(ExecutionEntityImpl.createWithEmptyRelationshipCollections()));
+  }
+
+  /**
+   * Test {@link ClassDelegate#getCustomPropertiesMap(DelegateExecution)}.
+   * <ul>
+   *   <li>Then throw {@link ActivitiIllegalArgumentException}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link ClassDelegate#getCustomPropertiesMap(DelegateExecution)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"Map ClassDelegate.getCustomPropertiesMap(DelegateExecution)"})
   public void testGetCustomPropertiesMap_thenThrowActivitiIllegalArgumentException() {
     // Arrange
@@ -870,270 +710,212 @@ public class ClassDelegateDiffblueTest {
     ClassDelegate classDelegate = new ClassDelegate(clazz, new ArrayList<>());
 
     // Act and Assert
-    assertThrows(
-        ActivitiIllegalArgumentException.class,
-        () ->
-            classDelegate.getCustomPropertiesMap(
-                ExecutionEntityImpl.createWithEmptyRelationshipCollections()));
+    assertThrows(ActivitiIllegalArgumentException.class,
+        () -> classDelegate.getCustomPropertiesMap(ExecutionEntityImpl.createWithEmptyRelationshipCollections()));
   }
 
   /**
-   * Test {@link ClassDelegate#getCustomPropertiesMap(DelegateExecution)}.
-   *
+   * Test {@link ClassDelegate#execute(DelegateExecution)}.
    * <ul>
-   *   <li>Then throw {@link ActivitiIllegalArgumentException}.
+   *   <li>Given {@link FixedValue#FixedValue(Object)} with value is {@code true}.</li>
+   *   <li>Then calls {@link VariableScope#getVariable(String)}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ClassDelegate#getCustomPropertiesMap(DelegateExecution)}
+   * <p>
+   * Method under test: {@link ClassDelegate#execute(DelegateExecution)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"Map ClassDelegate.getCustomPropertiesMap(DelegateExecution)"})
-  public void testGetCustomPropertiesMap_thenThrowActivitiIllegalArgumentException2() {
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void ClassDelegate.execute(DelegateExecution)"})
+  public void testExecute_givenFixedValueWithValueIsTrue_thenCallsGetVariable() {
     // Arrange
-    FieldDeclaration fieldDeclaration =
-        new FieldDeclaration(
-            "Trying to load class with current thread context classloader: {}",
-            "Trying to load class with current thread context classloader: {}",
-            JSONObject.NULL);
+    Class<Object> clazz = Object.class;
+    ArrayList<FieldDeclaration> fieldDeclarations = new ArrayList<>();
+    ClassDelegate classDelegate = new ClassDelegate(clazz, fieldDeclarations, new FixedValue(true));
+    DelegateExecution execution = mock(DelegateExecution.class);
+    when(execution.getVariable(Mockito.<String>any())).thenReturn(true);
+
+    // Act
+    classDelegate.execute(execution);
+
+    // Assert
+    verify(execution).getVariable(eq("_ACTIVITI_SKIP_EXPRESSION_ENABLED"));
+  }
+
+  /**
+   * Test {@link ClassDelegate#trigger(DelegateExecution, String, Object)}.
+   * <p>
+   * Method under test: {@link ClassDelegate#trigger(DelegateExecution, String, Object)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void ClassDelegate.trigger(DelegateExecution, String, Object)"})
+  public void testTrigger() {
+    // Arrange
+    FieldDeclaration fieldDeclaration = new FieldDeclaration(
+        "Trying to load class with current thread context classloader: {}",
+        "Trying to load class with current thread context classloader: {}", JSONObject.NULL);
     fieldDeclaration.setValue(42);
 
     ArrayList<FieldDeclaration> fieldDeclarations = new ArrayList<>();
     fieldDeclarations.add(fieldDeclaration);
     Class<Object> clazz = Object.class;
-
     ClassDelegate classDelegate = new ClassDelegate(clazz, fieldDeclarations);
 
     // Act and Assert
-    assertThrows(
-        ActivitiIllegalArgumentException.class,
-        () ->
-            classDelegate.getCustomPropertiesMap(
-                ExecutionEntityImpl.createWithEmptyRelationshipCollections()));
+    assertThrows(ActivitiIllegalArgumentException.class, () -> classDelegate
+        .trigger(ExecutionEntityImpl.createWithEmptyRelationshipCollections(), "Signal Name", JSONObject.NULL));
+  }
+
+  /**
+   * Test {@link ClassDelegate#trigger(DelegateExecution, String, Object)}.
+   * <ul>
+   *   <li>Given {@code Object}.</li>
+   *   <li>Then throw {@link ActivitiIllegalArgumentException}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link ClassDelegate#trigger(DelegateExecution, String, Object)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void ClassDelegate.trigger(DelegateExecution, String, Object)"})
+  public void testTrigger_givenJavaLangObject_thenThrowActivitiIllegalArgumentException() {
+    // Arrange
+    Class<Object> clazz = Object.class;
+    ClassDelegate classDelegate = new ClassDelegate(clazz, new ArrayList<>());
+
+    // Act and Assert
+    assertThrows(ActivitiIllegalArgumentException.class, () -> classDelegate
+        .trigger(ExecutionEntityImpl.createWithEmptyRelationshipCollections(), "Signal Name", JSONObject.NULL));
   }
 
   /**
    * Test {@link ClassDelegate#completing(DelegateExecution, DelegateExecution)}.
-   *
-   * <ul>
-   *   <li>Given {@code Object}.
-   *   <li>Then throw {@link ActivitiIllegalArgumentException}.
-   * </ul>
-   *
-   * <p>Method under test: {@link ClassDelegate#completing(DelegateExecution, DelegateExecution)}
+   * <p>
+   * Method under test: {@link ClassDelegate#completing(DelegateExecution, DelegateExecution)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void ClassDelegate.completing(DelegateExecution, DelegateExecution)"})
-  public void testCompleting_givenJavaLangObject_thenThrowActivitiIllegalArgumentException()
-      throws Exception {
+  public void testCompleting() throws Exception {
+    // Arrange
+    FieldDeclaration fieldDeclaration = new FieldDeclaration(
+        "Trying to load class with current thread context classloader: {}",
+        "Trying to load class with current thread context classloader: {}", JSONObject.NULL);
+    fieldDeclaration.setValue(42);
+
+    ArrayList<FieldDeclaration> fieldDeclarations = new ArrayList<>();
+    fieldDeclarations.add(fieldDeclaration);
+    Class<Object> clazz = Object.class;
+    ClassDelegate classDelegate = new ClassDelegate(clazz, fieldDeclarations);
+    ExecutionEntityImpl execution = ExecutionEntityImpl.createWithEmptyRelationshipCollections();
+
+    // Act and Assert
+    assertThrows(ActivitiIllegalArgumentException.class,
+        () -> classDelegate.completing(execution, ExecutionEntityImpl.createWithEmptyRelationshipCollections()));
+  }
+
+  /**
+   * Test {@link ClassDelegate#completing(DelegateExecution, DelegateExecution)}.
+   * <ul>
+   *   <li>Given {@code Object}.</li>
+   *   <li>Then throw {@link ActivitiIllegalArgumentException}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link ClassDelegate#completing(DelegateExecution, DelegateExecution)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void ClassDelegate.completing(DelegateExecution, DelegateExecution)"})
+  public void testCompleting_givenJavaLangObject_thenThrowActivitiIllegalArgumentException() throws Exception {
     // Arrange
     Class<Object> clazz = Object.class;
     ClassDelegate classDelegate = new ClassDelegate(clazz, new ArrayList<>());
     ExecutionEntityImpl execution = ExecutionEntityImpl.createWithEmptyRelationshipCollections();
 
     // Act and Assert
-    assertThrows(
-        ActivitiIllegalArgumentException.class,
-        () ->
-            classDelegate.completing(
-                execution, ExecutionEntityImpl.createWithEmptyRelationshipCollections()));
+    assertThrows(ActivitiIllegalArgumentException.class,
+        () -> classDelegate.completing(execution, ExecutionEntityImpl.createWithEmptyRelationshipCollections()));
   }
 
   /**
-   * Test {@link ClassDelegate#completing(DelegateExecution, DelegateExecution)}.
-   *
-   * <ul>
-   *   <li>Then throw {@link ActivitiIllegalArgumentException}.
-   * </ul>
-   *
-   * <p>Method under test: {@link ClassDelegate#completing(DelegateExecution, DelegateExecution)}
+   * Test {@link ClassDelegate#completed(DelegateExecution)}.
+   * <p>
+   * Method under test: {@link ClassDelegate#completed(DelegateExecution)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void ClassDelegate.completing(DelegateExecution, DelegateExecution)"})
-  public void testCompleting_thenThrowActivitiIllegalArgumentException() throws Exception {
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void ClassDelegate.completed(DelegateExecution)"})
+  public void testCompleted() throws Exception {
     // Arrange
-    FieldDeclaration fieldDeclaration =
-        new FieldDeclaration(
-            "Trying to load class with current thread context classloader: {}",
-            "Trying to load class with current thread context classloader: {}",
-            JSONObject.NULL);
+    FieldDeclaration fieldDeclaration = new FieldDeclaration(
+        "Trying to load class with current thread context classloader: {}",
+        "Trying to load class with current thread context classloader: {}", JSONObject.NULL);
     fieldDeclaration.setValue(42);
 
     ArrayList<FieldDeclaration> fieldDeclarations = new ArrayList<>();
     fieldDeclarations.add(fieldDeclaration);
     Class<Object> clazz = Object.class;
-
     ClassDelegate classDelegate = new ClassDelegate(clazz, fieldDeclarations);
-    ExecutionEntityImpl execution = ExecutionEntityImpl.createWithEmptyRelationshipCollections();
 
     // Act and Assert
-    assertThrows(
-        ActivitiIllegalArgumentException.class,
-        () ->
-            classDelegate.completing(
-                execution, ExecutionEntityImpl.createWithEmptyRelationshipCollections()));
+    assertThrows(ActivitiIllegalArgumentException.class,
+        () -> classDelegate.completed(ExecutionEntityImpl.createWithEmptyRelationshipCollections()));
   }
 
   /**
    * Test {@link ClassDelegate#completed(DelegateExecution)}.
-   *
    * <ul>
-   *   <li>Given {@code Object}.
-   *   <li>Then throw {@link ActivitiIllegalArgumentException}.
+   *   <li>Given {@code Object}.</li>
+   *   <li>Then throw {@link ActivitiIllegalArgumentException}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ClassDelegate#completed(DelegateExecution)}
+   * <p>
+   * Method under test: {@link ClassDelegate#completed(DelegateExecution)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void ClassDelegate.completed(DelegateExecution)"})
-  public void testCompleted_givenJavaLangObject_thenThrowActivitiIllegalArgumentException()
-      throws Exception {
+  public void testCompleted_givenJavaLangObject_thenThrowActivitiIllegalArgumentException() throws Exception {
     // Arrange
     Class<Object> clazz = Object.class;
     ClassDelegate classDelegate = new ClassDelegate(clazz, new ArrayList<>());
 
     // Act and Assert
-    assertThrows(
-        ActivitiIllegalArgumentException.class,
-        () ->
-            classDelegate.completed(ExecutionEntityImpl.createWithEmptyRelationshipCollections()));
+    assertThrows(ActivitiIllegalArgumentException.class,
+        () -> classDelegate.completed(ExecutionEntityImpl.createWithEmptyRelationshipCollections()));
   }
 
   /**
-   * Test {@link ClassDelegate#completed(DelegateExecution)}.
-   *
-   * <ul>
-   *   <li>Then throw {@link ActivitiIllegalArgumentException}.
-   * </ul>
-   *
-   * <p>Method under test: {@link ClassDelegate#completed(DelegateExecution)}
+   * Test {@link ClassDelegate#defaultInstantiateDelegate(Class, List)} with {@code clazz}, {@code fieldDeclarations}.
+   * <p>
+   * Method under test: {@link ClassDelegate#defaultInstantiateDelegate(Class, List)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void ClassDelegate.completed(DelegateExecution)"})
-  public void testCompleted_thenThrowActivitiIllegalArgumentException() throws Exception {
-    // Arrange
-    FieldDeclaration fieldDeclaration =
-        new FieldDeclaration(
-            "Trying to load class with current thread context classloader: {}",
-            "Trying to load class with current thread context classloader: {}",
-            JSONObject.NULL);
-    fieldDeclaration.setValue(42);
-
-    ArrayList<FieldDeclaration> fieldDeclarations = new ArrayList<>();
-    fieldDeclarations.add(fieldDeclaration);
-    Class<Object> clazz = Object.class;
-
-    ClassDelegate classDelegate = new ClassDelegate(clazz, fieldDeclarations);
-
-    // Act and Assert
-    assertThrows(
-        ActivitiIllegalArgumentException.class,
-        () ->
-            classDelegate.completed(ExecutionEntityImpl.createWithEmptyRelationshipCollections()));
-  }
-
-  /**
-   * Test {@link ClassDelegate#determineBehaviour(ActivityBehavior)}.
-   *
-   * <p>Method under test: {@link ClassDelegate#determineBehaviour(ActivityBehavior)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"ActivityBehavior ClassDelegate.determineBehaviour(ActivityBehavior)"})
-  public void testDetermineBehaviour() {
-    // Arrange
-    Class<Object> clazz = Object.class;
-    ClassDelegate classDelegate = new ClassDelegate(clazz, new ArrayList<>());
-    ActivityBehavior delegateInstance = mock(ActivityBehavior.class);
-
-    // Act
-    ActivityBehavior actualDetermineBehaviourResult =
-        classDelegate.determineBehaviour(delegateInstance);
-
-    // Assert
-    assertNull(classDelegate.getMultiInstanceActivityBehavior());
-    assertSame(delegateInstance, actualDetermineBehaviourResult);
-  }
-
-  /**
-   * Test {@link ClassDelegate#determineBehaviour(ActivityBehavior)}.
-   *
-   * <p>Method under test: {@link ClassDelegate#determineBehaviour(ActivityBehavior)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"ActivityBehavior ClassDelegate.determineBehaviour(ActivityBehavior)"})
-  public void testDetermineBehaviour2() {
-    // Arrange
-    Class<Object> clazz = Object.class;
-
-    ClassDelegate classDelegate = new ClassDelegate(clazz, new ArrayList<>());
-    AdhocSubProcess activity = new AdhocSubProcess();
-    ParallelMultiInstanceBehavior multiInstanceActivityBehavior =
-        new ParallelMultiInstanceBehavior(activity, new AbstractBpmnActivityBehavior());
-    classDelegate.setMultiInstanceActivityBehavior(multiInstanceActivityBehavior);
-    Class<Object> clazz2 = Object.class;
-    ClassDelegate delegateInstance = new ClassDelegate(clazz2, new ArrayList<>());
-
-    // Act
-    ActivityBehavior actualDetermineBehaviourResult =
-        classDelegate.determineBehaviour(delegateInstance);
-
-    // Assert
-    assertSame(multiInstanceActivityBehavior, delegateInstance.getMultiInstanceActivityBehavior());
-    assertSame(multiInstanceActivityBehavior, actualDetermineBehaviourResult);
-  }
-
-  /**
-   * Test {@link ClassDelegate#defaultInstantiateDelegate(Class, List)} with {@code clazz}, {@code
-   * fieldDeclarations}.
-   *
-   * <p>Method under test: {@link ClassDelegate#defaultInstantiateDelegate(Class, List)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"Object ClassDelegate.defaultInstantiateDelegate(Class, List)"})
   public void testDefaultInstantiateDelegateWithClazzFieldDeclarations() {
     // Arrange
     Class<Object> clazz = Object.class;
 
-    FieldDeclaration fieldDeclaration =
-        new FieldDeclaration(
-            "Trying to load class with current thread context classloader: {}",
-            "Trying to load class with current thread context classloader: {}",
-            JSONObject.NULL);
+    FieldDeclaration fieldDeclaration = new FieldDeclaration(
+        "Trying to load class with current thread context classloader: {}",
+        "Trying to load class with current thread context classloader: {}", JSONObject.NULL);
     fieldDeclaration.setValue(42);
 
     ArrayList<FieldDeclaration> fieldDeclarations = new ArrayList<>();
     fieldDeclarations.add(fieldDeclaration);
 
     // Act and Assert
-    assertThrows(
-        ActivitiIllegalArgumentException.class,
+    assertThrows(ActivitiIllegalArgumentException.class,
         () -> ClassDelegate.defaultInstantiateDelegate(clazz, fieldDeclarations));
   }
 
   /**
-   * Test {@link ClassDelegate#applyFieldDeclaration(FieldDeclaration, Object)} with {@code
-   * declaration}, {@code target}.
-   *
-   * <p>Method under test: {@link ClassDelegate#applyFieldDeclaration(FieldDeclaration, Object)}
+   * Test {@link ClassDelegate#applyFieldDeclaration(FieldDeclaration, Object)} with {@code declaration}, {@code target}.
+   * <p>
+   * Method under test: {@link ClassDelegate#applyFieldDeclaration(FieldDeclaration, Object)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void ClassDelegate.applyFieldDeclaration(FieldDeclaration, Object)"})
   public void testApplyFieldDeclarationWithDeclarationTarget() {
     // Arrange
@@ -1141,21 +923,17 @@ public class ClassDelegateDiffblueTest {
     declaration.setValue(42);
 
     // Act and Assert
-    assertThrows(
-        ActivitiIllegalArgumentException.class,
+    assertThrows(ActivitiIllegalArgumentException.class,
         () -> ClassDelegate.applyFieldDeclaration(declaration, JSONObject.NULL));
   }
 
   /**
-   * Test {@link ClassDelegate#applyFieldDeclaration(FieldDeclaration, Object, boolean)} with {@code
-   * declaration}, {@code target}, {@code throwExceptionOnMissingField}.
-   *
-   * <p>Method under test: {@link ClassDelegate#applyFieldDeclaration(FieldDeclaration, Object,
-   * boolean)}
+   * Test {@link ClassDelegate#applyFieldDeclaration(FieldDeclaration, Object, boolean)} with {@code declaration}, {@code target}, {@code throwExceptionOnMissingField}.
+   * <p>
+   * Method under test: {@link ClassDelegate#applyFieldDeclaration(FieldDeclaration, Object, boolean)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void ClassDelegate.applyFieldDeclaration(FieldDeclaration, Object, boolean)"})
   public void testApplyFieldDeclarationWithDeclarationTargetThrowExceptionOnMissingField() {
     // Arrange
@@ -1163,67 +941,17 @@ public class ClassDelegateDiffblueTest {
     declaration.setValue(42);
 
     // Act and Assert
-    assertThrows(
-        ActivitiIllegalArgumentException.class,
+    assertThrows(ActivitiIllegalArgumentException.class,
         () -> ClassDelegate.applyFieldDeclaration(declaration, JSONObject.NULL, true));
   }
 
   /**
-   * Test {@link ClassDelegate#applyFieldDeclaration(FieldDeclaration, Object, boolean)} with {@code
-   * declaration}, {@code target}, {@code throwExceptionOnMissingField}.
-   *
-   * <p>Method under test: {@link ClassDelegate#applyFieldDeclaration(FieldDeclaration, Object,
-   * boolean)}
+   * Test {@link ClassDelegate#applyFieldDeclaration(List, Object)} with {@code fieldDeclarations}, {@code target}.
+   * <p>
+   * Method under test: {@link ClassDelegate#applyFieldDeclaration(List, Object)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void ClassDelegate.applyFieldDeclaration(FieldDeclaration, Object, boolean)"})
-  public void testApplyFieldDeclarationWithDeclarationTargetThrowExceptionOnMissingField2() {
-    // Arrange
-    FieldDeclaration declaration = new FieldDeclaration("Name", "Type", JSONObject.NULL);
-    declaration.setValue(42);
-    FieldDeclaration fieldDeclaration = new FieldDeclaration("equals", "equals", null);
-
-    // Act and Assert
-    assertThrows(
-        ActivitiIllegalArgumentException.class,
-        () -> ClassDelegate.applyFieldDeclaration(declaration, fieldDeclaration, true));
-  }
-
-  /**
-   * Test {@link ClassDelegate#applyFieldDeclaration(FieldDeclaration, Object, boolean)} with {@code
-   * declaration}, {@code target}, {@code throwExceptionOnMissingField}.
-   *
-   * <p>Method under test: {@link ClassDelegate#applyFieldDeclaration(FieldDeclaration, Object,
-   * boolean)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void ClassDelegate.applyFieldDeclaration(FieldDeclaration, Object, boolean)"})
-  public void testApplyFieldDeclarationWithDeclarationTargetThrowExceptionOnMissingField3() {
-    // Arrange
-    FieldDeclaration declaration = new FieldDeclaration("Name", "Type", JSONObject.NULL);
-    declaration.setValue("42");
-    FieldDeclaration fieldDeclaration = new FieldDeclaration("equals", "equals", null);
-
-    // Act
-    ClassDelegate.applyFieldDeclaration(declaration, fieldDeclaration, true);
-
-    // Assert
-    assertEquals("42", fieldDeclaration.getName());
-  }
-
-  /**
-   * Test {@link ClassDelegate#applyFieldDeclaration(List, Object)} with {@code fieldDeclarations},
-   * {@code target}.
-   *
-   * <p>Method under test: {@link ClassDelegate#applyFieldDeclaration(List, Object)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void ClassDelegate.applyFieldDeclaration(List, Object)"})
   public void testApplyFieldDeclarationWithFieldDeclarationsTarget() {
     // Arrange
@@ -1234,20 +962,62 @@ public class ClassDelegateDiffblueTest {
     fieldDeclarations.add(fieldDeclaration);
 
     // Act and Assert
-    assertThrows(
-        ActivitiIllegalArgumentException.class,
+    assertThrows(ActivitiIllegalArgumentException.class,
         () -> ClassDelegate.applyFieldDeclaration(fieldDeclarations, JSONObject.NULL));
   }
 
   /**
-   * Test {@link ClassDelegate#applyFieldDeclaration(List, Object, boolean)} with {@code
-   * fieldDeclarations}, {@code target}, {@code throwExceptionOnMissingField}.
-   *
-   * <p>Method under test: {@link ClassDelegate#applyFieldDeclaration(List, Object, boolean)}
+   * Test {@link ClassDelegate#applyFieldDeclaration(List, Object)} with {@code fieldDeclarations}, {@code target}.
+   * <p>
+   * Method under test: {@link ClassDelegate#applyFieldDeclaration(List, Object)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void ClassDelegate.applyFieldDeclaration(List, Object)"})
+  public void testApplyFieldDeclarationWithFieldDeclarationsTarget2() {
+    // Arrange
+    FieldDeclaration fieldDeclaration = new FieldDeclaration("Name", "Type", JSONObject.NULL);
+    fieldDeclaration.setValue(42);
+
+    ArrayList<FieldDeclaration> fieldDeclarations = new ArrayList<>();
+    fieldDeclarations.add(fieldDeclaration);
+
+    // Act and Assert
+    assertThrows(ActivitiIllegalArgumentException.class,
+        () -> ClassDelegate.applyFieldDeclaration(fieldDeclarations, new FieldDeclaration()));
+  }
+
+  /**
+   * Test {@link ClassDelegate#applyFieldDeclaration(List, Object)} with {@code fieldDeclarations}, {@code target}.
+   * <p>
+   * Method under test: {@link ClassDelegate#applyFieldDeclaration(List, Object)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void ClassDelegate.applyFieldDeclaration(List, Object)"})
+  public void testApplyFieldDeclarationWithFieldDeclarationsTarget3() {
+    // Arrange
+    FieldDeclaration fieldDeclaration = new FieldDeclaration("Name", "Type", JSONObject.NULL);
+    fieldDeclaration.setValue("42");
+
+    ArrayList<FieldDeclaration> fieldDeclarations = new ArrayList<>();
+    fieldDeclarations.add(fieldDeclaration);
+    FieldDeclaration fieldDeclaration2 = new FieldDeclaration();
+
+    // Act
+    ClassDelegate.applyFieldDeclaration(fieldDeclarations, fieldDeclaration2);
+
+    // Assert
+    assertEquals("42", fieldDeclaration2.getName());
+  }
+
+  /**
+   * Test {@link ClassDelegate#applyFieldDeclaration(List, Object, boolean)} with {@code fieldDeclarations}, {@code target}, {@code throwExceptionOnMissingField}.
+   * <p>
+   * Method under test: {@link ClassDelegate#applyFieldDeclaration(List, Object, boolean)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void ClassDelegate.applyFieldDeclaration(List, Object, boolean)"})
   public void testApplyFieldDeclarationWithFieldDeclarationsTargetThrowExceptionOnMissingField() {
     // Arrange
@@ -1258,47 +1028,66 @@ public class ClassDelegateDiffblueTest {
     fieldDeclarations.add(fieldDeclaration);
 
     // Act and Assert
-    assertThrows(
-        ActivitiIllegalArgumentException.class,
+    assertThrows(ActivitiIllegalArgumentException.class,
         () -> ClassDelegate.applyFieldDeclaration(fieldDeclarations, JSONObject.NULL, true));
   }
 
   /**
-   * Test {@link ClassDelegate#applyFieldDeclaration(List, Object, boolean)} with {@code
-   * fieldDeclarations}, {@code target}, {@code throwExceptionOnMissingField}.
-   *
-   * <p>Method under test: {@link ClassDelegate#applyFieldDeclaration(List, Object, boolean)}
+   * Test {@link ClassDelegate#applyFieldDeclaration(List, Object, boolean)} with {@code fieldDeclarations}, {@code target}, {@code throwExceptionOnMissingField}.
+   * <p>
+   * Method under test: {@link ClassDelegate#applyFieldDeclaration(List, Object, boolean)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void ClassDelegate.applyFieldDeclaration(List, Object, boolean)"})
   public void testApplyFieldDeclarationWithFieldDeclarationsTargetThrowExceptionOnMissingField2() {
     // Arrange
-    ArrayList<FieldDeclaration> fieldDeclarations = new ArrayList<>();
     FieldDeclaration fieldDeclaration = new FieldDeclaration("Name", "Type", JSONObject.NULL);
+    fieldDeclaration.setValue(42);
+
+    ArrayList<FieldDeclaration> fieldDeclarations = new ArrayList<>();
     fieldDeclarations.add(fieldDeclaration);
-    fieldDeclarations.add(new FieldDeclaration());
 
     // Act and Assert
-    assertThrows(
-        ActivitiIllegalArgumentException.class,
+    assertThrows(ActivitiIllegalArgumentException.class,
         () -> ClassDelegate.applyFieldDeclaration(fieldDeclarations, new FieldDeclaration(), true));
   }
 
   /**
-   * Test {@link ClassDelegate#fieldTypeCompatible(FieldDeclaration, Field)}.
-   *
-   * <ul>
-   *   <li>When {@link FieldDeclaration#FieldDeclaration()}.
-   *   <li>Then return {@code true}.
-   * </ul>
-   *
-   * <p>Method under test: {@link ClassDelegate#fieldTypeCompatible(FieldDeclaration, Field)}
+   * Test {@link ClassDelegate#applyFieldDeclaration(List, Object, boolean)} with {@code fieldDeclarations}, {@code target}, {@code throwExceptionOnMissingField}.
+   * <p>
+   * Method under test: {@link ClassDelegate#applyFieldDeclaration(List, Object, boolean)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void ClassDelegate.applyFieldDeclaration(List, Object, boolean)"})
+  public void testApplyFieldDeclarationWithFieldDeclarationsTargetThrowExceptionOnMissingField3() {
+    // Arrange
+    FieldDeclaration fieldDeclaration = new FieldDeclaration("Name", "Type", JSONObject.NULL);
+    fieldDeclaration.setValue("42");
+
+    ArrayList<FieldDeclaration> fieldDeclarations = new ArrayList<>();
+    fieldDeclarations.add(fieldDeclaration);
+    FieldDeclaration fieldDeclaration2 = new FieldDeclaration();
+
+    // Act
+    ClassDelegate.applyFieldDeclaration(fieldDeclarations, fieldDeclaration2, true);
+
+    // Assert
+    assertEquals("42", fieldDeclaration2.getName());
+  }
+
+  /**
+   * Test {@link ClassDelegate#fieldTypeCompatible(FieldDeclaration, Field)}.
+   * <ul>
+   *   <li>When {@link FieldDeclaration#FieldDeclaration()}.</li>
+   *   <li>Then return {@code true}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link ClassDelegate#fieldTypeCompatible(FieldDeclaration, Field)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"boolean ClassDelegate.fieldTypeCompatible(FieldDeclaration, Field)"})
   public void testFieldTypeCompatible_whenFieldDeclaration_thenReturnTrue() {
     // Arrange, Act and Assert
@@ -1307,19 +1096,17 @@ public class ClassDelegateDiffblueTest {
 
   /**
    * Test {@link ClassDelegate#getClassName()}.
-   *
-   * <p>Method under test: {@link ClassDelegate#getClassName()}
+   * <p>
+   * Method under test: {@link ClassDelegate#getClassName()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"String ClassDelegate.getClassName()"})
   public void testGetClassName() {
     // Arrange
     Class<Object> clazz = Object.class;
-    ClassDelegate classDelegate = new ClassDelegate(clazz, new ArrayList<>());
 
     // Act and Assert
-    assertEquals("java.lang.Object", classDelegate.getClassName());
+    assertEquals("java.lang.Object", (new ClassDelegate(clazz, new ArrayList<>())).getClassName());
   }
 }

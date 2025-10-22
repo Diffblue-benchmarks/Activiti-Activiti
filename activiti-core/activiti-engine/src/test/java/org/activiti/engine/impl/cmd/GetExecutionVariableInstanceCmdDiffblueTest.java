@@ -17,28 +17,24 @@ package org.activiti.engine.impl.cmd;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 
 public class GetExecutionVariableInstanceCmdDiffblueTest {
   /**
-   * Test {@link GetExecutionVariableInstanceCmd#GetExecutionVariableInstanceCmd(String, String,
-   * boolean)}.
-   *
-   * <p>Method under test: {@link
-   * GetExecutionVariableInstanceCmd#GetExecutionVariableInstanceCmd(String, String, boolean)}
+   * Test {@link GetExecutionVariableInstanceCmd#GetExecutionVariableInstanceCmd(String, String, boolean)}.
+   * <p>
+   * Method under test: {@link GetExecutionVariableInstanceCmd#GetExecutionVariableInstanceCmd(String, String, boolean)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void GetExecutionVariableInstanceCmd.<init>(String, String, boolean)"})
   public void testNewGetExecutionVariableInstanceCmd() {
     // Arrange and Act
-    GetExecutionVariableInstanceCmd actualGetExecutionVariableInstanceCmd =
-        new GetExecutionVariableInstanceCmd("42", "Variable Name", true);
+    GetExecutionVariableInstanceCmd actualGetExecutionVariableInstanceCmd = new GetExecutionVariableInstanceCmd("42",
+        "Variable Name", true);
 
     // Assert
     assertEquals("42", actualGetExecutionVariableInstanceCmd.executionId);

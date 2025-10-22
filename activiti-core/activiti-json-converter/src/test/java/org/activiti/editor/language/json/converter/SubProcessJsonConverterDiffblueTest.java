@@ -17,7 +17,6 @@ package org.activiti.editor.language.json.converter;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.HashMap;
 import java.util.Map;
@@ -30,13 +29,12 @@ import org.junit.jupiter.api.Test;
 class SubProcessJsonConverterDiffblueTest {
   /**
    * Test {@link SubProcessJsonConverter#fillJsonTypes(Map)}.
-   *
-   * <p>Method under test: {@link SubProcessJsonConverter#fillJsonTypes(Map)}
+   * <p>
+   * Method under test: {@link SubProcessJsonConverter#fillJsonTypes(Map)}
    */
   @Test
   @DisplayName("Test fillJsonTypes(Map)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void SubProcessJsonConverter.fillJsonTypes(Map)"})
   void testFillJsonTypes() {
     // Arrange
@@ -53,13 +51,12 @@ class SubProcessJsonConverterDiffblueTest {
 
   /**
    * Test {@link SubProcessJsonConverter#getStencilId(BaseElement)}.
-   *
-   * <p>Method under test: {@link SubProcessJsonConverter#getStencilId(BaseElement)}
+   * <p>
+   * Method under test: {@link SubProcessJsonConverter#getStencilId(BaseElement)}
    */
   @Test
   @DisplayName("Test getStencilId(BaseElement)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"String SubProcessJsonConverter.getStencilId(BaseElement)"})
   void testGetStencilId() {
     // Arrange
@@ -71,13 +68,12 @@ class SubProcessJsonConverterDiffblueTest {
 
   /**
    * Test new {@link SubProcessJsonConverter} (default constructor).
-   *
-   * <p>Method under test: default or parameterless constructor of {@link SubProcessJsonConverter}
+   * <p>
+   * Method under test: default or parameterless constructor of {@link SubProcessJsonConverter}
    */
   @Test
   @DisplayName("Test new SubProcessJsonConverter (default constructor)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void SubProcessJsonConverter.<init>()"})
   void testNewSubProcessJsonConverter() {
     // Arrange and Act

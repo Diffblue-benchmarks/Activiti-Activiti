@@ -16,8 +16,7 @@
 package org.activiti.engine.impl.cmd;
 
 import static org.junit.Assert.assertEquals;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
@@ -25,12 +24,11 @@ import org.junit.experimental.categories.Category;
 public class SetTaskPriorityCmdDiffblueTest {
   /**
    * Test {@link SetTaskPriorityCmd#SetTaskPriorityCmd(String, int)}.
-   *
-   * <p>Method under test: {@link SetTaskPriorityCmd#SetTaskPriorityCmd(String, int)}
+   * <p>
+   * Method under test: {@link SetTaskPriorityCmd#SetTaskPriorityCmd(String, int)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void SetTaskPriorityCmd.<init>(String, int)"})
   public void testNewSetTaskPriorityCmd() {
     // Arrange and Act
@@ -38,9 +36,7 @@ public class SetTaskPriorityCmdDiffblueTest {
 
     // Assert
     assertEquals("42", actualSetTaskPriorityCmd.taskId);
-    assertEquals(
-        "Cannot execute operation: task is suspended",
-        actualSetTaskPriorityCmd.getSuspendedTaskException());
+    assertEquals("Cannot execute operation: task is suspended", actualSetTaskPriorityCmd.getSuspendedTaskException());
     assertEquals(1, actualSetTaskPriorityCmd.priority);
   }
 }

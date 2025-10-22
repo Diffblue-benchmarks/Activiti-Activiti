@@ -22,7 +22,6 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.mock;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
 import java.util.List;
@@ -40,34 +39,28 @@ import org.springframework.core.task.TaskExecutor;
 
 @ExtendWith(MockitoExtension.class)
 class AbstractProcessEngineAutoConfigurationDiffblueTest {
-  @Mock private UserGroupManager userGroupManager;
+  @Mock
+  private UserGroupManager userGroupManager;
 
   /**
    * Test {@link AbstractProcessEngineAutoConfiguration#springAsyncExecutor(TaskExecutor)}.
-   *
-   * <p>Method under test: {@link
-   * AbstractProcessEngineAutoConfiguration#springAsyncExecutor(TaskExecutor)}
+   * <p>
+   * Method under test: {@link AbstractProcessEngineAutoConfiguration#springAsyncExecutor(TaskExecutor)}
    */
   @Test
   @DisplayName("Test springAsyncExecutor(TaskExecutor)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "SpringAsyncExecutor AbstractProcessEngineAutoConfiguration.springAsyncExecutor(TaskExecutor)"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"SpringAsyncExecutor AbstractProcessEngineAutoConfiguration.springAsyncExecutor(TaskExecutor)"})
   void testSpringAsyncExecutor() {
     // Arrange
     TaskExecutor applicationTaskExecutor = mock(TaskExecutor.class);
 
     // Act
-    SpringAsyncExecutor actualSpringAsyncExecutorResult =
-        new ProcessEngineAutoConfiguration(userGroupManager)
-            .springAsyncExecutor(applicationTaskExecutor);
+    SpringAsyncExecutor actualSpringAsyncExecutorResult = (new ProcessEngineAutoConfiguration(userGroupManager))
+        .springAsyncExecutor(applicationTaskExecutor);
 
     // Assert
-    assertTrue(
-        actualSpringAsyncExecutorResult.getRejectedJobsHandler()
-            instanceof SpringCallerRunsRejectedJobsHandler);
+    assertTrue(actualSpringAsyncExecutorResult.getRejectedJobsHandler() instanceof SpringCallerRunsRejectedJobsHandler);
     assertNull(actualSpringAsyncExecutorResult.getAsyncJobAcquisitionThread());
     assertNull(actualSpringAsyncExecutorResult.getResetExpiredJobThread());
     assertNull(actualSpringAsyncExecutorResult.getTimerJobAcquisitionThread());
@@ -80,10 +73,8 @@ class AbstractProcessEngineAutoConfigurationDiffblueTest {
     assertEquals(1, actualSpringAsyncExecutorResult.getMaxTimerJobsPerAcquisition());
     assertEquals(10, actualSpringAsyncExecutorResult.getMaxPoolSize());
     assertEquals(100, actualSpringAsyncExecutorResult.getQueueSize());
-    assertEquals(
-        10000, actualSpringAsyncExecutorResult.getDefaultAsyncJobAcquireWaitTimeInMillis());
-    assertEquals(
-        10000, actualSpringAsyncExecutorResult.getDefaultTimerJobAcquireWaitTimeInMillis());
+    assertEquals(10000, actualSpringAsyncExecutorResult.getDefaultAsyncJobAcquireWaitTimeInMillis());
+    assertEquals(10000, actualSpringAsyncExecutorResult.getDefaultTimerJobAcquireWaitTimeInMillis());
     assertEquals(2, actualSpringAsyncExecutorResult.getCorePoolSize());
     assertEquals(3, actualSpringAsyncExecutorResult.getResetExpiredJobsPageSize());
     assertEquals(300000, actualSpringAsyncExecutorResult.getAsyncJobLockTimeInMillis());
@@ -99,117 +90,111 @@ class AbstractProcessEngineAutoConfigurationDiffblueTest {
   }
 
   /**
+   * Test {@link AbstractProcessEngineAutoConfiguration#springRejectedJobsHandler()}.
+   * <p>
+   * Method under test: {@link AbstractProcessEngineAutoConfiguration#springRejectedJobsHandler()}
+   */
+  @Test
+  @DisplayName("Test springRejectedJobsHandler()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({
+      "org.activiti.spring.SpringRejectedJobsHandler AbstractProcessEngineAutoConfiguration.springRejectedJobsHandler()"})
+  void testSpringRejectedJobsHandler() {
+    // Arrange, Act and Assert
+    assertTrue((new ProcessEngineAutoConfiguration(userGroupManager))
+        .springRejectedJobsHandler() instanceof SpringCallerRunsRejectedJobsHandler);
+  }
+
+  /**
    * Test {@link AbstractProcessEngineAutoConfiguration#getCustomMybatisMapperClasses(List)}.
-   *
    * <ul>
-   *   <li>Given {@code 42}.
-   *   <li>When {@link ArrayList#ArrayList()} add {@code 42}.
+   *   <li>Given {@code 42}.</li>
+   *   <li>When {@link ArrayList#ArrayList()} add {@code 42}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link
-   * AbstractProcessEngineAutoConfiguration#getCustomMybatisMapperClasses(List)}
+   * <p>
+   * Method under test: {@link AbstractProcessEngineAutoConfiguration#getCustomMybatisMapperClasses(List)}
    */
   @Test
   @DisplayName("Test getCustomMybatisMapperClasses(List); given '42'; when ArrayList() add '42'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "java.util.Set AbstractProcessEngineAutoConfiguration.getCustomMybatisMapperClasses(List)"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"java.util.Set AbstractProcessEngineAutoConfiguration.getCustomMybatisMapperClasses(List)"})
   void testGetCustomMybatisMapperClasses_given42_whenArrayListAdd42() {
     // Arrange
-    ProcessEngineAutoConfiguration processEngineAutoConfiguration =
-        new ProcessEngineAutoConfiguration(userGroupManager);
+    ProcessEngineAutoConfiguration processEngineAutoConfiguration = new ProcessEngineAutoConfiguration(
+        userGroupManager);
 
     ArrayList<String> customMyBatisMappers = new ArrayList<>();
     customMyBatisMappers.add("42");
     customMyBatisMappers.add("foo");
 
     // Act and Assert
-    assertThrows(
-        IllegalArgumentException.class,
+    assertThrows(IllegalArgumentException.class,
         () -> processEngineAutoConfiguration.getCustomMybatisMapperClasses(customMyBatisMappers));
   }
 
   /**
    * Test {@link AbstractProcessEngineAutoConfiguration#getCustomMybatisMapperClasses(List)}.
-   *
    * <ul>
-   *   <li>Given {@code Custom My Batis Mappers}.
+   *   <li>Given {@code Custom My Batis Mappers}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link
-   * AbstractProcessEngineAutoConfiguration#getCustomMybatisMapperClasses(List)}
+   * <p>
+   * Method under test: {@link AbstractProcessEngineAutoConfiguration#getCustomMybatisMapperClasses(List)}
    */
   @Test
   @DisplayName("Test getCustomMybatisMapperClasses(List); given 'Custom My Batis Mappers'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "java.util.Set AbstractProcessEngineAutoConfiguration.getCustomMybatisMapperClasses(List)"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"java.util.Set AbstractProcessEngineAutoConfiguration.getCustomMybatisMapperClasses(List)"})
   void testGetCustomMybatisMapperClasses_givenCustomMyBatisMappers() {
     // Arrange
-    ProcessEngineAutoConfiguration processEngineAutoConfiguration =
-        new ProcessEngineAutoConfiguration(userGroupManager);
+    ProcessEngineAutoConfiguration processEngineAutoConfiguration = new ProcessEngineAutoConfiguration(
+        userGroupManager);
 
     ArrayList<String> customMyBatisMappers = new ArrayList<>();
     customMyBatisMappers.add("Custom My Batis Mappers");
 
     // Act and Assert
-    assertThrows(
-        IllegalArgumentException.class,
+    assertThrows(IllegalArgumentException.class,
         () -> processEngineAutoConfiguration.getCustomMybatisMapperClasses(customMyBatisMappers));
   }
 
   /**
    * Test {@link AbstractProcessEngineAutoConfiguration#getCustomMybatisMapperClasses(List)}.
-   *
    * <ul>
-   *   <li>When {@link ArrayList#ArrayList()}.
-   *   <li>Then return Empty.
+   *   <li>When {@link ArrayList#ArrayList()}.</li>
+   *   <li>Then return Empty.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link
-   * AbstractProcessEngineAutoConfiguration#getCustomMybatisMapperClasses(List)}
+   * <p>
+   * Method under test: {@link AbstractProcessEngineAutoConfiguration#getCustomMybatisMapperClasses(List)}
    */
   @Test
   @DisplayName("Test getCustomMybatisMapperClasses(List); when ArrayList(); then return Empty")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "java.util.Set AbstractProcessEngineAutoConfiguration.getCustomMybatisMapperClasses(List)"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"java.util.Set AbstractProcessEngineAutoConfiguration.getCustomMybatisMapperClasses(List)"})
   void testGetCustomMybatisMapperClasses_whenArrayList_thenReturnEmpty() {
     // Arrange
-    ProcessEngineAutoConfiguration processEngineAutoConfiguration =
-        new ProcessEngineAutoConfiguration(userGroupManager);
+    ProcessEngineAutoConfiguration processEngineAutoConfiguration = new ProcessEngineAutoConfiguration(
+        userGroupManager);
 
     // Act and Assert
-    assertTrue(
-        processEngineAutoConfiguration.getCustomMybatisMapperClasses(new ArrayList<>()).isEmpty());
+    assertTrue(processEngineAutoConfiguration.getCustomMybatisMapperClasses(new ArrayList<>()).isEmpty());
   }
 
   /**
    * Test {@link AbstractProcessEngineAutoConfiguration#taskExecutor()}.
-   *
-   * <p>Method under test: {@link AbstractProcessEngineAutoConfiguration#taskExecutor()}
+   * <p>
+   * Method under test: {@link AbstractProcessEngineAutoConfiguration#taskExecutor()}
    */
   @Test
   @DisplayName("Test taskExecutor()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"TaskExecutor AbstractProcessEngineAutoConfiguration.taskExecutor()"})
   void testTaskExecutor() {
     // Arrange and Act
-    TaskExecutor actualTaskExecutorResult =
-        new ProcessEngineAutoConfiguration(userGroupManager).taskExecutor();
-    actualTaskExecutorResult.execute(mock(Runnable.class));
+    TaskExecutor actualTaskExecutorResult = (new ProcessEngineAutoConfiguration(userGroupManager)).taskExecutor();
 
     // Assert
     assertTrue(actualTaskExecutorResult instanceof SimpleAsyncTaskExecutor);
-    assertEquals(
-        "SimpleAsyncTaskExecutor-",
+    assertEquals("SimpleAsyncTaskExecutor-",
         ((SimpleAsyncTaskExecutor) actualTaskExecutorResult).getThreadNamePrefix());
     assertNull(((SimpleAsyncTaskExecutor) actualTaskExecutorResult).getThreadGroup());
     assertNull(((SimpleAsyncTaskExecutor) actualTaskExecutorResult).getThreadFactory());

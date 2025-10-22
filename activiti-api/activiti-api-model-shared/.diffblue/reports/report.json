@@ -1,38 +1,38 @@
 {
   "meta" : {
-    "reportVersion" : "2.7"
+    "reportVersion" : "2.6"
   },
   "run" : {
-    "version" : "2025.09.01-44e352d-licensed",
-    "creationTimestamp" : "2025-10-15T18:17:05.474751764Z",
+    "version" : "2025.02.02-08b2a5a-licensed",
+    "creationTimestamp" : "2025-10-21T18:36:58.703503864Z",
     "command" : "dcover create --exclude-modules=org.activiti:activiti-dependency-check,org.activiti:activiti-api-dependencies,org.activiti:activiti-core-common-dependencies,org.activiti:activiti-core-dependencies,org.activiti:activiti-dependencies,org.activiti:activiti-spring-conformance-set0,org.activiti:activiti-spring-conformance-set1,org.activiti:activiti-spring-conformance-set2,org.activiti:activiti-spring-conformance-set3,org.activiti:activiti-spring-conformance-set4,org.activiti:activiti-spring-conformance-set5,org.activiti:activiti-spring-conformance-variables,org.activiti:activiti-spring-conformance-signals --coverage-reports --upload http://localhost:8080 --project-name Activiti-Activiti --name with-diffblue-tests",
-    "totalTime" : 89.429,
-    "environmentDetectionTime" : 0.131,
-    "indexingTime" : 0.396,
-    "entryPointsTime" : 0.098,
-    "generationTime" : 12.418,
-    "timeToFirstTest" : 62.982,
-    "timeToLastTest" : 65.87,
-    "indexQueryTime" : 2.601,
-    "verificationTime" : 2.383,
-    "validationTime" : 9.463
+    "totalTime" : 85.141,
+    "environmentDetectionTime" : 0.708,
+    "indexingTime" : 0.306,
+    "entryPointsTime" : 0.689,
+    "generationTime" : 12.129,
+    "timeToFirstTest" : 61.534,
+    "timeToLastTest" : 63.745,
+    "indexQueryTime" : 3.083,
+    "verificationTime" : 2.23,
+    "validationTime" : 11.299
   },
   "codes" : {
     "R000" : "Success",
+    "R013" : "No inputs found that don't throw a trivial exception",
     "T000" : "Method eligible for test creation",
     "T003" : "Private method",
     "T005" : "Trivial constructor",
     "T010" : "Abstract or interface method",
     "T012" : "Synthetic method",
-    "T023" : "Testability unknown",
     "V000" : "Validated successfully"
   },
   "summary" : {
     "classesCount" : 9,
     "methodsCount" : 32,
-    "cumulativeDiffblueTestCount" : 4,
+    "cumulativeDiffblueTestCount" : 3,
     "cumulativeManualTestCount" : 0,
-    "completeTestCount" : 4,
+    "completeTestCount" : 3,
     "incompleteTestCount" : 0,
     "skeletonTestCount" : 0,
     "totalPhysicalLineCount" : 85,
@@ -41,21 +41,20 @@
       "T003" : 1,
       "T005" : 2,
       "T010" : 23,
-      "T012" : 3,
-      "T023" : 1
+      "T012" : 4
     },
     "perMethodOutcome" : {
-      "R000" : 4,
+      "R000" : 3,
+      "R013" : 1,
       "T003" : 1,
       "T010" : 23,
-      "T012" : 3,
-      "T023" : 1
+      "T012" : 4
     },
     "perTestOutcome" : {
-      "R000" : 4
+      "R000" : 3
     },
     "perTestValidation" : {
-      "V000" : 4
+      "V000" : 3
     }
   },
   "classes" : {
@@ -86,18 +85,19 @@
     },
     "org.activiti.api.model.shared.Result" : {
       "methodsCount" : 4,
-      "completeTestCount" : 2,
+      "completeTestCount" : 1,
       "incompleteTestCount" : 0,
       "perMethodTestability" : {
         "T000" : 2,
         "T010" : 2
       },
       "perMethodOutcome" : {
-        "R000" : 2,
+        "R000" : 1,
+        "R013" : 1,
         "T010" : 2
       },
       "perTestOutcome" : {
-        "R000" : 2
+        "R000" : 1
       }
     },
     "org.activiti.api.model.shared.event.RuntimeEvent" : {
@@ -117,13 +117,11 @@
       "incompleteTestCount" : 0,
       "perMethodTestability" : {
         "T003" : 1,
-        "T012" : 3,
-        "T023" : 1
+        "T012" : 4
       },
       "perMethodOutcome" : {
         "T003" : 1,
-        "T012" : 3,
-        "T023" : 1
+        "T012" : 4
       }
     },
     "org.activiti.api.model.shared.event.VariableUpdatedEvent" : {
@@ -239,13 +237,10 @@
       ]
     },
     "org.activiti.api.model.shared.Result.getPayload:()Lorg/activiti/api/model/shared/Payload;" : {
-      "completeTestCount" : 1,
+      "completeTestCount" : 0,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
-      "perMethodOutcome" : "R000",
-      "perTestOutcome" : {
-        "R000" : 1
-      },
+      "perMethodOutcome" : "R013",
       "lineNumbers" : [
         37
       ]
@@ -322,8 +317,14 @@
     "org.activiti.api.model.shared.event.VariableEvent$VariableEvents.<clinit>:()V" : {
       "completeTestCount" : 0,
       "incompleteTestCount" : 0,
-      "perMethodTestability" : "T023",
-      "perMethodOutcome" : "T023"
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        25,
+        27,
+        29,
+        23
+      ]
     },
     "org.activiti.api.model.shared.event.VariableEvent$VariableEvents.<init>:(Ljava/lang/String;I)V" : {
       "completeTestCount" : 0,
@@ -412,6 +413,5 @@
       "perMethodTestability" : "T010",
       "perMethodOutcome" : "T010"
     }
-  },
-  "validationMetrics" : { }
+  }
 }

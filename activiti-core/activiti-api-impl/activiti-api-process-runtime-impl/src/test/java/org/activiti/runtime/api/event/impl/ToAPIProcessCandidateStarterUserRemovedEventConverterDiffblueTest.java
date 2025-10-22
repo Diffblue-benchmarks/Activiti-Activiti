@@ -16,15 +16,10 @@
 package org.activiti.runtime.api.event.impl;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
-import java.io.UnsupportedEncodingException;
 import org.activiti.engine.delegate.event.ActivitiEntityEvent;
-import org.activiti.engine.delegate.event.ActivitiEventType;
-import org.activiti.engine.delegate.event.impl.ActivitiEntityEventImpl;
 import org.activiti.engine.delegate.event.impl.ActivitiProcessCancelledEventImpl;
 import org.activiti.engine.impl.persistence.entity.ExecutionEntityImpl;
-import org.activiti.engine.impl.persistence.entity.IdentityLinkEntityImpl;
 import org.activiti.runtime.api.model.impl.APIProcessCandidateStarterUserConverter;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
@@ -37,198 +32,57 @@ import org.springframework.test.context.aot.DisabledInAotMode;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 @ContextConfiguration(classes = {ToAPIProcessCandidateStarterUserRemovedEventConverter.class})
-@DisabledInAotMode
 @ExtendWith(SpringExtension.class)
+@DisabledInAotMode
 class ToAPIProcessCandidateStarterUserRemovedEventConverterDiffblueTest {
-  @MockBean private APIProcessCandidateStarterUserConverter aPIProcessCandidateStarterUserConverter;
+  @MockBean
+  private APIProcessCandidateStarterUserConverter aPIProcessCandidateStarterUserConverter;
 
   @Autowired
-  private ToAPIProcessCandidateStarterUserRemovedEventConverter
-      toAPIProcessCandidateStarterUserRemovedEventConverter;
+  private ToAPIProcessCandidateStarterUserRemovedEventConverter toAPIProcessCandidateStarterUserRemovedEventConverter;
 
   /**
-   * Test {@link
-   * ToAPIProcessCandidateStarterUserRemovedEventConverter#ToAPIProcessCandidateStarterUserRemovedEventConverter(APIProcessCandidateStarterUserConverter)}.
-   *
-   * <p>Method under test: {@link
-   * ToAPIProcessCandidateStarterUserRemovedEventConverter#ToAPIProcessCandidateStarterUserRemovedEventConverter(APIProcessCandidateStarterUserConverter)}
+   * Test {@link ToAPIProcessCandidateStarterUserRemovedEventConverter#ToAPIProcessCandidateStarterUserRemovedEventConverter(APIProcessCandidateStarterUserConverter)}.
+   * <p>
+   * Method under test: {@link ToAPIProcessCandidateStarterUserRemovedEventConverter#ToAPIProcessCandidateStarterUserRemovedEventConverter(APIProcessCandidateStarterUserConverter)}
    */
   @Test
-  @DisplayName(
-      "Test new ToAPIProcessCandidateStarterUserRemovedEventConverter(APIProcessCandidateStarterUserConverter)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test new ToAPIProcessCandidateStarterUserRemovedEventConverter(APIProcessCandidateStarterUserConverter)")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({
-    "void ToAPIProcessCandidateStarterUserRemovedEventConverter.<init>(APIProcessCandidateStarterUserConverter)"
-  })
+      "void ToAPIProcessCandidateStarterUserRemovedEventConverter.<init>(APIProcessCandidateStarterUserConverter)"})
   void testNewToAPIProcessCandidateStarterUserRemovedEventConverter() {
+    //   Diffblue Cover was unable to create a Spring-specific test for this Spring method.
+    //   Run dcover create --keep-partial-tests to gain insights into why
+    //   a non-Spring test was created.
+
     // Arrange and Act
-    ToAPIProcessCandidateStarterUserRemovedEventConverter
-        actualToAPIProcessCandidateStarterUserRemovedEventConverter =
-            new ToAPIProcessCandidateStarterUserRemovedEventConverter(
-                aPIProcessCandidateStarterUserConverter);
+    ToAPIProcessCandidateStarterUserRemovedEventConverter actualToAPIProcessCandidateStarterUserRemovedEventConverter = new ToAPIProcessCandidateStarterUserRemovedEventConverter(
+        new APIProcessCandidateStarterUserConverter());
 
     // Assert
-    assertFalse(
-        actualToAPIProcessCandidateStarterUserRemovedEventConverter
-            .from(
-                new ActivitiProcessCancelledEventImpl(
-                    ExecutionEntityImpl.createWithEmptyRelationshipCollections()))
-            .isPresent());
+    assertFalse(actualToAPIProcessCandidateStarterUserRemovedEventConverter
+        .from(new ActivitiProcessCancelledEventImpl(ExecutionEntityImpl.createWithEmptyRelationshipCollections()))
+        .isPresent());
   }
 
   /**
-   * Test {@link ToAPIProcessCandidateStarterUserRemovedEventConverter#from(ActivitiEntityEvent)}
-   * with {@code ActivitiEntityEvent}.
-   *
-   * <p>Method under test: {@link
-   * ToAPIProcessCandidateStarterUserRemovedEventConverter#from(ActivitiEntityEvent)}
+   * Test {@link ToAPIProcessCandidateStarterUserRemovedEventConverter#from(ActivitiEntityEvent)} with {@code ActivitiEntityEvent}.
+   * <ul>
+   *   <li>Then return not Present.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link ToAPIProcessCandidateStarterUserRemovedEventConverter#from(ActivitiEntityEvent)}
    */
   @Test
-  @DisplayName("Test from(ActivitiEntityEvent) with 'ActivitiEntityEvent'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test from(ActivitiEntityEvent) with 'ActivitiEntityEvent'; then return not Present")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({
-    "java.util.Optional ToAPIProcessCandidateStarterUserRemovedEventConverter.from(ActivitiEntityEvent)"
-  })
-  void testFromWithActivitiEntityEvent() {
+      "java.util.Optional ToAPIProcessCandidateStarterUserRemovedEventConverter.from(ActivitiEntityEvent)"})
+  void testFromWithActivitiEntityEvent_thenReturnNotPresent() {
     // Arrange, Act and Assert
-    assertFalse(
-        toAPIProcessCandidateStarterUserRemovedEventConverter
-            .from(
-                new ActivitiProcessCancelledEventImpl(
-                    ExecutionEntityImpl.createWithEmptyRelationshipCollections()))
-            .isPresent());
-  }
-
-  /**
-   * Test {@link ToAPIProcessCandidateStarterUserRemovedEventConverter#from(ActivitiEntityEvent)}
-   * with {@code ActivitiEntityEvent}.
-   *
-   * <ul>
-   *   <li>Given {@code candidate}.
-   * </ul>
-   *
-   * <p>Method under test: {@link
-   * ToAPIProcessCandidateStarterUserRemovedEventConverter#from(ActivitiEntityEvent)}
-   */
-  @Test
-  @DisplayName("Test from(ActivitiEntityEvent) with 'ActivitiEntityEvent'; given 'candidate'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "java.util.Optional ToAPIProcessCandidateStarterUserRemovedEventConverter.from(ActivitiEntityEvent)"
-  })
-  void testFromWithActivitiEntityEvent_givenCandidate() throws UnsupportedEncodingException {
-    // Arrange
-    IdentityLinkEntityImpl identityLinkEntityImpl = new IdentityLinkEntityImpl();
-    identityLinkEntityImpl.setDeleted(true);
-    identityLinkEntityImpl.setDetails("AXAXAXAX".getBytes("UTF-8"));
-    identityLinkEntityImpl.setGroupId("42");
-    identityLinkEntityImpl.setId("42");
-    identityLinkEntityImpl.setInserted(true);
-    identityLinkEntityImpl.setProcessInstanceId("42");
-    identityLinkEntityImpl.setTaskId("42");
-    identityLinkEntityImpl.setType("candidate");
-    identityLinkEntityImpl.setUpdated(true);
-    identityLinkEntityImpl.setUserId(null);
-    identityLinkEntityImpl.setProcessDefId("Entity");
-
-    // Act and Assert
-    assertFalse(
-        toAPIProcessCandidateStarterUserRemovedEventConverter
-            .from(
-                new ActivitiEntityEventImpl(
-                    identityLinkEntityImpl, ActivitiEventType.ENTITY_CREATED))
-            .isPresent());
-  }
-
-  /**
-   * Test {@link ToAPIProcessCandidateStarterUserRemovedEventConverter#from(ActivitiEntityEvent)}
-   * with {@code ActivitiEntityEvent}.
-   *
-   * <ul>
-   *   <li>Given {@code Type}.
-   *   <li>When {@link IdentityLinkEntityImpl} (default constructor) Type is {@code Type}.
-   * </ul>
-   *
-   * <p>Method under test: {@link
-   * ToAPIProcessCandidateStarterUserRemovedEventConverter#from(ActivitiEntityEvent)}
-   */
-  @Test
-  @DisplayName(
-      "Test from(ActivitiEntityEvent) with 'ActivitiEntityEvent'; given 'Type'; when IdentityLinkEntityImpl (default constructor) Type is 'Type'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "java.util.Optional ToAPIProcessCandidateStarterUserRemovedEventConverter.from(ActivitiEntityEvent)"
-  })
-  void testFromWithActivitiEntityEvent_givenType_whenIdentityLinkEntityImplTypeIsType()
-      throws UnsupportedEncodingException {
-    // Arrange
-    IdentityLinkEntityImpl identityLinkEntityImpl = new IdentityLinkEntityImpl();
-    identityLinkEntityImpl.setDeleted(true);
-    identityLinkEntityImpl.setDetails("AXAXAXAX".getBytes("UTF-8"));
-    identityLinkEntityImpl.setGroupId("42");
-    identityLinkEntityImpl.setId("42");
-    identityLinkEntityImpl.setInserted(true);
-    identityLinkEntityImpl.setProcessInstanceId("42");
-    identityLinkEntityImpl.setTaskId("42");
-    identityLinkEntityImpl.setType("Type");
-    identityLinkEntityImpl.setUpdated(true);
-    identityLinkEntityImpl.setUserId(null);
-    identityLinkEntityImpl.setProcessDefId("Entity");
-
-    // Act and Assert
-    assertFalse(
-        toAPIProcessCandidateStarterUserRemovedEventConverter
-            .from(
-                new ActivitiEntityEventImpl(
-                    identityLinkEntityImpl, ActivitiEventType.ENTITY_CREATED))
-            .isPresent());
-  }
-
-  /**
-   * Test {@link ToAPIProcessCandidateStarterUserRemovedEventConverter#from(ActivitiEntityEvent)}
-   * with {@code ActivitiEntityEvent}.
-   *
-   * <ul>
-   *   <li>When {@link IdentityLinkEntityImpl} (default constructor) ProcessDefId is {@code null}.
-   * </ul>
-   *
-   * <p>Method under test: {@link
-   * ToAPIProcessCandidateStarterUserRemovedEventConverter#from(ActivitiEntityEvent)}
-   */
-  @Test
-  @DisplayName(
-      "Test from(ActivitiEntityEvent) with 'ActivitiEntityEvent'; when IdentityLinkEntityImpl (default constructor) ProcessDefId is 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "java.util.Optional ToAPIProcessCandidateStarterUserRemovedEventConverter.from(ActivitiEntityEvent)"
-  })
-  void testFromWithActivitiEntityEvent_whenIdentityLinkEntityImplProcessDefIdIsNull()
-      throws UnsupportedEncodingException {
-    // Arrange
-    IdentityLinkEntityImpl identityLinkEntityImpl = new IdentityLinkEntityImpl();
-    identityLinkEntityImpl.setDeleted(true);
-    identityLinkEntityImpl.setDetails("AXAXAXAX".getBytes("UTF-8"));
-    identityLinkEntityImpl.setGroupId("42");
-    identityLinkEntityImpl.setId("42");
-    identityLinkEntityImpl.setInserted(true);
-    identityLinkEntityImpl.setProcessInstanceId("42");
-    identityLinkEntityImpl.setTaskId("42");
-    identityLinkEntityImpl.setType("Type");
-    identityLinkEntityImpl.setUpdated(true);
-    identityLinkEntityImpl.setUserId(null);
-    identityLinkEntityImpl.setProcessDefId(null);
-
-    // Act and Assert
-    assertFalse(
-        toAPIProcessCandidateStarterUserRemovedEventConverter
-            .from(
-                new ActivitiEntityEventImpl(
-                    identityLinkEntityImpl, ActivitiEventType.ENTITY_CREATED))
-            .isPresent());
+    assertFalse(toAPIProcessCandidateStarterUserRemovedEventConverter
+        .from(new ActivitiProcessCancelledEventImpl(ExecutionEntityImpl.createWithEmptyRelationshipCollections()))
+        .isPresent());
   }
 }

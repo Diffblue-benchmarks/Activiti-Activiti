@@ -19,8 +19,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
 import java.util.List;
@@ -30,17 +29,15 @@ import org.junit.experimental.categories.Category;
 public class SendTaskDiffblueTest {
   /**
    * Test {@link SendTask#clone()}.
-   *
    * <ul>
-   *   <li>Given {@link ArrayList#ArrayList()} add {@link FieldExtension} (default constructor).
-   *   <li>Then return FieldExtensions size is one.
+   *   <li>Given {@link ArrayList#ArrayList()} add {@link FieldExtension} (default constructor).</li>
+   *   <li>Then return FieldExtensions size is one.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link SendTask#clone()}
+   * <p>
+   * Method under test: {@link SendTask#clone()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"SendTask SendTask.clone()"})
   public void testClone_givenArrayListAddFieldExtension_thenReturnFieldExtensionsSizeIsOne() {
     // Arrange
@@ -66,21 +63,19 @@ public class SendTaskDiffblueTest {
 
   /**
    * Test {@link SendTask#clone()}.
-   *
    * <ul>
-   *   <li>Given {@link SendTask} (default constructor).
-   *   <li>Then return Behavior is {@code null}.
+   *   <li>Given {@link SendTask} (default constructor).</li>
+   *   <li>Then return Behavior is {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link SendTask#clone()}
+   * <p>
+   * Method under test: {@link SendTask#clone()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"SendTask SendTask.clone()"})
   public void testClone_givenSendTask_thenReturnBehaviorIsNull() {
     // Arrange and Act
-    SendTask actualCloneResult = new SendTask().clone();
+    SendTask actualCloneResult = (new SendTask()).clone();
 
     // Assert
     assertNull(actualCloneResult.getBehavior());
@@ -117,9 +112,8 @@ public class SendTaskDiffblueTest {
 
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>default or parameterless constructor of {@link SendTask}
    *   <li>{@link SendTask#setImplementationType(String)}
@@ -131,17 +125,10 @@ public class SendTaskDiffblueTest {
    * </ul>
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void SendTask.<init>()",
-    "String SendTask.getImplementationType()",
-    "String SendTask.getOperationRef()",
-    "String SendTask.getType()",
-    "void SendTask.setImplementationType(String)",
-    "void SendTask.setOperationRef(String)",
-    "void SendTask.setType(String)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void SendTask.<init>()", "String SendTask.getImplementationType()",
+      "String SendTask.getOperationRef()", "String SendTask.getType()", "void SendTask.setImplementationType(String)",
+      "void SendTask.setOperationRef(String)", "void SendTask.setType(String)"})
   public void testGettersAndSetters() {
     // Arrange and Act
     SendTask actualSendTask = new SendTask();

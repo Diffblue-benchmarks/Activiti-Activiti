@@ -20,12 +20,12 @@ import static org.mockito.ArgumentMatchers.isA;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
 import java.util.List;
 import org.activiti.api.process.model.events.BPMNActivityStartedEvent;
 import org.activiti.api.process.runtime.events.listener.BPMNElementEventListener;
+import org.activiti.api.process.runtime.events.listener.ProcessRuntimeEventListener;
 import org.activiti.engine.delegate.event.ActivitiEvent;
 import org.activiti.engine.delegate.event.impl.ActivitiActivityCancelledEventImpl;
 import org.activiti.runtime.api.event.impl.ToActivityStartedConverter;
@@ -38,68 +38,49 @@ import org.mockito.Mockito;
 class ActivityStartedListenerDelegateDiffblueTest {
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
-   *   <li>{@link ActivityStartedListenerDelegate#ActivityStartedListenerDelegate(List,
-   *       ToActivityStartedConverter)}
+   *   <li>{@link ActivityStartedListenerDelegate#ActivityStartedListenerDelegate(List, ToActivityStartedConverter)}
    *   <li>{@link ActivityStartedListenerDelegate#isFailOnException()}
    * </ul>
    */
   @Test
   @DisplayName("Test getters and setters")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void ActivityStartedListenerDelegate.<init>(List, ToActivityStartedConverter)",
-    "boolean ActivityStartedListenerDelegate.isFailOnException()"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void ActivityStartedListenerDelegate.<init>(List, ToActivityStartedConverter)",
+      "boolean ActivityStartedListenerDelegate.isFailOnException()"})
   void testGettersAndSetters() {
     // Arrange
-    ArrayList<BPMNElementEventListener<BPMNActivityStartedEvent>> processRuntimeEventListeners =
-        new ArrayList<>();
+    ArrayList<BPMNElementEventListener<BPMNActivityStartedEvent>> processRuntimeEventListeners = new ArrayList<>();
 
-    // Act
-    ActivityStartedListenerDelegate actualActivityStartedListenerDelegate =
-        new ActivityStartedListenerDelegate(
-            processRuntimeEventListeners,
-            new ToActivityStartedConverter(new ToActivityConverter()));
-
-    // Assert
-    assertFalse(actualActivityStartedListenerDelegate.isFailOnException());
+    // Act and Assert
+    assertFalse((new ActivityStartedListenerDelegate(processRuntimeEventListeners,
+        new ToActivityStartedConverter(new ToActivityConverter()))).isFailOnException());
   }
 
   /**
    * Test {@link ActivityStartedListenerDelegate#onEvent(ActivitiEvent)}.
-   *
    * <ul>
-   *   <li>Given {@link BPMNElementEventListener} {@link
-   *       BPMNElementEventListener#onEvent(RuntimeEvent)} does nothing.
-   *   <li>Then calls {@link BPMNElementEventListener#onEvent(RuntimeEvent)}.
+   *   <li>Given {@link BPMNElementEventListener} {@link ProcessRuntimeEventListener#onEvent(RuntimeEvent)} does nothing.</li>
+   *   <li>Then calls {@link ProcessRuntimeEventListener#onEvent(RuntimeEvent)}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ActivityStartedListenerDelegate#onEvent(ActivitiEvent)}
+   * <p>
+   * Method under test: {@link ActivityStartedListenerDelegate#onEvent(ActivitiEvent)}
    */
   @Test
-  @DisplayName(
-      "Test onEvent(ActivitiEvent); given BPMNElementEventListener onEvent(RuntimeEvent) does nothing; then calls onEvent(RuntimeEvent)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test onEvent(ActivitiEvent); given BPMNElementEventListener onEvent(RuntimeEvent) does nothing; then calls onEvent(RuntimeEvent)")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void ActivityStartedListenerDelegate.onEvent(ActivitiEvent)"})
   void testOnEvent_givenBPMNElementEventListenerOnEventDoesNothing_thenCallsOnEvent() {
     // Arrange
-    BPMNElementEventListener<BPMNActivityStartedEvent> bpmnElementEventListener =
-        mock(BPMNElementEventListener.class);
+    BPMNElementEventListener<BPMNActivityStartedEvent> bpmnElementEventListener = mock(BPMNElementEventListener.class);
     doNothing().when(bpmnElementEventListener).onEvent(Mockito.<BPMNActivityStartedEvent>any());
 
-    ArrayList<BPMNElementEventListener<BPMNActivityStartedEvent>> processRuntimeEventListeners =
-        new ArrayList<>();
+    ArrayList<BPMNElementEventListener<BPMNActivityStartedEvent>> processRuntimeEventListeners = new ArrayList<>();
     processRuntimeEventListeners.add(bpmnElementEventListener);
-    ActivityStartedListenerDelegate activityStartedListenerDelegate =
-        new ActivityStartedListenerDelegate(
-            processRuntimeEventListeners,
-            new ToActivityStartedConverter(new ToActivityConverter()));
+    ActivityStartedListenerDelegate activityStartedListenerDelegate = new ActivityStartedListenerDelegate(
+        processRuntimeEventListeners, new ToActivityStartedConverter(new ToActivityConverter()));
 
     // Act
     activityStartedListenerDelegate.onEvent(new ActivitiActivityCancelledEventImpl());

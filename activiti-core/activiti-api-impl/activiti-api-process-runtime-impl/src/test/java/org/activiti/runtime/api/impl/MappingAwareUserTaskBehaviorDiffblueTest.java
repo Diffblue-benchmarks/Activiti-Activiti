@@ -16,7 +16,6 @@
 package org.activiti.runtime.api.impl;
 
 import static org.junit.jupiter.api.Assertions.assertNull;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.bpmn.model.UserTask;
 import org.activiti.engine.impl.bpmn.behavior.VariablesCalculator;
@@ -32,37 +31,33 @@ import org.springframework.test.context.aot.DisabledInAotMode;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 @ContextConfiguration(classes = {MappingAwareUserTaskBehavior.class})
-@DisabledInAotMode
 @ExtendWith(SpringExtension.class)
+@DisabledInAotMode
 class MappingAwareUserTaskBehaviorDiffblueTest {
-  @Autowired private MappingAwareUserTaskBehavior mappingAwareUserTaskBehavior;
+  @Autowired
+  private MappingAwareUserTaskBehavior mappingAwareUserTaskBehavior;
 
-  @MockBean private UserTask userTask;
+  @MockBean
+  private UserTask userTask;
 
-  @MockBean private VariablesCalculator variablesCalculator;
+  @MockBean
+  private VariablesCalculator variablesCalculator;
 
-  @MockBean private VariablesPropagator variablesPropagator;
+  @MockBean
+  private VariablesPropagator variablesPropagator;
 
   /**
-   * Test {@link MappingAwareUserTaskBehavior#MappingAwareUserTaskBehavior(UserTask,
-   * VariablesCalculator, VariablesPropagator)}.
-   *
-   * <p>Method under test: {@link
-   * MappingAwareUserTaskBehavior#MappingAwareUserTaskBehavior(UserTask, VariablesCalculator,
-   * VariablesPropagator)}
+   * Test {@link MappingAwareUserTaskBehavior#MappingAwareUserTaskBehavior(UserTask, VariablesCalculator, VariablesPropagator)}.
+   * <p>
+   * Method under test: {@link MappingAwareUserTaskBehavior#MappingAwareUserTaskBehavior(UserTask, VariablesCalculator, VariablesPropagator)}
    */
   @Test
-  @DisplayName(
-      "Test new MappingAwareUserTaskBehavior(UserTask, VariablesCalculator, VariablesPropagator)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void MappingAwareUserTaskBehavior.<init>(UserTask, VariablesCalculator, VariablesPropagator)"
-  })
+  @DisplayName("Test new MappingAwareUserTaskBehavior(UserTask, VariablesCalculator, VariablesPropagator)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void MappingAwareUserTaskBehavior.<init>(UserTask, VariablesCalculator, VariablesPropagator)"})
   void testNewMappingAwareUserTaskBehavior() {
     // Arrange, Act and Assert
-    assertNull(
-        new MappingAwareUserTaskBehavior(userTask, variablesCalculator, variablesPropagator)
-            .getMultiInstanceActivityBehavior());
+    assertNull((new MappingAwareUserTaskBehavior(userTask, variablesCalculator, variablesPropagator))
+        .getMultiInstanceActivityBehavior());
   }
 }

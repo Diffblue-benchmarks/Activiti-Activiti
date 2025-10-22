@@ -18,8 +18,7 @@ package org.activiti.engine.impl.bpmn.behavior;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.List;
 import org.activiti.bpmn.model.UserTask;
@@ -29,17 +28,15 @@ import org.junit.experimental.categories.Category;
 public class UserTaskActivityBehaviorDiffblueTest {
   /**
    * Test {@link UserTaskActivityBehavior#UserTaskActivityBehavior(UserTask)}.
-   *
-   * <p>Method under test: {@link UserTaskActivityBehavior#UserTaskActivityBehavior(UserTask)}
+   * <p>
+   * Method under test: {@link UserTaskActivityBehavior#UserTaskActivityBehavior(UserTask)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void UserTaskActivityBehavior.<init>(UserTask)"})
   public void testNewUserTaskActivityBehavior() {
     // Arrange and Act
-    UserTaskActivityBehavior actualUserTaskActivityBehavior =
-        new UserTaskActivityBehavior(new UserTask());
+    UserTaskActivityBehavior actualUserTaskActivityBehavior = new UserTaskActivityBehavior(new UserTask());
 
     // Assert
     assertNull(actualUserTaskActivityBehavior.getMultiInstanceActivityBehavior());
@@ -49,22 +46,19 @@ public class UserTaskActivityBehaviorDiffblueTest {
 
   /**
    * Test {@link UserTaskActivityBehavior#UserTaskActivityBehavior(UserTask, VariablesPropagator)}.
-   *
-   * <p>Method under test: {@link UserTaskActivityBehavior#UserTaskActivityBehavior(UserTask,
-   * VariablesPropagator)}
+   * <p>
+   * Method under test: {@link UserTaskActivityBehavior#UserTaskActivityBehavior(UserTask, VariablesPropagator)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void UserTaskActivityBehavior.<init>(UserTask, VariablesPropagator)"})
   public void testNewUserTaskActivityBehavior2() {
     // Arrange
     UserTask userTask = new UserTask();
 
     // Act
-    UserTaskActivityBehavior actualUserTaskActivityBehavior =
-        new UserTaskActivityBehavior(
-            userTask, new VariablesPropagator(new CopyVariablesCalculator()));
+    UserTaskActivityBehavior actualUserTaskActivityBehavior = new UserTaskActivityBehavior(userTask,
+        new VariablesPropagator(new CopyVariablesCalculator()));
 
     // Assert
     assertNull(actualUserTaskActivityBehavior.getMultiInstanceActivityBehavior());
@@ -74,17 +68,16 @@ public class UserTaskActivityBehaviorDiffblueTest {
 
   /**
    * Test {@link UserTaskActivityBehavior#extractCandidates(String)}.
-   *
-   * <p>Method under test: {@link UserTaskActivityBehavior#extractCandidates(String)}
+   * <p>
+   * Method under test: {@link UserTaskActivityBehavior#extractCandidates(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"List UserTaskActivityBehavior.extractCandidates(String)"})
   public void testExtractCandidates() {
     // Arrange and Act
-    List<String> actualExtractCandidatesResult =
-        new UserTaskActivityBehavior(new UserTask()).extractCandidates("Str");
+    List<String> actualExtractCandidatesResult = (new UserTaskActivityBehavior(new UserTask()))
+        .extractCandidates("Str");
 
     // Assert
     assertEquals(1, actualExtractCandidatesResult.size());

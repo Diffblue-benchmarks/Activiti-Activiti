@@ -18,7 +18,6 @@ package org.activiti.api.runtime.event.impl;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.api.process.model.BPMNTimer;
 import org.activiti.api.process.model.events.BPMNTimerEvent;
@@ -31,19 +30,16 @@ import org.junit.jupiter.api.Test;
 class BPMNTimerRetriesDecrementedEventImplDiffblueTest {
   /**
    * Test {@link BPMNTimerRetriesDecrementedEventImpl#BPMNTimerRetriesDecrementedEventImpl()}.
-   *
-   * <p>Method under test: {@link
-   * BPMNTimerRetriesDecrementedEventImpl#BPMNTimerRetriesDecrementedEventImpl()}
+   * <p>
+   * Method under test: {@link BPMNTimerRetriesDecrementedEventImpl#BPMNTimerRetriesDecrementedEventImpl()}
    */
   @Test
   @DisplayName("Test new BPMNTimerRetriesDecrementedEventImpl()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void BPMNTimerRetriesDecrementedEventImpl.<init>()"})
   void testNewBPMNTimerRetriesDecrementedEventImpl() {
     // Arrange and Act
-    BPMNTimerRetriesDecrementedEventImpl actualBpmnTimerRetriesDecrementedEventImpl =
-        new BPMNTimerRetriesDecrementedEventImpl();
+    BPMNTimerRetriesDecrementedEventImpl actualBpmnTimerRetriesDecrementedEventImpl = new BPMNTimerRetriesDecrementedEventImpl();
 
     // Assert
     assertNull(actualBpmnTimerRetriesDecrementedEventImpl.getProcessDefinitionVersion());
@@ -53,30 +49,25 @@ class BPMNTimerRetriesDecrementedEventImplDiffblueTest {
     assertNull(actualBpmnTimerRetriesDecrementedEventImpl.getProcessDefinitionKey());
     assertNull(actualBpmnTimerRetriesDecrementedEventImpl.getProcessInstanceId());
     assertNull(actualBpmnTimerRetriesDecrementedEventImpl.getEntity());
-    assertEquals(
-        TimerEvents.TIMER_RETRIES_DECREMENTED,
-        actualBpmnTimerRetriesDecrementedEventImpl.getEventType());
+    assertEquals(TimerEvents.TIMER_RETRIES_DECREMENTED, actualBpmnTimerRetriesDecrementedEventImpl.getEventType());
   }
 
   /**
-   * Test {@link
-   * BPMNTimerRetriesDecrementedEventImpl#BPMNTimerRetriesDecrementedEventImpl(BPMNTimer)}.
-   *
-   * <p>Method under test: {@link
-   * BPMNTimerRetriesDecrementedEventImpl#BPMNTimerRetriesDecrementedEventImpl(BPMNTimer)}
+   * Test {@link BPMNTimerRetriesDecrementedEventImpl#BPMNTimerRetriesDecrementedEventImpl(BPMNTimer)}.
+   * <p>
+   * Method under test: {@link BPMNTimerRetriesDecrementedEventImpl#BPMNTimerRetriesDecrementedEventImpl(BPMNTimer)}
    */
   @Test
   @DisplayName("Test new BPMNTimerRetriesDecrementedEventImpl(BPMNTimer)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void BPMNTimerRetriesDecrementedEventImpl.<init>(BPMNTimer)"})
   void testNewBPMNTimerRetriesDecrementedEventImpl2() {
     // Arrange
     BPMNTimerImpl entity = new BPMNTimerImpl("42");
 
     // Act
-    BPMNTimerRetriesDecrementedEventImpl actualBpmnTimerRetriesDecrementedEventImpl =
-        new BPMNTimerRetriesDecrementedEventImpl(entity);
+    BPMNTimerRetriesDecrementedEventImpl actualBpmnTimerRetriesDecrementedEventImpl = new BPMNTimerRetriesDecrementedEventImpl(
+        entity);
 
     // Assert
     assertNull(actualBpmnTimerRetriesDecrementedEventImpl.getProcessDefinitionVersion());
@@ -85,26 +76,21 @@ class BPMNTimerRetriesDecrementedEventImplDiffblueTest {
     assertNull(actualBpmnTimerRetriesDecrementedEventImpl.getProcessDefinitionId());
     assertNull(actualBpmnTimerRetriesDecrementedEventImpl.getProcessDefinitionKey());
     assertNull(actualBpmnTimerRetriesDecrementedEventImpl.getProcessInstanceId());
-    assertEquals(
-        TimerEvents.TIMER_RETRIES_DECREMENTED,
-        actualBpmnTimerRetriesDecrementedEventImpl.getEventType());
+    assertEquals(TimerEvents.TIMER_RETRIES_DECREMENTED, actualBpmnTimerRetriesDecrementedEventImpl.getEventType());
     assertSame(entity, actualBpmnTimerRetriesDecrementedEventImpl.getEntity());
   }
 
   /**
    * Test {@link BPMNTimerRetriesDecrementedEventImpl#getEventType()}.
-   *
-   * <p>Method under test: {@link BPMNTimerRetriesDecrementedEventImpl#getEventType()}
+   * <p>
+   * Method under test: {@link BPMNTimerRetriesDecrementedEventImpl#getEventType()}
    */
   @Test
   @DisplayName("Test getEventType()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"TimerEvents BPMNTimerRetriesDecrementedEventImpl.getEventType()"})
   void testGetEventType() {
     // Arrange, Act and Assert
-    assertEquals(
-        TimerEvents.TIMER_RETRIES_DECREMENTED,
-        new BPMNTimerRetriesDecrementedEventImpl().getEventType());
+    assertEquals(TimerEvents.TIMER_RETRIES_DECREMENTED, (new BPMNTimerRetriesDecrementedEventImpl()).getEventType());
   }
 }

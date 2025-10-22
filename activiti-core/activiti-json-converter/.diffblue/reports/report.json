@@ -1,21 +1,21 @@
 {
   "meta" : {
-    "reportVersion" : "2.7"
+    "reportVersion" : "2.6"
   },
   "run" : {
-    "version" : "2025.09.01-44e352d-licensed",
-    "creationTimestamp" : "2025-10-15T18:17:05.474751764Z",
+    "version" : "2025.02.02-08b2a5a-licensed",
+    "creationTimestamp" : "2025-10-21T18:36:58.703503864Z",
     "command" : "dcover create --exclude-modules=org.activiti:activiti-dependency-check,org.activiti:activiti-api-dependencies,org.activiti:activiti-core-common-dependencies,org.activiti:activiti-core-dependencies,org.activiti:activiti-dependencies,org.activiti:activiti-spring-conformance-set0,org.activiti:activiti-spring-conformance-set1,org.activiti:activiti-spring-conformance-set2,org.activiti:activiti-spring-conformance-set3,org.activiti:activiti-spring-conformance-set4,org.activiti:activiti-spring-conformance-set5,org.activiti:activiti-spring-conformance-variables,org.activiti:activiti-spring-conformance-signals --coverage-reports --upload http://localhost:8080 --project-name Activiti-Activiti --name with-diffblue-tests",
-    "totalTime" : 993.812,
-    "environmentDetectionTime" : 0.389,
-    "indexingTime" : 0.538,
-    "entryPointsTime" : 0.376,
-    "generationTime" : 12458.483,
-    "timeToFirstTest" : 15572.371,
-    "timeToLastTest" : 14572.333,
-    "indexQueryTime" : 3.8770000000000002,
-    "verificationTime" : 454.783,
-    "validationTime" : 17.591
+    "totalTime" : 998.093,
+    "environmentDetectionTime" : 0.941,
+    "indexingTime" : 0.417,
+    "entryPointsTime" : 0.937,
+    "generationTime" : 9419.944,
+    "timeToFirstTest" : 12432.626,
+    "timeToLastTest" : 11452.5,
+    "indexQueryTime" : 5.415,
+    "verificationTime" : 393.015,
+    "validationTime" : 25.405
   },
   "codes" : {
     "F009" : "Internal error",
@@ -30,17 +30,16 @@
     "T003" : "Private method",
     "T005" : "Trivial constructor",
     "T010" : "Abstract or interface method",
+    "T012" : "Synthetic method",
     "T021" : "Empty method body",
-    "T023" : "Testability unknown",
-    "V000" : "Validated successfully",
-    "V003" : "Tests discarded during validation"
+    "V000" : "Validated successfully"
   },
   "summary" : {
     "classesCount" : 41,
     "methodsCount" : 349,
-    "cumulativeDiffblueTestCount" : 595,
+    "cumulativeDiffblueTestCount" : 651,
     "cumulativeManualTestCount" : 34,
-    "completeTestCount" : 595,
+    "completeTestCount" : 651,
     "incompleteTestCount" : 0,
     "skeletonTestCount" : 0,
     "totalPhysicalLineCount" : 4862,
@@ -51,27 +50,26 @@
       "T003" : 12,
       "T005" : 7,
       "T010" : 10,
-      "T021" : 19,
-      "T023" : 3
+      "T012" : 3,
+      "T021" : 19
     },
     "perMethodOutcome" : {
       "F009" : 48,
-      "R000" : 215,
+      "R000" : 217,
       "R002" : 33,
       "R004" : 3,
       "R013" : 18,
-      "R015" : 4,
+      "R015" : 2,
       "T003" : 12,
       "T005" : 3,
       "T010" : 10,
-      "T023" : 3
+      "T012" : 3
     },
     "perTestOutcome" : {
-      "R000" : 595
+      "R000" : 651
     },
     "perTestValidation" : {
-      "V000" : 595,
-      "V003" : 20
+      "V000" : 651
     }
   },
   "classes" : {
@@ -88,7 +86,7 @@
     },
     "org.activiti.editor.language.json.converter.AssociationJsonConverter" : {
       "methodsCount" : 8,
-      "completeTestCount" : 18,
+      "completeTestCount" : 19,
       "incompleteTestCount" : 0,
       "perMethodTestability" : {
         "T000" : 7,
@@ -101,31 +99,31 @@
         "R013" : 1
       },
       "perTestOutcome" : {
-        "R000" : 18
+        "R000" : 19
       }
     },
     "org.activiti.editor.language.json.converter.BaseBpmnJsonConverter" : {
       "methodsCount" : 28,
-      "completeTestCount" : 86,
+      "completeTestCount" : 102,
       "incompleteTestCount" : 0,
       "perMethodTestability" : {
         "T000" : 23,
         "T010" : 4,
-        "T023" : 1
+        "T012" : 1
       },
       "perMethodOutcome" : {
         "R000" : 21,
         "R013" : 2,
         "T010" : 4,
-        "T023" : 1
+        "T012" : 1
       },
       "perTestOutcome" : {
-        "R000" : 86
+        "R000" : 102
       }
     },
     "org.activiti.editor.language.json.converter.BoundaryEventJsonConverter" : {
       "methodsCount" : 8,
-      "completeTestCount" : 34,
+      "completeTestCount" : 31,
       "incompleteTestCount" : 0,
       "perMethodTestability" : {
         "T000" : 7,
@@ -138,26 +136,26 @@
         "T003" : 1
       },
       "perTestOutcome" : {
-        "R000" : 34
+        "R000" : 31
       }
     },
     "org.activiti.editor.language.json.converter.BpmnJsonConverter" : {
       "methodsCount" : 20,
-      "completeTestCount" : 45,
+      "completeTestCount" : 44,
       "incompleteTestCount" : 0,
       "perMethodTestability" : {
         "T000" : 10,
         "T003" : 9,
-        "T023" : 1
+        "T012" : 1
       },
       "perMethodOutcome" : {
-        "R000" : 8,
-        "R013" : 2,
+        "R000" : 7,
+        "R013" : 3,
         "T003" : 9,
-        "T023" : 1
+        "T012" : 1
       },
       "perTestOutcome" : {
-        "R000" : 45
+        "R000" : 44
       }
     },
     "org.activiti.editor.language.json.converter.BpmnJsonConverter$FlowWithContainer" : {
@@ -178,27 +176,26 @@
     },
     "org.activiti.editor.language.json.converter.BpmnJsonConverterUtil" : {
       "methodsCount" : 25,
-      "completeTestCount" : 110,
+      "completeTestCount" : 135,
       "incompleteTestCount" : 0,
       "perMethodTestability" : {
         "T000" : 23,
         "T005" : 1,
-        "T023" : 1
+        "T012" : 1
       },
       "perMethodOutcome" : {
-        "R000" : 20,
-        "R013" : 1,
+        "R000" : 21,
         "R015" : 2,
         "T005" : 1,
-        "T023" : 1
+        "T012" : 1
       },
       "perTestOutcome" : {
-        "R000" : 110
+        "R000" : 135
       }
     },
     "org.activiti.editor.language.json.converter.BusinessRuleTaskJsonConverter" : {
       "methodsCount" : 7,
-      "completeTestCount" : 5,
+      "completeTestCount" : 6,
       "incompleteTestCount" : 0,
       "perMethodTestability" : {
         "T000" : 7
@@ -208,12 +205,12 @@
         "R000" : 5
       },
       "perTestOutcome" : {
-        "R000" : 5
+        "R000" : 6
       }
     },
     "org.activiti.editor.language.json.converter.CallActivityJsonConverter" : {
       "methodsCount" : 9,
-      "completeTestCount" : 4,
+      "completeTestCount" : 5,
       "incompleteTestCount" : 0,
       "perMethodTestability" : {
         "T000" : 7,
@@ -222,11 +219,11 @@
       "perMethodOutcome" : {
         "F009" : 2,
         "R000" : 4,
-        "R015" : 1,
+        "R013" : 1,
         "T003" : 2
       },
       "perTestOutcome" : {
-        "R000" : 4
+        "R000" : 5
       }
     },
     "org.activiti.editor.language.json.converter.CamelTaskJsonConverter" : {
@@ -459,7 +456,7 @@
     },
     "org.activiti.editor.language.json.converter.MessageFlowJsonConverter" : {
       "methodsCount" : 8,
-      "completeTestCount" : 25,
+      "completeTestCount" : 24,
       "incompleteTestCount" : 0,
       "perMethodTestability" : {
         "T000" : 7,
@@ -472,7 +469,7 @@
         "R013" : 1
       },
       "perTestOutcome" : {
-        "R000" : 25
+        "R000" : 24
       }
     },
     "org.activiti.editor.language.json.converter.MuleTaskJsonConverter" : {
@@ -559,7 +556,7 @@
     },
     "org.activiti.editor.language.json.converter.SequenceFlowJsonConverter" : {
       "methodsCount" : 11,
-      "completeTestCount" : 46,
+      "completeTestCount" : 51,
       "incompleteTestCount" : 0,
       "perMethodTestability" : {
         "T000" : 10,
@@ -572,12 +569,12 @@
         "R013" : 1
       },
       "perTestOutcome" : {
-        "R000" : 46
+        "R000" : 51
       }
     },
     "org.activiti.editor.language.json.converter.ServiceTaskJsonConverter" : {
       "methodsCount" : 10,
-      "completeTestCount" : 10,
+      "completeTestCount" : 11,
       "incompleteTestCount" : 0,
       "perMethodTestability" : {
         "T000" : 9,
@@ -590,12 +587,12 @@
         "R013" : 2
       },
       "perTestOutcome" : {
-        "R000" : 10
+        "R000" : 11
       }
     },
     "org.activiti.editor.language.json.converter.StartEventJsonConverter" : {
       "methodsCount" : 10,
-      "completeTestCount" : 10,
+      "completeTestCount" : 16,
       "incompleteTestCount" : 0,
       "perMethodTestability" : {
         "T000" : 8,
@@ -603,12 +600,11 @@
       },
       "perMethodOutcome" : {
         "F009" : 2,
-        "R000" : 5,
-        "R002" : 2,
-        "R013" : 1
+        "R000" : 6,
+        "R002" : 2
       },
       "perTestOutcome" : {
-        "R000" : 10
+        "R000" : 16
       }
     },
     "org.activiti.editor.language.json.converter.SubProcessJsonConverter" : {
@@ -662,7 +658,7 @@
     },
     "org.activiti.editor.language.json.converter.UserTaskJsonConverter" : {
       "methodsCount" : 18,
-      "completeTestCount" : 57,
+      "completeTestCount" : 62,
       "incompleteTestCount" : 0,
       "perMethodTestability" : {
         "T000" : 16,
@@ -670,13 +666,12 @@
       },
       "perMethodOutcome" : {
         "F009" : 2,
-        "R000" : 11,
+        "R000" : 12,
         "R002" : 2,
-        "R013" : 2,
-        "R015" : 1
+        "R013" : 2
       },
       "perTestOutcome" : {
-        "R000" : 57
+        "R000" : 62
       }
     },
     "org.activiti.editor.language.json.converter.util.CollectionUtils" : {
@@ -779,12 +774,12 @@
       ]
     },
     "org.activiti.editor.language.json.converter.AssociationJsonConverter.convertJsonToElement:(Lcom/fasterxml/jackson/databind/JsonNode;Lcom/fasterxml/jackson/databind/JsonNode;Ljava/util/Map;)Lorg/activiti/bpmn/model/BaseElement;" : {
-      "completeTestCount" : 15,
+      "completeTestCount" : 16,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 15
+        "R000" : 16
       },
       "lineNumbers" : [
         124,
@@ -897,8 +892,11 @@
     "org.activiti.editor.language.json.converter.BaseBpmnJsonConverter.<clinit>:()V" : {
       "completeTestCount" : 0,
       "incompleteTestCount" : 0,
-      "perMethodTestability" : "T023",
-      "perMethodOutcome" : "T023"
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        74
+      ]
     },
     "org.activiti.editor.language.json.converter.BaseBpmnJsonConverter.<init>:()V" : {
       "completeTestCount" : 0,
@@ -911,12 +909,12 @@
       ]
     },
     "org.activiti.editor.language.json.converter.BaseBpmnJsonConverter.addEventProperties:(Lorg/activiti/bpmn/model/Event;Lcom/fasterxml/jackson/databind/node/ObjectNode;)V" : {
-      "completeTestCount" : 2,
+      "completeTestCount" : 14,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 2
+        "R000" : 14
       },
       "lineNumbers" : [
         537,
@@ -966,12 +964,12 @@
       ]
     },
     "org.activiti.editor.language.json.converter.BaseBpmnJsonConverter.addField:(Ljava/lang/String;Lcom/fasterxml/jackson/databind/JsonNode;Lorg/activiti/bpmn/model/ServiceTask;)V" : {
-      "completeTestCount" : 9,
+      "completeTestCount" : 8,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 9
+        "R000" : 8
       },
       "lineNumbers" : [
         744,
@@ -986,12 +984,12 @@
       ]
     },
     "org.activiti.editor.language.json.converter.BaseBpmnJsonConverter.addField:(Ljava/lang/String;Ljava/lang/String;Lcom/fasterxml/jackson/databind/JsonNode;Lorg/activiti/bpmn/model/ServiceTask;)V" : {
-      "completeTestCount" : 9,
+      "completeTestCount" : 8,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 9
+        "R000" : 8
       },
       "lineNumbers" : [
         762,
@@ -1006,12 +1004,12 @@
       ]
     },
     "org.activiti.editor.language.json.converter.BaseBpmnJsonConverter.addFieldExtensions:(Ljava/util/List;Lcom/fasterxml/jackson/databind/node/ObjectNode;)V" : {
-      "completeTestCount" : 5,
+      "completeTestCount" : 7,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 5
+        "R000" : 7
       },
       "lineNumbers" : [
         517,
@@ -1031,12 +1029,12 @@
       ]
     },
     "org.activiti.editor.language.json.converter.BaseBpmnJsonConverter.addFormProperties:(Ljava/util/List;Lcom/fasterxml/jackson/databind/node/ObjectNode;)V" : {
-      "completeTestCount" : 5,
+      "completeTestCount" : 9,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 5
+        "R000" : 9
       },
       "lineNumbers" : [
         470,
@@ -1088,12 +1086,12 @@
       "perMethodOutcome" : "T010"
     },
     "org.activiti.editor.language.json.converter.BaseBpmnJsonConverter.convertJsonToErrorDefinition:(Lcom/fasterxml/jackson/databind/JsonNode;Lorg/activiti/bpmn/model/Event;)V" : {
-      "completeTestCount" : 1,
+      "completeTestCount" : 2,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 1
+        "R000" : 2
       },
       "lineNumbers" : [
         700,
@@ -1104,12 +1102,12 @@
       ]
     },
     "org.activiti.editor.language.json.converter.BaseBpmnJsonConverter.convertJsonToFormProperties:(Lcom/fasterxml/jackson/databind/JsonNode;Lorg/activiti/bpmn/model/BaseElement;)V" : {
-      "completeTestCount" : 20,
+      "completeTestCount" : 14,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 20
+        "R000" : 14
       },
       "lineNumbers" : [
         588,
@@ -1158,12 +1156,12 @@
       ]
     },
     "org.activiti.editor.language.json.converter.BaseBpmnJsonConverter.convertJsonToMessageDefinition:(Lcom/fasterxml/jackson/databind/JsonNode;Lorg/activiti/bpmn/model/Event;)V" : {
-      "completeTestCount" : 1,
+      "completeTestCount" : 2,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 1
+        "R000" : 2
       },
       "lineNumbers" : [
         691,
@@ -1174,12 +1172,12 @@
       ]
     },
     "org.activiti.editor.language.json.converter.BaseBpmnJsonConverter.convertJsonToSignalDefinition:(Lcom/fasterxml/jackson/databind/JsonNode;Lorg/activiti/bpmn/model/Event;)V" : {
-      "completeTestCount" : 1,
+      "completeTestCount" : 2,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 1
+        "R000" : 2
       },
       "lineNumbers" : [
         682,
@@ -1190,12 +1188,12 @@
       ]
     },
     "org.activiti.editor.language.json.converter.BaseBpmnJsonConverter.convertJsonToTimerDefinition:(Lcom/fasterxml/jackson/databind/JsonNode;Lorg/activiti/bpmn/model/Event;)V" : {
-      "completeTestCount" : 1,
+      "completeTestCount" : 2,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 1
+        "R000" : 2
       },
       "lineNumbers" : [
         655,
@@ -1216,12 +1214,12 @@
       ]
     },
     "org.activiti.editor.language.json.converter.BaseBpmnJsonConverter.convertListToCommaSeparatedString:(Ljava/util/List;)Ljava/lang/String;" : {
-      "completeTestCount" : 4,
+      "completeTestCount" : 3,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 4
+        "R000" : 3
       },
       "lineNumbers" : [
         801,
@@ -1237,12 +1235,12 @@
       ]
     },
     "org.activiti.editor.language.json.converter.BaseBpmnJsonConverter.convertToBpmnModel:(Lcom/fasterxml/jackson/databind/JsonNode;Lcom/fasterxml/jackson/databind/JsonNode;Lorg/activiti/editor/language/json/converter/ActivityProcessor;Lorg/activiti/bpmn/model/BaseElement;Ljava/util/Map;Lorg/activiti/bpmn/model/BpmnModel;)V" : {
-      "completeTestCount" : 17,
+      "completeTestCount" : 11,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 17
+        "R000" : 11
       },
       "lineNumbers" : [
         349,
@@ -1490,48 +1488,48 @@
       ]
     },
     "org.activiti.editor.language.json.converter.BaseBpmnJsonConverter.getProperty:(Ljava/lang/String;Lcom/fasterxml/jackson/databind/JsonNode;)Lcom/fasterxml/jackson/databind/JsonNode;" : {
-      "completeTestCount" : 1,
+      "completeTestCount" : 2,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 1
+        "R000" : 2
       },
       "lineNumbers" : [
         796
       ]
     },
     "org.activiti.editor.language.json.converter.BaseBpmnJsonConverter.getPropertyValueAsBoolean:(Ljava/lang/String;Lcom/fasterxml/jackson/databind/JsonNode;)Z" : {
-      "completeTestCount" : 1,
+      "completeTestCount" : 2,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 1
+        "R000" : 2
       },
       "lineNumbers" : [
         784
       ]
     },
     "org.activiti.editor.language.json.converter.BaseBpmnJsonConverter.getPropertyValueAsList:(Ljava/lang/String;Lcom/fasterxml/jackson/databind/JsonNode;)Ljava/util/List;" : {
-      "completeTestCount" : 1,
+      "completeTestCount" : 2,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 1
+        "R000" : 2
       },
       "lineNumbers" : [
         790
       ]
     },
     "org.activiti.editor.language.json.converter.BaseBpmnJsonConverter.getPropertyValueAsString:(Ljava/lang/String;Lcom/fasterxml/jackson/databind/JsonNode;)Ljava/lang/String;" : {
-      "completeTestCount" : 1,
+      "completeTestCount" : 2,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 1
+        "R000" : 2
       },
       "lineNumbers" : [
         778
@@ -1544,12 +1542,12 @@
       "perMethodOutcome" : "T010"
     },
     "org.activiti.editor.language.json.converter.BaseBpmnJsonConverter.getValueAsBoolean:(Ljava/lang/String;Lcom/fasterxml/jackson/databind/JsonNode;)Z" : {
-      "completeTestCount" : 1,
+      "completeTestCount" : 2,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 1
+        "R000" : 2
       },
       "lineNumbers" : [
         719,
@@ -1560,12 +1558,12 @@
       ]
     },
     "org.activiti.editor.language.json.converter.BaseBpmnJsonConverter.getValueAsList:(Ljava/lang/String;Lcom/fasterxml/jackson/databind/JsonNode;)Ljava/util/List;" : {
-      "completeTestCount" : 1,
+      "completeTestCount" : 2,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 1
+        "R000" : 2
       },
       "lineNumbers" : [
         729,
@@ -1579,12 +1577,12 @@
       ]
     },
     "org.activiti.editor.language.json.converter.BaseBpmnJsonConverter.getValueAsString:(Ljava/lang/String;Lcom/fasterxml/jackson/databind/JsonNode;)Ljava/lang/String;" : {
-      "completeTestCount" : 1,
+      "completeTestCount" : 2,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 1
+        "R000" : 2
       },
       "lineNumbers" : [
         709,
@@ -1595,12 +1593,12 @@
       ]
     },
     "org.activiti.editor.language.json.converter.BaseBpmnJsonConverter.processDataStoreReferences:(Lorg/activiti/bpmn/model/FlowElementsContainer;Ljava/lang/String;Lcom/fasterxml/jackson/databind/node/ArrayNode;)V" : {
-      "completeTestCount" : 1,
+      "completeTestCount" : 3,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 1
+        "R000" : 3
       },
       "lineNumbers" : [
         259,
@@ -1664,12 +1662,12 @@
       ]
     },
     "org.activiti.editor.language.json.converter.BoundaryEventJsonConverter.convertJsonToElement:(Lcom/fasterxml/jackson/databind/JsonNode;Lcom/fasterxml/jackson/databind/JsonNode;Ljava/util/Map;)Lorg/activiti/bpmn/model/FlowElement;" : {
-      "completeTestCount" : 25,
+      "completeTestCount" : 22,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 25
+        "R000" : 22
       },
       "lineNumbers" : [
         103,
@@ -1857,8 +1855,86 @@
     "org.activiti.editor.language.json.converter.BpmnJsonConverter.<clinit>:()V" : {
       "completeTestCount" : 0,
       "incompleteTestCount" : 0,
-      "perMethodTestability" : "T023",
-      "perMethodOutcome" : "T023"
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        77,
+        81,
+        82,
+        85,
+        86,
+        91,
+        93,
+        97,
+        99,
+        101,
+        105,
+        107,
+        109,
+        111,
+        113,
+        115,
+        117,
+        119,
+        121,
+        123,
+        125,
+        127,
+        131,
+        133,
+        135,
+        137,
+        141,
+        143,
+        147,
+        151,
+        155,
+        159,
+        161,
+        165,
+        166,
+        167,
+        170,
+        171,
+        172,
+        173,
+        174,
+        176,
+        177,
+        178,
+        179,
+        180,
+        181,
+        183,
+        184,
+        185,
+        187,
+        188,
+        190,
+        191,
+        192,
+        193,
+        195,
+        196,
+        197,
+        198,
+        199,
+        200,
+        201,
+        202,
+        203,
+        204,
+        205,
+        206,
+        207,
+        208,
+        209,
+        211,
+        212,
+        213,
+        214,
+        215
+      ]
     },
     "org.activiti.editor.language.json.converter.BpmnJsonConverter.<init>:()V" : {
       "completeTestCount" : 1,
@@ -1874,24 +1950,24 @@
       ]
     },
     "org.activiti.editor.language.json.converter.BpmnJsonConverter.convertToBpmnModel:(Lcom/fasterxml/jackson/databind/JsonNode;)Lorg/activiti/bpmn/model/BpmnModel;" : {
-      "completeTestCount" : 1,
+      "completeTestCount" : 2,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 1
+        "R000" : 2
       },
       "lineNumbers" : [
         576
       ]
     },
     "org.activiti.editor.language.json.converter.BpmnJsonConverter.convertToBpmnModel:(Lcom/fasterxml/jackson/databind/JsonNode;Ljava/util/Map;Ljava/util/Map;)Lorg/activiti/bpmn/model/BpmnModel;" : {
-      "completeTestCount" : 1,
+      "completeTestCount" : 2,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 1
+        "R000" : 2
       },
       "lineNumbers" : [
         585,
@@ -2373,12 +2449,12 @@
       ]
     },
     "org.activiti.editor.language.json.converter.BpmnJsonConverter.processArtifacts:(Lorg/activiti/bpmn/model/FlowElementsContainer;Lorg/activiti/bpmn/model/BpmnModel;Lcom/fasterxml/jackson/databind/node/ArrayNode;DD)V" : {
-      "completeTestCount" : 1,
+      "completeTestCount" : 14,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 1
+        "R000" : 14
       },
       "lineNumbers" : [
         541,
@@ -2393,13 +2469,10 @@
       ]
     },
     "org.activiti.editor.language.json.converter.BpmnJsonConverter.processFlowElement:(Lorg/activiti/bpmn/model/FlowElement;Lorg/activiti/bpmn/model/FlowElementsContainer;Lorg/activiti/bpmn/model/BpmnModel;Lcom/fasterxml/jackson/databind/node/ArrayNode;Ljava/util/Map;Ljava/util/Map;DD)V" : {
-      "completeTestCount" : 29,
+      "completeTestCount" : 0,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
-      "perMethodOutcome" : "R000",
-      "perTestOutcome" : {
-        "R000" : 29
-      },
+      "perMethodOutcome" : "R013",
       "lineNumbers" : [
         509,
         510,
@@ -2416,12 +2489,12 @@
       ]
     },
     "org.activiti.editor.language.json.converter.BpmnJsonConverter.processFlowElements:(Lorg/activiti/bpmn/model/FlowElementsContainer;Lorg/activiti/bpmn/model/BpmnModel;Lcom/fasterxml/jackson/databind/node/ArrayNode;Ljava/util/Map;Ljava/util/Map;DD)V" : {
-      "completeTestCount" : 3,
+      "completeTestCount" : 15,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 3
+        "R000" : 15
       },
       "lineNumbers" : [
         482,
@@ -2459,12 +2532,12 @@
       ]
     },
     "org.activiti.editor.language.json.converter.BpmnJsonConverter.processMessageFlows:(Lorg/activiti/bpmn/model/BpmnModel;Lcom/fasterxml/jackson/databind/node/ArrayNode;)V" : {
-      "completeTestCount" : 2,
+      "completeTestCount" : 3,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 2
+        "R000" : 3
       },
       "lineNumbers" : [
         563,
@@ -2632,8 +2705,13 @@
     "org.activiti.editor.language.json.converter.BpmnJsonConverterUtil.<clinit>:()V" : {
       "completeTestCount" : 0,
       "incompleteTestCount" : 0,
-      "perMethodTestability" : "T023",
-      "perMethodOutcome" : "T023"
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        63,
+        65,
+        66
+      ]
     },
     "org.activiti.editor.language.json.converter.BpmnJsonConverterUtil.<init>:()V" : {
       "completeTestCount" : 0,
@@ -2645,12 +2723,12 @@
       ]
     },
     "org.activiti.editor.language.json.converter.BpmnJsonConverterUtil.convertDataPropertiesToJson:(Ljava/util/List;Lcom/fasterxml/jackson/databind/node/ObjectNode;)V" : {
-      "completeTestCount" : 2,
+      "completeTestCount" : 3,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 2
+        "R000" : 3
       },
       "lineNumbers" : [
         571,
@@ -2678,12 +2756,12 @@
       ]
     },
     "org.activiti.editor.language.json.converter.BpmnJsonConverterUtil.convertEventListenersToJson:(Ljava/util/List;Lcom/fasterxml/jackson/databind/node/ObjectNode;)V" : {
-      "completeTestCount" : 3,
+      "completeTestCount" : 1,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 3
+        "R000" : 1
       },
       "lineNumbers" : [
         188,
@@ -2740,12 +2818,12 @@
       ]
     },
     "org.activiti.editor.language.json.converter.BpmnJsonConverterUtil.convertJsonToDataProperties:(Lcom/fasterxml/jackson/databind/JsonNode;Lorg/activiti/bpmn/model/BaseElement;)Ljava/util/List;" : {
-      "completeTestCount" : 13,
+      "completeTestCount" : 9,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 13
+        "R000" : 9
       },
       "lineNumbers" : [
         507,
@@ -2794,10 +2872,13 @@
       ]
     },
     "org.activiti.editor.language.json.converter.BpmnJsonConverterUtil.convertJsonToListeners:(Lcom/fasterxml/jackson/databind/JsonNode;Lorg/activiti/bpmn/model/BaseElement;)V" : {
-      "completeTestCount" : 0,
+      "completeTestCount" : 13,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
-      "perMethodOutcome" : "R013",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 13
+      },
       "lineNumbers" : [
         282,
         283,
@@ -2814,12 +2895,12 @@
       ]
     },
     "org.activiti.editor.language.json.converter.BpmnJsonConverterUtil.convertJsonToMessages:(Lcom/fasterxml/jackson/databind/JsonNode;Lorg/activiti/bpmn/model/BpmnModel;)V" : {
-      "completeTestCount" : 14,
+      "completeTestCount" : 18,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 14
+        "R000" : 18
       },
       "lineNumbers" : [
         300,
@@ -2830,12 +2911,12 @@
       ]
     },
     "org.activiti.editor.language.json.converter.BpmnJsonConverterUtil.convertListenersToJson:(Ljava/util/List;ZLcom/fasterxml/jackson/databind/node/ObjectNode;)V" : {
-      "completeTestCount" : 1,
+      "completeTestCount" : 3,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 1
+        "R000" : 3
       },
       "lineNumbers" : [
         138,
@@ -2876,12 +2957,12 @@
       ]
     },
     "org.activiti.editor.language.json.converter.BpmnJsonConverterUtil.convertMessagesToJson:(Ljava/util/Collection;Lcom/fasterxml/jackson/databind/node/ObjectNode;)V" : {
-      "completeTestCount" : 4,
+      "completeTestCount" : 3,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 4
+        "R000" : 3
       },
       "lineNumbers" : [
         121,
@@ -2918,12 +2999,12 @@
       ]
     },
     "org.activiti.editor.language.json.converter.BpmnJsonConverterUtil.convertSignalDefinitionsToJson:(Lorg/activiti/bpmn/model/BpmnModel;Lcom/fasterxml/jackson/databind/node/ObjectNode;)V" : {
-      "completeTestCount" : 4,
+      "completeTestCount" : 3,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 4
+        "R000" : 3
       },
       "lineNumbers" : [
         257,
@@ -2997,12 +3078,12 @@
       ]
     },
     "org.activiti.editor.language.json.converter.BpmnJsonConverterUtil.getElementId:(Lcom/fasterxml/jackson/databind/JsonNode;)Ljava/lang/String;" : {
-      "completeTestCount" : 9,
+      "completeTestCount" : 7,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 9
+        "R000" : 7
       },
       "lineNumbers" : [
         110,
@@ -3013,12 +3094,12 @@
       ]
     },
     "org.activiti.editor.language.json.converter.BpmnJsonConverterUtil.getProperty:(Ljava/lang/String;Lcom/fasterxml/jackson/databind/JsonNode;)Lcom/fasterxml/jackson/databind/JsonNode;" : {
-      "completeTestCount" : 1,
+      "completeTestCount" : 2,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 1
+        "R000" : 2
       },
       "lineNumbers" : [
         634,
@@ -3029,12 +3110,12 @@
       ]
     },
     "org.activiti.editor.language.json.converter.BpmnJsonConverterUtil.getPropertyValueAsString:(Ljava/lang/String;Lcom/fasterxml/jackson/databind/JsonNode;)Ljava/lang/String;" : {
-      "completeTestCount" : 1,
+      "completeTestCount" : 2,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 1
+        "R000" : 2
       },
       "lineNumbers" : [
         625,
@@ -3045,12 +3126,12 @@
       ]
     },
     "org.activiti.editor.language.json.converter.BpmnJsonConverterUtil.getStencilId:(Lcom/fasterxml/jackson/databind/JsonNode;)Ljava/lang/String;" : {
-      "completeTestCount" : 1,
+      "completeTestCount" : 2,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 1
+        "R000" : 2
       },
       "lineNumbers" : [
         101,
@@ -3061,12 +3142,12 @@
       ]
     },
     "org.activiti.editor.language.json.converter.BpmnJsonConverterUtil.getValueAsString:(Ljava/lang/String;Lcom/fasterxml/jackson/databind/JsonNode;)Ljava/lang/String;" : {
-      "completeTestCount" : 1,
+      "completeTestCount" : 2,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 1
+        "R000" : 2
       },
       "lineNumbers" : [
         616,
@@ -3077,12 +3158,12 @@
       ]
     },
     "org.activiti.editor.language.json.converter.BpmnJsonConverterUtil.lookForSourceRef:(Ljava/lang/String;Lcom/fasterxml/jackson/databind/JsonNode;)Ljava/lang/String;" : {
-      "completeTestCount" : 5,
+      "completeTestCount" : 6,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 5
+        "R000" : 6
       },
       "lineNumbers" : [
         477,
@@ -3106,12 +3187,12 @@
       ]
     },
     "org.activiti.editor.language.json.converter.BpmnJsonConverterUtil.parseEventListeners:(Lcom/fasterxml/jackson/databind/JsonNode;Lorg/activiti/bpmn/model/Process;)V" : {
-      "completeTestCount" : 15,
+      "completeTestCount" : 21,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 15
+        "R000" : 21
       },
       "lineNumbers" : [
         391,
@@ -3173,12 +3254,12 @@
       ]
     },
     "org.activiti.editor.language.json.converter.BpmnJsonConverterUtil.parseListeners:(Lcom/fasterxml/jackson/databind/JsonNode;Lorg/activiti/bpmn/model/BaseElement;Z)V" : {
-      "completeTestCount" : 17,
+      "completeTestCount" : 20,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 17
+        "R000" : 20
       },
       "lineNumbers" : [
         308,
@@ -3254,12 +3335,12 @@
       ]
     },
     "org.activiti.editor.language.json.converter.BpmnJsonConverterUtil.validateIfNodeIsTextual:(Lcom/fasterxml/jackson/databind/JsonNode;)Lcom/fasterxml/jackson/databind/JsonNode;" : {
-      "completeTestCount" : 4,
+      "completeTestCount" : 5,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 4
+        "R000" : 5
       },
       "lineNumbers" : [
         605,
@@ -3283,12 +3364,12 @@
       ]
     },
     "org.activiti.editor.language.json.converter.BusinessRuleTaskJsonConverter.convertElementToJson:(Lcom/fasterxml/jackson/databind/node/ObjectNode;Lorg/activiti/bpmn/model/BaseElement;)V" : {
-      "completeTestCount" : 1,
+      "completeTestCount" : 2,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 1
+        "R000" : 2
       },
       "lineNumbers" : [
         52,
@@ -3407,7 +3488,7 @@
       "completeTestCount" : 0,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
-      "perMethodOutcome" : "R015",
+      "perMethodOutcome" : "R013",
       "lineNumbers" : [
         57,
         58,
@@ -3418,12 +3499,12 @@
       ]
     },
     "org.activiti.editor.language.json.converter.CallActivityJsonConverter.convertJsonToElement:(Lcom/fasterxml/jackson/databind/JsonNode;Lcom/fasterxml/jackson/databind/JsonNode;Ljava/util/Map;)Lorg/activiti/bpmn/model/FlowElement;" : {
-      "completeTestCount" : 1,
+      "completeTestCount" : 2,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 1
+        "R000" : 2
       },
       "lineNumbers" : [
         95,
@@ -4586,12 +4667,12 @@
       ]
     },
     "org.activiti.editor.language.json.converter.MessageFlowJsonConverter.convertJsonToElement:(Lcom/fasterxml/jackson/databind/JsonNode;Lcom/fasterxml/jackson/databind/JsonNode;Ljava/util/Map;)Lorg/activiti/bpmn/model/BaseElement;" : {
-      "completeTestCount" : 22,
+      "completeTestCount" : 21,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 22
+        "R000" : 21
       },
       "lineNumbers" : [
         104,
@@ -5146,12 +5227,12 @@
       ]
     },
     "org.activiti.editor.language.json.converter.SequenceFlowJsonConverter.convertJsonToElement:(Lcom/fasterxml/jackson/databind/JsonNode;Lcom/fasterxml/jackson/databind/JsonNode;Ljava/util/Map;)Lorg/activiti/bpmn/model/FlowElement;" : {
-      "completeTestCount" : 25,
+      "completeTestCount" : 31,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 25
+        "R000" : 31
       },
       "lineNumbers" : [
         140,
@@ -5312,12 +5393,12 @@
       ]
     },
     "org.activiti.editor.language.json.converter.SequenceFlowJsonConverter.setOutcomeConditionExpression:(Lorg/activiti/bpmn/model/SequenceFlow;Lcom/fasterxml/jackson/databind/JsonNode;)V" : {
-      "completeTestCount" : 9,
+      "completeTestCount" : 8,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 9
+        "R000" : 8
       },
       "lineNumbers" : [
         211,
@@ -5396,12 +5477,12 @@
       ]
     },
     "org.activiti.editor.language.json.converter.ServiceTaskJsonConverter.convertJsonToElement:(Lcom/fasterxml/jackson/databind/JsonNode;Lcom/fasterxml/jackson/databind/JsonNode;Ljava/util/Map;)Lorg/activiti/bpmn/model/FlowElement;" : {
-      "completeTestCount" : 1,
+      "completeTestCount" : 2,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 1
+        "R000" : 2
       },
       "lineNumbers" : [
         113,
@@ -5558,10 +5639,13 @@
       ]
     },
     "org.activiti.editor.language.json.converter.StartEventJsonConverter.convertElementToJson:(Lcom/fasterxml/jackson/databind/node/ObjectNode;Lorg/activiti/bpmn/model/BaseElement;)V" : {
-      "completeTestCount" : 0,
+      "completeTestCount" : 5,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
-      "perMethodOutcome" : "R013",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 5
+      },
       "lineNumbers" : [
         81,
         82,
@@ -5582,12 +5666,12 @@
       ]
     },
     "org.activiti.editor.language.json.converter.StartEventJsonConverter.convertJsonToElement:(Lcom/fasterxml/jackson/databind/JsonNode;Lcom/fasterxml/jackson/databind/JsonNode;Ljava/util/Map;)Lorg/activiti/bpmn/model/FlowElement;" : {
-      "completeTestCount" : 1,
+      "completeTestCount" : 2,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 1
+        "R000" : 2
       },
       "lineNumbers" : [
         105,
@@ -6029,12 +6113,12 @@
       ]
     },
     "org.activiti.editor.language.json.converter.UserTaskJsonConverter.addExtensionElement:(Ljava/lang/String;Lcom/fasterxml/jackson/databind/JsonNode;Lorg/activiti/bpmn/model/UserTask;)V" : {
-      "completeTestCount" : 6,
+      "completeTestCount" : 5,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 6
+        "R000" : 5
       },
       "lineNumbers" : [
         534,
@@ -6074,10 +6158,13 @@
       ]
     },
     "org.activiti.editor.language.json.converter.UserTaskJsonConverter.convertElementToJson:(Lcom/fasterxml/jackson/databind/node/ObjectNode;Lorg/activiti/bpmn/model/BaseElement;)V" : {
-      "completeTestCount" : 0,
+      "completeTestCount" : 2,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
-      "perMethodOutcome" : "R015",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 2
+      },
       "lineNumbers" : [
         63,
         64,
@@ -6226,12 +6313,12 @@
       ]
     },
     "org.activiti.editor.language.json.converter.UserTaskJsonConverter.convertJsonToElement:(Lcom/fasterxml/jackson/databind/JsonNode;Lcom/fasterxml/jackson/databind/JsonNode;Ljava/util/Map;)Lorg/activiti/bpmn/model/FlowElement;" : {
-      "completeTestCount" : 1,
+      "completeTestCount" : 2,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 1
+        "R000" : 2
       },
       "lineNumbers" : [
         293,
@@ -6280,12 +6367,12 @@
       ]
     },
     "org.activiti.editor.language.json.converter.UserTaskJsonConverter.fillAssigneeInfo:(Lcom/fasterxml/jackson/databind/JsonNode;Lcom/fasterxml/jackson/databind/JsonNode;Lorg/activiti/bpmn/model/UserTask;)V" : {
-      "completeTestCount" : 5,
+      "completeTestCount" : 4,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 5
+        "R000" : 4
       },
       "lineNumbers" : [
         369,
@@ -6327,12 +6414,12 @@
       ]
     },
     "org.activiti.editor.language.json.converter.UserTaskJsonConverter.fillCandidateGroups:(Lcom/fasterxml/jackson/databind/JsonNode;Lcom/fasterxml/jackson/databind/JsonNode;Lorg/activiti/bpmn/model/UserTask;)V" : {
-      "completeTestCount" : 19,
+      "completeTestCount" : 21,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 19
+        "R000" : 21
       },
       "lineNumbers" : [
         477,
@@ -6374,12 +6461,12 @@
       ]
     },
     "org.activiti.editor.language.json.converter.UserTaskJsonConverter.fillCandidateUsers:(Lcom/fasterxml/jackson/databind/JsonNode;Lcom/fasterxml/jackson/databind/JsonNode;Lorg/activiti/bpmn/model/UserTask;)V" : {
-      "completeTestCount" : 19,
+      "completeTestCount" : 21,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 19
+        "R000" : 21
       },
       "lineNumbers" : [
         409,
@@ -7006,6 +7093,5 @@
         45
       ]
     }
-  },
-  "validationMetrics" : { }
+  }
 }

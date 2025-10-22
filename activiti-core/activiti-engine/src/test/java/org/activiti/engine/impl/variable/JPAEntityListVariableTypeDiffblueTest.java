@@ -21,12 +21,14 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertThrows;
 import static org.junit.Assert.assertTrue;
+import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.Mockito.anyInt;
 import static org.mockito.Mockito.atLeast;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import ch.qos.logback.core.util.COWArrayList;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.io.UnsupportedEncodingException;
 import java.time.LocalDate;
@@ -43,12 +45,11 @@ import org.junit.experimental.categories.Category;
 public class JPAEntityListVariableTypeDiffblueTest {
   /**
    * Test new {@link JPAEntityListVariableType} (default constructor).
-   *
-   * <p>Method under test: default or parameterless constructor of {@link JPAEntityListVariableType}
+   * <p>
+   * Method under test: default or parameterless constructor of {@link JPAEntityListVariableType}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void JPAEntityListVariableType.<init>()"})
   public void testNewJPAEntityListVariableType() {
     // Arrange and Act
@@ -56,15 +57,13 @@ public class JPAEntityListVariableTypeDiffblueTest {
 
     // Assert
     assertFalse(actualJpaEntityListVariableType.isCachable());
-    assertEquals(
-        JPAEntityListVariableType.TYPE_NAME, actualJpaEntityListVariableType.getTypeName());
+    assertEquals(JPAEntityListVariableType.TYPE_NAME, actualJpaEntityListVariableType.getTypeName());
   }
 
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>{@link JPAEntityListVariableType#setForceCacheable(boolean)}
    *   <li>{@link JPAEntityListVariableType#getTypeName()}
@@ -72,13 +71,9 @@ public class JPAEntityListVariableTypeDiffblueTest {
    * </ul>
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "String JPAEntityListVariableType.getTypeName()",
-    "boolean JPAEntityListVariableType.isCachable()",
-    "void JPAEntityListVariableType.setForceCacheable(boolean)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String JPAEntityListVariableType.getTypeName()", "boolean JPAEntityListVariableType.isCachable()",
+      "void JPAEntityListVariableType.setForceCacheable(boolean)"})
   public void testGettersAndSetters() {
     // Arrange
     JPAEntityListVariableType jpaEntityListVariableType = new JPAEntityListVariableType();
@@ -94,43 +89,139 @@ public class JPAEntityListVariableTypeDiffblueTest {
 
   /**
    * Test {@link JPAEntityListVariableType#isAbleToStore(Object)}.
-   *
    * <ul>
-   *   <li>Given {@link JSONObject#NULL}.
-   *   <li>When {@link ArrayList#ArrayList()} add {@link JSONObject#NULL}.
-   *   <li>Then return {@code false}.
+   *   <li>Given {@link ArrayList#ArrayList()} add {@link JSONObject#NULL}.</li>
+   *   <li>Then return {@code false}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link JPAEntityListVariableType#isAbleToStore(Object)}
+   * <p>
+   * Method under test: {@link JPAEntityListVariableType#isAbleToStore(Object)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"boolean JPAEntityListVariableType.isAbleToStore(Object)"})
-  public void testIsAbleToStore_givenNull_whenArrayListAddNull_thenReturnFalse() {
+  public void testIsAbleToStore_givenArrayListAddNull_thenReturnFalse() {
     // Arrange
     JPAEntityListVariableType jpaEntityListVariableType = new JPAEntityListVariableType();
 
     ArrayList<Object> objectList = new ArrayList<>();
     objectList.add(JSONObject.NULL);
+    COWArrayList<Object> objectList2 = mock(COWArrayList.class);
+    when(objectList2.iterator()).thenReturn(objectList.iterator());
+    when(objectList2.get(anyInt())).thenReturn(JSONObject.NULL);
+    when(objectList2.size()).thenReturn(3);
 
-    // Act and Assert
-    assertFalse(jpaEntityListVariableType.isAbleToStore(objectList));
+    // Act
+    boolean actualIsAbleToStoreResult = jpaEntityListVariableType.isAbleToStore(objectList2);
+
+    // Assert
+    verify(objectList2).get(eq(0));
+    verify(objectList2).iterator();
+    verify(objectList2).size();
+    assertFalse(actualIsAbleToStoreResult);
   }
 
   /**
    * Test {@link JPAEntityListVariableType#isAbleToStore(Object)}.
-   *
    * <ul>
-   *   <li>When {@link ArrayList#ArrayList()}.
-   *   <li>Then return {@code false}.
+   *   <li>Given {@link ArrayList#ArrayList()} add {@code null}.</li>
+   *   <li>Then return {@code false}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link JPAEntityListVariableType#isAbleToStore(Object)}
+   * <p>
+   * Method under test: {@link JPAEntityListVariableType#isAbleToStore(Object)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean JPAEntityListVariableType.isAbleToStore(Object)"})
+  public void testIsAbleToStore_givenArrayListAddNull_thenReturnFalse2() {
+    // Arrange
+    JPAEntityListVariableType jpaEntityListVariableType = new JPAEntityListVariableType();
+
+    ArrayList<Object> objectList = new ArrayList<>();
+    objectList.add(null);
+    COWArrayList<Object> objectList2 = mock(COWArrayList.class);
+    when(objectList2.iterator()).thenReturn(objectList.iterator());
+    when(objectList2.get(anyInt())).thenReturn(JSONObject.NULL);
+    when(objectList2.size()).thenReturn(3);
+
+    // Act
+    boolean actualIsAbleToStoreResult = jpaEntityListVariableType.isAbleToStore(objectList2);
+
+    // Assert
+    verify(objectList2).get(eq(0));
+    verify(objectList2).iterator();
+    verify(objectList2).size();
+    assertFalse(actualIsAbleToStoreResult);
+  }
+
+  /**
+   * Test {@link JPAEntityListVariableType#isAbleToStore(Object)}.
+   * <ul>
+   *   <li>Given {@link ArrayList#ArrayList()} iterator.</li>
+   *   <li>Then return {@code true}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link JPAEntityListVariableType#isAbleToStore(Object)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean JPAEntityListVariableType.isAbleToStore(Object)"})
+  public void testIsAbleToStore_givenArrayListIterator_thenReturnTrue() {
+    // Arrange
+    JPAEntityListVariableType jpaEntityListVariableType = new JPAEntityListVariableType();
+    COWArrayList<Object> objectList = mock(COWArrayList.class);
+
+    ArrayList<Object> objectList2 = new ArrayList<>();
+    when(objectList.iterator()).thenReturn(objectList2.iterator());
+    when(objectList.get(anyInt())).thenReturn(JSONObject.NULL);
+    when(objectList.size()).thenReturn(3);
+
+    // Act
+    boolean actualIsAbleToStoreResult = jpaEntityListVariableType.isAbleToStore(objectList);
+
+    // Assert
+    verify(objectList).get(eq(0));
+    verify(objectList).iterator();
+    verify(objectList).size();
+    assertTrue(actualIsAbleToStoreResult);
+  }
+
+  /**
+   * Test {@link JPAEntityListVariableType#isAbleToStore(Object)}.
+   * <ul>
+   *   <li>Then throw {@link ActivitiException}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link JPAEntityListVariableType#isAbleToStore(Object)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean JPAEntityListVariableType.isAbleToStore(Object)"})
+  public void testIsAbleToStore_thenThrowActivitiException() {
+    // Arrange
+    JPAEntityListVariableType jpaEntityListVariableType = new JPAEntityListVariableType();
+    COWArrayList<Object> objectList = mock(COWArrayList.class);
+    when(objectList.iterator()).thenThrow(new ActivitiException("An error occurred"));
+    when(objectList.get(anyInt())).thenReturn(JSONObject.NULL);
+    when(objectList.size()).thenReturn(3);
+
+    // Act and Assert
+    assertThrows(ActivitiException.class, () -> jpaEntityListVariableType.isAbleToStore(objectList));
+    verify(objectList).get(eq(0));
+    verify(objectList).iterator();
+    verify(objectList).size();
+  }
+
+  /**
+   * Test {@link JPAEntityListVariableType#isAbleToStore(Object)}.
+   * <ul>
+   *   <li>When {@link ArrayList#ArrayList()}.</li>
+   *   <li>Then return {@code false}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link JPAEntityListVariableType#isAbleToStore(Object)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"boolean JPAEntityListVariableType.isAbleToStore(Object)"})
   public void testIsAbleToStore_whenArrayList_thenReturnFalse() {
     // Arrange
@@ -142,42 +233,36 @@ public class JPAEntityListVariableTypeDiffblueTest {
 
   /**
    * Test {@link JPAEntityListVariableType#isAbleToStore(Object)}.
-   *
    * <ul>
-   *   <li>When {@link JSONObject#NULL}.
-   *   <li>Then return {@code false}.
+   *   <li>When {@link JSONObject#NULL}.</li>
+   *   <li>Then return {@code false}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link JPAEntityListVariableType#isAbleToStore(Object)}
+   * <p>
+   * Method under test: {@link JPAEntityListVariableType#isAbleToStore(Object)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"boolean JPAEntityListVariableType.isAbleToStore(Object)"})
   public void testIsAbleToStore_whenNull_thenReturnFalse() {
     // Arrange, Act and Assert
-    assertFalse(new JPAEntityListVariableType().isAbleToStore(JSONObject.NULL));
+    assertFalse((new JPAEntityListVariableType()).isAbleToStore(JSONObject.NULL));
   }
 
   /**
    * Test {@link JPAEntityListVariableType#getValue(ValueFields)}.
-   *
    * <ul>
-   *   <li>Given {@code AXAXAXAX} Bytes is {@code UTF-8}.
-   *   <li>Then throw {@link ActivitiException}.
+   *   <li>Given {@code AXAXAXAX} Bytes is {@code UTF-8}.</li>
+   *   <li>Then throw {@link ActivitiException}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link JPAEntityListVariableType#getValue(ValueFields)}
+   * <p>
+   * Method under test: {@link JPAEntityListVariableType#getValue(ValueFields)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"Object JPAEntityListVariableType.getValue(ValueFields)"})
-  public void testGetValue_givenAxaxaxaxBytesIsUtf8_thenThrowActivitiException()
-      throws UnsupportedEncodingException {
+  public void testGetValue_givenAxaxaxaxBytesIsUtf8_thenThrowActivitiException() throws UnsupportedEncodingException {
     // Arrange
     JPAEntityListVariableType jpaEntityListVariableType = new JPAEntityListVariableType();
-
     ValueFields valueFields = mock(ValueFields.class);
     when(valueFields.getBytes()).thenReturn("AXAXAXAX".getBytes("UTF-8"));
     when(valueFields.getTextValue()).thenReturn("42");
@@ -190,25 +275,21 @@ public class JPAEntityListVariableTypeDiffblueTest {
 
   /**
    * Test {@link JPAEntityListVariableType#getValue(ValueFields)}.
-   *
    * <ul>
-   *   <li>Given {@link JPAEntityListVariableType} (default constructor) ForceCacheable is {@code
-   *       true}.
+   *   <li>Given {@link JPAEntityListVariableType} (default constructor) ForceCacheable is {@code true}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link JPAEntityListVariableType#getValue(ValueFields)}
+   * <p>
+   * Method under test: {@link JPAEntityListVariableType#getValue(ValueFields)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"Object JPAEntityListVariableType.getValue(ValueFields)"})
   public void testGetValue_givenJPAEntityListVariableTypeForceCacheableIsTrue() {
     // Arrange
     JPAEntityListVariableType jpaEntityListVariableType = new JPAEntityListVariableType();
     jpaEntityListVariableType.setForceCacheable(true);
 
-    HistoricDetailVariableInstanceUpdateEntityImpl valueFields =
-        new HistoricDetailVariableInstanceUpdateEntityImpl();
+    HistoricDetailVariableInstanceUpdateEntityImpl valueFields = new HistoricDetailVariableInstanceUpdateEntityImpl();
     valueFields.setActivityInstanceId("42");
     valueFields.setCachedValue(JSONObject.NULL);
     valueFields.setDeleted(true);
@@ -223,8 +304,7 @@ public class JPAEntityListVariableTypeDiffblueTest {
     valueFields.setRevision(1);
     valueFields.setTaskId("42");
     valueFields.setTextValue2("42");
-    valueFields.setTime(
-        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
+    valueFields.setTime(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
     valueFields.setUpdated(true);
     valueFields.setVariableType(new BigDecimalType());
     valueFields.setTextValue("42");
@@ -235,40 +315,35 @@ public class JPAEntityListVariableTypeDiffblueTest {
 
   /**
    * Test {@link JPAEntityListVariableType#getValue(ValueFields)}.
-   *
    * <ul>
-   *   <li>When {@link HistoricDetailVariableInstanceUpdateEntityImpl} (default constructor).
-   *   <li>Then return {@code null}.
+   *   <li>When {@link HistoricDetailVariableInstanceUpdateEntityImpl} (default constructor).</li>
+   *   <li>Then return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link JPAEntityListVariableType#getValue(ValueFields)}
+   * <p>
+   * Method under test: {@link JPAEntityListVariableType#getValue(ValueFields)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"Object JPAEntityListVariableType.getValue(ValueFields)"})
   public void testGetValue_whenHistoricDetailVariableInstanceUpdateEntityImpl_thenReturnNull() {
     // Arrange
     JPAEntityListVariableType jpaEntityListVariableType = new JPAEntityListVariableType();
 
     // Act and Assert
-    assertNull(
-        jpaEntityListVariableType.getValue(new HistoricDetailVariableInstanceUpdateEntityImpl()));
+    assertNull(jpaEntityListVariableType.getValue(new HistoricDetailVariableInstanceUpdateEntityImpl()));
   }
 
   /**
    * Test {@link JPAEntityListVariableType#serializeIds(List)}.
-   *
    * <ul>
-   *   <li>Given {@code 42}.
-   *   <li>When {@link ArrayList#ArrayList()} add {@code 42}.
+   *   <li>Given {@code 42}.</li>
+   *   <li>When {@link ArrayList#ArrayList()} add {@code 42}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link JPAEntityListVariableType#serializeIds(List)}
+   * <p>
+   * Method under test: {@link JPAEntityListVariableType#serializeIds(List)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"byte[] JPAEntityListVariableType.serializeIds(List)"})
   public void testSerializeIds_given42_whenArrayListAdd42() {
     // Arrange
@@ -279,28 +354,22 @@ public class JPAEntityListVariableTypeDiffblueTest {
     ids.add("foo");
 
     // Act and Assert
-    assertArrayEquals(
-        new byte[] {
-          -84, -19, 0, 5, 'u', 'r', 0, 19, '[', 'L', 'j', 'a', 'v', 'a', '.', 'l', 'a', 'n', 'g',
-          '.', 'S', 't', 'r', 'i', 'n', 'g', ';', -83, -46, 'V', -25, -23, 29, '{', 'G', 2, 0, 0,
-          'x', 'p', 0, 0, 0, 2, 't', 0, 2, '4', '2', 't', 0, 3, 'f', 'o', 'o'
-        },
-        jpaEntityListVariableType.serializeIds(ids));
+    assertArrayEquals(new byte[]{-84, -19, 0, 5, 'u', 'r', 0, 19, '[', 'L', 'j', 'a', 'v', 'a', '.', 'l', 'a', 'n', 'g',
+        '.', 'S', 't', 'r', 'i', 'n', 'g', ';', -83, -46, 'V', -25, -23, 29, '{', 'G', 2, 0, 0, 'x', 'p', 0, 0, 0, 2,
+        't', 0, 2, '4', '2', 't', 0, 3, 'f', 'o', 'o'}, jpaEntityListVariableType.serializeIds(ids));
   }
 
   /**
    * Test {@link JPAEntityListVariableType#serializeIds(List)}.
-   *
    * <ul>
-   *   <li>Given {@code foo}.
-   *   <li>When {@link ArrayList#ArrayList()} add {@code foo}.
+   *   <li>Given {@code foo}.</li>
+   *   <li>When {@link ArrayList#ArrayList()} add {@code foo}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link JPAEntityListVariableType#serializeIds(List)}
+   * <p>
+   * Method under test: {@link JPAEntityListVariableType#serializeIds(List)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"byte[] JPAEntityListVariableType.serializeIds(List)"})
   public void testSerializeIds_givenFoo_whenArrayListAddFoo() {
     // Arrange
@@ -310,27 +379,21 @@ public class JPAEntityListVariableTypeDiffblueTest {
     ids.add("foo");
 
     // Act and Assert
-    assertArrayEquals(
-        new byte[] {
-          -84, -19, 0, 5, 'u', 'r', 0, 19, '[', 'L', 'j', 'a', 'v', 'a', '.', 'l', 'a', 'n', 'g',
-          '.', 'S', 't', 'r', 'i', 'n', 'g', ';', -83, -46, 'V', -25, -23, 29, '{', 'G', 2, 0, 0,
-          'x', 'p', 0, 0, 0, 1, 't', 0, 3, 'f', 'o', 'o'
-        },
-        jpaEntityListVariableType.serializeIds(ids));
+    assertArrayEquals(new byte[]{-84, -19, 0, 5, 'u', 'r', 0, 19, '[', 'L', 'j', 'a', 'v', 'a', '.', 'l', 'a', 'n', 'g',
+        '.', 'S', 't', 'r', 'i', 'n', 'g', ';', -83, -46, 'V', -25, -23, 29, '{', 'G', 2, 0, 0, 'x', 'p', 0, 0, 0, 1,
+        't', 0, 3, 'f', 'o', 'o'}, jpaEntityListVariableType.serializeIds(ids));
   }
 
   /**
    * Test {@link JPAEntityListVariableType#serializeIds(List)}.
-   *
    * <ul>
-   *   <li>When {@link ArrayList#ArrayList()}.
+   *   <li>When {@link ArrayList#ArrayList()}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link JPAEntityListVariableType#serializeIds(List)}
+   * <p>
+   * Method under test: {@link JPAEntityListVariableType#serializeIds(List)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"byte[] JPAEntityListVariableType.serializeIds(List)"})
   public void testSerializeIds_whenArrayList() {
     // Arrange
@@ -338,27 +401,24 @@ public class JPAEntityListVariableTypeDiffblueTest {
 
     // Act and Assert
     assertArrayEquals(
-        new byte[] {
-          -84, -19, 0, 5, 'u', 'r', 0, 19, '[', 'L', 'j', 'a', 'v', 'a', '.', 'l', 'a', 'n', 'g',
-          '.', 'S', 't', 'r', 'i', 'n', 'g', ';', -83, -46, 'V', -25, -23, 29, '{', 'G', 2, 0, 0,
-          'x', 'p', 0, 0, 0, 0
-        },
+        new byte[]{-84, -19, 0, 5, 'u', 'r', 0, 19, '[', 'L', 'j', 'a', 'v', 'a', '.', 'l', 'a', 'n', 'g', '.', 'S',
+            't', 'r', 'i', 'n', 'g', ';', -83, -46, 'V', -25, -23, 29, '{', 'G', 2, 0, 0, 'x', 'p', 0, 0, 0, 0},
         jpaEntityListVariableType.serializeIds(new ArrayList<>()));
   }
 
   /**
    * Test {@link JPAEntityListVariableType#deserializeIds(byte[])}.
-   *
-   * <p>Method under test: {@link JPAEntityListVariableType#deserializeIds(byte[])}
+   * <p>
+   * Method under test: {@link JPAEntityListVariableType#deserializeIds(byte[])}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"String[] JPAEntityListVariableType.deserializeIds(byte[])"})
   public void testDeserializeIds() throws UnsupportedEncodingException {
-    // Arrange, Act and Assert
-    assertThrows(
-        ActivitiException.class,
-        () -> new JPAEntityListVariableType().deserializeIds("AXAXAXAX".getBytes("UTF-8")));
+    // Arrange
+    JPAEntityListVariableType jpaEntityListVariableType = new JPAEntityListVariableType();
+
+    // Act and Assert
+    assertThrows(ActivitiException.class, () -> jpaEntityListVariableType.deserializeIds("AXAXAXAX".getBytes("UTF-8")));
   }
 }

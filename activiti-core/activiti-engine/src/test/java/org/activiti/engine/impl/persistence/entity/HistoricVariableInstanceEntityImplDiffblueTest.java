@@ -20,8 +20,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.time.LocalDate;
 import java.time.ZoneOffset;
@@ -33,8 +32,6 @@ import org.activiti.engine.impl.variable.BooleanType;
 import org.activiti.engine.impl.variable.CustomObjectType;
 import org.activiti.engine.impl.variable.DoubleType;
 import org.activiti.engine.impl.variable.HistoricJPAEntityListVariableType;
-import org.activiti.engine.impl.variable.HistoricJPAEntityVariableType;
-import org.activiti.engine.impl.variable.JPAEntityListVariableType;
 import org.activiti.engine.impl.variable.VariableType;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
@@ -42,9 +39,8 @@ import org.junit.experimental.categories.Category;
 public class HistoricVariableInstanceEntityImplDiffblueTest {
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>default or parameterless constructor of {@link HistoricVariableInstanceEntityImpl}
    *   <li>{@link HistoricVariableInstanceEntityImpl#setCachedValue(Object)}
@@ -76,50 +72,43 @@ public class HistoricVariableInstanceEntityImplDiffblueTest {
    * </ul>
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void HistoricVariableInstanceEntityImpl.<init>()",
-    "ByteArrayRef HistoricVariableInstanceEntityImpl.getByteArrayRef()",
-    "Object HistoricVariableInstanceEntityImpl.getCachedValue()",
-    "Date HistoricVariableInstanceEntityImpl.getCreateTime()",
-    "Double HistoricVariableInstanceEntityImpl.getDoubleValue()",
-    "String HistoricVariableInstanceEntityImpl.getExecutionId()",
-    "Date HistoricVariableInstanceEntityImpl.getLastUpdatedTime()",
-    "Long HistoricVariableInstanceEntityImpl.getLongValue()",
-    "String HistoricVariableInstanceEntityImpl.getName()",
-    "String HistoricVariableInstanceEntityImpl.getProcessInstanceId()",
-    "String HistoricVariableInstanceEntityImpl.getTaskId()",
-    "String HistoricVariableInstanceEntityImpl.getTextValue()",
-    "String HistoricVariableInstanceEntityImpl.getTextValue2()",
-    "String HistoricVariableInstanceEntityImpl.getVariableName()",
-    "VariableType HistoricVariableInstanceEntityImpl.getVariableType()",
-    "void HistoricVariableInstanceEntityImpl.setCachedValue(Object)",
-    "void HistoricVariableInstanceEntityImpl.setCreateTime(Date)",
-    "void HistoricVariableInstanceEntityImpl.setDoubleValue(Double)",
-    "void HistoricVariableInstanceEntityImpl.setExecutionId(String)",
-    "void HistoricVariableInstanceEntityImpl.setLastUpdatedTime(Date)",
-    "void HistoricVariableInstanceEntityImpl.setLongValue(Long)",
-    "void HistoricVariableInstanceEntityImpl.setName(String)",
-    "void HistoricVariableInstanceEntityImpl.setProcessInstanceId(String)",
-    "void HistoricVariableInstanceEntityImpl.setTaskId(String)",
-    "void HistoricVariableInstanceEntityImpl.setTextValue(String)",
-    "void HistoricVariableInstanceEntityImpl.setTextValue2(String)",
-    "void HistoricVariableInstanceEntityImpl.setVariableType(VariableType)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void HistoricVariableInstanceEntityImpl.<init>()",
+      "ByteArrayRef HistoricVariableInstanceEntityImpl.getByteArrayRef()",
+      "Object HistoricVariableInstanceEntityImpl.getCachedValue()",
+      "Date HistoricVariableInstanceEntityImpl.getCreateTime()",
+      "Double HistoricVariableInstanceEntityImpl.getDoubleValue()",
+      "String HistoricVariableInstanceEntityImpl.getExecutionId()",
+      "Date HistoricVariableInstanceEntityImpl.getLastUpdatedTime()",
+      "Long HistoricVariableInstanceEntityImpl.getLongValue()", "String HistoricVariableInstanceEntityImpl.getName()",
+      "String HistoricVariableInstanceEntityImpl.getProcessInstanceId()",
+      "String HistoricVariableInstanceEntityImpl.getTaskId()",
+      "String HistoricVariableInstanceEntityImpl.getTextValue()",
+      "String HistoricVariableInstanceEntityImpl.getTextValue2()",
+      "String HistoricVariableInstanceEntityImpl.getVariableName()",
+      "VariableType HistoricVariableInstanceEntityImpl.getVariableType()",
+      "void HistoricVariableInstanceEntityImpl.setCachedValue(Object)",
+      "void HistoricVariableInstanceEntityImpl.setCreateTime(Date)",
+      "void HistoricVariableInstanceEntityImpl.setDoubleValue(Double)",
+      "void HistoricVariableInstanceEntityImpl.setExecutionId(String)",
+      "void HistoricVariableInstanceEntityImpl.setLastUpdatedTime(Date)",
+      "void HistoricVariableInstanceEntityImpl.setLongValue(Long)",
+      "void HistoricVariableInstanceEntityImpl.setName(String)",
+      "void HistoricVariableInstanceEntityImpl.setProcessInstanceId(String)",
+      "void HistoricVariableInstanceEntityImpl.setTaskId(String)",
+      "void HistoricVariableInstanceEntityImpl.setTextValue(String)",
+      "void HistoricVariableInstanceEntityImpl.setTextValue2(String)",
+      "void HistoricVariableInstanceEntityImpl.setVariableType(VariableType)"})
   public void testGettersAndSetters() {
     // Arrange and Act
-    HistoricVariableInstanceEntityImpl actualHistoricVariableInstanceEntityImpl =
-        new HistoricVariableInstanceEntityImpl();
+    HistoricVariableInstanceEntityImpl actualHistoricVariableInstanceEntityImpl = new HistoricVariableInstanceEntityImpl();
     Object object = JSONObject.NULL;
     actualHistoricVariableInstanceEntityImpl.setCachedValue(object);
-    Date createTime =
-        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant());
+    Date createTime = Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant());
     actualHistoricVariableInstanceEntityImpl.setCreateTime(createTime);
     actualHistoricVariableInstanceEntityImpl.setDoubleValue(10.0d);
     actualHistoricVariableInstanceEntityImpl.setExecutionId("42");
-    Date lastUpdatedTime =
-        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant());
+    Date lastUpdatedTime = Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant());
     actualHistoricVariableInstanceEntityImpl.setLastUpdatedTime(lastUpdatedTime);
     actualHistoricVariableInstanceEntityImpl.setLongValue(42L);
     actualHistoricVariableInstanceEntityImpl.setName("Name");
@@ -137,8 +126,7 @@ public class HistoricVariableInstanceEntityImplDiffblueTest {
     Date actualLastUpdatedTime = actualHistoricVariableInstanceEntityImpl.getLastUpdatedTime();
     Long actualLongValue = actualHistoricVariableInstanceEntityImpl.getLongValue();
     String actualName = actualHistoricVariableInstanceEntityImpl.getName();
-    String actualProcessInstanceId =
-        actualHistoricVariableInstanceEntityImpl.getProcessInstanceId();
+    String actualProcessInstanceId = actualHistoricVariableInstanceEntityImpl.getProcessInstanceId();
     String actualTaskId = actualHistoricVariableInstanceEntityImpl.getTaskId();
     String actualTextValue = actualHistoricVariableInstanceEntityImpl.getTextValue();
     String actualTextValue2 = actualHistoricVariableInstanceEntityImpl.getTextValue2();
@@ -169,32 +157,27 @@ public class HistoricVariableInstanceEntityImplDiffblueTest {
 
   /**
    * Test {@link HistoricVariableInstanceEntityImpl#getPersistentState()}.
-   *
    * <ul>
-   *   <li>Then return size is seven.
+   *   <li>Then return size is seven.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link HistoricVariableInstanceEntityImpl#getPersistentState()}
+   * <p>
+   * Method under test: {@link HistoricVariableInstanceEntityImpl#getPersistentState()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"Object HistoricVariableInstanceEntityImpl.getPersistentState()"})
   public void testGetPersistentState_thenReturnSizeIsSeven() {
     // Arrange
-    HistoricVariableInstanceEntityImpl historicVariableInstanceEntityImpl =
-        new HistoricVariableInstanceEntityImpl();
+    HistoricVariableInstanceEntityImpl historicVariableInstanceEntityImpl = new HistoricVariableInstanceEntityImpl();
     historicVariableInstanceEntityImpl.setCachedValue(JSONObject.NULL);
-    Date createTime =
-        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant());
+    Date createTime = Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant());
     historicVariableInstanceEntityImpl.setCreateTime(createTime);
     historicVariableInstanceEntityImpl.setDeleted(true);
     historicVariableInstanceEntityImpl.setDoubleValue(10.0d);
     historicVariableInstanceEntityImpl.setExecutionId("42");
     historicVariableInstanceEntityImpl.setId("42");
     historicVariableInstanceEntityImpl.setInserted(true);
-    Date lastUpdatedTime =
-        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant());
+    Date lastUpdatedTime = Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant());
     historicVariableInstanceEntityImpl.setLastUpdatedTime(lastUpdatedTime);
     historicVariableInstanceEntityImpl.setLongValue(42L);
     historicVariableInstanceEntityImpl.setName("Name");
@@ -216,33 +199,26 @@ public class HistoricVariableInstanceEntityImplDiffblueTest {
     assertEquals("42", ((Map<String, Object>) actualPersistentState).get("textValue"));
     assertEquals("42", ((Map<String, Object>) actualPersistentState).get("textValue2"));
     assertNull(((Map<String, Object>) actualPersistentState).get("byteArrayRef"));
-    assertEquals(
-        10.0d,
-        ((Double) ((Map<String, Object>) actualPersistentState).get("doubleValue")).doubleValue(),
-        0.0);
-    assertEquals(
-        42L, ((Long) ((Map<String, Object>) actualPersistentState).get("longValue")).longValue());
+    assertEquals(10.0d, ((Double) ((Map<String, Object>) actualPersistentState).get("doubleValue")).doubleValue(), 0.0);
+    assertEquals(42L, ((Long) ((Map<String, Object>) actualPersistentState).get("longValue")).longValue());
     assertSame(createTime, ((Map<String, Object>) actualPersistentState).get("createTime"));
-    assertSame(
-        lastUpdatedTime, ((Map<String, Object>) actualPersistentState).get("lastUpdatedTime"));
+    assertSame(lastUpdatedTime, ((Map<String, Object>) actualPersistentState).get("lastUpdatedTime"));
   }
 
   /**
    * Test {@link HistoricVariableInstanceEntityImpl#getPersistentState()}.
-   *
    * <ul>
-   *   <li>Then return size is six.
+   *   <li>Then return size is six.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link HistoricVariableInstanceEntityImpl#getPersistentState()}
+   * <p>
+   * Method under test: {@link HistoricVariableInstanceEntityImpl#getPersistentState()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"Object HistoricVariableInstanceEntityImpl.getPersistentState()"})
   public void testGetPersistentState_thenReturnSizeIsSix() {
     // Arrange and Act
-    Object actualPersistentState = new HistoricVariableInstanceEntityImpl().getPersistentState();
+    Object actualPersistentState = (new HistoricVariableInstanceEntityImpl()).getPersistentState();
 
     // Assert
     assertTrue(actualPersistentState instanceof Map);
@@ -257,81 +233,30 @@ public class HistoricVariableInstanceEntityImplDiffblueTest {
 
   /**
    * Test {@link HistoricVariableInstanceEntityImpl#getValue()}.
-   *
-   * <p>Method under test: {@link HistoricVariableInstanceEntityImpl#getValue()}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"Object HistoricVariableInstanceEntityImpl.getValue()"})
-  public void testGetValue() {
-    // Arrange
-    HistoricVariableInstanceEntityImpl historicVariableInstanceEntityImpl =
-        new HistoricVariableInstanceEntityImpl();
-    historicVariableInstanceEntityImpl.setVariableType(new JPAEntityListVariableType());
-
-    // Act and Assert
-    assertNull(historicVariableInstanceEntityImpl.getValue());
-  }
-
-  /**
-   * Test {@link HistoricVariableInstanceEntityImpl#getValue()}.
-   *
    * <ul>
-   *   <li>Given {@link HistoricJPAEntityVariableType} (default constructor) ForceCacheable is
-   *       {@code true}.
+   *   <li>Given {@link HistoricVariableInstanceEntityImpl} (default constructor) CachedValue is {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link HistoricVariableInstanceEntityImpl#getValue()}
+   * <p>
+   * Method under test: {@link HistoricVariableInstanceEntityImpl#getValue()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"Object HistoricVariableInstanceEntityImpl.getValue()"})
-  public void testGetValue_givenHistoricJPAEntityVariableTypeForceCacheableIsTrue() {
-    // Arrange
-    HistoricJPAEntityVariableType variableType = new HistoricJPAEntityVariableType();
-    variableType.setForceCacheable(true);
-
-    HistoricVariableInstanceEntityImpl historicVariableInstanceEntityImpl =
-        new HistoricVariableInstanceEntityImpl();
-    historicVariableInstanceEntityImpl.setTextValue("42");
-    historicVariableInstanceEntityImpl.setVariableType(variableType);
-
-    // Act and Assert
-    assertNull(historicVariableInstanceEntityImpl.getValue());
-  }
-
-  /**
-   * Test {@link HistoricVariableInstanceEntityImpl#getValue()}.
-   *
-   * <ul>
-   *   <li>Given {@link HistoricVariableInstanceEntityImpl} (default constructor) CachedValue is
-   *       {@code null}.
-   * </ul>
-   *
-   * <p>Method under test: {@link HistoricVariableInstanceEntityImpl#getValue()}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"Object HistoricVariableInstanceEntityImpl.getValue()"})
   public void testGetValue_givenHistoricVariableInstanceEntityImplCachedValueIsNull() {
     // Arrange
     HistoricJPAEntityListVariableType variableType = new HistoricJPAEntityListVariableType();
     variableType.setForceCacheable(false);
 
-    HistoricVariableInstanceEntityImpl historicVariableInstanceEntityImpl =
-        new HistoricVariableInstanceEntityImpl();
-    historicVariableInstanceEntityImpl.setCreateTime(
-        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
+    HistoricVariableInstanceEntityImpl historicVariableInstanceEntityImpl = new HistoricVariableInstanceEntityImpl();
+    historicVariableInstanceEntityImpl
+        .setCreateTime(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
     historicVariableInstanceEntityImpl.setDeleted(true);
     historicVariableInstanceEntityImpl.setDoubleValue(10.0d);
     historicVariableInstanceEntityImpl.setExecutionId("42");
     historicVariableInstanceEntityImpl.setId("42");
     historicVariableInstanceEntityImpl.setInserted(true);
-    historicVariableInstanceEntityImpl.setLastUpdatedTime(
-        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
+    historicVariableInstanceEntityImpl
+        .setLastUpdatedTime(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
     historicVariableInstanceEntityImpl.setLongValue(42L);
     historicVariableInstanceEntityImpl.setName("Name");
     historicVariableInstanceEntityImpl.setProcessInstanceId("42");
@@ -349,22 +274,18 @@ public class HistoricVariableInstanceEntityImplDiffblueTest {
 
   /**
    * Test {@link HistoricVariableInstanceEntityImpl#getValue()}.
-   *
    * <ul>
-   *   <li>Given {@link HistoricVariableInstanceEntityImpl} (default constructor) VariableType is
-   *       {@link BigDecimalType} (default constructor).
+   *   <li>Given {@link HistoricVariableInstanceEntityImpl} (default constructor) VariableType is {@link BigDecimalType} (default constructor).</li>
    * </ul>
-   *
-   * <p>Method under test: {@link HistoricVariableInstanceEntityImpl#getValue()}
+   * <p>
+   * Method under test: {@link HistoricVariableInstanceEntityImpl#getValue()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"Object HistoricVariableInstanceEntityImpl.getValue()"})
   public void testGetValue_givenHistoricVariableInstanceEntityImplVariableTypeIsBigDecimalType() {
     // Arrange
-    HistoricVariableInstanceEntityImpl historicVariableInstanceEntityImpl =
-        new HistoricVariableInstanceEntityImpl();
+    HistoricVariableInstanceEntityImpl historicVariableInstanceEntityImpl = new HistoricVariableInstanceEntityImpl();
     historicVariableInstanceEntityImpl.setVariableType(new BigDecimalType());
 
     // Act and Assert
@@ -373,22 +294,18 @@ public class HistoricVariableInstanceEntityImplDiffblueTest {
 
   /**
    * Test {@link HistoricVariableInstanceEntityImpl#getValue()}.
-   *
    * <ul>
-   *   <li>Given {@link HistoricVariableInstanceEntityImpl} (default constructor) VariableType is
-   *       {@link BooleanType} (default constructor).
+   *   <li>Given {@link HistoricVariableInstanceEntityImpl} (default constructor) VariableType is {@link BooleanType} (default constructor).</li>
    * </ul>
-   *
-   * <p>Method under test: {@link HistoricVariableInstanceEntityImpl#getValue()}
+   * <p>
+   * Method under test: {@link HistoricVariableInstanceEntityImpl#getValue()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"Object HistoricVariableInstanceEntityImpl.getValue()"})
   public void testGetValue_givenHistoricVariableInstanceEntityImplVariableTypeIsBooleanType() {
     // Arrange
-    HistoricVariableInstanceEntityImpl historicVariableInstanceEntityImpl =
-        new HistoricVariableInstanceEntityImpl();
+    HistoricVariableInstanceEntityImpl historicVariableInstanceEntityImpl = new HistoricVariableInstanceEntityImpl();
     historicVariableInstanceEntityImpl.setVariableType(new BooleanType());
 
     // Act and Assert
@@ -397,22 +314,18 @@ public class HistoricVariableInstanceEntityImplDiffblueTest {
 
   /**
    * Test {@link HistoricVariableInstanceEntityImpl#getValue()}.
-   *
    * <ul>
-   *   <li>Given {@link HistoricVariableInstanceEntityImpl} (default constructor) VariableType is
-   *       {@link DoubleType} (default constructor).
+   *   <li>Given {@link HistoricVariableInstanceEntityImpl} (default constructor) VariableType is {@link DoubleType} (default constructor).</li>
    * </ul>
-   *
-   * <p>Method under test: {@link HistoricVariableInstanceEntityImpl#getValue()}
+   * <p>
+   * Method under test: {@link HistoricVariableInstanceEntityImpl#getValue()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"Object HistoricVariableInstanceEntityImpl.getValue()"})
   public void testGetValue_givenHistoricVariableInstanceEntityImplVariableTypeIsDoubleType() {
     // Arrange
-    HistoricVariableInstanceEntityImpl historicVariableInstanceEntityImpl =
-        new HistoricVariableInstanceEntityImpl();
+    HistoricVariableInstanceEntityImpl historicVariableInstanceEntityImpl = new HistoricVariableInstanceEntityImpl();
     historicVariableInstanceEntityImpl.setVariableType(new DoubleType());
 
     // Act and Assert
@@ -421,22 +334,19 @@ public class HistoricVariableInstanceEntityImplDiffblueTest {
 
   /**
    * Test {@link HistoricVariableInstanceEntityImpl#getValue()}.
-   *
    * <ul>
-   *   <li>Given {@code Object}.
-   *   <li>Then return {@code null}.
+   *   <li>Given {@code Object}.</li>
+   *   <li>Then return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link HistoricVariableInstanceEntityImpl#getValue()}
+   * <p>
+   * Method under test: {@link HistoricVariableInstanceEntityImpl#getValue()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"Object HistoricVariableInstanceEntityImpl.getValue()"})
   public void testGetValue_givenJavaLangObject_thenReturnNull() {
     // Arrange
-    HistoricVariableInstanceEntityImpl historicVariableInstanceEntityImpl =
-        new HistoricVariableInstanceEntityImpl();
+    HistoricVariableInstanceEntityImpl historicVariableInstanceEntityImpl = new HistoricVariableInstanceEntityImpl();
     Class<Object> theClass = Object.class;
     historicVariableInstanceEntityImpl.setVariableType(new CustomObjectType("Type Name", theClass));
 
@@ -446,21 +356,18 @@ public class HistoricVariableInstanceEntityImplDiffblueTest {
 
   /**
    * Test {@link HistoricVariableInstanceEntityImpl#getValue()}.
-   *
    * <ul>
-   *   <li>Then return {@code false}.
+   *   <li>Then return {@code false}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link HistoricVariableInstanceEntityImpl#getValue()}
+   * <p>
+   * Method under test: {@link HistoricVariableInstanceEntityImpl#getValue()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"Object HistoricVariableInstanceEntityImpl.getValue()"})
   public void testGetValue_thenReturnFalse() {
     // Arrange
-    HistoricVariableInstanceEntityImpl historicVariableInstanceEntityImpl =
-        new HistoricVariableInstanceEntityImpl();
+    HistoricVariableInstanceEntityImpl historicVariableInstanceEntityImpl = new HistoricVariableInstanceEntityImpl();
     historicVariableInstanceEntityImpl.setLongValue(42L);
     historicVariableInstanceEntityImpl.setVariableType(new BooleanType());
 
@@ -470,21 +377,18 @@ public class HistoricVariableInstanceEntityImplDiffblueTest {
 
   /**
    * Test {@link HistoricVariableInstanceEntityImpl#getValue()}.
-   *
    * <ul>
-   *   <li>Then return {@code true}.
+   *   <li>Then return {@code true}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link HistoricVariableInstanceEntityImpl#getValue()}
+   * <p>
+   * Method under test: {@link HistoricVariableInstanceEntityImpl#getValue()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"Object HistoricVariableInstanceEntityImpl.getValue()"})
   public void testGetValue_thenReturnTrue() {
     // Arrange
-    HistoricVariableInstanceEntityImpl historicVariableInstanceEntityImpl =
-        new HistoricVariableInstanceEntityImpl();
+    HistoricVariableInstanceEntityImpl historicVariableInstanceEntityImpl = new HistoricVariableInstanceEntityImpl();
     historicVariableInstanceEntityImpl.setLongValue(1L);
     historicVariableInstanceEntityImpl.setVariableType(new BooleanType());
 
@@ -494,50 +398,44 @@ public class HistoricVariableInstanceEntityImplDiffblueTest {
 
   /**
    * Test {@link HistoricVariableInstanceEntityImpl#getBytes()}.
-   *
    * <ul>
-   *   <li>Given {@link HistoricVariableInstanceEntityImpl} (default constructor).
+   *   <li>Given {@link HistoricVariableInstanceEntityImpl} (default constructor).</li>
    * </ul>
-   *
-   * <p>Method under test: {@link HistoricVariableInstanceEntityImpl#getBytes()}
+   * <p>
+   * Method under test: {@link HistoricVariableInstanceEntityImpl#getBytes()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"byte[] HistoricVariableInstanceEntityImpl.getBytes()"})
   public void testGetBytes_givenHistoricVariableInstanceEntityImpl() {
     // Arrange, Act and Assert
-    assertNull(new HistoricVariableInstanceEntityImpl().getBytes());
+    assertNull((new HistoricVariableInstanceEntityImpl()).getBytes());
   }
 
   /**
    * Test {@link HistoricVariableInstanceEntityImpl#getBytes()}.
-   *
    * <ul>
-   *   <li>Given {@link HistoricVariableInstanceEntityImpl} (default constructor) CachedValue is
-   *       {@link JSONObject#NULL}.
+   *   <li>Given {@link HistoricVariableInstanceEntityImpl} (default constructor) CachedValue is {@link JSONObject#NULL}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link HistoricVariableInstanceEntityImpl#getBytes()}
+   * <p>
+   * Method under test: {@link HistoricVariableInstanceEntityImpl#getBytes()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"byte[] HistoricVariableInstanceEntityImpl.getBytes()"})
   public void testGetBytes_givenHistoricVariableInstanceEntityImplCachedValueIsNull() {
     // Arrange
-    HistoricVariableInstanceEntityImpl historicVariableInstanceEntityImpl =
-        new HistoricVariableInstanceEntityImpl();
+    HistoricVariableInstanceEntityImpl historicVariableInstanceEntityImpl = new HistoricVariableInstanceEntityImpl();
     historicVariableInstanceEntityImpl.setCachedValue(JSONObject.NULL);
-    historicVariableInstanceEntityImpl.setCreateTime(
-        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
+    historicVariableInstanceEntityImpl
+        .setCreateTime(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
     historicVariableInstanceEntityImpl.setDeleted(true);
     historicVariableInstanceEntityImpl.setDoubleValue(10.0d);
     historicVariableInstanceEntityImpl.setExecutionId("42");
     historicVariableInstanceEntityImpl.setId("42");
     historicVariableInstanceEntityImpl.setInserted(true);
-    historicVariableInstanceEntityImpl.setLastUpdatedTime(
-        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
+    historicVariableInstanceEntityImpl
+        .setLastUpdatedTime(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
     historicVariableInstanceEntityImpl.setLongValue(42L);
     historicVariableInstanceEntityImpl.setName("Name");
     historicVariableInstanceEntityImpl.setProcessInstanceId("42");
@@ -554,166 +452,46 @@ public class HistoricVariableInstanceEntityImplDiffblueTest {
   }
 
   /**
-   * Test {@link HistoricVariableInstanceEntityImpl#setBytes(byte[])}.
-   *
-   * <ul>
-   *   <li>Given {@link HistoricVariableInstanceEntityImpl} (default constructor) Bytes is {@code
-   *       null}.
-   * </ul>
-   *
-   * <p>Method under test: {@link HistoricVariableInstanceEntityImpl#setBytes(byte[])}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void HistoricVariableInstanceEntityImpl.setBytes(byte[])"})
-  public void testSetBytes_givenHistoricVariableInstanceEntityImplBytesIsNull() {
-    // Arrange
-    HistoricVariableInstanceEntityImpl historicVariableInstanceEntityImpl =
-        new HistoricVariableInstanceEntityImpl();
-    historicVariableInstanceEntityImpl.setCachedValue(JSONObject.NULL);
-    historicVariableInstanceEntityImpl.setCreateTime(
-        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
-    historicVariableInstanceEntityImpl.setDeleted(true);
-    historicVariableInstanceEntityImpl.setDoubleValue(10.0d);
-    historicVariableInstanceEntityImpl.setExecutionId("42");
-    historicVariableInstanceEntityImpl.setId("42");
-    historicVariableInstanceEntityImpl.setInserted(true);
-    historicVariableInstanceEntityImpl.setLastUpdatedTime(
-        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
-    historicVariableInstanceEntityImpl.setLongValue(42L);
-    historicVariableInstanceEntityImpl.setName("Name");
-    historicVariableInstanceEntityImpl.setProcessInstanceId("42");
-    historicVariableInstanceEntityImpl.setRevision(1);
-    historicVariableInstanceEntityImpl.setTaskId("42");
-    historicVariableInstanceEntityImpl.setTextValue("42");
-    historicVariableInstanceEntityImpl.setTextValue2("42");
-    historicVariableInstanceEntityImpl.setUpdated(true);
-    historicVariableInstanceEntityImpl.setVariableType(new BigDecimalType());
-    historicVariableInstanceEntityImpl.setBytes(null);
-
-    // Act
-    historicVariableInstanceEntityImpl.setBytes(null);
-
-    // Assert that nothing has changed
-    Object persistentState = historicVariableInstanceEntityImpl.getPersistentState();
-    assertTrue(persistentState instanceof Map);
-    ByteArrayRef byteArrayRef = historicVariableInstanceEntityImpl.getByteArrayRef();
-    assertEquals("hist.var-Name", byteArrayRef.getName());
-    assertEquals(7, ((Map<String, Object>) persistentState).size());
-    assertFalse(byteArrayRef.isDeleted());
-    assertTrue(((Map<String, Object>) persistentState).containsKey("createTime"));
-    assertTrue(((Map<String, Object>) persistentState).containsKey("doubleValue"));
-    assertTrue(((Map<String, Object>) persistentState).containsKey("lastUpdatedTime"));
-    assertTrue(((Map<String, Object>) persistentState).containsKey("longValue"));
-    assertTrue(((Map<String, Object>) persistentState).containsKey("textValue"));
-  }
-
-  /**
-   * Test {@link HistoricVariableInstanceEntityImpl#setBytes(byte[])}.
-   *
-   * <ul>
-   *   <li>Then {@link HistoricVariableInstanceEntityImpl} (default constructor) ByteArrayRef Bytes
-   *       is {@code null}.
-   * </ul>
-   *
-   * <p>Method under test: {@link HistoricVariableInstanceEntityImpl#setBytes(byte[])}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void HistoricVariableInstanceEntityImpl.setBytes(byte[])"})
-  public void testSetBytes_thenHistoricVariableInstanceEntityImplByteArrayRefBytesIsNull() {
-    // Arrange
-    HistoricVariableInstanceEntityImpl historicVariableInstanceEntityImpl =
-        new HistoricVariableInstanceEntityImpl();
-    historicVariableInstanceEntityImpl.setCachedValue(JSONObject.NULL);
-    historicVariableInstanceEntityImpl.setCreateTime(
-        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
-    historicVariableInstanceEntityImpl.setDeleted(true);
-    historicVariableInstanceEntityImpl.setDoubleValue(10.0d);
-    historicVariableInstanceEntityImpl.setExecutionId("42");
-    historicVariableInstanceEntityImpl.setId("42");
-    historicVariableInstanceEntityImpl.setInserted(true);
-    historicVariableInstanceEntityImpl.setLastUpdatedTime(
-        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
-    historicVariableInstanceEntityImpl.setLongValue(42L);
-    historicVariableInstanceEntityImpl.setName("Name");
-    historicVariableInstanceEntityImpl.setProcessInstanceId("42");
-    historicVariableInstanceEntityImpl.setRevision(1);
-    historicVariableInstanceEntityImpl.setTaskId("42");
-    historicVariableInstanceEntityImpl.setTextValue("42");
-    historicVariableInstanceEntityImpl.setTextValue2("42");
-    historicVariableInstanceEntityImpl.setUpdated(true);
-    historicVariableInstanceEntityImpl.setVariableType(new BigDecimalType());
-
-    // Act
-    historicVariableInstanceEntityImpl.setBytes(null);
-
-    // Assert
-    Object persistentState = historicVariableInstanceEntityImpl.getPersistentState();
-    assertTrue(persistentState instanceof Map);
-    ByteArrayRef byteArrayRef = historicVariableInstanceEntityImpl.getByteArrayRef();
-    assertEquals("hist.var-Name", byteArrayRef.getName());
-    assertNull(byteArrayRef.getBytes());
-    assertEquals(7, ((Map<String, Object>) persistentState).size());
-    assertNull(((Map<String, Object>) persistentState).get("byteArrayRef"));
-    assertNull(byteArrayRef.getId());
-    assertNull(byteArrayRef.getEntity());
-    assertFalse(byteArrayRef.isDeleted());
-    assertTrue(((Map<String, Object>) persistentState).containsKey("createTime"));
-    assertTrue(((Map<String, Object>) persistentState).containsKey("doubleValue"));
-    assertTrue(((Map<String, Object>) persistentState).containsKey("lastUpdatedTime"));
-    assertTrue(((Map<String, Object>) persistentState).containsKey("longValue"));
-    assertTrue(((Map<String, Object>) persistentState).containsKey("textValue"));
-  }
-
-  /**
    * Test {@link HistoricVariableInstanceEntityImpl#getVariableTypeName()}.
-   *
    * <ul>
-   *   <li>Given {@link HistoricVariableInstanceEntityImpl} (default constructor).
-   *   <li>Then return {@code null}.
+   *   <li>Given {@link HistoricVariableInstanceEntityImpl} (default constructor).</li>
+   *   <li>Then return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link HistoricVariableInstanceEntityImpl#getVariableTypeName()}
+   * <p>
+   * Method under test: {@link HistoricVariableInstanceEntityImpl#getVariableTypeName()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"String HistoricVariableInstanceEntityImpl.getVariableTypeName()"})
   public void testGetVariableTypeName_givenHistoricVariableInstanceEntityImpl_thenReturnNull() {
     // Arrange, Act and Assert
-    assertNull(new HistoricVariableInstanceEntityImpl().getVariableTypeName());
+    assertNull((new HistoricVariableInstanceEntityImpl()).getVariableTypeName());
   }
 
   /**
    * Test {@link HistoricVariableInstanceEntityImpl#getVariableTypeName()}.
-   *
    * <ul>
-   *   <li>Then return {@code bigdecimal}.
+   *   <li>Then return {@code bigdecimal}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link HistoricVariableInstanceEntityImpl#getVariableTypeName()}
+   * <p>
+   * Method under test: {@link HistoricVariableInstanceEntityImpl#getVariableTypeName()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"String HistoricVariableInstanceEntityImpl.getVariableTypeName()"})
   public void testGetVariableTypeName_thenReturnBigdecimal() {
     // Arrange
-    HistoricVariableInstanceEntityImpl historicVariableInstanceEntityImpl =
-        new HistoricVariableInstanceEntityImpl();
+    HistoricVariableInstanceEntityImpl historicVariableInstanceEntityImpl = new HistoricVariableInstanceEntityImpl();
     historicVariableInstanceEntityImpl.setCachedValue(JSONObject.NULL);
-    historicVariableInstanceEntityImpl.setCreateTime(
-        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
+    historicVariableInstanceEntityImpl
+        .setCreateTime(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
     historicVariableInstanceEntityImpl.setDeleted(true);
     historicVariableInstanceEntityImpl.setDoubleValue(10.0d);
     historicVariableInstanceEntityImpl.setExecutionId("42");
     historicVariableInstanceEntityImpl.setId("42");
     historicVariableInstanceEntityImpl.setInserted(true);
-    historicVariableInstanceEntityImpl.setLastUpdatedTime(
-        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
+    historicVariableInstanceEntityImpl
+        .setLastUpdatedTime(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
     historicVariableInstanceEntityImpl.setLongValue(42L);
     historicVariableInstanceEntityImpl.setName("Name");
     historicVariableInstanceEntityImpl.setProcessInstanceId("42");
@@ -730,56 +508,51 @@ public class HistoricVariableInstanceEntityImplDiffblueTest {
 
   /**
    * Test {@link HistoricVariableInstanceEntityImpl#getTime()}.
-   *
-   * <p>Method under test: {@link HistoricVariableInstanceEntityImpl#getTime()}
+   * <p>
+   * Method under test: {@link HistoricVariableInstanceEntityImpl#getTime()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"Date HistoricVariableInstanceEntityImpl.getTime()"})
   public void testGetTime() {
     // Arrange, Act and Assert
-    assertNull(new HistoricVariableInstanceEntityImpl().getTime());
+    assertNull((new HistoricVariableInstanceEntityImpl()).getTime());
   }
 
   /**
    * Test {@link HistoricVariableInstanceEntityImpl#toString()}.
-   *
-   * <p>Method under test: {@link HistoricVariableInstanceEntityImpl#toString()}
+   * <p>
+   * Method under test: {@link HistoricVariableInstanceEntityImpl#toString()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"String HistoricVariableInstanceEntityImpl.toString()"})
   public void testToString() {
     // Arrange, Act and Assert
-    assertEquals(
-        "HistoricVariableInstanceEntity[id=null, name=null, revision=1, type=null]",
-        new HistoricVariableInstanceEntityImpl().toString());
+    assertEquals("HistoricVariableInstanceEntity[id=null, name=null, revision=1, type=null]",
+        (new HistoricVariableInstanceEntityImpl()).toString());
   }
 
   /**
    * Test {@link HistoricVariableInstanceEntityImpl#toString()}.
-   *
-   * <p>Method under test: {@link HistoricVariableInstanceEntityImpl#toString()}
+   * <p>
+   * Method under test: {@link HistoricVariableInstanceEntityImpl#toString()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"String HistoricVariableInstanceEntityImpl.toString()"})
   public void testToString2() {
     // Arrange
-    HistoricVariableInstanceEntityImpl historicVariableInstanceEntityImpl =
-        new HistoricVariableInstanceEntityImpl();
+    HistoricVariableInstanceEntityImpl historicVariableInstanceEntityImpl = new HistoricVariableInstanceEntityImpl();
     historicVariableInstanceEntityImpl.setCachedValue(JSONObject.NULL);
-    historicVariableInstanceEntityImpl.setCreateTime(
-        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
+    historicVariableInstanceEntityImpl
+        .setCreateTime(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
     historicVariableInstanceEntityImpl.setDeleted(true);
     historicVariableInstanceEntityImpl.setExecutionId("42");
     historicVariableInstanceEntityImpl.setId("42");
     historicVariableInstanceEntityImpl.setInserted(true);
-    historicVariableInstanceEntityImpl.setLastUpdatedTime(
-        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
+    historicVariableInstanceEntityImpl
+        .setLastUpdatedTime(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
     historicVariableInstanceEntityImpl.setName("Name");
     historicVariableInstanceEntityImpl.setProcessInstanceId("42");
     historicVariableInstanceEntityImpl.setRevision(1);
@@ -793,33 +566,30 @@ public class HistoricVariableInstanceEntityImplDiffblueTest {
     historicVariableInstanceEntityImpl.setBytes(null);
 
     // Act and Assert
-    assertEquals(
-        "HistoricVariableInstanceEntity[id=42, name=Name, revision=1, type=null]",
+    assertEquals("HistoricVariableInstanceEntity[id=42, name=Name, revision=1, type=null]",
         historicVariableInstanceEntityImpl.toString());
   }
 
   /**
    * Test {@link HistoricVariableInstanceEntityImpl#toString()}.
-   *
-   * <p>Method under test: {@link HistoricVariableInstanceEntityImpl#toString()}
+   * <p>
+   * Method under test: {@link HistoricVariableInstanceEntityImpl#toString()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"String HistoricVariableInstanceEntityImpl.toString()"})
   public void testToString3() {
     // Arrange
-    HistoricVariableInstanceEntityImpl historicVariableInstanceEntityImpl =
-        new HistoricVariableInstanceEntityImpl();
+    HistoricVariableInstanceEntityImpl historicVariableInstanceEntityImpl = new HistoricVariableInstanceEntityImpl();
     historicVariableInstanceEntityImpl.setCachedValue(JSONObject.NULL);
-    historicVariableInstanceEntityImpl.setCreateTime(
-        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
+    historicVariableInstanceEntityImpl
+        .setCreateTime(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
     historicVariableInstanceEntityImpl.setDeleted(true);
     historicVariableInstanceEntityImpl.setExecutionId("42");
     historicVariableInstanceEntityImpl.setId("42");
     historicVariableInstanceEntityImpl.setInserted(true);
-    historicVariableInstanceEntityImpl.setLastUpdatedTime(
-        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
+    historicVariableInstanceEntityImpl
+        .setLastUpdatedTime(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
     historicVariableInstanceEntityImpl.setName("Name");
     historicVariableInstanceEntityImpl.setProcessInstanceId("42");
     historicVariableInstanceEntityImpl.setRevision(1);
@@ -829,56 +599,140 @@ public class HistoricVariableInstanceEntityImplDiffblueTest {
     historicVariableInstanceEntityImpl.setLongValue(null);
     historicVariableInstanceEntityImpl.setDoubleValue(null);
     historicVariableInstanceEntityImpl.setTextValue(null);
-    historicVariableInstanceEntityImpl.setTextValue2("");
+    historicVariableInstanceEntityImpl.setTextValue2("foo");
     historicVariableInstanceEntityImpl.setBytes(null);
 
     // Act and Assert
-    assertEquals(
-        "HistoricVariableInstanceEntity[id=42, name=Name, revision=1, type=null, textValue2=]",
+    assertEquals("HistoricVariableInstanceEntity[id=42, name=Name, revision=1, type=null, textValue2=foo]",
         historicVariableInstanceEntityImpl.toString());
   }
 
   /**
    * Test {@link HistoricVariableInstanceEntityImpl#toString()}.
-   *
-   * <ul>
-   *   <li>Then return a string.
-   * </ul>
-   *
-   * <p>Method under test: {@link HistoricVariableInstanceEntityImpl#toString()}
+   * <p>
+   * Method under test: {@link HistoricVariableInstanceEntityImpl#toString()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"String HistoricVariableInstanceEntityImpl.toString()"})
-  public void testToString_thenReturnAString() {
+  public void testToString4() {
     // Arrange
-    HistoricVariableInstanceEntityImpl historicVariableInstanceEntityImpl =
-        new HistoricVariableInstanceEntityImpl();
+    HistoricVariableInstanceEntityImpl historicVariableInstanceEntityImpl = new HistoricVariableInstanceEntityImpl();
     historicVariableInstanceEntityImpl.setCachedValue(JSONObject.NULL);
-    historicVariableInstanceEntityImpl.setCreateTime(
-        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
+    historicVariableInstanceEntityImpl
+        .setCreateTime(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
     historicVariableInstanceEntityImpl.setDeleted(true);
-    historicVariableInstanceEntityImpl.setDoubleValue(10.0d);
     historicVariableInstanceEntityImpl.setExecutionId("42");
     historicVariableInstanceEntityImpl.setId("42");
     historicVariableInstanceEntityImpl.setInserted(true);
-    historicVariableInstanceEntityImpl.setLastUpdatedTime(
-        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
-    historicVariableInstanceEntityImpl.setLongValue(42L);
+    historicVariableInstanceEntityImpl
+        .setLastUpdatedTime(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
     historicVariableInstanceEntityImpl.setName("Name");
     historicVariableInstanceEntityImpl.setProcessInstanceId("42");
     historicVariableInstanceEntityImpl.setRevision(1);
     historicVariableInstanceEntityImpl.setTaskId("42");
-    historicVariableInstanceEntityImpl.setTextValue("42");
-    historicVariableInstanceEntityImpl.setTextValue2("42");
     historicVariableInstanceEntityImpl.setUpdated(true);
+    historicVariableInstanceEntityImpl.setVariableType(null);
+    historicVariableInstanceEntityImpl.setLongValue(null);
+    historicVariableInstanceEntityImpl.setDoubleValue(null);
+    historicVariableInstanceEntityImpl.setTextValue("foo");
+    historicVariableInstanceEntityImpl.setTextValue2(null);
+    historicVariableInstanceEntityImpl.setBytes(null);
+
+    // Act and Assert
+    assertEquals("HistoricVariableInstanceEntity[id=42, name=Name, revision=1, type=null, textValue=foo]",
+        historicVariableInstanceEntityImpl.toString());
+  }
+
+  /**
+   * Test {@link HistoricVariableInstanceEntityImpl#toString()}.
+   * <p>
+   * Method under test: {@link HistoricVariableInstanceEntityImpl#toString()}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String HistoricVariableInstanceEntityImpl.toString()"})
+  public void testToString5() {
+    // Arrange
+    HistoricVariableInstanceEntityImpl historicVariableInstanceEntityImpl = new HistoricVariableInstanceEntityImpl();
+    historicVariableInstanceEntityImpl.setCachedValue(JSONObject.NULL);
+    historicVariableInstanceEntityImpl
+        .setCreateTime(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
+    historicVariableInstanceEntityImpl.setDeleted(true);
+    historicVariableInstanceEntityImpl.setExecutionId("42");
+    historicVariableInstanceEntityImpl.setId("42");
+    historicVariableInstanceEntityImpl.setInserted(true);
+    historicVariableInstanceEntityImpl
+        .setLastUpdatedTime(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
+    historicVariableInstanceEntityImpl.setName("Name");
+    historicVariableInstanceEntityImpl.setProcessInstanceId("42");
+    historicVariableInstanceEntityImpl.setRevision(1);
+    historicVariableInstanceEntityImpl.setTaskId("42");
+    historicVariableInstanceEntityImpl.setUpdated(true);
+    historicVariableInstanceEntityImpl.setVariableType(null);
+    historicVariableInstanceEntityImpl.setLongValue(null);
+    historicVariableInstanceEntityImpl.setDoubleValue(10.0d);
+    historicVariableInstanceEntityImpl.setTextValue(null);
+    historicVariableInstanceEntityImpl.setTextValue2(null);
+    historicVariableInstanceEntityImpl.setBytes(null);
+
+    // Act and Assert
+    assertEquals("HistoricVariableInstanceEntity[id=42, name=Name, revision=1, type=null, doubleValue=10.0]",
+        historicVariableInstanceEntityImpl.toString());
+  }
+
+  /**
+   * Test {@link HistoricVariableInstanceEntityImpl#toString()}.
+   * <p>
+   * Method under test: {@link HistoricVariableInstanceEntityImpl#toString()}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String HistoricVariableInstanceEntityImpl.toString()"})
+  public void testToString6() {
+    // Arrange
+    HistoricVariableInstanceEntityImpl historicVariableInstanceEntityImpl = new HistoricVariableInstanceEntityImpl();
+    historicVariableInstanceEntityImpl.setCachedValue(JSONObject.NULL);
+    historicVariableInstanceEntityImpl
+        .setCreateTime(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
+    historicVariableInstanceEntityImpl.setDeleted(true);
+    historicVariableInstanceEntityImpl.setExecutionId("42");
+    historicVariableInstanceEntityImpl.setId("42");
+    historicVariableInstanceEntityImpl.setInserted(true);
+    historicVariableInstanceEntityImpl
+        .setLastUpdatedTime(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
+    historicVariableInstanceEntityImpl.setName("Name");
+    historicVariableInstanceEntityImpl.setProcessInstanceId("42");
+    historicVariableInstanceEntityImpl.setRevision(1);
+    historicVariableInstanceEntityImpl.setTaskId("42");
+    historicVariableInstanceEntityImpl.setUpdated(true);
+    historicVariableInstanceEntityImpl.setVariableType(null);
+    historicVariableInstanceEntityImpl.setLongValue(1L);
+    historicVariableInstanceEntityImpl.setDoubleValue(null);
+    historicVariableInstanceEntityImpl.setTextValue(null);
+    historicVariableInstanceEntityImpl.setTextValue2(null);
+    historicVariableInstanceEntityImpl.setBytes(null);
+
+    // Act and Assert
+    assertEquals("HistoricVariableInstanceEntity[id=42, name=Name, revision=1, type=null, longValue=1]",
+        historicVariableInstanceEntityImpl.toString());
+  }
+
+  /**
+   * Test {@link HistoricVariableInstanceEntityImpl#toString()}.
+   * <p>
+   * Method under test: {@link HistoricVariableInstanceEntityImpl#toString()}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String HistoricVariableInstanceEntityImpl.toString()"})
+  public void testToString7() {
+    // Arrange
+    HistoricVariableInstanceEntityImpl historicVariableInstanceEntityImpl = new HistoricVariableInstanceEntityImpl();
     historicVariableInstanceEntityImpl.setVariableType(new BigDecimalType());
 
     // Act and Assert
-    assertEquals(
-        "HistoricVariableInstanceEntity[id=42, name=Name, revision=1, type=bigdecimal, longValue=42, doubleValue=10.0,"
-            + " textValue=42, textValue2=42]",
+    assertEquals("HistoricVariableInstanceEntity[id=null, name=null, revision=1, type=bigdecimal]",
         historicVariableInstanceEntityImpl.toString());
   }
 }

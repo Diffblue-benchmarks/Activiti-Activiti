@@ -20,8 +20,7 @@ import static org.mockito.Mockito.atLeast;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.HashMap;
 import org.activiti.engine.impl.persistence.entity.EventSubscriptionEntity;
@@ -30,76 +29,54 @@ import org.junit.experimental.categories.Category;
 
 public class EventSubscriptionsByNameMatcherDiffblueTest {
   /**
-   * Test {@link EventSubscriptionsByNameMatcher#isRetained(EventSubscriptionEntity, Object)} with
-   * {@code EventSubscriptionEntity}, {@code Object}.
-   *
-   * <p>Method under test: {@link
-   * EventSubscriptionsByNameMatcher#isRetained(EventSubscriptionEntity, Object)}
+   * Test {@link EventSubscriptionsByNameMatcher#isRetained(EventSubscriptionEntity, Object)} with {@code EventSubscriptionEntity}, {@code Object}.
+   * <ul>
+   *   <li>Given {@code Event Type}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link EventSubscriptionsByNameMatcher#isRetained(EventSubscriptionEntity, Object)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "boolean EventSubscriptionsByNameMatcher.isRetained(EventSubscriptionEntity, Object)"
-  })
-  public void testIsRetainedWithEventSubscriptionEntityObject() {
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean EventSubscriptionsByNameMatcher.isRetained(EventSubscriptionEntity, Object)"})
+  public void testIsRetainedWithEventSubscriptionEntityObject_givenEventType() {
     // Arrange
-    EventSubscriptionsByNameMatcher eventSubscriptionsByNameMatcher =
-        new EventSubscriptionsByNameMatcher();
-
+    EventSubscriptionsByNameMatcher eventSubscriptionsByNameMatcher = new EventSubscriptionsByNameMatcher();
     EventSubscriptionEntity eventSubscriptionEntity = mock(EventSubscriptionEntity.class);
-    when(eventSubscriptionEntity.getEventType()).thenReturn(null);
-
-    HashMap<Object, Object> objectObjectMap = new HashMap<>();
-    objectObjectMap.put("eventType", "Parameter");
-    objectObjectMap.put("eventName", "Parameter");
-    objectObjectMap.put("tenantId", null);
+    when(eventSubscriptionEntity.getEventType()).thenReturn("Event Type");
 
     // Act
-    boolean actualIsRetainedResult =
-        eventSubscriptionsByNameMatcher.isRetained(eventSubscriptionEntity, objectObjectMap);
+    boolean actualIsRetainedResult = eventSubscriptionsByNameMatcher.isRetained(eventSubscriptionEntity,
+        new HashMap<>());
 
     // Assert
-    verify(eventSubscriptionEntity).getEventType();
+    verify(eventSubscriptionEntity, atLeast(1)).getEventType();
     assertFalse(actualIsRetainedResult);
   }
 
   /**
-   * Test {@link EventSubscriptionsByNameMatcher#isRetained(EventSubscriptionEntity, Object)} with
-   * {@code EventSubscriptionEntity}, {@code Object}.
-   *
+   * Test {@link EventSubscriptionsByNameMatcher#isRetained(EventSubscriptionEntity, Object)} with {@code EventSubscriptionEntity}, {@code Object}.
    * <ul>
-   *   <li>Given {@code Event Type}.
+   *   <li>Given {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link
-   * EventSubscriptionsByNameMatcher#isRetained(EventSubscriptionEntity, Object)}
+   * <p>
+   * Method under test: {@link EventSubscriptionsByNameMatcher#isRetained(EventSubscriptionEntity, Object)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "boolean EventSubscriptionsByNameMatcher.isRetained(EventSubscriptionEntity, Object)"
-  })
-  public void testIsRetainedWithEventSubscriptionEntityObject_givenEventType() {
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean EventSubscriptionsByNameMatcher.isRetained(EventSubscriptionEntity, Object)"})
+  public void testIsRetainedWithEventSubscriptionEntityObject_givenNull() {
     // Arrange
-    EventSubscriptionsByNameMatcher eventSubscriptionsByNameMatcher =
-        new EventSubscriptionsByNameMatcher();
-
+    EventSubscriptionsByNameMatcher eventSubscriptionsByNameMatcher = new EventSubscriptionsByNameMatcher();
     EventSubscriptionEntity eventSubscriptionEntity = mock(EventSubscriptionEntity.class);
-    when(eventSubscriptionEntity.getEventType()).thenReturn("Event Type");
-
-    HashMap<Object, Object> objectObjectMap = new HashMap<>();
-    objectObjectMap.put("eventType", "Parameter");
-    objectObjectMap.put("eventName", "Parameter");
-    objectObjectMap.put("tenantId", null);
+    when(eventSubscriptionEntity.getEventType()).thenReturn(null);
 
     // Act
-    boolean actualIsRetainedResult =
-        eventSubscriptionsByNameMatcher.isRetained(eventSubscriptionEntity, objectObjectMap);
+    boolean actualIsRetainedResult = eventSubscriptionsByNameMatcher.isRetained(eventSubscriptionEntity,
+        new HashMap<>());
 
     // Assert
-    verify(eventSubscriptionEntity, atLeast(1)).getEventType();
+    verify(eventSubscriptionEntity).getEventType();
     assertFalse(actualIsRetainedResult);
   }
 }

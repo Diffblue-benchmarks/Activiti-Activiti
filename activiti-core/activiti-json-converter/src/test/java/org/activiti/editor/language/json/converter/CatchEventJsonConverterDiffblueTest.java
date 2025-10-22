@@ -20,10 +20,9 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.node.DoubleNode;
+import com.fasterxml.jackson.databind.node.MissingNode;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -41,13 +40,12 @@ import org.junit.jupiter.api.Test;
 class CatchEventJsonConverterDiffblueTest {
   /**
    * Test {@link CatchEventJsonConverter#fillJsonTypes(Map)}.
-   *
-   * <p>Method under test: {@link CatchEventJsonConverter#fillJsonTypes(Map)}
+   * <p>
+   * Method under test: {@link CatchEventJsonConverter#fillJsonTypes(Map)}
    */
   @Test
   @DisplayName("Test fillJsonTypes(Map)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void CatchEventJsonConverter.fillJsonTypes(Map)"})
   void testFillJsonTypes() {
     // Arrange
@@ -67,17 +65,15 @@ class CatchEventJsonConverterDiffblueTest {
 
   /**
    * Test {@link CatchEventJsonConverter#getStencilId(BaseElement)}.
-   *
    * <ul>
-   *   <li>Then return {@code CatchMessageEvent}.
+   *   <li>Then return {@code CatchMessageEvent}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link CatchEventJsonConverter#getStencilId(BaseElement)}
+   * <p>
+   * Method under test: {@link CatchEventJsonConverter#getStencilId(BaseElement)}
    */
   @Test
   @DisplayName("Test getStencilId(BaseElement); then return 'CatchMessageEvent'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"String CatchEventJsonConverter.getStencilId(BaseElement)"})
   void testGetStencilId_thenReturnCatchMessageEvent() {
     // Arrange
@@ -95,17 +91,15 @@ class CatchEventJsonConverterDiffblueTest {
 
   /**
    * Test {@link CatchEventJsonConverter#getStencilId(BaseElement)}.
-   *
    * <ul>
-   *   <li>Then return {@code CatchSignalEvent}.
+   *   <li>Then return {@code CatchSignalEvent}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link CatchEventJsonConverter#getStencilId(BaseElement)}
+   * <p>
+   * Method under test: {@link CatchEventJsonConverter#getStencilId(BaseElement)}
    */
   @Test
   @DisplayName("Test getStencilId(BaseElement); then return 'CatchSignalEvent'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"String CatchEventJsonConverter.getStencilId(BaseElement)"})
   void testGetStencilId_thenReturnCatchSignalEvent() {
     // Arrange
@@ -123,17 +117,15 @@ class CatchEventJsonConverterDiffblueTest {
 
   /**
    * Test {@link CatchEventJsonConverter#getStencilId(BaseElement)}.
-   *
    * <ul>
-   *   <li>Then return {@code CatchTimerEvent}.
+   *   <li>Then return {@code CatchTimerEvent}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link CatchEventJsonConverter#getStencilId(BaseElement)}
+   * <p>
+   * Method under test: {@link CatchEventJsonConverter#getStencilId(BaseElement)}
    */
   @Test
   @DisplayName("Test getStencilId(BaseElement); then return 'CatchTimerEvent'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"String CatchEventJsonConverter.getStencilId(BaseElement)"})
   void testGetStencilId_thenReturnCatchTimerEvent() {
     // Arrange
@@ -151,17 +143,15 @@ class CatchEventJsonConverterDiffblueTest {
 
   /**
    * Test {@link CatchEventJsonConverter#getStencilId(BaseElement)}.
-   *
    * <ul>
-   *   <li>Then return {@code CatchTimerEvent}.
+   *   <li>Then return {@code CatchTimerEvent}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link CatchEventJsonConverter#getStencilId(BaseElement)}
+   * <p>
+   * Method under test: {@link CatchEventJsonConverter#getStencilId(BaseElement)}
    */
   @Test
   @DisplayName("Test getStencilId(BaseElement); then return 'CatchTimerEvent'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"String CatchEventJsonConverter.getStencilId(BaseElement)"})
   void testGetStencilId_thenReturnCatchTimerEvent2() {
     // Arrange
@@ -180,32 +170,26 @@ class CatchEventJsonConverterDiffblueTest {
 
   /**
    * Test {@link CatchEventJsonConverter#convertJsonToElement(JsonNode, JsonNode, Map)}.
-   *
    * <ul>
-   *   <li>When {@link HashMap#HashMap()}.
-   *   <li>Then return {@link IntermediateCatchEvent}.
+   *   <li>When {@link HashMap#HashMap()}.</li>
+   *   <li>Then return {@link IntermediateCatchEvent}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link CatchEventJsonConverter#convertJsonToElement(JsonNode, JsonNode,
-   * Map)}
+   * <p>
+   * Method under test: {@link CatchEventJsonConverter#convertJsonToElement(JsonNode, JsonNode, Map)}
    */
   @Test
-  @DisplayName(
-      "Test convertJsonToElement(JsonNode, JsonNode, Map); when HashMap(); then return IntermediateCatchEvent")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "FlowElement CatchEventJsonConverter.convertJsonToElement(JsonNode, JsonNode, Map)"
-  })
+  @DisplayName("Test convertJsonToElement(JsonNode, JsonNode, Map); when HashMap(); then return IntermediateCatchEvent")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"FlowElement CatchEventJsonConverter.convertJsonToElement(JsonNode, JsonNode, Map)"})
   void testConvertJsonToElement_whenHashMap_thenReturnIntermediateCatchEvent() {
     // Arrange
     CatchEventJsonConverter catchEventJsonConverter = new CatchEventJsonConverter();
-    DoubleNode elementNode = DoubleNode.valueOf(10.0d);
-    DoubleNode modelNode = DoubleNode.valueOf(10.0d);
+    MissingNode elementNode = MissingNode.getInstance();
+    MissingNode modelNode = MissingNode.getInstance();
 
     // Act
-    FlowElement actualConvertJsonToElementResult =
-        catchEventJsonConverter.convertJsonToElement(elementNode, modelNode, new HashMap<>());
+    FlowElement actualConvertJsonToElementResult = catchEventJsonConverter.convertJsonToElement(elementNode, modelNode,
+        new HashMap<>());
 
     // Assert
     assertTrue(actualConvertJsonToElementResult instanceof IntermediateCatchEvent);
@@ -219,15 +203,10 @@ class CatchEventJsonConverterDiffblueTest {
     assertEquals(0, actualConvertJsonToElementResult.getXmlRowNumber());
     assertFalse(((IntermediateCatchEvent) actualConvertJsonToElementResult).isAsynchronous());
     assertFalse(((IntermediateCatchEvent) actualConvertJsonToElementResult).isNotExclusive());
-    assertTrue(
-        ((IntermediateCatchEvent) actualConvertJsonToElementResult)
-            .getEventDefinitions()
-            .isEmpty());
+    assertTrue(((IntermediateCatchEvent) actualConvertJsonToElementResult).getEventDefinitions().isEmpty());
     assertTrue(actualConvertJsonToElementResult.getExecutionListeners().isEmpty());
-    assertTrue(
-        ((IntermediateCatchEvent) actualConvertJsonToElementResult).getIncomingFlows().isEmpty());
-    assertTrue(
-        ((IntermediateCatchEvent) actualConvertJsonToElementResult).getOutgoingFlows().isEmpty());
+    assertTrue(((IntermediateCatchEvent) actualConvertJsonToElementResult).getIncomingFlows().isEmpty());
+    assertTrue(((IntermediateCatchEvent) actualConvertJsonToElementResult).getOutgoingFlows().isEmpty());
     assertTrue(actualConvertJsonToElementResult.getAttributes().isEmpty());
     assertTrue(actualConvertJsonToElementResult.getExtensionElements().isEmpty());
     assertTrue(((IntermediateCatchEvent) actualConvertJsonToElementResult).isExclusive());
@@ -235,13 +214,12 @@ class CatchEventJsonConverterDiffblueTest {
 
   /**
    * Test new {@link CatchEventJsonConverter} (default constructor).
-   *
-   * <p>Method under test: default or parameterless constructor of {@link CatchEventJsonConverter}
+   * <p>
+   * Method under test: default or parameterless constructor of {@link CatchEventJsonConverter}
    */
   @Test
   @DisplayName("Test new CatchEventJsonConverter (default constructor)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void CatchEventJsonConverter.<init>()"})
   void testNewCatchEventJsonConverter() {
     // Arrange and Act

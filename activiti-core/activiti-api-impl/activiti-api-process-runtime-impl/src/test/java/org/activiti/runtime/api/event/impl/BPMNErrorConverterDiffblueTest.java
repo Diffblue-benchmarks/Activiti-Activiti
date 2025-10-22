@@ -16,7 +16,6 @@
 package org.activiti.runtime.api.event.impl;
 
 import static org.junit.jupiter.api.Assertions.assertNull;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.api.runtime.model.impl.BPMNErrorImpl;
 import org.activiti.engine.delegate.event.ActivitiErrorEvent;
@@ -33,27 +32,25 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 @ContextConfiguration(classes = {BPMNErrorConverter.class})
 @ExtendWith(SpringExtension.class)
 class BPMNErrorConverterDiffblueTest {
-  @Autowired private BPMNErrorConverter bPMNErrorConverter;
+  @Autowired
+  private BPMNErrorConverter bPMNErrorConverter;
 
   /**
    * Test {@link BPMNErrorConverter#convertToBPMNError(ActivitiErrorEvent)}.
-   *
    * <ul>
-   *   <li>Then return ActivityName is {@code null}.
+   *   <li>Then return ActivityName is {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link BPMNErrorConverter#convertToBPMNError(ActivitiErrorEvent)}
+   * <p>
+   * Method under test: {@link BPMNErrorConverter#convertToBPMNError(ActivitiErrorEvent)}
    */
   @Test
   @DisplayName("Test convertToBPMNError(ActivitiErrorEvent); then return ActivityName is 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"BPMNErrorImpl BPMNErrorConverter.convertToBPMNError(ActivitiErrorEvent)"})
   void testConvertToBPMNError_thenReturnActivityNameIsNull() {
     // Arrange and Act
-    BPMNErrorImpl actualConvertToBPMNErrorResult =
-        bPMNErrorConverter.convertToBPMNError(
-            new ActivitiErrorEventImpl(ActivitiEventType.ENTITY_CREATED));
+    BPMNErrorImpl actualConvertToBPMNErrorResult = bPMNErrorConverter
+        .convertToBPMNError(new ActivitiErrorEventImpl(ActivitiEventType.ENTITY_CREATED));
 
     // Assert
     assertNull(actualConvertToBPMNErrorResult.getActivityName());

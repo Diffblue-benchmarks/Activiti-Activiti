@@ -17,8 +17,7 @@ package org.activiti.engine.impl.cmd;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
@@ -26,12 +25,11 @@ import org.junit.experimental.categories.Category;
 public class DeleteDeploymentCmdDiffblueTest {
   /**
    * Test {@link DeleteDeploymentCmd#DeleteDeploymentCmd(String, boolean)}.
-   *
-   * <p>Method under test: {@link DeleteDeploymentCmd#DeleteDeploymentCmd(String, boolean)}
+   * <p>
+   * Method under test: {@link DeleteDeploymentCmd#DeleteDeploymentCmd(String, boolean)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void DeleteDeploymentCmd.<init>(String, boolean)"})
   public void testNewDeleteDeploymentCmd() {
     // Arrange and Act

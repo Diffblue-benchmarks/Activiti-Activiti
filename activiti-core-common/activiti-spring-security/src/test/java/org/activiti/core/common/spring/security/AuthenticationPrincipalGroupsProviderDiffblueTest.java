@@ -21,7 +21,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.isA;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import com.sun.security.auth.UserPrincipal;
 import java.security.Principal;
@@ -41,40 +40,41 @@ import org.springframework.test.context.aot.DisabledInAotMode;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 @ContextConfiguration(classes = {AuthenticationPrincipalGroupsProvider.class})
-@DisabledInAotMode
 @ExtendWith(SpringExtension.class)
+@DisabledInAotMode
 class AuthenticationPrincipalGroupsProviderDiffblueTest {
-  @Autowired private AuthenticationPrincipalGroupsProvider authenticationPrincipalGroupsProvider;
+  @Autowired
+  private AuthenticationPrincipalGroupsProvider authenticationPrincipalGroupsProvider;
 
-  @MockBean private GrantedAuthoritiesGroupsMapper grantedAuthoritiesGroupsMapper;
+  @MockBean
+  private GrantedAuthoritiesGroupsMapper grantedAuthoritiesGroupsMapper;
 
-  @MockBean private GrantedAuthoritiesResolver grantedAuthoritiesResolver;
+  @MockBean
+  private GrantedAuthoritiesResolver grantedAuthoritiesResolver;
 
   /**
    * Test {@link AuthenticationPrincipalGroupsProvider#getGroups(Principal)}.
-   *
    * <ul>
-   *   <li>Then return Empty.
+   *   <li>Then return Empty.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link AuthenticationPrincipalGroupsProvider#getGroups(Principal)}
+   * <p>
+   * Method under test: {@link AuthenticationPrincipalGroupsProvider#getGroups(Principal)}
    */
   @Test
   @DisplayName("Test getGroups(Principal); then return Empty")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"List AuthenticationPrincipalGroupsProvider.getGroups(Principal)"})
   void testGetGroups_thenReturnEmpty() {
     // Arrange
-    Mockito.<Collection<? extends GrantedAuthority>>when(
+    Mockito
+        .<Collection<? extends GrantedAuthority>>when(
             grantedAuthoritiesResolver.getAuthorities(Mockito.<Principal>any()))
         .thenReturn(new ArrayList<>());
     when(grantedAuthoritiesGroupsMapper.getGroups(Mockito.<Collection<GrantedAuthority>>any()))
         .thenReturn(new ArrayList<>());
 
     // Act
-    List<String> actualGroups =
-        authenticationPrincipalGroupsProvider.getGroups(new UserPrincipal("principal"));
+    List<String> actualGroups = authenticationPrincipalGroupsProvider.getGroups(new UserPrincipal("principal"));
 
     // Assert
     verify(grantedAuthoritiesGroupsMapper).getGroups(isA(Collection.class));
@@ -84,18 +84,16 @@ class AuthenticationPrincipalGroupsProviderDiffblueTest {
 
   /**
    * Test {@link AuthenticationPrincipalGroupsProvider#securityException()}.
-   *
-   * <p>Method under test: {@link AuthenticationPrincipalGroupsProvider#securityException()}
+   * <p>
+   * Method under test: {@link AuthenticationPrincipalGroupsProvider#securityException()}
    */
   @Test
   @DisplayName("Test securityException()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"SecurityException AuthenticationPrincipalGroupsProvider.securityException()"})
   void testSecurityException() {
     // Arrange and Act
-    SecurityException actualSecurityExceptionResult =
-        authenticationPrincipalGroupsProvider.securityException();
+    SecurityException actualSecurityExceptionResult = authenticationPrincipalGroupsProvider.securityException();
 
     // Assert
     assertEquals("Invalid principal groups", actualSecurityExceptionResult.getLocalizedMessage());

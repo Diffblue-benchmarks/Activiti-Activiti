@@ -18,8 +18,7 @@ package org.activiti.engine.impl.delegate.invocation;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 import static org.mockito.Mockito.mock;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.engine.delegate.DelegateTask;
 import org.activiti.engine.delegate.TaskListener;
@@ -30,33 +29,29 @@ import org.junit.experimental.categories.Category;
 public class TaskListenerInvocationDiffblueTest {
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>{@link TaskListenerInvocation#TaskListenerInvocation(TaskListener, DelegateTask)}
    *   <li>{@link TaskListenerInvocation#getTarget()}
    * </ul>
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void TaskListenerInvocation.<init>(TaskListener, DelegateTask)",
-    "Object TaskListenerInvocation.getTarget()"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void TaskListenerInvocation.<init>(TaskListener, DelegateTask)",
+      "Object TaskListenerInvocation.getTarget()"})
   public void testGettersAndSetters() {
     // Arrange
     TaskListener executionListenerInstance = mock(TaskListener.class);
 
     // Act
-    TaskListenerInvocation actualTaskListenerInvocation =
-        new TaskListenerInvocation(executionListenerInstance, new TaskEntityImpl());
+    TaskListenerInvocation actualTaskListenerInvocation = new TaskListenerInvocation(executionListenerInstance,
+        new TaskEntityImpl());
     Object actualTarget = actualTaskListenerInvocation.getTarget();
 
     // Assert
-    assertNull(actualTaskListenerInvocation.getInvocationResult());
     assertNull(actualTaskListenerInvocation.getInvocationParameters());
+    assertNull(actualTaskListenerInvocation.getInvocationResult());
     assertSame(executionListenerInstance, actualTarget);
   }
 }

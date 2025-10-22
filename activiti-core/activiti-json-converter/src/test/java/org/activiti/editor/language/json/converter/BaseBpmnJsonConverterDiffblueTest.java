@@ -19,26 +19,24 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.ArgumentMatchers.isA;
 import static org.mockito.Mockito.atLeast;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.BigIntegerNode;
-import com.fasterxml.jackson.databind.node.BinaryNode;
 import com.fasterxml.jackson.databind.node.BooleanNode;
-import com.fasterxml.jackson.databind.node.DoubleNode;
+import com.fasterxml.jackson.databind.node.ContainerNode;
 import com.fasterxml.jackson.databind.node.JsonNodeFactory;
 import com.fasterxml.jackson.databind.node.MissingNode;
 import com.fasterxml.jackson.databind.node.NullNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.fasterxml.jackson.databind.node.TextNode;
-import java.io.UnsupportedEncodingException;
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -64,13 +62,10 @@ import org.activiti.bpmn.model.FlowElementsContainer;
 import org.activiti.bpmn.model.FormProperty;
 import org.activiti.bpmn.model.FormValue;
 import org.activiti.bpmn.model.MessageEventDefinition;
-import org.activiti.bpmn.model.Resource;
 import org.activiti.bpmn.model.ServiceTask;
-import org.activiti.bpmn.model.Signal;
 import org.activiti.bpmn.model.SignalEventDefinition;
-import org.activiti.bpmn.model.StartEvent;
+import org.activiti.bpmn.model.SubProcess;
 import org.activiti.bpmn.model.TimerEventDefinition;
-import org.activiti.bpmn.model.UserTask;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
@@ -78,1185 +73,580 @@ import org.mockito.Mockito;
 
 class BaseBpmnJsonConverterDiffblueTest {
   /**
-   * Test {@link BaseBpmnJsonConverter#processDataStoreReferences(FlowElementsContainer, String,
-   * ArrayNode)}.
-   *
+   * Test {@link BaseBpmnJsonConverter#processDataStoreReferences(FlowElementsContainer, String, ArrayNode)}.
    * <ul>
-   *   <li>Given {@link ArrayList#ArrayList()}.
-   *   <li>Then calls {@link AdhocSubProcess#getFlowElements()}.
+   *   <li>Given {@link ArrayList#ArrayList()} add {@link AdhocSubProcess} (default constructor).</li>
    * </ul>
-   *
-   * <p>Method under test: {@link
-   * BaseBpmnJsonConverter#processDataStoreReferences(FlowElementsContainer, String, ArrayNode)}
+   * <p>
+   * Method under test: {@link BaseBpmnJsonConverter#processDataStoreReferences(FlowElementsContainer, String, ArrayNode)}
    */
   @Test
-  @DisplayName(
-      "Test processDataStoreReferences(FlowElementsContainer, String, ArrayNode); given ArrayList(); then calls getFlowElements()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void BaseBpmnJsonConverter.processDataStoreReferences(FlowElementsContainer, String, ArrayNode)"
-  })
-  void testProcessDataStoreReferences_givenArrayList_thenCallsGetFlowElements() {
+  @DisplayName("Test processDataStoreReferences(FlowElementsContainer, String, ArrayNode); given ArrayList() add AdhocSubProcess (default constructor)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void BaseBpmnJsonConverter.processDataStoreReferences(FlowElementsContainer, String, ArrayNode)"})
+  void testProcessDataStoreReferences_givenArrayListAddAdhocSubProcess() {
     // Arrange
     AssociationJsonConverter associationJsonConverter = new AssociationJsonConverter();
 
+    ArrayList<FlowElement> flowElementList = new ArrayList<>();
+    flowElementList.add(new AdhocSubProcess());
     AdhocSubProcess container = mock(AdhocSubProcess.class);
-    when(container.getFlowElements()).thenReturn(new ArrayList<>());
-    JsonNodeFactory nf = JsonNodeFactory.withExactBigDecimals(true);
+    when(container.getFlowElements()).thenReturn(flowElementList);
 
     // Act
-    associationJsonConverter.processDataStoreReferences(container, "42", new ArrayNode(nf));
+    associationJsonConverter.processDataStoreReferences(container, "42",
+        new ArrayNode(JsonNodeFactory.withExactBigDecimals(true)));
 
     // Assert
     verify(container).getFlowElements();
   }
 
   /**
-   * Test {@link BaseBpmnJsonConverter#convertToBpmnModel(JsonNode, JsonNode, ActivityProcessor,
-   * BaseElement, Map, BpmnModel)}.
-   *
-   * <p>Method under test: {@link BaseBpmnJsonConverter#convertToBpmnModel(JsonNode, JsonNode,
-   * ActivityProcessor, BaseElement, Map, BpmnModel)}
+   * Test {@link BaseBpmnJsonConverter#processDataStoreReferences(FlowElementsContainer, String, ArrayNode)}.
+   * <ul>
+   *   <li>Given {@link ArrayList#ArrayList()} add {@code null}.</li>
+   *   <li>Then calls {@link SubProcess#getFlowElements()}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link BaseBpmnJsonConverter#processDataStoreReferences(FlowElementsContainer, String, ArrayNode)}
    */
   @Test
-  @DisplayName(
-      "Test convertToBpmnModel(JsonNode, JsonNode, ActivityProcessor, BaseElement, Map, BpmnModel)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void BaseBpmnJsonConverter.convertToBpmnModel(JsonNode, JsonNode, ActivityProcessor, BaseElement, Map, BpmnModel)"
-  })
-  void testConvertToBpmnModel() {
+  @DisplayName("Test processDataStoreReferences(FlowElementsContainer, String, ArrayNode); given ArrayList() add 'null'; then calls getFlowElements()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void BaseBpmnJsonConverter.processDataStoreReferences(FlowElementsContainer, String, ArrayNode)"})
+  void testProcessDataStoreReferences_givenArrayListAddNull_thenCallsGetFlowElements() {
     // Arrange
     AssociationJsonConverter associationJsonConverter = new AssociationJsonConverter();
 
-    JsonNode jsonNode = mock(JsonNode.class);
-    when(jsonNode.asText()).thenReturn("not empty");
-    when(jsonNode.isNull()).thenReturn(false);
+    ArrayList<FlowElement> flowElementList = new ArrayList<>();
+    flowElementList.add(null);
+    AdhocSubProcess container = mock(AdhocSubProcess.class);
+    when(container.getFlowElements()).thenReturn(flowElementList);
 
+    // Act
+    associationJsonConverter.processDataStoreReferences(container, "42",
+        new ArrayNode(JsonNodeFactory.withExactBigDecimals(true)));
+
+    // Assert
+    verify(container).getFlowElements();
+  }
+
+  /**
+   * Test {@link BaseBpmnJsonConverter#processDataStoreReferences(FlowElementsContainer, String, ArrayNode)}.
+   * <ul>
+   *   <li>Given {@link ArrayList#ArrayList()}.</li>
+   *   <li>Then calls {@link SubProcess#getFlowElements()}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link BaseBpmnJsonConverter#processDataStoreReferences(FlowElementsContainer, String, ArrayNode)}
+   */
+  @Test
+  @DisplayName("Test processDataStoreReferences(FlowElementsContainer, String, ArrayNode); given ArrayList(); then calls getFlowElements()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void BaseBpmnJsonConverter.processDataStoreReferences(FlowElementsContainer, String, ArrayNode)"})
+  void testProcessDataStoreReferences_givenArrayList_thenCallsGetFlowElements() {
+    // Arrange
+    AssociationJsonConverter associationJsonConverter = new AssociationJsonConverter();
+    AdhocSubProcess container = mock(AdhocSubProcess.class);
+    when(container.getFlowElements()).thenReturn(new ArrayList<>());
+
+    // Act
+    associationJsonConverter.processDataStoreReferences(container, "42",
+        new ArrayNode(JsonNodeFactory.withExactBigDecimals(true)));
+
+    // Assert
+    verify(container).getFlowElements();
+  }
+
+  /**
+   * Test {@link BaseBpmnJsonConverter#convertToBpmnModel(JsonNode, JsonNode, ActivityProcessor, BaseElement, Map, BpmnModel)}.
+   * <ul>
+   *   <li>Given {@link ArrayList#ArrayList()} add Instance.</li>
+   *   <li>Then calls {@link JsonNode#iterator()}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link BaseBpmnJsonConverter#convertToBpmnModel(JsonNode, JsonNode, ActivityProcessor, BaseElement, Map, BpmnModel)}
+   */
+  @Test
+  @DisplayName("Test convertToBpmnModel(JsonNode, JsonNode, ActivityProcessor, BaseElement, Map, BpmnModel); given ArrayList() add Instance; then calls iterator()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({
+      "void BaseBpmnJsonConverter.convertToBpmnModel(JsonNode, JsonNode, ActivityProcessor, BaseElement, Map, BpmnModel)"})
+  void testConvertToBpmnModel_givenArrayListAddInstance_thenCallsIterator() {
+    // Arrange
+    AssociationJsonConverter associationJsonConverter = new AssociationJsonConverter();
+    JsonNode jsonNode = mock(JsonNode.class);
+    when(jsonNode.asText()).thenReturn("As Text");
+    when(jsonNode.isNull()).thenReturn(true);
     JsonNode jsonNode2 = mock(JsonNode.class);
     when(jsonNode2.asText()).thenReturn("As Text");
     when(jsonNode2.get(Mockito.<String>any())).thenReturn(jsonNode);
-
     ArrayNode elementNode = mock(ArrayNode.class);
     when(elementNode.get(Mockito.<String>any())).thenReturn(jsonNode2);
 
-    ArrayNode arrayNode = mock(ArrayNode.class);
-    JsonNodeFactory nf = JsonNodeFactory.withExactBigDecimals(true);
-    when(arrayNode.get(Mockito.<String>any())).thenReturn(new ArrayNode(nf));
-
     ArrayList<JsonNode> jsonNodeList = new ArrayList<>();
-    jsonNodeList.add(arrayNode);
-
+    jsonNodeList.add(MissingNode.getInstance());
     JsonNode jsonNode3 = mock(JsonNode.class);
     when(jsonNode3.iterator()).thenReturn(jsonNodeList.iterator());
-
     JsonNode modelNode = mock(JsonNode.class);
     when(modelNode.get(Mockito.<String>any())).thenReturn(jsonNode3);
     BpmnJsonConverter processor = new BpmnJsonConverter();
-
-    AdhocSubProcess parentElement = mock(AdhocSubProcess.class);
-    doNothing().when(parentElement).addArtifact(Mockito.<Artifact>any());
+    ActivitiListener parentElement = new ActivitiListener();
     HashMap<String, JsonNode> shapeMap = new HashMap<>();
-    BpmnModel bpmnModel = new BpmnModel();
 
     // Act
-    associationJsonConverter.convertToBpmnModel(
-        elementNode, modelNode, processor, parentElement, shapeMap, bpmnModel);
+    associationJsonConverter.convertToBpmnModel(elementNode, modelNode, processor, parentElement, shapeMap,
+        new BpmnModel());
 
-    // Assert that nothing has changed
-    verify(jsonNode2).asText();
-    verify(jsonNode, atLeast(1)).asText();
-    verify(modelNode).get("childShapes");
-    verify(jsonNode2, atLeast(1)).get("overrideid");
-    verify(jsonNode, atLeast(1)).isNull();
+    // Assert
+    verify(jsonNode2, atLeast(1)).asText();
+    verify(modelNode).get(eq("childShapes"));
+    verify(jsonNode2).get(eq("overrideid"));
+    verify(jsonNode).isNull();
     verify(jsonNode3).iterator();
-    verify(arrayNode, atLeast(1)).get(Mockito.<String>any());
     verify(elementNode, atLeast(1)).get(Mockito.<String>any());
-    verify(parentElement).addArtifact(isA(Artifact.class));
-    Collection<Resource> resources = bpmnModel.getResources();
-    assertTrue(resources instanceof List);
-    Collection<Signal> signals = bpmnModel.getSignals();
-    assertTrue(signals instanceof List);
-    assertTrue(resources.isEmpty());
-    assertTrue(signals.isEmpty());
+    assertTrue(associationJsonConverter.processor instanceof BpmnJsonConverter);
   }
 
   /**
-   * Test {@link BaseBpmnJsonConverter#convertToBpmnModel(JsonNode, JsonNode, ActivityProcessor,
-   * BaseElement, Map, BpmnModel)}.
-   *
-   * <p>Method under test: {@link BaseBpmnJsonConverter#convertToBpmnModel(JsonNode, JsonNode,
-   * ActivityProcessor, BaseElement, Map, BpmnModel)}
-   */
-  @Test
-  @DisplayName(
-      "Test convertToBpmnModel(JsonNode, JsonNode, ActivityProcessor, BaseElement, Map, BpmnModel)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void BaseBpmnJsonConverter.convertToBpmnModel(JsonNode, JsonNode, ActivityProcessor, BaseElement, Map, BpmnModel)"
-  })
-  void testConvertToBpmnModel2() throws UnsupportedEncodingException {
-    // Arrange
-    AssociationJsonConverter associationJsonConverter = new AssociationJsonConverter();
-
-    JsonNode jsonNode = mock(JsonNode.class);
-    when(jsonNode.asText()).thenReturn("not empty");
-    when(jsonNode.isNull()).thenReturn(false);
-
-    JsonNode jsonNode2 = mock(JsonNode.class);
-    when(jsonNode2.asText()).thenReturn("As Text");
-    when(jsonNode2.get(Mockito.<String>any())).thenReturn(jsonNode);
-
-    ArrayNode elementNode = mock(ArrayNode.class);
-    when(elementNode.get(Mockito.<String>any())).thenReturn(jsonNode2);
-
-    ArrayNode arrayNode = mock(ArrayNode.class);
-    when(arrayNode.get(Mockito.<String>any()))
-        .thenReturn(new BinaryNode("AXAXAXAX".getBytes("UTF-8")));
-
-    ArrayList<JsonNode> jsonNodeList = new ArrayList<>();
-    jsonNodeList.add(arrayNode);
-
-    ArrayNode arrayNode2 = mock(ArrayNode.class);
-    when(arrayNode2.iterator()).thenReturn(jsonNodeList.iterator());
-    when(arrayNode2.size()).thenReturn(3);
-
-    ArrayNode arrayNode3 = mock(ArrayNode.class);
-    when(arrayNode3.get(Mockito.<String>any())).thenReturn(arrayNode2);
-
-    ArrayList<JsonNode> jsonNodeList2 = new ArrayList<>();
-    jsonNodeList2.add(arrayNode3);
-
-    JsonNode jsonNode3 = mock(JsonNode.class);
-    when(jsonNode3.iterator()).thenReturn(jsonNodeList2.iterator());
-
-    JsonNode modelNode = mock(JsonNode.class);
-    when(modelNode.get(Mockito.<String>any())).thenReturn(jsonNode3);
-    BpmnJsonConverter processor = new BpmnJsonConverter();
-
-    AdhocSubProcess parentElement = mock(AdhocSubProcess.class);
-    doNothing().when(parentElement).addArtifact(Mockito.<Artifact>any());
-    HashMap<String, JsonNode> shapeMap = new HashMap<>();
-    BpmnModel bpmnModel = new BpmnModel();
-
-    // Act
-    associationJsonConverter.convertToBpmnModel(
-        elementNode, modelNode, processor, parentElement, shapeMap, bpmnModel);
-
-    // Assert that nothing has changed
-    verify(jsonNode2).asText();
-    verify(jsonNode, atLeast(1)).asText();
-    verify(modelNode).get("childShapes");
-    verify(jsonNode2, atLeast(1)).get("overrideid");
-    verify(jsonNode, atLeast(1)).isNull();
-    verify(jsonNode3).iterator();
-    verify(arrayNode2, atLeast(1)).iterator();
-    verify(arrayNode3, atLeast(1)).get(Mockito.<String>any());
-    verify(elementNode, atLeast(1)).get(Mockito.<String>any());
-    verify(arrayNode).get("resourceId");
-    verify(arrayNode2).size();
-    verify(parentElement).addArtifact(isA(Artifact.class));
-    Collection<Resource> resources = bpmnModel.getResources();
-    assertTrue(resources instanceof List);
-    Collection<Signal> signals = bpmnModel.getSignals();
-    assertTrue(signals instanceof List);
-    assertTrue(resources.isEmpty());
-    assertTrue(signals.isEmpty());
-  }
-
-  /**
-   * Test {@link BaseBpmnJsonConverter#convertToBpmnModel(JsonNode, JsonNode, ActivityProcessor,
-   * BaseElement, Map, BpmnModel)}.
-   *
+   * Test {@link BaseBpmnJsonConverter#convertToBpmnModel(JsonNode, JsonNode, ActivityProcessor, BaseElement, Map, BpmnModel)}.
    * <ul>
-   *   <li>Given {@link ArrayList#ArrayList()} add valueOf ten.
-   *   <li>Then calls {@link JsonNode#iterator()}.
+   *   <li>Given Instance.</li>
+   *   <li>When {@link ArrayNode} {@link ArrayNode#get(String)} return Instance.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link BaseBpmnJsonConverter#convertToBpmnModel(JsonNode, JsonNode,
-   * ActivityProcessor, BaseElement, Map, BpmnModel)}
+   * <p>
+   * Method under test: {@link BaseBpmnJsonConverter#convertToBpmnModel(JsonNode, JsonNode, ActivityProcessor, BaseElement, Map, BpmnModel)}
    */
   @Test
-  @DisplayName(
-      "Test convertToBpmnModel(JsonNode, JsonNode, ActivityProcessor, BaseElement, Map, BpmnModel); given ArrayList() add valueOf ten; then calls iterator()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test convertToBpmnModel(JsonNode, JsonNode, ActivityProcessor, BaseElement, Map, BpmnModel); given Instance; when ArrayNode get(String) return Instance")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({
-    "void BaseBpmnJsonConverter.convertToBpmnModel(JsonNode, JsonNode, ActivityProcessor, BaseElement, Map, BpmnModel)"
-  })
-  void testConvertToBpmnModel_givenArrayListAddValueOfTen_thenCallsIterator() {
-    // Arrange
-    AssociationJsonConverter associationJsonConverter = new AssociationJsonConverter();
-
-    JsonNode jsonNode = mock(JsonNode.class);
-    when(jsonNode.asText()).thenReturn("not empty");
-    when(jsonNode.isNull()).thenReturn(false);
-
-    JsonNode jsonNode2 = mock(JsonNode.class);
-    when(jsonNode2.asText()).thenReturn("As Text");
-    when(jsonNode2.get(Mockito.<String>any())).thenReturn(jsonNode);
-
-    ArrayNode elementNode = mock(ArrayNode.class);
-    when(elementNode.get(Mockito.<String>any())).thenReturn(jsonNode2);
-
-    ArrayList<JsonNode> jsonNodeList = new ArrayList<>();
-    jsonNodeList.add(DoubleNode.valueOf(10.0d));
-
-    JsonNode jsonNode3 = mock(JsonNode.class);
-    when(jsonNode3.iterator()).thenReturn(jsonNodeList.iterator());
-
-    JsonNode modelNode = mock(JsonNode.class);
-    when(modelNode.get(Mockito.<String>any())).thenReturn(jsonNode3);
-    BpmnJsonConverter processor = new BpmnJsonConverter();
-
-    AdhocSubProcess parentElement = mock(AdhocSubProcess.class);
-    doNothing().when(parentElement).addArtifact(Mockito.<Artifact>any());
-    HashMap<String, JsonNode> shapeMap = new HashMap<>();
-    BpmnModel bpmnModel = new BpmnModel();
-
-    // Act
-    associationJsonConverter.convertToBpmnModel(
-        elementNode, modelNode, processor, parentElement, shapeMap, bpmnModel);
-
-    // Assert that nothing has changed
-    verify(jsonNode2).asText();
-    verify(jsonNode, atLeast(1)).asText();
-    verify(modelNode).get("childShapes");
-    verify(jsonNode2, atLeast(1)).get("overrideid");
-    verify(jsonNode, atLeast(1)).isNull();
-    verify(jsonNode3).iterator();
-    verify(elementNode, atLeast(1)).get(Mockito.<String>any());
-    verify(parentElement).addArtifact(isA(Artifact.class));
-    Collection<Resource> resources = bpmnModel.getResources();
-    assertTrue(resources instanceof List);
-    Collection<Signal> signals = bpmnModel.getSignals();
-    assertTrue(signals instanceof List);
-    assertTrue(resources.isEmpty());
-    assertTrue(signals.isEmpty());
-  }
-
-  /**
-   * Test {@link BaseBpmnJsonConverter#convertToBpmnModel(JsonNode, JsonNode, ActivityProcessor,
-   * BaseElement, Map, BpmnModel)}.
-   *
-   * <ul>
-   *   <li>Given {@link ArrayList#ArrayList()} add valueOf ten.
-   *   <li>Then calls {@link ArrayNode#iterator()}.
-   * </ul>
-   *
-   * <p>Method under test: {@link BaseBpmnJsonConverter#convertToBpmnModel(JsonNode, JsonNode,
-   * ActivityProcessor, BaseElement, Map, BpmnModel)}
-   */
-  @Test
-  @DisplayName(
-      "Test convertToBpmnModel(JsonNode, JsonNode, ActivityProcessor, BaseElement, Map, BpmnModel); given ArrayList() add valueOf ten; then calls iterator()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void BaseBpmnJsonConverter.convertToBpmnModel(JsonNode, JsonNode, ActivityProcessor, BaseElement, Map, BpmnModel)"
-  })
-  void testConvertToBpmnModel_givenArrayListAddValueOfTen_thenCallsIterator2() {
-    // Arrange
-    AssociationJsonConverter associationJsonConverter = new AssociationJsonConverter();
-
-    JsonNode jsonNode = mock(JsonNode.class);
-    when(jsonNode.asText()).thenReturn("not empty");
-    when(jsonNode.isNull()).thenReturn(false);
-
-    JsonNode jsonNode2 = mock(JsonNode.class);
-    when(jsonNode2.asText()).thenReturn("As Text");
-    when(jsonNode2.get(Mockito.<String>any())).thenReturn(jsonNode);
-
-    ArrayNode elementNode = mock(ArrayNode.class);
-    when(elementNode.get(Mockito.<String>any())).thenReturn(jsonNode2);
-
-    ArrayList<JsonNode> jsonNodeList = new ArrayList<>();
-    jsonNodeList.add(DoubleNode.valueOf(10.0d));
-
-    ArrayNode arrayNode = mock(ArrayNode.class);
-    when(arrayNode.iterator()).thenReturn(jsonNodeList.iterator());
-    when(arrayNode.size()).thenReturn(3);
-
-    ArrayNode arrayNode2 = mock(ArrayNode.class);
-    when(arrayNode2.get(Mockito.<String>any())).thenReturn(arrayNode);
-
-    ArrayList<JsonNode> jsonNodeList2 = new ArrayList<>();
-    jsonNodeList2.add(arrayNode2);
-
-    JsonNode jsonNode3 = mock(JsonNode.class);
-    when(jsonNode3.iterator()).thenReturn(jsonNodeList2.iterator());
-
-    JsonNode modelNode = mock(JsonNode.class);
-    when(modelNode.get(Mockito.<String>any())).thenReturn(jsonNode3);
-    BpmnJsonConverter processor = new BpmnJsonConverter();
-
-    AdhocSubProcess parentElement = mock(AdhocSubProcess.class);
-    doNothing().when(parentElement).addArtifact(Mockito.<Artifact>any());
-    HashMap<String, JsonNode> shapeMap = new HashMap<>();
-    BpmnModel bpmnModel = new BpmnModel();
-
-    // Act
-    associationJsonConverter.convertToBpmnModel(
-        elementNode, modelNode, processor, parentElement, shapeMap, bpmnModel);
-
-    // Assert that nothing has changed
-    verify(jsonNode2).asText();
-    verify(jsonNode, atLeast(1)).asText();
-    verify(modelNode).get("childShapes");
-    verify(jsonNode2, atLeast(1)).get("overrideid");
-    verify(jsonNode, atLeast(1)).isNull();
-    verify(jsonNode3).iterator();
-    verify(arrayNode, atLeast(1)).iterator();
-    verify(arrayNode2, atLeast(1)).get(Mockito.<String>any());
-    verify(elementNode, atLeast(1)).get(Mockito.<String>any());
-    verify(arrayNode).size();
-    verify(parentElement).addArtifact(isA(Artifact.class));
-    Collection<Resource> resources = bpmnModel.getResources();
-    assertTrue(resources instanceof List);
-    Collection<Signal> signals = bpmnModel.getSignals();
-    assertTrue(signals instanceof List);
-    assertTrue(resources.isEmpty());
-    assertTrue(signals.isEmpty());
-  }
-
-  /**
-   * Test {@link BaseBpmnJsonConverter#convertToBpmnModel(JsonNode, JsonNode, ActivityProcessor,
-   * BaseElement, Map, BpmnModel)}.
-   *
-   * <ul>
-   *   <li>Given {@link ArrayNode} {@link ArrayNode#get(String)} return valueOf ten.
-   *   <li>Then calls {@link JsonNode#iterator()}.
-   * </ul>
-   *
-   * <p>Method under test: {@link BaseBpmnJsonConverter#convertToBpmnModel(JsonNode, JsonNode,
-   * ActivityProcessor, BaseElement, Map, BpmnModel)}
-   */
-  @Test
-  @DisplayName(
-      "Test convertToBpmnModel(JsonNode, JsonNode, ActivityProcessor, BaseElement, Map, BpmnModel); given ArrayNode get(String) return valueOf ten; then calls iterator()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void BaseBpmnJsonConverter.convertToBpmnModel(JsonNode, JsonNode, ActivityProcessor, BaseElement, Map, BpmnModel)"
-  })
-  void testConvertToBpmnModel_givenArrayNodeGetReturnValueOfTen_thenCallsIterator() {
-    // Arrange
-    AssociationJsonConverter associationJsonConverter = new AssociationJsonConverter();
-
-    JsonNode jsonNode = mock(JsonNode.class);
-    when(jsonNode.asText()).thenReturn("not empty");
-    when(jsonNode.isNull()).thenReturn(false);
-
-    JsonNode jsonNode2 = mock(JsonNode.class);
-    when(jsonNode2.asText()).thenReturn("As Text");
-    when(jsonNode2.get(Mockito.<String>any())).thenReturn(jsonNode);
-
-    ArrayNode elementNode = mock(ArrayNode.class);
-    when(elementNode.get(Mockito.<String>any())).thenReturn(jsonNode2);
-
-    ArrayNode arrayNode = mock(ArrayNode.class);
-    when(arrayNode.get(Mockito.<String>any())).thenReturn(DoubleNode.valueOf(10.0d));
-
-    ArrayList<JsonNode> jsonNodeList = new ArrayList<>();
-    jsonNodeList.add(arrayNode);
-
-    JsonNode jsonNode3 = mock(JsonNode.class);
-    when(jsonNode3.iterator()).thenReturn(jsonNodeList.iterator());
-
-    JsonNode modelNode = mock(JsonNode.class);
-    when(modelNode.get(Mockito.<String>any())).thenReturn(jsonNode3);
-    BpmnJsonConverter processor = new BpmnJsonConverter();
-
-    AdhocSubProcess parentElement = mock(AdhocSubProcess.class);
-    doNothing().when(parentElement).addArtifact(Mockito.<Artifact>any());
-    HashMap<String, JsonNode> shapeMap = new HashMap<>();
-    BpmnModel bpmnModel = new BpmnModel();
-
-    // Act
-    associationJsonConverter.convertToBpmnModel(
-        elementNode, modelNode, processor, parentElement, shapeMap, bpmnModel);
-
-    // Assert that nothing has changed
-    verify(jsonNode2).asText();
-    verify(jsonNode, atLeast(1)).asText();
-    verify(modelNode).get("childShapes");
-    verify(jsonNode2, atLeast(1)).get("overrideid");
-    verify(jsonNode, atLeast(1)).isNull();
-    verify(jsonNode3).iterator();
-    verify(arrayNode, atLeast(1)).get(Mockito.<String>any());
-    verify(elementNode, atLeast(1)).get(Mockito.<String>any());
-    verify(parentElement).addArtifact(isA(Artifact.class));
-    Collection<Resource> resources = bpmnModel.getResources();
-    assertTrue(resources instanceof List);
-    Collection<Signal> signals = bpmnModel.getSignals();
-    assertTrue(signals instanceof List);
-    assertTrue(resources.isEmpty());
-    assertTrue(signals.isEmpty());
-  }
-
-  /**
-   * Test {@link BaseBpmnJsonConverter#convertToBpmnModel(JsonNode, JsonNode, ActivityProcessor,
-   * BaseElement, Map, BpmnModel)}.
-   *
-   * <ul>
-   *   <li>Given {@link ArrayNode} {@link ArrayNode#get(String)} return valueOf ten.
-   *   <li>Then calls {@link ArrayNode#iterator()}.
-   * </ul>
-   *
-   * <p>Method under test: {@link BaseBpmnJsonConverter#convertToBpmnModel(JsonNode, JsonNode,
-   * ActivityProcessor, BaseElement, Map, BpmnModel)}
-   */
-  @Test
-  @DisplayName(
-      "Test convertToBpmnModel(JsonNode, JsonNode, ActivityProcessor, BaseElement, Map, BpmnModel); given ArrayNode get(String) return valueOf ten; then calls iterator()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void BaseBpmnJsonConverter.convertToBpmnModel(JsonNode, JsonNode, ActivityProcessor, BaseElement, Map, BpmnModel)"
-  })
-  void testConvertToBpmnModel_givenArrayNodeGetReturnValueOfTen_thenCallsIterator2() {
-    // Arrange
-    AssociationJsonConverter associationJsonConverter = new AssociationJsonConverter();
-
-    JsonNode jsonNode = mock(JsonNode.class);
-    when(jsonNode.asText()).thenReturn("not empty");
-    when(jsonNode.isNull()).thenReturn(false);
-
-    JsonNode jsonNode2 = mock(JsonNode.class);
-    when(jsonNode2.asText()).thenReturn("As Text");
-    when(jsonNode2.get(Mockito.<String>any())).thenReturn(jsonNode);
-
-    ArrayNode elementNode = mock(ArrayNode.class);
-    when(elementNode.get(Mockito.<String>any())).thenReturn(jsonNode2);
-
-    ArrayNode arrayNode = mock(ArrayNode.class);
-    when(arrayNode.get(Mockito.<String>any())).thenReturn(DoubleNode.valueOf(10.0d));
-
-    ArrayList<JsonNode> jsonNodeList = new ArrayList<>();
-    jsonNodeList.add(arrayNode);
-
-    ArrayNode arrayNode2 = mock(ArrayNode.class);
-    when(arrayNode2.iterator()).thenReturn(jsonNodeList.iterator());
-    when(arrayNode2.size()).thenReturn(3);
-
-    ArrayNode arrayNode3 = mock(ArrayNode.class);
-    when(arrayNode3.get(Mockito.<String>any())).thenReturn(arrayNode2);
-
-    ArrayList<JsonNode> jsonNodeList2 = new ArrayList<>();
-    jsonNodeList2.add(arrayNode3);
-
-    JsonNode jsonNode3 = mock(JsonNode.class);
-    when(jsonNode3.iterator()).thenReturn(jsonNodeList2.iterator());
-
-    JsonNode modelNode = mock(JsonNode.class);
-    when(modelNode.get(Mockito.<String>any())).thenReturn(jsonNode3);
-    BpmnJsonConverter processor = new BpmnJsonConverter();
-
-    AdhocSubProcess parentElement = mock(AdhocSubProcess.class);
-    doNothing().when(parentElement).addArtifact(Mockito.<Artifact>any());
-    HashMap<String, JsonNode> shapeMap = new HashMap<>();
-    BpmnModel bpmnModel = new BpmnModel();
-
-    // Act
-    associationJsonConverter.convertToBpmnModel(
-        elementNode, modelNode, processor, parentElement, shapeMap, bpmnModel);
-
-    // Assert that nothing has changed
-    verify(jsonNode2).asText();
-    verify(jsonNode, atLeast(1)).asText();
-    verify(modelNode).get("childShapes");
-    verify(jsonNode2, atLeast(1)).get("overrideid");
-    verify(jsonNode, atLeast(1)).isNull();
-    verify(jsonNode3).iterator();
-    verify(arrayNode2, atLeast(1)).iterator();
-    verify(arrayNode3, atLeast(1)).get(Mockito.<String>any());
-    verify(elementNode, atLeast(1)).get(Mockito.<String>any());
-    verify(arrayNode).get("resourceId");
-    verify(arrayNode2).size();
-    verify(parentElement).addArtifact(isA(Artifact.class));
-    Collection<Resource> resources = bpmnModel.getResources();
-    assertTrue(resources instanceof List);
-    Collection<Signal> signals = bpmnModel.getSignals();
-    assertTrue(signals instanceof List);
-    assertTrue(resources.isEmpty());
-    assertTrue(signals.isEmpty());
-  }
-
-  /**
-   * Test {@link BaseBpmnJsonConverter#convertToBpmnModel(JsonNode, JsonNode, ActivityProcessor,
-   * BaseElement, Map, BpmnModel)}.
-   *
-   * <ul>
-   *   <li>Given Instance.
-   *   <li>When {@link ArrayNode} {@link ArrayNode#get(String)} return Instance.
-   * </ul>
-   *
-   * <p>Method under test: {@link BaseBpmnJsonConverter#convertToBpmnModel(JsonNode, JsonNode,
-   * ActivityProcessor, BaseElement, Map, BpmnModel)}
-   */
-  @Test
-  @DisplayName(
-      "Test convertToBpmnModel(JsonNode, JsonNode, ActivityProcessor, BaseElement, Map, BpmnModel); given Instance; when ArrayNode get(String) return Instance")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void BaseBpmnJsonConverter.convertToBpmnModel(JsonNode, JsonNode, ActivityProcessor, BaseElement, Map, BpmnModel)"
-  })
+      "void BaseBpmnJsonConverter.convertToBpmnModel(JsonNode, JsonNode, ActivityProcessor, BaseElement, Map, BpmnModel)"})
   void testConvertToBpmnModel_givenInstance_whenArrayNodeGetReturnInstance() {
     // Arrange
     AssociationJsonConverter associationJsonConverter = new AssociationJsonConverter();
-
     ArrayNode elementNode = mock(ArrayNode.class);
     when(elementNode.get(Mockito.<String>any())).thenReturn(MissingNode.getInstance());
-    DoubleNode modelNode = DoubleNode.valueOf(10.0d);
+    MissingNode modelNode = MissingNode.getInstance();
     BpmnJsonConverter processor = new BpmnJsonConverter();
     ActivitiListener parentElement = new ActivitiListener();
     HashMap<String, JsonNode> shapeMap = new HashMap<>();
-    BpmnModel bpmnModel = new BpmnModel();
 
     // Act
-    associationJsonConverter.convertToBpmnModel(
-        elementNode, modelNode, processor, parentElement, shapeMap, bpmnModel);
+    associationJsonConverter.convertToBpmnModel(elementNode, modelNode, processor, parentElement, shapeMap,
+        new BpmnModel());
 
-    // Assert that nothing has changed
+    // Assert
     verify(elementNode, atLeast(1)).get(Mockito.<String>any());
-    Collection<Resource> resources = bpmnModel.getResources();
-    assertTrue(resources instanceof List);
-    Collection<Signal> signals = bpmnModel.getSignals();
-    assertTrue(signals instanceof List);
-    assertTrue(resources.isEmpty());
-    assertTrue(signals.isEmpty());
+    assertTrue(associationJsonConverter.processor instanceof BpmnJsonConverter);
   }
 
   /**
-   * Test {@link BaseBpmnJsonConverter#convertToBpmnModel(JsonNode, JsonNode, ActivityProcessor,
-   * BaseElement, Map, BpmnModel)}.
-   *
+   * Test {@link BaseBpmnJsonConverter#convertToBpmnModel(JsonNode, JsonNode, ActivityProcessor, BaseElement, Map, BpmnModel)}.
    * <ul>
-   *   <li>Given {@link JsonNode} {@link JsonNode#get(String)} return Instance.
-   *   <li>When {@link ActivitiListener} (default constructor).
+   *   <li>Given Instance.</li>
+   *   <li>When {@link ArrayNode} {@link ArrayNode#get(String)} return Instance.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link BaseBpmnJsonConverter#convertToBpmnModel(JsonNode, JsonNode,
-   * ActivityProcessor, BaseElement, Map, BpmnModel)}
+   * <p>
+   * Method under test: {@link BaseBpmnJsonConverter#convertToBpmnModel(JsonNode, JsonNode, ActivityProcessor, BaseElement, Map, BpmnModel)}
    */
   @Test
-  @DisplayName(
-      "Test convertToBpmnModel(JsonNode, JsonNode, ActivityProcessor, BaseElement, Map, BpmnModel); given JsonNode get(String) return Instance; when ActivitiListener (default constructor)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test convertToBpmnModel(JsonNode, JsonNode, ActivityProcessor, BaseElement, Map, BpmnModel); given Instance; when ArrayNode get(String) return Instance")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({
-    "void BaseBpmnJsonConverter.convertToBpmnModel(JsonNode, JsonNode, ActivityProcessor, BaseElement, Map, BpmnModel)"
-  })
-  void testConvertToBpmnModel_givenJsonNodeGetReturnInstance_whenActivitiListener() {
+      "void BaseBpmnJsonConverter.convertToBpmnModel(JsonNode, JsonNode, ActivityProcessor, BaseElement, Map, BpmnModel)"})
+  void testConvertToBpmnModel_givenInstance_whenArrayNodeGetReturnInstance2() {
     // Arrange
     AssociationJsonConverter associationJsonConverter = new AssociationJsonConverter();
+    ArrayNode elementNode = mock(ArrayNode.class);
+    when(elementNode.get(Mockito.<String>any())).thenReturn(NullNode.getInstance());
+    MissingNode modelNode = MissingNode.getInstance();
+    BpmnJsonConverter processor = new BpmnJsonConverter();
+    ActivitiListener parentElement = new ActivitiListener();
+    HashMap<String, JsonNode> shapeMap = new HashMap<>();
 
+    // Act
+    associationJsonConverter.convertToBpmnModel(elementNode, modelNode, processor, parentElement, shapeMap,
+        new BpmnModel());
+
+    // Assert
+    verify(elementNode, atLeast(1)).get(Mockito.<String>any());
+    assertTrue(associationJsonConverter.processor instanceof BpmnJsonConverter);
+  }
+
+  /**
+   * Test {@link BaseBpmnJsonConverter#convertToBpmnModel(JsonNode, JsonNode, ActivityProcessor, BaseElement, Map, BpmnModel)}.
+   * <ul>
+   *   <li>Given Instance.</li>
+   *   <li>When {@link JsonNode} {@link JsonNode#get(String)} return Instance.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link BaseBpmnJsonConverter#convertToBpmnModel(JsonNode, JsonNode, ActivityProcessor, BaseElement, Map, BpmnModel)}
+   */
+  @Test
+  @DisplayName("Test convertToBpmnModel(JsonNode, JsonNode, ActivityProcessor, BaseElement, Map, BpmnModel); given Instance; when JsonNode get(String) return Instance")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({
+      "void BaseBpmnJsonConverter.convertToBpmnModel(JsonNode, JsonNode, ActivityProcessor, BaseElement, Map, BpmnModel)"})
+  void testConvertToBpmnModel_givenInstance_whenJsonNodeGetReturnInstance() {
+    // Arrange
+    AssociationJsonConverter associationJsonConverter = new AssociationJsonConverter();
+    JsonNode jsonNode = mock(JsonNode.class);
+    when(jsonNode.asText()).thenReturn("As Text");
+    when(jsonNode.isNull()).thenReturn(true);
+    JsonNode jsonNode2 = mock(JsonNode.class);
+    when(jsonNode2.asText()).thenReturn("As Text");
+    when(jsonNode2.get(Mockito.<String>any())).thenReturn(jsonNode);
+    ArrayNode elementNode = mock(ArrayNode.class);
+    when(elementNode.get(Mockito.<String>any())).thenReturn(jsonNode2);
+    JsonNode modelNode = mock(JsonNode.class);
+    when(modelNode.get(Mockito.<String>any())).thenReturn(MissingNode.getInstance());
+    BpmnJsonConverter processor = new BpmnJsonConverter();
+    ActivitiListener parentElement = new ActivitiListener();
+    HashMap<String, JsonNode> shapeMap = new HashMap<>();
+
+    // Act
+    associationJsonConverter.convertToBpmnModel(elementNode, modelNode, processor, parentElement, shapeMap,
+        new BpmnModel());
+
+    // Assert
+    verify(jsonNode2, atLeast(1)).asText();
+    verify(modelNode).get(eq("childShapes"));
+    verify(jsonNode2).get(eq("overrideid"));
+    verify(jsonNode).isNull();
+    verify(elementNode, atLeast(1)).get(Mockito.<String>any());
+    assertTrue(associationJsonConverter.processor instanceof BpmnJsonConverter);
+  }
+
+  /**
+   * Test {@link BaseBpmnJsonConverter#convertToBpmnModel(JsonNode, JsonNode, ActivityProcessor, BaseElement, Map, BpmnModel)}.
+   * <ul>
+   *   <li>Given {@link JsonNode} {@link JsonNode#get(String)} return False.</li>
+   *   <li>When Instance.</li>
+   *   <li>Then calls {@link JsonNode#asText()}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link BaseBpmnJsonConverter#convertToBpmnModel(JsonNode, JsonNode, ActivityProcessor, BaseElement, Map, BpmnModel)}
+   */
+  @Test
+  @DisplayName("Test convertToBpmnModel(JsonNode, JsonNode, ActivityProcessor, BaseElement, Map, BpmnModel); given JsonNode get(String) return False; when Instance; then calls asText()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({
+      "void BaseBpmnJsonConverter.convertToBpmnModel(JsonNode, JsonNode, ActivityProcessor, BaseElement, Map, BpmnModel)"})
+  void testConvertToBpmnModel_givenJsonNodeGetReturnFalse_whenInstance_thenCallsAsText() {
+    // Arrange
+    AssociationJsonConverter associationJsonConverter = new AssociationJsonConverter();
+    JsonNode jsonNode = mock(JsonNode.class);
+    when(jsonNode.asText()).thenReturn("As Text");
+    when(jsonNode.get(Mockito.<String>any())).thenReturn(BooleanNode.getFalse());
+    ArrayNode elementNode = mock(ArrayNode.class);
+    when(elementNode.get(Mockito.<String>any())).thenReturn(jsonNode);
+    MissingNode modelNode = MissingNode.getInstance();
+    BpmnJsonConverter processor = new BpmnJsonConverter();
+    ActivitiListener parentElement = new ActivitiListener();
+    HashMap<String, JsonNode> shapeMap = new HashMap<>();
+
+    // Act
+    associationJsonConverter.convertToBpmnModel(elementNode, modelNode, processor, parentElement, shapeMap,
+        new BpmnModel());
+
+    // Assert
+    verify(jsonNode).asText();
+    verify(jsonNode, atLeast(1)).get(eq("overrideid"));
+    verify(elementNode, atLeast(1)).get(Mockito.<String>any());
+    assertTrue(associationJsonConverter.processor instanceof BpmnJsonConverter);
+  }
+
+  /**
+   * Test {@link BaseBpmnJsonConverter#convertToBpmnModel(JsonNode, JsonNode, ActivityProcessor, BaseElement, Map, BpmnModel)}.
+   * <ul>
+   *   <li>Given {@link JsonNode} {@link JsonNode#get(String)} return Instance.</li>
+   *   <li>When Instance.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link BaseBpmnJsonConverter#convertToBpmnModel(JsonNode, JsonNode, ActivityProcessor, BaseElement, Map, BpmnModel)}
+   */
+  @Test
+  @DisplayName("Test convertToBpmnModel(JsonNode, JsonNode, ActivityProcessor, BaseElement, Map, BpmnModel); given JsonNode get(String) return Instance; when Instance")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({
+      "void BaseBpmnJsonConverter.convertToBpmnModel(JsonNode, JsonNode, ActivityProcessor, BaseElement, Map, BpmnModel)"})
+  void testConvertToBpmnModel_givenJsonNodeGetReturnInstance_whenInstance() {
+    // Arrange
+    AssociationJsonConverter associationJsonConverter = new AssociationJsonConverter();
     JsonNode jsonNode = mock(JsonNode.class);
     when(jsonNode.asText()).thenReturn("As Text");
     when(jsonNode.get(Mockito.<String>any())).thenReturn(MissingNode.getInstance());
-
     ArrayNode elementNode = mock(ArrayNode.class);
     when(elementNode.get(Mockito.<String>any())).thenReturn(jsonNode);
-    DoubleNode modelNode = DoubleNode.valueOf(10.0d);
+    MissingNode modelNode = MissingNode.getInstance();
     BpmnJsonConverter processor = new BpmnJsonConverter();
     ActivitiListener parentElement = new ActivitiListener();
     HashMap<String, JsonNode> shapeMap = new HashMap<>();
-    BpmnModel bpmnModel = new BpmnModel();
 
     // Act
-    associationJsonConverter.convertToBpmnModel(
-        elementNode, modelNode, processor, parentElement, shapeMap, bpmnModel);
+    associationJsonConverter.convertToBpmnModel(elementNode, modelNode, processor, parentElement, shapeMap,
+        new BpmnModel());
 
-    // Assert that nothing has changed
+    // Assert
     verify(jsonNode, atLeast(1)).asText();
-    verify(jsonNode).get("overrideid");
+    verify(jsonNode).get(eq("overrideid"));
     verify(elementNode, atLeast(1)).get(Mockito.<String>any());
-    Collection<Resource> resources = bpmnModel.getResources();
-    assertTrue(resources instanceof List);
-    Collection<Signal> signals = bpmnModel.getSignals();
-    assertTrue(signals instanceof List);
-    assertTrue(resources.isEmpty());
-    assertTrue(signals.isEmpty());
+    assertTrue(associationJsonConverter.processor instanceof BpmnJsonConverter);
   }
 
   /**
-   * Test {@link BaseBpmnJsonConverter#convertToBpmnModel(JsonNode, JsonNode, ActivityProcessor,
-   * BaseElement, Map, BpmnModel)}.
-   *
+   * Test {@link BaseBpmnJsonConverter#convertToBpmnModel(JsonNode, JsonNode, ActivityProcessor, BaseElement, Map, BpmnModel)}.
    * <ul>
-   *   <li>Given {@link JsonNode} {@link JsonNode#get(String)} return Instance.
-   *   <li>When {@link ActivitiListener} (default constructor).
+   *   <li>Given {@link JsonNode} {@link JsonNode#get(String)} return Instance.</li>
+   *   <li>When Instance.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link BaseBpmnJsonConverter#convertToBpmnModel(JsonNode, JsonNode,
-   * ActivityProcessor, BaseElement, Map, BpmnModel)}
+   * <p>
+   * Method under test: {@link BaseBpmnJsonConverter#convertToBpmnModel(JsonNode, JsonNode, ActivityProcessor, BaseElement, Map, BpmnModel)}
    */
   @Test
-  @DisplayName(
-      "Test convertToBpmnModel(JsonNode, JsonNode, ActivityProcessor, BaseElement, Map, BpmnModel); given JsonNode get(String) return Instance; when ActivitiListener (default constructor)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test convertToBpmnModel(JsonNode, JsonNode, ActivityProcessor, BaseElement, Map, BpmnModel); given JsonNode get(String) return Instance; when Instance")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({
-    "void BaseBpmnJsonConverter.convertToBpmnModel(JsonNode, JsonNode, ActivityProcessor, BaseElement, Map, BpmnModel)"
-  })
-  void testConvertToBpmnModel_givenJsonNodeGetReturnInstance_whenActivitiListener2() {
+      "void BaseBpmnJsonConverter.convertToBpmnModel(JsonNode, JsonNode, ActivityProcessor, BaseElement, Map, BpmnModel)"})
+  void testConvertToBpmnModel_givenJsonNodeGetReturnInstance_whenInstance2() {
     // Arrange
     AssociationJsonConverter associationJsonConverter = new AssociationJsonConverter();
-
     JsonNode jsonNode = mock(JsonNode.class);
     when(jsonNode.asText()).thenReturn("As Text");
     when(jsonNode.get(Mockito.<String>any())).thenReturn(NullNode.getInstance());
-
     ArrayNode elementNode = mock(ArrayNode.class);
     when(elementNode.get(Mockito.<String>any())).thenReturn(jsonNode);
-    DoubleNode modelNode = DoubleNode.valueOf(10.0d);
+    MissingNode modelNode = MissingNode.getInstance();
     BpmnJsonConverter processor = new BpmnJsonConverter();
     ActivitiListener parentElement = new ActivitiListener();
     HashMap<String, JsonNode> shapeMap = new HashMap<>();
-    BpmnModel bpmnModel = new BpmnModel();
 
     // Act
-    associationJsonConverter.convertToBpmnModel(
-        elementNode, modelNode, processor, parentElement, shapeMap, bpmnModel);
+    associationJsonConverter.convertToBpmnModel(elementNode, modelNode, processor, parentElement, shapeMap,
+        new BpmnModel());
 
-    // Assert that nothing has changed
+    // Assert
     verify(jsonNode, atLeast(1)).asText();
-    verify(jsonNode).get("overrideid");
+    verify(jsonNode).get(eq("overrideid"));
     verify(elementNode, atLeast(1)).get(Mockito.<String>any());
-    Collection<Resource> resources = bpmnModel.getResources();
-    assertTrue(resources instanceof List);
-    Collection<Signal> signals = bpmnModel.getSignals();
-    assertTrue(signals instanceof List);
-    assertTrue(resources.isEmpty());
-    assertTrue(signals.isEmpty());
+    assertTrue(associationJsonConverter.processor instanceof BpmnJsonConverter);
   }
 
   /**
-   * Test {@link BaseBpmnJsonConverter#convertToBpmnModel(JsonNode, JsonNode, ActivityProcessor,
-   * BaseElement, Map, BpmnModel)}.
-   *
+   * Test {@link BaseBpmnJsonConverter#convertToBpmnModel(JsonNode, JsonNode, ActivityProcessor, BaseElement, Map, BpmnModel)}.
    * <ul>
-   *   <li>Given {@link JsonNode} {@link JsonNode#get(String)} return valueOf ten.
-   *   <li>When {@link ActivitiListener} (default constructor).
+   *   <li>Given {@link JsonNode} {@link JsonNode#isNull()} return {@code true}.</li>
+   *   <li>Then calls {@link JsonNode#isNull()}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link BaseBpmnJsonConverter#convertToBpmnModel(JsonNode, JsonNode,
-   * ActivityProcessor, BaseElement, Map, BpmnModel)}
+   * <p>
+   * Method under test: {@link BaseBpmnJsonConverter#convertToBpmnModel(JsonNode, JsonNode, ActivityProcessor, BaseElement, Map, BpmnModel)}
    */
   @Test
-  @DisplayName(
-      "Test convertToBpmnModel(JsonNode, JsonNode, ActivityProcessor, BaseElement, Map, BpmnModel); given JsonNode get(String) return valueOf ten; when ActivitiListener (default constructor)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test convertToBpmnModel(JsonNode, JsonNode, ActivityProcessor, BaseElement, Map, BpmnModel); given JsonNode isNull() return 'true'; then calls isNull()")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({
-    "void BaseBpmnJsonConverter.convertToBpmnModel(JsonNode, JsonNode, ActivityProcessor, BaseElement, Map, BpmnModel)"
-  })
-  void testConvertToBpmnModel_givenJsonNodeGetReturnValueOfTen_whenActivitiListener() {
+      "void BaseBpmnJsonConverter.convertToBpmnModel(JsonNode, JsonNode, ActivityProcessor, BaseElement, Map, BpmnModel)"})
+  void testConvertToBpmnModel_givenJsonNodeIsNullReturnTrue_thenCallsIsNull() {
     // Arrange
     AssociationJsonConverter associationJsonConverter = new AssociationJsonConverter();
-
     JsonNode jsonNode = mock(JsonNode.class);
     when(jsonNode.asText()).thenReturn("As Text");
-    when(jsonNode.get(Mockito.<String>any())).thenReturn(DoubleNode.valueOf(10.0d));
-
-    ArrayNode elementNode = mock(ArrayNode.class);
-    when(elementNode.get(Mockito.<String>any())).thenReturn(jsonNode);
-    DoubleNode modelNode = DoubleNode.valueOf(10.0d);
-    BpmnJsonConverter processor = new BpmnJsonConverter();
-    ActivitiListener parentElement = new ActivitiListener();
-    HashMap<String, JsonNode> shapeMap = new HashMap<>();
-    BpmnModel bpmnModel = new BpmnModel();
-
-    // Act
-    associationJsonConverter.convertToBpmnModel(
-        elementNode, modelNode, processor, parentElement, shapeMap, bpmnModel);
-
-    // Assert that nothing has changed
-    verify(jsonNode).asText();
-    verify(jsonNode, atLeast(1)).get("overrideid");
-    verify(elementNode, atLeast(1)).get(Mockito.<String>any());
-    Collection<Resource> resources = bpmnModel.getResources();
-    assertTrue(resources instanceof List);
-    Collection<Signal> signals = bpmnModel.getSignals();
-    assertTrue(signals instanceof List);
-    assertTrue(resources.isEmpty());
-    assertTrue(signals.isEmpty());
-  }
-
-  /**
-   * Test {@link BaseBpmnJsonConverter#convertToBpmnModel(JsonNode, JsonNode, ActivityProcessor,
-   * BaseElement, Map, BpmnModel)}.
-   *
-   * <ul>
-   *   <li>Given valueOf ten.
-   *   <li>When {@link ArrayNode} {@link ArrayNode#get(String)} return valueOf ten.
-   * </ul>
-   *
-   * <p>Method under test: {@link BaseBpmnJsonConverter#convertToBpmnModel(JsonNode, JsonNode,
-   * ActivityProcessor, BaseElement, Map, BpmnModel)}
-   */
-  @Test
-  @DisplayName(
-      "Test convertToBpmnModel(JsonNode, JsonNode, ActivityProcessor, BaseElement, Map, BpmnModel); given valueOf ten; when ArrayNode get(String) return valueOf ten")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void BaseBpmnJsonConverter.convertToBpmnModel(JsonNode, JsonNode, ActivityProcessor, BaseElement, Map, BpmnModel)"
-  })
-  void testConvertToBpmnModel_givenValueOfTen_whenArrayNodeGetReturnValueOfTen() {
-    // Arrange
-    AssociationJsonConverter associationJsonConverter = new AssociationJsonConverter();
-
-    ArrayNode elementNode = mock(ArrayNode.class);
-    when(elementNode.get(Mockito.<String>any())).thenReturn(DoubleNode.valueOf(10.0d));
-    DoubleNode modelNode = DoubleNode.valueOf(10.0d);
-    BpmnJsonConverter processor = new BpmnJsonConverter();
-    ActivitiListener parentElement = new ActivitiListener();
-    HashMap<String, JsonNode> shapeMap = new HashMap<>();
-    BpmnModel bpmnModel = new BpmnModel();
-
-    // Act
-    associationJsonConverter.convertToBpmnModel(
-        elementNode, modelNode, processor, parentElement, shapeMap, bpmnModel);
-
-    // Assert that nothing has changed
-    verify(elementNode, atLeast(1)).get(Mockito.<String>any());
-    Collection<Resource> resources = bpmnModel.getResources();
-    assertTrue(resources instanceof List);
-    Collection<Signal> signals = bpmnModel.getSignals();
-    assertTrue(signals instanceof List);
-    assertTrue(resources.isEmpty());
-    assertTrue(signals.isEmpty());
-  }
-
-  /**
-   * Test {@link BaseBpmnJsonConverter#convertToBpmnModel(JsonNode, JsonNode, ActivityProcessor,
-   * BaseElement, Map, BpmnModel)}.
-   *
-   * <ul>
-   *   <li>Given valueOf ten.
-   *   <li>When {@link JsonNode} {@link JsonNode#get(String)} return valueOf ten.
-   * </ul>
-   *
-   * <p>Method under test: {@link BaseBpmnJsonConverter#convertToBpmnModel(JsonNode, JsonNode,
-   * ActivityProcessor, BaseElement, Map, BpmnModel)}
-   */
-  @Test
-  @DisplayName(
-      "Test convertToBpmnModel(JsonNode, JsonNode, ActivityProcessor, BaseElement, Map, BpmnModel); given valueOf ten; when JsonNode get(String) return valueOf ten")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void BaseBpmnJsonConverter.convertToBpmnModel(JsonNode, JsonNode, ActivityProcessor, BaseElement, Map, BpmnModel)"
-  })
-  void testConvertToBpmnModel_givenValueOfTen_whenJsonNodeGetReturnValueOfTen() {
-    // Arrange
-    AssociationJsonConverter associationJsonConverter = new AssociationJsonConverter();
-
-    JsonNode jsonNode = mock(JsonNode.class);
-    when(jsonNode.asText()).thenReturn("not empty");
-    when(jsonNode.isNull()).thenReturn(false);
-
+    when(jsonNode.isNull()).thenReturn(true);
     JsonNode jsonNode2 = mock(JsonNode.class);
     when(jsonNode2.asText()).thenReturn("As Text");
     when(jsonNode2.get(Mockito.<String>any())).thenReturn(jsonNode);
-
     ArrayNode elementNode = mock(ArrayNode.class);
     when(elementNode.get(Mockito.<String>any())).thenReturn(jsonNode2);
-
-    JsonNode modelNode = mock(JsonNode.class);
-    when(modelNode.get(Mockito.<String>any())).thenReturn(DoubleNode.valueOf(10.0d));
+    MissingNode modelNode = MissingNode.getInstance();
     BpmnJsonConverter processor = new BpmnJsonConverter();
-
-    AdhocSubProcess parentElement = mock(AdhocSubProcess.class);
-    doNothing().when(parentElement).addArtifact(Mockito.<Artifact>any());
+    ActivitiListener parentElement = new ActivitiListener();
     HashMap<String, JsonNode> shapeMap = new HashMap<>();
-    BpmnModel bpmnModel = new BpmnModel();
 
     // Act
-    associationJsonConverter.convertToBpmnModel(
-        elementNode, modelNode, processor, parentElement, shapeMap, bpmnModel);
+    associationJsonConverter.convertToBpmnModel(elementNode, modelNode, processor, parentElement, shapeMap,
+        new BpmnModel());
 
-    // Assert that nothing has changed
-    verify(jsonNode2).asText();
-    verify(jsonNode, atLeast(1)).asText();
-    verify(modelNode).get("childShapes");
-    verify(jsonNode2, atLeast(1)).get("overrideid");
-    verify(jsonNode, atLeast(1)).isNull();
+    // Assert
+    verify(jsonNode2, atLeast(1)).asText();
+    verify(jsonNode2).get(eq("overrideid"));
+    verify(jsonNode).isNull();
     verify(elementNode, atLeast(1)).get(Mockito.<String>any());
-    verify(parentElement).addArtifact(isA(Artifact.class));
-    Collection<Resource> resources = bpmnModel.getResources();
-    assertTrue(resources instanceof List);
-    Collection<Signal> signals = bpmnModel.getSignals();
-    assertTrue(signals instanceof List);
-    assertTrue(resources.isEmpty());
-    assertTrue(signals.isEmpty());
+    assertTrue(associationJsonConverter.processor instanceof BpmnJsonConverter);
   }
 
   /**
-   * Test {@link BaseBpmnJsonConverter#convertToBpmnModel(JsonNode, JsonNode, ActivityProcessor,
-   * BaseElement, Map, BpmnModel)}.
-   *
+   * Test {@link BaseBpmnJsonConverter#convertToBpmnModel(JsonNode, JsonNode, ActivityProcessor, BaseElement, Map, BpmnModel)}.
    * <ul>
-   *   <li>Then calls {@link JsonNode#iterator()}.
+   *   <li>Then calls {@link SubProcess#addArtifact(Artifact)}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link BaseBpmnJsonConverter#convertToBpmnModel(JsonNode, JsonNode,
-   * ActivityProcessor, BaseElement, Map, BpmnModel)}
+   * <p>
+   * Method under test: {@link BaseBpmnJsonConverter#convertToBpmnModel(JsonNode, JsonNode, ActivityProcessor, BaseElement, Map, BpmnModel)}
    */
   @Test
-  @DisplayName(
-      "Test convertToBpmnModel(JsonNode, JsonNode, ActivityProcessor, BaseElement, Map, BpmnModel); then calls iterator()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test convertToBpmnModel(JsonNode, JsonNode, ActivityProcessor, BaseElement, Map, BpmnModel); then calls addArtifact(Artifact)")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({
-    "void BaseBpmnJsonConverter.convertToBpmnModel(JsonNode, JsonNode, ActivityProcessor, BaseElement, Map, BpmnModel)"
-  })
-  void testConvertToBpmnModel_thenCallsIterator() {
+      "void BaseBpmnJsonConverter.convertToBpmnModel(JsonNode, JsonNode, ActivityProcessor, BaseElement, Map, BpmnModel)"})
+  void testConvertToBpmnModel_thenCallsAddArtifact() {
     // Arrange
     AssociationJsonConverter associationJsonConverter = new AssociationJsonConverter();
-
     JsonNode jsonNode = mock(JsonNode.class);
-    when(jsonNode.asText()).thenReturn("not empty");
-    when(jsonNode.isNull()).thenReturn(false);
-
+    when(jsonNode.asText()).thenReturn("As Text");
+    when(jsonNode.isNull()).thenReturn(true);
     JsonNode jsonNode2 = mock(JsonNode.class);
     when(jsonNode2.asText()).thenReturn("As Text");
     when(jsonNode2.get(Mockito.<String>any())).thenReturn(jsonNode);
-
     ArrayNode elementNode = mock(ArrayNode.class);
     when(elementNode.get(Mockito.<String>any())).thenReturn(jsonNode2);
-
     JsonNode jsonNode3 = mock(JsonNode.class);
 
     ArrayList<JsonNode> jsonNodeList = new ArrayList<>();
     when(jsonNode3.iterator()).thenReturn(jsonNodeList.iterator());
-
     JsonNode modelNode = mock(JsonNode.class);
     when(modelNode.get(Mockito.<String>any())).thenReturn(jsonNode3);
     BpmnJsonConverter processor = new BpmnJsonConverter();
-
     AdhocSubProcess parentElement = mock(AdhocSubProcess.class);
     doNothing().when(parentElement).addArtifact(Mockito.<Artifact>any());
     HashMap<String, JsonNode> shapeMap = new HashMap<>();
-    BpmnModel bpmnModel = new BpmnModel();
 
     // Act
-    associationJsonConverter.convertToBpmnModel(
-        elementNode, modelNode, processor, parentElement, shapeMap, bpmnModel);
+    associationJsonConverter.convertToBpmnModel(elementNode, modelNode, processor, parentElement, shapeMap,
+        new BpmnModel());
 
-    // Assert that nothing has changed
-    verify(jsonNode2).asText();
-    verify(jsonNode, atLeast(1)).asText();
-    verify(modelNode).get("childShapes");
-    verify(jsonNode2, atLeast(1)).get("overrideid");
-    verify(jsonNode, atLeast(1)).isNull();
+    // Assert
+    verify(jsonNode2, atLeast(1)).asText();
+    verify(modelNode).get(eq("childShapes"));
+    verify(jsonNode2).get(eq("overrideid"));
+    verify(jsonNode).isNull();
     verify(jsonNode3).iterator();
     verify(elementNode, atLeast(1)).get(Mockito.<String>any());
     verify(parentElement).addArtifact(isA(Artifact.class));
-    Collection<Resource> resources = bpmnModel.getResources();
-    assertTrue(resources instanceof List);
-    Collection<Signal> signals = bpmnModel.getSignals();
-    assertTrue(signals instanceof List);
-    assertTrue(resources.isEmpty());
-    assertTrue(signals.isEmpty());
+    assertTrue(associationJsonConverter.processor instanceof BpmnJsonConverter);
   }
 
   /**
-   * Test {@link BaseBpmnJsonConverter#convertToBpmnModel(JsonNode, JsonNode, ActivityProcessor,
-   * BaseElement, Map, BpmnModel)}.
-   *
+   * Test {@link BaseBpmnJsonConverter#convertToBpmnModel(JsonNode, JsonNode, ActivityProcessor, BaseElement, Map, BpmnModel)}.
    * <ul>
-   *   <li>Then calls {@link ArrayNode#iterator()}.
+   *   <li>Then calls {@link JsonNode#iterator()}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link BaseBpmnJsonConverter#convertToBpmnModel(JsonNode, JsonNode,
-   * ActivityProcessor, BaseElement, Map, BpmnModel)}
+   * <p>
+   * Method under test: {@link BaseBpmnJsonConverter#convertToBpmnModel(JsonNode, JsonNode, ActivityProcessor, BaseElement, Map, BpmnModel)}
    */
   @Test
-  @DisplayName(
-      "Test convertToBpmnModel(JsonNode, JsonNode, ActivityProcessor, BaseElement, Map, BpmnModel); then calls iterator()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test convertToBpmnModel(JsonNode, JsonNode, ActivityProcessor, BaseElement, Map, BpmnModel); then calls iterator()")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({
-    "void BaseBpmnJsonConverter.convertToBpmnModel(JsonNode, JsonNode, ActivityProcessor, BaseElement, Map, BpmnModel)"
-  })
-  void testConvertToBpmnModel_thenCallsIterator2() {
+      "void BaseBpmnJsonConverter.convertToBpmnModel(JsonNode, JsonNode, ActivityProcessor, BaseElement, Map, BpmnModel)"})
+  void testConvertToBpmnModel_thenCallsIterator() {
     // Arrange
     AssociationJsonConverter associationJsonConverter = new AssociationJsonConverter();
-
     JsonNode jsonNode = mock(JsonNode.class);
-    when(jsonNode.asText()).thenReturn("not empty");
-    when(jsonNode.isNull()).thenReturn(false);
-
+    when(jsonNode.asText()).thenReturn("As Text");
+    when(jsonNode.isNull()).thenReturn(true);
     JsonNode jsonNode2 = mock(JsonNode.class);
     when(jsonNode2.asText()).thenReturn("As Text");
     when(jsonNode2.get(Mockito.<String>any())).thenReturn(jsonNode);
-
     ArrayNode elementNode = mock(ArrayNode.class);
     when(elementNode.get(Mockito.<String>any())).thenReturn(jsonNode2);
-
-    ArrayNode arrayNode = mock(ArrayNode.class);
+    JsonNode jsonNode3 = mock(JsonNode.class);
 
     ArrayList<JsonNode> jsonNodeList = new ArrayList<>();
-    when(arrayNode.iterator()).thenReturn(jsonNodeList.iterator());
-    when(arrayNode.size()).thenReturn(3);
-
-    ArrayNode arrayNode2 = mock(ArrayNode.class);
-    when(arrayNode2.get(Mockito.<String>any())).thenReturn(arrayNode);
-
-    ArrayList<JsonNode> jsonNodeList2 = new ArrayList<>();
-    jsonNodeList2.add(arrayNode2);
-
-    JsonNode jsonNode3 = mock(JsonNode.class);
-    when(jsonNode3.iterator()).thenReturn(jsonNodeList2.iterator());
-
+    when(jsonNode3.iterator()).thenReturn(jsonNodeList.iterator());
     JsonNode modelNode = mock(JsonNode.class);
     when(modelNode.get(Mockito.<String>any())).thenReturn(jsonNode3);
-    BpmnJsonConverter processor = new BpmnJsonConverter();
-
-    AdhocSubProcess parentElement = mock(AdhocSubProcess.class);
-    doNothing().when(parentElement).addArtifact(Mockito.<Artifact>any());
-    HashMap<String, JsonNode> shapeMap = new HashMap<>();
-    BpmnModel bpmnModel = new BpmnModel();
-
-    // Act
-    associationJsonConverter.convertToBpmnModel(
-        elementNode, modelNode, processor, parentElement, shapeMap, bpmnModel);
-
-    // Assert that nothing has changed
-    verify(jsonNode2).asText();
-    verify(jsonNode, atLeast(1)).asText();
-    verify(modelNode).get("childShapes");
-    verify(jsonNode2, atLeast(1)).get("overrideid");
-    verify(jsonNode, atLeast(1)).isNull();
-    verify(jsonNode3).iterator();
-    verify(arrayNode, atLeast(1)).iterator();
-    verify(arrayNode2, atLeast(1)).get(Mockito.<String>any());
-    verify(elementNode, atLeast(1)).get(Mockito.<String>any());
-    verify(arrayNode).size();
-    verify(parentElement).addArtifact(isA(Artifact.class));
-    Collection<Resource> resources = bpmnModel.getResources();
-    assertTrue(resources instanceof List);
-    Collection<Signal> signals = bpmnModel.getSignals();
-    assertTrue(signals instanceof List);
-    assertTrue(resources.isEmpty());
-    assertTrue(signals.isEmpty());
-  }
-
-  /**
-   * Test {@link BaseBpmnJsonConverter#convertToBpmnModel(JsonNode, JsonNode, ActivityProcessor,
-   * BaseElement, Map, BpmnModel)}.
-   *
-   * <ul>
-   *   <li>When {@link ActivitiListener} (default constructor).
-   *   <li>Then calls {@link JsonNode#isNull()}.
-   * </ul>
-   *
-   * <p>Method under test: {@link BaseBpmnJsonConverter#convertToBpmnModel(JsonNode, JsonNode,
-   * ActivityProcessor, BaseElement, Map, BpmnModel)}
-   */
-  @Test
-  @DisplayName(
-      "Test convertToBpmnModel(JsonNode, JsonNode, ActivityProcessor, BaseElement, Map, BpmnModel); when ActivitiListener (default constructor); then calls isNull()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void BaseBpmnJsonConverter.convertToBpmnModel(JsonNode, JsonNode, ActivityProcessor, BaseElement, Map, BpmnModel)"
-  })
-  void testConvertToBpmnModel_whenActivitiListener_thenCallsIsNull() {
-    // Arrange
-    AssociationJsonConverter associationJsonConverter = new AssociationJsonConverter();
-
-    JsonNode jsonNode = mock(JsonNode.class);
-    when(jsonNode.asText()).thenReturn("not empty");
-    when(jsonNode.isNull()).thenReturn(false);
-
-    JsonNode jsonNode2 = mock(JsonNode.class);
-    when(jsonNode2.asText()).thenReturn("As Text");
-    when(jsonNode2.get(Mockito.<String>any())).thenReturn(jsonNode);
-
-    ArrayNode elementNode = mock(ArrayNode.class);
-    when(elementNode.get(Mockito.<String>any())).thenReturn(jsonNode2);
-    DoubleNode modelNode = DoubleNode.valueOf(10.0d);
     BpmnJsonConverter processor = new BpmnJsonConverter();
     ActivitiListener parentElement = new ActivitiListener();
     HashMap<String, JsonNode> shapeMap = new HashMap<>();
-    BpmnModel bpmnModel = new BpmnModel();
 
     // Act
-    associationJsonConverter.convertToBpmnModel(
-        elementNode, modelNode, processor, parentElement, shapeMap, bpmnModel);
+    associationJsonConverter.convertToBpmnModel(elementNode, modelNode, processor, parentElement, shapeMap,
+        new BpmnModel());
 
-    // Assert that nothing has changed
-    verify(jsonNode2).asText();
-    verify(jsonNode, atLeast(1)).asText();
-    verify(jsonNode2, atLeast(1)).get("overrideid");
-    verify(jsonNode, atLeast(1)).isNull();
+    // Assert
+    verify(jsonNode2, atLeast(1)).asText();
+    verify(modelNode).get(eq("childShapes"));
+    verify(jsonNode2).get(eq("overrideid"));
+    verify(jsonNode).isNull();
+    verify(jsonNode3).iterator();
     verify(elementNode, atLeast(1)).get(Mockito.<String>any());
-    Collection<Resource> resources = bpmnModel.getResources();
-    assertTrue(resources instanceof List);
-    Collection<Signal> signals = bpmnModel.getSignals();
-    assertTrue(signals instanceof List);
-    assertTrue(resources.isEmpty());
-    assertTrue(signals.isEmpty());
+    assertTrue(associationJsonConverter.processor instanceof BpmnJsonConverter);
   }
 
   /**
-   * Test {@link BaseBpmnJsonConverter#convertToBpmnModel(JsonNode, JsonNode, ActivityProcessor,
-   * BaseElement, Map, BpmnModel)}.
-   *
+   * Test {@link BaseBpmnJsonConverter#convertToBpmnModel(JsonNode, JsonNode, ActivityProcessor, BaseElement, Map, BpmnModel)}.
    * <ul>
-   *   <li>When {@link AdhocSubProcess} (default constructor).
-   *   <li>Then {@link AdhocSubProcess} (default constructor) Artifacts size is one.
+   *   <li>When {@link AdhocSubProcess} (default constructor).</li>
+   *   <li>Then {@link AdhocSubProcess} (default constructor) Artifacts size is one.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link BaseBpmnJsonConverter#convertToBpmnModel(JsonNode, JsonNode,
-   * ActivityProcessor, BaseElement, Map, BpmnModel)}
+   * <p>
+   * Method under test: {@link BaseBpmnJsonConverter#convertToBpmnModel(JsonNode, JsonNode, ActivityProcessor, BaseElement, Map, BpmnModel)}
    */
   @Test
-  @DisplayName(
-      "Test convertToBpmnModel(JsonNode, JsonNode, ActivityProcessor, BaseElement, Map, BpmnModel); when AdhocSubProcess (default constructor); then AdhocSubProcess (default constructor) Artifacts size is one")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test convertToBpmnModel(JsonNode, JsonNode, ActivityProcessor, BaseElement, Map, BpmnModel); when AdhocSubProcess (default constructor); then AdhocSubProcess (default constructor) Artifacts size is one")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({
-    "void BaseBpmnJsonConverter.convertToBpmnModel(JsonNode, JsonNode, ActivityProcessor, BaseElement, Map, BpmnModel)"
-  })
+      "void BaseBpmnJsonConverter.convertToBpmnModel(JsonNode, JsonNode, ActivityProcessor, BaseElement, Map, BpmnModel)"})
   void testConvertToBpmnModel_whenAdhocSubProcess_thenAdhocSubProcessArtifactsSizeIsOne() {
     // Arrange
     AssociationJsonConverter associationJsonConverter = new AssociationJsonConverter();
-
     JsonNode jsonNode = mock(JsonNode.class);
-    when(jsonNode.asText()).thenReturn("not empty");
-    when(jsonNode.isNull()).thenReturn(false);
-
+    when(jsonNode.asText()).thenReturn("As Text");
+    when(jsonNode.isNull()).thenReturn(true);
     JsonNode jsonNode2 = mock(JsonNode.class);
     when(jsonNode2.asText()).thenReturn("As Text");
     when(jsonNode2.get(Mockito.<String>any())).thenReturn(jsonNode);
-
     ArrayNode elementNode = mock(ArrayNode.class);
     when(elementNode.get(Mockito.<String>any())).thenReturn(jsonNode2);
-    DoubleNode modelNode = DoubleNode.valueOf(10.0d);
+    JsonNode jsonNode3 = mock(JsonNode.class);
+
+    ArrayList<JsonNode> jsonNodeList = new ArrayList<>();
+    when(jsonNode3.iterator()).thenReturn(jsonNodeList.iterator());
+    JsonNode modelNode = mock(JsonNode.class);
+    when(modelNode.get(Mockito.<String>any())).thenReturn(jsonNode3);
     BpmnJsonConverter processor = new BpmnJsonConverter();
     AdhocSubProcess parentElement = new AdhocSubProcess();
     HashMap<String, JsonNode> shapeMap = new HashMap<>();
-    BpmnModel bpmnModel = new BpmnModel();
 
     // Act
-    associationJsonConverter.convertToBpmnModel(
-        elementNode, modelNode, processor, parentElement, shapeMap, bpmnModel);
+    associationJsonConverter.convertToBpmnModel(elementNode, modelNode, processor, parentElement, shapeMap,
+        new BpmnModel());
 
     // Assert
-    verify(jsonNode2).asText();
-    verify(jsonNode, atLeast(1)).asText();
-    verify(jsonNode2, atLeast(1)).get("overrideid");
-    verify(jsonNode, atLeast(1)).isNull();
+    verify(jsonNode2, atLeast(1)).asText();
+    verify(modelNode).get(eq("childShapes"));
+    verify(jsonNode2).get(eq("overrideid"));
+    verify(jsonNode).isNull();
+    verify(jsonNode3).iterator();
     verify(elementNode, atLeast(1)).get(Mockito.<String>any());
-    Collection<Resource> resources = bpmnModel.getResources();
-    assertTrue(resources instanceof List);
-    Collection<Signal> signals = bpmnModel.getSignals();
-    assertTrue(signals instanceof List);
     Collection<Artifact> artifacts = parentElement.getArtifacts();
     assertEquals(1, artifacts.size());
     assertTrue(artifacts instanceof List);
-    Collection<FlowElement> flowElements = parentElement.getFlowElements();
-    assertTrue(flowElements instanceof List);
     Artifact getResult = ((List<Artifact>) artifacts).get(0);
     assertTrue(getResult instanceof Association);
-    assertEquals("not empty", getResult.getId());
+    assertEquals("As Text", getResult.getId());
     assertNull(((Association) getResult).getSourceRef());
     assertNull(((Association) getResult).getTargetRef());
     assertEquals(0, getResult.getXmlColumnNumber());
     assertEquals(0, getResult.getXmlRowNumber());
     assertEquals(AssociationDirection.NONE, ((Association) getResult).getAssociationDirection());
-    assertTrue(resources.isEmpty());
-    assertTrue(signals.isEmpty());
-    assertTrue(flowElements.isEmpty());
     assertTrue(getResult.getAttributes().isEmpty());
     assertTrue(getResult.getExtensionElements().isEmpty());
   }
 
   /**
-   * Test {@link BaseBpmnJsonConverter#convertToBpmnModel(JsonNode, JsonNode, ActivityProcessor,
-   * BaseElement, Map, BpmnModel)}.
-   *
-   * <ul>
-   *   <li>When valueOf ten.
-   *   <li>Then calls {@link AdhocSubProcess#addArtifact(Artifact)}.
-   * </ul>
-   *
-   * <p>Method under test: {@link BaseBpmnJsonConverter#convertToBpmnModel(JsonNode, JsonNode,
-   * ActivityProcessor, BaseElement, Map, BpmnModel)}
-   */
-  @Test
-  @DisplayName(
-      "Test convertToBpmnModel(JsonNode, JsonNode, ActivityProcessor, BaseElement, Map, BpmnModel); when valueOf ten; then calls addArtifact(Artifact)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void BaseBpmnJsonConverter.convertToBpmnModel(JsonNode, JsonNode, ActivityProcessor, BaseElement, Map, BpmnModel)"
-  })
-  void testConvertToBpmnModel_whenValueOfTen_thenCallsAddArtifact() {
-    // Arrange
-    AssociationJsonConverter associationJsonConverter = new AssociationJsonConverter();
-
-    JsonNode jsonNode = mock(JsonNode.class);
-    when(jsonNode.asText()).thenReturn("not empty");
-    when(jsonNode.isNull()).thenReturn(false);
-
-    JsonNode jsonNode2 = mock(JsonNode.class);
-    when(jsonNode2.asText()).thenReturn("As Text");
-    when(jsonNode2.get(Mockito.<String>any())).thenReturn(jsonNode);
-
-    ArrayNode elementNode = mock(ArrayNode.class);
-    when(elementNode.get(Mockito.<String>any())).thenReturn(jsonNode2);
-    DoubleNode modelNode = DoubleNode.valueOf(10.0d);
-    BpmnJsonConverter processor = new BpmnJsonConverter();
-
-    AdhocSubProcess parentElement = mock(AdhocSubProcess.class);
-    doNothing().when(parentElement).addArtifact(Mockito.<Artifact>any());
-    HashMap<String, JsonNode> shapeMap = new HashMap<>();
-    BpmnModel bpmnModel = new BpmnModel();
-
-    // Act
-    associationJsonConverter.convertToBpmnModel(
-        elementNode, modelNode, processor, parentElement, shapeMap, bpmnModel);
-
-    // Assert that nothing has changed
-    verify(jsonNode2).asText();
-    verify(jsonNode, atLeast(1)).asText();
-    verify(jsonNode2, atLeast(1)).get("overrideid");
-    verify(jsonNode, atLeast(1)).isNull();
-    verify(elementNode, atLeast(1)).get(Mockito.<String>any());
-    verify(parentElement).addArtifact(isA(Artifact.class));
-    Collection<Resource> resources = bpmnModel.getResources();
-    assertTrue(resources instanceof List);
-    Collection<Signal> signals = bpmnModel.getSignals();
-    assertTrue(signals instanceof List);
-    assertTrue(resources.isEmpty());
-    assertTrue(signals.isEmpty());
-  }
-
-  /**
    * Test {@link BaseBpmnJsonConverter#setPropertyValue(String, String, ObjectNode)}.
-   *
-   * <p>Method under test: {@link BaseBpmnJsonConverter#setPropertyValue(String, String,
-   * ObjectNode)}
+   * <p>
+   * Method under test: {@link BaseBpmnJsonConverter#setPropertyValue(String, String, ObjectNode)}
    */
   @Test
   @DisplayName("Test setPropertyValue(String, String, ObjectNode)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void BaseBpmnJsonConverter.setPropertyValue(String, String, ObjectNode)"})
   void testSetPropertyValue() {
     // Arrange
     AssociationJsonConverter associationJsonConverter = new AssociationJsonConverter();
-    JsonNodeFactory nc = JsonNodeFactory.withExactBigDecimals(true);
-    ObjectNode propertiesNode = new ObjectNode(nc);
+    ObjectNode propertiesNode = new ObjectNode(JsonNodeFactory.withExactBigDecimals(true));
 
     // Act
     associationJsonConverter.setPropertyValue("Name", "42", propertiesNode);
@@ -1272,51 +662,20 @@ class BaseBpmnJsonConverterDiffblueTest {
 
   /**
    * Test {@link BaseBpmnJsonConverter#setPropertyValue(String, String, ObjectNode)}.
-   *
-   * <p>Method under test: {@link BaseBpmnJsonConverter#setPropertyValue(String, String,
-   * ObjectNode)}
-   */
-  @Test
-  @DisplayName("Test setPropertyValue(String, String, ObjectNode)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void BaseBpmnJsonConverter.setPropertyValue(String, String, ObjectNode)"})
-  void testSetPropertyValue2() {
-    // Arrange
-    AssociationJsonConverter associationJsonConverter = new AssociationJsonConverter();
-    JsonNodeFactory nc = JsonNodeFactory.withExactBigDecimals(true);
-    ObjectNode propertiesNode = new ObjectNode(nc);
-
-    // Act
-    associationJsonConverter.setPropertyValue("Name", null, propertiesNode);
-
-    // Assert that nothing has changed
-    assertEquals("{ }", propertiesNode.toPrettyString());
-    assertEquals(0, propertiesNode.size());
-    assertFalse(propertiesNode.iterator().hasNext());
-    assertTrue(propertiesNode.isEmpty());
-  }
-
-  /**
-   * Test {@link BaseBpmnJsonConverter#setPropertyValue(String, String, ObjectNode)}.
-   *
    * <ul>
-   *   <li>When empty string.
+   *   <li>When empty string.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link BaseBpmnJsonConverter#setPropertyValue(String, String,
-   * ObjectNode)}
+   * <p>
+   * Method under test: {@link BaseBpmnJsonConverter#setPropertyValue(String, String, ObjectNode)}
    */
   @Test
   @DisplayName("Test setPropertyValue(String, String, ObjectNode); when empty string")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void BaseBpmnJsonConverter.setPropertyValue(String, String, ObjectNode)"})
   void testSetPropertyValue_whenEmptyString() {
     // Arrange
     AssociationJsonConverter associationJsonConverter = new AssociationJsonConverter();
-    JsonNodeFactory nc = JsonNodeFactory.withExactBigDecimals(true);
-    ObjectNode propertiesNode = new ObjectNode(nc);
+    ObjectNode propertiesNode = new ObjectNode(JsonNodeFactory.withExactBigDecimals(true));
 
     // Act
     associationJsonConverter.setPropertyValue("Name", "", propertiesNode);
@@ -1329,24 +688,24 @@ class BaseBpmnJsonConverterDiffblueTest {
   }
 
   /**
-   * Test {@link BaseBpmnJsonConverter#addFormProperties(List, ObjectNode)}.
-   *
-   * <p>Method under test: {@link BaseBpmnJsonConverter#addFormProperties(List, ObjectNode)}
+   * Test {@link BaseBpmnJsonConverter#setPropertyValue(String, String, ObjectNode)}.
+   * <ul>
+   *   <li>When {@code null}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link BaseBpmnJsonConverter#setPropertyValue(String, String, ObjectNode)}
    */
   @Test
-  @DisplayName("Test addFormProperties(List, ObjectNode)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void BaseBpmnJsonConverter.addFormProperties(List, ObjectNode)"})
-  void testAddFormProperties() {
+  @DisplayName("Test setPropertyValue(String, String, ObjectNode); when 'null'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void BaseBpmnJsonConverter.setPropertyValue(String, String, ObjectNode)"})
+  void testSetPropertyValue_whenNull() {
     // Arrange
     AssociationJsonConverter associationJsonConverter = new AssociationJsonConverter();
-    ArrayList<FormProperty> formProperties = new ArrayList<>();
-    JsonNodeFactory nc = JsonNodeFactory.withExactBigDecimals(true);
-    ObjectNode propertiesNode = new ObjectNode(nc);
+    ObjectNode propertiesNode = new ObjectNode(JsonNodeFactory.withExactBigDecimals(true));
 
     // Act
-    associationJsonConverter.addFormProperties(formProperties, propertiesNode);
+    associationJsonConverter.setPropertyValue("Name", null, propertiesNode);
 
     // Assert that nothing has changed
     assertEquals("{ }", propertiesNode.toPrettyString());
@@ -1357,45 +716,59 @@ class BaseBpmnJsonConverterDiffblueTest {
 
   /**
    * Test {@link BaseBpmnJsonConverter#addFormProperties(List, ObjectNode)}.
-   *
-   * <ul>
-   *   <li>Given {@link FormProperty} (default constructor) DatePattern is empty string.
-   * </ul>
-   *
-   * <p>Method under test: {@link BaseBpmnJsonConverter#addFormProperties(List, ObjectNode)}
+   * <p>
+   * Method under test: {@link BaseBpmnJsonConverter#addFormProperties(List, ObjectNode)}
    */
   @Test
-  @DisplayName(
-      "Test addFormProperties(List, ObjectNode); given FormProperty (default constructor) DatePattern is empty string")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test addFormProperties(List, ObjectNode)")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void BaseBpmnJsonConverter.addFormProperties(List, ObjectNode)"})
-  void testAddFormProperties_givenFormPropertyDatePatternIsEmptyString() {
+  void testAddFormProperties() {
+    // Arrange
+    AssociationJsonConverter associationJsonConverter = new AssociationJsonConverter();
+    ArrayList<FormProperty> formProperties = new ArrayList<>();
+    ObjectNode propertiesNode = new ObjectNode(JsonNodeFactory.withExactBigDecimals(true));
+
+    // Act
+    associationJsonConverter.addFormProperties(formProperties, propertiesNode);
+
+    // Assert that nothing has changed
+    assertEquals("{ }", propertiesNode.toPrettyString());
+    assertFalse(propertiesNode.iterator().hasNext());
+  }
+
+  /**
+   * Test {@link BaseBpmnJsonConverter#addFormProperties(List, ObjectNode)}.
+   * <p>
+   * Method under test: {@link BaseBpmnJsonConverter#addFormProperties(List, ObjectNode)}
+   */
+  @Test
+  @DisplayName("Test addFormProperties(List, ObjectNode)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void BaseBpmnJsonConverter.addFormProperties(List, ObjectNode)"})
+  void testAddFormProperties2() {
     // Arrange
     AssociationJsonConverter associationJsonConverter = new AssociationJsonConverter();
 
     FormValue formValue = new FormValue();
+    formValue.setId(null);
     formValue.setName(null);
-    formValue.setId(null);
 
     ArrayList<FormValue> formValues = new ArrayList<>();
     formValues.add(formValue);
 
     FormProperty formProperty = new FormProperty();
-    formProperty.setExpression("not empty");
-    formProperty.setVariable("not empty");
-    formProperty.setDatePattern("");
     formProperty.setFormValues(formValues);
-    formProperty.setId(null);
+    formProperty.setVariable(null);
     formProperty.setName(null);
     formProperty.setType(null);
+    formProperty.setDatePattern(null);
+    formProperty.setExpression(null);
+    formProperty.setId("Form Properties");
 
     ArrayList<FormProperty> formProperties = new ArrayList<>();
     formProperties.add(formProperty);
-    JsonNodeFactory nc = JsonNodeFactory.withExactBigDecimals(true);
-
-    ObjectNode propertiesNode = new ObjectNode(nc);
-    propertiesNode.put("formproperties", DoubleNode.valueOf(10.0d));
+    ObjectNode propertiesNode = new ObjectNode(JsonNodeFactory.withExactBigDecimals(true));
 
     // Act
     associationJsonConverter.addFormProperties(formProperties, propertiesNode);
@@ -1410,367 +783,263 @@ class BaseBpmnJsonConverterDiffblueTest {
     JsonNode nextResult3 = elementsResult.next();
     assertTrue(nextResult3 instanceof ObjectNode);
     assertTrue(nextResult instanceof ObjectNode);
-    assertEquals(
-        "[ {\n"
-            + "  \"id\" : null,\n"
-            + "  \"name\" : null,\n"
-            + "  \"type\" : null,\n"
-            + "  \"expression\" : \"not empty\",\n"
-            + "  \"variable\" : \"not empty\",\n"
-            + "  \"enumValues\" : [ {\n"
-            + "    \"name\" : null,\n"
-            + "    \"id\" : null\n"
-            + "  } ],\n"
-            + "  \"required\" : false,\n"
-            + "  \"readable\" : true,\n"
-            + "  \"writable\" : true\n"
-            + "} ]",
-        nextResult2.toPrettyString());
-    assertEquals(
-        "{\n"
-            + "  \"formProperties\" : [ {\n"
-            + "    \"id\" : null,\n"
-            + "    \"name\" : null,\n"
-            + "    \"type\" : null,\n"
-            + "    \"expression\" : \"not empty\",\n"
-            + "    \"variable\" : \"not empty\",\n"
-            + "    \"enumValues\" : [ {\n"
-            + "      \"name\" : null,\n"
-            + "      \"id\" : null\n"
-            + "    } ],\n"
-            + "    \"required\" : false,\n"
-            + "    \"readable\" : true,\n"
-            + "    \"writable\" : true\n"
-            + "  } ]\n"
-            + "}",
-        nextResult.toPrettyString());
-    assertEquals(
-        "{\n"
-            + "  \"formproperties\" : {\n"
-            + "    \"formProperties\" : [ {\n"
-            + "      \"id\" : null,\n"
-            + "      \"name\" : null,\n"
-            + "      \"type\" : null,\n"
-            + "      \"expression\" : \"not empty\",\n"
-            + "      \"variable\" : \"not empty\",\n"
-            + "      \"enumValues\" : [ {\n"
-            + "        \"name\" : null,\n"
-            + "        \"id\" : null\n"
-            + "      } ],\n"
-            + "      \"required\" : false,\n"
-            + "      \"readable\" : true,\n"
-            + "      \"writable\" : true\n"
-            + "    } ]\n"
-            + "  }\n"
-            + "}",
+    assertEquals("[ {\n" + "  \"id\" : \"Form Properties\",\n" + "  \"name\" : null,\n" + "  \"type\" : null,\n"
+        + "  \"expression\" : null,\n" + "  \"variable\" : null,\n" + "  \"enumValues\" : [ {\n"
+        + "    \"name\" : null,\n" + "    \"id\" : null\n" + "  } ],\n" + "  \"required\" : false,\n"
+        + "  \"readable\" : true,\n" + "  \"writable\" : true\n" + "} ]", nextResult2.toPrettyString());
+    assertEquals("{\n" + "  \"formProperties\" : [ {\n" + "    \"id\" : \"Form Properties\",\n"
+        + "    \"name\" : null,\n" + "    \"type\" : null,\n" + "    \"expression\" : null,\n"
+        + "    \"variable\" : null,\n" + "    \"enumValues\" : [ {\n" + "      \"name\" : null,\n"
+        + "      \"id\" : null\n" + "    } ],\n" + "    \"required\" : false,\n" + "    \"readable\" : true,\n"
+        + "    \"writable\" : true\n" + "  } ]\n" + "}", nextResult.toPrettyString());
+    assertEquals("{\n" + "  \"formproperties\" : {\n" + "    \"formProperties\" : [ {\n"
+        + "      \"id\" : \"Form Properties\",\n" + "      \"name\" : null,\n" + "      \"type\" : null,\n"
+        + "      \"expression\" : null,\n" + "      \"variable\" : null,\n" + "      \"enumValues\" : [ {\n"
+        + "        \"name\" : null,\n" + "        \"id\" : null\n" + "      } ],\n" + "      \"required\" : false,\n"
+        + "      \"readable\" : true,\n" + "      \"writable\" : true\n" + "    } ]\n" + "  }\n" + "}",
         propertiesNode.toPrettyString());
-    assertEquals(
-        "{\n"
-            + "  \"id\" : null,\n"
-            + "  \"name\" : null,\n"
-            + "  \"type\" : null,\n"
-            + "  \"expression\" : \"not empty\",\n"
-            + "  \"variable\" : \"not empty\",\n"
-            + "  \"enumValues\" : [ {\n"
-            + "    \"name\" : null,\n"
-            + "    \"id\" : null\n"
-            + "  } ],\n"
-            + "  \"required\" : false,\n"
-            + "  \"readable\" : true,\n"
-            + "  \"writable\" : true\n"
-            + "}",
-        nextResult3.toPrettyString());
+    assertEquals("{\n" + "  \"id\" : \"Form Properties\",\n" + "  \"name\" : null,\n" + "  \"type\" : null,\n"
+        + "  \"expression\" : null,\n" + "  \"variable\" : null,\n" + "  \"enumValues\" : [ {\n"
+        + "    \"name\" : null,\n" + "    \"id\" : null\n" + "  } ],\n" + "  \"required\" : false,\n"
+        + "  \"readable\" : true,\n" + "  \"writable\" : true\n" + "}", nextResult3.toPrettyString());
     assertFalse(elementsResult.hasNext());
     assertFalse(iteratorResult.hasNext());
     assertFalse(iteratorResult2.hasNext());
+    assertTrue(nextResult3.iterator().hasNext());
   }
 
   /**
    * Test {@link BaseBpmnJsonConverter#addFormProperties(List, ObjectNode)}.
-   *
-   * <ul>
-   *   <li>Given {@link FormProperty} (default constructor) FormValues is {@code null}.
-   * </ul>
-   *
-   * <p>Method under test: {@link BaseBpmnJsonConverter#addFormProperties(List, ObjectNode)}
+   * <p>
+   * Method under test: {@link BaseBpmnJsonConverter#addFormProperties(List, ObjectNode)}
    */
   @Test
-  @DisplayName(
-      "Test addFormProperties(List, ObjectNode); given FormProperty (default constructor) FormValues is 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test addFormProperties(List, ObjectNode)")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void BaseBpmnJsonConverter.addFormProperties(List, ObjectNode)"})
-  void testAddFormProperties_givenFormPropertyFormValuesIsNull() {
-    // Arrange
-    AssociationJsonConverter associationJsonConverter = new AssociationJsonConverter();
-
-    FormProperty formProperty = new FormProperty();
-    formProperty.setExpression("not empty");
-    formProperty.setVariable("not empty");
-    formProperty.setDatePattern("not empty");
-    formProperty.setFormValues(null);
-    formProperty.setId(null);
-    formProperty.setName(null);
-    formProperty.setType(null);
-
-    ArrayList<FormProperty> formProperties = new ArrayList<>();
-    formProperties.add(formProperty);
-    JsonNodeFactory nc = JsonNodeFactory.withExactBigDecimals(true);
-
-    ObjectNode propertiesNode = new ObjectNode(nc);
-    propertiesNode.put("formproperties", DoubleNode.valueOf(10.0d));
-
-    // Act
-    associationJsonConverter.addFormProperties(formProperties, propertiesNode);
-
-    // Assert
-    Iterator<JsonNode> iteratorResult = propertiesNode.iterator();
-    JsonNode nextResult = iteratorResult.next();
-    Iterator<JsonNode> iteratorResult2 = nextResult.iterator();
-    JsonNode nextResult2 = iteratorResult2.next();
-    assertTrue(nextResult2 instanceof ArrayNode);
-    Iterator<JsonNode> elementsResult = nextResult2.elements();
-    JsonNode nextResult3 = elementsResult.next();
-    assertTrue(nextResult3 instanceof ObjectNode);
-    assertTrue(nextResult instanceof ObjectNode);
-    assertEquals(
-        "[ {\n"
-            + "  \"id\" : null,\n"
-            + "  \"name\" : null,\n"
-            + "  \"type\" : null,\n"
-            + "  \"expression\" : \"not empty\",\n"
-            + "  \"variable\" : \"not empty\",\n"
-            + "  \"datePattern\" : \"not empty\",\n"
-            + "  \"required\" : false,\n"
-            + "  \"readable\" : true,\n"
-            + "  \"writable\" : true\n"
-            + "} ]",
-        nextResult2.toPrettyString());
-    assertEquals(
-        "{\n"
-            + "  \"formProperties\" : [ {\n"
-            + "    \"id\" : null,\n"
-            + "    \"name\" : null,\n"
-            + "    \"type\" : null,\n"
-            + "    \"expression\" : \"not empty\",\n"
-            + "    \"variable\" : \"not empty\",\n"
-            + "    \"datePattern\" : \"not empty\",\n"
-            + "    \"required\" : false,\n"
-            + "    \"readable\" : true,\n"
-            + "    \"writable\" : true\n"
-            + "  } ]\n"
-            + "}",
-        nextResult.toPrettyString());
-    assertEquals(
-        "{\n"
-            + "  \"formproperties\" : {\n"
-            + "    \"formProperties\" : [ {\n"
-            + "      \"id\" : null,\n"
-            + "      \"name\" : null,\n"
-            + "      \"type\" : null,\n"
-            + "      \"expression\" : \"not empty\",\n"
-            + "      \"variable\" : \"not empty\",\n"
-            + "      \"datePattern\" : \"not empty\",\n"
-            + "      \"required\" : false,\n"
-            + "      \"readable\" : true,\n"
-            + "      \"writable\" : true\n"
-            + "    } ]\n"
-            + "  }\n"
-            + "}",
-        propertiesNode.toPrettyString());
-    assertEquals(
-        "{\n"
-            + "  \"id\" : null,\n"
-            + "  \"name\" : null,\n"
-            + "  \"type\" : null,\n"
-            + "  \"expression\" : \"not empty\",\n"
-            + "  \"variable\" : \"not empty\",\n"
-            + "  \"datePattern\" : \"not empty\",\n"
-            + "  \"required\" : false,\n"
-            + "  \"readable\" : true,\n"
-            + "  \"writable\" : true\n"
-            + "}",
-        nextResult3.toPrettyString());
-    assertFalse(elementsResult.hasNext());
-    assertFalse(iteratorResult.hasNext());
-    assertFalse(iteratorResult2.hasNext());
-  }
-
-  /**
-   * Test {@link BaseBpmnJsonConverter#addFormProperties(List, ObjectNode)}.
-   *
-   * <ul>
-   *   <li>Given {@link FormValue} (default constructor) Name is empty string.
-   * </ul>
-   *
-   * <p>Method under test: {@link BaseBpmnJsonConverter#addFormProperties(List, ObjectNode)}
-   */
-  @Test
-  @DisplayName(
-      "Test addFormProperties(List, ObjectNode); given FormValue (default constructor) Name is empty string")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void BaseBpmnJsonConverter.addFormProperties(List, ObjectNode)"})
-  void testAddFormProperties_givenFormValueNameIsEmptyString() {
+  void testAddFormProperties3() {
     // Arrange
     AssociationJsonConverter associationJsonConverter = new AssociationJsonConverter();
 
     FormValue formValue = new FormValue();
-    formValue.setName("");
     formValue.setId(null);
-
-    ArrayList<FormValue> formValues = new ArrayList<>();
-    formValues.add(formValue);
-
-    FormProperty formProperty = new FormProperty();
-    formProperty.setExpression("not empty");
-    formProperty.setVariable("not empty");
-    formProperty.setDatePattern("not empty");
-    formProperty.setFormValues(formValues);
-    formProperty.setId(null);
-    formProperty.setName(null);
-    formProperty.setType(null);
-
-    ArrayList<FormProperty> formProperties = new ArrayList<>();
-    formProperties.add(formProperty);
-    JsonNodeFactory nc = JsonNodeFactory.withExactBigDecimals(true);
-
-    ObjectNode propertiesNode = new ObjectNode(nc);
-    propertiesNode.put("formproperties", DoubleNode.valueOf(10.0d));
-
-    // Act
-    associationJsonConverter.addFormProperties(formProperties, propertiesNode);
-
-    // Assert
-    Iterator<JsonNode> iteratorResult = propertiesNode.iterator();
-    JsonNode nextResult = iteratorResult.next();
-    Iterator<JsonNode> iteratorResult2 = nextResult.iterator();
-    JsonNode nextResult2 = iteratorResult2.next();
-    assertTrue(nextResult2 instanceof ArrayNode);
-    Iterator<JsonNode> elementsResult = nextResult2.elements();
-    JsonNode nextResult3 = elementsResult.next();
-    assertTrue(nextResult3 instanceof ObjectNode);
-    assertTrue(nextResult instanceof ObjectNode);
-    assertEquals(
-        "[ {\n"
-            + "  \"id\" : null,\n"
-            + "  \"name\" : null,\n"
-            + "  \"type\" : null,\n"
-            + "  \"expression\" : \"not empty\",\n"
-            + "  \"variable\" : \"not empty\",\n"
-            + "  \"datePattern\" : \"not empty\",\n"
-            + "  \"enumValues\" : [ {\n"
-            + "    \"name\" : \"\",\n"
-            + "    \"id\" : null\n"
-            + "  } ],\n"
-            + "  \"required\" : false,\n"
-            + "  \"readable\" : true,\n"
-            + "  \"writable\" : true\n"
-            + "} ]",
-        nextResult2.toPrettyString());
-    assertEquals(
-        "{\n"
-            + "  \"formProperties\" : [ {\n"
-            + "    \"id\" : null,\n"
-            + "    \"name\" : null,\n"
-            + "    \"type\" : null,\n"
-            + "    \"expression\" : \"not empty\",\n"
-            + "    \"variable\" : \"not empty\",\n"
-            + "    \"datePattern\" : \"not empty\",\n"
-            + "    \"enumValues\" : [ {\n"
-            + "      \"name\" : \"\",\n"
-            + "      \"id\" : null\n"
-            + "    } ],\n"
-            + "    \"required\" : false,\n"
-            + "    \"readable\" : true,\n"
-            + "    \"writable\" : true\n"
-            + "  } ]\n"
-            + "}",
-        nextResult.toPrettyString());
-    assertEquals(
-        "{\n"
-            + "  \"formproperties\" : {\n"
-            + "    \"formProperties\" : [ {\n"
-            + "      \"id\" : null,\n"
-            + "      \"name\" : null,\n"
-            + "      \"type\" : null,\n"
-            + "      \"expression\" : \"not empty\",\n"
-            + "      \"variable\" : \"not empty\",\n"
-            + "      \"datePattern\" : \"not empty\",\n"
-            + "      \"enumValues\" : [ {\n"
-            + "        \"name\" : \"\",\n"
-            + "        \"id\" : null\n"
-            + "      } ],\n"
-            + "      \"required\" : false,\n"
-            + "      \"readable\" : true,\n"
-            + "      \"writable\" : true\n"
-            + "    } ]\n"
-            + "  }\n"
-            + "}",
-        propertiesNode.toPrettyString());
-    assertEquals(
-        "{\n"
-            + "  \"id\" : null,\n"
-            + "  \"name\" : null,\n"
-            + "  \"type\" : null,\n"
-            + "  \"expression\" : \"not empty\",\n"
-            + "  \"variable\" : \"not empty\",\n"
-            + "  \"datePattern\" : \"not empty\",\n"
-            + "  \"enumValues\" : [ {\n"
-            + "    \"name\" : \"\",\n"
-            + "    \"id\" : null\n"
-            + "  } ],\n"
-            + "  \"required\" : false,\n"
-            + "  \"readable\" : true,\n"
-            + "  \"writable\" : true\n"
-            + "}",
-        nextResult3.toPrettyString());
-    assertFalse(elementsResult.hasNext());
-    assertFalse(iteratorResult.hasNext());
-    assertFalse(iteratorResult2.hasNext());
-  }
-
-  /**
-   * Test {@link BaseBpmnJsonConverter#addFormProperties(List, ObjectNode)}.
-   *
-   * <ul>
-   *   <li>Given {@link FormValue} (default constructor) Name is {@code null}.
-   * </ul>
-   *
-   * <p>Method under test: {@link BaseBpmnJsonConverter#addFormProperties(List, ObjectNode)}
-   */
-  @Test
-  @DisplayName(
-      "Test addFormProperties(List, ObjectNode); given FormValue (default constructor) Name is 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void BaseBpmnJsonConverter.addFormProperties(List, ObjectNode)"})
-  void testAddFormProperties_givenFormValueNameIsNull() {
-    // Arrange
-    AssociationJsonConverter associationJsonConverter = new AssociationJsonConverter();
-
-    FormValue formValue = new FormValue();
     formValue.setName(null);
-    formValue.setId(null);
 
     ArrayList<FormValue> formValues = new ArrayList<>();
     formValues.add(formValue);
 
     FormProperty formProperty = new FormProperty();
-    formProperty.setExpression("not empty");
-    formProperty.setVariable("not empty");
-    formProperty.setDatePattern("not empty");
     formProperty.setFormValues(formValues);
-    formProperty.setId(null);
+    formProperty.setVariable(null);
     formProperty.setName(null);
     formProperty.setType(null);
+    formProperty.setDatePattern("Form Properties");
+    formProperty.setExpression(null);
+    formProperty.setId(null);
 
     ArrayList<FormProperty> formProperties = new ArrayList<>();
     formProperties.add(formProperty);
-    JsonNodeFactory nc = JsonNodeFactory.withExactBigDecimals(true);
+    ObjectNode propertiesNode = new ObjectNode(JsonNodeFactory.withExactBigDecimals(true));
 
-    ObjectNode propertiesNode = new ObjectNode(nc);
-    propertiesNode.put("formproperties", DoubleNode.valueOf(10.0d));
+    // Act
+    associationJsonConverter.addFormProperties(formProperties, propertiesNode);
+
+    // Assert
+    Iterator<JsonNode> iteratorResult = propertiesNode.iterator();
+    JsonNode nextResult = iteratorResult.next();
+    Iterator<JsonNode> iteratorResult2 = nextResult.iterator();
+    JsonNode nextResult2 = iteratorResult2.next();
+    assertTrue(nextResult2 instanceof ArrayNode);
+    Iterator<JsonNode> elementsResult = nextResult2.elements();
+    JsonNode nextResult3 = elementsResult.next();
+    assertTrue(nextResult3 instanceof ObjectNode);
+    assertTrue(nextResult instanceof ObjectNode);
+    assertEquals("[ {\n" + "  \"id\" : null,\n" + "  \"name\" : null,\n" + "  \"type\" : null,\n"
+        + "  \"expression\" : null,\n" + "  \"variable\" : null,\n" + "  \"datePattern\" : \"Form Properties\",\n"
+        + "  \"enumValues\" : [ {\n" + "    \"name\" : null,\n" + "    \"id\" : null\n" + "  } ],\n"
+        + "  \"required\" : false,\n" + "  \"readable\" : true,\n" + "  \"writable\" : true\n" + "} ]",
+        nextResult2.toPrettyString());
+    assertEquals("{\n" + "  \"formProperties\" : [ {\n" + "    \"id\" : null,\n" + "    \"name\" : null,\n"
+        + "    \"type\" : null,\n" + "    \"expression\" : null,\n" + "    \"variable\" : null,\n"
+        + "    \"datePattern\" : \"Form Properties\",\n" + "    \"enumValues\" : [ {\n" + "      \"name\" : null,\n"
+        + "      \"id\" : null\n" + "    } ],\n" + "    \"required\" : false,\n" + "    \"readable\" : true,\n"
+        + "    \"writable\" : true\n" + "  } ]\n" + "}", nextResult.toPrettyString());
+    assertEquals("{\n" + "  \"formproperties\" : {\n" + "    \"formProperties\" : [ {\n" + "      \"id\" : null,\n"
+        + "      \"name\" : null,\n" + "      \"type\" : null,\n" + "      \"expression\" : null,\n"
+        + "      \"variable\" : null,\n" + "      \"datePattern\" : \"Form Properties\",\n"
+        + "      \"enumValues\" : [ {\n" + "        \"name\" : null,\n" + "        \"id\" : null\n" + "      } ],\n"
+        + "      \"required\" : false,\n" + "      \"readable\" : true,\n" + "      \"writable\" : true\n" + "    } ]\n"
+        + "  }\n" + "}", propertiesNode.toPrettyString());
+    assertEquals("{\n" + "  \"id\" : null,\n" + "  \"name\" : null,\n" + "  \"type\" : null,\n"
+        + "  \"expression\" : null,\n" + "  \"variable\" : null,\n" + "  \"datePattern\" : \"Form Properties\",\n"
+        + "  \"enumValues\" : [ {\n" + "    \"name\" : null,\n" + "    \"id\" : null\n" + "  } ],\n"
+        + "  \"required\" : false,\n" + "  \"readable\" : true,\n" + "  \"writable\" : true\n" + "}",
+        nextResult3.toPrettyString());
+    assertEquals(10, nextResult3.size());
+    assertFalse(elementsResult.hasNext());
+    assertFalse(iteratorResult.hasNext());
+    assertFalse(iteratorResult2.hasNext());
+  }
+
+  /**
+   * Test {@link BaseBpmnJsonConverter#addFormProperties(List, ObjectNode)}.
+   * <p>
+   * Method under test: {@link BaseBpmnJsonConverter#addFormProperties(List, ObjectNode)}
+   */
+  @Test
+  @DisplayName("Test addFormProperties(List, ObjectNode)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void BaseBpmnJsonConverter.addFormProperties(List, ObjectNode)"})
+  void testAddFormProperties4() {
+    // Arrange
+    AssociationJsonConverter associationJsonConverter = new AssociationJsonConverter();
+
+    ArrayList<FormProperty> formProperties = new ArrayList<>();
+    formProperties.add(new FormProperty());
+    ObjectNode propertiesNode = new ObjectNode(JsonNodeFactory.withExactBigDecimals(true));
+
+    // Act
+    associationJsonConverter.addFormProperties(formProperties, propertiesNode);
+
+    // Assert
+    Iterator<JsonNode> iteratorResult = propertiesNode.iterator();
+    JsonNode nextResult = iteratorResult.next();
+    Iterator<JsonNode> iteratorResult2 = nextResult.iterator();
+    JsonNode nextResult2 = iteratorResult2.next();
+    assertTrue(nextResult2 instanceof ArrayNode);
+    Iterator<JsonNode> elementsResult = nextResult2.elements();
+    JsonNode nextResult3 = elementsResult.next();
+    assertTrue(nextResult3 instanceof ObjectNode);
+    assertTrue(nextResult instanceof ObjectNode);
+    assertEquals("[ {\n" + "  \"id\" : null,\n" + "  \"name\" : null,\n" + "  \"type\" : null,\n"
+        + "  \"expression\" : null,\n" + "  \"variable\" : null,\n" + "  \"required\" : false,\n"
+        + "  \"readable\" : true,\n" + "  \"writable\" : true\n" + "} ]", nextResult2.toPrettyString());
+    assertEquals("{\n" + "  \"formProperties\" : [ {\n" + "    \"id\" : null,\n" + "    \"name\" : null,\n"
+        + "    \"type\" : null,\n" + "    \"expression\" : null,\n" + "    \"variable\" : null,\n"
+        + "    \"required\" : false,\n" + "    \"readable\" : true,\n" + "    \"writable\" : true\n" + "  } ]\n" + "}",
+        nextResult.toPrettyString());
+    assertEquals("{\n" + "  \"formproperties\" : {\n" + "    \"formProperties\" : [ {\n" + "      \"id\" : null,\n"
+        + "      \"name\" : null,\n" + "      \"type\" : null,\n" + "      \"expression\" : null,\n"
+        + "      \"variable\" : null,\n" + "      \"required\" : false,\n" + "      \"readable\" : true,\n"
+        + "      \"writable\" : true\n" + "    } ]\n" + "  }\n" + "}", propertiesNode.toPrettyString());
+    assertEquals("{\n" + "  \"id\" : null,\n" + "  \"name\" : null,\n" + "  \"type\" : null,\n"
+        + "  \"expression\" : null,\n" + "  \"variable\" : null,\n" + "  \"required\" : false,\n"
+        + "  \"readable\" : true,\n" + "  \"writable\" : true\n" + "}", nextResult3.toPrettyString());
+    assertEquals(8, nextResult3.size());
+    assertFalse(elementsResult.hasNext());
+    assertFalse(iteratorResult.hasNext());
+    assertFalse(iteratorResult2.hasNext());
+  }
+
+  /**
+   * Test {@link BaseBpmnJsonConverter#addFormProperties(List, ObjectNode)}.
+   * <ul>
+   *   <li>Given {@link FormProperty} (default constructor) Expression is {@code Form Properties}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link BaseBpmnJsonConverter#addFormProperties(List, ObjectNode)}
+   */
+  @Test
+  @DisplayName("Test addFormProperties(List, ObjectNode); given FormProperty (default constructor) Expression is 'Form Properties'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void BaseBpmnJsonConverter.addFormProperties(List, ObjectNode)"})
+  void testAddFormProperties_givenFormPropertyExpressionIsFormProperties() {
+    // Arrange
+    AssociationJsonConverter associationJsonConverter = new AssociationJsonConverter();
+
+    FormValue formValue = new FormValue();
+    formValue.setId(null);
+    formValue.setName(null);
+
+    ArrayList<FormValue> formValues = new ArrayList<>();
+    formValues.add(formValue);
+
+    FormProperty formProperty = new FormProperty();
+    formProperty.setFormValues(formValues);
+    formProperty.setVariable(null);
+    formProperty.setName(null);
+    formProperty.setType(null);
+    formProperty.setDatePattern(null);
+    formProperty.setExpression("Form Properties");
+    formProperty.setId(null);
+
+    ArrayList<FormProperty> formProperties = new ArrayList<>();
+    formProperties.add(formProperty);
+    ObjectNode propertiesNode = new ObjectNode(JsonNodeFactory.withExactBigDecimals(true));
+
+    // Act
+    associationJsonConverter.addFormProperties(formProperties, propertiesNode);
+
+    // Assert
+    Iterator<JsonNode> iteratorResult = propertiesNode.iterator();
+    JsonNode nextResult = iteratorResult.next();
+    Iterator<JsonNode> iteratorResult2 = nextResult.iterator();
+    JsonNode nextResult2 = iteratorResult2.next();
+    assertTrue(nextResult2 instanceof ArrayNode);
+    Iterator<JsonNode> elementsResult = nextResult2.elements();
+    JsonNode nextResult3 = elementsResult.next();
+    assertTrue(nextResult3 instanceof ObjectNode);
+    assertTrue(nextResult instanceof ObjectNode);
+    assertEquals("[ {\n" + "  \"id\" : null,\n" + "  \"name\" : null,\n" + "  \"type\" : null,\n"
+        + "  \"expression\" : \"Form Properties\",\n" + "  \"variable\" : null,\n" + "  \"enumValues\" : [ {\n"
+        + "    \"name\" : null,\n" + "    \"id\" : null\n" + "  } ],\n" + "  \"required\" : false,\n"
+        + "  \"readable\" : true,\n" + "  \"writable\" : true\n" + "} ]", nextResult2.toPrettyString());
+    assertEquals("{\n" + "  \"formProperties\" : [ {\n" + "    \"id\" : null,\n" + "    \"name\" : null,\n"
+        + "    \"type\" : null,\n" + "    \"expression\" : \"Form Properties\",\n" + "    \"variable\" : null,\n"
+        + "    \"enumValues\" : [ {\n" + "      \"name\" : null,\n" + "      \"id\" : null\n" + "    } ],\n"
+        + "    \"required\" : false,\n" + "    \"readable\" : true,\n" + "    \"writable\" : true\n" + "  } ]\n" + "}",
+        nextResult.toPrettyString());
+    assertEquals(
+        "{\n" + "  \"formproperties\" : {\n" + "    \"formProperties\" : [ {\n" + "      \"id\" : null,\n"
+            + "      \"name\" : null,\n" + "      \"type\" : null,\n" + "      \"expression\" : \"Form Properties\",\n"
+            + "      \"variable\" : null,\n" + "      \"enumValues\" : [ {\n" + "        \"name\" : null,\n"
+            + "        \"id\" : null\n" + "      } ],\n" + "      \"required\" : false,\n"
+            + "      \"readable\" : true,\n" + "      \"writable\" : true\n" + "    } ]\n" + "  }\n" + "}",
+        propertiesNode.toPrettyString());
+    assertEquals("{\n" + "  \"id\" : null,\n" + "  \"name\" : null,\n" + "  \"type\" : null,\n"
+        + "  \"expression\" : \"Form Properties\",\n" + "  \"variable\" : null,\n" + "  \"enumValues\" : [ {\n"
+        + "    \"name\" : null,\n" + "    \"id\" : null\n" + "  } ],\n" + "  \"required\" : false,\n"
+        + "  \"readable\" : true,\n" + "  \"writable\" : true\n" + "}", nextResult3.toPrettyString());
+    assertFalse(elementsResult.hasNext());
+    assertFalse(iteratorResult.hasNext());
+    assertFalse(iteratorResult2.hasNext());
+  }
+
+  /**
+   * Test {@link BaseBpmnJsonConverter#addFormProperties(List, ObjectNode)}.
+   * <ul>
+   *   <li>Given {@link FormProperty} (default constructor) Variable is empty string.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link BaseBpmnJsonConverter#addFormProperties(List, ObjectNode)}
+   */
+  @Test
+  @DisplayName("Test addFormProperties(List, ObjectNode); given FormProperty (default constructor) Variable is empty string")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void BaseBpmnJsonConverter.addFormProperties(List, ObjectNode)"})
+  void testAddFormProperties_givenFormPropertyVariableIsEmptyString() {
+    // Arrange
+    AssociationJsonConverter associationJsonConverter = new AssociationJsonConverter();
+
+    FormValue formValue = new FormValue();
+    formValue.setId(null);
+    formValue.setName(null);
+
+    ArrayList<FormValue> formValues = new ArrayList<>();
+    formValues.add(formValue);
+
+    FormProperty formProperty = new FormProperty();
+    formProperty.setFormValues(formValues);
+    formProperty.setVariable("");
+    formProperty.setName(null);
+    formProperty.setType(null);
+    formProperty.setDatePattern(null);
+    formProperty.setExpression(null);
+    formProperty.setId(null);
+
+    ArrayList<FormProperty> formProperties = new ArrayList<>();
+    formProperties.add(formProperty);
+    ObjectNode propertiesNode = new ObjectNode(JsonNodeFactory.withExactBigDecimals(true));
 
     // Act
     associationJsonConverter.addFormProperties(formProperties, propertiesNode);
@@ -1786,78 +1055,250 @@ class BaseBpmnJsonConverterDiffblueTest {
     assertTrue(nextResult3 instanceof ObjectNode);
     assertTrue(nextResult instanceof ObjectNode);
     assertEquals(
-        "[ {\n"
-            + "  \"id\" : null,\n"
-            + "  \"name\" : null,\n"
-            + "  \"type\" : null,\n"
-            + "  \"expression\" : \"not empty\",\n"
-            + "  \"variable\" : \"not empty\",\n"
-            + "  \"datePattern\" : \"not empty\",\n"
-            + "  \"enumValues\" : [ {\n"
-            + "    \"name\" : null,\n"
-            + "    \"id\" : null\n"
-            + "  } ],\n"
-            + "  \"required\" : false,\n"
-            + "  \"readable\" : true,\n"
-            + "  \"writable\" : true\n"
-            + "} ]",
+        "[ {\n" + "  \"id\" : null,\n" + "  \"name\" : null,\n" + "  \"type\" : null,\n" + "  \"expression\" : null,\n"
+            + "  \"variable\" : null,\n" + "  \"enumValues\" : [ {\n" + "    \"name\" : null,\n" + "    \"id\" : null\n"
+            + "  } ],\n" + "  \"required\" : false,\n" + "  \"readable\" : true,\n" + "  \"writable\" : true\n" + "} ]",
         nextResult2.toPrettyString());
-    assertEquals(
-        "{\n"
-            + "  \"formProperties\" : [ {\n"
-            + "    \"id\" : null,\n"
-            + "    \"name\" : null,\n"
-            + "    \"type\" : null,\n"
-            + "    \"expression\" : \"not empty\",\n"
-            + "    \"variable\" : \"not empty\",\n"
-            + "    \"datePattern\" : \"not empty\",\n"
-            + "    \"enumValues\" : [ {\n"
-            + "      \"name\" : null,\n"
-            + "      \"id\" : null\n"
-            + "    } ],\n"
-            + "    \"required\" : false,\n"
-            + "    \"readable\" : true,\n"
-            + "    \"writable\" : true\n"
-            + "  } ]\n"
-            + "}",
+    assertEquals("{\n" + "  \"formProperties\" : [ {\n" + "    \"id\" : null,\n" + "    \"name\" : null,\n"
+        + "    \"type\" : null,\n" + "    \"expression\" : null,\n" + "    \"variable\" : null,\n"
+        + "    \"enumValues\" : [ {\n" + "      \"name\" : null,\n" + "      \"id\" : null\n" + "    } ],\n"
+        + "    \"required\" : false,\n" + "    \"readable\" : true,\n" + "    \"writable\" : true\n" + "  } ]\n" + "}",
         nextResult.toPrettyString());
     assertEquals(
-        "{\n"
-            + "  \"formproperties\" : {\n"
-            + "    \"formProperties\" : [ {\n"
-            + "      \"id\" : null,\n"
-            + "      \"name\" : null,\n"
-            + "      \"type\" : null,\n"
-            + "      \"expression\" : \"not empty\",\n"
-            + "      \"variable\" : \"not empty\",\n"
-            + "      \"datePattern\" : \"not empty\",\n"
-            + "      \"enumValues\" : [ {\n"
-            + "        \"name\" : null,\n"
-            + "        \"id\" : null\n"
-            + "      } ],\n"
-            + "      \"required\" : false,\n"
-            + "      \"readable\" : true,\n"
-            + "      \"writable\" : true\n"
-            + "    } ]\n"
-            + "  }\n"
-            + "}",
+        "{\n" + "  \"formproperties\" : {\n" + "    \"formProperties\" : [ {\n" + "      \"id\" : null,\n"
+            + "      \"name\" : null,\n" + "      \"type\" : null,\n" + "      \"expression\" : null,\n"
+            + "      \"variable\" : null,\n" + "      \"enumValues\" : [ {\n" + "        \"name\" : null,\n"
+            + "        \"id\" : null\n" + "      } ],\n" + "      \"required\" : false,\n"
+            + "      \"readable\" : true,\n" + "      \"writable\" : true\n" + "    } ]\n" + "  }\n" + "}",
         propertiesNode.toPrettyString());
     assertEquals(
-        "{\n"
-            + "  \"id\" : null,\n"
-            + "  \"name\" : null,\n"
-            + "  \"type\" : null,\n"
-            + "  \"expression\" : \"not empty\",\n"
-            + "  \"variable\" : \"not empty\",\n"
-            + "  \"datePattern\" : \"not empty\",\n"
-            + "  \"enumValues\" : [ {\n"
-            + "    \"name\" : null,\n"
-            + "    \"id\" : null\n"
-            + "  } ],\n"
-            + "  \"required\" : false,\n"
-            + "  \"readable\" : true,\n"
-            + "  \"writable\" : true\n"
-            + "}",
+        "{\n" + "  \"id\" : null,\n" + "  \"name\" : null,\n" + "  \"type\" : null,\n" + "  \"expression\" : null,\n"
+            + "  \"variable\" : null,\n" + "  \"enumValues\" : [ {\n" + "    \"name\" : null,\n" + "    \"id\" : null\n"
+            + "  } ],\n" + "  \"required\" : false,\n" + "  \"readable\" : true,\n" + "  \"writable\" : true\n" + "}",
+        nextResult3.toPrettyString());
+    assertFalse(elementsResult.hasNext());
+    assertFalse(iteratorResult.hasNext());
+    assertFalse(iteratorResult2.hasNext());
+  }
+
+  /**
+   * Test {@link BaseBpmnJsonConverter#addFormProperties(List, ObjectNode)}.
+   * <ul>
+   *   <li>Given {@link FormProperty} (default constructor) Variable is {@code Form Properties}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link BaseBpmnJsonConverter#addFormProperties(List, ObjectNode)}
+   */
+  @Test
+  @DisplayName("Test addFormProperties(List, ObjectNode); given FormProperty (default constructor) Variable is 'Form Properties'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void BaseBpmnJsonConverter.addFormProperties(List, ObjectNode)"})
+  void testAddFormProperties_givenFormPropertyVariableIsFormProperties() {
+    // Arrange
+    AssociationJsonConverter associationJsonConverter = new AssociationJsonConverter();
+
+    FormValue formValue = new FormValue();
+    formValue.setId(null);
+    formValue.setName(null);
+
+    ArrayList<FormValue> formValues = new ArrayList<>();
+    formValues.add(formValue);
+
+    FormProperty formProperty = new FormProperty();
+    formProperty.setFormValues(formValues);
+    formProperty.setVariable("Form Properties");
+    formProperty.setName(null);
+    formProperty.setType(null);
+    formProperty.setDatePattern(null);
+    formProperty.setExpression(null);
+    formProperty.setId(null);
+
+    ArrayList<FormProperty> formProperties = new ArrayList<>();
+    formProperties.add(formProperty);
+    ObjectNode propertiesNode = new ObjectNode(JsonNodeFactory.withExactBigDecimals(true));
+
+    // Act
+    associationJsonConverter.addFormProperties(formProperties, propertiesNode);
+
+    // Assert
+    Iterator<JsonNode> iteratorResult = propertiesNode.iterator();
+    JsonNode nextResult = iteratorResult.next();
+    Iterator<JsonNode> iteratorResult2 = nextResult.iterator();
+    JsonNode nextResult2 = iteratorResult2.next();
+    assertTrue(nextResult2 instanceof ArrayNode);
+    Iterator<JsonNode> elementsResult = nextResult2.elements();
+    JsonNode nextResult3 = elementsResult.next();
+    assertTrue(nextResult3 instanceof ObjectNode);
+    assertTrue(nextResult instanceof ObjectNode);
+    assertEquals("[ {\n" + "  \"id\" : null,\n" + "  \"name\" : null,\n" + "  \"type\" : null,\n"
+        + "  \"expression\" : null,\n" + "  \"variable\" : \"Form Properties\",\n" + "  \"enumValues\" : [ {\n"
+        + "    \"name\" : null,\n" + "    \"id\" : null\n" + "  } ],\n" + "  \"required\" : false,\n"
+        + "  \"readable\" : true,\n" + "  \"writable\" : true\n" + "} ]", nextResult2.toPrettyString());
+    assertEquals("{\n" + "  \"formProperties\" : [ {\n" + "    \"id\" : null,\n" + "    \"name\" : null,\n"
+        + "    \"type\" : null,\n" + "    \"expression\" : null,\n" + "    \"variable\" : \"Form Properties\",\n"
+        + "    \"enumValues\" : [ {\n" + "      \"name\" : null,\n" + "      \"id\" : null\n" + "    } ],\n"
+        + "    \"required\" : false,\n" + "    \"readable\" : true,\n" + "    \"writable\" : true\n" + "  } ]\n" + "}",
+        nextResult.toPrettyString());
+    assertEquals("{\n" + "  \"formproperties\" : {\n" + "    \"formProperties\" : [ {\n" + "      \"id\" : null,\n"
+        + "      \"name\" : null,\n" + "      \"type\" : null,\n" + "      \"expression\" : null,\n"
+        + "      \"variable\" : \"Form Properties\",\n" + "      \"enumValues\" : [ {\n" + "        \"name\" : null,\n"
+        + "        \"id\" : null\n" + "      } ],\n" + "      \"required\" : false,\n" + "      \"readable\" : true,\n"
+        + "      \"writable\" : true\n" + "    } ]\n" + "  }\n" + "}", propertiesNode.toPrettyString());
+    assertEquals("{\n" + "  \"id\" : null,\n" + "  \"name\" : null,\n" + "  \"type\" : null,\n"
+        + "  \"expression\" : null,\n" + "  \"variable\" : \"Form Properties\",\n" + "  \"enumValues\" : [ {\n"
+        + "    \"name\" : null,\n" + "    \"id\" : null\n" + "  } ],\n" + "  \"required\" : false,\n"
+        + "  \"readable\" : true,\n" + "  \"writable\" : true\n" + "}", nextResult3.toPrettyString());
+    assertFalse(elementsResult.hasNext());
+    assertFalse(iteratorResult.hasNext());
+    assertFalse(iteratorResult2.hasNext());
+  }
+
+  /**
+   * Test {@link BaseBpmnJsonConverter#addFormProperties(List, ObjectNode)}.
+   * <ul>
+   *   <li>Given {@link FormProperty} (default constructor) Variable is {@code null}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link BaseBpmnJsonConverter#addFormProperties(List, ObjectNode)}
+   */
+  @Test
+  @DisplayName("Test addFormProperties(List, ObjectNode); given FormProperty (default constructor) Variable is 'null'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void BaseBpmnJsonConverter.addFormProperties(List, ObjectNode)"})
+  void testAddFormProperties_givenFormPropertyVariableIsNull() {
+    // Arrange
+    AssociationJsonConverter associationJsonConverter = new AssociationJsonConverter();
+
+    FormValue formValue = new FormValue();
+    formValue.setId(null);
+    formValue.setName(null);
+
+    ArrayList<FormValue> formValues = new ArrayList<>();
+    formValues.add(formValue);
+
+    FormProperty formProperty = new FormProperty();
+    formProperty.setFormValues(formValues);
+    formProperty.setVariable(null);
+    formProperty.setName(null);
+    formProperty.setType(null);
+    formProperty.setDatePattern(null);
+    formProperty.setExpression(null);
+    formProperty.setId(null);
+
+    ArrayList<FormProperty> formProperties = new ArrayList<>();
+    formProperties.add(formProperty);
+    ObjectNode propertiesNode = new ObjectNode(JsonNodeFactory.withExactBigDecimals(true));
+
+    // Act
+    associationJsonConverter.addFormProperties(formProperties, propertiesNode);
+
+    // Assert
+    Iterator<JsonNode> iteratorResult = propertiesNode.iterator();
+    JsonNode nextResult = iteratorResult.next();
+    Iterator<JsonNode> iteratorResult2 = nextResult.iterator();
+    JsonNode nextResult2 = iteratorResult2.next();
+    assertTrue(nextResult2 instanceof ArrayNode);
+    Iterator<JsonNode> elementsResult = nextResult2.elements();
+    JsonNode nextResult3 = elementsResult.next();
+    assertTrue(nextResult3 instanceof ObjectNode);
+    assertTrue(nextResult instanceof ObjectNode);
+    assertEquals(
+        "[ {\n" + "  \"id\" : null,\n" + "  \"name\" : null,\n" + "  \"type\" : null,\n" + "  \"expression\" : null,\n"
+            + "  \"variable\" : null,\n" + "  \"enumValues\" : [ {\n" + "    \"name\" : null,\n" + "    \"id\" : null\n"
+            + "  } ],\n" + "  \"required\" : false,\n" + "  \"readable\" : true,\n" + "  \"writable\" : true\n" + "} ]",
+        nextResult2.toPrettyString());
+    assertEquals("{\n" + "  \"formProperties\" : [ {\n" + "    \"id\" : null,\n" + "    \"name\" : null,\n"
+        + "    \"type\" : null,\n" + "    \"expression\" : null,\n" + "    \"variable\" : null,\n"
+        + "    \"enumValues\" : [ {\n" + "      \"name\" : null,\n" + "      \"id\" : null\n" + "    } ],\n"
+        + "    \"required\" : false,\n" + "    \"readable\" : true,\n" + "    \"writable\" : true\n" + "  } ]\n" + "}",
+        nextResult.toPrettyString());
+    assertEquals(
+        "{\n" + "  \"formproperties\" : {\n" + "    \"formProperties\" : [ {\n" + "      \"id\" : null,\n"
+            + "      \"name\" : null,\n" + "      \"type\" : null,\n" + "      \"expression\" : null,\n"
+            + "      \"variable\" : null,\n" + "      \"enumValues\" : [ {\n" + "        \"name\" : null,\n"
+            + "        \"id\" : null\n" + "      } ],\n" + "      \"required\" : false,\n"
+            + "      \"readable\" : true,\n" + "      \"writable\" : true\n" + "    } ]\n" + "  }\n" + "}",
+        propertiesNode.toPrettyString());
+    assertEquals(
+        "{\n" + "  \"id\" : null,\n" + "  \"name\" : null,\n" + "  \"type\" : null,\n" + "  \"expression\" : null,\n"
+            + "  \"variable\" : null,\n" + "  \"enumValues\" : [ {\n" + "    \"name\" : null,\n" + "    \"id\" : null\n"
+            + "  } ],\n" + "  \"required\" : false,\n" + "  \"readable\" : true,\n" + "  \"writable\" : true\n" + "}",
+        nextResult3.toPrettyString());
+    assertFalse(elementsResult.hasNext());
+    assertFalse(iteratorResult.hasNext());
+    assertFalse(iteratorResult2.hasNext());
+  }
+
+  /**
+   * Test {@link BaseBpmnJsonConverter#addFormProperties(List, ObjectNode)}.
+   * <ul>
+   *   <li>Given {@link FormValue} (default constructor) Id is empty string.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link BaseBpmnJsonConverter#addFormProperties(List, ObjectNode)}
+   */
+  @Test
+  @DisplayName("Test addFormProperties(List, ObjectNode); given FormValue (default constructor) Id is empty string")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void BaseBpmnJsonConverter.addFormProperties(List, ObjectNode)"})
+  void testAddFormProperties_givenFormValueIdIsEmptyString() {
+    // Arrange
+    AssociationJsonConverter associationJsonConverter = new AssociationJsonConverter();
+
+    FormValue formValue = new FormValue();
+    formValue.setId("");
+    formValue.setName(null);
+
+    ArrayList<FormValue> formValues = new ArrayList<>();
+    formValues.add(formValue);
+
+    FormProperty formProperty = new FormProperty();
+    formProperty.setFormValues(formValues);
+    formProperty.setVariable(null);
+    formProperty.setName(null);
+    formProperty.setType(null);
+    formProperty.setDatePattern(null);
+    formProperty.setExpression(null);
+    formProperty.setId(null);
+
+    ArrayList<FormProperty> formProperties = new ArrayList<>();
+    formProperties.add(formProperty);
+    ObjectNode propertiesNode = new ObjectNode(JsonNodeFactory.withExactBigDecimals(true));
+
+    // Act
+    associationJsonConverter.addFormProperties(formProperties, propertiesNode);
+
+    // Assert
+    Iterator<JsonNode> iteratorResult = propertiesNode.iterator();
+    JsonNode nextResult = iteratorResult.next();
+    Iterator<JsonNode> iteratorResult2 = nextResult.iterator();
+    JsonNode nextResult2 = iteratorResult2.next();
+    assertTrue(nextResult2 instanceof ArrayNode);
+    Iterator<JsonNode> elementsResult = nextResult2.elements();
+    JsonNode nextResult3 = elementsResult.next();
+    assertTrue(nextResult3 instanceof ObjectNode);
+    assertTrue(nextResult instanceof ObjectNode);
+    assertEquals(
+        "[ {\n" + "  \"id\" : null,\n" + "  \"name\" : null,\n" + "  \"type\" : null,\n" + "  \"expression\" : null,\n"
+            + "  \"variable\" : null,\n" + "  \"enumValues\" : [ {\n" + "    \"name\" : null,\n" + "    \"id\" : \"\"\n"
+            + "  } ],\n" + "  \"required\" : false,\n" + "  \"readable\" : true,\n" + "  \"writable\" : true\n" + "} ]",
+        nextResult2.toPrettyString());
+    assertEquals("{\n" + "  \"formProperties\" : [ {\n" + "    \"id\" : null,\n" + "    \"name\" : null,\n"
+        + "    \"type\" : null,\n" + "    \"expression\" : null,\n" + "    \"variable\" : null,\n"
+        + "    \"enumValues\" : [ {\n" + "      \"name\" : null,\n" + "      \"id\" : \"\"\n" + "    } ],\n"
+        + "    \"required\" : false,\n" + "    \"readable\" : true,\n" + "    \"writable\" : true\n" + "  } ]\n" + "}",
+        nextResult.toPrettyString());
+    assertEquals(
+        "{\n" + "  \"formproperties\" : {\n" + "    \"formProperties\" : [ {\n" + "      \"id\" : null,\n"
+            + "      \"name\" : null,\n" + "      \"type\" : null,\n" + "      \"expression\" : null,\n"
+            + "      \"variable\" : null,\n" + "      \"enumValues\" : [ {\n" + "        \"name\" : null,\n"
+            + "        \"id\" : \"\"\n" + "      } ],\n" + "      \"required\" : false,\n"
+            + "      \"readable\" : true,\n" + "      \"writable\" : true\n" + "    } ]\n" + "  }\n" + "}",
+        propertiesNode.toPrettyString());
+    assertEquals(
+        "{\n" + "  \"id\" : null,\n" + "  \"name\" : null,\n" + "  \"type\" : null,\n" + "  \"expression\" : null,\n"
+            + "  \"variable\" : null,\n" + "  \"enumValues\" : [ {\n" + "    \"name\" : null,\n" + "    \"id\" : \"\"\n"
+            + "  } ],\n" + "  \"required\" : false,\n" + "  \"readable\" : true,\n" + "  \"writable\" : true\n" + "}",
         nextResult3.toPrettyString());
     assertFalse(elementsResult.hasNext());
     assertFalse(iteratorResult.hasNext());
@@ -1866,29 +1307,18 @@ class BaseBpmnJsonConverterDiffblueTest {
 
   /**
    * Test {@link BaseBpmnJsonConverter#addFieldExtensions(List, ObjectNode)}.
-   *
-   * <p>Method under test: {@link BaseBpmnJsonConverter#addFieldExtensions(List, ObjectNode)}
+   * <p>
+   * Method under test: {@link BaseBpmnJsonConverter#addFieldExtensions(List, ObjectNode)}
    */
   @Test
   @DisplayName("Test addFieldExtensions(List, ObjectNode)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void BaseBpmnJsonConverter.addFieldExtensions(List, ObjectNode)"})
   void testAddFieldExtensions() {
     // Arrange
     AssociationJsonConverter associationJsonConverter = new AssociationJsonConverter();
-
-    FieldExtension fieldExtension = new FieldExtension();
-    fieldExtension.setStringValue("not empty");
-    fieldExtension.setExpression("not empty");
-    fieldExtension.setFieldName(null);
-
     ArrayList<FieldExtension> extensions = new ArrayList<>();
-    extensions.add(fieldExtension);
-    JsonNodeFactory nc = JsonNodeFactory.withExactBigDecimals(true);
-
-    ObjectNode propertiesNode = new ObjectNode(nc);
-    propertiesNode.put("servicetaskfields", DoubleNode.valueOf(10.0d));
+    ObjectNode propertiesNode = new ObjectNode(JsonNodeFactory.withExactBigDecimals(true));
 
     // Act
     associationJsonConverter.addFieldExtensions(extensions, propertiesNode);
@@ -1899,66 +1329,39 @@ class BaseBpmnJsonConverterDiffblueTest {
     Iterator<JsonNode> iteratorResult2 = nextResult.iterator();
     JsonNode nextResult2 = iteratorResult2.next();
     assertTrue(nextResult2 instanceof ArrayNode);
-    Iterator<JsonNode> elementsResult = nextResult2.elements();
-    JsonNode nextResult3 = elementsResult.next();
-    assertTrue(nextResult3 instanceof ObjectNode);
     assertTrue(nextResult instanceof ObjectNode);
-    assertEquals(
-        "[ {\n  \"name\" : null,\n  \"stringValue\" : \"not empty\",\n  \"expression\" : \"not empty\"\n} ]",
-        nextResult2.toPrettyString());
-    assertEquals(
-        "{\n"
-            + "  \"fields\" : [ {\n"
-            + "    \"name\" : null,\n"
-            + "    \"stringValue\" : \"not empty\",\n"
-            + "    \"expression\" : \"not empty\"\n"
-            + "  } ]\n"
-            + "}",
-        nextResult.toPrettyString());
-    assertEquals(
-        "{\n  \"name\" : null,\n  \"stringValue\" : \"not empty\",\n  \"expression\" : \"not empty\"\n}",
-        nextResult3.toPrettyString());
-    assertEquals(
-        "{\n"
-            + "  \"servicetaskfields\" : {\n"
-            + "    \"fields\" : [ {\n"
-            + "      \"name\" : null,\n"
-            + "      \"stringValue\" : \"not empty\",\n"
-            + "      \"expression\" : \"not empty\"\n"
-            + "    } ]\n"
-            + "  }\n"
-            + "}",
-        propertiesNode.toPrettyString());
-    assertFalse(elementsResult.hasNext());
+    assertEquals("[ ]", nextResult2.toPrettyString());
+    assertEquals("{\n  \"fields\" : [ ]\n}", nextResult.toPrettyString());
+    assertEquals("{\n  \"servicetaskfields\" : {\n    \"fields\" : [ ]\n  }\n}", propertiesNode.toPrettyString());
+    assertEquals(0, nextResult2.size());
+    assertFalse(nextResult2.elements().hasNext());
     assertFalse(iteratorResult.hasNext());
     assertFalse(iteratorResult2.hasNext());
+    assertFalse(nextResult2.iterator().hasNext());
+    assertTrue(nextResult2.isEmpty());
   }
 
   /**
    * Test {@link BaseBpmnJsonConverter#addFieldExtensions(List, ObjectNode)}.
-   *
-   * <p>Method under test: {@link BaseBpmnJsonConverter#addFieldExtensions(List, ObjectNode)}
+   * <p>
+   * Method under test: {@link BaseBpmnJsonConverter#addFieldExtensions(List, ObjectNode)}
    */
   @Test
   @DisplayName("Test addFieldExtensions(List, ObjectNode)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void BaseBpmnJsonConverter.addFieldExtensions(List, ObjectNode)"})
   void testAddFieldExtensions2() {
     // Arrange
     AssociationJsonConverter associationJsonConverter = new AssociationJsonConverter();
 
     FieldExtension fieldExtension = new FieldExtension();
-    fieldExtension.setStringValue("");
-    fieldExtension.setExpression("not empty");
+    fieldExtension.setStringValue(null);
+    fieldExtension.setExpression(null);
     fieldExtension.setFieldName(null);
 
     ArrayList<FieldExtension> extensions = new ArrayList<>();
     extensions.add(fieldExtension);
-    JsonNodeFactory nc = JsonNodeFactory.withExactBigDecimals(true);
-
-    ObjectNode propertiesNode = new ObjectNode(nc);
-    propertiesNode.put("servicetaskfields", DoubleNode.valueOf(10.0d));
+    ObjectNode propertiesNode = new ObjectNode(JsonNodeFactory.withExactBigDecimals(true));
 
     // Act
     associationJsonConverter.addFieldExtensions(extensions, propertiesNode);
@@ -1973,23 +1376,10 @@ class BaseBpmnJsonConverterDiffblueTest {
     JsonNode nextResult3 = elementsResult.next();
     assertTrue(nextResult3 instanceof ObjectNode);
     assertTrue(nextResult instanceof ObjectNode);
-    assertEquals(
-        "[ {\n  \"name\" : null,\n  \"expression\" : \"not empty\"\n} ]",
-        nextResult2.toPrettyString());
-    assertEquals(
-        "{\n  \"fields\" : [ {\n    \"name\" : null,\n    \"expression\" : \"not empty\"\n  } ]\n}",
-        nextResult.toPrettyString());
-    assertEquals(
-        "{\n  \"name\" : null,\n  \"expression\" : \"not empty\"\n}", nextResult3.toPrettyString());
-    assertEquals(
-        "{\n"
-            + "  \"servicetaskfields\" : {\n"
-            + "    \"fields\" : [ {\n"
-            + "      \"name\" : null,\n"
-            + "      \"expression\" : \"not empty\"\n"
-            + "    } ]\n"
-            + "  }\n"
-            + "}",
+    assertEquals("[ {\n  \"name\" : null\n} ]", nextResult2.toPrettyString());
+    assertEquals("{\n  \"fields\" : [ {\n    \"name\" : null\n  } ]\n}", nextResult.toPrettyString());
+    assertEquals("{\n  \"name\" : null\n}", nextResult3.toPrettyString());
+    assertEquals("{\n  \"servicetaskfields\" : {\n    \"fields\" : [ {\n      \"name\" : null\n    } ]\n  }\n}",
         propertiesNode.toPrettyString());
     assertFalse(elementsResult.hasNext());
     assertFalse(iteratorResult.hasNext());
@@ -1998,29 +1388,25 @@ class BaseBpmnJsonConverterDiffblueTest {
 
   /**
    * Test {@link BaseBpmnJsonConverter#addFieldExtensions(List, ObjectNode)}.
-   *
-   * <p>Method under test: {@link BaseBpmnJsonConverter#addFieldExtensions(List, ObjectNode)}
+   * <p>
+   * Method under test: {@link BaseBpmnJsonConverter#addFieldExtensions(List, ObjectNode)}
    */
   @Test
   @DisplayName("Test addFieldExtensions(List, ObjectNode)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void BaseBpmnJsonConverter.addFieldExtensions(List, ObjectNode)"})
   void testAddFieldExtensions3() {
     // Arrange
     AssociationJsonConverter associationJsonConverter = new AssociationJsonConverter();
 
     FieldExtension fieldExtension = new FieldExtension();
-    fieldExtension.setStringValue("not empty");
-    fieldExtension.setExpression("not empty");
-    fieldExtension.setFieldName("");
+    fieldExtension.setStringValue(null);
+    fieldExtension.setExpression(null);
+    fieldExtension.setFieldName("Extensions");
 
     ArrayList<FieldExtension> extensions = new ArrayList<>();
     extensions.add(fieldExtension);
-    JsonNodeFactory nc = JsonNodeFactory.withExactBigDecimals(true);
-
-    ObjectNode propertiesNode = new ObjectNode(nc);
-    propertiesNode.put("servicetaskfields", DoubleNode.valueOf(10.0d));
+    ObjectNode propertiesNode = new ObjectNode(JsonNodeFactory.withExactBigDecimals(true));
 
     // Act
     associationJsonConverter.addFieldExtensions(extensions, propertiesNode);
@@ -2035,70 +1421,38 @@ class BaseBpmnJsonConverterDiffblueTest {
     JsonNode nextResult3 = elementsResult.next();
     assertTrue(nextResult3 instanceof ObjectNode);
     assertTrue(nextResult instanceof ObjectNode);
-    Iterator<JsonNode> iteratorResult3 = nextResult3.iterator();
-    assertTrue(iteratorResult3.next() instanceof TextNode);
+    assertEquals("[ {\n  \"name\" : \"Extensions\"\n} ]", nextResult2.toPrettyString());
+    assertEquals("{\n  \"fields\" : [ {\n    \"name\" : \"Extensions\"\n  } ]\n}", nextResult.toPrettyString());
+    assertEquals("{\n  \"name\" : \"Extensions\"\n}", nextResult3.toPrettyString());
     assertEquals(
-        "[ {\n  \"name\" : \"\",\n  \"stringValue\" : \"not empty\",\n  \"expression\" : \"not empty\"\n} ]",
-        nextResult2.toPrettyString());
-    assertEquals(
-        "{\n"
-            + "  \"fields\" : [ {\n"
-            + "    \"name\" : \"\",\n"
-            + "    \"stringValue\" : \"not empty\",\n"
-            + "    \"expression\" : \"not empty\"\n"
-            + "  } ]\n"
-            + "}",
-        nextResult.toPrettyString());
-    assertEquals(
-        "{\n  \"name\" : \"\",\n  \"stringValue\" : \"not empty\",\n  \"expression\" : \"not empty\"\n}",
-        nextResult3.toPrettyString());
-    assertEquals(
-        "{\n"
-            + "  \"servicetaskfields\" : {\n"
-            + "    \"fields\" : [ {\n"
-            + "      \"name\" : \"\",\n"
-            + "      \"stringValue\" : \"not empty\",\n"
-            + "      \"expression\" : \"not empty\"\n"
-            + "    } ]\n"
-            + "  }\n"
-            + "}",
+        "{\n  \"servicetaskfields\" : {\n    \"fields\" : [ {\n      \"name\" : \"Extensions\"\n    } ]\n  }\n}",
         propertiesNode.toPrettyString());
     assertFalse(elementsResult.hasNext());
     assertFalse(iteratorResult.hasNext());
     assertFalse(iteratorResult2.hasNext());
-    assertTrue(iteratorResult3.hasNext());
   }
 
   /**
    * Test {@link BaseBpmnJsonConverter#addFieldExtensions(List, ObjectNode)}.
-   *
-   * <ul>
-   *   <li>Given {@link FieldExtension} (default constructor) Expression is empty string.
-   * </ul>
-   *
-   * <p>Method under test: {@link BaseBpmnJsonConverter#addFieldExtensions(List, ObjectNode)}
+   * <p>
+   * Method under test: {@link BaseBpmnJsonConverter#addFieldExtensions(List, ObjectNode)}
    */
   @Test
-  @DisplayName(
-      "Test addFieldExtensions(List, ObjectNode); given FieldExtension (default constructor) Expression is empty string")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test addFieldExtensions(List, ObjectNode)")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void BaseBpmnJsonConverter.addFieldExtensions(List, ObjectNode)"})
-  void testAddFieldExtensions_givenFieldExtensionExpressionIsEmptyString() {
+  void testAddFieldExtensions4() {
     // Arrange
     AssociationJsonConverter associationJsonConverter = new AssociationJsonConverter();
 
     FieldExtension fieldExtension = new FieldExtension();
-    fieldExtension.setStringValue("not empty");
-    fieldExtension.setExpression("");
+    fieldExtension.setStringValue(null);
+    fieldExtension.setExpression("Extensions");
     fieldExtension.setFieldName(null);
 
     ArrayList<FieldExtension> extensions = new ArrayList<>();
     extensions.add(fieldExtension);
-    JsonNodeFactory nc = JsonNodeFactory.withExactBigDecimals(true);
-
-    ObjectNode propertiesNode = new ObjectNode(nc);
-    propertiesNode.put("servicetaskfields", DoubleNode.valueOf(10.0d));
+    ObjectNode propertiesNode = new ObjectNode(JsonNodeFactory.withExactBigDecimals(true));
 
     // Act
     associationJsonConverter.addFieldExtensions(extensions, propertiesNode);
@@ -2113,25 +1467,12 @@ class BaseBpmnJsonConverterDiffblueTest {
     JsonNode nextResult3 = elementsResult.next();
     assertTrue(nextResult3 instanceof ObjectNode);
     assertTrue(nextResult instanceof ObjectNode);
-    assertEquals(
-        "[ {\n  \"name\" : null,\n  \"stringValue\" : \"not empty\"\n} ]",
-        nextResult2.toPrettyString());
-    assertEquals(
-        "{\n  \"fields\" : [ {\n    \"name\" : null,\n    \"stringValue\" : \"not empty\"\n  } ]\n}",
+    assertEquals("[ {\n  \"name\" : null,\n  \"expression\" : \"Extensions\"\n} ]", nextResult2.toPrettyString());
+    assertEquals("{\n  \"fields\" : [ {\n    \"name\" : null,\n    \"expression\" : \"Extensions\"\n  } ]\n}",
         nextResult.toPrettyString());
-    assertEquals(
-        "{\n  \"name\" : null,\n  \"stringValue\" : \"not empty\"\n}",
-        nextResult3.toPrettyString());
-    assertEquals(
-        "{\n"
-            + "  \"servicetaskfields\" : {\n"
-            + "    \"fields\" : [ {\n"
-            + "      \"name\" : null,\n"
-            + "      \"stringValue\" : \"not empty\"\n"
-            + "    } ]\n"
-            + "  }\n"
-            + "}",
-        propertiesNode.toPrettyString());
+    assertEquals("{\n  \"name\" : null,\n  \"expression\" : \"Extensions\"\n}", nextResult3.toPrettyString());
+    assertEquals("{\n" + "  \"servicetaskfields\" : {\n" + "    \"fields\" : [ {\n" + "      \"name\" : null,\n"
+        + "      \"expression\" : \"Extensions\"\n" + "    } ]\n" + "  }\n" + "}", propertiesNode.toPrettyString());
     assertFalse(elementsResult.hasNext());
     assertFalse(iteratorResult.hasNext());
     assertFalse(iteratorResult2.hasNext());
@@ -2139,34 +1480,25 @@ class BaseBpmnJsonConverterDiffblueTest {
 
   /**
    * Test {@link BaseBpmnJsonConverter#addFieldExtensions(List, ObjectNode)}.
-   *
-   * <ul>
-   *   <li>Given {@link FieldExtension} (default constructor) Expression is {@code null}.
-   * </ul>
-   *
-   * <p>Method under test: {@link BaseBpmnJsonConverter#addFieldExtensions(List, ObjectNode)}
+   * <p>
+   * Method under test: {@link BaseBpmnJsonConverter#addFieldExtensions(List, ObjectNode)}
    */
   @Test
-  @DisplayName(
-      "Test addFieldExtensions(List, ObjectNode); given FieldExtension (default constructor) Expression is 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test addFieldExtensions(List, ObjectNode)")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void BaseBpmnJsonConverter.addFieldExtensions(List, ObjectNode)"})
-  void testAddFieldExtensions_givenFieldExtensionExpressionIsNull() {
+  void testAddFieldExtensions5() {
     // Arrange
     AssociationJsonConverter associationJsonConverter = new AssociationJsonConverter();
 
     FieldExtension fieldExtension = new FieldExtension();
-    fieldExtension.setStringValue("not empty");
+    fieldExtension.setStringValue("Extensions");
     fieldExtension.setExpression(null);
     fieldExtension.setFieldName(null);
 
     ArrayList<FieldExtension> extensions = new ArrayList<>();
     extensions.add(fieldExtension);
-    JsonNodeFactory nc = JsonNodeFactory.withExactBigDecimals(true);
-
-    ObjectNode propertiesNode = new ObjectNode(nc);
-    propertiesNode.put("servicetaskfields", DoubleNode.valueOf(10.0d));
+    ObjectNode propertiesNode = new ObjectNode(JsonNodeFactory.withExactBigDecimals(true));
 
     // Act
     associationJsonConverter.addFieldExtensions(extensions, propertiesNode);
@@ -2181,24 +1513,106 @@ class BaseBpmnJsonConverterDiffblueTest {
     JsonNode nextResult3 = elementsResult.next();
     assertTrue(nextResult3 instanceof ObjectNode);
     assertTrue(nextResult instanceof ObjectNode);
-    assertEquals(
-        "[ {\n  \"name\" : null,\n  \"stringValue\" : \"not empty\"\n} ]",
-        nextResult2.toPrettyString());
-    assertEquals(
-        "{\n  \"fields\" : [ {\n    \"name\" : null,\n    \"stringValue\" : \"not empty\"\n  } ]\n}",
+    assertEquals("[ {\n  \"name\" : null,\n  \"stringValue\" : \"Extensions\"\n} ]", nextResult2.toPrettyString());
+    assertEquals("{\n  \"fields\" : [ {\n    \"name\" : null,\n    \"stringValue\" : \"Extensions\"\n  } ]\n}",
         nextResult.toPrettyString());
+    assertEquals("{\n  \"name\" : null,\n  \"stringValue\" : \"Extensions\"\n}", nextResult3.toPrettyString());
     assertEquals(
-        "{\n  \"name\" : null,\n  \"stringValue\" : \"not empty\"\n}",
-        nextResult3.toPrettyString());
-    assertEquals(
-        "{\n"
-            + "  \"servicetaskfields\" : {\n"
-            + "    \"fields\" : [ {\n"
-            + "      \"name\" : null,\n"
-            + "      \"stringValue\" : \"not empty\"\n"
-            + "    } ]\n"
-            + "  }\n"
-            + "}",
+        "{\n" + "  \"servicetaskfields\" : {\n" + "    \"fields\" : [ {\n" + "      \"name\" : null,\n"
+            + "      \"stringValue\" : \"Extensions\"\n" + "    } ]\n" + "  }\n" + "}",
+        propertiesNode.toPrettyString());
+    assertFalse(elementsResult.hasNext());
+    assertFalse(iteratorResult.hasNext());
+    assertFalse(iteratorResult2.hasNext());
+  }
+
+  /**
+   * Test {@link BaseBpmnJsonConverter#addFieldExtensions(List, ObjectNode)}.
+   * <p>
+   * Method under test: {@link BaseBpmnJsonConverter#addFieldExtensions(List, ObjectNode)}
+   */
+  @Test
+  @DisplayName("Test addFieldExtensions(List, ObjectNode)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void BaseBpmnJsonConverter.addFieldExtensions(List, ObjectNode)"})
+  void testAddFieldExtensions6() {
+    // Arrange
+    AssociationJsonConverter associationJsonConverter = new AssociationJsonConverter();
+
+    FieldExtension fieldExtension = new FieldExtension();
+    fieldExtension.setStringValue(null);
+    fieldExtension.setExpression(null);
+    fieldExtension.setFieldName("");
+
+    ArrayList<FieldExtension> extensions = new ArrayList<>();
+    extensions.add(fieldExtension);
+    ObjectNode propertiesNode = new ObjectNode(JsonNodeFactory.withExactBigDecimals(true));
+
+    // Act
+    associationJsonConverter.addFieldExtensions(extensions, propertiesNode);
+
+    // Assert
+    Iterator<JsonNode> iteratorResult = propertiesNode.iterator();
+    JsonNode nextResult = iteratorResult.next();
+    Iterator<JsonNode> iteratorResult2 = nextResult.iterator();
+    JsonNode nextResult2 = iteratorResult2.next();
+    assertTrue(nextResult2 instanceof ArrayNode);
+    Iterator<JsonNode> elementsResult = nextResult2.elements();
+    JsonNode nextResult3 = elementsResult.next();
+    assertTrue(nextResult3 instanceof ObjectNode);
+    assertTrue(nextResult instanceof ObjectNode);
+    assertEquals("[ {\n  \"name\" : \"\"\n} ]", nextResult2.toPrettyString());
+    assertEquals("{\n  \"fields\" : [ {\n    \"name\" : \"\"\n  } ]\n}", nextResult.toPrettyString());
+    assertEquals("{\n  \"name\" : \"\"\n}", nextResult3.toPrettyString());
+    assertEquals("{\n  \"servicetaskfields\" : {\n    \"fields\" : [ {\n      \"name\" : \"\"\n    } ]\n  }\n}",
+        propertiesNode.toPrettyString());
+    assertFalse(elementsResult.hasNext());
+    assertFalse(iteratorResult.hasNext());
+    assertFalse(iteratorResult2.hasNext());
+  }
+
+  /**
+   * Test {@link BaseBpmnJsonConverter#addFieldExtensions(List, ObjectNode)}.
+   * <ul>
+   *   <li>Given {@link FieldExtension} (default constructor) StringValue is empty string.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link BaseBpmnJsonConverter#addFieldExtensions(List, ObjectNode)}
+   */
+  @Test
+  @DisplayName("Test addFieldExtensions(List, ObjectNode); given FieldExtension (default constructor) StringValue is empty string")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void BaseBpmnJsonConverter.addFieldExtensions(List, ObjectNode)"})
+  void testAddFieldExtensions_givenFieldExtensionStringValueIsEmptyString() {
+    // Arrange
+    AssociationJsonConverter associationJsonConverter = new AssociationJsonConverter();
+
+    FieldExtension fieldExtension = new FieldExtension();
+    fieldExtension.setStringValue("");
+    fieldExtension.setExpression(null);
+    fieldExtension.setFieldName(null);
+
+    ArrayList<FieldExtension> extensions = new ArrayList<>();
+    extensions.add(fieldExtension);
+    ObjectNode propertiesNode = new ObjectNode(JsonNodeFactory.withExactBigDecimals(true));
+
+    // Act
+    associationJsonConverter.addFieldExtensions(extensions, propertiesNode);
+
+    // Assert
+    Iterator<JsonNode> iteratorResult = propertiesNode.iterator();
+    JsonNode nextResult = iteratorResult.next();
+    Iterator<JsonNode> iteratorResult2 = nextResult.iterator();
+    JsonNode nextResult2 = iteratorResult2.next();
+    assertTrue(nextResult2 instanceof ArrayNode);
+    Iterator<JsonNode> elementsResult = nextResult2.elements();
+    JsonNode nextResult3 = elementsResult.next();
+    assertTrue(nextResult3 instanceof ObjectNode);
+    assertTrue(nextResult instanceof ObjectNode);
+    assertEquals("[ {\n  \"name\" : null\n} ]", nextResult2.toPrettyString());
+    assertEquals("{\n  \"fields\" : [ {\n    \"name\" : null\n  } ]\n}", nextResult.toPrettyString());
+    assertEquals("{\n  \"name\" : null\n}", nextResult3.toPrettyString());
+    assertEquals("{\n  \"servicetaskfields\" : {\n    \"fields\" : [ {\n      \"name\" : null\n    } ]\n  }\n}",
         propertiesNode.toPrettyString());
     assertFalse(elementsResult.hasNext());
     assertFalse(iteratorResult.hasNext());
@@ -2207,18 +1621,272 @@ class BaseBpmnJsonConverterDiffblueTest {
 
   /**
    * Test {@link BaseBpmnJsonConverter#addEventProperties(Event, ObjectNode)}.
-   *
-   * <ul>
-   *   <li>Given {@link CancelEventDefinition} (default constructor).
-   * </ul>
-   *
-   * <p>Method under test: {@link BaseBpmnJsonConverter#addEventProperties(Event, ObjectNode)}
+   * <p>
+   * Method under test: {@link BaseBpmnJsonConverter#addEventProperties(Event, ObjectNode)}
    */
   @Test
-  @DisplayName(
-      "Test addEventProperties(Event, ObjectNode); given CancelEventDefinition (default constructor)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test addEventProperties(Event, ObjectNode)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void BaseBpmnJsonConverter.addEventProperties(Event, ObjectNode)"})
+  void testAddEventProperties() {
+    // Arrange
+    AssociationJsonConverter associationJsonConverter = new AssociationJsonConverter();
+
+    ErrorEventDefinition errorEventDefinition = new ErrorEventDefinition();
+    errorEventDefinition.setErrorRef("Event");
+
+    ArrayList<EventDefinition> eventDefinitions = new ArrayList<>();
+    eventDefinitions.add(errorEventDefinition);
+
+    BoundaryEvent event = new BoundaryEvent();
+    event.setEventDefinitions(eventDefinitions);
+    ObjectNode propertiesNode = new ObjectNode(JsonNodeFactory.withExactBigDecimals(true));
+
+    // Act
+    associationJsonConverter.addEventProperties(event, propertiesNode);
+
+    // Assert
+    Iterator<JsonNode> iteratorResult = propertiesNode.iterator();
+    assertTrue(iteratorResult.next() instanceof TextNode);
+    assertEquals("{\n  \"errorref\" : \"Event\"\n}", propertiesNode.toPrettyString());
+    assertEquals(1, propertiesNode.size());
+    assertFalse(propertiesNode.isEmpty());
+    assertFalse(iteratorResult.hasNext());
+  }
+
+  /**
+   * Test {@link BaseBpmnJsonConverter#addEventProperties(Event, ObjectNode)}.
+   * <p>
+   * Method under test: {@link BaseBpmnJsonConverter#addEventProperties(Event, ObjectNode)}
+   */
+  @Test
+  @DisplayName("Test addEventProperties(Event, ObjectNode)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void BaseBpmnJsonConverter.addEventProperties(Event, ObjectNode)"})
+  void testAddEventProperties2() {
+    // Arrange
+    AssociationJsonConverter associationJsonConverter = new AssociationJsonConverter();
+
+    SignalEventDefinition signalEventDefinition = new SignalEventDefinition();
+    signalEventDefinition.setSignalRef("Event");
+
+    ArrayList<EventDefinition> eventDefinitions = new ArrayList<>();
+    eventDefinitions.add(signalEventDefinition);
+
+    BoundaryEvent event = new BoundaryEvent();
+    event.setEventDefinitions(eventDefinitions);
+    ObjectNode propertiesNode = new ObjectNode(JsonNodeFactory.withExactBigDecimals(true));
+
+    // Act
+    associationJsonConverter.addEventProperties(event, propertiesNode);
+
+    // Assert
+    Iterator<JsonNode> iteratorResult = propertiesNode.iterator();
+    assertTrue(iteratorResult.next() instanceof TextNode);
+    assertEquals("{\n  \"signalref\" : \"Event\"\n}", propertiesNode.toPrettyString());
+    assertEquals(1, propertiesNode.size());
+    assertFalse(propertiesNode.isEmpty());
+    assertFalse(iteratorResult.hasNext());
+  }
+
+  /**
+   * Test {@link BaseBpmnJsonConverter#addEventProperties(Event, ObjectNode)}.
+   * <p>
+   * Method under test: {@link BaseBpmnJsonConverter#addEventProperties(Event, ObjectNode)}
+   */
+  @Test
+  @DisplayName("Test addEventProperties(Event, ObjectNode)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void BaseBpmnJsonConverter.addEventProperties(Event, ObjectNode)"})
+  void testAddEventProperties3() {
+    // Arrange
+    AssociationJsonConverter associationJsonConverter = new AssociationJsonConverter();
+
+    MessageEventDefinition messageEventDefinition = new MessageEventDefinition();
+    messageEventDefinition.setMessageRef("Event");
+
+    ArrayList<EventDefinition> eventDefinitions = new ArrayList<>();
+    eventDefinitions.add(messageEventDefinition);
+
+    BoundaryEvent event = new BoundaryEvent();
+    event.setEventDefinitions(eventDefinitions);
+    ObjectNode propertiesNode = new ObjectNode(JsonNodeFactory.withExactBigDecimals(true));
+
+    // Act
+    associationJsonConverter.addEventProperties(event, propertiesNode);
+
+    // Assert
+    Iterator<JsonNode> iteratorResult = propertiesNode.iterator();
+    assertTrue(iteratorResult.next() instanceof TextNode);
+    assertEquals("{\n  \"messageref\" : \"Event\"\n}", propertiesNode.toPrettyString());
+    assertEquals(1, propertiesNode.size());
+    assertFalse(propertiesNode.isEmpty());
+    assertFalse(iteratorResult.hasNext());
+  }
+
+  /**
+   * Test {@link BaseBpmnJsonConverter#addEventProperties(Event, ObjectNode)}.
+   * <p>
+   * Method under test: {@link BaseBpmnJsonConverter#addEventProperties(Event, ObjectNode)}
+   */
+  @Test
+  @DisplayName("Test addEventProperties(Event, ObjectNode)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void BaseBpmnJsonConverter.addEventProperties(Event, ObjectNode)"})
+  void testAddEventProperties4() {
+    // Arrange
+    AssociationJsonConverter associationJsonConverter = new AssociationJsonConverter();
+
+    TimerEventDefinition timerEventDefinition = new TimerEventDefinition();
+    timerEventDefinition.setTimeDate(null);
+    timerEventDefinition.setTimeCycle(null);
+    timerEventDefinition.setEndDate(null);
+    timerEventDefinition.setTimeDuration("Event");
+
+    ArrayList<EventDefinition> eventDefinitions = new ArrayList<>();
+    eventDefinitions.add(timerEventDefinition);
+
+    BoundaryEvent event = new BoundaryEvent();
+    event.setEventDefinitions(eventDefinitions);
+    ObjectNode propertiesNode = new ObjectNode(JsonNodeFactory.withExactBigDecimals(true));
+
+    // Act
+    associationJsonConverter.addEventProperties(event, propertiesNode);
+
+    // Assert
+    Iterator<JsonNode> iteratorResult = propertiesNode.iterator();
+    assertTrue(iteratorResult.next() instanceof TextNode);
+    assertEquals("{\n  \"timerdurationdefinition\" : \"Event\"\n}", propertiesNode.toPrettyString());
+    assertEquals(1, propertiesNode.size());
+    assertFalse(propertiesNode.isEmpty());
+    assertFalse(iteratorResult.hasNext());
+  }
+
+  /**
+   * Test {@link BaseBpmnJsonConverter#addEventProperties(Event, ObjectNode)}.
+   * <p>
+   * Method under test: {@link BaseBpmnJsonConverter#addEventProperties(Event, ObjectNode)}
+   */
+  @Test
+  @DisplayName("Test addEventProperties(Event, ObjectNode)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void BaseBpmnJsonConverter.addEventProperties(Event, ObjectNode)"})
+  void testAddEventProperties5() {
+    // Arrange
+    AssociationJsonConverter associationJsonConverter = new AssociationJsonConverter();
+
+    TimerEventDefinition timerEventDefinition = new TimerEventDefinition();
+    timerEventDefinition.setTimeDate(null);
+    timerEventDefinition.setTimeCycle(null);
+    timerEventDefinition.setEndDate("Event");
+    timerEventDefinition.setTimeDuration(null);
+
+    ArrayList<EventDefinition> eventDefinitions = new ArrayList<>();
+    eventDefinitions.add(timerEventDefinition);
+
+    BoundaryEvent event = new BoundaryEvent();
+    event.setEventDefinitions(eventDefinitions);
+    ObjectNode propertiesNode = new ObjectNode(JsonNodeFactory.withExactBigDecimals(true));
+
+    // Act
+    associationJsonConverter.addEventProperties(event, propertiesNode);
+
+    // Assert
+    Iterator<JsonNode> iteratorResult = propertiesNode.iterator();
+    assertTrue(iteratorResult.next() instanceof TextNode);
+    assertEquals("{\n  \"timerenddatedefinition\" : \"Event\"\n}", propertiesNode.toPrettyString());
+    assertEquals(1, propertiesNode.size());
+    assertFalse(propertiesNode.isEmpty());
+    assertFalse(iteratorResult.hasNext());
+  }
+
+  /**
+   * Test {@link BaseBpmnJsonConverter#addEventProperties(Event, ObjectNode)}.
+   * <p>
+   * Method under test: {@link BaseBpmnJsonConverter#addEventProperties(Event, ObjectNode)}
+   */
+  @Test
+  @DisplayName("Test addEventProperties(Event, ObjectNode)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void BaseBpmnJsonConverter.addEventProperties(Event, ObjectNode)"})
+  void testAddEventProperties6() {
+    // Arrange
+    AssociationJsonConverter associationJsonConverter = new AssociationJsonConverter();
+
+    TimerEventDefinition timerEventDefinition = new TimerEventDefinition();
+    timerEventDefinition.setTimeDate(null);
+    timerEventDefinition.setTimeCycle("Event");
+    timerEventDefinition.setEndDate(null);
+    timerEventDefinition.setTimeDuration(null);
+
+    ArrayList<EventDefinition> eventDefinitions = new ArrayList<>();
+    eventDefinitions.add(timerEventDefinition);
+
+    BoundaryEvent event = new BoundaryEvent();
+    event.setEventDefinitions(eventDefinitions);
+    ObjectNode propertiesNode = new ObjectNode(JsonNodeFactory.withExactBigDecimals(true));
+
+    // Act
+    associationJsonConverter.addEventProperties(event, propertiesNode);
+
+    // Assert
+    Iterator<JsonNode> iteratorResult = propertiesNode.iterator();
+    assertTrue(iteratorResult.next() instanceof TextNode);
+    assertEquals("{\n  \"timercycledefinition\" : \"Event\"\n}", propertiesNode.toPrettyString());
+    assertEquals(1, propertiesNode.size());
+    assertFalse(propertiesNode.isEmpty());
+    assertFalse(iteratorResult.hasNext());
+  }
+
+  /**
+   * Test {@link BaseBpmnJsonConverter#addEventProperties(Event, ObjectNode)}.
+   * <p>
+   * Method under test: {@link BaseBpmnJsonConverter#addEventProperties(Event, ObjectNode)}
+   */
+  @Test
+  @DisplayName("Test addEventProperties(Event, ObjectNode)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void BaseBpmnJsonConverter.addEventProperties(Event, ObjectNode)"})
+  void testAddEventProperties7() {
+    // Arrange
+    AssociationJsonConverter associationJsonConverter = new AssociationJsonConverter();
+
+    TimerEventDefinition timerEventDefinition = new TimerEventDefinition();
+    timerEventDefinition.setTimeDate("Event");
+    timerEventDefinition.setTimeCycle(null);
+    timerEventDefinition.setEndDate(null);
+    timerEventDefinition.setTimeDuration(null);
+
+    ArrayList<EventDefinition> eventDefinitions = new ArrayList<>();
+    eventDefinitions.add(timerEventDefinition);
+
+    BoundaryEvent event = new BoundaryEvent();
+    event.setEventDefinitions(eventDefinitions);
+    ObjectNode propertiesNode = new ObjectNode(JsonNodeFactory.withExactBigDecimals(true));
+
+    // Act
+    associationJsonConverter.addEventProperties(event, propertiesNode);
+
+    // Assert
+    Iterator<JsonNode> iteratorResult = propertiesNode.iterator();
+    assertTrue(iteratorResult.next() instanceof TextNode);
+    assertEquals("{\n  \"timerdatedefinition\" : \"Event\"\n}", propertiesNode.toPrettyString());
+    assertEquals(1, propertiesNode.size());
+    assertFalse(propertiesNode.isEmpty());
+    assertFalse(iteratorResult.hasNext());
+  }
+
+  /**
+   * Test {@link BaseBpmnJsonConverter#addEventProperties(Event, ObjectNode)}.
+   * <ul>
+   *   <li>Given {@link CancelEventDefinition} (default constructor).</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link BaseBpmnJsonConverter#addEventProperties(Event, ObjectNode)}
+   */
+  @Test
+  @DisplayName("Test addEventProperties(Event, ObjectNode); given CancelEventDefinition (default constructor)")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void BaseBpmnJsonConverter.addEventProperties(Event, ObjectNode)"})
   void testAddEventProperties_givenCancelEventDefinition() {
     // Arrange
@@ -2226,669 +1894,243 @@ class BaseBpmnJsonConverterDiffblueTest {
 
     BoundaryEvent event = new BoundaryEvent();
     event.addEventDefinition(new CancelEventDefinition());
-    JsonNodeFactory nc = JsonNodeFactory.withExactBigDecimals(true);
-    ObjectNode propertiesNode = new ObjectNode(nc);
+    ObjectNode propertiesNode = new ObjectNode(JsonNodeFactory.withExactBigDecimals(true));
 
     // Act
     associationJsonConverter.addEventProperties(event, propertiesNode);
 
     // Assert that nothing has changed
     assertEquals("{ }", propertiesNode.toPrettyString());
+    assertEquals(0, propertiesNode.size());
+    assertFalse(propertiesNode.iterator().hasNext());
+    assertTrue(propertiesNode.isEmpty());
   }
 
   /**
    * Test {@link BaseBpmnJsonConverter#addEventProperties(Event, ObjectNode)}.
-   *
    * <ul>
-   *   <li>When {@link BoundaryEvent} (default constructor).
+   *   <li>Given {@link ErrorEventDefinition} (default constructor) ErrorRef is empty string.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link BaseBpmnJsonConverter#addEventProperties(Event, ObjectNode)}
+   * <p>
+   * Method under test: {@link BaseBpmnJsonConverter#addEventProperties(Event, ObjectNode)}
    */
   @Test
-  @DisplayName(
-      "Test addEventProperties(Event, ObjectNode); when BoundaryEvent (default constructor)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test addEventProperties(Event, ObjectNode); given ErrorEventDefinition (default constructor) ErrorRef is empty string")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void BaseBpmnJsonConverter.addEventProperties(Event, ObjectNode)"})
+  void testAddEventProperties_givenErrorEventDefinitionErrorRefIsEmptyString() {
+    // Arrange
+    AssociationJsonConverter associationJsonConverter = new AssociationJsonConverter();
+
+    ErrorEventDefinition errorEventDefinition = new ErrorEventDefinition();
+    errorEventDefinition.setErrorRef("");
+
+    ArrayList<EventDefinition> eventDefinitions = new ArrayList<>();
+    eventDefinitions.add(errorEventDefinition);
+
+    BoundaryEvent event = new BoundaryEvent();
+    event.setEventDefinitions(eventDefinitions);
+    ObjectNode propertiesNode = new ObjectNode(JsonNodeFactory.withExactBigDecimals(true));
+
+    // Act
+    associationJsonConverter.addEventProperties(event, propertiesNode);
+
+    // Assert that nothing has changed
+    assertEquals("{ }", propertiesNode.toPrettyString());
+    assertEquals(0, propertiesNode.size());
+    assertFalse(propertiesNode.iterator().hasNext());
+    assertTrue(propertiesNode.isEmpty());
+  }
+
+  /**
+   * Test {@link BaseBpmnJsonConverter#addEventProperties(Event, ObjectNode)}.
+   * <ul>
+   *   <li>Given {@link ErrorEventDefinition} (default constructor) ErrorRef is {@code null}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link BaseBpmnJsonConverter#addEventProperties(Event, ObjectNode)}
+   */
+  @Test
+  @DisplayName("Test addEventProperties(Event, ObjectNode); given ErrorEventDefinition (default constructor) ErrorRef is 'null'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void BaseBpmnJsonConverter.addEventProperties(Event, ObjectNode)"})
+  void testAddEventProperties_givenErrorEventDefinitionErrorRefIsNull() {
+    // Arrange
+    AssociationJsonConverter associationJsonConverter = new AssociationJsonConverter();
+
+    ErrorEventDefinition errorEventDefinition = new ErrorEventDefinition();
+    errorEventDefinition.setErrorRef(null);
+
+    ArrayList<EventDefinition> eventDefinitions = new ArrayList<>();
+    eventDefinitions.add(errorEventDefinition);
+
+    BoundaryEvent event = new BoundaryEvent();
+    event.setEventDefinitions(eventDefinitions);
+    ObjectNode propertiesNode = new ObjectNode(JsonNodeFactory.withExactBigDecimals(true));
+
+    // Act
+    associationJsonConverter.addEventProperties(event, propertiesNode);
+
+    // Assert that nothing has changed
+    assertEquals("{ }", propertiesNode.toPrettyString());
+    assertEquals(0, propertiesNode.size());
+    assertFalse(propertiesNode.iterator().hasNext());
+    assertTrue(propertiesNode.isEmpty());
+  }
+
+  /**
+   * Test {@link BaseBpmnJsonConverter#addEventProperties(Event, ObjectNode)}.
+   * <ul>
+   *   <li>Given {@link MessageEventDefinition} (default constructor) MessageRef is {@code null}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link BaseBpmnJsonConverter#addEventProperties(Event, ObjectNode)}
+   */
+  @Test
+  @DisplayName("Test addEventProperties(Event, ObjectNode); given MessageEventDefinition (default constructor) MessageRef is 'null'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void BaseBpmnJsonConverter.addEventProperties(Event, ObjectNode)"})
+  void testAddEventProperties_givenMessageEventDefinitionMessageRefIsNull() {
+    // Arrange
+    AssociationJsonConverter associationJsonConverter = new AssociationJsonConverter();
+
+    MessageEventDefinition messageEventDefinition = new MessageEventDefinition();
+    messageEventDefinition.setMessageRef(null);
+
+    ArrayList<EventDefinition> eventDefinitions = new ArrayList<>();
+    eventDefinitions.add(messageEventDefinition);
+
+    BoundaryEvent event = new BoundaryEvent();
+    event.setEventDefinitions(eventDefinitions);
+    ObjectNode propertiesNode = new ObjectNode(JsonNodeFactory.withExactBigDecimals(true));
+
+    // Act
+    associationJsonConverter.addEventProperties(event, propertiesNode);
+
+    // Assert that nothing has changed
+    assertEquals("{ }", propertiesNode.toPrettyString());
+    assertEquals(0, propertiesNode.size());
+    assertFalse(propertiesNode.iterator().hasNext());
+    assertTrue(propertiesNode.isEmpty());
+  }
+
+  /**
+   * Test {@link BaseBpmnJsonConverter#addEventProperties(Event, ObjectNode)}.
+   * <ul>
+   *   <li>Given {@link SignalEventDefinition} (default constructor) SignalRef is {@code null}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link BaseBpmnJsonConverter#addEventProperties(Event, ObjectNode)}
+   */
+  @Test
+  @DisplayName("Test addEventProperties(Event, ObjectNode); given SignalEventDefinition (default constructor) SignalRef is 'null'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void BaseBpmnJsonConverter.addEventProperties(Event, ObjectNode)"})
+  void testAddEventProperties_givenSignalEventDefinitionSignalRefIsNull() {
+    // Arrange
+    AssociationJsonConverter associationJsonConverter = new AssociationJsonConverter();
+
+    SignalEventDefinition signalEventDefinition = new SignalEventDefinition();
+    signalEventDefinition.setSignalRef(null);
+
+    ArrayList<EventDefinition> eventDefinitions = new ArrayList<>();
+    eventDefinitions.add(signalEventDefinition);
+
+    BoundaryEvent event = new BoundaryEvent();
+    event.setEventDefinitions(eventDefinitions);
+    ObjectNode propertiesNode = new ObjectNode(JsonNodeFactory.withExactBigDecimals(true));
+
+    // Act
+    associationJsonConverter.addEventProperties(event, propertiesNode);
+
+    // Assert that nothing has changed
+    assertEquals("{ }", propertiesNode.toPrettyString());
+    assertEquals(0, propertiesNode.size());
+    assertFalse(propertiesNode.iterator().hasNext());
+    assertTrue(propertiesNode.isEmpty());
+  }
+
+  /**
+   * Test {@link BaseBpmnJsonConverter#addEventProperties(Event, ObjectNode)}.
+   * <ul>
+   *   <li>Given {@link TimerEventDefinition} (default constructor) TimeDate is {@code null}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link BaseBpmnJsonConverter#addEventProperties(Event, ObjectNode)}
+   */
+  @Test
+  @DisplayName("Test addEventProperties(Event, ObjectNode); given TimerEventDefinition (default constructor) TimeDate is 'null'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void BaseBpmnJsonConverter.addEventProperties(Event, ObjectNode)"})
+  void testAddEventProperties_givenTimerEventDefinitionTimeDateIsNull() {
+    // Arrange
+    AssociationJsonConverter associationJsonConverter = new AssociationJsonConverter();
+
+    TimerEventDefinition timerEventDefinition = new TimerEventDefinition();
+    timerEventDefinition.setTimeDate(null);
+    timerEventDefinition.setTimeCycle(null);
+    timerEventDefinition.setEndDate(null);
+    timerEventDefinition.setTimeDuration(null);
+
+    ArrayList<EventDefinition> eventDefinitions = new ArrayList<>();
+    eventDefinitions.add(timerEventDefinition);
+
+    BoundaryEvent event = new BoundaryEvent();
+    event.setEventDefinitions(eventDefinitions);
+    ObjectNode propertiesNode = new ObjectNode(JsonNodeFactory.withExactBigDecimals(true));
+
+    // Act
+    associationJsonConverter.addEventProperties(event, propertiesNode);
+
+    // Assert that nothing has changed
+    assertEquals("{ }", propertiesNode.toPrettyString());
+    assertEquals(0, propertiesNode.size());
+    assertFalse(propertiesNode.iterator().hasNext());
+    assertTrue(propertiesNode.isEmpty());
+  }
+
+  /**
+   * Test {@link BaseBpmnJsonConverter#addEventProperties(Event, ObjectNode)}.
+   * <ul>
+   *   <li>When {@link BoundaryEvent} (default constructor).</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link BaseBpmnJsonConverter#addEventProperties(Event, ObjectNode)}
+   */
+  @Test
+  @DisplayName("Test addEventProperties(Event, ObjectNode); when BoundaryEvent (default constructor)")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void BaseBpmnJsonConverter.addEventProperties(Event, ObjectNode)"})
   void testAddEventProperties_whenBoundaryEvent() {
     // Arrange
     AssociationJsonConverter associationJsonConverter = new AssociationJsonConverter();
     BoundaryEvent event = new BoundaryEvent();
-    JsonNodeFactory nc = JsonNodeFactory.withExactBigDecimals(true);
-    ObjectNode propertiesNode = new ObjectNode(nc);
+    ObjectNode propertiesNode = new ObjectNode(JsonNodeFactory.withExactBigDecimals(true));
 
     // Act
     associationJsonConverter.addEventProperties(event, propertiesNode);
 
     // Assert that nothing has changed
     assertEquals("{ }", propertiesNode.toPrettyString());
+    assertEquals(0, propertiesNode.size());
+    assertFalse(propertiesNode.iterator().hasNext());
+    assertTrue(propertiesNode.isEmpty());
   }
 
   /**
    * Test {@link BaseBpmnJsonConverter#convertJsonToFormProperties(JsonNode, BaseElement)}.
-   *
-   * <p>Method under test: {@link BaseBpmnJsonConverter#convertJsonToFormProperties(JsonNode,
-   * BaseElement)}
+   * <p>
+   * Method under test: {@link BaseBpmnJsonConverter#convertJsonToFormProperties(JsonNode, BaseElement)}
    */
   @Test
   @DisplayName("Test convertJsonToFormProperties(JsonNode, BaseElement)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void BaseBpmnJsonConverter.convertJsonToFormProperties(JsonNode, BaseElement)"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void BaseBpmnJsonConverter.convertJsonToFormProperties(JsonNode, BaseElement)"})
   void testConvertJsonToFormProperties() {
     // Arrange
     AssociationJsonConverter associationJsonConverter = new AssociationJsonConverter();
-    ArrayList<FormProperty> formProperties = new ArrayList<>();
-    JsonNodeFactory nc = JsonNodeFactory.withExactBigDecimals(true);
-    associationJsonConverter.addFormProperties(formProperties, new ObjectNode(nc));
-
     ArrayNode arrayNode = mock(ArrayNode.class);
-    when(arrayNode.asText()).thenReturn("As Text");
-    when(arrayNode.isNull()).thenReturn(false);
-    when(arrayNode.isTextual()).thenReturn(true);
-    when(arrayNode.get(Mockito.<String>any())).thenReturn(DoubleNode.valueOf(10.0d));
-
-    ArrayNode arrayNode2 = mock(ArrayNode.class);
-    when(arrayNode2.get(Mockito.<String>any())).thenReturn(arrayNode);
-
-    ArrayNode objectNode = mock(ArrayNode.class);
-    when(objectNode.get(Mockito.<String>any())).thenReturn(arrayNode2);
-
-    // Act
-    associationJsonConverter.convertJsonToFormProperties(objectNode, new ActivitiListener());
-
-    // Assert
-    verify(arrayNode).isNull();
-    verify(arrayNode).isTextual();
-    verify(arrayNode).get("formProperties");
-    verify(arrayNode2).get("formproperties");
-    verify(objectNode, atLeast(1)).get("properties");
-    verify(arrayNode, atLeast(1)).asText();
-  }
-
-  /**
-   * Test {@link BaseBpmnJsonConverter#convertJsonToFormProperties(JsonNode, BaseElement)}.
-   *
-   * <p>Method under test: {@link BaseBpmnJsonConverter#convertJsonToFormProperties(JsonNode,
-   * BaseElement)}
-   */
-  @Test
-  @DisplayName("Test convertJsonToFormProperties(JsonNode, BaseElement)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void BaseBpmnJsonConverter.convertJsonToFormProperties(JsonNode, BaseElement)"
-  })
-  void testConvertJsonToFormProperties2() {
-    // Arrange
-    AssociationJsonConverter associationJsonConverter = new AssociationJsonConverter();
-
-    ArrayNode arrayNode = mock(ArrayNode.class);
-    when(arrayNode.asText()).thenReturn("As Text");
-    when(arrayNode.isNull()).thenReturn(false);
-    when(arrayNode.isTextual()).thenReturn(true);
-    JsonNodeFactory nf = JsonNodeFactory.withExactBigDecimals(true);
-    when(arrayNode.get(Mockito.<String>any())).thenReturn(new ArrayNode(nf));
-
-    ArrayNode arrayNode2 = mock(ArrayNode.class);
-    when(arrayNode2.get(Mockito.<String>any())).thenReturn(arrayNode);
-
-    ArrayNode objectNode = mock(ArrayNode.class);
-    when(objectNode.get(Mockito.<String>any())).thenReturn(arrayNode2);
-
-    // Act
-    associationJsonConverter.convertJsonToFormProperties(objectNode, new ActivitiListener());
-
-    // Assert
-    verify(arrayNode).isNull();
-    verify(arrayNode).isTextual();
-    verify(arrayNode).get("formProperties");
-    verify(arrayNode2).get("formproperties");
-    verify(objectNode, atLeast(1)).get("properties");
-    verify(arrayNode, atLeast(1)).asText();
-  }
-
-  /**
-   * Test {@link BaseBpmnJsonConverter#convertJsonToFormProperties(JsonNode, BaseElement)}.
-   *
-   * <p>Method under test: {@link BaseBpmnJsonConverter#convertJsonToFormProperties(JsonNode,
-   * BaseElement)}
-   */
-  @Test
-  @DisplayName("Test convertJsonToFormProperties(JsonNode, BaseElement)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void BaseBpmnJsonConverter.convertJsonToFormProperties(JsonNode, BaseElement)"
-  })
-  void testConvertJsonToFormProperties3() {
-    // Arrange
-    AssociationJsonConverter associationJsonConverter = new AssociationJsonConverter();
-
-    ArrayNode arrayNode = mock(ArrayNode.class);
-    JsonNodeFactory nf = JsonNodeFactory.withExactBigDecimals(true);
-    when(arrayNode.get(Mockito.<String>any())).thenReturn(new ArrayNode(nf));
-
-    ArrayList<JsonNode> jsonNodeList = new ArrayList<>();
-    jsonNodeList.add(arrayNode);
-
-    ArrayNode arrayNode2 = mock(ArrayNode.class);
-    when(arrayNode2.iterator()).thenReturn(jsonNodeList.iterator());
-
-    ArrayNode arrayNode3 = mock(ArrayNode.class);
-    when(arrayNode3.asText()).thenReturn("As Text");
-    when(arrayNode3.isNull()).thenReturn(false);
-    when(arrayNode3.isTextual()).thenReturn(true);
-    when(arrayNode3.get(Mockito.<String>any())).thenReturn(arrayNode2);
-
-    ArrayNode arrayNode4 = mock(ArrayNode.class);
-    when(arrayNode4.get(Mockito.<String>any())).thenReturn(arrayNode3);
-
-    ArrayNode objectNode = mock(ArrayNode.class);
-    when(objectNode.get(Mockito.<String>any())).thenReturn(arrayNode4);
-
-    // Act
-    associationJsonConverter.convertJsonToFormProperties(objectNode, new ActivitiListener());
-
-    // Assert
-    verify(arrayNode3).isNull();
-    verify(arrayNode3).isTextual();
-    verify(arrayNode2).iterator();
-    verify(arrayNode3).get("formProperties");
-    verify(arrayNode4).get("formproperties");
-    verify(arrayNode).get("id");
-    verify(objectNode, atLeast(1)).get("properties");
-    verify(arrayNode3, atLeast(1)).asText();
-  }
-
-  /**
-   * Test {@link BaseBpmnJsonConverter#convertJsonToFormProperties(JsonNode, BaseElement)}.
-   *
-   * <p>Method under test: {@link BaseBpmnJsonConverter#convertJsonToFormProperties(JsonNode,
-   * BaseElement)}
-   */
-  @Test
-  @DisplayName("Test convertJsonToFormProperties(JsonNode, BaseElement)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void BaseBpmnJsonConverter.convertJsonToFormProperties(JsonNode, BaseElement)"
-  })
-  void testConvertJsonToFormProperties4() {
-    // Arrange
-    AssociationJsonConverter associationJsonConverter = new AssociationJsonConverter();
-
-    ArrayNode arrayNode = mock(ArrayNode.class);
-    BigInteger v = BigInteger.valueOf(1L);
-    when(arrayNode.get(Mockito.<String>any())).thenReturn(new BigIntegerNode(v));
-
-    ArrayList<JsonNode> jsonNodeList = new ArrayList<>();
-    jsonNodeList.add(arrayNode);
-
-    ArrayNode arrayNode2 = mock(ArrayNode.class);
-    when(arrayNode2.iterator()).thenReturn(jsonNodeList.iterator());
-
-    ArrayNode arrayNode3 = mock(ArrayNode.class);
-    when(arrayNode3.asText()).thenReturn("As Text");
-    when(arrayNode3.isNull()).thenReturn(false);
-    when(arrayNode3.isTextual()).thenReturn(true);
-    when(arrayNode3.get(Mockito.<String>any())).thenReturn(arrayNode2);
-
-    ArrayNode arrayNode4 = mock(ArrayNode.class);
-    when(arrayNode4.get(Mockito.<String>any())).thenReturn(arrayNode3);
-
-    ArrayNode objectNode = mock(ArrayNode.class);
-    when(objectNode.get(Mockito.<String>any())).thenReturn(arrayNode4);
-
-    // Act
-    associationJsonConverter.convertJsonToFormProperties(objectNode, new ActivitiListener());
-
-    // Assert
-    verify(arrayNode3).isNull();
-    verify(arrayNode3).isTextual();
-    verify(arrayNode2).iterator();
-    verify(arrayNode, atLeast(1)).get(Mockito.<String>any());
-    verify(arrayNode3).get("formProperties");
-    verify(arrayNode4).get("formproperties");
-    verify(objectNode, atLeast(1)).get("properties");
-    verify(arrayNode3, atLeast(1)).asText();
-  }
-
-  /**
-   * Test {@link BaseBpmnJsonConverter#convertJsonToFormProperties(JsonNode, BaseElement)}.
-   *
-   * <p>Method under test: {@link BaseBpmnJsonConverter#convertJsonToFormProperties(JsonNode,
-   * BaseElement)}
-   */
-  @Test
-  @DisplayName("Test convertJsonToFormProperties(JsonNode, BaseElement)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void BaseBpmnJsonConverter.convertJsonToFormProperties(JsonNode, BaseElement)"
-  })
-  void testConvertJsonToFormProperties5() throws UnsupportedEncodingException {
-    // Arrange
-    AssociationJsonConverter associationJsonConverter = new AssociationJsonConverter();
-
-    ArrayNode arrayNode = mock(ArrayNode.class);
-    when(arrayNode.get(Mockito.<String>any()))
-        .thenReturn(new BinaryNode("AXAXAXAX".getBytes("UTF-8")));
-
-    ArrayList<JsonNode> jsonNodeList = new ArrayList<>();
-    jsonNodeList.add(arrayNode);
-
-    ArrayNode arrayNode2 = mock(ArrayNode.class);
-    when(arrayNode2.iterator()).thenReturn(jsonNodeList.iterator());
-
-    ArrayNode arrayNode3 = mock(ArrayNode.class);
-    when(arrayNode3.asText()).thenReturn("As Text");
-    when(arrayNode3.isNull()).thenReturn(false);
-    when(arrayNode3.isTextual()).thenReturn(true);
-    when(arrayNode3.get(Mockito.<String>any())).thenReturn(arrayNode2);
-
-    ArrayNode arrayNode4 = mock(ArrayNode.class);
-    when(arrayNode4.get(Mockito.<String>any())).thenReturn(arrayNode3);
-
-    ArrayNode objectNode = mock(ArrayNode.class);
-    when(objectNode.get(Mockito.<String>any())).thenReturn(arrayNode4);
-
-    // Act
-    associationJsonConverter.convertJsonToFormProperties(objectNode, new ActivitiListener());
-
-    // Assert
-    verify(arrayNode3).isNull();
-    verify(arrayNode3).isTextual();
-    verify(arrayNode2).iterator();
-    verify(arrayNode, atLeast(1)).get(Mockito.<String>any());
-    verify(arrayNode3).get("formProperties");
-    verify(arrayNode4).get("formproperties");
-    verify(objectNode, atLeast(1)).get("properties");
-    verify(arrayNode3, atLeast(1)).asText();
-  }
-
-  /**
-   * Test {@link BaseBpmnJsonConverter#convertJsonToFormProperties(JsonNode, BaseElement)}.
-   *
-   * <ul>
-   *   <li>Given {@link ArrayList#ArrayList()} add valueOf ten.
-   *   <li>Then calls {@link ArrayNode#iterator()}.
-   * </ul>
-   *
-   * <p>Method under test: {@link BaseBpmnJsonConverter#convertJsonToFormProperties(JsonNode,
-   * BaseElement)}
-   */
-  @Test
-  @DisplayName(
-      "Test convertJsonToFormProperties(JsonNode, BaseElement); given ArrayList() add valueOf ten; then calls iterator()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void BaseBpmnJsonConverter.convertJsonToFormProperties(JsonNode, BaseElement)"
-  })
-  void testConvertJsonToFormProperties_givenArrayListAddValueOfTen_thenCallsIterator() {
-    // Arrange
-    AssociationJsonConverter associationJsonConverter = new AssociationJsonConverter();
-
-    ArrayList<JsonNode> jsonNodeList = new ArrayList<>();
-    jsonNodeList.add(DoubleNode.valueOf(10.0d));
-
-    ArrayNode arrayNode = mock(ArrayNode.class);
-    when(arrayNode.iterator()).thenReturn(jsonNodeList.iterator());
-
-    ArrayNode arrayNode2 = mock(ArrayNode.class);
-    when(arrayNode2.asText()).thenReturn("As Text");
-    when(arrayNode2.isNull()).thenReturn(false);
-    when(arrayNode2.isTextual()).thenReturn(true);
-    when(arrayNode2.get(Mockito.<String>any())).thenReturn(arrayNode);
-
-    ArrayNode arrayNode3 = mock(ArrayNode.class);
-    when(arrayNode3.get(Mockito.<String>any())).thenReturn(arrayNode2);
-
-    ArrayNode objectNode = mock(ArrayNode.class);
-    when(objectNode.get(Mockito.<String>any())).thenReturn(arrayNode3);
-
-    // Act
-    associationJsonConverter.convertJsonToFormProperties(objectNode, new ActivitiListener());
-
-    // Assert
-    verify(arrayNode2).isNull();
-    verify(arrayNode2).isTextual();
-    verify(arrayNode).iterator();
-    verify(arrayNode2).get("formProperties");
-    verify(arrayNode3).get("formproperties");
-    verify(objectNode, atLeast(1)).get("properties");
-    verify(arrayNode2, atLeast(1)).asText();
-  }
-
-  /**
-   * Test {@link BaseBpmnJsonConverter#convertJsonToFormProperties(JsonNode, BaseElement)}.
-   *
-   * <ul>
-   *   <li>Given {@link ArrayNode} {@link ArrayNode#asText()} return {@code 42}.
-   *   <li>Then calls {@link ArrayNode#asText()}.
-   * </ul>
-   *
-   * <p>Method under test: {@link BaseBpmnJsonConverter#convertJsonToFormProperties(JsonNode,
-   * BaseElement)}
-   */
-  @Test
-  @DisplayName(
-      "Test convertJsonToFormProperties(JsonNode, BaseElement); given ArrayNode asText() return '42'; then calls asText()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void BaseBpmnJsonConverter.convertJsonToFormProperties(JsonNode, BaseElement)"
-  })
-  void testConvertJsonToFormProperties_givenArrayNodeAsTextReturn42_thenCallsAsText() {
-    // Arrange
-    AssociationJsonConverter associationJsonConverter = new AssociationJsonConverter();
-
-    ArrayNode arrayNode = mock(ArrayNode.class);
-    when(arrayNode.asText()).thenReturn("42");
-    when(arrayNode.isNull()).thenReturn(false);
-    when(arrayNode.isTextual()).thenReturn(true);
-
-    ArrayNode arrayNode2 = mock(ArrayNode.class);
-    when(arrayNode2.get(Mockito.<String>any())).thenReturn(arrayNode);
-
-    ArrayNode objectNode = mock(ArrayNode.class);
-    when(objectNode.get(Mockito.<String>any())).thenReturn(arrayNode2);
-
-    // Act
-    associationJsonConverter.convertJsonToFormProperties(objectNode, new ActivitiListener());
-
-    // Assert
-    verify(arrayNode).isNull();
-    verify(arrayNode).isTextual();
-    verify(arrayNode2).get("formproperties");
-    verify(objectNode, atLeast(1)).get("properties");
-    verify(arrayNode, atLeast(1)).asText();
-  }
-
-  /**
-   * Test {@link BaseBpmnJsonConverter#convertJsonToFormProperties(JsonNode, BaseElement)}.
-   *
-   * <ul>
-   *   <li>Given {@link ArrayNode} {@link ArrayNode#asText()} return empty string.
-   * </ul>
-   *
-   * <p>Method under test: {@link BaseBpmnJsonConverter#convertJsonToFormProperties(JsonNode,
-   * BaseElement)}
-   */
-  @Test
-  @DisplayName(
-      "Test convertJsonToFormProperties(JsonNode, BaseElement); given ArrayNode asText() return empty string")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void BaseBpmnJsonConverter.convertJsonToFormProperties(JsonNode, BaseElement)"
-  })
-  void testConvertJsonToFormProperties_givenArrayNodeAsTextReturnEmptyString() {
-    // Arrange
-    AssociationJsonConverter associationJsonConverter = new AssociationJsonConverter();
-
-    ArrayNode arrayNode = mock(ArrayNode.class);
-    when(arrayNode.asText()).thenReturn("");
-    when(arrayNode.isNull()).thenReturn(false);
-    when(arrayNode.isTextual()).thenReturn(true);
-    when(arrayNode.get(Mockito.<String>any())).thenReturn(DoubleNode.valueOf(10.0d));
-
-    ArrayNode arrayNode2 = mock(ArrayNode.class);
-    when(arrayNode2.get(Mockito.<String>any())).thenReturn(arrayNode);
-
-    ArrayNode objectNode = mock(ArrayNode.class);
-    when(objectNode.get(Mockito.<String>any())).thenReturn(arrayNode2);
-
-    // Act
-    associationJsonConverter.convertJsonToFormProperties(objectNode, new ActivitiListener());
-
-    // Assert
-    verify(arrayNode).isNull();
-    verify(arrayNode).isTextual();
-    verify(arrayNode).get("formProperties");
-    verify(arrayNode2).get("formproperties");
-    verify(objectNode, atLeast(1)).get("properties");
-    verify(arrayNode).asText();
-  }
-
-  /**
-   * Test {@link BaseBpmnJsonConverter#convertJsonToFormProperties(JsonNode, BaseElement)}.
-   *
-   * <ul>
-   *   <li>Given {@link ArrayNode} {@link ArrayNode#asText()} return {@code null}.
-   *   <li>Then calls {@link ArrayNode#asText()}.
-   * </ul>
-   *
-   * <p>Method under test: {@link BaseBpmnJsonConverter#convertJsonToFormProperties(JsonNode,
-   * BaseElement)}
-   */
-  @Test
-  @DisplayName(
-      "Test convertJsonToFormProperties(JsonNode, BaseElement); given ArrayNode asText() return 'null'; then calls asText()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void BaseBpmnJsonConverter.convertJsonToFormProperties(JsonNode, BaseElement)"
-  })
-  void testConvertJsonToFormProperties_givenArrayNodeAsTextReturnNull_thenCallsAsText() {
-    // Arrange
-    AssociationJsonConverter associationJsonConverter = new AssociationJsonConverter();
-
-    ArrayNode arrayNode = mock(ArrayNode.class);
-    when(arrayNode.asText()).thenReturn(null);
-    when(arrayNode.isNull()).thenReturn(false);
-    when(arrayNode.isTextual()).thenReturn(true);
-    when(arrayNode.get(Mockito.<String>any())).thenReturn(DoubleNode.valueOf(10.0d));
-
-    ArrayNode arrayNode2 = mock(ArrayNode.class);
-    when(arrayNode2.get(Mockito.<String>any())).thenReturn(arrayNode);
-
-    ArrayNode objectNode = mock(ArrayNode.class);
-    when(objectNode.get(Mockito.<String>any())).thenReturn(arrayNode2);
-
-    // Act
-    associationJsonConverter.convertJsonToFormProperties(objectNode, new ActivitiListener());
-
-    // Assert
-    verify(arrayNode).isNull();
-    verify(arrayNode).isTextual();
-    verify(arrayNode).get("formProperties");
-    verify(arrayNode2).get("formproperties");
-    verify(objectNode, atLeast(1)).get("properties");
-    verify(arrayNode).asText();
-  }
-
-  /**
-   * Test {@link BaseBpmnJsonConverter#convertJsonToFormProperties(JsonNode, BaseElement)}.
-   *
-   * <ul>
-   *   <li>Given {@link ArrayNode} {@link ArrayNode#get(String)} return False.
-   *   <li>Then calls {@link ArrayNode#iterator()}.
-   * </ul>
-   *
-   * <p>Method under test: {@link BaseBpmnJsonConverter#convertJsonToFormProperties(JsonNode,
-   * BaseElement)}
-   */
-  @Test
-  @DisplayName(
-      "Test convertJsonToFormProperties(JsonNode, BaseElement); given ArrayNode get(String) return False; then calls iterator()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void BaseBpmnJsonConverter.convertJsonToFormProperties(JsonNode, BaseElement)"
-  })
-  void testConvertJsonToFormProperties_givenArrayNodeGetReturnFalse_thenCallsIterator() {
-    // Arrange
-    AssociationJsonConverter associationJsonConverter = new AssociationJsonConverter();
-
-    ArrayNode arrayNode = mock(ArrayNode.class);
-    when(arrayNode.get(Mockito.<String>any())).thenReturn(BooleanNode.getFalse());
-
-    ArrayList<JsonNode> jsonNodeList = new ArrayList<>();
-    jsonNodeList.add(arrayNode);
-
-    ArrayNode arrayNode2 = mock(ArrayNode.class);
-    when(arrayNode2.iterator()).thenReturn(jsonNodeList.iterator());
-
-    ArrayNode arrayNode3 = mock(ArrayNode.class);
-    when(arrayNode3.asText()).thenReturn("As Text");
-    when(arrayNode3.isNull()).thenReturn(false);
-    when(arrayNode3.isTextual()).thenReturn(true);
-    when(arrayNode3.get(Mockito.<String>any())).thenReturn(arrayNode2);
-
-    ArrayNode arrayNode4 = mock(ArrayNode.class);
-    when(arrayNode4.get(Mockito.<String>any())).thenReturn(arrayNode3);
-
-    ArrayNode objectNode = mock(ArrayNode.class);
-    when(objectNode.get(Mockito.<String>any())).thenReturn(arrayNode4);
-
-    // Act
-    associationJsonConverter.convertJsonToFormProperties(objectNode, new ActivitiListener());
-
-    // Assert
-    verify(arrayNode3).isNull();
-    verify(arrayNode3).isTextual();
-    verify(arrayNode2).iterator();
-    verify(arrayNode, atLeast(1)).get(Mockito.<String>any());
-    verify(arrayNode3).get("formProperties");
-    verify(arrayNode4).get("formproperties");
-    verify(objectNode, atLeast(1)).get("properties");
-    verify(arrayNode3, atLeast(1)).asText();
-  }
-
-  /**
-   * Test {@link BaseBpmnJsonConverter#convertJsonToFormProperties(JsonNode, BaseElement)}.
-   *
-   * <ul>
-   *   <li>Given {@link ArrayNode} {@link ArrayNode#get(String)} return valueOf ten.
-   * </ul>
-   *
-   * <p>Method under test: {@link BaseBpmnJsonConverter#convertJsonToFormProperties(JsonNode,
-   * BaseElement)}
-   */
-  @Test
-  @DisplayName(
-      "Test convertJsonToFormProperties(JsonNode, BaseElement); given ArrayNode get(String) return valueOf ten")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void BaseBpmnJsonConverter.convertJsonToFormProperties(JsonNode, BaseElement)"
-  })
-  void testConvertJsonToFormProperties_givenArrayNodeGetReturnValueOfTen() {
-    // Arrange
-    AssociationJsonConverter associationJsonConverter = new AssociationJsonConverter();
-
-    ArrayNode arrayNode = mock(ArrayNode.class);
-    when(arrayNode.asText()).thenReturn("As Text");
-    when(arrayNode.isNull()).thenReturn(false);
-    when(arrayNode.isTextual()).thenReturn(true);
-    when(arrayNode.get(Mockito.<String>any())).thenReturn(DoubleNode.valueOf(10.0d));
-
-    ArrayNode arrayNode2 = mock(ArrayNode.class);
-    when(arrayNode2.get(Mockito.<String>any())).thenReturn(arrayNode);
-
-    ArrayNode objectNode = mock(ArrayNode.class);
-    when(objectNode.get(Mockito.<String>any())).thenReturn(arrayNode2);
-
-    // Act
-    associationJsonConverter.convertJsonToFormProperties(objectNode, new ActivitiListener());
-
-    // Assert
-    verify(arrayNode).isNull();
-    verify(arrayNode).isTextual();
-    verify(arrayNode).get("formProperties");
-    verify(arrayNode2).get("formproperties");
-    verify(objectNode, atLeast(1)).get("properties");
-    verify(arrayNode, atLeast(1)).asText();
-  }
-
-  /**
-   * Test {@link BaseBpmnJsonConverter#convertJsonToFormProperties(JsonNode, BaseElement)}.
-   *
-   * <ul>
-   *   <li>Given {@link ArrayNode} {@link ArrayNode#get(String)} return valueOf ten.
-   * </ul>
-   *
-   * <p>Method under test: {@link BaseBpmnJsonConverter#convertJsonToFormProperties(JsonNode,
-   * BaseElement)}
-   */
-  @Test
-  @DisplayName(
-      "Test convertJsonToFormProperties(JsonNode, BaseElement); given ArrayNode get(String) return valueOf ten")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void BaseBpmnJsonConverter.convertJsonToFormProperties(JsonNode, BaseElement)"
-  })
-  void testConvertJsonToFormProperties_givenArrayNodeGetReturnValueOfTen2() {
-    // Arrange
-    AssociationJsonConverter associationJsonConverter = new AssociationJsonConverter();
-
-    ArrayNode arrayNode = mock(ArrayNode.class);
-    when(arrayNode.get(Mockito.<String>any())).thenReturn(DoubleNode.valueOf(10.0d));
-
-    ArrayList<JsonNode> jsonNodeList = new ArrayList<>();
-    jsonNodeList.add(arrayNode);
-
-    ArrayNode arrayNode2 = mock(ArrayNode.class);
-    when(arrayNode2.iterator()).thenReturn(jsonNodeList.iterator());
-
-    ArrayNode arrayNode3 = mock(ArrayNode.class);
-    when(arrayNode3.asText()).thenReturn("As Text");
-    when(arrayNode3.isNull()).thenReturn(false);
-    when(arrayNode3.isTextual()).thenReturn(true);
-    when(arrayNode3.get(Mockito.<String>any())).thenReturn(arrayNode2);
-
-    ArrayNode arrayNode4 = mock(ArrayNode.class);
-    when(arrayNode4.get(Mockito.<String>any())).thenReturn(arrayNode3);
-
-    ArrayNode objectNode = mock(ArrayNode.class);
-    when(objectNode.get(Mockito.<String>any())).thenReturn(arrayNode4);
-
-    // Act
-    associationJsonConverter.convertJsonToFormProperties(objectNode, new ActivitiListener());
-
-    // Assert
-    verify(arrayNode3).isNull();
-    verify(arrayNode3).isTextual();
-    verify(arrayNode2).iterator();
-    verify(arrayNode, atLeast(1)).get(Mockito.<String>any());
-    verify(arrayNode3).get("formProperties");
-    verify(arrayNode4).get("formproperties");
-    verify(objectNode, atLeast(1)).get("properties");
-    verify(arrayNode3, atLeast(1)).asText();
-  }
-
-  /**
-   * Test {@link BaseBpmnJsonConverter#convertJsonToFormProperties(JsonNode, BaseElement)}.
-   *
-   * <ul>
-   *   <li>Given {@link ArrayNode} {@link ArrayNode#get(String)} return valueOf ten.
-   *   <li>Then calls {@link ArrayNode#get(String)}.
-   * </ul>
-   *
-   * <p>Method under test: {@link BaseBpmnJsonConverter#convertJsonToFormProperties(JsonNode,
-   * BaseElement)}
-   */
-  @Test
-  @DisplayName(
-      "Test convertJsonToFormProperties(JsonNode, BaseElement); given ArrayNode get(String) return valueOf ten; then calls get(String)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void BaseBpmnJsonConverter.convertJsonToFormProperties(JsonNode, BaseElement)"
-  })
-  void testConvertJsonToFormProperties_givenArrayNodeGetReturnValueOfTen_thenCallsGet() {
-    // Arrange
-    AssociationJsonConverter associationJsonConverter = new AssociationJsonConverter();
-
-    ArrayNode arrayNode = mock(ArrayNode.class);
-    when(arrayNode.get(Mockito.<String>any())).thenReturn(DoubleNode.valueOf(10.0d));
-
+    when(arrayNode.get(Mockito.<String>any())).thenReturn(new ArrayNode(JsonNodeFactory.withExactBigDecimals(true)));
     ArrayNode objectNode = mock(ArrayNode.class);
     when(objectNode.get(Mockito.<String>any())).thenReturn(arrayNode);
 
@@ -2896,40 +2138,52 @@ class BaseBpmnJsonConverterDiffblueTest {
     associationJsonConverter.convertJsonToFormProperties(objectNode, new ActivitiListener());
 
     // Assert
-    verify(arrayNode).get("formproperties");
-    verify(objectNode, atLeast(1)).get("properties");
+    verify(arrayNode).get(eq("formproperties"));
+    verify(objectNode, atLeast(1)).get(eq("properties"));
   }
 
   /**
    * Test {@link BaseBpmnJsonConverter#convertJsonToFormProperties(JsonNode, BaseElement)}.
-   *
-   * <ul>
-   *   <li>Given {@link ArrayNode} {@link ArrayNode#isNull()} return {@code true}.
-   *   <li>Then calls {@link ArrayNode#isNull()}.
-   * </ul>
-   *
-   * <p>Method under test: {@link BaseBpmnJsonConverter#convertJsonToFormProperties(JsonNode,
-   * BaseElement)}
+   * <p>
+   * Method under test: {@link BaseBpmnJsonConverter#convertJsonToFormProperties(JsonNode, BaseElement)}
    */
   @Test
-  @DisplayName(
-      "Test convertJsonToFormProperties(JsonNode, BaseElement); given ArrayNode isNull() return 'true'; then calls isNull()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void BaseBpmnJsonConverter.convertJsonToFormProperties(JsonNode, BaseElement)"
-  })
-  void testConvertJsonToFormProperties_givenArrayNodeIsNullReturnTrue_thenCallsIsNull() {
+  @DisplayName("Test convertJsonToFormProperties(JsonNode, BaseElement)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void BaseBpmnJsonConverter.convertJsonToFormProperties(JsonNode, BaseElement)"})
+  void testConvertJsonToFormProperties2() {
     // Arrange
     AssociationJsonConverter associationJsonConverter = new AssociationJsonConverter();
-
     ArrayNode arrayNode = mock(ArrayNode.class);
-    when(arrayNode.get(Mockito.<String>any())).thenReturn(DoubleNode.valueOf(10.0d));
-    when(arrayNode.isNull()).thenReturn(true);
+    when(arrayNode.get(Mockito.<String>any())).thenReturn(new BigIntegerNode(BigInteger.valueOf(1L)));
+    ArrayNode objectNode = mock(ArrayNode.class);
+    when(objectNode.get(Mockito.<String>any())).thenReturn(arrayNode);
 
+    // Act
+    associationJsonConverter.convertJsonToFormProperties(objectNode, new ActivitiListener());
+
+    // Assert
+    verify(arrayNode).get(eq("formproperties"));
+    verify(objectNode, atLeast(1)).get(eq("properties"));
+  }
+
+  /**
+   * Test {@link BaseBpmnJsonConverter#convertJsonToFormProperties(JsonNode, BaseElement)}.
+   * <p>
+   * Method under test: {@link BaseBpmnJsonConverter#convertJsonToFormProperties(JsonNode, BaseElement)}
+   */
+  @Test
+  @DisplayName("Test convertJsonToFormProperties(JsonNode, BaseElement)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void BaseBpmnJsonConverter.convertJsonToFormProperties(JsonNode, BaseElement)"})
+  void testConvertJsonToFormProperties3() {
+    // Arrange
+    AssociationJsonConverter associationJsonConverter = new AssociationJsonConverter();
+    ArrayNode arrayNode = mock(ArrayNode.class);
+    when(arrayNode.get(Mockito.<String>any())).thenReturn(new ArrayNode(JsonNodeFactory.withExactBigDecimals(true)));
+    when(arrayNode.isNull()).thenReturn(true);
     ArrayNode arrayNode2 = mock(ArrayNode.class);
     when(arrayNode2.get(Mockito.<String>any())).thenReturn(arrayNode);
-
     ArrayNode objectNode = mock(ArrayNode.class);
     when(objectNode.get(Mockito.<String>any())).thenReturn(arrayNode2);
 
@@ -2938,105 +2192,33 @@ class BaseBpmnJsonConverterDiffblueTest {
 
     // Assert
     verify(arrayNode).isNull();
-    verify(arrayNode).get("formProperties");
-    verify(arrayNode2).get("formproperties");
-    verify(objectNode, atLeast(1)).get("properties");
+    verify(arrayNode).get(eq("formProperties"));
+    verify(arrayNode2).get(eq("formproperties"));
+    verify(objectNode, atLeast(1)).get(eq("properties"));
   }
 
   /**
    * Test {@link BaseBpmnJsonConverter#convertJsonToFormProperties(JsonNode, BaseElement)}.
-   *
-   * <ul>
-   *   <li>Given {@link ArrayNode} {@link ArrayNode#isNull()} return {@code true}.
-   *   <li>Then calls {@link ArrayNode#iterator()}.
-   * </ul>
-   *
-   * <p>Method under test: {@link BaseBpmnJsonConverter#convertJsonToFormProperties(JsonNode,
-   * BaseElement)}
+   * <p>
+   * Method under test: {@link BaseBpmnJsonConverter#convertJsonToFormProperties(JsonNode, BaseElement)}
    */
   @Test
-  @DisplayName(
-      "Test convertJsonToFormProperties(JsonNode, BaseElement); given ArrayNode isNull() return 'true'; then calls iterator()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void BaseBpmnJsonConverter.convertJsonToFormProperties(JsonNode, BaseElement)"
-  })
-  void testConvertJsonToFormProperties_givenArrayNodeIsNullReturnTrue_thenCallsIterator() {
+  @DisplayName("Test convertJsonToFormProperties(JsonNode, BaseElement)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void BaseBpmnJsonConverter.convertJsonToFormProperties(JsonNode, BaseElement)"})
+  void testConvertJsonToFormProperties4() {
     // Arrange
     AssociationJsonConverter associationJsonConverter = new AssociationJsonConverter();
-
+    ArrayList<FormProperty> formProperties = new ArrayList<>();
+    associationJsonConverter.addFormProperties(formProperties,
+        new ObjectNode(JsonNodeFactory.withExactBigDecimals(true)));
     ArrayNode arrayNode = mock(ArrayNode.class);
-    when(arrayNode.isNull()).thenReturn(true);
-    when(arrayNode.asText()).thenReturn("As Text");
-
-    ArrayNode arrayNode2 = mock(ArrayNode.class);
-    when(arrayNode2.get(Mockito.<String>any())).thenReturn(arrayNode);
-
-    ArrayList<JsonNode> jsonNodeList = new ArrayList<>();
-    jsonNodeList.add(arrayNode2);
-
-    ArrayNode arrayNode3 = mock(ArrayNode.class);
-    when(arrayNode3.iterator()).thenReturn(jsonNodeList.iterator());
-
-    ArrayNode arrayNode4 = mock(ArrayNode.class);
-    when(arrayNode4.asText()).thenReturn("As Text");
-    when(arrayNode4.isNull()).thenReturn(false);
-    when(arrayNode4.isTextual()).thenReturn(true);
-    when(arrayNode4.get(Mockito.<String>any())).thenReturn(arrayNode3);
-
-    ArrayNode arrayNode5 = mock(ArrayNode.class);
-    when(arrayNode5.get(Mockito.<String>any())).thenReturn(arrayNode4);
-
-    ArrayNode objectNode = mock(ArrayNode.class);
-    when(objectNode.get(Mockito.<String>any())).thenReturn(arrayNode5);
-
-    // Act
-    associationJsonConverter.convertJsonToFormProperties(objectNode, new ActivitiListener());
-
-    // Assert
-    verify(arrayNode4).isNull();
-    verify(arrayNode, atLeast(1)).isNull();
-    verify(arrayNode4).isTextual();
-    verify(arrayNode3).iterator();
-    verify(arrayNode2, atLeast(1)).get(Mockito.<String>any());
-    verify(arrayNode4).get("formProperties");
-    verify(arrayNode5).get("formproperties");
-    verify(objectNode, atLeast(1)).get("properties");
-    verify(arrayNode4, atLeast(1)).asText();
-    verify(arrayNode, atLeast(1)).asText();
-  }
-
-  /**
-   * Test {@link BaseBpmnJsonConverter#convertJsonToFormProperties(JsonNode, BaseElement)}.
-   *
-   * <ul>
-   *   <li>Given {@link ArrayNode} {@link ArrayNode#isTextual()} return {@code false}.
-   * </ul>
-   *
-   * <p>Method under test: {@link BaseBpmnJsonConverter#convertJsonToFormProperties(JsonNode,
-   * BaseElement)}
-   */
-  @Test
-  @DisplayName(
-      "Test convertJsonToFormProperties(JsonNode, BaseElement); given ArrayNode isTextual() return 'false'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void BaseBpmnJsonConverter.convertJsonToFormProperties(JsonNode, BaseElement)"
-  })
-  void testConvertJsonToFormProperties_givenArrayNodeIsTextualReturnFalse() {
-    // Arrange
-    AssociationJsonConverter associationJsonConverter = new AssociationJsonConverter();
-
-    ArrayNode arrayNode = mock(ArrayNode.class);
+    when(arrayNode.asText()).thenReturn("42");
+    when(arrayNode.get(Mockito.<String>any())).thenReturn(mock(ArrayNode.class));
     when(arrayNode.isNull()).thenReturn(false);
-    when(arrayNode.isTextual()).thenReturn(false);
-    when(arrayNode.get(Mockito.<String>any())).thenReturn(DoubleNode.valueOf(10.0d));
-
+    when(arrayNode.isTextual()).thenReturn(true);
     ArrayNode arrayNode2 = mock(ArrayNode.class);
     when(arrayNode2.get(Mockito.<String>any())).thenReturn(arrayNode);
-
     ArrayNode objectNode = mock(ArrayNode.class);
     when(objectNode.get(Mockito.<String>any())).thenReturn(arrayNode2);
 
@@ -3046,79 +2228,114 @@ class BaseBpmnJsonConverterDiffblueTest {
     // Assert
     verify(arrayNode).isNull();
     verify(arrayNode).isTextual();
-    verify(arrayNode).get("formProperties");
-    verify(arrayNode2).get("formproperties");
-    verify(objectNode, atLeast(1)).get("properties");
+    verify(arrayNode2).get(eq("formproperties"));
+    verify(objectNode, atLeast(1)).get(eq("properties"));
+    verify(arrayNode, atLeast(1)).asText();
   }
 
   /**
    * Test {@link BaseBpmnJsonConverter#convertJsonToFormProperties(JsonNode, BaseElement)}.
-   *
    * <ul>
-   *   <li>Given valueOf ten.
-   *   <li>When {@link ArrayNode} {@link ArrayNode#get(String)} return valueOf ten.
+   *   <li>Given {@link ArrayList#ArrayList()} add Instance.</li>
+   *   <li>Then calls {@link JsonNode#iterator()}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link BaseBpmnJsonConverter#convertJsonToFormProperties(JsonNode,
-   * BaseElement)}
+   * <p>
+   * Method under test: {@link BaseBpmnJsonConverter#convertJsonToFormProperties(JsonNode, BaseElement)}
    */
   @Test
-  @DisplayName(
-      "Test convertJsonToFormProperties(JsonNode, BaseElement); given valueOf ten; when ArrayNode get(String) return valueOf ten")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void BaseBpmnJsonConverter.convertJsonToFormProperties(JsonNode, BaseElement)"
-  })
-  void testConvertJsonToFormProperties_givenValueOfTen_whenArrayNodeGetReturnValueOfTen() {
+  @DisplayName("Test convertJsonToFormProperties(JsonNode, BaseElement); given ArrayList() add Instance; then calls iterator()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void BaseBpmnJsonConverter.convertJsonToFormProperties(JsonNode, BaseElement)"})
+  void testConvertJsonToFormProperties_givenArrayListAddInstance_thenCallsIterator() {
     // Arrange
     AssociationJsonConverter associationJsonConverter = new AssociationJsonConverter();
 
+    ArrayList<JsonNode> jsonNodeList = new ArrayList<>();
+    jsonNodeList.add(MissingNode.getInstance());
+    ArrayNode arrayNode = mock(ArrayNode.class);
+    when(arrayNode.iterator()).thenReturn(jsonNodeList.iterator());
+    ArrayNode arrayNode2 = mock(ArrayNode.class);
+    when(arrayNode2.get(Mockito.<String>any())).thenReturn(arrayNode);
+    when(arrayNode2.isNull()).thenReturn(true);
+    ArrayNode arrayNode3 = mock(ArrayNode.class);
+    when(arrayNode3.get(Mockito.<String>any())).thenReturn(arrayNode2);
     ArrayNode objectNode = mock(ArrayNode.class);
-    when(objectNode.get(Mockito.<String>any())).thenReturn(DoubleNode.valueOf(10.0d));
+    when(objectNode.get(Mockito.<String>any())).thenReturn(arrayNode3);
 
     // Act
     associationJsonConverter.convertJsonToFormProperties(objectNode, new ActivitiListener());
 
     // Assert
-    verify(objectNode, atLeast(1)).get("properties");
+    verify(arrayNode2).isNull();
+    verify(arrayNode).iterator();
+    verify(arrayNode2).get(eq("formProperties"));
+    verify(arrayNode3).get(eq("formproperties"));
+    verify(objectNode, atLeast(1)).get(eq("properties"));
   }
 
   /**
    * Test {@link BaseBpmnJsonConverter#convertJsonToFormProperties(JsonNode, BaseElement)}.
-   *
    * <ul>
-   *   <li>Then calls {@link ArrayNode#iterator()}.
+   *   <li>Given {@link ArrayNode} {@link ContainerNode#asText()} return {@code 42}.</li>
+   *   <li>Then calls {@link JsonNode#isTextual()}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link BaseBpmnJsonConverter#convertJsonToFormProperties(JsonNode,
-   * BaseElement)}
+   * <p>
+   * Method under test: {@link BaseBpmnJsonConverter#convertJsonToFormProperties(JsonNode, BaseElement)}
    */
   @Test
-  @DisplayName("Test convertJsonToFormProperties(JsonNode, BaseElement); then calls iterator()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void BaseBpmnJsonConverter.convertJsonToFormProperties(JsonNode, BaseElement)"
-  })
-  void testConvertJsonToFormProperties_thenCallsIterator() {
+  @DisplayName("Test convertJsonToFormProperties(JsonNode, BaseElement); given ArrayNode asText() return '42'; then calls isTextual()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void BaseBpmnJsonConverter.convertJsonToFormProperties(JsonNode, BaseElement)"})
+  void testConvertJsonToFormProperties_givenArrayNodeAsTextReturn42_thenCallsIsTextual() {
     // Arrange
     AssociationJsonConverter associationJsonConverter = new AssociationJsonConverter();
+    ArrayNode arrayNode = mock(ArrayNode.class);
+    when(arrayNode.asText()).thenReturn("42");
+    when(arrayNode.get(Mockito.<String>any())).thenReturn(mock(ArrayNode.class));
+    when(arrayNode.isNull()).thenReturn(false);
+    when(arrayNode.isTextual()).thenReturn(true);
+    ArrayNode arrayNode2 = mock(ArrayNode.class);
+    when(arrayNode2.get(Mockito.<String>any())).thenReturn(arrayNode);
+    ArrayNode objectNode = mock(ArrayNode.class);
+    when(objectNode.get(Mockito.<String>any())).thenReturn(arrayNode2);
 
+    // Act
+    associationJsonConverter.convertJsonToFormProperties(objectNode, new ActivitiListener());
+
+    // Assert
+    verify(arrayNode).isNull();
+    verify(arrayNode).isTextual();
+    verify(arrayNode2).get(eq("formproperties"));
+    verify(objectNode, atLeast(1)).get(eq("properties"));
+    verify(arrayNode, atLeast(1)).asText();
+  }
+
+  /**
+   * Test {@link BaseBpmnJsonConverter#convertJsonToFormProperties(JsonNode, BaseElement)}.
+   * <ul>
+   *   <li>Given {@link ArrayNode} {@link ContainerNode#asText()} return {@code As Text}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link BaseBpmnJsonConverter#convertJsonToFormProperties(JsonNode, BaseElement)}
+   */
+  @Test
+  @DisplayName("Test convertJsonToFormProperties(JsonNode, BaseElement); given ArrayNode asText() return 'As Text'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void BaseBpmnJsonConverter.convertJsonToFormProperties(JsonNode, BaseElement)"})
+  void testConvertJsonToFormProperties_givenArrayNodeAsTextReturnAsText() {
+    // Arrange
+    AssociationJsonConverter associationJsonConverter = new AssociationJsonConverter();
     ArrayNode arrayNode = mock(ArrayNode.class);
 
     ArrayList<JsonNode> jsonNodeList = new ArrayList<>();
     when(arrayNode.iterator()).thenReturn(jsonNodeList.iterator());
-
     ArrayNode arrayNode2 = mock(ArrayNode.class);
     when(arrayNode2.asText()).thenReturn("As Text");
+    when(arrayNode2.get(Mockito.<String>any())).thenReturn(arrayNode);
     when(arrayNode2.isNull()).thenReturn(false);
     when(arrayNode2.isTextual()).thenReturn(true);
-    when(arrayNode2.get(Mockito.<String>any())).thenReturn(arrayNode);
-
     ArrayNode arrayNode3 = mock(ArrayNode.class);
     when(arrayNode3.get(Mockito.<String>any())).thenReturn(arrayNode2);
-
     ArrayNode objectNode = mock(ArrayNode.class);
     when(objectNode.get(Mockito.<String>any())).thenReturn(arrayNode3);
 
@@ -3129,197 +2346,302 @@ class BaseBpmnJsonConverterDiffblueTest {
     verify(arrayNode2).isNull();
     verify(arrayNode2).isTextual();
     verify(arrayNode).iterator();
-    verify(arrayNode2).get("formProperties");
-    verify(arrayNode3).get("formproperties");
-    verify(objectNode, atLeast(1)).get("properties");
+    verify(arrayNode2).get(eq("formProperties"));
+    verify(arrayNode3).get(eq("formproperties"));
+    verify(objectNode, atLeast(1)).get(eq("properties"));
     verify(arrayNode2, atLeast(1)).asText();
   }
 
   /**
    * Test {@link BaseBpmnJsonConverter#convertJsonToFormProperties(JsonNode, BaseElement)}.
-   *
    * <ul>
-   *   <li>Then {@link StartEvent} (default constructor) FormProperties size is one.
+   *   <li>Given {@link ArrayNode} {@link ContainerNode#asText()} return empty string.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link BaseBpmnJsonConverter#convertJsonToFormProperties(JsonNode,
-   * BaseElement)}
+   * <p>
+   * Method under test: {@link BaseBpmnJsonConverter#convertJsonToFormProperties(JsonNode, BaseElement)}
    */
   @Test
-  @DisplayName(
-      "Test convertJsonToFormProperties(JsonNode, BaseElement); then StartEvent (default constructor) FormProperties size is one")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void BaseBpmnJsonConverter.convertJsonToFormProperties(JsonNode, BaseElement)"
-  })
-  void testConvertJsonToFormProperties_thenStartEventFormPropertiesSizeIsOne() {
+  @DisplayName("Test convertJsonToFormProperties(JsonNode, BaseElement); given ArrayNode asText() return empty string")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void BaseBpmnJsonConverter.convertJsonToFormProperties(JsonNode, BaseElement)"})
+  void testConvertJsonToFormProperties_givenArrayNodeAsTextReturnEmptyString() {
     // Arrange
     AssociationJsonConverter associationJsonConverter = new AssociationJsonConverter();
-
     ArrayNode arrayNode = mock(ArrayNode.class);
-    when(arrayNode.isNull()).thenReturn(true);
-    when(arrayNode.asText()).thenReturn("As Text");
-
-    ArrayNode arrayNode2 = mock(ArrayNode.class);
-    when(arrayNode2.get(Mockito.<String>any())).thenReturn(arrayNode);
 
     ArrayList<JsonNode> jsonNodeList = new ArrayList<>();
-    jsonNodeList.add(arrayNode2);
-
+    when(arrayNode.iterator()).thenReturn(jsonNodeList.iterator());
+    ArrayNode arrayNode2 = mock(ArrayNode.class);
+    when(arrayNode2.asText()).thenReturn("");
+    when(arrayNode2.get(Mockito.<String>any())).thenReturn(arrayNode);
+    when(arrayNode2.isNull()).thenReturn(false);
+    when(arrayNode2.isTextual()).thenReturn(true);
     ArrayNode arrayNode3 = mock(ArrayNode.class);
-    when(arrayNode3.iterator()).thenReturn(jsonNodeList.iterator());
-
-    ArrayNode arrayNode4 = mock(ArrayNode.class);
-    when(arrayNode4.asText()).thenReturn("As Text");
-    when(arrayNode4.isNull()).thenReturn(false);
-    when(arrayNode4.isTextual()).thenReturn(true);
-    when(arrayNode4.get(Mockito.<String>any())).thenReturn(arrayNode3);
-
-    ArrayNode arrayNode5 = mock(ArrayNode.class);
-    when(arrayNode5.get(Mockito.<String>any())).thenReturn(arrayNode4);
-
+    when(arrayNode3.get(Mockito.<String>any())).thenReturn(arrayNode2);
     ArrayNode objectNode = mock(ArrayNode.class);
-    when(objectNode.get(Mockito.<String>any())).thenReturn(arrayNode5);
-    StartEvent element = new StartEvent();
+    when(objectNode.get(Mockito.<String>any())).thenReturn(arrayNode3);
 
     // Act
-    associationJsonConverter.convertJsonToFormProperties(objectNode, element);
+    associationJsonConverter.convertJsonToFormProperties(objectNode, new ActivitiListener());
 
     // Assert
-    verify(arrayNode4).isNull();
-    verify(arrayNode, atLeast(1)).isNull();
-    verify(arrayNode4).isTextual();
-    verify(arrayNode3).iterator();
-    verify(arrayNode2, atLeast(1)).get(Mockito.<String>any());
-    verify(arrayNode4).get("formProperties");
-    verify(arrayNode5).get("formproperties");
-    verify(objectNode, atLeast(1)).get("properties");
-    verify(arrayNode4, atLeast(1)).asText();
-    verify(arrayNode, atLeast(1)).asText();
-    List<FormProperty> formProperties = element.getFormProperties();
-    assertEquals(1, formProperties.size());
-    FormProperty getResult = formProperties.get(0);
-    assertEquals("As Text", getResult.getId());
-    assertNull(getResult.getDatePattern());
-    assertNull(getResult.getDefaultExpression());
-    assertNull(getResult.getExpression());
-    assertNull(getResult.getName());
-    assertNull(getResult.getType());
-    assertNull(getResult.getVariable());
-    assertEquals(0, getResult.getXmlColumnNumber());
-    assertEquals(0, getResult.getXmlRowNumber());
-    assertFalse(getResult.isReadable());
-    assertFalse(getResult.isRequired());
-    assertFalse(getResult.isWriteable());
-    assertTrue(getResult.getFormValues().isEmpty());
-    assertTrue(getResult.getAttributes().isEmpty());
-    assertTrue(getResult.getExtensionElements().isEmpty());
+    verify(arrayNode2).isNull();
+    verify(arrayNode2).isTextual();
+    verify(arrayNode).iterator();
+    verify(arrayNode2).get(eq("formProperties"));
+    verify(arrayNode3).get(eq("formproperties"));
+    verify(objectNode, atLeast(1)).get(eq("properties"));
+    verify(arrayNode2).asText();
   }
 
   /**
    * Test {@link BaseBpmnJsonConverter#convertJsonToFormProperties(JsonNode, BaseElement)}.
-   *
    * <ul>
-   *   <li>When {@link UserTask} (default constructor).
-   *   <li>Then {@link UserTask} (default constructor) FormProperties size is one.
+   *   <li>Given {@link ArrayNode} {@link ContainerNode#asText()} return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link BaseBpmnJsonConverter#convertJsonToFormProperties(JsonNode,
-   * BaseElement)}
+   * <p>
+   * Method under test: {@link BaseBpmnJsonConverter#convertJsonToFormProperties(JsonNode, BaseElement)}
    */
   @Test
-  @DisplayName(
-      "Test convertJsonToFormProperties(JsonNode, BaseElement); when UserTask (default constructor); then UserTask (default constructor) FormProperties size is one")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void BaseBpmnJsonConverter.convertJsonToFormProperties(JsonNode, BaseElement)"
-  })
-  void testConvertJsonToFormProperties_whenUserTask_thenUserTaskFormPropertiesSizeIsOne() {
+  @DisplayName("Test convertJsonToFormProperties(JsonNode, BaseElement); given ArrayNode asText() return 'null'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void BaseBpmnJsonConverter.convertJsonToFormProperties(JsonNode, BaseElement)"})
+  void testConvertJsonToFormProperties_givenArrayNodeAsTextReturnNull() {
     // Arrange
     AssociationJsonConverter associationJsonConverter = new AssociationJsonConverter();
-
     ArrayNode arrayNode = mock(ArrayNode.class);
-    when(arrayNode.isNull()).thenReturn(true);
-    when(arrayNode.asText()).thenReturn("As Text");
-
-    ArrayNode arrayNode2 = mock(ArrayNode.class);
-    when(arrayNode2.get(Mockito.<String>any())).thenReturn(arrayNode);
 
     ArrayList<JsonNode> jsonNodeList = new ArrayList<>();
-    jsonNodeList.add(arrayNode2);
-
+    when(arrayNode.iterator()).thenReturn(jsonNodeList.iterator());
+    ArrayNode arrayNode2 = mock(ArrayNode.class);
+    when(arrayNode2.asText()).thenReturn(null);
+    when(arrayNode2.get(Mockito.<String>any())).thenReturn(arrayNode);
+    when(arrayNode2.isNull()).thenReturn(false);
+    when(arrayNode2.isTextual()).thenReturn(true);
     ArrayNode arrayNode3 = mock(ArrayNode.class);
-    when(arrayNode3.iterator()).thenReturn(jsonNodeList.iterator());
-
-    ArrayNode arrayNode4 = mock(ArrayNode.class);
-    when(arrayNode4.asText()).thenReturn("As Text");
-    when(arrayNode4.isNull()).thenReturn(false);
-    when(arrayNode4.isTextual()).thenReturn(true);
-    when(arrayNode4.get(Mockito.<String>any())).thenReturn(arrayNode3);
-
-    ArrayNode arrayNode5 = mock(ArrayNode.class);
-    when(arrayNode5.get(Mockito.<String>any())).thenReturn(arrayNode4);
-
+    when(arrayNode3.get(Mockito.<String>any())).thenReturn(arrayNode2);
     ArrayNode objectNode = mock(ArrayNode.class);
-    when(objectNode.get(Mockito.<String>any())).thenReturn(arrayNode5);
-    UserTask element = new UserTask();
+    when(objectNode.get(Mockito.<String>any())).thenReturn(arrayNode3);
 
     // Act
-    associationJsonConverter.convertJsonToFormProperties(objectNode, element);
+    associationJsonConverter.convertJsonToFormProperties(objectNode, new ActivitiListener());
 
     // Assert
-    verify(arrayNode4).isNull();
-    verify(arrayNode, atLeast(1)).isNull();
-    verify(arrayNode4).isTextual();
-    verify(arrayNode3).iterator();
-    verify(arrayNode2, atLeast(1)).get(Mockito.<String>any());
-    verify(arrayNode4).get("formProperties");
-    verify(arrayNode5).get("formproperties");
-    verify(objectNode, atLeast(1)).get("properties");
-    verify(arrayNode4, atLeast(1)).asText();
-    verify(arrayNode, atLeast(1)).asText();
-    List<FormProperty> formProperties = element.getFormProperties();
-    assertEquals(1, formProperties.size());
-    FormProperty getResult = formProperties.get(0);
-    assertEquals("As Text", getResult.getId());
-    assertNull(getResult.getDatePattern());
-    assertNull(getResult.getDefaultExpression());
-    assertNull(getResult.getExpression());
-    assertNull(getResult.getName());
-    assertNull(getResult.getType());
-    assertNull(getResult.getVariable());
+    verify(arrayNode2).isNull();
+    verify(arrayNode2).isTextual();
+    verify(arrayNode).iterator();
+    verify(arrayNode2).get(eq("formProperties"));
+    verify(arrayNode3).get(eq("formproperties"));
+    verify(objectNode, atLeast(1)).get(eq("properties"));
+    verify(arrayNode2).asText();
+  }
+
+  /**
+   * Test {@link BaseBpmnJsonConverter#convertJsonToFormProperties(JsonNode, BaseElement)}.
+   * <ul>
+   *   <li>Given {@link ArrayNode} {@link ArrayNode#get(String)} return Instance.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link BaseBpmnJsonConverter#convertJsonToFormProperties(JsonNode, BaseElement)}
+   */
+  @Test
+  @DisplayName("Test convertJsonToFormProperties(JsonNode, BaseElement); given ArrayNode get(String) return Instance")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void BaseBpmnJsonConverter.convertJsonToFormProperties(JsonNode, BaseElement)"})
+  void testConvertJsonToFormProperties_givenArrayNodeGetReturnInstance() {
+    // Arrange
+    AssociationJsonConverter associationJsonConverter = new AssociationJsonConverter();
+    ArrayNode arrayNode = mock(ArrayNode.class);
+    when(arrayNode.get(Mockito.<String>any())).thenReturn(MissingNode.getInstance());
+    ArrayNode objectNode = mock(ArrayNode.class);
+    when(objectNode.get(Mockito.<String>any())).thenReturn(arrayNode);
+
+    // Act
+    associationJsonConverter.convertJsonToFormProperties(objectNode, new ActivitiListener());
+
+    // Assert
+    verify(arrayNode).get(eq("formproperties"));
+    verify(objectNode, atLeast(1)).get(eq("properties"));
+  }
+
+  /**
+   * Test {@link BaseBpmnJsonConverter#convertJsonToFormProperties(JsonNode, BaseElement)}.
+   * <ul>
+   *   <li>Given {@link ArrayNode} {@link ArrayNode#get(String)} return Instance.</li>
+   *   <li>Then calls {@link JsonNode#isNull()}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link BaseBpmnJsonConverter#convertJsonToFormProperties(JsonNode, BaseElement)}
+   */
+  @Test
+  @DisplayName("Test convertJsonToFormProperties(JsonNode, BaseElement); given ArrayNode get(String) return Instance; then calls isNull()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void BaseBpmnJsonConverter.convertJsonToFormProperties(JsonNode, BaseElement)"})
+  void testConvertJsonToFormProperties_givenArrayNodeGetReturnInstance_thenCallsIsNull() {
+    // Arrange
+    AssociationJsonConverter associationJsonConverter = new AssociationJsonConverter();
+    ArrayNode arrayNode = mock(ArrayNode.class);
+    when(arrayNode.get(Mockito.<String>any())).thenReturn(MissingNode.getInstance());
+    when(arrayNode.isNull()).thenReturn(true);
+    ArrayNode arrayNode2 = mock(ArrayNode.class);
+    when(arrayNode2.get(Mockito.<String>any())).thenReturn(arrayNode);
+    ArrayNode objectNode = mock(ArrayNode.class);
+    when(objectNode.get(Mockito.<String>any())).thenReturn(arrayNode2);
+
+    // Act
+    associationJsonConverter.convertJsonToFormProperties(objectNode, new ActivitiListener());
+
+    // Assert
+    verify(arrayNode).isNull();
+    verify(arrayNode).get(eq("formProperties"));
+    verify(arrayNode2).get(eq("formproperties"));
+    verify(objectNode, atLeast(1)).get(eq("properties"));
+  }
+
+  /**
+   * Test {@link BaseBpmnJsonConverter#convertJsonToFormProperties(JsonNode, BaseElement)}.
+   * <ul>
+   *   <li>Given {@link ArrayNode} {@link JsonNode#isNull()} return {@code true}.</li>
+   *   <li>Then calls {@link JsonNode#iterator()}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link BaseBpmnJsonConverter#convertJsonToFormProperties(JsonNode, BaseElement)}
+   */
+  @Test
+  @DisplayName("Test convertJsonToFormProperties(JsonNode, BaseElement); given ArrayNode isNull() return 'true'; then calls iterator()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void BaseBpmnJsonConverter.convertJsonToFormProperties(JsonNode, BaseElement)"})
+  void testConvertJsonToFormProperties_givenArrayNodeIsNullReturnTrue_thenCallsIterator() {
+    // Arrange
+    AssociationJsonConverter associationJsonConverter = new AssociationJsonConverter();
+    ArrayNode arrayNode = mock(ArrayNode.class);
+
+    ArrayList<JsonNode> jsonNodeList = new ArrayList<>();
+    when(arrayNode.iterator()).thenReturn(jsonNodeList.iterator());
+    ArrayNode arrayNode2 = mock(ArrayNode.class);
+    when(arrayNode2.get(Mockito.<String>any())).thenReturn(arrayNode);
+    when(arrayNode2.isNull()).thenReturn(true);
+    ArrayNode arrayNode3 = mock(ArrayNode.class);
+    when(arrayNode3.get(Mockito.<String>any())).thenReturn(arrayNode2);
+    ArrayNode objectNode = mock(ArrayNode.class);
+    when(objectNode.get(Mockito.<String>any())).thenReturn(arrayNode3);
+
+    // Act
+    associationJsonConverter.convertJsonToFormProperties(objectNode, new ActivitiListener());
+
+    // Assert
+    verify(arrayNode2).isNull();
+    verify(arrayNode).iterator();
+    verify(arrayNode2).get(eq("formProperties"));
+    verify(arrayNode3).get(eq("formproperties"));
+    verify(objectNode, atLeast(1)).get(eq("properties"));
+  }
+
+  /**
+   * Test {@link BaseBpmnJsonConverter#convertJsonToFormProperties(JsonNode, BaseElement)}.
+   * <ul>
+   *   <li>Given {@link ArrayNode#ArrayNode(JsonNodeFactory)} with nf is withExactBigDecimals {@code true}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link BaseBpmnJsonConverter#convertJsonToFormProperties(JsonNode, BaseElement)}
+   */
+  @Test
+  @DisplayName("Test convertJsonToFormProperties(JsonNode, BaseElement); given ArrayNode(JsonNodeFactory) with nf is withExactBigDecimals 'true'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void BaseBpmnJsonConverter.convertJsonToFormProperties(JsonNode, BaseElement)"})
+  void testConvertJsonToFormProperties_givenArrayNodeWithNfIsWithExactBigDecimalsTrue() {
+    // Arrange
+    AssociationJsonConverter associationJsonConverter = new AssociationJsonConverter();
+    ArrayNode objectNode = mock(ArrayNode.class);
+    when(objectNode.get(Mockito.<String>any())).thenReturn(new ArrayNode(JsonNodeFactory.withExactBigDecimals(true)));
+
+    // Act
+    associationJsonConverter.convertJsonToFormProperties(objectNode, new ActivitiListener());
+
+    // Assert
+    verify(objectNode, atLeast(1)).get(eq("properties"));
+  }
+
+  /**
+   * Test {@link BaseBpmnJsonConverter#convertJsonToFormProperties(JsonNode, BaseElement)}.
+   * <ul>
+   *   <li>Given Instance.</li>
+   *   <li>When {@link ArrayNode} {@link ArrayNode#get(String)} return Instance.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link BaseBpmnJsonConverter#convertJsonToFormProperties(JsonNode, BaseElement)}
+   */
+  @Test
+  @DisplayName("Test convertJsonToFormProperties(JsonNode, BaseElement); given Instance; when ArrayNode get(String) return Instance")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void BaseBpmnJsonConverter.convertJsonToFormProperties(JsonNode, BaseElement)"})
+  void testConvertJsonToFormProperties_givenInstance_whenArrayNodeGetReturnInstance() {
+    // Arrange
+    AssociationJsonConverter associationJsonConverter = new AssociationJsonConverter();
+    ArrayNode objectNode = mock(ArrayNode.class);
+    when(objectNode.get(Mockito.<String>any())).thenReturn(MissingNode.getInstance());
+
+    // Act
+    associationJsonConverter.convertJsonToFormProperties(objectNode, new ActivitiListener());
+
+    // Assert
+    verify(objectNode, atLeast(1)).get(eq("properties"));
+  }
+
+  /**
+   * Test {@link BaseBpmnJsonConverter#convertJsonToTimerDefinition(JsonNode, Event)}.
+   * <ul>
+   *   <li>Then {@link BoundaryEvent} (default constructor) EventDefinitions size is one.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link BaseBpmnJsonConverter#convertJsonToTimerDefinition(JsonNode, Event)}
+   */
+  @Test
+  @DisplayName("Test convertJsonToTimerDefinition(JsonNode, Event); then BoundaryEvent (default constructor) EventDefinitions size is one")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void BaseBpmnJsonConverter.convertJsonToTimerDefinition(JsonNode, Event)"})
+  void testConvertJsonToTimerDefinition_thenBoundaryEventEventDefinitionsSizeIsOne() {
+    // Arrange
+    AssociationJsonConverter associationJsonConverter = new AssociationJsonConverter();
+    MissingNode objectNode = MissingNode.getInstance();
+    BoundaryEvent event = new BoundaryEvent();
+
+    // Act
+    associationJsonConverter.convertJsonToTimerDefinition(objectNode, event);
+
+    // Assert
+    List<EventDefinition> eventDefinitions = event.getEventDefinitions();
+    assertEquals(1, eventDefinitions.size());
+    EventDefinition getResult = eventDefinitions.get(0);
+    assertTrue(getResult instanceof TimerEventDefinition);
+    assertNull(getResult.getId());
+    assertNull(((TimerEventDefinition) getResult).getCalendarName());
+    assertNull(((TimerEventDefinition) getResult).getEndDate());
+    assertNull(((TimerEventDefinition) getResult).getTimeCycle());
+    assertNull(((TimerEventDefinition) getResult).getTimeDate());
+    assertNull(((TimerEventDefinition) getResult).getTimeDuration());
     assertEquals(0, getResult.getXmlColumnNumber());
     assertEquals(0, getResult.getXmlRowNumber());
-    assertFalse(getResult.isReadable());
-    assertFalse(getResult.isRequired());
-    assertFalse(getResult.isWriteable());
-    assertTrue(getResult.getFormValues().isEmpty());
     assertTrue(getResult.getAttributes().isEmpty());
     assertTrue(getResult.getExtensionElements().isEmpty());
   }
 
   /**
    * Test {@link BaseBpmnJsonConverter#convertJsonToTimerDefinition(JsonNode, Event)}.
-   *
    * <ul>
-   *   <li>Then {@link BoundaryEvent} (default constructor) EventDefinitions size is one.
+   *   <li>When {@link ArrayNode#ArrayNode(JsonNodeFactory)} with nf is withExactBigDecimals {@code true}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link BaseBpmnJsonConverter#convertJsonToTimerDefinition(JsonNode,
-   * Event)}
+   * <p>
+   * Method under test: {@link BaseBpmnJsonConverter#convertJsonToTimerDefinition(JsonNode, Event)}
    */
   @Test
-  @DisplayName(
-      "Test convertJsonToTimerDefinition(JsonNode, Event); then BoundaryEvent (default constructor) EventDefinitions size is one")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test convertJsonToTimerDefinition(JsonNode, Event); when ArrayNode(JsonNodeFactory) with nf is withExactBigDecimals 'true'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void BaseBpmnJsonConverter.convertJsonToTimerDefinition(JsonNode, Event)"})
-  void testConvertJsonToTimerDefinition_thenBoundaryEventEventDefinitionsSizeIsOne() {
+  void testConvertJsonToTimerDefinition_whenArrayNodeWithNfIsWithExactBigDecimalsTrue() {
     // Arrange
     AssociationJsonConverter associationJsonConverter = new AssociationJsonConverter();
-    DoubleNode objectNode = DoubleNode.valueOf(10.0d);
+    ArrayNode objectNode = new ArrayNode(JsonNodeFactory.withExactBigDecimals(true));
     BoundaryEvent event = new BoundaryEvent();
 
     // Act
@@ -3344,24 +2666,56 @@ class BaseBpmnJsonConverterDiffblueTest {
 
   /**
    * Test {@link BaseBpmnJsonConverter#convertJsonToSignalDefinition(JsonNode, Event)}.
-   *
    * <ul>
-   *   <li>Then {@link BoundaryEvent} (default constructor) EventDefinitions size is one.
+   *   <li>Then {@link BoundaryEvent} (default constructor) EventDefinitions size is one.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link BaseBpmnJsonConverter#convertJsonToSignalDefinition(JsonNode,
-   * Event)}
+   * <p>
+   * Method under test: {@link BaseBpmnJsonConverter#convertJsonToSignalDefinition(JsonNode, Event)}
    */
   @Test
-  @DisplayName(
-      "Test convertJsonToSignalDefinition(JsonNode, Event); then BoundaryEvent (default constructor) EventDefinitions size is one")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test convertJsonToSignalDefinition(JsonNode, Event); then BoundaryEvent (default constructor) EventDefinitions size is one")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void BaseBpmnJsonConverter.convertJsonToSignalDefinition(JsonNode, Event)"})
   void testConvertJsonToSignalDefinition_thenBoundaryEventEventDefinitionsSizeIsOne() {
     // Arrange
     AssociationJsonConverter associationJsonConverter = new AssociationJsonConverter();
-    DoubleNode objectNode = DoubleNode.valueOf(10.0d);
+    MissingNode objectNode = MissingNode.getInstance();
+    BoundaryEvent event = new BoundaryEvent();
+
+    // Act
+    associationJsonConverter.convertJsonToSignalDefinition(objectNode, event);
+
+    // Assert
+    List<EventDefinition> eventDefinitions = event.getEventDefinitions();
+    assertEquals(1, eventDefinitions.size());
+    EventDefinition getResult = eventDefinitions.get(0);
+    assertTrue(getResult instanceof SignalEventDefinition);
+    assertNull(getResult.getId());
+    assertNull(((SignalEventDefinition) getResult).getSignalExpression());
+    assertNull(((SignalEventDefinition) getResult).getSignalRef());
+    assertEquals(0, getResult.getXmlColumnNumber());
+    assertEquals(0, getResult.getXmlRowNumber());
+    assertFalse(((SignalEventDefinition) getResult).isAsync());
+    assertTrue(getResult.getAttributes().isEmpty());
+    assertTrue(getResult.getExtensionElements().isEmpty());
+  }
+
+  /**
+   * Test {@link BaseBpmnJsonConverter#convertJsonToSignalDefinition(JsonNode, Event)}.
+   * <ul>
+   *   <li>When {@link ArrayNode#ArrayNode(JsonNodeFactory)} with nf is withExactBigDecimals {@code true}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link BaseBpmnJsonConverter#convertJsonToSignalDefinition(JsonNode, Event)}
+   */
+  @Test
+  @DisplayName("Test convertJsonToSignalDefinition(JsonNode, Event); when ArrayNode(JsonNodeFactory) with nf is withExactBigDecimals 'true'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void BaseBpmnJsonConverter.convertJsonToSignalDefinition(JsonNode, Event)"})
+  void testConvertJsonToSignalDefinition_whenArrayNodeWithNfIsWithExactBigDecimalsTrue() {
+    // Arrange
+    AssociationJsonConverter associationJsonConverter = new AssociationJsonConverter();
+    ArrayNode objectNode = new ArrayNode(JsonNodeFactory.withExactBigDecimals(true));
     BoundaryEvent event = new BoundaryEvent();
 
     // Act
@@ -3384,24 +2738,57 @@ class BaseBpmnJsonConverterDiffblueTest {
 
   /**
    * Test {@link BaseBpmnJsonConverter#convertJsonToMessageDefinition(JsonNode, Event)}.
-   *
    * <ul>
-   *   <li>Then {@link BoundaryEvent} (default constructor) EventDefinitions size is one.
+   *   <li>Then {@link BoundaryEvent} (default constructor) EventDefinitions size is one.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link BaseBpmnJsonConverter#convertJsonToMessageDefinition(JsonNode,
-   * Event)}
+   * <p>
+   * Method under test: {@link BaseBpmnJsonConverter#convertJsonToMessageDefinition(JsonNode, Event)}
    */
   @Test
-  @DisplayName(
-      "Test convertJsonToMessageDefinition(JsonNode, Event); then BoundaryEvent (default constructor) EventDefinitions size is one")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test convertJsonToMessageDefinition(JsonNode, Event); then BoundaryEvent (default constructor) EventDefinitions size is one")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void BaseBpmnJsonConverter.convertJsonToMessageDefinition(JsonNode, Event)"})
   void testConvertJsonToMessageDefinition_thenBoundaryEventEventDefinitionsSizeIsOne() {
     // Arrange
     AssociationJsonConverter associationJsonConverter = new AssociationJsonConverter();
-    DoubleNode objectNode = DoubleNode.valueOf(10.0d);
+    MissingNode objectNode = MissingNode.getInstance();
+    BoundaryEvent event = new BoundaryEvent();
+
+    // Act
+    associationJsonConverter.convertJsonToMessageDefinition(objectNode, event);
+
+    // Assert
+    List<EventDefinition> eventDefinitions = event.getEventDefinitions();
+    assertEquals(1, eventDefinitions.size());
+    EventDefinition getResult = eventDefinitions.get(0);
+    assertTrue(getResult instanceof MessageEventDefinition);
+    assertNull(getResult.getId());
+    assertNull(((MessageEventDefinition) getResult).getCorrelationKey());
+    assertNull(((MessageEventDefinition) getResult).getMessageExpression());
+    assertNull(((MessageEventDefinition) getResult).getMessageRef());
+    assertEquals(0, getResult.getXmlColumnNumber());
+    assertEquals(0, getResult.getXmlRowNumber());
+    assertTrue(((MessageEventDefinition) getResult).getFieldExtensions().isEmpty());
+    assertTrue(getResult.getAttributes().isEmpty());
+    assertTrue(getResult.getExtensionElements().isEmpty());
+  }
+
+  /**
+   * Test {@link BaseBpmnJsonConverter#convertJsonToMessageDefinition(JsonNode, Event)}.
+   * <ul>
+   *   <li>When {@link ArrayNode#ArrayNode(JsonNodeFactory)} with nf is withExactBigDecimals {@code true}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link BaseBpmnJsonConverter#convertJsonToMessageDefinition(JsonNode, Event)}
+   */
+  @Test
+  @DisplayName("Test convertJsonToMessageDefinition(JsonNode, Event); when ArrayNode(JsonNodeFactory) with nf is withExactBigDecimals 'true'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void BaseBpmnJsonConverter.convertJsonToMessageDefinition(JsonNode, Event)"})
+  void testConvertJsonToMessageDefinition_whenArrayNodeWithNfIsWithExactBigDecimalsTrue() {
+    // Arrange
+    AssociationJsonConverter associationJsonConverter = new AssociationJsonConverter();
+    ArrayNode objectNode = new ArrayNode(JsonNodeFactory.withExactBigDecimals(true));
     BoundaryEvent event = new BoundaryEvent();
 
     // Act
@@ -3425,24 +2812,54 @@ class BaseBpmnJsonConverterDiffblueTest {
 
   /**
    * Test {@link BaseBpmnJsonConverter#convertJsonToErrorDefinition(JsonNode, Event)}.
-   *
    * <ul>
-   *   <li>Then {@link BoundaryEvent} (default constructor) EventDefinitions size is one.
+   *   <li>Then {@link BoundaryEvent} (default constructor) EventDefinitions size is one.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link BaseBpmnJsonConverter#convertJsonToErrorDefinition(JsonNode,
-   * Event)}
+   * <p>
+   * Method under test: {@link BaseBpmnJsonConverter#convertJsonToErrorDefinition(JsonNode, Event)}
    */
   @Test
-  @DisplayName(
-      "Test convertJsonToErrorDefinition(JsonNode, Event); then BoundaryEvent (default constructor) EventDefinitions size is one")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test convertJsonToErrorDefinition(JsonNode, Event); then BoundaryEvent (default constructor) EventDefinitions size is one")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void BaseBpmnJsonConverter.convertJsonToErrorDefinition(JsonNode, Event)"})
   void testConvertJsonToErrorDefinition_thenBoundaryEventEventDefinitionsSizeIsOne() {
     // Arrange
     AssociationJsonConverter associationJsonConverter = new AssociationJsonConverter();
-    DoubleNode objectNode = DoubleNode.valueOf(10.0d);
+    MissingNode objectNode = MissingNode.getInstance();
+    BoundaryEvent event = new BoundaryEvent();
+
+    // Act
+    associationJsonConverter.convertJsonToErrorDefinition(objectNode, event);
+
+    // Assert
+    List<EventDefinition> eventDefinitions = event.getEventDefinitions();
+    assertEquals(1, eventDefinitions.size());
+    EventDefinition getResult = eventDefinitions.get(0);
+    assertTrue(getResult instanceof ErrorEventDefinition);
+    assertNull(getResult.getId());
+    assertNull(((ErrorEventDefinition) getResult).getErrorRef());
+    assertEquals(0, getResult.getXmlColumnNumber());
+    assertEquals(0, getResult.getXmlRowNumber());
+    assertTrue(getResult.getAttributes().isEmpty());
+    assertTrue(getResult.getExtensionElements().isEmpty());
+  }
+
+  /**
+   * Test {@link BaseBpmnJsonConverter#convertJsonToErrorDefinition(JsonNode, Event)}.
+   * <ul>
+   *   <li>When {@link ArrayNode#ArrayNode(JsonNodeFactory)} with nf is withExactBigDecimals {@code true}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link BaseBpmnJsonConverter#convertJsonToErrorDefinition(JsonNode, Event)}
+   */
+  @Test
+  @DisplayName("Test convertJsonToErrorDefinition(JsonNode, Event); when ArrayNode(JsonNodeFactory) with nf is withExactBigDecimals 'true'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void BaseBpmnJsonConverter.convertJsonToErrorDefinition(JsonNode, Event)"})
+  void testConvertJsonToErrorDefinition_whenArrayNodeWithNfIsWithExactBigDecimalsTrue() {
+    // Arrange
+    AssociationJsonConverter associationJsonConverter = new AssociationJsonConverter();
+    ArrayNode objectNode = new ArrayNode(JsonNodeFactory.withExactBigDecimals(true));
     BoundaryEvent event = new BoundaryEvent();
 
     // Act
@@ -3463,126 +2880,192 @@ class BaseBpmnJsonConverterDiffblueTest {
 
   /**
    * Test {@link BaseBpmnJsonConverter#getValueAsString(String, JsonNode)}.
-   *
    * <ul>
-   *   <li>When valueOf ten.
-   *   <li>Then return {@code null}.
+   *   <li>When {@link ArrayNode#ArrayNode(JsonNodeFactory)} with nf is withExactBigDecimals {@code true}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link BaseBpmnJsonConverter#getValueAsString(String, JsonNode)}
+   * <p>
+   * Method under test: {@link BaseBpmnJsonConverter#getValueAsString(String, JsonNode)}
    */
   @Test
-  @DisplayName("Test getValueAsString(String, JsonNode); when valueOf ten; then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getValueAsString(String, JsonNode); when ArrayNode(JsonNodeFactory) with nf is withExactBigDecimals 'true'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"String BaseBpmnJsonConverter.getValueAsString(String, JsonNode)"})
-  void testGetValueAsString_whenValueOfTen_thenReturnNull() {
-    // Arrange, Act and Assert
-    assertNull(new AssociationJsonConverter().getValueAsString("Name", DoubleNode.valueOf(10.0d)));
+  void testGetValueAsString_whenArrayNodeWithNfIsWithExactBigDecimalsTrue() {
+    // Arrange
+    AssociationJsonConverter associationJsonConverter = new AssociationJsonConverter();
+
+    // Act and Assert
+    assertNull(
+        associationJsonConverter.getValueAsString("Name", new ArrayNode(JsonNodeFactory.withExactBigDecimals(true))));
+  }
+
+  /**
+   * Test {@link BaseBpmnJsonConverter#getValueAsString(String, JsonNode)}.
+   * <ul>
+   *   <li>When Instance.</li>
+   *   <li>Then return {@code null}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link BaseBpmnJsonConverter#getValueAsString(String, JsonNode)}
+   */
+  @Test
+  @DisplayName("Test getValueAsString(String, JsonNode); when Instance; then return 'null'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"String BaseBpmnJsonConverter.getValueAsString(String, JsonNode)"})
+  void testGetValueAsString_whenInstance_thenReturnNull() {
+    // Arrange
+    AssociationJsonConverter associationJsonConverter = new AssociationJsonConverter();
+
+    // Act and Assert
+    assertNull(associationJsonConverter.getValueAsString("Name", MissingNode.getInstance()));
   }
 
   /**
    * Test {@link BaseBpmnJsonConverter#getValueAsBoolean(String, JsonNode)}.
-   *
    * <ul>
-   *   <li>When valueOf ten.
-   *   <li>Then return {@code false}.
+   *   <li>When {@link ArrayNode#ArrayNode(JsonNodeFactory)} with nf is withExactBigDecimals {@code true}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link BaseBpmnJsonConverter#getValueAsBoolean(String, JsonNode)}
+   * <p>
+   * Method under test: {@link BaseBpmnJsonConverter#getValueAsBoolean(String, JsonNode)}
    */
   @Test
-  @DisplayName("Test getValueAsBoolean(String, JsonNode); when valueOf ten; then return 'false'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getValueAsBoolean(String, JsonNode); when ArrayNode(JsonNodeFactory) with nf is withExactBigDecimals 'true'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"boolean BaseBpmnJsonConverter.getValueAsBoolean(String, JsonNode)"})
-  void testGetValueAsBoolean_whenValueOfTen_thenReturnFalse() {
-    // Arrange, Act and Assert
+  void testGetValueAsBoolean_whenArrayNodeWithNfIsWithExactBigDecimalsTrue() {
+    // Arrange
+    AssociationJsonConverter associationJsonConverter = new AssociationJsonConverter();
+
+    // Act and Assert
     assertFalse(
-        new AssociationJsonConverter().getValueAsBoolean("Name", DoubleNode.valueOf(10.0d)));
+        associationJsonConverter.getValueAsBoolean("Name", new ArrayNode(JsonNodeFactory.withExactBigDecimals(true))));
+  }
+
+  /**
+   * Test {@link BaseBpmnJsonConverter#getValueAsBoolean(String, JsonNode)}.
+   * <ul>
+   *   <li>When Instance.</li>
+   *   <li>Then return {@code false}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link BaseBpmnJsonConverter#getValueAsBoolean(String, JsonNode)}
+   */
+  @Test
+  @DisplayName("Test getValueAsBoolean(String, JsonNode); when Instance; then return 'false'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean BaseBpmnJsonConverter.getValueAsBoolean(String, JsonNode)"})
+  void testGetValueAsBoolean_whenInstance_thenReturnFalse() {
+    // Arrange
+    AssociationJsonConverter associationJsonConverter = new AssociationJsonConverter();
+
+    // Act and Assert
+    assertFalse(associationJsonConverter.getValueAsBoolean("Name", MissingNode.getInstance()));
   }
 
   /**
    * Test {@link BaseBpmnJsonConverter#getValueAsList(String, JsonNode)}.
-   *
    * <ul>
-   *   <li>When valueOf ten.
-   *   <li>Then return Empty.
+   *   <li>When {@link ArrayNode#ArrayNode(JsonNodeFactory)} with nf is withExactBigDecimals {@code true}.</li>
+   *   <li>Then return Empty.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link BaseBpmnJsonConverter#getValueAsList(String, JsonNode)}
+   * <p>
+   * Method under test: {@link BaseBpmnJsonConverter#getValueAsList(String, JsonNode)}
    */
   @Test
-  @DisplayName("Test getValueAsList(String, JsonNode); when valueOf ten; then return Empty")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getValueAsList(String, JsonNode); when ArrayNode(JsonNodeFactory) with nf is withExactBigDecimals 'true'; then return Empty")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"List BaseBpmnJsonConverter.getValueAsList(String, JsonNode)"})
-  void testGetValueAsList_whenValueOfTen_thenReturnEmpty() {
-    // Arrange, Act and Assert
+  void testGetValueAsList_whenArrayNodeWithNfIsWithExactBigDecimalsTrue_thenReturnEmpty() {
+    // Arrange
+    AssociationJsonConverter associationJsonConverter = new AssociationJsonConverter();
+
+    // Act and Assert
     assertTrue(
-        new AssociationJsonConverter().getValueAsList("Name", DoubleNode.valueOf(10.0d)).isEmpty());
+        associationJsonConverter.getValueAsList("Name", new ArrayNode(JsonNodeFactory.withExactBigDecimals(true)))
+            .isEmpty());
   }
 
   /**
-   * Test {@link BaseBpmnJsonConverter#addField(String, JsonNode, ServiceTask)} with {@code name},
-   * {@code elementNode}, {@code task}.
-   *
-   * <p>Method under test: {@link BaseBpmnJsonConverter#addField(String, JsonNode, ServiceTask)}
+   * Test {@link BaseBpmnJsonConverter#getValueAsList(String, JsonNode)}.
+   * <ul>
+   *   <li>When Instance.</li>
+   *   <li>Then return Empty.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link BaseBpmnJsonConverter#getValueAsList(String, JsonNode)}
+   */
+  @Test
+  @DisplayName("Test getValueAsList(String, JsonNode); when Instance; then return Empty")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"List BaseBpmnJsonConverter.getValueAsList(String, JsonNode)"})
+  void testGetValueAsList_whenInstance_thenReturnEmpty() {
+    // Arrange
+    AssociationJsonConverter associationJsonConverter = new AssociationJsonConverter();
+
+    // Act and Assert
+    assertTrue(associationJsonConverter.getValueAsList("Name", MissingNode.getInstance()).isEmpty());
+  }
+
+  /**
+   * Test {@link BaseBpmnJsonConverter#addField(String, JsonNode, ServiceTask)} with {@code name}, {@code elementNode}, {@code task}.
+   * <p>
+   * Method under test: {@link BaseBpmnJsonConverter#addField(String, JsonNode, ServiceTask)}
    */
   @Test
   @DisplayName("Test addField(String, JsonNode, ServiceTask) with 'name', 'elementNode', 'task'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void BaseBpmnJsonConverter.addField(String, JsonNode, ServiceTask)"})
   void testAddFieldWithNameElementNodeTask() {
     // Arrange
     AssociationJsonConverter associationJsonConverter = new AssociationJsonConverter();
-
-    ArrayNode arrayNode = mock(ArrayNode.class);
-    when(arrayNode.get(Mockito.<String>any())).thenReturn(DoubleNode.valueOf(10.0d));
-
-    ArrayNode elementNode = mock(ArrayNode.class);
-    when(elementNode.get(Mockito.<String>any())).thenReturn(arrayNode);
+    ArrayNode elementNode = new ArrayNode(JsonNodeFactory.withExactBigDecimals(true));
     ServiceTask task = new ServiceTask();
 
     // Act
     associationJsonConverter.addField("CamelTask", elementNode, task);
 
-    // Assert
-    verify(arrayNode).get("CamelTask");
-    verify(elementNode, atLeast(1)).get("properties");
-    List<FieldExtension> fieldExtensions = task.getFieldExtensions();
-    assertEquals(1, fieldExtensions.size());
-    FieldExtension getResult = fieldExtensions.get(0);
-    assertEquals("10.0", getResult.getStringValue());
-    assertEquals("k", getResult.getFieldName());
-    assertNull(getResult.getId());
-    assertNull(getResult.getExpression());
-    assertEquals(0, getResult.getXmlColumnNumber());
-    assertEquals(0, getResult.getXmlRowNumber());
-    assertTrue(getResult.getAttributes().isEmpty());
-    assertTrue(getResult.getExtensionElements().isEmpty());
+    // Assert that nothing has changed
+    assertTrue(task.getFieldExtensions().isEmpty());
   }
 
   /**
-   * Test {@link BaseBpmnJsonConverter#addField(String, JsonNode, ServiceTask)} with {@code name},
-   * {@code elementNode}, {@code task}.
-   *
-   * <p>Method under test: {@link BaseBpmnJsonConverter#addField(String, JsonNode, ServiceTask)}
+   * Test {@link BaseBpmnJsonConverter#addField(String, JsonNode, ServiceTask)} with {@code name}, {@code elementNode}, {@code task}.
+   * <p>
+   * Method under test: {@link BaseBpmnJsonConverter#addField(String, JsonNode, ServiceTask)}
    */
   @Test
   @DisplayName("Test addField(String, JsonNode, ServiceTask) with 'name', 'elementNode', 'task'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void BaseBpmnJsonConverter.addField(String, JsonNode, ServiceTask)"})
   void testAddFieldWithNameElementNodeTask2() {
     // Arrange
     AssociationJsonConverter associationJsonConverter = new AssociationJsonConverter();
+    ArrayNode elementNode = mock(ArrayNode.class);
+    when(elementNode.get(Mockito.<String>any())).thenReturn(new ArrayNode(JsonNodeFactory.withExactBigDecimals(true)));
+    ServiceTask task = new ServiceTask();
 
+    // Act
+    associationJsonConverter.addField("CamelTask", elementNode, task);
+
+    // Assert that nothing has changed
+    verify(elementNode, atLeast(1)).get(eq("properties"));
+    assertTrue(task.getFieldExtensions().isEmpty());
+  }
+
+  /**
+   * Test {@link BaseBpmnJsonConverter#addField(String, JsonNode, ServiceTask)} with {@code name}, {@code elementNode}, {@code task}.
+   * <p>
+   * Method under test: {@link BaseBpmnJsonConverter#addField(String, JsonNode, ServiceTask)}
+   */
+  @Test
+  @DisplayName("Test addField(String, JsonNode, ServiceTask) with 'name', 'elementNode', 'task'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void BaseBpmnJsonConverter.addField(String, JsonNode, ServiceTask)"})
+  void testAddFieldWithNameElementNodeTask3() {
+    // Arrange
+    AssociationJsonConverter associationJsonConverter = new AssociationJsonConverter();
     ArrayNode arrayNode = mock(ArrayNode.class);
-    JsonNodeFactory nf = JsonNodeFactory.withExactBigDecimals(true);
-    when(arrayNode.get(Mockito.<String>any())).thenReturn(new ArrayNode(nf));
-
+    when(arrayNode.get(Mockito.<String>any())).thenReturn(new ArrayNode(JsonNodeFactory.withExactBigDecimals(true)));
     ArrayNode elementNode = mock(ArrayNode.class);
     when(elementNode.get(Mockito.<String>any())).thenReturn(arrayNode);
     ServiceTask task = new ServiceTask();
@@ -3591,166 +3074,29 @@ class BaseBpmnJsonConverterDiffblueTest {
     associationJsonConverter.addField("CamelTask", elementNode, task);
 
     // Assert that nothing has changed
-    verify(arrayNode).get("CamelTask");
-    verify(elementNode, atLeast(1)).get("properties");
+    verify(arrayNode).get(eq("CamelTask"));
+    verify(elementNode, atLeast(1)).get(eq("properties"));
     assertTrue(task.getFieldExtensions().isEmpty());
   }
 
   /**
-   * Test {@link BaseBpmnJsonConverter#addField(String, JsonNode, ServiceTask)} with {@code name},
-   * {@code elementNode}, {@code task}.
-   *
-   * <p>Method under test: {@link BaseBpmnJsonConverter#addField(String, JsonNode, ServiceTask)}
-   */
-  @Test
-  @DisplayName("Test addField(String, JsonNode, ServiceTask) with 'name', 'elementNode', 'task'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void BaseBpmnJsonConverter.addField(String, JsonNode, ServiceTask)"})
-  void testAddFieldWithNameElementNodeTask3() throws UnsupportedEncodingException {
-    // Arrange
-    AssociationJsonConverter associationJsonConverter = new AssociationJsonConverter();
-
-    ArrayNode arrayNode = mock(ArrayNode.class);
-    when(arrayNode.get(Mockito.<String>any()))
-        .thenReturn(new BinaryNode("A\bA\bA\bA\b".getBytes("UTF-8")));
-
-    ArrayNode elementNode = mock(ArrayNode.class);
-    when(elementNode.get(Mockito.<String>any())).thenReturn(arrayNode);
-    ServiceTask task = new ServiceTask();
-
-    // Act
-    associationJsonConverter.addField("CamelTask", elementNode, task);
-
-    // Assert
-    verify(arrayNode).get("CamelTask");
-    verify(elementNode, atLeast(1)).get("properties");
-    List<FieldExtension> fieldExtensions = task.getFieldExtensions();
-    assertEquals(1, fieldExtensions.size());
-    FieldExtension getResult = fieldExtensions.get(0);
-    assertEquals("QQhBCEEIQQg=", getResult.getStringValue());
-    assertEquals("k", getResult.getFieldName());
-    assertNull(getResult.getId());
-    assertNull(getResult.getExpression());
-    assertEquals(0, getResult.getXmlColumnNumber());
-    assertEquals(0, getResult.getXmlRowNumber());
-    assertTrue(getResult.getAttributes().isEmpty());
-    assertTrue(getResult.getExtensionElements().isEmpty());
-  }
-
-  /**
-   * Test {@link BaseBpmnJsonConverter#addField(String, JsonNode, ServiceTask)} with {@code name},
-   * {@code elementNode}, {@code task}.
-   *
-   * <p>Method under test: {@link BaseBpmnJsonConverter#addField(String, JsonNode, ServiceTask)}
-   */
-  @Test
-  @DisplayName("Test addField(String, JsonNode, ServiceTask) with 'name', 'elementNode', 'task'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void BaseBpmnJsonConverter.addField(String, JsonNode, ServiceTask)"})
-  void testAddFieldWithNameElementNodeTask4() {
-    // Arrange
-    AssociationJsonConverter associationJsonConverter = new AssociationJsonConverter();
-
-    JsonNode jsonNode = mock(JsonNode.class);
-    when(jsonNode.asText()).thenReturn("${");
-
-    ArrayNode arrayNode = mock(ArrayNode.class);
-    when(arrayNode.get(Mockito.<String>any())).thenReturn(jsonNode);
-
-    ArrayNode elementNode = mock(ArrayNode.class);
-    when(elementNode.get(Mockito.<String>any())).thenReturn(arrayNode);
-    ServiceTask task = new ServiceTask();
-
-    // Act
-    associationJsonConverter.addField("CamelTask", elementNode, task);
-
-    // Assert
-    verify(jsonNode, atLeast(1)).asText();
-    verify(arrayNode).get("CamelTask");
-    verify(elementNode, atLeast(1)).get("properties");
-    List<FieldExtension> fieldExtensions = task.getFieldExtensions();
-    assertEquals(1, fieldExtensions.size());
-    FieldExtension getResult = fieldExtensions.get(0);
-    assertEquals("${", getResult.getStringValue());
-    assertEquals("k", getResult.getFieldName());
-    assertNull(getResult.getId());
-    assertNull(getResult.getExpression());
-    assertEquals(0, getResult.getXmlColumnNumber());
-    assertEquals(0, getResult.getXmlRowNumber());
-    assertTrue(getResult.getAttributes().isEmpty());
-    assertTrue(getResult.getExtensionElements().isEmpty());
-  }
-
-  /**
-   * Test {@link BaseBpmnJsonConverter#addField(String, JsonNode, ServiceTask)} with {@code name},
-   * {@code elementNode}, {@code task}.
-   *
-   * <p>Method under test: {@link BaseBpmnJsonConverter#addField(String, JsonNode, ServiceTask)}
-   */
-  @Test
-  @DisplayName("Test addField(String, JsonNode, ServiceTask) with 'name', 'elementNode', 'task'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void BaseBpmnJsonConverter.addField(String, JsonNode, ServiceTask)"})
-  void testAddFieldWithNameElementNodeTask5() {
-    // Arrange
-    AssociationJsonConverter associationJsonConverter = new AssociationJsonConverter();
-
-    JsonNode jsonNode = mock(JsonNode.class);
-    when(jsonNode.asText()).thenReturn("#{");
-
-    ArrayNode arrayNode = mock(ArrayNode.class);
-    when(arrayNode.get(Mockito.<String>any())).thenReturn(jsonNode);
-
-    ArrayNode elementNode = mock(ArrayNode.class);
-    when(elementNode.get(Mockito.<String>any())).thenReturn(arrayNode);
-    ServiceTask task = new ServiceTask();
-
-    // Act
-    associationJsonConverter.addField("CamelTask", elementNode, task);
-
-    // Assert
-    verify(jsonNode, atLeast(1)).asText();
-    verify(arrayNode).get("CamelTask");
-    verify(elementNode, atLeast(1)).get("properties");
-    List<FieldExtension> fieldExtensions = task.getFieldExtensions();
-    assertEquals(1, fieldExtensions.size());
-    FieldExtension getResult = fieldExtensions.get(0);
-    assertEquals("#{", getResult.getStringValue());
-    assertEquals("k", getResult.getFieldName());
-    assertNull(getResult.getId());
-    assertNull(getResult.getExpression());
-    assertEquals(0, getResult.getXmlColumnNumber());
-    assertEquals(0, getResult.getXmlRowNumber());
-    assertTrue(getResult.getAttributes().isEmpty());
-    assertTrue(getResult.getExtensionElements().isEmpty());
-  }
-
-  /**
-   * Test {@link BaseBpmnJsonConverter#addField(String, JsonNode, ServiceTask)} with {@code name},
-   * {@code elementNode}, {@code task}.
-   *
+   * Test {@link BaseBpmnJsonConverter#addField(String, JsonNode, ServiceTask)} with {@code name}, {@code elementNode}, {@code task}.
    * <ul>
-   *   <li>Given {@link ArrayNode} {@link ArrayNode#get(String)} return Instance.
+   *   <li>Given {@link ArrayNode} {@link ArrayNode#get(String)} return Instance.</li>
+   *   <li>Then calls {@link ArrayNode#get(String)}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link BaseBpmnJsonConverter#addField(String, JsonNode, ServiceTask)}
+   * <p>
+   * Method under test: {@link BaseBpmnJsonConverter#addField(String, JsonNode, ServiceTask)}
    */
   @Test
-  @DisplayName(
-      "Test addField(String, JsonNode, ServiceTask) with 'name', 'elementNode', 'task'; given ArrayNode get(String) return Instance")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test addField(String, JsonNode, ServiceTask) with 'name', 'elementNode', 'task'; given ArrayNode get(String) return Instance; then calls get(String)")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void BaseBpmnJsonConverter.addField(String, JsonNode, ServiceTask)"})
-  void testAddFieldWithNameElementNodeTask_givenArrayNodeGetReturnInstance() {
+  void testAddFieldWithNameElementNodeTask_givenArrayNodeGetReturnInstance_thenCallsGet() {
     // Arrange
     AssociationJsonConverter associationJsonConverter = new AssociationJsonConverter();
-
     ArrayNode arrayNode = mock(ArrayNode.class);
     when(arrayNode.get(Mockito.<String>any())).thenReturn(MissingNode.getInstance());
-
     ArrayNode elementNode = mock(ArrayNode.class);
     when(elementNode.get(Mockito.<String>any())).thenReturn(arrayNode);
     ServiceTask task = new ServiceTask();
@@ -3759,34 +3105,29 @@ class BaseBpmnJsonConverterDiffblueTest {
     associationJsonConverter.addField("CamelTask", elementNode, task);
 
     // Assert that nothing has changed
-    verify(arrayNode).get("CamelTask");
-    verify(elementNode, atLeast(1)).get("properties");
+    verify(arrayNode).get(eq("CamelTask"));
+    verify(elementNode, atLeast(1)).get(eq("properties"));
     assertTrue(task.getFieldExtensions().isEmpty());
   }
 
   /**
-   * Test {@link BaseBpmnJsonConverter#addField(String, JsonNode, ServiceTask)} with {@code name},
-   * {@code elementNode}, {@code task}.
-   *
+   * Test {@link BaseBpmnJsonConverter#addField(String, JsonNode, ServiceTask)} with {@code name}, {@code elementNode}, {@code task}.
    * <ul>
-   *   <li>Given {@link ArrayNode} {@link ArrayNode#get(String)} return Instance.
+   *   <li>Given {@link ArrayNode} {@link ArrayNode#get(String)} return Instance.</li>
+   *   <li>Then calls {@link ArrayNode#get(String)}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link BaseBpmnJsonConverter#addField(String, JsonNode, ServiceTask)}
+   * <p>
+   * Method under test: {@link BaseBpmnJsonConverter#addField(String, JsonNode, ServiceTask)}
    */
   @Test
-  @DisplayName(
-      "Test addField(String, JsonNode, ServiceTask) with 'name', 'elementNode', 'task'; given ArrayNode get(String) return Instance")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test addField(String, JsonNode, ServiceTask) with 'name', 'elementNode', 'task'; given ArrayNode get(String) return Instance; then calls get(String)")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void BaseBpmnJsonConverter.addField(String, JsonNode, ServiceTask)"})
-  void testAddFieldWithNameElementNodeTask_givenArrayNodeGetReturnInstance2() {
+  void testAddFieldWithNameElementNodeTask_givenArrayNodeGetReturnInstance_thenCallsGet2() {
     // Arrange
     AssociationJsonConverter associationJsonConverter = new AssociationJsonConverter();
-
     ArrayNode arrayNode = mock(ArrayNode.class);
     when(arrayNode.get(Mockito.<String>any())).thenReturn(NullNode.getInstance());
-
     ArrayNode elementNode = mock(ArrayNode.class);
     when(elementNode.get(Mockito.<String>any())).thenReturn(arrayNode);
     ServiceTask task = new ServiceTask();
@@ -3795,63 +3136,95 @@ class BaseBpmnJsonConverterDiffblueTest {
     associationJsonConverter.addField("CamelTask", elementNode, task);
 
     // Assert that nothing has changed
-    verify(arrayNode).get("CamelTask");
-    verify(elementNode, atLeast(1)).get("properties");
+    verify(arrayNode).get(eq("CamelTask"));
+    verify(elementNode, atLeast(1)).get(eq("properties"));
     assertTrue(task.getFieldExtensions().isEmpty());
   }
 
   /**
-   * Test {@link BaseBpmnJsonConverter#addField(String, JsonNode, ServiceTask)} with {@code name},
-   * {@code elementNode}, {@code task}.
-   *
+   * Test {@link BaseBpmnJsonConverter#addField(String, JsonNode, ServiceTask)} with {@code name}, {@code elementNode}, {@code task}.
    * <ul>
-   *   <li>Given valueOf ten.
+   *   <li>Given Instance.</li>
+   *   <li>When {@link ArrayNode} {@link ArrayNode#get(String)} return Instance.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link BaseBpmnJsonConverter#addField(String, JsonNode, ServiceTask)}
+   * <p>
+   * Method under test: {@link BaseBpmnJsonConverter#addField(String, JsonNode, ServiceTask)}
    */
   @Test
-  @DisplayName(
-      "Test addField(String, JsonNode, ServiceTask) with 'name', 'elementNode', 'task'; given valueOf ten")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test addField(String, JsonNode, ServiceTask) with 'name', 'elementNode', 'task'; given Instance; when ArrayNode get(String) return Instance")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void BaseBpmnJsonConverter.addField(String, JsonNode, ServiceTask)"})
-  void testAddFieldWithNameElementNodeTask_givenValueOfTen() {
+  void testAddFieldWithNameElementNodeTask_givenInstance_whenArrayNodeGetReturnInstance() {
     // Arrange
     AssociationJsonConverter associationJsonConverter = new AssociationJsonConverter();
-
     ArrayNode elementNode = mock(ArrayNode.class);
-    when(elementNode.get(Mockito.<String>any())).thenReturn(DoubleNode.valueOf(10.0d));
+    when(elementNode.get(Mockito.<String>any())).thenReturn(MissingNode.getInstance());
     ServiceTask task = new ServiceTask();
 
     // Act
     associationJsonConverter.addField("CamelTask", elementNode, task);
 
     // Assert that nothing has changed
-    verify(elementNode, atLeast(1)).get("properties");
+    verify(elementNode, atLeast(1)).get(eq("properties"));
     assertTrue(task.getFieldExtensions().isEmpty());
   }
 
   /**
-   * Test {@link BaseBpmnJsonConverter#addField(String, JsonNode, ServiceTask)} with {@code name},
-   * {@code elementNode}, {@code task}.
-   *
+   * Test {@link BaseBpmnJsonConverter#addField(String, JsonNode, ServiceTask)} with {@code name}, {@code elementNode}, {@code task}.
    * <ul>
-   *   <li>When valueOf ten.
+   *   <li>Then {@link ServiceTask} (default constructor) FieldExtensions size is one.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link BaseBpmnJsonConverter#addField(String, JsonNode, ServiceTask)}
+   * <p>
+   * Method under test: {@link BaseBpmnJsonConverter#addField(String, JsonNode, ServiceTask)}
    */
   @Test
-  @DisplayName(
-      "Test addField(String, JsonNode, ServiceTask) with 'name', 'elementNode', 'task'; when valueOf ten")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test addField(String, JsonNode, ServiceTask) with 'name', 'elementNode', 'task'; then ServiceTask (default constructor) FieldExtensions size is one")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void BaseBpmnJsonConverter.addField(String, JsonNode, ServiceTask)"})
-  void testAddFieldWithNameElementNodeTask_whenValueOfTen() {
+  void testAddFieldWithNameElementNodeTask_thenServiceTaskFieldExtensionsSizeIsOne() {
     // Arrange
     AssociationJsonConverter associationJsonConverter = new AssociationJsonConverter();
-    DoubleNode elementNode = DoubleNode.valueOf(10.0d);
+    ArrayNode arrayNode = mock(ArrayNode.class);
+    when(arrayNode.get(Mockito.<String>any())).thenReturn(new BigIntegerNode(BigInteger.valueOf(8L)));
+    ArrayNode elementNode = mock(ArrayNode.class);
+    when(elementNode.get(Mockito.<String>any())).thenReturn(arrayNode);
+    ServiceTask task = new ServiceTask();
+
+    // Act
+    associationJsonConverter.addField("CamelTask", elementNode, task);
+
+    // Assert
+    verify(arrayNode).get(eq("CamelTask"));
+    verify(elementNode, atLeast(1)).get(eq("properties"));
+    List<FieldExtension> fieldExtensions = task.getFieldExtensions();
+    assertEquals(1, fieldExtensions.size());
+    FieldExtension getResult = fieldExtensions.get(0);
+    assertEquals("8", getResult.getStringValue());
+    assertEquals("k", getResult.getFieldName());
+    assertNull(getResult.getId());
+    assertNull(getResult.getExpression());
+    assertEquals(0, getResult.getXmlColumnNumber());
+    assertEquals(0, getResult.getXmlRowNumber());
+    assertTrue(getResult.getAttributes().isEmpty());
+    assertTrue(getResult.getExtensionElements().isEmpty());
+  }
+
+  /**
+   * Test {@link BaseBpmnJsonConverter#addField(String, JsonNode, ServiceTask)} with {@code name}, {@code elementNode}, {@code task}.
+   * <ul>
+   *   <li>When Instance.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link BaseBpmnJsonConverter#addField(String, JsonNode, ServiceTask)}
+   */
+  @Test
+  @DisplayName("Test addField(String, JsonNode, ServiceTask) with 'name', 'elementNode', 'task'; when Instance")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void BaseBpmnJsonConverter.addField(String, JsonNode, ServiceTask)"})
+  void testAddFieldWithNameElementNodeTask_whenInstance() {
+    // Arrange
+    AssociationJsonConverter associationJsonConverter = new AssociationJsonConverter();
+    MissingNode elementNode = MissingNode.getInstance();
     ServiceTask task = new ServiceTask();
 
     // Act
@@ -3862,69 +3235,65 @@ class BaseBpmnJsonConverterDiffblueTest {
   }
 
   /**
-   * Test {@link BaseBpmnJsonConverter#addField(String, String, JsonNode, ServiceTask)} with {@code
-   * name}, {@code propertyName}, {@code elementNode}, {@code task}.
-   *
-   * <p>Method under test: {@link BaseBpmnJsonConverter#addField(String, String, JsonNode,
-   * ServiceTask)}
+   * Test {@link BaseBpmnJsonConverter#addField(String, String, JsonNode, ServiceTask)} with {@code name}, {@code propertyName}, {@code elementNode}, {@code task}.
+   * <p>
+   * Method under test: {@link BaseBpmnJsonConverter#addField(String, String, JsonNode, ServiceTask)}
    */
   @Test
-  @DisplayName(
-      "Test addField(String, String, JsonNode, ServiceTask) with 'name', 'propertyName', 'elementNode', 'task'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test addField(String, String, JsonNode, ServiceTask) with 'name', 'propertyName', 'elementNode', 'task'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void BaseBpmnJsonConverter.addField(String, String, JsonNode, ServiceTask)"})
   void testAddFieldWithNamePropertyNameElementNodeTask() {
     // Arrange
     AssociationJsonConverter associationJsonConverter = new AssociationJsonConverter();
-
-    ArrayNode arrayNode = mock(ArrayNode.class);
-    when(arrayNode.get(Mockito.<String>any())).thenReturn(DoubleNode.valueOf(10.0d));
-
-    ArrayNode elementNode = mock(ArrayNode.class);
-    when(elementNode.get(Mockito.<String>any())).thenReturn(arrayNode);
+    ArrayNode elementNode = new ArrayNode(JsonNodeFactory.withExactBigDecimals(true));
     ServiceTask task = new ServiceTask();
 
     // Act
     associationJsonConverter.addField("Name", "Property Name", elementNode, task);
 
-    // Assert
-    verify(arrayNode).get("Property Name");
-    verify(elementNode, atLeast(1)).get("properties");
-    List<FieldExtension> fieldExtensions = task.getFieldExtensions();
-    assertEquals(1, fieldExtensions.size());
-    FieldExtension getResult = fieldExtensions.get(0);
-    assertEquals("10.0", getResult.getStringValue());
-    assertEquals("Name", getResult.getFieldName());
-    assertNull(getResult.getId());
-    assertNull(getResult.getExpression());
-    assertEquals(0, getResult.getXmlColumnNumber());
-    assertEquals(0, getResult.getXmlRowNumber());
-    assertTrue(getResult.getAttributes().isEmpty());
-    assertTrue(getResult.getExtensionElements().isEmpty());
+    // Assert that nothing has changed
+    assertTrue(task.getFieldExtensions().isEmpty());
   }
 
   /**
-   * Test {@link BaseBpmnJsonConverter#addField(String, String, JsonNode, ServiceTask)} with {@code
-   * name}, {@code propertyName}, {@code elementNode}, {@code task}.
-   *
-   * <p>Method under test: {@link BaseBpmnJsonConverter#addField(String, String, JsonNode,
-   * ServiceTask)}
+   * Test {@link BaseBpmnJsonConverter#addField(String, String, JsonNode, ServiceTask)} with {@code name}, {@code propertyName}, {@code elementNode}, {@code task}.
+   * <p>
+   * Method under test: {@link BaseBpmnJsonConverter#addField(String, String, JsonNode, ServiceTask)}
    */
   @Test
-  @DisplayName(
-      "Test addField(String, String, JsonNode, ServiceTask) with 'name', 'propertyName', 'elementNode', 'task'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test addField(String, String, JsonNode, ServiceTask) with 'name', 'propertyName', 'elementNode', 'task'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void BaseBpmnJsonConverter.addField(String, String, JsonNode, ServiceTask)"})
   void testAddFieldWithNamePropertyNameElementNodeTask2() {
     // Arrange
     AssociationJsonConverter associationJsonConverter = new AssociationJsonConverter();
+    ArrayNode elementNode = mock(ArrayNode.class);
+    when(elementNode.get(Mockito.<String>any())).thenReturn(new ArrayNode(JsonNodeFactory.withExactBigDecimals(true)));
+    ServiceTask task = new ServiceTask();
 
+    // Act
+    associationJsonConverter.addField("Name", "Property Name", elementNode, task);
+
+    // Assert that nothing has changed
+    verify(elementNode, atLeast(1)).get(eq("properties"));
+    assertTrue(task.getFieldExtensions().isEmpty());
+  }
+
+  /**
+   * Test {@link BaseBpmnJsonConverter#addField(String, String, JsonNode, ServiceTask)} with {@code name}, {@code propertyName}, {@code elementNode}, {@code task}.
+   * <p>
+   * Method under test: {@link BaseBpmnJsonConverter#addField(String, String, JsonNode, ServiceTask)}
+   */
+  @Test
+  @DisplayName("Test addField(String, String, JsonNode, ServiceTask) with 'name', 'propertyName', 'elementNode', 'task'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void BaseBpmnJsonConverter.addField(String, String, JsonNode, ServiceTask)"})
+  void testAddFieldWithNamePropertyNameElementNodeTask3() {
+    // Arrange
+    AssociationJsonConverter associationJsonConverter = new AssociationJsonConverter();
     ArrayNode arrayNode = mock(ArrayNode.class);
-    JsonNodeFactory nf = JsonNodeFactory.withExactBigDecimals(true);
-    when(arrayNode.get(Mockito.<String>any())).thenReturn(new ArrayNode(nf));
-
+    when(arrayNode.get(Mockito.<String>any())).thenReturn(new ArrayNode(JsonNodeFactory.withExactBigDecimals(true)));
     ArrayNode elementNode = mock(ArrayNode.class);
     when(elementNode.get(Mockito.<String>any())).thenReturn(arrayNode);
     ServiceTask task = new ServiceTask();
@@ -3933,78 +3302,25 @@ class BaseBpmnJsonConverterDiffblueTest {
     associationJsonConverter.addField("Name", "Property Name", elementNode, task);
 
     // Assert that nothing has changed
-    verify(arrayNode).get("Property Name");
-    verify(elementNode, atLeast(1)).get("properties");
+    verify(arrayNode).get(eq("Property Name"));
+    verify(elementNode, atLeast(1)).get(eq("properties"));
     assertTrue(task.getFieldExtensions().isEmpty());
   }
 
   /**
-   * Test {@link BaseBpmnJsonConverter#addField(String, String, JsonNode, ServiceTask)} with {@code
-   * name}, {@code propertyName}, {@code elementNode}, {@code task}.
-   *
-   * <p>Method under test: {@link BaseBpmnJsonConverter#addField(String, String, JsonNode,
-   * ServiceTask)}
+   * Test {@link BaseBpmnJsonConverter#addField(String, String, JsonNode, ServiceTask)} with {@code name}, {@code propertyName}, {@code elementNode}, {@code task}.
+   * <p>
+   * Method under test: {@link BaseBpmnJsonConverter#addField(String, String, JsonNode, ServiceTask)}
    */
   @Test
-  @DisplayName(
-      "Test addField(String, String, JsonNode, ServiceTask) with 'name', 'propertyName', 'elementNode', 'task'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void BaseBpmnJsonConverter.addField(String, String, JsonNode, ServiceTask)"})
-  void testAddFieldWithNamePropertyNameElementNodeTask3() throws UnsupportedEncodingException {
-    // Arrange
-    AssociationJsonConverter associationJsonConverter = new AssociationJsonConverter();
-
-    ArrayNode arrayNode = mock(ArrayNode.class);
-    when(arrayNode.get(Mockito.<String>any()))
-        .thenReturn(new BinaryNode("AXAXAXAX".getBytes("UTF-8")));
-
-    ArrayNode elementNode = mock(ArrayNode.class);
-    when(elementNode.get(Mockito.<String>any())).thenReturn(arrayNode);
-    ServiceTask task = new ServiceTask();
-
-    // Act
-    associationJsonConverter.addField("Name", "Property Name", elementNode, task);
-
-    // Assert
-    verify(arrayNode).get("Property Name");
-    verify(elementNode, atLeast(1)).get("properties");
-    List<FieldExtension> fieldExtensions = task.getFieldExtensions();
-    assertEquals(1, fieldExtensions.size());
-    FieldExtension getResult = fieldExtensions.get(0);
-    assertEquals("Name", getResult.getFieldName());
-    assertEquals("QVhBWEFYQVg=", getResult.getStringValue());
-    assertNull(getResult.getId());
-    assertNull(getResult.getExpression());
-    assertEquals(0, getResult.getXmlColumnNumber());
-    assertEquals(0, getResult.getXmlRowNumber());
-    assertTrue(getResult.getAttributes().isEmpty());
-    assertTrue(getResult.getExtensionElements().isEmpty());
-  }
-
-  /**
-   * Test {@link BaseBpmnJsonConverter#addField(String, String, JsonNode, ServiceTask)} with {@code
-   * name}, {@code propertyName}, {@code elementNode}, {@code task}.
-   *
-   * <p>Method under test: {@link BaseBpmnJsonConverter#addField(String, String, JsonNode,
-   * ServiceTask)}
-   */
-  @Test
-  @DisplayName(
-      "Test addField(String, String, JsonNode, ServiceTask) with 'name', 'propertyName', 'elementNode', 'task'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test addField(String, String, JsonNode, ServiceTask) with 'name', 'propertyName', 'elementNode', 'task'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void BaseBpmnJsonConverter.addField(String, String, JsonNode, ServiceTask)"})
   void testAddFieldWithNamePropertyNameElementNodeTask4() {
     // Arrange
     AssociationJsonConverter associationJsonConverter = new AssociationJsonConverter();
-
-    JsonNode jsonNode = mock(JsonNode.class);
-    when(jsonNode.asText()).thenReturn("${");
-
     ArrayNode arrayNode = mock(ArrayNode.class);
-    when(arrayNode.get(Mockito.<String>any())).thenReturn(jsonNode);
-
+    when(arrayNode.get(Mockito.<String>any())).thenReturn(new BigIntegerNode(BigInteger.valueOf(1L)));
     ArrayNode elementNode = mock(ArrayNode.class);
     when(elementNode.get(Mockito.<String>any())).thenReturn(arrayNode);
     ServiceTask task = new ServiceTask();
@@ -4013,13 +3329,12 @@ class BaseBpmnJsonConverterDiffblueTest {
     associationJsonConverter.addField("Name", "Property Name", elementNode, task);
 
     // Assert
-    verify(jsonNode, atLeast(1)).asText();
-    verify(arrayNode).get("Property Name");
-    verify(elementNode, atLeast(1)).get("properties");
+    verify(arrayNode).get(eq("Property Name"));
+    verify(elementNode, atLeast(1)).get(eq("properties"));
     List<FieldExtension> fieldExtensions = task.getFieldExtensions();
     assertEquals(1, fieldExtensions.size());
     FieldExtension getResult = fieldExtensions.get(0);
-    assertEquals("${", getResult.getStringValue());
+    assertEquals("1", getResult.getStringValue());
     assertEquals("Name", getResult.getFieldName());
     assertNull(getResult.getId());
     assertNull(getResult.getExpression());
@@ -4030,76 +3345,22 @@ class BaseBpmnJsonConverterDiffblueTest {
   }
 
   /**
-   * Test {@link BaseBpmnJsonConverter#addField(String, String, JsonNode, ServiceTask)} with {@code
-   * name}, {@code propertyName}, {@code elementNode}, {@code task}.
-   *
-   * <p>Method under test: {@link BaseBpmnJsonConverter#addField(String, String, JsonNode,
-   * ServiceTask)}
-   */
-  @Test
-  @DisplayName(
-      "Test addField(String, String, JsonNode, ServiceTask) with 'name', 'propertyName', 'elementNode', 'task'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void BaseBpmnJsonConverter.addField(String, String, JsonNode, ServiceTask)"})
-  void testAddFieldWithNamePropertyNameElementNodeTask5() {
-    // Arrange
-    AssociationJsonConverter associationJsonConverter = new AssociationJsonConverter();
-
-    JsonNode jsonNode = mock(JsonNode.class);
-    when(jsonNode.asText()).thenReturn("#{");
-
-    ArrayNode arrayNode = mock(ArrayNode.class);
-    when(arrayNode.get(Mockito.<String>any())).thenReturn(jsonNode);
-
-    ArrayNode elementNode = mock(ArrayNode.class);
-    when(elementNode.get(Mockito.<String>any())).thenReturn(arrayNode);
-    ServiceTask task = new ServiceTask();
-
-    // Act
-    associationJsonConverter.addField("Name", "Property Name", elementNode, task);
-
-    // Assert
-    verify(jsonNode, atLeast(1)).asText();
-    verify(arrayNode).get("Property Name");
-    verify(elementNode, atLeast(1)).get("properties");
-    List<FieldExtension> fieldExtensions = task.getFieldExtensions();
-    assertEquals(1, fieldExtensions.size());
-    FieldExtension getResult = fieldExtensions.get(0);
-    assertEquals("#{", getResult.getStringValue());
-    assertEquals("Name", getResult.getFieldName());
-    assertNull(getResult.getId());
-    assertNull(getResult.getExpression());
-    assertEquals(0, getResult.getXmlColumnNumber());
-    assertEquals(0, getResult.getXmlRowNumber());
-    assertTrue(getResult.getAttributes().isEmpty());
-    assertTrue(getResult.getExtensionElements().isEmpty());
-  }
-
-  /**
-   * Test {@link BaseBpmnJsonConverter#addField(String, String, JsonNode, ServiceTask)} with {@code
-   * name}, {@code propertyName}, {@code elementNode}, {@code task}.
-   *
+   * Test {@link BaseBpmnJsonConverter#addField(String, String, JsonNode, ServiceTask)} with {@code name}, {@code propertyName}, {@code elementNode}, {@code task}.
    * <ul>
-   *   <li>Given {@link ArrayNode} {@link ArrayNode#get(String)} return Instance.
+   *   <li>Given {@link ArrayNode} {@link ArrayNode#get(String)} return Instance.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link BaseBpmnJsonConverter#addField(String, String, JsonNode,
-   * ServiceTask)}
+   * <p>
+   * Method under test: {@link BaseBpmnJsonConverter#addField(String, String, JsonNode, ServiceTask)}
    */
   @Test
-  @DisplayName(
-      "Test addField(String, String, JsonNode, ServiceTask) with 'name', 'propertyName', 'elementNode', 'task'; given ArrayNode get(String) return Instance")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test addField(String, String, JsonNode, ServiceTask) with 'name', 'propertyName', 'elementNode', 'task'; given ArrayNode get(String) return Instance")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void BaseBpmnJsonConverter.addField(String, String, JsonNode, ServiceTask)"})
   void testAddFieldWithNamePropertyNameElementNodeTask_givenArrayNodeGetReturnInstance() {
     // Arrange
     AssociationJsonConverter associationJsonConverter = new AssociationJsonConverter();
-
     ArrayNode arrayNode = mock(ArrayNode.class);
     when(arrayNode.get(Mockito.<String>any())).thenReturn(MissingNode.getInstance());
-
     ArrayNode elementNode = mock(ArrayNode.class);
     when(elementNode.get(Mockito.<String>any())).thenReturn(arrayNode);
     ServiceTask task = new ServiceTask();
@@ -4108,35 +3369,28 @@ class BaseBpmnJsonConverterDiffblueTest {
     associationJsonConverter.addField("Name", "Property Name", elementNode, task);
 
     // Assert that nothing has changed
-    verify(arrayNode).get("Property Name");
-    verify(elementNode, atLeast(1)).get("properties");
+    verify(arrayNode).get(eq("Property Name"));
+    verify(elementNode, atLeast(1)).get(eq("properties"));
     assertTrue(task.getFieldExtensions().isEmpty());
   }
 
   /**
-   * Test {@link BaseBpmnJsonConverter#addField(String, String, JsonNode, ServiceTask)} with {@code
-   * name}, {@code propertyName}, {@code elementNode}, {@code task}.
-   *
+   * Test {@link BaseBpmnJsonConverter#addField(String, String, JsonNode, ServiceTask)} with {@code name}, {@code propertyName}, {@code elementNode}, {@code task}.
    * <ul>
-   *   <li>Given {@link ArrayNode} {@link ArrayNode#get(String)} return Instance.
+   *   <li>Given {@link ArrayNode} {@link ArrayNode#get(String)} return Instance.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link BaseBpmnJsonConverter#addField(String, String, JsonNode,
-   * ServiceTask)}
+   * <p>
+   * Method under test: {@link BaseBpmnJsonConverter#addField(String, String, JsonNode, ServiceTask)}
    */
   @Test
-  @DisplayName(
-      "Test addField(String, String, JsonNode, ServiceTask) with 'name', 'propertyName', 'elementNode', 'task'; given ArrayNode get(String) return Instance")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test addField(String, String, JsonNode, ServiceTask) with 'name', 'propertyName', 'elementNode', 'task'; given ArrayNode get(String) return Instance")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void BaseBpmnJsonConverter.addField(String, String, JsonNode, ServiceTask)"})
   void testAddFieldWithNamePropertyNameElementNodeTask_givenArrayNodeGetReturnInstance2() {
     // Arrange
     AssociationJsonConverter associationJsonConverter = new AssociationJsonConverter();
-
     ArrayNode arrayNode = mock(ArrayNode.class);
     when(arrayNode.get(Mockito.<String>any())).thenReturn(NullNode.getInstance());
-
     ArrayNode elementNode = mock(ArrayNode.class);
     when(elementNode.get(Mockito.<String>any())).thenReturn(arrayNode);
     ServiceTask task = new ServiceTask();
@@ -4145,65 +3399,54 @@ class BaseBpmnJsonConverterDiffblueTest {
     associationJsonConverter.addField("Name", "Property Name", elementNode, task);
 
     // Assert that nothing has changed
-    verify(arrayNode).get("Property Name");
-    verify(elementNode, atLeast(1)).get("properties");
+    verify(arrayNode).get(eq("Property Name"));
+    verify(elementNode, atLeast(1)).get(eq("properties"));
     assertTrue(task.getFieldExtensions().isEmpty());
   }
 
   /**
-   * Test {@link BaseBpmnJsonConverter#addField(String, String, JsonNode, ServiceTask)} with {@code
-   * name}, {@code propertyName}, {@code elementNode}, {@code task}.
-   *
+   * Test {@link BaseBpmnJsonConverter#addField(String, String, JsonNode, ServiceTask)} with {@code name}, {@code propertyName}, {@code elementNode}, {@code task}.
    * <ul>
-   *   <li>Given valueOf ten.
+   *   <li>Given Instance.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link BaseBpmnJsonConverter#addField(String, String, JsonNode,
-   * ServiceTask)}
+   * <p>
+   * Method under test: {@link BaseBpmnJsonConverter#addField(String, String, JsonNode, ServiceTask)}
    */
   @Test
-  @DisplayName(
-      "Test addField(String, String, JsonNode, ServiceTask) with 'name', 'propertyName', 'elementNode', 'task'; given valueOf ten")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test addField(String, String, JsonNode, ServiceTask) with 'name', 'propertyName', 'elementNode', 'task'; given Instance")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void BaseBpmnJsonConverter.addField(String, String, JsonNode, ServiceTask)"})
-  void testAddFieldWithNamePropertyNameElementNodeTask_givenValueOfTen() {
+  void testAddFieldWithNamePropertyNameElementNodeTask_givenInstance() {
     // Arrange
     AssociationJsonConverter associationJsonConverter = new AssociationJsonConverter();
-
     ArrayNode elementNode = mock(ArrayNode.class);
-    when(elementNode.get(Mockito.<String>any())).thenReturn(DoubleNode.valueOf(10.0d));
+    when(elementNode.get(Mockito.<String>any())).thenReturn(MissingNode.getInstance());
     ServiceTask task = new ServiceTask();
 
     // Act
     associationJsonConverter.addField("Name", "Property Name", elementNode, task);
 
     // Assert that nothing has changed
-    verify(elementNode, atLeast(1)).get("properties");
+    verify(elementNode, atLeast(1)).get(eq("properties"));
     assertTrue(task.getFieldExtensions().isEmpty());
   }
 
   /**
-   * Test {@link BaseBpmnJsonConverter#addField(String, String, JsonNode, ServiceTask)} with {@code
-   * name}, {@code propertyName}, {@code elementNode}, {@code task}.
-   *
+   * Test {@link BaseBpmnJsonConverter#addField(String, String, JsonNode, ServiceTask)} with {@code name}, {@code propertyName}, {@code elementNode}, {@code task}.
    * <ul>
-   *   <li>When valueOf ten.
+   *   <li>When Instance.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link BaseBpmnJsonConverter#addField(String, String, JsonNode,
-   * ServiceTask)}
+   * <p>
+   * Method under test: {@link BaseBpmnJsonConverter#addField(String, String, JsonNode, ServiceTask)}
    */
   @Test
-  @DisplayName(
-      "Test addField(String, String, JsonNode, ServiceTask) with 'name', 'propertyName', 'elementNode', 'task'; when valueOf ten")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test addField(String, String, JsonNode, ServiceTask) with 'name', 'propertyName', 'elementNode', 'task'; when Instance")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void BaseBpmnJsonConverter.addField(String, String, JsonNode, ServiceTask)"})
-  void testAddFieldWithNamePropertyNameElementNodeTask_whenValueOfTen() {
+  void testAddFieldWithNamePropertyNameElementNodeTask_whenInstance() {
     // Arrange
     AssociationJsonConverter associationJsonConverter = new AssociationJsonConverter();
-    DoubleNode elementNode = DoubleNode.valueOf(10.0d);
+    MissingNode elementNode = MissingNode.getInstance();
     ServiceTask task = new ServiceTask();
 
     // Act
@@ -4215,136 +3458,185 @@ class BaseBpmnJsonConverterDiffblueTest {
 
   /**
    * Test {@link BaseBpmnJsonConverter#getPropertyValueAsString(String, JsonNode)}.
-   *
    * <ul>
-   *   <li>When valueOf ten.
-   *   <li>Then return {@code null}.
+   *   <li>When {@link ArrayNode#ArrayNode(JsonNodeFactory)} with nf is withExactBigDecimals {@code true}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link BaseBpmnJsonConverter#getPropertyValueAsString(String, JsonNode)}
+   * <p>
+   * Method under test: {@link BaseBpmnJsonConverter#getPropertyValueAsString(String, JsonNode)}
    */
   @Test
-  @DisplayName(
-      "Test getPropertyValueAsString(String, JsonNode); when valueOf ten; then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getPropertyValueAsString(String, JsonNode); when ArrayNode(JsonNodeFactory) with nf is withExactBigDecimals 'true'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"String BaseBpmnJsonConverter.getPropertyValueAsString(String, JsonNode)"})
-  void testGetPropertyValueAsString_whenValueOfTen_thenReturnNull() {
-    // Arrange, Act and Assert
-    assertNull(
-        new AssociationJsonConverter().getPropertyValueAsString("Name", DoubleNode.valueOf(10.0d)));
+  void testGetPropertyValueAsString_whenArrayNodeWithNfIsWithExactBigDecimalsTrue() {
+    // Arrange
+    AssociationJsonConverter associationJsonConverter = new AssociationJsonConverter();
+
+    // Act and Assert
+    assertNull(associationJsonConverter.getPropertyValueAsString("Name",
+        new ArrayNode(JsonNodeFactory.withExactBigDecimals(true))));
+  }
+
+  /**
+   * Test {@link BaseBpmnJsonConverter#getPropertyValueAsString(String, JsonNode)}.
+   * <ul>
+   *   <li>When Instance.</li>
+   *   <li>Then return {@code null}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link BaseBpmnJsonConverter#getPropertyValueAsString(String, JsonNode)}
+   */
+  @Test
+  @DisplayName("Test getPropertyValueAsString(String, JsonNode); when Instance; then return 'null'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"String BaseBpmnJsonConverter.getPropertyValueAsString(String, JsonNode)"})
+  void testGetPropertyValueAsString_whenInstance_thenReturnNull() {
+    // Arrange
+    AssociationJsonConverter associationJsonConverter = new AssociationJsonConverter();
+
+    // Act and Assert
+    assertNull(associationJsonConverter.getPropertyValueAsString("Name", MissingNode.getInstance()));
   }
 
   /**
    * Test {@link BaseBpmnJsonConverter#getPropertyValueAsBoolean(String, JsonNode)}.
-   *
    * <ul>
-   *   <li>When valueOf ten.
-   *   <li>Then return {@code false}.
+   *   <li>When {@link ArrayNode#ArrayNode(JsonNodeFactory)} with nf is withExactBigDecimals {@code true}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link BaseBpmnJsonConverter#getPropertyValueAsBoolean(String, JsonNode)}
+   * <p>
+   * Method under test: {@link BaseBpmnJsonConverter#getPropertyValueAsBoolean(String, JsonNode)}
    */
   @Test
-  @DisplayName(
-      "Test getPropertyValueAsBoolean(String, JsonNode); when valueOf ten; then return 'false'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getPropertyValueAsBoolean(String, JsonNode); when ArrayNode(JsonNodeFactory) with nf is withExactBigDecimals 'true'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"boolean BaseBpmnJsonConverter.getPropertyValueAsBoolean(String, JsonNode)"})
-  void testGetPropertyValueAsBoolean_whenValueOfTen_thenReturnFalse() {
-    // Arrange, Act and Assert
-    assertFalse(
-        new AssociationJsonConverter()
-            .getPropertyValueAsBoolean("Name", DoubleNode.valueOf(10.0d)));
+  void testGetPropertyValueAsBoolean_whenArrayNodeWithNfIsWithExactBigDecimalsTrue() {
+    // Arrange
+    AssociationJsonConverter associationJsonConverter = new AssociationJsonConverter();
+
+    // Act and Assert
+    assertFalse(associationJsonConverter.getPropertyValueAsBoolean("Name",
+        new ArrayNode(JsonNodeFactory.withExactBigDecimals(true))));
+  }
+
+  /**
+   * Test {@link BaseBpmnJsonConverter#getPropertyValueAsBoolean(String, JsonNode)}.
+   * <ul>
+   *   <li>When Instance.</li>
+   *   <li>Then return {@code false}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link BaseBpmnJsonConverter#getPropertyValueAsBoolean(String, JsonNode)}
+   */
+  @Test
+  @DisplayName("Test getPropertyValueAsBoolean(String, JsonNode); when Instance; then return 'false'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean BaseBpmnJsonConverter.getPropertyValueAsBoolean(String, JsonNode)"})
+  void testGetPropertyValueAsBoolean_whenInstance_thenReturnFalse() {
+    // Arrange
+    AssociationJsonConverter associationJsonConverter = new AssociationJsonConverter();
+
+    // Act and Assert
+    assertFalse(associationJsonConverter.getPropertyValueAsBoolean("Name", MissingNode.getInstance()));
   }
 
   /**
    * Test {@link BaseBpmnJsonConverter#getPropertyValueAsList(String, JsonNode)}.
-   *
    * <ul>
-   *   <li>When valueOf ten.
-   *   <li>Then return Empty.
+   *   <li>When {@link ArrayNode#ArrayNode(JsonNodeFactory)} with nf is withExactBigDecimals {@code true}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link BaseBpmnJsonConverter#getPropertyValueAsList(String, JsonNode)}
+   * <p>
+   * Method under test: {@link BaseBpmnJsonConverter#getPropertyValueAsList(String, JsonNode)}
    */
   @Test
-  @DisplayName("Test getPropertyValueAsList(String, JsonNode); when valueOf ten; then return Empty")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getPropertyValueAsList(String, JsonNode); when ArrayNode(JsonNodeFactory) with nf is withExactBigDecimals 'true'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"List BaseBpmnJsonConverter.getPropertyValueAsList(String, JsonNode)"})
-  void testGetPropertyValueAsList_whenValueOfTen_thenReturnEmpty() {
-    // Arrange, Act and Assert
-    assertTrue(
-        new AssociationJsonConverter()
-            .getPropertyValueAsList("Name", DoubleNode.valueOf(10.0d))
-            .isEmpty());
+  void testGetPropertyValueAsList_whenArrayNodeWithNfIsWithExactBigDecimalsTrue() {
+    // Arrange
+    AssociationJsonConverter associationJsonConverter = new AssociationJsonConverter();
+
+    // Act and Assert
+    assertTrue(associationJsonConverter
+        .getPropertyValueAsList("Name", new ArrayNode(JsonNodeFactory.withExactBigDecimals(true)))
+        .isEmpty());
+  }
+
+  /**
+   * Test {@link BaseBpmnJsonConverter#getPropertyValueAsList(String, JsonNode)}.
+   * <ul>
+   *   <li>When Instance.</li>
+   *   <li>Then return Empty.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link BaseBpmnJsonConverter#getPropertyValueAsList(String, JsonNode)}
+   */
+  @Test
+  @DisplayName("Test getPropertyValueAsList(String, JsonNode); when Instance; then return Empty")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"List BaseBpmnJsonConverter.getPropertyValueAsList(String, JsonNode)"})
+  void testGetPropertyValueAsList_whenInstance_thenReturnEmpty() {
+    // Arrange
+    AssociationJsonConverter associationJsonConverter = new AssociationJsonConverter();
+
+    // Act and Assert
+    assertTrue(associationJsonConverter.getPropertyValueAsList("Name", MissingNode.getInstance()).isEmpty());
   }
 
   /**
    * Test {@link BaseBpmnJsonConverter#getProperty(String, JsonNode)}.
-   *
    * <ul>
-   *   <li>When valueOf ten.
-   *   <li>Then return {@code null}.
+   *   <li>When {@link ArrayNode#ArrayNode(JsonNodeFactory)} with nf is withExactBigDecimals {@code true}.</li>
+   *   <li>Then return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link BaseBpmnJsonConverter#getProperty(String, JsonNode)}
+   * <p>
+   * Method under test: {@link BaseBpmnJsonConverter#getProperty(String, JsonNode)}
    */
   @Test
-  @DisplayName("Test getProperty(String, JsonNode); when valueOf ten; then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getProperty(String, JsonNode); when ArrayNode(JsonNodeFactory) with nf is withExactBigDecimals 'true'; then return 'null'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"JsonNode BaseBpmnJsonConverter.getProperty(String, JsonNode)"})
-  void testGetProperty_whenValueOfTen_thenReturnNull() {
-    // Arrange, Act and Assert
-    assertNull(new AssociationJsonConverter().getProperty("Name", DoubleNode.valueOf(10.0d)));
-  }
-
-  /**
-   * Test {@link BaseBpmnJsonConverter#convertListToCommaSeparatedString(List)}.
-   *
-   * <ul>
-   *   <li>Given {@code 42}.
-   *   <li>When {@link ArrayList#ArrayList()} add {@code 42}.
-   *   <li>Then return {@code 42,foo}.
-   * </ul>
-   *
-   * <p>Method under test: {@link BaseBpmnJsonConverter#convertListToCommaSeparatedString(List)}
-   */
-  @Test
-  @DisplayName(
-      "Test convertListToCommaSeparatedString(List); given '42'; when ArrayList() add '42'; then return '42,foo'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String BaseBpmnJsonConverter.convertListToCommaSeparatedString(List)"})
-  void testConvertListToCommaSeparatedString_given42_whenArrayListAdd42_thenReturn42Foo() {
+  void testGetProperty_whenArrayNodeWithNfIsWithExactBigDecimalsTrue_thenReturnNull() {
     // Arrange
     AssociationJsonConverter associationJsonConverter = new AssociationJsonConverter();
 
-    ArrayList<String> stringList = new ArrayList<>();
-    stringList.add("42");
-    stringList.add("foo");
+    // Act and Assert
+    assertNull(associationJsonConverter.getProperty("Name", new ArrayNode(JsonNodeFactory.withExactBigDecimals(true))));
+  }
+
+  /**
+   * Test {@link BaseBpmnJsonConverter#getProperty(String, JsonNode)}.
+   * <ul>
+   *   <li>When Instance.</li>
+   *   <li>Then return {@code null}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link BaseBpmnJsonConverter#getProperty(String, JsonNode)}
+   */
+  @Test
+  @DisplayName("Test getProperty(String, JsonNode); when Instance; then return 'null'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"JsonNode BaseBpmnJsonConverter.getProperty(String, JsonNode)"})
+  void testGetProperty_whenInstance_thenReturnNull() {
+    // Arrange
+    AssociationJsonConverter associationJsonConverter = new AssociationJsonConverter();
 
     // Act and Assert
-    assertEquals("42,foo", associationJsonConverter.convertListToCommaSeparatedString(stringList));
+    assertNull(associationJsonConverter.getProperty("Name", MissingNode.getInstance()));
   }
 
   /**
    * Test {@link BaseBpmnJsonConverter#convertListToCommaSeparatedString(List)}.
-   *
    * <ul>
-   *   <li>Given {@code String List}.
-   *   <li>Then return {@code String List}.
+   *   <li>Given {@code String List}.</li>
+   *   <li>Then return {@code String List}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link BaseBpmnJsonConverter#convertListToCommaSeparatedString(List)}
+   * <p>
+   * Method under test: {@link BaseBpmnJsonConverter#convertListToCommaSeparatedString(List)}
    */
   @Test
-  @DisplayName(
-      "Test convertListToCommaSeparatedString(List); given 'String List'; then return 'String List'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test convertListToCommaSeparatedString(List); given 'String List'; then return 'String List'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"String BaseBpmnJsonConverter.convertListToCommaSeparatedString(List)"})
   void testConvertListToCommaSeparatedString_givenStringList_thenReturnStringList() {
     // Arrange
@@ -4354,24 +3646,21 @@ class BaseBpmnJsonConverterDiffblueTest {
     stringList.add("String List");
 
     // Act and Assert
-    assertEquals(
-        "String List", associationJsonConverter.convertListToCommaSeparatedString(stringList));
+    assertEquals("String List", associationJsonConverter.convertListToCommaSeparatedString(stringList));
   }
 
   /**
    * Test {@link BaseBpmnJsonConverter#convertListToCommaSeparatedString(List)}.
-   *
    * <ul>
-   *   <li>When {@link ArrayList#ArrayList()}.
-   *   <li>Then return {@code null}.
+   *   <li>When {@link ArrayList#ArrayList()}.</li>
+   *   <li>Then return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link BaseBpmnJsonConverter#convertListToCommaSeparatedString(List)}
+   * <p>
+   * Method under test: {@link BaseBpmnJsonConverter#convertListToCommaSeparatedString(List)}
    */
   @Test
   @DisplayName("Test convertListToCommaSeparatedString(List); when ArrayList(); then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"String BaseBpmnJsonConverter.convertListToCommaSeparatedString(List)"})
   void testConvertListToCommaSeparatedString_whenArrayList_thenReturnNull() {
     // Arrange
@@ -4383,21 +3672,19 @@ class BaseBpmnJsonConverterDiffblueTest {
 
   /**
    * Test {@link BaseBpmnJsonConverter#convertListToCommaSeparatedString(List)}.
-   *
    * <ul>
-   *   <li>When {@code null}.
-   *   <li>Then return {@code null}.
+   *   <li>When {@code null}.</li>
+   *   <li>Then return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link BaseBpmnJsonConverter#convertListToCommaSeparatedString(List)}
+   * <p>
+   * Method under test: {@link BaseBpmnJsonConverter#convertListToCommaSeparatedString(List)}
    */
   @Test
   @DisplayName("Test convertListToCommaSeparatedString(List); when 'null'; then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"String BaseBpmnJsonConverter.convertListToCommaSeparatedString(List)"})
   void testConvertListToCommaSeparatedString_whenNull_thenReturnNull() {
     // Arrange, Act and Assert
-    assertNull(new AssociationJsonConverter().convertListToCommaSeparatedString(null));
+    assertNull((new AssociationJsonConverter()).convertListToCommaSeparatedString(null));
   }
 }

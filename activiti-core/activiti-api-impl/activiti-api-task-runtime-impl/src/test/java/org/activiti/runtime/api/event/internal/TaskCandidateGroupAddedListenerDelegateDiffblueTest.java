@@ -21,9 +21,7 @@ import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
-import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -33,7 +31,6 @@ import org.activiti.engine.delegate.event.ActivitiEntityEvent;
 import org.activiti.engine.delegate.event.ActivitiEvent;
 import org.activiti.engine.delegate.event.ActivitiEventType;
 import org.activiti.engine.delegate.event.impl.ActivitiEntityEventImpl;
-import org.activiti.engine.impl.persistence.entity.IdentityLinkEntityImpl;
 import org.activiti.runtime.api.event.impl.TaskCandidateGroupAddedEventImpl;
 import org.activiti.runtime.api.event.impl.ToAPITaskCandidateGroupAddedEventConverter;
 import org.activiti.runtime.api.model.impl.APITaskCandidateGroupConverter;
@@ -45,90 +42,58 @@ import org.mockito.Mockito;
 class TaskCandidateGroupAddedListenerDelegateDiffblueTest {
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
-   *   <li>{@link
-   *       TaskCandidateGroupAddedListenerDelegate#TaskCandidateGroupAddedListenerDelegate(List,
-   *       ToAPITaskCandidateGroupAddedEventConverter)}
+   *   <li>{@link TaskCandidateGroupAddedListenerDelegate#TaskCandidateGroupAddedListenerDelegate(List, ToAPITaskCandidateGroupAddedEventConverter)}
    *   <li>{@link TaskCandidateGroupAddedListenerDelegate#isFailOnException()}
    * </ul>
    */
   @Test
   @DisplayName("Test getters and setters")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({
-    "void TaskCandidateGroupAddedListenerDelegate.<init>(List, ToAPITaskCandidateGroupAddedEventConverter)",
-    "boolean TaskCandidateGroupAddedListenerDelegate.isFailOnException()"
-  })
+      "void TaskCandidateGroupAddedListenerDelegate.<init>(List, ToAPITaskCandidateGroupAddedEventConverter)",
+      "boolean TaskCandidateGroupAddedListenerDelegate.isFailOnException()"})
   void testGettersAndSetters() {
     // Arrange
     ArrayList<TaskRuntimeEventListener<TaskCandidateGroupAddedEvent>> listeners = new ArrayList<>();
 
-    // Act
-    TaskCandidateGroupAddedListenerDelegate actualTaskCandidateGroupAddedListenerDelegate =
-        new TaskCandidateGroupAddedListenerDelegate(
-            listeners,
-            new ToAPITaskCandidateGroupAddedEventConverter(new APITaskCandidateGroupConverter()));
-
-    // Assert
-    assertFalse(actualTaskCandidateGroupAddedListenerDelegate.isFailOnException());
+    // Act and Assert
+    assertFalse((new TaskCandidateGroupAddedListenerDelegate(listeners,
+        new ToAPITaskCandidateGroupAddedEventConverter(new APITaskCandidateGroupConverter()))).isFailOnException());
   }
 
   /**
    * Test {@link TaskCandidateGroupAddedListenerDelegate#onEvent(ActivitiEvent)}.
-   *
    * <ul>
-   *   <li>Given {@link TaskRuntimeEventListener} {@link
-   *       TaskRuntimeEventListener#onEvent(RuntimeEvent)} does nothing.
-   *   <li>Then calls {@link TaskRuntimeEventListener#onEvent(RuntimeEvent)}.
+   *   <li>Given {@link TaskRuntimeEventListener} {@link TaskRuntimeEventListener#onEvent(RuntimeEvent)} does nothing.</li>
+   *   <li>Then calls {@link TaskRuntimeEventListener#onEvent(RuntimeEvent)}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link TaskCandidateGroupAddedListenerDelegate#onEvent(ActivitiEvent)}
+   * <p>
+   * Method under test: {@link TaskCandidateGroupAddedListenerDelegate#onEvent(ActivitiEvent)}
    */
   @Test
-  @DisplayName(
-      "Test onEvent(ActivitiEvent); given TaskRuntimeEventListener onEvent(RuntimeEvent) does nothing; then calls onEvent(RuntimeEvent)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test onEvent(ActivitiEvent); given TaskRuntimeEventListener onEvent(RuntimeEvent) does nothing; then calls onEvent(RuntimeEvent)")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void TaskCandidateGroupAddedListenerDelegate.onEvent(ActivitiEvent)"})
-  void testOnEvent_givenTaskRuntimeEventListenerOnEventDoesNothing_thenCallsOnEvent()
-      throws UnsupportedEncodingException {
+  void testOnEvent_givenTaskRuntimeEventListenerOnEventDoesNothing_thenCallsOnEvent() {
     // Arrange
-    TaskRuntimeEventListener<TaskCandidateGroupAddedEvent> taskRuntimeEventListener =
-        mock(TaskRuntimeEventListener.class);
+    TaskRuntimeEventListener<TaskCandidateGroupAddedEvent> taskRuntimeEventListener = mock(
+        TaskRuntimeEventListener.class);
     doNothing().when(taskRuntimeEventListener).onEvent(Mockito.<TaskCandidateGroupAddedEvent>any());
 
     ArrayList<TaskRuntimeEventListener<TaskCandidateGroupAddedEvent>> listeners = new ArrayList<>();
     listeners.add(taskRuntimeEventListener);
-
-    ToAPITaskCandidateGroupAddedEventConverter converter =
-        mock(ToAPITaskCandidateGroupAddedEventConverter.class);
-    Optional<TaskCandidateGroupAddedEvent> ofResult =
-        Optional.of(new TaskCandidateGroupAddedEventImpl());
+    ToAPITaskCandidateGroupAddedEventConverter converter = mock(ToAPITaskCandidateGroupAddedEventConverter.class);
+    Optional<TaskCandidateGroupAddedEvent> ofResult = Optional.of(new TaskCandidateGroupAddedEventImpl());
     when(converter.from(Mockito.<ActivitiEntityEvent>any())).thenReturn(ofResult);
-
-    TaskCandidateGroupAddedListenerDelegate taskCandidateGroupAddedListenerDelegate =
-        new TaskCandidateGroupAddedListenerDelegate(listeners, converter);
-
-    IdentityLinkEntityImpl identityLinkEntityImpl = new IdentityLinkEntityImpl();
-    identityLinkEntityImpl.setDeleted(true);
-    identityLinkEntityImpl.setDetails("AXAXAXAX".getBytes("UTF-8"));
-    identityLinkEntityImpl.setId("42");
-    identityLinkEntityImpl.setInserted(true);
-    identityLinkEntityImpl.setProcessDefId("42");
-    identityLinkEntityImpl.setProcessInstanceId("42");
-    identityLinkEntityImpl.setType("Type");
-    identityLinkEntityImpl.setUpdated(true);
-    identityLinkEntityImpl.setUserId("42");
-    identityLinkEntityImpl.setGroupId(null);
-    identityLinkEntityImpl.setTaskId(null);
+    TaskCandidateGroupAddedListenerDelegate taskCandidateGroupAddedListenerDelegate = new TaskCandidateGroupAddedListenerDelegate(
+        listeners, converter);
 
     // Act
-    taskCandidateGroupAddedListenerDelegate.onEvent(
-        new ActivitiEntityEventImpl(identityLinkEntityImpl, ActivitiEventType.ENTITY_CREATED));
+    taskCandidateGroupAddedListenerDelegate
+        .onEvent(new ActivitiEntityEventImpl("Entity", ActivitiEventType.ENTITY_CREATED));
 
     // Assert
     verify(taskRuntimeEventListener).onEvent(isA(TaskCandidateGroupAddedEvent.class));
@@ -137,44 +102,27 @@ class TaskCandidateGroupAddedListenerDelegateDiffblueTest {
 
   /**
    * Test {@link TaskCandidateGroupAddedListenerDelegate#onEvent(ActivitiEvent)}.
-   *
    * <ul>
-   *   <li>Then calls {@link ToAPITaskCandidateGroupAddedEventConverter#from(ActivitiEntityEvent)}.
+   *   <li>Then calls {@link ToAPITaskCandidateGroupAddedEventConverter#from(ActivitiEntityEvent)}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link TaskCandidateGroupAddedListenerDelegate#onEvent(ActivitiEvent)}
+   * <p>
+   * Method under test: {@link TaskCandidateGroupAddedListenerDelegate#onEvent(ActivitiEvent)}
    */
   @Test
   @DisplayName("Test onEvent(ActivitiEvent); then calls from(ActivitiEntityEvent)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void TaskCandidateGroupAddedListenerDelegate.onEvent(ActivitiEvent)"})
-  void testOnEvent_thenCallsFrom() throws UnsupportedEncodingException {
+  void testOnEvent_thenCallsFrom() {
     // Arrange
-    ToAPITaskCandidateGroupAddedEventConverter converter =
-        mock(ToAPITaskCandidateGroupAddedEventConverter.class);
-    Optional<TaskCandidateGroupAddedEvent> ofResult =
-        Optional.of(new TaskCandidateGroupAddedEventImpl());
+    ToAPITaskCandidateGroupAddedEventConverter converter = mock(ToAPITaskCandidateGroupAddedEventConverter.class);
+    Optional<TaskCandidateGroupAddedEvent> ofResult = Optional.of(new TaskCandidateGroupAddedEventImpl());
     when(converter.from(Mockito.<ActivitiEntityEvent>any())).thenReturn(ofResult);
-    TaskCandidateGroupAddedListenerDelegate taskCandidateGroupAddedListenerDelegate =
-        new TaskCandidateGroupAddedListenerDelegate(new ArrayList<>(), converter);
-
-    IdentityLinkEntityImpl identityLinkEntityImpl = new IdentityLinkEntityImpl();
-    identityLinkEntityImpl.setDeleted(true);
-    identityLinkEntityImpl.setDetails("AXAXAXAX".getBytes("UTF-8"));
-    identityLinkEntityImpl.setId("42");
-    identityLinkEntityImpl.setInserted(true);
-    identityLinkEntityImpl.setProcessDefId("42");
-    identityLinkEntityImpl.setProcessInstanceId("42");
-    identityLinkEntityImpl.setType("Type");
-    identityLinkEntityImpl.setUpdated(true);
-    identityLinkEntityImpl.setUserId("42");
-    identityLinkEntityImpl.setGroupId(null);
-    identityLinkEntityImpl.setTaskId(null);
+    TaskCandidateGroupAddedListenerDelegate taskCandidateGroupAddedListenerDelegate = new TaskCandidateGroupAddedListenerDelegate(
+        new ArrayList<>(), converter);
 
     // Act
-    taskCandidateGroupAddedListenerDelegate.onEvent(
-        new ActivitiEntityEventImpl(identityLinkEntityImpl, ActivitiEventType.ENTITY_CREATED));
+    taskCandidateGroupAddedListenerDelegate
+        .onEvent(new ActivitiEntityEventImpl("Entity", ActivitiEventType.ENTITY_CREATED));
 
     // Assert
     verify(converter).from(isA(ActivitiEntityEvent.class));

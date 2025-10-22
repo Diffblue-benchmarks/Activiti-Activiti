@@ -18,7 +18,6 @@ package org.activiti.runtime.api.event.impl;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.HashMap;
 import java.util.Optional;
@@ -37,25 +36,21 @@ import org.junit.jupiter.api.Test;
 
 class ToSignalReceivedConverterDiffblueTest {
   /**
-   * Test {@link ToSignalReceivedConverter#from(ActivitiSignalEvent)} with {@code
-   * ActivitiSignalEvent}.
-   *
-   * <p>Method under test: {@link ToSignalReceivedConverter#from(ActivitiSignalEvent)}
+   * Test {@link ToSignalReceivedConverter#from(ActivitiSignalEvent)} with {@code ActivitiSignalEvent}.
+   * <p>
+   * Method under test: {@link ToSignalReceivedConverter#from(ActivitiSignalEvent)}
    */
   @Test
   @DisplayName("Test from(ActivitiSignalEvent) with 'ActivitiSignalEvent'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"Optional ToSignalReceivedConverter.from(ActivitiSignalEvent)"})
   void testFromWithActivitiSignalEvent() {
     // Arrange
-    ToSignalReceivedConverter toSignalReceivedConverter =
-        new ToSignalReceivedConverter(new ToSignalConverter());
+    ToSignalReceivedConverter toSignalReceivedConverter = new ToSignalReceivedConverter(new ToSignalConverter());
 
     // Act
-    Optional<BPMNSignalReceivedEvent> actualFromResult =
-        toSignalReceivedConverter.from(
-            new ActivitiSignalEventImpl(ActivitiEventType.ENTITY_CREATED));
+    Optional<BPMNSignalReceivedEvent> actualFromResult = toSignalReceivedConverter
+        .from(new ActivitiSignalEventImpl(ActivitiEventType.ENTITY_CREATED));
 
     // Assert
     BPMNSignalReceivedEvent getResult = actualFromResult.get();
@@ -72,32 +67,26 @@ class ToSignalReceivedConverterDiffblueTest {
   }
 
   /**
-   * Test {@link ToSignalReceivedConverter#from(ActivitiSignalEvent)} with {@code
-   * ActivitiSignalEvent}.
-   *
+   * Test {@link ToSignalReceivedConverter#from(ActivitiSignalEvent)} with {@code ActivitiSignalEvent}.
    * <ul>
-   *   <li>Given {@link HashMap#HashMap()}.
+   *   <li>Given {@link HashMap#HashMap()}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ToSignalReceivedConverter#from(ActivitiSignalEvent)}
+   * <p>
+   * Method under test: {@link ToSignalReceivedConverter#from(ActivitiSignalEvent)}
    */
   @Test
   @DisplayName("Test from(ActivitiSignalEvent) with 'ActivitiSignalEvent'; given HashMap()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"Optional ToSignalReceivedConverter.from(ActivitiSignalEvent)"})
   void testFromWithActivitiSignalEvent_givenHashMap() {
     // Arrange
-    ToSignalReceivedConverter toSignalReceivedConverter =
-        new ToSignalReceivedConverter(new ToSignalConverter());
+    ToSignalReceivedConverter toSignalReceivedConverter = new ToSignalReceivedConverter(new ToSignalConverter());
 
-    ActivitiSignalEventImpl internalEvent =
-        new ActivitiSignalEventImpl(ActivitiEventType.ENTITY_CREATED);
+    ActivitiSignalEventImpl internalEvent = new ActivitiSignalEventImpl(ActivitiEventType.ENTITY_CREATED);
     internalEvent.setSignalData(new HashMap<>());
 
     // Act
-    Optional<BPMNSignalReceivedEvent> actualFromResult =
-        toSignalReceivedConverter.from(internalEvent);
+    Optional<BPMNSignalReceivedEvent> actualFromResult = toSignalReceivedConverter.from(internalEvent);
 
     // Assert
     BPMNSignalReceivedEvent getResult = actualFromResult.get();

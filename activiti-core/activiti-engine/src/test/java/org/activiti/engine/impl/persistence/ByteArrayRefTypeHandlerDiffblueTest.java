@@ -19,14 +19,15 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertThrows;
+import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.ArgumentMatchers.isNull;
 import static org.mockito.Mockito.anyInt;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.sql.CallableStatement;
 import java.sql.PreparedStatement;
@@ -34,29 +35,22 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import org.activiti.engine.impl.persistence.entity.ByteArrayRef;
 import org.apache.ibatis.type.JdbcType;
-import org.h2.jdbc.JdbcResultSet;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import org.mockito.Mockito;
 
 public class ByteArrayRefTypeHandlerDiffblueTest {
   /**
-   * Test {@link ByteArrayRefTypeHandler#setParameter(PreparedStatement, int, ByteArrayRef,
-   * JdbcType)} with {@code PreparedStatement}, {@code int}, {@code ByteArrayRef}, {@code JdbcType}.
-   *
-   * <p>Method under test: {@link ByteArrayRefTypeHandler#setParameter(PreparedStatement, int,
-   * ByteArrayRef, JdbcType)}
+   * Test {@link ByteArrayRefTypeHandler#setParameter(PreparedStatement, int, ByteArrayRef, JdbcType)} with {@code PreparedStatement}, {@code int}, {@code ByteArrayRef}, {@code JdbcType}.
+   * <p>
+   * Method under test: {@link ByteArrayRefTypeHandler#setParameter(PreparedStatement, int, ByteArrayRef, JdbcType)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void ByteArrayRefTypeHandler.setParameter(PreparedStatement, int, ByteArrayRef, JdbcType)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void ByteArrayRefTypeHandler.setParameter(PreparedStatement, int, ByteArrayRef, JdbcType)"})
   public void testSetParameterWithPreparedStatementIntByteArrayRefJdbcType() throws SQLException {
     // Arrange
     ByteArrayRefTypeHandler byteArrayRefTypeHandler = new ByteArrayRefTypeHandler();
-
     PreparedStatement ps = mock(PreparedStatement.class);
     doNothing().when(ps).setString(anyInt(), Mockito.<String>any());
 
@@ -64,58 +58,43 @@ public class ByteArrayRefTypeHandlerDiffblueTest {
     byteArrayRefTypeHandler.setParameter(ps, 1, new ByteArrayRef("42"), JdbcType.ARRAY);
 
     // Assert
-    verify(ps).setString(1, "42");
+    verify(ps).setString(eq(1), eq("42"));
   }
 
   /**
-   * Test {@link ByteArrayRefTypeHandler#setParameter(PreparedStatement, int, ByteArrayRef,
-   * JdbcType)} with {@code PreparedStatement}, {@code int}, {@code ByteArrayRef}, {@code JdbcType}.
-   *
-   * <p>Method under test: {@link ByteArrayRefTypeHandler#setParameter(PreparedStatement, int,
-   * ByteArrayRef, JdbcType)}
+   * Test {@link ByteArrayRefTypeHandler#setParameter(PreparedStatement, int, ByteArrayRef, JdbcType)} with {@code PreparedStatement}, {@code int}, {@code ByteArrayRef}, {@code JdbcType}.
+   * <p>
+   * Method under test: {@link ByteArrayRefTypeHandler#setParameter(PreparedStatement, int, ByteArrayRef, JdbcType)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void ByteArrayRefTypeHandler.setParameter(PreparedStatement, int, ByteArrayRef, JdbcType)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void ByteArrayRefTypeHandler.setParameter(PreparedStatement, int, ByteArrayRef, JdbcType)"})
   public void testSetParameterWithPreparedStatementIntByteArrayRefJdbcType2() throws SQLException {
     // Arrange
     ByteArrayRefTypeHandler byteArrayRefTypeHandler = new ByteArrayRefTypeHandler();
-
     PreparedStatement ps = mock(PreparedStatement.class);
     doThrow(new SQLException()).when(ps).setString(anyInt(), Mockito.<String>any());
 
     // Act and Assert
-    assertThrows(
-        SQLException.class,
+    assertThrows(SQLException.class,
         () -> byteArrayRefTypeHandler.setParameter(ps, 1, new ByteArrayRef("42"), JdbcType.ARRAY));
-    verify(ps).setString(1, "42");
+    verify(ps).setString(eq(1), eq("42"));
   }
 
   /**
-   * Test {@link ByteArrayRefTypeHandler#setParameter(PreparedStatement, int, ByteArrayRef,
-   * JdbcType)} with {@code PreparedStatement}, {@code int}, {@code ByteArrayRef}, {@code JdbcType}.
-   *
+   * Test {@link ByteArrayRefTypeHandler#setParameter(PreparedStatement, int, ByteArrayRef, JdbcType)} with {@code PreparedStatement}, {@code int}, {@code ByteArrayRef}, {@code JdbcType}.
    * <ul>
-   *   <li>When {@code null}.
+   *   <li>When {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ByteArrayRefTypeHandler#setParameter(PreparedStatement, int,
-   * ByteArrayRef, JdbcType)}
+   * <p>
+   * Method under test: {@link ByteArrayRefTypeHandler#setParameter(PreparedStatement, int, ByteArrayRef, JdbcType)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void ByteArrayRefTypeHandler.setParameter(PreparedStatement, int, ByteArrayRef, JdbcType)"
-  })
-  public void testSetParameterWithPreparedStatementIntByteArrayRefJdbcType_whenNull()
-      throws SQLException {
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void ByteArrayRefTypeHandler.setParameter(PreparedStatement, int, ByteArrayRef, JdbcType)"})
+  public void testSetParameterWithPreparedStatementIntByteArrayRefJdbcType_whenNull() throws SQLException {
     // Arrange
     ByteArrayRefTypeHandler byteArrayRefTypeHandler = new ByteArrayRefTypeHandler();
-
     PreparedStatement ps = mock(PreparedStatement.class);
     doNothing().when(ps).setString(anyInt(), Mockito.<String>any());
 
@@ -123,57 +102,47 @@ public class ByteArrayRefTypeHandlerDiffblueTest {
     byteArrayRefTypeHandler.setParameter(ps, 1, null, JdbcType.ARRAY);
 
     // Assert
-    verify(ps).setString(1, null);
+    verify(ps).setString(eq(1), isNull());
   }
 
   /**
-   * Test {@link ByteArrayRefTypeHandler#getResult(CallableStatement, int)} with {@code cs}, {@code
-   * columnIndex}.
-   *
+   * Test {@link ByteArrayRefTypeHandler#getResult(CallableStatement, int)} with {@code cs}, {@code columnIndex}.
    * <ul>
-   *   <li>Given {@link SQLException#SQLException()}.
-   *   <li>Then throw {@link SQLException}.
+   *   <li>Given {@link SQLException#SQLException()}.</li>
+   *   <li>Then throw {@link SQLException}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ByteArrayRefTypeHandler#getResult(CallableStatement, int)}
+   * <p>
+   * Method under test: {@link ByteArrayRefTypeHandler#getResult(CallableStatement, int)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"ByteArrayRef ByteArrayRefTypeHandler.getResult(CallableStatement, int)"})
-  public void testGetResultWithCsColumnIndex_givenSQLException_thenThrowSQLException()
-      throws SQLException {
+  public void testGetResultWithCsColumnIndex_givenSQLException_thenThrowSQLException() throws SQLException {
     // Arrange
     ByteArrayRefTypeHandler byteArrayRefTypeHandler = new ByteArrayRefTypeHandler();
-
     CallableStatement cs = mock(CallableStatement.class);
     when(cs.getString(anyInt())).thenThrow(new SQLException());
 
     // Act and Assert
     assertThrows(SQLException.class, () -> byteArrayRefTypeHandler.getResult(cs, 1));
-    verify(cs).getString(1);
+    verify(cs).getString(eq(1));
   }
 
   /**
-   * Test {@link ByteArrayRefTypeHandler#getResult(CallableStatement, int)} with {@code cs}, {@code
-   * columnIndex}.
-   *
+   * Test {@link ByteArrayRefTypeHandler#getResult(CallableStatement, int)} with {@code cs}, {@code columnIndex}.
    * <ul>
-   *   <li>Given {@code String}.
-   *   <li>Then return Id is {@code String}.
+   *   <li>Given {@code String}.</li>
+   *   <li>Then return Id is {@code String}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ByteArrayRefTypeHandler#getResult(CallableStatement, int)}
+   * <p>
+   * Method under test: {@link ByteArrayRefTypeHandler#getResult(CallableStatement, int)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"ByteArrayRef ByteArrayRefTypeHandler.getResult(CallableStatement, int)"})
-  public void testGetResultWithCsColumnIndex_givenString_thenReturnIdIsString()
-      throws SQLException {
+  public void testGetResultWithCsColumnIndex_givenString_thenReturnIdIsString() throws SQLException {
     // Arrange
     ByteArrayRefTypeHandler byteArrayRefTypeHandler = new ByteArrayRefTypeHandler();
-
     CallableStatement cs = mock(CallableStatement.class);
     when(cs.getString(anyInt())).thenReturn("String");
 
@@ -181,72 +150,109 @@ public class ByteArrayRefTypeHandlerDiffblueTest {
     ByteArrayRef actualResult = byteArrayRefTypeHandler.getResult(cs, 1);
 
     // Assert
-    verify(cs).getString(1);
+    verify(cs).getString(eq(1));
     assertEquals("String", actualResult.getId());
     assertNull(actualResult.getName());
     assertFalse(actualResult.isDeleted());
   }
 
   /**
-   * Test {@link ByteArrayRefTypeHandler#getResult(ResultSet, int)} with {@code rs}, {@code
-   * columnIndex}.
-   *
+   * Test {@link ByteArrayRefTypeHandler#getResult(ResultSet, int)} with {@code rs}, {@code columnIndex}.
    * <ul>
-   *   <li>Given {@code String}.
-   *   <li>Then return Id is {@code String}.
+   *   <li>Given {@link SQLException#SQLException()}.</li>
+   *   <li>Then throw {@link SQLException}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ByteArrayRefTypeHandler#getResult(ResultSet, int)}
+   * <p>
+   * Method under test: {@link ByteArrayRefTypeHandler#getResult(ResultSet, int)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"ByteArrayRef ByteArrayRefTypeHandler.getResult(ResultSet, int)"})
-  public void testGetResultWithRsColumnIndex_givenString_thenReturnIdIsString()
-      throws SQLException {
+  public void testGetResultWithRsColumnIndex_givenSQLException_thenThrowSQLException() throws SQLException {
     // Arrange
     ByteArrayRefTypeHandler byteArrayRefTypeHandler = new ByteArrayRefTypeHandler();
+    ResultSet rs = mock(ResultSet.class);
+    when(rs.getString(anyInt())).thenThrow(new SQLException());
 
-    JdbcResultSet rs = mock(JdbcResultSet.class);
+    // Act and Assert
+    assertThrows(SQLException.class, () -> byteArrayRefTypeHandler.getResult(rs, 1));
+    verify(rs).getString(eq(1));
+  }
+
+  /**
+   * Test {@link ByteArrayRefTypeHandler#getResult(ResultSet, int)} with {@code rs}, {@code columnIndex}.
+   * <ul>
+   *   <li>Given {@code String}.</li>
+   *   <li>Then return Id is {@code String}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link ByteArrayRefTypeHandler#getResult(ResultSet, int)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"ByteArrayRef ByteArrayRefTypeHandler.getResult(ResultSet, int)"})
+  public void testGetResultWithRsColumnIndex_givenString_thenReturnIdIsString() throws SQLException {
+    // Arrange
+    ByteArrayRefTypeHandler byteArrayRefTypeHandler = new ByteArrayRefTypeHandler();
+    ResultSet rs = mock(ResultSet.class);
     when(rs.getString(anyInt())).thenReturn("String");
 
     // Act
     ByteArrayRef actualResult = byteArrayRefTypeHandler.getResult(rs, 1);
 
     // Assert
-    verify(rs).getString(1);
+    verify(rs).getString(eq(1));
     assertEquals("String", actualResult.getId());
     assertNull(actualResult.getName());
     assertFalse(actualResult.isDeleted());
   }
 
   /**
-   * Test {@link ByteArrayRefTypeHandler#getResult(ResultSet, String)} with {@code rs}, {@code
-   * columnName}.
-   *
+   * Test {@link ByteArrayRefTypeHandler#getResult(ResultSet, String)} with {@code rs}, {@code columnName}.
    * <ul>
-   *   <li>Given {@code String}.
-   *   <li>Then return Id is {@code String}.
+   *   <li>Given {@link SQLException#SQLException()}.</li>
+   *   <li>Then throw {@link SQLException}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ByteArrayRefTypeHandler#getResult(ResultSet, String)}
+   * <p>
+   * Method under test: {@link ByteArrayRefTypeHandler#getResult(ResultSet, String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"ByteArrayRef ByteArrayRefTypeHandler.getResult(ResultSet, String)"})
+  public void testGetResultWithRsColumnName_givenSQLException_thenThrowSQLException() throws SQLException {
+    // Arrange
+    ByteArrayRefTypeHandler byteArrayRefTypeHandler = new ByteArrayRefTypeHandler();
+    ResultSet rs = mock(ResultSet.class);
+    when(rs.getString(Mockito.<String>any())).thenThrow(new SQLException());
+
+    // Act and Assert
+    assertThrows(SQLException.class, () -> byteArrayRefTypeHandler.getResult(rs, "Column Name"));
+    verify(rs).getString(eq("Column Name"));
+  }
+
+  /**
+   * Test {@link ByteArrayRefTypeHandler#getResult(ResultSet, String)} with {@code rs}, {@code columnName}.
+   * <ul>
+   *   <li>Given {@code String}.</li>
+   *   <li>Then return Id is {@code String}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link ByteArrayRefTypeHandler#getResult(ResultSet, String)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"ByteArrayRef ByteArrayRefTypeHandler.getResult(ResultSet, String)"})
   public void testGetResultWithRsColumnName_givenString_thenReturnIdIsString() throws SQLException {
     // Arrange
     ByteArrayRefTypeHandler byteArrayRefTypeHandler = new ByteArrayRefTypeHandler();
-
-    JdbcResultSet rs = mock(JdbcResultSet.class);
+    ResultSet rs = mock(ResultSet.class);
     when(rs.getString(Mockito.<String>any())).thenReturn("String");
 
     // Act
     ByteArrayRef actualResult = byteArrayRefTypeHandler.getResult(rs, "Column Name");
 
     // Assert
-    verify(rs).getString("Column Name");
+    verify(rs).getString(eq("Column Name"));
     assertEquals("String", actualResult.getId());
     assertNull(actualResult.getName());
     assertFalse(actualResult.isDeleted());

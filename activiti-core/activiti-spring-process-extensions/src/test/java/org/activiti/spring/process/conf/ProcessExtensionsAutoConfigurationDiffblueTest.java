@@ -17,7 +17,6 @@ package org.activiti.spring.process.conf;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.json.JsonMapper;
@@ -31,32 +30,31 @@ import org.activiti.spring.process.variable.types.VariableType;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.junit.jupiter.MockitoExtension;
 
+@ExtendWith(MockitoExtension.class)
 class ProcessExtensionsAutoConfigurationDiffblueTest {
+  @InjectMocks
+  private ProcessExtensionsAutoConfiguration processExtensionsAutoConfiguration;
+
   /**
-   * Test {@link ProcessExtensionsAutoConfiguration#variableTypeMap(ObjectMapper,
-   * DateFormatterProvider)}.
-   *
-   * <p>Method under test: {@link ProcessExtensionsAutoConfiguration#variableTypeMap(ObjectMapper,
-   * DateFormatterProvider)}
+   * Test {@link ProcessExtensionsAutoConfiguration#variableTypeMap(ObjectMapper, DateFormatterProvider)}.
+   * <p>
+   * Method under test: {@link ProcessExtensionsAutoConfiguration#variableTypeMap(ObjectMapper, DateFormatterProvider)}
    */
   @Test
   @DisplayName("Test variableTypeMap(ObjectMapper, DateFormatterProvider)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "Map ProcessExtensionsAutoConfiguration.variableTypeMap(ObjectMapper, DateFormatterProvider)"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"Map ProcessExtensionsAutoConfiguration.variableTypeMap(ObjectMapper, DateFormatterProvider)"})
   void testVariableTypeMap() {
     // Arrange
-    ProcessExtensionsAutoConfiguration processExtensionsAutoConfiguration =
-        new ProcessExtensionsAutoConfiguration();
     JsonMapper objectMapper = JsonMapper.builder().findAndAddModules().build();
 
     // Act
-    Map<String, VariableType> actualVariableTypeMapResult =
-        processExtensionsAutoConfiguration.variableTypeMap(
-            objectMapper, new DateFormatterProvider("2020-03-01"));
+    Map<String, VariableType> actualVariableTypeMapResult = processExtensionsAutoConfiguration
+        .variableTypeMap(objectMapper, new DateFormatterProvider("2020-03-01"));
 
     // Assert
     assertEquals(11, actualVariableTypeMapResult.size());

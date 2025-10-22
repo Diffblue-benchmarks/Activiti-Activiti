@@ -1,21 +1,21 @@
 {
   "meta" : {
-    "reportVersion" : "2.7"
+    "reportVersion" : "2.6"
   },
   "run" : {
-    "version" : "2025.09.01-44e352d-licensed",
-    "creationTimestamp" : "2025-10-15T18:17:05.474751764Z",
+    "version" : "2025.02.02-08b2a5a-licensed",
+    "creationTimestamp" : "2025-10-21T18:36:58.703503864Z",
     "command" : "dcover create --exclude-modules=org.activiti:activiti-dependency-check,org.activiti:activiti-api-dependencies,org.activiti:activiti-core-common-dependencies,org.activiti:activiti-core-dependencies,org.activiti:activiti-dependencies,org.activiti:activiti-spring-conformance-set0,org.activiti:activiti-spring-conformance-set1,org.activiti:activiti-spring-conformance-set2,org.activiti:activiti-spring-conformance-set3,org.activiti:activiti-spring-conformance-set4,org.activiti:activiti-spring-conformance-set5,org.activiti:activiti-spring-conformance-variables,org.activiti:activiti-spring-conformance-signals --coverage-reports --upload http://localhost:8080 --project-name Activiti-Activiti --name with-diffblue-tests",
-    "totalTime" : 588.407,
-    "environmentDetectionTime" : 0.502,
-    "indexingTime" : 0.48,
-    "entryPointsTime" : 0.493,
-    "generationTime" : 2052.953,
-    "timeToFirstTest" : 3679.453,
-    "timeToLastTest" : 3186.079,
-    "indexQueryTime" : 2.65,
-    "verificationTime" : 116.364,
-    "validationTime" : 15.344
+    "totalTime" : 643.809,
+    "environmentDetectionTime" : 0.994,
+    "indexingTime" : 0.373,
+    "entryPointsTime" : 0.991,
+    "generationTime" : 1718.717,
+    "timeToFirstTest" : 3287.214,
+    "timeToLastTest" : 2821.928,
+    "indexQueryTime" : 3.314,
+    "verificationTime" : 102.08,
+    "validationTime" : 18.827
   },
   "codes" : {
     "R000" : "Success",
@@ -35,16 +35,15 @@
     "T010" : "Abstract or interface method",
     "T012" : "Synthetic method",
     "T020" : "Other trivial method",
-    "T023" : "Testability unknown",
     "V000" : "Validated successfully",
     "W002" : "Test compiled, but did not pass"
   },
   "summary" : {
     "classesCount" : 86,
     "methodsCount" : 571,
-    "cumulativeDiffblueTestCount" : 964,
+    "cumulativeDiffblueTestCount" : 864,
     "cumulativeManualTestCount" : 247,
-    "completeTestCount" : 964,
+    "completeTestCount" : 864,
     "incompleteTestCount" : 0,
     "skeletonTestCount" : 0,
     "totalPhysicalLineCount" : 5670,
@@ -59,13 +58,12 @@
       "T008" : 1,
       "T009" : 3,
       "T010" : 39,
-      "T012" : 12,
-      "T020" : 12,
-      "T023" : 15
+      "T012" : 27,
+      "T020" : 12
     },
     "perMethodOutcome" : {
-      "R000" : 363,
-      "R002" : 2,
+      "R000" : 362,
+      "R002" : 3,
       "R004" : 2,
       "R013" : 26,
       "R081" : 7,
@@ -76,24 +74,23 @@
       "T008" : 1,
       "T009" : 3,
       "T010" : 39,
-      "T012" : 12,
-      "T023" : 15,
+      "T012" : 27,
       "W002" : 2
     },
     "perTestOutcome" : {
-      "R000" : 964
+      "R000" : 864
     },
     "perTestValidation" : {
-      "V000" : 964
+      "V000" : 864
     },
     "warnings" : {
-      "W002" : 25
+      "W002" : 33
     }
   },
   "classes" : {
     "org.activiti.core.el.juel.ExpressionFactoryImpl" : {
       "methodsCount" : 19,
-      "completeTestCount" : 37,
+      "completeTestCount" : 34,
       "incompleteTestCount" : 0,
       "perMethodTestability" : {
         "T000" : 14,
@@ -105,7 +102,7 @@
         "T003" : 4
       },
       "perTestOutcome" : {
-        "R000" : 37
+        "R000" : 34
       }
     },
     "org.activiti.core.el.juel.ExpressionFactoryImpl$Profile" : {
@@ -115,14 +112,12 @@
       "perMethodTestability" : {
         "T000" : 2,
         "T003" : 1,
-        "T012" : 3,
-        "T023" : 1
+        "T012" : 4
       },
       "perMethodOutcome" : {
         "R000" : 2,
         "T003" : 1,
-        "T012" : 3,
-        "T023" : 1
+        "T012" : 4
       },
       "perTestOutcome" : {
         "R000" : 3
@@ -170,7 +165,7 @@
     },
     "org.activiti.core.el.juel.TreeValueExpression" : {
       "methodsCount" : 17,
-      "completeTestCount" : 21,
+      "completeTestCount" : 15,
       "incompleteTestCount" : 0,
       "perMethodTestability" : {
         "T000" : 11,
@@ -184,27 +179,33 @@
         "T003" : 2
       },
       "perTestOutcome" : {
-        "R000" : 21
+        "R000" : 15
+      },
+      "warnings" : {
+        "W002" : 1
       }
     },
     "org.activiti.core.el.juel.misc.BooleanOperations" : {
       "methodsCount" : 11,
-      "completeTestCount" : 61,
+      "completeTestCount" : 41,
       "incompleteTestCount" : 0,
       "perMethodTestability" : {
         "T000" : 7,
         "T003" : 2,
         "T005" : 1,
-        "T023" : 1
+        "T012" : 1
       },
       "perMethodOutcome" : {
         "R000" : 7,
         "T003" : 2,
         "T005" : 1,
-        "T023" : 1
+        "T012" : 1
       },
       "perTestOutcome" : {
-        "R000" : 61
+        "R000" : 41
+      },
+      "warnings" : {
+        "W002" : 6
       }
     },
     "org.activiti.core.el.juel.misc.LocalMessages" : {
@@ -214,12 +215,12 @@
       "perMethodTestability" : {
         "T000" : 1,
         "T005" : 1,
-        "T023" : 1
+        "T012" : 1
       },
       "perMethodOutcome" : {
         "R000" : 1,
         "T005" : 1,
-        "T023" : 1
+        "T012" : 1
       },
       "perTestOutcome" : {
         "R000" : 5
@@ -227,22 +228,22 @@
     },
     "org.activiti.core.el.juel.misc.NumberOperations" : {
       "methodsCount" : 14,
-      "completeTestCount" : 61,
+      "completeTestCount" : 60,
       "incompleteTestCount" : 0,
       "perMethodTestability" : {
         "T000" : 6,
         "T003" : 6,
         "T005" : 1,
-        "T023" : 1
+        "T012" : 1
       },
       "perMethodOutcome" : {
         "R000" : 6,
         "T003" : 6,
         "T005" : 1,
-        "T023" : 1
+        "T012" : 1
       },
       "perTestOutcome" : {
-        "R000" : 61
+        "R000" : 60
       },
       "warnings" : {
         "W002" : 6
@@ -254,16 +255,16 @@
       "incompleteTestCount" : 0,
       "perMethodTestability" : {
         "T010" : 1,
-        "T023" : 1
+        "T012" : 1
       },
       "perMethodOutcome" : {
         "T010" : 1,
-        "T023" : 1
+        "T012" : 1
       }
     },
     "org.activiti.core.el.juel.misc.TypeConverterImpl" : {
       "methodsCount" : 18,
-      "completeTestCount" : 203,
+      "completeTestCount" : 163,
       "incompleteTestCount" : 0,
       "perMethodTestability" : {
         "T000" : 17,
@@ -274,7 +275,7 @@
         "R002" : 1
       },
       "perTestOutcome" : {
-        "R000" : 203
+        "R000" : 163
       }
     },
     "org.activiti.core.el.juel.tree.Bindings" : {
@@ -284,12 +285,12 @@
       "perMethodTestability" : {
         "T000" : 9,
         "T003" : 2,
-        "T023" : 1
+        "T012" : 1
       },
       "perMethodOutcome" : {
         "R000" : 9,
         "T003" : 2,
-        "T023" : 1
+        "T012" : 1
       },
       "perTestOutcome" : {
         "R000" : 27
@@ -354,7 +355,7 @@
     },
     "org.activiti.core.el.juel.tree.NodePrinter" : {
       "methodsCount" : 4,
-      "completeTestCount" : 2,
+      "completeTestCount" : 0,
       "incompleteTestCount" : 0,
       "perMethodTestability" : {
         "T000" : 1,
@@ -362,12 +363,9 @@
         "T005" : 1
       },
       "perMethodOutcome" : {
-        "R000" : 1,
+        "R002" : 1,
         "T003" : 2,
         "T005" : 1
-      },
-      "perTestOutcome" : {
-        "R000" : 2
       }
     },
     "org.activiti.core.el.juel.tree.Tree" : {
@@ -473,13 +471,11 @@
       "incompleteTestCount" : 0,
       "perMethodTestability" : {
         "T003" : 1,
-        "T012" : 3,
-        "T023" : 1
+        "T012" : 4
       },
       "perMethodOutcome" : {
         "T003" : 1,
-        "T012" : 3,
-        "T023" : 1
+        "T012" : 4
       }
     },
     "org.activiti.core.el.juel.tree.impl.Cache" : {
@@ -498,20 +494,20 @@
     },
     "org.activiti.core.el.juel.tree.impl.Parser" : {
       "methodsCount" : 42,
-      "completeTestCount" : 34,
+      "completeTestCount" : 37,
       "incompleteTestCount" : 0,
       "perMethodTestability" : {
         "T000" : 38,
         "T001" : 3,
-        "T023" : 1
+        "T012" : 1
       },
       "perMethodOutcome" : {
         "R000" : 23,
         "R013" : 18,
-        "T023" : 1
+        "T012" : 1
       },
       "perTestOutcome" : {
-        "R000" : 34
+        "R000" : 37
       }
     },
     "org.activiti.core.el.juel.tree.impl.Parser$1" : {
@@ -519,10 +515,10 @@
       "completeTestCount" : 0,
       "incompleteTestCount" : 0,
       "perMethodTestability" : {
-        "T023" : 1
+        "T012" : 1
       },
       "perMethodOutcome" : {
-        "T023" : 1
+        "T012" : 1
       }
     },
     "org.activiti.core.el.juel.tree.impl.Parser$ExtensionHandler" : {
@@ -544,13 +540,11 @@
       "incompleteTestCount" : 0,
       "perMethodTestability" : {
         "T003" : 1,
-        "T012" : 3,
-        "T023" : 1
+        "T012" : 4
       },
       "perMethodOutcome" : {
         "T003" : 1,
-        "T012" : 3,
-        "T023" : 1
+        "T012" : 4
       }
     },
     "org.activiti.core.el.juel.tree.impl.Parser$LookaheadToken" : {
@@ -587,12 +581,12 @@
         "T001" : 3,
         "T003" : 2,
         "T005" : 1,
-        "T023" : 1
+        "T012" : 1
       },
       "perMethodOutcome" : {
         "R000" : 15,
         "T003" : 2,
-        "T023" : 1
+        "T012" : 1
       },
       "perTestOutcome" : {
         "R000" : 48
@@ -633,14 +627,12 @@
       "perMethodTestability" : {
         "T000" : 1,
         "T003" : 2,
-        "T012" : 3,
-        "T023" : 1
+        "T012" : 4
       },
       "perMethodOutcome" : {
         "R000" : 1,
         "T003" : 2,
-        "T012" : 3,
-        "T023" : 1
+        "T012" : 4
       },
       "perTestOutcome" : {
         "R000" : 2
@@ -671,13 +663,13 @@
         "T000" : 3,
         "T001" : 2,
         "T005" : 1,
-        "T020" : 1,
-        "T023" : 1
+        "T012" : 1,
+        "T020" : 1
       },
       "perMethodOutcome" : {
         "R000" : 6,
         "R013" : 1,
-        "T023" : 1
+        "T012" : 1
       },
       "perTestOutcome" : {
         "R000" : 5
@@ -868,7 +860,7 @@
     },
     "org.activiti.core.el.juel.tree.impl.ast.AstBracket" : {
       "methodsCount" : 7,
-      "completeTestCount" : 28,
+      "completeTestCount" : 19,
       "incompleteTestCount" : 0,
       "perMethodTestability" : {
         "T000" : 3,
@@ -879,12 +871,12 @@
         "R000" : 7
       },
       "perTestOutcome" : {
-        "R000" : 28
+        "R000" : 19
       }
     },
     "org.activiti.core.el.juel.tree.impl.ast.AstChoice" : {
       "methodsCount" : 6,
-      "completeTestCount" : 19,
+      "completeTestCount" : 15,
       "incompleteTestCount" : 0,
       "perMethodTestability" : {
         "T000" : 3,
@@ -895,7 +887,7 @@
         "R000" : 6
       },
       "perTestOutcome" : {
-        "R000" : 19
+        "R000" : 15
       },
       "warnings" : {
         "W002" : 2
@@ -903,7 +895,7 @@
     },
     "org.activiti.core.el.juel.tree.impl.ast.AstComposite" : {
       "methodsCount" : 6,
-      "completeTestCount" : 12,
+      "completeTestCount" : 13,
       "incompleteTestCount" : 0,
       "perMethodTestability" : {
         "T000" : 4,
@@ -914,12 +906,12 @@
         "R000" : 6
       },
       "perTestOutcome" : {
-        "R000" : 12
+        "R000" : 13
       }
     },
     "org.activiti.core.el.juel.tree.impl.ast.AstDot" : {
       "methodsCount" : 6,
-      "completeTestCount" : 8,
+      "completeTestCount" : 6,
       "incompleteTestCount" : 0,
       "perMethodTestability" : {
         "T000" : 2,
@@ -931,12 +923,12 @@
         "R000" : 6
       },
       "perTestOutcome" : {
-        "R000" : 8
+        "R000" : 6
       }
     },
     "org.activiti.core.el.juel.tree.impl.ast.AstEval" : {
       "methodsCount" : 16,
-      "completeTestCount" : 44,
+      "completeTestCount" : 35,
       "incompleteTestCount" : 0,
       "perMethodTestability" : {
         "T000" : 13,
@@ -947,7 +939,7 @@
         "R000" : 16
       },
       "perTestOutcome" : {
-        "R000" : 44
+        "R000" : 35
       }
     },
     "org.activiti.core.el.juel.tree.impl.ast.AstFunction" : {
@@ -969,7 +961,7 @@
     },
     "org.activiti.core.el.juel.tree.impl.ast.AstIdentifier" : {
       "methodsCount" : 19,
-      "completeTestCount" : 39,
+      "completeTestCount" : 49,
       "incompleteTestCount" : 0,
       "perMethodTestability" : {
         "T000" : 10,
@@ -980,7 +972,7 @@
         "R000" : 19
       },
       "perTestOutcome" : {
-        "R000" : 39
+        "R000" : 49
       }
     },
     "org.activiti.core.el.juel.tree.impl.ast.AstIdentifier$1" : {
@@ -1012,7 +1004,7 @@
     },
     "org.activiti.core.el.juel.tree.impl.ast.AstMethod" : {
       "methodsCount" : 16,
-      "completeTestCount" : 28,
+      "completeTestCount" : 24,
       "incompleteTestCount" : 0,
       "perMethodTestability" : {
         "T000" : 10,
@@ -1023,15 +1015,15 @@
         "R000" : 16
       },
       "perTestOutcome" : {
-        "R000" : 28
+        "R000" : 24
       },
       "warnings" : {
-        "W002" : 9
+        "W002" : 10
       }
     },
     "org.activiti.core.el.juel.tree.impl.ast.AstNested" : {
       "methodsCount" : 6,
-      "completeTestCount" : 16,
+      "completeTestCount" : 12,
       "incompleteTestCount" : 0,
       "perMethodTestability" : {
         "T000" : 3,
@@ -1042,7 +1034,7 @@
         "R000" : 6
       },
       "perTestOutcome" : {
-        "R000" : 16
+        "R000" : 12
       }
     },
     "org.activiti.core.el.juel.tree.impl.ast.AstNode" : {
@@ -1097,7 +1089,7 @@
     },
     "org.activiti.core.el.juel.tree.impl.ast.AstParameters" : {
       "methodsCount" : 6,
-      "completeTestCount" : 9,
+      "completeTestCount" : 10,
       "incompleteTestCount" : 0,
       "perMethodTestability" : {
         "T000" : 4,
@@ -1108,12 +1100,12 @@
         "R000" : 6
       },
       "perTestOutcome" : {
-        "R000" : 9
+        "R000" : 10
       }
     },
     "org.activiti.core.el.juel.tree.impl.ast.AstProperty" : {
       "methodsCount" : 16,
-      "completeTestCount" : 70,
+      "completeTestCount" : 67,
       "incompleteTestCount" : 0,
       "perMethodTestability" : {
         "T000" : 13,
@@ -1124,7 +1116,7 @@
         "T010" : 3
       },
       "perTestOutcome" : {
-        "R000" : 70
+        "R000" : 67
       },
       "warnings" : {
         "W002" : 6
@@ -1187,13 +1179,13 @@
         "T000" : 3,
         "T001" : 2,
         "T005" : 1,
-        "T020" : 1,
-        "T023" : 1
+        "T012" : 1,
+        "T020" : 1
       },
       "perMethodOutcome" : {
         "R000" : 6,
         "R013" : 1,
-        "T023" : 1
+        "T012" : 1
       },
       "perTestOutcome" : {
         "R000" : 5
@@ -1318,22 +1310,22 @@
     },
     "org.activiti.core.el.juel.util.SimpleResolver" : {
       "methodsCount" : 13,
-      "completeTestCount" : 20,
+      "completeTestCount" : 12,
       "incompleteTestCount" : 0,
       "perMethodTestability" : {
         "T000" : 11,
         "T001" : 1,
-        "T023" : 1
+        "T012" : 1
       },
       "perMethodOutcome" : {
         "R000" : 7,
         "R002" : 1,
         "R004" : 2,
         "R013" : 2,
-        "T023" : 1
+        "T012" : 1
       },
       "perTestOutcome" : {
-        "R000" : 20
+        "R000" : 12
       }
     },
     "org.activiti.core.el.juel.util.SimpleResolver$1" : {
@@ -1372,8 +1364,14 @@
     "org.activiti.core.el.juel.ExpressionFactoryImpl$Profile.<clinit>:()V" : {
       "completeTestCount" : 0,
       "incompleteTestCount" : 0,
-      "perMethodTestability" : "T023",
-      "perMethodOutcome" : "T023"
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        89,
+        94,
+        95,
+        85
+      ]
     },
     "org.activiti.core.el.juel.ExpressionFactoryImpl$Profile.<init>:(Ljava/lang/String;ILjava/util/EnumSet;)V" : {
       "completeTestCount" : 0,
@@ -1569,12 +1567,12 @@
       ]
     },
     "org.activiti.core.el.juel.ExpressionFactoryImpl.createTreeBuilder:(Ljava/util/Properties;[Lorg/activiti/core/el/juel/tree/impl/Builder$Feature;)Lorg/activiti/core/el/juel/tree/TreeBuilder;" : {
-      "completeTestCount" : 5,
+      "completeTestCount" : 2,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 5
+        "R000" : 2
       },
       "lineNumbers" : [
         479,
@@ -2106,12 +2104,12 @@
       ]
     },
     "org.activiti.core.el.juel.TreeValueExpression.<init>:(Lorg/activiti/core/el/juel/tree/TreeStore;Ljakarta/el/FunctionMapper;Ljakarta/el/VariableMapper;Lorg/activiti/core/el/juel/misc/TypeConverter;Ljava/lang/String;Ljava/lang/Class;)V" : {
-      "completeTestCount" : 4,
+      "completeTestCount" : 1,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 4
+        "R000" : 1
       },
       "lineNumbers" : [
         76,
@@ -2129,12 +2127,12 @@
       ]
     },
     "org.activiti.core.el.juel.TreeValueExpression.dump:(Ljava/io/PrintWriter;)V" : {
-      "completeTestCount" : 4,
+      "completeTestCount" : 2,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 4
+        "R000" : 2
       },
       "lineNumbers" : [
         232,
@@ -2205,12 +2203,15 @@
       ]
     },
     "org.activiti.core.el.juel.TreeValueExpression.getValue:(Ljakarta/el/ELContext;)Ljava/lang/Object;" : {
-      "completeTestCount" : 3,
+      "completeTestCount" : 2,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 3
+        "R000" : 2
+      },
+      "warnings" : {
+        "W002" : 1
       },
       "lineNumbers" : [
         131
@@ -2324,8 +2325,19 @@
     "org.activiti.core.el.juel.misc.BooleanOperations.<clinit>:()V" : {
       "completeTestCount" : 0,
       "incompleteTestCount" : 0,
-      "perMethodTestability" : "T023",
-      "perMethodOutcome" : "T023"
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        29,
+        30,
+        33,
+        34,
+        35,
+        36,
+        37,
+        38,
+        39
+      ]
     },
     "org.activiti.core.el.juel.misc.BooleanOperations.<init>:()V" : {
       "completeTestCount" : 0,
@@ -2357,12 +2369,15 @@
       ]
     },
     "org.activiti.core.el.juel.misc.BooleanOperations.eq:(Lorg/activiti/core/el/juel/misc/TypeConverter;Ljava/lang/Object;Ljava/lang/Object;)Z" : {
-      "completeTestCount" : 12,
+      "completeTestCount" : 2,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 12
+        "R000" : 2
+      },
+      "warnings" : {
+        "W002" : 3
       },
       "lineNumbers" : [
         242,
@@ -2580,12 +2595,15 @@
       ]
     },
     "org.activiti.core.el.juel.misc.BooleanOperations.ne:(Lorg/activiti/core/el/juel/misc/TypeConverter;Ljava/lang/Object;Ljava/lang/Object;)Z" : {
-      "completeTestCount" : 12,
+      "completeTestCount" : 2,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 12
+        "R000" : 2
+      },
+      "warnings" : {
+        "W002" : 3
       },
       "lineNumbers" : [
         311
@@ -2594,8 +2612,11 @@
     "org.activiti.core.el.juel.misc.LocalMessages.<clinit>:()V" : {
       "completeTestCount" : 0,
       "incompleteTestCount" : 0,
-      "perMethodTestability" : "T023",
-      "perMethodOutcome" : "T023"
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        28
+      ]
     },
     "org.activiti.core.el.juel.misc.LocalMessages.<init>:()V" : {
       "completeTestCount" : 0,
@@ -2639,8 +2660,11 @@
     "org.activiti.core.el.juel.misc.NumberOperations.<clinit>:()V" : {
       "completeTestCount" : 0,
       "incompleteTestCount" : 0,
-      "perMethodTestability" : "T023",
-      "perMethodOutcome" : "T023"
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        30
+      ]
     },
     "org.activiti.core.el.juel.misc.NumberOperations.<init>:()V" : {
       "completeTestCount" : 0,
@@ -2837,12 +2861,12 @@
       ]
     },
     "org.activiti.core.el.juel.misc.NumberOperations.neg:(Lorg/activiti/core/el/juel/misc/TypeConverter;Ljava/lang/Object;)Ljava/lang/Number;" : {
-      "completeTestCount" : 3,
+      "completeTestCount" : 2,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 3
+        "R000" : 2
       },
       "warnings" : {
         "W002" : 6
@@ -2918,8 +2942,11 @@
     "org.activiti.core.el.juel.misc.TypeConverter.<clinit>:()V" : {
       "completeTestCount" : 0,
       "incompleteTestCount" : 0,
-      "perMethodTestability" : "T023",
-      "perMethodOutcome" : "T023"
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        26
+      ]
     },
     "org.activiti.core.el.juel.misc.TypeConverter.convert:(Ljava/lang/Object;Ljava/lang/Class;)Ljava/lang/Object;" : {
       "completeTestCount" : 0,
@@ -3281,12 +3308,12 @@
       ]
     },
     "org.activiti.core.el.juel.misc.TypeConverterImpl.coerceToType:(Ljava/lang/Object;Ljava/lang/Class;)Ljava/lang/Object;" : {
-      "completeTestCount" : 62,
+      "completeTestCount" : 42,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 62
+        "R000" : 42
       },
       "lineNumbers" : [
         467,
@@ -3324,12 +3351,12 @@
       ]
     },
     "org.activiti.core.el.juel.misc.TypeConverterImpl.convert:(Ljava/lang/Object;Ljava/lang/Class;)Ljava/lang/Object;" : {
-      "completeTestCount" : 62,
+      "completeTestCount" : 42,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 62
+        "R000" : 42
       },
       "lineNumbers" : [
         533
@@ -3403,8 +3430,12 @@
     "org.activiti.core.el.juel.tree.Bindings.<clinit>:()V" : {
       "completeTestCount" : 0,
       "incompleteTestCount" : 0,
-      "perMethodTestability" : "T023",
-      "perMethodOutcome" : "T023"
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        38,
+        39
+      ]
     },
     "org.activiti.core.el.juel.tree.Bindings.<init>:([Ljava/lang/reflect/Method;[Ljakarta/el/ValueExpression;)V" : {
       "completeTestCount" : 4,
@@ -3692,13 +3723,10 @@
       ]
     },
     "org.activiti.core.el.juel.tree.NodePrinter.dump:(Ljava/io/PrintWriter;Lorg/activiti/core/el/juel/tree/Node;)V" : {
-      "completeTestCount" : 2,
+      "completeTestCount" : 0,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
-      "perMethodOutcome" : "R000",
-      "perTestOutcome" : {
-        "R000" : 2
-      },
+      "perMethodOutcome" : "R002",
       "lineNumbers" : [
         73,
         74
@@ -4066,8 +4094,15 @@
     "org.activiti.core.el.juel.tree.impl.Builder$Feature.<clinit>:()V" : {
       "completeTestCount" : 0,
       "incompleteTestCount" : 0,
-      "perMethodTestability" : "T023",
-      "perMethodOutcome" : "T023"
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        53,
+        61,
+        65,
+        70,
+        46
+      ]
     },
     "org.activiti.core.el.juel.tree.impl.Builder$Feature.<init>:(Ljava/lang/String;I)V" : {
       "completeTestCount" : 0,
@@ -4309,8 +4344,11 @@
     "org.activiti.core.el.juel.tree.impl.Parser$1.<clinit>:()V" : {
       "completeTestCount" : 0,
       "incompleteTestCount" : 0,
-      "perMethodTestability" : "T023",
-      "perMethodOutcome" : "T023"
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        506
+      ]
     },
     "org.activiti.core.el.juel.tree.impl.Parser$ExtensionHandler.<init>:(Lorg/activiti/core/el/juel/tree/impl/Parser$ExtensionPoint;)V" : {
       "completeTestCount" : 0,
@@ -4350,8 +4388,19 @@
     "org.activiti.core.el.juel.tree.impl.Parser$ExtensionPoint.<clinit>:()V" : {
       "completeTestCount" : 0,
       "incompleteTestCount" : 0,
-      "perMethodTestability" : "T023",
-      "perMethodOutcome" : "T023"
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        100,
+        101,
+        102,
+        103,
+        104,
+        105,
+        106,
+        107,
+        99
+      ]
     },
     "org.activiti.core.el.juel.tree.impl.Parser$ExtensionPoint.<init>:(Ljava/lang/String;I)V" : {
       "completeTestCount" : 0,
@@ -4414,8 +4463,11 @@
     "org.activiti.core.el.juel.tree.impl.Parser.<clinit>:()V" : {
       "completeTestCount" : 0,
       "incompleteTestCount" : 0,
-      "perMethodTestability" : "T023",
-      "perMethodOutcome" : "T023"
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        137
+      ]
     },
     "org.activiti.core.el.juel.tree.impl.Parser.<init>:(Lorg/activiti/core/el/juel/tree/impl/Builder;Ljava/lang/String;)V" : {
       "completeTestCount" : 1,
@@ -4557,12 +4609,12 @@
       ]
     },
     "org.activiti.core.el.juel.tree.impl.Parser.createAstBracket:(Lorg/activiti/core/el/juel/tree/impl/ast/AstNode;Lorg/activiti/core/el/juel/tree/impl/ast/AstNode;ZZ)Lorg/activiti/core/el/juel/tree/impl/ast/AstBracket;" : {
-      "completeTestCount" : 1,
+      "completeTestCount" : 2,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 1
+        "R000" : 2
       },
       "lineNumbers" : [
         238,
@@ -4595,12 +4647,12 @@
       ]
     },
     "org.activiti.core.el.juel.tree.impl.Parser.createAstDot:(Lorg/activiti/core/el/juel/tree/impl/ast/AstNode;Ljava/lang/String;Z)Lorg/activiti/core/el/juel/tree/impl/ast/AstDot;" : {
-      "completeTestCount" : 1,
+      "completeTestCount" : 2,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 1
+        "R000" : 2
       },
       "lineNumbers" : [
         264,
@@ -4623,12 +4675,12 @@
       ]
     },
     "org.activiti.core.el.juel.tree.impl.Parser.createAstIdentifier:(Ljava/lang/String;I)Lorg/activiti/core/el/juel/tree/impl/ast/AstIdentifier;" : {
-      "completeTestCount" : 1,
+      "completeTestCount" : 2,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 1
+        "R000" : 2
       },
       "lineNumbers" : [
         286,
@@ -5204,8 +5256,48 @@
     "org.activiti.core.el.juel.tree.impl.Scanner$Symbol.<clinit>:()V" : {
       "completeTestCount" : 0,
       "incompleteTestCount" : 0,
-      "perMethodTestability" : "T023",
-      "perMethodOutcome" : "T023"
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        98,
+        99,
+        100,
+        101,
+        102,
+        103,
+        104,
+        105,
+        106,
+        107,
+        108,
+        109,
+        110,
+        111,
+        112,
+        113,
+        114,
+        115,
+        116,
+        117,
+        118,
+        119,
+        120,
+        121,
+        122,
+        123,
+        124,
+        125,
+        126,
+        127,
+        128,
+        129,
+        130,
+        131,
+        132,
+        133,
+        134,
+        97
+      ]
     },
     "org.activiti.core.el.juel.tree.impl.Scanner$Symbol.<init>:(Ljava/lang/String;I)V" : {
       "completeTestCount" : 0,
@@ -5338,8 +5430,55 @@
     "org.activiti.core.el.juel.tree.impl.Scanner.<clinit>:()V" : {
       "completeTestCount" : 0,
       "incompleteTestCount" : 0,
-      "perMethodTestability" : "T023",
-      "perMethodOutcome" : "T023"
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        152,
+        153,
+        164,
+        165,
+        166,
+        167,
+        168,
+        169,
+        170,
+        171,
+        172,
+        173,
+        174,
+        175,
+        176,
+        177,
+        178,
+        179,
+        180,
+        181,
+        182,
+        183,
+        184,
+        185,
+        186,
+        187,
+        188,
+        189,
+        191,
+        192,
+        193,
+        194,
+        195,
+        196,
+        197,
+        198,
+        199,
+        200,
+        201,
+        202,
+        203,
+        204,
+        205,
+        206,
+        207
+      ]
     },
     "org.activiti.core.el.juel.tree.impl.Scanner.<init>:(Ljava/lang/String;)V" : {
       "completeTestCount" : 1,
@@ -6084,8 +6223,23 @@
     "org.activiti.core.el.juel.tree.impl.ast.AstBinary.<clinit>:()V" : {
       "completeTestCount" : 0,
       "incompleteTestCount" : 0,
-      "perMethodTestability" : "T023",
-      "perMethodOutcome" : "T023"
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        58,
+        69,
+        90,
+        101,
+        112,
+        123,
+        134,
+        145,
+        156,
+        167,
+        178,
+        189,
+        213
+      ]
     },
     "org.activiti.core.el.juel.tree.impl.ast.AstBinary.<init>:(Lorg/activiti/core/el/juel/tree/impl/ast/AstNode;Lorg/activiti/core/el/juel/tree/impl/ast/AstNode;Lorg/activiti/core/el/juel/tree/impl/ast/AstBinary$Operator;)V" : {
       "completeTestCount" : 1,
@@ -6256,12 +6410,12 @@
       ]
     },
     "org.activiti.core.el.juel.tree.impl.ast.AstBracket.appendStructure:(Ljava/lang/StringBuilder;Lorg/activiti/core/el/juel/tree/Bindings;)V" : {
-      "completeTestCount" : 12,
+      "completeTestCount" : 6,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 12
+        "R000" : 6
       },
       "lineNumbers" : [
         60,
@@ -6296,12 +6450,12 @@
       ]
     },
     "org.activiti.core.el.juel.tree.impl.ast.AstBracket.getProperty:(Lorg/activiti/core/el/juel/tree/Bindings;Ljakarta/el/ELContext;)Ljava/lang/Object;" : {
-      "completeTestCount" : 11,
+      "completeTestCount" : 8,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 11
+        "R000" : 8
       },
       "lineNumbers" : [
         50
@@ -6336,12 +6490,12 @@
       ]
     },
     "org.activiti.core.el.juel.tree.impl.ast.AstChoice.appendStructure:(Ljava/lang/StringBuilder;Lorg/activiti/core/el/juel/tree/Bindings;)V" : {
-      "completeTestCount" : 9,
+      "completeTestCount" : 5,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 9
+        "R000" : 5
       },
       "lineNumbers" : [
         52,
@@ -6424,12 +6578,12 @@
       ]
     },
     "org.activiti.core.el.juel.tree.impl.ast.AstComposite.appendStructure:(Ljava/lang/StringBuilder;Lorg/activiti/core/el/juel/tree/Bindings;)V" : {
-      "completeTestCount" : 3,
+      "completeTestCount" : 4,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 3
+        "R000" : 4
       },
       "lineNumbers" : [
         52,
@@ -6521,12 +6675,12 @@
       ]
     },
     "org.activiti.core.el.juel.tree.impl.ast.AstDot.appendStructure:(Ljava/lang/StringBuilder;Lorg/activiti/core/el/juel/tree/Bindings;)V" : {
-      "completeTestCount" : 5,
+      "completeTestCount" : 3,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 5
+        "R000" : 3
       },
       "lineNumbers" : [
         54,
@@ -6587,12 +6741,12 @@
       ]
     },
     "org.activiti.core.el.juel.tree.impl.ast.AstEval.appendStructure:(Ljava/lang/StringBuilder;Lorg/activiti/core/el/juel/tree/Bindings;)V" : {
-      "completeTestCount" : 9,
+      "completeTestCount" : 4,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 9
+        "R000" : 4
       },
       "lineNumbers" : [
         65,
@@ -6602,12 +6756,12 @@
       ]
     },
     "org.activiti.core.el.juel.tree.impl.ast.AstEval.eval:(Lorg/activiti/core/el/juel/tree/Bindings;Ljakarta/el/ELContext;)Ljava/lang/Object;" : {
-      "completeTestCount" : 8,
+      "completeTestCount" : 5,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 8
+        "R000" : 5
       },
       "lineNumbers" : [
         55
@@ -6638,12 +6792,12 @@
       ]
     },
     "org.activiti.core.el.juel.tree.impl.ast.AstEval.getMethodInfo:(Lorg/activiti/core/el/juel/tree/Bindings;Ljakarta/el/ELContext;Ljava/lang/Class;[Ljava/lang/Class;)Ljakarta/el/MethodInfo;" : {
-      "completeTestCount" : 3,
+      "completeTestCount" : 2,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 3
+        "R000" : 2
       },
       "lineNumbers" : [
         76
@@ -7167,12 +7321,12 @@
       ]
     },
     "org.activiti.core.el.juel.tree.impl.ast.AstIdentifier.getMethodExpression:(Lorg/activiti/core/el/juel/tree/Bindings;Ljakarta/el/ELContext;Ljava/lang/Class;[Ljava/lang/Class;)Ljakarta/el/MethodExpression;" : {
-      "completeTestCount" : 2,
+      "completeTestCount" : 4,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 2
+        "R000" : 4
       },
       "lineNumbers" : [
         149,
@@ -7201,12 +7355,12 @@
       ]
     },
     "org.activiti.core.el.juel.tree.impl.ast.AstIdentifier.getMethodInfo:(Lorg/activiti/core/el/juel/tree/Bindings;Ljakarta/el/ELContext;Ljava/lang/Class;[Ljava/lang/Class;)Ljakarta/el/MethodInfo;" : {
-      "completeTestCount" : 2,
+      "completeTestCount" : 8,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 2
+        "R000" : 8
       },
       "lineNumbers" : [
         261,
@@ -7227,12 +7381,12 @@
       ]
     },
     "org.activiti.core.el.juel.tree.impl.ast.AstIdentifier.getType:(Lorg/activiti/core/el/juel/tree/Bindings;Ljakarta/el/ELContext;)Ljava/lang/Class;" : {
-      "completeTestCount" : 6,
+      "completeTestCount" : 5,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 6
+        "R000" : 5
       },
       "lineNumbers" : [
         51,
@@ -7262,12 +7416,12 @@
       ]
     },
     "org.activiti.core.el.juel.tree.impl.ast.AstIdentifier.invoke:(Lorg/activiti/core/el/juel/tree/Bindings;Ljakarta/el/ELContext;Ljava/lang/Class;[Ljava/lang/Class;[Ljava/lang/Object;)Ljava/lang/Object;" : {
-      "completeTestCount" : 2,
+      "completeTestCount" : 8,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 2
+        "R000" : 8
       },
       "lineNumbers" : [
         272,
@@ -7312,12 +7466,12 @@
       ]
     },
     "org.activiti.core.el.juel.tree.impl.ast.AstIdentifier.isReadOnly:(Lorg/activiti/core/el/juel/tree/Bindings;Ljakarta/el/ELContext;)Z" : {
-      "completeTestCount" : 6,
+      "completeTestCount" : 5,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 6
+        "R000" : 5
       },
       "lineNumbers" : [
         127,
@@ -7334,12 +7488,12 @@
       ]
     },
     "org.activiti.core.el.juel.tree.impl.ast.AstIdentifier.setValue:(Lorg/activiti/core/el/juel/tree/Bindings;Ljakarta/el/ELContext;Ljava/lang/Object;)V" : {
-      "completeTestCount" : 8,
+      "completeTestCount" : 6,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 8
+        "R000" : 6
       },
       "lineNumbers" : [
         105,
@@ -7420,12 +7574,12 @@
       ]
     },
     "org.activiti.core.el.juel.tree.impl.ast.AstMethod.appendStructure:(Ljava/lang/StringBuilder;Lorg/activiti/core/el/juel/tree/Bindings;)V" : {
-      "completeTestCount" : 6,
+      "completeTestCount" : 5,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 6
+        "R000" : 5
       },
       "lineNumbers" : [
         86,
@@ -7449,15 +7603,15 @@
       ]
     },
     "org.activiti.core.el.juel.tree.impl.ast.AstMethod.eval:(Lorg/activiti/core/el/juel/tree/Bindings;Ljakarta/el/ELContext;Z)Ljava/lang/Object;" : {
-      "completeTestCount" : 3,
+      "completeTestCount" : 2,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 3
+        "R000" : 2
       },
       "warnings" : {
-        "W002" : 3
+        "W002" : 4
       },
       "lineNumbers" : [
         95,
@@ -7607,12 +7761,12 @@
       ]
     },
     "org.activiti.core.el.juel.tree.impl.ast.AstMethod.setValue:(Lorg/activiti/core/el/juel/tree/Bindings;Ljakarta/el/ELContext;Ljava/lang/Object;)V" : {
-      "completeTestCount" : 7,
+      "completeTestCount" : 5,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 7
+        "R000" : 5
       },
       "lineNumbers" : [
         52,
@@ -7647,12 +7801,12 @@
       ]
     },
     "org.activiti.core.el.juel.tree.impl.ast.AstNested.appendStructure:(Ljava/lang/StringBuilder;Lorg/activiti/core/el/juel/tree/Bindings;)V" : {
-      "completeTestCount" : 7,
+      "completeTestCount" : 4,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 7
+        "R000" : 4
       },
       "lineNumbers" : [
         42,
@@ -7662,12 +7816,12 @@
       ]
     },
     "org.activiti.core.el.juel.tree.impl.ast.AstNested.eval:(Lorg/activiti/core/el/juel/tree/Bindings;Ljakarta/el/ELContext;)Ljava/lang/Object;" : {
-      "completeTestCount" : 6,
+      "completeTestCount" : 5,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 6
+        "R000" : 5
       },
       "lineNumbers" : [
         32
@@ -7933,12 +8087,12 @@
       ]
     },
     "org.activiti.core.el.juel.tree.impl.ast.AstParameters.appendStructure:(Ljava/lang/StringBuilder;Lorg/activiti/core/el/juel/tree/Bindings;)V" : {
-      "completeTestCount" : 2,
+      "completeTestCount" : 3,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 2
+        "R000" : 3
       },
       "lineNumbers" : [
         47,
@@ -8028,12 +8182,12 @@
       ]
     },
     "org.activiti.core.el.juel.tree.impl.ast.AstProperty.eval:(Lorg/activiti/core/el/juel/tree/Bindings;Ljakarta/el/ELContext;)Ljava/lang/Object;" : {
-      "completeTestCount" : 8,
+      "completeTestCount" : 5,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 8
+        "R000" : 5
       },
       "lineNumbers" : [
         85,
@@ -8815,8 +8969,13 @@
     "org.activiti.core.el.juel.tree.impl.ast.AstUnary.<clinit>:()V" : {
       "completeTestCount" : 0,
       "incompleteTestCount" : 0,
-      "perMethodTestability" : "T023",
-      "perMethodOutcome" : "T023"
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        41,
+        52,
+        63
+      ]
     },
     "org.activiti.core.el.juel.tree.impl.ast.AstUnary.<init>:(Lorg/activiti/core/el/juel/tree/impl/ast/AstNode;Lorg/activiti/core/el/juel/tree/impl/ast/AstUnary$Operator;)V" : {
       "completeTestCount" : 1,
@@ -9320,8 +9479,12 @@
     "org.activiti.core.el.juel.util.SimpleResolver.<clinit>:()V" : {
       "completeTestCount" : 0,
       "incompleteTestCount" : 0,
-      "perMethodTestability" : "T023",
-      "perMethodOutcome" : "T023"
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        39,
+        48
+      ]
     },
     "org.activiti.core.el.juel.util.SimpleResolver.<init>:()V" : {
       "completeTestCount" : 0,
@@ -9402,36 +9565,36 @@
       ]
     },
     "org.activiti.core.el.juel.util.SimpleResolver.getType:(Ljakarta/el/ELContext;Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Class;" : {
-      "completeTestCount" : 2,
+      "completeTestCount" : 1,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 2
+        "R000" : 1
       },
       "lineNumbers" : [
         122
       ]
     },
     "org.activiti.core.el.juel.util.SimpleResolver.getValue:(Ljakarta/el/ELContext;Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;" : {
-      "completeTestCount" : 2,
+      "completeTestCount" : 1,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 2
+        "R000" : 1
       },
       "lineNumbers" : [
         127
       ]
     },
     "org.activiti.core.el.juel.util.SimpleResolver.invoke:(Ljakarta/el/ELContext;Ljava/lang/Object;Ljava/lang/Object;[Ljava/lang/Class;[Ljava/lang/Object;)Ljava/lang/Object;" : {
-      "completeTestCount" : 3,
+      "completeTestCount" : 2,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 3
+        "R000" : 2
       },
       "lineNumbers" : [
         153
@@ -9450,18 +9613,17 @@
       ]
     },
     "org.activiti.core.el.juel.util.SimpleResolver.setValue:(Ljakarta/el/ELContext;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;)V" : {
-      "completeTestCount" : 6,
+      "completeTestCount" : 1,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 6
+        "R000" : 1
       },
       "lineNumbers" : [
         142,
         143
       ]
     }
-  },
-  "validationMetrics" : { }
+  }
 }

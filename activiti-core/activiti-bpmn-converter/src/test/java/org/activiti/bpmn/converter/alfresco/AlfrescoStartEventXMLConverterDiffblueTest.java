@@ -16,7 +16,6 @@
 package org.activiti.bpmn.converter.alfresco;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.bpmn.model.BaseElement;
 import org.activiti.bpmn.model.alfresco.AlfrescoStartEvent;
@@ -27,9 +26,8 @@ import org.junit.jupiter.api.Test;
 class AlfrescoStartEventXMLConverterDiffblueTest {
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>default or parameterless constructor of {@link AlfrescoStartEventXMLConverter}
    *   <li>{@link AlfrescoStartEventXMLConverter#getBpmnElementType()}
@@ -37,16 +35,12 @@ class AlfrescoStartEventXMLConverterDiffblueTest {
    */
   @Test
   @DisplayName("Test getters and setters")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void AlfrescoStartEventXMLConverter.<init>()",
-    "Class AlfrescoStartEventXMLConverter.getBpmnElementType()"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void AlfrescoStartEventXMLConverter.<init>()",
+      "Class AlfrescoStartEventXMLConverter.getBpmnElementType()"})
   void testGettersAndSetters() {
     // Arrange and Act
-    Class<? extends BaseElement> actualBpmnElementType =
-        new AlfrescoStartEventXMLConverter().getBpmnElementType();
+    Class<? extends BaseElement> actualBpmnElementType = (new AlfrescoStartEventXMLConverter()).getBpmnElementType();
 
     // Assert
     Class<AlfrescoStartEvent> expectedBpmnElementType = AlfrescoStartEvent.class;

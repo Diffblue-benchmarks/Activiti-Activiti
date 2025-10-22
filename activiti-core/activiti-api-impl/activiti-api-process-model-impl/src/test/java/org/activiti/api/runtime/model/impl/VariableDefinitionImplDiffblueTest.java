@@ -18,7 +18,6 @@ package org.activiti.api.runtime.model.impl;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
@@ -26,16 +25,13 @@ import org.junit.jupiter.api.Test;
 
 class VariableDefinitionImplDiffblueTest {
   /**
-   * Test {@link VariableDefinitionImpl#equals(Object)}, and {@link
-   * VariableDefinitionImpl#hashCode()}.
-   *
+   * Test {@link VariableDefinitionImpl#equals(Object)}, and {@link VariableDefinitionImpl#hashCode()}.
    * <ul>
-   *   <li>When other is equal.
-   *   <li>Then return equal.
+   *   <li>When other is equal.</li>
+   *   <li>Then return equal.</li>
    * </ul>
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>{@link VariableDefinitionImpl#equals(Object)}
    *   <li>{@link VariableDefinitionImpl#hashCode()}
@@ -43,12 +39,8 @@ class VariableDefinitionImplDiffblueTest {
    */
   @Test
   @DisplayName("Test equals(Object), and hashCode(); when other is equal; then return equal")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "boolean VariableDefinitionImpl.equals(Object)",
-    "int VariableDefinitionImpl.hashCode()"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean VariableDefinitionImpl.equals(Object)", "int VariableDefinitionImpl.hashCode()"})
   void testEqualsAndHashCode_whenOtherIsEqual_thenReturnEqual() {
     // Arrange
     VariableDefinitionImpl variableDefinitionImpl = new VariableDefinitionImpl();
@@ -73,20 +65,18 @@ class VariableDefinitionImplDiffblueTest {
 
     // Act and Assert
     assertEquals(variableDefinitionImpl, variableDefinitionImpl2);
-    assertEquals(variableDefinitionImpl.hashCode(), variableDefinitionImpl2.hashCode());
+    int expectedHashCodeResult = variableDefinitionImpl.hashCode();
+    assertEquals(expectedHashCodeResult, variableDefinitionImpl2.hashCode());
   }
 
   /**
-   * Test {@link VariableDefinitionImpl#equals(Object)}, and {@link
-   * VariableDefinitionImpl#hashCode()}.
-   *
+   * Test {@link VariableDefinitionImpl#equals(Object)}, and {@link VariableDefinitionImpl#hashCode()}.
    * <ul>
-   *   <li>When other is same.
-   *   <li>Then return equal.
+   *   <li>When other is same.</li>
+   *   <li>Then return equal.</li>
    * </ul>
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>{@link VariableDefinitionImpl#equals(Object)}
    *   <li>{@link VariableDefinitionImpl#hashCode()}
@@ -94,12 +84,8 @@ class VariableDefinitionImplDiffblueTest {
    */
   @Test
   @DisplayName("Test equals(Object), and hashCode(); when other is same; then return equal")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "boolean VariableDefinitionImpl.equals(Object)",
-    "int VariableDefinitionImpl.hashCode()"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean VariableDefinitionImpl.equals(Object)", "int VariableDefinitionImpl.hashCode()"})
   void testEqualsAndHashCode_whenOtherIsSame_thenReturnEqual() {
     // Arrange
     VariableDefinitionImpl variableDefinitionImpl = new VariableDefinitionImpl();
@@ -120,22 +106,17 @@ class VariableDefinitionImplDiffblueTest {
 
   /**
    * Test {@link VariableDefinitionImpl#equals(Object)}.
-   *
    * <ul>
-   *   <li>When other is different.
-   *   <li>Then return not equal.
+   *   <li>When other is different.</li>
+   *   <li>Then return not equal.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link VariableDefinitionImpl#equals(Object)}
+   * <p>
+   * Method under test: {@link VariableDefinitionImpl#equals(Object)}
    */
   @Test
   @DisplayName("Test equals(Object); when other is different; then return not equal")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "boolean VariableDefinitionImpl.equals(Object)",
-    "int VariableDefinitionImpl.hashCode()"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean VariableDefinitionImpl.equals(Object)", "int VariableDefinitionImpl.hashCode()"})
   void testEquals_whenOtherIsDifferent_thenReturnNotEqual() {
     // Arrange
     VariableDefinitionImpl variableDefinitionImpl = new VariableDefinitionImpl();
@@ -164,22 +145,17 @@ class VariableDefinitionImplDiffblueTest {
 
   /**
    * Test {@link VariableDefinitionImpl#equals(Object)}.
-   *
    * <ul>
-   *   <li>When other is different.
-   *   <li>Then return not equal.
+   *   <li>When other is different.</li>
+   *   <li>Then return not equal.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link VariableDefinitionImpl#equals(Object)}
+   * <p>
+   * Method under test: {@link VariableDefinitionImpl#equals(Object)}
    */
   @Test
   @DisplayName("Test equals(Object); when other is different; then return not equal")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "boolean VariableDefinitionImpl.equals(Object)",
-    "int VariableDefinitionImpl.hashCode()"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean VariableDefinitionImpl.equals(Object)", "int VariableDefinitionImpl.hashCode()"})
   void testEquals_whenOtherIsDifferent_thenReturnNotEqual2() {
     // Arrange
     VariableDefinitionImpl variableDefinitionImpl = new VariableDefinitionImpl();
@@ -208,22 +184,17 @@ class VariableDefinitionImplDiffblueTest {
 
   /**
    * Test {@link VariableDefinitionImpl#equals(Object)}.
-   *
    * <ul>
-   *   <li>When other is different.
-   *   <li>Then return not equal.
+   *   <li>When other is different.</li>
+   *   <li>Then return not equal.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link VariableDefinitionImpl#equals(Object)}
+   * <p>
+   * Method under test: {@link VariableDefinitionImpl#equals(Object)}
    */
   @Test
   @DisplayName("Test equals(Object); when other is different; then return not equal")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "boolean VariableDefinitionImpl.equals(Object)",
-    "int VariableDefinitionImpl.hashCode()"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean VariableDefinitionImpl.equals(Object)", "int VariableDefinitionImpl.hashCode()"})
   void testEquals_whenOtherIsDifferent_thenReturnNotEqual3() {
     // Arrange
     VariableDefinitionImpl variableDefinitionImpl = new VariableDefinitionImpl();
@@ -252,22 +223,17 @@ class VariableDefinitionImplDiffblueTest {
 
   /**
    * Test {@link VariableDefinitionImpl#equals(Object)}.
-   *
    * <ul>
-   *   <li>When other is different.
-   *   <li>Then return not equal.
+   *   <li>When other is different.</li>
+   *   <li>Then return not equal.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link VariableDefinitionImpl#equals(Object)}
+   * <p>
+   * Method under test: {@link VariableDefinitionImpl#equals(Object)}
    */
   @Test
   @DisplayName("Test equals(Object); when other is different; then return not equal")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "boolean VariableDefinitionImpl.equals(Object)",
-    "int VariableDefinitionImpl.hashCode()"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean VariableDefinitionImpl.equals(Object)", "int VariableDefinitionImpl.hashCode()"})
   void testEquals_whenOtherIsDifferent_thenReturnNotEqual4() {
     // Arrange
     VariableDefinitionImpl variableDefinitionImpl = new VariableDefinitionImpl();
@@ -296,22 +262,17 @@ class VariableDefinitionImplDiffblueTest {
 
   /**
    * Test {@link VariableDefinitionImpl#equals(Object)}.
-   *
    * <ul>
-   *   <li>When other is different.
-   *   <li>Then return not equal.
+   *   <li>When other is different.</li>
+   *   <li>Then return not equal.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link VariableDefinitionImpl#equals(Object)}
+   * <p>
+   * Method under test: {@link VariableDefinitionImpl#equals(Object)}
    */
   @Test
   @DisplayName("Test equals(Object); when other is different; then return not equal")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "boolean VariableDefinitionImpl.equals(Object)",
-    "int VariableDefinitionImpl.hashCode()"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean VariableDefinitionImpl.equals(Object)", "int VariableDefinitionImpl.hashCode()"})
   void testEquals_whenOtherIsDifferent_thenReturnNotEqual5() {
     // Arrange
     VariableDefinitionImpl variableDefinitionImpl = new VariableDefinitionImpl();
@@ -340,22 +301,17 @@ class VariableDefinitionImplDiffblueTest {
 
   /**
    * Test {@link VariableDefinitionImpl#equals(Object)}.
-   *
    * <ul>
-   *   <li>When other is different.
-   *   <li>Then return not equal.
+   *   <li>When other is different.</li>
+   *   <li>Then return not equal.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link VariableDefinitionImpl#equals(Object)}
+   * <p>
+   * Method under test: {@link VariableDefinitionImpl#equals(Object)}
    */
   @Test
   @DisplayName("Test equals(Object); when other is different; then return not equal")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "boolean VariableDefinitionImpl.equals(Object)",
-    "int VariableDefinitionImpl.hashCode()"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean VariableDefinitionImpl.equals(Object)", "int VariableDefinitionImpl.hashCode()"})
   void testEquals_whenOtherIsDifferent_thenReturnNotEqual6() {
     // Arrange
     VariableDefinitionImpl variableDefinitionImpl = new VariableDefinitionImpl();
@@ -384,22 +340,17 @@ class VariableDefinitionImplDiffblueTest {
 
   /**
    * Test {@link VariableDefinitionImpl#equals(Object)}.
-   *
    * <ul>
-   *   <li>When other is different.
-   *   <li>Then return not equal.
+   *   <li>When other is different.</li>
+   *   <li>Then return not equal.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link VariableDefinitionImpl#equals(Object)}
+   * <p>
+   * Method under test: {@link VariableDefinitionImpl#equals(Object)}
    */
   @Test
   @DisplayName("Test equals(Object); when other is different; then return not equal")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "boolean VariableDefinitionImpl.equals(Object)",
-    "int VariableDefinitionImpl.hashCode()"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean VariableDefinitionImpl.equals(Object)", "int VariableDefinitionImpl.hashCode()"})
   void testEquals_whenOtherIsDifferent_thenReturnNotEqual7() {
     // Arrange
     VariableDefinitionImpl variableDefinitionImpl = new VariableDefinitionImpl();
@@ -428,22 +379,17 @@ class VariableDefinitionImplDiffblueTest {
 
   /**
    * Test {@link VariableDefinitionImpl#equals(Object)}.
-   *
    * <ul>
-   *   <li>When other is different.
-   *   <li>Then return not equal.
+   *   <li>When other is different.</li>
+   *   <li>Then return not equal.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link VariableDefinitionImpl#equals(Object)}
+   * <p>
+   * Method under test: {@link VariableDefinitionImpl#equals(Object)}
    */
   @Test
   @DisplayName("Test equals(Object); when other is different; then return not equal")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "boolean VariableDefinitionImpl.equals(Object)",
-    "int VariableDefinitionImpl.hashCode()"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean VariableDefinitionImpl.equals(Object)", "int VariableDefinitionImpl.hashCode()"})
   void testEquals_whenOtherIsDifferent_thenReturnNotEqual8() {
     // Arrange
     VariableDefinitionImpl variableDefinitionImpl = new VariableDefinitionImpl();
@@ -472,22 +418,17 @@ class VariableDefinitionImplDiffblueTest {
 
   /**
    * Test {@link VariableDefinitionImpl#equals(Object)}.
-   *
    * <ul>
-   *   <li>When other is {@code null}.
-   *   <li>Then return not equal.
+   *   <li>When other is {@code null}.</li>
+   *   <li>Then return not equal.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link VariableDefinitionImpl#equals(Object)}
+   * <p>
+   * Method under test: {@link VariableDefinitionImpl#equals(Object)}
    */
   @Test
   @DisplayName("Test equals(Object); when other is 'null'; then return not equal")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "boolean VariableDefinitionImpl.equals(Object)",
-    "int VariableDefinitionImpl.hashCode()"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean VariableDefinitionImpl.equals(Object)", "int VariableDefinitionImpl.hashCode()"})
   void testEquals_whenOtherIsNull_thenReturnNotEqual() {
     // Arrange
     VariableDefinitionImpl variableDefinitionImpl = new VariableDefinitionImpl();
@@ -506,22 +447,17 @@ class VariableDefinitionImplDiffblueTest {
 
   /**
    * Test {@link VariableDefinitionImpl#equals(Object)}.
-   *
    * <ul>
-   *   <li>When other is wrong type.
-   *   <li>Then return not equal.
+   *   <li>When other is wrong type.</li>
+   *   <li>Then return not equal.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link VariableDefinitionImpl#equals(Object)}
+   * <p>
+   * Method under test: {@link VariableDefinitionImpl#equals(Object)}
    */
   @Test
   @DisplayName("Test equals(Object); when other is wrong type; then return not equal")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "boolean VariableDefinitionImpl.equals(Object)",
-    "int VariableDefinitionImpl.hashCode()"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean VariableDefinitionImpl.equals(Object)", "int VariableDefinitionImpl.hashCode()"})
   void testEquals_whenOtherIsWrongType_thenReturnNotEqual() {
     // Arrange
     VariableDefinitionImpl variableDefinitionImpl = new VariableDefinitionImpl();
@@ -540,9 +476,8 @@ class VariableDefinitionImplDiffblueTest {
 
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>default or parameterless constructor of {@link VariableDefinitionImpl}
    *   <li>{@link VariableDefinitionImpl#setAnalytics(boolean)}
@@ -566,28 +501,16 @@ class VariableDefinitionImplDiffblueTest {
    */
   @Test
   @DisplayName("Test getters and setters")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void VariableDefinitionImpl.<init>()",
-    "String VariableDefinitionImpl.getDescription()",
-    "Boolean VariableDefinitionImpl.getDisplay()",
-    "String VariableDefinitionImpl.getDisplayName()",
-    "String VariableDefinitionImpl.getId()",
-    "String VariableDefinitionImpl.getName()",
-    "String VariableDefinitionImpl.getType()",
-    "boolean VariableDefinitionImpl.isAnalytics()",
-    "boolean VariableDefinitionImpl.isRequired()",
-    "void VariableDefinitionImpl.setAnalytics(boolean)",
-    "void VariableDefinitionImpl.setDescription(String)",
-    "void VariableDefinitionImpl.setDisplay(Boolean)",
-    "void VariableDefinitionImpl.setDisplayName(String)",
-    "void VariableDefinitionImpl.setId(String)",
-    "void VariableDefinitionImpl.setName(String)",
-    "void VariableDefinitionImpl.setRequired(boolean)",
-    "void VariableDefinitionImpl.setType(String)",
-    "String VariableDefinitionImpl.toString()"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void VariableDefinitionImpl.<init>()", "String VariableDefinitionImpl.getDescription()",
+      "Boolean VariableDefinitionImpl.getDisplay()", "String VariableDefinitionImpl.getDisplayName()",
+      "String VariableDefinitionImpl.getId()", "String VariableDefinitionImpl.getName()",
+      "String VariableDefinitionImpl.getType()", "boolean VariableDefinitionImpl.isAnalytics()",
+      "boolean VariableDefinitionImpl.isRequired()", "void VariableDefinitionImpl.setAnalytics(boolean)",
+      "void VariableDefinitionImpl.setDescription(String)", "void VariableDefinitionImpl.setDisplay(Boolean)",
+      "void VariableDefinitionImpl.setDisplayName(String)", "void VariableDefinitionImpl.setId(String)",
+      "void VariableDefinitionImpl.setName(String)", "void VariableDefinitionImpl.setRequired(boolean)",
+      "void VariableDefinitionImpl.setType(String)", "String VariableDefinitionImpl.toString()"})
   void testGettersAndSetters() {
     // Arrange and Act
     VariableDefinitionImpl actualVariableDefinitionImpl = new VariableDefinitionImpl();

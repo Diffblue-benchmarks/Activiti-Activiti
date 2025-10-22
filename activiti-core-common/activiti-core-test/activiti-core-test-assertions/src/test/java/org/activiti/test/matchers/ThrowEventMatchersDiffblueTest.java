@@ -16,7 +16,6 @@
 package org.activiti.test.matchers;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
@@ -25,13 +24,12 @@ import org.junit.jupiter.api.Test;
 class ThrowEventMatchersDiffblueTest {
   /**
    * Test {@link ThrowEventMatchers#getActivityType()}.
-   *
-   * <p>Method under test: {@link ThrowEventMatchers#getActivityType()}
+   * <p>
+   * Method under test: {@link ThrowEventMatchers#getActivityType()}
    */
   @Test
   @DisplayName("Test getActivityType()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"String ThrowEventMatchers.getActivityType()"})
   void testGetActivityType() {
     // Arrange, Act and Assert
@@ -40,13 +38,12 @@ class ThrowEventMatchersDiffblueTest {
 
   /**
    * Test {@link ThrowEventMatchers#throwEvent(String)}.
-   *
-   * <p>Method under test: {@link ThrowEventMatchers#throwEvent(String)}
+   * <p>
+   * Method under test: {@link ThrowEventMatchers#throwEvent(String)}
    */
   @Test
   @DisplayName("Test throwEvent(String)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"ThrowEventMatchers ThrowEventMatchers.throwEvent(String)"})
   void testThrowEvent() {
     // Arrange, Act and Assert

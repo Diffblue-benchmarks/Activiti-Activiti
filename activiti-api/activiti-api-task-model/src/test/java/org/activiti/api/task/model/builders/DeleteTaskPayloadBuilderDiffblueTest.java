@@ -17,7 +17,6 @@ package org.activiti.api.task.model.builders;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.api.task.model.payloads.DeleteTaskPayload;
 import org.junit.jupiter.api.DisplayName;
@@ -27,9 +26,8 @@ import org.junit.jupiter.api.Test;
 class DeleteTaskPayloadBuilderDiffblueTest {
   /**
    * Test {@link DeleteTaskPayloadBuilder#build()}.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>{@link DeleteTaskPayloadBuilder#build()}
    *   <li>default or parameterless constructor of {@link DeleteTaskPayloadBuilder}
@@ -39,22 +37,19 @@ class DeleteTaskPayloadBuilderDiffblueTest {
    */
   @Test
   @DisplayName("Test build()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void DeleteTaskPayloadBuilder.<init>()",
-    "DeleteTaskPayload DeleteTaskPayloadBuilder.build()",
-    "DeleteTaskPayloadBuilder DeleteTaskPayloadBuilder.withReason(String)",
-    "DeleteTaskPayloadBuilder DeleteTaskPayloadBuilder.withTaskId(String)"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void DeleteTaskPayloadBuilder.<init>()", "DeleteTaskPayload DeleteTaskPayloadBuilder.build()",
+      "DeleteTaskPayloadBuilder DeleteTaskPayloadBuilder.withReason(String)",
+      "DeleteTaskPayloadBuilder DeleteTaskPayloadBuilder.withTaskId(String)"})
   void testBuild() {
     // Arrange and Act
-    DeleteTaskPayload actualDeleteTaskPayload =
-        new DeleteTaskPayloadBuilder().withReason("Just cause").withTaskId("42").build();
+    DeleteTaskPayload actualBuildResult = (new DeleteTaskPayloadBuilder()).withReason("Just cause")
+        .withTaskId("42")
+        .build();
 
     // Assert
-    assertEquals("42", actualDeleteTaskPayload.getTaskId());
-    assertEquals("Just cause", actualDeleteTaskPayload.getReason());
-    assertTrue(actualDeleteTaskPayload.hasReason());
+    assertEquals("42", actualBuildResult.getTaskId());
+    assertEquals("Just cause", actualBuildResult.getReason());
+    assertTrue(actualBuildResult.hasReason());
   }
 }

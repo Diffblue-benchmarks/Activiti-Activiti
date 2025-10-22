@@ -19,8 +19,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.Map;
 import org.activiti.engine.impl.cfg.JtaProcessEngineConfiguration;
@@ -33,27 +32,21 @@ import org.junit.experimental.categories.Category;
 public class MybatisDeploymentDataManagerDiffblueTest {
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
-   *   <li>{@link
-   *       MybatisDeploymentDataManager#MybatisDeploymentDataManager(ProcessEngineConfigurationImpl)}
+   *   <li>{@link MybatisDeploymentDataManager#MybatisDeploymentDataManager(ProcessEngineConfigurationImpl)}
    *   <li>{@link MybatisDeploymentDataManager#getManagedEntityClass()}
    * </ul>
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void MybatisDeploymentDataManager.<init>(ProcessEngineConfigurationImpl)",
-    "Class MybatisDeploymentDataManager.getManagedEntityClass()"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void MybatisDeploymentDataManager.<init>(ProcessEngineConfigurationImpl)",
+      "Class MybatisDeploymentDataManager.getManagedEntityClass()"})
   public void testGettersAndSetters() {
     // Arrange and Act
-    Class<? extends DeploymentEntity> actualManagedEntityClass =
-        new MybatisDeploymentDataManager(new JtaProcessEngineConfiguration())
-            .getManagedEntityClass();
+    Class<? extends DeploymentEntity> actualManagedEntityClass = (new MybatisDeploymentDataManager(
+        new JtaProcessEngineConfiguration())).getManagedEntityClass();
 
     // Assert
     Class<DeploymentEntityImpl> expectedManagedEntityClass = DeploymentEntityImpl.class;
@@ -62,17 +55,16 @@ public class MybatisDeploymentDataManagerDiffblueTest {
 
   /**
    * Test {@link MybatisDeploymentDataManager#create()}.
-   *
-   * <p>Method under test: {@link MybatisDeploymentDataManager#create()}
+   * <p>
+   * Method under test: {@link MybatisDeploymentDataManager#create()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"DeploymentEntity MybatisDeploymentDataManager.create()"})
   public void testCreate() {
     // Arrange and Act
-    DeploymentEntity actualCreateResult =
-        new MybatisDeploymentDataManager(new JtaProcessEngineConfiguration()).create();
+    DeploymentEntity actualCreateResult = (new MybatisDeploymentDataManager(new JtaProcessEngineConfiguration()))
+        .create();
 
     // Assert
     Object persistentState = actualCreateResult.getPersistentState();

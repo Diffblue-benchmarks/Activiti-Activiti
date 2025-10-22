@@ -23,7 +23,6 @@ import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
 import java.util.List;
@@ -41,31 +40,25 @@ import org.mockito.Mockito;
 class ProcessInstanceAssertionsImplDiffblueTest {
   /**
    * Test {@link ProcessInstanceAssertionsImpl#expectFields(ProcessResultMatcher[])}.
-   *
-   * <p>Method under test: {@link
-   * ProcessInstanceAssertionsImpl#expectFields(ProcessResultMatcher[])}
+   * <p>
+   * Method under test: {@link ProcessInstanceAssertionsImpl#expectFields(ProcessResultMatcher[])}
    */
   @Test
   @DisplayName("Test expectFields(ProcessResultMatcher[])")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "ProcessInstanceAssertions ProcessInstanceAssertionsImpl.expectFields(ProcessResultMatcher[])"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"ProcessInstanceAssertions ProcessInstanceAssertionsImpl.expectFields(ProcessResultMatcher[])"})
   void testExpectFields() {
     // Arrange
     EventSource eventSource = mock(EventSource.class);
     Mockito.<List<RuntimeEvent<?, ?>>>when(eventSource.getEvents()).thenReturn(new ArrayList<>());
-    ProcessInstanceAssertionsImpl processInstanceAssertionsImpl =
-        new ProcessInstanceAssertionsImpl(
-            eventSource, new ArrayList<>(), mock(ProcessInstance.class));
-
+    ProcessInstanceAssertionsImpl processInstanceAssertionsImpl = new ProcessInstanceAssertionsImpl(eventSource,
+        new ArrayList<>(), mock(ProcessInstance.class));
     ProcessResultMatcher processResultMatcher = mock(ProcessResultMatcher.class);
     doNothing().when(processResultMatcher).match(Mockito.<ProcessInstance>any());
 
     // Act
-    ProcessInstanceAssertions actualExpectFieldsResult =
-        processInstanceAssertionsImpl.expectFields(processResultMatcher);
+    ProcessInstanceAssertions actualExpectFieldsResult = processInstanceAssertionsImpl
+        .expectFields(processResultMatcher);
 
     // Assert
     verify(eventSource).getEvents();
@@ -76,33 +69,25 @@ class ProcessInstanceAssertionsImplDiffblueTest {
 
   /**
    * Test {@link ProcessInstanceAssertionsImpl#expect(ProcessTaskMatcher[])}.
-   *
-   * <p>Method under test: {@link ProcessInstanceAssertionsImpl#expect(ProcessTaskMatcher[])}
+   * <p>
+   * Method under test: {@link ProcessInstanceAssertionsImpl#expect(ProcessTaskMatcher[])}
    */
   @Test
   @DisplayName("Test expect(ProcessTaskMatcher[])")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "ProcessInstanceAssertions ProcessInstanceAssertionsImpl.expect(ProcessTaskMatcher[])"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"ProcessInstanceAssertions ProcessInstanceAssertionsImpl.expect(ProcessTaskMatcher[])"})
   void testExpect() {
     // Arrange
     ProcessInstance processInstance = mock(ProcessInstance.class);
     when(processInstance.getId()).thenReturn("42");
     EventSource eventSource = mock(EventSource.class);
-
-    ProcessInstanceAssertionsImpl processInstanceAssertionsImpl =
-        new ProcessInstanceAssertionsImpl(eventSource, new ArrayList<>(), processInstance);
-
+    ProcessInstanceAssertionsImpl processInstanceAssertionsImpl = new ProcessInstanceAssertionsImpl(eventSource,
+        new ArrayList<>(), processInstance);
     ProcessTaskMatcher processTaskMatcher = mock(ProcessTaskMatcher.class);
-    doNothing()
-        .when(processTaskMatcher)
-        .match(Mockito.<String>any(), Mockito.<List<TaskSource>>any());
+    doNothing().when(processTaskMatcher).match(Mockito.<String>any(), Mockito.<List<TaskSource>>any());
 
     // Act
-    ProcessInstanceAssertions actualExpectResult =
-        processInstanceAssertionsImpl.expect(processTaskMatcher);
+    ProcessInstanceAssertions actualExpectResult = processInstanceAssertionsImpl.expect(processTaskMatcher);
 
     // Assert
     verify(processInstance).getId();

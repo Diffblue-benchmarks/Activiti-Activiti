@@ -27,11 +27,11 @@ import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -57,45 +57,40 @@ import org.mockito.junit.MockitoJUnitRunner;
 
 @RunWith(MockitoJUnitRunner.class)
 public class ModelEntityManagerImplDiffblueTest {
-  @Mock private ModelDataManager modelDataManager;
+  @Mock
+  private ModelDataManager modelDataManager;
 
-  @InjectMocks private ModelEntityManagerImpl modelEntityManagerImpl;
+  @InjectMocks
+  private ModelEntityManagerImpl modelEntityManagerImpl;
 
-  @Mock private ProcessEngineConfigurationImpl processEngineConfigurationImpl;
+  @Mock
+  private ProcessEngineConfigurationImpl processEngineConfigurationImpl;
 
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
-   *   <li>{@link ModelEntityManagerImpl#ModelEntityManagerImpl(ProcessEngineConfigurationImpl,
-   *       ModelDataManager)}
+   *   <li>{@link ModelEntityManagerImpl#ModelEntityManagerImpl(ProcessEngineConfigurationImpl, ModelDataManager)}
    *   <li>{@link ModelEntityManagerImpl#setModelDataManager(ModelDataManager)}
    *   <li>{@link ModelEntityManagerImpl#getDataManager()}
    *   <li>{@link ModelEntityManagerImpl#getModelDataManager()}
    * </ul>
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void ModelEntityManagerImpl.<init>(ProcessEngineConfigurationImpl, ModelDataManager)",
-    "DataManager ModelEntityManagerImpl.getDataManager()",
-    "ModelDataManager ModelEntityManagerImpl.getModelDataManager()",
-    "void ModelEntityManagerImpl.setModelDataManager(ModelDataManager)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void ModelEntityManagerImpl.<init>(ProcessEngineConfigurationImpl, ModelDataManager)",
+      "DataManager ModelEntityManagerImpl.getDataManager()",
+      "ModelDataManager ModelEntityManagerImpl.getModelDataManager()",
+      "void ModelEntityManagerImpl.setModelDataManager(ModelDataManager)"})
   public void testGettersAndSetters() {
     // Arrange
     JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();
 
     // Act
-    ModelEntityManagerImpl actualModelEntityManagerImpl =
-        new ModelEntityManagerImpl(
-            processEngineConfiguration,
-            new MybatisModelDataManager(new JtaProcessEngineConfiguration()));
-    MybatisModelDataManager modelDataManager =
-        new MybatisModelDataManager(new JtaProcessEngineConfiguration());
+    ModelEntityManagerImpl actualModelEntityManagerImpl = new ModelEntityManagerImpl(processEngineConfiguration,
+        new MybatisModelDataManager(new JtaProcessEngineConfiguration()));
+    MybatisModelDataManager modelDataManager = new MybatisModelDataManager(new JtaProcessEngineConfiguration());
     actualModelEntityManagerImpl.setModelDataManager(modelDataManager);
     DataManager<ModelEntity> actualDataManager = actualModelEntityManagerImpl.getDataManager();
 
@@ -106,12 +101,11 @@ public class ModelEntityManagerImplDiffblueTest {
 
   /**
    * Test {@link ModelEntityManagerImpl#findById(String)}.
-   *
-   * <p>Method under test: {@link ModelEntityManagerImpl#findById(String)}
+   * <p>
+   * Method under test: {@link ModelEntityManagerImpl#findById(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"ModelEntity ModelEntityManagerImpl.findById(String)"})
   public void testFindById() {
     // Arrange
@@ -122,32 +116,27 @@ public class ModelEntityManagerImplDiffblueTest {
     ModelEntity actualFindByIdResult = modelEntityManagerImpl.findById("42");
 
     // Assert
-    verify(modelDataManager).findById("42");
+    verify(modelDataManager).findById(eq("42"));
     assertSame(modelEntityImpl, actualFindByIdResult);
   }
 
   /**
    * Test {@link ModelEntityManagerImpl#insert(ModelEntity)} with {@code ModelEntity}.
-   *
-   * <p>Method under test: {@link ModelEntityManagerImpl#insert(ModelEntity)}
+   * <p>
+   * Method under test: {@link ModelEntityManagerImpl#insert(ModelEntity)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void ModelEntityManagerImpl.insert(ModelEntity)"})
   public void testInsertWithModelEntity() {
     // Arrange
-    JtaProcessEngineConfiguration processEngineConfiguration =
-        mock(JtaProcessEngineConfiguration.class);
-    when(processEngineConfiguration.getEventDispatcher())
-        .thenReturn(new ActivitiEventDispatcherImpl());
+    JtaProcessEngineConfiguration processEngineConfiguration = mock(JtaProcessEngineConfiguration.class);
+    when(processEngineConfiguration.getEventDispatcher()).thenReturn(new ActivitiEventDispatcherImpl());
     when(processEngineConfiguration.getClock()).thenReturn(new DefaultClockImpl());
-
     ModelDataManager modelDataManager = mock(ModelDataManager.class);
     doNothing().when(modelDataManager).insert(Mockito.<ModelEntity>any());
-
-    ModelEntityManagerImpl modelEntityManagerImpl =
-        new ModelEntityManagerImpl(processEngineConfiguration, modelDataManager);
+    ModelEntityManagerImpl modelEntityManagerImpl = new ModelEntityManagerImpl(processEngineConfiguration,
+        modelDataManager);
     ModelEntityImpl model = new ModelEntityImpl();
 
     // Act
@@ -165,38 +154,32 @@ public class ModelEntityManagerImplDiffblueTest {
     assertTrue(((Map<String, Object>) persistentState).containsKey("editorSourceValueId"));
     assertTrue(((Map<String, Object>) persistentState).containsKey("metaInfo"));
     assertTrue(((Map<String, Object>) persistentState).containsKey("name"));
-    assertSame(model.getCreateTime(), ((Map<String, Object>) persistentState).get("createTime"));
+    Date expectedGetResult = model.getCreateTime();
+    assertSame(expectedGetResult, ((Map<String, Object>) persistentState).get("createTime"));
   }
 
   /**
    * Test {@link ModelEntityManagerImpl#insert(ModelEntity)} with {@code ModelEntity}.
-   *
    * <ul>
-   *   <li>Given {@link ActivitiEventDispatcher} {@link ActivitiEventDispatcher#isEnabled()} return
-   *       {@code false}.
+   *   <li>Given {@link ActivitiEventDispatcher} {@link ActivitiEventDispatcher#isEnabled()} return {@code false}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ModelEntityManagerImpl#insert(ModelEntity)}
+   * <p>
+   * Method under test: {@link ModelEntityManagerImpl#insert(ModelEntity)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void ModelEntityManagerImpl.insert(ModelEntity)"})
   public void testInsertWithModelEntity_givenActivitiEventDispatcherIsEnabledReturnFalse() {
     // Arrange
     ActivitiEventDispatcher activitiEventDispatcher = mock(ActivitiEventDispatcher.class);
     when(activitiEventDispatcher.isEnabled()).thenReturn(false);
-
-    JtaProcessEngineConfiguration processEngineConfiguration =
-        mock(JtaProcessEngineConfiguration.class);
+    JtaProcessEngineConfiguration processEngineConfiguration = mock(JtaProcessEngineConfiguration.class);
     when(processEngineConfiguration.getEventDispatcher()).thenReturn(activitiEventDispatcher);
     when(processEngineConfiguration.getClock()).thenReturn(new DefaultClockImpl());
-
     ModelDataManager modelDataManager = mock(ModelDataManager.class);
     doNothing().when(modelDataManager).insert(Mockito.<ModelEntity>any());
-
-    ModelEntityManagerImpl modelEntityManagerImpl =
-        new ModelEntityManagerImpl(processEngineConfiguration, modelDataManager);
+    ModelEntityManagerImpl modelEntityManagerImpl = new ModelEntityManagerImpl(processEngineConfiguration,
+        modelDataManager);
     ModelEntityImpl model = new ModelEntityImpl();
 
     // Act
@@ -215,38 +198,33 @@ public class ModelEntityManagerImplDiffblueTest {
     assertTrue(((Map<String, Object>) persistentState).containsKey("editorSourceValueId"));
     assertTrue(((Map<String, Object>) persistentState).containsKey("metaInfo"));
     assertTrue(((Map<String, Object>) persistentState).containsKey("name"));
-    assertSame(model.getCreateTime(), ((Map<String, Object>) persistentState).get("createTime"));
+    Date expectedGetResult = model.getCreateTime();
+    assertSame(expectedGetResult, ((Map<String, Object>) persistentState).get("createTime"));
   }
 
   /**
    * Test {@link ModelEntityManagerImpl#insert(ModelEntity)} with {@code ModelEntity}.
-   *
    * <ul>
-   *   <li>Then calls {@link ActivitiEventDispatcher#dispatchEvent(ActivitiEvent)}.
+   *   <li>Then calls {@link ActivitiEventDispatcher#dispatchEvent(ActivitiEvent)}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ModelEntityManagerImpl#insert(ModelEntity)}
+   * <p>
+   * Method under test: {@link ModelEntityManagerImpl#insert(ModelEntity)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void ModelEntityManagerImpl.insert(ModelEntity)"})
   public void testInsertWithModelEntity_thenCallsDispatchEvent() {
     // Arrange
     ActivitiEventDispatcher activitiEventDispatcher = mock(ActivitiEventDispatcher.class);
     doNothing().when(activitiEventDispatcher).dispatchEvent(Mockito.<ActivitiEvent>any());
     when(activitiEventDispatcher.isEnabled()).thenReturn(true);
-
-    JtaProcessEngineConfiguration processEngineConfiguration =
-        mock(JtaProcessEngineConfiguration.class);
+    JtaProcessEngineConfiguration processEngineConfiguration = mock(JtaProcessEngineConfiguration.class);
     when(processEngineConfiguration.getEventDispatcher()).thenReturn(activitiEventDispatcher);
     when(processEngineConfiguration.getClock()).thenReturn(new DefaultClockImpl());
-
     ModelDataManager modelDataManager = mock(ModelDataManager.class);
     doNothing().when(modelDataManager).insert(Mockito.<ModelEntity>any());
-
-    ModelEntityManagerImpl modelEntityManagerImpl =
-        new ModelEntityManagerImpl(processEngineConfiguration, modelDataManager);
+    ModelEntityManagerImpl modelEntityManagerImpl = new ModelEntityManagerImpl(processEngineConfiguration,
+        modelDataManager);
     ModelEntityImpl model = new ModelEntityImpl();
 
     // Act
@@ -266,31 +244,27 @@ public class ModelEntityManagerImplDiffblueTest {
     assertTrue(((Map<String, Object>) persistentState).containsKey("editorSourceValueId"));
     assertTrue(((Map<String, Object>) persistentState).containsKey("metaInfo"));
     assertTrue(((Map<String, Object>) persistentState).containsKey("name"));
-    assertSame(model.getCreateTime(), ((Map<String, Object>) persistentState).get("createTime"));
+    Date expectedGetResult = model.getCreateTime();
+    assertSame(expectedGetResult, ((Map<String, Object>) persistentState).get("createTime"));
   }
 
   /**
    * Test {@link ModelEntityManagerImpl#updateModel(ModelEntity)}.
-   *
-   * <p>Method under test: {@link ModelEntityManagerImpl#updateModel(ModelEntity)}
+   * <p>
+   * Method under test: {@link ModelEntityManagerImpl#updateModel(ModelEntity)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void ModelEntityManagerImpl.updateModel(ModelEntity)"})
   public void testUpdateModel() {
     // Arrange
-    JtaProcessEngineConfiguration processEngineConfiguration =
-        mock(JtaProcessEngineConfiguration.class);
-    when(processEngineConfiguration.getEventDispatcher())
-        .thenReturn(new ActivitiEventDispatcherImpl());
+    JtaProcessEngineConfiguration processEngineConfiguration = mock(JtaProcessEngineConfiguration.class);
+    when(processEngineConfiguration.getEventDispatcher()).thenReturn(new ActivitiEventDispatcherImpl());
     when(processEngineConfiguration.getClock()).thenReturn(new DefaultClockImpl());
-
     ModelDataManager modelDataManager = mock(ModelDataManager.class);
     when(modelDataManager.update(Mockito.<ModelEntity>any())).thenReturn(new ModelEntityImpl());
-
-    ModelEntityManagerImpl modelEntityManagerImpl =
-        new ModelEntityManagerImpl(processEngineConfiguration, modelDataManager);
+    ModelEntityManagerImpl modelEntityManagerImpl = new ModelEntityManagerImpl(processEngineConfiguration,
+        modelDataManager);
     ModelEntityImpl updatedModel = new ModelEntityImpl();
 
     // Act
@@ -313,33 +287,26 @@ public class ModelEntityManagerImplDiffblueTest {
 
   /**
    * Test {@link ModelEntityManagerImpl#updateModel(ModelEntity)}.
-   *
    * <ul>
-   *   <li>Given {@link ActivitiEventDispatcher} {@link ActivitiEventDispatcher#isEnabled()} return
-   *       {@code false}.
+   *   <li>Given {@link ActivitiEventDispatcher} {@link ActivitiEventDispatcher#isEnabled()} return {@code false}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ModelEntityManagerImpl#updateModel(ModelEntity)}
+   * <p>
+   * Method under test: {@link ModelEntityManagerImpl#updateModel(ModelEntity)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void ModelEntityManagerImpl.updateModel(ModelEntity)"})
   public void testUpdateModel_givenActivitiEventDispatcherIsEnabledReturnFalse() {
     // Arrange
     ActivitiEventDispatcher activitiEventDispatcher = mock(ActivitiEventDispatcher.class);
     when(activitiEventDispatcher.isEnabled()).thenReturn(false);
-
-    JtaProcessEngineConfiguration processEngineConfiguration =
-        mock(JtaProcessEngineConfiguration.class);
+    JtaProcessEngineConfiguration processEngineConfiguration = mock(JtaProcessEngineConfiguration.class);
     when(processEngineConfiguration.getEventDispatcher()).thenReturn(activitiEventDispatcher);
     when(processEngineConfiguration.getClock()).thenReturn(new DefaultClockImpl());
-
     ModelDataManager modelDataManager = mock(ModelDataManager.class);
     when(modelDataManager.update(Mockito.<ModelEntity>any())).thenReturn(new ModelEntityImpl());
-
-    ModelEntityManagerImpl modelEntityManagerImpl =
-        new ModelEntityManagerImpl(processEngineConfiguration, modelDataManager);
+    ModelEntityManagerImpl modelEntityManagerImpl = new ModelEntityManagerImpl(processEngineConfiguration,
+        modelDataManager);
     ModelEntityImpl updatedModel = new ModelEntityImpl();
 
     // Act
@@ -363,33 +330,27 @@ public class ModelEntityManagerImplDiffblueTest {
 
   /**
    * Test {@link ModelEntityManagerImpl#updateModel(ModelEntity)}.
-   *
    * <ul>
-   *   <li>Then calls {@link ActivitiEventDispatcher#dispatchEvent(ActivitiEvent)}.
+   *   <li>Then calls {@link ActivitiEventDispatcher#dispatchEvent(ActivitiEvent)}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ModelEntityManagerImpl#updateModel(ModelEntity)}
+   * <p>
+   * Method under test: {@link ModelEntityManagerImpl#updateModel(ModelEntity)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void ModelEntityManagerImpl.updateModel(ModelEntity)"})
   public void testUpdateModel_thenCallsDispatchEvent() {
     // Arrange
     ActivitiEventDispatcher activitiEventDispatcher = mock(ActivitiEventDispatcher.class);
     doNothing().when(activitiEventDispatcher).dispatchEvent(Mockito.<ActivitiEvent>any());
     when(activitiEventDispatcher.isEnabled()).thenReturn(true);
-
-    JtaProcessEngineConfiguration processEngineConfiguration =
-        mock(JtaProcessEngineConfiguration.class);
+    JtaProcessEngineConfiguration processEngineConfiguration = mock(JtaProcessEngineConfiguration.class);
     when(processEngineConfiguration.getEventDispatcher()).thenReturn(activitiEventDispatcher);
     when(processEngineConfiguration.getClock()).thenReturn(new DefaultClockImpl());
-
     ModelDataManager modelDataManager = mock(ModelDataManager.class);
     when(modelDataManager.update(Mockito.<ModelEntity>any())).thenReturn(new ModelEntityImpl());
-
-    ModelEntityManagerImpl modelEntityManagerImpl =
-        new ModelEntityManagerImpl(processEngineConfiguration, modelDataManager);
+    ModelEntityManagerImpl modelEntityManagerImpl = new ModelEntityManagerImpl(processEngineConfiguration,
+        modelDataManager);
     ModelEntityImpl updatedModel = new ModelEntityImpl();
 
     // Act
@@ -414,22 +375,15 @@ public class ModelEntityManagerImplDiffblueTest {
 
   /**
    * Test {@link ModelEntityManagerImpl#delete(String)} with {@code modelId}.
-   *
-   * <ul>
-   *   <li>Given {@link ModelDataManager} {@link ModelDataManager#findById(String)} return {@link
-   *       ModelEntityImpl} (default constructor).
-   * </ul>
-   *
-   * <p>Method under test: {@link ModelEntityManagerImpl#delete(String)}
+   * <p>
+   * Method under test: {@link ModelEntityManagerImpl#delete(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void ModelEntityManagerImpl.delete(String)"})
-  public void testDeleteWithModelId_givenModelDataManagerFindByIdReturnModelEntityImpl() {
+  public void testDeleteWithModelId() {
     // Arrange
-    when(processEngineConfigurationImpl.getEventDispatcher())
-        .thenReturn(new ActivitiEventDispatcherImpl());
+    when(processEngineConfigurationImpl.getEventDispatcher()).thenReturn(new ActivitiEventDispatcherImpl());
     when(modelDataManager.findById(Mockito.<String>any())).thenReturn(new ModelEntityImpl());
     doNothing().when(modelDataManager).delete(Mockito.<ModelEntity>any());
 
@@ -439,21 +393,19 @@ public class ModelEntityManagerImplDiffblueTest {
     // Assert
     verify(processEngineConfigurationImpl, atLeast(1)).getEventDispatcher();
     verify(modelDataManager).delete(isA(ModelEntity.class));
-    verify(modelDataManager).findById("42");
+    verify(modelDataManager).findById(eq("42"));
   }
 
   /**
    * Test {@link ModelEntityManagerImpl#delete(String)} with {@code modelId}.
-   *
    * <ul>
-   *   <li>Then calls {@link ActivitiEventDispatcher#dispatchEvent(ActivitiEvent)}.
+   *   <li>Then calls {@link ActivitiEventDispatcher#dispatchEvent(ActivitiEvent)}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ModelEntityManagerImpl#delete(String)}
+   * <p>
+   * Method under test: {@link ModelEntityManagerImpl#delete(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void ModelEntityManagerImpl.delete(String)"})
   public void testDeleteWithModelId_thenCallsDispatchEvent() {
     // Arrange
@@ -461,11 +413,7 @@ public class ModelEntityManagerImplDiffblueTest {
     doNothing().when(activitiEventDispatcher).dispatchEvent(Mockito.<ActivitiEvent>any());
     when(activitiEventDispatcher.isEnabled()).thenReturn(true);
     when(processEngineConfigurationImpl.getEventDispatcher()).thenReturn(activitiEventDispatcher);
-
-    ModelEntityImpl modelEntityImpl = mock(ModelEntityImpl.class);
-    when(modelEntityImpl.getEditorSourceExtraValueId()).thenReturn(null);
-    when(modelEntityImpl.getEditorSourceValueId()).thenReturn(null);
-    when(modelDataManager.findById(Mockito.<String>any())).thenReturn(modelEntityImpl);
+    when(modelDataManager.findById(Mockito.<String>any())).thenReturn(new ModelEntityImpl());
     doNothing().when(modelDataManager).delete(Mockito.<ModelEntity>any());
 
     // Act
@@ -475,35 +423,27 @@ public class ModelEntityManagerImplDiffblueTest {
     verify(activitiEventDispatcher).dispatchEvent(isA(ActivitiEvent.class));
     verify(activitiEventDispatcher).isEnabled();
     verify(processEngineConfigurationImpl, atLeast(1)).getEventDispatcher();
-    verify(modelEntityImpl).getEditorSourceExtraValueId();
-    verify(modelEntityImpl).getEditorSourceValueId();
     verify(modelDataManager).delete(isA(ModelEntity.class));
-    verify(modelDataManager).findById("42");
+    verify(modelDataManager).findById(eq("42"));
   }
 
   /**
    * Test {@link ModelEntityManagerImpl#delete(String)} with {@code modelId}.
-   *
    * <ul>
-   *   <li>Then calls {@link ActivitiEventDispatcher#isEnabled()}.
+   *   <li>Then calls {@link ActivitiEventDispatcher#isEnabled()}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ModelEntityManagerImpl#delete(String)}
+   * <p>
+   * Method under test: {@link ModelEntityManagerImpl#delete(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void ModelEntityManagerImpl.delete(String)"})
   public void testDeleteWithModelId_thenCallsIsEnabled() {
     // Arrange
     ActivitiEventDispatcher activitiEventDispatcher = mock(ActivitiEventDispatcher.class);
     when(activitiEventDispatcher.isEnabled()).thenReturn(false);
     when(processEngineConfigurationImpl.getEventDispatcher()).thenReturn(activitiEventDispatcher);
-
-    ModelEntityImpl modelEntityImpl = mock(ModelEntityImpl.class);
-    when(modelEntityImpl.getEditorSourceExtraValueId()).thenReturn(null);
-    when(modelEntityImpl.getEditorSourceValueId()).thenReturn(null);
-    when(modelDataManager.findById(Mockito.<String>any())).thenReturn(modelEntityImpl);
+    when(modelDataManager.findById(Mockito.<String>any())).thenReturn(new ModelEntityImpl());
     doNothing().when(modelDataManager).delete(Mockito.<ModelEntity>any());
 
     // Act
@@ -512,25 +452,21 @@ public class ModelEntityManagerImplDiffblueTest {
     // Assert
     verify(activitiEventDispatcher).isEnabled();
     verify(processEngineConfigurationImpl).getEventDispatcher();
-    verify(modelEntityImpl).getEditorSourceExtraValueId();
-    verify(modelEntityImpl).getEditorSourceValueId();
     verify(modelDataManager).delete(isA(ModelEntity.class));
-    verify(modelDataManager).findById("42");
+    verify(modelDataManager).findById(eq("42"));
   }
 
   /**
    * Test {@link ModelEntityManagerImpl#insertEditorSourceForModel(String, byte[])}.
-   *
-   * <p>Method under test: {@link ModelEntityManagerImpl#insertEditorSourceForModel(String, byte[])}
+   * <p>
+   * Method under test: {@link ModelEntityManagerImpl#insertEditorSourceForModel(String, byte[])}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void ModelEntityManagerImpl.insertEditorSourceForModel(String, byte[])"})
   public void testInsertEditorSourceForModel() {
     // Arrange
-    when(processEngineConfigurationImpl.getEventDispatcher())
-        .thenReturn(new ActivitiEventDispatcherImpl());
+    when(processEngineConfigurationImpl.getEventDispatcher()).thenReturn(new ActivitiEventDispatcherImpl());
     when(processEngineConfigurationImpl.getClock()).thenReturn(new DefaultClockImpl());
     when(modelDataManager.update(Mockito.<ModelEntity>any())).thenReturn(new ModelEntityImpl());
     when(modelDataManager.findById(Mockito.<String>any())).thenReturn(new ModelEntityImpl());
@@ -541,23 +477,20 @@ public class ModelEntityManagerImplDiffblueTest {
     // Assert
     verify(processEngineConfigurationImpl).getClock();
     verify(processEngineConfigurationImpl, atLeast(1)).getEventDispatcher();
-    verify(modelDataManager).findById("42");
+    verify(modelDataManager).findById(eq("42"));
     verify(modelDataManager).update(isA(ModelEntity.class));
   }
 
   /**
    * Test {@link ModelEntityManagerImpl#insertEditorSourceForModel(String, byte[])}.
-   *
    * <ul>
-   *   <li>Given {@link ActivitiEventDispatcher} {@link ActivitiEventDispatcher#isEnabled()} return
-   *       {@code false}.
+   *   <li>Given {@link ActivitiEventDispatcher} {@link ActivitiEventDispatcher#isEnabled()} return {@code false}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ModelEntityManagerImpl#insertEditorSourceForModel(String, byte[])}
+   * <p>
+   * Method under test: {@link ModelEntityManagerImpl#insertEditorSourceForModel(String, byte[])}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void ModelEntityManagerImpl.insertEditorSourceForModel(String, byte[])"})
   public void testInsertEditorSourceForModel_givenActivitiEventDispatcherIsEnabledReturnFalse() {
     // Arrange
@@ -575,23 +508,20 @@ public class ModelEntityManagerImplDiffblueTest {
     verify(processEngineConfigurationImpl).getClock();
     verify(activitiEventDispatcher).isEnabled();
     verify(processEngineConfigurationImpl).getEventDispatcher();
-    verify(modelDataManager).findById("42");
+    verify(modelDataManager).findById(eq("42"));
     verify(modelDataManager).update(isA(ModelEntity.class));
   }
 
   /**
    * Test {@link ModelEntityManagerImpl#insertEditorSourceForModel(String, byte[])}.
-   *
    * <ul>
-   *   <li>Given {@link ModelDataManager} {@link ModelDataManager#findById(String)} return {@code
-   *       null}.
+   *   <li>Given {@link ModelDataManager} {@link DataManager#findById(String)} return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ModelEntityManagerImpl#insertEditorSourceForModel(String, byte[])}
+   * <p>
+   * Method under test: {@link ModelEntityManagerImpl#insertEditorSourceForModel(String, byte[])}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void ModelEntityManagerImpl.insertEditorSourceForModel(String, byte[])"})
   public void testInsertEditorSourceForModel_givenModelDataManagerFindByIdReturnNull()
       throws UnsupportedEncodingException {
@@ -602,21 +532,19 @@ public class ModelEntityManagerImplDiffblueTest {
     modelEntityManagerImpl.insertEditorSourceForModel("42", "AXAXAXAX".getBytes("UTF-8"));
 
     // Assert
-    verify(modelDataManager).findById("42");
+    verify(modelDataManager).findById(eq("42"));
   }
 
   /**
    * Test {@link ModelEntityManagerImpl#insertEditorSourceForModel(String, byte[])}.
-   *
    * <ul>
-   *   <li>Then calls {@link ActivitiEventDispatcher#dispatchEvent(ActivitiEvent)}.
+   *   <li>Then calls {@link ActivitiEventDispatcher#dispatchEvent(ActivitiEvent)}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ModelEntityManagerImpl#insertEditorSourceForModel(String, byte[])}
+   * <p>
+   * Method under test: {@link ModelEntityManagerImpl#insertEditorSourceForModel(String, byte[])}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void ModelEntityManagerImpl.insertEditorSourceForModel(String, byte[])"})
   public void testInsertEditorSourceForModel_thenCallsDispatchEvent() {
     // Arrange
@@ -636,24 +564,21 @@ public class ModelEntityManagerImplDiffblueTest {
     verify(activitiEventDispatcher).dispatchEvent(isA(ActivitiEvent.class));
     verify(activitiEventDispatcher).isEnabled();
     verify(processEngineConfigurationImpl, atLeast(1)).getEventDispatcher();
-    verify(modelDataManager).findById("42");
+    verify(modelDataManager).findById(eq("42"));
     verify(modelDataManager).update(isA(ModelEntity.class));
   }
 
   /**
    * Test {@link ModelEntityManagerImpl#insertEditorSourceExtraForModel(String, byte[])}.
-   *
-   * <p>Method under test: {@link ModelEntityManagerImpl#insertEditorSourceExtraForModel(String,
-   * byte[])}
+   * <p>
+   * Method under test: {@link ModelEntityManagerImpl#insertEditorSourceExtraForModel(String, byte[])}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void ModelEntityManagerImpl.insertEditorSourceExtraForModel(String, byte[])"})
   public void testInsertEditorSourceExtraForModel() {
     // Arrange
-    when(processEngineConfigurationImpl.getEventDispatcher())
-        .thenReturn(new ActivitiEventDispatcherImpl());
+    when(processEngineConfigurationImpl.getEventDispatcher()).thenReturn(new ActivitiEventDispatcherImpl());
     when(processEngineConfigurationImpl.getClock()).thenReturn(new DefaultClockImpl());
     when(modelDataManager.update(Mockito.<ModelEntity>any())).thenReturn(new ModelEntityImpl());
     when(modelDataManager.findById(Mockito.<String>any())).thenReturn(new ModelEntityImpl());
@@ -664,19 +589,17 @@ public class ModelEntityManagerImplDiffblueTest {
     // Assert
     verify(processEngineConfigurationImpl).getClock();
     verify(processEngineConfigurationImpl, atLeast(1)).getEventDispatcher();
-    verify(modelDataManager).findById("42");
+    verify(modelDataManager).findById(eq("42"));
     verify(modelDataManager).update(isA(ModelEntity.class));
   }
 
   /**
    * Test {@link ModelEntityManagerImpl#insertEditorSourceExtraForModel(String, byte[])}.
-   *
-   * <p>Method under test: {@link ModelEntityManagerImpl#insertEditorSourceExtraForModel(String,
-   * byte[])}
+   * <p>
+   * Method under test: {@link ModelEntityManagerImpl#insertEditorSourceExtraForModel(String, byte[])}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void ModelEntityManagerImpl.insertEditorSourceExtraForModel(String, byte[])"})
   public void testInsertEditorSourceExtraForModel2() {
     // Arrange
@@ -694,24 +617,20 @@ public class ModelEntityManagerImplDiffblueTest {
     verify(processEngineConfigurationImpl).getClock();
     verify(activitiEventDispatcher).isEnabled();
     verify(processEngineConfigurationImpl).getEventDispatcher();
-    verify(modelDataManager).findById("42");
+    verify(modelDataManager).findById(eq("42"));
     verify(modelDataManager).update(isA(ModelEntity.class));
   }
 
   /**
    * Test {@link ModelEntityManagerImpl#insertEditorSourceExtraForModel(String, byte[])}.
-   *
    * <ul>
-   *   <li>Given {@link ModelDataManager} {@link ModelDataManager#findById(String)} return {@code
-   *       null}.
+   *   <li>Given {@link ModelDataManager} {@link DataManager#findById(String)} return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ModelEntityManagerImpl#insertEditorSourceExtraForModel(String,
-   * byte[])}
+   * <p>
+   * Method under test: {@link ModelEntityManagerImpl#insertEditorSourceExtraForModel(String, byte[])}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void ModelEntityManagerImpl.insertEditorSourceExtraForModel(String, byte[])"})
   public void testInsertEditorSourceExtraForModel_givenModelDataManagerFindByIdReturnNull()
       throws UnsupportedEncodingException {
@@ -722,22 +641,19 @@ public class ModelEntityManagerImplDiffblueTest {
     modelEntityManagerImpl.insertEditorSourceExtraForModel("42", "AXAXAXAX".getBytes("UTF-8"));
 
     // Assert
-    verify(modelDataManager).findById("42");
+    verify(modelDataManager).findById(eq("42"));
   }
 
   /**
    * Test {@link ModelEntityManagerImpl#insertEditorSourceExtraForModel(String, byte[])}.
-   *
    * <ul>
-   *   <li>Then calls {@link ActivitiEventDispatcher#dispatchEvent(ActivitiEvent)}.
+   *   <li>Then calls {@link ActivitiEventDispatcher#dispatchEvent(ActivitiEvent)}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ModelEntityManagerImpl#insertEditorSourceExtraForModel(String,
-   * byte[])}
+   * <p>
+   * Method under test: {@link ModelEntityManagerImpl#insertEditorSourceExtraForModel(String, byte[])}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void ModelEntityManagerImpl.insertEditorSourceExtraForModel(String, byte[])"})
   public void testInsertEditorSourceExtraForModel_thenCallsDispatchEvent() {
     // Arrange
@@ -757,37 +673,33 @@ public class ModelEntityManagerImplDiffblueTest {
     verify(activitiEventDispatcher).dispatchEvent(isA(ActivitiEvent.class));
     verify(activitiEventDispatcher).isEnabled();
     verify(processEngineConfigurationImpl, atLeast(1)).getEventDispatcher();
-    verify(modelDataManager).findById("42");
+    verify(modelDataManager).findById(eq("42"));
     verify(modelDataManager).update(isA(ModelEntity.class));
   }
 
   /**
    * Test {@link ModelEntityManagerImpl#findModelsByQueryCriteria(ModelQueryImpl, Page)}.
-   *
    * <ul>
-   *   <li>Then return Empty.
+   *   <li>Then return Empty.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ModelEntityManagerImpl#findModelsByQueryCriteria(ModelQueryImpl,
-   * Page)}
+   * <p>
+   * Method under test: {@link ModelEntityManagerImpl#findModelsByQueryCriteria(ModelQueryImpl, Page)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"List ModelEntityManagerImpl.findModelsByQueryCriteria(ModelQueryImpl, Page)"})
   public void testFindModelsByQueryCriteria_thenReturnEmpty() {
     // Arrange
     ModelDataManager modelDataManager = mock(ModelDataManager.class);
-    when(modelDataManager.findModelsByQueryCriteria(
-            Mockito.<ModelQueryImpl>any(), Mockito.<Page>any()))
+    when(modelDataManager.findModelsByQueryCriteria(Mockito.<ModelQueryImpl>any(), Mockito.<Page>any()))
         .thenReturn(new ArrayList<>());
-    ModelEntityManagerImpl modelEntityManagerImpl =
-        new ModelEntityManagerImpl(new JtaProcessEngineConfiguration(), modelDataManager);
+    ModelEntityManagerImpl modelEntityManagerImpl = new ModelEntityManagerImpl(new JtaProcessEngineConfiguration(),
+        modelDataManager);
     ModelQueryImpl query = new ModelQueryImpl();
 
     // Act
-    List<Model> actualFindModelsByQueryCriteriaResult =
-        modelEntityManagerImpl.findModelsByQueryCriteria(query, new Page(1, 3));
+    List<Model> actualFindModelsByQueryCriteriaResult = modelEntityManagerImpl.findModelsByQueryCriteria(query,
+        new Page(1, 3));
 
     // Assert
     verify(modelDataManager).findModelsByQueryCriteria(isA(ModelQueryImpl.class), isA(Page.class));
@@ -796,29 +708,25 @@ public class ModelEntityManagerImplDiffblueTest {
 
   /**
    * Test {@link ModelEntityManagerImpl#findModelCountByQueryCriteria(ModelQueryImpl)}.
-   *
    * <ul>
-   *   <li>Then return three.
+   *   <li>Then return three.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link
-   * ModelEntityManagerImpl#findModelCountByQueryCriteria(ModelQueryImpl)}
+   * <p>
+   * Method under test: {@link ModelEntityManagerImpl#findModelCountByQueryCriteria(ModelQueryImpl)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"long ModelEntityManagerImpl.findModelCountByQueryCriteria(ModelQueryImpl)"})
   public void testFindModelCountByQueryCriteria_thenReturnThree() {
     // Arrange
     ModelDataManager modelDataManager = mock(ModelDataManager.class);
-    when(modelDataManager.findModelCountByQueryCriteria(Mockito.<ModelQueryImpl>any()))
-        .thenReturn(3L);
-    ModelEntityManagerImpl modelEntityManagerImpl =
-        new ModelEntityManagerImpl(new JtaProcessEngineConfiguration(), modelDataManager);
+    when(modelDataManager.findModelCountByQueryCriteria(Mockito.<ModelQueryImpl>any())).thenReturn(3L);
+    ModelEntityManagerImpl modelEntityManagerImpl = new ModelEntityManagerImpl(new JtaProcessEngineConfiguration(),
+        modelDataManager);
 
     // Act
-    long actualFindModelCountByQueryCriteriaResult =
-        modelEntityManagerImpl.findModelCountByQueryCriteria(new ModelQueryImpl());
+    long actualFindModelCountByQueryCriteriaResult = modelEntityManagerImpl
+        .findModelCountByQueryCriteria(new ModelQueryImpl());
 
     // Assert
     verify(modelDataManager).findModelCountByQueryCriteria(isA(ModelQueryImpl.class));
@@ -827,132 +735,115 @@ public class ModelEntityManagerImplDiffblueTest {
 
   /**
    * Test {@link ModelEntityManagerImpl#findEditorSourceByModelId(String)}.
-   *
    * <ul>
-   *   <li>Given {@link ModelDataManager} {@link ModelDataManager#findById(String)} return {@link
-   *       ModelEntityImpl} (default constructor).
+   *   <li>Given {@link ModelDataManager} {@link DataManager#findById(String)} return {@link ModelEntityImpl} (default constructor).</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ModelEntityManagerImpl#findEditorSourceByModelId(String)}
+   * <p>
+   * Method under test: {@link ModelEntityManagerImpl#findEditorSourceByModelId(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"byte[] ModelEntityManagerImpl.findEditorSourceByModelId(String)"})
   public void testFindEditorSourceByModelId_givenModelDataManagerFindByIdReturnModelEntityImpl() {
     // Arrange
     when(modelDataManager.findById(Mockito.<String>any())).thenReturn(new ModelEntityImpl());
 
     // Act
-    byte[] actualFindEditorSourceByModelIdResult =
-        modelEntityManagerImpl.findEditorSourceByModelId("42");
+    byte[] actualFindEditorSourceByModelIdResult = modelEntityManagerImpl.findEditorSourceByModelId("42");
 
     // Assert
-    verify(modelDataManager).findById("42");
+    verify(modelDataManager).findById(eq("42"));
     assertNull(actualFindEditorSourceByModelIdResult);
   }
 
   /**
    * Test {@link ModelEntityManagerImpl#findEditorSourceByModelId(String)}.
-   *
    * <ul>
-   *   <li>Given {@link ModelDataManager} {@link ModelDataManager#findById(String)} return {@code
-   *       null}.
+   *   <li>Given {@link ModelDataManager} {@link DataManager#findById(String)} return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ModelEntityManagerImpl#findEditorSourceByModelId(String)}
+   * <p>
+   * Method under test: {@link ModelEntityManagerImpl#findEditorSourceByModelId(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"byte[] ModelEntityManagerImpl.findEditorSourceByModelId(String)"})
   public void testFindEditorSourceByModelId_givenModelDataManagerFindByIdReturnNull() {
     // Arrange
     when(modelDataManager.findById(Mockito.<String>any())).thenReturn(null);
 
     // Act
-    byte[] actualFindEditorSourceByModelIdResult =
-        modelEntityManagerImpl.findEditorSourceByModelId("42");
+    byte[] actualFindEditorSourceByModelIdResult = modelEntityManagerImpl.findEditorSourceByModelId("42");
 
     // Assert
-    verify(modelDataManager).findById("42");
+    verify(modelDataManager).findById(eq("42"));
     assertNull(actualFindEditorSourceByModelIdResult);
   }
 
   /**
    * Test {@link ModelEntityManagerImpl#findEditorSourceExtraByModelId(String)}.
-   *
-   * <p>Method under test: {@link ModelEntityManagerImpl#findEditorSourceExtraByModelId(String)}
+   * <p>
+   * Method under test: {@link ModelEntityManagerImpl#findEditorSourceExtraByModelId(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"byte[] ModelEntityManagerImpl.findEditorSourceExtraByModelId(String)"})
   public void testFindEditorSourceExtraByModelId() {
     // Arrange
     when(modelDataManager.findById(Mockito.<String>any())).thenReturn(new ModelEntityImpl());
 
     // Act
-    byte[] actualFindEditorSourceExtraByModelIdResult =
-        modelEntityManagerImpl.findEditorSourceExtraByModelId("42");
+    byte[] actualFindEditorSourceExtraByModelIdResult = modelEntityManagerImpl.findEditorSourceExtraByModelId("42");
 
     // Assert
-    verify(modelDataManager).findById("42");
+    verify(modelDataManager).findById(eq("42"));
     assertNull(actualFindEditorSourceExtraByModelIdResult);
   }
 
   /**
    * Test {@link ModelEntityManagerImpl#findEditorSourceExtraByModelId(String)}.
-   *
    * <ul>
-   *   <li>Given {@link ModelDataManager} {@link ModelDataManager#findById(String)} return {@code
-   *       null}.
+   *   <li>Given {@link ModelDataManager} {@link DataManager#findById(String)} return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ModelEntityManagerImpl#findEditorSourceExtraByModelId(String)}
+   * <p>
+   * Method under test: {@link ModelEntityManagerImpl#findEditorSourceExtraByModelId(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"byte[] ModelEntityManagerImpl.findEditorSourceExtraByModelId(String)"})
   public void testFindEditorSourceExtraByModelId_givenModelDataManagerFindByIdReturnNull() {
     // Arrange
     when(modelDataManager.findById(Mockito.<String>any())).thenReturn(null);
 
     // Act
-    byte[] actualFindEditorSourceExtraByModelIdResult =
-        modelEntityManagerImpl.findEditorSourceExtraByModelId("42");
+    byte[] actualFindEditorSourceExtraByModelIdResult = modelEntityManagerImpl.findEditorSourceExtraByModelId("42");
 
     // Assert
-    verify(modelDataManager).findById("42");
+    verify(modelDataManager).findById(eq("42"));
     assertNull(actualFindEditorSourceExtraByModelIdResult);
   }
 
   /**
    * Test {@link ModelEntityManagerImpl#findModelsByNativeQuery(Map, int, int)}.
-   *
    * <ul>
-   *   <li>Then return Empty.
+   *   <li>Then return Empty.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ModelEntityManagerImpl#findModelsByNativeQuery(Map, int, int)}
+   * <p>
+   * Method under test: {@link ModelEntityManagerImpl#findModelsByNativeQuery(Map, int, int)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"List ModelEntityManagerImpl.findModelsByNativeQuery(Map, int, int)"})
   public void testFindModelsByNativeQuery_thenReturnEmpty() {
     // Arrange
     ModelDataManager modelDataManager = mock(ModelDataManager.class);
-    when(modelDataManager.findModelsByNativeQuery(
-            Mockito.<Map<String, Object>>any(), anyInt(), anyInt()))
+    when(modelDataManager.findModelsByNativeQuery(Mockito.<Map<String, Object>>any(), anyInt(), anyInt()))
         .thenReturn(new ArrayList<>());
-    ModelEntityManagerImpl modelEntityManagerImpl =
-        new ModelEntityManagerImpl(new JtaProcessEngineConfiguration(), modelDataManager);
+    ModelEntityManagerImpl modelEntityManagerImpl = new ModelEntityManagerImpl(new JtaProcessEngineConfiguration(),
+        modelDataManager);
 
     // Act
-    List<Model> actualFindModelsByNativeQueryResult =
-        modelEntityManagerImpl.findModelsByNativeQuery(new HashMap<>(), 1, 3);
+    List<Model> actualFindModelsByNativeQueryResult = modelEntityManagerImpl.findModelsByNativeQuery(new HashMap<>(), 1,
+        3);
 
     // Assert
     verify(modelDataManager).findModelsByNativeQuery(isA(Map.class), eq(1), eq(3));
@@ -961,28 +852,24 @@ public class ModelEntityManagerImplDiffblueTest {
 
   /**
    * Test {@link ModelEntityManagerImpl#findModelCountByNativeQuery(Map)}.
-   *
    * <ul>
-   *   <li>Then return three.
+   *   <li>Then return three.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ModelEntityManagerImpl#findModelCountByNativeQuery(Map)}
+   * <p>
+   * Method under test: {@link ModelEntityManagerImpl#findModelCountByNativeQuery(Map)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"long ModelEntityManagerImpl.findModelCountByNativeQuery(Map)"})
   public void testFindModelCountByNativeQuery_thenReturnThree() {
     // Arrange
     ModelDataManager modelDataManager = mock(ModelDataManager.class);
-    when(modelDataManager.findModelCountByNativeQuery(Mockito.<Map<String, Object>>any()))
-        .thenReturn(3L);
-    ModelEntityManagerImpl modelEntityManagerImpl =
-        new ModelEntityManagerImpl(new JtaProcessEngineConfiguration(), modelDataManager);
+    when(modelDataManager.findModelCountByNativeQuery(Mockito.<Map<String, Object>>any())).thenReturn(3L);
+    ModelEntityManagerImpl modelEntityManagerImpl = new ModelEntityManagerImpl(new JtaProcessEngineConfiguration(),
+        modelDataManager);
 
     // Act
-    long actualFindModelCountByNativeQueryResult =
-        modelEntityManagerImpl.findModelCountByNativeQuery(new HashMap<>());
+    long actualFindModelCountByNativeQueryResult = modelEntityManagerImpl.findModelCountByNativeQuery(new HashMap<>());
 
     // Assert
     verify(modelDataManager).findModelCountByNativeQuery(isA(Map.class));

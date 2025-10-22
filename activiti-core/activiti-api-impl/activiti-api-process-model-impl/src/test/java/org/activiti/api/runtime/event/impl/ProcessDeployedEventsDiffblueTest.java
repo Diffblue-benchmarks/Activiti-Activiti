@@ -17,7 +17,6 @@ package org.activiti.api.runtime.event.impl;
 
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
 import java.util.List;
@@ -29,9 +28,8 @@ import org.junit.jupiter.api.Test;
 class ProcessDeployedEventsDiffblueTest {
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>{@link ProcessDeployedEvents#ProcessDeployedEvents(List)}
    *   <li>{@link ProcessDeployedEvents#getProcessDeployedEvents()}
@@ -39,19 +37,16 @@ class ProcessDeployedEventsDiffblueTest {
    */
   @Test
   @DisplayName("Test getters and setters")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void ProcessDeployedEvents.<init>(List)",
-    "List ProcessDeployedEvents.getProcessDeployedEvents()"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void ProcessDeployedEvents.<init>(List)",
+      "List ProcessDeployedEvents.getProcessDeployedEvents()"})
   void testGettersAndSetters() {
     // Arrange
     ArrayList<ProcessDeployedEvent> processDeployedEvents = new ArrayList<>();
 
     // Act
-    List<ProcessDeployedEvent> actualProcessDeployedEvents =
-        new ProcessDeployedEvents(processDeployedEvents).getProcessDeployedEvents();
+    List<ProcessDeployedEvent> actualProcessDeployedEvents = (new ProcessDeployedEvents(processDeployedEvents))
+        .getProcessDeployedEvents();
 
     // Assert
     assertTrue(actualProcessDeployedEvents.isEmpty());

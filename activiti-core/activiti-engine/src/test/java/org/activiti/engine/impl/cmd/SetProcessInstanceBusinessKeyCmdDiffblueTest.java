@@ -16,8 +16,7 @@
 package org.activiti.engine.impl.cmd;
 
 import static org.junit.Assert.assertThrows;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.engine.ActivitiIllegalArgumentException;
 import org.junit.Test;
@@ -26,64 +25,53 @@ import org.junit.experimental.categories.Category;
 public class SetProcessInstanceBusinessKeyCmdDiffblueTest {
   /**
    * Test {@link SetProcessInstanceBusinessKeyCmd#SetProcessInstanceBusinessKeyCmd(String, String)}.
-   *
    * <ul>
-   *   <li>When empty string.
+   *   <li>When {@code 42}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link
-   * SetProcessInstanceBusinessKeyCmd#SetProcessInstanceBusinessKeyCmd(String, String)}
+   * <p>
+   * Method under test: {@link SetProcessInstanceBusinessKeyCmd#SetProcessInstanceBusinessKeyCmd(String, String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void SetProcessInstanceBusinessKeyCmd.<init>(String, String)"})
+  public void testNewSetProcessInstanceBusinessKeyCmd_when42() {
+    // Arrange, Act and Assert
+    assertThrows(ActivitiIllegalArgumentException.class, () -> new SetProcessInstanceBusinessKeyCmd("42", null));
+
+  }
+
+  /**
+   * Test {@link SetProcessInstanceBusinessKeyCmd#SetProcessInstanceBusinessKeyCmd(String, String)}.
+   * <ul>
+   *   <li>When empty string.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link SetProcessInstanceBusinessKeyCmd#SetProcessInstanceBusinessKeyCmd(String, String)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void SetProcessInstanceBusinessKeyCmd.<init>(String, String)"})
   public void testNewSetProcessInstanceBusinessKeyCmd_whenEmptyString() {
     // Arrange, Act and Assert
-    assertThrows(
-        ActivitiIllegalArgumentException.class,
+    assertThrows(ActivitiIllegalArgumentException.class,
         () -> new SetProcessInstanceBusinessKeyCmd("", "Business Key"));
+
   }
 
   /**
    * Test {@link SetProcessInstanceBusinessKeyCmd#SetProcessInstanceBusinessKeyCmd(String, String)}.
-   *
    * <ul>
-   *   <li>When {@code null}.
+   *   <li>When {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link
-   * SetProcessInstanceBusinessKeyCmd#SetProcessInstanceBusinessKeyCmd(String, String)}
+   * <p>
+   * Method under test: {@link SetProcessInstanceBusinessKeyCmd#SetProcessInstanceBusinessKeyCmd(String, String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void SetProcessInstanceBusinessKeyCmd.<init>(String, String)"})
   public void testNewSetProcessInstanceBusinessKeyCmd_whenNull() {
     // Arrange, Act and Assert
-    assertThrows(
-        ActivitiIllegalArgumentException.class,
-        () -> new SetProcessInstanceBusinessKeyCmd(null, null));
-  }
+    assertThrows(ActivitiIllegalArgumentException.class, () -> new SetProcessInstanceBusinessKeyCmd(null, null));
 
-  /**
-   * Test {@link SetProcessInstanceBusinessKeyCmd#SetProcessInstanceBusinessKeyCmd(String, String)}.
-   *
-   * <ul>
-   *   <li>When {@code null}.
-   * </ul>
-   *
-   * <p>Method under test: {@link
-   * SetProcessInstanceBusinessKeyCmd#SetProcessInstanceBusinessKeyCmd(String, String)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void SetProcessInstanceBusinessKeyCmd.<init>(String, String)"})
-  public void testNewSetProcessInstanceBusinessKeyCmd_whenNull2() {
-    // Arrange, Act and Assert
-    assertThrows(
-        ActivitiIllegalArgumentException.class,
-        () -> new SetProcessInstanceBusinessKeyCmd("42", null));
   }
 }

@@ -16,8 +16,7 @@
 package org.activiti.bpmn.model;
 
 import static org.junit.Assert.assertNull;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
@@ -25,12 +24,11 @@ import org.junit.experimental.categories.Category;
 public class AssociationModelDiffblueTest {
   /**
    * Test new {@link AssociationModel} (default constructor).
-   *
-   * <p>Method under test: default or parameterless constructor of {@link AssociationModel}
+   * <p>
+   * Method under test: default or parameterless constructor of {@link AssociationModel}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void AssociationModel.<init>()"})
   public void testNewAssociationModel() {
     // Arrange and Act

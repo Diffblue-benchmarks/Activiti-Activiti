@@ -19,8 +19,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
@@ -28,12 +27,11 @@ import org.junit.experimental.categories.Category;
 public class ItemDefinitionDiffblueTest {
   /**
    * Test {@link ItemDefinition#ItemDefinition(String, StructureDefinition)}.
-   *
-   * <p>Method under test: {@link ItemDefinition#ItemDefinition(String, StructureDefinition)}
+   * <p>
+   * Method under test: {@link ItemDefinition#ItemDefinition(String, StructureDefinition)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void ItemDefinition.<init>(String, StructureDefinition)"})
   public void testNewItemDefinition() {
     // Arrange
@@ -51,16 +49,14 @@ public class ItemDefinitionDiffblueTest {
 
   /**
    * Test {@link ItemDefinition#createInstance()}.
-   *
    * <ul>
-   *   <li>Then StructureInstance return {@link FieldBaseStructureInstance}.
+   *   <li>Then StructureInstance return {@link FieldBaseStructureInstance}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ItemDefinition#createInstance()}
+   * <p>
+   * Method under test: {@link ItemDefinition#createInstance()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"ItemInstance ItemDefinition.createInstance()"})
   public void testCreateInstance_thenStructureInstanceReturnFieldBaseStructureInstance() {
     // Arrange
@@ -82,9 +78,8 @@ public class ItemDefinitionDiffblueTest {
 
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>{@link ItemDefinition#setCollection(boolean)}
    *   <li>{@link ItemDefinition#setItemKind(ItemKind)}
@@ -95,16 +90,10 @@ public class ItemDefinitionDiffblueTest {
    * </ul>
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "String ItemDefinition.getId()",
-    "ItemKind ItemDefinition.getItemKind()",
-    "StructureDefinition ItemDefinition.getStructureDefinition()",
-    "boolean ItemDefinition.isCollection()",
-    "void ItemDefinition.setCollection(boolean)",
-    "void ItemDefinition.setItemKind(ItemKind)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String ItemDefinition.getId()", "ItemKind ItemDefinition.getItemKind()",
+      "StructureDefinition ItemDefinition.getStructureDefinition()", "boolean ItemDefinition.isCollection()",
+      "void ItemDefinition.setCollection(boolean)", "void ItemDefinition.setItemKind(ItemKind)"})
   public void testGettersAndSetters() {
     // Arrange
     SimpleStructureDefinition structure = new SimpleStructureDefinition("42");

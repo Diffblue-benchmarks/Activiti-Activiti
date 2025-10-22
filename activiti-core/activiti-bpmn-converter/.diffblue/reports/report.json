@@ -1,21 +1,21 @@
 {
   "meta" : {
-    "reportVersion" : "2.7"
+    "reportVersion" : "2.6"
   },
   "run" : {
-    "version" : "2025.09.01-44e352d-licensed",
-    "creationTimestamp" : "2025-10-15T18:17:05.474751764Z",
+    "version" : "2025.02.02-08b2a5a-licensed",
+    "creationTimestamp" : "2025-10-21T18:36:58.703503864Z",
     "command" : "dcover create --exclude-modules=org.activiti:activiti-dependency-check,org.activiti:activiti-api-dependencies,org.activiti:activiti-core-common-dependencies,org.activiti:activiti-core-dependencies,org.activiti:activiti-dependencies,org.activiti:activiti-spring-conformance-set0,org.activiti:activiti-spring-conformance-set1,org.activiti:activiti-spring-conformance-set2,org.activiti:activiti-spring-conformance-set3,org.activiti:activiti-spring-conformance-set4,org.activiti:activiti-spring-conformance-set5,org.activiti:activiti-spring-conformance-variables,org.activiti:activiti-spring-conformance-signals --coverage-reports --upload http://localhost:8080 --project-name Activiti-Activiti --name with-diffblue-tests",
-    "totalTime" : 1541.536,
-    "environmentDetectionTime" : 0.553,
-    "indexingTime" : 0.524,
-    "entryPointsTime" : 0.542,
-    "generationTime" : 8925.317,
-    "timeToFirstTest" : 11660.406,
-    "timeToLastTest" : 10785.0,
-    "indexQueryTime" : 3.595,
-    "verificationTime" : 352.967,
-    "validationTime" : 20.036
+    "totalTime" : 1335.991,
+    "environmentDetectionTime" : 1.374,
+    "indexingTime" : 0.406,
+    "entryPointsTime" : 1.371,
+    "generationTime" : 7014.972,
+    "timeToFirstTest" : 9641.564,
+    "timeToLastTest" : 8798.79,
+    "indexQueryTime" : 5.1770000000000005,
+    "verificationTime" : 293.344,
+    "validationTime" : 24.247
   },
   "codes" : {
     "R000" : "Success",
@@ -30,16 +30,15 @@
     "T010" : "Abstract or interface method",
     "T012" : "Synthetic method",
     "T021" : "Empty method body",
-    "T023" : "Testability unknown",
     "V000" : "Validated successfully",
-    "V003" : "Tests discarded during validation"
+    "W001" : "Test did not compile"
   },
   "summary" : {
     "classesCount" : 108,
     "methodsCount" : 539,
-    "cumulativeDiffblueTestCount" : 551,
+    "cumulativeDiffblueTestCount" : 417,
     "cumulativeManualTestCount" : 110,
-    "completeTestCount" : 551,
+    "completeTestCount" : 417,
     "incompleteTestCount" : 0,
     "skeletonTestCount" : 0,
     "totalPhysicalLineCount" : 5872,
@@ -50,33 +49,34 @@
       "T003" : 9,
       "T005" : 94,
       "T010" : 15,
-      "T012" : 27,
-      "T021" : 26,
-      "T023" : 15
+      "T012" : 42,
+      "T021" : 26
     },
     "perMethodOutcome" : {
-      "R000" : 296,
+      "R000" : 286,
       "R002" : 29,
       "R004" : 9,
-      "R013" : 122,
+      "R013" : 131,
       "T003" : 9,
-      "T005" : 17,
+      "T005" : 16,
       "T010" : 15,
-      "T012" : 27,
-      "T023" : 15
+      "T012" : 42,
+      "W001" : 2
     },
     "perTestOutcome" : {
-      "R000" : 551
+      "R000" : 417
     },
     "perTestValidation" : {
-      "V000" : 551,
-      "V003" : 20
+      "V000" : 417
+    },
+    "warnings" : {
+      "W001" : 14
     }
   },
   "classes" : {
     "org.activiti.bpmn.converter.AssociationXMLConverter" : {
       "methodsCount" : 6,
-      "completeTestCount" : 5,
+      "completeTestCount" : 2,
       "incompleteTestCount" : 0,
       "perMethodTestability" : {
         "T000" : 2,
@@ -89,26 +89,26 @@
         "R013" : 1
       },
       "perTestOutcome" : {
-        "R000" : 5
+        "R000" : 2
       }
     },
     "org.activiti.bpmn.converter.BaseBpmnXMLConverter" : {
       "methodsCount" : 31,
-      "completeTestCount" : 84,
+      "completeTestCount" : 97,
       "incompleteTestCount" : 0,
       "perMethodTestability" : {
         "T000" : 24,
         "T010" : 6,
-        "T023" : 1
+        "T012" : 1
       },
       "perMethodOutcome" : {
-        "R000" : 16,
-        "R013" : 8,
+        "R000" : 15,
+        "R013" : 9,
         "T010" : 6,
-        "T023" : 1
+        "T012" : 1
       },
       "perTestOutcome" : {
-        "R000" : 84
+        "R000" : 97
       }
     },
     "org.activiti.bpmn.converter.BoundaryEventXMLConverter" : {
@@ -130,26 +130,26 @@
     },
     "org.activiti.bpmn.converter.BpmnXMLConverter" : {
       "methodsCount" : 20,
-      "completeTestCount" : 79,
+      "completeTestCount" : 33,
       "incompleteTestCount" : 0,
       "perMethodTestability" : {
         "T000" : 16,
         "T002" : 3,
-        "T023" : 1
+        "T012" : 1
       },
       "perMethodOutcome" : {
-        "R000" : 12,
+        "R000" : 10,
         "R002" : 3,
-        "R013" : 4,
-        "T023" : 1
+        "R013" : 6,
+        "T012" : 1
       },
       "perTestOutcome" : {
-        "R000" : 79
+        "R000" : 33
       }
     },
     "org.activiti.bpmn.converter.BusinessRuleTaskXMLConverter" : {
       "methodsCount" : 6,
-      "completeTestCount" : 3,
+      "completeTestCount" : 4,
       "incompleteTestCount" : 0,
       "perMethodTestability" : {
         "T000" : 2,
@@ -162,7 +162,7 @@
         "R013" : 1
       },
       "perTestOutcome" : {
-        "R000" : 3
+        "R000" : 4
       }
     },
     "org.activiti.bpmn.converter.CallActivityXMLConverter" : {
@@ -257,7 +257,7 @@
     },
     "org.activiti.bpmn.converter.DataStoreReferenceXMLConverter" : {
       "methodsCount" : 6,
-      "completeTestCount" : 3,
+      "completeTestCount" : 4,
       "incompleteTestCount" : 0,
       "perMethodTestability" : {
         "T000" : 3,
@@ -269,12 +269,12 @@
         "R013" : 1
       },
       "perTestOutcome" : {
-        "R000" : 3
+        "R000" : 4
       }
     },
     "org.activiti.bpmn.converter.DelegatingXMLStreamWriter" : {
       "methodsCount" : 33,
-      "completeTestCount" : 58,
+      "completeTestCount" : 44,
       "incompleteTestCount" : 0,
       "perMethodTestability" : {
         "T000" : 32,
@@ -286,7 +286,7 @@
         "T010" : 1
       },
       "perTestOutcome" : {
-        "R000" : 58
+        "R000" : 44
       }
     },
     "org.activiti.bpmn.converter.EndEventXMLConverter" : {
@@ -370,16 +370,14 @@
         "T000" : 16,
         "T002" : 1,
         "T003" : 4,
-        "T012" : 19,
-        "T023" : 1
+        "T012" : 20
       },
       "perMethodOutcome" : {
         "R000" : 3,
         "R002" : 1,
         "R013" : 13,
         "T003" : 4,
-        "T012" : 19,
-        "T023" : 1
+        "T012" : 20
       },
       "perTestOutcome" : {
         "R000" : 3
@@ -457,7 +455,7 @@
     },
     "org.activiti.bpmn.converter.SendTaskXMLConverter" : {
       "methodsCount" : 8,
-      "completeTestCount" : 5,
+      "completeTestCount" : 4,
       "incompleteTestCount" : 0,
       "perMethodTestability" : {
         "T000" : 4,
@@ -470,12 +468,12 @@
         "R013" : 2
       },
       "perTestOutcome" : {
-        "R000" : 5
+        "R000" : 4
       }
     },
     "org.activiti.bpmn.converter.SequenceFlowXMLConverter" : {
       "methodsCount" : 6,
-      "completeTestCount" : 3,
+      "completeTestCount" : 4,
       "incompleteTestCount" : 0,
       "perMethodTestability" : {
         "T000" : 3,
@@ -487,12 +485,12 @@
         "R013" : 1
       },
       "perTestOutcome" : {
-        "R000" : 3
+        "R000" : 4
       }
     },
     "org.activiti.bpmn.converter.ServiceTaskXMLConverter" : {
       "methodsCount" : 8,
-      "completeTestCount" : 10,
+      "completeTestCount" : 6,
       "incompleteTestCount" : 0,
       "perMethodTestability" : {
         "T000" : 4,
@@ -501,11 +499,11 @@
         "T021" : 1
       },
       "perMethodOutcome" : {
-        "R000" : 7,
-        "R013" : 1
+        "R000" : 6,
+        "R013" : 2
       },
       "perTestOutcome" : {
-        "R000" : 10
+        "R000" : 6
       }
     },
     "org.activiti.bpmn.converter.StartEventXMLConverter" : {
@@ -528,20 +526,20 @@
     },
     "org.activiti.bpmn.converter.SubprocessXMLConverter" : {
       "methodsCount" : 5,
-      "completeTestCount" : 16,
+      "completeTestCount" : 12,
       "incompleteTestCount" : 0,
       "perMethodTestability" : {
         "T000" : 3,
         "T003" : 1,
-        "T023" : 1
+        "T012" : 1
       },
       "perMethodOutcome" : {
         "R000" : 3,
         "T003" : 1,
-        "T023" : 1
+        "T012" : 1
       },
       "perTestOutcome" : {
-        "R000" : 16
+        "R000" : 12
       }
     },
     "org.activiti.bpmn.converter.TaskXMLConverter" : {
@@ -600,21 +598,21 @@
     },
     "org.activiti.bpmn.converter.UserTaskXMLConverter" : {
       "methodsCount" : 10,
-      "completeTestCount" : 16,
+      "completeTestCount" : 15,
       "incompleteTestCount" : 0,
       "perMethodTestability" : {
         "T000" : 6,
         "T001" : 2,
-        "T021" : 1,
-        "T023" : 1
+        "T012" : 1,
+        "T021" : 1
       },
       "perMethodOutcome" : {
-        "R000" : 8,
-        "R013" : 1,
-        "T023" : 1
+        "R000" : 7,
+        "R013" : 2,
+        "T012" : 1
       },
       "perTestOutcome" : {
-        "R000" : 16
+        "R000" : 15
       }
     },
     "org.activiti.bpmn.converter.UserTaskXMLConverter$CustomIdentityLinkParser" : {
@@ -670,7 +668,7 @@
     },
     "org.activiti.bpmn.converter.ValuedDataObjectXMLConverter" : {
       "methodsCount" : 7,
-      "completeTestCount" : 6,
+      "completeTestCount" : 7,
       "incompleteTestCount" : 0,
       "perMethodTestability" : {
         "T000" : 4,
@@ -682,7 +680,7 @@
         "R013" : 1
       },
       "perTestOutcome" : {
-        "R000" : 6
+        "R000" : 7
       }
     },
     "org.activiti.bpmn.converter.XMLStreamReaderUtil" : {
@@ -692,12 +690,12 @@
       "perMethodTestability" : {
         "T000" : 2,
         "T005" : 1,
-        "T023" : 1
+        "T012" : 1
       },
       "perMethodOutcome" : {
         "R000" : 2,
         "T005" : 1,
-        "T023" : 1
+        "T012" : 1
       },
       "perTestOutcome" : {
         "R000" : 2
@@ -804,13 +802,13 @@
       "perMethodTestability" : {
         "T000" : 3,
         "T010" : 3,
-        "T023" : 1
+        "T012" : 1
       },
       "perMethodOutcome" : {
         "R000" : 1,
         "R013" : 2,
         "T010" : 3,
-        "T023" : 1
+        "T012" : 1
       },
       "perTestOutcome" : {
         "R000" : 2
@@ -874,12 +872,12 @@
       "perMethodTestability" : {
         "T000" : 1,
         "T005" : 1,
-        "T023" : 1
+        "T012" : 1
       },
       "perMethodOutcome" : {
         "R004" : 1,
         "T005" : 1,
-        "T023" : 1
+        "T012" : 1
       }
     },
     "org.activiti.bpmn.converter.child.DataInputAssociationParser" : {
@@ -1047,7 +1045,7 @@
     },
     "org.activiti.bpmn.converter.child.IOSpecificationParser" : {
       "methodsCount" : 4,
-      "completeTestCount" : 4,
+      "completeTestCount" : 3,
       "incompleteTestCount" : 0,
       "perMethodTestability" : {
         "T000" : 2,
@@ -1059,7 +1057,7 @@
         "R013" : 1
       },
       "perTestOutcome" : {
-        "R000" : 4
+        "R000" : 3
       }
     },
     "org.activiti.bpmn.converter.child.MessageEventDefinitionParser" : {
@@ -1359,7 +1357,7 @@
     },
     "org.activiti.bpmn.converter.export.ActivitiListenerExport" : {
       "methodsCount" : 4,
-      "completeTestCount" : 8,
+      "completeTestCount" : 5,
       "incompleteTestCount" : 0,
       "perMethodTestability" : {
         "T000" : 2,
@@ -1372,12 +1370,12 @@
         "T005" : 1
       },
       "perTestOutcome" : {
-        "R000" : 8
+        "R000" : 5
       }
     },
     "org.activiti.bpmn.converter.export.BPMNDIExport" : {
       "methodsCount" : 2,
-      "completeTestCount" : 14,
+      "completeTestCount" : 8,
       "incompleteTestCount" : 0,
       "perMethodTestability" : {
         "T000" : 1,
@@ -1388,12 +1386,12 @@
         "T005" : 1
       },
       "perTestOutcome" : {
-        "R000" : 14
+        "R000" : 8
       }
     },
     "org.activiti.bpmn.converter.export.CollaborationExport" : {
       "methodsCount" : 2,
-      "completeTestCount" : 3,
+      "completeTestCount" : 2,
       "incompleteTestCount" : 0,
       "perMethodTestability" : {
         "T000" : 1,
@@ -1404,57 +1402,57 @@
         "T005" : 1
       },
       "perTestOutcome" : {
-        "R000" : 3
+        "R000" : 2
+      },
+      "warnings" : {
+        "W001" : 1
       }
     },
     "org.activiti.bpmn.converter.export.DataStoreExport" : {
       "methodsCount" : 2,
-      "completeTestCount" : 3,
+      "completeTestCount" : 0,
       "incompleteTestCount" : 0,
       "perMethodTestability" : {
         "T000" : 1,
         "T005" : 1
       },
       "perMethodOutcome" : {
-        "R000" : 1,
+        "R013" : 1,
         "T005" : 1
-      },
-      "perTestOutcome" : {
-        "R000" : 3
       }
     },
     "org.activiti.bpmn.converter.export.DefinitionsRootExport" : {
       "methodsCount" : 3,
-      "completeTestCount" : 11,
+      "completeTestCount" : 9,
       "incompleteTestCount" : 0,
       "perMethodTestability" : {
         "T000" : 1,
         "T005" : 1,
-        "T023" : 1
+        "T012" : 1
       },
       "perMethodOutcome" : {
         "R000" : 1,
         "T005" : 1,
-        "T023" : 1
+        "T012" : 1
       },
       "perTestOutcome" : {
-        "R000" : 11
+        "R000" : 9
+      },
+      "warnings" : {
+        "W001" : 2
       }
     },
     "org.activiti.bpmn.converter.export.ErrorExport" : {
       "methodsCount" : 2,
-      "completeTestCount" : 1,
+      "completeTestCount" : 0,
       "incompleteTestCount" : 0,
       "perMethodTestability" : {
         "T000" : 1,
         "T005" : 1
       },
       "perMethodOutcome" : {
-        "R000" : 1,
+        "R013" : 1,
         "T005" : 1
-      },
-      "perTestOutcome" : {
-        "R000" : 1
       }
     },
     "org.activiti.bpmn.converter.export.FailedJobRetryCountExport" : {
@@ -1491,6 +1489,56 @@
     },
     "org.activiti.bpmn.converter.export.LaneExport" : {
       "methodsCount" : 2,
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T000" : 1,
+        "T005" : 1
+      },
+      "perMethodOutcome" : {
+        "R013" : 1,
+        "T005" : 1
+      }
+    },
+    "org.activiti.bpmn.converter.export.MultiInstanceExport" : {
+      "methodsCount" : 2,
+      "completeTestCount" : 3,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T000" : 1,
+        "T005" : 1
+      },
+      "perMethodOutcome" : {
+        "R000" : 1,
+        "T005" : 1
+      },
+      "perTestOutcome" : {
+        "R000" : 3
+      }
+    },
+    "org.activiti.bpmn.converter.export.ProcessExport" : {
+      "methodsCount" : 3,
+      "completeTestCount" : 13,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T000" : 1,
+        "T005" : 1,
+        "T012" : 1
+      },
+      "perMethodOutcome" : {
+        "R000" : 1,
+        "T005" : 1,
+        "T012" : 1
+      },
+      "perTestOutcome" : {
+        "R000" : 13
+      },
+      "warnings" : {
+        "W001" : 4
+      }
+    },
+    "org.activiti.bpmn.converter.export.SignalAndMessageDefinitionExport" : {
+      "methodsCount" : 2,
       "completeTestCount" : 10,
       "incompleteTestCount" : 0,
       "perMethodTestability" : {
@@ -1503,52 +1551,6 @@
       },
       "perTestOutcome" : {
         "R000" : 10
-      }
-    },
-    "org.activiti.bpmn.converter.export.MultiInstanceExport" : {
-      "methodsCount" : 2,
-      "completeTestCount" : 0,
-      "incompleteTestCount" : 0,
-      "perMethodTestability" : {
-        "T000" : 1,
-        "T005" : 1
-      },
-      "perMethodOutcome" : {
-        "T005" : 2
-      }
-    },
-    "org.activiti.bpmn.converter.export.ProcessExport" : {
-      "methodsCount" : 3,
-      "completeTestCount" : 16,
-      "incompleteTestCount" : 0,
-      "perMethodTestability" : {
-        "T000" : 1,
-        "T005" : 1,
-        "T023" : 1
-      },
-      "perMethodOutcome" : {
-        "R000" : 1,
-        "T005" : 1,
-        "T023" : 1
-      },
-      "perTestOutcome" : {
-        "R000" : 16
-      }
-    },
-    "org.activiti.bpmn.converter.export.SignalAndMessageDefinitionExport" : {
-      "methodsCount" : 2,
-      "completeTestCount" : 16,
-      "incompleteTestCount" : 0,
-      "perMethodTestability" : {
-        "T000" : 1,
-        "T005" : 1
-      },
-      "perMethodOutcome" : {
-        "R000" : 1,
-        "T005" : 1
-      },
-      "perTestOutcome" : {
-        "R000" : 16
       }
     },
     "org.activiti.bpmn.converter.parser.BpmnEdgeParser" : {
@@ -1605,12 +1607,12 @@
       "perMethodTestability" : {
         "T000" : 1,
         "T005" : 1,
-        "T023" : 1
+        "T012" : 1
       },
       "perMethodOutcome" : {
         "R002" : 1,
         "R013" : 1,
-        "T023" : 1
+        "T012" : 1
       }
     },
     "org.activiti.bpmn.converter.parser.ExtensionElementsParser" : {
@@ -1641,21 +1643,21 @@
     },
     "org.activiti.bpmn.converter.parser.InterfaceParser" : {
       "methodsCount" : 4,
-      "completeTestCount" : 3,
+      "completeTestCount" : 2,
       "incompleteTestCount" : 0,
       "perMethodTestability" : {
         "T000" : 2,
         "T005" : 1,
-        "T023" : 1
+        "T012" : 1
       },
       "perMethodOutcome" : {
         "R000" : 1,
         "R002" : 1,
         "R013" : 1,
-        "T023" : 1
+        "T012" : 1
       },
       "perTestOutcome" : {
-        "R000" : 3
+        "R000" : 2
       }
     },
     "org.activiti.bpmn.converter.parser.ItemDefinitionParser" : {
@@ -1691,17 +1693,17 @@
       "perMethodTestability" : {
         "T000" : 1,
         "T005" : 1,
-        "T023" : 1
+        "T012" : 1
       },
       "perMethodOutcome" : {
         "R002" : 1,
         "R013" : 1,
-        "T023" : 1
+        "T012" : 1
       }
     },
     "org.activiti.bpmn.converter.parser.MessageParser" : {
       "methodsCount" : 3,
-      "completeTestCount" : 3,
+      "completeTestCount" : 2,
       "incompleteTestCount" : 0,
       "perMethodTestability" : {
         "T000" : 2,
@@ -1713,7 +1715,7 @@
         "R013" : 1
       },
       "perTestOutcome" : {
-        "R000" : 3
+        "R000" : 2
       }
     },
     "org.activiti.bpmn.converter.parser.ParticipantParser" : {
@@ -1723,12 +1725,12 @@
       "perMethodTestability" : {
         "T000" : 1,
         "T005" : 1,
-        "T023" : 1
+        "T012" : 1
       },
       "perMethodOutcome" : {
         "R002" : 1,
         "R013" : 1,
-        "T023" : 1
+        "T012" : 1
       }
     },
     "org.activiti.bpmn.converter.parser.PotentialStarterParser" : {
@@ -1798,24 +1800,28 @@
     },
     "org.activiti.bpmn.converter.util.BpmnXMLUtil" : {
       "methodsCount" : 23,
-      "completeTestCount" : 73,
+      "completeTestCount" : 30,
       "incompleteTestCount" : 0,
       "perMethodTestability" : {
         "T000" : 20,
         "T003" : 1,
         "T005" : 1,
-        "T023" : 1
+        "T012" : 1
       },
       "perMethodOutcome" : {
-        "R000" : 13,
+        "R000" : 10,
         "R002" : 1,
-        "R013" : 6,
+        "R013" : 7,
         "T003" : 1,
         "T005" : 1,
-        "T023" : 1
+        "T012" : 1,
+        "W001" : 2
       },
       "perTestOutcome" : {
-        "R000" : 73
+        "R000" : 30
+      },
+      "warnings" : {
+        "W001" : 7
       }
     },
     "org.activiti.bpmn.converter.util.CommaSplitter" : {
@@ -1917,12 +1923,12 @@
       ]
     },
     "org.activiti.bpmn.converter.AssociationXMLConverter.writeAdditionalAttributes:(Lorg/activiti/bpmn/model/BaseElement;Lorg/activiti/bpmn/model/BpmnModel;Ljavax/xml/stream/XMLStreamWriter;)V" : {
-      "completeTestCount" : 4,
+      "completeTestCount" : 1,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 4
+        "R000" : 1
       },
       "lineNumbers" : [
         61,
@@ -1949,8 +1955,13 @@
     "org.activiti.bpmn.converter.BaseBpmnXMLConverter.<clinit>:()V" : {
       "completeTestCount" : 0,
       "incompleteTestCount" : 0,
-      "perMethodTestability" : "T023",
-      "perMethodOutcome" : "T023"
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        67,
+        69,
+        71
+      ]
     },
     "org.activiti.bpmn.converter.BaseBpmnXMLConverter.<init>:()V" : {
       "completeTestCount" : 0,
@@ -2230,12 +2241,12 @@
       ]
     },
     "org.activiti.bpmn.converter.BaseBpmnXMLConverter.writeCompensateDefinition:(Lorg/activiti/bpmn/model/Event;Lorg/activiti/bpmn/model/CompensateEventDefinition;Ljavax/xml/stream/XMLStreamWriter;)V" : {
-      "completeTestCount" : 10,
+      "completeTestCount" : 13,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 10
+        "R000" : 13
       },
       "lineNumbers" : [
         459,
@@ -2261,12 +2272,12 @@
       ]
     },
     "org.activiti.bpmn.converter.BaseBpmnXMLConverter.writeErrorDefinition:(Lorg/activiti/bpmn/model/Event;Lorg/activiti/bpmn/model/ErrorEventDefinition;Ljavax/xml/stream/XMLStreamWriter;)V" : {
-      "completeTestCount" : 10,
+      "completeTestCount" : 13,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 10
+        "R000" : 13
       },
       "lineNumbers" : [
         511,
@@ -2316,12 +2327,12 @@
       ]
     },
     "org.activiti.bpmn.converter.BaseBpmnXMLConverter.writeFormProperties:(Lorg/activiti/bpmn/model/FlowElement;ZLjavax/xml/stream/XMLStreamWriter;)Z" : {
-      "completeTestCount" : 6,
+      "completeTestCount" : 5,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 6
+        "R000" : 5
       },
       "lineNumbers" : [
         325,
@@ -2362,13 +2373,10 @@
       ]
     },
     "org.activiti.bpmn.converter.BaseBpmnXMLConverter.writeIncomingOutgoingFlowElements:(Lorg/activiti/bpmn/model/BaseElement;Lorg/activiti/bpmn/model/BpmnModel;Ljavax/xml/stream/XMLStreamWriter;)V" : {
-      "completeTestCount" : 1,
+      "completeTestCount" : 0,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
-      "perMethodOutcome" : "R000",
-      "perTestOutcome" : {
-        "R000" : 1
-      },
+      "perMethodOutcome" : "R013",
       "lineNumbers" : [
         547,
         548,
@@ -2376,24 +2384,24 @@
       ]
     },
     "org.activiti.bpmn.converter.BaseBpmnXMLConverter.writeListeners:(Lorg/activiti/bpmn/model/BaseElement;ZLjavax/xml/stream/XMLStreamWriter;)Z" : {
-      "completeTestCount" : 6,
+      "completeTestCount" : 3,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 6
+        "R000" : 3
       },
       "lineNumbers" : [
         380
       ]
     },
     "org.activiti.bpmn.converter.BaseBpmnXMLConverter.writeMessageDefinition:(Lorg/activiti/bpmn/model/Event;Lorg/activiti/bpmn/model/MessageEventDefinition;Lorg/activiti/bpmn/model/BpmnModel;Ljavax/xml/stream/XMLStreamWriter;)V" : {
-      "completeTestCount" : 11,
+      "completeTestCount" : 12,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 11
+        "R000" : 12
       },
       "lineNumbers" : [
         469,
@@ -2438,12 +2446,12 @@
       ]
     },
     "org.activiti.bpmn.converter.BaseBpmnXMLConverter.writeSignalDefinition:(Lorg/activiti/bpmn/model/Event;Lorg/activiti/bpmn/model/SignalEventDefinition;Ljavax/xml/stream/XMLStreamWriter;)V" : {
-      "completeTestCount" : 12,
+      "completeTestCount" : 14,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 12
+        "R000" : 14
       },
       "lineNumbers" : [
         437,
@@ -2458,12 +2466,12 @@
       ]
     },
     "org.activiti.bpmn.converter.BaseBpmnXMLConverter.writeTerminateDefinition:(Lorg/activiti/bpmn/model/Event;Lorg/activiti/bpmn/model/TerminateEventDefinition;Ljavax/xml/stream/XMLStreamWriter;)V" : {
-      "completeTestCount" : 8,
+      "completeTestCount" : 12,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 8
+        "R000" : 12
       },
       "lineNumbers" : [
         521,
@@ -2479,12 +2487,12 @@
       ]
     },
     "org.activiti.bpmn.converter.BaseBpmnXMLConverter.writeTimerDefinition:(Lorg/activiti/bpmn/model/Event;Lorg/activiti/bpmn/model/TimerEventDefinition;Ljavax/xml/stream/XMLStreamWriter;)V" : {
-      "completeTestCount" : 7,
+      "completeTestCount" : 12,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 7
+        "R000" : 12
       },
       "lineNumbers" : [
         404,
@@ -2601,8 +2609,45 @@
     "org.activiti.bpmn.converter.BpmnXMLConverter.<clinit>:()V" : {
       "completeTestCount" : 0,
       "incompleteTestCount" : 0,
-      "perMethodTestability" : "T023",
-      "perMethodOutcome" : "T023"
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        109,
+        114,
+        115,
+        144,
+        145,
+        148,
+        149,
+        150,
+        151,
+        152,
+        153,
+        154,
+        155,
+        156,
+        159,
+        160,
+        161,
+        162,
+        163,
+        166,
+        169,
+        170,
+        171,
+        174,
+        175,
+        178,
+        181,
+        182,
+        183,
+        184,
+        185,
+        186,
+        189,
+        190,
+        191
+      ]
     },
     "org.activiti.bpmn.converter.BpmnXMLConverter.<init>:()V" : {
       "completeTestCount" : 1,
@@ -2772,24 +2817,24 @@
       ]
     },
     "org.activiti.bpmn.converter.BpmnXMLConverter.convertToBpmnModel:(Lorg/activiti/bpmn/converter/util/InputStreamProvider;ZZ)Lorg/activiti/bpmn/model/BpmnModel;" : {
-      "completeTestCount" : 6,
+      "completeTestCount" : 4,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 6
+        "R000" : 4
       },
       "lineNumbers" : [
         255
       ]
     },
     "org.activiti.bpmn.converter.BpmnXMLConverter.convertToBpmnModel:(Lorg/activiti/bpmn/converter/util/InputStreamProvider;ZZLjava/lang/String;)Lorg/activiti/bpmn/model/BpmnModel;" : {
-      "completeTestCount" : 6,
+      "completeTestCount" : 5,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 6
+        "R000" : 5
       },
       "lineNumbers" : [
         259,
@@ -2831,24 +2876,24 @@
       ]
     },
     "org.activiti.bpmn.converter.BpmnXMLConverter.convertToXML:(Lorg/activiti/bpmn/model/BpmnModel;)[B" : {
-      "completeTestCount" : 5,
+      "completeTestCount" : 9,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 5
+        "R000" : 9
       },
       "lineNumbers" : [
         515
       ]
     },
     "org.activiti.bpmn.converter.BpmnXMLConverter.convertToXML:(Lorg/activiti/bpmn/model/BpmnModel;Ljava/lang/String;)[B" : {
-      "completeTestCount" : 6,
+      "completeTestCount" : 7,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 6
+        "R000" : 7
       },
       "lineNumbers" : [
         521,
@@ -2886,13 +2931,10 @@
       ]
     },
     "org.activiti.bpmn.converter.BpmnXMLConverter.createSchema:()Ljavax/xml/validation/Schema;" : {
-      "completeTestCount" : 1,
+      "completeTestCount" : 0,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
-      "perMethodOutcome" : "R000",
-      "perTestOutcome" : {
-        "R000" : 1
-      },
+      "perMethodOutcome" : "R013",
       "lineNumbers" : [
         229,
         230,
@@ -2935,12 +2977,12 @@
       ]
     },
     "org.activiti.bpmn.converter.BpmnXMLConverter.createXML:(Lorg/activiti/bpmn/model/FlowElement;Lorg/activiti/bpmn/model/BpmnModel;Ljavax/xml/stream/XMLStreamWriter;)V" : {
-      "completeTestCount" : 34,
+      "completeTestCount" : 1,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 34
+        "R000" : 1
       },
       "lineNumbers" : [
         577,
@@ -2997,12 +3039,12 @@
       ]
     },
     "org.activiti.bpmn.converter.BpmnXMLConverter.getFlowNodeFromScope:(Ljava/lang/String;Lorg/activiti/bpmn/model/BaseElement;)Lorg/activiti/bpmn/model/FlowNode;" : {
-      "completeTestCount" : 7,
+      "completeTestCount" : 3,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 7
+        "R000" : 3
       },
       "lineNumbers" : [
         503,
@@ -3015,12 +3057,12 @@
       ]
     },
     "org.activiti.bpmn.converter.BpmnXMLConverter.processFlowElements:(Ljava/util/Collection;Lorg/activiti/bpmn/model/BaseElement;)V" : {
-      "completeTestCount" : 9,
+      "completeTestCount" : 1,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 9
+        "R000" : 1
       },
       "lineNumbers" : [
         471,
@@ -3079,13 +3121,10 @@
       ]
     },
     "org.activiti.bpmn.converter.BpmnXMLConverter.validateModel:(Ljavax/xml/stream/XMLStreamReader;)V" : {
-      "completeTestCount" : 1,
+      "completeTestCount" : 0,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
-      "perMethodOutcome" : "R000",
-      "perTestOutcome" : {
-        "R000" : 1
-      },
+      "perMethodOutcome" : "R013",
       "lineNumbers" : [
         222,
         224,
@@ -3094,12 +3133,12 @@
       ]
     },
     "org.activiti.bpmn.converter.BpmnXMLConverter.validateModel:(Lorg/activiti/bpmn/converter/util/InputStreamProvider;)V" : {
-      "completeTestCount" : 2,
+      "completeTestCount" : 1,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 2
+        "R000" : 1
       },
       "lineNumbers" : [
         215,
@@ -3164,12 +3203,12 @@
       ]
     },
     "org.activiti.bpmn.converter.BusinessRuleTaskXMLConverter.writeAdditionalAttributes:(Lorg/activiti/bpmn/model/BaseElement;Lorg/activiti/bpmn/model/BpmnModel;Ljavax/xml/stream/XMLStreamWriter;)V" : {
-      "completeTestCount" : 2,
+      "completeTestCount" : 3,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 2
+        "R000" : 3
       },
       "lineNumbers" : [
         59,
@@ -3614,12 +3653,12 @@
       ]
     },
     "org.activiti.bpmn.converter.DataStoreReferenceXMLConverter.writeAdditionalAttributes:(Lorg/activiti/bpmn/model/BaseElement;Lorg/activiti/bpmn/model/BpmnModel;Ljavax/xml/stream/XMLStreamWriter;)V" : {
-      "completeTestCount" : 1,
+      "completeTestCount" : 2,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 1
+        "R000" : 2
       },
       "lineNumbers" : [
         51,
@@ -3697,36 +3736,36 @@
       ]
     },
     "org.activiti.bpmn.converter.DelegatingXMLStreamWriter.getPrefix:(Ljava/lang/String;)Ljava/lang/String;" : {
-      "completeTestCount" : 2,
+      "completeTestCount" : 1,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 2
+        "R000" : 1
       },
       "lineNumbers" : [
         138
       ]
     },
     "org.activiti.bpmn.converter.DelegatingXMLStreamWriter.getProperty:(Ljava/lang/String;)Ljava/lang/Object;" : {
-      "completeTestCount" : 2,
+      "completeTestCount" : 1,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 2
+        "R000" : 1
       },
       "lineNumbers" : [
         158
       ]
     },
     "org.activiti.bpmn.converter.DelegatingXMLStreamWriter.setDefaultNamespace:(Ljava/lang/String;)V" : {
-      "completeTestCount" : 2,
+      "completeTestCount" : 1,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 2
+        "R000" : 1
       },
       "lineNumbers" : [
         146,
@@ -3773,12 +3812,12 @@
       ]
     },
     "org.activiti.bpmn.converter.DelegatingXMLStreamWriter.writeAttribute:(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V" : {
-      "completeTestCount" : 2,
+      "completeTestCount" : 1,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 2
+        "R000" : 1
       },
       "lineNumbers" : [
         82,
@@ -3799,12 +3838,12 @@
       ]
     },
     "org.activiti.bpmn.converter.DelegatingXMLStreamWriter.writeCData:(Ljava/lang/String;)V" : {
-      "completeTestCount" : 2,
+      "completeTestCount" : 1,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 2
+        "R000" : 1
       },
       "lineNumbers" : [
         106,
@@ -3838,12 +3877,12 @@
       ]
     },
     "org.activiti.bpmn.converter.DelegatingXMLStreamWriter.writeComment:(Ljava/lang/String;)V" : {
-      "completeTestCount" : 2,
+      "completeTestCount" : 1,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 2
+        "R000" : 1
       },
       "lineNumbers" : [
         94,
@@ -3851,12 +3890,12 @@
       ]
     },
     "org.activiti.bpmn.converter.DelegatingXMLStreamWriter.writeDTD:(Ljava/lang/String;)V" : {
-      "completeTestCount" : 2,
+      "completeTestCount" : 1,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 2
+        "R000" : 1
       },
       "lineNumbers" : [
         110,
@@ -3864,12 +3903,12 @@
       ]
     },
     "org.activiti.bpmn.converter.DelegatingXMLStreamWriter.writeDefaultNamespace:(Ljava/lang/String;)V" : {
-      "completeTestCount" : 2,
+      "completeTestCount" : 1,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 2
+        "R000" : 1
       },
       "lineNumbers" : [
         90,
@@ -3877,12 +3916,12 @@
       ]
     },
     "org.activiti.bpmn.converter.DelegatingXMLStreamWriter.writeEmptyElement:(Ljava/lang/String;)V" : {
-      "completeTestCount" : 2,
+      "completeTestCount" : 1,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 2
+        "R000" : 1
       },
       "lineNumbers" : [
         54,
@@ -3903,12 +3942,12 @@
       ]
     },
     "org.activiti.bpmn.converter.DelegatingXMLStreamWriter.writeEmptyElement:(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V" : {
-      "completeTestCount" : 2,
+      "completeTestCount" : 1,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 2
+        "R000" : 1
       },
       "lineNumbers" : [
         50,
@@ -3939,12 +3978,12 @@
       ]
     },
     "org.activiti.bpmn.converter.DelegatingXMLStreamWriter.writeEntityRef:(Ljava/lang/String;)V" : {
-      "completeTestCount" : 2,
+      "completeTestCount" : 1,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 2
+        "R000" : 1
       },
       "lineNumbers" : [
         114,
@@ -3965,12 +4004,12 @@
       ]
     },
     "org.activiti.bpmn.converter.DelegatingXMLStreamWriter.writeProcessingInstruction:(Ljava/lang/String;)V" : {
-      "completeTestCount" : 2,
+      "completeTestCount" : 1,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 2
+        "R000" : 1
       },
       "lineNumbers" : [
         98,
@@ -4004,12 +4043,12 @@
       ]
     },
     "org.activiti.bpmn.converter.DelegatingXMLStreamWriter.writeStartDocument:(Ljava/lang/String;)V" : {
-      "completeTestCount" : 2,
+      "completeTestCount" : 1,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 2
+        "R000" : 1
       },
       "lineNumbers" : [
         122,
@@ -4017,12 +4056,12 @@
       ]
     },
     "org.activiti.bpmn.converter.DelegatingXMLStreamWriter.writeStartDocument:(Ljava/lang/String;Ljava/lang/String;)V" : {
-      "completeTestCount" : 2,
+      "completeTestCount" : 1,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 2
+        "R000" : 1
       },
       "lineNumbers" : [
         126,
@@ -4358,8 +4397,13 @@
     "org.activiti.bpmn.converter.IndentingXMLStreamWriter.<clinit>:()V" : {
       "completeTestCount" : 0,
       "incompleteTestCount" : 0,
-      "perMethodTestability" : "T023",
-      "perMethodOutcome" : "T023"
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        28,
+        29,
+        30
+      ]
     },
     "org.activiti.bpmn.converter.IndentingXMLStreamWriter.<init>:(Ljavax/xml/stream/XMLStreamWriter;)V" : {
       "completeTestCount" : 1,
@@ -5144,12 +5188,12 @@
       ]
     },
     "org.activiti.bpmn.converter.SendTaskXMLConverter.parseOperationRef:(Ljava/lang/String;Lorg/activiti/bpmn/model/BpmnModel;)Ljava/lang/String;" : {
-      "completeTestCount" : 3,
+      "completeTestCount" : 2,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 3
+        "R000" : 2
       },
       "lineNumbers" : [
         81,
@@ -5255,12 +5299,12 @@
       ]
     },
     "org.activiti.bpmn.converter.SequenceFlowXMLConverter.writeAdditionalAttributes:(Lorg/activiti/bpmn/model/BaseElement;Lorg/activiti/bpmn/model/BpmnModel;Ljavax/xml/stream/XMLStreamWriter;)V" : {
-      "completeTestCount" : 1,
+      "completeTestCount" : 2,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 1
+        "R000" : 2
       },
       "lineNumbers" : [
         57,
@@ -5358,12 +5402,12 @@
       ]
     },
     "org.activiti.bpmn.converter.ServiceTaskXMLConverter.parseOperationRef:(Ljava/lang/String;Lorg/activiti/bpmn/model/BpmnModel;)Ljava/lang/String;" : {
-      "completeTestCount" : 4,
+      "completeTestCount" : 2,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 4
+        "R000" : 2
       },
       "lineNumbers" : [
         151,
@@ -5379,13 +5423,10 @@
       ]
     },
     "org.activiti.bpmn.converter.ServiceTaskXMLConverter.writeAdditionalAttributes:(Lorg/activiti/bpmn/model/BaseElement;Lorg/activiti/bpmn/model/BpmnModel;Ljavax/xml/stream/XMLStreamWriter;)V" : {
-      "completeTestCount" : 2,
+      "completeTestCount" : 0,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
-      "perMethodOutcome" : "R000",
-      "perTestOutcome" : {
-        "R000" : 2
-      },
+      "perMethodOutcome" : "R013",
       "lineNumbers" : [
         86,
         88,
@@ -5561,8 +5602,11 @@
     "org.activiti.bpmn.converter.SubprocessXMLConverter.<clinit>:()V" : {
       "completeTestCount" : 0,
       "incompleteTestCount" : 0,
-      "perMethodTestability" : "T023",
-      "perMethodOutcome" : "T023"
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        52
+      ]
     },
     "org.activiti.bpmn.converter.SubprocessXMLConverter.<init>:()V" : {
       "completeTestCount" : 1,
@@ -5577,12 +5621,12 @@
       ]
     },
     "org.activiti.bpmn.converter.SubprocessXMLConverter.convertToXML:(Lorg/activiti/bpmn/model/BpmnModel;Ljava/lang/String;)[B" : {
-      "completeTestCount" : 10,
+      "completeTestCount" : 7,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 10
+        "R000" : 7
       },
       "lineNumbers" : [
         58,
@@ -5624,12 +5668,12 @@
       ]
     },
     "org.activiti.bpmn.converter.SubprocessXMLConverter.parseSubModels:(Lorg/activiti/bpmn/model/BpmnModel;)Ljava/util/List;" : {
-      "completeTestCount" : 5,
+      "completeTestCount" : 4,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 5
+        "R000" : 4
       },
       "lineNumbers" : [
         119,
@@ -6074,8 +6118,11 @@
     "org.activiti.bpmn.converter.UserTaskXMLConverter.<clinit>:()V" : {
       "completeTestCount" : 0,
       "incompleteTestCount" : 0,
-      "perMethodTestability" : "T023",
-      "perMethodOutcome" : "T023"
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        49
+      ]
     },
     "org.activiti.bpmn.converter.UserTaskXMLConverter.<init>:()V" : {
       "completeTestCount" : 1,
@@ -6158,13 +6205,10 @@
       ]
     },
     "org.activiti.bpmn.converter.UserTaskXMLConverter.writeAdditionalAttributes:(Lorg/activiti/bpmn/model/BaseElement;Lorg/activiti/bpmn/model/BpmnModel;Ljavax/xml/stream/XMLStreamWriter;)V" : {
-      "completeTestCount" : 1,
+      "completeTestCount" : 0,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
-      "perMethodOutcome" : "R000",
-      "perTestOutcome" : {
-        "R000" : 1
-      },
+      "perMethodOutcome" : "R013",
       "lineNumbers" : [
         132,
         133,
@@ -6393,12 +6437,12 @@
       ]
     },
     "org.activiti.bpmn.converter.ValuedDataObjectXMLConverter.writeExtensionChildElements:(Lorg/activiti/bpmn/model/BaseElement;ZLjavax/xml/stream/XMLStreamWriter;)Z" : {
-      "completeTestCount" : 3,
+      "completeTestCount" : 4,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 3
+        "R000" : 4
       },
       "lineNumbers" : [
         133,
@@ -6422,8 +6466,11 @@
     "org.activiti.bpmn.converter.XMLStreamReaderUtil.<clinit>:()V" : {
       "completeTestCount" : 0,
       "incompleteTestCount" : 0,
-      "perMethodTestability" : "T023",
-      "perMethodOutcome" : "T023"
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        29
+      ]
     },
     "org.activiti.bpmn.converter.XMLStreamReaderUtil.<init>:()V" : {
       "completeTestCount" : 0,
@@ -6723,8 +6770,11 @@
     "org.activiti.bpmn.converter.child.BaseChildElementParser.<clinit>:()V" : {
       "completeTestCount" : 0,
       "incompleteTestCount" : 0,
-      "perMethodTestability" : "T023",
-      "perMethodOutcome" : "T023"
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        37
+      ]
     },
     "org.activiti.bpmn.converter.child.BaseChildElementParser.<init>:()V" : {
       "completeTestCount" : 0,
@@ -6912,8 +6962,11 @@
     "org.activiti.bpmn.converter.child.DataAssociationParser.<clinit>:()V" : {
       "completeTestCount" : 0,
       "incompleteTestCount" : 0,
-      "perMethodTestability" : "T023",
-      "perMethodOutcome" : "T023"
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        30
+      ]
     },
     "org.activiti.bpmn.converter.child.DataAssociationParser.<init>:()V" : {
       "completeTestCount" : 0,
@@ -7478,12 +7531,12 @@
       ]
     },
     "org.activiti.bpmn.converter.child.IOSpecificationParser.parseItemSubjectRef:(Ljava/lang/String;Lorg/activiti/bpmn/model/BpmnModel;)Ljava/lang/String;" : {
-      "completeTestCount" : 3,
+      "completeTestCount" : 2,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 3
+        "R000" : 2
       },
       "lineNumbers" : [
         93,
@@ -8368,12 +8421,12 @@
       ]
     },
     "org.activiti.bpmn.converter.export.ActivitiListenerExport.writeListeners:(Lorg/activiti/bpmn/model/BaseElement;ZLjavax/xml/stream/XMLStreamWriter;)Z" : {
-      "completeTestCount" : 6,
+      "completeTestCount" : 3,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 6
+        "R000" : 3
       },
       "lineNumbers" : [
         36,
@@ -8395,12 +8448,12 @@
       ]
     },
     "org.activiti.bpmn.converter.export.BPMNDIExport.writeBPMNDI:(Lorg/activiti/bpmn/model/BpmnModel;Ljavax/xml/stream/XMLStreamWriter;)V" : {
-      "completeTestCount" : 14,
+      "completeTestCount" : 8,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 14
+        "R000" : 8
       },
       "lineNumbers" : [
         34,
@@ -8477,12 +8530,15 @@
       ]
     },
     "org.activiti.bpmn.converter.export.CollaborationExport.writePools:(Lorg/activiti/bpmn/model/BpmnModel;Ljavax/xml/stream/XMLStreamWriter;)V" : {
-      "completeTestCount" : 3,
+      "completeTestCount" : 2,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 3
+        "R000" : 2
+      },
+      "warnings" : {
+        "W001" : 1
       },
       "lineNumbers" : [
         29,
@@ -8524,13 +8580,10 @@
       ]
     },
     "org.activiti.bpmn.converter.export.DataStoreExport.writeDataStores:(Lorg/activiti/bpmn/model/BpmnModel;Ljavax/xml/stream/XMLStreamWriter;)V" : {
-      "completeTestCount" : 3,
+      "completeTestCount" : 0,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
-      "perMethodOutcome" : "R000",
-      "perTestOutcome" : {
-        "R000" : 3
-      },
+      "perMethodOutcome" : "R013",
       "lineNumbers" : [
         29,
         30,
@@ -8550,8 +8603,12 @@
     "org.activiti.bpmn.converter.export.DefinitionsRootExport.<clinit>:()V" : {
       "completeTestCount" : 0,
       "incompleteTestCount" : 0,
-      "perMethodTestability" : "T023",
-      "perMethodOutcome" : "T023"
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        35,
+        37
+      ]
     },
     "org.activiti.bpmn.converter.export.DefinitionsRootExport.<init>:()V" : {
       "completeTestCount" : 0,
@@ -8563,12 +8620,15 @@
       ]
     },
     "org.activiti.bpmn.converter.export.DefinitionsRootExport.writeRootElement:(Lorg/activiti/bpmn/model/BpmnModel;Ljavax/xml/stream/XMLStreamWriter;Ljava/lang/String;)V" : {
-      "completeTestCount" : 11,
+      "completeTestCount" : 9,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 11
+        "R000" : 9
+      },
+      "warnings" : {
+        "W001" : 2
       },
       "lineNumbers" : [
         42,
@@ -8605,13 +8665,10 @@
       ]
     },
     "org.activiti.bpmn.converter.export.ErrorExport.writeError:(Lorg/activiti/bpmn/model/BpmnModel;Ljavax/xml/stream/XMLStreamWriter;)V" : {
-      "completeTestCount" : 1,
+      "completeTestCount" : 0,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
-      "perMethodOutcome" : "R000",
-      "perTestOutcome" : {
-        "R000" : 1
-      },
+      "perMethodOutcome" : "R013",
       "lineNumbers" : [
         28,
         29,
@@ -8703,13 +8760,10 @@
       ]
     },
     "org.activiti.bpmn.converter.export.LaneExport.writeLanes:(Lorg/activiti/bpmn/model/Process;Ljavax/xml/stream/XMLStreamWriter;)V" : {
-      "completeTestCount" : 10,
+      "completeTestCount" : 0,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
-      "perMethodOutcome" : "R000",
-      "perTestOutcome" : {
-        "R000" : 10
-      },
+      "perMethodOutcome" : "R013",
       "lineNumbers" : [
         29,
         30,
@@ -8743,10 +8797,13 @@
       ]
     },
     "org.activiti.bpmn.converter.export.MultiInstanceExport.writeMultiInstance:(Lorg/activiti/bpmn/model/Activity;Ljavax/xml/stream/XMLStreamWriter;)V" : {
-      "completeTestCount" : 0,
+      "completeTestCount" : 3,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
-      "perMethodOutcome" : "F009",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 3
+      },
       "lineNumbers" : [
         28,
         29,
@@ -8786,8 +8843,11 @@
     "org.activiti.bpmn.converter.export.ProcessExport.<clinit>:()V" : {
       "completeTestCount" : 0,
       "incompleteTestCount" : 0,
-      "perMethodTestability" : "T023",
-      "perMethodOutcome" : "T023"
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        34
+      ]
     },
     "org.activiti.bpmn.converter.export.ProcessExport.<init>:()V" : {
       "completeTestCount" : 0,
@@ -8799,12 +8859,15 @@
       ]
     },
     "org.activiti.bpmn.converter.export.ProcessExport.writeProcess:(Lorg/activiti/bpmn/model/Process;Ljavax/xml/stream/XMLStreamWriter;)V" : {
-      "completeTestCount" : 16,
+      "completeTestCount" : 13,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 16
+        "R000" : 13
+      },
+      "warnings" : {
+        "W001" : 4
       },
       "lineNumbers" : [
         41,
@@ -8839,12 +8902,12 @@
       ]
     },
     "org.activiti.bpmn.converter.export.SignalAndMessageDefinitionExport.writeSignalsAndMessages:(Lorg/activiti/bpmn/model/BpmnModel;Ljavax/xml/stream/XMLStreamWriter;)V" : {
-      "completeTestCount" : 16,
+      "completeTestCount" : 10,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 16
+        "R000" : 10
       },
       "lineNumbers" : [
         37,
@@ -9053,8 +9116,11 @@
     "org.activiti.bpmn.converter.parser.DefinitionsParser.<clinit>:()V" : {
       "completeTestCount" : 0,
       "incompleteTestCount" : 0,
-      "perMethodTestability" : "T023",
-      "perMethodOutcome" : "T023"
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        34
+      ]
     },
     "org.activiti.bpmn.converter.parser.DefinitionsParser.<init>:()V" : {
       "completeTestCount" : 0,
@@ -9157,8 +9223,11 @@
     "org.activiti.bpmn.converter.parser.InterfaceParser.<clinit>:()V" : {
       "completeTestCount" : 0,
       "incompleteTestCount" : 0,
-      "perMethodTestability" : "T023",
-      "perMethodOutcome" : "T023"
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        34
+      ]
     },
     "org.activiti.bpmn.converter.parser.InterfaceParser.<init>:()V" : {
       "completeTestCount" : 0,
@@ -9211,12 +9280,12 @@
       ]
     },
     "org.activiti.bpmn.converter.parser.InterfaceParser.parseMessageRef:(Ljava/lang/String;Lorg/activiti/bpmn/model/BpmnModel;)Ljava/lang/String;" : {
-      "completeTestCount" : 3,
+      "completeTestCount" : 2,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 3
+        "R000" : 2
       },
       "lineNumbers" : [
         85,
@@ -9298,8 +9367,11 @@
     "org.activiti.bpmn.converter.parser.MessageFlowParser.<clinit>:()V" : {
       "completeTestCount" : 0,
       "incompleteTestCount" : 0,
-      "perMethodTestability" : "T023",
-      "perMethodOutcome" : "T023"
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        32
+      ]
     },
     "org.activiti.bpmn.converter.parser.MessageFlowParser.<init>:()V" : {
       "completeTestCount" : 0,
@@ -9363,12 +9435,12 @@
       ]
     },
     "org.activiti.bpmn.converter.parser.MessageParser.parseItemRef:(Ljava/lang/String;Lorg/activiti/bpmn/model/BpmnModel;)Ljava/lang/String;" : {
-      "completeTestCount" : 3,
+      "completeTestCount" : 2,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 3
+        "R000" : 2
       },
       "lineNumbers" : [
         44,
@@ -9387,8 +9459,11 @@
     "org.activiti.bpmn.converter.parser.ParticipantParser.<clinit>:()V" : {
       "completeTestCount" : 0,
       "incompleteTestCount" : 0,
-      "perMethodTestability" : "T023",
-      "perMethodOutcome" : "T023"
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        33
+      ]
     },
     "org.activiti.bpmn.converter.parser.ParticipantParser.<init>:()V" : {
       "completeTestCount" : 0,
@@ -9623,8 +9698,37 @@
     "org.activiti.bpmn.converter.util.BpmnXMLUtil.<clinit>:()V" : {
       "completeTestCount" : 0,
       "incompleteTestCount" : 0,
-      "perMethodTestability" : "T023",
-      "perMethodOutcome" : "T023"
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        40,
+        43,
+        44,
+        45,
+        46,
+        47,
+        48,
+        49,
+        50,
+        51,
+        52,
+        53,
+        54,
+        55,
+        56,
+        57,
+        58,
+        59,
+        60,
+        61,
+        62,
+        63,
+        64,
+        65,
+        66,
+        67,
+        68
+      ]
     },
     "org.activiti.bpmn.converter.util.BpmnXMLUtil.<init>:()V" : {
       "completeTestCount" : 0,
@@ -9865,12 +9969,12 @@
       ]
     },
     "org.activiti.bpmn.converter.util.BpmnXMLUtil.writeCustomAttributes:(Ljava/util/Collection;Ljavax/xml/stream/XMLStreamWriter;Ljava/util/Map;[Ljava/util/List;)V" : {
-      "completeTestCount" : 16,
+      "completeTestCount" : 1,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 16
+        "R000" : 1
       },
       "lineNumbers" : [
         358,
@@ -9891,19 +9995,6 @@
       ]
     },
     "org.activiti.bpmn.converter.util.BpmnXMLUtil.writeCustomAttributes:(Ljava/util/Collection;Ljavax/xml/stream/XMLStreamWriter;[Ljava/util/List;)V" : {
-      "completeTestCount" : 13,
-      "incompleteTestCount" : 0,
-      "perMethodTestability" : "T000",
-      "perMethodOutcome" : "R000",
-      "perTestOutcome" : {
-        "R000" : 13
-      },
-      "lineNumbers" : [
-        345,
-        346
-      ]
-    },
-    "org.activiti.bpmn.converter.util.BpmnXMLUtil.writeDefaultAttribute:(Ljava/lang/String;Ljava/lang/String;Ljavax/xml/stream/XMLStreamWriter;)V" : {
       "completeTestCount" : 1,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
@@ -9912,18 +10003,34 @@
         "R000" : 1
       },
       "lineNumbers" : [
+        345,
+        346
+      ]
+    },
+    "org.activiti.bpmn.converter.util.BpmnXMLUtil.writeDefaultAttribute:(Ljava/lang/String;Ljava/lang/String;Ljavax/xml/stream/XMLStreamWriter;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "W001",
+      "warnings" : {
+        "W001" : 1
+      },
+      "lineNumbers" : [
         175,
         176,
         178
       ]
     },
     "org.activiti.bpmn.converter.util.BpmnXMLUtil.writeExtensionElement:(Lorg/activiti/bpmn/model/ExtensionElement;Ljava/util/Map;Ljavax/xml/stream/XMLStreamWriter;)V" : {
-      "completeTestCount" : 16,
+      "completeTestCount" : 7,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 16
+        "R000" : 7
+      },
+      "warnings" : {
+        "W001" : 5
       },
       "lineNumbers" : [
         211,
@@ -9965,12 +10072,12 @@
       ]
     },
     "org.activiti.bpmn.converter.util.BpmnXMLUtil.writeExtensionElements:(Lorg/activiti/bpmn/model/BaseElement;ZLjava/util/Map;Ljavax/xml/stream/XMLStreamWriter;)Z" : {
-      "completeTestCount" : 4,
+      "completeTestCount" : 2,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 4
+        "R000" : 2
       },
       "lineNumbers" : [
         191,
@@ -9988,25 +10095,22 @@
       ]
     },
     "org.activiti.bpmn.converter.util.BpmnXMLUtil.writeExtensionElements:(Lorg/activiti/bpmn/model/BaseElement;ZLjavax/xml/stream/XMLStreamWriter;)Z" : {
-      "completeTestCount" : 4,
+      "completeTestCount" : 2,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 4
+        "R000" : 2
       },
       "lineNumbers" : [
         187
       ]
     },
     "org.activiti.bpmn.converter.util.BpmnXMLUtil.writeIncomingAndOutgoingFlowElement:(Lorg/activiti/bpmn/model/FlowNode;Ljavax/xml/stream/XMLStreamWriter;)V" : {
-      "completeTestCount" : 1,
+      "completeTestCount" : 0,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
-      "perMethodOutcome" : "R000",
-      "perTestOutcome" : {
-        "R000" : 1
-      },
+      "perMethodOutcome" : "R013",
       "lineNumbers" : [
         398,
         399,
@@ -10050,12 +10154,12 @@
       ]
     },
     "org.activiti.bpmn.converter.util.BpmnXMLUtil.writeQualifiedAttribute:(Ljava/lang/String;Ljava/lang/String;Ljavax/xml/stream/XMLStreamWriter;)V" : {
-      "completeTestCount" : 1,
+      "completeTestCount" : 0,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
-      "perMethodOutcome" : "R000",
-      "perTestOutcome" : {
-        "R000" : 1
+      "perMethodOutcome" : "W001",
+      "warnings" : {
+        "W001" : 1
       },
       "lineNumbers" : [
         181,
@@ -10131,6 +10235,5 @@
         31
       ]
     }
-  },
-  "validationMetrics" : { }
+  }
 }

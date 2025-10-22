@@ -20,15 +20,19 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertThrows;
 import static org.junit.Assert.assertTrue;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.ArgumentMatchers.isA;
+import static org.mockito.Mockito.anyBoolean;
+import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import ch.qos.logback.core.util.COWArrayList;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import groovy.lang.GroovyClassLoader;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import javax.script.Bindings;
 import javax.script.ScriptEngine;
@@ -45,16 +49,12 @@ import org.codehaus.groovy.jsr223.GroovyScriptEngineImpl;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import org.mockito.Mockito;
-import org.springframework.test.annotation.DirtiesContext;
-import org.springframework.test.annotation.DirtiesContext.ClassMode;
 
-@DirtiesContext(classMode = ClassMode.AFTER_EACH_TEST_METHOD)
 public class ScriptingEnginesDiffblueTest {
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>{@link ScriptingEngines#ScriptingEngines(ScriptEngineManager)}
    *   <li>{@link ScriptingEngines#setCacheScriptingEngines(boolean)}
@@ -64,25 +64,21 @@ public class ScriptingEnginesDiffblueTest {
    * </ul>
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void ScriptingEngines.<init>(ScriptEngineManager)",
-    "ScriptBindingsFactory ScriptingEngines.getScriptBindingsFactory()",
-    "boolean ScriptingEngines.isCacheScriptingEngines()",
-    "void ScriptingEngines.setCacheScriptingEngines(boolean)",
-    "void ScriptingEngines.setScriptBindingsFactory(ScriptBindingsFactory)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void ScriptingEngines.<init>(ScriptEngineManager)",
+      "ScriptBindingsFactory ScriptingEngines.getScriptBindingsFactory()",
+      "boolean ScriptingEngines.isCacheScriptingEngines()", "void ScriptingEngines.setCacheScriptingEngines(boolean)",
+      "void ScriptingEngines.setScriptBindingsFactory(ScriptBindingsFactory)"})
   public void testGettersAndSetters() {
     // Arrange and Act
     ScriptingEngines actualScriptingEngines = new ScriptingEngines(new ScriptEngineManager());
     actualScriptingEngines.setCacheScriptingEngines(true);
     JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();
-    ScriptBindingsFactory scriptBindingsFactory =
-        new ScriptBindingsFactory(processEngineConfiguration, new ArrayList<>());
+    ScriptBindingsFactory scriptBindingsFactory = new ScriptBindingsFactory(processEngineConfiguration,
+        new ArrayList<>());
+
     actualScriptingEngines.setScriptBindingsFactory(scriptBindingsFactory);
-    ScriptBindingsFactory actualScriptBindingsFactory =
-        actualScriptingEngines.getScriptBindingsFactory();
+    ScriptBindingsFactory actualScriptBindingsFactory = actualScriptingEngines.getScriptBindingsFactory();
     boolean actualIsCacheScriptingEnginesResult = actualScriptingEngines.isCacheScriptingEngines();
 
     // Assert
@@ -93,18 +89,17 @@ public class ScriptingEnginesDiffblueTest {
 
   /**
    * Test {@link ScriptingEngines#ScriptingEngines(ScriptBindingsFactory)}.
-   *
-   * <p>Method under test: {@link ScriptingEngines#ScriptingEngines(ScriptBindingsFactory)}
+   * <p>
+   * Method under test: {@link ScriptingEngines#ScriptingEngines(ScriptBindingsFactory)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void ScriptingEngines.<init>(ScriptBindingsFactory)"})
   public void testNewScriptingEngines() {
     // Arrange
     JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();
-    ScriptBindingsFactory scriptBindingsFactory =
-        new ScriptBindingsFactory(processEngineConfiguration, new ArrayList<>());
+    ScriptBindingsFactory scriptBindingsFactory = new ScriptBindingsFactory(processEngineConfiguration,
+        new ArrayList<>());
 
     // Act
     ScriptingEngines actualScriptingEngines = new ScriptingEngines(scriptBindingsFactory);
@@ -117,95 +112,58 @@ public class ScriptingEnginesDiffblueTest {
 
   /**
    * Test {@link ScriptingEngines#addScriptEngineFactory(ScriptEngineFactory)}.
-   *
-   * <p>Method under test: {@link ScriptingEngines#addScriptEngineFactory(ScriptEngineFactory)}
+   * <p>
+   * Method under test: {@link ScriptingEngines#addScriptEngineFactory(ScriptEngineFactory)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "ScriptingEngines ScriptingEngines.addScriptEngineFactory(ScriptEngineFactory)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"ScriptingEngines ScriptingEngines.addScriptEngineFactory(ScriptEngineFactory)"})
   public void testAddScriptEngineFactory() {
     // Arrange
     ScriptingEngines scriptingEngines = new ScriptingEngines(new ScriptEngineManager());
 
-    // Act
-    ScriptingEngines actualAddScriptEngineFactoryResult =
-        scriptingEngines.addScriptEngineFactory(new JuelScriptEngineFactory());
-
-    // Assert
-    assertSame(scriptingEngines, actualAddScriptEngineFactoryResult);
+    // Act and Assert
+    assertSame(scriptingEngines, scriptingEngines.addScriptEngineFactory(new JuelScriptEngineFactory()));
   }
 
   /**
-   * Test {@link ScriptingEngines#evaluate(String, String, Bindings)} with {@code script}, {@code
-   * language}, {@code bindings}.
-   *
-   * <p>Method under test: {@link ScriptingEngines#evaluate(String, String, Bindings)}
+   * Test {@link ScriptingEngines#setScriptEngineFactories(List)}.
+   * <ul>
+   *   <li>Then throw {@link ActivitiException}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link ScriptingEngines#setScriptEngineFactories(List)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void ScriptingEngines.setScriptEngineFactories(List)"})
+  public void testSetScriptEngineFactories_thenThrowActivitiException() {
+    // Arrange
+    ScriptingEngines scriptingEngines = new ScriptingEngines(new ScriptEngineManager());
+    COWArrayList<ScriptEngineFactory> scriptEngineFactories = mock(COWArrayList.class);
+    when(scriptEngineFactories.iterator()).thenThrow(new ActivitiException("An error occurred"));
+
+    // Act and Assert
+    assertThrows(ActivitiException.class, () -> scriptingEngines.setScriptEngineFactories(scriptEngineFactories));
+    verify(scriptEngineFactories).iterator();
+  }
+
+  /**
+   * Test {@link ScriptingEngines#evaluate(String, String, Bindings)} with {@code script}, {@code language}, {@code bindings}.
+   * <p>
+   * Method under test: {@link ScriptingEngines#evaluate(String, String, Bindings)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"java.lang.Object ScriptingEngines.evaluate(String, String, Bindings)"})
   public void testEvaluateWithScriptLanguageBindings() {
     // Arrange
-    ScriptingEngines scriptingEngines = new ScriptingEngines(new ScriptEngineManager());
-
-    // Act and Assert
-    assertThrows(
-        ActivitiException.class,
-        () -> scriptingEngines.evaluate("Script", "en", new SimpleBindings()));
-  }
-
-  /**
-   * Test {@link ScriptingEngines#evaluate(String, String, Bindings)} with {@code script}, {@code
-   * language}, {@code bindings}.
-   *
-   * <p>Method under test: {@link ScriptingEngines#evaluate(String, String, Bindings)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"java.lang.Object ScriptingEngines.evaluate(String, String, Bindings)"})
-  public void testEvaluateWithScriptLanguageBindings2() {
-    // Arrange
-    ScriptingEngines scriptingEngines = new ScriptingEngines(new ScriptEngineManager());
-    scriptingEngines.setCacheScriptingEngines(false);
-
-    // Act and Assert
-    assertThrows(
-        ActivitiException.class,
-        () -> scriptingEngines.evaluate("Script", "en", new SimpleBindings()));
-  }
-
-  /**
-   * Test {@link ScriptingEngines#evaluate(String, String, VariableScope)} with {@code script},
-   * {@code language}, {@code variableScope}.
-   *
-   * <p>Method under test: {@link ScriptingEngines#evaluate(String, String, VariableScope)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"java.lang.Object ScriptingEngines.evaluate(String, String, VariableScope)"})
-  public void testEvaluateWithScriptLanguageVariableScope() {
-    // Arrange
-    JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();
-    ScriptBindingsFactory scriptBindingsFactory =
-        new ScriptBindingsFactory(processEngineConfiguration, new ArrayList<>());
-    ScriptingEngines scriptingEngines = new ScriptingEngines(scriptBindingsFactory);
+    ScriptingEngines scriptingEngines = new ScriptingEngines(new ScriptEngineManager(new GroovyClassLoader()));
 
     // Act
-    scriptingEngines.evaluate(
-        "Script",
-        ScriptingEngines.GROOVY_SCRIPTING_LANGUAGE,
-        NoExecutionVariableScope.getSharedInstance());
+    scriptingEngines.evaluate("Script", ScriptingEngines.GROOVY_SCRIPTING_LANGUAGE, new SimpleBindings());
 
     // Assert
-    ProcessEngineConfigurationImpl processEngineConfigurationImpl =
-        scriptingEngines.getScriptBindingsFactory().processEngineConfiguration;
-    assertTrue(processEngineConfigurationImpl instanceof JtaProcessEngineConfiguration);
     Map<String, ScriptEngine> stringScriptEngineMap = scriptingEngines.cachedEngines;
     assertEquals(1, stringScriptEngineMap.size());
     ScriptEngine getResult = stringScriptEngineMap.get(ScriptingEngines.GROOVY_SCRIPTING_LANGUAGE);
@@ -221,206 +179,142 @@ public class ScriptingEnginesDiffblueTest {
     assertEquals(1, factory.getExtensions().size());
     assertEquals(1, factory.getMimeTypes().size());
     assertEquals(2, factory.getNames().size());
-    assertTrue(processEngineConfigurationImpl.getWsOverridenEndpointAddresses().isEmpty());
   }
 
   /**
-   * Test {@link ScriptingEngines#evaluate(String, String, VariableScope, boolean)} with {@code
-   * script}, {@code language}, {@code variableScope}, {@code storeScriptVariables}.
-   *
-   * <p>Method under test: {@link ScriptingEngines#evaluate(String, String, VariableScope, boolean)}
+   * Test {@link ScriptingEngines#evaluate(String, String, Bindings)} with {@code script}, {@code language}, {@code bindings}.
+   * <ul>
+   *   <li>Then throw {@link ActivitiException}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link ScriptingEngines#evaluate(String, String, Bindings)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "java.lang.Object ScriptingEngines.evaluate(String, String, VariableScope, boolean)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"java.lang.Object ScriptingEngines.evaluate(String, String, Bindings)"})
+  public void testEvaluateWithScriptLanguageBindings_thenThrowActivitiException() {
+    // Arrange
+    ScriptingEngines scriptingEngines = new ScriptingEngines(new ScriptEngineManager());
+
+    // Act and Assert
+    assertThrows(ActivitiException.class, () -> scriptingEngines.evaluate("Script", "en", new SimpleBindings()));
+  }
+
+  /**
+   * Test {@link ScriptingEngines#evaluate(String, String, VariableScope, boolean)} with {@code script}, {@code language}, {@code variableScope}, {@code storeScriptVariables}.
+   * <p>
+   * Method under test: {@link ScriptingEngines#evaluate(String, String, VariableScope, boolean)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"java.lang.Object ScriptingEngines.evaluate(String, String, VariableScope, boolean)"})
   public void testEvaluateWithScriptLanguageVariableScopeStoreScriptVariables() {
     // Arrange
     JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();
-    ScriptBindingsFactory scriptBindingsFactory =
-        new ScriptBindingsFactory(processEngineConfiguration, new ArrayList<>());
+    ScriptingEngines scriptingEngines = new ScriptingEngines(
+        new ScriptBindingsFactory(processEngineConfiguration, new ArrayList<>()));
 
     // Act and Assert
-    assertThrows(
-        ActivitiException.class,
-        () ->
-            new ScriptingEngines(scriptBindingsFactory)
-                .evaluate("Script", "en", NoExecutionVariableScope.getSharedInstance(), true));
+    assertThrows(ActivitiException.class,
+        () -> scriptingEngines.evaluate("Script", "en", NoExecutionVariableScope.getSharedInstance(), true));
   }
 
   /**
-   * Test {@link ScriptingEngines#evaluate(String, String, VariableScope, boolean)} with {@code
-   * script}, {@code language}, {@code variableScope}, {@code storeScriptVariables}.
-   *
-   * <p>Method under test: {@link ScriptingEngines#evaluate(String, String, VariableScope, boolean)}
+   * Test {@link ScriptingEngines#evaluate(String, String, VariableScope, boolean)} with {@code script}, {@code language}, {@code variableScope}, {@code storeScriptVariables}.
+   * <p>
+   * Method under test: {@link ScriptingEngines#evaluate(String, String, VariableScope, boolean)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "java.lang.Object ScriptingEngines.evaluate(String, String, VariableScope, boolean)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"java.lang.Object ScriptingEngines.evaluate(String, String, VariableScope, boolean)"})
   public void testEvaluateWithScriptLanguageVariableScopeStoreScriptVariables2() {
     // Arrange
     ResolverFactory resolverFactory = mock(ResolverFactory.class);
-    when(resolverFactory.createResolver(
-            Mockito.<ProcessEngineConfigurationImpl>any(), Mockito.<VariableScope>any()))
+    when(resolverFactory.createResolver(Mockito.<ProcessEngineConfigurationImpl>any(), Mockito.<VariableScope>any()))
         .thenReturn(new BeansResolverFactory());
 
     ArrayList<ResolverFactory> resolverFactories = new ArrayList<>();
     resolverFactories.add(resolverFactory);
-    ScriptBindingsFactory scriptBindingsFactory =
-        new ScriptBindingsFactory(new JtaProcessEngineConfiguration(), resolverFactories);
+    ScriptingEngines scriptingEngines = new ScriptingEngines(
+        new ScriptBindingsFactory(new JtaProcessEngineConfiguration(), resolverFactories));
 
     // Act and Assert
-    assertThrows(
-        ActivitiException.class,
-        () ->
-            new ScriptingEngines(scriptBindingsFactory)
-                .evaluate("Script", "en", NoExecutionVariableScope.getSharedInstance(), true));
-    verify(resolverFactory)
-        .createResolver(isA(ProcessEngineConfigurationImpl.class), isA(VariableScope.class));
+    assertThrows(ActivitiException.class,
+        () -> scriptingEngines.evaluate("Script", "en", NoExecutionVariableScope.getSharedInstance(), true));
+    verify(resolverFactory).createResolver(isA(ProcessEngineConfigurationImpl.class), isA(VariableScope.class));
   }
 
   /**
-   * Test {@link ScriptingEngines#evaluate(String, String, VariableScope, boolean)} with {@code
-   * script}, {@code language}, {@code variableScope}, {@code storeScriptVariables}.
-   *
-   * <p>Method under test: {@link ScriptingEngines#evaluate(String, String, VariableScope, boolean)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "java.lang.Object ScriptingEngines.evaluate(String, String, VariableScope, boolean)"
-  })
-  public void testEvaluateWithScriptLanguageVariableScopeStoreScriptVariables3() {
-    // Arrange
-    JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();
-    ScriptBindingsFactory scriptBindingsFactory =
-        new ScriptBindingsFactory(processEngineConfiguration, new ArrayList<>());
-    ScriptingEngines scriptingEngines = new ScriptingEngines(scriptBindingsFactory);
-
-    // Act
-    scriptingEngines.evaluate(
-        "Script",
-        ScriptingEngines.GROOVY_SCRIPTING_LANGUAGE,
-        NoExecutionVariableScope.getSharedInstance(),
-        true);
-
-    // Assert
-    ProcessEngineConfigurationImpl processEngineConfigurationImpl =
-        scriptingEngines.getScriptBindingsFactory().processEngineConfiguration;
-    assertTrue(processEngineConfigurationImpl instanceof JtaProcessEngineConfiguration);
-    Map<String, ScriptEngine> stringScriptEngineMap = scriptingEngines.cachedEngines;
-    assertEquals(1, stringScriptEngineMap.size());
-    ScriptEngine getResult = stringScriptEngineMap.get(ScriptingEngines.GROOVY_SCRIPTING_LANGUAGE);
-    ScriptEngineFactory factory = getResult.getFactory();
-    assertTrue(factory instanceof GroovyScriptEngineFactory);
-    assertTrue(getResult instanceof GroovyScriptEngineImpl);
-    assertTrue(factory.getScriptEngine() instanceof GroovyScriptEngineImpl);
-    assertEquals("2.0", factory.getEngineVersion());
-    assertEquals("3.0.19", factory.getLanguageVersion());
-    assertEquals("Groovy Scripting Engine", factory.getEngineName());
-    assertEquals("Groovy", factory.getLanguageName());
-    assertNotNull(((GroovyScriptEngineImpl) getResult).getClassLoader());
-    assertEquals(1, factory.getExtensions().size());
-    assertEquals(1, factory.getMimeTypes().size());
-    assertEquals(2, factory.getNames().size());
-    assertTrue(processEngineConfigurationImpl.getWsOverridenEndpointAddresses().isEmpty());
-  }
-
-  /**
-   * Test {@link ScriptingEngines#evaluate(String, String, VariableScope)} with {@code script},
-   * {@code language}, {@code variableScope}.
-   *
+   * Test {@link ScriptingEngines#evaluate(String, String, VariableScope)} with {@code script}, {@code language}, {@code variableScope}.
    * <ul>
-   *   <li>Then calls {@link ResolverFactory#createResolver(ProcessEngineConfigurationImpl,
-   *       VariableScope)}.
+   *   <li>Then calls {@link ResolverFactory#createResolver(ProcessEngineConfigurationImpl, VariableScope)}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ScriptingEngines#evaluate(String, String, VariableScope)}
+   * <p>
+   * Method under test: {@link ScriptingEngines#evaluate(String, String, VariableScope)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"java.lang.Object ScriptingEngines.evaluate(String, String, VariableScope)"})
   public void testEvaluateWithScriptLanguageVariableScope_thenCallsCreateResolver() {
     // Arrange
     ResolverFactory resolverFactory = mock(ResolverFactory.class);
-    when(resolverFactory.createResolver(
-            Mockito.<ProcessEngineConfigurationImpl>any(), Mockito.<VariableScope>any()))
+    when(resolverFactory.createResolver(Mockito.<ProcessEngineConfigurationImpl>any(), Mockito.<VariableScope>any()))
         .thenReturn(new BeansResolverFactory());
 
     ArrayList<ResolverFactory> resolverFactories = new ArrayList<>();
     resolverFactories.add(resolverFactory);
-    ScriptBindingsFactory scriptBindingsFactory =
-        new ScriptBindingsFactory(new JtaProcessEngineConfiguration(), resolverFactories);
+    ScriptingEngines scriptingEngines = new ScriptingEngines(
+        new ScriptBindingsFactory(new JtaProcessEngineConfiguration(), resolverFactories));
 
     // Act and Assert
-    assertThrows(
-        ActivitiException.class,
-        () ->
-            new ScriptingEngines(scriptBindingsFactory)
-                .evaluate("Script", "en", NoExecutionVariableScope.getSharedInstance()));
-    verify(resolverFactory)
-        .createResolver(isA(ProcessEngineConfigurationImpl.class), isA(VariableScope.class));
+    assertThrows(ActivitiException.class,
+        () -> scriptingEngines.evaluate("Script", "en", NoExecutionVariableScope.getSharedInstance()));
+    verify(resolverFactory).createResolver(isA(ProcessEngineConfigurationImpl.class), isA(VariableScope.class));
   }
 
   /**
-   * Test {@link ScriptingEngines#evaluate(String, String, VariableScope)} with {@code script},
-   * {@code language}, {@code variableScope}.
-   *
+   * Test {@link ScriptingEngines#evaluate(String, String, VariableScope)} with {@code script}, {@code language}, {@code variableScope}.
    * <ul>
-   *   <li>Then throw {@link ActivitiException}.
+   *   <li>Then throw {@link ActivitiException}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ScriptingEngines#evaluate(String, String, VariableScope)}
+   * <p>
+   * Method under test: {@link ScriptingEngines#evaluate(String, String, VariableScope)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"java.lang.Object ScriptingEngines.evaluate(String, String, VariableScope)"})
   public void testEvaluateWithScriptLanguageVariableScope_thenThrowActivitiException() {
     // Arrange
     JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();
-    ScriptBindingsFactory scriptBindingsFactory =
-        new ScriptBindingsFactory(processEngineConfiguration, new ArrayList<>());
+    ScriptingEngines scriptingEngines = new ScriptingEngines(
+        new ScriptBindingsFactory(processEngineConfiguration, new ArrayList<>()));
 
     // Act and Assert
-    assertThrows(
-        ActivitiException.class,
-        () ->
-            new ScriptingEngines(scriptBindingsFactory)
-                .evaluate("Script", "en", NoExecutionVariableScope.getSharedInstance()));
+    assertThrows(ActivitiException.class,
+        () -> scriptingEngines.evaluate("Script", "en", NoExecutionVariableScope.getSharedInstance()));
   }
 
   /**
    * Test {@link ScriptingEngines#getEngineByName(String)}.
-   *
-   * <p>Method under test: {@link ScriptingEngines#getEngineByName(String)}
+   * <p>
+   * Method under test: {@link ScriptingEngines#getEngineByName(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"ScriptEngine ScriptingEngines.getEngineByName(String)"})
   public void testGetEngineByName() {
     // Arrange, Act and Assert
-    assertThrows(
-        ActivitiException.class,
-        () -> new ScriptingEngines(new ScriptEngineManager()).getEngineByName("en"));
+    assertThrows(ActivitiException.class,
+        () -> (new ScriptingEngines(new ScriptEngineManager())).getEngineByName("en"));
   }
 
   /**
    * Test {@link ScriptingEngines#getEngineByName(String)}.
-   *
-   * <p>Method under test: {@link ScriptingEngines#getEngineByName(String)}
+   * <p>
+   * Method under test: {@link ScriptingEngines#getEngineByName(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"ScriptEngine ScriptingEngines.getEngineByName(String)"})
   public void testGetEngineByName2() {
     // Arrange
@@ -433,25 +327,21 @@ public class ScriptingEnginesDiffblueTest {
 
   /**
    * Test {@link ScriptingEngines#getEngineByName(String)}.
-   *
    * <ul>
-   *   <li>Then Factory return {@link GroovyScriptEngineFactory}.
+   *   <li>Then Factory return {@link GroovyScriptEngineFactory}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ScriptingEngines#getEngineByName(String)}
+   * <p>
+   * Method under test: {@link ScriptingEngines#getEngineByName(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"ScriptEngine ScriptingEngines.getEngineByName(String)"})
   public void testGetEngineByName_thenFactoryReturnGroovyScriptEngineFactory() {
     // Arrange
-    ScriptingEngines scriptingEngines =
-        new ScriptingEngines(new ScriptEngineManager(new GroovyClassLoader()));
+    ScriptingEngines scriptingEngines = new ScriptingEngines(new ScriptEngineManager(new GroovyClassLoader()));
 
     // Act
-    ScriptEngine actualEngineByName =
-        scriptingEngines.getEngineByName(ScriptingEngines.GROOVY_SCRIPTING_LANGUAGE);
+    ScriptEngine actualEngineByName = scriptingEngines.getEngineByName(ScriptingEngines.GROOVY_SCRIPTING_LANGUAGE);
 
     // Assert
     ScriptEngineFactory factory = actualEngineByName.getFactory();
@@ -469,5 +359,74 @@ public class ScriptingEnginesDiffblueTest {
     assertEquals(1, stringScriptEngineMap.size());
     assertEquals(2, factory.getNames().size());
     assertTrue(stringScriptEngineMap.containsKey(ScriptingEngines.GROOVY_SCRIPTING_LANGUAGE));
+  }
+
+  /**
+   * Test {@link ScriptingEngines#createBindings(VariableScope, boolean)} with {@code variableScope}, {@code storeScriptVariables}.
+   * <ul>
+   *   <li>Then return {@link SimpleBindings#SimpleBindings()}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link ScriptingEngines#createBindings(VariableScope, boolean)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Bindings ScriptingEngines.createBindings(VariableScope, boolean)"})
+  public void testCreateBindingsWithVariableScopeStoreScriptVariables_thenReturnSimpleBindings() {
+    // Arrange
+    ArrayList<ResolverFactory> resolverFactories = new ArrayList<>();
+    resolverFactories.add(mock(ResolverFactory.class));
+    ScriptBindingsFactory scriptBindingsFactory = mock(ScriptBindingsFactory.class);
+    SimpleBindings simpleBindings = new SimpleBindings();
+    when(scriptBindingsFactory.createBindings(Mockito.<VariableScope>any(), anyBoolean())).thenReturn(simpleBindings);
+    doNothing().when(scriptBindingsFactory).setResolverFactories(Mockito.<List<ResolverFactory>>any());
+    scriptBindingsFactory.setResolverFactories(resolverFactories);
+
+    ScriptingEngines scriptingEngines = new ScriptingEngines(new ScriptEngineManager());
+    scriptingEngines.setScriptBindingsFactory(scriptBindingsFactory);
+
+    // Act
+    Bindings actualCreateBindingsResult = scriptingEngines.createBindings(NoExecutionVariableScope.getSharedInstance(),
+        true);
+
+    // Assert
+    verify(scriptBindingsFactory).createBindings(isA(VariableScope.class), eq(true));
+    verify(scriptBindingsFactory).setResolverFactories(isA(List.class));
+    assertTrue(actualCreateBindingsResult.isEmpty());
+    assertSame(simpleBindings, actualCreateBindingsResult);
+  }
+
+  /**
+   * Test {@link ScriptingEngines#createBindings(VariableScope)} with {@code variableScope}.
+   * <ul>
+   *   <li>Then return {@link SimpleBindings#SimpleBindings()}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link ScriptingEngines#createBindings(VariableScope)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Bindings ScriptingEngines.createBindings(VariableScope)"})
+  public void testCreateBindingsWithVariableScope_thenReturnSimpleBindings() {
+    // Arrange
+    ArrayList<ResolverFactory> resolverFactories = new ArrayList<>();
+    resolverFactories.add(mock(ResolverFactory.class));
+    ScriptBindingsFactory scriptBindingsFactory = mock(ScriptBindingsFactory.class);
+    SimpleBindings simpleBindings = new SimpleBindings();
+    when(scriptBindingsFactory.createBindings(Mockito.<VariableScope>any())).thenReturn(simpleBindings);
+    doNothing().when(scriptBindingsFactory).setResolverFactories(Mockito.<List<ResolverFactory>>any());
+    scriptBindingsFactory.setResolverFactories(resolverFactories);
+
+    ScriptingEngines scriptingEngines = new ScriptingEngines(new ScriptEngineManager());
+    scriptingEngines.setScriptBindingsFactory(scriptBindingsFactory);
+
+    // Act
+    Bindings actualCreateBindingsResult = scriptingEngines.createBindings(NoExecutionVariableScope.getSharedInstance());
+
+    // Assert
+    verify(scriptBindingsFactory).createBindings(isA(VariableScope.class));
+    verify(scriptBindingsFactory).setResolverFactories(isA(List.class));
+    assertTrue(actualCreateBindingsResult.isEmpty());
+    assertSame(simpleBindings, actualCreateBindingsResult);
   }
 }

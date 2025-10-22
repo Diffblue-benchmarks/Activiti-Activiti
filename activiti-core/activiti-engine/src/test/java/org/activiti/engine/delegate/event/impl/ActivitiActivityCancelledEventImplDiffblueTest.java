@@ -18,8 +18,7 @@ package org.activiti.engine.delegate.event.impl;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.engine.delegate.event.ActivitiEventType;
 import org.activiti.engine.impl.util.json.JSONObject;
@@ -29,18 +28,15 @@ import org.junit.experimental.categories.Category;
 public class ActivitiActivityCancelledEventImplDiffblueTest {
   /**
    * Test new {@link ActivitiActivityCancelledEventImpl} (default constructor).
-   *
-   * <p>Method under test: default or parameterless constructor of {@link
-   * ActivitiActivityCancelledEventImpl}
+   * <p>
+   * Method under test: default or parameterless constructor of {@link ActivitiActivityCancelledEventImpl}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void ActivitiActivityCancelledEventImpl.<init>()"})
   public void testNewActivitiActivityCancelledEventImpl() {
     // Arrange and Act
-    ActivitiActivityCancelledEventImpl actualActivitiActivityCancelledEventImpl =
-        new ActivitiActivityCancelledEventImpl();
+    ActivitiActivityCancelledEventImpl actualActivitiActivityCancelledEventImpl = new ActivitiActivityCancelledEventImpl();
 
     // Assert
     assertNull(actualActivitiActivityCancelledEventImpl.getCause());
@@ -52,31 +48,25 @@ public class ActivitiActivityCancelledEventImplDiffblueTest {
     assertNull(actualActivitiActivityCancelledEventImpl.getProcessDefinitionId());
     assertNull(actualActivitiActivityCancelledEventImpl.getProcessInstanceId());
     assertNull(actualActivitiActivityCancelledEventImpl.getReason());
-    assertEquals(
-        ActivitiEventType.ACTIVITY_CANCELLED, actualActivitiActivityCancelledEventImpl.getType());
+    assertEquals(ActivitiEventType.ACTIVITY_CANCELLED, actualActivitiActivityCancelledEventImpl.getType());
   }
 
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>{@link ActivitiActivityCancelledEventImpl#setCause(Object)}
    *   <li>{@link ActivitiActivityCancelledEventImpl#getCause()}
    * </ul>
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "Object ActivitiActivityCancelledEventImpl.getCause()",
-    "void ActivitiActivityCancelledEventImpl.setCause(Object)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Object ActivitiActivityCancelledEventImpl.getCause()",
+      "void ActivitiActivityCancelledEventImpl.setCause(Object)"})
   public void testGettersAndSetters() {
     // Arrange
-    ActivitiActivityCancelledEventImpl activitiActivityCancelledEventImpl =
-        new ActivitiActivityCancelledEventImpl();
+    ActivitiActivityCancelledEventImpl activitiActivityCancelledEventImpl = new ActivitiActivityCancelledEventImpl();
     Object object = JSONObject.NULL;
 
     // Act

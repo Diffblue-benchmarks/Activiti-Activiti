@@ -16,7 +16,6 @@
 package org.activiti.common.util.conf;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.common.util.DateFormatterProvider;
 import org.junit.jupiter.api.DisplayName;
@@ -35,21 +34,17 @@ class ActivitiCoreCommonUtilAutoConfigurationDiffblueTest {
 
   /**
    * Test {@link ActivitiCoreCommonUtilAutoConfiguration#dateFormatterProvider(String)}.
-   *
-   * <p>Method under test: {@link
-   * ActivitiCoreCommonUtilAutoConfiguration#dateFormatterProvider(String)}
+   * <p>
+   * Method under test: {@link ActivitiCoreCommonUtilAutoConfiguration#dateFormatterProvider(String)}
    */
   @Test
   @DisplayName("Test dateFormatterProvider(String)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "DateFormatterProvider ActivitiCoreCommonUtilAutoConfiguration.dateFormatterProvider(String)"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"DateFormatterProvider ActivitiCoreCommonUtilAutoConfiguration.dateFormatterProvider(String)"})
   void testDateFormatterProvider() {
     // Arrange and Act
-    DateFormatterProvider actualDateFormatterProviderResult =
-        activitiCoreCommonUtilAutoConfiguration.dateFormatterProvider("2020-03-01");
+    DateFormatterProvider actualDateFormatterProviderResult = activitiCoreCommonUtilAutoConfiguration
+        .dateFormatterProvider("2020-03-01");
 
     // Assert
     assertEquals("2020-03-01", actualDateFormatterProviderResult.getDateFormatPattern());

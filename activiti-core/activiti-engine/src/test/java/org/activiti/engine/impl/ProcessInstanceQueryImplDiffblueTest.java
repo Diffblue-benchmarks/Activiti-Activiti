@@ -20,9 +20,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertThrows;
 import static org.junit.Assert.assertTrue;
-import static org.mockito.Mockito.mock;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.time.LocalDate;
 import java.time.ZoneOffset;
@@ -34,39 +32,30 @@ import java.util.Set;
 import org.activiti.engine.ActivitiException;
 import org.activiti.engine.ActivitiIllegalArgumentException;
 import org.activiti.engine.impl.AbstractQuery.NullHandlingOnOrder;
-import org.activiti.engine.impl.interceptor.CommandContext;
 import org.activiti.engine.impl.util.json.JSONObject;
-import org.activiti.engine.query.QueryProperty;
 import org.activiti.engine.runtime.ProcessInstanceQuery;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
-import org.springframework.test.annotation.DirtiesContext;
-import org.springframework.test.annotation.DirtiesContext.ClassMode;
 
-@DirtiesContext(classMode = ClassMode.AFTER_EACH_TEST_METHOD)
 public class ProcessInstanceQueryImplDiffblueTest {
   /**
    * Test {@link ProcessInstanceQueryImpl#processInstanceId(String)}.
-   *
    * <ul>
-   *   <li>When {@code 42}.
-   *   <li>Then {@link ProcessInstanceQueryImpl#ProcessInstanceQueryImpl()} ExecutionId is {@code
-   *       42}.
+   *   <li>When {@code 42}.</li>
+   *   <li>Then {@link ProcessInstanceQueryImpl#ProcessInstanceQueryImpl()} ExecutionId is {@code 42}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ProcessInstanceQueryImpl#processInstanceId(String)}
+   * <p>
+   * Method under test: {@link ProcessInstanceQueryImpl#processInstanceId(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"ProcessInstanceQueryImpl ProcessInstanceQueryImpl.processInstanceId(String)"})
   public void testProcessInstanceId_when42_thenProcessInstanceQueryImplExecutionIdIs42() {
     // Arrange
     ProcessInstanceQueryImpl processInstanceQueryImpl = new ProcessInstanceQueryImpl();
 
     // Act
-    ProcessInstanceQueryImpl actualProcessInstanceIdResult =
-        processInstanceQueryImpl.processInstanceId("42");
+    ProcessInstanceQueryImpl actualProcessInstanceIdResult = processInstanceQueryImpl.processInstanceId("42");
 
     // Assert
     assertEquals("42", processInstanceQueryImpl.getExecutionId());
@@ -76,38 +65,33 @@ public class ProcessInstanceQueryImplDiffblueTest {
 
   /**
    * Test {@link ProcessInstanceQueryImpl#processInstanceId(String)}.
-   *
    * <ul>
-   *   <li>When {@code null}.
-   *   <li>Then throw {@link ActivitiIllegalArgumentException}.
+   *   <li>When {@code null}.</li>
+   *   <li>Then throw {@link ActivitiIllegalArgumentException}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ProcessInstanceQueryImpl#processInstanceId(String)}
+   * <p>
+   * Method under test: {@link ProcessInstanceQueryImpl#processInstanceId(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"ProcessInstanceQueryImpl ProcessInstanceQueryImpl.processInstanceId(String)"})
   public void testProcessInstanceId_whenNull_thenThrowActivitiIllegalArgumentException() {
     // Arrange, Act and Assert
-    assertThrows(
-        ActivitiIllegalArgumentException.class,
-        () -> new ProcessInstanceQueryImpl().processInstanceId(null));
+    assertThrows(ActivitiIllegalArgumentException.class,
+        () -> (new ProcessInstanceQueryImpl()).processInstanceId(null));
   }
 
   /**
    * Test {@link ProcessInstanceQueryImpl#processInstanceIds(Set)}.
-   *
    * <ul>
-   *   <li>Given {@code 42}.
-   *   <li>When {@link HashSet#HashSet()} add {@code 42}.
+   *   <li>Given {@code 42}.</li>
+   *   <li>When {@link HashSet#HashSet()} add {@code 42}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ProcessInstanceQueryImpl#processInstanceIds(Set)}
+   * <p>
+   * Method under test: {@link ProcessInstanceQueryImpl#processInstanceIds(Set)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"ProcessInstanceQuery ProcessInstanceQueryImpl.processInstanceIds(Set)"})
   public void testProcessInstanceIds_given42_whenHashSetAdd42() {
     // Arrange
@@ -118,8 +102,8 @@ public class ProcessInstanceQueryImplDiffblueTest {
     processInstanceIds.add("Set of process instance ids is empty");
 
     // Act
-    ProcessInstanceQuery actualProcessInstanceIdsResult =
-        processInstanceQueryImpl.processInstanceIds(processInstanceIds);
+    ProcessInstanceQuery actualProcessInstanceIdsResult = processInstanceQueryImpl
+        .processInstanceIds(processInstanceIds);
 
     // Assert
     assertSame(processInstanceIds, processInstanceQueryImpl.getProcessInstanceIds());
@@ -128,17 +112,14 @@ public class ProcessInstanceQueryImplDiffblueTest {
 
   /**
    * Test {@link ProcessInstanceQueryImpl#processInstanceIds(Set)}.
-   *
    * <ul>
-   *   <li>Then {@link ProcessInstanceQueryImpl#ProcessInstanceQueryImpl()} ProcessInstanceIds is
-   *       {@link HashSet#HashSet()}.
+   *   <li>Then {@link ProcessInstanceQueryImpl#ProcessInstanceQueryImpl()} ProcessInstanceIds is {@link HashSet#HashSet()}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ProcessInstanceQueryImpl#processInstanceIds(Set)}
+   * <p>
+   * Method under test: {@link ProcessInstanceQueryImpl#processInstanceIds(Set)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"ProcessInstanceQuery ProcessInstanceQueryImpl.processInstanceIds(Set)"})
   public void testProcessInstanceIds_thenProcessInstanceQueryImplProcessInstanceIdsIsHashSet() {
     // Arrange
@@ -148,8 +129,8 @@ public class ProcessInstanceQueryImplDiffblueTest {
     processInstanceIds.add("Set of process instance ids is empty");
 
     // Act
-    ProcessInstanceQuery actualProcessInstanceIdsResult =
-        processInstanceQueryImpl.processInstanceIds(processInstanceIds);
+    ProcessInstanceQuery actualProcessInstanceIdsResult = processInstanceQueryImpl
+        .processInstanceIds(processInstanceIds);
 
     // Assert
     assertSame(processInstanceIds, processInstanceQueryImpl.getProcessInstanceIds());
@@ -158,68 +139,40 @@ public class ProcessInstanceQueryImplDiffblueTest {
 
   /**
    * Test {@link ProcessInstanceQueryImpl#processInstanceIds(Set)}.
-   *
    * <ul>
-   *   <li>When {@link HashSet#HashSet()}.
-   *   <li>Then throw {@link ActivitiIllegalArgumentException}.
+   *   <li>When {@link HashSet#HashSet()}.</li>
+   *   <li>Then throw {@link ActivitiIllegalArgumentException}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ProcessInstanceQueryImpl#processInstanceIds(Set)}
+   * <p>
+   * Method under test: {@link ProcessInstanceQueryImpl#processInstanceIds(Set)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"ProcessInstanceQuery ProcessInstanceQueryImpl.processInstanceIds(Set)"})
   public void testProcessInstanceIds_whenHashSet_thenThrowActivitiIllegalArgumentException() {
     // Arrange
     ProcessInstanceQueryImpl processInstanceQueryImpl = new ProcessInstanceQueryImpl();
 
     // Act and Assert
-    assertThrows(
-        ActivitiIllegalArgumentException.class,
+    assertThrows(ActivitiIllegalArgumentException.class,
         () -> processInstanceQueryImpl.processInstanceIds(new HashSet<>()));
   }
 
   /**
-   * Test {@link ProcessInstanceQueryImpl#processInstanceIds(Set)}.
-   *
-   * <ul>
-   *   <li>When {@code null}.
-   *   <li>Then throw {@link ActivitiIllegalArgumentException}.
-   * </ul>
-   *
-   * <p>Method under test: {@link ProcessInstanceQueryImpl#processInstanceIds(Set)}
+   * Test {@link ProcessInstanceQueryImpl#processInstanceBusinessKey(String)} with {@code businessKey}.
+   * <p>
+   * Method under test: {@link ProcessInstanceQueryImpl#processInstanceBusinessKey(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"ProcessInstanceQuery ProcessInstanceQueryImpl.processInstanceIds(Set)"})
-  public void testProcessInstanceIds_whenNull_thenThrowActivitiIllegalArgumentException() {
-    // Arrange, Act and Assert
-    assertThrows(
-        ActivitiIllegalArgumentException.class,
-        () -> new ProcessInstanceQueryImpl().processInstanceIds(null));
-  }
-
-  /**
-   * Test {@link ProcessInstanceQueryImpl#processInstanceBusinessKey(String)} with {@code
-   * businessKey}.
-   *
-   * <p>Method under test: {@link ProcessInstanceQueryImpl#processInstanceBusinessKey(String)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "ProcessInstanceQuery ProcessInstanceQueryImpl.processInstanceBusinessKey(String)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"ProcessInstanceQuery ProcessInstanceQueryImpl.processInstanceBusinessKey(String)"})
   public void testProcessInstanceBusinessKeyWithBusinessKey() {
     // Arrange
     ProcessInstanceQueryImpl processInstanceQueryImpl = new ProcessInstanceQueryImpl();
 
     // Act
-    ProcessInstanceQuery actualProcessInstanceBusinessKeyResult =
-        processInstanceQueryImpl.processInstanceBusinessKey("Business Key");
+    ProcessInstanceQuery actualProcessInstanceBusinessKeyResult = processInstanceQueryImpl
+        .processInstanceBusinessKey("Business Key");
 
     // Assert
     assertEquals("Business Key", processInstanceQueryImpl.getBusinessKey());
@@ -227,45 +180,34 @@ public class ProcessInstanceQueryImplDiffblueTest {
   }
 
   /**
-   * Test {@link ProcessInstanceQueryImpl#processInstanceBusinessKey(String)} with {@code
-   * businessKey}.
-   *
-   * <p>Method under test: {@link ProcessInstanceQueryImpl#processInstanceBusinessKey(String)}
+   * Test {@link ProcessInstanceQueryImpl#processInstanceBusinessKey(String)} with {@code businessKey}.
+   * <p>
+   * Method under test: {@link ProcessInstanceQueryImpl#processInstanceBusinessKey(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "ProcessInstanceQuery ProcessInstanceQueryImpl.processInstanceBusinessKey(String)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"ProcessInstanceQuery ProcessInstanceQueryImpl.processInstanceBusinessKey(String)"})
   public void testProcessInstanceBusinessKeyWithBusinessKey2() {
     // Arrange, Act and Assert
-    assertThrows(
-        ActivitiIllegalArgumentException.class,
-        () -> new ProcessInstanceQueryImpl().processInstanceBusinessKey(null));
+    assertThrows(ActivitiIllegalArgumentException.class,
+        () -> (new ProcessInstanceQueryImpl()).processInstanceBusinessKey(null));
   }
 
   /**
-   * Test {@link ProcessInstanceQueryImpl#processInstanceBusinessKey(String, String)} with {@code
-   * businessKey}, {@code processDefinitionKey}.
-   *
-   * <p>Method under test: {@link ProcessInstanceQueryImpl#processInstanceBusinessKey(String,
-   * String)}
+   * Test {@link ProcessInstanceQueryImpl#processInstanceBusinessKey(String, String)} with {@code businessKey}, {@code processDefinitionKey}.
+   * <p>
+   * Method under test: {@link ProcessInstanceQueryImpl#processInstanceBusinessKey(String, String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "ProcessInstanceQuery ProcessInstanceQueryImpl.processInstanceBusinessKey(String, String)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"ProcessInstanceQuery ProcessInstanceQueryImpl.processInstanceBusinessKey(String, String)"})
   public void testProcessInstanceBusinessKeyWithBusinessKeyProcessDefinitionKey() {
     // Arrange
     ProcessInstanceQueryImpl processInstanceQueryImpl = new ProcessInstanceQueryImpl();
 
     // Act
-    ProcessInstanceQuery actualProcessInstanceBusinessKeyResult =
-        processInstanceQueryImpl.processInstanceBusinessKey(
-            "Business Key", "Process Definition Key");
+    ProcessInstanceQuery actualProcessInstanceBusinessKeyResult = processInstanceQueryImpl
+        .processInstanceBusinessKey("Business Key", "Process Definition Key");
 
     // Assert
     assertEquals("Business Key", processInstanceQueryImpl.getBusinessKey());
@@ -274,50 +216,37 @@ public class ProcessInstanceQueryImplDiffblueTest {
   }
 
   /**
-   * Test {@link ProcessInstanceQueryImpl#processInstanceBusinessKey(String, String)} with {@code
-   * businessKey}, {@code processDefinitionKey}.
-   *
-   * <p>Method under test: {@link ProcessInstanceQueryImpl#processInstanceBusinessKey(String,
-   * String)}
+   * Test {@link ProcessInstanceQueryImpl#processInstanceBusinessKey(String, String)} with {@code businessKey}, {@code processDefinitionKey}.
+   * <p>
+   * Method under test: {@link ProcessInstanceQueryImpl#processInstanceBusinessKey(String, String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "ProcessInstanceQuery ProcessInstanceQueryImpl.processInstanceBusinessKey(String, String)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"ProcessInstanceQuery ProcessInstanceQueryImpl.processInstanceBusinessKey(String, String)"})
   public void testProcessInstanceBusinessKeyWithBusinessKeyProcessDefinitionKey2() {
     // Arrange, Act and Assert
-    assertThrows(
-        ActivitiIllegalArgumentException.class,
-        () ->
-            new ProcessInstanceQueryImpl()
-                .processInstanceBusinessKey(null, "Process Definition Key"));
+    assertThrows(ActivitiIllegalArgumentException.class,
+        () -> (new ProcessInstanceQueryImpl()).processInstanceBusinessKey(null, "Process Definition Key"));
   }
 
   /**
    * Test {@link ProcessInstanceQueryImpl#processInstanceTenantId(String)}.
-   *
    * <ul>
-   *   <li>When {@code 42}.
-   *   <li>Then {@link ProcessInstanceQueryImpl#ProcessInstanceQueryImpl()} TenantId is {@code 42}.
+   *   <li>When {@code 42}.</li>
+   *   <li>Then {@link ProcessInstanceQueryImpl#ProcessInstanceQueryImpl()} TenantId is {@code 42}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ProcessInstanceQueryImpl#processInstanceTenantId(String)}
+   * <p>
+   * Method under test: {@link ProcessInstanceQueryImpl#processInstanceTenantId(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "ProcessInstanceQuery ProcessInstanceQueryImpl.processInstanceTenantId(String)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"ProcessInstanceQuery ProcessInstanceQueryImpl.processInstanceTenantId(String)"})
   public void testProcessInstanceTenantId_when42_thenProcessInstanceQueryImplTenantIdIs42() {
     // Arrange
     ProcessInstanceQueryImpl processInstanceQueryImpl = new ProcessInstanceQueryImpl();
 
     // Act
-    ProcessInstanceQuery actualProcessInstanceTenantIdResult =
-        processInstanceQueryImpl.processInstanceTenantId("42");
+    ProcessInstanceQuery actualProcessInstanceTenantIdResult = processInstanceQueryImpl.processInstanceTenantId("42");
 
     // Assert
     assertEquals("42", processInstanceQueryImpl.getTenantId());
@@ -326,45 +255,37 @@ public class ProcessInstanceQueryImplDiffblueTest {
 
   /**
    * Test {@link ProcessInstanceQueryImpl#processInstanceTenantId(String)}.
-   *
    * <ul>
-   *   <li>When {@code null}.
-   *   <li>Then throw {@link ActivitiIllegalArgumentException}.
+   *   <li>When {@code null}.</li>
+   *   <li>Then throw {@link ActivitiIllegalArgumentException}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ProcessInstanceQueryImpl#processInstanceTenantId(String)}
+   * <p>
+   * Method under test: {@link ProcessInstanceQueryImpl#processInstanceTenantId(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "ProcessInstanceQuery ProcessInstanceQueryImpl.processInstanceTenantId(String)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"ProcessInstanceQuery ProcessInstanceQueryImpl.processInstanceTenantId(String)"})
   public void testProcessInstanceTenantId_whenNull_thenThrowActivitiIllegalArgumentException() {
     // Arrange, Act and Assert
-    assertThrows(
-        ActivitiIllegalArgumentException.class,
-        () -> new ProcessInstanceQueryImpl().processInstanceTenantId(null));
+    assertThrows(ActivitiIllegalArgumentException.class,
+        () -> (new ProcessInstanceQueryImpl()).processInstanceTenantId(null));
   }
 
   /**
    * Test {@link ProcessInstanceQueryImpl#processInstanceTenantIdLike(String)}.
-   *
-   * <p>Method under test: {@link ProcessInstanceQueryImpl#processInstanceTenantIdLike(String)}
+   * <p>
+   * Method under test: {@link ProcessInstanceQueryImpl#processInstanceTenantIdLike(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "ProcessInstanceQuery ProcessInstanceQueryImpl.processInstanceTenantIdLike(String)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"ProcessInstanceQuery ProcessInstanceQueryImpl.processInstanceTenantIdLike(String)"})
   public void testProcessInstanceTenantIdLike() {
     // Arrange
     ProcessInstanceQueryImpl processInstanceQueryImpl = new ProcessInstanceQueryImpl();
 
     // Act
-    ProcessInstanceQuery actualProcessInstanceTenantIdLikeResult =
-        processInstanceQueryImpl.processInstanceTenantIdLike("Tenant Id Like");
+    ProcessInstanceQuery actualProcessInstanceTenantIdLikeResult = processInstanceQueryImpl
+        .processInstanceTenantIdLike("Tenant Id Like");
 
     // Assert
     assertEquals("Tenant Id Like", processInstanceQueryImpl.getTenantIdLike());
@@ -373,44 +294,36 @@ public class ProcessInstanceQueryImplDiffblueTest {
 
   /**
    * Test {@link ProcessInstanceQueryImpl#processInstanceTenantIdLike(String)}.
-   *
    * <ul>
-   *   <li>Then throw {@link ActivitiIllegalArgumentException}.
+   *   <li>Then throw {@link ActivitiIllegalArgumentException}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ProcessInstanceQueryImpl#processInstanceTenantIdLike(String)}
+   * <p>
+   * Method under test: {@link ProcessInstanceQueryImpl#processInstanceTenantIdLike(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "ProcessInstanceQuery ProcessInstanceQueryImpl.processInstanceTenantIdLike(String)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"ProcessInstanceQuery ProcessInstanceQueryImpl.processInstanceTenantIdLike(String)"})
   public void testProcessInstanceTenantIdLike_thenThrowActivitiIllegalArgumentException() {
     // Arrange, Act and Assert
-    assertThrows(
-        ActivitiIllegalArgumentException.class,
-        () -> new ProcessInstanceQueryImpl().processInstanceTenantIdLike(null));
+    assertThrows(ActivitiIllegalArgumentException.class,
+        () -> (new ProcessInstanceQueryImpl()).processInstanceTenantIdLike(null));
   }
 
   /**
    * Test {@link ProcessInstanceQueryImpl#processInstanceWithoutTenantId()}.
-   *
-   * <p>Method under test: {@link ProcessInstanceQueryImpl#processInstanceWithoutTenantId()}
+   * <p>
+   * Method under test: {@link ProcessInstanceQueryImpl#processInstanceWithoutTenantId()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "ProcessInstanceQuery ProcessInstanceQueryImpl.processInstanceWithoutTenantId()"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"ProcessInstanceQuery ProcessInstanceQueryImpl.processInstanceWithoutTenantId()"})
   public void testProcessInstanceWithoutTenantId() {
     // Arrange
     ProcessInstanceQueryImpl processInstanceQueryImpl = new ProcessInstanceQueryImpl();
 
     // Act
-    ProcessInstanceQuery actualProcessInstanceWithoutTenantIdResult =
-        processInstanceQueryImpl.processInstanceWithoutTenantId();
+    ProcessInstanceQuery actualProcessInstanceWithoutTenantIdResult = processInstanceQueryImpl
+        .processInstanceWithoutTenantId();
 
     // Assert
     assertTrue(processInstanceQueryImpl.isWithoutTenantId());
@@ -419,68 +332,58 @@ public class ProcessInstanceQueryImplDiffblueTest {
 
   /**
    * Test {@link ProcessInstanceQueryImpl#processDefinitionCategory(String)}.
-   *
-   * <p>Method under test: {@link ProcessInstanceQueryImpl#processDefinitionCategory(String)}
+   * <p>
+   * Method under test: {@link ProcessInstanceQueryImpl#processDefinitionCategory(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "ProcessInstanceQuery ProcessInstanceQueryImpl.processDefinitionCategory(String)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"ProcessInstanceQuery ProcessInstanceQueryImpl.processDefinitionCategory(String)"})
   public void testProcessDefinitionCategory() {
     // Arrange
     ProcessInstanceQueryImpl processInstanceQueryImpl = new ProcessInstanceQueryImpl();
 
     // Act
-    ProcessInstanceQuery actualProcessDefinitionCategoryResult =
-        processInstanceQueryImpl.processDefinitionCategory("Process Definition Category");
+    ProcessInstanceQuery actualProcessDefinitionCategoryResult = processInstanceQueryImpl
+        .processDefinitionCategory("Process Definition Category");
 
     // Assert
-    assertEquals(
-        "Process Definition Category", processInstanceQueryImpl.getProcessDefinitionCategory());
+    assertEquals("Process Definition Category", processInstanceQueryImpl.getProcessDefinitionCategory());
     assertSame(processInstanceQueryImpl, actualProcessDefinitionCategoryResult);
   }
 
   /**
    * Test {@link ProcessInstanceQueryImpl#processDefinitionCategory(String)}.
-   *
    * <ul>
-   *   <li>When {@code null}.
-   *   <li>Then throw {@link ActivitiIllegalArgumentException}.
+   *   <li>When {@code null}.</li>
+   *   <li>Then throw {@link ActivitiIllegalArgumentException}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ProcessInstanceQueryImpl#processDefinitionCategory(String)}
+   * <p>
+   * Method under test: {@link ProcessInstanceQueryImpl#processDefinitionCategory(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "ProcessInstanceQuery ProcessInstanceQueryImpl.processDefinitionCategory(String)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"ProcessInstanceQuery ProcessInstanceQueryImpl.processDefinitionCategory(String)"})
   public void testProcessDefinitionCategory_whenNull_thenThrowActivitiIllegalArgumentException() {
     // Arrange, Act and Assert
-    assertThrows(
-        ActivitiIllegalArgumentException.class,
-        () -> new ProcessInstanceQueryImpl().processDefinitionCategory(null));
+    assertThrows(ActivitiIllegalArgumentException.class,
+        () -> (new ProcessInstanceQueryImpl()).processDefinitionCategory(null));
   }
 
   /**
    * Test {@link ProcessInstanceQueryImpl#processDefinitionName(String)}.
-   *
-   * <p>Method under test: {@link ProcessInstanceQueryImpl#processDefinitionName(String)}
+   * <p>
+   * Method under test: {@link ProcessInstanceQueryImpl#processDefinitionName(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"ProcessInstanceQuery ProcessInstanceQueryImpl.processDefinitionName(String)"})
   public void testProcessDefinitionName() {
     // Arrange
     ProcessInstanceQueryImpl processInstanceQueryImpl = new ProcessInstanceQueryImpl();
 
     // Act
-    ProcessInstanceQuery actualProcessDefinitionNameResult =
-        processInstanceQueryImpl.processDefinitionName("Process Definition Name");
+    ProcessInstanceQuery actualProcessDefinitionNameResult = processInstanceQueryImpl
+        .processDefinitionName("Process Definition Name");
 
     // Assert
     assertEquals("Process Definition Name", processInstanceQueryImpl.getProcessDefinitionName());
@@ -489,43 +392,36 @@ public class ProcessInstanceQueryImplDiffblueTest {
 
   /**
    * Test {@link ProcessInstanceQueryImpl#processDefinitionName(String)}.
-   *
    * <ul>
-   *   <li>When {@code null}.
-   *   <li>Then throw {@link ActivitiIllegalArgumentException}.
+   *   <li>When {@code null}.</li>
+   *   <li>Then throw {@link ActivitiIllegalArgumentException}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ProcessInstanceQueryImpl#processDefinitionName(String)}
+   * <p>
+   * Method under test: {@link ProcessInstanceQueryImpl#processDefinitionName(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"ProcessInstanceQuery ProcessInstanceQueryImpl.processDefinitionName(String)"})
   public void testProcessDefinitionName_whenNull_thenThrowActivitiIllegalArgumentException() {
     // Arrange, Act and Assert
-    assertThrows(
-        ActivitiIllegalArgumentException.class,
-        () -> new ProcessInstanceQueryImpl().processDefinitionName(null));
+    assertThrows(ActivitiIllegalArgumentException.class,
+        () -> (new ProcessInstanceQueryImpl()).processDefinitionName(null));
   }
 
   /**
    * Test {@link ProcessInstanceQueryImpl#processDefinitionVersion(Integer)}.
-   *
-   * <p>Method under test: {@link ProcessInstanceQueryImpl#processDefinitionVersion(Integer)}
+   * <p>
+   * Method under test: {@link ProcessInstanceQueryImpl#processDefinitionVersion(Integer)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "ProcessInstanceQuery ProcessInstanceQueryImpl.processDefinitionVersion(Integer)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"ProcessInstanceQuery ProcessInstanceQueryImpl.processDefinitionVersion(Integer)"})
   public void testProcessDefinitionVersion() {
     // Arrange
     ProcessInstanceQueryImpl processInstanceQueryImpl = new ProcessInstanceQueryImpl();
 
     // Act
-    ProcessInstanceQuery actualProcessDefinitionVersionResult =
-        processInstanceQueryImpl.processDefinitionVersion(1);
+    ProcessInstanceQuery actualProcessDefinitionVersionResult = processInstanceQueryImpl.processDefinitionVersion(1);
 
     // Assert
     assertEquals(1, processInstanceQueryImpl.getProcessDefinitionVersion().intValue());
@@ -534,50 +430,39 @@ public class ProcessInstanceQueryImplDiffblueTest {
 
   /**
    * Test {@link ProcessInstanceQueryImpl#processDefinitionVersion(Integer)}.
-   *
    * <ul>
-   *   <li>When {@code null}.
-   *   <li>Then throw {@link ActivitiIllegalArgumentException}.
+   *   <li>When {@code null}.</li>
+   *   <li>Then throw {@link ActivitiIllegalArgumentException}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ProcessInstanceQueryImpl#processDefinitionVersion(Integer)}
+   * <p>
+   * Method under test: {@link ProcessInstanceQueryImpl#processDefinitionVersion(Integer)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "ProcessInstanceQuery ProcessInstanceQueryImpl.processDefinitionVersion(Integer)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"ProcessInstanceQuery ProcessInstanceQueryImpl.processDefinitionVersion(Integer)"})
   public void testProcessDefinitionVersion_whenNull_thenThrowActivitiIllegalArgumentException() {
     // Arrange, Act and Assert
-    assertThrows(
-        ActivitiIllegalArgumentException.class,
-        () -> new ProcessInstanceQueryImpl().processDefinitionVersion(null));
+    assertThrows(ActivitiIllegalArgumentException.class,
+        () -> (new ProcessInstanceQueryImpl()).processDefinitionVersion(null));
   }
 
   /**
    * Test {@link ProcessInstanceQueryImpl#processDefinitionId(String)}.
-   *
    * <ul>
-   *   <li>Then {@link ProcessInstanceQueryImpl#ProcessInstanceQueryImpl()} ProcessDefinitionId is
-   *       {@code 42}.
+   *   <li>Then {@link ProcessInstanceQueryImpl#ProcessInstanceQueryImpl()} ProcessDefinitionId is {@code 42}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ProcessInstanceQueryImpl#processDefinitionId(String)}
+   * <p>
+   * Method under test: {@link ProcessInstanceQueryImpl#processDefinitionId(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "ProcessInstanceQueryImpl ProcessInstanceQueryImpl.processDefinitionId(String)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"ProcessInstanceQueryImpl ProcessInstanceQueryImpl.processDefinitionId(String)"})
   public void testProcessDefinitionId_thenProcessInstanceQueryImplProcessDefinitionIdIs42() {
     // Arrange
     ProcessInstanceQueryImpl processInstanceQueryImpl = new ProcessInstanceQueryImpl();
 
     // Act
-    ProcessInstanceQueryImpl actualProcessDefinitionIdResult =
-        processInstanceQueryImpl.processDefinitionId("42");
+    ProcessInstanceQueryImpl actualProcessDefinitionIdResult = processInstanceQueryImpl.processDefinitionId("42");
 
     // Assert
     assertEquals("42", processInstanceQueryImpl.getProcessDefinitionId());
@@ -586,35 +471,29 @@ public class ProcessInstanceQueryImplDiffblueTest {
 
   /**
    * Test {@link ProcessInstanceQueryImpl#processDefinitionId(String)}.
-   *
    * <ul>
-   *   <li>When {@code null}.
-   *   <li>Then throw {@link ActivitiIllegalArgumentException}.
+   *   <li>When {@code null}.</li>
+   *   <li>Then throw {@link ActivitiIllegalArgumentException}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ProcessInstanceQueryImpl#processDefinitionId(String)}
+   * <p>
+   * Method under test: {@link ProcessInstanceQueryImpl#processDefinitionId(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "ProcessInstanceQueryImpl ProcessInstanceQueryImpl.processDefinitionId(String)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"ProcessInstanceQueryImpl ProcessInstanceQueryImpl.processDefinitionId(String)"})
   public void testProcessDefinitionId_whenNull_thenThrowActivitiIllegalArgumentException() {
     // Arrange, Act and Assert
-    assertThrows(
-        ActivitiIllegalArgumentException.class,
-        () -> new ProcessInstanceQueryImpl().processDefinitionId(null));
+    assertThrows(ActivitiIllegalArgumentException.class,
+        () -> (new ProcessInstanceQueryImpl()).processDefinitionId(null));
   }
 
   /**
    * Test {@link ProcessInstanceQueryImpl#processDefinitionIds(Set)}.
-   *
-   * <p>Method under test: {@link ProcessInstanceQueryImpl#processDefinitionIds(Set)}
+   * <p>
+   * Method under test: {@link ProcessInstanceQueryImpl#processDefinitionIds(Set)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"ProcessInstanceQuery ProcessInstanceQueryImpl.processDefinitionIds(Set)"})
   public void testProcessDefinitionIds() {
     // Arrange
@@ -624,8 +503,8 @@ public class ProcessInstanceQueryImplDiffblueTest {
     processDefinitionIds.add("Set of process definition ids is empty");
 
     // Act
-    ProcessInstanceQuery actualProcessDefinitionIdsResult =
-        processInstanceQueryImpl.processDefinitionIds(processDefinitionIds);
+    ProcessInstanceQuery actualProcessDefinitionIdsResult = processInstanceQueryImpl
+        .processDefinitionIds(processDefinitionIds);
 
     // Assert
     assertSame(processDefinitionIds, processInstanceQueryImpl.getProcessDefinitionIds());
@@ -634,17 +513,15 @@ public class ProcessInstanceQueryImplDiffblueTest {
 
   /**
    * Test {@link ProcessInstanceQueryImpl#processDefinitionIds(Set)}.
-   *
    * <ul>
-   *   <li>Given {@code 42}.
-   *   <li>When {@link HashSet#HashSet()} add {@code 42}.
+   *   <li>Given {@code 42}.</li>
+   *   <li>When {@link HashSet#HashSet()} add {@code 42}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ProcessInstanceQueryImpl#processDefinitionIds(Set)}
+   * <p>
+   * Method under test: {@link ProcessInstanceQueryImpl#processDefinitionIds(Set)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"ProcessInstanceQuery ProcessInstanceQueryImpl.processDefinitionIds(Set)"})
   public void testProcessDefinitionIds_given42_whenHashSetAdd42() {
     // Arrange
@@ -655,8 +532,8 @@ public class ProcessInstanceQueryImplDiffblueTest {
     processDefinitionIds.add("Set of process definition ids is empty");
 
     // Act
-    ProcessInstanceQuery actualProcessDefinitionIdsResult =
-        processInstanceQueryImpl.processDefinitionIds(processDefinitionIds);
+    ProcessInstanceQuery actualProcessDefinitionIdsResult = processInstanceQueryImpl
+        .processDefinitionIds(processDefinitionIds);
 
     // Assert
     assertSame(processDefinitionIds, processInstanceQueryImpl.getProcessDefinitionIds());
@@ -665,67 +542,40 @@ public class ProcessInstanceQueryImplDiffblueTest {
 
   /**
    * Test {@link ProcessInstanceQueryImpl#processDefinitionIds(Set)}.
-   *
    * <ul>
-   *   <li>When {@link HashSet#HashSet()}.
-   *   <li>Then throw {@link ActivitiIllegalArgumentException}.
+   *   <li>When {@link HashSet#HashSet()}.</li>
+   *   <li>Then throw {@link ActivitiIllegalArgumentException}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ProcessInstanceQueryImpl#processDefinitionIds(Set)}
+   * <p>
+   * Method under test: {@link ProcessInstanceQueryImpl#processDefinitionIds(Set)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"ProcessInstanceQuery ProcessInstanceQueryImpl.processDefinitionIds(Set)"})
   public void testProcessDefinitionIds_whenHashSet_thenThrowActivitiIllegalArgumentException() {
     // Arrange
     ProcessInstanceQueryImpl processInstanceQueryImpl = new ProcessInstanceQueryImpl();
 
     // Act and Assert
-    assertThrows(
-        ActivitiIllegalArgumentException.class,
+    assertThrows(ActivitiIllegalArgumentException.class,
         () -> processInstanceQueryImpl.processDefinitionIds(new HashSet<>()));
   }
 
   /**
-   * Test {@link ProcessInstanceQueryImpl#processDefinitionIds(Set)}.
-   *
-   * <ul>
-   *   <li>When {@code null}.
-   *   <li>Then throw {@link ActivitiIllegalArgumentException}.
-   * </ul>
-   *
-   * <p>Method under test: {@link ProcessInstanceQueryImpl#processDefinitionIds(Set)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"ProcessInstanceQuery ProcessInstanceQueryImpl.processDefinitionIds(Set)"})
-  public void testProcessDefinitionIds_whenNull_thenThrowActivitiIllegalArgumentException() {
-    // Arrange, Act and Assert
-    assertThrows(
-        ActivitiIllegalArgumentException.class,
-        () -> new ProcessInstanceQueryImpl().processDefinitionIds(null));
-  }
-
-  /**
    * Test {@link ProcessInstanceQueryImpl#processDefinitionKey(String)}.
-   *
-   * <p>Method under test: {@link ProcessInstanceQueryImpl#processDefinitionKey(String)}
+   * <p>
+   * Method under test: {@link ProcessInstanceQueryImpl#processDefinitionKey(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "ProcessInstanceQueryImpl ProcessInstanceQueryImpl.processDefinitionKey(String)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"ProcessInstanceQueryImpl ProcessInstanceQueryImpl.processDefinitionKey(String)"})
   public void testProcessDefinitionKey() {
     // Arrange
     ProcessInstanceQueryImpl processInstanceQueryImpl = new ProcessInstanceQueryImpl();
 
     // Act
-    ProcessInstanceQueryImpl actualProcessDefinitionKeyResult =
-        processInstanceQueryImpl.processDefinitionKey("Process Definition Key");
+    ProcessInstanceQueryImpl actualProcessDefinitionKeyResult = processInstanceQueryImpl
+        .processDefinitionKey("Process Definition Key");
 
     // Assert
     assertEquals("Process Definition Key", processInstanceQueryImpl.getProcessDefinitionKey());
@@ -734,35 +584,29 @@ public class ProcessInstanceQueryImplDiffblueTest {
 
   /**
    * Test {@link ProcessInstanceQueryImpl#processDefinitionKey(String)}.
-   *
    * <ul>
-   *   <li>When {@code null}.
-   *   <li>Then throw {@link ActivitiIllegalArgumentException}.
+   *   <li>When {@code null}.</li>
+   *   <li>Then throw {@link ActivitiIllegalArgumentException}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ProcessInstanceQueryImpl#processDefinitionKey(String)}
+   * <p>
+   * Method under test: {@link ProcessInstanceQueryImpl#processDefinitionKey(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "ProcessInstanceQueryImpl ProcessInstanceQueryImpl.processDefinitionKey(String)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"ProcessInstanceQueryImpl ProcessInstanceQueryImpl.processDefinitionKey(String)"})
   public void testProcessDefinitionKey_whenNull_thenThrowActivitiIllegalArgumentException() {
     // Arrange, Act and Assert
-    assertThrows(
-        ActivitiIllegalArgumentException.class,
-        () -> new ProcessInstanceQueryImpl().processDefinitionKey(null));
+    assertThrows(ActivitiIllegalArgumentException.class,
+        () -> (new ProcessInstanceQueryImpl()).processDefinitionKey(null));
   }
 
   /**
    * Test {@link ProcessInstanceQueryImpl#processDefinitionKeys(Set)}.
-   *
-   * <p>Method under test: {@link ProcessInstanceQueryImpl#processDefinitionKeys(Set)}
+   * <p>
+   * Method under test: {@link ProcessInstanceQueryImpl#processDefinitionKeys(Set)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"ProcessInstanceQuery ProcessInstanceQueryImpl.processDefinitionKeys(Set)"})
   public void testProcessDefinitionKeys() {
     // Arrange
@@ -772,8 +616,8 @@ public class ProcessInstanceQueryImplDiffblueTest {
     processDefinitionKeys.add("Set of process definition keys is empty");
 
     // Act
-    ProcessInstanceQuery actualProcessDefinitionKeysResult =
-        processInstanceQueryImpl.processDefinitionKeys(processDefinitionKeys);
+    ProcessInstanceQuery actualProcessDefinitionKeysResult = processInstanceQueryImpl
+        .processDefinitionKeys(processDefinitionKeys);
 
     // Assert
     assertSame(processDefinitionKeys, processInstanceQueryImpl.getProcessDefinitionKeys());
@@ -782,17 +626,15 @@ public class ProcessInstanceQueryImplDiffblueTest {
 
   /**
    * Test {@link ProcessInstanceQueryImpl#processDefinitionKeys(Set)}.
-   *
    * <ul>
-   *   <li>Given {@code 42}.
-   *   <li>When {@link HashSet#HashSet()} add {@code 42}.
+   *   <li>Given {@code 42}.</li>
+   *   <li>When {@link HashSet#HashSet()} add {@code 42}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ProcessInstanceQueryImpl#processDefinitionKeys(Set)}
+   * <p>
+   * Method under test: {@link ProcessInstanceQueryImpl#processDefinitionKeys(Set)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"ProcessInstanceQuery ProcessInstanceQueryImpl.processDefinitionKeys(Set)"})
   public void testProcessDefinitionKeys_given42_whenHashSetAdd42() {
     // Arrange
@@ -803,8 +645,8 @@ public class ProcessInstanceQueryImplDiffblueTest {
     processDefinitionKeys.add("Set of process definition keys is empty");
 
     // Act
-    ProcessInstanceQuery actualProcessDefinitionKeysResult =
-        processInstanceQueryImpl.processDefinitionKeys(processDefinitionKeys);
+    ProcessInstanceQuery actualProcessDefinitionKeysResult = processInstanceQueryImpl
+        .processDefinitionKeys(processDefinitionKeys);
 
     // Assert
     assertSame(processDefinitionKeys, processInstanceQueryImpl.getProcessDefinitionKeys());
@@ -813,57 +655,32 @@ public class ProcessInstanceQueryImplDiffblueTest {
 
   /**
    * Test {@link ProcessInstanceQueryImpl#processDefinitionKeys(Set)}.
-   *
    * <ul>
-   *   <li>When {@link HashSet#HashSet()}.
-   *   <li>Then throw {@link ActivitiIllegalArgumentException}.
+   *   <li>When {@link HashSet#HashSet()}.</li>
+   *   <li>Then throw {@link ActivitiIllegalArgumentException}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ProcessInstanceQueryImpl#processDefinitionKeys(Set)}
+   * <p>
+   * Method under test: {@link ProcessInstanceQueryImpl#processDefinitionKeys(Set)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"ProcessInstanceQuery ProcessInstanceQueryImpl.processDefinitionKeys(Set)"})
   public void testProcessDefinitionKeys_whenHashSet_thenThrowActivitiIllegalArgumentException() {
     // Arrange
     ProcessInstanceQueryImpl processInstanceQueryImpl = new ProcessInstanceQueryImpl();
 
     // Act and Assert
-    assertThrows(
-        ActivitiIllegalArgumentException.class,
+    assertThrows(ActivitiIllegalArgumentException.class,
         () -> processInstanceQueryImpl.processDefinitionKeys(new HashSet<>()));
   }
 
   /**
-   * Test {@link ProcessInstanceQueryImpl#processDefinitionKeys(Set)}.
-   *
-   * <ul>
-   *   <li>When {@code null}.
-   *   <li>Then throw {@link ActivitiIllegalArgumentException}.
-   * </ul>
-   *
-   * <p>Method under test: {@link ProcessInstanceQueryImpl#processDefinitionKeys(Set)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"ProcessInstanceQuery ProcessInstanceQueryImpl.processDefinitionKeys(Set)"})
-  public void testProcessDefinitionKeys_whenNull_thenThrowActivitiIllegalArgumentException() {
-    // Arrange, Act and Assert
-    assertThrows(
-        ActivitiIllegalArgumentException.class,
-        () -> new ProcessInstanceQueryImpl().processDefinitionKeys(null));
-  }
-
-  /**
    * Test {@link ProcessInstanceQueryImpl#deploymentId(String)}.
-   *
-   * <p>Method under test: {@link ProcessInstanceQueryImpl#deploymentId(String)}
+   * <p>
+   * Method under test: {@link ProcessInstanceQueryImpl#deploymentId(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"ProcessInstanceQueryImpl ProcessInstanceQueryImpl.deploymentId(String)"})
   public void testDeploymentId() {
     // Arrange
@@ -879,17 +696,15 @@ public class ProcessInstanceQueryImplDiffblueTest {
 
   /**
    * Test {@link ProcessInstanceQueryImpl#deploymentIdIn(List)}.
-   *
    * <ul>
-   *   <li>Given {@code 42}.
-   *   <li>When {@link ArrayList#ArrayList()} add {@code 42}.
+   *   <li>Given {@code 42}.</li>
+   *   <li>When {@link ArrayList#ArrayList()} add {@code 42}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ProcessInstanceQueryImpl#deploymentIdIn(List)}
+   * <p>
+   * Method under test: {@link ProcessInstanceQueryImpl#deploymentIdIn(List)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"ProcessInstanceQueryImpl ProcessInstanceQueryImpl.deploymentIdIn(List)"})
   public void testDeploymentIdIn_given42_whenArrayListAdd42() {
     // Arrange
@@ -900,8 +715,7 @@ public class ProcessInstanceQueryImplDiffblueTest {
     deploymentIds.add("foo");
 
     // Act
-    ProcessInstanceQueryImpl actualDeploymentIdInResult =
-        processInstanceQueryImpl.deploymentIdIn(deploymentIds);
+    ProcessInstanceQueryImpl actualDeploymentIdInResult = processInstanceQueryImpl.deploymentIdIn(deploymentIds);
 
     // Assert
     assertSame(deploymentIds, processInstanceQueryImpl.getDeploymentIds());
@@ -910,17 +724,15 @@ public class ProcessInstanceQueryImplDiffblueTest {
 
   /**
    * Test {@link ProcessInstanceQueryImpl#deploymentIdIn(List)}.
-   *
    * <ul>
-   *   <li>Given {@code foo}.
-   *   <li>When {@link ArrayList#ArrayList()} add {@code foo}.
+   *   <li>Given {@code foo}.</li>
+   *   <li>When {@link ArrayList#ArrayList()} add {@code foo}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ProcessInstanceQueryImpl#deploymentIdIn(List)}
+   * <p>
+   * Method under test: {@link ProcessInstanceQueryImpl#deploymentIdIn(List)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"ProcessInstanceQueryImpl ProcessInstanceQueryImpl.deploymentIdIn(List)"})
   public void testDeploymentIdIn_givenFoo_whenArrayListAddFoo() {
     // Arrange
@@ -930,8 +742,7 @@ public class ProcessInstanceQueryImplDiffblueTest {
     deploymentIds.add("foo");
 
     // Act
-    ProcessInstanceQueryImpl actualDeploymentIdInResult =
-        processInstanceQueryImpl.deploymentIdIn(deploymentIds);
+    ProcessInstanceQueryImpl actualDeploymentIdInResult = processInstanceQueryImpl.deploymentIdIn(deploymentIds);
 
     // Assert
     assertSame(deploymentIds, processInstanceQueryImpl.getDeploymentIds());
@@ -940,16 +751,14 @@ public class ProcessInstanceQueryImplDiffblueTest {
 
   /**
    * Test {@link ProcessInstanceQueryImpl#deploymentIdIn(List)}.
-   *
    * <ul>
-   *   <li>When {@link ArrayList#ArrayList()}.
+   *   <li>When {@link ArrayList#ArrayList()}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ProcessInstanceQueryImpl#deploymentIdIn(List)}
+   * <p>
+   * Method under test: {@link ProcessInstanceQueryImpl#deploymentIdIn(List)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"ProcessInstanceQueryImpl ProcessInstanceQueryImpl.deploymentIdIn(List)"})
   public void testDeploymentIdIn_whenArrayList() {
     // Arrange
@@ -957,8 +766,7 @@ public class ProcessInstanceQueryImplDiffblueTest {
     ArrayList<String> deploymentIds = new ArrayList<>();
 
     // Act
-    ProcessInstanceQueryImpl actualDeploymentIdInResult =
-        processInstanceQueryImpl.deploymentIdIn(deploymentIds);
+    ProcessInstanceQueryImpl actualDeploymentIdInResult = processInstanceQueryImpl.deploymentIdIn(deploymentIds);
 
     // Assert
     assertSame(deploymentIds, processInstanceQueryImpl.getDeploymentIds());
@@ -967,22 +775,18 @@ public class ProcessInstanceQueryImplDiffblueTest {
 
   /**
    * Test {@link ProcessInstanceQueryImpl#superProcessInstanceId(String)}.
-   *
-   * <p>Method under test: {@link ProcessInstanceQueryImpl#superProcessInstanceId(String)}
+   * <p>
+   * Method under test: {@link ProcessInstanceQueryImpl#superProcessInstanceId(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "ProcessInstanceQuery ProcessInstanceQueryImpl.superProcessInstanceId(String)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"ProcessInstanceQuery ProcessInstanceQueryImpl.superProcessInstanceId(String)"})
   public void testSuperProcessInstanceId() {
     // Arrange
     ProcessInstanceQueryImpl processInstanceQueryImpl = new ProcessInstanceQueryImpl();
 
     // Act
-    ProcessInstanceQuery actualSuperProcessInstanceIdResult =
-        processInstanceQueryImpl.superProcessInstanceId("42");
+    ProcessInstanceQuery actualSuperProcessInstanceIdResult = processInstanceQueryImpl.superProcessInstanceId("42");
 
     // Assert
     assertEquals("42", processInstanceQueryImpl.getSuperProcessInstanceId());
@@ -991,20 +795,18 @@ public class ProcessInstanceQueryImplDiffblueTest {
 
   /**
    * Test {@link ProcessInstanceQueryImpl#subProcessInstanceId(String)}.
-   *
-   * <p>Method under test: {@link ProcessInstanceQueryImpl#subProcessInstanceId(String)}
+   * <p>
+   * Method under test: {@link ProcessInstanceQueryImpl#subProcessInstanceId(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"ProcessInstanceQuery ProcessInstanceQueryImpl.subProcessInstanceId(String)"})
   public void testSubProcessInstanceId() {
     // Arrange
     ProcessInstanceQueryImpl processInstanceQueryImpl = new ProcessInstanceQueryImpl();
 
     // Act
-    ProcessInstanceQuery actualSubProcessInstanceIdResult =
-        processInstanceQueryImpl.subProcessInstanceId("42");
+    ProcessInstanceQuery actualSubProcessInstanceIdResult = processInstanceQueryImpl.subProcessInstanceId("42");
 
     // Assert
     assertEquals("42", processInstanceQueryImpl.getSubProcessInstanceId());
@@ -1013,20 +815,18 @@ public class ProcessInstanceQueryImplDiffblueTest {
 
   /**
    * Test {@link ProcessInstanceQueryImpl#excludeSubprocesses(boolean)}.
-   *
-   * <p>Method under test: {@link ProcessInstanceQueryImpl#excludeSubprocesses(boolean)}
+   * <p>
+   * Method under test: {@link ProcessInstanceQueryImpl#excludeSubprocesses(boolean)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"ProcessInstanceQuery ProcessInstanceQueryImpl.excludeSubprocesses(boolean)"})
   public void testExcludeSubprocesses() {
     // Arrange
     ProcessInstanceQueryImpl processInstanceQueryImpl = new ProcessInstanceQueryImpl();
 
     // Act
-    ProcessInstanceQuery actualExcludeSubprocessesResult =
-        processInstanceQueryImpl.excludeSubprocesses(true);
+    ProcessInstanceQuery actualExcludeSubprocessesResult = processInstanceQueryImpl.excludeSubprocesses(true);
 
     // Assert
     assertTrue(processInstanceQueryImpl.isExcludeSubprocesses());
@@ -1035,25 +835,21 @@ public class ProcessInstanceQueryImplDiffblueTest {
 
   /**
    * Test {@link ProcessInstanceQueryImpl#involvedUser(String)}.
-   *
    * <ul>
-   *   <li>Then {@link ProcessInstanceQueryImpl#ProcessInstanceQueryImpl()} InvolvedUser is {@code
-   *       Involved User}.
+   *   <li>Then {@link ProcessInstanceQueryImpl#ProcessInstanceQueryImpl()} InvolvedUser is {@code Involved User}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ProcessInstanceQueryImpl#involvedUser(String)}
+   * <p>
+   * Method under test: {@link ProcessInstanceQueryImpl#involvedUser(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"ProcessInstanceQuery ProcessInstanceQueryImpl.involvedUser(String)"})
   public void testInvolvedUser_thenProcessInstanceQueryImplInvolvedUserIsInvolvedUser() {
     // Arrange
     ProcessInstanceQueryImpl processInstanceQueryImpl = new ProcessInstanceQueryImpl();
 
     // Act
-    ProcessInstanceQuery actualInvolvedUserResult =
-        processInstanceQueryImpl.involvedUser("Involved User");
+    ProcessInstanceQuery actualInvolvedUserResult = processInstanceQueryImpl.involvedUser("Involved User");
 
     // Assert
     assertEquals("Involved User", processInstanceQueryImpl.getInvolvedUser());
@@ -1062,81 +858,67 @@ public class ProcessInstanceQueryImplDiffblueTest {
 
   /**
    * Test {@link ProcessInstanceQueryImpl#involvedUser(String)}.
-   *
    * <ul>
-   *   <li>When {@code null}.
-   *   <li>Then throw {@link ActivitiIllegalArgumentException}.
+   *   <li>When {@code null}.</li>
+   *   <li>Then throw {@link ActivitiIllegalArgumentException}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ProcessInstanceQueryImpl#involvedUser(String)}
+   * <p>
+   * Method under test: {@link ProcessInstanceQueryImpl#involvedUser(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"ProcessInstanceQuery ProcessInstanceQueryImpl.involvedUser(String)"})
   public void testInvolvedUser_whenNull_thenThrowActivitiIllegalArgumentException() {
     // Arrange, Act and Assert
-    assertThrows(
-        ActivitiIllegalArgumentException.class,
-        () -> new ProcessInstanceQueryImpl().involvedUser(null));
+    assertThrows(ActivitiIllegalArgumentException.class, () -> (new ProcessInstanceQueryImpl()).involvedUser(null));
   }
 
   /**
    * Test {@link ProcessInstanceQueryImpl#active()}.
-   *
-   * <p>Method under test: {@link ProcessInstanceQueryImpl#active()}
+   * <p>
+   * Method under test: {@link ProcessInstanceQueryImpl#active()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"ProcessInstanceQuery ProcessInstanceQueryImpl.active()"})
   public void testActive() {
     // Arrange
     ProcessInstanceQueryImpl processInstanceQueryImpl = new ProcessInstanceQueryImpl();
 
-    // Act
-    ProcessInstanceQuery actualActiveResult = processInstanceQueryImpl.active();
-
-    // Assert
-    assertSame(processInstanceQueryImpl, actualActiveResult);
+    // Act and Assert
+    assertSame(processInstanceQueryImpl, processInstanceQueryImpl.active());
   }
 
   /**
    * Test {@link ProcessInstanceQueryImpl#suspended()}.
-   *
-   * <p>Method under test: {@link ProcessInstanceQueryImpl#suspended()}
+   * <p>
+   * Method under test: {@link ProcessInstanceQueryImpl#suspended()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"ProcessInstanceQuery ProcessInstanceQueryImpl.suspended()"})
   public void testSuspended() {
     // Arrange
     ProcessInstanceQueryImpl processInstanceQueryImpl = new ProcessInstanceQueryImpl();
 
-    // Act
-    ProcessInstanceQuery actualSuspendedResult = processInstanceQueryImpl.suspended();
-
-    // Assert
-    assertSame(processInstanceQueryImpl, actualSuspendedResult);
+    // Act and Assert
+    assertSame(processInstanceQueryImpl, processInstanceQueryImpl.suspended());
   }
 
   /**
    * Test {@link ProcessInstanceQueryImpl#processInstanceName(String)}.
-   *
-   * <p>Method under test: {@link ProcessInstanceQueryImpl#processInstanceName(String)}
+   * <p>
+   * Method under test: {@link ProcessInstanceQueryImpl#processInstanceName(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"ProcessInstanceQuery ProcessInstanceQueryImpl.processInstanceName(String)"})
   public void testProcessInstanceName() {
     // Arrange
     ProcessInstanceQueryImpl processInstanceQueryImpl = new ProcessInstanceQueryImpl();
 
     // Act
-    ProcessInstanceQuery actualProcessInstanceNameResult =
-        processInstanceQueryImpl.processInstanceName("Name");
+    ProcessInstanceQuery actualProcessInstanceNameResult = processInstanceQueryImpl.processInstanceName("Name");
 
     // Assert
     assertEquals("Name", processInstanceQueryImpl.getName());
@@ -1145,22 +927,19 @@ public class ProcessInstanceQueryImplDiffblueTest {
 
   /**
    * Test {@link ProcessInstanceQueryImpl#processInstanceNameLike(String)}.
-   *
-   * <p>Method under test: {@link ProcessInstanceQueryImpl#processInstanceNameLike(String)}
+   * <p>
+   * Method under test: {@link ProcessInstanceQueryImpl#processInstanceNameLike(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "ProcessInstanceQuery ProcessInstanceQueryImpl.processInstanceNameLike(String)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"ProcessInstanceQuery ProcessInstanceQueryImpl.processInstanceNameLike(String)"})
   public void testProcessInstanceNameLike() {
     // Arrange
     ProcessInstanceQueryImpl processInstanceQueryImpl = new ProcessInstanceQueryImpl();
 
     // Act
-    ProcessInstanceQuery actualProcessInstanceNameLikeResult =
-        processInstanceQueryImpl.processInstanceNameLike("Name Like");
+    ProcessInstanceQuery actualProcessInstanceNameLikeResult = processInstanceQueryImpl
+        .processInstanceNameLike("Name Like");
 
     // Assert
     assertEquals("Name Like", processInstanceQueryImpl.getNameLike());
@@ -1169,23 +948,19 @@ public class ProcessInstanceQueryImplDiffblueTest {
 
   /**
    * Test {@link ProcessInstanceQueryImpl#processInstanceNameLikeIgnoreCase(String)}.
-   *
-   * <p>Method under test: {@link
-   * ProcessInstanceQueryImpl#processInstanceNameLikeIgnoreCase(String)}
+   * <p>
+   * Method under test: {@link ProcessInstanceQueryImpl#processInstanceNameLikeIgnoreCase(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "ProcessInstanceQuery ProcessInstanceQueryImpl.processInstanceNameLikeIgnoreCase(String)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"ProcessInstanceQuery ProcessInstanceQueryImpl.processInstanceNameLikeIgnoreCase(String)"})
   public void testProcessInstanceNameLikeIgnoreCase() {
     // Arrange
     ProcessInstanceQueryImpl processInstanceQueryImpl = new ProcessInstanceQueryImpl();
 
     // Act
-    ProcessInstanceQuery actualProcessInstanceNameLikeIgnoreCaseResult =
-        processInstanceQueryImpl.processInstanceNameLikeIgnoreCase("Name Like Ignore Case");
+    ProcessInstanceQuery actualProcessInstanceNameLikeIgnoreCaseResult = processInstanceQueryImpl
+        .processInstanceNameLikeIgnoreCase("Name Like Ignore Case");
 
     // Assert
     assertEquals("name like ignore case", processInstanceQueryImpl.getNameLikeIgnoreCase());
@@ -1193,63 +968,36 @@ public class ProcessInstanceQueryImplDiffblueTest {
   }
 
   /**
-   * Test {@link ProcessInstanceQueryImpl#or()}.
-   *
-   * <p>Method under test: {@link ProcessInstanceQueryImpl#or()}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"ProcessInstanceQuery ProcessInstanceQueryImpl.or()"})
-  public void testOr() {
-    // Arrange
-    ProcessInstanceQueryImpl processInstanceQueryImpl = new ProcessInstanceQueryImpl();
-
-    // Act
-    ProcessInstanceQuery actualOrResult = processInstanceQueryImpl.or();
-
-    // Assert
-    assertTrue(processInstanceQueryImpl.inOrStatement);
-    assertSame(processInstanceQueryImpl, actualOrResult);
-  }
-
-  /**
    * Test {@link ProcessInstanceQueryImpl#endOr()}.
-   *
-   * <p>Method under test: {@link ProcessInstanceQueryImpl#endOr()}
+   * <p>
+   * Method under test: {@link ProcessInstanceQueryImpl#endOr()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"ProcessInstanceQuery ProcessInstanceQueryImpl.endOr()"})
   public void testEndOr() {
     // Arrange, Act and Assert
-    assertThrows(ActivitiException.class, () -> new ProcessInstanceQueryImpl().endOr());
+    assertThrows(ActivitiException.class, () -> (new ProcessInstanceQueryImpl()).endOr());
   }
 
   /**
-   * Test {@link ProcessInstanceQueryImpl#variableValueEquals(String, Object)} with {@code
-   * variableName}, {@code variableValue}.
-   *
+   * Test {@link ProcessInstanceQueryImpl#variableValueEquals(String, Object)} with {@code variableName}, {@code variableValue}.
    * <ul>
-   *   <li>When {@link JSONObject#NULL}.
+   *   <li>When {@link JSONObject#NULL}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ProcessInstanceQueryImpl#variableValueEquals(String, Object)}
+   * <p>
+   * Method under test: {@link ProcessInstanceQueryImpl#variableValueEquals(String, Object)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "ProcessInstanceQuery ProcessInstanceQueryImpl.variableValueEquals(String, Object)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"ProcessInstanceQuery ProcessInstanceQueryImpl.variableValueEquals(String, Object)"})
   public void testVariableValueEqualsWithVariableNameVariableValue_whenNull() {
     // Arrange
     ProcessInstanceQueryImpl processInstanceQueryImpl = new ProcessInstanceQueryImpl();
 
     // Act
-    ProcessInstanceQuery actualVariableValueEqualsResult =
-        processInstanceQueryImpl.variableValueEquals("Variable Name", JSONObject.NULL);
+    ProcessInstanceQuery actualVariableValueEqualsResult = processInstanceQueryImpl.variableValueEquals("Variable Name",
+        JSONObject.NULL);
 
     // Assert
     assertTrue(processInstanceQueryImpl.hasNonLocalQueryVariableValue());
@@ -1257,28 +1005,23 @@ public class ProcessInstanceQueryImplDiffblueTest {
   }
 
   /**
-   * Test {@link ProcessInstanceQueryImpl#variableValueEquals(String, Object)} with {@code
-   * variableName}, {@code variableValue}.
-   *
+   * Test {@link ProcessInstanceQueryImpl#variableValueEquals(String, Object)} with {@code variableName}, {@code variableValue}.
    * <ul>
-   *   <li>When {@code null}.
+   *   <li>When {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ProcessInstanceQueryImpl#variableValueEquals(String, Object)}
+   * <p>
+   * Method under test: {@link ProcessInstanceQueryImpl#variableValueEquals(String, Object)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "ProcessInstanceQuery ProcessInstanceQueryImpl.variableValueEquals(String, Object)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"ProcessInstanceQuery ProcessInstanceQueryImpl.variableValueEquals(String, Object)"})
   public void testVariableValueEqualsWithVariableNameVariableValue_whenNull2() {
     // Arrange
     ProcessInstanceQueryImpl processInstanceQueryImpl = new ProcessInstanceQueryImpl();
 
     // Act
-    ProcessInstanceQuery actualVariableValueEqualsResult =
-        processInstanceQueryImpl.variableValueEquals("Variable Name", null);
+    ProcessInstanceQuery actualVariableValueEqualsResult = processInstanceQueryImpl.variableValueEquals("Variable Name",
+        null);
 
     // Assert
     assertTrue(processInstanceQueryImpl.hasNonLocalQueryVariableValue());
@@ -1287,20 +1030,19 @@ public class ProcessInstanceQueryImplDiffblueTest {
 
   /**
    * Test {@link ProcessInstanceQueryImpl#variableValueEquals(Object)} with {@code variableValue}.
-   *
-   * <p>Method under test: {@link ProcessInstanceQueryImpl#variableValueEquals(Object)}
+   * <p>
+   * Method under test: {@link ProcessInstanceQueryImpl#variableValueEquals(Object)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"ProcessInstanceQuery ProcessInstanceQueryImpl.variableValueEquals(Object)"})
   public void testVariableValueEqualsWithVariableValue() {
     // Arrange
     ProcessInstanceQueryImpl processInstanceQueryImpl = new ProcessInstanceQueryImpl();
 
     // Act
-    ProcessInstanceQuery actualVariableValueEqualsResult =
-        processInstanceQueryImpl.variableValueEquals(JSONObject.NULL);
+    ProcessInstanceQuery actualVariableValueEqualsResult = processInstanceQueryImpl
+        .variableValueEquals(JSONObject.NULL);
 
     // Assert
     assertTrue(processInstanceQueryImpl.hasNonLocalQueryVariableValue());
@@ -1308,28 +1050,23 @@ public class ProcessInstanceQueryImplDiffblueTest {
   }
 
   /**
-   * Test {@link ProcessInstanceQueryImpl#variableValueNotEquals(String, Object)} with {@code
-   * variableName}, {@code variableValue}.
-   *
+   * Test {@link ProcessInstanceQueryImpl#variableValueNotEquals(String, Object)} with {@code variableName}, {@code variableValue}.
    * <ul>
-   *   <li>When {@link JSONObject#NULL}.
+   *   <li>When {@link JSONObject#NULL}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ProcessInstanceQueryImpl#variableValueNotEquals(String, Object)}
+   * <p>
+   * Method under test: {@link ProcessInstanceQueryImpl#variableValueNotEquals(String, Object)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "ProcessInstanceQuery ProcessInstanceQueryImpl.variableValueNotEquals(String, Object)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"ProcessInstanceQuery ProcessInstanceQueryImpl.variableValueNotEquals(String, Object)"})
   public void testVariableValueNotEqualsWithVariableNameVariableValue_whenNull() {
     // Arrange
     ProcessInstanceQueryImpl processInstanceQueryImpl = new ProcessInstanceQueryImpl();
 
     // Act
-    ProcessInstanceQuery actualVariableValueNotEqualsResult =
-        processInstanceQueryImpl.variableValueNotEquals("Variable Name", JSONObject.NULL);
+    ProcessInstanceQuery actualVariableValueNotEqualsResult = processInstanceQueryImpl
+        .variableValueNotEquals("Variable Name", JSONObject.NULL);
 
     // Assert
     assertTrue(processInstanceQueryImpl.hasNonLocalQueryVariableValue());
@@ -1337,28 +1074,23 @@ public class ProcessInstanceQueryImplDiffblueTest {
   }
 
   /**
-   * Test {@link ProcessInstanceQueryImpl#variableValueNotEquals(String, Object)} with {@code
-   * variableName}, {@code variableValue}.
-   *
+   * Test {@link ProcessInstanceQueryImpl#variableValueNotEquals(String, Object)} with {@code variableName}, {@code variableValue}.
    * <ul>
-   *   <li>When {@code null}.
+   *   <li>When {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ProcessInstanceQueryImpl#variableValueNotEquals(String, Object)}
+   * <p>
+   * Method under test: {@link ProcessInstanceQueryImpl#variableValueNotEquals(String, Object)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "ProcessInstanceQuery ProcessInstanceQueryImpl.variableValueNotEquals(String, Object)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"ProcessInstanceQuery ProcessInstanceQueryImpl.variableValueNotEquals(String, Object)"})
   public void testVariableValueNotEqualsWithVariableNameVariableValue_whenNull2() {
     // Arrange
     ProcessInstanceQueryImpl processInstanceQueryImpl = new ProcessInstanceQueryImpl();
 
     // Act
-    ProcessInstanceQuery actualVariableValueNotEqualsResult =
-        processInstanceQueryImpl.variableValueNotEquals("Variable Name", null);
+    ProcessInstanceQuery actualVariableValueNotEqualsResult = processInstanceQueryImpl
+        .variableValueNotEquals("Variable Name", null);
 
     // Assert
     assertTrue(processInstanceQueryImpl.hasNonLocalQueryVariableValue());
@@ -1366,25 +1098,20 @@ public class ProcessInstanceQueryImplDiffblueTest {
   }
 
   /**
-   * Test {@link ProcessInstanceQueryImpl#variableValueEqualsIgnoreCase(String, String)} with {@code
-   * name}, {@code value}.
-   *
-   * <p>Method under test: {@link ProcessInstanceQueryImpl#variableValueEqualsIgnoreCase(String,
-   * String)}
+   * Test {@link ProcessInstanceQueryImpl#variableValueEqualsIgnoreCase(String, String)} with {@code name}, {@code value}.
+   * <p>
+   * Method under test: {@link ProcessInstanceQueryImpl#variableValueEqualsIgnoreCase(String, String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "ProcessInstanceQuery ProcessInstanceQueryImpl.variableValueEqualsIgnoreCase(String, String)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"ProcessInstanceQuery ProcessInstanceQueryImpl.variableValueEqualsIgnoreCase(String, String)"})
   public void testVariableValueEqualsIgnoreCaseWithNameValue() {
     // Arrange
     ProcessInstanceQueryImpl processInstanceQueryImpl = new ProcessInstanceQueryImpl();
 
     // Act
-    ProcessInstanceQuery actualVariableValueEqualsIgnoreCaseResult =
-        processInstanceQueryImpl.variableValueEqualsIgnoreCase("Name", "42");
+    ProcessInstanceQuery actualVariableValueEqualsIgnoreCaseResult = processInstanceQueryImpl
+        .variableValueEqualsIgnoreCase("Name", "42");
 
     // Assert
     assertTrue(processInstanceQueryImpl.hasNonLocalQueryVariableValue());
@@ -1392,25 +1119,20 @@ public class ProcessInstanceQueryImplDiffblueTest {
   }
 
   /**
-   * Test {@link ProcessInstanceQueryImpl#variableValueNotEqualsIgnoreCase(String, String)} with
-   * {@code name}, {@code value}.
-   *
-   * <p>Method under test: {@link ProcessInstanceQueryImpl#variableValueNotEqualsIgnoreCase(String,
-   * String)}
+   * Test {@link ProcessInstanceQueryImpl#variableValueNotEqualsIgnoreCase(String, String)} with {@code name}, {@code value}.
+   * <p>
+   * Method under test: {@link ProcessInstanceQueryImpl#variableValueNotEqualsIgnoreCase(String, String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "ProcessInstanceQuery ProcessInstanceQueryImpl.variableValueNotEqualsIgnoreCase(String, String)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"ProcessInstanceQuery ProcessInstanceQueryImpl.variableValueNotEqualsIgnoreCase(String, String)"})
   public void testVariableValueNotEqualsIgnoreCaseWithNameValue() {
     // Arrange
     ProcessInstanceQueryImpl processInstanceQueryImpl = new ProcessInstanceQueryImpl();
 
     // Act
-    ProcessInstanceQuery actualVariableValueNotEqualsIgnoreCaseResult =
-        processInstanceQueryImpl.variableValueNotEqualsIgnoreCase("Name", "42");
+    ProcessInstanceQuery actualVariableValueNotEqualsIgnoreCaseResult = processInstanceQueryImpl
+        .variableValueNotEqualsIgnoreCase("Name", "42");
 
     // Assert
     assertTrue(processInstanceQueryImpl.hasNonLocalQueryVariableValue());
@@ -1418,24 +1140,20 @@ public class ProcessInstanceQueryImplDiffblueTest {
   }
 
   /**
-   * Test {@link ProcessInstanceQueryImpl#variableValueGreaterThan(String, Object)} with {@code
-   * name}, {@code value}.
-   *
-   * <p>Method under test: {@link ProcessInstanceQueryImpl#variableValueGreaterThan(String, Object)}
+   * Test {@link ProcessInstanceQueryImpl#variableValueGreaterThan(String, Object)} with {@code name}, {@code value}.
+   * <p>
+   * Method under test: {@link ProcessInstanceQueryImpl#variableValueGreaterThan(String, Object)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "ProcessInstanceQuery ProcessInstanceQueryImpl.variableValueGreaterThan(String, Object)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"ProcessInstanceQuery ProcessInstanceQueryImpl.variableValueGreaterThan(String, Object)"})
   public void testVariableValueGreaterThanWithNameValue() {
     // Arrange
     ProcessInstanceQueryImpl processInstanceQueryImpl = new ProcessInstanceQueryImpl();
 
     // Act
-    ProcessInstanceQuery actualVariableValueGreaterThanResult =
-        processInstanceQueryImpl.variableValueGreaterThan("Name", JSONObject.NULL);
+    ProcessInstanceQuery actualVariableValueGreaterThanResult = processInstanceQueryImpl
+        .variableValueGreaterThan("Name", JSONObject.NULL);
 
     // Assert
     assertTrue(processInstanceQueryImpl.hasNonLocalQueryVariableValue());
@@ -1443,44 +1161,20 @@ public class ProcessInstanceQueryImplDiffblueTest {
   }
 
   /**
-   * Test {@link ProcessInstanceQueryImpl#variableValueGreaterThan(String, Object)} with {@code
-   * name}, {@code value}.
-   *
-   * <p>Method under test: {@link ProcessInstanceQueryImpl#variableValueGreaterThan(String, Object)}
+   * Test {@link ProcessInstanceQueryImpl#variableValueGreaterThanOrEqual(String, Object)} with {@code name}, {@code value}.
+   * <p>
+   * Method under test: {@link ProcessInstanceQueryImpl#variableValueGreaterThanOrEqual(String, Object)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "ProcessInstanceQuery ProcessInstanceQueryImpl.variableValueGreaterThan(String, Object)"
-  })
-  public void testVariableValueGreaterThanWithNameValue2() {
-    // Arrange, Act and Assert
-    assertThrows(
-        ActivitiIllegalArgumentException.class,
-        () -> new ProcessInstanceQueryImpl().variableValueGreaterThan("Name", null));
-  }
-
-  /**
-   * Test {@link ProcessInstanceQueryImpl#variableValueGreaterThanOrEqual(String, Object)} with
-   * {@code name}, {@code value}.
-   *
-   * <p>Method under test: {@link ProcessInstanceQueryImpl#variableValueGreaterThanOrEqual(String,
-   * Object)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "ProcessInstanceQuery ProcessInstanceQueryImpl.variableValueGreaterThanOrEqual(String, Object)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"ProcessInstanceQuery ProcessInstanceQueryImpl.variableValueGreaterThanOrEqual(String, Object)"})
   public void testVariableValueGreaterThanOrEqualWithNameValue() {
     // Arrange
     ProcessInstanceQueryImpl processInstanceQueryImpl = new ProcessInstanceQueryImpl();
 
     // Act
-    ProcessInstanceQuery actualVariableValueGreaterThanOrEqualResult =
-        processInstanceQueryImpl.variableValueGreaterThanOrEqual("Name", JSONObject.NULL);
+    ProcessInstanceQuery actualVariableValueGreaterThanOrEqualResult = processInstanceQueryImpl
+        .variableValueGreaterThanOrEqual("Name", JSONObject.NULL);
 
     // Assert
     assertTrue(processInstanceQueryImpl.hasNonLocalQueryVariableValue());
@@ -1488,44 +1182,20 @@ public class ProcessInstanceQueryImplDiffblueTest {
   }
 
   /**
-   * Test {@link ProcessInstanceQueryImpl#variableValueGreaterThanOrEqual(String, Object)} with
-   * {@code name}, {@code value}.
-   *
-   * <p>Method under test: {@link ProcessInstanceQueryImpl#variableValueGreaterThanOrEqual(String,
-   * Object)}
+   * Test {@link ProcessInstanceQueryImpl#variableValueLessThan(String, Object)} with {@code name}, {@code value}.
+   * <p>
+   * Method under test: {@link ProcessInstanceQueryImpl#variableValueLessThan(String, Object)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "ProcessInstanceQuery ProcessInstanceQueryImpl.variableValueGreaterThanOrEqual(String, Object)"
-  })
-  public void testVariableValueGreaterThanOrEqualWithNameValue2() {
-    // Arrange, Act and Assert
-    assertThrows(
-        ActivitiIllegalArgumentException.class,
-        () -> new ProcessInstanceQueryImpl().variableValueGreaterThanOrEqual("Name", null));
-  }
-
-  /**
-   * Test {@link ProcessInstanceQueryImpl#variableValueLessThan(String, Object)} with {@code name},
-   * {@code value}.
-   *
-   * <p>Method under test: {@link ProcessInstanceQueryImpl#variableValueLessThan(String, Object)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "ProcessInstanceQuery ProcessInstanceQueryImpl.variableValueLessThan(String, Object)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"ProcessInstanceQuery ProcessInstanceQueryImpl.variableValueLessThan(String, Object)"})
   public void testVariableValueLessThanWithNameValue() {
     // Arrange
     ProcessInstanceQueryImpl processInstanceQueryImpl = new ProcessInstanceQueryImpl();
 
     // Act
-    ProcessInstanceQuery actualVariableValueLessThanResult =
-        processInstanceQueryImpl.variableValueLessThan("Name", JSONObject.NULL);
+    ProcessInstanceQuery actualVariableValueLessThanResult = processInstanceQueryImpl.variableValueLessThan("Name",
+        JSONObject.NULL);
 
     // Assert
     assertTrue(processInstanceQueryImpl.hasNonLocalQueryVariableValue());
@@ -1533,48 +1203,20 @@ public class ProcessInstanceQueryImplDiffblueTest {
   }
 
   /**
-   * Test {@link ProcessInstanceQueryImpl#variableValueLessThan(String, Object)} with {@code name},
-   * {@code value}.
-   *
-   * <ul>
-   *   <li>Then throw {@link ActivitiIllegalArgumentException}.
-   * </ul>
-   *
-   * <p>Method under test: {@link ProcessInstanceQueryImpl#variableValueLessThan(String, Object)}
+   * Test {@link ProcessInstanceQueryImpl#variableValueLessThanOrEqual(String, Object)} with {@code name}, {@code value}.
+   * <p>
+   * Method under test: {@link ProcessInstanceQueryImpl#variableValueLessThanOrEqual(String, Object)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "ProcessInstanceQuery ProcessInstanceQueryImpl.variableValueLessThan(String, Object)"
-  })
-  public void testVariableValueLessThanWithNameValue_thenThrowActivitiIllegalArgumentException() {
-    // Arrange, Act and Assert
-    assertThrows(
-        ActivitiIllegalArgumentException.class,
-        () -> new ProcessInstanceQueryImpl().variableValueLessThan("Name", null));
-  }
-
-  /**
-   * Test {@link ProcessInstanceQueryImpl#variableValueLessThanOrEqual(String, Object)} with {@code
-   * name}, {@code value}.
-   *
-   * <p>Method under test: {@link ProcessInstanceQueryImpl#variableValueLessThanOrEqual(String,
-   * Object)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "ProcessInstanceQuery ProcessInstanceQueryImpl.variableValueLessThanOrEqual(String, Object)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"ProcessInstanceQuery ProcessInstanceQueryImpl.variableValueLessThanOrEqual(String, Object)"})
   public void testVariableValueLessThanOrEqualWithNameValue() {
     // Arrange
     ProcessInstanceQueryImpl processInstanceQueryImpl = new ProcessInstanceQueryImpl();
 
     // Act
-    ProcessInstanceQuery actualVariableValueLessThanOrEqualResult =
-        processInstanceQueryImpl.variableValueLessThanOrEqual("Name", JSONObject.NULL);
+    ProcessInstanceQuery actualVariableValueLessThanOrEqualResult = processInstanceQueryImpl
+        .variableValueLessThanOrEqual("Name", JSONObject.NULL);
 
     // Assert
     assertTrue(processInstanceQueryImpl.hasNonLocalQueryVariableValue());
@@ -1582,44 +1224,19 @@ public class ProcessInstanceQueryImplDiffblueTest {
   }
 
   /**
-   * Test {@link ProcessInstanceQueryImpl#variableValueLessThanOrEqual(String, Object)} with {@code
-   * name}, {@code value}.
-   *
-   * <p>Method under test: {@link ProcessInstanceQueryImpl#variableValueLessThanOrEqual(String,
-   * Object)}
+   * Test {@link ProcessInstanceQueryImpl#variableValueLike(String, String)} with {@code name}, {@code value}.
+   * <p>
+   * Method under test: {@link ProcessInstanceQueryImpl#variableValueLike(String, String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "ProcessInstanceQuery ProcessInstanceQueryImpl.variableValueLessThanOrEqual(String, Object)"
-  })
-  public void testVariableValueLessThanOrEqualWithNameValue2() {
-    // Arrange, Act and Assert
-    assertThrows(
-        ActivitiIllegalArgumentException.class,
-        () -> new ProcessInstanceQueryImpl().variableValueLessThanOrEqual("Name", null));
-  }
-
-  /**
-   * Test {@link ProcessInstanceQueryImpl#variableValueLike(String, String)} with {@code name},
-   * {@code value}.
-   *
-   * <p>Method under test: {@link ProcessInstanceQueryImpl#variableValueLike(String, String)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "ProcessInstanceQuery ProcessInstanceQueryImpl.variableValueLike(String, String)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"ProcessInstanceQuery ProcessInstanceQueryImpl.variableValueLike(String, String)"})
   public void testVariableValueLikeWithNameValue() {
     // Arrange
     ProcessInstanceQueryImpl processInstanceQueryImpl = new ProcessInstanceQueryImpl();
 
     // Act
-    ProcessInstanceQuery actualVariableValueLikeResult =
-        processInstanceQueryImpl.variableValueLike("Name", "42");
+    ProcessInstanceQuery actualVariableValueLikeResult = processInstanceQueryImpl.variableValueLike("Name", "42");
 
     // Assert
     assertTrue(processInstanceQueryImpl.hasNonLocalQueryVariableValue());
@@ -1627,25 +1244,20 @@ public class ProcessInstanceQueryImplDiffblueTest {
   }
 
   /**
-   * Test {@link ProcessInstanceQueryImpl#variableValueLikeIgnoreCase(String, String)} with {@code
-   * name}, {@code value}.
-   *
-   * <p>Method under test: {@link ProcessInstanceQueryImpl#variableValueLikeIgnoreCase(String,
-   * String)}
+   * Test {@link ProcessInstanceQueryImpl#variableValueLikeIgnoreCase(String, String)} with {@code name}, {@code value}.
+   * <p>
+   * Method under test: {@link ProcessInstanceQueryImpl#variableValueLikeIgnoreCase(String, String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "ProcessInstanceQuery ProcessInstanceQueryImpl.variableValueLikeIgnoreCase(String, String)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"ProcessInstanceQuery ProcessInstanceQueryImpl.variableValueLikeIgnoreCase(String, String)"})
   public void testVariableValueLikeIgnoreCaseWithNameValue() {
     // Arrange
     ProcessInstanceQueryImpl processInstanceQueryImpl = new ProcessInstanceQueryImpl();
 
     // Act
-    ProcessInstanceQuery actualVariableValueLikeIgnoreCaseResult =
-        processInstanceQueryImpl.variableValueLikeIgnoreCase("Name", "42");
+    ProcessInstanceQuery actualVariableValueLikeIgnoreCaseResult = processInstanceQueryImpl
+        .variableValueLikeIgnoreCase("Name", "42");
 
     // Assert
     assertTrue(processInstanceQueryImpl.hasNonLocalQueryVariableValue());
@@ -1654,60 +1266,47 @@ public class ProcessInstanceQueryImplDiffblueTest {
 
   /**
    * Test {@link ProcessInstanceQueryImpl#startedBefore(Date)}.
-   *
-   * <p>Method under test: {@link ProcessInstanceQueryImpl#startedBefore(Date)}
+   * <p>
+   * Method under test: {@link ProcessInstanceQueryImpl#startedBefore(Date)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"ProcessInstanceQuery ProcessInstanceQueryImpl.startedBefore(Date)"})
   public void testStartedBefore() {
     // Arrange
     ProcessInstanceQueryImpl processInstanceQueryImpl = new ProcessInstanceQueryImpl();
-    Date beforeTime =
-        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant());
+    Date beforeTime = Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant());
 
-    // Act
-    ProcessInstanceQuery actualStartedBeforeResult =
-        processInstanceQueryImpl.startedBefore(beforeTime);
-
-    // Assert
-    assertSame(processInstanceQueryImpl, actualStartedBeforeResult);
+    // Act and Assert
+    assertSame(processInstanceQueryImpl, processInstanceQueryImpl.startedBefore(beforeTime));
     assertSame(beforeTime, processInstanceQueryImpl.getStartedBefore());
   }
 
   /**
    * Test {@link ProcessInstanceQueryImpl#startedAfter(Date)}.
-   *
-   * <p>Method under test: {@link ProcessInstanceQueryImpl#startedAfter(Date)}
+   * <p>
+   * Method under test: {@link ProcessInstanceQueryImpl#startedAfter(Date)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"ProcessInstanceQuery ProcessInstanceQueryImpl.startedAfter(Date)"})
   public void testStartedAfter() {
     // Arrange
     ProcessInstanceQueryImpl processInstanceQueryImpl = new ProcessInstanceQueryImpl();
-    Date afterTime =
-        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant());
+    Date afterTime = Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant());
 
-    // Act
-    ProcessInstanceQuery actualStartedAfterResult =
-        processInstanceQueryImpl.startedAfter(afterTime);
-
-    // Assert
-    assertSame(processInstanceQueryImpl, actualStartedAfterResult);
+    // Act and Assert
+    assertSame(processInstanceQueryImpl, processInstanceQueryImpl.startedAfter(afterTime));
     assertSame(afterTime, processInstanceQueryImpl.getStartedAfter());
   }
 
   /**
    * Test {@link ProcessInstanceQueryImpl#startedBy(String)}.
-   *
-   * <p>Method under test: {@link ProcessInstanceQueryImpl#startedBy(String)}
+   * <p>
+   * Method under test: {@link ProcessInstanceQueryImpl#startedBy(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"ProcessInstanceQuery ProcessInstanceQueryImpl.startedBy(String)"})
   public void testStartedBy() {
     // Arrange
@@ -1723,123 +1322,64 @@ public class ProcessInstanceQueryImplDiffblueTest {
 
   /**
    * Test {@link ProcessInstanceQueryImpl#getMssqlOrDB2OrderBy()}.
-   *
    * <ul>
-   *   <li>Then return {@code TEMPRES_ID_ asc}.
+   *   <li>Then return {@code TEMPRES_ID_ asc}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ProcessInstanceQueryImpl#getMssqlOrDB2OrderBy()}
+   * <p>
+   * Method under test: {@link ProcessInstanceQueryImpl#getMssqlOrDB2OrderBy()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"String ProcessInstanceQueryImpl.getMssqlOrDB2OrderBy()"})
   public void testGetMssqlOrDB2OrderBy_thenReturnTempresIdAsc() {
     // Arrange, Act and Assert
-    assertEquals("TEMPRES_ID_ asc", new ProcessInstanceQueryImpl().getMssqlOrDB2OrderBy());
+    assertEquals("TEMPRES_ID_ asc", (new ProcessInstanceQueryImpl()).getMssqlOrDB2OrderBy());
   }
 
   /**
    * Test {@link ProcessInstanceQueryImpl#getMssqlOrDB2OrderBy()}.
-   *
    * <ul>
-   *   <li>Then return {@code TEMPRES_ID_ asc asc}.
+   *   <li>Then return {@code TEMPRES_ID_ asc asc}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ProcessInstanceQueryImpl#getMssqlOrDB2OrderBy()}
+   * <p>
+   * Method under test: {@link ProcessInstanceQueryImpl#getMssqlOrDB2OrderBy()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"String ProcessInstanceQueryImpl.getMssqlOrDB2OrderBy()"})
   public void testGetMssqlOrDB2OrderBy_thenReturnTempresIdAscAsc() {
     // Arrange
     ProcessInstanceQueryImpl processInstanceQueryImpl = new ProcessInstanceQueryImpl();
-    processInstanceQueryImpl.addOrder(
-        "RES.ID_ asc", AbstractQuery.SORTORDER_ASC, NullHandlingOnOrder.NULLS_FIRST);
+    processInstanceQueryImpl.addOrder("RES.ID_ asc", AbstractQuery.SORTORDER_ASC, NullHandlingOnOrder.NULLS_FIRST);
 
     // Act and Assert
     assertEquals("TEMPRES_ID_ asc asc", processInstanceQueryImpl.getMssqlOrDB2OrderBy());
   }
 
   /**
-   * Test {@link ProcessInstanceQueryImpl#executeCount(CommandContext)}.
-   *
-   * <ul>
-   *   <li>Then throw {@link ActivitiIllegalArgumentException}.
-   * </ul>
-   *
-   * <p>Method under test: {@link ProcessInstanceQueryImpl#executeCount(CommandContext)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"long ProcessInstanceQueryImpl.executeCount(CommandContext)"})
-  public void testExecuteCount_thenThrowActivitiIllegalArgumentException() {
-    // Arrange
-    ProcessInstanceQueryImpl processInstanceQueryImpl = new ProcessInstanceQueryImpl();
-    processInstanceQueryImpl.orderBy(mock(QueryProperty.class));
-    processInstanceQueryImpl.addVariable(
-        "description", JSONObject.NULL, QueryOperator.NOT_EQUALS, false);
-
-    // Act and Assert
-    assertThrows(
-        ActivitiIllegalArgumentException.class, () -> processInstanceQueryImpl.executeCount(null));
-  }
-
-  /**
-   * Test {@link ProcessInstanceQueryImpl#executeList(CommandContext, Page)}.
-   *
-   * <ul>
-   *   <li>Then throw {@link ActivitiIllegalArgumentException}.
-   * </ul>
-   *
-   * <p>Method under test: {@link ProcessInstanceQueryImpl#executeList(CommandContext, Page)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"List ProcessInstanceQueryImpl.executeList(CommandContext, Page)"})
-  public void testExecuteList_thenThrowActivitiIllegalArgumentException() {
-    // Arrange
-    ProcessInstanceQueryImpl processInstanceQueryImpl = new ProcessInstanceQueryImpl();
-    processInstanceQueryImpl.orderBy(mock(QueryProperty.class));
-    processInstanceQueryImpl.addVariable(
-        "description", JSONObject.NULL, QueryOperator.NOT_EQUALS, false);
-
-    // Act and Assert
-    assertThrows(
-        ActivitiIllegalArgumentException.class,
-        () -> processInstanceQueryImpl.executeList(null, new Page(1, 3)));
-  }
-
-  /**
    * Test {@link ProcessInstanceQueryImpl#iswithException()}.
-   *
-   * <p>Method under test: {@link ProcessInstanceQueryImpl#iswithException()}
+   * <p>
+   * Method under test: {@link ProcessInstanceQueryImpl#iswithException()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"boolean ProcessInstanceQueryImpl.iswithException()"})
   public void testIswithException() {
     // Arrange, Act and Assert
-    assertFalse(new ProcessInstanceQueryImpl().iswithException());
+    assertFalse((new ProcessInstanceQueryImpl()).iswithException());
   }
 
   /**
    * Test {@link ProcessInstanceQueryImpl#involvedGroupsIn(List)}.
-   *
    * <ul>
-   *   <li>Given {@code 42}.
-   *   <li>When {@link ArrayList#ArrayList()} add {@code 42}.
+   *   <li>Given {@code 42}.</li>
+   *   <li>When {@link ArrayList#ArrayList()} add {@code 42}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ProcessInstanceQueryImpl#involvedGroupsIn(List)}
+   * <p>
+   * Method under test: {@link ProcessInstanceQueryImpl#involvedGroupsIn(List)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"ProcessInstanceQuery ProcessInstanceQueryImpl.involvedGroupsIn(List)"})
   public void testInvolvedGroupsIn_given42_whenArrayListAdd42() {
     // Arrange
@@ -1850,8 +1390,7 @@ public class ProcessInstanceQueryImplDiffblueTest {
     involvedGroups.add("Involved groups list is null or empty.");
 
     // Act
-    ProcessInstanceQuery actualInvolvedGroupsInResult =
-        processInstanceQueryImpl.involvedGroupsIn(involvedGroups);
+    ProcessInstanceQuery actualInvolvedGroupsInResult = processInstanceQueryImpl.involvedGroupsIn(involvedGroups);
 
     // Assert
     assertSame(involvedGroups, processInstanceQueryImpl.getInvolvedGroups());
@@ -1860,17 +1399,14 @@ public class ProcessInstanceQueryImplDiffblueTest {
 
   /**
    * Test {@link ProcessInstanceQueryImpl#involvedGroupsIn(List)}.
-   *
    * <ul>
-   *   <li>Then {@link ProcessInstanceQueryImpl#ProcessInstanceQueryImpl()} InvolvedGroups is {@link
-   *       ArrayList#ArrayList()}.
+   *   <li>Then {@link ProcessInstanceQueryImpl#ProcessInstanceQueryImpl()} InvolvedGroups is {@link ArrayList#ArrayList()}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ProcessInstanceQueryImpl#involvedGroupsIn(List)}
+   * <p>
+   * Method under test: {@link ProcessInstanceQueryImpl#involvedGroupsIn(List)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"ProcessInstanceQuery ProcessInstanceQueryImpl.involvedGroupsIn(List)"})
   public void testInvolvedGroupsIn_thenProcessInstanceQueryImplInvolvedGroupsIsArrayList() {
     // Arrange
@@ -1880,8 +1416,7 @@ public class ProcessInstanceQueryImplDiffblueTest {
     involvedGroups.add("Involved groups list is null or empty.");
 
     // Act
-    ProcessInstanceQuery actualInvolvedGroupsInResult =
-        processInstanceQueryImpl.involvedGroupsIn(involvedGroups);
+    ProcessInstanceQuery actualInvolvedGroupsInResult = processInstanceQueryImpl.involvedGroupsIn(involvedGroups);
 
     // Assert
     assertSame(involvedGroups, processInstanceQueryImpl.getInvolvedGroups());
@@ -1890,46 +1425,22 @@ public class ProcessInstanceQueryImplDiffblueTest {
 
   /**
    * Test {@link ProcessInstanceQueryImpl#involvedGroupsIn(List)}.
-   *
    * <ul>
-   *   <li>When {@link ArrayList#ArrayList()}.
-   *   <li>Then throw {@link ActivitiIllegalArgumentException}.
+   *   <li>When {@link ArrayList#ArrayList()}.</li>
+   *   <li>Then throw {@link ActivitiIllegalArgumentException}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ProcessInstanceQueryImpl#involvedGroupsIn(List)}
+   * <p>
+   * Method under test: {@link ProcessInstanceQueryImpl#involvedGroupsIn(List)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"ProcessInstanceQuery ProcessInstanceQueryImpl.involvedGroupsIn(List)"})
   public void testInvolvedGroupsIn_whenArrayList_thenThrowActivitiIllegalArgumentException() {
     // Arrange
     ProcessInstanceQueryImpl processInstanceQueryImpl = new ProcessInstanceQueryImpl();
 
     // Act and Assert
-    assertThrows(
-        ActivitiIllegalArgumentException.class,
+    assertThrows(ActivitiIllegalArgumentException.class,
         () -> processInstanceQueryImpl.involvedGroupsIn(new ArrayList<>()));
-  }
-
-  /**
-   * Test {@link ProcessInstanceQueryImpl#involvedGroupsIn(List)}.
-   *
-   * <ul>
-   *   <li>When {@code null}.
-   *   <li>Then throw {@link ActivitiIllegalArgumentException}.
-   * </ul>
-   *
-   * <p>Method under test: {@link ProcessInstanceQueryImpl#involvedGroupsIn(List)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"ProcessInstanceQuery ProcessInstanceQueryImpl.involvedGroupsIn(List)"})
-  public void testInvolvedGroupsIn_whenNull_thenThrowActivitiIllegalArgumentException() {
-    // Arrange, Act and Assert
-    assertThrows(
-        ActivitiIllegalArgumentException.class,
-        () -> new ProcessInstanceQueryImpl().involvedGroupsIn(null));
   }
 }

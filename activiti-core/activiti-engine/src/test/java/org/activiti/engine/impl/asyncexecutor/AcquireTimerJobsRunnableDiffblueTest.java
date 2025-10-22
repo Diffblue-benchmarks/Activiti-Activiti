@@ -18,8 +18,7 @@ package org.activiti.engine.impl.asyncexecutor;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
@@ -27,21 +26,19 @@ import org.junit.experimental.categories.Category;
 public class AcquireTimerJobsRunnableDiffblueTest {
   /**
    * Test {@link AcquireTimerJobsRunnable#AcquireTimerJobsRunnable(AsyncExecutor, JobManager)}.
-   *
-   * <p>Method under test: {@link AcquireTimerJobsRunnable#AcquireTimerJobsRunnable(AsyncExecutor,
-   * JobManager)}
+   * <p>
+   * Method under test: {@link AcquireTimerJobsRunnable#AcquireTimerJobsRunnable(AsyncExecutor, JobManager)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void AcquireTimerJobsRunnable.<init>(AsyncExecutor, JobManager)"})
   public void testNewAcquireTimerJobsRunnable() {
     // Arrange
     DefaultAsyncJobExecutor asyncExecutor = new DefaultAsyncJobExecutor();
 
     // Act
-    AcquireTimerJobsRunnable actualAcquireTimerJobsRunnable =
-        new AcquireTimerJobsRunnable(asyncExecutor, new DefaultJobManager());
+    AcquireTimerJobsRunnable actualAcquireTimerJobsRunnable = new AcquireTimerJobsRunnable(asyncExecutor,
+        new DefaultJobManager());
 
     // Assert
     assertTrue(actualAcquireTimerJobsRunnable.asyncExecutor instanceof DefaultAsyncJobExecutor);
@@ -52,18 +49,17 @@ public class AcquireTimerJobsRunnableDiffblueTest {
 
   /**
    * Test {@link AcquireTimerJobsRunnable#stop()}.
-   *
-   * <p>Method under test: {@link AcquireTimerJobsRunnable#stop()}
+   * <p>
+   * Method under test: {@link AcquireTimerJobsRunnable#stop()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void AcquireTimerJobsRunnable.stop()"})
   public void testStop() {
     // Arrange
     DefaultAsyncJobExecutor asyncExecutor = new DefaultAsyncJobExecutor();
-    AcquireTimerJobsRunnable acquireTimerJobsRunnable =
-        new AcquireTimerJobsRunnable(asyncExecutor, new DefaultJobManager());
+    AcquireTimerJobsRunnable acquireTimerJobsRunnable = new AcquireTimerJobsRunnable(asyncExecutor,
+        new DefaultJobManager());
 
     // Act
     acquireTimerJobsRunnable.stop();
@@ -74,26 +70,22 @@ public class AcquireTimerJobsRunnableDiffblueTest {
 
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>{@link AcquireTimerJobsRunnable#setMillisToWait(long)}
    *   <li>{@link AcquireTimerJobsRunnable#getMillisToWait()}
    * </ul>
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "long AcquireTimerJobsRunnable.getMillisToWait()",
-    "void AcquireTimerJobsRunnable.setMillisToWait(long)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"long AcquireTimerJobsRunnable.getMillisToWait()",
+      "void AcquireTimerJobsRunnable.setMillisToWait(long)"})
   public void testGettersAndSetters() {
     // Arrange
     DefaultAsyncJobExecutor asyncExecutor = new DefaultAsyncJobExecutor();
-    AcquireTimerJobsRunnable acquireTimerJobsRunnable =
-        new AcquireTimerJobsRunnable(asyncExecutor, new DefaultJobManager());
+    AcquireTimerJobsRunnable acquireTimerJobsRunnable = new AcquireTimerJobsRunnable(asyncExecutor,
+        new DefaultJobManager());
 
     // Act
     acquireTimerJobsRunnable.setMillisToWait(1L);

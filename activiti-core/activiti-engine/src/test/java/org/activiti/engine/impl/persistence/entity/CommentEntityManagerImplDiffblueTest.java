@@ -18,12 +18,12 @@ package org.activiti.engine.impl.persistence.entity;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertThrows;
 import static org.junit.Assert.assertTrue;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
 import java.util.List;
@@ -46,48 +46,42 @@ import org.mockito.junit.MockitoJUnitRunner;
 
 @RunWith(MockitoJUnitRunner.class)
 public class CommentEntityManagerImplDiffblueTest {
-  @Mock private CommentDataManager commentDataManager;
+  @InjectMocks
+  private CommentEntityManagerImpl commentEntityManagerImpl;
 
-  @InjectMocks private CommentEntityManagerImpl commentEntityManagerImpl;
+  @Mock
+  private ProcessEngineConfigurationImpl processEngineConfigurationImpl;
 
-  @Mock private ProcessEngineConfigurationImpl processEngineConfigurationImpl;
+  @Mock
+  private CommentDataManager commentDataManager;
 
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
-   *   <li>{@link CommentEntityManagerImpl#CommentEntityManagerImpl(ProcessEngineConfigurationImpl,
-   *       CommentDataManager)}
+   *   <li>{@link CommentEntityManagerImpl#CommentEntityManagerImpl(ProcessEngineConfigurationImpl, CommentDataManager)}
    *   <li>{@link CommentEntityManagerImpl#setCommentDataManager(CommentDataManager)}
    *   <li>{@link CommentEntityManagerImpl#getCommentDataManager()}
    *   <li>{@link CommentEntityManagerImpl#getDataManager()}
    * </ul>
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void CommentEntityManagerImpl.<init>(ProcessEngineConfigurationImpl, CommentDataManager)",
-    "CommentDataManager CommentEntityManagerImpl.getCommentDataManager()",
-    "org.activiti.engine.impl.persistence.entity.data.DataManager CommentEntityManagerImpl.getDataManager()",
-    "void CommentEntityManagerImpl.setCommentDataManager(CommentDataManager)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void CommentEntityManagerImpl.<init>(ProcessEngineConfigurationImpl, CommentDataManager)",
+      "CommentDataManager CommentEntityManagerImpl.getCommentDataManager()",
+      "org.activiti.engine.impl.persistence.entity.data.DataManager CommentEntityManagerImpl.getDataManager()",
+      "void CommentEntityManagerImpl.setCommentDataManager(CommentDataManager)"})
   public void testGettersAndSetters() {
     // Arrange
     JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();
 
     // Act
-    CommentEntityManagerImpl actualCommentEntityManagerImpl =
-        new CommentEntityManagerImpl(
-            processEngineConfiguration,
-            new MybatisCommentDataManager(new JtaProcessEngineConfiguration()));
-    MybatisCommentDataManager commentDataManager =
-        new MybatisCommentDataManager(new JtaProcessEngineConfiguration());
+    CommentEntityManagerImpl actualCommentEntityManagerImpl = new CommentEntityManagerImpl(processEngineConfiguration,
+        new MybatisCommentDataManager(new JtaProcessEngineConfiguration()));
+    MybatisCommentDataManager commentDataManager = new MybatisCommentDataManager(new JtaProcessEngineConfiguration());
     actualCommentEntityManagerImpl.setCommentDataManager(commentDataManager);
-    CommentDataManager actualCommentDataManager =
-        actualCommentEntityManagerImpl.getCommentDataManager();
+    CommentDataManager actualCommentDataManager = actualCommentEntityManagerImpl.getCommentDataManager();
 
     // Assert
     assertSame(commentDataManager, actualCommentDataManager);
@@ -96,281 +90,236 @@ public class CommentEntityManagerImplDiffblueTest {
 
   /**
    * Test {@link CommentEntityManagerImpl#insert(CommentEntity)} with {@code CommentEntity}.
-   *
    * <ul>
-   *   <li>Then throw {@link ActivitiException}.
+   *   <li>Then throw {@link ActivitiException}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link CommentEntityManagerImpl#insert(CommentEntity)}
+   * <p>
+   * Method under test: {@link CommentEntityManagerImpl#insert(CommentEntity)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void CommentEntityManagerImpl.insert(CommentEntity)"})
   public void testInsertWithCommentEntity_thenThrowActivitiException() {
     // Arrange
     JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();
-    processEngineConfiguration.setHistoryManager(
-        new DefaultHistoryManager(new JtaProcessEngineConfiguration(), HistoryLevel.NONE));
-    CommentEntityManagerImpl commentEntityManagerImpl =
-        new CommentEntityManagerImpl(
-            processEngineConfiguration,
-            new MybatisCommentDataManager(new JtaProcessEngineConfiguration()));
+    processEngineConfiguration
+        .setHistoryManager(new DefaultHistoryManager(new JtaProcessEngineConfiguration(), HistoryLevel.NONE));
+    CommentEntityManagerImpl commentEntityManagerImpl = new CommentEntityManagerImpl(processEngineConfiguration,
+        new MybatisCommentDataManager(new JtaProcessEngineConfiguration()));
 
     // Act and Assert
-    assertThrows(
-        ActivitiException.class, () -> commentEntityManagerImpl.insert(new CommentEntityImpl()));
+    assertThrows(ActivitiException.class, () -> commentEntityManagerImpl.insert(new CommentEntityImpl()));
   }
 
   /**
    * Test {@link CommentEntityManagerImpl#findCommentsByTaskId(String)}.
-   *
-   * <p>Method under test: {@link CommentEntityManagerImpl#findCommentsByTaskId(String)}
+   * <p>
+   * Method under test: {@link CommentEntityManagerImpl#findCommentsByTaskId(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"List CommentEntityManagerImpl.findCommentsByTaskId(String)"})
   public void testFindCommentsByTaskId() {
     // Arrange
     when(processEngineConfigurationImpl.getHistoryManager())
-        .thenReturn(
-            new DefaultHistoryManager(new JtaProcessEngineConfiguration(), HistoryLevel.NONE));
+        .thenReturn(new DefaultHistoryManager(new JtaProcessEngineConfiguration(), HistoryLevel.NONE));
 
     // Act and Assert
-    assertThrows(
-        ActivitiException.class, () -> commentEntityManagerImpl.findCommentsByTaskId("42"));
+    assertThrows(ActivitiException.class, () -> commentEntityManagerImpl.findCommentsByTaskId("42"));
     verify(processEngineConfigurationImpl).getHistoryManager();
   }
 
   /**
    * Test {@link CommentEntityManagerImpl#findCommentsByTaskId(String)}.
-   *
-   * <p>Method under test: {@link CommentEntityManagerImpl#findCommentsByTaskId(String)}
+   * <p>
+   * Method under test: {@link CommentEntityManagerImpl#findCommentsByTaskId(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"List CommentEntityManagerImpl.findCommentsByTaskId(String)"})
   public void testFindCommentsByTaskId2() {
     // Arrange
     when(processEngineConfigurationImpl.getHistoryManager())
-        .thenReturn(
-            new DefaultHistoryManager(new JtaProcessEngineConfiguration(), HistoryLevel.ACTIVITY));
+        .thenReturn(new DefaultHistoryManager(new JtaProcessEngineConfiguration(), HistoryLevel.ACTIVITY));
     when(commentDataManager.findCommentsByTaskId(Mockito.<String>any()))
         .thenThrow(new ActivitiException("An error occurred"));
 
     // Act and Assert
-    assertThrows(
-        ActivitiException.class, () -> commentEntityManagerImpl.findCommentsByTaskId("42"));
+    assertThrows(ActivitiException.class, () -> commentEntityManagerImpl.findCommentsByTaskId("42"));
     verify(processEngineConfigurationImpl).getHistoryManager();
-    verify(commentDataManager).findCommentsByTaskId("42");
+    verify(commentDataManager).findCommentsByTaskId(eq("42"));
   }
 
   /**
    * Test {@link CommentEntityManagerImpl#findCommentsByTaskId(String)}.
-   *
    * <ul>
-   *   <li>Then return Empty.
+   *   <li>Then return Empty.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link CommentEntityManagerImpl#findCommentsByTaskId(String)}
+   * <p>
+   * Method under test: {@link CommentEntityManagerImpl#findCommentsByTaskId(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"List CommentEntityManagerImpl.findCommentsByTaskId(String)"})
   public void testFindCommentsByTaskId_thenReturnEmpty() {
     // Arrange
     when(processEngineConfigurationImpl.getHistoryManager())
-        .thenReturn(
-            new DefaultHistoryManager(new JtaProcessEngineConfiguration(), HistoryLevel.ACTIVITY));
-    when(commentDataManager.findCommentsByTaskId(Mockito.<String>any()))
-        .thenReturn(new ArrayList<>());
+        .thenReturn(new DefaultHistoryManager(new JtaProcessEngineConfiguration(), HistoryLevel.ACTIVITY));
+    when(commentDataManager.findCommentsByTaskId(Mockito.<String>any())).thenReturn(new ArrayList<>());
 
     // Act
-    List<Comment> actualFindCommentsByTaskIdResult =
-        commentEntityManagerImpl.findCommentsByTaskId("42");
+    List<Comment> actualFindCommentsByTaskIdResult = commentEntityManagerImpl.findCommentsByTaskId("42");
 
     // Assert
     verify(processEngineConfigurationImpl).getHistoryManager();
-    verify(commentDataManager).findCommentsByTaskId("42");
+    verify(commentDataManager).findCommentsByTaskId(eq("42"));
     assertTrue(actualFindCommentsByTaskIdResult.isEmpty());
   }
 
   /**
    * Test {@link CommentEntityManagerImpl#findCommentsByTaskIdAndType(String, String)}.
-   *
-   * <p>Method under test: {@link CommentEntityManagerImpl#findCommentsByTaskIdAndType(String,
-   * String)}
+   * <p>
+   * Method under test: {@link CommentEntityManagerImpl#findCommentsByTaskIdAndType(String, String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"List CommentEntityManagerImpl.findCommentsByTaskIdAndType(String, String)"})
   public void testFindCommentsByTaskIdAndType() {
     // Arrange
     when(processEngineConfigurationImpl.getHistoryManager())
-        .thenReturn(
-            new DefaultHistoryManager(new JtaProcessEngineConfiguration(), HistoryLevel.NONE));
+        .thenReturn(new DefaultHistoryManager(new JtaProcessEngineConfiguration(), HistoryLevel.NONE));
 
     // Act and Assert
-    assertThrows(
-        ActivitiException.class,
-        () -> commentEntityManagerImpl.findCommentsByTaskIdAndType("42", "Type"));
+    assertThrows(ActivitiException.class, () -> commentEntityManagerImpl.findCommentsByTaskIdAndType("42", "Type"));
     verify(processEngineConfigurationImpl).getHistoryManager();
   }
 
   /**
    * Test {@link CommentEntityManagerImpl#findCommentsByTaskIdAndType(String, String)}.
-   *
-   * <p>Method under test: {@link CommentEntityManagerImpl#findCommentsByTaskIdAndType(String,
-   * String)}
+   * <p>
+   * Method under test: {@link CommentEntityManagerImpl#findCommentsByTaskIdAndType(String, String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"List CommentEntityManagerImpl.findCommentsByTaskIdAndType(String, String)"})
   public void testFindCommentsByTaskIdAndType2() {
     // Arrange
     when(processEngineConfigurationImpl.getHistoryManager())
-        .thenReturn(
-            new DefaultHistoryManager(new JtaProcessEngineConfiguration(), HistoryLevel.ACTIVITY));
-    when(commentDataManager.findCommentsByTaskIdAndType(
-            Mockito.<String>any(), Mockito.<String>any()))
+        .thenReturn(new DefaultHistoryManager(new JtaProcessEngineConfiguration(), HistoryLevel.ACTIVITY));
+    when(commentDataManager.findCommentsByTaskIdAndType(Mockito.<String>any(), Mockito.<String>any()))
         .thenThrow(new ActivitiException("An error occurred"));
 
     // Act and Assert
-    assertThrows(
-        ActivitiException.class,
-        () -> commentEntityManagerImpl.findCommentsByTaskIdAndType("42", "Type"));
+    assertThrows(ActivitiException.class, () -> commentEntityManagerImpl.findCommentsByTaskIdAndType("42", "Type"));
     verify(processEngineConfigurationImpl).getHistoryManager();
-    verify(commentDataManager).findCommentsByTaskIdAndType("42", "Type");
+    verify(commentDataManager).findCommentsByTaskIdAndType(eq("42"), eq("Type"));
   }
 
   /**
    * Test {@link CommentEntityManagerImpl#findCommentsByTaskIdAndType(String, String)}.
-   *
    * <ul>
-   *   <li>Then return Empty.
+   *   <li>Then return Empty.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link CommentEntityManagerImpl#findCommentsByTaskIdAndType(String,
-   * String)}
+   * <p>
+   * Method under test: {@link CommentEntityManagerImpl#findCommentsByTaskIdAndType(String, String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"List CommentEntityManagerImpl.findCommentsByTaskIdAndType(String, String)"})
   public void testFindCommentsByTaskIdAndType_thenReturnEmpty() {
     // Arrange
     when(processEngineConfigurationImpl.getHistoryManager())
-        .thenReturn(
-            new DefaultHistoryManager(new JtaProcessEngineConfiguration(), HistoryLevel.ACTIVITY));
-    when(commentDataManager.findCommentsByTaskIdAndType(
-            Mockito.<String>any(), Mockito.<String>any()))
+        .thenReturn(new DefaultHistoryManager(new JtaProcessEngineConfiguration(), HistoryLevel.ACTIVITY));
+    when(commentDataManager.findCommentsByTaskIdAndType(Mockito.<String>any(), Mockito.<String>any()))
         .thenReturn(new ArrayList<>());
 
     // Act
-    List<Comment> actualFindCommentsByTaskIdAndTypeResult =
-        commentEntityManagerImpl.findCommentsByTaskIdAndType("42", "Type");
+    List<Comment> actualFindCommentsByTaskIdAndTypeResult = commentEntityManagerImpl.findCommentsByTaskIdAndType("42",
+        "Type");
 
     // Assert
     verify(processEngineConfigurationImpl).getHistoryManager();
-    verify(commentDataManager).findCommentsByTaskIdAndType("42", "Type");
+    verify(commentDataManager).findCommentsByTaskIdAndType(eq("42"), eq("Type"));
     assertTrue(actualFindCommentsByTaskIdAndTypeResult.isEmpty());
   }
 
   /**
    * Test {@link CommentEntityManagerImpl#findCommentsByType(String)}.
-   *
-   * <p>Method under test: {@link CommentEntityManagerImpl#findCommentsByType(String)}
+   * <p>
+   * Method under test: {@link CommentEntityManagerImpl#findCommentsByType(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"List CommentEntityManagerImpl.findCommentsByType(String)"})
   public void testFindCommentsByType() {
     // Arrange
     when(processEngineConfigurationImpl.getHistoryManager())
-        .thenReturn(
-            new DefaultHistoryManager(new JtaProcessEngineConfiguration(), HistoryLevel.NONE));
+        .thenReturn(new DefaultHistoryManager(new JtaProcessEngineConfiguration(), HistoryLevel.NONE));
 
     // Act and Assert
-    assertThrows(
-        ActivitiException.class, () -> commentEntityManagerImpl.findCommentsByType("Type"));
+    assertThrows(ActivitiException.class, () -> commentEntityManagerImpl.findCommentsByType("Type"));
     verify(processEngineConfigurationImpl).getHistoryManager();
   }
 
   /**
    * Test {@link CommentEntityManagerImpl#findCommentsByType(String)}.
-   *
-   * <p>Method under test: {@link CommentEntityManagerImpl#findCommentsByType(String)}
+   * <p>
+   * Method under test: {@link CommentEntityManagerImpl#findCommentsByType(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"List CommentEntityManagerImpl.findCommentsByType(String)"})
   public void testFindCommentsByType2() {
     // Arrange
     when(processEngineConfigurationImpl.getHistoryManager())
-        .thenReturn(
-            new DefaultHistoryManager(new JtaProcessEngineConfiguration(), HistoryLevel.ACTIVITY));
+        .thenReturn(new DefaultHistoryManager(new JtaProcessEngineConfiguration(), HistoryLevel.ACTIVITY));
     when(commentDataManager.findCommentsByType(Mockito.<String>any()))
         .thenThrow(new ActivitiException("An error occurred"));
 
     // Act and Assert
-    assertThrows(
-        ActivitiException.class, () -> commentEntityManagerImpl.findCommentsByType("Type"));
+    assertThrows(ActivitiException.class, () -> commentEntityManagerImpl.findCommentsByType("Type"));
     verify(processEngineConfigurationImpl).getHistoryManager();
-    verify(commentDataManager).findCommentsByType("Type");
+    verify(commentDataManager).findCommentsByType(eq("Type"));
   }
 
   /**
    * Test {@link CommentEntityManagerImpl#findCommentsByType(String)}.
-   *
    * <ul>
-   *   <li>Then return Empty.
+   *   <li>Then return Empty.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link CommentEntityManagerImpl#findCommentsByType(String)}
+   * <p>
+   * Method under test: {@link CommentEntityManagerImpl#findCommentsByType(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"List CommentEntityManagerImpl.findCommentsByType(String)"})
   public void testFindCommentsByType_thenReturnEmpty() {
     // Arrange
     when(processEngineConfigurationImpl.getHistoryManager())
-        .thenReturn(
-            new DefaultHistoryManager(new JtaProcessEngineConfiguration(), HistoryLevel.ACTIVITY));
-    when(commentDataManager.findCommentsByType(Mockito.<String>any()))
-        .thenReturn(new ArrayList<>());
+        .thenReturn(new DefaultHistoryManager(new JtaProcessEngineConfiguration(), HistoryLevel.ACTIVITY));
+    when(commentDataManager.findCommentsByType(Mockito.<String>any())).thenReturn(new ArrayList<>());
 
     // Act
-    List<Comment> actualFindCommentsByTypeResult =
-        commentEntityManagerImpl.findCommentsByType("Type");
+    List<Comment> actualFindCommentsByTypeResult = commentEntityManagerImpl.findCommentsByType("Type");
 
     // Assert
     verify(processEngineConfigurationImpl).getHistoryManager();
-    verify(commentDataManager).findCommentsByType("Type");
+    verify(commentDataManager).findCommentsByType(eq("Type"));
     assertTrue(actualFindCommentsByTypeResult.isEmpty());
   }
 
   /**
    * Test {@link CommentEntityManagerImpl#findEventsByTaskId(String)}.
-   *
-   * <p>Method under test: {@link CommentEntityManagerImpl#findEventsByTaskId(String)}
+   * <p>
+   * Method under test: {@link CommentEntityManagerImpl#findEventsByTaskId(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"List CommentEntityManagerImpl.findEventsByTaskId(String)"})
   public void testFindEventsByTaskId() {
     // Arrange
     when(processEngineConfigurationImpl.getHistoryManager())
-        .thenReturn(
-            new DefaultHistoryManager(new JtaProcessEngineConfiguration(), HistoryLevel.NONE));
+        .thenReturn(new DefaultHistoryManager(new JtaProcessEngineConfiguration(), HistoryLevel.NONE));
 
     // Act and Assert
     assertThrows(ActivitiException.class, () -> commentEntityManagerImpl.findEventsByTaskId("42"));
@@ -379,199 +328,171 @@ public class CommentEntityManagerImplDiffblueTest {
 
   /**
    * Test {@link CommentEntityManagerImpl#findEventsByTaskId(String)}.
-   *
-   * <p>Method under test: {@link CommentEntityManagerImpl#findEventsByTaskId(String)}
+   * <p>
+   * Method under test: {@link CommentEntityManagerImpl#findEventsByTaskId(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"List CommentEntityManagerImpl.findEventsByTaskId(String)"})
   public void testFindEventsByTaskId2() {
     // Arrange
     when(processEngineConfigurationImpl.getHistoryManager())
-        .thenReturn(
-            new DefaultHistoryManager(new JtaProcessEngineConfiguration(), HistoryLevel.ACTIVITY));
+        .thenReturn(new DefaultHistoryManager(new JtaProcessEngineConfiguration(), HistoryLevel.ACTIVITY));
     when(commentDataManager.findEventsByTaskId(Mockito.<String>any()))
         .thenThrow(new ActivitiException("An error occurred"));
 
     // Act and Assert
     assertThrows(ActivitiException.class, () -> commentEntityManagerImpl.findEventsByTaskId("42"));
     verify(processEngineConfigurationImpl).getHistoryManager();
-    verify(commentDataManager).findEventsByTaskId("42");
+    verify(commentDataManager).findEventsByTaskId(eq("42"));
   }
 
   /**
    * Test {@link CommentEntityManagerImpl#findEventsByTaskId(String)}.
-   *
    * <ul>
-   *   <li>Then return Empty.
+   *   <li>Then return Empty.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link CommentEntityManagerImpl#findEventsByTaskId(String)}
+   * <p>
+   * Method under test: {@link CommentEntityManagerImpl#findEventsByTaskId(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"List CommentEntityManagerImpl.findEventsByTaskId(String)"})
   public void testFindEventsByTaskId_thenReturnEmpty() {
     // Arrange
     when(processEngineConfigurationImpl.getHistoryManager())
-        .thenReturn(
-            new DefaultHistoryManager(new JtaProcessEngineConfiguration(), HistoryLevel.ACTIVITY));
-    when(commentDataManager.findEventsByTaskId(Mockito.<String>any()))
-        .thenReturn(new ArrayList<>());
+        .thenReturn(new DefaultHistoryManager(new JtaProcessEngineConfiguration(), HistoryLevel.ACTIVITY));
+    when(commentDataManager.findEventsByTaskId(Mockito.<String>any())).thenReturn(new ArrayList<>());
 
     // Act
     List<Event> actualFindEventsByTaskIdResult = commentEntityManagerImpl.findEventsByTaskId("42");
 
     // Assert
     verify(processEngineConfigurationImpl).getHistoryManager();
-    verify(commentDataManager).findEventsByTaskId("42");
+    verify(commentDataManager).findEventsByTaskId(eq("42"));
     assertTrue(actualFindEventsByTaskIdResult.isEmpty());
   }
 
   /**
    * Test {@link CommentEntityManagerImpl#findEventsByProcessInstanceId(String)}.
-   *
-   * <p>Method under test: {@link CommentEntityManagerImpl#findEventsByProcessInstanceId(String)}
+   * <p>
+   * Method under test: {@link CommentEntityManagerImpl#findEventsByProcessInstanceId(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"List CommentEntityManagerImpl.findEventsByProcessInstanceId(String)"})
   public void testFindEventsByProcessInstanceId() {
     // Arrange
     when(processEngineConfigurationImpl.getHistoryManager())
-        .thenReturn(
-            new DefaultHistoryManager(new JtaProcessEngineConfiguration(), HistoryLevel.NONE));
+        .thenReturn(new DefaultHistoryManager(new JtaProcessEngineConfiguration(), HistoryLevel.NONE));
 
     // Act and Assert
-    assertThrows(
-        ActivitiException.class,
-        () -> commentEntityManagerImpl.findEventsByProcessInstanceId("42"));
+    assertThrows(ActivitiException.class, () -> commentEntityManagerImpl.findEventsByProcessInstanceId("42"));
     verify(processEngineConfigurationImpl).getHistoryManager();
   }
 
   /**
    * Test {@link CommentEntityManagerImpl#findEventsByProcessInstanceId(String)}.
-   *
-   * <p>Method under test: {@link CommentEntityManagerImpl#findEventsByProcessInstanceId(String)}
+   * <p>
+   * Method under test: {@link CommentEntityManagerImpl#findEventsByProcessInstanceId(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"List CommentEntityManagerImpl.findEventsByProcessInstanceId(String)"})
   public void testFindEventsByProcessInstanceId2() {
     // Arrange
     when(processEngineConfigurationImpl.getHistoryManager())
-        .thenReturn(
-            new DefaultHistoryManager(new JtaProcessEngineConfiguration(), HistoryLevel.ACTIVITY));
+        .thenReturn(new DefaultHistoryManager(new JtaProcessEngineConfiguration(), HistoryLevel.ACTIVITY));
     when(commentDataManager.findEventsByProcessInstanceId(Mockito.<String>any()))
         .thenThrow(new ActivitiException("An error occurred"));
 
     // Act and Assert
-    assertThrows(
-        ActivitiException.class,
-        () -> commentEntityManagerImpl.findEventsByProcessInstanceId("42"));
+    assertThrows(ActivitiException.class, () -> commentEntityManagerImpl.findEventsByProcessInstanceId("42"));
     verify(processEngineConfigurationImpl).getHistoryManager();
-    verify(commentDataManager).findEventsByProcessInstanceId("42");
+    verify(commentDataManager).findEventsByProcessInstanceId(eq("42"));
   }
 
   /**
    * Test {@link CommentEntityManagerImpl#findEventsByProcessInstanceId(String)}.
-   *
    * <ul>
-   *   <li>Then return Empty.
+   *   <li>Then return Empty.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link CommentEntityManagerImpl#findEventsByProcessInstanceId(String)}
+   * <p>
+   * Method under test: {@link CommentEntityManagerImpl#findEventsByProcessInstanceId(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"List CommentEntityManagerImpl.findEventsByProcessInstanceId(String)"})
   public void testFindEventsByProcessInstanceId_thenReturnEmpty() {
     // Arrange
     when(processEngineConfigurationImpl.getHistoryManager())
-        .thenReturn(
-            new DefaultHistoryManager(new JtaProcessEngineConfiguration(), HistoryLevel.ACTIVITY));
-    when(commentDataManager.findEventsByProcessInstanceId(Mockito.<String>any()))
-        .thenReturn(new ArrayList<>());
+        .thenReturn(new DefaultHistoryManager(new JtaProcessEngineConfiguration(), HistoryLevel.ACTIVITY));
+    when(commentDataManager.findEventsByProcessInstanceId(Mockito.<String>any())).thenReturn(new ArrayList<>());
 
     // Act
-    List<Event> actualFindEventsByProcessInstanceIdResult =
-        commentEntityManagerImpl.findEventsByProcessInstanceId("42");
+    List<Event> actualFindEventsByProcessInstanceIdResult = commentEntityManagerImpl
+        .findEventsByProcessInstanceId("42");
 
     // Assert
     verify(processEngineConfigurationImpl).getHistoryManager();
-    verify(commentDataManager).findEventsByProcessInstanceId("42");
+    verify(commentDataManager).findEventsByProcessInstanceId(eq("42"));
     assertTrue(actualFindEventsByProcessInstanceIdResult.isEmpty());
   }
 
   /**
    * Test {@link CommentEntityManagerImpl#deleteCommentsByTaskId(String)}.
-   *
-   * <p>Method under test: {@link CommentEntityManagerImpl#deleteCommentsByTaskId(String)}
+   * <p>
+   * Method under test: {@link CommentEntityManagerImpl#deleteCommentsByTaskId(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void CommentEntityManagerImpl.deleteCommentsByTaskId(String)"})
   public void testDeleteCommentsByTaskId() {
     // Arrange
     when(processEngineConfigurationImpl.getHistoryManager())
-        .thenReturn(
-            new DefaultHistoryManager(new JtaProcessEngineConfiguration(), HistoryLevel.NONE));
+        .thenReturn(new DefaultHistoryManager(new JtaProcessEngineConfiguration(), HistoryLevel.NONE));
 
     // Act and Assert
-    assertThrows(
-        ActivitiException.class, () -> commentEntityManagerImpl.deleteCommentsByTaskId("42"));
+    assertThrows(ActivitiException.class, () -> commentEntityManagerImpl.deleteCommentsByTaskId("42"));
     verify(processEngineConfigurationImpl).getHistoryManager();
   }
 
   /**
    * Test {@link CommentEntityManagerImpl#deleteCommentsByTaskId(String)}.
-   *
-   * <p>Method under test: {@link CommentEntityManagerImpl#deleteCommentsByTaskId(String)}
+   * <p>
+   * Method under test: {@link CommentEntityManagerImpl#deleteCommentsByTaskId(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void CommentEntityManagerImpl.deleteCommentsByTaskId(String)"})
   public void testDeleteCommentsByTaskId2() {
     // Arrange
     when(processEngineConfigurationImpl.getHistoryManager())
-        .thenReturn(
-            new DefaultHistoryManager(new JtaProcessEngineConfiguration(), HistoryLevel.ACTIVITY));
-    doThrow(new ActivitiException("An error occurred"))
-        .when(commentDataManager)
+        .thenReturn(new DefaultHistoryManager(new JtaProcessEngineConfiguration(), HistoryLevel.ACTIVITY));
+    doThrow(new ActivitiException("An error occurred")).when(commentDataManager)
         .deleteCommentsByTaskId(Mockito.<String>any());
 
     // Act and Assert
-    assertThrows(
-        ActivitiException.class, () -> commentEntityManagerImpl.deleteCommentsByTaskId("42"));
+    assertThrows(ActivitiException.class, () -> commentEntityManagerImpl.deleteCommentsByTaskId("42"));
     verify(processEngineConfigurationImpl).getHistoryManager();
-    verify(commentDataManager).deleteCommentsByTaskId("42");
+    verify(commentDataManager).deleteCommentsByTaskId(eq("42"));
   }
 
   /**
    * Test {@link CommentEntityManagerImpl#deleteCommentsByTaskId(String)}.
-   *
    * <ul>
-   *   <li>Then calls {@link CommentDataManager#deleteCommentsByTaskId(String)}.
+   *   <li>Then calls {@link CommentDataManager#deleteCommentsByTaskId(String)}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link CommentEntityManagerImpl#deleteCommentsByTaskId(String)}
+   * <p>
+   * Method under test: {@link CommentEntityManagerImpl#deleteCommentsByTaskId(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void CommentEntityManagerImpl.deleteCommentsByTaskId(String)"})
   public void testDeleteCommentsByTaskId_thenCallsDeleteCommentsByTaskId() {
     // Arrange
     when(processEngineConfigurationImpl.getHistoryManager())
-        .thenReturn(
-            new DefaultHistoryManager(new JtaProcessEngineConfiguration(), HistoryLevel.ACTIVITY));
+        .thenReturn(new DefaultHistoryManager(new JtaProcessEngineConfiguration(), HistoryLevel.ACTIVITY));
     doNothing().when(commentDataManager).deleteCommentsByTaskId(Mockito.<String>any());
 
     // Act
@@ -579,78 +500,63 @@ public class CommentEntityManagerImplDiffblueTest {
 
     // Assert
     verify(processEngineConfigurationImpl).getHistoryManager();
-    verify(commentDataManager).deleteCommentsByTaskId("42");
+    verify(commentDataManager).deleteCommentsByTaskId(eq("42"));
   }
 
   /**
    * Test {@link CommentEntityManagerImpl#deleteCommentsByProcessInstanceId(String)}.
-   *
-   * <p>Method under test: {@link
-   * CommentEntityManagerImpl#deleteCommentsByProcessInstanceId(String)}
+   * <p>
+   * Method under test: {@link CommentEntityManagerImpl#deleteCommentsByProcessInstanceId(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void CommentEntityManagerImpl.deleteCommentsByProcessInstanceId(String)"})
   public void testDeleteCommentsByProcessInstanceId() {
     // Arrange
     when(processEngineConfigurationImpl.getHistoryManager())
-        .thenReturn(
-            new DefaultHistoryManager(new JtaProcessEngineConfiguration(), HistoryLevel.NONE));
+        .thenReturn(new DefaultHistoryManager(new JtaProcessEngineConfiguration(), HistoryLevel.NONE));
 
     // Act and Assert
-    assertThrows(
-        ActivitiException.class,
-        () -> commentEntityManagerImpl.deleteCommentsByProcessInstanceId("42"));
+    assertThrows(ActivitiException.class, () -> commentEntityManagerImpl.deleteCommentsByProcessInstanceId("42"));
     verify(processEngineConfigurationImpl).getHistoryManager();
   }
 
   /**
    * Test {@link CommentEntityManagerImpl#deleteCommentsByProcessInstanceId(String)}.
-   *
-   * <p>Method under test: {@link
-   * CommentEntityManagerImpl#deleteCommentsByProcessInstanceId(String)}
+   * <p>
+   * Method under test: {@link CommentEntityManagerImpl#deleteCommentsByProcessInstanceId(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void CommentEntityManagerImpl.deleteCommentsByProcessInstanceId(String)"})
   public void testDeleteCommentsByProcessInstanceId2() {
     // Arrange
     when(processEngineConfigurationImpl.getHistoryManager())
-        .thenReturn(
-            new DefaultHistoryManager(new JtaProcessEngineConfiguration(), HistoryLevel.ACTIVITY));
-    doThrow(new ActivitiException("An error occurred"))
-        .when(commentDataManager)
+        .thenReturn(new DefaultHistoryManager(new JtaProcessEngineConfiguration(), HistoryLevel.ACTIVITY));
+    doThrow(new ActivitiException("An error occurred")).when(commentDataManager)
         .deleteCommentsByProcessInstanceId(Mockito.<String>any());
 
     // Act and Assert
-    assertThrows(
-        ActivitiException.class,
-        () -> commentEntityManagerImpl.deleteCommentsByProcessInstanceId("42"));
+    assertThrows(ActivitiException.class, () -> commentEntityManagerImpl.deleteCommentsByProcessInstanceId("42"));
     verify(processEngineConfigurationImpl).getHistoryManager();
-    verify(commentDataManager).deleteCommentsByProcessInstanceId("42");
+    verify(commentDataManager).deleteCommentsByProcessInstanceId(eq("42"));
   }
 
   /**
    * Test {@link CommentEntityManagerImpl#deleteCommentsByProcessInstanceId(String)}.
-   *
    * <ul>
-   *   <li>Then calls {@link CommentDataManager#deleteCommentsByProcessInstanceId(String)}.
+   *   <li>Then calls {@link CommentDataManager#deleteCommentsByProcessInstanceId(String)}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link
-   * CommentEntityManagerImpl#deleteCommentsByProcessInstanceId(String)}
+   * <p>
+   * Method under test: {@link CommentEntityManagerImpl#deleteCommentsByProcessInstanceId(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void CommentEntityManagerImpl.deleteCommentsByProcessInstanceId(String)"})
   public void testDeleteCommentsByProcessInstanceId_thenCallsDeleteCommentsByProcessInstanceId() {
     // Arrange
     when(processEngineConfigurationImpl.getHistoryManager())
-        .thenReturn(
-            new DefaultHistoryManager(new JtaProcessEngineConfiguration(), HistoryLevel.ACTIVITY));
+        .thenReturn(new DefaultHistoryManager(new JtaProcessEngineConfiguration(), HistoryLevel.ACTIVITY));
     doNothing().when(commentDataManager).deleteCommentsByProcessInstanceId(Mockito.<String>any());
 
     // Act
@@ -658,194 +564,152 @@ public class CommentEntityManagerImplDiffblueTest {
 
     // Assert
     verify(processEngineConfigurationImpl).getHistoryManager();
-    verify(commentDataManager).deleteCommentsByProcessInstanceId("42");
+    verify(commentDataManager).deleteCommentsByProcessInstanceId(eq("42"));
   }
 
   /**
-   * Test {@link CommentEntityManagerImpl#findCommentsByProcessInstanceId(String)} with {@code
-   * processInstanceId}.
-   *
-   * <p>Method under test: {@link CommentEntityManagerImpl#findCommentsByProcessInstanceId(String)}
+   * Test {@link CommentEntityManagerImpl#findCommentsByProcessInstanceId(String)} with {@code processInstanceId}.
+   * <p>
+   * Method under test: {@link CommentEntityManagerImpl#findCommentsByProcessInstanceId(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"List CommentEntityManagerImpl.findCommentsByProcessInstanceId(String)"})
   public void testFindCommentsByProcessInstanceIdWithProcessInstanceId() {
     // Arrange
     when(processEngineConfigurationImpl.getHistoryManager())
-        .thenReturn(
-            new DefaultHistoryManager(new JtaProcessEngineConfiguration(), HistoryLevel.NONE));
+        .thenReturn(new DefaultHistoryManager(new JtaProcessEngineConfiguration(), HistoryLevel.NONE));
 
     // Act and Assert
-    assertThrows(
-        ActivitiException.class,
-        () -> commentEntityManagerImpl.findCommentsByProcessInstanceId("42"));
+    assertThrows(ActivitiException.class, () -> commentEntityManagerImpl.findCommentsByProcessInstanceId("42"));
     verify(processEngineConfigurationImpl).getHistoryManager();
   }
 
   /**
-   * Test {@link CommentEntityManagerImpl#findCommentsByProcessInstanceId(String)} with {@code
-   * processInstanceId}.
-   *
-   * <p>Method under test: {@link CommentEntityManagerImpl#findCommentsByProcessInstanceId(String)}
+   * Test {@link CommentEntityManagerImpl#findCommentsByProcessInstanceId(String)} with {@code processInstanceId}.
+   * <p>
+   * Method under test: {@link CommentEntityManagerImpl#findCommentsByProcessInstanceId(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"List CommentEntityManagerImpl.findCommentsByProcessInstanceId(String)"})
   public void testFindCommentsByProcessInstanceIdWithProcessInstanceId2() {
     // Arrange
     when(processEngineConfigurationImpl.getHistoryManager())
-        .thenReturn(
-            new DefaultHistoryManager(new JtaProcessEngineConfiguration(), HistoryLevel.ACTIVITY));
+        .thenReturn(new DefaultHistoryManager(new JtaProcessEngineConfiguration(), HistoryLevel.ACTIVITY));
     when(commentDataManager.findCommentsByProcessInstanceId(Mockito.<String>any()))
         .thenThrow(new ActivitiException("An error occurred"));
 
     // Act and Assert
-    assertThrows(
-        ActivitiException.class,
-        () -> commentEntityManagerImpl.findCommentsByProcessInstanceId("42"));
+    assertThrows(ActivitiException.class, () -> commentEntityManagerImpl.findCommentsByProcessInstanceId("42"));
     verify(processEngineConfigurationImpl).getHistoryManager();
-    verify(commentDataManager).findCommentsByProcessInstanceId("42");
+    verify(commentDataManager).findCommentsByProcessInstanceId(eq("42"));
   }
 
   /**
-   * Test {@link CommentEntityManagerImpl#findCommentsByProcessInstanceId(String, String)} with
-   * {@code processInstanceId}, {@code type}.
-   *
-   * <p>Method under test: {@link CommentEntityManagerImpl#findCommentsByProcessInstanceId(String,
-   * String)}
+   * Test {@link CommentEntityManagerImpl#findCommentsByProcessInstanceId(String, String)} with {@code processInstanceId}, {@code type}.
+   * <p>
+   * Method under test: {@link CommentEntityManagerImpl#findCommentsByProcessInstanceId(String, String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "List CommentEntityManagerImpl.findCommentsByProcessInstanceId(String, String)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"List CommentEntityManagerImpl.findCommentsByProcessInstanceId(String, String)"})
   public void testFindCommentsByProcessInstanceIdWithProcessInstanceIdType() {
     // Arrange
     when(processEngineConfigurationImpl.getHistoryManager())
-        .thenReturn(
-            new DefaultHistoryManager(new JtaProcessEngineConfiguration(), HistoryLevel.NONE));
+        .thenReturn(new DefaultHistoryManager(new JtaProcessEngineConfiguration(), HistoryLevel.NONE));
 
     // Act and Assert
-    assertThrows(
-        ActivitiException.class,
-        () -> commentEntityManagerImpl.findCommentsByProcessInstanceId("42", "Type"));
+    assertThrows(ActivitiException.class, () -> commentEntityManagerImpl.findCommentsByProcessInstanceId("42", "Type"));
     verify(processEngineConfigurationImpl).getHistoryManager();
   }
 
   /**
-   * Test {@link CommentEntityManagerImpl#findCommentsByProcessInstanceId(String, String)} with
-   * {@code processInstanceId}, {@code type}.
-   *
-   * <p>Method under test: {@link CommentEntityManagerImpl#findCommentsByProcessInstanceId(String,
-   * String)}
+   * Test {@link CommentEntityManagerImpl#findCommentsByProcessInstanceId(String, String)} with {@code processInstanceId}, {@code type}.
+   * <p>
+   * Method under test: {@link CommentEntityManagerImpl#findCommentsByProcessInstanceId(String, String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "List CommentEntityManagerImpl.findCommentsByProcessInstanceId(String, String)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"List CommentEntityManagerImpl.findCommentsByProcessInstanceId(String, String)"})
   public void testFindCommentsByProcessInstanceIdWithProcessInstanceIdType2() {
     // Arrange
     when(processEngineConfigurationImpl.getHistoryManager())
-        .thenReturn(
-            new DefaultHistoryManager(new JtaProcessEngineConfiguration(), HistoryLevel.ACTIVITY));
-    when(commentDataManager.findCommentsByProcessInstanceId(
-            Mockito.<String>any(), Mockito.<String>any()))
+        .thenReturn(new DefaultHistoryManager(new JtaProcessEngineConfiguration(), HistoryLevel.ACTIVITY));
+    when(commentDataManager.findCommentsByProcessInstanceId(Mockito.<String>any(), Mockito.<String>any()))
         .thenThrow(new ActivitiException("An error occurred"));
 
     // Act and Assert
-    assertThrows(
-        ActivitiException.class,
-        () -> commentEntityManagerImpl.findCommentsByProcessInstanceId("42", "Type"));
+    assertThrows(ActivitiException.class, () -> commentEntityManagerImpl.findCommentsByProcessInstanceId("42", "Type"));
     verify(processEngineConfigurationImpl).getHistoryManager();
-    verify(commentDataManager).findCommentsByProcessInstanceId("42", "Type");
+    verify(commentDataManager).findCommentsByProcessInstanceId(eq("42"), eq("Type"));
   }
 
   /**
-   * Test {@link CommentEntityManagerImpl#findCommentsByProcessInstanceId(String, String)} with
-   * {@code processInstanceId}, {@code type}.
-   *
+   * Test {@link CommentEntityManagerImpl#findCommentsByProcessInstanceId(String, String)} with {@code processInstanceId}, {@code type}.
    * <ul>
-   *   <li>Then return Empty.
+   *   <li>Then return Empty.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link CommentEntityManagerImpl#findCommentsByProcessInstanceId(String,
-   * String)}
+   * <p>
+   * Method under test: {@link CommentEntityManagerImpl#findCommentsByProcessInstanceId(String, String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "List CommentEntityManagerImpl.findCommentsByProcessInstanceId(String, String)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"List CommentEntityManagerImpl.findCommentsByProcessInstanceId(String, String)"})
   public void testFindCommentsByProcessInstanceIdWithProcessInstanceIdType_thenReturnEmpty() {
     // Arrange
     when(processEngineConfigurationImpl.getHistoryManager())
-        .thenReturn(
-            new DefaultHistoryManager(new JtaProcessEngineConfiguration(), HistoryLevel.ACTIVITY));
-    when(commentDataManager.findCommentsByProcessInstanceId(
-            Mockito.<String>any(), Mockito.<String>any()))
+        .thenReturn(new DefaultHistoryManager(new JtaProcessEngineConfiguration(), HistoryLevel.ACTIVITY));
+    when(commentDataManager.findCommentsByProcessInstanceId(Mockito.<String>any(), Mockito.<String>any()))
         .thenReturn(new ArrayList<>());
 
     // Act
-    List<Comment> actualFindCommentsByProcessInstanceIdResult =
-        commentEntityManagerImpl.findCommentsByProcessInstanceId("42", "Type");
+    List<Comment> actualFindCommentsByProcessInstanceIdResult = commentEntityManagerImpl
+        .findCommentsByProcessInstanceId("42", "Type");
 
     // Assert
     verify(processEngineConfigurationImpl).getHistoryManager();
-    verify(commentDataManager).findCommentsByProcessInstanceId("42", "Type");
+    verify(commentDataManager).findCommentsByProcessInstanceId(eq("42"), eq("Type"));
     assertTrue(actualFindCommentsByProcessInstanceIdResult.isEmpty());
   }
 
   /**
-   * Test {@link CommentEntityManagerImpl#findCommentsByProcessInstanceId(String)} with {@code
-   * processInstanceId}.
-   *
+   * Test {@link CommentEntityManagerImpl#findCommentsByProcessInstanceId(String)} with {@code processInstanceId}.
    * <ul>
-   *   <li>Then return Empty.
+   *   <li>Then return Empty.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link CommentEntityManagerImpl#findCommentsByProcessInstanceId(String)}
+   * <p>
+   * Method under test: {@link CommentEntityManagerImpl#findCommentsByProcessInstanceId(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"List CommentEntityManagerImpl.findCommentsByProcessInstanceId(String)"})
   public void testFindCommentsByProcessInstanceIdWithProcessInstanceId_thenReturnEmpty() {
     // Arrange
     when(processEngineConfigurationImpl.getHistoryManager())
-        .thenReturn(
-            new DefaultHistoryManager(new JtaProcessEngineConfiguration(), HistoryLevel.ACTIVITY));
-    when(commentDataManager.findCommentsByProcessInstanceId(Mockito.<String>any()))
-        .thenReturn(new ArrayList<>());
+        .thenReturn(new DefaultHistoryManager(new JtaProcessEngineConfiguration(), HistoryLevel.ACTIVITY));
+    when(commentDataManager.findCommentsByProcessInstanceId(Mockito.<String>any())).thenReturn(new ArrayList<>());
 
     // Act
-    List<Comment> actualFindCommentsByProcessInstanceIdResult =
-        commentEntityManagerImpl.findCommentsByProcessInstanceId("42");
+    List<Comment> actualFindCommentsByProcessInstanceIdResult = commentEntityManagerImpl
+        .findCommentsByProcessInstanceId("42");
 
     // Assert
     verify(processEngineConfigurationImpl).getHistoryManager();
-    verify(commentDataManager).findCommentsByProcessInstanceId("42");
+    verify(commentDataManager).findCommentsByProcessInstanceId(eq("42"));
     assertTrue(actualFindCommentsByProcessInstanceIdResult.isEmpty());
   }
 
   /**
    * Test {@link CommentEntityManagerImpl#findComment(String)}.
-   *
    * <ul>
-   *   <li>Then return {@link CommentEntityImpl} (default constructor).
+   *   <li>Then return {@link CommentEntityImpl} (default constructor).</li>
    * </ul>
-   *
-   * <p>Method under test: {@link CommentEntityManagerImpl#findComment(String)}
+   * <p>
+   * Method under test: {@link CommentEntityManagerImpl#findComment(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"Comment CommentEntityManagerImpl.findComment(String)"})
   public void testFindComment_thenReturnCommentEntityImpl() {
     // Arrange
@@ -856,45 +720,40 @@ public class CommentEntityManagerImplDiffblueTest {
     Comment actualFindCommentResult = commentEntityManagerImpl.findComment("42");
 
     // Assert
-    verify(commentDataManager).findComment("42");
+    verify(commentDataManager).findComment(eq("42"));
     assertSame(commentEntityImpl, actualFindCommentResult);
   }
 
   /**
    * Test {@link CommentEntityManagerImpl#findComment(String)}.
-   *
    * <ul>
-   *   <li>Then throw {@link ActivitiException}.
+   *   <li>Then throw {@link ActivitiException}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link CommentEntityManagerImpl#findComment(String)}
+   * <p>
+   * Method under test: {@link CommentEntityManagerImpl#findComment(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"Comment CommentEntityManagerImpl.findComment(String)"})
   public void testFindComment_thenThrowActivitiException() {
     // Arrange
-    when(commentDataManager.findComment(Mockito.<String>any()))
-        .thenThrow(new ActivitiException("An error occurred"));
+    when(commentDataManager.findComment(Mockito.<String>any())).thenThrow(new ActivitiException("An error occurred"));
 
     // Act and Assert
     assertThrows(ActivitiException.class, () -> commentEntityManagerImpl.findComment("42"));
-    verify(commentDataManager).findComment("42");
+    verify(commentDataManager).findComment(eq("42"));
   }
 
   /**
    * Test {@link CommentEntityManagerImpl#findEvent(String)}.
-   *
    * <ul>
-   *   <li>Then return {@link CommentEntityImpl} (default constructor).
+   *   <li>Then return {@link CommentEntityImpl} (default constructor).</li>
    * </ul>
-   *
-   * <p>Method under test: {@link CommentEntityManagerImpl#findEvent(String)}
+   * <p>
+   * Method under test: {@link CommentEntityManagerImpl#findEvent(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"Event CommentEntityManagerImpl.findEvent(String)"})
   public void testFindEvent_thenReturnCommentEntityImpl() {
     // Arrange
@@ -905,85 +764,72 @@ public class CommentEntityManagerImplDiffblueTest {
     Event actualFindEventResult = commentEntityManagerImpl.findEvent("42");
 
     // Assert
-    verify(commentDataManager).findEvent("42");
+    verify(commentDataManager).findEvent(eq("42"));
     assertSame(commentEntityImpl, actualFindEventResult);
   }
 
   /**
    * Test {@link CommentEntityManagerImpl#findEvent(String)}.
-   *
    * <ul>
-   *   <li>Then throw {@link ActivitiException}.
+   *   <li>Then throw {@link ActivitiException}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link CommentEntityManagerImpl#findEvent(String)}
+   * <p>
+   * Method under test: {@link CommentEntityManagerImpl#findEvent(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"Event CommentEntityManagerImpl.findEvent(String)"})
   public void testFindEvent_thenThrowActivitiException() {
     // Arrange
-    when(commentDataManager.findEvent(Mockito.<String>any()))
-        .thenThrow(new ActivitiException("An error occurred"));
+    when(commentDataManager.findEvent(Mockito.<String>any())).thenThrow(new ActivitiException("An error occurred"));
 
     // Act and Assert
     assertThrows(ActivitiException.class, () -> commentEntityManagerImpl.findEvent("42"));
-    verify(commentDataManager).findEvent("42");
+    verify(commentDataManager).findEvent(eq("42"));
   }
 
   /**
    * Test {@link CommentEntityManagerImpl#delete(CommentEntity)} with {@code CommentEntity}.
-   *
    * <ul>
-   *   <li>Then throw {@link ActivitiException}.
+   *   <li>Then throw {@link ActivitiException}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link CommentEntityManagerImpl#delete(CommentEntity)}
+   * <p>
+   * Method under test: {@link CommentEntityManagerImpl#delete(CommentEntity)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void CommentEntityManagerImpl.delete(CommentEntity)"})
   public void testDeleteWithCommentEntity_thenThrowActivitiException() {
     // Arrange
     JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();
-    processEngineConfiguration.setHistoryManager(
-        new DefaultHistoryManager(new JtaProcessEngineConfiguration(), HistoryLevel.NONE));
-    CommentEntityManagerImpl commentEntityManagerImpl =
-        new CommentEntityManagerImpl(
-            processEngineConfiguration,
-            new MybatisCommentDataManager(new JtaProcessEngineConfiguration()));
+    processEngineConfiguration
+        .setHistoryManager(new DefaultHistoryManager(new JtaProcessEngineConfiguration(), HistoryLevel.NONE));
+    CommentEntityManagerImpl commentEntityManagerImpl = new CommentEntityManagerImpl(processEngineConfiguration,
+        new MybatisCommentDataManager(new JtaProcessEngineConfiguration()));
 
     // Act and Assert
-    assertThrows(
-        ActivitiException.class, () -> commentEntityManagerImpl.delete(new CommentEntityImpl()));
+    assertThrows(ActivitiException.class, () -> commentEntityManagerImpl.delete(new CommentEntityImpl()));
   }
 
   /**
    * Test {@link CommentEntityManagerImpl#checkHistoryEnabled()}.
-   *
    * <ul>
-   *   <li>Then throw {@link ActivitiException}.
+   *   <li>Then throw {@link ActivitiException}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link CommentEntityManagerImpl#checkHistoryEnabled()}
+   * <p>
+   * Method under test: {@link CommentEntityManagerImpl#checkHistoryEnabled()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void CommentEntityManagerImpl.checkHistoryEnabled()"})
   public void testCheckHistoryEnabled_thenThrowActivitiException() {
     // Arrange
     JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();
-    processEngineConfiguration.setHistoryManager(
-        new DefaultHistoryManager(new JtaProcessEngineConfiguration(), HistoryLevel.NONE));
-    CommentEntityManagerImpl commentEntityManagerImpl =
-        new CommentEntityManagerImpl(
-            processEngineConfiguration,
-            new MybatisCommentDataManager(new JtaProcessEngineConfiguration()));
+    processEngineConfiguration
+        .setHistoryManager(new DefaultHistoryManager(new JtaProcessEngineConfiguration(), HistoryLevel.NONE));
 
     // Act and Assert
-    assertThrows(ActivitiException.class, () -> commentEntityManagerImpl.checkHistoryEnabled());
+    assertThrows(ActivitiException.class, () -> (new CommentEntityManagerImpl(processEngineConfiguration,
+        new MybatisCommentDataManager(new JtaProcessEngineConfiguration()))).checkHistoryEnabled());
   }
 }

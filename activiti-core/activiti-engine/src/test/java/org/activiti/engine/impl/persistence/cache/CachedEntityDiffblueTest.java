@@ -20,8 +20,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.time.LocalDate;
 import java.time.ZoneOffset;
@@ -37,16 +36,14 @@ import org.junit.experimental.categories.Category;
 public class CachedEntityDiffblueTest {
   /**
    * Test {@link CachedEntity#CachedEntity(Entity, boolean)}.
-   *
    * <ul>
-   *   <li>Then OriginalPersistentState return {@link Map}.
+   *   <li>Then OriginalPersistentState return {@link Map}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link CachedEntity#CachedEntity(Entity, boolean)}
+   * <p>
+   * Method under test: {@link CachedEntity#CachedEntity(Entity, boolean)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void CachedEntity.<init>(Entity, boolean)"})
   public void testNewCachedEntity_thenOriginalPersistentStateReturnMap() {
     // Arrange and Act
@@ -66,17 +63,15 @@ public class CachedEntityDiffblueTest {
 
   /**
    * Test {@link CachedEntity#CachedEntity(Entity, boolean)}.
-   *
    * <ul>
-   *   <li>When {@code false}.
-   *   <li>Then Entity PersistentState return {@link Map}.
+   *   <li>When {@code false}.</li>
+   *   <li>Then Entity PersistentState return {@link Map}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link CachedEntity#CachedEntity(Entity, boolean)}
+   * <p>
+   * Method under test: {@link CachedEntity#CachedEntity(Entity, boolean)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void CachedEntity.<init>(Entity, boolean)"})
   public void testNewCachedEntity_whenFalse_thenEntityPersistentStateReturnMap() {
     // Arrange and Act
@@ -96,9 +91,8 @@ public class CachedEntityDiffblueTest {
 
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>{@link CachedEntity#setEntity(Entity)}
    *   <li>{@link CachedEntity#setOriginalPersistentState(Object)}
@@ -107,14 +101,9 @@ public class CachedEntityDiffblueTest {
    * </ul>
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "Entity CachedEntity.getEntity()",
-    "Object CachedEntity.getOriginalPersistentState()",
-    "void CachedEntity.setEntity(Entity)",
-    "void CachedEntity.setOriginalPersistentState(Object)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Entity CachedEntity.getEntity()", "Object CachedEntity.getOriginalPersistentState()",
+      "void CachedEntity.setEntity(Entity)", "void CachedEntity.setOriginalPersistentState(Object)"})
   public void testGettersAndSetters() {
     // Arrange
     CachedEntity cachedEntity = new CachedEntity(new AttachmentEntityImpl(), true);
@@ -133,36 +122,33 @@ public class CachedEntityDiffblueTest {
 
   /**
    * Test {@link CachedEntity#hasChanged()}.
-   *
-   * <p>Method under test: {@link CachedEntity#hasChanged()}
+   * <p>
+   * Method under test: {@link CachedEntity#hasChanged()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"boolean CachedEntity.hasChanged()"})
   public void testHasChanged() {
     // Arrange, Act and Assert
-    assertFalse(new CachedEntity(new AttachmentEntityImpl(), true).hasChanged());
+    assertFalse((new CachedEntity(new AttachmentEntityImpl(), true)).hasChanged());
   }
 
   /**
    * Test {@link CachedEntity#hasChanged()}.
-   *
    * <ul>
-   *   <li>Given {@code A}.
-   *   <li>Then return {@code false}.
+   *   <li>Given {@code A}.</li>
+   *   <li>Then return {@code false}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link CachedEntity#hasChanged()}
+   * <p>
+   * Method under test: {@link CachedEntity#hasChanged()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"boolean CachedEntity.hasChanged()"})
   public void testHasChanged_givenA_thenReturnFalse() {
     // Arrange
     EventLogEntryEntityImpl entity = new EventLogEntryEntityImpl();
-    entity.setData(new byte[] {'A', 1, 'A', 1, 'A', 1, 'A', 1});
+    entity.setData(new byte[]{'A', 1, 'A', 1, 'A', 1, 'A', 1});
     entity.setDeleted(true);
     entity.setExecutionId("42");
     entity.setId("42");
@@ -174,35 +160,28 @@ public class CachedEntityDiffblueTest {
     entity.setProcessInstanceId("42");
     entity.setProcessed(1);
     entity.setTaskId("42");
-    entity.setTimeStamp(
-        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
+    entity.setTimeStamp(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
     entity.setType("name");
     entity.setUpdated(true);
     entity.setUserId("42");
 
     // Act and Assert
-    assertFalse(new CachedEntity(entity, true).hasChanged());
+    assertFalse((new CachedEntity(entity, true)).hasChanged());
   }
 
   /**
    * Test {@link CachedEntity#hasChanged()}.
-   *
    * <ul>
-   *   <li>Then return {@code true}.
+   *   <li>Then return {@code true}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link CachedEntity#hasChanged()}
+   * <p>
+   * Method under test: {@link CachedEntity#hasChanged()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"boolean CachedEntity.hasChanged()"})
   public void testHasChanged_thenReturnTrue() {
-    // Arrange
-    CachedEntity cachedEntity = new CachedEntity(new AttachmentEntityImpl(), true);
-    cachedEntity.setOriginalPersistentState(JSONObject.NULL);
-
-    // Act and Assert
-    assertTrue(cachedEntity.hasChanged());
+    // Arrange, Act and Assert
+    assertTrue((new CachedEntity(new AttachmentEntityImpl(), false)).hasChanged());
   }
 }

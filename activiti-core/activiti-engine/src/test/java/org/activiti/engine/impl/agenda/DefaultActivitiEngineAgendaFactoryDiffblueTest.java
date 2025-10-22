@@ -17,8 +17,7 @@ package org.activiti.engine.impl.agenda;
 
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.engine.ActivitiEngineAgenda;
 import org.activiti.engine.impl.interceptor.CommandContext;
@@ -28,24 +27,19 @@ import org.junit.experimental.categories.Category;
 public class DefaultActivitiEngineAgendaFactoryDiffblueTest {
   /**
    * Test {@link DefaultActivitiEngineAgendaFactory#createAgenda(CommandContext)}.
-   *
    * <ul>
-   *   <li>When {@code null}.
-   *   <li>Then return {@link DefaultActivitiEngineAgenda}.
+   *   <li>When {@code null}.</li>
+   *   <li>Then return {@link DefaultActivitiEngineAgenda}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link DefaultActivitiEngineAgendaFactory#createAgenda(CommandContext)}
+   * <p>
+   * Method under test: {@link DefaultActivitiEngineAgendaFactory#createAgenda(CommandContext)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "ActivitiEngineAgenda DefaultActivitiEngineAgendaFactory.createAgenda(CommandContext)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"ActivitiEngineAgenda DefaultActivitiEngineAgendaFactory.createAgenda(CommandContext)"})
   public void testCreateAgenda_whenNull_thenReturnDefaultActivitiEngineAgenda() {
     // Arrange and Act
-    ActivitiEngineAgenda actualCreateAgendaResult =
-        new DefaultActivitiEngineAgendaFactory().createAgenda(null);
+    ActivitiEngineAgenda actualCreateAgendaResult = (new DefaultActivitiEngineAgendaFactory()).createAgenda(null);
 
     // Assert
     assertTrue(actualCreateAgendaResult instanceof DefaultActivitiEngineAgenda);

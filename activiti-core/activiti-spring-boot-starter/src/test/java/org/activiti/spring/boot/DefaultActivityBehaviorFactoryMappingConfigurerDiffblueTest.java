@@ -17,7 +17,6 @@ package org.activiti.spring.boot;
 
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.engine.impl.bpmn.behavior.VariablesPropagator;
 import org.activiti.engine.impl.bpmn.parser.factory.ActivityBehaviorFactory;
@@ -39,56 +38,48 @@ import org.springframework.test.context.aot.DisabledInAotMode;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 @ContextConfiguration(classes = {DefaultActivityBehaviorFactoryMappingConfigurer.class})
-@DisabledInAotMode
 @ExtendWith(SpringExtension.class)
+@DisabledInAotMode
 class DefaultActivityBehaviorFactoryMappingConfigurerDiffblueTest {
   @Autowired
-  private DefaultActivityBehaviorFactoryMappingConfigurer
-      defaultActivityBehaviorFactoryMappingConfigurer;
+  private DefaultActivityBehaviorFactoryMappingConfigurer defaultActivityBehaviorFactoryMappingConfigurer;
 
-  @MockBean private EventSubscriptionPayloadMappingProvider eventSubscriptionPayloadMappingProvider;
+  @MockBean
+  private EventSubscriptionPayloadMappingProvider eventSubscriptionPayloadMappingProvider;
 
-  @MockBean private ExtensionsVariablesMappingProvider extensionsVariablesMappingProvider;
+  @MockBean
+  private ExtensionsVariablesMappingProvider extensionsVariablesMappingProvider;
 
-  @MockBean private ProcessVariablesInitiator processVariablesInitiator;
+  @MockBean
+  private ProcessVariablesInitiator processVariablesInitiator;
 
-  @MockBean private VariablesPropagator variablesPropagator;
+  @MockBean
+  private VariablesPropagator variablesPropagator;
 
   /**
-   * Test {@link
-   * DefaultActivityBehaviorFactoryMappingConfigurer#configure(SpringProcessEngineConfiguration)}.
-   *
-   * <p>Method under test: {@link
-   * DefaultActivityBehaviorFactoryMappingConfigurer#configure(SpringProcessEngineConfiguration)}
+   * Test {@link DefaultActivityBehaviorFactoryMappingConfigurer#configure(SpringProcessEngineConfiguration)}.
+   * <p>
+   * Method under test: {@link DefaultActivityBehaviorFactoryMappingConfigurer#configure(SpringProcessEngineConfiguration)}
    */
   @Test
   @DisplayName("Test configure(SpringProcessEngineConfiguration)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({
-    "void DefaultActivityBehaviorFactoryMappingConfigurer.configure(SpringProcessEngineConfiguration)"
-  })
+      "void DefaultActivityBehaviorFactoryMappingConfigurer.configure(SpringProcessEngineConfiguration)"})
   void testConfigure() {
     // Arrange
-    SpringProcessEngineConfiguration processEngineConfiguration =
-        new SpringProcessEngineConfiguration();
+    SpringProcessEngineConfiguration processEngineConfiguration = new SpringProcessEngineConfiguration();
 
     // Act
     defaultActivityBehaviorFactoryMappingConfigurer.configure(processEngineConfiguration);
 
     // Assert
-    ActivityBehaviorFactory activityBehaviorFactory =
-        processEngineConfiguration.getActivityBehaviorFactory();
-    assertTrue(
-        ((MappingAwareActivityBehaviorFactory) activityBehaviorFactory)
-                .getMessageExecutionContextFactory()
-            instanceof DefaultMessageExecutionContextFactory);
-    assertTrue(
-        ((MappingAwareActivityBehaviorFactory) activityBehaviorFactory)
-                .getMessagePayloadMappingProviderFactory()
-            instanceof JsonMessagePayloadMappingProviderFactory);
+    ActivityBehaviorFactory activityBehaviorFactory = processEngineConfiguration.getActivityBehaviorFactory();
+    assertTrue(((MappingAwareActivityBehaviorFactory) activityBehaviorFactory)
+        .getMessageExecutionContextFactory() instanceof DefaultMessageExecutionContextFactory);
+    assertTrue(((MappingAwareActivityBehaviorFactory) activityBehaviorFactory)
+        .getMessagePayloadMappingProviderFactory() instanceof JsonMessagePayloadMappingProviderFactory);
     assertTrue(activityBehaviorFactory instanceof MappingAwareActivityBehaviorFactory);
-    assertNull(
-        ((MappingAwareActivityBehaviorFactory) activityBehaviorFactory).getExpressionManager());
+    assertNull(((MappingAwareActivityBehaviorFactory) activityBehaviorFactory).getExpressionManager());
   }
 }

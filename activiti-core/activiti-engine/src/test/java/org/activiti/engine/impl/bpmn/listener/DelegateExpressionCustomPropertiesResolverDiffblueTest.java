@@ -19,8 +19,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertThrows;
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.Map;
 import org.activiti.engine.ActivitiIllegalArgumentException;
@@ -35,20 +34,17 @@ import org.junit.experimental.categories.Category;
 
 public class DelegateExpressionCustomPropertiesResolverDiffblueTest {
   /**
-   * Test {@link
-   * DelegateExpressionCustomPropertiesResolver#DelegateExpressionCustomPropertiesResolver(Expression)}.
-   *
-   * <p>Method under test: {@link
-   * DelegateExpressionCustomPropertiesResolver#DelegateExpressionCustomPropertiesResolver(Expression)}
+   * Test {@link DelegateExpressionCustomPropertiesResolver#DelegateExpressionCustomPropertiesResolver(Expression)}.
+   * <p>
+   * Method under test: {@link DelegateExpressionCustomPropertiesResolver#DelegateExpressionCustomPropertiesResolver(Expression)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void DelegateExpressionCustomPropertiesResolver.<init>(Expression)"})
   public void testNewDelegateExpressionCustomPropertiesResolver() {
     // Arrange and Act
-    DelegateExpressionCustomPropertiesResolver actualDelegateExpressionCustomPropertiesResolver =
-        new DelegateExpressionCustomPropertiesResolver(new FixedValue(JSONObject.NULL));
+    DelegateExpressionCustomPropertiesResolver actualDelegateExpressionCustomPropertiesResolver = new DelegateExpressionCustomPropertiesResolver(
+        new FixedValue(JSONObject.NULL));
 
     // Assert
     Expression expression = actualDelegateExpressionCustomPropertiesResolver.expression;
@@ -58,32 +54,24 @@ public class DelegateExpressionCustomPropertiesResolverDiffblueTest {
   }
 
   /**
-   * Test {@link
-   * DelegateExpressionCustomPropertiesResolver#getCustomPropertiesMap(DelegateExecution)}.
-   *
+   * Test {@link DelegateExpressionCustomPropertiesResolver#getCustomPropertiesMap(DelegateExecution)}.
    * <ul>
-   *   <li>Then return size is one.
+   *   <li>Then return size is one.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link
-   * DelegateExpressionCustomPropertiesResolver#getCustomPropertiesMap(DelegateExecution)}
+   * <p>
+   * Method under test: {@link DelegateExpressionCustomPropertiesResolver#getCustomPropertiesMap(DelegateExecution)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "Map DelegateExpressionCustomPropertiesResolver.getCustomPropertiesMap(DelegateExecution)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Map DelegateExpressionCustomPropertiesResolver.getCustomPropertiesMap(DelegateExecution)"})
   public void testGetCustomPropertiesMap_thenReturnSizeIsOne() {
     // Arrange
-    DelegateExpressionCustomPropertiesResolver delegateExpressionCustomPropertiesResolver =
-        new DelegateExpressionCustomPropertiesResolver(
-            new FixedValue(new MyCustomPropertiesResolver()));
+    DelegateExpressionCustomPropertiesResolver delegateExpressionCustomPropertiesResolver = new DelegateExpressionCustomPropertiesResolver(
+        new FixedValue(new MyCustomPropertiesResolver()));
 
     // Act
-    Map<String, Object> actualCustomPropertiesMap =
-        delegateExpressionCustomPropertiesResolver.getCustomPropertiesMap(
-            ExecutionEntityImpl.createWithEmptyRelationshipCollections());
+    Map<String, Object> actualCustomPropertiesMap = delegateExpressionCustomPropertiesResolver
+        .getCustomPropertiesMap(ExecutionEntityImpl.createWithEmptyRelationshipCollections());
 
     // Assert
     assertEquals(1, actualCustomPropertiesMap.size());
@@ -91,35 +79,25 @@ public class DelegateExpressionCustomPropertiesResolverDiffblueTest {
   }
 
   /**
-   * Test {@link
-   * DelegateExpressionCustomPropertiesResolver#getCustomPropertiesMap(DelegateExecution)}.
-   *
+   * Test {@link DelegateExpressionCustomPropertiesResolver#getCustomPropertiesMap(DelegateExecution)}.
    * <ul>
-   *   <li>Then return size is one.
+   *   <li>Then return size is one.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link
-   * DelegateExpressionCustomPropertiesResolver#getCustomPropertiesMap(DelegateExecution)}
+   * <p>
+   * Method under test: {@link DelegateExpressionCustomPropertiesResolver#getCustomPropertiesMap(DelegateExecution)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "Map DelegateExpressionCustomPropertiesResolver.getCustomPropertiesMap(DelegateExecution)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Map DelegateExpressionCustomPropertiesResolver.getCustomPropertiesMap(DelegateExecution)"})
   public void testGetCustomPropertiesMap_thenReturnSizeIsOne2() {
     // Arrange
-    DelegateExpressionCustomPropertiesResolver delegateExpressionCustomPropertiesResolver =
-        new DelegateExpressionCustomPropertiesResolver(
-            new FixedValue(new MyCustomPropertiesResolver()));
-    FixedValue expression = new FixedValue(delegateExpressionCustomPropertiesResolver);
-    DelegateExpressionCustomPropertiesResolver delegateExpressionCustomPropertiesResolver2 =
-        new DelegateExpressionCustomPropertiesResolver(expression);
+    DelegateExpressionCustomPropertiesResolver delegateExpressionCustomPropertiesResolver = new DelegateExpressionCustomPropertiesResolver(
+        new FixedValue(
+            new DelegateExpressionCustomPropertiesResolver(new FixedValue(new MyCustomPropertiesResolver()))));
 
     // Act
-    Map<String, Object> actualCustomPropertiesMap =
-        delegateExpressionCustomPropertiesResolver2.getCustomPropertiesMap(
-            ExecutionEntityImpl.createWithEmptyRelationshipCollections());
+    Map<String, Object> actualCustomPropertiesMap = delegateExpressionCustomPropertiesResolver
+        .getCustomPropertiesMap(ExecutionEntityImpl.createWithEmptyRelationshipCollections());
 
     // Assert
     assertEquals(1, actualCustomPropertiesMap.size());
@@ -127,87 +105,62 @@ public class DelegateExpressionCustomPropertiesResolverDiffblueTest {
   }
 
   /**
-   * Test {@link
-   * DelegateExpressionCustomPropertiesResolver#getCustomPropertiesMap(DelegateExecution)}.
-   *
+   * Test {@link DelegateExpressionCustomPropertiesResolver#getCustomPropertiesMap(DelegateExecution)}.
    * <ul>
-   *   <li>Then throw {@link ActivitiIllegalArgumentException}.
+   *   <li>Then throw {@link ActivitiIllegalArgumentException}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link
-   * DelegateExpressionCustomPropertiesResolver#getCustomPropertiesMap(DelegateExecution)}
+   * <p>
+   * Method under test: {@link DelegateExpressionCustomPropertiesResolver#getCustomPropertiesMap(DelegateExecution)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "Map DelegateExpressionCustomPropertiesResolver.getCustomPropertiesMap(DelegateExecution)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Map DelegateExpressionCustomPropertiesResolver.getCustomPropertiesMap(DelegateExecution)"})
   public void testGetCustomPropertiesMap_thenThrowActivitiIllegalArgumentException() {
     // Arrange
-    DelegateExpressionCustomPropertiesResolver delegateExpressionCustomPropertiesResolver =
-        new DelegateExpressionCustomPropertiesResolver(new FixedValue(JSONObject.NULL));
+    DelegateExpressionCustomPropertiesResolver delegateExpressionCustomPropertiesResolver = new DelegateExpressionCustomPropertiesResolver(
+        new FixedValue(JSONObject.NULL));
 
     // Act and Assert
-    assertThrows(
-        ActivitiIllegalArgumentException.class,
-        () ->
-            delegateExpressionCustomPropertiesResolver.getCustomPropertiesMap(
-                ExecutionEntityImpl.createWithEmptyRelationshipCollections()));
+    assertThrows(ActivitiIllegalArgumentException.class, () -> delegateExpressionCustomPropertiesResolver
+        .getCustomPropertiesMap(ExecutionEntityImpl.createWithEmptyRelationshipCollections()));
   }
 
   /**
-   * Test {@link
-   * DelegateExpressionCustomPropertiesResolver#getCustomPropertiesMap(DelegateExecution)}.
-   *
+   * Test {@link DelegateExpressionCustomPropertiesResolver#getCustomPropertiesMap(DelegateExecution)}.
    * <ul>
-   *   <li>Then throw {@link ActivitiIllegalArgumentException}.
+   *   <li>Then throw {@link ActivitiIllegalArgumentException}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link
-   * DelegateExpressionCustomPropertiesResolver#getCustomPropertiesMap(DelegateExecution)}
+   * <p>
+   * Method under test: {@link DelegateExpressionCustomPropertiesResolver#getCustomPropertiesMap(DelegateExecution)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "Map DelegateExpressionCustomPropertiesResolver.getCustomPropertiesMap(DelegateExecution)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Map DelegateExpressionCustomPropertiesResolver.getCustomPropertiesMap(DelegateExecution)"})
   public void testGetCustomPropertiesMap_thenThrowActivitiIllegalArgumentException2() {
     // Arrange
-    DelegateExpressionCustomPropertiesResolver delegateExpressionCustomPropertiesResolver =
-        new DelegateExpressionCustomPropertiesResolver(new FixedValue(JSONObject.NULL));
-    FixedValue expression = new FixedValue(delegateExpressionCustomPropertiesResolver);
-    DelegateExpressionCustomPropertiesResolver delegateExpressionCustomPropertiesResolver2 =
-        new DelegateExpressionCustomPropertiesResolver(expression);
+    DelegateExpressionCustomPropertiesResolver delegateExpressionCustomPropertiesResolver = new DelegateExpressionCustomPropertiesResolver(
+        new FixedValue(new DelegateExpressionCustomPropertiesResolver(new FixedValue(JSONObject.NULL))));
 
     // Act and Assert
-    assertThrows(
-        ActivitiIllegalArgumentException.class,
-        () ->
-            delegateExpressionCustomPropertiesResolver2.getCustomPropertiesMap(
-                ExecutionEntityImpl.createWithEmptyRelationshipCollections()));
+    assertThrows(ActivitiIllegalArgumentException.class, () -> delegateExpressionCustomPropertiesResolver
+        .getCustomPropertiesMap(ExecutionEntityImpl.createWithEmptyRelationshipCollections()));
   }
 
   /**
    * Test {@link DelegateExpressionCustomPropertiesResolver#getExpressionText()}.
-   *
    * <ul>
-   *   <li>Given {@link FixedValue#FixedValue(Object)} with value is {@link JSONObject#NULL}.
-   *   <li>Then return {@code null}.
+   *   <li>Given {@link FixedValue#FixedValue(Object)} with value is {@link JSONObject#NULL}.</li>
+   *   <li>Then return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link DelegateExpressionCustomPropertiesResolver#getExpressionText()}
+   * <p>
+   * Method under test: {@link DelegateExpressionCustomPropertiesResolver#getExpressionText()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"String DelegateExpressionCustomPropertiesResolver.getExpressionText()"})
   public void testGetExpressionText_givenFixedValueWithValueIsNull_thenReturnNull() {
     // Arrange, Act and Assert
-    assertEquals(
-        "null",
-        new DelegateExpressionCustomPropertiesResolver(new FixedValue(JSONObject.NULL))
-            .getExpressionText());
+    assertEquals("null",
+        (new DelegateExpressionCustomPropertiesResolver(new FixedValue(JSONObject.NULL))).getExpressionText());
   }
 }

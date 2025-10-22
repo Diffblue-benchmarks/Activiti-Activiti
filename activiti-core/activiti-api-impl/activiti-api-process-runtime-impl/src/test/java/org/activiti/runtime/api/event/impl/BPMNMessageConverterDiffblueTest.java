@@ -16,7 +16,6 @@
 package org.activiti.runtime.api.event.impl;
 
 import static org.junit.jupiter.api.Assertions.assertNull;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.api.process.model.payloads.MessageEventPayload;
 import org.activiti.api.runtime.model.impl.BPMNMessageImpl;
@@ -34,30 +33,25 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 @ContextConfiguration(classes = {BPMNMessageConverter.class})
 @ExtendWith(SpringExtension.class)
 class BPMNMessageConverterDiffblueTest {
-  @Autowired private BPMNMessageConverter bPMNMessageConverter;
+  @Autowired
+  private BPMNMessageConverter bPMNMessageConverter;
 
   /**
    * Test {@link BPMNMessageConverter#convertToBPMNMessage(ActivitiMessageEvent)}.
-   *
    * <ul>
-   *   <li>Then return MessagePayload BusinessKey is {@code null}.
+   *   <li>Then return MessagePayload BusinessKey is {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link BPMNMessageConverter#convertToBPMNMessage(ActivitiMessageEvent)}
+   * <p>
+   * Method under test: {@link BPMNMessageConverter#convertToBPMNMessage(ActivitiMessageEvent)}
    */
   @Test
-  @DisplayName(
-      "Test convertToBPMNMessage(ActivitiMessageEvent); then return MessagePayload BusinessKey is 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "BPMNMessageImpl BPMNMessageConverter.convertToBPMNMessage(ActivitiMessageEvent)"
-  })
+  @DisplayName("Test convertToBPMNMessage(ActivitiMessageEvent); then return MessagePayload BusinessKey is 'null'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"BPMNMessageImpl BPMNMessageConverter.convertToBPMNMessage(ActivitiMessageEvent)"})
   void testConvertToBPMNMessage_thenReturnMessagePayloadBusinessKeyIsNull() {
     // Arrange and Act
-    BPMNMessageImpl actualConvertToBPMNMessageResult =
-        bPMNMessageConverter.convertToBPMNMessage(
-            new ActivitiMessageEventImpl(ActivitiEventType.ENTITY_CREATED));
+    BPMNMessageImpl actualConvertToBPMNMessageResult = bPMNMessageConverter
+        .convertToBPMNMessage(new ActivitiMessageEventImpl(ActivitiEventType.ENTITY_CREATED));
 
     // Assert
     MessageEventPayload messagePayload = actualConvertToBPMNMessageResult.getMessagePayload();

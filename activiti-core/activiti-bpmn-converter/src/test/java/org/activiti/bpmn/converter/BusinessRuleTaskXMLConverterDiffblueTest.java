@@ -21,15 +21,12 @@ import static org.mockito.Mockito.atLeast;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
-import java.util.HashMap;
 import javax.xml.stream.XMLStreamWriter;
+import org.activiti.bpmn.model.ActivitiListener;
 import org.activiti.bpmn.model.BaseElement;
 import org.activiti.bpmn.model.BpmnModel;
 import org.activiti.bpmn.model.BusinessRuleTask;
-import org.activiti.bpmn.model.Message;
-import org.activiti.bpmn.model.Message.Builder;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
@@ -37,158 +34,133 @@ import org.mockito.Mockito;
 
 class BusinessRuleTaskXMLConverterDiffblueTest {
   /**
-   * Test {@link BusinessRuleTaskXMLConverter#writeAdditionalAttributes(BaseElement, BpmnModel,
-   * XMLStreamWriter)}.
-   *
+   * Test {@link BusinessRuleTaskXMLConverter#writeAdditionalAttributes(BaseElement, BpmnModel, XMLStreamWriter)}.
    * <ul>
-   *   <li>Given {@code resultVariable}.
-   *   <li>Then calls {@link IndentingXMLStreamWriter#writeAttribute(String, String, String,
-   *       String)}.
+   *   <li>Given {@code class}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link
-   * BusinessRuleTaskXMLConverter#writeAdditionalAttributes(BaseElement, BpmnModel,
-   * XMLStreamWriter)}
+   * <p>
+   * Method under test: {@link BusinessRuleTaskXMLConverter#writeAdditionalAttributes(BaseElement, BpmnModel, XMLStreamWriter)}
    */
   @Test
-  @DisplayName(
-      "Test writeAdditionalAttributes(BaseElement, BpmnModel, XMLStreamWriter); given 'resultVariable'; then calls writeAttribute(String, String, String, String)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test writeAdditionalAttributes(BaseElement, BpmnModel, XMLStreamWriter); given 'class'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({
-    "void BusinessRuleTaskXMLConverter.writeAdditionalAttributes(BaseElement, BpmnModel, XMLStreamWriter)"
-  })
-  void testWriteAdditionalAttributes_givenResultVariable_thenCallsWriteAttribute()
-      throws Exception {
+      "void BusinessRuleTaskXMLConverter.writeAdditionalAttributes(BaseElement, BpmnModel, XMLStreamWriter)"})
+  void testWriteAdditionalAttributes_givenClass() throws Exception {
     // Arrange
     BusinessRuleTaskXMLConverter businessRuleTaskXMLConverter = new BusinessRuleTaskXMLConverter();
 
     BusinessRuleTask element = new BusinessRuleTask();
-    element.setResultVariableName("resultVariable");
-    element.setClassName("not empty");
     element.setExclude(false);
+    element.setClassName("Class Name");
+    element.setResultVariableName("class");
     BpmnModel model = new BpmnModel();
-
     IndentingXMLStreamWriter writer = mock(IndentingXMLStreamWriter.class);
-    doNothing()
-        .when(writer)
-        .writeAttribute(
-            Mockito.<String>any(),
-            Mockito.<String>any(),
-            Mockito.<String>any(),
-            Mockito.<String>any());
+    doNothing().when(writer)
+        .writeAttribute(Mockito.<String>any(), Mockito.<String>any(), Mockito.<String>any(), Mockito.<String>any());
 
     // Act
-    businessRuleTaskXMLConverter.writeAdditionalAttributes(
-        element, model, new IndentingXMLStreamWriter(writer));
+    businessRuleTaskXMLConverter.writeAdditionalAttributes(element, model, new IndentingXMLStreamWriter(writer));
 
     // Assert
-    verify(writer, atLeast(1))
-        .writeAttribute(
-            eq("activiti"),
-            eq("http://activiti.org/bpmn"),
-            Mockito.<String>any(),
-            Mockito.<String>any());
+    verify(writer, atLeast(1)).writeAttribute(eq("activiti"), eq("http://activiti.org/bpmn"), Mockito.<String>any(),
+        Mockito.<String>any());
   }
 
   /**
-   * Test {@link BusinessRuleTaskXMLConverter#writeAdditionalAttributes(BaseElement, BpmnModel,
-   * XMLStreamWriter)}.
-   *
+   * Test {@link BusinessRuleTaskXMLConverter#writeAdditionalAttributes(BaseElement, BpmnModel, XMLStreamWriter)}.
    * <ul>
-   *   <li>Given {@code resultVariable}.
-   *   <li>Then calls {@link IndentingXMLStreamWriter#writeAttribute(String, String, String,
-   *       String)}.
+   *   <li>Given {@code Class Name}.</li>
+   *   <li>Then calls {@link DelegatingXMLStreamWriter#writeAttribute(String, String, String, String)}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link
-   * BusinessRuleTaskXMLConverter#writeAdditionalAttributes(BaseElement, BpmnModel,
-   * XMLStreamWriter)}
+   * <p>
+   * Method under test: {@link BusinessRuleTaskXMLConverter#writeAdditionalAttributes(BaseElement, BpmnModel, XMLStreamWriter)}
    */
   @Test
-  @DisplayName(
-      "Test writeAdditionalAttributes(BaseElement, BpmnModel, XMLStreamWriter); given 'resultVariable'; then calls writeAttribute(String, String, String, String)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test writeAdditionalAttributes(BaseElement, BpmnModel, XMLStreamWriter); given 'Class Name'; then calls writeAttribute(String, String, String, String)")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({
-    "void BusinessRuleTaskXMLConverter.writeAdditionalAttributes(BaseElement, BpmnModel, XMLStreamWriter)"
-  })
-  void testWriteAdditionalAttributes_givenResultVariable_thenCallsWriteAttribute2()
-      throws Exception {
+      "void BusinessRuleTaskXMLConverter.writeAdditionalAttributes(BaseElement, BpmnModel, XMLStreamWriter)"})
+  void testWriteAdditionalAttributes_givenClassName_thenCallsWriteAttribute() throws Exception {
     // Arrange
     BusinessRuleTaskXMLConverter businessRuleTaskXMLConverter = new BusinessRuleTaskXMLConverter();
 
     BusinessRuleTask element = new BusinessRuleTask();
-    element.setResultVariableName("resultVariable");
-    element.setClassName("not empty");
-    element.setExclude(true);
+    element.setExclude(false);
+    element.setClassName("Class Name");
+    element.setResultVariableName(null);
     BpmnModel model = new BpmnModel();
-
     IndentingXMLStreamWriter writer = mock(IndentingXMLStreamWriter.class);
-    doNothing()
-        .when(writer)
-        .writeAttribute(
-            Mockito.<String>any(),
-            Mockito.<String>any(),
-            Mockito.<String>any(),
-            Mockito.<String>any());
+    doNothing().when(writer)
+        .writeAttribute(Mockito.<String>any(), Mockito.<String>any(), Mockito.<String>any(), Mockito.<String>any());
 
     // Act
-    businessRuleTaskXMLConverter.writeAdditionalAttributes(
-        element, model, new IndentingXMLStreamWriter(writer));
+    businessRuleTaskXMLConverter.writeAdditionalAttributes(element, model, new IndentingXMLStreamWriter(writer));
 
     // Assert
-    verify(writer, atLeast(1))
-        .writeAttribute(
-            eq("activiti"),
-            eq("http://activiti.org/bpmn"),
-            Mockito.<String>any(),
-            Mockito.<String>any());
+    verify(writer).writeAttribute(eq("activiti"), eq("http://activiti.org/bpmn"), eq("class"), eq("Class Name"));
+  }
+
+  /**
+   * Test {@link BusinessRuleTaskXMLConverter#writeAdditionalAttributes(BaseElement, BpmnModel, XMLStreamWriter)}.
+   * <ul>
+   *   <li>Given {@code true}.</li>
+   *   <li>When {@link BusinessRuleTask} (default constructor) Exclude is {@code true}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link BusinessRuleTaskXMLConverter#writeAdditionalAttributes(BaseElement, BpmnModel, XMLStreamWriter)}
+   */
+  @Test
+  @DisplayName("Test writeAdditionalAttributes(BaseElement, BpmnModel, XMLStreamWriter); given 'true'; when BusinessRuleTask (default constructor) Exclude is 'true'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({
+      "void BusinessRuleTaskXMLConverter.writeAdditionalAttributes(BaseElement, BpmnModel, XMLStreamWriter)"})
+  void testWriteAdditionalAttributes_givenTrue_whenBusinessRuleTaskExcludeIsTrue() throws Exception {
+    // Arrange
+    BusinessRuleTaskXMLConverter businessRuleTaskXMLConverter = new BusinessRuleTaskXMLConverter();
+
+    BusinessRuleTask element = new BusinessRuleTask();
+    element.setExclude(true);
+    element.setClassName("Class Name");
+    element.setResultVariableName(null);
+    BpmnModel model = new BpmnModel();
+    IndentingXMLStreamWriter writer = mock(IndentingXMLStreamWriter.class);
+    doNothing().when(writer)
+        .writeAttribute(Mockito.<String>any(), Mockito.<String>any(), Mockito.<String>any(), Mockito.<String>any());
+
+    // Act
+    businessRuleTaskXMLConverter.writeAdditionalAttributes(element, model, new IndentingXMLStreamWriter(writer));
+
+    // Assert
+    verify(writer, atLeast(1)).writeAttribute(eq("activiti"), eq("http://activiti.org/bpmn"), Mockito.<String>any(),
+        Mockito.<String>any());
   }
 
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>default or parameterless constructor of {@link BusinessRuleTaskXMLConverter}
-   *   <li>{@link BusinessRuleTaskXMLConverter#writeAdditionalChildElements(BaseElement, BpmnModel,
-   *       XMLStreamWriter)}
+   *   <li>{@link BusinessRuleTaskXMLConverter#writeAdditionalChildElements(BaseElement, BpmnModel, XMLStreamWriter)}
    *   <li>{@link BusinessRuleTaskXMLConverter#getBpmnElementType()}
    *   <li>{@link BusinessRuleTaskXMLConverter#getXMLElementName()}
    * </ul>
    */
   @Test
   @DisplayName("Test getters and setters")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void BusinessRuleTaskXMLConverter.<init>()",
-    "Class BusinessRuleTaskXMLConverter.getBpmnElementType()",
-    "String BusinessRuleTaskXMLConverter.getXMLElementName()",
-    "void BusinessRuleTaskXMLConverter.writeAdditionalChildElements(BaseElement, BpmnModel, XMLStreamWriter)"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void BusinessRuleTaskXMLConverter.<init>()",
+      "Class BusinessRuleTaskXMLConverter.getBpmnElementType()",
+      "String BusinessRuleTaskXMLConverter.getXMLElementName()",
+      "void BusinessRuleTaskXMLConverter.writeAdditionalChildElements(BaseElement, BpmnModel, XMLStreamWriter)"})
   void testGettersAndSetters() throws Exception {
     // Arrange and Act
-    BusinessRuleTaskXMLConverter actualBusinessRuleTaskXMLConverter =
-        new BusinessRuleTaskXMLConverter();
-    Builder builderResult = Message.builder();
-    Builder attributesResult = builderResult.attributes(new HashMap<>());
-    Message element =
-        attributesResult
-            .extensionElements(new HashMap<>())
-            .id("42")
-            .itemRef("Item Ref")
-            .name("Name")
-            .xmlColumnNumber(10)
-            .xmlRowNumber(10)
-            .build();
+    BusinessRuleTaskXMLConverter actualBusinessRuleTaskXMLConverter = new BusinessRuleTaskXMLConverter();
+    ActivitiListener element = new ActivitiListener();
     BpmnModel model = new BpmnModel();
-    actualBusinessRuleTaskXMLConverter.writeAdditionalChildElements(
-        element, model, new IndentingXMLStreamWriter(null));
-    Class<? extends BaseElement> actualBpmnElementType =
-        actualBusinessRuleTaskXMLConverter.getBpmnElementType();
+    actualBusinessRuleTaskXMLConverter.writeAdditionalChildElements(element, model, new IndentingXMLStreamWriter(null));
+    Class<? extends BaseElement> actualBpmnElementType = actualBusinessRuleTaskXMLConverter.getBpmnElementType();
 
     // Assert
     assertEquals("businessRuleTask", actualBusinessRuleTaskXMLConverter.getXMLElementName());

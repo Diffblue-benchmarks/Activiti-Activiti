@@ -22,14 +22,12 @@ import static org.junit.Assert.assertTrue;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.ArgumentMatchers.isA;
 import static org.mockito.Mockito.anyInt;
-import static org.mockito.Mockito.atLeast;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -53,43 +51,37 @@ import org.mockito.junit.MockitoJUnitRunner;
 
 @RunWith(MockitoJUnitRunner.class)
 public class TaskEntityManagerImplDiffblueTest {
-  @Mock private TaskDataManager taskDataManager;
+  @Mock
+  private TaskDataManager taskDataManager;
 
-  @InjectMocks private TaskEntityManagerImpl taskEntityManagerImpl;
+  @InjectMocks
+  private TaskEntityManagerImpl taskEntityManagerImpl;
 
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
-   *   <li>{@link TaskEntityManagerImpl#TaskEntityManagerImpl(ProcessEngineConfigurationImpl,
-   *       TaskDataManager)}
+   *   <li>{@link TaskEntityManagerImpl#TaskEntityManagerImpl(ProcessEngineConfigurationImpl, TaskDataManager)}
    *   <li>{@link TaskEntityManagerImpl#setTaskDataManager(TaskDataManager)}
    *   <li>{@link TaskEntityManagerImpl#getDataManager()}
    *   <li>{@link TaskEntityManagerImpl#getTaskDataManager()}
    * </ul>
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void TaskEntityManagerImpl.<init>(ProcessEngineConfigurationImpl, TaskDataManager)",
-    "DataManager TaskEntityManagerImpl.getDataManager()",
-    "TaskDataManager TaskEntityManagerImpl.getTaskDataManager()",
-    "void TaskEntityManagerImpl.setTaskDataManager(TaskDataManager)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void TaskEntityManagerImpl.<init>(ProcessEngineConfigurationImpl, TaskDataManager)",
+      "DataManager TaskEntityManagerImpl.getDataManager()",
+      "TaskDataManager TaskEntityManagerImpl.getTaskDataManager()",
+      "void TaskEntityManagerImpl.setTaskDataManager(TaskDataManager)"})
   public void testGettersAndSetters() {
     // Arrange
     JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();
 
     // Act
-    TaskEntityManagerImpl actualTaskEntityManagerImpl =
-        new TaskEntityManagerImpl(
-            processEngineConfiguration,
-            new MybatisTaskDataManager(new JtaProcessEngineConfiguration()));
-    MybatisTaskDataManager taskDataManager =
-        new MybatisTaskDataManager(new JtaProcessEngineConfiguration());
+    TaskEntityManagerImpl actualTaskEntityManagerImpl = new TaskEntityManagerImpl(processEngineConfiguration,
+        new MybatisTaskDataManager(new JtaProcessEngineConfiguration()));
+    MybatisTaskDataManager taskDataManager = new MybatisTaskDataManager(new JtaProcessEngineConfiguration());
     actualTaskEntityManagerImpl.setTaskDataManager(taskDataManager);
     DataManager<TaskEntity> actualDataManager = actualTaskEntityManagerImpl.getDataManager();
 
@@ -99,290 +91,82 @@ public class TaskEntityManagerImplDiffblueTest {
   }
 
   /**
-   * Test {@link TaskEntityManagerImpl#insert(TaskEntity, boolean)} with {@code TaskEntity}, {@code
-   * boolean}.
-   *
-   * <ul>
-   *   <li>Then throw {@link ActivitiException}.
-   * </ul>
-   *
-   * <p>Method under test: {@link TaskEntityManagerImpl#insert(TaskEntity, boolean)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void TaskEntityManagerImpl.insert(TaskEntity, boolean)"})
-  public void testInsertWithTaskEntityBoolean_thenThrowActivitiException() {
-    // Arrange
-    JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();
-    TaskEntityManagerImpl taskEntityManagerImpl =
-        new TaskEntityManagerImpl(
-            processEngineConfiguration,
-            new MybatisTaskDataManager(new JtaProcessEngineConfiguration()));
-
-    TaskEntity taskEntity = mock(TaskEntity.class);
-    when(taskEntity.getProcessInstanceId()).thenThrow(new ActivitiException("An error occurred"));
-    when(taskEntity.getOwner()).thenReturn("Owner");
-
-    // Act and Assert
-    assertThrows(ActivitiException.class, () -> taskEntityManagerImpl.insert(taskEntity, false));
-    verify(taskEntity, atLeast(1)).getOwner();
-    verify(taskEntity).getProcessInstanceId();
-  }
-
-  /**
    * Test {@link TaskEntityManagerImpl#deleteTasksByProcessInstanceId(String, String, boolean)}.
-   *
    * <ul>
-   *   <li>Then calls {@link TaskDataManager#findTasksByProcessInstanceId(String)}.
+   *   <li>Then calls {@link TaskDataManager#findTasksByProcessInstanceId(String)}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link TaskEntityManagerImpl#deleteTasksByProcessInstanceId(String,
-   * String, boolean)}
+   * <p>
+   * Method under test: {@link TaskEntityManagerImpl#deleteTasksByProcessInstanceId(String, String, boolean)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void TaskEntityManagerImpl.deleteTasksByProcessInstanceId(String, String, boolean)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void TaskEntityManagerImpl.deleteTasksByProcessInstanceId(String, String, boolean)"})
   public void testDeleteTasksByProcessInstanceId_thenCallsFindTasksByProcessInstanceId() {
     // Arrange
-    TaskDataManager taskDataManager = mock(TaskDataManager.class);
-    when(taskDataManager.findTasksByProcessInstanceId(Mockito.<String>any()))
-        .thenReturn(new ArrayList<>());
-    TaskEntityManagerImpl taskEntityManagerImpl =
-        new TaskEntityManagerImpl(new JtaProcessEngineConfiguration(), taskDataManager);
+    when(taskDataManager.findTasksByProcessInstanceId(Mockito.<String>any())).thenReturn(new ArrayList<>());
 
     // Act
     taskEntityManagerImpl.deleteTasksByProcessInstanceId("42", "Just cause", true);
 
     // Assert
-    verify(taskDataManager).findTasksByProcessInstanceId("42");
+    verify(taskDataManager).findTasksByProcessInstanceId(eq("42"));
   }
 
   /**
-   * Test {@link TaskEntityManagerImpl#deleteTask(String, String, boolean, boolean)} with {@code
-   * taskId}, {@code deleteReason}, {@code cascade}, {@code cancel}.
-   *
+   * Test {@link TaskEntityManagerImpl#deleteTasksByProcessInstanceId(String, String, boolean)}.
    * <ul>
-   *   <li>Then calls {@link TaskEntityImpl#isDeleted()}.
+   *   <li>Then throw {@link ActivitiException}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link TaskEntityManagerImpl#deleteTask(String, String, boolean,
-   * boolean)}
+   * <p>
+   * Method under test: {@link TaskEntityManagerImpl#deleteTasksByProcessInstanceId(String, String, boolean)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void TaskEntityManagerImpl.deleteTask(String, String, boolean, boolean)"})
-  public void testDeleteTaskWithTaskIdDeleteReasonCascadeCancel_thenCallsIsDeleted() {
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void TaskEntityManagerImpl.deleteTasksByProcessInstanceId(String, String, boolean)"})
+  public void testDeleteTasksByProcessInstanceId_thenThrowActivitiException() {
     // Arrange
-    TaskEntityImpl taskEntityImpl = mock(TaskEntityImpl.class);
-    when(taskEntityImpl.isDeleted()).thenReturn(true);
-    when(taskEntityImpl.getExecutionId()).thenReturn(null);
-
-    TaskDataManager taskDataManager = mock(TaskDataManager.class);
-    when(taskDataManager.findById(Mockito.<String>any())).thenReturn(taskEntityImpl);
-    TaskEntityManagerImpl taskEntityManagerImpl =
-        new TaskEntityManagerImpl(new JtaProcessEngineConfiguration(), taskDataManager);
-
-    // Act
-    taskEntityManagerImpl.deleteTask("42", "Just cause", true, true);
-
-    // Assert
-    verify(taskEntityImpl).getExecutionId();
-    verify(taskEntityImpl).isDeleted();
-    verify(taskDataManager).findById("42");
-  }
-
-  /**
-   * Test {@link TaskEntityManagerImpl#deleteTask(String, String, boolean, boolean)} with {@code
-   * taskId}, {@code deleteReason}, {@code cascade}, {@code cancel}.
-   *
-   * <ul>
-   *   <li>Then throw {@link ActivitiException}.
-   * </ul>
-   *
-   * <p>Method under test: {@link TaskEntityManagerImpl#deleteTask(String, String, boolean,
-   * boolean)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void TaskEntityManagerImpl.deleteTask(String, String, boolean, boolean)"})
-  public void testDeleteTaskWithTaskIdDeleteReasonCascadeCancel_thenThrowActivitiException() {
-    // Arrange
-    TaskEntityImpl taskEntityImpl = mock(TaskEntityImpl.class);
-    when(taskEntityImpl.getExecutionId()).thenReturn("42");
-
-    TaskDataManager taskDataManager = mock(TaskDataManager.class);
-    when(taskDataManager.findById(Mockito.<String>any())).thenReturn(taskEntityImpl);
-    TaskEntityManagerImpl taskEntityManagerImpl =
-        new TaskEntityManagerImpl(new JtaProcessEngineConfiguration(), taskDataManager);
+    when(taskDataManager.findTasksByProcessInstanceId(Mockito.<String>any()))
+        .thenThrow(new ActivitiException("An error occurred"));
 
     // Act and Assert
-    assertThrows(
-        ActivitiException.class,
-        () -> taskEntityManagerImpl.deleteTask("42", "Just cause", true, true));
-    verify(taskEntityImpl).getExecutionId();
-    verify(taskDataManager).findById("42");
-  }
-
-  /**
-   * Test {@link TaskEntityManagerImpl#deleteTask(String, String, boolean)} with {@code taskId},
-   * {@code deleteReason}, {@code cascade}.
-   *
-   * <ul>
-   *   <li>Then calls {@link TaskEntityImpl#isDeleted()}.
-   * </ul>
-   *
-   * <p>Method under test: {@link TaskEntityManagerImpl#deleteTask(String, String, boolean)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void TaskEntityManagerImpl.deleteTask(String, String, boolean)"})
-  public void testDeleteTaskWithTaskIdDeleteReasonCascade_thenCallsIsDeleted() {
-    // Arrange
-    TaskEntityImpl taskEntityImpl = mock(TaskEntityImpl.class);
-    when(taskEntityImpl.isDeleted()).thenReturn(true);
-    when(taskEntityImpl.getExecutionId()).thenReturn(null);
-
-    TaskDataManager taskDataManager = mock(TaskDataManager.class);
-    when(taskDataManager.findById(Mockito.<String>any())).thenReturn(taskEntityImpl);
-    TaskEntityManagerImpl taskEntityManagerImpl =
-        new TaskEntityManagerImpl(new JtaProcessEngineConfiguration(), taskDataManager);
-
-    // Act
-    taskEntityManagerImpl.deleteTask("42", "Just cause", true);
-
-    // Assert
-    verify(taskEntityImpl).getExecutionId();
-    verify(taskEntityImpl).isDeleted();
-    verify(taskDataManager).findById("42");
-  }
-
-  /**
-   * Test {@link TaskEntityManagerImpl#deleteTask(String, String, boolean)} with {@code taskId},
-   * {@code deleteReason}, {@code cascade}.
-   *
-   * <ul>
-   *   <li>Then throw {@link ActivitiException}.
-   * </ul>
-   *
-   * <p>Method under test: {@link TaskEntityManagerImpl#deleteTask(String, String, boolean)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void TaskEntityManagerImpl.deleteTask(String, String, boolean)"})
-  public void testDeleteTaskWithTaskIdDeleteReasonCascade_thenThrowActivitiException() {
-    // Arrange
-    TaskEntityImpl taskEntityImpl = mock(TaskEntityImpl.class);
-    when(taskEntityImpl.getExecutionId()).thenReturn("42");
-
-    TaskDataManager taskDataManager = mock(TaskDataManager.class);
-    when(taskDataManager.findById(Mockito.<String>any())).thenReturn(taskEntityImpl);
-    TaskEntityManagerImpl taskEntityManagerImpl =
-        new TaskEntityManagerImpl(new JtaProcessEngineConfiguration(), taskDataManager);
-
-    // Act and Assert
-    assertThrows(
-        ActivitiException.class, () -> taskEntityManagerImpl.deleteTask("42", "Just cause", true));
-    verify(taskEntityImpl).getExecutionId();
-    verify(taskDataManager).findById("42");
-  }
-
-  /**
-   * Test {@link TaskEntityManagerImpl#updateTaskTenantIdForDeployment(String, String)}.
-   *
-   * <p>Method under test: {@link TaskEntityManagerImpl#updateTaskTenantIdForDeployment(String,
-   * String)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void TaskEntityManagerImpl.updateTaskTenantIdForDeployment(String, String)"})
-  public void testUpdateTaskTenantIdForDeployment() {
-    // Arrange
-    doNothing()
-        .when(taskDataManager)
-        .updateTaskTenantIdForDeployment(Mockito.<String>any(), Mockito.<String>any());
-
-    // Act
-    taskEntityManagerImpl.updateTaskTenantIdForDeployment("42", "42");
-
-    // Assert
-    verify(taskDataManager).updateTaskTenantIdForDeployment("42", "42");
-  }
-
-  /**
-   * Test {@link TaskEntityManagerImpl#updateTaskTenantIdForDeployment(String, String)}.
-   *
-   * <ul>
-   *   <li>Then throw {@link ActivitiException}.
-   * </ul>
-   *
-   * <p>Method under test: {@link TaskEntityManagerImpl#updateTaskTenantIdForDeployment(String,
-   * String)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void TaskEntityManagerImpl.updateTaskTenantIdForDeployment(String, String)"})
-  public void testUpdateTaskTenantIdForDeployment_thenThrowActivitiException() {
-    // Arrange
-    doThrow(new ActivitiException("An error occurred"))
-        .when(taskDataManager)
-        .updateTaskTenantIdForDeployment(Mockito.<String>any(), Mockito.<String>any());
-
-    // Act and Assert
-    assertThrows(
-        ActivitiException.class,
-        () -> taskEntityManagerImpl.updateTaskTenantIdForDeployment("42", "42"));
-    verify(taskDataManager).updateTaskTenantIdForDeployment("42", "42");
+    assertThrows(ActivitiException.class,
+        () -> taskEntityManagerImpl.deleteTasksByProcessInstanceId("42", "Just cause", false));
+    verify(taskDataManager).findTasksByProcessInstanceId(eq("42"));
   }
 
   /**
    * Test {@link TaskEntityManagerImpl#findTasksByExecutionId(String)}.
-   *
    * <ul>
-   *   <li>Then return Empty.
+   *   <li>Then return Empty.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link TaskEntityManagerImpl#findTasksByExecutionId(String)}
+   * <p>
+   * Method under test: {@link TaskEntityManagerImpl#findTasksByExecutionId(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"List TaskEntityManagerImpl.findTasksByExecutionId(String)"})
   public void testFindTasksByExecutionId_thenReturnEmpty() {
     // Arrange
-    when(taskDataManager.findTasksByExecutionId(Mockito.<String>any()))
-        .thenReturn(new ArrayList<>());
+    when(taskDataManager.findTasksByExecutionId(Mockito.<String>any())).thenReturn(new ArrayList<>());
 
     // Act
-    List<TaskEntity> actualFindTasksByExecutionIdResult =
-        taskEntityManagerImpl.findTasksByExecutionId("42");
+    List<TaskEntity> actualFindTasksByExecutionIdResult = taskEntityManagerImpl.findTasksByExecutionId("42");
 
     // Assert
-    verify(taskDataManager).findTasksByExecutionId("42");
+    verify(taskDataManager).findTasksByExecutionId(eq("42"));
     assertTrue(actualFindTasksByExecutionIdResult.isEmpty());
   }
 
   /**
    * Test {@link TaskEntityManagerImpl#findTasksByExecutionId(String)}.
-   *
    * <ul>
-   *   <li>Then throw {@link ActivitiException}.
+   *   <li>Then throw {@link ActivitiException}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link TaskEntityManagerImpl#findTasksByExecutionId(String)}
+   * <p>
+   * Method under test: {@link TaskEntityManagerImpl#findTasksByExecutionId(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"List TaskEntityManagerImpl.findTasksByExecutionId(String)"})
   public void testFindTasksByExecutionId_thenThrowActivitiException() {
     // Arrange
@@ -391,48 +175,43 @@ public class TaskEntityManagerImplDiffblueTest {
 
     // Act and Assert
     assertThrows(ActivitiException.class, () -> taskEntityManagerImpl.findTasksByExecutionId("42"));
-    verify(taskDataManager).findTasksByExecutionId("42");
+    verify(taskDataManager).findTasksByExecutionId(eq("42"));
   }
 
   /**
    * Test {@link TaskEntityManagerImpl#findTasksByProcessInstanceId(String)}.
-   *
    * <ul>
-   *   <li>Then return Empty.
+   *   <li>Then return Empty.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link TaskEntityManagerImpl#findTasksByProcessInstanceId(String)}
+   * <p>
+   * Method under test: {@link TaskEntityManagerImpl#findTasksByProcessInstanceId(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"List TaskEntityManagerImpl.findTasksByProcessInstanceId(String)"})
   public void testFindTasksByProcessInstanceId_thenReturnEmpty() {
     // Arrange
-    when(taskDataManager.findTasksByProcessInstanceId(Mockito.<String>any()))
-        .thenReturn(new ArrayList<>());
+    when(taskDataManager.findTasksByProcessInstanceId(Mockito.<String>any())).thenReturn(new ArrayList<>());
 
     // Act
-    List<TaskEntity> actualFindTasksByProcessInstanceIdResult =
-        taskEntityManagerImpl.findTasksByProcessInstanceId("42");
+    List<TaskEntity> actualFindTasksByProcessInstanceIdResult = taskEntityManagerImpl
+        .findTasksByProcessInstanceId("42");
 
     // Assert
-    verify(taskDataManager).findTasksByProcessInstanceId("42");
+    verify(taskDataManager).findTasksByProcessInstanceId(eq("42"));
     assertTrue(actualFindTasksByProcessInstanceIdResult.isEmpty());
   }
 
   /**
    * Test {@link TaskEntityManagerImpl#findTasksByProcessInstanceId(String)}.
-   *
    * <ul>
-   *   <li>Then throw {@link ActivitiException}.
+   *   <li>Then throw {@link ActivitiException}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link TaskEntityManagerImpl#findTasksByProcessInstanceId(String)}
+   * <p>
+   * Method under test: {@link TaskEntityManagerImpl#findTasksByProcessInstanceId(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"List TaskEntityManagerImpl.findTasksByProcessInstanceId(String)"})
   public void testFindTasksByProcessInstanceId_thenThrowActivitiException() {
     // Arrange
@@ -440,35 +219,31 @@ public class TaskEntityManagerImplDiffblueTest {
         .thenThrow(new ActivitiException("An error occurred"));
 
     // Act and Assert
-    assertThrows(
-        ActivitiException.class, () -> taskEntityManagerImpl.findTasksByProcessInstanceId("42"));
-    verify(taskDataManager).findTasksByProcessInstanceId("42");
+    assertThrows(ActivitiException.class, () -> taskEntityManagerImpl.findTasksByProcessInstanceId("42"));
+    verify(taskDataManager).findTasksByProcessInstanceId(eq("42"));
   }
 
   /**
    * Test {@link TaskEntityManagerImpl#findTasksByQueryCriteria(TaskQueryImpl)}.
-   *
    * <ul>
-   *   <li>Then return Empty.
+   *   <li>Then return Empty.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link TaskEntityManagerImpl#findTasksByQueryCriteria(TaskQueryImpl)}
+   * <p>
+   * Method under test: {@link TaskEntityManagerImpl#findTasksByQueryCriteria(TaskQueryImpl)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"List TaskEntityManagerImpl.findTasksByQueryCriteria(TaskQueryImpl)"})
   public void testFindTasksByQueryCriteria_thenReturnEmpty() {
     // Arrange
     TaskDataManager taskDataManager = mock(TaskDataManager.class);
-    when(taskDataManager.findTasksByQueryCriteria(Mockito.<TaskQueryImpl>any()))
-        .thenReturn(new ArrayList<>());
-    TaskEntityManagerImpl taskEntityManagerImpl =
-        new TaskEntityManagerImpl(new JtaProcessEngineConfiguration(), taskDataManager);
+    when(taskDataManager.findTasksByQueryCriteria(Mockito.<TaskQueryImpl>any())).thenReturn(new ArrayList<>());
+    TaskEntityManagerImpl taskEntityManagerImpl = new TaskEntityManagerImpl(new JtaProcessEngineConfiguration(),
+        taskDataManager);
 
     // Act
-    List<Task> actualFindTasksByQueryCriteriaResult =
-        taskEntityManagerImpl.findTasksByQueryCriteria(new TaskQueryImpl());
+    List<Task> actualFindTasksByQueryCriteriaResult = taskEntityManagerImpl
+        .findTasksByQueryCriteria(new TaskQueryImpl());
 
     // Assert
     verify(taskDataManager).findTasksByQueryCriteria(isA(TaskQueryImpl.class));
@@ -477,31 +252,26 @@ public class TaskEntityManagerImplDiffblueTest {
 
   /**
    * Test {@link TaskEntityManagerImpl#findTasksAndVariablesByQueryCriteria(TaskQueryImpl)}.
-   *
    * <ul>
-   *   <li>Then return Empty.
+   *   <li>Then return Empty.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link
-   * TaskEntityManagerImpl#findTasksAndVariablesByQueryCriteria(TaskQueryImpl)}
+   * <p>
+   * Method under test: {@link TaskEntityManagerImpl#findTasksAndVariablesByQueryCriteria(TaskQueryImpl)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "List TaskEntityManagerImpl.findTasksAndVariablesByQueryCriteria(TaskQueryImpl)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"List TaskEntityManagerImpl.findTasksAndVariablesByQueryCriteria(TaskQueryImpl)"})
   public void testFindTasksAndVariablesByQueryCriteria_thenReturnEmpty() {
     // Arrange
     TaskDataManager taskDataManager = mock(TaskDataManager.class);
     when(taskDataManager.findTasksAndVariablesByQueryCriteria(Mockito.<TaskQueryImpl>any()))
         .thenReturn(new ArrayList<>());
-    TaskEntityManagerImpl taskEntityManagerImpl =
-        new TaskEntityManagerImpl(new JtaProcessEngineConfiguration(), taskDataManager);
+    TaskEntityManagerImpl taskEntityManagerImpl = new TaskEntityManagerImpl(new JtaProcessEngineConfiguration(),
+        taskDataManager);
 
     // Act
-    List<Task> actualFindTasksAndVariablesByQueryCriteriaResult =
-        taskEntityManagerImpl.findTasksAndVariablesByQueryCriteria(new TaskQueryImpl());
+    List<Task> actualFindTasksAndVariablesByQueryCriteriaResult = taskEntityManagerImpl
+        .findTasksAndVariablesByQueryCriteria(new TaskQueryImpl());
 
     // Assert
     verify(taskDataManager).findTasksAndVariablesByQueryCriteria(isA(TaskQueryImpl.class));
@@ -510,27 +280,25 @@ public class TaskEntityManagerImplDiffblueTest {
 
   /**
    * Test {@link TaskEntityManagerImpl#findTaskCountByQueryCriteria(TaskQueryImpl)}.
-   *
    * <ul>
-   *   <li>Then return three.
+   *   <li>Then return three.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link TaskEntityManagerImpl#findTaskCountByQueryCriteria(TaskQueryImpl)}
+   * <p>
+   * Method under test: {@link TaskEntityManagerImpl#findTaskCountByQueryCriteria(TaskQueryImpl)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"long TaskEntityManagerImpl.findTaskCountByQueryCriteria(TaskQueryImpl)"})
   public void testFindTaskCountByQueryCriteria_thenReturnThree() {
     // Arrange
     TaskDataManager taskDataManager = mock(TaskDataManager.class);
     when(taskDataManager.findTaskCountByQueryCriteria(Mockito.<TaskQueryImpl>any())).thenReturn(3L);
-    TaskEntityManagerImpl taskEntityManagerImpl =
-        new TaskEntityManagerImpl(new JtaProcessEngineConfiguration(), taskDataManager);
+    TaskEntityManagerImpl taskEntityManagerImpl = new TaskEntityManagerImpl(new JtaProcessEngineConfiguration(),
+        taskDataManager);
 
     // Act
-    long actualFindTaskCountByQueryCriteriaResult =
-        taskEntityManagerImpl.findTaskCountByQueryCriteria(new TaskQueryImpl());
+    long actualFindTaskCountByQueryCriteriaResult = taskEntityManagerImpl
+        .findTaskCountByQueryCriteria(new TaskQueryImpl());
 
     // Assert
     verify(taskDataManager).findTaskCountByQueryCriteria(isA(TaskQueryImpl.class));
@@ -539,29 +307,25 @@ public class TaskEntityManagerImplDiffblueTest {
 
   /**
    * Test {@link TaskEntityManagerImpl#findTasksByNativeQuery(Map, int, int)}.
-   *
    * <ul>
-   *   <li>Then return Empty.
+   *   <li>Then return Empty.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link TaskEntityManagerImpl#findTasksByNativeQuery(Map, int, int)}
+   * <p>
+   * Method under test: {@link TaskEntityManagerImpl#findTasksByNativeQuery(Map, int, int)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"List TaskEntityManagerImpl.findTasksByNativeQuery(Map, int, int)"})
   public void testFindTasksByNativeQuery_thenReturnEmpty() {
     // Arrange
     TaskDataManager taskDataManager = mock(TaskDataManager.class);
-    when(taskDataManager.findTasksByNativeQuery(
-            Mockito.<Map<String, Object>>any(), anyInt(), anyInt()))
+    when(taskDataManager.findTasksByNativeQuery(Mockito.<Map<String, Object>>any(), anyInt(), anyInt()))
         .thenReturn(new ArrayList<>());
-    TaskEntityManagerImpl taskEntityManagerImpl =
-        new TaskEntityManagerImpl(new JtaProcessEngineConfiguration(), taskDataManager);
+    TaskEntityManagerImpl taskEntityManagerImpl = new TaskEntityManagerImpl(new JtaProcessEngineConfiguration(),
+        taskDataManager);
 
     // Act
-    List<Task> actualFindTasksByNativeQueryResult =
-        taskEntityManagerImpl.findTasksByNativeQuery(new HashMap<>(), 1, 3);
+    List<Task> actualFindTasksByNativeQueryResult = taskEntityManagerImpl.findTasksByNativeQuery(new HashMap<>(), 1, 3);
 
     // Assert
     verify(taskDataManager).findTasksByNativeQuery(isA(Map.class), eq(1), eq(3));
@@ -570,28 +334,24 @@ public class TaskEntityManagerImplDiffblueTest {
 
   /**
    * Test {@link TaskEntityManagerImpl#findTaskCountByNativeQuery(Map)}.
-   *
    * <ul>
-   *   <li>Then return three.
+   *   <li>Then return three.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link TaskEntityManagerImpl#findTaskCountByNativeQuery(Map)}
+   * <p>
+   * Method under test: {@link TaskEntityManagerImpl#findTaskCountByNativeQuery(Map)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"long TaskEntityManagerImpl.findTaskCountByNativeQuery(Map)"})
   public void testFindTaskCountByNativeQuery_thenReturnThree() {
     // Arrange
     TaskDataManager taskDataManager = mock(TaskDataManager.class);
-    when(taskDataManager.findTaskCountByNativeQuery(Mockito.<Map<String, Object>>any()))
-        .thenReturn(3L);
-    TaskEntityManagerImpl taskEntityManagerImpl =
-        new TaskEntityManagerImpl(new JtaProcessEngineConfiguration(), taskDataManager);
+    when(taskDataManager.findTaskCountByNativeQuery(Mockito.<Map<String, Object>>any())).thenReturn(3L);
+    TaskEntityManagerImpl taskEntityManagerImpl = new TaskEntityManagerImpl(new JtaProcessEngineConfiguration(),
+        taskDataManager);
 
     // Act
-    long actualFindTaskCountByNativeQueryResult =
-        taskEntityManagerImpl.findTaskCountByNativeQuery(new HashMap<>());
+    long actualFindTaskCountByNativeQueryResult = taskEntityManagerImpl.findTaskCountByNativeQuery(new HashMap<>());
 
     // Assert
     verify(taskDataManager).findTaskCountByNativeQuery(isA(Map.class));
@@ -600,43 +360,37 @@ public class TaskEntityManagerImplDiffblueTest {
 
   /**
    * Test {@link TaskEntityManagerImpl#findTasksByParentTaskId(String)}.
-   *
    * <ul>
-   *   <li>Then return Empty.
+   *   <li>Then return Empty.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link TaskEntityManagerImpl#findTasksByParentTaskId(String)}
+   * <p>
+   * Method under test: {@link TaskEntityManagerImpl#findTasksByParentTaskId(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"List TaskEntityManagerImpl.findTasksByParentTaskId(String)"})
   public void testFindTasksByParentTaskId_thenReturnEmpty() {
     // Arrange
-    when(taskDataManager.findTasksByParentTaskId(Mockito.<String>any()))
-        .thenReturn(new ArrayList<>());
+    when(taskDataManager.findTasksByParentTaskId(Mockito.<String>any())).thenReturn(new ArrayList<>());
 
     // Act
-    List<Task> actualFindTasksByParentTaskIdResult =
-        taskEntityManagerImpl.findTasksByParentTaskId("42");
+    List<Task> actualFindTasksByParentTaskIdResult = taskEntityManagerImpl.findTasksByParentTaskId("42");
 
     // Assert
-    verify(taskDataManager).findTasksByParentTaskId("42");
+    verify(taskDataManager).findTasksByParentTaskId(eq("42"));
     assertTrue(actualFindTasksByParentTaskIdResult.isEmpty());
   }
 
   /**
    * Test {@link TaskEntityManagerImpl#findTasksByParentTaskId(String)}.
-   *
    * <ul>
-   *   <li>Then throw {@link ActivitiException}.
+   *   <li>Then throw {@link ActivitiException}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link TaskEntityManagerImpl#findTasksByParentTaskId(String)}
+   * <p>
+   * Method under test: {@link TaskEntityManagerImpl#findTasksByParentTaskId(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"List TaskEntityManagerImpl.findTasksByParentTaskId(String)"})
   public void testFindTasksByParentTaskId_thenThrowActivitiException() {
     // Arrange
@@ -644,8 +398,47 @@ public class TaskEntityManagerImplDiffblueTest {
         .thenThrow(new ActivitiException("An error occurred"));
 
     // Act and Assert
-    assertThrows(
-        ActivitiException.class, () -> taskEntityManagerImpl.findTasksByParentTaskId("42"));
-    verify(taskDataManager).findTasksByParentTaskId("42");
+    assertThrows(ActivitiException.class, () -> taskEntityManagerImpl.findTasksByParentTaskId("42"));
+    verify(taskDataManager).findTasksByParentTaskId(eq("42"));
+  }
+
+  /**
+   * Test {@link TaskEntityManagerImpl#updateTaskTenantIdForDeployment(String, String)}.
+   * <p>
+   * Method under test: {@link TaskEntityManagerImpl#updateTaskTenantIdForDeployment(String, String)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void TaskEntityManagerImpl.updateTaskTenantIdForDeployment(String, String)"})
+  public void testUpdateTaskTenantIdForDeployment() {
+    // Arrange
+    doNothing().when(taskDataManager).updateTaskTenantIdForDeployment(Mockito.<String>any(), Mockito.<String>any());
+
+    // Act
+    taskEntityManagerImpl.updateTaskTenantIdForDeployment("42", "42");
+
+    // Assert
+    verify(taskDataManager).updateTaskTenantIdForDeployment(eq("42"), eq("42"));
+  }
+
+  /**
+   * Test {@link TaskEntityManagerImpl#updateTaskTenantIdForDeployment(String, String)}.
+   * <ul>
+   *   <li>Then throw {@link ActivitiException}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link TaskEntityManagerImpl#updateTaskTenantIdForDeployment(String, String)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void TaskEntityManagerImpl.updateTaskTenantIdForDeployment(String, String)"})
+  public void testUpdateTaskTenantIdForDeployment_thenThrowActivitiException() {
+    // Arrange
+    doThrow(new ActivitiException("An error occurred")).when(taskDataManager)
+        .updateTaskTenantIdForDeployment(Mockito.<String>any(), Mockito.<String>any());
+
+    // Act and Assert
+    assertThrows(ActivitiException.class, () -> taskEntityManagerImpl.updateTaskTenantIdForDeployment("42", "42"));
+    verify(taskDataManager).updateTaskTenantIdForDeployment(eq("42"), eq("42"));
   }
 }

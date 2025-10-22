@@ -19,8 +19,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertThrows;
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import jakarta.persistence.EntityManagerFactory;
 import org.activiti.engine.ActivitiIllegalArgumentException;
@@ -32,26 +31,22 @@ import org.junit.experimental.categories.Category;
 public class EntityManagerSessionFactoryDiffblueTest {
   /**
    * Test {@link EntityManagerSessionFactory#EntityManagerSessionFactory(Object, boolean, boolean)}.
-   *
-   * <p>Method under test: {@link EntityManagerSessionFactory#EntityManagerSessionFactory(Object,
-   * boolean, boolean)}
+   * <p>
+   * Method under test: {@link EntityManagerSessionFactory#EntityManagerSessionFactory(Object, boolean, boolean)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void EntityManagerSessionFactory.<init>(Object, boolean, boolean)"})
   public void testNewEntityManagerSessionFactory() {
     // Arrange
-    SessionFactoryDelegatingImpl sessionFactoryDelegatingImpl =
-        new SessionFactoryDelegatingImpl(null);
+    SessionFactoryDelegatingImpl sessionFactoryDelegatingImpl = new SessionFactoryDelegatingImpl(null);
 
     // Act
-    EntityManagerSessionFactory actualEntityManagerSessionFactory =
-        new EntityManagerSessionFactory(sessionFactoryDelegatingImpl, true, true);
+    EntityManagerSessionFactory actualEntityManagerSessionFactory = new EntityManagerSessionFactory(
+        sessionFactoryDelegatingImpl, true, true);
 
     // Assert
-    EntityManagerFactory entityManagerFactory =
-        actualEntityManagerSessionFactory.getEntityManagerFactory();
+    EntityManagerFactory entityManagerFactory = actualEntityManagerSessionFactory.getEntityManagerFactory();
     assertTrue(entityManagerFactory instanceof SessionFactoryDelegatingImpl);
     assertTrue(actualEntityManagerSessionFactory.closeEntityManager);
     assertTrue(actualEntityManagerSessionFactory.handleTransactions);
@@ -62,43 +57,36 @@ public class EntityManagerSessionFactoryDiffblueTest {
 
   /**
    * Test {@link EntityManagerSessionFactory#EntityManagerSessionFactory(Object, boolean, boolean)}.
-   *
    * <ul>
-   *   <li>When {@link JSONObject#NULL}.
+   *   <li>When {@link JSONObject#NULL}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link EntityManagerSessionFactory#EntityManagerSessionFactory(Object,
-   * boolean, boolean)}
+   * <p>
+   * Method under test: {@link EntityManagerSessionFactory#EntityManagerSessionFactory(Object, boolean, boolean)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void EntityManagerSessionFactory.<init>(Object, boolean, boolean)"})
   public void testNewEntityManagerSessionFactory_whenNull() {
     // Arrange, Act and Assert
-    assertThrows(
-        ActivitiIllegalArgumentException.class,
+    assertThrows(ActivitiIllegalArgumentException.class,
         () -> new EntityManagerSessionFactory(JSONObject.NULL, true, true));
+
   }
 
   /**
    * Test {@link EntityManagerSessionFactory#EntityManagerSessionFactory(Object, boolean, boolean)}.
-   *
    * <ul>
-   *   <li>When {@code null}.
+   *   <li>When {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link EntityManagerSessionFactory#EntityManagerSessionFactory(Object,
-   * boolean, boolean)}
+   * <p>
+   * Method under test: {@link EntityManagerSessionFactory#EntityManagerSessionFactory(Object, boolean, boolean)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void EntityManagerSessionFactory.<init>(Object, boolean, boolean)"})
   public void testNewEntityManagerSessionFactory_whenNull2() {
     // Arrange, Act and Assert
-    assertThrows(
-        ActivitiIllegalArgumentException.class,
-        () -> new EntityManagerSessionFactory(null, true, true));
+    assertThrows(ActivitiIllegalArgumentException.class, () -> new EntityManagerSessionFactory(null, true, true));
+
   }
 }

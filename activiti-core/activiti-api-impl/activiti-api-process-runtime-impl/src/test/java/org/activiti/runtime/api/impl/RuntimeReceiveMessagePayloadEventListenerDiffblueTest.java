@@ -20,11 +20,9 @@ import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.ArgumentMatchers.isA;
 import static org.mockito.ArgumentMatchers.isNull;
 import static org.mockito.Mockito.doNothing;
-import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.Map;
 import org.activiti.api.process.model.payloads.ReceiveMessagePayload;
@@ -32,6 +30,7 @@ import org.activiti.engine.ActivitiObjectNotFoundException;
 import org.activiti.engine.ManagementService;
 import org.activiti.engine.RuntimeService;
 import org.activiti.engine.impl.interceptor.Command;
+import org.activiti.engine.impl.persistence.entity.CompensateEventSubscriptionEntityImpl;
 import org.activiti.engine.impl.persistence.entity.EventSubscriptionEntity;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
@@ -45,201 +44,63 @@ import org.springframework.test.context.aot.DisabledInAotMode;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 @ContextConfiguration(classes = {RuntimeReceiveMessagePayloadEventListener.class})
-@DisabledInAotMode
 @ExtendWith(SpringExtension.class)
+@DisabledInAotMode
 class RuntimeReceiveMessagePayloadEventListenerDiffblueTest {
-  @MockBean private ManagementService managementService;
+  @MockBean
+  private ManagementService managementService;
 
   @Autowired
   private RuntimeReceiveMessagePayloadEventListener runtimeReceiveMessagePayloadEventListener;
 
-  @MockBean private RuntimeService runtimeService;
+  @MockBean
+  private RuntimeService runtimeService;
 
   /**
    * Test {@link RuntimeReceiveMessagePayloadEventListener#receiveMessage(ReceiveMessagePayload)}.
-   *
-   * <p>Method under test: {@link
-   * RuntimeReceiveMessagePayloadEventListener#receiveMessage(ReceiveMessagePayload)}
-   */
-  @Test
-  @DisplayName("Test receiveMessage(ReceiveMessagePayload)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void RuntimeReceiveMessagePayloadEventListener.receiveMessage(ReceiveMessagePayload)"
-  })
-  void testReceiveMessage() {
-    // Arrange
-    when(managementService.executeCommand(Mockito.<Command<EventSubscriptionEntity>>any()))
-        .thenThrow(new ActivitiObjectNotFoundException("An error occurred"));
-
-    // Act and Assert
-    assertThrows(
-        ActivitiObjectNotFoundException.class,
-        () ->
-            runtimeReceiveMessagePayloadEventListener.receiveMessage(new ReceiveMessagePayload()));
-    verify(managementService).executeCommand(isA(Command.class));
-  }
-
-  /**
-   * Test {@link RuntimeReceiveMessagePayloadEventListener#receiveMessage(ReceiveMessagePayload)}.
-   *
-   * <p>Method under test: {@link
-   * RuntimeReceiveMessagePayloadEventListener#receiveMessage(ReceiveMessagePayload)}
-   */
-  @Test
-  @DisplayName("Test receiveMessage(ReceiveMessagePayload)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void RuntimeReceiveMessagePayloadEventListener.receiveMessage(ReceiveMessagePayload)"
-  })
-  void testReceiveMessage2() {
-    // Arrange
-    EventSubscriptionEntity eventSubscriptionEntity = mock(EventSubscriptionEntity.class);
-    when(eventSubscriptionEntity.getConfiguration()).thenReturn("Configuration");
-    when(managementService.executeCommand(Mockito.<Command<EventSubscriptionEntity>>any()))
-        .thenReturn(eventSubscriptionEntity);
-
-    // Act and Assert
-    assertThrows(
-        ActivitiObjectNotFoundException.class,
-        () ->
-            runtimeReceiveMessagePayloadEventListener.receiveMessage(new ReceiveMessagePayload()));
-    verify(managementService).executeCommand(isA(Command.class));
-    verify(eventSubscriptionEntity).getConfiguration();
-  }
-
-  /**
-   * Test {@link RuntimeReceiveMessagePayloadEventListener#receiveMessage(ReceiveMessagePayload)}.
-   *
-   * <p>Method under test: {@link
-   * RuntimeReceiveMessagePayloadEventListener#receiveMessage(ReceiveMessagePayload)}
-   */
-  @Test
-  @DisplayName("Test receiveMessage(ReceiveMessagePayload)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void RuntimeReceiveMessagePayloadEventListener.receiveMessage(ReceiveMessagePayload)"
-  })
-  void testReceiveMessage3() {
-    // Arrange
-    EventSubscriptionEntity eventSubscriptionEntity = mock(EventSubscriptionEntity.class);
-    when(eventSubscriptionEntity.getConfiguration())
-        .thenThrow(new ActivitiObjectNotFoundException("An error occurred"));
-    when(managementService.executeCommand(Mockito.<Command<EventSubscriptionEntity>>any()))
-        .thenReturn(eventSubscriptionEntity);
-
-    // Act and Assert
-    assertThrows(
-        ActivitiObjectNotFoundException.class,
-        () ->
-            runtimeReceiveMessagePayloadEventListener.receiveMessage(new ReceiveMessagePayload()));
-    verify(managementService).executeCommand(isA(Command.class));
-    verify(eventSubscriptionEntity).getConfiguration();
-  }
-
-  /**
-   * Test {@link RuntimeReceiveMessagePayloadEventListener#receiveMessage(ReceiveMessagePayload)}.
-   *
-   * <p>Method under test: {@link
-   * RuntimeReceiveMessagePayloadEventListener#receiveMessage(ReceiveMessagePayload)}
-   */
-  @Test
-  @DisplayName("Test receiveMessage(ReceiveMessagePayload)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void RuntimeReceiveMessagePayloadEventListener.receiveMessage(ReceiveMessagePayload)"
-  })
-  void testReceiveMessage4() {
-    // Arrange
-    doThrow(new ActivitiObjectNotFoundException("An error occurred"))
-        .when(runtimeService)
-        .messageEventReceived(
-            Mockito.<String>any(), Mockito.<String>any(), Mockito.<Map<String, Object>>any());
-
-    EventSubscriptionEntity eventSubscriptionEntity = mock(EventSubscriptionEntity.class);
-    when(eventSubscriptionEntity.getConfiguration()).thenReturn(null);
-    when(eventSubscriptionEntity.getExecutionId()).thenReturn("42");
-    when(managementService.executeCommand(Mockito.<Command<EventSubscriptionEntity>>any()))
-        .thenReturn(eventSubscriptionEntity);
-
-    // Act and Assert
-    assertThrows(
-        ActivitiObjectNotFoundException.class,
-        () ->
-            runtimeReceiveMessagePayloadEventListener.receiveMessage(new ReceiveMessagePayload()));
-    verify(managementService).executeCommand(isA(Command.class));
-    verify(runtimeService).messageEventReceived(isNull(), eq("42"), isA(Map.class));
-    verify(eventSubscriptionEntity).getConfiguration();
-    verify(eventSubscriptionEntity).getExecutionId();
-  }
-
-  /**
-   * Test {@link RuntimeReceiveMessagePayloadEventListener#receiveMessage(ReceiveMessagePayload)}.
-   *
    * <ul>
-   *   <li>Given {@link ManagementService} {@link ManagementService#executeCommand(Command)} return
-   *       {@code null}.
+   *   <li>Given {@link RuntimeService}.</li>
+   *   <li>Then throw {@link ActivitiObjectNotFoundException}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link
-   * RuntimeReceiveMessagePayloadEventListener#receiveMessage(ReceiveMessagePayload)}
+   * <p>
+   * Method under test: {@link RuntimeReceiveMessagePayloadEventListener#receiveMessage(ReceiveMessagePayload)}
    */
   @Test
-  @DisplayName(
-      "Test receiveMessage(ReceiveMessagePayload); given ManagementService executeCommand(Command) return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void RuntimeReceiveMessagePayloadEventListener.receiveMessage(ReceiveMessagePayload)"
-  })
-  void testReceiveMessage_givenManagementServiceExecuteCommandReturnNull() {
+  @DisplayName("Test receiveMessage(ReceiveMessagePayload); given RuntimeService; then throw ActivitiObjectNotFoundException")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void RuntimeReceiveMessagePayloadEventListener.receiveMessage(ReceiveMessagePayload)"})
+  void testReceiveMessage_givenRuntimeService_thenThrowActivitiObjectNotFoundException() {
     // Arrange
-    when(managementService.executeCommand(Mockito.<Command<EventSubscriptionEntity>>any()))
-        .thenReturn(null);
+    when(managementService.executeCommand(Mockito.<Command<EventSubscriptionEntity>>any())).thenReturn(null);
 
     // Act and Assert
-    assertThrows(
-        ActivitiObjectNotFoundException.class,
-        () ->
-            runtimeReceiveMessagePayloadEventListener.receiveMessage(new ReceiveMessagePayload()));
+    assertThrows(ActivitiObjectNotFoundException.class,
+        () -> runtimeReceiveMessagePayloadEventListener.receiveMessage(new ReceiveMessagePayload()));
     verify(managementService).executeCommand(isA(Command.class));
   }
 
   /**
    * Test {@link RuntimeReceiveMessagePayloadEventListener#receiveMessage(ReceiveMessagePayload)}.
-   *
    * <ul>
-   *   <li>Given {@link RuntimeService} {@link RuntimeService#messageEventReceived(String, String,
-   *       Map)} does nothing.
+   *   <li>Then calls {@link RuntimeService#messageEventReceived(String, String, Map)}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link
-   * RuntimeReceiveMessagePayloadEventListener#receiveMessage(ReceiveMessagePayload)}
+   * <p>
+   * Method under test: {@link RuntimeReceiveMessagePayloadEventListener#receiveMessage(ReceiveMessagePayload)}
    */
   @Test
-  @DisplayName(
-      "Test receiveMessage(ReceiveMessagePayload); given RuntimeService messageEventReceived(String, String, Map) does nothing")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void RuntimeReceiveMessagePayloadEventListener.receiveMessage(ReceiveMessagePayload)"
-  })
-  void testReceiveMessage_givenRuntimeServiceMessageEventReceivedDoesNothing() {
+  @DisplayName("Test receiveMessage(ReceiveMessagePayload); then calls messageEventReceived(String, String, Map)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void RuntimeReceiveMessagePayloadEventListener.receiveMessage(ReceiveMessagePayload)"})
+  void testReceiveMessage_thenCallsMessageEventReceived() {
     // Arrange
-    doNothing()
-        .when(runtimeService)
-        .messageEventReceived(
-            Mockito.<String>any(), Mockito.<String>any(), Mockito.<Map<String, Object>>any());
-
-    EventSubscriptionEntity eventSubscriptionEntity = mock(EventSubscriptionEntity.class);
-    when(eventSubscriptionEntity.getConfiguration()).thenReturn(null);
-    when(eventSubscriptionEntity.getExecutionId()).thenReturn("42");
+    doNothing().when(runtimeService)
+        .messageEventReceived(Mockito.<String>any(), Mockito.<String>any(), Mockito.<Map<String, Object>>any());
+    CompensateEventSubscriptionEntityImpl compensateEventSubscriptionEntityImpl = mock(
+        CompensateEventSubscriptionEntityImpl.class);
+    when(compensateEventSubscriptionEntityImpl.getConfiguration()).thenReturn(null);
+    when(compensateEventSubscriptionEntityImpl.getExecutionId()).thenReturn("42");
     when(managementService.executeCommand(Mockito.<Command<EventSubscriptionEntity>>any()))
-        .thenReturn(eventSubscriptionEntity);
+        .thenReturn(compensateEventSubscriptionEntityImpl);
 
     // Act
     runtimeReceiveMessagePayloadEventListener.receiveMessage(new ReceiveMessagePayload());
@@ -247,7 +108,34 @@ class RuntimeReceiveMessagePayloadEventListenerDiffblueTest {
     // Assert
     verify(managementService).executeCommand(isA(Command.class));
     verify(runtimeService).messageEventReceived(isNull(), eq("42"), isA(Map.class));
-    verify(eventSubscriptionEntity).getConfiguration();
-    verify(eventSubscriptionEntity).getExecutionId();
+    verify(compensateEventSubscriptionEntityImpl).getConfiguration();
+    verify(compensateEventSubscriptionEntityImpl).getExecutionId();
+  }
+
+  /**
+   * Test {@link RuntimeReceiveMessagePayloadEventListener#receiveMessage(ReceiveMessagePayload)}.
+   * <ul>
+   *   <li>Then throw {@link ActivitiObjectNotFoundException}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link RuntimeReceiveMessagePayloadEventListener#receiveMessage(ReceiveMessagePayload)}
+   */
+  @Test
+  @DisplayName("Test receiveMessage(ReceiveMessagePayload); then throw ActivitiObjectNotFoundException")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void RuntimeReceiveMessagePayloadEventListener.receiveMessage(ReceiveMessagePayload)"})
+  void testReceiveMessage_thenThrowActivitiObjectNotFoundException() {
+    // Arrange
+    CompensateEventSubscriptionEntityImpl compensateEventSubscriptionEntityImpl = mock(
+        CompensateEventSubscriptionEntityImpl.class);
+    when(compensateEventSubscriptionEntityImpl.getConfiguration()).thenReturn("Configuration");
+    when(managementService.executeCommand(Mockito.<Command<EventSubscriptionEntity>>any()))
+        .thenReturn(compensateEventSubscriptionEntityImpl);
+
+    // Act and Assert
+    assertThrows(ActivitiObjectNotFoundException.class,
+        () -> runtimeReceiveMessagePayloadEventListener.receiveMessage(new ReceiveMessagePayload()));
+    verify(managementService).executeCommand(isA(Command.class));
+    verify(compensateEventSubscriptionEntityImpl).getConfiguration();
   }
 }

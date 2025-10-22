@@ -17,9 +17,9 @@ package org.activiti.engine.impl.cfg.standalone;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
+import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.List;
 import java.util.Map;
@@ -30,32 +30,25 @@ import org.junit.experimental.categories.Category;
 
 public class StandaloneMybatisTransactionContextDiffblueTest {
   /**
-   * Test {@link StandaloneMybatisTransactionContext#addTransactionListener(TransactionState,
-   * TransactionListener)}.
-   *
-   * <p>Method under test: {@link
-   * StandaloneMybatisTransactionContext#addTransactionListener(TransactionState,
-   * TransactionListener)}
+   * Test {@link StandaloneMybatisTransactionContext#addTransactionListener(TransactionState, TransactionListener)}.
+   * <p>
+   * Method under test: {@link StandaloneMybatisTransactionContext#addTransactionListener(TransactionState, TransactionListener)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({
-    "void StandaloneMybatisTransactionContext.addTransactionListener(TransactionState, TransactionListener)"
-  })
+      "void StandaloneMybatisTransactionContext.addTransactionListener(TransactionState, TransactionListener)"})
   public void testAddTransactionListener() {
     // Arrange
-    StandaloneMybatisTransactionContext standaloneMybatisTransactionContext =
-        new StandaloneMybatisTransactionContext(null);
+    StandaloneMybatisTransactionContext standaloneMybatisTransactionContext = new StandaloneMybatisTransactionContext(
+        null);
     TransactionListener transactionListener = mock(TransactionListener.class);
 
     // Act
-    standaloneMybatisTransactionContext.addTransactionListener(
-        TransactionState.COMMITTED, transactionListener);
+    standaloneMybatisTransactionContext.addTransactionListener(TransactionState.COMMITTED, transactionListener);
 
     // Assert
-    Map<TransactionState, List<TransactionListener>> transactionStateListMap =
-        standaloneMybatisTransactionContext.stateTransactionListeners;
+    Map<TransactionState, List<TransactionListener>> transactionStateListMap = standaloneMybatisTransactionContext.stateTransactionListeners;
     assertEquals(1, transactionStateListMap.size());
     List<TransactionListener> getResult = transactionStateListMap.get(TransactionState.COMMITTED);
     assertEquals(1, getResult.size());
@@ -63,34 +56,56 @@ public class StandaloneMybatisTransactionContextDiffblueTest {
   }
 
   /**
-   * Test {@link StandaloneMybatisTransactionContext#addTransactionListener(TransactionState,
-   * TransactionListener)}.
-   *
-   * <p>Method under test: {@link
-   * StandaloneMybatisTransactionContext#addTransactionListener(TransactionState,
-   * TransactionListener)}
+   * Test {@link StandaloneMybatisTransactionContext#addTransactionListener(TransactionState, TransactionListener)}.
+   * <p>
+   * Method under test: {@link StandaloneMybatisTransactionContext#addTransactionListener(TransactionState, TransactionListener)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({
-    "void StandaloneMybatisTransactionContext.addTransactionListener(TransactionState, TransactionListener)"
-  })
+      "void StandaloneMybatisTransactionContext.addTransactionListener(TransactionState, TransactionListener)"})
   public void testAddTransactionListener2() {
     // Arrange
-    StandaloneMybatisTransactionContext standaloneMybatisTransactionContext =
-        new StandaloneMybatisTransactionContext(null);
-    standaloneMybatisTransactionContext.addTransactionListener(
-        TransactionState.COMMITTED, mock(TransactionListener.class));
+    StandaloneMybatisTransactionContext standaloneMybatisTransactionContext = new StandaloneMybatisTransactionContext(
+        null);
+    standaloneMybatisTransactionContext.addTransactionListener(TransactionState.ROLLED_BACK,
+        mock(TransactionListener.class));
     TransactionListener transactionListener = mock(TransactionListener.class);
 
     // Act
-    standaloneMybatisTransactionContext.addTransactionListener(
-        TransactionState.COMMITTED, transactionListener);
+    standaloneMybatisTransactionContext.addTransactionListener(TransactionState.COMMITTED, transactionListener);
 
     // Assert
-    Map<TransactionState, List<TransactionListener>> transactionStateListMap =
-        standaloneMybatisTransactionContext.stateTransactionListeners;
+    Map<TransactionState, List<TransactionListener>> transactionStateListMap = standaloneMybatisTransactionContext.stateTransactionListeners;
+    assertEquals(2, transactionStateListMap.size());
+    List<TransactionListener> getResult = transactionStateListMap.get(TransactionState.COMMITTED);
+    assertEquals(1, getResult.size());
+    assertTrue(transactionStateListMap.containsKey(TransactionState.ROLLED_BACK));
+    assertSame(transactionListener, getResult.get(0));
+  }
+
+  /**
+   * Test {@link StandaloneMybatisTransactionContext#addTransactionListener(TransactionState, TransactionListener)}.
+   * <p>
+   * Method under test: {@link StandaloneMybatisTransactionContext#addTransactionListener(TransactionState, TransactionListener)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "void StandaloneMybatisTransactionContext.addTransactionListener(TransactionState, TransactionListener)"})
+  public void testAddTransactionListener3() {
+    // Arrange
+    StandaloneMybatisTransactionContext standaloneMybatisTransactionContext = new StandaloneMybatisTransactionContext(
+        null);
+    standaloneMybatisTransactionContext.addTransactionListener(TransactionState.COMMITTED,
+        mock(TransactionListener.class));
+    TransactionListener transactionListener = mock(TransactionListener.class);
+
+    // Act
+    standaloneMybatisTransactionContext.addTransactionListener(TransactionState.COMMITTED, transactionListener);
+
+    // Assert
+    Map<TransactionState, List<TransactionListener>> transactionStateListMap = standaloneMybatisTransactionContext.stateTransactionListeners;
     assertEquals(1, transactionStateListMap.size());
     List<TransactionListener> getResult = transactionStateListMap.get(TransactionState.COMMITTED);
     assertEquals(2, getResult.size());

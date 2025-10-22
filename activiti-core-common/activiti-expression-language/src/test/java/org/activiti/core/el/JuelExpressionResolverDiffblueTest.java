@@ -23,7 +23,6 @@ import static org.mockito.ArgumentMatchers.isA;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import jakarta.el.CompositeELResolver;
 import jakarta.el.ELContext;
@@ -42,21 +41,20 @@ import org.mockito.Mockito;
 class JuelExpressionResolverDiffblueTest {
   /**
    * Test {@link JuelExpressionResolver#JuelExpressionResolver()}.
-   *
-   * <p>Method under test: {@link JuelExpressionResolver#JuelExpressionResolver()}
+   * <p>
+   * Method under test: {@link JuelExpressionResolver#JuelExpressionResolver()}
    */
   @Test
   @DisplayName("Test new JuelExpressionResolver()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void JuelExpressionResolver.<init>()"})
   void testNewJuelExpressionResolver() {
     // Arrange and Act
     JuelExpressionResolver actualJuelExpressionResolver = new JuelExpressionResolver();
     HashMap<String, Object> variables = new HashMap<>();
     Class<Object> type = Object.class;
-    Object actualResolveExpressionResult =
-        actualJuelExpressionResolver.resolveExpression("Expression", variables, type);
+    Object actualResolveExpressionResult = actualJuelExpressionResolver.resolveExpression("Expression", variables,
+        type);
 
     // Assert
     ELContext buildContextResult = actualJuelExpressionResolver.buildContext(null);
@@ -79,21 +77,19 @@ class JuelExpressionResolverDiffblueTest {
 
   /**
    * Test {@link JuelExpressionResolver#JuelExpressionResolver()}.
-   *
-   * <p>Method under test: {@link JuelExpressionResolver#JuelExpressionResolver()}
+   * <p>
+   * Method under test: {@link JuelExpressionResolver#JuelExpressionResolver()}
    */
   @Test
   @DisplayName("Test new JuelExpressionResolver()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void JuelExpressionResolver.<init>()"})
   void testNewJuelExpressionResolver2() {
     // Arrange and Act
     JuelExpressionResolver actualJuelExpressionResolver = new JuelExpressionResolver();
     HashMap<String, Object> variables = new HashMap<>();
     Class<Object> type = Object.class;
-    Object actualResolveExpressionResult =
-        actualJuelExpressionResolver.resolveExpression(null, variables, type);
+    Object actualResolveExpressionResult = actualJuelExpressionResolver.resolveExpression(null, variables, type);
 
     // Assert
     ELContext buildContextResult = actualJuelExpressionResolver.buildContext(null);
@@ -116,19 +112,16 @@ class JuelExpressionResolverDiffblueTest {
 
   /**
    * Test {@link JuelExpressionResolver#resolveExpression(String, Map, Class)}.
-   *
    * <ul>
-   *   <li>Given {@link JuelExpressionResolver#JuelExpressionResolver()}.
-   *   <li>Then return {@code Expression}.
+   *   <li>Given {@link JuelExpressionResolver#JuelExpressionResolver()}.</li>
+   *   <li>Then return {@code Expression}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link JuelExpressionResolver#resolveExpression(String, Map, Class)}
+   * <p>
+   * Method under test: {@link JuelExpressionResolver#resolveExpression(String, Map, Class)}
    */
   @Test
-  @DisplayName(
-      "Test resolveExpression(String, Map, Class); given JuelExpressionResolver(); then return 'Expression'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test resolveExpression(String, Map, Class); given JuelExpressionResolver(); then return 'Expression'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"Object JuelExpressionResolver.resolveExpression(String, Map, Class)"})
   void testResolveExpression_givenJuelExpressionResolver_thenReturnExpression() {
     // Arrange
@@ -137,26 +130,22 @@ class JuelExpressionResolverDiffblueTest {
     Class<Object> type = Object.class;
 
     // Act and Assert
-    assertEquals(
-        "Expression", juelExpressionResolver.resolveExpression("Expression", variables, type));
+    assertEquals("Expression", juelExpressionResolver.resolveExpression("Expression", variables, type));
   }
 
   /**
    * Test {@link JuelExpressionResolver#resolveExpression(String, Map, Class)}.
-   *
    * <ul>
-   *   <li>Given {@link JuelExpressionResolver#JuelExpressionResolver()}.
-   *   <li>When {@code null}.
-   *   <li>Then return {@code null}.
+   *   <li>Given {@link JuelExpressionResolver#JuelExpressionResolver()}.</li>
+   *   <li>When {@code null}.</li>
+   *   <li>Then return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link JuelExpressionResolver#resolveExpression(String, Map, Class)}
+   * <p>
+   * Method under test: {@link JuelExpressionResolver#resolveExpression(String, Map, Class)}
    */
   @Test
-  @DisplayName(
-      "Test resolveExpression(String, Map, Class); given JuelExpressionResolver(); when 'null'; then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test resolveExpression(String, Map, Class); given JuelExpressionResolver(); when 'null'; then return 'null'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"Object JuelExpressionResolver.resolveExpression(String, Map, Class)"})
   void testResolveExpression_givenJuelExpressionResolver_whenNull_thenReturnNull() {
     // Arrange
@@ -170,18 +159,15 @@ class JuelExpressionResolverDiffblueTest {
 
   /**
    * Test {@link JuelExpressionResolver#resolveExpression(String, Map, Class)}.
-   *
    * <ul>
-   *   <li>Then calls {@link CustomFunctionProvider#addCustomFunctions(ActivitiElContext)}.
+   *   <li>Then calls {@link CustomFunctionProvider#addCustomFunctions(ActivitiElContext)}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link JuelExpressionResolver#resolveExpression(String, Map, Class)}
+   * <p>
+   * Method under test: {@link JuelExpressionResolver#resolveExpression(String, Map, Class)}
    */
   @Test
-  @DisplayName(
-      "Test resolveExpression(String, Map, Class); then calls addCustomFunctions(ActivitiElContext)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test resolveExpression(String, Map, Class); then calls addCustomFunctions(ActivitiElContext)")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"Object JuelExpressionResolver.resolveExpression(String, Map, Class)"})
   void testResolveExpression_thenCallsAddCustomFunctions() {
     // Arrange
@@ -190,14 +176,13 @@ class JuelExpressionResolverDiffblueTest {
 
     ArrayList<CustomFunctionProvider> customFunctionProviders = new ArrayList<>();
     customFunctionProviders.add(customFunctionProvider);
-    JuelExpressionResolver juelExpressionResolver =
-        new JuelExpressionResolver(new ExpressionFactoryImpl(), customFunctionProviders);
+    JuelExpressionResolver juelExpressionResolver = new JuelExpressionResolver(new ExpressionFactoryImpl(),
+        customFunctionProviders);
     HashMap<String, Object> variables = new HashMap<>();
     Class<Object> type = Object.class;
 
     // Act
-    Object actualResolveExpressionResult =
-        juelExpressionResolver.resolveExpression("Expression", variables, type);
+    Object actualResolveExpressionResult = juelExpressionResolver.resolveExpression("Expression", variables, type);
 
     // Assert
     verify(customFunctionProvider).addCustomFunctions(isA(ActivitiElContext.class));
@@ -206,38 +191,33 @@ class JuelExpressionResolverDiffblueTest {
 
   /**
    * Test {@link JuelExpressionResolver#resolveExpression(String, Map, Class)}.
-   *
    * <ul>
-   *   <li>Then calls {@link CustomFunctionProvider#addCustomFunctions(ActivitiElContext)}.
+   *   <li>Then calls {@link CustomFunctionProvider#addCustomFunctions(ActivitiElContext)}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link JuelExpressionResolver#resolveExpression(String, Map, Class)}
+   * <p>
+   * Method under test: {@link JuelExpressionResolver#resolveExpression(String, Map, Class)}
    */
   @Test
-  @DisplayName(
-      "Test resolveExpression(String, Map, Class); then calls addCustomFunctions(ActivitiElContext)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test resolveExpression(String, Map, Class); then calls addCustomFunctions(ActivitiElContext)")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"Object JuelExpressionResolver.resolveExpression(String, Map, Class)"})
   void testResolveExpression_thenCallsAddCustomFunctions2() {
     // Arrange
     CustomFunctionProvider customFunctionProvider = mock(CustomFunctionProvider.class);
     doNothing().when(customFunctionProvider).addCustomFunctions(Mockito.<ActivitiElContext>any());
-
     CustomFunctionProvider customFunctionProvider2 = mock(CustomFunctionProvider.class);
     doNothing().when(customFunctionProvider2).addCustomFunctions(Mockito.<ActivitiElContext>any());
 
     ArrayList<CustomFunctionProvider> customFunctionProviders = new ArrayList<>();
     customFunctionProviders.add(customFunctionProvider2);
     customFunctionProviders.add(customFunctionProvider);
-    JuelExpressionResolver juelExpressionResolver =
-        new JuelExpressionResolver(new ExpressionFactoryImpl(), customFunctionProviders);
+    JuelExpressionResolver juelExpressionResolver = new JuelExpressionResolver(new ExpressionFactoryImpl(),
+        customFunctionProviders);
     HashMap<String, Object> variables = new HashMap<>();
     Class<Object> type = Object.class;
 
     // Act
-    Object actualResolveExpressionResult =
-        juelExpressionResolver.resolveExpression("Expression", variables, type);
+    Object actualResolveExpressionResult = juelExpressionResolver.resolveExpression("Expression", variables, type);
 
     // Assert
     verify(customFunctionProvider2).addCustomFunctions(isA(ActivitiElContext.class));
@@ -247,17 +227,15 @@ class JuelExpressionResolverDiffblueTest {
 
   /**
    * Test {@link JuelExpressionResolver#buildContext(Map)}.
-   *
    * <ul>
-   *   <li>Given {@link JuelExpressionResolver#JuelExpressionResolver()}.
+   *   <li>Given {@link JuelExpressionResolver#JuelExpressionResolver()}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link JuelExpressionResolver#buildContext(Map)}
+   * <p>
+   * Method under test: {@link JuelExpressionResolver#buildContext(Map)}
    */
   @Test
   @DisplayName("Test buildContext(Map); given JuelExpressionResolver()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"ELContext JuelExpressionResolver.buildContext(Map)"})
   void testBuildContext_givenJuelExpressionResolver() {
     // Arrange
@@ -277,17 +255,15 @@ class JuelExpressionResolverDiffblueTest {
 
   /**
    * Test {@link JuelExpressionResolver#buildContext(Map)}.
-   *
    * <ul>
-   *   <li>Then calls {@link CustomFunctionProvider#addCustomFunctions(ActivitiElContext)}.
+   *   <li>Then calls {@link CustomFunctionProvider#addCustomFunctions(ActivitiElContext)}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link JuelExpressionResolver#buildContext(Map)}
+   * <p>
+   * Method under test: {@link JuelExpressionResolver#buildContext(Map)}
    */
   @Test
   @DisplayName("Test buildContext(Map); then calls addCustomFunctions(ActivitiElContext)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"ELContext JuelExpressionResolver.buildContext(Map)"})
   void testBuildContext_thenCallsAddCustomFunctions() {
     // Arrange
@@ -296,8 +272,8 @@ class JuelExpressionResolverDiffblueTest {
 
     ArrayList<CustomFunctionProvider> customFunctionProviders = new ArrayList<>();
     customFunctionProviders.add(customFunctionProvider);
-    JuelExpressionResolver juelExpressionResolver =
-        new JuelExpressionResolver(new ExpressionFactoryImpl(), customFunctionProviders);
+    JuelExpressionResolver juelExpressionResolver = new JuelExpressionResolver(new ExpressionFactoryImpl(),
+        customFunctionProviders);
 
     // Act
     ELContext actualBuildContextResult = juelExpressionResolver.buildContext(new HashMap<>());
@@ -314,31 +290,28 @@ class JuelExpressionResolverDiffblueTest {
 
   /**
    * Test {@link JuelExpressionResolver#buildContext(Map)}.
-   *
    * <ul>
-   *   <li>Then calls {@link CustomFunctionProvider#addCustomFunctions(ActivitiElContext)}.
+   *   <li>Then calls {@link CustomFunctionProvider#addCustomFunctions(ActivitiElContext)}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link JuelExpressionResolver#buildContext(Map)}
+   * <p>
+   * Method under test: {@link JuelExpressionResolver#buildContext(Map)}
    */
   @Test
   @DisplayName("Test buildContext(Map); then calls addCustomFunctions(ActivitiElContext)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"ELContext JuelExpressionResolver.buildContext(Map)"})
   void testBuildContext_thenCallsAddCustomFunctions2() {
     // Arrange
     CustomFunctionProvider customFunctionProvider = mock(CustomFunctionProvider.class);
     doNothing().when(customFunctionProvider).addCustomFunctions(Mockito.<ActivitiElContext>any());
-
     CustomFunctionProvider customFunctionProvider2 = mock(CustomFunctionProvider.class);
     doNothing().when(customFunctionProvider2).addCustomFunctions(Mockito.<ActivitiElContext>any());
 
     ArrayList<CustomFunctionProvider> customFunctionProviders = new ArrayList<>();
     customFunctionProviders.add(customFunctionProvider2);
     customFunctionProviders.add(customFunctionProvider);
-    JuelExpressionResolver juelExpressionResolver =
-        new JuelExpressionResolver(new ExpressionFactoryImpl(), customFunctionProviders);
+    JuelExpressionResolver juelExpressionResolver = new JuelExpressionResolver(new ExpressionFactoryImpl(),
+        customFunctionProviders);
 
     // Act
     ELContext actualBuildContextResult = juelExpressionResolver.buildContext(new HashMap<>());

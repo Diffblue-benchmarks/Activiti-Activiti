@@ -21,31 +21,23 @@ import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertThrows;
 import static org.junit.Assert.assertTrue;
-import static org.mockito.Mockito.mock;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.time.LocalDate;
 import java.time.ZoneOffset;
 import java.util.Date;
 import org.activiti.engine.ActivitiIllegalArgumentException;
-import org.activiti.engine.impl.interceptor.CommandContext;
-import org.activiti.engine.query.QueryProperty;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
-import org.springframework.test.annotation.DirtiesContext;
-import org.springframework.test.annotation.DirtiesContext.ClassMode;
 
-@DirtiesContext(classMode = ClassMode.AFTER_EACH_TEST_METHOD)
 public class DeadLetterJobQueryImplDiffblueTest {
   /**
    * Test {@link DeadLetterJobQueryImpl#DeadLetterJobQueryImpl()}.
-   *
-   * <p>Method under test: {@link DeadLetterJobQueryImpl#DeadLetterJobQueryImpl()}
+   * <p>
+   * Method under test: {@link DeadLetterJobQueryImpl#DeadLetterJobQueryImpl()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void DeadLetterJobQueryImpl.<init>()"})
   public void testNewDeadLetterJobQueryImpl() {
     // Arrange and Act
@@ -81,23 +73,20 @@ public class DeadLetterJobQueryImplDiffblueTest {
     assertFalse(actualDeadLetterJobQueryImpl.isWithoutTenantId());
     assertEquals(Integer.MAX_VALUE, actualDeadLetterJobQueryImpl.getLastRow());
     assertEquals(Integer.MAX_VALUE, actualDeadLetterJobQueryImpl.getMaxResults());
-    Object actualParameter = actualDeadLetterJobQueryImpl.getParameter();
-    assertSame(actualDeadLetterJobQueryImpl, actualParameter);
+    assertSame(actualDeadLetterJobQueryImpl, actualDeadLetterJobQueryImpl.getParameter());
   }
 
   /**
    * Test {@link DeadLetterJobQueryImpl#jobId(String)}.
-   *
    * <ul>
-   *   <li>When {@code 42}.
-   *   <li>Then {@link DeadLetterJobQueryImpl#DeadLetterJobQueryImpl()} Id is {@code 42}.
+   *   <li>When {@code 42}.</li>
+   *   <li>Then {@link DeadLetterJobQueryImpl#DeadLetterJobQueryImpl()} Id is {@code 42}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link DeadLetterJobQueryImpl#jobId(String)}
+   * <p>
+   * Method under test: {@link DeadLetterJobQueryImpl#jobId(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"DeadLetterJobQueryImpl DeadLetterJobQueryImpl.jobId(String)"})
   public void testJobId_when42_thenDeadLetterJobQueryImplIdIs42() {
     // Arrange
@@ -113,46 +102,39 @@ public class DeadLetterJobQueryImplDiffblueTest {
 
   /**
    * Test {@link DeadLetterJobQueryImpl#jobId(String)}.
-   *
    * <ul>
-   *   <li>When {@code null}.
-   *   <li>Then throw {@link ActivitiIllegalArgumentException}.
+   *   <li>When {@code null}.</li>
+   *   <li>Then throw {@link ActivitiIllegalArgumentException}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link DeadLetterJobQueryImpl#jobId(String)}
+   * <p>
+   * Method under test: {@link DeadLetterJobQueryImpl#jobId(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"DeadLetterJobQueryImpl DeadLetterJobQueryImpl.jobId(String)"})
   public void testJobId_whenNull_thenThrowActivitiIllegalArgumentException() {
     // Arrange, Act and Assert
-    assertThrows(
-        ActivitiIllegalArgumentException.class, () -> new DeadLetterJobQueryImpl().jobId(null));
+    assertThrows(ActivitiIllegalArgumentException.class, () -> (new DeadLetterJobQueryImpl()).jobId(null));
   }
 
   /**
    * Test {@link DeadLetterJobQueryImpl#processInstanceId(String)}.
-   *
    * <ul>
-   *   <li>When {@code 42}.
-   *   <li>Then {@link DeadLetterJobQueryImpl#DeadLetterJobQueryImpl()} ProcessInstanceId is {@code
-   *       42}.
+   *   <li>When {@code 42}.</li>
+   *   <li>Then {@link DeadLetterJobQueryImpl#DeadLetterJobQueryImpl()} ProcessInstanceId is {@code 42}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link DeadLetterJobQueryImpl#processInstanceId(String)}
+   * <p>
+   * Method under test: {@link DeadLetterJobQueryImpl#processInstanceId(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"DeadLetterJobQueryImpl DeadLetterJobQueryImpl.processInstanceId(String)"})
   public void testProcessInstanceId_when42_thenDeadLetterJobQueryImplProcessInstanceIdIs42() {
     // Arrange
     DeadLetterJobQueryImpl deadLetterJobQueryImpl = new DeadLetterJobQueryImpl();
 
     // Act
-    DeadLetterJobQueryImpl actualProcessInstanceIdResult =
-        deadLetterJobQueryImpl.processInstanceId("42");
+    DeadLetterJobQueryImpl actualProcessInstanceIdResult = deadLetterJobQueryImpl.processInstanceId("42");
 
     // Assert
     assertEquals("42", deadLetterJobQueryImpl.getProcessInstanceId());
@@ -161,47 +143,39 @@ public class DeadLetterJobQueryImplDiffblueTest {
 
   /**
    * Test {@link DeadLetterJobQueryImpl#processInstanceId(String)}.
-   *
    * <ul>
-   *   <li>When {@code null}.
-   *   <li>Then throw {@link ActivitiIllegalArgumentException}.
+   *   <li>When {@code null}.</li>
+   *   <li>Then throw {@link ActivitiIllegalArgumentException}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link DeadLetterJobQueryImpl#processInstanceId(String)}
+   * <p>
+   * Method under test: {@link DeadLetterJobQueryImpl#processInstanceId(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"DeadLetterJobQueryImpl DeadLetterJobQueryImpl.processInstanceId(String)"})
   public void testProcessInstanceId_whenNull_thenThrowActivitiIllegalArgumentException() {
     // Arrange, Act and Assert
-    assertThrows(
-        ActivitiIllegalArgumentException.class,
-        () -> new DeadLetterJobQueryImpl().processInstanceId(null));
+    assertThrows(ActivitiIllegalArgumentException.class, () -> (new DeadLetterJobQueryImpl()).processInstanceId(null));
   }
 
   /**
    * Test {@link DeadLetterJobQueryImpl#processDefinitionId(String)}.
-   *
    * <ul>
-   *   <li>When {@code 42}.
-   *   <li>Then {@link DeadLetterJobQueryImpl#DeadLetterJobQueryImpl()} ProcessDefinitionId is
-   *       {@code 42}.
+   *   <li>When {@code 42}.</li>
+   *   <li>Then {@link DeadLetterJobQueryImpl#DeadLetterJobQueryImpl()} ProcessDefinitionId is {@code 42}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link DeadLetterJobQueryImpl#processDefinitionId(String)}
+   * <p>
+   * Method under test: {@link DeadLetterJobQueryImpl#processDefinitionId(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"DeadLetterJobQueryImpl DeadLetterJobQueryImpl.processDefinitionId(String)"})
   public void testProcessDefinitionId_when42_thenDeadLetterJobQueryImplProcessDefinitionIdIs42() {
     // Arrange
     DeadLetterJobQueryImpl deadLetterJobQueryImpl = new DeadLetterJobQueryImpl();
 
     // Act
-    DeadLetterJobQueryImpl actualProcessDefinitionIdResult =
-        deadLetterJobQueryImpl.processDefinitionId("42");
+    DeadLetterJobQueryImpl actualProcessDefinitionIdResult = deadLetterJobQueryImpl.processDefinitionId("42");
 
     // Assert
     assertEquals("42", deadLetterJobQueryImpl.getProcessDefinitionId());
@@ -210,38 +184,33 @@ public class DeadLetterJobQueryImplDiffblueTest {
 
   /**
    * Test {@link DeadLetterJobQueryImpl#processDefinitionId(String)}.
-   *
    * <ul>
-   *   <li>When {@code null}.
-   *   <li>Then throw {@link ActivitiIllegalArgumentException}.
+   *   <li>When {@code null}.</li>
+   *   <li>Then throw {@link ActivitiIllegalArgumentException}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link DeadLetterJobQueryImpl#processDefinitionId(String)}
+   * <p>
+   * Method under test: {@link DeadLetterJobQueryImpl#processDefinitionId(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"DeadLetterJobQueryImpl DeadLetterJobQueryImpl.processDefinitionId(String)"})
   public void testProcessDefinitionId_whenNull_thenThrowActivitiIllegalArgumentException() {
     // Arrange, Act and Assert
-    assertThrows(
-        ActivitiIllegalArgumentException.class,
-        () -> new DeadLetterJobQueryImpl().processDefinitionId(null));
+    assertThrows(ActivitiIllegalArgumentException.class,
+        () -> (new DeadLetterJobQueryImpl()).processDefinitionId(null));
   }
 
   /**
    * Test {@link DeadLetterJobQueryImpl#executionId(String)}.
-   *
    * <ul>
-   *   <li>When {@code 42}.
-   *   <li>Then {@link DeadLetterJobQueryImpl#DeadLetterJobQueryImpl()} ExecutionId is {@code 42}.
+   *   <li>When {@code 42}.</li>
+   *   <li>Then {@link DeadLetterJobQueryImpl#DeadLetterJobQueryImpl()} ExecutionId is {@code 42}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link DeadLetterJobQueryImpl#executionId(String)}
+   * <p>
+   * Method under test: {@link DeadLetterJobQueryImpl#executionId(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"DeadLetterJobQueryImpl DeadLetterJobQueryImpl.executionId(String)"})
   public void testExecutionId_when42_thenDeadLetterJobQueryImplExecutionIdIs42() {
     // Arrange
@@ -257,33 +226,28 @@ public class DeadLetterJobQueryImplDiffblueTest {
 
   /**
    * Test {@link DeadLetterJobQueryImpl#executionId(String)}.
-   *
    * <ul>
-   *   <li>When {@code null}.
-   *   <li>Then throw {@link ActivitiIllegalArgumentException}.
+   *   <li>When {@code null}.</li>
+   *   <li>Then throw {@link ActivitiIllegalArgumentException}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link DeadLetterJobQueryImpl#executionId(String)}
+   * <p>
+   * Method under test: {@link DeadLetterJobQueryImpl#executionId(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"DeadLetterJobQueryImpl DeadLetterJobQueryImpl.executionId(String)"})
   public void testExecutionId_whenNull_thenThrowActivitiIllegalArgumentException() {
     // Arrange, Act and Assert
-    assertThrows(
-        ActivitiIllegalArgumentException.class,
-        () -> new DeadLetterJobQueryImpl().executionId(null));
+    assertThrows(ActivitiIllegalArgumentException.class, () -> (new DeadLetterJobQueryImpl()).executionId(null));
   }
 
   /**
    * Test {@link DeadLetterJobQueryImpl#executable()}.
-   *
-   * <p>Method under test: {@link DeadLetterJobQueryImpl#executable()}
+   * <p>
+   * Method under test: {@link DeadLetterJobQueryImpl#executable()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"DeadLetterJobQueryImpl DeadLetterJobQueryImpl.executable()"})
   public void testExecutable() {
     // Arrange
@@ -299,12 +263,11 @@ public class DeadLetterJobQueryImplDiffblueTest {
 
   /**
    * Test {@link DeadLetterJobQueryImpl#timers()}.
-   *
-   * <p>Method under test: {@link DeadLetterJobQueryImpl#timers()}
+   * <p>
+   * Method under test: {@link DeadLetterJobQueryImpl#timers()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"DeadLetterJobQueryImpl DeadLetterJobQueryImpl.timers()"})
   public void testTimers() {
     // Arrange
@@ -320,12 +283,11 @@ public class DeadLetterJobQueryImplDiffblueTest {
 
   /**
    * Test {@link DeadLetterJobQueryImpl#messages()}.
-   *
-   * <p>Method under test: {@link DeadLetterJobQueryImpl#messages()}
+   * <p>
+   * Method under test: {@link DeadLetterJobQueryImpl#messages()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"DeadLetterJobQueryImpl DeadLetterJobQueryImpl.messages()"})
   public void testMessages() {
     // Arrange
@@ -341,314 +303,241 @@ public class DeadLetterJobQueryImplDiffblueTest {
 
   /**
    * Test {@link DeadLetterJobQueryImpl#duedateHigherThan(Date)}.
-   *
    * <ul>
-   *   <li>Then return {@link DeadLetterJobQueryImpl#DeadLetterJobQueryImpl()}.
+   *   <li>Then return {@link DeadLetterJobQueryImpl#DeadLetterJobQueryImpl()}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link DeadLetterJobQueryImpl#duedateHigherThan(Date)}
+   * <p>
+   * Method under test: {@link DeadLetterJobQueryImpl#duedateHigherThan(Date)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"DeadLetterJobQueryImpl DeadLetterJobQueryImpl.duedateHigherThan(Date)"})
   public void testDuedateHigherThan_thenReturnDeadLetterJobQueryImpl() {
     // Arrange
     DeadLetterJobQueryImpl deadLetterJobQueryImpl = new DeadLetterJobQueryImpl();
-    Date date =
-        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant());
+    Date date = Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant());
 
-    // Act
-    DeadLetterJobQueryImpl actualDuedateHigherThanResult =
-        deadLetterJobQueryImpl.duedateHigherThan(date);
-
-    // Assert
-    assertSame(deadLetterJobQueryImpl, actualDuedateHigherThanResult);
+    // Act and Assert
+    assertSame(deadLetterJobQueryImpl, deadLetterJobQueryImpl.duedateHigherThan(date));
     assertSame(date, deadLetterJobQueryImpl.getDuedateHigherThan());
   }
 
   /**
    * Test {@link DeadLetterJobQueryImpl#duedateHigherThan(Date)}.
-   *
    * <ul>
-   *   <li>When {@code null}.
-   *   <li>Then throw {@link ActivitiIllegalArgumentException}.
+   *   <li>When {@code null}.</li>
+   *   <li>Then throw {@link ActivitiIllegalArgumentException}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link DeadLetterJobQueryImpl#duedateHigherThan(Date)}
+   * <p>
+   * Method under test: {@link DeadLetterJobQueryImpl#duedateHigherThan(Date)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"DeadLetterJobQueryImpl DeadLetterJobQueryImpl.duedateHigherThan(Date)"})
   public void testDuedateHigherThan_whenNull_thenThrowActivitiIllegalArgumentException() {
     // Arrange, Act and Assert
-    assertThrows(
-        ActivitiIllegalArgumentException.class,
-        () -> new DeadLetterJobQueryImpl().duedateHigherThan(null));
+    assertThrows(ActivitiIllegalArgumentException.class, () -> (new DeadLetterJobQueryImpl()).duedateHigherThan(null));
   }
 
   /**
    * Test {@link DeadLetterJobQueryImpl#duedateLowerThan(Date)}.
-   *
    * <ul>
-   *   <li>Then return {@link DeadLetterJobQueryImpl#DeadLetterJobQueryImpl()}.
+   *   <li>Then return {@link DeadLetterJobQueryImpl#DeadLetterJobQueryImpl()}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link DeadLetterJobQueryImpl#duedateLowerThan(Date)}
+   * <p>
+   * Method under test: {@link DeadLetterJobQueryImpl#duedateLowerThan(Date)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"DeadLetterJobQueryImpl DeadLetterJobQueryImpl.duedateLowerThan(Date)"})
   public void testDuedateLowerThan_thenReturnDeadLetterJobQueryImpl() {
     // Arrange
     DeadLetterJobQueryImpl deadLetterJobQueryImpl = new DeadLetterJobQueryImpl();
-    Date date =
-        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant());
+    Date date = Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant());
 
-    // Act
-    DeadLetterJobQueryImpl actualDuedateLowerThanResult =
-        deadLetterJobQueryImpl.duedateLowerThan(date);
-
-    // Assert
-    assertSame(deadLetterJobQueryImpl, actualDuedateLowerThanResult);
+    // Act and Assert
+    assertSame(deadLetterJobQueryImpl, deadLetterJobQueryImpl.duedateLowerThan(date));
     assertSame(date, deadLetterJobQueryImpl.getDuedateLowerThan());
   }
 
   /**
    * Test {@link DeadLetterJobQueryImpl#duedateLowerThan(Date)}.
-   *
    * <ul>
-   *   <li>When {@code null}.
-   *   <li>Then throw {@link ActivitiIllegalArgumentException}.
+   *   <li>When {@code null}.</li>
+   *   <li>Then throw {@link ActivitiIllegalArgumentException}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link DeadLetterJobQueryImpl#duedateLowerThan(Date)}
+   * <p>
+   * Method under test: {@link DeadLetterJobQueryImpl#duedateLowerThan(Date)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"DeadLetterJobQueryImpl DeadLetterJobQueryImpl.duedateLowerThan(Date)"})
   public void testDuedateLowerThan_whenNull_thenThrowActivitiIllegalArgumentException() {
     // Arrange, Act and Assert
-    assertThrows(
-        ActivitiIllegalArgumentException.class,
-        () -> new DeadLetterJobQueryImpl().duedateLowerThan(null));
+    assertThrows(ActivitiIllegalArgumentException.class, () -> (new DeadLetterJobQueryImpl()).duedateLowerThan(null));
   }
 
   /**
    * Test {@link DeadLetterJobQueryImpl#duedateHigherThen(Date)}.
-   *
    * <ul>
-   *   <li>Then return {@link DeadLetterJobQueryImpl#DeadLetterJobQueryImpl()}.
+   *   <li>Then return {@link DeadLetterJobQueryImpl#DeadLetterJobQueryImpl()}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link DeadLetterJobQueryImpl#duedateHigherThen(Date)}
+   * <p>
+   * Method under test: {@link DeadLetterJobQueryImpl#duedateHigherThen(Date)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"DeadLetterJobQueryImpl DeadLetterJobQueryImpl.duedateHigherThen(Date)"})
   public void testDuedateHigherThen_thenReturnDeadLetterJobQueryImpl() {
     // Arrange
     DeadLetterJobQueryImpl deadLetterJobQueryImpl = new DeadLetterJobQueryImpl();
-    Date date =
-        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant());
+    Date date = Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant());
 
-    // Act
-    DeadLetterJobQueryImpl actualDuedateHigherThenResult =
-        deadLetterJobQueryImpl.duedateHigherThen(date);
-
-    // Assert
-    assertSame(deadLetterJobQueryImpl, actualDuedateHigherThenResult);
+    // Act and Assert
+    assertSame(deadLetterJobQueryImpl, deadLetterJobQueryImpl.duedateHigherThen(date));
     assertSame(date, deadLetterJobQueryImpl.getDuedateHigherThan());
   }
 
   /**
    * Test {@link DeadLetterJobQueryImpl#duedateHigherThen(Date)}.
-   *
    * <ul>
-   *   <li>When {@code null}.
-   *   <li>Then throw {@link ActivitiIllegalArgumentException}.
+   *   <li>When {@code null}.</li>
+   *   <li>Then throw {@link ActivitiIllegalArgumentException}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link DeadLetterJobQueryImpl#duedateHigherThen(Date)}
+   * <p>
+   * Method under test: {@link DeadLetterJobQueryImpl#duedateHigherThen(Date)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"DeadLetterJobQueryImpl DeadLetterJobQueryImpl.duedateHigherThen(Date)"})
   public void testDuedateHigherThen_whenNull_thenThrowActivitiIllegalArgumentException() {
     // Arrange, Act and Assert
-    assertThrows(
-        ActivitiIllegalArgumentException.class,
-        () -> new DeadLetterJobQueryImpl().duedateHigherThen(null));
+    assertThrows(ActivitiIllegalArgumentException.class, () -> (new DeadLetterJobQueryImpl()).duedateHigherThen(null));
   }
 
   /**
    * Test {@link DeadLetterJobQueryImpl#duedateHigherThenOrEquals(Date)}.
-   *
    * <ul>
-   *   <li>Then return {@link DeadLetterJobQueryImpl#DeadLetterJobQueryImpl()}.
+   *   <li>Then return {@link DeadLetterJobQueryImpl#DeadLetterJobQueryImpl()}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link DeadLetterJobQueryImpl#duedateHigherThenOrEquals(Date)}
+   * <p>
+   * Method under test: {@link DeadLetterJobQueryImpl#duedateHigherThenOrEquals(Date)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "DeadLetterJobQueryImpl DeadLetterJobQueryImpl.duedateHigherThenOrEquals(Date)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"DeadLetterJobQueryImpl DeadLetterJobQueryImpl.duedateHigherThenOrEquals(Date)"})
   public void testDuedateHigherThenOrEquals_thenReturnDeadLetterJobQueryImpl() {
     // Arrange
     DeadLetterJobQueryImpl deadLetterJobQueryImpl = new DeadLetterJobQueryImpl();
-    Date date =
-        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant());
+    Date date = Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant());
 
-    // Act
-    DeadLetterJobQueryImpl actualDuedateHigherThenOrEqualsResult =
-        deadLetterJobQueryImpl.duedateHigherThenOrEquals(date);
-
-    // Assert
-    assertSame(deadLetterJobQueryImpl, actualDuedateHigherThenOrEqualsResult);
+    // Act and Assert
+    assertSame(deadLetterJobQueryImpl, deadLetterJobQueryImpl.duedateHigherThenOrEquals(date));
     assertSame(date, deadLetterJobQueryImpl.getDuedateHigherThanOrEqual());
   }
 
   /**
    * Test {@link DeadLetterJobQueryImpl#duedateHigherThenOrEquals(Date)}.
-   *
    * <ul>
-   *   <li>When {@code null}.
-   *   <li>Then throw {@link ActivitiIllegalArgumentException}.
+   *   <li>When {@code null}.</li>
+   *   <li>Then throw {@link ActivitiIllegalArgumentException}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link DeadLetterJobQueryImpl#duedateHigherThenOrEquals(Date)}
+   * <p>
+   * Method under test: {@link DeadLetterJobQueryImpl#duedateHigherThenOrEquals(Date)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "DeadLetterJobQueryImpl DeadLetterJobQueryImpl.duedateHigherThenOrEquals(Date)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"DeadLetterJobQueryImpl DeadLetterJobQueryImpl.duedateHigherThenOrEquals(Date)"})
   public void testDuedateHigherThenOrEquals_whenNull_thenThrowActivitiIllegalArgumentException() {
     // Arrange, Act and Assert
-    assertThrows(
-        ActivitiIllegalArgumentException.class,
-        () -> new DeadLetterJobQueryImpl().duedateHigherThenOrEquals(null));
+    assertThrows(ActivitiIllegalArgumentException.class,
+        () -> (new DeadLetterJobQueryImpl()).duedateHigherThenOrEquals(null));
   }
 
   /**
    * Test {@link DeadLetterJobQueryImpl#duedateLowerThen(Date)}.
-   *
    * <ul>
-   *   <li>Then return {@link DeadLetterJobQueryImpl#DeadLetterJobQueryImpl()}.
+   *   <li>Then return {@link DeadLetterJobQueryImpl#DeadLetterJobQueryImpl()}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link DeadLetterJobQueryImpl#duedateLowerThen(Date)}
+   * <p>
+   * Method under test: {@link DeadLetterJobQueryImpl#duedateLowerThen(Date)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"DeadLetterJobQueryImpl DeadLetterJobQueryImpl.duedateLowerThen(Date)"})
   public void testDuedateLowerThen_thenReturnDeadLetterJobQueryImpl() {
     // Arrange
     DeadLetterJobQueryImpl deadLetterJobQueryImpl = new DeadLetterJobQueryImpl();
-    Date date =
-        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant());
+    Date date = Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant());
 
-    // Act
-    DeadLetterJobQueryImpl actualDuedateLowerThenResult =
-        deadLetterJobQueryImpl.duedateLowerThen(date);
-
-    // Assert
-    assertSame(deadLetterJobQueryImpl, actualDuedateLowerThenResult);
+    // Act and Assert
+    assertSame(deadLetterJobQueryImpl, deadLetterJobQueryImpl.duedateLowerThen(date));
     assertSame(date, deadLetterJobQueryImpl.getDuedateLowerThan());
   }
 
   /**
    * Test {@link DeadLetterJobQueryImpl#duedateLowerThen(Date)}.
-   *
    * <ul>
-   *   <li>When {@code null}.
-   *   <li>Then throw {@link ActivitiIllegalArgumentException}.
+   *   <li>When {@code null}.</li>
+   *   <li>Then throw {@link ActivitiIllegalArgumentException}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link DeadLetterJobQueryImpl#duedateLowerThen(Date)}
+   * <p>
+   * Method under test: {@link DeadLetterJobQueryImpl#duedateLowerThen(Date)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"DeadLetterJobQueryImpl DeadLetterJobQueryImpl.duedateLowerThen(Date)"})
   public void testDuedateLowerThen_whenNull_thenThrowActivitiIllegalArgumentException() {
     // Arrange, Act and Assert
-    assertThrows(
-        ActivitiIllegalArgumentException.class,
-        () -> new DeadLetterJobQueryImpl().duedateLowerThen(null));
+    assertThrows(ActivitiIllegalArgumentException.class, () -> (new DeadLetterJobQueryImpl()).duedateLowerThen(null));
   }
 
   /**
    * Test {@link DeadLetterJobQueryImpl#duedateLowerThenOrEquals(Date)}.
-   *
    * <ul>
-   *   <li>Then return {@link DeadLetterJobQueryImpl#DeadLetterJobQueryImpl()}.
+   *   <li>Then return {@link DeadLetterJobQueryImpl#DeadLetterJobQueryImpl()}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link DeadLetterJobQueryImpl#duedateLowerThenOrEquals(Date)}
+   * <p>
+   * Method under test: {@link DeadLetterJobQueryImpl#duedateLowerThenOrEquals(Date)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "DeadLetterJobQueryImpl DeadLetterJobQueryImpl.duedateLowerThenOrEquals(Date)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"DeadLetterJobQueryImpl DeadLetterJobQueryImpl.duedateLowerThenOrEquals(Date)"})
   public void testDuedateLowerThenOrEquals_thenReturnDeadLetterJobQueryImpl() {
     // Arrange
     DeadLetterJobQueryImpl deadLetterJobQueryImpl = new DeadLetterJobQueryImpl();
-    Date date =
-        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant());
+    Date date = Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant());
 
-    // Act
-    DeadLetterJobQueryImpl actualDuedateLowerThenOrEqualsResult =
-        deadLetterJobQueryImpl.duedateLowerThenOrEquals(date);
-
-    // Assert
-    assertSame(deadLetterJobQueryImpl, actualDuedateLowerThenOrEqualsResult);
+    // Act and Assert
+    assertSame(deadLetterJobQueryImpl, deadLetterJobQueryImpl.duedateLowerThenOrEquals(date));
     assertSame(date, deadLetterJobQueryImpl.getDuedateLowerThanOrEqual());
   }
 
   /**
    * Test {@link DeadLetterJobQueryImpl#duedateLowerThenOrEquals(Date)}.
-   *
    * <ul>
-   *   <li>When {@code null}.
-   *   <li>Then throw {@link ActivitiIllegalArgumentException}.
+   *   <li>When {@code null}.</li>
+   *   <li>Then throw {@link ActivitiIllegalArgumentException}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link DeadLetterJobQueryImpl#duedateLowerThenOrEquals(Date)}
+   * <p>
+   * Method under test: {@link DeadLetterJobQueryImpl#duedateLowerThenOrEquals(Date)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "DeadLetterJobQueryImpl DeadLetterJobQueryImpl.duedateLowerThenOrEquals(Date)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"DeadLetterJobQueryImpl DeadLetterJobQueryImpl.duedateLowerThenOrEquals(Date)"})
   public void testDuedateLowerThenOrEquals_whenNull_thenThrowActivitiIllegalArgumentException() {
     // Arrange, Act and Assert
-    assertThrows(
-        ActivitiIllegalArgumentException.class,
-        () -> new DeadLetterJobQueryImpl().duedateLowerThenOrEquals(null));
+    assertThrows(ActivitiIllegalArgumentException.class,
+        () -> (new DeadLetterJobQueryImpl()).duedateLowerThenOrEquals(null));
   }
 
   /**
    * Test {@link DeadLetterJobQueryImpl#withException()}.
-   *
-   * <p>Method under test: {@link DeadLetterJobQueryImpl#withException()}
+   * <p>
+   * Method under test: {@link DeadLetterJobQueryImpl#withException()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"DeadLetterJobQueryImpl DeadLetterJobQueryImpl.withException()"})
   public void testWithException() {
     // Arrange
@@ -664,20 +553,18 @@ public class DeadLetterJobQueryImplDiffblueTest {
 
   /**
    * Test {@link DeadLetterJobQueryImpl#exceptionMessage(String)}.
-   *
-   * <p>Method under test: {@link DeadLetterJobQueryImpl#exceptionMessage(String)}
+   * <p>
+   * Method under test: {@link DeadLetterJobQueryImpl#exceptionMessage(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"DeadLetterJobQueryImpl DeadLetterJobQueryImpl.exceptionMessage(String)"})
   public void testExceptionMessage() {
     // Arrange
     DeadLetterJobQueryImpl deadLetterJobQueryImpl = new DeadLetterJobQueryImpl();
 
     // Act
-    DeadLetterJobQueryImpl actualExceptionMessageResult =
-        deadLetterJobQueryImpl.exceptionMessage("Exception Message");
+    DeadLetterJobQueryImpl actualExceptionMessageResult = deadLetterJobQueryImpl.exceptionMessage("Exception Message");
 
     // Assert
     assertEquals("Exception Message", deadLetterJobQueryImpl.getExceptionMessage());
@@ -686,38 +573,32 @@ public class DeadLetterJobQueryImplDiffblueTest {
 
   /**
    * Test {@link DeadLetterJobQueryImpl#exceptionMessage(String)}.
-   *
    * <ul>
-   *   <li>When {@code null}.
-   *   <li>Then throw {@link ActivitiIllegalArgumentException}.
+   *   <li>When {@code null}.</li>
+   *   <li>Then throw {@link ActivitiIllegalArgumentException}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link DeadLetterJobQueryImpl#exceptionMessage(String)}
+   * <p>
+   * Method under test: {@link DeadLetterJobQueryImpl#exceptionMessage(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"DeadLetterJobQueryImpl DeadLetterJobQueryImpl.exceptionMessage(String)"})
   public void testExceptionMessage_whenNull_thenThrowActivitiIllegalArgumentException() {
     // Arrange, Act and Assert
-    assertThrows(
-        ActivitiIllegalArgumentException.class,
-        () -> new DeadLetterJobQueryImpl().exceptionMessage(null));
+    assertThrows(ActivitiIllegalArgumentException.class, () -> (new DeadLetterJobQueryImpl()).exceptionMessage(null));
   }
 
   /**
    * Test {@link DeadLetterJobQueryImpl#jobTenantId(String)}.
-   *
    * <ul>
-   *   <li>When {@code 42}.
-   *   <li>Then {@link DeadLetterJobQueryImpl#DeadLetterJobQueryImpl()} TenantId is {@code 42}.
+   *   <li>When {@code 42}.</li>
+   *   <li>Then {@link DeadLetterJobQueryImpl#DeadLetterJobQueryImpl()} TenantId is {@code 42}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link DeadLetterJobQueryImpl#jobTenantId(String)}
+   * <p>
+   * Method under test: {@link DeadLetterJobQueryImpl#jobTenantId(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"DeadLetterJobQueryImpl DeadLetterJobQueryImpl.jobTenantId(String)"})
   public void testJobTenantId_when42_thenDeadLetterJobQueryImplTenantIdIs42() {
     // Arrange
@@ -733,46 +614,38 @@ public class DeadLetterJobQueryImplDiffblueTest {
 
   /**
    * Test {@link DeadLetterJobQueryImpl#jobTenantId(String)}.
-   *
    * <ul>
-   *   <li>When {@code null}.
-   *   <li>Then throw {@link ActivitiIllegalArgumentException}.
+   *   <li>When {@code null}.</li>
+   *   <li>Then throw {@link ActivitiIllegalArgumentException}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link DeadLetterJobQueryImpl#jobTenantId(String)}
+   * <p>
+   * Method under test: {@link DeadLetterJobQueryImpl#jobTenantId(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"DeadLetterJobQueryImpl DeadLetterJobQueryImpl.jobTenantId(String)"})
   public void testJobTenantId_whenNull_thenThrowActivitiIllegalArgumentException() {
     // Arrange, Act and Assert
-    assertThrows(
-        ActivitiIllegalArgumentException.class,
-        () -> new DeadLetterJobQueryImpl().jobTenantId(null));
+    assertThrows(ActivitiIllegalArgumentException.class, () -> (new DeadLetterJobQueryImpl()).jobTenantId(null));
   }
 
   /**
    * Test {@link DeadLetterJobQueryImpl#jobTenantIdLike(String)}.
-   *
    * <ul>
-   *   <li>Then {@link DeadLetterJobQueryImpl#DeadLetterJobQueryImpl()} TenantIdLike is {@code
-   *       Tenant Id Like}.
+   *   <li>Then {@link DeadLetterJobQueryImpl#DeadLetterJobQueryImpl()} TenantIdLike is {@code Tenant Id Like}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link DeadLetterJobQueryImpl#jobTenantIdLike(String)}
+   * <p>
+   * Method under test: {@link DeadLetterJobQueryImpl#jobTenantIdLike(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"DeadLetterJobQueryImpl DeadLetterJobQueryImpl.jobTenantIdLike(String)"})
   public void testJobTenantIdLike_thenDeadLetterJobQueryImplTenantIdLikeIsTenantIdLike() {
     // Arrange
     DeadLetterJobQueryImpl deadLetterJobQueryImpl = new DeadLetterJobQueryImpl();
 
     // Act
-    DeadLetterJobQueryImpl actualJobTenantIdLikeResult =
-        deadLetterJobQueryImpl.jobTenantIdLike("Tenant Id Like");
+    DeadLetterJobQueryImpl actualJobTenantIdLikeResult = deadLetterJobQueryImpl.jobTenantIdLike("Tenant Id Like");
 
     // Assert
     assertEquals("Tenant Id Like", deadLetterJobQueryImpl.getTenantIdLike());
@@ -781,91 +654,38 @@ public class DeadLetterJobQueryImplDiffblueTest {
 
   /**
    * Test {@link DeadLetterJobQueryImpl#jobTenantIdLike(String)}.
-   *
    * <ul>
-   *   <li>When {@code null}.
-   *   <li>Then throw {@link ActivitiIllegalArgumentException}.
+   *   <li>When {@code null}.</li>
+   *   <li>Then throw {@link ActivitiIllegalArgumentException}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link DeadLetterJobQueryImpl#jobTenantIdLike(String)}
+   * <p>
+   * Method under test: {@link DeadLetterJobQueryImpl#jobTenantIdLike(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"DeadLetterJobQueryImpl DeadLetterJobQueryImpl.jobTenantIdLike(String)"})
   public void testJobTenantIdLike_whenNull_thenThrowActivitiIllegalArgumentException() {
     // Arrange, Act and Assert
-    assertThrows(
-        ActivitiIllegalArgumentException.class,
-        () -> new DeadLetterJobQueryImpl().jobTenantIdLike(null));
+    assertThrows(ActivitiIllegalArgumentException.class, () -> (new DeadLetterJobQueryImpl()).jobTenantIdLike(null));
   }
 
   /**
    * Test {@link DeadLetterJobQueryImpl#jobWithoutTenantId()}.
-   *
-   * <p>Method under test: {@link DeadLetterJobQueryImpl#jobWithoutTenantId()}
+   * <p>
+   * Method under test: {@link DeadLetterJobQueryImpl#jobWithoutTenantId()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"DeadLetterJobQueryImpl DeadLetterJobQueryImpl.jobWithoutTenantId()"})
   public void testJobWithoutTenantId() {
     // Arrange
     DeadLetterJobQueryImpl deadLetterJobQueryImpl = new DeadLetterJobQueryImpl();
 
     // Act
-    DeadLetterJobQueryImpl actualJobWithoutTenantIdResult =
-        deadLetterJobQueryImpl.jobWithoutTenantId();
+    DeadLetterJobQueryImpl actualJobWithoutTenantIdResult = deadLetterJobQueryImpl.jobWithoutTenantId();
 
     // Assert
     assertTrue(deadLetterJobQueryImpl.isWithoutTenantId());
     assertSame(deadLetterJobQueryImpl, actualJobWithoutTenantIdResult);
-  }
-
-  /**
-   * Test {@link DeadLetterJobQueryImpl#executeCount(CommandContext)}.
-   *
-   * <ul>
-   *   <li>Then throw {@link ActivitiIllegalArgumentException}.
-   * </ul>
-   *
-   * <p>Method under test: {@link DeadLetterJobQueryImpl#executeCount(CommandContext)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"long DeadLetterJobQueryImpl.executeCount(CommandContext)"})
-  public void testExecuteCount_thenThrowActivitiIllegalArgumentException() {
-    // Arrange
-    DeadLetterJobQueryImpl deadLetterJobQueryImpl = new DeadLetterJobQueryImpl();
-    deadLetterJobQueryImpl.orderBy(mock(QueryProperty.class));
-
-    // Act and Assert
-    assertThrows(
-        ActivitiIllegalArgumentException.class, () -> deadLetterJobQueryImpl.executeCount(null));
-  }
-
-  /**
-   * Test {@link DeadLetterJobQueryImpl#executeList(CommandContext, Page)}.
-   *
-   * <ul>
-   *   <li>Then throw {@link ActivitiIllegalArgumentException}.
-   * </ul>
-   *
-   * <p>Method under test: {@link DeadLetterJobQueryImpl#executeList(CommandContext, Page)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"java.util.List DeadLetterJobQueryImpl.executeList(CommandContext, Page)"})
-  public void testExecuteList_thenThrowActivitiIllegalArgumentException() {
-    // Arrange
-    DeadLetterJobQueryImpl deadLetterJobQueryImpl = new DeadLetterJobQueryImpl();
-    deadLetterJobQueryImpl.orderBy(mock(QueryProperty.class));
-
-    // Act and Assert
-    assertThrows(
-        ActivitiIllegalArgumentException.class,
-        () -> deadLetterJobQueryImpl.executeList(null, new Page(1, 3)));
   }
 }

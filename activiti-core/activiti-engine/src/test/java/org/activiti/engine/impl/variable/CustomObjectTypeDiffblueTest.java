@@ -19,8 +19,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.engine.impl.persistence.entity.HistoricDetailVariableInstanceUpdateEntityImpl;
 import org.activiti.engine.impl.util.json.JSONObject;
@@ -30,9 +29,8 @@ import org.junit.experimental.categories.Category;
 public class CustomObjectTypeDiffblueTest {
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>{@link CustomObjectType#CustomObjectType(String, Class)}
    *   <li>{@link CustomObjectType#getTypeName()}
@@ -40,13 +38,9 @@ public class CustomObjectTypeDiffblueTest {
    * </ul>
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void CustomObjectType.<init>(String, Class)",
-    "String CustomObjectType.getTypeName()",
-    "boolean CustomObjectType.isCachable()"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void CustomObjectType.<init>(String, Class)", "String CustomObjectType.getTypeName()",
+      "boolean CustomObjectType.isCachable()"})
   public void testGettersAndSetters() {
     // Arrange
     Class<Object> theClass = Object.class;
@@ -62,17 +56,15 @@ public class CustomObjectTypeDiffblueTest {
 
   /**
    * Test {@link CustomObjectType#getValue(ValueFields)}.
-   *
    * <ul>
-   *   <li>When {@link HistoricDetailVariableInstanceUpdateEntityImpl} (default constructor).
-   *   <li>Then return {@code null}.
+   *   <li>When {@link HistoricDetailVariableInstanceUpdateEntityImpl} (default constructor).</li>
+   *   <li>Then return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link CustomObjectType#getValue(ValueFields)}
+   * <p>
+   * Method under test: {@link CustomObjectType#getValue(ValueFields)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"Object CustomObjectType.getValue(ValueFields)"})
   public void testGetValue_whenHistoricDetailVariableInstanceUpdateEntityImpl_thenReturnNull() {
     // Arrange
@@ -85,71 +77,63 @@ public class CustomObjectTypeDiffblueTest {
 
   /**
    * Test {@link CustomObjectType#isAbleToStore(Object)}.
-   *
    * <ul>
-   *   <li>Given {@code Object}.
-   *   <li>When {@link JSONObject#NULL}.
-   *   <li>Then return {@code true}.
+   *   <li>Given {@code Object}.</li>
+   *   <li>When {@link JSONObject#NULL}.</li>
+   *   <li>Then return {@code true}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link CustomObjectType#isAbleToStore(Object)}
+   * <p>
+   * Method under test: {@link CustomObjectType#isAbleToStore(Object)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"boolean CustomObjectType.isAbleToStore(Object)"})
   public void testIsAbleToStore_givenJavaLangObject_whenNull_thenReturnTrue() {
     // Arrange
     Class<Object> theClass = Object.class;
 
     // Act and Assert
-    assertTrue(new CustomObjectType("Type Name", theClass).isAbleToStore(JSONObject.NULL));
+    assertTrue((new CustomObjectType("Type Name", theClass)).isAbleToStore(JSONObject.NULL));
   }
 
   /**
    * Test {@link CustomObjectType#isAbleToStore(Object)}.
-   *
    * <ul>
-   *   <li>Given {@code Object}.
-   *   <li>When {@code null}.
-   *   <li>Then return {@code true}.
+   *   <li>Given {@code Object}.</li>
+   *   <li>When {@code null}.</li>
+   *   <li>Then return {@code true}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link CustomObjectType#isAbleToStore(Object)}
+   * <p>
+   * Method under test: {@link CustomObjectType#isAbleToStore(Object)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"boolean CustomObjectType.isAbleToStore(Object)"})
   public void testIsAbleToStore_givenJavaLangObject_whenNull_thenReturnTrue2() {
     // Arrange
     Class<Object> theClass = Object.class;
 
     // Act and Assert
-    assertTrue(new CustomObjectType("Type Name", theClass).isAbleToStore(null));
+    assertTrue((new CustomObjectType("Type Name", theClass)).isAbleToStore(null));
   }
 
   /**
    * Test {@link CustomObjectType#setValue(Object, ValueFields)}.
-   *
    * <ul>
-   *   <li>Then {@link HistoricDetailVariableInstanceUpdateEntityImpl} (default constructor)
-   *       CachedValue is {@link JSONObject#NULL}.
+   *   <li>Then {@link HistoricDetailVariableInstanceUpdateEntityImpl} (default constructor) CachedValue is {@link JSONObject#NULL}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link CustomObjectType#setValue(Object, ValueFields)}
+   * <p>
+   * Method under test: {@link CustomObjectType#setValue(Object, ValueFields)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void CustomObjectType.setValue(Object, ValueFields)"})
   public void testSetValue_thenHistoricDetailVariableInstanceUpdateEntityImplCachedValueIsNull() {
     // Arrange
     Class<Object> theClass = Object.class;
     CustomObjectType customObjectType = new CustomObjectType("Type Name", theClass);
     Object object = JSONObject.NULL;
-    HistoricDetailVariableInstanceUpdateEntityImpl valueFields =
-        new HistoricDetailVariableInstanceUpdateEntityImpl();
+    HistoricDetailVariableInstanceUpdateEntityImpl valueFields = new HistoricDetailVariableInstanceUpdateEntityImpl();
 
     // Act
     customObjectType.setValue(object, valueFields);

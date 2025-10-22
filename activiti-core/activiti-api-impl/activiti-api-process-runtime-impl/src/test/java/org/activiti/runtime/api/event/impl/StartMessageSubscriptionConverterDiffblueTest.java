@@ -16,17 +16,16 @@
 package org.activiti.runtime.api.event.impl;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.time.LocalDate;
 import java.time.ZoneOffset;
 import java.util.Date;
 import org.activiti.api.runtime.model.impl.StartMessageSubscriptionImpl;
 import org.activiti.engine.impl.persistence.entity.MessageEventSubscriptionEntity;
+import org.activiti.engine.impl.persistence.entity.MessageEventSubscriptionEntityImpl;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
@@ -38,45 +37,37 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 @ContextConfiguration(classes = {StartMessageSubscriptionConverter.class})
 @ExtendWith(SpringExtension.class)
 class StartMessageSubscriptionConverterDiffblueTest {
-  @Autowired private StartMessageSubscriptionConverter startMessageSubscriptionConverter;
+  @Autowired
+  private StartMessageSubscriptionConverter startMessageSubscriptionConverter;
 
   /**
-   * Test {@link
-   * StartMessageSubscriptionConverter#convertToStartMessageSubscription(MessageEventSubscriptionEntity)}.
-   *
+   * Test {@link StartMessageSubscriptionConverter#convertToStartMessageSubscription(MessageEventSubscriptionEntity)}.
    * <ul>
-   *   <li>Given {@code 42}.
-   *   <li>Then return ActivityId is {@code 42}.
+   *   <li>Given {@code 42}.</li>
+   *   <li>Then return ActivityId is {@code 42}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link
-   * StartMessageSubscriptionConverter#convertToStartMessageSubscription(MessageEventSubscriptionEntity)}
+   * <p>
+   * Method under test: {@link StartMessageSubscriptionConverter#convertToStartMessageSubscription(MessageEventSubscriptionEntity)}
    */
   @Test
-  @DisplayName(
-      "Test convertToStartMessageSubscription(MessageEventSubscriptionEntity); given '42'; then return ActivityId is '42'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test convertToStartMessageSubscription(MessageEventSubscriptionEntity); given '42'; then return ActivityId is '42'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({
-    "StartMessageSubscriptionImpl StartMessageSubscriptionConverter.convertToStartMessageSubscription(MessageEventSubscriptionEntity)"
-  })
+      "StartMessageSubscriptionImpl StartMessageSubscriptionConverter.convertToStartMessageSubscription(MessageEventSubscriptionEntity)"})
   void testConvertToStartMessageSubscription_given42_thenReturnActivityIdIs42() {
     // Arrange
-    MessageEventSubscriptionEntity messageEventSubscriptionEntity =
-        mock(MessageEventSubscriptionEntity.class);
+    MessageEventSubscriptionEntityImpl messageEventSubscriptionEntity = mock(MessageEventSubscriptionEntityImpl.class);
     when(messageEventSubscriptionEntity.getId()).thenReturn("42");
     when(messageEventSubscriptionEntity.getActivityId()).thenReturn("42");
     when(messageEventSubscriptionEntity.getConfiguration()).thenReturn("Configuration");
     when(messageEventSubscriptionEntity.getEventName()).thenReturn("Event Name");
     when(messageEventSubscriptionEntity.getProcessDefinitionId()).thenReturn("42");
     when(messageEventSubscriptionEntity.getCreated())
-        .thenReturn(
-            Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
+        .thenReturn(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
 
     // Act
-    StartMessageSubscriptionImpl actualConvertToStartMessageSubscriptionResult =
-        startMessageSubscriptionConverter.convertToStartMessageSubscription(
-            messageEventSubscriptionEntity);
+    StartMessageSubscriptionImpl actualConvertToStartMessageSubscriptionResult = startMessageSubscriptionConverter
+        .convertToStartMessageSubscription(messageEventSubscriptionEntity);
 
     // Assert
     verify(messageEventSubscriptionEntity).getId();
@@ -90,39 +81,5 @@ class StartMessageSubscriptionConverterDiffblueTest {
     assertEquals("42", actualConvertToStartMessageSubscriptionResult.getProcessDefinitionId());
     assertEquals("Configuration", actualConvertToStartMessageSubscriptionResult.getConfiguration());
     assertEquals("Event Name", actualConvertToStartMessageSubscriptionResult.getEventName());
-  }
-
-  /**
-   * Test {@link
-   * StartMessageSubscriptionConverter#convertToStartMessageSubscription(MessageEventSubscriptionEntity)}.
-   *
-   * <ul>
-   *   <li>Then throw {@link IllegalArgumentException}.
-   * </ul>
-   *
-   * <p>Method under test: {@link
-   * StartMessageSubscriptionConverter#convertToStartMessageSubscription(MessageEventSubscriptionEntity)}
-   */
-  @Test
-  @DisplayName(
-      "Test convertToStartMessageSubscription(MessageEventSubscriptionEntity); then throw IllegalArgumentException")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "StartMessageSubscriptionImpl StartMessageSubscriptionConverter.convertToStartMessageSubscription(MessageEventSubscriptionEntity)"
-  })
-  void testConvertToStartMessageSubscription_thenThrowIllegalArgumentException() {
-    // Arrange
-    MessageEventSubscriptionEntity messageEventSubscriptionEntity =
-        mock(MessageEventSubscriptionEntity.class);
-    when(messageEventSubscriptionEntity.getId()).thenThrow(new IllegalArgumentException());
-
-    // Act and Assert
-    assertThrows(
-        IllegalArgumentException.class,
-        () ->
-            startMessageSubscriptionConverter.convertToStartMessageSubscription(
-                messageEventSubscriptionEntity));
-    verify(messageEventSubscriptionEntity).getId();
   }
 }

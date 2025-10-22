@@ -21,8 +21,7 @@ import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
@@ -30,149 +29,106 @@ import java.time.ZoneOffset;
 import java.util.Date;
 import java.util.TimeZone;
 import org.activiti.engine.impl.util.DefaultClockImpl;
-import org.activiti.engine.runtime.ClockReader;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import org.junit.runner.RunWith;
-import org.mockito.Mock;
+import org.mockito.InjectMocks;
 import org.mockito.junit.MockitoJUnitRunner;
 
 @RunWith(MockitoJUnitRunner.class)
 public class BusinessCalendarImplDiffblueTest {
-  @Mock private ClockReader clockReader;
+  @InjectMocks
+  private DueDateBusinessCalendar dueDateBusinessCalendar;
 
   /**
    * Test {@link BusinessCalendarImpl#validateDuedate(String, int, Date, Date)}.
-   *
    * <ul>
-   *   <li>Then return {@code false}.
+   *   <li>Then return {@code false}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link BusinessCalendarImpl#validateDuedate(String, int, Date, Date)}
+   * <p>
+   * Method under test: {@link BusinessCalendarImpl#validateDuedate(String, int, Date, Date)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "java.lang.Boolean BusinessCalendarImpl.validateDuedate(String, int, Date, Date)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"java.lang.Boolean BusinessCalendarImpl.validateDuedate(String, int, Date, Date)"})
   public void testValidateDuedate_thenReturnFalse() {
     // Arrange
-    AdvancedCycleBusinessCalendar advancedCycleBusinessCalendar =
-        new AdvancedCycleBusinessCalendar(clockReader);
-
-    LocalDate ofYearDayResult = LocalDate.ofYearDay(1, 1);
-    Date endDate = Date.from(ofYearDayResult.atStartOfDay().atZone(ZoneOffset.UTC).toInstant());
+    Date endDate = Date.from(LocalDate.ofYearDay(1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant());
 
     // Act and Assert
-    assertFalse(
-        advancedCycleBusinessCalendar.validateDuedate(
-            "2020-03-01",
-            3,
-            endDate,
-            Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant())));
+    assertFalse(dueDateBusinessCalendar.validateDuedate("2020-03-01", 3, endDate,
+        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant())));
   }
 
   /**
    * Test {@link BusinessCalendarImpl#validateDuedate(String, int, Date, Date)}.
-   *
    * <ul>
-   *   <li>Then return {@code true}.
+   *   <li>Then return {@code true}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link BusinessCalendarImpl#validateDuedate(String, int, Date, Date)}
+   * <p>
+   * Method under test: {@link BusinessCalendarImpl#validateDuedate(String, int, Date, Date)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "java.lang.Boolean BusinessCalendarImpl.validateDuedate(String, int, Date, Date)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"java.lang.Boolean BusinessCalendarImpl.validateDuedate(String, int, Date, Date)"})
   public void testValidateDuedate_thenReturnTrue() {
     // Arrange
-    AdvancedCycleBusinessCalendar advancedCycleBusinessCalendar =
-        new AdvancedCycleBusinessCalendar(clockReader);
-    Date endDate =
-        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant());
+    Date endDate = Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant());
 
     // Act and Assert
-    assertTrue(
-        advancedCycleBusinessCalendar.validateDuedate(
-            "2020-03-01",
-            3,
-            endDate,
-            Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant())));
+    assertTrue(dueDateBusinessCalendar.validateDuedate("2020-03-01", 3, endDate,
+        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant())));
   }
 
   /**
    * Test {@link BusinessCalendarImpl#validateDuedate(String, int, Date, Date)}.
-   *
    * <ul>
-   *   <li>When from now atStartOfDay atZone {@link ZoneOffset#UTC} toInstant.
-   *   <li>Then return {@code true}.
+   *   <li>When from now atStartOfDay atZone {@link ZoneOffset#UTC} toInstant.</li>
+   *   <li>Then return {@code true}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link BusinessCalendarImpl#validateDuedate(String, int, Date, Date)}
+   * <p>
+   * Method under test: {@link BusinessCalendarImpl#validateDuedate(String, int, Date, Date)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "java.lang.Boolean BusinessCalendarImpl.validateDuedate(String, int, Date, Date)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"java.lang.Boolean BusinessCalendarImpl.validateDuedate(String, int, Date, Date)"})
   public void testValidateDuedate_whenFromNowAtStartOfDayAtZoneUtcToInstant_thenReturnTrue() {
     // Arrange
-    AdvancedCycleBusinessCalendar advancedCycleBusinessCalendar =
-        new AdvancedCycleBusinessCalendar(clockReader);
     Date endDate = Date.from(LocalDate.now().atStartOfDay().atZone(ZoneOffset.UTC).toInstant());
 
     // Act and Assert
-    assertTrue(
-        advancedCycleBusinessCalendar.validateDuedate(
-            "2020-03-01",
-            3,
-            endDate,
-            Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant())));
+    assertTrue(dueDateBusinessCalendar.validateDuedate("2020-03-01", 3, endDate,
+        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant())));
   }
 
   /**
-   * Test {@link BusinessCalendarImpl#resolveEndDate(String)}.
-   *
-   * <p>Method under test: {@link BusinessCalendarImpl#resolveEndDate(String)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"Date BusinessCalendarImpl.resolveEndDate(String)"})
-  public void testResolveEndDate() {
-    // Arrange
-    DefaultClockImpl clockReader = mock(DefaultClockImpl.class);
-    when(clockReader.getCurrentTimeZone()).thenReturn(TimeZone.getTimeZone("America/Los_Angeles"));
-
-    AdvancedCycleBusinessCalendar advancedCycleBusinessCalendar =
-        new AdvancedCycleBusinessCalendar(clockReader);
-    advancedCycleBusinessCalendar.setDefaultScheduleVersion(1);
-
-    // Act
-    advancedCycleBusinessCalendar.resolveEndDate("2020-03-01");
-
-    // Assert
-    verify(clockReader).getCurrentTimeZone();
-  }
-
-  /**
-   * Test {@link BusinessCalendarImpl#resolveEndDate(String)}.
-   *
+   * Test {@link BusinessCalendarImpl#validateDuedate(String, int, Date, Date)}.
    * <ul>
-   *   <li>Given {@link DefaultClockImpl} {@link DefaultClockImpl#getCurrentTimeZone()} return
-   *       {@code null}.
+   *   <li>When {@code null}.</li>
+   *   <li>Then return {@code true}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link BusinessCalendarImpl#resolveEndDate(String)}
+   * <p>
+   * Method under test: {@link BusinessCalendarImpl#validateDuedate(String, int, Date, Date)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"java.lang.Boolean BusinessCalendarImpl.validateDuedate(String, int, Date, Date)"})
+  public void testValidateDuedate_whenNull_thenReturnTrue() {
+    // Arrange, Act and Assert
+    assertTrue(dueDateBusinessCalendar.validateDuedate("2020-03-01", 3, null,
+        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant())));
+  }
+
+  /**
+   * Test {@link BusinessCalendarImpl#resolveEndDate(String)}.
+   * <ul>
+   *   <li>Given {@link DefaultClockImpl} {@link DefaultClockImpl#getCurrentTimeZone()} return {@code null}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link BusinessCalendarImpl#resolveEndDate(String)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"Date BusinessCalendarImpl.resolveEndDate(String)"})
   public void testResolveEndDate_givenDefaultClockImplGetCurrentTimeZoneReturnNull() {
     // Arrange
@@ -180,7 +136,7 @@ public class BusinessCalendarImplDiffblueTest {
     when(clockReader.getCurrentTimeZone()).thenReturn(null);
 
     // Act
-    new AdvancedCycleBusinessCalendar(clockReader).resolveEndDate("2020-03-01");
+    (new AdvancedCycleBusinessCalendar(clockReader)).resolveEndDate("2020-03-01");
 
     // Assert
     verify(clockReader).getCurrentTimeZone();
@@ -188,17 +144,14 @@ public class BusinessCalendarImplDiffblueTest {
 
   /**
    * Test {@link BusinessCalendarImpl#resolveEndDate(String)}.
-   *
    * <ul>
-   *   <li>Given {@link DefaultClockImpl} {@link DefaultClockImpl#getCurrentTimeZone()} return
-   *       TimeZone is {@code foo}.
+   *   <li>Given {@link DefaultClockImpl} {@link DefaultClockImpl#getCurrentTimeZone()} return TimeZone is {@code foo}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link BusinessCalendarImpl#resolveEndDate(String)}
+   * <p>
+   * Method under test: {@link BusinessCalendarImpl#resolveEndDate(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"Date BusinessCalendarImpl.resolveEndDate(String)"})
   public void testResolveEndDate_givenDefaultClockImplGetCurrentTimeZoneReturnTimeZoneIsFoo() {
     // Arrange
@@ -206,7 +159,7 @@ public class BusinessCalendarImplDiffblueTest {
     when(clockReader.getCurrentTimeZone()).thenReturn(TimeZone.getTimeZone("foo"));
 
     // Act
-    new AdvancedCycleBusinessCalendar(clockReader).resolveEndDate("2020-03-01");
+    (new AdvancedCycleBusinessCalendar(clockReader)).resolveEndDate("2020-03-01");
 
     // Assert
     verify(clockReader).getCurrentTimeZone();
@@ -214,16 +167,14 @@ public class BusinessCalendarImplDiffblueTest {
 
   /**
    * Test {@link BusinessCalendarImpl#resolveEndDate(String)}.
-   *
    * <ul>
-   *   <li>Then calls {@link DefaultClockImpl#getCurrentTimeZone()}.
+   *   <li>Then calls {@link DefaultClockImpl#getCurrentTimeZone()}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link BusinessCalendarImpl#resolveEndDate(String)}
+   * <p>
+   * Method under test: {@link BusinessCalendarImpl#resolveEndDate(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"Date BusinessCalendarImpl.resolveEndDate(String)"})
   public void testResolveEndDate_thenCallsGetCurrentTimeZone() {
     // Arrange
@@ -231,7 +182,7 @@ public class BusinessCalendarImplDiffblueTest {
     when(clockReader.getCurrentTimeZone()).thenReturn(TimeZone.getTimeZone("America/Los_Angeles"));
 
     // Act
-    new AdvancedCycleBusinessCalendar(clockReader).resolveEndDate("2020-03-01");
+    (new AdvancedCycleBusinessCalendar(clockReader)).resolveEndDate("2020-03-01");
 
     // Assert
     verify(clockReader).getCurrentTimeZone();
@@ -239,26 +190,45 @@ public class BusinessCalendarImplDiffblueTest {
 
   /**
    * Test {@link BusinessCalendarImpl#resolveEndDate(String)}.
-   *
    * <ul>
-   *   <li>Then return {@link SimpleDateFormat#SimpleDateFormat(String)} with {@code yyyy-MM-dd}
-   *       format is {@code 2020-03-01}.
+   *   <li>Then return {@link SimpleDateFormat#SimpleDateFormat(String)} with {@code yyyy-MM-dd} format is {@code 2020-03-01}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link BusinessCalendarImpl#resolveEndDate(String)}
+   * <p>
+   * Method under test: {@link BusinessCalendarImpl#resolveEndDate(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"Date BusinessCalendarImpl.resolveEndDate(String)"})
   public void testResolveEndDate_thenReturnSimpleDateFormatWithYyyyMmDdFormatIs20200301() {
     // Arrange and Act
-    Date actualResolveEndDateResult =
-        new AdvancedCycleBusinessCalendar(new DefaultClockImpl()).resolveEndDate("2020-03-01");
+    Date actualResolveEndDateResult = (new AdvancedCycleBusinessCalendar(new DefaultClockImpl()))
+        .resolveEndDate("2020-03-01");
 
     // Assert
-    String actualFormatResult =
-        new SimpleDateFormat("yyyy-MM-dd").format(actualResolveEndDateResult);
-    assertEquals("2020-03-01", actualFormatResult);
+    assertEquals("2020-03-01", (new SimpleDateFormat("yyyy-MM-dd")).format(actualResolveEndDateResult));
+  }
+
+  /**
+   * Test {@link BusinessCalendarImpl#resolveEndDate(String)}.
+   * <ul>
+   *   <li>When {@code 42}.</li>
+   *   <li>Then calls {@link DefaultClockImpl#getCurrentTimeZone()}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link BusinessCalendarImpl#resolveEndDate(String)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Date BusinessCalendarImpl.resolveEndDate(String)"})
+  public void testResolveEndDate_when42_thenCallsGetCurrentTimeZone() {
+    // Arrange
+    DefaultClockImpl clockReader = mock(DefaultClockImpl.class);
+    when(clockReader.getCurrentTimeZone()).thenReturn(TimeZone.getTimeZone("America/Los_Angeles"));
+
+    // Act
+    (new AdvancedCycleBusinessCalendar(clockReader)).resolveEndDate("42");
+
+    // Assert
+    verify(clockReader).getCurrentTimeZone();
   }
 }

@@ -19,7 +19,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.api.task.model.Task;
 import org.activiti.api.task.model.Task.TaskStatus;
@@ -33,13 +32,12 @@ import org.junit.jupiter.api.Test;
 class TaskCancelledImplDiffblueTest {
   /**
    * Test {@link TaskCancelledImpl#TaskCancelledImpl(Task, String)}.
-   *
-   * <p>Method under test: {@link TaskCancelledImpl#TaskCancelledImpl(Task, String)}
+   * <p>
+   * Method under test: {@link TaskCancelledImpl#TaskCancelledImpl(Task, String)}
    */
   @Test
   @DisplayName("Test new TaskCancelledImpl(Task, String)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void TaskCancelledImpl.<init>(Task, String)"})
   void testNewTaskCancelledImpl() {
     // Arrange
@@ -64,37 +62,31 @@ class TaskCancelledImplDiffblueTest {
 
   /**
    * Test {@link TaskCancelledImpl#getEventType()}.
-   *
-   * <p>Method under test: {@link TaskCancelledImpl#getEventType()}
+   * <p>
+   * Method under test: {@link TaskCancelledImpl#getEventType()}
    */
   @Test
   @DisplayName("Test getEventType()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"TaskRuntimeEvent.TaskEvents TaskCancelledImpl.getEventType()"})
   void testGetEventType() {
     // Arrange, Act and Assert
-    assertEquals(
-        TaskEvents.TASK_CANCELLED,
-        new TaskCancelledImpl(new TaskImpl("42", "Name", TaskStatus.CREATED), "Just cause")
-            .getEventType());
+    assertEquals(TaskEvents.TASK_CANCELLED,
+        (new TaskCancelledImpl(new TaskImpl("42", "Name", TaskStatus.CREATED), "Just cause")).getEventType());
   }
 
   /**
    * Test {@link TaskCancelledImpl#getReason()}.
-   *
-   * <p>Method under test: {@link TaskCancelledImpl#getReason()}
+   * <p>
+   * Method under test: {@link TaskCancelledImpl#getReason()}
    */
   @Test
   @DisplayName("Test getReason()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"String TaskCancelledImpl.getReason()"})
   void testGetReason() {
     // Arrange, Act and Assert
-    assertEquals(
-        "Just cause",
-        new TaskCancelledImpl(new TaskImpl("42", "Name", TaskStatus.CREATED), "Just cause")
-            .getReason());
+    assertEquals("Just cause",
+        (new TaskCancelledImpl(new TaskImpl("42", "Name", TaskStatus.CREATED), "Just cause")).getReason());
   }
 }

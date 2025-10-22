@@ -16,8 +16,7 @@
 package org.activiti.engine.impl.event.logger.handler;
 
 import static org.junit.Assert.assertNull;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
@@ -25,12 +24,11 @@ import org.junit.experimental.categories.Category;
 public class EngineClosedEventHandlerDiffblueTest {
   /**
    * Test new {@link EngineClosedEventHandler} (default constructor).
-   *
-   * <p>Method under test: default or parameterless constructor of {@link EngineClosedEventHandler}
+   * <p>
+   * Method under test: default or parameterless constructor of {@link EngineClosedEventHandler}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void EngineClosedEventHandler.<init>()"})
   public void testNewEngineClosedEventHandler() {
     // Arrange and Act

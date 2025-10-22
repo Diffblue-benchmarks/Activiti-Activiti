@@ -17,8 +17,7 @@ package org.activiti.engine.impl.delegate.invocation;
 
 import static org.junit.Assert.assertSame;
 import static org.mockito.Mockito.mock;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.core.el.juel.ObjectValueExpression;
 import org.activiti.core.el.juel.misc.TypeConverter;
@@ -30,27 +29,22 @@ import org.junit.experimental.categories.Category;
 public class ExpressionInvocationDiffblueTest {
   /**
    * Test {@link ExpressionInvocation#getTarget()}.
-   *
-   * <p>Method under test: {@link ExpressionInvocation#getTarget()}
+   * <p>
+   * Method under test: {@link ExpressionInvocation#getTarget()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"Object ExpressionInvocation.getTarget()"})
   public void testGetTarget() {
     // Arrange
     TypeConverter converter = mock(TypeConverter.class);
     Class<Object> type = Object.class;
+    ObjectValueExpression valueExpression = new ObjectValueExpression(converter, JSONObject.NULL, type);
 
-    ObjectValueExpression valueExpression =
-        new ObjectValueExpression(converter, JSONObject.NULL, type);
-    ExpressionGetInvocation expressionGetInvocation =
-        new ExpressionGetInvocation(valueExpression, new ParsingElContext());
+    ExpressionGetInvocation expressionGetInvocation = new ExpressionGetInvocation(valueExpression,
+        new ParsingElContext());
 
-    // Act
-    Object actualTarget = expressionGetInvocation.getTarget();
-
-    // Assert
-    assertSame(expressionGetInvocation.valueExpression, actualTarget);
+    // Act and Assert
+    assertSame(expressionGetInvocation.valueExpression, expressionGetInvocation.getTarget());
   }
 }

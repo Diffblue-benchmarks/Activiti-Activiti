@@ -18,22 +18,17 @@ package org.activiti.engine.impl.persistence.entity;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertThrows;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.engine.ActivitiException;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
-import org.springframework.test.annotation.DirtiesContext;
-import org.springframework.test.annotation.DirtiesContext.ClassMode;
 
-@DirtiesContext(classMode = ClassMode.AFTER_EACH_TEST_METHOD)
 public class PropertyEntityImplDiffblueTest {
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>default or parameterless constructor of {@link PropertyEntityImpl}
    *   <li>{@link PropertyEntityImpl#setName(String)}
@@ -46,18 +41,11 @@ public class PropertyEntityImplDiffblueTest {
    * </ul>
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void PropertyEntityImpl.<init>()",
-    "String PropertyEntityImpl.getId()",
-    "String PropertyEntityImpl.getName()",
-    "Object PropertyEntityImpl.getPersistentState()",
-    "String PropertyEntityImpl.getValue()",
-    "void PropertyEntityImpl.setName(String)",
-    "void PropertyEntityImpl.setValue(String)",
-    "String PropertyEntityImpl.toString()"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void PropertyEntityImpl.<init>()", "String PropertyEntityImpl.getId()",
+      "String PropertyEntityImpl.getName()", "Object PropertyEntityImpl.getPersistentState()",
+      "String PropertyEntityImpl.getValue()", "void PropertyEntityImpl.setName(String)",
+      "void PropertyEntityImpl.setValue(String)", "String PropertyEntityImpl.toString()"})
   public void testGettersAndSetters() {
     // Arrange and Act
     PropertyEntityImpl actualPropertyEntityImpl = new PropertyEntityImpl();
@@ -82,15 +70,14 @@ public class PropertyEntityImplDiffblueTest {
 
   /**
    * Test {@link PropertyEntityImpl#setId(String)}.
-   *
-   * <p>Method under test: {@link PropertyEntityImpl#setId(String)}
+   * <p>
+   * Method under test: {@link PropertyEntityImpl#setId(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void PropertyEntityImpl.setId(String)"})
   public void testSetId() {
     // Arrange, Act and Assert
-    assertThrows(ActivitiException.class, () -> new PropertyEntityImpl().setId("42"));
+    assertThrows(ActivitiException.class, () -> (new PropertyEntityImpl()).setId("42"));
   }
 }

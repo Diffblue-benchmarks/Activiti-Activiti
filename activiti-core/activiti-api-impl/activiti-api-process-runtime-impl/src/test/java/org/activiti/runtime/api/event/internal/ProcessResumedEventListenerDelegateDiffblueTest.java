@@ -21,7 +21,6 @@ import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
 import java.util.List;
@@ -31,7 +30,6 @@ import org.activiti.api.process.runtime.events.listener.ProcessRuntimeEventListe
 import org.activiti.api.runtime.model.impl.ProcessInstanceImpl;
 import org.activiti.engine.delegate.event.ActivitiEntityEvent;
 import org.activiti.engine.delegate.event.ActivitiEvent;
-import org.activiti.engine.delegate.event.ActivitiEventType;
 import org.activiti.engine.delegate.event.impl.ActivitiEntityEventImpl;
 import org.activiti.runtime.api.event.impl.ProcessResumedEventImpl;
 import org.activiti.runtime.api.event.impl.ToProcessResumedConverter;
@@ -44,73 +42,55 @@ import org.mockito.Mockito;
 class ProcessResumedEventListenerDelegateDiffblueTest {
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
-   *   <li>{@link ProcessResumedEventListenerDelegate#ProcessResumedEventListenerDelegate(List,
-   *       ToProcessResumedConverter)}
+   *   <li>{@link ProcessResumedEventListenerDelegate#ProcessResumedEventListenerDelegate(List, ToProcessResumedConverter)}
    *   <li>{@link ProcessResumedEventListenerDelegate#isFailOnException()}
    * </ul>
    */
   @Test
   @DisplayName("Test getters and setters")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void ProcessResumedEventListenerDelegate.<init>(List, ToProcessResumedConverter)",
-    "boolean ProcessResumedEventListenerDelegate.isFailOnException()"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void ProcessResumedEventListenerDelegate.<init>(List, ToProcessResumedConverter)",
+      "boolean ProcessResumedEventListenerDelegate.isFailOnException()"})
   void testGettersAndSetters() {
     // Arrange
     ArrayList<ProcessRuntimeEventListener<ProcessResumedEvent>> listeners = new ArrayList<>();
 
-    // Act
-    ProcessResumedEventListenerDelegate actualProcessResumedEventListenerDelegate =
-        new ProcessResumedEventListenerDelegate(
-            listeners, new ToProcessResumedConverter(new APIProcessInstanceConverter()));
-
-    // Assert
-    assertFalse(actualProcessResumedEventListenerDelegate.isFailOnException());
+    // Act and Assert
+    assertFalse((new ProcessResumedEventListenerDelegate(listeners,
+        new ToProcessResumedConverter(new APIProcessInstanceConverter()))).isFailOnException());
   }
 
   /**
    * Test {@link ProcessResumedEventListenerDelegate#onEvent(ActivitiEvent)}.
-   *
    * <ul>
-   *   <li>Given {@link ProcessRuntimeEventListener} {@link
-   *       ProcessRuntimeEventListener#onEvent(RuntimeEvent)} does nothing.
-   *   <li>Then calls {@link ProcessRuntimeEventListener#onEvent(RuntimeEvent)}.
+   *   <li>Given {@link ProcessRuntimeEventListener} {@link ProcessRuntimeEventListener#onEvent(RuntimeEvent)} does nothing.</li>
+   *   <li>Then calls {@link ProcessRuntimeEventListener#onEvent(RuntimeEvent)}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ProcessResumedEventListenerDelegate#onEvent(ActivitiEvent)}
+   * <p>
+   * Method under test: {@link ProcessResumedEventListenerDelegate#onEvent(ActivitiEvent)}
    */
   @Test
-  @DisplayName(
-      "Test onEvent(ActivitiEvent); given ProcessRuntimeEventListener onEvent(RuntimeEvent) does nothing; then calls onEvent(RuntimeEvent)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test onEvent(ActivitiEvent); given ProcessRuntimeEventListener onEvent(RuntimeEvent) does nothing; then calls onEvent(RuntimeEvent)")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void ProcessResumedEventListenerDelegate.onEvent(ActivitiEvent)"})
   void testOnEvent_givenProcessRuntimeEventListenerOnEventDoesNothing_thenCallsOnEvent() {
     // Arrange
-    ProcessRuntimeEventListener<ProcessResumedEvent> processRuntimeEventListener =
-        mock(ProcessRuntimeEventListener.class);
+    ProcessRuntimeEventListener<ProcessResumedEvent> processRuntimeEventListener = mock(
+        ProcessRuntimeEventListener.class);
     doNothing().when(processRuntimeEventListener).onEvent(Mockito.<ProcessResumedEvent>any());
 
     ArrayList<ProcessRuntimeEventListener<ProcessResumedEvent>> listeners = new ArrayList<>();
     listeners.add(processRuntimeEventListener);
-
     ToProcessResumedConverter processResumedConverter = mock(ToProcessResumedConverter.class);
-    Optional<ProcessResumedEvent> ofResult =
-        Optional.of(new ProcessResumedEventImpl(new ProcessInstanceImpl()));
+    Optional<ProcessResumedEvent> ofResult = Optional.of(new ProcessResumedEventImpl(new ProcessInstanceImpl()));
     when(processResumedConverter.from(Mockito.<ActivitiEntityEvent>any())).thenReturn(ofResult);
 
-    ProcessResumedEventListenerDelegate processResumedEventListenerDelegate =
-        new ProcessResumedEventListenerDelegate(listeners, processResumedConverter);
-
     // Act
-    processResumedEventListenerDelegate.onEvent(
-        new ActivitiEntityEventImpl("Entity", ActivitiEventType.ENTITY_CREATED));
+    (new ProcessResumedEventListenerDelegate(listeners, processResumedConverter))
+        .onEvent(mock(ActivitiEntityEventImpl.class));
 
     // Assert
     verify(processRuntimeEventListener).onEvent(isA(ProcessResumedEvent.class));
@@ -119,30 +99,25 @@ class ProcessResumedEventListenerDelegateDiffblueTest {
 
   /**
    * Test {@link ProcessResumedEventListenerDelegate#onEvent(ActivitiEvent)}.
-   *
    * <ul>
-   *   <li>Then calls {@link ToProcessResumedConverter#from(ActivitiEntityEvent)}.
+   *   <li>Then calls {@link ToProcessResumedConverter#from(ActivitiEntityEvent)}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ProcessResumedEventListenerDelegate#onEvent(ActivitiEvent)}
+   * <p>
+   * Method under test: {@link ProcessResumedEventListenerDelegate#onEvent(ActivitiEvent)}
    */
   @Test
   @DisplayName("Test onEvent(ActivitiEvent); then calls from(ActivitiEntityEvent)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void ProcessResumedEventListenerDelegate.onEvent(ActivitiEvent)"})
   void testOnEvent_thenCallsFrom() {
     // Arrange
     ToProcessResumedConverter processResumedConverter = mock(ToProcessResumedConverter.class);
-    Optional<ProcessResumedEvent> ofResult =
-        Optional.of(new ProcessResumedEventImpl(new ProcessInstanceImpl()));
+    Optional<ProcessResumedEvent> ofResult = Optional.of(new ProcessResumedEventImpl(new ProcessInstanceImpl()));
     when(processResumedConverter.from(Mockito.<ActivitiEntityEvent>any())).thenReturn(ofResult);
-    ProcessResumedEventListenerDelegate processResumedEventListenerDelegate =
-        new ProcessResumedEventListenerDelegate(new ArrayList<>(), processResumedConverter);
 
     // Act
-    processResumedEventListenerDelegate.onEvent(
-        new ActivitiEntityEventImpl("Entity", ActivitiEventType.ENTITY_CREATED));
+    (new ProcessResumedEventListenerDelegate(new ArrayList<>(), processResumedConverter))
+        .onEvent(mock(ActivitiEntityEventImpl.class));
 
     // Assert
     verify(processResumedConverter).from(isA(ActivitiEntityEvent.class));

@@ -18,7 +18,6 @@ package org.activiti.runtime.api.event.impl;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.Optional;
 import org.activiti.api.process.model.events.BPMNActivityCompletedEvent;
@@ -35,29 +34,25 @@ import org.junit.jupiter.api.Test;
 
 class ToActivityCompletedConverterDiffblueTest {
   /**
-   * Test {@link ToActivityCompletedConverter#from(ActivitiActivityEvent)} with {@code
-   * ActivitiActivityEvent}.
-   *
+   * Test {@link ToActivityCompletedConverter#from(ActivitiActivityEvent)} with {@code ActivitiActivityEvent}.
    * <ul>
-   *   <li>Then {@link Optional#get()} return {@link BPMNActivityCompletedEventImpl}.
+   *   <li>Then {@link Optional#get()} return {@link BPMNActivityCompletedEventImpl}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ToActivityCompletedConverter#from(ActivitiActivityEvent)}
+   * <p>
+   * Method under test: {@link ToActivityCompletedConverter#from(ActivitiActivityEvent)}
    */
   @Test
-  @DisplayName(
-      "Test from(ActivitiActivityEvent) with 'ActivitiActivityEvent'; then get() return BPMNActivityCompletedEventImpl")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test from(ActivitiActivityEvent) with 'ActivitiActivityEvent'; then get() return BPMNActivityCompletedEventImpl")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"Optional ToActivityCompletedConverter.from(ActivitiActivityEvent)"})
   void testFromWithActivitiActivityEvent_thenGetReturnBPMNActivityCompletedEventImpl() {
     // Arrange
-    ToActivityCompletedConverter toActivityCompletedConverter =
-        new ToActivityCompletedConverter(new ToActivityConverter());
+    ToActivityCompletedConverter toActivityCompletedConverter = new ToActivityCompletedConverter(
+        new ToActivityConverter());
 
     // Act
-    Optional<BPMNActivityCompletedEvent> actualFromResult =
-        toActivityCompletedConverter.from(new ActivitiActivityCancelledEventImpl());
+    Optional<BPMNActivityCompletedEvent> actualFromResult = toActivityCompletedConverter
+        .from(new ActivitiActivityCancelledEventImpl());
 
     // Assert
     BPMNActivityCompletedEvent getResult = actualFromResult.get();

@@ -16,8 +16,7 @@
 package org.activiti.bpmn.model;
 
 import static org.junit.Assert.assertEquals;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
@@ -25,9 +24,8 @@ import org.junit.experimental.categories.Category;
 public class ErrorDiffblueTest {
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>{@link Error#Error(String, String, String)}
    *   <li>{@link Error#setErrorCode(String)}
@@ -39,17 +37,10 @@ public class ErrorDiffblueTest {
    * </ul>
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void Error.<init>(String, String, String)",
-    "String Error.getErrorCode()",
-    "String Error.getId()",
-    "String Error.getName()",
-    "void Error.setErrorCode(String)",
-    "void Error.setId(String)",
-    "void Error.setName(String)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void Error.<init>(String, String, String)", "String Error.getErrorCode()", "String Error.getId()",
+      "String Error.getName()", "void Error.setErrorCode(String)", "void Error.setId(String)",
+      "void Error.setName(String)"})
   public void testGettersAndSetters() {
     // Arrange and Act
     Error actualError = new Error("42", "Name", "An error occurred");

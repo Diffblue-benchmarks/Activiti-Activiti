@@ -17,12 +17,12 @@ package org.activiti.engine.impl.persistence.entity;
 
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
 import java.util.List;
@@ -40,47 +40,40 @@ import org.mockito.junit.MockitoJUnitRunner;
 
 @RunWith(MockitoJUnitRunner.class)
 public class ByteArrayEntityManagerImplDiffblueTest {
-  @Mock private ByteArrayDataManager byteArrayDataManager;
+  @Mock
+  private ByteArrayDataManager byteArrayDataManager;
 
-  @InjectMocks private ByteArrayEntityManagerImpl byteArrayEntityManagerImpl;
+  @InjectMocks
+  private ByteArrayEntityManagerImpl byteArrayEntityManagerImpl;
 
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
-   *   <li>{@link
-   *       ByteArrayEntityManagerImpl#ByteArrayEntityManagerImpl(ProcessEngineConfigurationImpl,
-   *       ByteArrayDataManager)}
+   *   <li>{@link ByteArrayEntityManagerImpl#ByteArrayEntityManagerImpl(ProcessEngineConfigurationImpl, ByteArrayDataManager)}
    *   <li>{@link ByteArrayEntityManagerImpl#setByteArrayDataManager(ByteArrayDataManager)}
    *   <li>{@link ByteArrayEntityManagerImpl#getByteArrayDataManager()}
    *   <li>{@link ByteArrayEntityManagerImpl#getDataManager()}
    * </ul>
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void ByteArrayEntityManagerImpl.<init>(ProcessEngineConfigurationImpl, ByteArrayDataManager)",
-    "ByteArrayDataManager ByteArrayEntityManagerImpl.getByteArrayDataManager()",
-    "org.activiti.engine.impl.persistence.entity.data.DataManager ByteArrayEntityManagerImpl.getDataManager()",
-    "void ByteArrayEntityManagerImpl.setByteArrayDataManager(ByteArrayDataManager)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void ByteArrayEntityManagerImpl.<init>(ProcessEngineConfigurationImpl, ByteArrayDataManager)",
+      "ByteArrayDataManager ByteArrayEntityManagerImpl.getByteArrayDataManager()",
+      "org.activiti.engine.impl.persistence.entity.data.DataManager ByteArrayEntityManagerImpl.getDataManager()",
+      "void ByteArrayEntityManagerImpl.setByteArrayDataManager(ByteArrayDataManager)"})
   public void testGettersAndSetters() {
     // Arrange
     JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();
 
     // Act
-    ByteArrayEntityManagerImpl actualByteArrayEntityManagerImpl =
-        new ByteArrayEntityManagerImpl(
-            processEngineConfiguration,
-            new MybatisByteArrayDataManager(new JtaProcessEngineConfiguration()));
-    MybatisByteArrayDataManager byteArrayDataManager =
-        new MybatisByteArrayDataManager(new JtaProcessEngineConfiguration());
+    ByteArrayEntityManagerImpl actualByteArrayEntityManagerImpl = new ByteArrayEntityManagerImpl(
+        processEngineConfiguration, new MybatisByteArrayDataManager(new JtaProcessEngineConfiguration()));
+    MybatisByteArrayDataManager byteArrayDataManager = new MybatisByteArrayDataManager(
+        new JtaProcessEngineConfiguration());
     actualByteArrayEntityManagerImpl.setByteArrayDataManager(byteArrayDataManager);
-    ByteArrayDataManager actualByteArrayDataManager =
-        actualByteArrayEntityManagerImpl.getByteArrayDataManager();
+    ByteArrayDataManager actualByteArrayDataManager = actualByteArrayEntityManagerImpl.getByteArrayDataManager();
 
     // Assert
     assertSame(byteArrayDataManager, actualByteArrayDataManager);
@@ -89,28 +82,24 @@ public class ByteArrayEntityManagerImplDiffblueTest {
 
   /**
    * Test {@link ByteArrayEntityManagerImpl#findAll()}.
-   *
    * <ul>
-   *   <li>Given {@link ByteArrayDataManager} {@link ByteArrayDataManager#findAll()} return {@link
-   *       ArrayList#ArrayList()}.
-   *   <li>Then return Empty.
+   *   <li>Given {@link ByteArrayDataManager} {@link ByteArrayDataManager#findAll()} return {@link ArrayList#ArrayList()}.</li>
+   *   <li>Then return Empty.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ByteArrayEntityManagerImpl#findAll()}
+   * <p>
+   * Method under test: {@link ByteArrayEntityManagerImpl#findAll()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"List ByteArrayEntityManagerImpl.findAll()"})
   public void testFindAll_givenByteArrayDataManagerFindAllReturnArrayList_thenReturnEmpty() {
     // Arrange
     ByteArrayDataManager byteArrayDataManager = mock(ByteArrayDataManager.class);
     when(byteArrayDataManager.findAll()).thenReturn(new ArrayList<>());
-    ByteArrayEntityManagerImpl byteArrayEntityManagerImpl =
-        new ByteArrayEntityManagerImpl(new JtaProcessEngineConfiguration(), byteArrayDataManager);
 
     // Act
-    List<ByteArrayEntity> actualFindAllResult = byteArrayEntityManagerImpl.findAll();
+    List<ByteArrayEntity> actualFindAllResult = (new ByteArrayEntityManagerImpl(new JtaProcessEngineConfiguration(),
+        byteArrayDataManager)).findAll();
 
     // Assert
     verify(byteArrayDataManager).findAll();
@@ -119,12 +108,11 @@ public class ByteArrayEntityManagerImplDiffblueTest {
 
   /**
    * Test {@link ByteArrayEntityManagerImpl#deleteByteArrayById(String)}.
-   *
-   * <p>Method under test: {@link ByteArrayEntityManagerImpl#deleteByteArrayById(String)}
+   * <p>
+   * Method under test: {@link ByteArrayEntityManagerImpl#deleteByteArrayById(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void ByteArrayEntityManagerImpl.deleteByteArrayById(String)"})
   public void testDeleteByteArrayById() {
     // Arrange
@@ -134,6 +122,6 @@ public class ByteArrayEntityManagerImplDiffblueTest {
     byteArrayEntityManagerImpl.deleteByteArrayById("42");
 
     // Assert
-    verify(byteArrayDataManager).deleteByteArrayNoRevisionCheck("42");
+    verify(byteArrayDataManager).deleteByteArrayNoRevisionCheck(eq("42"));
   }
 }

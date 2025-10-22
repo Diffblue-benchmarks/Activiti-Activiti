@@ -21,34 +21,24 @@ import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertThrows;
 import static org.junit.Assert.assertTrue;
-import static org.mockito.Mockito.mock;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.engine.ActivitiIllegalArgumentException;
-import org.activiti.engine.impl.interceptor.CommandContext;
-import org.activiti.engine.query.QueryProperty;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
-import org.springframework.test.annotation.DirtiesContext;
-import org.springframework.test.annotation.DirtiesContext.ClassMode;
 
-@DirtiesContext(classMode = ClassMode.AFTER_EACH_TEST_METHOD)
 public class HistoricActivityInstanceQueryImplDiffblueTest {
   /**
    * Test {@link HistoricActivityInstanceQueryImpl#HistoricActivityInstanceQueryImpl()}.
-   *
-   * <p>Method under test: {@link
-   * HistoricActivityInstanceQueryImpl#HistoricActivityInstanceQueryImpl()}
+   * <p>
+   * Method under test: {@link HistoricActivityInstanceQueryImpl#HistoricActivityInstanceQueryImpl()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void HistoricActivityInstanceQueryImpl.<init>()"})
   public void testNewHistoricActivityInstanceQueryImpl() {
     // Arrange and Act
-    HistoricActivityInstanceQueryImpl actualHistoricActivityInstanceQueryImpl =
-        new HistoricActivityInstanceQueryImpl();
+    HistoricActivityInstanceQueryImpl actualHistoricActivityInstanceQueryImpl = new HistoricActivityInstanceQueryImpl();
 
     // Assert
     assertEquals("RES.ID_ asc", actualHistoricActivityInstanceQueryImpl.getOrderBy());
@@ -79,82 +69,24 @@ public class HistoricActivityInstanceQueryImplDiffblueTest {
     assertFalse(actualHistoricActivityInstanceQueryImpl.isWithoutTenantId());
     assertEquals(Integer.MAX_VALUE, actualHistoricActivityInstanceQueryImpl.getLastRow());
     assertEquals(Integer.MAX_VALUE, actualHistoricActivityInstanceQueryImpl.getMaxResults());
-    Object actualParameter = actualHistoricActivityInstanceQueryImpl.getParameter();
-    assertSame(actualHistoricActivityInstanceQueryImpl, actualParameter);
-  }
-
-  /**
-   * Test {@link HistoricActivityInstanceQueryImpl#executeCount(CommandContext)}.
-   *
-   * <ul>
-   *   <li>Then throw {@link ActivitiIllegalArgumentException}.
-   * </ul>
-   *
-   * <p>Method under test: {@link HistoricActivityInstanceQueryImpl#executeCount(CommandContext)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"long HistoricActivityInstanceQueryImpl.executeCount(CommandContext)"})
-  public void testExecuteCount_thenThrowActivitiIllegalArgumentException() {
-    // Arrange
-    HistoricActivityInstanceQueryImpl historicActivityInstanceQueryImpl =
-        new HistoricActivityInstanceQueryImpl();
-    historicActivityInstanceQueryImpl.orderBy(mock(QueryProperty.class));
-
-    // Act and Assert
-    assertThrows(
-        ActivitiIllegalArgumentException.class,
-        () -> historicActivityInstanceQueryImpl.executeCount(null));
-  }
-
-  /**
-   * Test {@link HistoricActivityInstanceQueryImpl#executeList(CommandContext, Page)}.
-   *
-   * <ul>
-   *   <li>Then throw {@link ActivitiIllegalArgumentException}.
-   * </ul>
-   *
-   * <p>Method under test: {@link HistoricActivityInstanceQueryImpl#executeList(CommandContext,
-   * Page)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "java.util.List HistoricActivityInstanceQueryImpl.executeList(CommandContext, Page)"
-  })
-  public void testExecuteList_thenThrowActivitiIllegalArgumentException() {
-    // Arrange
-    HistoricActivityInstanceQueryImpl historicActivityInstanceQueryImpl =
-        new HistoricActivityInstanceQueryImpl();
-    historicActivityInstanceQueryImpl.orderBy(mock(QueryProperty.class));
-
-    // Act and Assert
-    assertThrows(
-        ActivitiIllegalArgumentException.class,
-        () -> historicActivityInstanceQueryImpl.executeList(null, new Page(1, 3)));
+    assertSame(actualHistoricActivityInstanceQueryImpl, actualHistoricActivityInstanceQueryImpl.getParameter());
   }
 
   /**
    * Test {@link HistoricActivityInstanceQueryImpl#processInstanceId(String)}.
-   *
-   * <p>Method under test: {@link HistoricActivityInstanceQueryImpl#processInstanceId(String)}
+   * <p>
+   * Method under test: {@link HistoricActivityInstanceQueryImpl#processInstanceId(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "HistoricActivityInstanceQueryImpl HistoricActivityInstanceQueryImpl.processInstanceId(String)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"HistoricActivityInstanceQueryImpl HistoricActivityInstanceQueryImpl.processInstanceId(String)"})
   public void testProcessInstanceId() {
     // Arrange
-    HistoricActivityInstanceQueryImpl historicActivityInstanceQueryImpl =
-        new HistoricActivityInstanceQueryImpl();
+    HistoricActivityInstanceQueryImpl historicActivityInstanceQueryImpl = new HistoricActivityInstanceQueryImpl();
 
     // Act
-    HistoricActivityInstanceQueryImpl actualProcessInstanceIdResult =
-        historicActivityInstanceQueryImpl.processInstanceId("42");
+    HistoricActivityInstanceQueryImpl actualProcessInstanceIdResult = historicActivityInstanceQueryImpl
+        .processInstanceId("42");
 
     // Assert
     assertEquals("42", historicActivityInstanceQueryImpl.getProcessInstanceId());
@@ -163,23 +95,18 @@ public class HistoricActivityInstanceQueryImplDiffblueTest {
 
   /**
    * Test {@link HistoricActivityInstanceQueryImpl#executionId(String)}.
-   *
-   * <p>Method under test: {@link HistoricActivityInstanceQueryImpl#executionId(String)}
+   * <p>
+   * Method under test: {@link HistoricActivityInstanceQueryImpl#executionId(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "HistoricActivityInstanceQueryImpl HistoricActivityInstanceQueryImpl.executionId(String)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"HistoricActivityInstanceQueryImpl HistoricActivityInstanceQueryImpl.executionId(String)"})
   public void testExecutionId() {
     // Arrange
-    HistoricActivityInstanceQueryImpl historicActivityInstanceQueryImpl =
-        new HistoricActivityInstanceQueryImpl();
+    HistoricActivityInstanceQueryImpl historicActivityInstanceQueryImpl = new HistoricActivityInstanceQueryImpl();
 
     // Act
-    HistoricActivityInstanceQueryImpl actualExecutionIdResult =
-        historicActivityInstanceQueryImpl.executionId("42");
+    HistoricActivityInstanceQueryImpl actualExecutionIdResult = historicActivityInstanceQueryImpl.executionId("42");
 
     // Assert
     assertEquals("42", historicActivityInstanceQueryImpl.getExecutionId());
@@ -188,23 +115,19 @@ public class HistoricActivityInstanceQueryImplDiffblueTest {
 
   /**
    * Test {@link HistoricActivityInstanceQueryImpl#processDefinitionId(String)}.
-   *
-   * <p>Method under test: {@link HistoricActivityInstanceQueryImpl#processDefinitionId(String)}
+   * <p>
+   * Method under test: {@link HistoricActivityInstanceQueryImpl#processDefinitionId(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "HistoricActivityInstanceQueryImpl HistoricActivityInstanceQueryImpl.processDefinitionId(String)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"HistoricActivityInstanceQueryImpl HistoricActivityInstanceQueryImpl.processDefinitionId(String)"})
   public void testProcessDefinitionId() {
     // Arrange
-    HistoricActivityInstanceQueryImpl historicActivityInstanceQueryImpl =
-        new HistoricActivityInstanceQueryImpl();
+    HistoricActivityInstanceQueryImpl historicActivityInstanceQueryImpl = new HistoricActivityInstanceQueryImpl();
 
     // Act
-    HistoricActivityInstanceQueryImpl actualProcessDefinitionIdResult =
-        historicActivityInstanceQueryImpl.processDefinitionId("42");
+    HistoricActivityInstanceQueryImpl actualProcessDefinitionIdResult = historicActivityInstanceQueryImpl
+        .processDefinitionId("42");
 
     // Assert
     assertEquals("42", historicActivityInstanceQueryImpl.getProcessDefinitionId());
@@ -213,23 +136,18 @@ public class HistoricActivityInstanceQueryImplDiffblueTest {
 
   /**
    * Test {@link HistoricActivityInstanceQueryImpl#activityId(String)}.
-   *
-   * <p>Method under test: {@link HistoricActivityInstanceQueryImpl#activityId(String)}
+   * <p>
+   * Method under test: {@link HistoricActivityInstanceQueryImpl#activityId(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "HistoricActivityInstanceQueryImpl HistoricActivityInstanceQueryImpl.activityId(String)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"HistoricActivityInstanceQueryImpl HistoricActivityInstanceQueryImpl.activityId(String)"})
   public void testActivityId() {
     // Arrange
-    HistoricActivityInstanceQueryImpl historicActivityInstanceQueryImpl =
-        new HistoricActivityInstanceQueryImpl();
+    HistoricActivityInstanceQueryImpl historicActivityInstanceQueryImpl = new HistoricActivityInstanceQueryImpl();
 
     // Act
-    HistoricActivityInstanceQueryImpl actualActivityIdResult =
-        historicActivityInstanceQueryImpl.activityId("42");
+    HistoricActivityInstanceQueryImpl actualActivityIdResult = historicActivityInstanceQueryImpl.activityId("42");
 
     // Assert
     assertEquals("42", historicActivityInstanceQueryImpl.getActivityId());
@@ -238,23 +156,19 @@ public class HistoricActivityInstanceQueryImplDiffblueTest {
 
   /**
    * Test {@link HistoricActivityInstanceQueryImpl#activityName(String)}.
-   *
-   * <p>Method under test: {@link HistoricActivityInstanceQueryImpl#activityName(String)}
+   * <p>
+   * Method under test: {@link HistoricActivityInstanceQueryImpl#activityName(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "HistoricActivityInstanceQueryImpl HistoricActivityInstanceQueryImpl.activityName(String)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"HistoricActivityInstanceQueryImpl HistoricActivityInstanceQueryImpl.activityName(String)"})
   public void testActivityName() {
     // Arrange
-    HistoricActivityInstanceQueryImpl historicActivityInstanceQueryImpl =
-        new HistoricActivityInstanceQueryImpl();
+    HistoricActivityInstanceQueryImpl historicActivityInstanceQueryImpl = new HistoricActivityInstanceQueryImpl();
 
     // Act
-    HistoricActivityInstanceQueryImpl actualActivityNameResult =
-        historicActivityInstanceQueryImpl.activityName("Activity Name");
+    HistoricActivityInstanceQueryImpl actualActivityNameResult = historicActivityInstanceQueryImpl
+        .activityName("Activity Name");
 
     // Assert
     assertEquals("Activity Name", historicActivityInstanceQueryImpl.getActivityName());
@@ -263,23 +177,19 @@ public class HistoricActivityInstanceQueryImplDiffblueTest {
 
   /**
    * Test {@link HistoricActivityInstanceQueryImpl#activityType(String)}.
-   *
-   * <p>Method under test: {@link HistoricActivityInstanceQueryImpl#activityType(String)}
+   * <p>
+   * Method under test: {@link HistoricActivityInstanceQueryImpl#activityType(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "HistoricActivityInstanceQueryImpl HistoricActivityInstanceQueryImpl.activityType(String)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"HistoricActivityInstanceQueryImpl HistoricActivityInstanceQueryImpl.activityType(String)"})
   public void testActivityType() {
     // Arrange
-    HistoricActivityInstanceQueryImpl historicActivityInstanceQueryImpl =
-        new HistoricActivityInstanceQueryImpl();
+    HistoricActivityInstanceQueryImpl historicActivityInstanceQueryImpl = new HistoricActivityInstanceQueryImpl();
 
     // Act
-    HistoricActivityInstanceQueryImpl actualActivityTypeResult =
-        historicActivityInstanceQueryImpl.activityType("Activity Type");
+    HistoricActivityInstanceQueryImpl actualActivityTypeResult = historicActivityInstanceQueryImpl
+        .activityType("Activity Type");
 
     // Assert
     assertEquals("Activity Type", historicActivityInstanceQueryImpl.getActivityType());
@@ -288,23 +198,19 @@ public class HistoricActivityInstanceQueryImplDiffblueTest {
 
   /**
    * Test {@link HistoricActivityInstanceQueryImpl#taskAssignee(String)}.
-   *
-   * <p>Method under test: {@link HistoricActivityInstanceQueryImpl#taskAssignee(String)}
+   * <p>
+   * Method under test: {@link HistoricActivityInstanceQueryImpl#taskAssignee(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "HistoricActivityInstanceQueryImpl HistoricActivityInstanceQueryImpl.taskAssignee(String)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"HistoricActivityInstanceQueryImpl HistoricActivityInstanceQueryImpl.taskAssignee(String)"})
   public void testTaskAssignee() {
     // Arrange
-    HistoricActivityInstanceQueryImpl historicActivityInstanceQueryImpl =
-        new HistoricActivityInstanceQueryImpl();
+    HistoricActivityInstanceQueryImpl historicActivityInstanceQueryImpl = new HistoricActivityInstanceQueryImpl();
 
     // Act
-    HistoricActivityInstanceQueryImpl actualTaskAssigneeResult =
-        historicActivityInstanceQueryImpl.taskAssignee("Assignee");
+    HistoricActivityInstanceQueryImpl actualTaskAssigneeResult = historicActivityInstanceQueryImpl
+        .taskAssignee("Assignee");
 
     // Assert
     assertEquals("Assignee", historicActivityInstanceQueryImpl.getAssignee());
@@ -313,23 +219,18 @@ public class HistoricActivityInstanceQueryImplDiffblueTest {
 
   /**
    * Test {@link HistoricActivityInstanceQueryImpl#finished()}.
-   *
-   * <p>Method under test: {@link HistoricActivityInstanceQueryImpl#finished()}
+   * <p>
+   * Method under test: {@link HistoricActivityInstanceQueryImpl#finished()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "HistoricActivityInstanceQueryImpl HistoricActivityInstanceQueryImpl.finished()"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"HistoricActivityInstanceQueryImpl HistoricActivityInstanceQueryImpl.finished()"})
   public void testFinished() {
     // Arrange
-    HistoricActivityInstanceQueryImpl historicActivityInstanceQueryImpl =
-        new HistoricActivityInstanceQueryImpl();
+    HistoricActivityInstanceQueryImpl historicActivityInstanceQueryImpl = new HistoricActivityInstanceQueryImpl();
 
     // Act
-    HistoricActivityInstanceQueryImpl actualFinishedResult =
-        historicActivityInstanceQueryImpl.finished();
+    HistoricActivityInstanceQueryImpl actualFinishedResult = historicActivityInstanceQueryImpl.finished();
 
     // Assert
     assertTrue(historicActivityInstanceQueryImpl.isFinished());
@@ -338,23 +239,18 @@ public class HistoricActivityInstanceQueryImplDiffblueTest {
 
   /**
    * Test {@link HistoricActivityInstanceQueryImpl#unfinished()}.
-   *
-   * <p>Method under test: {@link HistoricActivityInstanceQueryImpl#unfinished()}
+   * <p>
+   * Method under test: {@link HistoricActivityInstanceQueryImpl#unfinished()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "HistoricActivityInstanceQueryImpl HistoricActivityInstanceQueryImpl.unfinished()"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"HistoricActivityInstanceQueryImpl HistoricActivityInstanceQueryImpl.unfinished()"})
   public void testUnfinished() {
     // Arrange
-    HistoricActivityInstanceQueryImpl historicActivityInstanceQueryImpl =
-        new HistoricActivityInstanceQueryImpl();
+    HistoricActivityInstanceQueryImpl historicActivityInstanceQueryImpl = new HistoricActivityInstanceQueryImpl();
 
     // Act
-    HistoricActivityInstanceQueryImpl actualUnfinishedResult =
-        historicActivityInstanceQueryImpl.unfinished();
+    HistoricActivityInstanceQueryImpl actualUnfinishedResult = historicActivityInstanceQueryImpl.unfinished();
 
     // Assert
     assertTrue(historicActivityInstanceQueryImpl.isUnfinished());
@@ -363,29 +259,23 @@ public class HistoricActivityInstanceQueryImplDiffblueTest {
 
   /**
    * Test {@link HistoricActivityInstanceQueryImpl#activityTenantId(String)}.
-   *
    * <ul>
-   *   <li>When {@code 42}.
-   *   <li>Then {@link HistoricActivityInstanceQueryImpl#HistoricActivityInstanceQueryImpl()}
-   *       TenantId is {@code 42}.
+   *   <li>When {@code 42}.</li>
+   *   <li>Then {@link HistoricActivityInstanceQueryImpl#HistoricActivityInstanceQueryImpl()} TenantId is {@code 42}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link HistoricActivityInstanceQueryImpl#activityTenantId(String)}
+   * <p>
+   * Method under test: {@link HistoricActivityInstanceQueryImpl#activityTenantId(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "HistoricActivityInstanceQueryImpl HistoricActivityInstanceQueryImpl.activityTenantId(String)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"HistoricActivityInstanceQueryImpl HistoricActivityInstanceQueryImpl.activityTenantId(String)"})
   public void testActivityTenantId_when42_thenHistoricActivityInstanceQueryImplTenantIdIs42() {
     // Arrange
-    HistoricActivityInstanceQueryImpl historicActivityInstanceQueryImpl =
-        new HistoricActivityInstanceQueryImpl();
+    HistoricActivityInstanceQueryImpl historicActivityInstanceQueryImpl = new HistoricActivityInstanceQueryImpl();
 
     // Act
-    HistoricActivityInstanceQueryImpl actualActivityTenantIdResult =
-        historicActivityInstanceQueryImpl.activityTenantId("42");
+    HistoricActivityInstanceQueryImpl actualActivityTenantIdResult = historicActivityInstanceQueryImpl
+        .activityTenantId("42");
 
     // Assert
     assertEquals("42", historicActivityInstanceQueryImpl.getTenantId());
@@ -394,46 +284,38 @@ public class HistoricActivityInstanceQueryImplDiffblueTest {
 
   /**
    * Test {@link HistoricActivityInstanceQueryImpl#activityTenantId(String)}.
-   *
    * <ul>
-   *   <li>When {@code null}.
-   *   <li>Then throw {@link ActivitiIllegalArgumentException}.
+   *   <li>When {@code null}.</li>
+   *   <li>Then throw {@link ActivitiIllegalArgumentException}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link HistoricActivityInstanceQueryImpl#activityTenantId(String)}
+   * <p>
+   * Method under test: {@link HistoricActivityInstanceQueryImpl#activityTenantId(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "HistoricActivityInstanceQueryImpl HistoricActivityInstanceQueryImpl.activityTenantId(String)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"HistoricActivityInstanceQueryImpl HistoricActivityInstanceQueryImpl.activityTenantId(String)"})
   public void testActivityTenantId_whenNull_thenThrowActivitiIllegalArgumentException() {
     // Arrange, Act and Assert
-    assertThrows(
-        ActivitiIllegalArgumentException.class,
-        () -> new HistoricActivityInstanceQueryImpl().activityTenantId(null));
+    assertThrows(ActivitiIllegalArgumentException.class,
+        () -> (new HistoricActivityInstanceQueryImpl()).activityTenantId(null));
   }
 
   /**
    * Test {@link HistoricActivityInstanceQueryImpl#activityTenantIdLike(String)}.
-   *
-   * <p>Method under test: {@link HistoricActivityInstanceQueryImpl#activityTenantIdLike(String)}
+   * <p>
+   * Method under test: {@link HistoricActivityInstanceQueryImpl#activityTenantIdLike(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({
-    "HistoricActivityInstanceQueryImpl HistoricActivityInstanceQueryImpl.activityTenantIdLike(String)"
-  })
+      "HistoricActivityInstanceQueryImpl HistoricActivityInstanceQueryImpl.activityTenantIdLike(String)"})
   public void testActivityTenantIdLike() {
     // Arrange
-    HistoricActivityInstanceQueryImpl historicActivityInstanceQueryImpl =
-        new HistoricActivityInstanceQueryImpl();
+    HistoricActivityInstanceQueryImpl historicActivityInstanceQueryImpl = new HistoricActivityInstanceQueryImpl();
 
     // Act
-    HistoricActivityInstanceQueryImpl actualActivityTenantIdLikeResult =
-        historicActivityInstanceQueryImpl.activityTenantIdLike("Tenant Id Like");
+    HistoricActivityInstanceQueryImpl actualActivityTenantIdLikeResult = historicActivityInstanceQueryImpl
+        .activityTenantIdLike("Tenant Id Like");
 
     // Assert
     assertEquals("Tenant Id Like", historicActivityInstanceQueryImpl.getTenantIdLike());
@@ -442,46 +324,38 @@ public class HistoricActivityInstanceQueryImplDiffblueTest {
 
   /**
    * Test {@link HistoricActivityInstanceQueryImpl#activityTenantIdLike(String)}.
-   *
    * <ul>
-   *   <li>When {@code null}.
-   *   <li>Then throw {@link ActivitiIllegalArgumentException}.
+   *   <li>When {@code null}.</li>
+   *   <li>Then throw {@link ActivitiIllegalArgumentException}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link HistoricActivityInstanceQueryImpl#activityTenantIdLike(String)}
+   * <p>
+   * Method under test: {@link HistoricActivityInstanceQueryImpl#activityTenantIdLike(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({
-    "HistoricActivityInstanceQueryImpl HistoricActivityInstanceQueryImpl.activityTenantIdLike(String)"
-  })
+      "HistoricActivityInstanceQueryImpl HistoricActivityInstanceQueryImpl.activityTenantIdLike(String)"})
   public void testActivityTenantIdLike_whenNull_thenThrowActivitiIllegalArgumentException() {
     // Arrange, Act and Assert
-    assertThrows(
-        ActivitiIllegalArgumentException.class,
-        () -> new HistoricActivityInstanceQueryImpl().activityTenantIdLike(null));
+    assertThrows(ActivitiIllegalArgumentException.class,
+        () -> (new HistoricActivityInstanceQueryImpl()).activityTenantIdLike(null));
   }
 
   /**
    * Test {@link HistoricActivityInstanceQueryImpl#activityWithoutTenantId()}.
-   *
-   * <p>Method under test: {@link HistoricActivityInstanceQueryImpl#activityWithoutTenantId()}
+   * <p>
+   * Method under test: {@link HistoricActivityInstanceQueryImpl#activityWithoutTenantId()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "HistoricActivityInstanceQueryImpl HistoricActivityInstanceQueryImpl.activityWithoutTenantId()"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"HistoricActivityInstanceQueryImpl HistoricActivityInstanceQueryImpl.activityWithoutTenantId()"})
   public void testActivityWithoutTenantId() {
     // Arrange
-    HistoricActivityInstanceQueryImpl historicActivityInstanceQueryImpl =
-        new HistoricActivityInstanceQueryImpl();
+    HistoricActivityInstanceQueryImpl historicActivityInstanceQueryImpl = new HistoricActivityInstanceQueryImpl();
 
     // Act
-    HistoricActivityInstanceQueryImpl actualActivityWithoutTenantIdResult =
-        historicActivityInstanceQueryImpl.activityWithoutTenantId();
+    HistoricActivityInstanceQueryImpl actualActivityWithoutTenantIdResult = historicActivityInstanceQueryImpl
+        .activityWithoutTenantId();
 
     // Assert
     assertTrue(historicActivityInstanceQueryImpl.isWithoutTenantId());
@@ -490,23 +364,19 @@ public class HistoricActivityInstanceQueryImplDiffblueTest {
 
   /**
    * Test {@link HistoricActivityInstanceQueryImpl#activityInstanceId(String)}.
-   *
-   * <p>Method under test: {@link HistoricActivityInstanceQueryImpl#activityInstanceId(String)}
+   * <p>
+   * Method under test: {@link HistoricActivityInstanceQueryImpl#activityInstanceId(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "HistoricActivityInstanceQueryImpl HistoricActivityInstanceQueryImpl.activityInstanceId(String)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"HistoricActivityInstanceQueryImpl HistoricActivityInstanceQueryImpl.activityInstanceId(String)"})
   public void testActivityInstanceId() {
     // Arrange
-    HistoricActivityInstanceQueryImpl historicActivityInstanceQueryImpl =
-        new HistoricActivityInstanceQueryImpl();
+    HistoricActivityInstanceQueryImpl historicActivityInstanceQueryImpl = new HistoricActivityInstanceQueryImpl();
 
     // Act
-    HistoricActivityInstanceQueryImpl actualActivityInstanceIdResult =
-        historicActivityInstanceQueryImpl.activityInstanceId("42");
+    HistoricActivityInstanceQueryImpl actualActivityInstanceIdResult = historicActivityInstanceQueryImpl
+        .activityInstanceId("42");
 
     // Assert
     assertEquals("42", historicActivityInstanceQueryImpl.getActivityInstanceId());

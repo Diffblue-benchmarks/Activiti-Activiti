@@ -19,8 +19,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.Collection;
 import java.util.List;
@@ -34,17 +33,15 @@ import org.junit.experimental.categories.Category;
 public class AbstractActivitiTestCaseDiffblueTest {
   /**
    * Test {@link AbstractActivitiTestCase#createOneTaskTestProcess()}.
-   *
-   * <p>Method under test: {@link AbstractActivitiTestCase#createOneTaskTestProcess()}
+   * <p>
+   * Method under test: {@link AbstractActivitiTestCase#createOneTaskTestProcess()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"BpmnModel AbstractActivitiTestCase.createOneTaskTestProcess()"})
   public void testCreateOneTaskTestProcess() {
     // Arrange and Act
-    BpmnModel actualCreateOneTaskTestProcessResult =
-        new DeleteReasonTest().createOneTaskTestProcess();
+    BpmnModel actualCreateOneTaskTestProcessResult = (new DeleteReasonTest()).createOneTaskTestProcess();
 
     // Assert
     Collection<Resource> resources = actualCreateOneTaskTestProcessResult.getResources();
@@ -78,17 +75,15 @@ public class AbstractActivitiTestCaseDiffblueTest {
 
   /**
    * Test {@link AbstractActivitiTestCase#createTwoTasksTestProcess()}.
-   *
-   * <p>Method under test: {@link AbstractActivitiTestCase#createTwoTasksTestProcess()}
+   * <p>
+   * Method under test: {@link AbstractActivitiTestCase#createTwoTasksTestProcess()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"BpmnModel AbstractActivitiTestCase.createTwoTasksTestProcess()"})
   public void testCreateTwoTasksTestProcess() {
     // Arrange and Act
-    BpmnModel actualCreateTwoTasksTestProcessResult =
-        new DeleteReasonTest().createTwoTasksTestProcess();
+    BpmnModel actualCreateTwoTasksTestProcessResult = (new DeleteReasonTest()).createTwoTasksTestProcess();
 
     // Assert
     Collection<Resource> resources = actualCreateTwoTasksTestProcessResult.getResources();
@@ -122,27 +117,21 @@ public class AbstractActivitiTestCaseDiffblueTest {
 
   /**
    * Test {@link AbstractActivitiTestCase#createOneTaskAndStartEventWithFormKeyProcess()}.
-   *
-   * <p>Method under test: {@link
-   * AbstractActivitiTestCase#createOneTaskAndStartEventWithFormKeyProcess()}
+   * <p>
+   * Method under test: {@link AbstractActivitiTestCase#createOneTaskAndStartEventWithFormKeyProcess()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "BpmnModel AbstractActivitiTestCase.createOneTaskAndStartEventWithFormKeyProcess()"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"BpmnModel AbstractActivitiTestCase.createOneTaskAndStartEventWithFormKeyProcess()"})
   public void testCreateOneTaskAndStartEventWithFormKeyProcess() {
     // Arrange and Act
-    BpmnModel actualCreateOneTaskAndStartEventWithFormKeyProcessResult =
-        new DeleteReasonTest().createOneTaskAndStartEventWithFormKeyProcess();
+    BpmnModel actualCreateOneTaskAndStartEventWithFormKeyProcessResult = (new DeleteReasonTest())
+        .createOneTaskAndStartEventWithFormKeyProcess();
 
     // Assert
-    Collection<Resource> resources =
-        actualCreateOneTaskAndStartEventWithFormKeyProcessResult.getResources();
+    Collection<Resource> resources = actualCreateOneTaskAndStartEventWithFormKeyProcessResult.getResources();
     assertTrue(resources instanceof List);
-    Collection<Signal> signals =
-        actualCreateOneTaskAndStartEventWithFormKeyProcessResult.getSignals();
+    Collection<Signal> signals = actualCreateOneTaskAndStartEventWithFormKeyProcessResult.getSignals();
     assertTrue(signals instanceof List);
     assertNull(actualCreateOneTaskAndStartEventWithFormKeyProcessResult.getEventSupport());
     assertNull(actualCreateOneTaskAndStartEventWithFormKeyProcessResult.getSourceSystemId());
@@ -150,31 +139,22 @@ public class AbstractActivitiTestCaseDiffblueTest {
     assertNull(actualCreateOneTaskAndStartEventWithFormKeyProcessResult.getStartEventFormTypes());
     assertNull(actualCreateOneTaskAndStartEventWithFormKeyProcessResult.getUserTaskFormTypes());
     assertEquals(1, actualCreateOneTaskAndStartEventWithFormKeyProcessResult.getProcesses().size());
-    assertFalse(
-        actualCreateOneTaskAndStartEventWithFormKeyProcessResult.hasDiagramInterchangeInfo());
+    assertFalse(actualCreateOneTaskAndStartEventWithFormKeyProcessResult.hasDiagramInterchangeInfo());
     assertTrue(actualCreateOneTaskAndStartEventWithFormKeyProcessResult.getMessages().isEmpty());
     assertTrue(resources.isEmpty());
     assertTrue(signals.isEmpty());
-    assertTrue(
-        actualCreateOneTaskAndStartEventWithFormKeyProcessResult.getGlobalArtifacts().isEmpty());
+    assertTrue(actualCreateOneTaskAndStartEventWithFormKeyProcessResult.getGlobalArtifacts().isEmpty());
     assertTrue(actualCreateOneTaskAndStartEventWithFormKeyProcessResult.getImports().isEmpty());
     assertTrue(actualCreateOneTaskAndStartEventWithFormKeyProcessResult.getInterfaces().isEmpty());
     assertTrue(actualCreateOneTaskAndStartEventWithFormKeyProcessResult.getPools().isEmpty());
     assertTrue(actualCreateOneTaskAndStartEventWithFormKeyProcessResult.getDataStores().isEmpty());
-    assertTrue(
-        actualCreateOneTaskAndStartEventWithFormKeyProcessResult
-            .getDefinitionsAttributes()
-            .isEmpty());
+    assertTrue(actualCreateOneTaskAndStartEventWithFormKeyProcessResult.getDefinitionsAttributes().isEmpty());
     assertTrue(actualCreateOneTaskAndStartEventWithFormKeyProcessResult.getErrors().isEmpty());
-    assertTrue(
-        actualCreateOneTaskAndStartEventWithFormKeyProcessResult.getFlowLocationMap().isEmpty());
-    assertTrue(
-        actualCreateOneTaskAndStartEventWithFormKeyProcessResult.getItemDefinitions().isEmpty());
-    assertTrue(
-        actualCreateOneTaskAndStartEventWithFormKeyProcessResult.getLabelLocationMap().isEmpty());
+    assertTrue(actualCreateOneTaskAndStartEventWithFormKeyProcessResult.getFlowLocationMap().isEmpty());
+    assertTrue(actualCreateOneTaskAndStartEventWithFormKeyProcessResult.getItemDefinitions().isEmpty());
+    assertTrue(actualCreateOneTaskAndStartEventWithFormKeyProcessResult.getLabelLocationMap().isEmpty());
     assertTrue(actualCreateOneTaskAndStartEventWithFormKeyProcessResult.getLocationMap().isEmpty());
-    assertTrue(
-        actualCreateOneTaskAndStartEventWithFormKeyProcessResult.getMessageFlows().isEmpty());
+    assertTrue(actualCreateOneTaskAndStartEventWithFormKeyProcessResult.getMessageFlows().isEmpty());
     assertTrue(actualCreateOneTaskAndStartEventWithFormKeyProcessResult.getNamespaces().isEmpty());
   }
 }

@@ -16,8 +16,7 @@
 package org.activiti.engine.impl.cmd;
 
 import static org.junit.Assert.assertEquals;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
@@ -25,17 +24,15 @@ import org.junit.experimental.categories.Category;
 public class NeedsActiveTaskCmdDiffblueTest {
   /**
    * Test {@link NeedsActiveTaskCmd#getSuspendedTaskException()}.
-   *
-   * <p>Method under test: {@link NeedsActiveTaskCmd#getSuspendedTaskException()}
+   * <p>
+   * Method under test: {@link NeedsActiveTaskCmd#getSuspendedTaskException()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"java.lang.String NeedsActiveTaskCmd.getSuspendedTaskException()"})
   public void testGetSuspendedTaskException() {
     // Arrange, Act and Assert
-    assertEquals(
-        "Cannot execute operation: task is suspended",
-        new SetTaskPriorityCmd("42", 1).getSuspendedTaskException());
+    assertEquals("Cannot execute operation: task is suspended",
+        (new SetTaskPriorityCmd("42", 1)).getSuspendedTaskException());
   }
 }

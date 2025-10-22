@@ -18,8 +18,7 @@ package org.activiti.bpmn.model;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
@@ -27,16 +26,15 @@ import org.junit.experimental.categories.Category;
 public class TimerEventDefinitionDiffblueTest {
   /**
    * Test {@link TimerEventDefinition#clone()}.
-   *
-   * <p>Method under test: {@link TimerEventDefinition#clone()}
+   * <p>
+   * Method under test: {@link TimerEventDefinition#clone()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"TimerEventDefinition TimerEventDefinition.clone()"})
   public void testClone() {
     // Arrange and Act
-    TimerEventDefinition actualCloneResult = new TimerEventDefinition().clone();
+    TimerEventDefinition actualCloneResult = (new TimerEventDefinition()).clone();
 
     // Assert
     assertNull(actualCloneResult.getId());
@@ -53,9 +51,8 @@ public class TimerEventDefinitionDiffblueTest {
 
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>default or parameterless constructor of {@link TimerEventDefinition}
    *   <li>{@link TimerEventDefinition#setCalendarName(String)}
@@ -71,21 +68,13 @@ public class TimerEventDefinitionDiffblueTest {
    * </ul>
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void TimerEventDefinition.<init>()",
-    "String TimerEventDefinition.getCalendarName()",
-    "String TimerEventDefinition.getEndDate()",
-    "String TimerEventDefinition.getTimeCycle()",
-    "String TimerEventDefinition.getTimeDate()",
-    "String TimerEventDefinition.getTimeDuration()",
-    "void TimerEventDefinition.setCalendarName(String)",
-    "void TimerEventDefinition.setEndDate(String)",
-    "void TimerEventDefinition.setTimeCycle(String)",
-    "void TimerEventDefinition.setTimeDate(String)",
-    "void TimerEventDefinition.setTimeDuration(String)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void TimerEventDefinition.<init>()", "String TimerEventDefinition.getCalendarName()",
+      "String TimerEventDefinition.getEndDate()", "String TimerEventDefinition.getTimeCycle()",
+      "String TimerEventDefinition.getTimeDate()", "String TimerEventDefinition.getTimeDuration()",
+      "void TimerEventDefinition.setCalendarName(String)", "void TimerEventDefinition.setEndDate(String)",
+      "void TimerEventDefinition.setTimeCycle(String)", "void TimerEventDefinition.setTimeDate(String)",
+      "void TimerEventDefinition.setTimeDuration(String)"})
   public void testGettersAndSetters() {
     // Arrange and Act
     TimerEventDefinition actualTimerEventDefinition = new TimerEventDefinition();

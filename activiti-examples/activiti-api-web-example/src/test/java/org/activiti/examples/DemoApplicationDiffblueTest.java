@@ -21,7 +21,6 @@ import static org.mockito.ArgumentMatchers.isA;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
 import java.util.List;
@@ -39,27 +38,23 @@ import org.mockito.Mockito;
 class DemoApplicationDiffblueTest {
   /**
    * Test {@link DemoApplication#processFile(String)}.
-   *
    * <ul>
-   *   <li>Then return a string.
+   *   <li>Then return a string.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link DemoApplication#processFile(String)}
+   * <p>
+   * Method under test: {@link DemoApplication#processFile(String)}
    */
   @Test
   @DisplayName("Test processFile(String); then return a string")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"String DemoApplication.processFile(String)"})
   void testProcessFile_thenReturnAString() {
     // Arrange
     ProcessRuntime processRuntime = mock(ProcessRuntime.class);
-    when(processRuntime.start(Mockito.<StartProcessPayload>any()))
-        .thenReturn(new ProcessInstanceImpl());
+    when(processRuntime.start(Mockito.<StartProcessPayload>any())).thenReturn(new ProcessInstanceImpl());
 
     // Act
-    String actualProcessFileResult =
-        new DemoApplication(processRuntime).processFile("Not all who wander are lost");
+    String actualProcessFileResult = (new DemoApplication(processRuntime)).processFile("Not all who wander are lost");
 
     // Assert
     verify(processRuntime).start(isA(StartProcessPayload.class));
@@ -72,17 +67,15 @@ class DemoApplicationDiffblueTest {
 
   /**
    * Test {@link DemoApplication#getProcessDefinition()}.
-   *
    * <ul>
-   *   <li>Then return Empty.
+   *   <li>Then return Empty.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link DemoApplication#getProcessDefinition()}
+   * <p>
+   * Method under test: {@link DemoApplication#getProcessDefinition()}
    */
   @Test
   @DisplayName("Test getProcessDefinition(); then return Empty")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"List DemoApplication.getProcessDefinition()"})
   void testGetProcessDefinition_thenReturnEmpty() {
     // Arrange
@@ -91,8 +84,7 @@ class DemoApplicationDiffblueTest {
         .thenReturn(new PageImpl<>(new ArrayList<>(), 1000));
 
     // Act
-    List<ProcessDefinition> actualProcessDefinition =
-        new DemoApplication(processRuntime).getProcessDefinition();
+    List<ProcessDefinition> actualProcessDefinition = (new DemoApplication(processRuntime)).getProcessDefinition();
 
     // Assert
     verify(processRuntime).processDefinitions(isA(Pageable.class));

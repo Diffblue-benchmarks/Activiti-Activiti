@@ -16,7 +16,6 @@
 package org.activiti.bpmn.converter.child.multi.instance;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
 import java.util.List;
@@ -27,9 +26,8 @@ import org.junit.jupiter.api.Test;
 class MultiInstanceParserDiffblueTest {
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>{@link MultiInstanceParser#MultiInstanceParser(List)}
    *   <li>{@link MultiInstanceParser#getElementName()}
@@ -37,31 +35,24 @@ class MultiInstanceParserDiffblueTest {
    */
   @Test
   @DisplayName("Test getters and setters")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void MultiInstanceParser.<init>(List)",
-    "java.lang.String MultiInstanceParser.getElementName()"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void MultiInstanceParser.<init>(List)", "java.lang.String MultiInstanceParser.getElementName()"})
   void testGettersAndSetters() {
     // Arrange, Act and Assert
-    assertEquals(
-        "multiInstanceLoopCharacteristics",
-        new MultiInstanceParser(new ArrayList<>()).getElementName());
+    assertEquals("multiInstanceLoopCharacteristics", (new MultiInstanceParser(new ArrayList<>())).getElementName());
   }
 
   /**
    * Test {@link MultiInstanceParser#MultiInstanceParser()}.
-   *
-   * <p>Method under test: {@link MultiInstanceParser#MultiInstanceParser()}
+   * <p>
+   * Method under test: {@link MultiInstanceParser#MultiInstanceParser()}
    */
   @Test
   @DisplayName("Test new MultiInstanceParser()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void MultiInstanceParser.<init>()"})
   void testNewMultiInstanceParser() {
     // Arrange, Act and Assert
-    assertEquals("multiInstanceLoopCharacteristics", new MultiInstanceParser().getElementName());
+    assertEquals("multiInstanceLoopCharacteristics", (new MultiInstanceParser()).getElementName());
   }
 }

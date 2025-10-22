@@ -17,7 +17,6 @@ package org.activiti.bpmn.converter.util;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.List;
 import org.junit.jupiter.api.DisplayName;
@@ -27,18 +26,16 @@ import org.junit.jupiter.api.Test;
 class CommaSplitterDiffblueTest {
   /**
    * Test {@link CommaSplitter#splitCommas(String)}.
-   *
    * <ul>
-   *   <li>When empty string.
-   *   <li>Then return Empty.
+   *   <li>When empty string.</li>
+   *   <li>Then return Empty.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link CommaSplitter#splitCommas(String)}
+   * <p>
+   * Method under test: {@link CommaSplitter#splitCommas(String)}
    */
   @Test
   @DisplayName("Test splitCommas(String); when empty string; then return Empty")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"List CommaSplitter.splitCommas(String)"})
   void testSplitCommas_whenEmptyString_thenReturnEmpty() {
     // Arrange and Act
@@ -50,18 +47,16 @@ class CommaSplitterDiffblueTest {
 
   /**
    * Test {@link CommaSplitter#splitCommas(String)}.
-   *
    * <ul>
-   *   <li>When {@code St}.
-   *   <li>Then return size is one.
+   *   <li>When {@code St}.</li>
+   *   <li>Then return size is one.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link CommaSplitter#splitCommas(String)}
+   * <p>
+   * Method under test: {@link CommaSplitter#splitCommas(String)}
    */
   @Test
   @DisplayName("Test splitCommas(String); when 'St'; then return size is one")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"List CommaSplitter.splitCommas(String)"})
   void testSplitCommas_whenSt_thenReturnSizeIsOne() {
     // Arrange and Act

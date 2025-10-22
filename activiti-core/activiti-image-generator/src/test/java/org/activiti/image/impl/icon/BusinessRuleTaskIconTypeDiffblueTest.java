@@ -16,8 +16,7 @@
 package org.activiti.image.impl.icon;
 
 import static org.junit.Assert.assertEquals;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
@@ -25,9 +24,8 @@ import org.junit.experimental.categories.Category;
 public class BusinessRuleTaskIconTypeDiffblueTest {
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>default or parameterless constructor of {@link BusinessRuleTaskIconType}
    *   <li>{@link BusinessRuleTaskIconType#getDValue()}
@@ -35,13 +33,9 @@ public class BusinessRuleTaskIconTypeDiffblueTest {
    * </ul>
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void BusinessRuleTaskIconType.<init>()",
-    "String BusinessRuleTaskIconType.getDValue()",
-    "String BusinessRuleTaskIconType.getStyleValue()"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void BusinessRuleTaskIconType.<init>()", "String BusinessRuleTaskIconType.getDValue()",
+      "String BusinessRuleTaskIconType.getStyleValue()"})
   public void testGettersAndSetters() {
     // Arrange and Act
     BusinessRuleTaskIconType actualBusinessRuleTaskIconType = new BusinessRuleTaskIconType();
@@ -49,10 +43,8 @@ public class BusinessRuleTaskIconTypeDiffblueTest {
 
     // Assert
     assertEquals("fill:#72a7d0;stroke:none", actualBusinessRuleTaskIconType.getStyleValue());
-    assertEquals(
-        "m 1,2 0,14 16,0 0,-14 z m 1.45458,5.6000386 2.90906,0 0,2.7999224 -2.90906,0 z m 4.36364,0 8.72718,0"
-            + " 0,2.7999224 -8.72718,0 z m -4.36364,4.1998844 2.90906,0 0,2.800116 -2.90906,0 z m 4.36364,0 8.72718,0"
-            + " 0,2.800116 -8.72718,0 z",
-        actualDValue);
+    assertEquals("m 1,2 0,14 16,0 0,-14 z m 1.45458,5.6000386 2.90906,0 0,2.7999224 -2.90906,0 z m 4.36364,0 8.72718,0"
+        + " 0,2.7999224 -8.72718,0 z m -4.36364,4.1998844 2.90906,0 0,2.800116 -2.90906,0 z m 4.36364,0 8.72718,0"
+        + " 0,2.800116 -8.72718,0 z", actualDValue);
   }
 }

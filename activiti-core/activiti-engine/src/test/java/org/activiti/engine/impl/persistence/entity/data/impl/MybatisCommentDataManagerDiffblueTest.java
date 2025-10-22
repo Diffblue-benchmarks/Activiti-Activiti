@@ -19,8 +19,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.engine.impl.cfg.JtaProcessEngineConfiguration;
 import org.activiti.engine.impl.cfg.ProcessEngineConfigurationImpl;
@@ -32,26 +31,21 @@ import org.junit.experimental.categories.Category;
 public class MybatisCommentDataManagerDiffblueTest {
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
-   *   <li>{@link
-   *       MybatisCommentDataManager#MybatisCommentDataManager(ProcessEngineConfigurationImpl)}
+   *   <li>{@link MybatisCommentDataManager#MybatisCommentDataManager(ProcessEngineConfigurationImpl)}
    *   <li>{@link MybatisCommentDataManager#getManagedEntityClass()}
    * </ul>
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void MybatisCommentDataManager.<init>(ProcessEngineConfigurationImpl)",
-    "Class MybatisCommentDataManager.getManagedEntityClass()"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void MybatisCommentDataManager.<init>(ProcessEngineConfigurationImpl)",
+      "Class MybatisCommentDataManager.getManagedEntityClass()"})
   public void testGettersAndSetters() {
     // Arrange and Act
-    Class<? extends CommentEntity> actualManagedEntityClass =
-        new MybatisCommentDataManager(new JtaProcessEngineConfiguration()).getManagedEntityClass();
+    Class<? extends CommentEntity> actualManagedEntityClass = (new MybatisCommentDataManager(
+        new JtaProcessEngineConfiguration())).getManagedEntityClass();
 
     // Assert
     Class<CommentEntityImpl> expectedManagedEntityClass = CommentEntityImpl.class;
@@ -60,17 +54,15 @@ public class MybatisCommentDataManagerDiffblueTest {
 
   /**
    * Test {@link MybatisCommentDataManager#create()}.
-   *
-   * <p>Method under test: {@link MybatisCommentDataManager#create()}
+   * <p>
+   * Method under test: {@link MybatisCommentDataManager#create()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"CommentEntity MybatisCommentDataManager.create()"})
   public void testCreate() {
     // Arrange and Act
-    CommentEntity actualCreateResult =
-        new MybatisCommentDataManager(new JtaProcessEngineConfiguration()).create();
+    CommentEntity actualCreateResult = (new MybatisCommentDataManager(new JtaProcessEngineConfiguration())).create();
 
     // Assert
     assertTrue(actualCreateResult instanceof CommentEntityImpl);

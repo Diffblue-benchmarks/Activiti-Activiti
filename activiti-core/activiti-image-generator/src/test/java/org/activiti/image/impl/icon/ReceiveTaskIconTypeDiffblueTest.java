@@ -16,8 +16,7 @@
 package org.activiti.image.impl.icon;
 
 import static org.junit.Assert.assertEquals;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
@@ -25,9 +24,8 @@ import org.junit.experimental.categories.Category;
 public class ReceiveTaskIconTypeDiffblueTest {
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>default or parameterless constructor of {@link ReceiveTaskIconType}
    *   <li>{@link ReceiveTaskIconType#getDValue()}
@@ -35,13 +33,9 @@ public class ReceiveTaskIconTypeDiffblueTest {
    * </ul>
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void ReceiveTaskIconType.<init>()",
-    "String ReceiveTaskIconType.getDValue()",
-    "String ReceiveTaskIconType.getStyleValue()"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void ReceiveTaskIconType.<init>()", "String ReceiveTaskIconType.getDValue()",
+      "String ReceiveTaskIconType.getStyleValue()"})
   public void testGettersAndSetters() {
     // Arrange and Act
     ReceiveTaskIconType actualReceiveTaskIconType = new ReceiveTaskIconType();
@@ -49,9 +43,7 @@ public class ReceiveTaskIconTypeDiffblueTest {
 
     // Assert
     assertEquals("fill:#16964d;stroke:none;", actualReceiveTaskIconType.getStyleValue());
-    assertEquals(
-        "m 0.5,2.5 0,13 17,0 0,-13 z M 2,4 6.5,8.5 2,13 z M 4,4 14,4 9,9 z m 12,0 0,9 -4.5,-4.5 z M 7.5,9.5"
-            + " 9,11 10.5,9.5 15,14 3,14 z",
-        actualDValue);
+    assertEquals("m 0.5,2.5 0,13 17,0 0,-13 z M 2,4 6.5,8.5 2,13 z M 4,4 14,4 9,9 z m 12,0 0,9 -4.5,-4.5 z M 7.5,9.5"
+        + " 9,11 10.5,9.5 15,14 3,14 z", actualDValue);
   }
 }

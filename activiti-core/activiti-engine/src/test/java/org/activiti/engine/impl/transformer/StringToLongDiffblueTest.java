@@ -16,8 +16,7 @@
 package org.activiti.engine.impl.transformer;
 
 import static org.junit.Assert.assertEquals;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
@@ -25,20 +24,18 @@ import org.junit.experimental.categories.Category;
 public class StringToLongDiffblueTest {
   /**
    * Test {@link StringToLong#primTransform(Object)}.
-   *
    * <ul>
-   *   <li>When {@code 42}.
-   *   <li>Then return longValue is forty-two.
+   *   <li>When {@code 42}.</li>
+   *   <li>Then return longValue is forty-two.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link StringToLong#primTransform(Object)}
+   * <p>
+   * Method under test: {@link StringToLong#primTransform(Object)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"Object StringToLong.primTransform(Object)"})
   public void testPrimTransform_when42_thenReturnLongValueIsFortyTwo() throws Exception {
     // Arrange, Act and Assert
-    assertEquals(42L, ((Long) new StringToLong().primTransform("42")).longValue());
+    assertEquals(42L, ((Long) (new StringToLong()).primTransform("42")).longValue());
   }
 }

@@ -19,11 +19,10 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.node.DoubleNode;
 import com.fasterxml.jackson.databind.node.JsonNodeFactory;
+import com.fasterxml.jackson.databind.node.MissingNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.fasterxml.jackson.databind.node.TextNode;
 import java.util.HashMap;
@@ -39,13 +38,12 @@ import org.junit.jupiter.api.Test;
 class TextAnnotationJsonConverterDiffblueTest {
   /**
    * Test {@link TextAnnotationJsonConverter#fillJsonTypes(Map)}.
-   *
-   * <p>Method under test: {@link TextAnnotationJsonConverter#fillJsonTypes(Map)}
+   * <p>
+   * Method under test: {@link TextAnnotationJsonConverter#fillJsonTypes(Map)}
    */
   @Test
   @DisplayName("Test fillJsonTypes(Map)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void TextAnnotationJsonConverter.fillJsonTypes(Map)"})
   void testFillJsonTypes() {
     // Arrange
@@ -62,44 +60,37 @@ class TextAnnotationJsonConverterDiffblueTest {
 
   /**
    * Test {@link TextAnnotationJsonConverter#getStencilId(BaseElement)}.
-   *
-   * <p>Method under test: {@link TextAnnotationJsonConverter#getStencilId(BaseElement)}
+   * <p>
+   * Method under test: {@link TextAnnotationJsonConverter#getStencilId(BaseElement)}
    */
   @Test
   @DisplayName("Test getStencilId(BaseElement)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"String TextAnnotationJsonConverter.getStencilId(BaseElement)"})
   void testGetStencilId() {
     // Arrange
     TextAnnotationJsonConverter textAnnotationJsonConverter = new TextAnnotationJsonConverter();
 
     // Act and Assert
-    assertEquals(
-        "TextAnnotation", textAnnotationJsonConverter.getStencilId(new ActivitiListener()));
+    assertEquals("TextAnnotation", textAnnotationJsonConverter.getStencilId(new ActivitiListener()));
   }
 
   /**
    * Test {@link TextAnnotationJsonConverter#convertElementToJson(ObjectNode, BaseElement)}.
-   *
-   * <p>Method under test: {@link TextAnnotationJsonConverter#convertElementToJson(ObjectNode,
-   * BaseElement)}
+   * <p>
+   * Method under test: {@link TextAnnotationJsonConverter#convertElementToJson(ObjectNode, BaseElement)}
    */
   @Test
   @DisplayName("Test convertElementToJson(ObjectNode, BaseElement)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void TextAnnotationJsonConverter.convertElementToJson(ObjectNode, BaseElement)"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void TextAnnotationJsonConverter.convertElementToJson(ObjectNode, BaseElement)"})
   void testConvertElementToJson() {
     // Arrange
     TextAnnotationJsonConverter textAnnotationJsonConverter = new TextAnnotationJsonConverter();
-    JsonNodeFactory nc = JsonNodeFactory.withExactBigDecimals(true);
-    ObjectNode propertiesNode = new ObjectNode(nc);
+    ObjectNode propertiesNode = new ObjectNode(JsonNodeFactory.withExactBigDecimals(true));
 
     TextAnnotation baseElement = new TextAnnotation();
-    baseElement.setText("not empty");
+    baseElement.setText("Base Element");
 
     // Act
     textAnnotationJsonConverter.convertElementToJson(propertiesNode, baseElement);
@@ -107,7 +98,7 @@ class TextAnnotationJsonConverterDiffblueTest {
     // Assert
     Iterator<JsonNode> iteratorResult = propertiesNode.iterator();
     assertTrue(iteratorResult.next() instanceof TextNode);
-    assertEquals("{\n  \"text\" : \"not empty\"\n}", propertiesNode.toPrettyString());
+    assertEquals("{\n  \"text\" : \"Base Element\"\n}", propertiesNode.toPrettyString());
     assertEquals(1, propertiesNode.size());
     assertFalse(propertiesNode.isEmpty());
     assertFalse(iteratorResult.hasNext());
@@ -115,28 +106,21 @@ class TextAnnotationJsonConverterDiffblueTest {
 
   /**
    * Test {@link TextAnnotationJsonConverter#convertElementToJson(ObjectNode, BaseElement)}.
-   *
    * <ul>
-   *   <li>Given empty string.
-   *   <li>When {@link TextAnnotation} (default constructor) Text is empty string.
+   *   <li>Given empty string.</li>
+   *   <li>When {@link TextAnnotation} (default constructor) Text is empty string.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link TextAnnotationJsonConverter#convertElementToJson(ObjectNode,
-   * BaseElement)}
+   * <p>
+   * Method under test: {@link TextAnnotationJsonConverter#convertElementToJson(ObjectNode, BaseElement)}
    */
   @Test
-  @DisplayName(
-      "Test convertElementToJson(ObjectNode, BaseElement); given empty string; when TextAnnotation (default constructor) Text is empty string")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void TextAnnotationJsonConverter.convertElementToJson(ObjectNode, BaseElement)"
-  })
+  @DisplayName("Test convertElementToJson(ObjectNode, BaseElement); given empty string; when TextAnnotation (default constructor) Text is empty string")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void TextAnnotationJsonConverter.convertElementToJson(ObjectNode, BaseElement)"})
   void testConvertElementToJson_givenEmptyString_whenTextAnnotationTextIsEmptyString() {
     // Arrange
     TextAnnotationJsonConverter textAnnotationJsonConverter = new TextAnnotationJsonConverter();
-    JsonNodeFactory nc = JsonNodeFactory.withExactBigDecimals(true);
-    ObjectNode propertiesNode = new ObjectNode(nc);
+    ObjectNode propertiesNode = new ObjectNode(JsonNodeFactory.withExactBigDecimals(true));
 
     TextAnnotation baseElement = new TextAnnotation();
     baseElement.setText("");
@@ -153,28 +137,21 @@ class TextAnnotationJsonConverterDiffblueTest {
 
   /**
    * Test {@link TextAnnotationJsonConverter#convertElementToJson(ObjectNode, BaseElement)}.
-   *
    * <ul>
-   *   <li>Given {@code null}.
-   *   <li>When {@link TextAnnotation} (default constructor) Text is {@code null}.
+   *   <li>Given {@code null}.</li>
+   *   <li>When {@link TextAnnotation} (default constructor) Text is {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link TextAnnotationJsonConverter#convertElementToJson(ObjectNode,
-   * BaseElement)}
+   * <p>
+   * Method under test: {@link TextAnnotationJsonConverter#convertElementToJson(ObjectNode, BaseElement)}
    */
   @Test
-  @DisplayName(
-      "Test convertElementToJson(ObjectNode, BaseElement); given 'null'; when TextAnnotation (default constructor) Text is 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void TextAnnotationJsonConverter.convertElementToJson(ObjectNode, BaseElement)"
-  })
+  @DisplayName("Test convertElementToJson(ObjectNode, BaseElement); given 'null'; when TextAnnotation (default constructor) Text is 'null'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void TextAnnotationJsonConverter.convertElementToJson(ObjectNode, BaseElement)"})
   void testConvertElementToJson_givenNull_whenTextAnnotationTextIsNull() {
     // Arrange
     TextAnnotationJsonConverter textAnnotationJsonConverter = new TextAnnotationJsonConverter();
-    JsonNodeFactory nc = JsonNodeFactory.withExactBigDecimals(true);
-    ObjectNode propertiesNode = new ObjectNode(nc);
+    ObjectNode propertiesNode = new ObjectNode(JsonNodeFactory.withExactBigDecimals(true));
 
     TextAnnotation baseElement = new TextAnnotation();
     baseElement.setText(null);
@@ -191,32 +168,26 @@ class TextAnnotationJsonConverterDiffblueTest {
 
   /**
    * Test {@link TextAnnotationJsonConverter#convertJsonToElement(JsonNode, JsonNode, Map)}.
-   *
    * <ul>
-   *   <li>When {@link HashMap#HashMap()}.
-   *   <li>Then return {@link TextAnnotation}.
+   *   <li>When {@link HashMap#HashMap()}.</li>
+   *   <li>Then return {@link TextAnnotation}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link TextAnnotationJsonConverter#convertJsonToElement(JsonNode,
-   * JsonNode, Map)}
+   * <p>
+   * Method under test: {@link TextAnnotationJsonConverter#convertJsonToElement(JsonNode, JsonNode, Map)}
    */
   @Test
-  @DisplayName(
-      "Test convertJsonToElement(JsonNode, JsonNode, Map); when HashMap(); then return TextAnnotation")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "BaseElement TextAnnotationJsonConverter.convertJsonToElement(JsonNode, JsonNode, Map)"
-  })
+  @DisplayName("Test convertJsonToElement(JsonNode, JsonNode, Map); when HashMap(); then return TextAnnotation")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"BaseElement TextAnnotationJsonConverter.convertJsonToElement(JsonNode, JsonNode, Map)"})
   void testConvertJsonToElement_whenHashMap_thenReturnTextAnnotation() {
     // Arrange
     TextAnnotationJsonConverter textAnnotationJsonConverter = new TextAnnotationJsonConverter();
-    DoubleNode elementNode = DoubleNode.valueOf(10.0d);
-    DoubleNode modelNode = DoubleNode.valueOf(10.0d);
+    MissingNode elementNode = MissingNode.getInstance();
+    MissingNode modelNode = MissingNode.getInstance();
 
     // Act
-    BaseElement actualConvertJsonToElementResult =
-        textAnnotationJsonConverter.convertJsonToElement(elementNode, modelNode, new HashMap<>());
+    BaseElement actualConvertJsonToElementResult = textAnnotationJsonConverter.convertJsonToElement(elementNode,
+        modelNode, new HashMap<>());
 
     // Assert
     assertTrue(actualConvertJsonToElementResult instanceof TextAnnotation);
@@ -231,19 +202,16 @@ class TextAnnotationJsonConverterDiffblueTest {
 
   /**
    * Test new {@link TextAnnotationJsonConverter} (default constructor).
-   *
-   * <p>Method under test: default or parameterless constructor of {@link
-   * TextAnnotationJsonConverter}
+   * <p>
+   * Method under test: default or parameterless constructor of {@link TextAnnotationJsonConverter}
    */
   @Test
   @DisplayName("Test new TextAnnotationJsonConverter (default constructor)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void TextAnnotationJsonConverter.<init>()"})
   void testNewTextAnnotationJsonConverter() {
     // Arrange and Act
-    TextAnnotationJsonConverter actualTextAnnotationJsonConverter =
-        new TextAnnotationJsonConverter();
+    TextAnnotationJsonConverter actualTextAnnotationJsonConverter = new TextAnnotationJsonConverter();
 
     // Assert
     assertNull(actualTextAnnotationJsonConverter.shapesArrayNode);

@@ -16,7 +16,6 @@
 package org.activiti.examples;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
@@ -30,26 +29,26 @@ import org.springframework.test.context.aot.DisabledInAotMode;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 @ContextConfiguration(classes = {SecurityUtil.class, UserDetailsService.class})
-@DisabledInAotMode
 @ExtendWith(SpringExtension.class)
+@DisabledInAotMode
 class SecurityUtilDiffblueTest {
-  @Autowired private SecurityUtil securityUtil;
+  @Autowired
+  private SecurityUtil securityUtil;
 
-  @MockBean private UserDetailsService userDetailsService;
+  @MockBean
+  private UserDetailsService userDetailsService;
 
   /**
    * Test {@link SecurityUtil#logInAs(String)}.
-   *
    * <ul>
-   *   <li>Then throw {@link IllegalStateException}.
+   *   <li>Then throw {@link IllegalStateException}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link SecurityUtil#logInAs(String)}
+   * <p>
+   * Method under test: {@link SecurityUtil#logInAs(String)}
    */
   @Test
   @DisplayName("Test logInAs(String); then throw IllegalStateException")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void SecurityUtil.logInAs(String)"})
   void testLogInAs_thenThrowIllegalStateException() {
     // Arrange, Act and Assert

@@ -17,7 +17,6 @@ package org.activiti.validation.validator;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.mock;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
@@ -26,9 +25,8 @@ import org.junit.jupiter.api.Test;
 class ValidatorSetDiffblueTest {
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>{@link ValidatorSet#ValidatorSet(String)}
    *   <li>{@link ValidatorSet#setName(String)}
@@ -37,13 +35,9 @@ class ValidatorSetDiffblueTest {
    */
   @Test
   @DisplayName("Test getters and setters")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void ValidatorSet.<init>(String)",
-    "String ValidatorSet.getName()",
-    "void ValidatorSet.setName(String)"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void ValidatorSet.<init>(String)", "String ValidatorSet.getName()",
+      "void ValidatorSet.setName(String)"})
   void testGettersAndSetters() {
     // Arrange and Act
     ValidatorSet actualValidatorSet = new ValidatorSet("Name");
@@ -55,17 +49,15 @@ class ValidatorSetDiffblueTest {
 
   /**
    * Test {@link ValidatorSet#getValidators()}.
-   *
    * <ul>
-   *   <li>Then return size is one.
+   *   <li>Then return size is one.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ValidatorSet#getValidators()}
+   * <p>
+   * Method under test: {@link ValidatorSet#getValidators()}
    */
   @Test
   @DisplayName("Test getValidators(); then return size is one")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"java.util.Collection ValidatorSet.getValidators()"})
   void testGetValidators_thenReturnSizeIsOne() {
     // Arrange

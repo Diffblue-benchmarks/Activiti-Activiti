@@ -16,7 +16,6 @@
 package org.activiti.runtime.api.event.impl;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
@@ -25,17 +24,15 @@ import org.junit.jupiter.api.Test;
 class ActivitiEntityEventHelperDiffblueTest {
   /**
    * Test {@link ActivitiEntityEventHelper#isProcessInstanceEntity(Object)}.
-   *
    * <ul>
-   *   <li>When {@code Entity}.
+   *   <li>When {@code Entity}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ActivitiEntityEventHelper#isProcessInstanceEntity(Object)}
+   * <p>
+   * Method under test: {@link ActivitiEntityEventHelper#isProcessInstanceEntity(Object)}
    */
   @Test
   @DisplayName("Test isProcessInstanceEntity(Object); when 'Entity'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"boolean ActivitiEntityEventHelper.isProcessInstanceEntity(Object)"})
   void testIsProcessInstanceEntity_whenEntity() {
     // Arrange, Act and Assert
@@ -44,17 +41,15 @@ class ActivitiEntityEventHelperDiffblueTest {
 
   /**
    * Test {@link ActivitiEntityEventHelper#isProcessInstanceEntity(Object)}.
-   *
    * <ul>
-   *   <li>When {@code null}.
+   *   <li>When {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ActivitiEntityEventHelper#isProcessInstanceEntity(Object)}
+   * <p>
+   * Method under test: {@link ActivitiEntityEventHelper#isProcessInstanceEntity(Object)}
    */
   @Test
   @DisplayName("Test isProcessInstanceEntity(Object); when 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"boolean ActivitiEntityEventHelper.isProcessInstanceEntity(Object)"})
   void testIsProcessInstanceEntity_whenNull() {
     // Arrange, Act and Assert

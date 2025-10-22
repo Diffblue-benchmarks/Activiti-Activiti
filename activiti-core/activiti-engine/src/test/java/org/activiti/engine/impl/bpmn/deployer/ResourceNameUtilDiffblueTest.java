@@ -18,8 +18,7 @@ package org.activiti.engine.impl.bpmn.deployer;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertThrows;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.HashMap;
 import java.util.Map;
@@ -31,12 +30,11 @@ import org.junit.experimental.categories.Category;
 public class ResourceNameUtilDiffblueTest {
   /**
    * Test {@link ResourceNameUtil#stripBpmnFileSuffix(String)}.
-   *
-   * <p>Method under test: {@link ResourceNameUtil#stripBpmnFileSuffix(String)}
+   * <p>
+   * Method under test: {@link ResourceNameUtil#stripBpmnFileSuffix(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"String ResourceNameUtil.stripBpmnFileSuffix(String)"})
   public void testStripBpmnFileSuffix() {
     // Arrange, Act and Assert
@@ -45,110 +43,79 @@ public class ResourceNameUtilDiffblueTest {
 
   /**
    * Test {@link ResourceNameUtil#getProcessDiagramResourceName(String, String, String)}.
-   *
-   * <p>Method under test: {@link ResourceNameUtil#getProcessDiagramResourceName(String, String,
-   * String)}
+   * <p>
+   * Method under test: {@link ResourceNameUtil#getProcessDiagramResourceName(String, String, String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "String ResourceNameUtil.getProcessDiagramResourceName(String, String, String)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String ResourceNameUtil.getProcessDiagramResourceName(String, String, String)"})
   public void testGetProcessDiagramResourceName() {
-    // Arrange and Act
-    String actualProcessDiagramResourceName =
-        ResourceNameUtil.getProcessDiagramResourceName(
-            "Bpmn File Resource", "Process Key", "Diagram Suffix");
-
-    // Assert
-    assertEquals("Bpmn File ResourceProcess Key.Diagram Suffix", actualProcessDiagramResourceName);
+    // Arrange, Act and Assert
+    assertEquals("Bpmn File ResourceProcess Key.Diagram Suffix",
+        ResourceNameUtil.getProcessDiagramResourceName("Bpmn File Resource", "Process Key", "Diagram Suffix"));
   }
 
   /**
-   * Test {@link
-   * ResourceNameUtil#getProcessDiagramResourceNameFromDeployment(ProcessDefinitionEntity, Map)}.
-   *
+   * Test {@link ResourceNameUtil#getProcessDiagramResourceNameFromDeployment(ProcessDefinitionEntity, Map)}.
    * <ul>
-   *   <li>Given empty string.
+   *   <li>Given empty string.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link
-   * ResourceNameUtil#getProcessDiagramResourceNameFromDeployment(ProcessDefinitionEntity, Map)}
+   * <p>
+   * Method under test: {@link ResourceNameUtil#getProcessDiagramResourceNameFromDeployment(ProcessDefinitionEntity, Map)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({
-    "String ResourceNameUtil.getProcessDiagramResourceNameFromDeployment(ProcessDefinitionEntity, Map)"
-  })
+      "String ResourceNameUtil.getProcessDiagramResourceNameFromDeployment(ProcessDefinitionEntity, Map)"})
   public void testGetProcessDiagramResourceNameFromDeployment_givenEmptyString() {
     // Arrange
     ProcessDefinitionEntityImpl processDefinition = new ProcessDefinitionEntityImpl();
     processDefinition.setResourceName("");
 
     // Act and Assert
-    assertThrows(
-        IllegalStateException.class,
-        () ->
-            ResourceNameUtil.getProcessDiagramResourceNameFromDeployment(
-                processDefinition, new HashMap<>()));
+    assertThrows(IllegalStateException.class,
+        () -> ResourceNameUtil.getProcessDiagramResourceNameFromDeployment(processDefinition, new HashMap<>()));
   }
 
   /**
-   * Test {@link
-   * ResourceNameUtil#getProcessDiagramResourceNameFromDeployment(ProcessDefinitionEntity, Map)}.
-   *
+   * Test {@link ResourceNameUtil#getProcessDiagramResourceNameFromDeployment(ProcessDefinitionEntity, Map)}.
    * <ul>
-   *   <li>Then return {@code null}.
+   *   <li>Then return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link
-   * ResourceNameUtil#getProcessDiagramResourceNameFromDeployment(ProcessDefinitionEntity, Map)}
+   * <p>
+   * Method under test: {@link ResourceNameUtil#getProcessDiagramResourceNameFromDeployment(ProcessDefinitionEntity, Map)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({
-    "String ResourceNameUtil.getProcessDiagramResourceNameFromDeployment(ProcessDefinitionEntity, Map)"
-  })
+      "String ResourceNameUtil.getProcessDiagramResourceNameFromDeployment(ProcessDefinitionEntity, Map)"})
   public void testGetProcessDiagramResourceNameFromDeployment_thenReturnNull() {
     // Arrange
     ProcessDefinitionEntityImpl processDefinition = new ProcessDefinitionEntityImpl();
     processDefinition.setResourceName("Process Definition");
 
     // Act and Assert
-    assertNull(
-        ResourceNameUtil.getProcessDiagramResourceNameFromDeployment(
-            processDefinition, new HashMap<>()));
+    assertNull(ResourceNameUtil.getProcessDiagramResourceNameFromDeployment(processDefinition, new HashMap<>()));
   }
 
   /**
-   * Test {@link
-   * ResourceNameUtil#getProcessDiagramResourceNameFromDeployment(ProcessDefinitionEntity, Map)}.
-   *
+   * Test {@link ResourceNameUtil#getProcessDiagramResourceNameFromDeployment(ProcessDefinitionEntity, Map)}.
    * <ul>
-   *   <li>When {@link ProcessDefinitionEntityImpl} (default constructor).
+   *   <li>When {@link ProcessDefinitionEntityImpl} (default constructor).</li>
    * </ul>
-   *
-   * <p>Method under test: {@link
-   * ResourceNameUtil#getProcessDiagramResourceNameFromDeployment(ProcessDefinitionEntity, Map)}
+   * <p>
+   * Method under test: {@link ResourceNameUtil#getProcessDiagramResourceNameFromDeployment(ProcessDefinitionEntity, Map)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({
-    "String ResourceNameUtil.getProcessDiagramResourceNameFromDeployment(ProcessDefinitionEntity, Map)"
-  })
+      "String ResourceNameUtil.getProcessDiagramResourceNameFromDeployment(ProcessDefinitionEntity, Map)"})
   public void testGetProcessDiagramResourceNameFromDeployment_whenProcessDefinitionEntityImpl() {
     // Arrange
     ProcessDefinitionEntityImpl processDefinition = new ProcessDefinitionEntityImpl();
 
     // Act and Assert
-    assertThrows(
-        IllegalStateException.class,
-        () ->
-            ResourceNameUtil.getProcessDiagramResourceNameFromDeployment(
-                processDefinition, new HashMap<>()));
+    assertThrows(IllegalStateException.class,
+        () -> ResourceNameUtil.getProcessDiagramResourceNameFromDeployment(processDefinition, new HashMap<>()));
   }
 }

@@ -24,8 +24,7 @@ import static org.mockito.Mockito.anyInt;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.io.ByteArrayInputStream;
 import java.io.DataInputStream;
@@ -40,14 +39,34 @@ import org.mockito.Mockito;
 public class InputStreamSourceDiffblueTest {
   /**
    * Test {@link InputStreamSource#getInputStream()}.
-   *
-   * <p>Method under test: {@link InputStreamSource#getInputStream()}
+   * <p>
+   * Method under test: {@link InputStreamSource#getInputStream()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"InputStream InputStreamSource.getInputStream()"})
   public void testGetInputStream() throws IOException {
+    // Arrange
+    DataInputStream inputStream = mock(DataInputStream.class);
+    when(inputStream.read(Mockito.<byte[]>any(), anyInt(), anyInt()))
+        .thenThrow(new IOException("Could not completely read inputstream "));
+    when(inputStream.available()).thenReturn(1);
+
+    // Act and Assert
+    assertThrows(ActivitiException.class, () -> (new InputStreamSource(inputStream)).getInputStream());
+    verify(inputStream).read(isA(byte[].class), eq(0), eq(8192));
+    verify(inputStream).available();
+  }
+
+  /**
+   * Test {@link InputStreamSource#getInputStream()}.
+   * <p>
+   * Method under test: {@link InputStreamSource#getInputStream()}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"InputStream InputStreamSource.getInputStream()"})
+  public void testGetInputStream2() throws IOException {
     // Arrange
     DataInputStream inputStream = mock(DataInputStream.class);
     when(inputStream.read(Mockito.<byte[]>any(), anyInt(), anyInt()))
@@ -55,243 +74,133 @@ public class InputStreamSourceDiffblueTest {
     when(inputStream.available()).thenReturn(1);
 
     // Act and Assert
-    assertThrows(
-        ActivitiException.class, () -> new InputStreamSource(inputStream).getInputStream());
+    assertThrows(ActivitiException.class, () -> (new InputStreamSource(inputStream)).getInputStream());
     verify(inputStream).read(isA(byte[].class), eq(0), eq(8192));
     verify(inputStream).available();
   }
 
   /**
    * Test {@link InputStreamSource#getInputStream()}.
-   *
    * <ul>
-   *   <li>Given {@link DataInputStream} {@link DataInputStream#available()} throw {@link
-   *       IOException#IOException()}.
+   *   <li>Given {@link DataInputStream} {@link DataInputStream#read(byte[], int, int)} return minus one.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link InputStreamSource#getInputStream()}
+   * <p>
+   * Method under test: {@link InputStreamSource#getInputStream()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"InputStream InputStreamSource.getInputStream()"})
-  public void testGetInputStream_givenDataInputStreamAvailableThrowIOException()
-      throws IOException {
-    // Arrange
-    DataInputStream inputStream = mock(DataInputStream.class);
-    when(inputStream.available()).thenThrow(new IOException());
-
-    // Act and Assert
-    assertThrows(
-        ActivitiException.class, () -> new InputStreamSource(inputStream).getInputStream());
-    verify(inputStream).available();
-  }
-
-  /**
-   * Test {@link InputStreamSource#getInputStream()}.
-   *
-   * <ul>
-   *   <li>Given {@link DataInputStream} {@link DataInputStream#read(byte[], int, int)} return minus
-   *       one.
-   *   <li>Then calls {@link DataInputStream#read(byte[], int, int)}.
-   * </ul>
-   *
-   * <p>Method under test: {@link InputStreamSource#getInputStream()}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"InputStream InputStreamSource.getInputStream()"})
-  public void testGetInputStream_givenDataInputStreamReadReturnMinusOne_thenCallsRead()
-      throws IOException {
+  public void testGetInputStream_givenDataInputStreamReadReturnMinusOne() throws IOException {
     // Arrange
     DataInputStream inputStream = mock(DataInputStream.class);
     when(inputStream.read(Mockito.<byte[]>any(), anyInt(), anyInt())).thenReturn(-1);
     when(inputStream.available()).thenReturn(1);
 
     // Act and Assert
-    assertThrows(
-        ActivitiException.class, () -> new InputStreamSource(inputStream).getInputStream());
+    assertThrows(ActivitiException.class, () -> (new InputStreamSource(inputStream)).getInputStream());
     verify(inputStream).read(isA(byte[].class), eq(0), eq(8192));
     verify(inputStream).available();
   }
 
   /**
    * Test {@link InputStreamSource#getInputStream()}.
-   *
    * <ul>
-   *   <li>Given {@link DataInputStream} {@link DataInputStream#read(byte[], int, int)} throw {@link
-   *       IOException#IOException()}.
-   *   <li>Then calls {@link DataInputStream#read(byte[], int, int)}.
+   *   <li>Then return read is eight.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link InputStreamSource#getInputStream()}
+   * <p>
+   * Method under test: {@link InputStreamSource#getInputStream()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"InputStream InputStreamSource.getInputStream()"})
-  public void testGetInputStream_givenDataInputStreamReadThrowIOException_thenCallsRead()
-      throws IOException {
-    // Arrange
-    DataInputStream inputStream = mock(DataInputStream.class);
-    when(inputStream.read(Mockito.<byte[]>any(), anyInt(), anyInt())).thenThrow(new IOException());
-    when(inputStream.available()).thenReturn(1);
-
-    // Act and Assert
-    assertThrows(
-        ActivitiException.class, () -> new InputStreamSource(inputStream).getInputStream());
-    verify(inputStream).read(isA(byte[].class), eq(0), eq(8192));
-    verify(inputStream).available();
-  }
-
-  /**
-   * Test {@link InputStreamSource#getInputStream()}.
-   *
-   * <ul>
-   *   <li>Then return read is eight.
-   * </ul>
-   *
-   * <p>Method under test: {@link InputStreamSource#getInputStream()}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"InputStream InputStreamSource.getInputStream()"})
   public void testGetInputStream_thenReturnReadIsEight() throws IOException {
     // Arrange, Act and Assert
     byte[] byteArray = new byte[8];
-    assertEquals(
-        8,
-        new InputStreamSource(new ByteArrayInputStream("AXAXAXAX".getBytes("UTF-8")))
-            .getInputStream()
-            .read(byteArray));
+    assertEquals(8, (new InputStreamSource(new ByteArrayInputStream("AXAXAXAX".getBytes("UTF-8")))).getInputStream()
+        .read(byteArray));
     assertArrayEquals("AXAXAXAX".getBytes("UTF-8"), byteArray);
   }
 
   /**
    * Test {@link InputStreamSource#toString()}.
-   *
-   * <p>Method under test: {@link InputStreamSource#toString()}
+   * <p>
+   * Method under test: {@link InputStreamSource#toString()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"java.lang.String InputStreamSource.toString()"})
   public void testToString() throws UnsupportedEncodingException {
     // Arrange, Act and Assert
-    assertEquals(
-        "InputStream",
-        new InputStreamSource(new ByteArrayInputStream("AXAXAXAX".getBytes("UTF-8"))).toString());
+    assertEquals("InputStream",
+        (new InputStreamSource(new ByteArrayInputStream("AXAXAXAX".getBytes("UTF-8")))).toString());
   }
 
   /**
    * Test {@link InputStreamSource#getBytesFromInputStream(InputStream)}.
-   *
-   * <p>Method under test: {@link InputStreamSource#getBytesFromInputStream(InputStream)}
+   * <p>
+   * Method under test: {@link InputStreamSource#getBytesFromInputStream(InputStream)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"byte[] InputStreamSource.getBytesFromInputStream(InputStream)"})
   public void testGetBytesFromInputStream() throws IOException {
     // Arrange
-    InputStreamSource inputStreamSource =
-        new InputStreamSource(new ByteArrayInputStream("AXAXAXAX".getBytes("UTF-8")));
+    InputStreamSource inputStreamSource = new InputStreamSource(new ByteArrayInputStream("AXAXAXAX".getBytes("UTF-8")));
     ByteArrayInputStream inStream = new ByteArrayInputStream("AXAXAXAX".getBytes("UTF-8"));
 
     // Act
     byte[] actualBytesFromInputStream = inputStreamSource.getBytesFromInputStream(inStream);
 
     // Assert
-    int actualReadResult = inStream.read(new byte[] {});
-    assertEquals(-1, actualReadResult);
+    assertEquals(-1, inStream.read(new byte[]{}));
     assertArrayEquals("AXAXAXAX".getBytes("UTF-8"), actualBytesFromInputStream);
   }
 
   /**
    * Test {@link InputStreamSource#getBytesFromInputStream(InputStream)}.
-   *
    * <ul>
-   *   <li>Then throw {@link ActivitiException}.
+   *   <li>Given {@link IOException#IOException(String)} with {@code foo}.</li>
+   *   <li>Then throw {@link IOException}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link InputStreamSource#getBytesFromInputStream(InputStream)}
+   * <p>
+   * Method under test: {@link InputStreamSource#getBytesFromInputStream(InputStream)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"byte[] InputStreamSource.getBytesFromInputStream(InputStream)"})
-  public void testGetBytesFromInputStream_thenThrowActivitiException() throws IOException {
+  public void testGetBytesFromInputStream_givenIOExceptionWithFoo_thenThrowIOException() throws IOException {
     // Arrange
-    InputStreamSource inputStreamSource =
-        new InputStreamSource(new ByteArrayInputStream("AXAXAXAX".getBytes("UTF-8")));
-
+    InputStreamSource inputStreamSource = new InputStreamSource(new ByteArrayInputStream("AXAXAXAX".getBytes("UTF-8")));
     DataInputStream inStream = mock(DataInputStream.class);
-    when(inStream.read(Mockito.<byte[]>any(), anyInt(), anyInt())).thenReturn(-1);
+    when(inStream.read(Mockito.<byte[]>any(), anyInt(), anyInt())).thenThrow(new IOException("foo"));
     when(inStream.available()).thenReturn(1);
 
     // Act and Assert
-    assertThrows(
-        ActivitiException.class, () -> inputStreamSource.getBytesFromInputStream(inStream));
+    assertThrows(IOException.class, () -> inputStreamSource.getBytesFromInputStream(inStream));
     verify(inStream).read(isA(byte[].class), eq(0), eq(1));
     verify(inStream).available();
   }
 
   /**
    * Test {@link InputStreamSource#getBytesFromInputStream(InputStream)}.
-   *
    * <ul>
-   *   <li>When {@link DataInputStream} {@link DataInputStream#available()} throw {@link
-   *       IOException#IOException()}.
+   *   <li>Then throw {@link ActivitiException}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link InputStreamSource#getBytesFromInputStream(InputStream)}
+   * <p>
+   * Method under test: {@link InputStreamSource#getBytesFromInputStream(InputStream)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"byte[] InputStreamSource.getBytesFromInputStream(InputStream)"})
-  public void testGetBytesFromInputStream_whenDataInputStreamAvailableThrowIOException()
-      throws IOException {
+  public void testGetBytesFromInputStream_thenThrowActivitiException() throws IOException {
     // Arrange
-    InputStreamSource inputStreamSource =
-        new InputStreamSource(new ByteArrayInputStream("AXAXAXAX".getBytes("UTF-8")));
-
+    InputStreamSource inputStreamSource = new InputStreamSource(new ByteArrayInputStream("AXAXAXAX".getBytes("UTF-8")));
     DataInputStream inStream = mock(DataInputStream.class);
-    when(inStream.available()).thenThrow(new IOException());
-
-    // Act and Assert
-    assertThrows(IOException.class, () -> inputStreamSource.getBytesFromInputStream(inStream));
-    verify(inStream).available();
-  }
-
-  /**
-   * Test {@link InputStreamSource#getBytesFromInputStream(InputStream)}.
-   *
-   * <ul>
-   *   <li>When {@link DataInputStream} {@link DataInputStream#read(byte[], int, int)} throw {@link
-   *       IOException#IOException()}.
-   * </ul>
-   *
-   * <p>Method under test: {@link InputStreamSource#getBytesFromInputStream(InputStream)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"byte[] InputStreamSource.getBytesFromInputStream(InputStream)"})
-  public void testGetBytesFromInputStream_whenDataInputStreamReadThrowIOException()
-      throws IOException {
-    // Arrange
-    InputStreamSource inputStreamSource =
-        new InputStreamSource(new ByteArrayInputStream("AXAXAXAX".getBytes("UTF-8")));
-
-    DataInputStream inStream = mock(DataInputStream.class);
-    when(inStream.read(Mockito.<byte[]>any(), anyInt(), anyInt())).thenThrow(new IOException());
+    when(inStream.read(Mockito.<byte[]>any(), anyInt(), anyInt())).thenReturn(-1);
     when(inStream.available()).thenReturn(1);
 
     // Act and Assert
-    assertThrows(IOException.class, () -> inputStreamSource.getBytesFromInputStream(inStream));
+    assertThrows(ActivitiException.class, () -> inputStreamSource.getBytesFromInputStream(inStream));
     verify(inStream).read(isA(byte[].class), eq(0), eq(1));
     verify(inStream).available();
   }

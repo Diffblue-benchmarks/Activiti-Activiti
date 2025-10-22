@@ -18,8 +18,7 @@ package org.activiti.bpmn.model;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
@@ -27,17 +26,15 @@ import org.junit.experimental.categories.Category;
 public class LongDataObjectDiffblueTest {
   /**
    * Test {@link LongDataObject#setValue(Object)}.
-   *
    * <ul>
-   *   <li>When forty-two.
-   *   <li>Then {@link LongDataObject} (default constructor) Value longValue is forty-two.
+   *   <li>When forty-two.</li>
+   *   <li>Then {@link LongDataObject} (default constructor) Value longValue is forty-two.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link LongDataObject#setValue(Object)}
+   * <p>
+   * Method under test: {@link LongDataObject#setValue(Object)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void LongDataObject.setValue(Object)"})
   public void testSetValue_whenFortyTwo_thenLongDataObjectValueLongValueIsFortyTwo() {
     // Arrange
@@ -52,17 +49,15 @@ public class LongDataObjectDiffblueTest {
 
   /**
    * Test {@link LongDataObject#clone()}.
-   *
    * <ul>
-   *   <li>Given {@link LongDataObject} (default constructor) Value is forty-two.
-   *   <li>Then return Value longValue is forty-two.
+   *   <li>Given {@link LongDataObject} (default constructor) Value is forty-two.</li>
+   *   <li>Then return Value longValue is forty-two.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link LongDataObject#clone()}
+   * <p>
+   * Method under test: {@link LongDataObject#clone()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"LongDataObject LongDataObject.clone()"})
   public void testClone_givenLongDataObjectValueIsFortyTwo_thenReturnValueLongValueIsFortyTwo() {
     // Arrange
@@ -89,21 +84,19 @@ public class LongDataObjectDiffblueTest {
 
   /**
    * Test {@link LongDataObject#clone()}.
-   *
    * <ul>
-   *   <li>Given {@link LongDataObject} (default constructor).
-   *   <li>Then return Value is {@code null}.
+   *   <li>Given {@link LongDataObject} (default constructor).</li>
+   *   <li>Then return Value is {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link LongDataObject#clone()}
+   * <p>
+   * Method under test: {@link LongDataObject#clone()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"LongDataObject LongDataObject.clone()"})
   public void testClone_givenLongDataObject_thenReturnValueIsNull() {
     // Arrange and Act
-    LongDataObject actualCloneResult = new LongDataObject().clone();
+    LongDataObject actualCloneResult = (new LongDataObject()).clone();
 
     // Assert
     assertNull(actualCloneResult.getValue());
@@ -122,12 +115,11 @@ public class LongDataObjectDiffblueTest {
 
   /**
    * Test new {@link LongDataObject} (default constructor).
-   *
-   * <p>Method under test: default or parameterless constructor of {@link LongDataObject}
+   * <p>
+   * Method under test: default or parameterless constructor of {@link LongDataObject}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void LongDataObject.<init>()"})
   public void testNewLongDataObject() {
     // Arrange and Act

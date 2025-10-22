@@ -15,14 +15,13 @@
  */
 package org.activiti.engine.impl.util;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertThrows;
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
-import java.lang.reflect.Method;
 import org.activiti.engine.ActivitiClassLoadingException;
 import org.activiti.engine.ActivitiException;
 import org.activiti.engine.impl.util.json.JSONObject;
@@ -32,17 +31,15 @@ import org.junit.experimental.categories.Category;
 public class ReflectUtilDiffblueTest {
   /**
    * Test {@link ReflectUtil#loadClass(String)} with {@code className}.
-   *
    * <ul>
-   *   <li>When {@code Class Name}.
-   *   <li>Then throw {@link ActivitiClassLoadingException}.
+   *   <li>When {@code Class Name}.</li>
+   *   <li>Then throw {@link ActivitiClassLoadingException}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ReflectUtil#loadClass(String)}
+   * <p>
+   * Method under test: {@link ReflectUtil#loadClass(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"Class ReflectUtil.loadClass(String)"})
   public void testLoadClassWithClassName_whenClassName_thenThrowActivitiClassLoadingException() {
     // Arrange, Act and Assert
@@ -51,17 +48,15 @@ public class ReflectUtilDiffblueTest {
 
   /**
    * Test {@link ReflectUtil#getResourceAsStream(String)}.
-   *
    * <ul>
-   *   <li>When {@code Name}.
-   *   <li>Then return {@code null}.
+   *   <li>When {@code Name}.</li>
+   *   <li>Then return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ReflectUtil#getResourceAsStream(String)}
+   * <p>
+   * Method under test: {@link ReflectUtil#getResourceAsStream(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"java.io.InputStream ReflectUtil.getResourceAsStream(String)"})
   public void testGetResourceAsStream_whenName_thenReturnNull() {
     // Arrange, Act and Assert
@@ -70,17 +65,15 @@ public class ReflectUtilDiffblueTest {
 
   /**
    * Test {@link ReflectUtil#getResource(String)}.
-   *
    * <ul>
-   *   <li>When {@code Name}.
-   *   <li>Then return {@code null}.
+   *   <li>When {@code Name}.</li>
+   *   <li>Then return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ReflectUtil#getResource(String)}
+   * <p>
+   * Method under test: {@link ReflectUtil#getResource(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"java.net.URL ReflectUtil.getResource(String)"})
   public void testGetResource_whenName_thenReturnNull() {
     // Arrange, Act and Assert
@@ -89,37 +82,32 @@ public class ReflectUtilDiffblueTest {
 
   /**
    * Test {@link ReflectUtil#instantiate(String, Object[])} with {@code className}, {@code args}.
-   *
    * <ul>
-   *   <li>Then throw {@link ActivitiClassLoadingException}.
+   *   <li>Then throw {@link ActivitiClassLoadingException}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ReflectUtil#instantiate(String, Object[])}
+   * <p>
+   * Method under test: {@link ReflectUtil#instantiate(String, Object[])}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"Object ReflectUtil.instantiate(String, Object[])"})
   public void testInstantiateWithClassNameArgs_thenThrowActivitiClassLoadingException() {
     // Arrange, Act and Assert
-    assertThrows(
-        ActivitiClassLoadingException.class,
-        () -> ReflectUtil.instantiate("Class Name", new Object[] {JSONObject.NULL}));
+    assertThrows(ActivitiClassLoadingException.class,
+        () -> ReflectUtil.instantiate("Class Name", new Object[]{JSONObject.NULL}));
   }
 
   /**
    * Test {@link ReflectUtil#instantiate(String)} with {@code className}.
-   *
    * <ul>
-   *   <li>When {@code Class Name}.
-   *   <li>Then throw {@link ActivitiException}.
+   *   <li>When {@code Class Name}.</li>
+   *   <li>Then throw {@link ActivitiException}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ReflectUtil#instantiate(String)}
+   * <p>
+   * Method under test: {@link ReflectUtil#instantiate(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"Object ReflectUtil.instantiate(String)"})
   public void testInstantiateWithClassName_whenClassName_thenThrowActivitiException() {
     // Arrange, Act and Assert
@@ -128,75 +116,100 @@ public class ReflectUtilDiffblueTest {
 
   /**
    * Test {@link ReflectUtil#invoke(Object, String, Object[])}.
-   *
    * <ul>
-   *   <li>When array of {@link Object} with {@code null}.
-   *   <li>Then return {@code true}.
+   *   <li>When array of {@link Object} with {@code null}.</li>
+   *   <li>Then return {@code true}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ReflectUtil#invoke(Object, String, Object[])}
+   * <p>
+   * Method under test: {@link ReflectUtil#invoke(Object, String, Object[])}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"Object ReflectUtil.invoke(Object, String, Object[])"})
   public void testInvoke_whenArrayOfObjectWithNull_thenReturnTrue() {
     // Arrange, Act and Assert
-    assertTrue((Boolean) ReflectUtil.invoke(JSONObject.NULL, "equals", new Object[] {null}));
+    assertTrue((Boolean) ReflectUtil.invoke(JSONObject.NULL, "equals", new Object[]{null}));
   }
 
   /**
    * Test {@link ReflectUtil#invoke(Object, String, Object[])}.
-   *
    * <ul>
-   *   <li>When {@code equals}.
-   *   <li>Then return {@code true}.
+   *   <li>When empty array of {@link Object}.</li>
+   *   <li>Then return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ReflectUtil#invoke(Object, String, Object[])}
+   * <p>
+   * Method under test: {@link ReflectUtil#invoke(Object, String, Object[])}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Object ReflectUtil.invoke(Object, String, Object[])"})
+  public void testInvoke_whenEmptyArrayOfObject_thenReturnNull() {
+    // Arrange, Act and Assert
+    assertEquals("null", ReflectUtil.invoke(JSONObject.NULL, "toString", new Object[]{}));
+  }
+
+  /**
+   * Test {@link ReflectUtil#invoke(Object, String, Object[])}.
+   * <ul>
+   *   <li>When {@code equals}.</li>
+   *   <li>Then return {@code true}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link ReflectUtil#invoke(Object, String, Object[])}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"Object ReflectUtil.invoke(Object, String, Object[])"})
   public void testInvoke_whenEquals_thenReturnTrue() {
     // Arrange, Act and Assert
-    assertTrue(
-        (Boolean) ReflectUtil.invoke(JSONObject.NULL, "equals", new Object[] {JSONObject.NULL}));
+    assertTrue((Boolean) ReflectUtil.invoke(JSONObject.NULL, "equals", new Object[]{JSONObject.NULL}));
   }
 
   /**
    * Test {@link ReflectUtil#invoke(Object, String, Object[])}.
-   *
    * <ul>
-   *   <li>When three.
-   *   <li>Then return {@code false}.
+   *   <li>When three.</li>
+   *   <li>Then return {@code false}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ReflectUtil#invoke(Object, String, Object[])}
+   * <p>
+   * Method under test: {@link ReflectUtil#invoke(Object, String, Object[])}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"Object ReflectUtil.invoke(Object, String, Object[])"})
   public void testInvoke_whenThree_thenReturnFalse() {
     // Arrange, Act and Assert
-    assertFalse((Boolean) ReflectUtil.invoke(3, "equals", new Object[] {JSONObject.NULL}));
+    assertFalse((Boolean) ReflectUtil.invoke(3, "equals", new Object[]{JSONObject.NULL}));
+  }
+
+  /**
+   * Test {@link ReflectUtil#invoke(Object, String, Object[])}.
+   * <ul>
+   *   <li>When {@code toString}.</li>
+   *   <li>Then return {@code null}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link ReflectUtil#invoke(Object, String, Object[])}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Object ReflectUtil.invoke(Object, String, Object[])"})
+  public void testInvoke_whenToString_thenReturnNull() {
+    // Arrange, Act and Assert
+    assertEquals("null", ReflectUtil.invoke(JSONObject.NULL, "toString", null));
   }
 
   /**
    * Test {@link ReflectUtil#getField(String, Class)} with {@code fieldName}, {@code clazz}.
-   *
    * <ul>
-   *   <li>When {@code Field Name}.
-   *   <li>Then return {@code null}.
+   *   <li>When {@code Field Name}.</li>
+   *   <li>Then return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ReflectUtil#getField(String, Class)}
+   * <p>
+   * Method under test: {@link ReflectUtil#getField(String, Class)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"java.lang.reflect.Field ReflectUtil.getField(String, Class)"})
   public void testGetFieldWithFieldNameClazz_whenFieldName_thenReturnNull() {
     // Arrange
@@ -208,17 +221,15 @@ public class ReflectUtilDiffblueTest {
 
   /**
    * Test {@link ReflectUtil#getField(String, Object)} with {@code fieldName}, {@code object}.
-   *
    * <ul>
-   *   <li>When {@code Field Name}.
-   *   <li>Then return {@code null}.
+   *   <li>When {@code Field Name}.</li>
+   *   <li>Then return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ReflectUtil#getField(String, Object)}
+   * <p>
+   * Method under test: {@link ReflectUtil#getField(String, Object)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"java.lang.reflect.Field ReflectUtil.getField(String, Object)"})
   public void testGetFieldWithFieldNameObject_whenFieldName_thenReturnNull() {
     // Arrange, Act and Assert
@@ -227,27 +238,22 @@ public class ReflectUtilDiffblueTest {
 
   /**
    * Test {@link ReflectUtil#getSetter(String, Class, Class)}.
-   *
    * <ul>
-   *   <li>When {@code Field Name}.
-   *   <li>Then return {@code null}.
+   *   <li>When {@code Field Name}.</li>
+   *   <li>Then return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ReflectUtil#getSetter(String, Class, Class)}
+   * <p>
+   * Method under test: {@link ReflectUtil#getSetter(String, Class, Class)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"Method ReflectUtil.getSetter(String, Class, Class)"})
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"java.lang.reflect.Method ReflectUtil.getSetter(String, Class, Class)"})
   public void testGetSetter_whenFieldName_thenReturnNull() {
     // Arrange
     Class<Object> clazz = Object.class;
     Class<Object> fieldType = Object.class;
 
-    // Act
-    Method actualSetter = ReflectUtil.getSetter("Field Name", clazz, fieldType);
-
-    // Assert
-    assertNull(actualSetter);
+    // Act and Assert
+    assertNull(ReflectUtil.getSetter("Field Name", clazz, fieldType));
   }
 }

@@ -19,38 +19,38 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
+import static org.mockito.Mockito.atLeast;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
+import java.util.ArrayList;
+import java.util.HashMap;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 
 public class GatewayDiffblueTest {
   /**
    * Test {@link Gateway#getDefaultFlow()}.
-   *
-   * <p>Method under test: {@link Gateway#getDefaultFlow()}
+   * <p>
+   * Method under test: {@link Gateway#getDefaultFlow()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"String Gateway.getDefaultFlow()"})
   public void testGetDefaultFlow() {
     // Arrange, Act and Assert
-    assertNull(new ComplexGateway().getDefaultFlow());
+    assertNull((new ComplexGateway()).getDefaultFlow());
   }
 
   /**
    * Test {@link Gateway#setDefaultFlow(String)}.
-   *
-   * <p>Method under test: {@link Gateway#setDefaultFlow(String)}
+   * <p>
+   * Method under test: {@link Gateway#setDefaultFlow(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void Gateway.setDefaultFlow(String)"})
   public void testSetDefaultFlow() {
     // Arrange
@@ -65,42 +65,39 @@ public class GatewayDiffblueTest {
 
   /**
    * Test {@link Gateway#setValues(Gateway)} with {@code Gateway}.
-   *
    * <ul>
-   *   <li>Given {@code null}.
-   *   <li>Then {@link ComplexGateway} (default constructor) Id is {@code 42}.
+   *   <li>Given {@code true}.</li>
+   *   <li>Then {@link ComplexGateway} (default constructor) Id is {@code 42}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link Gateway#setValues(Gateway)}
+   * <p>
+   * Method under test: {@link Gateway#setValues(Gateway)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void Gateway.setValues(Gateway)"})
-  public void testSetValuesWithGateway_givenNull_thenComplexGatewayIdIs42() {
+  public void testSetValuesWithGateway_givenTrue_thenComplexGatewayIdIs42() {
     // Arrange
     ComplexGateway complexGateway = new ComplexGateway();
-
     EventGateway otherElement = mock(EventGateway.class);
-    when(otherElement.getExecutionListeners()).thenReturn(null);
-    when(otherElement.getAttributes()).thenReturn(null);
-    when(otherElement.getExtensionElements()).thenReturn(null);
     when(otherElement.isAsynchronous()).thenReturn(true);
     when(otherElement.isNotExclusive()).thenReturn(true);
     when(otherElement.getId()).thenReturn("42");
     when(otherElement.getDocumentation()).thenReturn("Documentation");
     when(otherElement.getName()).thenReturn("Name");
     when(otherElement.getDefaultFlow()).thenReturn("Default Flow");
+    when(otherElement.getExecutionListeners()).thenReturn(new ArrayList<>());
+    when(otherElement.getAttributes()).thenReturn(new HashMap<>());
+    when(otherElement.getExtensionElements()).thenReturn(new HashMap<>());
 
     // Act
     complexGateway.setValues(otherElement);
 
     // Assert
-    verify(otherElement).getAttributes();
-    verify(otherElement).getExtensionElements();
+    verify(otherElement, atLeast(1)).getAttributes();
+    verify(otherElement, atLeast(1)).getExtensionElements();
     verify(otherElement).getId();
     verify(otherElement).getDocumentation();
-    verify(otherElement).getExecutionListeners();
+    verify(otherElement, atLeast(1)).getExecutionListeners();
     verify(otherElement).getName();
     verify(otherElement).isAsynchronous();
     verify(otherElement).isNotExclusive();
@@ -116,17 +113,15 @@ public class GatewayDiffblueTest {
 
   /**
    * Test {@link Gateway#setValues(Gateway)} with {@code Gateway}.
-   *
    * <ul>
-   *   <li>When {@link ComplexGateway} (default constructor).
-   *   <li>Then not {@link ComplexGateway} (default constructor) Asynchronous.
+   *   <li>When {@link ComplexGateway} (default constructor).</li>
+   *   <li>Then not {@link ComplexGateway} (default constructor) Asynchronous.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link Gateway#setValues(Gateway)}
+   * <p>
+   * Method under test: {@link Gateway#setValues(Gateway)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void Gateway.setValues(Gateway)"})
   public void testSetValuesWithGateway_whenComplexGateway_thenNotComplexGatewayAsynchronous() {
     // Arrange

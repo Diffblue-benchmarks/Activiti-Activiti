@@ -26,7 +26,6 @@ import static org.mockito.Mockito.atLeast;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
 import java.util.List;
@@ -35,7 +34,6 @@ import org.activiti.bpmn.model.BooleanDataObject;
 import org.activiti.bpmn.model.BpmnModel;
 import org.activiti.bpmn.model.FlowElement;
 import org.activiti.bpmn.model.Process;
-import org.activiti.bpmn.model.SubProcess;
 import org.activiti.bpmn.model.ValuedDataObject;
 import org.activiti.validation.ValidationError;
 import org.junit.jupiter.api.DisplayName;
@@ -46,37 +44,63 @@ import org.mockito.Mockito;
 class DataObjectValidatorDiffblueTest {
   /**
    * Test {@link DataObjectValidator#executeValidation(BpmnModel, Process, List)}.
-   *
    * <ul>
-   *   <li>Given {@link ArrayList#ArrayList()} add {@link BooleanDataObject} (default constructor).
-   *   <li>Then {@link ArrayList#ArrayList()} size is two.
+   *   <li>Given {@link ArrayList#ArrayList()} add {@link AdhocSubProcess} (default constructor).</li>
+   *   <li>Then {@link ArrayList#ArrayList()} Empty.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link DataObjectValidator#executeValidation(BpmnModel, Process, List)}
+   * <p>
+   * Method under test: {@link DataObjectValidator#executeValidation(BpmnModel, Process, List)}
    */
   @Test
-  @DisplayName(
-      "Test executeValidation(BpmnModel, Process, List); given ArrayList() add BooleanDataObject (default constructor); then ArrayList() size is two")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test executeValidation(BpmnModel, Process, List); given ArrayList() add AdhocSubProcess (default constructor); then ArrayList() Empty")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void DataObjectValidator.executeValidation(BpmnModel, Process, List)"})
+  void testExecuteValidation_givenArrayListAddAdhocSubProcess_thenArrayListEmpty() {
+    // Arrange
+    DataObjectValidator dataObjectValidator = new DataObjectValidator();
+    BpmnModel bpmnModel = new BpmnModel();
+
+    ArrayList<FlowElement> flowElementList = new ArrayList<>();
+    flowElementList.add(new AdhocSubProcess());
+    Process process = mock(Process.class);
+    when(process.findFlowElementsOfType(Mockito.<Class<FlowElement>>any(), anyBoolean())).thenReturn(flowElementList);
+    when(process.getDataObjects()).thenReturn(new ArrayList<>());
+    ArrayList<ValidationError> errors = new ArrayList<>();
+
+    // Act
+    dataObjectValidator.executeValidation(bpmnModel, process, errors);
+
+    // Assert that nothing has changed
+    verify(process).findFlowElementsOfType(isA(Class.class), eq(true));
+    verify(process).getDataObjects();
+    assertTrue(errors.isEmpty());
+  }
+
+  /**
+   * Test {@link DataObjectValidator#executeValidation(BpmnModel, Process, List)}.
+   * <ul>
+   *   <li>Given {@link ArrayList#ArrayList()} add {@link BooleanDataObject} (default constructor).</li>
+   *   <li>Then {@link ArrayList#ArrayList()} size is two.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link DataObjectValidator#executeValidation(BpmnModel, Process, List)}
+   */
+  @Test
+  @DisplayName("Test executeValidation(BpmnModel, Process, List); given ArrayList() add BooleanDataObject (default constructor); then ArrayList() size is two")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void DataObjectValidator.executeValidation(BpmnModel, Process, List)"})
   void testExecuteValidation_givenArrayListAddBooleanDataObject_thenArrayListSizeIsTwo() {
     // Arrange
     DataObjectValidator dataObjectValidator = new DataObjectValidator();
     BpmnModel bpmnModel = new BpmnModel();
 
-    ArrayList<FlowElement> flowElementList = new ArrayList<>();
-    flowElementList.add(new SubProcess());
-
     ArrayList<ValuedDataObject> valuedDataObjectList = new ArrayList<>();
     valuedDataObjectList.add(new BooleanDataObject());
     valuedDataObjectList.add(new BooleanDataObject());
-
     Process process = mock(Process.class);
     when(process.getId()).thenReturn("42");
     when(process.getName()).thenReturn("Name");
-    when(process.findFlowElementsOfType(Mockito.<Class<FlowElement>>any(), anyBoolean()))
-        .thenReturn(flowElementList);
+    when(process.findFlowElementsOfType(Mockito.<Class<FlowElement>>any(), anyBoolean())).thenReturn(new ArrayList<>());
     when(process.getDataObjects()).thenReturn(valuedDataObjectList);
     ArrayList<ValidationError> errors = new ArrayList<>();
 
@@ -106,31 +130,23 @@ class DataObjectValidatorDiffblueTest {
 
   /**
    * Test {@link DataObjectValidator#executeValidation(BpmnModel, Process, List)}.
-   *
    * <ul>
-   *   <li>Given {@link ArrayList#ArrayList()}.
-   *   <li>Then {@link ArrayList#ArrayList()} Empty.
+   *   <li>Given {@link ArrayList#ArrayList()}.</li>
+   *   <li>Then {@link ArrayList#ArrayList()} Empty.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link DataObjectValidator#executeValidation(BpmnModel, Process, List)}
+   * <p>
+   * Method under test: {@link DataObjectValidator#executeValidation(BpmnModel, Process, List)}
    */
   @Test
-  @DisplayName(
-      "Test executeValidation(BpmnModel, Process, List); given ArrayList(); then ArrayList() Empty")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test executeValidation(BpmnModel, Process, List); given ArrayList(); then ArrayList() Empty")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void DataObjectValidator.executeValidation(BpmnModel, Process, List)"})
   void testExecuteValidation_givenArrayList_thenArrayListEmpty() {
     // Arrange
     DataObjectValidator dataObjectValidator = new DataObjectValidator();
     BpmnModel bpmnModel = new BpmnModel();
-
-    ArrayList<FlowElement> flowElementList = new ArrayList<>();
-    flowElementList.add(new SubProcess());
-
     Process process = mock(Process.class);
-    when(process.findFlowElementsOfType(Mockito.<Class<FlowElement>>any(), anyBoolean()))
-        .thenReturn(flowElementList);
+    when(process.findFlowElementsOfType(Mockito.<Class<FlowElement>>any(), anyBoolean())).thenReturn(new ArrayList<>());
     when(process.getDataObjects()).thenReturn(new ArrayList<>());
     ArrayList<ValidationError> errors = new ArrayList<>();
 
@@ -145,37 +161,28 @@ class DataObjectValidatorDiffblueTest {
 
   /**
    * Test {@link DataObjectValidator#executeValidation(BpmnModel, Process, List)}.
-   *
    * <ul>
-   *   <li>Given {@link BooleanDataObject} {@link BooleanDataObject#getName()} return {@code Name}.
-   *   <li>Then calls {@link BooleanDataObject#getName()}.
+   *   <li>Given {@link BooleanDataObject} {@link FlowElement#getName()} return {@code Name}.</li>
+   *   <li>Then calls {@link FlowElement#getName()}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link DataObjectValidator#executeValidation(BpmnModel, Process, List)}
+   * <p>
+   * Method under test: {@link DataObjectValidator#executeValidation(BpmnModel, Process, List)}
    */
   @Test
-  @DisplayName(
-      "Test executeValidation(BpmnModel, Process, List); given BooleanDataObject getName() return 'Name'; then calls getName()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test executeValidation(BpmnModel, Process, List); given BooleanDataObject getName() return 'Name'; then calls getName()")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void DataObjectValidator.executeValidation(BpmnModel, Process, List)"})
   void testExecuteValidation_givenBooleanDataObjectGetNameReturnName_thenCallsGetName() {
     // Arrange
     DataObjectValidator dataObjectValidator = new DataObjectValidator();
     BpmnModel bpmnModel = new BpmnModel();
-
-    ArrayList<FlowElement> flowElementList = new ArrayList<>();
-    flowElementList.add(new SubProcess());
-
     BooleanDataObject booleanDataObject = mock(BooleanDataObject.class);
     when(booleanDataObject.getName()).thenReturn("Name");
 
     ArrayList<ValuedDataObject> valuedDataObjectList = new ArrayList<>();
     valuedDataObjectList.add(booleanDataObject);
-
     Process process = mock(Process.class);
-    when(process.findFlowElementsOfType(Mockito.<Class<FlowElement>>any(), anyBoolean()))
-        .thenReturn(flowElementList);
+    when(process.findFlowElementsOfType(Mockito.<Class<FlowElement>>any(), anyBoolean())).thenReturn(new ArrayList<>());
     when(process.getDataObjects()).thenReturn(valuedDataObjectList);
     ArrayList<ValidationError> errors = new ArrayList<>();
 
@@ -191,76 +198,27 @@ class DataObjectValidatorDiffblueTest {
 
   /**
    * Test {@link DataObjectValidator#executeValidation(BpmnModel, Process, List)}.
-   *
    * <ul>
-   *   <li>Given {@link SubProcess} (default constructor) addFlowElement {@link AdhocSubProcess}
-   *       (default constructor).
+   *   <li>Then {@link ArrayList#ArrayList()} first ActivityId is {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link DataObjectValidator#executeValidation(BpmnModel, Process, List)}
+   * <p>
+   * Method under test: {@link DataObjectValidator#executeValidation(BpmnModel, Process, List)}
    */
   @Test
-  @DisplayName(
-      "Test executeValidation(BpmnModel, Process, List); given SubProcess (default constructor) addFlowElement AdhocSubProcess (default constructor)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void DataObjectValidator.executeValidation(BpmnModel, Process, List)"})
-  void testExecuteValidation_givenSubProcessAddFlowElementAdhocSubProcess() {
-    // Arrange
-    DataObjectValidator dataObjectValidator = new DataObjectValidator();
-    BpmnModel bpmnModel = new BpmnModel();
-
-    SubProcess element = new SubProcess();
-    element.addFlowElement(new AdhocSubProcess());
-
-    SubProcess element2 = new SubProcess();
-    element2.addFlowElement(element);
-
-    SubProcess element3 = new SubProcess();
-    element3.addFlowElement(element2);
-
-    Process process = new Process();
-    process.addFlowElement(element3);
-    ArrayList<ValidationError> errors = new ArrayList<>();
-
-    // Act
-    dataObjectValidator.executeValidation(bpmnModel, process, errors);
-
-    // Assert that nothing has changed
-    assertTrue(errors.isEmpty());
-  }
-
-  /**
-   * Test {@link DataObjectValidator#executeValidation(BpmnModel, Process, List)}.
-   *
-   * <ul>
-   *   <li>Then {@link ArrayList#ArrayList()} first ActivityId is {@code null}.
-   * </ul>
-   *
-   * <p>Method under test: {@link DataObjectValidator#executeValidation(BpmnModel, Process, List)}
-   */
-  @Test
-  @DisplayName(
-      "Test executeValidation(BpmnModel, Process, List); then ArrayList() first ActivityId is 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test executeValidation(BpmnModel, Process, List); then ArrayList() first ActivityId is 'null'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void DataObjectValidator.executeValidation(BpmnModel, Process, List)"})
   void testExecuteValidation_thenArrayListFirstActivityIdIsNull() {
     // Arrange
     DataObjectValidator dataObjectValidator = new DataObjectValidator();
     BpmnModel bpmnModel = new BpmnModel();
 
-    ArrayList<FlowElement> flowElementList = new ArrayList<>();
-    flowElementList.add(new SubProcess());
-
     ArrayList<ValuedDataObject> valuedDataObjectList = new ArrayList<>();
     valuedDataObjectList.add(new BooleanDataObject());
-
     Process process = mock(Process.class);
     when(process.getId()).thenReturn("42");
     when(process.getName()).thenReturn("Name");
-    when(process.findFlowElementsOfType(Mockito.<Class<FlowElement>>any(), anyBoolean()))
-        .thenReturn(flowElementList);
+    when(process.findFlowElementsOfType(Mockito.<Class<FlowElement>>any(), anyBoolean())).thenReturn(new ArrayList<>());
     when(process.getDataObjects()).thenReturn(valuedDataObjectList);
     ArrayList<ValidationError> errors = new ArrayList<>();
 
@@ -282,27 +240,20 @@ class DataObjectValidatorDiffblueTest {
 
   /**
    * Test {@link DataObjectValidator#executeValidation(BpmnModel, Process, List)}.
-   *
    * <ul>
-   *   <li>Then {@link ArrayList#ArrayList()} first ActivityName is empty string.
+   *   <li>Then {@link ArrayList#ArrayList()} first ActivityName is empty string.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link DataObjectValidator#executeValidation(BpmnModel, Process, List)}
+   * <p>
+   * Method under test: {@link DataObjectValidator#executeValidation(BpmnModel, Process, List)}
    */
   @Test
-  @DisplayName(
-      "Test executeValidation(BpmnModel, Process, List); then ArrayList() first ActivityName is empty string")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test executeValidation(BpmnModel, Process, List); then ArrayList() first ActivityName is empty string")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void DataObjectValidator.executeValidation(BpmnModel, Process, List)"})
   void testExecuteValidation_thenArrayListFirstActivityNameIsEmptyString() {
     // Arrange
     DataObjectValidator dataObjectValidator = new DataObjectValidator();
     BpmnModel bpmnModel = new BpmnModel();
-
-    ArrayList<FlowElement> flowElementList = new ArrayList<>();
-    flowElementList.add(new SubProcess());
-
     BooleanDataObject booleanDataObject = mock(BooleanDataObject.class);
     when(booleanDataObject.getXmlColumnNumber()).thenReturn(10);
     when(booleanDataObject.getXmlRowNumber()).thenReturn(10);
@@ -311,12 +262,10 @@ class DataObjectValidatorDiffblueTest {
 
     ArrayList<ValuedDataObject> valuedDataObjectList = new ArrayList<>();
     valuedDataObjectList.add(booleanDataObject);
-
     Process process = mock(Process.class);
     when(process.getId()).thenReturn("42");
     when(process.getName()).thenReturn("Name");
-    when(process.findFlowElementsOfType(Mockito.<Class<FlowElement>>any(), anyBoolean()))
-        .thenReturn(flowElementList);
+    when(process.findFlowElementsOfType(Mockito.<Class<FlowElement>>any(), anyBoolean())).thenReturn(new ArrayList<>());
     when(process.getDataObjects()).thenReturn(valuedDataObjectList);
     ArrayList<ValidationError> errors = new ArrayList<>();
 
@@ -342,19 +291,16 @@ class DataObjectValidatorDiffblueTest {
 
   /**
    * Test {@link DataObjectValidator#executeValidation(BpmnModel, Process, List)}.
-   *
    * <ul>
-   *   <li>When {@link Process} (default constructor).
-   *   <li>Then {@link ArrayList#ArrayList()} Empty.
+   *   <li>When {@link Process} (default constructor).</li>
+   *   <li>Then {@link ArrayList#ArrayList()} Empty.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link DataObjectValidator#executeValidation(BpmnModel, Process, List)}
+   * <p>
+   * Method under test: {@link DataObjectValidator#executeValidation(BpmnModel, Process, List)}
    */
   @Test
-  @DisplayName(
-      "Test executeValidation(BpmnModel, Process, List); when Process (default constructor); then ArrayList() Empty")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test executeValidation(BpmnModel, Process, List); when Process (default constructor); then ArrayList() Empty")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void DataObjectValidator.executeValidation(BpmnModel, Process, List)"})
   void testExecuteValidation_whenProcess_thenArrayListEmpty() {
     // Arrange

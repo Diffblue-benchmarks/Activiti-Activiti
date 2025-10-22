@@ -16,8 +16,7 @@
 package org.activiti.engine.impl.bpmn.parser;
 
 import static org.junit.Assert.assertEquals;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
@@ -25,9 +24,8 @@ import org.junit.experimental.categories.Category;
 public class SignalDefinitionDiffblueTest {
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>default or parameterless constructor of {@link SignalDefinition}
    *   <li>{@link SignalDefinition#setId(String)}
@@ -37,15 +35,10 @@ public class SignalDefinitionDiffblueTest {
    * </ul>
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void SignalDefinition.<init>()",
-    "String SignalDefinition.getId()",
-    "String SignalDefinition.getName()",
-    "void SignalDefinition.setId(String)",
-    "void SignalDefinition.setName(String)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void SignalDefinition.<init>()", "String SignalDefinition.getId()",
+      "String SignalDefinition.getName()", "void SignalDefinition.setId(String)",
+      "void SignalDefinition.setName(String)"})
   public void testGettersAndSetters() {
     // Arrange and Act
     SignalDefinition actualSignalDefinition = new SignalDefinition();

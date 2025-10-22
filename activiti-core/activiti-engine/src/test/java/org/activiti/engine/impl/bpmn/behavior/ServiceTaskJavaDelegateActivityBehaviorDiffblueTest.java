@@ -18,8 +18,7 @@ package org.activiti.engine.impl.bpmn.behavior;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import static org.mockito.Mockito.mock;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.engine.delegate.JavaDelegate;
 import org.junit.Test;
@@ -28,18 +27,15 @@ import org.junit.experimental.categories.Category;
 public class ServiceTaskJavaDelegateActivityBehaviorDiffblueTest {
   /**
    * Test {@link ServiceTaskJavaDelegateActivityBehavior#ServiceTaskJavaDelegateActivityBehavior()}.
-   *
-   * <p>Method under test: {@link
-   * ServiceTaskJavaDelegateActivityBehavior#ServiceTaskJavaDelegateActivityBehavior()}
+   * <p>
+   * Method under test: {@link ServiceTaskJavaDelegateActivityBehavior#ServiceTaskJavaDelegateActivityBehavior()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void ServiceTaskJavaDelegateActivityBehavior.<init>()"})
   public void testNewServiceTaskJavaDelegateActivityBehavior() {
     // Arrange and Act
-    ServiceTaskJavaDelegateActivityBehavior actualServiceTaskJavaDelegateActivityBehavior =
-        new ServiceTaskJavaDelegateActivityBehavior();
+    ServiceTaskJavaDelegateActivityBehavior actualServiceTaskJavaDelegateActivityBehavior = new ServiceTaskJavaDelegateActivityBehavior();
 
     // Assert
     assertNull(actualServiceTaskJavaDelegateActivityBehavior.javaDelegate);
@@ -49,20 +45,17 @@ public class ServiceTaskJavaDelegateActivityBehaviorDiffblueTest {
   }
 
   /**
-   * Test {@link
-   * ServiceTaskJavaDelegateActivityBehavior#ServiceTaskJavaDelegateActivityBehavior(JavaDelegate)}.
-   *
-   * <p>Method under test: {@link
-   * ServiceTaskJavaDelegateActivityBehavior#ServiceTaskJavaDelegateActivityBehavior(JavaDelegate)}
+   * Test {@link ServiceTaskJavaDelegateActivityBehavior#ServiceTaskJavaDelegateActivityBehavior(JavaDelegate)}.
+   * <p>
+   * Method under test: {@link ServiceTaskJavaDelegateActivityBehavior#ServiceTaskJavaDelegateActivityBehavior(JavaDelegate)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void ServiceTaskJavaDelegateActivityBehavior.<init>(JavaDelegate)"})
   public void testNewServiceTaskJavaDelegateActivityBehavior2() {
     // Arrange and Act
-    ServiceTaskJavaDelegateActivityBehavior actualServiceTaskJavaDelegateActivityBehavior =
-        new ServiceTaskJavaDelegateActivityBehavior(mock(JavaDelegate.class));
+    ServiceTaskJavaDelegateActivityBehavior actualServiceTaskJavaDelegateActivityBehavior = new ServiceTaskJavaDelegateActivityBehavior(
+        mock(JavaDelegate.class));
 
     // Assert
     assertNull(actualServiceTaskJavaDelegateActivityBehavior.getMultiInstanceActivityBehavior());

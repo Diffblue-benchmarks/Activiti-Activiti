@@ -19,7 +19,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.api.task.model.Task;
 import org.activiti.api.task.model.Task.TaskStatus;
@@ -33,13 +32,12 @@ import org.junit.jupiter.api.Test;
 class TaskSuspendedImplDiffblueTest {
   /**
    * Test {@link TaskSuspendedImpl#TaskSuspendedImpl()}.
-   *
-   * <p>Method under test: {@link TaskSuspendedImpl#TaskSuspendedImpl()}
+   * <p>
+   * Method under test: {@link TaskSuspendedImpl#TaskSuspendedImpl()}
    */
   @Test
   @DisplayName("Test new TaskSuspendedImpl()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void TaskSuspendedImpl.<init>()"})
   void testNewTaskSuspendedImpl() {
     // Arrange and Act
@@ -58,13 +56,12 @@ class TaskSuspendedImplDiffblueTest {
 
   /**
    * Test {@link TaskSuspendedImpl#TaskSuspendedImpl(Task)}.
-   *
-   * <p>Method under test: {@link TaskSuspendedImpl#TaskSuspendedImpl(Task)}
+   * <p>
+   * Method under test: {@link TaskSuspendedImpl#TaskSuspendedImpl(Task)}
    */
   @Test
   @DisplayName("Test new TaskSuspendedImpl(Task)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void TaskSuspendedImpl.<init>(Task)"})
   void testNewTaskSuspendedImpl2() {
     // Arrange
@@ -88,16 +85,15 @@ class TaskSuspendedImplDiffblueTest {
 
   /**
    * Test {@link TaskSuspendedImpl#getEventType()}.
-   *
-   * <p>Method under test: {@link TaskSuspendedImpl#getEventType()}
+   * <p>
+   * Method under test: {@link TaskSuspendedImpl#getEventType()}
    */
   @Test
   @DisplayName("Test getEventType()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"TaskRuntimeEvent.TaskEvents TaskSuspendedImpl.getEventType()"})
   void testGetEventType() {
     // Arrange, Act and Assert
-    assertEquals(TaskEvents.TASK_SUSPENDED, new TaskSuspendedImpl().getEventType());
+    assertEquals(TaskEvents.TASK_SUSPENDED, (new TaskSuspendedImpl()).getEventType());
   }
 }

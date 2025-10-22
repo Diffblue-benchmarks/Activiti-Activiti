@@ -17,7 +17,6 @@ package org.activiti.api.runtime.model.impl;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
@@ -26,13 +25,11 @@ import org.junit.jupiter.api.Test;
 class ObjectValueDiffblueTest {
   /**
    * Test getters and setters.
-   *
    * <ul>
-   *   <li>Then return Object is {@code null}.
+   *   <li>Then return Object is {@code null}.</li>
    * </ul>
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>{@link ObjectValue#ObjectValue()}
    *   <li>{@link ObjectValue#getObject()}
@@ -40,28 +37,21 @@ class ObjectValueDiffblueTest {
    */
   @Test
   @DisplayName("Test getters and setters; then return Object is 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void ObjectValue.<init>()",
-    "void ObjectValue.<init>(Object)",
-    "Object ObjectValue.getObject()"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void ObjectValue.<init>()", "void ObjectValue.<init>(Object)", "Object ObjectValue.getObject()"})
   void testGettersAndSetters_thenReturnObjectIsNull() {
     // Arrange, Act and Assert
-    assertNull(new ObjectValue().getObject());
+    assertNull((new ObjectValue()).getObject());
   }
 
   /**
    * Test getters and setters.
-   *
    * <ul>
-   *   <li>When {@code Object}.
-   *   <li>Then return {@code Object}.
+   *   <li>When {@code Object}.</li>
+   *   <li>Then return {@code Object}.</li>
    * </ul>
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>{@link ObjectValue#ObjectValue(Object)}
    *   <li>{@link ObjectValue#getObject()}
@@ -69,15 +59,10 @@ class ObjectValueDiffblueTest {
    */
   @Test
   @DisplayName("Test getters and setters; when 'Object'; then return 'Object'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void ObjectValue.<init>()",
-    "void ObjectValue.<init>(Object)",
-    "Object ObjectValue.getObject()"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void ObjectValue.<init>()", "void ObjectValue.<init>(Object)", "Object ObjectValue.getObject()"})
   void testGettersAndSetters_whenObject_thenReturnObject() {
     // Arrange, Act and Assert
-    assertEquals("Object", new ObjectValue("Object").getObject());
+    assertEquals("Object", (new ObjectValue("Object")).getObject());
   }
 }

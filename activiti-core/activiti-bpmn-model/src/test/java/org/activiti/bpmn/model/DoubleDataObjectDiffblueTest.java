@@ -18,8 +18,7 @@ package org.activiti.bpmn.model;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
@@ -27,17 +26,15 @@ import org.junit.experimental.categories.Category;
 public class DoubleDataObjectDiffblueTest {
   /**
    * Test {@link DoubleDataObject#setValue(Object)}.
-   *
    * <ul>
-   *   <li>When forty-two.
-   *   <li>Then {@link DoubleDataObject} (default constructor) Value doubleValue is forty-two.
+   *   <li>When forty-two.</li>
+   *   <li>Then {@link DoubleDataObject} (default constructor) Value doubleValue is forty-two.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link DoubleDataObject#setValue(Object)}
+   * <p>
+   * Method under test: {@link DoubleDataObject#setValue(Object)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void DoubleDataObject.setValue(Object)"})
   public void testSetValue_whenFortyTwo_thenDoubleDataObjectValueDoubleValueIsFortyTwo() {
     // Arrange
@@ -52,21 +49,19 @@ public class DoubleDataObjectDiffblueTest {
 
   /**
    * Test {@link DoubleDataObject#clone()}.
-   *
    * <ul>
-   *   <li>Given {@link DoubleDataObject} (default constructor).
-   *   <li>Then return Value is {@code null}.
+   *   <li>Given {@link DoubleDataObject} (default constructor).</li>
+   *   <li>Then return Value is {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link DoubleDataObject#clone()}
+   * <p>
+   * Method under test: {@link DoubleDataObject#clone()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"DoubleDataObject DoubleDataObject.clone()"})
   public void testClone_givenDoubleDataObject_thenReturnValueIsNull() {
     // Arrange and Act
-    DoubleDataObject actualCloneResult = new DoubleDataObject().clone();
+    DoubleDataObject actualCloneResult = (new DoubleDataObject()).clone();
 
     // Assert
     assertNull(actualCloneResult.getValue());
@@ -85,16 +80,14 @@ public class DoubleDataObjectDiffblueTest {
 
   /**
    * Test {@link DoubleDataObject#clone()}.
-   *
    * <ul>
-   *   <li>Then return Value doubleValue is forty-two.
+   *   <li>Then return Value doubleValue is forty-two.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link DoubleDataObject#clone()}
+   * <p>
+   * Method under test: {@link DoubleDataObject#clone()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"DoubleDataObject DoubleDataObject.clone()"})
   public void testClone_thenReturnValueDoubleValueIsFortyTwo() {
     // Arrange
@@ -121,12 +114,11 @@ public class DoubleDataObjectDiffblueTest {
 
   /**
    * Test new {@link DoubleDataObject} (default constructor).
-   *
-   * <p>Method under test: default or parameterless constructor of {@link DoubleDataObject}
+   * <p>
+   * Method under test: default or parameterless constructor of {@link DoubleDataObject}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void DoubleDataObject.<init>()"})
   public void testNewDoubleDataObject() {
     // Arrange and Act

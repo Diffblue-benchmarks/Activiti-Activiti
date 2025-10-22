@@ -16,8 +16,7 @@
 package org.activiti.engine.impl;
 
 import static org.junit.Assert.assertEquals;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
@@ -25,9 +24,8 @@ import org.junit.experimental.categories.Category;
 public class ProcessEngineInfoImplDiffblueTest {
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>{@link ProcessEngineInfoImpl#ProcessEngineInfoImpl(String, String, String)}
    *   <li>{@link ProcessEngineInfoImpl#getException()}
@@ -36,18 +34,14 @@ public class ProcessEngineInfoImplDiffblueTest {
    * </ul>
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void ProcessEngineInfoImpl.<init>(String, String, String)",
-    "String ProcessEngineInfoImpl.getException()",
-    "String ProcessEngineInfoImpl.getName()",
-    "String ProcessEngineInfoImpl.getResourceUrl()"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void ProcessEngineInfoImpl.<init>(String, String, String)",
+      "String ProcessEngineInfoImpl.getException()", "String ProcessEngineInfoImpl.getName()",
+      "String ProcessEngineInfoImpl.getResourceUrl()"})
   public void testGettersAndSetters() {
     // Arrange and Act
-    ProcessEngineInfoImpl actualProcessEngineInfoImpl =
-        new ProcessEngineInfoImpl("Name", "https://example.org/example", "Exception");
+    ProcessEngineInfoImpl actualProcessEngineInfoImpl = new ProcessEngineInfoImpl("Name", "https://example.org/example",
+        "Exception");
     String actualException = actualProcessEngineInfoImpl.getException();
     String actualName = actualProcessEngineInfoImpl.getName();
 

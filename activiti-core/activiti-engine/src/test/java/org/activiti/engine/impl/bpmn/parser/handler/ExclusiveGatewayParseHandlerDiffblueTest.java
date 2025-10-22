@@ -17,8 +17,7 @@ package org.activiti.engine.impl.bpmn.parser.handler;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.bpmn.model.BaseElement;
 import org.activiti.bpmn.model.ExclusiveGateway;
@@ -31,22 +30,20 @@ import org.junit.experimental.categories.Category;
 
 public class ExclusiveGatewayParseHandlerDiffblueTest {
   /**
-   * Test {@link ExclusiveGatewayParseHandler#executeParse(BpmnParse, ExclusiveGateway)} with {@code
-   * BpmnParse}, {@code ExclusiveGateway}.
-   *
-   * <p>Method under test: {@link ExclusiveGatewayParseHandler#executeParse(BpmnParse,
-   * ExclusiveGateway)}
+   * Test {@link ExclusiveGatewayParseHandler#executeParse(BpmnParse, ExclusiveGateway)} with {@code BpmnParse}, {@code ExclusiveGateway}.
+   * <p>
+   * Method under test: {@link ExclusiveGatewayParseHandler#executeParse(BpmnParse, ExclusiveGateway)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void ExclusiveGatewayParseHandler.executeParse(BpmnParse, ExclusiveGateway)"})
   public void testExecuteParseWithBpmnParseExclusiveGateway() {
     // Arrange
     ExclusiveGatewayParseHandler exclusiveGatewayParseHandler = new ExclusiveGatewayParseHandler();
 
-    BpmnParse bpmnParse = new BpmnParse(new BpmnParser());
-    bpmnParse.setActivityBehaviorFactory(new DefaultActivityBehaviorFactory());
+    BpmnParser parser = new BpmnParser();
+    parser.setActivityBehaviorFactory(new DefaultActivityBehaviorFactory());
+    BpmnParse bpmnParse = new BpmnParse(parser);
     ExclusiveGateway gateway = new ExclusiveGateway();
 
     // Act
@@ -58,25 +55,20 @@ public class ExclusiveGatewayParseHandlerDiffblueTest {
 
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>default or parameterless constructor of {@link ExclusiveGatewayParseHandler}
    *   <li>{@link ExclusiveGatewayParseHandler#getHandledType()}
    * </ul>
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void ExclusiveGatewayParseHandler.<init>()",
-    "Class ExclusiveGatewayParseHandler.getHandledType()"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void ExclusiveGatewayParseHandler.<init>()",
+      "Class ExclusiveGatewayParseHandler.getHandledType()"})
   public void testGettersAndSetters() {
     // Arrange and Act
-    Class<? extends BaseElement> actualHandledType =
-        new ExclusiveGatewayParseHandler().getHandledType();
+    Class<? extends BaseElement> actualHandledType = (new ExclusiveGatewayParseHandler()).getHandledType();
 
     // Assert
     Class<ExclusiveGateway> expectedHandledType = ExclusiveGateway.class;

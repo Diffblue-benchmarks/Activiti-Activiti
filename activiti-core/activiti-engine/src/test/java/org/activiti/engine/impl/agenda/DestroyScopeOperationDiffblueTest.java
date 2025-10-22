@@ -21,8 +21,7 @@ import static org.mockito.ArgumentMatchers.isA;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.engine.ActivitiEngineAgendaFactory;
 import org.activiti.engine.Agenda;
@@ -38,34 +37,29 @@ import org.mockito.Mockito;
 public class DestroyScopeOperationDiffblueTest {
   /**
    * Test {@link DestroyScopeOperation#DestroyScopeOperation(CommandContext, ExecutionEntity)}.
-   *
    * <ul>
-   *   <li>Then Agenda return {@link DefaultActivitiEngineAgenda}.
+   *   <li>Then Agenda return {@link DefaultActivitiEngineAgenda}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link DestroyScopeOperation#DestroyScopeOperation(CommandContext,
-   * ExecutionEntity)}
+   * <p>
+   * Method under test: {@link DestroyScopeOperation#DestroyScopeOperation(CommandContext, ExecutionEntity)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void DestroyScopeOperation.<init>(CommandContext, ExecutionEntity)"})
   public void testNewDestroyScopeOperation_thenAgendaReturnDefaultActivitiEngineAgenda() {
     // Arrange
     ActivitiEngineAgendaFactory engineAgendaFactory = mock(ActivitiEngineAgendaFactory.class);
     DefaultActivitiEngineAgenda defaultActivitiEngineAgenda = new DefaultActivitiEngineAgenda(null);
-    when(engineAgendaFactory.createAgenda(Mockito.<CommandContext>any()))
-        .thenReturn(defaultActivitiEngineAgenda);
+    when(engineAgendaFactory.createAgenda(Mockito.<CommandContext>any())).thenReturn(defaultActivitiEngineAgenda);
 
     JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();
     processEngineConfiguration.setEngineAgendaFactory(engineAgendaFactory);
-    CommandContext commandContext =
-        new CommandContext(mock(Command.class), processEngineConfiguration);
+    CommandContext commandContext = new CommandContext(mock(Command.class), processEngineConfiguration);
+
     ExecutionEntityImpl execution = ExecutionEntityImpl.createWithEmptyRelationshipCollections();
 
     // Act
-    DestroyScopeOperation actualDestroyScopeOperation =
-        new DestroyScopeOperation(commandContext, execution);
+    DestroyScopeOperation actualDestroyScopeOperation = new DestroyScopeOperation(commandContext, execution);
 
     // Assert
     verify(engineAgendaFactory).createAgenda(isA(CommandContext.class));

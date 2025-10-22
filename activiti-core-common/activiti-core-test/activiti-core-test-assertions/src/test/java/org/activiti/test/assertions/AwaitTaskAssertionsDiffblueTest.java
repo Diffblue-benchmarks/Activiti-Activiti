@@ -23,7 +23,6 @@ import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
 import java.util.List;
@@ -40,21 +39,18 @@ import org.mockito.Mockito;
 class AwaitTaskAssertionsDiffblueTest {
   /**
    * Test {@link AwaitTaskAssertions#expectFields(TaskResultMatcher[])}.
-   *
-   * <p>Method under test: {@link AwaitTaskAssertions#expectFields(TaskResultMatcher[])}
+   * <p>
+   * Method under test: {@link AwaitTaskAssertions#expectFields(TaskResultMatcher[])}
    */
   @Test
   @DisplayName("Test expectFields(TaskResultMatcher[])")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"TaskAssertions AwaitTaskAssertions.expectFields(TaskResultMatcher[])"})
   void testExpectFields() {
     // Arrange
     Task task = mock(Task.class);
-    TaskAssertionsImpl taskAssertions =
-        new TaskAssertionsImpl(task, new ArrayList<>(), mock(EventSource.class));
-    AwaitTaskAssertions awaitTaskAssertions = new AwaitTaskAssertions(taskAssertions);
-
+    AwaitTaskAssertions awaitTaskAssertions = new AwaitTaskAssertions(
+        new TaskAssertionsImpl(task, new ArrayList<>(), mock(EventSource.class)));
     TaskResultMatcher taskResultMatcher = mock(TaskResultMatcher.class);
     doNothing().when(taskResultMatcher).match(Mockito.<Task>any());
 
@@ -69,22 +65,18 @@ class AwaitTaskAssertionsDiffblueTest {
 
   /**
    * Test {@link AwaitTaskAssertions#expectFields(TaskResultMatcher[])}.
-   *
-   * <p>Method under test: {@link AwaitTaskAssertions#expectFields(TaskResultMatcher[])}
+   * <p>
+   * Method under test: {@link AwaitTaskAssertions#expectFields(TaskResultMatcher[])}
    */
   @Test
   @DisplayName("Test expectFields(TaskResultMatcher[])")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"TaskAssertions AwaitTaskAssertions.expectFields(TaskResultMatcher[])"})
   void testExpectFields2() {
     // Arrange
     Task task = mock(Task.class);
-    TaskAssertionsImpl taskAssertions =
-        new TaskAssertionsImpl(task, new ArrayList<>(), mock(EventSource.class));
-    AwaitTaskAssertions awaitTaskAssertions =
-        new AwaitTaskAssertions(new AwaitTaskAssertions(taskAssertions));
-
+    AwaitTaskAssertions awaitTaskAssertions = new AwaitTaskAssertions(
+        new AwaitTaskAssertions(new TaskAssertionsImpl(task, new ArrayList<>(), mock(EventSource.class))));
     TaskResultMatcher taskResultMatcher = mock(TaskResultMatcher.class);
     doNothing().when(taskResultMatcher).match(Mockito.<Task>any());
 
@@ -99,33 +91,24 @@ class AwaitTaskAssertionsDiffblueTest {
 
   /**
    * Test {@link AwaitTaskAssertions#expect(ProcessTaskMatcher[])}.
-   *
    * <ul>
-   *   <li>Then return {@link AwaitTaskAssertions#AwaitTaskAssertions(TaskAssertions)} with
-   *       taskAssertions is {@link AwaitTaskAssertions#AwaitTaskAssertions(TaskAssertions)}.
+   *   <li>Then return {@link AwaitTaskAssertions#AwaitTaskAssertions(TaskAssertions)} with taskAssertions is {@link AwaitTaskAssertions#AwaitTaskAssertions(TaskAssertions)}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link AwaitTaskAssertions#expect(ProcessTaskMatcher[])}
+   * <p>
+   * Method under test: {@link AwaitTaskAssertions#expect(ProcessTaskMatcher[])}
    */
   @Test
-  @DisplayName(
-      "Test expect(ProcessTaskMatcher[]); then return AwaitTaskAssertions(TaskAssertions) with taskAssertions is AwaitTaskAssertions(TaskAssertions)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test expect(ProcessTaskMatcher[]); then return AwaitTaskAssertions(TaskAssertions) with taskAssertions is AwaitTaskAssertions(TaskAssertions)")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"TaskAssertions AwaitTaskAssertions.expect(ProcessTaskMatcher[])"})
   void testExpect_thenReturnAwaitTaskAssertionsWithTaskAssertionsIsAwaitTaskAssertions() {
     // Arrange
     Task task = mock(Task.class);
     when(task.getProcessInstanceId()).thenReturn("42");
-    TaskAssertionsImpl taskAssertions =
-        new TaskAssertionsImpl(task, new ArrayList<>(), mock(EventSource.class));
-    AwaitTaskAssertions awaitTaskAssertions =
-        new AwaitTaskAssertions(new AwaitTaskAssertions(taskAssertions));
-
+    AwaitTaskAssertions awaitTaskAssertions = new AwaitTaskAssertions(
+        new AwaitTaskAssertions(new TaskAssertionsImpl(task, new ArrayList<>(), mock(EventSource.class))));
     ProcessTaskMatcher processTaskMatcher = mock(ProcessTaskMatcher.class);
-    doNothing()
-        .when(processTaskMatcher)
-        .match(Mockito.<String>any(), Mockito.<List<TaskSource>>any());
+    doNothing().when(processTaskMatcher).match(Mockito.<String>any(), Mockito.<List<TaskSource>>any());
 
     // Act
     TaskAssertions actualExpectResult = awaitTaskAssertions.expect(processTaskMatcher);
@@ -139,32 +122,24 @@ class AwaitTaskAssertionsDiffblueTest {
 
   /**
    * Test {@link AwaitTaskAssertions#expect(ProcessTaskMatcher[])}.
-   *
    * <ul>
-   *   <li>Then return {@link AwaitTaskAssertions#AwaitTaskAssertions(TaskAssertions)} with
-   *       taskAssertions is {@link TaskAssertionsImpl#TaskAssertionsImpl(Task, List, EventSource)}.
+   *   <li>Then return {@link AwaitTaskAssertions#AwaitTaskAssertions(TaskAssertions)} with taskAssertions is {@link TaskAssertionsImpl#TaskAssertionsImpl(Task, List, EventSource)}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link AwaitTaskAssertions#expect(ProcessTaskMatcher[])}
+   * <p>
+   * Method under test: {@link AwaitTaskAssertions#expect(ProcessTaskMatcher[])}
    */
   @Test
-  @DisplayName(
-      "Test expect(ProcessTaskMatcher[]); then return AwaitTaskAssertions(TaskAssertions) with taskAssertions is TaskAssertionsImpl(Task, List, EventSource)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test expect(ProcessTaskMatcher[]); then return AwaitTaskAssertions(TaskAssertions) with taskAssertions is TaskAssertionsImpl(Task, List, EventSource)")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"TaskAssertions AwaitTaskAssertions.expect(ProcessTaskMatcher[])"})
   void testExpect_thenReturnAwaitTaskAssertionsWithTaskAssertionsIsTaskAssertionsImpl() {
     // Arrange
     Task task = mock(Task.class);
     when(task.getProcessInstanceId()).thenReturn("42");
-    TaskAssertionsImpl taskAssertions =
-        new TaskAssertionsImpl(task, new ArrayList<>(), mock(EventSource.class));
-    AwaitTaskAssertions awaitTaskAssertions = new AwaitTaskAssertions(taskAssertions);
-
+    AwaitTaskAssertions awaitTaskAssertions = new AwaitTaskAssertions(
+        new TaskAssertionsImpl(task, new ArrayList<>(), mock(EventSource.class)));
     ProcessTaskMatcher processTaskMatcher = mock(ProcessTaskMatcher.class);
-    doNothing()
-        .when(processTaskMatcher)
-        .match(Mockito.<String>any(), Mockito.<List<TaskSource>>any());
+    doNothing().when(processTaskMatcher).match(Mockito.<String>any(), Mockito.<List<TaskSource>>any());
 
     // Act
     TaskAssertions actualExpectResult = awaitTaskAssertions.expect(processTaskMatcher);

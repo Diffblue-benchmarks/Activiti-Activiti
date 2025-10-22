@@ -16,8 +16,7 @@
 package org.activiti.engine.repository;
 
 import static org.junit.Assert.assertEquals;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
@@ -25,9 +24,8 @@ import org.junit.experimental.categories.Category;
 public class DiagramEdgeWaypointDiffblueTest {
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>default or parameterless constructor of {@link DiagramEdgeWaypoint}
    *   <li>{@link DiagramEdgeWaypoint#setX(Double)}
@@ -37,15 +35,10 @@ public class DiagramEdgeWaypointDiffblueTest {
    * </ul>
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void DiagramEdgeWaypoint.<init>()",
-    "Double DiagramEdgeWaypoint.getX()",
-    "Double DiagramEdgeWaypoint.getY()",
-    "void DiagramEdgeWaypoint.setX(Double)",
-    "void DiagramEdgeWaypoint.setY(Double)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void DiagramEdgeWaypoint.<init>()", "Double DiagramEdgeWaypoint.getX()",
+      "Double DiagramEdgeWaypoint.getY()", "void DiagramEdgeWaypoint.setX(Double)",
+      "void DiagramEdgeWaypoint.setY(Double)"})
   public void testGettersAndSetters() {
     // Arrange and Act
     DiagramEdgeWaypoint actualDiagramEdgeWaypoint = new DiagramEdgeWaypoint();

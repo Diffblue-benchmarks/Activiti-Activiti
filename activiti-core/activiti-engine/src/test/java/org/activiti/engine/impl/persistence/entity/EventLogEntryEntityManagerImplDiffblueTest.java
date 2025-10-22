@@ -17,13 +17,13 @@ package org.activiti.engine.impl.persistence.entity;
 
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.anyLong;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
 import java.util.List;
@@ -43,80 +43,66 @@ import org.mockito.junit.MockitoJUnitRunner;
 
 @RunWith(MockitoJUnitRunner.class)
 public class EventLogEntryEntityManagerImplDiffblueTest {
-  @Mock private EventLogEntryDataManager eventLogEntryDataManager;
+  @Mock
+  private EventLogEntryDataManager eventLogEntryDataManager;
 
-  @InjectMocks private EventLogEntryEntityManagerImpl eventLogEntryEntityManagerImpl;
+  @InjectMocks
+  private EventLogEntryEntityManagerImpl eventLogEntryEntityManagerImpl;
 
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
-   *   <li>{@link
-   *       EventLogEntryEntityManagerImpl#EventLogEntryEntityManagerImpl(ProcessEngineConfigurationImpl,
-   *       EventLogEntryDataManager)}
-   *   <li>{@link
-   *       EventLogEntryEntityManagerImpl#setEventLogEntryDataManager(EventLogEntryDataManager)}
+   *   <li>{@link EventLogEntryEntityManagerImpl#EventLogEntryEntityManagerImpl(ProcessEngineConfigurationImpl, EventLogEntryDataManager)}
+   *   <li>{@link EventLogEntryEntityManagerImpl#setEventLogEntryDataManager(EventLogEntryDataManager)}
    *   <li>{@link EventLogEntryEntityManagerImpl#getDataManager()}
    *   <li>{@link EventLogEntryEntityManagerImpl#getEventLogEntryDataManager()}
    * </ul>
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({
-    "void EventLogEntryEntityManagerImpl.<init>(ProcessEngineConfigurationImpl, EventLogEntryDataManager)",
-    "DataManager EventLogEntryEntityManagerImpl.getDataManager()",
-    "EventLogEntryDataManager EventLogEntryEntityManagerImpl.getEventLogEntryDataManager()",
-    "void EventLogEntryEntityManagerImpl.setEventLogEntryDataManager(EventLogEntryDataManager)"
-  })
+      "void EventLogEntryEntityManagerImpl.<init>(ProcessEngineConfigurationImpl, EventLogEntryDataManager)",
+      "DataManager EventLogEntryEntityManagerImpl.getDataManager()",
+      "EventLogEntryDataManager EventLogEntryEntityManagerImpl.getEventLogEntryDataManager()",
+      "void EventLogEntryEntityManagerImpl.setEventLogEntryDataManager(EventLogEntryDataManager)"})
   public void testGettersAndSetters() {
     // Arrange
     JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();
 
     // Act
-    EventLogEntryEntityManagerImpl actualEventLogEntryEntityManagerImpl =
-        new EventLogEntryEntityManagerImpl(
-            processEngineConfiguration,
-            new MybatisEventLogEntryDataManager(new JtaProcessEngineConfiguration()));
-    MybatisEventLogEntryDataManager eventLogEntryDataManager =
-        new MybatisEventLogEntryDataManager(new JtaProcessEngineConfiguration());
+    EventLogEntryEntityManagerImpl actualEventLogEntryEntityManagerImpl = new EventLogEntryEntityManagerImpl(
+        processEngineConfiguration, new MybatisEventLogEntryDataManager(new JtaProcessEngineConfiguration()));
+    MybatisEventLogEntryDataManager eventLogEntryDataManager = new MybatisEventLogEntryDataManager(
+        new JtaProcessEngineConfiguration());
     actualEventLogEntryEntityManagerImpl.setEventLogEntryDataManager(eventLogEntryDataManager);
-    DataManager<EventLogEntryEntity> actualDataManager =
-        actualEventLogEntryEntityManagerImpl.getDataManager();
+    DataManager<EventLogEntryEntity> actualDataManager = actualEventLogEntryEntityManagerImpl.getDataManager();
 
     // Assert
     assertSame(eventLogEntryDataManager, actualDataManager);
-    assertSame(
-        eventLogEntryDataManager,
-        actualEventLogEntryEntityManagerImpl.getEventLogEntryDataManager());
+    assertSame(eventLogEntryDataManager, actualEventLogEntryEntityManagerImpl.getEventLogEntryDataManager());
   }
 
   /**
    * Test {@link EventLogEntryEntityManagerImpl#findAllEventLogEntries()}.
-   *
    * <ul>
-   *   <li>Then return Empty.
+   *   <li>Then return Empty.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link EventLogEntryEntityManagerImpl#findAllEventLogEntries()}
+   * <p>
+   * Method under test: {@link EventLogEntryEntityManagerImpl#findAllEventLogEntries()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"List EventLogEntryEntityManagerImpl.findAllEventLogEntries()"})
   public void testFindAllEventLogEntries_thenReturnEmpty() {
     // Arrange
     EventLogEntryDataManager eventLogEntryDataManager = mock(EventLogEntryDataManager.class);
     when(eventLogEntryDataManager.findAllEventLogEntries()).thenReturn(new ArrayList<>());
-    EventLogEntryEntityManagerImpl eventLogEntryEntityManagerImpl =
-        new EventLogEntryEntityManagerImpl(
-            new JtaProcessEngineConfiguration(), eventLogEntryDataManager);
 
     // Act
-    List<EventLogEntry> actualFindAllEventLogEntriesResult =
-        eventLogEntryEntityManagerImpl.findAllEventLogEntries();
+    List<EventLogEntry> actualFindAllEventLogEntriesResult = (new EventLogEntryEntityManagerImpl(
+        new JtaProcessEngineConfiguration(), eventLogEntryDataManager)).findAllEventLogEntries();
 
     // Assert
     verify(eventLogEntryDataManager).findAllEventLogEntries();
@@ -125,86 +111,72 @@ public class EventLogEntryEntityManagerImplDiffblueTest {
 
   /**
    * Test {@link EventLogEntryEntityManagerImpl#findEventLogEntries(long, long)}.
-   *
    * <ul>
-   *   <li>Then return Empty.
+   *   <li>Then return Empty.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link EventLogEntryEntityManagerImpl#findEventLogEntries(long, long)}
+   * <p>
+   * Method under test: {@link EventLogEntryEntityManagerImpl#findEventLogEntries(long, long)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"List EventLogEntryEntityManagerImpl.findEventLogEntries(long, long)"})
   public void testFindEventLogEntries_thenReturnEmpty() {
     // Arrange
     EventLogEntryDataManager eventLogEntryDataManager = mock(EventLogEntryDataManager.class);
-    when(eventLogEntryDataManager.findEventLogEntries(anyLong(), anyLong()))
-        .thenReturn(new ArrayList<>());
-    EventLogEntryEntityManagerImpl eventLogEntryEntityManagerImpl =
-        new EventLogEntryEntityManagerImpl(
-            new JtaProcessEngineConfiguration(), eventLogEntryDataManager);
+    when(eventLogEntryDataManager.findEventLogEntries(anyLong(), anyLong())).thenReturn(new ArrayList<>());
 
     // Act
-    List<EventLogEntry> actualFindEventLogEntriesResult =
-        eventLogEntryEntityManagerImpl.findEventLogEntries(1L, 3L);
+    List<EventLogEntry> actualFindEventLogEntriesResult = (new EventLogEntryEntityManagerImpl(
+        new JtaProcessEngineConfiguration(), eventLogEntryDataManager)).findEventLogEntries(1L, 3L);
 
     // Assert
-    verify(eventLogEntryDataManager).findEventLogEntries(1L, 3L);
+    verify(eventLogEntryDataManager).findEventLogEntries(eq(1L), eq(3L));
     assertTrue(actualFindEventLogEntriesResult.isEmpty());
   }
 
   /**
    * Test {@link EventLogEntryEntityManagerImpl#findEventLogEntriesByProcessInstanceId(String)}.
-   *
-   * <p>Method under test: {@link
-   * EventLogEntryEntityManagerImpl#findEventLogEntriesByProcessInstanceId(String)}
+   * <p>
+   * Method under test: {@link EventLogEntryEntityManagerImpl#findEventLogEntriesByProcessInstanceId(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "List EventLogEntryEntityManagerImpl.findEventLogEntriesByProcessInstanceId(String)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"List EventLogEntryEntityManagerImpl.findEventLogEntriesByProcessInstanceId(String)"})
   public void testFindEventLogEntriesByProcessInstanceId() {
     // Arrange
     when(eventLogEntryDataManager.findEventLogEntriesByProcessInstanceId(Mockito.<String>any()))
         .thenReturn(new ArrayList<>());
 
     // Act
-    List<EventLogEntry> actualFindEventLogEntriesByProcessInstanceIdResult =
-        eventLogEntryEntityManagerImpl.findEventLogEntriesByProcessInstanceId("42");
+    List<EventLogEntry> actualFindEventLogEntriesByProcessInstanceIdResult = eventLogEntryEntityManagerImpl
+        .findEventLogEntriesByProcessInstanceId("42");
 
     // Assert
-    verify(eventLogEntryDataManager).findEventLogEntriesByProcessInstanceId("42");
+    verify(eventLogEntryDataManager).findEventLogEntriesByProcessInstanceId(eq("42"));
     assertTrue(actualFindEventLogEntriesByProcessInstanceIdResult.isEmpty());
   }
 
   /**
    * Test {@link EventLogEntryEntityManagerImpl#deleteEventLogEntry(long)}.
-   *
    * <ul>
-   *   <li>Then calls {@link EventLogEntryDataManager#deleteEventLogEntry(long)}.
+   *   <li>Then calls {@link EventLogEntryDataManager#deleteEventLogEntry(long)}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link EventLogEntryEntityManagerImpl#deleteEventLogEntry(long)}
+   * <p>
+   * Method under test: {@link EventLogEntryEntityManagerImpl#deleteEventLogEntry(long)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void EventLogEntryEntityManagerImpl.deleteEventLogEntry(long)"})
   public void testDeleteEventLogEntry_thenCallsDeleteEventLogEntry() {
     // Arrange
     EventLogEntryDataManager eventLogEntryDataManager = mock(EventLogEntryDataManager.class);
     doNothing().when(eventLogEntryDataManager).deleteEventLogEntry(anyLong());
-    EventLogEntryEntityManagerImpl eventLogEntryEntityManagerImpl =
-        new EventLogEntryEntityManagerImpl(
-            new JtaProcessEngineConfiguration(), eventLogEntryDataManager);
 
     // Act
-    eventLogEntryEntityManagerImpl.deleteEventLogEntry(1L);
+    (new EventLogEntryEntityManagerImpl(new JtaProcessEngineConfiguration(), eventLogEntryDataManager))
+        .deleteEventLogEntry(1L);
 
     // Assert
-    verify(eventLogEntryDataManager).deleteEventLogEntry(1L);
+    verify(eventLogEntryDataManager).deleteEventLogEntry(eq(1L));
   }
 }

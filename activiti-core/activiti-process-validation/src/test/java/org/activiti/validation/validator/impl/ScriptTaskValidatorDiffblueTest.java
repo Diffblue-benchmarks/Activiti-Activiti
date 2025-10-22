@@ -24,15 +24,12 @@ import static org.mockito.Mockito.atLeast;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
 import java.util.List;
-import org.activiti.bpmn.model.AdhocSubProcess;
 import org.activiti.bpmn.model.BpmnModel;
 import org.activiti.bpmn.model.Process;
 import org.activiti.bpmn.model.ScriptTask;
-import org.activiti.bpmn.model.SubProcess;
 import org.activiti.validation.ValidationError;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
@@ -42,19 +39,16 @@ import org.mockito.Mockito;
 class ScriptTaskValidatorDiffblueTest {
   /**
    * Test {@link ScriptTaskValidator#executeValidation(BpmnModel, Process, List)}.
-   *
    * <ul>
-   *   <li>Given {@link ArrayList#ArrayList()} add {@link ScriptTask} (default constructor).
-   *   <li>Then {@link ArrayList#ArrayList()} size is two.
+   *   <li>Given {@link ArrayList#ArrayList()} add {@link ScriptTask} (default constructor).</li>
+   *   <li>Then {@link ArrayList#ArrayList()} size is two.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ScriptTaskValidator#executeValidation(BpmnModel, Process, List)}
+   * <p>
+   * Method under test: {@link ScriptTaskValidator#executeValidation(BpmnModel, Process, List)}
    */
   @Test
-  @DisplayName(
-      "Test executeValidation(BpmnModel, Process, List); given ArrayList() add ScriptTask (default constructor); then ArrayList() size is two")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test executeValidation(BpmnModel, Process, List); given ArrayList() add ScriptTask (default constructor); then ArrayList() size is two")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void ScriptTaskValidator.executeValidation(BpmnModel, Process, List)"})
   void testExecuteValidation_givenArrayListAddScriptTask_thenArrayListSizeIsTwo() {
     // Arrange
@@ -64,12 +58,10 @@ class ScriptTaskValidatorDiffblueTest {
     ArrayList<ScriptTask> scriptTaskList = new ArrayList<>();
     scriptTaskList.add(new ScriptTask());
     scriptTaskList.add(new ScriptTask());
-
     Process process = mock(Process.class);
     when(process.getId()).thenReturn("42");
     when(process.getName()).thenReturn("Name");
-    when(process.findFlowElementsOfType(Mockito.<Class<ScriptTask>>any()))
-        .thenReturn(scriptTaskList);
+    when(process.findFlowElementsOfType(Mockito.<Class<ScriptTask>>any())).thenReturn(scriptTaskList);
     ArrayList<ValidationError> errors = new ArrayList<>();
 
     // Act
@@ -97,33 +89,23 @@ class ScriptTaskValidatorDiffblueTest {
 
   /**
    * Test {@link ScriptTaskValidator#executeValidation(BpmnModel, Process, List)}.
-   *
    * <ul>
-   *   <li>Given {@link ScriptTask} (default constructor) Script is {@code Flow Elements Of Type}.
+   *   <li>Given {@link ArrayList#ArrayList()}.</li>
+   *   <li>Then {@link ArrayList#ArrayList()} Empty.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ScriptTaskValidator#executeValidation(BpmnModel, Process, List)}
+   * <p>
+   * Method under test: {@link ScriptTaskValidator#executeValidation(BpmnModel, Process, List)}
    */
   @Test
-  @DisplayName(
-      "Test executeValidation(BpmnModel, Process, List); given ScriptTask (default constructor) Script is 'Flow Elements Of Type'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test executeValidation(BpmnModel, Process, List); given ArrayList(); then ArrayList() Empty")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void ScriptTaskValidator.executeValidation(BpmnModel, Process, List)"})
-  void testExecuteValidation_givenScriptTaskScriptIsFlowElementsOfType() {
+  void testExecuteValidation_givenArrayList_thenArrayListEmpty() {
     // Arrange
     ScriptTaskValidator scriptTaskValidator = new ScriptTaskValidator();
     BpmnModel bpmnModel = new BpmnModel();
-
-    ScriptTask scriptTask = new ScriptTask();
-    scriptTask.setScript("Flow Elements Of Type");
-
-    ArrayList<ScriptTask> scriptTaskList = new ArrayList<>();
-    scriptTaskList.add(scriptTask);
-
     Process process = mock(Process.class);
-    when(process.findFlowElementsOfType(Mockito.<Class<ScriptTask>>any()))
-        .thenReturn(scriptTaskList);
+    when(process.findFlowElementsOfType(Mockito.<Class<ScriptTask>>any())).thenReturn(new ArrayList<>());
     ArrayList<ValidationError> errors = new ArrayList<>();
 
     // Act
@@ -136,65 +118,55 @@ class ScriptTaskValidatorDiffblueTest {
 
   /**
    * Test {@link ScriptTaskValidator#executeValidation(BpmnModel, Process, List)}.
-   *
    * <ul>
-   *   <li>Given {@link SubProcess} (default constructor) addFlowElement {@link AdhocSubProcess}
-   *       (default constructor).
+   *   <li>Given {@link ScriptTask} {@link ScriptTask#getScript()} return {@code Script}.</li>
+   *   <li>Then calls {@link ScriptTask#getScript()}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ScriptTaskValidator#executeValidation(BpmnModel, Process, List)}
+   * <p>
+   * Method under test: {@link ScriptTaskValidator#executeValidation(BpmnModel, Process, List)}
    */
   @Test
-  @DisplayName(
-      "Test executeValidation(BpmnModel, Process, List); given SubProcess (default constructor) addFlowElement AdhocSubProcess (default constructor)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test executeValidation(BpmnModel, Process, List); given ScriptTask getScript() return 'Script'; then calls getScript()")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void ScriptTaskValidator.executeValidation(BpmnModel, Process, List)"})
-  void testExecuteValidation_givenSubProcessAddFlowElementAdhocSubProcess() {
+  void testExecuteValidation_givenScriptTaskGetScriptReturnScript_thenCallsGetScript() {
     // Arrange
     ScriptTaskValidator scriptTaskValidator = new ScriptTaskValidator();
     BpmnModel bpmnModel = new BpmnModel();
+    ScriptTask scriptTask = mock(ScriptTask.class);
+    when(scriptTask.getScript()).thenReturn("Script");
 
-    SubProcess element = new SubProcess();
-    element.addFlowElement(new AdhocSubProcess());
-
-    SubProcess element2 = new SubProcess();
-    element2.addFlowElement(element);
-
-    SubProcess element3 = new SubProcess();
-    element3.addFlowElement(element2);
-
-    Process process = new Process();
-    process.addFlowElement(element3);
+    ArrayList<ScriptTask> scriptTaskList = new ArrayList<>();
+    scriptTaskList.add(scriptTask);
+    Process process = mock(Process.class);
+    when(process.findFlowElementsOfType(Mockito.<Class<ScriptTask>>any())).thenReturn(scriptTaskList);
     ArrayList<ValidationError> errors = new ArrayList<>();
 
     // Act
     scriptTaskValidator.executeValidation(bpmnModel, process, errors);
 
     // Assert that nothing has changed
+    verify(process).findFlowElementsOfType(isA(Class.class));
+    verify(scriptTask).getScript();
     assertTrue(errors.isEmpty());
   }
 
   /**
    * Test {@link ScriptTaskValidator#executeValidation(BpmnModel, Process, List)}.
-   *
    * <ul>
-   *   <li>Then {@link ArrayList#ArrayList()} first ActivityId is {@code 42}.
+   *   <li>Then {@link ArrayList#ArrayList()} first ActivityId is {@code 42}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ScriptTaskValidator#executeValidation(BpmnModel, Process, List)}
+   * <p>
+   * Method under test: {@link ScriptTaskValidator#executeValidation(BpmnModel, Process, List)}
    */
   @Test
-  @DisplayName(
-      "Test executeValidation(BpmnModel, Process, List); then ArrayList() first ActivityId is '42'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test executeValidation(BpmnModel, Process, List); then ArrayList() first ActivityId is '42'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void ScriptTaskValidator.executeValidation(BpmnModel, Process, List)"})
   void testExecuteValidation_thenArrayListFirstActivityIdIs42() {
     // Arrange
     ScriptTaskValidator scriptTaskValidator = new ScriptTaskValidator();
     BpmnModel bpmnModel = new BpmnModel();
-
     ScriptTask scriptTask = mock(ScriptTask.class);
     when(scriptTask.getXmlColumnNumber()).thenReturn(10);
     when(scriptTask.getXmlRowNumber()).thenReturn(10);
@@ -204,12 +176,10 @@ class ScriptTaskValidatorDiffblueTest {
 
     ArrayList<ScriptTask> scriptTaskList = new ArrayList<>();
     scriptTaskList.add(scriptTask);
-
     Process process = mock(Process.class);
     when(process.getId()).thenReturn("42");
     when(process.getName()).thenReturn("Name");
-    when(process.findFlowElementsOfType(Mockito.<Class<ScriptTask>>any()))
-        .thenReturn(scriptTaskList);
+    when(process.findFlowElementsOfType(Mockito.<Class<ScriptTask>>any())).thenReturn(scriptTaskList);
     ArrayList<ValidationError> errors = new ArrayList<>();
 
     // Act
@@ -234,18 +204,15 @@ class ScriptTaskValidatorDiffblueTest {
 
   /**
    * Test {@link ScriptTaskValidator#executeValidation(BpmnModel, Process, List)}.
-   *
    * <ul>
-   *   <li>Then {@link ArrayList#ArrayList()} first ActivityId is {@code null}.
+   *   <li>Then {@link ArrayList#ArrayList()} first ActivityId is {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ScriptTaskValidator#executeValidation(BpmnModel, Process, List)}
+   * <p>
+   * Method under test: {@link ScriptTaskValidator#executeValidation(BpmnModel, Process, List)}
    */
   @Test
-  @DisplayName(
-      "Test executeValidation(BpmnModel, Process, List); then ArrayList() first ActivityId is 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test executeValidation(BpmnModel, Process, List); then ArrayList() first ActivityId is 'null'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void ScriptTaskValidator.executeValidation(BpmnModel, Process, List)"})
   void testExecuteValidation_thenArrayListFirstActivityIdIsNull() {
     // Arrange
@@ -254,12 +221,10 @@ class ScriptTaskValidatorDiffblueTest {
 
     ArrayList<ScriptTask> scriptTaskList = new ArrayList<>();
     scriptTaskList.add(new ScriptTask());
-
     Process process = mock(Process.class);
     when(process.getId()).thenReturn("42");
     when(process.getName()).thenReturn("Name");
-    when(process.findFlowElementsOfType(Mockito.<Class<ScriptTask>>any()))
-        .thenReturn(scriptTaskList);
+    when(process.findFlowElementsOfType(Mockito.<Class<ScriptTask>>any())).thenReturn(scriptTaskList);
     ArrayList<ValidationError> errors = new ArrayList<>();
 
     // Act
@@ -279,19 +244,16 @@ class ScriptTaskValidatorDiffblueTest {
 
   /**
    * Test {@link ScriptTaskValidator#executeValidation(BpmnModel, Process, List)}.
-   *
    * <ul>
-   *   <li>When {@link Process} (default constructor).
-   *   <li>Then {@link ArrayList#ArrayList()} Empty.
+   *   <li>When {@link Process} (default constructor).</li>
+   *   <li>Then {@link ArrayList#ArrayList()} Empty.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ScriptTaskValidator#executeValidation(BpmnModel, Process, List)}
+   * <p>
+   * Method under test: {@link ScriptTaskValidator#executeValidation(BpmnModel, Process, List)}
    */
   @Test
-  @DisplayName(
-      "Test executeValidation(BpmnModel, Process, List); when Process (default constructor); then ArrayList() Empty")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test executeValidation(BpmnModel, Process, List); when Process (default constructor); then ArrayList() Empty")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void ScriptTaskValidator.executeValidation(BpmnModel, Process, List)"})
   void testExecuteValidation_whenProcess_thenArrayListEmpty() {
     // Arrange

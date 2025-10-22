@@ -17,8 +17,7 @@ package org.activiti.image.impl.icon;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
@@ -26,37 +25,34 @@ import org.junit.experimental.categories.Category;
 public class MessageIconTypeDiffblueTest {
   /**
    * Test {@link MessageIconType#getWidth()}.
-   *
-   * <p>Method under test: {@link MessageIconType#getWidth()}
+   * <p>
+   * Method under test: {@link MessageIconType#getWidth()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"java.lang.Integer MessageIconType.getWidth()"})
   public void testGetWidth() {
     // Arrange, Act and Assert
-    assertEquals(17, new MessageIconType().getWidth().intValue());
+    assertEquals(17, (new MessageIconType()).getWidth().intValue());
   }
 
   /**
    * Test {@link MessageIconType#getHeight()}.
-   *
-   * <p>Method under test: {@link MessageIconType#getHeight()}
+   * <p>
+   * Method under test: {@link MessageIconType#getHeight()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"java.lang.Integer MessageIconType.getHeight()"})
   public void testGetHeight() {
     // Arrange, Act and Assert
-    assertEquals(13, new MessageIconType().getHeight().intValue());
+    assertEquals(13, (new MessageIconType()).getHeight().intValue());
   }
 
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>default or parameterless constructor of {@link MessageIconType}
    *   <li>{@link MessageIconType#getAnchorValue()}
@@ -68,17 +64,11 @@ public class MessageIconTypeDiffblueTest {
    * </ul>
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void MessageIconType.<init>()",
-    "String MessageIconType.getAnchorValue()",
-    "String MessageIconType.getDValue()",
-    "String MessageIconType.getFillValue()",
-    "String MessageIconType.getStrokeValue()",
-    "String MessageIconType.getStrokeWidth()",
-    "String MessageIconType.getStyleValue()"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void MessageIconType.<init>()", "String MessageIconType.getAnchorValue()",
+      "String MessageIconType.getDValue()", "String MessageIconType.getFillValue()",
+      "String MessageIconType.getStrokeValue()", "String MessageIconType.getStrokeWidth()",
+      "String MessageIconType.getStyleValue()"})
   public void testGettersAndSetters() {
     // Arrange and Act
     MessageIconType actualMessageIconType = new MessageIconType();
@@ -89,10 +79,8 @@ public class MessageIconTypeDiffblueTest {
     String actualStrokeWidth = actualMessageIconType.getStrokeWidth();
 
     // Assert
-    assertEquals(
-        " m0 1.5  l0 13  l17 0  l0 -13  z M1.5 3  L6 7.5  L1.5 12  z M3.5 3  L13.5 3  L8.5 8  z m12 0  l0 9 "
-            + " l-4.5 -4.5  z M7 8.5  L8.5 10  L10 8.5  L14.5 13  L2.5 13  z",
-        actualDValue);
+    assertEquals(" m0 1.5  l0 13  l17 0  l0 -13  z M1.5 3  L6 7.5  L1.5 12  z M3.5 3  L13.5 3  L8.5 8  z m12 0  l0 9 "
+        + " l-4.5 -4.5  z M7 8.5  L8.5 10  L10 8.5  L14.5 13  L2.5 13  z", actualDValue);
     assertEquals("#585858", actualFillValue);
     assertEquals("1", actualStrokeWidth);
     assertEquals("none", actualStrokeValue);

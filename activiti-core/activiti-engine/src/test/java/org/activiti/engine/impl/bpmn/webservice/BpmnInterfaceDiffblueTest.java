@@ -20,8 +20,7 @@ import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.Map;
 import org.junit.Test;
@@ -30,9 +29,8 @@ import org.junit.experimental.categories.Category;
 public class BpmnInterfaceDiffblueTest {
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>{@link BpmnInterface#BpmnInterface()}
    *   <li>{@link BpmnInterface#setId(String)}
@@ -44,17 +42,11 @@ public class BpmnInterfaceDiffblueTest {
    * </ul>
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void BpmnInterface.<init>()",
-    "String BpmnInterface.getId()",
-    "BpmnInterfaceImplementation BpmnInterface.getImplementation()",
-    "String BpmnInterface.getName()",
-    "void BpmnInterface.setId(String)",
-    "void BpmnInterface.setImplementation(BpmnInterfaceImplementation)",
-    "void BpmnInterface.setName(String)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void BpmnInterface.<init>()", "String BpmnInterface.getId()",
+      "BpmnInterfaceImplementation BpmnInterface.getImplementation()", "String BpmnInterface.getName()",
+      "void BpmnInterface.setId(String)", "void BpmnInterface.setImplementation(BpmnInterfaceImplementation)",
+      "void BpmnInterface.setName(String)"})
   public void testGettersAndSetters() {
     // Arrange and Act
     BpmnInterface actualBpmnInterface = new BpmnInterface();
@@ -74,12 +66,11 @@ public class BpmnInterfaceDiffblueTest {
 
   /**
    * Test {@link BpmnInterface#BpmnInterface(String, String)}.
-   *
-   * <p>Method under test: {@link BpmnInterface#BpmnInterface(String, String)}
+   * <p>
+   * Method under test: {@link BpmnInterface#BpmnInterface(String, String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void BpmnInterface.<init>(String, String)"})
   public void testNewBpmnInterface() {
     // Arrange and Act
@@ -95,17 +86,14 @@ public class BpmnInterfaceDiffblueTest {
 
   /**
    * Test {@link BpmnInterface#addOperation(Operation)}.
-   *
    * <ul>
-   *   <li>Then {@link BpmnInterface#BpmnInterface(String, String)} with id is {@code 42} and {@code
-   *       Name} Operations size is one.
+   *   <li>Then {@link BpmnInterface#BpmnInterface(String, String)} with id is {@code 42} and {@code Name} Operations size is one.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link BpmnInterface#addOperation(Operation)}
+   * <p>
+   * Method under test: {@link BpmnInterface#addOperation(Operation)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void BpmnInterface.addOperation(Operation)"})
   public void testAddOperation_thenBpmnInterfaceWithIdIs42AndNameOperationsSizeIsOne() {
     // Arrange
@@ -124,29 +112,27 @@ public class BpmnInterfaceDiffblueTest {
 
   /**
    * Test {@link BpmnInterface#getOperation(String)}.
-   *
-   * <p>Method under test: {@link BpmnInterface#getOperation(String)}
+   * <p>
+   * Method under test: {@link BpmnInterface#getOperation(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"Operation BpmnInterface.getOperation(String)"})
   public void testGetOperation() {
     // Arrange, Act and Assert
-    assertNull(new BpmnInterface("42", "Name").getOperation("42"));
+    assertNull((new BpmnInterface("42", "Name")).getOperation("42"));
   }
 
   /**
    * Test {@link BpmnInterface#getOperations()}.
-   *
-   * <p>Method under test: {@link BpmnInterface#getOperations()}
+   * <p>
+   * Method under test: {@link BpmnInterface#getOperations()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"java.util.Collection BpmnInterface.getOperations()"})
   public void testGetOperations() {
     // Arrange, Act and Assert
-    assertTrue(new BpmnInterface("42", "Name").getOperations().isEmpty());
+    assertTrue((new BpmnInterface("42", "Name")).getOperations().isEmpty());
   }
 }

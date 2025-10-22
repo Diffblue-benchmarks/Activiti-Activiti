@@ -17,10 +17,10 @@ package org.activiti.core.el.juel;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import jakarta.el.ELException;
 import jakarta.el.FunctionMapper;
@@ -46,252 +46,216 @@ import org.mockito.Mockito;
 
 class TreeMethodExpressionDiffblueTest {
   /**
-   * Test {@link TreeMethodExpression#TreeMethodExpression(TreeStore, FunctionMapper,
-   * VariableMapper, TypeConverter, String, Class, Class[])}.
-   *
+   * Test {@link TreeMethodExpression#TreeMethodExpression(TreeStore, FunctionMapper, VariableMapper, TypeConverter, String, Class, Class[])}.
    * <ul>
-   *   <li>When {@link FunctionMapper}.
-   *   <li>Then throw {@link ELException}.
+   *   <li>When {@link FunctionMapper}.</li>
+   *   <li>Then throw {@link ELException}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link TreeMethodExpression#TreeMethodExpression(TreeStore,
-   * FunctionMapper, VariableMapper, TypeConverter, String, Class, Class[])}
+   * <p>
+   * Method under test: {@link TreeMethodExpression#TreeMethodExpression(TreeStore, FunctionMapper, VariableMapper, TypeConverter, String, Class, Class[])}
    */
   @Test
-  @DisplayName(
-      "Test new TreeMethodExpression(TreeStore, FunctionMapper, VariableMapper, TypeConverter, String, Class, Class[]); when FunctionMapper; then throw ELException")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test new TreeMethodExpression(TreeStore, FunctionMapper, VariableMapper, TypeConverter, String, Class, Class[]); when FunctionMapper; then throw ELException")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({
-    "void TreeMethodExpression.<init>(TreeStore, FunctionMapper, VariableMapper, TypeConverter, String, Class, Class[])"
-  })
-  void testNewTreeMethodExpression_whenFunctionMapper_thenThrowELException()
-      throws TreeBuilderException {
+      "void TreeMethodExpression.<init>(TreeStore, FunctionMapper, VariableMapper, TypeConverter, String, Class, Class[])"})
+  void testNewTreeMethodExpression_whenFunctionMapper_thenThrowELException() throws TreeBuilderException {
     // Arrange
     TreeBuilder builder = mock(TreeBuilder.class);
     AstNull root = new AstNull();
     ArrayList<FunctionNode> functions = new ArrayList<>();
-
-    Tree tree = new Tree(root, functions, new ArrayList<>(), true);
-    when(builder.build(Mockito.<String>any())).thenReturn(tree);
+    when(builder.build(Mockito.<String>any())).thenReturn(new Tree(root, functions, new ArrayList<>(), true));
     TreeStore store = new TreeStore(builder, new Cache(3));
+
     FunctionMapper functions2 = mock(FunctionMapper.class);
     VariableMapper variables = mock(VariableMapper.class);
     TypeConverter converter = mock(TypeConverter.class);
     Class<Object> returnType = Object.class;
     Class<Object> forNameResult = Object.class;
-    Class<?>[] paramTypes = new Class[] {forNameResult};
 
     // Act and Assert
-    assertThrows(
-        ELException.class,
-        () ->
-            new TreeMethodExpression(
-                store, functions2, variables, converter, "Expr", returnType, paramTypes));
-    verify(builder).build("Expr");
+    assertThrows(ELException.class, () -> new TreeMethodExpression(store, functions2, variables, converter, "Expr",
+        returnType, new Class[]{forNameResult}));
+
+    verify(builder).build(eq("Expr"));
   }
 
   /**
    * Test {@link TreeMethodExpression#isLiteralText()}.
-   *
    * <ul>
-   *   <li>Then return {@code false}.
+   *   <li>Then return {@code false}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link TreeMethodExpression#isLiteralText()}
+   * <p>
+   * Method under test: {@link TreeMethodExpression#isLiteralText()}
    */
   @Test
   @DisplayName("Test isLiteralText(); then return 'false'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"boolean TreeMethodExpression.isLiteralText()"})
   void testIsLiteralText_thenReturnFalse() throws TreeBuilderException {
     // Arrange
     TreeBuilder builder = mock(TreeBuilder.class);
     AstNull base = new AstNull();
     AstBracket root = new AstBracket(base, new AstNull(), true, true);
-    ArrayList<FunctionNode> functions = new ArrayList<>();
 
-    Tree tree = new Tree(root, functions, new ArrayList<>(), true);
-    when(builder.build(Mockito.<String>any())).thenReturn(tree);
+    ArrayList<FunctionNode> functions = new ArrayList<>();
+    when(builder.build(Mockito.<String>any())).thenReturn(new Tree(root, functions, new ArrayList<>(), true));
     TreeStore store = new TreeStore(builder, new Cache(3));
+
     FunctionMapper functions2 = mock(FunctionMapper.class);
     VariableMapper variables = mock(VariableMapper.class);
     TypeConverter converter = mock(TypeConverter.class);
     Class<Object> returnType = Object.class;
     Class<Object> forNameResult = Object.class;
-    Class<?>[] paramTypes = new Class[] {forNameResult};
-
-    TreeMethodExpression treeMethodExpression =
-        new TreeMethodExpression(
-            store, functions2, variables, converter, "Expr", returnType, paramTypes);
 
     // Act
-    boolean actualIsLiteralTextResult = treeMethodExpression.isLiteralText();
+    boolean actualIsLiteralTextResult = (new TreeMethodExpression(store, functions2, variables, converter, "Expr",
+        returnType, new Class[]{forNameResult})).isLiteralText();
 
     // Assert
-    verify(builder).build("Expr");
+    verify(builder).build(eq("Expr"));
     assertFalse(actualIsLiteralTextResult);
   }
 
   /**
    * Test {@link TreeMethodExpression#isParametersProvided()}.
-   *
    * <ul>
-   *   <li>Then return {@code false}.
+   *   <li>Then return {@code false}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link TreeMethodExpression#isParametersProvided()}
+   * <p>
+   * Method under test: {@link TreeMethodExpression#isParametersProvided()}
    */
   @Test
   @DisplayName("Test isParametersProvided(); then return 'false'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"boolean TreeMethodExpression.isParametersProvided()"})
   void testIsParametersProvided_thenReturnFalse() throws TreeBuilderException {
     // Arrange
     TreeBuilder builder = mock(TreeBuilder.class);
     AstNull base = new AstNull();
     AstBracket root = new AstBracket(base, new AstNull(), true, true);
-    ArrayList<FunctionNode> functions = new ArrayList<>();
 
-    Tree tree = new Tree(root, functions, new ArrayList<>(), true);
-    when(builder.build(Mockito.<String>any())).thenReturn(tree);
+    ArrayList<FunctionNode> functions = new ArrayList<>();
+    when(builder.build(Mockito.<String>any())).thenReturn(new Tree(root, functions, new ArrayList<>(), true));
     TreeStore store = new TreeStore(builder, new Cache(3));
+
     FunctionMapper functions2 = mock(FunctionMapper.class);
     VariableMapper variables = mock(VariableMapper.class);
     TypeConverter converter = mock(TypeConverter.class);
     Class<Object> returnType = Object.class;
     Class<Object> forNameResult = Object.class;
-    Class<?>[] paramTypes = new Class[] {forNameResult};
-
-    TreeMethodExpression treeMethodExpression =
-        new TreeMethodExpression(
-            store, functions2, variables, converter, "Expr", returnType, paramTypes);
 
     // Act
-    boolean actualIsParametersProvidedResult = treeMethodExpression.isParametersProvided();
+    boolean actualIsParametersProvidedResult = (new TreeMethodExpression(store, functions2, variables, converter,
+        "Expr", returnType, new Class[]{forNameResult})).isParametersProvided();
 
     // Assert
-    verify(builder).build("Expr");
+    verify(builder).build(eq("Expr"));
     assertFalse(actualIsParametersProvidedResult);
   }
 
   /**
    * Test {@link TreeMethodExpression#dump(PrintWriter)}.
-   *
-   * <p>Method under test: {@link TreeMethodExpression#dump(PrintWriter)}
+   * <p>
+   * Method under test: {@link TreeMethodExpression#dump(PrintWriter)}
    */
   @Test
   @DisplayName("Test dump(PrintWriter)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void TreeMethodExpression.dump(PrintWriter)"})
   void testDump() throws TreeBuilderException {
     // Arrange
     TreeBuilder builder = mock(TreeBuilder.class);
     AstNull base = new AstNull();
     AstBracket root = new AstBracket(base, new AstNull(), true, true);
-    ArrayList<FunctionNode> functions = new ArrayList<>();
 
-    Tree tree = new Tree(root, functions, new ArrayList<>(), true);
-    when(builder.build(Mockito.<String>any())).thenReturn(tree);
+    ArrayList<FunctionNode> functions = new ArrayList<>();
+    when(builder.build(Mockito.<String>any())).thenReturn(new Tree(root, functions, new ArrayList<>(), true));
     TreeStore store = new TreeStore(builder, new Cache(3));
+
     FunctionMapper functions2 = mock(FunctionMapper.class);
     VariableMapper variables = mock(VariableMapper.class);
     TypeConverter converter = mock(TypeConverter.class);
     Class<Object> returnType = Object.class;
     Class<Object> forNameResult = Object.class;
-    Class<?>[] paramTypes = new Class[] {forNameResult};
-
-    TreeMethodExpression treeMethodExpression =
-        new TreeMethodExpression(
-            store, functions2, variables, converter, "Expr", returnType, paramTypes);
+    TreeMethodExpression treeMethodExpression = new TreeMethodExpression(store, functions2, variables, converter,
+        "Expr", returnType, new Class[]{forNameResult});
 
     // Act
     treeMethodExpression.dump(new PrintWriter(new StringWriter()));
 
     // Assert
-    verify(builder).build("Expr");
+    verify(builder).build(eq("Expr"));
   }
 
   /**
    * Test {@link TreeMethodExpression#dump(PrintWriter)}.
-   *
-   * <p>Method under test: {@link TreeMethodExpression#dump(PrintWriter)}
+   * <p>
+   * Method under test: {@link TreeMethodExpression#dump(PrintWriter)}
    */
   @Test
   @DisplayName("Test dump(PrintWriter)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void TreeMethodExpression.dump(PrintWriter)"})
   void testDump2() throws TreeBuilderException {
     // Arrange
     TreeBuilder builder = mock(TreeBuilder.class);
     AstNull left = new AstNull();
     AstBinary base = new AstBinary(left, new AstNull(), mock(Operator.class));
-    AstBracket root = new AstBracket(base, new AstNull(), true, true);
-    ArrayList<FunctionNode> functions = new ArrayList<>();
 
-    Tree tree = new Tree(root, functions, new ArrayList<>(), true);
-    when(builder.build(Mockito.<String>any())).thenReturn(tree);
+    AstBracket root = new AstBracket(base, new AstNull(), true, true);
+
+    ArrayList<FunctionNode> functions = new ArrayList<>();
+    when(builder.build(Mockito.<String>any())).thenReturn(new Tree(root, functions, new ArrayList<>(), true));
     TreeStore store = new TreeStore(builder, new Cache(3));
+
     FunctionMapper functions2 = mock(FunctionMapper.class);
     VariableMapper variables = mock(VariableMapper.class);
     TypeConverter converter = mock(TypeConverter.class);
     Class<Object> returnType = Object.class;
     Class<Object> forNameResult = Object.class;
-    Class<?>[] paramTypes = new Class[] {forNameResult};
-
-    TreeMethodExpression treeMethodExpression =
-        new TreeMethodExpression(
-            store, functions2, variables, converter, "Expr", returnType, paramTypes);
+    TreeMethodExpression treeMethodExpression = new TreeMethodExpression(store, functions2, variables, converter,
+        "Expr", returnType, new Class[]{forNameResult});
 
     // Act
     treeMethodExpression.dump(new PrintWriter(new StringWriter()));
 
     // Assert
-    verify(builder).build("Expr");
+    verify(builder).build(eq("Expr"));
   }
 
   /**
    * Test {@link TreeMethodExpression#dump(PrintWriter)}.
-   *
-   * <p>Method under test: {@link TreeMethodExpression#dump(PrintWriter)}
+   * <p>
+   * Method under test: {@link TreeMethodExpression#dump(PrintWriter)}
    */
   @Test
   @DisplayName("Test dump(PrintWriter)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void TreeMethodExpression.dump(PrintWriter)"})
   void testDump3() throws TreeBuilderException {
     // Arrange
     TreeBuilder builder = mock(TreeBuilder.class);
     AstNull base = new AstNull();
     AstNull left = new AstNull();
-    AstBinary property = new AstBinary(left, new AstNull(), mock(Operator.class));
+    AstBracket root = new AstBracket(base, new AstBinary(left, new AstNull(), mock(Operator.class)), true, true);
 
-    AstBracket root = new AstBracket(base, property, true, true);
     ArrayList<FunctionNode> functions = new ArrayList<>();
-
-    Tree tree = new Tree(root, functions, new ArrayList<>(), true);
-    when(builder.build(Mockito.<String>any())).thenReturn(tree);
+    when(builder.build(Mockito.<String>any())).thenReturn(new Tree(root, functions, new ArrayList<>(), true));
     TreeStore store = new TreeStore(builder, new Cache(3));
+
     FunctionMapper functions2 = mock(FunctionMapper.class);
     VariableMapper variables = mock(VariableMapper.class);
     TypeConverter converter = mock(TypeConverter.class);
     Class<Object> returnType = Object.class;
     Class<Object> forNameResult = Object.class;
-    Class<?>[] paramTypes = new Class[] {forNameResult};
-
-    TreeMethodExpression treeMethodExpression =
-        new TreeMethodExpression(
-            store, functions2, variables, converter, "Expr", returnType, paramTypes);
+    TreeMethodExpression treeMethodExpression = new TreeMethodExpression(store, functions2, variables, converter,
+        "Expr", returnType, new Class[]{forNameResult});
 
     // Act
     treeMethodExpression.dump(new PrintWriter(new StringWriter()));
 
     // Assert
-    verify(builder).build("Expr");
+    verify(builder).build(eq("Expr"));
   }
 }

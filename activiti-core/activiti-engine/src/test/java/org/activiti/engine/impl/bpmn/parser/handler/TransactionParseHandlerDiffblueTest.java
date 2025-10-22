@@ -19,43 +19,41 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.bpmn.model.AdhocSubProcess;
 import org.activiti.bpmn.model.Association;
 import org.activiti.bpmn.model.BaseElement;
+import org.activiti.bpmn.model.BooleanDataObject;
 import org.activiti.bpmn.model.BoundaryEvent;
-import org.activiti.bpmn.model.DataObject;
-import org.activiti.bpmn.model.SequenceFlow;
+import org.activiti.bpmn.model.BpmnModel;
+import org.activiti.bpmn.model.Process;
 import org.activiti.bpmn.model.Transaction;
 import org.activiti.engine.impl.bpmn.behavior.TransactionActivityBehavior;
 import org.activiti.engine.impl.bpmn.parser.BpmnParse;
 import org.activiti.engine.impl.bpmn.parser.BpmnParseHandlers;
 import org.activiti.engine.impl.bpmn.parser.BpmnParser;
 import org.activiti.engine.impl.bpmn.parser.factory.DefaultActivityBehaviorFactory;
-import org.activiti.engine.test.util.TestProcessUtil;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 
 public class TransactionParseHandlerDiffblueTest {
   /**
-   * Test {@link TransactionParseHandler#executeParse(BpmnParse, Transaction)} with {@code
-   * BpmnParse}, {@code Transaction}.
-   *
-   * <p>Method under test: {@link TransactionParseHandler#executeParse(BpmnParse, Transaction)}
+   * Test {@link TransactionParseHandler#executeParse(BpmnParse, Transaction)} with {@code BpmnParse}, {@code Transaction}.
+   * <p>
+   * Method under test: {@link TransactionParseHandler#executeParse(BpmnParse, Transaction)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void TransactionParseHandler.executeParse(BpmnParse, Transaction)"})
   public void testExecuteParseWithBpmnParseTransaction() {
     // Arrange
     TransactionParseHandler transactionParseHandler = new TransactionParseHandler();
 
-    BpmnParse bpmnParse = new BpmnParse(new BpmnParser());
-    bpmnParse.setBpmnParserHandlers(new BpmnParseHandlers());
-    bpmnParse.setActivityBehaviorFactory(new DefaultActivityBehaviorFactory());
+    BpmnParser parser = new BpmnParser();
+    parser.setBpmnParserHandlers(new BpmnParseHandlers());
+    parser.setActivityBehaviorFactory(new DefaultActivityBehaviorFactory());
+    BpmnParse bpmnParse = new BpmnParse(parser);
 
     Transaction transaction = new Transaction();
     AdhocSubProcess element = new AdhocSubProcess();
@@ -69,25 +67,27 @@ public class TransactionParseHandlerDiffblueTest {
   }
 
   /**
-   * Test {@link TransactionParseHandler#executeParse(BpmnParse, Transaction)} with {@code
-   * BpmnParse}, {@code Transaction}.
-   *
-   * <p>Method under test: {@link TransactionParseHandler#executeParse(BpmnParse, Transaction)}
+   * Test {@link TransactionParseHandler#executeParse(BpmnParse, Transaction)} with {@code BpmnParse}, {@code Transaction}.
+   * <p>
+   * Method under test: {@link TransactionParseHandler#executeParse(BpmnParse, Transaction)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void TransactionParseHandler.executeParse(BpmnParse, Transaction)"})
   public void testExecuteParseWithBpmnParseTransaction2() {
     // Arrange
     TransactionParseHandler transactionParseHandler = new TransactionParseHandler();
 
-    BpmnParse bpmnParse = new BpmnParse(new BpmnParser());
-    bpmnParse.setBpmnParserHandlers(new BpmnParseHandlers());
-    bpmnParse.setActivityBehaviorFactory(new DefaultActivityBehaviorFactory());
+    BpmnParseHandlers bpmnParserHandlers = new BpmnParseHandlers();
+    bpmnParserHandlers.addHandler(new AdhocSubProcessParseHandler());
+
+    BpmnParser parser = new BpmnParser();
+    parser.setBpmnParserHandlers(bpmnParserHandlers);
+    parser.setActivityBehaviorFactory(new DefaultActivityBehaviorFactory());
+    BpmnParse bpmnParse = new BpmnParse(parser);
 
     Transaction transaction = new Transaction();
-    SequenceFlow element = new SequenceFlow("Source Ref", "Target Ref");
+    AdhocSubProcess element = new AdhocSubProcess();
     transaction.addFlowElement(element);
 
     // Act
@@ -98,22 +98,21 @@ public class TransactionParseHandlerDiffblueTest {
   }
 
   /**
-   * Test {@link TransactionParseHandler#executeParse(BpmnParse, Transaction)} with {@code
-   * BpmnParse}, {@code Transaction}.
-   *
-   * <p>Method under test: {@link TransactionParseHandler#executeParse(BpmnParse, Transaction)}
+   * Test {@link TransactionParseHandler#executeParse(BpmnParse, Transaction)} with {@code BpmnParse}, {@code Transaction}.
+   * <p>
+   * Method under test: {@link TransactionParseHandler#executeParse(BpmnParse, Transaction)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void TransactionParseHandler.executeParse(BpmnParse, Transaction)"})
   public void testExecuteParseWithBpmnParseTransaction3() {
     // Arrange
     TransactionParseHandler transactionParseHandler = new TransactionParseHandler();
 
-    BpmnParse bpmnParse = new BpmnParse(new BpmnParser());
-    bpmnParse.setBpmnParserHandlers(new BpmnParseHandlers());
-    bpmnParse.setActivityBehaviorFactory(new DefaultActivityBehaviorFactory());
+    BpmnParser parser = new BpmnParser();
+    parser.setBpmnParserHandlers(new BpmnParseHandlers());
+    parser.setActivityBehaviorFactory(new DefaultActivityBehaviorFactory());
+    BpmnParse bpmnParse = new BpmnParse(parser);
 
     Transaction transaction = new Transaction();
     BoundaryEvent element = new BoundaryEvent();
@@ -127,58 +126,58 @@ public class TransactionParseHandlerDiffblueTest {
   }
 
   /**
-   * Test {@link TransactionParseHandler#executeParse(BpmnParse, Transaction)} with {@code
-   * BpmnParse}, {@code Transaction}.
-   *
-   * <p>Method under test: {@link TransactionParseHandler#executeParse(BpmnParse, Transaction)}
+   * Test {@link TransactionParseHandler#executeParse(BpmnParse, Transaction)} with {@code BpmnParse}, {@code Transaction}.
+   * <ul>
+   *   <li>Given {@link BooleanDataObject} (default constructor).</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link TransactionParseHandler#executeParse(BpmnParse, Transaction)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void TransactionParseHandler.executeParse(BpmnParse, Transaction)"})
-  public void testExecuteParseWithBpmnParseTransaction4() {
+  public void testExecuteParseWithBpmnParseTransaction_givenBooleanDataObject() {
     // Arrange
     TransactionParseHandler transactionParseHandler = new TransactionParseHandler();
 
-    BpmnParseHandlers bpmnParserHandlers = new BpmnParseHandlers();
-    bpmnParserHandlers.addHandler(new AdhocSubProcessParseHandler());
-
-    BpmnParse bpmnParse = new BpmnParse(new BpmnParser());
-    bpmnParse.setBpmnParserHandlers(bpmnParserHandlers);
-    bpmnParse.setActivityBehaviorFactory(new DefaultActivityBehaviorFactory());
+    BpmnParser parser = new BpmnParser();
+    parser.setBpmnParserHandlers(new BpmnParseHandlers());
+    parser.setActivityBehaviorFactory(new DefaultActivityBehaviorFactory());
+    BpmnParse bpmnParse = new BpmnParse(parser);
 
     Transaction transaction = new Transaction();
-    AdhocSubProcess element = new AdhocSubProcess();
-    transaction.addFlowElement(element);
+    transaction.addFlowElement(new BooleanDataObject());
 
     // Act
     transactionParseHandler.executeParse(bpmnParse, transaction);
 
     // Assert
-    assertSame(element, bpmnParse.getCurrentFlowElement());
+    Object behavior = transaction.getBehavior();
+    assertTrue(behavior instanceof TransactionActivityBehavior);
+    assertNull(bpmnParse.getCurrentFlowElement());
+    assertNull(((TransactionActivityBehavior) behavior).getMultiInstanceActivityBehavior());
   }
 
   /**
-   * Test {@link TransactionParseHandler#executeParse(BpmnParse, Transaction)} with {@code
-   * BpmnParse}, {@code Transaction}.
-   *
+   * Test {@link TransactionParseHandler#executeParse(BpmnParse, Transaction)} with {@code BpmnParse}, {@code Transaction}.
    * <ul>
-   *   <li>Given createOneTaskBpmnModel.
+   *   <li>Given {@link BpmnModel} (default constructor).</li>
    * </ul>
-   *
-   * <p>Method under test: {@link TransactionParseHandler#executeParse(BpmnParse, Transaction)}
+   * <p>
+   * Method under test: {@link TransactionParseHandler#executeParse(BpmnParse, Transaction)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void TransactionParseHandler.executeParse(BpmnParse, Transaction)"})
-  public void testExecuteParseWithBpmnParseTransaction_givenCreateOneTaskBpmnModel() {
+  public void testExecuteParseWithBpmnParseTransaction_givenBpmnModel() {
     // Arrange
     TransactionParseHandler transactionParseHandler = new TransactionParseHandler();
 
-    BpmnParse bpmnParse = new BpmnParse(new BpmnParser());
-    bpmnParse.setBpmnModel(TestProcessUtil.createOneTaskBpmnModel());
-    bpmnParse.setActivityBehaviorFactory(new DefaultActivityBehaviorFactory());
+    BpmnParser parser = new BpmnParser();
+    parser.setActivityBehaviorFactory(new DefaultActivityBehaviorFactory());
+
+    BpmnParse bpmnParse = new BpmnParse(parser);
+    bpmnParse.setBpmnModel(new BpmnModel());
 
     Transaction transaction = new Transaction();
     transaction.addArtifact(new Association());
@@ -194,26 +193,25 @@ public class TransactionParseHandlerDiffblueTest {
   }
 
   /**
-   * Test {@link TransactionParseHandler#executeParse(BpmnParse, Transaction)} with {@code
-   * BpmnParse}, {@code Transaction}.
-   *
+   * Test {@link TransactionParseHandler#executeParse(BpmnParse, Transaction)} with {@code BpmnParse}, {@code Transaction}.
    * <ul>
-   *   <li>Given createOneTaskBpmnModel.
+   *   <li>Given {@link BpmnModel} (default constructor).</li>
    * </ul>
-   *
-   * <p>Method under test: {@link TransactionParseHandler#executeParse(BpmnParse, Transaction)}
+   * <p>
+   * Method under test: {@link TransactionParseHandler#executeParse(BpmnParse, Transaction)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void TransactionParseHandler.executeParse(BpmnParse, Transaction)"})
-  public void testExecuteParseWithBpmnParseTransaction_givenCreateOneTaskBpmnModel2() {
+  public void testExecuteParseWithBpmnParseTransaction_givenBpmnModel2() {
     // Arrange
     TransactionParseHandler transactionParseHandler = new TransactionParseHandler();
 
-    BpmnParse bpmnParse = new BpmnParse(new BpmnParser());
-    bpmnParse.setBpmnModel(TestProcessUtil.createOneTaskBpmnModel());
-    bpmnParse.setActivityBehaviorFactory(new DefaultActivityBehaviorFactory());
+    BpmnParser parser = new BpmnParser();
+    parser.setActivityBehaviorFactory(new DefaultActivityBehaviorFactory());
+
+    BpmnParse bpmnParse = new BpmnParse(parser);
+    bpmnParse.setBpmnModel(new BpmnModel());
 
     Transaction transaction = new Transaction();
     transaction.addArtifact(new Association());
@@ -230,29 +228,31 @@ public class TransactionParseHandlerDiffblueTest {
   }
 
   /**
-   * Test {@link TransactionParseHandler#executeParse(BpmnParse, Transaction)} with {@code
-   * BpmnParse}, {@code Transaction}.
-   *
+   * Test {@link TransactionParseHandler#executeParse(BpmnParse, Transaction)} with {@code BpmnParse}, {@code Transaction}.
    * <ul>
-   *   <li>Given {@link DataObject} (default constructor).
+   *   <li>Given {@link BpmnModel} (default constructor) addProcess {@link Process} (default constructor).</li>
    * </ul>
-   *
-   * <p>Method under test: {@link TransactionParseHandler#executeParse(BpmnParse, Transaction)}
+   * <p>
+   * Method under test: {@link TransactionParseHandler#executeParse(BpmnParse, Transaction)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void TransactionParseHandler.executeParse(BpmnParse, Transaction)"})
-  public void testExecuteParseWithBpmnParseTransaction_givenDataObject() {
+  public void testExecuteParseWithBpmnParseTransaction_givenBpmnModelAddProcessProcess() {
     // Arrange
     TransactionParseHandler transactionParseHandler = new TransactionParseHandler();
 
-    BpmnParse bpmnParse = new BpmnParse(new BpmnParser());
-    bpmnParse.setBpmnParserHandlers(new BpmnParseHandlers());
-    bpmnParse.setActivityBehaviorFactory(new DefaultActivityBehaviorFactory());
+    BpmnParser parser = new BpmnParser();
+    parser.setActivityBehaviorFactory(new DefaultActivityBehaviorFactory());
+
+    BpmnModel bpmnModel = new BpmnModel();
+    bpmnModel.addProcess(new Process());
+
+    BpmnParse bpmnParse = new BpmnParse(parser);
+    bpmnParse.setBpmnModel(bpmnModel);
 
     Transaction transaction = new Transaction();
-    transaction.addFlowElement(new DataObject());
+    transaction.addArtifact(new Association());
 
     // Act
     transactionParseHandler.executeParse(bpmnParse, transaction);
@@ -265,25 +265,23 @@ public class TransactionParseHandlerDiffblueTest {
   }
 
   /**
-   * Test {@link TransactionParseHandler#executeParse(BpmnParse, Transaction)} with {@code
-   * BpmnParse}, {@code Transaction}.
-   *
+   * Test {@link TransactionParseHandler#executeParse(BpmnParse, Transaction)} with {@code BpmnParse}, {@code Transaction}.
    * <ul>
-   *   <li>When {@link Transaction} (default constructor).
+   *   <li>When {@link Transaction} (default constructor).</li>
    * </ul>
-   *
-   * <p>Method under test: {@link TransactionParseHandler#executeParse(BpmnParse, Transaction)}
+   * <p>
+   * Method under test: {@link TransactionParseHandler#executeParse(BpmnParse, Transaction)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void TransactionParseHandler.executeParse(BpmnParse, Transaction)"})
   public void testExecuteParseWithBpmnParseTransaction_whenTransaction() {
     // Arrange
     TransactionParseHandler transactionParseHandler = new TransactionParseHandler();
 
-    BpmnParse bpmnParse = new BpmnParse(new BpmnParser());
-    bpmnParse.setActivityBehaviorFactory(new DefaultActivityBehaviorFactory());
+    BpmnParser parser = new BpmnParser();
+    parser.setActivityBehaviorFactory(new DefaultActivityBehaviorFactory());
+    BpmnParse bpmnParse = new BpmnParse(parser);
     Transaction transaction = new Transaction();
 
     // Act
@@ -298,24 +296,19 @@ public class TransactionParseHandlerDiffblueTest {
 
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>default or parameterless constructor of {@link TransactionParseHandler}
    *   <li>{@link TransactionParseHandler#getHandledType()}
    * </ul>
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void TransactionParseHandler.<init>()",
-    "Class TransactionParseHandler.getHandledType()"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void TransactionParseHandler.<init>()", "Class TransactionParseHandler.getHandledType()"})
   public void testGettersAndSetters() {
     // Arrange and Act
-    Class<? extends BaseElement> actualHandledType = new TransactionParseHandler().getHandledType();
+    Class<? extends BaseElement> actualHandledType = (new TransactionParseHandler()).getHandledType();
 
     // Assert
     Class<Transaction> expectedHandledType = Transaction.class;

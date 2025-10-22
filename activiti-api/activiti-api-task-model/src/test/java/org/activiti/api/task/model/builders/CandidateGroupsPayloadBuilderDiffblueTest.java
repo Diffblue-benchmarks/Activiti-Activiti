@@ -18,7 +18,6 @@ package org.activiti.api.task.model.builders;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
 import java.util.List;
@@ -30,33 +29,28 @@ import org.junit.jupiter.api.Test;
 class CandidateGroupsPayloadBuilderDiffblueTest {
   /**
    * Test {@link CandidateGroupsPayloadBuilder#withCandidateGroups(List)}.
-   *
    * <ul>
-   *   <li>Given {@code 42}.
-   *   <li>When {@link ArrayList#ArrayList()} add {@code 42}.
+   *   <li>Given {@code 42}.</li>
+   *   <li>When {@link ArrayList#ArrayList()} add {@code 42}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link CandidateGroupsPayloadBuilder#withCandidateGroups(List)}
+   * <p>
+   * Method under test: {@link CandidateGroupsPayloadBuilder#withCandidateGroups(List)}
    */
   @Test
   @DisplayName("Test withCandidateGroups(List); given '42'; when ArrayList() add '42'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "CandidateGroupsPayloadBuilder CandidateGroupsPayloadBuilder.withCandidateGroups(List)"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"CandidateGroupsPayloadBuilder CandidateGroupsPayloadBuilder.withCandidateGroups(List)"})
   void testWithCandidateGroups_given42_whenArrayListAdd42() {
     // Arrange
-    CandidateGroupsPayloadBuilder addCandidateGroupsResult =
-        TaskPayloadBuilder.addCandidateGroups();
+    CandidateGroupsPayloadBuilder addCandidateGroupsResult = TaskPayloadBuilder.addCandidateGroups();
 
     ArrayList<String> candidateGroups = new ArrayList<>();
     candidateGroups.add("42");
     candidateGroups.add("foo");
 
     // Act
-    CandidateGroupsPayloadBuilder actualWithCandidateGroupsResult =
-        addCandidateGroupsResult.withCandidateGroups(candidateGroups);
+    CandidateGroupsPayloadBuilder actualWithCandidateGroupsResult = addCandidateGroupsResult
+        .withCandidateGroups(candidateGroups);
 
     // Assert
     assertSame(candidateGroups, addCandidateGroupsResult.build().getCandidateGroups());
@@ -65,32 +59,27 @@ class CandidateGroupsPayloadBuilderDiffblueTest {
 
   /**
    * Test {@link CandidateGroupsPayloadBuilder#withCandidateGroups(List)}.
-   *
    * <ul>
-   *   <li>Given {@code foo}.
-   *   <li>When {@link ArrayList#ArrayList()} add {@code foo}.
+   *   <li>Given {@code foo}.</li>
+   *   <li>When {@link ArrayList#ArrayList()} add {@code foo}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link CandidateGroupsPayloadBuilder#withCandidateGroups(List)}
+   * <p>
+   * Method under test: {@link CandidateGroupsPayloadBuilder#withCandidateGroups(List)}
    */
   @Test
   @DisplayName("Test withCandidateGroups(List); given 'foo'; when ArrayList() add 'foo'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "CandidateGroupsPayloadBuilder CandidateGroupsPayloadBuilder.withCandidateGroups(List)"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"CandidateGroupsPayloadBuilder CandidateGroupsPayloadBuilder.withCandidateGroups(List)"})
   void testWithCandidateGroups_givenFoo_whenArrayListAddFoo() {
     // Arrange
-    CandidateGroupsPayloadBuilder addCandidateGroupsResult =
-        TaskPayloadBuilder.addCandidateGroups();
+    CandidateGroupsPayloadBuilder addCandidateGroupsResult = TaskPayloadBuilder.addCandidateGroups();
 
     ArrayList<String> candidateGroups = new ArrayList<>();
     candidateGroups.add("foo");
 
     // Act
-    CandidateGroupsPayloadBuilder actualWithCandidateGroupsResult =
-        addCandidateGroupsResult.withCandidateGroups(candidateGroups);
+    CandidateGroupsPayloadBuilder actualWithCandidateGroupsResult = addCandidateGroupsResult
+        .withCandidateGroups(candidateGroups);
 
     // Assert
     assertSame(candidateGroups, addCandidateGroupsResult.build().getCandidateGroups());
@@ -99,29 +88,24 @@ class CandidateGroupsPayloadBuilderDiffblueTest {
 
   /**
    * Test {@link CandidateGroupsPayloadBuilder#withCandidateGroups(List)}.
-   *
    * <ul>
-   *   <li>When {@link ArrayList#ArrayList()}.
+   *   <li>When {@link ArrayList#ArrayList()}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link CandidateGroupsPayloadBuilder#withCandidateGroups(List)}
+   * <p>
+   * Method under test: {@link CandidateGroupsPayloadBuilder#withCandidateGroups(List)}
    */
   @Test
   @DisplayName("Test withCandidateGroups(List); when ArrayList()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "CandidateGroupsPayloadBuilder CandidateGroupsPayloadBuilder.withCandidateGroups(List)"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"CandidateGroupsPayloadBuilder CandidateGroupsPayloadBuilder.withCandidateGroups(List)"})
   void testWithCandidateGroups_whenArrayList() {
     // Arrange
-    CandidateGroupsPayloadBuilder addCandidateGroupsResult =
-        TaskPayloadBuilder.addCandidateGroups();
+    CandidateGroupsPayloadBuilder addCandidateGroupsResult = TaskPayloadBuilder.addCandidateGroups();
     ArrayList<String> candidateGroups = new ArrayList<>();
 
     // Act
-    CandidateGroupsPayloadBuilder actualWithCandidateGroupsResult =
-        addCandidateGroupsResult.withCandidateGroups(candidateGroups);
+    CandidateGroupsPayloadBuilder actualWithCandidateGroupsResult = addCandidateGroupsResult
+        .withCandidateGroups(candidateGroups);
 
     // Assert
     assertSame(candidateGroups, addCandidateGroupsResult.build().getCandidateGroups());
@@ -130,63 +114,45 @@ class CandidateGroupsPayloadBuilderDiffblueTest {
 
   /**
    * Test {@link CandidateGroupsPayloadBuilder#withCandidateGroups(List)}.
-   *
    * <ul>
-   *   <li>When {@code null}.
+   *   <li>When {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link CandidateGroupsPayloadBuilder#withCandidateGroups(List)}
+   * <p>
+   * Method under test: {@link CandidateGroupsPayloadBuilder#withCandidateGroups(List)}
    */
   @Test
   @DisplayName("Test withCandidateGroups(List); when 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "CandidateGroupsPayloadBuilder CandidateGroupsPayloadBuilder.withCandidateGroups(List)"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"CandidateGroupsPayloadBuilder CandidateGroupsPayloadBuilder.withCandidateGroups(List)"})
   void testWithCandidateGroups_whenNull() {
     // Arrange
-    CandidateGroupsPayloadBuilder addCandidateGroupsResult =
-        TaskPayloadBuilder.addCandidateGroups();
+    CandidateGroupsPayloadBuilder addCandidateGroupsResult = TaskPayloadBuilder.addCandidateGroups();
 
-    // Act
-    CandidateGroupsPayloadBuilder actualWithCandidateGroupsResult =
-        addCandidateGroupsResult.withCandidateGroups(null);
-
-    // Assert
-    assertSame(addCandidateGroupsResult, actualWithCandidateGroupsResult);
+    // Act and Assert
+    assertSame(addCandidateGroupsResult, addCandidateGroupsResult.withCandidateGroups(null));
   }
 
   /**
    * Test {@link CandidateGroupsPayloadBuilder#withCandidateGroup(String)}.
-   *
-   * <p>Method under test: {@link CandidateGroupsPayloadBuilder#withCandidateGroup(String)}
+   * <p>
+   * Method under test: {@link CandidateGroupsPayloadBuilder#withCandidateGroup(String)}
    */
   @Test
   @DisplayName("Test withCandidateGroup(String)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "CandidateGroupsPayloadBuilder CandidateGroupsPayloadBuilder.withCandidateGroup(String)"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"CandidateGroupsPayloadBuilder CandidateGroupsPayloadBuilder.withCandidateGroup(String)"})
   void testWithCandidateGroup() {
     // Arrange
-    CandidateGroupsPayloadBuilder addCandidateGroupsResult =
-        TaskPayloadBuilder.addCandidateGroups();
+    CandidateGroupsPayloadBuilder addCandidateGroupsResult = TaskPayloadBuilder.addCandidateGroups();
 
-    // Act
-    CandidateGroupsPayloadBuilder actualWithCandidateGroupResult =
-        addCandidateGroupsResult.withCandidateGroup("2020-03-01");
-
-    // Assert
-    assertSame(addCandidateGroupsResult, actualWithCandidateGroupResult);
+    // Act and Assert
+    assertSame(addCandidateGroupsResult, addCandidateGroupsResult.withCandidateGroup("2020-03-01"));
   }
 
   /**
    * Test {@link CandidateGroupsPayloadBuilder#build()}.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>{@link CandidateGroupsPayloadBuilder#build()}
    *   <li>default or parameterless constructor of {@link CandidateGroupsPayloadBuilder}
@@ -195,27 +161,23 @@ class CandidateGroupsPayloadBuilderDiffblueTest {
    */
   @Test
   @DisplayName("Test build()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void CandidateGroupsPayloadBuilder.<init>()",
-    "CandidateGroupsPayload CandidateGroupsPayloadBuilder.build()",
-    "CandidateGroupsPayloadBuilder CandidateGroupsPayloadBuilder.withTaskId(String)"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void CandidateGroupsPayloadBuilder.<init>()",
+      "CandidateGroupsPayload CandidateGroupsPayloadBuilder.build()",
+      "CandidateGroupsPayloadBuilder CandidateGroupsPayloadBuilder.withTaskId(String)"})
   void testBuild() {
-    // Arrange and Act
-    CandidateGroupsPayloadBuilder actualCandidateGroupsPayloadBuilder =
-        new CandidateGroupsPayloadBuilder();
+    // Arrange
+    CandidateGroupsPayloadBuilder candidateGroupsPayloadBuilder = new CandidateGroupsPayloadBuilder();
     ArrayList<String> candidateGroups = new ArrayList<>();
-    CandidateGroupsPayload actualCandidateGroupsPayload =
-        actualCandidateGroupsPayloadBuilder
-            .withCandidateGroups(candidateGroups)
-            .withTaskId("42")
-            .build();
+
+    // Act
+    CandidateGroupsPayload actualBuildResult = candidateGroupsPayloadBuilder.withCandidateGroups(candidateGroups)
+        .withTaskId("42")
+        .build();
 
     // Assert
-    assertEquals("42", actualCandidateGroupsPayload.getTaskId());
-    List<String> candidateGroups2 = actualCandidateGroupsPayload.getCandidateGroups();
+    assertEquals("42", actualBuildResult.getTaskId());
+    List<String> candidateGroups2 = actualBuildResult.getCandidateGroups();
     assertTrue(candidateGroups2.isEmpty());
     assertSame(candidateGroups, candidateGroups2);
   }

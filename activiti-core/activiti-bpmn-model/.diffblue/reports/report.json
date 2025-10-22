@@ -1,21 +1,21 @@
 {
   "meta" : {
-    "reportVersion" : "2.7"
+    "reportVersion" : "2.6"
   },
   "run" : {
-    "version" : "2025.09.01-44e352d-licensed",
-    "creationTimestamp" : "2025-10-15T18:17:05.474751764Z",
+    "version" : "2025.02.02-08b2a5a-licensed",
+    "creationTimestamp" : "2025-10-21T18:36:58.703503864Z",
     "command" : "dcover create --exclude-modules=org.activiti:activiti-dependency-check,org.activiti:activiti-api-dependencies,org.activiti:activiti-core-common-dependencies,org.activiti:activiti-core-dependencies,org.activiti:activiti-dependencies,org.activiti:activiti-spring-conformance-set0,org.activiti:activiti-spring-conformance-set1,org.activiti:activiti-spring-conformance-set2,org.activiti:activiti-spring-conformance-set3,org.activiti:activiti-spring-conformance-set4,org.activiti:activiti-spring-conformance-set5,org.activiti:activiti-spring-conformance-variables,org.activiti:activiti-spring-conformance-signals --coverage-reports --upload http://localhost:8080 --project-name Activiti-Activiti --name with-diffblue-tests",
-    "totalTime" : 1473.669,
-    "environmentDetectionTime" : 0.681,
-    "indexingTime" : 0.513,
-    "entryPointsTime" : 0.668,
-    "generationTime" : 7216.721,
-    "timeToFirstTest" : 9714.492,
-    "timeToLastTest" : 8918.057,
-    "indexQueryTime" : 3.1790000000000003,
-    "verificationTime" : 306.867,
-    "validationTime" : 14.595
+    "totalTime" : 1521.916,
+    "environmentDetectionTime" : 1.116,
+    "indexingTime" : 0.399,
+    "entryPointsTime" : 1.113,
+    "generationTime" : 5502.144,
+    "timeToFirstTest" : 7903.843,
+    "timeToLastTest" : 7136.092,
+    "indexQueryTime" : 3.622,
+    "verificationTime" : 255.855,
+    "validationTime" : 18.19
   },
   "codes" : {
     "R000" : "Success",
@@ -30,17 +30,15 @@
     "T010" : "Abstract or interface method",
     "T012" : "Synthetic method",
     "T020" : "Other trivial method",
-    "T023" : "Testability unknown",
     "V000" : "Validated successfully",
-    "V003" : "Tests discarded during validation",
     "W001" : "Test did not compile"
   },
   "summary" : {
     "classesCount" : 99,
     "methodsCount" : 939,
-    "cumulativeDiffblueTestCount" : 914,
+    "cumulativeDiffblueTestCount" : 891,
     "cumulativeManualTestCount" : 10,
-    "completeTestCount" : 914,
+    "completeTestCount" : 891,
     "incompleteTestCount" : 0,
     "skeletonTestCount" : 0,
     "totalPhysicalLineCount" : 4210,
@@ -52,30 +50,27 @@
       "T005" : 88,
       "T008" : 2,
       "T010" : 30,
-      "T012" : 13,
-      "T020" : 2,
-      "T023" : 2
+      "T012" : 15,
+      "T020" : 2
     },
     "perMethodOutcome" : {
-      "R000" : 830,
+      "R000" : 829,
       "R004" : 12,
-      "R013" : 44,
+      "R013" : 45,
       "T003" : 4,
       "T005" : 2,
       "T008" : 2,
       "T010" : 30,
-      "T012" : 13,
-      "T023" : 2
+      "T012" : 15
     },
     "perTestOutcome" : {
-      "R000" : 914
+      "R000" : 891
     },
     "perTestValidation" : {
-      "V000" : 914,
-      "V003" : 20
+      "V000" : 891
     },
     "warnings" : {
-      "W001" : 5
+      "W001" : 6
     }
   },
   "classes" : {
@@ -109,7 +104,7 @@
     },
     "org.activiti.bpmn.model.Activity" : {
       "methodsCount" : 21,
-      "completeTestCount" : 36,
+      "completeTestCount" : 44,
       "incompleteTestCount" : 0,
       "perMethodTestability" : {
         "T000" : 20,
@@ -120,7 +115,7 @@
         "T010" : 1
       },
       "perTestOutcome" : {
-        "R000" : 36
+        "R000" : 44
       }
     },
     "org.activiti.bpmn.model.AdhocSubProcess" : {
@@ -193,14 +188,12 @@
       "perMethodTestability" : {
         "T001" : 1,
         "T003" : 1,
-        "T012" : 3,
-        "T023" : 1
+        "T012" : 4
       },
       "perMethodOutcome" : {
         "R000" : 1,
         "T003" : 1,
-        "T012" : 3,
-        "T023" : 1
+        "T012" : 4
       },
       "perTestOutcome" : {
         "R000" : 1
@@ -222,7 +215,7 @@
     },
     "org.activiti.bpmn.model.BaseElement" : {
       "methodsCount" : 23,
-      "completeTestCount" : 32,
+      "completeTestCount" : 33,
       "incompleteTestCount" : 0,
       "perMethodTestability" : {
         "T000" : 14,
@@ -237,7 +230,7 @@
         "T012" : 6
       },
       "perTestOutcome" : {
-        "R000" : 32
+        "R000" : 33
       }
     },
     "org.activiti.bpmn.model.BooleanDataObject" : {
@@ -277,7 +270,7 @@
     },
     "org.activiti.bpmn.model.BpmnModel" : {
       "methodsCount" : 85,
-      "completeTestCount" : 131,
+      "completeTestCount" : 121,
       "incompleteTestCount" : 0,
       "perMethodTestability" : {
         "T000" : 49,
@@ -290,7 +283,7 @@
         "R004" : 3
       },
       "perTestOutcome" : {
-        "R000" : 131
+        "R000" : 121
       }
     },
     "org.activiti.bpmn.model.BusinessRuleTask" : {
@@ -501,7 +494,7 @@
     },
     "org.activiti.bpmn.model.DataStore" : {
       "methodsCount" : 9,
-      "completeTestCount" : 7,
+      "completeTestCount" : 5,
       "incompleteTestCount" : 0,
       "perMethodTestability" : {
         "T000" : 2,
@@ -514,7 +507,7 @@
         "R013" : 1
       },
       "perTestOutcome" : {
-        "R000" : 7
+        "R000" : 5
       }
     },
     "org.activiti.bpmn.model.DataStoreReference" : {
@@ -727,7 +720,7 @@
     },
     "org.activiti.bpmn.model.ExtensionElement" : {
       "methodsCount" : 14,
-      "completeTestCount" : 4,
+      "completeTestCount" : 5,
       "incompleteTestCount" : 0,
       "perMethodTestability" : {
         "T000" : 3,
@@ -741,7 +734,7 @@
         "R013" : 1
       },
       "perTestOutcome" : {
-        "R000" : 4
+        "R000" : 5
       }
     },
     "org.activiti.bpmn.model.FieldExtension" : {
@@ -764,7 +757,7 @@
     },
     "org.activiti.bpmn.model.FlowElement" : {
       "methodsCount" : 11,
-      "completeTestCount" : 20,
+      "completeTestCount" : 24,
       "incompleteTestCount" : 0,
       "perMethodTestability" : {
         "T000" : 10,
@@ -776,7 +769,7 @@
         "T010" : 1
       },
       "perTestOutcome" : {
-        "R000" : 20
+        "R000" : 24
       }
     },
     "org.activiti.bpmn.model.FlowElementsContainer" : {
@@ -808,7 +801,7 @@
     },
     "org.activiti.bpmn.model.FormProperty" : {
       "methodsCount" : 23,
-      "completeTestCount" : 10,
+      "completeTestCount" : 8,
       "incompleteTestCount" : 0,
       "perMethodTestability" : {
         "T000" : 2,
@@ -820,7 +813,7 @@
         "R000" : 23
       },
       "perTestOutcome" : {
-        "R000" : 10
+        "R000" : 8
       }
     },
     "org.activiti.bpmn.model.FormValue" : {
@@ -897,7 +890,7 @@
     },
     "org.activiti.bpmn.model.IOParameter" : {
       "methodsCount" : 11,
-      "completeTestCount" : 7,
+      "completeTestCount" : 5,
       "incompleteTestCount" : 0,
       "perMethodTestability" : {
         "T000" : 2,
@@ -910,7 +903,7 @@
         "R013" : 1
       },
       "perTestOutcome" : {
-        "R000" : 7
+        "R000" : 5
       }
     },
     "org.activiti.bpmn.model.IOSpecification" : {
@@ -936,16 +929,16 @@
       "incompleteTestCount" : 0,
       "perMethodTestability" : {
         "T005" : 1,
-        "T023" : 1
+        "T012" : 1
       },
       "perMethodOutcome" : {
         "T005" : 1,
-        "T023" : 1
+        "T012" : 1
       }
     },
     "org.activiti.bpmn.model.Import" : {
       "methodsCount" : 9,
-      "completeTestCount" : 7,
+      "completeTestCount" : 5,
       "incompleteTestCount" : 0,
       "perMethodTestability" : {
         "T000" : 2,
@@ -958,7 +951,7 @@
         "R013" : 1
       },
       "perTestOutcome" : {
-        "R000" : 7
+        "R000" : 5
       }
     },
     "org.activiti.bpmn.model.InclusiveGateway" : {
@@ -994,7 +987,7 @@
     },
     "org.activiti.bpmn.model.Interface" : {
       "methodsCount" : 9,
-      "completeTestCount" : 8,
+      "completeTestCount" : 10,
       "incompleteTestCount" : 0,
       "perMethodTestability" : {
         "T000" : 2,
@@ -1006,7 +999,7 @@
         "R000" : 9
       },
       "perTestOutcome" : {
-        "R000" : 8
+        "R000" : 10
       }
     },
     "org.activiti.bpmn.model.IntermediateCatchEvent" : {
@@ -1045,7 +1038,7 @@
     },
     "org.activiti.bpmn.model.Lane" : {
       "methodsCount" : 9,
-      "completeTestCount" : 9,
+      "completeTestCount" : 6,
       "incompleteTestCount" : 0,
       "perMethodTestability" : {
         "T000" : 2,
@@ -1058,7 +1051,7 @@
         "R013" : 1
       },
       "perTestOutcome" : {
-        "R000" : 9
+        "R000" : 6
       }
     },
     "org.activiti.bpmn.model.LongDataObject" : {
@@ -1166,7 +1159,7 @@
     },
     "org.activiti.bpmn.model.MessageFlow" : {
       "methodsCount" : 13,
-      "completeTestCount" : 8,
+      "completeTestCount" : 6,
       "incompleteTestCount" : 0,
       "perMethodTestability" : {
         "T000" : 2,
@@ -1180,7 +1173,7 @@
         "R013" : 1
       },
       "perTestOutcome" : {
-        "R000" : 8
+        "R000" : 6
       }
     },
     "org.activiti.bpmn.model.MultiInstanceLoopCharacteristics" : {
@@ -1203,7 +1196,7 @@
     },
     "org.activiti.bpmn.model.Operation" : {
       "methodsCount" : 13,
-      "completeTestCount" : 10,
+      "completeTestCount" : 6,
       "incompleteTestCount" : 0,
       "perMethodTestability" : {
         "T000" : 2,
@@ -1216,7 +1209,7 @@
         "R013" : 1
       },
       "perTestOutcome" : {
-        "R000" : 10
+        "R000" : 6
       }
     },
     "org.activiti.bpmn.model.ParallelGateway" : {
@@ -1237,7 +1230,7 @@
     },
     "org.activiti.bpmn.model.Pool" : {
       "methodsCount" : 9,
-      "completeTestCount" : 8,
+      "completeTestCount" : 9,
       "incompleteTestCount" : 0,
       "perMethodTestability" : {
         "T000" : 2,
@@ -1250,12 +1243,12 @@
         "R013" : 1
       },
       "perTestOutcome" : {
-        "R000" : 8
+        "R000" : 9
       }
     },
     "org.activiti.bpmn.model.Process" : {
       "methodsCount" : 58,
-      "completeTestCount" : 113,
+      "completeTestCount" : 106,
       "incompleteTestCount" : 0,
       "perMethodTestability" : {
         "T000" : 26,
@@ -1270,15 +1263,15 @@
         "T012" : 1
       },
       "perTestOutcome" : {
-        "R000" : 113
+        "R000" : 106
       },
       "warnings" : {
-        "W001" : 5
+        "W001" : 6
       }
     },
     "org.activiti.bpmn.model.ReceiveTask" : {
       "methodsCount" : 3,
-      "completeTestCount" : 14,
+      "completeTestCount" : 11,
       "incompleteTestCount" : 0,
       "perMethodTestability" : {
         "T000" : 2,
@@ -1288,7 +1281,7 @@
         "R000" : 3
       },
       "perTestOutcome" : {
-        "R000" : 14
+        "R000" : 11
       }
     },
     "org.activiti.bpmn.model.ReferenceOverrider" : {
@@ -1375,7 +1368,7 @@
     },
     "org.activiti.bpmn.model.ServiceTask" : {
       "methodsCount" : 22,
-      "completeTestCount" : 32,
+      "completeTestCount" : 33,
       "incompleteTestCount" : 0,
       "perMethodTestability" : {
         "T000" : 4,
@@ -1389,12 +1382,12 @@
         "T012" : 1
       },
       "perTestOutcome" : {
-        "R000" : 32
+        "R000" : 33
       }
     },
     "org.activiti.bpmn.model.Signal" : {
       "methodsCount" : 8,
-      "completeTestCount" : 8,
+      "completeTestCount" : 6,
       "incompleteTestCount" : 0,
       "perMethodTestability" : {
         "T000" : 2,
@@ -1407,7 +1400,7 @@
         "R013" : 1
       },
       "perTestOutcome" : {
-        "R000" : 8
+        "R000" : 6
       }
     },
     "org.activiti.bpmn.model.SignalEventDefinition" : {
@@ -1462,7 +1455,7 @@
     },
     "org.activiti.bpmn.model.SubProcess" : {
       "methodsCount" : 20,
-      "completeTestCount" : 49,
+      "completeTestCount" : 44,
       "incompleteTestCount" : 0,
       "perMethodTestability" : {
         "T000" : 12,
@@ -1477,12 +1470,12 @@
         "T012" : 1
       },
       "perTestOutcome" : {
-        "R000" : 49
+        "R000" : 44
       }
     },
     "org.activiti.bpmn.model.Task" : {
       "methodsCount" : 3,
-      "completeTestCount" : 18,
+      "completeTestCount" : 25,
       "incompleteTestCount" : 0,
       "perMethodTestability" : {
         "T000" : 2,
@@ -1492,7 +1485,7 @@
         "R000" : 3
       },
       "perTestOutcome" : {
-        "R000" : 18
+        "R000" : 25
       }
     },
     "org.activiti.bpmn.model.TaskWithFieldExtensions" : {
@@ -1614,7 +1607,7 @@
     },
     "org.activiti.bpmn.model.ValuedDataObject" : {
       "methodsCount" : 6,
-      "completeTestCount" : 12,
+      "completeTestCount" : 11,
       "incompleteTestCount" : 0,
       "perMethodTestability" : {
         "T000" : 4,
@@ -1625,7 +1618,7 @@
         "T010" : 2
       },
       "perTestOutcome" : {
-        "R000" : 12
+        "R000" : 11
       }
     },
     "org.activiti.bpmn.model.alfresco.AlfrescoMailTask" : {
@@ -1678,7 +1671,7 @@
     },
     "org.activiti.bpmn.model.alfresco.AlfrescoUserTask" : {
       "methodsCount" : 7,
-      "completeTestCount" : 11,
+      "completeTestCount" : 8,
       "incompleteTestCount" : 0,
       "perMethodTestability" : {
         "T000" : 2,
@@ -1687,10 +1680,11 @@
         "T005" : 1
       },
       "perMethodOutcome" : {
-        "R000" : 7
+        "R000" : 6,
+        "R013" : 1
       },
       "perTestOutcome" : {
-        "R000" : 11
+        "R000" : 8
       }
     },
     "org.activiti.bpmn.model.parse.Problem" : {
@@ -2232,12 +2226,12 @@
       ]
     },
     "org.activiti.bpmn.model.Activity.setValues:(Lorg/activiti/bpmn/model/Activity;)V" : {
-      "completeTestCount" : 7,
+      "completeTestCount" : 15,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 7
+        "R000" : 15
       },
       "lineNumbers" : [
         107,
@@ -2602,8 +2596,12 @@
     "org.activiti.bpmn.model.AssociationDirection.<clinit>:()V" : {
       "completeTestCount" : 0,
       "incompleteTestCount" : 0,
-      "perMethodTestability" : "T023",
-      "perMethodOutcome" : "T023"
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        19,
+        18
+      ]
     },
     "org.activiti.bpmn.model.AssociationDirection.<init>:(Ljava/lang/String;ILjava/lang/String;)V" : {
       "completeTestCount" : 0,
@@ -2890,12 +2888,12 @@
       ]
     },
     "org.activiti.bpmn.model.BaseElement.setValues:(Lorg/activiti/bpmn/model/BaseElement;)V" : {
-      "completeTestCount" : 7,
+      "completeTestCount" : 8,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 7
+        "R000" : 8
       },
       "lineNumbers" : [
         112,
@@ -3245,12 +3243,12 @@
       ]
     },
     "org.activiti.bpmn.model.BpmnModel.addMessage:(Lorg/activiti/bpmn/model/Message;)V" : {
-      "completeTestCount" : 4,
+      "completeTestCount" : 3,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 4
+        "R000" : 3
       },
       "lineNumbers" : [
         396,
@@ -3259,12 +3257,12 @@
       ]
     },
     "org.activiti.bpmn.model.BpmnModel.addMessageFlow:(Lorg/activiti/bpmn/model/MessageFlow;)V" : {
-      "completeTestCount" : 4,
+      "completeTestCount" : 3,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 4
+        "R000" : 3
       },
       "lineNumbers" : [
         369,
@@ -3423,12 +3421,12 @@
       ]
     },
     "org.activiti.bpmn.model.BpmnModel.getArtifact:(Ljava/lang/String;)Lorg/activiti/bpmn/model/Artifact;" : {
-      "completeTestCount" : 2,
+      "completeTestCount" : 7,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 2
+        "R000" : 7
       },
       "lineNumbers" : [
         208,
@@ -3451,12 +3449,12 @@
       ]
     },
     "org.activiti.bpmn.model.BpmnModel.getArtifactInSubProcess:(Ljava/lang/String;Lorg/activiti/bpmn/model/SubProcess;)Lorg/activiti/bpmn/model/Artifact;" : {
-      "completeTestCount" : 5,
+      "completeTestCount" : 4,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 5
+        "R000" : 4
       },
       "lineNumbers" : [
         234,
@@ -3552,12 +3550,12 @@
       ]
     },
     "org.activiti.bpmn.model.BpmnModel.getFlowElement:(Ljava/lang/String;)Lorg/activiti/bpmn/model/FlowElement;" : {
-      "completeTestCount" : 9,
+      "completeTestCount" : 8,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 9
+        "R000" : 8
       },
       "lineNumbers" : [
         167,
@@ -3580,12 +3578,12 @@
       ]
     },
     "org.activiti.bpmn.model.BpmnModel.getFlowElementInSubProcess:(Ljava/lang/String;Lorg/activiti/bpmn/model/SubProcess;)Lorg/activiti/bpmn/model/FlowElement;" : {
-      "completeTestCount" : 5,
+      "completeTestCount" : 4,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 5
+        "R000" : 4
       },
       "lineNumbers" : [
         193,
@@ -3743,12 +3741,12 @@
       ]
     },
     "org.activiti.bpmn.model.BpmnModel.getMainProcess:()Lorg/activiti/bpmn/model/Process;" : {
-      "completeTestCount" : 5,
+      "completeTestCount" : 2,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 5
+        "R000" : 2
       },
       "lineNumbers" : [
         85,
@@ -3757,12 +3755,12 @@
       ]
     },
     "org.activiti.bpmn.model.BpmnModel.getMessage:(Ljava/lang/String;)Lorg/activiti/bpmn/model/Message;" : {
-      "completeTestCount" : 3,
+      "completeTestCount" : 2,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 3
+        "R000" : 2
       },
       "lineNumbers" : [
         402,
@@ -3837,12 +3835,12 @@
       ]
     },
     "org.activiti.bpmn.model.BpmnModel.getPool:(Ljava/lang/String;)Lorg/activiti/bpmn/model/Pool;" : {
-      "completeTestCount" : 4,
+      "completeTestCount" : 2,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 4
+        "R000" : 2
       },
       "lineNumbers" : [
         136,
@@ -3868,12 +3866,12 @@
       ]
     },
     "org.activiti.bpmn.model.BpmnModel.getProcess:(Ljava/lang/String;)Lorg/activiti/bpmn/model/Process;" : {
-      "completeTestCount" : 5,
+      "completeTestCount" : 3,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 5
+        "R000" : 3
       },
       "lineNumbers" : [
         93,
@@ -4002,12 +4000,12 @@
       ]
     },
     "org.activiti.bpmn.model.BpmnModel.getStartFormKey:(Ljava/lang/String;)Ljava/lang/String;" : {
-      "completeTestCount" : 2,
+      "completeTestCount" : 1,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 2
+        "R000" : 1
       },
       "lineNumbers" : [
         574,
@@ -4202,12 +4200,12 @@
       ]
     },
     "org.activiti.bpmn.model.BpmnModel.setMessages:(Ljava/util/Collection;)V" : {
-      "completeTestCount" : 6,
+      "completeTestCount" : 5,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 6
+        "R000" : 5
       },
       "lineNumbers" : [
         387,
@@ -5554,12 +5552,12 @@
       ]
     },
     "org.activiti.bpmn.model.DataStore.clone:()Lorg/activiti/bpmn/model/DataStore;" : {
-      "completeTestCount" : 6,
+      "completeTestCount" : 4,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 6
+        "R000" : 4
       },
       "lineNumbers" : [
         49,
@@ -6552,12 +6550,12 @@
       ]
     },
     "org.activiti.bpmn.model.ExtensionElement.clone:()Lorg/activiti/bpmn/model/ExtensionElement;" : {
-      "completeTestCount" : 3,
+      "completeTestCount" : 4,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 3
+        "R000" : 4
       },
       "lineNumbers" : [
         85,
@@ -6952,12 +6950,12 @@
       ]
     },
     "org.activiti.bpmn.model.FlowElement.setValues:(Lorg/activiti/bpmn/model/FlowElement;)V" : {
-      "completeTestCount" : 9,
+      "completeTestCount" : 13,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 9
+        "R000" : 13
       },
       "lineNumbers" : [
         76,
@@ -7230,12 +7228,12 @@
       ]
     },
     "org.activiti.bpmn.model.FormProperty.clone:()Lorg/activiti/bpmn/model/FormProperty;" : {
-      "completeTestCount" : 8,
+      "completeTestCount" : 6,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 8
+        "R000" : 6
       },
       "lineNumbers" : [
         115,
@@ -7891,12 +7889,12 @@
       ]
     },
     "org.activiti.bpmn.model.IOParameter.clone:()Lorg/activiti/bpmn/model/IOParameter;" : {
-      "completeTestCount" : 6,
+      "completeTestCount" : 4,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 6
+        "R000" : 4
       },
       "lineNumbers" : [
         58,
@@ -8175,8 +8173,20 @@
     "org.activiti.bpmn.model.ImplementationType.<clinit>:()V" : {
       "completeTestCount" : 0,
       "incompleteTestCount" : 0,
-      "perMethodTestability" : "T023",
-      "perMethodOutcome" : "T023"
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        20,
+        21,
+        22,
+        23,
+        24,
+        25,
+        26,
+        27,
+        28,
+        30
+      ]
     },
     "org.activiti.bpmn.model.ImplementationType.<init>:()V" : {
       "completeTestCount" : 0,
@@ -8200,12 +8210,12 @@
       ]
     },
     "org.activiti.bpmn.model.Import.clone:()Lorg/activiti/bpmn/model/Import;" : {
-      "completeTestCount" : 6,
+      "completeTestCount" : 4,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 6
+        "R000" : 4
       },
       "lineNumbers" : [
         49,
@@ -8390,12 +8400,12 @@
       ]
     },
     "org.activiti.bpmn.model.Interface.clone:()Lorg/activiti/bpmn/model/Interface;" : {
-      "completeTestCount" : 6,
+      "completeTestCount" : 8,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 6
+        "R000" : 8
       },
       "lineNumbers" : [
         52,
@@ -8636,12 +8646,12 @@
       ]
     },
     "org.activiti.bpmn.model.Lane.clone:()Lorg/activiti/bpmn/model/Lane;" : {
-      "completeTestCount" : 8,
+      "completeTestCount" : 5,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 8
+        "R000" : 5
       },
       "lineNumbers" : [
         55,
@@ -9352,12 +9362,12 @@
       ]
     },
     "org.activiti.bpmn.model.MessageFlow.clone:()Lorg/activiti/bpmn/model/MessageFlow;" : {
-      "completeTestCount" : 6,
+      "completeTestCount" : 4,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 6
+        "R000" : 4
       },
       "lineNumbers" : [
         71,
@@ -9748,12 +9758,12 @@
       ]
     },
     "org.activiti.bpmn.model.Operation.clone:()Lorg/activiti/bpmn/model/Operation;" : {
-      "completeTestCount" : 9,
+      "completeTestCount" : 5,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 9
+        "R000" : 5
       },
       "lineNumbers" : [
         70,
@@ -9953,12 +9963,12 @@
       ]
     },
     "org.activiti.bpmn.model.Pool.clone:()Lorg/activiti/bpmn/model/Pool;" : {
-      "completeTestCount" : 7,
+      "completeTestCount" : 8,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 7
+        "R000" : 8
       },
       "lineNumbers" : [
         49,
@@ -10133,12 +10143,12 @@
       ]
     },
     "org.activiti.bpmn.model.Process.clone:()Lorg/activiti/bpmn/model/Process;" : {
-      "completeTestCount" : 10,
+      "completeTestCount" : 4,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 10
+        "R000" : 4
       },
       "lineNumbers" : [
         364,
@@ -10171,12 +10181,12 @@
       ]
     },
     "org.activiti.bpmn.model.Process.findAssociationsWithSourceRefRecursive:(Lorg/activiti/bpmn/model/FlowElementsContainer;Ljava/lang/String;)Ljava/util/List;" : {
-      "completeTestCount" : 7,
+      "completeTestCount" : 8,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 7
+        "R000" : 8
       },
       "lineNumbers" : [
         131,
@@ -10206,12 +10216,12 @@
       ]
     },
     "org.activiti.bpmn.model.Process.findAssociationsWithTargetRefRecursive:(Lorg/activiti/bpmn/model/FlowElementsContainer;Ljava/lang/String;)Ljava/util/List;" : {
-      "completeTestCount" : 6,
+      "completeTestCount" : 8,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 6
+        "R000" : 8
       },
       "lineNumbers" : [
         154,
@@ -10283,15 +10293,15 @@
       ]
     },
     "org.activiti.bpmn.model.Process.findFlowElementsOfType:(Ljava/lang/Class;)Ljava/util/List;" : {
-      "completeTestCount" : 4,
+      "completeTestCount" : 5,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 4
+        "R000" : 5
       },
       "warnings" : {
-        "W001" : 1
+        "W001" : 2
       },
       "lineNumbers" : [
         304
@@ -10333,12 +10343,12 @@
       ]
     },
     "org.activiti.bpmn.model.Process.findParent:(Lorg/activiti/bpmn/model/FlowElement;Lorg/activiti/bpmn/model/FlowElementsContainer;)Lorg/activiti/bpmn/model/FlowElementsContainer;" : {
-      "completeTestCount" : 5,
+      "completeTestCount" : 6,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 5
+        "R000" : 6
       },
       "lineNumbers" : [
         349,
@@ -10467,12 +10477,12 @@
       ]
     },
     "org.activiti.bpmn.model.Process.getFlowElement:(Ljava/lang/String;Z)Lorg/activiti/bpmn/model/FlowElement;" : {
-      "completeTestCount" : 4,
+      "completeTestCount" : 5,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 4
+        "R000" : 5
       },
       "lineNumbers" : [
         119,
@@ -10517,12 +10527,12 @@
       ]
     },
     "org.activiti.bpmn.model.Process.getFlowElementsContainer:(Lorg/activiti/bpmn/model/FlowElementsContainer;Ljava/lang/String;)Lorg/activiti/bpmn/model/FlowElementsContainer;" : {
-      "completeTestCount" : 7,
+      "completeTestCount" : 6,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 7
+        "R000" : 6
       },
       "lineNumbers" : [
         180,
@@ -10851,12 +10861,12 @@
       ]
     },
     "org.activiti.bpmn.model.Process.setValues:(Lorg/activiti/bpmn/model/Process;)V" : {
-      "completeTestCount" : 7,
+      "completeTestCount" : 1,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 7
+        "R000" : 1
       },
       "lineNumbers" : [
         370,
@@ -10914,12 +10924,12 @@
       ]
     },
     "org.activiti.bpmn.model.ReceiveTask.clone:()Lorg/activiti/bpmn/model/ReceiveTask;" : {
-      "completeTestCount" : 6,
+      "completeTestCount" : 4,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 6
+        "R000" : 4
       },
       "lineNumbers" : [
         21,
@@ -10928,12 +10938,12 @@
       ]
     },
     "org.activiti.bpmn.model.ReceiveTask.setValues:(Lorg/activiti/bpmn/model/ManualTask;)V" : {
-      "completeTestCount" : 7,
+      "completeTestCount" : 6,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 7
+        "R000" : 6
       },
       "lineNumbers" : [
         27,
@@ -11633,12 +11643,12 @@
       ]
     },
     "org.activiti.bpmn.model.ServiceTask.hasBoundaryErrorEvents:()Z" : {
-      "completeTestCount" : 7,
+      "completeTestCount" : 8,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 7
+        "R000" : 8
       },
       "lineNumbers" : [
         104,
@@ -11830,12 +11840,12 @@
       ]
     },
     "org.activiti.bpmn.model.Signal.clone:()Lorg/activiti/bpmn/model/Signal;" : {
-      "completeTestCount" : 6,
+      "completeTestCount" : 4,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 6
+        "R000" : 4
       },
       "lineNumbers" : [
         52,
@@ -12046,12 +12056,12 @@
       ]
     },
     "org.activiti.bpmn.model.StartEvent.clone:()Lorg/activiti/bpmn/model/StartEvent;" : {
-      "completeTestCount" : 10,
+      "completeTestCount" : 9,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 10
+        "R000" : 9
       },
       "lineNumbers" : [
         61,
@@ -12160,12 +12170,12 @@
       ]
     },
     "org.activiti.bpmn.model.StartEvent.setValues:(Lorg/activiti/bpmn/model/StartEvent;)V" : {
-      "completeTestCount" : 15,
+      "completeTestCount" : 16,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 15
+        "R000" : 16
       },
       "lineNumbers" : [
         67,
@@ -12295,12 +12305,12 @@
       ]
     },
     "org.activiti.bpmn.model.SubProcess.clone:()Lorg/activiti/bpmn/model/SubProcess;" : {
-      "completeTestCount" : 11,
+      "completeTestCount" : 9,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 11
+        "R000" : 9
       },
       "lineNumbers" : [
         124,
@@ -12478,12 +12488,12 @@
       ]
     },
     "org.activiti.bpmn.model.SubProcess.setValues:(Lorg/activiti/bpmn/model/SubProcess;)V" : {
-      "completeTestCount" : 12,
+      "completeTestCount" : 9,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 12
+        "R000" : 9
       },
       "lineNumbers" : [
         130,
@@ -12542,12 +12552,12 @@
       ]
     },
     "org.activiti.bpmn.model.Task.setValues:(Lorg/activiti/bpmn/model/Task;)V" : {
-      "completeTestCount" : 7,
+      "completeTestCount" : 14,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 7
+        "R000" : 14
       },
       "lineNumbers" : [
         28,
@@ -13572,12 +13582,12 @@
       "perMethodOutcome" : "T010"
     },
     "org.activiti.bpmn.model.ValuedDataObject.setValues:(Lorg/activiti/bpmn/model/ValuedDataObject;)V" : {
-      "completeTestCount" : 4,
+      "completeTestCount" : 3,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 4
+        "R000" : 3
       },
       "lineNumbers" : [
         31,
@@ -13765,12 +13775,12 @@
       ]
     },
     "org.activiti.bpmn.model.alfresco.AlfrescoUserTask.clone:()Lorg/activiti/bpmn/model/alfresco/AlfrescoUserTask;" : {
-      "completeTestCount" : 8,
+      "completeTestCount" : 7,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 8
+        "R000" : 7
       },
       "lineNumbers" : [
         44,
@@ -13829,13 +13839,10 @@
       ]
     },
     "org.activiti.bpmn.model.alfresco.AlfrescoUserTask.setValues:(Lorg/activiti/bpmn/model/alfresco/AlfrescoUserTask;)V" : {
-      "completeTestCount" : 2,
+      "completeTestCount" : 0,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
-      "perMethodOutcome" : "R000",
-      "perTestOutcome" : {
-        "R000" : 2
-      },
+      "perMethodOutcome" : "R013",
       "lineNumbers" : [
         50,
         51,
@@ -13951,6 +13958,5 @@
         42
       ]
     }
-  },
-  "validationMetrics" : { }
+  }
 }

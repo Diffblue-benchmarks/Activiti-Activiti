@@ -21,8 +21,7 @@ import static org.mockito.ArgumentMatchers.isA;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.engine.delegate.DelegateExecution;
 import org.activiti.engine.delegate.ExecutionListener;
@@ -34,47 +33,39 @@ import org.mockito.Mockito;
 public class ExecutionListenerInvocationDiffblueTest {
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
-   *   <li>{@link ExecutionListenerInvocation#ExecutionListenerInvocation(ExecutionListener,
-   *       DelegateExecution)}
+   *   <li>{@link ExecutionListenerInvocation#ExecutionListenerInvocation(ExecutionListener, DelegateExecution)}
    *   <li>{@link ExecutionListenerInvocation#getTarget()}
    * </ul>
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void ExecutionListenerInvocation.<init>(ExecutionListener, DelegateExecution)",
-    "Object ExecutionListenerInvocation.getTarget()"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void ExecutionListenerInvocation.<init>(ExecutionListener, DelegateExecution)",
+      "Object ExecutionListenerInvocation.getTarget()"})
   public void testGettersAndSetters() {
     // Arrange
     ExecutionListener executionListenerInstance = mock(ExecutionListener.class);
 
     // Act
-    ExecutionListenerInvocation actualExecutionListenerInvocation =
-        new ExecutionListenerInvocation(
-            executionListenerInstance,
-            ExecutionEntityImpl.createWithEmptyRelationshipCollections());
+    ExecutionListenerInvocation actualExecutionListenerInvocation = new ExecutionListenerInvocation(
+        executionListenerInstance, ExecutionEntityImpl.createWithEmptyRelationshipCollections());
     Object actualTarget = actualExecutionListenerInvocation.getTarget();
 
     // Assert
-    assertNull(actualExecutionListenerInvocation.getInvocationResult());
     assertNull(actualExecutionListenerInvocation.getInvocationParameters());
+    assertNull(actualExecutionListenerInvocation.getInvocationResult());
     assertSame(executionListenerInstance, actualTarget);
   }
 
   /**
    * Test {@link ExecutionListenerInvocation#invoke()}.
-   *
-   * <p>Method under test: {@link ExecutionListenerInvocation#invoke()}
+   * <p>
+   * Method under test: {@link ExecutionListenerInvocation#invoke()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void ExecutionListenerInvocation.invoke()"})
   public void testInvoke() {
     // Arrange
@@ -82,9 +73,8 @@ public class ExecutionListenerInvocationDiffblueTest {
     doNothing().when(executionListenerInstance).notify(Mockito.<DelegateExecution>any());
 
     // Act
-    new ExecutionListenerInvocation(
-            executionListenerInstance, ExecutionEntityImpl.createWithEmptyRelationshipCollections())
-        .invoke();
+    (new ExecutionListenerInvocation(executionListenerInstance,
+        ExecutionEntityImpl.createWithEmptyRelationshipCollections())).invoke();
 
     // Assert
     verify(executionListenerInstance).notify(isA(DelegateExecution.class));

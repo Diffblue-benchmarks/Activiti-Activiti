@@ -22,8 +22,7 @@ import static org.mockito.ArgumentMatchers.isNull;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.engine.impl.cfg.CommandExecutorImpl;
 import org.activiti.engine.impl.interceptor.Command;
@@ -37,22 +36,19 @@ import org.mockito.Mockito;
 public class DbIdGeneratorDiffblueTest {
   /**
    * Test {@link DbIdGenerator#getNextId()}.
-   *
    * <ul>
-   *   <li>Then return {@code 1}.
+   *   <li>Then return {@code 1}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link DbIdGenerator#getNextId()}
+   * <p>
+   * Method under test: {@link DbIdGenerator#getNextId()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"String DbIdGenerator.getNextId()"})
   public void testGetNextId_thenReturn1() {
     // Arrange
     CommandContextInterceptor first = mock(CommandContextInterceptor.class);
-    when(first.execute(Mockito.<CommandConfig>any(), Mockito.<Command<IdBlock>>any()))
-        .thenReturn(new IdBlock(1L, 1L));
+    when(first.execute(Mockito.<CommandConfig>any(), Mockito.<Command<IdBlock>>any())).thenReturn(new IdBlock(1L, 1L));
     CommandExecutorImpl commandExecutor = new CommandExecutorImpl(new CommandConfig(), first);
 
     DbIdGenerator dbIdGenerator = new DbIdGenerator();
@@ -62,28 +58,25 @@ public class DbIdGeneratorDiffblueTest {
     String actualNextId = dbIdGenerator.getNextId();
 
     // Assert
-    verify(first).execute(isNull(), isA(Command.class));
+    verify(first).execute((CommandConfig) isNull(), isA(Command.class));
     assertEquals("1", actualNextId);
   }
 
   /**
    * Test {@link DbIdGenerator#getNewBlock()}.
-   *
    * <ul>
-   *   <li>Then calls {@link CommandContextInterceptor#execute(CommandConfig, Command)}.
+   *   <li>Then calls {@link CommandContextInterceptor#execute(CommandConfig, Command)}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link DbIdGenerator#getNewBlock()}
+   * <p>
+   * Method under test: {@link DbIdGenerator#getNewBlock()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void DbIdGenerator.getNewBlock()"})
   public void testGetNewBlock_thenCallsExecute() {
     // Arrange
     CommandContextInterceptor first = mock(CommandContextInterceptor.class);
-    when(first.execute(Mockito.<CommandConfig>any(), Mockito.<Command<IdBlock>>any()))
-        .thenReturn(new IdBlock(1L, 1L));
+    when(first.execute(Mockito.<CommandConfig>any(), Mockito.<Command<IdBlock>>any())).thenReturn(new IdBlock(1L, 1L));
     CommandExecutorImpl commandExecutor = new CommandExecutorImpl(new CommandConfig(), first);
 
     DbIdGenerator dbIdGenerator = new DbIdGenerator();
@@ -93,14 +86,13 @@ public class DbIdGeneratorDiffblueTest {
     dbIdGenerator.getNewBlock();
 
     // Assert
-    verify(first).execute(isNull(), isA(Command.class));
+    verify(first).execute((CommandConfig) isNull(), isA(Command.class));
   }
 
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>default or parameterless constructor of {@link DbIdGenerator}
    *   <li>{@link DbIdGenerator#setCommandConfig(CommandConfig)}
@@ -112,25 +104,19 @@ public class DbIdGeneratorDiffblueTest {
    * </ul>
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void DbIdGenerator.<init>()",
-    "CommandConfig DbIdGenerator.getCommandConfig()",
-    "CommandExecutor DbIdGenerator.getCommandExecutor()",
-    "int DbIdGenerator.getIdBlockSize()",
-    "void DbIdGenerator.setCommandConfig(CommandConfig)",
-    "void DbIdGenerator.setCommandExecutor(CommandExecutor)",
-    "void DbIdGenerator.setIdBlockSize(int)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void DbIdGenerator.<init>()", "CommandConfig DbIdGenerator.getCommandConfig()",
+      "CommandExecutor DbIdGenerator.getCommandExecutor()", "int DbIdGenerator.getIdBlockSize()",
+      "void DbIdGenerator.setCommandConfig(CommandConfig)", "void DbIdGenerator.setCommandExecutor(CommandExecutor)",
+      "void DbIdGenerator.setIdBlockSize(int)"})
   public void testGettersAndSetters() {
     // Arrange and Act
     DbIdGenerator actualDbIdGenerator = new DbIdGenerator();
     CommandConfig commandConfig = new CommandConfig();
     actualDbIdGenerator.setCommandConfig(commandConfig);
     CommandConfig defaultConfig = new CommandConfig();
-    CommandExecutorImpl commandExecutor =
-        new CommandExecutorImpl(defaultConfig, new CommandContextInterceptor());
+    CommandExecutorImpl commandExecutor = new CommandExecutorImpl(defaultConfig, new CommandContextInterceptor());
+
     actualDbIdGenerator.setCommandExecutor(commandExecutor);
     actualDbIdGenerator.setIdBlockSize(1);
     CommandConfig actualCommandConfig = actualDbIdGenerator.getCommandConfig();

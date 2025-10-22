@@ -20,8 +20,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.HashMap;
 import java.util.Map;
@@ -34,24 +33,20 @@ import org.junit.experimental.categories.Category;
 public class ParsedDeploymentBuilderFactoryDiffblueTest {
   /**
    * Test {@link ParsedDeploymentBuilderFactory#getBuilderForDeployment(DeploymentEntity)}.
-   *
-   * <p>Method under test: {@link
-   * ParsedDeploymentBuilderFactory#getBuilderForDeployment(DeploymentEntity)}
+   * <p>
+   * Method under test: {@link ParsedDeploymentBuilderFactory#getBuilderForDeployment(DeploymentEntity)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({
-    "ParsedDeploymentBuilder ParsedDeploymentBuilderFactory.getBuilderForDeployment(DeploymentEntity)"
-  })
+      "ParsedDeploymentBuilder ParsedDeploymentBuilderFactory.getBuilderForDeployment(DeploymentEntity)"})
   public void testGetBuilderForDeployment() {
     // Arrange
-    ParsedDeploymentBuilderFactory parsedDeploymentBuilderFactory =
-        new ParsedDeploymentBuilderFactory();
+    ParsedDeploymentBuilderFactory parsedDeploymentBuilderFactory = new ParsedDeploymentBuilderFactory();
 
     // Act
-    ParsedDeploymentBuilder actualBuilderForDeployment =
-        parsedDeploymentBuilderFactory.getBuilderForDeployment(new DeploymentEntityImpl());
+    ParsedDeploymentBuilder actualBuilderForDeployment = parsedDeploymentBuilderFactory
+        .getBuilderForDeployment(new DeploymentEntityImpl());
 
     // Assert
     DeploymentEntity deploymentEntity = actualBuilderForDeployment.deployment;
@@ -81,28 +76,22 @@ public class ParsedDeploymentBuilderFactoryDiffblueTest {
   }
 
   /**
-   * Test {@link ParsedDeploymentBuilderFactory#getBuilderForDeploymentAndSettings(DeploymentEntity,
-   * Map)}.
-   *
-   * <p>Method under test: {@link
-   * ParsedDeploymentBuilderFactory#getBuilderForDeploymentAndSettings(DeploymentEntity, Map)}
+   * Test {@link ParsedDeploymentBuilderFactory#getBuilderForDeploymentAndSettings(DeploymentEntity, Map)}.
+   * <p>
+   * Method under test: {@link ParsedDeploymentBuilderFactory#getBuilderForDeploymentAndSettings(DeploymentEntity, Map)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({
-    "ParsedDeploymentBuilder ParsedDeploymentBuilderFactory.getBuilderForDeploymentAndSettings(DeploymentEntity, Map)"
-  })
+      "ParsedDeploymentBuilder ParsedDeploymentBuilderFactory.getBuilderForDeploymentAndSettings(DeploymentEntity, Map)"})
   public void testGetBuilderForDeploymentAndSettings() {
     // Arrange
-    ParsedDeploymentBuilderFactory parsedDeploymentBuilderFactory =
-        new ParsedDeploymentBuilderFactory();
+    ParsedDeploymentBuilderFactory parsedDeploymentBuilderFactory = new ParsedDeploymentBuilderFactory();
     DeploymentEntityImpl deployment = new DeploymentEntityImpl();
 
     // Act
-    ParsedDeploymentBuilder actualBuilderForDeploymentAndSettings =
-        parsedDeploymentBuilderFactory.getBuilderForDeploymentAndSettings(
-            deployment, new HashMap<>());
+    ParsedDeploymentBuilder actualBuilderForDeploymentAndSettings = parsedDeploymentBuilderFactory
+        .getBuilderForDeploymentAndSettings(deployment, new HashMap<>());
 
     // Assert
     DeploymentEntity deploymentEntity = actualBuilderForDeploymentAndSettings.deployment;
@@ -133,9 +122,8 @@ public class ParsedDeploymentBuilderFactoryDiffblueTest {
 
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>default or parameterless constructor of {@link ParsedDeploymentBuilderFactory}
    *   <li>{@link ParsedDeploymentBuilderFactory#setBpmnParser(BpmnParser)}
@@ -143,17 +131,13 @@ public class ParsedDeploymentBuilderFactoryDiffblueTest {
    * </ul>
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void ParsedDeploymentBuilderFactory.<init>()",
-    "BpmnParser ParsedDeploymentBuilderFactory.getBpmnParser()",
-    "void ParsedDeploymentBuilderFactory.setBpmnParser(BpmnParser)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void ParsedDeploymentBuilderFactory.<init>()",
+      "BpmnParser ParsedDeploymentBuilderFactory.getBpmnParser()",
+      "void ParsedDeploymentBuilderFactory.setBpmnParser(BpmnParser)"})
   public void testGettersAndSetters() {
     // Arrange and Act
-    ParsedDeploymentBuilderFactory actualParsedDeploymentBuilderFactory =
-        new ParsedDeploymentBuilderFactory();
+    ParsedDeploymentBuilderFactory actualParsedDeploymentBuilderFactory = new ParsedDeploymentBuilderFactory();
     BpmnParser bpmnParser = new BpmnParser();
     actualParsedDeploymentBuilderFactory.setBpmnParser(bpmnParser);
 

@@ -18,8 +18,7 @@ package org.activiti.engine.impl.bpmn.data;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.engine.impl.util.json.JSONObject;
 import org.junit.Test;
@@ -28,39 +27,32 @@ import org.junit.experimental.categories.Category;
 public class PrimitiveStructureInstanceDiffblueTest {
   /**
    * Test getters and setters.
-   *
    * <ul>
-   *   <li>Then return Primitive is {@code null}.
+   *   <li>Then return Primitive is {@code null}.</li>
    * </ul>
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
-   *   <li>{@link
-   *       PrimitiveStructureInstance#PrimitiveStructureInstance(PrimitiveStructureDefinition)}
+   *   <li>{@link PrimitiveStructureInstance#PrimitiveStructureInstance(PrimitiveStructureDefinition)}
    *   <li>{@link PrimitiveStructureInstance#getPrimitive()}
    * </ul>
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void PrimitiveStructureInstance.<init>(PrimitiveStructureDefinition)",
-    "void PrimitiveStructureInstance.<init>(PrimitiveStructureDefinition, Object)",
-    "Object PrimitiveStructureInstance.getPrimitive()"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void PrimitiveStructureInstance.<init>(PrimitiveStructureDefinition)",
+      "void PrimitiveStructureInstance.<init>(PrimitiveStructureDefinition, Object)",
+      "Object PrimitiveStructureInstance.getPrimitive()"})
   public void testGettersAndSetters_thenReturnPrimitiveIsNull() {
     // Arrange
     Class<Object> primitiveClass = Object.class;
 
     // Act
-    PrimitiveStructureInstance actualPrimitiveStructureInstance =
-        new PrimitiveStructureInstance(new PrimitiveStructureDefinition("42", primitiveClass));
+    PrimitiveStructureInstance actualPrimitiveStructureInstance = new PrimitiveStructureInstance(
+        new PrimitiveStructureDefinition("42", primitiveClass));
     Object actualPrimitive = actualPrimitiveStructureInstance.getPrimitive();
 
     // Assert
-    PrimitiveStructureDefinition primitiveStructureDefinition =
-        actualPrimitiveStructureInstance.definition;
+    PrimitiveStructureDefinition primitiveStructureDefinition = actualPrimitiveStructureInstance.definition;
     assertEquals("42", primitiveStructureDefinition.getId());
     assertNull(actualPrimitive);
     Class<Object> expectedPrimitiveClass = Object.class;
@@ -71,43 +63,34 @@ public class PrimitiveStructureInstanceDiffblueTest {
 
   /**
    * Test getters and setters.
-   *
    * <ul>
-   *   <li>When {@link JSONObject#NULL}.
-   *   <li>Then return Primitive is {@link JSONObject#NULL}.
+   *   <li>When {@link JSONObject#NULL}.</li>
+   *   <li>Then return Primitive is {@link JSONObject#NULL}.</li>
    * </ul>
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
-   *   <li>{@link
-   *       PrimitiveStructureInstance#PrimitiveStructureInstance(PrimitiveStructureDefinition,
-   *       Object)}
+   *   <li>{@link PrimitiveStructureInstance#PrimitiveStructureInstance(PrimitiveStructureDefinition, Object)}
    *   <li>{@link PrimitiveStructureInstance#getPrimitive()}
    * </ul>
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void PrimitiveStructureInstance.<init>(PrimitiveStructureDefinition)",
-    "void PrimitiveStructureInstance.<init>(PrimitiveStructureDefinition, Object)",
-    "Object PrimitiveStructureInstance.getPrimitive()"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void PrimitiveStructureInstance.<init>(PrimitiveStructureDefinition)",
+      "void PrimitiveStructureInstance.<init>(PrimitiveStructureDefinition, Object)",
+      "Object PrimitiveStructureInstance.getPrimitive()"})
   public void testGettersAndSetters_whenNull_thenReturnPrimitiveIsNull() {
     // Arrange
     Class<Object> primitiveClass = Object.class;
     Object object = JSONObject.NULL;
 
     // Act
-    PrimitiveStructureInstance actualPrimitiveStructureInstance =
-        new PrimitiveStructureInstance(
-            new PrimitiveStructureDefinition("42", primitiveClass), object);
+    PrimitiveStructureInstance actualPrimitiveStructureInstance = new PrimitiveStructureInstance(
+        new PrimitiveStructureDefinition("42", primitiveClass), object);
     Object actualPrimitive = actualPrimitiveStructureInstance.getPrimitive();
 
     // Assert
-    PrimitiveStructureDefinition primitiveStructureDefinition =
-        actualPrimitiveStructureInstance.definition;
+    PrimitiveStructureDefinition primitiveStructureDefinition = actualPrimitiveStructureInstance.definition;
     assertEquals("42", primitiveStructureDefinition.getId());
     Class<Object> expectedPrimitiveClass = Object.class;
     Class<?> primitiveClass2 = primitiveStructureDefinition.getPrimitiveClass();
@@ -118,21 +101,19 @@ public class PrimitiveStructureInstanceDiffblueTest {
 
   /**
    * Test {@link PrimitiveStructureInstance#toArray()}.
-   *
-   * <p>Method under test: {@link PrimitiveStructureInstance#toArray()}
+   * <p>
+   * Method under test: {@link PrimitiveStructureInstance#toArray()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"Object[] PrimitiveStructureInstance.toArray()"})
   public void testToArray() {
     // Arrange
     Class<Object> primitiveClass = Object.class;
 
     // Act
-    Object[] actualToArrayResult =
-        new PrimitiveStructureInstance(new PrimitiveStructureDefinition("42", primitiveClass))
-            .toArray();
+    Object[] actualToArrayResult = (new PrimitiveStructureInstance(
+        new PrimitiveStructureDefinition("42", primitiveClass))).toArray();
 
     // Assert
     assertNull(actualToArrayResult[0]);
@@ -141,27 +122,25 @@ public class PrimitiveStructureInstanceDiffblueTest {
 
   /**
    * Test {@link PrimitiveStructureInstance#loadFrom(Object[])}.
-   *
    * <ul>
-   *   <li>Given {@code Object}.
-   *   <li>When array of {@link Object} with {@link JSONObject#NULL}.
-   *   <li>Then array length is one.
+   *   <li>Given {@code Object}.</li>
+   *   <li>When array of {@link Object} with {@link JSONObject#NULL}.</li>
+   *   <li>Then array length is one.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PrimitiveStructureInstance#loadFrom(Object[])}
+   * <p>
+   * Method under test: {@link PrimitiveStructureInstance#loadFrom(Object[])}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void PrimitiveStructureInstance.loadFrom(Object[])"})
   public void testLoadFrom_givenJavaLangObject_whenArrayOfObjectWithNull_thenArrayLengthIsOne() {
     // Arrange
     Class<Object> primitiveClass = Object.class;
-    PrimitiveStructureInstance primitiveStructureInstance =
-        new PrimitiveStructureInstance(new PrimitiveStructureDefinition("42", primitiveClass));
+    PrimitiveStructureInstance primitiveStructureInstance = new PrimitiveStructureInstance(
+        new PrimitiveStructureDefinition("42", primitiveClass));
 
     // Act
-    primitiveStructureInstance.loadFrom(new Object[] {JSONObject.NULL});
+    primitiveStructureInstance.loadFrom(new Object[]{JSONObject.NULL});
 
     // Assert
     assertEquals(1, primitiveStructureInstance.toArray().length);
@@ -169,55 +148,25 @@ public class PrimitiveStructureInstanceDiffblueTest {
 
   /**
    * Test {@link PrimitiveStructureInstance#loadFrom(Object[])}.
-   *
    * <ul>
-   *   <li>Given {@code Object}.
-   *   <li>When array of {@link Object} with {@code null}.
-   *   <li>Then array length is one.
+   *   <li>Given {@code Object}.</li>
+   *   <li>When empty array of {@link Object}.</li>
+   *   <li>Then array length is one.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PrimitiveStructureInstance#loadFrom(Object[])}
+   * <p>
+   * Method under test: {@link PrimitiveStructureInstance#loadFrom(Object[])}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void PrimitiveStructureInstance.loadFrom(Object[])"})
-  public void testLoadFrom_givenJavaLangObject_whenArrayOfObjectWithNull_thenArrayLengthIsOne2() {
-    // Arrange
-    Class<Object> primitiveClass = Object.class;
-    PrimitiveStructureInstance primitiveStructureInstance =
-        new PrimitiveStructureInstance(new PrimitiveStructureDefinition("42", primitiveClass));
-
-    // Act
-    primitiveStructureInstance.loadFrom(new Object[] {null});
-
-    // Assert that nothing has changed
-    assertEquals(1, primitiveStructureInstance.toArray().length);
-  }
-
-  /**
-   * Test {@link PrimitiveStructureInstance#loadFrom(Object[])}.
-   *
-   * <ul>
-   *   <li>Given {@code Object}.
-   *   <li>When empty array of {@link Object}.
-   *   <li>Then array length is one.
-   * </ul>
-   *
-   * <p>Method under test: {@link PrimitiveStructureInstance#loadFrom(Object[])}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void PrimitiveStructureInstance.loadFrom(Object[])"})
   public void testLoadFrom_givenJavaLangObject_whenEmptyArrayOfObject_thenArrayLengthIsOne() {
     // Arrange
     Class<Object> primitiveClass = Object.class;
-    PrimitiveStructureInstance primitiveStructureInstance =
-        new PrimitiveStructureInstance(new PrimitiveStructureDefinition("42", primitiveClass));
+    PrimitiveStructureInstance primitiveStructureInstance = new PrimitiveStructureInstance(
+        new PrimitiveStructureDefinition("42", primitiveClass));
 
     // Act
-    primitiveStructureInstance.loadFrom(new Object[] {});
+    primitiveStructureInstance.loadFrom(new Object[]{});
 
     // Assert that nothing has changed
     assertEquals(1, primitiveStructureInstance.toArray().length);

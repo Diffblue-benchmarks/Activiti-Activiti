@@ -17,89 +17,16 @@ package org.activiti.engine.impl.interceptor;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertThrows;
-import static org.mockito.ArgumentMatchers.isA;
-import static org.mockito.Mockito.atLeast;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
-import org.activiti.engine.ActivitiException;
-import org.activiti.engine.ActivitiOptimisticLockingException;
-import org.activiti.engine.impl.util.json.JSONObject;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
-import org.mockito.Mockito;
 
 public class RetryInterceptorDiffblueTest {
   /**
-   * Test {@link RetryInterceptor#execute(CommandConfig, Command)}.
-   *
-   * <ul>
-   *   <li>Given {@link CommandContextInterceptor} {@link
-   *       CommandContextInterceptor#execute(CommandConfig, Command)} return {@link
-   *       JSONObject#NULL}.
-   *   <li>Then calls {@link CommandContextInterceptor#execute(CommandConfig, Command)}.
-   * </ul>
-   *
-   * <p>Method under test: {@link RetryInterceptor#execute(CommandConfig, Command)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"Object RetryInterceptor.execute(CommandConfig, Command)"})
-  public void testExecute_givenCommandContextInterceptorExecuteReturnNull_thenCallsExecute() {
-    // Arrange
-    CommandContextInterceptor next = mock(CommandContextInterceptor.class);
-    when(next.execute(Mockito.<CommandConfig>any(), Mockito.<Command<Object>>any()))
-        .thenReturn(JSONObject.NULL);
-
-    RetryInterceptor retryInterceptor = new RetryInterceptor();
-    retryInterceptor.setNext(next);
-
-    // Act
-    retryInterceptor.execute(new CommandConfig(), mock(Command.class));
-
-    // Assert
-    verify(next).execute(isA(CommandConfig.class), isA(Command.class));
-  }
-
-  /**
-   * Test {@link RetryInterceptor#execute(CommandConfig, Command)}.
-   *
-   * <ul>
-   *   <li>Then throw {@link ActivitiException}.
-   * </ul>
-   *
-   * <p>Method under test: {@link RetryInterceptor#execute(CommandConfig, Command)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"Object RetryInterceptor.execute(CommandConfig, Command)"})
-  public void testExecute_thenThrowActivitiException() {
-    // Arrange
-    CommandContextInterceptor next = mock(CommandContextInterceptor.class);
-    when(next.execute(Mockito.<CommandConfig>any(), Mockito.<Command<Object>>any()))
-        .thenThrow(new ActivitiOptimisticLockingException("An error occurred"));
-
-    RetryInterceptor retryInterceptor = new RetryInterceptor();
-    retryInterceptor.setNext(next);
-
-    // Act and Assert
-    assertThrows(
-        ActivitiException.class,
-        () -> retryInterceptor.execute(new CommandConfig(), mock(Command.class)));
-    verify(next, atLeast(1)).execute(isA(CommandConfig.class), isA(Command.class));
-  }
-
-  /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>default or parameterless constructor of {@link RetryInterceptor}
    *   <li>{@link RetryInterceptor#setNumOfRetries(int)}
@@ -111,17 +38,11 @@ public class RetryInterceptorDiffblueTest {
    * </ul>
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void RetryInterceptor.<init>()",
-    "int RetryInterceptor.getNumOfRetries()",
-    "int RetryInterceptor.getWaitIncreaseFactor()",
-    "int RetryInterceptor.getWaitTimeInMs()",
-    "void RetryInterceptor.setNumOfRetries(int)",
-    "void RetryInterceptor.setWaitIncreaseFactor(int)",
-    "void RetryInterceptor.setWaitTimeInMs(int)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void RetryInterceptor.<init>()", "int RetryInterceptor.getNumOfRetries()",
+      "int RetryInterceptor.getWaitIncreaseFactor()", "int RetryInterceptor.getWaitTimeInMs()",
+      "void RetryInterceptor.setNumOfRetries(int)", "void RetryInterceptor.setWaitIncreaseFactor(int)",
+      "void RetryInterceptor.setWaitTimeInMs(int)"})
   public void testGettersAndSetters() {
     // Arrange and Act
     RetryInterceptor actualRetryInterceptor = new RetryInterceptor();

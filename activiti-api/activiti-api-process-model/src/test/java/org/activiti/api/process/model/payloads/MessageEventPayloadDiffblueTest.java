@@ -19,7 +19,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.HashMap;
 import java.util.Map;
@@ -30,13 +29,12 @@ import org.junit.jupiter.api.Test;
 class MessageEventPayloadDiffblueTest {
   /**
    * Test {@link MessageEventPayload#MessageEventPayload()}.
-   *
-   * <p>Method under test: {@link MessageEventPayload#MessageEventPayload()}
+   * <p>
+   * Method under test: {@link MessageEventPayload#MessageEventPayload()}
    */
   @Test
   @DisplayName("Test new MessageEventPayload()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void MessageEventPayload.<init>()"})
   void testNewMessageEventPayload() {
     // Arrange and Act
@@ -51,19 +49,17 @@ class MessageEventPayloadDiffblueTest {
 
   /**
    * Test {@link MessageEventPayload#MessageEventPayload(String, String, String, Map)}.
-   *
-   * <p>Method under test: {@link MessageEventPayload#MessageEventPayload(String, String, String,
-   * Map)}
+   * <p>
+   * Method under test: {@link MessageEventPayload#MessageEventPayload(String, String, String, Map)}
    */
   @Test
   @DisplayName("Test new MessageEventPayload(String, String, String, Map)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void MessageEventPayload.<init>(String, String, String, Map)"})
   void testNewMessageEventPayload2() {
     // Arrange and Act
-    MessageEventPayload actualMessageEventPayload =
-        new MessageEventPayload("Name", "Correlation Key", "Business Key", new HashMap<>());
+    MessageEventPayload actualMessageEventPayload = new MessageEventPayload("Name", "Correlation Key", "Business Key",
+        new HashMap<>());
 
     // Assert
     assertEquals("Business Key", actualMessageEventPayload.getBusinessKey());
@@ -74,9 +70,8 @@ class MessageEventPayloadDiffblueTest {
 
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>{@link MessageEventPayload#toString()}
    *   <li>{@link MessageEventPayload#getBusinessKey()}
@@ -88,16 +83,10 @@ class MessageEventPayloadDiffblueTest {
    */
   @Test
   @DisplayName("Test getters and setters")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "String MessageEventPayload.getBusinessKey()",
-    "String MessageEventPayload.getCorrelationKey()",
-    "String MessageEventPayload.getId()",
-    "String MessageEventPayload.getName()",
-    "Map MessageEventPayload.getVariables()",
-    "String MessageEventPayload.toString()"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"String MessageEventPayload.getBusinessKey()", "String MessageEventPayload.getCorrelationKey()",
+      "String MessageEventPayload.getId()", "String MessageEventPayload.getName()",
+      "Map MessageEventPayload.getVariables()", "String MessageEventPayload.toString()"})
   void testGettersAndSetters() {
     // Arrange
     MessageEventPayload messageEventPayload = new MessageEventPayload();
@@ -118,14 +107,12 @@ class MessageEventPayloadDiffblueTest {
 
   /**
    * Test {@link MessageEventPayload#equals(Object)}, and {@link MessageEventPayload#hashCode()}.
-   *
    * <ul>
-   *   <li>When other is same.
-   *   <li>Then return equal.
+   *   <li>When other is same.</li>
+   *   <li>Then return equal.</li>
    * </ul>
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>{@link MessageEventPayload#equals(Object)}
    *   <li>{@link MessageEventPayload#hashCode()}
@@ -133,12 +120,8 @@ class MessageEventPayloadDiffblueTest {
    */
   @Test
   @DisplayName("Test equals(Object), and hashCode(); when other is same; then return equal")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "boolean MessageEventPayload.equals(Object)",
-    "int MessageEventPayload.hashCode()"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean MessageEventPayload.equals(Object)", "int MessageEventPayload.hashCode()"})
   void testEqualsAndHashCode_whenOtherIsSame_thenReturnEqual() {
     // Arrange
     MessageEventPayload messageEventPayload = new MessageEventPayload();
@@ -151,22 +134,17 @@ class MessageEventPayloadDiffblueTest {
 
   /**
    * Test {@link MessageEventPayload#equals(Object)}.
-   *
    * <ul>
-   *   <li>When other is different.
-   *   <li>Then return not equal.
+   *   <li>When other is different.</li>
+   *   <li>Then return not equal.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link MessageEventPayload#equals(Object)}
+   * <p>
+   * Method under test: {@link MessageEventPayload#equals(Object)}
    */
   @Test
   @DisplayName("Test equals(Object); when other is different; then return not equal")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "boolean MessageEventPayload.equals(Object)",
-    "int MessageEventPayload.hashCode()"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean MessageEventPayload.equals(Object)", "int MessageEventPayload.hashCode()"})
   void testEquals_whenOtherIsDifferent_thenReturnNotEqual() {
     // Arrange
     MessageEventPayload messageEventPayload = new MessageEventPayload();
@@ -177,26 +155,21 @@ class MessageEventPayloadDiffblueTest {
 
   /**
    * Test {@link MessageEventPayload#equals(Object)}.
-   *
    * <ul>
-   *   <li>When other is different.
-   *   <li>Then return not equal.
+   *   <li>When other is different.</li>
+   *   <li>Then return not equal.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link MessageEventPayload#equals(Object)}
+   * <p>
+   * Method under test: {@link MessageEventPayload#equals(Object)}
    */
   @Test
   @DisplayName("Test equals(Object); when other is different; then return not equal")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "boolean MessageEventPayload.equals(Object)",
-    "int MessageEventPayload.hashCode()"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean MessageEventPayload.equals(Object)", "int MessageEventPayload.hashCode()"})
   void testEquals_whenOtherIsDifferent_thenReturnNotEqual2() {
     // Arrange
-    MessageEventPayload messageEventPayload =
-        new MessageEventPayload("Name", "Correlation Key", "Business Key", new HashMap<>());
+    MessageEventPayload messageEventPayload = new MessageEventPayload("Name", "Correlation Key", "Business Key",
+        new HashMap<>());
 
     // Act and Assert
     assertNotEquals(messageEventPayload, new MessageEventPayload());
@@ -204,26 +177,20 @@ class MessageEventPayloadDiffblueTest {
 
   /**
    * Test {@link MessageEventPayload#equals(Object)}.
-   *
    * <ul>
-   *   <li>When other is different.
-   *   <li>Then return not equal.
+   *   <li>When other is different.</li>
+   *   <li>Then return not equal.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link MessageEventPayload#equals(Object)}
+   * <p>
+   * Method under test: {@link MessageEventPayload#equals(Object)}
    */
   @Test
   @DisplayName("Test equals(Object); when other is different; then return not equal")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "boolean MessageEventPayload.equals(Object)",
-    "int MessageEventPayload.hashCode()"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean MessageEventPayload.equals(Object)", "int MessageEventPayload.hashCode()"})
   void testEquals_whenOtherIsDifferent_thenReturnNotEqual3() {
     // Arrange
-    MessageEventPayload messageEventPayload =
-        new MessageEventPayload("Name", "Correlation Key", null, new HashMap<>());
+    MessageEventPayload messageEventPayload = new MessageEventPayload("Name", "Correlation Key", null, new HashMap<>());
 
     // Act and Assert
     assertNotEquals(messageEventPayload, new MessageEventPayload());
@@ -231,22 +198,17 @@ class MessageEventPayloadDiffblueTest {
 
   /**
    * Test {@link MessageEventPayload#equals(Object)}.
-   *
    * <ul>
-   *   <li>When other is {@code null}.
-   *   <li>Then return not equal.
+   *   <li>When other is {@code null}.</li>
+   *   <li>Then return not equal.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link MessageEventPayload#equals(Object)}
+   * <p>
+   * Method under test: {@link MessageEventPayload#equals(Object)}
    */
   @Test
   @DisplayName("Test equals(Object); when other is 'null'; then return not equal")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "boolean MessageEventPayload.equals(Object)",
-    "int MessageEventPayload.hashCode()"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean MessageEventPayload.equals(Object)", "int MessageEventPayload.hashCode()"})
   void testEquals_whenOtherIsNull_thenReturnNotEqual() {
     // Arrange, Act and Assert
     assertNotEquals(new MessageEventPayload(), null);
@@ -254,22 +216,17 @@ class MessageEventPayloadDiffblueTest {
 
   /**
    * Test {@link MessageEventPayload#equals(Object)}.
-   *
    * <ul>
-   *   <li>When other is wrong type.
-   *   <li>Then return not equal.
+   *   <li>When other is wrong type.</li>
+   *   <li>Then return not equal.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link MessageEventPayload#equals(Object)}
+   * <p>
+   * Method under test: {@link MessageEventPayload#equals(Object)}
    */
   @Test
   @DisplayName("Test equals(Object); when other is wrong type; then return not equal")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "boolean MessageEventPayload.equals(Object)",
-    "int MessageEventPayload.hashCode()"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean MessageEventPayload.equals(Object)", "int MessageEventPayload.hashCode()"})
   void testEquals_whenOtherIsWrongType_thenReturnNotEqual() {
     // Arrange, Act and Assert
     assertNotEquals(new MessageEventPayload(), "Different type to MessageEventPayload");

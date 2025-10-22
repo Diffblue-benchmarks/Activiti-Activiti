@@ -19,8 +19,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -31,25 +30,20 @@ import org.junit.experimental.categories.Category;
 public class GetTaskDataObjectsCmdDiffblueTest {
   /**
    * Test {@link GetTaskDataObjectsCmd#GetTaskDataObjectsCmd(String, Collection)}.
-   *
    * <ul>
-   *   <li>When {@link ArrayList#ArrayList()}.
-   *   <li>Then return {@link GetTaskDataObjectsCmd#locale} is {@code null}.
+   *   <li>When {@link ArrayList#ArrayList()}.</li>
+   *   <li>Then return {@link GetTaskDataObjectsCmd#locale} is {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link GetTaskDataObjectsCmd#GetTaskDataObjectsCmd(String, Collection)}
+   * <p>
+   * Method under test: {@link GetTaskDataObjectsCmd#GetTaskDataObjectsCmd(String, Collection)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void GetTaskDataObjectsCmd.<init>(String, Collection)",
-    "void GetTaskDataObjectsCmd.<init>(String, Collection, String, boolean)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void GetTaskDataObjectsCmd.<init>(String, Collection)",
+      "void GetTaskDataObjectsCmd.<init>(String, Collection, String, boolean)"})
   public void testNewGetTaskDataObjectsCmd_whenArrayList_thenReturnLocaleIsNull() {
     // Arrange and Act
-    GetTaskDataObjectsCmd actualGetTaskDataObjectsCmd =
-        new GetTaskDataObjectsCmd("42", new ArrayList<>());
+    GetTaskDataObjectsCmd actualGetTaskDataObjectsCmd = new GetTaskDataObjectsCmd("42", new ArrayList<>());
 
     // Assert
     Collection<String> collection = actualGetTaskDataObjectsCmd.variableNames;
@@ -62,26 +56,20 @@ public class GetTaskDataObjectsCmdDiffblueTest {
 
   /**
    * Test {@link GetTaskDataObjectsCmd#GetTaskDataObjectsCmd(String, Collection, String, boolean)}.
-   *
    * <ul>
-   *   <li>When {@code en}.
-   *   <li>Then return {@link GetTaskDataObjectsCmd#locale} is {@code en}.
+   *   <li>When {@code en}.</li>
+   *   <li>Then return {@link GetTaskDataObjectsCmd#locale} is {@code en}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link GetTaskDataObjectsCmd#GetTaskDataObjectsCmd(String, Collection,
-   * String, boolean)}
+   * <p>
+   * Method under test: {@link GetTaskDataObjectsCmd#GetTaskDataObjectsCmd(String, Collection, String, boolean)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void GetTaskDataObjectsCmd.<init>(String, Collection)",
-    "void GetTaskDataObjectsCmd.<init>(String, Collection, String, boolean)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void GetTaskDataObjectsCmd.<init>(String, Collection)",
+      "void GetTaskDataObjectsCmd.<init>(String, Collection, String, boolean)"})
   public void testNewGetTaskDataObjectsCmd_whenEn_thenReturnLocaleIsEn() {
     // Arrange and Act
-    GetTaskDataObjectsCmd actualGetTaskDataObjectsCmd =
-        new GetTaskDataObjectsCmd("42", new ArrayList<>(), "en", true);
+    GetTaskDataObjectsCmd actualGetTaskDataObjectsCmd = new GetTaskDataObjectsCmd("42", new ArrayList<>(), "en", true);
 
     // Assert
     Collection<String> collection = actualGetTaskDataObjectsCmd.variableNames;

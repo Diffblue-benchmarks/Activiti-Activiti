@@ -18,14 +18,11 @@ package org.activiti.engine.delegate.event.impl;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
-import static org.junit.Assert.assertThrows;
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.HashMap;
 import java.util.Map;
-import org.activiti.engine.ActivitiIllegalArgumentException;
 import org.activiti.engine.delegate.event.ActivitiEventType;
 import org.activiti.engine.impl.util.json.JSONObject;
 import org.junit.Test;
@@ -33,85 +30,32 @@ import org.junit.experimental.categories.Category;
 
 public class ActivitiEntityWithVariablesEventImplDiffblueTest {
   /**
-   * Test {@link ActivitiEntityWithVariablesEventImpl#ActivitiEntityWithVariablesEventImpl(Object,
-   * Map, boolean, ActivitiEventType)}.
-   *
-   * <p>Method under test: {@link
-   * ActivitiEntityWithVariablesEventImpl#ActivitiEntityWithVariablesEventImpl(Object, Map, boolean,
-   * ActivitiEventType)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void ActivitiEntityWithVariablesEventImpl.<init>(Object, Map, boolean, ActivitiEventType)"
-  })
-  public void testNewActivitiEntityWithVariablesEventImpl() {
-    // Arrange, Act and Assert
-    assertThrows(
-        ActivitiIllegalArgumentException.class,
-        () -> new ActivitiEntityWithVariablesEventImpl(null, new HashMap<>(), true, null));
-  }
-
-  /**
-   * Test {@link ActivitiEntityWithVariablesEventImpl#ActivitiEntityWithVariablesEventImpl(Object,
-   * Map, boolean, ActivitiEventType)}.
-   *
-   * <p>Method under test: {@link
-   * ActivitiEntityWithVariablesEventImpl#ActivitiEntityWithVariablesEventImpl(Object, Map, boolean,
-   * ActivitiEventType)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void ActivitiEntityWithVariablesEventImpl.<init>(Object, Map, boolean, ActivitiEventType)"
-  })
-  public void testNewActivitiEntityWithVariablesEventImpl2() {
-    // Arrange, Act and Assert
-    assertThrows(
-        ActivitiIllegalArgumentException.class,
-        () ->
-            new ActivitiEntityWithVariablesEventImpl(
-                null, new HashMap<>(), true, ActivitiEventType.ENTITY_CREATED));
-  }
-
-  /**
-   * Test {@link ActivitiEntityWithVariablesEventImpl#ActivitiEntityWithVariablesEventImpl(Object,
-   * Map, boolean, ActivitiEventType)}.
-   *
+   * Test {@link ActivitiEntityWithVariablesEventImpl#ActivitiEntityWithVariablesEventImpl(Object, Map, boolean, ActivitiEventType)}.
    * <ul>
-   *   <li>When {@link JSONObject#NULL}.
-   *   <li>Then return ExecutionId is {@code null}.
+   *   <li>When {@link JSONObject#NULL}.</li>
+   *   <li>Then return ExecutionId is {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link
-   * ActivitiEntityWithVariablesEventImpl#ActivitiEntityWithVariablesEventImpl(Object, Map, boolean,
-   * ActivitiEventType)}
+   * <p>
+   * Method under test: {@link ActivitiEntityWithVariablesEventImpl#ActivitiEntityWithVariablesEventImpl(Object, Map, boolean, ActivitiEventType)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void ActivitiEntityWithVariablesEventImpl.<init>(Object, Map, boolean, ActivitiEventType)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void ActivitiEntityWithVariablesEventImpl.<init>(Object, Map, boolean, ActivitiEventType)"})
   public void testNewActivitiEntityWithVariablesEventImpl_whenNull_thenReturnExecutionIdIsNull() {
     // Arrange
     Object object = JSONObject.NULL;
     HashMap<Object, Object> variables = new HashMap<>();
 
     // Act
-    ActivitiEntityWithVariablesEventImpl actualActivitiEntityWithVariablesEventImpl =
-        new ActivitiEntityWithVariablesEventImpl(
-            object, variables, true, ActivitiEventType.ENTITY_CREATED);
+    ActivitiEntityWithVariablesEventImpl actualActivitiEntityWithVariablesEventImpl = new ActivitiEntityWithVariablesEventImpl(
+        object, variables, true, ActivitiEventType.ENTITY_CREATED);
 
     // Assert
     assertNull(actualActivitiEntityWithVariablesEventImpl.getExecutionId());
     assertNull(actualActivitiEntityWithVariablesEventImpl.getProcessDefinitionId());
     assertNull(actualActivitiEntityWithVariablesEventImpl.getProcessInstanceId());
     assertNull(actualActivitiEntityWithVariablesEventImpl.getReason());
-    assertEquals(
-        ActivitiEventType.ENTITY_CREATED, actualActivitiEntityWithVariablesEventImpl.getType());
+    assertEquals(ActivitiEventType.ENTITY_CREATED, actualActivitiEntityWithVariablesEventImpl.getType());
     assertTrue(actualActivitiEntityWithVariablesEventImpl.isLocalScope());
     assertSame(variables, actualActivitiEntityWithVariablesEventImpl.getVariables());
     assertSame(object, actualActivitiEntityWithVariablesEventImpl.getEntity());
@@ -119,26 +63,21 @@ public class ActivitiEntityWithVariablesEventImplDiffblueTest {
 
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>{@link ActivitiEntityWithVariablesEventImpl#getVariables()}
    *   <li>{@link ActivitiEntityWithVariablesEventImpl#isLocalScope()}
    * </ul>
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "Map ActivitiEntityWithVariablesEventImpl.getVariables()",
-    "boolean ActivitiEntityWithVariablesEventImpl.isLocalScope()"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Map ActivitiEntityWithVariablesEventImpl.getVariables()",
+      "boolean ActivitiEntityWithVariablesEventImpl.isLocalScope()"})
   public void testGettersAndSetters() {
     // Arrange
-    ActivitiEntityWithVariablesEventImpl activitiEntityWithVariablesEventImpl =
-        new ActivitiEntityWithVariablesEventImpl(
-            JSONObject.NULL, new HashMap<>(), true, ActivitiEventType.ENTITY_CREATED);
+    ActivitiEntityWithVariablesEventImpl activitiEntityWithVariablesEventImpl = new ActivitiEntityWithVariablesEventImpl(
+        JSONObject.NULL, new HashMap<>(), true, ActivitiEventType.ENTITY_CREATED);
 
     // Act
     Map actualVariables = activitiEntityWithVariablesEventImpl.getVariables();

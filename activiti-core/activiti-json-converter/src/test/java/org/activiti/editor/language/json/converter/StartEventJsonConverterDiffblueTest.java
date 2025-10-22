@@ -20,12 +20,16 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.node.DoubleNode;
+import com.fasterxml.jackson.databind.node.ArrayNode;
+import com.fasterxml.jackson.databind.node.JsonNodeFactory;
+import com.fasterxml.jackson.databind.node.MissingNode;
+import com.fasterxml.jackson.databind.node.ObjectNode;
+import com.fasterxml.jackson.databind.node.TextNode;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import org.activiti.bpmn.model.BaseElement;
@@ -47,13 +51,12 @@ import org.junit.jupiter.api.Test;
 class StartEventJsonConverterDiffblueTest {
   /**
    * Test {@link StartEventJsonConverter#fillJsonTypes(Map)}.
-   *
-   * <p>Method under test: {@link StartEventJsonConverter#fillJsonTypes(Map)}
+   * <p>
+   * Method under test: {@link StartEventJsonConverter#fillJsonTypes(Map)}
    */
   @Test
   @DisplayName("Test fillJsonTypes(Map)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void StartEventJsonConverter.fillJsonTypes(Map)"})
   void testFillJsonTypes() {
     // Arrange
@@ -75,20 +78,16 @@ class StartEventJsonConverterDiffblueTest {
 
   /**
    * Test {@link StartEventJsonConverter#getStencilId(BaseElement)}.
-   *
    * <ul>
-   *   <li>Given {@link ArrayList#ArrayList()} add {@link CancelEventDefinition} (default
-   *       constructor).
-   *   <li>Then return {@code StartNoneEvent}.
+   *   <li>Given {@link ArrayList#ArrayList()} add {@link CancelEventDefinition} (default constructor).</li>
+   *   <li>Then return {@code StartNoneEvent}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link StartEventJsonConverter#getStencilId(BaseElement)}
+   * <p>
+   * Method under test: {@link StartEventJsonConverter#getStencilId(BaseElement)}
    */
   @Test
-  @DisplayName(
-      "Test getStencilId(BaseElement); given ArrayList() add CancelEventDefinition (default constructor); then return 'StartNoneEvent'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getStencilId(BaseElement); given ArrayList() add CancelEventDefinition (default constructor); then return 'StartNoneEvent'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"String StartEventJsonConverter.getStencilId(BaseElement)"})
   void testGetStencilId_givenArrayListAddCancelEventDefinition_thenReturnStartNoneEvent() {
     // Arrange
@@ -106,20 +105,16 @@ class StartEventJsonConverterDiffblueTest {
 
   /**
    * Test {@link StartEventJsonConverter#getStencilId(BaseElement)}.
-   *
    * <ul>
-   *   <li>Given {@link ArrayList#ArrayList()} add {@link ErrorEventDefinition} (default
-   *       constructor).
-   *   <li>Then return {@code StartErrorEvent}.
+   *   <li>Given {@link ArrayList#ArrayList()} add {@link ErrorEventDefinition} (default constructor).</li>
+   *   <li>Then return {@code StartErrorEvent}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link StartEventJsonConverter#getStencilId(BaseElement)}
+   * <p>
+   * Method under test: {@link StartEventJsonConverter#getStencilId(BaseElement)}
    */
   @Test
-  @DisplayName(
-      "Test getStencilId(BaseElement); given ArrayList() add ErrorEventDefinition (default constructor); then return 'StartErrorEvent'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getStencilId(BaseElement); given ArrayList() add ErrorEventDefinition (default constructor); then return 'StartErrorEvent'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"String StartEventJsonConverter.getStencilId(BaseElement)"})
   void testGetStencilId_givenArrayListAddErrorEventDefinition_thenReturnStartErrorEvent() {
     // Arrange
@@ -137,20 +132,16 @@ class StartEventJsonConverterDiffblueTest {
 
   /**
    * Test {@link StartEventJsonConverter#getStencilId(BaseElement)}.
-   *
    * <ul>
-   *   <li>Given {@link ArrayList#ArrayList()} add {@link TimerEventDefinition} (default
-   *       constructor).
-   *   <li>Then return {@code StartTimerEvent}.
+   *   <li>Given {@link ArrayList#ArrayList()} add {@link TimerEventDefinition} (default constructor).</li>
+   *   <li>Then return {@code StartTimerEvent}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link StartEventJsonConverter#getStencilId(BaseElement)}
+   * <p>
+   * Method under test: {@link StartEventJsonConverter#getStencilId(BaseElement)}
    */
   @Test
-  @DisplayName(
-      "Test getStencilId(BaseElement); given ArrayList() add TimerEventDefinition (default constructor); then return 'StartTimerEvent'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getStencilId(BaseElement); given ArrayList() add TimerEventDefinition (default constructor); then return 'StartTimerEvent'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"String StartEventJsonConverter.getStencilId(BaseElement)"})
   void testGetStencilId_givenArrayListAddTimerEventDefinition_thenReturnStartTimerEvent() {
     // Arrange
@@ -168,17 +159,15 @@ class StartEventJsonConverterDiffblueTest {
 
   /**
    * Test {@link StartEventJsonConverter#getStencilId(BaseElement)}.
-   *
    * <ul>
-   *   <li>Then return {@code StartMessageEvent}.
+   *   <li>Then return {@code StartMessageEvent}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link StartEventJsonConverter#getStencilId(BaseElement)}
+   * <p>
+   * Method under test: {@link StartEventJsonConverter#getStencilId(BaseElement)}
    */
   @Test
   @DisplayName("Test getStencilId(BaseElement); then return 'StartMessageEvent'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"String StartEventJsonConverter.getStencilId(BaseElement)"})
   void testGetStencilId_thenReturnStartMessageEvent() {
     // Arrange
@@ -196,17 +185,15 @@ class StartEventJsonConverterDiffblueTest {
 
   /**
    * Test {@link StartEventJsonConverter#getStencilId(BaseElement)}.
-   *
    * <ul>
-   *   <li>Then return {@code StartSignalEvent}.
+   *   <li>Then return {@code StartSignalEvent}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link StartEventJsonConverter#getStencilId(BaseElement)}
+   * <p>
+   * Method under test: {@link StartEventJsonConverter#getStencilId(BaseElement)}
    */
   @Test
   @DisplayName("Test getStencilId(BaseElement); then return 'StartSignalEvent'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"String StartEventJsonConverter.getStencilId(BaseElement)"})
   void testGetStencilId_thenReturnStartSignalEvent() {
     // Arrange
@@ -223,33 +210,232 @@ class StartEventJsonConverterDiffblueTest {
   }
 
   /**
-   * Test {@link StartEventJsonConverter#convertJsonToElement(JsonNode, JsonNode, Map)}.
-   *
-   * <ul>
-   *   <li>When {@link HashMap#HashMap()}.
-   *   <li>Then return {@link StartEvent}.
-   * </ul>
-   *
-   * <p>Method under test: {@link StartEventJsonConverter#convertJsonToElement(JsonNode, JsonNode,
-   * Map)}
+   * Test {@link StartEventJsonConverter#convertElementToJson(ObjectNode, BaseElement)}.
+   * <p>
+   * Method under test: {@link StartEventJsonConverter#convertElementToJson(ObjectNode, BaseElement)}
    */
   @Test
-  @DisplayName(
-      "Test convertJsonToElement(JsonNode, JsonNode, Map); when HashMap(); then return StartEvent")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "FlowElement StartEventJsonConverter.convertJsonToElement(JsonNode, JsonNode, Map)"
-  })
+  @DisplayName("Test convertElementToJson(ObjectNode, BaseElement)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void StartEventJsonConverter.convertElementToJson(ObjectNode, BaseElement)"})
+  void testConvertElementToJson() {
+    // Arrange
+    StartEventJsonConverter startEventJsonConverter = new StartEventJsonConverter();
+    startEventJsonConverter.setFormKeyMap(null);
+    ObjectNode propertiesNode = new ObjectNode(JsonNodeFactory.withExactBigDecimals(true));
+
+    StartEvent baseElement = new StartEvent();
+    baseElement.setFormKey(null);
+    baseElement.setInitiator(null);
+
+    // Act
+    startEventJsonConverter.convertElementToJson(propertiesNode, baseElement);
+
+    // Assert that nothing has changed
+    assertEquals("{ }", propertiesNode.toPrettyString());
+    assertEquals(0, propertiesNode.size());
+    assertFalse(propertiesNode.iterator().hasNext());
+    assertTrue(propertiesNode.isEmpty());
+  }
+
+  /**
+   * Test {@link StartEventJsonConverter#convertElementToJson(ObjectNode, BaseElement)}.
+   * <p>
+   * Method under test: {@link StartEventJsonConverter#convertElementToJson(ObjectNode, BaseElement)}
+   */
+  @Test
+  @DisplayName("Test convertElementToJson(ObjectNode, BaseElement)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void StartEventJsonConverter.convertElementToJson(ObjectNode, BaseElement)"})
+  void testConvertElementToJson2() {
+    // Arrange
+    StartEventJsonConverter startEventJsonConverter = new StartEventJsonConverter();
+    startEventJsonConverter.setFormKeyMap(null);
+    ObjectNode propertiesNode = new ObjectNode(JsonNodeFactory.withExactBigDecimals(true));
+
+    StartEvent baseElement = new StartEvent();
+    baseElement.setFormKey(null);
+    baseElement.setInitiator("Base Element");
+
+    // Act
+    startEventJsonConverter.convertElementToJson(propertiesNode, baseElement);
+
+    // Assert
+    Iterator<JsonNode> iteratorResult = propertiesNode.iterator();
+    assertTrue(iteratorResult.next() instanceof TextNode);
+    assertEquals("{\n  \"initiator\" : \"Base Element\"\n}", propertiesNode.toPrettyString());
+    assertEquals(1, propertiesNode.size());
+    assertFalse(propertiesNode.isEmpty());
+    assertFalse(iteratorResult.hasNext());
+  }
+
+  /**
+   * Test {@link StartEventJsonConverter#convertElementToJson(ObjectNode, BaseElement)}.
+   * <p>
+   * Method under test: {@link StartEventJsonConverter#convertElementToJson(ObjectNode, BaseElement)}
+   */
+  @Test
+  @DisplayName("Test convertElementToJson(ObjectNode, BaseElement)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void StartEventJsonConverter.convertElementToJson(ObjectNode, BaseElement)"})
+  void testConvertElementToJson3() {
+    // Arrange
+    StartEventJsonConverter startEventJsonConverter = new StartEventJsonConverter();
+    startEventJsonConverter.setFormKeyMap(null);
+    ObjectNode propertiesNode = new ObjectNode(JsonNodeFactory.withExactBigDecimals(true));
+
+    StartEvent baseElement = new StartEvent();
+    baseElement.setFormKey("Base Element");
+    baseElement.setInitiator(null);
+
+    // Act
+    startEventJsonConverter.convertElementToJson(propertiesNode, baseElement);
+
+    // Assert
+    Iterator<JsonNode> iteratorResult = propertiesNode.iterator();
+    assertTrue(iteratorResult.next() instanceof TextNode);
+    assertEquals("{\n  \"formkeydefinition\" : \"Base Element\"\n}", propertiesNode.toPrettyString());
+    assertEquals(1, propertiesNode.size());
+    assertFalse(propertiesNode.isEmpty());
+    assertFalse(iteratorResult.hasNext());
+  }
+
+  /**
+   * Test {@link StartEventJsonConverter#convertElementToJson(ObjectNode, BaseElement)}.
+   * <ul>
+   *   <li>Given empty string.</li>
+   *   <li>When {@link StartEvent} (default constructor) FormKey is empty string.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link StartEventJsonConverter#convertElementToJson(ObjectNode, BaseElement)}
+   */
+  @Test
+  @DisplayName("Test convertElementToJson(ObjectNode, BaseElement); given empty string; when StartEvent (default constructor) FormKey is empty string")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void StartEventJsonConverter.convertElementToJson(ObjectNode, BaseElement)"})
+  void testConvertElementToJson_givenEmptyString_whenStartEventFormKeyIsEmptyString() {
+    // Arrange
+    StartEventJsonConverter startEventJsonConverter = new StartEventJsonConverter();
+    startEventJsonConverter.setFormKeyMap(null);
+    ObjectNode propertiesNode = new ObjectNode(JsonNodeFactory.withExactBigDecimals(true));
+
+    StartEvent baseElement = new StartEvent();
+    baseElement.setFormKey("");
+    baseElement.setInitiator(null);
+
+    // Act
+    startEventJsonConverter.convertElementToJson(propertiesNode, baseElement);
+
+    // Assert that nothing has changed
+    assertEquals("{ }", propertiesNode.toPrettyString());
+    assertEquals(0, propertiesNode.size());
+    assertFalse(propertiesNode.iterator().hasNext());
+    assertTrue(propertiesNode.isEmpty());
+  }
+
+  /**
+   * Test {@link StartEventJsonConverter#convertElementToJson(ObjectNode, BaseElement)}.
+   * <ul>
+   *   <li>Given {@link StartEventJsonConverter} (default constructor) FormKeyMap is {@link HashMap#HashMap()}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link StartEventJsonConverter#convertElementToJson(ObjectNode, BaseElement)}
+   */
+  @Test
+  @DisplayName("Test convertElementToJson(ObjectNode, BaseElement); given StartEventJsonConverter (default constructor) FormKeyMap is HashMap()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void StartEventJsonConverter.convertElementToJson(ObjectNode, BaseElement)"})
+  void testConvertElementToJson_givenStartEventJsonConverterFormKeyMapIsHashMap() {
+    // Arrange
+    StartEventJsonConverter startEventJsonConverter = new StartEventJsonConverter();
+    startEventJsonConverter.setFormKeyMap(new HashMap<>());
+    ObjectNode propertiesNode = new ObjectNode(JsonNodeFactory.withExactBigDecimals(true));
+
+    StartEvent baseElement = new StartEvent();
+    baseElement.setFormKey("Base Element");
+    baseElement.setInitiator(null);
+
+    // Act
+    startEventJsonConverter.convertElementToJson(propertiesNode, baseElement);
+
+    // Assert
+    Iterator<JsonNode> iteratorResult = propertiesNode.iterator();
+    assertTrue(iteratorResult.next() instanceof TextNode);
+    assertEquals("{\n  \"formkeydefinition\" : \"Base Element\"\n}", propertiesNode.toPrettyString());
+    assertEquals(1, propertiesNode.size());
+    assertFalse(propertiesNode.isEmpty());
+    assertFalse(iteratorResult.hasNext());
+  }
+
+  /**
+   * Test {@link StartEventJsonConverter#convertJsonToElement(JsonNode, JsonNode, Map)}.
+   * <ul>
+   *   <li>When {@link ArrayNode#ArrayNode(JsonNodeFactory)} with nf is withExactBigDecimals {@code true}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link StartEventJsonConverter#convertJsonToElement(JsonNode, JsonNode, Map)}
+   */
+  @Test
+  @DisplayName("Test convertJsonToElement(JsonNode, JsonNode, Map); when ArrayNode(JsonNodeFactory) with nf is withExactBigDecimals 'true'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"FlowElement StartEventJsonConverter.convertJsonToElement(JsonNode, JsonNode, Map)"})
+  void testConvertJsonToElement_whenArrayNodeWithNfIsWithExactBigDecimalsTrue() {
+    // Arrange
+    StartEventJsonConverter startEventJsonConverter = new StartEventJsonConverter();
+    ArrayNode elementNode = new ArrayNode(JsonNodeFactory.withExactBigDecimals(true));
+    MissingNode modelNode = MissingNode.getInstance();
+
+    // Act
+    FlowElement actualConvertJsonToElementResult = startEventJsonConverter.convertJsonToElement(elementNode, modelNode,
+        new HashMap<>());
+
+    // Assert
+    assertTrue(actualConvertJsonToElementResult instanceof StartEvent);
+    assertNull(((StartEvent) actualConvertJsonToElementResult).getBehavior());
+    assertNull(actualConvertJsonToElementResult.getId());
+    assertNull(actualConvertJsonToElementResult.getDocumentation());
+    assertNull(actualConvertJsonToElementResult.getName());
+    assertNull(((StartEvent) actualConvertJsonToElementResult).getFormKey());
+    assertNull(((StartEvent) actualConvertJsonToElementResult).getInitiator());
+    assertNull(actualConvertJsonToElementResult.getParentContainer());
+    assertNull(actualConvertJsonToElementResult.getSubProcess());
+    assertEquals(0, actualConvertJsonToElementResult.getXmlColumnNumber());
+    assertEquals(0, actualConvertJsonToElementResult.getXmlRowNumber());
+    assertFalse(((StartEvent) actualConvertJsonToElementResult).isAsynchronous());
+    assertFalse(((StartEvent) actualConvertJsonToElementResult).isNotExclusive());
+    assertFalse(((StartEvent) actualConvertJsonToElementResult).isInterrupting());
+    assertTrue(((StartEvent) actualConvertJsonToElementResult).getEventDefinitions().isEmpty());
+    assertTrue(actualConvertJsonToElementResult.getExecutionListeners().isEmpty());
+    assertTrue(((StartEvent) actualConvertJsonToElementResult).getIncomingFlows().isEmpty());
+    assertTrue(((StartEvent) actualConvertJsonToElementResult).getOutgoingFlows().isEmpty());
+    assertTrue(((StartEvent) actualConvertJsonToElementResult).getFormProperties().isEmpty());
+    assertTrue(actualConvertJsonToElementResult.getAttributes().isEmpty());
+    assertTrue(actualConvertJsonToElementResult.getExtensionElements().isEmpty());
+    assertTrue(((StartEvent) actualConvertJsonToElementResult).isExclusive());
+  }
+
+  /**
+   * Test {@link StartEventJsonConverter#convertJsonToElement(JsonNode, JsonNode, Map)}.
+   * <ul>
+   *   <li>When {@link HashMap#HashMap()}.</li>
+   *   <li>Then return {@link StartEvent}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link StartEventJsonConverter#convertJsonToElement(JsonNode, JsonNode, Map)}
+   */
+  @Test
+  @DisplayName("Test convertJsonToElement(JsonNode, JsonNode, Map); when HashMap(); then return StartEvent")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"FlowElement StartEventJsonConverter.convertJsonToElement(JsonNode, JsonNode, Map)"})
   void testConvertJsonToElement_whenHashMap_thenReturnStartEvent() {
     // Arrange
     StartEventJsonConverter startEventJsonConverter = new StartEventJsonConverter();
-    DoubleNode elementNode = DoubleNode.valueOf(10.0d);
-    DoubleNode modelNode = DoubleNode.valueOf(10.0d);
+    MissingNode elementNode = MissingNode.getInstance();
+    MissingNode modelNode = MissingNode.getInstance();
 
     // Act
-    FlowElement actualConvertJsonToElementResult =
-        startEventJsonConverter.convertJsonToElement(elementNode, modelNode, new HashMap<>());
+    FlowElement actualConvertJsonToElementResult = startEventJsonConverter.convertJsonToElement(elementNode, modelNode,
+        new HashMap<>());
 
     // Assert
     assertTrue(actualConvertJsonToElementResult instanceof StartEvent);
@@ -278,20 +464,16 @@ class StartEventJsonConverterDiffblueTest {
 
   /**
    * Test {@link StartEventJsonConverter#addExtensionElement(String, String, Event)}.
-   *
    * <ul>
-   *   <li>When empty string.
-   *   <li>Then {@link BoundaryEvent} (default constructor) ExtensionElements Empty.
+   *   <li>When empty string.</li>
+   *   <li>Then {@link BoundaryEvent} (default constructor) ExtensionElements Empty.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link StartEventJsonConverter#addExtensionElement(String, String,
-   * Event)}
+   * <p>
+   * Method under test: {@link StartEventJsonConverter#addExtensionElement(String, String, Event)}
    */
   @Test
-  @DisplayName(
-      "Test addExtensionElement(String, String, Event); when empty string; then BoundaryEvent (default constructor) ExtensionElements Empty")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test addExtensionElement(String, String, Event); when empty string; then BoundaryEvent (default constructor) ExtensionElements Empty")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void StartEventJsonConverter.addExtensionElement(String, String, Event)"})
   void testAddExtensionElement_whenEmptyString_thenBoundaryEventExtensionElementsEmpty() {
     // Arrange
@@ -307,20 +489,16 @@ class StartEventJsonConverterDiffblueTest {
 
   /**
    * Test {@link StartEventJsonConverter#addExtensionElement(String, String, Event)}.
-   *
    * <ul>
-   *   <li>When {@code Name}.
-   *   <li>Then {@link BoundaryEvent} (default constructor) ExtensionElements size is one.
+   *   <li>When {@code Name}.</li>
+   *   <li>Then {@link BoundaryEvent} (default constructor) ExtensionElements size is one.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link StartEventJsonConverter#addExtensionElement(String, String,
-   * Event)}
+   * <p>
+   * Method under test: {@link StartEventJsonConverter#addExtensionElement(String, String, Event)}
    */
   @Test
-  @DisplayName(
-      "Test addExtensionElement(String, String, Event); when 'Name'; then BoundaryEvent (default constructor) ExtensionElements size is one")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test addExtensionElement(String, String, Event); when 'Name'; then BoundaryEvent (default constructor) ExtensionElements size is one")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void StartEventJsonConverter.addExtensionElement(String, String, Event)"})
   void testAddExtensionElement_whenName_thenBoundaryEventExtensionElementsSizeIsOne() {
     // Arrange
@@ -350,13 +528,12 @@ class StartEventJsonConverterDiffblueTest {
 
   /**
    * Test new {@link StartEventJsonConverter} (default constructor).
-   *
-   * <p>Method under test: default or parameterless constructor of {@link StartEventJsonConverter}
+   * <p>
+   * Method under test: default or parameterless constructor of {@link StartEventJsonConverter}
    */
   @Test
   @DisplayName("Test new StartEventJsonConverter (default constructor)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void StartEventJsonConverter.<init>()"})
   void testNewStartEventJsonConverter() {
     // Arrange and Act

@@ -19,7 +19,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.api.process.model.ProcessDefinition;
 import org.activiti.api.process.model.events.ProcessDefinitionEvent;
@@ -32,13 +31,12 @@ import org.junit.jupiter.api.Test;
 class ProcessDeployedEventImplDiffblueTest {
   /**
    * Test {@link ProcessDeployedEventImpl#ProcessDeployedEventImpl()}.
-   *
-   * <p>Method under test: {@link ProcessDeployedEventImpl#ProcessDeployedEventImpl()}
+   * <p>
+   * Method under test: {@link ProcessDeployedEventImpl#ProcessDeployedEventImpl()}
    */
   @Test
   @DisplayName("Test new ProcessDeployedEventImpl()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void ProcessDeployedEventImpl.<init>()"})
   void testNewProcessDeployedEventImpl() {
     // Arrange and Act
@@ -53,25 +51,20 @@ class ProcessDeployedEventImplDiffblueTest {
     assertNull(actualProcessDeployedEventImpl.getProcessDefinitionKey());
     assertNull(actualProcessDeployedEventImpl.getProcessInstanceId());
     assertNull(actualProcessDeployedEventImpl.getEntity());
-    assertEquals(
-        ProcessDefinitionEvents.PROCESS_DEPLOYED, actualProcessDeployedEventImpl.getEventType());
+    assertEquals(ProcessDefinitionEvents.PROCESS_DEPLOYED, actualProcessDeployedEventImpl.getEventType());
   }
 
   /**
    * Test {@link ProcessDeployedEventImpl#ProcessDeployedEventImpl(ProcessDefinition)}.
-   *
    * <ul>
-   *   <li>Then Entity return {@link ProcessDefinitionImpl}.
+   *   <li>Then Entity return {@link ProcessDefinitionImpl}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link
-   * ProcessDeployedEventImpl#ProcessDeployedEventImpl(ProcessDefinition)}
+   * <p>
+   * Method under test: {@link ProcessDeployedEventImpl#ProcessDeployedEventImpl(ProcessDefinition)}
    */
   @Test
-  @DisplayName(
-      "Test new ProcessDeployedEventImpl(ProcessDefinition); then Entity return ProcessDefinitionImpl")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test new ProcessDeployedEventImpl(ProcessDefinition); then Entity return ProcessDefinitionImpl")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void ProcessDeployedEventImpl.<init>(ProcessDefinition)"})
   void testNewProcessDeployedEventImpl_thenEntityReturnProcessDefinitionImpl() {
     // Arrange
@@ -90,79 +83,69 @@ class ProcessDeployedEventImplDiffblueTest {
     assertNull(actualProcessDeployedEventImpl.getProcessDefinitionId());
     assertNull(actualProcessDeployedEventImpl.getProcessDefinitionKey());
     assertNull(actualProcessDeployedEventImpl.getProcessInstanceId());
-    assertEquals(
-        ProcessDefinitionEvents.PROCESS_DEPLOYED, actualProcessDeployedEventImpl.getEventType());
+    assertEquals(ProcessDefinitionEvents.PROCESS_DEPLOYED, actualProcessDeployedEventImpl.getEventType());
     assertSame(entity, entity2);
   }
 
   /**
    * Test {@link ProcessDeployedEventImpl#ProcessDeployedEventImpl(ProcessDefinition, String)}.
-   *
    * <ul>
-   *   <li>Then Entity return {@link ProcessDefinitionImpl}.
+   *   <li>Then Entity return {@link ProcessDefinitionImpl}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link
-   * ProcessDeployedEventImpl#ProcessDeployedEventImpl(ProcessDefinition, String)}
+   * <p>
+   * Method under test: {@link ProcessDeployedEventImpl#ProcessDeployedEventImpl(ProcessDefinition, String)}
    */
   @Test
-  @DisplayName(
-      "Test new ProcessDeployedEventImpl(ProcessDefinition, String); then Entity return ProcessDefinitionImpl")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test new ProcessDeployedEventImpl(ProcessDefinition, String); then Entity return ProcessDefinitionImpl")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void ProcessDeployedEventImpl.<init>(ProcessDefinition, String)"})
   void testNewProcessDeployedEventImpl_thenEntityReturnProcessDefinitionImpl2() {
     // Arrange
     ProcessDefinitionImpl entity = new ProcessDefinitionImpl();
 
     // Act
-    ProcessDeployedEventImpl actualProcessDeployedEventImpl =
-        new ProcessDeployedEventImpl(entity, "Not all who wander are lost");
+    ProcessDeployedEventImpl actualProcessDeployedEventImpl = new ProcessDeployedEventImpl(entity,
+        "Not all who wander are lost");
 
     // Assert
     ProcessDefinition entity2 = actualProcessDeployedEventImpl.getEntity();
     assertTrue(entity2 instanceof ProcessDefinitionImpl);
-    assertEquals(
-        "Not all who wander are lost", actualProcessDeployedEventImpl.getProcessModelContent());
+    assertEquals("Not all who wander are lost", actualProcessDeployedEventImpl.getProcessModelContent());
     assertNull(actualProcessDeployedEventImpl.getProcessDefinitionVersion());
     assertNull(actualProcessDeployedEventImpl.getBusinessKey());
     assertNull(actualProcessDeployedEventImpl.getParentProcessInstanceId());
     assertNull(actualProcessDeployedEventImpl.getProcessDefinitionId());
     assertNull(actualProcessDeployedEventImpl.getProcessDefinitionKey());
     assertNull(actualProcessDeployedEventImpl.getProcessInstanceId());
-    assertEquals(
-        ProcessDefinitionEvents.PROCESS_DEPLOYED, actualProcessDeployedEventImpl.getEventType());
+    assertEquals(ProcessDefinitionEvents.PROCESS_DEPLOYED, actualProcessDeployedEventImpl.getEventType());
     assertSame(entity, entity2);
   }
 
   /**
    * Test {@link ProcessDeployedEventImpl#getEventType()}.
-   *
-   * <p>Method under test: {@link ProcessDeployedEventImpl#getEventType()}
+   * <p>
+   * Method under test: {@link ProcessDeployedEventImpl#getEventType()}
    */
   @Test
   @DisplayName("Test getEventType()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"ProcessDefinitionEvents ProcessDeployedEventImpl.getEventType()"})
   void testGetEventType() {
     // Arrange, Act and Assert
-    assertEquals(
-        ProcessDefinitionEvents.PROCESS_DEPLOYED, new ProcessDeployedEventImpl().getEventType());
+    assertEquals(ProcessDefinitionEvents.PROCESS_DEPLOYED, (new ProcessDeployedEventImpl()).getEventType());
   }
 
   /**
    * Test {@link ProcessDeployedEventImpl#getProcessModelContent()}.
-   *
-   * <p>Method under test: {@link ProcessDeployedEventImpl#getProcessModelContent()}
+   * <p>
+   * Method under test: {@link ProcessDeployedEventImpl#getProcessModelContent()}
    */
   @Test
   @DisplayName("Test getProcessModelContent()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"String ProcessDeployedEventImpl.getProcessModelContent()"})
   void testGetProcessModelContent() {
     // Arrange, Act and Assert
-    assertNull(new ProcessDeployedEventImpl().getProcessModelContent());
+    assertNull((new ProcessDeployedEventImpl()).getProcessModelContent());
   }
 }

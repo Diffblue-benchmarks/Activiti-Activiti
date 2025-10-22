@@ -16,8 +16,7 @@
 package org.activiti.engine.impl.cmd;
 
 import static org.junit.Assert.assertEquals;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
@@ -25,17 +24,15 @@ import org.junit.experimental.categories.Category;
 public class GetDeploymentResourceCmdDiffblueTest {
   /**
    * Test {@link GetDeploymentResourceCmd#GetDeploymentResourceCmd(String, String)}.
-   *
-   * <p>Method under test: {@link GetDeploymentResourceCmd#GetDeploymentResourceCmd(String, String)}
+   * <p>
+   * Method under test: {@link GetDeploymentResourceCmd#GetDeploymentResourceCmd(String, String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void GetDeploymentResourceCmd.<init>(String, String)"})
   public void testNewGetDeploymentResourceCmd() {
     // Arrange and Act
-    GetDeploymentResourceCmd actualGetDeploymentResourceCmd =
-        new GetDeploymentResourceCmd("42", "Resource Name");
+    GetDeploymentResourceCmd actualGetDeploymentResourceCmd = new GetDeploymentResourceCmd("42", "Resource Name");
 
     // Assert
     assertEquals("42", actualGetDeploymentResourceCmd.deploymentId);

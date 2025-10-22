@@ -17,7 +17,6 @@ package org.activiti.api.task.model.builders;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.time.LocalDate;
 import java.time.ZoneOffset;
@@ -30,9 +29,8 @@ import org.junit.jupiter.api.Test;
 class UpdateTaskPayloadBuilderDiffblueTest {
   /**
    * Test {@link UpdateTaskPayloadBuilder#build()}.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>{@link UpdateTaskPayloadBuilder#build()}
    *   <li>default or parameterless constructor of {@link UpdateTaskPayloadBuilder}
@@ -48,47 +46,39 @@ class UpdateTaskPayloadBuilderDiffblueTest {
    */
   @Test
   @DisplayName("Test build()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void UpdateTaskPayloadBuilder.<init>()",
-    "UpdateTaskPayload UpdateTaskPayloadBuilder.build()",
-    "UpdateTaskPayloadBuilder UpdateTaskPayloadBuilder.parentTaskId(String)",
-    "UpdateTaskPayloadBuilder UpdateTaskPayloadBuilder.withAssignee(String)",
-    "UpdateTaskPayloadBuilder UpdateTaskPayloadBuilder.withDescription(String)",
-    "UpdateTaskPayloadBuilder UpdateTaskPayloadBuilder.withDueDate(Date)",
-    "UpdateTaskPayloadBuilder UpdateTaskPayloadBuilder.withFormKey(String)",
-    "UpdateTaskPayloadBuilder UpdateTaskPayloadBuilder.withName(String)",
-    "UpdateTaskPayloadBuilder UpdateTaskPayloadBuilder.withPriority(Integer)",
-    "UpdateTaskPayloadBuilder UpdateTaskPayloadBuilder.withTaskId(String)"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void UpdateTaskPayloadBuilder.<init>()", "UpdateTaskPayload UpdateTaskPayloadBuilder.build()",
+      "UpdateTaskPayloadBuilder UpdateTaskPayloadBuilder.parentTaskId(String)",
+      "UpdateTaskPayloadBuilder UpdateTaskPayloadBuilder.withAssignee(String)",
+      "UpdateTaskPayloadBuilder UpdateTaskPayloadBuilder.withDescription(String)",
+      "UpdateTaskPayloadBuilder UpdateTaskPayloadBuilder.withDueDate(Date)",
+      "UpdateTaskPayloadBuilder UpdateTaskPayloadBuilder.withFormKey(String)",
+      "UpdateTaskPayloadBuilder UpdateTaskPayloadBuilder.withName(String)",
+      "UpdateTaskPayloadBuilder UpdateTaskPayloadBuilder.withPriority(Integer)",
+      "UpdateTaskPayloadBuilder UpdateTaskPayloadBuilder.withTaskId(String)"})
   void testBuild() {
-    // Arrange and Act
-    UpdateTaskPayloadBuilder actualWithDescriptionResult =
-        new UpdateTaskPayloadBuilder()
-            .parentTaskId("42")
-            .withAssignee("Assignee")
-            .withDescription("The characteristics of someone or something");
-    Date dueDate =
-        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant());
-    UpdateTaskPayload actualUpdateTaskPayload =
-        actualWithDescriptionResult
-            .withDueDate(dueDate)
-            .withFormKey("Form Key")
-            .withName("Name")
-            .withPriority(1)
-            .withTaskId("42")
-            .build();
+    // Arrange
+    UpdateTaskPayloadBuilder withDescriptionResult = (new UpdateTaskPayloadBuilder()).parentTaskId("42")
+        .withAssignee("Assignee")
+        .withDescription("The characteristics of someone or something");
+    Date dueDate = Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant());
+
+    // Act
+    UpdateTaskPayload actualBuildResult = withDescriptionResult.withDueDate(dueDate)
+        .withFormKey("Form Key")
+        .withName("Name")
+        .withPriority(1)
+        .withTaskId("42")
+        .build();
 
     // Assert
-    assertEquals("42", actualUpdateTaskPayload.getParentTaskId());
-    assertEquals("42", actualUpdateTaskPayload.getTaskId());
-    assertEquals("Assignee", actualUpdateTaskPayload.getAssignee());
-    assertEquals("Form Key", actualUpdateTaskPayload.getFormKey());
-    assertEquals("Name", actualUpdateTaskPayload.getName());
-    assertEquals(
-        "The characteristics of someone or something", actualUpdateTaskPayload.getDescription());
-    assertEquals(1, actualUpdateTaskPayload.getPriority().intValue());
-    assertSame(dueDate, actualUpdateTaskPayload.getDueDate());
+    assertEquals("42", actualBuildResult.getParentTaskId());
+    assertEquals("42", actualBuildResult.getTaskId());
+    assertEquals("Assignee", actualBuildResult.getAssignee());
+    assertEquals("Form Key", actualBuildResult.getFormKey());
+    assertEquals("Name", actualBuildResult.getName());
+    assertEquals("The characteristics of someone or something", actualBuildResult.getDescription());
+    assertEquals(1, actualBuildResult.getPriority().intValue());
+    assertSame(dueDate, actualBuildResult.getDueDate());
   }
 }

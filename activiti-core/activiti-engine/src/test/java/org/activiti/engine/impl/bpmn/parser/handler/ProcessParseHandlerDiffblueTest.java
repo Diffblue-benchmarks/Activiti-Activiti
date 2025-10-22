@@ -17,42 +17,46 @@ package org.activiti.engine.impl.bpmn.parser.handler;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
+import static org.mockito.ArgumentMatchers.isA;
+import static org.mockito.Mockito.atLeast;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
+import java.util.ArrayList;
+import java.util.List;
+import org.activiti.bpmn.model.AdhocSubProcess;
 import org.activiti.bpmn.model.BaseElement;
 import org.activiti.bpmn.model.BpmnModel;
+import org.activiti.bpmn.model.EventListener;
 import org.activiti.bpmn.model.Process;
+import org.activiti.engine.delegate.event.BaseEntityEventListener;
+import org.activiti.engine.delegate.event.impl.ActivitiEventSupport;
 import org.activiti.engine.impl.bpmn.parser.BpmnParse;
-import org.activiti.engine.test.util.TestProcessUtil;
+import org.activiti.engine.impl.bpmn.parser.factory.ListenerFactory;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
+import org.mockito.Mockito;
 
 public class ProcessParseHandlerDiffblueTest {
   /**
-   * Test {@link ProcessParseHandler#executeParse(BpmnParse, Process)} with {@code BpmnParse},
-   * {@code Process}.
-   *
+   * Test {@link ProcessParseHandler#executeParse(BpmnParse, Process)} with {@code BpmnParse}, {@code Process}.
    * <ul>
-   *   <li>Given {@code false}.
-   *   <li>When {@link BpmnParse}.
-   *   <li>Then calls {@link Process#getId()}.
+   *   <li>Given {@code false}.</li>
+   *   <li>When {@link BpmnParse}.</li>
+   *   <li>Then calls {@link BaseElement#getId()}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ProcessParseHandler#executeParse(BpmnParse, Process)}
+   * <p>
+   * Method under test: {@link ProcessParseHandler#executeParse(BpmnParse, Process)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void ProcessParseHandler.executeParse(BpmnParse, Process)"})
   public void testExecuteParseWithBpmnParseProcess_givenFalse_whenBpmnParse_thenCallsGetId() {
     // Arrange
     ProcessParseHandler processParseHandler = new ProcessParseHandler();
     BpmnParse bpmnParse = mock(BpmnParse.class);
-
     Process process = mock(Process.class);
     when(process.isExecutable()).thenReturn(false);
     when(process.getId()).thenReturn("42");
@@ -66,49 +70,205 @@ public class ProcessParseHandlerDiffblueTest {
   }
 
   /**
-   * Test {@link ProcessParseHandler#getEventSupport(BpmnModel)}.
-   *
+   * Test {@link ProcessParseHandler#createEventListeners(BpmnParse, List)}.
    * <ul>
-   *   <li>When createOneTaskBpmnModel.
-   *   <li>Then return {@code null}.
+   *   <li>Given {@link EventListener} {@link EventListener#getEvents()} return empty string.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ProcessParseHandler#getEventSupport(BpmnModel)}
+   * <p>
+   * Method under test: {@link ProcessParseHandler#createEventListeners(BpmnParse, List)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "org.activiti.engine.delegate.event.impl.ActivitiEventSupport ProcessParseHandler.getEventSupport(BpmnModel)"
-  })
-  public void testGetEventSupport_whenCreateOneTaskBpmnModel_thenReturnNull() {
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void ProcessParseHandler.createEventListeners(BpmnParse, List)"})
+  public void testCreateEventListeners_givenEventListenerGetEventsReturnEmptyString() {
+    // Arrange
+    ProcessParseHandler processParseHandler = new ProcessParseHandler();
+    BpmnParse bpmnParse = mock(BpmnParse.class);
+    when(bpmnParse.getCurrentFlowElement()).thenReturn(new AdhocSubProcess());
+    EventListener eventListener = mock(EventListener.class);
+    when(eventListener.getEvents()).thenReturn("");
+    when(eventListener.getImplementationType()).thenReturn("Implementation Type");
+
+    ArrayList<EventListener> eventListeners = new ArrayList<>();
+    eventListeners.add(eventListener);
+
+    // Act
+    processParseHandler.createEventListeners(bpmnParse, eventListeners);
+
+    // Assert
+    verify(eventListener).getEvents();
+    verify(eventListener, atLeast(1)).getImplementationType();
+    verify(bpmnParse).getCurrentFlowElement();
+  }
+
+  /**
+   * Test {@link ProcessParseHandler#createEventListeners(BpmnParse, List)}.
+   * <ul>
+   *   <li>Given {@link EventListener} {@link EventListener#getEvents()} return {@code ENTITY_CREATED}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link ProcessParseHandler#createEventListeners(BpmnParse, List)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void ProcessParseHandler.createEventListeners(BpmnParse, List)"})
+  public void testCreateEventListeners_givenEventListenerGetEventsReturnEntityCreated() {
+    // Arrange
+    ProcessParseHandler processParseHandler = new ProcessParseHandler();
+    BpmnParse bpmnParse = mock(BpmnParse.class);
+    when(bpmnParse.getCurrentFlowElement()).thenReturn(new AdhocSubProcess());
+    EventListener eventListener = mock(EventListener.class);
+    when(eventListener.getEvents()).thenReturn("ENTITY_CREATED");
+    when(eventListener.getImplementationType()).thenReturn("Implementation Type");
+
+    ArrayList<EventListener> eventListeners = new ArrayList<>();
+    eventListeners.add(eventListener);
+
+    // Act
+    processParseHandler.createEventListeners(bpmnParse, eventListeners);
+
+    // Assert
+    verify(eventListener).getEvents();
+    verify(eventListener, atLeast(1)).getImplementationType();
+    verify(bpmnParse).getCurrentFlowElement();
+  }
+
+  /**
+   * Test {@link ProcessParseHandler#createEventListeners(BpmnParse, List)}.
+   * <ul>
+   *   <li>Given {@link EventListener} (default constructor).</li>
+   *   <li>Then calls {@link BpmnParse#getCurrentFlowElement()}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link ProcessParseHandler#createEventListeners(BpmnParse, List)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void ProcessParseHandler.createEventListeners(BpmnParse, List)"})
+  public void testCreateEventListeners_givenEventListener_thenCallsGetCurrentFlowElement() {
+    // Arrange
+    ProcessParseHandler processParseHandler = new ProcessParseHandler();
+    BpmnParse bpmnParse = mock(BpmnParse.class);
+    when(bpmnParse.getCurrentFlowElement()).thenReturn(new AdhocSubProcess());
+
+    ArrayList<EventListener> eventListeners = new ArrayList<>();
+    eventListeners.add(new EventListener());
+
+    // Act
+    processParseHandler.createEventListeners(bpmnParse, eventListeners);
+
+    // Assert
+    verify(bpmnParse).getCurrentFlowElement();
+  }
+
+  /**
+   * Test {@link ProcessParseHandler#createEventListeners(BpmnParse, List)}.
+   * <ul>
+   *   <li>Then calls {@link BpmnModel#getEventSupport()}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link ProcessParseHandler#createEventListeners(BpmnParse, List)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void ProcessParseHandler.createEventListeners(BpmnParse, List)"})
+  public void testCreateEventListeners_thenCallsGetEventSupport() {
+    // Arrange
+    ProcessParseHandler processParseHandler = new ProcessParseHandler();
+    BpmnModel bpmnModel = mock(BpmnModel.class);
+    when(bpmnModel.getEventSupport()).thenReturn(new ActivitiEventSupport());
+    ListenerFactory listenerFactory = mock(ListenerFactory.class);
+    when(listenerFactory.createClassDelegateEventListener(Mockito.<EventListener>any()))
+        .thenReturn(new BaseEntityEventListener(true));
+    BpmnParse bpmnParse = mock(BpmnParse.class);
+    when(bpmnParse.getListenerFactory()).thenReturn(listenerFactory);
+    when(bpmnParse.getBpmnModel()).thenReturn(bpmnModel);
+    EventListener eventListener = mock(EventListener.class);
+    when(eventListener.getEvents()).thenReturn(",");
+    when(eventListener.getImplementationType()).thenReturn("class");
+
+    ArrayList<EventListener> eventListeners = new ArrayList<>();
+    eventListeners.add(eventListener);
+
+    // Act
+    processParseHandler.createEventListeners(bpmnParse, eventListeners);
+
+    // Assert
+    verify(bpmnModel).getEventSupport();
+    verify(eventListener).getEvents();
+    verify(eventListener).getImplementationType();
+    verify(bpmnParse).getBpmnModel();
+    verify(bpmnParse).getListenerFactory();
+    verify(listenerFactory).createClassDelegateEventListener(isA(EventListener.class));
+  }
+
+  /**
+   * Test {@link ProcessParseHandler#createEventListeners(BpmnParse, List)}.
+   * <ul>
+   *   <li>Then calls {@link EventListener#getEvents()}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link ProcessParseHandler#createEventListeners(BpmnParse, List)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void ProcessParseHandler.createEventListeners(BpmnParse, List)"})
+  public void testCreateEventListeners_thenCallsGetEvents() {
+    // Arrange
+    ProcessParseHandler processParseHandler = new ProcessParseHandler();
+    BpmnParse bpmnParse = mock(BpmnParse.class);
+    when(bpmnParse.getCurrentFlowElement()).thenReturn(new AdhocSubProcess());
+    EventListener eventListener = mock(EventListener.class);
+    when(eventListener.getEvents()).thenReturn(",");
+    when(eventListener.getImplementationType()).thenReturn("Implementation Type");
+
+    ArrayList<EventListener> eventListeners = new ArrayList<>();
+    eventListeners.add(eventListener);
+
+    // Act
+    processParseHandler.createEventListeners(bpmnParse, eventListeners);
+
+    // Assert
+    verify(eventListener).getEvents();
+    verify(eventListener, atLeast(1)).getImplementationType();
+    verify(bpmnParse).getCurrentFlowElement();
+  }
+
+  /**
+   * Test {@link ProcessParseHandler#getEventSupport(BpmnModel)}.
+   * <ul>
+   *   <li>When {@link BpmnModel} (default constructor).</li>
+   *   <li>Then return {@code null}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link ProcessParseHandler#getEventSupport(BpmnModel)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"ActivitiEventSupport ProcessParseHandler.getEventSupport(BpmnModel)"})
+  public void testGetEventSupport_whenBpmnModel_thenReturnNull() {
     // Arrange
     ProcessParseHandler processParseHandler = new ProcessParseHandler();
 
     // Act and Assert
-    assertNull(processParseHandler.getEventSupport(TestProcessUtil.createOneTaskBpmnModel()));
+    assertNull(processParseHandler.getEventSupport(new BpmnModel()));
   }
 
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>default or parameterless constructor of {@link ProcessParseHandler}
    *   <li>{@link ProcessParseHandler#getHandledType()}
    * </ul>
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void ProcessParseHandler.<init>()",
-    "Class ProcessParseHandler.getHandledType()"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void ProcessParseHandler.<init>()", "Class ProcessParseHandler.getHandledType()"})
   public void testGettersAndSetters() {
     // Arrange and Act
-    Class<? extends BaseElement> actualHandledType = new ProcessParseHandler().getHandledType();
+    Class<? extends BaseElement> actualHandledType = (new ProcessParseHandler()).getHandledType();
 
     // Assert
     Class<Process> expectedHandledType = Process.class;

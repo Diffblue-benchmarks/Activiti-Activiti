@@ -18,7 +18,6 @@ package org.activiti.runtime.api.event.impl;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.Optional;
 import org.activiti.api.model.shared.event.VariableEvent;
@@ -35,20 +34,16 @@ import org.junit.jupiter.api.Test;
 
 class ToVariableUpdatedConverterDiffblueTest {
   /**
-   * Test {@link ToVariableUpdatedConverter#from(ActivitiVariableUpdatedEvent)} with {@code
-   * ActivitiVariableUpdatedEvent}.
-   *
+   * Test {@link ToVariableUpdatedConverter#from(ActivitiVariableUpdatedEvent)} with {@code ActivitiVariableUpdatedEvent}.
    * <ul>
-   *   <li>Then {@link Optional#get()} return {@link VariableUpdatedEventImpl}.
+   *   <li>Then {@link Optional#get()} return {@link VariableUpdatedEventImpl}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ToVariableUpdatedConverter#from(ActivitiVariableUpdatedEvent)}
+   * <p>
+   * Method under test: {@link ToVariableUpdatedConverter#from(ActivitiVariableUpdatedEvent)}
    */
   @Test
-  @DisplayName(
-      "Test from(ActivitiVariableUpdatedEvent) with 'ActivitiVariableUpdatedEvent'; then get() return VariableUpdatedEventImpl")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test from(ActivitiVariableUpdatedEvent) with 'ActivitiVariableUpdatedEvent'; then get() return VariableUpdatedEventImpl")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"Optional ToVariableUpdatedConverter.from(ActivitiVariableUpdatedEvent)"})
   void testFromWithActivitiVariableUpdatedEvent_thenGetReturnVariableUpdatedEventImpl() {
     // Arrange
@@ -58,8 +53,7 @@ class ToVariableUpdatedConverterDiffblueTest {
     internalEvent.setVariableType(new BigDecimalType());
 
     // Act
-    Optional<VariableUpdatedEvent> actualFromResult =
-        toVariableUpdatedConverter.from(internalEvent);
+    Optional<VariableUpdatedEvent> actualFromResult = toVariableUpdatedConverter.from(internalEvent);
 
     // Assert
     VariableUpdatedEvent getResult = actualFromResult.get();

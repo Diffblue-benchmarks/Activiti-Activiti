@@ -19,8 +19,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.Map;
 import org.activiti.engine.impl.cfg.JtaProcessEngineConfiguration;
@@ -34,22 +33,18 @@ import org.junit.experimental.categories.Category;
 public class MybatisJobDataManagerDiffblueTest {
   /**
    * Test {@link MybatisJobDataManager#MybatisJobDataManager(ProcessEngineConfigurationImpl)}.
-   *
-   * <p>Method under test: {@link
-   * MybatisJobDataManager#MybatisJobDataManager(ProcessEngineConfigurationImpl)}
+   * <p>
+   * Method under test: {@link MybatisJobDataManager#MybatisJobDataManager(ProcessEngineConfigurationImpl)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void MybatisJobDataManager.<init>(ProcessEngineConfigurationImpl)"})
   public void testNewMybatisJobDataManager() {
     // Arrange and Act
-    MybatisJobDataManager actualMybatisJobDataManager =
-        new MybatisJobDataManager(new JtaProcessEngineConfiguration());
+    MybatisJobDataManager actualMybatisJobDataManager = new MybatisJobDataManager(new JtaProcessEngineConfiguration());
 
     // Assert
-    assertTrue(
-        actualMybatisJobDataManager.jobsByExecutionIdMatcher instanceof JobsByExecutionIdMatcher);
+    assertTrue(actualMybatisJobDataManager.jobsByExecutionIdMatcher instanceof JobsByExecutionIdMatcher);
     assertNull(actualMybatisJobDataManager.getManagedEntitySubClasses());
     Class<JobEntityImpl> expectedManagedEntityClass = JobEntityImpl.class;
     assertEquals(expectedManagedEntityClass, actualMybatisJobDataManager.getManagedEntityClass());
@@ -57,17 +52,16 @@ public class MybatisJobDataManagerDiffblueTest {
 
   /**
    * Test {@link MybatisJobDataManager#getManagedEntityClass()}.
-   *
-   * <p>Method under test: {@link MybatisJobDataManager#getManagedEntityClass()}
+   * <p>
+   * Method under test: {@link MybatisJobDataManager#getManagedEntityClass()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"Class MybatisJobDataManager.getManagedEntityClass()"})
   public void testGetManagedEntityClass() {
     // Arrange and Act
-    Class<? extends JobEntity> actualManagedEntityClass =
-        new MybatisJobDataManager(new JtaProcessEngineConfiguration()).getManagedEntityClass();
+    Class<? extends JobEntity> actualManagedEntityClass = (new MybatisJobDataManager(
+        new JtaProcessEngineConfiguration())).getManagedEntityClass();
 
     // Assert
     Class<JobEntityImpl> expectedManagedEntityClass = JobEntityImpl.class;
@@ -76,17 +70,15 @@ public class MybatisJobDataManagerDiffblueTest {
 
   /**
    * Test {@link MybatisJobDataManager#create()}.
-   *
-   * <p>Method under test: {@link MybatisJobDataManager#create()}
+   * <p>
+   * Method under test: {@link MybatisJobDataManager#create()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"JobEntity MybatisJobDataManager.create()"})
   public void testCreate() {
     // Arrange and Act
-    JobEntity actualCreateResult =
-        new MybatisJobDataManager(new JtaProcessEngineConfiguration()).create();
+    JobEntity actualCreateResult = (new MybatisJobDataManager(new JtaProcessEngineConfiguration())).create();
 
     // Assert
     Object persistentState = actualCreateResult.getPersistentState();

@@ -16,11 +16,11 @@
 package org.activiti.bpmn.converter;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.atLeast;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import javax.xml.stream.XMLStreamWriter;
 import org.activiti.bpmn.model.BaseElement;
@@ -33,101 +33,104 @@ import org.mockito.Mockito;
 
 class SequenceFlowXMLConverterDiffblueTest {
   /**
-   * Test {@link SequenceFlowXMLConverter#writeAdditionalAttributes(BaseElement, BpmnModel,
-   * XMLStreamWriter)}.
-   *
-   * <ul>
-   *   <li>Then calls {@link IndentingXMLStreamWriter#writeAttribute(String, String)}.
-   * </ul>
-   *
-   * <p>Method under test: {@link SequenceFlowXMLConverter#writeAdditionalAttributes(BaseElement,
-   * BpmnModel, XMLStreamWriter)}
+   * Test {@link SequenceFlowXMLConverter#writeAdditionalAttributes(BaseElement, BpmnModel, XMLStreamWriter)}.
+   * <p>
+   * Method under test: {@link SequenceFlowXMLConverter#writeAdditionalAttributes(BaseElement, BpmnModel, XMLStreamWriter)}
    */
   @Test
-  @DisplayName(
-      "Test writeAdditionalAttributes(BaseElement, BpmnModel, XMLStreamWriter); then calls writeAttribute(String, String)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test writeAdditionalAttributes(BaseElement, BpmnModel, XMLStreamWriter)")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({
-    "void SequenceFlowXMLConverter.writeAdditionalAttributes(BaseElement, BpmnModel, XMLStreamWriter)"
-  })
-  void testWriteAdditionalAttributes_thenCallsWriteAttribute() throws Exception {
+      "void SequenceFlowXMLConverter.writeAdditionalAttributes(BaseElement, BpmnModel, XMLStreamWriter)"})
+  void testWriteAdditionalAttributes() throws Exception {
     // Arrange
     SequenceFlowXMLConverter sequenceFlowXMLConverter = new SequenceFlowXMLConverter();
 
     SequenceFlow element = new SequenceFlow("sourceRef", "Target Ref");
-    element.setSkipExpression("not empty");
+    element.setSkipExpression(null);
     BpmnModel model = new BpmnModel();
-
     IndentingXMLStreamWriter writer = mock(IndentingXMLStreamWriter.class);
     doNothing().when(writer).writeAttribute(Mockito.<String>any(), Mockito.<String>any());
 
     // Act
-    sequenceFlowXMLConverter.writeAdditionalAttributes(
-        element, model, new IndentingXMLStreamWriter(writer));
+    sequenceFlowXMLConverter.writeAdditionalAttributes(element, model, new IndentingXMLStreamWriter(writer));
 
     // Assert
     verify(writer, atLeast(1)).writeAttribute(Mockito.<String>any(), Mockito.<String>any());
   }
 
   /**
-   * Test {@link SequenceFlowXMLConverter#writeAdditionalChildElements(BaseElement, BpmnModel,
-   * XMLStreamWriter)}.
-   *
+   * Test {@link SequenceFlowXMLConverter#writeAdditionalAttributes(BaseElement, BpmnModel, XMLStreamWriter)}.
    * <ul>
-   *   <li>Then calls {@link IndentingXMLStreamWriter#writeAttribute(String, String, String,
-   *       String)}.
+   *   <li>Given {@code sourceRef}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link SequenceFlowXMLConverter#writeAdditionalChildElements(BaseElement,
-   * BpmnModel, XMLStreamWriter)}
+   * <p>
+   * Method under test: {@link SequenceFlowXMLConverter#writeAdditionalAttributes(BaseElement, BpmnModel, XMLStreamWriter)}
    */
   @Test
-  @DisplayName(
-      "Test writeAdditionalChildElements(BaseElement, BpmnModel, XMLStreamWriter); then calls writeAttribute(String, String, String, String)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test writeAdditionalAttributes(BaseElement, BpmnModel, XMLStreamWriter); given 'sourceRef'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({
-    "void SequenceFlowXMLConverter.writeAdditionalChildElements(BaseElement, BpmnModel, XMLStreamWriter)"
-  })
+      "void SequenceFlowXMLConverter.writeAdditionalAttributes(BaseElement, BpmnModel, XMLStreamWriter)"})
+  void testWriteAdditionalAttributes_givenSourceRef() throws Exception {
+    // Arrange
+    SequenceFlowXMLConverter sequenceFlowXMLConverter = new SequenceFlowXMLConverter();
+
+    SequenceFlow element = new SequenceFlow("sourceRef", "Target Ref");
+    element.setSkipExpression("sourceRef");
+    BpmnModel model = new BpmnModel();
+    IndentingXMLStreamWriter writer = mock(IndentingXMLStreamWriter.class);
+    doNothing().when(writer).writeAttribute(Mockito.<String>any(), Mockito.<String>any());
+
+    // Act
+    sequenceFlowXMLConverter.writeAdditionalAttributes(element, model, new IndentingXMLStreamWriter(writer));
+
+    // Assert
+    verify(writer, atLeast(1)).writeAttribute(Mockito.<String>any(), Mockito.<String>any());
+  }
+
+  /**
+   * Test {@link SequenceFlowXMLConverter#writeAdditionalChildElements(BaseElement, BpmnModel, XMLStreamWriter)}.
+   * <ul>
+   *   <li>Then calls {@link DelegatingXMLStreamWriter#writeAttribute(String, String, String, String)}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link SequenceFlowXMLConverter#writeAdditionalChildElements(BaseElement, BpmnModel, XMLStreamWriter)}
+   */
+  @Test
+  @DisplayName("Test writeAdditionalChildElements(BaseElement, BpmnModel, XMLStreamWriter); then calls writeAttribute(String, String, String, String)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({
+      "void SequenceFlowXMLConverter.writeAdditionalChildElements(BaseElement, BpmnModel, XMLStreamWriter)"})
   void testWriteAdditionalChildElements_thenCallsWriteAttribute() throws Exception {
     // Arrange
     SequenceFlowXMLConverter sequenceFlowXMLConverter = new SequenceFlowXMLConverter();
 
     SequenceFlow element = new SequenceFlow("Source Ref", "Target Ref");
-    element.setConditionExpression("conditionExpression");
+    element.setConditionExpression("Condition Expression");
     BpmnModel model = new BpmnModel();
-
     IndentingXMLStreamWriter writer = mock(IndentingXMLStreamWriter.class);
-    doNothing()
-        .when(writer)
-        .writeAttribute(
-            Mockito.<String>any(),
-            Mockito.<String>any(),
-            Mockito.<String>any(),
-            Mockito.<String>any());
+    doNothing().when(writer)
+        .writeAttribute(Mockito.<String>any(), Mockito.<String>any(), Mockito.<String>any(), Mockito.<String>any());
     doNothing().when(writer).writeCData(Mockito.<String>any());
     doNothing().when(writer).writeEndElement();
     doNothing().when(writer).writeStartElement(Mockito.<String>any());
 
     // Act
-    sequenceFlowXMLConverter.writeAdditionalChildElements(
-        element, model, new IndentingXMLStreamWriter(writer));
+    sequenceFlowXMLConverter.writeAdditionalChildElements(element, model, new IndentingXMLStreamWriter(writer));
 
     // Assert
-    verify(writer)
-        .writeAttribute(
-            "xsi", "http://www.w3.org/2001/XMLSchema-instance", "type", "tFormalExpression");
-    verify(writer).writeCData("conditionExpression");
+    verify(writer).writeAttribute(eq("xsi"), eq("http://www.w3.org/2001/XMLSchema-instance"), eq("type"),
+        eq("tFormalExpression"));
+    verify(writer).writeCData(eq("Condition Expression"));
     verify(writer).writeEndElement();
-    verify(writer).writeStartElement("conditionExpression");
+    verify(writer).writeStartElement(eq("conditionExpression"));
   }
 
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>default or parameterless constructor of {@link SequenceFlowXMLConverter}
    *   <li>{@link SequenceFlowXMLConverter#getBpmnElementType()}
@@ -136,18 +139,13 @@ class SequenceFlowXMLConverterDiffblueTest {
    */
   @Test
   @DisplayName("Test getters and setters")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void SequenceFlowXMLConverter.<init>()",
-    "Class SequenceFlowXMLConverter.getBpmnElementType()",
-    "String SequenceFlowXMLConverter.getXMLElementName()"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void SequenceFlowXMLConverter.<init>()", "Class SequenceFlowXMLConverter.getBpmnElementType()",
+      "String SequenceFlowXMLConverter.getXMLElementName()"})
   void testGettersAndSetters() {
     // Arrange and Act
     SequenceFlowXMLConverter actualSequenceFlowXMLConverter = new SequenceFlowXMLConverter();
-    Class<? extends BaseElement> actualBpmnElementType =
-        actualSequenceFlowXMLConverter.getBpmnElementType();
+    Class<? extends BaseElement> actualBpmnElementType = actualSequenceFlowXMLConverter.getBpmnElementType();
 
     // Assert
     assertEquals("sequenceFlow", actualSequenceFlowXMLConverter.getXMLElementName());

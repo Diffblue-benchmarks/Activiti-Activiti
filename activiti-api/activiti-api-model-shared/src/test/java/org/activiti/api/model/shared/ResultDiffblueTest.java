@@ -16,7 +16,6 @@
 package org.activiti.api.model.shared;
 
 import static org.junit.jupiter.api.Assertions.assertNull;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
@@ -24,36 +23,16 @@ import org.junit.jupiter.api.Test;
 
 class ResultDiffblueTest {
   /**
-   * Test {@link Result#getPayload()}.
-   *
-   * <ul>
-   *   <li>Then return {@code null}.
-   * </ul>
-   *
-   * <p>Method under test: {@link Result#getPayload()}
-   */
-  @Test
-  @DisplayName("Test getPayload(); then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"org.activiti.api.model.shared.Payload Result.getPayload()"})
-  void testGetPayload_thenReturnNull() {
-    // Arrange, Act and Assert
-    assertNull(new EmptyResult().getPayload());
-  }
-
-  /**
    * Test {@link Result#getEntity()}.
-   *
-   * <p>Method under test: {@link Result#getEntity()}
+   * <p>
+   * Method under test: {@link Result#getEntity()}
    */
   @Test
   @DisplayName("Test getEntity()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"java.lang.Object Result.getEntity()"})
   void testGetEntity() {
     // Arrange, Act and Assert
-    assertNull(new EmptyResult().getEntity());
+    assertNull((new EmptyResult()).getEntity());
   }
 }

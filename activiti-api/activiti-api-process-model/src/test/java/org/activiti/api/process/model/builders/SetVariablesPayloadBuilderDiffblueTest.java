@@ -21,7 +21,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.HashMap;
 import java.util.Map;
@@ -34,9 +33,8 @@ import org.junit.jupiter.api.Test;
 class SetVariablesPayloadBuilderDiffblueTest {
   /**
    * Test {@link SetVariablesPayloadBuilder#build()}.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>{@link SetVariablesPayloadBuilder#build()}
    *   <li>{@link SetVariablesPayloadBuilder#SetVariablesPayloadBuilder(String)}
@@ -46,43 +44,37 @@ class SetVariablesPayloadBuilderDiffblueTest {
    */
   @Test
   @DisplayName("Test build()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void SetVariablesPayloadBuilder.<init>()",
-    "void SetVariablesPayloadBuilder.<init>(String)",
-    "SetProcessVariablesPayload SetVariablesPayloadBuilder.build()",
-    "SetVariablesPayloadBuilder SetVariablesPayloadBuilder.withProcessInstanceId(String)",
-    "SetVariablesPayloadBuilder SetVariablesPayloadBuilder.withVariables(Map)"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void SetVariablesPayloadBuilder.<init>()", "void SetVariablesPayloadBuilder.<init>(String)",
+      "SetProcessVariablesPayload SetVariablesPayloadBuilder.build()",
+      "SetVariablesPayloadBuilder SetVariablesPayloadBuilder.withProcessInstanceId(String)",
+      "SetVariablesPayloadBuilder SetVariablesPayloadBuilder.withVariables(Map)"})
   void testBuild() {
-    // Arrange and Act
-    SetVariablesPayloadBuilder actualWithVariableResult =
-        new SetVariablesPayloadBuilder("42")
-            .withProcessInstance(mock(ProcessInstance.class))
-            .withProcessInstanceId("42")
-            .withVariable("Name", "Value");
+    // Arrange
+    SetVariablesPayloadBuilder withVariableResult = (new SetVariablesPayloadBuilder("42"))
+        .withProcessInstance(mock(ProcessInstance.class))
+        .withProcessInstanceId("42")
+        .withVariable("Name", "Value");
     HashMap<String, Object> variables = new HashMap<>();
-    SetProcessVariablesPayload actualSetProcessVariablesPayload =
-        actualWithVariableResult.withVariables(variables).build();
+
+    // Act
+    SetProcessVariablesPayload actualBuildResult = withVariableResult.withVariables(variables).build();
 
     // Assert
-    assertEquals("42", actualSetProcessVariablesPayload.getProcessInstanceId());
-    Map<String, Object> variables2 = actualSetProcessVariablesPayload.getVariables();
+    assertEquals("42", actualBuildResult.getProcessInstanceId());
+    Map<String, Object> variables2 = actualBuildResult.getVariables();
     assertTrue(variables2.isEmpty());
     assertSame(variables, variables2);
   }
 
   /**
    * Test {@link SetVariablesPayloadBuilder#SetVariablesPayloadBuilder(ProcessInstance)}.
-   *
-   * <p>Method under test: {@link
-   * SetVariablesPayloadBuilder#SetVariablesPayloadBuilder(ProcessInstance)}
+   * <p>
+   * Method under test: {@link SetVariablesPayloadBuilder#SetVariablesPayloadBuilder(ProcessInstance)}
    */
   @Test
   @DisplayName("Test new SetVariablesPayloadBuilder(ProcessInstance)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void SetVariablesPayloadBuilder.<init>(ProcessInstance)"})
   void testNewSetVariablesPayloadBuilder() {
     // Arrange
@@ -90,39 +82,33 @@ class SetVariablesPayloadBuilderDiffblueTest {
     when(processInstance.getId()).thenReturn("42");
 
     // Act
-    SetVariablesPayloadBuilder actualSetVariablesPayloadBuilder =
-        new SetVariablesPayloadBuilder(processInstance);
+    SetVariablesPayloadBuilder actualSetVariablesPayloadBuilder = new SetVariablesPayloadBuilder(processInstance);
 
     // Assert
     verify(processInstance).getId();
-    SetProcessVariablesPayload setProcessVariablesPayload =
-        actualSetVariablesPayloadBuilder.build();
-    assertEquals("42", setProcessVariablesPayload.getProcessInstanceId());
-    assertTrue(setProcessVariablesPayload.getVariables().isEmpty());
+    SetProcessVariablesPayload buildResult = actualSetVariablesPayloadBuilder.build();
+    assertEquals("42", buildResult.getProcessInstanceId());
+    assertTrue(buildResult.getVariables().isEmpty());
   }
 
   /**
    * Test {@link SetVariablesPayloadBuilder#withProcessInstance(ProcessInstance)}.
-   *
-   * <p>Method under test: {@link SetVariablesPayloadBuilder#withProcessInstance(ProcessInstance)}
+   * <p>
+   * Method under test: {@link SetVariablesPayloadBuilder#withProcessInstance(ProcessInstance)}
    */
   @Test
   @DisplayName("Test withProcessInstance(ProcessInstance)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "SetVariablesPayloadBuilder SetVariablesPayloadBuilder.withProcessInstance(ProcessInstance)"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"SetVariablesPayloadBuilder SetVariablesPayloadBuilder.withProcessInstance(ProcessInstance)"})
   void testWithProcessInstance() {
     // Arrange
     SetVariablesPayloadBuilder setVariablesResult = ProcessPayloadBuilder.setVariables();
-
     ProcessInstance processInstance = mock(ProcessInstance.class);
     when(processInstance.getId()).thenReturn("42");
 
     // Act
-    SetVariablesPayloadBuilder actualWithProcessInstanceResult =
-        setVariablesResult.withProcessInstance(processInstance);
+    SetVariablesPayloadBuilder actualWithProcessInstanceResult = setVariablesResult
+        .withProcessInstance(processInstance);
 
     // Assert
     verify(processInstance).getId();
@@ -132,63 +118,42 @@ class SetVariablesPayloadBuilderDiffblueTest {
 
   /**
    * Test {@link SetVariablesPayloadBuilder#withVariable(String, Object)}.
-   *
    * <ul>
-   *   <li>Given Variables.
-   *   <li>When {@code Name}.
-   *   <li>Then return Variables.
+   *   <li>Given Variables.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link SetVariablesPayloadBuilder#withVariable(String, Object)}
+   * <p>
+   * Method under test: {@link SetVariablesPayloadBuilder#withVariable(String, Object)}
    */
   @Test
-  @DisplayName(
-      "Test withVariable(String, Object); given Variables; when 'Name'; then return Variables")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "SetVariablesPayloadBuilder SetVariablesPayloadBuilder.withVariable(String, Object)"
-  })
-  void testWithVariable_givenVariables_whenName_thenReturnVariables() {
+  @DisplayName("Test withVariable(String, Object); given Variables")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"SetVariablesPayloadBuilder SetVariablesPayloadBuilder.withVariable(String, Object)"})
+  void testWithVariable_givenVariables() {
     // Arrange
     SetVariablesPayloadBuilder setVariablesResult = ProcessPayloadBuilder.setVariables();
 
-    // Act
-    SetVariablesPayloadBuilder actualWithVariableResult =
-        setVariablesResult.withVariable("Name", "Value");
-
-    // Assert
-    assertSame(setVariablesResult, actualWithVariableResult);
+    // Act and Assert
+    assertSame(setVariablesResult, setVariablesResult.withVariable("Name", "Value"));
   }
 
   /**
    * Test {@link SetVariablesPayloadBuilder#withVariable(String, Object)}.
-   *
    * <ul>
-   *   <li>Then return {@link SetVariablesPayloadBuilder#SetVariablesPayloadBuilder(String)} with
-   *       processInstanceId is {@code 42}.
+   *   <li>Given Variables withVariables {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link SetVariablesPayloadBuilder#withVariable(String, Object)}
+   * <p>
+   * Method under test: {@link SetVariablesPayloadBuilder#withVariable(String, Object)}
    */
   @Test
-  @DisplayName(
-      "Test withVariable(String, Object); then return SetVariablesPayloadBuilder(String) with processInstanceId is '42'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "SetVariablesPayloadBuilder SetVariablesPayloadBuilder.withVariable(String, Object)"
-  })
-  void testWithVariable_thenReturnSetVariablesPayloadBuilderWithProcessInstanceIdIs42() {
+  @DisplayName("Test withVariable(String, Object); given Variables withVariables 'null'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"SetVariablesPayloadBuilder SetVariablesPayloadBuilder.withVariable(String, Object)"})
+  void testWithVariable_givenVariablesWithVariablesNull() {
     // Arrange
-    SetVariablesPayloadBuilder setVariablesPayloadBuilder = new SetVariablesPayloadBuilder("42");
-    setVariablesPayloadBuilder.withVariables(null);
+    SetVariablesPayloadBuilder setVariablesResult = ProcessPayloadBuilder.setVariables();
+    setVariablesResult.withVariables(null);
 
-    // Act
-    SetVariablesPayloadBuilder actualWithVariableResult =
-        setVariablesPayloadBuilder.withVariable("Name", "Value");
-
-    // Assert
-    assertSame(setVariablesPayloadBuilder, actualWithVariableResult);
+    // Act and Assert
+    assertSame(setVariablesResult, setVariablesResult.withVariable("Name", "Value"));
   }
 }

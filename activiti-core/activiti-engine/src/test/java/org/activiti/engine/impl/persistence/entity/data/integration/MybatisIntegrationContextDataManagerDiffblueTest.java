@@ -19,8 +19,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.Map;
 import org.activiti.engine.impl.cfg.JtaProcessEngineConfiguration;
@@ -33,47 +32,39 @@ import org.junit.experimental.categories.Category;
 public class MybatisIntegrationContextDataManagerDiffblueTest {
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
-   *   <li>{@link
-   *       MybatisIntegrationContextDataManager#MybatisIntegrationContextDataManager(ProcessEngineConfigurationImpl)}
+   *   <li>{@link MybatisIntegrationContextDataManager#MybatisIntegrationContextDataManager(ProcessEngineConfigurationImpl)}
    *   <li>{@link MybatisIntegrationContextDataManager#getManagedEntityClass()}
    * </ul>
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void MybatisIntegrationContextDataManager.<init>(ProcessEngineConfigurationImpl)",
-    "Class MybatisIntegrationContextDataManager.getManagedEntityClass()"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void MybatisIntegrationContextDataManager.<init>(ProcessEngineConfigurationImpl)",
+      "Class MybatisIntegrationContextDataManager.getManagedEntityClass()"})
   public void testGettersAndSetters() {
     // Arrange and Act
-    Class<? extends IntegrationContextEntity> actualManagedEntityClass =
-        new MybatisIntegrationContextDataManager(new JtaProcessEngineConfiguration())
-            .getManagedEntityClass();
+    Class<? extends IntegrationContextEntity> actualManagedEntityClass = (new MybatisIntegrationContextDataManager(
+        new JtaProcessEngineConfiguration())).getManagedEntityClass();
 
     // Assert
-    Class<IntegrationContextEntityImpl> expectedManagedEntityClass =
-        IntegrationContextEntityImpl.class;
+    Class<IntegrationContextEntityImpl> expectedManagedEntityClass = IntegrationContextEntityImpl.class;
     assertEquals(expectedManagedEntityClass, actualManagedEntityClass);
   }
 
   /**
    * Test {@link MybatisIntegrationContextDataManager#create()}.
-   *
-   * <p>Method under test: {@link MybatisIntegrationContextDataManager#create()}
+   * <p>
+   * Method under test: {@link MybatisIntegrationContextDataManager#create()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"IntegrationContextEntity MybatisIntegrationContextDataManager.create()"})
   public void testCreate() {
     // Arrange and Act
-    IntegrationContextEntity actualCreateResult =
-        new MybatisIntegrationContextDataManager(new JtaProcessEngineConfiguration()).create();
+    IntegrationContextEntity actualCreateResult = (new MybatisIntegrationContextDataManager(
+        new JtaProcessEngineConfiguration())).create();
 
     // Assert
     Object persistentState = actualCreateResult.getPersistentState();

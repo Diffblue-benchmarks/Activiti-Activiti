@@ -26,8 +26,7 @@ import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.time.LocalDate;
 import java.time.ZoneOffset;
@@ -38,6 +37,7 @@ import org.activiti.engine.ActivitiException;
 import org.activiti.engine.HistoryService;
 import org.activiti.engine.ManagementService;
 import org.activiti.engine.ProcessEngine;
+import org.activiti.engine.ProcessEngineConfiguration;
 import org.activiti.engine.ProcessEngineLifecycleListener;
 import org.activiti.engine.RepositoryService;
 import org.activiti.engine.RuntimeService;
@@ -72,9 +72,8 @@ import org.mockito.Mockito;
 public class ActivitiRuleDiffblueTest {
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>{@link ActivitiRule#ActivitiRule()}
    *   <li>{@link ActivitiRule#setConfigurationResource(String)}
@@ -100,38 +99,26 @@ public class ActivitiRuleDiffblueTest {
    * </ul>
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void ActivitiRule.<init>()",
-    "void ActivitiRule.<init>(String)",
-    "void ActivitiRule.configureProcessEngine()",
-    "void ActivitiRule.failed(Throwable, Description)",
-    "String ActivitiRule.getConfigurationResource()",
-    "HistoryService ActivitiRule.getHistoryService()",
-    "ManagementService ActivitiRule.getManagementService()",
-    "ActivitiMockSupport ActivitiRule.getMockSupport()",
-    "ProcessEngine ActivitiRule.getProcessEngine()",
-    "RepositoryService ActivitiRule.getRepositoryService()",
-    "RuntimeService ActivitiRule.getRuntimeService()",
-    "TaskService ActivitiRule.getTaskService()",
-    "ActivitiMockSupport ActivitiRule.mockSupport()",
-    "void ActivitiRule.setConfigurationResource(String)",
-    "void ActivitiRule.setHistoricDataService(HistoryService)",
-    "void ActivitiRule.setManagementService(ManagementService)",
-    "void ActivitiRule.setProcessEngineConfiguration(ProcessEngineConfigurationImpl)",
-    "void ActivitiRule.setRepositoryService(RepositoryService)",
-    "void ActivitiRule.setRuntimeService(RuntimeService)",
-    "void ActivitiRule.setTaskService(TaskService)",
-    "void ActivitiRule.skipped(AssumptionViolatedException, Description)",
-    "void ActivitiRule.succeeded(Description)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void ActivitiRule.<init>()", "void ActivitiRule.<init>(String)",
+      "void ActivitiRule.configureProcessEngine()", "void ActivitiRule.failed(Throwable, Description)",
+      "String ActivitiRule.getConfigurationResource()", "HistoryService ActivitiRule.getHistoryService()",
+      "ManagementService ActivitiRule.getManagementService()", "ActivitiMockSupport ActivitiRule.getMockSupport()",
+      "ProcessEngine ActivitiRule.getProcessEngine()", "RepositoryService ActivitiRule.getRepositoryService()",
+      "RuntimeService ActivitiRule.getRuntimeService()", "TaskService ActivitiRule.getTaskService()",
+      "ActivitiMockSupport ActivitiRule.mockSupport()", "void ActivitiRule.setConfigurationResource(String)",
+      "void ActivitiRule.setHistoricDataService(HistoryService)",
+      "void ActivitiRule.setManagementService(ManagementService)",
+      "void ActivitiRule.setProcessEngineConfiguration(ProcessEngineConfigurationImpl)",
+      "void ActivitiRule.setRepositoryService(RepositoryService)",
+      "void ActivitiRule.setRuntimeService(RuntimeService)", "void ActivitiRule.setTaskService(TaskService)",
+      "void ActivitiRule.skipped(AssumptionViolatedException, Description)",
+      "void ActivitiRule.succeeded(Description)"})
   public void testGettersAndSetters() {
     // Arrange and Act
     ActivitiRule actualActivitiRule = new ActivitiRule();
     actualActivitiRule.setConfigurationResource("Configuration Resource");
-    HistoryServiceImpl historicDataService =
-        new HistoryServiceImpl(new JtaProcessEngineConfiguration());
+    HistoryServiceImpl historicDataService = new HistoryServiceImpl(new JtaProcessEngineConfiguration());
     actualActivitiRule.setHistoricDataService(historicDataService);
     ManagementServiceImpl managementService = new ManagementServiceImpl();
     actualActivitiRule.setManagementService(managementService);
@@ -174,13 +161,11 @@ public class ActivitiRuleDiffblueTest {
 
   /**
    * Test getters and setters.
-   *
    * <ul>
-   *   <li>When {@code Configuration Resource}.
+   *   <li>When {@code Configuration Resource}.</li>
    * </ul>
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>{@link ActivitiRule#ActivitiRule(String)}
    *   <li>{@link ActivitiRule#setConfigurationResource(String)}
@@ -206,38 +191,26 @@ public class ActivitiRuleDiffblueTest {
    * </ul>
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void ActivitiRule.<init>()",
-    "void ActivitiRule.<init>(String)",
-    "void ActivitiRule.configureProcessEngine()",
-    "void ActivitiRule.failed(Throwable, Description)",
-    "String ActivitiRule.getConfigurationResource()",
-    "HistoryService ActivitiRule.getHistoryService()",
-    "ManagementService ActivitiRule.getManagementService()",
-    "ActivitiMockSupport ActivitiRule.getMockSupport()",
-    "ProcessEngine ActivitiRule.getProcessEngine()",
-    "RepositoryService ActivitiRule.getRepositoryService()",
-    "RuntimeService ActivitiRule.getRuntimeService()",
-    "TaskService ActivitiRule.getTaskService()",
-    "ActivitiMockSupport ActivitiRule.mockSupport()",
-    "void ActivitiRule.setConfigurationResource(String)",
-    "void ActivitiRule.setHistoricDataService(HistoryService)",
-    "void ActivitiRule.setManagementService(ManagementService)",
-    "void ActivitiRule.setProcessEngineConfiguration(ProcessEngineConfigurationImpl)",
-    "void ActivitiRule.setRepositoryService(RepositoryService)",
-    "void ActivitiRule.setRuntimeService(RuntimeService)",
-    "void ActivitiRule.setTaskService(TaskService)",
-    "void ActivitiRule.skipped(AssumptionViolatedException, Description)",
-    "void ActivitiRule.succeeded(Description)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void ActivitiRule.<init>()", "void ActivitiRule.<init>(String)",
+      "void ActivitiRule.configureProcessEngine()", "void ActivitiRule.failed(Throwable, Description)",
+      "String ActivitiRule.getConfigurationResource()", "HistoryService ActivitiRule.getHistoryService()",
+      "ManagementService ActivitiRule.getManagementService()", "ActivitiMockSupport ActivitiRule.getMockSupport()",
+      "ProcessEngine ActivitiRule.getProcessEngine()", "RepositoryService ActivitiRule.getRepositoryService()",
+      "RuntimeService ActivitiRule.getRuntimeService()", "TaskService ActivitiRule.getTaskService()",
+      "ActivitiMockSupport ActivitiRule.mockSupport()", "void ActivitiRule.setConfigurationResource(String)",
+      "void ActivitiRule.setHistoricDataService(HistoryService)",
+      "void ActivitiRule.setManagementService(ManagementService)",
+      "void ActivitiRule.setProcessEngineConfiguration(ProcessEngineConfigurationImpl)",
+      "void ActivitiRule.setRepositoryService(RepositoryService)",
+      "void ActivitiRule.setRuntimeService(RuntimeService)", "void ActivitiRule.setTaskService(TaskService)",
+      "void ActivitiRule.skipped(AssumptionViolatedException, Description)",
+      "void ActivitiRule.succeeded(Description)"})
   public void testGettersAndSetters_whenConfigurationResource() {
     // Arrange and Act
     ActivitiRule actualActivitiRule = new ActivitiRule("Configuration Resource");
     actualActivitiRule.setConfigurationResource("Configuration Resource");
-    HistoryServiceImpl historicDataService =
-        new HistoryServiceImpl(new JtaProcessEngineConfiguration());
+    HistoryServiceImpl historicDataService = new HistoryServiceImpl(new JtaProcessEngineConfiguration());
     actualActivitiRule.setHistoricDataService(historicDataService);
     ManagementServiceImpl managementService = new ManagementServiceImpl();
     actualActivitiRule.setManagementService(managementService);
@@ -280,55 +253,43 @@ public class ActivitiRuleDiffblueTest {
 
   /**
    * Test {@link ActivitiRule#ActivitiRule(ProcessEngine)}.
-   *
    * <ul>
-   *   <li>Then HistoryService return {@link HistoryServiceImpl}.
+   *   <li>Then HistoryService return {@link HistoryServiceImpl}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ActivitiRule#ActivitiRule(ProcessEngine)}
+   * <p>
+   * Method under test: {@link ActivitiRule#ActivitiRule(ProcessEngine)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void ActivitiRule.<init>(ProcessEngine)"})
   public void testNewActivitiRule_thenHistoryServiceReturnHistoryServiceImpl() {
     // Arrange
-    ProcessEngineLifecycleListener processEngineLifecycleListener =
-        mock(ProcessEngineLifecycleListener.class);
-    doNothing()
-        .when(processEngineLifecycleListener)
-        .onProcessEngineBuilt(Mockito.<ProcessEngine>any());
-
-    JtaProcessEngineConfiguration processEngineConfiguration =
-        mock(JtaProcessEngineConfiguration.class);
+    ProcessEngineLifecycleListener processEngineLifecycleListener = mock(ProcessEngineLifecycleListener.class);
+    doNothing().when(processEngineLifecycleListener).onProcessEngineBuilt(Mockito.<ProcessEngine>any());
+    JtaProcessEngineConfiguration processEngineConfiguration = mock(JtaProcessEngineConfiguration.class);
     when(processEngineConfiguration.isUsingRelationalDatabase()).thenReturn(false);
     when(processEngineConfiguration.getProcessEngineName()).thenReturn("Process Engine Name");
     Mockito.<Map<Class<?>, SessionFactory>>when(processEngineConfiguration.getSessionFactories())
         .thenReturn(new HashMap<>());
     when(processEngineConfiguration.getDynamicBpmnService())
         .thenReturn(new DynamicBpmnServiceImpl(new JtaProcessEngineConfiguration()));
-    HistoryServiceImpl historyServiceImpl =
-        new HistoryServiceImpl(new JtaProcessEngineConfiguration());
+    HistoryServiceImpl historyServiceImpl = new HistoryServiceImpl(new JtaProcessEngineConfiguration());
     when(processEngineConfiguration.getHistoryService()).thenReturn(historyServiceImpl);
     ManagementServiceImpl managementServiceImpl = new ManagementServiceImpl();
     when(processEngineConfiguration.getManagementService()).thenReturn(managementServiceImpl);
-    when(processEngineConfiguration.getProcessEngineLifecycleListener())
-        .thenReturn(processEngineLifecycleListener);
+    when(processEngineConfiguration.getProcessEngineLifecycleListener()).thenReturn(processEngineLifecycleListener);
     RepositoryServiceImpl repositoryServiceImpl = new RepositoryServiceImpl();
     when(processEngineConfiguration.getRepositoryService()).thenReturn(repositoryServiceImpl);
     RuntimeServiceImpl runtimeServiceImpl = new RuntimeServiceImpl();
     when(processEngineConfiguration.getRuntimeService()).thenReturn(runtimeServiceImpl);
     TaskServiceImpl taskServiceImpl = new TaskServiceImpl(new JtaProcessEngineConfiguration());
     when(processEngineConfiguration.getTaskService()).thenReturn(taskServiceImpl);
-    when(processEngineConfiguration.getEventDispatcher())
-        .thenReturn(new ActivitiEventDispatcherImpl());
+    when(processEngineConfiguration.getEventDispatcher()).thenReturn(new ActivitiEventDispatcherImpl());
     when(processEngineConfiguration.getAsyncExecutor()).thenReturn(new DefaultAsyncJobExecutor());
-    when(processEngineConfiguration.getTransactionContextFactory())
-        .thenReturn(mock(TransactionContextFactory.class));
+    when(processEngineConfiguration.getTransactionContextFactory()).thenReturn(mock(TransactionContextFactory.class));
     CommandConfig defaultConfig = new CommandConfig();
-    CommandExecutorImpl commandExecutorImpl =
-        new CommandExecutorImpl(defaultConfig, new CommandContextInterceptor());
-    when(processEngineConfiguration.getCommandExecutor()).thenReturn(commandExecutorImpl);
+    when(processEngineConfiguration.getCommandExecutor())
+        .thenReturn(new CommandExecutorImpl(defaultConfig, new CommandContextInterceptor()));
     ProcessEngineImpl processEngine = new ProcessEngineImpl(processEngineConfiguration);
 
     // Act
@@ -372,25 +333,22 @@ public class ActivitiRuleDiffblueTest {
     assertSame(repositoryServiceImpl, repositoryService);
     assertSame(runtimeServiceImpl, runtimeService);
     assertSame(taskServiceImpl, taskService);
-    assertSame(
-        actualActivitiRule.processEngineConfiguration,
-        processEngine.getProcessEngineConfiguration());
+    ProcessEngineConfiguration expectedProcessEngineConfiguration = actualActivitiRule.processEngineConfiguration;
+    assertSame(expectedProcessEngineConfiguration, processEngine.getProcessEngineConfiguration());
   }
 
   /**
    * Test {@link ActivitiRule#starting(Description)}.
-   *
-   * <p>Method under test: {@link ActivitiRule#starting(Description)}
+   * <p>
+   * Method under test: {@link ActivitiRule#starting(Description)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void ActivitiRule.starting(Description)"})
   public void testStarting() {
     // Arrange
     ActivitiRule activitiRule = new ActivitiRule("activiti.cfg.xml");
     activitiRule.setProcessEngineConfiguration(new JtaProcessEngineConfiguration());
-
     Description description = mock(Description.class);
     when(description.getClassName()).thenReturn("Class Name");
 
@@ -401,22 +359,18 @@ public class ActivitiRuleDiffblueTest {
 
   /**
    * Test {@link ActivitiRule#starting(Description)}.
-   *
    * <ul>
-   *   <li>Given {@link ActivitiException#ActivitiException(String)} with message is {@code An error
-   *       occurred}.
+   *   <li>Given {@link ActivitiException#ActivitiException(String)} with message is {@code An error occurred}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ActivitiRule#starting(Description)}
+   * <p>
+   * Method under test: {@link ActivitiRule#starting(Description)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void ActivitiRule.starting(Description)"})
   public void testStarting_givenActivitiExceptionWithMessageIsAnErrorOccurred() {
     // Arrange
     ActivitiRule activitiRule = new ActivitiRule("activiti.cfg.xml");
-
     Description description = mock(Description.class);
     when(description.getClassName()).thenThrow(new ActivitiException("An error occurred"));
 
@@ -427,22 +381,19 @@ public class ActivitiRuleDiffblueTest {
 
   /**
    * Test {@link ActivitiRule#starting(Description)}.
-   *
    * <ul>
-   *   <li>Given {@code Class Name}.
-   *   <li>When {@link Description} {@link Description#getClassName()} return {@code Class Name}.
+   *   <li>Given {@code Class Name}.</li>
+   *   <li>When {@link Description} {@link Description#getClassName()} return {@code Class Name}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ActivitiRule#starting(Description)}
+   * <p>
+   * Method under test: {@link ActivitiRule#starting(Description)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void ActivitiRule.starting(Description)"})
   public void testStarting_givenClassName_whenDescriptionGetClassNameReturnClassName() {
     // Arrange
     ActivitiRule activitiRule = new ActivitiRule("activiti.cfg.xml");
-
     Description description = mock(Description.class);
     when(description.getClassName()).thenReturn("Class Name");
 
@@ -453,27 +404,20 @@ public class ActivitiRuleDiffblueTest {
 
   /**
    * Test {@link ActivitiRule#initializeServices()}.
-   *
    * <ul>
-   *   <li>Then calls {@link JtaProcessEngineConfiguration#getAsyncExecutor()}.
+   *   <li>Then calls {@link ProcessEngineConfiguration#getAsyncExecutor()}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ActivitiRule#initializeServices()}
+   * <p>
+   * Method under test: {@link ActivitiRule#initializeServices()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void ActivitiRule.initializeServices()"})
   public void testInitializeServices_thenCallsGetAsyncExecutor() {
     // Arrange
-    ProcessEngineLifecycleListener processEngineLifecycleListener =
-        mock(ProcessEngineLifecycleListener.class);
-    doNothing()
-        .when(processEngineLifecycleListener)
-        .onProcessEngineBuilt(Mockito.<ProcessEngine>any());
-
-    JtaProcessEngineConfiguration processEngineConfiguration =
-        mock(JtaProcessEngineConfiguration.class);
+    ProcessEngineLifecycleListener processEngineLifecycleListener = mock(ProcessEngineLifecycleListener.class);
+    doNothing().when(processEngineLifecycleListener).onProcessEngineBuilt(Mockito.<ProcessEngine>any());
+    JtaProcessEngineConfiguration processEngineConfiguration = mock(JtaProcessEngineConfiguration.class);
     when(processEngineConfiguration.isUsingRelationalDatabase()).thenReturn(false);
     when(processEngineConfiguration.getProcessEngineName()).thenReturn("Process Engine Name");
     Mockito.<Map<Class<?>, SessionFactory>>when(processEngineConfiguration.getSessionFactories())
@@ -483,21 +427,17 @@ public class ActivitiRuleDiffblueTest {
     when(processEngineConfiguration.getHistoryService())
         .thenReturn(new HistoryServiceImpl(new JtaProcessEngineConfiguration()));
     when(processEngineConfiguration.getManagementService()).thenReturn(new ManagementServiceImpl());
-    when(processEngineConfiguration.getProcessEngineLifecycleListener())
-        .thenReturn(processEngineLifecycleListener);
+    when(processEngineConfiguration.getProcessEngineLifecycleListener()).thenReturn(processEngineLifecycleListener);
     when(processEngineConfiguration.getRepositoryService()).thenReturn(new RepositoryServiceImpl());
     when(processEngineConfiguration.getRuntimeService()).thenReturn(new RuntimeServiceImpl());
     when(processEngineConfiguration.getTaskService())
         .thenReturn(new TaskServiceImpl(new JtaProcessEngineConfiguration()));
-    when(processEngineConfiguration.getEventDispatcher())
-        .thenReturn(new ActivitiEventDispatcherImpl());
+    when(processEngineConfiguration.getEventDispatcher()).thenReturn(new ActivitiEventDispatcherImpl());
     when(processEngineConfiguration.getAsyncExecutor()).thenReturn(new DefaultAsyncJobExecutor());
-    when(processEngineConfiguration.getTransactionContextFactory())
-        .thenReturn(mock(TransactionContextFactory.class));
+    when(processEngineConfiguration.getTransactionContextFactory()).thenReturn(mock(TransactionContextFactory.class));
     CommandConfig defaultConfig = new CommandConfig();
-    CommandExecutorImpl commandExecutorImpl =
-        new CommandExecutorImpl(defaultConfig, new CommandContextInterceptor());
-    when(processEngineConfiguration.getCommandExecutor()).thenReturn(commandExecutorImpl);
+    when(processEngineConfiguration.getCommandExecutor())
+        .thenReturn(new CommandExecutorImpl(defaultConfig, new CommandContextInterceptor()));
     ProcessEngineImpl processEngine = new ProcessEngineImpl(processEngineConfiguration);
 
     ActivitiRule activitiRule = new ActivitiRule("Configuration Resource");
@@ -526,12 +466,11 @@ public class ActivitiRuleDiffblueTest {
 
   /**
    * Test {@link ActivitiRule#initializeMockSupport()}.
-   *
-   * <p>Method under test: {@link ActivitiRule#initializeMockSupport()}
+   * <p>
+   * Method under test: {@link ActivitiRule#initializeMockSupport()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void ActivitiRule.initializeMockSupport()"})
   public void testInitializeMockSupport() {
     // Arrange
@@ -546,28 +485,20 @@ public class ActivitiRuleDiffblueTest {
 
   /**
    * Test {@link ActivitiRule#initializeMockSupport()}.
-   *
-   * <p>Method under test: {@link ActivitiRule#initializeMockSupport()}
+   * <p>
+   * Method under test: {@link ActivitiRule#initializeMockSupport()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void ActivitiRule.initializeMockSupport()"})
   public void testInitializeMockSupport2() {
     // Arrange
-    ProcessEngineLifecycleListener processEngineLifecycleListener =
-        mock(ProcessEngineLifecycleListener.class);
-    doNothing()
-        .when(processEngineLifecycleListener)
-        .onProcessEngineBuilt(Mockito.<ProcessEngine>any());
-
-    JtaProcessEngineConfiguration processEngineConfiguration =
-        mock(JtaProcessEngineConfiguration.class);
+    ProcessEngineLifecycleListener processEngineLifecycleListener = mock(ProcessEngineLifecycleListener.class);
+    doNothing().when(processEngineLifecycleListener).onProcessEngineBuilt(Mockito.<ProcessEngine>any());
+    JtaProcessEngineConfiguration processEngineConfiguration = mock(JtaProcessEngineConfiguration.class);
     when(processEngineConfiguration.getBpmnParser()).thenReturn(new BpmnParser());
-    when(processEngineConfiguration.getActivityBehaviorFactory())
-        .thenReturn(new DefaultActivityBehaviorFactory());
-    when(processEngineConfiguration.setActivityBehaviorFactory(
-            Mockito.<ActivityBehaviorFactory>any()))
+    when(processEngineConfiguration.getActivityBehaviorFactory()).thenReturn(new DefaultActivityBehaviorFactory());
+    when(processEngineConfiguration.setActivityBehaviorFactory(Mockito.<ActivityBehaviorFactory>any()))
         .thenReturn(new JtaProcessEngineConfiguration());
     when(processEngineConfiguration.isUsingRelationalDatabase()).thenReturn(false);
     when(processEngineConfiguration.getProcessEngineName()).thenReturn("Process Engine Name");
@@ -578,21 +509,17 @@ public class ActivitiRuleDiffblueTest {
     when(processEngineConfiguration.getHistoryService())
         .thenReturn(new HistoryServiceImpl(new JtaProcessEngineConfiguration()));
     when(processEngineConfiguration.getManagementService()).thenReturn(new ManagementServiceImpl());
-    when(processEngineConfiguration.getProcessEngineLifecycleListener())
-        .thenReturn(processEngineLifecycleListener);
+    when(processEngineConfiguration.getProcessEngineLifecycleListener()).thenReturn(processEngineLifecycleListener);
     when(processEngineConfiguration.getRepositoryService()).thenReturn(new RepositoryServiceImpl());
     when(processEngineConfiguration.getRuntimeService()).thenReturn(new RuntimeServiceImpl());
     when(processEngineConfiguration.getTaskService())
         .thenReturn(new TaskServiceImpl(new JtaProcessEngineConfiguration()));
-    when(processEngineConfiguration.getEventDispatcher())
-        .thenReturn(new ActivitiEventDispatcherImpl());
+    when(processEngineConfiguration.getEventDispatcher()).thenReturn(new ActivitiEventDispatcherImpl());
     when(processEngineConfiguration.getAsyncExecutor()).thenReturn(new DefaultAsyncJobExecutor());
-    when(processEngineConfiguration.getTransactionContextFactory())
-        .thenReturn(mock(TransactionContextFactory.class));
+    when(processEngineConfiguration.getTransactionContextFactory()).thenReturn(mock(TransactionContextFactory.class));
     CommandConfig defaultConfig = new CommandConfig();
-    CommandExecutorImpl commandExecutorImpl =
-        new CommandExecutorImpl(defaultConfig, new CommandContextInterceptor());
-    when(processEngineConfiguration.getCommandExecutor()).thenReturn(commandExecutorImpl);
+    when(processEngineConfiguration.getCommandExecutor())
+        .thenReturn(new CommandExecutorImpl(defaultConfig, new CommandContextInterceptor()));
     ProcessEngineImpl processEngine = new ProcessEngineImpl(processEngineConfiguration);
 
     ActivitiRule activitiRule = new ActivitiRule("Configuration Resource");
@@ -619,8 +546,7 @@ public class ActivitiRuleDiffblueTest {
     verify(processEngineConfiguration).getTaskService();
     verify(processEngineConfiguration).getTransactionContextFactory();
     verify(processEngineConfiguration).isUsingRelationalDatabase();
-    verify(processEngineConfiguration)
-        .setActivityBehaviorFactory(isA(ActivityBehaviorFactory.class));
+    verify(processEngineConfiguration).setActivityBehaviorFactory(isA(ActivityBehaviorFactory.class));
     ActivitiMockSupport mockSupport = activitiRule.getMockSupport();
     assertEquals(0, mockSupport.getNrOfNoOpServiceTaskExecutions());
     assertTrue(mockSupport.getExecutedNoOpServiceTaskDelegateClassNames().isEmpty());
@@ -629,22 +555,18 @@ public class ActivitiRuleDiffblueTest {
 
   /**
    * Test {@link ActivitiRule#finished(Description)}.
-   *
    * <ul>
-   *   <li>Given {@link ActivitiException#ActivitiException(String)} with message is {@code An error
-   *       occurred}.
+   *   <li>Given {@link ActivitiException#ActivitiException(String)} with message is {@code An error occurred}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ActivitiRule#finished(Description)}
+   * <p>
+   * Method under test: {@link ActivitiRule#finished(Description)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void ActivitiRule.finished(Description)"})
   public void testFinished_givenActivitiExceptionWithMessageIsAnErrorOccurred() {
     // Arrange
     ActivitiRule activitiRule = new ActivitiRule("Configuration Resource");
-
     Description description = mock(Description.class);
     when(description.getClassName()).thenThrow(new ActivitiException("An error occurred"));
 
@@ -655,22 +577,19 @@ public class ActivitiRuleDiffblueTest {
 
   /**
    * Test {@link ActivitiRule#finished(Description)}.
-   *
    * <ul>
-   *   <li>Given {@code Class Name}.
-   *   <li>When {@link Description} {@link Description#getClassName()} return {@code Class Name}.
+   *   <li>Given {@code Class Name}.</li>
+   *   <li>When {@link Description} {@link Description#getClassName()} return {@code Class Name}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ActivitiRule#finished(Description)}
+   * <p>
+   * Method under test: {@link ActivitiRule#finished(Description)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void ActivitiRule.finished(Description)"})
   public void testFinished_givenClassName_whenDescriptionGetClassNameReturnClassName() {
     // Arrange
     ActivitiRule activitiRule = new ActivitiRule("Configuration Resource");
-
     Description description = mock(Description.class);
     when(description.getClassName()).thenReturn("Class Name");
 
@@ -681,29 +600,25 @@ public class ActivitiRuleDiffblueTest {
 
   /**
    * Test {@link ActivitiRule#setCurrentTime(Date)}.
-   *
    * <ul>
-   *   <li>Then calls {@link JtaProcessEngineConfiguration#getClock()}.
+   *   <li>Then calls {@link ProcessEngineConfiguration#getClock()}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ActivitiRule#setCurrentTime(Date)}
+   * <p>
+   * Method under test: {@link ActivitiRule#setCurrentTime(Date)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void ActivitiRule.setCurrentTime(Date)"})
   public void testSetCurrentTime_thenCallsGetClock() {
     // Arrange
-    JtaProcessEngineConfiguration processEngineConfiguration =
-        mock(JtaProcessEngineConfiguration.class);
+    JtaProcessEngineConfiguration processEngineConfiguration = mock(JtaProcessEngineConfiguration.class);
     when(processEngineConfiguration.getClock()).thenReturn(new DefaultClockImpl());
 
     ActivitiRule activitiRule = new ActivitiRule("Configuration Resource");
     activitiRule.setProcessEngineConfiguration(processEngineConfiguration);
 
     // Act
-    activitiRule.setCurrentTime(
-        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
+    activitiRule.setCurrentTime(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
 
     // Assert
     verify(processEngineConfiguration).getClock();
@@ -711,53 +626,41 @@ public class ActivitiRuleDiffblueTest {
 
   /**
    * Test {@link ActivitiRule#setProcessEngine(ProcessEngine)}.
-   *
-   * <p>Method under test: {@link ActivitiRule#setProcessEngine(ProcessEngine)}
+   * <p>
+   * Method under test: {@link ActivitiRule#setProcessEngine(ProcessEngine)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void ActivitiRule.setProcessEngine(ProcessEngine)"})
   public void testSetProcessEngine() {
     // Arrange
-    ActivitiRule activitiRule = new ActivitiRule("activiti.cfg.xml");
-
-    ProcessEngineLifecycleListener processEngineLifecycleListener =
-        mock(ProcessEngineLifecycleListener.class);
-    doNothing()
-        .when(processEngineLifecycleListener)
-        .onProcessEngineBuilt(Mockito.<ProcessEngine>any());
-
-    JtaProcessEngineConfiguration processEngineConfiguration =
-        mock(JtaProcessEngineConfiguration.class);
+    ActivitiRule activitiRule = new ActivitiRule();
+    ProcessEngineLifecycleListener processEngineLifecycleListener = mock(ProcessEngineLifecycleListener.class);
+    doNothing().when(processEngineLifecycleListener).onProcessEngineBuilt(Mockito.<ProcessEngine>any());
+    JtaProcessEngineConfiguration processEngineConfiguration = mock(JtaProcessEngineConfiguration.class);
     when(processEngineConfiguration.isUsingRelationalDatabase()).thenReturn(false);
     when(processEngineConfiguration.getProcessEngineName()).thenReturn("Process Engine Name");
     Mockito.<Map<Class<?>, SessionFactory>>when(processEngineConfiguration.getSessionFactories())
         .thenReturn(new HashMap<>());
     when(processEngineConfiguration.getDynamicBpmnService())
         .thenReturn(new DynamicBpmnServiceImpl(new JtaProcessEngineConfiguration()));
-    HistoryServiceImpl historyServiceImpl =
-        new HistoryServiceImpl(new JtaProcessEngineConfiguration());
+    HistoryServiceImpl historyServiceImpl = new HistoryServiceImpl(new JtaProcessEngineConfiguration());
     when(processEngineConfiguration.getHistoryService()).thenReturn(historyServiceImpl);
     ManagementServiceImpl managementServiceImpl = new ManagementServiceImpl();
     when(processEngineConfiguration.getManagementService()).thenReturn(managementServiceImpl);
-    when(processEngineConfiguration.getProcessEngineLifecycleListener())
-        .thenReturn(processEngineLifecycleListener);
+    when(processEngineConfiguration.getProcessEngineLifecycleListener()).thenReturn(processEngineLifecycleListener);
     RepositoryServiceImpl repositoryServiceImpl = new RepositoryServiceImpl();
     when(processEngineConfiguration.getRepositoryService()).thenReturn(repositoryServiceImpl);
     RuntimeServiceImpl runtimeServiceImpl = new RuntimeServiceImpl();
     when(processEngineConfiguration.getRuntimeService()).thenReturn(runtimeServiceImpl);
     TaskServiceImpl taskServiceImpl = new TaskServiceImpl(new JtaProcessEngineConfiguration());
     when(processEngineConfiguration.getTaskService()).thenReturn(taskServiceImpl);
-    when(processEngineConfiguration.getEventDispatcher())
-        .thenReturn(new ActivitiEventDispatcherImpl());
+    when(processEngineConfiguration.getEventDispatcher()).thenReturn(new ActivitiEventDispatcherImpl());
     when(processEngineConfiguration.getAsyncExecutor()).thenReturn(new DefaultAsyncJobExecutor());
-    when(processEngineConfiguration.getTransactionContextFactory())
-        .thenReturn(mock(TransactionContextFactory.class));
+    when(processEngineConfiguration.getTransactionContextFactory()).thenReturn(mock(TransactionContextFactory.class));
     CommandConfig defaultConfig = new CommandConfig();
-    CommandExecutorImpl commandExecutorImpl =
-        new CommandExecutorImpl(defaultConfig, new CommandContextInterceptor());
-    when(processEngineConfiguration.getCommandExecutor()).thenReturn(commandExecutorImpl);
+    when(processEngineConfiguration.getCommandExecutor())
+        .thenReturn(new CommandExecutorImpl(defaultConfig, new CommandContextInterceptor()));
     ProcessEngineImpl processEngine = new ProcessEngineImpl(processEngineConfiguration);
 
     // Act
@@ -785,7 +688,7 @@ public class ActivitiRuleDiffblueTest {
     assertSame(repositoryServiceImpl, activitiRule.getRepositoryService());
     assertSame(runtimeServiceImpl, activitiRule.getRuntimeService());
     assertSame(taskServiceImpl, activitiRule.getTaskService());
-    assertSame(
-        activitiRule.processEngineConfiguration, processEngine.getProcessEngineConfiguration());
+    ProcessEngineConfiguration expectedProcessEngineConfiguration = activitiRule.processEngineConfiguration;
+    assertSame(expectedProcessEngineConfiguration, processEngine.getProcessEngineConfiguration());
   }
 }

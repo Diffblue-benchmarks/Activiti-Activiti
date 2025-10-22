@@ -17,8 +17,7 @@ package org.activiti.engine.impl.asyncexecutor;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
@@ -26,17 +25,16 @@ import org.junit.experimental.categories.Category;
 public class ResetExpiredJobsRunnableDiffblueTest {
   /**
    * Test {@link ResetExpiredJobsRunnable#ResetExpiredJobsRunnable(AsyncExecutor)}.
-   *
-   * <p>Method under test: {@link ResetExpiredJobsRunnable#ResetExpiredJobsRunnable(AsyncExecutor)}
+   * <p>
+   * Method under test: {@link ResetExpiredJobsRunnable#ResetExpiredJobsRunnable(AsyncExecutor)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void ResetExpiredJobsRunnable.<init>(AsyncExecutor)"})
   public void testNewResetExpiredJobsRunnable() {
     // Arrange and Act
-    ResetExpiredJobsRunnable actualResetExpiredJobsRunnable =
-        new ResetExpiredJobsRunnable(new DefaultAsyncJobExecutor());
+    ResetExpiredJobsRunnable actualResetExpiredJobsRunnable = new ResetExpiredJobsRunnable(
+        new DefaultAsyncJobExecutor());
 
     // Assert
     assertTrue(actualResetExpiredJobsRunnable.asyncExecutor instanceof DefaultAsyncJobExecutor);
@@ -45,17 +43,15 @@ public class ResetExpiredJobsRunnableDiffblueTest {
 
   /**
    * Test {@link ResetExpiredJobsRunnable#stop()}.
-   *
-   * <p>Method under test: {@link ResetExpiredJobsRunnable#stop()}
+   * <p>
+   * Method under test: {@link ResetExpiredJobsRunnable#stop()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void ResetExpiredJobsRunnable.stop()"})
   public void testStop() {
     // Arrange
-    ResetExpiredJobsRunnable resetExpiredJobsRunnable =
-        new ResetExpiredJobsRunnable(new DefaultAsyncJobExecutor());
+    ResetExpiredJobsRunnable resetExpiredJobsRunnable = new ResetExpiredJobsRunnable(new DefaultAsyncJobExecutor());
 
     // Act
     resetExpiredJobsRunnable.stop();

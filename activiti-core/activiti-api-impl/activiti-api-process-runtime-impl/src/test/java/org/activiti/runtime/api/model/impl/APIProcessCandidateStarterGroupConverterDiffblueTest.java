@@ -17,7 +17,6 @@ package org.activiti.runtime.api.model.impl;
 
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.api.process.model.ProcessCandidateStarterGroup;
 import org.activiti.api.runtime.model.impl.ProcessCandidateStarterGroupImpl;
@@ -38,27 +37,21 @@ class APIProcessCandidateStarterGroupConverterDiffblueTest {
   private APIProcessCandidateStarterGroupConverter aPIProcessCandidateStarterGroupConverter;
 
   /**
-   * Test {@link APIProcessCandidateStarterGroupConverter#from(IdentityLink)} with {@code
-   * IdentityLink}.
-   *
+   * Test {@link APIProcessCandidateStarterGroupConverter#from(IdentityLink)} with {@code IdentityLink}.
    * <ul>
-   *   <li>Then return {@link ProcessCandidateStarterGroupImpl}.
+   *   <li>Then return {@link ProcessCandidateStarterGroupImpl}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link APIProcessCandidateStarterGroupConverter#from(IdentityLink)}
+   * <p>
+   * Method under test: {@link APIProcessCandidateStarterGroupConverter#from(IdentityLink)}
    */
   @Test
-  @DisplayName(
-      "Test from(IdentityLink) with 'IdentityLink'; then return ProcessCandidateStarterGroupImpl")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "ProcessCandidateStarterGroup APIProcessCandidateStarterGroupConverter.from(IdentityLink)"
-  })
+  @DisplayName("Test from(IdentityLink) with 'IdentityLink'; then return ProcessCandidateStarterGroupImpl")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"ProcessCandidateStarterGroup APIProcessCandidateStarterGroupConverter.from(IdentityLink)"})
   void testFromWithIdentityLink_thenReturnProcessCandidateStarterGroupImpl() {
     // Arrange and Act
-    ProcessCandidateStarterGroup actualFromResult =
-        aPIProcessCandidateStarterGroupConverter.from(new IdentityLinkEntityImpl());
+    ProcessCandidateStarterGroup actualFromResult = aPIProcessCandidateStarterGroupConverter
+        .from(new IdentityLinkEntityImpl());
 
     // Assert
     assertTrue(actualFromResult instanceof ProcessCandidateStarterGroupImpl);

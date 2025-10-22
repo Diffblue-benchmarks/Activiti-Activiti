@@ -16,8 +16,7 @@
 package org.activiti.engine.impl.cmd;
 
 import static org.junit.Assert.assertEquals;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
@@ -25,15 +24,14 @@ import org.junit.experimental.categories.Category;
 public class DeleteJobCmdDiffblueTest {
   /**
    * Test {@link DeleteJobCmd#DeleteJobCmd(String)}.
-   *
-   * <p>Method under test: {@link DeleteJobCmd#DeleteJobCmd(String)}
+   * <p>
+   * Method under test: {@link DeleteJobCmd#DeleteJobCmd(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void DeleteJobCmd.<init>(String)"})
   public void testNewDeleteJobCmd() {
     // Arrange, Act and Assert
-    assertEquals("42", new DeleteJobCmd("42").jobId);
+    assertEquals("42", (new DeleteJobCmd("42")).jobId);
   }
 }

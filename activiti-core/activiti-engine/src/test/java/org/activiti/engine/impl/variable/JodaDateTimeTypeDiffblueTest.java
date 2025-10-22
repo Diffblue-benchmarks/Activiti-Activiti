@@ -24,8 +24,7 @@ import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.time.LocalDate;
 import java.time.ZoneOffset;
@@ -43,60 +42,53 @@ import org.junit.experimental.categories.Category;
 public class JodaDateTimeTypeDiffblueTest {
   /**
    * Test {@link JodaDateTimeType#isAbleToStore(Object)}.
-   *
    * <ul>
-   *   <li>When {@link JSONObject#NULL}.
-   *   <li>Then return {@code false}.
+   *   <li>When {@link JSONObject#NULL}.</li>
+   *   <li>Then return {@code false}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link JodaDateTimeType#isAbleToStore(Object)}
+   * <p>
+   * Method under test: {@link JodaDateTimeType#isAbleToStore(Object)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"boolean JodaDateTimeType.isAbleToStore(Object)"})
   public void testIsAbleToStore_whenNull_thenReturnFalse() {
     // Arrange, Act and Assert
-    assertFalse(new JodaDateTimeType().isAbleToStore(JSONObject.NULL));
+    assertFalse((new JodaDateTimeType()).isAbleToStore(JSONObject.NULL));
   }
 
   /**
    * Test {@link JodaDateTimeType#isAbleToStore(Object)}.
-   *
    * <ul>
-   *   <li>When {@code null}.
-   *   <li>Then return {@code true}.
+   *   <li>When {@code null}.</li>
+   *   <li>Then return {@code true}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link JodaDateTimeType#isAbleToStore(Object)}
+   * <p>
+   * Method under test: {@link JodaDateTimeType#isAbleToStore(Object)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"boolean JodaDateTimeType.isAbleToStore(Object)"})
   public void testIsAbleToStore_whenNull_thenReturnTrue() {
     // Arrange, Act and Assert
-    assertTrue(new JodaDateTimeType().isAbleToStore(null));
+    assertTrue((new JodaDateTimeType()).isAbleToStore(null));
   }
 
   /**
    * Test {@link JodaDateTimeType#getValue(ValueFields)}.
-   *
    * <ul>
-   *   <li>Given {@link Long#MAX_VALUE}.
-   *   <li>Then return Weekyear is {@code -292275055}.
+   *   <li>Given {@link Long#MAX_VALUE}.</li>
+   *   <li>Then return Weekyear is {@code -292275055}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link JodaDateTimeType#getValue(ValueFields)}
+   * <p>
+   * Method under test: {@link JodaDateTimeType#getValue(ValueFields)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"Object JodaDateTimeType.getValue(ValueFields)"})
   public void testGetValue_givenMax_value_thenReturnWeekyearIs292275055() {
     // Arrange
     JodaDateTimeType jodaDateTimeType = new JodaDateTimeType();
-
     ValueFields valueFields = mock(ValueFields.class);
     when(valueFields.getLongValue()).thenReturn(Long.MAX_VALUE);
 
@@ -127,22 +119,19 @@ public class JodaDateTimeTypeDiffblueTest {
 
   /**
    * Test {@link JodaDateTimeType#getValue(ValueFields)}.
-   *
    * <ul>
-   *   <li>Given {@link Long#MIN_VALUE}.
-   *   <li>Then return Year is {@code -292275055}.
+   *   <li>Given {@link Long#MIN_VALUE}.</li>
+   *   <li>Then return Year is {@code -292275055}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link JodaDateTimeType#getValue(ValueFields)}
+   * <p>
+   * Method under test: {@link JodaDateTimeType#getValue(ValueFields)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"Object JodaDateTimeType.getValue(ValueFields)"})
   public void testGetValue_givenMin_value_thenReturnYearIs292275055() {
     // Arrange
     JodaDateTimeType jodaDateTimeType = new JodaDateTimeType();
-
     ValueFields valueFields = mock(ValueFields.class);
     when(valueFields.getLongValue()).thenReturn(Long.MIN_VALUE);
 
@@ -175,17 +164,15 @@ public class JodaDateTimeTypeDiffblueTest {
 
   /**
    * Test {@link JodaDateTimeType#getValue(ValueFields)}.
-   *
    * <ul>
-   *   <li>Given {@link JSONObject#NULL}.
-   *   <li>Then Chronology return {@link ISOChronology}.
+   *   <li>Given {@link JSONObject#NULL}.</li>
+   *   <li>Then Chronology return {@link ISOChronology}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link JodaDateTimeType#getValue(ValueFields)}
+   * <p>
+   * Method under test: {@link JodaDateTimeType#getValue(ValueFields)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"Object JodaDateTimeType.getValue(ValueFields)"})
   public void testGetValue_givenNull_thenChronologyReturnISOChronology() {
     // Arrange
@@ -193,15 +180,14 @@ public class JodaDateTimeTypeDiffblueTest {
 
     HistoricVariableInstanceEntityImpl valueFields = new HistoricVariableInstanceEntityImpl();
     valueFields.setCachedValue(JSONObject.NULL);
-    valueFields.setCreateTime(
-        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
+    valueFields.setCreateTime(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
     valueFields.setDeleted(true);
     valueFields.setDoubleValue(10.0d);
     valueFields.setExecutionId("42");
     valueFields.setId("42");
     valueFields.setInserted(true);
-    valueFields.setLastUpdatedTime(
-        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
+    valueFields
+        .setLastUpdatedTime(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
     valueFields.setLongValue(42L);
     valueFields.setName("Name");
     valueFields.setProcessInstanceId("42");
@@ -226,21 +212,18 @@ public class JodaDateTimeTypeDiffblueTest {
 
   /**
    * Test {@link JodaDateTimeType#getValue(ValueFields)}.
-   *
    * <ul>
-   *   <li>Then return array length is three.
+   *   <li>Then return array length is three.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link JodaDateTimeType#getValue(ValueFields)}
+   * <p>
+   * Method under test: {@link JodaDateTimeType#getValue(ValueFields)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"Object JodaDateTimeType.getValue(ValueFields)"})
   public void testGetValue_thenReturnArrayLengthIsThree() {
     // Arrange
     JodaDateTimeType jodaDateTimeType = new JodaDateTimeType();
-
     ValueFields valueFields = mock(ValueFields.class);
     when(valueFields.getLongValue()).thenReturn(42L);
 
@@ -254,27 +237,23 @@ public class JodaDateTimeTypeDiffblueTest {
     assertEquals(3, toYearMonthDayResult.getFields().length);
     assertSame(actualValue, ((DateTime) actualValue).toDateTimeISO());
     Instant toInstantResult = ((DateTime) actualValue).toInstant();
-    Instant actualToInstantResult = toInstantResult.toInstant();
-    assertSame(toInstantResult, actualToInstantResult);
-    assertArrayEquals(new int[] {1970, 1, 1}, toYearMonthDayResult.getValues());
-    assertArrayEquals(new int[] {0, 0, 0, 42}, ((DateTime) actualValue).toTimeOfDay().getValues());
-    assertArrayEquals(
-        new int[] {1970, 1, 1, 42}, ((DateTime) actualValue).toLocalDateTime().getValues());
+    assertSame(toInstantResult, toInstantResult.toInstant());
+    assertArrayEquals(new int[]{1970, 1, 1}, toYearMonthDayResult.getValues());
+    assertArrayEquals(new int[]{0, 0, 0, 42}, ((DateTime) actualValue).toTimeOfDay().getValues());
+    assertArrayEquals(new int[]{1970, 1, 1, 42}, ((DateTime) actualValue).toLocalDateTime().getValues());
   }
 
   /**
    * Test {@link JodaDateTimeType#getValue(ValueFields)}.
-   *
    * <ul>
-   *   <li>When {@link HistoricDetailVariableInstanceUpdateEntityImpl} (default constructor).
-   *   <li>Then return {@code null}.
+   *   <li>When {@link HistoricDetailVariableInstanceUpdateEntityImpl} (default constructor).</li>
+   *   <li>Then return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link JodaDateTimeType#getValue(ValueFields)}
+   * <p>
+   * Method under test: {@link JodaDateTimeType#getValue(ValueFields)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"Object JodaDateTimeType.getValue(ValueFields)"})
   public void testGetValue_whenHistoricDetailVariableInstanceUpdateEntityImpl_thenReturnNull() {
     // Arrange
@@ -285,63 +264,9 @@ public class JodaDateTimeTypeDiffblueTest {
   }
 
   /**
-   * Test {@link JodaDateTimeType#setValue(Object, ValueFields)}.
-   *
-   * <p>Method under test: {@link JodaDateTimeType#setValue(Object, ValueFields)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void JodaDateTimeType.setValue(Object, ValueFields)"})
-  public void testSetValue() {
-    // Arrange
-    JodaDateTimeType jodaDateTimeType = new JodaDateTimeType();
-
-    DateTime dateTime = mock(DateTime.class);
-    when(dateTime.getMillis()).thenReturn(1L);
-    HistoricDetailVariableInstanceUpdateEntityImpl valueFields =
-        new HistoricDetailVariableInstanceUpdateEntityImpl();
-
-    // Act
-    jodaDateTimeType.setValue(dateTime, valueFields);
-
-    // Assert
-    verify(dateTime).getMillis();
-    assertEquals(1L, valueFields.getLongValue().longValue());
-  }
-
-  /**
-   * Test {@link JodaDateTimeType#setValue(Object, ValueFields)}.
-   *
-   * <ul>
-   *   <li>Then {@link HistoricDetailVariableInstanceUpdateEntityImpl} (default constructor)
-   *       LongValue is {@code null}.
-   * </ul>
-   *
-   * <p>Method under test: {@link JodaDateTimeType#setValue(Object, ValueFields)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void JodaDateTimeType.setValue(Object, ValueFields)"})
-  public void testSetValue_thenHistoricDetailVariableInstanceUpdateEntityImplLongValueIsNull() {
-    // Arrange
-    JodaDateTimeType jodaDateTimeType = new JodaDateTimeType();
-    HistoricDetailVariableInstanceUpdateEntityImpl valueFields =
-        new HistoricDetailVariableInstanceUpdateEntityImpl();
-
-    // Act
-    jodaDateTimeType.setValue(null, valueFields);
-
-    // Assert that nothing has changed
-    assertNull(valueFields.getLongValue());
-  }
-
-  /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>default or parameterless constructor of {@link JodaDateTimeType}
    *   <li>{@link JodaDateTimeType#getTypeName()}
@@ -349,13 +274,9 @@ public class JodaDateTimeTypeDiffblueTest {
    * </ul>
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void JodaDateTimeType.<init>()",
-    "String JodaDateTimeType.getTypeName()",
-    "boolean JodaDateTimeType.isCachable()"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void JodaDateTimeType.<init>()", "String JodaDateTimeType.getTypeName()",
+      "boolean JodaDateTimeType.isCachable()"})
   public void testGettersAndSetters() {
     // Arrange and Act
     JodaDateTimeType actualJodaDateTimeType = new JodaDateTimeType();

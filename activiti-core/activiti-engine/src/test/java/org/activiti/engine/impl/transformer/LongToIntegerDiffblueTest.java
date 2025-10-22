@@ -16,8 +16,7 @@
 package org.activiti.engine.impl.transformer;
 
 import static org.junit.Assert.assertEquals;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
@@ -25,20 +24,18 @@ import org.junit.experimental.categories.Category;
 public class LongToIntegerDiffblueTest {
   /**
    * Test {@link LongToInteger#primTransform(Object)}.
-   *
    * <ul>
-   *   <li>When one.
-   *   <li>Then return intValue is one.
+   *   <li>When one.</li>
+   *   <li>Then return intValue is one.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link LongToInteger#primTransform(Object)}
+   * <p>
+   * Method under test: {@link LongToInteger#primTransform(Object)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"Object LongToInteger.primTransform(Object)"})
   public void testPrimTransform_whenOne_thenReturnIntValueIsOne() throws Exception {
     // Arrange, Act and Assert
-    assertEquals(1, ((Integer) new LongToInteger().primTransform(1L)).intValue());
+    assertEquals(1, ((Integer) (new LongToInteger()).primTransform(1L)).intValue());
   }
 }

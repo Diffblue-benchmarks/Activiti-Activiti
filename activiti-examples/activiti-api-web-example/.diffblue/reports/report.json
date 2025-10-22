@@ -1,21 +1,21 @@
 {
   "meta" : {
-    "reportVersion" : "2.7"
+    "reportVersion" : "2.6"
   },
   "run" : {
-    "version" : "2025.09.01-44e352d-licensed",
-    "creationTimestamp" : "2025-10-15T18:17:05.474751764Z",
+    "version" : "2025.02.02-08b2a5a-licensed",
+    "creationTimestamp" : "2025-10-21T18:36:58.703503864Z",
     "command" : "dcover create --exclude-modules=org.activiti:activiti-dependency-check,org.activiti:activiti-api-dependencies,org.activiti:activiti-core-common-dependencies,org.activiti:activiti-core-dependencies,org.activiti:activiti-dependencies,org.activiti:activiti-spring-conformance-set0,org.activiti:activiti-spring-conformance-set1,org.activiti:activiti-spring-conformance-set2,org.activiti:activiti-spring-conformance-set3,org.activiti:activiti-spring-conformance-set4,org.activiti:activiti-spring-conformance-set5,org.activiti:activiti-spring-conformance-variables,org.activiti:activiti-spring-conformance-signals --coverage-reports --upload http://localhost:8080 --project-name Activiti-Activiti --name with-diffblue-tests",
-    "totalTime" : 247.59,
-    "environmentDetectionTime" : 0.053,
-    "indexingTime" : 0.602,
-    "entryPointsTime" : 0.04,
-    "generationTime" : 59921.604,
-    "timeToFirstTest" : 68191.975,
-    "timeToLastTest" : 63807.392,
-    "indexQueryTime" : 7.743,
-    "verificationTime" : 1277.122,
-    "validationTime" : 23.318
+    "totalTime" : 235.744,
+    "environmentDetectionTime" : 0.234,
+    "indexingTime" : 0.461,
+    "entryPointsTime" : 0.231,
+    "generationTime" : 61220.002,
+    "timeToFirstTest" : 69115.283,
+    "timeToLastTest" : 65022.326,
+    "indexQueryTime" : 10.815,
+    "verificationTime" : 1197.832,
+    "validationTime" : 48.636
   },
   "codes" : {
     "R000" : "Success",
@@ -32,9 +32,9 @@
   "summary" : {
     "classesCount" : 2,
     "methodsCount" : 15,
-    "cumulativeDiffblueTestCount" : 4,
+    "cumulativeDiffblueTestCount" : 3,
     "cumulativeManualTestCount" : 1,
-    "completeTestCount" : 4,
+    "completeTestCount" : 3,
     "incompleteTestCount" : 0,
     "skeletonTestCount" : 0,
     "totalPhysicalLineCount" : 132,
@@ -47,17 +47,17 @@
     },
     "perMethodOutcome" : {
       "R000" : 3,
-      "R005" : 1,
-      "R013" : 4,
+      "R005" : 3,
+      "R013" : 2,
       "T005" : 2,
       "T006" : 1,
       "T012" : 4
     },
     "perTestOutcome" : {
-      "R000" : 4
+      "R000" : 3
     },
     "perTestValidation" : {
-      "V000" : 4,
+      "V000" : 3,
       "V003" : 1
     }
   },
@@ -75,8 +75,8 @@
       },
       "perMethodOutcome" : {
         "R000" : 2,
-        "R005" : 1,
-        "R013" : 3,
+        "R005" : 3,
+        "R013" : 1,
         "T005" : 1,
         "T006" : 1,
         "T012" : 3
@@ -87,7 +87,7 @@
     },
     "org.activiti.examples.DemoApplicationConfiguration" : {
       "methodsCount" : 4,
-      "completeTestCount" : 2,
+      "completeTestCount" : 1,
       "incompleteTestCount" : 0,
       "perMethodTestability" : {
         "T000" : 3,
@@ -100,7 +100,7 @@
         "T012" : 1
       },
       "perTestOutcome" : {
-        "R000" : 2
+        "R000" : 1
       }
     }
   },
@@ -120,7 +120,7 @@
       "completeTestCount" : 0,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
-      "perMethodOutcome" : "R013",
+      "perMethodOutcome" : "R005",
       "lineNumbers" : [
         105
       ]
@@ -233,7 +233,7 @@
       "completeTestCount" : 0,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
-      "perMethodOutcome" : "R013",
+      "perMethodOutcome" : "R005",
       "lineNumbers" : [
         93
       ]
@@ -271,12 +271,12 @@
       ]
     },
     "org.activiti.examples.DemoApplicationConfiguration.userDetailsService:()Lorg/springframework/security/core/userdetails/UserDetailsService;" : {
-      "completeTestCount" : 2,
+      "completeTestCount" : 1,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 2
+        "R000" : 1
       },
       "lineNumbers" : [
         43,

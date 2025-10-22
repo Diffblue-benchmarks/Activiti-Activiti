@@ -19,7 +19,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import com.fasterxml.jackson.core.JsonFactory;
 import com.fasterxml.jackson.databind.MappingJsonFactory;
@@ -53,29 +52,23 @@ class ApplicationUpgradeContextAutoConfigurationDiffblueTest {
 
   /**
    * Test {@link ApplicationUpgradeContextAutoConfiguration#objectMapper()}.
-   *
-   * <p>Method under test: {@link ApplicationUpgradeContextAutoConfiguration#objectMapper()}
+   * <p>
+   * Method under test: {@link ApplicationUpgradeContextAutoConfiguration#objectMapper()}
    */
   @Test
   @DisplayName("Test objectMapper()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"ObjectMapper ApplicationUpgradeContextAutoConfiguration.objectMapper()"})
   void testObjectMapper() {
     // Arrange and Act
-    ObjectMapper actualObjectMapperResult =
-        applicationUpgradeContextAutoConfiguration.objectMapper();
+    ObjectMapper actualObjectMapperResult = applicationUpgradeContextAutoConfiguration.objectMapper();
 
     // Assert
     JsonFactory factory = actualObjectMapperResult.getFactory();
     assertTrue(factory instanceof MappingJsonFactory);
-    assertTrue(
-        actualObjectMapperResult.getDeserializationContext()
-            instanceof DefaultDeserializationContext.Impl);
+    assertTrue(actualObjectMapperResult.getDeserializationContext() instanceof DefaultDeserializationContext.Impl);
     assertTrue(actualObjectMapperResult.getVisibilityChecker() instanceof Std);
-    assertTrue(
-        actualObjectMapperResult.getPolymorphicTypeValidator()
-            instanceof LaissezFaireSubTypeValidator);
+    assertTrue(actualObjectMapperResult.getPolymorphicTypeValidator() instanceof LaissezFaireSubTypeValidator);
     assertTrue(actualObjectMapperResult.getSubtypeResolver() instanceof StdSubtypeResolver);
     assertTrue(actualObjectMapperResult.getSerializerFactory() instanceof BeanSerializerFactory);
     assertTrue(actualObjectMapperResult.getSerializerProvider() instanceof Impl);
@@ -88,37 +81,26 @@ class ApplicationUpgradeContextAutoConfigurationDiffblueTest {
   }
 
   /**
-   * Test {@link ApplicationUpgradeContextAutoConfiguration#applicationUpgradeContextService(String,
-   * Integer, Boolean, ObjectMapper, ResourcePatternResolver)}.
-   *
-   * <p>Method under test: {@link
-   * ApplicationUpgradeContextAutoConfiguration#applicationUpgradeContextService(String, Integer,
-   * Boolean, ObjectMapper, ResourcePatternResolver)}
+   * Test {@link ApplicationUpgradeContextAutoConfiguration#applicationUpgradeContextService(String, Integer, Boolean, ObjectMapper, ResourcePatternResolver)}.
+   * <p>
+   * Method under test: {@link ApplicationUpgradeContextAutoConfiguration#applicationUpgradeContextService(String, Integer, Boolean, ObjectMapper, ResourcePatternResolver)}
    */
   @Test
-  @DisplayName(
-      "Test applicationUpgradeContextService(String, Integer, Boolean, ObjectMapper, ResourcePatternResolver)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test applicationUpgradeContextService(String, Integer, Boolean, ObjectMapper, ResourcePatternResolver)")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({
-    "ApplicationUpgradeContextService ApplicationUpgradeContextAutoConfiguration.applicationUpgradeContextService(String, Integer, Boolean, ObjectMapper, ResourcePatternResolver)"
-  })
+      "ApplicationUpgradeContextService ApplicationUpgradeContextAutoConfiguration.applicationUpgradeContextService(String, Integer, Boolean, ObjectMapper, ResourcePatternResolver)"})
   void testApplicationUpgradeContextService() {
     // Arrange
     JsonMapper objectMapper = JsonMapper.builder().findAndAddModules().build();
 
     // Act
-    ApplicationUpgradeContextService actualApplicationUpgradeContextServiceResult =
-        applicationUpgradeContextAutoConfiguration.applicationUpgradeContextService(
-            "Absolute Path",
-            1,
-            true,
-            objectMapper,
+    ApplicationUpgradeContextService actualApplicationUpgradeContextServiceResult = applicationUpgradeContextAutoConfiguration
+        .applicationUpgradeContextService("Absolute Path", 1, true, objectMapper,
             new AnnotationConfigReactiveWebApplicationContext());
 
     // Assert
-    assertEquals(
-        1, actualApplicationUpgradeContextServiceResult.getEnforcedAppVersion().intValue());
+    assertEquals(1, actualApplicationUpgradeContextServiceResult.getEnforcedAppVersion().intValue());
     assertTrue(actualApplicationUpgradeContextServiceResult.isRollbackDeployment());
   }
 }

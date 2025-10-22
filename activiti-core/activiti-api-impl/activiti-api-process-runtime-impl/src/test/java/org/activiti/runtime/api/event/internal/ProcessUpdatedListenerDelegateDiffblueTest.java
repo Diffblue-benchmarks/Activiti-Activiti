@@ -21,7 +21,6 @@ import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
 import java.util.List;
@@ -31,7 +30,6 @@ import org.activiti.api.process.runtime.events.listener.ProcessRuntimeEventListe
 import org.activiti.api.runtime.model.impl.ProcessInstanceImpl;
 import org.activiti.engine.delegate.event.ActivitiEntityEvent;
 import org.activiti.engine.delegate.event.ActivitiEvent;
-import org.activiti.engine.delegate.event.ActivitiEventType;
 import org.activiti.engine.delegate.event.impl.ActivitiEntityEventImpl;
 import org.activiti.runtime.api.event.impl.ProcessUpdatedEventImpl;
 import org.activiti.runtime.api.event.impl.ToProcessUpdatedConverter;
@@ -44,73 +42,55 @@ import org.mockito.Mockito;
 class ProcessUpdatedListenerDelegateDiffblueTest {
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
-   *   <li>{@link ProcessUpdatedListenerDelegate#ProcessUpdatedListenerDelegate(List,
-   *       ToProcessUpdatedConverter)}
+   *   <li>{@link ProcessUpdatedListenerDelegate#ProcessUpdatedListenerDelegate(List, ToProcessUpdatedConverter)}
    *   <li>{@link ProcessUpdatedListenerDelegate#isFailOnException()}
    * </ul>
    */
   @Test
   @DisplayName("Test getters and setters")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void ProcessUpdatedListenerDelegate.<init>(List, ToProcessUpdatedConverter)",
-    "boolean ProcessUpdatedListenerDelegate.isFailOnException()"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void ProcessUpdatedListenerDelegate.<init>(List, ToProcessUpdatedConverter)",
+      "boolean ProcessUpdatedListenerDelegate.isFailOnException()"})
   void testGettersAndSetters() {
     // Arrange
     ArrayList<ProcessRuntimeEventListener<ProcessUpdatedEvent>> listeners = new ArrayList<>();
 
-    // Act
-    ProcessUpdatedListenerDelegate actualProcessUpdatedListenerDelegate =
-        new ProcessUpdatedListenerDelegate(
-            listeners, new ToProcessUpdatedConverter(new APIProcessInstanceConverter()));
-
-    // Assert
-    assertFalse(actualProcessUpdatedListenerDelegate.isFailOnException());
+    // Act and Assert
+    assertFalse((new ProcessUpdatedListenerDelegate(listeners,
+        new ToProcessUpdatedConverter(new APIProcessInstanceConverter()))).isFailOnException());
   }
 
   /**
    * Test {@link ProcessUpdatedListenerDelegate#onEvent(ActivitiEvent)}.
-   *
    * <ul>
-   *   <li>Given {@link ProcessRuntimeEventListener} {@link
-   *       ProcessRuntimeEventListener#onEvent(RuntimeEvent)} does nothing.
-   *   <li>Then calls {@link ProcessRuntimeEventListener#onEvent(RuntimeEvent)}.
+   *   <li>Given {@link ProcessRuntimeEventListener} {@link ProcessRuntimeEventListener#onEvent(RuntimeEvent)} does nothing.</li>
+   *   <li>Then calls {@link ProcessRuntimeEventListener#onEvent(RuntimeEvent)}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ProcessUpdatedListenerDelegate#onEvent(ActivitiEvent)}
+   * <p>
+   * Method under test: {@link ProcessUpdatedListenerDelegate#onEvent(ActivitiEvent)}
    */
   @Test
-  @DisplayName(
-      "Test onEvent(ActivitiEvent); given ProcessRuntimeEventListener onEvent(RuntimeEvent) does nothing; then calls onEvent(RuntimeEvent)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test onEvent(ActivitiEvent); given ProcessRuntimeEventListener onEvent(RuntimeEvent) does nothing; then calls onEvent(RuntimeEvent)")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void ProcessUpdatedListenerDelegate.onEvent(ActivitiEvent)"})
   void testOnEvent_givenProcessRuntimeEventListenerOnEventDoesNothing_thenCallsOnEvent() {
     // Arrange
-    ProcessRuntimeEventListener<ProcessUpdatedEvent> processRuntimeEventListener =
-        mock(ProcessRuntimeEventListener.class);
+    ProcessRuntimeEventListener<ProcessUpdatedEvent> processRuntimeEventListener = mock(
+        ProcessRuntimeEventListener.class);
     doNothing().when(processRuntimeEventListener).onEvent(Mockito.<ProcessUpdatedEvent>any());
 
     ArrayList<ProcessRuntimeEventListener<ProcessUpdatedEvent>> listeners = new ArrayList<>();
     listeners.add(processRuntimeEventListener);
-
     ToProcessUpdatedConverter processUpdatedConverter = mock(ToProcessUpdatedConverter.class);
-    Optional<ProcessUpdatedEvent> ofResult =
-        Optional.of(new ProcessUpdatedEventImpl(new ProcessInstanceImpl()));
+    Optional<ProcessUpdatedEvent> ofResult = Optional.of(new ProcessUpdatedEventImpl(new ProcessInstanceImpl()));
     when(processUpdatedConverter.from(Mockito.<ActivitiEntityEvent>any())).thenReturn(ofResult);
 
-    ProcessUpdatedListenerDelegate processUpdatedListenerDelegate =
-        new ProcessUpdatedListenerDelegate(listeners, processUpdatedConverter);
-
     // Act
-    processUpdatedListenerDelegate.onEvent(
-        new ActivitiEntityEventImpl("Entity", ActivitiEventType.ENTITY_CREATED));
+    (new ProcessUpdatedListenerDelegate(listeners, processUpdatedConverter))
+        .onEvent(mock(ActivitiEntityEventImpl.class));
 
     // Assert
     verify(processRuntimeEventListener).onEvent(isA(ProcessUpdatedEvent.class));
@@ -119,30 +99,25 @@ class ProcessUpdatedListenerDelegateDiffblueTest {
 
   /**
    * Test {@link ProcessUpdatedListenerDelegate#onEvent(ActivitiEvent)}.
-   *
    * <ul>
-   *   <li>Then calls {@link ToProcessUpdatedConverter#from(ActivitiEntityEvent)}.
+   *   <li>Then calls {@link ToProcessUpdatedConverter#from(ActivitiEntityEvent)}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ProcessUpdatedListenerDelegate#onEvent(ActivitiEvent)}
+   * <p>
+   * Method under test: {@link ProcessUpdatedListenerDelegate#onEvent(ActivitiEvent)}
    */
   @Test
   @DisplayName("Test onEvent(ActivitiEvent); then calls from(ActivitiEntityEvent)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void ProcessUpdatedListenerDelegate.onEvent(ActivitiEvent)"})
   void testOnEvent_thenCallsFrom() {
     // Arrange
     ToProcessUpdatedConverter processUpdatedConverter = mock(ToProcessUpdatedConverter.class);
-    Optional<ProcessUpdatedEvent> ofResult =
-        Optional.of(new ProcessUpdatedEventImpl(new ProcessInstanceImpl()));
+    Optional<ProcessUpdatedEvent> ofResult = Optional.of(new ProcessUpdatedEventImpl(new ProcessInstanceImpl()));
     when(processUpdatedConverter.from(Mockito.<ActivitiEntityEvent>any())).thenReturn(ofResult);
-    ProcessUpdatedListenerDelegate processUpdatedListenerDelegate =
-        new ProcessUpdatedListenerDelegate(new ArrayList<>(), processUpdatedConverter);
 
     // Act
-    processUpdatedListenerDelegate.onEvent(
-        new ActivitiEntityEventImpl("Entity", ActivitiEventType.ENTITY_CREATED));
+    (new ProcessUpdatedListenerDelegate(new ArrayList<>(), processUpdatedConverter))
+        .onEvent(mock(ActivitiEntityEventImpl.class));
 
     // Assert
     verify(processUpdatedConverter).from(isA(ActivitiEntityEvent.class));

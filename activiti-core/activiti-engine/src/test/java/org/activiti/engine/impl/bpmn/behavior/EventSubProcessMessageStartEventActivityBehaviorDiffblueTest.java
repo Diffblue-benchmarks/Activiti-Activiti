@@ -20,177 +20,90 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
-import static org.mockito.ArgumentMatchers.isA;
-import static org.mockito.Mockito.anyBoolean;
-import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.LinkedHashSet;
 import java.util.Map;
 import org.activiti.bpmn.model.BooleanDataObject;
-import org.activiti.bpmn.model.EventSubProcess;
 import org.activiti.bpmn.model.MessageEventDefinition;
-import org.activiti.bpmn.model.StartEvent;
 import org.activiti.bpmn.model.ValuedDataObject;
-import org.activiti.engine.delegate.DelegateExecution;
 import org.activiti.engine.impl.bpmn.parser.factory.DefaultMessageExecutionContext;
 import org.activiti.engine.impl.bpmn.parser.factory.MessageExecutionContext;
 import org.activiti.engine.impl.delegate.MessagePayloadMappingProvider;
 import org.activiti.engine.impl.el.ExpressionManager;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
-import org.mockito.Mockito;
 
 public class EventSubProcessMessageStartEventActivityBehaviorDiffblueTest {
   /**
-   * Test {@link
-   * EventSubProcessMessageStartEventActivityBehavior#EventSubProcessMessageStartEventActivityBehavior(MessageEventDefinition,
-   * MessageExecutionContext)}.
-   *
-   * <p>Method under test: {@link
-   * EventSubProcessMessageStartEventActivityBehavior#EventSubProcessMessageStartEventActivityBehavior(MessageEventDefinition,
-   * MessageExecutionContext)}
+   * Test {@link EventSubProcessMessageStartEventActivityBehavior#EventSubProcessMessageStartEventActivityBehavior(MessageEventDefinition, MessageExecutionContext)}.
+   * <p>
+   * Method under test: {@link EventSubProcessMessageStartEventActivityBehavior#EventSubProcessMessageStartEventActivityBehavior(MessageEventDefinition, MessageExecutionContext)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({
-    "void EventSubProcessMessageStartEventActivityBehavior.<init>(MessageEventDefinition, MessageExecutionContext)"
-  })
+      "void EventSubProcessMessageStartEventActivityBehavior.<init>(MessageEventDefinition, MessageExecutionContext)"})
   public void testNewEventSubProcessMessageStartEventActivityBehavior() {
     // Arrange
     MessageEventDefinition messageEventDefinition = new MessageEventDefinition();
     MessageEventDefinition messageEventDefinition2 = new MessageEventDefinition();
     ExpressionManager expressionManager = new ExpressionManager();
 
-    DefaultMessageExecutionContext messageExecutionContext =
-        new DefaultMessageExecutionContext(
-            messageEventDefinition2, expressionManager, mock(MessagePayloadMappingProvider.class));
-
     // Act
-    EventSubProcessMessageStartEventActivityBehavior
-        actualEventSubProcessMessageStartEventActivityBehavior =
-            new EventSubProcessMessageStartEventActivityBehavior(
-                messageEventDefinition, messageExecutionContext);
+    EventSubProcessMessageStartEventActivityBehavior actualEventSubProcessMessageStartEventActivityBehavior = new EventSubProcessMessageStartEventActivityBehavior(
+        messageEventDefinition, new DefaultMessageExecutionContext(messageEventDefinition2, expressionManager,
+            mock(MessagePayloadMappingProvider.class)));
 
     // Assert
-    MessageExecutionContext messageExecutionContext2 =
-        actualEventSubProcessMessageStartEventActivityBehavior.messageExecutionContext;
-    assertTrue(messageExecutionContext2 instanceof DefaultMessageExecutionContext);
-    MessageEventDefinition messageEventDefinition3 =
-        actualEventSubProcessMessageStartEventActivityBehavior.messageEventDefinition;
+    MessageExecutionContext messageExecutionContext = actualEventSubProcessMessageStartEventActivityBehavior.messageExecutionContext;
+    assertTrue(messageExecutionContext instanceof DefaultMessageExecutionContext);
+    MessageEventDefinition messageEventDefinition3 = actualEventSubProcessMessageStartEventActivityBehavior.messageEventDefinition;
     assertNull(messageEventDefinition3.getId());
     assertNull(messageEventDefinition3.getCorrelationKey());
     assertNull(messageEventDefinition3.getMessageExpression());
     assertNull(messageEventDefinition3.getMessageRef());
-    assertNull(
-        actualEventSubProcessMessageStartEventActivityBehavior.getMultiInstanceActivityBehavior());
+    assertNull(actualEventSubProcessMessageStartEventActivityBehavior.getMultiInstanceActivityBehavior());
     assertEquals(0, messageEventDefinition3.getXmlColumnNumber());
     assertEquals(0, messageEventDefinition3.getXmlRowNumber());
     assertFalse(actualEventSubProcessMessageStartEventActivityBehavior.hasLoopCharacteristics());
-    assertFalse(
-        actualEventSubProcessMessageStartEventActivityBehavior.hasMultiInstanceCharacteristics());
+    assertFalse(actualEventSubProcessMessageStartEventActivityBehavior.hasMultiInstanceCharacteristics());
     assertTrue(messageEventDefinition3.getFieldExtensions().isEmpty());
     assertTrue(messageEventDefinition3.getAttributes().isEmpty());
     assertTrue(messageEventDefinition3.getExtensionElements().isEmpty());
-    assertSame(
-        expressionManager,
-        ((DefaultMessageExecutionContext) messageExecutionContext2).getExpressionManager());
-  }
-
-  /**
-   * Test {@link EventSubProcessMessageStartEventActivityBehavior#execute(DelegateExecution)}.
-   *
-   * <ul>
-   *   <li>Then calls {@link DelegateExecution#getCurrentFlowElement()}.
-   * </ul>
-   *
-   * <p>Method under test: {@link
-   * EventSubProcessMessageStartEventActivityBehavior#execute(DelegateExecution)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void EventSubProcessMessageStartEventActivityBehavior.execute(DelegateExecution)"
-  })
-  public void testExecute_thenCallsGetCurrentFlowElement() {
-    // Arrange
-    MessageEventDefinition messageEventDefinition = new MessageEventDefinition();
-    MessageEventDefinition messageEventDefinition2 = new MessageEventDefinition();
-    DefaultMessageExecutionContext messageExecutionContext =
-        new DefaultMessageExecutionContext(
-            messageEventDefinition2,
-            new ExpressionManager(),
-            mock(MessagePayloadMappingProvider.class));
-
-    EventSubProcessMessageStartEventActivityBehavior
-        eventSubProcessMessageStartEventActivityBehavior =
-            new EventSubProcessMessageStartEventActivityBehavior(
-                messageEventDefinition, messageExecutionContext);
-
-    StartEvent startEvent = new StartEvent();
-    startEvent.setParentContainer(new EventSubProcess());
-
-    DelegateExecution execution = mock(DelegateExecution.class);
-    doNothing().when(execution).setVariablesLocal(Mockito.<Map<String, Object>>any());
-    doNothing().when(execution).setScope(anyBoolean());
-    when(execution.getCurrentFlowElement()).thenReturn(startEvent);
-
-    // Act
-    eventSubProcessMessageStartEventActivityBehavior.execute(execution);
-
-    // Assert
-    verify(execution).getCurrentFlowElement();
-    verify(execution).setScope(true);
-    verify(execution).setVariablesLocal(isA(Map.class));
+    assertSame(expressionManager, ((DefaultMessageExecutionContext) messageExecutionContext).getExpressionManager());
   }
 
   /**
    * Test {@link EventSubProcessMessageStartEventActivityBehavior#processDataObjects(Collection)}.
-   *
    * <ul>
-   *   <li>When {@link ArrayList#ArrayList()} add {@link BooleanDataObject} (default constructor).
-   *   <li>Then return size is one.
+   *   <li>When {@link ArrayList#ArrayList()} add {@link BooleanDataObject} (default constructor).</li>
+   *   <li>Then return size is one.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link
-   * EventSubProcessMessageStartEventActivityBehavior#processDataObjects(Collection)}
+   * <p>
+   * Method under test: {@link EventSubProcessMessageStartEventActivityBehavior#processDataObjects(Collection)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "Map EventSubProcessMessageStartEventActivityBehavior.processDataObjects(Collection)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Map EventSubProcessMessageStartEventActivityBehavior.processDataObjects(Collection)"})
   public void testProcessDataObjects_whenArrayListAddBooleanDataObject_thenReturnSizeIsOne() {
     // Arrange
     MessageEventDefinition messageEventDefinition = new MessageEventDefinition();
     MessageEventDefinition messageEventDefinition2 = new MessageEventDefinition();
-    DefaultMessageExecutionContext messageExecutionContext =
-        new DefaultMessageExecutionContext(
-            messageEventDefinition2,
-            new ExpressionManager(),
-            mock(MessagePayloadMappingProvider.class));
-
-    EventSubProcessMessageStartEventActivityBehavior
-        eventSubProcessMessageStartEventActivityBehavior =
-            new EventSubProcessMessageStartEventActivityBehavior(
-                messageEventDefinition, messageExecutionContext);
+    EventSubProcessMessageStartEventActivityBehavior eventSubProcessMessageStartEventActivityBehavior = new EventSubProcessMessageStartEventActivityBehavior(
+        messageEventDefinition, new DefaultMessageExecutionContext(messageEventDefinition2, new ExpressionManager(),
+            mock(MessagePayloadMappingProvider.class)));
 
     ArrayList<ValuedDataObject> dataObjects = new ArrayList<>();
     dataObjects.add(new BooleanDataObject());
     dataObjects.add(new BooleanDataObject());
 
     // Act
-    Map<String, Object> actualProcessDataObjectsResult =
-        eventSubProcessMessageStartEventActivityBehavior.processDataObjects(dataObjects);
+    Map<String, Object> actualProcessDataObjectsResult = eventSubProcessMessageStartEventActivityBehavior
+        .processDataObjects(dataObjects);
 
     // Assert
     assertEquals(1, actualProcessDataObjectsResult.size());
@@ -199,82 +112,54 @@ public class EventSubProcessMessageStartEventActivityBehaviorDiffblueTest {
 
   /**
    * Test {@link EventSubProcessMessageStartEventActivityBehavior#processDataObjects(Collection)}.
-   *
    * <ul>
-   *   <li>When {@link ArrayList#ArrayList()}.
-   *   <li>Then return Empty.
+   *   <li>When {@link ArrayList#ArrayList()}.</li>
+   *   <li>Then return Empty.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link
-   * EventSubProcessMessageStartEventActivityBehavior#processDataObjects(Collection)}
+   * <p>
+   * Method under test: {@link EventSubProcessMessageStartEventActivityBehavior#processDataObjects(Collection)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "Map EventSubProcessMessageStartEventActivityBehavior.processDataObjects(Collection)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Map EventSubProcessMessageStartEventActivityBehavior.processDataObjects(Collection)"})
   public void testProcessDataObjects_whenArrayList_thenReturnEmpty() {
     // Arrange
     MessageEventDefinition messageEventDefinition = new MessageEventDefinition();
     MessageEventDefinition messageEventDefinition2 = new MessageEventDefinition();
-    DefaultMessageExecutionContext messageExecutionContext =
-        new DefaultMessageExecutionContext(
-            messageEventDefinition2,
-            new ExpressionManager(),
-            mock(MessagePayloadMappingProvider.class));
-
-    EventSubProcessMessageStartEventActivityBehavior
-        eventSubProcessMessageStartEventActivityBehavior =
-            new EventSubProcessMessageStartEventActivityBehavior(
-                messageEventDefinition, messageExecutionContext);
+    EventSubProcessMessageStartEventActivityBehavior eventSubProcessMessageStartEventActivityBehavior = new EventSubProcessMessageStartEventActivityBehavior(
+        messageEventDefinition, new DefaultMessageExecutionContext(messageEventDefinition2, new ExpressionManager(),
+            mock(MessagePayloadMappingProvider.class)));
 
     // Act and Assert
-    assertTrue(
-        eventSubProcessMessageStartEventActivityBehavior
-            .processDataObjects(new ArrayList<>())
-            .isEmpty());
+    assertTrue(eventSubProcessMessageStartEventActivityBehavior.processDataObjects(new ArrayList<>()).isEmpty());
   }
 
   /**
    * Test {@link EventSubProcessMessageStartEventActivityBehavior#processDataObjects(Collection)}.
-   *
    * <ul>
-   *   <li>When {@link LinkedHashSet#LinkedHashSet()} add {@link BooleanDataObject} (default
-   *       constructor).
-   *   <li>Then return size is one.
+   *   <li>When {@link LinkedHashSet#LinkedHashSet()} add {@link BooleanDataObject} (default constructor).</li>
+   *   <li>Then return size is one.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link
-   * EventSubProcessMessageStartEventActivityBehavior#processDataObjects(Collection)}
+   * <p>
+   * Method under test: {@link EventSubProcessMessageStartEventActivityBehavior#processDataObjects(Collection)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "Map EventSubProcessMessageStartEventActivityBehavior.processDataObjects(Collection)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Map EventSubProcessMessageStartEventActivityBehavior.processDataObjects(Collection)"})
   public void testProcessDataObjects_whenLinkedHashSetAddBooleanDataObject_thenReturnSizeIsOne() {
     // Arrange
     MessageEventDefinition messageEventDefinition = new MessageEventDefinition();
     MessageEventDefinition messageEventDefinition2 = new MessageEventDefinition();
-    DefaultMessageExecutionContext messageExecutionContext =
-        new DefaultMessageExecutionContext(
-            messageEventDefinition2,
-            new ExpressionManager(),
-            mock(MessagePayloadMappingProvider.class));
-
-    EventSubProcessMessageStartEventActivityBehavior
-        eventSubProcessMessageStartEventActivityBehavior =
-            new EventSubProcessMessageStartEventActivityBehavior(
-                messageEventDefinition, messageExecutionContext);
+    EventSubProcessMessageStartEventActivityBehavior eventSubProcessMessageStartEventActivityBehavior = new EventSubProcessMessageStartEventActivityBehavior(
+        messageEventDefinition, new DefaultMessageExecutionContext(messageEventDefinition2, new ExpressionManager(),
+            mock(MessagePayloadMappingProvider.class)));
 
     LinkedHashSet<ValuedDataObject> dataObjects = new LinkedHashSet<>();
     dataObjects.add(new BooleanDataObject());
 
     // Act
-    Map<String, Object> actualProcessDataObjectsResult =
-        eventSubProcessMessageStartEventActivityBehavior.processDataObjects(dataObjects);
+    Map<String, Object> actualProcessDataObjectsResult = eventSubProcessMessageStartEventActivityBehavior
+        .processDataObjects(dataObjects);
 
     // Assert
     assertEquals(1, actualProcessDataObjectsResult.size());
@@ -283,37 +168,26 @@ public class EventSubProcessMessageStartEventActivityBehaviorDiffblueTest {
 
   /**
    * Test {@link EventSubProcessMessageStartEventActivityBehavior#processDataObjects(Collection)}.
-   *
    * <ul>
-   *   <li>When {@code null}.
-   *   <li>Then return Empty.
+   *   <li>When {@code null}.</li>
+   *   <li>Then return Empty.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link
-   * EventSubProcessMessageStartEventActivityBehavior#processDataObjects(Collection)}
+   * <p>
+   * Method under test: {@link EventSubProcessMessageStartEventActivityBehavior#processDataObjects(Collection)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "Map EventSubProcessMessageStartEventActivityBehavior.processDataObjects(Collection)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Map EventSubProcessMessageStartEventActivityBehavior.processDataObjects(Collection)"})
   public void testProcessDataObjects_whenNull_thenReturnEmpty() {
     // Arrange
     MessageEventDefinition messageEventDefinition = new MessageEventDefinition();
     MessageEventDefinition messageEventDefinition2 = new MessageEventDefinition();
-    DefaultMessageExecutionContext messageExecutionContext =
-        new DefaultMessageExecutionContext(
-            messageEventDefinition2,
-            new ExpressionManager(),
-            mock(MessagePayloadMappingProvider.class));
-
-    EventSubProcessMessageStartEventActivityBehavior
-        eventSubProcessMessageStartEventActivityBehavior =
-            new EventSubProcessMessageStartEventActivityBehavior(
-                messageEventDefinition, messageExecutionContext);
 
     // Act and Assert
-    assertTrue(eventSubProcessMessageStartEventActivityBehavior.processDataObjects(null).isEmpty());
+    assertTrue((new EventSubProcessMessageStartEventActivityBehavior(messageEventDefinition,
+        new DefaultMessageExecutionContext(messageEventDefinition2, new ExpressionManager(),
+            mock(MessagePayloadMappingProvider.class))))
+        .processDataObjects(null)
+        .isEmpty());
   }
 }

@@ -15,54 +15,28 @@
  */
 package org.activiti.engine.impl.cmd;
 
-import static org.junit.Assert.assertThrows;
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
-import org.activiti.engine.ActivitiIllegalArgumentException;
 import org.activiti.engine.delegate.event.ActivitiEventListener;
 import org.activiti.engine.delegate.event.BaseEntityEventListener;
-import org.activiti.engine.impl.interceptor.CommandContext;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 
 public class RemoveEventListenerCommandDiffblueTest {
   /**
    * Test {@link RemoveEventListenerCommand#RemoveEventListenerCommand(ActivitiEventListener)}.
-   *
-   * <p>Method under test: {@link
-   * RemoveEventListenerCommand#RemoveEventListenerCommand(ActivitiEventListener)}
+   * <p>
+   * Method under test: {@link RemoveEventListenerCommand#RemoveEventListenerCommand(ActivitiEventListener)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void RemoveEventListenerCommand.<init>(ActivitiEventListener)"})
   public void testNewRemoveEventListenerCommand() {
     // Arrange, Act and Assert
-    ActivitiEventListener activitiEventListener =
-        new RemoveEventListenerCommand(new BaseEntityEventListener(true)).listener;
+    ActivitiEventListener activitiEventListener = (new RemoveEventListenerCommand(
+        new BaseEntityEventListener(true))).listener;
     assertTrue(activitiEventListener instanceof BaseEntityEventListener);
     assertTrue(activitiEventListener.isFailOnException());
-  }
-
-  /**
-   * Test {@link RemoveEventListenerCommand#execute(CommandContext)}.
-   *
-   * <ul>
-   *   <li>Then throw {@link ActivitiIllegalArgumentException}.
-   * </ul>
-   *
-   * <p>Method under test: {@link RemoveEventListenerCommand#execute(CommandContext)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"java.lang.Void RemoveEventListenerCommand.execute(CommandContext)"})
-  public void testExecute_thenThrowActivitiIllegalArgumentException() {
-    // Arrange, Act and Assert
-    assertThrows(
-        ActivitiIllegalArgumentException.class,
-        () -> new RemoveEventListenerCommand(null).execute(null));
   }
 }

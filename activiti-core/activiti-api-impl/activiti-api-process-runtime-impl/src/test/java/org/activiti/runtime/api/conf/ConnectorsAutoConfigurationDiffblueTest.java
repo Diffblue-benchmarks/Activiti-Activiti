@@ -20,7 +20,6 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.mock;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.json.JsonMapper;
@@ -31,32 +30,35 @@ import org.activiti.engine.impl.el.ExpressionManager;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.junit.jupiter.MockitoExtension;
 
+@ExtendWith(MockitoExtension.class)
 class ConnectorsAutoConfigurationDiffblueTest {
+  @InjectMocks
+  private ConnectorsAutoConfiguration connectorsAutoConfiguration;
+
   /**
    * Test {@link ConnectorsAutoConfiguration#expressionManager(List)}.
-   *
    * <ul>
-   *   <li>Then return CustomFunctionProviders is {@link ArrayList#ArrayList()}.
+   *   <li>Then return CustomFunctionProviders is {@link ArrayList#ArrayList()}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ConnectorsAutoConfiguration#expressionManager(List)}
+   * <p>
+   * Method under test: {@link ConnectorsAutoConfiguration#expressionManager(List)}
    */
   @Test
   @DisplayName("Test expressionManager(List); then return CustomFunctionProviders is ArrayList()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"ExpressionManager ConnectorsAutoConfiguration.expressionManager(List)"})
   void testExpressionManager_thenReturnCustomFunctionProvidersIsArrayList() {
     // Arrange
-    ConnectorsAutoConfiguration connectorsAutoConfiguration = new ConnectorsAutoConfiguration();
-
     ArrayList<CustomFunctionProvider> customFunctionProviders = new ArrayList<>();
     customFunctionProviders.add(mock(CustomFunctionProvider.class));
 
     // Act
-    ExpressionManager actualExpressionManagerResult =
-        connectorsAutoConfiguration.expressionManager(customFunctionProviders);
+    ExpressionManager actualExpressionManagerResult = connectorsAutoConfiguration
+        .expressionManager(customFunctionProviders);
 
     // Assert
     assertNull(actualExpressionManagerResult.getBeans());
@@ -65,29 +67,25 @@ class ConnectorsAutoConfigurationDiffblueTest {
 
   /**
    * Test {@link ConnectorsAutoConfiguration#expressionManager(List)}.
-   *
    * <ul>
-   *   <li>Then return CustomFunctionProviders is {@link ArrayList#ArrayList()}.
+   *   <li>Then return CustomFunctionProviders is {@link ArrayList#ArrayList()}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ConnectorsAutoConfiguration#expressionManager(List)}
+   * <p>
+   * Method under test: {@link ConnectorsAutoConfiguration#expressionManager(List)}
    */
   @Test
   @DisplayName("Test expressionManager(List); then return CustomFunctionProviders is ArrayList()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"ExpressionManager ConnectorsAutoConfiguration.expressionManager(List)"})
   void testExpressionManager_thenReturnCustomFunctionProvidersIsArrayList2() {
     // Arrange
-    ConnectorsAutoConfiguration connectorsAutoConfiguration = new ConnectorsAutoConfiguration();
-
     ArrayList<CustomFunctionProvider> customFunctionProviders = new ArrayList<>();
     customFunctionProviders.add(mock(CustomFunctionProvider.class));
     customFunctionProviders.add(mock(CustomFunctionProvider.class));
 
     // Act
-    ExpressionManager actualExpressionManagerResult =
-        connectorsAutoConfiguration.expressionManager(customFunctionProviders);
+    ExpressionManager actualExpressionManagerResult = connectorsAutoConfiguration
+        .expressionManager(customFunctionProviders);
 
     // Assert
     assertNull(actualExpressionManagerResult.getBeans());
@@ -96,27 +94,20 @@ class ConnectorsAutoConfigurationDiffblueTest {
 
   /**
    * Test {@link ConnectorsAutoConfiguration#expressionManager(List)}.
-   *
    * <ul>
-   *   <li>When {@link ArrayList#ArrayList()}.
-   *   <li>Then return CustomFunctionProviders Empty.
+   *   <li>When {@link ArrayList#ArrayList()}.</li>
+   *   <li>Then return CustomFunctionProviders Empty.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ConnectorsAutoConfiguration#expressionManager(List)}
+   * <p>
+   * Method under test: {@link ConnectorsAutoConfiguration#expressionManager(List)}
    */
   @Test
-  @DisplayName(
-      "Test expressionManager(List); when ArrayList(); then return CustomFunctionProviders Empty")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test expressionManager(List); when ArrayList(); then return CustomFunctionProviders Empty")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"ExpressionManager ConnectorsAutoConfiguration.expressionManager(List)"})
   void testExpressionManager_whenArrayList_thenReturnCustomFunctionProvidersEmpty() {
-    // Arrange
-    ConnectorsAutoConfiguration connectorsAutoConfiguration = new ConnectorsAutoConfiguration();
-
-    // Act
-    ExpressionManager actualExpressionManagerResult =
-        connectorsAutoConfiguration.expressionManager(new ArrayList<>());
+    // Arrange and Act
+    ExpressionManager actualExpressionManagerResult = connectorsAutoConfiguration.expressionManager(new ArrayList<>());
 
     // Assert
     assertNull(actualExpressionManagerResult.getBeans());
@@ -125,17 +116,14 @@ class ConnectorsAutoConfigurationDiffblueTest {
 
   /**
    * Test {@link ConnectorsAutoConfiguration#expressionResolver(ExpressionManager, ObjectMapper)}.
-   *
-   * <p>Method under test: {@link ConnectorsAutoConfiguration#expressionResolver(ExpressionManager,
-   * ObjectMapper)}
+   * <p>
+   * Method under test: {@link ConnectorsAutoConfiguration#expressionResolver(ExpressionManager, ObjectMapper)}
    */
   @Test
   @DisplayName("Test expressionResolver(ExpressionManager, ObjectMapper)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({
-    "org.activiti.runtime.api.impl.ExpressionResolver ConnectorsAutoConfiguration.expressionResolver(ExpressionManager, ObjectMapper)"
-  })
+      "org.activiti.runtime.api.impl.ExpressionResolver ConnectorsAutoConfiguration.expressionResolver(ExpressionManager, ObjectMapper)"})
   void testExpressionResolver() {
     //   Diffblue Cover was unable to create a Spring-specific test for this Spring method.
     //   Run dcover create --keep-partial-tests to gain insights into why
@@ -146,9 +134,8 @@ class ConnectorsAutoConfigurationDiffblueTest {
     ExpressionManager expressionManager = new ExpressionManager();
 
     // Act and Assert
-    assertFalse(
-        connectorsAutoConfiguration
-            .expressionResolver(expressionManager, JsonMapper.builder().findAndAddModules().build())
-            .containsExpression("Source"));
+    assertFalse(connectorsAutoConfiguration
+        .expressionResolver(expressionManager, JsonMapper.builder().findAndAddModules().build())
+        .containsExpression("Source"));
   }
 }

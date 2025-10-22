@@ -16,7 +16,6 @@
 package org.activiti.runtime.api.impl;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.bpmn.model.BoundaryEvent;
 import org.activiti.bpmn.model.MessageEventDefinition;
@@ -31,35 +30,27 @@ import org.junit.jupiter.api.Test;
 class JsonMessagePayloadMappingProviderDiffblueTest {
   /**
    * Test {@link JsonMessagePayloadMappingProvider#getMessagePayload(DelegateExecution)}.
-   *
    * <ul>
-   *   <li>Then return not Present.
+   *   <li>Then return not Present.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link
-   * JsonMessagePayloadMappingProvider#getMessagePayload(DelegateExecution)}
+   * <p>
+   * Method under test: {@link JsonMessagePayloadMappingProvider#getMessagePayload(DelegateExecution)}
    */
   @Test
   @DisplayName("Test getMessagePayload(DelegateExecution); then return not Present")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "java.util.Optional JsonMessagePayloadMappingProvider.getMessagePayload(DelegateExecution)"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"java.util.Optional JsonMessagePayloadMappingProvider.getMessagePayload(DelegateExecution)"})
   void testGetMessagePayload_thenReturnNotPresent() {
     // Arrange
     BoundaryEvent bpmnEvent = new BoundaryEvent();
     MessageEventDefinition messageEventDefinition = new MessageEventDefinition();
     ExpressionManager expressionManager = new ExpressionManager();
-
-    JsonMessagePayloadMappingProvider jsonMessagePayloadMappingProvider =
-        new JsonMessagePayloadMappingProvider(
-            bpmnEvent, messageEventDefinition, expressionManager, new NoneVariablesCalculator());
+    JsonMessagePayloadMappingProvider jsonMessagePayloadMappingProvider = new JsonMessagePayloadMappingProvider(
+        bpmnEvent, messageEventDefinition, expressionManager, new NoneVariablesCalculator());
 
     // Act and Assert
-    assertFalse(
-        jsonMessagePayloadMappingProvider
-            .getMessagePayload(ExecutionEntityImpl.createWithEmptyRelationshipCollections())
-            .isPresent());
+    assertFalse(jsonMessagePayloadMappingProvider
+        .getMessagePayload(ExecutionEntityImpl.createWithEmptyRelationshipCollections())
+        .isPresent());
   }
 }

@@ -20,8 +20,7 @@ import static org.mockito.ArgumentMatchers.isA;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.engine.history.ProcessInstanceHistoryLog;
 import org.activiti.engine.history.ProcessInstanceHistoryLogQuery;
@@ -39,13 +38,10 @@ import org.mockito.Mockito;
 public class ProcessInstanceHistoryLogQueryImplDiffblueTest {
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
-   *   <li>{@link
-   *       ProcessInstanceHistoryLogQueryImpl#ProcessInstanceHistoryLogQueryImpl(CommandExecutor,
-   *       String)}
+   *   <li>{@link ProcessInstanceHistoryLogQueryImpl#ProcessInstanceHistoryLogQueryImpl(CommandExecutor, String)}
    *   <li>{@link ProcessInstanceHistoryLogQueryImpl#includeVariableUpdates()}
    *   <li>{@link ProcessInstanceHistoryLogQueryImpl#includeActivities()}
    *   <li>{@link ProcessInstanceHistoryLogQueryImpl#includeComments()}
@@ -55,38 +51,30 @@ public class ProcessInstanceHistoryLogQueryImplDiffblueTest {
    * </ul>
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void ProcessInstanceHistoryLogQueryImpl.<init>(CommandExecutor, String)",
-    "ProcessInstanceHistoryLogQuery ProcessInstanceHistoryLogQueryImpl.includeActivities()",
-    "ProcessInstanceHistoryLogQuery ProcessInstanceHistoryLogQueryImpl.includeComments()",
-    "ProcessInstanceHistoryLogQuery ProcessInstanceHistoryLogQueryImpl.includeFormProperties()",
-    "ProcessInstanceHistoryLogQuery ProcessInstanceHistoryLogQueryImpl.includeTasks()",
-    "ProcessInstanceHistoryLogQuery ProcessInstanceHistoryLogQueryImpl.includeVariableUpdates()",
-    "ProcessInstanceHistoryLogQuery ProcessInstanceHistoryLogQueryImpl.includeVariables()"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void ProcessInstanceHistoryLogQueryImpl.<init>(CommandExecutor, String)",
+      "ProcessInstanceHistoryLogQuery ProcessInstanceHistoryLogQueryImpl.includeActivities()",
+      "ProcessInstanceHistoryLogQuery ProcessInstanceHistoryLogQueryImpl.includeComments()",
+      "ProcessInstanceHistoryLogQuery ProcessInstanceHistoryLogQueryImpl.includeFormProperties()",
+      "ProcessInstanceHistoryLogQuery ProcessInstanceHistoryLogQueryImpl.includeTasks()",
+      "ProcessInstanceHistoryLogQuery ProcessInstanceHistoryLogQueryImpl.includeVariableUpdates()",
+      "ProcessInstanceHistoryLogQuery ProcessInstanceHistoryLogQueryImpl.includeVariables()"})
   public void testGettersAndSetters() {
     // Arrange
     CommandConfig defaultConfig = new CommandConfig();
-    CommandExecutorImpl commandExecutor =
-        new CommandExecutorImpl(defaultConfig, new CommandContextInterceptor());
 
     // Act
-    ProcessInstanceHistoryLogQueryImpl actualProcessInstanceHistoryLogQueryImpl =
-        new ProcessInstanceHistoryLogQueryImpl(commandExecutor, "42");
-    ProcessInstanceHistoryLogQuery actualIncludeVariableUpdatesResult =
-        actualProcessInstanceHistoryLogQueryImpl.includeVariableUpdates();
-    ProcessInstanceHistoryLogQuery actualIncludeActivitiesResult =
-        actualProcessInstanceHistoryLogQueryImpl.includeActivities();
-    ProcessInstanceHistoryLogQuery actualIncludeCommentsResult =
-        actualProcessInstanceHistoryLogQueryImpl.includeComments();
-    ProcessInstanceHistoryLogQuery actualIncludeFormPropertiesResult =
-        actualProcessInstanceHistoryLogQueryImpl.includeFormProperties();
-    ProcessInstanceHistoryLogQuery actualIncludeTasksResult =
-        actualProcessInstanceHistoryLogQueryImpl.includeTasks();
-    ProcessInstanceHistoryLogQuery actualIncludeVariablesResult =
-        actualProcessInstanceHistoryLogQueryImpl.includeVariables();
+    ProcessInstanceHistoryLogQueryImpl actualProcessInstanceHistoryLogQueryImpl = new ProcessInstanceHistoryLogQueryImpl(
+        new CommandExecutorImpl(defaultConfig, new CommandContextInterceptor()), "42");
+    ProcessInstanceHistoryLogQuery actualIncludeVariableUpdatesResult = actualProcessInstanceHistoryLogQueryImpl
+        .includeVariableUpdates();
+    ProcessInstanceHistoryLogQuery actualIncludeActivitiesResult = actualProcessInstanceHistoryLogQueryImpl
+        .includeActivities();
+    ProcessInstanceHistoryLogQuery actualIncludeCommentsResult = actualProcessInstanceHistoryLogQueryImpl
+        .includeComments();
+    ProcessInstanceHistoryLogQuery actualIncludeFormPropertiesResult = actualProcessInstanceHistoryLogQueryImpl
+        .includeFormProperties();
+    ProcessInstanceHistoryLogQuery actualIncludeTasksResult = actualProcessInstanceHistoryLogQueryImpl.includeTasks();
 
     // Assert
     assertSame(actualProcessInstanceHistoryLogQueryImpl, actualIncludeActivitiesResult);
@@ -94,31 +82,28 @@ public class ProcessInstanceHistoryLogQueryImplDiffblueTest {
     assertSame(actualProcessInstanceHistoryLogQueryImpl, actualIncludeFormPropertiesResult);
     assertSame(actualProcessInstanceHistoryLogQueryImpl, actualIncludeTasksResult);
     assertSame(actualProcessInstanceHistoryLogQueryImpl, actualIncludeVariableUpdatesResult);
-    assertSame(actualProcessInstanceHistoryLogQueryImpl, actualIncludeVariablesResult);
+    assertSame(actualProcessInstanceHistoryLogQueryImpl, actualProcessInstanceHistoryLogQueryImpl.includeVariables());
   }
 
   /**
    * Test {@link ProcessInstanceHistoryLogQueryImpl#singleResult()}.
-   *
-   * <p>Method under test: {@link ProcessInstanceHistoryLogQueryImpl#singleResult()}
+   * <p>
+   * Method under test: {@link ProcessInstanceHistoryLogQueryImpl#singleResult()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"ProcessInstanceHistoryLog ProcessInstanceHistoryLogQueryImpl.singleResult()"})
   public void testSingleResult() {
     // Arrange
     CommandInterceptor first = mock(CommandInterceptor.class);
-    ProcessInstanceHistoryLogImpl processInstanceHistoryLogImpl =
-        new ProcessInstanceHistoryLogImpl(new HistoricProcessInstanceEntityImpl());
-    when(first.execute(
-            Mockito.<CommandConfig>any(), Mockito.<Command<ProcessInstanceHistoryLog>>any()))
+    ProcessInstanceHistoryLogImpl processInstanceHistoryLogImpl = new ProcessInstanceHistoryLogImpl(
+        new HistoricProcessInstanceEntityImpl());
+    when(first.execute(Mockito.<CommandConfig>any(), Mockito.<Command<ProcessInstanceHistoryLog>>any()))
         .thenReturn(processInstanceHistoryLogImpl);
-    CommandExecutorImpl commandExecutor = new CommandExecutorImpl(new CommandConfig(), first);
 
     // Act
-    ProcessInstanceHistoryLog actualSingleResultResult =
-        new ProcessInstanceHistoryLogQueryImpl(commandExecutor, "42").singleResult();
+    ProcessInstanceHistoryLog actualSingleResultResult = (new ProcessInstanceHistoryLogQueryImpl(
+        new CommandExecutorImpl(new CommandConfig(), first), "42")).singleResult();
 
     // Assert
     verify(first).execute(isA(CommandConfig.class), isA(Command.class));

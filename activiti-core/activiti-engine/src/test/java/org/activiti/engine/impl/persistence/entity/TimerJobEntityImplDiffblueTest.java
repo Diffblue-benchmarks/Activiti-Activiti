@@ -20,8 +20,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.time.LocalDate;
 import java.time.ZoneOffset;
@@ -33,16 +32,15 @@ import org.junit.experimental.categories.Category;
 public class TimerJobEntityImplDiffblueTest {
   /**
    * Test {@link TimerJobEntityImpl#getPersistentState()}.
-   *
-   * <p>Method under test: {@link TimerJobEntityImpl#getPersistentState()}
+   * <p>
+   * Method under test: {@link TimerJobEntityImpl#getPersistentState()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"Object TimerJobEntityImpl.getPersistentState()"})
   public void testGetPersistentState() {
     // Arrange and Act
-    Object actualPersistentState = new TimerJobEntityImpl().getPersistentState();
+    Object actualPersistentState = (new TimerJobEntityImpl()).getPersistentState();
 
     // Assert
     assertTrue(actualPersistentState instanceof Map);
@@ -56,9 +54,8 @@ public class TimerJobEntityImplDiffblueTest {
 
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>default or parameterless constructor of {@link TimerJobEntityImpl}
    *   <li>{@link TimerJobEntityImpl#setLockExpirationTime(Date)}
@@ -69,21 +66,14 @@ public class TimerJobEntityImplDiffblueTest {
    * </ul>
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void TimerJobEntityImpl.<init>()",
-    "Date TimerJobEntityImpl.getLockExpirationTime()",
-    "String TimerJobEntityImpl.getLockOwner()",
-    "void TimerJobEntityImpl.setLockExpirationTime(Date)",
-    "void TimerJobEntityImpl.setLockOwner(String)",
-    "String TimerJobEntityImpl.toString()"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void TimerJobEntityImpl.<init>()", "Date TimerJobEntityImpl.getLockExpirationTime()",
+      "String TimerJobEntityImpl.getLockOwner()", "void TimerJobEntityImpl.setLockExpirationTime(Date)",
+      "void TimerJobEntityImpl.setLockOwner(String)", "String TimerJobEntityImpl.toString()"})
   public void testGettersAndSetters() {
     // Arrange and Act
     TimerJobEntityImpl actualTimerJobEntityImpl = new TimerJobEntityImpl();
-    Date claimedUntil =
-        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant());
+    Date claimedUntil = Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant());
     actualTimerJobEntityImpl.setLockExpirationTime(claimedUntil);
     actualTimerJobEntityImpl.setLockOwner("Claimed By");
     String actualToStringResult = actualTimerJobEntityImpl.toString();

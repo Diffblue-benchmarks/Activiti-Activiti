@@ -18,7 +18,6 @@ package org.activiti.api.model.shared;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.mockito.Mockito.mock;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
@@ -27,17 +26,15 @@ import org.junit.jupiter.api.Test;
 class EmptyResultDiffblueTest {
   /**
    * Test {@link EmptyResult#EmptyResult()}.
-   *
    * <ul>
-   *   <li>Then return Payload is {@code null}.
+   *   <li>Then return Payload is {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link EmptyResult#EmptyResult()}
+   * <p>
+   * Method under test: {@link EmptyResult#EmptyResult()}
    */
   @Test
   @DisplayName("Test new EmptyResult(); then return Payload is 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void EmptyResult.<init>()", "void EmptyResult.<init>(Payload)"})
   void testNewEmptyResult_thenReturnPayloadIsNull() {
     // Arrange and Act
@@ -50,18 +47,16 @@ class EmptyResultDiffblueTest {
 
   /**
    * Test {@link EmptyResult#EmptyResult(Payload)}.
-   *
    * <ul>
-   *   <li>When {@link Payload}.
-   *   <li>Then return {@link Payload}.
+   *   <li>When {@link Payload}.</li>
+   *   <li>Then return {@link Payload}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link EmptyResult#EmptyResult(Payload)}
+   * <p>
+   * Method under test: {@link EmptyResult#EmptyResult(Payload)}
    */
   @Test
   @DisplayName("Test new EmptyResult(Payload); when Payload; then return Payload")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void EmptyResult.<init>()", "void EmptyResult.<init>(Payload)"})
   void testNewEmptyResult_whenPayload_thenReturnPayload() {
     // Arrange

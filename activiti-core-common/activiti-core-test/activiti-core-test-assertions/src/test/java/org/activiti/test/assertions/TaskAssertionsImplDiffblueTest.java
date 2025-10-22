@@ -23,7 +23,6 @@ import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
 import java.util.List;
@@ -40,20 +39,17 @@ import org.mockito.Mockito;
 class TaskAssertionsImplDiffblueTest {
   /**
    * Test {@link TaskAssertionsImpl#expectFields(TaskResultMatcher[])}.
-   *
-   * <p>Method under test: {@link TaskAssertionsImpl#expectFields(TaskResultMatcher[])}
+   * <p>
+   * Method under test: {@link TaskAssertionsImpl#expectFields(TaskResultMatcher[])}
    */
   @Test
   @DisplayName("Test expectFields(TaskResultMatcher[])")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"TaskAssertions TaskAssertionsImpl.expectFields(TaskResultMatcher[])"})
   void testExpectFields() {
     // Arrange
     Task task = mock(Task.class);
-    TaskAssertionsImpl taskAssertionsImpl =
-        new TaskAssertionsImpl(task, new ArrayList<>(), mock(EventSource.class));
-
+    TaskAssertionsImpl taskAssertionsImpl = new TaskAssertionsImpl(task, new ArrayList<>(), mock(EventSource.class));
     TaskResultMatcher taskResultMatcher = mock(TaskResultMatcher.class);
     doNothing().when(taskResultMatcher).match(Mockito.<Task>any());
 
@@ -68,25 +64,20 @@ class TaskAssertionsImplDiffblueTest {
 
   /**
    * Test {@link TaskAssertionsImpl#expect(ProcessTaskMatcher[])}.
-   *
-   * <p>Method under test: {@link TaskAssertionsImpl#expect(ProcessTaskMatcher[])}
+   * <p>
+   * Method under test: {@link TaskAssertionsImpl#expect(ProcessTaskMatcher[])}
    */
   @Test
   @DisplayName("Test expect(ProcessTaskMatcher[])")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"TaskAssertions TaskAssertionsImpl.expect(ProcessTaskMatcher[])"})
   void testExpect() {
     // Arrange
     Task task = mock(Task.class);
     when(task.getProcessInstanceId()).thenReturn("42");
-    TaskAssertionsImpl taskAssertionsImpl =
-        new TaskAssertionsImpl(task, new ArrayList<>(), mock(EventSource.class));
-
+    TaskAssertionsImpl taskAssertionsImpl = new TaskAssertionsImpl(task, new ArrayList<>(), mock(EventSource.class));
     ProcessTaskMatcher processTaskMatcher = mock(ProcessTaskMatcher.class);
-    doNothing()
-        .when(processTaskMatcher)
-        .match(Mockito.<String>any(), Mockito.<List<TaskSource>>any());
+    doNothing().when(processTaskMatcher).match(Mockito.<String>any(), Mockito.<List<TaskSource>>any());
 
     // Act
     TaskAssertions actualExpectResult = taskAssertionsImpl.expect(processTaskMatcher);

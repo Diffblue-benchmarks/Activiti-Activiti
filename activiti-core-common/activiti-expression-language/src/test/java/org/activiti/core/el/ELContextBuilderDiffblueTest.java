@@ -22,7 +22,6 @@ import static org.mockito.ArgumentMatchers.isA;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import jakarta.el.ELContext;
 import jakarta.el.ELResolver;
@@ -40,51 +39,41 @@ import org.mockito.Mockito;
 class ELContextBuilderDiffblueTest {
   /**
    * Test {@link ELContextBuilder#withResolvers(ELResolver[])}.
-   *
    * <ul>
-   *   <li>When {@link JsonNodeELResolver#JsonNodeELResolver()}.
-   *   <li>Then return {@link ELContextBuilder} (default constructor).
+   *   <li>When {@link JsonNodeELResolver#JsonNodeELResolver()}.</li>
+   *   <li>Then return {@link ELContextBuilder} (default constructor).</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ELContextBuilder#withResolvers(ELResolver[])}
+   * <p>
+   * Method under test: {@link ELContextBuilder#withResolvers(ELResolver[])}
    */
   @Test
-  @DisplayName(
-      "Test withResolvers(ELResolver[]); when JsonNodeELResolver(); then return ELContextBuilder (default constructor)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test withResolvers(ELResolver[]); when JsonNodeELResolver(); then return ELContextBuilder (default constructor)")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"ELContextBuilder ELContextBuilder.withResolvers(ELResolver[])"})
   void testWithResolvers_whenJsonNodeELResolver_thenReturnELContextBuilder() {
     // Arrange
     ELContextBuilder elContextBuilder = new ELContextBuilder();
 
-    // Act
-    ELContextBuilder actualWithResolversResult =
-        elContextBuilder.withResolvers(new JsonNodeELResolver());
-
-    // Assert
-    assertSame(elContextBuilder, actualWithResolversResult);
+    // Act and Assert
+    assertSame(elContextBuilder, elContextBuilder.withResolvers(new JsonNodeELResolver()));
   }
 
   /**
    * Test {@link ELContextBuilder#buildWithCustomFunctions(List)}.
-   *
-   * <p>Method under test: {@link ELContextBuilder#buildWithCustomFunctions(List)}
+   * <p>
+   * Method under test: {@link ELContextBuilder#buildWithCustomFunctions(List)}
    */
   @Test
   @DisplayName("Test buildWithCustomFunctions(List)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"ELContext ELContextBuilder.buildWithCustomFunctions(List)"})
   void testBuildWithCustomFunctions() {
     // Arrange
     ELContextBuilder elContextBuilder = new ELContextBuilder();
     JsonNodeELResolver jsonNodeELResolver = new JsonNodeELResolver();
     elContextBuilder.withResolvers(jsonNodeELResolver, new JsonNodeELResolver());
-
     CustomFunctionProvider customFunctionProvider = mock(CustomFunctionProvider.class);
     doNothing().when(customFunctionProvider).addCustomFunctions(Mockito.<ActivitiElContext>any());
-
     CustomFunctionProvider customFunctionProvider2 = mock(CustomFunctionProvider.class);
     doNothing().when(customFunctionProvider2).addCustomFunctions(Mockito.<ActivitiElContext>any());
 
@@ -93,8 +82,7 @@ class ELContextBuilderDiffblueTest {
     customFunctionProviders.add(customFunctionProvider);
 
     // Act
-    ELContext actualBuildWithCustomFunctionsResult =
-        elContextBuilder.buildWithCustomFunctions(customFunctionProviders);
+    ELContext actualBuildWithCustomFunctionsResult = elContextBuilder.buildWithCustomFunctions(customFunctionProviders);
 
     // Assert
     verify(customFunctionProvider2).addCustomFunctions(isA(ActivitiElContext.class));
@@ -109,27 +97,22 @@ class ELContextBuilderDiffblueTest {
 
   /**
    * Test {@link ELContextBuilder#buildWithCustomFunctions(List)}.
-   *
    * <ul>
-   *   <li>Given array of {@link ELResolver} with {@link JsonNodeELResolver#JsonNodeELResolver()}.
+   *   <li>Given array of {@link ELResolver} with {@link JsonNodeELResolver#JsonNodeELResolver()}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ELContextBuilder#buildWithCustomFunctions(List)}
+   * <p>
+   * Method under test: {@link ELContextBuilder#buildWithCustomFunctions(List)}
    */
   @Test
-  @DisplayName(
-      "Test buildWithCustomFunctions(List); given array of ELResolver with JsonNodeELResolver()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test buildWithCustomFunctions(List); given array of ELResolver with JsonNodeELResolver()")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"ELContext ELContextBuilder.buildWithCustomFunctions(List)"})
   void testBuildWithCustomFunctions_givenArrayOfELResolverWithJsonNodeELResolver() {
     // Arrange
     ELContextBuilder elContextBuilder = new ELContextBuilder();
     elContextBuilder.withResolvers(new JsonNodeELResolver());
-
     CustomFunctionProvider customFunctionProvider = mock(CustomFunctionProvider.class);
     doNothing().when(customFunctionProvider).addCustomFunctions(Mockito.<ActivitiElContext>any());
-
     CustomFunctionProvider customFunctionProvider2 = mock(CustomFunctionProvider.class);
     doNothing().when(customFunctionProvider2).addCustomFunctions(Mockito.<ActivitiElContext>any());
 
@@ -138,8 +121,7 @@ class ELContextBuilderDiffblueTest {
     customFunctionProviders.add(customFunctionProvider);
 
     // Act
-    ELContext actualBuildWithCustomFunctionsResult =
-        elContextBuilder.buildWithCustomFunctions(customFunctionProviders);
+    ELContext actualBuildWithCustomFunctionsResult = elContextBuilder.buildWithCustomFunctions(customFunctionProviders);
 
     // Assert
     verify(customFunctionProvider2).addCustomFunctions(isA(ActivitiElContext.class));
@@ -154,28 +136,22 @@ class ELContextBuilderDiffblueTest {
 
   /**
    * Test {@link ELContextBuilder#buildWithCustomFunctions(List)}.
-   *
    * <ul>
-   *   <li>Given {@link ELContextBuilder} (default constructor) withVariables {@link
-   *       HashMap#HashMap()}.
+   *   <li>Given {@link ELContextBuilder} (default constructor) withVariables {@link HashMap#HashMap()}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ELContextBuilder#buildWithCustomFunctions(List)}
+   * <p>
+   * Method under test: {@link ELContextBuilder#buildWithCustomFunctions(List)}
    */
   @Test
-  @DisplayName(
-      "Test buildWithCustomFunctions(List); given ELContextBuilder (default constructor) withVariables HashMap()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test buildWithCustomFunctions(List); given ELContextBuilder (default constructor) withVariables HashMap()")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"ELContext ELContextBuilder.buildWithCustomFunctions(List)"})
   void testBuildWithCustomFunctions_givenELContextBuilderWithVariablesHashMap() {
     // Arrange
     ELContextBuilder elContextBuilder = new ELContextBuilder();
     elContextBuilder.withVariables(new HashMap<>());
-
     CustomFunctionProvider customFunctionProvider = mock(CustomFunctionProvider.class);
     doNothing().when(customFunctionProvider).addCustomFunctions(Mockito.<ActivitiElContext>any());
-
     CustomFunctionProvider customFunctionProvider2 = mock(CustomFunctionProvider.class);
     doNothing().when(customFunctionProvider2).addCustomFunctions(Mockito.<ActivitiElContext>any());
 
@@ -184,8 +160,7 @@ class ELContextBuilderDiffblueTest {
     customFunctionProviders.add(customFunctionProvider);
 
     // Act
-    ELContext actualBuildWithCustomFunctionsResult =
-        elContextBuilder.buildWithCustomFunctions(customFunctionProviders);
+    ELContext actualBuildWithCustomFunctionsResult = elContextBuilder.buildWithCustomFunctions(customFunctionProviders);
 
     // Assert
     verify(customFunctionProvider2).addCustomFunctions(isA(ActivitiElContext.class));
@@ -200,24 +175,20 @@ class ELContextBuilderDiffblueTest {
 
   /**
    * Test {@link ELContextBuilder#buildWithCustomFunctions(List)}.
-   *
    * <ul>
-   *   <li>Given {@link ELContextBuilder} (default constructor).
-   *   <li>Then calls {@link CustomFunctionProvider#addCustomFunctions(ActivitiElContext)}.
+   *   <li>Given {@link ELContextBuilder} (default constructor).</li>
+   *   <li>Then calls {@link CustomFunctionProvider#addCustomFunctions(ActivitiElContext)}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ELContextBuilder#buildWithCustomFunctions(List)}
+   * <p>
+   * Method under test: {@link ELContextBuilder#buildWithCustomFunctions(List)}
    */
   @Test
-  @DisplayName(
-      "Test buildWithCustomFunctions(List); given ELContextBuilder (default constructor); then calls addCustomFunctions(ActivitiElContext)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test buildWithCustomFunctions(List); given ELContextBuilder (default constructor); then calls addCustomFunctions(ActivitiElContext)")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"ELContext ELContextBuilder.buildWithCustomFunctions(List)"})
   void testBuildWithCustomFunctions_givenELContextBuilder_thenCallsAddCustomFunctions() {
     // Arrange
     ELContextBuilder elContextBuilder = new ELContextBuilder();
-
     CustomFunctionProvider customFunctionProvider = mock(CustomFunctionProvider.class);
     doNothing().when(customFunctionProvider).addCustomFunctions(Mockito.<ActivitiElContext>any());
 
@@ -225,8 +196,7 @@ class ELContextBuilderDiffblueTest {
     customFunctionProviders.add(customFunctionProvider);
 
     // Act
-    ELContext actualBuildWithCustomFunctionsResult =
-        elContextBuilder.buildWithCustomFunctions(customFunctionProviders);
+    ELContext actualBuildWithCustomFunctionsResult = elContextBuilder.buildWithCustomFunctions(customFunctionProviders);
 
     // Assert
     verify(customFunctionProvider).addCustomFunctions(isA(ActivitiElContext.class));
@@ -240,27 +210,22 @@ class ELContextBuilderDiffblueTest {
 
   /**
    * Test {@link ELContextBuilder#buildWithCustomFunctions(List)}.
-   *
    * <ul>
-   *   <li>Given {@link ELContextBuilder} (default constructor).
-   *   <li>Then calls {@link CustomFunctionProvider#addCustomFunctions(ActivitiElContext)}.
+   *   <li>Given {@link ELContextBuilder} (default constructor).</li>
+   *   <li>Then calls {@link CustomFunctionProvider#addCustomFunctions(ActivitiElContext)}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ELContextBuilder#buildWithCustomFunctions(List)}
+   * <p>
+   * Method under test: {@link ELContextBuilder#buildWithCustomFunctions(List)}
    */
   @Test
-  @DisplayName(
-      "Test buildWithCustomFunctions(List); given ELContextBuilder (default constructor); then calls addCustomFunctions(ActivitiElContext)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test buildWithCustomFunctions(List); given ELContextBuilder (default constructor); then calls addCustomFunctions(ActivitiElContext)")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"ELContext ELContextBuilder.buildWithCustomFunctions(List)"})
   void testBuildWithCustomFunctions_givenELContextBuilder_thenCallsAddCustomFunctions2() {
     // Arrange
     ELContextBuilder elContextBuilder = new ELContextBuilder();
-
     CustomFunctionProvider customFunctionProvider = mock(CustomFunctionProvider.class);
     doNothing().when(customFunctionProvider).addCustomFunctions(Mockito.<ActivitiElContext>any());
-
     CustomFunctionProvider customFunctionProvider2 = mock(CustomFunctionProvider.class);
     doNothing().when(customFunctionProvider2).addCustomFunctions(Mockito.<ActivitiElContext>any());
 
@@ -269,8 +234,7 @@ class ELContextBuilderDiffblueTest {
     customFunctionProviders.add(customFunctionProvider);
 
     // Act
-    ELContext actualBuildWithCustomFunctionsResult =
-        elContextBuilder.buildWithCustomFunctions(customFunctionProviders);
+    ELContext actualBuildWithCustomFunctionsResult = elContextBuilder.buildWithCustomFunctions(customFunctionProviders);
 
     // Assert
     verify(customFunctionProvider2).addCustomFunctions(isA(ActivitiElContext.class));
@@ -285,27 +249,23 @@ class ELContextBuilderDiffblueTest {
 
   /**
    * Test {@link ELContextBuilder#buildWithCustomFunctions(List)}.
-   *
    * <ul>
-   *   <li>Given {@link ELContextBuilder} (default constructor).
-   *   <li>When {@link ArrayList#ArrayList()}.
+   *   <li>Given {@link ELContextBuilder} (default constructor).</li>
+   *   <li>When {@link ArrayList#ArrayList()}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ELContextBuilder#buildWithCustomFunctions(List)}
+   * <p>
+   * Method under test: {@link ELContextBuilder#buildWithCustomFunctions(List)}
    */
   @Test
-  @DisplayName(
-      "Test buildWithCustomFunctions(List); given ELContextBuilder (default constructor); when ArrayList()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test buildWithCustomFunctions(List); given ELContextBuilder (default constructor); when ArrayList()")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"ELContext ELContextBuilder.buildWithCustomFunctions(List)"})
   void testBuildWithCustomFunctions_givenELContextBuilder_whenArrayList() {
     // Arrange
     ELContextBuilder elContextBuilder = new ELContextBuilder();
 
     // Act
-    ELContext actualBuildWithCustomFunctionsResult =
-        elContextBuilder.buildWithCustomFunctions(new ArrayList<>());
+    ELContext actualBuildWithCustomFunctionsResult = elContextBuilder.buildWithCustomFunctions(new ArrayList<>());
 
     // Assert
     assertTrue(actualBuildWithCustomFunctionsResult instanceof ActivitiElContext);
@@ -318,24 +278,20 @@ class ELContextBuilderDiffblueTest {
 
   /**
    * Test {@link ELContextBuilder#buildWithCustomFunctions(List)}.
-   *
    * <ul>
-   *   <li>Given {@link ELContextBuilder} (default constructor).
-   *   <li>When {@code null}.
+   *   <li>Given {@link ELContextBuilder} (default constructor).</li>
+   *   <li>When {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ELContextBuilder#buildWithCustomFunctions(List)}
+   * <p>
+   * Method under test: {@link ELContextBuilder#buildWithCustomFunctions(List)}
    */
   @Test
-  @DisplayName(
-      "Test buildWithCustomFunctions(List); given ELContextBuilder (default constructor); when 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test buildWithCustomFunctions(List); given ELContextBuilder (default constructor); when 'null'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"ELContext ELContextBuilder.buildWithCustomFunctions(List)"})
   void testBuildWithCustomFunctions_givenELContextBuilder_whenNull() {
     // Arrange and Act
-    ELContext actualBuildWithCustomFunctionsResult =
-        new ELContextBuilder().buildWithCustomFunctions(null);
+    ELContext actualBuildWithCustomFunctionsResult = (new ELContextBuilder()).buildWithCustomFunctions(null);
 
     // Assert
     assertTrue(actualBuildWithCustomFunctionsResult instanceof ActivitiElContext);
@@ -348,9 +304,8 @@ class ELContextBuilderDiffblueTest {
 
   /**
    * Test {@link ELContextBuilder#build()}.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>{@link ELContextBuilder#build()}
    *   <li>default or parameterless constructor of {@link ELContextBuilder}
@@ -359,22 +314,19 @@ class ELContextBuilderDiffblueTest {
    */
   @Test
   @DisplayName("Test build()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void ELContextBuilder.<init>()",
-    "ELContext ELContextBuilder.build()",
-    "ELContextBuilder ELContextBuilder.withVariables(Map)"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void ELContextBuilder.<init>()", "ELContext ELContextBuilder.build()",
+      "ELContextBuilder ELContextBuilder.withVariables(Map)"})
   void testBuild() {
-    // Arrange and Act
-    ELContextBuilder actualElContextBuilder = new ELContextBuilder();
-    ELContextBuilder actualWithResolversResult =
-        actualElContextBuilder.withResolvers(new JsonNodeELResolver());
-    ELContext actualElContext = actualWithResolversResult.withVariables(new HashMap<>()).build();
+    // Arrange
+    ELContextBuilder elContextBuilder = new ELContextBuilder();
+    ELContextBuilder withResolversResult = elContextBuilder.withResolvers(new JsonNodeELResolver());
+
+    // Act
+    ELContext actualBuildResult = withResolversResult.withVariables(new HashMap<>()).build();
 
     // Assert
-    assertTrue(actualElContext instanceof ActivitiElContext);
-    assertTrue(((ActivitiFunctionMapper) actualElContext.getFunctionMapper()).map.isEmpty());
+    assertTrue(actualBuildResult instanceof ActivitiElContext);
+    assertTrue(((ActivitiFunctionMapper) actualBuildResult.getFunctionMapper()).map.isEmpty());
   }
 }

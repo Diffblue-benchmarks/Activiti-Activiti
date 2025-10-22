@@ -19,7 +19,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -35,13 +34,12 @@ import org.junit.jupiter.api.Test;
 class ErrorValidatorDiffblueTest {
   /**
    * Test {@link ErrorValidator#validate(BpmnModel, List)}.
-   *
-   * <p>Method under test: {@link ErrorValidator#validate(BpmnModel, List)}
+   * <p>
+   * Method under test: {@link ErrorValidator#validate(BpmnModel, List)}
    */
   @Test
   @DisplayName("Test validate(BpmnModel, List)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void ErrorValidator.validate(BpmnModel, List)"})
   void testValidate() {
     // Arrange
@@ -66,18 +64,16 @@ class ErrorValidatorDiffblueTest {
 
   /**
    * Test {@link ErrorValidator#validate(BpmnModel, List)}.
-   *
    * <ul>
-   *   <li>Given empty string.
-   *   <li>Then {@link ArrayList#ArrayList()} size is one.
+   *   <li>Given empty string.</li>
+   *   <li>Then {@link ArrayList#ArrayList()} size is one.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ErrorValidator#validate(BpmnModel, List)}
+   * <p>
+   * Method under test: {@link ErrorValidator#validate(BpmnModel, List)}
    */
   @Test
   @DisplayName("Test validate(BpmnModel, List); given empty string; then ArrayList() size is one")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void ErrorValidator.validate(BpmnModel, List)"})
   void testValidate_givenEmptyString_thenArrayListSizeIsOne() {
     // Arrange
@@ -115,20 +111,16 @@ class ErrorValidatorDiffblueTest {
 
   /**
    * Test {@link ErrorValidator#validate(BpmnModel, List)}.
-   *
    * <ul>
-   *   <li>Given {@code Error Ref}.
-   *   <li>When {@link BpmnModel#addError(String, String, String)} with {@code Error Ref} and {@code
-   *       Error Name} and {@code Error Code}.
+   *   <li>Given {@code Error Ref}.</li>
+   *   <li>When {@link BpmnModel#addError(String, String, String)} with {@code Error Ref} and {@code Error Name} and {@code Error Code}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ErrorValidator#validate(BpmnModel, List)}
+   * <p>
+   * Method under test: {@link ErrorValidator#validate(BpmnModel, List)}
    */
   @Test
-  @DisplayName(
-      "Test validate(BpmnModel, List); given 'Error Ref'; when addError(String, String, String) with 'Error Ref' and 'Error Name' and 'Error Code'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test validate(BpmnModel, List); given 'Error Ref'; when addError(String, String, String) with 'Error Ref' and 'Error Name' and 'Error Code'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void ErrorValidator.validate(BpmnModel, List)"})
   void testValidate_givenErrorRef_whenAddErrorWithErrorRefAndErrorNameAndErrorCode() {
     // Arrange
@@ -154,19 +146,16 @@ class ErrorValidatorDiffblueTest {
 
   /**
    * Test {@link ErrorValidator#validate(BpmnModel, List)}.
-   *
    * <ul>
-   *   <li>When {@link BpmnModel} (default constructor).
-   *   <li>Then {@link ArrayList#ArrayList()} Empty.
+   *   <li>When {@link BpmnModel} (default constructor).</li>
+   *   <li>Then {@link ArrayList#ArrayList()} Empty.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ErrorValidator#validate(BpmnModel, List)}
+   * <p>
+   * Method under test: {@link ErrorValidator#validate(BpmnModel, List)}
    */
   @Test
-  @DisplayName(
-      "Test validate(BpmnModel, List); when BpmnModel (default constructor); then ArrayList() Empty")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test validate(BpmnModel, List); when BpmnModel (default constructor); then ArrayList() Empty")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void ErrorValidator.validate(BpmnModel, List)"})
   void testValidate_whenBpmnModel_thenArrayListEmpty() {
     // Arrange

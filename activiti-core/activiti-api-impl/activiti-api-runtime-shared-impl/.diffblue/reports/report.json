@@ -1,21 +1,21 @@
 {
   "meta" : {
-    "reportVersion" : "2.7"
+    "reportVersion" : "2.6"
   },
   "run" : {
-    "version" : "2025.09.01-44e352d-licensed",
-    "creationTimestamp" : "2025-10-15T18:17:05.474751764Z",
+    "version" : "2025.02.02-08b2a5a-licensed",
+    "creationTimestamp" : "2025-10-21T18:36:58.703503864Z",
     "command" : "dcover create --exclude-modules=org.activiti:activiti-dependency-check,org.activiti:activiti-api-dependencies,org.activiti:activiti-core-common-dependencies,org.activiti:activiti-core-dependencies,org.activiti:activiti-dependencies,org.activiti:activiti-spring-conformance-set0,org.activiti:activiti-spring-conformance-set1,org.activiti:activiti-spring-conformance-set2,org.activiti:activiti-spring-conformance-set3,org.activiti:activiti-spring-conformance-set4,org.activiti:activiti-spring-conformance-set5,org.activiti:activiti-spring-conformance-variables,org.activiti:activiti-spring-conformance-signals --coverage-reports --upload http://localhost:8080 --project-name Activiti-Activiti --name with-diffblue-tests",
-    "totalTime" : 176.745,
-    "environmentDetectionTime" : 0.041,
-    "indexingTime" : 0.486,
-    "entryPointsTime" : 0.031,
-    "generationTime" : 2135.4,
-    "timeToFirstTest" : 3858.143,
-    "timeToLastTest" : 3328.019,
-    "indexQueryTime" : 4.869,
-    "verificationTime" : 121.807,
-    "validationTime" : 13.887
+    "totalTime" : 169.008,
+    "environmentDetectionTime" : 0.366,
+    "indexingTime" : 0.376,
+    "entryPointsTime" : 0.361,
+    "generationTime" : 1784.214,
+    "timeToFirstTest" : 3458.167,
+    "timeToLastTest" : 2946.254,
+    "indexQueryTime" : 7.409,
+    "verificationTime" : 107.101,
+    "validationTime" : 29.408
   },
   "codes" : {
     "R000" : "Success",
@@ -27,15 +27,14 @@
     "T005" : "Trivial constructor",
     "T010" : "Abstract or interface method",
     "T012" : "Synthetic method",
-    "T023" : "Testability unknown",
     "V000" : "Validated successfully"
   },
   "summary" : {
     "classesCount" : 13,
     "methodsCount" : 43,
-    "cumulativeDiffblueTestCount" : 32,
+    "cumulativeDiffblueTestCount" : 29,
     "cumulativeManualTestCount" : 14,
-    "completeTestCount" : 32,
+    "completeTestCount" : 29,
     "incompleteTestCount" : 0,
     "skeletonTestCount" : 0,
     "totalPhysicalLineCount" : 285,
@@ -45,30 +44,27 @@
       "T003" : 1,
       "T005" : 10,
       "T010" : 4,
-      "T012" : 8,
-      "T023" : 1
+      "T012" : 9
     },
     "perMethodOutcome" : {
       "R000" : 20,
-      "R002" : 6,
+      "R002" : 7,
       "R026" : 2,
       "T003" : 1,
-      "T005" : 1,
       "T010" : 4,
-      "T012" : 8,
-      "T023" : 1
+      "T012" : 9
     },
     "perTestOutcome" : {
-      "R000" : 32
+      "R000" : 29
     },
     "perTestValidation" : {
-      "V000" : 32
+      "V000" : 29
     }
   },
   "classes" : {
     "org.activiti.runtime.api.conf.CommonRuntimeAutoConfiguration" : {
       "methodsCount" : 9,
-      "completeTestCount" : 9,
+      "completeTestCount" : 7,
       "incompleteTestCount" : 0,
       "perMethodTestability" : {
         "T000" : 5,
@@ -78,13 +74,13 @@
       },
       "perMethodOutcome" : {
         "R000" : 3,
+        "R002" : 1,
         "R026" : 2,
         "T003" : 1,
-        "T005" : 1,
         "T012" : 2
       },
       "perTestOutcome" : {
-        "R000" : 9
+        "R000" : 7
       }
     },
     "org.activiti.runtime.api.event.impl.EventConverter" : {
@@ -154,7 +150,7 @@
     },
     "org.activiti.runtime.api.event.internal.VariableCreatedListenerDelegate" : {
       "methodsCount" : 4,
-      "completeTestCount" : 3,
+      "completeTestCount" : 2,
       "incompleteTestCount" : 0,
       "perMethodTestability" : {
         "T000" : 1,
@@ -167,7 +163,7 @@
         "T012" : 1
       },
       "perTestOutcome" : {
-        "R000" : 3
+        "R000" : 2
       }
     },
     "org.activiti.runtime.api.event.internal.VariableEventFilter" : {
@@ -211,12 +207,12 @@
       "perMethodTestability" : {
         "T000" : 2,
         "T005" : 1,
-        "T023" : 1
+        "T012" : 1
       },
       "perMethodOutcome" : {
         "R000" : 2,
         "R002" : 1,
-        "T023" : 1
+        "T012" : 1
       },
       "perTestOutcome" : {
         "R000" : 8
@@ -288,7 +284,7 @@
       "completeTestCount" : 0,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T005",
-      "perMethodOutcome" : "T005",
+      "perMethodOutcome" : "R002",
       "lineNumbers" : [
         40
       ]
@@ -334,24 +330,24 @@
       ]
     },
     "org.activiti.runtime.api.conf.CommonRuntimeAutoConfiguration.registerVariableCreatedListenerDelegate:(Lorg/activiti/engine/RuntimeService;Ljava/util/List;Lorg/activiti/runtime/api/event/internal/VariableEventFilter;)Lorg/springframework/beans/factory/InitializingBean;" : {
-      "completeTestCount" : 4,
+      "completeTestCount" : 3,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 4
+        "R000" : 3
       },
       "lineNumbers" : [
         56
       ]
     },
     "org.activiti.runtime.api.conf.CommonRuntimeAutoConfiguration.registerVariableUpdatedListenerDelegate:(Lorg/activiti/engine/RuntimeService;Ljava/util/List;Lorg/activiti/runtime/api/event/internal/VariableEventFilter;)Lorg/springframework/beans/factory/InitializingBean;" : {
-      "completeTestCount" : 4,
+      "completeTestCount" : 3,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 4
+        "R000" : 3
       },
       "lineNumbers" : [
         70
@@ -531,12 +527,12 @@
       ]
     },
     "org.activiti.runtime.api.event.internal.VariableCreatedListenerDelegate.onEvent:(Lorg/activiti/engine/delegate/event/ActivitiEvent;)V" : {
-      "completeTestCount" : 2,
+      "completeTestCount" : 1,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 2
+        "R000" : 1
       },
       "lineNumbers" : [
         47,
@@ -629,8 +625,11 @@
     "org.activiti.runtime.api.impl.VariableNameValidator.<clinit>:()V" : {
       "completeTestCount" : 0,
       "incompleteTestCount" : 0,
-      "perMethodTestability" : "T023",
-      "perMethodOutcome" : "T023"
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        27
+      ]
     },
     "org.activiti.runtime.api.impl.VariableNameValidator.<init>:()V" : {
       "completeTestCount" : 0,
@@ -785,6 +784,5 @@
         40
       ]
     }
-  },
-  "validationMetrics" : { }
+  }
 }

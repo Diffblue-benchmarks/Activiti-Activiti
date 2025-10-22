@@ -21,28 +21,20 @@ import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertThrows;
 import static org.junit.Assert.assertTrue;
-import static org.mockito.Mockito.mock;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.engine.ActivitiIllegalArgumentException;
-import org.activiti.engine.impl.interceptor.CommandContext;
-import org.activiti.engine.query.QueryProperty;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
-import org.springframework.test.annotation.DirtiesContext;
-import org.springframework.test.annotation.DirtiesContext.ClassMode;
 
-@DirtiesContext(classMode = ClassMode.AFTER_EACH_TEST_METHOD)
 public class DeploymentQueryImplDiffblueTest {
   /**
    * Test {@link DeploymentQueryImpl#DeploymentQueryImpl()}.
-   *
-   * <p>Method under test: {@link DeploymentQueryImpl#DeploymentQueryImpl()}
+   * <p>
+   * Method under test: {@link DeploymentQueryImpl#DeploymentQueryImpl()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void DeploymentQueryImpl.<init>()"})
   public void testNewDeploymentQueryImpl() {
     // Arrange and Act
@@ -77,23 +69,20 @@ public class DeploymentQueryImplDiffblueTest {
     assertFalse(actualDeploymentQueryImpl.latest);
     assertEquals(Integer.MAX_VALUE, actualDeploymentQueryImpl.getLastRow());
     assertEquals(Integer.MAX_VALUE, actualDeploymentQueryImpl.getMaxResults());
-    Object actualParameter = actualDeploymentQueryImpl.getParameter();
-    assertSame(actualDeploymentQueryImpl, actualParameter);
+    assertSame(actualDeploymentQueryImpl, actualDeploymentQueryImpl.getParameter());
   }
 
   /**
    * Test {@link DeploymentQueryImpl#deploymentId(String)}.
-   *
    * <ul>
-   *   <li>When {@code 42}.
-   *   <li>Then {@link DeploymentQueryImpl#DeploymentQueryImpl()} DeploymentId is {@code 42}.
+   *   <li>When {@code 42}.</li>
+   *   <li>Then {@link DeploymentQueryImpl#DeploymentQueryImpl()} DeploymentId is {@code 42}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link DeploymentQueryImpl#deploymentId(String)}
+   * <p>
+   * Method under test: {@link DeploymentQueryImpl#deploymentId(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"DeploymentQueryImpl DeploymentQueryImpl.deploymentId(String)"})
   public void testDeploymentId_when42_thenDeploymentQueryImplDeploymentIdIs42() {
     // Arrange
@@ -109,44 +98,38 @@ public class DeploymentQueryImplDiffblueTest {
 
   /**
    * Test {@link DeploymentQueryImpl#deploymentId(String)}.
-   *
    * <ul>
-   *   <li>When {@code null}.
-   *   <li>Then throw {@link ActivitiIllegalArgumentException}.
+   *   <li>When {@code null}.</li>
+   *   <li>Then throw {@link ActivitiIllegalArgumentException}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link DeploymentQueryImpl#deploymentId(String)}
+   * <p>
+   * Method under test: {@link DeploymentQueryImpl#deploymentId(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"DeploymentQueryImpl DeploymentQueryImpl.deploymentId(String)"})
   public void testDeploymentId_whenNull_thenThrowActivitiIllegalArgumentException() {
     // Arrange, Act and Assert
-    assertThrows(
-        ActivitiIllegalArgumentException.class, () -> new DeploymentQueryImpl().deploymentId(null));
+    assertThrows(ActivitiIllegalArgumentException.class, () -> (new DeploymentQueryImpl()).deploymentId(null));
   }
 
   /**
    * Test {@link DeploymentQueryImpl#deploymentName(String)}.
-   *
    * <ul>
-   *   <li>Then {@link DeploymentQueryImpl#DeploymentQueryImpl()} Name is {@code Deployment Name}.
+   *   <li>Then {@link DeploymentQueryImpl#DeploymentQueryImpl()} Name is {@code Deployment Name}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link DeploymentQueryImpl#deploymentName(String)}
+   * <p>
+   * Method under test: {@link DeploymentQueryImpl#deploymentName(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"DeploymentQueryImpl DeploymentQueryImpl.deploymentName(String)"})
   public void testDeploymentName_thenDeploymentQueryImplNameIsDeploymentName() {
     // Arrange
     DeploymentQueryImpl deploymentQueryImpl = new DeploymentQueryImpl();
 
     // Act
-    DeploymentQueryImpl actualDeploymentNameResult =
-        deploymentQueryImpl.deploymentName("Deployment Name");
+    DeploymentQueryImpl actualDeploymentNameResult = deploymentQueryImpl.deploymentName("Deployment Name");
 
     // Assert
     assertEquals("Deployment Name", deploymentQueryImpl.getName());
@@ -155,46 +138,39 @@ public class DeploymentQueryImplDiffblueTest {
 
   /**
    * Test {@link DeploymentQueryImpl#deploymentName(String)}.
-   *
    * <ul>
-   *   <li>When {@code null}.
-   *   <li>Then throw {@link ActivitiIllegalArgumentException}.
+   *   <li>When {@code null}.</li>
+   *   <li>Then throw {@link ActivitiIllegalArgumentException}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link DeploymentQueryImpl#deploymentName(String)}
+   * <p>
+   * Method under test: {@link DeploymentQueryImpl#deploymentName(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"DeploymentQueryImpl DeploymentQueryImpl.deploymentName(String)"})
   public void testDeploymentName_whenNull_thenThrowActivitiIllegalArgumentException() {
     // Arrange, Act and Assert
-    assertThrows(
-        ActivitiIllegalArgumentException.class,
-        () -> new DeploymentQueryImpl().deploymentName(null));
+    assertThrows(ActivitiIllegalArgumentException.class, () -> (new DeploymentQueryImpl()).deploymentName(null));
   }
 
   /**
    * Test {@link DeploymentQueryImpl#deploymentNameLike(String)}.
-   *
    * <ul>
-   *   <li>When {@code Name Like}.
-   *   <li>Then {@link DeploymentQueryImpl#DeploymentQueryImpl()} NameLike is {@code Name Like}.
+   *   <li>When {@code Name Like}.</li>
+   *   <li>Then {@link DeploymentQueryImpl#DeploymentQueryImpl()} NameLike is {@code Name Like}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link DeploymentQueryImpl#deploymentNameLike(String)}
+   * <p>
+   * Method under test: {@link DeploymentQueryImpl#deploymentNameLike(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"DeploymentQueryImpl DeploymentQueryImpl.deploymentNameLike(String)"})
   public void testDeploymentNameLike_whenNameLike_thenDeploymentQueryImplNameLikeIsNameLike() {
     // Arrange
     DeploymentQueryImpl deploymentQueryImpl = new DeploymentQueryImpl();
 
     // Act
-    DeploymentQueryImpl actualDeploymentNameLikeResult =
-        deploymentQueryImpl.deploymentNameLike("Name Like");
+    DeploymentQueryImpl actualDeploymentNameLikeResult = deploymentQueryImpl.deploymentNameLike("Name Like");
 
     // Assert
     assertEquals("Name Like", deploymentQueryImpl.getNameLike());
@@ -203,46 +179,38 @@ public class DeploymentQueryImplDiffblueTest {
 
   /**
    * Test {@link DeploymentQueryImpl#deploymentNameLike(String)}.
-   *
    * <ul>
-   *   <li>When {@code null}.
-   *   <li>Then throw {@link ActivitiIllegalArgumentException}.
+   *   <li>When {@code null}.</li>
+   *   <li>Then throw {@link ActivitiIllegalArgumentException}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link DeploymentQueryImpl#deploymentNameLike(String)}
+   * <p>
+   * Method under test: {@link DeploymentQueryImpl#deploymentNameLike(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"DeploymentQueryImpl DeploymentQueryImpl.deploymentNameLike(String)"})
   public void testDeploymentNameLike_whenNull_thenThrowActivitiIllegalArgumentException() {
     // Arrange, Act and Assert
-    assertThrows(
-        ActivitiIllegalArgumentException.class,
-        () -> new DeploymentQueryImpl().deploymentNameLike(null));
+    assertThrows(ActivitiIllegalArgumentException.class, () -> (new DeploymentQueryImpl()).deploymentNameLike(null));
   }
 
   /**
    * Test {@link DeploymentQueryImpl#deploymentCategory(String)}.
-   *
    * <ul>
-   *   <li>Then {@link DeploymentQueryImpl#DeploymentQueryImpl()} Category is {@code Deployment
-   *       Category}.
+   *   <li>Then {@link DeploymentQueryImpl#DeploymentQueryImpl()} Category is {@code Deployment Category}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link DeploymentQueryImpl#deploymentCategory(String)}
+   * <p>
+   * Method under test: {@link DeploymentQueryImpl#deploymentCategory(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"DeploymentQueryImpl DeploymentQueryImpl.deploymentCategory(String)"})
   public void testDeploymentCategory_thenDeploymentQueryImplCategoryIsDeploymentCategory() {
     // Arrange
     DeploymentQueryImpl deploymentQueryImpl = new DeploymentQueryImpl();
 
     // Act
-    DeploymentQueryImpl actualDeploymentCategoryResult =
-        deploymentQueryImpl.deploymentCategory("Deployment Category");
+    DeploymentQueryImpl actualDeploymentCategoryResult = deploymentQueryImpl.deploymentCategory("Deployment Category");
 
     // Assert
     assertEquals("Deployment Category", deploymentQueryImpl.getCategory());
@@ -251,89 +219,54 @@ public class DeploymentQueryImplDiffblueTest {
 
   /**
    * Test {@link DeploymentQueryImpl#deploymentCategory(String)}.
-   *
    * <ul>
-   *   <li>When {@code null}.
-   *   <li>Then throw {@link ActivitiIllegalArgumentException}.
+   *   <li>When {@code null}.</li>
+   *   <li>Then throw {@link ActivitiIllegalArgumentException}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link DeploymentQueryImpl#deploymentCategory(String)}
+   * <p>
+   * Method under test: {@link DeploymentQueryImpl#deploymentCategory(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"DeploymentQueryImpl DeploymentQueryImpl.deploymentCategory(String)"})
   public void testDeploymentCategory_whenNull_thenThrowActivitiIllegalArgumentException() {
     // Arrange, Act and Assert
-    assertThrows(
-        ActivitiIllegalArgumentException.class,
-        () -> new DeploymentQueryImpl().deploymentCategory(null));
+    assertThrows(ActivitiIllegalArgumentException.class, () -> (new DeploymentQueryImpl()).deploymentCategory(null));
   }
 
   /**
    * Test {@link DeploymentQueryImpl#deploymentCategoryLike(String)}.
-   *
    * <ul>
-   *   <li>Then {@link DeploymentQueryImpl#DeploymentQueryImpl()} {@link
-   *       DeploymentQueryImpl#categoryLike} is {@code Category Like}.
+   *   <li>When {@code null}.</li>
+   *   <li>Then throw {@link ActivitiIllegalArgumentException}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link DeploymentQueryImpl#deploymentCategoryLike(String)}
+   * <p>
+   * Method under test: {@link DeploymentQueryImpl#deploymentCategoryLike(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"DeploymentQueryImpl DeploymentQueryImpl.deploymentCategoryLike(String)"})
-  public void testDeploymentCategoryLike_thenDeploymentQueryImplCategoryLikeIsCategoryLike() {
-    // Arrange
-    DeploymentQueryImpl deploymentQueryImpl = new DeploymentQueryImpl();
-
-    // Act
-    DeploymentQueryImpl actualDeploymentCategoryLikeResult =
-        deploymentQueryImpl.deploymentCategoryLike("Category Like");
-
-    // Assert
-    assertEquals("Category Like", deploymentQueryImpl.categoryLike);
-    assertSame(deploymentQueryImpl, actualDeploymentCategoryLikeResult);
-  }
-
-  /**
-   * Test {@link DeploymentQueryImpl#deploymentCategoryLike(String)}.
-   *
-   * <ul>
-   *   <li>When {@code null}.
-   *   <li>Then throw {@link ActivitiIllegalArgumentException}.
-   * </ul>
-   *
-   * <p>Method under test: {@link DeploymentQueryImpl#deploymentCategoryLike(String)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"DeploymentQueryImpl DeploymentQueryImpl.deploymentCategoryLike(String)"})
   public void testDeploymentCategoryLike_whenNull_thenThrowActivitiIllegalArgumentException() {
     // Arrange, Act and Assert
-    assertThrows(
-        ActivitiIllegalArgumentException.class,
-        () -> new DeploymentQueryImpl().deploymentCategoryLike(null));
+    assertThrows(ActivitiIllegalArgumentException.class,
+        () -> (new DeploymentQueryImpl()).deploymentCategoryLike(null));
   }
 
   /**
    * Test {@link DeploymentQueryImpl#deploymentCategoryNotEquals(String)}.
-   *
-   * <p>Method under test: {@link DeploymentQueryImpl#deploymentCategoryNotEquals(String)}
+   * <p>
+   * Method under test: {@link DeploymentQueryImpl#deploymentCategoryNotEquals(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"DeploymentQueryImpl DeploymentQueryImpl.deploymentCategoryNotEquals(String)"})
   public void testDeploymentCategoryNotEquals() {
     // Arrange
     DeploymentQueryImpl deploymentQueryImpl = new DeploymentQueryImpl();
 
     // Act
-    DeploymentQueryImpl actualDeploymentCategoryNotEqualsResult =
-        deploymentQueryImpl.deploymentCategoryNotEquals("Deployment Category Not Equals");
+    DeploymentQueryImpl actualDeploymentCategoryNotEqualsResult = deploymentQueryImpl
+        .deploymentCategoryNotEquals("Deployment Category Not Equals");
 
     // Assert
     assertEquals("Deployment Category Not Equals", deploymentQueryImpl.getCategoryNotEquals());
@@ -342,142 +275,73 @@ public class DeploymentQueryImplDiffblueTest {
 
   /**
    * Test {@link DeploymentQueryImpl#deploymentCategoryNotEquals(String)}.
-   *
    * <ul>
-   *   <li>Then throw {@link ActivitiIllegalArgumentException}.
+   *   <li>Then throw {@link ActivitiIllegalArgumentException}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link DeploymentQueryImpl#deploymentCategoryNotEquals(String)}
+   * <p>
+   * Method under test: {@link DeploymentQueryImpl#deploymentCategoryNotEquals(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"DeploymentQueryImpl DeploymentQueryImpl.deploymentCategoryNotEquals(String)"})
   public void testDeploymentCategoryNotEquals_thenThrowActivitiIllegalArgumentException() {
     // Arrange, Act and Assert
-    assertThrows(
-        ActivitiIllegalArgumentException.class,
-        () -> new DeploymentQueryImpl().deploymentCategoryNotEquals(null));
+    assertThrows(ActivitiIllegalArgumentException.class,
+        () -> (new DeploymentQueryImpl()).deploymentCategoryNotEquals(null));
   }
 
   /**
    * Test {@link DeploymentQueryImpl#deploymentKey(String)}.
-   *
    * <ul>
-   *   <li>When {@code Deployment Key}.
-   *   <li>Then {@link DeploymentQueryImpl#DeploymentQueryImpl()} {@link DeploymentQueryImpl#key} is
-   *       {@code Deployment Key}.
+   *   <li>When {@code null}.</li>
+   *   <li>Then throw {@link ActivitiIllegalArgumentException}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link DeploymentQueryImpl#deploymentKey(String)}
+   * <p>
+   * Method under test: {@link DeploymentQueryImpl#deploymentKey(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"DeploymentQueryImpl DeploymentQueryImpl.deploymentKey(String)"})
-  public void testDeploymentKey_whenDeploymentKey_thenDeploymentQueryImplKeyIsDeploymentKey() {
-    // Arrange
-    DeploymentQueryImpl deploymentQueryImpl = new DeploymentQueryImpl();
-
-    // Act
-    DeploymentQueryImpl actualDeploymentKeyResult =
-        deploymentQueryImpl.deploymentKey("Deployment Key");
-
-    // Assert
-    assertEquals("Deployment Key", deploymentQueryImpl.key);
-    assertSame(deploymentQueryImpl, actualDeploymentKeyResult);
-  }
-
-  /**
-   * Test {@link DeploymentQueryImpl#deploymentKey(String)}.
-   *
-   * <ul>
-   *   <li>When {@code null}.
-   *   <li>Then throw {@link ActivitiIllegalArgumentException}.
-   * </ul>
-   *
-   * <p>Method under test: {@link DeploymentQueryImpl#deploymentKey(String)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"DeploymentQueryImpl DeploymentQueryImpl.deploymentKey(String)"})
   public void testDeploymentKey_whenNull_thenThrowActivitiIllegalArgumentException() {
     // Arrange, Act and Assert
-    assertThrows(
-        ActivitiIllegalArgumentException.class,
-        () -> new DeploymentQueryImpl().deploymentKey(null));
+    assertThrows(ActivitiIllegalArgumentException.class, () -> (new DeploymentQueryImpl()).deploymentKey(null));
   }
 
   /**
    * Test {@link DeploymentQueryImpl#deploymentKeyLike(String)}.
-   *
    * <ul>
-   *   <li>Then {@link DeploymentQueryImpl#DeploymentQueryImpl()} {@link
-   *       DeploymentQueryImpl#keyLike} is {@code Deployment Key Like}.
+   *   <li>When {@code null}.</li>
+   *   <li>Then throw {@link ActivitiIllegalArgumentException}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link DeploymentQueryImpl#deploymentKeyLike(String)}
+   * <p>
+   * Method under test: {@link DeploymentQueryImpl#deploymentKeyLike(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"DeploymentQueryImpl DeploymentQueryImpl.deploymentKeyLike(String)"})
-  public void testDeploymentKeyLike_thenDeploymentQueryImplKeyLikeIsDeploymentKeyLike() {
-    // Arrange
-    DeploymentQueryImpl deploymentQueryImpl = new DeploymentQueryImpl();
-
-    // Act
-    DeploymentQueryImpl actualDeploymentKeyLikeResult =
-        deploymentQueryImpl.deploymentKeyLike("Deployment Key Like");
-
-    // Assert
-    assertEquals("Deployment Key Like", deploymentQueryImpl.keyLike);
-    assertSame(deploymentQueryImpl, actualDeploymentKeyLikeResult);
-  }
-
-  /**
-   * Test {@link DeploymentQueryImpl#deploymentKeyLike(String)}.
-   *
-   * <ul>
-   *   <li>When {@code null}.
-   *   <li>Then throw {@link ActivitiIllegalArgumentException}.
-   * </ul>
-   *
-   * <p>Method under test: {@link DeploymentQueryImpl#deploymentKeyLike(String)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"DeploymentQueryImpl DeploymentQueryImpl.deploymentKeyLike(String)"})
   public void testDeploymentKeyLike_whenNull_thenThrowActivitiIllegalArgumentException() {
     // Arrange, Act and Assert
-    assertThrows(
-        ActivitiIllegalArgumentException.class,
-        () -> new DeploymentQueryImpl().deploymentKeyLike(null));
+    assertThrows(ActivitiIllegalArgumentException.class, () -> (new DeploymentQueryImpl()).deploymentKeyLike(null));
   }
 
   /**
    * Test {@link DeploymentQueryImpl#deploymentTenantId(String)}.
-   *
    * <ul>
-   *   <li>When {@code 42}.
-   *   <li>Then {@link DeploymentQueryImpl#DeploymentQueryImpl()} TenantId is {@code 42}.
+   *   <li>When {@code 42}.</li>
+   *   <li>Then {@link DeploymentQueryImpl#DeploymentQueryImpl()} TenantId is {@code 42}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link DeploymentQueryImpl#deploymentTenantId(String)}
+   * <p>
+   * Method under test: {@link DeploymentQueryImpl#deploymentTenantId(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"DeploymentQueryImpl DeploymentQueryImpl.deploymentTenantId(String)"})
   public void testDeploymentTenantId_when42_thenDeploymentQueryImplTenantIdIs42() {
     // Arrange
     DeploymentQueryImpl deploymentQueryImpl = new DeploymentQueryImpl();
 
     // Act
-    DeploymentQueryImpl actualDeploymentTenantIdResult =
-        deploymentQueryImpl.deploymentTenantId("42");
+    DeploymentQueryImpl actualDeploymentTenantIdResult = deploymentQueryImpl.deploymentTenantId("42");
 
     // Assert
     assertEquals("42", deploymentQueryImpl.getTenantId());
@@ -486,46 +350,39 @@ public class DeploymentQueryImplDiffblueTest {
 
   /**
    * Test {@link DeploymentQueryImpl#deploymentTenantId(String)}.
-   *
    * <ul>
-   *   <li>When {@code null}.
-   *   <li>Then throw {@link ActivitiIllegalArgumentException}.
+   *   <li>When {@code null}.</li>
+   *   <li>Then throw {@link ActivitiIllegalArgumentException}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link DeploymentQueryImpl#deploymentTenantId(String)}
+   * <p>
+   * Method under test: {@link DeploymentQueryImpl#deploymentTenantId(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"DeploymentQueryImpl DeploymentQueryImpl.deploymentTenantId(String)"})
   public void testDeploymentTenantId_whenNull_thenThrowActivitiIllegalArgumentException() {
     // Arrange, Act and Assert
-    assertThrows(
-        ActivitiIllegalArgumentException.class,
-        () -> new DeploymentQueryImpl().deploymentTenantId(null));
+    assertThrows(ActivitiIllegalArgumentException.class, () -> (new DeploymentQueryImpl()).deploymentTenantId(null));
   }
 
   /**
    * Test {@link DeploymentQueryImpl#deploymentTenantIdLike(String)}.
-   *
    * <ul>
-   *   <li>Then {@link DeploymentQueryImpl#DeploymentQueryImpl()} TenantIdLike is {@code Tenant Id
-   *       Like}.
+   *   <li>Then {@link DeploymentQueryImpl#DeploymentQueryImpl()} TenantIdLike is {@code Tenant Id Like}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link DeploymentQueryImpl#deploymentTenantIdLike(String)}
+   * <p>
+   * Method under test: {@link DeploymentQueryImpl#deploymentTenantIdLike(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"DeploymentQueryImpl DeploymentQueryImpl.deploymentTenantIdLike(String)"})
   public void testDeploymentTenantIdLike_thenDeploymentQueryImplTenantIdLikeIsTenantIdLike() {
     // Arrange
     DeploymentQueryImpl deploymentQueryImpl = new DeploymentQueryImpl();
 
     // Act
-    DeploymentQueryImpl actualDeploymentTenantIdLikeResult =
-        deploymentQueryImpl.deploymentTenantIdLike("Tenant Id Like");
+    DeploymentQueryImpl actualDeploymentTenantIdLikeResult = deploymentQueryImpl
+        .deploymentTenantIdLike("Tenant Id Like");
 
     // Assert
     assertEquals("Tenant Id Like", deploymentQueryImpl.getTenantIdLike());
@@ -534,41 +391,36 @@ public class DeploymentQueryImplDiffblueTest {
 
   /**
    * Test {@link DeploymentQueryImpl#deploymentTenantIdLike(String)}.
-   *
    * <ul>
-   *   <li>When {@code null}.
-   *   <li>Then throw {@link ActivitiIllegalArgumentException}.
+   *   <li>When {@code null}.</li>
+   *   <li>Then throw {@link ActivitiIllegalArgumentException}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link DeploymentQueryImpl#deploymentTenantIdLike(String)}
+   * <p>
+   * Method under test: {@link DeploymentQueryImpl#deploymentTenantIdLike(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"DeploymentQueryImpl DeploymentQueryImpl.deploymentTenantIdLike(String)"})
   public void testDeploymentTenantIdLike_whenNull_thenThrowActivitiIllegalArgumentException() {
     // Arrange, Act and Assert
-    assertThrows(
-        ActivitiIllegalArgumentException.class,
-        () -> new DeploymentQueryImpl().deploymentTenantIdLike(null));
+    assertThrows(ActivitiIllegalArgumentException.class,
+        () -> (new DeploymentQueryImpl()).deploymentTenantIdLike(null));
   }
 
   /**
    * Test {@link DeploymentQueryImpl#deploymentWithoutTenantId()}.
-   *
-   * <p>Method under test: {@link DeploymentQueryImpl#deploymentWithoutTenantId()}
+   * <p>
+   * Method under test: {@link DeploymentQueryImpl#deploymentWithoutTenantId()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"DeploymentQueryImpl DeploymentQueryImpl.deploymentWithoutTenantId()"})
   public void testDeploymentWithoutTenantId() {
     // Arrange
     DeploymentQueryImpl deploymentQueryImpl = new DeploymentQueryImpl();
 
     // Act
-    DeploymentQueryImpl actualDeploymentWithoutTenantIdResult =
-        deploymentQueryImpl.deploymentWithoutTenantId();
+    DeploymentQueryImpl actualDeploymentWithoutTenantIdResult = deploymentQueryImpl.deploymentWithoutTenantId();
 
     // Assert
     assertTrue(deploymentQueryImpl.isWithoutTenantId());
@@ -577,25 +429,21 @@ public class DeploymentQueryImplDiffblueTest {
 
   /**
    * Test {@link DeploymentQueryImpl#processDefinitionKey(String)}.
-   *
    * <ul>
-   *   <li>Then {@link DeploymentQueryImpl#DeploymentQueryImpl()} ProcessDefinitionKey is {@code
-   *       Key}.
+   *   <li>Then {@link DeploymentQueryImpl#DeploymentQueryImpl()} ProcessDefinitionKey is {@code Key}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link DeploymentQueryImpl#processDefinitionKey(String)}
+   * <p>
+   * Method under test: {@link DeploymentQueryImpl#processDefinitionKey(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"DeploymentQueryImpl DeploymentQueryImpl.processDefinitionKey(String)"})
   public void testProcessDefinitionKey_thenDeploymentQueryImplProcessDefinitionKeyIsKey() {
     // Arrange
     DeploymentQueryImpl deploymentQueryImpl = new DeploymentQueryImpl();
 
     // Act
-    DeploymentQueryImpl actualProcessDefinitionKeyResult =
-        deploymentQueryImpl.processDefinitionKey("Key");
+    DeploymentQueryImpl actualProcessDefinitionKeyResult = deploymentQueryImpl.processDefinitionKey("Key");
 
     // Assert
     assertEquals("Key", deploymentQueryImpl.getProcessDefinitionKey());
@@ -604,41 +452,35 @@ public class DeploymentQueryImplDiffblueTest {
 
   /**
    * Test {@link DeploymentQueryImpl#processDefinitionKey(String)}.
-   *
    * <ul>
-   *   <li>When {@code null}.
-   *   <li>Then throw {@link ActivitiIllegalArgumentException}.
+   *   <li>When {@code null}.</li>
+   *   <li>Then throw {@link ActivitiIllegalArgumentException}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link DeploymentQueryImpl#processDefinitionKey(String)}
+   * <p>
+   * Method under test: {@link DeploymentQueryImpl#processDefinitionKey(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"DeploymentQueryImpl DeploymentQueryImpl.processDefinitionKey(String)"})
   public void testProcessDefinitionKey_whenNull_thenThrowActivitiIllegalArgumentException() {
     // Arrange, Act and Assert
-    assertThrows(
-        ActivitiIllegalArgumentException.class,
-        () -> new DeploymentQueryImpl().processDefinitionKey(null));
+    assertThrows(ActivitiIllegalArgumentException.class, () -> (new DeploymentQueryImpl()).processDefinitionKey(null));
   }
 
   /**
    * Test {@link DeploymentQueryImpl#processDefinitionKeyLike(String)}.
-   *
-   * <p>Method under test: {@link DeploymentQueryImpl#processDefinitionKeyLike(String)}
+   * <p>
+   * Method under test: {@link DeploymentQueryImpl#processDefinitionKeyLike(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"DeploymentQueryImpl DeploymentQueryImpl.processDefinitionKeyLike(String)"})
   public void testProcessDefinitionKeyLike() {
     // Arrange
     DeploymentQueryImpl deploymentQueryImpl = new DeploymentQueryImpl();
 
     // Act
-    DeploymentQueryImpl actualProcessDefinitionKeyLikeResult =
-        deploymentQueryImpl.processDefinitionKeyLike("Key Like");
+    DeploymentQueryImpl actualProcessDefinitionKeyLikeResult = deploymentQueryImpl.processDefinitionKeyLike("Key Like");
 
     // Assert
     assertEquals("Key Like", deploymentQueryImpl.getProcessDefinitionKeyLike());
@@ -647,115 +489,36 @@ public class DeploymentQueryImplDiffblueTest {
 
   /**
    * Test {@link DeploymentQueryImpl#processDefinitionKeyLike(String)}.
-   *
    * <ul>
-   *   <li>When {@code null}.
-   *   <li>Then throw {@link ActivitiIllegalArgumentException}.
+   *   <li>When {@code null}.</li>
+   *   <li>Then throw {@link ActivitiIllegalArgumentException}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link DeploymentQueryImpl#processDefinitionKeyLike(String)}
+   * <p>
+   * Method under test: {@link DeploymentQueryImpl#processDefinitionKeyLike(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"DeploymentQueryImpl DeploymentQueryImpl.processDefinitionKeyLike(String)"})
   public void testProcessDefinitionKeyLike_whenNull_thenThrowActivitiIllegalArgumentException() {
     // Arrange, Act and Assert
-    assertThrows(
-        ActivitiIllegalArgumentException.class,
-        () -> new DeploymentQueryImpl().processDefinitionKeyLike(null));
+    assertThrows(ActivitiIllegalArgumentException.class,
+        () -> (new DeploymentQueryImpl()).processDefinitionKeyLike(null));
   }
 
   /**
    * Test {@link DeploymentQueryImpl#latest()}.
-   *
    * <ul>
-   *   <li>Given {@link DeploymentQueryImpl#DeploymentQueryImpl()}.
-   *   <li>Then throw {@link ActivitiIllegalArgumentException}.
+   *   <li>Given {@link DeploymentQueryImpl#DeploymentQueryImpl()}.</li>
+   *   <li>Then throw {@link ActivitiIllegalArgumentException}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link DeploymentQueryImpl#latest()}
+   * <p>
+   * Method under test: {@link DeploymentQueryImpl#latest()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"DeploymentQueryImpl DeploymentQueryImpl.latest()"})
   public void testLatest_givenDeploymentQueryImpl_thenThrowActivitiIllegalArgumentException() {
     // Arrange, Act and Assert
-    assertThrows(ActivitiIllegalArgumentException.class, () -> new DeploymentQueryImpl().latest());
-  }
-
-  /**
-   * Test {@link DeploymentQueryImpl#latest()}.
-   *
-   * <ul>
-   *   <li>Then {@link DeploymentQueryImpl#DeploymentQueryImpl()} {@link
-   *       DeploymentQueryImpl#latest}.
-   * </ul>
-   *
-   * <p>Method under test: {@link DeploymentQueryImpl#latest()}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"DeploymentQueryImpl DeploymentQueryImpl.latest()"})
-  public void testLatest_thenDeploymentQueryImplLatest() {
-    // Arrange
-    DeploymentQueryImpl deploymentQueryImpl = new DeploymentQueryImpl();
-    deploymentQueryImpl.deploymentKey("latest can only be used together with a deployment key");
-
-    // Act
-    DeploymentQueryImpl actualLatestResult = deploymentQueryImpl.latest();
-
-    // Assert
-    assertTrue(deploymentQueryImpl.latest);
-    assertSame(deploymentQueryImpl, actualLatestResult);
-  }
-
-  /**
-   * Test {@link DeploymentQueryImpl#executeCount(CommandContext)}.
-   *
-   * <ul>
-   *   <li>Then throw {@link ActivitiIllegalArgumentException}.
-   * </ul>
-   *
-   * <p>Method under test: {@link DeploymentQueryImpl#executeCount(CommandContext)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"long DeploymentQueryImpl.executeCount(CommandContext)"})
-  public void testExecuteCount_thenThrowActivitiIllegalArgumentException() {
-    // Arrange
-    DeploymentQueryImpl deploymentQueryImpl = new DeploymentQueryImpl();
-    deploymentQueryImpl.orderBy(mock(QueryProperty.class));
-
-    // Act and Assert
-    assertThrows(
-        ActivitiIllegalArgumentException.class, () -> deploymentQueryImpl.executeCount(null));
-  }
-
-  /**
-   * Test {@link DeploymentQueryImpl#executeList(CommandContext, Page)}.
-   *
-   * <ul>
-   *   <li>Then throw {@link ActivitiIllegalArgumentException}.
-   * </ul>
-   *
-   * <p>Method under test: {@link DeploymentQueryImpl#executeList(CommandContext, Page)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"java.util.List DeploymentQueryImpl.executeList(CommandContext, Page)"})
-  public void testExecuteList_thenThrowActivitiIllegalArgumentException() {
-    // Arrange
-    DeploymentQueryImpl deploymentQueryImpl = new DeploymentQueryImpl();
-    deploymentQueryImpl.orderBy(mock(QueryProperty.class));
-
-    // Act and Assert
-    assertThrows(
-        ActivitiIllegalArgumentException.class,
-        () -> deploymentQueryImpl.executeList(null, new Page(1, 3)));
+    assertThrows(ActivitiIllegalArgumentException.class, () -> (new DeploymentQueryImpl()).latest());
   }
 }

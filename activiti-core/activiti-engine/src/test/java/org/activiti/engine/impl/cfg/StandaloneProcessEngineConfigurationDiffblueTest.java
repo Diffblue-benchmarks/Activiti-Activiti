@@ -20,8 +20,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.io.IOException;
 import java.util.Collection;
@@ -42,84 +41,57 @@ import org.junit.experimental.categories.Category;
 public class StandaloneProcessEngineConfigurationDiffblueTest {
   /**
    * Test {@link StandaloneProcessEngineConfiguration#createTransactionInterceptor()}.
-   *
-   * <p>Method under test: {@link
-   * StandaloneProcessEngineConfiguration#createTransactionInterceptor()}
+   * <p>
+   * Method under test: {@link StandaloneProcessEngineConfiguration#createTransactionInterceptor()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "CommandInterceptor StandaloneProcessEngineConfiguration.createTransactionInterceptor()"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"CommandInterceptor StandaloneProcessEngineConfiguration.createTransactionInterceptor()"})
   public void testCreateTransactionInterceptor() {
     // Arrange, Act and Assert
-    assertNull(new StandaloneProcessEngineConfiguration().createTransactionInterceptor());
+    assertNull((new StandaloneProcessEngineConfiguration()).createTransactionInterceptor());
   }
 
   /**
    * Test new {@link StandaloneProcessEngineConfiguration} (default constructor).
-   *
-   * <p>Method under test: default or parameterless constructor of {@link
-   * StandaloneProcessEngineConfiguration}
+   * <p>
+   * Method under test: default or parameterless constructor of {@link StandaloneProcessEngineConfiguration}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void StandaloneProcessEngineConfiguration.<init>()"})
   public void testNewStandaloneProcessEngineConfiguration() throws IOException {
     // Arrange and Act
-    StandaloneProcessEngineConfiguration actualStandaloneProcessEngineConfiguration =
-        new StandaloneProcessEngineConfiguration();
+    StandaloneProcessEngineConfiguration actualStandaloneProcessEngineConfiguration = new StandaloneProcessEngineConfiguration();
 
     // Assert
-    Collection<? extends CommandInterceptor> defaultCommandInterceptors =
-        actualStandaloneProcessEngineConfiguration.getDefaultCommandInterceptors();
+    Collection<? extends CommandInterceptor> defaultCommandInterceptors = actualStandaloneProcessEngineConfiguration
+        .getDefaultCommandInterceptors();
     assertEquals(1, defaultCommandInterceptors.size());
     assertTrue(defaultCommandInterceptors instanceof List);
-    Collection<? extends Deployer> defaultDeployers =
-        actualStandaloneProcessEngineConfiguration.getDefaultDeployers();
+    Collection<? extends Deployer> defaultDeployers = actualStandaloneProcessEngineConfiguration.getDefaultDeployers();
     assertEquals(1, defaultDeployers.size());
     assertTrue(defaultDeployers instanceof List);
-    assertTrue(
-        actualStandaloneProcessEngineConfiguration.getDynamicBpmnService()
-            instanceof DynamicBpmnServiceImpl);
-    assertTrue(
-        actualStandaloneProcessEngineConfiguration.getHistoryService()
-            instanceof HistoryServiceImpl);
-    assertTrue(
-        actualStandaloneProcessEngineConfiguration.getManagementService()
-            instanceof ManagementServiceImpl);
-    assertTrue(
-        actualStandaloneProcessEngineConfiguration.getRepositoryService()
-            instanceof RepositoryServiceImpl);
-    assertTrue(
-        actualStandaloneProcessEngineConfiguration.getRuntimeService()
-            instanceof RuntimeServiceImpl);
-    assertTrue(
-        actualStandaloneProcessEngineConfiguration.getTaskService() instanceof TaskServiceImpl);
-    assertTrue(
-        actualStandaloneProcessEngineConfiguration.getIntegrationContextManager()
-            instanceof IntegrationContextManagerImpl);
-    assertTrue(
-        actualStandaloneProcessEngineConfiguration.getIntegrationContextService()
-            instanceof IntegrationContextServiceImpl);
+    assertTrue(actualStandaloneProcessEngineConfiguration.getDynamicBpmnService() instanceof DynamicBpmnServiceImpl);
+    assertTrue(actualStandaloneProcessEngineConfiguration.getHistoryService() instanceof HistoryServiceImpl);
+    assertTrue(actualStandaloneProcessEngineConfiguration.getManagementService() instanceof ManagementServiceImpl);
+    assertTrue(actualStandaloneProcessEngineConfiguration.getRepositoryService() instanceof RepositoryServiceImpl);
+    assertTrue(actualStandaloneProcessEngineConfiguration.getRuntimeService() instanceof RuntimeServiceImpl);
+    assertTrue(actualStandaloneProcessEngineConfiguration.getTaskService() instanceof TaskServiceImpl);
+    assertTrue(actualStandaloneProcessEngineConfiguration
+        .getIntegrationContextManager() instanceof IntegrationContextManagerImpl);
+    assertTrue(actualStandaloneProcessEngineConfiguration
+        .getIntegrationContextService() instanceof IntegrationContextServiceImpl);
     assertEquals("", actualStandaloneProcessEngineConfiguration.getDatabaseCatalog());
     assertEquals("", actualStandaloneProcessEngineConfiguration.getDatabaseTablePrefix());
     assertEquals("", actualStandaloneProcessEngineConfiguration.getJdbcPassword());
-    assertEquals(
-        "@class", actualStandaloneProcessEngineConfiguration.getJavaClassFieldForJackson());
+    assertEquals("@class", actualStandaloneProcessEngineConfiguration.getJavaClassFieldForJackson());
     assertEquals("UTF-8", actualStandaloneProcessEngineConfiguration.getXmlEncoding());
-    assertEquals(
-        "activiti@localhost",
-        actualStandaloneProcessEngineConfiguration.getMailServerDefaultFrom());
+    assertEquals("activiti@localhost", actualStandaloneProcessEngineConfiguration.getMailServerDefaultFrom());
     assertEquals("audit", actualStandaloneProcessEngineConfiguration.getHistory());
-    assertEquals(
-        "camelContext", actualStandaloneProcessEngineConfiguration.getDefaultCamelContext());
+    assertEquals("camelContext", actualStandaloneProcessEngineConfiguration.getDefaultCamelContext());
     assertEquals("default", actualStandaloneProcessEngineConfiguration.getProcessEngineName());
-    assertEquals(
-        "jdbc:h2:tcp://localhost/~/activiti",
-        actualStandaloneProcessEngineConfiguration.getJdbcUrl());
+    assertEquals("jdbc:h2:tcp://localhost/~/activiti", actualStandaloneProcessEngineConfiguration.getJdbcUrl());
     assertEquals("localhost", actualStandaloneProcessEngineConfiguration.getMailServerHost());
     assertEquals("org.h2.Driver", actualStandaloneProcessEngineConfiguration.getJdbcDriver());
     assertEquals("sa", actualStandaloneProcessEngineConfiguration.getJdbcUsername());
@@ -172,8 +144,7 @@ public class StandaloneProcessEngineConfigurationDiffblueTest {
     assertNull(actualStandaloneProcessEngineConfiguration.getEventDispatcher());
     assertNull(actualStandaloneProcessEngineConfiguration.getProcessDefinitionHelper());
     assertNull(actualStandaloneProcessEngineConfiguration.getAsyncExecutor());
-    assertNull(
-        actualStandaloneProcessEngineConfiguration.getAsyncExecutorExecuteAsyncRunnableFactory());
+    assertNull(actualStandaloneProcessEngineConfiguration.getAsyncExecutorExecuteAsyncRunnableFactory());
     assertNull(actualStandaloneProcessEngineConfiguration.getJobManager());
     assertNull(actualStandaloneProcessEngineConfiguration.getListenerNotificationHelper());
     assertNull(actualStandaloneProcessEngineConfiguration.getBpmnParser());
@@ -206,15 +177,12 @@ public class StandaloneProcessEngineConfigurationDiffblueTest {
     assertNull(actualStandaloneProcessEngineConfiguration.getEventLogEntryEntityManager());
     assertNull(actualStandaloneProcessEngineConfiguration.getEventSubscriptionEntityManager());
     assertNull(actualStandaloneProcessEngineConfiguration.getExecutionEntityManager());
-    assertNull(
-        actualStandaloneProcessEngineConfiguration.getHistoricActivityInstanceEntityManager());
+    assertNull(actualStandaloneProcessEngineConfiguration.getHistoricActivityInstanceEntityManager());
     assertNull(actualStandaloneProcessEngineConfiguration.getHistoricDetailEntityManager());
     assertNull(actualStandaloneProcessEngineConfiguration.getHistoricIdentityLinkEntityManager());
-    assertNull(
-        actualStandaloneProcessEngineConfiguration.getHistoricProcessInstanceEntityManager());
+    assertNull(actualStandaloneProcessEngineConfiguration.getHistoricProcessInstanceEntityManager());
     assertNull(actualStandaloneProcessEngineConfiguration.getHistoricTaskInstanceEntityManager());
-    assertNull(
-        actualStandaloneProcessEngineConfiguration.getHistoricVariableInstanceEntityManager());
+    assertNull(actualStandaloneProcessEngineConfiguration.getHistoricVariableInstanceEntityManager());
     assertNull(actualStandaloneProcessEngineConfiguration.getIdentityLinkEntityManager());
     assertNull(actualStandaloneProcessEngineConfiguration.getJobEntityManager());
     assertNull(actualStandaloneProcessEngineConfiguration.getModelEntityManager());
@@ -263,40 +231,25 @@ public class StandaloneProcessEngineConfigurationDiffblueTest {
     assertEquals(-1, actualStandaloneProcessEngineConfiguration.getMaxLengthStringVariableType());
     assertEquals(-1, actualStandaloneProcessEngineConfiguration.getProcessDefinitionCacheLimit());
     assertEquals(-1, actualStandaloneProcessEngineConfiguration.processDefinitionInfoCacheLimit);
-    assertEquals(
-        0, actualStandaloneProcessEngineConfiguration.getJdbcDefaultTransactionIsolationLevel());
+    assertEquals(0, actualStandaloneProcessEngineConfiguration.getJdbcDefaultTransactionIsolationLevel());
     assertEquals(0, actualStandaloneProcessEngineConfiguration.getJdbcMaxActiveConnections());
     assertEquals(0, actualStandaloneProcessEngineConfiguration.getJdbcMaxCheckoutTime());
     assertEquals(0, actualStandaloneProcessEngineConfiguration.getJdbcMaxIdleConnections());
     assertEquals(0, actualStandaloneProcessEngineConfiguration.getJdbcMaxWaitTime());
     assertEquals(0, actualStandaloneProcessEngineConfiguration.getJdbcPingConnectionNotUsedFor());
-    assertEquals(
-        0,
-        actualStandaloneProcessEngineConfiguration.getAsyncExecutorDefaultQueueSizeFullWaitTime());
-    assertEquals(
-        1,
-        actualStandaloneProcessEngineConfiguration.getAsyncExecutorMaxAsyncJobsDuePerAcquisition());
-    assertEquals(
-        1, actualStandaloneProcessEngineConfiguration.getAsyncExecutorMaxTimerJobsPerAcquisition());
+    assertEquals(0, actualStandaloneProcessEngineConfiguration.getAsyncExecutorDefaultQueueSizeFullWaitTime());
+    assertEquals(1, actualStandaloneProcessEngineConfiguration.getAsyncExecutorMaxAsyncJobsDuePerAcquisition());
+    assertEquals(1, actualStandaloneProcessEngineConfiguration.getAsyncExecutorMaxTimerJobsPerAcquisition());
     assertEquals(10, actualStandaloneProcessEngineConfiguration.getAsyncFailedJobWaitTime());
     assertEquals(10, actualStandaloneProcessEngineConfiguration.getDefaultFailedJobWaitTime());
     assertEquals(10, actualStandaloneProcessEngineConfiguration.getAsyncExecutorMaxPoolSize());
-    assertEquals(
-        100, actualStandaloneProcessEngineConfiguration.getAsyncExecutorThreadPoolQueueSize());
-    assertEquals(
-        100, actualStandaloneProcessEngineConfiguration.getMaxNrOfStatementsInBulkInsert());
-    assertEquals(
-        10000,
-        actualStandaloneProcessEngineConfiguration
-            .getAsyncExecutorDefaultAsyncJobAcquireWaitTime());
-    assertEquals(
-        10000,
-        actualStandaloneProcessEngineConfiguration
-            .getAsyncExecutorDefaultTimerJobAcquireWaitTime());
+    assertEquals(100, actualStandaloneProcessEngineConfiguration.getAsyncExecutorThreadPoolQueueSize());
+    assertEquals(100, actualStandaloneProcessEngineConfiguration.getMaxNrOfStatementsInBulkInsert());
+    assertEquals(10000, actualStandaloneProcessEngineConfiguration.getAsyncExecutorDefaultAsyncJobAcquireWaitTime());
+    assertEquals(10000, actualStandaloneProcessEngineConfiguration.getAsyncExecutorDefaultTimerJobAcquireWaitTime());
     assertEquals(2, actualStandaloneProcessEngineConfiguration.getAsyncExecutorCorePoolSize());
     assertEquals(20000, actualStandaloneProcessEngineConfiguration.getExecutionQueryLimit());
-    assertEquals(
-        20000, actualStandaloneProcessEngineConfiguration.getHistoricProcessInstancesQueryLimit());
+    assertEquals(20000, actualStandaloneProcessEngineConfiguration.getHistoricProcessInstancesQueryLimit());
     assertEquals(20000, actualStandaloneProcessEngineConfiguration.getHistoricTaskQueryLimit());
     assertEquals(20000, actualStandaloneProcessEngineConfiguration.getTaskQueryLimit());
     assertEquals(25, actualStandaloneProcessEngineConfiguration.getMailServerPort());
@@ -304,35 +257,18 @@ public class StandaloneProcessEngineConfigurationDiffblueTest {
     assertEquals(25, actualStandaloneProcessEngineConfiguration.getBatchSizeTasks());
     assertEquals(2500, actualStandaloneProcessEngineConfiguration.getIdBlockSize());
     assertEquals(3, actualStandaloneProcessEngineConfiguration.getAsyncExecutorNumberOfRetries());
-    assertEquals(
-        3, actualStandaloneProcessEngineConfiguration.getAsyncExecutorResetExpiredJobsPageSize());
-    assertEquals(
-        30, actualStandaloneProcessEngineConfiguration.getDefaultBpmnParseHandlers().size());
-    assertEquals(
-        300000,
-        actualStandaloneProcessEngineConfiguration.getAsyncExecutorAsyncJobLockTimeInMillis());
-    assertEquals(
-        300000, actualStandaloneProcessEngineConfiguration.getAsyncExecutorTimerLockTimeInMillis());
-    assertEquals(
-        5000L, actualStandaloneProcessEngineConfiguration.getAsyncExecutorThreadKeepAliveTime());
+    assertEquals(3, actualStandaloneProcessEngineConfiguration.getAsyncExecutorResetExpiredJobsPageSize());
+    assertEquals(30, actualStandaloneProcessEngineConfiguration.getDefaultBpmnParseHandlers().size());
+    assertEquals(300000, actualStandaloneProcessEngineConfiguration.getAsyncExecutorAsyncJobLockTimeInMillis());
+    assertEquals(300000, actualStandaloneProcessEngineConfiguration.getAsyncExecutorTimerLockTimeInMillis());
+    assertEquals(5000L, actualStandaloneProcessEngineConfiguration.getAsyncExecutorThreadKeepAliveTime());
     byte[] byteArray = new byte[51];
-    assertEquals(
-        51,
-        actualStandaloneProcessEngineConfiguration
-            .getMyBatisXmlConfigurationStream()
-            .read(byteArray));
+    assertEquals(51, actualStandaloneProcessEngineConfiguration.getMyBatisXmlConfigurationStream().read(byteArray));
     assertEquals(60, actualStandaloneProcessEngineConfiguration.getLockTimeAsyncJobWaitTime());
-    assertEquals(
-        60000,
-        actualStandaloneProcessEngineConfiguration.getAsyncExecutorResetExpiredJobsInterval());
-    assertEquals(
-        60L, actualStandaloneProcessEngineConfiguration.getAsyncExecutorSecondsToWaitOnShutdown());
-    assertEquals(
-        70,
-        actualStandaloneProcessEngineConfiguration
-            .DEFAULT_MAX_NR_OF_STATEMENTS_BULK_INSERT_SQL_SERVER);
-    assertEquals(
-        DelegateExpressionFieldInjectionMode.MIXED,
+    assertEquals(60000, actualStandaloneProcessEngineConfiguration.getAsyncExecutorResetExpiredJobsInterval());
+    assertEquals(60L, actualStandaloneProcessEngineConfiguration.getAsyncExecutorSecondsToWaitOnShutdown());
+    assertEquals(70, actualStandaloneProcessEngineConfiguration.DEFAULT_MAX_NR_OF_STATEMENTS_BULK_INSERT_SQL_SERVER);
+    assertEquals(DelegateExpressionFieldInjectionMode.MIXED,
         actualStandaloneProcessEngineConfiguration.getDelegateExpressionFieldInjectionMode());
     assertFalse(actualStandaloneProcessEngineConfiguration.getMailServerUseSSL());
     assertFalse(actualStandaloneProcessEngineConfiguration.getMailServerUseTLS());
@@ -352,27 +288,20 @@ public class StandaloneProcessEngineConfigurationDiffblueTest {
     assertFalse(actualStandaloneProcessEngineConfiguration.isSerializePOJOsInVariablesToJson());
     assertTrue(actualStandaloneProcessEngineConfiguration.getMailServers().isEmpty());
     assertTrue(actualStandaloneProcessEngineConfiguration.getMailSessionsJndi().isEmpty());
-    assertTrue(
-        actualStandaloneProcessEngineConfiguration.getWsOverridenEndpointAddresses().isEmpty());
+    assertTrue(actualStandaloneProcessEngineConfiguration.getWsOverridenEndpointAddresses().isEmpty());
     assertTrue(actualStandaloneProcessEngineConfiguration.isDbHistoryUsed());
     assertTrue(actualStandaloneProcessEngineConfiguration.isUseClassForNameClassLoading());
     assertTrue(actualStandaloneProcessEngineConfiguration.isBulkInsertEnabled());
     assertTrue(actualStandaloneProcessEngineConfiguration.isEnableConfiguratorServiceLoader());
     assertTrue(actualStandaloneProcessEngineConfiguration.isEnableEventDispatcher());
-    assertTrue(
-        actualStandaloneProcessEngineConfiguration
-            .isSerializableVariableTypeTrackDeserializedObjects());
+    assertTrue(actualStandaloneProcessEngineConfiguration.isSerializableVariableTypeTrackDeserializedObjects());
     assertTrue(actualStandaloneProcessEngineConfiguration.isUsingRelationalDatabase());
-    assertEquals(
-        Boolean.FALSE.toString(),
-        actualStandaloneProcessEngineConfiguration.getDatabaseSchemaUpdate());
-    assertEquals(
-        ProcessEngineConfigurationImpl.DEFAULT_GENERIC_MAX_LENGTH_STRING,
+    String expectedDatabaseSchemaUpdate = Boolean.FALSE.toString();
+    assertEquals(expectedDatabaseSchemaUpdate, actualStandaloneProcessEngineConfiguration.getDatabaseSchemaUpdate());
+    assertEquals(ProcessEngineConfigurationImpl.DEFAULT_GENERIC_MAX_LENGTH_STRING,
         actualStandaloneProcessEngineConfiguration.getMaxLengthString());
-    assertEquals(
-        ProcessEngineConfigurationImpl.DEFAULT_WS_SYNC_FACTORY,
+    assertEquals(ProcessEngineConfigurationImpl.DEFAULT_WS_SYNC_FACTORY,
         actualStandaloneProcessEngineConfiguration.getWsSyncFactoryClassName());
-    assertArrayEquals(
-        "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n\n<!DOCTYPE c".getBytes("UTF-8"), byteArray);
+    assertArrayEquals("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n\n<!DOCTYPE c".getBytes("UTF-8"), byteArray);
   }
 }

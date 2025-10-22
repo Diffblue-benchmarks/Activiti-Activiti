@@ -18,7 +18,6 @@ package org.activiti.api.task.model.builders;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.api.task.model.payloads.CreateTaskVariablePayload;
 import org.junit.jupiter.api.DisplayName;
@@ -28,36 +27,31 @@ import org.junit.jupiter.api.Test;
 class CreateTaskVariablePayloadBuilderDiffblueTest {
   /**
    * Test {@link CreateTaskVariablePayloadBuilder#withVariable(String, Object)}.
-   *
-   * <p>Method under test: {@link CreateTaskVariablePayloadBuilder#withVariable(String, Object)}
+   * <p>
+   * Method under test: {@link CreateTaskVariablePayloadBuilder#withVariable(String, Object)}
    */
   @Test
   @DisplayName("Test withVariable(String, Object)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "CreateTaskVariablePayloadBuilder CreateTaskVariablePayloadBuilder.withVariable(String, Object)"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"CreateTaskVariablePayloadBuilder CreateTaskVariablePayloadBuilder.withVariable(String, Object)"})
   void testWithVariable() {
     // Arrange
     CreateTaskVariablePayloadBuilder createVariableResult = TaskPayloadBuilder.createVariable();
 
     // Act
-    CreateTaskVariablePayloadBuilder actualWithVariableResult =
-        createVariableResult.withVariable("Name", "Value");
+    CreateTaskVariablePayloadBuilder actualWithVariableResult = createVariableResult.withVariable("Name", "Value");
 
     // Assert
-    CreateTaskVariablePayload createTaskVariablePayload = createVariableResult.build();
-    assertEquals("Name", createTaskVariablePayload.getName());
-    assertEquals("Value", createTaskVariablePayload.getValue());
+    CreateTaskVariablePayload buildResult = createVariableResult.build();
+    assertEquals("Name", buildResult.getName());
+    assertEquals("Value", buildResult.getValue());
     assertSame(createVariableResult, actualWithVariableResult);
   }
 
   /**
    * Test {@link CreateTaskVariablePayloadBuilder#build()}.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>{@link CreateTaskVariablePayloadBuilder#build()}
    *   <li>default or parameterless constructor of {@link CreateTaskVariablePayloadBuilder}
@@ -66,21 +60,17 @@ class CreateTaskVariablePayloadBuilderDiffblueTest {
    */
   @Test
   @DisplayName("Test build()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void CreateTaskVariablePayloadBuilder.<init>()",
-    "CreateTaskVariablePayload CreateTaskVariablePayloadBuilder.build()",
-    "CreateTaskVariablePayloadBuilder CreateTaskVariablePayloadBuilder.withTaskId(String)"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void CreateTaskVariablePayloadBuilder.<init>()",
+      "CreateTaskVariablePayload CreateTaskVariablePayloadBuilder.build()",
+      "CreateTaskVariablePayloadBuilder CreateTaskVariablePayloadBuilder.withTaskId(String)"})
   void testBuild() {
     // Arrange and Act
-    CreateTaskVariablePayload actualCreateTaskVariablePayload =
-        new CreateTaskVariablePayloadBuilder().withTaskId("42").build();
+    CreateTaskVariablePayload actualBuildResult = (new CreateTaskVariablePayloadBuilder()).withTaskId("42").build();
 
     // Assert
-    assertEquals("42", actualCreateTaskVariablePayload.getTaskId());
-    assertNull(actualCreateTaskVariablePayload.getValue());
-    assertNull(actualCreateTaskVariablePayload.getName());
+    assertEquals("42", actualBuildResult.getTaskId());
+    assertNull(actualBuildResult.getValue());
+    assertNull(actualBuildResult.getName());
   }
 }

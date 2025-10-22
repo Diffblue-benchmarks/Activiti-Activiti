@@ -17,8 +17,7 @@ package org.activiti.engine.impl.cmd;
 
 import static org.junit.Assert.assertThrows;
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.HashSet;
 import java.util.Set;
@@ -30,36 +29,32 @@ import org.junit.experimental.categories.Category;
 public class GetExecutionsVariablesCmdDiffblueTest {
   /**
    * Test {@link GetExecutionsVariablesCmd#GetExecutionsVariablesCmd(Set)}.
-   *
-   * <p>Method under test: {@link GetExecutionsVariablesCmd#GetExecutionsVariablesCmd(Set)}
+   * <p>
+   * Method under test: {@link GetExecutionsVariablesCmd#GetExecutionsVariablesCmd(Set)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void GetExecutionsVariablesCmd.<init>(Set)"})
   public void testNewGetExecutionsVariablesCmd() {
     // Arrange, Act and Assert
-    assertTrue(new GetExecutionsVariablesCmd(new HashSet<>()).executionIds.isEmpty());
+    assertTrue((new GetExecutionsVariablesCmd(new HashSet<>())).executionIds.isEmpty());
   }
 
   /**
    * Test {@link GetExecutionsVariablesCmd#execute(CommandContext)}.
-   *
    * <ul>
-   *   <li>When {@code null}.
-   *   <li>Then throw {@link ActivitiIllegalArgumentException}.
+   *   <li>When {@code null}.</li>
+   *   <li>Then throw {@link ActivitiIllegalArgumentException}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link GetExecutionsVariablesCmd#execute(CommandContext)}
+   * <p>
+   * Method under test: {@link GetExecutionsVariablesCmd#execute(CommandContext)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"java.util.List GetExecutionsVariablesCmd.execute(CommandContext)"})
   public void testExecute_whenNull_thenThrowActivitiIllegalArgumentException() {
     // Arrange, Act and Assert
-    assertThrows(
-        ActivitiIllegalArgumentException.class,
-        () -> new GetExecutionsVariablesCmd(new HashSet<>()).execute(null));
+    assertThrows(ActivitiIllegalArgumentException.class,
+        () -> (new GetExecutionsVariablesCmd(new HashSet<>())).execute(null));
   }
 }

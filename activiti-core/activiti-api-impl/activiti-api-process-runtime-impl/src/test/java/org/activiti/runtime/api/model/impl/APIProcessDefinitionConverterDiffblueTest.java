@@ -18,10 +18,10 @@ package org.activiti.runtime.api.model.impl;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.ArgumentMatchers.isNull;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.api.process.model.ProcessDefinition;
 import org.activiti.api.runtime.model.impl.ProcessDefinitionImpl;
@@ -40,32 +40,28 @@ import org.springframework.test.context.aot.DisabledInAotMode;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 @ContextConfiguration(classes = {APIProcessDefinitionConverter.class})
-@DisabledInAotMode
 @ExtendWith(SpringExtension.class)
+@DisabledInAotMode
 class APIProcessDefinitionConverterDiffblueTest {
-  @Autowired private APIProcessDefinitionConverter aPIProcessDefinitionConverter;
+  @Autowired
+  private APIProcessDefinitionConverter aPIProcessDefinitionConverter;
 
-  @MockBean private RepositoryService repositoryService;
+  @MockBean
+  private RepositoryService repositoryService;
 
   /**
-   * Test {@link APIProcessDefinitionConverter#from(ProcessDefinition)} with {@code
-   * ProcessDefinition}.
-   *
+   * Test {@link APIProcessDefinitionConverter#from(ProcessDefinition)} with {@code ProcessDefinition}.
    * <ul>
-   *   <li>Then return {@link ProcessDefinitionImpl}.
+   *   <li>Then return {@link ProcessDefinitionImpl}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link
-   * APIProcessDefinitionConverter#from(org.activiti.engine.repository.ProcessDefinition)}
+   * <p>
+   * Method under test: {@link APIProcessDefinitionConverter#from(org.activiti.engine.repository.ProcessDefinition)}
    */
   @Test
-  @DisplayName(
-      "Test from(ProcessDefinition) with 'ProcessDefinition'; then return ProcessDefinitionImpl")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test from(ProcessDefinition) with 'ProcessDefinition'; then return ProcessDefinitionImpl")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({
-    "ProcessDefinition APIProcessDefinitionConverter.from(org.activiti.engine.repository.ProcessDefinition)"
-  })
+      "ProcessDefinition APIProcessDefinitionConverter.from(org.activiti.engine.repository.ProcessDefinition)"})
   void testFromWithProcessDefinition_thenReturnProcessDefinitionImpl() {
     // Arrange
     BpmnModel bpmnModel = mock(BpmnModel.class);
@@ -73,12 +69,11 @@ class APIProcessDefinitionConverterDiffblueTest {
     when(repositoryService.getBpmnModel(Mockito.<String>any())).thenReturn(bpmnModel);
 
     // Act
-    ProcessDefinition actualFromResult =
-        aPIProcessDefinitionConverter.from(new ProcessDefinitionEntityImpl());
+    ProcessDefinition actualFromResult = aPIProcessDefinitionConverter.from(new ProcessDefinitionEntityImpl());
 
     // Assert
-    verify(bpmnModel).getStartFormKey(null);
-    verify(repositoryService).getBpmnModel(null);
+    verify(bpmnModel).getStartFormKey(isNull());
+    verify(repositoryService).getBpmnModel(isNull());
     assertTrue(actualFromResult instanceof ProcessDefinitionImpl);
     assertEquals("Start Form Key", actualFromResult.getFormKey());
     assertNull(actualFromResult.getAppVersion());

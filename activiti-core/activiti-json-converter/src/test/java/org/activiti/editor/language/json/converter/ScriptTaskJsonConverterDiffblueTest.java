@@ -20,12 +20,11 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.node.DoubleNode;
 import com.fasterxml.jackson.databind.node.JsonNodeFactory;
 import com.fasterxml.jackson.databind.node.JsonNodeType;
+import com.fasterxml.jackson.databind.node.MissingNode;
 import com.fasterxml.jackson.databind.node.NullNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.fasterxml.jackson.databind.node.TextNode;
@@ -43,13 +42,12 @@ import org.junit.jupiter.api.Test;
 class ScriptTaskJsonConverterDiffblueTest {
   /**
    * Test {@link ScriptTaskJsonConverter#fillJsonTypes(Map)}.
-   *
-   * <p>Method under test: {@link ScriptTaskJsonConverter#fillJsonTypes(Map)}
+   * <p>
+   * Method under test: {@link ScriptTaskJsonConverter#fillJsonTypes(Map)}
    */
   @Test
   @DisplayName("Test fillJsonTypes(Map)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void ScriptTaskJsonConverter.fillJsonTypes(Map)"})
   void testFillJsonTypes() {
     // Arrange
@@ -66,13 +64,12 @@ class ScriptTaskJsonConverterDiffblueTest {
 
   /**
    * Test {@link ScriptTaskJsonConverter#getStencilId(BaseElement)}.
-   *
-   * <p>Method under test: {@link ScriptTaskJsonConverter#getStencilId(BaseElement)}
+   * <p>
+   * Method under test: {@link ScriptTaskJsonConverter#getStencilId(BaseElement)}
    */
   @Test
   @DisplayName("Test getStencilId(BaseElement)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"String ScriptTaskJsonConverter.getStencilId(BaseElement)"})
   void testGetStencilId() {
     // Arrange
@@ -84,23 +81,17 @@ class ScriptTaskJsonConverterDiffblueTest {
 
   /**
    * Test {@link ScriptTaskJsonConverter#convertElementToJson(ObjectNode, BaseElement)}.
-   *
-   * <p>Method under test: {@link ScriptTaskJsonConverter#convertElementToJson(ObjectNode,
-   * BaseElement)}
+   * <p>
+   * Method under test: {@link ScriptTaskJsonConverter#convertElementToJson(ObjectNode, BaseElement)}
    */
   @Test
   @DisplayName("Test convertElementToJson(ObjectNode, BaseElement)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void ScriptTaskJsonConverter.convertElementToJson(ObjectNode, BaseElement)"})
   void testConvertElementToJson() {
     // Arrange
     ScriptTaskJsonConverter scriptTaskJsonConverter = new ScriptTaskJsonConverter();
-    JsonNodeFactory nc = JsonNodeFactory.withExactBigDecimals(true);
-
-    ObjectNode propertiesNode = new ObjectNode(nc);
-    propertiesNode.put("scriptformat", DoubleNode.valueOf(10.0d));
-    propertiesNode.put("scripttext", DoubleNode.valueOf(10.0d));
+    ObjectNode propertiesNode = new ObjectNode(JsonNodeFactory.withExactBigDecimals(true));
 
     ScriptTask baseElement = new ScriptTask();
     baseElement.setScriptFormat(null);
@@ -116,9 +107,7 @@ class ScriptTaskJsonConverterDiffblueTest {
     boolean actualHasNextResult = iteratorResult.hasNext();
     assertTrue(nextResult instanceof NullNode);
     assertEquals("null", nextResult.toPrettyString());
-    assertEquals(
-        "{\n  \"scriptformat\" : null,\n  \"scripttext\" : null\n}",
-        propertiesNode.toPrettyString());
+    assertEquals("{\n  \"scriptformat\" : null,\n  \"scripttext\" : null\n}", propertiesNode.toPrettyString());
     assertEquals(JsonNodeType.NULL, nextResult.getNodeType());
     assertFalse(nextResult.isTextual());
     assertFalse(actualHasNextResult);
@@ -128,23 +117,17 @@ class ScriptTaskJsonConverterDiffblueTest {
 
   /**
    * Test {@link ScriptTaskJsonConverter#convertElementToJson(ObjectNode, BaseElement)}.
-   *
-   * <p>Method under test: {@link ScriptTaskJsonConverter#convertElementToJson(ObjectNode,
-   * BaseElement)}
+   * <p>
+   * Method under test: {@link ScriptTaskJsonConverter#convertElementToJson(ObjectNode, BaseElement)}
    */
   @Test
   @DisplayName("Test convertElementToJson(ObjectNode, BaseElement)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void ScriptTaskJsonConverter.convertElementToJson(ObjectNode, BaseElement)"})
   void testConvertElementToJson2() {
     // Arrange
     ScriptTaskJsonConverter scriptTaskJsonConverter = new ScriptTaskJsonConverter();
-    JsonNodeFactory nc = JsonNodeFactory.withExactBigDecimals(true);
-
-    ObjectNode propertiesNode = new ObjectNode(nc);
-    propertiesNode.put("scriptformat", DoubleNode.valueOf(10.0d));
-    propertiesNode.put("scripttext", DoubleNode.valueOf(10.0d));
+    ObjectNode propertiesNode = new ObjectNode(JsonNodeFactory.withExactBigDecimals(true));
 
     ScriptTask baseElement = new ScriptTask();
     baseElement.setScriptFormat("");
@@ -162,9 +145,7 @@ class ScriptTaskJsonConverterDiffblueTest {
     assertTrue(nextResult instanceof TextNode);
     assertEquals("\"\"", nextResult.toPrettyString());
     assertEquals("null", nextResult2.toPrettyString());
-    assertEquals(
-        "{\n  \"scriptformat\" : \"\",\n  \"scripttext\" : null\n}",
-        propertiesNode.toPrettyString());
+    assertEquals("{\n  \"scriptformat\" : \"\",\n  \"scripttext\" : null\n}", propertiesNode.toPrettyString());
     assertEquals(JsonNodeType.NULL, nextResult2.getNodeType());
     assertEquals(JsonNodeType.STRING, nextResult.getNodeType());
     assertFalse(nextResult.isNull());
@@ -176,32 +157,26 @@ class ScriptTaskJsonConverterDiffblueTest {
 
   /**
    * Test {@link ScriptTaskJsonConverter#convertJsonToElement(JsonNode, JsonNode, Map)}.
-   *
    * <ul>
-   *   <li>When {@link HashMap#HashMap()}.
-   *   <li>Then return {@link ScriptTask}.
+   *   <li>When {@link HashMap#HashMap()}.</li>
+   *   <li>Then return {@link ScriptTask}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ScriptTaskJsonConverter#convertJsonToElement(JsonNode, JsonNode,
-   * Map)}
+   * <p>
+   * Method under test: {@link ScriptTaskJsonConverter#convertJsonToElement(JsonNode, JsonNode, Map)}
    */
   @Test
-  @DisplayName(
-      "Test convertJsonToElement(JsonNode, JsonNode, Map); when HashMap(); then return ScriptTask")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "FlowElement ScriptTaskJsonConverter.convertJsonToElement(JsonNode, JsonNode, Map)"
-  })
+  @DisplayName("Test convertJsonToElement(JsonNode, JsonNode, Map); when HashMap(); then return ScriptTask")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"FlowElement ScriptTaskJsonConverter.convertJsonToElement(JsonNode, JsonNode, Map)"})
   void testConvertJsonToElement_whenHashMap_thenReturnScriptTask() {
     // Arrange
     ScriptTaskJsonConverter scriptTaskJsonConverter = new ScriptTaskJsonConverter();
-    DoubleNode elementNode = DoubleNode.valueOf(10.0d);
-    DoubleNode modelNode = DoubleNode.valueOf(10.0d);
+    MissingNode elementNode = MissingNode.getInstance();
+    MissingNode modelNode = MissingNode.getInstance();
 
     // Act
-    FlowElement actualConvertJsonToElementResult =
-        scriptTaskJsonConverter.convertJsonToElement(elementNode, modelNode, new HashMap<>());
+    FlowElement actualConvertJsonToElementResult = scriptTaskJsonConverter.convertJsonToElement(elementNode, modelNode,
+        new HashMap<>());
 
     // Assert
     assertTrue(actualConvertJsonToElementResult instanceof ScriptTask);
@@ -220,17 +195,14 @@ class ScriptTaskJsonConverterDiffblueTest {
     assertNull(actualConvertJsonToElementResult.getSubProcess());
     assertEquals(0, actualConvertJsonToElementResult.getXmlColumnNumber());
     assertEquals(0, actualConvertJsonToElementResult.getXmlRowNumber());
-    assertFalse(
-        ((ScriptTask) actualConvertJsonToElementResult).hasMultiInstanceLoopCharacteristics());
+    assertFalse(((ScriptTask) actualConvertJsonToElementResult).hasMultiInstanceLoopCharacteristics());
     assertFalse(((ScriptTask) actualConvertJsonToElementResult).isForCompensation());
     assertFalse(((ScriptTask) actualConvertJsonToElementResult).isAsynchronous());
     assertFalse(((ScriptTask) actualConvertJsonToElementResult).isNotExclusive());
     assertFalse(((ScriptTask) actualConvertJsonToElementResult).isAutoStoreVariables());
     assertTrue(((ScriptTask) actualConvertJsonToElementResult).getBoundaryEvents().isEmpty());
-    assertTrue(
-        ((ScriptTask) actualConvertJsonToElementResult).getDataInputAssociations().isEmpty());
-    assertTrue(
-        ((ScriptTask) actualConvertJsonToElementResult).getDataOutputAssociations().isEmpty());
+    assertTrue(((ScriptTask) actualConvertJsonToElementResult).getDataInputAssociations().isEmpty());
+    assertTrue(((ScriptTask) actualConvertJsonToElementResult).getDataOutputAssociations().isEmpty());
     assertTrue(((ScriptTask) actualConvertJsonToElementResult).getMapExceptions().isEmpty());
     assertTrue(actualConvertJsonToElementResult.getExecutionListeners().isEmpty());
     assertTrue(((ScriptTask) actualConvertJsonToElementResult).getIncomingFlows().isEmpty());
@@ -242,13 +214,12 @@ class ScriptTaskJsonConverterDiffblueTest {
 
   /**
    * Test new {@link ScriptTaskJsonConverter} (default constructor).
-   *
-   * <p>Method under test: default or parameterless constructor of {@link ScriptTaskJsonConverter}
+   * <p>
+   * Method under test: default or parameterless constructor of {@link ScriptTaskJsonConverter}
    */
   @Test
   @DisplayName("Test new ScriptTaskJsonConverter (default constructor)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void ScriptTaskJsonConverter.<init>()"})
   void testNewScriptTaskJsonConverter() {
     // Arrange and Act

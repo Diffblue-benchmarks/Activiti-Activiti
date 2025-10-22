@@ -25,21 +25,18 @@ import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.ArgumentMatchers.isA;
 import static org.mockito.ArgumentMatchers.isNull;
 import static org.mockito.Mockito.anyBoolean;
-import static org.mockito.Mockito.atLeast;
 import static org.mockito.Mockito.doNothing;
+import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;
+import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Collection;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import javax.sql.DataSource;
 import org.activiti.engine.ActivitiException;
 import org.activiti.engine.impl.DeploymentQueryImpl;
@@ -58,18 +55,14 @@ import org.activiti.engine.impl.persistence.cache.EntityCache;
 import org.activiti.engine.impl.persistence.cache.EntityCacheImpl;
 import org.activiti.engine.impl.persistence.entity.AttachmentEntityImpl;
 import org.activiti.engine.impl.persistence.entity.Entity;
-import org.activiti.engine.impl.util.json.JSONObject;
 import org.activiti.engine.test.profiler.ProfilingDbSqlSessionFactory;
 import org.apache.ibatis.mapping.Environment;
 import org.apache.ibatis.mapping.Environment.Builder;
 import org.apache.ibatis.session.Configuration;
 import org.apache.ibatis.session.SqlSession;
-import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.defaults.DefaultSqlSession;
 import org.apache.ibatis.session.defaults.DefaultSqlSessionFactory;
 import org.apache.ibatis.transaction.jdbc.JdbcTransactionFactory;
-import org.h2.jdbc.JdbcResultSet;
-import org.h2.tools.SimpleResultSet;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import org.mockito.Mockito;
@@ -77,78 +70,60 @@ import org.mockito.Mockito;
 public class DbSqlSessionDiffblueTest {
   /**
    * Test {@link DbSqlSession#DbSqlSession(DbSqlSessionFactory, EntityCache)}.
-   *
    * <ul>
-   *   <li>Then DbSqlSessionFactory return {@link ProfilingDbSqlSessionFactory}.
+   *   <li>Then {@link DbSqlSession#entityCache} return {@link EntityCacheImpl}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link DbSqlSession#DbSqlSession(DbSqlSessionFactory, EntityCache)}
+   * <p>
+   * Method under test: {@link DbSqlSession#DbSqlSession(DbSqlSessionFactory, EntityCache)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void DbSqlSession.<init>(DbSqlSessionFactory, EntityCache)"})
-  public void testNewDbSqlSession_thenDbSqlSessionFactoryReturnProfilingDbSqlSessionFactory() {
+  public void testNewDbSqlSession_thenEntityCacheReturnEntityCacheImpl() {
     // Arrange
-    ProfilingDbSqlSessionFactory dbSqlSessionFactory = new ProfilingDbSqlSessionFactory();
-
-    Builder dataSourceResult = new Builder("42").dataSource(mock(DataSource.class));
-    Environment environment =
-        dataSourceResult.transactionFactory(new JdbcTransactionFactory()).build();
-    Configuration configuration = new Configuration(environment);
-    dbSqlSessionFactory.setSqlSessionFactory(new DefaultSqlSessionFactory(configuration));
+    DbSqlSessionFactory dbSqlSessionFactory = new DbSqlSessionFactory();
+    Builder dataSourceResult = (new Builder("42")).dataSource(mock(DataSource.class));
+    Environment environment = dataSourceResult.transactionFactory(new JdbcTransactionFactory()).build();
+    dbSqlSessionFactory.setSqlSessionFactory(new DefaultSqlSessionFactory(new Configuration(environment)));
 
     // Act
     DbSqlSession actualDbSqlSession = new DbSqlSession(dbSqlSessionFactory, new EntityCacheImpl());
 
     // Assert
-    DbSqlSessionFactory dbSqlSessionFactory2 = actualDbSqlSession.getDbSqlSessionFactory();
-    assertTrue(dbSqlSessionFactory2 instanceof ProfilingDbSqlSessionFactory);
-    SqlSession sqlSession = actualDbSqlSession.getSqlSession();
-    assertTrue(sqlSession instanceof DefaultSqlSession);
-    SqlSessionFactory sqlSessionFactory = dbSqlSessionFactory2.getSqlSessionFactory();
-    assertTrue(sqlSessionFactory instanceof DefaultSqlSessionFactory);
-    List<Entity> entityList = actualDbSqlSession.updatedObjects;
-    Configuration configuration2 = sqlSession.getConfiguration();
-    assertEquals(entityList, configuration2.getIncompleteCacheRefs());
-    assertEquals(entityList, configuration2.getIncompleteMethods());
-    assertEquals(entityList, configuration2.getIncompleteResultMaps());
-    assertEquals(entityList, configuration2.getIncompleteStatements());
-    assertSame(dbSqlSessionFactory, dbSqlSessionFactory2);
-    assertSame(configuration2, sqlSessionFactory.getConfiguration());
+    assertTrue(actualDbSqlSession.entityCache instanceof EntityCacheImpl);
+    assertTrue(actualDbSqlSession.getSqlSession() instanceof DefaultSqlSession);
+    assertNull(actualDbSqlSession.connectionMetadataDefaultCatalog);
+    assertNull(actualDbSqlSession.connectionMetadataDefaultSchema);
+    assertTrue(actualDbSqlSession.updatedObjects.isEmpty());
+    assertTrue(actualDbSqlSession.bulkDeleteOperations.isEmpty());
+    assertTrue(actualDbSqlSession.deletedObjects.isEmpty());
+    assertTrue(actualDbSqlSession.insertedObjects.isEmpty());
+    assertSame(dbSqlSessionFactory, actualDbSqlSession.getDbSqlSessionFactory());
   }
 
   /**
-   * Test {@link DbSqlSession#DbSqlSession(DbSqlSessionFactory, EntityCache, Connection, String,
-   * String)}.
-   *
+   * Test {@link DbSqlSession#DbSqlSession(DbSqlSessionFactory, EntityCache, Connection, String, String)}.
    * <ul>
-   *   <li>Then {@link DbSqlSession#entityCache} return {@link EntityCacheImpl}.
+   *   <li>Then {@link DbSqlSession#entityCache} return {@link EntityCacheImpl}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link DbSqlSession#DbSqlSession(DbSqlSessionFactory, EntityCache,
-   * Connection, String, String)}
+   * <p>
+   * Method under test: {@link DbSqlSession#DbSqlSession(DbSqlSessionFactory, EntityCache, Connection, String, String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void DbSqlSession.<init>(DbSqlSessionFactory, EntityCache, Connection, String, String)"
-  })
-  public void testNewDbSqlSession_thenEntityCacheReturnEntityCacheImpl() throws SQLException {
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void DbSqlSession.<init>(DbSqlSessionFactory, EntityCache, Connection, String, String)"})
+  public void testNewDbSqlSession_thenEntityCacheReturnEntityCacheImpl2() throws SQLException {
     // Arrange
     DbSqlSessionFactory dbSqlSessionFactory = mock(DbSqlSessionFactory.class);
     Configuration configuration = new Configuration();
-    when(dbSqlSessionFactory.getSqlSessionFactory())
-        .thenReturn(new DefaultSqlSessionFactory(configuration));
+    when(dbSqlSessionFactory.getSqlSessionFactory()).thenReturn(new DefaultSqlSessionFactory(configuration));
     EntityCacheImpl entityCache = new EntityCacheImpl();
-
     Connection connection = mock(Connection.class);
     when(connection.getAutoCommit()).thenReturn(true);
 
     // Act
-    DbSqlSession actualDbSqlSession =
-        new DbSqlSession(dbSqlSessionFactory, entityCache, connection, "Catalog", "Schema");
+    DbSqlSession actualDbSqlSession = new DbSqlSession(dbSqlSessionFactory, entityCache, connection, "Catalog",
+        "Schema");
 
     // Assert
     verify(connection).getAutoCommit();
@@ -169,65 +144,19 @@ public class DbSqlSessionDiffblueTest {
   }
 
   /**
-   * Test {@link DbSqlSession#DbSqlSession(DbSqlSessionFactory, EntityCache)}.
-   *
-   * <ul>
-   *   <li>Then return DbSqlSessionFactory is {@link DbSqlSessionFactory} (default constructor).
-   * </ul>
-   *
-   * <p>Method under test: {@link DbSqlSession#DbSqlSession(DbSqlSessionFactory, EntityCache)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void DbSqlSession.<init>(DbSqlSessionFactory, EntityCache)"})
-  public void testNewDbSqlSession_thenReturnDbSqlSessionFactoryIsDbSqlSessionFactory() {
-    // Arrange
-    DbSqlSessionFactory dbSqlSessionFactory = new DbSqlSessionFactory();
-
-    Builder dataSourceResult = new Builder("42").dataSource(mock(DataSource.class));
-    Environment environment =
-        dataSourceResult.transactionFactory(new JdbcTransactionFactory()).build();
-    Configuration configuration = new Configuration(environment);
-    dbSqlSessionFactory.setSqlSessionFactory(new DefaultSqlSessionFactory(configuration));
-
-    // Act
-    DbSqlSession actualDbSqlSession = new DbSqlSession(dbSqlSessionFactory, new EntityCacheImpl());
-
-    // Assert
-    SqlSession sqlSession = actualDbSqlSession.getSqlSession();
-    assertTrue(sqlSession instanceof DefaultSqlSession);
-    DbSqlSessionFactory dbSqlSessionFactory2 = actualDbSqlSession.getDbSqlSessionFactory();
-    SqlSessionFactory sqlSessionFactory = dbSqlSessionFactory2.getSqlSessionFactory();
-    assertTrue(sqlSessionFactory instanceof DefaultSqlSessionFactory);
-    List<Entity> entityList = actualDbSqlSession.updatedObjects;
-    Configuration configuration2 = sqlSession.getConfiguration();
-    assertEquals(entityList, configuration2.getIncompleteCacheRefs());
-    assertEquals(entityList, configuration2.getIncompleteMethods());
-    assertEquals(entityList, configuration2.getIncompleteResultMaps());
-    assertEquals(entityList, configuration2.getIncompleteStatements());
-    assertSame(dbSqlSessionFactory, dbSqlSessionFactory2);
-    assertSame(configuration2, sqlSessionFactory.getConfiguration());
-  }
-
-  /**
    * Test {@link DbSqlSession#determineUpdatedObjects()}.
-   *
-   * <p>Method under test: {@link DbSqlSession#determineUpdatedObjects()}
+   * <p>
+   * Method under test: {@link DbSqlSession#determineUpdatedObjects()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void DbSqlSession.determineUpdatedObjects()"})
   public void testDetermineUpdatedObjects() {
     // Arrange
     DbSqlSessionFactory dbSqlSessionFactory = new DbSqlSessionFactory();
-
-    Builder dataSourceResult = new Builder("42").dataSource(mock(DataSource.class));
-    Environment environment =
-        dataSourceResult.transactionFactory(new JdbcTransactionFactory()).build();
-    Configuration configuration = new Configuration(environment);
-    dbSqlSessionFactory.setSqlSessionFactory(new DefaultSqlSessionFactory(configuration));
+    Builder dataSourceResult = (new Builder("42")).dataSource(mock(DataSource.class));
+    Environment environment = dataSourceResult.transactionFactory(new JdbcTransactionFactory()).build();
+    dbSqlSessionFactory.setSqlSessionFactory(new DefaultSqlSessionFactory(new Configuration(environment)));
     DbSqlSession dbSqlSession = new DbSqlSession(dbSqlSessionFactory, new EntityCacheImpl());
 
     // Act
@@ -239,27 +168,22 @@ public class DbSqlSessionDiffblueTest {
 
   /**
    * Test {@link DbSqlSession#determineUpdatedObjects()}.
-   *
-   * <p>Method under test: {@link DbSqlSession#determineUpdatedObjects()}
+   * <p>
+   * Method under test: {@link DbSqlSession#determineUpdatedObjects()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void DbSqlSession.determineUpdatedObjects()"})
   public void testDetermineUpdatedObjects2() {
     // Arrange
     DbSqlSessionFactory dbSqlSessionFactory = new DbSqlSessionFactory();
-
-    Builder dataSourceResult = new Builder("42").dataSource(mock(DataSource.class));
-    Environment environment =
-        dataSourceResult.transactionFactory(new JdbcTransactionFactory()).build();
-    Configuration configuration = new Configuration(environment);
-    dbSqlSessionFactory.setSqlSessionFactory(new DefaultSqlSessionFactory(configuration));
+    Builder dataSourceResult = (new Builder("42")).dataSource(mock(DataSource.class));
+    Environment environment = dataSourceResult.transactionFactory(new JdbcTransactionFactory()).build();
+    dbSqlSessionFactory.setSqlSessionFactory(new DefaultSqlSessionFactory(new Configuration(environment)));
 
     EntityCacheImpl entityCache = new EntityCacheImpl();
     AttachmentEntityImpl entity = new AttachmentEntityImpl();
     entityCache.put(entity, false);
-
     DbSqlSession dbSqlSession = new DbSqlSession(dbSqlSessionFactory, entityCache);
 
     // Act
@@ -275,2604 +199,717 @@ public class DbSqlSessionDiffblueTest {
 
   /**
    * Test {@link DbSqlSession#determineUpdatedObjects()}.
-   *
    * <ul>
-   *   <li>Then calls {@link Entity#getId()}.
+   *   <li>Given {@link EntityCacheImpl} (default constructor) {@link AttachmentEntityImpl} (default constructor) is {@code true}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link DbSqlSession#determineUpdatedObjects()}
+   * <p>
+   * Method under test: {@link DbSqlSession#determineUpdatedObjects()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void DbSqlSession.determineUpdatedObjects()"})
-  public void testDetermineUpdatedObjects_thenCallsGetId() {
+  public void testDetermineUpdatedObjects_givenEntityCacheImplAttachmentEntityImplIsTrue() {
     // Arrange
     DbSqlSessionFactory dbSqlSessionFactory = new DbSqlSessionFactory();
-
-    Builder dataSourceResult = new Builder("42").dataSource(mock(DataSource.class));
-    Environment environment =
-        dataSourceResult.transactionFactory(new JdbcTransactionFactory()).build();
-    Configuration configuration = new Configuration(environment);
-    dbSqlSessionFactory.setSqlSessionFactory(new DefaultSqlSessionFactory(configuration));
-
-    Entity entity = mock(Entity.class);
-    when(entity.getPersistentState()).thenReturn(JSONObject.NULL);
-    when(entity.getId()).thenReturn("42");
+    Builder dataSourceResult = (new Builder("42")).dataSource(mock(DataSource.class));
+    Environment environment = dataSourceResult.transactionFactory(new JdbcTransactionFactory()).build();
+    dbSqlSessionFactory.setSqlSessionFactory(new DefaultSqlSessionFactory(new Configuration(environment)));
 
     EntityCacheImpl entityCache = new EntityCacheImpl();
-    entityCache.put(entity, false);
-
+    entityCache.put(new AttachmentEntityImpl(), true);
     DbSqlSession dbSqlSession = new DbSqlSession(dbSqlSessionFactory, entityCache);
 
     // Act
     dbSqlSession.determineUpdatedObjects();
 
     // Assert that nothing has changed
-    verify(entity).getId();
-    verify(entity, atLeast(1)).getPersistentState();
     assertTrue(dbSqlSession.updatedObjects.isEmpty());
   }
 
   /**
-   * Test {@link DbSqlSession#orderExecutionEntities(Map, boolean)}.
-   *
-   * <ul>
-   *   <li>Then return {@link List}.
-   * </ul>
-   *
-   * <p>Method under test: {@link DbSqlSession#orderExecutionEntities(Map, boolean)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"Collection DbSqlSession.orderExecutionEntities(Map, boolean)"})
-  public void testOrderExecutionEntities_thenReturnList() {
-    // Arrange
-    DbSqlSessionFactory dbSqlSessionFactory = new DbSqlSessionFactory();
-
-    Builder dataSourceResult = new Builder("42").dataSource(mock(DataSource.class));
-    Environment environment =
-        dataSourceResult.transactionFactory(new JdbcTransactionFactory()).build();
-    Configuration configuration = new Configuration(environment);
-    dbSqlSessionFactory.setSqlSessionFactory(new DefaultSqlSessionFactory(configuration));
-    DbSqlSession dbSqlSession = new DbSqlSession(dbSqlSessionFactory, new EntityCacheImpl());
-
-    // Act
-    Collection<Entity> actualOrderExecutionEntitiesResult =
-        dbSqlSession.orderExecutionEntities(new HashMap<>(), true);
-
-    // Assert
-    assertTrue(actualOrderExecutionEntitiesResult instanceof List);
-    assertTrue(actualOrderExecutionEntitiesResult.isEmpty());
-  }
-
-  /**
-   * Test {@link DbSqlSession#addMissingComponent(String, String)}.
-   *
-   * <ul>
-   *   <li>Then return {@code Missing Components, Component}.
-   * </ul>
-   *
-   * <p>Method under test: {@link DbSqlSession#addMissingComponent(String, String)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String DbSqlSession.addMissingComponent(String, String)"})
-  public void testAddMissingComponent_thenReturnMissingComponentsComponent() {
-    // Arrange
-    DbSqlSessionFactory dbSqlSessionFactory = new DbSqlSessionFactory();
-
-    Builder dataSourceResult = new Builder("42").dataSource(mock(DataSource.class));
-    Environment environment =
-        dataSourceResult.transactionFactory(new JdbcTransactionFactory()).build();
-    Configuration configuration = new Configuration(environment);
-    dbSqlSessionFactory.setSqlSessionFactory(new DefaultSqlSessionFactory(configuration));
-    DbSqlSession dbSqlSession = new DbSqlSession(dbSqlSessionFactory, new EntityCacheImpl());
-
-    // Act and Assert
-    assertEquals(
-        "Missing Components, Component",
-        dbSqlSession.addMissingComponent("Missing Components", "Component"));
-  }
-
-  /**
    * Test {@link DbSqlSession#dbSchemaCreate()}.
-   *
-   * <p>Method under test: {@link DbSqlSession#dbSchemaCreate()}
+   * <ul>
+   *   <li>Given {@link ResultSet} {@link ResultSet#next()} return {@code false}.</li>
+   *   <li>Then throw {@link ActivitiException}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link DbSqlSession#dbSchemaCreate()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void DbSqlSession.dbSchemaCreate()"})
-  public void testDbSchemaCreate() throws SQLException {
+  public void testDbSchemaCreate_givenResultSetNextReturnFalse_thenThrowActivitiException() throws SQLException {
     // Arrange
+    ResultSet resultSet = mock(ResultSet.class);
+    when(resultSet.next()).thenReturn(false).thenReturn(true).thenReturn(false);
+    doNothing().when(resultSet).close();
+    DatabaseMetaData databaseMetaData = mock(DatabaseMetaData.class);
+    when(databaseMetaData.getTables(Mockito.<String>any(), Mockito.<String>any(), Mockito.<String>any(),
+        Mockito.<String[]>any())).thenReturn(resultSet);
+    Connection connection = mock(Connection.class);
+    doNothing().when(connection).setAutoCommit(anyBoolean());
+    when(connection.getAutoCommit()).thenReturn(true);
+    when(connection.getMetaData()).thenReturn(databaseMetaData);
     DataSource dataSource = mock(DataSource.class);
-    when(dataSource.getConnection()).thenThrow(new ActivitiException("An error occurred"));
-
-    Builder dataSourceResult = new Builder("42").dataSource(dataSource);
-    Environment environment =
-        dataSourceResult.transactionFactory(new JdbcTransactionFactory()).build();
-    Configuration configuration = new Configuration(environment);
-    DefaultSqlSessionFactory sqlSessionFactory = new DefaultSqlSessionFactory(configuration);
+    when(dataSource.getConnection()).thenReturn(connection);
+    Builder dataSourceResult = (new Builder("42")).dataSource(dataSource);
+    Environment environment = dataSourceResult.transactionFactory(new JdbcTransactionFactory()).build();
+    DefaultSqlSessionFactory sqlSessionFactory = new DefaultSqlSessionFactory(new Configuration(environment));
 
     DbSqlSessionFactory dbSqlSessionFactory = new DbSqlSessionFactory();
     dbSqlSessionFactory.setSqlSessionFactory(sqlSessionFactory);
-    DbSqlSession dbSqlSession = new DbSqlSession(dbSqlSessionFactory, new EntityCacheImpl());
 
     // Act and Assert
-    assertThrows(ActivitiException.class, () -> dbSqlSession.dbSchemaCreate());
+    assertThrows(ActivitiException.class,
+        () -> (new DbSqlSession(dbSqlSessionFactory, new EntityCacheImpl())).dbSchemaCreate());
+    verify(connection).getAutoCommit();
+    verify(connection).getMetaData();
+    verify(connection).setAutoCommit(eq(false));
+    verify(databaseMetaData).getTables(isNull(), isNull(), eq("ACT_RU_EXECUTION"), isA(String[].class));
+    verify(resultSet).close();
+    verify(resultSet).next();
     verify(dataSource).getConnection();
   }
 
   /**
    * Test {@link DbSqlSession#dbSchemaCreate()}.
-   *
-   * <p>Method under test: {@link DbSqlSession#dbSchemaCreate()}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void DbSqlSession.dbSchemaCreate()"})
-  public void testDbSchemaCreate2() throws SQLException {
-    // Arrange
-    DatabaseMetaData databaseMetaData = mock(DatabaseMetaData.class);
-    when(databaseMetaData.getTables(
-            Mockito.<String>any(),
-            Mockito.<String>any(),
-            Mockito.<String>any(),
-            Mockito.<String[]>any()))
-        .thenThrow(new ActivitiException("An error occurred"));
-
-    Connection connection = mock(Connection.class);
-    doNothing().when(connection).setAutoCommit(anyBoolean());
-    when(connection.getAutoCommit()).thenReturn(true);
-    when(connection.getMetaData()).thenReturn(databaseMetaData);
-
-    DataSource dataSource = mock(DataSource.class);
-    when(dataSource.getConnection()).thenReturn(connection);
-
-    Builder dataSourceResult = new Builder("42").dataSource(dataSource);
-    Environment environment =
-        dataSourceResult.transactionFactory(new JdbcTransactionFactory()).build();
-    Configuration configuration = new Configuration(environment);
-    DefaultSqlSessionFactory sqlSessionFactory = new DefaultSqlSessionFactory(configuration);
-
-    DbSqlSessionFactory dbSqlSessionFactory = new DbSqlSessionFactory();
-    dbSqlSessionFactory.setSqlSessionFactory(sqlSessionFactory);
-    DbSqlSession dbSqlSession = new DbSqlSession(dbSqlSessionFactory, new EntityCacheImpl());
-
-    // Act and Assert
-    assertThrows(ActivitiException.class, () -> dbSqlSession.dbSchemaCreate());
-    verify(connection).getAutoCommit();
-    verify(connection).getMetaData();
-    verify(connection).setAutoCommit(false);
-    verify(databaseMetaData)
-        .getTables(isNull(), isNull(), eq("ACT_RU_EXECUTION"), isA(String[].class));
-    verify(dataSource).getConnection();
-  }
-
-  /**
-   * Test {@link DbSqlSession#dbSchemaCreate()}.
-   *
    * <ul>
-   *   <li>Given {@link DbSqlSessionFactory} (default constructor) DatabaseCatalog is {@code
-   *       ACT_RU_EXECUTION}.
+   *   <li>Given {@link ResultSet} {@link ResultSet#next()} throw {@link RuntimeException#RuntimeException(String)} with {@code ACT_RU_EXECUTION}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link DbSqlSession#dbSchemaCreate()}
+   * <p>
+   * Method under test: {@link DbSqlSession#dbSchemaCreate()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void DbSqlSession.dbSchemaCreate()"})
-  public void testDbSchemaCreate_givenDbSqlSessionFactoryDatabaseCatalogIsActRuExecution()
-      throws SQLException {
+  public void testDbSchemaCreate_givenResultSetNextThrowRuntimeExceptionWithActRuExecution() throws SQLException {
     // Arrange
+    ResultSet resultSet = mock(ResultSet.class);
+    when(resultSet.next()).thenThrow(new RuntimeException("ACT_RU_EXECUTION"));
+    doThrow(new RuntimeException("ACT_RU_EXECUTION")).when(resultSet).close();
     DatabaseMetaData databaseMetaData = mock(DatabaseMetaData.class);
-    when(databaseMetaData.getTables(
-            Mockito.<String>any(),
-            Mockito.<String>any(),
-            Mockito.<String>any(),
-            Mockito.<String[]>any()))
-        .thenReturn(new SimpleResultSet());
-
+    when(databaseMetaData.getTables(Mockito.<String>any(), Mockito.<String>any(), Mockito.<String>any(),
+        Mockito.<String[]>any())).thenReturn(resultSet);
     Connection connection = mock(Connection.class);
     doNothing().when(connection).setAutoCommit(anyBoolean());
     when(connection.getAutoCommit()).thenReturn(true);
     when(connection.getMetaData()).thenReturn(databaseMetaData);
-
     DataSource dataSource = mock(DataSource.class);
     when(dataSource.getConnection()).thenReturn(connection);
-
-    Builder dataSourceResult = new Builder("42").dataSource(dataSource);
-    Environment environment =
-        dataSourceResult.transactionFactory(new JdbcTransactionFactory()).build();
-    Configuration configuration = new Configuration(environment);
-    DefaultSqlSessionFactory sqlSessionFactory = new DefaultSqlSessionFactory(configuration);
-
-    DbSqlSessionFactory dbSqlSessionFactory = new DbSqlSessionFactory();
-    dbSqlSessionFactory.setDatabaseCatalog("ACT_RU_EXECUTION");
-    dbSqlSessionFactory.setSqlSessionFactory(sqlSessionFactory);
-    DbSqlSession dbSqlSession = new DbSqlSession(dbSqlSessionFactory, new EntityCacheImpl());
-
-    // Act and Assert
-    assertThrows(ActivitiException.class, () -> dbSqlSession.dbSchemaCreate());
-    verify(connection).getAutoCommit();
-    verify(connection).getMetaData();
-    verify(connection).setAutoCommit(false);
-    verify(databaseMetaData)
-        .getTables(eq("ACT_RU_EXECUTION"), isNull(), eq("ACT_RU_EXECUTION"), isA(String[].class));
-    verify(dataSource).getConnection();
-  }
-
-  /**
-   * Test {@link DbSqlSession#dbSchemaCreate()}.
-   *
-   * <ul>
-   *   <li>Given {@link DbSqlSessionFactory} (default constructor) DatabaseSchema is {@code
-   *       ACT_RU_EXECUTION}.
-   * </ul>
-   *
-   * <p>Method under test: {@link DbSqlSession#dbSchemaCreate()}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void DbSqlSession.dbSchemaCreate()"})
-  public void testDbSchemaCreate_givenDbSqlSessionFactoryDatabaseSchemaIsActRuExecution()
-      throws SQLException {
-    // Arrange
-    DatabaseMetaData databaseMetaData = mock(DatabaseMetaData.class);
-    when(databaseMetaData.getTables(
-            Mockito.<String>any(),
-            Mockito.<String>any(),
-            Mockito.<String>any(),
-            Mockito.<String[]>any()))
-        .thenReturn(new SimpleResultSet());
-
-    Connection connection = mock(Connection.class);
-    doNothing().when(connection).setAutoCommit(anyBoolean());
-    when(connection.getAutoCommit()).thenReturn(true);
-    when(connection.getMetaData()).thenReturn(databaseMetaData);
-
-    DataSource dataSource = mock(DataSource.class);
-    when(dataSource.getConnection()).thenReturn(connection);
-
-    Builder dataSourceResult = new Builder("42").dataSource(dataSource);
-    Environment environment =
-        dataSourceResult.transactionFactory(new JdbcTransactionFactory()).build();
-    Configuration configuration = new Configuration(environment);
-    DefaultSqlSessionFactory sqlSessionFactory = new DefaultSqlSessionFactory(configuration);
-
-    DbSqlSessionFactory dbSqlSessionFactory = new DbSqlSessionFactory();
-    dbSqlSessionFactory.setDatabaseSchema("ACT_RU_EXECUTION");
-    dbSqlSessionFactory.setSqlSessionFactory(sqlSessionFactory);
-    DbSqlSession dbSqlSession = new DbSqlSession(dbSqlSessionFactory, new EntityCacheImpl());
-
-    // Act and Assert
-    assertThrows(ActivitiException.class, () -> dbSqlSession.dbSchemaCreate());
-    verify(connection).getAutoCommit();
-    verify(connection).getMetaData();
-    verify(connection).setAutoCommit(false);
-    verify(databaseMetaData)
-        .getTables(isNull(), eq("ACT_RU_EXECUTION"), eq("ACT_RU_EXECUTION"), isA(String[].class));
-    verify(dataSource).getConnection();
-  }
-
-  /**
-   * Test {@link DbSqlSession#dbSchemaCreate()}.
-   *
-   * <ul>
-   *   <li>Given {@link DbSqlSessionFactory} (default constructor) TablePrefixIsSchema is {@code
-   *       true}.
-   * </ul>
-   *
-   * <p>Method under test: {@link DbSqlSession#dbSchemaCreate()}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void DbSqlSession.dbSchemaCreate()"})
-  public void testDbSchemaCreate_givenDbSqlSessionFactoryTablePrefixIsSchemaIsTrue()
-      throws SQLException {
-    // Arrange
-    DatabaseMetaData databaseMetaData = mock(DatabaseMetaData.class);
-    when(databaseMetaData.getTables(
-            Mockito.<String>any(),
-            Mockito.<String>any(),
-            Mockito.<String>any(),
-            Mockito.<String[]>any()))
-        .thenReturn(new SimpleResultSet());
-
-    Connection connection = mock(Connection.class);
-    doNothing().when(connection).setAutoCommit(anyBoolean());
-    when(connection.getAutoCommit()).thenReturn(true);
-    when(connection.getMetaData()).thenReturn(databaseMetaData);
-
-    DataSource dataSource = mock(DataSource.class);
-    when(dataSource.getConnection()).thenReturn(connection);
-
-    Builder dataSourceResult = new Builder("42").dataSource(dataSource);
-    Environment environment =
-        dataSourceResult.transactionFactory(new JdbcTransactionFactory()).build();
-    Configuration configuration = new Configuration(environment);
-    DefaultSqlSessionFactory sqlSessionFactory = new DefaultSqlSessionFactory(configuration);
-
-    DbSqlSessionFactory dbSqlSessionFactory = new DbSqlSessionFactory();
-    dbSqlSessionFactory.setTablePrefixIsSchema(true);
-    dbSqlSessionFactory.setSqlSessionFactory(sqlSessionFactory);
-    DbSqlSession dbSqlSession = new DbSqlSession(dbSqlSessionFactory, new EntityCacheImpl());
-
-    // Act and Assert
-    assertThrows(ActivitiException.class, () -> dbSqlSession.dbSchemaCreate());
-    verify(connection).getAutoCommit();
-    verify(connection).getMetaData();
-    verify(connection).setAutoCommit(false);
-    verify(databaseMetaData)
-        .getTables(isNull(), isNull(), eq("ACT_RU_EXECUTION"), isA(String[].class));
-    verify(dataSource).getConnection();
-  }
-
-  /**
-   * Test {@link DbSqlSession#dbSchemaCreate()}.
-   *
-   * <ul>
-   *   <li>Then calls {@link Connection#getAutoCommit()}.
-   * </ul>
-   *
-   * <p>Method under test: {@link DbSqlSession#dbSchemaCreate()}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void DbSqlSession.dbSchemaCreate()"})
-  public void testDbSchemaCreate_thenCallsGetAutoCommit() throws SQLException {
-    // Arrange
-    DatabaseMetaData databaseMetaData = mock(DatabaseMetaData.class);
-    when(databaseMetaData.getTables(
-            Mockito.<String>any(),
-            Mockito.<String>any(),
-            Mockito.<String>any(),
-            Mockito.<String[]>any()))
-        .thenReturn(new SimpleResultSet());
-
-    Connection connection = mock(Connection.class);
-    doNothing().when(connection).setAutoCommit(anyBoolean());
-    when(connection.getAutoCommit()).thenReturn(true);
-    when(connection.getMetaData()).thenReturn(databaseMetaData);
-
-    DataSource dataSource = mock(DataSource.class);
-    when(dataSource.getConnection()).thenReturn(connection);
-
-    Builder dataSourceResult = new Builder("42").dataSource(dataSource);
-    Environment environment =
-        dataSourceResult.transactionFactory(new JdbcTransactionFactory()).build();
-    Configuration configuration = new Configuration(environment);
-    DefaultSqlSessionFactory sqlSessionFactory = new DefaultSqlSessionFactory(configuration);
+    Builder dataSourceResult = (new Builder("42")).dataSource(dataSource);
+    Environment environment = dataSourceResult.transactionFactory(new JdbcTransactionFactory()).build();
+    DefaultSqlSessionFactory sqlSessionFactory = new DefaultSqlSessionFactory(new Configuration(environment));
 
     DbSqlSessionFactory dbSqlSessionFactory = new DbSqlSessionFactory();
     dbSqlSessionFactory.setSqlSessionFactory(sqlSessionFactory);
-    DbSqlSession dbSqlSession = new DbSqlSession(dbSqlSessionFactory, new EntityCacheImpl());
 
     // Act and Assert
-    assertThrows(ActivitiException.class, () -> dbSqlSession.dbSchemaCreate());
+    assertThrows(ActivitiException.class,
+        () -> (new DbSqlSession(dbSqlSessionFactory, new EntityCacheImpl())).dbSchemaCreate());
     verify(connection).getAutoCommit();
     verify(connection).getMetaData();
-    verify(connection).setAutoCommit(false);
-    verify(databaseMetaData)
-        .getTables(isNull(), isNull(), eq("ACT_RU_EXECUTION"), isA(String[].class));
+    verify(connection).setAutoCommit(eq(false));
+    verify(databaseMetaData).getTables(isNull(), isNull(), eq("ACT_RU_EXECUTION"), isA(String[].class));
+    verify(resultSet).close();
+    verify(resultSet).next();
     verify(dataSource).getConnection();
   }
 
   /**
    * Test {@link DbSqlSession#dbSchemaCreateHistory()}.
-   *
    * <ul>
-   *   <li>Then throw {@link ActivitiException}.
+   *   <li>Then throw {@link ActivitiException}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link DbSqlSession#dbSchemaCreateHistory()}
+   * <p>
+   * Method under test: {@link DbSqlSession#dbSchemaCreateHistory()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void DbSqlSession.dbSchemaCreateHistory()"})
   public void testDbSchemaCreateHistory_thenThrowActivitiException() {
     // Arrange
     DbSqlSessionFactory dbSqlSessionFactory = new DbSqlSessionFactory();
-
-    Builder dataSourceResult = new Builder("42").dataSource(mock(DataSource.class));
-    Environment environment =
-        dataSourceResult.transactionFactory(new JdbcTransactionFactory()).build();
-    Configuration configuration = new Configuration(environment);
-    dbSqlSessionFactory.setSqlSessionFactory(new DefaultSqlSessionFactory(configuration));
-    DbSqlSession dbSqlSession = new DbSqlSession(dbSqlSessionFactory, new EntityCacheImpl());
+    Builder dataSourceResult = (new Builder("42")).dataSource(mock(DataSource.class));
+    Environment environment = dataSourceResult.transactionFactory(new JdbcTransactionFactory()).build();
+    dbSqlSessionFactory.setSqlSessionFactory(new DefaultSqlSessionFactory(new Configuration(environment)));
 
     // Act and Assert
-    assertThrows(ActivitiException.class, () -> dbSqlSession.dbSchemaCreateHistory());
+    assertThrows(ActivitiException.class,
+        () -> (new DbSqlSession(dbSqlSessionFactory, new EntityCacheImpl())).dbSchemaCreateHistory());
   }
 
   /**
    * Test {@link DbSqlSession#dbSchemaCreateEngine()}.
-   *
    * <ul>
-   *   <li>Then throw {@link ActivitiException}.
+   *   <li>Then throw {@link ActivitiException}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link DbSqlSession#dbSchemaCreateEngine()}
+   * <p>
+   * Method under test: {@link DbSqlSession#dbSchemaCreateEngine()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void DbSqlSession.dbSchemaCreateEngine()"})
   public void testDbSchemaCreateEngine_thenThrowActivitiException() {
     // Arrange
     DbSqlSessionFactory dbSqlSessionFactory = new DbSqlSessionFactory();
-
-    Builder dataSourceResult = new Builder("42").dataSource(mock(DataSource.class));
-    Environment environment =
-        dataSourceResult.transactionFactory(new JdbcTransactionFactory()).build();
-    Configuration configuration = new Configuration(environment);
-    dbSqlSessionFactory.setSqlSessionFactory(new DefaultSqlSessionFactory(configuration));
-    DbSqlSession dbSqlSession = new DbSqlSession(dbSqlSessionFactory, new EntityCacheImpl());
+    Builder dataSourceResult = (new Builder("42")).dataSource(mock(DataSource.class));
+    Environment environment = dataSourceResult.transactionFactory(new JdbcTransactionFactory()).build();
+    dbSqlSessionFactory.setSqlSessionFactory(new DefaultSqlSessionFactory(new Configuration(environment)));
 
     // Act and Assert
-    assertThrows(ActivitiException.class, () -> dbSqlSession.dbSchemaCreateEngine());
+    assertThrows(ActivitiException.class,
+        () -> (new DbSqlSession(dbSqlSessionFactory, new EntityCacheImpl())).dbSchemaCreateEngine());
   }
 
   /**
    * Test {@link DbSqlSession#dbSchemaDrop()}.
-   *
    * <ul>
-   *   <li>Then throw {@link ActivitiException}.
+   *   <li>Then throw {@link ActivitiException}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link DbSqlSession#dbSchemaDrop()}
+   * <p>
+   * Method under test: {@link DbSqlSession#dbSchemaDrop()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void DbSqlSession.dbSchemaDrop()"})
   public void testDbSchemaDrop_thenThrowActivitiException() {
     // Arrange
     DbSqlSessionFactory dbSqlSessionFactory = new DbSqlSessionFactory();
-
-    Builder dataSourceResult = new Builder("42").dataSource(mock(DataSource.class));
-    Environment environment =
-        dataSourceResult.transactionFactory(new JdbcTransactionFactory()).build();
-    Configuration configuration = new Configuration(environment);
-    dbSqlSessionFactory.setSqlSessionFactory(new DefaultSqlSessionFactory(configuration));
-    DbSqlSession dbSqlSession = new DbSqlSession(dbSqlSessionFactory, new EntityCacheImpl());
+    Builder dataSourceResult = (new Builder("42")).dataSource(mock(DataSource.class));
+    Environment environment = dataSourceResult.transactionFactory(new JdbcTransactionFactory()).build();
+    dbSqlSessionFactory.setSqlSessionFactory(new DefaultSqlSessionFactory(new Configuration(environment)));
 
     // Act and Assert
-    assertThrows(ActivitiException.class, () -> dbSqlSession.dbSchemaDrop());
+    assertThrows(ActivitiException.class,
+        () -> (new DbSqlSession(dbSqlSessionFactory, new EntityCacheImpl())).dbSchemaDrop());
   }
 
   /**
    * Test {@link DbSqlSession#dbSchemaPrune()}.
-   *
-   * <p>Method under test: {@link DbSqlSession#dbSchemaPrune()}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void DbSqlSession.dbSchemaPrune()"})
-  public void testDbSchemaPrune() throws SQLException {
-    // Arrange
-    DataSource dataSource = mock(DataSource.class);
-    when(dataSource.getConnection()).thenThrow(new ActivitiException("An error occurred"));
-
-    Builder dataSourceResult = new Builder("42").dataSource(dataSource);
-    Environment environment =
-        dataSourceResult.transactionFactory(new JdbcTransactionFactory()).build();
-    Configuration configuration = new Configuration(environment);
-    DefaultSqlSessionFactory sqlSessionFactory = new DefaultSqlSessionFactory(configuration);
-
-    DbSqlSessionFactory dbSqlSessionFactory = new DbSqlSessionFactory();
-    dbSqlSessionFactory.setSqlSessionFactory(sqlSessionFactory);
-    DbSqlSession dbSqlSession = new DbSqlSession(dbSqlSessionFactory, new EntityCacheImpl());
-
-    // Act and Assert
-    assertThrows(ActivitiException.class, () -> dbSqlSession.dbSchemaPrune());
-    verify(dataSource).getConnection();
-  }
-
-  /**
-   * Test {@link DbSqlSession#dbSchemaPrune()}.
-   *
-   * <p>Method under test: {@link DbSqlSession#dbSchemaPrune()}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void DbSqlSession.dbSchemaPrune()"})
-  public void testDbSchemaPrune2() throws SQLException {
-    // Arrange
-    DatabaseMetaData databaseMetaData = mock(DatabaseMetaData.class);
-    when(databaseMetaData.getTables(
-            Mockito.<String>any(),
-            Mockito.<String>any(),
-            Mockito.<String>any(),
-            Mockito.<String[]>any()))
-        .thenThrow(new ActivitiException("An error occurred"));
-
-    Connection connection = mock(Connection.class);
-    doNothing().when(connection).setAutoCommit(anyBoolean());
-    when(connection.getAutoCommit()).thenReturn(true);
-    when(connection.getMetaData()).thenReturn(databaseMetaData);
-
-    DataSource dataSource = mock(DataSource.class);
-    when(dataSource.getConnection()).thenReturn(connection);
-
-    Builder dataSourceResult = new Builder("42").dataSource(dataSource);
-    Environment environment =
-        dataSourceResult.transactionFactory(new JdbcTransactionFactory()).build();
-    Configuration configuration = new Configuration(environment);
-    DefaultSqlSessionFactory sqlSessionFactory = new DefaultSqlSessionFactory(configuration);
-
-    DbSqlSessionFactory dbSqlSessionFactory = new DbSqlSessionFactory();
-    dbSqlSessionFactory.setSqlSessionFactory(sqlSessionFactory);
-    DbSqlSession dbSqlSession = new DbSqlSession(dbSqlSessionFactory, new EntityCacheImpl());
-
-    // Act and Assert
-    assertThrows(ActivitiException.class, () -> dbSqlSession.dbSchemaPrune());
-    verify(connection).getAutoCommit();
-    verify(connection).getMetaData();
-    verify(connection).setAutoCommit(false);
-    verify(databaseMetaData)
-        .getTables(isNull(), isNull(), eq("ACT_HI_PROCINST"), isA(String[].class));
-    verify(dataSource).getConnection();
-  }
-
-  /**
-   * Test {@link DbSqlSession#dbSchemaPrune()}.
-   *
    * <ul>
-   *   <li>Given array of {@link Object} with {@link JSONObject#NULL}.
-   *   <li>Then calls {@link Connection#getAutoCommit()}.
+   *   <li>Given {@link ResultSet} {@link ResultSet#next()} return {@code false}.</li>
+   *   <li>Then calls {@link Connection#getAutoCommit()}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link DbSqlSession#dbSchemaPrune()}
+   * <p>
+   * Method under test: {@link DbSqlSession#dbSchemaPrune()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void DbSqlSession.dbSchemaPrune()"})
-  public void testDbSchemaPrune_givenArrayOfObjectWithNull_thenCallsGetAutoCommit()
-      throws SQLException {
+  public void testDbSchemaPrune_givenResultSetNextReturnFalse_thenCallsGetAutoCommit() throws SQLException {
     // Arrange
-    SimpleResultSet simpleResultSet = new SimpleResultSet();
-    simpleResultSet.addRow(JSONObject.NULL);
-
+    ResultSet resultSet = mock(ResultSet.class);
+    when(resultSet.next()).thenReturn(false).thenReturn(true).thenReturn(false);
+    doNothing().when(resultSet).close();
     DatabaseMetaData databaseMetaData = mock(DatabaseMetaData.class);
-    when(databaseMetaData.getTables(
-            Mockito.<String>any(),
-            Mockito.<String>any(),
-            Mockito.<String>any(),
-            Mockito.<String[]>any()))
-        .thenReturn(simpleResultSet);
-
+    when(databaseMetaData.getTables(Mockito.<String>any(), Mockito.<String>any(), Mockito.<String>any(),
+        Mockito.<String[]>any())).thenReturn(resultSet);
     Connection connection = mock(Connection.class);
     doNothing().when(connection).setAutoCommit(anyBoolean());
     when(connection.getAutoCommit()).thenReturn(true);
     when(connection.getMetaData()).thenReturn(databaseMetaData);
-
     DataSource dataSource = mock(DataSource.class);
     when(dataSource.getConnection()).thenReturn(connection);
-
-    Builder dataSourceResult = new Builder("42").dataSource(dataSource);
-    Environment environment =
-        dataSourceResult.transactionFactory(new JdbcTransactionFactory()).build();
-    Configuration configuration = new Configuration(environment);
-    DefaultSqlSessionFactory sqlSessionFactory = new DefaultSqlSessionFactory(configuration);
+    Builder dataSourceResult = (new Builder("42")).dataSource(dataSource);
+    Environment environment = dataSourceResult.transactionFactory(new JdbcTransactionFactory()).build();
+    DefaultSqlSessionFactory sqlSessionFactory = new DefaultSqlSessionFactory(new Configuration(environment));
 
     DbSqlSessionFactory dbSqlSessionFactory = new DbSqlSessionFactory();
     dbSqlSessionFactory.setSqlSessionFactory(sqlSessionFactory);
-    DbSqlSession dbSqlSession = new DbSqlSession(dbSqlSessionFactory, new EntityCacheImpl());
 
     // Act
-    dbSqlSession.dbSchemaPrune();
+    (new DbSqlSession(dbSqlSessionFactory, new EntityCacheImpl())).dbSchemaPrune();
 
     // Assert
     verify(connection).getAutoCommit();
     verify(connection).getMetaData();
-    verify(connection).setAutoCommit(false);
-    verify(databaseMetaData)
-        .getTables(isNull(), isNull(), eq("ACT_HI_PROCINST"), isA(String[].class));
+    verify(connection).setAutoCommit(eq(false));
+    verify(databaseMetaData).getTables(isNull(), isNull(), eq("ACT_HI_PROCINST"), isA(String[].class));
+    verify(resultSet).close();
+    verify(resultSet).next();
     verify(dataSource).getConnection();
   }
 
   /**
    * Test {@link DbSqlSession#dbSchemaPrune()}.
-   *
    * <ul>
-   *   <li>Given {@link DatabaseMetaData} {@link DatabaseMetaData#getTables(String, String, String,
-   *       String[])} return {@link SimpleResultSet#SimpleResultSet()}.
+   *   <li>Given {@link ResultSet} {@link ResultSet#next()} return {@code true}.</li>
+   *   <li>Then calls {@link Connection#getAutoCommit()}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link DbSqlSession#dbSchemaPrune()}
+   * <p>
+   * Method under test: {@link DbSqlSession#dbSchemaPrune()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void DbSqlSession.dbSchemaPrune()"})
-  public void testDbSchemaPrune_givenDatabaseMetaDataGetTablesReturnSimpleResultSet()
-      throws SQLException {
+  public void testDbSchemaPrune_givenResultSetNextReturnTrue_thenCallsGetAutoCommit() throws SQLException {
     // Arrange
+    ResultSet resultSet = mock(ResultSet.class);
+    when(resultSet.next()).thenReturn(true).thenReturn(true).thenReturn(false);
+    doNothing().when(resultSet).close();
     DatabaseMetaData databaseMetaData = mock(DatabaseMetaData.class);
-    when(databaseMetaData.getTables(
-            Mockito.<String>any(),
-            Mockito.<String>any(),
-            Mockito.<String>any(),
-            Mockito.<String[]>any()))
-        .thenReturn(new SimpleResultSet());
-
+    when(databaseMetaData.getTables(Mockito.<String>any(), Mockito.<String>any(), Mockito.<String>any(),
+        Mockito.<String[]>any())).thenReturn(resultSet);
     Connection connection = mock(Connection.class);
     doNothing().when(connection).setAutoCommit(anyBoolean());
     when(connection.getAutoCommit()).thenReturn(true);
     when(connection.getMetaData()).thenReturn(databaseMetaData);
-
     DataSource dataSource = mock(DataSource.class);
     when(dataSource.getConnection()).thenReturn(connection);
-
-    Builder dataSourceResult = new Builder("42").dataSource(dataSource);
-    Environment environment =
-        dataSourceResult.transactionFactory(new JdbcTransactionFactory()).build();
-    Configuration configuration = new Configuration(environment);
-    DefaultSqlSessionFactory sqlSessionFactory = new DefaultSqlSessionFactory(configuration);
+    Builder dataSourceResult = (new Builder("42")).dataSource(dataSource);
+    Environment environment = dataSourceResult.transactionFactory(new JdbcTransactionFactory()).build();
+    DefaultSqlSessionFactory sqlSessionFactory = new DefaultSqlSessionFactory(new Configuration(environment));
 
     DbSqlSessionFactory dbSqlSessionFactory = new DbSqlSessionFactory();
     dbSqlSessionFactory.setSqlSessionFactory(sqlSessionFactory);
-    DbSqlSession dbSqlSession = new DbSqlSession(dbSqlSessionFactory, new EntityCacheImpl());
 
     // Act
-    dbSqlSession.dbSchemaPrune();
+    (new DbSqlSession(dbSqlSessionFactory, new EntityCacheImpl())).dbSchemaPrune();
 
     // Assert
     verify(connection).getAutoCommit();
     verify(connection).getMetaData();
-    verify(connection).setAutoCommit(false);
-    verify(databaseMetaData)
-        .getTables(isNull(), isNull(), eq("ACT_HI_PROCINST"), isA(String[].class));
+    verify(connection).setAutoCommit(eq(false));
+    verify(databaseMetaData).getTables(isNull(), isNull(), eq("ACT_HI_PROCINST"), isA(String[].class));
+    verify(resultSet).close();
+    verify(resultSet).next();
     verify(dataSource).getConnection();
   }
 
   /**
    * Test {@link DbSqlSession#dbSchemaPrune()}.
-   *
    * <ul>
-   *   <li>Given {@link DbSqlSessionFactory} (default constructor) DatabaseCatalog is {@code
-   *       ACT_HI_PROCINST}.
+   *   <li>Then throw {@link ActivitiException}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link DbSqlSession#dbSchemaPrune()}
+   * <p>
+   * Method under test: {@link DbSqlSession#dbSchemaPrune()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void DbSqlSession.dbSchemaPrune()"})
-  public void testDbSchemaPrune_givenDbSqlSessionFactoryDatabaseCatalogIsActHiProcinst()
-      throws SQLException {
+  public void testDbSchemaPrune_thenThrowActivitiException() throws SQLException {
     // Arrange
+    ResultSet resultSet = mock(ResultSet.class);
+    when(resultSet.next()).thenThrow(new RuntimeException("ACT_HI_PROCINST"));
+    doThrow(new RuntimeException("ACT_HI_PROCINST")).when(resultSet).close();
     DatabaseMetaData databaseMetaData = mock(DatabaseMetaData.class);
-    when(databaseMetaData.getTables(
-            Mockito.<String>any(),
-            Mockito.<String>any(),
-            Mockito.<String>any(),
-            Mockito.<String[]>any()))
-        .thenReturn(new SimpleResultSet());
-
+    when(databaseMetaData.getTables(Mockito.<String>any(), Mockito.<String>any(), Mockito.<String>any(),
+        Mockito.<String[]>any())).thenReturn(resultSet);
     Connection connection = mock(Connection.class);
     doNothing().when(connection).setAutoCommit(anyBoolean());
     when(connection.getAutoCommit()).thenReturn(true);
     when(connection.getMetaData()).thenReturn(databaseMetaData);
-
     DataSource dataSource = mock(DataSource.class);
     when(dataSource.getConnection()).thenReturn(connection);
-
-    Builder dataSourceResult = new Builder("42").dataSource(dataSource);
-    Environment environment =
-        dataSourceResult.transactionFactory(new JdbcTransactionFactory()).build();
-    Configuration configuration = new Configuration(environment);
-    DefaultSqlSessionFactory sqlSessionFactory = new DefaultSqlSessionFactory(configuration);
+    Builder dataSourceResult = (new Builder("42")).dataSource(dataSource);
+    Environment environment = dataSourceResult.transactionFactory(new JdbcTransactionFactory()).build();
+    DefaultSqlSessionFactory sqlSessionFactory = new DefaultSqlSessionFactory(new Configuration(environment));
 
     DbSqlSessionFactory dbSqlSessionFactory = new DbSqlSessionFactory();
-    dbSqlSessionFactory.setDatabaseCatalog("ACT_HI_PROCINST");
     dbSqlSessionFactory.setSqlSessionFactory(sqlSessionFactory);
-    DbSqlSession dbSqlSession = new DbSqlSession(dbSqlSessionFactory, new EntityCacheImpl());
-
-    // Act
-    dbSqlSession.dbSchemaPrune();
-
-    // Assert
-    verify(connection).getAutoCommit();
-    verify(connection).getMetaData();
-    verify(connection).setAutoCommit(false);
-    verify(databaseMetaData)
-        .getTables(eq("ACT_HI_PROCINST"), isNull(), eq("ACT_HI_PROCINST"), isA(String[].class));
-    verify(dataSource).getConnection();
-  }
-
-  /**
-   * Test {@link DbSqlSession#dbSchemaPrune()}.
-   *
-   * <ul>
-   *   <li>Given {@link DbSqlSessionFactory} (default constructor) DatabaseSchema is {@code
-   *       ACT_HI_PROCINST}.
-   * </ul>
-   *
-   * <p>Method under test: {@link DbSqlSession#dbSchemaPrune()}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void DbSqlSession.dbSchemaPrune()"})
-  public void testDbSchemaPrune_givenDbSqlSessionFactoryDatabaseSchemaIsActHiProcinst()
-      throws SQLException {
-    // Arrange
-    DatabaseMetaData databaseMetaData = mock(DatabaseMetaData.class);
-    when(databaseMetaData.getTables(
-            Mockito.<String>any(),
-            Mockito.<String>any(),
-            Mockito.<String>any(),
-            Mockito.<String[]>any()))
-        .thenReturn(new SimpleResultSet());
-
-    Connection connection = mock(Connection.class);
-    doNothing().when(connection).setAutoCommit(anyBoolean());
-    when(connection.getAutoCommit()).thenReturn(true);
-    when(connection.getMetaData()).thenReturn(databaseMetaData);
-
-    DataSource dataSource = mock(DataSource.class);
-    when(dataSource.getConnection()).thenReturn(connection);
-
-    Builder dataSourceResult = new Builder("42").dataSource(dataSource);
-    Environment environment =
-        dataSourceResult.transactionFactory(new JdbcTransactionFactory()).build();
-    Configuration configuration = new Configuration(environment);
-    DefaultSqlSessionFactory sqlSessionFactory = new DefaultSqlSessionFactory(configuration);
-
-    DbSqlSessionFactory dbSqlSessionFactory = new DbSqlSessionFactory();
-    dbSqlSessionFactory.setDatabaseSchema("ACT_HI_PROCINST");
-    dbSqlSessionFactory.setSqlSessionFactory(sqlSessionFactory);
-    DbSqlSession dbSqlSession = new DbSqlSession(dbSqlSessionFactory, new EntityCacheImpl());
-
-    // Act
-    dbSqlSession.dbSchemaPrune();
-
-    // Assert
-    verify(connection).getAutoCommit();
-    verify(connection).getMetaData();
-    verify(connection).setAutoCommit(false);
-    verify(databaseMetaData)
-        .getTables(isNull(), eq("ACT_HI_PROCINST"), eq("ACT_HI_PROCINST"), isA(String[].class));
-    verify(dataSource).getConnection();
-  }
-
-  /**
-   * Test {@link DbSqlSession#dbSchemaPrune()}.
-   *
-   * <ul>
-   *   <li>Given {@link DbSqlSessionFactory} (default constructor) TablePrefixIsSchema is {@code
-   *       true}.
-   * </ul>
-   *
-   * <p>Method under test: {@link DbSqlSession#dbSchemaPrune()}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void DbSqlSession.dbSchemaPrune()"})
-  public void testDbSchemaPrune_givenDbSqlSessionFactoryTablePrefixIsSchemaIsTrue()
-      throws SQLException {
-    // Arrange
-    DatabaseMetaData databaseMetaData = mock(DatabaseMetaData.class);
-    when(databaseMetaData.getTables(
-            Mockito.<String>any(),
-            Mockito.<String>any(),
-            Mockito.<String>any(),
-            Mockito.<String[]>any()))
-        .thenReturn(new SimpleResultSet());
-
-    Connection connection = mock(Connection.class);
-    doNothing().when(connection).setAutoCommit(anyBoolean());
-    when(connection.getAutoCommit()).thenReturn(true);
-    when(connection.getMetaData()).thenReturn(databaseMetaData);
-
-    DataSource dataSource = mock(DataSource.class);
-    when(dataSource.getConnection()).thenReturn(connection);
-
-    Builder dataSourceResult = new Builder("42").dataSource(dataSource);
-    Environment environment =
-        dataSourceResult.transactionFactory(new JdbcTransactionFactory()).build();
-    Configuration configuration = new Configuration(environment);
-    DefaultSqlSessionFactory sqlSessionFactory = new DefaultSqlSessionFactory(configuration);
-
-    DbSqlSessionFactory dbSqlSessionFactory = new DbSqlSessionFactory();
-    dbSqlSessionFactory.setTablePrefixIsSchema(true);
-    dbSqlSessionFactory.setSqlSessionFactory(sqlSessionFactory);
-    DbSqlSession dbSqlSession = new DbSqlSession(dbSqlSessionFactory, new EntityCacheImpl());
-
-    // Act
-    dbSqlSession.dbSchemaPrune();
-
-    // Assert
-    verify(connection).getAutoCommit();
-    verify(connection).getMetaData();
-    verify(connection).setAutoCommit(false);
-    verify(databaseMetaData)
-        .getTables(isNull(), isNull(), eq("ACT_HI_PROCINST"), isA(String[].class));
-    verify(dataSource).getConnection();
-  }
-
-  /**
-   * Test {@link DbSqlSession#executeMandatorySchemaResource(String, String)}.
-   *
-   * <ul>
-   *   <li>Then throw {@link ActivitiException}.
-   * </ul>
-   *
-   * <p>Method under test: {@link DbSqlSession#executeMandatorySchemaResource(String, String)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void DbSqlSession.executeMandatorySchemaResource(String, String)"})
-  public void testExecuteMandatorySchemaResource_thenThrowActivitiException() {
-    // Arrange
-    DbSqlSessionFactory dbSqlSessionFactory = new DbSqlSessionFactory();
-
-    Builder dataSourceResult = new Builder("42").dataSource(mock(DataSource.class));
-    Environment environment =
-        dataSourceResult.transactionFactory(new JdbcTransactionFactory()).build();
-    Configuration configuration = new Configuration(environment);
-    dbSqlSessionFactory.setSqlSessionFactory(new DefaultSqlSessionFactory(configuration));
-    DbSqlSession dbSqlSession = new DbSqlSession(dbSqlSessionFactory, new EntityCacheImpl());
 
     // Act and Assert
-    assertThrows(
-        ActivitiException.class,
-        () -> dbSqlSession.executeMandatorySchemaResource("Operation", "Component"));
-  }
-
-  /**
-   * Test {@link DbSqlSession#dbSchemaUpdate()}.
-   *
-   * <p>Method under test: {@link DbSqlSession#dbSchemaUpdate()}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String DbSqlSession.dbSchemaUpdate()"})
-  public void testDbSchemaUpdate() throws SQLException {
-    // Arrange
-    DataSource dataSource = mock(DataSource.class);
-    when(dataSource.getConnection()).thenThrow(new ActivitiException("An error occurred"));
-
-    Builder dataSourceResult = new Builder("42").dataSource(dataSource);
-    Environment environment =
-        dataSourceResult.transactionFactory(new JdbcTransactionFactory()).build();
-    Configuration configuration = new Configuration(environment);
-    DefaultSqlSessionFactory sqlSessionFactory = new DefaultSqlSessionFactory(configuration);
-
-    DbSqlSessionFactory dbSqlSessionFactory = new DbSqlSessionFactory();
-    dbSqlSessionFactory.setSqlSessionFactory(sqlSessionFactory);
-    DbSqlSession dbSqlSession = new DbSqlSession(dbSqlSessionFactory, new EntityCacheImpl());
-
-    // Act and Assert
-    assertThrows(ActivitiException.class, () -> dbSqlSession.dbSchemaUpdate());
+    assertThrows(ActivitiException.class,
+        () -> (new DbSqlSession(dbSqlSessionFactory, new EntityCacheImpl())).dbSchemaPrune());
+    verify(connection).getAutoCommit();
+    verify(connection).getMetaData();
+    verify(connection).setAutoCommit(eq(false));
+    verify(databaseMetaData).getTables(isNull(), isNull(), eq("ACT_HI_PROCINST"), isA(String[].class));
+    verify(resultSet).close();
+    verify(resultSet).next();
     verify(dataSource).getConnection();
   }
 
   /**
    * Test {@link DbSqlSession#dbSchemaUpdate()}.
-   *
-   * <p>Method under test: {@link DbSqlSession#dbSchemaUpdate()}
+   * <ul>
+   *   <li>Given {@link ResultSet} {@link ResultSet#next()} return {@code false}.</li>
+   *   <li>Then throw {@link ActivitiException}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link DbSqlSession#dbSchemaUpdate()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"String DbSqlSession.dbSchemaUpdate()"})
-  public void testDbSchemaUpdate2() throws SQLException {
+  public void testDbSchemaUpdate_givenResultSetNextReturnFalse_thenThrowActivitiException() throws SQLException {
     // Arrange
+    ResultSet resultSet = mock(ResultSet.class);
+    when(resultSet.next()).thenReturn(false).thenReturn(true).thenReturn(false);
+    doNothing().when(resultSet).close();
     DatabaseMetaData databaseMetaData = mock(DatabaseMetaData.class);
-    when(databaseMetaData.getTables(
-            Mockito.<String>any(),
-            Mockito.<String>any(),
-            Mockito.<String>any(),
-            Mockito.<String[]>any()))
-        .thenThrow(new ActivitiException("An error occurred"));
-
+    when(databaseMetaData.getTables(Mockito.<String>any(), Mockito.<String>any(), Mockito.<String>any(),
+        Mockito.<String[]>any())).thenReturn(resultSet);
     Connection connection = mock(Connection.class);
     doNothing().when(connection).setAutoCommit(anyBoolean());
     when(connection.getAutoCommit()).thenReturn(true);
     when(connection.getMetaData()).thenReturn(databaseMetaData);
-
     DataSource dataSource = mock(DataSource.class);
     when(dataSource.getConnection()).thenReturn(connection);
-
-    Builder dataSourceResult = new Builder("42").dataSource(dataSource);
-    Environment environment =
-        dataSourceResult.transactionFactory(new JdbcTransactionFactory()).build();
-    Configuration configuration = new Configuration(environment);
-    DefaultSqlSessionFactory sqlSessionFactory = new DefaultSqlSessionFactory(configuration);
+    Builder dataSourceResult = (new Builder("42")).dataSource(dataSource);
+    Environment environment = dataSourceResult.transactionFactory(new JdbcTransactionFactory()).build();
+    DefaultSqlSessionFactory sqlSessionFactory = new DefaultSqlSessionFactory(new Configuration(environment));
 
     DbSqlSessionFactory dbSqlSessionFactory = new DbSqlSessionFactory();
     dbSqlSessionFactory.setSqlSessionFactory(sqlSessionFactory);
-    DbSqlSession dbSqlSession = new DbSqlSession(dbSqlSessionFactory, new EntityCacheImpl());
 
     // Act and Assert
-    assertThrows(ActivitiException.class, () -> dbSqlSession.dbSchemaUpdate());
+    assertThrows(ActivitiException.class,
+        () -> (new DbSqlSession(dbSqlSessionFactory, new EntityCacheImpl())).dbSchemaUpdate());
     verify(connection).getAutoCommit();
     verify(connection).getMetaData();
-    verify(connection).setAutoCommit(false);
-    verify(databaseMetaData)
-        .getTables(isNull(), isNull(), eq("ACT_RU_EXECUTION"), isA(String[].class));
+    verify(connection).setAutoCommit(eq(false));
+    verify(databaseMetaData).getTables(isNull(), isNull(), eq("ACT_RU_EXECUTION"), isA(String[].class));
+    verify(resultSet).close();
+    verify(resultSet).next();
     verify(dataSource).getConnection();
   }
 
   /**
    * Test {@link DbSqlSession#dbSchemaUpdate()}.
-   *
    * <ul>
-   *   <li>Given {@link DbSqlSessionFactory} (default constructor) DatabaseCatalog is {@code
-   *       ACT_RU_EXECUTION}.
+   *   <li>Given {@link ResultSet} {@link ResultSet#next()} throw {@link RuntimeException#RuntimeException(String)} with {@code ACT_RU_EXECUTION}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link DbSqlSession#dbSchemaUpdate()}
+   * <p>
+   * Method under test: {@link DbSqlSession#dbSchemaUpdate()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"String DbSqlSession.dbSchemaUpdate()"})
-  public void testDbSchemaUpdate_givenDbSqlSessionFactoryDatabaseCatalogIsActRuExecution()
-      throws SQLException {
+  public void testDbSchemaUpdate_givenResultSetNextThrowRuntimeExceptionWithActRuExecution() throws SQLException {
     // Arrange
+    ResultSet resultSet = mock(ResultSet.class);
+    when(resultSet.next()).thenThrow(new RuntimeException("ACT_RU_EXECUTION"));
+    doThrow(new RuntimeException("ACT_RU_EXECUTION")).when(resultSet).close();
     DatabaseMetaData databaseMetaData = mock(DatabaseMetaData.class);
-    when(databaseMetaData.getTables(
-            Mockito.<String>any(),
-            Mockito.<String>any(),
-            Mockito.<String>any(),
-            Mockito.<String[]>any()))
-        .thenReturn(new SimpleResultSet());
-
+    when(databaseMetaData.getTables(Mockito.<String>any(), Mockito.<String>any(), Mockito.<String>any(),
+        Mockito.<String[]>any())).thenReturn(resultSet);
     Connection connection = mock(Connection.class);
     doNothing().when(connection).setAutoCommit(anyBoolean());
     when(connection.getAutoCommit()).thenReturn(true);
     when(connection.getMetaData()).thenReturn(databaseMetaData);
-
     DataSource dataSource = mock(DataSource.class);
     when(dataSource.getConnection()).thenReturn(connection);
-
-    Builder dataSourceResult = new Builder("42").dataSource(dataSource);
-    Environment environment =
-        dataSourceResult.transactionFactory(new JdbcTransactionFactory()).build();
-    Configuration configuration = new Configuration(environment);
-    DefaultSqlSessionFactory sqlSessionFactory = new DefaultSqlSessionFactory(configuration);
+    Builder dataSourceResult = (new Builder("42")).dataSource(dataSource);
+    Environment environment = dataSourceResult.transactionFactory(new JdbcTransactionFactory()).build();
+    DefaultSqlSessionFactory sqlSessionFactory = new DefaultSqlSessionFactory(new Configuration(environment));
 
     DbSqlSessionFactory dbSqlSessionFactory = new DbSqlSessionFactory();
-    dbSqlSessionFactory.setDatabaseCatalog("ACT_RU_EXECUTION");
     dbSqlSessionFactory.setSqlSessionFactory(sqlSessionFactory);
-    DbSqlSession dbSqlSession = new DbSqlSession(dbSqlSessionFactory, new EntityCacheImpl());
 
     // Act and Assert
-    assertThrows(ActivitiException.class, () -> dbSqlSession.dbSchemaUpdate());
+    assertThrows(ActivitiException.class,
+        () -> (new DbSqlSession(dbSqlSessionFactory, new EntityCacheImpl())).dbSchemaUpdate());
     verify(connection).getAutoCommit();
     verify(connection).getMetaData();
-    verify(connection).setAutoCommit(false);
-    verify(databaseMetaData)
-        .getTables(eq("ACT_RU_EXECUTION"), isNull(), eq("ACT_RU_EXECUTION"), isA(String[].class));
-    verify(dataSource).getConnection();
-  }
-
-  /**
-   * Test {@link DbSqlSession#dbSchemaUpdate()}.
-   *
-   * <ul>
-   *   <li>Given {@link DbSqlSessionFactory} (default constructor) DatabaseSchema is {@code
-   *       ACT_RU_EXECUTION}.
-   * </ul>
-   *
-   * <p>Method under test: {@link DbSqlSession#dbSchemaUpdate()}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String DbSqlSession.dbSchemaUpdate()"})
-  public void testDbSchemaUpdate_givenDbSqlSessionFactoryDatabaseSchemaIsActRuExecution()
-      throws SQLException {
-    // Arrange
-    DatabaseMetaData databaseMetaData = mock(DatabaseMetaData.class);
-    when(databaseMetaData.getTables(
-            Mockito.<String>any(),
-            Mockito.<String>any(),
-            Mockito.<String>any(),
-            Mockito.<String[]>any()))
-        .thenReturn(new SimpleResultSet());
-
-    Connection connection = mock(Connection.class);
-    doNothing().when(connection).setAutoCommit(anyBoolean());
-    when(connection.getAutoCommit()).thenReturn(true);
-    when(connection.getMetaData()).thenReturn(databaseMetaData);
-
-    DataSource dataSource = mock(DataSource.class);
-    when(dataSource.getConnection()).thenReturn(connection);
-
-    Builder dataSourceResult = new Builder("42").dataSource(dataSource);
-    Environment environment =
-        dataSourceResult.transactionFactory(new JdbcTransactionFactory()).build();
-    Configuration configuration = new Configuration(environment);
-    DefaultSqlSessionFactory sqlSessionFactory = new DefaultSqlSessionFactory(configuration);
-
-    DbSqlSessionFactory dbSqlSessionFactory = new DbSqlSessionFactory();
-    dbSqlSessionFactory.setDatabaseSchema("ACT_RU_EXECUTION");
-    dbSqlSessionFactory.setSqlSessionFactory(sqlSessionFactory);
-    DbSqlSession dbSqlSession = new DbSqlSession(dbSqlSessionFactory, new EntityCacheImpl());
-
-    // Act and Assert
-    assertThrows(ActivitiException.class, () -> dbSqlSession.dbSchemaUpdate());
-    verify(connection).getAutoCommit();
-    verify(connection).getMetaData();
-    verify(connection).setAutoCommit(false);
-    verify(databaseMetaData)
-        .getTables(isNull(), eq("ACT_RU_EXECUTION"), eq("ACT_RU_EXECUTION"), isA(String[].class));
-    verify(dataSource).getConnection();
-  }
-
-  /**
-   * Test {@link DbSqlSession#dbSchemaUpdate()}.
-   *
-   * <ul>
-   *   <li>Given {@link DbSqlSessionFactory} (default constructor) TablePrefixIsSchema is {@code
-   *       true}.
-   * </ul>
-   *
-   * <p>Method under test: {@link DbSqlSession#dbSchemaUpdate()}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String DbSqlSession.dbSchemaUpdate()"})
-  public void testDbSchemaUpdate_givenDbSqlSessionFactoryTablePrefixIsSchemaIsTrue()
-      throws SQLException {
-    // Arrange
-    DatabaseMetaData databaseMetaData = mock(DatabaseMetaData.class);
-    when(databaseMetaData.getTables(
-            Mockito.<String>any(),
-            Mockito.<String>any(),
-            Mockito.<String>any(),
-            Mockito.<String[]>any()))
-        .thenReturn(new SimpleResultSet());
-
-    Connection connection = mock(Connection.class);
-    doNothing().when(connection).setAutoCommit(anyBoolean());
-    when(connection.getAutoCommit()).thenReturn(true);
-    when(connection.getMetaData()).thenReturn(databaseMetaData);
-
-    DataSource dataSource = mock(DataSource.class);
-    when(dataSource.getConnection()).thenReturn(connection);
-
-    Builder dataSourceResult = new Builder("42").dataSource(dataSource);
-    Environment environment =
-        dataSourceResult.transactionFactory(new JdbcTransactionFactory()).build();
-    Configuration configuration = new Configuration(environment);
-    DefaultSqlSessionFactory sqlSessionFactory = new DefaultSqlSessionFactory(configuration);
-
-    DbSqlSessionFactory dbSqlSessionFactory = new DbSqlSessionFactory();
-    dbSqlSessionFactory.setTablePrefixIsSchema(true);
-    dbSqlSessionFactory.setSqlSessionFactory(sqlSessionFactory);
-    DbSqlSession dbSqlSession = new DbSqlSession(dbSqlSessionFactory, new EntityCacheImpl());
-
-    // Act and Assert
-    assertThrows(ActivitiException.class, () -> dbSqlSession.dbSchemaUpdate());
-    verify(connection).getAutoCommit();
-    verify(connection).getMetaData();
-    verify(connection).setAutoCommit(false);
-    verify(databaseMetaData)
-        .getTables(isNull(), isNull(), eq("ACT_RU_EXECUTION"), isA(String[].class));
-    verify(dataSource).getConnection();
-  }
-
-  /**
-   * Test {@link DbSqlSession#dbSchemaUpdate()}.
-   *
-   * <ul>
-   *   <li>Then calls {@link Connection#getAutoCommit()}.
-   * </ul>
-   *
-   * <p>Method under test: {@link DbSqlSession#dbSchemaUpdate()}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String DbSqlSession.dbSchemaUpdate()"})
-  public void testDbSchemaUpdate_thenCallsGetAutoCommit() throws SQLException {
-    // Arrange
-    DatabaseMetaData databaseMetaData = mock(DatabaseMetaData.class);
-    when(databaseMetaData.getTables(
-            Mockito.<String>any(),
-            Mockito.<String>any(),
-            Mockito.<String>any(),
-            Mockito.<String[]>any()))
-        .thenReturn(new SimpleResultSet());
-
-    Connection connection = mock(Connection.class);
-    doNothing().when(connection).setAutoCommit(anyBoolean());
-    when(connection.getAutoCommit()).thenReturn(true);
-    when(connection.getMetaData()).thenReturn(databaseMetaData);
-
-    DataSource dataSource = mock(DataSource.class);
-    when(dataSource.getConnection()).thenReturn(connection);
-
-    Builder dataSourceResult = new Builder("42").dataSource(dataSource);
-    Environment environment =
-        dataSourceResult.transactionFactory(new JdbcTransactionFactory()).build();
-    Configuration configuration = new Configuration(environment);
-    DefaultSqlSessionFactory sqlSessionFactory = new DefaultSqlSessionFactory(configuration);
-
-    DbSqlSessionFactory dbSqlSessionFactory = new DbSqlSessionFactory();
-    dbSqlSessionFactory.setSqlSessionFactory(sqlSessionFactory);
-    DbSqlSession dbSqlSession = new DbSqlSession(dbSqlSessionFactory, new EntityCacheImpl());
-
-    // Act and Assert
-    assertThrows(ActivitiException.class, () -> dbSqlSession.dbSchemaUpdate());
-    verify(connection).getAutoCommit();
-    verify(connection).getMetaData();
-    verify(connection).setAutoCommit(false);
-    verify(databaseMetaData)
-        .getTables(isNull(), isNull(), eq("ACT_RU_EXECUTION"), isA(String[].class));
-    verify(dataSource).getConnection();
-  }
-
-  /**
-   * Test {@link DbSqlSession#findMatchingVersionIndex(String)}.
-   *
-   * <ul>
-   *   <li>Then return minus one.
-   * </ul>
-   *
-   * <p>Method under test: {@link DbSqlSession#findMatchingVersionIndex(String)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"int DbSqlSession.findMatchingVersionIndex(String)"})
-  public void testFindMatchingVersionIndex_thenReturnMinusOne() {
-    // Arrange
-    DbSqlSessionFactory dbSqlSessionFactory = new DbSqlSessionFactory();
-
-    Builder dataSourceResult = new Builder("42").dataSource(mock(DataSource.class));
-    Environment environment =
-        dataSourceResult.transactionFactory(new JdbcTransactionFactory()).build();
-    Configuration configuration = new Configuration(environment);
-    dbSqlSessionFactory.setSqlSessionFactory(new DefaultSqlSessionFactory(configuration));
-    DbSqlSession dbSqlSession = new DbSqlSession(dbSqlSessionFactory, new EntityCacheImpl());
-
-    // Act and Assert
-    assertEquals(-1, dbSqlSession.findMatchingVersionIndex("1.0.2"));
-  }
-
-  /**
-   * Test {@link DbSqlSession#findMatchingVersionIndex(String)}.
-   *
-   * <ul>
-   *   <li>When {@code 5.7}.
-   *   <li>Then return zero.
-   * </ul>
-   *
-   * <p>Method under test: {@link DbSqlSession#findMatchingVersionIndex(String)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"int DbSqlSession.findMatchingVersionIndex(String)"})
-  public void testFindMatchingVersionIndex_when57_thenReturnZero() {
-    // Arrange
-    DbSqlSessionFactory dbSqlSessionFactory = new DbSqlSessionFactory();
-
-    Builder dataSourceResult = new Builder("42").dataSource(mock(DataSource.class));
-    Environment environment =
-        dataSourceResult.transactionFactory(new JdbcTransactionFactory()).build();
-    Configuration configuration = new Configuration(environment);
-    dbSqlSessionFactory.setSqlSessionFactory(new DefaultSqlSessionFactory(configuration));
-    DbSqlSession dbSqlSession = new DbSqlSession(dbSqlSessionFactory, new EntityCacheImpl());
-
-    // Act and Assert
-    assertEquals(0, dbSqlSession.findMatchingVersionIndex("5.7"));
-  }
-
-  /**
-   * Test {@link DbSqlSession#isEngineTablePresent()}.
-   *
-   * <p>Method under test: {@link DbSqlSession#isEngineTablePresent()}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"boolean DbSqlSession.isEngineTablePresent()"})
-  public void testIsEngineTablePresent() throws SQLException {
-    // Arrange
-    DataSource dataSource = mock(DataSource.class);
-    when(dataSource.getConnection()).thenThrow(new ActivitiException("An error occurred"));
-
-    Builder dataSourceResult = new Builder("42").dataSource(dataSource);
-    Environment environment =
-        dataSourceResult.transactionFactory(new JdbcTransactionFactory()).build();
-    Configuration configuration = new Configuration(environment);
-    DefaultSqlSessionFactory sqlSessionFactory = new DefaultSqlSessionFactory(configuration);
-
-    DbSqlSessionFactory dbSqlSessionFactory = new DbSqlSessionFactory();
-    dbSqlSessionFactory.setSqlSessionFactory(sqlSessionFactory);
-    DbSqlSession dbSqlSession = new DbSqlSession(dbSqlSessionFactory, new EntityCacheImpl());
-
-    // Act and Assert
-    assertThrows(ActivitiException.class, () -> dbSqlSession.isEngineTablePresent());
+    verify(connection).setAutoCommit(eq(false));
+    verify(databaseMetaData).getTables(isNull(), isNull(), eq("ACT_RU_EXECUTION"), isA(String[].class));
+    verify(resultSet).close();
+    verify(resultSet).next();
     verify(dataSource).getConnection();
   }
 
   /**
    * Test {@link DbSqlSession#isEngineTablePresent()}.
-   *
-   * <p>Method under test: {@link DbSqlSession#isEngineTablePresent()}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"boolean DbSqlSession.isEngineTablePresent()"})
-  public void testIsEngineTablePresent2() throws SQLException {
-    // Arrange
-    DatabaseMetaData databaseMetaData = mock(DatabaseMetaData.class);
-    when(databaseMetaData.getTables(
-            Mockito.<String>any(),
-            Mockito.<String>any(),
-            Mockito.<String>any(),
-            Mockito.<String[]>any()))
-        .thenThrow(new ActivitiException("An error occurred"));
-
-    Connection connection = mock(Connection.class);
-    doNothing().when(connection).setAutoCommit(anyBoolean());
-    when(connection.getAutoCommit()).thenReturn(true);
-    when(connection.getMetaData()).thenReturn(databaseMetaData);
-
-    DataSource dataSource = mock(DataSource.class);
-    when(dataSource.getConnection()).thenReturn(connection);
-
-    Builder dataSourceResult = new Builder("42").dataSource(dataSource);
-    Environment environment =
-        dataSourceResult.transactionFactory(new JdbcTransactionFactory()).build();
-    Configuration configuration = new Configuration(environment);
-    DefaultSqlSessionFactory sqlSessionFactory = new DefaultSqlSessionFactory(configuration);
-
-    DbSqlSessionFactory dbSqlSessionFactory = new DbSqlSessionFactory();
-    dbSqlSessionFactory.setSqlSessionFactory(sqlSessionFactory);
-    DbSqlSession dbSqlSession = new DbSqlSession(dbSqlSessionFactory, new EntityCacheImpl());
-
-    // Act and Assert
-    assertThrows(ActivitiException.class, () -> dbSqlSession.isEngineTablePresent());
-    verify(connection).getAutoCommit();
-    verify(connection).getMetaData();
-    verify(connection).setAutoCommit(false);
-    verify(databaseMetaData)
-        .getTables(isNull(), isNull(), eq("ACT_RU_EXECUTION"), isA(String[].class));
-    verify(dataSource).getConnection();
-  }
-
-  /**
-   * Test {@link DbSqlSession#isEngineTablePresent()}.
-   *
    * <ul>
-   *   <li>Given array of {@link Object} with {@link JSONObject#NULL}.
-   *   <li>Then return {@code true}.
+   *   <li>Given {@link ResultSet} {@link ResultSet#next()} return {@code false}.</li>
+   *   <li>Then return {@code false}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link DbSqlSession#isEngineTablePresent()}
+   * <p>
+   * Method under test: {@link DbSqlSession#isEngineTablePresent()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"boolean DbSqlSession.isEngineTablePresent()"})
-  public void testIsEngineTablePresent_givenArrayOfObjectWithNull_thenReturnTrue()
-      throws SQLException {
+  public void testIsEngineTablePresent_givenResultSetNextReturnFalse_thenReturnFalse() throws SQLException {
     // Arrange
-    SimpleResultSet simpleResultSet = new SimpleResultSet();
-    simpleResultSet.addRow(JSONObject.NULL);
-
+    ResultSet resultSet = mock(ResultSet.class);
+    when(resultSet.next()).thenReturn(false).thenReturn(true).thenReturn(false);
+    doNothing().when(resultSet).close();
     DatabaseMetaData databaseMetaData = mock(DatabaseMetaData.class);
-    when(databaseMetaData.getTables(
-            Mockito.<String>any(),
-            Mockito.<String>any(),
-            Mockito.<String>any(),
-            Mockito.<String[]>any()))
-        .thenReturn(simpleResultSet);
-
+    when(databaseMetaData.getTables(Mockito.<String>any(), Mockito.<String>any(), Mockito.<String>any(),
+        Mockito.<String[]>any())).thenReturn(resultSet);
     Connection connection = mock(Connection.class);
     doNothing().when(connection).setAutoCommit(anyBoolean());
     when(connection.getAutoCommit()).thenReturn(true);
     when(connection.getMetaData()).thenReturn(databaseMetaData);
-
     DataSource dataSource = mock(DataSource.class);
     when(dataSource.getConnection()).thenReturn(connection);
-
-    Builder dataSourceResult = new Builder("42").dataSource(dataSource);
-    Environment environment =
-        dataSourceResult.transactionFactory(new JdbcTransactionFactory()).build();
-    Configuration configuration = new Configuration(environment);
-    DefaultSqlSessionFactory sqlSessionFactory = new DefaultSqlSessionFactory(configuration);
+    Builder dataSourceResult = (new Builder("42")).dataSource(dataSource);
+    Environment environment = dataSourceResult.transactionFactory(new JdbcTransactionFactory()).build();
+    DefaultSqlSessionFactory sqlSessionFactory = new DefaultSqlSessionFactory(new Configuration(environment));
 
     DbSqlSessionFactory dbSqlSessionFactory = new DbSqlSessionFactory();
     dbSqlSessionFactory.setSqlSessionFactory(sqlSessionFactory);
-    DbSqlSession dbSqlSession = new DbSqlSession(dbSqlSessionFactory, new EntityCacheImpl());
 
     // Act
-    boolean actualIsEngineTablePresentResult = dbSqlSession.isEngineTablePresent();
+    boolean actualIsEngineTablePresentResult = (new DbSqlSession(dbSqlSessionFactory, new EntityCacheImpl()))
+        .isEngineTablePresent();
 
     // Assert
     verify(connection).getAutoCommit();
     verify(connection).getMetaData();
-    verify(connection).setAutoCommit(false);
-    verify(databaseMetaData)
-        .getTables(isNull(), isNull(), eq("ACT_RU_EXECUTION"), isA(String[].class));
+    verify(connection).setAutoCommit(eq(false));
+    verify(databaseMetaData).getTables(isNull(), isNull(), eq("ACT_RU_EXECUTION"), isA(String[].class));
+    verify(resultSet).close();
+    verify(resultSet).next();
+    verify(dataSource).getConnection();
+    assertFalse(actualIsEngineTablePresentResult);
+  }
+
+  /**
+   * Test {@link DbSqlSession#isEngineTablePresent()}.
+   * <ul>
+   *   <li>Given {@link ResultSet} {@link ResultSet#next()} return {@code true}.</li>
+   *   <li>Then return {@code true}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link DbSqlSession#isEngineTablePresent()}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean DbSqlSession.isEngineTablePresent()"})
+  public void testIsEngineTablePresent_givenResultSetNextReturnTrue_thenReturnTrue() throws SQLException {
+    // Arrange
+    ResultSet resultSet = mock(ResultSet.class);
+    when(resultSet.next()).thenReturn(true).thenReturn(true).thenReturn(false);
+    doNothing().when(resultSet).close();
+    DatabaseMetaData databaseMetaData = mock(DatabaseMetaData.class);
+    when(databaseMetaData.getTables(Mockito.<String>any(), Mockito.<String>any(), Mockito.<String>any(),
+        Mockito.<String[]>any())).thenReturn(resultSet);
+    Connection connection = mock(Connection.class);
+    doNothing().when(connection).setAutoCommit(anyBoolean());
+    when(connection.getAutoCommit()).thenReturn(true);
+    when(connection.getMetaData()).thenReturn(databaseMetaData);
+    DataSource dataSource = mock(DataSource.class);
+    when(dataSource.getConnection()).thenReturn(connection);
+    Builder dataSourceResult = (new Builder("42")).dataSource(dataSource);
+    Environment environment = dataSourceResult.transactionFactory(new JdbcTransactionFactory()).build();
+    DefaultSqlSessionFactory sqlSessionFactory = new DefaultSqlSessionFactory(new Configuration(environment));
+
+    DbSqlSessionFactory dbSqlSessionFactory = new DbSqlSessionFactory();
+    dbSqlSessionFactory.setSqlSessionFactory(sqlSessionFactory);
+
+    // Act
+    boolean actualIsEngineTablePresentResult = (new DbSqlSession(dbSqlSessionFactory, new EntityCacheImpl()))
+        .isEngineTablePresent();
+
+    // Assert
+    verify(connection).getAutoCommit();
+    verify(connection).getMetaData();
+    verify(connection).setAutoCommit(eq(false));
+    verify(databaseMetaData).getTables(isNull(), isNull(), eq("ACT_RU_EXECUTION"), isA(String[].class));
+    verify(resultSet).close();
+    verify(resultSet).next();
     verify(dataSource).getConnection();
     assertTrue(actualIsEngineTablePresentResult);
   }
 
   /**
    * Test {@link DbSqlSession#isEngineTablePresent()}.
-   *
    * <ul>
-   *   <li>Given {@link DbSqlSessionFactory} (default constructor) DatabaseCatalog is {@code
-   *       ACT_RU_EXECUTION}.
+   *   <li>Then throw {@link ActivitiException}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link DbSqlSession#isEngineTablePresent()}
+   * <p>
+   * Method under test: {@link DbSqlSession#isEngineTablePresent()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"boolean DbSqlSession.isEngineTablePresent()"})
-  public void testIsEngineTablePresent_givenDbSqlSessionFactoryDatabaseCatalogIsActRuExecution()
-      throws SQLException {
+  public void testIsEngineTablePresent_thenThrowActivitiException() throws SQLException {
     // Arrange
+    ResultSet resultSet = mock(ResultSet.class);
+    when(resultSet.next()).thenThrow(new RuntimeException("ACT_RU_EXECUTION"));
+    doThrow(new RuntimeException("ACT_RU_EXECUTION")).when(resultSet).close();
     DatabaseMetaData databaseMetaData = mock(DatabaseMetaData.class);
-    when(databaseMetaData.getTables(
-            Mockito.<String>any(),
-            Mockito.<String>any(),
-            Mockito.<String>any(),
-            Mockito.<String[]>any()))
-        .thenReturn(new SimpleResultSet());
-
+    when(databaseMetaData.getTables(Mockito.<String>any(), Mockito.<String>any(), Mockito.<String>any(),
+        Mockito.<String[]>any())).thenReturn(resultSet);
     Connection connection = mock(Connection.class);
     doNothing().when(connection).setAutoCommit(anyBoolean());
     when(connection.getAutoCommit()).thenReturn(true);
     when(connection.getMetaData()).thenReturn(databaseMetaData);
-
     DataSource dataSource = mock(DataSource.class);
     when(dataSource.getConnection()).thenReturn(connection);
-
-    Builder dataSourceResult = new Builder("42").dataSource(dataSource);
-    Environment environment =
-        dataSourceResult.transactionFactory(new JdbcTransactionFactory()).build();
-    Configuration configuration = new Configuration(environment);
-    DefaultSqlSessionFactory sqlSessionFactory = new DefaultSqlSessionFactory(configuration);
-
-    DbSqlSessionFactory dbSqlSessionFactory = new DbSqlSessionFactory();
-    dbSqlSessionFactory.setDatabaseCatalog("ACT_RU_EXECUTION");
-    dbSqlSessionFactory.setSqlSessionFactory(sqlSessionFactory);
-    DbSqlSession dbSqlSession = new DbSqlSession(dbSqlSessionFactory, new EntityCacheImpl());
-
-    // Act
-    boolean actualIsEngineTablePresentResult = dbSqlSession.isEngineTablePresent();
-
-    // Assert
-    verify(connection).getAutoCommit();
-    verify(connection).getMetaData();
-    verify(connection).setAutoCommit(false);
-    verify(databaseMetaData)
-        .getTables(eq("ACT_RU_EXECUTION"), isNull(), eq("ACT_RU_EXECUTION"), isA(String[].class));
-    verify(dataSource).getConnection();
-    assertFalse(actualIsEngineTablePresentResult);
-  }
-
-  /**
-   * Test {@link DbSqlSession#isEngineTablePresent()}.
-   *
-   * <ul>
-   *   <li>Given {@link DbSqlSessionFactory} (default constructor) DatabaseSchema is {@code
-   *       ACT_RU_EXECUTION}.
-   * </ul>
-   *
-   * <p>Method under test: {@link DbSqlSession#isEngineTablePresent()}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"boolean DbSqlSession.isEngineTablePresent()"})
-  public void testIsEngineTablePresent_givenDbSqlSessionFactoryDatabaseSchemaIsActRuExecution()
-      throws SQLException {
-    // Arrange
-    DatabaseMetaData databaseMetaData = mock(DatabaseMetaData.class);
-    when(databaseMetaData.getTables(
-            Mockito.<String>any(),
-            Mockito.<String>any(),
-            Mockito.<String>any(),
-            Mockito.<String[]>any()))
-        .thenReturn(new SimpleResultSet());
-
-    Connection connection = mock(Connection.class);
-    doNothing().when(connection).setAutoCommit(anyBoolean());
-    when(connection.getAutoCommit()).thenReturn(true);
-    when(connection.getMetaData()).thenReturn(databaseMetaData);
-
-    DataSource dataSource = mock(DataSource.class);
-    when(dataSource.getConnection()).thenReturn(connection);
-
-    Builder dataSourceResult = new Builder("42").dataSource(dataSource);
-    Environment environment =
-        dataSourceResult.transactionFactory(new JdbcTransactionFactory()).build();
-    Configuration configuration = new Configuration(environment);
-    DefaultSqlSessionFactory sqlSessionFactory = new DefaultSqlSessionFactory(configuration);
-
-    DbSqlSessionFactory dbSqlSessionFactory = new DbSqlSessionFactory();
-    dbSqlSessionFactory.setDatabaseSchema("ACT_RU_EXECUTION");
-    dbSqlSessionFactory.setSqlSessionFactory(sqlSessionFactory);
-    DbSqlSession dbSqlSession = new DbSqlSession(dbSqlSessionFactory, new EntityCacheImpl());
-
-    // Act
-    boolean actualIsEngineTablePresentResult = dbSqlSession.isEngineTablePresent();
-
-    // Assert
-    verify(connection).getAutoCommit();
-    verify(connection).getMetaData();
-    verify(connection).setAutoCommit(false);
-    verify(databaseMetaData)
-        .getTables(isNull(), eq("ACT_RU_EXECUTION"), eq("ACT_RU_EXECUTION"), isA(String[].class));
-    verify(dataSource).getConnection();
-    assertFalse(actualIsEngineTablePresentResult);
-  }
-
-  /**
-   * Test {@link DbSqlSession#isEngineTablePresent()}.
-   *
-   * <ul>
-   *   <li>Given {@link DbSqlSessionFactory} (default constructor) TablePrefixIsSchema is {@code
-   *       true}.
-   * </ul>
-   *
-   * <p>Method under test: {@link DbSqlSession#isEngineTablePresent()}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"boolean DbSqlSession.isEngineTablePresent()"})
-  public void testIsEngineTablePresent_givenDbSqlSessionFactoryTablePrefixIsSchemaIsTrue()
-      throws SQLException {
-    // Arrange
-    DatabaseMetaData databaseMetaData = mock(DatabaseMetaData.class);
-    when(databaseMetaData.getTables(
-            Mockito.<String>any(),
-            Mockito.<String>any(),
-            Mockito.<String>any(),
-            Mockito.<String[]>any()))
-        .thenReturn(new SimpleResultSet());
-
-    Connection connection = mock(Connection.class);
-    doNothing().when(connection).setAutoCommit(anyBoolean());
-    when(connection.getAutoCommit()).thenReturn(true);
-    when(connection.getMetaData()).thenReturn(databaseMetaData);
-
-    DataSource dataSource = mock(DataSource.class);
-    when(dataSource.getConnection()).thenReturn(connection);
-
-    Builder dataSourceResult = new Builder("42").dataSource(dataSource);
-    Environment environment =
-        dataSourceResult.transactionFactory(new JdbcTransactionFactory()).build();
-    Configuration configuration = new Configuration(environment);
-    DefaultSqlSessionFactory sqlSessionFactory = new DefaultSqlSessionFactory(configuration);
-
-    DbSqlSessionFactory dbSqlSessionFactory = new DbSqlSessionFactory();
-    dbSqlSessionFactory.setTablePrefixIsSchema(true);
-    dbSqlSessionFactory.setSqlSessionFactory(sqlSessionFactory);
-    DbSqlSession dbSqlSession = new DbSqlSession(dbSqlSessionFactory, new EntityCacheImpl());
-
-    // Act
-    boolean actualIsEngineTablePresentResult = dbSqlSession.isEngineTablePresent();
-
-    // Assert
-    verify(connection).getAutoCommit();
-    verify(connection).getMetaData();
-    verify(connection).setAutoCommit(false);
-    verify(databaseMetaData)
-        .getTables(isNull(), isNull(), eq("ACT_RU_EXECUTION"), isA(String[].class));
-    verify(dataSource).getConnection();
-    assertFalse(actualIsEngineTablePresentResult);
-  }
-
-  /**
-   * Test {@link DbSqlSession#isEngineTablePresent()}.
-   *
-   * <ul>
-   *   <li>Then return {@code false}.
-   * </ul>
-   *
-   * <p>Method under test: {@link DbSqlSession#isEngineTablePresent()}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"boolean DbSqlSession.isEngineTablePresent()"})
-  public void testIsEngineTablePresent_thenReturnFalse() throws SQLException {
-    // Arrange
-    DatabaseMetaData databaseMetaData = mock(DatabaseMetaData.class);
-    when(databaseMetaData.getTables(
-            Mockito.<String>any(),
-            Mockito.<String>any(),
-            Mockito.<String>any(),
-            Mockito.<String[]>any()))
-        .thenReturn(new SimpleResultSet());
-
-    Connection connection = mock(Connection.class);
-    doNothing().when(connection).setAutoCommit(anyBoolean());
-    when(connection.getAutoCommit()).thenReturn(true);
-    when(connection.getMetaData()).thenReturn(databaseMetaData);
-
-    DataSource dataSource = mock(DataSource.class);
-    when(dataSource.getConnection()).thenReturn(connection);
-
-    Builder dataSourceResult = new Builder("42").dataSource(dataSource);
-    Environment environment =
-        dataSourceResult.transactionFactory(new JdbcTransactionFactory()).build();
-    Configuration configuration = new Configuration(environment);
-    DefaultSqlSessionFactory sqlSessionFactory = new DefaultSqlSessionFactory(configuration);
+    Builder dataSourceResult = (new Builder("42")).dataSource(dataSource);
+    Environment environment = dataSourceResult.transactionFactory(new JdbcTransactionFactory()).build();
+    DefaultSqlSessionFactory sqlSessionFactory = new DefaultSqlSessionFactory(new Configuration(environment));
 
     DbSqlSessionFactory dbSqlSessionFactory = new DbSqlSessionFactory();
     dbSqlSessionFactory.setSqlSessionFactory(sqlSessionFactory);
-    DbSqlSession dbSqlSession = new DbSqlSession(dbSqlSessionFactory, new EntityCacheImpl());
-
-    // Act
-    boolean actualIsEngineTablePresentResult = dbSqlSession.isEngineTablePresent();
-
-    // Assert
-    verify(connection).getAutoCommit();
-    verify(connection).getMetaData();
-    verify(connection).setAutoCommit(false);
-    verify(databaseMetaData)
-        .getTables(isNull(), isNull(), eq("ACT_RU_EXECUTION"), isA(String[].class));
-    verify(dataSource).getConnection();
-    assertFalse(actualIsEngineTablePresentResult);
-  }
-
-  /**
-   * Test {@link DbSqlSession#isHistoryTablePresent()}.
-   *
-   * <p>Method under test: {@link DbSqlSession#isHistoryTablePresent()}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"boolean DbSqlSession.isHistoryTablePresent()"})
-  public void testIsHistoryTablePresent() throws SQLException {
-    // Arrange
-    DataSource dataSource = mock(DataSource.class);
-    when(dataSource.getConnection()).thenThrow(new ActivitiException("An error occurred"));
-
-    Builder dataSourceResult = new Builder("42").dataSource(dataSource);
-    Environment environment =
-        dataSourceResult.transactionFactory(new JdbcTransactionFactory()).build();
-    Configuration configuration = new Configuration(environment);
-    DefaultSqlSessionFactory sqlSessionFactory = new DefaultSqlSessionFactory(configuration);
-
-    DbSqlSessionFactory dbSqlSessionFactory = new DbSqlSessionFactory();
-    dbSqlSessionFactory.setSqlSessionFactory(sqlSessionFactory);
-    DbSqlSession dbSqlSession = new DbSqlSession(dbSqlSessionFactory, new EntityCacheImpl());
 
     // Act and Assert
-    assertThrows(ActivitiException.class, () -> dbSqlSession.isHistoryTablePresent());
-    verify(dataSource).getConnection();
-  }
-
-  /**
-   * Test {@link DbSqlSession#isHistoryTablePresent()}.
-   *
-   * <p>Method under test: {@link DbSqlSession#isHistoryTablePresent()}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"boolean DbSqlSession.isHistoryTablePresent()"})
-  public void testIsHistoryTablePresent2() throws SQLException {
-    // Arrange
-    DatabaseMetaData databaseMetaData = mock(DatabaseMetaData.class);
-    when(databaseMetaData.getTables(
-            Mockito.<String>any(),
-            Mockito.<String>any(),
-            Mockito.<String>any(),
-            Mockito.<String[]>any()))
-        .thenThrow(new ActivitiException("An error occurred"));
-
-    Connection connection = mock(Connection.class);
-    doNothing().when(connection).setAutoCommit(anyBoolean());
-    when(connection.getAutoCommit()).thenReturn(true);
-    when(connection.getMetaData()).thenReturn(databaseMetaData);
-
-    DataSource dataSource = mock(DataSource.class);
-    when(dataSource.getConnection()).thenReturn(connection);
-
-    Builder dataSourceResult = new Builder("42").dataSource(dataSource);
-    Environment environment =
-        dataSourceResult.transactionFactory(new JdbcTransactionFactory()).build();
-    Configuration configuration = new Configuration(environment);
-    DefaultSqlSessionFactory sqlSessionFactory = new DefaultSqlSessionFactory(configuration);
-
-    DbSqlSessionFactory dbSqlSessionFactory = new DbSqlSessionFactory();
-    dbSqlSessionFactory.setSqlSessionFactory(sqlSessionFactory);
-    DbSqlSession dbSqlSession = new DbSqlSession(dbSqlSessionFactory, new EntityCacheImpl());
-
-    // Act and Assert
-    assertThrows(ActivitiException.class, () -> dbSqlSession.isHistoryTablePresent());
+    assertThrows(ActivitiException.class,
+        () -> (new DbSqlSession(dbSqlSessionFactory, new EntityCacheImpl())).isEngineTablePresent());
     verify(connection).getAutoCommit();
     verify(connection).getMetaData();
-    verify(connection).setAutoCommit(false);
-    verify(databaseMetaData)
-        .getTables(isNull(), isNull(), eq("ACT_HI_PROCINST"), isA(String[].class));
+    verify(connection).setAutoCommit(eq(false));
+    verify(databaseMetaData).getTables(isNull(), isNull(), eq("ACT_RU_EXECUTION"), isA(String[].class));
+    verify(resultSet).close();
+    verify(resultSet).next();
     verify(dataSource).getConnection();
   }
 
   /**
    * Test {@link DbSqlSession#isHistoryTablePresent()}.
-   *
    * <ul>
-   *   <li>Given array of {@link Object} with {@link JSONObject#NULL}.
-   *   <li>Then return {@code true}.
+   *   <li>Given {@link ResultSet} {@link ResultSet#next()} return {@code false}.</li>
+   *   <li>Then return {@code false}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link DbSqlSession#isHistoryTablePresent()}
+   * <p>
+   * Method under test: {@link DbSqlSession#isHistoryTablePresent()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"boolean DbSqlSession.isHistoryTablePresent()"})
-  public void testIsHistoryTablePresent_givenArrayOfObjectWithNull_thenReturnTrue()
-      throws SQLException {
+  public void testIsHistoryTablePresent_givenResultSetNextReturnFalse_thenReturnFalse() throws SQLException {
     // Arrange
-    SimpleResultSet simpleResultSet = new SimpleResultSet();
-    simpleResultSet.addRow(JSONObject.NULL);
-
+    ResultSet resultSet = mock(ResultSet.class);
+    when(resultSet.next()).thenReturn(false).thenReturn(true).thenReturn(false);
+    doNothing().when(resultSet).close();
     DatabaseMetaData databaseMetaData = mock(DatabaseMetaData.class);
-    when(databaseMetaData.getTables(
-            Mockito.<String>any(),
-            Mockito.<String>any(),
-            Mockito.<String>any(),
-            Mockito.<String[]>any()))
-        .thenReturn(simpleResultSet);
-
+    when(databaseMetaData.getTables(Mockito.<String>any(), Mockito.<String>any(), Mockito.<String>any(),
+        Mockito.<String[]>any())).thenReturn(resultSet);
     Connection connection = mock(Connection.class);
     doNothing().when(connection).setAutoCommit(anyBoolean());
     when(connection.getAutoCommit()).thenReturn(true);
     when(connection.getMetaData()).thenReturn(databaseMetaData);
-
     DataSource dataSource = mock(DataSource.class);
     when(dataSource.getConnection()).thenReturn(connection);
-
-    Builder dataSourceResult = new Builder("42").dataSource(dataSource);
-    Environment environment =
-        dataSourceResult.transactionFactory(new JdbcTransactionFactory()).build();
-    Configuration configuration = new Configuration(environment);
-    DefaultSqlSessionFactory sqlSessionFactory = new DefaultSqlSessionFactory(configuration);
+    Builder dataSourceResult = (new Builder("42")).dataSource(dataSource);
+    Environment environment = dataSourceResult.transactionFactory(new JdbcTransactionFactory()).build();
+    DefaultSqlSessionFactory sqlSessionFactory = new DefaultSqlSessionFactory(new Configuration(environment));
 
     DbSqlSessionFactory dbSqlSessionFactory = new DbSqlSessionFactory();
     dbSqlSessionFactory.setSqlSessionFactory(sqlSessionFactory);
-    DbSqlSession dbSqlSession = new DbSqlSession(dbSqlSessionFactory, new EntityCacheImpl());
 
     // Act
-    boolean actualIsHistoryTablePresentResult = dbSqlSession.isHistoryTablePresent();
+    boolean actualIsHistoryTablePresentResult = (new DbSqlSession(dbSqlSessionFactory, new EntityCacheImpl()))
+        .isHistoryTablePresent();
 
     // Assert
     verify(connection).getAutoCommit();
     verify(connection).getMetaData();
-    verify(connection).setAutoCommit(false);
-    verify(databaseMetaData)
-        .getTables(isNull(), isNull(), eq("ACT_HI_PROCINST"), isA(String[].class));
+    verify(connection).setAutoCommit(eq(false));
+    verify(databaseMetaData).getTables(isNull(), isNull(), eq("ACT_HI_PROCINST"), isA(String[].class));
+    verify(resultSet).close();
+    verify(resultSet).next();
+    verify(dataSource).getConnection();
+    assertFalse(actualIsHistoryTablePresentResult);
+  }
+
+  /**
+   * Test {@link DbSqlSession#isHistoryTablePresent()}.
+   * <ul>
+   *   <li>Given {@link ResultSet} {@link ResultSet#next()} return {@code true}.</li>
+   *   <li>Then return {@code true}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link DbSqlSession#isHistoryTablePresent()}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean DbSqlSession.isHistoryTablePresent()"})
+  public void testIsHistoryTablePresent_givenResultSetNextReturnTrue_thenReturnTrue() throws SQLException {
+    // Arrange
+    ResultSet resultSet = mock(ResultSet.class);
+    when(resultSet.next()).thenReturn(true).thenReturn(true).thenReturn(false);
+    doNothing().when(resultSet).close();
+    DatabaseMetaData databaseMetaData = mock(DatabaseMetaData.class);
+    when(databaseMetaData.getTables(Mockito.<String>any(), Mockito.<String>any(), Mockito.<String>any(),
+        Mockito.<String[]>any())).thenReturn(resultSet);
+    Connection connection = mock(Connection.class);
+    doNothing().when(connection).setAutoCommit(anyBoolean());
+    when(connection.getAutoCommit()).thenReturn(true);
+    when(connection.getMetaData()).thenReturn(databaseMetaData);
+    DataSource dataSource = mock(DataSource.class);
+    when(dataSource.getConnection()).thenReturn(connection);
+    Builder dataSourceResult = (new Builder("42")).dataSource(dataSource);
+    Environment environment = dataSourceResult.transactionFactory(new JdbcTransactionFactory()).build();
+    DefaultSqlSessionFactory sqlSessionFactory = new DefaultSqlSessionFactory(new Configuration(environment));
+
+    DbSqlSessionFactory dbSqlSessionFactory = new DbSqlSessionFactory();
+    dbSqlSessionFactory.setSqlSessionFactory(sqlSessionFactory);
+
+    // Act
+    boolean actualIsHistoryTablePresentResult = (new DbSqlSession(dbSqlSessionFactory, new EntityCacheImpl()))
+        .isHistoryTablePresent();
+
+    // Assert
+    verify(connection).getAutoCommit();
+    verify(connection).getMetaData();
+    verify(connection).setAutoCommit(eq(false));
+    verify(databaseMetaData).getTables(isNull(), isNull(), eq("ACT_HI_PROCINST"), isA(String[].class));
+    verify(resultSet).close();
+    verify(resultSet).next();
     verify(dataSource).getConnection();
     assertTrue(actualIsHistoryTablePresentResult);
   }
 
   /**
    * Test {@link DbSqlSession#isHistoryTablePresent()}.
-   *
    * <ul>
-   *   <li>Given {@link DbSqlSessionFactory} (default constructor) DatabaseCatalog is {@code
-   *       ACT_HI_PROCINST}.
+   *   <li>Then throw {@link ActivitiException}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link DbSqlSession#isHistoryTablePresent()}
+   * <p>
+   * Method under test: {@link DbSqlSession#isHistoryTablePresent()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"boolean DbSqlSession.isHistoryTablePresent()"})
-  public void testIsHistoryTablePresent_givenDbSqlSessionFactoryDatabaseCatalogIsActHiProcinst()
-      throws SQLException {
+  public void testIsHistoryTablePresent_thenThrowActivitiException() throws SQLException {
     // Arrange
+    ResultSet resultSet = mock(ResultSet.class);
+    when(resultSet.next()).thenThrow(new RuntimeException("ACT_HI_PROCINST"));
+    doThrow(new RuntimeException("ACT_HI_PROCINST")).when(resultSet).close();
     DatabaseMetaData databaseMetaData = mock(DatabaseMetaData.class);
-    when(databaseMetaData.getTables(
-            Mockito.<String>any(),
-            Mockito.<String>any(),
-            Mockito.<String>any(),
-            Mockito.<String[]>any()))
-        .thenReturn(new SimpleResultSet());
-
+    when(databaseMetaData.getTables(Mockito.<String>any(), Mockito.<String>any(), Mockito.<String>any(),
+        Mockito.<String[]>any())).thenReturn(resultSet);
     Connection connection = mock(Connection.class);
     doNothing().when(connection).setAutoCommit(anyBoolean());
     when(connection.getAutoCommit()).thenReturn(true);
     when(connection.getMetaData()).thenReturn(databaseMetaData);
-
     DataSource dataSource = mock(DataSource.class);
     when(dataSource.getConnection()).thenReturn(connection);
-
-    Builder dataSourceResult = new Builder("42").dataSource(dataSource);
-    Environment environment =
-        dataSourceResult.transactionFactory(new JdbcTransactionFactory()).build();
-    Configuration configuration = new Configuration(environment);
-    DefaultSqlSessionFactory sqlSessionFactory = new DefaultSqlSessionFactory(configuration);
-
-    DbSqlSessionFactory dbSqlSessionFactory = new DbSqlSessionFactory();
-    dbSqlSessionFactory.setDatabaseCatalog("ACT_HI_PROCINST");
-    dbSqlSessionFactory.setSqlSessionFactory(sqlSessionFactory);
-    DbSqlSession dbSqlSession = new DbSqlSession(dbSqlSessionFactory, new EntityCacheImpl());
-
-    // Act
-    boolean actualIsHistoryTablePresentResult = dbSqlSession.isHistoryTablePresent();
-
-    // Assert
-    verify(connection).getAutoCommit();
-    verify(connection).getMetaData();
-    verify(connection).setAutoCommit(false);
-    verify(databaseMetaData)
-        .getTables(eq("ACT_HI_PROCINST"), isNull(), eq("ACT_HI_PROCINST"), isA(String[].class));
-    verify(dataSource).getConnection();
-    assertFalse(actualIsHistoryTablePresentResult);
-  }
-
-  /**
-   * Test {@link DbSqlSession#isHistoryTablePresent()}.
-   *
-   * <ul>
-   *   <li>Given {@link DbSqlSessionFactory} (default constructor) DatabaseSchema is {@code
-   *       ACT_HI_PROCINST}.
-   * </ul>
-   *
-   * <p>Method under test: {@link DbSqlSession#isHistoryTablePresent()}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"boolean DbSqlSession.isHistoryTablePresent()"})
-  public void testIsHistoryTablePresent_givenDbSqlSessionFactoryDatabaseSchemaIsActHiProcinst()
-      throws SQLException {
-    // Arrange
-    DatabaseMetaData databaseMetaData = mock(DatabaseMetaData.class);
-    when(databaseMetaData.getTables(
-            Mockito.<String>any(),
-            Mockito.<String>any(),
-            Mockito.<String>any(),
-            Mockito.<String[]>any()))
-        .thenReturn(new SimpleResultSet());
-
-    Connection connection = mock(Connection.class);
-    doNothing().when(connection).setAutoCommit(anyBoolean());
-    when(connection.getAutoCommit()).thenReturn(true);
-    when(connection.getMetaData()).thenReturn(databaseMetaData);
-
-    DataSource dataSource = mock(DataSource.class);
-    when(dataSource.getConnection()).thenReturn(connection);
-
-    Builder dataSourceResult = new Builder("42").dataSource(dataSource);
-    Environment environment =
-        dataSourceResult.transactionFactory(new JdbcTransactionFactory()).build();
-    Configuration configuration = new Configuration(environment);
-    DefaultSqlSessionFactory sqlSessionFactory = new DefaultSqlSessionFactory(configuration);
-
-    DbSqlSessionFactory dbSqlSessionFactory = new DbSqlSessionFactory();
-    dbSqlSessionFactory.setDatabaseSchema("ACT_HI_PROCINST");
-    dbSqlSessionFactory.setSqlSessionFactory(sqlSessionFactory);
-    DbSqlSession dbSqlSession = new DbSqlSession(dbSqlSessionFactory, new EntityCacheImpl());
-
-    // Act
-    boolean actualIsHistoryTablePresentResult = dbSqlSession.isHistoryTablePresent();
-
-    // Assert
-    verify(connection).getAutoCommit();
-    verify(connection).getMetaData();
-    verify(connection).setAutoCommit(false);
-    verify(databaseMetaData)
-        .getTables(isNull(), eq("ACT_HI_PROCINST"), eq("ACT_HI_PROCINST"), isA(String[].class));
-    verify(dataSource).getConnection();
-    assertFalse(actualIsHistoryTablePresentResult);
-  }
-
-  /**
-   * Test {@link DbSqlSession#isHistoryTablePresent()}.
-   *
-   * <ul>
-   *   <li>Given {@link DbSqlSessionFactory} (default constructor) TablePrefixIsSchema is {@code
-   *       true}.
-   * </ul>
-   *
-   * <p>Method under test: {@link DbSqlSession#isHistoryTablePresent()}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"boolean DbSqlSession.isHistoryTablePresent()"})
-  public void testIsHistoryTablePresent_givenDbSqlSessionFactoryTablePrefixIsSchemaIsTrue()
-      throws SQLException {
-    // Arrange
-    DatabaseMetaData databaseMetaData = mock(DatabaseMetaData.class);
-    when(databaseMetaData.getTables(
-            Mockito.<String>any(),
-            Mockito.<String>any(),
-            Mockito.<String>any(),
-            Mockito.<String[]>any()))
-        .thenReturn(new SimpleResultSet());
-
-    Connection connection = mock(Connection.class);
-    doNothing().when(connection).setAutoCommit(anyBoolean());
-    when(connection.getAutoCommit()).thenReturn(true);
-    when(connection.getMetaData()).thenReturn(databaseMetaData);
-
-    DataSource dataSource = mock(DataSource.class);
-    when(dataSource.getConnection()).thenReturn(connection);
-
-    Builder dataSourceResult = new Builder("42").dataSource(dataSource);
-    Environment environment =
-        dataSourceResult.transactionFactory(new JdbcTransactionFactory()).build();
-    Configuration configuration = new Configuration(environment);
-    DefaultSqlSessionFactory sqlSessionFactory = new DefaultSqlSessionFactory(configuration);
-
-    DbSqlSessionFactory dbSqlSessionFactory = new DbSqlSessionFactory();
-    dbSqlSessionFactory.setTablePrefixIsSchema(true);
-    dbSqlSessionFactory.setSqlSessionFactory(sqlSessionFactory);
-    DbSqlSession dbSqlSession = new DbSqlSession(dbSqlSessionFactory, new EntityCacheImpl());
-
-    // Act
-    boolean actualIsHistoryTablePresentResult = dbSqlSession.isHistoryTablePresent();
-
-    // Assert
-    verify(connection).getAutoCommit();
-    verify(connection).getMetaData();
-    verify(connection).setAutoCommit(false);
-    verify(databaseMetaData)
-        .getTables(isNull(), isNull(), eq("ACT_HI_PROCINST"), isA(String[].class));
-    verify(dataSource).getConnection();
-    assertFalse(actualIsHistoryTablePresentResult);
-  }
-
-  /**
-   * Test {@link DbSqlSession#isHistoryTablePresent()}.
-   *
-   * <ul>
-   *   <li>Then return {@code false}.
-   * </ul>
-   *
-   * <p>Method under test: {@link DbSqlSession#isHistoryTablePresent()}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"boolean DbSqlSession.isHistoryTablePresent()"})
-  public void testIsHistoryTablePresent_thenReturnFalse() throws SQLException {
-    // Arrange
-    DatabaseMetaData databaseMetaData = mock(DatabaseMetaData.class);
-    when(databaseMetaData.getTables(
-            Mockito.<String>any(),
-            Mockito.<String>any(),
-            Mockito.<String>any(),
-            Mockito.<String[]>any()))
-        .thenReturn(new SimpleResultSet());
-
-    Connection connection = mock(Connection.class);
-    doNothing().when(connection).setAutoCommit(anyBoolean());
-    when(connection.getAutoCommit()).thenReturn(true);
-    when(connection.getMetaData()).thenReturn(databaseMetaData);
-
-    DataSource dataSource = mock(DataSource.class);
-    when(dataSource.getConnection()).thenReturn(connection);
-
-    Builder dataSourceResult = new Builder("42").dataSource(dataSource);
-    Environment environment =
-        dataSourceResult.transactionFactory(new JdbcTransactionFactory()).build();
-    Configuration configuration = new Configuration(environment);
-    DefaultSqlSessionFactory sqlSessionFactory = new DefaultSqlSessionFactory(configuration);
+    Builder dataSourceResult = (new Builder("42")).dataSource(dataSource);
+    Environment environment = dataSourceResult.transactionFactory(new JdbcTransactionFactory()).build();
+    DefaultSqlSessionFactory sqlSessionFactory = new DefaultSqlSessionFactory(new Configuration(environment));
 
     DbSqlSessionFactory dbSqlSessionFactory = new DbSqlSessionFactory();
     dbSqlSessionFactory.setSqlSessionFactory(sqlSessionFactory);
-    DbSqlSession dbSqlSession = new DbSqlSession(dbSqlSessionFactory, new EntityCacheImpl());
-
-    // Act
-    boolean actualIsHistoryTablePresentResult = dbSqlSession.isHistoryTablePresent();
-
-    // Assert
-    verify(connection).getAutoCommit();
-    verify(connection).getMetaData();
-    verify(connection).setAutoCommit(false);
-    verify(databaseMetaData)
-        .getTables(isNull(), isNull(), eq("ACT_HI_PROCINST"), isA(String[].class));
-    verify(dataSource).getConnection();
-    assertFalse(actualIsHistoryTablePresentResult);
-  }
-
-  /**
-   * Test {@link DbSqlSession#isTablePresent(String)}.
-   *
-   * <p>Method under test: {@link DbSqlSession#isTablePresent(String)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"boolean DbSqlSession.isTablePresent(String)"})
-  public void testIsTablePresent() throws SQLException {
-    // Arrange
-    DataSource dataSource = mock(DataSource.class);
-    when(dataSource.getConnection()).thenThrow(new ActivitiException("An error occurred"));
-
-    Builder dataSourceResult = new Builder("42").dataSource(dataSource);
-    Environment environment =
-        dataSourceResult.transactionFactory(new JdbcTransactionFactory()).build();
-    Configuration configuration = new Configuration(environment);
-    DefaultSqlSessionFactory sqlSessionFactory = new DefaultSqlSessionFactory(configuration);
-
-    DbSqlSessionFactory dbSqlSessionFactory = new DbSqlSessionFactory();
-    dbSqlSessionFactory.setSqlSessionFactory(sqlSessionFactory);
-    DbSqlSession dbSqlSession = new DbSqlSession(dbSqlSessionFactory, new EntityCacheImpl());
 
     // Act and Assert
-    assertThrows(ActivitiException.class, () -> dbSqlSession.isTablePresent("Table Name"));
-    verify(dataSource).getConnection();
-  }
-
-  /**
-   * Test {@link DbSqlSession#isTablePresent(String)}.
-   *
-   * <p>Method under test: {@link DbSqlSession#isTablePresent(String)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"boolean DbSqlSession.isTablePresent(String)"})
-  public void testIsTablePresent2() throws SQLException {
-    // Arrange
-    DatabaseMetaData databaseMetaData = mock(DatabaseMetaData.class);
-    when(databaseMetaData.getTables(
-            Mockito.<String>any(),
-            Mockito.<String>any(),
-            Mockito.<String>any(),
-            Mockito.<String[]>any()))
-        .thenThrow(new ActivitiException("An error occurred"));
-
-    Connection connection = mock(Connection.class);
-    doNothing().when(connection).setAutoCommit(anyBoolean());
-    when(connection.getAutoCommit()).thenReturn(true);
-    when(connection.getMetaData()).thenReturn(databaseMetaData);
-
-    DataSource dataSource = mock(DataSource.class);
-    when(dataSource.getConnection()).thenReturn(connection);
-
-    Builder dataSourceResult = new Builder("42").dataSource(dataSource);
-    Environment environment =
-        dataSourceResult.transactionFactory(new JdbcTransactionFactory()).build();
-    Configuration configuration = new Configuration(environment);
-    DefaultSqlSessionFactory sqlSessionFactory = new DefaultSqlSessionFactory(configuration);
-
-    DbSqlSessionFactory dbSqlSessionFactory = new DbSqlSessionFactory();
-    dbSqlSessionFactory.setSqlSessionFactory(sqlSessionFactory);
-    DbSqlSession dbSqlSession = new DbSqlSession(dbSqlSessionFactory, new EntityCacheImpl());
-
-    // Act and Assert
-    assertThrows(ActivitiException.class, () -> dbSqlSession.isTablePresent("Table Name"));
+    assertThrows(ActivitiException.class,
+        () -> (new DbSqlSession(dbSqlSessionFactory, new EntityCacheImpl())).isHistoryTablePresent());
     verify(connection).getAutoCommit();
     verify(connection).getMetaData();
-    verify(connection).setAutoCommit(false);
-    verify(databaseMetaData).getTables(isNull(), isNull(), eq("Table Name"), isA(String[].class));
+    verify(connection).setAutoCommit(eq(false));
+    verify(databaseMetaData).getTables(isNull(), isNull(), eq("ACT_HI_PROCINST"), isA(String[].class));
+    verify(resultSet).close();
+    verify(resultSet).next();
     verify(dataSource).getConnection();
-  }
-
-  /**
-   * Test {@link DbSqlSession#isTablePresent(String)}.
-   *
-   * <ul>
-   *   <li>Given {@link DbSqlSessionFactory} (default constructor) DatabaseCatalog is empty string.
-   * </ul>
-   *
-   * <p>Method under test: {@link DbSqlSession#isTablePresent(String)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"boolean DbSqlSession.isTablePresent(String)"})
-  public void testIsTablePresent_givenDbSqlSessionFactoryDatabaseCatalogIsEmptyString()
-      throws SQLException {
-    // Arrange
-    JdbcResultSet jdbcResultSet = mock(JdbcResultSet.class);
-    when(jdbcResultSet.next()).thenReturn(true).thenReturn(true).thenReturn(false);
-    doNothing().when(jdbcResultSet).close();
-
-    DatabaseMetaData databaseMetaData = mock(DatabaseMetaData.class);
-    when(databaseMetaData.getTables(
-            Mockito.<String>any(),
-            Mockito.<String>any(),
-            Mockito.<String>any(),
-            Mockito.<String[]>any()))
-        .thenReturn(jdbcResultSet);
-
-    Connection connection = mock(Connection.class);
-    doNothing().when(connection).setAutoCommit(anyBoolean());
-    when(connection.getAutoCommit()).thenReturn(true);
-    when(connection.getMetaData()).thenReturn(databaseMetaData);
-
-    DataSource dataSource = mock(DataSource.class);
-    when(dataSource.getConnection()).thenReturn(connection);
-
-    Builder dataSourceResult = new Builder("42").dataSource(dataSource);
-    Environment environment =
-        dataSourceResult.transactionFactory(new JdbcTransactionFactory()).build();
-    Configuration configuration = new Configuration(environment);
-    DefaultSqlSessionFactory sqlSessionFactory = new DefaultSqlSessionFactory(configuration);
-
-    DbSqlSessionFactory dbSqlSessionFactory = new DbSqlSessionFactory();
-    dbSqlSessionFactory.setDatabaseCatalog("");
-    dbSqlSessionFactory.setSqlSessionFactory(sqlSessionFactory);
-    DbSqlSession dbSqlSession = new DbSqlSession(dbSqlSessionFactory, new EntityCacheImpl());
-
-    // Act
-    boolean actualIsTablePresentResult = dbSqlSession.isTablePresent("Table Name");
-
-    // Assert
-    verify(connection).getAutoCommit();
-    verify(connection).getMetaData();
-    verify(connection).setAutoCommit(false);
-    verify(databaseMetaData).getTables(isNull(), isNull(), eq("Table Name"), isA(String[].class));
-    verify(dataSource).getConnection();
-    verify(jdbcResultSet).close();
-    verify(jdbcResultSet).next();
-    assertTrue(actualIsTablePresentResult);
-  }
-
-  /**
-   * Test {@link DbSqlSession#isTablePresent(String)}.
-   *
-   * <ul>
-   *   <li>Given {@link DbSqlSessionFactory} (default constructor) DatabaseCatalog is {@code
-   *       postgres}.
-   * </ul>
-   *
-   * <p>Method under test: {@link DbSqlSession#isTablePresent(String)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"boolean DbSqlSession.isTablePresent(String)"})
-  public void testIsTablePresent_givenDbSqlSessionFactoryDatabaseCatalogIsPostgres()
-      throws SQLException {
-    // Arrange
-    JdbcResultSet jdbcResultSet = mock(JdbcResultSet.class);
-    when(jdbcResultSet.next()).thenReturn(true).thenReturn(true).thenReturn(false);
-    doNothing().when(jdbcResultSet).close();
-
-    DatabaseMetaData databaseMetaData = mock(DatabaseMetaData.class);
-    when(databaseMetaData.getTables(
-            Mockito.<String>any(),
-            Mockito.<String>any(),
-            Mockito.<String>any(),
-            Mockito.<String[]>any()))
-        .thenReturn(jdbcResultSet);
-
-    Connection connection = mock(Connection.class);
-    doNothing().when(connection).setAutoCommit(anyBoolean());
-    when(connection.getAutoCommit()).thenReturn(true);
-    when(connection.getMetaData()).thenReturn(databaseMetaData);
-
-    DataSource dataSource = mock(DataSource.class);
-    when(dataSource.getConnection()).thenReturn(connection);
-
-    Builder dataSourceResult = new Builder("42").dataSource(dataSource);
-    Environment environment =
-        dataSourceResult.transactionFactory(new JdbcTransactionFactory()).build();
-    Configuration configuration = new Configuration(environment);
-    DefaultSqlSessionFactory sqlSessionFactory = new DefaultSqlSessionFactory(configuration);
-
-    DbSqlSessionFactory dbSqlSessionFactory = new DbSqlSessionFactory();
-    dbSqlSessionFactory.setDatabaseCatalog("postgres");
-    dbSqlSessionFactory.setSqlSessionFactory(sqlSessionFactory);
-    DbSqlSession dbSqlSession = new DbSqlSession(dbSqlSessionFactory, new EntityCacheImpl());
-
-    // Act
-    boolean actualIsTablePresentResult = dbSqlSession.isTablePresent("Table Name");
-
-    // Assert
-    verify(connection).getAutoCommit();
-    verify(connection).getMetaData();
-    verify(connection).setAutoCommit(false);
-    verify(databaseMetaData)
-        .getTables(eq("postgres"), isNull(), eq("Table Name"), isA(String[].class));
-    verify(dataSource).getConnection();
-    verify(jdbcResultSet).close();
-    verify(jdbcResultSet).next();
-    assertTrue(actualIsTablePresentResult);
-  }
-
-  /**
-   * Test {@link DbSqlSession#isTablePresent(String)}.
-   *
-   * <ul>
-   *   <li>Given {@link DbSqlSessionFactory} (default constructor) DatabaseSchema is empty string.
-   * </ul>
-   *
-   * <p>Method under test: {@link DbSqlSession#isTablePresent(String)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"boolean DbSqlSession.isTablePresent(String)"})
-  public void testIsTablePresent_givenDbSqlSessionFactoryDatabaseSchemaIsEmptyString()
-      throws SQLException {
-    // Arrange
-    JdbcResultSet jdbcResultSet = mock(JdbcResultSet.class);
-    when(jdbcResultSet.next()).thenReturn(true).thenReturn(true).thenReturn(false);
-    doNothing().when(jdbcResultSet).close();
-
-    DatabaseMetaData databaseMetaData = mock(DatabaseMetaData.class);
-    when(databaseMetaData.getTables(
-            Mockito.<String>any(),
-            Mockito.<String>any(),
-            Mockito.<String>any(),
-            Mockito.<String[]>any()))
-        .thenReturn(jdbcResultSet);
-
-    Connection connection = mock(Connection.class);
-    doNothing().when(connection).setAutoCommit(anyBoolean());
-    when(connection.getAutoCommit()).thenReturn(true);
-    when(connection.getMetaData()).thenReturn(databaseMetaData);
-
-    DataSource dataSource = mock(DataSource.class);
-    when(dataSource.getConnection()).thenReturn(connection);
-
-    Builder dataSourceResult = new Builder("42").dataSource(dataSource);
-    Environment environment =
-        dataSourceResult.transactionFactory(new JdbcTransactionFactory()).build();
-    Configuration configuration = new Configuration(environment);
-    DefaultSqlSessionFactory sqlSessionFactory = new DefaultSqlSessionFactory(configuration);
-
-    DbSqlSessionFactory dbSqlSessionFactory = new DbSqlSessionFactory();
-    dbSqlSessionFactory.setDatabaseSchema("");
-    dbSqlSessionFactory.setSqlSessionFactory(sqlSessionFactory);
-    DbSqlSession dbSqlSession = new DbSqlSession(dbSqlSessionFactory, new EntityCacheImpl());
-
-    // Act
-    boolean actualIsTablePresentResult = dbSqlSession.isTablePresent("Table Name");
-
-    // Assert
-    verify(connection).getAutoCommit();
-    verify(connection).getMetaData();
-    verify(connection).setAutoCommit(false);
-    verify(databaseMetaData).getTables(isNull(), eq(""), eq("Table Name"), isA(String[].class));
-    verify(dataSource).getConnection();
-    verify(jdbcResultSet).close();
-    verify(jdbcResultSet).next();
-    assertTrue(actualIsTablePresentResult);
-  }
-
-  /**
-   * Test {@link DbSqlSession#isTablePresent(String)}.
-   *
-   * <ul>
-   *   <li>Given {@link DbSqlSessionFactory} (default constructor) DatabaseSchema is {@code
-   *       postgres}.
-   * </ul>
-   *
-   * <p>Method under test: {@link DbSqlSession#isTablePresent(String)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"boolean DbSqlSession.isTablePresent(String)"})
-  public void testIsTablePresent_givenDbSqlSessionFactoryDatabaseSchemaIsPostgres()
-      throws SQLException {
-    // Arrange
-    JdbcResultSet jdbcResultSet = mock(JdbcResultSet.class);
-    when(jdbcResultSet.next()).thenReturn(true).thenReturn(true).thenReturn(false);
-    doNothing().when(jdbcResultSet).close();
-
-    DatabaseMetaData databaseMetaData = mock(DatabaseMetaData.class);
-    when(databaseMetaData.getTables(
-            Mockito.<String>any(),
-            Mockito.<String>any(),
-            Mockito.<String>any(),
-            Mockito.<String[]>any()))
-        .thenReturn(jdbcResultSet);
-
-    Connection connection = mock(Connection.class);
-    doNothing().when(connection).setAutoCommit(anyBoolean());
-    when(connection.getAutoCommit()).thenReturn(true);
-    when(connection.getMetaData()).thenReturn(databaseMetaData);
-
-    DataSource dataSource = mock(DataSource.class);
-    when(dataSource.getConnection()).thenReturn(connection);
-
-    Builder dataSourceResult = new Builder("42").dataSource(dataSource);
-    Environment environment =
-        dataSourceResult.transactionFactory(new JdbcTransactionFactory()).build();
-    Configuration configuration = new Configuration(environment);
-    DefaultSqlSessionFactory sqlSessionFactory = new DefaultSqlSessionFactory(configuration);
-
-    DbSqlSessionFactory dbSqlSessionFactory = new DbSqlSessionFactory();
-    dbSqlSessionFactory.setDatabaseSchema("postgres");
-    dbSqlSessionFactory.setSqlSessionFactory(sqlSessionFactory);
-    DbSqlSession dbSqlSession = new DbSqlSession(dbSqlSessionFactory, new EntityCacheImpl());
-
-    // Act
-    boolean actualIsTablePresentResult = dbSqlSession.isTablePresent("Table Name");
-
-    // Assert
-    verify(connection).getAutoCommit();
-    verify(connection).getMetaData();
-    verify(connection).setAutoCommit(false);
-    verify(databaseMetaData)
-        .getTables(isNull(), eq("postgres"), eq("Table Name"), isA(String[].class));
-    verify(dataSource).getConnection();
-    verify(jdbcResultSet).close();
-    verify(jdbcResultSet).next();
-    assertTrue(actualIsTablePresentResult);
-  }
-
-  /**
-   * Test {@link DbSqlSession#isTablePresent(String)}.
-   *
-   * <ul>
-   *   <li>Given {@link DbSqlSessionFactory} (default constructor) TablePrefixIsSchema is {@code
-   *       true}.
-   * </ul>
-   *
-   * <p>Method under test: {@link DbSqlSession#isTablePresent(String)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"boolean DbSqlSession.isTablePresent(String)"})
-  public void testIsTablePresent_givenDbSqlSessionFactoryTablePrefixIsSchemaIsTrue()
-      throws SQLException {
-    // Arrange
-    JdbcResultSet jdbcResultSet = mock(JdbcResultSet.class);
-    when(jdbcResultSet.next()).thenReturn(true).thenReturn(true).thenReturn(false);
-    doNothing().when(jdbcResultSet).close();
-
-    DatabaseMetaData databaseMetaData = mock(DatabaseMetaData.class);
-    when(databaseMetaData.getTables(
-            Mockito.<String>any(),
-            Mockito.<String>any(),
-            Mockito.<String>any(),
-            Mockito.<String[]>any()))
-        .thenReturn(jdbcResultSet);
-
-    Connection connection = mock(Connection.class);
-    doNothing().when(connection).setAutoCommit(anyBoolean());
-    when(connection.getAutoCommit()).thenReturn(true);
-    when(connection.getMetaData()).thenReturn(databaseMetaData);
-
-    DataSource dataSource = mock(DataSource.class);
-    when(dataSource.getConnection()).thenReturn(connection);
-
-    Builder dataSourceResult = new Builder("42").dataSource(dataSource);
-    Environment environment =
-        dataSourceResult.transactionFactory(new JdbcTransactionFactory()).build();
-    Configuration configuration = new Configuration(environment);
-    DefaultSqlSessionFactory sqlSessionFactory = new DefaultSqlSessionFactory(configuration);
-
-    DbSqlSessionFactory dbSqlSessionFactory = new DbSqlSessionFactory();
-    dbSqlSessionFactory.setTablePrefixIsSchema(true);
-    dbSqlSessionFactory.setSqlSessionFactory(sqlSessionFactory);
-    DbSqlSession dbSqlSession = new DbSqlSession(dbSqlSessionFactory, new EntityCacheImpl());
-
-    // Act
-    boolean actualIsTablePresentResult = dbSqlSession.isTablePresent("Table Name");
-
-    // Assert
-    verify(connection).getAutoCommit();
-    verify(connection).getMetaData();
-    verify(connection).setAutoCommit(false);
-    verify(databaseMetaData).getTables(isNull(), isNull(), eq("Table Name"), isA(String[].class));
-    verify(dataSource).getConnection();
-    verify(jdbcResultSet).close();
-    verify(jdbcResultSet).next();
-    assertTrue(actualIsTablePresentResult);
-  }
-
-  /**
-   * Test {@link DbSqlSession#isTablePresent(String)}.
-   *
-   * <ul>
-   *   <li>Given {@code true}.
-   *   <li>Then return {@code true}.
-   * </ul>
-   *
-   * <p>Method under test: {@link DbSqlSession#isTablePresent(String)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"boolean DbSqlSession.isTablePresent(String)"})
-  public void testIsTablePresent_givenTrue_thenReturnTrue() throws SQLException {
-    // Arrange
-    JdbcResultSet jdbcResultSet = mock(JdbcResultSet.class);
-    when(jdbcResultSet.next()).thenReturn(true).thenReturn(true).thenReturn(false);
-    doNothing().when(jdbcResultSet).close();
-
-    DatabaseMetaData databaseMetaData = mock(DatabaseMetaData.class);
-    when(databaseMetaData.getTables(
-            Mockito.<String>any(),
-            Mockito.<String>any(),
-            Mockito.<String>any(),
-            Mockito.<String[]>any()))
-        .thenReturn(jdbcResultSet);
-
-    Connection connection = mock(Connection.class);
-    doNothing().when(connection).setAutoCommit(anyBoolean());
-    when(connection.getAutoCommit()).thenReturn(true);
-    when(connection.getMetaData()).thenReturn(databaseMetaData);
-
-    DataSource dataSource = mock(DataSource.class);
-    when(dataSource.getConnection()).thenReturn(connection);
-
-    Builder dataSourceResult = new Builder("42").dataSource(dataSource);
-    Environment environment =
-        dataSourceResult.transactionFactory(new JdbcTransactionFactory()).build();
-    Configuration configuration = new Configuration(environment);
-    DefaultSqlSessionFactory sqlSessionFactory = new DefaultSqlSessionFactory(configuration);
-
-    DbSqlSessionFactory dbSqlSessionFactory = new DbSqlSessionFactory();
-    dbSqlSessionFactory.setSqlSessionFactory(sqlSessionFactory);
-    DbSqlSession dbSqlSession = new DbSqlSession(dbSqlSessionFactory, new EntityCacheImpl());
-
-    // Act
-    boolean actualIsTablePresentResult = dbSqlSession.isTablePresent("Table Name");
-
-    // Assert
-    verify(connection).getAutoCommit();
-    verify(connection).getMetaData();
-    verify(connection).setAutoCommit(false);
-    verify(databaseMetaData).getTables(isNull(), isNull(), eq("Table Name"), isA(String[].class));
-    verify(dataSource).getConnection();
-    verify(jdbcResultSet).close();
-    verify(jdbcResultSet).next();
-    assertTrue(actualIsTablePresentResult);
-  }
-
-  /**
-   * Test {@link DbSqlSession#isTablePresent(String)}.
-   *
-   * <ul>
-   *   <li>Then return {@code false}.
-   * </ul>
-   *
-   * <p>Method under test: {@link DbSqlSession#isTablePresent(String)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"boolean DbSqlSession.isTablePresent(String)"})
-  public void testIsTablePresent_thenReturnFalse() throws SQLException {
-    // Arrange
-    DatabaseMetaData databaseMetaData = mock(DatabaseMetaData.class);
-    when(databaseMetaData.getTables(
-            Mockito.<String>any(),
-            Mockito.<String>any(),
-            Mockito.<String>any(),
-            Mockito.<String[]>any()))
-        .thenReturn(new SimpleResultSet());
-
-    Connection connection = mock(Connection.class);
-    doNothing().when(connection).setAutoCommit(anyBoolean());
-    when(connection.getAutoCommit()).thenReturn(true);
-    when(connection.getMetaData()).thenReturn(databaseMetaData);
-
-    DataSource dataSource = mock(DataSource.class);
-    when(dataSource.getConnection()).thenReturn(connection);
-
-    Builder dataSourceResult = new Builder("42").dataSource(dataSource);
-    Environment environment =
-        dataSourceResult.transactionFactory(new JdbcTransactionFactory()).build();
-    Configuration configuration = new Configuration(environment);
-    DefaultSqlSessionFactory sqlSessionFactory = new DefaultSqlSessionFactory(configuration);
-
-    DbSqlSessionFactory dbSqlSessionFactory = new DbSqlSessionFactory();
-    dbSqlSessionFactory.setSqlSessionFactory(sqlSessionFactory);
-    DbSqlSession dbSqlSession = new DbSqlSession(dbSqlSessionFactory, new EntityCacheImpl());
-
-    // Act
-    boolean actualIsTablePresentResult = dbSqlSession.isTablePresent("Table Name");
-
-    // Assert
-    verify(connection).getAutoCommit();
-    verify(connection).getMetaData();
-    verify(connection).setAutoCommit(false);
-    verify(databaseMetaData).getTables(isNull(), isNull(), eq("Table Name"), isA(String[].class));
-    verify(dataSource).getConnection();
-    assertFalse(actualIsTablePresentResult);
-  }
-
-  /**
-   * Test {@link DbSqlSession#prependDatabaseTablePrefix(String)}.
-   *
-   * <ul>
-   *   <li>Then return {@code Table Name}.
-   * </ul>
-   *
-   * <p>Method under test: {@link DbSqlSession#prependDatabaseTablePrefix(String)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String DbSqlSession.prependDatabaseTablePrefix(String)"})
-  public void testPrependDatabaseTablePrefix_thenReturnTableName() {
-    // Arrange
-    DbSqlSessionFactory dbSqlSessionFactory = new DbSqlSessionFactory();
-
-    Builder dataSourceResult = new Builder("42").dataSource(mock(DataSource.class));
-    Environment environment =
-        dataSourceResult.transactionFactory(new JdbcTransactionFactory()).build();
-    Configuration configuration = new Configuration(environment);
-    dbSqlSessionFactory.setSqlSessionFactory(new DefaultSqlSessionFactory(configuration));
-    DbSqlSession dbSqlSession = new DbSqlSession(dbSqlSessionFactory, new EntityCacheImpl());
-
-    // Act and Assert
-    assertEquals("Table Name", dbSqlSession.prependDatabaseTablePrefix("Table Name"));
-  }
-
-  /**
-   * Test {@link DbSqlSession#getResourceForDbOperation(String, String, String)}.
-   *
-   * <p>Method under test: {@link DbSqlSession#getResourceForDbOperation(String, String, String)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String DbSqlSession.getResourceForDbOperation(String, String, String)"})
-  public void testGetResourceForDbOperation() {
-    // Arrange
-    DbSqlSessionFactory dbSqlSessionFactory = new DbSqlSessionFactory();
-
-    Builder dataSourceResult = new Builder("42").dataSource(mock(DataSource.class));
-    Environment environment =
-        dataSourceResult.transactionFactory(new JdbcTransactionFactory()).build();
-    Configuration configuration = new Configuration(environment);
-    dbSqlSessionFactory.setSqlSessionFactory(new DefaultSqlSessionFactory(configuration));
-    DbSqlSession dbSqlSession = new DbSqlSession(dbSqlSessionFactory, new EntityCacheImpl());
-
-    // Act and Assert
-    assertEquals(
-        "org/activiti/db//directory/activiti.null.Operation.Component.sql",
-        dbSqlSession.getResourceForDbOperation("/directory", "Operation", "Component"));
-  }
-
-  /**
-   * Test {@link DbSqlSession#executeSchemaResource(String, String, String, boolean)} with {@code
-   * operation}, {@code component}, {@code resourceName}, {@code isOptional}.
-   *
-   * <p>Method under test: {@link DbSqlSession#executeSchemaResource(String, String, String,
-   * boolean)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void DbSqlSession.executeSchemaResource(String, String, String, boolean)"})
-  public void testExecuteSchemaResourceWithOperationComponentResourceNameIsOptional()
-      throws SQLException {
-    // Arrange
-    DataSource dataSource = mock(DataSource.class);
-    when(dataSource.getConnection()).thenThrow(new ActivitiException("An error occurred"));
-
-    Builder dataSourceResult = new Builder("42").dataSource(dataSource);
-    Environment environment =
-        dataSourceResult.transactionFactory(new JdbcTransactionFactory()).build();
-    Configuration configuration = new Configuration(environment);
-    DefaultSqlSessionFactory sqlSessionFactory = new DefaultSqlSessionFactory(configuration);
-
-    DbSqlSessionFactory dbSqlSessionFactory = new DbSqlSessionFactory();
-    dbSqlSessionFactory.setSqlSessionFactory(sqlSessionFactory);
-    DbSqlSession dbSqlSession = new DbSqlSession(dbSqlSessionFactory, new EntityCacheImpl());
-
-    // Act and Assert
-    assertThrows(
-        ActivitiException.class,
-        () -> dbSqlSession.executeSchemaResource("Operation", "Component", "", true));
-    verify(dataSource).getConnection();
-  }
-
-  /**
-   * Test {@link DbSqlSession#updateDdlForMySqlVersionLowerThan56(String)}.
-   *
-   * <ul>
-   *   <li>Then return {@code Ddl Statements}.
-   * </ul>
-   *
-   * <p>Method under test: {@link DbSqlSession#updateDdlForMySqlVersionLowerThan56(String)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String DbSqlSession.updateDdlForMySqlVersionLowerThan56(String)"})
-  public void testUpdateDdlForMySqlVersionLowerThan56_thenReturnDdlStatements() {
-    // Arrange
-    DbSqlSessionFactory dbSqlSessionFactory = new DbSqlSessionFactory();
-
-    Builder dataSourceResult = new Builder("42").dataSource(mock(DataSource.class));
-    Environment environment =
-        dataSourceResult.transactionFactory(new JdbcTransactionFactory()).build();
-    Configuration configuration = new Configuration(environment);
-    dbSqlSessionFactory.setSqlSessionFactory(new DefaultSqlSessionFactory(configuration));
-    DbSqlSession dbSqlSession = new DbSqlSession(dbSqlSessionFactory, new EntityCacheImpl());
-
-    // Act and Assert
-    assertEquals(
-        "Ddl Statements", dbSqlSession.updateDdlForMySqlVersionLowerThan56("Ddl Statements"));
-  }
-
-  /**
-   * Test {@link DbSqlSession#addSqlStatementPiece(String, String)}.
-   *
-   * <ul>
-   *   <li>Then return {@code Sql Statement Line}.
-   * </ul>
-   *
-   * <p>Method under test: {@link DbSqlSession#addSqlStatementPiece(String, String)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String DbSqlSession.addSqlStatementPiece(String, String)"})
-  public void testAddSqlStatementPiece_thenReturnSqlStatementLine() {
-    // Arrange
-    DbSqlSessionFactory dbSqlSessionFactory = new DbSqlSessionFactory();
-
-    Builder dataSourceResult = new Builder("42").dataSource(mock(DataSource.class));
-    Environment environment =
-        dataSourceResult.transactionFactory(new JdbcTransactionFactory()).build();
-    Configuration configuration = new Configuration(environment);
-    dbSqlSessionFactory.setSqlSessionFactory(new DefaultSqlSessionFactory(configuration));
-    DbSqlSession dbSqlSession = new DbSqlSession(dbSqlSessionFactory, new EntityCacheImpl());
-
-    // Act and Assert
-    assertEquals(
-        "Sql Statement \nLine", dbSqlSession.addSqlStatementPiece("Sql Statement", "Line"));
   }
 
   /**
    * Test {@link DbSqlSession#createDeploymentQuery()}.
-   *
    * <ul>
-   *   <li>Then return OrderBy is {@code RES.ID_ asc}.
+   *   <li>Then return OrderBy is {@code RES.ID_ asc}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link DbSqlSession#createDeploymentQuery()}
+   * <p>
+   * Method under test: {@link DbSqlSession#createDeploymentQuery()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"DeploymentQueryImpl DbSqlSession.createDeploymentQuery()"})
   public void testCreateDeploymentQuery_thenReturnOrderByIsResIdAsc() {
     // Arrange
     DbSqlSessionFactory dbSqlSessionFactory = new DbSqlSessionFactory();
-
-    Builder dataSourceResult = new Builder("42").dataSource(mock(DataSource.class));
-    Environment environment =
-        dataSourceResult.transactionFactory(new JdbcTransactionFactory()).build();
-    Configuration configuration = new Configuration(environment);
-    dbSqlSessionFactory.setSqlSessionFactory(new DefaultSqlSessionFactory(configuration));
-    DbSqlSession dbSqlSession = new DbSqlSession(dbSqlSessionFactory, new EntityCacheImpl());
+    Builder dataSourceResult = (new Builder("42")).dataSource(mock(DataSource.class));
+    Environment environment = dataSourceResult.transactionFactory(new JdbcTransactionFactory()).build();
+    dbSqlSessionFactory.setSqlSessionFactory(new DefaultSqlSessionFactory(new Configuration(environment)));
 
     // Act
-    DeploymentQueryImpl actualCreateDeploymentQueryResult = dbSqlSession.createDeploymentQuery();
+    DeploymentQueryImpl actualCreateDeploymentQueryResult = (new DbSqlSession(dbSqlSessionFactory,
+        new EntityCacheImpl())).createDeploymentQuery();
 
     // Assert
     assertEquals("RES.ID_ asc", actualCreateDeploymentQueryResult.getOrderBy());
@@ -2893,36 +930,30 @@ public class DbSqlSessionDiffblueTest {
     assertFalse(actualCreateDeploymentQueryResult.isWithoutTenantId());
     assertEquals(Integer.MAX_VALUE, actualCreateDeploymentQueryResult.getLastRow());
     assertEquals(Integer.MAX_VALUE, actualCreateDeploymentQueryResult.getMaxResults());
-    Object actualParameter = actualCreateDeploymentQueryResult.getParameter();
-    assertSame(actualCreateDeploymentQueryResult, actualParameter);
+    assertSame(actualCreateDeploymentQueryResult, actualCreateDeploymentQueryResult.getParameter());
   }
 
   /**
    * Test {@link DbSqlSession#createModelQueryImpl()}.
-   *
    * <ul>
-   *   <li>Then return OrderBy is {@code RES.ID_ asc}.
+   *   <li>Then return OrderBy is {@code RES.ID_ asc}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link DbSqlSession#createModelQueryImpl()}
+   * <p>
+   * Method under test: {@link DbSqlSession#createModelQueryImpl()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"ModelQueryImpl DbSqlSession.createModelQueryImpl()"})
   public void testCreateModelQueryImpl_thenReturnOrderByIsResIdAsc() {
     // Arrange
     DbSqlSessionFactory dbSqlSessionFactory = new DbSqlSessionFactory();
-
-    Builder dataSourceResult = new Builder("42").dataSource(mock(DataSource.class));
-    Environment environment =
-        dataSourceResult.transactionFactory(new JdbcTransactionFactory()).build();
-    Configuration configuration = new Configuration(environment);
-    dbSqlSessionFactory.setSqlSessionFactory(new DefaultSqlSessionFactory(configuration));
-    DbSqlSession dbSqlSession = new DbSqlSession(dbSqlSessionFactory, new EntityCacheImpl());
+    Builder dataSourceResult = (new Builder("42")).dataSource(mock(DataSource.class));
+    Environment environment = dataSourceResult.transactionFactory(new JdbcTransactionFactory()).build();
+    dbSqlSessionFactory.setSqlSessionFactory(new DefaultSqlSessionFactory(new Configuration(environment)));
 
     // Act
-    ModelQueryImpl actualCreateModelQueryImplResult = dbSqlSession.createModelQueryImpl();
+    ModelQueryImpl actualCreateModelQueryImplResult = (new DbSqlSession(dbSqlSessionFactory, new EntityCacheImpl()))
+        .createModelQueryImpl();
 
     // Assert
     assertEquals("RES.ID_ asc", actualCreateModelQueryImplResult.getOrderBy());
@@ -2947,33 +978,27 @@ public class DbSqlSessionDiffblueTest {
     assertFalse(actualCreateModelQueryImplResult.isWithoutTenantId());
     assertEquals(Integer.MAX_VALUE, actualCreateModelQueryImplResult.getLastRow());
     assertEquals(Integer.MAX_VALUE, actualCreateModelQueryImplResult.getMaxResults());
-    Object actualParameter = actualCreateModelQueryImplResult.getParameter();
-    assertSame(actualCreateModelQueryImplResult, actualParameter);
+    assertSame(actualCreateModelQueryImplResult, actualCreateModelQueryImplResult.getParameter());
   }
 
   /**
    * Test {@link DbSqlSession#createProcessDefinitionQuery()}.
-   *
-   * <p>Method under test: {@link DbSqlSession#createProcessDefinitionQuery()}
+   * <p>
+   * Method under test: {@link DbSqlSession#createProcessDefinitionQuery()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"ProcessDefinitionQueryImpl DbSqlSession.createProcessDefinitionQuery()"})
   public void testCreateProcessDefinitionQuery() {
     // Arrange
     DbSqlSessionFactory dbSqlSessionFactory = new DbSqlSessionFactory();
-
-    Builder dataSourceResult = new Builder("42").dataSource(mock(DataSource.class));
-    Environment environment =
-        dataSourceResult.transactionFactory(new JdbcTransactionFactory()).build();
-    Configuration configuration = new Configuration(environment);
-    dbSqlSessionFactory.setSqlSessionFactory(new DefaultSqlSessionFactory(configuration));
-    DbSqlSession dbSqlSession = new DbSqlSession(dbSqlSessionFactory, new EntityCacheImpl());
+    Builder dataSourceResult = (new Builder("42")).dataSource(mock(DataSource.class));
+    Environment environment = dataSourceResult.transactionFactory(new JdbcTransactionFactory()).build();
+    dbSqlSessionFactory.setSqlSessionFactory(new DefaultSqlSessionFactory(new Configuration(environment)));
 
     // Act
-    ProcessDefinitionQueryImpl actualCreateProcessDefinitionQueryResult =
-        dbSqlSession.createProcessDefinitionQuery();
+    ProcessDefinitionQueryImpl actualCreateProcessDefinitionQueryResult = (new DbSqlSession(dbSqlSessionFactory,
+        new EntityCacheImpl())).createProcessDefinitionQuery();
 
     // Assert
     assertEquals("RES.ID_ asc", actualCreateProcessDefinitionQueryResult.getOrderBy());
@@ -3013,33 +1038,27 @@ public class DbSqlSessionDiffblueTest {
     assertFalse(actualCreateProcessDefinitionQueryResult.isWithoutTenantId());
     assertEquals(Integer.MAX_VALUE, actualCreateProcessDefinitionQueryResult.getLastRow());
     assertEquals(Integer.MAX_VALUE, actualCreateProcessDefinitionQueryResult.getMaxResults());
-    Object actualParameter = actualCreateProcessDefinitionQueryResult.getParameter();
-    assertSame(actualCreateProcessDefinitionQueryResult, actualParameter);
+    assertSame(actualCreateProcessDefinitionQueryResult, actualCreateProcessDefinitionQueryResult.getParameter());
   }
 
   /**
    * Test {@link DbSqlSession#createProcessDefinitionQuery()}.
-   *
-   * <p>Method under test: {@link DbSqlSession#createProcessDefinitionQuery()}
+   * <p>
+   * Method under test: {@link DbSqlSession#createProcessDefinitionQuery()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"ProcessDefinitionQueryImpl DbSqlSession.createProcessDefinitionQuery()"})
   public void testCreateProcessDefinitionQuery2() {
     // Arrange
     ProfilingDbSqlSessionFactory dbSqlSessionFactory = new ProfilingDbSqlSessionFactory();
-
-    Builder dataSourceResult = new Builder("42").dataSource(mock(DataSource.class));
-    Environment environment =
-        dataSourceResult.transactionFactory(new JdbcTransactionFactory()).build();
-    Configuration configuration = new Configuration(environment);
-    dbSqlSessionFactory.setSqlSessionFactory(new DefaultSqlSessionFactory(configuration));
-    DbSqlSession dbSqlSession = new DbSqlSession(dbSqlSessionFactory, new EntityCacheImpl());
+    Builder dataSourceResult = (new Builder("42")).dataSource(mock(DataSource.class));
+    Environment environment = dataSourceResult.transactionFactory(new JdbcTransactionFactory()).build();
+    dbSqlSessionFactory.setSqlSessionFactory(new DefaultSqlSessionFactory(new Configuration(environment)));
 
     // Act
-    ProcessDefinitionQueryImpl actualCreateProcessDefinitionQueryResult =
-        dbSqlSession.createProcessDefinitionQuery();
+    ProcessDefinitionQueryImpl actualCreateProcessDefinitionQueryResult = (new DbSqlSession(dbSqlSessionFactory,
+        new EntityCacheImpl())).createProcessDefinitionQuery();
 
     // Assert
     assertEquals("RES.ID_ asc", actualCreateProcessDefinitionQueryResult.getOrderBy());
@@ -3079,37 +1098,30 @@ public class DbSqlSessionDiffblueTest {
     assertFalse(actualCreateProcessDefinitionQueryResult.isWithoutTenantId());
     assertEquals(Integer.MAX_VALUE, actualCreateProcessDefinitionQueryResult.getLastRow());
     assertEquals(Integer.MAX_VALUE, actualCreateProcessDefinitionQueryResult.getMaxResults());
-    Object actualParameter = actualCreateProcessDefinitionQueryResult.getParameter();
-    assertSame(actualCreateProcessDefinitionQueryResult, actualParameter);
+    assertSame(actualCreateProcessDefinitionQueryResult, actualCreateProcessDefinitionQueryResult.getParameter());
   }
 
   /**
    * Test {@link DbSqlSession#createProcessInstanceQuery()}.
-   *
    * <ul>
-   *   <li>Then return OrderBy is {@code RES.ID_ asc}.
+   *   <li>Then return OrderBy is {@code RES.ID_ asc}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link DbSqlSession#createProcessInstanceQuery()}
+   * <p>
+   * Method under test: {@link DbSqlSession#createProcessInstanceQuery()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"ProcessInstanceQueryImpl DbSqlSession.createProcessInstanceQuery()"})
   public void testCreateProcessInstanceQuery_thenReturnOrderByIsResIdAsc() {
     // Arrange
     DbSqlSessionFactory dbSqlSessionFactory = new DbSqlSessionFactory();
-
-    Builder dataSourceResult = new Builder("42").dataSource(mock(DataSource.class));
-    Environment environment =
-        dataSourceResult.transactionFactory(new JdbcTransactionFactory()).build();
-    Configuration configuration = new Configuration(environment);
-    dbSqlSessionFactory.setSqlSessionFactory(new DefaultSqlSessionFactory(configuration));
-    DbSqlSession dbSqlSession = new DbSqlSession(dbSqlSessionFactory, new EntityCacheImpl());
+    Builder dataSourceResult = (new Builder("42")).dataSource(mock(DataSource.class));
+    Environment environment = dataSourceResult.transactionFactory(new JdbcTransactionFactory()).build();
+    dbSqlSessionFactory.setSqlSessionFactory(new DefaultSqlSessionFactory(new Configuration(environment)));
 
     // Act
-    ProcessInstanceQueryImpl actualCreateProcessInstanceQueryResult =
-        dbSqlSession.createProcessInstanceQuery();
+    ProcessInstanceQueryImpl actualCreateProcessInstanceQueryResult = (new DbSqlSession(dbSqlSessionFactory,
+        new EntityCacheImpl())).createProcessInstanceQuery();
 
     // Assert
     assertEquals("RES.ID_ asc", actualCreateProcessInstanceQueryResult.getOrderBy());
@@ -3152,8 +1164,7 @@ public class DbSqlSessionDiffblueTest {
     assertFalse(actualCreateProcessInstanceQueryResult.hasLocalQueryVariableValue());
     assertFalse(actualCreateProcessInstanceQueryResult.hasNonLocalQueryVariableValue());
     assertFalse(actualCreateProcessInstanceQueryResult.isExcludeSubprocesses());
-    assertFalse(
-        actualCreateProcessInstanceQueryResult.isIncludeChildExecutionsWithBusinessKeyQuery());
+    assertFalse(actualCreateProcessInstanceQueryResult.isIncludeChildExecutionsWithBusinessKeyQuery());
     assertFalse(actualCreateProcessInstanceQueryResult.isIncludeProcessVariables());
     assertFalse(actualCreateProcessInstanceQueryResult.isOnlyChildExecutions());
     assertFalse(actualCreateProcessInstanceQueryResult.isOnlyProcessInstanceExecutions());
@@ -3164,36 +1175,30 @@ public class DbSqlSessionDiffblueTest {
     assertTrue(actualCreateProcessInstanceQueryResult.getOnlyProcessInstances());
     assertEquals(Integer.MAX_VALUE, actualCreateProcessInstanceQueryResult.getLastRow());
     assertEquals(Integer.MAX_VALUE, actualCreateProcessInstanceQueryResult.getMaxResults());
-    Object actualParameter = actualCreateProcessInstanceQueryResult.getParameter();
-    assertSame(actualCreateProcessInstanceQueryResult, actualParameter);
+    assertSame(actualCreateProcessInstanceQueryResult, actualCreateProcessInstanceQueryResult.getParameter());
   }
 
   /**
    * Test {@link DbSqlSession#createExecutionQuery()}.
-   *
    * <ul>
-   *   <li>Then return OrderBy is {@code RES.ID_ asc}.
+   *   <li>Then return OrderBy is {@code RES.ID_ asc}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link DbSqlSession#createExecutionQuery()}
+   * <p>
+   * Method under test: {@link DbSqlSession#createExecutionQuery()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"ExecutionQueryImpl DbSqlSession.createExecutionQuery()"})
   public void testCreateExecutionQuery_thenReturnOrderByIsResIdAsc() {
     // Arrange
     DbSqlSessionFactory dbSqlSessionFactory = new DbSqlSessionFactory();
-
-    Builder dataSourceResult = new Builder("42").dataSource(mock(DataSource.class));
-    Environment environment =
-        dataSourceResult.transactionFactory(new JdbcTransactionFactory()).build();
-    Configuration configuration = new Configuration(environment);
-    dbSqlSessionFactory.setSqlSessionFactory(new DefaultSqlSessionFactory(configuration));
-    DbSqlSession dbSqlSession = new DbSqlSession(dbSqlSessionFactory, new EntityCacheImpl());
+    Builder dataSourceResult = (new Builder("42")).dataSource(mock(DataSource.class));
+    Environment environment = dataSourceResult.transactionFactory(new JdbcTransactionFactory()).build();
+    dbSqlSessionFactory.setSqlSessionFactory(new DefaultSqlSessionFactory(new Configuration(environment)));
 
     // Act
-    ExecutionQueryImpl actualCreateExecutionQueryResult = dbSqlSession.createExecutionQuery();
+    ExecutionQueryImpl actualCreateExecutionQueryResult = (new DbSqlSession(dbSqlSessionFactory, new EntityCacheImpl()))
+        .createExecutionQuery();
 
     // Assert
     assertEquals("RES.ID_ asc", actualCreateExecutionQueryResult.getOrderBy());
@@ -3243,32 +1248,27 @@ public class DbSqlSessionDiffblueTest {
     assertTrue(actualCreateExecutionQueryResult.getQueryVariableValues().isEmpty());
     assertEquals(Integer.MAX_VALUE, actualCreateExecutionQueryResult.getLastRow());
     assertEquals(Integer.MAX_VALUE, actualCreateExecutionQueryResult.getMaxResults());
-    Object actualParameter = actualCreateExecutionQueryResult.getParameter();
-    assertSame(actualCreateExecutionQueryResult, actualParameter);
+    assertSame(actualCreateExecutionQueryResult, actualCreateExecutionQueryResult.getParameter());
   }
 
   /**
    * Test {@link DbSqlSession#createTaskQuery()}.
-   *
-   * <p>Method under test: {@link DbSqlSession#createTaskQuery()}
+   * <p>
+   * Method under test: {@link DbSqlSession#createTaskQuery()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"TaskQueryImpl DbSqlSession.createTaskQuery()"})
   public void testCreateTaskQuery() {
     // Arrange
     DbSqlSessionFactory dbSqlSessionFactory = new DbSqlSessionFactory();
-
-    Builder dataSourceResult = new Builder("42").dataSource(mock(DataSource.class));
-    Environment environment =
-        dataSourceResult.transactionFactory(new JdbcTransactionFactory()).build();
-    Configuration configuration = new Configuration(environment);
-    dbSqlSessionFactory.setSqlSessionFactory(new DefaultSqlSessionFactory(configuration));
-    DbSqlSession dbSqlSession = new DbSqlSession(dbSqlSessionFactory, new EntityCacheImpl());
+    Builder dataSourceResult = (new Builder("42")).dataSource(mock(DataSource.class));
+    Environment environment = dataSourceResult.transactionFactory(new JdbcTransactionFactory()).build();
+    dbSqlSessionFactory.setSqlSessionFactory(new DefaultSqlSessionFactory(new Configuration(environment)));
 
     // Act
-    TaskQueryImpl actualCreateTaskQueryResult = dbSqlSession.createTaskQuery();
+    TaskQueryImpl actualCreateTaskQueryResult = (new DbSqlSession(dbSqlSessionFactory, new EntityCacheImpl()))
+        .createTaskQuery();
 
     // Assert
     assertEquals("RES.ID_ asc", actualCreateTaskQueryResult.getOrderBy());
@@ -3351,32 +1351,27 @@ public class DbSqlSessionDiffblueTest {
     assertTrue(actualCreateTaskQueryResult.getOrQueryObjects().isEmpty());
     assertEquals(Integer.MAX_VALUE, actualCreateTaskQueryResult.getLastRow());
     assertEquals(Integer.MAX_VALUE, actualCreateTaskQueryResult.getMaxResults());
-    Object actualParameter = actualCreateTaskQueryResult.getParameter();
-    assertSame(actualCreateTaskQueryResult, actualParameter);
+    assertSame(actualCreateTaskQueryResult, actualCreateTaskQueryResult.getParameter());
   }
 
   /**
    * Test {@link DbSqlSession#createTaskQuery()}.
-   *
-   * <p>Method under test: {@link DbSqlSession#createTaskQuery()}
+   * <p>
+   * Method under test: {@link DbSqlSession#createTaskQuery()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"TaskQueryImpl DbSqlSession.createTaskQuery()"})
   public void testCreateTaskQuery2() {
     // Arrange
     ProfilingDbSqlSessionFactory dbSqlSessionFactory = new ProfilingDbSqlSessionFactory();
-
-    Builder dataSourceResult = new Builder("42").dataSource(mock(DataSource.class));
-    Environment environment =
-        dataSourceResult.transactionFactory(new JdbcTransactionFactory()).build();
-    Configuration configuration = new Configuration(environment);
-    dbSqlSessionFactory.setSqlSessionFactory(new DefaultSqlSessionFactory(configuration));
-    DbSqlSession dbSqlSession = new DbSqlSession(dbSqlSessionFactory, new EntityCacheImpl());
+    Builder dataSourceResult = (new Builder("42")).dataSource(mock(DataSource.class));
+    Environment environment = dataSourceResult.transactionFactory(new JdbcTransactionFactory()).build();
+    dbSqlSessionFactory.setSqlSessionFactory(new DefaultSqlSessionFactory(new Configuration(environment)));
 
     // Act
-    TaskQueryImpl actualCreateTaskQueryResult = dbSqlSession.createTaskQuery();
+    TaskQueryImpl actualCreateTaskQueryResult = (new DbSqlSession(dbSqlSessionFactory, new EntityCacheImpl()))
+        .createTaskQuery();
 
     // Assert
     assertEquals("RES.ID_ asc", actualCreateTaskQueryResult.getOrderBy());
@@ -3459,36 +1454,30 @@ public class DbSqlSessionDiffblueTest {
     assertTrue(actualCreateTaskQueryResult.getOrQueryObjects().isEmpty());
     assertEquals(Integer.MAX_VALUE, actualCreateTaskQueryResult.getLastRow());
     assertEquals(Integer.MAX_VALUE, actualCreateTaskQueryResult.getMaxResults());
-    Object actualParameter = actualCreateTaskQueryResult.getParameter();
-    assertSame(actualCreateTaskQueryResult, actualParameter);
+    assertSame(actualCreateTaskQueryResult, actualCreateTaskQueryResult.getParameter());
   }
 
   /**
    * Test {@link DbSqlSession#createJobQuery()}.
-   *
    * <ul>
-   *   <li>Then return OrderBy is {@code RES.ID_ asc}.
+   *   <li>Then return OrderBy is {@code RES.ID_ asc}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link DbSqlSession#createJobQuery()}
+   * <p>
+   * Method under test: {@link DbSqlSession#createJobQuery()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"JobQueryImpl DbSqlSession.createJobQuery()"})
   public void testCreateJobQuery_thenReturnOrderByIsResIdAsc() {
     // Arrange
     DbSqlSessionFactory dbSqlSessionFactory = new DbSqlSessionFactory();
-
-    Builder dataSourceResult = new Builder("42").dataSource(mock(DataSource.class));
-    Environment environment =
-        dataSourceResult.transactionFactory(new JdbcTransactionFactory()).build();
-    Configuration configuration = new Configuration(environment);
-    dbSqlSessionFactory.setSqlSessionFactory(new DefaultSqlSessionFactory(configuration));
-    DbSqlSession dbSqlSession = new DbSqlSession(dbSqlSessionFactory, new EntityCacheImpl());
+    Builder dataSourceResult = (new Builder("42")).dataSource(mock(DataSource.class));
+    Environment environment = dataSourceResult.transactionFactory(new JdbcTransactionFactory()).build();
+    dbSqlSessionFactory.setSqlSessionFactory(new DefaultSqlSessionFactory(new Configuration(environment)));
 
     // Act
-    JobQueryImpl actualCreateJobQueryResult = dbSqlSession.createJobQuery();
+    JobQueryImpl actualCreateJobQueryResult = (new DbSqlSession(dbSqlSessionFactory, new EntityCacheImpl()))
+        .createJobQuery();
 
     // Assert
     assertEquals("RES.ID_ asc", actualCreateJobQueryResult.getOrderBy());
@@ -3518,47 +1507,36 @@ public class DbSqlSessionDiffblueTest {
     assertFalse(actualCreateJobQueryResult.isWithoutTenantId());
     assertEquals(Integer.MAX_VALUE, actualCreateJobQueryResult.getLastRow());
     assertEquals(Integer.MAX_VALUE, actualCreateJobQueryResult.getMaxResults());
-    Object actualParameter = actualCreateJobQueryResult.getParameter();
-    assertSame(actualCreateJobQueryResult, actualParameter);
+    assertSame(actualCreateJobQueryResult, actualCreateJobQueryResult.getParameter());
   }
 
   /**
    * Test {@link DbSqlSession#createHistoricProcessInstanceQuery()}.
-   *
    * <ul>
-   *   <li>Then return OrderBy is {@code RES.ID_ asc}.
+   *   <li>Then return OrderBy is {@code RES.ID_ asc}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link DbSqlSession#createHistoricProcessInstanceQuery()}
+   * <p>
+   * Method under test: {@link DbSqlSession#createHistoricProcessInstanceQuery()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "HistoricProcessInstanceQueryImpl DbSqlSession.createHistoricProcessInstanceQuery()"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"HistoricProcessInstanceQueryImpl DbSqlSession.createHistoricProcessInstanceQuery()"})
   public void testCreateHistoricProcessInstanceQuery_thenReturnOrderByIsResIdAsc() {
     // Arrange
     DbSqlSessionFactory dbSqlSessionFactory = new DbSqlSessionFactory();
-
-    Builder dataSourceResult = new Builder("42").dataSource(mock(DataSource.class));
-    Environment environment =
-        dataSourceResult.transactionFactory(new JdbcTransactionFactory()).build();
-    Configuration configuration = new Configuration(environment);
-    dbSqlSessionFactory.setSqlSessionFactory(new DefaultSqlSessionFactory(configuration));
-    DbSqlSession dbSqlSession = new DbSqlSession(dbSqlSessionFactory, new EntityCacheImpl());
+    Builder dataSourceResult = (new Builder("42")).dataSource(mock(DataSource.class));
+    Environment environment = dataSourceResult.transactionFactory(new JdbcTransactionFactory()).build();
+    dbSqlSessionFactory.setSqlSessionFactory(new DefaultSqlSessionFactory(new Configuration(environment)));
 
     // Act
-    HistoricProcessInstanceQueryImpl actualCreateHistoricProcessInstanceQueryResult =
-        dbSqlSession.createHistoricProcessInstanceQuery();
+    HistoricProcessInstanceQueryImpl actualCreateHistoricProcessInstanceQueryResult = (new DbSqlSession(
+        dbSqlSessionFactory, new EntityCacheImpl())).createHistoricProcessInstanceQuery();
 
     // Assert
     assertEquals("RES.ID_ asc", actualCreateHistoricProcessInstanceQueryResult.getOrderBy());
     assertEquals("RES.ID_ asc", actualCreateHistoricProcessInstanceQueryResult.getOrderByColumns());
-    assertEquals(
-        "TEMPRES_ID_ asc", actualCreateHistoricProcessInstanceQueryResult.getMssqlOrDB2OrderBy());
-    assertEquals(
-        "null:%:%", actualCreateHistoricProcessInstanceQueryResult.getProcessDefinitionIdLike());
+    assertEquals("TEMPRES_ID_ asc", actualCreateHistoricProcessInstanceQueryResult.getMssqlOrDB2OrderBy());
+    assertEquals("null:%:%", actualCreateHistoricProcessInstanceQueryResult.getProcessDefinitionIdLike());
     assertNull(actualCreateHistoricProcessInstanceQueryResult.getProcessDefinitionVersion());
     assertNull(actualCreateHistoricProcessInstanceQueryResult.getProcessInstanceVariablesLimit());
     assertNull(actualCreateHistoricProcessInstanceQueryResult.getDatabaseType());
@@ -3603,44 +1581,35 @@ public class DbSqlSessionDiffblueTest {
     assertTrue(actualCreateHistoricProcessInstanceQueryResult.getOrQueryObjects().isEmpty());
     assertEquals(Integer.MAX_VALUE, actualCreateHistoricProcessInstanceQueryResult.getLastRow());
     assertEquals(Integer.MAX_VALUE, actualCreateHistoricProcessInstanceQueryResult.getMaxResults());
-    Object actualParameter = actualCreateHistoricProcessInstanceQueryResult.getParameter();
-    assertSame(actualCreateHistoricProcessInstanceQueryResult, actualParameter);
+    assertSame(actualCreateHistoricProcessInstanceQueryResult,
+        actualCreateHistoricProcessInstanceQueryResult.getParameter());
   }
 
   /**
    * Test {@link DbSqlSession#createHistoricActivityInstanceQuery()}.
-   *
    * <ul>
-   *   <li>Then return OrderBy is {@code RES.ID_ asc}.
+   *   <li>Then return OrderBy is {@code RES.ID_ asc}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link DbSqlSession#createHistoricActivityInstanceQuery()}
+   * <p>
+   * Method under test: {@link DbSqlSession#createHistoricActivityInstanceQuery()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "HistoricActivityInstanceQueryImpl DbSqlSession.createHistoricActivityInstanceQuery()"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"HistoricActivityInstanceQueryImpl DbSqlSession.createHistoricActivityInstanceQuery()"})
   public void testCreateHistoricActivityInstanceQuery_thenReturnOrderByIsResIdAsc() {
     // Arrange
     DbSqlSessionFactory dbSqlSessionFactory = new DbSqlSessionFactory();
-
-    Builder dataSourceResult = new Builder("42").dataSource(mock(DataSource.class));
-    Environment environment =
-        dataSourceResult.transactionFactory(new JdbcTransactionFactory()).build();
-    Configuration configuration = new Configuration(environment);
-    dbSqlSessionFactory.setSqlSessionFactory(new DefaultSqlSessionFactory(configuration));
-    DbSqlSession dbSqlSession = new DbSqlSession(dbSqlSessionFactory, new EntityCacheImpl());
+    Builder dataSourceResult = (new Builder("42")).dataSource(mock(DataSource.class));
+    Environment environment = dataSourceResult.transactionFactory(new JdbcTransactionFactory()).build();
+    dbSqlSessionFactory.setSqlSessionFactory(new DefaultSqlSessionFactory(new Configuration(environment)));
 
     // Act
-    HistoricActivityInstanceQueryImpl actualCreateHistoricActivityInstanceQueryResult =
-        dbSqlSession.createHistoricActivityInstanceQuery();
+    HistoricActivityInstanceQueryImpl actualCreateHistoricActivityInstanceQueryResult = (new DbSqlSession(
+        dbSqlSessionFactory, new EntityCacheImpl())).createHistoricActivityInstanceQuery();
 
     // Assert
     assertEquals("RES.ID_ asc", actualCreateHistoricActivityInstanceQueryResult.getOrderBy());
-    assertEquals(
-        "RES.ID_ asc", actualCreateHistoricActivityInstanceQueryResult.getOrderByColumns());
+    assertEquals("RES.ID_ asc", actualCreateHistoricActivityInstanceQueryResult.getOrderByColumns());
     assertNull(actualCreateHistoricActivityInstanceQueryResult.getDatabaseType());
     assertNull(actualCreateHistoricActivityInstanceQueryResult.getActivityId());
     assertNull(actualCreateHistoricActivityInstanceQueryResult.getActivityInstanceId());
@@ -3660,47 +1629,37 @@ public class DbSqlSessionDiffblueTest {
     assertFalse(actualCreateHistoricActivityInstanceQueryResult.isUnfinished());
     assertFalse(actualCreateHistoricActivityInstanceQueryResult.isWithoutTenantId());
     assertEquals(Integer.MAX_VALUE, actualCreateHistoricActivityInstanceQueryResult.getLastRow());
-    assertEquals(
-        Integer.MAX_VALUE, actualCreateHistoricActivityInstanceQueryResult.getMaxResults());
-    Object actualParameter = actualCreateHistoricActivityInstanceQueryResult.getParameter();
-    assertSame(actualCreateHistoricActivityInstanceQueryResult, actualParameter);
+    assertEquals(Integer.MAX_VALUE, actualCreateHistoricActivityInstanceQueryResult.getMaxResults());
+    assertSame(actualCreateHistoricActivityInstanceQueryResult,
+        actualCreateHistoricActivityInstanceQueryResult.getParameter());
   }
 
   /**
    * Test {@link DbSqlSession#createHistoricTaskInstanceQuery()}.
-   *
    * <ul>
-   *   <li>Then return OrderBy is {@code RES.ID_ asc}.
+   *   <li>Then return OrderBy is {@code RES.ID_ asc}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link DbSqlSession#createHistoricTaskInstanceQuery()}
+   * <p>
+   * Method under test: {@link DbSqlSession#createHistoricTaskInstanceQuery()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "HistoricTaskInstanceQueryImpl DbSqlSession.createHistoricTaskInstanceQuery()"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"HistoricTaskInstanceQueryImpl DbSqlSession.createHistoricTaskInstanceQuery()"})
   public void testCreateHistoricTaskInstanceQuery_thenReturnOrderByIsResIdAsc() {
     // Arrange
     DbSqlSessionFactory dbSqlSessionFactory = new DbSqlSessionFactory();
-
-    Builder dataSourceResult = new Builder("42").dataSource(mock(DataSource.class));
-    Environment environment =
-        dataSourceResult.transactionFactory(new JdbcTransactionFactory()).build();
-    Configuration configuration = new Configuration(environment);
-    dbSqlSessionFactory.setSqlSessionFactory(new DefaultSqlSessionFactory(configuration));
-    DbSqlSession dbSqlSession = new DbSqlSession(dbSqlSessionFactory, new EntityCacheImpl());
+    Builder dataSourceResult = (new Builder("42")).dataSource(mock(DataSource.class));
+    Environment environment = dataSourceResult.transactionFactory(new JdbcTransactionFactory()).build();
+    dbSqlSessionFactory.setSqlSessionFactory(new DefaultSqlSessionFactory(new Configuration(environment)));
 
     // Act
-    HistoricTaskInstanceQueryImpl actualCreateHistoricTaskInstanceQueryResult =
-        dbSqlSession.createHistoricTaskInstanceQuery();
+    HistoricTaskInstanceQueryImpl actualCreateHistoricTaskInstanceQueryResult = (new DbSqlSession(dbSqlSessionFactory,
+        new EntityCacheImpl())).createHistoricTaskInstanceQuery();
 
     // Assert
     assertEquals("RES.ID_ asc", actualCreateHistoricTaskInstanceQueryResult.getOrderBy());
     assertEquals("RES.ID_ asc", actualCreateHistoricTaskInstanceQueryResult.getOrderByColumns());
-    assertEquals(
-        "TEMPRES_ID_ asc", actualCreateHistoricTaskInstanceQueryResult.getMssqlOrDB2OrderBy());
+    assertEquals("TEMPRES_ID_ asc", actualCreateHistoricTaskInstanceQueryResult.getMssqlOrDB2OrderBy());
     assertNull(actualCreateHistoricTaskInstanceQueryResult.getTaskMaxPriority());
     assertNull(actualCreateHistoricTaskInstanceQueryResult.getTaskMinPriority());
     assertNull(actualCreateHistoricTaskInstanceQueryResult.getTaskPriority());
@@ -3721,8 +1680,7 @@ public class DbSqlSessionDiffblueTest {
     assertNull(actualCreateHistoricTaskInstanceQueryResult.getProcessDefinitionNameLike());
     assertNull(actualCreateHistoricTaskInstanceQueryResult.getProcessInstanceBusinessKey());
     assertNull(actualCreateHistoricTaskInstanceQueryResult.getProcessInstanceBusinessKeyLike());
-    assertNull(
-        actualCreateHistoricTaskInstanceQueryResult.getProcessInstanceBusinessKeyLikeIgnoreCase());
+    assertNull(actualCreateHistoricTaskInstanceQueryResult.getProcessInstanceBusinessKeyLikeIgnoreCase());
     assertNull(actualCreateHistoricTaskInstanceQueryResult.getProcessInstanceId());
     assertNull(actualCreateHistoricTaskInstanceQueryResult.getTaskAssignee());
     assertNull(actualCreateHistoricTaskInstanceQueryResult.getTaskAssigneeLike());
@@ -3780,37 +1738,30 @@ public class DbSqlSessionDiffblueTest {
     assertTrue(actualCreateHistoricTaskInstanceQueryResult.getOrQueryObjects().isEmpty());
     assertEquals(Integer.MAX_VALUE, actualCreateHistoricTaskInstanceQueryResult.getLastRow());
     assertEquals(Integer.MAX_VALUE, actualCreateHistoricTaskInstanceQueryResult.getMaxResults());
-    Object actualParameter = actualCreateHistoricTaskInstanceQueryResult.getParameter();
-    assertSame(actualCreateHistoricTaskInstanceQueryResult, actualParameter);
+    assertSame(actualCreateHistoricTaskInstanceQueryResult, actualCreateHistoricTaskInstanceQueryResult.getParameter());
   }
 
   /**
    * Test {@link DbSqlSession#createHistoricDetailQuery()}.
-   *
    * <ul>
-   *   <li>Then return OrderBy is {@code RES.ID_ asc}.
+   *   <li>Then return OrderBy is {@code RES.ID_ asc}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link DbSqlSession#createHistoricDetailQuery()}
+   * <p>
+   * Method under test: {@link DbSqlSession#createHistoricDetailQuery()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"HistoricDetailQueryImpl DbSqlSession.createHistoricDetailQuery()"})
   public void testCreateHistoricDetailQuery_thenReturnOrderByIsResIdAsc() {
     // Arrange
     DbSqlSessionFactory dbSqlSessionFactory = new DbSqlSessionFactory();
-
-    Builder dataSourceResult = new Builder("42").dataSource(mock(DataSource.class));
-    Environment environment =
-        dataSourceResult.transactionFactory(new JdbcTransactionFactory()).build();
-    Configuration configuration = new Configuration(environment);
-    dbSqlSessionFactory.setSqlSessionFactory(new DefaultSqlSessionFactory(configuration));
-    DbSqlSession dbSqlSession = new DbSqlSession(dbSqlSessionFactory, new EntityCacheImpl());
+    Builder dataSourceResult = (new Builder("42")).dataSource(mock(DataSource.class));
+    Environment environment = dataSourceResult.transactionFactory(new JdbcTransactionFactory()).build();
+    dbSqlSessionFactory.setSqlSessionFactory(new DefaultSqlSessionFactory(new Configuration(environment)));
 
     // Act
-    HistoricDetailQueryImpl actualCreateHistoricDetailQueryResult =
-        dbSqlSession.createHistoricDetailQuery();
+    HistoricDetailQueryImpl actualCreateHistoricDetailQueryResult = (new DbSqlSession(dbSqlSessionFactory,
+        new EntityCacheImpl())).createHistoricDetailQuery();
 
     // Assert
     assertEquals("RES.ID_ asc", actualCreateHistoricDetailQueryResult.getOrderBy());
@@ -3828,44 +1779,34 @@ public class DbSqlSessionDiffblueTest {
     assertFalse(actualCreateHistoricDetailQueryResult.getExcludeTaskRelated());
     assertEquals(Integer.MAX_VALUE, actualCreateHistoricDetailQueryResult.getLastRow());
     assertEquals(Integer.MAX_VALUE, actualCreateHistoricDetailQueryResult.getMaxResults());
-    Object actualParameter = actualCreateHistoricDetailQueryResult.getParameter();
-    assertSame(actualCreateHistoricDetailQueryResult, actualParameter);
+    assertSame(actualCreateHistoricDetailQueryResult, actualCreateHistoricDetailQueryResult.getParameter());
   }
 
   /**
    * Test {@link DbSqlSession#createHistoricVariableInstanceQuery()}.
-   *
    * <ul>
-   *   <li>Then return OrderBy is {@code RES.ID_ asc}.
+   *   <li>Then return OrderBy is {@code RES.ID_ asc}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link DbSqlSession#createHistoricVariableInstanceQuery()}
+   * <p>
+   * Method under test: {@link DbSqlSession#createHistoricVariableInstanceQuery()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "HistoricVariableInstanceQueryImpl DbSqlSession.createHistoricVariableInstanceQuery()"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"HistoricVariableInstanceQueryImpl DbSqlSession.createHistoricVariableInstanceQuery()"})
   public void testCreateHistoricVariableInstanceQuery_thenReturnOrderByIsResIdAsc() {
     // Arrange
     DbSqlSessionFactory dbSqlSessionFactory = new DbSqlSessionFactory();
-
-    Builder dataSourceResult = new Builder("42").dataSource(mock(DataSource.class));
-    Environment environment =
-        dataSourceResult.transactionFactory(new JdbcTransactionFactory()).build();
-    Configuration configuration = new Configuration(environment);
-    dbSqlSessionFactory.setSqlSessionFactory(new DefaultSqlSessionFactory(configuration));
-    DbSqlSession dbSqlSession = new DbSqlSession(dbSqlSessionFactory, new EntityCacheImpl());
+    Builder dataSourceResult = (new Builder("42")).dataSource(mock(DataSource.class));
+    Environment environment = dataSourceResult.transactionFactory(new JdbcTransactionFactory()).build();
+    dbSqlSessionFactory.setSqlSessionFactory(new DefaultSqlSessionFactory(new Configuration(environment)));
 
     // Act
-    HistoricVariableInstanceQueryImpl actualCreateHistoricVariableInstanceQueryResult =
-        dbSqlSession.createHistoricVariableInstanceQuery();
+    HistoricVariableInstanceQueryImpl actualCreateHistoricVariableInstanceQueryResult = (new DbSqlSession(
+        dbSqlSessionFactory, new EntityCacheImpl())).createHistoricVariableInstanceQuery();
 
     // Assert
     assertEquals("RES.ID_ asc", actualCreateHistoricVariableInstanceQueryResult.getOrderBy());
-    assertEquals(
-        "RES.ID_ asc", actualCreateHistoricVariableInstanceQueryResult.getOrderByColumns());
+    assertEquals("RES.ID_ asc", actualCreateHistoricVariableInstanceQueryResult.getOrderByColumns());
     assertNull(actualCreateHistoricVariableInstanceQueryResult.getDatabaseType());
     assertNull(actualCreateHistoricVariableInstanceQueryResult.getActivityInstanceId());
     assertNull(actualCreateHistoricVariableInstanceQueryResult.getProcessInstanceId());
@@ -3877,9 +1818,8 @@ public class DbSqlSessionDiffblueTest {
     assertEquals(1, actualCreateHistoricVariableInstanceQueryResult.getFirstRow());
     assertFalse(actualCreateHistoricVariableInstanceQueryResult.getExcludeTaskRelated());
     assertEquals(Integer.MAX_VALUE, actualCreateHistoricVariableInstanceQueryResult.getLastRow());
-    assertEquals(
-        Integer.MAX_VALUE, actualCreateHistoricVariableInstanceQueryResult.getMaxResults());
-    Object actualParameter = actualCreateHistoricVariableInstanceQueryResult.getParameter();
-    assertSame(actualCreateHistoricVariableInstanceQueryResult, actualParameter);
+    assertEquals(Integer.MAX_VALUE, actualCreateHistoricVariableInstanceQueryResult.getMaxResults());
+    assertSame(actualCreateHistoricVariableInstanceQueryResult,
+        actualCreateHistoricVariableInstanceQueryResult.getParameter());
   }
 }

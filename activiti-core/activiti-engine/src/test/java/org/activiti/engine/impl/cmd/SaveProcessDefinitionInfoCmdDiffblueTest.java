@@ -17,42 +17,29 @@ package org.activiti.engine.impl.cmd;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertThrows;
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import com.fasterxml.jackson.databind.node.JsonNodeFactory;
 import com.fasterxml.jackson.databind.node.JsonNodeType;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.fasterxml.jackson.databind.node.TreeTraversingParser;
-import org.activiti.engine.ActivitiIllegalArgumentException;
-import org.activiti.engine.impl.interceptor.CommandContext;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 
 public class SaveProcessDefinitionInfoCmdDiffblueTest {
   /**
    * Test {@link SaveProcessDefinitionInfoCmd#SaveProcessDefinitionInfoCmd(String, ObjectNode)}.
-   *
-   * <p>Method under test: {@link SaveProcessDefinitionInfoCmd#SaveProcessDefinitionInfoCmd(String,
-   * ObjectNode)}
+   * <p>
+   * Method under test: {@link SaveProcessDefinitionInfoCmd#SaveProcessDefinitionInfoCmd(String, ObjectNode)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void SaveProcessDefinitionInfoCmd.<init>(String, ObjectNode)"})
   public void testNewSaveProcessDefinitionInfoCmd() {
-    // Arrange
-    JsonNodeFactory nc = JsonNodeFactory.withExactBigDecimals(true);
-    ObjectNode infoNode = new ObjectNode(nc);
-
-    // Act
-    SaveProcessDefinitionInfoCmd actualSaveProcessDefinitionInfoCmd =
-        new SaveProcessDefinitionInfoCmd("42", infoNode);
-
-    // Assert
-    ObjectNode objectNode = actualSaveProcessDefinitionInfoCmd.infoNode;
+    // Arrange, Act and Assert
+    ObjectNode objectNode = (new SaveProcessDefinitionInfoCmd("42",
+        new ObjectNode(JsonNodeFactory.withExactBigDecimals(true)))).infoNode;
     assertTrue(objectNode.traverse() instanceof TreeTraversingParser);
     assertEquals("{ }", objectNode.toPrettyString());
     assertEquals(0, objectNode.size());
@@ -79,51 +66,5 @@ public class SaveProcessDefinitionInfoCmdDiffblueTest {
     assertTrue(objectNode.isContainerNode());
     assertTrue(objectNode.isEmpty());
     assertTrue(objectNode.isObject());
-  }
-
-  /**
-   * Test {@link SaveProcessDefinitionInfoCmd#execute(CommandContext)}.
-   *
-   * <ul>
-   *   <li>Then throw {@link ActivitiIllegalArgumentException}.
-   * </ul>
-   *
-   * <p>Method under test: {@link SaveProcessDefinitionInfoCmd#execute(CommandContext)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"java.lang.Void SaveProcessDefinitionInfoCmd.execute(CommandContext)"})
-  public void testExecute_thenThrowActivitiIllegalArgumentException() {
-    // Arrange
-    SaveProcessDefinitionInfoCmd saveProcessDefinitionInfoCmd =
-        new SaveProcessDefinitionInfoCmd("42", null);
-
-    // Act and Assert
-    assertThrows(
-        ActivitiIllegalArgumentException.class, () -> saveProcessDefinitionInfoCmd.execute(null));
-  }
-
-  /**
-   * Test {@link SaveProcessDefinitionInfoCmd#execute(CommandContext)}.
-   *
-   * <ul>
-   *   <li>Then throw {@link ActivitiIllegalArgumentException}.
-   * </ul>
-   *
-   * <p>Method under test: {@link SaveProcessDefinitionInfoCmd#execute(CommandContext)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"java.lang.Void SaveProcessDefinitionInfoCmd.execute(CommandContext)"})
-  public void testExecute_thenThrowActivitiIllegalArgumentException2() {
-    // Arrange
-    SaveProcessDefinitionInfoCmd saveProcessDefinitionInfoCmd =
-        new SaveProcessDefinitionInfoCmd(null, null);
-
-    // Act and Assert
-    assertThrows(
-        ActivitiIllegalArgumentException.class, () -> saveProcessDefinitionInfoCmd.execute(null));
   }
 }

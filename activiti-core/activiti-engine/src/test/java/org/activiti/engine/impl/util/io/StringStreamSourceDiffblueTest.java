@@ -18,8 +18,7 @@ package org.activiti.engine.impl.util.io;
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThrows;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.io.IOException;
 import org.activiti.engine.ActivitiException;
@@ -29,97 +28,79 @@ import org.junit.experimental.categories.Category;
 public class StringStreamSourceDiffblueTest {
   /**
    * Test getters and setters.
-   *
    * <ul>
-   *   <li>When {@code String}.
+   *   <li>When {@code String}.</li>
    * </ul>
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>{@link StringStreamSource#StringStreamSource(String)}
    *   <li>{@link StringStreamSource#toString()}
    * </ul>
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void StringStreamSource.<init>(String)",
-    "void StringStreamSource.<init>(String, String)",
-    "String StringStreamSource.toString()"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void StringStreamSource.<init>(String)", "void StringStreamSource.<init>(String, String)",
+      "String StringStreamSource.toString()"})
   public void testGettersAndSetters_whenString() {
     // Arrange, Act and Assert
-    assertEquals("String", new StringStreamSource("String").toString());
+    assertEquals("String", (new StringStreamSource("String")).toString());
   }
 
   /**
    * Test getters and setters.
-   *
    * <ul>
-   *   <li>When {@code UTF-8}.
+   *   <li>When {@code UTF-8}.</li>
    * </ul>
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>{@link StringStreamSource#StringStreamSource(String, String)}
    *   <li>{@link StringStreamSource#toString()}
    * </ul>
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void StringStreamSource.<init>(String)",
-    "void StringStreamSource.<init>(String, String)",
-    "String StringStreamSource.toString()"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void StringStreamSource.<init>(String)", "void StringStreamSource.<init>(String, String)",
+      "String StringStreamSource.toString()"})
   public void testGettersAndSetters_whenUtf8() {
     // Arrange, Act and Assert
-    assertEquals("String", new StringStreamSource("String", "UTF-8").toString());
+    assertEquals("String", (new StringStreamSource("String", "UTF-8")).toString());
   }
 
   /**
    * Test {@link StringStreamSource#getInputStream()}.
-   *
    * <ul>
-   *   <li>Given {@link StringStreamSource#StringStreamSource(String)} with {@code String}.
-   *   <li>Then return read is six.
+   *   <li>Given {@link StringStreamSource#StringStreamSource(String)} with {@code String}.</li>
+   *   <li>Then return read is six.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link StringStreamSource#getInputStream()}
+   * <p>
+   * Method under test: {@link StringStreamSource#getInputStream()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"java.io.InputStream StringStreamSource.getInputStream()"})
-  public void testGetInputStream_givenStringStreamSourceWithString_thenReturnReadIsSix()
-      throws IOException {
+  public void testGetInputStream_givenStringStreamSourceWithString_thenReturnReadIsSix() throws IOException {
     // Arrange, Act and Assert
     byte[] byteArray = new byte[6];
-    assertEquals(6, new StringStreamSource("String").getInputStream().read(byteArray));
+    assertEquals(6, (new StringStreamSource("String")).getInputStream().read(byteArray));
     assertArrayEquals("String".getBytes("UTF-8"), byteArray);
   }
 
   /**
    * Test {@link StringStreamSource#getInputStream()}.
-   *
    * <ul>
-   *   <li>Then throw {@link ActivitiException}.
+   *   <li>Then throw {@link ActivitiException}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link StringStreamSource#getInputStream()}
+   * <p>
+   * Method under test: {@link StringStreamSource#getInputStream()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"java.io.InputStream StringStreamSource.getInputStream()"})
   public void testGetInputStream_thenThrowActivitiException() {
     // Arrange, Act and Assert
-    assertThrows(
-        ActivitiException.class,
-        () -> new StringStreamSource("String", "Byte Array Encoding").getInputStream());
+    assertThrows(ActivitiException.class,
+        () -> (new StringStreamSource("String", "Byte Array Encoding")).getInputStream());
   }
 }

@@ -21,7 +21,6 @@ import static org.mockito.ArgumentMatchers.isA;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
 import java.util.List;
@@ -43,29 +42,29 @@ import org.springframework.test.context.aot.DisabledInAotMode;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 @ContextConfiguration(classes = {LocalTaskSource.class})
-@DisabledInAotMode
 @ExtendWith(SpringExtension.class)
+@DisabledInAotMode
 class LocalTaskSourceDiffblueTest {
-  @Autowired private LocalTaskSource localTaskSource;
+  @Autowired
+  private LocalTaskSource localTaskSource;
 
-  @MockBean private TaskRuntime taskRuntime;
+  @MockBean
+  private TaskRuntime taskRuntime;
 
   /**
    * Test {@link LocalTaskSource#getTasks(String)}.
-   *
-   * <p>Method under test: {@link LocalTaskSource#getTasks(String)}
+   * <p>
+   * Method under test: {@link LocalTaskSource#getTasks(String)}
    */
   @Test
   @DisplayName("Test getTasks(String)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"List LocalTaskSource.getTasks(String)"})
   void testGetTasks() {
     // Arrange
     Page<Task> page = mock(Page.class);
     when(page.getContent()).thenReturn(new ArrayList<>());
-    when(taskRuntime.tasks(Mockito.<Pageable>any(), Mockito.<GetTasksPayload>any()))
-        .thenReturn(page);
+    when(taskRuntime.tasks(Mockito.<Pageable>any(), Mockito.<GetTasksPayload>any())).thenReturn(page);
 
     // Act
     List<Task> actualTasks = localTaskSource.getTasks("42");
@@ -78,18 +77,16 @@ class LocalTaskSourceDiffblueTest {
 
   /**
    * Test {@link LocalTaskSource#canHandle(TaskStatus)}.
-   *
    * <ul>
-   *   <li>When {@code COMPLETED}.
-   *   <li>Then return {@code false}.
+   *   <li>When {@code COMPLETED}.</li>
+   *   <li>Then return {@code false}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link LocalTaskSource#canHandle(Task.TaskStatus)}
+   * <p>
+   * Method under test: {@link LocalTaskSource#canHandle(Task.TaskStatus)}
    */
   @Test
   @DisplayName("Test canHandle(TaskStatus); when 'COMPLETED'; then return 'false'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"boolean LocalTaskSource.canHandle(Task.TaskStatus)"})
   void testCanHandle_whenCompleted_thenReturnFalse() {
     // Arrange, Act and Assert
@@ -98,18 +95,16 @@ class LocalTaskSourceDiffblueTest {
 
   /**
    * Test {@link LocalTaskSource#canHandle(TaskStatus)}.
-   *
    * <ul>
-   *   <li>When {@code CREATED}.
-   *   <li>Then return {@code true}.
+   *   <li>When {@code CREATED}.</li>
+   *   <li>Then return {@code true}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link LocalTaskSource#canHandle(Task.TaskStatus)}
+   * <p>
+   * Method under test: {@link LocalTaskSource#canHandle(Task.TaskStatus)}
    */
   @Test
   @DisplayName("Test canHandle(TaskStatus); when 'CREATED'; then return 'true'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"boolean LocalTaskSource.canHandle(Task.TaskStatus)"})
   void testCanHandle_whenCreated_thenReturnTrue() {
     // Arrange, Act and Assert

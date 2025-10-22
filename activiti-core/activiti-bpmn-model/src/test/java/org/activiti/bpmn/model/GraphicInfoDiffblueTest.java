@@ -18,20 +18,16 @@ package org.activiti.bpmn.model;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
-import java.util.HashMap;
-import org.activiti.bpmn.model.Message.Builder;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 
 public class GraphicInfoDiffblueTest {
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>default or parameterless constructor of {@link GraphicInfo}
    *   <li>{@link GraphicInfo#setElement(BaseElement)}
@@ -53,41 +49,18 @@ public class GraphicInfoDiffblueTest {
    * </ul>
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void GraphicInfo.<init>()",
-    "BaseElement GraphicInfo.getElement()",
-    "Boolean GraphicInfo.getExpanded()",
-    "double GraphicInfo.getHeight()",
-    "double GraphicInfo.getWidth()",
-    "double GraphicInfo.getX()",
-    "int GraphicInfo.getXmlColumnNumber()",
-    "int GraphicInfo.getXmlRowNumber()",
-    "double GraphicInfo.getY()",
-    "void GraphicInfo.setElement(BaseElement)",
-    "void GraphicInfo.setExpanded(Boolean)",
-    "void GraphicInfo.setHeight(double)",
-    "void GraphicInfo.setWidth(double)",
-    "void GraphicInfo.setX(double)",
-    "void GraphicInfo.setXmlColumnNumber(int)",
-    "void GraphicInfo.setXmlRowNumber(int)",
-    "void GraphicInfo.setY(double)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void GraphicInfo.<init>()", "BaseElement GraphicInfo.getElement()",
+      "Boolean GraphicInfo.getExpanded()", "double GraphicInfo.getHeight()", "double GraphicInfo.getWidth()",
+      "double GraphicInfo.getX()", "int GraphicInfo.getXmlColumnNumber()", "int GraphicInfo.getXmlRowNumber()",
+      "double GraphicInfo.getY()", "void GraphicInfo.setElement(BaseElement)", "void GraphicInfo.setExpanded(Boolean)",
+      "void GraphicInfo.setHeight(double)", "void GraphicInfo.setWidth(double)", "void GraphicInfo.setX(double)",
+      "void GraphicInfo.setXmlColumnNumber(int)", "void GraphicInfo.setXmlRowNumber(int)",
+      "void GraphicInfo.setY(double)"})
   public void testGettersAndSetters() {
     // Arrange and Act
     GraphicInfo actualGraphicInfo = new GraphicInfo();
-    Builder builderResult = Message.builder();
-    Builder attributesResult = builderResult.attributes(new HashMap<>());
-    Message element =
-        attributesResult
-            .extensionElements(new HashMap<>())
-            .id("42")
-            .itemRef("Item Ref")
-            .name("Name")
-            .xmlColumnNumber(10)
-            .xmlRowNumber(10)
-            .build();
+    ActivitiListener element = new ActivitiListener();
     actualGraphicInfo.setElement(element);
     actualGraphicInfo.setExpanded(true);
     actualGraphicInfo.setHeight(10.0d);

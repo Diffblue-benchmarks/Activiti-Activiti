@@ -17,21 +17,21 @@ package org.activiti.engine.impl.scripting;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertThrows;
+import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.ArgumentMatchers.isA;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
-import org.activiti.engine.ActivitiIllegalArgumentException;
 import org.activiti.engine.impl.RuntimeServiceImpl;
 import org.activiti.engine.impl.TaskServiceImpl;
 import org.activiti.engine.impl.cfg.JtaProcessEngineConfiguration;
-import org.activiti.engine.impl.persistence.entity.ExecutionEntity;
+import org.activiti.engine.impl.db.DbSqlSessionFactory;
+import org.activiti.engine.impl.interceptor.SessionFactory;
 import org.activiti.engine.impl.persistence.entity.ExecutionEntityImpl;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
@@ -40,237 +40,226 @@ import org.mockito.Mockito;
 public class VariableScopeResolverDiffblueTest {
   /**
    * Test {@link VariableScopeResolver#containsKey(Object)}.
-   *
    * <ul>
-   *   <li>Given {@link ExecutionEntityImpl} {@link ExecutionEntityImpl#hasVariable(String)} return
-   *       {@code false}.
-   *   <li>Then return {@code false}.
+   *   <li>When {@code execution}.</li>
+   *   <li>Then return {@code true}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link VariableScopeResolver#containsKey(Object)}
+   * <p>
+   * Method under test: {@link VariableScopeResolver#containsKey(Object)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"boolean VariableScopeResolver.containsKey(Object)"})
-  public void testContainsKey_givenExecutionEntityImplHasVariableReturnFalse_thenReturnFalse() {
+  public void testContainsKey_whenExecution_thenReturnTrue() {
     // Arrange
-    ExecutionEntityImpl variableScope = mock(ExecutionEntityImpl.class);
-    when(variableScope.hasVariable(Mockito.<String>any())).thenReturn(false);
-    doNothing().when(variableScope).addChildExecution(Mockito.<ExecutionEntity>any());
-    variableScope.addChildExecution(ExecutionEntityImpl.createWithEmptyRelationshipCollections());
-    VariableScopeResolver variableScopeResolver =
-        new VariableScopeResolver(new JtaProcessEngineConfiguration(), variableScope);
+    JtaProcessEngineConfiguration processEngineConfiguration = mock(JtaProcessEngineConfiguration.class);
+    doNothing().when(processEngineConfiguration).addSessionFactory(Mockito.<SessionFactory>any());
+    processEngineConfiguration.addSessionFactory(new DbSqlSessionFactory());
 
     // Act
-    boolean actualContainsKeyResult = variableScopeResolver.containsKey("Key");
+    boolean actualContainsKeyResult = (new VariableScopeResolver(processEngineConfiguration,
+        ExecutionEntityImpl.createWithEmptyRelationshipCollections())).containsKey("execution");
 
     // Assert
-    verify(variableScope).addChildExecution(isA(ExecutionEntity.class));
-    verify(variableScope).hasVariable("Key");
+    verify(processEngineConfiguration).addSessionFactory(isA(SessionFactory.class));
+    assertTrue(actualContainsKeyResult);
+  }
+
+  /**
+   * Test {@link VariableScopeResolver#containsKey(Object)}.
+   * <ul>
+   *   <li>When {@code formService}.</li>
+   *   <li>Then return {@code true}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link VariableScopeResolver#containsKey(Object)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean VariableScopeResolver.containsKey(Object)"})
+  public void testContainsKey_whenFormService_thenReturnTrue() {
+    // Arrange
+    JtaProcessEngineConfiguration processEngineConfiguration = mock(JtaProcessEngineConfiguration.class);
+    doNothing().when(processEngineConfiguration).addSessionFactory(Mockito.<SessionFactory>any());
+    processEngineConfiguration.addSessionFactory(new DbSqlSessionFactory());
+
+    // Act
+    boolean actualContainsKeyResult = (new VariableScopeResolver(processEngineConfiguration,
+        ExecutionEntityImpl.createWithEmptyRelationshipCollections())).containsKey("formService");
+
+    // Assert
+    verify(processEngineConfiguration).addSessionFactory(isA(SessionFactory.class));
+    assertTrue(actualContainsKeyResult);
+  }
+
+  /**
+   * Test {@link VariableScopeResolver#containsKey(Object)}.
+   * <ul>
+   *   <li>When {@code Key}.</li>
+   *   <li>Then return {@code false}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link VariableScopeResolver#containsKey(Object)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean VariableScopeResolver.containsKey(Object)"})
+  public void testContainsKey_whenKey_thenReturnFalse() {
+    // Arrange
+    JtaProcessEngineConfiguration processEngineConfiguration = mock(JtaProcessEngineConfiguration.class);
+    doNothing().when(processEngineConfiguration).addSessionFactory(Mockito.<SessionFactory>any());
+    processEngineConfiguration.addSessionFactory(new DbSqlSessionFactory());
+
+    // Act
+    boolean actualContainsKeyResult = (new VariableScopeResolver(processEngineConfiguration,
+        ExecutionEntityImpl.createWithEmptyRelationshipCollections())).containsKey("Key");
+
+    // Assert
+    verify(processEngineConfiguration).addSessionFactory(isA(SessionFactory.class));
     assertFalse(actualContainsKeyResult);
   }
 
   /**
-   * Test {@link VariableScopeResolver#containsKey(Object)}.
-   *
-   * <ul>
-   *   <li>Given {@link ExecutionEntityImpl} {@link ExecutionEntityImpl#hasVariable(String)} return
-   *       {@code true}.
-   *   <li>Then return {@code true}.
-   * </ul>
-   *
-   * <p>Method under test: {@link VariableScopeResolver#containsKey(Object)}
+   * Test {@link VariableScopeResolver#get(Object)}.
+   * <p>
+   * Method under test: {@link VariableScopeResolver#get(Object)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"boolean VariableScopeResolver.containsKey(Object)"})
-  public void testContainsKey_givenExecutionEntityImplHasVariableReturnTrue_thenReturnTrue() {
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Object VariableScopeResolver.get(Object)"})
+  public void testGet() {
     // Arrange
-    ExecutionEntityImpl variableScope = mock(ExecutionEntityImpl.class);
-    when(variableScope.hasVariable(Mockito.<String>any())).thenReturn(true);
-    doNothing().when(variableScope).addChildExecution(Mockito.<ExecutionEntity>any());
-    variableScope.addChildExecution(ExecutionEntityImpl.createWithEmptyRelationshipCollections());
-    VariableScopeResolver variableScopeResolver =
-        new VariableScopeResolver(new JtaProcessEngineConfiguration(), variableScope);
+    JtaProcessEngineConfiguration processEngineConfiguration = mock(JtaProcessEngineConfiguration.class);
+    doNothing().when(processEngineConfiguration).addSessionFactory(Mockito.<SessionFactory>any());
+    processEngineConfiguration.addSessionFactory(new DbSqlSessionFactory());
+    VariableScopeResolver variableScopeResolver = new VariableScopeResolver(processEngineConfiguration,
+        ExecutionEntityImpl.createWithEmptyRelationshipCollections());
 
     // Act
-    boolean actualContainsKeyResult = variableScopeResolver.containsKey("Key");
+    Object actualGetResult = variableScopeResolver.get("processEngineConfiguration");
 
     // Assert
-    verify(variableScope).addChildExecution(isA(ExecutionEntity.class));
-    verify(variableScope).hasVariable("Key");
-    assertTrue(actualContainsKeyResult);
-  }
-
-  /**
-   * Test {@link VariableScopeResolver#containsKey(Object)}.
-   *
-   * <ul>
-   *   <li>Then throw {@link ActivitiIllegalArgumentException}.
-   * </ul>
-   *
-   * <p>Method under test: {@link VariableScopeResolver#containsKey(Object)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"boolean VariableScopeResolver.containsKey(Object)"})
-  public void testContainsKey_thenThrowActivitiIllegalArgumentException() {
-    // Arrange
-    ExecutionEntityImpl variableScope = mock(ExecutionEntityImpl.class);
-    when(variableScope.hasVariable(Mockito.<String>any()))
-        .thenThrow(new ActivitiIllegalArgumentException("An error occurred"));
-    doNothing().when(variableScope).addChildExecution(Mockito.<ExecutionEntity>any());
-    variableScope.addChildExecution(ExecutionEntityImpl.createWithEmptyRelationshipCollections());
-    VariableScopeResolver variableScopeResolver =
-        new VariableScopeResolver(new JtaProcessEngineConfiguration(), variableScope);
-
-    // Act and Assert
-    assertThrows(
-        ActivitiIllegalArgumentException.class, () -> variableScopeResolver.containsKey("Key"));
-    verify(variableScope).addChildExecution(isA(ExecutionEntity.class));
-    verify(variableScope).hasVariable("Key");
-  }
-
-  /**
-   * Test {@link VariableScopeResolver#containsKey(Object)}.
-   *
-   * <ul>
-   *   <li>When {@code execution}.
-   *   <li>Then return {@code true}.
-   * </ul>
-   *
-   * <p>Method under test: {@link VariableScopeResolver#containsKey(Object)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"boolean VariableScopeResolver.containsKey(Object)"})
-  public void testContainsKey_whenExecution_thenReturnTrue() {
-    // Arrange
-    ExecutionEntityImpl variableScope = mock(ExecutionEntityImpl.class);
-    doNothing().when(variableScope).addChildExecution(Mockito.<ExecutionEntity>any());
-    variableScope.addChildExecution(ExecutionEntityImpl.createWithEmptyRelationshipCollections());
-    VariableScopeResolver variableScopeResolver =
-        new VariableScopeResolver(new JtaProcessEngineConfiguration(), variableScope);
-
-    // Act
-    boolean actualContainsKeyResult = variableScopeResolver.containsKey("execution");
-
-    // Assert
-    verify(variableScope).addChildExecution(isA(ExecutionEntity.class));
-    assertTrue(actualContainsKeyResult);
-  }
-
-  /**
-   * Test {@link VariableScopeResolver#containsKey(Object)}.
-   *
-   * <ul>
-   *   <li>When {@code formService}.
-   *   <li>Then return {@code true}.
-   * </ul>
-   *
-   * <p>Method under test: {@link VariableScopeResolver#containsKey(Object)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"boolean VariableScopeResolver.containsKey(Object)"})
-  public void testContainsKey_whenFormService_thenReturnTrue() {
-    // Arrange
-    ExecutionEntityImpl variableScope = mock(ExecutionEntityImpl.class);
-    doNothing().when(variableScope).addChildExecution(Mockito.<ExecutionEntity>any());
-    variableScope.addChildExecution(ExecutionEntityImpl.createWithEmptyRelationshipCollections());
-    VariableScopeResolver variableScopeResolver =
-        new VariableScopeResolver(new JtaProcessEngineConfiguration(), variableScope);
-
-    // Act
-    boolean actualContainsKeyResult = variableScopeResolver.containsKey("formService");
-
-    // Assert
-    verify(variableScope).addChildExecution(isA(ExecutionEntity.class));
-    assertTrue(actualContainsKeyResult);
+    verify(processEngineConfiguration).addSessionFactory(isA(SessionFactory.class));
+    assertSame(variableScopeResolver.processEngineConfiguration, actualGetResult);
   }
 
   /**
    * Test {@link VariableScopeResolver#get(Object)}.
-   *
-   * <ul>
-   *   <li>Then return {@link RuntimeServiceImpl}.
-   * </ul>
-   *
-   * <p>Method under test: {@link VariableScopeResolver#get(Object)}
+   * <p>
+   * Method under test: {@link VariableScopeResolver#get(Object)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Object VariableScopeResolver.get(Object)"})
+  public void testGet2() {
+    // Arrange
+    JtaProcessEngineConfiguration processEngineConfiguration = mock(JtaProcessEngineConfiguration.class);
+    doNothing().when(processEngineConfiguration).addSessionFactory(Mockito.<SessionFactory>any());
+    processEngineConfiguration.addSessionFactory(new DbSqlSessionFactory());
+    VariableScopeResolver variableScopeResolver = new VariableScopeResolver(processEngineConfiguration,
+        ExecutionEntityImpl.createWithEmptyRelationshipCollections());
+
+    // Act
+    Object actualGetResult = variableScopeResolver.get("execution");
+
+    // Assert
+    verify(processEngineConfiguration).addSessionFactory(isA(SessionFactory.class));
+    assertSame(variableScopeResolver.variableScope, actualGetResult);
+  }
+
+  /**
+   * Test {@link VariableScopeResolver#get(Object)}.
+   * <ul>
+   *   <li>Then return {@link RuntimeServiceImpl}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link VariableScopeResolver#get(Object)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"Object VariableScopeResolver.get(Object)"})
   public void testGet_thenReturnRuntimeServiceImpl() {
     // Arrange
-    JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();
+    JtaProcessEngineConfiguration processEngineConfiguration = mock(JtaProcessEngineConfiguration.class);
+    RuntimeServiceImpl runtimeServiceImpl = new RuntimeServiceImpl();
+    when(processEngineConfiguration.getRuntimeService()).thenReturn(runtimeServiceImpl);
+    doNothing().when(processEngineConfiguration).addSessionFactory(Mockito.<SessionFactory>any());
+    processEngineConfiguration.addSessionFactory(new DbSqlSessionFactory());
 
     // Act
-    Object actualGetResult =
-        new VariableScopeResolver(
-                processEngineConfiguration,
-                ExecutionEntityImpl.createWithEmptyRelationshipCollections())
-            .get("runtimeService");
+    Object actualGetResult = (new VariableScopeResolver(processEngineConfiguration,
+        ExecutionEntityImpl.createWithEmptyRelationshipCollections())).get("runtimeService");
 
     // Assert
+    verify(processEngineConfiguration).addSessionFactory(isA(SessionFactory.class));
+    verify(processEngineConfiguration).getRuntimeService();
     assertTrue(actualGetResult instanceof RuntimeServiceImpl);
     assertNull(((RuntimeServiceImpl) actualGetResult).getCommandExecutor());
+    assertSame(runtimeServiceImpl, actualGetResult);
   }
 
   /**
    * Test {@link VariableScopeResolver#get(Object)}.
-   *
    * <ul>
-   *   <li>Then return {@link TaskServiceImpl}.
+   *   <li>Then return {@link TaskServiceImpl}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link VariableScopeResolver#get(Object)}
+   * <p>
+   * Method under test: {@link VariableScopeResolver#get(Object)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"Object VariableScopeResolver.get(Object)"})
   public void testGet_thenReturnTaskServiceImpl() {
     // Arrange
-    JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();
+    RuntimeServiceImpl runtimeServiceImpl = mock(RuntimeServiceImpl.class);
+    doNothing().when(runtimeServiceImpl)
+        .addUserIdentityLink(Mockito.<String>any(), Mockito.<String>any(), Mockito.<String>any());
+    runtimeServiceImpl.addUserIdentityLink("processEngineConfiguration", "processEngineConfiguration",
+        "runtimeService");
+    JtaProcessEngineConfiguration processEngineConfiguration = mock(JtaProcessEngineConfiguration.class);
+    TaskServiceImpl taskServiceImpl = new TaskServiceImpl(new JtaProcessEngineConfiguration());
+    when(processEngineConfiguration.getTaskService()).thenReturn(taskServiceImpl);
+    doNothing().when(processEngineConfiguration).addSessionFactory(Mockito.<SessionFactory>any());
+    processEngineConfiguration.addSessionFactory(new DbSqlSessionFactory());
 
     // Act
-    Object actualGetResult =
-        new VariableScopeResolver(
-                processEngineConfiguration,
-                ExecutionEntityImpl.createWithEmptyRelationshipCollections())
-            .get("taskService");
+    Object actualGetResult = (new VariableScopeResolver(processEngineConfiguration,
+        ExecutionEntityImpl.createWithEmptyRelationshipCollections())).get("taskService");
 
     // Assert
+    verify(runtimeServiceImpl).addUserIdentityLink(eq("processEngineConfiguration"), eq("processEngineConfiguration"),
+        eq("runtimeService"));
+    verify(processEngineConfiguration).addSessionFactory(isA(SessionFactory.class));
+    verify(processEngineConfiguration).getTaskService();
     assertTrue(actualGetResult instanceof TaskServiceImpl);
     assertNull(((TaskServiceImpl) actualGetResult).getCommandExecutor());
+    assertSame(taskServiceImpl, actualGetResult);
   }
 
   /**
    * Test {@link VariableScopeResolver#get(Object)}.
-   *
    * <ul>
-   *   <li>When {@code processEngineConfiguration}.
-   *   <li>Then return {@code null}.
+   *   <li>When {@code Key}.</li>
+   *   <li>Then return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link VariableScopeResolver#get(Object)}
+   * <p>
+   * Method under test: {@link VariableScopeResolver#get(Object)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"Object VariableScopeResolver.get(Object)"})
-  public void testGet_whenProcessEngineConfiguration_thenReturnNull() {
-    // Arrange, Act and Assert
-    assertNull(
-        new VariableScopeResolver(
-                null, ExecutionEntityImpl.createWithEmptyRelationshipCollections())
-            .get("processEngineConfiguration"));
+  public void testGet_whenKey_thenReturnNull() {
+    // Arrange
+    JtaProcessEngineConfiguration processEngineConfiguration = mock(JtaProcessEngineConfiguration.class);
+    doNothing().when(processEngineConfiguration).addSessionFactory(Mockito.<SessionFactory>any());
+    processEngineConfiguration.addSessionFactory(new DbSqlSessionFactory());
+
+    // Act
+    Object actualGetResult = (new VariableScopeResolver(processEngineConfiguration,
+        ExecutionEntityImpl.createWithEmptyRelationshipCollections())).get("Key");
+
+    // Assert
+    verify(processEngineConfiguration).addSessionFactory(isA(SessionFactory.class));
+    assertNull(actualGetResult);
   }
 }

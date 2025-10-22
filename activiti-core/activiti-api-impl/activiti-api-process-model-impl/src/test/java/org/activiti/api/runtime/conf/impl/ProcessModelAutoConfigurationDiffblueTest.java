@@ -16,45 +16,31 @@
 package org.activiti.api.runtime.conf.impl;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.mockito.ArgumentMatchers.isA;
-import static org.mockito.Mockito.atLeast;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.BeanProperty;
-import com.fasterxml.jackson.databind.BeanProperty.Bogus;
-import com.fasterxml.jackson.databind.DeserializationConfig;
-import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectMapper.DefaultTypeResolverBuilder;
 import com.fasterxml.jackson.databind.ObjectMapper.DefaultTyping;
 import com.fasterxml.jackson.databind.json.JsonMapper;
 import com.fasterxml.jackson.databind.json.JsonMapper.Builder;
-import com.fasterxml.jackson.databind.jsontype.BasicPolymorphicTypeValidator;
-import com.fasterxml.jackson.databind.jsontype.NamedType;
-import com.fasterxml.jackson.databind.jsontype.impl.AsArrayTypeDeserializer;
-import com.fasterxml.jackson.databind.jsontype.impl.ClassNameIdResolver;
-import com.fasterxml.jackson.databind.jsontype.impl.StdTypeResolverBuilder;
-import com.fasterxml.jackson.databind.node.DoubleNode;
+import com.fasterxml.jackson.databind.node.MissingNode;
+import com.fasterxml.jackson.databind.node.NullNode;
 import com.fasterxml.jackson.databind.node.TreeTraversingParser;
-import com.fasterxml.jackson.databind.type.PlaceholderForType;
-import com.fasterxml.jackson.databind.type.TypeFactory;
 import java.time.LocalDate;
 import java.time.ZoneOffset;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
 import org.activiti.api.runtime.model.impl.DateToStringConverter;
+import org.activiti.api.runtime.model.impl.JsonNodeToStringConverter;
 import org.activiti.api.runtime.model.impl.ListToStringConverter;
+import org.activiti.api.runtime.model.impl.LocalDateTimeToStringConverter;
+import org.activiti.api.runtime.model.impl.LocalDateToStringConverter;
 import org.activiti.api.runtime.model.impl.MapToStringConverter;
 import org.activiti.api.runtime.model.impl.ObjectValue;
 import org.activiti.api.runtime.model.impl.ObjectValueToStringConverter;
@@ -65,7 +51,6 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.convert.ApplicationConversionService;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -75,72 +60,53 @@ import org.springframework.test.context.aot.DisabledInAotMode;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 @ContextConfiguration(classes = {ProcessModelAutoConfiguration.class})
-@DisabledInAotMode
 @ExtendWith(SpringExtension.class)
+@DisabledInAotMode
 class ProcessModelAutoConfigurationDiffblueTest {
-  @MockBean private Converter<Object, Object> converter;
+  @MockBean
+  private Converter<Object, Object> converter;
 
-  @Autowired private ProcessModelAutoConfiguration processModelAutoConfiguration;
+  @Autowired
+  private ProcessModelAutoConfiguration processModelAutoConfiguration;
 
-  @Autowired private Set<Converter<Object, Object>> set;
+  @Autowired
+  private Set<Converter<Object, Object>> set;
 
   /**
    * Test {@link ProcessModelAutoConfiguration#conversionService()}.
-   *
-   * <p>Method under test: {@link ProcessModelAutoConfiguration#conversionService()}
+   * <p>
+   * Method under test: {@link ProcessModelAutoConfiguration#conversionService()}
    */
   @Test
   @DisplayName("Test conversionService()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({
-    "org.springframework.format.support.FormattingConversionService ProcessModelAutoConfiguration.conversionService()"
-  })
+      "org.springframework.format.support.FormattingConversionService ProcessModelAutoConfiguration.conversionService()"})
   void testConversionService() {
     // Arrange, Act and Assert
-    assertTrue(
-        processModelAutoConfiguration.conversionService() instanceof ApplicationConversionService);
-  }
-
-  /**
-   * Test {@link ProcessModelAutoConfiguration#stringToMapConverter(ObjectMapper)}.
-   *
-   * <p>Method under test: {@link ProcessModelAutoConfiguration#stringToMapConverter(ObjectMapper)}
-   */
-  @Test
-  @DisplayName("Test stringToMapConverter(ObjectMapper)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "org.activiti.api.runtime.model.impl.StringToMapConverter ProcessModelAutoConfiguration.stringToMapConverter(ObjectMapper)"
-  })
-  void testStringToMapConverter() {
-    // Arrange, Act and Assert
-    assertThrows(
-        RuntimeException.class,
-        () ->
-            processModelAutoConfiguration
-                .stringToMapConverter(JsonMapper.builder().findAndAddModules().build())
-                .convert("Source"));
+    assertTrue(processModelAutoConfiguration.conversionService() instanceof ApplicationConversionService);
   }
 
   /**
    * Test {@link ProcessModelAutoConfiguration#mapToStringConverter(ObjectMapper)}.
-   *
-   * <p>Method under test: {@link ProcessModelAutoConfiguration#mapToStringConverter(ObjectMapper)}
+   * <p>
+   * Method under test: {@link ProcessModelAutoConfiguration#mapToStringConverter(ObjectMapper)}
    */
   @Test
   @DisplayName("Test mapToStringConverter(ObjectMapper)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "MapToStringConverter ProcessModelAutoConfiguration.mapToStringConverter(ObjectMapper)"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"MapToStringConverter ProcessModelAutoConfiguration.mapToStringConverter(ObjectMapper)"})
   void testMapToStringConverter() {
-    // Arrange and Act
-    MapToStringConverter actualMapToStringConverterResult =
-        processModelAutoConfiguration.mapToStringConverter(
-            JsonMapper.builder().findAndAddModules().build());
+    //   Diffblue Cover was unable to create a Spring-specific test for this Spring method.
+    //   Run dcover create --keep-partial-tests to gain insights into why
+    //   a non-Spring test was created.
+
+    // Arrange
+    ProcessModelAutoConfiguration processModelAutoConfiguration = new ProcessModelAutoConfiguration();
+
+    // Act
+    MapToStringConverter actualMapToStringConverterResult = processModelAutoConfiguration
+        .mapToStringConverter(JsonMapper.builder().findAndAddModules().build());
 
     // Assert
     assertEquals("{}", actualMapToStringConverterResult.convert(new HashMap<>()));
@@ -148,246 +114,206 @@ class ProcessModelAutoConfigurationDiffblueTest {
 
   /**
    * Test {@link ProcessModelAutoConfiguration#stringToJsonNodeConverter(ObjectMapper)}.
-   *
-   * <p>Method under test: {@link
-   * ProcessModelAutoConfiguration#stringToJsonNodeConverter(ObjectMapper)}
+   * <p>
+   * Method under test: {@link ProcessModelAutoConfiguration#stringToJsonNodeConverter(ObjectMapper)}
    */
   @Test
   @DisplayName("Test stringToJsonNodeConverter(ObjectMapper)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "StringToJsonNodeConverter ProcessModelAutoConfiguration.stringToJsonNodeConverter(ObjectMapper)"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"StringToJsonNodeConverter ProcessModelAutoConfiguration.stringToJsonNodeConverter(ObjectMapper)"})
   void testStringToJsonNodeConverter() throws JsonProcessingException {
+    //   Diffblue Cover was unable to create a Spring-specific test for this Spring method.
+    //   Run dcover create --keep-partial-tests to gain insights into why
+    //   a non-Spring test was created.
+
     // Arrange
+    ProcessModelAutoConfiguration processModelAutoConfiguration = new ProcessModelAutoConfiguration();
     Builder builderResult = JsonMapper.builder();
     builderResult.setDefaultTyping(new DefaultTypeResolverBuilder(DefaultTyping.JAVA_LANG_OBJECT));
 
     // Act
-    StringToJsonNodeConverter actualStringToJsonNodeConverterResult =
-        processModelAutoConfiguration.stringToJsonNodeConverter(
-            builderResult.findAndAddModules().build());
-    DoubleNode valueOfResult = DoubleNode.valueOf(10.0d);
-    JsonNode actualConvertResult =
-        actualStringToJsonNodeConverterResult.convert(
-            JsonMapper.builder().findAndAddModules().build().writeValueAsString(valueOfResult));
+    StringToJsonNodeConverter actualStringToJsonNodeConverterResult = processModelAutoConfiguration
+        .stringToJsonNodeConverter(builderResult.findAndAddModules().build());
+    JsonMapper buildResult = JsonMapper.builder().findAndAddModules().build();
+    JsonNode actualConvertResult = actualStringToJsonNodeConverterResult
+        .convert(buildResult.writeValueAsString(MissingNode.getInstance()));
 
     // Assert
-    assertTrue(actualConvertResult instanceof DoubleNode);
-    assertEquals(valueOfResult, actualConvertResult);
+    assertSame(((NullNode) actualConvertResult).instance, actualConvertResult);
   }
 
   /**
    * Test {@link ProcessModelAutoConfiguration#stringToJsonNodeConverter(ObjectMapper)}.
-   *
    * <ul>
-   *   <li>When builder findAndAddModules build.
+   *   <li>When builder findAndAddModules build.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link
-   * ProcessModelAutoConfiguration#stringToJsonNodeConverter(ObjectMapper)}
+   * <p>
+   * Method under test: {@link ProcessModelAutoConfiguration#stringToJsonNodeConverter(ObjectMapper)}
    */
   @Test
   @DisplayName("Test stringToJsonNodeConverter(ObjectMapper); when builder findAndAddModules build")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "StringToJsonNodeConverter ProcessModelAutoConfiguration.stringToJsonNodeConverter(ObjectMapper)"
-  })
-  void testStringToJsonNodeConverter_whenBuilderFindAndAddModulesBuild()
-      throws JsonProcessingException {
-    // Arrange and Act
-    StringToJsonNodeConverter actualStringToJsonNodeConverterResult =
-        processModelAutoConfiguration.stringToJsonNodeConverter(
-            JsonMapper.builder().findAndAddModules().build());
-    DoubleNode valueOfResult = DoubleNode.valueOf(10.0d);
-    JsonNode actualConvertResult =
-        actualStringToJsonNodeConverterResult.convert(
-            JsonMapper.builder().findAndAddModules().build().writeValueAsString(valueOfResult));
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"StringToJsonNodeConverter ProcessModelAutoConfiguration.stringToJsonNodeConverter(ObjectMapper)"})
+  void testStringToJsonNodeConverter_whenBuilderFindAndAddModulesBuild() throws JsonProcessingException {
+    //   Diffblue Cover was unable to create a Spring-specific test for this Spring method.
+    //   Run dcover create --keep-partial-tests to gain insights into why
+    //   a non-Spring test was created.
+
+    // Arrange
+    ProcessModelAutoConfiguration processModelAutoConfiguration = new ProcessModelAutoConfiguration();
+
+    // Act
+    StringToJsonNodeConverter actualStringToJsonNodeConverterResult = processModelAutoConfiguration
+        .stringToJsonNodeConverter(JsonMapper.builder().findAndAddModules().build());
+    JsonMapper buildResult = JsonMapper.builder().findAndAddModules().build();
+    JsonNode actualConvertResult = actualStringToJsonNodeConverterResult
+        .convert(buildResult.writeValueAsString(MissingNode.getInstance()));
 
     // Assert
-    assertTrue(actualConvertResult instanceof DoubleNode);
-    assertEquals(valueOfResult, actualConvertResult);
+    assertSame(((NullNode) actualConvertResult).instance, actualConvertResult);
   }
 
   /**
    * Test {@link ProcessModelAutoConfiguration#jsonNodeToStringConverter(ObjectMapper)}.
-   *
-   * <p>Method under test: {@link
-   * ProcessModelAutoConfiguration#jsonNodeToStringConverter(ObjectMapper)}
+   * <p>
+   * Method under test: {@link ProcessModelAutoConfiguration#jsonNodeToStringConverter(ObjectMapper)}
    */
   @Test
   @DisplayName("Test jsonNodeToStringConverter(ObjectMapper)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "org.activiti.api.runtime.model.impl.JsonNodeToStringConverter ProcessModelAutoConfiguration.jsonNodeToStringConverter(ObjectMapper)"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"JsonNodeToStringConverter ProcessModelAutoConfiguration.jsonNodeToStringConverter(ObjectMapper)"})
   void testJsonNodeToStringConverter() {
+    //   Diffblue Cover was unable to create a Spring-specific test for this Spring method.
+    //   Run dcover create --keep-partial-tests to gain insights into why
+    //   a non-Spring test was created.
+
     // Arrange
-    DoubleNode source = DoubleNode.valueOf(10.0d);
+    ProcessModelAutoConfiguration processModelAutoConfiguration = new ProcessModelAutoConfiguration();
 
     // Act
-    String actualConvertResult =
-        processModelAutoConfiguration
-            .jsonNodeToStringConverter(JsonMapper.builder().findAndAddModules().build())
-            .convert(source);
+    JsonNodeToStringConverter actualJsonNodeToStringConverterResult = processModelAutoConfiguration
+        .jsonNodeToStringConverter(JsonMapper.builder().findAndAddModules().build());
+    MissingNode source = MissingNode.getInstance();
+    String actualConvertResult = actualJsonNodeToStringConverterResult.convert(source);
 
     // Assert
     assertTrue(source.traverse() instanceof TreeTraversingParser);
-    assertEquals("10.0", actualConvertResult);
+    assertEquals("null", actualConvertResult);
   }
 
   /**
    * Test {@link ProcessModelAutoConfiguration#dateToStringConverter()}.
-   *
-   * <p>Method under test: {@link ProcessModelAutoConfiguration#dateToStringConverter()}
+   * <p>
+   * Method under test: {@link ProcessModelAutoConfiguration#dateToStringConverter()}
    */
   @Test
   @DisplayName("Test dateToStringConverter()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"DateToStringConverter ProcessModelAutoConfiguration.dateToStringConverter()"})
   void testDateToStringConverter() {
+    //   Diffblue Cover was unable to create a Spring-specific test for this Spring method.
+    //   Run dcover create --keep-partial-tests to gain insights into why
+    //   a non-Spring test was created.
+
     // Arrange and Act
-    DateToStringConverter actualDateToStringConverterResult =
-        processModelAutoConfiguration.dateToStringConverter();
+    DateToStringConverter actualDateToStringConverterResult = (new ProcessModelAutoConfiguration())
+        .dateToStringConverter();
 
     // Assert
-    assertEquals(
-        "1970-01-01T00:00:00Z",
-        actualDateToStringConverterResult.convert(
-            Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant())));
+    assertEquals("1970-01-01T00:00:00Z", actualDateToStringConverterResult
+        .convert(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant())));
   }
 
   /**
    * Test {@link ProcessModelAutoConfiguration#localDateTimeToStringConverter()}.
-   *
-   * <p>Method under test: {@link ProcessModelAutoConfiguration#localDateTimeToStringConverter()}
+   * <p>
+   * Method under test: {@link ProcessModelAutoConfiguration#localDateTimeToStringConverter()}
    */
   @Test
   @DisplayName("Test localDateTimeToStringConverter()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "org.activiti.api.runtime.model.impl.LocalDateTimeToStringConverter ProcessModelAutoConfiguration.localDateTimeToStringConverter()"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"LocalDateTimeToStringConverter ProcessModelAutoConfiguration.localDateTimeToStringConverter()"})
   void testLocalDateTimeToStringConverter() {
+    //   Diffblue Cover was unable to create a Spring-specific test for this Spring method.
+    //   Run dcover create --keep-partial-tests to gain insights into why
+    //   a non-Spring test was created.
+
     // Arrange and Act
-    String actualConvertResult =
-        processModelAutoConfiguration
-            .localDateTimeToStringConverter()
-            .convert(LocalDate.of(1970, 1, 1).atStartOfDay());
+    LocalDateTimeToStringConverter actualLocalDateTimeToStringConverterResult = (new ProcessModelAutoConfiguration())
+        .localDateTimeToStringConverter();
 
     // Assert
-    assertEquals("1970-01-01T00:00:00", actualConvertResult);
+    assertEquals("1970-01-01T00:00:00",
+        actualLocalDateTimeToStringConverterResult.convert(LocalDate.of(1970, 1, 1).atStartOfDay()));
   }
 
   /**
    * Test {@link ProcessModelAutoConfiguration#localDateToStringConverter()}.
-   *
-   * <p>Method under test: {@link ProcessModelAutoConfiguration#localDateToStringConverter()}
+   * <p>
+   * Method under test: {@link ProcessModelAutoConfiguration#localDateToStringConverter()}
    */
   @Test
   @DisplayName("Test localDateToStringConverter()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "org.activiti.api.runtime.model.impl.LocalDateToStringConverter ProcessModelAutoConfiguration.localDateToStringConverter()"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"LocalDateToStringConverter ProcessModelAutoConfiguration.localDateToStringConverter()"})
   void testLocalDateToStringConverter() {
-    // Arrange, Act and Assert
-    assertEquals(
-        "1970-01-01",
-        processModelAutoConfiguration
-            .localDateToStringConverter()
-            .convert(LocalDate.of(1970, 1, 1)));
-  }
+    //   Diffblue Cover was unable to create a Spring-specific test for this Spring method.
+    //   Run dcover create --keep-partial-tests to gain insights into why
+    //   a non-Spring test was created.
 
-  /**
-   * Test {@link ProcessModelAutoConfiguration#sringToListConverter(ObjectMapper)}.
-   *
-   * <p>Method under test: {@link ProcessModelAutoConfiguration#sringToListConverter(ObjectMapper)}
-   */
-  @Test
-  @DisplayName("Test sringToListConverter(ObjectMapper)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "org.activiti.api.runtime.model.impl.StringToListConverter ProcessModelAutoConfiguration.sringToListConverter(ObjectMapper)"
-  })
-  void testSringToListConverter() {
-    // Arrange, Act and Assert
-    assertThrows(
-        RuntimeException.class,
-        () ->
-            processModelAutoConfiguration
-                .sringToListConverter(JsonMapper.builder().findAndAddModules().build())
-                .convert("Source"));
+    // Arrange and Act
+    LocalDateToStringConverter actualLocalDateToStringConverterResult = (new ProcessModelAutoConfiguration())
+        .localDateToStringConverter();
+
+    // Assert
+    assertEquals("1970-01-01", actualLocalDateToStringConverterResult.convert(LocalDate.of(1970, 1, 1)));
   }
 
   /**
    * Test {@link ProcessModelAutoConfiguration#listToStringConverter(ObjectMapper)}.
-   *
-   * <p>Method under test: {@link ProcessModelAutoConfiguration#listToStringConverter(ObjectMapper)}
+   * <p>
+   * Method under test: {@link ProcessModelAutoConfiguration#listToStringConverter(ObjectMapper)}
    */
   @Test
   @DisplayName("Test listToStringConverter(ObjectMapper)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "ListToStringConverter ProcessModelAutoConfiguration.listToStringConverter(ObjectMapper)"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"ListToStringConverter ProcessModelAutoConfiguration.listToStringConverter(ObjectMapper)"})
   void testListToStringConverter() {
-    // Arrange and Act
-    ListToStringConverter actualListToStringConverterResult =
-        processModelAutoConfiguration.listToStringConverter(
-            JsonMapper.builder().findAndAddModules().build());
+    //   Diffblue Cover was unable to create a Spring-specific test for this Spring method.
+    //   Run dcover create --keep-partial-tests to gain insights into why
+    //   a non-Spring test was created.
+
+    // Arrange
+    ProcessModelAutoConfiguration processModelAutoConfiguration = new ProcessModelAutoConfiguration();
+
+    // Act
+    ListToStringConverter actualListToStringConverterResult = processModelAutoConfiguration
+        .listToStringConverter(JsonMapper.builder().findAndAddModules().build());
 
     // Assert
     assertEquals("[]", actualListToStringConverterResult.convert(new ArrayList<>()));
   }
 
   /**
-   * Test {@link ProcessModelAutoConfiguration#stringToSetConverter(ObjectMapper)}.
-   *
-   * <p>Method under test: {@link ProcessModelAutoConfiguration#stringToSetConverter(ObjectMapper)}
-   */
-  @Test
-  @DisplayName("Test stringToSetConverter(ObjectMapper)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "org.activiti.api.runtime.model.impl.StringToSetConverter ProcessModelAutoConfiguration.stringToSetConverter(ObjectMapper)"
-  })
-  void testStringToSetConverter() {
-    // Arrange, Act and Assert
-    assertThrows(
-        RuntimeException.class,
-        () ->
-            processModelAutoConfiguration
-                .stringToSetConverter(JsonMapper.builder().findAndAddModules().build())
-                .convert("Source"));
-  }
-
-  /**
    * Test {@link ProcessModelAutoConfiguration#setToStringConverter(ObjectMapper)}.
-   *
-   * <p>Method under test: {@link ProcessModelAutoConfiguration#setToStringConverter(ObjectMapper)}
+   * <p>
+   * Method under test: {@link ProcessModelAutoConfiguration#setToStringConverter(ObjectMapper)}
    */
   @Test
   @DisplayName("Test setToStringConverter(ObjectMapper)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "SetToStringConverter ProcessModelAutoConfiguration.setToStringConverter(ObjectMapper)"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"SetToStringConverter ProcessModelAutoConfiguration.setToStringConverter(ObjectMapper)"})
   void testSetToStringConverter() {
-    // Arrange and Act
-    SetToStringConverter actualSetToStringConverterResult =
-        processModelAutoConfiguration.setToStringConverter(
-            JsonMapper.builder().findAndAddModules().build());
+    //   Diffblue Cover was unable to create a Spring-specific test for this Spring method.
+    //   Run dcover create --keep-partial-tests to gain insights into why
+    //   a non-Spring test was created.
+
+    // Arrange
+    ProcessModelAutoConfiguration processModelAutoConfiguration = new ProcessModelAutoConfiguration();
+
+    // Act
+    SetToStringConverter actualSetToStringConverterResult = processModelAutoConfiguration
+        .setToStringConverter(JsonMapper.builder().findAndAddModules().build());
 
     // Assert
     assertEquals("[]", actualSetToStringConverterResult.convert(new HashSet<>()));
@@ -395,147 +321,75 @@ class ProcessModelAutoConfigurationDiffblueTest {
 
   /**
    * Test {@link ProcessModelAutoConfiguration#stringToObjectValueConverter(ObjectMapper)}.
-   *
-   * <p>Method under test: {@link
-   * ProcessModelAutoConfiguration#stringToObjectValueConverter(ObjectMapper)}
+   * <p>
+   * Method under test: {@link ProcessModelAutoConfiguration#stringToObjectValueConverter(ObjectMapper)}
    */
   @Test
   @DisplayName("Test stringToObjectValueConverter(ObjectMapper)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({
-    "StringToObjectValueConverter ProcessModelAutoConfiguration.stringToObjectValueConverter(ObjectMapper)"
-  })
+      "StringToObjectValueConverter ProcessModelAutoConfiguration.stringToObjectValueConverter(ObjectMapper)"})
   void testStringToObjectValueConverter() throws JsonProcessingException {
-    // Arrange and Act
-    StringToObjectValueConverter actualStringToObjectValueConverterResult =
-        processModelAutoConfiguration.stringToObjectValueConverter(
-            JsonMapper.builder().findAndAddModules().build());
-    JsonMapper jsonMapper = JsonMapper.builder().findAndAddModules().build();
-    String source = jsonMapper.writeValueAsString(new ObjectValue("Object"));
+    //   Diffblue Cover was unable to create a Spring-specific test for this Spring method.
+    //   Run dcover create --keep-partial-tests to gain insights into why
+    //   a non-Spring test was created.
 
-    // Assert
-    assertEquals("Object", actualStringToObjectValueConverterResult.convert(source).getObject());
-  }
-
-  /**
-   * Test {@link ProcessModelAutoConfiguration#stringToObjectValueConverter(ObjectMapper)}.
-   *
-   * <p>Method under test: {@link
-   * ProcessModelAutoConfiguration#stringToObjectValueConverter(ObjectMapper)}
-   */
-  @Test
-  @DisplayName("Test stringToObjectValueConverter(ObjectMapper)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "StringToObjectValueConverter ProcessModelAutoConfiguration.stringToObjectValueConverter(ObjectMapper)"
-  })
-  void testStringToObjectValueConverter2() throws JsonProcessingException {
     // Arrange
-    Builder builderResult = JsonMapper.builder();
-    builderResult.setDefaultTyping(new DefaultTypeResolverBuilder(DefaultTyping.JAVA_LANG_OBJECT));
+    ProcessModelAutoConfiguration processModelAutoConfiguration = new ProcessModelAutoConfiguration();
 
     // Act
-    StringToObjectValueConverter actualStringToObjectValueConverterResult =
-        processModelAutoConfiguration.stringToObjectValueConverter(
-            builderResult.findAndAddModules().build());
-    JsonMapper jsonMapper = JsonMapper.builder().findAndAddModules().build();
-    String source = jsonMapper.writeValueAsString(new ObjectValue("Object"));
+    StringToObjectValueConverter actualStringToObjectValueConverterResult = processModelAutoConfiguration
+        .stringToObjectValueConverter(JsonMapper.builder().findAndAddModules().build());
+    JsonMapper buildResult = JsonMapper.builder().findAndAddModules().build();
 
     // Assert
-    assertThrows(
-        RuntimeException.class, () -> actualStringToObjectValueConverterResult.convert(source));
-  }
-
-  /**
-   * Test {@link ProcessModelAutoConfiguration#stringToObjectValueConverter(ObjectMapper)}.
-   *
-   * <ul>
-   *   <li>Then calls {@link StdTypeResolverBuilder#buildTypeDeserializer(DeserializationConfig,
-   *       JavaType, Collection)}.
-   * </ul>
-   *
-   * <p>Method under test: {@link
-   * ProcessModelAutoConfiguration#stringToObjectValueConverter(ObjectMapper)}
-   */
-  @Test
-  @DisplayName(
-      "Test stringToObjectValueConverter(ObjectMapper); then calls buildTypeDeserializer(DeserializationConfig, JavaType, Collection)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "StringToObjectValueConverter ProcessModelAutoConfiguration.stringToObjectValueConverter(ObjectMapper)"
-  })
-  void testStringToObjectValueConverter_thenCallsBuildTypeDeserializer()
-      throws JsonProcessingException {
-    // Arrange
-    StdTypeResolverBuilder typer = mock(StdTypeResolverBuilder.class);
-    PlaceholderForType bt = new PlaceholderForType(1);
-    PlaceholderForType baseType = new PlaceholderForType(1);
-    TypeFactory typeFactory = TypeFactory.defaultInstance();
-
-    BasicPolymorphicTypeValidator.Builder builderResult = BasicPolymorphicTypeValidator.builder();
-    Class<Object> baseTypeToDeny = Object.class;
-    BasicPolymorphicTypeValidator ptv = builderResult.denyForExactBaseType(baseTypeToDeny).build();
-
-    ClassNameIdResolver idRes = new ClassNameIdResolver(baseType, typeFactory, ptv);
-
-    AsArrayTypeDeserializer src =
-        new AsArrayTypeDeserializer(
-            bt, idRes, "Type Property Name", true, new PlaceholderForType(1));
-    AsArrayTypeDeserializer asArrayTypeDeserializer = new AsArrayTypeDeserializer(src, new Bogus());
-    when(typer.buildTypeDeserializer(
-            Mockito.<DeserializationConfig>any(),
-            Mockito.<JavaType>any(),
-            Mockito.<Collection<NamedType>>any()))
-        .thenReturn(asArrayTypeDeserializer);
-    Class<Object> forNameResult = Object.class;
-    Mockito.<Class<?>>when(typer.getDefaultImpl()).thenReturn(forNameResult);
-
-    Builder builderResult2 = JsonMapper.builder();
-    builderResult2.setDefaultTyping(typer);
-
-    // Act
-    StringToObjectValueConverter actualStringToObjectValueConverterResult =
-        processModelAutoConfiguration.stringToObjectValueConverter(
-            builderResult2.findAndAddModules().build());
-    JsonMapper jsonMapper = JsonMapper.builder().findAndAddModules().build();
-    String source = jsonMapper.writeValueAsString(new ObjectValue("Object"));
-
-    // Assert
-    assertThrows(
-        RuntimeException.class, () -> actualStringToObjectValueConverterResult.convert(source));
-    verify(typer, atLeast(1))
-        .buildTypeDeserializer(
-            isA(DeserializationConfig.class),
-            Mockito.<JavaType>any(),
-            Mockito.<Collection<NamedType>>any());
-    verify(typer, atLeast(1)).getDefaultImpl();
+    assertEquals("Object",
+        actualStringToObjectValueConverterResult.convert(buildResult.writeValueAsString(new ObjectValue("Object")))
+            .getObject());
   }
 
   /**
    * Test {@link ProcessModelAutoConfiguration#objectValueToStringConverter(ObjectMapper)}.
-   *
-   * <p>Method under test: {@link
-   * ProcessModelAutoConfiguration#objectValueToStringConverter(ObjectMapper)}
+   * <p>
+   * Method under test: {@link ProcessModelAutoConfiguration#objectValueToStringConverter(ObjectMapper)}
    */
   @Test
   @DisplayName("Test objectValueToStringConverter(ObjectMapper)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({
-    "ObjectValueToStringConverter ProcessModelAutoConfiguration.objectValueToStringConverter(ObjectMapper)"
-  })
+      "ObjectValueToStringConverter ProcessModelAutoConfiguration.objectValueToStringConverter(ObjectMapper)"})
   void testObjectValueToStringConverter() {
-    // Arrange and Act
-    ObjectValueToStringConverter actualObjectValueToStringConverterResult =
-        processModelAutoConfiguration.objectValueToStringConverter(
-            JsonMapper.builder().findAndAddModules().build());
-    String actualConvertResult =
-        actualObjectValueToStringConverterResult.convert(new ObjectValue("Object"));
+    //   Diffblue Cover was unable to create a Spring-specific test for this Spring method.
+    //   Run dcover create --keep-partial-tests to gain insights into why
+    //   a non-Spring test was created.
+
+    // Arrange
+    ProcessModelAutoConfiguration processModelAutoConfiguration = new ProcessModelAutoConfiguration();
+
+    // Act
+    ObjectValueToStringConverter actualObjectValueToStringConverterResult = processModelAutoConfiguration
+        .objectValueToStringConverter(JsonMapper.builder().findAndAddModules().build());
 
     // Assert
-    assertEquals("{\"object\":\"Object\"}", actualConvertResult);
+    assertEquals("{\"object\":\"Object\"}",
+        actualObjectValueToStringConverterResult.convert(new ObjectValue("Object")));
+  }
+
+  /**
+   * Test new {@link ProcessModelAutoConfiguration} (default constructor).
+   * <p>
+   * Method under test: default or parameterless constructor of {@link ProcessModelAutoConfiguration}
+   */
+  @Test
+  @DisplayName("Test new ProcessModelAutoConfiguration (default constructor)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void ProcessModelAutoConfiguration.<init>()"})
+  void testNewProcessModelAutoConfiguration() {
+    //   Diffblue Cover was unable to create a Spring-specific test for this Spring method.
+    //   Run dcover create --keep-partial-tests to gain insights into why
+    //   a non-Spring test was created.
+
+    // Arrange, Act and Assert
+    assertTrue((new ProcessModelAutoConfiguration()).conversionService() instanceof ApplicationConversionService);
   }
 }

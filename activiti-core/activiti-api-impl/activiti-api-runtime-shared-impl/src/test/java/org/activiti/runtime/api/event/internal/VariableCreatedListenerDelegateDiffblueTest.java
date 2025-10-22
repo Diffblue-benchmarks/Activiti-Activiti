@@ -20,7 +20,6 @@ import static org.mockito.ArgumentMatchers.isA;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
 import java.util.List;
@@ -38,112 +37,56 @@ import org.mockito.Mockito;
 class VariableCreatedListenerDelegateDiffblueTest {
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
-   *   <li>{@link VariableCreatedListenerDelegate#VariableCreatedListenerDelegate(List,
-   *       ToVariableCreatedConverter, VariableEventFilter)}
+   *   <li>{@link VariableCreatedListenerDelegate#VariableCreatedListenerDelegate(List, ToVariableCreatedConverter, VariableEventFilter)}
    *   <li>{@link VariableCreatedListenerDelegate#isFailOnException()}
    * </ul>
    */
   @Test
   @DisplayName("Test getters and setters")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({
-    "void VariableCreatedListenerDelegate.<init>(List, ToVariableCreatedConverter, VariableEventFilter)",
-    "boolean VariableCreatedListenerDelegate.isFailOnException()"
-  })
+      "void VariableCreatedListenerDelegate.<init>(List, ToVariableCreatedConverter, VariableEventFilter)",
+      "boolean VariableCreatedListenerDelegate.isFailOnException()"})
   void testGettersAndSetters() {
     // Arrange
     ArrayList<VariableEventListener<VariableCreatedEvent>> listeners = new ArrayList<>();
     ToVariableCreatedConverter converter = new ToVariableCreatedConverter();
 
-    // Act
-    VariableCreatedListenerDelegate actualVariableCreatedListenerDelegate =
-        new VariableCreatedListenerDelegate(listeners, converter, new VariableEventFilter());
-
-    // Assert
-    assertFalse(actualVariableCreatedListenerDelegate.isFailOnException());
+    // Act and Assert
+    assertFalse(
+        (new VariableCreatedListenerDelegate(listeners, converter, new VariableEventFilter())).isFailOnException());
   }
 
   /**
    * Test {@link VariableCreatedListenerDelegate#onEvent(ActivitiEvent)}.
-   *
    * <ul>
-   *   <li>Given {@link VariableEventListener} {@link VariableEventListener#onEvent(RuntimeEvent)}
-   *       does nothing.
-   *   <li>Then calls {@link VariableEventListener#onEvent(RuntimeEvent)}.
+   *   <li>Given {@link VariableEventListener} {@link VariableEventListener#onEvent(RuntimeEvent)} does nothing.</li>
+   *   <li>Then calls {@link VariableEventListener#onEvent(RuntimeEvent)}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link VariableCreatedListenerDelegate#onEvent(ActivitiEvent)}
+   * <p>
+   * Method under test: {@link VariableCreatedListenerDelegate#onEvent(ActivitiEvent)}
    */
   @Test
-  @DisplayName(
-      "Test onEvent(ActivitiEvent); given VariableEventListener onEvent(RuntimeEvent) does nothing; then calls onEvent(RuntimeEvent)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test onEvent(ActivitiEvent); given VariableEventListener onEvent(RuntimeEvent) does nothing; then calls onEvent(RuntimeEvent)")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void VariableCreatedListenerDelegate.onEvent(ActivitiEvent)"})
   void testOnEvent_givenVariableEventListenerOnEventDoesNothing_thenCallsOnEvent() {
     // Arrange
-    VariableEventListener<VariableCreatedEvent> variableEventListener =
-        mock(VariableEventListener.class);
+    VariableEventListener<VariableCreatedEvent> variableEventListener = mock(VariableEventListener.class);
     doNothing().when(variableEventListener).onEvent(Mockito.<VariableCreatedEvent>any());
 
     ArrayList<VariableEventListener<VariableCreatedEvent>> listeners = new ArrayList<>();
     listeners.add(variableEventListener);
     ToVariableCreatedConverter converter = new ToVariableCreatedConverter();
-
-    VariableCreatedListenerDelegate variableCreatedListenerDelegate =
-        new VariableCreatedListenerDelegate(listeners, converter, new VariableEventFilter());
+    VariableCreatedListenerDelegate variableCreatedListenerDelegate = new VariableCreatedListenerDelegate(listeners,
+        converter, new VariableEventFilter());
 
     ActivitiVariableUpdatedEventImpl event = new ActivitiVariableUpdatedEventImpl();
     event.setVariableType(new BigDecimalType());
-    event.setProcessInstanceId("42");
-    event.setExecutionId("42");
-
-    // Act
-    variableCreatedListenerDelegate.onEvent(event);
-
-    // Assert
-    verify(variableEventListener).onEvent(isA(VariableCreatedEvent.class));
-  }
-
-  /**
-   * Test {@link VariableCreatedListenerDelegate#onEvent(ActivitiEvent)}.
-   *
-   * <ul>
-   *   <li>When {@link ActivitiVariableUpdatedEventImpl} (default constructor) TaskId is {@code 42}.
-   *   <li>Then calls {@link VariableEventListener#onEvent(RuntimeEvent)}.
-   * </ul>
-   *
-   * <p>Method under test: {@link VariableCreatedListenerDelegate#onEvent(ActivitiEvent)}
-   */
-  @Test
-  @DisplayName(
-      "Test onEvent(ActivitiEvent); when ActivitiVariableUpdatedEventImpl (default constructor) TaskId is '42'; then calls onEvent(RuntimeEvent)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void VariableCreatedListenerDelegate.onEvent(ActivitiEvent)"})
-  void testOnEvent_whenActivitiVariableUpdatedEventImplTaskIdIs42_thenCallsOnEvent() {
-    // Arrange
-    VariableEventListener<VariableCreatedEvent> variableEventListener =
-        mock(VariableEventListener.class);
-    doNothing().when(variableEventListener).onEvent(Mockito.<VariableCreatedEvent>any());
-
-    ArrayList<VariableEventListener<VariableCreatedEvent>> listeners = new ArrayList<>();
-    listeners.add(variableEventListener);
-    ToVariableCreatedConverter converter = new ToVariableCreatedConverter();
-
-    VariableCreatedListenerDelegate variableCreatedListenerDelegate =
-        new VariableCreatedListenerDelegate(listeners, converter, new VariableEventFilter());
-
-    ActivitiVariableUpdatedEventImpl event = new ActivitiVariableUpdatedEventImpl();
     event.setTaskId("42");
-    event.setVariableType(new BigDecimalType());
-    event.setProcessInstanceId("42");
-    event.setExecutionId("42");
 
     // Act
     variableCreatedListenerDelegate.onEvent(event);

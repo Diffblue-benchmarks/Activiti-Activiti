@@ -20,8 +20,7 @@ import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.bpmn.model.MessageEventDefinition;
 import org.activiti.engine.impl.bpmn.parser.factory.DefaultMessageExecutionContext;
@@ -33,97 +32,66 @@ import org.junit.experimental.categories.Category;
 
 public class IntermediateCatchMessageEventActivityBehaviorDiffblueTest {
   /**
-   * Test {@link
-   * IntermediateCatchMessageEventActivityBehavior#IntermediateCatchMessageEventActivityBehavior(MessageEventDefinition,
-   * MessageExecutionContext)}.
-   *
-   * <p>Method under test: {@link
-   * IntermediateCatchMessageEventActivityBehavior#IntermediateCatchMessageEventActivityBehavior(MessageEventDefinition,
-   * MessageExecutionContext)}
+   * Test {@link IntermediateCatchMessageEventActivityBehavior#IntermediateCatchMessageEventActivityBehavior(MessageEventDefinition, MessageExecutionContext)}.
+   * <p>
+   * Method under test: {@link IntermediateCatchMessageEventActivityBehavior#IntermediateCatchMessageEventActivityBehavior(MessageEventDefinition, MessageExecutionContext)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({
-    "void IntermediateCatchMessageEventActivityBehavior.<init>(MessageEventDefinition, MessageExecutionContext)"
-  })
+      "void IntermediateCatchMessageEventActivityBehavior.<init>(MessageEventDefinition, MessageExecutionContext)"})
   public void testNewIntermediateCatchMessageEventActivityBehavior() {
     // Arrange
     MessageEventDefinition messageEventDefinition = new MessageEventDefinition();
     MessageEventDefinition messageEventDefinition2 = new MessageEventDefinition();
     ExpressionManager expressionManager = new ExpressionManager();
-
-    DefaultMessageExecutionContext messageExecutionContext =
-        new DefaultMessageExecutionContext(
-            messageEventDefinition2, expressionManager, mock(MessagePayloadMappingProvider.class));
+    DefaultMessageExecutionContext messageExecutionContext = new DefaultMessageExecutionContext(messageEventDefinition2,
+        expressionManager, mock(MessagePayloadMappingProvider.class));
 
     // Act
-    IntermediateCatchMessageEventActivityBehavior
-        actualIntermediateCatchMessageEventActivityBehavior =
-            new IntermediateCatchMessageEventActivityBehavior(
-                messageEventDefinition, messageExecutionContext);
+    IntermediateCatchMessageEventActivityBehavior actualIntermediateCatchMessageEventActivityBehavior = new IntermediateCatchMessageEventActivityBehavior(
+        messageEventDefinition, messageExecutionContext);
 
     // Assert
-    MessageExecutionContext messageExecutionContext2 =
-        actualIntermediateCatchMessageEventActivityBehavior.getMessageExecutionContext();
+    MessageExecutionContext messageExecutionContext2 = actualIntermediateCatchMessageEventActivityBehavior
+        .getMessageExecutionContext();
     assertTrue(messageExecutionContext2 instanceof DefaultMessageExecutionContext);
-    assertNull(
-        actualIntermediateCatchMessageEventActivityBehavior.getMultiInstanceActivityBehavior());
+    assertNull(actualIntermediateCatchMessageEventActivityBehavior.getMultiInstanceActivityBehavior());
     assertFalse(actualIntermediateCatchMessageEventActivityBehavior.hasLoopCharacteristics());
-    assertFalse(
-        actualIntermediateCatchMessageEventActivityBehavior.hasMultiInstanceCharacteristics());
-    assertSame(
-        messageEventDefinition,
-        actualIntermediateCatchMessageEventActivityBehavior.getMessageEventDefinition());
+    assertFalse(actualIntermediateCatchMessageEventActivityBehavior.hasMultiInstanceCharacteristics());
+    assertSame(messageEventDefinition, actualIntermediateCatchMessageEventActivityBehavior.getMessageEventDefinition());
     assertSame(messageExecutionContext, messageExecutionContext2);
-    assertSame(
-        expressionManager,
-        ((DefaultMessageExecutionContext) messageExecutionContext2).getExpressionManager());
+    assertSame(expressionManager, ((DefaultMessageExecutionContext) messageExecutionContext2).getExpressionManager());
   }
 
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>{@link IntermediateCatchMessageEventActivityBehavior#getMessageEventDefinition()}
    *   <li>{@link IntermediateCatchMessageEventActivityBehavior#getMessageExecutionContext()}
    * </ul>
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "MessageEventDefinition IntermediateCatchMessageEventActivityBehavior.getMessageEventDefinition()",
-    "MessageExecutionContext IntermediateCatchMessageEventActivityBehavior.getMessageExecutionContext()"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"MessageEventDefinition IntermediateCatchMessageEventActivityBehavior.getMessageEventDefinition()",
+      "MessageExecutionContext IntermediateCatchMessageEventActivityBehavior.getMessageExecutionContext()"})
   public void testGettersAndSetters() {
     // Arrange
     MessageEventDefinition messageEventDefinition = new MessageEventDefinition();
     MessageEventDefinition messageEventDefinition2 = new MessageEventDefinition();
-    DefaultMessageExecutionContext messageExecutionContext =
-        new DefaultMessageExecutionContext(
-            messageEventDefinition2,
-            new ExpressionManager(),
-            mock(MessagePayloadMappingProvider.class));
-
-    IntermediateCatchMessageEventActivityBehavior intermediateCatchMessageEventActivityBehavior =
-        new IntermediateCatchMessageEventActivityBehavior(
-            messageEventDefinition, messageExecutionContext);
+    IntermediateCatchMessageEventActivityBehavior intermediateCatchMessageEventActivityBehavior = new IntermediateCatchMessageEventActivityBehavior(
+        messageEventDefinition, new DefaultMessageExecutionContext(messageEventDefinition2, new ExpressionManager(),
+            mock(MessagePayloadMappingProvider.class)));
 
     // Act
-    MessageEventDefinition actualMessageEventDefinition =
-        intermediateCatchMessageEventActivityBehavior.getMessageEventDefinition();
-    MessageExecutionContext actualMessageExecutionContext =
-        intermediateCatchMessageEventActivityBehavior.getMessageExecutionContext();
+    MessageEventDefinition actualMessageEventDefinition = intermediateCatchMessageEventActivityBehavior
+        .getMessageEventDefinition();
 
     // Assert
-    assertSame(
-        intermediateCatchMessageEventActivityBehavior.messageEventDefinition,
-        actualMessageEventDefinition);
-    assertSame(
-        intermediateCatchMessageEventActivityBehavior.messageExecutionContext,
-        actualMessageExecutionContext);
+    assertSame(intermediateCatchMessageEventActivityBehavior.messageEventDefinition, actualMessageEventDefinition);
+    assertSame(intermediateCatchMessageEventActivityBehavior.messageExecutionContext,
+        intermediateCatchMessageEventActivityBehavior.getMessageExecutionContext());
   }
 }

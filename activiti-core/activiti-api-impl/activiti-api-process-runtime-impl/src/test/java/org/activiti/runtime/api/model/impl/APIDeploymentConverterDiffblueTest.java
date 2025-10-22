@@ -17,7 +17,6 @@ package org.activiti.runtime.api.model.impl;
 
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.api.process.model.Deployment;
 import org.activiti.api.runtime.model.impl.DeploymentImpl;
@@ -33,27 +32,22 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 @ContextConfiguration(classes = {APIDeploymentConverter.class})
 @ExtendWith(SpringExtension.class)
 class APIDeploymentConverterDiffblueTest {
-  @Autowired private APIDeploymentConverter aPIDeploymentConverter;
+  @Autowired
+  private APIDeploymentConverter aPIDeploymentConverter;
 
   /**
    * Test {@link APIDeploymentConverter#from(Deployment)} with {@code Deployment}.
-   *
    * <ul>
-   *   <li>When {@link DeploymentEntityImpl} (default constructor).
-   *   <li>Then return {@link DeploymentImpl}.
+   *   <li>When {@link DeploymentEntityImpl} (default constructor).</li>
+   *   <li>Then return {@link DeploymentImpl}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link
-   * APIDeploymentConverter#from(org.activiti.engine.repository.Deployment)}
+   * <p>
+   * Method under test: {@link APIDeploymentConverter#from(org.activiti.engine.repository.Deployment)}
    */
   @Test
-  @DisplayName(
-      "Test from(Deployment) with 'Deployment'; when DeploymentEntityImpl (default constructor); then return DeploymentImpl")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "Deployment APIDeploymentConverter.from(org.activiti.engine.repository.Deployment)"
-  })
+  @DisplayName("Test from(Deployment) with 'Deployment'; when DeploymentEntityImpl (default constructor); then return DeploymentImpl")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"Deployment APIDeploymentConverter.from(org.activiti.engine.repository.Deployment)"})
   void testFromWithDeployment_whenDeploymentEntityImpl_thenReturnDeploymentImpl() {
     // Arrange and Act
     Deployment actualFromResult = aPIDeploymentConverter.from(new DeploymentEntityImpl());

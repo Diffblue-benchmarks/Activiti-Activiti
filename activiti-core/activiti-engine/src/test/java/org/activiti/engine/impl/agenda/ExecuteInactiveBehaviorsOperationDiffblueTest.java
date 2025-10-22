@@ -22,45 +22,41 @@ import static org.mockito.ArgumentMatchers.isA;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
+import java.util.Collection;
 import org.activiti.engine.ActivitiEngineAgendaFactory;
 import org.activiti.engine.Agenda;
 import org.activiti.engine.impl.cfg.JtaProcessEngineConfiguration;
 import org.activiti.engine.impl.interceptor.Command;
 import org.activiti.engine.impl.interceptor.CommandContext;
+import org.activiti.engine.impl.persistence.entity.ExecutionEntity;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import org.mockito.Mockito;
 
 public class ExecuteInactiveBehaviorsOperationDiffblueTest {
   /**
-   * Test {@link
-   * ExecuteInactiveBehaviorsOperation#ExecuteInactiveBehaviorsOperation(CommandContext)}.
-   *
-   * <p>Method under test: {@link
-   * ExecuteInactiveBehaviorsOperation#ExecuteInactiveBehaviorsOperation(CommandContext)}
+   * Test {@link ExecuteInactiveBehaviorsOperation#ExecuteInactiveBehaviorsOperation(CommandContext)}.
+   * <p>
+   * Method under test: {@link ExecuteInactiveBehaviorsOperation#ExecuteInactiveBehaviorsOperation(CommandContext)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void ExecuteInactiveBehaviorsOperation.<init>(CommandContext)"})
   public void testNewExecuteInactiveBehaviorsOperation() {
     // Arrange
     ActivitiEngineAgendaFactory engineAgendaFactory = mock(ActivitiEngineAgendaFactory.class);
     DefaultActivitiEngineAgenda defaultActivitiEngineAgenda = new DefaultActivitiEngineAgenda(null);
-    when(engineAgendaFactory.createAgenda(Mockito.<CommandContext>any()))
-        .thenReturn(defaultActivitiEngineAgenda);
+    when(engineAgendaFactory.createAgenda(Mockito.<CommandContext>any())).thenReturn(defaultActivitiEngineAgenda);
 
     JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();
     processEngineConfiguration.setEngineAgendaFactory(engineAgendaFactory);
-    CommandContext commandContext =
-        new CommandContext(mock(Command.class), processEngineConfiguration);
+    CommandContext commandContext = new CommandContext(mock(Command.class), processEngineConfiguration);
 
     // Act
-    ExecuteInactiveBehaviorsOperation actualExecuteInactiveBehaviorsOperation =
-        new ExecuteInactiveBehaviorsOperation(commandContext);
+    ExecuteInactiveBehaviorsOperation actualExecuteInactiveBehaviorsOperation = new ExecuteInactiveBehaviorsOperation(
+        commandContext);
 
     // Assert
     verify(engineAgendaFactory).createAgenda(isA(CommandContext.class));
@@ -70,23 +66,20 @@ public class ExecuteInactiveBehaviorsOperationDiffblueTest {
     assertTrue(actualExecuteInactiveBehaviorsOperation.involvedExecutions.isEmpty());
     assertSame(defaultActivitiEngineAgenda, agenda);
     assertSame(commandContext, actualExecuteInactiveBehaviorsOperation.getCommandContext());
-    assertSame(
-        actualExecuteInactiveBehaviorsOperation.involvedExecutions,
-        commandContext.getInvolvedExecutions());
+    Collection<ExecutionEntity> expectedInvolvedExecutions = actualExecuteInactiveBehaviorsOperation.involvedExecutions;
+    assertSame(expectedInvolvedExecutions, commandContext.getInvolvedExecutions());
   }
 
   /**
    * Test {@link ExecuteInactiveBehaviorsOperation#run()}.
-   *
    * <ul>
-   *   <li>Then calls {@link ActivitiEngineAgendaFactory#createAgenda(CommandContext)}.
+   *   <li>Then calls {@link ActivitiEngineAgendaFactory#createAgenda(CommandContext)}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ExecuteInactiveBehaviorsOperation#run()}
+   * <p>
+   * Method under test: {@link ExecuteInactiveBehaviorsOperation#run()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void ExecuteInactiveBehaviorsOperation.run()"})
   public void testRun_thenCallsCreateAgenda() {
     // Arrange
@@ -96,11 +89,9 @@ public class ExecuteInactiveBehaviorsOperationDiffblueTest {
 
     JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();
     processEngineConfiguration.setEngineAgendaFactory(engineAgendaFactory);
-    CommandContext commandContext =
-        new CommandContext(mock(Command.class), processEngineConfiguration);
 
     // Act
-    new ExecuteInactiveBehaviorsOperation(commandContext).run();
+    (new ExecuteInactiveBehaviorsOperation(new CommandContext(mock(Command.class), processEngineConfiguration))).run();
 
     // Assert
     verify(engineAgendaFactory).createAgenda(isA(CommandContext.class));

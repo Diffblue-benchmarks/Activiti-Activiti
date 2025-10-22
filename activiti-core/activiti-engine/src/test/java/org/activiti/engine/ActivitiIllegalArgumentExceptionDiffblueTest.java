@@ -18,8 +18,7 @@ package org.activiti.engine;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
@@ -27,25 +26,20 @@ import org.junit.experimental.categories.Category;
 public class ActivitiIllegalArgumentExceptionDiffblueTest {
   /**
    * Test {@link ActivitiIllegalArgumentException#ActivitiIllegalArgumentException(String)}.
-   *
    * <ul>
-   *   <li>Then return Cause is {@code null}.
+   *   <li>Then return Cause is {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link
-   * ActivitiIllegalArgumentException#ActivitiIllegalArgumentException(String)}
+   * <p>
+   * Method under test: {@link ActivitiIllegalArgumentException#ActivitiIllegalArgumentException(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void ActivitiIllegalArgumentException.<init>(String)",
-    "void ActivitiIllegalArgumentException.<init>(String, Throwable)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void ActivitiIllegalArgumentException.<init>(String)",
+      "void ActivitiIllegalArgumentException.<init>(String, Throwable)"})
   public void testNewActivitiIllegalArgumentException_thenReturnCauseIsNull() {
     // Arrange and Act
-    ActivitiIllegalArgumentException actualActivitiIllegalArgumentException =
-        new ActivitiIllegalArgumentException("An error occurred");
+    ActivitiIllegalArgumentException actualActivitiIllegalArgumentException = new ActivitiIllegalArgumentException(
+        "An error occurred");
 
     // Assert
     assertEquals("An error occurred", actualActivitiIllegalArgumentException.getMessage());
@@ -54,31 +48,25 @@ public class ActivitiIllegalArgumentExceptionDiffblueTest {
   }
 
   /**
-   * Test {@link ActivitiIllegalArgumentException#ActivitiIllegalArgumentException(String,
-   * Throwable)}.
-   *
+   * Test {@link ActivitiIllegalArgumentException#ActivitiIllegalArgumentException(String, Throwable)}.
    * <ul>
-   *   <li>When {@link Throwable#Throwable()}.
-   *   <li>Then return Cause is {@link Throwable#Throwable()}.
+   *   <li>When {@link Throwable#Throwable()}.</li>
+   *   <li>Then return Cause is {@link Throwable#Throwable()}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link
-   * ActivitiIllegalArgumentException#ActivitiIllegalArgumentException(String, Throwable)}
+   * <p>
+   * Method under test: {@link ActivitiIllegalArgumentException#ActivitiIllegalArgumentException(String, Throwable)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void ActivitiIllegalArgumentException.<init>(String)",
-    "void ActivitiIllegalArgumentException.<init>(String, Throwable)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void ActivitiIllegalArgumentException.<init>(String)",
+      "void ActivitiIllegalArgumentException.<init>(String, Throwable)"})
   public void testNewActivitiIllegalArgumentException_whenThrowable_thenReturnCauseIsThrowable() {
     // Arrange
     Throwable cause = new Throwable();
 
     // Act
-    ActivitiIllegalArgumentException actualActivitiIllegalArgumentException =
-        new ActivitiIllegalArgumentException("An error occurred", cause);
+    ActivitiIllegalArgumentException actualActivitiIllegalArgumentException = new ActivitiIllegalArgumentException(
+        "An error occurred", cause);
 
     // Assert
     assertEquals("An error occurred", actualActivitiIllegalArgumentException.getMessage());

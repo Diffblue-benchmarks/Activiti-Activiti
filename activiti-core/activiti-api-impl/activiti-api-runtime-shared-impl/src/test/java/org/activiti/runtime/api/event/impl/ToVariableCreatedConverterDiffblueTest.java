@@ -18,7 +18,6 @@ package org.activiti.runtime.api.event.impl;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.Optional;
 import org.activiti.api.model.shared.event.VariableCreatedEvent;
@@ -35,20 +34,16 @@ import org.junit.jupiter.api.Test;
 
 class ToVariableCreatedConverterDiffblueTest {
   /**
-   * Test {@link ToVariableCreatedConverter#from(ActivitiVariableEvent)} with {@code
-   * ActivitiVariableEvent}.
-   *
+   * Test {@link ToVariableCreatedConverter#from(ActivitiVariableEvent)} with {@code ActivitiVariableEvent}.
    * <ul>
-   *   <li>Then {@link Optional#get()} return {@link VariableCreatedEventImpl}.
+   *   <li>Then {@link Optional#get()} return {@link VariableCreatedEventImpl}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ToVariableCreatedConverter#from(ActivitiVariableEvent)}
+   * <p>
+   * Method under test: {@link ToVariableCreatedConverter#from(ActivitiVariableEvent)}
    */
   @Test
-  @DisplayName(
-      "Test from(ActivitiVariableEvent) with 'ActivitiVariableEvent'; then get() return VariableCreatedEventImpl")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test from(ActivitiVariableEvent) with 'ActivitiVariableEvent'; then get() return VariableCreatedEventImpl")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"Optional ToVariableCreatedConverter.from(ActivitiVariableEvent)"})
   void testFromWithActivitiVariableEvent_thenGetReturnVariableCreatedEventImpl() {
     // Arrange
@@ -58,8 +53,7 @@ class ToVariableCreatedConverterDiffblueTest {
     internalEvent.setVariableType(new BigDecimalType());
 
     // Act
-    Optional<VariableCreatedEvent> actualFromResult =
-        toVariableCreatedConverter.from(internalEvent);
+    Optional<VariableCreatedEvent> actualFromResult = toVariableCreatedConverter.from(internalEvent);
 
     // Assert
     VariableCreatedEvent getResult = actualFromResult.get();

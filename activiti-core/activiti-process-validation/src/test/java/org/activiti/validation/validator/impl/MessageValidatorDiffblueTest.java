@@ -19,7 +19,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -38,32 +37,28 @@ import org.junit.jupiter.api.Test;
 class MessageValidatorDiffblueTest {
   /**
    * Test {@link MessageValidator#validate(BpmnModel, List)}.
-   *
-   * <p>Method under test: {@link MessageValidator#validate(BpmnModel, List)}
+   * <p>
+   * Method under test: {@link MessageValidator#validate(BpmnModel, List)}
    */
   @Test
   @DisplayName("Test validate(BpmnModel, List)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void MessageValidator.validate(BpmnModel, List)"})
   void testValidate() {
     // Arrange
     MessageValidator messageValidator = new MessageValidator();
 
     BpmnModel bpmnModel = new BpmnModel();
-
     Builder builderResult = Message.builder();
-
     Builder attributesResult = builderResult.attributes(new HashMap<>());
-    bpmnModel.addMessage(
-        attributesResult
-            .extensionElements(new HashMap<>())
-            .id("42")
-            .itemRef(null)
-            .name("Name")
-            .xmlColumnNumber(10)
-            .xmlRowNumber(10)
-            .build());
+    Message message = attributesResult.extensionElements(new HashMap<>())
+        .id("42")
+        .itemRef(null)
+        .name("Name")
+        .xmlColumnNumber(10)
+        .xmlRowNumber(10)
+        .build();
+    bpmnModel.addMessage(message);
     ArrayList<ValidationError> errors = new ArrayList<>();
 
     // Act
@@ -81,32 +76,28 @@ class MessageValidatorDiffblueTest {
 
   /**
    * Test {@link MessageValidator#validate(BpmnModel, List)}.
-   *
-   * <p>Method under test: {@link MessageValidator#validate(BpmnModel, List)}
+   * <p>
+   * Method under test: {@link MessageValidator#validate(BpmnModel, List)}
    */
   @Test
   @DisplayName("Test validate(BpmnModel, List)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void MessageValidator.validate(BpmnModel, List)"})
   void testValidate2() {
     // Arrange
     MessageValidator messageValidator = new MessageValidator();
 
     BpmnModel bpmnModel = new BpmnModel();
-
     Builder builderResult = Message.builder();
-
     Builder attributesResult = builderResult.attributes(new HashMap<>());
-    bpmnModel.addMessage(
-        attributesResult
-            .extensionElements(new HashMap<>())
-            .id("42")
-            .itemRef("")
-            .name("Name")
-            .xmlColumnNumber(10)
-            .xmlRowNumber(10)
-            .build());
+    Message message = attributesResult.extensionElements(new HashMap<>())
+        .id("42")
+        .itemRef("")
+        .name("Name")
+        .xmlColumnNumber(10)
+        .xmlRowNumber(10)
+        .build();
+    bpmnModel.addMessage(message);
     ArrayList<ValidationError> errors = new ArrayList<>();
 
     // Act
@@ -124,36 +115,31 @@ class MessageValidatorDiffblueTest {
 
   /**
    * Test {@link MessageValidator#validate(BpmnModel, List)}.
-   *
    * <ul>
-   *   <li>Then {@link ArrayList#ArrayList()} size is one.
+   *   <li>Then {@link ArrayList#ArrayList()} size is one.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link MessageValidator#validate(BpmnModel, List)}
+   * <p>
+   * Method under test: {@link MessageValidator#validate(BpmnModel, List)}
    */
   @Test
   @DisplayName("Test validate(BpmnModel, List); then ArrayList() size is one")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void MessageValidator.validate(BpmnModel, List)"})
   void testValidate_thenArrayListSizeIsOne() {
     // Arrange
     MessageValidator messageValidator = new MessageValidator();
 
     BpmnModel bpmnModel = new BpmnModel();
-
     Builder builderResult = Message.builder();
-
     Builder attributesResult = builderResult.attributes(new HashMap<>());
-    bpmnModel.addMessage(
-        attributesResult
-            .extensionElements(new HashMap<>())
-            .id("42")
-            .itemRef("Item Ref")
-            .name("Name")
-            .xmlColumnNumber(10)
-            .xmlRowNumber(10)
-            .build());
+    Message message = attributesResult.extensionElements(new HashMap<>())
+        .id("42")
+        .itemRef("Item Ref")
+        .name("Name")
+        .xmlColumnNumber(10)
+        .xmlRowNumber(10)
+        .build();
+    bpmnModel.addMessage(message);
     ArrayList<ValidationError> errors = new ArrayList<>();
 
     // Act
@@ -184,49 +170,41 @@ class MessageValidatorDiffblueTest {
 
   /**
    * Test {@link MessageValidator#validate(BpmnModel, List)}.
-   *
    * <ul>
-   *   <li>Then {@link ArrayList#ArrayList()} size is two.
+   *   <li>Then {@link ArrayList#ArrayList()} size is two.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link MessageValidator#validate(BpmnModel, List)}
+   * <p>
+   * Method under test: {@link MessageValidator#validate(BpmnModel, List)}
    */
   @Test
   @DisplayName("Test validate(BpmnModel, List); then ArrayList() size is two")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void MessageValidator.validate(BpmnModel, List)"})
   void testValidate_thenArrayListSizeIsTwo() {
     // Arrange
     MessageValidator messageValidator = new MessageValidator();
 
     BpmnModel bpmnModel = new BpmnModel();
-
     Builder builderResult = Message.builder();
-
     Builder attributesResult = builderResult.attributes(new HashMap<>());
-    bpmnModel.addMessage(
-        attributesResult
-            .extensionElements(new HashMap<>())
-            .id("Id")
-            .itemRef("Item Ref")
-            .name("Name")
-            .xmlColumnNumber(10)
-            .xmlRowNumber(10)
-            .build());
-
+    Message message = attributesResult.extensionElements(new HashMap<>())
+        .id("Id")
+        .itemRef("Item Ref")
+        .name("Name")
+        .xmlColumnNumber(10)
+        .xmlRowNumber(10)
+        .build();
+    bpmnModel.addMessage(message);
     Builder builderResult2 = Message.builder();
-
     Builder attributesResult2 = builderResult2.attributes(new HashMap<>());
-    bpmnModel.addMessage(
-        attributesResult2
-            .extensionElements(new HashMap<>())
-            .id("42")
-            .itemRef("Item Ref")
-            .name("Name")
-            .xmlColumnNumber(10)
-            .xmlRowNumber(10)
-            .build());
+    Message message2 = attributesResult2.extensionElements(new HashMap<>())
+        .id("42")
+        .itemRef("Item Ref")
+        .name("Name")
+        .xmlColumnNumber(10)
+        .xmlRowNumber(10)
+        .build();
+    bpmnModel.addMessage(message2);
     ArrayList<ValidationError> errors = new ArrayList<>();
 
     // Act
@@ -251,19 +229,16 @@ class MessageValidatorDiffblueTest {
 
   /**
    * Test {@link MessageValidator#validate(BpmnModel, List)}.
-   *
    * <ul>
-   *   <li>When {@link BpmnModel} (default constructor).
-   *   <li>Then {@link ArrayList#ArrayList()} Empty.
+   *   <li>When {@link BpmnModel} (default constructor).</li>
+   *   <li>Then {@link ArrayList#ArrayList()} Empty.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link MessageValidator#validate(BpmnModel, List)}
+   * <p>
+   * Method under test: {@link MessageValidator#validate(BpmnModel, List)}
    */
   @Test
-  @DisplayName(
-      "Test validate(BpmnModel, List); when BpmnModel (default constructor); then ArrayList() Empty")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test validate(BpmnModel, List); when BpmnModel (default constructor); then ArrayList() Empty")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void MessageValidator.validate(BpmnModel, List)"})
   void testValidate_whenBpmnModel_thenArrayListEmpty() {
     // Arrange

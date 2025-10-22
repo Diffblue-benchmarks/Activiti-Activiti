@@ -19,10 +19,9 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.node.DoubleNode;
+import com.fasterxml.jackson.databind.node.MissingNode;
 import java.util.HashMap;
 import java.util.Map;
 import org.activiti.bpmn.model.ActivitiListener;
@@ -36,13 +35,12 @@ import org.junit.jupiter.api.Test;
 class EventGatewayJsonConverterDiffblueTest {
   /**
    * Test {@link EventGatewayJsonConverter#fillJsonTypes(Map)}.
-   *
-   * <p>Method under test: {@link EventGatewayJsonConverter#fillJsonTypes(Map)}
+   * <p>
+   * Method under test: {@link EventGatewayJsonConverter#fillJsonTypes(Map)}
    */
   @Test
   @DisplayName("Test fillJsonTypes(Map)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void EventGatewayJsonConverter.fillJsonTypes(Map)"})
   void testFillJsonTypes() {
     // Arrange
@@ -59,13 +57,12 @@ class EventGatewayJsonConverterDiffblueTest {
 
   /**
    * Test {@link EventGatewayJsonConverter#getStencilId(BaseElement)}.
-   *
-   * <p>Method under test: {@link EventGatewayJsonConverter#getStencilId(BaseElement)}
+   * <p>
+   * Method under test: {@link EventGatewayJsonConverter#getStencilId(BaseElement)}
    */
   @Test
   @DisplayName("Test getStencilId(BaseElement)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"String EventGatewayJsonConverter.getStencilId(BaseElement)"})
   void testGetStencilId() {
     // Arrange
@@ -77,26 +74,22 @@ class EventGatewayJsonConverterDiffblueTest {
 
   /**
    * Test {@link EventGatewayJsonConverter#convertJsonToElement(JsonNode, JsonNode, Map)}.
-   *
-   * <p>Method under test: {@link EventGatewayJsonConverter#convertJsonToElement(JsonNode, JsonNode,
-   * Map)}
+   * <p>
+   * Method under test: {@link EventGatewayJsonConverter#convertJsonToElement(JsonNode, JsonNode, Map)}
    */
   @Test
   @DisplayName("Test convertJsonToElement(JsonNode, JsonNode, Map)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "FlowElement EventGatewayJsonConverter.convertJsonToElement(JsonNode, JsonNode, Map)"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"FlowElement EventGatewayJsonConverter.convertJsonToElement(JsonNode, JsonNode, Map)"})
   void testConvertJsonToElement() {
     // Arrange
     EventGatewayJsonConverter eventGatewayJsonConverter = new EventGatewayJsonConverter();
-    DoubleNode elementNode = DoubleNode.valueOf(10.0d);
-    DoubleNode modelNode = DoubleNode.valueOf(10.0d);
+    MissingNode elementNode = MissingNode.getInstance();
+    MissingNode modelNode = MissingNode.getInstance();
 
     // Act
-    FlowElement actualConvertJsonToElementResult =
-        eventGatewayJsonConverter.convertJsonToElement(elementNode, modelNode, new HashMap<>());
+    FlowElement actualConvertJsonToElementResult = eventGatewayJsonConverter.convertJsonToElement(elementNode,
+        modelNode, new HashMap<>());
 
     // Assert
     assertTrue(actualConvertJsonToElementResult instanceof EventGateway);
@@ -121,13 +114,12 @@ class EventGatewayJsonConverterDiffblueTest {
 
   /**
    * Test new {@link EventGatewayJsonConverter} (default constructor).
-   *
-   * <p>Method under test: default or parameterless constructor of {@link EventGatewayJsonConverter}
+   * <p>
+   * Method under test: default or parameterless constructor of {@link EventGatewayJsonConverter}
    */
   @Test
   @DisplayName("Test new EventGatewayJsonConverter (default constructor)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void EventGatewayJsonConverter.<init>()"})
   void testNewEventGatewayJsonConverter() {
     // Arrange and Act

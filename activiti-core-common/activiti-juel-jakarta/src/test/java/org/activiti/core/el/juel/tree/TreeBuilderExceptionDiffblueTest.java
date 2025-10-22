@@ -17,7 +17,6 @@ package org.activiti.core.el.juel.tree;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
@@ -26,27 +25,22 @@ import org.junit.jupiter.api.Test;
 class TreeBuilderExceptionDiffblueTest {
   /**
    * Test {@link TreeBuilderException#TreeBuilderException(String, int, String, String, String)}.
-   *
-   * <p>Method under test: {@link TreeBuilderException#TreeBuilderException(String, int, String,
-   * String, String)}
+   * <p>
+   * Method under test: {@link TreeBuilderException#TreeBuilderException(String, int, String, String, String)}
    */
   @Test
   @DisplayName("Test new TreeBuilderException(String, int, String, String, String)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void TreeBuilderException.<init>(String, int, String, String, String)"})
   void testNewTreeBuilderException() {
     // Arrange and Act
-    TreeBuilderException actualTreeBuilderException =
-        new TreeBuilderException("Expression", 1, "3", "Expected", "An error occurred");
+    TreeBuilderException actualTreeBuilderException = new TreeBuilderException("Expression", 1, "3", "Expected",
+        "An error occurred");
 
     // Assert
     assertEquals("3", actualTreeBuilderException.getEncountered());
-    assertEquals(
-        "Error parsing 'Expression': An error occurred",
-        actualTreeBuilderException.getLocalizedMessage());
-    assertEquals(
-        "Error parsing 'Expression': An error occurred", actualTreeBuilderException.getMessage());
+    assertEquals("Error parsing 'Expression': An error occurred", actualTreeBuilderException.getLocalizedMessage());
+    assertEquals("Error parsing 'Expression': An error occurred", actualTreeBuilderException.getMessage());
     assertEquals("Expected", actualTreeBuilderException.getExpected());
     assertEquals("Expression", actualTreeBuilderException.getExpression());
     assertNull(actualTreeBuilderException.getCause());
@@ -56,9 +50,8 @@ class TreeBuilderExceptionDiffblueTest {
 
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>{@link TreeBuilderException#getEncountered()}
    *   <li>{@link TreeBuilderException#getExpected()}
@@ -68,18 +61,13 @@ class TreeBuilderExceptionDiffblueTest {
    */
   @Test
   @DisplayName("Test getters and setters")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "String TreeBuilderException.getEncountered()",
-    "String TreeBuilderException.getExpected()",
-    "String TreeBuilderException.getExpression()",
-    "int TreeBuilderException.getPosition()"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"String TreeBuilderException.getEncountered()", "String TreeBuilderException.getExpected()",
+      "String TreeBuilderException.getExpression()", "int TreeBuilderException.getPosition()"})
   void testGettersAndSetters() {
     // Arrange
-    TreeBuilderException treeBuilderException =
-        new TreeBuilderException("Expression", 1, "3", "Expected", "An error occurred");
+    TreeBuilderException treeBuilderException = new TreeBuilderException("Expression", 1, "3", "Expected",
+        "An error occurred");
 
     // Act
     String actualEncountered = treeBuilderException.getEncountered();

@@ -20,7 +20,6 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.HashMap;
 import java.util.Map;
@@ -32,125 +31,93 @@ import org.junit.jupiter.api.Test;
 class ReceiveMessagePayloadBuilderDiffblueTest {
   /**
    * Test {@link ReceiveMessagePayloadBuilder#from(ReceiveMessagePayload)}.
-   *
    * <ul>
-   *   <li>Then return build CorrelationKey is {@code messagePayload must not be null}.
+   *   <li>Then return build CorrelationKey is {@code messagePayload must not be null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ReceiveMessagePayloadBuilder#from(ReceiveMessagePayload)}
+   * <p>
+   * Method under test: {@link ReceiveMessagePayloadBuilder#from(ReceiveMessagePayload)}
    */
   @Test
-  @DisplayName(
-      "Test from(ReceiveMessagePayload); then return build CorrelationKey is 'messagePayload must not be null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "ReceiveMessagePayloadBuilder ReceiveMessagePayloadBuilder.from(ReceiveMessagePayload)"
-  })
+  @DisplayName("Test from(ReceiveMessagePayload); then return build CorrelationKey is 'messagePayload must not be null'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"ReceiveMessagePayloadBuilder ReceiveMessagePayloadBuilder.from(ReceiveMessagePayload)"})
   void testFrom_thenReturnBuildCorrelationKeyIsMessagePayloadMustNotBeNull() {
-    // Arrange
-    ReceiveMessagePayload messagePayload =
-        new ReceiveMessagePayload(
-            "messagePayload must not be null", "messagePayload must not be null", new HashMap<>());
-
-    // Act and Assert
-    ReceiveMessagePayload receiveMessagePayload =
-        ReceiveMessagePayloadBuilder.from(messagePayload).build();
-    assertEquals("messagePayload must not be null", receiveMessagePayload.getCorrelationKey());
-    assertEquals("messagePayload must not be null", receiveMessagePayload.getName());
-    assertTrue(receiveMessagePayload.getVariables().isEmpty());
+    // Arrange, Act and Assert
+    ReceiveMessagePayload buildResult = ReceiveMessagePayloadBuilder
+        .from(new ReceiveMessagePayload("messagePayload must not be null", "messagePayload must not be null",
+            new HashMap<>()))
+        .build();
+    assertEquals("messagePayload must not be null", buildResult.getCorrelationKey());
+    assertEquals("messagePayload must not be null", buildResult.getName());
+    assertTrue(buildResult.getVariables().isEmpty());
   }
 
   /**
    * Test {@link ReceiveMessagePayloadBuilder#receive(String)}.
-   *
-   * <p>Method under test: {@link ReceiveMessagePayloadBuilder#receive(String)}
+   * <p>
+   * Method under test: {@link ReceiveMessagePayloadBuilder#receive(String)}
    */
   @Test
   @DisplayName("Test receive(String)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"ReceiveMessagePayloadBuilder ReceiveMessagePayloadBuilder.receive(String)"})
   void testReceive() {
     // Arrange, Act and Assert
-    ReceiveMessagePayload receiveMessagePayload =
-        ReceiveMessagePayloadBuilder.receive("Name").build();
-    assertEquals("Name", receiveMessagePayload.getName());
-    assertNull(receiveMessagePayload.getCorrelationKey());
-    assertNull(receiveMessagePayload.getVariables());
+    ReceiveMessagePayload buildResult = ReceiveMessagePayloadBuilder.receive("Name").build();
+    assertEquals("Name", buildResult.getName());
+    assertNull(buildResult.getCorrelationKey());
+    assertNull(buildResult.getVariables());
   }
 
   /**
    * Test {@link ReceiveMessagePayloadBuilder#withVariable(String, Object)}.
-   *
    * <ul>
-   *   <li>Given {@link ReceiveMessagePayloadBuilder} (default constructor).
+   *   <li>Given {@link ReceiveMessagePayloadBuilder} (default constructor).</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ReceiveMessagePayloadBuilder#withVariable(String, Object)}
+   * <p>
+   * Method under test: {@link ReceiveMessagePayloadBuilder#withVariable(String, Object)}
    */
   @Test
-  @DisplayName(
-      "Test withVariable(String, Object); given ReceiveMessagePayloadBuilder (default constructor)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "ReceiveMessagePayloadBuilder ReceiveMessagePayloadBuilder.withVariable(String, Object)"
-  })
+  @DisplayName("Test withVariable(String, Object); given ReceiveMessagePayloadBuilder (default constructor)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"ReceiveMessagePayloadBuilder ReceiveMessagePayloadBuilder.withVariable(String, Object)"})
   void testWithVariable_givenReceiveMessagePayloadBuilder() {
     // Arrange
     ReceiveMessagePayloadBuilder receiveMessagePayloadBuilder = new ReceiveMessagePayloadBuilder();
 
-    // Act
-    ReceiveMessagePayloadBuilder actualWithVariableResult =
-        receiveMessagePayloadBuilder.withVariable("Name", "Value");
-
-    // Assert
-    assertSame(receiveMessagePayloadBuilder, actualWithVariableResult);
+    // Act and Assert
+    assertSame(receiveMessagePayloadBuilder, receiveMessagePayloadBuilder.withVariable("Name", "Value"));
   }
 
   /**
    * Test {@link ReceiveMessagePayloadBuilder#withVariable(String, Object)}.
-   *
    * <ul>
-   *   <li>Given {@link ReceiveMessagePayloadBuilder} (default constructor) withVariables {@link
-   *       HashMap#HashMap()}.
+   *   <li>Given {@link ReceiveMessagePayloadBuilder} (default constructor) withVariables {@link HashMap#HashMap()}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ReceiveMessagePayloadBuilder#withVariable(String, Object)}
+   * <p>
+   * Method under test: {@link ReceiveMessagePayloadBuilder#withVariable(String, Object)}
    */
   @Test
-  @DisplayName(
-      "Test withVariable(String, Object); given ReceiveMessagePayloadBuilder (default constructor) withVariables HashMap()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "ReceiveMessagePayloadBuilder ReceiveMessagePayloadBuilder.withVariable(String, Object)"
-  })
+  @DisplayName("Test withVariable(String, Object); given ReceiveMessagePayloadBuilder (default constructor) withVariables HashMap()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"ReceiveMessagePayloadBuilder ReceiveMessagePayloadBuilder.withVariable(String, Object)"})
   void testWithVariable_givenReceiveMessagePayloadBuilderWithVariablesHashMap() {
     // Arrange
     ReceiveMessagePayloadBuilder receiveMessagePayloadBuilder = new ReceiveMessagePayloadBuilder();
     receiveMessagePayloadBuilder.withVariables(new HashMap<>());
 
-    // Act
-    ReceiveMessagePayloadBuilder actualWithVariableResult =
-        receiveMessagePayloadBuilder.withVariable("Name", "Value");
-
-    // Assert
-    assertSame(receiveMessagePayloadBuilder, actualWithVariableResult);
+    // Act and Assert
+    assertSame(receiveMessagePayloadBuilder, receiveMessagePayloadBuilder.withVariable("Name", "Value"));
   }
 
   /**
-   * Test {@link ReceiveMessagePayloadBuilder#equals(Object)}, and {@link
-   * ReceiveMessagePayloadBuilder#hashCode()}.
-   *
+   * Test {@link ReceiveMessagePayloadBuilder#equals(Object)}, and {@link ReceiveMessagePayloadBuilder#hashCode()}.
    * <ul>
-   *   <li>When other is equal.
-   *   <li>Then return equal.
+   *   <li>When other is equal.</li>
+   *   <li>Then return equal.</li>
    * </ul>
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>{@link ReceiveMessagePayloadBuilder#equals(Object)}
    *   <li>{@link ReceiveMessagePayloadBuilder#hashCode()}
@@ -158,12 +125,9 @@ class ReceiveMessagePayloadBuilderDiffblueTest {
    */
   @Test
   @DisplayName("Test equals(Object), and hashCode(); when other is equal; then return equal")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "boolean ReceiveMessagePayloadBuilder.equals(Object)",
-    "int ReceiveMessagePayloadBuilder.hashCode()"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean ReceiveMessagePayloadBuilder.equals(Object)",
+      "int ReceiveMessagePayloadBuilder.hashCode()"})
   void testEqualsAndHashCode_whenOtherIsEqual_thenReturnEqual() {
     // Arrange
     ReceiveMessagePayloadBuilder receiveMessagePayloadBuilder = new ReceiveMessagePayloadBuilder();
@@ -171,20 +135,18 @@ class ReceiveMessagePayloadBuilderDiffblueTest {
 
     // Act and Assert
     assertEquals(receiveMessagePayloadBuilder, receiveMessagePayloadBuilder2);
-    assertEquals(receiveMessagePayloadBuilder.hashCode(), receiveMessagePayloadBuilder2.hashCode());
+    int expectedHashCodeResult = receiveMessagePayloadBuilder.hashCode();
+    assertEquals(expectedHashCodeResult, receiveMessagePayloadBuilder2.hashCode());
   }
 
   /**
-   * Test {@link ReceiveMessagePayloadBuilder#equals(Object)}, and {@link
-   * ReceiveMessagePayloadBuilder#hashCode()}.
-   *
+   * Test {@link ReceiveMessagePayloadBuilder#equals(Object)}, and {@link ReceiveMessagePayloadBuilder#hashCode()}.
    * <ul>
-   *   <li>When other is same.
-   *   <li>Then return equal.
+   *   <li>When other is same.</li>
+   *   <li>Then return equal.</li>
    * </ul>
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>{@link ReceiveMessagePayloadBuilder#equals(Object)}
    *   <li>{@link ReceiveMessagePayloadBuilder#hashCode()}
@@ -192,12 +154,9 @@ class ReceiveMessagePayloadBuilderDiffblueTest {
    */
   @Test
   @DisplayName("Test equals(Object), and hashCode(); when other is same; then return equal")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "boolean ReceiveMessagePayloadBuilder.equals(Object)",
-    "int ReceiveMessagePayloadBuilder.hashCode()"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean ReceiveMessagePayloadBuilder.equals(Object)",
+      "int ReceiveMessagePayloadBuilder.hashCode()"})
   void testEqualsAndHashCode_whenOtherIsSame_thenReturnEqual() {
     // Arrange
     ReceiveMessagePayloadBuilder receiveMessagePayloadBuilder = new ReceiveMessagePayloadBuilder();
@@ -210,22 +169,18 @@ class ReceiveMessagePayloadBuilderDiffblueTest {
 
   /**
    * Test {@link ReceiveMessagePayloadBuilder#equals(Object)}.
-   *
    * <ul>
-   *   <li>When other is different.
-   *   <li>Then return not equal.
+   *   <li>When other is different.</li>
+   *   <li>Then return not equal.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ReceiveMessagePayloadBuilder#equals(Object)}
+   * <p>
+   * Method under test: {@link ReceiveMessagePayloadBuilder#equals(Object)}
    */
   @Test
   @DisplayName("Test equals(Object); when other is different; then return not equal")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "boolean ReceiveMessagePayloadBuilder.equals(Object)",
-    "int ReceiveMessagePayloadBuilder.hashCode()"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean ReceiveMessagePayloadBuilder.equals(Object)",
+      "int ReceiveMessagePayloadBuilder.hashCode()"})
   void testEquals_whenOtherIsDifferent_thenReturnNotEqual() {
     // Arrange, Act and Assert
     assertNotEquals(new ReceiveMessagePayloadBuilder(), 1);
@@ -233,22 +188,18 @@ class ReceiveMessagePayloadBuilderDiffblueTest {
 
   /**
    * Test {@link ReceiveMessagePayloadBuilder#equals(Object)}.
-   *
    * <ul>
-   *   <li>When other is different.
-   *   <li>Then return not equal.
+   *   <li>When other is different.</li>
+   *   <li>Then return not equal.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ReceiveMessagePayloadBuilder#equals(Object)}
+   * <p>
+   * Method under test: {@link ReceiveMessagePayloadBuilder#equals(Object)}
    */
   @Test
   @DisplayName("Test equals(Object); when other is different; then return not equal")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "boolean ReceiveMessagePayloadBuilder.equals(Object)",
-    "int ReceiveMessagePayloadBuilder.hashCode()"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean ReceiveMessagePayloadBuilder.equals(Object)",
+      "int ReceiveMessagePayloadBuilder.hashCode()"})
   void testEquals_whenOtherIsDifferent_thenReturnNotEqual2() {
     // Arrange
     ReceiveMessagePayloadBuilder receiveMessagePayloadBuilder = new ReceiveMessagePayloadBuilder();
@@ -260,22 +211,18 @@ class ReceiveMessagePayloadBuilderDiffblueTest {
 
   /**
    * Test {@link ReceiveMessagePayloadBuilder#equals(Object)}.
-   *
    * <ul>
-   *   <li>When other is different.
-   *   <li>Then return not equal.
+   *   <li>When other is different.</li>
+   *   <li>Then return not equal.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ReceiveMessagePayloadBuilder#equals(Object)}
+   * <p>
+   * Method under test: {@link ReceiveMessagePayloadBuilder#equals(Object)}
    */
   @Test
   @DisplayName("Test equals(Object); when other is different; then return not equal")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "boolean ReceiveMessagePayloadBuilder.equals(Object)",
-    "int ReceiveMessagePayloadBuilder.hashCode()"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean ReceiveMessagePayloadBuilder.equals(Object)",
+      "int ReceiveMessagePayloadBuilder.hashCode()"})
   void testEquals_whenOtherIsDifferent_thenReturnNotEqual3() {
     // Arrange
     ReceiveMessagePayloadBuilder receiveMessagePayloadBuilder = new ReceiveMessagePayloadBuilder();
@@ -287,22 +234,18 @@ class ReceiveMessagePayloadBuilderDiffblueTest {
 
   /**
    * Test {@link ReceiveMessagePayloadBuilder#equals(Object)}.
-   *
    * <ul>
-   *   <li>When other is different.
-   *   <li>Then return not equal.
+   *   <li>When other is different.</li>
+   *   <li>Then return not equal.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ReceiveMessagePayloadBuilder#equals(Object)}
+   * <p>
+   * Method under test: {@link ReceiveMessagePayloadBuilder#equals(Object)}
    */
   @Test
   @DisplayName("Test equals(Object); when other is different; then return not equal")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "boolean ReceiveMessagePayloadBuilder.equals(Object)",
-    "int ReceiveMessagePayloadBuilder.hashCode()"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean ReceiveMessagePayloadBuilder.equals(Object)",
+      "int ReceiveMessagePayloadBuilder.hashCode()"})
   void testEquals_whenOtherIsDifferent_thenReturnNotEqual4() {
     // Arrange
     ReceiveMessagePayloadBuilder receiveMessagePayloadBuilder = new ReceiveMessagePayloadBuilder();
@@ -314,22 +257,18 @@ class ReceiveMessagePayloadBuilderDiffblueTest {
 
   /**
    * Test {@link ReceiveMessagePayloadBuilder#equals(Object)}.
-   *
    * <ul>
-   *   <li>When other is {@code null}.
-   *   <li>Then return not equal.
+   *   <li>When other is {@code null}.</li>
+   *   <li>Then return not equal.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ReceiveMessagePayloadBuilder#equals(Object)}
+   * <p>
+   * Method under test: {@link ReceiveMessagePayloadBuilder#equals(Object)}
    */
   @Test
   @DisplayName("Test equals(Object); when other is 'null'; then return not equal")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "boolean ReceiveMessagePayloadBuilder.equals(Object)",
-    "int ReceiveMessagePayloadBuilder.hashCode()"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean ReceiveMessagePayloadBuilder.equals(Object)",
+      "int ReceiveMessagePayloadBuilder.hashCode()"})
   void testEquals_whenOtherIsNull_thenReturnNotEqual() {
     // Arrange, Act and Assert
     assertNotEquals(new ReceiveMessagePayloadBuilder(), null);
@@ -337,33 +276,27 @@ class ReceiveMessagePayloadBuilderDiffblueTest {
 
   /**
    * Test {@link ReceiveMessagePayloadBuilder#equals(Object)}.
-   *
    * <ul>
-   *   <li>When other is wrong type.
-   *   <li>Then return not equal.
+   *   <li>When other is wrong type.</li>
+   *   <li>Then return not equal.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ReceiveMessagePayloadBuilder#equals(Object)}
+   * <p>
+   * Method under test: {@link ReceiveMessagePayloadBuilder#equals(Object)}
    */
   @Test
   @DisplayName("Test equals(Object); when other is wrong type; then return not equal")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "boolean ReceiveMessagePayloadBuilder.equals(Object)",
-    "int ReceiveMessagePayloadBuilder.hashCode()"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean ReceiveMessagePayloadBuilder.equals(Object)",
+      "int ReceiveMessagePayloadBuilder.hashCode()"})
   void testEquals_whenOtherIsWrongType_thenReturnNotEqual() {
     // Arrange, Act and Assert
-    assertNotEquals(
-        new ReceiveMessagePayloadBuilder(), "Different type to ReceiveMessagePayloadBuilder");
+    assertNotEquals(new ReceiveMessagePayloadBuilder(), "Different type to ReceiveMessagePayloadBuilder");
   }
 
   /**
    * Test {@link ReceiveMessagePayloadBuilder#build()}.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>{@link ReceiveMessagePayloadBuilder#build()}
    *   <li>default or parameterless constructor of {@link ReceiveMessagePayloadBuilder}
@@ -374,31 +307,27 @@ class ReceiveMessagePayloadBuilderDiffblueTest {
    */
   @Test
   @DisplayName("Test build()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void ReceiveMessagePayloadBuilder.<init>()",
-    "ReceiveMessagePayload ReceiveMessagePayloadBuilder.build()",
-    "String ReceiveMessagePayloadBuilder.toString()",
-    "ReceiveMessagePayloadBuilder ReceiveMessagePayloadBuilder.withCorrelationKey(String)",
-    "ReceiveMessagePayloadBuilder ReceiveMessagePayloadBuilder.withName(String)",
-    "ReceiveMessagePayloadBuilder ReceiveMessagePayloadBuilder.withVariables(Map)"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void ReceiveMessagePayloadBuilder.<init>()",
+      "ReceiveMessagePayload ReceiveMessagePayloadBuilder.build()", "String ReceiveMessagePayloadBuilder.toString()",
+      "ReceiveMessagePayloadBuilder ReceiveMessagePayloadBuilder.withCorrelationKey(String)",
+      "ReceiveMessagePayloadBuilder ReceiveMessagePayloadBuilder.withName(String)",
+      "ReceiveMessagePayloadBuilder ReceiveMessagePayloadBuilder.withVariables(Map)"})
   void testBuild() {
-    // Arrange and Act
-    ReceiveMessagePayloadBuilder actualWithVariableResult =
-        new ReceiveMessagePayloadBuilder()
-            .withCorrelationKey("Correlation Key")
-            .withName("Name")
-            .withVariable("Name", "Value");
+    // Arrange
+    ReceiveMessagePayloadBuilder withVariableResult = (new ReceiveMessagePayloadBuilder())
+        .withCorrelationKey("Correlation Key")
+        .withName("Name")
+        .withVariable("Name", "Value");
     HashMap<String, Object> variables = new HashMap<>();
-    ReceiveMessagePayload actualReceiveMessagePayload =
-        actualWithVariableResult.withVariables(variables).build();
+
+    // Act
+    ReceiveMessagePayload actualBuildResult = withVariableResult.withVariables(variables).build();
 
     // Assert
-    assertEquals("Correlation Key", actualReceiveMessagePayload.getCorrelationKey());
-    assertEquals("Name", actualReceiveMessagePayload.getName());
-    Map<String, Object> variables2 = actualReceiveMessagePayload.getVariables();
+    assertEquals("Correlation Key", actualBuildResult.getCorrelationKey());
+    assertEquals("Name", actualBuildResult.getName());
+    Map<String, Object> variables2 = actualBuildResult.getVariables();
     assertTrue(variables2.isEmpty());
     assertSame(variables, variables2);
   }

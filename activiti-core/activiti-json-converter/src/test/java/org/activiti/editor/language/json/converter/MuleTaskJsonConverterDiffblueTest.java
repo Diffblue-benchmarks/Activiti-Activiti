@@ -19,10 +19,9 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.node.DoubleNode;
+import com.fasterxml.jackson.databind.node.MissingNode;
 import java.util.HashMap;
 import java.util.Map;
 import org.activiti.bpmn.model.ActivitiListener;
@@ -36,13 +35,12 @@ import org.junit.jupiter.api.Test;
 class MuleTaskJsonConverterDiffblueTest {
   /**
    * Test {@link MuleTaskJsonConverter#fillTypes(Map, Map)}.
-   *
-   * <p>Method under test: {@link MuleTaskJsonConverter#fillTypes(Map, Map)}
+   * <p>
+   * Method under test: {@link MuleTaskJsonConverter#fillTypes(Map, Map)}
    */
   @Test
   @DisplayName("Test fillTypes(Map, Map)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void MuleTaskJsonConverter.fillTypes(Map, Map)"})
   void testFillTypes() {
     // Arrange
@@ -59,13 +57,12 @@ class MuleTaskJsonConverterDiffblueTest {
 
   /**
    * Test {@link MuleTaskJsonConverter#fillJsonTypes(Map)}.
-   *
-   * <p>Method under test: {@link MuleTaskJsonConverter#fillJsonTypes(Map)}
+   * <p>
+   * Method under test: {@link MuleTaskJsonConverter#fillJsonTypes(Map)}
    */
   @Test
   @DisplayName("Test fillJsonTypes(Map)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void MuleTaskJsonConverter.fillJsonTypes(Map)"})
   void testFillJsonTypes() {
     // Arrange
@@ -82,13 +79,12 @@ class MuleTaskJsonConverterDiffblueTest {
 
   /**
    * Test {@link MuleTaskJsonConverter#getStencilId(BaseElement)}.
-   *
-   * <p>Method under test: {@link MuleTaskJsonConverter#getStencilId(BaseElement)}
+   * <p>
+   * Method under test: {@link MuleTaskJsonConverter#getStencilId(BaseElement)}
    */
   @Test
   @DisplayName("Test getStencilId(BaseElement)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"String MuleTaskJsonConverter.getStencilId(BaseElement)"})
   void testGetStencilId() {
     // Arrange
@@ -100,32 +96,26 @@ class MuleTaskJsonConverterDiffblueTest {
 
   /**
    * Test {@link MuleTaskJsonConverter#convertJsonToElement(JsonNode, JsonNode, Map)}.
-   *
    * <ul>
-   *   <li>When {@link HashMap#HashMap()}.
-   *   <li>Then return {@link ServiceTask}.
+   *   <li>When {@link HashMap#HashMap()}.</li>
+   *   <li>Then return {@link ServiceTask}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link MuleTaskJsonConverter#convertJsonToElement(JsonNode, JsonNode,
-   * Map)}
+   * <p>
+   * Method under test: {@link MuleTaskJsonConverter#convertJsonToElement(JsonNode, JsonNode, Map)}
    */
   @Test
-  @DisplayName(
-      "Test convertJsonToElement(JsonNode, JsonNode, Map); when HashMap(); then return ServiceTask")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "FlowElement MuleTaskJsonConverter.convertJsonToElement(JsonNode, JsonNode, Map)"
-  })
+  @DisplayName("Test convertJsonToElement(JsonNode, JsonNode, Map); when HashMap(); then return ServiceTask")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"FlowElement MuleTaskJsonConverter.convertJsonToElement(JsonNode, JsonNode, Map)"})
   void testConvertJsonToElement_whenHashMap_thenReturnServiceTask() {
     // Arrange
     MuleTaskJsonConverter muleTaskJsonConverter = new MuleTaskJsonConverter();
-    DoubleNode elementNode = DoubleNode.valueOf(10.0d);
-    DoubleNode modelNode = DoubleNode.valueOf(10.0d);
+    MissingNode elementNode = MissingNode.getInstance();
+    MissingNode modelNode = MissingNode.getInstance();
 
     // Act
-    FlowElement actualConvertJsonToElementResult =
-        muleTaskJsonConverter.convertJsonToElement(elementNode, modelNode, new HashMap<>());
+    FlowElement actualConvertJsonToElementResult = muleTaskJsonConverter.convertJsonToElement(elementNode, modelNode,
+        new HashMap<>());
 
     // Assert
     assertTrue(actualConvertJsonToElementResult instanceof ServiceTask);
@@ -148,17 +138,14 @@ class MuleTaskJsonConverterDiffblueTest {
     assertNull(actualConvertJsonToElementResult.getSubProcess());
     assertEquals(0, actualConvertJsonToElementResult.getXmlColumnNumber());
     assertEquals(0, actualConvertJsonToElementResult.getXmlRowNumber());
-    assertFalse(
-        ((ServiceTask) actualConvertJsonToElementResult).hasMultiInstanceLoopCharacteristics());
+    assertFalse(((ServiceTask) actualConvertJsonToElementResult).hasMultiInstanceLoopCharacteristics());
     assertFalse(((ServiceTask) actualConvertJsonToElementResult).isForCompensation());
     assertFalse(((ServiceTask) actualConvertJsonToElementResult).isAsynchronous());
     assertFalse(((ServiceTask) actualConvertJsonToElementResult).isNotExclusive());
     assertFalse(((ServiceTask) actualConvertJsonToElementResult).isExtended());
     assertTrue(((ServiceTask) actualConvertJsonToElementResult).getBoundaryEvents().isEmpty());
-    assertTrue(
-        ((ServiceTask) actualConvertJsonToElementResult).getDataInputAssociations().isEmpty());
-    assertTrue(
-        ((ServiceTask) actualConvertJsonToElementResult).getDataOutputAssociations().isEmpty());
+    assertTrue(((ServiceTask) actualConvertJsonToElementResult).getDataInputAssociations().isEmpty());
+    assertTrue(((ServiceTask) actualConvertJsonToElementResult).getDataOutputAssociations().isEmpty());
     assertTrue(((ServiceTask) actualConvertJsonToElementResult).getMapExceptions().isEmpty());
     assertTrue(actualConvertJsonToElementResult.getExecutionListeners().isEmpty());
     assertTrue(((ServiceTask) actualConvertJsonToElementResult).getIncomingFlows().isEmpty());
@@ -172,13 +159,12 @@ class MuleTaskJsonConverterDiffblueTest {
 
   /**
    * Test new {@link MuleTaskJsonConverter} (default constructor).
-   *
-   * <p>Method under test: default or parameterless constructor of {@link MuleTaskJsonConverter}
+   * <p>
+   * Method under test: default or parameterless constructor of {@link MuleTaskJsonConverter}
    */
   @Test
   @DisplayName("Test new MuleTaskJsonConverter (default constructor)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void MuleTaskJsonConverter.<init>()"})
   void testNewMuleTaskJsonConverter() {
     // Arrange and Act

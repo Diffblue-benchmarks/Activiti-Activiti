@@ -16,8 +16,7 @@
 package org.activiti.engine.impl.calendar;
 
 import static org.junit.Assert.assertThrows;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.engine.ActivitiIllegalArgumentException;
 import org.activiti.engine.impl.util.DefaultClockImpl;
@@ -28,45 +27,37 @@ import org.junit.experimental.categories.Category;
 public class DurationHelperDiffblueTest {
   /**
    * Test {@link DurationHelper#DurationHelper(String, int, ClockReader)}.
-   *
    * <ul>
-   *   <li>When {@code /}.
-   *   <li>Then throw {@link ActivitiIllegalArgumentException}.
+   *   <li>When {@code /}.</li>
+   *   <li>Then throw {@link ActivitiIllegalArgumentException}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link DurationHelper#DurationHelper(String, int, ClockReader)}
+   * <p>
+   * Method under test: {@link DurationHelper#DurationHelper(String, int, ClockReader)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void DurationHelper.<init>(String, int, ClockReader)"})
-  public void testNewDurationHelper_whenSlash_thenThrowActivitiIllegalArgumentException()
-      throws Exception {
+  public void testNewDurationHelper_whenSlash_thenThrowActivitiIllegalArgumentException() throws Exception {
     // Arrange, Act and Assert
-    assertThrows(
-        ActivitiIllegalArgumentException.class,
-        () -> new DurationHelper("/", 3, new DefaultClockImpl()));
+    assertThrows(ActivitiIllegalArgumentException.class, () -> new DurationHelper("/", 3, new DefaultClockImpl()));
+
   }
 
   /**
    * Test {@link DurationHelper#DurationHelper(String, ClockReader)}.
-   *
    * <ul>
-   *   <li>When {@code /}.
-   *   <li>Then throw {@link ActivitiIllegalArgumentException}.
+   *   <li>When {@code /}.</li>
+   *   <li>Then throw {@link ActivitiIllegalArgumentException}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link DurationHelper#DurationHelper(String, ClockReader)}
+   * <p>
+   * Method under test: {@link DurationHelper#DurationHelper(String, ClockReader)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void DurationHelper.<init>(String, ClockReader)"})
-  public void testNewDurationHelper_whenSlash_thenThrowActivitiIllegalArgumentException2()
-      throws Exception {
+  public void testNewDurationHelper_whenSlash_thenThrowActivitiIllegalArgumentException2() throws Exception {
     // Arrange, Act and Assert
-    assertThrows(
-        ActivitiIllegalArgumentException.class,
-        () -> new DurationHelper("/", new DefaultClockImpl()));
+    assertThrows(ActivitiIllegalArgumentException.class, () -> new DurationHelper("/", new DefaultClockImpl()));
+
   }
 }

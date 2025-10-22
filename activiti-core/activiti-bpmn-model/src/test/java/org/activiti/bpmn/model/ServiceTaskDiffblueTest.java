@@ -20,14 +20,13 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
-import static org.mockito.ArgumentMatchers.isNull;
+import static org.mockito.ArgumentMatchers.isA;
 import static org.mockito.Mockito.atLeast;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -40,17 +39,15 @@ import org.mockito.Mockito;
 public class ServiceTaskDiffblueTest {
   /**
    * Test {@link ServiceTask#isExtended()}.
-   *
    * <ul>
-   *   <li>Given {@link ServiceTask} (default constructor) ExtensionId is empty string.
-   *   <li>Then return {@code false}.
+   *   <li>Given {@link ServiceTask} (default constructor) ExtensionId is empty string.</li>
+   *   <li>Then return {@code false}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ServiceTask#isExtended()}
+   * <p>
+   * Method under test: {@link ServiceTask#isExtended()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"boolean ServiceTask.isExtended()"})
   public void testIsExtended_givenServiceTaskExtensionIdIsEmptyString_thenReturnFalse() {
     // Arrange
@@ -63,17 +60,15 @@ public class ServiceTaskDiffblueTest {
 
   /**
    * Test {@link ServiceTask#isExtended()}.
-   *
    * <ul>
-   *   <li>Given {@link ServiceTask} (default constructor) ExtensionId is {@code foo}.
-   *   <li>Then return {@code true}.
+   *   <li>Given {@link ServiceTask} (default constructor) ExtensionId is {@code foo}.</li>
+   *   <li>Then return {@code true}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ServiceTask#isExtended()}
+   * <p>
+   * Method under test: {@link ServiceTask#isExtended()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"boolean ServiceTask.isExtended()"})
   public void testIsExtended_givenServiceTaskExtensionIdIsFoo_thenReturnTrue() {
     // Arrange
@@ -86,31 +81,28 @@ public class ServiceTaskDiffblueTest {
 
   /**
    * Test {@link ServiceTask#isExtended()}.
-   *
    * <ul>
-   *   <li>Given {@link ServiceTask} (default constructor).
-   *   <li>Then return {@code false}.
+   *   <li>Given {@link ServiceTask} (default constructor).</li>
+   *   <li>Then return {@code false}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ServiceTask#isExtended()}
+   * <p>
+   * Method under test: {@link ServiceTask#isExtended()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"boolean ServiceTask.isExtended()"})
   public void testIsExtended_givenServiceTask_thenReturnFalse() {
     // Arrange, Act and Assert
-    assertFalse(new ServiceTask().isExtended());
+    assertFalse((new ServiceTask()).isExtended());
   }
 
   /**
    * Test {@link ServiceTask#hasBoundaryErrorEvents()}.
-   *
-   * <p>Method under test: {@link ServiceTask#hasBoundaryErrorEvents()}
+   * <p>
+   * Method under test: {@link ServiceTask#hasBoundaryErrorEvents()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"boolean ServiceTask.hasBoundaryErrorEvents()"})
   public void testHasBoundaryErrorEvents() {
     // Arrange
@@ -133,12 +125,11 @@ public class ServiceTaskDiffblueTest {
 
   /**
    * Test {@link ServiceTask#hasBoundaryErrorEvents()}.
-   *
-   * <p>Method under test: {@link ServiceTask#hasBoundaryErrorEvents()}
+   * <p>
+   * Method under test: {@link ServiceTask#hasBoundaryErrorEvents()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"boolean ServiceTask.hasBoundaryErrorEvents()"})
   public void testHasBoundaryErrorEvents2() {
     // Arrange
@@ -162,17 +153,14 @@ public class ServiceTaskDiffblueTest {
 
   /**
    * Test {@link ServiceTask#hasBoundaryErrorEvents()}.
-   *
    * <ul>
-   *   <li>Given {@link BoundaryEvent} (default constructor) EventDefinitions is {@link
-   *       ArrayList#ArrayList()}.
+   *   <li>Given {@link BoundaryEvent} (default constructor) EventDefinitions is {@link ArrayList#ArrayList()}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ServiceTask#hasBoundaryErrorEvents()}
+   * <p>
+   * Method under test: {@link ServiceTask#hasBoundaryErrorEvents()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"boolean ServiceTask.hasBoundaryErrorEvents()"})
   public void testHasBoundaryErrorEvents_givenBoundaryEventEventDefinitionsIsArrayList() {
     // Arrange
@@ -191,16 +179,14 @@ public class ServiceTaskDiffblueTest {
 
   /**
    * Test {@link ServiceTask#hasBoundaryErrorEvents()}.
-   *
    * <ul>
-   *   <li>Given {@link BoundaryEvent} (default constructor) EventDefinitions is {@code null}.
+   *   <li>Given {@link BoundaryEvent} (default constructor) EventDefinitions is {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ServiceTask#hasBoundaryErrorEvents()}
+   * <p>
+   * Method under test: {@link ServiceTask#hasBoundaryErrorEvents()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"boolean ServiceTask.hasBoundaryErrorEvents()"})
   public void testHasBoundaryErrorEvents_givenBoundaryEventEventDefinitionsIsNull() {
     // Arrange
@@ -219,16 +205,14 @@ public class ServiceTaskDiffblueTest {
 
   /**
    * Test {@link ServiceTask#hasBoundaryErrorEvents()}.
-   *
    * <ul>
-   *   <li>Given {@link BoundaryEvent} (default constructor) EventDefinitions is {@code null}.
+   *   <li>Given {@link BoundaryEvent} (default constructor) EventDefinitions is {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ServiceTask#hasBoundaryErrorEvents()}
+   * <p>
+   * Method under test: {@link ServiceTask#hasBoundaryErrorEvents()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"boolean ServiceTask.hasBoundaryErrorEvents()"})
   public void testHasBoundaryErrorEvents_givenBoundaryEventEventDefinitionsIsNull2() {
     // Arrange
@@ -248,17 +232,15 @@ public class ServiceTaskDiffblueTest {
 
   /**
    * Test {@link ServiceTask#hasBoundaryErrorEvents()}.
-   *
    * <ul>
-   *   <li>Given {@link ServiceTask} (default constructor) BoundaryEvents is {@code null}.
-   *   <li>Then return {@code false}.
+   *   <li>Given {@link ServiceTask} (default constructor) BoundaryEvents is {@code null}.</li>
+   *   <li>Then return {@code false}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ServiceTask#hasBoundaryErrorEvents()}
+   * <p>
+   * Method under test: {@link ServiceTask#hasBoundaryErrorEvents()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"boolean ServiceTask.hasBoundaryErrorEvents()"})
   public void testHasBoundaryErrorEvents_givenServiceTaskBoundaryEventsIsNull_thenReturnFalse() {
     // Arrange
@@ -271,40 +253,66 @@ public class ServiceTaskDiffblueTest {
 
   /**
    * Test {@link ServiceTask#hasBoundaryErrorEvents()}.
-   *
    * <ul>
-   *   <li>Given {@link ServiceTask} (default constructor).
-   *   <li>Then return {@code false}.
+   *   <li>Given {@link ServiceTask} (default constructor).</li>
+   *   <li>Then return {@code false}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ServiceTask#hasBoundaryErrorEvents()}
+   * <p>
+   * Method under test: {@link ServiceTask#hasBoundaryErrorEvents()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"boolean ServiceTask.hasBoundaryErrorEvents()"})
   public void testHasBoundaryErrorEvents_givenServiceTask_thenReturnFalse() {
     // Arrange, Act and Assert
-    assertFalse(new ServiceTask().hasBoundaryErrorEvents());
+    assertFalse((new ServiceTask()).hasBoundaryErrorEvents());
+  }
+
+  /**
+   * Test {@link ServiceTask#hasBoundaryErrorEvents()}.
+   * <ul>
+   *   <li>Then return {@code true}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link ServiceTask#hasBoundaryErrorEvents()}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean ServiceTask.hasBoundaryErrorEvents()"})
+  public void testHasBoundaryErrorEvents_thenReturnTrue() {
+    // Arrange
+    BoundaryEvent boundaryEvent = new BoundaryEvent();
+    boundaryEvent.setEventDefinitions(null);
+
+    BoundaryEvent boundaryEvent2 = new BoundaryEvent();
+    boundaryEvent2.addEventDefinition(new ErrorEventDefinition());
+
+    ArrayList<BoundaryEvent> boundaryEvents = new ArrayList<>();
+    boundaryEvents.add(boundaryEvent2);
+    boundaryEvents.add(boundaryEvent);
+
+    ServiceTask serviceTask = new ServiceTask();
+    serviceTask.setBoundaryEvents(boundaryEvents);
+
+    // Act and Assert
+    assertTrue(serviceTask.hasBoundaryErrorEvents());
   }
 
   /**
    * Test {@link ServiceTask#clone()}.
-   *
    * <ul>
-   *   <li>Given {@link AlfrescoMailTask} (default constructor).
-   *   <li>Then return {@link AlfrescoMailTask}.
+   *   <li>Given {@link AlfrescoMailTask} (default constructor).</li>
+   *   <li>Then return {@link AlfrescoMailTask}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ServiceTask#clone()}
+   * <p>
+   * Method under test: {@link ServiceTask#clone()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"ServiceTask ServiceTask.clone()"})
   public void testClone_givenAlfrescoMailTask_thenReturnAlfrescoMailTask() {
     // Arrange and Act
-    AlfrescoMailTask actualCloneResult = new AlfrescoMailTask().clone();
+    AlfrescoMailTask actualCloneResult = (new AlfrescoMailTask()).clone();
 
     // Assert
     assertTrue(actualCloneResult instanceof AlfrescoMailTask);
@@ -348,26 +356,33 @@ public class ServiceTaskDiffblueTest {
 
   /**
    * Test {@link ServiceTask#clone()}.
-   *
    * <ul>
-   *   <li>Given {@link ArrayList#ArrayList()} add {@link FieldExtension} (default constructor).
-   *   <li>Then return FieldExtensions size is one.
+   *   <li>Given {@link ArrayList#ArrayList()} add {@link FieldExtension} (default constructor).</li>
+   *   <li>Then return FieldExtensions size is one.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ServiceTask#clone()}
+   * <p>
+   * Method under test: {@link ServiceTask#clone()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"ServiceTask ServiceTask.clone()"})
   public void testClone_givenArrayListAddFieldExtension_thenReturnFieldExtensionsSizeIsOne() {
     // Arrange
+    DataGrid complexValue = new DataGrid();
+    complexValue.setRows(null);
+
+    CustomProperty customProperty = new CustomProperty();
+    customProperty.setComplexValue(complexValue);
+
+    ArrayList<CustomProperty> customProperties = new ArrayList<>();
+    customProperties.add(customProperty);
+
     ArrayList<FieldExtension> fieldExtensions = new ArrayList<>();
     fieldExtensions.add(new FieldExtension());
 
     ServiceTask serviceTask = new ServiceTask();
+    serviceTask.setCustomProperties(customProperties);
     serviceTask.setFieldExtensions(fieldExtensions);
-    serviceTask.setCustomProperties(null);
 
     // Act and Assert
     List<FieldExtension> fieldExtensions2 = serviceTask.clone().getFieldExtensions();
@@ -385,67 +400,21 @@ public class ServiceTaskDiffblueTest {
 
   /**
    * Test {@link ServiceTask#clone()}.
-   *
    * <ul>
-   *   <li>Given {@link DataGrid} (default constructor) Rows is {@code null}.
+   *   <li>Given {@link ServiceTask} (default constructor) CustomProperties is {@code null}.</li>
+   *   <li>Then return Behavior is {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ServiceTask#clone()}
+   * <p>
+   * Method under test: {@link ServiceTask#clone()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"ServiceTask ServiceTask.clone()"})
-  public void testClone_givenDataGridRowsIsNull() {
-    // Arrange
-    DataGrid complexValue = new DataGrid();
-    complexValue.setRows(null);
-
-    CustomProperty customProperty = new CustomProperty();
-    customProperty.setComplexValue(complexValue);
-
-    ArrayList<CustomProperty> customProperties = new ArrayList<>();
-    customProperties.add(customProperty);
-
-    ServiceTask serviceTask = new ServiceTask();
-    serviceTask.setFieldExtensions(null);
-    serviceTask.setCustomProperties(customProperties);
-
-    // Act and Assert
-    List<CustomProperty> customProperties2 = serviceTask.clone().getCustomProperties();
-    assertEquals(1, customProperties2.size());
-    CustomProperty getResult = customProperties2.get(0);
-    ComplexDataType complexValue2 = getResult.getComplexValue();
-    assertTrue(complexValue2 instanceof DataGrid);
-    assertNull(getResult.getId());
-    assertNull(getResult.getName());
-    assertNull(getResult.getSimpleValue());
-    assertEquals(0, getResult.getXmlColumnNumber());
-    assertEquals(0, getResult.getXmlRowNumber());
-    assertTrue(((DataGrid) complexValue2).getRows().isEmpty());
-    assertTrue(getResult.getAttributes().isEmpty());
-    assertTrue(getResult.getExtensionElements().isEmpty());
-  }
-
-  /**
-   * Test {@link ServiceTask#clone()}.
-   *
-   * <ul>
-   *   <li>Given {@link ServiceTask} (default constructor) CustomProperties is {@code null}.
-   *   <li>Then return Behavior is {@code null}.
-   * </ul>
-   *
-   * <p>Method under test: {@link ServiceTask#clone()}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"ServiceTask ServiceTask.clone()"})
   public void testClone_givenServiceTaskCustomPropertiesIsNull_thenReturnBehaviorIsNull() {
     // Arrange
     ServiceTask serviceTask = new ServiceTask();
-    serviceTask.setFieldExtensions(null);
     serviceTask.setCustomProperties(null);
+    serviceTask.setFieldExtensions(null);
 
     // Act
     ServiceTask actualCloneResult = serviceTask.clone();
@@ -491,21 +460,19 @@ public class ServiceTaskDiffblueTest {
 
   /**
    * Test {@link ServiceTask#clone()}.
-   *
    * <ul>
-   *   <li>Given {@link ServiceTask} (default constructor).
-   *   <li>Then return Behavior is {@code null}.
+   *   <li>Given {@link ServiceTask} (default constructor).</li>
+   *   <li>Then return Behavior is {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ServiceTask#clone()}
+   * <p>
+   * Method under test: {@link ServiceTask#clone()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"ServiceTask ServiceTask.clone()"})
   public void testClone_givenServiceTask_thenReturnBehaviorIsNull() {
     // Arrange and Act
-    ServiceTask actualCloneResult = new ServiceTask().clone();
+    ServiceTask actualCloneResult = (new ServiceTask()).clone();
 
     // Assert
     assertNull(actualCloneResult.getBehavior());
@@ -548,16 +515,14 @@ public class ServiceTaskDiffblueTest {
 
   /**
    * Test {@link ServiceTask#clone()}.
-   *
    * <ul>
-   *   <li>Then return CustomProperties first ComplexValue is {@code null}.
+   *   <li>Then return CustomProperties first ComplexValue is {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ServiceTask#clone()}
+   * <p>
+   * Method under test: {@link ServiceTask#clone()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"ServiceTask ServiceTask.clone()"})
   public void testClone_thenReturnCustomPropertiesFirstComplexValueIsNull() {
     // Arrange
@@ -568,8 +533,8 @@ public class ServiceTaskDiffblueTest {
     customProperties.add(customProperty);
 
     ServiceTask serviceTask = new ServiceTask();
-    serviceTask.setFieldExtensions(null);
     serviceTask.setCustomProperties(customProperties);
+    serviceTask.setFieldExtensions(null);
 
     // Act and Assert
     List<CustomProperty> customProperties2 = serviceTask.clone().getCustomProperties();
@@ -587,57 +552,98 @@ public class ServiceTaskDiffblueTest {
 
   /**
    * Test {@link ServiceTask#clone()}.
-   *
    * <ul>
-   *   <li>Then return CustomProperties first ComplexValue Rows Empty.
+   *   <li>Then return CustomProperties first ComplexValue Rows Empty.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ServiceTask#clone()}
+   * <p>
+   * Method under test: {@link ServiceTask#clone()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"ServiceTask ServiceTask.clone()"})
   public void testClone_thenReturnCustomPropertiesFirstComplexValueRowsEmpty() {
     // Arrange
+    DataGrid complexValue = new DataGrid();
+    complexValue.setRows(null);
+
     CustomProperty customProperty = new CustomProperty();
-    customProperty.setComplexValue(new DataGrid());
+    customProperty.setComplexValue(complexValue);
 
     ArrayList<CustomProperty> customProperties = new ArrayList<>();
     customProperties.add(customProperty);
 
     ServiceTask serviceTask = new ServiceTask();
-    serviceTask.setFieldExtensions(null);
     serviceTask.setCustomProperties(customProperties);
+    serviceTask.setFieldExtensions(null);
 
     // Act and Assert
     List<CustomProperty> customProperties2 = serviceTask.clone().getCustomProperties();
     assertEquals(1, customProperties2.size());
     CustomProperty getResult = customProperties2.get(0);
-    ComplexDataType complexValue = getResult.getComplexValue();
-    assertTrue(complexValue instanceof DataGrid);
+    ComplexDataType complexValue2 = getResult.getComplexValue();
+    assertTrue(complexValue2 instanceof DataGrid);
     assertNull(getResult.getId());
     assertNull(getResult.getName());
     assertNull(getResult.getSimpleValue());
     assertEquals(0, getResult.getXmlColumnNumber());
     assertEquals(0, getResult.getXmlRowNumber());
-    assertTrue(((DataGrid) complexValue).getRows().isEmpty());
+    assertTrue(((DataGrid) complexValue2).getRows().isEmpty());
     assertTrue(getResult.getAttributes().isEmpty());
     assertTrue(getResult.getExtensionElements().isEmpty());
   }
 
   /**
    * Test {@link ServiceTask#clone()}.
-   *
    * <ul>
-   *   <li>Then return CustomProperties first ComplexValue Rows size is one.
+   *   <li>Then return CustomProperties first ComplexValue Rows Empty.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ServiceTask#clone()}
+   * <p>
+   * Method under test: {@link ServiceTask#clone()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"ServiceTask ServiceTask.clone()"})
+  public void testClone_thenReturnCustomPropertiesFirstComplexValueRowsEmpty2() {
+    // Arrange
+    DataGrid complexValue = new DataGrid();
+    complexValue.setRows(new ArrayList<>());
+
+    CustomProperty customProperty = new CustomProperty();
+    customProperty.setComplexValue(complexValue);
+
+    ArrayList<CustomProperty> customProperties = new ArrayList<>();
+    customProperties.add(customProperty);
+
+    ServiceTask serviceTask = new ServiceTask();
+    serviceTask.setCustomProperties(customProperties);
+    serviceTask.setFieldExtensions(null);
+
+    // Act and Assert
+    List<CustomProperty> customProperties2 = serviceTask.clone().getCustomProperties();
+    assertEquals(1, customProperties2.size());
+    CustomProperty getResult = customProperties2.get(0);
+    ComplexDataType complexValue2 = getResult.getComplexValue();
+    assertTrue(complexValue2 instanceof DataGrid);
+    assertNull(getResult.getId());
+    assertNull(getResult.getName());
+    assertNull(getResult.getSimpleValue());
+    assertEquals(0, getResult.getXmlColumnNumber());
+    assertEquals(0, getResult.getXmlRowNumber());
+    assertTrue(((DataGrid) complexValue2).getRows().isEmpty());
+    assertTrue(getResult.getAttributes().isEmpty());
+    assertTrue(getResult.getExtensionElements().isEmpty());
+  }
+
+  /**
+   * Test {@link ServiceTask#clone()}.
+   * <ul>
+   *   <li>Then return CustomProperties first ComplexValue Rows size is one.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link ServiceTask#clone()}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"ServiceTask ServiceTask.clone()"})
   public void testClone_thenReturnCustomPropertiesFirstComplexValueRowsSizeIsOne() {
     // Arrange
@@ -657,8 +663,8 @@ public class ServiceTaskDiffblueTest {
     customProperties.add(customProperty);
 
     ServiceTask serviceTask = new ServiceTask();
-    serviceTask.setFieldExtensions(null);
     serviceTask.setCustomProperties(customProperties);
+    serviceTask.setFieldExtensions(null);
 
     // Act and Assert
     List<CustomProperty> customProperties2 = serviceTask.clone().getCustomProperties();
@@ -674,101 +680,14 @@ public class ServiceTaskDiffblueTest {
 
   /**
    * Test {@link ServiceTask#setValues(ServiceTask)} with {@code ServiceTask}.
-   *
-   * <p>Method under test: {@link ServiceTask#setValues(ServiceTask)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void ServiceTask.setValues(ServiceTask)"})
-  public void testSetValuesWithServiceTask() {
-    // Arrange
-    ServiceTask serviceTask = new ServiceTask();
-
-    CustomProperty customProperty = mock(CustomProperty.class);
-    CustomProperty customProperty2 = new CustomProperty();
-    when(customProperty.clone()).thenReturn(customProperty2);
-    doNothing().when(customProperty).setComplexValue(Mockito.<ComplexDataType>any());
-    customProperty.setComplexValue(null);
-
-    ArrayList<CustomProperty> customPropertyList = new ArrayList<>();
-    customPropertyList.add(customProperty);
-
-    AlfrescoMailTask otherElement = mock(AlfrescoMailTask.class);
-    when(otherElement.getCustomProperties()).thenReturn(customPropertyList);
-    when(otherElement.isForCompensation()).thenReturn(true);
-    when(otherElement.isAsynchronous()).thenReturn(true);
-    when(otherElement.isNotExclusive()).thenReturn(true);
-    when(otherElement.getDefaultFlow()).thenReturn("Default Flow");
-    when(otherElement.getFailedJobRetryTimeCycleValue()).thenReturn("42");
-    when(otherElement.getId()).thenReturn("42");
-    when(otherElement.getDocumentation()).thenReturn("Documentation");
-    when(otherElement.getName()).thenReturn("Name");
-    when(otherElement.getExtensionId()).thenReturn("42");
-    when(otherElement.getImplementation()).thenReturn("Implementation");
-    when(otherElement.getImplementationType()).thenReturn("Implementation Type");
-    when(otherElement.getOperationRef()).thenReturn("Operation Ref");
-    when(otherElement.getResultVariableName()).thenReturn("Result Variable Name");
-    when(otherElement.getSkipExpression()).thenReturn("Skip Expression");
-    when(otherElement.getType()).thenReturn("Type");
-    when(otherElement.getBoundaryEvents()).thenReturn(new ArrayList<>());
-    when(otherElement.getDataInputAssociations()).thenReturn(new ArrayList<>());
-    when(otherElement.getDataOutputAssociations()).thenReturn(new ArrayList<>());
-    when(otherElement.getExecutionListeners()).thenReturn(new ArrayList<>());
-    when(otherElement.getFieldExtensions()).thenReturn(new ArrayList<>());
-    when(otherElement.getAttributes()).thenReturn(new HashMap<>());
-    when(otherElement.getExtensionElements()).thenReturn(new HashMap<>());
-    when(otherElement.getIoSpecification()).thenReturn(new IOSpecification());
-    when(otherElement.getLoopCharacteristics()).thenReturn(new MultiInstanceLoopCharacteristics());
-
-    // Act
-    serviceTask.setValues(otherElement);
-
-    // Assert
-    verify(otherElement).getBoundaryEvents();
-    verify(otherElement, atLeast(1)).getDataInputAssociations();
-    verify(otherElement, atLeast(1)).getDataOutputAssociations();
-    verify(otherElement).getDefaultFlow();
-    verify(otherElement).getFailedJobRetryTimeCycleValue();
-    verify(otherElement, atLeast(1)).getIoSpecification();
-    verify(otherElement, atLeast(1)).getLoopCharacteristics();
-    verify(otherElement).isForCompensation();
-    verify(otherElement, atLeast(1)).getAttributes();
-    verify(otherElement, atLeast(1)).getExtensionElements();
-    verify(otherElement).getId();
-    verify(customProperty).clone();
-    verify(customProperty).setComplexValue(isNull());
-    verify(otherElement).getDocumentation();
-    verify(otherElement, atLeast(1)).getExecutionListeners();
-    verify(otherElement).getName();
-    verify(otherElement).isAsynchronous();
-    verify(otherElement).isNotExclusive();
-    verify(otherElement, atLeast(1)).getCustomProperties();
-    verify(otherElement).getExtensionId();
-    verify(otherElement).getImplementation();
-    verify(otherElement).getImplementationType();
-    verify(otherElement).getOperationRef();
-    verify(otherElement).getResultVariableName();
-    verify(otherElement).getSkipExpression();
-    verify(otherElement).getType();
-    verify(otherElement, atLeast(1)).getFieldExtensions();
-    List<CustomProperty> customProperties = serviceTask.getCustomProperties();
-    assertEquals(1, customProperties.size());
-    assertSame(customProperty2, customProperties.get(0));
-  }
-
-  /**
-   * Test {@link ServiceTask#setValues(ServiceTask)} with {@code ServiceTask}.
-   *
    * <ul>
-   *   <li>Given {@link ArrayList#ArrayList()} add {@link FieldExtension} (default constructor).
+   *   <li>Given {@link ArrayList#ArrayList()} add {@link FieldExtension} (default constructor).</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ServiceTask#setValues(ServiceTask)}
+   * <p>
+   * Method under test: {@link ServiceTask#setValues(ServiceTask)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void ServiceTask.setValues(ServiceTask)"})
   public void testSetValuesWithServiceTask_givenArrayListAddFieldExtension() {
     // Arrange
@@ -795,17 +714,14 @@ public class ServiceTaskDiffblueTest {
 
   /**
    * Test {@link ServiceTask#setValues(ServiceTask)} with {@code ServiceTask}.
-   *
    * <ul>
-   *   <li>Given {@link CustomProperty} (default constructor) ComplexValue is {@link
-   *       ComplexDataType}.
+   *   <li>Given {@link CustomProperty} (default constructor) ComplexValue is {@link ComplexDataType}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ServiceTask#setValues(ServiceTask)}
+   * <p>
+   * Method under test: {@link ServiceTask#setValues(ServiceTask)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void ServiceTask.setValues(ServiceTask)"})
   public void testSetValuesWithServiceTask_givenCustomPropertyComplexValueIsComplexDataType() {
     // Arrange
@@ -835,56 +751,14 @@ public class ServiceTaskDiffblueTest {
 
   /**
    * Test {@link ServiceTask#setValues(ServiceTask)} with {@code ServiceTask}.
-   *
    * <ul>
-   *   <li>Given {@link CustomProperty} (default constructor) ComplexValue is {@link DataGrid}
-   *       (default constructor).
+   *   <li>Given {@link CustomProperty} (default constructor) ComplexValue is {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ServiceTask#setValues(ServiceTask)}
+   * <p>
+   * Method under test: {@link ServiceTask#setValues(ServiceTask)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void ServiceTask.setValues(ServiceTask)"})
-  public void testSetValuesWithServiceTask_givenCustomPropertyComplexValueIsDataGrid() {
-    // Arrange
-    ServiceTask serviceTask = new ServiceTask();
-
-    CustomProperty customProperty = new CustomProperty();
-    customProperty.setComplexValue(new DataGrid());
-
-    ArrayList<CustomProperty> customProperties = new ArrayList<>();
-    customProperties.add(customProperty);
-
-    ServiceTask otherElement = new ServiceTask();
-    otherElement.setFieldExtensions(null);
-    otherElement.setCustomProperties(customProperties);
-
-    // Act
-    serviceTask.setValues(otherElement);
-
-    // Assert that nothing has changed
-    assertFalse(otherElement.hasMultiInstanceLoopCharacteristics());
-    assertFalse(otherElement.isForCompensation());
-    assertFalse(otherElement.isAsynchronous());
-    assertFalse(otherElement.isNotExclusive());
-    assertFalse(otherElement.isExtended());
-    assertTrue(otherElement.isExclusive());
-  }
-
-  /**
-   * Test {@link ServiceTask#setValues(ServiceTask)} with {@code ServiceTask}.
-   *
-   * <ul>
-   *   <li>Given {@link CustomProperty} (default constructor) ComplexValue is {@code null}.
-   * </ul>
-   *
-   * <p>Method under test: {@link ServiceTask#setValues(ServiceTask)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void ServiceTask.setValues(ServiceTask)"})
   public void testSetValuesWithServiceTask_givenCustomPropertyComplexValueIsNull() {
     // Arrange
@@ -914,25 +788,23 @@ public class ServiceTaskDiffblueTest {
 
   /**
    * Test {@link ServiceTask#setValues(ServiceTask)} with {@code ServiceTask}.
-   *
    * <ul>
-   *   <li>Given {@link DataGrid} {@link DataGrid#clone()} return {@link DataGrid} (default
-   *       constructor).
-   *   <li>Then calls {@link DataGrid#clone()}.
+   *   <li>Given {@link DataGrid} {@link DataGrid#clone()} return {@link DataGrid} (default constructor).</li>
+   *   <li>Then calls {@link DataGrid#clone()}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ServiceTask#setValues(ServiceTask)}
+   * <p>
+   * Method under test: {@link ServiceTask#setValues(ServiceTask)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void ServiceTask.setValues(ServiceTask)"})
   public void testSetValuesWithServiceTask_givenDataGridCloneReturnDataGrid_thenCallsClone() {
     // Arrange
     ServiceTask serviceTask = new ServiceTask();
-
     DataGrid complexValue = mock(DataGrid.class);
     when(complexValue.clone()).thenReturn(new DataGrid());
+    doNothing().when(complexValue).setRows(Mockito.<List<DataGridRow>>any());
+    complexValue.setRows(new ArrayList<>());
 
     CustomProperty customProperty = new CustomProperty();
     customProperty.setComplexValue(complexValue);
@@ -949,6 +821,7 @@ public class ServiceTaskDiffblueTest {
 
     // Assert that nothing has changed
     verify(complexValue).clone();
+    verify(complexValue).setRows(isA(List.class));
     assertFalse(otherElement.hasMultiInstanceLoopCharacteristics());
     assertFalse(otherElement.isForCompensation());
     assertFalse(otherElement.isAsynchronous());
@@ -959,16 +832,14 @@ public class ServiceTaskDiffblueTest {
 
   /**
    * Test {@link ServiceTask#setValues(ServiceTask)} with {@code ServiceTask}.
-   *
    * <ul>
-   *   <li>Given {@link DataGridRow} (default constructor) Fields is {@code null}.
+   *   <li>Given {@link DataGridRow} (default constructor) Fields is {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ServiceTask#setValues(ServiceTask)}
+   * <p>
+   * Method under test: {@link ServiceTask#setValues(ServiceTask)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void ServiceTask.setValues(ServiceTask)"})
   public void testSetValuesWithServiceTask_givenDataGridRowFieldsIsNull() {
     // Arrange
@@ -1007,16 +878,54 @@ public class ServiceTaskDiffblueTest {
 
   /**
    * Test {@link ServiceTask#setValues(ServiceTask)} with {@code ServiceTask}.
-   *
    * <ul>
-   *   <li>Given {@link DataGrid} (default constructor) Rows is {@code null}.
+   *   <li>Given {@link DataGrid} (default constructor) Rows is {@link ArrayList#ArrayList()}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ServiceTask#setValues(ServiceTask)}
+   * <p>
+   * Method under test: {@link ServiceTask#setValues(ServiceTask)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void ServiceTask.setValues(ServiceTask)"})
+  public void testSetValuesWithServiceTask_givenDataGridRowsIsArrayList() {
+    // Arrange
+    ServiceTask serviceTask = new ServiceTask();
+
+    DataGrid complexValue = new DataGrid();
+    complexValue.setRows(new ArrayList<>());
+
+    CustomProperty customProperty = new CustomProperty();
+    customProperty.setComplexValue(complexValue);
+
+    ArrayList<CustomProperty> customProperties = new ArrayList<>();
+    customProperties.add(customProperty);
+
+    ServiceTask otherElement = new ServiceTask();
+    otherElement.setFieldExtensions(null);
+    otherElement.setCustomProperties(customProperties);
+
+    // Act
+    serviceTask.setValues(otherElement);
+
+    // Assert that nothing has changed
+    assertFalse(otherElement.hasMultiInstanceLoopCharacteristics());
+    assertFalse(otherElement.isForCompensation());
+    assertFalse(otherElement.isAsynchronous());
+    assertFalse(otherElement.isNotExclusive());
+    assertFalse(otherElement.isExtended());
+    assertTrue(otherElement.isExclusive());
+  }
+
+  /**
+   * Test {@link ServiceTask#setValues(ServiceTask)} with {@code ServiceTask}.
+   * <ul>
+   *   <li>Given {@link DataGrid} (default constructor) Rows is {@code null}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link ServiceTask#setValues(ServiceTask)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void ServiceTask.setValues(ServiceTask)"})
   public void testSetValuesWithServiceTask_givenDataGridRowsIsNull() {
     // Arrange
@@ -1049,69 +958,23 @@ public class ServiceTaskDiffblueTest {
 
   /**
    * Test {@link ServiceTask#setValues(ServiceTask)} with {@code ServiceTask}.
-   *
    * <ul>
-   *   <li>Then calls {@link FieldExtension#clone()}.
+   *   <li>Given {@code true}.</li>
+   *   <li>Then {@link ServiceTask} (default constructor) CustomProperties size is one.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ServiceTask#setValues(ServiceTask)}
+   * <p>
+   * Method under test: {@link ServiceTask#setValues(ServiceTask)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void ServiceTask.setValues(ServiceTask)"})
-  public void testSetValuesWithServiceTask_thenCallsClone() {
+  public void testSetValuesWithServiceTask_givenTrue_thenServiceTaskCustomPropertiesSizeIsOne() {
     // Arrange
     ServiceTask serviceTask = new ServiceTask();
-
-    FieldExtension fieldExtension = mock(FieldExtension.class);
-    when(fieldExtension.clone()).thenReturn(new FieldExtension());
-
-    ArrayList<FieldExtension> fieldExtensions = new ArrayList<>();
-    fieldExtensions.add(fieldExtension);
-
-    ServiceTask otherElement = new ServiceTask();
-    otherElement.setFieldExtensions(fieldExtensions);
-    otherElement.setCustomProperties(null);
-
-    // Act
-    serviceTask.setValues(otherElement);
-
-    // Assert that nothing has changed
-    verify(fieldExtension).clone();
-    assertFalse(otherElement.hasMultiInstanceLoopCharacteristics());
-    assertFalse(otherElement.isForCompensation());
-    assertFalse(otherElement.isAsynchronous());
-    assertFalse(otherElement.isNotExclusive());
-    assertFalse(otherElement.isExtended());
-    assertTrue(otherElement.isExclusive());
-  }
-
-  /**
-   * Test {@link ServiceTask#setValues(ServiceTask)} with {@code ServiceTask}.
-   *
-   * <ul>
-   *   <li>Then {@link ServiceTask} (default constructor) CustomProperties first Id is {@code null}.
-   * </ul>
-   *
-   * <p>Method under test: {@link ServiceTask#setValues(ServiceTask)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void ServiceTask.setValues(ServiceTask)"})
-  public void testSetValuesWithServiceTask_thenServiceTaskCustomPropertiesFirstIdIsNull() {
-    // Arrange
-    ServiceTask serviceTask = new ServiceTask();
-
-    CustomProperty customProperty = new CustomProperty();
-    customProperty.setComplexValue(null);
 
     ArrayList<CustomProperty> customPropertyList = new ArrayList<>();
-    customPropertyList.add(customProperty);
-
+    customPropertyList.add(new CustomProperty());
     AlfrescoMailTask otherElement = mock(AlfrescoMailTask.class);
-    when(otherElement.getCustomProperties()).thenReturn(customPropertyList);
     when(otherElement.isForCompensation()).thenReturn(true);
     when(otherElement.isAsynchronous()).thenReturn(true);
     when(otherElement.isNotExclusive()).thenReturn(true);
@@ -1131,6 +994,7 @@ public class ServiceTaskDiffblueTest {
     when(otherElement.getDataInputAssociations()).thenReturn(new ArrayList<>());
     when(otherElement.getDataOutputAssociations()).thenReturn(new ArrayList<>());
     when(otherElement.getExecutionListeners()).thenReturn(new ArrayList<>());
+    when(otherElement.getCustomProperties()).thenReturn(customPropertyList);
     when(otherElement.getFieldExtensions()).thenReturn(new ArrayList<>());
     when(otherElement.getAttributes()).thenReturn(new HashMap<>());
     when(otherElement.getExtensionElements()).thenReturn(new HashMap<>());
@@ -1181,24 +1045,99 @@ public class ServiceTaskDiffblueTest {
 
   /**
    * Test {@link ServiceTask#setValues(ServiceTask)} with {@code ServiceTask}.
-   *
    * <ul>
-   *   <li>Then {@link ServiceTask} (default constructor) FailedJobRetryTimeCycleValue is {@code
-   *       42}.
+   *   <li>Then calls {@link CustomProperty#clone()}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ServiceTask#setValues(ServiceTask)}
+   * <p>
+   * Method under test: {@link ServiceTask#setValues(ServiceTask)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void ServiceTask.setValues(ServiceTask)"})
+  public void testSetValuesWithServiceTask_thenCallsClone() {
+    // Arrange
+    ServiceTask serviceTask = new ServiceTask();
+
+    DataGrid complexValue = new DataGrid();
+    complexValue.setRows(null);
+    CustomProperty customProperty = mock(CustomProperty.class);
+    when(customProperty.clone()).thenReturn(new CustomProperty());
+    doNothing().when(customProperty).setComplexValue(Mockito.<ComplexDataType>any());
+    customProperty.setComplexValue(complexValue);
+
+    ArrayList<CustomProperty> customProperties = new ArrayList<>();
+    customProperties.add(customProperty);
+
+    ServiceTask otherElement = new ServiceTask();
+    otherElement.setFieldExtensions(null);
+    otherElement.setCustomProperties(customProperties);
+
+    // Act
+    serviceTask.setValues(otherElement);
+
+    // Assert that nothing has changed
+    verify(customProperty).clone();
+    verify(customProperty).setComplexValue(isA(ComplexDataType.class));
+    assertFalse(otherElement.hasMultiInstanceLoopCharacteristics());
+    assertFalse(otherElement.isForCompensation());
+    assertFalse(otherElement.isAsynchronous());
+    assertFalse(otherElement.isNotExclusive());
+    assertFalse(otherElement.isExtended());
+    assertTrue(otherElement.isExclusive());
+  }
+
+  /**
+   * Test {@link ServiceTask#setValues(ServiceTask)} with {@code ServiceTask}.
+   * <ul>
+   *   <li>Then calls {@link FieldExtension#clone()}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link ServiceTask#setValues(ServiceTask)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void ServiceTask.setValues(ServiceTask)"})
+  public void testSetValuesWithServiceTask_thenCallsClone2() {
+    // Arrange
+    ServiceTask serviceTask = new ServiceTask();
+    FieldExtension fieldExtension = mock(FieldExtension.class);
+    when(fieldExtension.clone()).thenReturn(new FieldExtension());
+
+    ArrayList<FieldExtension> fieldExtensions = new ArrayList<>();
+    fieldExtensions.add(fieldExtension);
+
+    ServiceTask otherElement = new ServiceTask();
+    otherElement.setFieldExtensions(fieldExtensions);
+    otherElement.setCustomProperties(null);
+
+    // Act
+    serviceTask.setValues(otherElement);
+
+    // Assert that nothing has changed
+    verify(fieldExtension).clone();
+    assertFalse(otherElement.hasMultiInstanceLoopCharacteristics());
+    assertFalse(otherElement.isForCompensation());
+    assertFalse(otherElement.isAsynchronous());
+    assertFalse(otherElement.isNotExclusive());
+    assertFalse(otherElement.isExtended());
+    assertTrue(otherElement.isExclusive());
+  }
+
+  /**
+   * Test {@link ServiceTask#setValues(ServiceTask)} with {@code ServiceTask}.
+   * <ul>
+   *   <li>Then {@link ServiceTask} (default constructor) FailedJobRetryTimeCycleValue is {@code 42}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link ServiceTask#setValues(ServiceTask)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void ServiceTask.setValues(ServiceTask)"})
   public void testSetValuesWithServiceTask_thenServiceTaskFailedJobRetryTimeCycleValueIs42() {
     // Arrange
     ServiceTask serviceTask = new ServiceTask();
-
     AlfrescoMailTask otherElement = mock(AlfrescoMailTask.class);
-    when(otherElement.getCustomProperties()).thenReturn(null);
     when(otherElement.isForCompensation()).thenReturn(true);
     when(otherElement.isAsynchronous()).thenReturn(true);
     when(otherElement.isNotExclusive()).thenReturn(true);
@@ -1218,6 +1157,7 @@ public class ServiceTaskDiffblueTest {
     when(otherElement.getDataInputAssociations()).thenReturn(new ArrayList<>());
     when(otherElement.getDataOutputAssociations()).thenReturn(new ArrayList<>());
     when(otherElement.getExecutionListeners()).thenReturn(new ArrayList<>());
+    when(otherElement.getCustomProperties()).thenReturn(new ArrayList<>());
     when(otherElement.getFieldExtensions()).thenReturn(new ArrayList<>());
     when(otherElement.getAttributes()).thenReturn(new HashMap<>());
     when(otherElement.getExtensionElements()).thenReturn(new HashMap<>());
@@ -1244,7 +1184,7 @@ public class ServiceTaskDiffblueTest {
     verify(otherElement).getName();
     verify(otherElement).isAsynchronous();
     verify(otherElement).isNotExclusive();
-    verify(otherElement).getCustomProperties();
+    verify(otherElement, atLeast(1)).getCustomProperties();
     verify(otherElement).getExtensionId();
     verify(otherElement).getImplementation();
     verify(otherElement).getImplementationType();
@@ -1275,16 +1215,14 @@ public class ServiceTaskDiffblueTest {
 
   /**
    * Test {@link ServiceTask#setValues(ServiceTask)} with {@code ServiceTask}.
-   *
    * <ul>
-   *   <li>When {@link ServiceTask} (default constructor).
+   *   <li>When {@link ServiceTask} (default constructor).</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ServiceTask#setValues(ServiceTask)}
+   * <p>
+   * Method under test: {@link ServiceTask#setValues(ServiceTask)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void ServiceTask.setValues(ServiceTask)"})
   public void testSetValuesWithServiceTask_whenServiceTask() {
     // Arrange
@@ -1305,16 +1243,14 @@ public class ServiceTaskDiffblueTest {
 
   /**
    * Test {@link ServiceTask#setValues(ServiceTask)} with {@code ServiceTask}.
-   *
    * <ul>
-   *   <li>When {@link ServiceTask} (default constructor) CustomProperties is {@code null}.
+   *   <li>When {@link ServiceTask} (default constructor) CustomProperties is {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ServiceTask#setValues(ServiceTask)}
+   * <p>
+   * Method under test: {@link ServiceTask#setValues(ServiceTask)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void ServiceTask.setValues(ServiceTask)"})
   public void testSetValuesWithServiceTask_whenServiceTaskCustomPropertiesIsNull() {
     // Arrange
@@ -1338,9 +1274,8 @@ public class ServiceTaskDiffblueTest {
 
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>default or parameterless constructor of {@link ServiceTask}
    *   <li>{@link ServiceTask#setCustomProperties(List)}
@@ -1362,27 +1297,16 @@ public class ServiceTaskDiffblueTest {
    * </ul>
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void ServiceTask.<init>()",
-    "List ServiceTask.getCustomProperties()",
-    "String ServiceTask.getExtensionId()",
-    "String ServiceTask.getImplementation()",
-    "String ServiceTask.getImplementationType()",
-    "String ServiceTask.getOperationRef()",
-    "String ServiceTask.getResultVariableName()",
-    "String ServiceTask.getSkipExpression()",
-    "String ServiceTask.getType()",
-    "void ServiceTask.setCustomProperties(List)",
-    "void ServiceTask.setExtensionId(String)",
-    "void ServiceTask.setImplementation(String)",
-    "void ServiceTask.setImplementationType(String)",
-    "void ServiceTask.setOperationRef(String)",
-    "void ServiceTask.setResultVariableName(String)",
-    "void ServiceTask.setSkipExpression(String)",
-    "void ServiceTask.setType(String)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void ServiceTask.<init>()", "List ServiceTask.getCustomProperties()",
+      "String ServiceTask.getExtensionId()", "String ServiceTask.getImplementation()",
+      "String ServiceTask.getImplementationType()", "String ServiceTask.getOperationRef()",
+      "String ServiceTask.getResultVariableName()", "String ServiceTask.getSkipExpression()",
+      "String ServiceTask.getType()", "void ServiceTask.setCustomProperties(List)",
+      "void ServiceTask.setExtensionId(String)", "void ServiceTask.setImplementation(String)",
+      "void ServiceTask.setImplementationType(String)", "void ServiceTask.setOperationRef(String)",
+      "void ServiceTask.setResultVariableName(String)", "void ServiceTask.setSkipExpression(String)",
+      "void ServiceTask.setType(String)"})
   public void testGettersAndSetters() {
     // Arrange and Act
     ServiceTask actualServiceTask = new ServiceTask();

@@ -1,24 +1,25 @@
 {
   "meta" : {
-    "reportVersion" : "2.7"
+    "reportVersion" : "2.6"
   },
   "run" : {
-    "version" : "2025.09.01-44e352d-licensed",
-    "creationTimestamp" : "2025-10-15T18:17:05.474751764Z",
+    "version" : "2025.02.02-08b2a5a-licensed",
+    "creationTimestamp" : "2025-10-21T18:36:58.703503864Z",
     "command" : "dcover create --exclude-modules=org.activiti:activiti-dependency-check,org.activiti:activiti-api-dependencies,org.activiti:activiti-core-common-dependencies,org.activiti:activiti-core-dependencies,org.activiti:activiti-dependencies,org.activiti:activiti-spring-conformance-set0,org.activiti:activiti-spring-conformance-set1,org.activiti:activiti-spring-conformance-set2,org.activiti:activiti-spring-conformance-set3,org.activiti:activiti-spring-conformance-set4,org.activiti:activiti-spring-conformance-set5,org.activiti:activiti-spring-conformance-variables,org.activiti:activiti-spring-conformance-signals --coverage-reports --upload http://localhost:8080 --project-name Activiti-Activiti --name with-diffblue-tests",
-    "totalTime" : 132.301,
-    "environmentDetectionTime" : 0.106,
-    "indexingTime" : 0.424,
-    "entryPointsTime" : 0.023,
-    "generationTime" : 176.402,
-    "timeToFirstTest" : 649.397,
-    "timeToLastTest" : 547.83,
-    "indexQueryTime" : 3.886,
-    "verificationTime" : 20.978,
-    "validationTime" : 11.423
+    "totalTime" : 131.48,
+    "environmentDetectionTime" : 0.284,
+    "indexingTime" : 0.329,
+    "entryPointsTime" : 0.213,
+    "generationTime" : 168.495,
+    "timeToFirstTest" : 629.437,
+    "timeToLastTest" : 532.301,
+    "indexQueryTime" : 4.503,
+    "verificationTime" : 19.575,
+    "validationTime" : 14.103
   },
   "codes" : {
     "R000" : "Success",
+    "R002" : "Missing observers",
     "T000" : "Method eligible for test creation",
     "T001" : "Trivial getter",
     "T005" : "Trivial constructor",
@@ -28,9 +29,9 @@
   "summary" : {
     "classesCount" : 3,
     "methodsCount" : 17,
-    "cumulativeDiffblueTestCount" : 15,
+    "cumulativeDiffblueTestCount" : 13,
     "cumulativeManualTestCount" : 0,
-    "completeTestCount" : 15,
+    "completeTestCount" : 13,
     "incompleteTestCount" : 0,
     "skeletonTestCount" : 0,
     "totalPhysicalLineCount" : 74,
@@ -42,14 +43,14 @@
     },
     "perMethodOutcome" : {
       "R000" : 10,
-      "T005" : 1,
+      "R002" : 1,
       "T012" : 6
     },
     "perTestOutcome" : {
-      "R000" : 15
+      "R000" : 13
     },
     "perTestValidation" : {
-      "V000" : 15
+      "V000" : 13
     }
   },
   "classes" : {
@@ -72,7 +73,7 @@
     },
     "org.activiti.core.common.spring.identity.ExtendedInMemoryUserDetailsManager" : {
       "methodsCount" : 6,
-      "completeTestCount" : 5,
+      "completeTestCount" : 3,
       "incompleteTestCount" : 0,
       "perMethodTestability" : {
         "T000" : 2,
@@ -84,7 +85,7 @@
         "T012" : 2
       },
       "perTestOutcome" : {
-        "R000" : 5
+        "R000" : 3
       }
     },
     "org.activiti.core.common.spring.identity.config.ActivitiSpringIdentityAutoConfiguration" : {
@@ -97,7 +98,7 @@
       },
       "perMethodOutcome" : {
         "R000" : 1,
-        "T005" : 1
+        "R002" : 1
       },
       "perTestOutcome" : {
         "R000" : 1
@@ -226,12 +227,12 @@
       ]
     },
     "org.activiti.core.common.spring.identity.ExtendedInMemoryUserDetailsManager.createUser:(Lorg/springframework/security/core/userdetails/UserDetails;)V" : {
-      "completeTestCount" : 3,
+      "completeTestCount" : 1,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 3
+        "R000" : 1
       },
       "lineNumbers" : [
         32,
@@ -289,7 +290,7 @@
       "completeTestCount" : 0,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T005",
-      "perMethodOutcome" : "T005",
+      "perMethodOutcome" : "R002",
       "lineNumbers" : [
         26
       ]
@@ -306,6 +307,5 @@
         31
       ]
     }
-  },
-  "validationMetrics" : { }
+  }
 }

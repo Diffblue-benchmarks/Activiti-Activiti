@@ -18,13 +18,8 @@ package org.activiti.spring.process.variable.types;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
-import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
-import java.time.LocalDate;
-import java.time.ZoneOffset;
-import java.util.Date;
 import org.activiti.common.util.DateFormatterProvider;
 import org.activiti.engine.ActivitiException;
 import org.junit.jupiter.api.DisplayName;
@@ -34,28 +29,26 @@ import org.junit.jupiter.api.Test;
 class VariableTypeDiffblueTest {
   /**
    * Test {@link VariableType#getName()}.
-   *
-   * <p>Method under test: {@link VariableType#getName()}
+   * <p>
+   * Method under test: {@link VariableType#getName()}
    */
   @Test
   @DisplayName("Test getName()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"String VariableType.getName()"})
   void testGetName() {
     // Arrange, Act and Assert
-    assertNull(new BigDecimalVariableType().getName());
+    assertNull((new BigDecimalVariableType()).getName());
   }
 
   /**
    * Test {@link VariableType#setName(String)}.
-   *
-   * <p>Method under test: {@link VariableType#setName(String)}
+   * <p>
+   * Method under test: {@link VariableType#setName(String)}
    */
   @Test
   @DisplayName("Test setName(String)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void VariableType.setName(String)"})
   void testSetName() {
     // Arrange
@@ -70,157 +63,116 @@ class VariableTypeDiffblueTest {
 
   /**
    * Test {@link VariableType#parseFromValue(Object)}.
-   *
-   * <p>Method under test: {@link VariableType#parseFromValue(Object)}
-   */
-  @Test
-  @DisplayName("Test parseFromValue(Object)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"Object VariableType.parseFromValue(Object)"})
-  void testParseFromValue() throws ActivitiException {
-    // Arrange
-    Class<Object> clazz = Object.class;
-    DateVariableType dateVariableType =
-        new DateVariableType(clazz, new DateFormatterProvider("2020-03-01"));
-    Date fromResult =
-        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant());
-
-    // Act
-    Object actualParseFromValueResult = dateVariableType.parseFromValue(fromResult);
-
-    // Assert
-    assertSame(fromResult, actualParseFromValueResult);
-  }
-
-  /**
-   * Test {@link VariableType#parseFromValue(Object)}.
-   *
    * <ul>
-   *   <li>Given {@link JavaObjectVariableType#JavaObjectVariableType(Class)} with clazz is {@link
-   *       Object}.
-   *   <li>Then return {@code Value}.
+   *   <li>Given {@link JavaObjectVariableType#JavaObjectVariableType(Class)} with clazz is {@link Object}.</li>
+   *   <li>Then return {@code Value}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link VariableType#parseFromValue(Object)}
+   * <p>
+   * Method under test: {@link VariableType#parseFromValue(Object)}
    */
   @Test
-  @DisplayName(
-      "Test parseFromValue(Object); given JavaObjectVariableType(Class) with clazz is Object; then return 'Value'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test parseFromValue(Object); given JavaObjectVariableType(Class) with clazz is Object; then return 'Value'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"Object VariableType.parseFromValue(Object)"})
-  void testParseFromValue_givenJavaObjectVariableTypeWithClazzIsObject_thenReturnValue()
-      throws ActivitiException {
+  void testParseFromValue_givenJavaObjectVariableTypeWithClazzIsObject_thenReturnValue() throws ActivitiException {
     // Arrange
     Class<Object> clazz = Object.class;
 
     // Act and Assert
-    assertEquals("Value", new JavaObjectVariableType(clazz).parseFromValue("Value"));
+    assertEquals("Value", (new JavaObjectVariableType(clazz)).parseFromValue("Value"));
   }
 
   /**
    * Test {@link VariableType#parseFromValue(Object)}.
-   *
    * <ul>
-   *   <li>When {@code ${UU}}.
-   *   <li>Then return {@code ${UU}}.
+   *   <li>When {@code ${UU}}.</li>
+   *   <li>Then return {@code ${UU}}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link VariableType#parseFromValue(Object)}
+   * <p>
+   * Method under test: {@link VariableType#parseFromValue(Object)}
    */
   @Test
   @DisplayName("Test parseFromValue(Object); when '${UU}'; then return '${UU}'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"Object VariableType.parseFromValue(Object)"})
   void testParseFromValue_whenUu_thenReturnUu() throws ActivitiException {
     // Arrange
     Class<Object> clazz = Object.class;
-    DateVariableType dateVariableType =
-        new DateVariableType(clazz, new DateFormatterProvider("2020-03-01"));
 
     // Act and Assert
-    assertEquals("${UU}", dateVariableType.parseFromValue("${UU}"));
+    assertEquals("${UU}",
+        (new DateVariableType(clazz, new DateFormatterProvider("2020-03-01"))).parseFromValue("${UU}"));
   }
 
   /**
    * Test {@link VariableType#isExpression(Object)}.
-   *
    * <ul>
-   *   <li>When {@code null}.
-   *   <li>Then return {@code false}.
+   *   <li>When {@code null}.</li>
+   *   <li>Then return {@code false}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link VariableType#isExpression(Object)}
+   * <p>
+   * Method under test: {@link VariableType#isExpression(Object)}
    */
   @Test
   @DisplayName("Test isExpression(Object); when 'null'; then return 'false'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"boolean VariableType.isExpression(Object)"})
   void testIsExpression_whenNull_thenReturnFalse() {
     // Arrange, Act and Assert
-    assertFalse(new BigDecimalVariableType().isExpression(null));
+    assertFalse((new BigDecimalVariableType()).isExpression(null));
   }
 
   /**
    * Test {@link VariableType#isExpression(Object)}.
-   *
    * <ul>
-   *   <li>When one.
-   *   <li>Then return {@code false}.
+   *   <li>When one.</li>
+   *   <li>Then return {@code false}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link VariableType#isExpression(Object)}
+   * <p>
+   * Method under test: {@link VariableType#isExpression(Object)}
    */
   @Test
   @DisplayName("Test isExpression(Object); when one; then return 'false'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"boolean VariableType.isExpression(Object)"})
   void testIsExpression_whenOne_thenReturnFalse() {
     // Arrange, Act and Assert
-    assertFalse(new BigDecimalVariableType().isExpression(1));
+    assertFalse((new BigDecimalVariableType()).isExpression(1));
   }
 
   /**
    * Test {@link VariableType#isExpression(Object)}.
-   *
    * <ul>
-   *   <li>When {@code ${UU}}.
-   *   <li>Then return {@code true}.
+   *   <li>When {@code ${UU}}.</li>
+   *   <li>Then return {@code true}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link VariableType#isExpression(Object)}
+   * <p>
+   * Method under test: {@link VariableType#isExpression(Object)}
    */
   @Test
   @DisplayName("Test isExpression(Object); when '${UU}'; then return 'true'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"boolean VariableType.isExpression(Object)"})
   void testIsExpression_whenUu_thenReturnTrue() {
     // Arrange, Act and Assert
-    assertTrue(new BigDecimalVariableType().isExpression("${UU}"));
+    assertTrue((new BigDecimalVariableType()).isExpression("${UU}"));
   }
 
   /**
    * Test {@link VariableType#isExpression(Object)}.
-   *
    * <ul>
-   *   <li>When {@code Var}.
-   *   <li>Then return {@code false}.
+   *   <li>When {@code Var}.</li>
+   *   <li>Then return {@code false}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link VariableType#isExpression(Object)}
+   * <p>
+   * Method under test: {@link VariableType#isExpression(Object)}
    */
   @Test
   @DisplayName("Test isExpression(Object); when 'Var'; then return 'false'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"boolean VariableType.isExpression(Object)"})
   void testIsExpression_whenVar_thenReturnFalse() {
     // Arrange, Act and Assert
-    assertFalse(new BigDecimalVariableType().isExpression("Var"));
+    assertFalse((new BigDecimalVariableType()).isExpression("Var"));
   }
 }

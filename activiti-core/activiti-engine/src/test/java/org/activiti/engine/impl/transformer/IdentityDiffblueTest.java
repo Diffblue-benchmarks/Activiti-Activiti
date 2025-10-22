@@ -17,8 +17,7 @@ package org.activiti.engine.impl.transformer;
 
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.engine.impl.util.json.JSONObject;
 import org.junit.Test;
@@ -27,12 +26,11 @@ import org.junit.experimental.categories.Category;
 public class IdentityDiffblueTest {
   /**
    * Test {@link Identity#getInstance()}.
-   *
-   * <p>Method under test: {@link Identity#getInstance()}
+   * <p>
+   * Method under test: {@link Identity#getInstance()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"Identity Identity.getInstance()"})
   public void testGetInstance() throws Exception {
     // Arrange and Act
@@ -47,21 +45,17 @@ public class IdentityDiffblueTest {
 
   /**
    * Test {@link Identity#primTransform(Object)}.
-   *
-   * <p>Method under test: {@link Identity#primTransform(Object)}
+   * <p>
+   * Method under test: {@link Identity#primTransform(Object)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"Object Identity.primTransform(Object)"})
   public void testPrimTransform() throws Exception {
     // Arrange
     Object object = JSONObject.NULL;
 
-    // Act
-    Object actualPrimTransformResult = Identity.getInstance().primTransform(object);
-
-    // Assert
-    assertSame(object, actualPrimTransformResult);
+    // Act and Assert
+    assertSame(object, Identity.getInstance().primTransform(object));
   }
 }

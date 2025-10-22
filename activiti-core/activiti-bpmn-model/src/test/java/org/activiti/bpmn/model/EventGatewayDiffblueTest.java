@@ -19,8 +19,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
@@ -28,17 +27,15 @@ import org.junit.experimental.categories.Category;
 public class EventGatewayDiffblueTest {
   /**
    * Test {@link EventGateway#clone()}.
-   *
    * <ul>
-   *   <li>Given {@link EventGateway} (default constructor) Asynchronous is {@code true}.
-   *   <li>Then return Asynchronous.
+   *   <li>Given {@link EventGateway} (default constructor) Asynchronous is {@code true}.</li>
+   *   <li>Then return Asynchronous.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link EventGateway#clone()}
+   * <p>
+   * Method under test: {@link EventGateway#clone()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"EventGateway EventGateway.clone()"})
   public void testClone_givenEventGatewayAsynchronousIsTrue_thenReturnAsynchronous() {
     // Arrange
@@ -70,21 +67,19 @@ public class EventGatewayDiffblueTest {
 
   /**
    * Test {@link EventGateway#clone()}.
-   *
    * <ul>
-   *   <li>Given {@link EventGateway} (default constructor).
-   *   <li>Then return not Asynchronous.
+   *   <li>Given {@link EventGateway} (default constructor).</li>
+   *   <li>Then return not Asynchronous.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link EventGateway#clone()}
+   * <p>
+   * Method under test: {@link EventGateway#clone()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"EventGateway EventGateway.clone()"})
   public void testClone_givenEventGateway_thenReturnNotAsynchronous() {
     // Arrange and Act
-    EventGateway actualCloneResult = new EventGateway().clone();
+    EventGateway actualCloneResult = (new EventGateway()).clone();
 
     // Assert
     assertNull(actualCloneResult.getBehavior());
@@ -108,12 +103,11 @@ public class EventGatewayDiffblueTest {
 
   /**
    * Test new {@link EventGateway} (default constructor).
-   *
-   * <p>Method under test: default or parameterless constructor of {@link EventGateway}
+   * <p>
+   * Method under test: default or parameterless constructor of {@link EventGateway}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void EventGateway.<init>()"})
   public void testNewEventGateway() {
     // Arrange and Act

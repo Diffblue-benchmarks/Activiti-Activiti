@@ -17,37 +17,20 @@ package org.activiti.engine.impl.util.json;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 
 public class HTTPTokenerDiffblueTest {
   /**
-   * Test {@link HTTPTokener#HTTPTokener(String)}.
-   *
-   * <p>Method under test: {@link HTTPTokener#HTTPTokener(String)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void HTTPTokener.<init>(String)"})
-  public void testNewHTTPTokener() throws JSONException {
-    // Arrange, Act and Assert
-    assertEquals(
-        "https://example.org/example", new HTTPTokener("https://example.org/example").nextToken());
-  }
-
-  /**
    * Test {@link HTTPTokener#nextToken()}.
-   *
-   * <p>Method under test: {@link HTTPTokener#nextToken()}
+   * <p>
+   * Method under test: {@link HTTPTokener#nextToken()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String HTTPTokener.nextToken()"})
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"java.lang.String HTTPTokener.nextToken()"})
   public void testNextToken() throws JSONException {
     // Arrange
     HTTPTokener httpTokener = new HTTPTokener("https://example.org/example");

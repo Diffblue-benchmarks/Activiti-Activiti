@@ -20,7 +20,6 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.HashMap;
 import java.util.Map;
@@ -32,50 +31,42 @@ import org.junit.jupiter.api.Test;
 class TemplatesDefinitionDiffblueTest {
   /**
    * Test {@link TemplatesDefinition#findAssigneeTemplateForTask(String)}.
-   *
-   * <p>Method under test: {@link TemplatesDefinition#findAssigneeTemplateForTask(String)}
+   * <p>
+   * Method under test: {@link TemplatesDefinition#findAssigneeTemplateForTask(String)}
    */
   @Test
   @DisplayName("Test findAssigneeTemplateForTask(String)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"java.util.Optional TemplatesDefinition.findAssigneeTemplateForTask(String)"})
   void testFindAssigneeTemplateForTask() {
     // Arrange, Act and Assert
     assertFalse(
-        new TemplatesDefinition()
-            .findAssigneeTemplateForTask("01234567-89AB-CDEF-FEDC-BA9876543210")
-            .isPresent());
+        (new TemplatesDefinition()).findAssigneeTemplateForTask("01234567-89AB-CDEF-FEDC-BA9876543210").isPresent());
   }
 
   /**
    * Test {@link TemplatesDefinition#findCandidateTemplateForTask(String)}.
-   *
-   * <p>Method under test: {@link TemplatesDefinition#findCandidateTemplateForTask(String)}
+   * <p>
+   * Method under test: {@link TemplatesDefinition#findCandidateTemplateForTask(String)}
    */
   @Test
   @DisplayName("Test findCandidateTemplateForTask(String)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"java.util.Optional TemplatesDefinition.findCandidateTemplateForTask(String)"})
   void testFindCandidateTemplateForTask() {
     // Arrange, Act and Assert
     assertFalse(
-        new TemplatesDefinition()
-            .findCandidateTemplateForTask("01234567-89AB-CDEF-FEDC-BA9876543210")
-            .isPresent());
+        (new TemplatesDefinition()).findCandidateTemplateForTask("01234567-89AB-CDEF-FEDC-BA9876543210").isPresent());
   }
 
   /**
    * Test {@link TemplatesDefinition#equals(Object)}, and {@link TemplatesDefinition#hashCode()}.
-   *
    * <ul>
-   *   <li>When other is equal.
-   *   <li>Then return equal.
+   *   <li>When other is equal.</li>
+   *   <li>Then return equal.</li>
    * </ul>
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>{@link TemplatesDefinition#equals(Object)}
    *   <li>{@link TemplatesDefinition#hashCode()}
@@ -83,12 +74,8 @@ class TemplatesDefinitionDiffblueTest {
    */
   @Test
   @DisplayName("Test equals(Object), and hashCode(); when other is equal; then return equal")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "boolean TemplatesDefinition.equals(Object)",
-    "int TemplatesDefinition.hashCode()"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean TemplatesDefinition.equals(Object)", "int TemplatesDefinition.hashCode()"})
   void testEqualsAndHashCode_whenOtherIsEqual_thenReturnEqual() {
     // Arrange
     TemplatesDefinition templatesDefinition = new TemplatesDefinition();
@@ -96,19 +83,18 @@ class TemplatesDefinitionDiffblueTest {
 
     // Act and Assert
     assertEquals(templatesDefinition, templatesDefinition2);
-    assertEquals(templatesDefinition.hashCode(), templatesDefinition2.hashCode());
+    int expectedHashCodeResult = templatesDefinition.hashCode();
+    assertEquals(expectedHashCodeResult, templatesDefinition2.hashCode());
   }
 
   /**
    * Test {@link TemplatesDefinition#equals(Object)}, and {@link TemplatesDefinition#hashCode()}.
-   *
    * <ul>
-   *   <li>When other is same.
-   *   <li>Then return equal.
+   *   <li>When other is same.</li>
+   *   <li>Then return equal.</li>
    * </ul>
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>{@link TemplatesDefinition#equals(Object)}
    *   <li>{@link TemplatesDefinition#hashCode()}
@@ -116,12 +102,8 @@ class TemplatesDefinitionDiffblueTest {
    */
   @Test
   @DisplayName("Test equals(Object), and hashCode(); when other is same; then return equal")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "boolean TemplatesDefinition.equals(Object)",
-    "int TemplatesDefinition.hashCode()"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean TemplatesDefinition.equals(Object)", "int TemplatesDefinition.hashCode()"})
   void testEqualsAndHashCode_whenOtherIsSame_thenReturnEqual() {
     // Arrange
     TemplatesDefinition templatesDefinition = new TemplatesDefinition();
@@ -134,22 +116,17 @@ class TemplatesDefinitionDiffblueTest {
 
   /**
    * Test {@link TemplatesDefinition#equals(Object)}.
-   *
    * <ul>
-   *   <li>When other is different.
-   *   <li>Then return not equal.
+   *   <li>When other is different.</li>
+   *   <li>Then return not equal.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link TemplatesDefinition#equals(Object)}
+   * <p>
+   * Method under test: {@link TemplatesDefinition#equals(Object)}
    */
   @Test
   @DisplayName("Test equals(Object); when other is different; then return not equal")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "boolean TemplatesDefinition.equals(Object)",
-    "int TemplatesDefinition.hashCode()"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean TemplatesDefinition.equals(Object)", "int TemplatesDefinition.hashCode()"})
   void testEquals_whenOtherIsDifferent_thenReturnNotEqual() {
     // Arrange, Act and Assert
     assertNotEquals(new TemplatesDefinition(), 1);
@@ -157,22 +134,17 @@ class TemplatesDefinitionDiffblueTest {
 
   /**
    * Test {@link TemplatesDefinition#equals(Object)}.
-   *
    * <ul>
-   *   <li>When other is different.
-   *   <li>Then return not equal.
+   *   <li>When other is different.</li>
+   *   <li>Then return not equal.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link TemplatesDefinition#equals(Object)}
+   * <p>
+   * Method under test: {@link TemplatesDefinition#equals(Object)}
    */
   @Test
   @DisplayName("Test equals(Object); when other is different; then return not equal")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "boolean TemplatesDefinition.equals(Object)",
-    "int TemplatesDefinition.hashCode()"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean TemplatesDefinition.equals(Object)", "int TemplatesDefinition.hashCode()"})
   void testEquals_whenOtherIsDifferent_thenReturnNotEqual2() {
     // Arrange
     TaskTemplateDefinition defaultTemplate = new TaskTemplateDefinition();
@@ -188,22 +160,17 @@ class TemplatesDefinitionDiffblueTest {
 
   /**
    * Test {@link TemplatesDefinition#equals(Object)}.
-   *
    * <ul>
-   *   <li>When other is different.
-   *   <li>Then return not equal.
+   *   <li>When other is different.</li>
+   *   <li>Then return not equal.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link TemplatesDefinition#equals(Object)}
+   * <p>
+   * Method under test: {@link TemplatesDefinition#equals(Object)}
    */
   @Test
   @DisplayName("Test equals(Object); when other is different; then return not equal")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "boolean TemplatesDefinition.equals(Object)",
-    "int TemplatesDefinition.hashCode()"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean TemplatesDefinition.equals(Object)", "int TemplatesDefinition.hashCode()"})
   void testEquals_whenOtherIsDifferent_thenReturnNotEqual3() {
     // Arrange
     TaskTemplateDefinition taskTemplateDefinition = new TaskTemplateDefinition();
@@ -222,22 +189,17 @@ class TemplatesDefinitionDiffblueTest {
 
   /**
    * Test {@link TemplatesDefinition#equals(Object)}.
-   *
    * <ul>
-   *   <li>When other is {@code null}.
-   *   <li>Then return not equal.
+   *   <li>When other is {@code null}.</li>
+   *   <li>Then return not equal.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link TemplatesDefinition#equals(Object)}
+   * <p>
+   * Method under test: {@link TemplatesDefinition#equals(Object)}
    */
   @Test
   @DisplayName("Test equals(Object); when other is 'null'; then return not equal")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "boolean TemplatesDefinition.equals(Object)",
-    "int TemplatesDefinition.hashCode()"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean TemplatesDefinition.equals(Object)", "int TemplatesDefinition.hashCode()"})
   void testEquals_whenOtherIsNull_thenReturnNotEqual() {
     // Arrange, Act and Assert
     assertNotEquals(new TemplatesDefinition(), null);
@@ -245,22 +207,17 @@ class TemplatesDefinitionDiffblueTest {
 
   /**
    * Test {@link TemplatesDefinition#equals(Object)}.
-   *
    * <ul>
-   *   <li>When other is wrong type.
-   *   <li>Then return not equal.
+   *   <li>When other is wrong type.</li>
+   *   <li>Then return not equal.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link TemplatesDefinition#equals(Object)}
+   * <p>
+   * Method under test: {@link TemplatesDefinition#equals(Object)}
    */
   @Test
   @DisplayName("Test equals(Object); when other is wrong type; then return not equal")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "boolean TemplatesDefinition.equals(Object)",
-    "int TemplatesDefinition.hashCode()"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean TemplatesDefinition.equals(Object)", "int TemplatesDefinition.hashCode()"})
   void testEquals_whenOtherIsWrongType_thenReturnNotEqual() {
     // Arrange, Act and Assert
     assertNotEquals(new TemplatesDefinition(), "Different type to TemplatesDefinition");
@@ -268,9 +225,8 @@ class TemplatesDefinitionDiffblueTest {
 
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>default or parameterless constructor of {@link TemplatesDefinition}
    *   <li>{@link TemplatesDefinition#setDefaultTemplate(TaskTemplateDefinition)}
@@ -281,15 +237,10 @@ class TemplatesDefinitionDiffblueTest {
    */
   @Test
   @DisplayName("Test getters and setters")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void TemplatesDefinition.<init>()",
-    "TaskTemplateDefinition TemplatesDefinition.getDefaultTemplate()",
-    "Map TemplatesDefinition.getTasks()",
-    "void TemplatesDefinition.setDefaultTemplate(TaskTemplateDefinition)",
-    "void TemplatesDefinition.setTasks(Map)"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void TemplatesDefinition.<init>()",
+      "TaskTemplateDefinition TemplatesDefinition.getDefaultTemplate()", "Map TemplatesDefinition.getTasks()",
+      "void TemplatesDefinition.setDefaultTemplate(TaskTemplateDefinition)", "void TemplatesDefinition.setTasks(Map)"})
   void testGettersAndSetters() {
     // Arrange and Act
     TemplatesDefinition actualTemplatesDefinition = new TemplatesDefinition();

@@ -16,8 +16,7 @@
 package org.activiti.spring.impl.test;
 
 import static org.junit.Assert.assertEquals;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
@@ -25,16 +24,14 @@ import org.junit.experimental.categories.Category;
 public class CleanTestExecutionListenerDiffblueTest {
   /**
    * Test new {@link CleanTestExecutionListener} (default constructor).
-   *
-   * <p>Method under test: default or parameterless constructor of {@link
-   * CleanTestExecutionListener}
+   * <p>
+   * Method under test: default or parameterless constructor of {@link CleanTestExecutionListener}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void CleanTestExecutionListener.<init>()"})
   public void testNewCleanTestExecutionListener() {
     // Arrange, Act and Assert
-    assertEquals(Integer.MAX_VALUE, new CleanTestExecutionListener().getOrder());
+    assertEquals(Integer.MAX_VALUE, (new CleanTestExecutionListener()).getOrder());
   }
 }

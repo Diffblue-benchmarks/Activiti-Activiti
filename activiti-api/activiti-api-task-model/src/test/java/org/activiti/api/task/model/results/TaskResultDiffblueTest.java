@@ -18,7 +18,6 @@ package org.activiti.api.task.model.results;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.mockito.Mockito.mock;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.api.model.shared.Payload;
 import org.activiti.api.task.model.Task;
@@ -29,17 +28,15 @@ import org.junit.jupiter.api.Test;
 class TaskResultDiffblueTest {
   /**
    * Test {@link TaskResult#TaskResult()}.
-   *
    * <ul>
-   *   <li>Then return Payload is {@code null}.
+   *   <li>Then return Payload is {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link TaskResult#TaskResult()}
+   * <p>
+   * Method under test: {@link TaskResult#TaskResult()}
    */
   @Test
   @DisplayName("Test new TaskResult(); then return Payload is 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void TaskResult.<init>()", "void TaskResult.<init>(Payload, Task)"})
   void testNewTaskResult_thenReturnPayloadIsNull() {
     // Arrange and Act
@@ -52,18 +49,16 @@ class TaskResultDiffblueTest {
 
   /**
    * Test {@link TaskResult#TaskResult(Payload, Task)}.
-   *
    * <ul>
-   *   <li>When {@link Payload}.
-   *   <li>Then return {@link Payload}.
+   *   <li>When {@link Payload}.</li>
+   *   <li>Then return {@link Payload}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link TaskResult#TaskResult(Payload, Task)}
+   * <p>
+   * Method under test: {@link TaskResult#TaskResult(Payload, Task)}
    */
   @Test
   @DisplayName("Test new TaskResult(Payload, Task); when Payload; then return Payload")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void TaskResult.<init>()", "void TaskResult.<init>(Payload, Task)"})
   void testNewTaskResult_whenPayload_thenReturnPayload() {
     // Arrange

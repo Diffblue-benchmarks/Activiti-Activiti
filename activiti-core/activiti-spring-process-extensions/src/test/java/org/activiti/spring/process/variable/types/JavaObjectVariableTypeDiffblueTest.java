@@ -19,7 +19,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
 import java.util.List;
@@ -31,9 +30,8 @@ import org.junit.jupiter.api.Test;
 class JavaObjectVariableTypeDiffblueTest {
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>{@link JavaObjectVariableType#JavaObjectVariableType(Class)}
    *   <li>{@link JavaObjectVariableType#setClazz(Class)}
@@ -42,13 +40,9 @@ class JavaObjectVariableTypeDiffblueTest {
    */
   @Test
   @DisplayName("Test getters and setters")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void JavaObjectVariableType.<init>(Class)",
-    "Class JavaObjectVariableType.getClazz()",
-    "void JavaObjectVariableType.setClazz(Class)"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void JavaObjectVariableType.<init>(Class)", "Class JavaObjectVariableType.getClazz()",
+      "void JavaObjectVariableType.setClazz(Class)"})
   void testGettersAndSetters() {
     // Arrange
     Class<Object> clazz = Object.class;
@@ -68,20 +62,17 @@ class JavaObjectVariableTypeDiffblueTest {
 
   /**
    * Test {@link JavaObjectVariableType#validate(Object, List)}.
-   *
    * <ul>
-   *   <li>Given {@code Object}.
-   *   <li>When {@code null}.
-   *   <li>Then {@link ArrayList#ArrayList()} Empty.
+   *   <li>Given {@code Object}.</li>
+   *   <li>When {@code null}.</li>
+   *   <li>Then {@link ArrayList#ArrayList()} Empty.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link JavaObjectVariableType#validate(Object, List)}
+   * <p>
+   * Method under test: {@link JavaObjectVariableType#validate(Object, List)}
    */
   @Test
-  @DisplayName(
-      "Test validate(Object, List); given 'java.lang.Object'; when 'null'; then ArrayList() Empty")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test validate(Object, List); given 'java.lang.Object'; when 'null'; then ArrayList() Empty")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void JavaObjectVariableType.validate(Object, List)"})
   void testValidate_givenJavaLangObject_whenNull_thenArrayListEmpty() {
     // Arrange
@@ -98,20 +89,17 @@ class JavaObjectVariableTypeDiffblueTest {
 
   /**
    * Test {@link JavaObjectVariableType#validate(Object, List)}.
-   *
    * <ul>
-   *   <li>Given {@code Object}.
-   *   <li>When {@code ${UU}}.
-   *   <li>Then {@link ArrayList#ArrayList()} Empty.
+   *   <li>Given {@code Object}.</li>
+   *   <li>When {@code ${UU}}.</li>
+   *   <li>Then {@link ArrayList#ArrayList()} Empty.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link JavaObjectVariableType#validate(Object, List)}
+   * <p>
+   * Method under test: {@link JavaObjectVariableType#validate(Object, List)}
    */
   @Test
-  @DisplayName(
-      "Test validate(Object, List); given 'java.lang.Object'; when '${UU}'; then ArrayList() Empty")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test validate(Object, List); given 'java.lang.Object'; when '${UU}'; then ArrayList() Empty")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void JavaObjectVariableType.validate(Object, List)"})
   void testValidate_givenJavaLangObject_whenUu_thenArrayListEmpty() {
     // Arrange
@@ -128,20 +116,17 @@ class JavaObjectVariableTypeDiffblueTest {
 
   /**
    * Test {@link JavaObjectVariableType#validate(Object, List)}.
-   *
    * <ul>
-   *   <li>Given {@code Object}.
-   *   <li>When {@code Var}.
-   *   <li>Then {@link ArrayList#ArrayList()} size is one.
+   *   <li>Given {@code Object}.</li>
+   *   <li>When {@code Var}.</li>
+   *   <li>Then {@link ArrayList#ArrayList()} size is one.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link JavaObjectVariableType#validate(Object, List)}
+   * <p>
+   * Method under test: {@link JavaObjectVariableType#validate(Object, List)}
    */
   @Test
-  @DisplayName(
-      "Test validate(Object, List); given 'java.lang.Object'; when 'Var'; then ArrayList() size is one")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test validate(Object, List); given 'java.lang.Object'; when 'Var'; then ArrayList() size is one")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void JavaObjectVariableType.validate(Object, List)"})
   void testValidate_givenJavaLangObject_whenVar_thenArrayListSizeIsOne() {
     // Arrange
@@ -155,29 +140,24 @@ class JavaObjectVariableTypeDiffblueTest {
     // Assert
     assertEquals(1, errors.size());
     ActivitiException getResult = errors.get(0);
-    assertEquals(
-        "class java.lang.String is not assignable from class java.lang.Object",
+    assertEquals("class java.lang.String is not assignable from class java.lang.Object",
         getResult.getLocalizedMessage());
-    assertEquals(
-        "class java.lang.String is not assignable from class java.lang.Object",
-        getResult.getMessage());
+    assertEquals("class java.lang.String is not assignable from class java.lang.Object", getResult.getMessage());
     assertNull(getResult.getCause());
     assertEquals(0, getResult.getSuppressed().length);
   }
 
   /**
    * Test {@link JavaObjectVariableType#validate(Object, List)}.
-   *
    * <ul>
-   *   <li>Then {@link ArrayList#ArrayList()} size is two.
+   *   <li>Then {@link ArrayList#ArrayList()} size is two.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link JavaObjectVariableType#validate(Object, List)}
+   * <p>
+   * Method under test: {@link JavaObjectVariableType#validate(Object, List)}
    */
   @Test
   @DisplayName("Test validate(Object, List); then ArrayList() size is two")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void JavaObjectVariableType.validate(Object, List)"})
   void testValidate_thenArrayListSizeIsTwo() {
     // Arrange
@@ -193,12 +173,9 @@ class JavaObjectVariableTypeDiffblueTest {
     // Assert
     assertEquals(2, errors.size());
     ActivitiException getResult = errors.get(1);
-    assertEquals(
-        "class java.lang.String is not assignable from class java.lang.Object",
+    assertEquals("class java.lang.String is not assignable from class java.lang.Object",
         getResult.getLocalizedMessage());
-    assertEquals(
-        "class java.lang.String is not assignable from class java.lang.Object",
-        getResult.getMessage());
+    assertEquals("class java.lang.String is not assignable from class java.lang.Object", getResult.getMessage());
     assertNull(getResult.getCause());
   }
 }

@@ -24,11 +24,9 @@ import static org.mockito.Mockito.atLeast;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
 import java.util.List;
-import org.activiti.bpmn.model.AdhocSubProcess;
 import org.activiti.bpmn.model.BpmnModel;
 import org.activiti.bpmn.model.CancelEventDefinition;
 import org.activiti.bpmn.model.EventDefinition;
@@ -36,7 +34,6 @@ import org.activiti.bpmn.model.IntermediateCatchEvent;
 import org.activiti.bpmn.model.MessageEventDefinition;
 import org.activiti.bpmn.model.Process;
 import org.activiti.bpmn.model.SignalEventDefinition;
-import org.activiti.bpmn.model.SubProcess;
 import org.activiti.bpmn.model.TimerEventDefinition;
 import org.activiti.validation.ValidationError;
 import org.junit.jupiter.api.DisplayName;
@@ -47,26 +44,20 @@ import org.mockito.Mockito;
 class IntermediateCatchEventValidatorDiffblueTest {
   /**
    * Test {@link IntermediateCatchEventValidator#executeValidation(BpmnModel, Process, List)}.
-   *
-   * <p>Method under test: {@link IntermediateCatchEventValidator#executeValidation(BpmnModel,
-   * Process, List)}
+   * <p>
+   * Method under test: {@link IntermediateCatchEventValidator#executeValidation(BpmnModel, Process, List)}
    */
   @Test
   @DisplayName("Test executeValidation(BpmnModel, Process, List)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void IntermediateCatchEventValidator.executeValidation(BpmnModel, Process, List)"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void IntermediateCatchEventValidator.executeValidation(BpmnModel, Process, List)"})
   void testExecuteValidation() {
     // Arrange
-    IntermediateCatchEventValidator intermediateCatchEventValidator =
-        new IntermediateCatchEventValidator();
+    IntermediateCatchEventValidator intermediateCatchEventValidator = new IntermediateCatchEventValidator();
     BpmnModel bpmnModel = new BpmnModel();
 
     ArrayList<EventDefinition> eventDefinitionList = new ArrayList<>();
     eventDefinitionList.add(new CancelEventDefinition());
-
     IntermediateCatchEvent intermediateCatchEvent = mock(IntermediateCatchEvent.class);
     when(intermediateCatchEvent.getXmlColumnNumber()).thenReturn(10);
     when(intermediateCatchEvent.getXmlRowNumber()).thenReturn(10);
@@ -76,7 +67,6 @@ class IntermediateCatchEventValidatorDiffblueTest {
 
     ArrayList<IntermediateCatchEvent> intermediateCatchEventList = new ArrayList<>();
     intermediateCatchEventList.add(intermediateCatchEvent);
-
     Process process = mock(Process.class);
     when(process.getId()).thenReturn("42");
     when(process.getName()).thenReturn("Name");
@@ -99,8 +89,7 @@ class IntermediateCatchEventValidatorDiffblueTest {
     assertEquals(1, errors.size());
     ValidationError getResult = errors.get(0);
     assertEquals("42", getResult.getActivityId());
-    assertEquals(
-        "INTERMEDIATE_CATCH_EVENT_INVALID_EVENTDEFINITION", getResult.getDefaultDescription());
+    assertEquals("INTERMEDIATE_CATCH_EVENT_INVALID_EVENTDEFINITION", getResult.getDefaultDescription());
     assertEquals("INTERMEDIATE_CATCH_EVENT_INVALID_EVENTDEFINITION", getResult.getKey());
     assertEquals("INTERMEDIATE_CATCH_EVENT_INVALID_EVENTDEFINITION", getResult.getProblem());
     assertEquals("Name", getResult.getActivityName());
@@ -110,39 +99,29 @@ class IntermediateCatchEventValidatorDiffblueTest {
 
   /**
    * Test {@link IntermediateCatchEventValidator#executeValidation(BpmnModel, Process, List)}.
-   *
    * <ul>
-   *   <li>Given {@link ArrayList#ArrayList()} add {@link MessageEventDefinition} (default
-   *       constructor).
-   *   <li>Then {@link ArrayList#ArrayList()} Empty.
+   *   <li>Given {@link ArrayList#ArrayList()} add {@link MessageEventDefinition} (default constructor).</li>
+   *   <li>Then {@link ArrayList#ArrayList()} Empty.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link IntermediateCatchEventValidator#executeValidation(BpmnModel,
-   * Process, List)}
+   * <p>
+   * Method under test: {@link IntermediateCatchEventValidator#executeValidation(BpmnModel, Process, List)}
    */
   @Test
-  @DisplayName(
-      "Test executeValidation(BpmnModel, Process, List); given ArrayList() add MessageEventDefinition (default constructor); then ArrayList() Empty")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void IntermediateCatchEventValidator.executeValidation(BpmnModel, Process, List)"
-  })
+  @DisplayName("Test executeValidation(BpmnModel, Process, List); given ArrayList() add MessageEventDefinition (default constructor); then ArrayList() Empty")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void IntermediateCatchEventValidator.executeValidation(BpmnModel, Process, List)"})
   void testExecuteValidation_givenArrayListAddMessageEventDefinition_thenArrayListEmpty() {
     // Arrange
-    IntermediateCatchEventValidator intermediateCatchEventValidator =
-        new IntermediateCatchEventValidator();
+    IntermediateCatchEventValidator intermediateCatchEventValidator = new IntermediateCatchEventValidator();
     BpmnModel bpmnModel = new BpmnModel();
 
-    ArrayList<EventDefinition> eventDefinitions = new ArrayList<>();
-    eventDefinitions.add(new MessageEventDefinition());
-
-    IntermediateCatchEvent intermediateCatchEvent = new IntermediateCatchEvent();
-    intermediateCatchEvent.setEventDefinitions(eventDefinitions);
+    ArrayList<EventDefinition> eventDefinitionList = new ArrayList<>();
+    eventDefinitionList.add(new MessageEventDefinition());
+    IntermediateCatchEvent intermediateCatchEvent = mock(IntermediateCatchEvent.class);
+    when(intermediateCatchEvent.getEventDefinitions()).thenReturn(eventDefinitionList);
 
     ArrayList<IntermediateCatchEvent> intermediateCatchEventList = new ArrayList<>();
     intermediateCatchEventList.add(intermediateCatchEvent);
-
     Process process = mock(Process.class);
     when(process.findFlowElementsOfType(Mockito.<Class<IntermediateCatchEvent>>any()))
         .thenReturn(intermediateCatchEventList);
@@ -152,45 +131,36 @@ class IntermediateCatchEventValidatorDiffblueTest {
     intermediateCatchEventValidator.executeValidation(bpmnModel, process, errors);
 
     // Assert that nothing has changed
+    verify(intermediateCatchEvent, atLeast(1)).getEventDefinitions();
     verify(process).findFlowElementsOfType(isA(Class.class));
     assertTrue(errors.isEmpty());
   }
 
   /**
    * Test {@link IntermediateCatchEventValidator#executeValidation(BpmnModel, Process, List)}.
-   *
    * <ul>
-   *   <li>Given {@link ArrayList#ArrayList()} add {@link SignalEventDefinition} (default
-   *       constructor).
-   *   <li>Then {@link ArrayList#ArrayList()} Empty.
+   *   <li>Given {@link ArrayList#ArrayList()} add {@link SignalEventDefinition} (default constructor).</li>
+   *   <li>Then {@link ArrayList#ArrayList()} Empty.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link IntermediateCatchEventValidator#executeValidation(BpmnModel,
-   * Process, List)}
+   * <p>
+   * Method under test: {@link IntermediateCatchEventValidator#executeValidation(BpmnModel, Process, List)}
    */
   @Test
-  @DisplayName(
-      "Test executeValidation(BpmnModel, Process, List); given ArrayList() add SignalEventDefinition (default constructor); then ArrayList() Empty")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void IntermediateCatchEventValidator.executeValidation(BpmnModel, Process, List)"
-  })
+  @DisplayName("Test executeValidation(BpmnModel, Process, List); given ArrayList() add SignalEventDefinition (default constructor); then ArrayList() Empty")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void IntermediateCatchEventValidator.executeValidation(BpmnModel, Process, List)"})
   void testExecuteValidation_givenArrayListAddSignalEventDefinition_thenArrayListEmpty() {
     // Arrange
-    IntermediateCatchEventValidator intermediateCatchEventValidator =
-        new IntermediateCatchEventValidator();
+    IntermediateCatchEventValidator intermediateCatchEventValidator = new IntermediateCatchEventValidator();
     BpmnModel bpmnModel = new BpmnModel();
 
-    ArrayList<EventDefinition> eventDefinitions = new ArrayList<>();
-    eventDefinitions.add(new SignalEventDefinition());
-
-    IntermediateCatchEvent intermediateCatchEvent = new IntermediateCatchEvent();
-    intermediateCatchEvent.setEventDefinitions(eventDefinitions);
+    ArrayList<EventDefinition> eventDefinitionList = new ArrayList<>();
+    eventDefinitionList.add(new SignalEventDefinition());
+    IntermediateCatchEvent intermediateCatchEvent = mock(IntermediateCatchEvent.class);
+    when(intermediateCatchEvent.getEventDefinitions()).thenReturn(eventDefinitionList);
 
     ArrayList<IntermediateCatchEvent> intermediateCatchEventList = new ArrayList<>();
     intermediateCatchEventList.add(intermediateCatchEvent);
-
     Process process = mock(Process.class);
     when(process.findFlowElementsOfType(Mockito.<Class<IntermediateCatchEvent>>any()))
         .thenReturn(intermediateCatchEventList);
@@ -200,48 +170,69 @@ class IntermediateCatchEventValidatorDiffblueTest {
     intermediateCatchEventValidator.executeValidation(bpmnModel, process, errors);
 
     // Assert that nothing has changed
+    verify(intermediateCatchEvent, atLeast(1)).getEventDefinitions();
     verify(process).findFlowElementsOfType(isA(Class.class));
     assertTrue(errors.isEmpty());
   }
 
   /**
    * Test {@link IntermediateCatchEventValidator#executeValidation(BpmnModel, Process, List)}.
-   *
    * <ul>
-   *   <li>Given {@link ArrayList#ArrayList()} add {@link TimerEventDefinition} (default
-   *       constructor).
-   *   <li>Then {@link ArrayList#ArrayList()} Empty.
+   *   <li>Given {@link ArrayList#ArrayList()} add {@link TimerEventDefinition} (default constructor).</li>
+   *   <li>Then {@link ArrayList#ArrayList()} Empty.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link IntermediateCatchEventValidator#executeValidation(BpmnModel,
-   * Process, List)}
+   * <p>
+   * Method under test: {@link IntermediateCatchEventValidator#executeValidation(BpmnModel, Process, List)}
    */
   @Test
-  @DisplayName(
-      "Test executeValidation(BpmnModel, Process, List); given ArrayList() add TimerEventDefinition (default constructor); then ArrayList() Empty")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void IntermediateCatchEventValidator.executeValidation(BpmnModel, Process, List)"
-  })
+  @DisplayName("Test executeValidation(BpmnModel, Process, List); given ArrayList() add TimerEventDefinition (default constructor); then ArrayList() Empty")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void IntermediateCatchEventValidator.executeValidation(BpmnModel, Process, List)"})
   void testExecuteValidation_givenArrayListAddTimerEventDefinition_thenArrayListEmpty() {
     // Arrange
-    IntermediateCatchEventValidator intermediateCatchEventValidator =
-        new IntermediateCatchEventValidator();
+    IntermediateCatchEventValidator intermediateCatchEventValidator = new IntermediateCatchEventValidator();
     BpmnModel bpmnModel = new BpmnModel();
 
-    ArrayList<EventDefinition> eventDefinitions = new ArrayList<>();
-    eventDefinitions.add(new TimerEventDefinition());
-
-    IntermediateCatchEvent intermediateCatchEvent = new IntermediateCatchEvent();
-    intermediateCatchEvent.setEventDefinitions(eventDefinitions);
+    ArrayList<EventDefinition> eventDefinitionList = new ArrayList<>();
+    eventDefinitionList.add(new TimerEventDefinition());
+    IntermediateCatchEvent intermediateCatchEvent = mock(IntermediateCatchEvent.class);
+    when(intermediateCatchEvent.getEventDefinitions()).thenReturn(eventDefinitionList);
 
     ArrayList<IntermediateCatchEvent> intermediateCatchEventList = new ArrayList<>();
     intermediateCatchEventList.add(intermediateCatchEvent);
-
     Process process = mock(Process.class);
     when(process.findFlowElementsOfType(Mockito.<Class<IntermediateCatchEvent>>any()))
         .thenReturn(intermediateCatchEventList);
+    ArrayList<ValidationError> errors = new ArrayList<>();
+
+    // Act
+    intermediateCatchEventValidator.executeValidation(bpmnModel, process, errors);
+
+    // Assert that nothing has changed
+    verify(intermediateCatchEvent, atLeast(1)).getEventDefinitions();
+    verify(process).findFlowElementsOfType(isA(Class.class));
+    assertTrue(errors.isEmpty());
+  }
+
+  /**
+   * Test {@link IntermediateCatchEventValidator#executeValidation(BpmnModel, Process, List)}.
+   * <ul>
+   *   <li>Given {@link ArrayList#ArrayList()}.</li>
+   *   <li>Then {@link ArrayList#ArrayList()} Empty.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link IntermediateCatchEventValidator#executeValidation(BpmnModel, Process, List)}
+   */
+  @Test
+  @DisplayName("Test executeValidation(BpmnModel, Process, List); given ArrayList(); then ArrayList() Empty")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void IntermediateCatchEventValidator.executeValidation(BpmnModel, Process, List)"})
+  void testExecuteValidation_givenArrayList_thenArrayListEmpty() {
+    // Arrange
+    IntermediateCatchEventValidator intermediateCatchEventValidator = new IntermediateCatchEventValidator();
+    BpmnModel bpmnModel = new BpmnModel();
+    Process process = mock(Process.class);
+    when(process.findFlowElementsOfType(Mockito.<Class<IntermediateCatchEvent>>any())).thenReturn(new ArrayList<>());
     ArrayList<ValidationError> errors = new ArrayList<>();
 
     // Act
@@ -254,73 +245,20 @@ class IntermediateCatchEventValidatorDiffblueTest {
 
   /**
    * Test {@link IntermediateCatchEventValidator#executeValidation(BpmnModel, Process, List)}.
-   *
    * <ul>
-   *   <li>Given {@link SubProcess} (default constructor) addFlowElement {@link AdhocSubProcess}
-   *       (default constructor).
+   *   <li>Then {@link ArrayList#ArrayList()} first ActivityId is {@code 42}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link IntermediateCatchEventValidator#executeValidation(BpmnModel,
-   * Process, List)}
+   * <p>
+   * Method under test: {@link IntermediateCatchEventValidator#executeValidation(BpmnModel, Process, List)}
    */
   @Test
-  @DisplayName(
-      "Test executeValidation(BpmnModel, Process, List); given SubProcess (default constructor) addFlowElement AdhocSubProcess (default constructor)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void IntermediateCatchEventValidator.executeValidation(BpmnModel, Process, List)"
-  })
-  void testExecuteValidation_givenSubProcessAddFlowElementAdhocSubProcess() {
-    // Arrange
-    IntermediateCatchEventValidator intermediateCatchEventValidator =
-        new IntermediateCatchEventValidator();
-    BpmnModel bpmnModel = new BpmnModel();
-
-    SubProcess element = new SubProcess();
-    element.addFlowElement(new AdhocSubProcess());
-
-    SubProcess element2 = new SubProcess();
-    element2.addFlowElement(element);
-
-    SubProcess element3 = new SubProcess();
-    element3.addFlowElement(element2);
-
-    Process process = new Process();
-    process.addFlowElement(element3);
-    ArrayList<ValidationError> errors = new ArrayList<>();
-
-    // Act
-    intermediateCatchEventValidator.executeValidation(bpmnModel, process, errors);
-
-    // Assert that nothing has changed
-    assertTrue(errors.isEmpty());
-  }
-
-  /**
-   * Test {@link IntermediateCatchEventValidator#executeValidation(BpmnModel, Process, List)}.
-   *
-   * <ul>
-   *   <li>Then {@link ArrayList#ArrayList()} first ActivityId is {@code 42}.
-   * </ul>
-   *
-   * <p>Method under test: {@link IntermediateCatchEventValidator#executeValidation(BpmnModel,
-   * Process, List)}
-   */
-  @Test
-  @DisplayName(
-      "Test executeValidation(BpmnModel, Process, List); then ArrayList() first ActivityId is '42'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void IntermediateCatchEventValidator.executeValidation(BpmnModel, Process, List)"
-  })
+  @DisplayName("Test executeValidation(BpmnModel, Process, List); then ArrayList() first ActivityId is '42'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void IntermediateCatchEventValidator.executeValidation(BpmnModel, Process, List)"})
   void testExecuteValidation_thenArrayListFirstActivityIdIs42() {
     // Arrange
-    IntermediateCatchEventValidator intermediateCatchEventValidator =
-        new IntermediateCatchEventValidator();
+    IntermediateCatchEventValidator intermediateCatchEventValidator = new IntermediateCatchEventValidator();
     BpmnModel bpmnModel = new BpmnModel();
-
     IntermediateCatchEvent intermediateCatchEvent = mock(IntermediateCatchEvent.class);
     when(intermediateCatchEvent.getXmlColumnNumber()).thenReturn(10);
     when(intermediateCatchEvent.getXmlRowNumber()).thenReturn(10);
@@ -330,7 +268,6 @@ class IntermediateCatchEventValidatorDiffblueTest {
 
     ArrayList<IntermediateCatchEvent> intermediateCatchEventList = new ArrayList<>();
     intermediateCatchEventList.add(intermediateCatchEvent);
-
     Process process = mock(Process.class);
     when(process.getId()).thenReturn("42");
     when(process.getName()).thenReturn("Name");
@@ -360,31 +297,23 @@ class IntermediateCatchEventValidatorDiffblueTest {
 
   /**
    * Test {@link IntermediateCatchEventValidator#executeValidation(BpmnModel, Process, List)}.
-   *
    * <ul>
-   *   <li>Then {@link ArrayList#ArrayList()} first ActivityId is {@code null}.
+   *   <li>Then {@link ArrayList#ArrayList()} first ActivityId is {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link IntermediateCatchEventValidator#executeValidation(BpmnModel,
-   * Process, List)}
+   * <p>
+   * Method under test: {@link IntermediateCatchEventValidator#executeValidation(BpmnModel, Process, List)}
    */
   @Test
-  @DisplayName(
-      "Test executeValidation(BpmnModel, Process, List); then ArrayList() first ActivityId is 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void IntermediateCatchEventValidator.executeValidation(BpmnModel, Process, List)"
-  })
+  @DisplayName("Test executeValidation(BpmnModel, Process, List); then ArrayList() first ActivityId is 'null'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void IntermediateCatchEventValidator.executeValidation(BpmnModel, Process, List)"})
   void testExecuteValidation_thenArrayListFirstActivityIdIsNull() {
     // Arrange
-    IntermediateCatchEventValidator intermediateCatchEventValidator =
-        new IntermediateCatchEventValidator();
+    IntermediateCatchEventValidator intermediateCatchEventValidator = new IntermediateCatchEventValidator();
     BpmnModel bpmnModel = new BpmnModel();
 
     ArrayList<IntermediateCatchEvent> intermediateCatchEventList = new ArrayList<>();
     intermediateCatchEventList.add(new IntermediateCatchEvent());
-
     Process process = mock(Process.class);
     when(process.getId()).thenReturn("42");
     when(process.getName()).thenReturn("Name");
@@ -409,31 +338,24 @@ class IntermediateCatchEventValidatorDiffblueTest {
 
   /**
    * Test {@link IntermediateCatchEventValidator#executeValidation(BpmnModel, Process, List)}.
-   *
    * <ul>
-   *   <li>Then {@link ArrayList#ArrayList()} size is two.
+   *   <li>Then {@link ArrayList#ArrayList()} size is two.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link IntermediateCatchEventValidator#executeValidation(BpmnModel,
-   * Process, List)}
+   * <p>
+   * Method under test: {@link IntermediateCatchEventValidator#executeValidation(BpmnModel, Process, List)}
    */
   @Test
   @DisplayName("Test executeValidation(BpmnModel, Process, List); then ArrayList() size is two")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void IntermediateCatchEventValidator.executeValidation(BpmnModel, Process, List)"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void IntermediateCatchEventValidator.executeValidation(BpmnModel, Process, List)"})
   void testExecuteValidation_thenArrayListSizeIsTwo() {
     // Arrange
-    IntermediateCatchEventValidator intermediateCatchEventValidator =
-        new IntermediateCatchEventValidator();
+    IntermediateCatchEventValidator intermediateCatchEventValidator = new IntermediateCatchEventValidator();
     BpmnModel bpmnModel = new BpmnModel();
 
     ArrayList<IntermediateCatchEvent> intermediateCatchEventList = new ArrayList<>();
     intermediateCatchEventList.add(new IntermediateCatchEvent());
     intermediateCatchEventList.add(new IntermediateCatchEvent());
-
     Process process = mock(Process.class);
     when(process.getId()).thenReturn("42");
     when(process.getName()).thenReturn("Name");
@@ -466,27 +388,20 @@ class IntermediateCatchEventValidatorDiffblueTest {
 
   /**
    * Test {@link IntermediateCatchEventValidator#executeValidation(BpmnModel, Process, List)}.
-   *
    * <ul>
-   *   <li>When {@link Process} (default constructor).
-   *   <li>Then {@link ArrayList#ArrayList()} Empty.
+   *   <li>When {@link Process} (default constructor).</li>
+   *   <li>Then {@link ArrayList#ArrayList()} Empty.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link IntermediateCatchEventValidator#executeValidation(BpmnModel,
-   * Process, List)}
+   * <p>
+   * Method under test: {@link IntermediateCatchEventValidator#executeValidation(BpmnModel, Process, List)}
    */
   @Test
-  @DisplayName(
-      "Test executeValidation(BpmnModel, Process, List); when Process (default constructor); then ArrayList() Empty")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void IntermediateCatchEventValidator.executeValidation(BpmnModel, Process, List)"
-  })
+  @DisplayName("Test executeValidation(BpmnModel, Process, List); when Process (default constructor); then ArrayList() Empty")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void IntermediateCatchEventValidator.executeValidation(BpmnModel, Process, List)"})
   void testExecuteValidation_whenProcess_thenArrayListEmpty() {
     // Arrange
-    IntermediateCatchEventValidator intermediateCatchEventValidator =
-        new IntermediateCatchEventValidator();
+    IntermediateCatchEventValidator intermediateCatchEventValidator = new IntermediateCatchEventValidator();
     BpmnModel bpmnModel = new BpmnModel();
     Process process = new Process();
     ArrayList<ValidationError> errors = new ArrayList<>();

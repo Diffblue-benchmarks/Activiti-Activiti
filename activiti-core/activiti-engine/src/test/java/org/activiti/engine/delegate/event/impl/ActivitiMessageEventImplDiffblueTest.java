@@ -18,11 +18,8 @@ package org.activiti.engine.delegate.event.impl;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
-import static org.junit.Assert.assertThrows;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
-import org.activiti.engine.ActivitiIllegalArgumentException;
 import org.activiti.engine.delegate.event.ActivitiEventType;
 import org.activiti.engine.impl.util.json.JSONObject;
 import org.junit.Test;
@@ -31,42 +28,20 @@ import org.junit.experimental.categories.Category;
 public class ActivitiMessageEventImplDiffblueTest {
   /**
    * Test {@link ActivitiMessageEventImpl#ActivitiMessageEventImpl(ActivitiEventType)}.
-   *
    * <ul>
-   *   <li>Then throw {@link ActivitiIllegalArgumentException}.
+   *   <li>When {@code ENTITY_CREATED}.</li>
+   *   <li>Then return MessageData is {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link
-   * ActivitiMessageEventImpl#ActivitiMessageEventImpl(ActivitiEventType)}
+   * <p>
+   * Method under test: {@link ActivitiMessageEventImpl#ActivitiMessageEventImpl(ActivitiEventType)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void ActivitiMessageEventImpl.<init>(ActivitiEventType)"})
-  public void testNewActivitiMessageEventImpl_thenThrowActivitiIllegalArgumentException() {
-    // Arrange, Act and Assert
-    assertThrows(ActivitiIllegalArgumentException.class, () -> new ActivitiMessageEventImpl(null));
-  }
-
-  /**
-   * Test {@link ActivitiMessageEventImpl#ActivitiMessageEventImpl(ActivitiEventType)}.
-   *
-   * <ul>
-   *   <li>When {@code ENTITY_CREATED}.
-   *   <li>Then return MessageData is {@code null}.
-   * </ul>
-   *
-   * <p>Method under test: {@link
-   * ActivitiMessageEventImpl#ActivitiMessageEventImpl(ActivitiEventType)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void ActivitiMessageEventImpl.<init>(ActivitiEventType)"})
   public void testNewActivitiMessageEventImpl_whenEntityCreated_thenReturnMessageDataIsNull() {
     // Arrange and Act
-    ActivitiMessageEventImpl actualActivitiMessageEventImpl =
-        new ActivitiMessageEventImpl(ActivitiEventType.ENTITY_CREATED);
+    ActivitiMessageEventImpl actualActivitiMessageEventImpl = new ActivitiMessageEventImpl(
+        ActivitiEventType.ENTITY_CREATED);
 
     // Assert
     assertNull(actualActivitiMessageEventImpl.getMessageData());
@@ -86,9 +61,8 @@ public class ActivitiMessageEventImplDiffblueTest {
 
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>{@link ActivitiMessageEventImpl#setMessageBusinessKey(String)}
    *   <li>{@link ActivitiMessageEventImpl#setMessageCorrelationKey(String)}
@@ -101,22 +75,15 @@ public class ActivitiMessageEventImplDiffblueTest {
    * </ul>
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "String ActivitiMessageEventImpl.getMessageBusinessKey()",
-    "String ActivitiMessageEventImpl.getMessageCorrelationKey()",
-    "Object ActivitiMessageEventImpl.getMessageData()",
-    "String ActivitiMessageEventImpl.getMessageName()",
-    "void ActivitiMessageEventImpl.setMessageBusinessKey(String)",
-    "void ActivitiMessageEventImpl.setMessageCorrelationKey(String)",
-    "void ActivitiMessageEventImpl.setMessageData(Object)",
-    "void ActivitiMessageEventImpl.setMessageName(String)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String ActivitiMessageEventImpl.getMessageBusinessKey()",
+      "String ActivitiMessageEventImpl.getMessageCorrelationKey()", "Object ActivitiMessageEventImpl.getMessageData()",
+      "String ActivitiMessageEventImpl.getMessageName()", "void ActivitiMessageEventImpl.setMessageBusinessKey(String)",
+      "void ActivitiMessageEventImpl.setMessageCorrelationKey(String)",
+      "void ActivitiMessageEventImpl.setMessageData(Object)", "void ActivitiMessageEventImpl.setMessageName(String)"})
   public void testGettersAndSetters() {
     // Arrange
-    ActivitiMessageEventImpl activitiMessageEventImpl =
-        new ActivitiMessageEventImpl(ActivitiEventType.ENTITY_CREATED);
+    ActivitiMessageEventImpl activitiMessageEventImpl = new ActivitiMessageEventImpl(ActivitiEventType.ENTITY_CREATED);
 
     // Act
     activitiMessageEventImpl.setMessageBusinessKey("Business Key");

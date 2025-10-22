@@ -1,21 +1,21 @@
 {
   "meta" : {
-    "reportVersion" : "2.7"
+    "reportVersion" : "2.6"
   },
   "run" : {
-    "version" : "2025.09.01-44e352d-licensed",
-    "creationTimestamp" : "2025-10-15T18:17:05.474751764Z",
+    "version" : "2025.02.02-08b2a5a-licensed",
+    "creationTimestamp" : "2025-10-21T18:36:58.703503864Z",
     "command" : "dcover create --exclude-modules=org.activiti:activiti-dependency-check,org.activiti:activiti-api-dependencies,org.activiti:activiti-core-common-dependencies,org.activiti:activiti-core-dependencies,org.activiti:activiti-dependencies,org.activiti:activiti-spring-conformance-set0,org.activiti:activiti-spring-conformance-set1,org.activiti:activiti-spring-conformance-set2,org.activiti:activiti-spring-conformance-set3,org.activiti:activiti-spring-conformance-set4,org.activiti:activiti-spring-conformance-set5,org.activiti:activiti-spring-conformance-variables,org.activiti:activiti-spring-conformance-signals --coverage-reports --upload http://localhost:8080 --project-name Activiti-Activiti --name with-diffblue-tests",
-    "totalTime" : 1796.676,
-    "environmentDetectionTime" : 0.176,
-    "indexingTime" : 0.495,
-    "entryPointsTime" : 0.166,
-    "generationTime" : 5355.114,
-    "timeToFirstTest" : 7426.68,
-    "timeToLastTest" : 6765.353,
-    "indexQueryTime" : 6.133,
-    "verificationTime" : 221.049,
-    "validationTime" : 18.405
+    "totalTime" : 1227.964,
+    "environmentDetectionTime" : 0.765,
+    "indexingTime" : 0.383,
+    "entryPointsTime" : 0.761,
+    "generationTime" : 3695.831,
+    "timeToFirstTest" : 5698.421,
+    "timeToLastTest" : 5053.282,
+    "indexQueryTime" : 9.669,
+    "verificationTime" : 184.581,
+    "validationTime" : 34.866
   },
   "codes" : {
     "R000" : "Success",
@@ -29,16 +29,14 @@
     "T003" : "Private method",
     "T005" : "Trivial constructor",
     "T012" : "Synthetic method",
-    "V000" : "Validated successfully",
-    "V003" : "Tests discarded during validation",
-    "W001" : "Test did not compile"
+    "V000" : "Validated successfully"
   },
   "summary" : {
     "classesCount" : 43,
     "methodsCount" : 252,
-    "cumulativeDiffblueTestCount" : 245,
+    "cumulativeDiffblueTestCount" : 180,
     "cumulativeManualTestCount" : 43,
-    "completeTestCount" : 245,
+    "completeTestCount" : 180,
     "incompleteTestCount" : 0,
     "skeletonTestCount" : 0,
     "totalPhysicalLineCount" : 2073,
@@ -50,32 +48,26 @@
       "T012" : 40
     },
     "perMethodOutcome" : {
-      "R000" : 98,
-      "R002" : 5,
-      "R005" : 26,
-      "R013" : 29,
+      "R000" : 95,
+      "R002" : 6,
+      "R005" : 28,
+      "R013" : 32,
       "R015" : 3,
       "R026" : 16,
       "T003" : 32,
-      "T005" : 1,
-      "T012" : 40,
-      "W001" : 2
+      "T012" : 40
     },
     "perTestOutcome" : {
-      "R000" : 245
+      "R000" : 180
     },
     "perTestValidation" : {
-      "V000" : 245,
-      "V003" : 20
-    },
-    "warnings" : {
-      "W001" : 2
+      "V000" : 180
     }
   },
   "classes" : {
     "org.activiti.runtime.api.conf.TaskRuntimeAutoConfiguration" : {
       "methodsCount" : 37,
-      "completeTestCount" : 25,
+      "completeTestCount" : 21,
       "incompleteTestCount" : 0,
       "perMethodTestability" : {
         "T000" : 24,
@@ -85,29 +77,29 @@
       },
       "perMethodOutcome" : {
         "R000" : 8,
+        "R002" : 1,
         "R026" : 16,
         "T003" : 1,
-        "T005" : 1,
         "T012" : 11
       },
       "perTestOutcome" : {
-        "R000" : 25
+        "R000" : 21
       }
     },
     "org.activiti.runtime.api.conf.impl.TaskRuntimeConfigurationImpl" : {
       "methodsCount" : 3,
-      "completeTestCount" : 0,
+      "completeTestCount" : 2,
       "incompleteTestCount" : 0,
       "perMethodTestability" : {
         "T000" : 2,
         "T005" : 1
       },
       "perMethodOutcome" : {
-        "R002" : 1,
-        "W001" : 2
+        "R000" : 2,
+        "R002" : 1
       },
-      "warnings" : {
-        "W001" : 2
+      "perTestOutcome" : {
+        "R000" : 2
       }
     },
     "org.activiti.runtime.api.event.impl.TaskActivatedImpl" : {
@@ -300,7 +292,7 @@
     },
     "org.activiti.runtime.api.event.impl.ToAPITaskCandidateGroupAddedEventConverter" : {
       "methodsCount" : 3,
-      "completeTestCount" : 5,
+      "completeTestCount" : 2,
       "incompleteTestCount" : 0,
       "perMethodTestability" : {
         "T000" : 2,
@@ -311,12 +303,12 @@
         "T012" : 1
       },
       "perTestOutcome" : {
-        "R000" : 5
+        "R000" : 2
       }
     },
     "org.activiti.runtime.api.event.impl.ToAPITaskCandidateUserAddedEventConverter" : {
       "methodsCount" : 3,
-      "completeTestCount" : 5,
+      "completeTestCount" : 2,
       "incompleteTestCount" : 0,
       "perMethodTestability" : {
         "T000" : 2,
@@ -327,7 +319,7 @@
         "T012" : 1
       },
       "perTestOutcome" : {
-        "R000" : 5
+        "R000" : 2
       }
     },
     "org.activiti.runtime.api.event.impl.ToAPITaskCreatedEventConverter" : {
@@ -404,7 +396,7 @@
     },
     "org.activiti.runtime.api.event.impl.ToTaskCandidateGroupRemovedConverter" : {
       "methodsCount" : 3,
-      "completeTestCount" : 8,
+      "completeTestCount" : 2,
       "incompleteTestCount" : 0,
       "perMethodTestability" : {
         "T000" : 2,
@@ -415,12 +407,12 @@
         "T012" : 1
       },
       "perTestOutcome" : {
-        "R000" : 8
+        "R000" : 2
       }
     },
     "org.activiti.runtime.api.event.impl.ToTaskCandidateUserRemovedConverter" : {
       "methodsCount" : 3,
-      "completeTestCount" : 8,
+      "completeTestCount" : 2,
       "incompleteTestCount" : 0,
       "perMethodTestability" : {
         "T000" : 2,
@@ -431,7 +423,7 @@
         "T012" : 1
       },
       "perTestOutcome" : {
-        "R000" : 8
+        "R000" : 2
       }
     },
     "org.activiti.runtime.api.event.impl.ToTaskCompletedConverter" : {
@@ -493,8 +485,7 @@
         "T012" : 1
       },
       "perMethodOutcome" : {
-        "R005" : 2,
-        "R013" : 1,
+        "R005" : 3,
         "T012" : 1
       }
     },
@@ -613,8 +604,7 @@
         "T012" : 1
       },
       "perMethodOutcome" : {
-        "R005" : 2,
-        "R013" : 1,
+        "R005" : 3,
         "T012" : 1
       }
     },
@@ -652,7 +642,7 @@
     },
     "org.activiti.runtime.api.impl.TaskAdminRuntimeImpl" : {
       "methodsCount" : 23,
-      "completeTestCount" : 37,
+      "completeTestCount" : 34,
       "incompleteTestCount" : 0,
       "perMethodTestability" : {
         "T000" : 19,
@@ -669,12 +659,12 @@
         "T012" : 1
       },
       "perTestOutcome" : {
-        "R000" : 37
+        "R000" : 34
       }
     },
     "org.activiti.runtime.api.impl.TaskRuntimeHelper" : {
       "methodsCount" : 21,
-      "completeTestCount" : 27,
+      "completeTestCount" : 12,
       "incompleteTestCount" : 0,
       "perMethodTestability" : {
         "T000" : 9,
@@ -682,17 +672,18 @@
         "T005" : 1
       },
       "perMethodOutcome" : {
-        "R000" : 9,
+        "R000" : 5,
         "R005" : 1,
+        "R013" : 4,
         "T003" : 11
       },
       "perTestOutcome" : {
-        "R000" : 27
+        "R000" : 12
       }
     },
     "org.activiti.runtime.api.impl.TaskRuntimeImpl" : {
       "methodsCount" : 28,
-      "completeTestCount" : 38,
+      "completeTestCount" : 29,
       "incompleteTestCount" : 0,
       "perMethodTestability" : {
         "T000" : 20,
@@ -708,12 +699,12 @@
         "T003" : 6
       },
       "perTestOutcome" : {
-        "R000" : 38
+        "R000" : 29
       }
     },
     "org.activiti.runtime.api.impl.TaskVariablesPayloadValidator" : {
       "methodsCount" : 9,
-      "completeTestCount" : 31,
+      "completeTestCount" : 20,
       "incompleteTestCount" : 0,
       "perMethodTestability" : {
         "T000" : 3,
@@ -728,7 +719,7 @@
         "T012" : 2
       },
       "perTestOutcome" : {
-        "R000" : 31
+        "R000" : 20
       }
     },
     "org.activiti.runtime.api.model.impl.APITaskCandidateGroupConverter" : {
@@ -769,7 +760,7 @@
     },
     "org.activiti.runtime.api.model.impl.APITaskConverter" : {
       "methodsCount" : 11,
-      "completeTestCount" : 7,
+      "completeTestCount" : 0,
       "incompleteTestCount" : 0,
       "perMethodTestability" : {
         "T000" : 4,
@@ -778,14 +769,10 @@
         "T012" : 2
       },
       "perMethodOutcome" : {
-        "R000" : 1,
         "R005" : 1,
-        "R013" : 3,
+        "R013" : 4,
         "T003" : 4,
         "T012" : 2
-      },
-      "perTestOutcome" : {
-        "R000" : 7
       }
     }
   },
@@ -794,7 +781,7 @@
       "completeTestCount" : 0,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T005",
-      "perMethodOutcome" : "T005",
+      "perMethodOutcome" : "R002",
       "lineNumbers" : [
         84
       ]
@@ -989,48 +976,48 @@
       ]
     },
     "org.activiti.runtime.api.conf.TaskRuntimeAutoConfiguration.registerTaskCandidateGroupAddedEventListener:(Lorg/activiti/engine/RuntimeService;Ljava/util/List;Lorg/activiti/runtime/api/event/impl/ToAPITaskCandidateGroupAddedEventConverter;)Lorg/springframework/beans/factory/InitializingBean;" : {
-      "completeTestCount" : 4,
+      "completeTestCount" : 3,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 4
+        "R000" : 3
       },
       "lineNumbers" : [
         276
       ]
     },
     "org.activiti.runtime.api.conf.TaskRuntimeAutoConfiguration.registerTaskCandidateGroupRemovedEventListener:(Lorg/activiti/engine/RuntimeService;Ljava/util/List;Lorg/activiti/runtime/api/model/impl/APITaskCandidateGroupConverter;)Lorg/springframework/beans/factory/InitializingBean;" : {
-      "completeTestCount" : 4,
+      "completeTestCount" : 3,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 4
+        "R000" : 3
       },
       "lineNumbers" : [
         285
       ]
     },
     "org.activiti.runtime.api.conf.TaskRuntimeAutoConfiguration.registerTaskCandidateUserAddedEventListener:(Lorg/activiti/engine/RuntimeService;Ljava/util/List;Lorg/activiti/runtime/api/event/impl/ToAPITaskCandidateUserAddedEventConverter;)Lorg/springframework/beans/factory/InitializingBean;" : {
-      "completeTestCount" : 4,
+      "completeTestCount" : 3,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 4
+        "R000" : 3
       },
       "lineNumbers" : [
         248
       ]
     },
     "org.activiti.runtime.api.conf.TaskRuntimeAutoConfiguration.registerTaskCandidateUserRemovedEventListener:(Lorg/activiti/engine/RuntimeService;Ljava/util/List;Lorg/activiti/runtime/api/model/impl/APITaskCandidateUserConverter;)Lorg/springframework/beans/factory/InitializingBean;" : {
-      "completeTestCount" : 4,
+      "completeTestCount" : 3,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 4
+        "R000" : 3
       },
       "lineNumbers" : [
         257
@@ -1162,24 +1149,24 @@
       ]
     },
     "org.activiti.runtime.api.conf.impl.TaskRuntimeConfigurationImpl.taskRuntimeEventListeners:()Ljava/util/List;" : {
-      "completeTestCount" : 0,
+      "completeTestCount" : 1,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
-      "perMethodOutcome" : "W001",
-      "warnings" : {
-        "W001" : 1
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
       },
       "lineNumbers" : [
         39
       ]
     },
     "org.activiti.runtime.api.conf.impl.TaskRuntimeConfigurationImpl.variableEventListeners:()Ljava/util/List;" : {
-      "completeTestCount" : 0,
+      "completeTestCount" : 1,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
-      "perMethodOutcome" : "W001",
-      "warnings" : {
-        "W001" : 1
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
       },
       "lineNumbers" : [
         44
@@ -1644,12 +1631,12 @@
       ]
     },
     "org.activiti.runtime.api.event.impl.ToAPITaskCandidateGroupAddedEventConverter.from:(Lorg/activiti/engine/delegate/event/ActivitiEntityEvent;)Ljava/util/Optional;" : {
-      "completeTestCount" : 4,
+      "completeTestCount" : 1,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 4
+        "R000" : 1
       },
       "lineNumbers" : [
         36,
@@ -1685,12 +1672,12 @@
       ]
     },
     "org.activiti.runtime.api.event.impl.ToAPITaskCandidateUserAddedEventConverter.from:(Lorg/activiti/engine/delegate/event/ActivitiEntityEvent;)Ljava/util/Optional;" : {
-      "completeTestCount" : 4,
+      "completeTestCount" : 1,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 4
+        "R000" : 1
       },
       "lineNumbers" : [
         36,
@@ -1875,12 +1862,12 @@
       ]
     },
     "org.activiti.runtime.api.event.impl.ToTaskCandidateGroupRemovedConverter.<init>:(Lorg/activiti/runtime/api/model/impl/APITaskCandidateGroupConverter;)V" : {
-      "completeTestCount" : 4,
+      "completeTestCount" : 1,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 4
+        "R000" : 1
       },
       "lineNumbers" : [
         30,
@@ -1890,12 +1877,12 @@
       ]
     },
     "org.activiti.runtime.api.event.impl.ToTaskCandidateGroupRemovedConverter.from:(Lorg/activiti/engine/delegate/event/ActivitiEntityEvent;)Ljava/util/Optional;" : {
-      "completeTestCount" : 4,
+      "completeTestCount" : 1,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 4
+        "R000" : 1
       },
       "lineNumbers" : [
         36,
@@ -1916,12 +1903,12 @@
       ]
     },
     "org.activiti.runtime.api.event.impl.ToTaskCandidateUserRemovedConverter.<init>:(Lorg/activiti/runtime/api/model/impl/APITaskCandidateUserConverter;)V" : {
-      "completeTestCount" : 4,
+      "completeTestCount" : 1,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 4
+        "R000" : 1
       },
       "lineNumbers" : [
         30,
@@ -1931,12 +1918,12 @@
       ]
     },
     "org.activiti.runtime.api.event.impl.ToTaskCandidateUserRemovedConverter.from:(Lorg/activiti/engine/delegate/event/ActivitiEntityEvent;)Ljava/util/Optional;" : {
-      "completeTestCount" : 4,
+      "completeTestCount" : 1,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 4
+        "R000" : 1
       },
       "lineNumbers" : [
         36,
@@ -2110,7 +2097,7 @@
       "completeTestCount" : 0,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
-      "perMethodOutcome" : "R013",
+      "perMethodOutcome" : "R005",
       "lineNumbers" : [
         41,
         42,
@@ -2459,7 +2446,7 @@
       "completeTestCount" : 0,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
-      "perMethodOutcome" : "R013",
+      "perMethodOutcome" : "R005",
       "lineNumbers" : [
         41,
         42,
@@ -2573,12 +2560,12 @@
       ]
     },
     "org.activiti.runtime.api.impl.TaskAdminRuntimeImpl.addCandidateGroups:(Lorg/activiti/api/task/model/payloads/CandidateGroupsPayload;)V" : {
-      "completeTestCount" : 2,
+      "completeTestCount" : 3,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 2
+        "R000" : 3
       },
       "lineNumbers" : [
         228,
@@ -2589,12 +2576,12 @@
       ]
     },
     "org.activiti.runtime.api.impl.TaskAdminRuntimeImpl.addCandidateUsers:(Lorg/activiti/api/task/model/payloads/CandidateUsersPayload;)V" : {
-      "completeTestCount" : 2,
+      "completeTestCount" : 3,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 2
+        "R000" : 3
       },
       "lineNumbers" : [
         208,
@@ -2701,12 +2688,12 @@
       ]
     },
     "org.activiti.runtime.api.impl.TaskAdminRuntimeImpl.deleteCandidateGroups:(Lorg/activiti/api/task/model/payloads/CandidateGroupsPayload;)V" : {
-      "completeTestCount" : 2,
+      "completeTestCount" : 3,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 2
+        "R000" : 3
       },
       "lineNumbers" : [
         238,
@@ -2717,12 +2704,12 @@
       ]
     },
     "org.activiti.runtime.api.impl.TaskAdminRuntimeImpl.deleteCandidateUsers:(Lorg/activiti/api/task/model/payloads/CandidateUsersPayload;)V" : {
-      "completeTestCount" : 2,
+      "completeTestCount" : 3,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 2
+        "R000" : 3
       },
       "lineNumbers" : [
         218,
@@ -2790,12 +2777,12 @@
       ]
     },
     "org.activiti.runtime.api.impl.TaskAdminRuntimeImpl.tasks:(Lorg/activiti/api/runtime/shared/query/Pageable;)Lorg/activiti/api/runtime/shared/query/Page;" : {
-      "completeTestCount" : 3,
+      "completeTestCount" : 1,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 3
+        "R000" : 1
       },
       "lineNumbers" : [
         85,
@@ -2804,12 +2791,12 @@
       ]
     },
     "org.activiti.runtime.api.impl.TaskAdminRuntimeImpl.tasks:(Lorg/activiti/api/runtime/shared/query/Pageable;Lorg/activiti/api/task/model/payloads/GetTasksPayload;)Lorg/activiti/api/runtime/shared/query/Page;" : {
-      "completeTestCount" : 5,
+      "completeTestCount" : 1,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 5
+        "R000" : 1
       },
       "lineNumbers" : [
         92,
@@ -2871,12 +2858,12 @@
       ]
     },
     "org.activiti.runtime.api.impl.TaskAdminRuntimeImpl.variables:(Lorg/activiti/api/task/model/payloads/GetTaskVariablesPayload;)Ljava/util/List;" : {
-      "completeTestCount" : 3,
+      "completeTestCount" : 2,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 3
+        "R000" : 2
       },
       "lineNumbers" : [
         136
@@ -2897,13 +2884,10 @@
       ]
     },
     "org.activiti.runtime.api.impl.TaskRuntimeHelper.applyUpdateTaskPayload:(ZLorg/activiti/api/task/model/payloads/UpdateTaskPayload;)Lorg/activiti/api/task/model/Task;" : {
-      "completeTestCount" : 4,
+      "completeTestCount" : 0,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
-      "perMethodOutcome" : "R000",
-      "perTestOutcome" : {
-        "R000" : 4
-      },
+      "perMethodOutcome" : "R013",
       "lineNumbers" : [
         54,
         55,
@@ -2932,12 +2916,12 @@
       ]
     },
     "org.activiti.runtime.api.impl.TaskRuntimeHelper.assertHasAccessToTask:(Ljava/lang/String;)V" : {
-      "completeTestCount" : 4,
+      "completeTestCount" : 3,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 4
+        "R000" : 3
       },
       "lineNumbers" : [
         206,
@@ -2971,13 +2955,10 @@
       ]
     },
     "org.activiti.runtime.api.impl.TaskRuntimeHelper.createVariable:(ZLorg/activiti/api/task/model/payloads/CreateTaskVariablePayload;)V" : {
-      "completeTestCount" : 4,
+      "completeTestCount" : 0,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
-      "perMethodOutcome" : "R000",
-      "perTestOutcome" : {
-        "R000" : 4
-      },
+      "perMethodOutcome" : "R013",
       "lineNumbers" : [
         227,
         228,
@@ -3000,13 +2981,10 @@
       ]
     },
     "org.activiti.runtime.api.impl.TaskRuntimeHelper.getInternalTask:(Ljava/lang/String;)Lorg/activiti/engine/task/Task;" : {
-      "completeTestCount" : 1,
+      "completeTestCount" : 0,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
-      "perMethodOutcome" : "R000",
-      "perTestOutcome" : {
-        "R000" : 1
-      },
+      "perMethodOutcome" : "R013",
       "lineNumbers" : [
         214,
         215,
@@ -3027,12 +3005,12 @@
       ]
     },
     "org.activiti.runtime.api.impl.TaskRuntimeHelper.getInternalTaskWithChecks:(Ljava/lang/String;)Lorg/activiti/engine/task/Task;" : {
-      "completeTestCount" : 4,
+      "completeTestCount" : 3,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 4
+        "R000" : 3
       },
       "lineNumbers" : [
         183,
@@ -3176,13 +3154,10 @@
       ]
     },
     "org.activiti.runtime.api.impl.TaskRuntimeHelper.updateVariable:(ZLorg/activiti/api/task/model/payloads/UpdateTaskVariablePayload;)V" : {
-      "completeTestCount" : 4,
+      "completeTestCount" : 0,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
-      "perMethodOutcome" : "R000",
-      "perTestOutcome" : {
-        "R000" : 4
-      },
+      "perMethodOutcome" : "R013",
       "lineNumbers" : [
         250,
         251,
@@ -3279,12 +3254,12 @@
       ]
     },
     "org.activiti.runtime.api.impl.TaskRuntimeImpl.assign:(Lorg/activiti/api/task/model/payloads/AssignTaskPayload;)Lorg/activiti/api/task/model/Task;" : {
-      "completeTestCount" : 5,
+      "completeTestCount" : 3,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 5
+        "R000" : 3
       },
       "lineNumbers" : [
         435,
@@ -3473,12 +3448,12 @@
       ]
     },
     "org.activiti.runtime.api.impl.TaskRuntimeImpl.groupCandidates:(Ljava/lang/String;)Ljava/util/List;" : {
-      "completeTestCount" : 4,
+      "completeTestCount" : 3,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 4
+        "R000" : 3
       },
       "lineNumbers" : [
         391,
@@ -3535,12 +3510,12 @@
       ]
     },
     "org.activiti.runtime.api.impl.TaskRuntimeImpl.save:(Lorg/activiti/api/task/model/payloads/SaveTaskPayload;)V" : {
-      "completeTestCount" : 3,
+      "completeTestCount" : 2,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 3
+        "R000" : 2
       },
       "lineNumbers" : [
         424,
@@ -3561,12 +3536,12 @@
       ]
     },
     "org.activiti.runtime.api.impl.TaskRuntimeImpl.tasks:(Lorg/activiti/api/runtime/shared/query/Pageable;)Lorg/activiti/api/runtime/shared/query/Page;" : {
-      "completeTestCount" : 4,
+      "completeTestCount" : 3,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 4
+        "R000" : 3
       },
       "lineNumbers" : [
         100,
@@ -3579,12 +3554,12 @@
       ]
     },
     "org.activiti.runtime.api.impl.TaskRuntimeImpl.tasks:(Lorg/activiti/api/runtime/shared/query/Pageable;Lorg/activiti/api/task/model/payloads/GetTasksPayload;)Lorg/activiti/api/runtime/shared/query/Page;" : {
-      "completeTestCount" : 9,
+      "completeTestCount" : 7,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 9
+        "R000" : 7
       },
       "lineNumbers" : [
         112,
@@ -3641,12 +3616,12 @@
       ]
     },
     "org.activiti.runtime.api.impl.TaskRuntimeImpl.userCandidates:(Ljava/lang/String;)Ljava/util/List;" : {
-      "completeTestCount" : 4,
+      "completeTestCount" : 3,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 4
+        "R000" : 3
       },
       "lineNumbers" : [
         374,
@@ -3661,12 +3636,12 @@
       ]
     },
     "org.activiti.runtime.api.impl.TaskRuntimeImpl.variables:(Lorg/activiti/api/task/model/payloads/GetTaskVariablesPayload;)Ljava/util/List;" : {
-      "completeTestCount" : 3,
+      "completeTestCount" : 2,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 3
+        "R000" : 2
       },
       "lineNumbers" : [
         408,
@@ -3708,12 +3683,12 @@
       ]
     },
     "org.activiti.runtime.api.impl.TaskVariablesPayloadValidator.handleCreateTaskVariablePayload:(Lorg/activiti/api/task/model/payloads/CreateTaskVariablePayload;)Lorg/activiti/api/task/model/payloads/CreateTaskVariablePayload;" : {
-      "completeTestCount" : 10,
+      "completeTestCount" : 6,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 10
+        "R000" : 6
       },
       "lineNumbers" : [
         58,
@@ -3724,12 +3699,12 @@
       ]
     },
     "org.activiti.runtime.api.impl.TaskVariablesPayloadValidator.handlePayloadVariables:(Ljava/util/Map;)Ljava/util/Map;" : {
-      "completeTestCount" : 11,
+      "completeTestCount" : 8,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 11
+        "R000" : 8
       },
       "lineNumbers" : [
         82,
@@ -3755,12 +3730,12 @@
       ]
     },
     "org.activiti.runtime.api.impl.TaskVariablesPayloadValidator.handleUpdateTaskVariablePayload:(Lorg/activiti/api/task/model/payloads/UpdateTaskVariablePayload;)Lorg/activiti/api/task/model/payloads/UpdateTaskVariablePayload;" : {
-      "completeTestCount" : 10,
+      "completeTestCount" : 6,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 10
+        "R000" : 6
       },
       "lineNumbers" : [
         70,
@@ -3959,13 +3934,10 @@
       ]
     },
     "org.activiti.runtime.api.model.impl.APITaskConverter.fromWithCandidates:(Lorg/activiti/engine/task/Task;)Lorg/activiti/api/task/model/Task;" : {
-      "completeTestCount" : 7,
+      "completeTestCount" : 0,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
-      "perMethodOutcome" : "R000",
-      "perTestOutcome" : {
-        "R000" : 7
-      },
+      "perMethodOutcome" : "R013",
       "lineNumbers" : [
         48,
         49,
@@ -3994,6 +3966,5 @@
         106
       ]
     }
-  },
-  "validationMetrics" : { }
+  }
 }

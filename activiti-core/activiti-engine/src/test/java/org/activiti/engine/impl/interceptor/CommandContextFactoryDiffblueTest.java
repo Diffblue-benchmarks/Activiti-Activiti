@@ -23,8 +23,7 @@ import static org.mockito.ArgumentMatchers.isA;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.engine.ActivitiEngineAgenda;
 import org.activiti.engine.ActivitiEngineAgendaFactory;
@@ -38,23 +37,20 @@ import org.mockito.Mockito;
 public class CommandContextFactoryDiffblueTest {
   /**
    * Test {@link CommandContextFactory#createCommandContext(Command)}.
-   *
    * <ul>
-   *   <li>Then Agenda return {@link DefaultActivitiEngineAgenda}.
+   *   <li>Then Agenda return {@link DefaultActivitiEngineAgenda}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link CommandContextFactory#createCommandContext(Command)}
+   * <p>
+   * Method under test: {@link CommandContextFactory#createCommandContext(Command)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"CommandContext CommandContextFactory.createCommandContext(Command)"})
   public void testCreateCommandContext_thenAgendaReturnDefaultActivitiEngineAgenda() {
     // Arrange
     ActivitiEngineAgendaFactory engineAgendaFactory = mock(ActivitiEngineAgendaFactory.class);
     DefaultActivitiEngineAgenda defaultActivitiEngineAgenda = new DefaultActivitiEngineAgenda(null);
-    when(engineAgendaFactory.createAgenda(Mockito.<CommandContext>any()))
-        .thenReturn(defaultActivitiEngineAgenda);
+    when(engineAgendaFactory.createAgenda(Mockito.<CommandContext>any())).thenReturn(defaultActivitiEngineAgenda);
 
     JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();
     processEngineConfiguration.setEngineAgendaFactory(engineAgendaFactory);
@@ -64,15 +60,14 @@ public class CommandContextFactoryDiffblueTest {
     Command<Object> cmd = mock(Command.class);
 
     // Act
-    CommandContext actualCreateCommandContextResult =
-        commandContextFactory.createCommandContext(cmd);
+    CommandContext actualCreateCommandContextResult = commandContextFactory.createCommandContext(cmd);
 
     // Assert
     verify(engineAgendaFactory).createAgenda(isA(CommandContext.class));
     ActivitiEngineAgenda agenda = actualCreateCommandContextResult.getAgenda();
     assertTrue(agenda instanceof DefaultActivitiEngineAgenda);
-    ProcessEngineConfigurationImpl processEngineConfiguration2 =
-        actualCreateCommandContextResult.getProcessEngineConfiguration();
+    ProcessEngineConfigurationImpl processEngineConfiguration2 = actualCreateCommandContextResult
+        .getProcessEngineConfiguration();
     assertTrue(processEngineConfiguration2 instanceof JtaProcessEngineConfiguration);
     assertNull(actualCreateCommandContextResult.getResult());
     assertNull(actualCreateCommandContextResult.getException());
@@ -122,24 +117,19 @@ public class CommandContextFactoryDiffblueTest {
 
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>default or parameterless constructor of {@link CommandContextFactory}
-   *   <li>{@link
-   *       CommandContextFactory#setProcessEngineConfiguration(ProcessEngineConfigurationImpl)}
+   *   <li>{@link CommandContextFactory#setProcessEngineConfiguration(ProcessEngineConfigurationImpl)}
    *   <li>{@link CommandContextFactory#getProcessEngineConfiguration()}
    * </ul>
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void CommandContextFactory.<init>()",
-    "ProcessEngineConfigurationImpl CommandContextFactory.getProcessEngineConfiguration()",
-    "void CommandContextFactory.setProcessEngineConfiguration(ProcessEngineConfigurationImpl)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void CommandContextFactory.<init>()",
+      "ProcessEngineConfigurationImpl CommandContextFactory.getProcessEngineConfiguration()",
+      "void CommandContextFactory.setProcessEngineConfiguration(ProcessEngineConfigurationImpl)"})
   public void testGettersAndSetters() {
     // Arrange and Act
     CommandContextFactory actualCommandContextFactory = new CommandContextFactory();
@@ -147,7 +137,6 @@ public class CommandContextFactoryDiffblueTest {
     actualCommandContextFactory.setProcessEngineConfiguration(processEngineConfiguration);
 
     // Assert
-    assertSame(
-        processEngineConfiguration, actualCommandContextFactory.getProcessEngineConfiguration());
+    assertSame(processEngineConfiguration, actualCommandContextFactory.getProcessEngineConfiguration());
   }
 }

@@ -17,8 +17,7 @@ package org.activiti.engine.impl.cmd;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThrows;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.engine.ActivitiIllegalArgumentException;
 import org.activiti.engine.impl.interceptor.CommandContext;
@@ -28,34 +27,30 @@ import org.junit.experimental.categories.Category;
 public class GetBpmnModelCmdDiffblueTest {
   /**
    * Test {@link GetBpmnModelCmd#GetBpmnModelCmd(String)}.
-   *
-   * <p>Method under test: {@link GetBpmnModelCmd#GetBpmnModelCmd(String)}
+   * <p>
+   * Method under test: {@link GetBpmnModelCmd#GetBpmnModelCmd(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void GetBpmnModelCmd.<init>(String)"})
   public void testNewGetBpmnModelCmd() {
     // Arrange, Act and Assert
-    assertEquals("42", new GetBpmnModelCmd("42").processDefinitionId);
+    assertEquals("42", (new GetBpmnModelCmd("42")).processDefinitionId);
   }
 
   /**
    * Test {@link GetBpmnModelCmd#execute(CommandContext)}.
-   *
    * <ul>
-   *   <li>Then throw {@link ActivitiIllegalArgumentException}.
+   *   <li>Then throw {@link ActivitiIllegalArgumentException}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link GetBpmnModelCmd#execute(CommandContext)}
+   * <p>
+   * Method under test: {@link GetBpmnModelCmd#execute(CommandContext)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"org.activiti.bpmn.model.BpmnModel GetBpmnModelCmd.execute(CommandContext)"})
   public void testExecute_thenThrowActivitiIllegalArgumentException() {
     // Arrange, Act and Assert
-    assertThrows(
-        ActivitiIllegalArgumentException.class, () -> new GetBpmnModelCmd(null).execute(null));
+    assertThrows(ActivitiIllegalArgumentException.class, () -> (new GetBpmnModelCmd(null)).execute(null));
   }
 }

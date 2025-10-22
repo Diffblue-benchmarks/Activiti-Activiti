@@ -18,8 +18,7 @@ package org.activiti.engine.management;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
 import java.util.List;
@@ -30,9 +29,8 @@ import org.junit.experimental.categories.Category;
 public class TablePageDiffblueTest {
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>default or parameterless constructor of {@link TablePage}
    *   <li>{@link TablePage#setFirstResult(long)}
@@ -46,19 +44,10 @@ public class TablePageDiffblueTest {
    * </ul>
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void TablePage.<init>()",
-    "long TablePage.getFirstResult()",
-    "List TablePage.getRows()",
-    "String TablePage.getTableName()",
-    "long TablePage.getTotal()",
-    "void TablePage.setFirstResult(long)",
-    "void TablePage.setRows(List)",
-    "void TablePage.setTableName(String)",
-    "void TablePage.setTotal(long)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void TablePage.<init>()", "long TablePage.getFirstResult()", "List TablePage.getRows()",
+      "String TablePage.getTableName()", "long TablePage.getTotal()", "void TablePage.setFirstResult(long)",
+      "void TablePage.setRows(List)", "void TablePage.setTableName(String)", "void TablePage.setTotal(long)"})
   public void testGettersAndSetters() {
     // Arrange and Act
     TablePage actualTablePage = new TablePage();
@@ -81,17 +70,15 @@ public class TablePageDiffblueTest {
 
   /**
    * Test {@link TablePage#getSize()}.
-   *
    * <ul>
-   *   <li>Given {@link TablePage} (default constructor) FirstResult is one.
-   *   <li>Then return zero.
+   *   <li>Given {@link TablePage} (default constructor) FirstResult is one.</li>
+   *   <li>Then return zero.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link TablePage#getSize()}
+   * <p>
+   * Method under test: {@link TablePage#getSize()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"long TablePage.getSize()"})
   public void testGetSize_givenTablePageFirstResultIsOne_thenReturnZero() {
     // Arrange

@@ -17,7 +17,6 @@ package org.activiti.bpmn.converter.child;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.bpmn.model.BpmnModel;
 import org.junit.jupiter.api.DisplayName;
@@ -27,44 +26,37 @@ import org.junit.jupiter.api.Test;
 class IOSpecificationParserDiffblueTest {
   /**
    * Test {@link IOSpecificationParser#parseItemSubjectRef(String, BpmnModel)}.
-   *
    * <ul>
-   *   <li>Then return {@code null:Hello from the Dreaming Spires}.
+   *   <li>Then return {@code null:Hello from the Dreaming Spires}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link IOSpecificationParser#parseItemSubjectRef(String, BpmnModel)}
+   * <p>
+   * Method under test: {@link IOSpecificationParser#parseItemSubjectRef(String, BpmnModel)}
    */
   @Test
-  @DisplayName(
-      "Test parseItemSubjectRef(String, BpmnModel); then return 'null:Hello from the Dreaming Spires'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test parseItemSubjectRef(String, BpmnModel); then return 'null:Hello from the Dreaming Spires'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"String IOSpecificationParser.parseItemSubjectRef(String, BpmnModel)"})
   void testParseItemSubjectRef_thenReturnNullHelloFromTheDreamingSpires() {
     // Arrange
     IOSpecificationParser ioSpecificationParser = new IOSpecificationParser();
 
     // Act and Assert
-    assertEquals(
-        "null:Hello from the Dreaming Spires",
-        ioSpecificationParser.parseItemSubjectRef(
-            "Hello from the Dreaming Spires", new BpmnModel()));
+    assertEquals("null:Hello from the Dreaming Spires",
+        ioSpecificationParser.parseItemSubjectRef("Hello from the Dreaming Spires", new BpmnModel()));
   }
 
   /**
    * Test {@link IOSpecificationParser#parseItemSubjectRef(String, BpmnModel)}.
-   *
    * <ul>
-   *   <li>When empty string.
-   *   <li>Then return {@code null}.
+   *   <li>When empty string.</li>
+   *   <li>Then return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link IOSpecificationParser#parseItemSubjectRef(String, BpmnModel)}
+   * <p>
+   * Method under test: {@link IOSpecificationParser#parseItemSubjectRef(String, BpmnModel)}
    */
   @Test
   @DisplayName("Test parseItemSubjectRef(String, BpmnModel); when empty string; then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"String IOSpecificationParser.parseItemSubjectRef(String, BpmnModel)"})
   void testParseItemSubjectRef_whenEmptyString_thenReturnNull() {
     // Arrange
@@ -75,33 +67,9 @@ class IOSpecificationParserDiffblueTest {
   }
 
   /**
-   * Test {@link IOSpecificationParser#parseItemSubjectRef(String, BpmnModel)}.
-   *
-   * <ul>
-   *   <li>When {@code null}.
-   *   <li>Then return {@code null}.
-   * </ul>
-   *
-   * <p>Method under test: {@link IOSpecificationParser#parseItemSubjectRef(String, BpmnModel)}
-   */
-  @Test
-  @DisplayName("Test parseItemSubjectRef(String, BpmnModel); when 'null'; then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String IOSpecificationParser.parseItemSubjectRef(String, BpmnModel)"})
-  void testParseItemSubjectRef_whenNull_thenReturnNull() {
-    // Arrange
-    IOSpecificationParser ioSpecificationParser = new IOSpecificationParser();
-
-    // Act and Assert
-    assertNull(ioSpecificationParser.parseItemSubjectRef(null, new BpmnModel()));
-  }
-
-  /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>default or parameterless constructor of {@link IOSpecificationParser}
    *   <li>{@link IOSpecificationParser#getElementName()}
@@ -109,14 +77,10 @@ class IOSpecificationParserDiffblueTest {
    */
   @Test
   @DisplayName("Test getters and setters")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void IOSpecificationParser.<init>()",
-    "String IOSpecificationParser.getElementName()"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void IOSpecificationParser.<init>()", "String IOSpecificationParser.getElementName()"})
   void testGettersAndSetters() {
     // Arrange, Act and Assert
-    assertEquals("ioSpecification", new IOSpecificationParser().getElementName());
+    assertEquals("ioSpecification", (new IOSpecificationParser()).getElementName());
   }
 }

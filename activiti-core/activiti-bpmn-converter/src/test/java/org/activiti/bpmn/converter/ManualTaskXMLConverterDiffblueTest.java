@@ -16,15 +16,12 @@
 package org.activiti.bpmn.converter;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
-import java.util.HashMap;
 import javax.xml.stream.XMLStreamWriter;
+import org.activiti.bpmn.model.ActivitiListener;
 import org.activiti.bpmn.model.BaseElement;
 import org.activiti.bpmn.model.BpmnModel;
 import org.activiti.bpmn.model.ManualTask;
-import org.activiti.bpmn.model.Message;
-import org.activiti.bpmn.model.Message.Builder;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
@@ -32,63 +29,33 @@ import org.junit.jupiter.api.Test;
 class ManualTaskXMLConverterDiffblueTest {
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>default or parameterless constructor of {@link ManualTaskXMLConverter}
-   *   <li>{@link ManualTaskXMLConverter#writeAdditionalAttributes(BaseElement, BpmnModel,
-   *       XMLStreamWriter)}
-   *   <li>{@link ManualTaskXMLConverter#writeAdditionalChildElements(BaseElement, BpmnModel,
-   *       XMLStreamWriter)}
+   *   <li>{@link ManualTaskXMLConverter#writeAdditionalAttributes(BaseElement, BpmnModel, XMLStreamWriter)}
+   *   <li>{@link ManualTaskXMLConverter#writeAdditionalChildElements(BaseElement, BpmnModel, XMLStreamWriter)}
    *   <li>{@link ManualTaskXMLConverter#getBpmnElementType()}
    *   <li>{@link ManualTaskXMLConverter#getXMLElementName()}
    * </ul>
    */
   @Test
   @DisplayName("Test getters and setters")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void ManualTaskXMLConverter.<init>()",
-    "Class ManualTaskXMLConverter.getBpmnElementType()",
-    "java.lang.String ManualTaskXMLConverter.getXMLElementName()",
-    "void ManualTaskXMLConverter.writeAdditionalAttributes(BaseElement, BpmnModel, XMLStreamWriter)",
-    "void ManualTaskXMLConverter.writeAdditionalChildElements(BaseElement, BpmnModel, XMLStreamWriter)"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void ManualTaskXMLConverter.<init>()", "Class ManualTaskXMLConverter.getBpmnElementType()",
+      "java.lang.String ManualTaskXMLConverter.getXMLElementName()",
+      "void ManualTaskXMLConverter.writeAdditionalAttributes(BaseElement, BpmnModel, XMLStreamWriter)",
+      "void ManualTaskXMLConverter.writeAdditionalChildElements(BaseElement, BpmnModel, XMLStreamWriter)"})
   void testGettersAndSetters() throws Exception {
     // Arrange and Act
     ManualTaskXMLConverter actualManualTaskXMLConverter = new ManualTaskXMLConverter();
-    Builder builderResult = Message.builder();
-    Builder attributesResult = builderResult.attributes(new HashMap<>());
-    Message element =
-        attributesResult
-            .extensionElements(new HashMap<>())
-            .id("42")
-            .itemRef("Item Ref")
-            .name("Name")
-            .xmlColumnNumber(10)
-            .xmlRowNumber(10)
-            .build();
+    ActivitiListener element = new ActivitiListener();
     BpmnModel model = new BpmnModel();
-    actualManualTaskXMLConverter.writeAdditionalAttributes(
-        element, model, new IndentingXMLStreamWriter(null));
-    Builder builderResult2 = Message.builder();
-    Builder attributesResult2 = builderResult2.attributes(new HashMap<>());
-    Message element2 =
-        attributesResult2
-            .extensionElements(new HashMap<>())
-            .id("42")
-            .itemRef("Item Ref")
-            .name("Name")
-            .xmlColumnNumber(10)
-            .xmlRowNumber(10)
-            .build();
+    actualManualTaskXMLConverter.writeAdditionalAttributes(element, model, new IndentingXMLStreamWriter(null));
+    ActivitiListener element2 = new ActivitiListener();
     BpmnModel model2 = new BpmnModel();
-    actualManualTaskXMLConverter.writeAdditionalChildElements(
-        element2, model2, new IndentingXMLStreamWriter(null));
-    Class<? extends BaseElement> actualBpmnElementType =
-        actualManualTaskXMLConverter.getBpmnElementType();
+    actualManualTaskXMLConverter.writeAdditionalChildElements(element2, model2, new IndentingXMLStreamWriter(null));
+    Class<? extends BaseElement> actualBpmnElementType = actualManualTaskXMLConverter.getBpmnElementType();
 
     // Assert
     assertEquals("manualTask", actualManualTaskXMLConverter.getXMLElementName());

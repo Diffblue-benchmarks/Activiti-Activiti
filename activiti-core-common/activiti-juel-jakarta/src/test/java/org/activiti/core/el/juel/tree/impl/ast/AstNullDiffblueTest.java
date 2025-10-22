@@ -18,7 +18,6 @@ package org.activiti.core.el.juel.tree.impl.ast;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.mockito.Mockito.mock;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import jakarta.el.ELContext;
 import jakarta.el.ValueExpression;
@@ -34,26 +33,20 @@ import org.junit.jupiter.api.Test;
 class AstNullDiffblueTest {
   /**
    * Test {@link AstNull#eval(Bindings, ELContext)}.
-   *
-   * <p>Method under test: {@link AstNull#eval(Bindings, ELContext)}
+   * <p>
+   * Method under test: {@link AstNull#eval(Bindings, ELContext)}
    */
   @Test
   @DisplayName("Test eval(Bindings, ELContext)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"Object AstNull.eval(Bindings, ELContext)"})
   void testEval() {
     // Arrange
     AstNull astNull = new AstNull();
-    Method[] functions = new Method[] {null};
     TypeConverter converter = mock(TypeConverter.class);
     Class<Object> type = Object.class;
-
-    ObjectValueExpression objectValueExpression =
-        new ObjectValueExpression(converter, "Object", type);
-    ValueExpression[] variables = new ValueExpression[] {objectValueExpression};
-
-    Bindings bindings = new Bindings(functions, variables);
+    Bindings bindings = new Bindings(new Method[]{null},
+        new ValueExpression[]{new ObjectValueExpression(converter, "Object", type)});
 
     // Act and Assert
     assertNull(astNull.eval(bindings, new SimpleContext()));
@@ -61,36 +54,26 @@ class AstNullDiffblueTest {
 
   /**
    * Test {@link AstNull#appendStructure(StringBuilder, Bindings)}.
-   *
    * <ul>
-   *   <li>Then {@link StringBuilder#StringBuilder(String)} with {@code foo} toString is {@code
-   *       foonull}.
+   *   <li>Then {@link StringBuilder#StringBuilder(String)} with {@code foo} toString is {@code foonull}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link AstNull#appendStructure(StringBuilder, Bindings)}
+   * <p>
+   * Method under test: {@link AstNull#appendStructure(StringBuilder, Bindings)}
    */
   @Test
-  @DisplayName(
-      "Test appendStructure(StringBuilder, Bindings); then StringBuilder(String) with 'foo' toString is 'foonull'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test appendStructure(StringBuilder, Bindings); then StringBuilder(String) with 'foo' toString is 'foonull'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void AstNull.appendStructure(StringBuilder, Bindings)"})
   void testAppendStructure_thenStringBuilderWithFooToStringIsFoonull() {
     // Arrange
     AstNull astNull = new AstNull();
     StringBuilder b = new StringBuilder("foo");
-    Method[] functions = new Method[] {null};
     TypeConverter converter = mock(TypeConverter.class);
     Class<Object> type = Object.class;
 
-    ObjectValueExpression objectValueExpression =
-        new ObjectValueExpression(converter, "Object", type);
-    ValueExpression[] variables = new ValueExpression[] {objectValueExpression};
-
-    Bindings bindings = new Bindings(functions, variables);
-
     // Act
-    astNull.appendStructure(b, bindings);
+    astNull.appendStructure(b,
+        new Bindings(new Method[]{null}, new ValueExpression[]{new ObjectValueExpression(converter, "Object", type)}));
 
     // Assert
     assertEquals("foonull", b.toString());
@@ -98,9 +81,8 @@ class AstNullDiffblueTest {
 
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>default or parameterless constructor of {@link AstNull}
    *   <li>{@link AstNull#toString()}
@@ -108,11 +90,10 @@ class AstNullDiffblueTest {
    */
   @Test
   @DisplayName("Test getters and setters")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void AstNull.<init>()", "java.lang.String AstNull.toString()"})
   void testGettersAndSetters() {
     // Arrange, Act and Assert
-    assertEquals("null", new AstNull().toString());
+    assertEquals("null", (new AstNull()).toString());
   }
 }

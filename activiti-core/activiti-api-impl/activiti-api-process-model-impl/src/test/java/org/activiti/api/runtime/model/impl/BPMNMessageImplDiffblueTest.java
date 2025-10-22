@@ -19,7 +19,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.api.process.model.payloads.MessageEventPayload;
 import org.junit.jupiter.api.DisplayName;
@@ -29,9 +28,8 @@ import org.junit.jupiter.api.Test;
 class BPMNMessageImplDiffblueTest {
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>{@link BPMNMessageImpl#BPMNMessageImpl()}
    *   <li>{@link BPMNMessageImpl#setMessagePayload(MessageEventPayload)}
@@ -40,13 +38,9 @@ class BPMNMessageImplDiffblueTest {
    */
   @Test
   @DisplayName("Test getters and setters")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void BPMNMessageImpl.<init>()",
-    "MessageEventPayload BPMNMessageImpl.getMessagePayload()",
-    "void BPMNMessageImpl.setMessagePayload(MessageEventPayload)"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void BPMNMessageImpl.<init>()", "MessageEventPayload BPMNMessageImpl.getMessagePayload()",
+      "void BPMNMessageImpl.setMessagePayload(MessageEventPayload)"})
   void testGettersAndSetters() {
     // Arrange and Act
     BPMNMessageImpl actualBpmnMessageImpl = new BPMNMessageImpl();
@@ -63,13 +57,12 @@ class BPMNMessageImplDiffblueTest {
 
   /**
    * Test {@link BPMNMessageImpl#BPMNMessageImpl(String)}.
-   *
-   * <p>Method under test: {@link BPMNMessageImpl#BPMNMessageImpl(String)}
+   * <p>
+   * Method under test: {@link BPMNMessageImpl#BPMNMessageImpl(String)}
    */
   @Test
   @DisplayName("Test new BPMNMessageImpl(String)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void BPMNMessageImpl.<init>(String)"})
   void testNewBPMNMessageImpl() {
     // Arrange and Act
@@ -84,14 +77,12 @@ class BPMNMessageImplDiffblueTest {
 
   /**
    * Test {@link BPMNMessageImpl#equals(Object)}, and {@link BPMNMessageImpl#hashCode()}.
-   *
    * <ul>
-   *   <li>When other is equal.
-   *   <li>Then return equal.
+   *   <li>When other is equal.</li>
+   *   <li>Then return equal.</li>
    * </ul>
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>{@link BPMNMessageImpl#equals(Object)}
    *   <li>{@link BPMNMessageImpl#hashCode()}
@@ -99,8 +90,7 @@ class BPMNMessageImplDiffblueTest {
    */
   @Test
   @DisplayName("Test equals(Object), and hashCode(); when other is equal; then return equal")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"boolean BPMNMessageImpl.equals(Object)", "int BPMNMessageImpl.hashCode()"})
   void testEqualsAndHashCode_whenOtherIsEqual_thenReturnEqual() {
     // Arrange
@@ -109,19 +99,18 @@ class BPMNMessageImplDiffblueTest {
 
     // Act and Assert
     assertEquals(bpmnMessageImpl, bpmnMessageImpl2);
-    assertEquals(bpmnMessageImpl.hashCode(), bpmnMessageImpl2.hashCode());
+    int expectedHashCodeResult = bpmnMessageImpl.hashCode();
+    assertEquals(expectedHashCodeResult, bpmnMessageImpl2.hashCode());
   }
 
   /**
    * Test {@link BPMNMessageImpl#equals(Object)}, and {@link BPMNMessageImpl#hashCode()}.
-   *
    * <ul>
-   *   <li>When other is same.
-   *   <li>Then return equal.
+   *   <li>When other is same.</li>
+   *   <li>Then return equal.</li>
    * </ul>
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>{@link BPMNMessageImpl#equals(Object)}
    *   <li>{@link BPMNMessageImpl#hashCode()}
@@ -129,8 +118,7 @@ class BPMNMessageImplDiffblueTest {
    */
   @Test
   @DisplayName("Test equals(Object), and hashCode(); when other is same; then return equal")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"boolean BPMNMessageImpl.equals(Object)", "int BPMNMessageImpl.hashCode()"})
   void testEqualsAndHashCode_whenOtherIsSame_thenReturnEqual() {
     // Arrange
@@ -144,22 +132,20 @@ class BPMNMessageImplDiffblueTest {
 
   /**
    * Test {@link BPMNMessageImpl#equals(Object)}.
-   *
    * <ul>
-   *   <li>When other is different.
-   *   <li>Then return not equal.
+   *   <li>When other is different.</li>
+   *   <li>Then return not equal.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link BPMNMessageImpl#equals(Object)}
+   * <p>
+   * Method under test: {@link BPMNMessageImpl#equals(Object)}
    */
   @Test
   @DisplayName("Test equals(Object); when other is different; then return not equal")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"boolean BPMNMessageImpl.equals(Object)", "int BPMNMessageImpl.hashCode()"})
   void testEquals_whenOtherIsDifferent_thenReturnNotEqual() {
     // Arrange
-    BPMNMessageImpl bpmnMessageImpl = new BPMNMessageImpl();
+    BPMNMessageImpl bpmnMessageImpl = new BPMNMessageImpl("Element Id");
 
     // Act and Assert
     assertNotEquals(bpmnMessageImpl, new BPMNMessageImpl("42"));
@@ -167,18 +153,16 @@ class BPMNMessageImplDiffblueTest {
 
   /**
    * Test {@link BPMNMessageImpl#equals(Object)}.
-   *
    * <ul>
-   *   <li>When other is different.
-   *   <li>Then return not equal.
+   *   <li>When other is different.</li>
+   *   <li>Then return not equal.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link BPMNMessageImpl#equals(Object)}
+   * <p>
+   * Method under test: {@link BPMNMessageImpl#equals(Object)}
    */
   @Test
   @DisplayName("Test equals(Object); when other is different; then return not equal")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"boolean BPMNMessageImpl.equals(Object)", "int BPMNMessageImpl.hashCode()"})
   void testEquals_whenOtherIsDifferent_thenReturnNotEqual2() {
     // Arrange
@@ -191,18 +175,16 @@ class BPMNMessageImplDiffblueTest {
 
   /**
    * Test {@link BPMNMessageImpl#equals(Object)}.
-   *
    * <ul>
-   *   <li>When other is {@code null}.
-   *   <li>Then return not equal.
+   *   <li>When other is {@code null}.</li>
+   *   <li>Then return not equal.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link BPMNMessageImpl#equals(Object)}
+   * <p>
+   * Method under test: {@link BPMNMessageImpl#equals(Object)}
    */
   @Test
   @DisplayName("Test equals(Object); when other is 'null'; then return not equal")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"boolean BPMNMessageImpl.equals(Object)", "int BPMNMessageImpl.hashCode()"})
   void testEquals_whenOtherIsNull_thenReturnNotEqual() {
     // Arrange, Act and Assert
@@ -211,18 +193,16 @@ class BPMNMessageImplDiffblueTest {
 
   /**
    * Test {@link BPMNMessageImpl#equals(Object)}.
-   *
    * <ul>
-   *   <li>When other is wrong type.
-   *   <li>Then return not equal.
+   *   <li>When other is wrong type.</li>
+   *   <li>Then return not equal.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link BPMNMessageImpl#equals(Object)}
+   * <p>
+   * Method under test: {@link BPMNMessageImpl#equals(Object)}
    */
   @Test
   @DisplayName("Test equals(Object); when other is wrong type; then return not equal")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"boolean BPMNMessageImpl.equals(Object)", "int BPMNMessageImpl.hashCode()"})
   void testEquals_whenOtherIsWrongType_thenReturnNotEqual() {
     // Arrange, Act and Assert
@@ -231,23 +211,18 @@ class BPMNMessageImplDiffblueTest {
 
   /**
    * Test {@link BPMNMessageImpl#toString()}.
-   *
    * <ul>
-   *   <li>Then return {@code BPMNMessageImpl{, elementId='42', messagePayload='null'}}.
+   *   <li>Then return {@code BPMNMessageImpl{, elementId='42', messagePayload='null'}}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link BPMNMessageImpl#toString()}
+   * <p>
+   * Method under test: {@link BPMNMessageImpl#toString()}
    */
   @Test
-  @DisplayName(
-      "Test toString(); then return 'BPMNMessageImpl{, elementId='42', messagePayload='null'}'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test toString(); then return 'BPMNMessageImpl{, elementId='42', messagePayload='null'}'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"String BPMNMessageImpl.toString()"})
   void testToString_thenReturnBPMNMessageImplElementId42MessagePayloadNull() {
     // Arrange, Act and Assert
-    assertEquals(
-        "BPMNMessageImpl{, elementId='42', messagePayload='null'}",
-        new BPMNMessageImpl("42").toString());
+    assertEquals("BPMNMessageImpl{, elementId='42', messagePayload='null'}", (new BPMNMessageImpl("42")).toString());
   }
 }

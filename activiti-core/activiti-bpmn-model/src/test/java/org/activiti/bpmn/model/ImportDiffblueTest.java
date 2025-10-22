@@ -19,11 +19,8 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import org.junit.Test;
@@ -32,82 +29,15 @@ import org.junit.experimental.categories.Category;
 public class ImportDiffblueTest {
   /**
    * Test {@link Import#clone()}.
-   *
    * <ul>
-   *   <li>Given {@link HashMap#HashMap()} {@code 42} is {@link ArrayList#ArrayList()}.
-   *   <li>Then return Attributes size is one.
+   *   <li>Given {@link Import} (default constructor) ExtensionElements is {@code null}.</li>
+   *   <li>Then return Id is {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link Import#clone()}
+   * <p>
+   * Method under test: {@link Import#clone()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"Import Import.clone()"})
-  public void testClone_givenHashMap42IsArrayList_thenReturnAttributesSizeIsOne() {
-    // Arrange
-    HashMap<String, List<ExtensionElement>> extensionElements = new HashMap<>();
-    extensionElements.put("42", new ArrayList<>());
-    extensionElements.put("foo", new ArrayList<>());
-
-    Import resultImport = new Import();
-    resultImport.setExtensionElements(extensionElements);
-    ExtensionAttribute attribute = new ExtensionAttribute("Name");
-    resultImport.addAttribute(attribute);
-
-    // Act and Assert
-    Map<String, List<ExtensionAttribute>> attributes = resultImport.clone().getAttributes();
-    assertEquals(1, attributes.size());
-    List<ExtensionAttribute> getResult = attributes.get("Name");
-    assertEquals(1, getResult.size());
-    assertSame(attribute, getResult.get(0));
-  }
-
-  /**
-   * Test {@link Import#clone()}.
-   *
-   * <ul>
-   *   <li>Given {@link HashMap#HashMap()} {@code foo} is {@link ArrayList#ArrayList()}.
-   *   <li>Then return Attributes size is one.
-   * </ul>
-   *
-   * <p>Method under test: {@link Import#clone()}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"Import Import.clone()"})
-  public void testClone_givenHashMapFooIsArrayList_thenReturnAttributesSizeIsOne() {
-    // Arrange
-    HashMap<String, List<ExtensionElement>> extensionElements = new HashMap<>();
-    extensionElements.put("foo", new ArrayList<>());
-
-    Import resultImport = new Import();
-    resultImport.setExtensionElements(extensionElements);
-    ExtensionAttribute attribute = new ExtensionAttribute("Name");
-    resultImport.addAttribute(attribute);
-
-    // Act and Assert
-    Map<String, List<ExtensionAttribute>> attributes = resultImport.clone().getAttributes();
-    assertEquals(1, attributes.size());
-    List<ExtensionAttribute> getResult = attributes.get("Name");
-    assertEquals(1, getResult.size());
-    assertSame(attribute, getResult.get(0));
-  }
-
-  /**
-   * Test {@link Import#clone()}.
-   *
-   * <ul>
-   *   <li>Given {@link Import} (default constructor) ExtensionElements is {@code null}.
-   *   <li>Then return Id is {@code null}.
-   * </ul>
-   *
-   * <p>Method under test: {@link Import#clone()}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"Import Import.clone()"})
   public void testClone_givenImportExtensionElementsIsNull_thenReturnIdIsNull() {
     // Arrange
@@ -131,21 +61,19 @@ public class ImportDiffblueTest {
 
   /**
    * Test {@link Import#clone()}.
-   *
    * <ul>
-   *   <li>Given {@link Import} (default constructor).
-   *   <li>Then return Id is {@code null}.
+   *   <li>Given {@link Import} (default constructor).</li>
+   *   <li>Then return Id is {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link Import#clone()}
+   * <p>
+   * Method under test: {@link Import#clone()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"Import Import.clone()"})
   public void testClone_givenImport_thenReturnIdIsNull() {
     // Arrange and Act
-    Import actualCloneResult = new Import().clone();
+    Import actualCloneResult = (new Import()).clone();
 
     // Assert
     assertNull(actualCloneResult.getId());
@@ -160,16 +88,14 @@ public class ImportDiffblueTest {
 
   /**
    * Test {@link Import#clone()}.
-   *
    * <ul>
-   *   <li>Then return Attributes size is one.
+   *   <li>Then return Attributes size is one.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link Import#clone()}
+   * <p>
+   * Method under test: {@link Import#clone()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"Import Import.clone()"})
   public void testClone_thenReturnAttributesSizeIsOne() {
     // Arrange
@@ -187,16 +113,14 @@ public class ImportDiffblueTest {
 
   /**
    * Test {@link Import#clone()}.
-   *
    * <ul>
-   *   <li>Then return Attributes size is two.
+   *   <li>Then return Attributes size is two.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link Import#clone()}
+   * <p>
+   * Method under test: {@link Import#clone()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"Import Import.clone()"})
   public void testClone_thenReturnAttributesSizeIsTwo() {
     // Arrange
@@ -216,9 +140,8 @@ public class ImportDiffblueTest {
 
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>default or parameterless constructor of {@link Import}
    *   <li>{@link Import#setImportType(String)}
@@ -230,17 +153,10 @@ public class ImportDiffblueTest {
    * </ul>
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void Import.<init>()",
-    "String Import.getImportType()",
-    "String Import.getLocation()",
-    "String Import.getNamespace()",
-    "void Import.setImportType(String)",
-    "void Import.setLocation(String)",
-    "void Import.setNamespace(String)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void Import.<init>()", "String Import.getImportType()", "String Import.getLocation()",
+      "String Import.getNamespace()", "void Import.setImportType(String)", "void Import.setLocation(String)",
+      "void Import.setNamespace(String)"})
   public void testGettersAndSetters() {
     // Arrange and Act
     Import actualResultImport = new Import();

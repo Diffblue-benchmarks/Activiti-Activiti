@@ -17,7 +17,6 @@ package org.activiti.api.process.model.payloads;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
@@ -26,13 +25,12 @@ import org.junit.jupiter.api.Test;
 class DeleteProcessPayloadDiffblueTest {
   /**
    * Test {@link DeleteProcessPayload#DeleteProcessPayload()}.
-   *
-   * <p>Method under test: {@link DeleteProcessPayload#DeleteProcessPayload()}
+   * <p>
+   * Method under test: {@link DeleteProcessPayload#DeleteProcessPayload()}
    */
   @Test
   @DisplayName("Test new DeleteProcessPayload()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void DeleteProcessPayload.<init>()"})
   void testNewDeleteProcessPayload() {
     // Arrange and Act
@@ -45,13 +43,12 @@ class DeleteProcessPayloadDiffblueTest {
 
   /**
    * Test {@link DeleteProcessPayload#DeleteProcessPayload(String, String)}.
-   *
-   * <p>Method under test: {@link DeleteProcessPayload#DeleteProcessPayload(String, String)}
+   * <p>
+   * Method under test: {@link DeleteProcessPayload#DeleteProcessPayload(String, String)}
    */
   @Test
   @DisplayName("Test new DeleteProcessPayload(String, String)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void DeleteProcessPayload.<init>(String, String)"})
   void testNewDeleteProcessPayload2() {
     // Arrange and Act
@@ -64,9 +61,8 @@ class DeleteProcessPayloadDiffblueTest {
 
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>{@link DeleteProcessPayload#setProcessInstanceId(String)}
    *   <li>{@link DeleteProcessPayload#setReason(String)}
@@ -77,15 +73,10 @@ class DeleteProcessPayloadDiffblueTest {
    */
   @Test
   @DisplayName("Test getters and setters")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "String DeleteProcessPayload.getId()",
-    "String DeleteProcessPayload.getProcessInstanceId()",
-    "String DeleteProcessPayload.getReason()",
-    "void DeleteProcessPayload.setProcessInstanceId(String)",
-    "void DeleteProcessPayload.setReason(String)"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"String DeleteProcessPayload.getId()", "String DeleteProcessPayload.getProcessInstanceId()",
+      "String DeleteProcessPayload.getReason()", "void DeleteProcessPayload.setProcessInstanceId(String)",
+      "void DeleteProcessPayload.setReason(String)"})
   void testGettersAndSetters() {
     // Arrange
     DeleteProcessPayload deleteProcessPayload = new DeleteProcessPayload();

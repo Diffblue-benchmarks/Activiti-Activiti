@@ -19,7 +19,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.time.LocalDate;
 import java.time.ZoneOffset;
@@ -33,9 +32,8 @@ import org.junit.jupiter.api.Test;
 class ProcessInstanceImplDiffblueTest {
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>default or parameterless constructor of {@link ProcessInstanceImpl}
    *   <li>{@link ProcessInstanceImpl#setBusinessKey(String)}
@@ -67,42 +65,26 @@ class ProcessInstanceImplDiffblueTest {
    */
   @Test
   @DisplayName("Test getters and setters")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void ProcessInstanceImpl.<init>()",
-    "String ProcessInstanceImpl.getBusinessKey()",
-    "Date ProcessInstanceImpl.getCompletedDate()",
-    "String ProcessInstanceImpl.getId()",
-    "String ProcessInstanceImpl.getInitiator()",
-    "String ProcessInstanceImpl.getName()",
-    "String ProcessInstanceImpl.getParentId()",
-    "String ProcessInstanceImpl.getProcessDefinitionId()",
-    "String ProcessInstanceImpl.getProcessDefinitionKey()",
-    "String ProcessInstanceImpl.getProcessDefinitionName()",
-    "Integer ProcessInstanceImpl.getProcessDefinitionVersion()",
-    "Date ProcessInstanceImpl.getStartDate()",
-    "ProcessInstanceStatus ProcessInstanceImpl.getStatus()",
-    "void ProcessInstanceImpl.setBusinessKey(String)",
-    "void ProcessInstanceImpl.setCompletedDate(Date)",
-    "void ProcessInstanceImpl.setId(String)",
-    "void ProcessInstanceImpl.setInitiator(String)",
-    "void ProcessInstanceImpl.setName(String)",
-    "void ProcessInstanceImpl.setParentId(String)",
-    "void ProcessInstanceImpl.setProcessDefinitionId(String)",
-    "void ProcessInstanceImpl.setProcessDefinitionKey(String)",
-    "void ProcessInstanceImpl.setProcessDefinitionName(String)",
-    "void ProcessInstanceImpl.setProcessDefinitionVersion(Integer)",
-    "void ProcessInstanceImpl.setStartDate(Date)",
-    "void ProcessInstanceImpl.setStatus(ProcessInstanceStatus)",
-    "String ProcessInstanceImpl.toString()"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void ProcessInstanceImpl.<init>()", "String ProcessInstanceImpl.getBusinessKey()",
+      "Date ProcessInstanceImpl.getCompletedDate()", "String ProcessInstanceImpl.getId()",
+      "String ProcessInstanceImpl.getInitiator()", "String ProcessInstanceImpl.getName()",
+      "String ProcessInstanceImpl.getParentId()", "String ProcessInstanceImpl.getProcessDefinitionId()",
+      "String ProcessInstanceImpl.getProcessDefinitionKey()", "String ProcessInstanceImpl.getProcessDefinitionName()",
+      "Integer ProcessInstanceImpl.getProcessDefinitionVersion()", "Date ProcessInstanceImpl.getStartDate()",
+      "ProcessInstanceStatus ProcessInstanceImpl.getStatus()", "void ProcessInstanceImpl.setBusinessKey(String)",
+      "void ProcessInstanceImpl.setCompletedDate(Date)", "void ProcessInstanceImpl.setId(String)",
+      "void ProcessInstanceImpl.setInitiator(String)", "void ProcessInstanceImpl.setName(String)",
+      "void ProcessInstanceImpl.setParentId(String)", "void ProcessInstanceImpl.setProcessDefinitionId(String)",
+      "void ProcessInstanceImpl.setProcessDefinitionKey(String)",
+      "void ProcessInstanceImpl.setProcessDefinitionName(String)",
+      "void ProcessInstanceImpl.setProcessDefinitionVersion(Integer)", "void ProcessInstanceImpl.setStartDate(Date)",
+      "void ProcessInstanceImpl.setStatus(ProcessInstanceStatus)", "String ProcessInstanceImpl.toString()"})
   void testGettersAndSetters() {
     // Arrange and Act
     ProcessInstanceImpl actualProcessInstanceImpl = new ProcessInstanceImpl();
     actualProcessInstanceImpl.setBusinessKey("Business Key");
-    Date completedDate =
-        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant());
+    Date completedDate = Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant());
     actualProcessInstanceImpl.setCompletedDate(completedDate);
     actualProcessInstanceImpl.setId("42");
     actualProcessInstanceImpl.setInitiator("Initiator");
@@ -112,8 +94,7 @@ class ProcessInstanceImplDiffblueTest {
     actualProcessInstanceImpl.setProcessDefinitionKey("Process Definition Key");
     actualProcessInstanceImpl.setProcessDefinitionName("Process Definition Name");
     actualProcessInstanceImpl.setProcessDefinitionVersion(1);
-    Date startDate =
-        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant());
+    Date startDate = Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant());
     actualProcessInstanceImpl.setStartDate(startDate);
     actualProcessInstanceImpl.setStatus(ProcessInstanceStatus.CREATED);
     actualProcessInstanceImpl.toString();
@@ -126,8 +107,7 @@ class ProcessInstanceImplDiffblueTest {
     String actualProcessDefinitionId = actualProcessInstanceImpl.getProcessDefinitionId();
     String actualProcessDefinitionKey = actualProcessInstanceImpl.getProcessDefinitionKey();
     String actualProcessDefinitionName = actualProcessInstanceImpl.getProcessDefinitionName();
-    Integer actualProcessDefinitionVersion =
-        actualProcessInstanceImpl.getProcessDefinitionVersion();
+    Integer actualProcessDefinitionVersion = actualProcessInstanceImpl.getProcessDefinitionVersion();
     Date actualStartDate = actualProcessInstanceImpl.getStartDate();
     ProcessInstanceStatus actualStatus = actualProcessInstanceImpl.getStatus();
 
@@ -149,14 +129,12 @@ class ProcessInstanceImplDiffblueTest {
 
   /**
    * Test {@link ProcessInstanceImpl#equals(Object)}, and {@link ProcessInstanceImpl#hashCode()}.
-   *
    * <ul>
-   *   <li>When other is equal.
-   *   <li>Then return equal.
+   *   <li>When other is equal.</li>
+   *   <li>Then return equal.</li>
    * </ul>
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>{@link ProcessInstanceImpl#equals(Object)}
    *   <li>{@link ProcessInstanceImpl#hashCode()}
@@ -164,19 +142,15 @@ class ProcessInstanceImplDiffblueTest {
    */
   @Test
   @DisplayName("Test equals(Object), and hashCode(); when other is equal; then return equal")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "boolean ProcessInstanceImpl.equals(Object)",
-    "int ProcessInstanceImpl.hashCode()"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean ProcessInstanceImpl.equals(Object)", "int ProcessInstanceImpl.hashCode()"})
   void testEqualsAndHashCode_whenOtherIsEqual_thenReturnEqual() {
     // Arrange
     ProcessInstanceImpl processInstanceImpl = new ProcessInstanceImpl();
     processInstanceImpl.setAppVersion("1.0.2");
     processInstanceImpl.setBusinessKey("Business Key");
-    processInstanceImpl.setCompletedDate(
-        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
+    processInstanceImpl
+        .setCompletedDate(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
     processInstanceImpl.setId("42");
     processInstanceImpl.setInitiator("Initiator");
     processInstanceImpl.setName("Name");
@@ -185,15 +159,15 @@ class ProcessInstanceImplDiffblueTest {
     processInstanceImpl.setProcessDefinitionKey("Process Definition Key");
     processInstanceImpl.setProcessDefinitionName("Process Definition Name");
     processInstanceImpl.setProcessDefinitionVersion(1);
-    processInstanceImpl.setStartDate(
-        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
+    processInstanceImpl
+        .setStartDate(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
     processInstanceImpl.setStatus(ProcessInstanceStatus.CREATED);
 
     ProcessInstanceImpl processInstanceImpl2 = new ProcessInstanceImpl();
     processInstanceImpl2.setAppVersion("1.0.2");
     processInstanceImpl2.setBusinessKey("Business Key");
-    processInstanceImpl2.setCompletedDate(
-        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
+    processInstanceImpl2
+        .setCompletedDate(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
     processInstanceImpl2.setId("42");
     processInstanceImpl2.setInitiator("Initiator");
     processInstanceImpl2.setName("Name");
@@ -202,25 +176,24 @@ class ProcessInstanceImplDiffblueTest {
     processInstanceImpl2.setProcessDefinitionKey("Process Definition Key");
     processInstanceImpl2.setProcessDefinitionName("Process Definition Name");
     processInstanceImpl2.setProcessDefinitionVersion(1);
-    processInstanceImpl2.setStartDate(
-        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
+    processInstanceImpl2
+        .setStartDate(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
     processInstanceImpl2.setStatus(ProcessInstanceStatus.CREATED);
 
     // Act and Assert
     assertEquals(processInstanceImpl, processInstanceImpl2);
-    assertEquals(processInstanceImpl.hashCode(), processInstanceImpl2.hashCode());
+    int expectedHashCodeResult = processInstanceImpl.hashCode();
+    assertEquals(expectedHashCodeResult, processInstanceImpl2.hashCode());
   }
 
   /**
    * Test {@link ProcessInstanceImpl#equals(Object)}, and {@link ProcessInstanceImpl#hashCode()}.
-   *
    * <ul>
-   *   <li>When other is same.
-   *   <li>Then return equal.
+   *   <li>When other is same.</li>
+   *   <li>Then return equal.</li>
    * </ul>
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>{@link ProcessInstanceImpl#equals(Object)}
    *   <li>{@link ProcessInstanceImpl#hashCode()}
@@ -228,19 +201,15 @@ class ProcessInstanceImplDiffblueTest {
    */
   @Test
   @DisplayName("Test equals(Object), and hashCode(); when other is same; then return equal")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "boolean ProcessInstanceImpl.equals(Object)",
-    "int ProcessInstanceImpl.hashCode()"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean ProcessInstanceImpl.equals(Object)", "int ProcessInstanceImpl.hashCode()"})
   void testEqualsAndHashCode_whenOtherIsSame_thenReturnEqual() {
     // Arrange
     ProcessInstanceImpl processInstanceImpl = new ProcessInstanceImpl();
     processInstanceImpl.setAppVersion("1.0.2");
     processInstanceImpl.setBusinessKey("Business Key");
-    processInstanceImpl.setCompletedDate(
-        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
+    processInstanceImpl
+        .setCompletedDate(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
     processInstanceImpl.setId("42");
     processInstanceImpl.setInitiator("Initiator");
     processInstanceImpl.setName("Name");
@@ -249,8 +218,8 @@ class ProcessInstanceImplDiffblueTest {
     processInstanceImpl.setProcessDefinitionKey("Process Definition Key");
     processInstanceImpl.setProcessDefinitionName("Process Definition Name");
     processInstanceImpl.setProcessDefinitionVersion(1);
-    processInstanceImpl.setStartDate(
-        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
+    processInstanceImpl
+        .setStartDate(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
     processInstanceImpl.setStatus(ProcessInstanceStatus.CREATED);
 
     // Act and Assert
@@ -261,29 +230,24 @@ class ProcessInstanceImplDiffblueTest {
 
   /**
    * Test {@link ProcessInstanceImpl#equals(Object)}.
-   *
    * <ul>
-   *   <li>When other is different.
-   *   <li>Then return not equal.
+   *   <li>When other is different.</li>
+   *   <li>Then return not equal.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ProcessInstanceImpl#equals(Object)}
+   * <p>
+   * Method under test: {@link ProcessInstanceImpl#equals(Object)}
    */
   @Test
   @DisplayName("Test equals(Object); when other is different; then return not equal")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "boolean ProcessInstanceImpl.equals(Object)",
-    "int ProcessInstanceImpl.hashCode()"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean ProcessInstanceImpl.equals(Object)", "int ProcessInstanceImpl.hashCode()"})
   void testEquals_whenOtherIsDifferent_thenReturnNotEqual() {
     // Arrange
     ProcessInstanceImpl processInstanceImpl = new ProcessInstanceImpl();
     processInstanceImpl.setAppVersion("App Version");
     processInstanceImpl.setBusinessKey("Business Key");
-    processInstanceImpl.setCompletedDate(
-        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
+    processInstanceImpl
+        .setCompletedDate(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
     processInstanceImpl.setId("42");
     processInstanceImpl.setInitiator("Initiator");
     processInstanceImpl.setName("Name");
@@ -292,15 +256,15 @@ class ProcessInstanceImplDiffblueTest {
     processInstanceImpl.setProcessDefinitionKey("Process Definition Key");
     processInstanceImpl.setProcessDefinitionName("Process Definition Name");
     processInstanceImpl.setProcessDefinitionVersion(1);
-    processInstanceImpl.setStartDate(
-        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
+    processInstanceImpl
+        .setStartDate(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
     processInstanceImpl.setStatus(ProcessInstanceStatus.CREATED);
 
     ProcessInstanceImpl processInstanceImpl2 = new ProcessInstanceImpl();
     processInstanceImpl2.setAppVersion("1.0.2");
     processInstanceImpl2.setBusinessKey("Business Key");
-    processInstanceImpl2.setCompletedDate(
-        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
+    processInstanceImpl2
+        .setCompletedDate(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
     processInstanceImpl2.setId("42");
     processInstanceImpl2.setInitiator("Initiator");
     processInstanceImpl2.setName("Name");
@@ -309,8 +273,8 @@ class ProcessInstanceImplDiffblueTest {
     processInstanceImpl2.setProcessDefinitionKey("Process Definition Key");
     processInstanceImpl2.setProcessDefinitionName("Process Definition Name");
     processInstanceImpl2.setProcessDefinitionVersion(1);
-    processInstanceImpl2.setStartDate(
-        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
+    processInstanceImpl2
+        .setStartDate(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
     processInstanceImpl2.setStatus(ProcessInstanceStatus.CREATED);
 
     // Act and Assert
@@ -319,29 +283,24 @@ class ProcessInstanceImplDiffblueTest {
 
   /**
    * Test {@link ProcessInstanceImpl#equals(Object)}.
-   *
    * <ul>
-   *   <li>When other is different.
-   *   <li>Then return not equal.
+   *   <li>When other is different.</li>
+   *   <li>Then return not equal.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ProcessInstanceImpl#equals(Object)}
+   * <p>
+   * Method under test: {@link ProcessInstanceImpl#equals(Object)}
    */
   @Test
   @DisplayName("Test equals(Object); when other is different; then return not equal")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "boolean ProcessInstanceImpl.equals(Object)",
-    "int ProcessInstanceImpl.hashCode()"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean ProcessInstanceImpl.equals(Object)", "int ProcessInstanceImpl.hashCode()"})
   void testEquals_whenOtherIsDifferent_thenReturnNotEqual2() {
     // Arrange
     ProcessInstanceImpl processInstanceImpl = new ProcessInstanceImpl();
     processInstanceImpl.setAppVersion("1.0.2");
     processInstanceImpl.setBusinessKey(null);
-    processInstanceImpl.setCompletedDate(
-        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
+    processInstanceImpl
+        .setCompletedDate(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
     processInstanceImpl.setId("42");
     processInstanceImpl.setInitiator("Initiator");
     processInstanceImpl.setName("Name");
@@ -350,15 +309,15 @@ class ProcessInstanceImplDiffblueTest {
     processInstanceImpl.setProcessDefinitionKey("Process Definition Key");
     processInstanceImpl.setProcessDefinitionName("Process Definition Name");
     processInstanceImpl.setProcessDefinitionVersion(1);
-    processInstanceImpl.setStartDate(
-        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
+    processInstanceImpl
+        .setStartDate(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
     processInstanceImpl.setStatus(ProcessInstanceStatus.CREATED);
 
     ProcessInstanceImpl processInstanceImpl2 = new ProcessInstanceImpl();
     processInstanceImpl2.setAppVersion("1.0.2");
     processInstanceImpl2.setBusinessKey("Business Key");
-    processInstanceImpl2.setCompletedDate(
-        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
+    processInstanceImpl2
+        .setCompletedDate(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
     processInstanceImpl2.setId("42");
     processInstanceImpl2.setInitiator("Initiator");
     processInstanceImpl2.setName("Name");
@@ -367,8 +326,8 @@ class ProcessInstanceImplDiffblueTest {
     processInstanceImpl2.setProcessDefinitionKey("Process Definition Key");
     processInstanceImpl2.setProcessDefinitionName("Process Definition Name");
     processInstanceImpl2.setProcessDefinitionVersion(1);
-    processInstanceImpl2.setStartDate(
-        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
+    processInstanceImpl2
+        .setStartDate(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
     processInstanceImpl2.setStatus(ProcessInstanceStatus.CREATED);
 
     // Act and Assert
@@ -377,28 +336,23 @@ class ProcessInstanceImplDiffblueTest {
 
   /**
    * Test {@link ProcessInstanceImpl#equals(Object)}.
-   *
    * <ul>
-   *   <li>When other is different.
-   *   <li>Then return not equal.
+   *   <li>When other is different.</li>
+   *   <li>Then return not equal.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ProcessInstanceImpl#equals(Object)}
+   * <p>
+   * Method under test: {@link ProcessInstanceImpl#equals(Object)}
    */
   @Test
   @DisplayName("Test equals(Object); when other is different; then return not equal")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "boolean ProcessInstanceImpl.equals(Object)",
-    "int ProcessInstanceImpl.hashCode()"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean ProcessInstanceImpl.equals(Object)", "int ProcessInstanceImpl.hashCode()"})
   void testEquals_whenOtherIsDifferent_thenReturnNotEqual3() {
     // Arrange
     ProcessInstanceImpl processInstanceImpl = new ProcessInstanceImpl();
     processInstanceImpl.setAppVersion("1.0.2");
     processInstanceImpl.setBusinessKey("Business Key");
-    processInstanceImpl.setCompletedDate(new Date());
+    processInstanceImpl.setCompletedDate(Date.from(LocalDate.now().atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
     processInstanceImpl.setId("42");
     processInstanceImpl.setInitiator("Initiator");
     processInstanceImpl.setName("Name");
@@ -407,15 +361,15 @@ class ProcessInstanceImplDiffblueTest {
     processInstanceImpl.setProcessDefinitionKey("Process Definition Key");
     processInstanceImpl.setProcessDefinitionName("Process Definition Name");
     processInstanceImpl.setProcessDefinitionVersion(1);
-    processInstanceImpl.setStartDate(
-        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
+    processInstanceImpl
+        .setStartDate(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
     processInstanceImpl.setStatus(ProcessInstanceStatus.CREATED);
 
     ProcessInstanceImpl processInstanceImpl2 = new ProcessInstanceImpl();
     processInstanceImpl2.setAppVersion("1.0.2");
     processInstanceImpl2.setBusinessKey("Business Key");
-    processInstanceImpl2.setCompletedDate(
-        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
+    processInstanceImpl2
+        .setCompletedDate(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
     processInstanceImpl2.setId("42");
     processInstanceImpl2.setInitiator("Initiator");
     processInstanceImpl2.setName("Name");
@@ -424,8 +378,8 @@ class ProcessInstanceImplDiffblueTest {
     processInstanceImpl2.setProcessDefinitionKey("Process Definition Key");
     processInstanceImpl2.setProcessDefinitionName("Process Definition Name");
     processInstanceImpl2.setProcessDefinitionVersion(1);
-    processInstanceImpl2.setStartDate(
-        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
+    processInstanceImpl2
+        .setStartDate(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
     processInstanceImpl2.setStatus(ProcessInstanceStatus.CREATED);
 
     // Act and Assert
@@ -434,29 +388,24 @@ class ProcessInstanceImplDiffblueTest {
 
   /**
    * Test {@link ProcessInstanceImpl#equals(Object)}.
-   *
    * <ul>
-   *   <li>When other is different.
-   *   <li>Then return not equal.
+   *   <li>When other is different.</li>
+   *   <li>Then return not equal.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ProcessInstanceImpl#equals(Object)}
+   * <p>
+   * Method under test: {@link ProcessInstanceImpl#equals(Object)}
    */
   @Test
   @DisplayName("Test equals(Object); when other is different; then return not equal")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "boolean ProcessInstanceImpl.equals(Object)",
-    "int ProcessInstanceImpl.hashCode()"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean ProcessInstanceImpl.equals(Object)", "int ProcessInstanceImpl.hashCode()"})
   void testEquals_whenOtherIsDifferent_thenReturnNotEqual4() {
     // Arrange
     ProcessInstanceImpl processInstanceImpl = new ProcessInstanceImpl();
     processInstanceImpl.setAppVersion("1.0.2");
     processInstanceImpl.setBusinessKey("Business Key");
-    processInstanceImpl.setCompletedDate(
-        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
+    processInstanceImpl
+        .setCompletedDate(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
     processInstanceImpl.setId("Id");
     processInstanceImpl.setInitiator("Initiator");
     processInstanceImpl.setName("Name");
@@ -465,15 +414,15 @@ class ProcessInstanceImplDiffblueTest {
     processInstanceImpl.setProcessDefinitionKey("Process Definition Key");
     processInstanceImpl.setProcessDefinitionName("Process Definition Name");
     processInstanceImpl.setProcessDefinitionVersion(1);
-    processInstanceImpl.setStartDate(
-        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
+    processInstanceImpl
+        .setStartDate(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
     processInstanceImpl.setStatus(ProcessInstanceStatus.CREATED);
 
     ProcessInstanceImpl processInstanceImpl2 = new ProcessInstanceImpl();
     processInstanceImpl2.setAppVersion("1.0.2");
     processInstanceImpl2.setBusinessKey("Business Key");
-    processInstanceImpl2.setCompletedDate(
-        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
+    processInstanceImpl2
+        .setCompletedDate(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
     processInstanceImpl2.setId("42");
     processInstanceImpl2.setInitiator("Initiator");
     processInstanceImpl2.setName("Name");
@@ -482,8 +431,8 @@ class ProcessInstanceImplDiffblueTest {
     processInstanceImpl2.setProcessDefinitionKey("Process Definition Key");
     processInstanceImpl2.setProcessDefinitionName("Process Definition Name");
     processInstanceImpl2.setProcessDefinitionVersion(1);
-    processInstanceImpl2.setStartDate(
-        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
+    processInstanceImpl2
+        .setStartDate(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
     processInstanceImpl2.setStatus(ProcessInstanceStatus.CREATED);
 
     // Act and Assert
@@ -492,29 +441,24 @@ class ProcessInstanceImplDiffblueTest {
 
   /**
    * Test {@link ProcessInstanceImpl#equals(Object)}.
-   *
    * <ul>
-   *   <li>When other is different.
-   *   <li>Then return not equal.
+   *   <li>When other is different.</li>
+   *   <li>Then return not equal.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ProcessInstanceImpl#equals(Object)}
+   * <p>
+   * Method under test: {@link ProcessInstanceImpl#equals(Object)}
    */
   @Test
   @DisplayName("Test equals(Object); when other is different; then return not equal")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "boolean ProcessInstanceImpl.equals(Object)",
-    "int ProcessInstanceImpl.hashCode()"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean ProcessInstanceImpl.equals(Object)", "int ProcessInstanceImpl.hashCode()"})
   void testEquals_whenOtherIsDifferent_thenReturnNotEqual5() {
     // Arrange
     ProcessInstanceImpl processInstanceImpl = new ProcessInstanceImpl();
     processInstanceImpl.setAppVersion("1.0.2");
     processInstanceImpl.setBusinessKey("Business Key");
-    processInstanceImpl.setCompletedDate(
-        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
+    processInstanceImpl
+        .setCompletedDate(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
     processInstanceImpl.setId("42");
     processInstanceImpl.setInitiator(null);
     processInstanceImpl.setName("Name");
@@ -523,15 +467,15 @@ class ProcessInstanceImplDiffblueTest {
     processInstanceImpl.setProcessDefinitionKey("Process Definition Key");
     processInstanceImpl.setProcessDefinitionName("Process Definition Name");
     processInstanceImpl.setProcessDefinitionVersion(1);
-    processInstanceImpl.setStartDate(
-        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
+    processInstanceImpl
+        .setStartDate(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
     processInstanceImpl.setStatus(ProcessInstanceStatus.CREATED);
 
     ProcessInstanceImpl processInstanceImpl2 = new ProcessInstanceImpl();
     processInstanceImpl2.setAppVersion("1.0.2");
     processInstanceImpl2.setBusinessKey("Business Key");
-    processInstanceImpl2.setCompletedDate(
-        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
+    processInstanceImpl2
+        .setCompletedDate(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
     processInstanceImpl2.setId("42");
     processInstanceImpl2.setInitiator("Initiator");
     processInstanceImpl2.setName("Name");
@@ -540,8 +484,8 @@ class ProcessInstanceImplDiffblueTest {
     processInstanceImpl2.setProcessDefinitionKey("Process Definition Key");
     processInstanceImpl2.setProcessDefinitionName("Process Definition Name");
     processInstanceImpl2.setProcessDefinitionVersion(1);
-    processInstanceImpl2.setStartDate(
-        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
+    processInstanceImpl2
+        .setStartDate(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
     processInstanceImpl2.setStatus(ProcessInstanceStatus.CREATED);
 
     // Act and Assert
@@ -550,29 +494,24 @@ class ProcessInstanceImplDiffblueTest {
 
   /**
    * Test {@link ProcessInstanceImpl#equals(Object)}.
-   *
    * <ul>
-   *   <li>When other is different.
-   *   <li>Then return not equal.
+   *   <li>When other is different.</li>
+   *   <li>Then return not equal.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ProcessInstanceImpl#equals(Object)}
+   * <p>
+   * Method under test: {@link ProcessInstanceImpl#equals(Object)}
    */
   @Test
   @DisplayName("Test equals(Object); when other is different; then return not equal")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "boolean ProcessInstanceImpl.equals(Object)",
-    "int ProcessInstanceImpl.hashCode()"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean ProcessInstanceImpl.equals(Object)", "int ProcessInstanceImpl.hashCode()"})
   void testEquals_whenOtherIsDifferent_thenReturnNotEqual6() {
     // Arrange
     ProcessInstanceImpl processInstanceImpl = new ProcessInstanceImpl();
     processInstanceImpl.setAppVersion("1.0.2");
     processInstanceImpl.setBusinessKey("Business Key");
-    processInstanceImpl.setCompletedDate(
-        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
+    processInstanceImpl
+        .setCompletedDate(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
     processInstanceImpl.setId("42");
     processInstanceImpl.setInitiator("Initiator");
     processInstanceImpl.setName(null);
@@ -581,15 +520,15 @@ class ProcessInstanceImplDiffblueTest {
     processInstanceImpl.setProcessDefinitionKey("Process Definition Key");
     processInstanceImpl.setProcessDefinitionName("Process Definition Name");
     processInstanceImpl.setProcessDefinitionVersion(1);
-    processInstanceImpl.setStartDate(
-        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
+    processInstanceImpl
+        .setStartDate(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
     processInstanceImpl.setStatus(ProcessInstanceStatus.CREATED);
 
     ProcessInstanceImpl processInstanceImpl2 = new ProcessInstanceImpl();
     processInstanceImpl2.setAppVersion("1.0.2");
     processInstanceImpl2.setBusinessKey("Business Key");
-    processInstanceImpl2.setCompletedDate(
-        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
+    processInstanceImpl2
+        .setCompletedDate(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
     processInstanceImpl2.setId("42");
     processInstanceImpl2.setInitiator("Initiator");
     processInstanceImpl2.setName("Name");
@@ -598,8 +537,8 @@ class ProcessInstanceImplDiffblueTest {
     processInstanceImpl2.setProcessDefinitionKey("Process Definition Key");
     processInstanceImpl2.setProcessDefinitionName("Process Definition Name");
     processInstanceImpl2.setProcessDefinitionVersion(1);
-    processInstanceImpl2.setStartDate(
-        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
+    processInstanceImpl2
+        .setStartDate(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
     processInstanceImpl2.setStatus(ProcessInstanceStatus.CREATED);
 
     // Act and Assert
@@ -608,29 +547,24 @@ class ProcessInstanceImplDiffblueTest {
 
   /**
    * Test {@link ProcessInstanceImpl#equals(Object)}.
-   *
    * <ul>
-   *   <li>When other is different.
-   *   <li>Then return not equal.
+   *   <li>When other is different.</li>
+   *   <li>Then return not equal.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ProcessInstanceImpl#equals(Object)}
+   * <p>
+   * Method under test: {@link ProcessInstanceImpl#equals(Object)}
    */
   @Test
   @DisplayName("Test equals(Object); when other is different; then return not equal")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "boolean ProcessInstanceImpl.equals(Object)",
-    "int ProcessInstanceImpl.hashCode()"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean ProcessInstanceImpl.equals(Object)", "int ProcessInstanceImpl.hashCode()"})
   void testEquals_whenOtherIsDifferent_thenReturnNotEqual7() {
     // Arrange
     ProcessInstanceImpl processInstanceImpl = new ProcessInstanceImpl();
     processInstanceImpl.setAppVersion("1.0.2");
     processInstanceImpl.setBusinessKey("Business Key");
-    processInstanceImpl.setCompletedDate(
-        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
+    processInstanceImpl
+        .setCompletedDate(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
     processInstanceImpl.setId("42");
     processInstanceImpl.setInitiator("Initiator");
     processInstanceImpl.setName("Name");
@@ -639,15 +573,15 @@ class ProcessInstanceImplDiffblueTest {
     processInstanceImpl.setProcessDefinitionKey("Process Definition Key");
     processInstanceImpl.setProcessDefinitionName("Process Definition Name");
     processInstanceImpl.setProcessDefinitionVersion(1);
-    processInstanceImpl.setStartDate(
-        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
+    processInstanceImpl
+        .setStartDate(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
     processInstanceImpl.setStatus(ProcessInstanceStatus.CREATED);
 
     ProcessInstanceImpl processInstanceImpl2 = new ProcessInstanceImpl();
     processInstanceImpl2.setAppVersion("1.0.2");
     processInstanceImpl2.setBusinessKey("Business Key");
-    processInstanceImpl2.setCompletedDate(
-        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
+    processInstanceImpl2
+        .setCompletedDate(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
     processInstanceImpl2.setId("42");
     processInstanceImpl2.setInitiator("Initiator");
     processInstanceImpl2.setName("Name");
@@ -656,8 +590,8 @@ class ProcessInstanceImplDiffblueTest {
     processInstanceImpl2.setProcessDefinitionKey("Process Definition Key");
     processInstanceImpl2.setProcessDefinitionName("Process Definition Name");
     processInstanceImpl2.setProcessDefinitionVersion(1);
-    processInstanceImpl2.setStartDate(
-        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
+    processInstanceImpl2
+        .setStartDate(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
     processInstanceImpl2.setStatus(ProcessInstanceStatus.CREATED);
 
     // Act and Assert
@@ -666,29 +600,24 @@ class ProcessInstanceImplDiffblueTest {
 
   /**
    * Test {@link ProcessInstanceImpl#equals(Object)}.
-   *
    * <ul>
-   *   <li>When other is different.
-   *   <li>Then return not equal.
+   *   <li>When other is different.</li>
+   *   <li>Then return not equal.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ProcessInstanceImpl#equals(Object)}
+   * <p>
+   * Method under test: {@link ProcessInstanceImpl#equals(Object)}
    */
   @Test
   @DisplayName("Test equals(Object); when other is different; then return not equal")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "boolean ProcessInstanceImpl.equals(Object)",
-    "int ProcessInstanceImpl.hashCode()"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean ProcessInstanceImpl.equals(Object)", "int ProcessInstanceImpl.hashCode()"})
   void testEquals_whenOtherIsDifferent_thenReturnNotEqual8() {
     // Arrange
     ProcessInstanceImpl processInstanceImpl = new ProcessInstanceImpl();
     processInstanceImpl.setAppVersion("1.0.2");
     processInstanceImpl.setBusinessKey("Business Key");
-    processInstanceImpl.setCompletedDate(
-        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
+    processInstanceImpl
+        .setCompletedDate(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
     processInstanceImpl.setId("42");
     processInstanceImpl.setInitiator("Initiator");
     processInstanceImpl.setName("Name");
@@ -697,15 +626,15 @@ class ProcessInstanceImplDiffblueTest {
     processInstanceImpl.setProcessDefinitionKey("Process Definition Key");
     processInstanceImpl.setProcessDefinitionName("Process Definition Name");
     processInstanceImpl.setProcessDefinitionVersion(1);
-    processInstanceImpl.setStartDate(
-        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
+    processInstanceImpl
+        .setStartDate(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
     processInstanceImpl.setStatus(ProcessInstanceStatus.CREATED);
 
     ProcessInstanceImpl processInstanceImpl2 = new ProcessInstanceImpl();
     processInstanceImpl2.setAppVersion("1.0.2");
     processInstanceImpl2.setBusinessKey("Business Key");
-    processInstanceImpl2.setCompletedDate(
-        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
+    processInstanceImpl2
+        .setCompletedDate(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
     processInstanceImpl2.setId("42");
     processInstanceImpl2.setInitiator("Initiator");
     processInstanceImpl2.setName("Name");
@@ -714,8 +643,8 @@ class ProcessInstanceImplDiffblueTest {
     processInstanceImpl2.setProcessDefinitionKey("Process Definition Key");
     processInstanceImpl2.setProcessDefinitionName("Process Definition Name");
     processInstanceImpl2.setProcessDefinitionVersion(1);
-    processInstanceImpl2.setStartDate(
-        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
+    processInstanceImpl2
+        .setStartDate(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
     processInstanceImpl2.setStatus(ProcessInstanceStatus.CREATED);
 
     // Act and Assert
@@ -724,29 +653,24 @@ class ProcessInstanceImplDiffblueTest {
 
   /**
    * Test {@link ProcessInstanceImpl#equals(Object)}.
-   *
    * <ul>
-   *   <li>When other is different.
-   *   <li>Then return not equal.
+   *   <li>When other is different.</li>
+   *   <li>Then return not equal.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ProcessInstanceImpl#equals(Object)}
+   * <p>
+   * Method under test: {@link ProcessInstanceImpl#equals(Object)}
    */
   @Test
   @DisplayName("Test equals(Object); when other is different; then return not equal")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "boolean ProcessInstanceImpl.equals(Object)",
-    "int ProcessInstanceImpl.hashCode()"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean ProcessInstanceImpl.equals(Object)", "int ProcessInstanceImpl.hashCode()"})
   void testEquals_whenOtherIsDifferent_thenReturnNotEqual9() {
     // Arrange
     ProcessInstanceImpl processInstanceImpl = new ProcessInstanceImpl();
     processInstanceImpl.setAppVersion("1.0.2");
     processInstanceImpl.setBusinessKey("Business Key");
-    processInstanceImpl.setCompletedDate(
-        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
+    processInstanceImpl
+        .setCompletedDate(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
     processInstanceImpl.setId("42");
     processInstanceImpl.setInitiator("Initiator");
     processInstanceImpl.setName("Name");
@@ -755,15 +679,15 @@ class ProcessInstanceImplDiffblueTest {
     processInstanceImpl.setProcessDefinitionKey(null);
     processInstanceImpl.setProcessDefinitionName("Process Definition Name");
     processInstanceImpl.setProcessDefinitionVersion(1);
-    processInstanceImpl.setStartDate(
-        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
+    processInstanceImpl
+        .setStartDate(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
     processInstanceImpl.setStatus(ProcessInstanceStatus.CREATED);
 
     ProcessInstanceImpl processInstanceImpl2 = new ProcessInstanceImpl();
     processInstanceImpl2.setAppVersion("1.0.2");
     processInstanceImpl2.setBusinessKey("Business Key");
-    processInstanceImpl2.setCompletedDate(
-        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
+    processInstanceImpl2
+        .setCompletedDate(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
     processInstanceImpl2.setId("42");
     processInstanceImpl2.setInitiator("Initiator");
     processInstanceImpl2.setName("Name");
@@ -772,8 +696,8 @@ class ProcessInstanceImplDiffblueTest {
     processInstanceImpl2.setProcessDefinitionKey("Process Definition Key");
     processInstanceImpl2.setProcessDefinitionName("Process Definition Name");
     processInstanceImpl2.setProcessDefinitionVersion(1);
-    processInstanceImpl2.setStartDate(
-        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
+    processInstanceImpl2
+        .setStartDate(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
     processInstanceImpl2.setStatus(ProcessInstanceStatus.CREATED);
 
     // Act and Assert
@@ -782,29 +706,24 @@ class ProcessInstanceImplDiffblueTest {
 
   /**
    * Test {@link ProcessInstanceImpl#equals(Object)}.
-   *
    * <ul>
-   *   <li>When other is different.
-   *   <li>Then return not equal.
+   *   <li>When other is different.</li>
+   *   <li>Then return not equal.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ProcessInstanceImpl#equals(Object)}
+   * <p>
+   * Method under test: {@link ProcessInstanceImpl#equals(Object)}
    */
   @Test
   @DisplayName("Test equals(Object); when other is different; then return not equal")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "boolean ProcessInstanceImpl.equals(Object)",
-    "int ProcessInstanceImpl.hashCode()"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean ProcessInstanceImpl.equals(Object)", "int ProcessInstanceImpl.hashCode()"})
   void testEquals_whenOtherIsDifferent_thenReturnNotEqual10() {
     // Arrange
     ProcessInstanceImpl processInstanceImpl = new ProcessInstanceImpl();
     processInstanceImpl.setAppVersion("1.0.2");
     processInstanceImpl.setBusinessKey("Business Key");
-    processInstanceImpl.setCompletedDate(
-        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
+    processInstanceImpl
+        .setCompletedDate(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
     processInstanceImpl.setId("42");
     processInstanceImpl.setInitiator("Initiator");
     processInstanceImpl.setName("Name");
@@ -813,15 +732,15 @@ class ProcessInstanceImplDiffblueTest {
     processInstanceImpl.setProcessDefinitionKey("Process Definition Key");
     processInstanceImpl.setProcessDefinitionName(null);
     processInstanceImpl.setProcessDefinitionVersion(1);
-    processInstanceImpl.setStartDate(
-        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
+    processInstanceImpl
+        .setStartDate(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
     processInstanceImpl.setStatus(ProcessInstanceStatus.CREATED);
 
     ProcessInstanceImpl processInstanceImpl2 = new ProcessInstanceImpl();
     processInstanceImpl2.setAppVersion("1.0.2");
     processInstanceImpl2.setBusinessKey("Business Key");
-    processInstanceImpl2.setCompletedDate(
-        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
+    processInstanceImpl2
+        .setCompletedDate(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
     processInstanceImpl2.setId("42");
     processInstanceImpl2.setInitiator("Initiator");
     processInstanceImpl2.setName("Name");
@@ -830,8 +749,8 @@ class ProcessInstanceImplDiffblueTest {
     processInstanceImpl2.setProcessDefinitionKey("Process Definition Key");
     processInstanceImpl2.setProcessDefinitionName("Process Definition Name");
     processInstanceImpl2.setProcessDefinitionVersion(1);
-    processInstanceImpl2.setStartDate(
-        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
+    processInstanceImpl2
+        .setStartDate(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
     processInstanceImpl2.setStatus(ProcessInstanceStatus.CREATED);
 
     // Act and Assert
@@ -840,29 +759,24 @@ class ProcessInstanceImplDiffblueTest {
 
   /**
    * Test {@link ProcessInstanceImpl#equals(Object)}.
-   *
    * <ul>
-   *   <li>When other is different.
-   *   <li>Then return not equal.
+   *   <li>When other is different.</li>
+   *   <li>Then return not equal.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ProcessInstanceImpl#equals(Object)}
+   * <p>
+   * Method under test: {@link ProcessInstanceImpl#equals(Object)}
    */
   @Test
   @DisplayName("Test equals(Object); when other is different; then return not equal")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "boolean ProcessInstanceImpl.equals(Object)",
-    "int ProcessInstanceImpl.hashCode()"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean ProcessInstanceImpl.equals(Object)", "int ProcessInstanceImpl.hashCode()"})
   void testEquals_whenOtherIsDifferent_thenReturnNotEqual11() {
     // Arrange
     ProcessInstanceImpl processInstanceImpl = new ProcessInstanceImpl();
     processInstanceImpl.setAppVersion("1.0.2");
     processInstanceImpl.setBusinessKey("Business Key");
-    processInstanceImpl.setCompletedDate(
-        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
+    processInstanceImpl
+        .setCompletedDate(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
     processInstanceImpl.setId("42");
     processInstanceImpl.setInitiator("Initiator");
     processInstanceImpl.setName("Name");
@@ -871,15 +785,15 @@ class ProcessInstanceImplDiffblueTest {
     processInstanceImpl.setProcessDefinitionKey("Process Definition Key");
     processInstanceImpl.setProcessDefinitionName("Process Definition Name");
     processInstanceImpl.setProcessDefinitionVersion(0);
-    processInstanceImpl.setStartDate(
-        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
+    processInstanceImpl
+        .setStartDate(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
     processInstanceImpl.setStatus(ProcessInstanceStatus.CREATED);
 
     ProcessInstanceImpl processInstanceImpl2 = new ProcessInstanceImpl();
     processInstanceImpl2.setAppVersion("1.0.2");
     processInstanceImpl2.setBusinessKey("Business Key");
-    processInstanceImpl2.setCompletedDate(
-        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
+    processInstanceImpl2
+        .setCompletedDate(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
     processInstanceImpl2.setId("42");
     processInstanceImpl2.setInitiator("Initiator");
     processInstanceImpl2.setName("Name");
@@ -888,8 +802,8 @@ class ProcessInstanceImplDiffblueTest {
     processInstanceImpl2.setProcessDefinitionKey("Process Definition Key");
     processInstanceImpl2.setProcessDefinitionName("Process Definition Name");
     processInstanceImpl2.setProcessDefinitionVersion(1);
-    processInstanceImpl2.setStartDate(
-        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
+    processInstanceImpl2
+        .setStartDate(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
     processInstanceImpl2.setStatus(ProcessInstanceStatus.CREATED);
 
     // Act and Assert
@@ -898,29 +812,24 @@ class ProcessInstanceImplDiffblueTest {
 
   /**
    * Test {@link ProcessInstanceImpl#equals(Object)}.
-   *
    * <ul>
-   *   <li>When other is different.
-   *   <li>Then return not equal.
+   *   <li>When other is different.</li>
+   *   <li>Then return not equal.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ProcessInstanceImpl#equals(Object)}
+   * <p>
+   * Method under test: {@link ProcessInstanceImpl#equals(Object)}
    */
   @Test
   @DisplayName("Test equals(Object); when other is different; then return not equal")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "boolean ProcessInstanceImpl.equals(Object)",
-    "int ProcessInstanceImpl.hashCode()"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean ProcessInstanceImpl.equals(Object)", "int ProcessInstanceImpl.hashCode()"})
   void testEquals_whenOtherIsDifferent_thenReturnNotEqual12() {
     // Arrange
     ProcessInstanceImpl processInstanceImpl = new ProcessInstanceImpl();
     processInstanceImpl.setAppVersion("1.0.2");
     processInstanceImpl.setBusinessKey("Business Key");
-    processInstanceImpl.setCompletedDate(
-        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
+    processInstanceImpl
+        .setCompletedDate(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
     processInstanceImpl.setId("42");
     processInstanceImpl.setInitiator("Initiator");
     processInstanceImpl.setName("Name");
@@ -929,14 +838,14 @@ class ProcessInstanceImplDiffblueTest {
     processInstanceImpl.setProcessDefinitionKey("Process Definition Key");
     processInstanceImpl.setProcessDefinitionName("Process Definition Name");
     processInstanceImpl.setProcessDefinitionVersion(1);
-    processInstanceImpl.setStartDate(new Date());
+    processInstanceImpl.setStartDate(Date.from(LocalDate.now().atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
     processInstanceImpl.setStatus(ProcessInstanceStatus.CREATED);
 
     ProcessInstanceImpl processInstanceImpl2 = new ProcessInstanceImpl();
     processInstanceImpl2.setAppVersion("1.0.2");
     processInstanceImpl2.setBusinessKey("Business Key");
-    processInstanceImpl2.setCompletedDate(
-        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
+    processInstanceImpl2
+        .setCompletedDate(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
     processInstanceImpl2.setId("42");
     processInstanceImpl2.setInitiator("Initiator");
     processInstanceImpl2.setName("Name");
@@ -945,8 +854,8 @@ class ProcessInstanceImplDiffblueTest {
     processInstanceImpl2.setProcessDefinitionKey("Process Definition Key");
     processInstanceImpl2.setProcessDefinitionName("Process Definition Name");
     processInstanceImpl2.setProcessDefinitionVersion(1);
-    processInstanceImpl2.setStartDate(
-        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
+    processInstanceImpl2
+        .setStartDate(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
     processInstanceImpl2.setStatus(ProcessInstanceStatus.CREATED);
 
     // Act and Assert
@@ -955,29 +864,24 @@ class ProcessInstanceImplDiffblueTest {
 
   /**
    * Test {@link ProcessInstanceImpl#equals(Object)}.
-   *
    * <ul>
-   *   <li>When other is different.
-   *   <li>Then return not equal.
+   *   <li>When other is different.</li>
+   *   <li>Then return not equal.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ProcessInstanceImpl#equals(Object)}
+   * <p>
+   * Method under test: {@link ProcessInstanceImpl#equals(Object)}
    */
   @Test
   @DisplayName("Test equals(Object); when other is different; then return not equal")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "boolean ProcessInstanceImpl.equals(Object)",
-    "int ProcessInstanceImpl.hashCode()"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean ProcessInstanceImpl.equals(Object)", "int ProcessInstanceImpl.hashCode()"})
   void testEquals_whenOtherIsDifferent_thenReturnNotEqual13() {
     // Arrange
     ProcessInstanceImpl processInstanceImpl = new ProcessInstanceImpl();
     processInstanceImpl.setAppVersion("1.0.2");
     processInstanceImpl.setBusinessKey("Business Key");
-    processInstanceImpl.setCompletedDate(
-        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
+    processInstanceImpl
+        .setCompletedDate(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
     processInstanceImpl.setId("42");
     processInstanceImpl.setInitiator("Initiator");
     processInstanceImpl.setName("Name");
@@ -986,15 +890,15 @@ class ProcessInstanceImplDiffblueTest {
     processInstanceImpl.setProcessDefinitionKey("Process Definition Key");
     processInstanceImpl.setProcessDefinitionName("Process Definition Name");
     processInstanceImpl.setProcessDefinitionVersion(1);
-    processInstanceImpl.setStartDate(
-        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
+    processInstanceImpl
+        .setStartDate(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
     processInstanceImpl.setStatus(null);
 
     ProcessInstanceImpl processInstanceImpl2 = new ProcessInstanceImpl();
     processInstanceImpl2.setAppVersion("1.0.2");
     processInstanceImpl2.setBusinessKey("Business Key");
-    processInstanceImpl2.setCompletedDate(
-        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
+    processInstanceImpl2
+        .setCompletedDate(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
     processInstanceImpl2.setId("42");
     processInstanceImpl2.setInitiator("Initiator");
     processInstanceImpl2.setName("Name");
@@ -1003,8 +907,8 @@ class ProcessInstanceImplDiffblueTest {
     processInstanceImpl2.setProcessDefinitionKey("Process Definition Key");
     processInstanceImpl2.setProcessDefinitionName("Process Definition Name");
     processInstanceImpl2.setProcessDefinitionVersion(1);
-    processInstanceImpl2.setStartDate(
-        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
+    processInstanceImpl2
+        .setStartDate(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
     processInstanceImpl2.setStatus(ProcessInstanceStatus.CREATED);
 
     // Act and Assert
@@ -1013,29 +917,24 @@ class ProcessInstanceImplDiffblueTest {
 
   /**
    * Test {@link ProcessInstanceImpl#equals(Object)}.
-   *
    * <ul>
-   *   <li>When other is {@code null}.
-   *   <li>Then return not equal.
+   *   <li>When other is {@code null}.</li>
+   *   <li>Then return not equal.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ProcessInstanceImpl#equals(Object)}
+   * <p>
+   * Method under test: {@link ProcessInstanceImpl#equals(Object)}
    */
   @Test
   @DisplayName("Test equals(Object); when other is 'null'; then return not equal")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "boolean ProcessInstanceImpl.equals(Object)",
-    "int ProcessInstanceImpl.hashCode()"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean ProcessInstanceImpl.equals(Object)", "int ProcessInstanceImpl.hashCode()"})
   void testEquals_whenOtherIsNull_thenReturnNotEqual() {
     // Arrange
     ProcessInstanceImpl processInstanceImpl = new ProcessInstanceImpl();
     processInstanceImpl.setAppVersion("1.0.2");
     processInstanceImpl.setBusinessKey("Business Key");
-    processInstanceImpl.setCompletedDate(
-        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
+    processInstanceImpl
+        .setCompletedDate(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
     processInstanceImpl.setId("42");
     processInstanceImpl.setInitiator("Initiator");
     processInstanceImpl.setName("Name");
@@ -1044,8 +943,8 @@ class ProcessInstanceImplDiffblueTest {
     processInstanceImpl.setProcessDefinitionKey("Process Definition Key");
     processInstanceImpl.setProcessDefinitionName("Process Definition Name");
     processInstanceImpl.setProcessDefinitionVersion(1);
-    processInstanceImpl.setStartDate(
-        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
+    processInstanceImpl
+        .setStartDate(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
     processInstanceImpl.setStatus(ProcessInstanceStatus.CREATED);
 
     // Act and Assert
@@ -1054,29 +953,24 @@ class ProcessInstanceImplDiffblueTest {
 
   /**
    * Test {@link ProcessInstanceImpl#equals(Object)}.
-   *
    * <ul>
-   *   <li>When other is wrong type.
-   *   <li>Then return not equal.
+   *   <li>When other is wrong type.</li>
+   *   <li>Then return not equal.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ProcessInstanceImpl#equals(Object)}
+   * <p>
+   * Method under test: {@link ProcessInstanceImpl#equals(Object)}
    */
   @Test
   @DisplayName("Test equals(Object); when other is wrong type; then return not equal")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "boolean ProcessInstanceImpl.equals(Object)",
-    "int ProcessInstanceImpl.hashCode()"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean ProcessInstanceImpl.equals(Object)", "int ProcessInstanceImpl.hashCode()"})
   void testEquals_whenOtherIsWrongType_thenReturnNotEqual() {
     // Arrange
     ProcessInstanceImpl processInstanceImpl = new ProcessInstanceImpl();
     processInstanceImpl.setAppVersion("1.0.2");
     processInstanceImpl.setBusinessKey("Business Key");
-    processInstanceImpl.setCompletedDate(
-        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
+    processInstanceImpl
+        .setCompletedDate(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
     processInstanceImpl.setId("42");
     processInstanceImpl.setInitiator("Initiator");
     processInstanceImpl.setName("Name");
@@ -1085,8 +979,8 @@ class ProcessInstanceImplDiffblueTest {
     processInstanceImpl.setProcessDefinitionKey("Process Definition Key");
     processInstanceImpl.setProcessDefinitionName("Process Definition Name");
     processInstanceImpl.setProcessDefinitionVersion(1);
-    processInstanceImpl.setStartDate(
-        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
+    processInstanceImpl
+        .setStartDate(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
     processInstanceImpl.setStatus(ProcessInstanceStatus.CREATED);
 
     // Act and Assert

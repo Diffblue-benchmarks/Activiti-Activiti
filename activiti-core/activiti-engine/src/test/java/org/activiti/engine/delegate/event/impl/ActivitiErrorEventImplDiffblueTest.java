@@ -17,11 +17,8 @@ package org.activiti.engine.delegate.event.impl;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertThrows;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
-import org.activiti.engine.ActivitiIllegalArgumentException;
 import org.activiti.engine.delegate.event.ActivitiEventType;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
@@ -29,22 +26,19 @@ import org.junit.experimental.categories.Category;
 public class ActivitiErrorEventImplDiffblueTest {
   /**
    * Test {@link ActivitiErrorEventImpl#ActivitiErrorEventImpl(ActivitiEventType)}.
-   *
    * <ul>
-   *   <li>When {@code ENTITY_CREATED}.
-   *   <li>Then return ActivityId is {@code null}.
+   *   <li>When {@code ENTITY_CREATED}.</li>
+   *   <li>Then return ActivityId is {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ActivitiErrorEventImpl#ActivitiErrorEventImpl(ActivitiEventType)}
+   * <p>
+   * Method under test: {@link ActivitiErrorEventImpl#ActivitiErrorEventImpl(ActivitiEventType)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void ActivitiErrorEventImpl.<init>(ActivitiEventType)"})
   public void testNewActivitiErrorEventImpl_whenEntityCreated_thenReturnActivityIdIsNull() {
     // Arrange and Act
-    ActivitiErrorEventImpl actualActivitiErrorEventImpl =
-        new ActivitiErrorEventImpl(ActivitiEventType.ENTITY_CREATED);
+    ActivitiErrorEventImpl actualActivitiErrorEventImpl = new ActivitiErrorEventImpl(ActivitiEventType.ENTITY_CREATED);
 
     // Assert
     assertNull(actualActivitiErrorEventImpl.getActivityId());
@@ -61,29 +55,9 @@ public class ActivitiErrorEventImplDiffblueTest {
   }
 
   /**
-   * Test {@link ActivitiErrorEventImpl#ActivitiErrorEventImpl(ActivitiEventType)}.
-   *
-   * <ul>
-   *   <li>When {@code null}.
-   *   <li>Then throw {@link ActivitiIllegalArgumentException}.
-   * </ul>
-   *
-   * <p>Method under test: {@link ActivitiErrorEventImpl#ActivitiErrorEventImpl(ActivitiEventType)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void ActivitiErrorEventImpl.<init>(ActivitiEventType)"})
-  public void testNewActivitiErrorEventImpl_whenNull_thenThrowActivitiIllegalArgumentException() {
-    // Arrange, Act and Assert
-    assertThrows(ActivitiIllegalArgumentException.class, () -> new ActivitiErrorEventImpl(null));
-  }
-
-  /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>{@link ActivitiErrorEventImpl#setErrorCode(String)}
    *   <li>{@link ActivitiErrorEventImpl#setErrorId(String)}
@@ -92,18 +66,12 @@ public class ActivitiErrorEventImplDiffblueTest {
    * </ul>
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "String ActivitiErrorEventImpl.getErrorCode()",
-    "String ActivitiErrorEventImpl.getErrorId()",
-    "void ActivitiErrorEventImpl.setErrorCode(String)",
-    "void ActivitiErrorEventImpl.setErrorId(String)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String ActivitiErrorEventImpl.getErrorCode()", "String ActivitiErrorEventImpl.getErrorId()",
+      "void ActivitiErrorEventImpl.setErrorCode(String)", "void ActivitiErrorEventImpl.setErrorId(String)"})
   public void testGettersAndSetters() {
     // Arrange
-    ActivitiErrorEventImpl activitiErrorEventImpl =
-        new ActivitiErrorEventImpl(ActivitiEventType.ENTITY_CREATED);
+    ActivitiErrorEventImpl activitiErrorEventImpl = new ActivitiErrorEventImpl(ActivitiEventType.ENTITY_CREATED);
 
     // Act
     activitiErrorEventImpl.setErrorCode("An error occurred");

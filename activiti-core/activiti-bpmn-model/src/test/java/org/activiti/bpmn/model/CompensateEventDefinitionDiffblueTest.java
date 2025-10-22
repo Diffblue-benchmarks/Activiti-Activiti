@@ -19,8 +19,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
@@ -28,21 +27,19 @@ import org.junit.experimental.categories.Category;
 public class CompensateEventDefinitionDiffblueTest {
   /**
    * Test {@link CompensateEventDefinition#clone()}.
-   *
    * <ul>
-   *   <li>Given {@link CompensateEventDefinition} (default constructor).
-   *   <li>Then return WaitForCompletion.
+   *   <li>Given {@link CompensateEventDefinition} (default constructor).</li>
+   *   <li>Then return WaitForCompletion.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link CompensateEventDefinition#clone()}
+   * <p>
+   * Method under test: {@link CompensateEventDefinition#clone()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"CompensateEventDefinition CompensateEventDefinition.clone()"})
   public void testClone_givenCompensateEventDefinition_thenReturnWaitForCompletion() {
     // Arrange and Act
-    CompensateEventDefinition actualCloneResult = new CompensateEventDefinition().clone();
+    CompensateEventDefinition actualCloneResult = (new CompensateEventDefinition()).clone();
 
     // Assert
     assertNull(actualCloneResult.getId());
@@ -56,16 +53,14 @@ public class CompensateEventDefinitionDiffblueTest {
 
   /**
    * Test {@link CompensateEventDefinition#clone()}.
-   *
    * <ul>
-   *   <li>Then return not WaitForCompletion.
+   *   <li>Then return not WaitForCompletion.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link CompensateEventDefinition#clone()}
+   * <p>
+   * Method under test: {@link CompensateEventDefinition#clone()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"CompensateEventDefinition CompensateEventDefinition.clone()"})
   public void testClone_thenReturnNotWaitForCompletion() {
     // Arrange
@@ -87,9 +82,8 @@ public class CompensateEventDefinitionDiffblueTest {
 
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>default or parameterless constructor of {@link CompensateEventDefinition}
    *   <li>{@link CompensateEventDefinition#setActivityRef(String)}
@@ -99,15 +93,11 @@ public class CompensateEventDefinitionDiffblueTest {
    * </ul>
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void CompensateEventDefinition.<init>()",
-    "String CompensateEventDefinition.getActivityRef()",
-    "boolean CompensateEventDefinition.isWaitForCompletion()",
-    "void CompensateEventDefinition.setActivityRef(String)",
-    "void CompensateEventDefinition.setWaitForCompletion(boolean)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void CompensateEventDefinition.<init>()", "String CompensateEventDefinition.getActivityRef()",
+      "boolean CompensateEventDefinition.isWaitForCompletion()",
+      "void CompensateEventDefinition.setActivityRef(String)",
+      "void CompensateEventDefinition.setWaitForCompletion(boolean)"})
   public void testGettersAndSetters() {
     // Arrange and Act
     CompensateEventDefinition actualCompensateEventDefinition = new CompensateEventDefinition();

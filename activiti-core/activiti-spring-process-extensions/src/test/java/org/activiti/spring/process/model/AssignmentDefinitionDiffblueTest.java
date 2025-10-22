@@ -17,7 +17,6 @@ package org.activiti.spring.process.model;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.spring.process.model.AssignmentDefinition.AssignmentEnum;
 import org.activiti.spring.process.model.AssignmentDefinition.AssignmentMode;
@@ -29,9 +28,8 @@ import org.junit.jupiter.api.Test;
 class AssignmentDefinitionDiffblueTest {
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>{@link AssignmentDefinition#AssignmentDefinition()}
    *   <li>{@link AssignmentDefinition#setAssignment(AssignmentEnum)}
@@ -47,21 +45,14 @@ class AssignmentDefinitionDiffblueTest {
    */
   @Test
   @DisplayName("Test getters and setters")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void AssignmentDefinition.<init>()",
-    "void AssignmentDefinition.<init>(String, AssignmentEnum, AssignmentType, AssignmentMode)",
-    "AssignmentEnum AssignmentDefinition.getAssignment()",
-    "String AssignmentDefinition.getId()",
-    "AssignmentMode AssignmentDefinition.getMode()",
-    "AssignmentType AssignmentDefinition.getType()",
-    "void AssignmentDefinition.setAssignment(AssignmentEnum)",
-    "void AssignmentDefinition.setId(String)",
-    "void AssignmentDefinition.setMode(AssignmentMode)",
-    "void AssignmentDefinition.setType(AssignmentType)",
-    "String AssignmentDefinition.toString()"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void AssignmentDefinition.<init>()",
+      "void AssignmentDefinition.<init>(String, AssignmentEnum, AssignmentType, AssignmentMode)",
+      "AssignmentEnum AssignmentDefinition.getAssignment()", "String AssignmentDefinition.getId()",
+      "AssignmentMode AssignmentDefinition.getMode()", "AssignmentType AssignmentDefinition.getType()",
+      "void AssignmentDefinition.setAssignment(AssignmentEnum)", "void AssignmentDefinition.setId(String)",
+      "void AssignmentDefinition.setMode(AssignmentMode)", "void AssignmentDefinition.setType(AssignmentType)",
+      "String AssignmentDefinition.toString()"})
   void testGettersAndSetters() {
     // Arrange and Act
     AssignmentDefinition actualAssignmentDefinition = new AssignmentDefinition();
@@ -76,8 +67,7 @@ class AssignmentDefinitionDiffblueTest {
 
     // Assert
     assertEquals("42", actualId);
-    assertEquals(
-        "AssignmentDefinition{id='42', assignment=ASSIGNEE, type=STATIC, mode=SEQUENTIAL}",
+    assertEquals("AssignmentDefinition{id='42', assignment=ASSIGNEE, type=STATIC, mode=SEQUENTIAL}",
         actualToStringResult);
     assertEquals(AssignmentEnum.ASSIGNEE, actualAssignment);
     assertEquals(AssignmentMode.SEQUENTIAL, actualMode);
@@ -86,16 +76,13 @@ class AssignmentDefinitionDiffblueTest {
 
   /**
    * Test getters and setters.
-   *
    * <ul>
-   *   <li>When {@code 42}.
+   *   <li>When {@code 42}.</li>
    * </ul>
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
-   *   <li>{@link AssignmentDefinition#AssignmentDefinition(String, AssignmentEnum, AssignmentType,
-   *       AssignmentMode)}
+   *   <li>{@link AssignmentDefinition#AssignmentDefinition(String, AssignmentEnum, AssignmentType, AssignmentMode)}
    *   <li>{@link AssignmentDefinition#setAssignment(AssignmentEnum)}
    *   <li>{@link AssignmentDefinition#setId(String)}
    *   <li>{@link AssignmentDefinition#setMode(AssignmentMode)}
@@ -109,26 +96,18 @@ class AssignmentDefinitionDiffblueTest {
    */
   @Test
   @DisplayName("Test getters and setters; when '42'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void AssignmentDefinition.<init>()",
-    "void AssignmentDefinition.<init>(String, AssignmentEnum, AssignmentType, AssignmentMode)",
-    "AssignmentEnum AssignmentDefinition.getAssignment()",
-    "String AssignmentDefinition.getId()",
-    "AssignmentMode AssignmentDefinition.getMode()",
-    "AssignmentType AssignmentDefinition.getType()",
-    "void AssignmentDefinition.setAssignment(AssignmentEnum)",
-    "void AssignmentDefinition.setId(String)",
-    "void AssignmentDefinition.setMode(AssignmentMode)",
-    "void AssignmentDefinition.setType(AssignmentType)",
-    "String AssignmentDefinition.toString()"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void AssignmentDefinition.<init>()",
+      "void AssignmentDefinition.<init>(String, AssignmentEnum, AssignmentType, AssignmentMode)",
+      "AssignmentEnum AssignmentDefinition.getAssignment()", "String AssignmentDefinition.getId()",
+      "AssignmentMode AssignmentDefinition.getMode()", "AssignmentType AssignmentDefinition.getType()",
+      "void AssignmentDefinition.setAssignment(AssignmentEnum)", "void AssignmentDefinition.setId(String)",
+      "void AssignmentDefinition.setMode(AssignmentMode)", "void AssignmentDefinition.setType(AssignmentType)",
+      "String AssignmentDefinition.toString()"})
   void testGettersAndSetters_when42() {
     // Arrange and Act
-    AssignmentDefinition actualAssignmentDefinition =
-        new AssignmentDefinition(
-            "42", AssignmentEnum.ASSIGNEE, AssignmentType.STATIC, AssignmentMode.SEQUENTIAL);
+    AssignmentDefinition actualAssignmentDefinition = new AssignmentDefinition("42", AssignmentEnum.ASSIGNEE,
+        AssignmentType.STATIC, AssignmentMode.SEQUENTIAL);
     actualAssignmentDefinition.setAssignment(AssignmentEnum.ASSIGNEE);
     actualAssignmentDefinition.setId("42");
     actualAssignmentDefinition.setMode(AssignmentMode.SEQUENTIAL);
@@ -140,8 +119,7 @@ class AssignmentDefinitionDiffblueTest {
 
     // Assert
     assertEquals("42", actualId);
-    assertEquals(
-        "AssignmentDefinition{id='42', assignment=ASSIGNEE, type=STATIC, mode=SEQUENTIAL}",
+    assertEquals("AssignmentDefinition{id='42', assignment=ASSIGNEE, type=STATIC, mode=SEQUENTIAL}",
         actualToStringResult);
     assertEquals(AssignmentEnum.ASSIGNEE, actualAssignment);
     assertEquals(AssignmentMode.SEQUENTIAL, actualMode);
@@ -150,14 +128,12 @@ class AssignmentDefinitionDiffblueTest {
 
   /**
    * Test {@link AssignmentDefinition#equals(Object)}, and {@link AssignmentDefinition#hashCode()}.
-   *
    * <ul>
-   *   <li>When other is equal.
-   *   <li>Then return equal.
+   *   <li>When other is equal.</li>
+   *   <li>Then return equal.</li>
    * </ul>
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>{@link AssignmentDefinition#equals(Object)}
    *   <li>{@link AssignmentDefinition#hashCode()}
@@ -165,36 +141,29 @@ class AssignmentDefinitionDiffblueTest {
    */
   @Test
   @DisplayName("Test equals(Object), and hashCode(); when other is equal; then return equal")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "boolean AssignmentDefinition.equals(Object)",
-    "int AssignmentDefinition.hashCode()"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean AssignmentDefinition.equals(Object)", "int AssignmentDefinition.hashCode()"})
   void testEqualsAndHashCode_whenOtherIsEqual_thenReturnEqual() {
     // Arrange
-    AssignmentDefinition assignmentDefinition =
-        new AssignmentDefinition(
-            "42", AssignmentEnum.ASSIGNEE, AssignmentType.STATIC, AssignmentMode.SEQUENTIAL);
-    AssignmentDefinition assignmentDefinition2 =
-        new AssignmentDefinition(
-            "42", AssignmentEnum.ASSIGNEE, AssignmentType.STATIC, AssignmentMode.SEQUENTIAL);
+    AssignmentDefinition assignmentDefinition = new AssignmentDefinition("42", AssignmentEnum.ASSIGNEE,
+        AssignmentType.STATIC, AssignmentMode.SEQUENTIAL);
+    AssignmentDefinition assignmentDefinition2 = new AssignmentDefinition("42", AssignmentEnum.ASSIGNEE,
+        AssignmentType.STATIC, AssignmentMode.SEQUENTIAL);
 
     // Act and Assert
     assertEquals(assignmentDefinition, assignmentDefinition2);
-    assertEquals(assignmentDefinition.hashCode(), assignmentDefinition2.hashCode());
+    int expectedHashCodeResult = assignmentDefinition.hashCode();
+    assertEquals(expectedHashCodeResult, assignmentDefinition2.hashCode());
   }
 
   /**
    * Test {@link AssignmentDefinition#equals(Object)}, and {@link AssignmentDefinition#hashCode()}.
-   *
    * <ul>
-   *   <li>When other is same.
-   *   <li>Then return equal.
+   *   <li>When other is same.</li>
+   *   <li>Then return equal.</li>
    * </ul>
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>{@link AssignmentDefinition#equals(Object)}
    *   <li>{@link AssignmentDefinition#hashCode()}
@@ -202,17 +171,12 @@ class AssignmentDefinitionDiffblueTest {
    */
   @Test
   @DisplayName("Test equals(Object), and hashCode(); when other is same; then return equal")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "boolean AssignmentDefinition.equals(Object)",
-    "int AssignmentDefinition.hashCode()"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean AssignmentDefinition.equals(Object)", "int AssignmentDefinition.hashCode()"})
   void testEqualsAndHashCode_whenOtherIsSame_thenReturnEqual() {
     // Arrange
-    AssignmentDefinition assignmentDefinition =
-        new AssignmentDefinition(
-            "42", AssignmentEnum.ASSIGNEE, AssignmentType.STATIC, AssignmentMode.SEQUENTIAL);
+    AssignmentDefinition assignmentDefinition = new AssignmentDefinition("42", AssignmentEnum.ASSIGNEE,
+        AssignmentType.STATIC, AssignmentMode.SEQUENTIAL);
 
     // Act and Assert
     assertEquals(assignmentDefinition, assignmentDefinition);
@@ -222,174 +186,133 @@ class AssignmentDefinitionDiffblueTest {
 
   /**
    * Test {@link AssignmentDefinition#equals(Object)}.
-   *
    * <ul>
-   *   <li>When other is different.
-   *   <li>Then return not equal.
+   *   <li>When other is different.</li>
+   *   <li>Then return not equal.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link AssignmentDefinition#equals(Object)}
+   * <p>
+   * Method under test: {@link AssignmentDefinition#equals(Object)}
    */
   @Test
   @DisplayName("Test equals(Object); when other is different; then return not equal")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "boolean AssignmentDefinition.equals(Object)",
-    "int AssignmentDefinition.hashCode()"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean AssignmentDefinition.equals(Object)", "int AssignmentDefinition.hashCode()"})
   void testEquals_whenOtherIsDifferent_thenReturnNotEqual() {
     // Arrange
-    AssignmentDefinition assignmentDefinition =
-        new AssignmentDefinition(
-            "Id", AssignmentEnum.ASSIGNEE, AssignmentType.STATIC, AssignmentMode.SEQUENTIAL);
+    AssignmentDefinition assignmentDefinition = new AssignmentDefinition("Id", AssignmentEnum.ASSIGNEE,
+        AssignmentType.STATIC, AssignmentMode.SEQUENTIAL);
 
     // Act and Assert
-    assertNotEquals(
-        assignmentDefinition,
-        new AssignmentDefinition(
-            "42", AssignmentEnum.ASSIGNEE, AssignmentType.STATIC, AssignmentMode.SEQUENTIAL));
+    assertNotEquals(assignmentDefinition,
+        new AssignmentDefinition("42", AssignmentEnum.ASSIGNEE, AssignmentType.STATIC, AssignmentMode.SEQUENTIAL));
   }
 
   /**
    * Test {@link AssignmentDefinition#equals(Object)}.
-   *
    * <ul>
-   *   <li>When other is different.
-   *   <li>Then return not equal.
+   *   <li>When other is different.</li>
+   *   <li>Then return not equal.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link AssignmentDefinition#equals(Object)}
+   * <p>
+   * Method under test: {@link AssignmentDefinition#equals(Object)}
    */
   @Test
   @DisplayName("Test equals(Object); when other is different; then return not equal")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "boolean AssignmentDefinition.equals(Object)",
-    "int AssignmentDefinition.hashCode()"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean AssignmentDefinition.equals(Object)", "int AssignmentDefinition.hashCode()"})
   void testEquals_whenOtherIsDifferent_thenReturnNotEqual2() {
     // Arrange
-    AssignmentDefinition assignmentDefinition =
-        new AssignmentDefinition("42", null, AssignmentType.STATIC, AssignmentMode.SEQUENTIAL);
+    AssignmentDefinition assignmentDefinition = new AssignmentDefinition("42", null, AssignmentType.STATIC,
+        AssignmentMode.SEQUENTIAL);
 
     // Act and Assert
-    assertNotEquals(
-        assignmentDefinition,
-        new AssignmentDefinition(
-            "42", AssignmentEnum.ASSIGNEE, AssignmentType.STATIC, AssignmentMode.SEQUENTIAL));
+    assertNotEquals(assignmentDefinition,
+        new AssignmentDefinition("42", AssignmentEnum.ASSIGNEE, AssignmentType.STATIC, AssignmentMode.SEQUENTIAL));
   }
 
   /**
    * Test {@link AssignmentDefinition#equals(Object)}.
-   *
    * <ul>
-   *   <li>When other is different.
-   *   <li>Then return not equal.
+   *   <li>When other is different.</li>
+   *   <li>Then return not equal.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link AssignmentDefinition#equals(Object)}
+   * <p>
+   * Method under test: {@link AssignmentDefinition#equals(Object)}
    */
   @Test
   @DisplayName("Test equals(Object); when other is different; then return not equal")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "boolean AssignmentDefinition.equals(Object)",
-    "int AssignmentDefinition.hashCode()"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean AssignmentDefinition.equals(Object)", "int AssignmentDefinition.hashCode()"})
   void testEquals_whenOtherIsDifferent_thenReturnNotEqual3() {
     // Arrange
-    AssignmentDefinition assignmentDefinition =
-        new AssignmentDefinition("42", AssignmentEnum.ASSIGNEE, null, AssignmentMode.SEQUENTIAL);
+    AssignmentDefinition assignmentDefinition = new AssignmentDefinition("42", AssignmentEnum.ASSIGNEE, null,
+        AssignmentMode.SEQUENTIAL);
 
     // Act and Assert
-    assertNotEquals(
-        assignmentDefinition,
-        new AssignmentDefinition(
-            "42", AssignmentEnum.ASSIGNEE, AssignmentType.STATIC, AssignmentMode.SEQUENTIAL));
+    assertNotEquals(assignmentDefinition,
+        new AssignmentDefinition("42", AssignmentEnum.ASSIGNEE, AssignmentType.STATIC, AssignmentMode.SEQUENTIAL));
   }
 
   /**
    * Test {@link AssignmentDefinition#equals(Object)}.
-   *
    * <ul>
-   *   <li>When other is different.
-   *   <li>Then return not equal.
+   *   <li>When other is different.</li>
+   *   <li>Then return not equal.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link AssignmentDefinition#equals(Object)}
+   * <p>
+   * Method under test: {@link AssignmentDefinition#equals(Object)}
    */
   @Test
   @DisplayName("Test equals(Object); when other is different; then return not equal")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "boolean AssignmentDefinition.equals(Object)",
-    "int AssignmentDefinition.hashCode()"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean AssignmentDefinition.equals(Object)", "int AssignmentDefinition.hashCode()"})
   void testEquals_whenOtherIsDifferent_thenReturnNotEqual4() {
     // Arrange
-    AssignmentDefinition assignmentDefinition =
-        new AssignmentDefinition("42", AssignmentEnum.ASSIGNEE, AssignmentType.STATIC, null);
+    AssignmentDefinition assignmentDefinition = new AssignmentDefinition("42", AssignmentEnum.ASSIGNEE,
+        AssignmentType.STATIC, null);
 
     // Act and Assert
-    assertNotEquals(
-        assignmentDefinition,
-        new AssignmentDefinition(
-            "42", AssignmentEnum.ASSIGNEE, AssignmentType.STATIC, AssignmentMode.SEQUENTIAL));
+    assertNotEquals(assignmentDefinition,
+        new AssignmentDefinition("42", AssignmentEnum.ASSIGNEE, AssignmentType.STATIC, AssignmentMode.SEQUENTIAL));
   }
 
   /**
    * Test {@link AssignmentDefinition#equals(Object)}.
-   *
    * <ul>
-   *   <li>When other is {@code null}.
-   *   <li>Then return not equal.
+   *   <li>When other is {@code null}.</li>
+   *   <li>Then return not equal.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link AssignmentDefinition#equals(Object)}
+   * <p>
+   * Method under test: {@link AssignmentDefinition#equals(Object)}
    */
   @Test
   @DisplayName("Test equals(Object); when other is 'null'; then return not equal")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "boolean AssignmentDefinition.equals(Object)",
-    "int AssignmentDefinition.hashCode()"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean AssignmentDefinition.equals(Object)", "int AssignmentDefinition.hashCode()"})
   void testEquals_whenOtherIsNull_thenReturnNotEqual() {
     // Arrange, Act and Assert
     assertNotEquals(
-        new AssignmentDefinition(
-            "42", AssignmentEnum.ASSIGNEE, AssignmentType.STATIC, AssignmentMode.SEQUENTIAL),
+        new AssignmentDefinition("42", AssignmentEnum.ASSIGNEE, AssignmentType.STATIC, AssignmentMode.SEQUENTIAL),
         null);
   }
 
   /**
    * Test {@link AssignmentDefinition#equals(Object)}.
-   *
    * <ul>
-   *   <li>When other is wrong type.
-   *   <li>Then return not equal.
+   *   <li>When other is wrong type.</li>
+   *   <li>Then return not equal.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link AssignmentDefinition#equals(Object)}
+   * <p>
+   * Method under test: {@link AssignmentDefinition#equals(Object)}
    */
   @Test
   @DisplayName("Test equals(Object); when other is wrong type; then return not equal")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "boolean AssignmentDefinition.equals(Object)",
-    "int AssignmentDefinition.hashCode()"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean AssignmentDefinition.equals(Object)", "int AssignmentDefinition.hashCode()"})
   void testEquals_whenOtherIsWrongType_thenReturnNotEqual() {
     // Arrange, Act and Assert
     assertNotEquals(
-        new AssignmentDefinition(
-            "42", AssignmentEnum.ASSIGNEE, AssignmentType.STATIC, AssignmentMode.SEQUENTIAL),
+        new AssignmentDefinition("42", AssignmentEnum.ASSIGNEE, AssignmentType.STATIC, AssignmentMode.SEQUENTIAL),
         "Different type to AssignmentDefinition");
   }
 }

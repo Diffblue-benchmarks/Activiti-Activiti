@@ -19,10 +19,11 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.node.DoubleNode;
+import com.fasterxml.jackson.databind.node.ArrayNode;
+import com.fasterxml.jackson.databind.node.JsonNodeFactory;
+import com.fasterxml.jackson.databind.node.MissingNode;
 import java.util.HashMap;
 import java.util.Map;
 import org.activiti.bpmn.model.ActivitiListener;
@@ -36,13 +37,12 @@ import org.junit.jupiter.api.Test;
 class CallActivityJsonConverterDiffblueTest {
   /**
    * Test {@link CallActivityJsonConverter#fillJsonTypes(Map)}.
-   *
-   * <p>Method under test: {@link CallActivityJsonConverter#fillJsonTypes(Map)}
+   * <p>
+   * Method under test: {@link CallActivityJsonConverter#fillJsonTypes(Map)}
    */
   @Test
   @DisplayName("Test fillJsonTypes(Map)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void CallActivityJsonConverter.fillJsonTypes(Map)"})
   void testFillJsonTypes() {
     // Arrange
@@ -59,13 +59,12 @@ class CallActivityJsonConverterDiffblueTest {
 
   /**
    * Test {@link CallActivityJsonConverter#getStencilId(BaseElement)}.
-   *
-   * <p>Method under test: {@link CallActivityJsonConverter#getStencilId(BaseElement)}
+   * <p>
+   * Method under test: {@link CallActivityJsonConverter#getStencilId(BaseElement)}
    */
   @Test
   @DisplayName("Test getStencilId(BaseElement)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"String CallActivityJsonConverter.getStencilId(BaseElement)"})
   void testGetStencilId() {
     // Arrange
@@ -77,32 +76,25 @@ class CallActivityJsonConverterDiffblueTest {
 
   /**
    * Test {@link CallActivityJsonConverter#convertJsonToElement(JsonNode, JsonNode, Map)}.
-   *
    * <ul>
-   *   <li>When {@link HashMap#HashMap()}.
-   *   <li>Then return {@link CallActivity}.
+   *   <li>When {@link ArrayNode#ArrayNode(JsonNodeFactory)} with nf is withExactBigDecimals {@code true}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link CallActivityJsonConverter#convertJsonToElement(JsonNode, JsonNode,
-   * Map)}
+   * <p>
+   * Method under test: {@link CallActivityJsonConverter#convertJsonToElement(JsonNode, JsonNode, Map)}
    */
   @Test
-  @DisplayName(
-      "Test convertJsonToElement(JsonNode, JsonNode, Map); when HashMap(); then return CallActivity")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "FlowElement CallActivityJsonConverter.convertJsonToElement(JsonNode, JsonNode, Map)"
-  })
-  void testConvertJsonToElement_whenHashMap_thenReturnCallActivity() {
+  @DisplayName("Test convertJsonToElement(JsonNode, JsonNode, Map); when ArrayNode(JsonNodeFactory) with nf is withExactBigDecimals 'true'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"FlowElement CallActivityJsonConverter.convertJsonToElement(JsonNode, JsonNode, Map)"})
+  void testConvertJsonToElement_whenArrayNodeWithNfIsWithExactBigDecimalsTrue() {
     // Arrange
     CallActivityJsonConverter callActivityJsonConverter = new CallActivityJsonConverter();
-    DoubleNode elementNode = DoubleNode.valueOf(10.0d);
-    DoubleNode modelNode = DoubleNode.valueOf(10.0d);
+    ArrayNode elementNode = new ArrayNode(JsonNodeFactory.withExactBigDecimals(true));
+    MissingNode modelNode = MissingNode.getInstance();
 
     // Act
-    FlowElement actualConvertJsonToElementResult =
-        callActivityJsonConverter.convertJsonToElement(elementNode, modelNode, new HashMap<>());
+    FlowElement actualConvertJsonToElementResult = callActivityJsonConverter.convertJsonToElement(elementNode,
+        modelNode, new HashMap<>());
 
     // Assert
     assertTrue(actualConvertJsonToElementResult instanceof CallActivity);
@@ -120,18 +112,74 @@ class CallActivityJsonConverterDiffblueTest {
     assertNull(actualConvertJsonToElementResult.getSubProcess());
     assertEquals(0, actualConvertJsonToElementResult.getXmlColumnNumber());
     assertEquals(0, actualConvertJsonToElementResult.getXmlRowNumber());
-    assertFalse(
-        ((CallActivity) actualConvertJsonToElementResult).hasMultiInstanceLoopCharacteristics());
+    assertFalse(((CallActivity) actualConvertJsonToElementResult).hasMultiInstanceLoopCharacteristics());
     assertFalse(((CallActivity) actualConvertJsonToElementResult).isForCompensation());
     assertFalse(((CallActivity) actualConvertJsonToElementResult).isInheritBusinessKey());
     assertFalse(((CallActivity) actualConvertJsonToElementResult).isInheritVariables());
     assertFalse(((CallActivity) actualConvertJsonToElementResult).isAsynchronous());
     assertFalse(((CallActivity) actualConvertJsonToElementResult).isNotExclusive());
     assertTrue(((CallActivity) actualConvertJsonToElementResult).getBoundaryEvents().isEmpty());
-    assertTrue(
-        ((CallActivity) actualConvertJsonToElementResult).getDataInputAssociations().isEmpty());
-    assertTrue(
-        ((CallActivity) actualConvertJsonToElementResult).getDataOutputAssociations().isEmpty());
+    assertTrue(((CallActivity) actualConvertJsonToElementResult).getDataInputAssociations().isEmpty());
+    assertTrue(((CallActivity) actualConvertJsonToElementResult).getDataOutputAssociations().isEmpty());
+    assertTrue(((CallActivity) actualConvertJsonToElementResult).getMapExceptions().isEmpty());
+    assertTrue(((CallActivity) actualConvertJsonToElementResult).getInParameters().isEmpty());
+    assertTrue(((CallActivity) actualConvertJsonToElementResult).getOutParameters().isEmpty());
+    assertTrue(actualConvertJsonToElementResult.getExecutionListeners().isEmpty());
+    assertTrue(((CallActivity) actualConvertJsonToElementResult).getIncomingFlows().isEmpty());
+    assertTrue(((CallActivity) actualConvertJsonToElementResult).getOutgoingFlows().isEmpty());
+    assertTrue(actualConvertJsonToElementResult.getAttributes().isEmpty());
+    assertTrue(actualConvertJsonToElementResult.getExtensionElements().isEmpty());
+    assertTrue(((CallActivity) actualConvertJsonToElementResult).isExclusive());
+  }
+
+  /**
+   * Test {@link CallActivityJsonConverter#convertJsonToElement(JsonNode, JsonNode, Map)}.
+   * <ul>
+   *   <li>When {@link HashMap#HashMap()}.</li>
+   *   <li>Then return {@link CallActivity}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link CallActivityJsonConverter#convertJsonToElement(JsonNode, JsonNode, Map)}
+   */
+  @Test
+  @DisplayName("Test convertJsonToElement(JsonNode, JsonNode, Map); when HashMap(); then return CallActivity")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"FlowElement CallActivityJsonConverter.convertJsonToElement(JsonNode, JsonNode, Map)"})
+  void testConvertJsonToElement_whenHashMap_thenReturnCallActivity() {
+    // Arrange
+    CallActivityJsonConverter callActivityJsonConverter = new CallActivityJsonConverter();
+    MissingNode elementNode = MissingNode.getInstance();
+    MissingNode modelNode = MissingNode.getInstance();
+
+    // Act
+    FlowElement actualConvertJsonToElementResult = callActivityJsonConverter.convertJsonToElement(elementNode,
+        modelNode, new HashMap<>());
+
+    // Assert
+    assertTrue(actualConvertJsonToElementResult instanceof CallActivity);
+    assertNull(((CallActivity) actualConvertJsonToElementResult).getBehavior());
+    assertNull(((CallActivity) actualConvertJsonToElementResult).getDefaultFlow());
+    assertNull(((CallActivity) actualConvertJsonToElementResult).getFailedJobRetryTimeCycleValue());
+    assertNull(actualConvertJsonToElementResult.getId());
+    assertNull(((CallActivity) actualConvertJsonToElementResult).getBusinessKey());
+    assertNull(((CallActivity) actualConvertJsonToElementResult).getCalledElement());
+    assertNull(actualConvertJsonToElementResult.getDocumentation());
+    assertNull(actualConvertJsonToElementResult.getName());
+    assertNull(actualConvertJsonToElementResult.getParentContainer());
+    assertNull(((CallActivity) actualConvertJsonToElementResult).getIoSpecification());
+    assertNull(((CallActivity) actualConvertJsonToElementResult).getLoopCharacteristics());
+    assertNull(actualConvertJsonToElementResult.getSubProcess());
+    assertEquals(0, actualConvertJsonToElementResult.getXmlColumnNumber());
+    assertEquals(0, actualConvertJsonToElementResult.getXmlRowNumber());
+    assertFalse(((CallActivity) actualConvertJsonToElementResult).hasMultiInstanceLoopCharacteristics());
+    assertFalse(((CallActivity) actualConvertJsonToElementResult).isForCompensation());
+    assertFalse(((CallActivity) actualConvertJsonToElementResult).isInheritBusinessKey());
+    assertFalse(((CallActivity) actualConvertJsonToElementResult).isInheritVariables());
+    assertFalse(((CallActivity) actualConvertJsonToElementResult).isAsynchronous());
+    assertFalse(((CallActivity) actualConvertJsonToElementResult).isNotExclusive());
+    assertTrue(((CallActivity) actualConvertJsonToElementResult).getBoundaryEvents().isEmpty());
+    assertTrue(((CallActivity) actualConvertJsonToElementResult).getDataInputAssociations().isEmpty());
+    assertTrue(((CallActivity) actualConvertJsonToElementResult).getDataOutputAssociations().isEmpty());
     assertTrue(((CallActivity) actualConvertJsonToElementResult).getMapExceptions().isEmpty());
     assertTrue(((CallActivity) actualConvertJsonToElementResult).getInParameters().isEmpty());
     assertTrue(((CallActivity) actualConvertJsonToElementResult).getOutParameters().isEmpty());
@@ -145,13 +193,12 @@ class CallActivityJsonConverterDiffblueTest {
 
   /**
    * Test new {@link CallActivityJsonConverter} (default constructor).
-   *
-   * <p>Method under test: default or parameterless constructor of {@link CallActivityJsonConverter}
+   * <p>
+   * Method under test: default or parameterless constructor of {@link CallActivityJsonConverter}
    */
   @Test
   @DisplayName("Test new CallActivityJsonConverter (default constructor)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void CallActivityJsonConverter.<init>()"})
   void testNewCallActivityJsonConverter() {
     // Arrange and Act

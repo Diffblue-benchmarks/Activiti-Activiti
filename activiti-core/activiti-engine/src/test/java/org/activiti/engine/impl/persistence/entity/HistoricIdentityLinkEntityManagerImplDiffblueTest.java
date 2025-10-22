@@ -17,13 +17,13 @@ package org.activiti.engine.impl.persistence.entity;
 
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.ArgumentMatchers.isA;
 import static org.mockito.Mockito.atLeast;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
 import java.util.List;
@@ -43,125 +43,104 @@ import org.mockito.junit.MockitoJUnitRunner;
 
 @RunWith(MockitoJUnitRunner.class)
 public class HistoricIdentityLinkEntityManagerImplDiffblueTest {
-  @Mock private HistoricIdentityLinkDataManager historicIdentityLinkDataManager;
+  @Mock
+  private HistoricIdentityLinkDataManager historicIdentityLinkDataManager;
 
-  @InjectMocks private HistoricIdentityLinkEntityManagerImpl historicIdentityLinkEntityManagerImpl;
+  @InjectMocks
+  private HistoricIdentityLinkEntityManagerImpl historicIdentityLinkEntityManagerImpl;
 
-  @Mock private ProcessEngineConfigurationImpl processEngineConfigurationImpl;
+  @Mock
+  private ProcessEngineConfigurationImpl processEngineConfigurationImpl;
 
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
-   *   <li>{@link
-   *       HistoricIdentityLinkEntityManagerImpl#HistoricIdentityLinkEntityManagerImpl(ProcessEngineConfigurationImpl,
-   *       HistoricIdentityLinkDataManager)}
-   *   <li>{@link
-   *       HistoricIdentityLinkEntityManagerImpl#setHistoricIdentityLinkDataManager(HistoricIdentityLinkDataManager)}
+   *   <li>{@link HistoricIdentityLinkEntityManagerImpl#HistoricIdentityLinkEntityManagerImpl(ProcessEngineConfigurationImpl, HistoricIdentityLinkDataManager)}
+   *   <li>{@link HistoricIdentityLinkEntityManagerImpl#setHistoricIdentityLinkDataManager(HistoricIdentityLinkDataManager)}
    *   <li>{@link HistoricIdentityLinkEntityManagerImpl#getDataManager()}
    *   <li>{@link HistoricIdentityLinkEntityManagerImpl#getHistoricIdentityLinkDataManager()}
    * </ul>
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({
-    "void HistoricIdentityLinkEntityManagerImpl.<init>(ProcessEngineConfigurationImpl, HistoricIdentityLinkDataManager)",
-    "DataManager HistoricIdentityLinkEntityManagerImpl.getDataManager()",
-    "HistoricIdentityLinkDataManager HistoricIdentityLinkEntityManagerImpl.getHistoricIdentityLinkDataManager()",
-    "void HistoricIdentityLinkEntityManagerImpl.setHistoricIdentityLinkDataManager(HistoricIdentityLinkDataManager)"
-  })
+      "void HistoricIdentityLinkEntityManagerImpl.<init>(ProcessEngineConfigurationImpl, HistoricIdentityLinkDataManager)",
+      "DataManager HistoricIdentityLinkEntityManagerImpl.getDataManager()",
+      "HistoricIdentityLinkDataManager HistoricIdentityLinkEntityManagerImpl.getHistoricIdentityLinkDataManager()",
+      "void HistoricIdentityLinkEntityManagerImpl.setHistoricIdentityLinkDataManager(HistoricIdentityLinkDataManager)"})
   public void testGettersAndSetters() {
     // Arrange
     JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();
 
     // Act
-    HistoricIdentityLinkEntityManagerImpl actualHistoricIdentityLinkEntityManagerImpl =
-        new HistoricIdentityLinkEntityManagerImpl(
-            processEngineConfiguration,
-            new MybatisHistoricIdentityLinkDataManager(new JtaProcessEngineConfiguration()));
-    MybatisHistoricIdentityLinkDataManager historicIdentityLinkDataManager =
-        new MybatisHistoricIdentityLinkDataManager(new JtaProcessEngineConfiguration());
-    actualHistoricIdentityLinkEntityManagerImpl.setHistoricIdentityLinkDataManager(
-        historicIdentityLinkDataManager);
-    DataManager<HistoricIdentityLinkEntity> actualDataManager =
-        actualHistoricIdentityLinkEntityManagerImpl.getDataManager();
+    HistoricIdentityLinkEntityManagerImpl actualHistoricIdentityLinkEntityManagerImpl = new HistoricIdentityLinkEntityManagerImpl(
+        processEngineConfiguration, new MybatisHistoricIdentityLinkDataManager(new JtaProcessEngineConfiguration()));
+    MybatisHistoricIdentityLinkDataManager historicIdentityLinkDataManager = new MybatisHistoricIdentityLinkDataManager(
+        new JtaProcessEngineConfiguration());
+    actualHistoricIdentityLinkEntityManagerImpl.setHistoricIdentityLinkDataManager(historicIdentityLinkDataManager);
+    DataManager<HistoricIdentityLinkEntity> actualDataManager = actualHistoricIdentityLinkEntityManagerImpl
+        .getDataManager();
 
     // Assert
     assertSame(historicIdentityLinkDataManager, actualDataManager);
-    assertSame(
-        historicIdentityLinkDataManager,
+    assertSame(historicIdentityLinkDataManager,
         actualHistoricIdentityLinkEntityManagerImpl.getHistoricIdentityLinkDataManager());
   }
 
   /**
    * Test {@link HistoricIdentityLinkEntityManagerImpl#findHistoricIdentityLinksByTaskId(String)}.
-   *
-   * <p>Method under test: {@link
-   * HistoricIdentityLinkEntityManagerImpl#findHistoricIdentityLinksByTaskId(String)}
+   * <p>
+   * Method under test: {@link HistoricIdentityLinkEntityManagerImpl#findHistoricIdentityLinksByTaskId(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "List HistoricIdentityLinkEntityManagerImpl.findHistoricIdentityLinksByTaskId(String)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"List HistoricIdentityLinkEntityManagerImpl.findHistoricIdentityLinksByTaskId(String)"})
   public void testFindHistoricIdentityLinksByTaskId() {
     // Arrange
     when(historicIdentityLinkDataManager.findHistoricIdentityLinksByTaskId(Mockito.<String>any()))
         .thenReturn(new ArrayList<>());
 
     // Act
-    List<HistoricIdentityLinkEntity> actualFindHistoricIdentityLinksByTaskIdResult =
-        historicIdentityLinkEntityManagerImpl.findHistoricIdentityLinksByTaskId("42");
+    List<HistoricIdentityLinkEntity> actualFindHistoricIdentityLinksByTaskIdResult = historicIdentityLinkEntityManagerImpl
+        .findHistoricIdentityLinksByTaskId("42");
 
     // Assert
-    verify(historicIdentityLinkDataManager).findHistoricIdentityLinksByTaskId("42");
+    verify(historicIdentityLinkDataManager).findHistoricIdentityLinksByTaskId(eq("42"));
     assertTrue(actualFindHistoricIdentityLinksByTaskIdResult.isEmpty());
   }
 
   /**
-   * Test {@link
-   * HistoricIdentityLinkEntityManagerImpl#findHistoricIdentityLinksByProcessInstanceId(String)}.
-   *
-   * <p>Method under test: {@link
-   * HistoricIdentityLinkEntityManagerImpl#findHistoricIdentityLinksByProcessInstanceId(String)}
+   * Test {@link HistoricIdentityLinkEntityManagerImpl#findHistoricIdentityLinksByProcessInstanceId(String)}.
+   * <p>
+   * Method under test: {@link HistoricIdentityLinkEntityManagerImpl#findHistoricIdentityLinksByProcessInstanceId(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "List HistoricIdentityLinkEntityManagerImpl.findHistoricIdentityLinksByProcessInstanceId(String)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"List HistoricIdentityLinkEntityManagerImpl.findHistoricIdentityLinksByProcessInstanceId(String)"})
   public void testFindHistoricIdentityLinksByProcessInstanceId() {
     // Arrange
-    when(historicIdentityLinkDataManager.findHistoricIdentityLinksByProcessInstanceId(
-            Mockito.<String>any()))
+    when(historicIdentityLinkDataManager.findHistoricIdentityLinksByProcessInstanceId(Mockito.<String>any()))
         .thenReturn(new ArrayList<>());
 
     // Act
-    List<HistoricIdentityLinkEntity> actualFindHistoricIdentityLinksByProcessInstanceIdResult =
-        historicIdentityLinkEntityManagerImpl.findHistoricIdentityLinksByProcessInstanceId("42");
+    List<HistoricIdentityLinkEntity> actualFindHistoricIdentityLinksByProcessInstanceIdResult = historicIdentityLinkEntityManagerImpl
+        .findHistoricIdentityLinksByProcessInstanceId("42");
 
     // Assert
-    verify(historicIdentityLinkDataManager).findHistoricIdentityLinksByProcessInstanceId("42");
+    verify(historicIdentityLinkDataManager).findHistoricIdentityLinksByProcessInstanceId(eq("42"));
     assertTrue(actualFindHistoricIdentityLinksByProcessInstanceIdResult.isEmpty());
   }
 
   /**
    * Test {@link HistoricIdentityLinkEntityManagerImpl#deleteHistoricIdentityLinksByTaskId(String)}.
-   *
-   * <p>Method under test: {@link
-   * HistoricIdentityLinkEntityManagerImpl#deleteHistoricIdentityLinksByTaskId(String)}
+   * <p>
+   * Method under test: {@link HistoricIdentityLinkEntityManagerImpl#deleteHistoricIdentityLinksByTaskId(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void HistoricIdentityLinkEntityManagerImpl.deleteHistoricIdentityLinksByTaskId(String)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void HistoricIdentityLinkEntityManagerImpl.deleteHistoricIdentityLinksByTaskId(String)"})
   public void testDeleteHistoricIdentityLinksByTaskId() {
     // Arrange
     when(historicIdentityLinkDataManager.findHistoricIdentityLinksByTaskId(Mockito.<String>any()))
@@ -171,35 +150,27 @@ public class HistoricIdentityLinkEntityManagerImplDiffblueTest {
     historicIdentityLinkEntityManagerImpl.deleteHistoricIdentityLinksByTaskId("42");
 
     // Assert
-    verify(historicIdentityLinkDataManager).findHistoricIdentityLinksByTaskId("42");
+    verify(historicIdentityLinkDataManager).findHistoricIdentityLinksByTaskId(eq("42"));
   }
 
   /**
    * Test {@link HistoricIdentityLinkEntityManagerImpl#deleteHistoricIdentityLinksByTaskId(String)}.
-   *
    * <ul>
-   *   <li>Then calls {@link ProcessEngineConfigurationImpl#getEventDispatcher()}.
+   *   <li>Then calls {@link ProcessEngineConfigurationImpl#getEventDispatcher()}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link
-   * HistoricIdentityLinkEntityManagerImpl#deleteHistoricIdentityLinksByTaskId(String)}
+   * <p>
+   * Method under test: {@link HistoricIdentityLinkEntityManagerImpl#deleteHistoricIdentityLinksByTaskId(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void HistoricIdentityLinkEntityManagerImpl.deleteHistoricIdentityLinksByTaskId(String)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void HistoricIdentityLinkEntityManagerImpl.deleteHistoricIdentityLinksByTaskId(String)"})
   public void testDeleteHistoricIdentityLinksByTaskId_thenCallsGetEventDispatcher() {
     // Arrange
-    when(processEngineConfigurationImpl.getEventDispatcher())
-        .thenReturn(new ActivitiEventDispatcherImpl());
+    when(processEngineConfigurationImpl.getEventDispatcher()).thenReturn(new ActivitiEventDispatcherImpl());
 
     ArrayList<HistoricIdentityLinkEntity> historicIdentityLinkEntityList = new ArrayList<>();
     historicIdentityLinkEntityList.add(new HistoricIdentityLinkEntityImpl());
-    doNothing()
-        .when(historicIdentityLinkDataManager)
-        .delete(Mockito.<HistoricIdentityLinkEntity>any());
+    doNothing().when(historicIdentityLinkDataManager).delete(Mockito.<HistoricIdentityLinkEntity>any());
     when(historicIdentityLinkDataManager.findHistoricIdentityLinksByTaskId(Mockito.<String>any()))
         .thenReturn(historicIdentityLinkEntityList);
 
@@ -209,64 +180,48 @@ public class HistoricIdentityLinkEntityManagerImplDiffblueTest {
     // Assert
     verify(processEngineConfigurationImpl, atLeast(1)).getEventDispatcher();
     verify(historicIdentityLinkDataManager).delete(isA(HistoricIdentityLinkEntity.class));
-    verify(historicIdentityLinkDataManager).findHistoricIdentityLinksByTaskId("42");
+    verify(historicIdentityLinkDataManager).findHistoricIdentityLinksByTaskId(eq("42"));
   }
 
   /**
-   * Test {@link
-   * HistoricIdentityLinkEntityManagerImpl#deleteHistoricIdentityLinksByProcInstance(String)}.
-   *
-   * <p>Method under test: {@link
-   * HistoricIdentityLinkEntityManagerImpl#deleteHistoricIdentityLinksByProcInstance(String)}
+   * Test {@link HistoricIdentityLinkEntityManagerImpl#deleteHistoricIdentityLinksByProcInstance(String)}.
+   * <p>
+   * Method under test: {@link HistoricIdentityLinkEntityManagerImpl#deleteHistoricIdentityLinksByProcInstance(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void HistoricIdentityLinkEntityManagerImpl.deleteHistoricIdentityLinksByProcInstance(String)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void HistoricIdentityLinkEntityManagerImpl.deleteHistoricIdentityLinksByProcInstance(String)"})
   public void testDeleteHistoricIdentityLinksByProcInstance() {
     // Arrange
-    when(historicIdentityLinkDataManager.findHistoricIdentityLinksByProcessInstanceId(
-            Mockito.<String>any()))
+    when(historicIdentityLinkDataManager.findHistoricIdentityLinksByProcessInstanceId(Mockito.<String>any()))
         .thenReturn(new ArrayList<>());
 
     // Act
     historicIdentityLinkEntityManagerImpl.deleteHistoricIdentityLinksByProcInstance("42");
 
     // Assert
-    verify(historicIdentityLinkDataManager).findHistoricIdentityLinksByProcessInstanceId("42");
+    verify(historicIdentityLinkDataManager).findHistoricIdentityLinksByProcessInstanceId(eq("42"));
   }
 
   /**
-   * Test {@link
-   * HistoricIdentityLinkEntityManagerImpl#deleteHistoricIdentityLinksByProcInstance(String)}.
-   *
+   * Test {@link HistoricIdentityLinkEntityManagerImpl#deleteHistoricIdentityLinksByProcInstance(String)}.
    * <ul>
-   *   <li>Then calls {@link ProcessEngineConfigurationImpl#getEventDispatcher()}.
+   *   <li>Then calls {@link ProcessEngineConfigurationImpl#getEventDispatcher()}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link
-   * HistoricIdentityLinkEntityManagerImpl#deleteHistoricIdentityLinksByProcInstance(String)}
+   * <p>
+   * Method under test: {@link HistoricIdentityLinkEntityManagerImpl#deleteHistoricIdentityLinksByProcInstance(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void HistoricIdentityLinkEntityManagerImpl.deleteHistoricIdentityLinksByProcInstance(String)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void HistoricIdentityLinkEntityManagerImpl.deleteHistoricIdentityLinksByProcInstance(String)"})
   public void testDeleteHistoricIdentityLinksByProcInstance_thenCallsGetEventDispatcher() {
     // Arrange
-    when(processEngineConfigurationImpl.getEventDispatcher())
-        .thenReturn(new ActivitiEventDispatcherImpl());
+    when(processEngineConfigurationImpl.getEventDispatcher()).thenReturn(new ActivitiEventDispatcherImpl());
 
     ArrayList<HistoricIdentityLinkEntity> historicIdentityLinkEntityList = new ArrayList<>();
     historicIdentityLinkEntityList.add(new HistoricIdentityLinkEntityImpl());
-    doNothing()
-        .when(historicIdentityLinkDataManager)
-        .delete(Mockito.<HistoricIdentityLinkEntity>any());
-    when(historicIdentityLinkDataManager.findHistoricIdentityLinksByProcessInstanceId(
-            Mockito.<String>any()))
+    doNothing().when(historicIdentityLinkDataManager).delete(Mockito.<HistoricIdentityLinkEntity>any());
+    when(historicIdentityLinkDataManager.findHistoricIdentityLinksByProcessInstanceId(Mockito.<String>any()))
         .thenReturn(historicIdentityLinkEntityList);
 
     // Act
@@ -275,6 +230,6 @@ public class HistoricIdentityLinkEntityManagerImplDiffblueTest {
     // Assert
     verify(processEngineConfigurationImpl, atLeast(1)).getEventDispatcher();
     verify(historicIdentityLinkDataManager).delete(isA(HistoricIdentityLinkEntity.class));
-    verify(historicIdentityLinkDataManager).findHistoricIdentityLinksByProcessInstanceId("42");
+    verify(historicIdentityLinkDataManager).findHistoricIdentityLinksByProcessInstanceId(eq("42"));
   }
 }

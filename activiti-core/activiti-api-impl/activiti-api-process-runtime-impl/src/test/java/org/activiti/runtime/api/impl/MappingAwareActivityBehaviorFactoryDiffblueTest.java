@@ -18,7 +18,6 @@ package org.activiti.runtime.api.impl;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
 import java.util.List;
@@ -41,180 +40,139 @@ import org.springframework.test.context.aot.DisabledInAotMode;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 @ContextConfiguration(classes = {MappingAwareActivityBehaviorFactory.class})
-@DisabledInAotMode
 @ExtendWith(SpringExtension.class)
+@DisabledInAotMode
 class MappingAwareActivityBehaviorFactoryDiffblueTest {
-  @Autowired private MappingAwareActivityBehaviorFactory mappingAwareActivityBehaviorFactory;
+  @Autowired
+  private MappingAwareActivityBehaviorFactory mappingAwareActivityBehaviorFactory;
 
-  @MockBean private ProcessVariablesInitiator processVariablesInitiator;
+  @MockBean
+  private ProcessVariablesInitiator processVariablesInitiator;
 
-  @MockBean private VariablesCalculator variablesCalculator;
+  @MockBean
+  private VariablesCalculator variablesCalculator;
 
-  @MockBean private VariablesPropagator variablesPropagator;
+  @MockBean
+  private VariablesPropagator variablesPropagator;
 
   /**
-   * Test {@link
-   * MappingAwareActivityBehaviorFactory#MappingAwareActivityBehaviorFactory(VariablesCalculator,
-   * ProcessVariablesInitiator, VariablesPropagator)}.
-   *
-   * <p>Method under test: {@link
-   * MappingAwareActivityBehaviorFactory#MappingAwareActivityBehaviorFactory(VariablesCalculator,
-   * ProcessVariablesInitiator, VariablesPropagator)}
+   * Test {@link MappingAwareActivityBehaviorFactory#MappingAwareActivityBehaviorFactory(VariablesCalculator, ProcessVariablesInitiator, VariablesPropagator)}.
+   * <p>
+   * Method under test: {@link MappingAwareActivityBehaviorFactory#MappingAwareActivityBehaviorFactory(VariablesCalculator, ProcessVariablesInitiator, VariablesPropagator)}
    */
   @Test
-  @DisplayName(
-      "Test new MappingAwareActivityBehaviorFactory(VariablesCalculator, ProcessVariablesInitiator, VariablesPropagator)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test new MappingAwareActivityBehaviorFactory(VariablesCalculator, ProcessVariablesInitiator, VariablesPropagator)")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({
-    "void MappingAwareActivityBehaviorFactory.<init>(VariablesCalculator, ProcessVariablesInitiator, VariablesPropagator)"
-  })
+      "void MappingAwareActivityBehaviorFactory.<init>(VariablesCalculator, ProcessVariablesInitiator, VariablesPropagator)"})
   void testNewMappingAwareActivityBehaviorFactory() {
     // Arrange and Act
-    MappingAwareActivityBehaviorFactory actualMappingAwareActivityBehaviorFactory =
-        new MappingAwareActivityBehaviorFactory(
-            variablesCalculator, processVariablesInitiator, variablesPropagator);
+    MappingAwareActivityBehaviorFactory actualMappingAwareActivityBehaviorFactory = new MappingAwareActivityBehaviorFactory(
+        variablesCalculator, processVariablesInitiator, variablesPropagator);
 
     // Assert
-    assertTrue(
-        actualMappingAwareActivityBehaviorFactory.getMessageExecutionContextFactory()
-            instanceof DefaultMessageExecutionContextFactory);
-    assertTrue(
-        actualMappingAwareActivityBehaviorFactory.getMessagePayloadMappingProviderFactory()
-            instanceof JsonMessagePayloadMappingProviderFactory);
+    assertTrue(actualMappingAwareActivityBehaviorFactory
+        .getMessageExecutionContextFactory() instanceof DefaultMessageExecutionContextFactory);
+    assertTrue(actualMappingAwareActivityBehaviorFactory
+        .getMessagePayloadMappingProviderFactory() instanceof JsonMessagePayloadMappingProviderFactory);
     assertNull(actualMappingAwareActivityBehaviorFactory.getExpressionManager());
   }
 
   /**
-   * Test {@link MappingAwareActivityBehaviorFactory#createCallActivityBehavior(String, List)} with
-   * {@code calledElement}, {@code mapExceptions}.
-   *
-   * <p>Method under test: {@link
-   * MappingAwareActivityBehaviorFactory#createCallActivityBehavior(String, List)}
+   * Test {@link MappingAwareActivityBehaviorFactory#createCallActivityBehavior(String, List)} with {@code calledElement}, {@code mapExceptions}.
+   * <p>
+   * Method under test: {@link MappingAwareActivityBehaviorFactory#createCallActivityBehavior(String, List)}
    */
   @Test
-  @DisplayName(
-      "Test createCallActivityBehavior(String, List) with 'calledElement', 'mapExceptions'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test createCallActivityBehavior(String, List) with 'calledElement', 'mapExceptions'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({
-    "CallActivityBehavior MappingAwareActivityBehaviorFactory.createCallActivityBehavior(String, List)"
-  })
+      "CallActivityBehavior MappingAwareActivityBehaviorFactory.createCallActivityBehavior(String, List)"})
   void testCreateCallActivityBehaviorWithCalledElementMapExceptions() {
     // Arrange
     ArrayList<MapExceptionEntry> mapExceptions = new ArrayList<>();
-    MapExceptionEntry mapExceptionEntry =
-        new MapExceptionEntry("An error occurred", "Class Name", true);
-    mapExceptions.add(mapExceptionEntry);
+    mapExceptions.add(new MapExceptionEntry("An error occurred", "Class Name", true));
 
     // Act
-    CallActivityBehavior actualCreateCallActivityBehaviorResult =
-        mappingAwareActivityBehaviorFactory.createCallActivityBehavior(
-            "Called Element", mapExceptions);
+    CallActivityBehavior actualCreateCallActivityBehaviorResult = mappingAwareActivityBehaviorFactory
+        .createCallActivityBehavior("Called Element", mapExceptions);
 
     // Assert
     assertTrue(actualCreateCallActivityBehaviorResult instanceof MappingAwareCallActivityBehavior);
-    assertEquals(
-        "Called Element", actualCreateCallActivityBehaviorResult.getProcessDefinitionKey());
+    assertEquals("Called Element", actualCreateCallActivityBehaviorResult.getProcessDefinitionKey());
     assertNull(actualCreateCallActivityBehaviorResult.getMultiInstanceActivityBehavior());
   }
 
   /**
-   * Test {@link MappingAwareActivityBehaviorFactory#createCallActivityBehavior(String, List)} with
-   * {@code calledElement}, {@code mapExceptions}.
-   *
-   * <p>Method under test: {@link
-   * MappingAwareActivityBehaviorFactory#createCallActivityBehavior(String, List)}
+   * Test {@link MappingAwareActivityBehaviorFactory#createCallActivityBehavior(String, List)} with {@code calledElement}, {@code mapExceptions}.
+   * <p>
+   * Method under test: {@link MappingAwareActivityBehaviorFactory#createCallActivityBehavior(String, List)}
    */
   @Test
-  @DisplayName(
-      "Test createCallActivityBehavior(String, List) with 'calledElement', 'mapExceptions'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test createCallActivityBehavior(String, List) with 'calledElement', 'mapExceptions'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({
-    "CallActivityBehavior MappingAwareActivityBehaviorFactory.createCallActivityBehavior(String, List)"
-  })
+      "CallActivityBehavior MappingAwareActivityBehaviorFactory.createCallActivityBehavior(String, List)"})
   void testCreateCallActivityBehaviorWithCalledElementMapExceptions2() {
     // Arrange
     ArrayList<MapExceptionEntry> mapExceptions = new ArrayList<>();
-    MapExceptionEntry mapExceptionEntry =
-        new MapExceptionEntry("An error occurred", "Class Name", true);
-    mapExceptions.add(mapExceptionEntry);
-    MapExceptionEntry mapExceptionEntry2 =
-        new MapExceptionEntry("An error occurred", "Class Name", true);
-    mapExceptions.add(mapExceptionEntry2);
+    mapExceptions.add(new MapExceptionEntry("An error occurred", "Class Name", true));
+    mapExceptions.add(new MapExceptionEntry("An error occurred", "Class Name", true));
 
     // Act
-    CallActivityBehavior actualCreateCallActivityBehaviorResult =
-        mappingAwareActivityBehaviorFactory.createCallActivityBehavior(
-            "Called Element", mapExceptions);
+    CallActivityBehavior actualCreateCallActivityBehaviorResult = mappingAwareActivityBehaviorFactory
+        .createCallActivityBehavior("Called Element", mapExceptions);
 
     // Assert
     assertTrue(actualCreateCallActivityBehaviorResult instanceof MappingAwareCallActivityBehavior);
-    assertEquals(
-        "Called Element", actualCreateCallActivityBehaviorResult.getProcessDefinitionKey());
+    assertEquals("Called Element", actualCreateCallActivityBehaviorResult.getProcessDefinitionKey());
     assertNull(actualCreateCallActivityBehaviorResult.getMultiInstanceActivityBehavior());
   }
 
   /**
-   * Test {@link MappingAwareActivityBehaviorFactory#createCallActivityBehavior(String, List)} with
-   * {@code calledElement}, {@code mapExceptions}.
-   *
+   * Test {@link MappingAwareActivityBehaviorFactory#createCallActivityBehavior(String, List)} with {@code calledElement}, {@code mapExceptions}.
    * <ul>
-   *   <li>When {@link ArrayList#ArrayList()}.
+   *   <li>When {@link ArrayList#ArrayList()}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link
-   * MappingAwareActivityBehaviorFactory#createCallActivityBehavior(String, List)}
+   * <p>
+   * Method under test: {@link MappingAwareActivityBehaviorFactory#createCallActivityBehavior(String, List)}
    */
   @Test
-  @DisplayName(
-      "Test createCallActivityBehavior(String, List) with 'calledElement', 'mapExceptions'; when ArrayList()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test createCallActivityBehavior(String, List) with 'calledElement', 'mapExceptions'; when ArrayList()")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({
-    "CallActivityBehavior MappingAwareActivityBehaviorFactory.createCallActivityBehavior(String, List)"
-  })
+      "CallActivityBehavior MappingAwareActivityBehaviorFactory.createCallActivityBehavior(String, List)"})
   void testCreateCallActivityBehaviorWithCalledElementMapExceptions_whenArrayList() {
     // Arrange and Act
-    CallActivityBehavior actualCreateCallActivityBehaviorResult =
-        mappingAwareActivityBehaviorFactory.createCallActivityBehavior(
-            "Called Element", new ArrayList<>());
+    CallActivityBehavior actualCreateCallActivityBehaviorResult = mappingAwareActivityBehaviorFactory
+        .createCallActivityBehavior("Called Element", new ArrayList<>());
 
     // Assert
     assertTrue(actualCreateCallActivityBehaviorResult instanceof MappingAwareCallActivityBehavior);
-    assertEquals(
-        "Called Element", actualCreateCallActivityBehaviorResult.getProcessDefinitionKey());
+    assertEquals("Called Element", actualCreateCallActivityBehaviorResult.getProcessDefinitionKey());
     assertNull(actualCreateCallActivityBehaviorResult.getMultiInstanceActivityBehavior());
   }
 
   /**
-   * Test {@link MappingAwareActivityBehaviorFactory#createCallActivityBehavior(Expression, List)}
-   * with {@code expression}, {@code mapExceptions}.
-   *
-   * <p>Method under test: {@link
-   * MappingAwareActivityBehaviorFactory#createCallActivityBehavior(Expression, List)}
+   * Test {@link MappingAwareActivityBehaviorFactory#createCallActivityBehavior(Expression, List)} with {@code expression}, {@code mapExceptions}.
+   * <p>
+   * Method under test: {@link MappingAwareActivityBehaviorFactory#createCallActivityBehavior(Expression, List)}
    */
   @Test
-  @DisplayName(
-      "Test createCallActivityBehavior(Expression, List) with 'expression', 'mapExceptions'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test createCallActivityBehavior(Expression, List) with 'expression', 'mapExceptions'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({
-    "CallActivityBehavior MappingAwareActivityBehaviorFactory.createCallActivityBehavior(Expression, List)"
-  })
+      "CallActivityBehavior MappingAwareActivityBehaviorFactory.createCallActivityBehavior(Expression, List)"})
   void testCreateCallActivityBehaviorWithExpressionMapExceptions() {
     // Arrange
     FixedValue expression = new FixedValue("Value");
 
     ArrayList<MapExceptionEntry> mapExceptions = new ArrayList<>();
-    MapExceptionEntry mapExceptionEntry =
-        new MapExceptionEntry("An error occurred", "Class Name", true);
-    mapExceptions.add(mapExceptionEntry);
+    mapExceptions.add(new MapExceptionEntry("An error occurred", "Class Name", true));
 
     // Act
-    CallActivityBehavior actualCreateCallActivityBehaviorResult =
-        mappingAwareActivityBehaviorFactory.createCallActivityBehavior(expression, mapExceptions);
+    CallActivityBehavior actualCreateCallActivityBehaviorResult = mappingAwareActivityBehaviorFactory
+        .createCallActivityBehavior(expression, mapExceptions);
 
     // Assert
     assertTrue(actualCreateCallActivityBehaviorResult instanceof MappingAwareCallActivityBehavior);
@@ -223,35 +181,26 @@ class MappingAwareActivityBehaviorFactoryDiffblueTest {
   }
 
   /**
-   * Test {@link MappingAwareActivityBehaviorFactory#createCallActivityBehavior(Expression, List)}
-   * with {@code expression}, {@code mapExceptions}.
-   *
-   * <p>Method under test: {@link
-   * MappingAwareActivityBehaviorFactory#createCallActivityBehavior(Expression, List)}
+   * Test {@link MappingAwareActivityBehaviorFactory#createCallActivityBehavior(Expression, List)} with {@code expression}, {@code mapExceptions}.
+   * <p>
+   * Method under test: {@link MappingAwareActivityBehaviorFactory#createCallActivityBehavior(Expression, List)}
    */
   @Test
-  @DisplayName(
-      "Test createCallActivityBehavior(Expression, List) with 'expression', 'mapExceptions'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test createCallActivityBehavior(Expression, List) with 'expression', 'mapExceptions'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({
-    "CallActivityBehavior MappingAwareActivityBehaviorFactory.createCallActivityBehavior(Expression, List)"
-  })
+      "CallActivityBehavior MappingAwareActivityBehaviorFactory.createCallActivityBehavior(Expression, List)"})
   void testCreateCallActivityBehaviorWithExpressionMapExceptions2() {
     // Arrange
     FixedValue expression = new FixedValue("Value");
 
     ArrayList<MapExceptionEntry> mapExceptions = new ArrayList<>();
-    MapExceptionEntry mapExceptionEntry =
-        new MapExceptionEntry("An error occurred", "Class Name", true);
-    mapExceptions.add(mapExceptionEntry);
-    MapExceptionEntry mapExceptionEntry2 =
-        new MapExceptionEntry("An error occurred", "Class Name", true);
-    mapExceptions.add(mapExceptionEntry2);
+    mapExceptions.add(new MapExceptionEntry("An error occurred", "Class Name", true));
+    mapExceptions.add(new MapExceptionEntry("An error occurred", "Class Name", true));
 
     // Act
-    CallActivityBehavior actualCreateCallActivityBehaviorResult =
-        mappingAwareActivityBehaviorFactory.createCallActivityBehavior(expression, mapExceptions);
+    CallActivityBehavior actualCreateCallActivityBehaviorResult = mappingAwareActivityBehaviorFactory
+        .createCallActivityBehavior(expression, mapExceptions);
 
     // Assert
     assertTrue(actualCreateCallActivityBehaviorResult instanceof MappingAwareCallActivityBehavior);
@@ -260,32 +209,25 @@ class MappingAwareActivityBehaviorFactoryDiffblueTest {
   }
 
   /**
-   * Test {@link MappingAwareActivityBehaviorFactory#createCallActivityBehavior(Expression, List)}
-   * with {@code expression}, {@code mapExceptions}.
-   *
+   * Test {@link MappingAwareActivityBehaviorFactory#createCallActivityBehavior(Expression, List)} with {@code expression}, {@code mapExceptions}.
    * <ul>
-   *   <li>When {@link ArrayList#ArrayList()}.
+   *   <li>When {@link ArrayList#ArrayList()}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link
-   * MappingAwareActivityBehaviorFactory#createCallActivityBehavior(Expression, List)}
+   * <p>
+   * Method under test: {@link MappingAwareActivityBehaviorFactory#createCallActivityBehavior(Expression, List)}
    */
   @Test
-  @DisplayName(
-      "Test createCallActivityBehavior(Expression, List) with 'expression', 'mapExceptions'; when ArrayList()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test createCallActivityBehavior(Expression, List) with 'expression', 'mapExceptions'; when ArrayList()")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({
-    "CallActivityBehavior MappingAwareActivityBehaviorFactory.createCallActivityBehavior(Expression, List)"
-  })
+      "CallActivityBehavior MappingAwareActivityBehaviorFactory.createCallActivityBehavior(Expression, List)"})
   void testCreateCallActivityBehaviorWithExpressionMapExceptions_whenArrayList() {
     // Arrange
     FixedValue expression = new FixedValue("Value");
 
     // Act
-    CallActivityBehavior actualCreateCallActivityBehaviorResult =
-        mappingAwareActivityBehaviorFactory.createCallActivityBehavior(
-            expression, new ArrayList<>());
+    CallActivityBehavior actualCreateCallActivityBehaviorResult = mappingAwareActivityBehaviorFactory
+        .createCallActivityBehavior(expression, new ArrayList<>());
 
     // Assert
     assertTrue(actualCreateCallActivityBehaviorResult instanceof MappingAwareCallActivityBehavior);

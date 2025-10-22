@@ -19,7 +19,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.api.model.shared.model.VariableInstance;
 import org.activiti.api.runtime.model.impl.VariableInstanceImpl;
@@ -36,27 +35,23 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 @ContextConfiguration(classes = {APIVariableInstanceConverter.class})
 @ExtendWith(SpringExtension.class)
 class APIVariableInstanceConverterDiffblueTest {
-  @Autowired private APIVariableInstanceConverter aPIVariableInstanceConverter;
+  @Autowired
+  private APIVariableInstanceConverter aPIVariableInstanceConverter;
 
   /**
    * Test {@link APIVariableInstanceConverter#from(VariableInstance)} with {@code VariableInstance}.
-   *
    * <ul>
-   *   <li>Given {@link BigDecimalType} (default constructor).
-   *   <li>Then return {@link VariableInstanceImpl}.
+   *   <li>Given {@link BigDecimalType} (default constructor).</li>
+   *   <li>Then return {@link VariableInstanceImpl}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link
-   * APIVariableInstanceConverter#from(org.activiti.engine.impl.persistence.entity.VariableInstance)}
+   * <p>
+   * Method under test: {@link APIVariableInstanceConverter#from(org.activiti.engine.impl.persistence.entity.VariableInstance)}
    */
   @Test
-  @DisplayName(
-      "Test from(VariableInstance) with 'VariableInstance'; given BigDecimalType (default constructor); then return VariableInstanceImpl")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test from(VariableInstance) with 'VariableInstance'; given BigDecimalType (default constructor); then return VariableInstanceImpl")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({
-    "VariableInstance APIVariableInstanceConverter.from(org.activiti.engine.impl.persistence.entity.VariableInstance)"
-  })
+      "VariableInstance APIVariableInstanceConverter.from(org.activiti.engine.impl.persistence.entity.VariableInstance)"})
   void testFromWithVariableInstance_givenBigDecimalType_thenReturnVariableInstanceImpl() {
     // Arrange
     VariableInstanceEntityImpl internalVariableInstance = new VariableInstanceEntityImpl();

@@ -17,8 +17,7 @@ package org.activiti.engine.impl.cmd;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.mock;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
@@ -26,21 +25,19 @@ import org.junit.experimental.categories.Category;
 public class ExecuteCustomSqlCmdDiffblueTest {
   /**
    * Test {@link ExecuteCustomSqlCmd#ExecuteCustomSqlCmd(Class, CustomSqlExecution)}.
-   *
-   * <p>Method under test: {@link ExecuteCustomSqlCmd#ExecuteCustomSqlCmd(Class,
-   * CustomSqlExecution)}
+   * <p>
+   * Method under test: {@link ExecuteCustomSqlCmd#ExecuteCustomSqlCmd(Class, CustomSqlExecution)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void ExecuteCustomSqlCmd.<init>(Class, CustomSqlExecution)"})
   public void testNewExecuteCustomSqlCmd() {
     // Arrange
     Class<Object> mapperClass = Object.class;
 
     // Act
-    ExecuteCustomSqlCmd<Object, Object> actualExecuteCustomSqlCmd =
-        new ExecuteCustomSqlCmd<>(mapperClass, mock(CustomSqlExecution.class));
+    ExecuteCustomSqlCmd<Object, Object> actualExecuteCustomSqlCmd = new ExecuteCustomSqlCmd<>(mapperClass,
+        mock(CustomSqlExecution.class));
 
     // Assert
     Class<Object> expectedResultClass = Object.class;

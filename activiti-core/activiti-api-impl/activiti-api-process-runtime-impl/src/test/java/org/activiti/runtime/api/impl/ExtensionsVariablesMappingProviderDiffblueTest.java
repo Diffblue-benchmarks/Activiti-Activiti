@@ -17,16 +17,25 @@ package org.activiti.runtime.api.impl;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.ArgumentMatchers.isA;
+import static org.mockito.ArgumentMatchers.isNull;
 import static org.mockito.Mockito.atLeast;
+import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
+import com.fasterxml.jackson.databind.node.ArrayNode;
+import com.fasterxml.jackson.databind.node.BigIntegerNode;
+import com.fasterxml.jackson.databind.node.BinaryNode;
+import com.fasterxml.jackson.databind.node.JsonNodeFactory;
+import java.math.BigInteger;
+import java.util.AbstractMap;
+import java.util.AbstractMap.SimpleEntry;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
@@ -35,6 +44,7 @@ import org.activiti.engine.delegate.DelegateExecution;
 import org.activiti.engine.impl.bpmn.behavior.MappingExecutionContext;
 import org.activiti.engine.impl.persistence.entity.ExecutionEntityImpl;
 import org.activiti.spring.process.ProcessExtensionService;
+import org.activiti.spring.process.model.ConstantDefinition;
 import org.activiti.spring.process.model.Extension;
 import org.activiti.spring.process.model.Mapping;
 import org.activiti.spring.process.model.Mapping.SourceMappingType;
@@ -43,6 +53,8 @@ import org.activiti.spring.process.model.ProcessVariablesMapping;
 import org.activiti.spring.process.model.ProcessVariablesMapping.MappingType;
 import org.activiti.spring.process.model.VariableDefinition;
 import org.activiti.spring.process.variable.VariableParsingService;
+import org.apache.commons.collections4.keyvalue.DefaultMapEntry;
+import org.apache.commons.collections4.keyvalue.TiedMapEntry;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
@@ -55,193 +67,182 @@ import org.springframework.test.context.aot.DisabledInAotMode;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 @ContextConfiguration(classes = {ExtensionsVariablesMappingProvider.class})
-@DisabledInAotMode
 @ExtendWith(SpringExtension.class)
+@DisabledInAotMode
 class ExtensionsVariablesMappingProviderDiffblueTest {
-  @MockBean private ExpressionResolver expressionResolver;
+  @MockBean
+  private ExpressionResolver expressionResolver;
 
-  @Autowired private ExtensionsVariablesMappingProvider extensionsVariablesMappingProvider;
+  @Autowired
+  private ExtensionsVariablesMappingProvider extensionsVariablesMappingProvider;
 
-  @MockBean private ProcessExtensionService processExtensionService;
+  @MockBean
+  private ProcessExtensionService processExtensionService;
 
-  @MockBean private VariableParsingService variableParsingService;
-
-  /**
-   * Test {@link ExtensionsVariablesMappingProvider#calculateMappedValue(Mapping, DelegateExecution,
-   * Extension)}.
-   *
-   * <ul>
-   *   <li>Given {@code null}.
-   *   <li>When {@link Mapping} (default constructor) Type is {@code null}.
-   *   <li>Then return not Present.
-   * </ul>
-   *
-   * <p>Method under test: {@link ExtensionsVariablesMappingProvider#calculateMappedValue(Mapping,
-   * DelegateExecution, Extension)}
-   */
-  @Test
-  @DisplayName(
-      "Test calculateMappedValue(Mapping, DelegateExecution, Extension); given 'null'; when Mapping (default constructor) Type is 'null'; then return not Present")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "Optional ExtensionsVariablesMappingProvider.calculateMappedValue(Mapping, DelegateExecution, Extension)"
-  })
-  void testCalculateMappedValue_givenNull_whenMappingTypeIsNull_thenReturnNotPresent() {
-    // Arrange
-    Mapping inputMapping = new Mapping();
-    inputMapping.setType(null);
-    inputMapping.setValue("Value");
-    ExecutionEntityImpl execution = ExecutionEntityImpl.createWithEmptyRelationshipCollections();
-
-    // Act and Assert
-    assertFalse(
-        extensionsVariablesMappingProvider
-            .calculateMappedValue(inputMapping, execution, new Extension())
-            .isPresent());
-  }
+  @MockBean
+  private VariableParsingService variableParsingService;
 
   /**
-   * Test {@link ExtensionsVariablesMappingProvider#calculateMappedValue(Mapping, DelegateExecution,
-   * Extension)}.
-   *
+   * Test {@link ExtensionsVariablesMappingProvider#calculateMappedValue(Mapping, DelegateExecution, Extension)}.
    * <ul>
-   *   <li>Given {@code VALUE}.
-   *   <li>When {@link Mapping} (default constructor) Type is {@code VALUE}.
-   *   <li>Then return {@link Optional#get()} is {@code Value}.
+   *   <li>Given {@code JSONPATCH}.</li>
+   *   <li>When {@link Mapping} {@link Mapping#getType()} return {@code JSONPATCH}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ExtensionsVariablesMappingProvider#calculateMappedValue(Mapping,
-   * DelegateExecution, Extension)}
+   * <p>
+   * Method under test: {@link ExtensionsVariablesMappingProvider#calculateMappedValue(Mapping, DelegateExecution, Extension)}
    */
   @Test
-  @DisplayName(
-      "Test calculateMappedValue(Mapping, DelegateExecution, Extension); given 'VALUE'; when Mapping (default constructor) Type is 'VALUE'; then return get() is 'Value'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test calculateMappedValue(Mapping, DelegateExecution, Extension); given 'JSONPATCH'; when Mapping getType() return 'JSONPATCH'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({
-    "Optional ExtensionsVariablesMappingProvider.calculateMappedValue(Mapping, DelegateExecution, Extension)"
-  })
-  void testCalculateMappedValue_givenValue_whenMappingTypeIsValue_thenReturnGetIsValue() {
+      "Optional ExtensionsVariablesMappingProvider.calculateMappedValue(Mapping, DelegateExecution, Extension)"})
+  void testCalculateMappedValue_givenJsonpatch_whenMappingGetTypeReturnJsonpatch() {
     // Arrange
-    Mapping inputMapping = new Mapping();
-    inputMapping.setType(SourceMappingType.VALUE);
+    Mapping inputMapping = mock(Mapping.class);
+    when(inputMapping.getType()).thenReturn(SourceMappingType.JSONPATCH);
+    doNothing().when(inputMapping).setType(Mockito.<SourceMappingType>any());
+    doNothing().when(inputMapping).setValue(Mockito.<Object>any());
+    inputMapping.setType(SourceMappingType.VARIABLE);
     inputMapping.setValue("Value");
     ExecutionEntityImpl execution = ExecutionEntityImpl.createWithEmptyRelationshipCollections();
 
     // Act
-    Optional<Object> actualCalculateMappedValueResult =
-        extensionsVariablesMappingProvider.calculateMappedValue(
-            inputMapping, execution, new Extension());
+    Optional<Object> actualCalculateMappedValueResult = extensionsVariablesMappingProvider
+        .calculateMappedValue(inputMapping, execution, new Extension());
 
     // Assert
+    verify(inputMapping, atLeast(1)).getType();
+    verify(inputMapping).setType(eq(SourceMappingType.VARIABLE));
+    verify(inputMapping).setValue(isA(Object.class));
+    assertFalse(actualCalculateMappedValueResult.isPresent());
+  }
+
+  /**
+   * Test {@link ExtensionsVariablesMappingProvider#calculateMappedValue(Mapping, DelegateExecution, Extension)}.
+   * <ul>
+   *   <li>Given {@code VALUE}.</li>
+   *   <li>Then return {@link Optional#get()} is {@code Value}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link ExtensionsVariablesMappingProvider#calculateMappedValue(Mapping, DelegateExecution, Extension)}
+   */
+  @Test
+  @DisplayName("Test calculateMappedValue(Mapping, DelegateExecution, Extension); given 'VALUE'; then return get() is 'Value'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({
+      "Optional ExtensionsVariablesMappingProvider.calculateMappedValue(Mapping, DelegateExecution, Extension)"})
+  void testCalculateMappedValue_givenValue_thenReturnGetIsValue() {
+    // Arrange
+    Mapping inputMapping = mock(Mapping.class);
+    when(inputMapping.getValue()).thenReturn("Value");
+    when(inputMapping.getType()).thenReturn(SourceMappingType.VALUE);
+    doNothing().when(inputMapping).setType(Mockito.<SourceMappingType>any());
+    doNothing().when(inputMapping).setValue(Mockito.<Object>any());
+    inputMapping.setType(SourceMappingType.VARIABLE);
+    inputMapping.setValue("Value");
+    ExecutionEntityImpl execution = ExecutionEntityImpl.createWithEmptyRelationshipCollections();
+
+    // Act
+    Optional<Object> actualCalculateMappedValueResult = extensionsVariablesMappingProvider
+        .calculateMappedValue(inputMapping, execution, new Extension());
+
+    // Assert
+    verify(inputMapping).getType();
+    verify(inputMapping).getValue();
+    verify(inputMapping).setType(eq(SourceMappingType.VARIABLE));
+    verify(inputMapping).setValue(isA(Object.class));
     assertEquals("Value", actualCalculateMappedValueResult.get());
     assertTrue(actualCalculateMappedValueResult.isPresent());
   }
 
   /**
-   * Test {@link ExtensionsVariablesMappingProvider#calculateMappedValue(Mapping, DelegateExecution,
-   * Extension)}.
-   *
+   * Test {@link ExtensionsVariablesMappingProvider#calculateMappedValue(Mapping, DelegateExecution, Extension)}.
    * <ul>
-   *   <li>Given {@link VariableDefinition#VariableDefinition()}.
+   *   <li>Given {@link VariableDefinition#VariableDefinition()}.</li>
+   *   <li>Then calls {@link Extension#getPropertyByName(String)}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ExtensionsVariablesMappingProvider#calculateMappedValue(Mapping,
-   * DelegateExecution, Extension)}
+   * <p>
+   * Method under test: {@link ExtensionsVariablesMappingProvider#calculateMappedValue(Mapping, DelegateExecution, Extension)}
    */
   @Test
-  @DisplayName(
-      "Test calculateMappedValue(Mapping, DelegateExecution, Extension); given VariableDefinition()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test calculateMappedValue(Mapping, DelegateExecution, Extension); given VariableDefinition(); then calls getPropertyByName(String)")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({
-    "Optional ExtensionsVariablesMappingProvider.calculateMappedValue(Mapping, DelegateExecution, Extension)"
-  })
-  void testCalculateMappedValue_givenVariableDefinition() {
+      "Optional ExtensionsVariablesMappingProvider.calculateMappedValue(Mapping, DelegateExecution, Extension)"})
+  void testCalculateMappedValue_givenVariableDefinition_thenCallsGetPropertyByName() {
     // Arrange
-    Mapping inputMapping = new Mapping();
+    Mapping inputMapping = mock(Mapping.class);
+    when(inputMapping.getValue()).thenReturn("Value");
+    when(inputMapping.getType()).thenReturn(SourceMappingType.VARIABLE);
+    doNothing().when(inputMapping).setType(Mockito.<SourceMappingType>any());
+    doNothing().when(inputMapping).setValue(Mockito.<Object>any());
     inputMapping.setType(SourceMappingType.VARIABLE);
     inputMapping.setValue("Value");
-
-    DelegateExecution execution = mock(DelegateExecution.class);
-    when(execution.getVariable(Mockito.<String>any())).thenReturn("Variable");
-
+    ExecutionEntityImpl execution = ExecutionEntityImpl.createWithEmptyRelationshipCollections();
     Extension extensions = mock(Extension.class);
     when(extensions.getPropertyByName(Mockito.<String>any())).thenReturn(new VariableDefinition());
 
     // Act
-    Optional<Object> actualCalculateMappedValueResult =
-        extensionsVariablesMappingProvider.calculateMappedValue(
-            inputMapping, execution, extensions);
+    Optional<Object> actualCalculateMappedValueResult = extensionsVariablesMappingProvider
+        .calculateMappedValue(inputMapping, execution, extensions);
 
     // Assert
-    verify(execution).getVariable("Value");
-    verify(extensions).getPropertyByName("Value");
-    assertEquals("Variable", actualCalculateMappedValueResult.get());
-    assertTrue(actualCalculateMappedValueResult.isPresent());
+    verify(extensions).getPropertyByName(eq("Value"));
+    verify(inputMapping, atLeast(1)).getType();
+    verify(inputMapping).getValue();
+    verify(inputMapping).setType(eq(SourceMappingType.VARIABLE));
+    verify(inputMapping).setValue(isA(Object.class));
+    assertFalse(actualCalculateMappedValueResult.isPresent());
   }
 
   /**
-   * Test {@link ExtensionsVariablesMappingProvider#calculateMappedValue(Mapping, DelegateExecution,
-   * Extension)}.
-   *
+   * Test {@link ExtensionsVariablesMappingProvider#calculateMappedValue(Mapping, DelegateExecution, Extension)}.
    * <ul>
-   *   <li>Given {@code Variable}.
-   *   <li>Then return {@link Optional#get()} is {@code Variable}.
+   *   <li>Then throw {@link ActivitiIllegalArgumentException}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ExtensionsVariablesMappingProvider#calculateMappedValue(Mapping,
-   * DelegateExecution, Extension)}
+   * <p>
+   * Method under test: {@link ExtensionsVariablesMappingProvider#calculateMappedValue(Mapping, DelegateExecution, Extension)}
    */
   @Test
-  @DisplayName(
-      "Test calculateMappedValue(Mapping, DelegateExecution, Extension); given 'Variable'; then return get() is 'Variable'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test calculateMappedValue(Mapping, DelegateExecution, Extension); then throw ActivitiIllegalArgumentException")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({
-    "Optional ExtensionsVariablesMappingProvider.calculateMappedValue(Mapping, DelegateExecution, Extension)"
-  })
-  void testCalculateMappedValue_givenVariable_thenReturnGetIsVariable() {
+      "Optional ExtensionsVariablesMappingProvider.calculateMappedValue(Mapping, DelegateExecution, Extension)"})
+  void testCalculateMappedValue_thenThrowActivitiIllegalArgumentException() {
     // Arrange
-    Mapping inputMapping = new Mapping();
+    Mapping inputMapping = mock(Mapping.class);
+    when(inputMapping.getValue()).thenThrow(new ActivitiIllegalArgumentException("An error occurred"));
+    when(inputMapping.getType()).thenReturn(SourceMappingType.VARIABLE);
+    doNothing().when(inputMapping).setType(Mockito.<SourceMappingType>any());
+    doNothing().when(inputMapping).setValue(Mockito.<Object>any());
     inputMapping.setType(SourceMappingType.VARIABLE);
     inputMapping.setValue("Value");
+    ExecutionEntityImpl execution = ExecutionEntityImpl.createWithEmptyRelationshipCollections();
 
-    DelegateExecution execution = mock(DelegateExecution.class);
-    when(execution.getVariable(Mockito.<String>any())).thenReturn("Variable");
-
-    // Act
-    Optional<Object> actualCalculateMappedValueResult =
-        extensionsVariablesMappingProvider.calculateMappedValue(
-            inputMapping, execution, new Extension());
-
-    // Assert
-    verify(execution, atLeast(1)).getVariable("Value");
-    assertEquals("Variable", actualCalculateMappedValueResult.get());
-    assertTrue(actualCalculateMappedValueResult.isPresent());
+    // Act and Assert
+    assertThrows(ActivitiIllegalArgumentException.class,
+        () -> extensionsVariablesMappingProvider.calculateMappedValue(inputMapping, execution, new Extension()));
+    verify(inputMapping, atLeast(1)).getType();
+    verify(inputMapping).getValue();
+    verify(inputMapping).setType(eq(SourceMappingType.VARIABLE));
+    verify(inputMapping).setValue(isA(Object.class));
   }
 
   /**
-   * Test {@link ExtensionsVariablesMappingProvider#calculateMappedValue(Mapping, DelegateExecution,
-   * Extension)}.
-   *
+   * Test {@link ExtensionsVariablesMappingProvider#calculateMappedValue(Mapping, DelegateExecution, Extension)}.
    * <ul>
-   *   <li>Then return not Present.
+   *   <li>When {@link Mapping} (default constructor) Type is {@code VARIABLE}.</li>
+   *   <li>Then return not Present.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ExtensionsVariablesMappingProvider#calculateMappedValue(Mapping,
-   * DelegateExecution, Extension)}
+   * <p>
+   * Method under test: {@link ExtensionsVariablesMappingProvider#calculateMappedValue(Mapping, DelegateExecution, Extension)}
    */
   @Test
-  @DisplayName(
-      "Test calculateMappedValue(Mapping, DelegateExecution, Extension); then return not Present")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test calculateMappedValue(Mapping, DelegateExecution, Extension); when Mapping (default constructor) Type is 'VARIABLE'; then return not Present")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({
-    "Optional ExtensionsVariablesMappingProvider.calculateMappedValue(Mapping, DelegateExecution, Extension)"
-  })
-  void testCalculateMappedValue_thenReturnNotPresent() {
+      "Optional ExtensionsVariablesMappingProvider.calculateMappedValue(Mapping, DelegateExecution, Extension)"})
+  void testCalculateMappedValue_whenMappingTypeIsVariable_thenReturnNotPresent() {
     // Arrange
     Mapping inputMapping = new Mapping();
     inputMapping.setType(SourceMappingType.VARIABLE);
@@ -250,348 +251,133 @@ class ExtensionsVariablesMappingProviderDiffblueTest {
 
     // Act and Assert
     assertFalse(
-        extensionsVariablesMappingProvider
-            .calculateMappedValue(inputMapping, execution, new Extension())
-            .isPresent());
+        extensionsVariablesMappingProvider.calculateMappedValue(inputMapping, execution, new Extension()).isPresent());
   }
 
   /**
-   * Test {@link ExtensionsVariablesMappingProvider#calculateMappedValue(Mapping, DelegateExecution,
-   * Extension)}.
-   *
+   * Test {@link ExtensionsVariablesMappingProvider#calculateMappedValue(Mapping, DelegateExecution, Extension)}.
    * <ul>
-   *   <li>When {@link Extension} {@link Extension#getPropertyByName(String)} return {@code null}.
+   *   <li>When {@code null}.</li>
+   *   <li>Then return not Present.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ExtensionsVariablesMappingProvider#calculateMappedValue(Mapping,
-   * DelegateExecution, Extension)}
+   * <p>
+   * Method under test: {@link ExtensionsVariablesMappingProvider#calculateMappedValue(Mapping, DelegateExecution, Extension)}
    */
   @Test
-  @DisplayName(
-      "Test calculateMappedValue(Mapping, DelegateExecution, Extension); when Extension getPropertyByName(String) return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test calculateMappedValue(Mapping, DelegateExecution, Extension); when 'null'; then return not Present")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({
-    "Optional ExtensionsVariablesMappingProvider.calculateMappedValue(Mapping, DelegateExecution, Extension)"
-  })
-  void testCalculateMappedValue_whenExtensionGetPropertyByNameReturnNull() {
+      "Optional ExtensionsVariablesMappingProvider.calculateMappedValue(Mapping, DelegateExecution, Extension)"})
+  void testCalculateMappedValue_whenNull_thenReturnNotPresent() {
     // Arrange
-    Mapping inputMapping = new Mapping();
+    Mapping inputMapping = mock(Mapping.class);
+    when(inputMapping.getValue()).thenReturn("Value");
+    when(inputMapping.getType()).thenReturn(SourceMappingType.VARIABLE);
+    doNothing().when(inputMapping).setType(Mockito.<SourceMappingType>any());
+    doNothing().when(inputMapping).setValue(Mockito.<Object>any());
     inputMapping.setType(SourceMappingType.VARIABLE);
     inputMapping.setValue("Value");
-
-    DelegateExecution execution = mock(DelegateExecution.class);
-    when(execution.getVariable(Mockito.<String>any())).thenReturn("Variable");
-
-    Extension extensions = mock(Extension.class);
-    when(extensions.getPropertyByName(Mockito.<String>any())).thenReturn(null);
 
     // Act
-    Optional<Object> actualCalculateMappedValueResult =
-        extensionsVariablesMappingProvider.calculateMappedValue(
-            inputMapping, execution, extensions);
+    Optional<Object> actualCalculateMappedValueResult = extensionsVariablesMappingProvider
+        .calculateMappedValue(inputMapping, null, new Extension());
 
     // Assert
-    verify(execution, atLeast(1)).getVariable("Value");
-    verify(extensions).getPropertyByName("Value");
-    assertEquals("Variable", actualCalculateMappedValueResult.get());
-    assertTrue(actualCalculateMappedValueResult.isPresent());
+    verify(inputMapping, atLeast(1)).getType();
+    verify(inputMapping).getValue();
+    verify(inputMapping).setType(eq(SourceMappingType.VARIABLE));
+    verify(inputMapping).setValue(isA(Object.class));
+    assertFalse(actualCalculateMappedValueResult.isPresent());
   }
 
   /**
-   * Test {@link ExtensionsVariablesMappingProvider#calculateMappedValue(Mapping, DelegateExecution,
-   * Extension)}.
-   *
-   * <ul>
-   *   <li>When {@link Extension} (default constructor) Properties is {@code null}.
-   *   <li>Then return not Present.
-   * </ul>
-   *
-   * <p>Method under test: {@link ExtensionsVariablesMappingProvider#calculateMappedValue(Mapping,
-   * DelegateExecution, Extension)}
-   */
-  @Test
-  @DisplayName(
-      "Test calculateMappedValue(Mapping, DelegateExecution, Extension); when Extension (default constructor) Properties is 'null'; then return not Present")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "Optional ExtensionsVariablesMappingProvider.calculateMappedValue(Mapping, DelegateExecution, Extension)"
-  })
-  void testCalculateMappedValue_whenExtensionPropertiesIsNull_thenReturnNotPresent() {
-    // Arrange
-    Extension extensions = new Extension();
-    extensions.setProperties(null);
-
-    // Act and Assert
-    assertFalse(
-        extensionsVariablesMappingProvider
-            .calculateMappedValue(null, null, extensions)
-            .isPresent());
-  }
-
-  /**
-   * Test {@link ExtensionsVariablesMappingProvider#calculateMappedValue(Mapping, DelegateExecution,
-   * Extension)}.
-   *
-   * <ul>
-   *   <li>When {@link Extension} (default constructor) Properties is {@code null}.
-   *   <li>Then return not Present.
-   * </ul>
-   *
-   * <p>Method under test: {@link ExtensionsVariablesMappingProvider#calculateMappedValue(Mapping,
-   * DelegateExecution, Extension)}
-   */
-  @Test
-  @DisplayName(
-      "Test calculateMappedValue(Mapping, DelegateExecution, Extension); when Extension (default constructor) Properties is 'null'; then return not Present")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "Optional ExtensionsVariablesMappingProvider.calculateMappedValue(Mapping, DelegateExecution, Extension)"
-  })
-  void testCalculateMappedValue_whenExtensionPropertiesIsNull_thenReturnNotPresent2() {
-    // Arrange
-    Mapping inputMapping = new Mapping();
-    inputMapping.setType(SourceMappingType.VARIABLE);
-    inputMapping.setValue("Value");
-
-    Extension extensions = new Extension();
-    extensions.setProperties(null);
-
-    // Act and Assert
-    assertFalse(
-        extensionsVariablesMappingProvider
-            .calculateMappedValue(inputMapping, null, extensions)
-            .isPresent());
-  }
-
-  /**
-   * Test {@link ExtensionsVariablesMappingProvider#calculateInputVariables(DelegateExecution)} with
-   * {@code execution}.
-   *
-   * <p>Method under test: {@link
-   * ExtensionsVariablesMappingProvider#calculateInputVariables(DelegateExecution)}
+   * Test {@link ExtensionsVariablesMappingProvider#calculateInputVariables(DelegateExecution)} with {@code execution}.
+   * <p>
+   * Method under test: {@link ExtensionsVariablesMappingProvider#calculateInputVariables(DelegateExecution)}
    */
   @Test
   @DisplayName("Test calculateInputVariables(DelegateExecution) with 'execution'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "Map ExtensionsVariablesMappingProvider.calculateInputVariables(DelegateExecution)"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"Map ExtensionsVariablesMappingProvider.calculateInputVariables(DelegateExecution)"})
   void testCalculateInputVariablesWithExecution() {
     // Arrange
-    when(processExtensionService.getExtensionsForId(Mockito.<String>any()))
-        .thenReturn(new Extension());
+    when(processExtensionService.getExtensionsForId(Mockito.<String>any())).thenReturn(new Extension());
 
     // Act
-    Map<String, Object> actualCalculateInputVariablesResult =
-        extensionsVariablesMappingProvider.calculateInputVariables(
-            ExecutionEntityImpl.createWithEmptyRelationshipCollections());
+    Map<String, Object> actualCalculateInputVariablesResult = extensionsVariablesMappingProvider
+        .calculateInputVariables(ExecutionEntityImpl.createWithEmptyRelationshipCollections());
 
     // Assert
-    verify(processExtensionService).getExtensionsForId(null);
+    verify(processExtensionService).getExtensionsForId(isNull());
     assertTrue(actualCalculateInputVariablesResult.isEmpty());
   }
 
   /**
-   * Test {@link ExtensionsVariablesMappingProvider#calculateInputVariables(DelegateExecution)} with
-   * {@code execution}.
-   *
-   * <p>Method under test: {@link
-   * ExtensionsVariablesMappingProvider#calculateInputVariables(DelegateExecution)}
+   * Test {@link ExtensionsVariablesMappingProvider#calculateInputVariables(DelegateExecution)} with {@code execution}.
+   * <p>
+   * Method under test: {@link ExtensionsVariablesMappingProvider#calculateInputVariables(DelegateExecution)}
    */
   @Test
   @DisplayName("Test calculateInputVariables(DelegateExecution) with 'execution'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "Map ExtensionsVariablesMappingProvider.calculateInputVariables(DelegateExecution)"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"Map ExtensionsVariablesMappingProvider.calculateInputVariables(DelegateExecution)"})
   void testCalculateInputVariablesWithExecution2() {
-    // Arrange
-    when(processExtensionService.getExtensionsForId(Mockito.<String>any()))
-        .thenThrow(new ActivitiIllegalArgumentException("An error occurred"));
-
-    // Act and Assert
-    assertThrows(
-        ActivitiIllegalArgumentException.class,
-        () ->
-            extensionsVariablesMappingProvider.calculateInputVariables(
-                ExecutionEntityImpl.createWithEmptyRelationshipCollections()));
-    verify(processExtensionService).getExtensionsForId(null);
-  }
-
-  /**
-   * Test {@link ExtensionsVariablesMappingProvider#calculateInputVariables(DelegateExecution)} with
-   * {@code execution}.
-   *
-   * <p>Method under test: {@link
-   * ExtensionsVariablesMappingProvider#calculateInputVariables(DelegateExecution)}
-   */
-  @Test
-  @DisplayName("Test calculateInputVariables(DelegateExecution) with 'execution'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "Map ExtensionsVariablesMappingProvider.calculateInputVariables(DelegateExecution)"
-  })
-  void testCalculateInputVariablesWithExecution3() {
-    // Arrange
-    Extension extension = mock(Extension.class);
-    when(extension.hasMapping(Mockito.<String>any()))
-        .thenThrow(new ActivitiIllegalArgumentException("An error occurred"));
-    when(extension.getConstantForFlowElement(Mockito.<String>any()))
-        .thenReturn(new ProcessConstantsMapping());
-    when(processExtensionService.getExtensionsForId(Mockito.<String>any())).thenReturn(extension);
-
-    // Act and Assert
-    assertThrows(
-        ActivitiIllegalArgumentException.class,
-        () ->
-            extensionsVariablesMappingProvider.calculateInputVariables(
-                ExecutionEntityImpl.createWithEmptyRelationshipCollections()));
-    verify(processExtensionService).getExtensionsForId(null);
-    verify(extension).getConstantForFlowElement(null);
-    verify(extension).hasMapping(null);
-  }
-
-  /**
-   * Test {@link ExtensionsVariablesMappingProvider#calculateInputVariables(DelegateExecution)} with
-   * {@code execution}.
-   *
-   * <p>Method under test: {@link
-   * ExtensionsVariablesMappingProvider#calculateInputVariables(DelegateExecution)}
-   */
-  @Test
-  @DisplayName("Test calculateInputVariables(DelegateExecution) with 'execution'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "Map ExtensionsVariablesMappingProvider.calculateInputVariables(DelegateExecution)"
-  })
-  void testCalculateInputVariablesWithExecution4() {
     // Arrange
     Extension extension = mock(Extension.class);
     when(extension.shouldMapAllInputs(Mockito.<String>any())).thenReturn(true);
     when(extension.hasMapping(Mockito.<String>any())).thenReturn(true);
-    when(extension.getConstantForFlowElement(Mockito.<String>any()))
-        .thenReturn(new ProcessConstantsMapping());
+    when(extension.getConstantForFlowElement(Mockito.<String>any())).thenReturn(new ProcessConstantsMapping());
     when(processExtensionService.getExtensionsForId(Mockito.<String>any())).thenReturn(extension);
 
     // Act
-    Map<String, Object> actualCalculateInputVariablesResult =
-        extensionsVariablesMappingProvider.calculateInputVariables(
-            ExecutionEntityImpl.createWithEmptyRelationshipCollections());
+    Map<String, Object> actualCalculateInputVariablesResult = extensionsVariablesMappingProvider
+        .calculateInputVariables(ExecutionEntityImpl.createWithEmptyRelationshipCollections());
 
     // Assert
-    verify(processExtensionService).getExtensionsForId(null);
-    verify(extension).getConstantForFlowElement(null);
-    verify(extension).hasMapping(null);
-    verify(extension).shouldMapAllInputs(null);
+    verify(processExtensionService).getExtensionsForId(isNull());
+    verify(extension).getConstantForFlowElement(isNull());
+    verify(extension).hasMapping(isNull());
+    verify(extension).shouldMapAllInputs(isNull());
     assertTrue(actualCalculateInputVariablesResult.isEmpty());
   }
 
   /**
-   * Test {@link ExtensionsVariablesMappingProvider#calculateInputVariables(DelegateExecution)} with
-   * {@code execution}.
-   *
-   * <p>Method under test: {@link
-   * ExtensionsVariablesMappingProvider#calculateInputVariables(DelegateExecution)}
+   * Test {@link ExtensionsVariablesMappingProvider#calculateInputVariables(DelegateExecution)} with {@code execution}.
+   * <p>
+   * Method under test: {@link ExtensionsVariablesMappingProvider#calculateInputVariables(DelegateExecution)}
    */
   @Test
   @DisplayName("Test calculateInputVariables(DelegateExecution) with 'execution'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "Map ExtensionsVariablesMappingProvider.calculateInputVariables(DelegateExecution)"
-  })
-  void testCalculateInputVariablesWithExecution5() {
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"Map ExtensionsVariablesMappingProvider.calculateInputVariables(DelegateExecution)"})
+  void testCalculateInputVariablesWithExecution3() {
     // Arrange
     Extension extension = mock(Extension.class);
     when(extension.shouldMapAllInputs(Mockito.<String>any()))
         .thenThrow(new ActivitiIllegalArgumentException("An error occurred"));
     when(extension.hasMapping(Mockito.<String>any())).thenReturn(true);
-    when(extension.getConstantForFlowElement(Mockito.<String>any()))
-        .thenReturn(new ProcessConstantsMapping());
+    when(extension.getConstantForFlowElement(Mockito.<String>any())).thenReturn(new ProcessConstantsMapping());
     when(processExtensionService.getExtensionsForId(Mockito.<String>any())).thenReturn(extension);
 
     // Act and Assert
-    assertThrows(
-        ActivitiIllegalArgumentException.class,
-        () ->
-            extensionsVariablesMappingProvider.calculateInputVariables(
-                ExecutionEntityImpl.createWithEmptyRelationshipCollections()));
-    verify(processExtensionService).getExtensionsForId(null);
-    verify(extension).getConstantForFlowElement(null);
-    verify(extension).hasMapping(null);
-    verify(extension).shouldMapAllInputs(null);
+    assertThrows(ActivitiIllegalArgumentException.class, () -> extensionsVariablesMappingProvider
+        .calculateInputVariables(ExecutionEntityImpl.createWithEmptyRelationshipCollections()));
+    verify(processExtensionService).getExtensionsForId(isNull());
+    verify(extension).getConstantForFlowElement(isNull());
+    verify(extension).hasMapping(isNull());
+    verify(extension).shouldMapAllInputs(isNull());
   }
 
   /**
-   * Test {@link ExtensionsVariablesMappingProvider#calculateInputVariables(DelegateExecution)} with
-   * {@code execution}.
-   *
-   * <p>Method under test: {@link
-   * ExtensionsVariablesMappingProvider#calculateInputVariables(DelegateExecution)}
+   * Test {@link ExtensionsVariablesMappingProvider#calculateInputVariables(DelegateExecution)} with {@code execution}.
+   * <p>
+   * Method under test: {@link ExtensionsVariablesMappingProvider#calculateInputVariables(DelegateExecution)}
    */
   @Test
   @DisplayName("Test calculateInputVariables(DelegateExecution) with 'execution'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "Map ExtensionsVariablesMappingProvider.calculateInputVariables(DelegateExecution)"
-  })
-  void testCalculateInputVariablesWithExecution6() {
-    // Arrange
-    ProcessVariablesMapping processVariablesMapping = new ProcessVariablesMapping();
-    processVariablesMapping.setInputs(new HashMap<>());
-    processVariablesMapping.setMappingType(MappingType.MAP_ALL);
-    processVariablesMapping.setOutputs(new HashMap<>());
-
-    Extension extension = mock(Extension.class);
-    when(extension.shouldMapAllInputs(Mockito.<String>any())).thenReturn(false);
-    when(extension.getMappingForFlowElement(Mockito.<String>any()))
-        .thenReturn(processVariablesMapping);
-    when(extension.hasMapping(Mockito.<String>any())).thenReturn(true);
-    when(extension.getConstantForFlowElement(Mockito.<String>any()))
-        .thenReturn(new ProcessConstantsMapping());
-    when(processExtensionService.getExtensionsForId(Mockito.<String>any())).thenReturn(extension);
-    when(expressionResolver.resolveExpressionsMap(
-            Mockito.<ExpressionEvaluator>any(), Mockito.<Map<String, Object>>any()))
-        .thenThrow(new ActivitiIllegalArgumentException("An error occurred"));
-
-    // Act and Assert
-    assertThrows(
-        ActivitiIllegalArgumentException.class,
-        () ->
-            extensionsVariablesMappingProvider.calculateInputVariables(
-                ExecutionEntityImpl.createWithEmptyRelationshipCollections()));
-    verify(expressionResolver)
-        .resolveExpressionsMap(isA(ExpressionEvaluator.class), isA(Map.class));
-    verify(processExtensionService).getExtensionsForId(null);
-    verify(extension).getConstantForFlowElement(null);
-    verify(extension).getMappingForFlowElement(null);
-    verify(extension).hasMapping(null);
-    verify(extension).shouldMapAllInputs(null);
-  }
-
-  /**
-   * Test {@link ExtensionsVariablesMappingProvider#calculateInputVariables(DelegateExecution)} with
-   * {@code execution}.
-   *
-   * <p>Method under test: {@link
-   * ExtensionsVariablesMappingProvider#calculateInputVariables(DelegateExecution)}
-   */
-  @Test
-  @DisplayName("Test calculateInputVariables(DelegateExecution) with 'execution'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "Map ExtensionsVariablesMappingProvider.calculateInputVariables(DelegateExecution)"
-  })
-  void testCalculateInputVariablesWithExecution7() {
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"Map ExtensionsVariablesMappingProvider.calculateInputVariables(DelegateExecution)"})
+  void testCalculateInputVariablesWithExecution4() {
     // Arrange
     Mapping mapping = new Mapping();
     mapping.setType(SourceMappingType.VARIABLE);
@@ -604,309 +390,204 @@ class ExtensionsVariablesMappingProviderDiffblueTest {
     processVariablesMapping.setInputs(inputs);
     processVariablesMapping.setMappingType(MappingType.MAP_ALL);
     processVariablesMapping.setOutputs(new HashMap<>());
-
     Extension extension = mock(Extension.class);
-    when(extension.getPropertyByName(Mockito.<String>any()))
-        .thenThrow(new ActivitiIllegalArgumentException("An error occurred"));
+    when(extension.getPropertyByName(Mockito.<String>any())).thenReturn(null);
     when(extension.shouldMapAllInputs(Mockito.<String>any())).thenReturn(false);
-    when(extension.getMappingForFlowElement(Mockito.<String>any()))
-        .thenReturn(processVariablesMapping);
+    when(extension.getMappingForFlowElement(Mockito.<String>any())).thenReturn(processVariablesMapping);
     when(extension.hasMapping(Mockito.<String>any())).thenReturn(true);
-    when(extension.getConstantForFlowElement(Mockito.<String>any()))
-        .thenReturn(new ProcessConstantsMapping());
+    when(extension.getConstantForFlowElement(Mockito.<String>any())).thenReturn(new ProcessConstantsMapping());
     when(processExtensionService.getExtensionsForId(Mockito.<String>any())).thenReturn(extension);
+    when(expressionResolver.resolveExpressionsMap(Mockito.<ExpressionEvaluator>any(),
+        Mockito.<Map<String, Object>>any())).thenReturn(new HashMap<>());
 
-    // Act and Assert
-    assertThrows(
-        ActivitiIllegalArgumentException.class,
-        () ->
-            extensionsVariablesMappingProvider.calculateInputVariables(
-                ExecutionEntityImpl.createWithEmptyRelationshipCollections()));
-    verify(processExtensionService).getExtensionsForId(null);
-    verify(extension).getConstantForFlowElement(null);
-    verify(extension).getMappingForFlowElement(null);
-    verify(extension).getPropertyByName("Value");
-    verify(extension).hasMapping(null);
-    verify(extension).shouldMapAllInputs(null);
+    // Act
+    Map<String, Object> actualCalculateInputVariablesResult = extensionsVariablesMappingProvider
+        .calculateInputVariables(ExecutionEntityImpl.createWithEmptyRelationshipCollections());
+
+    // Assert
+    verify(expressionResolver).resolveExpressionsMap(isA(ExpressionEvaluator.class), isA(Map.class));
+    verify(processExtensionService).getExtensionsForId(isNull());
+    verify(extension).getConstantForFlowElement(isNull());
+    verify(extension).getMappingForFlowElement(isNull());
+    verify(extension).getPropertyByName(eq("Value"));
+    verify(extension).hasMapping(isNull());
+    verify(extension).shouldMapAllInputs(isNull());
+    assertTrue(actualCalculateInputVariablesResult.isEmpty());
   }
 
   /**
-   * Test {@link ExtensionsVariablesMappingProvider#calculateInputVariables(DelegateExecution)} with
-   * {@code execution}.
-   *
-   * <p>Method under test: {@link
-   * ExtensionsVariablesMappingProvider#calculateInputVariables(DelegateExecution)}
+   * Test {@link ExtensionsVariablesMappingProvider#calculateInputVariables(DelegateExecution)} with {@code execution}.
+   * <p>
+   * Method under test: {@link ExtensionsVariablesMappingProvider#calculateInputVariables(DelegateExecution)}
    */
   @Test
   @DisplayName("Test calculateInputVariables(DelegateExecution) with 'execution'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "Map ExtensionsVariablesMappingProvider.calculateInputVariables(DelegateExecution)"
-  })
-  void testCalculateInputVariablesWithExecution8() {
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"Map ExtensionsVariablesMappingProvider.calculateInputVariables(DelegateExecution)"})
+  void testCalculateInputVariablesWithExecution5() {
     // Arrange
-    Mapping mapping = new Mapping();
-    mapping.setType(SourceMappingType.VALUE);
+    Mapping mapping = mock(Mapping.class);
+    when(mapping.getValue()).thenThrow(new ActivitiIllegalArgumentException("An error occurred"));
+    when(mapping.getType()).thenReturn(SourceMappingType.VARIABLE);
+    doNothing().when(mapping).setType(Mockito.<SourceMappingType>any());
+    doNothing().when(mapping).setValue(Mockito.<Object>any());
+    mapping.setType(SourceMappingType.VARIABLE);
+    mapping.setValue("Value");
+
+    HashMap<String, Mapping> inputs = new HashMap<>();
+    inputs.put("foo", mapping);
+
+    ProcessVariablesMapping processVariablesMapping = new ProcessVariablesMapping();
+    processVariablesMapping.setInputs(inputs);
+    processVariablesMapping.setMappingType(MappingType.MAP_ALL);
+    processVariablesMapping.setOutputs(new HashMap<>());
+    Extension extension = mock(Extension.class);
+    when(extension.shouldMapAllInputs(Mockito.<String>any())).thenReturn(false);
+    when(extension.getMappingForFlowElement(Mockito.<String>any())).thenReturn(processVariablesMapping);
+    when(extension.hasMapping(Mockito.<String>any())).thenReturn(true);
+    when(extension.getConstantForFlowElement(Mockito.<String>any())).thenReturn(new ProcessConstantsMapping());
+    when(processExtensionService.getExtensionsForId(Mockito.<String>any())).thenReturn(extension);
+
+    // Act and Assert
+    assertThrows(ActivitiIllegalArgumentException.class, () -> extensionsVariablesMappingProvider
+        .calculateInputVariables(ExecutionEntityImpl.createWithEmptyRelationshipCollections()));
+    verify(processExtensionService).getExtensionsForId(isNull());
+    verify(extension).getConstantForFlowElement(isNull());
+    verify(extension).getMappingForFlowElement(isNull());
+    verify(extension).hasMapping(isNull());
+    verify(extension).shouldMapAllInputs(isNull());
+    verify(mapping, atLeast(1)).getType();
+    verify(mapping).getValue();
+    verify(mapping).setType(eq(SourceMappingType.VARIABLE));
+    verify(mapping).setValue(isA(Object.class));
+  }
+
+  /**
+   * Test {@link ExtensionsVariablesMappingProvider#calculateInputVariables(DelegateExecution)} with {@code execution}.
+   * <ul>
+   *   <li>Given {@link Mapping} {@link Mapping#getType()} return {@code VALUE}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link ExtensionsVariablesMappingProvider#calculateInputVariables(DelegateExecution)}
+   */
+  @Test
+  @DisplayName("Test calculateInputVariables(DelegateExecution) with 'execution'; given Mapping getType() return 'VALUE'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"Map ExtensionsVariablesMappingProvider.calculateInputVariables(DelegateExecution)"})
+  void testCalculateInputVariablesWithExecution_givenMappingGetTypeReturnValue() {
+    // Arrange
+    Mapping mapping = mock(Mapping.class);
+    when(mapping.getValue()).thenThrow(new ActivitiIllegalArgumentException("An error occurred"));
+    when(mapping.getType()).thenReturn(SourceMappingType.VALUE);
+    doNothing().when(mapping).setType(Mockito.<SourceMappingType>any());
+    doNothing().when(mapping).setValue(Mockito.<Object>any());
+    mapping.setType(SourceMappingType.VARIABLE);
+    mapping.setValue("Value");
+
+    HashMap<String, Mapping> inputs = new HashMap<>();
+    inputs.put("foo", mapping);
+
+    ProcessVariablesMapping processVariablesMapping = new ProcessVariablesMapping();
+    processVariablesMapping.setInputs(inputs);
+    processVariablesMapping.setMappingType(MappingType.MAP_ALL);
+    processVariablesMapping.setOutputs(new HashMap<>());
+    Extension extension = mock(Extension.class);
+    when(extension.shouldMapAllInputs(Mockito.<String>any())).thenReturn(false);
+    when(extension.getMappingForFlowElement(Mockito.<String>any())).thenReturn(processVariablesMapping);
+    when(extension.hasMapping(Mockito.<String>any())).thenReturn(true);
+    when(extension.getConstantForFlowElement(Mockito.<String>any())).thenReturn(new ProcessConstantsMapping());
+    when(processExtensionService.getExtensionsForId(Mockito.<String>any())).thenReturn(extension);
+
+    // Act and Assert
+    assertThrows(ActivitiIllegalArgumentException.class, () -> extensionsVariablesMappingProvider
+        .calculateInputVariables(ExecutionEntityImpl.createWithEmptyRelationshipCollections()));
+    verify(processExtensionService).getExtensionsForId(isNull());
+    verify(extension).getConstantForFlowElement(isNull());
+    verify(extension).getMappingForFlowElement(isNull());
+    verify(extension).hasMapping(isNull());
+    verify(extension).shouldMapAllInputs(isNull());
+    verify(mapping).getType();
+    verify(mapping).getValue();
+    verify(mapping).setType(eq(SourceMappingType.VARIABLE));
+    verify(mapping).setValue(isA(Object.class));
+  }
+
+  /**
+   * Test {@link ExtensionsVariablesMappingProvider#calculateInputVariables(DelegateExecution)} with {@code execution}.
+   * <ul>
+   *   <li>Given {@link Mapping} (default constructor) Type is {@code JSONPATCH}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link ExtensionsVariablesMappingProvider#calculateInputVariables(DelegateExecution)}
+   */
+  @Test
+  @DisplayName("Test calculateInputVariables(DelegateExecution) with 'execution'; given Mapping (default constructor) Type is 'JSONPATCH'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"Map ExtensionsVariablesMappingProvider.calculateInputVariables(DelegateExecution)"})
+  void testCalculateInputVariablesWithExecution_givenMappingTypeIsJsonpatch() {
+    // Arrange
+    Mapping mapping = mock(Mapping.class);
+    when(mapping.getValue()).thenReturn("Value");
+    when(mapping.getType()).thenReturn(SourceMappingType.VARIABLE);
+    doNothing().when(mapping).setType(Mockito.<SourceMappingType>any());
+    doNothing().when(mapping).setValue(Mockito.<Object>any());
+    mapping.setType(SourceMappingType.VARIABLE);
     mapping.setValue("Value");
 
     Mapping mapping2 = new Mapping();
     mapping2.setType(SourceMappingType.JSONPATCH);
     mapping2.setValue("Value");
 
-    Mapping mapping3 = new Mapping();
-    mapping3.setType(SourceMappingType.VARIABLE);
-    mapping3.setValue("Value");
-
     HashMap<String, Mapping> inputs = new HashMap<>();
-    inputs.put("${U}", mapping3);
-    inputs.put("foo", mapping2);
-    inputs.put("42", mapping);
-
-    ProcessVariablesMapping processVariablesMapping = new ProcessVariablesMapping();
-    processVariablesMapping.setInputs(inputs);
-    processVariablesMapping.setMappingType(MappingType.MAP_ALL);
-    processVariablesMapping.setOutputs(new HashMap<>());
-
-    Extension extension = mock(Extension.class);
-    when(extension.getPropertyByName(Mockito.<String>any())).thenReturn(null);
-    when(extension.shouldMapAllInputs(Mockito.<String>any())).thenReturn(false);
-    when(extension.getMappingForFlowElement(Mockito.<String>any()))
-        .thenReturn(processVariablesMapping);
-    when(extension.hasMapping(Mockito.<String>any())).thenReturn(true);
-    when(extension.getConstantForFlowElement(Mockito.<String>any()))
-        .thenReturn(new ProcessConstantsMapping());
-
-    ProcessExtensionService processExtensionService = mock(ProcessExtensionService.class);
-    when(processExtensionService.getExtensionsForId(Mockito.<String>any())).thenReturn(extension);
-
-    ExpressionResolver expressionResolver = mock(ExpressionResolver.class);
-    when(expressionResolver.resolveExpressionsMap(
-            Mockito.<ExpressionEvaluator>any(), Mockito.<Map<String, Object>>any()))
-        .thenReturn(new HashMap<>());
-
-    ExtensionsVariablesMappingProvider extensionsVariablesMappingProvider =
-        new ExtensionsVariablesMappingProvider(
-            processExtensionService,
-            expressionResolver,
-            new VariableParsingService(new HashMap<>()));
-    ExecutionEntityImpl execution = ExecutionEntityImpl.createWithEmptyRelationshipCollections();
-
-    // Act
-    Map<String, Object> actualCalculateInputVariablesResult =
-        extensionsVariablesMappingProvider.calculateInputVariables(execution);
-
-    // Assert
-    verify(expressionResolver)
-        .resolveExpressionsMap(isA(ExpressionEvaluator.class), isA(Map.class));
-    verify(processExtensionService).getExtensionsForId(null);
-    verify(extension).getConstantForFlowElement(null);
-    verify(extension).getMappingForFlowElement(null);
-    verify(extension).getPropertyByName("Value");
-    verify(extension).hasMapping(null);
-    verify(extension).shouldMapAllInputs(null);
-    assertNull(execution.getCachedElContext());
-    assertTrue(actualCalculateInputVariablesResult.isEmpty());
-  }
-
-  /**
-   * Test {@link ExtensionsVariablesMappingProvider#calculateInputVariables(DelegateExecution)} with
-   * {@code execution}.
-   *
-   * <ul>
-   *   <li>Given {@link Mapping} (default constructor) Type is {@code null}.
-   * </ul>
-   *
-   * <p>Method under test: {@link
-   * ExtensionsVariablesMappingProvider#calculateInputVariables(DelegateExecution)}
-   */
-  @Test
-  @DisplayName(
-      "Test calculateInputVariables(DelegateExecution) with 'execution'; given Mapping (default constructor) Type is 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "Map ExtensionsVariablesMappingProvider.calculateInputVariables(DelegateExecution)"
-  })
-  void testCalculateInputVariablesWithExecution_givenMappingTypeIsNull() {
-    // Arrange
-    Mapping mapping = new Mapping();
-    mapping.setType(null);
-    mapping.setValue("Value");
-
-    HashMap<String, Mapping> inputs = new HashMap<>();
+    inputs.put("", mapping2);
     inputs.put("foo", mapping);
 
     ProcessVariablesMapping processVariablesMapping = new ProcessVariablesMapping();
     processVariablesMapping.setInputs(inputs);
     processVariablesMapping.setMappingType(MappingType.MAP_ALL);
     processVariablesMapping.setOutputs(new HashMap<>());
-
-    Extension extension = mock(Extension.class);
-    when(extension.shouldMapAllInputs(Mockito.<String>any())).thenReturn(false);
-    when(extension.getMappingForFlowElement(Mockito.<String>any()))
-        .thenReturn(processVariablesMapping);
-    when(extension.hasMapping(Mockito.<String>any())).thenReturn(true);
-    when(extension.getConstantForFlowElement(Mockito.<String>any()))
-        .thenReturn(new ProcessConstantsMapping());
-    when(processExtensionService.getExtensionsForId(Mockito.<String>any())).thenReturn(extension);
-    when(expressionResolver.resolveExpressionsMap(
-            Mockito.<ExpressionEvaluator>any(), Mockito.<Map<String, Object>>any()))
-        .thenReturn(new HashMap<>());
-
-    // Act
-    Map<String, Object> actualCalculateInputVariablesResult =
-        extensionsVariablesMappingProvider.calculateInputVariables(
-            ExecutionEntityImpl.createWithEmptyRelationshipCollections());
-
-    // Assert
-    verify(expressionResolver)
-        .resolveExpressionsMap(isA(ExpressionEvaluator.class), isA(Map.class));
-    verify(processExtensionService).getExtensionsForId(null);
-    verify(extension).getConstantForFlowElement(null);
-    verify(extension).getMappingForFlowElement(null);
-    verify(extension).hasMapping(null);
-    verify(extension).shouldMapAllInputs(null);
-    assertTrue(actualCalculateInputVariablesResult.isEmpty());
-  }
-
-  /**
-   * Test {@link ExtensionsVariablesMappingProvider#calculateInputVariables(DelegateExecution)} with
-   * {@code execution}.
-   *
-   * <ul>
-   *   <li>Then calls {@link ExpressionResolver#resolveExpressionsMap(ExpressionEvaluator, Map)}.
-   * </ul>
-   *
-   * <p>Method under test: {@link
-   * ExtensionsVariablesMappingProvider#calculateInputVariables(DelegateExecution)}
-   */
-  @Test
-  @DisplayName(
-      "Test calculateInputVariables(DelegateExecution) with 'execution'; then calls resolveExpressionsMap(ExpressionEvaluator, Map)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "Map ExtensionsVariablesMappingProvider.calculateInputVariables(DelegateExecution)"
-  })
-  void testCalculateInputVariablesWithExecution_thenCallsResolveExpressionsMap() {
-    // Arrange
-    ProcessVariablesMapping processVariablesMapping = new ProcessVariablesMapping();
-    processVariablesMapping.setInputs(new HashMap<>());
-    processVariablesMapping.setMappingType(MappingType.MAP_ALL);
-    processVariablesMapping.setOutputs(new HashMap<>());
-
-    Extension extension = mock(Extension.class);
-    when(extension.shouldMapAllInputs(Mockito.<String>any())).thenReturn(false);
-    when(extension.getMappingForFlowElement(Mockito.<String>any()))
-        .thenReturn(processVariablesMapping);
-    when(extension.hasMapping(Mockito.<String>any())).thenReturn(true);
-    when(extension.getConstantForFlowElement(Mockito.<String>any()))
-        .thenReturn(new ProcessConstantsMapping());
-    when(processExtensionService.getExtensionsForId(Mockito.<String>any())).thenReturn(extension);
-    when(expressionResolver.resolveExpressionsMap(
-            Mockito.<ExpressionEvaluator>any(), Mockito.<Map<String, Object>>any()))
-        .thenReturn(new HashMap<>());
-
-    // Act
-    Map<String, Object> actualCalculateInputVariablesResult =
-        extensionsVariablesMappingProvider.calculateInputVariables(
-            ExecutionEntityImpl.createWithEmptyRelationshipCollections());
-
-    // Assert
-    verify(expressionResolver)
-        .resolveExpressionsMap(isA(ExpressionEvaluator.class), isA(Map.class));
-    verify(processExtensionService).getExtensionsForId(null);
-    verify(extension).getConstantForFlowElement(null);
-    verify(extension).getMappingForFlowElement(null);
-    verify(extension).hasMapping(null);
-    verify(extension).shouldMapAllInputs(null);
-    assertTrue(actualCalculateInputVariablesResult.isEmpty());
-  }
-
-  /**
-   * Test {@link ExtensionsVariablesMappingProvider#calculateInputVariables(DelegateExecution)} with
-   * {@code execution}.
-   *
-   * <ul>
-   *   <li>Then calls {@link ExpressionResolver#resolveExpressionsMap(ExpressionEvaluator, Map)}.
-   * </ul>
-   *
-   * <p>Method under test: {@link
-   * ExtensionsVariablesMappingProvider#calculateInputVariables(DelegateExecution)}
-   */
-  @Test
-  @DisplayName(
-      "Test calculateInputVariables(DelegateExecution) with 'execution'; then calls resolveExpressionsMap(ExpressionEvaluator, Map)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "Map ExtensionsVariablesMappingProvider.calculateInputVariables(DelegateExecution)"
-  })
-  void testCalculateInputVariablesWithExecution_thenCallsResolveExpressionsMap2() {
-    // Arrange
-    Mapping mapping = new Mapping();
-    mapping.setType(SourceMappingType.VARIABLE);
-    mapping.setValue("Value");
-
-    HashMap<String, Mapping> inputs = new HashMap<>();
-    inputs.put("foo", mapping);
-
-    ProcessVariablesMapping processVariablesMapping = new ProcessVariablesMapping();
-    processVariablesMapping.setInputs(inputs);
-    processVariablesMapping.setMappingType(MappingType.MAP_ALL);
-    processVariablesMapping.setOutputs(new HashMap<>());
-
     Extension extension = mock(Extension.class);
     when(extension.getPropertyByName(Mockito.<String>any())).thenReturn(new VariableDefinition());
     when(extension.shouldMapAllInputs(Mockito.<String>any())).thenReturn(false);
-    when(extension.getMappingForFlowElement(Mockito.<String>any()))
-        .thenReturn(processVariablesMapping);
+    when(extension.getMappingForFlowElement(Mockito.<String>any())).thenReturn(processVariablesMapping);
     when(extension.hasMapping(Mockito.<String>any())).thenReturn(true);
-    when(extension.getConstantForFlowElement(Mockito.<String>any()))
-        .thenReturn(new ProcessConstantsMapping());
+    when(extension.getConstantForFlowElement(Mockito.<String>any())).thenReturn(new ProcessConstantsMapping());
     when(processExtensionService.getExtensionsForId(Mockito.<String>any())).thenReturn(extension);
-    when(expressionResolver.resolveExpressionsMap(
-            Mockito.<ExpressionEvaluator>any(), Mockito.<Map<String, Object>>any()))
-        .thenReturn(new HashMap<>());
+    when(expressionResolver.resolveExpressionsMap(Mockito.<ExpressionEvaluator>any(),
+        Mockito.<Map<String, Object>>any())).thenReturn(new HashMap<>());
 
     // Act
-    Map<String, Object> actualCalculateInputVariablesResult =
-        extensionsVariablesMappingProvider.calculateInputVariables(
-            ExecutionEntityImpl.createWithEmptyRelationshipCollections());
+    Map<String, Object> actualCalculateInputVariablesResult = extensionsVariablesMappingProvider
+        .calculateInputVariables(ExecutionEntityImpl.createWithEmptyRelationshipCollections());
 
     // Assert
-    verify(expressionResolver)
-        .resolveExpressionsMap(isA(ExpressionEvaluator.class), isA(Map.class));
-    verify(processExtensionService).getExtensionsForId(null);
-    verify(extension).getConstantForFlowElement(null);
-    verify(extension).getMappingForFlowElement(null);
-    verify(extension).getPropertyByName("Value");
-    verify(extension).hasMapping(null);
-    verify(extension).shouldMapAllInputs(null);
+    verify(expressionResolver).resolveExpressionsMap(isA(ExpressionEvaluator.class), isA(Map.class));
+    verify(processExtensionService).getExtensionsForId(isNull());
+    verify(extension).getConstantForFlowElement(isNull());
+    verify(extension).getMappingForFlowElement(isNull());
+    verify(extension).getPropertyByName(eq("Value"));
+    verify(extension).hasMapping(isNull());
+    verify(extension).shouldMapAllInputs(isNull());
+    verify(mapping, atLeast(1)).getType();
+    verify(mapping).getValue();
+    verify(mapping).setType(eq(SourceMappingType.VARIABLE));
+    verify(mapping).setValue(isA(Object.class));
     assertTrue(actualCalculateInputVariablesResult.isEmpty());
   }
 
   /**
-   * Test {@link ExtensionsVariablesMappingProvider#calculateInputVariables(DelegateExecution)} with
-   * {@code execution}.
-   *
+   * Test {@link ExtensionsVariablesMappingProvider#calculateInputVariables(DelegateExecution)} with {@code execution}.
    * <ul>
-   *   <li>Then calls {@link ExpressionResolver#resolveExpressionsMap(ExpressionEvaluator, Map)}.
+   *   <li>Given {@link Mapping} (default constructor) Type is {@code VALUE}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link
-   * ExtensionsVariablesMappingProvider#calculateInputVariables(DelegateExecution)}
+   * <p>
+   * Method under test: {@link ExtensionsVariablesMappingProvider#calculateInputVariables(DelegateExecution)}
    */
   @Test
-  @DisplayName(
-      "Test calculateInputVariables(DelegateExecution) with 'execution'; then calls resolveExpressionsMap(ExpressionEvaluator, Map)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "Map ExtensionsVariablesMappingProvider.calculateInputVariables(DelegateExecution)"
-  })
-  void testCalculateInputVariablesWithExecution_thenCallsResolveExpressionsMap3() {
+  @DisplayName("Test calculateInputVariables(DelegateExecution) with 'execution'; given Mapping (default constructor) Type is 'VALUE'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"Map ExtensionsVariablesMappingProvider.calculateInputVariables(DelegateExecution)"})
+  void testCalculateInputVariablesWithExecution_givenMappingTypeIsValue() {
     // Arrange
     Mapping mapping = new Mapping();
     mapping.setType(SourceMappingType.VARIABLE);
@@ -924,1122 +605,1418 @@ class ExtensionsVariablesMappingProviderDiffblueTest {
     processVariablesMapping.setInputs(inputs);
     processVariablesMapping.setMappingType(MappingType.MAP_ALL);
     processVariablesMapping.setOutputs(new HashMap<>());
-
     Extension extension = mock(Extension.class);
     when(extension.getPropertyByName(Mockito.<String>any())).thenReturn(new VariableDefinition());
     when(extension.shouldMapAllInputs(Mockito.<String>any())).thenReturn(false);
-    when(extension.getMappingForFlowElement(Mockito.<String>any()))
-        .thenReturn(processVariablesMapping);
+    when(extension.getMappingForFlowElement(Mockito.<String>any())).thenReturn(processVariablesMapping);
     when(extension.hasMapping(Mockito.<String>any())).thenReturn(true);
-    when(extension.getConstantForFlowElement(Mockito.<String>any()))
-        .thenReturn(new ProcessConstantsMapping());
+    when(extension.getConstantForFlowElement(Mockito.<String>any())).thenReturn(new ProcessConstantsMapping());
     when(processExtensionService.getExtensionsForId(Mockito.<String>any())).thenReturn(extension);
-    when(expressionResolver.resolveExpressionsMap(
-            Mockito.<ExpressionEvaluator>any(), Mockito.<Map<String, Object>>any()))
-        .thenReturn(new HashMap<>());
+    when(expressionResolver.resolveExpressionsMap(Mockito.<ExpressionEvaluator>any(),
+        Mockito.<Map<String, Object>>any())).thenReturn(new HashMap<>());
 
     // Act
-    Map<String, Object> actualCalculateInputVariablesResult =
-        extensionsVariablesMappingProvider.calculateInputVariables(
-            ExecutionEntityImpl.createWithEmptyRelationshipCollections());
+    Map<String, Object> actualCalculateInputVariablesResult = extensionsVariablesMappingProvider
+        .calculateInputVariables(ExecutionEntityImpl.createWithEmptyRelationshipCollections());
 
     // Assert
-    verify(expressionResolver)
-        .resolveExpressionsMap(isA(ExpressionEvaluator.class), isA(Map.class));
-    verify(processExtensionService).getExtensionsForId(null);
-    verify(extension).getConstantForFlowElement(null);
-    verify(extension).getMappingForFlowElement(null);
-    verify(extension).getPropertyByName("Value");
-    verify(extension).hasMapping(null);
-    verify(extension).shouldMapAllInputs(null);
+    verify(expressionResolver).resolveExpressionsMap(isA(ExpressionEvaluator.class), isA(Map.class));
+    verify(processExtensionService).getExtensionsForId(isNull());
+    verify(extension).getConstantForFlowElement(isNull());
+    verify(extension).getMappingForFlowElement(isNull());
+    verify(extension).getPropertyByName(eq("Value"));
+    verify(extension).hasMapping(isNull());
+    verify(extension).shouldMapAllInputs(isNull());
     assertTrue(actualCalculateInputVariablesResult.isEmpty());
   }
 
   /**
-   * Test {@link
-   * ExtensionsVariablesMappingProvider#calculateOutPutVariables(MappingExecutionContext, Map)} with
-   * {@code mappingExecutionContext}, {@code availableVariables}.
-   *
-   * <p>Method under test: {@link
-   * ExtensionsVariablesMappingProvider#calculateOutPutVariables(MappingExecutionContext, Map)}
+   * Test {@link ExtensionsVariablesMappingProvider#calculateInputVariables(DelegateExecution)} with {@code execution}.
+   * <ul>
+   *   <li>Given {@link Mapping} (default constructor) Type is {@code VARIABLE}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link ExtensionsVariablesMappingProvider#calculateInputVariables(DelegateExecution)}
    */
   @Test
-  @DisplayName(
-      "Test calculateOutPutVariables(MappingExecutionContext, Map) with 'mappingExecutionContext', 'availableVariables'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "Map ExtensionsVariablesMappingProvider.calculateOutPutVariables(MappingExecutionContext, Map)"
-  })
-  void testCalculateOutPutVariablesWithMappingExecutionContextAvailableVariables() {
+  @DisplayName("Test calculateInputVariables(DelegateExecution) with 'execution'; given Mapping (default constructor) Type is 'VARIABLE'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"Map ExtensionsVariablesMappingProvider.calculateInputVariables(DelegateExecution)"})
+  void testCalculateInputVariablesWithExecution_givenMappingTypeIsVariable() {
     // Arrange
-    when(processExtensionService.getExtensionsForId(Mockito.<String>any()))
-        .thenReturn(new Extension());
-    MappingExecutionContext mappingExecutionContext =
-        MappingExecutionContext.buildMappingExecutionContext("42", "42");
+    Mapping mapping = new Mapping();
+    mapping.setType(SourceMappingType.VARIABLE);
+    mapping.setValue("Value");
+
+    HashMap<String, Mapping> inputs = new HashMap<>();
+    inputs.put("foo", mapping);
+
+    ProcessVariablesMapping processVariablesMapping = new ProcessVariablesMapping();
+    processVariablesMapping.setInputs(inputs);
+    processVariablesMapping.setMappingType(MappingType.MAP_ALL);
+    processVariablesMapping.setOutputs(new HashMap<>());
+    Extension extension = mock(Extension.class);
+    when(extension.getPropertyByName(Mockito.<String>any())).thenReturn(new VariableDefinition());
+    when(extension.shouldMapAllInputs(Mockito.<String>any())).thenReturn(false);
+    when(extension.getMappingForFlowElement(Mockito.<String>any())).thenReturn(processVariablesMapping);
+    when(extension.hasMapping(Mockito.<String>any())).thenReturn(true);
+    when(extension.getConstantForFlowElement(Mockito.<String>any())).thenReturn(new ProcessConstantsMapping());
+    when(processExtensionService.getExtensionsForId(Mockito.<String>any())).thenReturn(extension);
+    when(expressionResolver.resolveExpressionsMap(Mockito.<ExpressionEvaluator>any(),
+        Mockito.<Map<String, Object>>any())).thenReturn(new HashMap<>());
 
     // Act
-    Map<String, Object> actualCalculateOutPutVariablesResult =
-        extensionsVariablesMappingProvider.calculateOutPutVariables(
-            mappingExecutionContext, new HashMap<>());
+    Map<String, Object> actualCalculateInputVariablesResult = extensionsVariablesMappingProvider
+        .calculateInputVariables(ExecutionEntityImpl.createWithEmptyRelationshipCollections());
 
     // Assert
-    verify(processExtensionService).getExtensionsForId("42");
+    verify(expressionResolver).resolveExpressionsMap(isA(ExpressionEvaluator.class), isA(Map.class));
+    verify(processExtensionService).getExtensionsForId(isNull());
+    verify(extension).getConstantForFlowElement(isNull());
+    verify(extension).getMappingForFlowElement(isNull());
+    verify(extension).getPropertyByName(eq("Value"));
+    verify(extension).hasMapping(isNull());
+    verify(extension).shouldMapAllInputs(isNull());
+    assertTrue(actualCalculateInputVariablesResult.isEmpty());
+  }
+
+  /**
+   * Test {@link ExtensionsVariablesMappingProvider#calculateInputVariables(DelegateExecution)} with {@code execution}.
+   * <ul>
+   *   <li>Then calls {@link ExpressionResolver#resolveExpressionsMap(ExpressionEvaluator, Map)}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link ExtensionsVariablesMappingProvider#calculateInputVariables(DelegateExecution)}
+   */
+  @Test
+  @DisplayName("Test calculateInputVariables(DelegateExecution) with 'execution'; then calls resolveExpressionsMap(ExpressionEvaluator, Map)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"Map ExtensionsVariablesMappingProvider.calculateInputVariables(DelegateExecution)"})
+  void testCalculateInputVariablesWithExecution_thenCallsResolveExpressionsMap() {
+    // Arrange
+    ProcessVariablesMapping processVariablesMapping = new ProcessVariablesMapping();
+    processVariablesMapping.setInputs(new HashMap<>());
+    processVariablesMapping.setMappingType(MappingType.MAP_ALL);
+    processVariablesMapping.setOutputs(new HashMap<>());
+    Extension extension = mock(Extension.class);
+    when(extension.shouldMapAllInputs(Mockito.<String>any())).thenReturn(false);
+    when(extension.getMappingForFlowElement(Mockito.<String>any())).thenReturn(processVariablesMapping);
+    when(extension.hasMapping(Mockito.<String>any())).thenReturn(true);
+    when(extension.getConstantForFlowElement(Mockito.<String>any())).thenReturn(new ProcessConstantsMapping());
+    when(processExtensionService.getExtensionsForId(Mockito.<String>any())).thenReturn(extension);
+    when(expressionResolver.resolveExpressionsMap(Mockito.<ExpressionEvaluator>any(),
+        Mockito.<Map<String, Object>>any())).thenReturn(new HashMap<>());
+
+    // Act
+    Map<String, Object> actualCalculateInputVariablesResult = extensionsVariablesMappingProvider
+        .calculateInputVariables(ExecutionEntityImpl.createWithEmptyRelationshipCollections());
+
+    // Assert
+    verify(expressionResolver).resolveExpressionsMap(isA(ExpressionEvaluator.class), isA(Map.class));
+    verify(processExtensionService).getExtensionsForId(isNull());
+    verify(extension).getConstantForFlowElement(isNull());
+    verify(extension).getMappingForFlowElement(isNull());
+    verify(extension).hasMapping(isNull());
+    verify(extension).shouldMapAllInputs(isNull());
+    assertTrue(actualCalculateInputVariablesResult.isEmpty());
+  }
+
+  /**
+   * Test {@link ExtensionsVariablesMappingProvider#calculateInputVariables(DelegateExecution)} with {@code execution}.
+   * <ul>
+   *   <li>Then return size is one.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link ExtensionsVariablesMappingProvider#calculateInputVariables(DelegateExecution)}
+   */
+  @Test
+  @DisplayName("Test calculateInputVariables(DelegateExecution) with 'execution'; then return size is one")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"Map ExtensionsVariablesMappingProvider.calculateInputVariables(DelegateExecution)"})
+  void testCalculateInputVariablesWithExecution_thenReturnSizeIsOne() {
+    // Arrange
+    ConstantDefinition constantDefinition = new ConstantDefinition();
+    constantDefinition.setValue("Value");
+
+    ProcessConstantsMapping processConstantsMapping = new ProcessConstantsMapping();
+    processConstantsMapping.put("foo", constantDefinition);
+    Mapping mapping = mock(Mapping.class);
+    when(mapping.getValue()).thenReturn("Value");
+    when(mapping.getType()).thenReturn(SourceMappingType.VARIABLE);
+    doNothing().when(mapping).setType(Mockito.<SourceMappingType>any());
+    doNothing().when(mapping).setValue(Mockito.<Object>any());
+    mapping.setType(SourceMappingType.VARIABLE);
+    mapping.setValue("Value");
+
+    HashMap<String, Mapping> inputs = new HashMap<>();
+    inputs.put("foo", mapping);
+
+    ProcessVariablesMapping processVariablesMapping = new ProcessVariablesMapping();
+    processVariablesMapping.setInputs(inputs);
+    processVariablesMapping.setMappingType(MappingType.MAP_ALL);
+    processVariablesMapping.setOutputs(new HashMap<>());
+    Extension extension = mock(Extension.class);
+    when(extension.getPropertyByName(Mockito.<String>any())).thenReturn(new VariableDefinition());
+    when(extension.shouldMapAllInputs(Mockito.<String>any())).thenReturn(false);
+    when(extension.getMappingForFlowElement(Mockito.<String>any())).thenReturn(processVariablesMapping);
+    when(extension.hasMapping(Mockito.<String>any())).thenReturn(true);
+    when(extension.getConstantForFlowElement(Mockito.<String>any())).thenReturn(processConstantsMapping);
+    when(processExtensionService.getExtensionsForId(Mockito.<String>any())).thenReturn(extension);
+    HashMap<String, Object> stringObjectMap = new HashMap<>();
+    when(expressionResolver.resolveExpressionsMap(Mockito.<ExpressionEvaluator>any(),
+        Mockito.<Map<String, Object>>any())).thenReturn(stringObjectMap);
+
+    // Act
+    Map<String, Object> actualCalculateInputVariablesResult = extensionsVariablesMappingProvider
+        .calculateInputVariables(ExecutionEntityImpl.createWithEmptyRelationshipCollections());
+
+    // Assert
+    verify(expressionResolver).resolveExpressionsMap(isA(ExpressionEvaluator.class), isA(Map.class));
+    verify(processExtensionService).getExtensionsForId(isNull());
+    verify(extension).getConstantForFlowElement(isNull());
+    verify(extension).getMappingForFlowElement(isNull());
+    verify(extension).getPropertyByName(eq("Value"));
+    verify(extension).hasMapping(isNull());
+    verify(extension).shouldMapAllInputs(isNull());
+    verify(mapping, atLeast(1)).getType();
+    verify(mapping).getValue();
+    verify(mapping).setType(eq(SourceMappingType.VARIABLE));
+    verify(mapping).setValue(isA(Object.class));
+    assertEquals(1, actualCalculateInputVariablesResult.size());
+    assertEquals("Value", actualCalculateInputVariablesResult.get("foo"));
+    assertSame(stringObjectMap, actualCalculateInputVariablesResult);
+  }
+
+  /**
+   * Test {@link ExtensionsVariablesMappingProvider#calculateOutPutVariables(MappingExecutionContext, Map)} with {@code mappingExecutionContext}, {@code availableVariables}.
+   * <p>
+   * Method under test: {@link ExtensionsVariablesMappingProvider#calculateOutPutVariables(MappingExecutionContext, Map)}
+   */
+  @Test
+  @DisplayName("Test calculateOutPutVariables(MappingExecutionContext, Map) with 'mappingExecutionContext', 'availableVariables'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"Map ExtensionsVariablesMappingProvider.calculateOutPutVariables(MappingExecutionContext, Map)"})
+  void testCalculateOutPutVariablesWithMappingExecutionContextAvailableVariables() {
+    // Arrange
+    when(processExtensionService.getExtensionsForId(Mockito.<String>any())).thenReturn(new Extension());
+    MappingExecutionContext mappingExecutionContext = MappingExecutionContext.buildMappingExecutionContext("42", "42");
+
+    // Act
+    Map<String, Object> actualCalculateOutPutVariablesResult = extensionsVariablesMappingProvider
+        .calculateOutPutVariables(mappingExecutionContext, new HashMap<>());
+
+    // Assert
+    verify(processExtensionService).getExtensionsForId(eq("42"));
     assertTrue(actualCalculateOutPutVariablesResult.isEmpty());
   }
 
   /**
-   * Test {@link
-   * ExtensionsVariablesMappingProvider#calculateOutPutVariables(MappingExecutionContext, Map)} with
-   * {@code mappingExecutionContext}, {@code availableVariables}.
-   *
-   * <p>Method under test: {@link
-   * ExtensionsVariablesMappingProvider#calculateOutPutVariables(MappingExecutionContext, Map)}
+   * Test {@link ExtensionsVariablesMappingProvider#calculateOutPutVariables(MappingExecutionContext, Map)} with {@code mappingExecutionContext}, {@code availableVariables}.
+   * <p>
+   * Method under test: {@link ExtensionsVariablesMappingProvider#calculateOutPutVariables(MappingExecutionContext, Map)}
    */
   @Test
-  @DisplayName(
-      "Test calculateOutPutVariables(MappingExecutionContext, Map) with 'mappingExecutionContext', 'availableVariables'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "Map ExtensionsVariablesMappingProvider.calculateOutPutVariables(MappingExecutionContext, Map)"
-  })
+  @DisplayName("Test calculateOutPutVariables(MappingExecutionContext, Map) with 'mappingExecutionContext', 'availableVariables'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"Map ExtensionsVariablesMappingProvider.calculateOutPutVariables(MappingExecutionContext, Map)"})
   void testCalculateOutPutVariablesWithMappingExecutionContextAvailableVariables2() {
-    // Arrange
-    when(processExtensionService.getExtensionsForId(Mockito.<String>any()))
-        .thenThrow(new ActivitiIllegalArgumentException("An error occurred"));
-    MappingExecutionContext mappingExecutionContext =
-        MappingExecutionContext.buildMappingExecutionContext("42", "42");
-
-    // Act and Assert
-    assertThrows(
-        ActivitiIllegalArgumentException.class,
-        () ->
-            extensionsVariablesMappingProvider.calculateOutPutVariables(
-                mappingExecutionContext, new HashMap<>()));
-    verify(processExtensionService).getExtensionsForId("42");
-  }
-
-  /**
-   * Test {@link
-   * ExtensionsVariablesMappingProvider#calculateOutPutVariables(MappingExecutionContext, Map)} with
-   * {@code mappingExecutionContext}, {@code availableVariables}.
-   *
-   * <p>Method under test: {@link
-   * ExtensionsVariablesMappingProvider#calculateOutPutVariables(MappingExecutionContext, Map)}
-   */
-  @Test
-  @DisplayName(
-      "Test calculateOutPutVariables(MappingExecutionContext, Map) with 'mappingExecutionContext', 'availableVariables'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "Map ExtensionsVariablesMappingProvider.calculateOutPutVariables(MappingExecutionContext, Map)"
-  })
-  void testCalculateOutPutVariablesWithMappingExecutionContextAvailableVariables3() {
     // Arrange
     Extension extension = mock(Extension.class);
     when(extension.hasMapping(Mockito.<String>any())).thenReturn(true);
     when(processExtensionService.getExtensionsForId(Mockito.<String>any())).thenReturn(extension);
     when(expressionResolver.containsExpression(Mockito.<Object>any())).thenReturn(true);
-    MappingExecutionContext mappingExecutionContext =
-        MappingExecutionContext.buildMappingExecutionContext("42", "42");
+    MappingExecutionContext mappingExecutionContext = MappingExecutionContext.buildMappingExecutionContext("42", "42");
 
     // Act and Assert
-    assertThrows(
-        ActivitiIllegalArgumentException.class,
-        () ->
-            extensionsVariablesMappingProvider.calculateOutPutVariables(
-                mappingExecutionContext, new HashMap<>()));
+    assertThrows(ActivitiIllegalArgumentException.class,
+        () -> extensionsVariablesMappingProvider.calculateOutPutVariables(mappingExecutionContext, new HashMap<>()));
     verify(expressionResolver).containsExpression(isA(Object.class));
-    verify(processExtensionService).getExtensionsForId("42");
-    verify(extension).hasMapping("42");
+    verify(processExtensionService).getExtensionsForId(eq("42"));
+    verify(extension).hasMapping(eq("42"));
   }
 
   /**
-   * Test {@link
-   * ExtensionsVariablesMappingProvider#calculateOutPutVariables(MappingExecutionContext, Map)} with
-   * {@code mappingExecutionContext}, {@code availableVariables}.
-   *
-   * <p>Method under test: {@link
-   * ExtensionsVariablesMappingProvider#calculateOutPutVariables(MappingExecutionContext, Map)}
+   * Test {@link ExtensionsVariablesMappingProvider#calculateOutPutVariables(MappingExecutionContext, Map)} with {@code mappingExecutionContext}, {@code availableVariables}.
+   * <p>
+   * Method under test: {@link ExtensionsVariablesMappingProvider#calculateOutPutVariables(MappingExecutionContext, Map)}
    */
   @Test
-  @DisplayName(
-      "Test calculateOutPutVariables(MappingExecutionContext, Map) with 'mappingExecutionContext', 'availableVariables'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "Map ExtensionsVariablesMappingProvider.calculateOutPutVariables(MappingExecutionContext, Map)"
-  })
-  void testCalculateOutPutVariablesWithMappingExecutionContextAvailableVariables4() {
+  @DisplayName("Test calculateOutPutVariables(MappingExecutionContext, Map) with 'mappingExecutionContext', 'availableVariables'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"Map ExtensionsVariablesMappingProvider.calculateOutPutVariables(MappingExecutionContext, Map)"})
+  void testCalculateOutPutVariablesWithMappingExecutionContextAvailableVariables3() {
     // Arrange
     Extension extension = mock(Extension.class);
     when(extension.hasMapping(Mockito.<String>any())).thenReturn(true);
     when(processExtensionService.getExtensionsForId(Mockito.<String>any())).thenReturn(extension);
     when(expressionResolver.containsExpression(Mockito.<Object>any()))
         .thenThrow(new ActivitiIllegalArgumentException("An error occurred"));
-    MappingExecutionContext mappingExecutionContext =
-        MappingExecutionContext.buildMappingExecutionContext("42", "42");
+    MappingExecutionContext mappingExecutionContext = MappingExecutionContext.buildMappingExecutionContext("42", "42");
 
     // Act and Assert
-    assertThrows(
-        ActivitiIllegalArgumentException.class,
-        () ->
-            extensionsVariablesMappingProvider.calculateOutPutVariables(
-                mappingExecutionContext, new HashMap<>()));
+    assertThrows(ActivitiIllegalArgumentException.class,
+        () -> extensionsVariablesMappingProvider.calculateOutPutVariables(mappingExecutionContext, new HashMap<>()));
     verify(expressionResolver).containsExpression(isA(Object.class));
-    verify(processExtensionService).getExtensionsForId("42");
-    verify(extension).hasMapping("42");
+    verify(processExtensionService).getExtensionsForId(eq("42"));
+    verify(extension).hasMapping(eq("42"));
   }
 
   /**
-   * Test {@link
-   * ExtensionsVariablesMappingProvider#calculateOutPutVariables(MappingExecutionContext, Map)} with
-   * {@code mappingExecutionContext}, {@code availableVariables}.
-   *
-   * <p>Method under test: {@link
-   * ExtensionsVariablesMappingProvider#calculateOutPutVariables(MappingExecutionContext, Map)}
+   * Test {@link ExtensionsVariablesMappingProvider#calculateOutPutVariables(MappingExecutionContext, Map)} with {@code mappingExecutionContext}, {@code availableVariables}.
+   * <p>
+   * Method under test: {@link ExtensionsVariablesMappingProvider#calculateOutPutVariables(MappingExecutionContext, Map)}
    */
   @Test
-  @DisplayName(
-      "Test calculateOutPutVariables(MappingExecutionContext, Map) with 'mappingExecutionContext', 'availableVariables'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "Map ExtensionsVariablesMappingProvider.calculateOutPutVariables(MappingExecutionContext, Map)"
-  })
-  void testCalculateOutPutVariablesWithMappingExecutionContextAvailableVariables5() {
+  @DisplayName("Test calculateOutPutVariables(MappingExecutionContext, Map) with 'mappingExecutionContext', 'availableVariables'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"Map ExtensionsVariablesMappingProvider.calculateOutPutVariables(MappingExecutionContext, Map)"})
+  void testCalculateOutPutVariablesWithMappingExecutionContextAvailableVariables4() {
     // Arrange
     Extension extension = mock(Extension.class);
     when(extension.shouldMapAllOutputs(Mockito.<String>any())).thenReturn(true);
     when(extension.hasMapping(Mockito.<String>any())).thenReturn(true);
     when(processExtensionService.getExtensionsForId(Mockito.<String>any())).thenReturn(extension);
     when(expressionResolver.containsExpression(Mockito.<Object>any())).thenReturn(false);
-    MappingExecutionContext mappingExecutionContext =
-        MappingExecutionContext.buildMappingExecutionContext("42", "42");
+    MappingExecutionContext mappingExecutionContext = MappingExecutionContext.buildMappingExecutionContext("42", "42");
 
     // Act
-    Map<String, Object> actualCalculateOutPutVariablesResult =
-        extensionsVariablesMappingProvider.calculateOutPutVariables(
-            mappingExecutionContext, new HashMap<>());
+    Map<String, Object> actualCalculateOutPutVariablesResult = extensionsVariablesMappingProvider
+        .calculateOutPutVariables(mappingExecutionContext, new HashMap<>());
 
     // Assert
     verify(expressionResolver).containsExpression(isA(Object.class));
-    verify(processExtensionService).getExtensionsForId("42");
-    verify(extension).hasMapping("42");
-    verify(extension).shouldMapAllOutputs("42");
+    verify(processExtensionService).getExtensionsForId(eq("42"));
+    verify(extension).hasMapping(eq("42"));
+    verify(extension).shouldMapAllOutputs(eq("42"));
     assertTrue(actualCalculateOutPutVariablesResult.isEmpty());
   }
 
   /**
-   * Test {@link
-   * ExtensionsVariablesMappingProvider#calculateOutPutVariables(MappingExecutionContext, Map)} with
-   * {@code mappingExecutionContext}, {@code availableVariables}.
-   *
-   * <p>Method under test: {@link
-   * ExtensionsVariablesMappingProvider#calculateOutPutVariables(MappingExecutionContext, Map)}
+   * Test {@link ExtensionsVariablesMappingProvider#calculateOutPutVariables(MappingExecutionContext, Map)} with {@code mappingExecutionContext}, {@code availableVariables}.
+   * <p>
+   * Method under test: {@link ExtensionsVariablesMappingProvider#calculateOutPutVariables(MappingExecutionContext, Map)}
    */
   @Test
-  @DisplayName(
-      "Test calculateOutPutVariables(MappingExecutionContext, Map) with 'mappingExecutionContext', 'availableVariables'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "Map ExtensionsVariablesMappingProvider.calculateOutPutVariables(MappingExecutionContext, Map)"
-  })
+  @DisplayName("Test calculateOutPutVariables(MappingExecutionContext, Map) with 'mappingExecutionContext', 'availableVariables'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"Map ExtensionsVariablesMappingProvider.calculateOutPutVariables(MappingExecutionContext, Map)"})
+  void testCalculateOutPutVariablesWithMappingExecutionContextAvailableVariables5() {
+    // Arrange
+    ProcessVariablesMapping processVariablesMapping = new ProcessVariablesMapping();
+    processVariablesMapping.setInputs(new HashMap<>());
+    processVariablesMapping.setMappingType(MappingType.MAP_ALL);
+    processVariablesMapping.setOutputs(new HashMap<>());
+    Extension extension = mock(Extension.class);
+    when(extension.shouldMapAllOutputs(Mockito.<String>any())).thenReturn(false);
+    when(extension.getMappingForFlowElement(Mockito.<String>any())).thenReturn(processVariablesMapping);
+    when(extension.hasMapping(Mockito.<String>any())).thenReturn(true);
+    when(processExtensionService.getExtensionsForId(Mockito.<String>any())).thenReturn(extension);
+    when(expressionResolver.resolveExpressionsMap(Mockito.<ExpressionEvaluator>any(),
+        Mockito.<Map<String, Object>>any())).thenReturn(new HashMap<>());
+    when(expressionResolver.containsExpression(Mockito.<Object>any())).thenReturn(false);
+    MappingExecutionContext mappingExecutionContext = MappingExecutionContext.buildMappingExecutionContext("42", "42");
+
+    // Act
+    Map<String, Object> actualCalculateOutPutVariablesResult = extensionsVariablesMappingProvider
+        .calculateOutPutVariables(mappingExecutionContext, new HashMap<>());
+
+    // Assert
+    verify(expressionResolver).containsExpression(isA(Object.class));
+    verify(expressionResolver).resolveExpressionsMap(isA(ExpressionEvaluator.class), isA(Map.class));
+    verify(processExtensionService).getExtensionsForId(eq("42"));
+    verify(extension).getMappingForFlowElement(eq("42"));
+    verify(extension).hasMapping(eq("42"));
+    verify(extension).shouldMapAllOutputs(eq("42"));
+    assertTrue(actualCalculateOutPutVariablesResult.isEmpty());
+  }
+
+  /**
+   * Test {@link ExtensionsVariablesMappingProvider#calculateOutPutVariables(MappingExecutionContext, Map)} with {@code mappingExecutionContext}, {@code availableVariables}.
+   * <p>
+   * Method under test: {@link ExtensionsVariablesMappingProvider#calculateOutPutVariables(MappingExecutionContext, Map)}
+   */
+  @Test
+  @DisplayName("Test calculateOutPutVariables(MappingExecutionContext, Map) with 'mappingExecutionContext', 'availableVariables'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"Map ExtensionsVariablesMappingProvider.calculateOutPutVariables(MappingExecutionContext, Map)"})
   void testCalculateOutPutVariablesWithMappingExecutionContextAvailableVariables6() {
     // Arrange
-    Extension extension = mock(Extension.class);
-    when(extension.shouldMapAllOutputs(Mockito.<String>any()))
-        .thenThrow(new ActivitiIllegalArgumentException("An error occurred"));
-    when(extension.hasMapping(Mockito.<String>any())).thenReturn(true);
-    when(processExtensionService.getExtensionsForId(Mockito.<String>any())).thenReturn(extension);
-    when(expressionResolver.containsExpression(Mockito.<Object>any())).thenReturn(false);
-    MappingExecutionContext mappingExecutionContext =
-        MappingExecutionContext.buildMappingExecutionContext("42", "42");
-
-    // Act and Assert
-    assertThrows(
-        ActivitiIllegalArgumentException.class,
-        () ->
-            extensionsVariablesMappingProvider.calculateOutPutVariables(
-                mappingExecutionContext, new HashMap<>()));
-    verify(expressionResolver).containsExpression(isA(Object.class));
-    verify(processExtensionService).getExtensionsForId("42");
-    verify(extension).hasMapping("42");
-    verify(extension).shouldMapAllOutputs("42");
-  }
-
-  /**
-   * Test {@link
-   * ExtensionsVariablesMappingProvider#calculateOutPutVariables(MappingExecutionContext, Map)} with
-   * {@code mappingExecutionContext}, {@code availableVariables}.
-   *
-   * <p>Method under test: {@link
-   * ExtensionsVariablesMappingProvider#calculateOutPutVariables(MappingExecutionContext, Map)}
-   */
-  @Test
-  @DisplayName(
-      "Test calculateOutPutVariables(MappingExecutionContext, Map) with 'mappingExecutionContext', 'availableVariables'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "Map ExtensionsVariablesMappingProvider.calculateOutPutVariables(MappingExecutionContext, Map)"
-  })
-  void testCalculateOutPutVariablesWithMappingExecutionContextAvailableVariables7() {
-    // Arrange
-    ProcessVariablesMapping processVariablesMapping = new ProcessVariablesMapping();
-    processVariablesMapping.setInputs(new HashMap<>());
-    processVariablesMapping.setMappingType(MappingType.MAP_ALL);
-    processVariablesMapping.setOutputs(new HashMap<>());
-
-    Extension extension = mock(Extension.class);
-    when(extension.shouldMapAllOutputs(Mockito.<String>any())).thenReturn(false);
-    when(extension.getMappingForFlowElement(Mockito.<String>any()))
-        .thenReturn(processVariablesMapping);
-    when(extension.hasMapping(Mockito.<String>any())).thenReturn(true);
-    when(processExtensionService.getExtensionsForId(Mockito.<String>any())).thenReturn(extension);
-    when(expressionResolver.resolveExpressionsMap(
-            Mockito.<ExpressionEvaluator>any(), Mockito.<Map<String, Object>>any()))
-        .thenReturn(new HashMap<>());
-    when(expressionResolver.containsExpression(Mockito.<Object>any())).thenReturn(false);
-    MappingExecutionContext mappingExecutionContext =
-        MappingExecutionContext.buildMappingExecutionContext("42", "42");
-
-    // Act
-    Map<String, Object> actualCalculateOutPutVariablesResult =
-        extensionsVariablesMappingProvider.calculateOutPutVariables(
-            mappingExecutionContext, new HashMap<>());
-
-    // Assert
-    verify(expressionResolver).containsExpression(isA(Object.class));
-    verify(expressionResolver)
-        .resolveExpressionsMap(isA(ExpressionEvaluator.class), isA(Map.class));
-    verify(processExtensionService).getExtensionsForId("42");
-    verify(extension).getMappingForFlowElement("42");
-    verify(extension).hasMapping("42");
-    verify(extension).shouldMapAllOutputs("42");
-    assertTrue(actualCalculateOutPutVariablesResult.isEmpty());
-  }
-
-  /**
-   * Test {@link
-   * ExtensionsVariablesMappingProvider#calculateOutPutVariables(MappingExecutionContext, Map)} with
-   * {@code mappingExecutionContext}, {@code availableVariables}.
-   *
-   * <p>Method under test: {@link
-   * ExtensionsVariablesMappingProvider#calculateOutPutVariables(MappingExecutionContext, Map)}
-   */
-  @Test
-  @DisplayName(
-      "Test calculateOutPutVariables(MappingExecutionContext, Map) with 'mappingExecutionContext', 'availableVariables'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "Map ExtensionsVariablesMappingProvider.calculateOutPutVariables(MappingExecutionContext, Map)"
-  })
-  void testCalculateOutPutVariablesWithMappingExecutionContextAvailableVariables8() {
-    // Arrange
-    ProcessVariablesMapping processVariablesMapping = new ProcessVariablesMapping();
-    processVariablesMapping.setInputs(new HashMap<>());
-    processVariablesMapping.setMappingType(MappingType.MAP_ALL);
-    processVariablesMapping.setOutputs(new HashMap<>());
-
-    Extension extension = mock(Extension.class);
-    when(extension.shouldMapAllOutputs(Mockito.<String>any())).thenReturn(false);
-    when(extension.getMappingForFlowElement(Mockito.<String>any()))
-        .thenReturn(processVariablesMapping);
-    when(extension.hasMapping(Mockito.<String>any())).thenReturn(true);
-    when(processExtensionService.getExtensionsForId(Mockito.<String>any())).thenReturn(extension);
-    when(expressionResolver.resolveExpressionsMap(
-            Mockito.<ExpressionEvaluator>any(), Mockito.<Map<String, Object>>any()))
-        .thenThrow(new ActivitiIllegalArgumentException("An error occurred"));
-    when(expressionResolver.containsExpression(Mockito.<Object>any())).thenReturn(false);
-    MappingExecutionContext mappingExecutionContext =
-        MappingExecutionContext.buildMappingExecutionContext("42", "42");
-
-    // Act and Assert
-    assertThrows(
-        ActivitiIllegalArgumentException.class,
-        () ->
-            extensionsVariablesMappingProvider.calculateOutPutVariables(
-                mappingExecutionContext, new HashMap<>()));
-    verify(expressionResolver).containsExpression(isA(Object.class));
-    verify(expressionResolver)
-        .resolveExpressionsMap(isA(ExpressionEvaluator.class), isA(Map.class));
-    verify(processExtensionService).getExtensionsForId("42");
-    verify(extension).getMappingForFlowElement("42");
-    verify(extension).hasMapping("42");
-    verify(extension).shouldMapAllOutputs("42");
-  }
-
-  /**
-   * Test {@link
-   * ExtensionsVariablesMappingProvider#calculateOutPutVariables(MappingExecutionContext, Map)} with
-   * {@code mappingExecutionContext}, {@code availableVariables}.
-   *
-   * <p>Method under test: {@link
-   * ExtensionsVariablesMappingProvider#calculateOutPutVariables(MappingExecutionContext, Map)}
-   */
-  @Test
-  @DisplayName(
-      "Test calculateOutPutVariables(MappingExecutionContext, Map) with 'mappingExecutionContext', 'availableVariables'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "Map ExtensionsVariablesMappingProvider.calculateOutPutVariables(MappingExecutionContext, Map)"
-  })
-  void testCalculateOutPutVariablesWithMappingExecutionContextAvailableVariables9() {
-    // Arrange
     Mapping mapping = new Mapping();
-    mapping.setType(SourceMappingType.VARIABLE);
+    mapping.setType(SourceMappingType.JSONPATCH);
     mapping.setValue("Value");
 
     HashMap<String, Mapping> outputs = new HashMap<>();
-    outputs.put("foo", mapping);
+    outputs.put("", mapping);
 
     ProcessVariablesMapping processVariablesMapping = new ProcessVariablesMapping();
     processVariablesMapping.setInputs(new HashMap<>());
     processVariablesMapping.setMappingType(MappingType.MAP_ALL);
     processVariablesMapping.setOutputs(outputs);
-
     Extension extension = mock(Extension.class);
     when(extension.getPropertyByName(Mockito.<String>any())).thenReturn(new VariableDefinition());
     when(extension.shouldMapAllOutputs(Mockito.<String>any())).thenReturn(false);
-    when(extension.getMappingForFlowElement(Mockito.<String>any()))
-        .thenReturn(processVariablesMapping);
-    when(extension.hasMapping(Mockito.<String>any())).thenReturn(true);
-    when(processExtensionService.getExtensionsForId(Mockito.<String>any())).thenReturn(extension);
-    when(expressionResolver.resolveExpressionsMap(
-            Mockito.<ExpressionEvaluator>any(), Mockito.<Map<String, Object>>any()))
-        .thenReturn(new HashMap<>());
-    when(expressionResolver.containsExpression(Mockito.<Object>any())).thenReturn(false);
-    MappingExecutionContext mappingExecutionContext =
-        MappingExecutionContext.buildMappingExecutionContext("42", "42");
-
-    // Act
-    Map<String, Object> actualCalculateOutPutVariablesResult =
-        extensionsVariablesMappingProvider.calculateOutPutVariables(
-            mappingExecutionContext, new HashMap<>());
-
-    // Assert
-    verify(expressionResolver).containsExpression(isA(Object.class));
-    verify(expressionResolver)
-        .resolveExpressionsMap(isA(ExpressionEvaluator.class), isA(Map.class));
-    verify(processExtensionService).getExtensionsForId("42");
-    verify(extension).getMappingForFlowElement("42");
-    verify(extension, atLeast(1)).getPropertyByName("foo");
-    verify(extension).hasMapping("42");
-    verify(extension).shouldMapAllOutputs("42");
-    assertTrue(actualCalculateOutPutVariablesResult.isEmpty());
-  }
-
-  /**
-   * Test {@link
-   * ExtensionsVariablesMappingProvider#calculateOutPutVariables(MappingExecutionContext, Map)} with
-   * {@code mappingExecutionContext}, {@code availableVariables}.
-   *
-   * <p>Method under test: {@link
-   * ExtensionsVariablesMappingProvider#calculateOutPutVariables(MappingExecutionContext, Map)}
-   */
-  @Test
-  @DisplayName(
-      "Test calculateOutPutVariables(MappingExecutionContext, Map) with 'mappingExecutionContext', 'availableVariables'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "Map ExtensionsVariablesMappingProvider.calculateOutPutVariables(MappingExecutionContext, Map)"
-  })
-  void testCalculateOutPutVariablesWithMappingExecutionContextAvailableVariables10() {
-    // Arrange
-    Mapping mapping = new Mapping();
-    mapping.setType(SourceMappingType.VARIABLE);
-    mapping.setValue("Value");
-
-    HashMap<String, Mapping> outputs = new HashMap<>();
-    outputs.put("foo", mapping);
-
-    ProcessVariablesMapping processVariablesMapping = new ProcessVariablesMapping();
-    processVariablesMapping.setInputs(new HashMap<>());
-    processVariablesMapping.setMappingType(MappingType.MAP_ALL);
-    processVariablesMapping.setOutputs(outputs);
-
-    Extension extension = mock(Extension.class);
-    when(extension.getPropertyByName(Mockito.<String>any()))
-        .thenThrow(new ActivitiIllegalArgumentException("An error occurred"));
-    when(extension.shouldMapAllOutputs(Mockito.<String>any())).thenReturn(false);
-    when(extension.getMappingForFlowElement(Mockito.<String>any()))
-        .thenReturn(processVariablesMapping);
+    when(extension.getMappingForFlowElement(Mockito.<String>any())).thenReturn(processVariablesMapping);
     when(extension.hasMapping(Mockito.<String>any())).thenReturn(true);
     when(processExtensionService.getExtensionsForId(Mockito.<String>any())).thenReturn(extension);
     when(expressionResolver.containsExpression(Mockito.<Object>any())).thenReturn(false);
-    MappingExecutionContext mappingExecutionContext =
-        MappingExecutionContext.buildMappingExecutionContext("42", "42");
+    MappingExecutionContext mappingExecutionContext = MappingExecutionContext.buildMappingExecutionContext("42", "42");
 
     // Act and Assert
-    assertThrows(
-        ActivitiIllegalArgumentException.class,
-        () ->
-            extensionsVariablesMappingProvider.calculateOutPutVariables(
-                mappingExecutionContext, new HashMap<>()));
+    assertThrows(ActivitiIllegalArgumentException.class,
+        () -> extensionsVariablesMappingProvider.calculateOutPutVariables(mappingExecutionContext, new HashMap<>()));
     verify(expressionResolver).containsExpression(isA(Object.class));
-    verify(processExtensionService).getExtensionsForId("42");
-    verify(extension).getMappingForFlowElement("42");
-    verify(extension).getPropertyByName("foo");
-    verify(extension).hasMapping("42");
-    verify(extension).shouldMapAllOutputs("42");
+    verify(processExtensionService).getExtensionsForId(eq("42"));
+    verify(extension).getMappingForFlowElement(eq("42"));
+    verify(extension, atLeast(1)).getPropertyByName(eq(""));
+    verify(extension).hasMapping(eq("42"));
+    verify(extension).shouldMapAllOutputs(eq("42"));
   }
 
   /**
-   * Test {@link
-   * ExtensionsVariablesMappingProvider#calculateOutPutVariables(MappingExecutionContext, Map)} with
-   * {@code mappingExecutionContext}, {@code availableVariables}.
-   *
-   * <p>Method under test: {@link
-   * ExtensionsVariablesMappingProvider#calculateOutPutVariables(MappingExecutionContext, Map)}
+   * Test {@link ExtensionsVariablesMappingProvider#calculateOutPutVariables(MappingExecutionContext, Map)} with {@code mappingExecutionContext}, {@code availableVariables}.
+   * <p>
+   * Method under test: {@link ExtensionsVariablesMappingProvider#calculateOutPutVariables(MappingExecutionContext, Map)}
    */
   @Test
-  @DisplayName(
-      "Test calculateOutPutVariables(MappingExecutionContext, Map) with 'mappingExecutionContext', 'availableVariables'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "Map ExtensionsVariablesMappingProvider.calculateOutPutVariables(MappingExecutionContext, Map)"
-  })
-  void testCalculateOutPutVariablesWithMappingExecutionContextAvailableVariables11() {
+  @DisplayName("Test calculateOutPutVariables(MappingExecutionContext, Map) with 'mappingExecutionContext', 'availableVariables'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"Map ExtensionsVariablesMappingProvider.calculateOutPutVariables(MappingExecutionContext, Map)"})
+  void testCalculateOutPutVariablesWithMappingExecutionContextAvailableVariables7() {
     // Arrange
     Mapping mapping = new Mapping();
-    mapping.setType(SourceMappingType.VARIABLE);
+    mapping.setType(SourceMappingType.JSONPATCH);
     mapping.setValue("Value");
 
     HashMap<String, Mapping> outputs = new HashMap<>();
-    outputs.put("foo", mapping);
+    outputs.put("", mapping);
 
     ProcessVariablesMapping processVariablesMapping = new ProcessVariablesMapping();
     processVariablesMapping.setInputs(new HashMap<>());
     processVariablesMapping.setMappingType(MappingType.MAP_ALL);
     processVariablesMapping.setOutputs(outputs);
-
     Extension extension = mock(Extension.class);
     when(extension.getPropertyByName(Mockito.<String>any())).thenReturn(null);
     when(extension.shouldMapAllOutputs(Mockito.<String>any())).thenReturn(false);
-    when(extension.getMappingForFlowElement(Mockito.<String>any()))
-        .thenReturn(processVariablesMapping);
+    when(extension.getMappingForFlowElement(Mockito.<String>any())).thenReturn(processVariablesMapping);
     when(extension.hasMapping(Mockito.<String>any())).thenReturn(true);
     when(processExtensionService.getExtensionsForId(Mockito.<String>any())).thenReturn(extension);
-    when(expressionResolver.resolveExpressionsMap(
-            Mockito.<ExpressionEvaluator>any(), Mockito.<Map<String, Object>>any()))
-        .thenReturn(new HashMap<>());
+    when(expressionResolver.resolveExpressionsMap(Mockito.<ExpressionEvaluator>any(),
+        Mockito.<Map<String, Object>>any())).thenReturn(new HashMap<>());
     when(expressionResolver.containsExpression(Mockito.<Object>any())).thenReturn(false);
-    MappingExecutionContext mappingExecutionContext =
-        MappingExecutionContext.buildMappingExecutionContext("42", "42");
+    MappingExecutionContext mappingExecutionContext = MappingExecutionContext.buildMappingExecutionContext("42", "42");
 
     // Act
-    Map<String, Object> actualCalculateOutPutVariablesResult =
-        extensionsVariablesMappingProvider.calculateOutPutVariables(
-            mappingExecutionContext, new HashMap<>());
+    Map<String, Object> actualCalculateOutPutVariablesResult = extensionsVariablesMappingProvider
+        .calculateOutPutVariables(mappingExecutionContext, new HashMap<>());
 
     // Assert
     verify(expressionResolver).containsExpression(isA(Object.class));
-    verify(expressionResolver)
-        .resolveExpressionsMap(isA(ExpressionEvaluator.class), isA(Map.class));
-    verify(processExtensionService).getExtensionsForId("42");
-    verify(extension).getMappingForFlowElement("42");
-    verify(extension).getPropertyByName("foo");
-    verify(extension).hasMapping("42");
-    verify(extension).shouldMapAllOutputs("42");
+    verify(expressionResolver).resolveExpressionsMap(isA(ExpressionEvaluator.class), isA(Map.class));
+    verify(processExtensionService).getExtensionsForId(eq("42"));
+    verify(extension).getMappingForFlowElement(eq("42"));
+    verify(extension).getPropertyByName(eq(""));
+    verify(extension).hasMapping(eq("42"));
+    verify(extension).shouldMapAllOutputs(eq("42"));
     assertTrue(actualCalculateOutPutVariablesResult.isEmpty());
   }
 
   /**
-   * Test {@link
-   * ExtensionsVariablesMappingProvider#calculateOutPutVariables(MappingExecutionContext, Map)} with
-   * {@code mappingExecutionContext}, {@code availableVariables}.
-   *
-   * <p>Method under test: {@link
-   * ExtensionsVariablesMappingProvider#calculateOutPutVariables(MappingExecutionContext, Map)}
+   * Test {@link ExtensionsVariablesMappingProvider#calculateOutPutVariables(MappingExecutionContext, Map)} with {@code mappingExecutionContext}, {@code availableVariables}.
+   * <p>
+   * Method under test: {@link ExtensionsVariablesMappingProvider#calculateOutPutVariables(MappingExecutionContext, Map)}
    */
   @Test
-  @DisplayName(
-      "Test calculateOutPutVariables(MappingExecutionContext, Map) with 'mappingExecutionContext', 'availableVariables'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "Map ExtensionsVariablesMappingProvider.calculateOutPutVariables(MappingExecutionContext, Map)"
-  })
-  void testCalculateOutPutVariablesWithMappingExecutionContextAvailableVariables12() {
+  @DisplayName("Test calculateOutPutVariables(MappingExecutionContext, Map) with 'mappingExecutionContext', 'availableVariables'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"Map ExtensionsVariablesMappingProvider.calculateOutPutVariables(MappingExecutionContext, Map)"})
+  void testCalculateOutPutVariablesWithMappingExecutionContextAvailableVariables8() {
     // Arrange
     Mapping mapping = new Mapping();
-    mapping.setType(SourceMappingType.VARIABLE);
+    mapping.setType(SourceMappingType.JSONPATCH);
     mapping.setValue("Value");
 
-    Mapping mapping2 = new Mapping();
-    mapping2.setType(SourceMappingType.VALUE);
-    mapping2.setValue("Value");
-
     HashMap<String, Mapping> outputs = new HashMap<>();
-    outputs.put("42", mapping2);
-    outputs.put("foo", mapping);
+    outputs.put("", mapping);
 
     ProcessVariablesMapping processVariablesMapping = new ProcessVariablesMapping();
     processVariablesMapping.setInputs(new HashMap<>());
     processVariablesMapping.setMappingType(MappingType.MAP_ALL);
     processVariablesMapping.setOutputs(outputs);
-
     Extension extension = mock(Extension.class);
-    when(extension.getProperties()).thenReturn(new HashMap<>());
-    when(extension.getPropertyByName(Mockito.<String>any())).thenReturn(new VariableDefinition());
+    when(extension.getPropertyByName(Mockito.<String>any())).thenReturn(new VariableDefinition(
+        "Error patching variable. Changes to apply: {}, Process variable current value: {}", "Value"));
     when(extension.shouldMapAllOutputs(Mockito.<String>any())).thenReturn(false);
-    when(extension.getMappingForFlowElement(Mockito.<String>any()))
-        .thenReturn(processVariablesMapping);
-    when(extension.hasMapping(Mockito.<String>any())).thenReturn(true);
-    when(processExtensionService.getExtensionsForId(Mockito.<String>any())).thenReturn(extension);
-    when(expressionResolver.resolveExpressionsMap(
-            Mockito.<ExpressionEvaluator>any(), Mockito.<Map<String, Object>>any()))
-        .thenReturn(new HashMap<>());
-    when(expressionResolver.containsExpression(Mockito.<Object>any())).thenReturn(false);
-    MappingExecutionContext mappingExecutionContext =
-        MappingExecutionContext.buildMappingExecutionContext("42", "42");
-
-    // Act
-    Map<String, Object> actualCalculateOutPutVariablesResult =
-        extensionsVariablesMappingProvider.calculateOutPutVariables(
-            mappingExecutionContext, new HashMap<>());
-
-    // Assert
-    verify(expressionResolver).containsExpression(isA(Object.class));
-    verify(expressionResolver)
-        .resolveExpressionsMap(isA(ExpressionEvaluator.class), isA(Map.class));
-    verify(processExtensionService).getExtensionsForId("42");
-    verify(extension).getMappingForFlowElement("42");
-    verify(extension).getProperties();
-    verify(extension, atLeast(1)).getPropertyByName(Mockito.<String>any());
-    verify(extension).hasMapping("42");
-    verify(extension).shouldMapAllOutputs("42");
-    assertTrue(actualCalculateOutPutVariablesResult.isEmpty());
-  }
-
-  /**
-   * Test {@link
-   * ExtensionsVariablesMappingProvider#calculateOutPutVariables(MappingExecutionContext, Map)} with
-   * {@code mappingExecutionContext}, {@code availableVariables}.
-   *
-   * <p>Method under test: {@link
-   * ExtensionsVariablesMappingProvider#calculateOutPutVariables(MappingExecutionContext, Map)}
-   */
-  @Test
-  @DisplayName(
-      "Test calculateOutPutVariables(MappingExecutionContext, Map) with 'mappingExecutionContext', 'availableVariables'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "Map ExtensionsVariablesMappingProvider.calculateOutPutVariables(MappingExecutionContext, Map)"
-  })
-  void testCalculateOutPutVariablesWithMappingExecutionContextAvailableVariables13() {
-    // Arrange
-    Mapping mapping = new Mapping();
-    mapping.setType(SourceMappingType.VARIABLE);
-    mapping.setValue("Value");
-
-    Mapping mapping2 = new Mapping();
-    mapping2.setType(SourceMappingType.VALUE);
-    mapping2.setValue("Value");
-
-    HashMap<String, Mapping> outputs = new HashMap<>();
-    outputs.put("42", mapping2);
-    outputs.put("foo", mapping);
-
-    ProcessVariablesMapping processVariablesMapping = new ProcessVariablesMapping();
-    processVariablesMapping.setInputs(new HashMap<>());
-    processVariablesMapping.setMappingType(MappingType.MAP_ALL);
-    processVariablesMapping.setOutputs(outputs);
-
-    Extension extension = mock(Extension.class);
-    when(extension.getProperties())
-        .thenThrow(new ActivitiIllegalArgumentException("An error occurred"));
-    when(extension.getPropertyByName(Mockito.<String>any())).thenReturn(new VariableDefinition());
-    when(extension.shouldMapAllOutputs(Mockito.<String>any())).thenReturn(false);
-    when(extension.getMappingForFlowElement(Mockito.<String>any()))
-        .thenReturn(processVariablesMapping);
+    when(extension.getMappingForFlowElement(Mockito.<String>any())).thenReturn(processVariablesMapping);
     when(extension.hasMapping(Mockito.<String>any())).thenReturn(true);
     when(processExtensionService.getExtensionsForId(Mockito.<String>any())).thenReturn(extension);
     when(expressionResolver.containsExpression(Mockito.<Object>any())).thenReturn(false);
-    MappingExecutionContext mappingExecutionContext =
-        MappingExecutionContext.buildMappingExecutionContext("42", "42");
+    MappingExecutionContext mappingExecutionContext = MappingExecutionContext.buildMappingExecutionContext("42", "42");
 
     // Act and Assert
-    assertThrows(
-        ActivitiIllegalArgumentException.class,
-        () ->
-            extensionsVariablesMappingProvider.calculateOutPutVariables(
-                mappingExecutionContext, new HashMap<>()));
+    assertThrows(ActivitiIllegalArgumentException.class,
+        () -> extensionsVariablesMappingProvider.calculateOutPutVariables(mappingExecutionContext, new HashMap<>()));
     verify(expressionResolver).containsExpression(isA(Object.class));
-    verify(processExtensionService).getExtensionsForId("42");
-    verify(extension).getMappingForFlowElement("42");
-    verify(extension).getProperties();
-    verify(extension, atLeast(1)).getPropertyByName(Mockito.<String>any());
-    verify(extension).hasMapping("42");
-    verify(extension).shouldMapAllOutputs("42");
+    verify(processExtensionService).getExtensionsForId(eq("42"));
+    verify(extension).getMappingForFlowElement(eq("42"));
+    verify(extension, atLeast(1)).getPropertyByName(eq(""));
+    verify(extension).hasMapping(eq("42"));
+    verify(extension).shouldMapAllOutputs(eq("42"));
   }
 
   /**
-   * Test {@link
-   * ExtensionsVariablesMappingProvider#calculateOutPutVariables(MappingExecutionContext, Map)} with
-   * {@code mappingExecutionContext}, {@code availableVariables}.
-   *
-   * <p>Method under test: {@link
-   * ExtensionsVariablesMappingProvider#calculateOutPutVariables(MappingExecutionContext, Map)}
+   * Test {@link ExtensionsVariablesMappingProvider#calculateOutPutVariables(MappingExecutionContext, Map)} with {@code mappingExecutionContext}, {@code availableVariables}.
+   * <p>
+   * Method under test: {@link ExtensionsVariablesMappingProvider#calculateOutPutVariables(MappingExecutionContext, Map)}
    */
   @Test
-  @DisplayName(
-      "Test calculateOutPutVariables(MappingExecutionContext, Map) with 'mappingExecutionContext', 'availableVariables'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "Map ExtensionsVariablesMappingProvider.calculateOutPutVariables(MappingExecutionContext, Map)"
-  })
-  void testCalculateOutPutVariablesWithMappingExecutionContextAvailableVariables14() {
+  @DisplayName("Test calculateOutPutVariables(MappingExecutionContext, Map) with 'mappingExecutionContext', 'availableVariables'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"Map ExtensionsVariablesMappingProvider.calculateOutPutVariables(MappingExecutionContext, Map)"})
+  void testCalculateOutPutVariablesWithMappingExecutionContextAvailableVariables9() {
     // Arrange
     Mapping mapping = new Mapping();
-    mapping.setType(SourceMappingType.VARIABLE);
+    mapping.setType(SourceMappingType.JSONPATCH);
     mapping.setValue("Value");
 
-    Mapping mapping2 = new Mapping();
-    mapping2.setType(SourceMappingType.VALUE);
-    mapping2.setValue("Value");
-
-    Mapping mapping3 = new Mapping();
-    mapping3.setType(SourceMappingType.JSONPATCH);
-    mapping3.setValue("Value");
-
     HashMap<String, Mapping> outputs = new HashMap<>();
-    outputs.put("", mapping3);
-    outputs.put("42", mapping2);
-    outputs.put("foo", mapping);
+    outputs.put("", mapping);
 
     ProcessVariablesMapping processVariablesMapping = new ProcessVariablesMapping();
     processVariablesMapping.setInputs(new HashMap<>());
     processVariablesMapping.setMappingType(MappingType.MAP_ALL);
     processVariablesMapping.setOutputs(outputs);
-
-    Extension extension = mock(Extension.class);
-    when(extension.getPropertyByName(Mockito.<String>any())).thenReturn(new VariableDefinition());
-    when(extension.shouldMapAllOutputs(Mockito.<String>any())).thenReturn(false);
-    when(extension.getMappingForFlowElement(Mockito.<String>any()))
-        .thenReturn(processVariablesMapping);
-    when(extension.hasMapping(Mockito.<String>any())).thenReturn(true);
-
-    ProcessExtensionService processExtensionService = mock(ProcessExtensionService.class);
-    when(processExtensionService.getExtensionsForId(Mockito.<String>any())).thenReturn(extension);
-
-    ExpressionResolver expressionResolver = mock(ExpressionResolver.class);
-    when(expressionResolver.containsExpression(Mockito.<Object>any())).thenReturn(false);
-
-    ExtensionsVariablesMappingProvider extensionsVariablesMappingProvider =
-        new ExtensionsVariablesMappingProvider(
-            processExtensionService,
-            expressionResolver,
-            new VariableParsingService(new HashMap<>()));
-    MappingExecutionContext mappingExecutionContext =
-        MappingExecutionContext.buildMappingExecutionContext("42", "42");
-
-    // Act and Assert
-    assertThrows(
-        ActivitiIllegalArgumentException.class,
-        () ->
-            extensionsVariablesMappingProvider.calculateOutPutVariables(
-                mappingExecutionContext, new HashMap<>()));
-    verify(expressionResolver).containsExpression(isA(Object.class));
-    verify(processExtensionService).getExtensionsForId("42");
-    verify(extension).getMappingForFlowElement("42");
-    verify(extension, atLeast(1)).getPropertyByName("");
-    verify(extension).hasMapping("42");
-    verify(extension).shouldMapAllOutputs("42");
-  }
-
-  /**
-   * Test {@link
-   * ExtensionsVariablesMappingProvider#calculateOutPutVariables(MappingExecutionContext, Map)} with
-   * {@code mappingExecutionContext}, {@code availableVariables}.
-   *
-   * <p>Method under test: {@link
-   * ExtensionsVariablesMappingProvider#calculateOutPutVariables(MappingExecutionContext, Map)}
-   */
-  @Test
-  @DisplayName(
-      "Test calculateOutPutVariables(MappingExecutionContext, Map) with 'mappingExecutionContext', 'availableVariables'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "Map ExtensionsVariablesMappingProvider.calculateOutPutVariables(MappingExecutionContext, Map)"
-  })
-  void testCalculateOutPutVariablesWithMappingExecutionContextAvailableVariables15() {
-    // Arrange
-    Mapping mapping = new Mapping();
-    mapping.setType(SourceMappingType.VARIABLE);
-    mapping.setValue("Value");
-
-    Mapping mapping2 = new Mapping();
-    mapping2.setType(null);
-    mapping2.setValue("Value");
-
-    HashMap<String, Mapping> outputs = new HashMap<>();
-    outputs.put("42", mapping2);
-    outputs.put("foo", mapping);
-
-    ProcessVariablesMapping processVariablesMapping = new ProcessVariablesMapping();
-    processVariablesMapping.setInputs(new HashMap<>());
-    processVariablesMapping.setMappingType(MappingType.MAP_ALL);
-    processVariablesMapping.setOutputs(outputs);
-
-    Extension extension = mock(Extension.class);
-    when(extension.getPropertyByName(Mockito.<String>any())).thenReturn(new VariableDefinition());
-    when(extension.shouldMapAllOutputs(Mockito.<String>any())).thenReturn(false);
-    when(extension.getMappingForFlowElement(Mockito.<String>any()))
-        .thenReturn(processVariablesMapping);
-    when(extension.hasMapping(Mockito.<String>any())).thenReturn(true);
-
-    ProcessExtensionService processExtensionService = mock(ProcessExtensionService.class);
-    when(processExtensionService.getExtensionsForId(Mockito.<String>any())).thenReturn(extension);
-
-    ExpressionResolver expressionResolver = mock(ExpressionResolver.class);
-    when(expressionResolver.resolveExpressionsMap(
-            Mockito.<ExpressionEvaluator>any(), Mockito.<Map<String, Object>>any()))
-        .thenReturn(new HashMap<>());
-    when(expressionResolver.containsExpression(Mockito.<Object>any())).thenReturn(false);
-
-    ExtensionsVariablesMappingProvider extensionsVariablesMappingProvider =
-        new ExtensionsVariablesMappingProvider(
-            processExtensionService,
-            expressionResolver,
-            new VariableParsingService(new HashMap<>()));
-    MappingExecutionContext mappingExecutionContext =
-        MappingExecutionContext.buildMappingExecutionContext("42", "42");
-
-    // Act
-    Map<String, Object> actualCalculateOutPutVariablesResult =
-        extensionsVariablesMappingProvider.calculateOutPutVariables(
-            mappingExecutionContext, new HashMap<>());
-
-    // Assert
-    verify(expressionResolver).containsExpression(isA(Object.class));
-    verify(expressionResolver)
-        .resolveExpressionsMap(isA(ExpressionEvaluator.class), isA(Map.class));
-    verify(processExtensionService).getExtensionsForId("42");
-    verify(extension).getMappingForFlowElement("42");
-    verify(extension, atLeast(1)).getPropertyByName(Mockito.<String>any());
-    verify(extension).hasMapping("42");
-    verify(extension).shouldMapAllOutputs("42");
-    assertTrue(actualCalculateOutPutVariablesResult.isEmpty());
-  }
-
-  /**
-   * Test {@link
-   * ExtensionsVariablesMappingProvider#calculateOutPutVariables(MappingExecutionContext, Map)} with
-   * {@code mappingExecutionContext}, {@code availableVariables}.
-   *
-   * <p>Method under test: {@link
-   * ExtensionsVariablesMappingProvider#calculateOutPutVariables(MappingExecutionContext, Map)}
-   */
-  @Test
-  @DisplayName(
-      "Test calculateOutPutVariables(MappingExecutionContext, Map) with 'mappingExecutionContext', 'availableVariables'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "Map ExtensionsVariablesMappingProvider.calculateOutPutVariables(MappingExecutionContext, Map)"
-  })
-  void testCalculateOutPutVariablesWithMappingExecutionContextAvailableVariables16() {
-    // Arrange
-    Mapping mapping = new Mapping();
-    mapping.setType(SourceMappingType.VARIABLE);
-    mapping.setValue("Value");
-
-    Mapping mapping2 = new Mapping();
-    mapping2.setType(SourceMappingType.VALUE);
-    mapping2.setValue("Value");
-
-    HashMap<String, Mapping> outputs = new HashMap<>();
-    outputs.put("42", mapping2);
-    outputs.put("foo", mapping);
-
-    ProcessVariablesMapping processVariablesMapping = new ProcessVariablesMapping();
-    processVariablesMapping.setInputs(new HashMap<>());
-    processVariablesMapping.setMappingType(MappingType.MAP_ALL);
-    processVariablesMapping.setOutputs(outputs);
-
-    Extension extension = mock(Extension.class);
-    when(extension.getProperties()).thenReturn(new HashMap<>());
-    when(extension.getPropertyByName(Mockito.<String>any())).thenReturn(new VariableDefinition());
-    when(extension.shouldMapAllOutputs(Mockito.<String>any())).thenReturn(false);
-    when(extension.getMappingForFlowElement(Mockito.<String>any()))
-        .thenReturn(processVariablesMapping);
-    when(extension.hasMapping(Mockito.<String>any())).thenReturn(true);
-
-    ProcessExtensionService processExtensionService = mock(ProcessExtensionService.class);
-    when(processExtensionService.getExtensionsForId(Mockito.<String>any())).thenReturn(extension);
-
-    ExpressionResolver expressionResolver = mock(ExpressionResolver.class);
-    when(expressionResolver.resolveExpressionsMap(
-            Mockito.<ExpressionEvaluator>any(), Mockito.<Map<String, Object>>any()))
-        .thenReturn(new HashMap<>());
-    when(expressionResolver.containsExpression(Mockito.<Object>any())).thenReturn(false);
-
-    ExtensionsVariablesMappingProvider extensionsVariablesMappingProvider =
-        new ExtensionsVariablesMappingProvider(
-            processExtensionService,
-            expressionResolver,
-            new VariableParsingService(new HashMap<>()));
-    MappingExecutionContext mappingExecutionContext =
-        new MappingExecutionContext(ExecutionEntityImpl.createWithEmptyRelationshipCollections());
-
-    // Act
-    Map<String, Object> actualCalculateOutPutVariablesResult =
-        extensionsVariablesMappingProvider.calculateOutPutVariables(
-            mappingExecutionContext, new HashMap<>());
-
-    // Assert
-    verify(expressionResolver).containsExpression(isA(Object.class));
-    verify(expressionResolver)
-        .resolveExpressionsMap(isA(ExpressionEvaluator.class), isA(Map.class));
-    verify(processExtensionService).getExtensionsForId(null);
-    verify(extension).getMappingForFlowElement(null);
-    verify(extension).getProperties();
-    verify(extension, atLeast(1)).getPropertyByName(Mockito.<String>any());
-    verify(extension).hasMapping(null);
-    verify(extension).shouldMapAllOutputs(null);
-    assertTrue(actualCalculateOutPutVariablesResult.isEmpty());
-  }
-
-  /**
-   * Test {@link
-   * ExtensionsVariablesMappingProvider#calculateOutPutVariables(MappingExecutionContext, Map)} with
-   * {@code mappingExecutionContext}, {@code availableVariables}.
-   *
-   * <p>Method under test: {@link
-   * ExtensionsVariablesMappingProvider#calculateOutPutVariables(MappingExecutionContext, Map)}
-   */
-  @Test
-  @DisplayName(
-      "Test calculateOutPutVariables(MappingExecutionContext, Map) with 'mappingExecutionContext', 'availableVariables'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "Map ExtensionsVariablesMappingProvider.calculateOutPutVariables(MappingExecutionContext, Map)"
-  })
-  void testCalculateOutPutVariablesWithMappingExecutionContextAvailableVariables17() {
-    // Arrange
-    Mapping mapping = new Mapping();
-    mapping.setType(SourceMappingType.VARIABLE);
-    mapping.setValue("Value");
-
-    Mapping mapping2 = new Mapping();
-    mapping2.setType(SourceMappingType.VALUE);
-    mapping2.setValue("Value");
-
-    HashMap<String, Mapping> outputs = new HashMap<>();
-    outputs.put("42", mapping2);
-    outputs.put("foo", mapping);
-
-    ProcessVariablesMapping processVariablesMapping = new ProcessVariablesMapping();
-    processVariablesMapping.setInputs(new HashMap<>());
-    processVariablesMapping.setMappingType(MappingType.MAP_ALL);
-    processVariablesMapping.setOutputs(outputs);
-
     VariableDefinition variableDefinition = mock(VariableDefinition.class);
     when(variableDefinition.getValue()).thenReturn("Value");
-
-    Extension extension = mock(Extension.class);
-    when(extension.getProperties()).thenReturn(new HashMap<>());
-    when(extension.getPropertyByName(Mockito.<String>any())).thenReturn(variableDefinition);
-    when(extension.shouldMapAllOutputs(Mockito.<String>any())).thenReturn(false);
-    when(extension.getMappingForFlowElement(Mockito.<String>any()))
-        .thenReturn(processVariablesMapping);
-    when(extension.hasMapping(Mockito.<String>any())).thenReturn(true);
-
-    ProcessExtensionService processExtensionService = mock(ProcessExtensionService.class);
-    when(processExtensionService.getExtensionsForId(Mockito.<String>any())).thenReturn(extension);
-
-    ExpressionResolver expressionResolver = mock(ExpressionResolver.class);
-    when(expressionResolver.resolveExpressionsMap(
-            Mockito.<ExpressionEvaluator>any(), Mockito.<Map<String, Object>>any()))
-        .thenReturn(new HashMap<>());
-    when(expressionResolver.containsExpression(Mockito.<Object>any())).thenReturn(false);
-
-    ExtensionsVariablesMappingProvider extensionsVariablesMappingProvider =
-        new ExtensionsVariablesMappingProvider(
-            processExtensionService,
-            expressionResolver,
-            new VariableParsingService(new HashMap<>()));
-    MappingExecutionContext mappingExecutionContext =
-        MappingExecutionContext.buildMappingExecutionContext("42", "42");
-
-    // Act
-    Map<String, Object> actualCalculateOutPutVariablesResult =
-        extensionsVariablesMappingProvider.calculateOutPutVariables(
-            mappingExecutionContext, new HashMap<>());
-
-    // Assert
-    verify(expressionResolver).containsExpression(isA(Object.class));
-    verify(expressionResolver)
-        .resolveExpressionsMap(isA(ExpressionEvaluator.class), isA(Map.class));
-    verify(processExtensionService).getExtensionsForId("42");
-    verify(extension).getMappingForFlowElement("42");
-    verify(extension).getProperties();
-    verify(extension, atLeast(1)).getPropertyByName(Mockito.<String>any());
-    verify(extension).hasMapping("42");
-    verify(extension).shouldMapAllOutputs("42");
-    verify(variableDefinition, atLeast(1)).getValue();
-    assertTrue(actualCalculateOutPutVariablesResult.isEmpty());
-  }
-
-  /**
-   * Test {@link
-   * ExtensionsVariablesMappingProvider#calculateOutPutVariables(MappingExecutionContext, Map)} with
-   * {@code mappingExecutionContext}, {@code availableVariables}.
-   *
-   * <p>Method under test: {@link
-   * ExtensionsVariablesMappingProvider#calculateOutPutVariables(MappingExecutionContext, Map)}
-   */
-  @Test
-  @DisplayName(
-      "Test calculateOutPutVariables(MappingExecutionContext, Map) with 'mappingExecutionContext', 'availableVariables'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "Map ExtensionsVariablesMappingProvider.calculateOutPutVariables(MappingExecutionContext, Map)"
-  })
-  void testCalculateOutPutVariablesWithMappingExecutionContextAvailableVariables18() {
-    // Arrange
-    Mapping mapping = new Mapping();
-    mapping.setType(SourceMappingType.VARIABLE);
-    mapping.setValue("Value");
-
-    Mapping mapping2 = new Mapping();
-    mapping2.setType(SourceMappingType.VALUE);
-    mapping2.setValue("Value");
-
-    HashMap<String, Mapping> outputs = new HashMap<>();
-    outputs.put("42", mapping2);
-    outputs.put("foo", mapping);
-
-    ProcessVariablesMapping processVariablesMapping = new ProcessVariablesMapping();
-    processVariablesMapping.setInputs(new HashMap<>());
-    processVariablesMapping.setMappingType(MappingType.MAP_ALL);
-    processVariablesMapping.setOutputs(outputs);
-
-    VariableDefinition variableDefinition = mock(VariableDefinition.class);
-    when(variableDefinition.getValue())
-        .thenThrow(new ActivitiIllegalArgumentException("An error occurred"));
-
     Extension extension = mock(Extension.class);
     when(extension.getPropertyByName(Mockito.<String>any())).thenReturn(variableDefinition);
     when(extension.shouldMapAllOutputs(Mockito.<String>any())).thenReturn(false);
-    when(extension.getMappingForFlowElement(Mockito.<String>any()))
-        .thenReturn(processVariablesMapping);
+    when(extension.getMappingForFlowElement(Mockito.<String>any())).thenReturn(processVariablesMapping);
     when(extension.hasMapping(Mockito.<String>any())).thenReturn(true);
-
-    ProcessExtensionService processExtensionService = mock(ProcessExtensionService.class);
     when(processExtensionService.getExtensionsForId(Mockito.<String>any())).thenReturn(extension);
-
-    ExpressionResolver expressionResolver = mock(ExpressionResolver.class);
     when(expressionResolver.containsExpression(Mockito.<Object>any())).thenReturn(false);
-
-    ExtensionsVariablesMappingProvider extensionsVariablesMappingProvider =
-        new ExtensionsVariablesMappingProvider(
-            processExtensionService,
-            expressionResolver,
-            new VariableParsingService(new HashMap<>()));
-    MappingExecutionContext mappingExecutionContext =
-        MappingExecutionContext.buildMappingExecutionContext("42", "42");
+    MappingExecutionContext mappingExecutionContext = MappingExecutionContext.buildMappingExecutionContext("42", "42");
 
     // Act and Assert
-    assertThrows(
-        ActivitiIllegalArgumentException.class,
-        () ->
-            extensionsVariablesMappingProvider.calculateOutPutVariables(
-                mappingExecutionContext, new HashMap<>()));
+    assertThrows(ActivitiIllegalArgumentException.class,
+        () -> extensionsVariablesMappingProvider.calculateOutPutVariables(mappingExecutionContext, new HashMap<>()));
     verify(expressionResolver).containsExpression(isA(Object.class));
-    verify(processExtensionService).getExtensionsForId("42");
-    verify(extension).getMappingForFlowElement("42");
-    verify(extension, atLeast(1)).getPropertyByName("foo");
-    verify(extension).hasMapping("42");
-    verify(extension).shouldMapAllOutputs("42");
+    verify(processExtensionService).getExtensionsForId(eq("42"));
+    verify(extension).getMappingForFlowElement(eq("42"));
+    verify(extension, atLeast(1)).getPropertyByName(eq(""));
+    verify(extension).hasMapping(eq("42"));
+    verify(extension).shouldMapAllOutputs(eq("42"));
     verify(variableDefinition).getValue();
   }
 
   /**
-   * Test {@link
-   * ExtensionsVariablesMappingProvider#calculateOutPutVariables(MappingExecutionContext, Map)} with
-   * {@code mappingExecutionContext}, {@code availableVariables}.
-   *
-   * <p>Method under test: {@link
-   * ExtensionsVariablesMappingProvider#calculateOutPutVariables(MappingExecutionContext, Map)}
+   * Test {@link ExtensionsVariablesMappingProvider#calculateOutPutVariables(MappingExecutionContext, Map)} with {@code mappingExecutionContext}, {@code availableVariables}.
+   * <p>
+   * Method under test: {@link ExtensionsVariablesMappingProvider#calculateOutPutVariables(MappingExecutionContext, Map)}
    */
   @Test
-  @DisplayName(
-      "Test calculateOutPutVariables(MappingExecutionContext, Map) with 'mappingExecutionContext', 'availableVariables'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "Map ExtensionsVariablesMappingProvider.calculateOutPutVariables(MappingExecutionContext, Map)"
-  })
-  void testCalculateOutPutVariablesWithMappingExecutionContextAvailableVariables19() {
+  @DisplayName("Test calculateOutPutVariables(MappingExecutionContext, Map) with 'mappingExecutionContext', 'availableVariables'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"Map ExtensionsVariablesMappingProvider.calculateOutPutVariables(MappingExecutionContext, Map)"})
+  void testCalculateOutPutVariablesWithMappingExecutionContextAvailableVariables10() {
     // Arrange
     Mapping mapping = new Mapping();
-    mapping.setType(SourceMappingType.VARIABLE);
+    mapping.setType(SourceMappingType.JSONPATCH);
     mapping.setValue("Value");
 
-    Mapping mapping2 = new Mapping();
-    mapping2.setType(SourceMappingType.JSONPATCH);
-    mapping2.setValue("Value");
-
     HashMap<String, Mapping> outputs = new HashMap<>();
-    outputs.put("42", mapping2);
-    outputs.put("foo", mapping);
+    outputs.put("", mapping);
 
     ProcessVariablesMapping processVariablesMapping = new ProcessVariablesMapping();
     processVariablesMapping.setInputs(new HashMap<>());
     processVariablesMapping.setMappingType(MappingType.MAP_ALL);
     processVariablesMapping.setOutputs(outputs);
 
+    Mapping mapping2 = new Mapping();
+    mapping2.setType(SourceMappingType.VARIABLE);
+    mapping2.setValue("Value");
     VariableDefinition variableDefinition = mock(VariableDefinition.class);
-    when(variableDefinition.getValue()).thenReturn("Value");
-
+    when(variableDefinition.getValue()).thenReturn(mapping2);
     Extension extension = mock(Extension.class);
     when(extension.getPropertyByName(Mockito.<String>any())).thenReturn(variableDefinition);
     when(extension.shouldMapAllOutputs(Mockito.<String>any())).thenReturn(false);
-    when(extension.getMappingForFlowElement(Mockito.<String>any()))
-        .thenReturn(processVariablesMapping);
+    when(extension.getMappingForFlowElement(Mockito.<String>any())).thenReturn(processVariablesMapping);
     when(extension.hasMapping(Mockito.<String>any())).thenReturn(true);
-
-    ProcessExtensionService processExtensionService = mock(ProcessExtensionService.class);
     when(processExtensionService.getExtensionsForId(Mockito.<String>any())).thenReturn(extension);
-
-    ExpressionResolver expressionResolver = mock(ExpressionResolver.class);
     when(expressionResolver.containsExpression(Mockito.<Object>any())).thenReturn(false);
-
-    ExtensionsVariablesMappingProvider extensionsVariablesMappingProvider =
-        new ExtensionsVariablesMappingProvider(
-            processExtensionService,
-            expressionResolver,
-            new VariableParsingService(new HashMap<>()));
-    MappingExecutionContext mappingExecutionContext =
-        MappingExecutionContext.buildMappingExecutionContext("42", "42");
+    MappingExecutionContext mappingExecutionContext = MappingExecutionContext.buildMappingExecutionContext("42", "42");
 
     // Act and Assert
-    assertThrows(
-        ActivitiIllegalArgumentException.class,
-        () ->
-            extensionsVariablesMappingProvider.calculateOutPutVariables(
-                mappingExecutionContext, new HashMap<>()));
+    assertThrows(ActivitiIllegalArgumentException.class,
+        () -> extensionsVariablesMappingProvider.calculateOutPutVariables(mappingExecutionContext, new HashMap<>()));
     verify(expressionResolver).containsExpression(isA(Object.class));
-    verify(processExtensionService).getExtensionsForId("42");
-    verify(extension).getMappingForFlowElement("42");
-    verify(extension, atLeast(1)).getPropertyByName(Mockito.<String>any());
-    verify(extension).hasMapping("42");
-    verify(extension).shouldMapAllOutputs("42");
-    verify(variableDefinition, atLeast(1)).getValue();
+    verify(processExtensionService).getExtensionsForId(eq("42"));
+    verify(extension).getMappingForFlowElement(eq("42"));
+    verify(extension, atLeast(1)).getPropertyByName(eq(""));
+    verify(extension).hasMapping(eq("42"));
+    verify(extension).shouldMapAllOutputs(eq("42"));
+    verify(variableDefinition).getValue();
+  }
+
+  /**
+   * Test {@link ExtensionsVariablesMappingProvider#calculateOutPutVariables(MappingExecutionContext, Map)} with {@code mappingExecutionContext}, {@code availableVariables}.
+   * <p>
+   * Method under test: {@link ExtensionsVariablesMappingProvider#calculateOutPutVariables(MappingExecutionContext, Map)}
+   */
+  @Test
+  @DisplayName("Test calculateOutPutVariables(MappingExecutionContext, Map) with 'mappingExecutionContext', 'availableVariables'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"Map ExtensionsVariablesMappingProvider.calculateOutPutVariables(MappingExecutionContext, Map)"})
+  void testCalculateOutPutVariablesWithMappingExecutionContextAvailableVariables11() {
+    // Arrange
+    Mapping mapping = new Mapping();
+    mapping.setType(SourceMappingType.JSONPATCH);
+    mapping.setValue("Value");
+
+    HashMap<String, Mapping> outputs = new HashMap<>();
+    outputs.put("", mapping);
+
+    ProcessVariablesMapping processVariablesMapping = new ProcessVariablesMapping();
+    processVariablesMapping.setInputs(new HashMap<>());
+    processVariablesMapping.setMappingType(MappingType.MAP_ALL);
+    processVariablesMapping.setOutputs(outputs);
+    VariableDefinition variableDefinition = mock(VariableDefinition.class);
+    when(variableDefinition.getValue()).thenReturn(new SimpleEntry<>("42", "42"));
+    Extension extension = mock(Extension.class);
+    when(extension.getPropertyByName(Mockito.<String>any())).thenReturn(variableDefinition);
+    when(extension.shouldMapAllOutputs(Mockito.<String>any())).thenReturn(false);
+    when(extension.getMappingForFlowElement(Mockito.<String>any())).thenReturn(processVariablesMapping);
+    when(extension.hasMapping(Mockito.<String>any())).thenReturn(true);
+    when(processExtensionService.getExtensionsForId(Mockito.<String>any())).thenReturn(extension);
+    when(expressionResolver.containsExpression(Mockito.<Object>any())).thenReturn(false);
+    MappingExecutionContext mappingExecutionContext = MappingExecutionContext.buildMappingExecutionContext("42", "42");
+
+    // Act and Assert
+    assertThrows(ActivitiIllegalArgumentException.class,
+        () -> extensionsVariablesMappingProvider.calculateOutPutVariables(mappingExecutionContext, new HashMap<>()));
+    verify(expressionResolver).containsExpression(isA(Object.class));
+    verify(processExtensionService).getExtensionsForId(eq("42"));
+    verify(extension).getMappingForFlowElement(eq("42"));
+    verify(extension, atLeast(1)).getPropertyByName(eq(""));
+    verify(extension).hasMapping(eq("42"));
+    verify(extension).shouldMapAllOutputs(eq("42"));
+    verify(variableDefinition).getValue();
+  }
+
+  /**
+   * Test {@link ExtensionsVariablesMappingProvider#calculateOutPutVariables(MappingExecutionContext, Map)} with {@code mappingExecutionContext}, {@code availableVariables}.
+   * <p>
+   * Method under test: {@link ExtensionsVariablesMappingProvider#calculateOutPutVariables(MappingExecutionContext, Map)}
+   */
+  @Test
+  @DisplayName("Test calculateOutPutVariables(MappingExecutionContext, Map) with 'mappingExecutionContext', 'availableVariables'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"Map ExtensionsVariablesMappingProvider.calculateOutPutVariables(MappingExecutionContext, Map)"})
+  void testCalculateOutPutVariablesWithMappingExecutionContextAvailableVariables12() {
+    // Arrange
+    Mapping mapping = new Mapping();
+    mapping.setType(SourceMappingType.JSONPATCH);
+    mapping.setValue("Value");
+
+    HashMap<String, Mapping> outputs = new HashMap<>();
+    outputs.put("", mapping);
+
+    ProcessVariablesMapping processVariablesMapping = new ProcessVariablesMapping();
+    processVariablesMapping.setInputs(new HashMap<>());
+    processVariablesMapping.setMappingType(MappingType.MAP_ALL);
+    processVariablesMapping.setOutputs(outputs);
+    VariableDefinition variableDefinition = mock(VariableDefinition.class);
+    when(variableDefinition.getValue()).thenReturn(new ArrayNode(JsonNodeFactory.withExactBigDecimals(true)));
+    Extension extension = mock(Extension.class);
+    when(extension.getPropertyByName(Mockito.<String>any())).thenReturn(variableDefinition);
+    when(extension.shouldMapAllOutputs(Mockito.<String>any())).thenReturn(false);
+    when(extension.getMappingForFlowElement(Mockito.<String>any())).thenReturn(processVariablesMapping);
+    when(extension.hasMapping(Mockito.<String>any())).thenReturn(true);
+    when(processExtensionService.getExtensionsForId(Mockito.<String>any())).thenReturn(extension);
+    when(expressionResolver.containsExpression(Mockito.<Object>any())).thenReturn(false);
+    MappingExecutionContext mappingExecutionContext = MappingExecutionContext.buildMappingExecutionContext("42", "42");
+
+    // Act and Assert
+    assertThrows(ActivitiIllegalArgumentException.class,
+        () -> extensionsVariablesMappingProvider.calculateOutPutVariables(mappingExecutionContext, new HashMap<>()));
+    verify(expressionResolver).containsExpression(isA(Object.class));
+    verify(processExtensionService).getExtensionsForId(eq("42"));
+    verify(extension).getMappingForFlowElement(eq("42"));
+    verify(extension, atLeast(1)).getPropertyByName(eq(""));
+    verify(extension).hasMapping(eq("42"));
+    verify(extension).shouldMapAllOutputs(eq("42"));
+    verify(variableDefinition).getValue();
+  }
+
+  /**
+   * Test {@link ExtensionsVariablesMappingProvider#calculateOutPutVariables(MappingExecutionContext, Map)} with {@code mappingExecutionContext}, {@code availableVariables}.
+   * <p>
+   * Method under test: {@link ExtensionsVariablesMappingProvider#calculateOutPutVariables(MappingExecutionContext, Map)}
+   */
+  @Test
+  @DisplayName("Test calculateOutPutVariables(MappingExecutionContext, Map) with 'mappingExecutionContext', 'availableVariables'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"Map ExtensionsVariablesMappingProvider.calculateOutPutVariables(MappingExecutionContext, Map)"})
+  void testCalculateOutPutVariablesWithMappingExecutionContextAvailableVariables13() {
+    // Arrange
+    Mapping mapping = new Mapping();
+    mapping.setType(SourceMappingType.JSONPATCH);
+    mapping.setValue("Value");
+
+    HashMap<String, Mapping> outputs = new HashMap<>();
+    outputs.put("", mapping);
+
+    ProcessVariablesMapping processVariablesMapping = new ProcessVariablesMapping();
+    processVariablesMapping.setInputs(new HashMap<>());
+    processVariablesMapping.setMappingType(MappingType.MAP_ALL);
+    processVariablesMapping.setOutputs(outputs);
+    VariableDefinition variableDefinition = mock(VariableDefinition.class);
+    when(variableDefinition.getValue()).thenReturn(new BigIntegerNode(BigInteger.valueOf(1L)));
+    Extension extension = mock(Extension.class);
+    when(extension.getPropertyByName(Mockito.<String>any())).thenReturn(variableDefinition);
+    when(extension.shouldMapAllOutputs(Mockito.<String>any())).thenReturn(false);
+    when(extension.getMappingForFlowElement(Mockito.<String>any())).thenReturn(processVariablesMapping);
+    when(extension.hasMapping(Mockito.<String>any())).thenReturn(true);
+    when(processExtensionService.getExtensionsForId(Mockito.<String>any())).thenReturn(extension);
+    when(expressionResolver.containsExpression(Mockito.<Object>any())).thenReturn(false);
+    MappingExecutionContext mappingExecutionContext = MappingExecutionContext.buildMappingExecutionContext("42", "42");
+
+    // Act and Assert
+    assertThrows(ActivitiIllegalArgumentException.class,
+        () -> extensionsVariablesMappingProvider.calculateOutPutVariables(mappingExecutionContext, new HashMap<>()));
+    verify(expressionResolver).containsExpression(isA(Object.class));
+    verify(processExtensionService).getExtensionsForId(eq("42"));
+    verify(extension).getMappingForFlowElement(eq("42"));
+    verify(extension, atLeast(1)).getPropertyByName(eq(""));
+    verify(extension).hasMapping(eq("42"));
+    verify(extension).shouldMapAllOutputs(eq("42"));
+    verify(variableDefinition).getValue();
+  }
+
+  /**
+   * Test {@link ExtensionsVariablesMappingProvider#calculateOutPutVariables(MappingExecutionContext, Map)} with {@code mappingExecutionContext}, {@code availableVariables}.
+   * <p>
+   * Method under test: {@link ExtensionsVariablesMappingProvider#calculateOutPutVariables(MappingExecutionContext, Map)}
+   */
+  @Test
+  @DisplayName("Test calculateOutPutVariables(MappingExecutionContext, Map) with 'mappingExecutionContext', 'availableVariables'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"Map ExtensionsVariablesMappingProvider.calculateOutPutVariables(MappingExecutionContext, Map)"})
+  void testCalculateOutPutVariablesWithMappingExecutionContextAvailableVariables14() {
+    // Arrange
+    Mapping mapping = new Mapping();
+    mapping.setType(SourceMappingType.JSONPATCH);
+    mapping.setValue("Value");
+
+    HashMap<String, Mapping> outputs = new HashMap<>();
+    outputs.put("", mapping);
+
+    ProcessVariablesMapping processVariablesMapping = new ProcessVariablesMapping();
+    processVariablesMapping.setInputs(new HashMap<>());
+    processVariablesMapping.setMappingType(MappingType.MAP_ALL);
+    processVariablesMapping.setOutputs(outputs);
+    VariableDefinition variableDefinition = mock(VariableDefinition.class);
+    when(variableDefinition.getValue()).thenReturn("");
+    Extension extension = mock(Extension.class);
+    when(extension.getPropertyByName(Mockito.<String>any())).thenReturn(variableDefinition);
+    when(extension.shouldMapAllOutputs(Mockito.<String>any())).thenReturn(false);
+    when(extension.getMappingForFlowElement(Mockito.<String>any())).thenReturn(processVariablesMapping);
+    when(extension.hasMapping(Mockito.<String>any())).thenReturn(true);
+    when(processExtensionService.getExtensionsForId(Mockito.<String>any())).thenReturn(extension);
+    when(expressionResolver.containsExpression(Mockito.<Object>any())).thenReturn(false);
+    MappingExecutionContext mappingExecutionContext = MappingExecutionContext.buildMappingExecutionContext("42", "42");
+
+    // Act and Assert
+    assertThrows(ActivitiIllegalArgumentException.class,
+        () -> extensionsVariablesMappingProvider.calculateOutPutVariables(mappingExecutionContext, new HashMap<>()));
+    verify(expressionResolver).containsExpression(isA(Object.class));
+    verify(processExtensionService).getExtensionsForId(eq("42"));
+    verify(extension).getMappingForFlowElement(eq("42"));
+    verify(extension, atLeast(1)).getPropertyByName(eq(""));
+    verify(extension).hasMapping(eq("42"));
+    verify(extension).shouldMapAllOutputs(eq("42"));
+    verify(variableDefinition).getValue();
+  }
+
+  /**
+   * Test {@link ExtensionsVariablesMappingProvider#calculateOutPutVariables(MappingExecutionContext, Map)} with {@code mappingExecutionContext}, {@code availableVariables}.
+   * <p>
+   * Method under test: {@link ExtensionsVariablesMappingProvider#calculateOutPutVariables(MappingExecutionContext, Map)}
+   */
+  @Test
+  @DisplayName("Test calculateOutPutVariables(MappingExecutionContext, Map) with 'mappingExecutionContext', 'availableVariables'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"Map ExtensionsVariablesMappingProvider.calculateOutPutVariables(MappingExecutionContext, Map)"})
+  void testCalculateOutPutVariablesWithMappingExecutionContextAvailableVariables15() {
+    // Arrange
+    Mapping mapping = new Mapping();
+    mapping.setType(SourceMappingType.JSONPATCH);
+    mapping.setValue("Value");
+
+    HashMap<String, Mapping> outputs = new HashMap<>();
+    outputs.put("", mapping);
+
+    ProcessVariablesMapping processVariablesMapping = new ProcessVariablesMapping();
+    processVariablesMapping.setInputs(new HashMap<>());
+    processVariablesMapping.setMappingType(MappingType.MAP_ALL);
+    processVariablesMapping.setOutputs(outputs);
+    VariableDefinition variableDefinition = mock(VariableDefinition.class);
+    when(variableDefinition.getValue()).thenReturn(new DefaultMapEntry<>("Key", "Value"));
+    Extension extension = mock(Extension.class);
+    when(extension.getPropertyByName(Mockito.<String>any())).thenReturn(variableDefinition);
+    when(extension.shouldMapAllOutputs(Mockito.<String>any())).thenReturn(false);
+    when(extension.getMappingForFlowElement(Mockito.<String>any())).thenReturn(processVariablesMapping);
+    when(extension.hasMapping(Mockito.<String>any())).thenReturn(true);
+    when(processExtensionService.getExtensionsForId(Mockito.<String>any())).thenReturn(extension);
+    when(expressionResolver.containsExpression(Mockito.<Object>any())).thenReturn(false);
+    MappingExecutionContext mappingExecutionContext = MappingExecutionContext.buildMappingExecutionContext("42", "42");
+
+    // Act and Assert
+    assertThrows(ActivitiIllegalArgumentException.class,
+        () -> extensionsVariablesMappingProvider.calculateOutPutVariables(mappingExecutionContext, new HashMap<>()));
+    verify(expressionResolver).containsExpression(isA(Object.class));
+    verify(processExtensionService).getExtensionsForId(eq("42"));
+    verify(extension).getMappingForFlowElement(eq("42"));
+    verify(extension, atLeast(1)).getPropertyByName(eq(""));
+    verify(extension).hasMapping(eq("42"));
+    verify(extension).shouldMapAllOutputs(eq("42"));
+    verify(variableDefinition).getValue();
+  }
+
+  /**
+   * Test {@link ExtensionsVariablesMappingProvider#calculateOutPutVariables(MappingExecutionContext, Map)} with {@code mappingExecutionContext}, {@code availableVariables}.
+   * <p>
+   * Method under test: {@link ExtensionsVariablesMappingProvider#calculateOutPutVariables(MappingExecutionContext, Map)}
+   */
+  @Test
+  @DisplayName("Test calculateOutPutVariables(MappingExecutionContext, Map) with 'mappingExecutionContext', 'availableVariables'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"Map ExtensionsVariablesMappingProvider.calculateOutPutVariables(MappingExecutionContext, Map)"})
+  void testCalculateOutPutVariablesWithMappingExecutionContextAvailableVariables16() {
+    // Arrange
+    Mapping mapping = new Mapping();
+    mapping.setType(SourceMappingType.JSONPATCH);
+    mapping.setValue("Value");
+
+    HashMap<String, Mapping> outputs = new HashMap<>();
+    outputs.put("", mapping);
+
+    ProcessVariablesMapping processVariablesMapping = new ProcessVariablesMapping();
+    processVariablesMapping.setInputs(new HashMap<>());
+    processVariablesMapping.setMappingType(MappingType.MAP_ALL);
+    processVariablesMapping.setOutputs(outputs);
+    Mapping mapping2 = mock(Mapping.class);
+    when(mapping2.getValue()).thenReturn("Value");
+    when(mapping2.getType()).thenReturn(SourceMappingType.VARIABLE);
+    VariableDefinition variableDefinition = mock(VariableDefinition.class);
+    when(variableDefinition.getValue()).thenReturn(mapping2);
+    Extension extension = mock(Extension.class);
+    when(extension.getPropertyByName(Mockito.<String>any())).thenReturn(variableDefinition);
+    when(extension.shouldMapAllOutputs(Mockito.<String>any())).thenReturn(false);
+    when(extension.getMappingForFlowElement(Mockito.<String>any())).thenReturn(processVariablesMapping);
+    when(extension.hasMapping(Mockito.<String>any())).thenReturn(true);
+    when(processExtensionService.getExtensionsForId(Mockito.<String>any())).thenReturn(extension);
+    when(expressionResolver.containsExpression(Mockito.<Object>any())).thenReturn(false);
+    MappingExecutionContext mappingExecutionContext = MappingExecutionContext.buildMappingExecutionContext("42", "42");
+
+    // Act and Assert
+    assertThrows(ActivitiIllegalArgumentException.class,
+        () -> extensionsVariablesMappingProvider.calculateOutPutVariables(mappingExecutionContext, new HashMap<>()));
+    verify(expressionResolver).containsExpression(isA(Object.class));
+    verify(processExtensionService).getExtensionsForId(eq("42"));
+    verify(extension).getMappingForFlowElement(eq("42"));
+    verify(extension, atLeast(1)).getPropertyByName(eq(""));
+    verify(extension).hasMapping(eq("42"));
+    verify(extension).shouldMapAllOutputs(eq("42"));
+    verify(mapping2).getType();
+    verify(mapping2).getValue();
+    verify(variableDefinition).getValue();
+  }
+
+  /**
+   * Test {@link ExtensionsVariablesMappingProvider#calculateOutPutVariables(MappingExecutionContext, Map)} with {@code mappingExecutionContext}, {@code availableVariables}.
+   * <p>
+   * Method under test: {@link ExtensionsVariablesMappingProvider#calculateOutPutVariables(MappingExecutionContext, Map)}
+   */
+  @Test
+  @DisplayName("Test calculateOutPutVariables(MappingExecutionContext, Map) with 'mappingExecutionContext', 'availableVariables'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"Map ExtensionsVariablesMappingProvider.calculateOutPutVariables(MappingExecutionContext, Map)"})
+  void testCalculateOutPutVariablesWithMappingExecutionContextAvailableVariables17() {
+    // Arrange
+    Mapping mapping = new Mapping();
+    mapping.setType(SourceMappingType.JSONPATCH);
+    mapping.setValue("Value");
+
+    HashMap<String, Mapping> outputs = new HashMap<>();
+    outputs.put("", mapping);
+
+    ProcessVariablesMapping processVariablesMapping = new ProcessVariablesMapping();
+    processVariablesMapping.setInputs(new HashMap<>());
+    processVariablesMapping.setMappingType(MappingType.MAP_ALL);
+    processVariablesMapping.setOutputs(outputs);
+
+    Mapping mapping2 = new Mapping();
+    mapping2.setType(SourceMappingType.VARIABLE);
+    mapping2.setValue("Value");
+    Mapping mapping3 = mock(Mapping.class);
+    when(mapping3.getValue()).thenReturn(mapping2);
+    when(mapping3.getType()).thenReturn(SourceMappingType.VARIABLE);
+    VariableDefinition variableDefinition = mock(VariableDefinition.class);
+    when(variableDefinition.getValue()).thenReturn(mapping3);
+    Extension extension = mock(Extension.class);
+    when(extension.getPropertyByName(Mockito.<String>any())).thenReturn(variableDefinition);
+    when(extension.shouldMapAllOutputs(Mockito.<String>any())).thenReturn(false);
+    when(extension.getMappingForFlowElement(Mockito.<String>any())).thenReturn(processVariablesMapping);
+    when(extension.hasMapping(Mockito.<String>any())).thenReturn(true);
+    when(processExtensionService.getExtensionsForId(Mockito.<String>any())).thenReturn(extension);
+    when(expressionResolver.containsExpression(Mockito.<Object>any())).thenReturn(false);
+    MappingExecutionContext mappingExecutionContext = MappingExecutionContext.buildMappingExecutionContext("42", "42");
+
+    // Act and Assert
+    assertThrows(ActivitiIllegalArgumentException.class,
+        () -> extensionsVariablesMappingProvider.calculateOutPutVariables(mappingExecutionContext, new HashMap<>()));
+    verify(expressionResolver).containsExpression(isA(Object.class));
+    verify(processExtensionService).getExtensionsForId(eq("42"));
+    verify(extension).getMappingForFlowElement(eq("42"));
+    verify(extension, atLeast(1)).getPropertyByName(eq(""));
+    verify(extension).hasMapping(eq("42"));
+    verify(extension).shouldMapAllOutputs(eq("42"));
+    verify(mapping3).getType();
+    verify(mapping3).getValue();
+    verify(variableDefinition).getValue();
+  }
+
+  /**
+   * Test {@link ExtensionsVariablesMappingProvider#calculateOutPutVariables(MappingExecutionContext, Map)} with {@code mappingExecutionContext}, {@code availableVariables}.
+   * <p>
+   * Method under test: {@link ExtensionsVariablesMappingProvider#calculateOutPutVariables(MappingExecutionContext, Map)}
+   */
+  @Test
+  @DisplayName("Test calculateOutPutVariables(MappingExecutionContext, Map) with 'mappingExecutionContext', 'availableVariables'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"Map ExtensionsVariablesMappingProvider.calculateOutPutVariables(MappingExecutionContext, Map)"})
+  void testCalculateOutPutVariablesWithMappingExecutionContextAvailableVariables18() {
+    // Arrange
+    Mapping mapping = new Mapping();
+    mapping.setType(SourceMappingType.JSONPATCH);
+    mapping.setValue("Value");
+
+    HashMap<String, Mapping> outputs = new HashMap<>();
+    outputs.put("", mapping);
+
+    ProcessVariablesMapping processVariablesMapping = new ProcessVariablesMapping();
+    processVariablesMapping.setInputs(new HashMap<>());
+    processVariablesMapping.setMappingType(MappingType.MAP_ALL);
+    processVariablesMapping.setOutputs(outputs);
+    Mapping mapping2 = mock(Mapping.class);
+    when(mapping2.getValue()).thenReturn(1);
+    when(mapping2.getType()).thenReturn(SourceMappingType.VARIABLE);
+    VariableDefinition variableDefinition = mock(VariableDefinition.class);
+    when(variableDefinition.getValue()).thenReturn(mapping2);
+    Extension extension = mock(Extension.class);
+    when(extension.getPropertyByName(Mockito.<String>any())).thenReturn(variableDefinition);
+    when(extension.shouldMapAllOutputs(Mockito.<String>any())).thenReturn(false);
+    when(extension.getMappingForFlowElement(Mockito.<String>any())).thenReturn(processVariablesMapping);
+    when(extension.hasMapping(Mockito.<String>any())).thenReturn(true);
+    when(processExtensionService.getExtensionsForId(Mockito.<String>any())).thenReturn(extension);
+    when(expressionResolver.containsExpression(Mockito.<Object>any())).thenReturn(false);
+    MappingExecutionContext mappingExecutionContext = MappingExecutionContext.buildMappingExecutionContext("42", "42");
+
+    // Act and Assert
+    assertThrows(ActivitiIllegalArgumentException.class,
+        () -> extensionsVariablesMappingProvider.calculateOutPutVariables(mappingExecutionContext, new HashMap<>()));
+    verify(expressionResolver).containsExpression(isA(Object.class));
+    verify(processExtensionService).getExtensionsForId(eq("42"));
+    verify(extension).getMappingForFlowElement(eq("42"));
+    verify(extension, atLeast(1)).getPropertyByName(eq(""));
+    verify(extension).hasMapping(eq("42"));
+    verify(extension).shouldMapAllOutputs(eq("42"));
+    verify(mapping2).getType();
+    verify(mapping2).getValue();
+    verify(variableDefinition).getValue();
+  }
+
+  /**
+   * Test {@link ExtensionsVariablesMappingProvider#calculateOutPutVariables(MappingExecutionContext, Map)} with {@code mappingExecutionContext}, {@code availableVariables}.
+   * <p>
+   * Method under test: {@link ExtensionsVariablesMappingProvider#calculateOutPutVariables(MappingExecutionContext, Map)}
+   */
+  @Test
+  @DisplayName("Test calculateOutPutVariables(MappingExecutionContext, Map) with 'mappingExecutionContext', 'availableVariables'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"Map ExtensionsVariablesMappingProvider.calculateOutPutVariables(MappingExecutionContext, Map)"})
+  void testCalculateOutPutVariablesWithMappingExecutionContextAvailableVariables19() {
+    // Arrange
+    Mapping mapping = new Mapping();
+    mapping.setType(SourceMappingType.JSONPATCH);
+    mapping.setValue("Value");
+
+    HashMap<String, Mapping> outputs = new HashMap<>();
+    outputs.put("", mapping);
+
+    ProcessVariablesMapping processVariablesMapping = new ProcessVariablesMapping();
+    processVariablesMapping.setInputs(new HashMap<>());
+    processVariablesMapping.setMappingType(MappingType.MAP_ALL);
+    processVariablesMapping.setOutputs(outputs);
+    Mapping mapping2 = mock(Mapping.class);
+    when(mapping2.getValue()).thenReturn(new SimpleEntry<>("42", "42"));
+    when(mapping2.getType()).thenReturn(SourceMappingType.VARIABLE);
+    VariableDefinition variableDefinition = mock(VariableDefinition.class);
+    when(variableDefinition.getValue()).thenReturn(mapping2);
+    Extension extension = mock(Extension.class);
+    when(extension.getPropertyByName(Mockito.<String>any())).thenReturn(variableDefinition);
+    when(extension.shouldMapAllOutputs(Mockito.<String>any())).thenReturn(false);
+    when(extension.getMappingForFlowElement(Mockito.<String>any())).thenReturn(processVariablesMapping);
+    when(extension.hasMapping(Mockito.<String>any())).thenReturn(true);
+    when(processExtensionService.getExtensionsForId(Mockito.<String>any())).thenReturn(extension);
+    when(expressionResolver.containsExpression(Mockito.<Object>any())).thenReturn(false);
+    MappingExecutionContext mappingExecutionContext = MappingExecutionContext.buildMappingExecutionContext("42", "42");
+
+    // Act and Assert
+    assertThrows(ActivitiIllegalArgumentException.class,
+        () -> extensionsVariablesMappingProvider.calculateOutPutVariables(mappingExecutionContext, new HashMap<>()));
+    verify(expressionResolver).containsExpression(isA(Object.class));
+    verify(processExtensionService).getExtensionsForId(eq("42"));
+    verify(extension).getMappingForFlowElement(eq("42"));
+    verify(extension, atLeast(1)).getPropertyByName(eq(""));
+    verify(extension).hasMapping(eq("42"));
+    verify(extension).shouldMapAllOutputs(eq("42"));
+    verify(mapping2).getType();
+    verify(mapping2).getValue();
+    verify(variableDefinition).getValue();
+  }
+
+  /**
+   * Test {@link ExtensionsVariablesMappingProvider#calculateOutPutVariables(MappingExecutionContext, Map)} with {@code mappingExecutionContext}, {@code availableVariables}.
+   * <p>
+   * Method under test: {@link ExtensionsVariablesMappingProvider#calculateOutPutVariables(MappingExecutionContext, Map)}
+   */
+  @Test
+  @DisplayName("Test calculateOutPutVariables(MappingExecutionContext, Map) with 'mappingExecutionContext', 'availableVariables'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"Map ExtensionsVariablesMappingProvider.calculateOutPutVariables(MappingExecutionContext, Map)"})
+  void testCalculateOutPutVariablesWithMappingExecutionContextAvailableVariables20() {
+    // Arrange
+    Mapping mapping = new Mapping();
+    mapping.setType(SourceMappingType.JSONPATCH);
+    mapping.setValue("Value");
+
+    HashMap<String, Mapping> outputs = new HashMap<>();
+    outputs.put("", mapping);
+
+    ProcessVariablesMapping processVariablesMapping = new ProcessVariablesMapping();
+    processVariablesMapping.setInputs(new HashMap<>());
+    processVariablesMapping.setMappingType(MappingType.MAP_ALL);
+    processVariablesMapping.setOutputs(outputs);
+    Mapping mapping2 = mock(Mapping.class);
+    when(mapping2.getValue()).thenReturn(null);
+    when(mapping2.getType()).thenReturn(SourceMappingType.VARIABLE);
+    VariableDefinition variableDefinition = mock(VariableDefinition.class);
+    when(variableDefinition.getValue()).thenReturn(mapping2);
+    Extension extension = mock(Extension.class);
+    when(extension.getPropertyByName(Mockito.<String>any())).thenReturn(variableDefinition);
+    when(extension.shouldMapAllOutputs(Mockito.<String>any())).thenReturn(false);
+    when(extension.getMappingForFlowElement(Mockito.<String>any())).thenReturn(processVariablesMapping);
+    when(extension.hasMapping(Mockito.<String>any())).thenReturn(true);
+    when(processExtensionService.getExtensionsForId(Mockito.<String>any())).thenReturn(extension);
+    when(expressionResolver.containsExpression(Mockito.<Object>any())).thenReturn(false);
+    MappingExecutionContext mappingExecutionContext = MappingExecutionContext.buildMappingExecutionContext("42", "42");
+
+    // Act and Assert
+    assertThrows(ActivitiIllegalArgumentException.class,
+        () -> extensionsVariablesMappingProvider.calculateOutPutVariables(mappingExecutionContext, new HashMap<>()));
+    verify(expressionResolver).containsExpression(isA(Object.class));
+    verify(processExtensionService).getExtensionsForId(eq("42"));
+    verify(extension).getMappingForFlowElement(eq("42"));
+    verify(extension, atLeast(1)).getPropertyByName(eq(""));
+    verify(extension).hasMapping(eq("42"));
+    verify(extension).shouldMapAllOutputs(eq("42"));
+    verify(mapping2).getType();
+    verify(mapping2).getValue();
+    verify(variableDefinition).getValue();
+  }
+
+  /**
+   * Test {@link ExtensionsVariablesMappingProvider#calculateOutPutVariables(MappingExecutionContext, Map)} with {@code mappingExecutionContext}, {@code availableVariables}.
+   * <p>
+   * Method under test: {@link ExtensionsVariablesMappingProvider#calculateOutPutVariables(MappingExecutionContext, Map)}
+   */
+  @Test
+  @DisplayName("Test calculateOutPutVariables(MappingExecutionContext, Map) with 'mappingExecutionContext', 'availableVariables'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"Map ExtensionsVariablesMappingProvider.calculateOutPutVariables(MappingExecutionContext, Map)"})
+  void testCalculateOutPutVariablesWithMappingExecutionContextAvailableVariables21() {
+    // Arrange
+    Mapping mapping = new Mapping();
+    mapping.setType(SourceMappingType.JSONPATCH);
+    mapping.setValue("Value");
+
+    HashMap<String, Mapping> outputs = new HashMap<>();
+    outputs.put("", mapping);
+
+    ProcessVariablesMapping processVariablesMapping = new ProcessVariablesMapping();
+    processVariablesMapping.setInputs(new HashMap<>());
+    processVariablesMapping.setMappingType(MappingType.MAP_ALL);
+    processVariablesMapping.setOutputs(outputs);
+    Mapping mapping2 = mock(Mapping.class);
+    when(mapping2.getValue()).thenReturn(new TiedMapEntry<>(new HashMap<>(), "Key"));
+    when(mapping2.getType()).thenReturn(SourceMappingType.VARIABLE);
+    VariableDefinition variableDefinition = mock(VariableDefinition.class);
+    when(variableDefinition.getValue()).thenReturn(mapping2);
+    Extension extension = mock(Extension.class);
+    when(extension.getPropertyByName(Mockito.<String>any())).thenReturn(variableDefinition);
+    when(extension.shouldMapAllOutputs(Mockito.<String>any())).thenReturn(false);
+    when(extension.getMappingForFlowElement(Mockito.<String>any())).thenReturn(processVariablesMapping);
+    when(extension.hasMapping(Mockito.<String>any())).thenReturn(true);
+    when(processExtensionService.getExtensionsForId(Mockito.<String>any())).thenReturn(extension);
+    when(expressionResolver.containsExpression(Mockito.<Object>any())).thenReturn(false);
+    MappingExecutionContext mappingExecutionContext = MappingExecutionContext.buildMappingExecutionContext("42", "42");
+
+    // Act and Assert
+    assertThrows(ActivitiIllegalArgumentException.class,
+        () -> extensionsVariablesMappingProvider.calculateOutPutVariables(mappingExecutionContext, new HashMap<>()));
+    verify(expressionResolver).containsExpression(isA(Object.class));
+    verify(processExtensionService).getExtensionsForId(eq("42"));
+    verify(extension).getMappingForFlowElement(eq("42"));
+    verify(extension, atLeast(1)).getPropertyByName(eq(""));
+    verify(extension).hasMapping(eq("42"));
+    verify(extension).shouldMapAllOutputs(eq("42"));
+    verify(mapping2).getType();
+    verify(mapping2).getValue();
+    verify(variableDefinition).getValue();
+  }
+
+  /**
+   * Test {@link ExtensionsVariablesMappingProvider#calculateOutPutVariables(MappingExecutionContext, Map)} with {@code mappingExecutionContext}, {@code availableVariables}.
+   * <p>
+   * Method under test: {@link ExtensionsVariablesMappingProvider#calculateOutPutVariables(MappingExecutionContext, Map)}
+   */
+  @Test
+  @DisplayName("Test calculateOutPutVariables(MappingExecutionContext, Map) with 'mappingExecutionContext', 'availableVariables'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"Map ExtensionsVariablesMappingProvider.calculateOutPutVariables(MappingExecutionContext, Map)"})
+  void testCalculateOutPutVariablesWithMappingExecutionContextAvailableVariables22() {
+    // Arrange
+    Mapping mapping = new Mapping();
+    mapping.setType(SourceMappingType.JSONPATCH);
+    mapping.setValue("Value");
+
+    HashMap<String, Mapping> outputs = new HashMap<>();
+    outputs.put("", mapping);
+
+    ProcessVariablesMapping processVariablesMapping = new ProcessVariablesMapping();
+    processVariablesMapping.setInputs(new HashMap<>());
+    processVariablesMapping.setMappingType(MappingType.MAP_ALL);
+    processVariablesMapping.setOutputs(outputs);
+    Mapping mapping2 = mock(Mapping.class);
+    when(mapping2.getValue()).thenThrow(new ActivitiIllegalArgumentException("An error occurred"));
+    when(mapping2.getType()).thenThrow(new ActivitiIllegalArgumentException("An error occurred"));
+    Mapping mapping3 = mock(Mapping.class);
+    when(mapping3.getValue()).thenReturn(mapping2);
+    when(mapping3.getType()).thenReturn(SourceMappingType.VARIABLE);
+    VariableDefinition variableDefinition = mock(VariableDefinition.class);
+    when(variableDefinition.getValue()).thenReturn(mapping3);
+    Extension extension = mock(Extension.class);
+    when(extension.getPropertyByName(Mockito.<String>any())).thenReturn(variableDefinition);
+    when(extension.shouldMapAllOutputs(Mockito.<String>any())).thenReturn(false);
+    when(extension.getMappingForFlowElement(Mockito.<String>any())).thenReturn(processVariablesMapping);
+    when(extension.hasMapping(Mockito.<String>any())).thenReturn(true);
+    when(processExtensionService.getExtensionsForId(Mockito.<String>any())).thenReturn(extension);
+    when(expressionResolver.containsExpression(Mockito.<Object>any())).thenReturn(false);
+    MappingExecutionContext mappingExecutionContext = MappingExecutionContext.buildMappingExecutionContext("42", "42");
+
+    // Act and Assert
+    assertThrows(ActivitiIllegalArgumentException.class,
+        () -> extensionsVariablesMappingProvider.calculateOutPutVariables(mappingExecutionContext, new HashMap<>()));
+    verify(expressionResolver).containsExpression(isA(Object.class));
+    verify(processExtensionService).getExtensionsForId(eq("42"));
+    verify(extension).getMappingForFlowElement(eq("42"));
+    verify(extension, atLeast(1)).getPropertyByName(eq(""));
+    verify(extension).hasMapping(eq("42"));
+    verify(extension).shouldMapAllOutputs(eq("42"));
+    verify(mapping3).getType();
+    verify(mapping2).getType();
+    verify(mapping3).getValue();
+    verify(variableDefinition).getValue();
+  }
+
+  /**
+   * Test {@link ExtensionsVariablesMappingProvider#calculateOutPutVariables(MappingExecutionContext, Map)} with {@code mappingExecutionContext}, {@code availableVariables}.
+   * <p>
+   * Method under test: {@link ExtensionsVariablesMappingProvider#calculateOutPutVariables(MappingExecutionContext, Map)}
+   */
+  @Test
+  @DisplayName("Test calculateOutPutVariables(MappingExecutionContext, Map) with 'mappingExecutionContext', 'availableVariables'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"Map ExtensionsVariablesMappingProvider.calculateOutPutVariables(MappingExecutionContext, Map)"})
+  void testCalculateOutPutVariablesWithMappingExecutionContextAvailableVariables23() {
+    // Arrange
+    Mapping mapping = new Mapping();
+    mapping.setType(SourceMappingType.JSONPATCH);
+    mapping.setValue("Value");
+
+    HashMap<String, Mapping> outputs = new HashMap<>();
+    outputs.put("", mapping);
+
+    ProcessVariablesMapping processVariablesMapping = new ProcessVariablesMapping();
+    processVariablesMapping.setInputs(new HashMap<>());
+    processVariablesMapping.setMappingType(MappingType.MAP_ALL);
+    processVariablesMapping.setOutputs(outputs);
+    Mapping mapping2 = mock(Mapping.class);
+    when(mapping2.getValue()).thenThrow(new ActivitiIllegalArgumentException("An error occurred"));
+    when(mapping2.getType()).thenThrow(new ActivitiIllegalArgumentException(null));
+    Mapping mapping3 = mock(Mapping.class);
+    when(mapping3.getValue()).thenReturn(mapping2);
+    when(mapping3.getType()).thenReturn(SourceMappingType.VARIABLE);
+    VariableDefinition variableDefinition = mock(VariableDefinition.class);
+    when(variableDefinition.getValue()).thenReturn(mapping3);
+    Extension extension = mock(Extension.class);
+    when(extension.getPropertyByName(Mockito.<String>any())).thenReturn(variableDefinition);
+    when(extension.shouldMapAllOutputs(Mockito.<String>any())).thenReturn(false);
+    when(extension.getMappingForFlowElement(Mockito.<String>any())).thenReturn(processVariablesMapping);
+    when(extension.hasMapping(Mockito.<String>any())).thenReturn(true);
+    when(processExtensionService.getExtensionsForId(Mockito.<String>any())).thenReturn(extension);
+    when(expressionResolver.containsExpression(Mockito.<Object>any())).thenReturn(false);
+    MappingExecutionContext mappingExecutionContext = MappingExecutionContext.buildMappingExecutionContext("42", "42");
+
+    // Act and Assert
+    assertThrows(ActivitiIllegalArgumentException.class,
+        () -> extensionsVariablesMappingProvider.calculateOutPutVariables(mappingExecutionContext, new HashMap<>()));
+    verify(expressionResolver).containsExpression(isA(Object.class));
+    verify(processExtensionService).getExtensionsForId(eq("42"));
+    verify(extension).getMappingForFlowElement(eq("42"));
+    verify(extension, atLeast(1)).getPropertyByName(eq(""));
+    verify(extension).hasMapping(eq("42"));
+    verify(extension).shouldMapAllOutputs(eq("42"));
+    verify(mapping3).getType();
+    verify(mapping2).getType();
+    verify(mapping3).getValue();
+    verify(variableDefinition).getValue();
+  }
+
+  /**
+   * Test {@link ExtensionsVariablesMappingProvider#calculateOutPutVariables(MappingExecutionContext, Map)} with {@code mappingExecutionContext}, {@code availableVariables}.
+   * <p>
+   * Method under test: {@link ExtensionsVariablesMappingProvider#calculateOutPutVariables(MappingExecutionContext, Map)}
+   */
+  @Test
+  @DisplayName("Test calculateOutPutVariables(MappingExecutionContext, Map) with 'mappingExecutionContext', 'availableVariables'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"Map ExtensionsVariablesMappingProvider.calculateOutPutVariables(MappingExecutionContext, Map)"})
+  void testCalculateOutPutVariablesWithMappingExecutionContextAvailableVariables24() {
+    // Arrange
+    Mapping mapping = new Mapping();
+    mapping.setType(SourceMappingType.JSONPATCH);
+    mapping.setValue("Value");
+
+    HashMap<String, Mapping> outputs = new HashMap<>();
+    outputs.put("", mapping);
+
+    ProcessVariablesMapping processVariablesMapping = new ProcessVariablesMapping();
+    processVariablesMapping.setInputs(new HashMap<>());
+    processVariablesMapping.setMappingType(MappingType.MAP_ALL);
+    processVariablesMapping.setOutputs(outputs);
+    Mapping mapping2 = mock(Mapping.class);
+    when(mapping2.getValue()).thenThrow(new ActivitiIllegalArgumentException("An error occurred"));
+    when(mapping2.getType()).thenThrow(new ActivitiIllegalArgumentException(""));
+    Mapping mapping3 = mock(Mapping.class);
+    when(mapping3.getValue()).thenReturn(mapping2);
+    when(mapping3.getType()).thenReturn(SourceMappingType.VARIABLE);
+    VariableDefinition variableDefinition = mock(VariableDefinition.class);
+    when(variableDefinition.getValue()).thenReturn(mapping3);
+    Extension extension = mock(Extension.class);
+    when(extension.getPropertyByName(Mockito.<String>any())).thenReturn(variableDefinition);
+    when(extension.shouldMapAllOutputs(Mockito.<String>any())).thenReturn(false);
+    when(extension.getMappingForFlowElement(Mockito.<String>any())).thenReturn(processVariablesMapping);
+    when(extension.hasMapping(Mockito.<String>any())).thenReturn(true);
+    when(processExtensionService.getExtensionsForId(Mockito.<String>any())).thenReturn(extension);
+    when(expressionResolver.containsExpression(Mockito.<Object>any())).thenReturn(false);
+    MappingExecutionContext mappingExecutionContext = MappingExecutionContext.buildMappingExecutionContext("42", "42");
+
+    // Act and Assert
+    assertThrows(ActivitiIllegalArgumentException.class,
+        () -> extensionsVariablesMappingProvider.calculateOutPutVariables(mappingExecutionContext, new HashMap<>()));
+    verify(expressionResolver).containsExpression(isA(Object.class));
+    verify(processExtensionService).getExtensionsForId(eq("42"));
+    verify(extension).getMappingForFlowElement(eq("42"));
+    verify(extension, atLeast(1)).getPropertyByName(eq(""));
+    verify(extension).hasMapping(eq("42"));
+    verify(extension).shouldMapAllOutputs(eq("42"));
+    verify(mapping3).getType();
+    verify(mapping2).getType();
+    verify(mapping3).getValue();
+    verify(variableDefinition).getValue();
+  }
+
+  /**
+   * Test {@link ExtensionsVariablesMappingProvider#calculateOutPutVariables(MappingExecutionContext, Map)} with {@code mappingExecutionContext}, {@code availableVariables}.
+   * <p>
+   * Method under test: {@link ExtensionsVariablesMappingProvider#calculateOutPutVariables(MappingExecutionContext, Map)}
+   */
+  @Test
+  @DisplayName("Test calculateOutPutVariables(MappingExecutionContext, Map) with 'mappingExecutionContext', 'availableVariables'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"Map ExtensionsVariablesMappingProvider.calculateOutPutVariables(MappingExecutionContext, Map)"})
+  void testCalculateOutPutVariablesWithMappingExecutionContextAvailableVariables25() {
+    // Arrange
+    Mapping mapping = mock(Mapping.class);
+    when(mapping.getValue()).thenReturn("Value");
+    when(mapping.getType()).thenReturn(SourceMappingType.VARIABLE);
+    doNothing().when(mapping).setType(Mockito.<SourceMappingType>any());
+    doNothing().when(mapping).setValue(Mockito.<Object>any());
+    mapping.setType(SourceMappingType.JSONPATCH);
+    mapping.setValue("Value");
+
+    HashMap<String, Mapping> outputs = new HashMap<>();
+    outputs.put("", mapping);
+
+    ProcessVariablesMapping processVariablesMapping = new ProcessVariablesMapping();
+    processVariablesMapping.setInputs(new HashMap<>());
+    processVariablesMapping.setMappingType(MappingType.MAP_ALL);
+    processVariablesMapping.setOutputs(outputs);
+    Mapping mapping2 = mock(Mapping.class);
+    when(mapping2.getValue()).thenThrow(new ActivitiIllegalArgumentException("An error occurred"));
+    when(mapping2.getType()).thenThrow(new ActivitiIllegalArgumentException("An error occurred"));
+    Mapping mapping3 = mock(Mapping.class);
+    when(mapping3.getValue()).thenReturn(mapping2);
+    when(mapping3.getType()).thenReturn(SourceMappingType.VARIABLE);
+    VariableDefinition variableDefinition = mock(VariableDefinition.class);
+    when(variableDefinition.getValue()).thenReturn(mapping3);
+    Extension extension = mock(Extension.class);
+    when(extension.getPropertyByName(Mockito.<String>any())).thenReturn(variableDefinition);
+    when(extension.shouldMapAllOutputs(Mockito.<String>any())).thenReturn(false);
+    when(extension.getMappingForFlowElement(Mockito.<String>any())).thenReturn(processVariablesMapping);
+    when(extension.hasMapping(Mockito.<String>any())).thenReturn(true);
+    when(processExtensionService.getExtensionsForId(Mockito.<String>any())).thenReturn(extension);
+    when(expressionResolver.resolveExpressionsMap(Mockito.<ExpressionEvaluator>any(),
+        Mockito.<Map<String, Object>>any())).thenReturn(new HashMap<>());
+    when(expressionResolver.containsExpression(Mockito.<Object>any())).thenReturn(false);
+    MappingExecutionContext mappingExecutionContext = MappingExecutionContext.buildMappingExecutionContext("42", "42");
+
+    // Act
+    Map<String, Object> actualCalculateOutPutVariablesResult = extensionsVariablesMappingProvider
+        .calculateOutPutVariables(mappingExecutionContext, new HashMap<>());
+
+    // Assert
+    verify(expressionResolver).containsExpression(isA(Object.class));
+    verify(expressionResolver).resolveExpressionsMap(isA(ExpressionEvaluator.class), isA(Map.class));
+    verify(processExtensionService).getExtensionsForId(eq("42"));
+    verify(extension).getMappingForFlowElement(eq("42"));
+    verify(extension, atLeast(1)).getPropertyByName(eq(""));
+    verify(extension).hasMapping(eq("42"));
+    verify(extension).shouldMapAllOutputs(eq("42"));
+    verify(mapping, atLeast(1)).getType();
+    verify(mapping).getValue();
+    verify(mapping).setType(eq(SourceMappingType.JSONPATCH));
+    verify(mapping).setValue(isA(Object.class));
+    verify(variableDefinition).getValue();
+    assertTrue(actualCalculateOutPutVariablesResult.isEmpty());
+  }
+
+  /**
+   * Test {@link ExtensionsVariablesMappingProvider#calculateOutPutVariables(MappingExecutionContext, Map)} with {@code mappingExecutionContext}, {@code availableVariables}.
+   * <p>
+   * Method under test: {@link ExtensionsVariablesMappingProvider#calculateOutPutVariables(MappingExecutionContext, Map)}
+   */
+  @Test
+  @DisplayName("Test calculateOutPutVariables(MappingExecutionContext, Map) with 'mappingExecutionContext', 'availableVariables'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"Map ExtensionsVariablesMappingProvider.calculateOutPutVariables(MappingExecutionContext, Map)"})
+  void testCalculateOutPutVariablesWithMappingExecutionContextAvailableVariables26() {
+    // Arrange
+    Mapping mapping = mock(Mapping.class);
+    when(mapping.getValue()).thenThrow(new ActivitiIllegalArgumentException("An error occurred"));
+    when(mapping.getType()).thenReturn(SourceMappingType.VARIABLE);
+    doNothing().when(mapping).setType(Mockito.<SourceMappingType>any());
+    doNothing().when(mapping).setValue(Mockito.<Object>any());
+    mapping.setType(SourceMappingType.JSONPATCH);
+    mapping.setValue("Value");
+
+    HashMap<String, Mapping> outputs = new HashMap<>();
+    outputs.put("", mapping);
+
+    ProcessVariablesMapping processVariablesMapping = new ProcessVariablesMapping();
+    processVariablesMapping.setInputs(new HashMap<>());
+    processVariablesMapping.setMappingType(MappingType.MAP_ALL);
+    processVariablesMapping.setOutputs(outputs);
+    Mapping mapping2 = mock(Mapping.class);
+    when(mapping2.getValue()).thenThrow(new ActivitiIllegalArgumentException("An error occurred"));
+    when(mapping2.getType()).thenThrow(new ActivitiIllegalArgumentException("An error occurred"));
+    Mapping mapping3 = mock(Mapping.class);
+    when(mapping3.getValue()).thenReturn(mapping2);
+    when(mapping3.getType()).thenReturn(SourceMappingType.VARIABLE);
+    VariableDefinition variableDefinition = mock(VariableDefinition.class);
+    when(variableDefinition.getValue()).thenReturn(mapping3);
+    Extension extension = mock(Extension.class);
+    when(extension.getPropertyByName(Mockito.<String>any())).thenReturn(variableDefinition);
+    when(extension.shouldMapAllOutputs(Mockito.<String>any())).thenReturn(false);
+    when(extension.getMappingForFlowElement(Mockito.<String>any())).thenReturn(processVariablesMapping);
+    when(extension.hasMapping(Mockito.<String>any())).thenReturn(true);
+    when(processExtensionService.getExtensionsForId(Mockito.<String>any())).thenReturn(extension);
+    when(expressionResolver.containsExpression(Mockito.<Object>any())).thenReturn(false);
+    MappingExecutionContext mappingExecutionContext = MappingExecutionContext.buildMappingExecutionContext("42", "42");
+
+    // Act and Assert
+    assertThrows(ActivitiIllegalArgumentException.class,
+        () -> extensionsVariablesMappingProvider.calculateOutPutVariables(mappingExecutionContext, new HashMap<>()));
+    verify(expressionResolver).containsExpression(isA(Object.class));
+    verify(processExtensionService).getExtensionsForId(eq("42"));
+    verify(extension).getMappingForFlowElement(eq("42"));
+    verify(extension, atLeast(1)).getPropertyByName(eq(""));
+    verify(extension).hasMapping(eq("42"));
+    verify(extension).shouldMapAllOutputs(eq("42"));
+    verify(mapping, atLeast(1)).getType();
+    verify(mapping).getValue();
+    verify(mapping).setType(eq(SourceMappingType.JSONPATCH));
+    verify(mapping).setValue(isA(Object.class));
+    verify(variableDefinition).getValue();
+  }
+
+  /**
+   * Test {@link ExtensionsVariablesMappingProvider#calculateOutPutVariables(MappingExecutionContext, Map)} with {@code mappingExecutionContext}, {@code availableVariables}.
+   * <ul>
+   *   <li>Given {@code A}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link ExtensionsVariablesMappingProvider#calculateOutPutVariables(MappingExecutionContext, Map)}
+   */
+  @Test
+  @DisplayName("Test calculateOutPutVariables(MappingExecutionContext, Map) with 'mappingExecutionContext', 'availableVariables'; given 'A'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"Map ExtensionsVariablesMappingProvider.calculateOutPutVariables(MappingExecutionContext, Map)"})
+  void testCalculateOutPutVariablesWithMappingExecutionContextAvailableVariables_givenA() {
+    // Arrange
+    Mapping mapping = new Mapping();
+    mapping.setType(SourceMappingType.JSONPATCH);
+    mapping.setValue("Value");
+
+    HashMap<String, Mapping> outputs = new HashMap<>();
+    outputs.put("", mapping);
+
+    ProcessVariablesMapping processVariablesMapping = new ProcessVariablesMapping();
+    processVariablesMapping.setInputs(new HashMap<>());
+    processVariablesMapping.setMappingType(MappingType.MAP_ALL);
+    processVariablesMapping.setOutputs(outputs);
+    VariableDefinition variableDefinition = mock(VariableDefinition.class);
+    when(variableDefinition.getValue()).thenReturn(new BinaryNode(new byte[]{'A', 1, 'A', 1, 'A', 1, 'A', 1}));
+    Extension extension = mock(Extension.class);
+    when(extension.getPropertyByName(Mockito.<String>any())).thenReturn(variableDefinition);
+    when(extension.shouldMapAllOutputs(Mockito.<String>any())).thenReturn(false);
+    when(extension.getMappingForFlowElement(Mockito.<String>any())).thenReturn(processVariablesMapping);
+    when(extension.hasMapping(Mockito.<String>any())).thenReturn(true);
+    when(processExtensionService.getExtensionsForId(Mockito.<String>any())).thenReturn(extension);
+    when(expressionResolver.containsExpression(Mockito.<Object>any())).thenReturn(false);
+    MappingExecutionContext mappingExecutionContext = MappingExecutionContext.buildMappingExecutionContext("42", "42");
+
+    // Act and Assert
+    assertThrows(ActivitiIllegalArgumentException.class,
+        () -> extensionsVariablesMappingProvider.calculateOutPutVariables(mappingExecutionContext, new HashMap<>()));
+    verify(expressionResolver).containsExpression(isA(Object.class));
+    verify(processExtensionService).getExtensionsForId(eq("42"));
+    verify(extension).getMappingForFlowElement(eq("42"));
+    verify(extension, atLeast(1)).getPropertyByName(eq(""));
+    verify(extension).hasMapping(eq("42"));
+    verify(extension).shouldMapAllOutputs(eq("42"));
+    verify(variableDefinition).getValue();
   }
 }

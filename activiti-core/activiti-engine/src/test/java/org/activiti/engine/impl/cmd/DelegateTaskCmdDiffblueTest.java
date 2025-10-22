@@ -16,8 +16,7 @@
 package org.activiti.engine.impl.cmd;
 
 import static org.junit.Assert.assertEquals;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
@@ -25,25 +24,19 @@ import org.junit.experimental.categories.Category;
 public class DelegateTaskCmdDiffblueTest {
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>{@link DelegateTaskCmd#DelegateTaskCmd(String, String)}
    *   <li>{@link DelegateTaskCmd#getSuspendedTaskException()}
    * </ul>
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void DelegateTaskCmd.<init>(String, String)",
-    "String DelegateTaskCmd.getSuspendedTaskException()"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void DelegateTaskCmd.<init>(String, String)",
+      "String DelegateTaskCmd.getSuspendedTaskException()"})
   public void testGettersAndSetters() {
     // Arrange, Act and Assert
-    assertEquals(
-        "Cannot delegate a suspended task",
-        new DelegateTaskCmd("42", "42").getSuspendedTaskException());
+    assertEquals("Cannot delegate a suspended task", (new DelegateTaskCmd("42", "42")).getSuspendedTaskException());
   }
 }

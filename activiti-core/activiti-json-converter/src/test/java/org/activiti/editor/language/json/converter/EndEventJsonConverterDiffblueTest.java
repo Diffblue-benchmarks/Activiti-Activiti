@@ -20,10 +20,9 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.node.DoubleNode;
+import com.fasterxml.jackson.databind.node.MissingNode;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -41,13 +40,12 @@ import org.junit.jupiter.api.Test;
 class EndEventJsonConverterDiffblueTest {
   /**
    * Test {@link EndEventJsonConverter#fillJsonTypes(Map)}.
-   *
-   * <p>Method under test: {@link EndEventJsonConverter#fillJsonTypes(Map)}
+   * <p>
+   * Method under test: {@link EndEventJsonConverter#fillJsonTypes(Map)}
    */
   @Test
   @DisplayName("Test fillJsonTypes(Map)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void EndEventJsonConverter.fillJsonTypes(Map)"})
   void testFillJsonTypes() {
     // Arrange
@@ -68,20 +66,16 @@ class EndEventJsonConverterDiffblueTest {
 
   /**
    * Test {@link EndEventJsonConverter#getStencilId(BaseElement)}.
-   *
    * <ul>
-   *   <li>Given {@link ArrayList#ArrayList()} add {@link CancelEventDefinition} (default
-   *       constructor).
-   *   <li>Then return {@code EndCancelEvent}.
+   *   <li>Given {@link ArrayList#ArrayList()} add {@link CancelEventDefinition} (default constructor).</li>
+   *   <li>Then return {@code EndCancelEvent}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link EndEventJsonConverter#getStencilId(BaseElement)}
+   * <p>
+   * Method under test: {@link EndEventJsonConverter#getStencilId(BaseElement)}
    */
   @Test
-  @DisplayName(
-      "Test getStencilId(BaseElement); given ArrayList() add CancelEventDefinition (default constructor); then return 'EndCancelEvent'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getStencilId(BaseElement); given ArrayList() add CancelEventDefinition (default constructor); then return 'EndCancelEvent'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"String EndEventJsonConverter.getStencilId(BaseElement)"})
   void testGetStencilId_givenArrayListAddCancelEventDefinition_thenReturnEndCancelEvent() {
     // Arrange
@@ -99,20 +93,16 @@ class EndEventJsonConverterDiffblueTest {
 
   /**
    * Test {@link EndEventJsonConverter#getStencilId(BaseElement)}.
-   *
    * <ul>
-   *   <li>Given {@link ArrayList#ArrayList()} add {@link CancelEventDefinition} (default
-   *       constructor).
-   *   <li>Then return {@code EndNoneEvent}.
+   *   <li>Given {@link ArrayList#ArrayList()} add {@link CancelEventDefinition} (default constructor).</li>
+   *   <li>Then return {@code EndNoneEvent}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link EndEventJsonConverter#getStencilId(BaseElement)}
+   * <p>
+   * Method under test: {@link EndEventJsonConverter#getStencilId(BaseElement)}
    */
   @Test
-  @DisplayName(
-      "Test getStencilId(BaseElement); given ArrayList() add CancelEventDefinition (default constructor); then return 'EndNoneEvent'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getStencilId(BaseElement); given ArrayList() add CancelEventDefinition (default constructor); then return 'EndNoneEvent'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"String EndEventJsonConverter.getStencilId(BaseElement)"})
   void testGetStencilId_givenArrayListAddCancelEventDefinition_thenReturnEndNoneEvent() {
     // Arrange
@@ -131,20 +121,16 @@ class EndEventJsonConverterDiffblueTest {
 
   /**
    * Test {@link EndEventJsonConverter#getStencilId(BaseElement)}.
-   *
    * <ul>
-   *   <li>Given {@link ArrayList#ArrayList()} add {@link ErrorEventDefinition} (default
-   *       constructor).
-   *   <li>Then return {@code EndErrorEvent}.
+   *   <li>Given {@link ArrayList#ArrayList()} add {@link ErrorEventDefinition} (default constructor).</li>
+   *   <li>Then return {@code EndErrorEvent}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link EndEventJsonConverter#getStencilId(BaseElement)}
+   * <p>
+   * Method under test: {@link EndEventJsonConverter#getStencilId(BaseElement)}
    */
   @Test
-  @DisplayName(
-      "Test getStencilId(BaseElement); given ArrayList() add ErrorEventDefinition (default constructor); then return 'EndErrorEvent'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getStencilId(BaseElement); given ArrayList() add ErrorEventDefinition (default constructor); then return 'EndErrorEvent'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"String EndEventJsonConverter.getStencilId(BaseElement)"})
   void testGetStencilId_givenArrayListAddErrorEventDefinition_thenReturnEndErrorEvent() {
     // Arrange
@@ -162,19 +148,16 @@ class EndEventJsonConverterDiffblueTest {
 
   /**
    * Test {@link EndEventJsonConverter#getStencilId(BaseElement)}.
-   *
    * <ul>
-   *   <li>Given {@link ArrayList#ArrayList()} add {@code null}.
-   *   <li>Then return {@code EndNoneEvent}.
+   *   <li>Given {@link ArrayList#ArrayList()} add {@code null}.</li>
+   *   <li>Then return {@code EndNoneEvent}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link EndEventJsonConverter#getStencilId(BaseElement)}
+   * <p>
+   * Method under test: {@link EndEventJsonConverter#getStencilId(BaseElement)}
    */
   @Test
-  @DisplayName(
-      "Test getStencilId(BaseElement); given ArrayList() add 'null'; then return 'EndNoneEvent'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getStencilId(BaseElement); given ArrayList() add 'null'; then return 'EndNoneEvent'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"String EndEventJsonConverter.getStencilId(BaseElement)"})
   void testGetStencilId_givenArrayListAddNull_thenReturnEndNoneEvent() {
     // Arrange
@@ -192,17 +175,15 @@ class EndEventJsonConverterDiffblueTest {
 
   /**
    * Test {@link EndEventJsonConverter#getStencilId(BaseElement)}.
-   *
    * <ul>
-   *   <li>Then return {@code EndTerminateEvent}.
+   *   <li>Then return {@code EndTerminateEvent}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link EndEventJsonConverter#getStencilId(BaseElement)}
+   * <p>
+   * Method under test: {@link EndEventJsonConverter#getStencilId(BaseElement)}
    */
   @Test
   @DisplayName("Test getStencilId(BaseElement); then return 'EndTerminateEvent'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"String EndEventJsonConverter.getStencilId(BaseElement)"})
   void testGetStencilId_thenReturnEndTerminateEvent() {
     // Arrange
@@ -220,32 +201,26 @@ class EndEventJsonConverterDiffblueTest {
 
   /**
    * Test {@link EndEventJsonConverter#convertJsonToElement(JsonNode, JsonNode, Map)}.
-   *
    * <ul>
-   *   <li>When {@link HashMap#HashMap()}.
-   *   <li>Then return {@link EndEvent}.
+   *   <li>When {@link HashMap#HashMap()}.</li>
+   *   <li>Then return {@link EndEvent}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link EndEventJsonConverter#convertJsonToElement(JsonNode, JsonNode,
-   * Map)}
+   * <p>
+   * Method under test: {@link EndEventJsonConverter#convertJsonToElement(JsonNode, JsonNode, Map)}
    */
   @Test
-  @DisplayName(
-      "Test convertJsonToElement(JsonNode, JsonNode, Map); when HashMap(); then return EndEvent")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "FlowElement EndEventJsonConverter.convertJsonToElement(JsonNode, JsonNode, Map)"
-  })
+  @DisplayName("Test convertJsonToElement(JsonNode, JsonNode, Map); when HashMap(); then return EndEvent")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"FlowElement EndEventJsonConverter.convertJsonToElement(JsonNode, JsonNode, Map)"})
   void testConvertJsonToElement_whenHashMap_thenReturnEndEvent() {
     // Arrange
     EndEventJsonConverter endEventJsonConverter = new EndEventJsonConverter();
-    DoubleNode elementNode = DoubleNode.valueOf(10.0d);
-    DoubleNode modelNode = DoubleNode.valueOf(10.0d);
+    MissingNode elementNode = MissingNode.getInstance();
+    MissingNode modelNode = MissingNode.getInstance();
 
     // Act
-    FlowElement actualConvertJsonToElementResult =
-        endEventJsonConverter.convertJsonToElement(elementNode, modelNode, new HashMap<>());
+    FlowElement actualConvertJsonToElementResult = endEventJsonConverter.convertJsonToElement(elementNode, modelNode,
+        new HashMap<>());
 
     // Assert
     assertTrue(actualConvertJsonToElementResult instanceof EndEvent);
@@ -270,13 +245,12 @@ class EndEventJsonConverterDiffblueTest {
 
   /**
    * Test new {@link EndEventJsonConverter} (default constructor).
-   *
-   * <p>Method under test: default or parameterless constructor of {@link EndEventJsonConverter}
+   * <p>
+   * Method under test: default or parameterless constructor of {@link EndEventJsonConverter}
    */
   @Test
   @DisplayName("Test new EndEventJsonConverter (default constructor)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void EndEventJsonConverter.<init>()"})
   void testNewEndEventJsonConverter() {
     // Arrange and Act

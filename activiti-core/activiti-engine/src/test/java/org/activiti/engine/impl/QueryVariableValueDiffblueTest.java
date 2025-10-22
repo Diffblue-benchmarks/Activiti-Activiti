@@ -19,8 +19,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertThrows;
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.engine.ActivitiIllegalArgumentException;
 import org.activiti.engine.impl.util.json.JSONObject;
@@ -33,9 +32,8 @@ import org.junit.experimental.categories.Category;
 public class QueryVariableValueDiffblueTest {
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>{@link QueryVariableValue#QueryVariableValue(String, Object, QueryOperator, boolean)}
    *   <li>{@link QueryVariableValue#getName()}
@@ -43,17 +41,13 @@ public class QueryVariableValueDiffblueTest {
    * </ul>
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void QueryVariableValue.<init>(String, Object, QueryOperator, boolean)",
-    "String QueryVariableValue.getName()",
-    "boolean QueryVariableValue.isLocal()"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void QueryVariableValue.<init>(String, Object, QueryOperator, boolean)",
+      "String QueryVariableValue.getName()", "boolean QueryVariableValue.isLocal()"})
   public void testGettersAndSetters() {
     // Arrange and Act
-    QueryVariableValue actualQueryVariableValue =
-        new QueryVariableValue("Name", JSONObject.NULL, QueryOperator.EQUALS, true);
+    QueryVariableValue actualQueryVariableValue = new QueryVariableValue("Name", JSONObject.NULL, QueryOperator.EQUALS,
+        true);
     String actualName = actualQueryVariableValue.getName();
 
     // Assert
@@ -63,154 +57,115 @@ public class QueryVariableValueDiffblueTest {
 
   /**
    * Test {@link QueryVariableValue#initialize(VariableTypes)}.
-   *
    * <ul>
-   *   <li>Given {@link ByteArrayType} (default constructor).
-   *   <li>Then throw {@link ActivitiIllegalArgumentException}.
+   *   <li>Given {@link ByteArrayType} (default constructor).</li>
+   *   <li>Then throw {@link ActivitiIllegalArgumentException}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link QueryVariableValue#initialize(VariableTypes)}
+   * <p>
+   * Method under test: {@link QueryVariableValue#initialize(VariableTypes)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void QueryVariableValue.initialize(VariableTypes)"})
   public void testInitialize_givenByteArrayType_thenThrowActivitiIllegalArgumentException() {
     // Arrange
-    QueryVariableValue queryVariableValue =
-        new QueryVariableValue("Name", null, QueryOperator.EQUALS, true);
+    QueryVariableValue queryVariableValue = new QueryVariableValue("Name", null, QueryOperator.EQUALS, true);
 
     DefaultVariableTypes types = new DefaultVariableTypes();
     types.addType(new ByteArrayType());
 
     // Act and Assert
-    assertThrows(
-        ActivitiIllegalArgumentException.class, () -> queryVariableValue.initialize(types));
+    assertThrows(ActivitiIllegalArgumentException.class, () -> queryVariableValue.initialize(types));
   }
 
   /**
    * Test {@link QueryVariableValue#getOperator()}.
-   *
-   * <p>Method under test: {@link QueryVariableValue#getOperator()}
+   * <p>
+   * Method under test: {@link QueryVariableValue#getOperator()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"String QueryVariableValue.getOperator()"})
   public void testGetOperator() {
-    // Arrange
-    QueryVariableValue queryVariableValue =
-        new QueryVariableValue("Name", JSONObject.NULL, QueryOperator.EQUALS, true);
-
-    // Act and Assert
-    assertEquals("EQUALS", queryVariableValue.getOperator());
+    // Arrange, Act and Assert
+    assertEquals("EQUALS", (new QueryVariableValue("Name", JSONObject.NULL, QueryOperator.EQUALS, true)).getOperator());
   }
 
   /**
    * Test {@link QueryVariableValue#getOperator()}.
-   *
-   * <p>Method under test: {@link QueryVariableValue#getOperator()}
+   * <p>
+   * Method under test: {@link QueryVariableValue#getOperator()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"String QueryVariableValue.getOperator()"})
   public void testGetOperator2() {
-    // Arrange
-    QueryVariableValue queryVariableValue =
-        new QueryVariableValue("Name", JSONObject.NULL, null, true);
-
-    // Act and Assert
-    assertEquals("EQUALS", queryVariableValue.getOperator());
+    // Arrange, Act and Assert
+    assertEquals("EQUALS", (new QueryVariableValue("Name", JSONObject.NULL, null, true)).getOperator());
   }
 
   /**
    * Test {@link QueryVariableValue#getTextValue()}.
-   *
-   * <p>Method under test: {@link QueryVariableValue#getTextValue()}
+   * <p>
+   * Method under test: {@link QueryVariableValue#getTextValue()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"String QueryVariableValue.getTextValue()"})
   public void testGetTextValue() {
-    // Arrange
-    QueryVariableValue queryVariableValue =
-        new QueryVariableValue("Name", JSONObject.NULL, QueryOperator.EQUALS, true);
-
-    // Act and Assert
-    assertNull(queryVariableValue.getTextValue());
+    // Arrange, Act and Assert
+    assertNull((new QueryVariableValue("Name", JSONObject.NULL, QueryOperator.EQUALS, true)).getTextValue());
   }
 
   /**
    * Test {@link QueryVariableValue#getLongValue()}.
-   *
-   * <p>Method under test: {@link QueryVariableValue#getLongValue()}
+   * <p>
+   * Method under test: {@link QueryVariableValue#getLongValue()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"java.lang.Long QueryVariableValue.getLongValue()"})
   public void testGetLongValue() {
-    // Arrange
-    QueryVariableValue queryVariableValue =
-        new QueryVariableValue("Name", JSONObject.NULL, QueryOperator.EQUALS, true);
-
-    // Act and Assert
-    assertNull(queryVariableValue.getLongValue());
+    // Arrange, Act and Assert
+    assertNull((new QueryVariableValue("Name", JSONObject.NULL, QueryOperator.EQUALS, true)).getLongValue());
   }
 
   /**
    * Test {@link QueryVariableValue#getDoubleValue()}.
-   *
-   * <p>Method under test: {@link QueryVariableValue#getDoubleValue()}
+   * <p>
+   * Method under test: {@link QueryVariableValue#getDoubleValue()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"java.lang.Double QueryVariableValue.getDoubleValue()"})
   public void testGetDoubleValue() {
-    // Arrange
-    QueryVariableValue queryVariableValue =
-        new QueryVariableValue("Name", JSONObject.NULL, QueryOperator.EQUALS, true);
-
-    // Act and Assert
-    assertNull(queryVariableValue.getDoubleValue());
+    // Arrange, Act and Assert
+    assertNull((new QueryVariableValue("Name", JSONObject.NULL, QueryOperator.EQUALS, true)).getDoubleValue());
   }
 
   /**
    * Test {@link QueryVariableValue#getTextValue2()}.
-   *
-   * <p>Method under test: {@link QueryVariableValue#getTextValue2()}
+   * <p>
+   * Method under test: {@link QueryVariableValue#getTextValue2()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"String QueryVariableValue.getTextValue2()"})
   public void testGetTextValue2() {
-    // Arrange
-    QueryVariableValue queryVariableValue =
-        new QueryVariableValue("Name", JSONObject.NULL, QueryOperator.EQUALS, true);
-
-    // Act and Assert
-    assertNull(queryVariableValue.getTextValue2());
+    // Arrange, Act and Assert
+    assertNull((new QueryVariableValue("Name", JSONObject.NULL, QueryOperator.EQUALS, true)).getTextValue2());
   }
 
   /**
    * Test {@link QueryVariableValue#getType()}.
-   *
-   * <p>Method under test: {@link QueryVariableValue#getType()}
+   * <p>
+   * Method under test: {@link QueryVariableValue#getType()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"String QueryVariableValue.getType()"})
   public void testGetType() {
-    // Arrange
-    QueryVariableValue queryVariableValue =
-        new QueryVariableValue("Name", JSONObject.NULL, QueryOperator.EQUALS, true);
-
-    // Act and Assert
-    assertNull(queryVariableValue.getType());
+    // Arrange, Act and Assert
+    assertNull((new QueryVariableValue("Name", JSONObject.NULL, QueryOperator.EQUALS, true)).getType());
   }
 }

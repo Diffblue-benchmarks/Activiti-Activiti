@@ -20,13 +20,14 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
+import static org.mockito.Mockito.atLeast;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
@@ -34,17 +35,15 @@ import org.junit.experimental.categories.Category;
 public class FlowNodeDiffblueTest {
   /**
    * Test {@link FlowNode#isAsynchronous()}.
-   *
    * <ul>
-   *   <li>Given {@link AdhocSubProcess} (default constructor) Asynchronous is {@code true}.
-   *   <li>Then return {@code true}.
+   *   <li>Given {@link AdhocSubProcess} (default constructor) Asynchronous is {@code true}.</li>
+   *   <li>Then return {@code true}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link FlowNode#isAsynchronous()}
+   * <p>
+   * Method under test: {@link FlowNode#isAsynchronous()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"boolean FlowNode.isAsynchronous()"})
   public void testIsAsynchronous_givenAdhocSubProcessAsynchronousIsTrue_thenReturnTrue() {
     // Arrange
@@ -57,31 +56,28 @@ public class FlowNodeDiffblueTest {
 
   /**
    * Test {@link FlowNode#isAsynchronous()}.
-   *
    * <ul>
-   *   <li>Given {@link AdhocSubProcess} (default constructor).
-   *   <li>Then return {@code false}.
+   *   <li>Given {@link AdhocSubProcess} (default constructor).</li>
+   *   <li>Then return {@code false}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link FlowNode#isAsynchronous()}
+   * <p>
+   * Method under test: {@link FlowNode#isAsynchronous()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"boolean FlowNode.isAsynchronous()"})
   public void testIsAsynchronous_givenAdhocSubProcess_thenReturnFalse() {
     // Arrange, Act and Assert
-    assertFalse(new AdhocSubProcess().isAsynchronous());
+    assertFalse((new AdhocSubProcess()).isAsynchronous());
   }
 
   /**
    * Test {@link FlowNode#setAsynchronous(boolean)}.
-   *
-   * <p>Method under test: {@link FlowNode#setAsynchronous(boolean)}
+   * <p>
+   * Method under test: {@link FlowNode#setAsynchronous(boolean)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void FlowNode.setAsynchronous(boolean)"})
   public void testSetAsynchronous() {
     // Arrange
@@ -96,17 +92,15 @@ public class FlowNodeDiffblueTest {
 
   /**
    * Test {@link FlowNode#isExclusive()}.
-   *
    * <ul>
-   *   <li>Given {@link AdhocSubProcess} (default constructor) Exclusive is {@code false}.
-   *   <li>Then return {@code false}.
+   *   <li>Given {@link AdhocSubProcess} (default constructor) Exclusive is {@code false}.</li>
+   *   <li>Then return {@code false}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link FlowNode#isExclusive()}
+   * <p>
+   * Method under test: {@link FlowNode#isExclusive()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"boolean FlowNode.isExclusive()"})
   public void testIsExclusive_givenAdhocSubProcessExclusiveIsFalse_thenReturnFalse() {
     // Arrange
@@ -119,36 +113,32 @@ public class FlowNodeDiffblueTest {
 
   /**
    * Test {@link FlowNode#isExclusive()}.
-   *
    * <ul>
-   *   <li>Given {@link AdhocSubProcess} (default constructor).
-   *   <li>Then return {@code true}.
+   *   <li>Given {@link AdhocSubProcess} (default constructor).</li>
+   *   <li>Then return {@code true}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link FlowNode#isExclusive()}
+   * <p>
+   * Method under test: {@link FlowNode#isExclusive()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"boolean FlowNode.isExclusive()"})
   public void testIsExclusive_givenAdhocSubProcess_thenReturnTrue() {
     // Arrange, Act and Assert
-    assertTrue(new AdhocSubProcess().isExclusive());
+    assertTrue((new AdhocSubProcess()).isExclusive());
   }
 
   /**
    * Test {@link FlowNode#setExclusive(boolean)}.
-   *
    * <ul>
-   *   <li>When {@code false}.
-   *   <li>Then not {@link AdhocSubProcess} (default constructor) Exclusive.
+   *   <li>When {@code false}.</li>
+   *   <li>Then not {@link AdhocSubProcess} (default constructor) Exclusive.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link FlowNode#setExclusive(boolean)}
+   * <p>
+   * Method under test: {@link FlowNode#setExclusive(boolean)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void FlowNode.setExclusive(boolean)"})
   public void testSetExclusive_whenFalse_thenNotAdhocSubProcessExclusive() {
     // Arrange
@@ -164,17 +154,15 @@ public class FlowNodeDiffblueTest {
 
   /**
    * Test {@link FlowNode#setExclusive(boolean)}.
-   *
    * <ul>
-   *   <li>When {@code true}.
-   *   <li>Then not {@link AdhocSubProcess} (default constructor) NotExclusive.
+   *   <li>When {@code true}.</li>
+   *   <li>Then not {@link AdhocSubProcess} (default constructor) NotExclusive.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link FlowNode#setExclusive(boolean)}
+   * <p>
+   * Method under test: {@link FlowNode#setExclusive(boolean)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void FlowNode.setExclusive(boolean)"})
   public void testSetExclusive_whenTrue_thenNotAdhocSubProcessNotExclusive() {
     // Arrange
@@ -190,17 +178,15 @@ public class FlowNodeDiffblueTest {
 
   /**
    * Test {@link FlowNode#isNotExclusive()}.
-   *
    * <ul>
-   *   <li>Given {@link AdhocSubProcess} (default constructor) NotExclusive is {@code true}.
-   *   <li>Then return {@code true}.
+   *   <li>Given {@link AdhocSubProcess} (default constructor) NotExclusive is {@code true}.</li>
+   *   <li>Then return {@code true}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link FlowNode#isNotExclusive()}
+   * <p>
+   * Method under test: {@link FlowNode#isNotExclusive()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"boolean FlowNode.isNotExclusive()"})
   public void testIsNotExclusive_givenAdhocSubProcessNotExclusiveIsTrue_thenReturnTrue() {
     // Arrange
@@ -213,31 +199,28 @@ public class FlowNodeDiffblueTest {
 
   /**
    * Test {@link FlowNode#isNotExclusive()}.
-   *
    * <ul>
-   *   <li>Given {@link AdhocSubProcess} (default constructor).
-   *   <li>Then return {@code false}.
+   *   <li>Given {@link AdhocSubProcess} (default constructor).</li>
+   *   <li>Then return {@code false}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link FlowNode#isNotExclusive()}
+   * <p>
+   * Method under test: {@link FlowNode#isNotExclusive()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"boolean FlowNode.isNotExclusive()"})
   public void testIsNotExclusive_givenAdhocSubProcess_thenReturnFalse() {
     // Arrange, Act and Assert
-    assertFalse(new AdhocSubProcess().isNotExclusive());
+    assertFalse((new AdhocSubProcess()).isNotExclusive());
   }
 
   /**
    * Test {@link FlowNode#setNotExclusive(boolean)}.
-   *
-   * <p>Method under test: {@link FlowNode#setNotExclusive(boolean)}
+   * <p>
+   * Method under test: {@link FlowNode#setNotExclusive(boolean)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void FlowNode.setNotExclusive(boolean)"})
   public void testSetNotExclusive() {
     // Arrange
@@ -253,26 +236,24 @@ public class FlowNodeDiffblueTest {
 
   /**
    * Test {@link FlowNode#getBehavior()}.
-   *
-   * <p>Method under test: {@link FlowNode#getBehavior()}
+   * <p>
+   * Method under test: {@link FlowNode#getBehavior()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"Object FlowNode.getBehavior()"})
   public void testGetBehavior() {
     // Arrange, Act and Assert
-    assertNull(new AdhocSubProcess().getBehavior());
+    assertNull((new AdhocSubProcess()).getBehavior());
   }
 
   /**
    * Test {@link FlowNode#setBehavior(Object)}.
-   *
-   * <p>Method under test: {@link FlowNode#setBehavior(Object)}
+   * <p>
+   * Method under test: {@link FlowNode#setBehavior(Object)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void FlowNode.setBehavior(Object)"})
   public void testSetBehavior() {
     // Arrange
@@ -287,31 +268,27 @@ public class FlowNodeDiffblueTest {
 
   /**
    * Test {@link FlowNode#getIncomingFlows()}.
-   *
-   * <p>Method under test: {@link FlowNode#getIncomingFlows()}
+   * <p>
+   * Method under test: {@link FlowNode#getIncomingFlows()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"List FlowNode.getIncomingFlows()"})
   public void testGetIncomingFlows() {
     // Arrange, Act and Assert
-    assertTrue(new AdhocSubProcess().getIncomingFlows().isEmpty());
+    assertTrue((new AdhocSubProcess()).getIncomingFlows().isEmpty());
   }
 
   /**
    * Test {@link FlowNode#setIncomingFlows(List)}.
-   *
    * <ul>
-   *   <li>Given {@link SequenceFlow#SequenceFlow(String, String)} with {@code Source Ref} and
-   *       {@code Target Ref}.
+   *   <li>Given {@link SequenceFlow#SequenceFlow(String, String)} with {@code Source Ref} and {@code Target Ref}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link FlowNode#setIncomingFlows(List)}
+   * <p>
+   * Method under test: {@link FlowNode#setIncomingFlows(List)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void FlowNode.setIncomingFlows(List)"})
   public void testSetIncomingFlows_givenSequenceFlowWithSourceRefAndTargetRef() {
     // Arrange
@@ -329,17 +306,14 @@ public class FlowNodeDiffblueTest {
 
   /**
    * Test {@link FlowNode#setIncomingFlows(List)}.
-   *
    * <ul>
-   *   <li>Given {@link SequenceFlow#SequenceFlow(String, String)} with {@code Source Ref} and
-   *       {@code Target Ref}.
+   *   <li>Given {@link SequenceFlow#SequenceFlow(String, String)} with {@code Source Ref} and {@code Target Ref}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link FlowNode#setIncomingFlows(List)}
+   * <p>
+   * Method under test: {@link FlowNode#setIncomingFlows(List)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void FlowNode.setIncomingFlows(List)"})
   public void testSetIncomingFlows_givenSequenceFlowWithSourceRefAndTargetRef2() {
     // Arrange
@@ -358,16 +332,14 @@ public class FlowNodeDiffblueTest {
 
   /**
    * Test {@link FlowNode#setIncomingFlows(List)}.
-   *
    * <ul>
-   *   <li>When {@link ArrayList#ArrayList()}.
+   *   <li>When {@link ArrayList#ArrayList()}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link FlowNode#setIncomingFlows(List)}
+   * <p>
+   * Method under test: {@link FlowNode#setIncomingFlows(List)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void FlowNode.setIncomingFlows(List)"})
   public void testSetIncomingFlows_whenArrayList() {
     // Arrange
@@ -383,31 +355,27 @@ public class FlowNodeDiffblueTest {
 
   /**
    * Test {@link FlowNode#getOutgoingFlows()}.
-   *
-   * <p>Method under test: {@link FlowNode#getOutgoingFlows()}
+   * <p>
+   * Method under test: {@link FlowNode#getOutgoingFlows()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"List FlowNode.getOutgoingFlows()"})
   public void testGetOutgoingFlows() {
     // Arrange, Act and Assert
-    assertTrue(new AdhocSubProcess().getOutgoingFlows().isEmpty());
+    assertTrue((new AdhocSubProcess()).getOutgoingFlows().isEmpty());
   }
 
   /**
    * Test {@link FlowNode#setOutgoingFlows(List)}.
-   *
    * <ul>
-   *   <li>Given {@link SequenceFlow#SequenceFlow(String, String)} with {@code Source Ref} and
-   *       {@code Target Ref}.
+   *   <li>Given {@link SequenceFlow#SequenceFlow(String, String)} with {@code Source Ref} and {@code Target Ref}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link FlowNode#setOutgoingFlows(List)}
+   * <p>
+   * Method under test: {@link FlowNode#setOutgoingFlows(List)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void FlowNode.setOutgoingFlows(List)"})
   public void testSetOutgoingFlows_givenSequenceFlowWithSourceRefAndTargetRef() {
     // Arrange
@@ -425,17 +393,14 @@ public class FlowNodeDiffblueTest {
 
   /**
    * Test {@link FlowNode#setOutgoingFlows(List)}.
-   *
    * <ul>
-   *   <li>Given {@link SequenceFlow#SequenceFlow(String, String)} with {@code Source Ref} and
-   *       {@code Target Ref}.
+   *   <li>Given {@link SequenceFlow#SequenceFlow(String, String)} with {@code Source Ref} and {@code Target Ref}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link FlowNode#setOutgoingFlows(List)}
+   * <p>
+   * Method under test: {@link FlowNode#setOutgoingFlows(List)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void FlowNode.setOutgoingFlows(List)"})
   public void testSetOutgoingFlows_givenSequenceFlowWithSourceRefAndTargetRef2() {
     // Arrange
@@ -454,16 +419,14 @@ public class FlowNodeDiffblueTest {
 
   /**
    * Test {@link FlowNode#setOutgoingFlows(List)}.
-   *
    * <ul>
-   *   <li>When {@link ArrayList#ArrayList()}.
+   *   <li>When {@link ArrayList#ArrayList()}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link FlowNode#setOutgoingFlows(List)}
+   * <p>
+   * Method under test: {@link FlowNode#setOutgoingFlows(List)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void FlowNode.setOutgoingFlows(List)"})
   public void testSetOutgoingFlows_whenArrayList() {
     // Arrange
@@ -479,41 +442,38 @@ public class FlowNodeDiffblueTest {
 
   /**
    * Test {@link FlowNode#setValues(FlowNode)} with {@code FlowNode}.
-   *
    * <ul>
-   *   <li>Given {@code null}.
-   *   <li>Then {@link AdhocSubProcess} (default constructor) Id is {@code 42}.
+   *   <li>Given {@code true}.</li>
+   *   <li>Then {@link AdhocSubProcess} (default constructor) Id is {@code 42}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link FlowNode#setValues(FlowNode)}
+   * <p>
+   * Method under test: {@link FlowNode#setValues(FlowNode)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void FlowNode.setValues(FlowNode)"})
-  public void testSetValuesWithFlowNode_givenNull_thenAdhocSubProcessIdIs42() {
+  public void testSetValuesWithFlowNode_givenTrue_thenAdhocSubProcessIdIs42() {
     // Arrange
     AdhocSubProcess adhocSubProcess = new AdhocSubProcess();
-
     BoundaryEvent otherNode = mock(BoundaryEvent.class);
-    when(otherNode.getExecutionListeners()).thenReturn(null);
-    when(otherNode.getAttributes()).thenReturn(null);
-    when(otherNode.getExtensionElements()).thenReturn(null);
     when(otherNode.isAsynchronous()).thenReturn(true);
     when(otherNode.isNotExclusive()).thenReturn(true);
     when(otherNode.getId()).thenReturn("42");
     when(otherNode.getDocumentation()).thenReturn("Documentation");
     when(otherNode.getName()).thenReturn("Name");
+    when(otherNode.getExecutionListeners()).thenReturn(new ArrayList<>());
+    when(otherNode.getAttributes()).thenReturn(new HashMap<>());
+    when(otherNode.getExtensionElements()).thenReturn(new HashMap<>());
 
     // Act
     adhocSubProcess.setValues(otherNode);
 
     // Assert
-    verify(otherNode).getAttributes();
-    verify(otherNode).getExtensionElements();
+    verify(otherNode, atLeast(1)).getAttributes();
+    verify(otherNode, atLeast(1)).getExtensionElements();
     verify(otherNode).getId();
     verify(otherNode).getDocumentation();
-    verify(otherNode).getExecutionListeners();
+    verify(otherNode, atLeast(1)).getExecutionListeners();
     verify(otherNode).getName();
     verify(otherNode).isAsynchronous();
     verify(otherNode).isNotExclusive();
@@ -527,17 +487,15 @@ public class FlowNodeDiffblueTest {
 
   /**
    * Test {@link FlowNode#setValues(FlowNode)} with {@code FlowNode}.
-   *
    * <ul>
-   *   <li>When {@link AdhocSubProcess} (default constructor).
-   *   <li>Then not {@link AdhocSubProcess} (default constructor) Asynchronous.
+   *   <li>When {@link AdhocSubProcess} (default constructor).</li>
+   *   <li>Then not {@link AdhocSubProcess} (default constructor) Asynchronous.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link FlowNode#setValues(FlowNode)}
+   * <p>
+   * Method under test: {@link FlowNode#setValues(FlowNode)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void FlowNode.setValues(FlowNode)"})
   public void testSetValuesWithFlowNode_whenAdhocSubProcess_thenNotAdhocSubProcessAsynchronous() {
     // Arrange

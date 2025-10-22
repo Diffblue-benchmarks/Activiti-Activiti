@@ -19,11 +19,8 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import org.junit.Test;
@@ -32,13 +29,11 @@ import org.junit.experimental.categories.Category;
 public class SignalDiffblueTest {
   /**
    * Test getters and setters.
-   *
    * <ul>
-   *   <li>Then return Id is {@code null}.
+   *   <li>Then return Id is {@code null}.</li>
    * </ul>
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>{@link Signal#Signal()}
    *   <li>{@link Signal#setName(String)}
@@ -48,16 +43,9 @@ public class SignalDiffblueTest {
    * </ul>
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void Signal.<init>()",
-    "void Signal.<init>(String, String)",
-    "String Signal.getName()",
-    "String Signal.getScope()",
-    "void Signal.setName(String)",
-    "void Signal.setScope(String)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void Signal.<init>()", "void Signal.<init>(String, String)", "String Signal.getName()",
+      "String Signal.getScope()", "void Signal.setName(String)", "void Signal.setScope(String)"})
   public void testGettersAndSetters_thenReturnIdIsNull() {
     // Arrange and Act
     Signal actualSignal = new Signal();
@@ -77,14 +65,12 @@ public class SignalDiffblueTest {
 
   /**
    * Test getters and setters.
-   *
    * <ul>
-   *   <li>When {@code 42}.
-   *   <li>Then return Id is {@code 42}.
+   *   <li>When {@code 42}.</li>
+   *   <li>Then return Id is {@code 42}.</li>
    * </ul>
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>{@link Signal#Signal(String, String)}
    *   <li>{@link Signal#setName(String)}
@@ -94,16 +80,9 @@ public class SignalDiffblueTest {
    * </ul>
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void Signal.<init>()",
-    "void Signal.<init>(String, String)",
-    "String Signal.getName()",
-    "String Signal.getScope()",
-    "void Signal.setName(String)",
-    "void Signal.setScope(String)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void Signal.<init>()", "void Signal.<init>(String, String)", "String Signal.getName()",
+      "String Signal.getScope()", "void Signal.setName(String)", "void Signal.setScope(String)"})
   public void testGettersAndSetters_when42_thenReturnIdIs42() {
     // Arrange and Act
     Signal actualSignal = new Signal("42", "Name");
@@ -124,83 +103,15 @@ public class SignalDiffblueTest {
 
   /**
    * Test {@link Signal#clone()}.
-   *
    * <ul>
-   *   <li>Given {@link HashMap#HashMap()} {@code 42} is {@link ArrayList#ArrayList()}.
-   *   <li>Then return Attributes size is one.
+   *   <li>Given {@link Signal#Signal(String, String)} with id is {@code 42} and {@code Name} ExtensionElements is {@code null}.</li>
+   *   <li>Then return Id is {@code 42}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link Signal#clone()}
+   * <p>
+   * Method under test: {@link Signal#clone()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"Signal Signal.clone()"})
-  public void testClone_givenHashMap42IsArrayList_thenReturnAttributesSizeIsOne() {
-    // Arrange
-    HashMap<String, List<ExtensionElement>> extensionElements = new HashMap<>();
-    extensionElements.put("42", new ArrayList<>());
-    extensionElements.put("foo", new ArrayList<>());
-
-    Signal signal = new Signal("42", "Name");
-    signal.setExtensionElements(extensionElements);
-    ExtensionAttribute attribute = new ExtensionAttribute("Name");
-    signal.addAttribute(attribute);
-
-    // Act and Assert
-    Map<String, List<ExtensionAttribute>> attributes = signal.clone().getAttributes();
-    assertEquals(1, attributes.size());
-    List<ExtensionAttribute> getResult = attributes.get("Name");
-    assertEquals(1, getResult.size());
-    assertSame(attribute, getResult.get(0));
-  }
-
-  /**
-   * Test {@link Signal#clone()}.
-   *
-   * <ul>
-   *   <li>Given {@link HashMap#HashMap()} {@code foo} is {@link ArrayList#ArrayList()}.
-   *   <li>Then return Attributes size is one.
-   * </ul>
-   *
-   * <p>Method under test: {@link Signal#clone()}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"Signal Signal.clone()"})
-  public void testClone_givenHashMapFooIsArrayList_thenReturnAttributesSizeIsOne() {
-    // Arrange
-    HashMap<String, List<ExtensionElement>> extensionElements = new HashMap<>();
-    extensionElements.put("foo", new ArrayList<>());
-
-    Signal signal = new Signal("42", "Name");
-    signal.setExtensionElements(extensionElements);
-    ExtensionAttribute attribute = new ExtensionAttribute("Name");
-    signal.addAttribute(attribute);
-
-    // Act and Assert
-    Map<String, List<ExtensionAttribute>> attributes = signal.clone().getAttributes();
-    assertEquals(1, attributes.size());
-    List<ExtensionAttribute> getResult = attributes.get("Name");
-    assertEquals(1, getResult.size());
-    assertSame(attribute, getResult.get(0));
-  }
-
-  /**
-   * Test {@link Signal#clone()}.
-   *
-   * <ul>
-   *   <li>Given {@link Signal#Signal(String, String)} with id is {@code 42} and {@code Name}
-   *       ExtensionElements is {@code null}.
-   *   <li>Then return Id is {@code 42}.
-   * </ul>
-   *
-   * <p>Method under test: {@link Signal#clone()}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"Signal Signal.clone()"})
   public void testClone_givenSignalWithIdIs42AndNameExtensionElementsIsNull_thenReturnIdIs42() {
     // Arrange
@@ -223,21 +134,19 @@ public class SignalDiffblueTest {
 
   /**
    * Test {@link Signal#clone()}.
-   *
    * <ul>
-   *   <li>Given {@link Signal#Signal(String, String)} with id is {@code 42} and {@code Name}.
-   *   <li>Then return Id is {@code 42}.
+   *   <li>Given {@link Signal#Signal(String, String)} with id is {@code 42} and {@code Name}.</li>
+   *   <li>Then return Id is {@code 42}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link Signal#clone()}
+   * <p>
+   * Method under test: {@link Signal#clone()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"Signal Signal.clone()"})
   public void testClone_givenSignalWithIdIs42AndName_thenReturnIdIs42() {
     // Arrange and Act
-    Signal actualCloneResult = new Signal("42", "Name").clone();
+    Signal actualCloneResult = (new Signal("42", "Name")).clone();
 
     // Assert
     assertEquals("42", actualCloneResult.getId());
@@ -251,16 +160,14 @@ public class SignalDiffblueTest {
 
   /**
    * Test {@link Signal#clone()}.
-   *
    * <ul>
-   *   <li>Then return Attributes size is one.
+   *   <li>Then return Attributes size is one.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link Signal#clone()}
+   * <p>
+   * Method under test: {@link Signal#clone()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"Signal Signal.clone()"})
   public void testClone_thenReturnAttributesSizeIsOne() {
     // Arrange
@@ -278,16 +185,14 @@ public class SignalDiffblueTest {
 
   /**
    * Test {@link Signal#clone()}.
-   *
    * <ul>
-   *   <li>Then return Attributes size is two.
+   *   <li>Then return Attributes size is two.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link Signal#clone()}
+   * <p>
+   * Method under test: {@link Signal#clone()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"Signal Signal.clone()"})
   public void testClone_thenReturnAttributesSizeIsTwo() {
     // Arrange

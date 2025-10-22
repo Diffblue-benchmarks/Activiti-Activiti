@@ -16,9 +16,9 @@
 package org.activiti.spring.conformance.util.security;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
 import org.activiti.api.runtime.shared.security.SecurityManager;
@@ -36,34 +36,53 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 @ExtendWith(MockitoExtension.class)
 class SecurityUtilDiffblueTest {
-  @Mock private SecurityManager securityManager;
+  @Mock
+  private SecurityManager securityManager;
 
-  @InjectMocks private SecurityUtil securityUtil;
+  @InjectMocks
+  private SecurityUtil securityUtil;
 
-  @Mock private UserDetailsService userDetailsService;
+  @Mock
+  private UserDetailsService userDetailsService;
 
   /**
    * Test {@link SecurityUtil#logInAs(String)}.
-   *
-   * <ul>
-   *   <li>Given {@link SecurityManager} {@link SecurityManager#getAuthenticatedUserId()} return
-   *       {@code 42}.
-   *   <li>When {@code 42}.
-   * </ul>
-   *
-   * <p>Method under test: {@link SecurityUtil#logInAs(String)}
+   * <p>
+   * Method under test: {@link SecurityUtil#logInAs(String)}
    */
   @Test
-  @DisplayName(
-      "Test logInAs(String); given SecurityManager getAuthenticatedUserId() return '42'; when '42'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test logInAs(String)")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void SecurityUtil.logInAs(String)"})
-  void testLogInAs_givenSecurityManagerGetAuthenticatedUserIdReturn42_when42()
-      throws UsernameNotFoundException {
+  void testLogInAs() throws UsernameNotFoundException {
     // Arrange
-    User user = new User("janedoe", "iloveyou", new ArrayList<>());
-    when(userDetailsService.loadUserByUsername(Mockito.<String>any())).thenReturn(user);
+    when(userDetailsService.loadUserByUsername(Mockito.<String>any()))
+        .thenReturn(new User("janedoe", "iloveyou", new ArrayList<>()));
+    when(securityManager.getAuthenticatedUserId()).thenThrow(new IllegalStateException("foo"));
+
+    // Act and Assert
+    assertThrows(IllegalStateException.class, () -> securityUtil.logInAs("janedoe"));
+    verify(securityManager).getAuthenticatedUserId();
+    verify(userDetailsService).loadUserByUsername(eq("janedoe"));
+  }
+
+  /**
+   * Test {@link SecurityUtil#logInAs(String)}.
+   * <ul>
+   *   <li>Given {@link SecurityManager} {@link SecurityManager#getAuthenticatedUserId()} return {@code 42}.</li>
+   *   <li>When {@code 42}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link SecurityUtil#logInAs(String)}
+   */
+  @Test
+  @DisplayName("Test logInAs(String); given SecurityManager getAuthenticatedUserId() return '42'; when '42'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void SecurityUtil.logInAs(String)"})
+  void testLogInAs_givenSecurityManagerGetAuthenticatedUserIdReturn42_when42() throws UsernameNotFoundException {
+    // Arrange
+    when(userDetailsService.loadUserByUsername(Mockito.<String>any()))
+        .thenReturn(new User("janedoe", "iloveyou", new ArrayList<>()));
     when(securityManager.getAuthenticatedUserId()).thenReturn("42");
 
     // Act
@@ -71,88 +90,27 @@ class SecurityUtilDiffblueTest {
 
     // Assert
     verify(securityManager).getAuthenticatedUserId();
-    verify(userDetailsService).loadUserByUsername("42");
+    verify(userDetailsService).loadUserByUsername(eq("42"));
   }
 
   /**
    * Test {@link SecurityUtil#logInAs(String)}.
-   *
    * <ul>
-   *   <li>Given {@link SecurityManager} {@link SecurityManager#getAuthenticatedUserId()} throw
-   *       {@link IllegalStateException#IllegalStateException()}.
+   *   <li>Given {@link UserDetailsService} {@link UserDetailsService#loadUserByUsername(String)} return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link SecurityUtil#logInAs(String)}
+   * <p>
+   * Method under test: {@link SecurityUtil#logInAs(String)}
    */
   @Test
-  @DisplayName(
-      "Test logInAs(String); given SecurityManager getAuthenticatedUserId() throw IllegalStateException()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test logInAs(String); given UserDetailsService loadUserByUsername(String) return 'null'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void SecurityUtil.logInAs(String)"})
-  void testLogInAs_givenSecurityManagerGetAuthenticatedUserIdThrowIllegalStateException()
-      throws UsernameNotFoundException {
-    // Arrange
-    User user = new User("janedoe", "iloveyou", new ArrayList<>());
-    when(userDetailsService.loadUserByUsername(Mockito.<String>any())).thenReturn(user);
-    when(securityManager.getAuthenticatedUserId()).thenThrow(new IllegalStateException());
-
-    // Act and Assert
-    assertThrows(IllegalStateException.class, () -> securityUtil.logInAs("janedoe"));
-    verify(securityManager).getAuthenticatedUserId();
-    verify(userDetailsService).loadUserByUsername("janedoe");
-  }
-
-  /**
-   * Test {@link SecurityUtil#logInAs(String)}.
-   *
-   * <ul>
-   *   <li>Given {@link UserDetailsService} {@link UserDetailsService#loadUserByUsername(String)}
-   *       return {@code null}.
-   * </ul>
-   *
-   * <p>Method under test: {@link SecurityUtil#logInAs(String)}
-   */
-  @Test
-  @DisplayName(
-      "Test logInAs(String); given UserDetailsService loadUserByUsername(String) return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void SecurityUtil.logInAs(String)"})
-  void testLogInAs_givenUserDetailsServiceLoadUserByUsernameReturnNull()
-      throws UsernameNotFoundException {
+  void testLogInAs_givenUserDetailsServiceLoadUserByUsernameReturnNull() throws UsernameNotFoundException {
     // Arrange
     when(userDetailsService.loadUserByUsername(Mockito.<String>any())).thenReturn(null);
 
     // Act and Assert
     assertThrows(IllegalStateException.class, () -> securityUtil.logInAs("janedoe"));
-    verify(userDetailsService).loadUserByUsername("janedoe");
-  }
-
-  /**
-   * Test {@link SecurityUtil#logInAs(String)}.
-   *
-   * <ul>
-   *   <li>Given {@link UserDetailsService} {@link UserDetailsService#loadUserByUsername(String)}
-   *       throw {@link IllegalStateException#IllegalStateException()}.
-   * </ul>
-   *
-   * <p>Method under test: {@link SecurityUtil#logInAs(String)}
-   */
-  @Test
-  @DisplayName(
-      "Test logInAs(String); given UserDetailsService loadUserByUsername(String) throw IllegalStateException()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void SecurityUtil.logInAs(String)"})
-  void testLogInAs_givenUserDetailsServiceLoadUserByUsernameThrowIllegalStateException()
-      throws UsernameNotFoundException {
-    // Arrange
-    when(userDetailsService.loadUserByUsername(Mockito.<String>any()))
-        .thenThrow(new IllegalStateException());
-
-    // Act and Assert
-    assertThrows(IllegalStateException.class, () -> securityUtil.logInAs("janedoe"));
-    verify(userDetailsService).loadUserByUsername("janedoe");
+    verify(userDetailsService).loadUserByUsername(eq("janedoe"));
   }
 }

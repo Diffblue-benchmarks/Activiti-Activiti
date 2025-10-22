@@ -18,7 +18,6 @@ package org.activiti.runtime.api.event.impl;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.api.task.model.TaskCandidateUser;
 import org.activiti.api.task.model.events.TaskCandidateUserEvent;
@@ -31,18 +30,16 @@ import org.junit.jupiter.api.Test;
 class TaskCandidateUserRemovedImplDiffblueTest {
   /**
    * Test {@link TaskCandidateUserRemovedImpl#TaskCandidateUserRemovedImpl()}.
-   *
-   * <p>Method under test: {@link TaskCandidateUserRemovedImpl#TaskCandidateUserRemovedImpl()}
+   * <p>
+   * Method under test: {@link TaskCandidateUserRemovedImpl#TaskCandidateUserRemovedImpl()}
    */
   @Test
   @DisplayName("Test new TaskCandidateUserRemovedImpl()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void TaskCandidateUserRemovedImpl.<init>()"})
   void testNewTaskCandidateUserRemovedImpl() {
     // Arrange and Act
-    TaskCandidateUserRemovedImpl actualTaskCandidateUserRemovedImpl =
-        new TaskCandidateUserRemovedImpl();
+    TaskCandidateUserRemovedImpl actualTaskCandidateUserRemovedImpl = new TaskCandidateUserRemovedImpl();
 
     // Assert
     assertNull(actualTaskCandidateUserRemovedImpl.getProcessDefinitionVersion());
@@ -52,29 +49,25 @@ class TaskCandidateUserRemovedImplDiffblueTest {
     assertNull(actualTaskCandidateUserRemovedImpl.getProcessDefinitionKey());
     assertNull(actualTaskCandidateUserRemovedImpl.getProcessInstanceId());
     assertNull(actualTaskCandidateUserRemovedImpl.getEntity());
-    assertEquals(
-        TaskCandidateUserEvents.TASK_CANDIDATE_USER_REMOVED,
+    assertEquals(TaskCandidateUserEvents.TASK_CANDIDATE_USER_REMOVED,
         actualTaskCandidateUserRemovedImpl.getEventType());
   }
 
   /**
    * Test {@link TaskCandidateUserRemovedImpl#TaskCandidateUserRemovedImpl(TaskCandidateUser)}.
-   *
-   * <p>Method under test: {@link
-   * TaskCandidateUserRemovedImpl#TaskCandidateUserRemovedImpl(TaskCandidateUser)}
+   * <p>
+   * Method under test: {@link TaskCandidateUserRemovedImpl#TaskCandidateUserRemovedImpl(TaskCandidateUser)}
    */
   @Test
   @DisplayName("Test new TaskCandidateUserRemovedImpl(TaskCandidateUser)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void TaskCandidateUserRemovedImpl.<init>(TaskCandidateUser)"})
   void testNewTaskCandidateUserRemovedImpl2() {
     // Arrange
     TaskCandidateUserImpl entity = new TaskCandidateUserImpl("42", "42");
 
     // Act
-    TaskCandidateUserRemovedImpl actualTaskCandidateUserRemovedImpl =
-        new TaskCandidateUserRemovedImpl(entity);
+    TaskCandidateUserRemovedImpl actualTaskCandidateUserRemovedImpl = new TaskCandidateUserRemovedImpl(entity);
 
     // Assert
     assertNull(actualTaskCandidateUserRemovedImpl.getProcessDefinitionVersion());
@@ -83,28 +76,23 @@ class TaskCandidateUserRemovedImplDiffblueTest {
     assertNull(actualTaskCandidateUserRemovedImpl.getProcessDefinitionId());
     assertNull(actualTaskCandidateUserRemovedImpl.getProcessDefinitionKey());
     assertNull(actualTaskCandidateUserRemovedImpl.getProcessInstanceId());
-    assertEquals(
-        TaskCandidateUserEvents.TASK_CANDIDATE_USER_REMOVED,
+    assertEquals(TaskCandidateUserEvents.TASK_CANDIDATE_USER_REMOVED,
         actualTaskCandidateUserRemovedImpl.getEventType());
     assertSame(entity, actualTaskCandidateUserRemovedImpl.getEntity());
   }
 
   /**
    * Test {@link TaskCandidateUserRemovedImpl#getEventType()}.
-   *
-   * <p>Method under test: {@link TaskCandidateUserRemovedImpl#getEventType()}
+   * <p>
+   * Method under test: {@link TaskCandidateUserRemovedImpl#getEventType()}
    */
   @Test
   @DisplayName("Test getEventType()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "TaskCandidateUserEvent.TaskCandidateUserEvents TaskCandidateUserRemovedImpl.getEventType()"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"TaskCandidateUserEvent.TaskCandidateUserEvents TaskCandidateUserRemovedImpl.getEventType()"})
   void testGetEventType() {
     // Arrange, Act and Assert
-    assertEquals(
-        TaskCandidateUserEvents.TASK_CANDIDATE_USER_REMOVED,
-        new TaskCandidateUserRemovedImpl().getEventType());
+    assertEquals(TaskCandidateUserEvents.TASK_CANDIDATE_USER_REMOVED,
+        (new TaskCandidateUserRemovedImpl()).getEventType());
   }
 }

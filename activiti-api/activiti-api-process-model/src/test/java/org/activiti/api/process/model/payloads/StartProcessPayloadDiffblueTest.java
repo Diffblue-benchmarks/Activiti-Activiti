@@ -18,7 +18,6 @@ package org.activiti.api.process.model.payloads;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.HashMap;
 import java.util.Map;
@@ -29,13 +28,12 @@ import org.junit.jupiter.api.Test;
 class StartProcessPayloadDiffblueTest {
   /**
    * Test {@link StartProcessPayload#StartProcessPayload()}.
-   *
-   * <p>Method under test: {@link StartProcessPayload#StartProcessPayload()}
+   * <p>
+   * Method under test: {@link StartProcessPayload#StartProcessPayload()}
    */
   @Test
   @DisplayName("Test new StartProcessPayload()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void StartProcessPayload.<init>()"})
   void testNewStartProcessPayload() {
     // Arrange and Act
@@ -51,20 +49,17 @@ class StartProcessPayloadDiffblueTest {
 
   /**
    * Test {@link StartProcessPayload#StartProcessPayload(String, String, String, String, Map)}.
-   *
-   * <p>Method under test: {@link StartProcessPayload#StartProcessPayload(String, String, String,
-   * String, Map)}
+   * <p>
+   * Method under test: {@link StartProcessPayload#StartProcessPayload(String, String, String, String, Map)}
    */
   @Test
   @DisplayName("Test new StartProcessPayload(String, String, String, String, Map)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void StartProcessPayload.<init>(String, String, String, String, Map)"})
   void testNewStartProcessPayload2() {
     // Arrange and Act
-    StartProcessPayload actualStartProcessPayload =
-        new StartProcessPayload(
-            "42", "Process Definition Key", "Name", "Business Key", new HashMap<>());
+    StartProcessPayload actualStartProcessPayload = new StartProcessPayload("42", "Process Definition Key", "Name",
+        "Business Key", new HashMap<>());
 
     // Assert
     assertEquals("42", actualStartProcessPayload.getProcessDefinitionId());
@@ -76,9 +71,8 @@ class StartProcessPayloadDiffblueTest {
 
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>{@link StartProcessPayload#setName(String)}
    *   <li>{@link StartProcessPayload#getBusinessKey()}
@@ -91,17 +85,11 @@ class StartProcessPayloadDiffblueTest {
    */
   @Test
   @DisplayName("Test getters and setters")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "String StartProcessPayload.getBusinessKey()",
-    "String StartProcessPayload.getId()",
-    "String StartProcessPayload.getName()",
-    "String StartProcessPayload.getProcessDefinitionId()",
-    "String StartProcessPayload.getProcessDefinitionKey()",
-    "Map StartProcessPayload.getVariables()",
-    "void StartProcessPayload.setName(String)"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"String StartProcessPayload.getBusinessKey()", "String StartProcessPayload.getId()",
+      "String StartProcessPayload.getName()", "String StartProcessPayload.getProcessDefinitionId()",
+      "String StartProcessPayload.getProcessDefinitionKey()", "Map StartProcessPayload.getVariables()",
+      "void StartProcessPayload.setName(String)"})
   void testGettersAndSetters() {
     // Arrange
     StartProcessPayload startProcessPayload = new StartProcessPayload();

@@ -17,7 +17,6 @@ package org.activiti.core.el;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import jakarta.el.FunctionMapper;
 import jakarta.el.VariableMapper;
@@ -30,22 +29,17 @@ import org.junit.jupiter.api.Test;
 class DateResolverHelperDiffblueTest {
   /**
    * Test {@link DateResolverHelper#addDateFunctions(ActivitiElContext)}.
-   *
    * <ul>
-   *   <li>Then {@link ActivitiElContext#ActivitiElContext()} FunctionMapper {@link
-   *       ActivitiFunctionMapper}.
+   *   <li>Then {@link ActivitiElContext#ActivitiElContext()} FunctionMapper {@link ActivitiFunctionMapper}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link DateResolverHelper#addDateFunctions(ActivitiElContext)}
+   * <p>
+   * Method under test: {@link DateResolverHelper#addDateFunctions(ActivitiElContext)}
    */
   @Test
-  @DisplayName(
-      "Test addDateFunctions(ActivitiElContext); then ActivitiElContext() FunctionMapper ActivitiFunctionMapper")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test addDateFunctions(ActivitiElContext); then ActivitiElContext() FunctionMapper ActivitiFunctionMapper")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void DateResolverHelper.addDateFunctions(ActivitiElContext)"})
-  void testAddDateFunctions_thenActivitiElContextFunctionMapperActivitiFunctionMapper()
-      throws NoSuchMethodException {
+  void testAddDateFunctions_thenActivitiElContextFunctionMapperActivitiFunctionMapper() throws NoSuchMethodException {
     // Arrange
     ActivitiElContext elContext = new ActivitiElContext();
 

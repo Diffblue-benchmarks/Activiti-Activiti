@@ -24,8 +24,7 @@ import static org.mockito.ArgumentMatchers.isA;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.HashMap;
 import java.util.Map;
@@ -43,16 +42,16 @@ import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.annotation.DirtiesContext.ClassMode;
 
-@DirtiesContext(classMode = ClassMode.AFTER_EACH_TEST_METHOD)
 @RunWith(MockitoJUnitRunner.class)
+@DirtiesContext(classMode = ClassMode.AFTER_EACH_TEST_METHOD)
 public class ProcessInstanceBuilderImplDiffblueTest {
-  @InjectMocks private ProcessInstanceBuilderImpl processInstanceBuilderImpl;
+  @InjectMocks
+  private ProcessInstanceBuilderImpl processInstanceBuilderImpl;
 
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>{@link ProcessInstanceBuilderImpl#ProcessInstanceBuilderImpl(RuntimeServiceImpl)}
    *   <li>{@link ProcessInstanceBuilderImpl#businessKey(String)}
@@ -72,39 +71,29 @@ public class ProcessInstanceBuilderImplDiffblueTest {
    * </ul>
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void ProcessInstanceBuilderImpl.<init>(RuntimeServiceImpl)",
-    "ProcessInstanceBuilder ProcessInstanceBuilderImpl.businessKey(String)",
-    "String ProcessInstanceBuilderImpl.getBusinessKey()",
-    "String ProcessInstanceBuilderImpl.getMessageName()",
-    "String ProcessInstanceBuilderImpl.getProcessDefinitionId()",
-    "String ProcessInstanceBuilderImpl.getProcessDefinitionKey()",
-    "String ProcessInstanceBuilderImpl.getProcessInstanceName()",
-    "String ProcessInstanceBuilderImpl.getTenantId()",
-    "Map ProcessInstanceBuilderImpl.getTransientVariables()",
-    "Map ProcessInstanceBuilderImpl.getVariables()",
-    "ProcessInstanceBuilder ProcessInstanceBuilderImpl.messageName(String)",
-    "ProcessInstanceBuilder ProcessInstanceBuilderImpl.name(String)",
-    "ProcessInstanceBuilder ProcessInstanceBuilderImpl.processDefinitionId(String)",
-    "ProcessInstanceBuilder ProcessInstanceBuilderImpl.processDefinitionKey(String)",
-    "ProcessInstanceBuilder ProcessInstanceBuilderImpl.tenantId(String)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void ProcessInstanceBuilderImpl.<init>(RuntimeServiceImpl)",
+      "ProcessInstanceBuilder ProcessInstanceBuilderImpl.businessKey(String)",
+      "String ProcessInstanceBuilderImpl.getBusinessKey()", "String ProcessInstanceBuilderImpl.getMessageName()",
+      "String ProcessInstanceBuilderImpl.getProcessDefinitionId()",
+      "String ProcessInstanceBuilderImpl.getProcessDefinitionKey()",
+      "String ProcessInstanceBuilderImpl.getProcessInstanceName()", "String ProcessInstanceBuilderImpl.getTenantId()",
+      "Map ProcessInstanceBuilderImpl.getTransientVariables()", "Map ProcessInstanceBuilderImpl.getVariables()",
+      "ProcessInstanceBuilder ProcessInstanceBuilderImpl.messageName(String)",
+      "ProcessInstanceBuilder ProcessInstanceBuilderImpl.name(String)",
+      "ProcessInstanceBuilder ProcessInstanceBuilderImpl.processDefinitionId(String)",
+      "ProcessInstanceBuilder ProcessInstanceBuilderImpl.processDefinitionKey(String)",
+      "ProcessInstanceBuilder ProcessInstanceBuilderImpl.tenantId(String)"})
   public void testGettersAndSetters() {
     // Arrange and Act
-    ProcessInstanceBuilderImpl actualProcessInstanceBuilderImpl =
-        new ProcessInstanceBuilderImpl(new RuntimeServiceImpl());
-    ProcessInstanceBuilder actualBusinessKeyResult =
-        actualProcessInstanceBuilderImpl.businessKey("Business Key");
-    ProcessInstanceBuilder actualMessageNameResult =
-        actualProcessInstanceBuilderImpl.messageName("Message Name");
-    ProcessInstanceBuilder actualNameResult =
-        actualProcessInstanceBuilderImpl.name("Process Instance Name");
-    ProcessInstanceBuilder actualProcessDefinitionIdResult =
-        actualProcessInstanceBuilderImpl.processDefinitionId("42");
-    ProcessInstanceBuilder actualProcessDefinitionKeyResult =
-        actualProcessInstanceBuilderImpl.processDefinitionKey("Process Definition Key");
+    ProcessInstanceBuilderImpl actualProcessInstanceBuilderImpl = new ProcessInstanceBuilderImpl(
+        new RuntimeServiceImpl());
+    ProcessInstanceBuilder actualBusinessKeyResult = actualProcessInstanceBuilderImpl.businessKey("Business Key");
+    ProcessInstanceBuilder actualMessageNameResult = actualProcessInstanceBuilderImpl.messageName("Message Name");
+    ProcessInstanceBuilder actualNameResult = actualProcessInstanceBuilderImpl.name("Process Instance Name");
+    ProcessInstanceBuilder actualProcessDefinitionIdResult = actualProcessInstanceBuilderImpl.processDefinitionId("42");
+    ProcessInstanceBuilder actualProcessDefinitionKeyResult = actualProcessInstanceBuilderImpl
+        .processDefinitionKey("Process Definition Key");
     ProcessInstanceBuilder actualTenantIdResult = actualProcessInstanceBuilderImpl.tenantId("42");
     String actualBusinessKey = actualProcessInstanceBuilderImpl.getBusinessKey();
     String actualMessageName = actualProcessInstanceBuilderImpl.getMessageName();
@@ -112,8 +101,7 @@ public class ProcessInstanceBuilderImplDiffblueTest {
     String actualProcessDefinitionKey = actualProcessInstanceBuilderImpl.getProcessDefinitionKey();
     String actualProcessInstanceName = actualProcessInstanceBuilderImpl.getProcessInstanceName();
     String actualTenantId = actualProcessInstanceBuilderImpl.getTenantId();
-    Map<String, Object> actualTransientVariables =
-        actualProcessInstanceBuilderImpl.getTransientVariables();
+    Map<String, Object> actualTransientVariables = actualProcessInstanceBuilderImpl.getTransientVariables();
 
     // Assert
     assertEquals("42", actualProcessDefinitionId);
@@ -135,271 +123,205 @@ public class ProcessInstanceBuilderImplDiffblueTest {
 
   /**
    * Test {@link ProcessInstanceBuilderImpl#variables(Map)}.
-   *
-   * <p>Method under test: {@link ProcessInstanceBuilderImpl#variables(Map)}
+   * <p>
+   * Method under test: {@link ProcessInstanceBuilderImpl#variables(Map)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"ProcessInstanceBuilder ProcessInstanceBuilderImpl.variables(Map)"})
   public void testVariables() {
     // Arrange
-    ProcessInstanceBuilderImpl processInstanceBuilderImpl =
-        new ProcessInstanceBuilderImpl(new RuntimeServiceImpl());
+    ProcessInstanceBuilderImpl processInstanceBuilderImpl = new ProcessInstanceBuilderImpl(new RuntimeServiceImpl());
     processInstanceBuilderImpl.variables(null);
 
-    // Act
-    ProcessInstanceBuilder actualVariablesResult = processInstanceBuilderImpl.variables(null);
-
-    // Assert
-    assertSame(processInstanceBuilderImpl, actualVariablesResult);
+    // Act and Assert
+    assertSame(processInstanceBuilderImpl, processInstanceBuilderImpl.variables(null));
   }
 
   /**
    * Test {@link ProcessInstanceBuilderImpl#variables(Map)}.
-   *
    * <ul>
-   *   <li>Given {@code foo}.
-   *   <li>When {@link HashMap#HashMap()} {@code foo} is {@link JSONObject#NULL}.
+   *   <li>Given {@code foo}.</li>
+   *   <li>When {@link HashMap#HashMap()} {@code foo} is {@link JSONObject#NULL}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ProcessInstanceBuilderImpl#variables(Map)}
+   * <p>
+   * Method under test: {@link ProcessInstanceBuilderImpl#variables(Map)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"ProcessInstanceBuilder ProcessInstanceBuilderImpl.variables(Map)"})
   public void testVariables_givenFoo_whenHashMapFooIsNull() {
     // Arrange
-    ProcessInstanceBuilderImpl processInstanceBuilderImpl =
-        new ProcessInstanceBuilderImpl(new RuntimeServiceImpl());
+    ProcessInstanceBuilderImpl processInstanceBuilderImpl = new ProcessInstanceBuilderImpl(new RuntimeServiceImpl());
 
     HashMap<String, Object> variables = new HashMap<>();
     variables.put("foo", JSONObject.NULL);
 
-    // Act
-    ProcessInstanceBuilder actualVariablesResult = processInstanceBuilderImpl.variables(variables);
-
-    // Assert
-    assertSame(processInstanceBuilderImpl, actualVariablesResult);
+    // Act and Assert
+    assertSame(processInstanceBuilderImpl, processInstanceBuilderImpl.variables(variables));
   }
 
   /**
    * Test {@link ProcessInstanceBuilderImpl#variables(Map)}.
-   *
    * <ul>
-   *   <li>When {@link HashMap#HashMap()}.
+   *   <li>When {@link HashMap#HashMap()}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ProcessInstanceBuilderImpl#variables(Map)}
+   * <p>
+   * Method under test: {@link ProcessInstanceBuilderImpl#variables(Map)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"ProcessInstanceBuilder ProcessInstanceBuilderImpl.variables(Map)"})
   public void testVariables_whenHashMap() {
     // Arrange
-    ProcessInstanceBuilderImpl processInstanceBuilderImpl =
-        new ProcessInstanceBuilderImpl(new RuntimeServiceImpl());
+    ProcessInstanceBuilderImpl processInstanceBuilderImpl = new ProcessInstanceBuilderImpl(new RuntimeServiceImpl());
 
-    // Act
-    ProcessInstanceBuilder actualVariablesResult =
-        processInstanceBuilderImpl.variables(new HashMap<>());
-
-    // Assert
-    assertSame(processInstanceBuilderImpl, actualVariablesResult);
+    // Act and Assert
+    assertSame(processInstanceBuilderImpl, processInstanceBuilderImpl.variables(new HashMap<>()));
   }
 
   /**
    * Test {@link ProcessInstanceBuilderImpl#variable(String, Object)}.
-   *
    * <ul>
-   *   <li>Given {@link ProcessInstanceBuilderImpl}.
+   *   <li>Given {@link ProcessInstanceBuilderImpl}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ProcessInstanceBuilderImpl#variable(String, Object)}
+   * <p>
+   * Method under test: {@link ProcessInstanceBuilderImpl#variable(String, Object)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"ProcessInstanceBuilder ProcessInstanceBuilderImpl.variable(String, Object)"})
   public void testVariable_givenProcessInstanceBuilderImpl() {
-    // Arrange and Act
-    ProcessInstanceBuilder actualVariableResult =
-        processInstanceBuilderImpl.variable("Variable Name", JSONObject.NULL);
-
-    // Assert
-    assertSame(processInstanceBuilderImpl, actualVariableResult);
+    // Arrange, Act and Assert
+    assertSame(processInstanceBuilderImpl, processInstanceBuilderImpl.variable("Variable Name", JSONObject.NULL));
   }
 
   /**
    * Test {@link ProcessInstanceBuilderImpl#variable(String, Object)}.
-   *
    * <ul>
-   *   <li>Given {@link ProcessInstanceBuilderImpl} variables {@code null}.
+   *   <li>Given {@link ProcessInstanceBuilderImpl} variables {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ProcessInstanceBuilderImpl#variable(String, Object)}
+   * <p>
+   * Method under test: {@link ProcessInstanceBuilderImpl#variable(String, Object)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"ProcessInstanceBuilder ProcessInstanceBuilderImpl.variable(String, Object)"})
   public void testVariable_givenProcessInstanceBuilderImplVariablesNull() {
     // Arrange
     processInstanceBuilderImpl.variables(null);
 
-    // Act
-    ProcessInstanceBuilder actualVariableResult =
-        processInstanceBuilderImpl.variable("Variable Name", JSONObject.NULL);
-
-    // Assert
-    assertSame(processInstanceBuilderImpl, actualVariableResult);
+    // Act and Assert
+    assertSame(processInstanceBuilderImpl, processInstanceBuilderImpl.variable("Variable Name", JSONObject.NULL));
   }
 
   /**
    * Test {@link ProcessInstanceBuilderImpl#transientVariables(Map)}.
-   *
-   * <p>Method under test: {@link ProcessInstanceBuilderImpl#transientVariables(Map)}
+   * <p>
+   * Method under test: {@link ProcessInstanceBuilderImpl#transientVariables(Map)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"ProcessInstanceBuilder ProcessInstanceBuilderImpl.transientVariables(Map)"})
   public void testTransientVariables() {
     // Arrange
-    ProcessInstanceBuilderImpl processInstanceBuilderImpl =
-        new ProcessInstanceBuilderImpl(new RuntimeServiceImpl());
+    ProcessInstanceBuilderImpl processInstanceBuilderImpl = new ProcessInstanceBuilderImpl(new RuntimeServiceImpl());
     processInstanceBuilderImpl.transientVariables(null);
 
-    // Act
-    ProcessInstanceBuilder actualTransientVariablesResult =
-        processInstanceBuilderImpl.transientVariables(null);
-
-    // Assert
-    assertSame(processInstanceBuilderImpl, actualTransientVariablesResult);
+    // Act and Assert
+    assertSame(processInstanceBuilderImpl, processInstanceBuilderImpl.transientVariables(null));
   }
 
   /**
    * Test {@link ProcessInstanceBuilderImpl#transientVariables(Map)}.
-   *
    * <ul>
-   *   <li>Given {@code foo}.
-   *   <li>When {@link HashMap#HashMap()} {@code foo} is {@link JSONObject#NULL}.
+   *   <li>Given {@code foo}.</li>
+   *   <li>When {@link HashMap#HashMap()} {@code foo} is {@link JSONObject#NULL}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ProcessInstanceBuilderImpl#transientVariables(Map)}
+   * <p>
+   * Method under test: {@link ProcessInstanceBuilderImpl#transientVariables(Map)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"ProcessInstanceBuilder ProcessInstanceBuilderImpl.transientVariables(Map)"})
   public void testTransientVariables_givenFoo_whenHashMapFooIsNull() {
     // Arrange
-    ProcessInstanceBuilderImpl processInstanceBuilderImpl =
-        new ProcessInstanceBuilderImpl(new RuntimeServiceImpl());
+    ProcessInstanceBuilderImpl processInstanceBuilderImpl = new ProcessInstanceBuilderImpl(new RuntimeServiceImpl());
 
     HashMap<String, Object> transientVariables = new HashMap<>();
     transientVariables.put("foo", JSONObject.NULL);
 
-    // Act
-    ProcessInstanceBuilder actualTransientVariablesResult =
-        processInstanceBuilderImpl.transientVariables(transientVariables);
-
-    // Assert
-    assertSame(processInstanceBuilderImpl, actualTransientVariablesResult);
+    // Act and Assert
+    assertSame(processInstanceBuilderImpl, processInstanceBuilderImpl.transientVariables(transientVariables));
   }
 
   /**
    * Test {@link ProcessInstanceBuilderImpl#transientVariables(Map)}.
-   *
    * <ul>
-   *   <li>When {@link HashMap#HashMap()}.
+   *   <li>When {@link HashMap#HashMap()}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ProcessInstanceBuilderImpl#transientVariables(Map)}
+   * <p>
+   * Method under test: {@link ProcessInstanceBuilderImpl#transientVariables(Map)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"ProcessInstanceBuilder ProcessInstanceBuilderImpl.transientVariables(Map)"})
   public void testTransientVariables_whenHashMap() {
     // Arrange
-    ProcessInstanceBuilderImpl processInstanceBuilderImpl =
-        new ProcessInstanceBuilderImpl(new RuntimeServiceImpl());
+    ProcessInstanceBuilderImpl processInstanceBuilderImpl = new ProcessInstanceBuilderImpl(new RuntimeServiceImpl());
 
-    // Act
-    ProcessInstanceBuilder actualTransientVariablesResult =
-        processInstanceBuilderImpl.transientVariables(new HashMap<>());
-
-    // Assert
-    assertSame(processInstanceBuilderImpl, actualTransientVariablesResult);
+    // Act and Assert
+    assertSame(processInstanceBuilderImpl, processInstanceBuilderImpl.transientVariables(new HashMap<>()));
   }
 
   /**
    * Test {@link ProcessInstanceBuilderImpl#transientVariable(String, Object)}.
-   *
    * <ul>
-   *   <li>Given {@link ProcessInstanceBuilderImpl}.
+   *   <li>Given {@link ProcessInstanceBuilderImpl}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ProcessInstanceBuilderImpl#transientVariable(String, Object)}
+   * <p>
+   * Method under test: {@link ProcessInstanceBuilderImpl#transientVariable(String, Object)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "ProcessInstanceBuilder ProcessInstanceBuilderImpl.transientVariable(String, Object)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"ProcessInstanceBuilder ProcessInstanceBuilderImpl.transientVariable(String, Object)"})
   public void testTransientVariable_givenProcessInstanceBuilderImpl() {
-    // Arrange and Act
-    ProcessInstanceBuilder actualTransientVariableResult =
-        processInstanceBuilderImpl.transientVariable("Variable Name", JSONObject.NULL);
-
-    // Assert
-    assertSame(processInstanceBuilderImpl, actualTransientVariableResult);
+    // Arrange, Act and Assert
+    assertSame(processInstanceBuilderImpl,
+        processInstanceBuilderImpl.transientVariable("Variable Name", JSONObject.NULL));
   }
 
   /**
    * Test {@link ProcessInstanceBuilderImpl#transientVariable(String, Object)}.
-   *
    * <ul>
-   *   <li>Given {@link ProcessInstanceBuilderImpl} transientVariables {@code null}.
+   *   <li>Given {@link ProcessInstanceBuilderImpl} transientVariables {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ProcessInstanceBuilderImpl#transientVariable(String, Object)}
+   * <p>
+   * Method under test: {@link ProcessInstanceBuilderImpl#transientVariable(String, Object)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "ProcessInstanceBuilder ProcessInstanceBuilderImpl.transientVariable(String, Object)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"ProcessInstanceBuilder ProcessInstanceBuilderImpl.transientVariable(String, Object)"})
   public void testTransientVariable_givenProcessInstanceBuilderImplTransientVariablesNull() {
     // Arrange
     processInstanceBuilderImpl.transientVariables(null);
 
-    // Act
-    ProcessInstanceBuilder actualTransientVariableResult =
-        processInstanceBuilderImpl.transientVariable("Variable Name", JSONObject.NULL);
-
-    // Assert
-    assertSame(processInstanceBuilderImpl, actualTransientVariableResult);
+    // Act and Assert
+    assertSame(processInstanceBuilderImpl,
+        processInstanceBuilderImpl.transientVariable("Variable Name", JSONObject.NULL));
   }
 
   /**
    * Test {@link ProcessInstanceBuilderImpl#hasProcessDefinitionIdOrKey()}.
-   *
-   * <p>Method under test: {@link ProcessInstanceBuilderImpl#hasProcessDefinitionIdOrKey()}
+   * <p>
+   * Method under test: {@link ProcessInstanceBuilderImpl#hasProcessDefinitionIdOrKey()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"boolean ProcessInstanceBuilderImpl.hasProcessDefinitionIdOrKey()"})
   public void testHasProcessDefinitionIdOrKey() {
     // Arrange
-    ProcessInstanceBuilderImpl processInstanceBuilderImpl =
-        new ProcessInstanceBuilderImpl(new RuntimeServiceImpl());
+    ProcessInstanceBuilderImpl processInstanceBuilderImpl = new ProcessInstanceBuilderImpl(new RuntimeServiceImpl());
     processInstanceBuilderImpl.processDefinitionId(null);
     processInstanceBuilderImpl.processDefinitionKey("foo");
 
@@ -409,17 +331,15 @@ public class ProcessInstanceBuilderImplDiffblueTest {
 
   /**
    * Test {@link ProcessInstanceBuilderImpl#hasProcessDefinitionIdOrKey()}.
-   *
-   * <p>Method under test: {@link ProcessInstanceBuilderImpl#hasProcessDefinitionIdOrKey()}
+   * <p>
+   * Method under test: {@link ProcessInstanceBuilderImpl#hasProcessDefinitionIdOrKey()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"boolean ProcessInstanceBuilderImpl.hasProcessDefinitionIdOrKey()"})
   public void testHasProcessDefinitionIdOrKey2() {
     // Arrange
-    ProcessInstanceBuilderImpl processInstanceBuilderImpl =
-        new ProcessInstanceBuilderImpl(new RuntimeServiceImpl());
+    ProcessInstanceBuilderImpl processInstanceBuilderImpl = new ProcessInstanceBuilderImpl(new RuntimeServiceImpl());
     processInstanceBuilderImpl.processDefinitionId("foo");
     processInstanceBuilderImpl.processDefinitionKey(null);
 
@@ -429,46 +349,41 @@ public class ProcessInstanceBuilderImplDiffblueTest {
 
   /**
    * Test {@link ProcessInstanceBuilderImpl#hasProcessDefinitionIdOrKey()}.
-   *
    * <ul>
-   *   <li>Then return {@code false}.
+   *   <li>Then return {@code false}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ProcessInstanceBuilderImpl#hasProcessDefinitionIdOrKey()}
+   * <p>
+   * Method under test: {@link ProcessInstanceBuilderImpl#hasProcessDefinitionIdOrKey()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"boolean ProcessInstanceBuilderImpl.hasProcessDefinitionIdOrKey()"})
   public void testHasProcessDefinitionIdOrKey_thenReturnFalse() {
     // Arrange, Act and Assert
-    assertFalse(
-        new ProcessInstanceBuilderImpl(new RuntimeServiceImpl()).hasProcessDefinitionIdOrKey());
+    assertFalse((new ProcessInstanceBuilderImpl(new RuntimeServiceImpl())).hasProcessDefinitionIdOrKey());
   }
 
   /**
    * Test {@link ProcessInstanceBuilderImpl#start()}.
-   *
    * <ul>
-   *   <li>Then return createWithEmptyRelationshipCollections.
+   *   <li>Then return createWithEmptyRelationshipCollections.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ProcessInstanceBuilderImpl#start()}
+   * <p>
+   * Method under test: {@link ProcessInstanceBuilderImpl#start()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"ProcessInstance ProcessInstanceBuilderImpl.start()"})
   public void testStart_thenReturnCreateWithEmptyRelationshipCollections() {
     // Arrange
     RuntimeServiceImpl runtimeService = mock(RuntimeServiceImpl.class);
-    ExecutionEntityImpl createWithEmptyRelationshipCollectionsResult =
-        ExecutionEntityImpl.createWithEmptyRelationshipCollections();
+    ExecutionEntityImpl createWithEmptyRelationshipCollectionsResult = ExecutionEntityImpl
+        .createWithEmptyRelationshipCollections();
     when(runtimeService.startProcessInstance(Mockito.<ProcessInstanceBuilderImpl>any()))
         .thenReturn(createWithEmptyRelationshipCollectionsResult);
 
     // Act
-    ProcessInstance actualStartResult = new ProcessInstanceBuilderImpl(runtimeService).start();
+    ProcessInstance actualStartResult = (new ProcessInstanceBuilderImpl(runtimeService)).start();
 
     // Assert
     verify(runtimeService).startProcessInstance(isA(ProcessInstanceBuilderImpl.class));
@@ -477,27 +392,25 @@ public class ProcessInstanceBuilderImplDiffblueTest {
 
   /**
    * Test {@link ProcessInstanceBuilderImpl#create()}.
-   *
    * <ul>
-   *   <li>Then return createWithEmptyRelationshipCollections.
+   *   <li>Then return createWithEmptyRelationshipCollections.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ProcessInstanceBuilderImpl#create()}
+   * <p>
+   * Method under test: {@link ProcessInstanceBuilderImpl#create()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"ProcessInstance ProcessInstanceBuilderImpl.create()"})
   public void testCreate_thenReturnCreateWithEmptyRelationshipCollections() {
     // Arrange
     RuntimeServiceImpl runtimeService = mock(RuntimeServiceImpl.class);
-    ExecutionEntityImpl createWithEmptyRelationshipCollectionsResult =
-        ExecutionEntityImpl.createWithEmptyRelationshipCollections();
+    ExecutionEntityImpl createWithEmptyRelationshipCollectionsResult = ExecutionEntityImpl
+        .createWithEmptyRelationshipCollections();
     when(runtimeService.createProcessInstance(Mockito.<ProcessInstanceBuilderImpl>any()))
         .thenReturn(createWithEmptyRelationshipCollectionsResult);
 
     // Act
-    ProcessInstance actualCreateResult = new ProcessInstanceBuilderImpl(runtimeService).create();
+    ProcessInstance actualCreateResult = (new ProcessInstanceBuilderImpl(runtimeService)).create();
 
     // Assert
     verify(runtimeService).createProcessInstance(isA(ProcessInstanceBuilderImpl.class));

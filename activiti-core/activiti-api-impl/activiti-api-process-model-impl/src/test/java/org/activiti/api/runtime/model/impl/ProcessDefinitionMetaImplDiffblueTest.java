@@ -18,7 +18,6 @@ package org.activiti.api.runtime.model.impl;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
 import java.util.List;
@@ -29,9 +28,8 @@ import org.junit.jupiter.api.Test;
 class ProcessDefinitionMetaImplDiffblueTest {
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>{@link ProcessDefinitionMetaImpl#ProcessDefinitionMetaImpl()}
    *   <li>{@link ProcessDefinitionMetaImpl#setConnectorsIds(List)}
@@ -46,20 +44,13 @@ class ProcessDefinitionMetaImplDiffblueTest {
    */
   @Test
   @DisplayName("Test getters and setters")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void ProcessDefinitionMetaImpl.<init>()",
-    "void ProcessDefinitionMetaImpl.<init>(String)",
-    "List ProcessDefinitionMetaImpl.getConnectorsIds()",
-    "List ProcessDefinitionMetaImpl.getGroupIds()",
-    "String ProcessDefinitionMetaImpl.getProcessDefinitionKey()",
-    "List ProcessDefinitionMetaImpl.getUsersIds()",
-    "void ProcessDefinitionMetaImpl.setConnectorsIds(List)",
-    "void ProcessDefinitionMetaImpl.setGroupIds(List)",
-    "void ProcessDefinitionMetaImpl.setProcessDefinitionKey(String)",
-    "void ProcessDefinitionMetaImpl.setUsersIds(List)"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void ProcessDefinitionMetaImpl.<init>()", "void ProcessDefinitionMetaImpl.<init>(String)",
+      "List ProcessDefinitionMetaImpl.getConnectorsIds()", "List ProcessDefinitionMetaImpl.getGroupIds()",
+      "String ProcessDefinitionMetaImpl.getProcessDefinitionKey()", "List ProcessDefinitionMetaImpl.getUsersIds()",
+      "void ProcessDefinitionMetaImpl.setConnectorsIds(List)", "void ProcessDefinitionMetaImpl.setGroupIds(List)",
+      "void ProcessDefinitionMetaImpl.setProcessDefinitionKey(String)",
+      "void ProcessDefinitionMetaImpl.setUsersIds(List)"})
   void testGettersAndSetters() {
     // Arrange and Act
     ProcessDefinitionMetaImpl actualProcessDefinitionMetaImpl = new ProcessDefinitionMetaImpl();
@@ -87,13 +78,11 @@ class ProcessDefinitionMetaImplDiffblueTest {
 
   /**
    * Test getters and setters.
-   *
    * <ul>
-   *   <li>When {@code Process Definition Key}.
+   *   <li>When {@code Process Definition Key}.</li>
    * </ul>
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>{@link ProcessDefinitionMetaImpl#ProcessDefinitionMetaImpl(String)}
    *   <li>{@link ProcessDefinitionMetaImpl#setConnectorsIds(List)}
@@ -108,24 +97,16 @@ class ProcessDefinitionMetaImplDiffblueTest {
    */
   @Test
   @DisplayName("Test getters and setters; when 'Process Definition Key'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void ProcessDefinitionMetaImpl.<init>()",
-    "void ProcessDefinitionMetaImpl.<init>(String)",
-    "List ProcessDefinitionMetaImpl.getConnectorsIds()",
-    "List ProcessDefinitionMetaImpl.getGroupIds()",
-    "String ProcessDefinitionMetaImpl.getProcessDefinitionKey()",
-    "List ProcessDefinitionMetaImpl.getUsersIds()",
-    "void ProcessDefinitionMetaImpl.setConnectorsIds(List)",
-    "void ProcessDefinitionMetaImpl.setGroupIds(List)",
-    "void ProcessDefinitionMetaImpl.setProcessDefinitionKey(String)",
-    "void ProcessDefinitionMetaImpl.setUsersIds(List)"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void ProcessDefinitionMetaImpl.<init>()", "void ProcessDefinitionMetaImpl.<init>(String)",
+      "List ProcessDefinitionMetaImpl.getConnectorsIds()", "List ProcessDefinitionMetaImpl.getGroupIds()",
+      "String ProcessDefinitionMetaImpl.getProcessDefinitionKey()", "List ProcessDefinitionMetaImpl.getUsersIds()",
+      "void ProcessDefinitionMetaImpl.setConnectorsIds(List)", "void ProcessDefinitionMetaImpl.setGroupIds(List)",
+      "void ProcessDefinitionMetaImpl.setProcessDefinitionKey(String)",
+      "void ProcessDefinitionMetaImpl.setUsersIds(List)"})
   void testGettersAndSetters_whenProcessDefinitionKey() {
     // Arrange and Act
-    ProcessDefinitionMetaImpl actualProcessDefinitionMetaImpl =
-        new ProcessDefinitionMetaImpl("Process Definition Key");
+    ProcessDefinitionMetaImpl actualProcessDefinitionMetaImpl = new ProcessDefinitionMetaImpl("Process Definition Key");
     ArrayList<String> connectorsIds = new ArrayList<>();
     actualProcessDefinitionMetaImpl.setConnectorsIds(connectorsIds);
     ArrayList<String> groupIds = new ArrayList<>();

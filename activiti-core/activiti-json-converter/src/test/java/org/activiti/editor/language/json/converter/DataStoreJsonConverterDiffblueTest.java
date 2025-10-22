@@ -18,10 +18,9 @@ package org.activiti.editor.language.json.converter;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.node.DoubleNode;
+import com.fasterxml.jackson.databind.node.MissingNode;
 import java.util.HashMap;
 import java.util.Map;
 import org.activiti.bpmn.model.ActivitiListener;
@@ -34,13 +33,12 @@ import org.junit.jupiter.api.Test;
 class DataStoreJsonConverterDiffblueTest {
   /**
    * Test {@link DataStoreJsonConverter#fillJsonTypes(Map)}.
-   *
-   * <p>Method under test: {@link DataStoreJsonConverter#fillJsonTypes(Map)}
+   * <p>
+   * Method under test: {@link DataStoreJsonConverter#fillJsonTypes(Map)}
    */
   @Test
   @DisplayName("Test fillJsonTypes(Map)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void DataStoreJsonConverter.fillJsonTypes(Map)"})
   void testFillJsonTypes() {
     // Arrange
@@ -57,13 +55,12 @@ class DataStoreJsonConverterDiffblueTest {
 
   /**
    * Test {@link DataStoreJsonConverter#getStencilId(BaseElement)}.
-   *
-   * <p>Method under test: {@link DataStoreJsonConverter#getStencilId(BaseElement)}
+   * <p>
+   * Method under test: {@link DataStoreJsonConverter#getStencilId(BaseElement)}
    */
   @Test
   @DisplayName("Test getStencilId(BaseElement)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"String DataStoreJsonConverter.getStencilId(BaseElement)"})
   void testGetStencilId() {
     // Arrange
@@ -75,26 +72,22 @@ class DataStoreJsonConverterDiffblueTest {
 
   /**
    * Test {@link DataStoreJsonConverter#convertJsonToElement(JsonNode, JsonNode, Map)}.
-   *
-   * <p>Method under test: {@link DataStoreJsonConverter#convertJsonToElement(JsonNode, JsonNode,
-   * Map)}
+   * <p>
+   * Method under test: {@link DataStoreJsonConverter#convertJsonToElement(JsonNode, JsonNode, Map)}
    */
   @Test
   @DisplayName("Test convertJsonToElement(JsonNode, JsonNode, Map)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "BaseElement DataStoreJsonConverter.convertJsonToElement(JsonNode, JsonNode, Map)"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"BaseElement DataStoreJsonConverter.convertJsonToElement(JsonNode, JsonNode, Map)"})
   void testConvertJsonToElement() {
     // Arrange
     DataStoreJsonConverter dataStoreJsonConverter = new DataStoreJsonConverter();
-    DoubleNode elementNode = DoubleNode.valueOf(10.0d);
-    DoubleNode modelNode = DoubleNode.valueOf(10.0d);
+    MissingNode elementNode = MissingNode.getInstance();
+    MissingNode modelNode = MissingNode.getInstance();
 
     // Act
-    BaseElement actualConvertJsonToElementResult =
-        dataStoreJsonConverter.convertJsonToElement(elementNode, modelNode, new HashMap<>());
+    BaseElement actualConvertJsonToElementResult = dataStoreJsonConverter.convertJsonToElement(elementNode, modelNode,
+        new HashMap<>());
 
     // Assert
     assertTrue(actualConvertJsonToElementResult instanceof DataStoreReference);
@@ -108,21 +101,19 @@ class DataStoreJsonConverterDiffblueTest {
     assertNull(((DataStoreReference) actualConvertJsonToElementResult).getSubProcess());
     assertEquals(0, actualConvertJsonToElementResult.getXmlColumnNumber());
     assertEquals(0, actualConvertJsonToElementResult.getXmlRowNumber());
-    assertTrue(
-        ((DataStoreReference) actualConvertJsonToElementResult).getExecutionListeners().isEmpty());
+    assertTrue(((DataStoreReference) actualConvertJsonToElementResult).getExecutionListeners().isEmpty());
     assertTrue(actualConvertJsonToElementResult.getAttributes().isEmpty());
     assertTrue(actualConvertJsonToElementResult.getExtensionElements().isEmpty());
   }
 
   /**
    * Test new {@link DataStoreJsonConverter} (default constructor).
-   *
-   * <p>Method under test: default or parameterless constructor of {@link DataStoreJsonConverter}
+   * <p>
+   * Method under test: default or parameterless constructor of {@link DataStoreJsonConverter}
    */
   @Test
   @DisplayName("Test new DataStoreJsonConverter (default constructor)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void DataStoreJsonConverter.<init>()"})
   void testNewDataStoreJsonConverter() {
     // Arrange and Act

@@ -17,8 +17,7 @@ package org.activiti.engine.impl.bpmn.parser;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
@@ -26,9 +25,8 @@ import org.junit.experimental.categories.Category;
 public class CompensateEventDefinitionDiffblueTest {
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>default or parameterless constructor of {@link CompensateEventDefinition}
    *   <li>{@link CompensateEventDefinition#setActivityRef(String)}
@@ -38,15 +36,11 @@ public class CompensateEventDefinitionDiffblueTest {
    * </ul>
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void CompensateEventDefinition.<init>()",
-    "String CompensateEventDefinition.getActivityRef()",
-    "boolean CompensateEventDefinition.isWaitForCompletion()",
-    "void CompensateEventDefinition.setActivityRef(String)",
-    "void CompensateEventDefinition.setWaitForCompletion(boolean)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void CompensateEventDefinition.<init>()", "String CompensateEventDefinition.getActivityRef()",
+      "boolean CompensateEventDefinition.isWaitForCompletion()",
+      "void CompensateEventDefinition.setActivityRef(String)",
+      "void CompensateEventDefinition.setWaitForCompletion(boolean)"})
   public void testGettersAndSetters() {
     // Arrange and Act
     CompensateEventDefinition actualCompensateEventDefinition = new CompensateEventDefinition();

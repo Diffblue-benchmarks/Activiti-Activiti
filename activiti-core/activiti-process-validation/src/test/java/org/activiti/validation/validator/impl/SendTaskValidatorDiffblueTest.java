@@ -16,7 +16,6 @@
 package org.activiti.validation.validator.impl;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.isA;
@@ -24,19 +23,15 @@ import static org.mockito.Mockito.atLeast;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import org.activiti.bpmn.model.AdhocSubProcess;
-import org.activiti.bpmn.model.BooleanDataObject;
 import org.activiti.bpmn.model.BpmnModel;
 import org.activiti.bpmn.model.Process;
 import org.activiti.bpmn.model.Resource;
 import org.activiti.bpmn.model.SendTask;
 import org.activiti.bpmn.model.Signal;
-import org.activiti.bpmn.model.SubProcess;
 import org.activiti.validation.ValidationError;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
@@ -46,33 +41,64 @@ import org.mockito.Mockito;
 class SendTaskValidatorDiffblueTest {
   /**
    * Test {@link SendTaskValidator#executeValidation(BpmnModel, Process, List)}.
-   *
-   * <ul>
-   *   <li>Given {@link SendTask} (default constructor) Type is {@code camel}.
-   *   <li>Then {@link ArrayList#ArrayList()} Empty.
-   * </ul>
-   *
-   * <p>Method under test: {@link SendTaskValidator#executeValidation(BpmnModel, Process, List)}
+   * <p>
+   * Method under test: {@link SendTaskValidator#executeValidation(BpmnModel, Process, List)}
    */
   @Test
-  @DisplayName(
-      "Test executeValidation(BpmnModel, Process, List); given SendTask (default constructor) Type is 'camel'; then ArrayList() Empty")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test executeValidation(BpmnModel, Process, List)")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void SendTaskValidator.executeValidation(BpmnModel, Process, List)"})
-  void testExecuteValidation_givenSendTaskTypeIsCamel_thenArrayListEmpty() {
+  void testExecuteValidation() {
     // Arrange
     SendTaskValidator sendTaskValidator = new SendTaskValidator();
     BpmnModel bpmnModel = new BpmnModel();
 
-    SendTask sendTask = new SendTask();
-    sendTask.setType("camel");
-
     ArrayList<SendTask> sendTaskList = new ArrayList<>();
-    sendTaskList.add(sendTask);
-
+    sendTaskList.add(new SendTask());
+    sendTaskList.add(new SendTask());
     Process process = mock(Process.class);
+    when(process.getId()).thenReturn("42");
+    when(process.getName()).thenReturn("Name");
     when(process.findFlowElementsOfType(Mockito.<Class<SendTask>>any())).thenReturn(sendTaskList);
+    ArrayList<ValidationError> errors = new ArrayList<>();
+
+    // Act
+    sendTaskValidator.executeValidation(bpmnModel, process, errors);
+
+    // Assert
+    verify(process, atLeast(1)).getId();
+    verify(process).findFlowElementsOfType(isA(Class.class));
+    verify(process, atLeast(1)).getName();
+    assertEquals(2, errors.size());
+    ValidationError getResult = errors.get(1);
+    assertEquals("SEND_TASK_INVALID_IMPLEMENTATION", getResult.getDefaultDescription());
+    assertEquals("SEND_TASK_INVALID_IMPLEMENTATION", getResult.getKey());
+    assertEquals("SEND_TASK_INVALID_IMPLEMENTATION", getResult.getProblem());
+    assertNull(getResult.getActivityId());
+    assertNull(getResult.getActivityName());
+    assertEquals(0, getResult.getXmlColumnNumber());
+    assertEquals(0, getResult.getXmlLineNumber());
+  }
+
+  /**
+   * Test {@link SendTaskValidator#executeValidation(BpmnModel, Process, List)}.
+   * <ul>
+   *   <li>Given {@link ArrayList#ArrayList()}.</li>
+   *   <li>Then {@link ArrayList#ArrayList()} Empty.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link SendTaskValidator#executeValidation(BpmnModel, Process, List)}
+   */
+  @Test
+  @DisplayName("Test executeValidation(BpmnModel, Process, List); given ArrayList(); then ArrayList() Empty")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void SendTaskValidator.executeValidation(BpmnModel, Process, List)"})
+  void testExecuteValidation_givenArrayList_thenArrayListEmpty() {
+    // Arrange
+    SendTaskValidator sendTaskValidator = new SendTaskValidator();
+    BpmnModel bpmnModel = new BpmnModel();
+    Process process = mock(Process.class);
+    when(process.findFlowElementsOfType(Mockito.<Class<SendTask>>any())).thenReturn(new ArrayList<>());
     ArrayList<ValidationError> errors = new ArrayList<>();
 
     // Act
@@ -91,167 +117,20 @@ class SendTaskValidatorDiffblueTest {
 
   /**
    * Test {@link SendTaskValidator#executeValidation(BpmnModel, Process, List)}.
-   *
    * <ul>
-   *   <li>Given {@link SendTask} (default constructor) Type is {@code mule}.
-   *   <li>Then {@link ArrayList#ArrayList()} Empty.
+   *   <li>Then {@link ArrayList#ArrayList()} first ActivityId is {@code 42}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link SendTaskValidator#executeValidation(BpmnModel, Process, List)}
+   * <p>
+   * Method under test: {@link SendTaskValidator#executeValidation(BpmnModel, Process, List)}
    */
   @Test
-  @DisplayName(
-      "Test executeValidation(BpmnModel, Process, List); given SendTask (default constructor) Type is 'mule'; then ArrayList() Empty")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void SendTaskValidator.executeValidation(BpmnModel, Process, List)"})
-  void testExecuteValidation_givenSendTaskTypeIsMule_thenArrayListEmpty() {
-    // Arrange
-    SendTaskValidator sendTaskValidator = new SendTaskValidator();
-    BpmnModel bpmnModel = new BpmnModel();
-
-    SendTask sendTask = new SendTask();
-    sendTask.setType("mule");
-
-    ArrayList<SendTask> sendTaskList = new ArrayList<>();
-    sendTaskList.add(sendTask);
-
-    Process process = mock(Process.class);
-    when(process.findFlowElementsOfType(Mockito.<Class<SendTask>>any())).thenReturn(sendTaskList);
-    ArrayList<ValidationError> errors = new ArrayList<>();
-
-    // Act
-    sendTaskValidator.executeValidation(bpmnModel, process, errors);
-
-    // Assert that nothing has changed
-    verify(process).findFlowElementsOfType(isA(Class.class));
-    Collection<Resource> resources = bpmnModel.getResources();
-    assertTrue(resources instanceof List);
-    Collection<Signal> signals = bpmnModel.getSignals();
-    assertTrue(signals instanceof List);
-    assertTrue(errors.isEmpty());
-    assertTrue(resources.isEmpty());
-    assertTrue(signals.isEmpty());
-  }
-
-  /**
-   * Test {@link SendTaskValidator#executeValidation(BpmnModel, Process, List)}.
-   *
-   * <ul>
-   *   <li>Given {@link SubProcess} (default constructor) addFlowElement {@link AdhocSubProcess}
-   *       (default constructor).
-   * </ul>
-   *
-   * <p>Method under test: {@link SendTaskValidator#executeValidation(BpmnModel, Process, List)}
-   */
-  @Test
-  @DisplayName(
-      "Test executeValidation(BpmnModel, Process, List); given SubProcess (default constructor) addFlowElement AdhocSubProcess (default constructor)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void SendTaskValidator.executeValidation(BpmnModel, Process, List)"})
-  void testExecuteValidation_givenSubProcessAddFlowElementAdhocSubProcess() {
-    // Arrange
-    SendTaskValidator sendTaskValidator = new SendTaskValidator();
-
-    BpmnModel bpmnModel = new BpmnModel();
-    bpmnModel.setInterfaces(null);
-
-    SubProcess element = new SubProcess();
-    element.addFlowElement(new AdhocSubProcess());
-
-    SubProcess element2 = new SubProcess();
-    element2.addFlowElement(element);
-
-    SubProcess element3 = new SubProcess();
-    element3.addFlowElement(element2);
-
-    Process process = new Process();
-    process.addFlowElement(element3);
-    ArrayList<ValidationError> errors = new ArrayList<>();
-
-    // Act
-    sendTaskValidator.executeValidation(bpmnModel, process, errors);
-
-    // Assert that nothing has changed
-    Collection<Resource> resources = bpmnModel.getResources();
-    assertTrue(resources instanceof List);
-    Collection<Signal> signals = bpmnModel.getSignals();
-    assertTrue(signals instanceof List);
-    assertTrue(errors.isEmpty());
-    assertTrue(resources.isEmpty());
-    assertTrue(signals.isEmpty());
-  }
-
-  /**
-   * Test {@link SendTaskValidator#executeValidation(BpmnModel, Process, List)}.
-   *
-   * <ul>
-   *   <li>Given {@link SubProcess} (default constructor) addFlowElement {@link BooleanDataObject}
-   *       (default constructor).
-   * </ul>
-   *
-   * <p>Method under test: {@link SendTaskValidator#executeValidation(BpmnModel, Process, List)}
-   */
-  @Test
-  @DisplayName(
-      "Test executeValidation(BpmnModel, Process, List); given SubProcess (default constructor) addFlowElement BooleanDataObject (default constructor)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void SendTaskValidator.executeValidation(BpmnModel, Process, List)"})
-  void testExecuteValidation_givenSubProcessAddFlowElementBooleanDataObject() {
-    // Arrange
-    SendTaskValidator sendTaskValidator = new SendTaskValidator();
-
-    BpmnModel bpmnModel = new BpmnModel();
-    bpmnModel.setInterfaces(null);
-
-    SubProcess element = new SubProcess();
-    element.addFlowElement(new BooleanDataObject());
-
-    SubProcess element2 = new SubProcess();
-    element2.addFlowElement(element);
-
-    SubProcess element3 = new SubProcess();
-    element3.addFlowElement(element2);
-
-    Process process = new Process();
-    process.addFlowElement(element3);
-    ArrayList<ValidationError> errors = new ArrayList<>();
-
-    // Act
-    sendTaskValidator.executeValidation(bpmnModel, process, errors);
-
-    // Assert that nothing has changed
-    Collection<Resource> resources = bpmnModel.getResources();
-    assertTrue(resources instanceof List);
-    Collection<Signal> signals = bpmnModel.getSignals();
-    assertTrue(signals instanceof List);
-    assertTrue(errors.isEmpty());
-    assertTrue(resources.isEmpty());
-    assertTrue(signals.isEmpty());
-  }
-
-  /**
-   * Test {@link SendTaskValidator#executeValidation(BpmnModel, Process, List)}.
-   *
-   * <ul>
-   *   <li>Then {@link ArrayList#ArrayList()} first ActivityId is {@code 42}.
-   * </ul>
-   *
-   * <p>Method under test: {@link SendTaskValidator#executeValidation(BpmnModel, Process, List)}
-   */
-  @Test
-  @DisplayName(
-      "Test executeValidation(BpmnModel, Process, List); then ArrayList() first ActivityId is '42'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test executeValidation(BpmnModel, Process, List); then ArrayList() first ActivityId is '42'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void SendTaskValidator.executeValidation(BpmnModel, Process, List)"})
   void testExecuteValidation_thenArrayListFirstActivityIdIs42() {
     // Arrange
     SendTaskValidator sendTaskValidator = new SendTaskValidator();
     BpmnModel bpmnModel = new BpmnModel();
-
     SendTask sendTask = mock(SendTask.class);
     when(sendTask.getXmlColumnNumber()).thenReturn(10);
     when(sendTask.getXmlRowNumber()).thenReturn(10);
@@ -262,7 +141,6 @@ class SendTaskValidatorDiffblueTest {
 
     ArrayList<SendTask> sendTaskList = new ArrayList<>();
     sendTaskList.add(sendTask);
-
     Process process = mock(Process.class);
     when(process.getId()).thenReturn("42");
     when(process.getName()).thenReturn("Name");
@@ -295,18 +173,15 @@ class SendTaskValidatorDiffblueTest {
 
   /**
    * Test {@link SendTaskValidator#executeValidation(BpmnModel, Process, List)}.
-   *
    * <ul>
-   *   <li>Then {@link ArrayList#ArrayList()} first ActivityId is {@code null}.
+   *   <li>Then {@link ArrayList#ArrayList()} first ActivityId is {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link SendTaskValidator#executeValidation(BpmnModel, Process, List)}
+   * <p>
+   * Method under test: {@link SendTaskValidator#executeValidation(BpmnModel, Process, List)}
    */
   @Test
-  @DisplayName(
-      "Test executeValidation(BpmnModel, Process, List); then ArrayList() first ActivityId is 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test executeValidation(BpmnModel, Process, List); then ArrayList() first ActivityId is 'null'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void SendTaskValidator.executeValidation(BpmnModel, Process, List)"})
   void testExecuteValidation_thenArrayListFirstActivityIdIsNull() {
     // Arrange
@@ -315,7 +190,6 @@ class SendTaskValidatorDiffblueTest {
 
     ArrayList<SendTask> sendTaskList = new ArrayList<>();
     sendTaskList.add(new SendTask());
-
     Process process = mock(Process.class);
     when(process.getId()).thenReturn("42");
     when(process.getName()).thenReturn("Name");
@@ -339,25 +213,20 @@ class SendTaskValidatorDiffblueTest {
 
   /**
    * Test {@link SendTaskValidator#executeValidation(BpmnModel, Process, List)}.
-   *
    * <ul>
-   *   <li>Then {@link ArrayList#ArrayList()} first DefaultDescription is {@code
-   *       SEND_TASK_INVALID_TYPE}.
+   *   <li>Then {@link ArrayList#ArrayList()} first DefaultDescription is {@code SEND_TASK_INVALID_TYPE}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link SendTaskValidator#executeValidation(BpmnModel, Process, List)}
+   * <p>
+   * Method under test: {@link SendTaskValidator#executeValidation(BpmnModel, Process, List)}
    */
   @Test
-  @DisplayName(
-      "Test executeValidation(BpmnModel, Process, List); then ArrayList() first DefaultDescription is 'SEND_TASK_INVALID_TYPE'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test executeValidation(BpmnModel, Process, List); then ArrayList() first DefaultDescription is 'SEND_TASK_INVALID_TYPE'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void SendTaskValidator.executeValidation(BpmnModel, Process, List)"})
   void testExecuteValidation_thenArrayListFirstDefaultDescriptionIsSendTaskInvalidType() {
     // Arrange
     SendTaskValidator sendTaskValidator = new SendTaskValidator();
     BpmnModel bpmnModel = new BpmnModel();
-
     SendTask sendTask = mock(SendTask.class);
     when(sendTask.getXmlColumnNumber()).thenReturn(10);
     when(sendTask.getXmlRowNumber()).thenReturn(10);
@@ -368,7 +237,6 @@ class SendTaskValidatorDiffblueTest {
 
     ArrayList<SendTask> sendTaskList = new ArrayList<>();
     sendTaskList.add(sendTask);
-
     Process process = mock(Process.class);
     when(process.getId()).thenReturn("42");
     when(process.getName()).thenReturn("Name");
@@ -403,23 +271,20 @@ class SendTaskValidatorDiffblueTest {
 
   /**
    * Test {@link SendTaskValidator#executeValidation(BpmnModel, Process, List)}.
-   *
    * <ul>
-   *   <li>Then {@link ArrayList#ArrayList()} size is two.
+   *   <li>Then {@link ArrayList#ArrayList()} second ActivityId is {@code 42}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link SendTaskValidator#executeValidation(BpmnModel, Process, List)}
+   * <p>
+   * Method under test: {@link SendTaskValidator#executeValidation(BpmnModel, Process, List)}
    */
   @Test
-  @DisplayName("Test executeValidation(BpmnModel, Process, List); then ArrayList() size is two")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test executeValidation(BpmnModel, Process, List); then ArrayList() second ActivityId is '42'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void SendTaskValidator.executeValidation(BpmnModel, Process, List)"})
-  void testExecuteValidation_thenArrayListSizeIsTwo() {
+  void testExecuteValidation_thenArrayListSecondActivityIdIs42() {
     // Arrange
     SendTaskValidator sendTaskValidator = new SendTaskValidator();
     BpmnModel bpmnModel = new BpmnModel();
-
     SendTask sendTask = mock(SendTask.class);
     when(sendTask.getFieldExtensions()).thenReturn(new ArrayList<>());
     when(sendTask.getXmlColumnNumber()).thenReturn(10);
@@ -431,7 +296,6 @@ class SendTaskValidatorDiffblueTest {
 
     ArrayList<SendTask> sendTaskList = new ArrayList<>();
     sendTaskList.add(sendTask);
-
     Process process = mock(Process.class);
     when(process.getId()).thenReturn("42");
     when(process.getName()).thenReturn("Name");
@@ -455,7 +319,6 @@ class SendTaskValidatorDiffblueTest {
     assertEquals(2, errors.size());
     ValidationError getResult = errors.get(1);
     assertEquals("42", getResult.getActivityId());
-    assertEquals("42", getResult.getProcessDefinitionId());
     assertEquals("MAIL_TASK_NO_CONTENT", getResult.getDefaultDescription());
     assertEquals("MAIL_TASK_NO_CONTENT", getResult.getKey());
     assertEquals("MAIL_TASK_NO_CONTENT", getResult.getProblem());
@@ -464,29 +327,22 @@ class SendTaskValidatorDiffblueTest {
     assertEquals("MAIL_TASK_NO_RECIPIENT", getResult2.getKey());
     assertEquals("MAIL_TASK_NO_RECIPIENT", getResult2.getProblem());
     assertEquals("Name", getResult.getActivityName());
-    assertEquals("Name", getResult.getProcessDefinitionName());
-    assertNull(getResult.getValidatorSetName());
     assertEquals(10, getResult.getXmlColumnNumber());
     assertEquals(10, getResult.getXmlLineNumber());
-    assertFalse(getResult.isWarning());
-    assertTrue(getResult.getParams().isEmpty());
   }
 
   /**
    * Test {@link SendTaskValidator#executeValidation(BpmnModel, Process, List)}.
-   *
    * <ul>
-   *   <li>When {@link Process} (default constructor).
-   *   <li>Then {@link ArrayList#ArrayList()} Empty.
+   *   <li>When {@link Process} (default constructor).</li>
+   *   <li>Then {@link ArrayList#ArrayList()} Empty.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link SendTaskValidator#executeValidation(BpmnModel, Process, List)}
+   * <p>
+   * Method under test: {@link SendTaskValidator#executeValidation(BpmnModel, Process, List)}
    */
   @Test
-  @DisplayName(
-      "Test executeValidation(BpmnModel, Process, List); when Process (default constructor); then ArrayList() Empty")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test executeValidation(BpmnModel, Process, List); when Process (default constructor); then ArrayList() Empty")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void SendTaskValidator.executeValidation(BpmnModel, Process, List)"})
   void testExecuteValidation_whenProcess_thenArrayListEmpty() {
     // Arrange

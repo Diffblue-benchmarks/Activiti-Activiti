@@ -18,7 +18,6 @@ package org.activiti.api.process.model.builders;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.HashMap;
 import java.util.Map;
@@ -30,60 +29,49 @@ import org.junit.jupiter.api.Test;
 class SignalPayloadBuilderDiffblueTest {
   /**
    * Test {@link SignalPayloadBuilder#withVariable(String, Object)}.
-   *
    * <ul>
-   *   <li>Given signal.
+   *   <li>Given signal.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link SignalPayloadBuilder#withVariable(String, Object)}
+   * <p>
+   * Method under test: {@link SignalPayloadBuilder#withVariable(String, Object)}
    */
   @Test
   @DisplayName("Test withVariable(String, Object); given signal")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"SignalPayloadBuilder SignalPayloadBuilder.withVariable(String, Object)"})
   void testWithVariable_givenSignal() {
     // Arrange
     SignalPayloadBuilder signalResult = ProcessPayloadBuilder.signal();
 
-    // Act
-    SignalPayloadBuilder actualWithVariableResult = signalResult.withVariable("Name", "Value");
-
-    // Assert
-    assertSame(signalResult, actualWithVariableResult);
+    // Act and Assert
+    assertSame(signalResult, signalResult.withVariable("Name", "Value"));
   }
 
   /**
    * Test {@link SignalPayloadBuilder#withVariable(String, Object)}.
-   *
    * <ul>
-   *   <li>Given signal withVariables {@link HashMap#HashMap()}.
+   *   <li>Given signal withVariables {@link HashMap#HashMap()}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link SignalPayloadBuilder#withVariable(String, Object)}
+   * <p>
+   * Method under test: {@link SignalPayloadBuilder#withVariable(String, Object)}
    */
   @Test
   @DisplayName("Test withVariable(String, Object); given signal withVariables HashMap()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"SignalPayloadBuilder SignalPayloadBuilder.withVariable(String, Object)"})
   void testWithVariable_givenSignalWithVariablesHashMap() {
     // Arrange
     SignalPayloadBuilder signalResult = ProcessPayloadBuilder.signal();
     signalResult.withVariables(new HashMap<>());
 
-    // Act
-    SignalPayloadBuilder actualWithVariableResult = signalResult.withVariable("Name", "Value");
-
-    // Assert
-    assertSame(signalResult, actualWithVariableResult);
+    // Act and Assert
+    assertSame(signalResult, signalResult.withVariable("Name", "Value"));
   }
 
   /**
    * Test {@link SignalPayloadBuilder#build()}.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>{@link SignalPayloadBuilder#build()}
    *   <li>default or parameterless constructor of {@link SignalPayloadBuilder}
@@ -93,24 +81,22 @@ class SignalPayloadBuilderDiffblueTest {
    */
   @Test
   @DisplayName("Test build()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void SignalPayloadBuilder.<init>()",
-    "SignalPayload SignalPayloadBuilder.build()",
-    "SignalPayloadBuilder SignalPayloadBuilder.withName(String)",
-    "SignalPayloadBuilder SignalPayloadBuilder.withVariables(Map)"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void SignalPayloadBuilder.<init>()", "SignalPayload SignalPayloadBuilder.build()",
+      "SignalPayloadBuilder SignalPayloadBuilder.withName(String)",
+      "SignalPayloadBuilder SignalPayloadBuilder.withVariables(Map)"})
   void testBuild() {
-    // Arrange and Act
-    SignalPayloadBuilder actualWithVariableResult =
-        new SignalPayloadBuilder().withName("Name").withVariable("Name", "Value");
+    // Arrange
+    SignalPayloadBuilder withVariableResult = (new SignalPayloadBuilder()).withName("Name")
+        .withVariable("Name", "Value");
     HashMap<String, Object> variables = new HashMap<>();
-    SignalPayload actualSignalPayload = actualWithVariableResult.withVariables(variables).build();
+
+    // Act
+    SignalPayload actualBuildResult = withVariableResult.withVariables(variables).build();
 
     // Assert
-    assertEquals("Name", actualSignalPayload.getName());
-    Map<String, Object> variables2 = actualSignalPayload.getVariables();
+    assertEquals("Name", actualBuildResult.getName());
+    Map<String, Object> variables2 = actualBuildResult.getVariables();
     assertTrue(variables2.isEmpty());
     assertSame(variables, variables2);
   }

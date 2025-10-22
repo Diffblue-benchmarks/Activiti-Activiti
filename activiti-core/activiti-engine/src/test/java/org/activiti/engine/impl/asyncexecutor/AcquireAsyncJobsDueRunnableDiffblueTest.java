@@ -17,28 +17,31 @@ package org.activiti.engine.impl.asyncexecutor;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertThrows;
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
+import org.activiti.engine.ActivitiOptimisticLockingException;
+import org.activiti.engine.impl.cfg.JtaProcessEngineConfiguration;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 
 public class AcquireAsyncJobsDueRunnableDiffblueTest {
   /**
    * Test {@link AcquireAsyncJobsDueRunnable#AcquireAsyncJobsDueRunnable(AsyncExecutor)}.
-   *
-   * <p>Method under test: {@link
-   * AcquireAsyncJobsDueRunnable#AcquireAsyncJobsDueRunnable(AsyncExecutor)}
+   * <p>
+   * Method under test: {@link AcquireAsyncJobsDueRunnable#AcquireAsyncJobsDueRunnable(AsyncExecutor)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void AcquireAsyncJobsDueRunnable.<init>(AsyncExecutor)"})
   public void testNewAcquireAsyncJobsDueRunnable() {
     // Arrange and Act
-    AcquireAsyncJobsDueRunnable actualAcquireAsyncJobsDueRunnable =
-        new AcquireAsyncJobsDueRunnable(new DefaultAsyncJobExecutor());
+    AcquireAsyncJobsDueRunnable actualAcquireAsyncJobsDueRunnable = new AcquireAsyncJobsDueRunnable(
+        new DefaultAsyncJobExecutor());
 
     // Assert
     assertTrue(actualAcquireAsyncJobsDueRunnable.asyncExecutor instanceof DefaultAsyncJobExecutor);
@@ -47,18 +50,42 @@ public class AcquireAsyncJobsDueRunnableDiffblueTest {
   }
 
   /**
-   * Test {@link AcquireAsyncJobsDueRunnable#stop()}.
-   *
-   * <p>Method under test: {@link AcquireAsyncJobsDueRunnable#stop()}
+   * Test {@link AcquireAsyncJobsDueRunnable#run()}.
+   * <ul>
+   *   <li>Then throw {@link ActivitiOptimisticLockingException}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link AcquireAsyncJobsDueRunnable#run()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void AcquireAsyncJobsDueRunnable.run()"})
+  public void testRun_thenThrowActivitiOptimisticLockingException() {
+    // Arrange
+    DefaultAsyncJobExecutor asyncExecutor = mock(DefaultAsyncJobExecutor.class);
+    when(asyncExecutor.getDefaultAsyncJobAcquireWaitTimeInMillis())
+        .thenThrow(new ActivitiOptimisticLockingException("An error occurred"));
+    when(asyncExecutor.getProcessEngineConfiguration()).thenReturn(new JtaProcessEngineConfiguration());
+
+    // Act and Assert
+    assertThrows(ActivitiOptimisticLockingException.class,
+        () -> (new AcquireAsyncJobsDueRunnable(asyncExecutor)).run());
+    verify(asyncExecutor).getDefaultAsyncJobAcquireWaitTimeInMillis();
+    verify(asyncExecutor).getProcessEngineConfiguration();
+  }
+
+  /**
+   * Test {@link AcquireAsyncJobsDueRunnable#stop()}.
+   * <p>
+   * Method under test: {@link AcquireAsyncJobsDueRunnable#stop()}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void AcquireAsyncJobsDueRunnable.stop()"})
   public void testStop() {
     // Arrange
-    AcquireAsyncJobsDueRunnable acquireAsyncJobsDueRunnable =
-        new AcquireAsyncJobsDueRunnable(new DefaultAsyncJobExecutor());
+    AcquireAsyncJobsDueRunnable acquireAsyncJobsDueRunnable = new AcquireAsyncJobsDueRunnable(
+        new DefaultAsyncJobExecutor());
 
     // Act
     acquireAsyncJobsDueRunnable.stop();
@@ -69,25 +96,21 @@ public class AcquireAsyncJobsDueRunnableDiffblueTest {
 
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>{@link AcquireAsyncJobsDueRunnable#setMillisToWait(long)}
    *   <li>{@link AcquireAsyncJobsDueRunnable#getMillisToWait()}
    * </ul>
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "long AcquireAsyncJobsDueRunnable.getMillisToWait()",
-    "void AcquireAsyncJobsDueRunnable.setMillisToWait(long)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"long AcquireAsyncJobsDueRunnable.getMillisToWait()",
+      "void AcquireAsyncJobsDueRunnable.setMillisToWait(long)"})
   public void testGettersAndSetters() {
     // Arrange
-    AcquireAsyncJobsDueRunnable acquireAsyncJobsDueRunnable =
-        new AcquireAsyncJobsDueRunnable(new DefaultAsyncJobExecutor());
+    AcquireAsyncJobsDueRunnable acquireAsyncJobsDueRunnable = new AcquireAsyncJobsDueRunnable(
+        new DefaultAsyncJobExecutor());
 
     // Act
     acquireAsyncJobsDueRunnable.setMillisToWait(1L);

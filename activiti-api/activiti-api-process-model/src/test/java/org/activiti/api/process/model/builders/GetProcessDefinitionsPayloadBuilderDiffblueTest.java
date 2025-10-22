@@ -19,7 +19,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.HashSet;
 import java.util.Set;
@@ -31,26 +30,22 @@ import org.junit.jupiter.api.Test;
 class GetProcessDefinitionsPayloadBuilderDiffblueTest {
   /**
    * Test {@link GetProcessDefinitionsPayloadBuilder#withProcessDefinitionKey(String)}.
-   *
-   * <p>Method under test: {@link
-   * GetProcessDefinitionsPayloadBuilder#withProcessDefinitionKey(String)}
+   * <p>
+   * Method under test: {@link GetProcessDefinitionsPayloadBuilder#withProcessDefinitionKey(String)}
    */
   @Test
   @DisplayName("Test withProcessDefinitionKey(String)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({
-    "GetProcessDefinitionsPayloadBuilder GetProcessDefinitionsPayloadBuilder.withProcessDefinitionKey(String)"
-  })
+      "GetProcessDefinitionsPayloadBuilder GetProcessDefinitionsPayloadBuilder.withProcessDefinitionKey(String)"})
   void testWithProcessDefinitionKey() {
     // Arrange
-    GetProcessDefinitionsPayloadBuilder processDefinitionsResult =
-        ProcessPayloadBuilder.processDefinitions();
+    GetProcessDefinitionsPayloadBuilder processDefinitionsResult = ProcessPayloadBuilder.processDefinitions();
     processDefinitionsResult.withProcessDefinitionKeys(null);
 
     // Act
-    GetProcessDefinitionsPayloadBuilder actualWithProcessDefinitionKeyResult =
-        processDefinitionsResult.withProcessDefinitionKey("Process Definition Key");
+    GetProcessDefinitionsPayloadBuilder actualWithProcessDefinitionKeyResult = processDefinitionsResult
+        .withProcessDefinitionKey("Process Definition Key");
 
     // Assert
     assertTrue(processDefinitionsResult.build().hasDefinitionKeys());
@@ -59,29 +54,24 @@ class GetProcessDefinitionsPayloadBuilderDiffblueTest {
 
   /**
    * Test {@link GetProcessDefinitionsPayloadBuilder#withProcessDefinitionKey(String)}.
-   *
    * <ul>
-   *   <li>Given processDefinitions.
+   *   <li>Given processDefinitions.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link
-   * GetProcessDefinitionsPayloadBuilder#withProcessDefinitionKey(String)}
+   * <p>
+   * Method under test: {@link GetProcessDefinitionsPayloadBuilder#withProcessDefinitionKey(String)}
    */
   @Test
   @DisplayName("Test withProcessDefinitionKey(String); given processDefinitions")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({
-    "GetProcessDefinitionsPayloadBuilder GetProcessDefinitionsPayloadBuilder.withProcessDefinitionKey(String)"
-  })
+      "GetProcessDefinitionsPayloadBuilder GetProcessDefinitionsPayloadBuilder.withProcessDefinitionKey(String)"})
   void testWithProcessDefinitionKey_givenProcessDefinitions() {
     // Arrange
-    GetProcessDefinitionsPayloadBuilder processDefinitionsResult =
-        ProcessPayloadBuilder.processDefinitions();
+    GetProcessDefinitionsPayloadBuilder processDefinitionsResult = ProcessPayloadBuilder.processDefinitions();
 
     // Act
-    GetProcessDefinitionsPayloadBuilder actualWithProcessDefinitionKeyResult =
-        processDefinitionsResult.withProcessDefinitionKey("Process Definition Key");
+    GetProcessDefinitionsPayloadBuilder actualWithProcessDefinitionKeyResult = processDefinitionsResult
+        .withProcessDefinitionKey("Process Definition Key");
 
     // Assert
     assertTrue(processDefinitionsResult.build().hasDefinitionKeys());
@@ -90,9 +80,8 @@ class GetProcessDefinitionsPayloadBuilderDiffblueTest {
 
   /**
    * Test {@link GetProcessDefinitionsPayloadBuilder#build()}.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>{@link GetProcessDefinitionsPayloadBuilder#build()}
    *   <li>default or parameterless constructor of {@link GetProcessDefinitionsPayloadBuilder}
@@ -102,31 +91,27 @@ class GetProcessDefinitionsPayloadBuilderDiffblueTest {
    */
   @Test
   @DisplayName("Test build()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void GetProcessDefinitionsPayloadBuilder.<init>()",
-    "GetProcessDefinitionsPayload GetProcessDefinitionsPayloadBuilder.build()",
-    "GetProcessDefinitionsPayloadBuilder GetProcessDefinitionsPayloadBuilder.withProcessDefinitionId(String)",
-    "GetProcessDefinitionsPayloadBuilder GetProcessDefinitionsPayloadBuilder.withProcessDefinitionKeys(Set)"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void GetProcessDefinitionsPayloadBuilder.<init>()",
+      "GetProcessDefinitionsPayload GetProcessDefinitionsPayloadBuilder.build()",
+      "GetProcessDefinitionsPayloadBuilder GetProcessDefinitionsPayloadBuilder.withProcessDefinitionId(String)",
+      "GetProcessDefinitionsPayloadBuilder GetProcessDefinitionsPayloadBuilder.withProcessDefinitionKeys(Set)"})
   void testBuild() {
-    // Arrange and Act
-    GetProcessDefinitionsPayloadBuilder actualWithProcessDefinitionKeyResult =
-        new GetProcessDefinitionsPayloadBuilder()
-            .withProcessDefinitionId("42")
-            .withProcessDefinitionKey("Process Definition Key");
+    // Arrange
+    GetProcessDefinitionsPayloadBuilder withProcessDefinitionKeyResult = (new GetProcessDefinitionsPayloadBuilder())
+        .withProcessDefinitionId("42")
+        .withProcessDefinitionKey("Process Definition Key");
     HashSet<String> processDefinitionKeys = new HashSet<>();
-    GetProcessDefinitionsPayload actualGetProcessDefinitionsPayload =
-        actualWithProcessDefinitionKeyResult
-            .withProcessDefinitionKeys(processDefinitionKeys)
-            .build();
+
+    // Act
+    GetProcessDefinitionsPayload actualBuildResult = withProcessDefinitionKeyResult
+        .withProcessDefinitionKeys(processDefinitionKeys)
+        .build();
 
     // Assert
-    assertEquals("42", actualGetProcessDefinitionsPayload.getProcessDefinitionId());
-    assertFalse(actualGetProcessDefinitionsPayload.hasDefinitionKeys());
-    Set<String> processDefinitionKeys2 =
-        actualGetProcessDefinitionsPayload.getProcessDefinitionKeys();
+    assertEquals("42", actualBuildResult.getProcessDefinitionId());
+    assertFalse(actualBuildResult.hasDefinitionKeys());
+    Set<String> processDefinitionKeys2 = actualBuildResult.getProcessDefinitionKeys();
     assertTrue(processDefinitionKeys2.isEmpty());
     assertSame(processDefinitionKeys, processDefinitionKeys2);
   }

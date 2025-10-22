@@ -28,8 +28,7 @@ import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.io.File;
 import java.io.IOException;
@@ -44,6 +43,7 @@ import org.activiti.engine.ActivitiException;
 import org.activiti.engine.ActivitiIllegalArgumentException;
 import org.activiti.engine.delegate.DelegateExecution;
 import org.activiti.engine.delegate.Expression;
+import org.activiti.engine.delegate.VariableScope;
 import org.activiti.engine.impl.el.FixedValue;
 import org.activiti.engine.impl.persistence.entity.ExecutionEntityImpl;
 import org.activiti.engine.impl.util.json.JSONObject;
@@ -59,105 +59,88 @@ import org.mockito.Mockito;
 public class MailActivityBehaviorDiffblueTest {
   /**
    * Test {@link MailActivityBehavior#execute(DelegateExecution)}.
-   *
-   * <p>Method under test: {@link MailActivityBehavior#execute(DelegateExecution)}
+   * <p>
+   * Method under test: {@link MailActivityBehavior#execute(DelegateExecution)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void MailActivityBehavior.execute(DelegateExecution)"})
   public void testExecute() {
     // Arrange
     MailActivityBehavior mailActivityBehavior = new MailActivityBehavior();
 
     // Act and Assert
-    assertThrows(
-        ActivitiIllegalArgumentException.class,
-        () ->
-            mailActivityBehavior.execute(
-                ExecutionEntityImpl.createWithEmptyRelationshipCollections()));
+    assertThrows(ActivitiIllegalArgumentException.class,
+        () -> mailActivityBehavior.execute(ExecutionEntityImpl.createWithEmptyRelationshipCollections()));
   }
 
   /**
    * Test {@link MailActivityBehavior#createEmail(String, String, boolean)}.
-   *
    * <ul>
-   *   <li>When empty string.
-   *   <li>Then throw {@link ActivitiException}.
+   *   <li>When empty string.</li>
+   *   <li>Then throw {@link ActivitiException}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link MailActivityBehavior#createEmail(String, String, boolean)}
+   * <p>
+   * Method under test: {@link MailActivityBehavior#createEmail(String, String, boolean)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"Email MailActivityBehavior.createEmail(String, String, boolean)"})
   public void testCreateEmail_whenEmptyString_thenThrowActivitiException() {
     // Arrange, Act and Assert
-    assertThrows(
-        ActivitiException.class, () -> new MailActivityBehavior().createEmail(null, "", false));
+    assertThrows(ActivitiException.class, () -> (new MailActivityBehavior()).createEmail("", null, true));
   }
 
   /**
    * Test {@link MailActivityBehavior#createEmail(String, String, boolean)}.
-   *
    * <ul>
-   *   <li>When empty string.
-   *   <li>Then throw {@link ActivitiException}.
+   *   <li>When empty string.</li>
+   *   <li>Then throw {@link ActivitiException}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link MailActivityBehavior#createEmail(String, String, boolean)}
+   * <p>
+   * Method under test: {@link MailActivityBehavior#createEmail(String, String, boolean)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"Email MailActivityBehavior.createEmail(String, String, boolean)"})
   public void testCreateEmail_whenEmptyString_thenThrowActivitiException2() {
     // Arrange, Act and Assert
-    assertThrows(
-        ActivitiException.class, () -> new MailActivityBehavior().createEmail("", null, false));
+    assertThrows(ActivitiException.class, () -> (new MailActivityBehavior()).createEmail("", null, false));
   }
 
   /**
    * Test {@link MailActivityBehavior#createEmail(String, String, boolean)}.
-   *
    * <ul>
-   *   <li>When {@code false}.
-   *   <li>Then throw {@link ActivitiIllegalArgumentException}.
+   *   <li>When {@code false}.</li>
+   *   <li>Then throw {@link ActivitiIllegalArgumentException}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link MailActivityBehavior#createEmail(String, String, boolean)}
+   * <p>
+   * Method under test: {@link MailActivityBehavior#createEmail(String, String, boolean)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"Email MailActivityBehavior.createEmail(String, String, boolean)"})
   public void testCreateEmail_whenFalse_thenThrowActivitiIllegalArgumentException() {
     // Arrange, Act and Assert
-    assertThrows(
-        ActivitiIllegalArgumentException.class,
-        () -> new MailActivityBehavior().createEmail(null, null, false));
+    assertThrows(ActivitiIllegalArgumentException.class,
+        () -> (new MailActivityBehavior()).createEmail(null, null, false));
   }
 
   /**
    * Test {@link MailActivityBehavior#createEmail(String, String, boolean)}.
-   *
    * <ul>
-   *   <li>When {@code <html><body>HTML Content</body></html>}.
-   *   <li>Then return {@link HtmlEmail}.
+   *   <li>When {@code Html}.</li>
+   *   <li>Then return {@link HtmlEmail}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link MailActivityBehavior#createEmail(String, String, boolean)}
+   * <p>
+   * Method under test: {@link MailActivityBehavior#createEmail(String, String, boolean)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"Email MailActivityBehavior.createEmail(String, String, boolean)"})
-  public void testCreateEmail_whenHtmlBodyHtmlContentBodyHtml_thenReturnHtmlEmail() {
+  public void testCreateEmail_whenHtml_thenReturnHtmlEmail() {
     // Arrange and Act
-    Email actualCreateEmailResult =
-        new MailActivityBehavior()
-            .createEmail(null, "<html><body>HTML Content</body></html>", false);
+    Email actualCreateEmailResult = (new MailActivityBehavior()).createEmail("Text", "Html", true);
 
     // Assert
     assertTrue(actualCreateEmailResult instanceof HtmlEmail);
@@ -188,91 +171,79 @@ public class MailActivityBehaviorDiffblueTest {
 
   /**
    * Test {@link MailActivityBehavior#createEmail(String, String, boolean)}.
-   *
    * <ul>
-   *   <li>When {@code <html><body>HTML Content</body></html>}.
-   *   <li>Then throw {@link ActivitiException}.
+   *   <li>When {@code Html}.</li>
+   *   <li>Then return {@link HtmlEmail}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link MailActivityBehavior#createEmail(String, String, boolean)}
+   * <p>
+   * Method under test: {@link MailActivityBehavior#createEmail(String, String, boolean)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"Email MailActivityBehavior.createEmail(String, String, boolean)"})
-  public void testCreateEmail_whenHtmlBodyHtmlContentBodyHtml_thenThrowActivitiException() {
+  public void testCreateEmail_whenHtml_thenReturnHtmlEmail2() {
+    // Arrange and Act
+    Email actualCreateEmailResult = (new MailActivityBehavior()).createEmail(null, "Html", false);
+
+    // Assert
+    assertTrue(actualCreateEmailResult instanceof HtmlEmail);
+    assertEquals("25", actualCreateEmailResult.getSmtpPort());
+    assertEquals("465", actualCreateEmailResult.getSslSmtpPort());
+    assertNull(actualCreateEmailResult.getBounceAddress());
+    assertNull(actualCreateEmailResult.getHostName());
+    assertNull(actualCreateEmailResult.getSubject());
+    assertNull(((HtmlEmail) actualCreateEmailResult).getSubType());
+    assertNull(actualCreateEmailResult.getFromAddress());
+    assertNull(actualCreateEmailResult.getMimeMessage());
+    assertEquals(60000, actualCreateEmailResult.getSocketConnectionTimeout());
+    assertEquals(60000, actualCreateEmailResult.getSocketTimeout());
+    assertFalse(actualCreateEmailResult.isSSL());
+    assertFalse(actualCreateEmailResult.isSSLCheckServerIdentity());
+    assertFalse(actualCreateEmailResult.isSSLOnConnect());
+    assertFalse(actualCreateEmailResult.isSendPartial());
+    assertFalse(actualCreateEmailResult.isStartTLSEnabled());
+    assertFalse(actualCreateEmailResult.isStartTLSRequired());
+    assertFalse(actualCreateEmailResult.isTLS());
+    assertFalse(((HtmlEmail) actualCreateEmailResult).isBoolHasAttachments());
+    assertTrue(actualCreateEmailResult.getBccAddresses().isEmpty());
+    assertTrue(actualCreateEmailResult.getCcAddresses().isEmpty());
+    assertTrue(actualCreateEmailResult.getReplyToAddresses().isEmpty());
+    assertTrue(actualCreateEmailResult.getToAddresses().isEmpty());
+    assertTrue(actualCreateEmailResult.getHeaders().isEmpty());
+  }
+
+  /**
+   * Test {@link MailActivityBehavior#createEmail(String, String, boolean)}.
+   * <ul>
+   *   <li>When {@code Html}.</li>
+   *   <li>Then throw {@link ActivitiException}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link MailActivityBehavior#createEmail(String, String, boolean)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Email MailActivityBehavior.createEmail(String, String, boolean)"})
+  public void testCreateEmail_whenHtml_thenThrowActivitiException() {
     // Arrange, Act and Assert
-    assertThrows(
-        ActivitiException.class,
-        () ->
-            new MailActivityBehavior()
-                .createEmail("", "<html><body>HTML Content</body></html>", false));
+    assertThrows(ActivitiException.class, () -> (new MailActivityBehavior()).createEmail("", "Html", true));
   }
 
   /**
    * Test {@link MailActivityBehavior#createEmail(String, String, boolean)}.
-   *
    * <ul>
-   *   <li>When {@code Text}.
-   *   <li>Then return {@link HtmlEmail}.
+   *   <li>When {@code Text}.</li>
+   *   <li>Then return {@link MultiPartEmail}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link MailActivityBehavior#createEmail(String, String, boolean)}
+   * <p>
+   * Method under test: {@link MailActivityBehavior#createEmail(String, String, boolean)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"Email MailActivityBehavior.createEmail(String, String, boolean)"})
-  public void testCreateEmail_whenText_thenReturnHtmlEmail() {
-    // Arrange and Act
-    Email actualCreateEmailResult =
-        new MailActivityBehavior()
-            .createEmail("Text", "<html><body>HTML Content</body></html>", true);
-
-    // Assert
-    assertTrue(actualCreateEmailResult instanceof HtmlEmail);
-    assertEquals("25", actualCreateEmailResult.getSmtpPort());
-    assertEquals("465", actualCreateEmailResult.getSslSmtpPort());
-    assertNull(actualCreateEmailResult.getBounceAddress());
-    assertNull(actualCreateEmailResult.getHostName());
-    assertNull(actualCreateEmailResult.getSubject());
-    assertNull(((HtmlEmail) actualCreateEmailResult).getSubType());
-    assertNull(actualCreateEmailResult.getFromAddress());
-    assertNull(actualCreateEmailResult.getMimeMessage());
-    assertEquals(60000, actualCreateEmailResult.getSocketConnectionTimeout());
-    assertEquals(60000, actualCreateEmailResult.getSocketTimeout());
-    assertFalse(actualCreateEmailResult.isSSL());
-    assertFalse(actualCreateEmailResult.isSSLCheckServerIdentity());
-    assertFalse(actualCreateEmailResult.isSSLOnConnect());
-    assertFalse(actualCreateEmailResult.isSendPartial());
-    assertFalse(actualCreateEmailResult.isStartTLSEnabled());
-    assertFalse(actualCreateEmailResult.isStartTLSRequired());
-    assertFalse(actualCreateEmailResult.isTLS());
-    assertFalse(((HtmlEmail) actualCreateEmailResult).isBoolHasAttachments());
-    assertTrue(actualCreateEmailResult.getBccAddresses().isEmpty());
-    assertTrue(actualCreateEmailResult.getCcAddresses().isEmpty());
-    assertTrue(actualCreateEmailResult.getReplyToAddresses().isEmpty());
-    assertTrue(actualCreateEmailResult.getToAddresses().isEmpty());
-    assertTrue(actualCreateEmailResult.getHeaders().isEmpty());
-  }
-
-  /**
-   * Test {@link MailActivityBehavior#createEmail(String, String, boolean)}.
-   *
-   * <ul>
-   *   <li>When {@code Text}.
-   *   <li>Then return {@link MultiPartEmail}.
-   * </ul>
-   *
-   * <p>Method under test: {@link MailActivityBehavior#createEmail(String, String, boolean)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"Email MailActivityBehavior.createEmail(String, String, boolean)"})
   public void testCreateEmail_whenText_thenReturnMultiPartEmail() {
     // Arrange and Act
-    Email actualCreateEmailResult = new MailActivityBehavior().createEmail("Text", null, true);
+    Email actualCreateEmailResult = (new MailActivityBehavior()).createEmail("Text", null, true);
 
     // Assert
     assertTrue(actualCreateEmailResult instanceof MultiPartEmail);
@@ -303,21 +274,19 @@ public class MailActivityBehaviorDiffblueTest {
 
   /**
    * Test {@link MailActivityBehavior#createEmail(String, String, boolean)}.
-   *
    * <ul>
-   *   <li>When {@code Text}.
-   *   <li>Then return {@link SimpleEmail}.
+   *   <li>When {@code Text}.</li>
+   *   <li>Then return {@link SimpleEmail}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link MailActivityBehavior#createEmail(String, String, boolean)}
+   * <p>
+   * Method under test: {@link MailActivityBehavior#createEmail(String, String, boolean)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"Email MailActivityBehavior.createEmail(String, String, boolean)"})
   public void testCreateEmail_whenText_thenReturnSimpleEmail() {
     // Arrange and Act
-    Email actualCreateEmailResult = new MailActivityBehavior().createEmail("Text", null, false);
+    Email actualCreateEmailResult = (new MailActivityBehavior()).createEmail("Text", null, false);
 
     // Assert
     assertTrue(actualCreateEmailResult instanceof SimpleEmail);
@@ -346,65 +315,53 @@ public class MailActivityBehaviorDiffblueTest {
 
   /**
    * Test {@link MailActivityBehavior#createEmail(String, String, boolean)}.
-   *
    * <ul>
-   *   <li>When {@code true}.
-   *   <li>Then throw {@link ActivitiException}.
+   *   <li>When {@code Text}.</li>
+   *   <li>Then throw {@link ActivitiException}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link MailActivityBehavior#createEmail(String, String, boolean)}
+   * <p>
+   * Method under test: {@link MailActivityBehavior#createEmail(String, String, boolean)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"Email MailActivityBehavior.createEmail(String, String, boolean)"})
-  public void testCreateEmail_whenTrue_thenThrowActivitiException() {
+  public void testCreateEmail_whenText_thenThrowActivitiException() {
     // Arrange, Act and Assert
-    assertThrows(
-        ActivitiException.class, () -> new MailActivityBehavior().createEmail("", null, true));
+    assertThrows(ActivitiException.class, () -> (new MailActivityBehavior()).createEmail("Text", "", true));
   }
 
   /**
    * Test {@link MailActivityBehavior#createHtmlEmail(String, String)}.
-   *
    * <ul>
-   *   <li>When empty string.
-   *   <li>Then throw {@link ActivitiException}.
+   *   <li>When empty string.</li>
+   *   <li>Then throw {@link ActivitiException}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link MailActivityBehavior#createHtmlEmail(String, String)}
+   * <p>
+   * Method under test: {@link MailActivityBehavior#createHtmlEmail(String, String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"HtmlEmail MailActivityBehavior.createHtmlEmail(String, String)"})
   public void testCreateHtmlEmail_whenEmptyString_thenThrowActivitiException() {
     // Arrange, Act and Assert
-    assertThrows(
-        ActivitiException.class,
-        () ->
-            new MailActivityBehavior()
-                .createHtmlEmail("", "<html><body>HTML Content</body></html>"));
+    assertThrows(ActivitiException.class, () -> (new MailActivityBehavior()).createHtmlEmail("", "Html"));
   }
 
   /**
    * Test {@link MailActivityBehavior#createHtmlEmail(String, String)}.
-   *
    * <ul>
-   *   <li>When {@code null}.
-   *   <li>Then return SmtpPort is {@code 25}.
+   *   <li>When {@code null}.</li>
+   *   <li>Then return SmtpPort is {@code 25}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link MailActivityBehavior#createHtmlEmail(String, String)}
+   * <p>
+   * Method under test: {@link MailActivityBehavior#createHtmlEmail(String, String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"HtmlEmail MailActivityBehavior.createHtmlEmail(String, String)"})
   public void testCreateHtmlEmail_whenNull_thenReturnSmtpPortIs25() {
     // Arrange and Act
-    HtmlEmail actualCreateHtmlEmailResult =
-        new MailActivityBehavior().createHtmlEmail(null, "<html><body>HTML Content</body></html>");
+    HtmlEmail actualCreateHtmlEmailResult = (new MailActivityBehavior()).createHtmlEmail(null, "Html");
 
     // Assert
     assertEquals("25", actualCreateHtmlEmailResult.getSmtpPort());
@@ -434,43 +391,36 @@ public class MailActivityBehaviorDiffblueTest {
 
   /**
    * Test {@link MailActivityBehavior#createHtmlEmail(String, String)}.
-   *
    * <ul>
-   *   <li>When {@code null}.
-   *   <li>Then throw {@link ActivitiException}.
+   *   <li>When {@code null}.</li>
+   *   <li>Then throw {@link ActivitiException}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link MailActivityBehavior#createHtmlEmail(String, String)}
+   * <p>
+   * Method under test: {@link MailActivityBehavior#createHtmlEmail(String, String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"HtmlEmail MailActivityBehavior.createHtmlEmail(String, String)"})
   public void testCreateHtmlEmail_whenNull_thenThrowActivitiException() {
     // Arrange, Act and Assert
-    assertThrows(
-        ActivitiException.class, () -> new MailActivityBehavior().createHtmlEmail(null, null));
+    assertThrows(ActivitiException.class, () -> (new MailActivityBehavior()).createHtmlEmail(null, null));
   }
 
   /**
    * Test {@link MailActivityBehavior#createHtmlEmail(String, String)}.
-   *
    * <ul>
-   *   <li>When {@code Text}.
-   *   <li>Then return SmtpPort is {@code 25}.
+   *   <li>When {@code Text}.</li>
+   *   <li>Then return SmtpPort is {@code 25}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link MailActivityBehavior#createHtmlEmail(String, String)}
+   * <p>
+   * Method under test: {@link MailActivityBehavior#createHtmlEmail(String, String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"HtmlEmail MailActivityBehavior.createHtmlEmail(String, String)"})
   public void testCreateHtmlEmail_whenText_thenReturnSmtpPortIs25() {
     // Arrange and Act
-    HtmlEmail actualCreateHtmlEmailResult =
-        new MailActivityBehavior()
-            .createHtmlEmail("Text", "<html><body>HTML Content</body></html>");
+    HtmlEmail actualCreateHtmlEmailResult = (new MailActivityBehavior()).createHtmlEmail("Text", "Html");
 
     // Assert
     assertEquals("25", actualCreateHtmlEmailResult.getSmtpPort());
@@ -500,41 +450,36 @@ public class MailActivityBehaviorDiffblueTest {
 
   /**
    * Test {@link MailActivityBehavior#createTextOnlyEmail(String)}.
-   *
    * <ul>
-   *   <li>When empty string.
-   *   <li>Then throw {@link ActivitiException}.
+   *   <li>When {@code null}.</li>
+   *   <li>Then throw {@link ActivitiException}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link MailActivityBehavior#createTextOnlyEmail(String)}
+   * <p>
+   * Method under test: {@link MailActivityBehavior#createTextOnlyEmail(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"SimpleEmail MailActivityBehavior.createTextOnlyEmail(String)"})
-  public void testCreateTextOnlyEmail_whenEmptyString_thenThrowActivitiException() {
+  public void testCreateTextOnlyEmail_whenNull_thenThrowActivitiException() {
     // Arrange, Act and Assert
-    assertThrows(ActivitiException.class, () -> new MailActivityBehavior().createTextOnlyEmail(""));
+    assertThrows(ActivitiException.class, () -> (new MailActivityBehavior()).createTextOnlyEmail(null));
   }
 
   /**
    * Test {@link MailActivityBehavior#createTextOnlyEmail(String)}.
-   *
    * <ul>
-   *   <li>When {@code Text}.
-   *   <li>Then return SmtpPort is {@code 25}.
+   *   <li>When {@code Text}.</li>
+   *   <li>Then return SmtpPort is {@code 25}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link MailActivityBehavior#createTextOnlyEmail(String)}
+   * <p>
+   * Method under test: {@link MailActivityBehavior#createTextOnlyEmail(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"SimpleEmail MailActivityBehavior.createTextOnlyEmail(String)"})
   public void testCreateTextOnlyEmail_whenText_thenReturnSmtpPortIs25() {
     // Arrange and Act
-    SimpleEmail actualCreateTextOnlyEmailResult =
-        new MailActivityBehavior().createTextOnlyEmail("Text");
+    SimpleEmail actualCreateTextOnlyEmailResult = (new MailActivityBehavior()).createTextOnlyEmail("Text");
 
     // Assert
     assertEquals("25", actualCreateTextOnlyEmailResult.getSmtpPort());
@@ -562,42 +507,36 @@ public class MailActivityBehaviorDiffblueTest {
 
   /**
    * Test {@link MailActivityBehavior#createMultiPartEmail(String)}.
-   *
    * <ul>
-   *   <li>When empty string.
-   *   <li>Then throw {@link ActivitiException}.
+   *   <li>When {@code null}.</li>
+   *   <li>Then throw {@link ActivitiException}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link MailActivityBehavior#createMultiPartEmail(String)}
+   * <p>
+   * Method under test: {@link MailActivityBehavior#createMultiPartEmail(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"MultiPartEmail MailActivityBehavior.createMultiPartEmail(String)"})
-  public void testCreateMultiPartEmail_whenEmptyString_thenThrowActivitiException() {
+  public void testCreateMultiPartEmail_whenNull_thenThrowActivitiException() {
     // Arrange, Act and Assert
-    assertThrows(
-        ActivitiException.class, () -> new MailActivityBehavior().createMultiPartEmail(""));
+    assertThrows(ActivitiException.class, () -> (new MailActivityBehavior()).createMultiPartEmail(null));
   }
 
   /**
    * Test {@link MailActivityBehavior#createMultiPartEmail(String)}.
-   *
    * <ul>
-   *   <li>When {@code Text}.
-   *   <li>Then return SmtpPort is {@code 25}.
+   *   <li>When {@code Text}.</li>
+   *   <li>Then return SmtpPort is {@code 25}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link MailActivityBehavior#createMultiPartEmail(String)}
+   * <p>
+   * Method under test: {@link MailActivityBehavior#createMultiPartEmail(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"MultiPartEmail MailActivityBehavior.createMultiPartEmail(String)"})
   public void testCreateMultiPartEmail_whenText_thenReturnSmtpPortIs25() {
     // Arrange and Act
-    MultiPartEmail actualCreateMultiPartEmailResult =
-        new MailActivityBehavior().createMultiPartEmail("Text");
+    MultiPartEmail actualCreateMultiPartEmailResult = (new MailActivityBehavior()).createMultiPartEmail("Text");
 
     // Assert
     assertEquals("25", actualCreateMultiPartEmailResult.getSmtpPort());
@@ -627,52 +566,42 @@ public class MailActivityBehaviorDiffblueTest {
 
   /**
    * Test {@link MailActivityBehavior#addTo(Email, String)}.
-   *
    * <ul>
-   *   <li>Given {@link EmailException#EmailException(String)} with msg is {@code ,}.
+   *   <li>Given {@link EmailException#EmailException(String)} with msg is {@code ,}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link MailActivityBehavior#addTo(Email, String)}
+   * <p>
+   * Method under test: {@link MailActivityBehavior#addTo(Email, String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void MailActivityBehavior.addTo(Email, String)"})
   public void testAddTo_givenEmailExceptionWithMsgIsComma() throws EmailException {
     // Arrange
     MailActivityBehavior mailActivityBehavior = new MailActivityBehavior();
-
     HtmlEmail email = mock(HtmlEmail.class);
     when(email.addTo(Mockito.<String>any())).thenThrow(new EmailException(","));
 
     // Act and Assert
-    assertThrows(
-        ActivitiException.class,
-        () -> mailActivityBehavior.addTo(email, "alice.liddell@example.org"));
-    verify(email).addTo("alice.liddell@example.org");
+    assertThrows(ActivitiException.class, () -> mailActivityBehavior.addTo(email, "alice.liddell@example.org"));
+    verify(email).addTo(eq("alice.liddell@example.org"));
   }
 
   /**
    * Test {@link MailActivityBehavior#addTo(Email, String)}.
-   *
    * <ul>
-   *   <li>Given {@link HtmlEmail} (default constructor).
-   *   <li>When {@link HtmlEmail} {@link HtmlEmail#addTo(String)} return {@link HtmlEmail} (default
-   *       constructor).
-   *   <li>Then calls {@link HtmlEmail#addTo(String)}.
+   *   <li>Given {@link HtmlEmail} (default constructor).</li>
+   *   <li>When {@link HtmlEmail} {@link Email#addTo(String)} return {@link HtmlEmail} (default constructor).</li>
+   *   <li>Then calls {@link Email#addTo(String)}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link MailActivityBehavior#addTo(Email, String)}
+   * <p>
+   * Method under test: {@link MailActivityBehavior#addTo(Email, String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void MailActivityBehavior.addTo(Email, String)"})
-  public void testAddTo_givenHtmlEmail_whenHtmlEmailAddToReturnHtmlEmail_thenCallsAddTo()
-      throws EmailException {
+  public void testAddTo_givenHtmlEmail_whenHtmlEmailAddToReturnHtmlEmail_thenCallsAddTo() throws EmailException {
     // Arrange
     MailActivityBehavior mailActivityBehavior = new MailActivityBehavior();
-
     HtmlEmail email = mock(HtmlEmail.class);
     when(email.addTo(Mockito.<String>any())).thenReturn(new HtmlEmail());
 
@@ -680,67 +609,20 @@ public class MailActivityBehaviorDiffblueTest {
     mailActivityBehavior.addTo(email, "alice.liddell@example.org");
 
     // Assert
-    verify(email).addTo("alice.liddell@example.org");
+    verify(email).addTo(eq("alice.liddell@example.org"));
   }
 
   /**
    * Test {@link MailActivityBehavior#addTo(Email, String)}.
-   *
    * <ul>
-   *   <li>When empty string.
-   *   <li>Then throw {@link ActivitiException}.
+   *   <li>When {@link HtmlEmail} (default constructor).</li>
+   *   <li>Then {@link HtmlEmail} (default constructor) ToAddresses size is one.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link MailActivityBehavior#addTo(Email, String)}
+   * <p>
+   * Method under test: {@link MailActivityBehavior#addTo(Email, String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void MailActivityBehavior.addTo(Email, String)"})
-  public void testAddTo_whenEmptyString_thenThrowActivitiException() {
-    // Arrange
-    MailActivityBehavior mailActivityBehavior = new MailActivityBehavior();
-
-    // Act and Assert
-    assertThrows(ActivitiException.class, () -> mailActivityBehavior.addTo(new HtmlEmail(), ""));
-  }
-
-  /**
-   * Test {@link MailActivityBehavior#addTo(Email, String)}.
-   *
-   * <ul>
-   *   <li>When {@code foo,bar}.
-   *   <li>Then throw {@link ActivitiException}.
-   * </ul>
-   *
-   * <p>Method under test: {@link MailActivityBehavior#addTo(Email, String)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void MailActivityBehavior.addTo(Email, String)"})
-  public void testAddTo_whenFooBar_thenThrowActivitiException() {
-    // Arrange
-    MailActivityBehavior mailActivityBehavior = new MailActivityBehavior();
-
-    // Act and Assert
-    assertThrows(
-        ActivitiException.class, () -> mailActivityBehavior.addTo(new HtmlEmail(), "foo,bar"));
-  }
-
-  /**
-   * Test {@link MailActivityBehavior#addTo(Email, String)}.
-   *
-   * <ul>
-   *   <li>When {@link HtmlEmail} (default constructor).
-   *   <li>Then {@link HtmlEmail} (default constructor) ToAddresses size is one.
-   * </ul>
-   *
-   * <p>Method under test: {@link MailActivityBehavior#addTo(Email, String)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void MailActivityBehavior.addTo(Email, String)"})
   public void testAddTo_whenHtmlEmail_thenHtmlEmailToAddressesSizeIsOne() {
     // Arrange
@@ -761,17 +643,36 @@ public class MailActivityBehaviorDiffblueTest {
 
   /**
    * Test {@link MailActivityBehavior#addTo(Email, String)}.
-   *
    * <ul>
-   *   <li>When {@code null}.
-   *   <li>Then throw {@link ActivitiException}.
+   *   <li>When {@code No recipient could be found for sending email}.</li>
+   *   <li>Then throw {@link ActivitiException}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link MailActivityBehavior#addTo(Email, String)}
+   * <p>
+   * Method under test: {@link MailActivityBehavior#addTo(Email, String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void MailActivityBehavior.addTo(Email, String)"})
+  public void testAddTo_whenNoRecipientCouldBeFoundForSendingEmail_thenThrowActivitiException() {
+    // Arrange
+    MailActivityBehavior mailActivityBehavior = new MailActivityBehavior();
+
+    // Act and Assert
+    assertThrows(ActivitiException.class,
+        () -> mailActivityBehavior.addTo(new HtmlEmail(), "No recipient could be found for sending email"));
+  }
+
+  /**
+   * Test {@link MailActivityBehavior#addTo(Email, String)}.
+   * <ul>
+   *   <li>When {@code null}.</li>
+   *   <li>Then throw {@link ActivitiException}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link MailActivityBehavior#addTo(Email, String)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void MailActivityBehavior.addTo(Email, String)"})
   public void testAddTo_whenNull_thenThrowActivitiException() {
     // Arrange
@@ -782,53 +683,63 @@ public class MailActivityBehaviorDiffblueTest {
   }
 
   /**
-   * Test {@link MailActivityBehavior#setFrom(Email, String, String)}.
-   *
+   * Test {@link MailActivityBehavior#addTo(Email, String)}.
    * <ul>
-   *   <li>Given {@link EmailException#EmailException(String)} with {@code Msg}.
+   *   <li>When {@code To}.</li>
+   *   <li>Then throw {@link ActivitiException}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link MailActivityBehavior#setFrom(Email, String, String)}
+   * <p>
+   * Method under test: {@link MailActivityBehavior#addTo(Email, String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void MailActivityBehavior.setFrom(Email, String, String)"})
-  public void testSetFrom_givenEmailExceptionWithMsg() throws EmailException {
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void MailActivityBehavior.addTo(Email, String)"})
+  public void testAddTo_whenTo_thenThrowActivitiException() {
     // Arrange
     MailActivityBehavior mailActivityBehavior = new MailActivityBehavior();
 
-    HtmlEmail email = mock(HtmlEmail.class);
-    when(email.setFrom(Mockito.<String>any())).thenThrow(new EmailException("Msg"));
-
     // Act and Assert
-    assertThrows(
-        ActivitiException.class,
-        () -> mailActivityBehavior.setFrom(email, "jane.doe@example.org", "42"));
-    verify(email).setFrom("jane.doe@example.org");
+    assertThrows(ActivitiException.class, () -> mailActivityBehavior.addTo(new HtmlEmail(), "To"));
   }
 
   /**
    * Test {@link MailActivityBehavior#setFrom(Email, String, String)}.
-   *
    * <ul>
-   *   <li>Given {@link HtmlEmail} (default constructor).
-   *   <li>When {@link HtmlEmail} {@link HtmlEmail#setFrom(String)} return {@link HtmlEmail}
-   *       (default constructor).
-   *   <li>Then calls {@link HtmlEmail#setFrom(String)}.
+   *   <li>Given {@link EmailException#EmailException(String)} with {@code Msg}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link MailActivityBehavior#setFrom(Email, String, String)}
+   * <p>
+   * Method under test: {@link MailActivityBehavior#setFrom(Email, String, String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void MailActivityBehavior.setFrom(Email, String, String)"})
-  public void testSetFrom_givenHtmlEmail_whenHtmlEmailSetFromReturnHtmlEmail_thenCallsSetFrom()
-      throws EmailException {
+  public void testSetFrom_givenEmailExceptionWithMsg() throws EmailException {
     // Arrange
     MailActivityBehavior mailActivityBehavior = new MailActivityBehavior();
+    HtmlEmail email = mock(HtmlEmail.class);
+    when(email.setFrom(Mockito.<String>any())).thenThrow(new EmailException("Msg"));
 
+    // Act and Assert
+    assertThrows(ActivitiException.class, () -> mailActivityBehavior.setFrom(email, "jane.doe@example.org", "42"));
+    verify(email).setFrom(eq("jane.doe@example.org"));
+  }
+
+  /**
+   * Test {@link MailActivityBehavior#setFrom(Email, String, String)}.
+   * <ul>
+   *   <li>Given {@link HtmlEmail} (default constructor).</li>
+   *   <li>When {@link HtmlEmail} {@link Email#setFrom(String)} return {@link HtmlEmail} (default constructor).</li>
+   *   <li>Then calls {@link Email#setFrom(String)}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link MailActivityBehavior#setFrom(Email, String, String)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void MailActivityBehavior.setFrom(Email, String, String)"})
+  public void testSetFrom_givenHtmlEmail_whenHtmlEmailSetFromReturnHtmlEmail_thenCallsSetFrom() throws EmailException {
+    // Arrange
+    MailActivityBehavior mailActivityBehavior = new MailActivityBehavior();
     HtmlEmail email = mock(HtmlEmail.class);
     when(email.setFrom(Mockito.<String>any())).thenReturn(new HtmlEmail());
 
@@ -836,23 +747,21 @@ public class MailActivityBehaviorDiffblueTest {
     mailActivityBehavior.setFrom(email, "jane.doe@example.org", "42");
 
     // Assert
-    verify(email).setFrom("jane.doe@example.org");
+    verify(email).setFrom(eq("jane.doe@example.org"));
   }
 
   /**
    * Test {@link MailActivityBehavior#setFrom(Email, String, String)}.
-   *
    * <ul>
-   *   <li>Given {@code UTF-8}.
-   *   <li>When empty string.
-   *   <li>Then throw {@link ActivitiException}.
+   *   <li>Given {@code UTF-8}.</li>
+   *   <li>When empty string.</li>
+   *   <li>Then throw {@link ActivitiException}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link MailActivityBehavior#setFrom(Email, String, String)}
+   * <p>
+   * Method under test: {@link MailActivityBehavior#setFrom(Email, String, String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void MailActivityBehavior.setFrom(Email, String, String)"})
   public void testSetFrom_givenUtf8_whenEmptyString_thenThrowActivitiException() {
     // Arrange
@@ -867,18 +776,16 @@ public class MailActivityBehaviorDiffblueTest {
 
   /**
    * Test {@link MailActivityBehavior#setFrom(Email, String, String)}.
-   *
    * <ul>
-   *   <li>Given {@code UTF-8}.
-   *   <li>When {@code From}.
-   *   <li>Then throw {@link ActivitiException}.
+   *   <li>Given {@code UTF-8}.</li>
+   *   <li>When {@code From}.</li>
+   *   <li>Then throw {@link ActivitiException}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link MailActivityBehavior#setFrom(Email, String, String)}
+   * <p>
+   * Method under test: {@link MailActivityBehavior#setFrom(Email, String, String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void MailActivityBehavior.setFrom(Email, String, String)"})
   public void testSetFrom_givenUtf8_whenFrom_thenThrowActivitiException() {
     // Arrange
@@ -893,18 +800,15 @@ public class MailActivityBehaviorDiffblueTest {
 
   /**
    * Test {@link MailActivityBehavior#setFrom(Email, String, String)}.
-   *
    * <ul>
-   *   <li>When {@link HtmlEmail} (default constructor).
-   *   <li>Then {@link HtmlEmail} (default constructor) FromAddress Address is {@code
-   *       jane.doe@example.org}.
+   *   <li>When {@link HtmlEmail} (default constructor).</li>
+   *   <li>Then {@link HtmlEmail} (default constructor) FromAddress Address is {@code jane.doe@example.org}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link MailActivityBehavior#setFrom(Email, String, String)}
+   * <p>
+   * Method under test: {@link MailActivityBehavior#setFrom(Email, String, String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void MailActivityBehavior.setFrom(Email, String, String)"})
   public void testSetFrom_whenHtmlEmail_thenHtmlEmailFromAddressAddressIsJaneDoeExampleOrg() {
     // Arrange
@@ -923,52 +827,42 @@ public class MailActivityBehaviorDiffblueTest {
 
   /**
    * Test {@link MailActivityBehavior#addCc(Email, String)}.
-   *
    * <ul>
-   *   <li>Given {@link EmailException#EmailException(String)} with msg is {@code ,}.
+   *   <li>Given {@link EmailException#EmailException(String)} with msg is {@code ,}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link MailActivityBehavior#addCc(Email, String)}
+   * <p>
+   * Method under test: {@link MailActivityBehavior#addCc(Email, String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void MailActivityBehavior.addCc(Email, String)"})
   public void testAddCc_givenEmailExceptionWithMsgIsComma() throws EmailException {
     // Arrange
     MailActivityBehavior mailActivityBehavior = new MailActivityBehavior();
-
     HtmlEmail email = mock(HtmlEmail.class);
     when(email.addCc(Mockito.<String>any())).thenThrow(new EmailException(","));
 
     // Act and Assert
-    assertThrows(
-        ActivitiException.class,
-        () -> mailActivityBehavior.addCc(email, "ada.lovelace@example.org"));
-    verify(email).addCc("ada.lovelace@example.org");
+    assertThrows(ActivitiException.class, () -> mailActivityBehavior.addCc(email, "ada.lovelace@example.org"));
+    verify(email).addCc(eq("ada.lovelace@example.org"));
   }
 
   /**
    * Test {@link MailActivityBehavior#addCc(Email, String)}.
-   *
    * <ul>
-   *   <li>Given {@link HtmlEmail} (default constructor).
-   *   <li>When {@link HtmlEmail} {@link HtmlEmail#addCc(String)} return {@link HtmlEmail} (default
-   *       constructor).
-   *   <li>Then calls {@link HtmlEmail#addCc(String)}.
+   *   <li>Given {@link HtmlEmail} (default constructor).</li>
+   *   <li>When {@link HtmlEmail} {@link Email#addCc(String)} return {@link HtmlEmail} (default constructor).</li>
+   *   <li>Then calls {@link Email#addCc(String)}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link MailActivityBehavior#addCc(Email, String)}
+   * <p>
+   * Method under test: {@link MailActivityBehavior#addCc(Email, String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void MailActivityBehavior.addCc(Email, String)"})
-  public void testAddCc_givenHtmlEmail_whenHtmlEmailAddCcReturnHtmlEmail_thenCallsAddCc()
-      throws EmailException {
+  public void testAddCc_givenHtmlEmail_whenHtmlEmailAddCcReturnHtmlEmail_thenCallsAddCc() throws EmailException {
     // Arrange
     MailActivityBehavior mailActivityBehavior = new MailActivityBehavior();
-
     HtmlEmail email = mock(HtmlEmail.class);
     when(email.addCc(Mockito.<String>any())).thenReturn(new HtmlEmail());
 
@@ -976,22 +870,40 @@ public class MailActivityBehaviorDiffblueTest {
     mailActivityBehavior.addCc(email, "ada.lovelace@example.org");
 
     // Assert
-    verify(email).addCc("ada.lovelace@example.org");
+    verify(email).addCc(eq("ada.lovelace@example.org"));
   }
 
   /**
    * Test {@link MailActivityBehavior#addCc(Email, String)}.
-   *
    * <ul>
-   *   <li>When empty string.
-   *   <li>Then throw {@link ActivitiException}.
+   *   <li>When {@code Cc}.</li>
+   *   <li>Then throw {@link ActivitiException}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link MailActivityBehavior#addCc(Email, String)}
+   * <p>
+   * Method under test: {@link MailActivityBehavior#addCc(Email, String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void MailActivityBehavior.addCc(Email, String)"})
+  public void testAddCc_whenCc_thenThrowActivitiException() {
+    // Arrange
+    MailActivityBehavior mailActivityBehavior = new MailActivityBehavior();
+
+    // Act and Assert
+    assertThrows(ActivitiException.class, () -> mailActivityBehavior.addCc(new HtmlEmail(), "Cc"));
+  }
+
+  /**
+   * Test {@link MailActivityBehavior#addCc(Email, String)}.
+   * <ul>
+   *   <li>When empty string.</li>
+   *   <li>Then throw {@link ActivitiException}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link MailActivityBehavior#addCc(Email, String)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void MailActivityBehavior.addCc(Email, String)"})
   public void testAddCc_whenEmptyString_thenThrowActivitiException() {
     // Arrange
@@ -1003,40 +915,15 @@ public class MailActivityBehaviorDiffblueTest {
 
   /**
    * Test {@link MailActivityBehavior#addCc(Email, String)}.
-   *
    * <ul>
-   *   <li>When {@code foo,bar}.
-   *   <li>Then throw {@link ActivitiException}.
+   *   <li>When {@link HtmlEmail} (default constructor).</li>
+   *   <li>Then {@link HtmlEmail} (default constructor) CcAddresses size is one.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link MailActivityBehavior#addCc(Email, String)}
+   * <p>
+   * Method under test: {@link MailActivityBehavior#addCc(Email, String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void MailActivityBehavior.addCc(Email, String)"})
-  public void testAddCc_whenFooBar_thenThrowActivitiException() {
-    // Arrange
-    MailActivityBehavior mailActivityBehavior = new MailActivityBehavior();
-
-    // Act and Assert
-    assertThrows(
-        ActivitiException.class, () -> mailActivityBehavior.addCc(new HtmlEmail(), "foo,bar"));
-  }
-
-  /**
-   * Test {@link MailActivityBehavior#addCc(Email, String)}.
-   *
-   * <ul>
-   *   <li>When {@link HtmlEmail} (default constructor).
-   *   <li>Then {@link HtmlEmail} (default constructor) CcAddresses size is one.
-   * </ul>
-   *
-   * <p>Method under test: {@link MailActivityBehavior#addCc(Email, String)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void MailActivityBehavior.addCc(Email, String)"})
   public void testAddCc_whenHtmlEmail_thenHtmlEmailCcAddressesSizeIsOne() {
     // Arrange
@@ -1057,17 +944,15 @@ public class MailActivityBehaviorDiffblueTest {
 
   /**
    * Test {@link MailActivityBehavior#addCc(Email, String)}.
-   *
    * <ul>
-   *   <li>When {@code null}.
-   *   <li>Then {@link HtmlEmail} (default constructor) CcAddresses Empty.
+   *   <li>When {@code null}.</li>
+   *   <li>Then {@link HtmlEmail} (default constructor) CcAddresses Empty.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link MailActivityBehavior#addCc(Email, String)}
+   * <p>
+   * Method under test: {@link MailActivityBehavior#addCc(Email, String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void MailActivityBehavior.addCc(Email, String)"})
   public void testAddCc_whenNull_thenHtmlEmailCcAddressesEmpty() {
     // Arrange
@@ -1083,52 +968,42 @@ public class MailActivityBehaviorDiffblueTest {
 
   /**
    * Test {@link MailActivityBehavior#addBcc(Email, String)}.
-   *
    * <ul>
-   *   <li>Given {@link EmailException#EmailException(String)} with msg is {@code ,}.
+   *   <li>Given {@link EmailException#EmailException(String)} with msg is {@code ,}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link MailActivityBehavior#addBcc(Email, String)}
+   * <p>
+   * Method under test: {@link MailActivityBehavior#addBcc(Email, String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void MailActivityBehavior.addBcc(Email, String)"})
   public void testAddBcc_givenEmailExceptionWithMsgIsComma() throws EmailException {
     // Arrange
     MailActivityBehavior mailActivityBehavior = new MailActivityBehavior();
-
     HtmlEmail email = mock(HtmlEmail.class);
     when(email.addBcc(Mockito.<String>any())).thenThrow(new EmailException(","));
 
     // Act and Assert
-    assertThrows(
-        ActivitiException.class,
-        () -> mailActivityBehavior.addBcc(email, "ada.lovelace@example.org"));
-    verify(email).addBcc("ada.lovelace@example.org");
+    assertThrows(ActivitiException.class, () -> mailActivityBehavior.addBcc(email, "ada.lovelace@example.org"));
+    verify(email).addBcc(eq("ada.lovelace@example.org"));
   }
 
   /**
    * Test {@link MailActivityBehavior#addBcc(Email, String)}.
-   *
    * <ul>
-   *   <li>Given {@link HtmlEmail} (default constructor).
-   *   <li>When {@link HtmlEmail} {@link HtmlEmail#addBcc(String)} return {@link HtmlEmail} (default
-   *       constructor).
-   *   <li>Then calls {@link HtmlEmail#addBcc(String)}.
+   *   <li>Given {@link HtmlEmail} (default constructor).</li>
+   *   <li>When {@link HtmlEmail} {@link Email#addBcc(String)} return {@link HtmlEmail} (default constructor).</li>
+   *   <li>Then calls {@link Email#addBcc(String)}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link MailActivityBehavior#addBcc(Email, String)}
+   * <p>
+   * Method under test: {@link MailActivityBehavior#addBcc(Email, String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void MailActivityBehavior.addBcc(Email, String)"})
-  public void testAddBcc_givenHtmlEmail_whenHtmlEmailAddBccReturnHtmlEmail_thenCallsAddBcc()
-      throws EmailException {
+  public void testAddBcc_givenHtmlEmail_whenHtmlEmailAddBccReturnHtmlEmail_thenCallsAddBcc() throws EmailException {
     // Arrange
     MailActivityBehavior mailActivityBehavior = new MailActivityBehavior();
-
     HtmlEmail email = mock(HtmlEmail.class);
     when(email.addBcc(Mockito.<String>any())).thenReturn(new HtmlEmail());
 
@@ -1136,22 +1011,40 @@ public class MailActivityBehaviorDiffblueTest {
     mailActivityBehavior.addBcc(email, "ada.lovelace@example.org");
 
     // Assert
-    verify(email).addBcc("ada.lovelace@example.org");
+    verify(email).addBcc(eq("ada.lovelace@example.org"));
   }
 
   /**
    * Test {@link MailActivityBehavior#addBcc(Email, String)}.
-   *
    * <ul>
-   *   <li>When empty string.
-   *   <li>Then throw {@link ActivitiException}.
+   *   <li>When {@code Bcc}.</li>
+   *   <li>Then throw {@link ActivitiException}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link MailActivityBehavior#addBcc(Email, String)}
+   * <p>
+   * Method under test: {@link MailActivityBehavior#addBcc(Email, String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void MailActivityBehavior.addBcc(Email, String)"})
+  public void testAddBcc_whenBcc_thenThrowActivitiException() {
+    // Arrange
+    MailActivityBehavior mailActivityBehavior = new MailActivityBehavior();
+
+    // Act and Assert
+    assertThrows(ActivitiException.class, () -> mailActivityBehavior.addBcc(new HtmlEmail(), "Bcc"));
+  }
+
+  /**
+   * Test {@link MailActivityBehavior#addBcc(Email, String)}.
+   * <ul>
+   *   <li>When empty string.</li>
+   *   <li>Then throw {@link ActivitiException}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link MailActivityBehavior#addBcc(Email, String)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void MailActivityBehavior.addBcc(Email, String)"})
   public void testAddBcc_whenEmptyString_thenThrowActivitiException() {
     // Arrange
@@ -1163,40 +1056,15 @@ public class MailActivityBehaviorDiffblueTest {
 
   /**
    * Test {@link MailActivityBehavior#addBcc(Email, String)}.
-   *
    * <ul>
-   *   <li>When {@code foo,bar}.
-   *   <li>Then throw {@link ActivitiException}.
+   *   <li>When {@link HtmlEmail} (default constructor).</li>
+   *   <li>Then {@link HtmlEmail} (default constructor) BccAddresses size is one.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link MailActivityBehavior#addBcc(Email, String)}
+   * <p>
+   * Method under test: {@link MailActivityBehavior#addBcc(Email, String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void MailActivityBehavior.addBcc(Email, String)"})
-  public void testAddBcc_whenFooBar_thenThrowActivitiException() {
-    // Arrange
-    MailActivityBehavior mailActivityBehavior = new MailActivityBehavior();
-
-    // Act and Assert
-    assertThrows(
-        ActivitiException.class, () -> mailActivityBehavior.addBcc(new HtmlEmail(), "foo,bar"));
-  }
-
-  /**
-   * Test {@link MailActivityBehavior#addBcc(Email, String)}.
-   *
-   * <ul>
-   *   <li>When {@link HtmlEmail} (default constructor).
-   *   <li>Then {@link HtmlEmail} (default constructor) BccAddresses size is one.
-   * </ul>
-   *
-   * <p>Method under test: {@link MailActivityBehavior#addBcc(Email, String)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void MailActivityBehavior.addBcc(Email, String)"})
   public void testAddBcc_whenHtmlEmail_thenHtmlEmailBccAddressesSizeIsOne() {
     // Arrange
@@ -1217,17 +1085,15 @@ public class MailActivityBehaviorDiffblueTest {
 
   /**
    * Test {@link MailActivityBehavior#addBcc(Email, String)}.
-   *
    * <ul>
-   *   <li>When {@code null}.
-   *   <li>Then {@link HtmlEmail} (default constructor) BccAddresses Empty.
+   *   <li>When {@code null}.</li>
+   *   <li>Then {@link HtmlEmail} (default constructor) BccAddresses Empty.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link MailActivityBehavior#addBcc(Email, String)}
+   * <p>
+   * Method under test: {@link MailActivityBehavior#addBcc(Email, String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void MailActivityBehavior.addBcc(Email, String)"})
   public void testAddBcc_whenNull_thenHtmlEmailBccAddressesEmpty() {
     // Arrange
@@ -1243,27 +1109,26 @@ public class MailActivityBehaviorDiffblueTest {
 
   /**
    * Test {@link MailActivityBehavior#attach(Email, List, List)}.
-   *
    * <ul>
-   *   <li>Given {@link ByteArrayDataSource#ByteArrayDataSource(String, String)} with {@code Data}
-   *       and {@code Type}.
+   *   <li>Given {@link ByteArrayDataSource#ByteArrayDataSource(String, String)} with {@code Data} and {@code Type} Name is {@code Data Sources}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link MailActivityBehavior#attach(Email, List, List)}
+   * <p>
+   * Method under test: {@link MailActivityBehavior#attach(Email, List, List)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void MailActivityBehavior.attach(Email, List, List)"})
-  public void testAttach_givenByteArrayDataSourceWithDataAndType()
-      throws IOException, EmailException {
+  public void testAttach_givenByteArrayDataSourceWithDataAndTypeNameIsDataSources() throws IOException, EmailException {
     // Arrange
     MailActivityBehavior mailActivityBehavior = new MailActivityBehavior();
-    HtmlEmail email = new HtmlEmail();
+    MultiPartEmail email = new MultiPartEmail();
     ArrayList<File> files = new ArrayList<>();
 
+    ByteArrayDataSource byteArrayDataSource = new ByteArrayDataSource("Data", "Type");
+    byteArrayDataSource.setName("Data Sources");
+
     ArrayList<DataSource> dataSources = new ArrayList<>();
-    dataSources.add(new ByteArrayDataSource("Data", "Type"));
+    dataSources.add(byteArrayDataSource);
 
     // Act
     mailActivityBehavior.attach(email, files, dataSources);
@@ -1274,54 +1139,21 @@ public class MailActivityBehaviorDiffblueTest {
 
   /**
    * Test {@link MailActivityBehavior#attach(Email, List, List)}.
-   *
    * <ul>
-   *   <li>Given {@code Not all who wander are lost}.
+   *   <li>Given {@code null}.</li>
+   *   <li>When {@link ArrayList#ArrayList()}.</li>
+   *   <li>Then not {@link MultiPartEmail} (default constructor) BoolHasAttachments.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link MailActivityBehavior#attach(Email, List, List)}
+   * <p>
+   * Method under test: {@link MailActivityBehavior#attach(Email, List, List)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void MailActivityBehavior.attach(Email, List, List)"})
-  public void testAttach_givenNotAllWhoWanderAreLost() throws EmailException {
+  public void testAttach_givenNull_whenArrayList_thenNotMultiPartEmailBoolHasAttachments() throws EmailException {
     // Arrange
     MailActivityBehavior mailActivityBehavior = new MailActivityBehavior();
-
-    HtmlEmail email = new HtmlEmail();
-    email.addPart("Not all who wander are lost", "text/plain");
-
-    ArrayList<File> files = new ArrayList<>();
-    files.add(Paths.get(System.getProperty("java.io.tmpdir"), "").toFile());
-
-    // Act
-    mailActivityBehavior.attach(email, files, new ArrayList<>());
-
-    // Assert
-    assertTrue(email.isBoolHasAttachments());
-  }
-
-  /**
-   * Test {@link MailActivityBehavior#attach(Email, List, List)}.
-   *
-   * <ul>
-   *   <li>Given {@code null}.
-   *   <li>When {@link ArrayList#ArrayList()} add {@code null}.
-   *   <li>Then not {@link HtmlEmail} (default constructor) BoolHasAttachments.
-   * </ul>
-   *
-   * <p>Method under test: {@link MailActivityBehavior#attach(Email, List, List)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void MailActivityBehavior.attach(Email, List, List)"})
-  public void testAttach_givenNull_whenArrayListAddNull_thenNotHtmlEmailBoolHasAttachments()
-      throws EmailException {
-    // Arrange
-    MailActivityBehavior mailActivityBehavior = new MailActivityBehavior();
-    HtmlEmail email = new HtmlEmail();
+    MultiPartEmail email = new MultiPartEmail();
     ArrayList<File> files = new ArrayList<>();
 
     ArrayList<DataSource> dataSources = new ArrayList<>();
@@ -1336,27 +1168,28 @@ public class MailActivityBehaviorDiffblueTest {
 
   /**
    * Test {@link MailActivityBehavior#attach(Email, List, List)}.
-   *
    * <ul>
-   *   <li>Then {@link HtmlEmail} (default constructor) BoolHasAttachments.
+   *   <li>Then {@link MultiPartEmail} (default constructor) BoolHasAttachments.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link MailActivityBehavior#attach(Email, List, List)}
+   * <p>
+   * Method under test: {@link MailActivityBehavior#attach(Email, List, List)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void MailActivityBehavior.attach(Email, List, List)"})
-  public void testAttach_thenHtmlEmailBoolHasAttachments() throws EmailException {
+  public void testAttach_thenMultiPartEmailBoolHasAttachments() throws EmailException {
     // Arrange
     MailActivityBehavior mailActivityBehavior = new MailActivityBehavior();
-    HtmlEmail email = new HtmlEmail();
+    MultiPartEmail email = new MultiPartEmail();
 
     ArrayList<File> files = new ArrayList<>();
     files.add(Paths.get(System.getProperty("java.io.tmpdir"), "").toFile());
 
+    ArrayList<DataSource> dataSources = new ArrayList<>();
+    dataSources.add(null);
+
     // Act
-    mailActivityBehavior.attach(email, files, new ArrayList<>());
+    mailActivityBehavior.attach(email, files, dataSources);
 
     // Assert
     assertTrue(email.isBoolHasAttachments());
@@ -1364,17 +1197,15 @@ public class MailActivityBehaviorDiffblueTest {
 
   /**
    * Test {@link MailActivityBehavior#attach(Email, List, List)}.
-   *
    * <ul>
-   *   <li>When {@link HtmlEmail} (default constructor).
-   *   <li>Then not {@link HtmlEmail} (default constructor) BoolHasAttachments.
+   *   <li>When {@link HtmlEmail} (default constructor).</li>
+   *   <li>Then not {@link HtmlEmail} (default constructor) BoolHasAttachments.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link MailActivityBehavior#attach(Email, List, List)}
+   * <p>
+   * Method under test: {@link MailActivityBehavior#attach(Email, List, List)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void MailActivityBehavior.attach(Email, List, List)"})
   public void testAttach_whenHtmlEmail_thenNotHtmlEmailBoolHasAttachments() throws EmailException {
     // Arrange
@@ -1390,23 +1221,44 @@ public class MailActivityBehaviorDiffblueTest {
   }
 
   /**
-   * Test {@link MailActivityBehavior#setSubject(Email, String)}.
-   *
+   * Test {@link MailActivityBehavior#attach(Email, List, List)}.
    * <ul>
-   *   <li>Given {@link HtmlEmail} (default constructor).
-   *   <li>Then calls {@link HtmlEmail#setSubject(String)}.
+   *   <li>When {@code null}.</li>
+   *   <li>Then not {@link MultiPartEmail} (default constructor) BoolHasAttachments.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link MailActivityBehavior#setSubject(Email, String)}
+   * <p>
+   * Method under test: {@link MailActivityBehavior#attach(Email, List, List)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void MailActivityBehavior.attach(Email, List, List)"})
+  public void testAttach_whenNull_thenNotMultiPartEmailBoolHasAttachments() throws EmailException {
+    // Arrange
+    MailActivityBehavior mailActivityBehavior = new MailActivityBehavior();
+    MultiPartEmail email = new MultiPartEmail();
+
+    // Act
+    mailActivityBehavior.attach(email, null, null);
+
+    // Assert that nothing has changed
+    assertFalse(email.isBoolHasAttachments());
+  }
+
+  /**
+   * Test {@link MailActivityBehavior#setSubject(Email, String)}.
+   * <ul>
+   *   <li>Given {@link HtmlEmail} (default constructor).</li>
+   *   <li>Then calls {@link Email#setSubject(String)}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link MailActivityBehavior#setSubject(Email, String)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void MailActivityBehavior.setSubject(Email, String)"})
   public void testSetSubject_givenHtmlEmail_thenCallsSetSubject() {
     // Arrange
     MailActivityBehavior mailActivityBehavior = new MailActivityBehavior();
-
     HtmlEmail email = mock(HtmlEmail.class);
     when(email.setSubject(Mockito.<String>any())).thenReturn(new HtmlEmail());
 
@@ -1414,22 +1266,20 @@ public class MailActivityBehaviorDiffblueTest {
     mailActivityBehavior.setSubject(email, "Hello from the Dreaming Spires");
 
     // Assert
-    verify(email).setSubject("Hello from the Dreaming Spires");
+    verify(email).setSubject(eq("Hello from the Dreaming Spires"));
   }
 
   /**
    * Test {@link MailActivityBehavior#setSubject(Email, String)}.
-   *
    * <ul>
-   *   <li>When {@link HtmlEmail} (default constructor).
-   *   <li>Then {@link HtmlEmail} (default constructor) Subject is empty string.
+   *   <li>When {@link HtmlEmail} (default constructor).</li>
+   *   <li>Then {@link HtmlEmail} (default constructor) Subject is empty string.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link MailActivityBehavior#setSubject(Email, String)}
+   * <p>
+   * Method under test: {@link MailActivityBehavior#setSubject(Email, String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void MailActivityBehavior.setSubject(Email, String)"})
   public void testSetSubject_whenHtmlEmail_thenHtmlEmailSubjectIsEmptyString() {
     // Arrange
@@ -1445,18 +1295,15 @@ public class MailActivityBehaviorDiffblueTest {
 
   /**
    * Test {@link MailActivityBehavior#setSubject(Email, String)}.
-   *
    * <ul>
-   *   <li>When {@link HtmlEmail} (default constructor).
-   *   <li>Then {@link HtmlEmail} (default constructor) Subject is {@code Hello from the Dreaming
-   *       Spires}.
+   *   <li>When {@link HtmlEmail} (default constructor).</li>
+   *   <li>Then {@link HtmlEmail} (default constructor) Subject is {@code Hello from the Dreaming Spires}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link MailActivityBehavior#setSubject(Email, String)}
+   * <p>
+   * Method under test: {@link MailActivityBehavior#setSubject(Email, String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void MailActivityBehavior.setSubject(Email, String)"})
   public void testSetSubject_whenHtmlEmail_thenHtmlEmailSubjectIsHelloFromTheDreamingSpires() {
     // Arrange
@@ -1472,49 +1319,40 @@ public class MailActivityBehaviorDiffblueTest {
 
   /**
    * Test {@link MailActivityBehavior#setEmailSession(Email, String)}.
-   *
    * <ul>
-   *   <li>Given {@link NamingException#NamingException()}.
+   *   <li>Given {@link NamingException#NamingException()}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link MailActivityBehavior#setEmailSession(Email, String)}
+   * <p>
+   * Method under test: {@link MailActivityBehavior#setEmailSession(Email, String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void MailActivityBehavior.setEmailSession(Email, String)"})
   public void testSetEmailSession_givenNamingException() throws NamingException {
     // Arrange
     MailActivityBehavior mailActivityBehavior = new MailActivityBehavior();
-
     HtmlEmail email = mock(HtmlEmail.class);
     doThrow(new NamingException()).when(email).setMailSessionFromJNDI(Mockito.<String>any());
 
     // Act and Assert
-    assertThrows(
-        ActivitiException.class,
-        () -> mailActivityBehavior.setEmailSession(email, "Mail Session Jndi"));
-    verify(email).setMailSessionFromJNDI("Mail Session Jndi");
+    assertThrows(ActivitiException.class, () -> mailActivityBehavior.setEmailSession(email, "Mail Session Jndi"));
+    verify(email).setMailSessionFromJNDI(eq("Mail Session Jndi"));
   }
 
   /**
    * Test {@link MailActivityBehavior#setEmailSession(Email, String)}.
-   *
    * <ul>
-   *   <li>When {@link HtmlEmail} {@link HtmlEmail#setMailSessionFromJNDI(String)} does nothing.
+   *   <li>When {@link HtmlEmail} {@link Email#setMailSessionFromJNDI(String)} does nothing.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link MailActivityBehavior#setEmailSession(Email, String)}
+   * <p>
+   * Method under test: {@link MailActivityBehavior#setEmailSession(Email, String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void MailActivityBehavior.setEmailSession(Email, String)"})
-  public void testSetEmailSession_whenHtmlEmailSetMailSessionFromJNDIDoesNothing()
-      throws NamingException {
+  public void testSetEmailSession_whenHtmlEmailSetMailSessionFromJNDIDoesNothing() throws NamingException {
     // Arrange
     MailActivityBehavior mailActivityBehavior = new MailActivityBehavior();
-
     HtmlEmail email = mock(HtmlEmail.class);
     doNothing().when(email).setMailSessionFromJNDI(Mockito.<String>any());
 
@@ -1522,314 +1360,258 @@ public class MailActivityBehaviorDiffblueTest {
     mailActivityBehavior.setEmailSession(email, "Mail Session Jndi");
 
     // Assert
-    verify(email).setMailSessionFromJNDI("Mail Session Jndi");
+    verify(email).setMailSessionFromJNDI(eq("Mail Session Jndi"));
   }
 
   /**
    * Test {@link MailActivityBehavior#setEmailSession(Email, String)}.
-   *
    * <ul>
-   *   <li>When {@link HtmlEmail} (default constructor).
-   *   <li>Then throw {@link ActivitiException}.
+   *   <li>When {@link HtmlEmail} (default constructor).</li>
+   *   <li>Then throw {@link ActivitiException}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link MailActivityBehavior#setEmailSession(Email, String)}
+   * <p>
+   * Method under test: {@link MailActivityBehavior#setEmailSession(Email, String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void MailActivityBehavior.setEmailSession(Email, String)"})
   public void testSetEmailSession_whenHtmlEmail_thenThrowActivitiException() {
     // Arrange
     MailActivityBehavior mailActivityBehavior = new MailActivityBehavior();
 
     // Act and Assert
-    assertThrows(
-        ActivitiException.class,
+    assertThrows(ActivitiException.class,
         () -> mailActivityBehavior.setEmailSession(new HtmlEmail(), "Mail Session Jndi"));
   }
 
   /**
    * Test {@link MailActivityBehavior#setEmailSession(Email, String)}.
-   *
    * <ul>
-   *   <li>When {@code java:}.
-   *   <li>Then throw {@link ActivitiException}.
+   *   <li>When {@code java:}.</li>
+   *   <li>Then throw {@link ActivitiException}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link MailActivityBehavior#setEmailSession(Email, String)}
+   * <p>
+   * Method under test: {@link MailActivityBehavior#setEmailSession(Email, String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void MailActivityBehavior.setEmailSession(Email, String)"})
   public void testSetEmailSession_whenJava_thenThrowActivitiException() {
     // Arrange
     MailActivityBehavior mailActivityBehavior = new MailActivityBehavior();
 
     // Act and Assert
-    assertThrows(
-        ActivitiException.class,
-        () -> mailActivityBehavior.setEmailSession(new HtmlEmail(), "java:"));
+    assertThrows(ActivitiException.class, () -> mailActivityBehavior.setEmailSession(new HtmlEmail(), "java:"));
   }
 
   /**
    * Test {@link MailActivityBehavior#splitAndTrim(String)}.
-   *
    * <ul>
-   *   <li>When {@code null}.
-   *   <li>Then return {@code null}.
+   *   <li>When {@code null}.</li>
+   *   <li>Then return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link MailActivityBehavior#splitAndTrim(String)}
+   * <p>
+   * Method under test: {@link MailActivityBehavior#splitAndTrim(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"String[] MailActivityBehavior.splitAndTrim(String)"})
   public void testSplitAndTrim_whenNull_thenReturnNull() {
     // Arrange, Act and Assert
-    assertNull(new MailActivityBehavior().splitAndTrim(null));
+    assertNull((new MailActivityBehavior()).splitAndTrim(null));
   }
 
   /**
    * Test {@link MailActivityBehavior#splitAndTrim(String)}.
-   *
    * <ul>
-   *   <li>When {@code Str}.
-   *   <li>Then return array of {@link String} with {@code Str}.
+   *   <li>When {@code Str}.</li>
+   *   <li>Then return array of {@link String} with {@code Str}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link MailActivityBehavior#splitAndTrim(String)}
+   * <p>
+   * Method under test: {@link MailActivityBehavior#splitAndTrim(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"String[] MailActivityBehavior.splitAndTrim(String)"})
   public void testSplitAndTrim_whenStr_thenReturnArrayOfStringWithStr() {
     // Arrange, Act and Assert
-    assertArrayEquals(new String[] {"Str"}, new MailActivityBehavior().splitAndTrim("Str"));
+    assertArrayEquals(new String[]{"Str"}, (new MailActivityBehavior()).splitAndTrim("Str"));
   }
 
   /**
    * Test {@link MailActivityBehavior#getStringFromField(Expression, DelegateExecution)}.
-   *
    * <ul>
-   *   <li>When {@link FixedValue#FixedValue(Object)} with value is {@link JSONObject#NULL}.
-   *   <li>Then return {@code null}.
+   *   <li>When {@link FixedValue#FixedValue(Object)} with value is {@link JSONObject#NULL}.</li>
+   *   <li>Then return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link MailActivityBehavior#getStringFromField(Expression,
-   * DelegateExecution)}
+   * <p>
+   * Method under test: {@link MailActivityBehavior#getStringFromField(Expression, DelegateExecution)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "String MailActivityBehavior.getStringFromField(Expression, DelegateExecution)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String MailActivityBehavior.getStringFromField(Expression, DelegateExecution)"})
   public void testGetStringFromField_whenFixedValueWithValueIsNull_thenReturnNull() {
     // Arrange
     MailActivityBehavior mailActivityBehavior = new MailActivityBehavior();
     FixedValue expression = new FixedValue(JSONObject.NULL);
 
     // Act and Assert
-    assertEquals(
-        "null",
-        mailActivityBehavior.getStringFromField(
-            expression, ExecutionEntityImpl.createWithEmptyRelationshipCollections()));
+    assertEquals("null", mailActivityBehavior.getStringFromField(expression,
+        ExecutionEntityImpl.createWithEmptyRelationshipCollections()));
   }
 
   /**
    * Test {@link MailActivityBehavior#getStringFromField(Expression, DelegateExecution)}.
-   *
    * <ul>
-   *   <li>When {@link FixedValue#FixedValue(Object)} with value is {@code null}.
-   *   <li>Then return {@code null}.
+   *   <li>When {@link FixedValue#FixedValue(Object)} with value is {@code null}.</li>
+   *   <li>Then return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link MailActivityBehavior#getStringFromField(Expression,
-   * DelegateExecution)}
+   * <p>
+   * Method under test: {@link MailActivityBehavior#getStringFromField(Expression, DelegateExecution)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "String MailActivityBehavior.getStringFromField(Expression, DelegateExecution)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String MailActivityBehavior.getStringFromField(Expression, DelegateExecution)"})
   public void testGetStringFromField_whenFixedValueWithValueIsNull_thenReturnNull2() {
     // Arrange
     MailActivityBehavior mailActivityBehavior = new MailActivityBehavior();
     FixedValue expression = new FixedValue(null);
 
     // Act and Assert
-    assertNull(
-        mailActivityBehavior.getStringFromField(
-            expression, ExecutionEntityImpl.createWithEmptyRelationshipCollections()));
+    assertNull(mailActivityBehavior.getStringFromField(expression,
+        ExecutionEntityImpl.createWithEmptyRelationshipCollections()));
   }
 
   /**
    * Test {@link MailActivityBehavior#getStringFromField(Expression, DelegateExecution)}.
-   *
    * <ul>
-   *   <li>When {@code null}.
-   *   <li>Then return {@code null}.
+   *   <li>When {@code null}.</li>
+   *   <li>Then return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link MailActivityBehavior#getStringFromField(Expression,
-   * DelegateExecution)}
+   * <p>
+   * Method under test: {@link MailActivityBehavior#getStringFromField(Expression, DelegateExecution)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "String MailActivityBehavior.getStringFromField(Expression, DelegateExecution)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String MailActivityBehavior.getStringFromField(Expression, DelegateExecution)"})
   public void testGetStringFromField_whenNull_thenReturnNull() {
     // Arrange
     MailActivityBehavior mailActivityBehavior = new MailActivityBehavior();
 
     // Act and Assert
     assertNull(
-        mailActivityBehavior.getStringFromField(
-            null, ExecutionEntityImpl.createWithEmptyRelationshipCollections()));
+        mailActivityBehavior.getStringFromField(null, ExecutionEntityImpl.createWithEmptyRelationshipCollections()));
   }
 
   /**
    * Test {@link MailActivityBehavior#fileExists(File)}.
-   *
    * <ul>
-   *   <li>When {@code null}.
+   *   <li>When {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link MailActivityBehavior#fileExists(File)}
+   * <p>
+   * Method under test: {@link MailActivityBehavior#fileExists(File)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"boolean MailActivityBehavior.fileExists(File)"})
   public void testFileExists_whenNull() {
     // Arrange, Act and Assert
-    assertFalse(new MailActivityBehavior().fileExists(null));
+    assertFalse((new MailActivityBehavior()).fileExists(null));
   }
 
   /**
    * Test {@link MailActivityBehavior#fileExists(File)}.
-   *
    * <ul>
-   *   <li>When Property is {@code java.io.tmpdir} is empty string toFile.
+   *   <li>When Property is {@code java.io.tmpdir} is empty string toFile.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link MailActivityBehavior#fileExists(File)}
+   * <p>
+   * Method under test: {@link MailActivityBehavior#fileExists(File)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"boolean MailActivityBehavior.fileExists(File)"})
   public void testFileExists_whenPropertyIsJavaIoTmpdirIsEmptyStringToFile() {
-    // Arrange and Act
-    boolean actualFileExistsResult =
-        new MailActivityBehavior()
-            .fileExists(Paths.get(System.getProperty("java.io.tmpdir"), "").toFile());
-
-    // Assert
-    assertFalse(actualFileExistsResult);
-  }
-
-  /**
-   * Test {@link MailActivityBehavior#fileExists(File)}.
-   *
-   * <ul>
-   *   <li>When Property is {@code java.io.tmpdir} is {@code test.txt} toFile.
-   * </ul>
-   *
-   * <p>Method under test: {@link MailActivityBehavior#fileExists(File)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"boolean MailActivityBehavior.fileExists(File)"})
-  public void testFileExists_whenPropertyIsJavaIoTmpdirIsTestTxtToFile() {
-    // Arrange and Act
-    boolean actualFileExistsResult =
-        new MailActivityBehavior()
-            .fileExists(Paths.get(System.getProperty("java.io.tmpdir"), "test.txt").toFile());
-
-    // Assert
-    assertFalse(actualFileExistsResult);
-  }
-
-  /**
-   * Test {@link MailActivityBehavior#handleException(DelegateExecution, String, Exception, boolean,
-   * String)}.
-   *
-   * <ul>
-   *   <li>Then calls {@link DelegateExecution#setVariable(String, Object)}.
-   * </ul>
-   *
-   * <p>Method under test: {@link MailActivityBehavior#handleException(DelegateExecution, String,
-   * Exception, boolean, String)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void MailActivityBehavior.handleException(DelegateExecution, String, Exception, boolean, String)"
-  })
-  public void testHandleException_thenCallsSetVariable() {
     // Arrange
     MailActivityBehavior mailActivityBehavior = new MailActivityBehavior();
 
+    // Act and Assert
+    assertFalse(mailActivityBehavior.fileExists(Paths.get(System.getProperty("java.io.tmpdir"), "").toFile()));
+  }
+
+  /**
+   * Test {@link MailActivityBehavior#fileExists(File)}.
+   * <ul>
+   *   <li>When Property is {@code java.io.tmpdir} is {@code test.txt} toFile.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link MailActivityBehavior#fileExists(File)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean MailActivityBehavior.fileExists(File)"})
+  public void testFileExists_whenPropertyIsJavaIoTmpdirIsTestTxtToFile() {
+    // Arrange
+    MailActivityBehavior mailActivityBehavior = new MailActivityBehavior();
+
+    // Act and Assert
+    assertFalse(mailActivityBehavior.fileExists(Paths.get(System.getProperty("java.io.tmpdir"), "test.txt").toFile()));
+  }
+
+  /**
+   * Test {@link MailActivityBehavior#handleException(DelegateExecution, String, Exception, boolean, String)}.
+   * <ul>
+   *   <li>Then calls {@link VariableScope#setVariable(String, Object)}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link MailActivityBehavior#handleException(DelegateExecution, String, Exception, boolean, String)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "void MailActivityBehavior.handleException(DelegateExecution, String, Exception, boolean, String)"})
+  public void testHandleException_thenCallsSetVariable() {
+    // Arrange
+    MailActivityBehavior mailActivityBehavior = new MailActivityBehavior();
     DelegateExecution execution = mock(DelegateExecution.class);
     doNothing().when(execution).setVariable(Mockito.<String>any(), Mockito.<Object>any());
 
     // Act
-    mailActivityBehavior.handleException(
-        execution, "Msg", new Exception(), true, "Exception Variable");
+    mailActivityBehavior.handleException(execution, "Msg", new Exception("foo"), true, "Exception Variable");
 
     // Assert
     verify(execution).setVariable(eq("Exception Variable"), isA(Object.class));
   }
 
   /**
-   * Test {@link MailActivityBehavior#handleException(DelegateExecution, String, Exception, boolean,
-   * String)}.
-   *
+   * Test {@link MailActivityBehavior#handleException(DelegateExecution, String, Exception, boolean, String)}.
    * <ul>
-   *   <li>When {@link DelegateExecution}.
-   *   <li>Then throw {@link ActivitiException}.
+   *   <li>When {@link DelegateExecution}.</li>
+   *   <li>Then throw {@link ActivitiException}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link MailActivityBehavior#handleException(DelegateExecution, String,
-   * Exception, boolean, String)}
+   * <p>
+   * Method under test: {@link MailActivityBehavior#handleException(DelegateExecution, String, Exception, boolean, String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({
-    "void MailActivityBehavior.handleException(DelegateExecution, String, Exception, boolean, String)"
-  })
+      "void MailActivityBehavior.handleException(DelegateExecution, String, Exception, boolean, String)"})
   public void testHandleException_whenDelegateExecution_thenThrowActivitiException() {
     // Arrange
     MailActivityBehavior mailActivityBehavior = new MailActivityBehavior();
     DelegateExecution execution = mock(DelegateExecution.class);
 
     // Act and Assert
-    assertThrows(
-        ActivitiException.class,
-        () ->
-            mailActivityBehavior.handleException(
-                execution, "Msg", new Exception(), false, "Exception Variable"));
+    assertThrows(ActivitiException.class, () -> mailActivityBehavior.handleException(execution, "Msg",
+        new Exception("foo"), false, "Exception Variable"));
   }
 
   /**
    * Test new {@link MailActivityBehavior} (default constructor).
-   *
-   * <p>Method under test: default or parameterless constructor of {@link MailActivityBehavior}
+   * <p>
+   * Method under test: default or parameterless constructor of {@link MailActivityBehavior}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void MailActivityBehavior.<init>()"})
   public void testNewMailActivityBehavior() {
     // Arrange and Act

@@ -18,8 +18,7 @@ package org.activiti.image.exception;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
@@ -27,25 +26,20 @@ import org.junit.experimental.categories.Category;
 public class ActivitiImageExceptionDiffblueTest {
   /**
    * Test {@link ActivitiImageException#ActivitiImageException(String)}.
-   *
    * <ul>
-   *   <li>When {@code An error occurred}.
-   *   <li>Then return Cause is {@code null}.
+   *   <li>When {@code An error occurred}.</li>
+   *   <li>Then return Cause is {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ActivitiImageException#ActivitiImageException(String)}
+   * <p>
+   * Method under test: {@link ActivitiImageException#ActivitiImageException(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void ActivitiImageException.<init>(String)",
-    "void ActivitiImageException.<init>(String, Throwable)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void ActivitiImageException.<init>(String)",
+      "void ActivitiImageException.<init>(String, Throwable)"})
   public void testNewActivitiImageException_whenAnErrorOccurred_thenReturnCauseIsNull() {
     // Arrange and Act
-    ActivitiImageException actualActivitiImageException =
-        new ActivitiImageException("An error occurred");
+    ActivitiImageException actualActivitiImageException = new ActivitiImageException("An error occurred");
 
     // Assert
     assertEquals("An error occurred", actualActivitiImageException.getMessage());
@@ -55,28 +49,23 @@ public class ActivitiImageExceptionDiffblueTest {
 
   /**
    * Test {@link ActivitiImageException#ActivitiImageException(String, Throwable)}.
-   *
    * <ul>
-   *   <li>When {@link Throwable#Throwable()}.
-   *   <li>Then return Cause is {@link Throwable#Throwable()}.
+   *   <li>When {@link Throwable#Throwable()}.</li>
+   *   <li>Then return Cause is {@link Throwable#Throwable()}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ActivitiImageException#ActivitiImageException(String, Throwable)}
+   * <p>
+   * Method under test: {@link ActivitiImageException#ActivitiImageException(String, Throwable)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void ActivitiImageException.<init>(String)",
-    "void ActivitiImageException.<init>(String, Throwable)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void ActivitiImageException.<init>(String)",
+      "void ActivitiImageException.<init>(String, Throwable)"})
   public void testNewActivitiImageException_whenThrowable_thenReturnCauseIsThrowable() {
     // Arrange
     Throwable cause = new Throwable();
 
     // Act
-    ActivitiImageException actualActivitiImageException =
-        new ActivitiImageException("An error occurred", cause);
+    ActivitiImageException actualActivitiImageException = new ActivitiImageException("An error occurred", cause);
 
     // Assert
     assertEquals("An error occurred", actualActivitiImageException.getMessage());

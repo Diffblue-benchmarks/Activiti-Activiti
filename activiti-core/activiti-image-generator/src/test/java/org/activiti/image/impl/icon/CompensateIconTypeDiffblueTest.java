@@ -17,8 +17,7 @@ package org.activiti.image.impl.icon;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
@@ -26,37 +25,34 @@ import org.junit.experimental.categories.Category;
 public class CompensateIconTypeDiffblueTest {
   /**
    * Test {@link CompensateIconType#getWidth()}.
-   *
-   * <p>Method under test: {@link CompensateIconType#getWidth()}
+   * <p>
+   * Method under test: {@link CompensateIconType#getWidth()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"java.lang.Integer CompensateIconType.getWidth()"})
   public void testGetWidth() {
     // Arrange, Act and Assert
-    assertEquals(15, new CompensateIconType().getWidth().intValue());
+    assertEquals(15, (new CompensateIconType()).getWidth().intValue());
   }
 
   /**
    * Test {@link CompensateIconType#getHeight()}.
-   *
-   * <p>Method under test: {@link CompensateIconType#getHeight()}
+   * <p>
+   * Method under test: {@link CompensateIconType#getHeight()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"java.lang.Integer CompensateIconType.getHeight()"})
   public void testGetHeight() {
     // Arrange, Act and Assert
-    assertEquals(Short.SIZE, new CompensateIconType().getHeight().intValue());
+    assertEquals(Short.SIZE, (new CompensateIconType()).getHeight().intValue());
   }
 
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>default or parameterless constructor of {@link CompensateIconType}
    *   <li>{@link CompensateIconType#getAnchorValue()}
@@ -68,17 +64,11 @@ public class CompensateIconTypeDiffblueTest {
    * </ul>
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void CompensateIconType.<init>()",
-    "String CompensateIconType.getAnchorValue()",
-    "String CompensateIconType.getDValue()",
-    "String CompensateIconType.getFillValue()",
-    "String CompensateIconType.getStrokeValue()",
-    "String CompensateIconType.getStrokeWidth()",
-    "String CompensateIconType.getStyleValue()"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void CompensateIconType.<init>()", "String CompensateIconType.getAnchorValue()",
+      "String CompensateIconType.getDValue()", "String CompensateIconType.getFillValue()",
+      "String CompensateIconType.getStrokeValue()", "String CompensateIconType.getStrokeWidth()",
+      "String CompensateIconType.getStyleValue()"})
   public void testGettersAndSetters() {
     // Arrange and Act
     CompensateIconType actualCompensateIconType = new CompensateIconType();

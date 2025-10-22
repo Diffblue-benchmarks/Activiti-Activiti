@@ -19,8 +19,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
@@ -28,17 +27,15 @@ import org.junit.experimental.categories.Category;
 public class SignalEventDefinitionDiffblueTest {
   /**
    * Test {@link SignalEventDefinition#clone()}.
-   *
    * <ul>
-   *   <li>Given {@link SignalEventDefinition} (default constructor) Async is {@code true}.
-   *   <li>Then return Async.
+   *   <li>Given {@link SignalEventDefinition} (default constructor) Async is {@code true}.</li>
+   *   <li>Then return Async.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link SignalEventDefinition#clone()}
+   * <p>
+   * Method under test: {@link SignalEventDefinition#clone()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"SignalEventDefinition SignalEventDefinition.clone()"})
   public void testClone_givenSignalEventDefinitionAsyncIsTrue_thenReturnAsync() {
     // Arrange
@@ -61,21 +58,19 @@ public class SignalEventDefinitionDiffblueTest {
 
   /**
    * Test {@link SignalEventDefinition#clone()}.
-   *
    * <ul>
-   *   <li>Given {@link SignalEventDefinition} (default constructor).
-   *   <li>Then return not Async.
+   *   <li>Given {@link SignalEventDefinition} (default constructor).</li>
+   *   <li>Then return not Async.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link SignalEventDefinition#clone()}
+   * <p>
+   * Method under test: {@link SignalEventDefinition#clone()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"SignalEventDefinition SignalEventDefinition.clone()"})
   public void testClone_givenSignalEventDefinition_thenReturnNotAsync() {
     // Arrange and Act
-    SignalEventDefinition actualCloneResult = new SignalEventDefinition().clone();
+    SignalEventDefinition actualCloneResult = (new SignalEventDefinition()).clone();
 
     // Assert
     assertNull(actualCloneResult.getId());
@@ -90,9 +85,8 @@ public class SignalEventDefinitionDiffblueTest {
 
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>default or parameterless constructor of {@link SignalEventDefinition}
    *   <li>{@link SignalEventDefinition#setAsync(boolean)}
@@ -104,17 +98,11 @@ public class SignalEventDefinitionDiffblueTest {
    * </ul>
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void SignalEventDefinition.<init>()",
-    "String SignalEventDefinition.getSignalExpression()",
-    "String SignalEventDefinition.getSignalRef()",
-    "boolean SignalEventDefinition.isAsync()",
-    "void SignalEventDefinition.setAsync(boolean)",
-    "void SignalEventDefinition.setSignalExpression(String)",
-    "void SignalEventDefinition.setSignalRef(String)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void SignalEventDefinition.<init>()", "String SignalEventDefinition.getSignalExpression()",
+      "String SignalEventDefinition.getSignalRef()", "boolean SignalEventDefinition.isAsync()",
+      "void SignalEventDefinition.setAsync(boolean)", "void SignalEventDefinition.setSignalExpression(String)",
+      "void SignalEventDefinition.setSignalRef(String)"})
   public void testGettersAndSetters() {
     // Arrange and Act
     SignalEventDefinition actualSignalEventDefinition = new SignalEventDefinition();

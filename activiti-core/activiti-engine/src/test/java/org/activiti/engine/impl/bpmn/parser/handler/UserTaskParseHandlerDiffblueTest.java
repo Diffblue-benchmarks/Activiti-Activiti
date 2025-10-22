@@ -18,8 +18,7 @@ package org.activiti.engine.impl.bpmn.parser.handler;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.bpmn.model.BaseElement;
 import org.activiti.bpmn.model.UserTask;
@@ -32,21 +31,20 @@ import org.junit.experimental.categories.Category;
 
 public class UserTaskParseHandlerDiffblueTest {
   /**
-   * Test {@link UserTaskParseHandler#executeParse(BpmnParse, UserTask)} with {@code BpmnParse},
-   * {@code UserTask}.
-   *
-   * <p>Method under test: {@link UserTaskParseHandler#executeParse(BpmnParse, UserTask)}
+   * Test {@link UserTaskParseHandler#executeParse(BpmnParse, UserTask)} with {@code BpmnParse}, {@code UserTask}.
+   * <p>
+   * Method under test: {@link UserTaskParseHandler#executeParse(BpmnParse, UserTask)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void UserTaskParseHandler.executeParse(BpmnParse, UserTask)"})
   public void testExecuteParseWithBpmnParseUserTask() {
     // Arrange
     UserTaskParseHandler userTaskParseHandler = new UserTaskParseHandler();
 
-    BpmnParse bpmnParse = new BpmnParse(new BpmnParser());
-    bpmnParse.setActivityBehaviorFactory(new DefaultActivityBehaviorFactory());
+    BpmnParser parser = new BpmnParser();
+    parser.setActivityBehaviorFactory(new DefaultActivityBehaviorFactory());
+    BpmnParse bpmnParse = new BpmnParse(parser);
     UserTask userTask = new UserTask();
 
     // Act
@@ -60,24 +58,19 @@ public class UserTaskParseHandlerDiffblueTest {
 
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>default or parameterless constructor of {@link UserTaskParseHandler}
    *   <li>{@link UserTaskParseHandler#getHandledType()}
    * </ul>
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void UserTaskParseHandler.<init>()",
-    "Class UserTaskParseHandler.getHandledType()"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void UserTaskParseHandler.<init>()", "Class UserTaskParseHandler.getHandledType()"})
   public void testGettersAndSetters() {
     // Arrange and Act
-    Class<? extends BaseElement> actualHandledType = new UserTaskParseHandler().getHandledType();
+    Class<? extends BaseElement> actualHandledType = (new UserTaskParseHandler()).getHandledType();
 
     // Assert
     Class<UserTask> expectedHandledType = UserTask.class;

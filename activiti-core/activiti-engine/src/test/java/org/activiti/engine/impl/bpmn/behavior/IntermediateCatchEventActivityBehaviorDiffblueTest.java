@@ -17,8 +17,7 @@ package org.activiti.engine.impl.bpmn.behavior;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.engine.delegate.DelegateExecution;
 import org.activiti.engine.impl.persistence.entity.ExecutionEntityImpl;
@@ -27,47 +26,37 @@ import org.junit.experimental.categories.Category;
 
 public class IntermediateCatchEventActivityBehaviorDiffblueTest {
   /**
-   * Test {@link
-   * IntermediateCatchEventActivityBehavior#getPrecedingEventBasedGateway(DelegateExecution)}.
-   *
+   * Test {@link IntermediateCatchEventActivityBehavior#getPrecedingEventBasedGateway(DelegateExecution)}.
    * <ul>
-   *   <li>Then return {@code null}.
+   *   <li>Then return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link
-   * IntermediateCatchEventActivityBehavior#getPrecedingEventBasedGateway(DelegateExecution)}
+   * <p>
+   * Method under test: {@link IntermediateCatchEventActivityBehavior#getPrecedingEventBasedGateway(DelegateExecution)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({
-    "org.activiti.bpmn.model.EventGateway IntermediateCatchEventActivityBehavior.getPrecedingEventBasedGateway(DelegateExecution)"
-  })
+      "org.activiti.bpmn.model.EventGateway IntermediateCatchEventActivityBehavior.getPrecedingEventBasedGateway(DelegateExecution)"})
   public void testGetPrecedingEventBasedGateway_thenReturnNull() {
     // Arrange
-    IntermediateCatchEventActivityBehavior intermediateCatchEventActivityBehavior =
-        new IntermediateCatchEventActivityBehavior();
+    IntermediateCatchEventActivityBehavior intermediateCatchEventActivityBehavior = new IntermediateCatchEventActivityBehavior();
 
     // Act and Assert
-    assertNull(
-        intermediateCatchEventActivityBehavior.getPrecedingEventBasedGateway(
-            ExecutionEntityImpl.createWithEmptyRelationshipCollections()));
+    assertNull(intermediateCatchEventActivityBehavior
+        .getPrecedingEventBasedGateway(ExecutionEntityImpl.createWithEmptyRelationshipCollections()));
   }
 
   /**
    * Test new {@link IntermediateCatchEventActivityBehavior} (default constructor).
-   *
-   * <p>Method under test: default or parameterless constructor of {@link
-   * IntermediateCatchEventActivityBehavior}
+   * <p>
+   * Method under test: default or parameterless constructor of {@link IntermediateCatchEventActivityBehavior}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void IntermediateCatchEventActivityBehavior.<init>()"})
   public void testNewIntermediateCatchEventActivityBehavior() {
     // Arrange and Act
-    IntermediateCatchEventActivityBehavior actualIntermediateCatchEventActivityBehavior =
-        new IntermediateCatchEventActivityBehavior();
+    IntermediateCatchEventActivityBehavior actualIntermediateCatchEventActivityBehavior = new IntermediateCatchEventActivityBehavior();
 
     // Assert
     assertNull(actualIntermediateCatchEventActivityBehavior.getMultiInstanceActivityBehavior());

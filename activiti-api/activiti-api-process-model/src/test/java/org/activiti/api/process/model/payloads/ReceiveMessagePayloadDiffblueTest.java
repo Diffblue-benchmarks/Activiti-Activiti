@@ -19,7 +19,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.HashMap;
 import java.util.Map;
@@ -30,13 +29,12 @@ import org.junit.jupiter.api.Test;
 class ReceiveMessagePayloadDiffblueTest {
   /**
    * Test {@link ReceiveMessagePayload#ReceiveMessagePayload()}.
-   *
-   * <p>Method under test: {@link ReceiveMessagePayload#ReceiveMessagePayload()}
+   * <p>
+   * Method under test: {@link ReceiveMessagePayload#ReceiveMessagePayload()}
    */
   @Test
   @DisplayName("Test new ReceiveMessagePayload()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void ReceiveMessagePayload.<init>()"})
   void testNewReceiveMessagePayload() {
     // Arrange and Act
@@ -50,18 +48,17 @@ class ReceiveMessagePayloadDiffblueTest {
 
   /**
    * Test {@link ReceiveMessagePayload#ReceiveMessagePayload(String, String, Map)}.
-   *
-   * <p>Method under test: {@link ReceiveMessagePayload#ReceiveMessagePayload(String, String, Map)}
+   * <p>
+   * Method under test: {@link ReceiveMessagePayload#ReceiveMessagePayload(String, String, Map)}
    */
   @Test
   @DisplayName("Test new ReceiveMessagePayload(String, String, Map)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void ReceiveMessagePayload.<init>(String, String, Map)"})
   void testNewReceiveMessagePayload2() {
     // Arrange and Act
-    ReceiveMessagePayload actualReceiveMessagePayload =
-        new ReceiveMessagePayload("Name", "Correlation Key", new HashMap<>());
+    ReceiveMessagePayload actualReceiveMessagePayload = new ReceiveMessagePayload("Name", "Correlation Key",
+        new HashMap<>());
 
     // Assert
     assertEquals("Correlation Key", actualReceiveMessagePayload.getCorrelationKey());
@@ -71,9 +68,8 @@ class ReceiveMessagePayloadDiffblueTest {
 
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>{@link ReceiveMessagePayload#toString()}
    *   <li>{@link ReceiveMessagePayload#getCorrelationKey()}
@@ -84,15 +80,10 @@ class ReceiveMessagePayloadDiffblueTest {
    */
   @Test
   @DisplayName("Test getters and setters")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "String ReceiveMessagePayload.getCorrelationKey()",
-    "String ReceiveMessagePayload.getId()",
-    "String ReceiveMessagePayload.getName()",
-    "Map ReceiveMessagePayload.getVariables()",
-    "String ReceiveMessagePayload.toString()"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"String ReceiveMessagePayload.getCorrelationKey()", "String ReceiveMessagePayload.getId()",
+      "String ReceiveMessagePayload.getName()", "Map ReceiveMessagePayload.getVariables()",
+      "String ReceiveMessagePayload.toString()"})
   void testGettersAndSetters() {
     // Arrange
     ReceiveMessagePayload receiveMessagePayload = new ReceiveMessagePayload();
@@ -110,16 +101,13 @@ class ReceiveMessagePayloadDiffblueTest {
   }
 
   /**
-   * Test {@link ReceiveMessagePayload#equals(Object)}, and {@link
-   * ReceiveMessagePayload#hashCode()}.
-   *
+   * Test {@link ReceiveMessagePayload#equals(Object)}, and {@link ReceiveMessagePayload#hashCode()}.
    * <ul>
-   *   <li>When other is same.
-   *   <li>Then return equal.
+   *   <li>When other is same.</li>
+   *   <li>Then return equal.</li>
    * </ul>
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>{@link ReceiveMessagePayload#equals(Object)}
    *   <li>{@link ReceiveMessagePayload#hashCode()}
@@ -127,12 +115,8 @@ class ReceiveMessagePayloadDiffblueTest {
    */
   @Test
   @DisplayName("Test equals(Object), and hashCode(); when other is same; then return equal")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "boolean ReceiveMessagePayload.equals(Object)",
-    "int ReceiveMessagePayload.hashCode()"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean ReceiveMessagePayload.equals(Object)", "int ReceiveMessagePayload.hashCode()"})
   void testEqualsAndHashCode_whenOtherIsSame_thenReturnEqual() {
     // Arrange
     ReceiveMessagePayload receiveMessagePayload = new ReceiveMessagePayload();
@@ -145,22 +129,17 @@ class ReceiveMessagePayloadDiffblueTest {
 
   /**
    * Test {@link ReceiveMessagePayload#equals(Object)}.
-   *
    * <ul>
-   *   <li>When other is different.
-   *   <li>Then return not equal.
+   *   <li>When other is different.</li>
+   *   <li>Then return not equal.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ReceiveMessagePayload#equals(Object)}
+   * <p>
+   * Method under test: {@link ReceiveMessagePayload#equals(Object)}
    */
   @Test
   @DisplayName("Test equals(Object); when other is different; then return not equal")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "boolean ReceiveMessagePayload.equals(Object)",
-    "int ReceiveMessagePayload.hashCode()"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean ReceiveMessagePayload.equals(Object)", "int ReceiveMessagePayload.hashCode()"})
   void testEquals_whenOtherIsDifferent_thenReturnNotEqual() {
     // Arrange
     ReceiveMessagePayload receiveMessagePayload = new ReceiveMessagePayload();
@@ -171,26 +150,20 @@ class ReceiveMessagePayloadDiffblueTest {
 
   /**
    * Test {@link ReceiveMessagePayload#equals(Object)}.
-   *
    * <ul>
-   *   <li>When other is different.
-   *   <li>Then return not equal.
+   *   <li>When other is different.</li>
+   *   <li>Then return not equal.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ReceiveMessagePayload#equals(Object)}
+   * <p>
+   * Method under test: {@link ReceiveMessagePayload#equals(Object)}
    */
   @Test
   @DisplayName("Test equals(Object); when other is different; then return not equal")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "boolean ReceiveMessagePayload.equals(Object)",
-    "int ReceiveMessagePayload.hashCode()"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean ReceiveMessagePayload.equals(Object)", "int ReceiveMessagePayload.hashCode()"})
   void testEquals_whenOtherIsDifferent_thenReturnNotEqual2() {
     // Arrange
-    ReceiveMessagePayload receiveMessagePayload =
-        new ReceiveMessagePayload("Name", "Correlation Key", new HashMap<>());
+    ReceiveMessagePayload receiveMessagePayload = new ReceiveMessagePayload("Name", "Correlation Key", new HashMap<>());
 
     // Act and Assert
     assertNotEquals(receiveMessagePayload, new ReceiveMessagePayload());
@@ -198,22 +171,17 @@ class ReceiveMessagePayloadDiffblueTest {
 
   /**
    * Test {@link ReceiveMessagePayload#equals(Object)}.
-   *
    * <ul>
-   *   <li>When other is {@code null}.
-   *   <li>Then return not equal.
+   *   <li>When other is {@code null}.</li>
+   *   <li>Then return not equal.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ReceiveMessagePayload#equals(Object)}
+   * <p>
+   * Method under test: {@link ReceiveMessagePayload#equals(Object)}
    */
   @Test
   @DisplayName("Test equals(Object); when other is 'null'; then return not equal")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "boolean ReceiveMessagePayload.equals(Object)",
-    "int ReceiveMessagePayload.hashCode()"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean ReceiveMessagePayload.equals(Object)", "int ReceiveMessagePayload.hashCode()"})
   void testEquals_whenOtherIsNull_thenReturnNotEqual() {
     // Arrange, Act and Assert
     assertNotEquals(new ReceiveMessagePayload(), null);
@@ -221,22 +189,17 @@ class ReceiveMessagePayloadDiffblueTest {
 
   /**
    * Test {@link ReceiveMessagePayload#equals(Object)}.
-   *
    * <ul>
-   *   <li>When other is wrong type.
-   *   <li>Then return not equal.
+   *   <li>When other is wrong type.</li>
+   *   <li>Then return not equal.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ReceiveMessagePayload#equals(Object)}
+   * <p>
+   * Method under test: {@link ReceiveMessagePayload#equals(Object)}
    */
   @Test
   @DisplayName("Test equals(Object); when other is wrong type; then return not equal")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "boolean ReceiveMessagePayload.equals(Object)",
-    "int ReceiveMessagePayload.hashCode()"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean ReceiveMessagePayload.equals(Object)", "int ReceiveMessagePayload.hashCode()"})
   void testEquals_whenOtherIsWrongType_thenReturnNotEqual() {
     // Arrange, Act and Assert
     assertNotEquals(new ReceiveMessagePayload(), "Different type to ReceiveMessagePayload");

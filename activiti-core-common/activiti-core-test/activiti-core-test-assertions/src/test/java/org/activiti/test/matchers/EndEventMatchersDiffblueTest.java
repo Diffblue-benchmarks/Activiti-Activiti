@@ -16,7 +16,6 @@
 package org.activiti.test.matchers;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
@@ -25,13 +24,12 @@ import org.junit.jupiter.api.Test;
 class EndEventMatchersDiffblueTest {
   /**
    * Test {@link EndEventMatchers#getActivityType()}.
-   *
-   * <p>Method under test: {@link EndEventMatchers#getActivityType()}
+   * <p>
+   * Method under test: {@link EndEventMatchers#getActivityType()}
    */
   @Test
   @DisplayName("Test getActivityType()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"String EndEventMatchers.getActivityType()"})
   void testGetActivityType() {
     // Arrange, Act and Assert
@@ -40,13 +38,12 @@ class EndEventMatchersDiffblueTest {
 
   /**
    * Test {@link EndEventMatchers#endEvent(String)}.
-   *
-   * <p>Method under test: {@link EndEventMatchers#endEvent(String)}
+   * <p>
+   * Method under test: {@link EndEventMatchers#endEvent(String)}
    */
   @Test
   @DisplayName("Test endEvent(String)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"EndEventMatchers EndEventMatchers.endEvent(String)"})
   void testEndEvent() {
     // Arrange, Act and Assert

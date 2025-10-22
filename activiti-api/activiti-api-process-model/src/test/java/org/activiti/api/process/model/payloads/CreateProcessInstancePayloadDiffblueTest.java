@@ -17,7 +17,6 @@ package org.activiti.api.process.model.payloads;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
@@ -26,18 +25,16 @@ import org.junit.jupiter.api.Test;
 class CreateProcessInstancePayloadDiffblueTest {
   /**
    * Test {@link CreateProcessInstancePayload#CreateProcessInstancePayload()}.
-   *
-   * <p>Method under test: {@link CreateProcessInstancePayload#CreateProcessInstancePayload()}
+   * <p>
+   * Method under test: {@link CreateProcessInstancePayload#CreateProcessInstancePayload()}
    */
   @Test
   @DisplayName("Test new CreateProcessInstancePayload()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void CreateProcessInstancePayload.<init>()"})
   void testNewCreateProcessInstancePayload() {
     // Arrange and Act
-    CreateProcessInstancePayload actualCreateProcessInstancePayload =
-        new CreateProcessInstancePayload();
+    CreateProcessInstancePayload actualCreateProcessInstancePayload = new CreateProcessInstancePayload();
 
     // Assert
     assertNull(actualCreateProcessInstancePayload.getBusinessKey());
@@ -47,35 +44,30 @@ class CreateProcessInstancePayloadDiffblueTest {
   }
 
   /**
-   * Test {@link CreateProcessInstancePayload#CreateProcessInstancePayload(String, String, String,
-   * String)}.
-   *
-   * <p>Method under test: {@link CreateProcessInstancePayload#CreateProcessInstancePayload(String,
-   * String, String, String)}
+   * Test {@link CreateProcessInstancePayload#CreateProcessInstancePayload(String, String, String, String)}.
+   * <p>
+   * Method under test: {@link CreateProcessInstancePayload#CreateProcessInstancePayload(String, String, String, String)}
    */
   @Test
   @DisplayName("Test new CreateProcessInstancePayload(String, String, String, String)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void CreateProcessInstancePayload.<init>(String, String, String, String)"})
   void testNewCreateProcessInstancePayload2() {
     // Arrange and Act
-    CreateProcessInstancePayload actualCreateProcessInstancePayload =
-        new CreateProcessInstancePayload("42", "Process Definition Key", "Name", "Business Key");
+    CreateProcessInstancePayload actualCreateProcessInstancePayload = new CreateProcessInstancePayload("42",
+        "Process Definition Key", "Name", "Business Key");
 
     // Assert
     assertEquals("42", actualCreateProcessInstancePayload.getProcessDefinitionId());
     assertEquals("Business Key", actualCreateProcessInstancePayload.getBusinessKey());
     assertEquals("Name", actualCreateProcessInstancePayload.getName());
-    assertEquals(
-        "Process Definition Key", actualCreateProcessInstancePayload.getProcessDefinitionKey());
+    assertEquals("Process Definition Key", actualCreateProcessInstancePayload.getProcessDefinitionKey());
   }
 
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>{@link CreateProcessInstancePayload#setName(String)}
    *   <li>{@link CreateProcessInstancePayload#getBusinessKey()}
@@ -87,16 +79,12 @@ class CreateProcessInstancePayloadDiffblueTest {
    */
   @Test
   @DisplayName("Test getters and setters")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "String CreateProcessInstancePayload.getBusinessKey()",
-    "String CreateProcessInstancePayload.getId()",
-    "String CreateProcessInstancePayload.getName()",
-    "String CreateProcessInstancePayload.getProcessDefinitionId()",
-    "String CreateProcessInstancePayload.getProcessDefinitionKey()",
-    "void CreateProcessInstancePayload.setName(String)"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"String CreateProcessInstancePayload.getBusinessKey()",
+      "String CreateProcessInstancePayload.getId()", "String CreateProcessInstancePayload.getName()",
+      "String CreateProcessInstancePayload.getProcessDefinitionId()",
+      "String CreateProcessInstancePayload.getProcessDefinitionKey()",
+      "void CreateProcessInstancePayload.setName(String)"})
   void testGettersAndSetters() {
     // Arrange
     CreateProcessInstancePayload createProcessInstancePayload = new CreateProcessInstancePayload();

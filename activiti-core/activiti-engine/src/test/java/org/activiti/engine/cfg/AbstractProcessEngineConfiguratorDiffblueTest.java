@@ -18,8 +18,7 @@ package org.activiti.engine.cfg;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.engine.impl.cfg.JtaProcessEngineConfiguration;
 import org.activiti.engine.impl.cfg.ProcessEngineConfigurationImpl;
@@ -32,34 +31,28 @@ import org.junit.experimental.categories.Category;
 public class AbstractProcessEngineConfiguratorDiffblueTest {
   /**
    * Test {@link AbstractProcessEngineConfigurator#getPriority()}.
-   *
-   * <p>Method under test: {@link AbstractProcessEngineConfigurator#getPriority()}
+   * <p>
+   * Method under test: {@link AbstractProcessEngineConfigurator#getPriority()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"int AbstractProcessEngineConfigurator.getPriority()"})
   public void testGetPriority() {
     // Arrange, Act and Assert
-    assertEquals(10000, new ProcessExecutionLoggerConfigurator().getPriority());
+    assertEquals(10000, (new ProcessExecutionLoggerConfigurator()).getPriority());
   }
 
   /**
    * Test {@link AbstractProcessEngineConfigurator#beforeInit(ProcessEngineConfigurationImpl)}.
-   *
-   * <p>Method under test: {@link
-   * AbstractProcessEngineConfigurator#beforeInit(ProcessEngineConfigurationImpl)}
+   * <p>
+   * Method under test: {@link AbstractProcessEngineConfigurator#beforeInit(ProcessEngineConfigurationImpl)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void AbstractProcessEngineConfigurator.beforeInit(ProcessEngineConfigurationImpl)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void AbstractProcessEngineConfigurator.beforeInit(ProcessEngineConfigurationImpl)"})
   public void testBeforeInit() {
     // Arrange
-    ProcessExecutionLoggerConfigurator processExecutionLoggerConfigurator =
-        new ProcessExecutionLoggerConfigurator();
+    ProcessExecutionLoggerConfigurator processExecutionLoggerConfigurator = new ProcessExecutionLoggerConfigurator();
     JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();
 
     // Act

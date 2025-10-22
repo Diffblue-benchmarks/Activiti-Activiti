@@ -22,7 +22,6 @@ import static org.mockito.Mockito.atLeast;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.time.LocalDate;
 import java.time.ZoneOffset;
@@ -42,99 +41,25 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 @ContextConfiguration(classes = {APIProcessInstanceConverter.class})
 @ExtendWith(SpringExtension.class)
 class APIProcessInstanceConverterDiffblueTest {
-  @Autowired private APIProcessInstanceConverter aPIProcessInstanceConverter;
+  @Autowired
+  private APIProcessInstanceConverter aPIProcessInstanceConverter;
 
   /**
    * Test {@link APIProcessInstanceConverter#from(ProcessInstance)} with {@code ProcessInstance}.
-   *
    * <ul>
-   *   <li>Given {@code null}.
-   *   <li>Then return Status is {@code COMPLETED}.
+   *   <li>Then return StartDate is {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link
-   * APIProcessInstanceConverter#from(org.activiti.engine.runtime.ProcessInstance)}
+   * <p>
+   * Method under test: {@link APIProcessInstanceConverter#from(org.activiti.engine.runtime.ProcessInstance)}
    */
   @Test
-  @DisplayName(
-      "Test from(ProcessInstance) with 'ProcessInstance'; given 'null'; then return Status is 'COMPLETED'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "ProcessInstance APIProcessInstanceConverter.from(org.activiti.engine.runtime.ProcessInstance)"
-  })
-  void testFromWithProcessInstance_givenNull_thenReturnStatusIsCompleted() {
-    // Arrange
-    org.activiti.engine.runtime.ProcessInstance internalProcessInstance =
-        mock(org.activiti.engine.runtime.ProcessInstance.class);
-    when(internalProcessInstance.isSuspended()).thenReturn(false);
-    when(internalProcessInstance.getStartTime()).thenReturn(null);
-    when(internalProcessInstance.isEnded()).thenReturn(true);
-    when(internalProcessInstance.getAppVersion()).thenReturn(1);
-    when(internalProcessInstance.getProcessDefinitionVersion()).thenReturn(1);
-    when(internalProcessInstance.getId()).thenReturn("42");
-    when(internalProcessInstance.getParentProcessInstanceId()).thenReturn("42");
-    when(internalProcessInstance.getBusinessKey()).thenReturn("Business Key");
-    when(internalProcessInstance.getName()).thenReturn("Name");
-    when(internalProcessInstance.getProcessDefinitionId()).thenReturn("42");
-    when(internalProcessInstance.getProcessDefinitionKey()).thenReturn("Process Definition Key");
-    when(internalProcessInstance.getProcessDefinitionName()).thenReturn("Process Definition Name");
-    when(internalProcessInstance.getStartUserId()).thenReturn("42");
-
-    // Act
-    ProcessInstance actualFromResult = aPIProcessInstanceConverter.from(internalProcessInstance);
-
-    // Assert
-    verify(internalProcessInstance).getId();
-    verify(internalProcessInstance).getParentProcessInstanceId();
-    verify(internalProcessInstance).isEnded();
-    verify(internalProcessInstance).getAppVersion();
-    verify(internalProcessInstance).getBusinessKey();
-    verify(internalProcessInstance).getName();
-    verify(internalProcessInstance).getProcessDefinitionId();
-    verify(internalProcessInstance, atLeast(1)).getProcessDefinitionKey();
-    verify(internalProcessInstance).getProcessDefinitionName();
-    verify(internalProcessInstance, atLeast(1)).getProcessDefinitionVersion();
-    verify(internalProcessInstance).getStartTime();
-    verify(internalProcessInstance).getStartUserId();
-    verify(internalProcessInstance).isSuspended();
-    assertTrue(actualFromResult instanceof ProcessInstanceImpl);
-    assertEquals("1", actualFromResult.getAppVersion());
-    assertEquals("42", actualFromResult.getId());
-    assertEquals("42", actualFromResult.getInitiator());
-    assertEquals("42", actualFromResult.getParentId());
-    assertEquals("42", actualFromResult.getProcessDefinitionId());
-    assertEquals("Business Key", actualFromResult.getBusinessKey());
-    assertEquals("Name", actualFromResult.getName());
-    assertEquals("Process Definition Key", actualFromResult.getProcessDefinitionKey());
-    assertEquals("Process Definition Name", actualFromResult.getProcessDefinitionName());
-    assertNull(actualFromResult.getStartDate());
-    assertEquals(1, actualFromResult.getProcessDefinitionVersion().intValue());
-    assertEquals(ProcessInstanceStatus.COMPLETED, actualFromResult.getStatus());
-  }
-
-  /**
-   * Test {@link APIProcessInstanceConverter#from(ProcessInstance)} with {@code ProcessInstance}.
-   *
-   * <ul>
-   *   <li>Then return Status is {@code CREATED}.
-   * </ul>
-   *
-   * <p>Method under test: {@link
-   * APIProcessInstanceConverter#from(org.activiti.engine.runtime.ProcessInstance)}
-   */
-  @Test
-  @DisplayName("Test from(ProcessInstance) with 'ProcessInstance'; then return Status is 'CREATED'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "ProcessInstance APIProcessInstanceConverter.from(org.activiti.engine.runtime.ProcessInstance)"
-  })
-  void testFromWithProcessInstance_thenReturnStatusIsCreated() {
+  @DisplayName("Test from(ProcessInstance) with 'ProcessInstance'; then return StartDate is 'null'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"ProcessInstance APIProcessInstanceConverter.from(org.activiti.engine.runtime.ProcessInstance)"})
+  void testFromWithProcessInstance_thenReturnStartDateIsNull() {
     // Arrange and Act
-    ProcessInstance actualFromResult =
-        aPIProcessInstanceConverter.from(
-            ExecutionEntityImpl.createWithEmptyRelationshipCollections());
+    ProcessInstance actualFromResult = aPIProcessInstanceConverter
+        .from(ExecutionEntityImpl.createWithEmptyRelationshipCollections());
 
     // Assert
     assertTrue(actualFromResult instanceof ProcessInstanceImpl);
@@ -154,28 +79,83 @@ class APIProcessInstanceConverterDiffblueTest {
 
   /**
    * Test {@link APIProcessInstanceConverter#from(ProcessInstance)} with {@code ProcessInstance}.
-   *
    * <ul>
-   *   <li>Then return Status is {@code RUNNING}.
+   *   <li>Then return Status is {@code COMPLETED}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link
-   * APIProcessInstanceConverter#from(org.activiti.engine.runtime.ProcessInstance)}
+   * <p>
+   * Method under test: {@link APIProcessInstanceConverter#from(org.activiti.engine.runtime.ProcessInstance)}
+   */
+  @Test
+  @DisplayName("Test from(ProcessInstance) with 'ProcessInstance'; then return Status is 'COMPLETED'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"ProcessInstance APIProcessInstanceConverter.from(org.activiti.engine.runtime.ProcessInstance)"})
+  void testFromWithProcessInstance_thenReturnStatusIsCompleted() {
+    // Arrange
+    ExecutionEntityImpl internalProcessInstance = mock(ExecutionEntityImpl.class);
+    when(internalProcessInstance.isEnded()).thenReturn(true);
+    when(internalProcessInstance.isSuspended()).thenReturn(false);
+    when(internalProcessInstance.getAppVersion()).thenReturn(1);
+    when(internalProcessInstance.getProcessDefinitionVersion()).thenReturn(1);
+    when(internalProcessInstance.getId()).thenReturn("42");
+    when(internalProcessInstance.getBusinessKey()).thenReturn("Business Key");
+    when(internalProcessInstance.getName()).thenReturn("Name");
+    when(internalProcessInstance.getParentProcessInstanceId()).thenReturn("42");
+    when(internalProcessInstance.getProcessDefinitionId()).thenReturn("42");
+    when(internalProcessInstance.getProcessDefinitionKey()).thenReturn("Process Definition Key");
+    when(internalProcessInstance.getProcessDefinitionName()).thenReturn("Process Definition Name");
+    when(internalProcessInstance.getStartUserId()).thenReturn("42");
+    when(internalProcessInstance.getStartTime())
+        .thenReturn(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
+
+    // Act
+    ProcessInstance actualFromResult = aPIProcessInstanceConverter.from(internalProcessInstance);
+
+    // Assert
+    verify(internalProcessInstance).getId();
+    verify(internalProcessInstance).getAppVersion();
+    verify(internalProcessInstance).getBusinessKey();
+    verify(internalProcessInstance).getName();
+    verify(internalProcessInstance).getParentProcessInstanceId();
+    verify(internalProcessInstance).getProcessDefinitionId();
+    verify(internalProcessInstance, atLeast(1)).getProcessDefinitionKey();
+    verify(internalProcessInstance).getProcessDefinitionName();
+    verify(internalProcessInstance, atLeast(1)).getProcessDefinitionVersion();
+    verify(internalProcessInstance).getStartTime();
+    verify(internalProcessInstance).getStartUserId();
+    verify(internalProcessInstance).isEnded();
+    verify(internalProcessInstance).isSuspended();
+    assertTrue(actualFromResult instanceof ProcessInstanceImpl);
+    assertEquals("1", actualFromResult.getAppVersion());
+    assertEquals("42", actualFromResult.getId());
+    assertEquals("42", actualFromResult.getInitiator());
+    assertEquals("42", actualFromResult.getParentId());
+    assertEquals("42", actualFromResult.getProcessDefinitionId());
+    assertEquals("Business Key", actualFromResult.getBusinessKey());
+    assertEquals("Name", actualFromResult.getName());
+    assertEquals("Process Definition Key", actualFromResult.getProcessDefinitionKey());
+    assertEquals("Process Definition Name", actualFromResult.getProcessDefinitionName());
+    assertEquals(1, actualFromResult.getProcessDefinitionVersion().intValue());
+    assertEquals(ProcessInstanceStatus.COMPLETED, actualFromResult.getStatus());
+  }
+
+  /**
+   * Test {@link APIProcessInstanceConverter#from(ProcessInstance)} with {@code ProcessInstance}.
+   * <ul>
+   *   <li>Then return Status is {@code RUNNING}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link APIProcessInstanceConverter#from(org.activiti.engine.runtime.ProcessInstance)}
    */
   @Test
   @DisplayName("Test from(ProcessInstance) with 'ProcessInstance'; then return Status is 'RUNNING'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "ProcessInstance APIProcessInstanceConverter.from(org.activiti.engine.runtime.ProcessInstance)"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"ProcessInstance APIProcessInstanceConverter.from(org.activiti.engine.runtime.ProcessInstance)"})
   void testFromWithProcessInstance_thenReturnStatusIsRunning() {
     // Arrange
-    ExecutionEntityImpl internalProcessInstance =
-        ExecutionEntityImpl.createWithEmptyRelationshipCollections();
+    ExecutionEntityImpl internalProcessInstance = ExecutionEntityImpl.createWithEmptyRelationshipCollections();
     internalProcessInstance.setEnded(false);
-    internalProcessInstance.setStartTime(
-        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
+    internalProcessInstance
+        .setStartTime(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
 
     // Act
     ProcessInstance actualFromResult = aPIProcessInstanceConverter.from(internalProcessInstance);
@@ -197,50 +177,42 @@ class APIProcessInstanceConverterDiffblueTest {
 
   /**
    * Test {@link APIProcessInstanceConverter#from(ProcessInstance)} with {@code ProcessInstance}.
-   *
    * <ul>
-   *   <li>Then return Status is {@code SUSPENDED}.
+   *   <li>Then return Status is {@code SUSPENDED}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link
-   * APIProcessInstanceConverter#from(org.activiti.engine.runtime.ProcessInstance)}
+   * <p>
+   * Method under test: {@link APIProcessInstanceConverter#from(org.activiti.engine.runtime.ProcessInstance)}
    */
   @Test
-  @DisplayName(
-      "Test from(ProcessInstance) with 'ProcessInstance'; then return Status is 'SUSPENDED'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "ProcessInstance APIProcessInstanceConverter.from(org.activiti.engine.runtime.ProcessInstance)"
-  })
+  @DisplayName("Test from(ProcessInstance) with 'ProcessInstance'; then return Status is 'SUSPENDED'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"ProcessInstance APIProcessInstanceConverter.from(org.activiti.engine.runtime.ProcessInstance)"})
   void testFromWithProcessInstance_thenReturnStatusIsSuspended() {
     // Arrange
-    org.activiti.engine.runtime.ProcessInstance internalProcessInstance =
-        mock(org.activiti.engine.runtime.ProcessInstance.class);
+    ExecutionEntityImpl internalProcessInstance = mock(ExecutionEntityImpl.class);
     when(internalProcessInstance.isSuspended()).thenReturn(true);
     when(internalProcessInstance.getAppVersion()).thenReturn(1);
     when(internalProcessInstance.getProcessDefinitionVersion()).thenReturn(1);
     when(internalProcessInstance.getId()).thenReturn("42");
-    when(internalProcessInstance.getParentProcessInstanceId()).thenReturn("42");
     when(internalProcessInstance.getBusinessKey()).thenReturn("Business Key");
     when(internalProcessInstance.getName()).thenReturn("Name");
+    when(internalProcessInstance.getParentProcessInstanceId()).thenReturn("42");
     when(internalProcessInstance.getProcessDefinitionId()).thenReturn("42");
     when(internalProcessInstance.getProcessDefinitionKey()).thenReturn("Process Definition Key");
     when(internalProcessInstance.getProcessDefinitionName()).thenReturn("Process Definition Name");
     when(internalProcessInstance.getStartUserId()).thenReturn("42");
     when(internalProcessInstance.getStartTime())
-        .thenReturn(
-            Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
+        .thenReturn(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
 
     // Act
     ProcessInstance actualFromResult = aPIProcessInstanceConverter.from(internalProcessInstance);
 
     // Assert
     verify(internalProcessInstance).getId();
-    verify(internalProcessInstance).getParentProcessInstanceId();
     verify(internalProcessInstance).getAppVersion();
     verify(internalProcessInstance).getBusinessKey();
     verify(internalProcessInstance).getName();
+    verify(internalProcessInstance).getParentProcessInstanceId();
     verify(internalProcessInstance).getProcessDefinitionId();
     verify(internalProcessInstance, atLeast(1)).getProcessDefinitionKey();
     verify(internalProcessInstance).getProcessDefinitionName();

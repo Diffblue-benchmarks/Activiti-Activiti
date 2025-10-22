@@ -19,7 +19,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.time.LocalDate;
 import java.time.ZoneOffset;
@@ -33,13 +32,12 @@ import org.junit.jupiter.api.Test;
 class CreateTaskPayloadDiffblueTest {
   /**
    * Test {@link CreateTaskPayload#CreateTaskPayload()}.
-   *
-   * <p>Method under test: {@link CreateTaskPayload#CreateTaskPayload()}
+   * <p>
+   * Method under test: {@link CreateTaskPayload#CreateTaskPayload()}
    */
   @Test
   @DisplayName("Test new CreateTaskPayload()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void CreateTaskPayload.<init>()"})
   void testNewCreateTaskPayload() {
     // Arrange and Act
@@ -58,200 +56,130 @@ class CreateTaskPayloadDiffblueTest {
   }
 
   /**
-   * Test {@link CreateTaskPayload#CreateTaskPayload(String, String, Date, int, String, List, List,
-   * String, String)}.
-   *
+   * Test {@link CreateTaskPayload#CreateTaskPayload(String, String, Date, int, String, List, List, String, String)}.
    * <ul>
-   *   <li>Given {@code 42}.
-   *   <li>Then return CandidateGroups is {@link ArrayList#ArrayList()}.
+   *   <li>Given {@code 42}.</li>
+   *   <li>Then return CandidateGroups is {@link ArrayList#ArrayList()}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link CreateTaskPayload#CreateTaskPayload(String, String, Date, int,
-   * String, List, List, String, String)}
+   * <p>
+   * Method under test: {@link CreateTaskPayload#CreateTaskPayload(String, String, Date, int, String, List, List, String, String)}
    */
   @Test
-  @DisplayName(
-      "Test new CreateTaskPayload(String, String, Date, int, String, List, List, String, String); given '42'; then return CandidateGroups is ArrayList()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void CreateTaskPayload.<init>(String, String, Date, int, String, List, List, String, String)"
-  })
+  @DisplayName("Test new CreateTaskPayload(String, String, Date, int, String, List, List, String, String); given '42'; then return CandidateGroups is ArrayList()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void CreateTaskPayload.<init>(String, String, Date, int, String, List, List, String, String)"})
   void testNewCreateTaskPayload_given42_thenReturnCandidateGroupsIsArrayList() {
     // Arrange
-    Date dueDate =
-        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant());
+    Date dueDate = Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant());
 
     ArrayList<String> candidateGroups = new ArrayList<>();
     candidateGroups.add("42");
     candidateGroups.add("foo");
 
     // Act
-    CreateTaskPayload actualCreateTaskPayload =
-        new CreateTaskPayload(
-            "Name",
-            "The characteristics of someone or something",
-            dueDate,
-            1,
-            "Assignee",
-            candidateGroups,
-            new ArrayList<>(),
-            "42",
-            "Form Key");
+    CreateTaskPayload actualCreateTaskPayload = new CreateTaskPayload("Name",
+        "The characteristics of someone or something", dueDate, 1, "Assignee", candidateGroups, new ArrayList<>(), "42",
+        "Form Key");
 
     // Assert
     assertEquals("42", actualCreateTaskPayload.getParentTaskId());
     assertEquals("Assignee", actualCreateTaskPayload.getAssignee());
     assertEquals("Form Key", actualCreateTaskPayload.getFormKey());
     assertEquals("Name", actualCreateTaskPayload.getName());
-    assertEquals(
-        "The characteristics of someone or something", actualCreateTaskPayload.getDescription());
+    assertEquals("The characteristics of someone or something", actualCreateTaskPayload.getDescription());
     assertEquals(1, actualCreateTaskPayload.getPriority());
     assertTrue(actualCreateTaskPayload.getCandidateUsers().isEmpty());
     assertSame(candidateGroups, actualCreateTaskPayload.getCandidateGroups());
   }
 
   /**
-   * Test {@link CreateTaskPayload#CreateTaskPayload(String, String, Date, int, String, List, List,
-   * String, String)}.
-   *
+   * Test {@link CreateTaskPayload#CreateTaskPayload(String, String, Date, int, String, List, List, String, String)}.
    * <ul>
-   *   <li>Given {@code 42}.
-   *   <li>Then return CandidateUsers is {@link ArrayList#ArrayList()}.
+   *   <li>Given {@code 42}.</li>
+   *   <li>Then return CandidateUsers is {@link ArrayList#ArrayList()}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link CreateTaskPayload#CreateTaskPayload(String, String, Date, int,
-   * String, List, List, String, String)}
+   * <p>
+   * Method under test: {@link CreateTaskPayload#CreateTaskPayload(String, String, Date, int, String, List, List, String, String)}
    */
   @Test
-  @DisplayName(
-      "Test new CreateTaskPayload(String, String, Date, int, String, List, List, String, String); given '42'; then return CandidateUsers is ArrayList()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void CreateTaskPayload.<init>(String, String, Date, int, String, List, List, String, String)"
-  })
+  @DisplayName("Test new CreateTaskPayload(String, String, Date, int, String, List, List, String, String); given '42'; then return CandidateUsers is ArrayList()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void CreateTaskPayload.<init>(String, String, Date, int, String, List, List, String, String)"})
   void testNewCreateTaskPayload_given42_thenReturnCandidateUsersIsArrayList() {
     // Arrange
-    Date dueDate =
-        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant());
+    Date dueDate = Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant());
     ArrayList<String> candidateGroups = new ArrayList<>();
 
     ArrayList<String> candidateUsers = new ArrayList<>();
     candidateUsers.add("42");
     candidateUsers.add("foo");
 
-    // Act
-    CreateTaskPayload actualCreateTaskPayload =
-        new CreateTaskPayload(
-            "Name",
-            "The characteristics of someone or something",
-            dueDate,
-            1,
-            "Assignee",
-            candidateGroups,
-            candidateUsers,
-            "42",
-            "Form Key");
-
-    // Assert
-    assertSame(candidateUsers, actualCreateTaskPayload.getCandidateUsers());
+    // Act and Assert
+    assertSame(candidateUsers, (new CreateTaskPayload("Name", "The characteristics of someone or something", dueDate, 1,
+        "Assignee", candidateGroups, candidateUsers, "42", "Form Key")).getCandidateUsers());
   }
 
   /**
-   * Test {@link CreateTaskPayload#CreateTaskPayload(String, String, Date, int, String, List, List,
-   * String, String)}.
-   *
+   * Test {@link CreateTaskPayload#CreateTaskPayload(String, String, Date, int, String, List, List, String, String)}.
    * <ul>
-   *   <li>Given {@code foo}.
-   *   <li>Then return CandidateGroups is {@link ArrayList#ArrayList()}.
+   *   <li>Given {@code foo}.</li>
+   *   <li>Then return CandidateGroups is {@link ArrayList#ArrayList()}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link CreateTaskPayload#CreateTaskPayload(String, String, Date, int,
-   * String, List, List, String, String)}
+   * <p>
+   * Method under test: {@link CreateTaskPayload#CreateTaskPayload(String, String, Date, int, String, List, List, String, String)}
    */
   @Test
-  @DisplayName(
-      "Test new CreateTaskPayload(String, String, Date, int, String, List, List, String, String); given 'foo'; then return CandidateGroups is ArrayList()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void CreateTaskPayload.<init>(String, String, Date, int, String, List, List, String, String)"
-  })
+  @DisplayName("Test new CreateTaskPayload(String, String, Date, int, String, List, List, String, String); given 'foo'; then return CandidateGroups is ArrayList()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void CreateTaskPayload.<init>(String, String, Date, int, String, List, List, String, String)"})
   void testNewCreateTaskPayload_givenFoo_thenReturnCandidateGroupsIsArrayList() {
     // Arrange
-    Date dueDate =
-        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant());
+    Date dueDate = Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant());
 
     ArrayList<String> candidateGroups = new ArrayList<>();
     candidateGroups.add("foo");
 
     // Act
-    CreateTaskPayload actualCreateTaskPayload =
-        new CreateTaskPayload(
-            "Name",
-            "The characteristics of someone or something",
-            dueDate,
-            1,
-            "Assignee",
-            candidateGroups,
-            new ArrayList<>(),
-            "42",
-            "Form Key");
+    CreateTaskPayload actualCreateTaskPayload = new CreateTaskPayload("Name",
+        "The characteristics of someone or something", dueDate, 1, "Assignee", candidateGroups, new ArrayList<>(), "42",
+        "Form Key");
 
     // Assert
     assertEquals("42", actualCreateTaskPayload.getParentTaskId());
     assertEquals("Assignee", actualCreateTaskPayload.getAssignee());
     assertEquals("Form Key", actualCreateTaskPayload.getFormKey());
     assertEquals("Name", actualCreateTaskPayload.getName());
-    assertEquals(
-        "The characteristics of someone or something", actualCreateTaskPayload.getDescription());
+    assertEquals("The characteristics of someone or something", actualCreateTaskPayload.getDescription());
     assertEquals(1, actualCreateTaskPayload.getPriority());
     assertTrue(actualCreateTaskPayload.getCandidateUsers().isEmpty());
     assertSame(candidateGroups, actualCreateTaskPayload.getCandidateGroups());
   }
 
   /**
-   * Test {@link CreateTaskPayload#CreateTaskPayload(String, String, Date, int, String, List, List,
-   * String, String)}.
-   *
+   * Test {@link CreateTaskPayload#CreateTaskPayload(String, String, Date, int, String, List, List, String, String)}.
    * <ul>
-   *   <li>Given {@code foo}.
-   *   <li>Then return CandidateUsers size is one.
+   *   <li>Given {@code foo}.</li>
+   *   <li>Then return CandidateUsers size is one.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link CreateTaskPayload#CreateTaskPayload(String, String, Date, int,
-   * String, List, List, String, String)}
+   * <p>
+   * Method under test: {@link CreateTaskPayload#CreateTaskPayload(String, String, Date, int, String, List, List, String, String)}
    */
   @Test
-  @DisplayName(
-      "Test new CreateTaskPayload(String, String, Date, int, String, List, List, String, String); given 'foo'; then return CandidateUsers size is one")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void CreateTaskPayload.<init>(String, String, Date, int, String, List, List, String, String)"
-  })
+  @DisplayName("Test new CreateTaskPayload(String, String, Date, int, String, List, List, String, String); given 'foo'; then return CandidateUsers size is one")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void CreateTaskPayload.<init>(String, String, Date, int, String, List, List, String, String)"})
   void testNewCreateTaskPayload_givenFoo_thenReturnCandidateUsersSizeIsOne() {
     // Arrange
-    Date dueDate =
-        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant());
+    Date dueDate = Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant());
     ArrayList<String> candidateGroups = new ArrayList<>();
 
     ArrayList<String> candidateUsers = new ArrayList<>();
     candidateUsers.add("foo");
 
     // Act
-    CreateTaskPayload actualCreateTaskPayload =
-        new CreateTaskPayload(
-            "Name",
-            "The characteristics of someone or something",
-            dueDate,
-            1,
-            "Assignee",
-            candidateGroups,
-            candidateUsers,
-            "42",
-            "Form Key");
+    CreateTaskPayload actualCreateTaskPayload = new CreateTaskPayload("Name",
+        "The characteristics of someone or something", dueDate, 1, "Assignee", candidateGroups, candidateUsers, "42",
+        "Form Key");
 
     // Assert
     List<String> candidateUsers2 = actualCreateTaskPayload.getCandidateUsers();
@@ -262,50 +190,33 @@ class CreateTaskPayloadDiffblueTest {
   }
 
   /**
-   * Test {@link CreateTaskPayload#CreateTaskPayload(String, String, Date, int, String, List, List,
-   * String, String)}.
-   *
+   * Test {@link CreateTaskPayload#CreateTaskPayload(String, String, Date, int, String, List, List, String, String)}.
    * <ul>
-   *   <li>Then return CandidateGroups Empty.
+   *   <li>Then return CandidateGroups Empty.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link CreateTaskPayload#CreateTaskPayload(String, String, Date, int,
-   * String, List, List, String, String)}
+   * <p>
+   * Method under test: {@link CreateTaskPayload#CreateTaskPayload(String, String, Date, int, String, List, List, String, String)}
    */
   @Test
-  @DisplayName(
-      "Test new CreateTaskPayload(String, String, Date, int, String, List, List, String, String); then return CandidateGroups Empty")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void CreateTaskPayload.<init>(String, String, Date, int, String, List, List, String, String)"
-  })
+  @DisplayName("Test new CreateTaskPayload(String, String, Date, int, String, List, List, String, String); then return CandidateGroups Empty")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void CreateTaskPayload.<init>(String, String, Date, int, String, List, List, String, String)"})
   void testNewCreateTaskPayload_thenReturnCandidateGroupsEmpty() {
     // Arrange
-    Date dueDate =
-        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant());
+    Date dueDate = Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant());
     ArrayList<String> candidateGroups = new ArrayList<>();
 
     // Act
-    CreateTaskPayload actualCreateTaskPayload =
-        new CreateTaskPayload(
-            "Name",
-            "The characteristics of someone or something",
-            dueDate,
-            1,
-            "Assignee",
-            candidateGroups,
-            new ArrayList<>(),
-            "42",
-            "Form Key");
+    CreateTaskPayload actualCreateTaskPayload = new CreateTaskPayload("Name",
+        "The characteristics of someone or something", dueDate, 1, "Assignee", candidateGroups, new ArrayList<>(), "42",
+        "Form Key");
 
     // Assert
     assertEquals("42", actualCreateTaskPayload.getParentTaskId());
     assertEquals("Assignee", actualCreateTaskPayload.getAssignee());
     assertEquals("Form Key", actualCreateTaskPayload.getFormKey());
     assertEquals("Name", actualCreateTaskPayload.getName());
-    assertEquals(
-        "The characteristics of someone or something", actualCreateTaskPayload.getDescription());
+    assertEquals("The characteristics of someone or something", actualCreateTaskPayload.getDescription());
     assertEquals(1, actualCreateTaskPayload.getPriority());
     assertTrue(actualCreateTaskPayload.getCandidateGroups().isEmpty());
     assertTrue(actualCreateTaskPayload.getCandidateUsers().isEmpty());
@@ -313,9 +224,8 @@ class CreateTaskPayloadDiffblueTest {
 
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>{@link CreateTaskPayload#setAssignee(String)}
    *   <li>{@link CreateTaskPayload#setCandidateGroups(List)}
@@ -340,29 +250,17 @@ class CreateTaskPayloadDiffblueTest {
    */
   @Test
   @DisplayName("Test getters and setters")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "String CreateTaskPayload.getAssignee()",
-    "List CreateTaskPayload.getCandidateGroups()",
-    "List CreateTaskPayload.getCandidateUsers()",
-    "String CreateTaskPayload.getDescription()",
-    "Date CreateTaskPayload.getDueDate()",
-    "String CreateTaskPayload.getFormKey()",
-    "String CreateTaskPayload.getId()",
-    "String CreateTaskPayload.getName()",
-    "String CreateTaskPayload.getParentTaskId()",
-    "int CreateTaskPayload.getPriority()",
-    "void CreateTaskPayload.setAssignee(String)",
-    "void CreateTaskPayload.setCandidateGroups(List)",
-    "void CreateTaskPayload.setCandidateUsers(List)",
-    "void CreateTaskPayload.setDescription(String)",
-    "void CreateTaskPayload.setDueDate(Date)",
-    "void CreateTaskPayload.setFormKey(String)",
-    "void CreateTaskPayload.setName(String)",
-    "void CreateTaskPayload.setParentTaskId(String)",
-    "void CreateTaskPayload.setPriority(int)"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"String CreateTaskPayload.getAssignee()", "List CreateTaskPayload.getCandidateGroups()",
+      "List CreateTaskPayload.getCandidateUsers()", "String CreateTaskPayload.getDescription()",
+      "Date CreateTaskPayload.getDueDate()", "String CreateTaskPayload.getFormKey()",
+      "String CreateTaskPayload.getId()", "String CreateTaskPayload.getName()",
+      "String CreateTaskPayload.getParentTaskId()", "int CreateTaskPayload.getPriority()",
+      "void CreateTaskPayload.setAssignee(String)", "void CreateTaskPayload.setCandidateGroups(List)",
+      "void CreateTaskPayload.setCandidateUsers(List)", "void CreateTaskPayload.setDescription(String)",
+      "void CreateTaskPayload.setDueDate(Date)", "void CreateTaskPayload.setFormKey(String)",
+      "void CreateTaskPayload.setName(String)", "void CreateTaskPayload.setParentTaskId(String)",
+      "void CreateTaskPayload.setPriority(int)"})
   void testGettersAndSetters() {
     // Arrange
     CreateTaskPayload createTaskPayload = new CreateTaskPayload();
@@ -374,8 +272,7 @@ class CreateTaskPayloadDiffblueTest {
     ArrayList<String> candidateUsers = new ArrayList<>();
     createTaskPayload.setCandidateUsers(candidateUsers);
     createTaskPayload.setDescription("The characteristics of someone or something");
-    Date dueDate =
-        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant());
+    Date dueDate = Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant());
     createTaskPayload.setDueDate(dueDate);
     createTaskPayload.setFormKey("Form Key");
     createTaskPayload.setName("Name");

@@ -17,7 +17,6 @@ package org.activiti.runtime.api.model.impl;
 
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.api.process.model.BPMNActivity;
 import org.activiti.api.runtime.model.impl.BPMNActivityImpl;
@@ -34,28 +33,25 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 @ContextConfiguration(classes = {ToActivityConverter.class})
 @ExtendWith(SpringExtension.class)
 class ToActivityConverterDiffblueTest {
-  @Autowired private ToActivityConverter toActivityConverter;
+  @Autowired
+  private ToActivityConverter toActivityConverter;
 
   /**
    * Test {@link ToActivityConverter#from(ActivitiActivityEvent)}.
-   *
    * <ul>
-   *   <li>When {@link ActivitiActivityCancelledEventImpl} (default constructor).
-   *   <li>Then return {@link BPMNActivityImpl}.
+   *   <li>When {@link ActivitiActivityCancelledEventImpl} (default constructor).</li>
+   *   <li>Then return {@link BPMNActivityImpl}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ToActivityConverter#from(ActivitiActivityEvent)}
+   * <p>
+   * Method under test: {@link ToActivityConverter#from(ActivitiActivityEvent)}
    */
   @Test
-  @DisplayName(
-      "Test from(ActivitiActivityEvent); when ActivitiActivityCancelledEventImpl (default constructor); then return BPMNActivityImpl")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test from(ActivitiActivityEvent); when ActivitiActivityCancelledEventImpl (default constructor); then return BPMNActivityImpl")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"BPMNActivity ToActivityConverter.from(ActivitiActivityEvent)"})
   void testFrom_whenActivitiActivityCancelledEventImpl_thenReturnBPMNActivityImpl() {
     // Arrange and Act
-    BPMNActivity actualFromResult =
-        toActivityConverter.from(new ActivitiActivityCancelledEventImpl());
+    BPMNActivity actualFromResult = toActivityConverter.from(new ActivitiActivityCancelledEventImpl());
 
     // Assert
     assertTrue(actualFromResult instanceof BPMNActivityImpl);

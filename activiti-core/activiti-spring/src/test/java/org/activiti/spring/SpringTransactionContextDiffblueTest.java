@@ -22,8 +22,7 @@ import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import jakarta.transaction.SystemException;
 import jakarta.transaction.TransactionManager;
@@ -39,193 +38,123 @@ import org.springframework.transaction.jta.JtaTransactionManager;
 
 public class SpringTransactionContextDiffblueTest {
   /**
-   * Test {@link SpringTransactionContext#SpringTransactionContext(PlatformTransactionManager,
-   * CommandContext)}.
-   *
-   * <p>Method under test: {@link
-   * SpringTransactionContext#SpringTransactionContext(PlatformTransactionManager, CommandContext)}
+   * Test {@link SpringTransactionContext#SpringTransactionContext(PlatformTransactionManager, CommandContext)}.
+   * <p>
+   * Method under test: {@link SpringTransactionContext#SpringTransactionContext(PlatformTransactionManager, CommandContext)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void SpringTransactionContext.<init>(PlatformTransactionManager, CommandContext)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void SpringTransactionContext.<init>(PlatformTransactionManager, CommandContext)"})
   public void testNewSpringTransactionContext() {
     // Arrange and Act
-    SpringTransactionContext actualSpringTransactionContext =
-        new SpringTransactionContext(new DataSourceTransactionManager(), null);
+    SpringTransactionContext actualSpringTransactionContext = new SpringTransactionContext(
+        new DataSourceTransactionManager(), null);
 
     // Assert
-    PlatformTransactionManager platformTransactionManager =
-        actualSpringTransactionContext.transactionManager;
-    Collection<TransactionExecutionListener> transactionExecutionListeners =
-        ((DataSourceTransactionManager) platformTransactionManager)
-            .getTransactionExecutionListeners();
+    PlatformTransactionManager platformTransactionManager = actualSpringTransactionContext.transactionManager;
+    Collection<TransactionExecutionListener> transactionExecutionListeners = ((DataSourceTransactionManager) platformTransactionManager)
+        .getTransactionExecutionListeners();
     assertTrue(transactionExecutionListeners instanceof List);
     assertTrue(platformTransactionManager instanceof DataSourceTransactionManager);
     assertNull(((DataSourceTransactionManager) platformTransactionManager).getDataSource());
     assertNull(actualSpringTransactionContext.commandContext);
-    assertEquals(
-        -1, ((DataSourceTransactionManager) platformTransactionManager).getDefaultTimeout());
-    assertEquals(
-        0,
-        ((DataSourceTransactionManager) platformTransactionManager)
-            .getTransactionSynchronization());
+    assertEquals(-1, ((DataSourceTransactionManager) platformTransactionManager).getDefaultTimeout());
+    assertEquals(0, ((DataSourceTransactionManager) platformTransactionManager).getTransactionSynchronization());
     assertFalse(((DataSourceTransactionManager) platformTransactionManager).isEnforceReadOnly());
-    assertFalse(
-        ((DataSourceTransactionManager) platformTransactionManager)
-            .isFailEarlyOnGlobalRollbackOnly());
-    assertFalse(
-        ((DataSourceTransactionManager) platformTransactionManager).isRollbackOnCommitFailure());
-    assertFalse(
-        ((DataSourceTransactionManager) platformTransactionManager)
-            .isValidateExistingTransaction());
+    assertFalse(((DataSourceTransactionManager) platformTransactionManager).isFailEarlyOnGlobalRollbackOnly());
+    assertFalse(((DataSourceTransactionManager) platformTransactionManager).isRollbackOnCommitFailure());
+    assertFalse(((DataSourceTransactionManager) platformTransactionManager).isValidateExistingTransaction());
     assertTrue(transactionExecutionListeners.isEmpty());
-    assertTrue(
-        ((DataSourceTransactionManager) platformTransactionManager)
-            .isGlobalRollbackOnParticipationFailure());
-    assertTrue(
-        ((DataSourceTransactionManager) platformTransactionManager).isNestedTransactionAllowed());
-    assertEquals(
-        Integer.MAX_VALUE,
-        actualSpringTransactionContext.transactionSynchronizationAdapterOrder.intValue());
+    assertTrue(((DataSourceTransactionManager) platformTransactionManager).isGlobalRollbackOnParticipationFailure());
+    assertTrue(((DataSourceTransactionManager) platformTransactionManager).isNestedTransactionAllowed());
+    assertEquals(Integer.MAX_VALUE, actualSpringTransactionContext.transactionSynchronizationAdapterOrder.intValue());
   }
 
   /**
-   * Test {@link SpringTransactionContext#SpringTransactionContext(PlatformTransactionManager,
-   * CommandContext, Integer)}.
-   *
-   * <p>Method under test: {@link
-   * SpringTransactionContext#SpringTransactionContext(PlatformTransactionManager, CommandContext,
-   * Integer)}
+   * Test {@link SpringTransactionContext#SpringTransactionContext(PlatformTransactionManager, CommandContext, Integer)}.
+   * <p>
+   * Method under test: {@link SpringTransactionContext#SpringTransactionContext(PlatformTransactionManager, CommandContext, Integer)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void SpringTransactionContext.<init>(PlatformTransactionManager, CommandContext, Integer)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void SpringTransactionContext.<init>(PlatformTransactionManager, CommandContext, Integer)"})
   public void testNewSpringTransactionContext2() {
     // Arrange and Act
-    SpringTransactionContext actualSpringTransactionContext =
-        new SpringTransactionContext(new DataSourceTransactionManager(), null, 1);
+    SpringTransactionContext actualSpringTransactionContext = new SpringTransactionContext(
+        new DataSourceTransactionManager(), null, 1);
 
     // Assert
-    PlatformTransactionManager platformTransactionManager =
-        actualSpringTransactionContext.transactionManager;
-    Collection<TransactionExecutionListener> transactionExecutionListeners =
-        ((DataSourceTransactionManager) platformTransactionManager)
-            .getTransactionExecutionListeners();
+    PlatformTransactionManager platformTransactionManager = actualSpringTransactionContext.transactionManager;
+    Collection<TransactionExecutionListener> transactionExecutionListeners = ((DataSourceTransactionManager) platformTransactionManager)
+        .getTransactionExecutionListeners();
     assertTrue(transactionExecutionListeners instanceof List);
     assertTrue(platformTransactionManager instanceof DataSourceTransactionManager);
     assertNull(((DataSourceTransactionManager) platformTransactionManager).getDataSource());
     assertNull(actualSpringTransactionContext.commandContext);
-    assertEquals(
-        -1, ((DataSourceTransactionManager) platformTransactionManager).getDefaultTimeout());
-    assertEquals(
-        0,
-        ((DataSourceTransactionManager) platformTransactionManager)
-            .getTransactionSynchronization());
-    assertEquals(
-        1, actualSpringTransactionContext.transactionSynchronizationAdapterOrder.intValue());
+    assertEquals(-1, ((DataSourceTransactionManager) platformTransactionManager).getDefaultTimeout());
+    assertEquals(0, ((DataSourceTransactionManager) platformTransactionManager).getTransactionSynchronization());
+    assertEquals(1, actualSpringTransactionContext.transactionSynchronizationAdapterOrder.intValue());
     assertFalse(((DataSourceTransactionManager) platformTransactionManager).isEnforceReadOnly());
-    assertFalse(
-        ((DataSourceTransactionManager) platformTransactionManager)
-            .isFailEarlyOnGlobalRollbackOnly());
-    assertFalse(
-        ((DataSourceTransactionManager) platformTransactionManager).isRollbackOnCommitFailure());
-    assertFalse(
-        ((DataSourceTransactionManager) platformTransactionManager)
-            .isValidateExistingTransaction());
+    assertFalse(((DataSourceTransactionManager) platformTransactionManager).isFailEarlyOnGlobalRollbackOnly());
+    assertFalse(((DataSourceTransactionManager) platformTransactionManager).isRollbackOnCommitFailure());
+    assertFalse(((DataSourceTransactionManager) platformTransactionManager).isValidateExistingTransaction());
     assertTrue(transactionExecutionListeners.isEmpty());
-    assertTrue(
-        ((DataSourceTransactionManager) platformTransactionManager)
-            .isGlobalRollbackOnParticipationFailure());
-    assertTrue(
-        ((DataSourceTransactionManager) platformTransactionManager).isNestedTransactionAllowed());
+    assertTrue(((DataSourceTransactionManager) platformTransactionManager).isGlobalRollbackOnParticipationFailure());
+    assertTrue(((DataSourceTransactionManager) platformTransactionManager).isNestedTransactionAllowed());
   }
 
   /**
-   * Test {@link SpringTransactionContext#SpringTransactionContext(PlatformTransactionManager,
-   * CommandContext, Integer)}.
-   *
-   * <p>Method under test: {@link
-   * SpringTransactionContext#SpringTransactionContext(PlatformTransactionManager, CommandContext,
-   * Integer)}
+   * Test {@link SpringTransactionContext#SpringTransactionContext(PlatformTransactionManager, CommandContext, Integer)}.
+   * <p>
+   * Method under test: {@link SpringTransactionContext#SpringTransactionContext(PlatformTransactionManager, CommandContext, Integer)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void SpringTransactionContext.<init>(PlatformTransactionManager, CommandContext, Integer)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void SpringTransactionContext.<init>(PlatformTransactionManager, CommandContext, Integer)"})
   public void testNewSpringTransactionContext3() {
     // Arrange and Act
-    SpringTransactionContext actualSpringTransactionContext =
-        new SpringTransactionContext(new DataSourceTransactionManager(), null, null);
+    SpringTransactionContext actualSpringTransactionContext = new SpringTransactionContext(
+        new DataSourceTransactionManager(), null, null);
 
     // Assert
-    PlatformTransactionManager platformTransactionManager =
-        actualSpringTransactionContext.transactionManager;
-    Collection<TransactionExecutionListener> transactionExecutionListeners =
-        ((DataSourceTransactionManager) platformTransactionManager)
-            .getTransactionExecutionListeners();
+    PlatformTransactionManager platformTransactionManager = actualSpringTransactionContext.transactionManager;
+    Collection<TransactionExecutionListener> transactionExecutionListeners = ((DataSourceTransactionManager) platformTransactionManager)
+        .getTransactionExecutionListeners();
     assertTrue(transactionExecutionListeners instanceof List);
     assertTrue(platformTransactionManager instanceof DataSourceTransactionManager);
     assertNull(((DataSourceTransactionManager) platformTransactionManager).getDataSource());
     assertNull(actualSpringTransactionContext.commandContext);
-    assertEquals(
-        -1, ((DataSourceTransactionManager) platformTransactionManager).getDefaultTimeout());
-    assertEquals(
-        0,
-        ((DataSourceTransactionManager) platformTransactionManager)
-            .getTransactionSynchronization());
+    assertEquals(-1, ((DataSourceTransactionManager) platformTransactionManager).getDefaultTimeout());
+    assertEquals(0, ((DataSourceTransactionManager) platformTransactionManager).getTransactionSynchronization());
     assertFalse(((DataSourceTransactionManager) platformTransactionManager).isEnforceReadOnly());
-    assertFalse(
-        ((DataSourceTransactionManager) platformTransactionManager)
-            .isFailEarlyOnGlobalRollbackOnly());
-    assertFalse(
-        ((DataSourceTransactionManager) platformTransactionManager).isRollbackOnCommitFailure());
-    assertFalse(
-        ((DataSourceTransactionManager) platformTransactionManager)
-            .isValidateExistingTransaction());
+    assertFalse(((DataSourceTransactionManager) platformTransactionManager).isFailEarlyOnGlobalRollbackOnly());
+    assertFalse(((DataSourceTransactionManager) platformTransactionManager).isRollbackOnCommitFailure());
+    assertFalse(((DataSourceTransactionManager) platformTransactionManager).isValidateExistingTransaction());
     assertTrue(transactionExecutionListeners.isEmpty());
-    assertTrue(
-        ((DataSourceTransactionManager) platformTransactionManager)
-            .isGlobalRollbackOnParticipationFailure());
-    assertTrue(
-        ((DataSourceTransactionManager) platformTransactionManager).isNestedTransactionAllowed());
-    assertEquals(
-        Integer.MAX_VALUE,
-        actualSpringTransactionContext.transactionSynchronizationAdapterOrder.intValue());
+    assertTrue(((DataSourceTransactionManager) platformTransactionManager).isGlobalRollbackOnParticipationFailure());
+    assertTrue(((DataSourceTransactionManager) platformTransactionManager).isNestedTransactionAllowed());
+    assertEquals(Integer.MAX_VALUE, actualSpringTransactionContext.transactionSynchronizationAdapterOrder.intValue());
   }
 
   /**
    * Test {@link SpringTransactionContext#rollback()}.
-   *
    * <ul>
-   *   <li>Given {@link TransactionManager} {@link TransactionManager#getStatus()} return one.
-   *   <li>Then calls {@link TransactionManager#getStatus()}.
+   *   <li>Given {@link TransactionManager} {@link TransactionManager#getStatus()} return one.</li>
+   *   <li>Then calls {@link TransactionManager#getStatus()}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link SpringTransactionContext#rollback()}
+   * <p>
+   * Method under test: {@link SpringTransactionContext#rollback()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void SpringTransactionContext.rollback()"})
-  public void testRollback_givenTransactionManagerGetStatusReturnOne_thenCallsGetStatus()
-      throws SystemException {
+  public void testRollback_givenTransactionManagerGetStatusReturnOne_thenCallsGetStatus() throws SystemException {
     // Arrange
     TransactionManager transactionManager = mock(TransactionManager.class);
     when(transactionManager.getStatus()).thenReturn(1);
-    JtaTransactionManager transactionManager2 = new JtaTransactionManager(transactionManager);
-    SpringTransactionContext springTransactionContext =
-        new SpringTransactionContext(transactionManager2, null);
 
     // Act
-    springTransactionContext.rollback();
+    (new SpringTransactionContext(new JtaTransactionManager(transactionManager), null)).rollback();
 
     // Assert
     verify(transactionManager).getStatus();

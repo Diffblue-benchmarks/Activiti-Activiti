@@ -21,14 +21,12 @@ import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.ArgumentMatchers.isA;
-import static org.mockito.ArgumentMatchers.isNull;
 import static org.mockito.Mockito.atLeast;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -43,17 +41,15 @@ import org.mockito.Mockito;
 public class UserTaskDiffblueTest {
   /**
    * Test {@link UserTask#isExtended()}.
-   *
    * <ul>
-   *   <li>Given {@link UserTask} (default constructor) ExtensionId is empty string.
-   *   <li>Then return {@code false}.
+   *   <li>Given {@link UserTask} (default constructor) ExtensionId is empty string.</li>
+   *   <li>Then return {@code false}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link UserTask#isExtended()}
+   * <p>
+   * Method under test: {@link UserTask#isExtended()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"boolean UserTask.isExtended()"})
   public void testIsExtended_givenUserTaskExtensionIdIsEmptyString_thenReturnFalse() {
     // Arrange
@@ -66,17 +62,15 @@ public class UserTaskDiffblueTest {
 
   /**
    * Test {@link UserTask#isExtended()}.
-   *
    * <ul>
-   *   <li>Given {@link UserTask} (default constructor) ExtensionId is {@code foo}.
-   *   <li>Then return {@code true}.
+   *   <li>Given {@link UserTask} (default constructor) ExtensionId is {@code foo}.</li>
+   *   <li>Then return {@code true}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link UserTask#isExtended()}
+   * <p>
+   * Method under test: {@link UserTask#isExtended()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"boolean UserTask.isExtended()"})
   public void testIsExtended_givenUserTaskExtensionIdIsFoo_thenReturnTrue() {
     // Arrange
@@ -89,35 +83,31 @@ public class UserTaskDiffblueTest {
 
   /**
    * Test {@link UserTask#isExtended()}.
-   *
    * <ul>
-   *   <li>Given {@link UserTask} (default constructor).
-   *   <li>Then return {@code false}.
+   *   <li>Given {@link UserTask} (default constructor).</li>
+   *   <li>Then return {@code false}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link UserTask#isExtended()}
+   * <p>
+   * Method under test: {@link UserTask#isExtended()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"boolean UserTask.isExtended()"})
   public void testIsExtended_givenUserTask_thenReturnFalse() {
     // Arrange, Act and Assert
-    assertFalse(new UserTask().isExtended());
+    assertFalse((new UserTask()).isExtended());
   }
 
   /**
    * Test {@link UserTask#addCustomUserIdentityLink(String, String)}.
-   *
    * <ul>
-   *   <li>Given {@link UserTask} (default constructor).
+   *   <li>Given {@link UserTask} (default constructor).</li>
    * </ul>
-   *
-   * <p>Method under test: {@link UserTask#addCustomUserIdentityLink(String, String)}
+   * <p>
+   * Method under test: {@link UserTask#addCustomUserIdentityLink(String, String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void UserTask.addCustomUserIdentityLink(String, String)"})
   public void testAddCustomUserIdentityLink_givenUserTask() {
     // Arrange
@@ -136,17 +126,14 @@ public class UserTaskDiffblueTest {
 
   /**
    * Test {@link UserTask#addCustomUserIdentityLink(String, String)}.
-   *
    * <ul>
-   *   <li>Given {@link UserTask} (default constructor) addCustomUserIdentityLink {@code 42} and
-   *       {@code Type}.
+   *   <li>Given {@link UserTask} (default constructor) addCustomUserIdentityLink {@code 42} and {@code Type}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link UserTask#addCustomUserIdentityLink(String, String)}
+   * <p>
+   * Method under test: {@link UserTask#addCustomUserIdentityLink(String, String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void UserTask.addCustomUserIdentityLink(String, String)"})
   public void testAddCustomUserIdentityLink_givenUserTaskAddCustomUserIdentityLink42AndType() {
     // Arrange
@@ -166,16 +153,14 @@ public class UserTaskDiffblueTest {
 
   /**
    * Test {@link UserTask#addCustomGroupIdentityLink(String, String)}.
-   *
    * <ul>
-   *   <li>Given {@link UserTask} (default constructor).
+   *   <li>Given {@link UserTask} (default constructor).</li>
    * </ul>
-   *
-   * <p>Method under test: {@link UserTask#addCustomGroupIdentityLink(String, String)}
+   * <p>
+   * Method under test: {@link UserTask#addCustomGroupIdentityLink(String, String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void UserTask.addCustomGroupIdentityLink(String, String)"})
   public void testAddCustomGroupIdentityLink_givenUserTask() {
     // Arrange
@@ -194,17 +179,14 @@ public class UserTaskDiffblueTest {
 
   /**
    * Test {@link UserTask#addCustomGroupIdentityLink(String, String)}.
-   *
    * <ul>
-   *   <li>Given {@link UserTask} (default constructor) addCustomGroupIdentityLink {@code 42} and
-   *       {@code Type}.
+   *   <li>Given {@link UserTask} (default constructor) addCustomGroupIdentityLink {@code 42} and {@code Type}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link UserTask#addCustomGroupIdentityLink(String, String)}
+   * <p>
+   * Method under test: {@link UserTask#addCustomGroupIdentityLink(String, String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void UserTask.addCustomGroupIdentityLink(String, String)"})
   public void testAddCustomGroupIdentityLink_givenUserTaskAddCustomGroupIdentityLink42AndType() {
     // Arrange
@@ -224,16 +206,14 @@ public class UserTaskDiffblueTest {
 
   /**
    * Test {@link UserTask#clone()}.
-   *
    * <ul>
-   *   <li>Given {@link ActivitiListener} (default constructor) FieldExtensions is {@code null}.
+   *   <li>Given {@link ActivitiListener} (default constructor) FieldExtensions is {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link UserTask#clone()}
+   * <p>
+   * Method under test: {@link UserTask#clone()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"UserTask UserTask.clone()"})
   public void testClone_givenActivitiListenerFieldExtensionsIsNull() {
     // Arrange
@@ -268,21 +248,19 @@ public class UserTaskDiffblueTest {
 
   /**
    * Test {@link UserTask#clone()}.
-   *
    * <ul>
-   *   <li>Given {@link AlfrescoUserTask} (default constructor).
-   *   <li>Then return {@link AlfrescoUserTask}.
+   *   <li>Given {@link AlfrescoUserTask} (default constructor).</li>
+   *   <li>Then return {@link AlfrescoUserTask}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link UserTask#clone()}
+   * <p>
+   * Method under test: {@link UserTask#clone()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"UserTask UserTask.clone()"})
   public void testClone_givenAlfrescoUserTask_thenReturnAlfrescoUserTask() {
     // Arrange and Act
-    AlfrescoUserTask actualCloneResult = new AlfrescoUserTask().clone();
+    AlfrescoUserTask actualCloneResult = (new AlfrescoUserTask()).clone();
 
     // Assert
     assertTrue(actualCloneResult instanceof AlfrescoUserTask);
@@ -293,17 +271,15 @@ public class UserTaskDiffblueTest {
 
   /**
    * Test {@link UserTask#clone()}.
-   *
    * <ul>
-   *   <li>Given {@link FormProperty} (default constructor) FormValues is {@code null}.
-   *   <li>Then return FormProperties size is one.
+   *   <li>Given {@link FormProperty} (default constructor) FormValues is {@code null}.</li>
+   *   <li>Then return FormProperties size is one.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link UserTask#clone()}
+   * <p>
+   * Method under test: {@link UserTask#clone()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"UserTask UserTask.clone()"})
   public void testClone_givenFormPropertyFormValuesIsNull_thenReturnFormPropertiesSizeIsOne() {
     // Arrange
@@ -340,17 +316,15 @@ public class UserTaskDiffblueTest {
 
   /**
    * Test {@link UserTask#clone()}.
-   *
    * <ul>
-   *   <li>Given {@link UserTask} (default constructor) TaskListeners is {@code null}.
-   *   <li>Then return IoSpecification is {@code null}.
+   *   <li>Given {@link UserTask} (default constructor) TaskListeners is {@code null}.</li>
+   *   <li>Then return IoSpecification is {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link UserTask#clone()}
+   * <p>
+   * Method under test: {@link UserTask#clone()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"UserTask UserTask.clone()"})
   public void testClone_givenUserTaskTaskListenersIsNull_thenReturnIoSpecificationIsNull() {
     // Arrange
@@ -374,21 +348,19 @@ public class UserTaskDiffblueTest {
 
   /**
    * Test {@link UserTask#clone()}.
-   *
    * <ul>
-   *   <li>Given {@link UserTask} (default constructor).
-   *   <li>Then return IoSpecification is {@code null}.
+   *   <li>Given {@link UserTask} (default constructor).</li>
+   *   <li>Then return IoSpecification is {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link UserTask#clone()}
+   * <p>
+   * Method under test: {@link UserTask#clone()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"UserTask UserTask.clone()"})
   public void testClone_givenUserTask_thenReturnIoSpecificationIsNull() {
     // Arrange and Act
-    UserTask actualCloneResult = new UserTask().clone();
+    UserTask actualCloneResult = (new UserTask()).clone();
 
     // Assert
     assertNull(actualCloneResult.getIoSpecification());
@@ -403,16 +375,14 @@ public class UserTaskDiffblueTest {
 
   /**
    * Test {@link UserTask#clone()}.
-   *
    * <ul>
-   *   <li>Then return Attributes size is one.
+   *   <li>Then return Attributes size is one.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link UserTask#clone()}
+   * <p>
+   * Method under test: {@link UserTask#clone()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"UserTask UserTask.clone()"})
   public void testClone_thenReturnAttributesSizeIsOne() {
     // Arrange
@@ -430,16 +400,14 @@ public class UserTaskDiffblueTest {
 
   /**
    * Test {@link UserTask#clone()}.
-   *
    * <ul>
-   *   <li>Then return Attributes size is two.
+   *   <li>Then return Attributes size is two.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link UserTask#clone()}
+   * <p>
+   * Method under test: {@link UserTask#clone()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"UserTask UserTask.clone()"})
   public void testClone_thenReturnAttributesSizeIsTwo() {
     // Arrange
@@ -459,16 +427,14 @@ public class UserTaskDiffblueTest {
 
   /**
    * Test {@link UserTask#clone()}.
-   *
    * <ul>
-   *   <li>Then return BoundaryEvents size is one.
+   *   <li>Then return BoundaryEvents size is one.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link UserTask#clone()}
+   * <p>
+   * Method under test: {@link UserTask#clone()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"UserTask UserTask.clone()"})
   public void testClone_thenReturnBoundaryEventsSizeIsOne() {
     // Arrange
@@ -491,16 +457,14 @@ public class UserTaskDiffblueTest {
 
   /**
    * Test {@link UserTask#clone()}.
-   *
    * <ul>
-   *   <li>Then return DataInputAssociations size is one.
+   *   <li>Then return DataInputAssociations size is one.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link UserTask#clone()}
+   * <p>
+   * Method under test: {@link UserTask#clone()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"UserTask UserTask.clone()"})
   public void testClone_thenReturnDataInputAssociationsSizeIsOne() {
     // Arrange
@@ -534,16 +498,14 @@ public class UserTaskDiffblueTest {
 
   /**
    * Test {@link UserTask#clone()}.
-   *
    * <ul>
-   *   <li>Then return DataOutputAssociations size is one.
+   *   <li>Then return DataOutputAssociations size is one.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link UserTask#clone()}
+   * <p>
+   * Method under test: {@link UserTask#clone()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"UserTask UserTask.clone()"})
   public void testClone_thenReturnDataOutputAssociationsSizeIsOne() {
     // Arrange
@@ -577,16 +539,14 @@ public class UserTaskDiffblueTest {
 
   /**
    * Test {@link UserTask#clone()}.
-   *
    * <ul>
-   *   <li>Then return IoSpecification Id is {@code null}.
+   *   <li>Then return IoSpecification Id is {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link UserTask#clone()}
+   * <p>
+   * Method under test: {@link UserTask#clone()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"UserTask UserTask.clone()"})
   public void testClone_thenReturnIoSpecificationIdIsNull() {
     // Arrange
@@ -615,16 +575,14 @@ public class UserTaskDiffblueTest {
 
   /**
    * Test {@link UserTask#clone()}.
-   *
    * <ul>
-   *   <li>Then return LoopCharacteristics Id is {@code null}.
+   *   <li>Then return LoopCharacteristics Id is {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link UserTask#clone()}
+   * <p>
+   * Method under test: {@link UserTask#clone()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"UserTask UserTask.clone()"})
   public void testClone_thenReturnLoopCharacteristicsIdIsNull() {
     // Arrange
@@ -642,8 +600,7 @@ public class UserTaskDiffblueTest {
     UserTask actualCloneResult = userTask.clone();
 
     // Assert
-    MultiInstanceLoopCharacteristics loopCharacteristics =
-        actualCloneResult.getLoopCharacteristics();
+    MultiInstanceLoopCharacteristics loopCharacteristics = actualCloneResult.getLoopCharacteristics();
     assertNull(loopCharacteristics.getId());
     assertNull(loopCharacteristics.getCompletionCondition());
     assertNull(loopCharacteristics.getElementIndexVariable());
@@ -662,16 +619,14 @@ public class UserTaskDiffblueTest {
 
   /**
    * Test {@link UserTask#clone()}.
-   *
    * <ul>
-   *   <li>Then return TaskListeners first FieldExtensions size is one.
+   *   <li>Then return TaskListeners first FieldExtensions size is one.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link UserTask#clone()}
+   * <p>
+   * Method under test: {@link UserTask#clone()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"UserTask UserTask.clone()"})
   public void testClone_thenReturnTaskListenersFirstFieldExtensionsSizeIsOne() {
     // Arrange
@@ -706,16 +661,14 @@ public class UserTaskDiffblueTest {
 
   /**
    * Test {@link UserTask#clone()}.
-   *
    * <ul>
-   *   <li>Then return TaskListeners first Instance is {@code null}.
+   *   <li>Then return TaskListeners first Instance is {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link UserTask#clone()}
+   * <p>
+   * Method under test: {@link UserTask#clone()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"UserTask UserTask.clone()"})
   public void testClone_thenReturnTaskListenersFirstInstanceIsNull() {
     // Arrange
@@ -750,589 +703,135 @@ public class UserTaskDiffblueTest {
 
   /**
    * Test {@link UserTask#setValues(UserTask)} with {@code UserTask}.
-   *
-   * <ul>
-   *   <li>Given {@link FormProperty} (default constructor) FormValues is {@link
-   *       ArrayList#ArrayList()}.
-   * </ul>
-   *
-   * <p>Method under test: {@link UserTask#setValues(UserTask)}
+   * <p>
+   * Method under test: {@link UserTask#setValues(UserTask)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void UserTask.setValues(UserTask)"})
-  public void testSetValuesWithUserTask_givenFormPropertyFormValuesIsArrayList() {
+  public void testSetValuesWithUserTask() {
     // Arrange
     UserTask userTask = new UserTask();
 
-    ArrayList<BoundaryEvent> boundaryEventList = new ArrayList<>();
-    boundaryEventList.add(new BoundaryEvent());
+    ArrayList<BoundaryEvent> boundaryEvents = new ArrayList<>();
+    boundaryEvents.add(new BoundaryEvent());
 
-    FormProperty formProperty = new FormProperty();
-    formProperty.setFormValues(new ArrayList<>());
+    UserTask otherElement = new UserTask();
+    otherElement.setLoopCharacteristics(new MultiInstanceLoopCharacteristics());
+    otherElement.setIoSpecification(null);
+    otherElement.setDataInputAssociations(null);
+    otherElement.setDataOutputAssociations(null);
+    otherElement.setBoundaryEvents(boundaryEvents);
 
-    ArrayList<FormProperty> formPropertyList = new ArrayList<>();
-    formPropertyList.add(formProperty);
+    // Act
+    userTask.setValues(otherElement);
+
+    // Assert that nothing has changed
+    assertFalse(otherElement.isForCompensation());
+    assertFalse(otherElement.isAsynchronous());
+    assertFalse(otherElement.isNotExclusive());
+    assertFalse(otherElement.isExtended());
+    assertTrue(otherElement.getCustomGroupIdentityLinks().isEmpty());
+    assertTrue(otherElement.getCustomUserIdentityLinks().isEmpty());
+    assertTrue(otherElement.hasMultiInstanceLoopCharacteristics());
+    assertTrue(otherElement.isExclusive());
+  }
+
+  /**
+   * Test {@link UserTask#setValues(UserTask)} with {@code UserTask}.
+   * <ul>
+   *   <li>Given {@link ActivitiListener} (default constructor) FieldExtensions is {@link ArrayList#ArrayList()}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link UserTask#setValues(UserTask)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void UserTask.setValues(UserTask)"})
+  public void testSetValuesWithUserTask_givenActivitiListenerFieldExtensionsIsArrayList() {
+    // Arrange
+    UserTask userTask = new UserTask();
 
     ActivitiListener activitiListener = new ActivitiListener();
     activitiListener.setFieldExtensions(new ArrayList<>());
 
-    ArrayList<ActivitiListener> activitiListenerList = new ArrayList<>();
-    activitiListenerList.add(activitiListener);
+    ArrayList<ActivitiListener> taskListeners = new ArrayList<>();
+    taskListeners.add(activitiListener);
 
-    AlfrescoUserTask otherElement = mock(AlfrescoUserTask.class);
-    when(otherElement.getBoundaryEvents()).thenReturn(boundaryEventList);
-    when(otherElement.getDataInputAssociations()).thenReturn(null);
-    when(otherElement.getDataOutputAssociations()).thenReturn(null);
-    when(otherElement.getFormProperties()).thenReturn(formPropertyList);
-    when(otherElement.getTaskListeners()).thenReturn(activitiListenerList);
-    when(otherElement.getIoSpecification()).thenReturn(null);
-    when(otherElement.getLoopCharacteristics()).thenReturn(null);
-    when(otherElement.isForCompensation()).thenReturn(true);
-    when(otherElement.isAsynchronous()).thenReturn(true);
-    when(otherElement.isNotExclusive()).thenReturn(true);
-    when(otherElement.getDefaultFlow()).thenReturn("Default Flow");
-    when(otherElement.getFailedJobRetryTimeCycleValue()).thenReturn("42");
-    when(otherElement.getId()).thenReturn("42");
-    when(otherElement.getDocumentation()).thenReturn("Documentation");
-    when(otherElement.getName()).thenReturn("Name");
-    when(otherElement.getAssignee()).thenReturn("Assignee");
-    when(otherElement.getCategory()).thenReturn("Category");
-    when(otherElement.getDueDate()).thenReturn("2020-03-01");
-    when(otherElement.getExtensionId()).thenReturn("42");
-    when(otherElement.getFormKey()).thenReturn("Form Key");
-    when(otherElement.getOwner()).thenReturn("Owner");
-    when(otherElement.getPriority()).thenReturn("Priority");
-    when(otherElement.getSkipExpression()).thenReturn("Skip Expression");
-    when(otherElement.getExecutionListeners()).thenReturn(new ArrayList<>());
-    when(otherElement.getCandidateGroups()).thenReturn(new ArrayList<>());
-    when(otherElement.getCandidateUsers()).thenReturn(new ArrayList<>());
-    when(otherElement.getAttributes()).thenReturn(new HashMap<>());
-    when(otherElement.getExtensionElements()).thenReturn(new HashMap<>());
+    UserTask otherElement = new UserTask();
+    otherElement.setFormProperties(null);
+    otherElement.setTaskListeners(taskListeners);
 
     // Act
     userTask.setValues(otherElement);
 
-    // Assert
-    verify(otherElement).getBoundaryEvents();
-    verify(otherElement).getDataInputAssociations();
-    verify(otherElement).getDataOutputAssociations();
-    verify(otherElement).getDefaultFlow();
-    verify(otherElement).getFailedJobRetryTimeCycleValue();
-    verify(otherElement).getIoSpecification();
-    verify(otherElement).getLoopCharacteristics();
-    verify(otherElement).isForCompensation();
-    verify(otherElement, atLeast(1)).getAttributes();
-    verify(otherElement, atLeast(1)).getExtensionElements();
-    verify(otherElement).getId();
-    verify(otherElement).getDocumentation();
-    verify(otherElement, atLeast(1)).getExecutionListeners();
-    verify(otherElement).getName();
-    verify(otherElement).isAsynchronous();
-    verify(otherElement).isNotExclusive();
-    verify(otherElement).getAssignee();
-    verify(otherElement).getCandidateGroups();
-    verify(otherElement).getCandidateUsers();
-    verify(otherElement).getCategory();
-    verify(otherElement).getDueDate();
-    verify(otherElement).getExtensionId();
-    verify(otherElement).getFormKey();
-    verify(otherElement, atLeast(1)).getFormProperties();
-    verify(otherElement).getOwner();
-    verify(otherElement).getPriority();
-    verify(otherElement).getSkipExpression();
-    verify(otherElement, atLeast(1)).getTaskListeners();
-    assertEquals(1, userTask.getFormProperties().size());
-    assertEquals(1, userTask.getTaskListeners().size());
+    // Assert that nothing has changed
+    assertFalse(otherElement.hasMultiInstanceLoopCharacteristics());
+    assertFalse(otherElement.isForCompensation());
+    assertFalse(otherElement.isAsynchronous());
+    assertFalse(otherElement.isNotExclusive());
+    assertFalse(otherElement.isExtended());
+    assertTrue(otherElement.getCustomGroupIdentityLinks().isEmpty());
+    assertTrue(otherElement.getCustomUserIdentityLinks().isEmpty());
+    assertTrue(otherElement.isExclusive());
   }
 
   /**
    * Test {@link UserTask#setValues(UserTask)} with {@code UserTask}.
-   *
    * <ul>
-   *   <li>Given {@link FormProperty} (default constructor) FormValues is {@code null}.
+   *   <li>Given {@link ActivitiListener} (default constructor) FieldExtensions is {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link UserTask#setValues(UserTask)}
+   * <p>
+   * Method under test: {@link UserTask#setValues(UserTask)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void UserTask.setValues(UserTask)"})
-  public void testSetValuesWithUserTask_givenFormPropertyFormValuesIsNull() {
+  public void testSetValuesWithUserTask_givenActivitiListenerFieldExtensionsIsNull() {
     // Arrange
     UserTask userTask = new UserTask();
-
-    ArrayList<BoundaryEvent> boundaryEventList = new ArrayList<>();
-    boundaryEventList.add(new BoundaryEvent());
-
-    FormProperty formProperty = new FormProperty();
-    formProperty.setFormValues(null);
-
-    ArrayList<FormProperty> formPropertyList = new ArrayList<>();
-    formPropertyList.add(formProperty);
 
     ActivitiListener activitiListener = new ActivitiListener();
     activitiListener.setFieldExtensions(null);
 
-    ArrayList<ActivitiListener> activitiListenerList = new ArrayList<>();
-    activitiListenerList.add(activitiListener);
+    ArrayList<ActivitiListener> taskListeners = new ArrayList<>();
+    taskListeners.add(activitiListener);
 
-    AlfrescoUserTask otherElement = mock(AlfrescoUserTask.class);
-    when(otherElement.getBoundaryEvents()).thenReturn(boundaryEventList);
-    when(otherElement.getDataInputAssociations()).thenReturn(null);
-    when(otherElement.getDataOutputAssociations()).thenReturn(null);
-    when(otherElement.getFormProperties()).thenReturn(formPropertyList);
-    when(otherElement.getTaskListeners()).thenReturn(activitiListenerList);
-    when(otherElement.getIoSpecification()).thenReturn(null);
-    when(otherElement.getLoopCharacteristics()).thenReturn(null);
-    when(otherElement.isForCompensation()).thenReturn(true);
-    when(otherElement.isAsynchronous()).thenReturn(true);
-    when(otherElement.isNotExclusive()).thenReturn(true);
-    when(otherElement.getDefaultFlow()).thenReturn("Default Flow");
-    when(otherElement.getFailedJobRetryTimeCycleValue()).thenReturn("42");
-    when(otherElement.getId()).thenReturn("42");
-    when(otherElement.getDocumentation()).thenReturn("Documentation");
-    when(otherElement.getName()).thenReturn("Name");
-    when(otherElement.getAssignee()).thenReturn("Assignee");
-    when(otherElement.getCategory()).thenReturn("Category");
-    when(otherElement.getDueDate()).thenReturn("2020-03-01");
-    when(otherElement.getExtensionId()).thenReturn("42");
-    when(otherElement.getFormKey()).thenReturn("Form Key");
-    when(otherElement.getOwner()).thenReturn("Owner");
-    when(otherElement.getPriority()).thenReturn("Priority");
-    when(otherElement.getSkipExpression()).thenReturn("Skip Expression");
-    when(otherElement.getExecutionListeners()).thenReturn(new ArrayList<>());
-    when(otherElement.getCandidateGroups()).thenReturn(new ArrayList<>());
-    when(otherElement.getCandidateUsers()).thenReturn(new ArrayList<>());
-    when(otherElement.getAttributes()).thenReturn(new HashMap<>());
-    when(otherElement.getExtensionElements()).thenReturn(new HashMap<>());
+    UserTask otherElement = new UserTask();
+    otherElement.setFormProperties(null);
+    otherElement.setTaskListeners(taskListeners);
 
     // Act
     userTask.setValues(otherElement);
 
-    // Assert
-    verify(otherElement).getBoundaryEvents();
-    verify(otherElement).getDataInputAssociations();
-    verify(otherElement).getDataOutputAssociations();
-    verify(otherElement).getDefaultFlow();
-    verify(otherElement).getFailedJobRetryTimeCycleValue();
-    verify(otherElement).getIoSpecification();
-    verify(otherElement).getLoopCharacteristics();
-    verify(otherElement).isForCompensation();
-    verify(otherElement, atLeast(1)).getAttributes();
-    verify(otherElement, atLeast(1)).getExtensionElements();
-    verify(otherElement).getId();
-    verify(otherElement).getDocumentation();
-    verify(otherElement, atLeast(1)).getExecutionListeners();
-    verify(otherElement).getName();
-    verify(otherElement).isAsynchronous();
-    verify(otherElement).isNotExclusive();
-    verify(otherElement).getAssignee();
-    verify(otherElement).getCandidateGroups();
-    verify(otherElement).getCandidateUsers();
-    verify(otherElement).getCategory();
-    verify(otherElement).getDueDate();
-    verify(otherElement).getExtensionId();
-    verify(otherElement).getFormKey();
-    verify(otherElement, atLeast(1)).getFormProperties();
-    verify(otherElement).getOwner();
-    verify(otherElement).getPriority();
-    verify(otherElement).getSkipExpression();
-    verify(otherElement, atLeast(1)).getTaskListeners();
-    assertEquals(1, userTask.getFormProperties().size());
-    assertEquals(1, userTask.getTaskListeners().size());
+    // Assert that nothing has changed
+    assertFalse(otherElement.hasMultiInstanceLoopCharacteristics());
+    assertFalse(otherElement.isForCompensation());
+    assertFalse(otherElement.isAsynchronous());
+    assertFalse(otherElement.isNotExclusive());
+    assertFalse(otherElement.isExtended());
+    assertTrue(otherElement.getCustomGroupIdentityLinks().isEmpty());
+    assertTrue(otherElement.getCustomUserIdentityLinks().isEmpty());
+    assertTrue(otherElement.isExclusive());
   }
 
   /**
    * Test {@link UserTask#setValues(UserTask)} with {@code UserTask}.
-   *
    * <ul>
-   *   <li>Given {@link HashMap#HashMap()} {@code 42} is {@link ArrayList#ArrayList()}.
+   *   <li>Given {@link ArrayList#ArrayList()} add {@link DataAssociation} (default constructor).</li>
    * </ul>
-   *
-   * <p>Method under test: {@link UserTask#setValues(UserTask)}
+   * <p>
+   * Method under test: {@link UserTask#setValues(UserTask)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void UserTask.setValues(UserTask)"})
-  public void testSetValuesWithUserTask_givenHashMap42IsArrayList() {
+  public void testSetValuesWithUserTask_givenArrayListAddDataAssociation() {
     // Arrange
     UserTask userTask = new UserTask();
-
-    ArrayList<BoundaryEvent> boundaryEventList = new ArrayList<>();
-    BoundaryEvent boundaryEvent = new BoundaryEvent();
-    boundaryEventList.add(boundaryEvent);
-
-    HashMap<String, List<ExtensionAttribute>> stringListMap = new HashMap<>();
-    stringListMap.put("42", new ArrayList<>());
-    stringListMap.put("foo", new ArrayList<>());
-
-    AlfrescoUserTask otherElement = mock(AlfrescoUserTask.class);
-    when(otherElement.getBoundaryEvents()).thenReturn(boundaryEventList);
-    when(otherElement.getDataInputAssociations()).thenReturn(null);
-    when(otherElement.getDataOutputAssociations()).thenReturn(null);
-    when(otherElement.getFormProperties()).thenReturn(null);
-    when(otherElement.getTaskListeners()).thenReturn(null);
-    when(otherElement.getIoSpecification()).thenReturn(null);
-    when(otherElement.getLoopCharacteristics()).thenReturn(null);
-    when(otherElement.isForCompensation()).thenReturn(true);
-    when(otherElement.isAsynchronous()).thenReturn(true);
-    when(otherElement.isNotExclusive()).thenReturn(true);
-    when(otherElement.getDefaultFlow()).thenReturn("Default Flow");
-    when(otherElement.getFailedJobRetryTimeCycleValue()).thenReturn("42");
-    when(otherElement.getId()).thenReturn("42");
-    when(otherElement.getDocumentation()).thenReturn("Documentation");
-    when(otherElement.getName()).thenReturn("Name");
-    when(otherElement.getAssignee()).thenReturn("Assignee");
-    when(otherElement.getCategory()).thenReturn("Category");
-    when(otherElement.getDueDate()).thenReturn("2020-03-01");
-    when(otherElement.getExtensionId()).thenReturn("42");
-    when(otherElement.getFormKey()).thenReturn("Form Key");
-    when(otherElement.getOwner()).thenReturn("Owner");
-    when(otherElement.getPriority()).thenReturn("Priority");
-    when(otherElement.getSkipExpression()).thenReturn("Skip Expression");
-    when(otherElement.getExecutionListeners()).thenReturn(new ArrayList<>());
-    when(otherElement.getCandidateGroups()).thenReturn(new ArrayList<>());
-    when(otherElement.getCandidateUsers()).thenReturn(new ArrayList<>());
-    when(otherElement.getAttributes()).thenReturn(stringListMap);
-    when(otherElement.getExtensionElements()).thenReturn(new HashMap<>());
-
-    // Act
-    userTask.setValues(otherElement);
-
-    // Assert
-    verify(otherElement).getBoundaryEvents();
-    verify(otherElement).getDataInputAssociations();
-    verify(otherElement).getDataOutputAssociations();
-    verify(otherElement).getDefaultFlow();
-    verify(otherElement).getFailedJobRetryTimeCycleValue();
-    verify(otherElement).getIoSpecification();
-    verify(otherElement).getLoopCharacteristics();
-    verify(otherElement).isForCompensation();
-    verify(otherElement, atLeast(1)).getAttributes();
-    verify(otherElement, atLeast(1)).getExtensionElements();
-    verify(otherElement).getId();
-    verify(otherElement).getDocumentation();
-    verify(otherElement, atLeast(1)).getExecutionListeners();
-    verify(otherElement).getName();
-    verify(otherElement).isAsynchronous();
-    verify(otherElement).isNotExclusive();
-    verify(otherElement).getAssignee();
-    verify(otherElement).getCandidateGroups();
-    verify(otherElement).getCandidateUsers();
-    verify(otherElement).getCategory();
-    verify(otherElement).getDueDate();
-    verify(otherElement).getExtensionId();
-    verify(otherElement).getFormKey();
-    verify(otherElement).getFormProperties();
-    verify(otherElement).getOwner();
-    verify(otherElement).getPriority();
-    verify(otherElement).getSkipExpression();
-    verify(otherElement).getTaskListeners();
-    List<BoundaryEvent> boundaryEvents = userTask.getBoundaryEvents();
-    assertEquals(1, boundaryEvents.size());
-    assertSame(boundaryEvent, boundaryEvents.get(0));
-  }
-
-  /**
-   * Test {@link UserTask#setValues(UserTask)} with {@code UserTask}.
-   *
-   * <ul>
-   *   <li>Given {@link HashMap#HashMap()} {@code 42} is {@link ArrayList#ArrayList()}.
-   * </ul>
-   *
-   * <p>Method under test: {@link UserTask#setValues(UserTask)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void UserTask.setValues(UserTask)"})
-  public void testSetValuesWithUserTask_givenHashMap42IsArrayList2() {
-    // Arrange
-    UserTask userTask = new UserTask();
-
-    ArrayList<BoundaryEvent> boundaryEventList = new ArrayList<>();
-    BoundaryEvent boundaryEvent = new BoundaryEvent();
-    boundaryEventList.add(boundaryEvent);
-
-    HashMap<String, List<ExtensionElement>> stringListMap = new HashMap<>();
-    stringListMap.put("42", new ArrayList<>());
-    stringListMap.put("foo", new ArrayList<>());
-
-    AlfrescoUserTask otherElement = mock(AlfrescoUserTask.class);
-    when(otherElement.getBoundaryEvents()).thenReturn(boundaryEventList);
-    when(otherElement.getDataInputAssociations()).thenReturn(null);
-    when(otherElement.getDataOutputAssociations()).thenReturn(null);
-    when(otherElement.getFormProperties()).thenReturn(null);
-    when(otherElement.getTaskListeners()).thenReturn(null);
-    when(otherElement.getIoSpecification()).thenReturn(null);
-    when(otherElement.getLoopCharacteristics()).thenReturn(null);
-    when(otherElement.isForCompensation()).thenReturn(true);
-    when(otherElement.isAsynchronous()).thenReturn(true);
-    when(otherElement.isNotExclusive()).thenReturn(true);
-    when(otherElement.getDefaultFlow()).thenReturn("Default Flow");
-    when(otherElement.getFailedJobRetryTimeCycleValue()).thenReturn("42");
-    when(otherElement.getId()).thenReturn("42");
-    when(otherElement.getDocumentation()).thenReturn("Documentation");
-    when(otherElement.getName()).thenReturn("Name");
-    when(otherElement.getAssignee()).thenReturn("Assignee");
-    when(otherElement.getCategory()).thenReturn("Category");
-    when(otherElement.getDueDate()).thenReturn("2020-03-01");
-    when(otherElement.getExtensionId()).thenReturn("42");
-    when(otherElement.getFormKey()).thenReturn("Form Key");
-    when(otherElement.getOwner()).thenReturn("Owner");
-    when(otherElement.getPriority()).thenReturn("Priority");
-    when(otherElement.getSkipExpression()).thenReturn("Skip Expression");
-    when(otherElement.getExecutionListeners()).thenReturn(new ArrayList<>());
-    when(otherElement.getCandidateGroups()).thenReturn(new ArrayList<>());
-    when(otherElement.getCandidateUsers()).thenReturn(new ArrayList<>());
-    when(otherElement.getAttributes()).thenReturn(new HashMap<>());
-    when(otherElement.getExtensionElements()).thenReturn(stringListMap);
-
-    // Act
-    userTask.setValues(otherElement);
-
-    // Assert
-    verify(otherElement).getBoundaryEvents();
-    verify(otherElement).getDataInputAssociations();
-    verify(otherElement).getDataOutputAssociations();
-    verify(otherElement).getDefaultFlow();
-    verify(otherElement).getFailedJobRetryTimeCycleValue();
-    verify(otherElement).getIoSpecification();
-    verify(otherElement).getLoopCharacteristics();
-    verify(otherElement).isForCompensation();
-    verify(otherElement, atLeast(1)).getAttributes();
-    verify(otherElement, atLeast(1)).getExtensionElements();
-    verify(otherElement).getId();
-    verify(otherElement).getDocumentation();
-    verify(otherElement, atLeast(1)).getExecutionListeners();
-    verify(otherElement).getName();
-    verify(otherElement).isAsynchronous();
-    verify(otherElement).isNotExclusive();
-    verify(otherElement).getAssignee();
-    verify(otherElement).getCandidateGroups();
-    verify(otherElement).getCandidateUsers();
-    verify(otherElement).getCategory();
-    verify(otherElement).getDueDate();
-    verify(otherElement).getExtensionId();
-    verify(otherElement).getFormKey();
-    verify(otherElement).getFormProperties();
-    verify(otherElement).getOwner();
-    verify(otherElement).getPriority();
-    verify(otherElement).getSkipExpression();
-    verify(otherElement).getTaskListeners();
-    List<BoundaryEvent> boundaryEvents = userTask.getBoundaryEvents();
-    assertEquals(1, boundaryEvents.size());
-    assertSame(boundaryEvent, boundaryEvents.get(0));
-  }
-
-  /**
-   * Test {@link UserTask#setValues(UserTask)} with {@code UserTask}.
-   *
-   * <ul>
-   *   <li>Given {@link HashMap#HashMap()} {@code foo} is {@link ArrayList#ArrayList()}.
-   * </ul>
-   *
-   * <p>Method under test: {@link UserTask#setValues(UserTask)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void UserTask.setValues(UserTask)"})
-  public void testSetValuesWithUserTask_givenHashMapFooIsArrayList() {
-    // Arrange
-    UserTask userTask = new UserTask();
-
-    ArrayList<BoundaryEvent> boundaryEventList = new ArrayList<>();
-    BoundaryEvent boundaryEvent = new BoundaryEvent();
-    boundaryEventList.add(boundaryEvent);
-
-    HashMap<String, List<ExtensionAttribute>> stringListMap = new HashMap<>();
-    stringListMap.put("foo", new ArrayList<>());
-
-    AlfrescoUserTask otherElement = mock(AlfrescoUserTask.class);
-    when(otherElement.getBoundaryEvents()).thenReturn(boundaryEventList);
-    when(otherElement.getDataInputAssociations()).thenReturn(null);
-    when(otherElement.getDataOutputAssociations()).thenReturn(null);
-    when(otherElement.getFormProperties()).thenReturn(null);
-    when(otherElement.getTaskListeners()).thenReturn(null);
-    when(otherElement.getIoSpecification()).thenReturn(null);
-    when(otherElement.getLoopCharacteristics()).thenReturn(null);
-    when(otherElement.isForCompensation()).thenReturn(true);
-    when(otherElement.isAsynchronous()).thenReturn(true);
-    when(otherElement.isNotExclusive()).thenReturn(true);
-    when(otherElement.getDefaultFlow()).thenReturn("Default Flow");
-    when(otherElement.getFailedJobRetryTimeCycleValue()).thenReturn("42");
-    when(otherElement.getId()).thenReturn("42");
-    when(otherElement.getDocumentation()).thenReturn("Documentation");
-    when(otherElement.getName()).thenReturn("Name");
-    when(otherElement.getAssignee()).thenReturn("Assignee");
-    when(otherElement.getCategory()).thenReturn("Category");
-    when(otherElement.getDueDate()).thenReturn("2020-03-01");
-    when(otherElement.getExtensionId()).thenReturn("42");
-    when(otherElement.getFormKey()).thenReturn("Form Key");
-    when(otherElement.getOwner()).thenReturn("Owner");
-    when(otherElement.getPriority()).thenReturn("Priority");
-    when(otherElement.getSkipExpression()).thenReturn("Skip Expression");
-    when(otherElement.getExecutionListeners()).thenReturn(new ArrayList<>());
-    when(otherElement.getCandidateGroups()).thenReturn(new ArrayList<>());
-    when(otherElement.getCandidateUsers()).thenReturn(new ArrayList<>());
-    when(otherElement.getAttributes()).thenReturn(stringListMap);
-    when(otherElement.getExtensionElements()).thenReturn(new HashMap<>());
-
-    // Act
-    userTask.setValues(otherElement);
-
-    // Assert
-    verify(otherElement).getBoundaryEvents();
-    verify(otherElement).getDataInputAssociations();
-    verify(otherElement).getDataOutputAssociations();
-    verify(otherElement).getDefaultFlow();
-    verify(otherElement).getFailedJobRetryTimeCycleValue();
-    verify(otherElement).getIoSpecification();
-    verify(otherElement).getLoopCharacteristics();
-    verify(otherElement).isForCompensation();
-    verify(otherElement, atLeast(1)).getAttributes();
-    verify(otherElement, atLeast(1)).getExtensionElements();
-    verify(otherElement).getId();
-    verify(otherElement).getDocumentation();
-    verify(otherElement, atLeast(1)).getExecutionListeners();
-    verify(otherElement).getName();
-    verify(otherElement).isAsynchronous();
-    verify(otherElement).isNotExclusive();
-    verify(otherElement).getAssignee();
-    verify(otherElement).getCandidateGroups();
-    verify(otherElement).getCandidateUsers();
-    verify(otherElement).getCategory();
-    verify(otherElement).getDueDate();
-    verify(otherElement).getExtensionId();
-    verify(otherElement).getFormKey();
-    verify(otherElement).getFormProperties();
-    verify(otherElement).getOwner();
-    verify(otherElement).getPriority();
-    verify(otherElement).getSkipExpression();
-    verify(otherElement).getTaskListeners();
-    List<BoundaryEvent> boundaryEvents = userTask.getBoundaryEvents();
-    assertEquals(1, boundaryEvents.size());
-    assertSame(boundaryEvent, boundaryEvents.get(0));
-  }
-
-  /**
-   * Test {@link UserTask#setValues(UserTask)} with {@code UserTask}.
-   *
-   * <ul>
-   *   <li>Given {@link HashMap#HashMap()} {@code foo} is {@link ArrayList#ArrayList()}.
-   * </ul>
-   *
-   * <p>Method under test: {@link UserTask#setValues(UserTask)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void UserTask.setValues(UserTask)"})
-  public void testSetValuesWithUserTask_givenHashMapFooIsArrayList2() {
-    // Arrange
-    UserTask userTask = new UserTask();
-
-    ArrayList<BoundaryEvent> boundaryEventList = new ArrayList<>();
-    BoundaryEvent boundaryEvent = new BoundaryEvent();
-    boundaryEventList.add(boundaryEvent);
-
-    HashMap<String, List<ExtensionElement>> stringListMap = new HashMap<>();
-    stringListMap.put("foo", new ArrayList<>());
-
-    AlfrescoUserTask otherElement = mock(AlfrescoUserTask.class);
-    when(otherElement.getBoundaryEvents()).thenReturn(boundaryEventList);
-    when(otherElement.getDataInputAssociations()).thenReturn(null);
-    when(otherElement.getDataOutputAssociations()).thenReturn(null);
-    when(otherElement.getFormProperties()).thenReturn(null);
-    when(otherElement.getTaskListeners()).thenReturn(null);
-    when(otherElement.getIoSpecification()).thenReturn(null);
-    when(otherElement.getLoopCharacteristics()).thenReturn(null);
-    when(otherElement.isForCompensation()).thenReturn(true);
-    when(otherElement.isAsynchronous()).thenReturn(true);
-    when(otherElement.isNotExclusive()).thenReturn(true);
-    when(otherElement.getDefaultFlow()).thenReturn("Default Flow");
-    when(otherElement.getFailedJobRetryTimeCycleValue()).thenReturn("42");
-    when(otherElement.getId()).thenReturn("42");
-    when(otherElement.getDocumentation()).thenReturn("Documentation");
-    when(otherElement.getName()).thenReturn("Name");
-    when(otherElement.getAssignee()).thenReturn("Assignee");
-    when(otherElement.getCategory()).thenReturn("Category");
-    when(otherElement.getDueDate()).thenReturn("2020-03-01");
-    when(otherElement.getExtensionId()).thenReturn("42");
-    when(otherElement.getFormKey()).thenReturn("Form Key");
-    when(otherElement.getOwner()).thenReturn("Owner");
-    when(otherElement.getPriority()).thenReturn("Priority");
-    when(otherElement.getSkipExpression()).thenReturn("Skip Expression");
-    when(otherElement.getExecutionListeners()).thenReturn(new ArrayList<>());
-    when(otherElement.getCandidateGroups()).thenReturn(new ArrayList<>());
-    when(otherElement.getCandidateUsers()).thenReturn(new ArrayList<>());
-    when(otherElement.getAttributes()).thenReturn(new HashMap<>());
-    when(otherElement.getExtensionElements()).thenReturn(stringListMap);
-
-    // Act
-    userTask.setValues(otherElement);
-
-    // Assert
-    verify(otherElement).getBoundaryEvents();
-    verify(otherElement).getDataInputAssociations();
-    verify(otherElement).getDataOutputAssociations();
-    verify(otherElement).getDefaultFlow();
-    verify(otherElement).getFailedJobRetryTimeCycleValue();
-    verify(otherElement).getIoSpecification();
-    verify(otherElement).getLoopCharacteristics();
-    verify(otherElement).isForCompensation();
-    verify(otherElement, atLeast(1)).getAttributes();
-    verify(otherElement, atLeast(1)).getExtensionElements();
-    verify(otherElement).getId();
-    verify(otherElement).getDocumentation();
-    verify(otherElement, atLeast(1)).getExecutionListeners();
-    verify(otherElement).getName();
-    verify(otherElement).isAsynchronous();
-    verify(otherElement).isNotExclusive();
-    verify(otherElement).getAssignee();
-    verify(otherElement).getCandidateGroups();
-    verify(otherElement).getCandidateUsers();
-    verify(otherElement).getCategory();
-    verify(otherElement).getDueDate();
-    verify(otherElement).getExtensionId();
-    verify(otherElement).getFormKey();
-    verify(otherElement).getFormProperties();
-    verify(otherElement).getOwner();
-    verify(otherElement).getPriority();
-    verify(otherElement).getSkipExpression();
-    verify(otherElement).getTaskListeners();
-    List<BoundaryEvent> boundaryEvents = userTask.getBoundaryEvents();
-    assertEquals(1, boundaryEvents.size());
-    assertSame(boundaryEvent, boundaryEvents.get(0));
-  }
-
-  /**
-   * Test {@link UserTask#setValues(UserTask)} with {@code UserTask}.
-   *
-   * <ul>
-   *   <li>Then calls {@link DataAssociation#clone()}.
-   * </ul>
-   *
-   * <p>Method under test: {@link UserTask#setValues(UserTask)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void UserTask.setValues(UserTask)"})
-  public void testSetValuesWithUserTask_thenCallsClone() {
-    // Arrange
-    UserTask userTask = new UserTask();
-
-    DataAssociation dataAssociation = mock(DataAssociation.class);
-    when(dataAssociation.clone()).thenReturn(new DataAssociation());
 
     ArrayList<DataAssociation> dataOutputAssociations = new ArrayList<>();
-    dataOutputAssociations.add(dataAssociation);
+    dataOutputAssociations.add(new DataAssociation());
 
     ArrayList<BoundaryEvent> boundaryEvents = new ArrayList<>();
     boundaryEvents.add(new BoundaryEvent());
@@ -1347,132 +846,73 @@ public class UserTaskDiffblueTest {
     // Act
     userTask.setValues(otherElement);
 
-    // Assert
-    verify(dataAssociation).clone();
+    // Assert that nothing has changed
+    assertFalse(otherElement.hasMultiInstanceLoopCharacteristics());
+    assertFalse(otherElement.isForCompensation());
+    assertFalse(otherElement.isAsynchronous());
+    assertFalse(otherElement.isNotExclusive());
+    assertFalse(otherElement.isExtended());
+    assertTrue(otherElement.getCustomGroupIdentityLinks().isEmpty());
+    assertTrue(otherElement.getCustomUserIdentityLinks().isEmpty());
+    assertTrue(otherElement.isExclusive());
   }
 
   /**
    * Test {@link UserTask#setValues(UserTask)} with {@code UserTask}.
-   *
    * <ul>
-   *   <li>Then {@link UserTask} (default constructor) BoundaryEvents size is one.
+   *   <li>Given {@link ArrayList#ArrayList()} add {@link DataAssociation} (default constructor).</li>
    * </ul>
-   *
-   * <p>Method under test: {@link UserTask#setValues(UserTask)}
+   * <p>
+   * Method under test: {@link UserTask#setValues(UserTask)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void UserTask.setValues(UserTask)"})
-  public void testSetValuesWithUserTask_thenUserTaskBoundaryEventsSizeIsOne() {
+  public void testSetValuesWithUserTask_givenArrayListAddDataAssociation2() {
     // Arrange
     UserTask userTask = new UserTask();
 
-    ArrayList<BoundaryEvent> boundaryEventList = new ArrayList<>();
-    BoundaryEvent boundaryEvent = new BoundaryEvent();
-    boundaryEventList.add(boundaryEvent);
+    ArrayList<DataAssociation> dataInputAssociations = new ArrayList<>();
+    dataInputAssociations.add(new DataAssociation());
 
-    AlfrescoUserTask otherElement = mock(AlfrescoUserTask.class);
-    when(otherElement.getBoundaryEvents()).thenReturn(boundaryEventList);
-    when(otherElement.getDataInputAssociations()).thenReturn(null);
-    when(otherElement.getDataOutputAssociations()).thenReturn(null);
-    when(otherElement.getFormProperties()).thenReturn(null);
-    when(otherElement.getTaskListeners()).thenReturn(null);
-    when(otherElement.getIoSpecification()).thenReturn(null);
-    when(otherElement.getLoopCharacteristics()).thenReturn(null);
-    when(otherElement.isForCompensation()).thenReturn(true);
-    when(otherElement.isAsynchronous()).thenReturn(true);
-    when(otherElement.isNotExclusive()).thenReturn(true);
-    when(otherElement.getDefaultFlow()).thenReturn("Default Flow");
-    when(otherElement.getFailedJobRetryTimeCycleValue()).thenReturn("42");
-    when(otherElement.getId()).thenReturn("42");
-    when(otherElement.getDocumentation()).thenReturn("Documentation");
-    when(otherElement.getName()).thenReturn("Name");
-    when(otherElement.getAssignee()).thenReturn("Assignee");
-    when(otherElement.getCategory()).thenReturn("Category");
-    when(otherElement.getDueDate()).thenReturn("2020-03-01");
-    when(otherElement.getExtensionId()).thenReturn("42");
-    when(otherElement.getFormKey()).thenReturn("Form Key");
-    when(otherElement.getOwner()).thenReturn("Owner");
-    when(otherElement.getPriority()).thenReturn("Priority");
-    when(otherElement.getSkipExpression()).thenReturn("Skip Expression");
-    when(otherElement.getExecutionListeners()).thenReturn(new ArrayList<>());
-    when(otherElement.getCandidateGroups()).thenReturn(new ArrayList<>());
-    when(otherElement.getCandidateUsers()).thenReturn(new ArrayList<>());
-    when(otherElement.getAttributes()).thenReturn(new HashMap<>());
-    when(otherElement.getExtensionElements()).thenReturn(new HashMap<>());
+    ArrayList<BoundaryEvent> boundaryEvents = new ArrayList<>();
+    boundaryEvents.add(new BoundaryEvent());
+
+    UserTask otherElement = new UserTask();
+    otherElement.setLoopCharacteristics(null);
+    otherElement.setIoSpecification(null);
+    otherElement.setDataInputAssociations(dataInputAssociations);
+    otherElement.setDataOutputAssociations(null);
+    otherElement.setBoundaryEvents(boundaryEvents);
 
     // Act
     userTask.setValues(otherElement);
 
-    // Assert
-    verify(otherElement).getBoundaryEvents();
-    verify(otherElement).getDataInputAssociations();
-    verify(otherElement).getDataOutputAssociations();
-    verify(otherElement).getDefaultFlow();
-    verify(otherElement).getFailedJobRetryTimeCycleValue();
-    verify(otherElement).getIoSpecification();
-    verify(otherElement).getLoopCharacteristics();
-    verify(otherElement).isForCompensation();
-    verify(otherElement, atLeast(1)).getAttributes();
-    verify(otherElement, atLeast(1)).getExtensionElements();
-    verify(otherElement).getId();
-    verify(otherElement).getDocumentation();
-    verify(otherElement, atLeast(1)).getExecutionListeners();
-    verify(otherElement).getName();
-    verify(otherElement).isAsynchronous();
-    verify(otherElement).isNotExclusive();
-    verify(otherElement).getAssignee();
-    verify(otherElement).getCandidateGroups();
-    verify(otherElement).getCandidateUsers();
-    verify(otherElement).getCategory();
-    verify(otherElement).getDueDate();
-    verify(otherElement).getExtensionId();
-    verify(otherElement).getFormKey();
-    verify(otherElement).getFormProperties();
-    verify(otherElement).getOwner();
-    verify(otherElement).getPriority();
-    verify(otherElement).getSkipExpression();
-    verify(otherElement).getTaskListeners();
-    List<BoundaryEvent> boundaryEvents = userTask.getBoundaryEvents();
-    assertEquals(1, boundaryEvents.size());
-    assertSame(boundaryEvent, boundaryEvents.get(0));
+    // Assert that nothing has changed
+    assertFalse(otherElement.hasMultiInstanceLoopCharacteristics());
+    assertFalse(otherElement.isForCompensation());
+    assertFalse(otherElement.isAsynchronous());
+    assertFalse(otherElement.isNotExclusive());
+    assertFalse(otherElement.isExtended());
+    assertTrue(otherElement.getCustomGroupIdentityLinks().isEmpty());
+    assertTrue(otherElement.getCustomUserIdentityLinks().isEmpty());
+    assertTrue(otherElement.isExclusive());
   }
 
   /**
    * Test {@link UserTask#setValues(UserTask)} with {@code UserTask}.
-   *
    * <ul>
-   *   <li>Then {@link UserTask} (default constructor) DataInputAssociations size is one.
+   *   <li>Given {@link ArrayList#ArrayList()} add {@link FieldExtension} (default constructor).</li>
    * </ul>
-   *
-   * <p>Method under test: {@link UserTask#setValues(UserTask)}
+   * <p>
+   * Method under test: {@link UserTask#setValues(UserTask)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void UserTask.setValues(UserTask)"})
-  public void testSetValuesWithUserTask_thenUserTaskDataInputAssociationsSizeIsOne() {
+  public void testSetValuesWithUserTask_givenArrayListAddFieldExtension() {
     // Arrange
     UserTask userTask = new UserTask();
-
-    ArrayList<BoundaryEvent> boundaryEventList = new ArrayList<>();
-    boundaryEventList.add(new BoundaryEvent());
-
-    ArrayList<DataAssociation> dataAssociationList = new ArrayList<>();
-    dataAssociationList.add(new DataAssociation());
-
-    ArrayList<DataAssociation> dataAssociationList2 = new ArrayList<>();
-    dataAssociationList2.add(new DataAssociation());
-
-    ArrayList<FormValue> formValues = new ArrayList<>();
-    formValues.add(new FormValue());
-
-    FormProperty formProperty = new FormProperty();
-    formProperty.setFormValues(formValues);
-
-    ArrayList<FormProperty> formPropertyList = new ArrayList<>();
-    formPropertyList.add(formProperty);
 
     ArrayList<FieldExtension> fieldExtensions = new ArrayList<>();
     fieldExtensions.add(new FieldExtension());
@@ -1480,541 +920,42 @@ public class UserTaskDiffblueTest {
     ActivitiListener activitiListener = new ActivitiListener();
     activitiListener.setFieldExtensions(fieldExtensions);
 
-    ArrayList<ActivitiListener> activitiListenerList = new ArrayList<>();
-    activitiListenerList.add(activitiListener);
+    ArrayList<ActivitiListener> taskListeners = new ArrayList<>();
+    taskListeners.add(activitiListener);
 
-    AlfrescoUserTask otherElement = mock(AlfrescoUserTask.class);
-    when(otherElement.getBoundaryEvents()).thenReturn(boundaryEventList);
-    when(otherElement.getDataInputAssociations()).thenReturn(dataAssociationList);
-    when(otherElement.getDataOutputAssociations()).thenReturn(dataAssociationList2);
-    when(otherElement.getFormProperties()).thenReturn(formPropertyList);
-    when(otherElement.getTaskListeners()).thenReturn(activitiListenerList);
-    when(otherElement.getIoSpecification()).thenReturn(null);
-    when(otherElement.getLoopCharacteristics()).thenReturn(null);
-    when(otherElement.isForCompensation()).thenReturn(true);
-    when(otherElement.isAsynchronous()).thenReturn(true);
-    when(otherElement.isNotExclusive()).thenReturn(true);
-    when(otherElement.getDefaultFlow()).thenReturn("Default Flow");
-    when(otherElement.getFailedJobRetryTimeCycleValue()).thenReturn("42");
-    when(otherElement.getId()).thenReturn("42");
-    when(otherElement.getDocumentation()).thenReturn("Documentation");
-    when(otherElement.getName()).thenReturn("Name");
-    when(otherElement.getAssignee()).thenReturn("Assignee");
-    when(otherElement.getCategory()).thenReturn("Category");
-    when(otherElement.getDueDate()).thenReturn("2020-03-01");
-    when(otherElement.getExtensionId()).thenReturn("42");
-    when(otherElement.getFormKey()).thenReturn("Form Key");
-    when(otherElement.getOwner()).thenReturn("Owner");
-    when(otherElement.getPriority()).thenReturn("Priority");
-    when(otherElement.getSkipExpression()).thenReturn("Skip Expression");
-    when(otherElement.getExecutionListeners()).thenReturn(new ArrayList<>());
-    when(otherElement.getCandidateGroups()).thenReturn(new ArrayList<>());
-    when(otherElement.getCandidateUsers()).thenReturn(new ArrayList<>());
-    when(otherElement.getAttributes()).thenReturn(new HashMap<>());
-    when(otherElement.getExtensionElements()).thenReturn(new HashMap<>());
+    UserTask otherElement = new UserTask();
+    otherElement.setFormProperties(null);
+    otherElement.setTaskListeners(taskListeners);
 
     // Act
     userTask.setValues(otherElement);
 
-    // Assert
-    verify(otherElement).getBoundaryEvents();
-    verify(otherElement, atLeast(1)).getDataInputAssociations();
-    verify(otherElement, atLeast(1)).getDataOutputAssociations();
-    verify(otherElement).getDefaultFlow();
-    verify(otherElement).getFailedJobRetryTimeCycleValue();
-    verify(otherElement).getIoSpecification();
-    verify(otherElement).getLoopCharacteristics();
-    verify(otherElement).isForCompensation();
-    verify(otherElement, atLeast(1)).getAttributes();
-    verify(otherElement, atLeast(1)).getExtensionElements();
-    verify(otherElement).getId();
-    verify(otherElement).getDocumentation();
-    verify(otherElement, atLeast(1)).getExecutionListeners();
-    verify(otherElement).getName();
-    verify(otherElement).isAsynchronous();
-    verify(otherElement).isNotExclusive();
-    verify(otherElement).getAssignee();
-    verify(otherElement).getCandidateGroups();
-    verify(otherElement).getCandidateUsers();
-    verify(otherElement).getCategory();
-    verify(otherElement).getDueDate();
-    verify(otherElement).getExtensionId();
-    verify(otherElement).getFormKey();
-    verify(otherElement, atLeast(1)).getFormProperties();
-    verify(otherElement).getOwner();
-    verify(otherElement).getPriority();
-    verify(otherElement).getSkipExpression();
-    verify(otherElement, atLeast(1)).getTaskListeners();
-    assertEquals(1, userTask.getDataInputAssociations().size());
-    assertEquals(1, userTask.getDataOutputAssociations().size());
-    assertEquals(1, userTask.getFormProperties().size());
-    assertEquals(1, userTask.getTaskListeners().size());
+    // Assert that nothing has changed
+    assertFalse(otherElement.hasMultiInstanceLoopCharacteristics());
+    assertFalse(otherElement.isForCompensation());
+    assertFalse(otherElement.isAsynchronous());
+    assertFalse(otherElement.isNotExclusive());
+    assertFalse(otherElement.isExtended());
+    assertTrue(otherElement.getCustomGroupIdentityLinks().isEmpty());
+    assertTrue(otherElement.getCustomUserIdentityLinks().isEmpty());
+    assertTrue(otherElement.isExclusive());
   }
 
   /**
    * Test {@link UserTask#setValues(UserTask)} with {@code UserTask}.
-   *
    * <ul>
-   *   <li>Then {@link UserTask} (default constructor) ExecutionListeners size is one.
+   *   <li>Given {@code true}.</li>
+   *   <li>Then {@link UserTask} (default constructor) DueDate is {@code 2020-03-01}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link UserTask#setValues(UserTask)}
+   * <p>
+   * Method under test: {@link UserTask#setValues(UserTask)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void UserTask.setValues(UserTask)"})
-  public void testSetValuesWithUserTask_thenUserTaskExecutionListenersSizeIsOne() {
+  public void testSetValuesWithUserTask_givenTrue_thenUserTaskDueDateIs20200301() {
     // Arrange
     UserTask userTask = new UserTask();
-
-    ArrayList<BoundaryEvent> boundaryEventList = new ArrayList<>();
-    boundaryEventList.add(new BoundaryEvent());
-
-    ArrayList<ActivitiListener> activitiListenerList = new ArrayList<>();
-    activitiListenerList.add(new ActivitiListener());
-
-    AlfrescoUserTask otherElement = mock(AlfrescoUserTask.class);
-    when(otherElement.getBoundaryEvents()).thenReturn(boundaryEventList);
-    when(otherElement.getDataInputAssociations()).thenReturn(null);
-    when(otherElement.getDataOutputAssociations()).thenReturn(null);
-    when(otherElement.getFormProperties()).thenReturn(null);
-    when(otherElement.getTaskListeners()).thenReturn(null);
-    when(otherElement.getIoSpecification()).thenReturn(null);
-    when(otherElement.getLoopCharacteristics()).thenReturn(null);
-    when(otherElement.isForCompensation()).thenReturn(true);
-    when(otherElement.isAsynchronous()).thenReturn(true);
-    when(otherElement.isNotExclusive()).thenReturn(true);
-    when(otherElement.getDefaultFlow()).thenReturn("Default Flow");
-    when(otherElement.getFailedJobRetryTimeCycleValue()).thenReturn("42");
-    when(otherElement.getId()).thenReturn("42");
-    when(otherElement.getDocumentation()).thenReturn("Documentation");
-    when(otherElement.getName()).thenReturn("Name");
-    when(otherElement.getAssignee()).thenReturn("Assignee");
-    when(otherElement.getCategory()).thenReturn("Category");
-    when(otherElement.getDueDate()).thenReturn("2020-03-01");
-    when(otherElement.getExtensionId()).thenReturn("42");
-    when(otherElement.getFormKey()).thenReturn("Form Key");
-    when(otherElement.getOwner()).thenReturn("Owner");
-    when(otherElement.getPriority()).thenReturn("Priority");
-    when(otherElement.getSkipExpression()).thenReturn("Skip Expression");
-    when(otherElement.getExecutionListeners()).thenReturn(activitiListenerList);
-    when(otherElement.getCandidateGroups()).thenReturn(new ArrayList<>());
-    when(otherElement.getCandidateUsers()).thenReturn(new ArrayList<>());
-    when(otherElement.getAttributes()).thenReturn(new HashMap<>());
-    when(otherElement.getExtensionElements()).thenReturn(new HashMap<>());
-
-    // Act
-    userTask.setValues(otherElement);
-
-    // Assert
-    verify(otherElement).getBoundaryEvents();
-    verify(otherElement).getDataInputAssociations();
-    verify(otherElement).getDataOutputAssociations();
-    verify(otherElement).getDefaultFlow();
-    verify(otherElement).getFailedJobRetryTimeCycleValue();
-    verify(otherElement).getIoSpecification();
-    verify(otherElement).getLoopCharacteristics();
-    verify(otherElement).isForCompensation();
-    verify(otherElement, atLeast(1)).getAttributes();
-    verify(otherElement, atLeast(1)).getExtensionElements();
-    verify(otherElement).getId();
-    verify(otherElement).getDocumentation();
-    verify(otherElement, atLeast(1)).getExecutionListeners();
-    verify(otherElement).getName();
-    verify(otherElement).isAsynchronous();
-    verify(otherElement).isNotExclusive();
-    verify(otherElement).getAssignee();
-    verify(otherElement).getCandidateGroups();
-    verify(otherElement).getCandidateUsers();
-    verify(otherElement).getCategory();
-    verify(otherElement).getDueDate();
-    verify(otherElement).getExtensionId();
-    verify(otherElement).getFormKey();
-    verify(otherElement).getFormProperties();
-    verify(otherElement).getOwner();
-    verify(otherElement).getPriority();
-    verify(otherElement).getSkipExpression();
-    verify(otherElement).getTaskListeners();
-    List<ActivitiListener> executionListeners = userTask.getExecutionListeners();
-    assertEquals(1, executionListeners.size());
-    ActivitiListener getResult = executionListeners.get(0);
-    assertNull(getResult.getInstance());
-    assertNull(getResult.getCustomPropertiesResolverImplementation());
-    assertNull(getResult.getCustomPropertiesResolverImplementationType());
-    assertNull(getResult.getEvent());
-    assertNull(getResult.getImplementation());
-    assertNull(getResult.getImplementationType());
-    assertNull(getResult.getOnTransaction());
-    assertNull(getResult.getId());
-    assertEquals(0, getResult.getXmlColumnNumber());
-    assertEquals(0, getResult.getXmlRowNumber());
-    assertTrue(getResult.getFieldExtensions().isEmpty());
-    assertTrue(getResult.getAttributes().isEmpty());
-    assertTrue(getResult.getExtensionElements().isEmpty());
-  }
-
-  /**
-   * Test {@link UserTask#setValues(UserTask)} with {@code UserTask}.
-   *
-   * <ul>
-   *   <li>Then {@link UserTask} (default constructor) FormProperties first is {@link FormProperty}
-   *       (default constructor).
-   * </ul>
-   *
-   * <p>Method under test: {@link UserTask#setValues(UserTask)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void UserTask.setValues(UserTask)"})
-  public void testSetValuesWithUserTask_thenUserTaskFormPropertiesFirstIsFormProperty() {
-    // Arrange
-    UserTask userTask = new UserTask();
-
-    ArrayList<BoundaryEvent> boundaryEventList = new ArrayList<>();
-    boundaryEventList.add(new BoundaryEvent());
-
-    FormProperty formProperty = mock(FormProperty.class);
-    FormProperty formProperty2 = new FormProperty();
-    when(formProperty.clone()).thenReturn(formProperty2);
-    doNothing().when(formProperty).setFormValues(Mockito.<List<FormValue>>any());
-    formProperty.setFormValues(null);
-
-    ArrayList<FormProperty> formPropertyList = new ArrayList<>();
-    formPropertyList.add(formProperty);
-
-    ActivitiListener activitiListener = new ActivitiListener();
-    activitiListener.setFieldExtensions(null);
-
-    ArrayList<ActivitiListener> activitiListenerList = new ArrayList<>();
-    activitiListenerList.add(activitiListener);
-
-    AlfrescoUserTask otherElement = mock(AlfrescoUserTask.class);
-    when(otherElement.getBoundaryEvents()).thenReturn(boundaryEventList);
-    when(otherElement.getDataInputAssociations()).thenReturn(null);
-    when(otherElement.getDataOutputAssociations()).thenReturn(null);
-    when(otherElement.getFormProperties()).thenReturn(formPropertyList);
-    when(otherElement.getTaskListeners()).thenReturn(activitiListenerList);
-    when(otherElement.getIoSpecification()).thenReturn(null);
-    when(otherElement.getLoopCharacteristics()).thenReturn(null);
-    when(otherElement.isForCompensation()).thenReturn(true);
-    when(otherElement.isAsynchronous()).thenReturn(true);
-    when(otherElement.isNotExclusive()).thenReturn(true);
-    when(otherElement.getDefaultFlow()).thenReturn("Default Flow");
-    when(otherElement.getFailedJobRetryTimeCycleValue()).thenReturn("42");
-    when(otherElement.getId()).thenReturn("42");
-    when(otherElement.getDocumentation()).thenReturn("Documentation");
-    when(otherElement.getName()).thenReturn("Name");
-    when(otherElement.getAssignee()).thenReturn("Assignee");
-    when(otherElement.getCategory()).thenReturn("Category");
-    when(otherElement.getDueDate()).thenReturn("2020-03-01");
-    when(otherElement.getExtensionId()).thenReturn("42");
-    when(otherElement.getFormKey()).thenReturn("Form Key");
-    when(otherElement.getOwner()).thenReturn("Owner");
-    when(otherElement.getPriority()).thenReturn("Priority");
-    when(otherElement.getSkipExpression()).thenReturn("Skip Expression");
-    when(otherElement.getExecutionListeners()).thenReturn(new ArrayList<>());
-    when(otherElement.getCandidateGroups()).thenReturn(new ArrayList<>());
-    when(otherElement.getCandidateUsers()).thenReturn(new ArrayList<>());
-    when(otherElement.getAttributes()).thenReturn(new HashMap<>());
-    when(otherElement.getExtensionElements()).thenReturn(new HashMap<>());
-
-    // Act
-    userTask.setValues(otherElement);
-
-    // Assert
-    verify(otherElement).getBoundaryEvents();
-    verify(otherElement).getDataInputAssociations();
-    verify(otherElement).getDataOutputAssociations();
-    verify(otherElement).getDefaultFlow();
-    verify(otherElement).getFailedJobRetryTimeCycleValue();
-    verify(otherElement).getIoSpecification();
-    verify(otherElement).getLoopCharacteristics();
-    verify(otherElement).isForCompensation();
-    verify(otherElement, atLeast(1)).getAttributes();
-    verify(otherElement, atLeast(1)).getExtensionElements();
-    verify(otherElement).getId();
-    verify(otherElement).getDocumentation();
-    verify(otherElement, atLeast(1)).getExecutionListeners();
-    verify(otherElement).getName();
-    verify(otherElement).isAsynchronous();
-    verify(otherElement).isNotExclusive();
-    verify(formProperty).clone();
-    verify(formProperty).setFormValues(isNull());
-    verify(otherElement).getAssignee();
-    verify(otherElement).getCandidateGroups();
-    verify(otherElement).getCandidateUsers();
-    verify(otherElement).getCategory();
-    verify(otherElement).getDueDate();
-    verify(otherElement).getExtensionId();
-    verify(otherElement).getFormKey();
-    verify(otherElement, atLeast(1)).getFormProperties();
-    verify(otherElement).getOwner();
-    verify(otherElement).getPriority();
-    verify(otherElement).getSkipExpression();
-    verify(otherElement, atLeast(1)).getTaskListeners();
-    List<FormProperty> formProperties = userTask.getFormProperties();
-    assertEquals(1, formProperties.size());
-    assertEquals(1, userTask.getTaskListeners().size());
-    assertSame(formProperty2, formProperties.get(0));
-  }
-
-  /**
-   * Test {@link UserTask#setValues(UserTask)} with {@code UserTask}.
-   *
-   * <ul>
-   *   <li>Then {@link UserTask} (default constructor) IoSpecification Id is {@code null}.
-   * </ul>
-   *
-   * <p>Method under test: {@link UserTask#setValues(UserTask)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void UserTask.setValues(UserTask)"})
-  public void testSetValuesWithUserTask_thenUserTaskIoSpecificationIdIsNull() {
-    // Arrange
-    UserTask userTask = new UserTask();
-
-    ArrayList<BoundaryEvent> boundaryEventList = new ArrayList<>();
-    boundaryEventList.add(new BoundaryEvent());
-
-    FormProperty formProperty = mock(FormProperty.class);
-    when(formProperty.clone()).thenReturn(new FormProperty());
-    doNothing().when(formProperty).setFormValues(Mockito.<List<FormValue>>any());
-    formProperty.setFormValues(null);
-
-    ArrayList<FormProperty> formPropertyList = new ArrayList<>();
-    formPropertyList.add(formProperty);
-
-    ActivitiListener activitiListener = mock(ActivitiListener.class);
-    when(activitiListener.clone()).thenReturn(new ActivitiListener());
-    doNothing().when(activitiListener).setFieldExtensions(Mockito.<List<FieldExtension>>any());
-    activitiListener.setFieldExtensions(null);
-
-    ArrayList<ActivitiListener> activitiListenerList = new ArrayList<>();
-    activitiListenerList.add(activitiListener);
-
-    IOSpecification ioSpecification = mock(IOSpecification.class);
-    when(ioSpecification.clone()).thenReturn(new IOSpecification());
-
-    AlfrescoUserTask otherElement = mock(AlfrescoUserTask.class);
-    when(otherElement.getBoundaryEvents()).thenReturn(boundaryEventList);
-    when(otherElement.getDataInputAssociations()).thenReturn(null);
-    when(otherElement.getDataOutputAssociations()).thenReturn(null);
-    when(otherElement.getFormProperties()).thenReturn(formPropertyList);
-    when(otherElement.getTaskListeners()).thenReturn(activitiListenerList);
-    when(otherElement.getIoSpecification()).thenReturn(ioSpecification);
-    when(otherElement.getLoopCharacteristics()).thenReturn(null);
-    when(otherElement.isForCompensation()).thenReturn(true);
-    when(otherElement.isAsynchronous()).thenReturn(true);
-    when(otherElement.isNotExclusive()).thenReturn(true);
-    when(otherElement.getDefaultFlow()).thenReturn("Default Flow");
-    when(otherElement.getFailedJobRetryTimeCycleValue()).thenReturn("42");
-    when(otherElement.getId()).thenReturn("42");
-    when(otherElement.getDocumentation()).thenReturn("Documentation");
-    when(otherElement.getName()).thenReturn("Name");
-    when(otherElement.getAssignee()).thenReturn("Assignee");
-    when(otherElement.getCategory()).thenReturn("Category");
-    when(otherElement.getDueDate()).thenReturn("2020-03-01");
-    when(otherElement.getExtensionId()).thenReturn("42");
-    when(otherElement.getFormKey()).thenReturn("Form Key");
-    when(otherElement.getOwner()).thenReturn("Owner");
-    when(otherElement.getPriority()).thenReturn("Priority");
-    when(otherElement.getSkipExpression()).thenReturn("Skip Expression");
-    when(otherElement.getExecutionListeners()).thenReturn(new ArrayList<>());
-    when(otherElement.getCandidateGroups()).thenReturn(new ArrayList<>());
-    when(otherElement.getCandidateUsers()).thenReturn(new ArrayList<>());
-    when(otherElement.getAttributes()).thenReturn(new HashMap<>());
-    when(otherElement.getExtensionElements()).thenReturn(new HashMap<>());
-
-    // Act
-    userTask.setValues(otherElement);
-
-    // Assert
-    verify(activitiListener).clone();
-    verify(activitiListener).setFieldExtensions(isNull());
-    verify(otherElement).getBoundaryEvents();
-    verify(otherElement).getDataInputAssociations();
-    verify(otherElement).getDataOutputAssociations();
-    verify(otherElement).getDefaultFlow();
-    verify(otherElement).getFailedJobRetryTimeCycleValue();
-    verify(otherElement, atLeast(1)).getIoSpecification();
-    verify(otherElement).getLoopCharacteristics();
-    verify(otherElement).isForCompensation();
-    verify(otherElement, atLeast(1)).getAttributes();
-    verify(otherElement, atLeast(1)).getExtensionElements();
-    verify(otherElement).getId();
-    verify(otherElement).getDocumentation();
-    verify(otherElement, atLeast(1)).getExecutionListeners();
-    verify(otherElement).getName();
-    verify(otherElement).isAsynchronous();
-    verify(otherElement).isNotExclusive();
-    verify(formProperty).clone();
-    verify(formProperty).setFormValues(isNull());
-    verify(ioSpecification).clone();
-    verify(otherElement).getAssignee();
-    verify(otherElement).getCandidateGroups();
-    verify(otherElement).getCandidateUsers();
-    verify(otherElement).getCategory();
-    verify(otherElement).getDueDate();
-    verify(otherElement).getExtensionId();
-    verify(otherElement).getFormKey();
-    verify(otherElement, atLeast(1)).getFormProperties();
-    verify(otherElement).getOwner();
-    verify(otherElement).getPriority();
-    verify(otherElement).getSkipExpression();
-    verify(otherElement, atLeast(1)).getTaskListeners();
-    IOSpecification ioSpecification2 = userTask.getIoSpecification();
-    assertNull(ioSpecification2.getId());
-    assertEquals(0, ioSpecification2.getXmlColumnNumber());
-    assertEquals(0, ioSpecification2.getXmlRowNumber());
-    assertTrue(ioSpecification2.getDataInputRefs().isEmpty());
-    assertTrue(ioSpecification2.getDataInputs().isEmpty());
-    assertTrue(ioSpecification2.getDataOutputRefs().isEmpty());
-    assertTrue(ioSpecification2.getDataOutputs().isEmpty());
-    assertTrue(ioSpecification2.getAttributes().isEmpty());
-    assertTrue(ioSpecification2.getExtensionElements().isEmpty());
-  }
-
-  /**
-   * Test {@link UserTask#setValues(UserTask)} with {@code UserTask}.
-   *
-   * <ul>
-   *   <li>Then {@link UserTask} (default constructor) IoSpecification is {@link IOSpecification}
-   *       (default constructor).
-   * </ul>
-   *
-   * <p>Method under test: {@link UserTask#setValues(UserTask)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void UserTask.setValues(UserTask)"})
-  public void testSetValuesWithUserTask_thenUserTaskIoSpecificationIsIOSpecification() {
-    // Arrange
-    UserTask userTask = new UserTask();
-
-    ArrayList<BoundaryEvent> boundaryEventList = new ArrayList<>();
-    boundaryEventList.add(new BoundaryEvent());
-
-    FormProperty formProperty = mock(FormProperty.class);
-    when(formProperty.clone()).thenReturn(new FormProperty());
-    doNothing().when(formProperty).setFormValues(Mockito.<List<FormValue>>any());
-    formProperty.setFormValues(null);
-
-    ArrayList<FormProperty> formPropertyList = new ArrayList<>();
-    formPropertyList.add(formProperty);
-
-    ActivitiListener activitiListener = mock(ActivitiListener.class);
-    when(activitiListener.clone()).thenReturn(new ActivitiListener());
-    doNothing().when(activitiListener).setFieldExtensions(Mockito.<List<FieldExtension>>any());
-    activitiListener.setFieldExtensions(null);
-
-    ArrayList<ActivitiListener> activitiListenerList = new ArrayList<>();
-    activitiListenerList.add(activitiListener);
-
-    IOSpecification ioSpecification = mock(IOSpecification.class);
-    IOSpecification ioSpecification2 = new IOSpecification();
-    when(ioSpecification.clone()).thenReturn(ioSpecification2);
-
-    MultiInstanceLoopCharacteristics multiInstanceLoopCharacteristics =
-        mock(MultiInstanceLoopCharacteristics.class);
-    MultiInstanceLoopCharacteristics multiInstanceLoopCharacteristics2 =
-        new MultiInstanceLoopCharacteristics();
-    when(multiInstanceLoopCharacteristics.clone()).thenReturn(multiInstanceLoopCharacteristics2);
-
-    AlfrescoUserTask otherElement = mock(AlfrescoUserTask.class);
-    when(otherElement.getBoundaryEvents()).thenReturn(boundaryEventList);
-    when(otherElement.getDataInputAssociations()).thenReturn(null);
-    when(otherElement.getDataOutputAssociations()).thenReturn(null);
-    when(otherElement.getFormProperties()).thenReturn(formPropertyList);
-    when(otherElement.getTaskListeners()).thenReturn(activitiListenerList);
-    when(otherElement.getIoSpecification()).thenReturn(ioSpecification);
-    when(otherElement.getLoopCharacteristics()).thenReturn(multiInstanceLoopCharacteristics);
-    when(otherElement.isForCompensation()).thenReturn(true);
-    when(otherElement.isAsynchronous()).thenReturn(true);
-    when(otherElement.isNotExclusive()).thenReturn(true);
-    when(otherElement.getDefaultFlow()).thenReturn("Default Flow");
-    when(otherElement.getFailedJobRetryTimeCycleValue()).thenReturn("42");
-    when(otherElement.getId()).thenReturn("42");
-    when(otherElement.getDocumentation()).thenReturn("Documentation");
-    when(otherElement.getName()).thenReturn("Name");
-    when(otherElement.getAssignee()).thenReturn("Assignee");
-    when(otherElement.getCategory()).thenReturn("Category");
-    when(otherElement.getDueDate()).thenReturn("2020-03-01");
-    when(otherElement.getExtensionId()).thenReturn("42");
-    when(otherElement.getFormKey()).thenReturn("Form Key");
-    when(otherElement.getOwner()).thenReturn("Owner");
-    when(otherElement.getPriority()).thenReturn("Priority");
-    when(otherElement.getSkipExpression()).thenReturn("Skip Expression");
-    when(otherElement.getExecutionListeners()).thenReturn(new ArrayList<>());
-    when(otherElement.getCandidateGroups()).thenReturn(new ArrayList<>());
-    when(otherElement.getCandidateUsers()).thenReturn(new ArrayList<>());
-    when(otherElement.getAttributes()).thenReturn(new HashMap<>());
-    when(otherElement.getExtensionElements()).thenReturn(new HashMap<>());
-
-    // Act
-    userTask.setValues(otherElement);
-
-    // Assert
-    verify(activitiListener).clone();
-    verify(activitiListener).setFieldExtensions(isNull());
-    verify(otherElement).getBoundaryEvents();
-    verify(otherElement).getDataInputAssociations();
-    verify(otherElement).getDataOutputAssociations();
-    verify(otherElement).getDefaultFlow();
-    verify(otherElement).getFailedJobRetryTimeCycleValue();
-    verify(otherElement, atLeast(1)).getIoSpecification();
-    verify(otherElement, atLeast(1)).getLoopCharacteristics();
-    verify(otherElement).isForCompensation();
-    verify(otherElement, atLeast(1)).getAttributes();
-    verify(otherElement, atLeast(1)).getExtensionElements();
-    verify(otherElement).getId();
-    verify(otherElement).getDocumentation();
-    verify(otherElement, atLeast(1)).getExecutionListeners();
-    verify(otherElement).getName();
-    verify(otherElement).isAsynchronous();
-    verify(otherElement).isNotExclusive();
-    verify(formProperty).clone();
-    verify(formProperty).setFormValues(isNull());
-    verify(ioSpecification).clone();
-    verify(multiInstanceLoopCharacteristics).clone();
-    verify(otherElement).getAssignee();
-    verify(otherElement).getCandidateGroups();
-    verify(otherElement).getCandidateUsers();
-    verify(otherElement).getCategory();
-    verify(otherElement).getDueDate();
-    verify(otherElement).getExtensionId();
-    verify(otherElement).getFormKey();
-    verify(otherElement, atLeast(1)).getFormProperties();
-    verify(otherElement).getOwner();
-    verify(otherElement).getPriority();
-    verify(otherElement).getSkipExpression();
-    verify(otherElement, atLeast(1)).getTaskListeners();
-    assertTrue(userTask.hasMultiInstanceLoopCharacteristics());
-    assertSame(ioSpecification2, userTask.getIoSpecification());
-    assertSame(multiInstanceLoopCharacteristics2, userTask.getLoopCharacteristics());
-  }
-
-  /**
-   * Test {@link UserTask#setValues(UserTask)} with {@code UserTask}.
-   *
-   * <ul>
-   *   <li>Then {@link UserTask} (default constructor) LoopCharacteristics Id is {@code null}.
-   * </ul>
-   *
-   * <p>Method under test: {@link UserTask#setValues(UserTask)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void UserTask.setValues(UserTask)"})
-  public void testSetValuesWithUserTask_thenUserTaskLoopCharacteristicsIdIsNull() {
-    // Arrange
-    UserTask userTask = new UserTask();
-
     AlfrescoUserTask otherElement = mock(AlfrescoUserTask.class);
     when(otherElement.isForCompensation()).thenReturn(true);
     when(otherElement.isAsynchronous()).thenReturn(true);
@@ -2077,152 +1018,358 @@ public class UserTaskDiffblueTest {
     verify(otherElement).getPriority();
     verify(otherElement).getSkipExpression();
     verify(otherElement, atLeast(1)).getTaskListeners();
-    MultiInstanceLoopCharacteristics loopCharacteristics = userTask.getLoopCharacteristics();
-    assertNull(loopCharacteristics.getId());
-    assertNull(loopCharacteristics.getCompletionCondition());
-    assertNull(loopCharacteristics.getElementIndexVariable());
-    assertNull(loopCharacteristics.getElementVariable());
-    assertNull(loopCharacteristics.getInputDataItem());
-    assertNull(loopCharacteristics.getLoopCardinality());
-    assertNull(loopCharacteristics.getLoopDataOutputRef());
-    assertNull(loopCharacteristics.getOutputDataItem());
-    assertEquals(0, loopCharacteristics.getXmlColumnNumber());
-    assertEquals(0, loopCharacteristics.getXmlRowNumber());
-    assertFalse(loopCharacteristics.isSequential());
-    assertTrue(loopCharacteristics.getAttributes().isEmpty());
-    assertTrue(loopCharacteristics.getExtensionElements().isEmpty());
+    assertEquals("2020-03-01", userTask.getDueDate());
+    assertEquals("42", userTask.getFailedJobRetryTimeCycleValue());
+    assertEquals("42", userTask.getId());
+    assertEquals("42", userTask.getExtensionId());
+    assertEquals("Assignee", userTask.getAssignee());
+    assertEquals("Category", userTask.getCategory());
+    assertEquals("Default Flow", userTask.getDefaultFlow());
+    assertEquals("Documentation", userTask.getDocumentation());
+    assertEquals("Form Key", userTask.getFormKey());
+    assertEquals("Name", userTask.getName());
+    assertEquals("Owner", userTask.getOwner());
+    assertEquals("Priority", userTask.getPriority());
+    assertEquals("Skip Expression", userTask.getSkipExpression());
+    assertNull(userTask.getCustomGroupIdentityLinks());
+    assertNull(userTask.getCustomUserIdentityLinks());
+    assertFalse(userTask.isExclusive());
     assertTrue(userTask.hasMultiInstanceLoopCharacteristics());
+    assertTrue(userTask.isForCompensation());
+    assertTrue(userTask.isAsynchronous());
+    assertTrue(userTask.isNotExclusive());
+    assertTrue(userTask.isExtended());
   }
 
   /**
    * Test {@link UserTask#setValues(UserTask)} with {@code UserTask}.
-   *
    * <ul>
-   *   <li>Then {@link UserTask} (default constructor) TaskListeners first FieldExtensions Empty.
+   *   <li>Then calls {@link MultiInstanceLoopCharacteristics#clone()}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link UserTask#setValues(UserTask)}
+   * <p>
+   * Method under test: {@link UserTask#setValues(UserTask)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void UserTask.setValues(UserTask)"})
-  public void testSetValuesWithUserTask_thenUserTaskTaskListenersFirstFieldExtensionsEmpty() {
+  public void testSetValuesWithUserTask_thenCallsClone() {
     // Arrange
     UserTask userTask = new UserTask();
+    MultiInstanceLoopCharacteristics loopCharacteristics = mock(MultiInstanceLoopCharacteristics.class);
+    when(loopCharacteristics.clone()).thenReturn(new MultiInstanceLoopCharacteristics());
 
-    ArrayList<BoundaryEvent> boundaryEventList = new ArrayList<>();
-    boundaryEventList.add(new BoundaryEvent());
+    ArrayList<BoundaryEvent> boundaryEvents = new ArrayList<>();
+    boundaryEvents.add(new BoundaryEvent());
 
-    FormProperty formProperty = mock(FormProperty.class);
-    FormProperty formProperty2 = new FormProperty();
-    when(formProperty.clone()).thenReturn(formProperty2);
-    doNothing().when(formProperty).setFormValues(Mockito.<List<FormValue>>any());
-    formProperty.setFormValues(null);
-
-    ArrayList<FormProperty> formPropertyList = new ArrayList<>();
-    formPropertyList.add(formProperty);
-
-    ActivitiListener activitiListener = mock(ActivitiListener.class);
-    ActivitiListener activitiListener2 = new ActivitiListener();
-    when(activitiListener.clone()).thenReturn(activitiListener2);
-    doNothing().when(activitiListener).setFieldExtensions(Mockito.<List<FieldExtension>>any());
-    activitiListener.setFieldExtensions(null);
-
-    ArrayList<ActivitiListener> activitiListenerList = new ArrayList<>();
-    activitiListenerList.add(activitiListener);
-
-    AlfrescoUserTask otherElement = mock(AlfrescoUserTask.class);
-    when(otherElement.getBoundaryEvents()).thenReturn(boundaryEventList);
-    when(otherElement.getDataInputAssociations()).thenReturn(null);
-    when(otherElement.getDataOutputAssociations()).thenReturn(null);
-    when(otherElement.getFormProperties()).thenReturn(formPropertyList);
-    when(otherElement.getTaskListeners()).thenReturn(activitiListenerList);
-    when(otherElement.getIoSpecification()).thenReturn(null);
-    when(otherElement.getLoopCharacteristics()).thenReturn(null);
-    when(otherElement.isForCompensation()).thenReturn(true);
-    when(otherElement.isAsynchronous()).thenReturn(true);
-    when(otherElement.isNotExclusive()).thenReturn(true);
-    when(otherElement.getDefaultFlow()).thenReturn("Default Flow");
-    when(otherElement.getFailedJobRetryTimeCycleValue()).thenReturn("42");
-    when(otherElement.getId()).thenReturn("42");
-    when(otherElement.getDocumentation()).thenReturn("Documentation");
-    when(otherElement.getName()).thenReturn("Name");
-    when(otherElement.getAssignee()).thenReturn("Assignee");
-    when(otherElement.getCategory()).thenReturn("Category");
-    when(otherElement.getDueDate()).thenReturn("2020-03-01");
-    when(otherElement.getExtensionId()).thenReturn("42");
-    when(otherElement.getFormKey()).thenReturn("Form Key");
-    when(otherElement.getOwner()).thenReturn("Owner");
-    when(otherElement.getPriority()).thenReturn("Priority");
-    when(otherElement.getSkipExpression()).thenReturn("Skip Expression");
-    when(otherElement.getExecutionListeners()).thenReturn(new ArrayList<>());
-    when(otherElement.getCandidateGroups()).thenReturn(new ArrayList<>());
-    when(otherElement.getCandidateUsers()).thenReturn(new ArrayList<>());
-    when(otherElement.getAttributes()).thenReturn(new HashMap<>());
-    when(otherElement.getExtensionElements()).thenReturn(new HashMap<>());
+    UserTask otherElement = new UserTask();
+    otherElement.setLoopCharacteristics(loopCharacteristics);
+    otherElement.setIoSpecification(null);
+    otherElement.setDataInputAssociations(null);
+    otherElement.setDataOutputAssociations(null);
+    otherElement.setBoundaryEvents(boundaryEvents);
 
     // Act
     userTask.setValues(otherElement);
 
-    // Assert
-    verify(activitiListener).clone();
-    verify(activitiListener).setFieldExtensions(isNull());
-    verify(otherElement).getBoundaryEvents();
-    verify(otherElement).getDataInputAssociations();
-    verify(otherElement).getDataOutputAssociations();
-    verify(otherElement).getDefaultFlow();
-    verify(otherElement).getFailedJobRetryTimeCycleValue();
-    verify(otherElement).getIoSpecification();
-    verify(otherElement).getLoopCharacteristics();
-    verify(otherElement).isForCompensation();
-    verify(otherElement, atLeast(1)).getAttributes();
-    verify(otherElement, atLeast(1)).getExtensionElements();
-    verify(otherElement).getId();
-    verify(otherElement).getDocumentation();
-    verify(otherElement, atLeast(1)).getExecutionListeners();
-    verify(otherElement).getName();
-    verify(otherElement).isAsynchronous();
-    verify(otherElement).isNotExclusive();
-    verify(formProperty).clone();
-    verify(formProperty).setFormValues(isNull());
-    verify(otherElement).getAssignee();
-    verify(otherElement).getCandidateGroups();
-    verify(otherElement).getCandidateUsers();
-    verify(otherElement).getCategory();
-    verify(otherElement).getDueDate();
-    verify(otherElement).getExtensionId();
-    verify(otherElement).getFormKey();
-    verify(otherElement, atLeast(1)).getFormProperties();
-    verify(otherElement).getOwner();
-    verify(otherElement).getPriority();
-    verify(otherElement).getSkipExpression();
-    verify(otherElement, atLeast(1)).getTaskListeners();
-    List<FormProperty> formProperties = userTask.getFormProperties();
-    assertEquals(1, formProperties.size());
-    List<ActivitiListener> taskListeners = userTask.getTaskListeners();
-    assertEquals(1, taskListeners.size());
-    ActivitiListener getResult = taskListeners.get(0);
-    assertTrue(getResult.getFieldExtensions().isEmpty());
-    FormProperty getResult2 = formProperties.get(0);
-    assertTrue(getResult2.getFormValues().isEmpty());
-    assertSame(activitiListener2, getResult);
-    assertSame(formProperty2, getResult2);
+    // Assert that nothing has changed
+    verify(loopCharacteristics).clone();
+    assertFalse(otherElement.isForCompensation());
+    assertFalse(otherElement.isAsynchronous());
+    assertFalse(otherElement.isNotExclusive());
+    assertFalse(otherElement.isExtended());
+    assertTrue(otherElement.getCustomGroupIdentityLinks().isEmpty());
+    assertTrue(otherElement.getCustomUserIdentityLinks().isEmpty());
+    assertTrue(otherElement.hasMultiInstanceLoopCharacteristics());
+    assertTrue(otherElement.isExclusive());
+  }
+
+  /**
+   * Test {@link UserTask#setValues(UserTask)} with {@code UserTask}.
+   * <ul>
+   *   <li>Then calls {@link IOSpecification#clone()}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link UserTask#setValues(UserTask)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void UserTask.setValues(UserTask)"})
+  public void testSetValuesWithUserTask_thenCallsClone2() {
+    // Arrange
+    UserTask userTask = new UserTask();
+    MultiInstanceLoopCharacteristics loopCharacteristics = mock(MultiInstanceLoopCharacteristics.class);
+    when(loopCharacteristics.clone()).thenReturn(new MultiInstanceLoopCharacteristics());
+    IOSpecification ioSpecification = mock(IOSpecification.class);
+    when(ioSpecification.clone()).thenReturn(new IOSpecification());
+
+    ArrayList<BoundaryEvent> boundaryEvents = new ArrayList<>();
+    boundaryEvents.add(new BoundaryEvent());
+
+    UserTask otherElement = new UserTask();
+    otherElement.setLoopCharacteristics(loopCharacteristics);
+    otherElement.setIoSpecification(ioSpecification);
+    otherElement.setDataInputAssociations(null);
+    otherElement.setDataOutputAssociations(null);
+    otherElement.setBoundaryEvents(boundaryEvents);
+
+    // Act
+    userTask.setValues(otherElement);
+
+    // Assert that nothing has changed
+    verify(ioSpecification).clone();
+    verify(loopCharacteristics).clone();
+    assertFalse(otherElement.isForCompensation());
+    assertFalse(otherElement.isAsynchronous());
+    assertFalse(otherElement.isNotExclusive());
+    assertFalse(otherElement.isExtended());
+    assertTrue(otherElement.getCustomGroupIdentityLinks().isEmpty());
+    assertTrue(otherElement.getCustomUserIdentityLinks().isEmpty());
+    assertTrue(otherElement.hasMultiInstanceLoopCharacteristics());
+    assertTrue(otherElement.isExclusive());
+  }
+
+  /**
+   * Test {@link UserTask#setValues(UserTask)} with {@code UserTask}.
+   * <ul>
+   *   <li>Then calls {@link DataAssociation#clone()}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link UserTask#setValues(UserTask)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void UserTask.setValues(UserTask)"})
+  public void testSetValuesWithUserTask_thenCallsClone3() {
+    // Arrange
+    UserTask userTask = new UserTask();
+    DataAssociation dataAssociation = mock(DataAssociation.class);
+    when(dataAssociation.clone()).thenReturn(new DataAssociation());
+
+    ArrayList<DataAssociation> dataOutputAssociations = new ArrayList<>();
+    dataOutputAssociations.add(dataAssociation);
+
+    ArrayList<BoundaryEvent> boundaryEvents = new ArrayList<>();
+    boundaryEvents.add(new BoundaryEvent());
+
+    UserTask otherElement = new UserTask();
+    otherElement.setLoopCharacteristics(null);
+    otherElement.setIoSpecification(null);
+    otherElement.setDataInputAssociations(null);
+    otherElement.setDataOutputAssociations(dataOutputAssociations);
+    otherElement.setBoundaryEvents(boundaryEvents);
+
+    // Act
+    userTask.setValues(otherElement);
+
+    // Assert that nothing has changed
+    verify(dataAssociation).clone();
+    assertFalse(otherElement.hasMultiInstanceLoopCharacteristics());
+    assertFalse(otherElement.isForCompensation());
+    assertFalse(otherElement.isAsynchronous());
+    assertFalse(otherElement.isNotExclusive());
+    assertFalse(otherElement.isExtended());
+    assertTrue(otherElement.getCustomGroupIdentityLinks().isEmpty());
+    assertTrue(otherElement.getCustomUserIdentityLinks().isEmpty());
+    assertTrue(otherElement.isExclusive());
+  }
+
+  /**
+   * Test {@link UserTask#setValues(UserTask)} with {@code UserTask}.
+   * <ul>
+   *   <li>Then calls {@link DataAssociation#clone()}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link UserTask#setValues(UserTask)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void UserTask.setValues(UserTask)"})
+  public void testSetValuesWithUserTask_thenCallsClone4() {
+    // Arrange
+    UserTask userTask = new UserTask();
+    DataAssociation dataAssociation = mock(DataAssociation.class);
+    when(dataAssociation.clone()).thenReturn(new DataAssociation());
+
+    ArrayList<DataAssociation> dataInputAssociations = new ArrayList<>();
+    dataInputAssociations.add(dataAssociation);
+
+    ArrayList<BoundaryEvent> boundaryEvents = new ArrayList<>();
+    boundaryEvents.add(new BoundaryEvent());
+
+    UserTask otherElement = new UserTask();
+    otherElement.setLoopCharacteristics(null);
+    otherElement.setIoSpecification(null);
+    otherElement.setDataInputAssociations(dataInputAssociations);
+    otherElement.setDataOutputAssociations(null);
+    otherElement.setBoundaryEvents(boundaryEvents);
+
+    // Act
+    userTask.setValues(otherElement);
+
+    // Assert that nothing has changed
+    verify(dataAssociation).clone();
+    assertFalse(otherElement.hasMultiInstanceLoopCharacteristics());
+    assertFalse(otherElement.isForCompensation());
+    assertFalse(otherElement.isAsynchronous());
+    assertFalse(otherElement.isNotExclusive());
+    assertFalse(otherElement.isExtended());
+    assertTrue(otherElement.getCustomGroupIdentityLinks().isEmpty());
+    assertTrue(otherElement.getCustomUserIdentityLinks().isEmpty());
+    assertTrue(otherElement.isExclusive());
+  }
+
+  /**
+   * Test {@link UserTask#setValues(UserTask)} with {@code UserTask}.
+   * <ul>
+   *   <li>When {@link UserTask} (default constructor).</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link UserTask#setValues(UserTask)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void UserTask.setValues(UserTask)"})
+  public void testSetValuesWithUserTask_whenUserTask() {
+    // Arrange
+    UserTask userTask = new UserTask();
+    UserTask otherElement = new UserTask();
+
+    // Act
+    userTask.setValues(otherElement);
+
+    // Assert that nothing has changed
+    assertFalse(otherElement.hasMultiInstanceLoopCharacteristics());
+    assertFalse(otherElement.isForCompensation());
+    assertFalse(otherElement.isAsynchronous());
+    assertFalse(otherElement.isNotExclusive());
+    assertFalse(otherElement.isExtended());
+    assertTrue(otherElement.getCustomGroupIdentityLinks().isEmpty());
+    assertTrue(otherElement.getCustomUserIdentityLinks().isEmpty());
+    assertTrue(otherElement.isExclusive());
+  }
+
+  /**
+   * Test {@link UserTask#setValues(UserTask)} with {@code UserTask}.
+   * <ul>
+   *   <li>When {@link UserTask} (default constructor) IoSpecification is {@link IOSpecification} (default constructor).</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link UserTask#setValues(UserTask)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void UserTask.setValues(UserTask)"})
+  public void testSetValuesWithUserTask_whenUserTaskIoSpecificationIsIOSpecification() {
+    // Arrange
+    UserTask userTask = new UserTask();
+
+    ArrayList<BoundaryEvent> boundaryEvents = new ArrayList<>();
+    boundaryEvents.add(new BoundaryEvent());
+
+    UserTask otherElement = new UserTask();
+    otherElement.setLoopCharacteristics(null);
+    otherElement.setIoSpecification(new IOSpecification());
+    otherElement.setDataInputAssociations(null);
+    otherElement.setDataOutputAssociations(null);
+    otherElement.setBoundaryEvents(boundaryEvents);
+
+    // Act
+    userTask.setValues(otherElement);
+
+    // Assert that nothing has changed
+    assertFalse(otherElement.hasMultiInstanceLoopCharacteristics());
+    assertFalse(otherElement.isForCompensation());
+    assertFalse(otherElement.isAsynchronous());
+    assertFalse(otherElement.isNotExclusive());
+    assertFalse(otherElement.isExtended());
+    assertTrue(otherElement.getCustomGroupIdentityLinks().isEmpty());
+    assertTrue(otherElement.getCustomUserIdentityLinks().isEmpty());
+    assertTrue(otherElement.isExclusive());
+  }
+
+  /**
+   * Test {@link UserTask#setValues(UserTask)} with {@code UserTask}.
+   * <ul>
+   *   <li>When {@link UserTask} (default constructor) LoopCharacteristics is {@code null}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link UserTask#setValues(UserTask)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void UserTask.setValues(UserTask)"})
+  public void testSetValuesWithUserTask_whenUserTaskLoopCharacteristicsIsNull() {
+    // Arrange
+    UserTask userTask = new UserTask();
+
+    ArrayList<BoundaryEvent> boundaryEvents = new ArrayList<>();
+    boundaryEvents.add(new BoundaryEvent());
+
+    UserTask otherElement = new UserTask();
+    otherElement.setLoopCharacteristics(null);
+    otherElement.setIoSpecification(null);
+    otherElement.setDataInputAssociations(null);
+    otherElement.setDataOutputAssociations(null);
+    otherElement.setBoundaryEvents(boundaryEvents);
+
+    // Act
+    userTask.setValues(otherElement);
+
+    // Assert that nothing has changed
+    assertFalse(otherElement.hasMultiInstanceLoopCharacteristics());
+    assertFalse(otherElement.isForCompensation());
+    assertFalse(otherElement.isAsynchronous());
+    assertFalse(otherElement.isNotExclusive());
+    assertFalse(otherElement.isExtended());
+    assertTrue(otherElement.getCustomGroupIdentityLinks().isEmpty());
+    assertTrue(otherElement.getCustomUserIdentityLinks().isEmpty());
+    assertTrue(otherElement.isExclusive());
+  }
+
+  /**
+   * Test {@link UserTask#setValues(UserTask)} with {@code UserTask}.
+   * <ul>
+   *   <li>When {@link UserTask} (default constructor) TaskListeners is {@code null}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link UserTask#setValues(UserTask)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void UserTask.setValues(UserTask)"})
+  public void testSetValuesWithUserTask_whenUserTaskTaskListenersIsNull() {
+    // Arrange
+    UserTask userTask = new UserTask();
+
+    UserTask otherElement = new UserTask();
+    otherElement.setFormProperties(null);
+    otherElement.setTaskListeners(null);
+
+    // Act
+    userTask.setValues(otherElement);
+
+    // Assert that nothing has changed
+    assertFalse(otherElement.hasMultiInstanceLoopCharacteristics());
+    assertFalse(otherElement.isForCompensation());
+    assertFalse(otherElement.isAsynchronous());
+    assertFalse(otherElement.isNotExclusive());
+    assertFalse(otherElement.isExtended());
+    assertTrue(otherElement.getCustomGroupIdentityLinks().isEmpty());
+    assertTrue(otherElement.getCustomUserIdentityLinks().isEmpty());
+    assertTrue(otherElement.isExclusive());
   }
 
   /**
    * Test {@link UserTask#accept(ReferenceOverrider)}.
-   *
-   * <p>Method under test: {@link UserTask#accept(ReferenceOverrider)}
+   * <p>
+   * Method under test: {@link UserTask#accept(ReferenceOverrider)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void UserTask.accept(ReferenceOverrider)"})
   public void testAccept() {
     // Arrange
     UserTask userTask = new UserTask();
-
     ReferenceOverrider referenceOverrider = mock(ReferenceOverrider.class);
     doNothing().when(referenceOverrider).override(Mockito.<UserTask>any());
 
@@ -2235,9 +1382,8 @@ public class UserTaskDiffblueTest {
 
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>default or parameterless constructor of {@link UserTask}
    *   <li>{@link UserTask#setAssignee(String)}
@@ -2275,43 +1421,21 @@ public class UserTaskDiffblueTest {
    * </ul>
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void UserTask.<init>()",
-    "String UserTask.getAssignee()",
-    "String UserTask.getBusinessCalendarName()",
-    "List UserTask.getCandidateGroups()",
-    "List UserTask.getCandidateUsers()",
-    "String UserTask.getCategory()",
-    "Map UserTask.getCustomGroupIdentityLinks()",
-    "List UserTask.getCustomProperties()",
-    "Map UserTask.getCustomUserIdentityLinks()",
-    "String UserTask.getDueDate()",
-    "String UserTask.getExtensionId()",
-    "String UserTask.getFormKey()",
-    "List UserTask.getFormProperties()",
-    "String UserTask.getOwner()",
-    "String UserTask.getPriority()",
-    "String UserTask.getSkipExpression()",
-    "List UserTask.getTaskListeners()",
-    "void UserTask.setAssignee(String)",
-    "void UserTask.setBusinessCalendarName(String)",
-    "void UserTask.setCandidateGroups(List)",
-    "void UserTask.setCandidateUsers(List)",
-    "void UserTask.setCategory(String)",
-    "void UserTask.setCustomGroupIdentityLinks(Map)",
-    "void UserTask.setCustomProperties(List)",
-    "void UserTask.setCustomUserIdentityLinks(Map)",
-    "void UserTask.setDueDate(String)",
-    "void UserTask.setExtensionId(String)",
-    "void UserTask.setFormKey(String)",
-    "void UserTask.setFormProperties(List)",
-    "void UserTask.setOwner(String)",
-    "void UserTask.setPriority(String)",
-    "void UserTask.setSkipExpression(String)",
-    "void UserTask.setTaskListeners(List)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void UserTask.<init>()", "String UserTask.getAssignee()",
+      "String UserTask.getBusinessCalendarName()", "List UserTask.getCandidateGroups()",
+      "List UserTask.getCandidateUsers()", "String UserTask.getCategory()",
+      "Map UserTask.getCustomGroupIdentityLinks()", "List UserTask.getCustomProperties()",
+      "Map UserTask.getCustomUserIdentityLinks()", "String UserTask.getDueDate()", "String UserTask.getExtensionId()",
+      "String UserTask.getFormKey()", "List UserTask.getFormProperties()", "String UserTask.getOwner()",
+      "String UserTask.getPriority()", "String UserTask.getSkipExpression()", "List UserTask.getTaskListeners()",
+      "void UserTask.setAssignee(String)", "void UserTask.setBusinessCalendarName(String)",
+      "void UserTask.setCandidateGroups(List)", "void UserTask.setCandidateUsers(List)",
+      "void UserTask.setCategory(String)", "void UserTask.setCustomGroupIdentityLinks(Map)",
+      "void UserTask.setCustomProperties(List)", "void UserTask.setCustomUserIdentityLinks(Map)",
+      "void UserTask.setDueDate(String)", "void UserTask.setExtensionId(String)", "void UserTask.setFormKey(String)",
+      "void UserTask.setFormProperties(List)", "void UserTask.setOwner(String)", "void UserTask.setPriority(String)",
+      "void UserTask.setSkipExpression(String)", "void UserTask.setTaskListeners(List)"})
   public void testGettersAndSetters() {
     // Arrange and Act
     UserTask actualUserTask = new UserTask();
@@ -2343,11 +1467,9 @@ public class UserTaskDiffblueTest {
     List<String> actualCandidateGroups = actualUserTask.getCandidateGroups();
     List<String> actualCandidateUsers = actualUserTask.getCandidateUsers();
     String actualCategory = actualUserTask.getCategory();
-    Map<String, Set<String>> actualCustomGroupIdentityLinks =
-        actualUserTask.getCustomGroupIdentityLinks();
+    Map<String, Set<String>> actualCustomGroupIdentityLinks = actualUserTask.getCustomGroupIdentityLinks();
     List<CustomProperty> actualCustomProperties = actualUserTask.getCustomProperties();
-    Map<String, Set<String>> actualCustomUserIdentityLinks =
-        actualUserTask.getCustomUserIdentityLinks();
+    Map<String, Set<String>> actualCustomUserIdentityLinks = actualUserTask.getCustomUserIdentityLinks();
     String actualDueDate = actualUserTask.getDueDate();
     String actualExtensionId = actualUserTask.getExtensionId();
     String actualFormKey = actualUserTask.getFormKey();

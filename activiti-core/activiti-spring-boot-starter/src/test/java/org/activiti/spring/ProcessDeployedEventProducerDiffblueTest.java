@@ -22,7 +22,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
 import java.util.List;
@@ -42,44 +41,36 @@ import org.springframework.context.ApplicationEventPublisher;
 
 @ExtendWith(MockitoExtension.class)
 class ProcessDeployedEventProducerDiffblueTest {
-  @Mock private APIProcessDefinitionConverter aPIProcessDefinitionConverter;
+  @Mock
+  private APIProcessDefinitionConverter aPIProcessDefinitionConverter;
 
-  @InjectMocks private ProcessDeployedEventProducer processDeployedEventProducer;
+  @Mock
+  private RepositoryService repositoryService;
 
-  @Mock private RepositoryService repositoryService;
+  @InjectMocks
+  private ProcessDeployedEventProducer processDeployedEventProducer;
 
   /**
-   * Test {@link ProcessDeployedEventProducer#ProcessDeployedEventProducer(RepositoryService,
-   * APIProcessDefinitionConverter, List, ApplicationEventPublisher)}.
-   *
+   * Test {@link ProcessDeployedEventProducer#ProcessDeployedEventProducer(RepositoryService, APIProcessDefinitionConverter, List, ApplicationEventPublisher)}.
    * <ul>
-   *   <li>Given {@link ProcessRuntimeEventListener}.
+   *   <li>Given {@link ProcessRuntimeEventListener}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link
-   * ProcessDeployedEventProducer#ProcessDeployedEventProducer(RepositoryService,
-   * APIProcessDefinitionConverter, List, ApplicationEventPublisher)}
+   * <p>
+   * Method under test: {@link ProcessDeployedEventProducer#ProcessDeployedEventProducer(RepositoryService, APIProcessDefinitionConverter, List, ApplicationEventPublisher)}
    */
   @Test
-  @DisplayName(
-      "Test new ProcessDeployedEventProducer(RepositoryService, APIProcessDefinitionConverter, List, ApplicationEventPublisher); given ProcessRuntimeEventListener")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test new ProcessDeployedEventProducer(RepositoryService, APIProcessDefinitionConverter, List, ApplicationEventPublisher); given ProcessRuntimeEventListener")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({
-    "void ProcessDeployedEventProducer.<init>(RepositoryService, APIProcessDefinitionConverter, List, ApplicationEventPublisher)"
-  })
+      "void ProcessDeployedEventProducer.<init>(RepositoryService, APIProcessDefinitionConverter, List, ApplicationEventPublisher)"})
   void testNewProcessDeployedEventProducer_givenProcessRuntimeEventListener() {
     // Arrange
     ArrayList<ProcessRuntimeEventListener<ProcessDeployedEvent>> listeners = new ArrayList<>();
     listeners.add(mock(ProcessRuntimeEventListener.class));
 
     // Act
-    ProcessDeployedEventProducer actualProcessDeployedEventProducer =
-        new ProcessDeployedEventProducer(
-            repositoryService,
-            aPIProcessDefinitionConverter,
-            listeners,
-            mock(ApplicationEventPublisher.class));
+    ProcessDeployedEventProducer actualProcessDeployedEventProducer = new ProcessDeployedEventProducer(
+        repositoryService, aPIProcessDefinitionConverter, listeners, mock(ApplicationEventPublisher.class));
 
     // Assert
     assertFalse(actualProcessDeployedEventProducer.isRunning());
@@ -88,25 +79,18 @@ class ProcessDeployedEventProducerDiffblueTest {
   }
 
   /**
-   * Test {@link ProcessDeployedEventProducer#ProcessDeployedEventProducer(RepositoryService,
-   * APIProcessDefinitionConverter, List, ApplicationEventPublisher)}.
-   *
+   * Test {@link ProcessDeployedEventProducer#ProcessDeployedEventProducer(RepositoryService, APIProcessDefinitionConverter, List, ApplicationEventPublisher)}.
    * <ul>
-   *   <li>Given {@link ProcessRuntimeEventListener}.
+   *   <li>Given {@link ProcessRuntimeEventListener}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link
-   * ProcessDeployedEventProducer#ProcessDeployedEventProducer(RepositoryService,
-   * APIProcessDefinitionConverter, List, ApplicationEventPublisher)}
+   * <p>
+   * Method under test: {@link ProcessDeployedEventProducer#ProcessDeployedEventProducer(RepositoryService, APIProcessDefinitionConverter, List, ApplicationEventPublisher)}
    */
   @Test
-  @DisplayName(
-      "Test new ProcessDeployedEventProducer(RepositoryService, APIProcessDefinitionConverter, List, ApplicationEventPublisher); given ProcessRuntimeEventListener")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test new ProcessDeployedEventProducer(RepositoryService, APIProcessDefinitionConverter, List, ApplicationEventPublisher); given ProcessRuntimeEventListener")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({
-    "void ProcessDeployedEventProducer.<init>(RepositoryService, APIProcessDefinitionConverter, List, ApplicationEventPublisher)"
-  })
+      "void ProcessDeployedEventProducer.<init>(RepositoryService, APIProcessDefinitionConverter, List, ApplicationEventPublisher)"})
   void testNewProcessDeployedEventProducer_givenProcessRuntimeEventListener2() {
     // Arrange
     ArrayList<ProcessRuntimeEventListener<ProcessDeployedEvent>> listeners = new ArrayList<>();
@@ -114,12 +98,8 @@ class ProcessDeployedEventProducerDiffblueTest {
     listeners.add(mock(ProcessRuntimeEventListener.class));
 
     // Act
-    ProcessDeployedEventProducer actualProcessDeployedEventProducer =
-        new ProcessDeployedEventProducer(
-            repositoryService,
-            aPIProcessDefinitionConverter,
-            listeners,
-            mock(ApplicationEventPublisher.class));
+    ProcessDeployedEventProducer actualProcessDeployedEventProducer = new ProcessDeployedEventProducer(
+        repositoryService, aPIProcessDefinitionConverter, listeners, mock(ApplicationEventPublisher.class));
 
     // Assert
     assertFalse(actualProcessDeployedEventProducer.isRunning());
@@ -128,33 +108,22 @@ class ProcessDeployedEventProducerDiffblueTest {
   }
 
   /**
-   * Test {@link ProcessDeployedEventProducer#ProcessDeployedEventProducer(RepositoryService,
-   * APIProcessDefinitionConverter, List, ApplicationEventPublisher)}.
-   *
+   * Test {@link ProcessDeployedEventProducer#ProcessDeployedEventProducer(RepositoryService, APIProcessDefinitionConverter, List, ApplicationEventPublisher)}.
    * <ul>
-   *   <li>When {@link ArrayList#ArrayList()}.
+   *   <li>When {@link ArrayList#ArrayList()}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link
-   * ProcessDeployedEventProducer#ProcessDeployedEventProducer(RepositoryService,
-   * APIProcessDefinitionConverter, List, ApplicationEventPublisher)}
+   * <p>
+   * Method under test: {@link ProcessDeployedEventProducer#ProcessDeployedEventProducer(RepositoryService, APIProcessDefinitionConverter, List, ApplicationEventPublisher)}
    */
   @Test
-  @DisplayName(
-      "Test new ProcessDeployedEventProducer(RepositoryService, APIProcessDefinitionConverter, List, ApplicationEventPublisher); when ArrayList()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test new ProcessDeployedEventProducer(RepositoryService, APIProcessDefinitionConverter, List, ApplicationEventPublisher); when ArrayList()")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({
-    "void ProcessDeployedEventProducer.<init>(RepositoryService, APIProcessDefinitionConverter, List, ApplicationEventPublisher)"
-  })
+      "void ProcessDeployedEventProducer.<init>(RepositoryService, APIProcessDefinitionConverter, List, ApplicationEventPublisher)"})
   void testNewProcessDeployedEventProducer_whenArrayList() {
     // Arrange and Act
-    ProcessDeployedEventProducer actualProcessDeployedEventProducer =
-        new ProcessDeployedEventProducer(
-            repositoryService,
-            aPIProcessDefinitionConverter,
-            new ArrayList<>(),
-            mock(ApplicationEventPublisher.class));
+    ProcessDeployedEventProducer actualProcessDeployedEventProducer = new ProcessDeployedEventProducer(
+        repositoryService, aPIProcessDefinitionConverter, new ArrayList<>(), mock(ApplicationEventPublisher.class));
 
     // Assert
     assertFalse(actualProcessDeployedEventProducer.isRunning());
@@ -164,22 +133,19 @@ class ProcessDeployedEventProducerDiffblueTest {
 
   /**
    * Test {@link ProcessDeployedEventProducer#doStart()}.
-   *
    * <ul>
-   *   <li>Then throw {@link ActivitiException}.
+   *   <li>Then throw {@link ActivitiException}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ProcessDeployedEventProducer#doStart()}
+   * <p>
+   * Method under test: {@link ProcessDeployedEventProducer#doStart()}
    */
   @Test
   @DisplayName("Test doStart(); then throw ActivitiException")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void ProcessDeployedEventProducer.doStart()"})
   void testDoStart_thenThrowActivitiException() {
     // Arrange
-    when(repositoryService.createProcessDefinitionQuery())
-        .thenThrow(new ActivitiException("An error occurred"));
+    when(repositoryService.createProcessDefinitionQuery()).thenThrow(new ActivitiException("An error occurred"));
 
     // Act and Assert
     assertThrows(ActivitiException.class, () -> processDeployedEventProducer.doStart());

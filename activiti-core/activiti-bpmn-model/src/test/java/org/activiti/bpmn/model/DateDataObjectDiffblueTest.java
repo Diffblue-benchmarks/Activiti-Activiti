@@ -19,8 +19,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.time.LocalDate;
 import java.time.ZoneOffset;
@@ -31,18 +30,16 @@ import org.junit.experimental.categories.Category;
 public class DateDataObjectDiffblueTest {
   /**
    * Test {@link DateDataObject#clone()}.
-   *
-   * <p>Method under test: {@link DateDataObject#clone()}
+   * <p>
+   * Method under test: {@link DateDataObject#clone()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"DateDataObject DateDataObject.clone()"})
   public void testClone() {
     // Arrange
     DateDataObject dateDataObject = new DateDataObject();
-    Date fromResult =
-        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant());
+    Date fromResult = Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant());
     dateDataObject.setValue(fromResult);
 
     // Act
@@ -65,21 +62,19 @@ public class DateDataObjectDiffblueTest {
 
   /**
    * Test {@link DateDataObject#clone()}.
-   *
    * <ul>
-   *   <li>Given {@link DateDataObject} (default constructor).
-   *   <li>Then return Value is {@code null}.
+   *   <li>Given {@link DateDataObject} (default constructor).</li>
+   *   <li>Then return Value is {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link DateDataObject#clone()}
+   * <p>
+   * Method under test: {@link DateDataObject#clone()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"DateDataObject DateDataObject.clone()"})
   public void testClone_givenDateDataObject_thenReturnValueIsNull() {
     // Arrange and Act
-    DateDataObject actualCloneResult = new DateDataObject().clone();
+    DateDataObject actualCloneResult = (new DateDataObject()).clone();
 
     // Assert
     assertNull(actualCloneResult.getValue());
@@ -98,16 +93,12 @@ public class DateDataObjectDiffblueTest {
 
   /**
    * Test new {@link DateDataObject} (default constructor).
-   *
-   * <p>Method under test: default or parameterless constructor of {@link DateDataObject}
+   * <p>
+   * Method under test: default or parameterless constructor of {@link DateDataObject}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void DateDataObject.<init>()",
-    "void DateDataObject.setValue(java.lang.Object)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void DateDataObject.<init>()", "void DateDataObject.setValue(java.lang.Object)"})
   public void testNewDateDataObject() {
     // Arrange and Act
     DateDataObject actualDateDataObject = new DateDataObject();

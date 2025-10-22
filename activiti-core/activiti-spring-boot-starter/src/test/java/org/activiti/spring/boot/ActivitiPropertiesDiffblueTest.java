@@ -20,7 +20,6 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
 import java.util.List;
@@ -32,9 +31,8 @@ import org.junit.jupiter.api.Test;
 class ActivitiPropertiesDiffblueTest {
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>{@link ActivitiProperties#setAsyncExecutorActivate(boolean)}
    *   <li>{@link ActivitiProperties#setCheckProcessDefinitions(boolean)}
@@ -86,56 +84,37 @@ class ActivitiPropertiesDiffblueTest {
    */
   @Test
   @DisplayName("Test getters and setters")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "List ActivitiProperties.getCustomMybatisMappers()",
-    "List ActivitiProperties.getCustomMybatisXMLMappers()",
-    "String ActivitiProperties.getDatabaseSchema()",
-    "String ActivitiProperties.getDatabaseSchemaUpdate()",
-    "String ActivitiProperties.getDeploymentMode()",
-    "String ActivitiProperties.getDeploymentName()",
-    "HistoryLevel ActivitiProperties.getHistoryLevel()",
-    "String ActivitiProperties.getJavaClassFieldForJackson()",
-    "String ActivitiProperties.getMailServerDefaultFrom()",
-    "String ActivitiProperties.getMailServerHost()",
-    "String ActivitiProperties.getMailServerPassword()",
-    "int ActivitiProperties.getMailServerPort()",
-    "String ActivitiProperties.getMailServerUserName()",
-    "String ActivitiProperties.getProcessDefinitionLocationPrefix()",
-    "List ActivitiProperties.getProcessDefinitionLocationSuffixes()",
-    "boolean ActivitiProperties.isAsyncExecutorActivate()",
-    "boolean ActivitiProperties.isCheckProcessDefinitions()",
-    "boolean ActivitiProperties.isCopyVariablesToLocalForTasks()",
-    "boolean ActivitiProperties.isDbHistoryUsed()",
-    "boolean ActivitiProperties.isMailServerUseSsl()",
-    "boolean ActivitiProperties.isMailServerUseTls()",
-    "boolean ActivitiProperties.isSerializePOJOsInVariablesToJson()",
-    "boolean ActivitiProperties.isUseStrongUuids()",
-    "void ActivitiProperties.setAsyncExecutorActivate(boolean)",
-    "void ActivitiProperties.setCheckProcessDefinitions(boolean)",
-    "void ActivitiProperties.setCopyVariablesToLocalForTasks(boolean)",
-    "void ActivitiProperties.setCustomMybatisMappers(List)",
-    "void ActivitiProperties.setCustomMybatisXMLMappers(List)",
-    "void ActivitiProperties.setDatabaseSchema(String)",
-    "void ActivitiProperties.setDatabaseSchemaUpdate(String)",
-    "void ActivitiProperties.setDbHistoryUsed(boolean)",
-    "void ActivitiProperties.setDeploymentMode(String)",
-    "void ActivitiProperties.setDeploymentName(String)",
-    "void ActivitiProperties.setHistoryLevel(HistoryLevel)",
-    "void ActivitiProperties.setJavaClassFieldForJackson(String)",
-    "void ActivitiProperties.setMailServerDefaultFrom(String)",
-    "void ActivitiProperties.setMailServerHost(String)",
-    "void ActivitiProperties.setMailServerPassword(String)",
-    "void ActivitiProperties.setMailServerPort(int)",
-    "void ActivitiProperties.setMailServerUseSsl(boolean)",
-    "void ActivitiProperties.setMailServerUseTls(boolean)",
-    "void ActivitiProperties.setMailServerUserName(String)",
-    "void ActivitiProperties.setProcessDefinitionLocationPrefix(String)",
-    "void ActivitiProperties.setProcessDefinitionLocationSuffixes(List)",
-    "void ActivitiProperties.setSerializePOJOsInVariablesToJson(boolean)",
-    "void ActivitiProperties.setUseStrongUuids(boolean)"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"List ActivitiProperties.getCustomMybatisMappers()",
+      "List ActivitiProperties.getCustomMybatisXMLMappers()", "String ActivitiProperties.getDatabaseSchema()",
+      "String ActivitiProperties.getDatabaseSchemaUpdate()", "String ActivitiProperties.getDeploymentMode()",
+      "String ActivitiProperties.getDeploymentName()", "HistoryLevel ActivitiProperties.getHistoryLevel()",
+      "String ActivitiProperties.getJavaClassFieldForJackson()", "String ActivitiProperties.getMailServerDefaultFrom()",
+      "String ActivitiProperties.getMailServerHost()", "String ActivitiProperties.getMailServerPassword()",
+      "int ActivitiProperties.getMailServerPort()", "String ActivitiProperties.getMailServerUserName()",
+      "String ActivitiProperties.getProcessDefinitionLocationPrefix()",
+      "List ActivitiProperties.getProcessDefinitionLocationSuffixes()",
+      "boolean ActivitiProperties.isAsyncExecutorActivate()", "boolean ActivitiProperties.isCheckProcessDefinitions()",
+      "boolean ActivitiProperties.isCopyVariablesToLocalForTasks()", "boolean ActivitiProperties.isDbHistoryUsed()",
+      "boolean ActivitiProperties.isMailServerUseSsl()", "boolean ActivitiProperties.isMailServerUseTls()",
+      "boolean ActivitiProperties.isSerializePOJOsInVariablesToJson()", "boolean ActivitiProperties.isUseStrongUuids()",
+      "void ActivitiProperties.setAsyncExecutorActivate(boolean)",
+      "void ActivitiProperties.setCheckProcessDefinitions(boolean)",
+      "void ActivitiProperties.setCopyVariablesToLocalForTasks(boolean)",
+      "void ActivitiProperties.setCustomMybatisMappers(List)",
+      "void ActivitiProperties.setCustomMybatisXMLMappers(List)", "void ActivitiProperties.setDatabaseSchema(String)",
+      "void ActivitiProperties.setDatabaseSchemaUpdate(String)", "void ActivitiProperties.setDbHistoryUsed(boolean)",
+      "void ActivitiProperties.setDeploymentMode(String)", "void ActivitiProperties.setDeploymentName(String)",
+      "void ActivitiProperties.setHistoryLevel(HistoryLevel)",
+      "void ActivitiProperties.setJavaClassFieldForJackson(String)",
+      "void ActivitiProperties.setMailServerDefaultFrom(String)", "void ActivitiProperties.setMailServerHost(String)",
+      "void ActivitiProperties.setMailServerPassword(String)", "void ActivitiProperties.setMailServerPort(int)",
+      "void ActivitiProperties.setMailServerUseSsl(boolean)", "void ActivitiProperties.setMailServerUseTls(boolean)",
+      "void ActivitiProperties.setMailServerUserName(String)",
+      "void ActivitiProperties.setProcessDefinitionLocationPrefix(String)",
+      "void ActivitiProperties.setProcessDefinitionLocationSuffixes(List)",
+      "void ActivitiProperties.setSerializePOJOsInVariablesToJson(boolean)",
+      "void ActivitiProperties.setUseStrongUuids(boolean)"})
   void testGettersAndSetters() {
     // Arrange
     ActivitiProperties activitiProperties = new ActivitiProperties();
@@ -180,19 +159,15 @@ class ActivitiPropertiesDiffblueTest {
     String actualMailServerPassword = activitiProperties.getMailServerPassword();
     int actualMailServerPort = activitiProperties.getMailServerPort();
     String actualMailServerUserName = activitiProperties.getMailServerUserName();
-    String actualProcessDefinitionLocationPrefix =
-        activitiProperties.getProcessDefinitionLocationPrefix();
-    List<String> actualProcessDefinitionLocationSuffixes =
-        activitiProperties.getProcessDefinitionLocationSuffixes();
+    String actualProcessDefinitionLocationPrefix = activitiProperties.getProcessDefinitionLocationPrefix();
+    List<String> actualProcessDefinitionLocationSuffixes = activitiProperties.getProcessDefinitionLocationSuffixes();
     boolean actualIsAsyncExecutorActivateResult = activitiProperties.isAsyncExecutorActivate();
     boolean actualIsCheckProcessDefinitionsResult = activitiProperties.isCheckProcessDefinitions();
-    boolean actualIsCopyVariablesToLocalForTasksResult =
-        activitiProperties.isCopyVariablesToLocalForTasks();
+    boolean actualIsCopyVariablesToLocalForTasksResult = activitiProperties.isCopyVariablesToLocalForTasks();
     boolean actualIsDbHistoryUsedResult = activitiProperties.isDbHistoryUsed();
     boolean actualIsMailServerUseSslResult = activitiProperties.isMailServerUseSsl();
     boolean actualIsMailServerUseTlsResult = activitiProperties.isMailServerUseTls();
-    boolean actualIsSerializePOJOsInVariablesToJsonResult =
-        activitiProperties.isSerializePOJOsInVariablesToJson();
+    boolean actualIsSerializePOJOsInVariablesToJsonResult = activitiProperties.isSerializePOJOsInVariablesToJson();
     boolean actualIsUseStrongUuidsResult = activitiProperties.isUseStrongUuids();
 
     // Assert
@@ -226,13 +201,12 @@ class ActivitiPropertiesDiffblueTest {
 
   /**
    * Test new {@link ActivitiProperties} (default constructor).
-   *
-   * <p>Method under test: default or parameterless constructor of {@link ActivitiProperties}
+   * <p>
+   * Method under test: default or parameterless constructor of {@link ActivitiProperties}
    */
   @Test
   @DisplayName("Test new ActivitiProperties (default constructor)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void ActivitiProperties.<init>()"})
   void testNewActivitiProperties() {
     // Arrange and Act
@@ -241,8 +215,7 @@ class ActivitiPropertiesDiffblueTest {
     // Assert
     assertEquals("@class", actualActivitiProperties.getJavaClassFieldForJackson());
     assertEquals("SpringAutoDeployment", actualActivitiProperties.getDeploymentName());
-    assertEquals(
-        "classpath*:**/processes/", actualActivitiProperties.getProcessDefinitionLocationPrefix());
+    assertEquals("classpath*:**/processes/", actualActivitiProperties.getProcessDefinitionLocationPrefix());
     assertEquals("default", actualActivitiProperties.getDeploymentMode());
     assertEquals("localhost", actualActivitiProperties.getMailServerHost());
     assertNull(actualActivitiProperties.getDatabaseSchema());
@@ -262,6 +235,7 @@ class ActivitiPropertiesDiffblueTest {
     assertTrue(actualActivitiProperties.isCopyVariablesToLocalForTasks());
     assertTrue(actualActivitiProperties.isSerializePOJOsInVariablesToJson());
     assertTrue(actualActivitiProperties.isUseStrongUuids());
-    assertEquals(Boolean.TRUE.toString(), actualActivitiProperties.getDatabaseSchemaUpdate());
+    String expectedDatabaseSchemaUpdate = Boolean.TRUE.toString();
+    assertEquals(expectedDatabaseSchemaUpdate, actualActivitiProperties.getDatabaseSchemaUpdate());
   }
 }

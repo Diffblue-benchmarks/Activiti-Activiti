@@ -18,7 +18,6 @@ package org.activiti.test.matchers;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
@@ -27,9 +26,8 @@ import org.junit.jupiter.api.Test;
 class OperationScopeImplDiffblueTest {
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>{@link OperationScopeImpl#OperationScopeImpl(String, String)}
    *   <li>{@link OperationScopeImpl#setProcessInstanceId(String)}
@@ -40,15 +38,10 @@ class OperationScopeImplDiffblueTest {
    */
   @Test
   @DisplayName("Test getters and setters")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void OperationScopeImpl.<init>(String, String)",
-    "String OperationScopeImpl.getProcessInstanceId()",
-    "String OperationScopeImpl.getTaskId()",
-    "void OperationScopeImpl.setProcessInstanceId(String)",
-    "void OperationScopeImpl.setTaskId(String)"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void OperationScopeImpl.<init>(String, String)",
+      "String OperationScopeImpl.getProcessInstanceId()", "String OperationScopeImpl.getTaskId()",
+      "void OperationScopeImpl.setProcessInstanceId(String)", "void OperationScopeImpl.setTaskId(String)"})
   void testGettersAndSetters() {
     // Arrange and Act
     OperationScopeImpl actualOperationScopeImpl = new OperationScopeImpl("42", "42");
@@ -63,13 +56,12 @@ class OperationScopeImplDiffblueTest {
 
   /**
    * Test {@link OperationScopeImpl#processInstanceScope(String)}.
-   *
-   * <p>Method under test: {@link OperationScopeImpl#processInstanceScope(String)}
+   * <p>
+   * Method under test: {@link OperationScopeImpl#processInstanceScope(String)}
    */
   @Test
   @DisplayName("Test processInstanceScope(String)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"OperationScope OperationScopeImpl.processInstanceScope(String)"})
   void testProcessInstanceScope() {
     // Arrange and Act
@@ -83,13 +75,12 @@ class OperationScopeImplDiffblueTest {
 
   /**
    * Test {@link OperationScopeImpl#taskScope(String)}.
-   *
-   * <p>Method under test: {@link OperationScopeImpl#taskScope(String)}
+   * <p>
+   * Method under test: {@link OperationScopeImpl#taskScope(String)}
    */
   @Test
   @DisplayName("Test taskScope(String)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"OperationScope OperationScopeImpl.taskScope(String)"})
   void testTaskScope() {
     // Arrange and Act
@@ -103,13 +94,12 @@ class OperationScopeImplDiffblueTest {
 
   /**
    * Test {@link OperationScopeImpl#scope(String, String)}.
-   *
-   * <p>Method under test: {@link OperationScopeImpl#scope(String, String)}
+   * <p>
+   * Method under test: {@link OperationScopeImpl#scope(String, String)}
    */
   @Test
   @DisplayName("Test scope(String, String)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"OperationScope OperationScopeImpl.scope(String, String)"})
   void testScope() {
     // Arrange and Act

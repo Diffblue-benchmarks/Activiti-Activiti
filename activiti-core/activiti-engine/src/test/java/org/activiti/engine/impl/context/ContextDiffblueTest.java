@@ -19,8 +19,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import java.util.List;
@@ -34,15 +33,12 @@ import org.junit.experimental.categories.Category;
 public class ContextDiffblueTest {
   /**
    * Test {@link Context#getCommandContext()}.
-   *
-   * <p>Method under test: {@link Context#getCommandContext()}
+   * <p>
+   * Method under test: {@link Context#getCommandContext()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "org.activiti.engine.impl.interceptor.CommandContext Context.getCommandContext()"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"org.activiti.engine.impl.interceptor.CommandContext Context.getCommandContext()"})
   public void testGetCommandContext() {
     // Arrange, Act and Assert
     assertNull(Context.getCommandContext());
@@ -50,15 +46,13 @@ public class ContextDiffblueTest {
 
   /**
    * Test {@link Context#getProcessEngineConfiguration()}.
-   *
-   * <p>Method under test: {@link Context#getProcessEngineConfiguration()}
+   * <p>
+   * Method under test: {@link Context#getProcessEngineConfiguration()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({
-    "org.activiti.engine.impl.cfg.ProcessEngineConfigurationImpl Context.getProcessEngineConfiguration()"
-  })
+      "org.activiti.engine.impl.cfg.ProcessEngineConfigurationImpl Context.getProcessEngineConfiguration()"})
   public void testGetProcessEngineConfiguration() {
     // Arrange, Act and Assert
     assertNull(Context.getProcessEngineConfiguration());
@@ -66,15 +60,12 @@ public class ContextDiffblueTest {
 
   /**
    * Test {@link Context#getTransactionContext()}.
-   *
-   * <p>Method under test: {@link Context#getTransactionContext()}
+   * <p>
+   * Method under test: {@link Context#getTransactionContext()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "org.activiti.engine.impl.cfg.TransactionContext Context.getTransactionContext()"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"org.activiti.engine.impl.cfg.TransactionContext Context.getTransactionContext()"})
   public void testGetTransactionContext() {
     // Arrange, Act and Assert
     assertNull(Context.getTransactionContext());
@@ -82,17 +73,15 @@ public class ContextDiffblueTest {
 
   /**
    * Test {@link Context#getStack(ThreadLocal)}.
-   *
    * <ul>
-   *   <li>When {@link ThreadLocal} (default constructor).
-   *   <li>Then return Empty.
+   *   <li>When {@link ThreadLocal} (default constructor).</li>
+   *   <li>Then return Empty.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link Context#getStack(ThreadLocal)}
+   * <p>
+   * Method under test: {@link Context#getStack(ThreadLocal)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"Stack Context.getStack(ThreadLocal)"})
   public void testGetStack_whenThreadLocal_thenReturnEmpty() {
     // Arrange and Act
@@ -104,12 +93,11 @@ public class ContextDiffblueTest {
 
   /**
    * Test {@link Context#getBpmnOverrideContext()}.
-   *
-   * <p>Method under test: {@link Context#getBpmnOverrideContext()}
+   * <p>
+   * Method under test: {@link Context#getBpmnOverrideContext()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"Map Context.getBpmnOverrideContext()"})
   public void testGetBpmnOverrideContext() {
     // Arrange and Act
@@ -121,15 +109,12 @@ public class ContextDiffblueTest {
 
   /**
    * Test {@link Context#getProcessDefinitionHelper()}.
-   *
-   * <p>Method under test: {@link Context#getProcessDefinitionHelper()}
+   * <p>
+   * Method under test: {@link Context#getProcessDefinitionHelper()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "org.activiti.engine.impl.ProcessDefinitionHelper Context.getProcessDefinitionHelper()"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"org.activiti.engine.impl.ProcessDefinitionHelper Context.getProcessDefinitionHelper()"})
   public void testGetProcessDefinitionHelper() {
     // Arrange, Act and Assert
     assertNull(Context.getProcessDefinitionHelper());
@@ -137,26 +122,27 @@ public class ContextDiffblueTest {
 
   /**
    * Test ResourceBundleControl {@link ResourceBundleControl#getCandidateLocales(String, Locale)}.
-   *
    * <ul>
-   *   <li>When Default.
-   *   <li>Then return size is two.
+   *   <li>When Default.</li>
+   *   <li>Then return size is two.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ResourceBundleControl#getCandidateLocales(String, Locale)}
+   * <p>
+   * Method under test: {@link ResourceBundleControl#getCandidateLocales(String, Locale)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"List ResourceBundleControl.getCandidateLocales(String, Locale)"})
   public void testResourceBundleControlGetCandidateLocales_whenDefault_thenReturnSizeIsTwo() {
-    // Arrange and Act
-    List<Locale> actualCandidateLocales =
-        new ResourceBundleControl().getCandidateLocales("en", Locale.getDefault());
+    // Arrange
+    ResourceBundleControl resourceBundleControl = new ResourceBundleControl();
+    Locale locale = Locale.getDefault();
+
+    // Act
+    List<Locale> actualCandidateLocales = resourceBundleControl.getCandidateLocales("en", locale);
 
     // Assert
     assertEquals(2, actualCandidateLocales.size());
-    assertSame(Locale.ENGLISH, actualCandidateLocales.get(0));
-    assertSame(Locale.ROOT, actualCandidateLocales.get(1));
+    assertSame(locale.ENGLISH, actualCandidateLocales.get(0));
+    assertSame(locale.ROOT, actualCandidateLocales.get(1));
   }
 }

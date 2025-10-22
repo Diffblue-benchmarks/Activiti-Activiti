@@ -17,7 +17,6 @@ package org.activiti.core.common.model.connector;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
 import java.util.List;
@@ -28,13 +27,12 @@ import org.junit.jupiter.api.Test;
 class ActionDefinitionDiffblueTest {
   /**
    * Test {@link ActionDefinition#getInputs()}.
-   *
-   * <p>Method under test: {@link ActionDefinition#getInputs()}
+   * <p>
+   * Method under test: {@link ActionDefinition#getInputs()}
    */
   @Test
   @DisplayName("Test getInputs()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"List ActionDefinition.getInputs()"})
   void testGetInputs() {
     // Arrange
@@ -51,32 +49,29 @@ class ActionDefinitionDiffblueTest {
 
   /**
    * Test {@link ActionDefinition#getInputs()}.
-   *
    * <ul>
-   *   <li>Given {@link ActionDefinition} (default constructor).
+   *   <li>Given {@link ActionDefinition} (default constructor).</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ActionDefinition#getInputs()}
+   * <p>
+   * Method under test: {@link ActionDefinition#getInputs()}
    */
   @Test
   @DisplayName("Test getInputs(); given ActionDefinition (default constructor)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"List ActionDefinition.getInputs()"})
   void testGetInputs_givenActionDefinition() {
     // Arrange, Act and Assert
-    assertTrue(new ActionDefinition().getInputs().isEmpty());
+    assertTrue((new ActionDefinition()).getInputs().isEmpty());
   }
 
   /**
    * Test {@link ActionDefinition#getOutputs()}.
-   *
-   * <p>Method under test: {@link ActionDefinition#getOutputs()}
+   * <p>
+   * Method under test: {@link ActionDefinition#getOutputs()}
    */
   @Test
   @DisplayName("Test getOutputs()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"List ActionDefinition.getOutputs()"})
   void testGetOutputs() {
     // Arrange
@@ -93,28 +88,25 @@ class ActionDefinitionDiffblueTest {
 
   /**
    * Test {@link ActionDefinition#getOutputs()}.
-   *
    * <ul>
-   *   <li>Given {@link ActionDefinition} (default constructor).
+   *   <li>Given {@link ActionDefinition} (default constructor).</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ActionDefinition#getOutputs()}
+   * <p>
+   * Method under test: {@link ActionDefinition#getOutputs()}
    */
   @Test
   @DisplayName("Test getOutputs(); given ActionDefinition (default constructor)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"List ActionDefinition.getOutputs()"})
   void testGetOutputs_givenActionDefinition() {
     // Arrange, Act and Assert
-    assertTrue(new ActionDefinition().getOutputs().isEmpty());
+    assertTrue((new ActionDefinition()).getOutputs().isEmpty());
   }
 
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>default or parameterless constructor of {@link ActionDefinition}
    *   <li>{@link ActionDefinition#setDescription(String)}
@@ -129,19 +121,12 @@ class ActionDefinitionDiffblueTest {
    */
   @Test
   @DisplayName("Test getters and setters")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void ActionDefinition.<init>()",
-    "String ActionDefinition.getDescription()",
-    "String ActionDefinition.getId()",
-    "String ActionDefinition.getName()",
-    "void ActionDefinition.setDescription(String)",
-    "void ActionDefinition.setId(String)",
-    "void ActionDefinition.setInputs(List)",
-    "void ActionDefinition.setName(String)",
-    "void ActionDefinition.setOutputs(List)"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void ActionDefinition.<init>()", "String ActionDefinition.getDescription()",
+      "String ActionDefinition.getId()", "String ActionDefinition.getName()",
+      "void ActionDefinition.setDescription(String)", "void ActionDefinition.setId(String)",
+      "void ActionDefinition.setInputs(List)", "void ActionDefinition.setName(String)",
+      "void ActionDefinition.setOutputs(List)"})
   void testGettersAndSetters() {
     // Arrange and Act
     ActionDefinition actualActionDefinition = new ActionDefinition();

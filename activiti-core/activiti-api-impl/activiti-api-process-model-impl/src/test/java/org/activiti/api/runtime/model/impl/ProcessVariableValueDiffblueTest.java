@@ -20,7 +20,6 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.Map;
 import org.activiti.api.runtime.model.impl.ProcessVariableValue.Builder;
@@ -33,13 +32,11 @@ import org.junit.jupiter.api.Test;
 class ProcessVariableValueDiffblueTest {
   /**
    * Test getters and setters.
-   *
    * <ul>
-   *   <li>Then return toString is {@code {"type":"null","value":null}}.
+   *   <li>Then return toString is {@code {"type":"null","value":null}}.</li>
    * </ul>
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>{@link ProcessVariableValue#ProcessVariableValue()}
    *   <li>{@link ProcessVariableValue#toString()}
@@ -48,17 +45,11 @@ class ProcessVariableValueDiffblueTest {
    * </ul>
    */
   @Test
-  @DisplayName(
-      "Test getters and setters; then return toString is '{\"type\":\"null\",\"value\":null}'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void ProcessVariableValue.<init>()",
-    "void ProcessVariableValue.<init>(String, String)",
-    "String ProcessVariableValue.getType()",
-    "String ProcessVariableValue.getValue()",
-    "String ProcessVariableValue.toString()"
-  })
+  @DisplayName("Test getters and setters; then return toString is '{\"type\":\"null\",\"value\":null}'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void ProcessVariableValue.<init>()", "void ProcessVariableValue.<init>(String, String)",
+      "String ProcessVariableValue.getType()", "String ProcessVariableValue.getValue()",
+      "String ProcessVariableValue.toString()"})
   void testGettersAndSetters_thenReturnToStringIsTypeNullValueNull() {
     // Arrange and Act
     ProcessVariableValue actualProcessVariableValue = new ProcessVariableValue();
@@ -73,14 +64,12 @@ class ProcessVariableValueDiffblueTest {
 
   /**
    * Test getters and setters.
-   *
    * <ul>
-   *   <li>When {@code Type}.
-   *   <li>Then return Value is {@code 42}.
+   *   <li>When {@code Type}.</li>
+   *   <li>Then return Value is {@code 42}.</li>
    * </ul>
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>{@link ProcessVariableValue#ProcessVariableValue(String, String)}
    *   <li>{@link ProcessVariableValue#toString()}
@@ -90,15 +79,10 @@ class ProcessVariableValueDiffblueTest {
    */
   @Test
   @DisplayName("Test getters and setters; when 'Type'; then return Value is '42'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void ProcessVariableValue.<init>()",
-    "void ProcessVariableValue.<init>(String, String)",
-    "String ProcessVariableValue.getType()",
-    "String ProcessVariableValue.getValue()",
-    "String ProcessVariableValue.toString()"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void ProcessVariableValue.<init>()", "void ProcessVariableValue.<init>(String, String)",
+      "String ProcessVariableValue.getType()", "String ProcessVariableValue.getValue()",
+      "String ProcessVariableValue.toString()"})
   void testGettersAndSetters_whenType_thenReturnValueIs42() {
     // Arrange and Act
     ProcessVariableValue actualProcessVariableValue = new ProcessVariableValue("Type", "42");
@@ -113,14 +97,12 @@ class ProcessVariableValueDiffblueTest {
 
   /**
    * Test {@link ProcessVariableValue#equals(Object)}, and {@link ProcessVariableValue#hashCode()}.
-   *
    * <ul>
-   *   <li>When other is equal.
-   *   <li>Then return equal.
+   *   <li>When other is equal.</li>
+   *   <li>Then return equal.</li>
    * </ul>
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>{@link ProcessVariableValue#equals(Object)}
    *   <li>{@link ProcessVariableValue#hashCode()}
@@ -128,12 +110,8 @@ class ProcessVariableValueDiffblueTest {
    */
   @Test
   @DisplayName("Test equals(Object), and hashCode(); when other is equal; then return equal")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "boolean ProcessVariableValue.equals(Object)",
-    "int ProcessVariableValue.hashCode()"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean ProcessVariableValue.equals(Object)", "int ProcessVariableValue.hashCode()"})
   void testEqualsAndHashCode_whenOtherIsEqual_thenReturnEqual() {
     // Arrange
     ProcessVariableValue processVariableValue = new ProcessVariableValue("Type", "42");
@@ -141,19 +119,18 @@ class ProcessVariableValueDiffblueTest {
 
     // Act and Assert
     assertEquals(processVariableValue, processVariableValue2);
-    assertEquals(processVariableValue.hashCode(), processVariableValue2.hashCode());
+    int expectedHashCodeResult = processVariableValue.hashCode();
+    assertEquals(expectedHashCodeResult, processVariableValue2.hashCode());
   }
 
   /**
    * Test {@link ProcessVariableValue#equals(Object)}, and {@link ProcessVariableValue#hashCode()}.
-   *
    * <ul>
-   *   <li>When other is same.
-   *   <li>Then return equal.
+   *   <li>When other is same.</li>
+   *   <li>Then return equal.</li>
    * </ul>
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>{@link ProcessVariableValue#equals(Object)}
    *   <li>{@link ProcessVariableValue#hashCode()}
@@ -161,12 +138,8 @@ class ProcessVariableValueDiffblueTest {
    */
   @Test
   @DisplayName("Test equals(Object), and hashCode(); when other is same; then return equal")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "boolean ProcessVariableValue.equals(Object)",
-    "int ProcessVariableValue.hashCode()"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean ProcessVariableValue.equals(Object)", "int ProcessVariableValue.hashCode()"})
   void testEqualsAndHashCode_whenOtherIsSame_thenReturnEqual() {
     // Arrange
     ProcessVariableValue processVariableValue = new ProcessVariableValue("Type", "42");
@@ -179,22 +152,17 @@ class ProcessVariableValueDiffblueTest {
 
   /**
    * Test {@link ProcessVariableValue#equals(Object)}.
-   *
    * <ul>
-   *   <li>When other is different.
-   *   <li>Then return not equal.
+   *   <li>When other is different.</li>
+   *   <li>Then return not equal.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ProcessVariableValue#equals(Object)}
+   * <p>
+   * Method under test: {@link ProcessVariableValue#equals(Object)}
    */
   @Test
   @DisplayName("Test equals(Object); when other is different; then return not equal")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "boolean ProcessVariableValue.equals(Object)",
-    "int ProcessVariableValue.hashCode()"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean ProcessVariableValue.equals(Object)", "int ProcessVariableValue.hashCode()"})
   void testEquals_whenOtherIsDifferent_thenReturnNotEqual() {
     // Arrange
     ProcessVariableValue processVariableValue = new ProcessVariableValue(null, "42");
@@ -205,22 +173,17 @@ class ProcessVariableValueDiffblueTest {
 
   /**
    * Test {@link ProcessVariableValue#equals(Object)}.
-   *
    * <ul>
-   *   <li>When other is different.
-   *   <li>Then return not equal.
+   *   <li>When other is different.</li>
+   *   <li>Then return not equal.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ProcessVariableValue#equals(Object)}
+   * <p>
+   * Method under test: {@link ProcessVariableValue#equals(Object)}
    */
   @Test
   @DisplayName("Test equals(Object); when other is different; then return not equal")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "boolean ProcessVariableValue.equals(Object)",
-    "int ProcessVariableValue.hashCode()"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean ProcessVariableValue.equals(Object)", "int ProcessVariableValue.hashCode()"})
   void testEquals_whenOtherIsDifferent_thenReturnNotEqual2() {
     // Arrange
     ProcessVariableValue processVariableValue = new ProcessVariableValue("Type", "Value");
@@ -231,22 +194,17 @@ class ProcessVariableValueDiffblueTest {
 
   /**
    * Test {@link ProcessVariableValue#equals(Object)}.
-   *
    * <ul>
-   *   <li>When other is {@code null}.
-   *   <li>Then return not equal.
+   *   <li>When other is {@code null}.</li>
+   *   <li>Then return not equal.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ProcessVariableValue#equals(Object)}
+   * <p>
+   * Method under test: {@link ProcessVariableValue#equals(Object)}
    */
   @Test
   @DisplayName("Test equals(Object); when other is 'null'; then return not equal")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "boolean ProcessVariableValue.equals(Object)",
-    "int ProcessVariableValue.hashCode()"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean ProcessVariableValue.equals(Object)", "int ProcessVariableValue.hashCode()"})
   void testEquals_whenOtherIsNull_thenReturnNotEqual() {
     // Arrange, Act and Assert
     assertNotEquals(new ProcessVariableValue("Type", "42"), null);
@@ -254,41 +212,34 @@ class ProcessVariableValueDiffblueTest {
 
   /**
    * Test {@link ProcessVariableValue#equals(Object)}.
-   *
    * <ul>
-   *   <li>When other is wrong type.
-   *   <li>Then return not equal.
+   *   <li>When other is wrong type.</li>
+   *   <li>Then return not equal.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ProcessVariableValue#equals(Object)}
+   * <p>
+   * Method under test: {@link ProcessVariableValue#equals(Object)}
    */
   @Test
   @DisplayName("Test equals(Object); when other is wrong type; then return not equal")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "boolean ProcessVariableValue.equals(Object)",
-    "int ProcessVariableValue.hashCode()"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean ProcessVariableValue.equals(Object)", "int ProcessVariableValue.hashCode()"})
   void testEquals_whenOtherIsWrongType_thenReturnNotEqual() {
     // Arrange, Act and Assert
-    assertNotEquals(
-        new ProcessVariableValue("Type", "42"), "Different type to ProcessVariableValue");
+    assertNotEquals(new ProcessVariableValue("Type", "42"), "Different type to ProcessVariableValue");
   }
 
   /**
    * Test {@link ProcessVariableValue#toMap()}.
-   *
-   * <p>Method under test: {@link ProcessVariableValue#toMap()}
+   * <p>
+   * Method under test: {@link ProcessVariableValue#toMap()}
    */
   @Test
   @DisplayName("Test toMap()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"Map ProcessVariableValue.toMap()"})
   void testToMap() {
     // Arrange and Act
-    Map<String, String> actualToMapResult = new ProcessVariableValue("Type", "42").toMap();
+    Map<String, String> actualToMapResult = (new ProcessVariableValue("Type", "42")).toMap();
 
     // Assert
     assertEquals(2, actualToMapResult.size());
@@ -298,64 +249,54 @@ class ProcessVariableValueDiffblueTest {
 
   /**
    * Test {@link ProcessVariableValue#toJson()}.
-   *
    * <ul>
-   *   <li>Given {@link ProcessVariableValue#ProcessVariableValue()}.
-   *   <li>Then return {@code {"type":"null","value":null}}.
+   *   <li>Given {@link ProcessVariableValue#ProcessVariableValue()}.</li>
+   *   <li>Then return {@code {"type":"null","value":null}}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ProcessVariableValue#toJson()}
+   * <p>
+   * Method under test: {@link ProcessVariableValue#toJson()}
    */
   @Test
-  @DisplayName(
-      "Test toJson(); given ProcessVariableValue(); then return '{\"type\":\"null\",\"value\":null}'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test toJson(); given ProcessVariableValue(); then return '{\"type\":\"null\",\"value\":null}'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"String ProcessVariableValue.toJson()"})
   void testToJson_givenProcessVariableValue_thenReturnTypeNullValueNull() {
     // Arrange, Act and Assert
-    assertEquals("{\"type\":\"null\",\"value\":null}", new ProcessVariableValue().toJson());
+    assertEquals("{\"type\":\"null\",\"value\":null}", (new ProcessVariableValue()).toJson());
   }
 
   /**
    * Test {@link ProcessVariableValue#toJson()}.
-   *
    * <ul>
-   *   <li>Then return {@code {"type":"Type","value":"\\'"}}.
+   *   <li>Then return {@code {"type":"Type","value":"\\'"}}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ProcessVariableValue#toJson()}
+   * <p>
+   * Method under test: {@link ProcessVariableValue#toJson()}
    */
   @Test
   @DisplayName("Test toJson(); then return '{\"type\":\"Type\",\"value\":\"\\\\'\"}'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"String ProcessVariableValue.toJson()"})
   void testToJson_thenReturnTypeTypeValue() {
     // Arrange, Act and Assert
-    assertEquals(
-        "{\"type\":\"Type\",\"value\":\"\\\\'\"}",
-        new ProcessVariableValue("Type", "\\'").toJson());
+    assertEquals("{\"type\":\"Type\",\"value\":\"\\\\'\"}", (new ProcessVariableValue("Type", "\\'")).toJson());
   }
 
   /**
    * Test {@link ProcessVariableValue#toJson()}.
-   *
    * <ul>
-   *   <li>Then return {@code {"type":"Type","value":"42"}}.
+   *   <li>Then return {@code {"type":"Type","value":"42"}}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ProcessVariableValue#toJson()}
+   * <p>
+   * Method under test: {@link ProcessVariableValue#toJson()}
    */
   @Test
   @DisplayName("Test toJson(); then return '{\"type\":\"Type\",\"value\":\"42\"}'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"String ProcessVariableValue.toJson()"})
   void testToJson_thenReturnTypeTypeValue42() {
     // Arrange, Act and Assert
-    assertEquals(
-        "{\"type\":\"Type\",\"value\":\"42\"}", new ProcessVariableValue("Type", "42").toJson());
+    assertEquals("{\"type\":\"Type\",\"value\":\"42\"}", (new ProcessVariableValue("Type", "42")).toJson());
   }
 
   /**
@@ -368,25 +309,22 @@ class ProcessVariableValueDiffblueTest {
    */
   @Test
   @DisplayName("Test toJson(); then return '{\"type\":\"Type\",\"value\":\"{\\\"type\\\":\\\"\"}'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"String ProcessVariableValue.toJson()"})
   void testToJson_thenReturnTypeTypeValueType() {
     // Arrange, Act and Assert
-    assertEquals(
-        "{\"type\":\"Type\",\"value\":\"{\\\"type\\\":\\\"\"}",
-        new ProcessVariableValue("Type", "{\"type\":\"").toJson());
+    assertEquals("{\"type\":\"Type\",\"value\":\"{\\\"type\\\":\\\"\"}",
+        (new ProcessVariableValue("Type", "{\"type\":\"")).toJson());
   }
 
   /**
    * Test {@link ProcessVariableValue#builder()}.
-   *
-   * <p>Method under test: {@link ProcessVariableValue#builder()}
+   * <p>
+   * Method under test: {@link ProcessVariableValue#builder()}
    */
   @Test
   @DisplayName("Test builder()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"ITypeStage ProcessVariableValue.builder()"})
   void testBuilder() {
     // Arrange and Act
@@ -395,9 +333,9 @@ class ProcessVariableValueDiffblueTest {
 
     // Assert
     assertTrue(actualBuilderResult instanceof Builder);
-    ProcessVariableValue processVariableValue = ((Builder) actualBuilderResult).build();
-    assertEquals("Type", processVariableValue.getType());
-    assertNull(processVariableValue.getValue());
+    ProcessVariableValue buildResult = ((Builder) actualBuilderResult).build();
+    assertEquals("Type", buildResult.getType());
+    assertNull(buildResult.getValue());
     assertSame(actualBuilderResult, actualTypeResult);
   }
 }

@@ -17,25 +17,24 @@ package org.activiti.engine.impl.util.json;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThrows;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
+import java.util.HashMap;
+import java.util.Map;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 
 public class HTTPDiffblueTest {
   /**
    * Test {@link HTTP#toJSONObject(String)}.
-   *
    * <ul>
-   *   <li>When {@code https://example.org/example}.
+   *   <li>When {@code https://example.org/example}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link HTTP#toJSONObject(String)}
+   * <p>
+   * Method under test: {@link HTTP#toJSONObject(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"JSONObject HTTP.toJSONObject(String)"})
   public void testToJSONObject_whenHttpsExampleOrgExample() throws JSONException {
     // Arrange, Act and Assert
@@ -44,16 +43,14 @@ public class HTTPDiffblueTest {
 
   /**
    * Test {@link HTTP#toJSONObject(String)}.
-   *
    * <ul>
-   *   <li>When {@code Status-Code}.
+   *   <li>When {@code Status-Code}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link HTTP#toJSONObject(String)}
+   * <p>
+   * Method under test: {@link HTTP#toJSONObject(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"JSONObject HTTP.toJSONObject(String)"})
   public void testToJSONObject_whenStatusCode() throws JSONException {
     // Arrange, Act and Assert
@@ -62,14 +59,94 @@ public class HTTPDiffblueTest {
 
   /**
    * Test {@link HTTP#toString(JSONObject)} with {@code JSONObject}.
-   *
-   * <p>Method under test: {@link HTTP#toString(JSONObject)}
+   * <p>
+   * Method under test: {@link HTTP#toString(JSONObject)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"String HTTP.toString(JSONObject)"})
   public void testToStringWithJSONObject() throws JSONException {
+    // Arrange
+    JSONObject o = HTTP.toJSONObject("https://example.org/example");
+    o.append("Method", JSONObject.NULL);
+
+    // Act and Assert
+    assertEquals("https://example.org/example  \r\n\r\n", HTTP.toString(o));
+  }
+
+  /**
+   * Test {@link HTTP#toString(JSONObject)} with {@code JSONObject}.
+   * <p>
+   * Method under test: {@link HTTP#toString(JSONObject)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String HTTP.toString(JSONObject)"})
+  public void testToStringWithJSONObject2() throws JSONException {
+    // Arrange
+    JSONObject o = HTTP.toJSONObject("https://example.org/example");
+    o.append("Request-URI", JSONObject.NULL);
+    o.append("Method", JSONObject.NULL);
+
+    // Act and Assert
+    assertEquals("https://example.org/example  \r\n\r\n", HTTP.toString(o));
+  }
+
+  /**
+   * Test {@link HTTP#toString(JSONObject)} with {@code JSONObject}.
+   * <ul>
+   *   <li>Given {@code HTTP-Version}.</li>
+   *   <li>Then return {@code [null] "{}" [null] name: value:}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link HTTP#toString(JSONObject)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String HTTP.toString(JSONObject)"})
+  public void testToStringWithJSONObject_givenHttpVersion_thenReturnNullNullNameValue() throws JSONException {
+    // Arrange
+    JSONObject o = Cookie.toJSONObject("=;");
+    o.append("HTTP-Version", JSONObject.NULL);
+    o.put("Request-URI", (Map) new HashMap<>());
+    o.append("Method", JSONObject.NULL);
+
+    // Act and Assert
+    assertEquals("[null] \"{}\" [null]\r\nname: \r\nvalue: \r\n\r\n", HTTP.toString(o));
+  }
+
+  /**
+   * Test {@link HTTP#toString(JSONObject)} with {@code JSONObject}.
+   * <ul>
+   *   <li>Given {@code Key}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link HTTP#toString(JSONObject)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String HTTP.toString(JSONObject)"})
+  public void testToStringWithJSONObject_givenKey() throws JSONException {
+    // Arrange
+    JSONObject o = HTTP.toJSONObject("https://example.org/example");
+    o.put("Key", JSONObject.NULL);
+
+    // Act and Assert
+    assertEquals("https://example.org/example  \r\n\r\n", HTTP.toString(o));
+  }
+
+  /**
+   * Test {@link HTTP#toString(JSONObject)} with {@code JSONObject}.
+   * <ul>
+   *   <li>Given {@code Status-Code}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link HTTP#toString(JSONObject)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String HTTP.toString(JSONObject)"})
+  public void testToStringWithJSONObject_givenStatusCode() throws JSONException {
     // Arrange
     JSONObject o = Cookie.toJSONObject("=;");
     o.append("Status-Code", JSONObject.NULL);
@@ -80,74 +157,14 @@ public class HTTPDiffblueTest {
 
   /**
    * Test {@link HTTP#toString(JSONObject)} with {@code JSONObject}.
-   *
-   * <p>Method under test: {@link HTTP#toString(JSONObject)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String HTTP.toString(JSONObject)"})
-  public void testToStringWithJSONObject2() throws JSONException {
-    // Arrange
-    JSONObject o = new JSONObject((Object) "Status-Code");
-    o.put("HTTP-Version", JSONObject.NULL);
-    o.put("Status-Code", (Object) null);
-    o.put("Reason-Phrase", (Object) null);
-    o.put("Method", (Object) null);
-    o.put("Request-URI", (Object) null);
-    o.put("Status-Code", JSONObject.NULL);
-    o.put("Reason-Phrase", JSONObject.NULL);
-    o.put("Method", JSONObject.NULL);
-    o.put("Request-URI", JSONObject.NULL);
-
-    // Act and Assert
-    assertEquals(
-        "null null null\r\nblank: false\r\nbytes: [83,116,97,116,117,115,45,67,111,100,101]\r\nempty: false\r\n\r\n",
-        HTTP.toString(o));
-  }
-
-  /**
-   * Test {@link HTTP#toString(JSONObject)} with {@code JSONObject}.
-   *
    * <ul>
-   *   <li>Then return {@code null null null}.
+   *   <li>Then throw {@link JSONException}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link HTTP#toString(JSONObject)}
+   * <p>
+   * Method under test: {@link HTTP#toString(JSONObject)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String HTTP.toString(JSONObject)"})
-  public void testToStringWithJSONObject_thenReturnNullNullNull() throws JSONException {
-    // Arrange
-    JSONObject o = new JSONObject(JSONObject.NULL);
-    o.put("HTTP-Version", JSONObject.NULL);
-    o.put("Status-Code", (Object) null);
-    o.put("Reason-Phrase", (Object) null);
-    o.put("Method", (Object) null);
-    o.put("Request-URI", (Object) null);
-    o.put("Status-Code", JSONObject.NULL);
-    o.put("Reason-Phrase", JSONObject.NULL);
-    o.put("Method", JSONObject.NULL);
-    o.put("Request-URI", JSONObject.NULL);
-
-    // Act and Assert
-    assertEquals("null null null\r\n\r\n", HTTP.toString(o));
-  }
-
-  /**
-   * Test {@link HTTP#toString(JSONObject)} with {@code JSONObject}.
-   *
-   * <ul>
-   *   <li>Then throw {@link JSONException}.
-   * </ul>
-   *
-   * <p>Method under test: {@link HTTP#toString(JSONObject)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"String HTTP.toString(JSONObject)"})
   public void testToStringWithJSONObject_thenThrowJSONException() throws JSONException {
     // Arrange
@@ -160,20 +177,34 @@ public class HTTPDiffblueTest {
 
   /**
    * Test {@link HTTP#toString(JSONObject)} with {@code JSONObject}.
-   *
    * <ul>
-   *   <li>When toJSONObject {@code =;}.
+   *   <li>When toJSONObject {@code =;}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link HTTP#toString(JSONObject)}
+   * <p>
+   * Method under test: {@link HTTP#toString(JSONObject)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"String HTTP.toString(JSONObject)"})
-  public void testToStringWithJSONObject_whenToJSONObjectEqualsSignSemicolon()
-      throws JSONException {
+  public void testToStringWithJSONObject_whenToJSONObjectEqualsSignSemicolon() throws JSONException {
     // Arrange, Act and Assert
     assertThrows(JSONException.class, () -> HTTP.toString(Cookie.toJSONObject("=;")));
+  }
+
+  /**
+   * Test {@link HTTP#toString(JSONObject)} with {@code JSONObject}.
+   * <ul>
+   *   <li>When toJSONObject {@code https://example.org/example}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link HTTP#toString(JSONObject)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String HTTP.toString(JSONObject)"})
+  public void testToStringWithJSONObject_whenToJSONObjectHttpsExampleOrgExample() throws JSONException {
+    // Arrange, Act and Assert
+    assertEquals("https://example.org/example  \r\n\r\n",
+        HTTP.toString(HTTP.toJSONObject("https://example.org/example")));
   }
 }

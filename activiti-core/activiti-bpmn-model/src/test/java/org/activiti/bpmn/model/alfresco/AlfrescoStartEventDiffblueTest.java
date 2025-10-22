@@ -19,8 +19,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
@@ -28,21 +27,19 @@ import org.junit.experimental.categories.Category;
 public class AlfrescoStartEventDiffblueTest {
   /**
    * Test {@link AlfrescoStartEvent#clone()}.
-   *
    * <ul>
-   *   <li>Given {@link AlfrescoStartEvent} (default constructor).
-   *   <li>Then return Behavior is {@code null}.
+   *   <li>Given {@link AlfrescoStartEvent} (default constructor).</li>
+   *   <li>Then return Behavior is {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link AlfrescoStartEvent#clone()}
+   * <p>
+   * Method under test: {@link AlfrescoStartEvent#clone()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"AlfrescoStartEvent AlfrescoStartEvent.clone()"})
   public void testClone_givenAlfrescoStartEvent_thenReturnBehaviorIsNull() {
     // Arrange and Act
-    AlfrescoStartEvent actualCloneResult = new AlfrescoStartEvent().clone();
+    AlfrescoStartEvent actualCloneResult = (new AlfrescoStartEvent()).clone();
 
     // Assert
     assertNull(actualCloneResult.getBehavior());
@@ -72,9 +69,8 @@ public class AlfrescoStartEventDiffblueTest {
 
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>default or parameterless constructor of {@link AlfrescoStartEvent}
    *   <li>{@link AlfrescoStartEvent#setRunAs(String)}
@@ -84,15 +80,10 @@ public class AlfrescoStartEventDiffblueTest {
    * </ul>
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void AlfrescoStartEvent.<init>()",
-    "String AlfrescoStartEvent.getRunAs()",
-    "String AlfrescoStartEvent.getScriptProcessor()",
-    "void AlfrescoStartEvent.setRunAs(String)",
-    "void AlfrescoStartEvent.setScriptProcessor(String)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void AlfrescoStartEvent.<init>()", "String AlfrescoStartEvent.getRunAs()",
+      "String AlfrescoStartEvent.getScriptProcessor()", "void AlfrescoStartEvent.setRunAs(String)",
+      "void AlfrescoStartEvent.setScriptProcessor(String)"})
   public void testGettersAndSetters() {
     // Arrange and Act
     AlfrescoStartEvent actualAlfrescoStartEvent = new AlfrescoStartEvent();

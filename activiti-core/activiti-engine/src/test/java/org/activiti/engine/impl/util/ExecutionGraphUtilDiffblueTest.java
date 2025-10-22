@@ -20,8 +20,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -31,27 +30,25 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import org.activiti.bpmn.model.AdhocSubProcess;
+import org.activiti.bpmn.model.BooleanDataObject;
 import org.activiti.bpmn.model.FlowNode;
 import org.activiti.bpmn.model.Process;
 import org.activiti.engine.impl.persistence.entity.ExecutionEntity;
 import org.activiti.engine.impl.persistence.entity.ExecutionEntityImpl;
-import org.activiti.engine.test.util.TestProcessUtil;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 
 public class ExecutionGraphUtilDiffblueTest {
   /**
    * Test {@link ExecutionGraphUtil#orderFromRootToLeaf(Collection)}.
-   *
    * <ul>
-   *   <li>Then return {@link ArrayList#ArrayList()}.
+   *   <li>Then return {@link ArrayList#ArrayList()}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ExecutionGraphUtil#orderFromRootToLeaf(Collection)}
+   * <p>
+   * Method under test: {@link ExecutionGraphUtil#orderFromRootToLeaf(Collection)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"List ExecutionGraphUtil.orderFromRootToLeaf(Collection)"})
   public void testOrderFromRootToLeaf_thenReturnArrayList() {
     // Arrange
@@ -60,8 +57,7 @@ public class ExecutionGraphUtilDiffblueTest {
     executions.add(ExecutionEntityImpl.createWithEmptyRelationshipCollections());
 
     // Act
-    List<ExecutionEntity> actualOrderFromRootToLeafResult =
-        ExecutionGraphUtil.orderFromRootToLeaf(executions);
+    List<ExecutionEntity> actualOrderFromRootToLeafResult = ExecutionGraphUtil.orderFromRootToLeaf(executions);
 
     // Assert
     assertEquals(executions, actualOrderFromRootToLeafResult);
@@ -69,29 +65,26 @@ public class ExecutionGraphUtilDiffblueTest {
 
   /**
    * Test {@link ExecutionGraphUtil#orderFromRootToLeaf(Collection)}.
-   *
    * <ul>
-   *   <li>Then return size is one.
+   *   <li>Then return size is one.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ExecutionGraphUtil#orderFromRootToLeaf(Collection)}
+   * <p>
+   * Method under test: {@link ExecutionGraphUtil#orderFromRootToLeaf(Collection)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"List ExecutionGraphUtil.orderFromRootToLeaf(Collection)"})
   public void testOrderFromRootToLeaf_thenReturnSizeIsOne() {
     // Arrange
-    ExecutionEntityImpl createWithEmptyRelationshipCollectionsResult =
-        ExecutionEntityImpl.createWithEmptyRelationshipCollections();
+    ExecutionEntityImpl createWithEmptyRelationshipCollectionsResult = ExecutionEntityImpl
+        .createWithEmptyRelationshipCollections();
     createWithEmptyRelationshipCollectionsResult.setParentId(null);
 
     LinkedHashSet<ExecutionEntity> executions = new LinkedHashSet<>();
     executions.add(createWithEmptyRelationshipCollectionsResult);
 
     // Act
-    List<ExecutionEntity> actualOrderFromRootToLeafResult =
-        ExecutionGraphUtil.orderFromRootToLeaf(executions);
+    List<ExecutionEntity> actualOrderFromRootToLeafResult = ExecutionGraphUtil.orderFromRootToLeaf(executions);
 
     // Assert
     assertEquals(1, actualOrderFromRootToLeafResult.size());
@@ -102,25 +95,22 @@ public class ExecutionGraphUtilDiffblueTest {
 
   /**
    * Test {@link ExecutionGraphUtil#orderFromRootToLeaf(Collection)}.
-   *
    * <ul>
-   *   <li>Then return size is two.
+   *   <li>Then return size is two.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ExecutionGraphUtil#orderFromRootToLeaf(Collection)}
+   * <p>
+   * Method under test: {@link ExecutionGraphUtil#orderFromRootToLeaf(Collection)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"List ExecutionGraphUtil.orderFromRootToLeaf(Collection)"})
   public void testOrderFromRootToLeaf_thenReturnSizeIsTwo() {
     // Arrange
-    ExecutionEntityImpl createWithEmptyRelationshipCollectionsResult =
-        ExecutionEntityImpl.createWithEmptyRelationshipCollections();
+    ExecutionEntityImpl createWithEmptyRelationshipCollectionsResult = ExecutionEntityImpl
+        .createWithEmptyRelationshipCollections();
     createWithEmptyRelationshipCollectionsResult.setId("42");
-
-    ExecutionEntityImpl createWithEmptyRelationshipCollectionsResult2 =
-        ExecutionEntityImpl.createWithEmptyRelationshipCollections();
+    ExecutionEntityImpl createWithEmptyRelationshipCollectionsResult2 = ExecutionEntityImpl
+        .createWithEmptyRelationshipCollections();
     createWithEmptyRelationshipCollectionsResult2.setParentId("42");
 
     ArrayList<ExecutionEntity> executions = new ArrayList<>();
@@ -128,8 +118,7 @@ public class ExecutionGraphUtilDiffblueTest {
     executions.add(createWithEmptyRelationshipCollectionsResult);
 
     // Act
-    List<ExecutionEntity> actualOrderFromRootToLeafResult =
-        ExecutionGraphUtil.orderFromRootToLeaf(executions);
+    List<ExecutionEntity> actualOrderFromRootToLeafResult = ExecutionGraphUtil.orderFromRootToLeaf(executions);
 
     // Assert
     assertEquals(2, actualOrderFromRootToLeafResult.size());
@@ -143,32 +132,27 @@ public class ExecutionGraphUtilDiffblueTest {
     assertEquals("42", getResult.getParentId());
     assertEquals(23, ((Map<Object, Object>) persistentState).size());
     assertNull(((Map<Object, Object>) persistentState).get("processDefinitionId"));
-    assertEquals(
-        0, ((Integer) ((Map<Object, Object>) persistentState).get("suspendedJobCount")).intValue());
-    assertEquals(
-        1, ((Integer) ((Map<Object, Object>) persistentState).get("suspensionState")).intValue());
+    assertEquals(0, ((Integer) ((Map<Object, Object>) persistentState).get("suspendedJobCount")).intValue());
+    assertEquals(1, ((Integer) ((Map<Object, Object>) persistentState).get("suspensionState")).intValue());
     assertFalse(getResult.isProcessInstanceType());
     assertTrue((Boolean) ((Map<Object, Object>) persistentState).get("isScope"));
   }
 
   /**
    * Test {@link ExecutionGraphUtil#orderFromRootToLeaf(Collection)}.
-   *
    * <ul>
-   *   <li>When {@link ArrayList#ArrayList()}.
-   *   <li>Then return Empty.
+   *   <li>When {@link ArrayList#ArrayList()}.</li>
+   *   <li>Then return Empty.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ExecutionGraphUtil#orderFromRootToLeaf(Collection)}
+   * <p>
+   * Method under test: {@link ExecutionGraphUtil#orderFromRootToLeaf(Collection)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"List ExecutionGraphUtil.orderFromRootToLeaf(Collection)"})
   public void testOrderFromRootToLeaf_whenArrayList_thenReturnEmpty() {
     // Arrange and Act
-    List<ExecutionEntity> actualOrderFromRootToLeafResult =
-        ExecutionGraphUtil.orderFromRootToLeaf(new ArrayList<>());
+    List<ExecutionEntity> actualOrderFromRootToLeafResult = ExecutionGraphUtil.orderFromRootToLeaf(new ArrayList<>());
 
     // Assert
     assertTrue(actualOrderFromRootToLeafResult.isEmpty());
@@ -176,25 +160,22 @@ public class ExecutionGraphUtilDiffblueTest {
 
   /**
    * Test {@link ExecutionGraphUtil#orderFromLeafToRoot(Collection)}.
-   *
    * <ul>
-   *   <li>Then return {@link ArrayList#ArrayList()}.
+   *   <li>Then return {@link ArrayList#ArrayList()}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ExecutionGraphUtil#orderFromLeafToRoot(Collection)}
+   * <p>
+   * Method under test: {@link ExecutionGraphUtil#orderFromLeafToRoot(Collection)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"List ExecutionGraphUtil.orderFromLeafToRoot(Collection)"})
   public void testOrderFromLeafToRoot_thenReturnArrayList() {
     // Arrange
-    ExecutionEntityImpl createWithEmptyRelationshipCollectionsResult =
-        ExecutionEntityImpl.createWithEmptyRelationshipCollections();
+    ExecutionEntityImpl createWithEmptyRelationshipCollectionsResult = ExecutionEntityImpl
+        .createWithEmptyRelationshipCollections();
     createWithEmptyRelationshipCollectionsResult.setId("42");
-
-    ExecutionEntityImpl createWithEmptyRelationshipCollectionsResult2 =
-        ExecutionEntityImpl.createWithEmptyRelationshipCollections();
+    ExecutionEntityImpl createWithEmptyRelationshipCollectionsResult2 = ExecutionEntityImpl
+        .createWithEmptyRelationshipCollections();
     createWithEmptyRelationshipCollectionsResult2.setParentId("42");
 
     ArrayList<ExecutionEntity> executions = new ArrayList<>();
@@ -202,8 +183,7 @@ public class ExecutionGraphUtilDiffblueTest {
     executions.add(createWithEmptyRelationshipCollectionsResult);
 
     // Act
-    List<ExecutionEntity> actualOrderFromLeafToRootResult =
-        ExecutionGraphUtil.orderFromLeafToRoot(executions);
+    List<ExecutionEntity> actualOrderFromLeafToRootResult = ExecutionGraphUtil.orderFromLeafToRoot(executions);
 
     // Assert
     assertEquals(executions, actualOrderFromLeafToRootResult);
@@ -211,29 +191,26 @@ public class ExecutionGraphUtilDiffblueTest {
 
   /**
    * Test {@link ExecutionGraphUtil#orderFromLeafToRoot(Collection)}.
-   *
    * <ul>
-   *   <li>Then return size is one.
+   *   <li>Then return size is one.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ExecutionGraphUtil#orderFromLeafToRoot(Collection)}
+   * <p>
+   * Method under test: {@link ExecutionGraphUtil#orderFromLeafToRoot(Collection)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"List ExecutionGraphUtil.orderFromLeafToRoot(Collection)"})
   public void testOrderFromLeafToRoot_thenReturnSizeIsOne() {
     // Arrange
-    ExecutionEntityImpl createWithEmptyRelationshipCollectionsResult =
-        ExecutionEntityImpl.createWithEmptyRelationshipCollections();
+    ExecutionEntityImpl createWithEmptyRelationshipCollectionsResult = ExecutionEntityImpl
+        .createWithEmptyRelationshipCollections();
     createWithEmptyRelationshipCollectionsResult.setParentId(null);
 
     LinkedHashSet<ExecutionEntity> executions = new LinkedHashSet<>();
     executions.add(createWithEmptyRelationshipCollectionsResult);
 
     // Act
-    List<ExecutionEntity> actualOrderFromLeafToRootResult =
-        ExecutionGraphUtil.orderFromLeafToRoot(executions);
+    List<ExecutionEntity> actualOrderFromLeafToRootResult = ExecutionGraphUtil.orderFromLeafToRoot(executions);
 
     // Assert
     assertEquals(1, actualOrderFromLeafToRootResult.size());
@@ -250,28 +227,25 @@ public class ExecutionGraphUtilDiffblueTest {
 
   /**
    * Test {@link ExecutionGraphUtil#orderFromLeafToRoot(Collection)}.
-   *
    * <ul>
-   *   <li>Then return size is two.
+   *   <li>Then return size is two.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ExecutionGraphUtil#orderFromLeafToRoot(Collection)}
+   * <p>
+   * Method under test: {@link ExecutionGraphUtil#orderFromLeafToRoot(Collection)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"List ExecutionGraphUtil.orderFromLeafToRoot(Collection)"})
   public void testOrderFromLeafToRoot_thenReturnSizeIsTwo() {
     // Arrange
     ArrayList<ExecutionEntity> executions = new ArrayList<>();
-    ExecutionEntityImpl createWithEmptyRelationshipCollectionsResult =
-        ExecutionEntityImpl.createWithEmptyRelationshipCollections();
+    ExecutionEntityImpl createWithEmptyRelationshipCollectionsResult = ExecutionEntityImpl
+        .createWithEmptyRelationshipCollections();
     executions.add(createWithEmptyRelationshipCollectionsResult);
     executions.add(ExecutionEntityImpl.createWithEmptyRelationshipCollections());
 
     // Act
-    List<ExecutionEntity> actualOrderFromLeafToRootResult =
-        ExecutionGraphUtil.orderFromLeafToRoot(executions);
+    List<ExecutionEntity> actualOrderFromLeafToRootResult = ExecutionGraphUtil.orderFromLeafToRoot(executions);
 
     // Assert
     assertEquals(2, actualOrderFromLeafToRootResult.size());
@@ -283,75 +257,43 @@ public class ExecutionGraphUtilDiffblueTest {
 
   /**
    * Test {@link ExecutionGraphUtil#orderFromLeafToRoot(Collection)}.
-   *
    * <ul>
-   *   <li>When {@link ArrayList#ArrayList()}.
-   *   <li>Then return Empty.
+   *   <li>When {@link ArrayList#ArrayList()}.</li>
+   *   <li>Then return Empty.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ExecutionGraphUtil#orderFromLeafToRoot(Collection)}
+   * <p>
+   * Method under test: {@link ExecutionGraphUtil#orderFromLeafToRoot(Collection)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"List ExecutionGraphUtil.orderFromLeafToRoot(Collection)"})
   public void testOrderFromLeafToRoot_whenArrayList_thenReturnEmpty() {
     // Arrange and Act
-    List<ExecutionEntity> actualOrderFromLeafToRootResult =
-        ExecutionGraphUtil.orderFromLeafToRoot(new ArrayList<>());
+    List<ExecutionEntity> actualOrderFromLeafToRootResult = ExecutionGraphUtil.orderFromLeafToRoot(new ArrayList<>());
 
     // Assert
     assertTrue(actualOrderFromLeafToRootResult.isEmpty());
   }
 
   /**
-   * Test {@link ExecutionGraphUtil#isReachable(Process, FlowNode, FlowNode, Set)} with {@code
-   * process}, {@code sourceElement}, {@code targetElement}, {@code visitedElements}.
-   *
-   * <p>Method under test: {@link ExecutionGraphUtil#isReachable(Process, FlowNode, FlowNode, Set)}
+   * Test {@link ExecutionGraphUtil#isReachable(Process, FlowNode, FlowNode, Set)} with {@code process}, {@code sourceElement}, {@code targetElement}, {@code visitedElements}.
+   * <p>
+   * Method under test: {@link ExecutionGraphUtil#isReachable(Process, FlowNode, FlowNode, Set)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"boolean ExecutionGraphUtil.isReachable(Process, FlowNode, FlowNode, Set)"})
   public void testIsReachableWithProcessSourceElementTargetElementVisitedElements() {
     // Arrange
-    Process process = TestProcessUtil.createOneTaskProcessWithId("42");
-    AdhocSubProcess sourceElement = new AdhocSubProcess();
-    AdhocSubProcess targetElement = new AdhocSubProcess();
-    HashSet<String> visitedElements = new HashSet<>();
-
-    // Act
-    boolean actualIsReachableResult =
-        ExecutionGraphUtil.isReachable(process, sourceElement, targetElement, visitedElements);
-
-    // Assert
-    assertEquals(1, visitedElements.size());
-    assertFalse(actualIsReachableResult);
-    assertTrue(visitedElements.contains(null));
-  }
-
-  /**
-   * Test {@link ExecutionGraphUtil#isReachable(Process, FlowNode, FlowNode, Set)} with {@code
-   * process}, {@code sourceElement}, {@code targetElement}, {@code visitedElements}.
-   *
-   * <p>Method under test: {@link ExecutionGraphUtil#isReachable(Process, FlowNode, FlowNode, Set)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"boolean ExecutionGraphUtil.isReachable(Process, FlowNode, FlowNode, Set)"})
-  public void testIsReachableWithProcessSourceElementTargetElementVisitedElements2() {
-    // Arrange
-    Process process = TestProcessUtil.createOneTaskProcessWithId("42");
+    Process process = new Process();
     process.addFlowElement(new AdhocSubProcess());
     AdhocSubProcess sourceElement = new AdhocSubProcess();
     AdhocSubProcess targetElement = new AdhocSubProcess();
     HashSet<String> visitedElements = new HashSet<>();
 
     // Act
-    boolean actualIsReachableResult =
-        ExecutionGraphUtil.isReachable(process, sourceElement, targetElement, visitedElements);
+    boolean actualIsReachableResult = ExecutionGraphUtil.isReachable(process, sourceElement, targetElement,
+        visitedElements);
 
     // Assert
     assertEquals(1, visitedElements.size());
@@ -360,18 +302,71 @@ public class ExecutionGraphUtilDiffblueTest {
   }
 
   /**
-   * Test {@link ExecutionGraphUtil#isReachable(Process, FlowNode, FlowNode, Set)} with {@code
-   * process}, {@code sourceElement}, {@code targetElement}, {@code visitedElements}.
-   *
-   * <p>Method under test: {@link ExecutionGraphUtil#isReachable(Process, FlowNode, FlowNode, Set)}
+   * Test {@link ExecutionGraphUtil#isReachable(Process, FlowNode, FlowNode, Set)} with {@code process}, {@code sourceElement}, {@code targetElement}, {@code visitedElements}.
+   * <p>
+   * Method under test: {@link ExecutionGraphUtil#isReachable(Process, FlowNode, FlowNode, Set)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean ExecutionGraphUtil.isReachable(Process, FlowNode, FlowNode, Set)"})
+  public void testIsReachableWithProcessSourceElementTargetElementVisitedElements2() {
+    // Arrange
+    Process process = new Process();
+    AdhocSubProcess sourceElement = new AdhocSubProcess();
+    AdhocSubProcess targetElement = new AdhocSubProcess();
+
+    HashSet<String> visitedElements = new HashSet<>();
+    visitedElements.add("foo");
+
+    // Act
+    boolean actualIsReachableResult = ExecutionGraphUtil.isReachable(process, sourceElement, targetElement,
+        visitedElements);
+
+    // Assert
+    assertEquals(2, visitedElements.size());
+    assertFalse(actualIsReachableResult);
+    assertTrue(visitedElements.contains("foo"));
+    assertTrue(visitedElements.contains(null));
+  }
+
+  /**
+   * Test {@link ExecutionGraphUtil#isReachable(Process, FlowNode, FlowNode, Set)} with {@code process}, {@code sourceElement}, {@code targetElement}, {@code visitedElements}.
+   * <p>
+   * Method under test: {@link ExecutionGraphUtil#isReachable(Process, FlowNode, FlowNode, Set)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"boolean ExecutionGraphUtil.isReachable(Process, FlowNode, FlowNode, Set)"})
   public void testIsReachableWithProcessSourceElementTargetElementVisitedElements3() {
     // Arrange
-    Process process = TestProcessUtil.createOneTaskProcessWithId("42");
+    Process process = new Process();
+    process.addFlowElement(new BooleanDataObject());
+    AdhocSubProcess sourceElement = new AdhocSubProcess();
+    AdhocSubProcess targetElement = new AdhocSubProcess();
+    HashSet<String> visitedElements = new HashSet<>();
+
+    // Act
+    boolean actualIsReachableResult = ExecutionGraphUtil.isReachable(process, sourceElement, targetElement,
+        visitedElements);
+
+    // Assert
+    assertEquals(1, visitedElements.size());
+    assertFalse(actualIsReachableResult);
+    assertTrue(visitedElements.contains(null));
+  }
+
+  /**
+   * Test {@link ExecutionGraphUtil#isReachable(Process, FlowNode, FlowNode, Set)} with {@code process}, {@code sourceElement}, {@code targetElement}, {@code visitedElements}.
+   * <p>
+   * Method under test: {@link ExecutionGraphUtil#isReachable(Process, FlowNode, FlowNode, Set)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean ExecutionGraphUtil.isReachable(Process, FlowNode, FlowNode, Set)"})
+  public void testIsReachableWithProcessSourceElementTargetElementVisitedElements4() {
+    // Arrange
+    Process process = new Process();
+    process.addFlowElement(new AdhocSubProcess());
 
     AdhocSubProcess sourceElement = new AdhocSubProcess();
     sourceElement.setId("42");
@@ -379,8 +374,8 @@ public class ExecutionGraphUtilDiffblueTest {
     HashSet<String> visitedElements = new HashSet<>();
 
     // Act
-    boolean actualIsReachableResult =
-        ExecutionGraphUtil.isReachable(process, sourceElement, targetElement, visitedElements);
+    boolean actualIsReachableResult = ExecutionGraphUtil.isReachable(process, sourceElement, targetElement,
+        visitedElements);
 
     // Assert
     assertEquals(1, visitedElements.size());
@@ -389,61 +384,61 @@ public class ExecutionGraphUtilDiffblueTest {
   }
 
   /**
-   * Test {@link ExecutionGraphUtil#isReachable(Process, FlowNode, FlowNode, Set)} with {@code
-   * process}, {@code sourceElement}, {@code targetElement}, {@code visitedElements}.
-   *
-   * <p>Method under test: {@link ExecutionGraphUtil#isReachable(Process, FlowNode, FlowNode, Set)}
+   * Test {@link ExecutionGraphUtil#isReachable(Process, FlowNode, FlowNode, Set)} with {@code process}, {@code sourceElement}, {@code targetElement}, {@code visitedElements}.
+   * <p>
+   * Method under test: {@link ExecutionGraphUtil#isReachable(Process, FlowNode, FlowNode, Set)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"boolean ExecutionGraphUtil.isReachable(Process, FlowNode, FlowNode, Set)"})
-  public void testIsReachableWithProcessSourceElementTargetElementVisitedElements4() {
+  public void testIsReachableWithProcessSourceElementTargetElementVisitedElements5() {
     // Arrange
-    Process process = TestProcessUtil.createOneTaskProcessWithId("42");
+    AdhocSubProcess element = new AdhocSubProcess();
+    element.setId("42");
+
+    Process process = new Process();
+    process.addFlowElement(element);
 
     AdhocSubProcess sourceElement = new AdhocSubProcess();
-    sourceElement.setId("start");
+    sourceElement.setId("42");
     AdhocSubProcess targetElement = new AdhocSubProcess();
     HashSet<String> visitedElements = new HashSet<>();
 
     // Act
-    boolean actualIsReachableResult =
-        ExecutionGraphUtil.isReachable(process, sourceElement, targetElement, visitedElements);
+    boolean actualIsReachableResult = ExecutionGraphUtil.isReachable(process, sourceElement, targetElement,
+        visitedElements);
 
     // Assert
     assertEquals(1, visitedElements.size());
     assertFalse(actualIsReachableResult);
-    assertTrue(visitedElements.contains("start"));
+    assertTrue(visitedElements.contains("42"));
   }
 
   /**
-   * Test {@link ExecutionGraphUtil#isReachable(Process, FlowNode, FlowNode, Set)} with {@code
-   * process}, {@code sourceElement}, {@code targetElement}, {@code visitedElements}.
-   *
-   * <p>Method under test: {@link ExecutionGraphUtil#isReachable(Process, FlowNode, FlowNode, Set)}
+   * Test {@link ExecutionGraphUtil#isReachable(Process, FlowNode, FlowNode, Set)} with {@code process}, {@code sourceElement}, {@code targetElement}, {@code visitedElements}.
+   * <ul>
+   *   <li>When {@link Process} (default constructor).</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link ExecutionGraphUtil#isReachable(Process, FlowNode, FlowNode, Set)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"boolean ExecutionGraphUtil.isReachable(Process, FlowNode, FlowNode, Set)"})
-  public void testIsReachableWithProcessSourceElementTargetElementVisitedElements5() {
+  public void testIsReachableWithProcessSourceElementTargetElementVisitedElements_whenProcess() {
     // Arrange
-    Process process = TestProcessUtil.createOneTaskProcessWithId("42");
+    Process process = new Process();
     AdhocSubProcess sourceElement = new AdhocSubProcess();
     AdhocSubProcess targetElement = new AdhocSubProcess();
-
     HashSet<String> visitedElements = new HashSet<>();
-    visitedElements.add("foo");
 
     // Act
-    boolean actualIsReachableResult =
-        ExecutionGraphUtil.isReachable(process, sourceElement, targetElement, visitedElements);
+    boolean actualIsReachableResult = ExecutionGraphUtil.isReachable(process, sourceElement, targetElement,
+        visitedElements);
 
     // Assert
-    assertEquals(2, visitedElements.size());
+    assertEquals(1, visitedElements.size());
     assertFalse(actualIsReachableResult);
-    assertTrue(visitedElements.contains("foo"));
     assertTrue(visitedElements.contains(null));
   }
 }

@@ -20,8 +20,7 @@ import static org.mockito.ArgumentMatchers.isA;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.engine.ActivitiEngineAgendaFactory;
 import org.activiti.engine.impl.agenda.DefaultActivitiEngineAgenda;
@@ -35,32 +34,27 @@ import org.mockito.Mockito;
 public class DatabaseEventFlusherDiffblueTest {
   /**
    * Test {@link DatabaseEventFlusher#closing(CommandContext)}.
-   *
    * <ul>
-   *   <li>Then calls {@link ActivitiEngineAgendaFactory#createAgenda(CommandContext)}.
+   *   <li>Then calls {@link ActivitiEngineAgendaFactory#createAgenda(CommandContext)}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link DatabaseEventFlusher#closing(CommandContext)}
+   * <p>
+   * Method under test: {@link DatabaseEventFlusher#closing(CommandContext)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void DatabaseEventFlusher.closing(CommandContext)"})
   public void testClosing_thenCallsCreateAgenda() {
     // Arrange
     DatabaseEventFlusher databaseEventFlusher = new DatabaseEventFlusher();
-
     ActivitiEngineAgendaFactory engineAgendaFactory = mock(ActivitiEngineAgendaFactory.class);
     when(engineAgendaFactory.createAgenda(Mockito.<CommandContext>any()))
         .thenReturn(new DefaultActivitiEngineAgenda(null));
 
     JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();
     processEngineConfiguration.setEngineAgendaFactory(engineAgendaFactory);
-    CommandContext commandContext =
-        new CommandContext(mock(Command.class), processEngineConfiguration);
 
     // Act
-    databaseEventFlusher.closing(commandContext);
+    databaseEventFlusher.closing(new CommandContext(mock(Command.class), processEngineConfiguration));
 
     // Assert
     verify(engineAgendaFactory).createAgenda(isA(CommandContext.class));
@@ -68,19 +62,16 @@ public class DatabaseEventFlusherDiffblueTest {
 
   /**
    * Test new {@link DatabaseEventFlusher} (default constructor).
-   *
-   * <p>Method under test: default or parameterless constructor of {@link DatabaseEventFlusher}
+   * <p>
+   * Method under test: default or parameterless constructor of {@link DatabaseEventFlusher}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void DatabaseEventFlusher.<init>()",
-    "void DatabaseEventFlusher.afterSessionsFlush(CommandContext)",
-    "void DatabaseEventFlusher.closeFailure(CommandContext)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void DatabaseEventFlusher.<init>()",
+      "void DatabaseEventFlusher.afterSessionsFlush(CommandContext)",
+      "void DatabaseEventFlusher.closeFailure(CommandContext)"})
   public void testNewDatabaseEventFlusher() {
     // Arrange, Act and Assert
-    assertTrue(new DatabaseEventFlusher().getEventHandlers().isEmpty());
+    assertTrue((new DatabaseEventFlusher()).getEventHandlers().isEmpty());
   }
 }

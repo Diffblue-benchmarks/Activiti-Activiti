@@ -19,8 +19,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.engine.impl.cfg.JtaProcessEngineConfiguration;
 import org.activiti.engine.impl.cfg.ProcessEngineConfigurationImpl;
@@ -32,26 +31,21 @@ import org.junit.experimental.categories.Category;
 public class MybatisResourceDataManagerDiffblueTest {
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
-   *   <li>{@link
-   *       MybatisResourceDataManager#MybatisResourceDataManager(ProcessEngineConfigurationImpl)}
+   *   <li>{@link MybatisResourceDataManager#MybatisResourceDataManager(ProcessEngineConfigurationImpl)}
    *   <li>{@link MybatisResourceDataManager#getManagedEntityClass()}
    * </ul>
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void MybatisResourceDataManager.<init>(ProcessEngineConfigurationImpl)",
-    "Class MybatisResourceDataManager.getManagedEntityClass()"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void MybatisResourceDataManager.<init>(ProcessEngineConfigurationImpl)",
+      "Class MybatisResourceDataManager.getManagedEntityClass()"})
   public void testGettersAndSetters() {
     // Arrange and Act
-    Class<? extends ResourceEntity> actualManagedEntityClass =
-        new MybatisResourceDataManager(new JtaProcessEngineConfiguration()).getManagedEntityClass();
+    Class<? extends ResourceEntity> actualManagedEntityClass = (new MybatisResourceDataManager(
+        new JtaProcessEngineConfiguration())).getManagedEntityClass();
 
     // Assert
     Class<ResourceEntityImpl> expectedManagedEntityClass = ResourceEntityImpl.class;
@@ -60,17 +54,15 @@ public class MybatisResourceDataManagerDiffblueTest {
 
   /**
    * Test {@link MybatisResourceDataManager#create()}.
-   *
-   * <p>Method under test: {@link MybatisResourceDataManager#create()}
+   * <p>
+   * Method under test: {@link MybatisResourceDataManager#create()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"ResourceEntity MybatisResourceDataManager.create()"})
   public void testCreate() {
     // Arrange and Act
-    ResourceEntity actualCreateResult =
-        new MybatisResourceDataManager(new JtaProcessEngineConfiguration()).create();
+    ResourceEntity actualCreateResult = (new MybatisResourceDataManager(new JtaProcessEngineConfiguration())).create();
 
     // Assert
     assertTrue(actualCreateResult instanceof ResourceEntityImpl);

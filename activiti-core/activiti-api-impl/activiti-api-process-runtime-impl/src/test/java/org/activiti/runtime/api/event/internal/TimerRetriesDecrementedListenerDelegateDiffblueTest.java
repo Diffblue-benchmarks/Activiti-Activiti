@@ -20,19 +20,17 @@ import static org.mockito.ArgumentMatchers.isA;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import static org.mockito.Mockito.when;
 import com.diffblue.cover.annotations.MethodsUnderTest;
-import java.time.LocalDate;
-import java.time.ZoneOffset;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 import org.activiti.api.process.model.events.BPMNTimerRetriesDecrementedEvent;
 import org.activiti.api.process.runtime.events.listener.BPMNElementEventListener;
+import org.activiti.api.process.runtime.events.listener.ProcessRuntimeEventListener;
+import org.activiti.api.runtime.event.impl.BPMNTimerRetriesDecrementedEventImpl;
 import org.activiti.engine.delegate.event.ActivitiEvent;
-import org.activiti.engine.delegate.event.ActivitiEventType;
-import org.activiti.engine.delegate.event.impl.ActivitiEntityEventImpl;
-import org.activiti.engine.impl.persistence.entity.DeadLetterJobEntityImpl;
+import org.activiti.engine.delegate.event.impl.ActivitiActivityCancelledEventImpl;
 import org.activiti.runtime.api.event.impl.BPMNTimerConverter;
 import org.activiti.runtime.api.event.impl.ToTimerRetriesDecrementedConverter;
 import org.junit.jupiter.api.DisplayName;
@@ -43,98 +41,86 @@ import org.mockito.Mockito;
 class TimerRetriesDecrementedListenerDelegateDiffblueTest {
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
-   *   <li>{@link
-   *       TimerRetriesDecrementedListenerDelegate#TimerRetriesDecrementedListenerDelegate(List,
-   *       ToTimerRetriesDecrementedConverter)}
+   *   <li>{@link TimerRetriesDecrementedListenerDelegate#TimerRetriesDecrementedListenerDelegate(List, ToTimerRetriesDecrementedConverter)}
    *   <li>{@link TimerRetriesDecrementedListenerDelegate#isFailOnException()}
    * </ul>
    */
   @Test
   @DisplayName("Test getters and setters")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void TimerRetriesDecrementedListenerDelegate.<init>(List, ToTimerRetriesDecrementedConverter)",
-    "boolean TimerRetriesDecrementedListenerDelegate.isFailOnException()"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void TimerRetriesDecrementedListenerDelegate.<init>(List, ToTimerRetriesDecrementedConverter)",
+      "boolean TimerRetriesDecrementedListenerDelegate.isFailOnException()"})
   void testGettersAndSetters() {
     // Arrange
-    ArrayList<BPMNElementEventListener<BPMNTimerRetriesDecrementedEvent>>
-        processRuntimeEventListeners = new ArrayList<>();
+    ArrayList<BPMNElementEventListener<BPMNTimerRetriesDecrementedEvent>> processRuntimeEventListeners = new ArrayList<>();
 
-    // Act
-    TimerRetriesDecrementedListenerDelegate actualTimerRetriesDecrementedListenerDelegate =
-        new TimerRetriesDecrementedListenerDelegate(
-            processRuntimeEventListeners,
-            new ToTimerRetriesDecrementedConverter(new BPMNTimerConverter()));
-
-    // Assert
-    assertFalse(actualTimerRetriesDecrementedListenerDelegate.isFailOnException());
+    // Act and Assert
+    assertFalse((new TimerRetriesDecrementedListenerDelegate(processRuntimeEventListeners,
+        new ToTimerRetriesDecrementedConverter(new BPMNTimerConverter()))).isFailOnException());
   }
 
   /**
    * Test {@link TimerRetriesDecrementedListenerDelegate#onEvent(ActivitiEvent)}.
-   *
    * <ul>
-   *   <li>Given {@code timer}.
-   *   <li>Then calls {@link BPMNElementEventListener#onEvent(RuntimeEvent)}.
+   *   <li>Given {@link BPMNElementEventListener} {@link ProcessRuntimeEventListener#onEvent(RuntimeEvent)} does nothing.</li>
+   *   <li>Then calls {@link ProcessRuntimeEventListener#onEvent(RuntimeEvent)}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link TimerRetriesDecrementedListenerDelegate#onEvent(ActivitiEvent)}
+   * <p>
+   * Method under test: {@link TimerRetriesDecrementedListenerDelegate#onEvent(ActivitiEvent)}
    */
   @Test
-  @DisplayName("Test onEvent(ActivitiEvent); given 'timer'; then calls onEvent(RuntimeEvent)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test onEvent(ActivitiEvent); given BPMNElementEventListener onEvent(RuntimeEvent) does nothing; then calls onEvent(RuntimeEvent)")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void TimerRetriesDecrementedListenerDelegate.onEvent(ActivitiEvent)"})
-  void testOnEvent_givenTimer_thenCallsOnEvent() {
+  void testOnEvent_givenBPMNElementEventListenerOnEventDoesNothing_thenCallsOnEvent() {
     // Arrange
-    BPMNElementEventListener<BPMNTimerRetriesDecrementedEvent> bpmnElementEventListener =
-        mock(BPMNElementEventListener.class);
-    doNothing()
-        .when(bpmnElementEventListener)
-        .onEvent(Mockito.<BPMNTimerRetriesDecrementedEvent>any());
+    BPMNElementEventListener<BPMNTimerRetriesDecrementedEvent> bpmnElementEventListener = mock(
+        BPMNElementEventListener.class);
+    doNothing().when(bpmnElementEventListener).onEvent(Mockito.<BPMNTimerRetriesDecrementedEvent>any());
 
-    ArrayList<BPMNElementEventListener<BPMNTimerRetriesDecrementedEvent>>
-        processRuntimeEventListeners = new ArrayList<>();
+    ArrayList<BPMNElementEventListener<BPMNTimerRetriesDecrementedEvent>> processRuntimeEventListeners = new ArrayList<>();
     processRuntimeEventListeners.add(bpmnElementEventListener);
-    TimerRetriesDecrementedListenerDelegate timerRetriesDecrementedListenerDelegate =
-        new TimerRetriesDecrementedListenerDelegate(
-            processRuntimeEventListeners,
-            new ToTimerRetriesDecrementedConverter(new BPMNTimerConverter()));
-
-    DeadLetterJobEntityImpl deadLetterJobEntityImpl = new DeadLetterJobEntityImpl();
-    deadLetterJobEntityImpl.setDeleted(true);
-    deadLetterJobEntityImpl.setDuedate(
-        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
-    deadLetterJobEntityImpl.setEndDate(
-        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
-    deadLetterJobEntityImpl.setExceptionMessage("An error occurred");
-    deadLetterJobEntityImpl.setExclusive(true);
-    deadLetterJobEntityImpl.setExecutionId("42");
-    deadLetterJobEntityImpl.setId("42");
-    deadLetterJobEntityImpl.setInserted(true);
-    deadLetterJobEntityImpl.setJobHandlerConfiguration("Job Handler Configuration");
-    deadLetterJobEntityImpl.setJobHandlerType("Job Handler Type");
-    deadLetterJobEntityImpl.setMaxIterations(3);
-    deadLetterJobEntityImpl.setProcessDefinitionId("42");
-    deadLetterJobEntityImpl.setProcessInstanceId("42");
-    deadLetterJobEntityImpl.setRepeat("Repeat");
-    deadLetterJobEntityImpl.setRetries(1);
-    deadLetterJobEntityImpl.setRevision(1);
-    deadLetterJobEntityImpl.setTenantId("42");
-    deadLetterJobEntityImpl.setUpdated(true);
-    deadLetterJobEntityImpl.setJobType("timer");
+    ToTimerRetriesDecrementedConverter converter = mock(ToTimerRetriesDecrementedConverter.class);
+    Optional<BPMNTimerRetriesDecrementedEvent> ofResult = Optional.of(new BPMNTimerRetriesDecrementedEventImpl());
+    when(converter.from(Mockito.<ActivitiEvent>any())).thenReturn(ofResult);
+    TimerRetriesDecrementedListenerDelegate timerRetriesDecrementedListenerDelegate = new TimerRetriesDecrementedListenerDelegate(
+        processRuntimeEventListeners, converter);
 
     // Act
-    timerRetriesDecrementedListenerDelegate.onEvent(
-        new ActivitiEntityEventImpl(deadLetterJobEntityImpl, ActivitiEventType.ENTITY_CREATED));
+    timerRetriesDecrementedListenerDelegate.onEvent(new ActivitiActivityCancelledEventImpl());
 
     // Assert
     verify(bpmnElementEventListener).onEvent(isA(BPMNTimerRetriesDecrementedEvent.class));
+    verify(converter).from(isA(ActivitiEvent.class));
+  }
+
+  /**
+   * Test {@link TimerRetriesDecrementedListenerDelegate#onEvent(ActivitiEvent)}.
+   * <ul>
+   *   <li>Then calls {@link ToTimerRetriesDecrementedConverter#from(ActivitiEvent)}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link TimerRetriesDecrementedListenerDelegate#onEvent(ActivitiEvent)}
+   */
+  @Test
+  @DisplayName("Test onEvent(ActivitiEvent); then calls from(ActivitiEvent)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void TimerRetriesDecrementedListenerDelegate.onEvent(ActivitiEvent)"})
+  void testOnEvent_thenCallsFrom() {
+    // Arrange
+    ToTimerRetriesDecrementedConverter converter = mock(ToTimerRetriesDecrementedConverter.class);
+    Optional<BPMNTimerRetriesDecrementedEvent> ofResult = Optional.of(new BPMNTimerRetriesDecrementedEventImpl());
+    when(converter.from(Mockito.<ActivitiEvent>any())).thenReturn(ofResult);
+    TimerRetriesDecrementedListenerDelegate timerRetriesDecrementedListenerDelegate = new TimerRetriesDecrementedListenerDelegate(
+        new ArrayList<>(), converter);
+
+    // Act
+    timerRetriesDecrementedListenerDelegate.onEvent(new ActivitiActivityCancelledEventImpl());
+
+    // Assert
+    verify(converter).from(isA(ActivitiEvent.class));
   }
 }

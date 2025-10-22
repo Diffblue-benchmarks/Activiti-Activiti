@@ -18,8 +18,7 @@ package org.activiti.engine.impl.bpmn.parser.handler;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.bpmn.model.BaseElement;
 import org.activiti.bpmn.model.Task;
@@ -32,25 +31,23 @@ import org.junit.experimental.categories.Category;
 
 public class TaskParseHandlerDiffblueTest {
   /**
-   * Test {@link TaskParseHandler#executeParse(BpmnParse, Task)} with {@code BpmnParse}, {@code
-   * Task}.
-   *
+   * Test {@link TaskParseHandler#executeParse(BpmnParse, Task)} with {@code BpmnParse}, {@code Task}.
    * <ul>
-   *   <li>Then {@link Task} (default constructor) Behavior {@link TaskActivityBehavior}.
+   *   <li>Then {@link Task} (default constructor) Behavior {@link TaskActivityBehavior}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link TaskParseHandler#executeParse(BpmnParse, Task)}
+   * <p>
+   * Method under test: {@link TaskParseHandler#executeParse(BpmnParse, Task)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void TaskParseHandler.executeParse(BpmnParse, Task)"})
   public void testExecuteParseWithBpmnParseTask_thenTaskBehaviorTaskActivityBehavior() {
     // Arrange
     TaskParseHandler taskParseHandler = new TaskParseHandler();
 
-    BpmnParse bpmnParse = new BpmnParse(new BpmnParser());
-    bpmnParse.setActivityBehaviorFactory(new DefaultActivityBehaviorFactory());
+    BpmnParser parser = new BpmnParser();
+    parser.setActivityBehaviorFactory(new DefaultActivityBehaviorFactory());
+    BpmnParse bpmnParse = new BpmnParse(parser);
     Task task = new Task();
 
     // Act
@@ -64,21 +61,19 @@ public class TaskParseHandlerDiffblueTest {
 
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>default or parameterless constructor of {@link TaskParseHandler}
    *   <li>{@link TaskParseHandler#getHandledType()}
    * </ul>
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void TaskParseHandler.<init>()", "Class TaskParseHandler.getHandledType()"})
   public void testGettersAndSetters() {
     // Arrange and Act
-    Class<? extends BaseElement> actualHandledType = new TaskParseHandler().getHandledType();
+    Class<? extends BaseElement> actualHandledType = (new TaskParseHandler()).getHandledType();
 
     // Assert
     Class<Task> expectedHandledType = Task.class;

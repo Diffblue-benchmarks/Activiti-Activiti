@@ -24,8 +24,7 @@ import static org.mockito.Mockito.atLeast;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -35,17 +34,15 @@ import org.junit.experimental.categories.Category;
 public class ValuedDataObjectDiffblueTest {
   /**
    * Test {@link ValuedDataObject#getValue()}.
-   *
    * <ul>
-   *   <li>Given {@link BooleanDataObject} (default constructor) Value is {@code Value}.
-   *   <li>Then return {@code false}.
+   *   <li>Given {@link BooleanDataObject} (default constructor) Value is {@code Value}.</li>
+   *   <li>Then return {@code false}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ValuedDataObject#getValue()}
+   * <p>
+   * Method under test: {@link ValuedDataObject#getValue()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"Object ValuedDataObject.getValue()"})
   public void testGetValue_givenBooleanDataObjectValueIsValue_thenReturnFalse() {
     // Arrange
@@ -62,82 +59,31 @@ public class ValuedDataObjectDiffblueTest {
 
   /**
    * Test {@link ValuedDataObject#getValue()}.
-   *
    * <ul>
-   *   <li>Given {@link BooleanDataObject} (default constructor).
-   *   <li>Then return {@code null}.
+   *   <li>Given {@link BooleanDataObject} (default constructor).</li>
+   *   <li>Then return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ValuedDataObject#getValue()}
+   * <p>
+   * Method under test: {@link ValuedDataObject#getValue()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"Object ValuedDataObject.getValue()"})
   public void testGetValue_givenBooleanDataObject_thenReturnNull() {
     // Arrange, Act and Assert
-    assertNull(new BooleanDataObject().getValue());
+    assertNull((new BooleanDataObject()).getValue());
   }
 
   /**
    * Test {@link ValuedDataObject#setValues(ValuedDataObject)} with {@code ValuedDataObject}.
-   *
    * <ul>
-   *   <li>Given {@code null}.
-   *   <li>When {@link DateDataObject} {@link DateDataObject#getValue()} return {@code null}.
+   *   <li>Given {@code Other Element}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ValuedDataObject#setValues(ValuedDataObject)}
+   * <p>
+   * Method under test: {@link ValuedDataObject#setValues(ValuedDataObject)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void ValuedDataObject.setValues(ValuedDataObject)"})
-  public void testSetValuesWithValuedDataObject_givenNull_whenDateDataObjectGetValueReturnNull() {
-    // Arrange
-    BooleanDataObject booleanDataObject = new BooleanDataObject();
-
-    DateDataObject otherElement = mock(DateDataObject.class);
-    when(otherElement.getValue()).thenReturn(null);
-    when(otherElement.getExecutionListeners()).thenReturn(null);
-    when(otherElement.getAttributes()).thenReturn(null);
-    when(otherElement.getExtensionElements()).thenReturn(null);
-    when(otherElement.getId()).thenReturn("42");
-    when(otherElement.getDocumentation()).thenReturn("Documentation");
-    when(otherElement.getName()).thenReturn("Name");
-    ItemDefinition itemDefinition = new ItemDefinition();
-    when(otherElement.getItemSubjectRef()).thenReturn(itemDefinition);
-
-    // Act
-    booleanDataObject.setValues(otherElement);
-
-    // Assert
-    verify(otherElement).getAttributes();
-    verify(otherElement).getExtensionElements();
-    verify(otherElement, atLeast(1)).getId();
-    verify(otherElement).getItemSubjectRef();
-    verify(otherElement).getDocumentation();
-    verify(otherElement).getExecutionListeners();
-    verify(otherElement, atLeast(1)).getName();
-    verify(otherElement).getValue();
-    assertEquals("42", booleanDataObject.getId());
-    assertEquals("Documentation", booleanDataObject.getDocumentation());
-    assertEquals("Name", booleanDataObject.getName());
-    assertSame(itemDefinition, booleanDataObject.getItemSubjectRef());
-  }
-
-  /**
-   * Test {@link ValuedDataObject#setValues(ValuedDataObject)} with {@code ValuedDataObject}.
-   *
-   * <ul>
-   *   <li>Given {@code Other Element}.
-   * </ul>
-   *
-   * <p>Method under test: {@link ValuedDataObject#setValues(ValuedDataObject)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void ValuedDataObject.setValues(ValuedDataObject)"})
   public void testSetValuesWithValuedDataObject_givenOtherElement() {
     // Arrange
@@ -150,30 +96,24 @@ public class ValuedDataObjectDiffblueTest {
     booleanDataObject.setValues(otherElement);
 
     // Assert that nothing has changed
-    assertNull(otherElement.getId());
-    assertNull(otherElement.getDocumentation());
-    assertNull(otherElement.getName());
-    assertNull(otherElement.getItemSubjectRef());
+    assertFalse((Boolean) otherElement.getValue());
   }
 
   /**
    * Test {@link ValuedDataObject#setValues(ValuedDataObject)} with {@code ValuedDataObject}.
-   *
    * <ul>
-   *   <li>Given {@code Value}.
-   *   <li>Then not {@link BooleanDataObject} (default constructor) Value.
+   *   <li>Given {@code Value}.</li>
+   *   <li>Then {@link BooleanDataObject} (default constructor) Id is {@code 42}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ValuedDataObject#setValues(ValuedDataObject)}
+   * <p>
+   * Method under test: {@link ValuedDataObject#setValues(ValuedDataObject)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void ValuedDataObject.setValues(ValuedDataObject)"})
-  public void testSetValuesWithValuedDataObject_givenValue_thenNotBooleanDataObjectValue() {
+  public void testSetValuesWithValuedDataObject_givenValue_thenBooleanDataObjectIdIs42() {
     // Arrange
     BooleanDataObject booleanDataObject = new BooleanDataObject();
-
     DateDataObject otherElement = mock(DateDataObject.class);
     when(otherElement.getValue()).thenReturn("Value");
     when(otherElement.getId()).thenReturn("42");
@@ -206,18 +146,16 @@ public class ValuedDataObjectDiffblueTest {
 
   /**
    * Test {@link ValuedDataObject#setValues(ValuedDataObject)} with {@code ValuedDataObject}.
-   *
    * <ul>
-   *   <li>When {@link BooleanDataObject} (default constructor).
+   *   <li>Then {@link BooleanDataObject} (default constructor) Value is {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ValuedDataObject#setValues(ValuedDataObject)}
+   * <p>
+   * Method under test: {@link ValuedDataObject#setValues(ValuedDataObject)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void ValuedDataObject.setValues(ValuedDataObject)"})
-  public void testSetValuesWithValuedDataObject_whenBooleanDataObject() {
+  public void testSetValuesWithValuedDataObject_thenBooleanDataObjectValueIsNull() {
     // Arrange
     BooleanDataObject booleanDataObject = new BooleanDataObject();
     BooleanDataObject otherElement = new BooleanDataObject();
@@ -226,6 +164,7 @@ public class ValuedDataObjectDiffblueTest {
     booleanDataObject.setValues(otherElement);
 
     // Assert that nothing has changed
+    assertNull(otherElement.getValue());
     assertNull(otherElement.getId());
     assertNull(otherElement.getDocumentation());
     assertNull(otherElement.getName());
@@ -234,17 +173,15 @@ public class ValuedDataObjectDiffblueTest {
 
   /**
    * Test {@link ValuedDataObject#getType()}.
-   *
    * <ul>
-   *   <li>Given {@link ItemDefinition} (default constructor) StructureRef is {@code Structure Ref}.
-   *   <li>Then return {@code Structure Ref}.
+   *   <li>Given {@link ItemDefinition} (default constructor) StructureRef is {@code Structure Ref}.</li>
+   *   <li>Then return {@code Structure Ref}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ValuedDataObject#getType()}
+   * <p>
+   * Method under test: {@link ValuedDataObject#getType()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"java.lang.String ValuedDataObject.getType()"})
   public void testGetType_givenItemDefinitionStructureRefIsStructureRef_thenReturnStructureRef() {
     // Arrange
@@ -259,18 +196,16 @@ public class ValuedDataObjectDiffblueTest {
   }
 
   /**
-   * Test {@link ValuedDataObject#equals(Object)}, and {@link ValuedDataObject#hashCode()}.
-   *
+   * Test {@link ValuedDataObject#equals(Object)}, and {@link Object#hashCode()}.
    * <ul>
-   *   <li>When other is same.
-   *   <li>Then return equal.
+   *   <li>When other is same.</li>
+   *   <li>Then return equal.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ValuedDataObject#equals(Object)}
+   * <p>
+   * Method under test: {@link ValuedDataObject#equals(Object)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"boolean ValuedDataObject.equals(Object)"})
   public void testEqualsAndHashCode_whenOtherIsSame_thenReturnEqual() {
     // Arrange
@@ -284,17 +219,15 @@ public class ValuedDataObjectDiffblueTest {
 
   /**
    * Test {@link ValuedDataObject#equals(Object)}.
-   *
    * <ul>
-   *   <li>When other is different.
-   *   <li>Then return not equal.
+   *   <li>When other is different.</li>
+   *   <li>Then return not equal.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ValuedDataObject#equals(Object)}
+   * <p>
+   * Method under test: {@link ValuedDataObject#equals(Object)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"boolean ValuedDataObject.equals(Object)"})
   public void testEquals_whenOtherIsDifferent_thenReturnNotEqual() {
     // Arrange, Act and Assert
@@ -303,17 +236,15 @@ public class ValuedDataObjectDiffblueTest {
 
   /**
    * Test {@link ValuedDataObject#equals(Object)}.
-   *
    * <ul>
-   *   <li>When other is different.
-   *   <li>Then return not equal.
+   *   <li>When other is different.</li>
+   *   <li>Then return not equal.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ValuedDataObject#equals(Object)}
+   * <p>
+   * Method under test: {@link ValuedDataObject#equals(Object)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"boolean ValuedDataObject.equals(Object)"})
   public void testEquals_whenOtherIsDifferent_thenReturnNotEqual2() {
     // Arrange
@@ -332,17 +263,15 @@ public class ValuedDataObjectDiffblueTest {
 
   /**
    * Test {@link ValuedDataObject#equals(Object)}.
-   *
    * <ul>
-   *   <li>When other is {@code null}.
-   *   <li>Then return not equal.
+   *   <li>When other is {@code null}.</li>
+   *   <li>Then return not equal.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ValuedDataObject#equals(Object)}
+   * <p>
+   * Method under test: {@link ValuedDataObject#equals(Object)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"boolean ValuedDataObject.equals(Object)"})
   public void testEquals_whenOtherIsNull_thenReturnNotEqual() {
     // Arrange, Act and Assert
@@ -351,17 +280,15 @@ public class ValuedDataObjectDiffblueTest {
 
   /**
    * Test {@link ValuedDataObject#equals(Object)}.
-   *
    * <ul>
-   *   <li>When other is wrong type.
-   *   <li>Then return not equal.
+   *   <li>When other is wrong type.</li>
+   *   <li>Then return not equal.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ValuedDataObject#equals(Object)}
+   * <p>
+   * Method under test: {@link ValuedDataObject#equals(Object)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"boolean ValuedDataObject.equals(Object)"})
   public void testEquals_whenOtherIsWrongType_thenReturnNotEqual() {
     // Arrange, Act and Assert

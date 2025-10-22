@@ -17,8 +17,7 @@ package org.activiti.engine.impl.test;
 
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.engine.delegate.Expression;
 import org.activiti.engine.impl.el.FixedValue;
@@ -29,9 +28,8 @@ import org.junit.experimental.categories.Category;
 public class NoOpServiceTaskDiffblueTest {
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>default or parameterless constructor of {@link NoOpServiceTask}
    *   <li>{@link NoOpServiceTask#setName(Expression)}
@@ -39,13 +37,9 @@ public class NoOpServiceTaskDiffblueTest {
    * </ul>
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void NoOpServiceTask.<init>()",
-    "Expression NoOpServiceTask.getName()",
-    "void NoOpServiceTask.setName(Expression)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void NoOpServiceTask.<init>()", "Expression NoOpServiceTask.getName()",
+      "void NoOpServiceTask.setName(Expression)"})
   public void testGettersAndSetters() {
     // Arrange and Act
     NoOpServiceTask actualNoOpServiceTask = new NoOpServiceTask();

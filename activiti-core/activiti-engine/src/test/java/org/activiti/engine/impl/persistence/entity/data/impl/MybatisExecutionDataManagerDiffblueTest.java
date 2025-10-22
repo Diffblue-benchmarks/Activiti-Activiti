@@ -19,10 +19,11 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
+import org.activiti.engine.impl.ProcessInstanceQueryImpl;
 import org.activiti.engine.impl.cfg.JtaProcessEngineConfiguration;
+import org.activiti.engine.impl.cfg.PerformanceSettings;
 import org.activiti.engine.impl.cfg.ProcessEngineConfigurationImpl;
 import org.activiti.engine.impl.persistence.entity.ExecutionEntity;
 import org.activiti.engine.impl.persistence.entity.ExecutionEntityImpl;
@@ -42,81 +43,63 @@ import org.junit.experimental.categories.Category;
 
 public class MybatisExecutionDataManagerDiffblueTest {
   /**
-   * Test {@link
-   * MybatisExecutionDataManager#MybatisExecutionDataManager(ProcessEngineConfigurationImpl)}.
-   *
-   * <p>Method under test: {@link
-   * MybatisExecutionDataManager#MybatisExecutionDataManager(ProcessEngineConfigurationImpl)}
+   * Test {@link MybatisExecutionDataManager#MybatisExecutionDataManager(ProcessEngineConfigurationImpl)}.
+   * <p>
+   * Method under test: {@link MybatisExecutionDataManager#MybatisExecutionDataManager(ProcessEngineConfigurationImpl)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void MybatisExecutionDataManager.<init>(ProcessEngineConfigurationImpl)"})
   public void testNewMybatisExecutionDataManager() {
     // Arrange
     JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();
 
     // Act
-    MybatisExecutionDataManager actualMybatisExecutionDataManager =
-        new MybatisExecutionDataManager(processEngineConfiguration);
+    MybatisExecutionDataManager actualMybatisExecutionDataManager = new MybatisExecutionDataManager(
+        processEngineConfiguration);
 
     // Assert
     assertTrue(
-        actualMybatisExecutionDataManager.executionByProcessInstanceMatcher
-            instanceof ExecutionByProcessInstanceMatcher);
+        actualMybatisExecutionDataManager.executionByProcessInstanceMatcher instanceof ExecutionByProcessInstanceMatcher);
     assertTrue(
-        actualMybatisExecutionDataManager.executionsByParentExecutionIdAndActivityIdEntityMatcher
-            instanceof ExecutionsByParentExecutionIdAndActivityIdEntityMatcher);
+        actualMybatisExecutionDataManager.executionsByParentExecutionIdAndActivityIdEntityMatcher instanceof ExecutionsByParentExecutionIdAndActivityIdEntityMatcher);
     assertTrue(
-        actualMybatisExecutionDataManager.executionsByParentIdMatcher
-            instanceof ExecutionsByParentExecutionIdEntityMatcher);
+        actualMybatisExecutionDataManager.executionsByParentIdMatcher instanceof ExecutionsByParentExecutionIdEntityMatcher);
     assertTrue(
-        actualMybatisExecutionDataManager.executionsByProcessInstanceIdMatcher
-            instanceof ExecutionsByProcessInstanceIdEntityMatcher);
+        actualMybatisExecutionDataManager.executionsByProcessInstanceIdMatcher instanceof ExecutionsByProcessInstanceIdEntityMatcher);
     assertTrue(
-        actualMybatisExecutionDataManager.executionsByRootProcessInstanceMatcher
-            instanceof ExecutionsByRootProcessInstanceMatcher);
+        actualMybatisExecutionDataManager.executionsByRootProcessInstanceMatcher instanceof ExecutionsByRootProcessInstanceMatcher);
     assertTrue(
-        actualMybatisExecutionDataManager.executionsWithSameRootProcessInstanceIdMatcher
-            instanceof ExecutionsWithSameRootProcessInstanceIdMatcher);
+        actualMybatisExecutionDataManager.executionsWithSameRootProcessInstanceIdMatcher instanceof ExecutionsWithSameRootProcessInstanceIdMatcher);
     assertTrue(
-        actualMybatisExecutionDataManager.inactiveExecutionsByProcInstMatcher
-            instanceof InactiveExecutionsByProcInstMatcher);
+        actualMybatisExecutionDataManager.inactiveExecutionsByProcInstMatcher instanceof InactiveExecutionsByProcInstMatcher);
     assertTrue(
-        actualMybatisExecutionDataManager.inactiveExecutionsInActivityAndProcInstMatcher
-            instanceof InactiveExecutionsInActivityAndProcInstMatcher);
+        actualMybatisExecutionDataManager.inactiveExecutionsInActivityAndProcInstMatcher instanceof InactiveExecutionsInActivityAndProcInstMatcher);
     assertTrue(
-        actualMybatisExecutionDataManager.inactiveExecutionsInActivityMatcher
-            instanceof InactiveExecutionsInActivityMatcher);
+        actualMybatisExecutionDataManager.inactiveExecutionsInActivityMatcher instanceof InactiveExecutionsInActivityMatcher);
     assertTrue(
-        actualMybatisExecutionDataManager.processInstancesByProcessDefinitionMatcher
-            instanceof ProcessInstancesByProcessDefinitionMatcher);
+        actualMybatisExecutionDataManager.processInstancesByProcessDefinitionMatcher instanceof ProcessInstancesByProcessDefinitionMatcher);
     assertTrue(
-        actualMybatisExecutionDataManager.subProcessInstanceBySuperExecutionIdMatcher
-            instanceof SubProcessInstanceExecutionBySuperExecutionIdMatcher);
+        actualMybatisExecutionDataManager.subProcessInstanceBySuperExecutionIdMatcher instanceof SubProcessInstanceExecutionBySuperExecutionIdMatcher);
     assertNull(actualMybatisExecutionDataManager.getManagedEntitySubClasses());
     Class<ExecutionEntityImpl> expectedManagedEntityClass = ExecutionEntityImpl.class;
-    assertEquals(
-        expectedManagedEntityClass, actualMybatisExecutionDataManager.getManagedEntityClass());
-    assertSame(
-        actualMybatisExecutionDataManager.performanceSettings,
-        processEngineConfiguration.getPerformanceSettings());
+    assertEquals(expectedManagedEntityClass, actualMybatisExecutionDataManager.getManagedEntityClass());
+    PerformanceSettings expectedPerformanceSettings = actualMybatisExecutionDataManager.performanceSettings;
+    assertSame(expectedPerformanceSettings, processEngineConfiguration.getPerformanceSettings());
   }
 
   /**
    * Test {@link MybatisExecutionDataManager#getManagedEntityClass()}.
-   *
-   * <p>Method under test: {@link MybatisExecutionDataManager#getManagedEntityClass()}
+   * <p>
+   * Method under test: {@link MybatisExecutionDataManager#getManagedEntityClass()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"Class MybatisExecutionDataManager.getManagedEntityClass()"})
   public void testGetManagedEntityClass() {
     // Arrange and Act
-    Class<? extends ExecutionEntity> actualManagedEntityClass =
-        new MybatisExecutionDataManager(new JtaProcessEngineConfiguration())
-            .getManagedEntityClass();
+    Class<? extends ExecutionEntity> actualManagedEntityClass = (new MybatisExecutionDataManager(
+        new JtaProcessEngineConfiguration())).getManagedEntityClass();
 
     // Assert
     Class<ExecutionEntityImpl> expectedManagedEntityClass = ExecutionEntityImpl.class;
@@ -124,21 +107,55 @@ public class MybatisExecutionDataManagerDiffblueTest {
   }
 
   /**
-   * Test {@link MybatisExecutionDataManager#findById(String)}.
-   *
+   * Test {@link MybatisExecutionDataManager#findProcessInstanceAndVariablesByQueryCriteria(ProcessInstanceQueryImpl)}.
    * <ul>
-   *   <li>When {@code null}.
-   *   <li>Then return {@code null}.
+   *   <li>Given minus one.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link MybatisExecutionDataManager#findById(String)}
+   * <p>
+   * Method under test: {@link MybatisExecutionDataManager#findProcessInstanceAndVariablesByQueryCriteria(ProcessInstanceQueryImpl)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"ExecutionEntity MybatisExecutionDataManager.findById(String)"})
-  public void testFindById_whenNull_thenReturnNull() {
-    // Arrange, Act and Assert
-    assertNull(new MybatisExecutionDataManager(new JtaProcessEngineConfiguration()).findById(null));
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "java.util.List MybatisExecutionDataManager.findProcessInstanceAndVariablesByQueryCriteria(ProcessInstanceQueryImpl)"})
+  public void testFindProcessInstanceAndVariablesByQueryCriteria_givenMinusOne() {
+    // Arrange
+    MybatisExecutionDataManager mybatisExecutionDataManager = new MybatisExecutionDataManager(
+        new JtaProcessEngineConfiguration());
+
+    ProcessInstanceQueryImpl executionQuery = new ProcessInstanceQueryImpl();
+    executionQuery.setFirstResult(-1);
+    executionQuery.setMaxResults(0);
+    executionQuery.limitProcessInstanceVariables(null);
+
+    // Act and Assert
+    assertTrue(mybatisExecutionDataManager.findProcessInstanceAndVariablesByQueryCriteria(executionQuery).isEmpty());
+  }
+
+  /**
+   * Test {@link MybatisExecutionDataManager#findProcessInstanceAndVariablesByQueryCriteria(ProcessInstanceQueryImpl)}.
+   * <ul>
+   *   <li>Given {@code null}.</li>
+   *   <li>Then return Empty.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link MybatisExecutionDataManager#findProcessInstanceAndVariablesByQueryCriteria(ProcessInstanceQueryImpl)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "java.util.List MybatisExecutionDataManager.findProcessInstanceAndVariablesByQueryCriteria(ProcessInstanceQueryImpl)"})
+  public void testFindProcessInstanceAndVariablesByQueryCriteria_givenNull_thenReturnEmpty() {
+    // Arrange
+    MybatisExecutionDataManager mybatisExecutionDataManager = new MybatisExecutionDataManager(
+        new JtaProcessEngineConfiguration());
+
+    ProcessInstanceQueryImpl executionQuery = new ProcessInstanceQueryImpl();
+    executionQuery.setFirstResult(0);
+    executionQuery.setMaxResults(0);
+    executionQuery.limitProcessInstanceVariables(null);
+
+    // Act and Assert
+    assertTrue(mybatisExecutionDataManager.findProcessInstanceAndVariablesByQueryCriteria(executionQuery).isEmpty());
   }
 }

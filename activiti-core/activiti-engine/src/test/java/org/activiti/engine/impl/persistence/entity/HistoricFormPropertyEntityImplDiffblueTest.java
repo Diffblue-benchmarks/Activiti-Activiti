@@ -18,8 +18,7 @@ package org.activiti.engine.impl.persistence.entity;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
@@ -27,9 +26,8 @@ import org.junit.experimental.categories.Category;
 public class HistoricFormPropertyEntityImplDiffblueTest {
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>default or parameterless constructor of {@link HistoricFormPropertyEntityImpl}
    *   <li>{@link HistoricFormPropertyEntityImpl#setPropertyId(String)}
@@ -39,19 +37,15 @@ public class HistoricFormPropertyEntityImplDiffblueTest {
    * </ul>
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void HistoricFormPropertyEntityImpl.<init>()",
-    "String HistoricFormPropertyEntityImpl.getPropertyId()",
-    "String HistoricFormPropertyEntityImpl.getPropertyValue()",
-    "void HistoricFormPropertyEntityImpl.setPropertyId(String)",
-    "void HistoricFormPropertyEntityImpl.setPropertyValue(String)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void HistoricFormPropertyEntityImpl.<init>()",
+      "String HistoricFormPropertyEntityImpl.getPropertyId()",
+      "String HistoricFormPropertyEntityImpl.getPropertyValue()",
+      "void HistoricFormPropertyEntityImpl.setPropertyId(String)",
+      "void HistoricFormPropertyEntityImpl.setPropertyValue(String)"})
   public void testGettersAndSetters() {
     // Arrange and Act
-    HistoricFormPropertyEntityImpl actualHistoricFormPropertyEntityImpl =
-        new HistoricFormPropertyEntityImpl();
+    HistoricFormPropertyEntityImpl actualHistoricFormPropertyEntityImpl = new HistoricFormPropertyEntityImpl();
     actualHistoricFormPropertyEntityImpl.setPropertyId("42");
     actualHistoricFormPropertyEntityImpl.setPropertyValue("42");
     String actualPropertyId = actualHistoricFormPropertyEntityImpl.getPropertyId();

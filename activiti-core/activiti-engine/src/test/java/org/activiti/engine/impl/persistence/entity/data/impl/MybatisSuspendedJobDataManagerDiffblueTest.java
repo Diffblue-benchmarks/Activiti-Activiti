@@ -19,8 +19,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.Map;
 import org.activiti.engine.impl.cfg.JtaProcessEngineConfiguration;
@@ -33,45 +32,38 @@ import org.junit.experimental.categories.Category;
 
 public class MybatisSuspendedJobDataManagerDiffblueTest {
   /**
-   * Test {@link
-   * MybatisSuspendedJobDataManager#MybatisSuspendedJobDataManager(ProcessEngineConfigurationImpl)}.
-   *
-   * <p>Method under test: {@link
-   * MybatisSuspendedJobDataManager#MybatisSuspendedJobDataManager(ProcessEngineConfigurationImpl)}
+   * Test {@link MybatisSuspendedJobDataManager#MybatisSuspendedJobDataManager(ProcessEngineConfigurationImpl)}.
+   * <p>
+   * Method under test: {@link MybatisSuspendedJobDataManager#MybatisSuspendedJobDataManager(ProcessEngineConfigurationImpl)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void MybatisSuspendedJobDataManager.<init>(ProcessEngineConfigurationImpl)"})
   public void testNewMybatisSuspendedJobDataManager() {
     // Arrange and Act
-    MybatisSuspendedJobDataManager actualMybatisSuspendedJobDataManager =
-        new MybatisSuspendedJobDataManager(new JtaProcessEngineConfiguration());
+    MybatisSuspendedJobDataManager actualMybatisSuspendedJobDataManager = new MybatisSuspendedJobDataManager(
+        new JtaProcessEngineConfiguration());
 
     // Assert
     assertTrue(
-        actualMybatisSuspendedJobDataManager.suspendedJobsByExecutionIdMatcher
-            instanceof SuspendedJobsByExecutionIdMatcher);
+        actualMybatisSuspendedJobDataManager.suspendedJobsByExecutionIdMatcher instanceof SuspendedJobsByExecutionIdMatcher);
     assertNull(actualMybatisSuspendedJobDataManager.getManagedEntitySubClasses());
     Class<SuspendedJobEntityImpl> expectedManagedEntityClass = SuspendedJobEntityImpl.class;
-    assertEquals(
-        expectedManagedEntityClass, actualMybatisSuspendedJobDataManager.getManagedEntityClass());
+    assertEquals(expectedManagedEntityClass, actualMybatisSuspendedJobDataManager.getManagedEntityClass());
   }
 
   /**
    * Test {@link MybatisSuspendedJobDataManager#getManagedEntityClass()}.
-   *
-   * <p>Method under test: {@link MybatisSuspendedJobDataManager#getManagedEntityClass()}
+   * <p>
+   * Method under test: {@link MybatisSuspendedJobDataManager#getManagedEntityClass()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"Class MybatisSuspendedJobDataManager.getManagedEntityClass()"})
   public void testGetManagedEntityClass() {
     // Arrange and Act
-    Class<? extends SuspendedJobEntity> actualManagedEntityClass =
-        new MybatisSuspendedJobDataManager(new JtaProcessEngineConfiguration())
-            .getManagedEntityClass();
+    Class<? extends SuspendedJobEntity> actualManagedEntityClass = (new MybatisSuspendedJobDataManager(
+        new JtaProcessEngineConfiguration())).getManagedEntityClass();
 
     // Assert
     Class<SuspendedJobEntityImpl> expectedManagedEntityClass = SuspendedJobEntityImpl.class;
@@ -80,17 +72,16 @@ public class MybatisSuspendedJobDataManagerDiffblueTest {
 
   /**
    * Test {@link MybatisSuspendedJobDataManager#create()}.
-   *
-   * <p>Method under test: {@link MybatisSuspendedJobDataManager#create()}
+   * <p>
+   * Method under test: {@link MybatisSuspendedJobDataManager#create()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"SuspendedJobEntity MybatisSuspendedJobDataManager.create()"})
   public void testCreate() {
     // Arrange and Act
-    SuspendedJobEntity actualCreateResult =
-        new MybatisSuspendedJobDataManager(new JtaProcessEngineConfiguration()).create();
+    SuspendedJobEntity actualCreateResult = (new MybatisSuspendedJobDataManager(new JtaProcessEngineConfiguration()))
+        .create();
 
     // Assert
     Object persistentState = actualCreateResult.getPersistentState();

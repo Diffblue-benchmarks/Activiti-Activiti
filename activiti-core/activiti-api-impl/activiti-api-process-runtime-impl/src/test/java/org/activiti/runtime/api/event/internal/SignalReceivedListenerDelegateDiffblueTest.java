@@ -20,12 +20,12 @@ import static org.mockito.ArgumentMatchers.isA;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
 import java.util.List;
 import org.activiti.api.process.model.events.BPMNSignalReceivedEvent;
 import org.activiti.api.process.runtime.events.listener.BPMNElementEventListener;
+import org.activiti.api.process.runtime.events.listener.ProcessRuntimeEventListener;
 import org.activiti.engine.delegate.event.ActivitiEvent;
 import org.activiti.engine.delegate.event.ActivitiEventType;
 import org.activiti.engine.delegate.event.impl.ActivitiSignalEventImpl;
@@ -39,66 +39,49 @@ import org.mockito.Mockito;
 class SignalReceivedListenerDelegateDiffblueTest {
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
-   *   <li>{@link SignalReceivedListenerDelegate#SignalReceivedListenerDelegate(List,
-   *       ToSignalReceivedConverter)}
+   *   <li>{@link SignalReceivedListenerDelegate#SignalReceivedListenerDelegate(List, ToSignalReceivedConverter)}
    *   <li>{@link SignalReceivedListenerDelegate#isFailOnException()}
    * </ul>
    */
   @Test
   @DisplayName("Test getters and setters")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void SignalReceivedListenerDelegate.<init>(List, ToSignalReceivedConverter)",
-    "boolean SignalReceivedListenerDelegate.isFailOnException()"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void SignalReceivedListenerDelegate.<init>(List, ToSignalReceivedConverter)",
+      "boolean SignalReceivedListenerDelegate.isFailOnException()"})
   void testGettersAndSetters() {
     // Arrange
-    ArrayList<BPMNElementEventListener<BPMNSignalReceivedEvent>> processRuntimeEventListeners =
-        new ArrayList<>();
+    ArrayList<BPMNElementEventListener<BPMNSignalReceivedEvent>> processRuntimeEventListeners = new ArrayList<>();
 
-    // Act
-    SignalReceivedListenerDelegate actualSignalReceivedListenerDelegate =
-        new SignalReceivedListenerDelegate(
-            processRuntimeEventListeners, new ToSignalReceivedConverter(new ToSignalConverter()));
-
-    // Assert
-    assertFalse(actualSignalReceivedListenerDelegate.isFailOnException());
+    // Act and Assert
+    assertFalse((new SignalReceivedListenerDelegate(processRuntimeEventListeners,
+        new ToSignalReceivedConverter(new ToSignalConverter()))).isFailOnException());
   }
 
   /**
    * Test {@link SignalReceivedListenerDelegate#onEvent(ActivitiEvent)}.
-   *
    * <ul>
-   *   <li>Given {@link BPMNElementEventListener} {@link
-   *       BPMNElementEventListener#onEvent(RuntimeEvent)} does nothing.
-   *   <li>Then calls {@link BPMNElementEventListener#onEvent(RuntimeEvent)}.
+   *   <li>Given {@link BPMNElementEventListener} {@link ProcessRuntimeEventListener#onEvent(RuntimeEvent)} does nothing.</li>
+   *   <li>Then calls {@link ProcessRuntimeEventListener#onEvent(RuntimeEvent)}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link SignalReceivedListenerDelegate#onEvent(ActivitiEvent)}
+   * <p>
+   * Method under test: {@link SignalReceivedListenerDelegate#onEvent(ActivitiEvent)}
    */
   @Test
-  @DisplayName(
-      "Test onEvent(ActivitiEvent); given BPMNElementEventListener onEvent(RuntimeEvent) does nothing; then calls onEvent(RuntimeEvent)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test onEvent(ActivitiEvent); given BPMNElementEventListener onEvent(RuntimeEvent) does nothing; then calls onEvent(RuntimeEvent)")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void SignalReceivedListenerDelegate.onEvent(ActivitiEvent)"})
   void testOnEvent_givenBPMNElementEventListenerOnEventDoesNothing_thenCallsOnEvent() {
     // Arrange
-    BPMNElementEventListener<BPMNSignalReceivedEvent> bpmnElementEventListener =
-        mock(BPMNElementEventListener.class);
+    BPMNElementEventListener<BPMNSignalReceivedEvent> bpmnElementEventListener = mock(BPMNElementEventListener.class);
     doNothing().when(bpmnElementEventListener).onEvent(Mockito.<BPMNSignalReceivedEvent>any());
 
-    ArrayList<BPMNElementEventListener<BPMNSignalReceivedEvent>> processRuntimeEventListeners =
-        new ArrayList<>();
+    ArrayList<BPMNElementEventListener<BPMNSignalReceivedEvent>> processRuntimeEventListeners = new ArrayList<>();
     processRuntimeEventListeners.add(bpmnElementEventListener);
-    SignalReceivedListenerDelegate signalReceivedListenerDelegate =
-        new SignalReceivedListenerDelegate(
-            processRuntimeEventListeners, new ToSignalReceivedConverter(new ToSignalConverter()));
+    SignalReceivedListenerDelegate signalReceivedListenerDelegate = new SignalReceivedListenerDelegate(
+        processRuntimeEventListeners, new ToSignalReceivedConverter(new ToSignalConverter()));
 
     ActivitiSignalEventImpl event = new ActivitiSignalEventImpl(ActivitiEventType.ENTITY_CREATED);
     event.setSignalData(null);

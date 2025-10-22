@@ -19,8 +19,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.Map;
 import org.activiti.engine.impl.persistence.entity.JobEntity;
@@ -31,17 +30,15 @@ import org.junit.experimental.categories.Category;
 public class AcquiredJobEntitiesDiffblueTest {
   /**
    * Test {@link AcquiredJobEntities#addJob(JobEntity)}.
-   *
    * <ul>
-   *   <li>When {@link JobEntityImpl} (default constructor).
-   *   <li>Then {@link AcquiredJobEntities} (default constructor) Jobs size is one.
+   *   <li>When {@link JobEntityImpl} (default constructor).</li>
+   *   <li>Then {@link AcquiredJobEntities} (default constructor) Jobs size is one.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link AcquiredJobEntities#addJob(JobEntity)}
+   * <p>
+   * Method under test: {@link AcquiredJobEntities#addJob(JobEntity)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void AcquiredJobEntities.addJob(JobEntity)"})
   public void testAddJob_whenJobEntityImpl_thenAcquiredJobEntitiesJobsSizeIsOne() {
     // Arrange
@@ -61,50 +58,45 @@ public class AcquiredJobEntitiesDiffblueTest {
 
   /**
    * Test {@link AcquiredJobEntities#getJobs()}.
-   *
-   * <p>Method under test: {@link AcquiredJobEntities#getJobs()}
+   * <p>
+   * Method under test: {@link AcquiredJobEntities#getJobs()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"java.util.Collection AcquiredJobEntities.getJobs()"})
   public void testGetJobs() {
     // Arrange, Act and Assert
-    assertTrue(new AcquiredJobEntities().getJobs().isEmpty());
+    assertTrue((new AcquiredJobEntities()).getJobs().isEmpty());
   }
 
   /**
    * Test {@link AcquiredJobEntities#contains(String)}.
-   *
    * <ul>
-   *   <li>Given {@link AcquiredJobEntities} (default constructor).
-   *   <li>Then return {@code false}.
+   *   <li>Given {@link AcquiredJobEntities} (default constructor).</li>
+   *   <li>Then return {@code false}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link AcquiredJobEntities#contains(String)}
+   * <p>
+   * Method under test: {@link AcquiredJobEntities#contains(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"boolean AcquiredJobEntities.contains(String)"})
   public void testContains_givenAcquiredJobEntities_thenReturnFalse() {
     // Arrange, Act and Assert
-    assertFalse(new AcquiredJobEntities().contains("42"));
+    assertFalse((new AcquiredJobEntities()).contains("42"));
   }
 
   /**
    * Test {@link AcquiredJobEntities#contains(String)}.
-   *
    * <ul>
-   *   <li>Given {@link JobEntityImpl} (default constructor) Id is {@code 42}.
-   *   <li>Then return {@code true}.
+   *   <li>Given {@link JobEntityImpl} (default constructor) Id is {@code 42}.</li>
+   *   <li>Then return {@code true}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link AcquiredJobEntities#contains(String)}
+   * <p>
+   * Method under test: {@link AcquiredJobEntities#contains(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"boolean AcquiredJobEntities.contains(String)"})
   public void testContains_givenJobEntityImplIdIs42_thenReturnTrue() {
     // Arrange
@@ -120,29 +112,27 @@ public class AcquiredJobEntitiesDiffblueTest {
 
   /**
    * Test {@link AcquiredJobEntities#size()}.
-   *
-   * <p>Method under test: {@link AcquiredJobEntities#size()}
+   * <p>
+   * Method under test: {@link AcquiredJobEntities#size()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"int AcquiredJobEntities.size()"})
   public void testSize() {
     // Arrange, Act and Assert
-    assertEquals(0, new AcquiredJobEntities().size());
+    assertEquals(0, (new AcquiredJobEntities()).size());
   }
 
   /**
    * Test new {@link AcquiredJobEntities} (default constructor).
-   *
-   * <p>Method under test: default or parameterless constructor of {@link AcquiredJobEntities}
+   * <p>
+   * Method under test: default or parameterless constructor of {@link AcquiredJobEntities}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void AcquiredJobEntities.<init>()"})
   public void testNewAcquiredJobEntities() {
     // Arrange, Act and Assert
-    assertTrue(new AcquiredJobEntities().acquiredJobs.isEmpty());
+    assertTrue((new AcquiredJobEntities()).acquiredJobs.isEmpty());
   }
 }

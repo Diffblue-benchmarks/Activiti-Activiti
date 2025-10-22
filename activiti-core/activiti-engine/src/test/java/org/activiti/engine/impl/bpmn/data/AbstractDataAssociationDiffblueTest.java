@@ -17,8 +17,7 @@ package org.activiti.engine.impl.bpmn.data;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
@@ -26,45 +25,40 @@ import org.junit.experimental.categories.Category;
 public class AbstractDataAssociationDiffblueTest {
   /**
    * Test {@link AbstractDataAssociation#getSource()}.
-   *
-   * <p>Method under test: {@link AbstractDataAssociation#getSource()}
+   * <p>
+   * Method under test: {@link AbstractDataAssociation#getSource()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"java.lang.String AbstractDataAssociation.getSource()"})
   public void testGetSource() {
     // Arrange, Act and Assert
-    assertEquals("Source", new SimpleDataInputAssociation("Source", "Target").getSource());
+    assertEquals("Source", (new SimpleDataInputAssociation("Source", "Target")).getSource());
   }
 
   /**
    * Test {@link AbstractDataAssociation#getTarget()}.
-   *
-   * <p>Method under test: {@link AbstractDataAssociation#getTarget()}
+   * <p>
+   * Method under test: {@link AbstractDataAssociation#getTarget()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"java.lang.String AbstractDataAssociation.getTarget()"})
   public void testGetTarget() {
     // Arrange, Act and Assert
-    assertEquals("Target", new SimpleDataInputAssociation("Source", "Target").getTarget());
+    assertEquals("Target", (new SimpleDataInputAssociation("Source", "Target")).getTarget());
   }
 
   /**
    * Test {@link AbstractDataAssociation#getSourceExpression()}.
-   *
-   * <p>Method under test: {@link AbstractDataAssociation#getSourceExpression()}
+   * <p>
+   * Method under test: {@link AbstractDataAssociation#getSourceExpression()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "org.activiti.engine.delegate.Expression AbstractDataAssociation.getSourceExpression()"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"org.activiti.engine.delegate.Expression AbstractDataAssociation.getSourceExpression()"})
   public void testGetSourceExpression() {
     // Arrange, Act and Assert
-    assertNull(new SimpleDataInputAssociation("Source", "Target").getSourceExpression());
+    assertNull((new SimpleDataInputAssociation("Source", "Target")).getSourceExpression());
   }
 }

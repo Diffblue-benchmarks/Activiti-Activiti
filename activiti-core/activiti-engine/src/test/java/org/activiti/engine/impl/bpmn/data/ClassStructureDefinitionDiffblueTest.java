@@ -18,8 +18,7 @@ package org.activiti.engine.impl.bpmn.data;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
@@ -27,9 +26,8 @@ import org.junit.experimental.categories.Category;
 public class ClassStructureDefinitionDiffblueTest {
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>{@link ClassStructureDefinition#ClassStructureDefinition(String, Class)}
    *   <li>{@link ClassStructureDefinition#getFieldSize()}
@@ -37,20 +35,15 @@ public class ClassStructureDefinitionDiffblueTest {
    * </ul>
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void ClassStructureDefinition.<init>(String, Class)",
-    "int ClassStructureDefinition.getFieldSize()",
-    "String ClassStructureDefinition.getId()"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void ClassStructureDefinition.<init>(String, Class)",
+      "int ClassStructureDefinition.getFieldSize()", "String ClassStructureDefinition.getId()"})
   public void testGettersAndSetters() {
     // Arrange
     Class<Object> classStructure = Object.class;
 
     // Act
-    ClassStructureDefinition actualClassStructureDefinition =
-        new ClassStructureDefinition("42", classStructure);
+    ClassStructureDefinition actualClassStructureDefinition = new ClassStructureDefinition("42", classStructure);
     int actualFieldSize = actualClassStructureDefinition.getFieldSize();
 
     // Assert
@@ -60,20 +53,18 @@ public class ClassStructureDefinitionDiffblueTest {
 
   /**
    * Test {@link ClassStructureDefinition#ClassStructureDefinition(Class)}.
-   *
-   * <p>Method under test: {@link ClassStructureDefinition#ClassStructureDefinition(Class)}
+   * <p>
+   * Method under test: {@link ClassStructureDefinition#ClassStructureDefinition(Class)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void ClassStructureDefinition.<init>(Class)"})
   public void testNewClassStructureDefinition() {
     // Arrange
     Class<Object> classStructure = Object.class;
 
     // Act
-    ClassStructureDefinition actualClassStructureDefinition =
-        new ClassStructureDefinition(classStructure);
+    ClassStructureDefinition actualClassStructureDefinition = new ClassStructureDefinition(classStructure);
 
     // Assert
     assertEquals("java.lang.Object", actualClassStructureDefinition.getId());
@@ -84,58 +75,53 @@ public class ClassStructureDefinitionDiffblueTest {
 
   /**
    * Test {@link ClassStructureDefinition#getFieldNameAt(int)}.
-   *
-   * <p>Method under test: {@link ClassStructureDefinition#getFieldNameAt(int)}
+   * <p>
+   * Method under test: {@link ClassStructureDefinition#getFieldNameAt(int)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"String ClassStructureDefinition.getFieldNameAt(int)"})
   public void testGetFieldNameAt() {
     // Arrange
     Class<Object> classStructure = Object.class;
 
     // Act and Assert
-    assertNull(new ClassStructureDefinition(classStructure).getFieldNameAt(1));
+    assertNull((new ClassStructureDefinition(classStructure)).getFieldNameAt(1));
   }
 
   /**
    * Test {@link ClassStructureDefinition#getFieldTypeAt(int)}.
-   *
-   * <p>Method under test: {@link ClassStructureDefinition#getFieldTypeAt(int)}
+   * <p>
+   * Method under test: {@link ClassStructureDefinition#getFieldTypeAt(int)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"Class ClassStructureDefinition.getFieldTypeAt(int)"})
   public void testGetFieldTypeAt() {
     // Arrange
     Class<Object> classStructure = Object.class;
 
     // Act and Assert
-    assertNull(new ClassStructureDefinition(classStructure).getFieldTypeAt(1));
+    assertNull((new ClassStructureDefinition(classStructure)).getFieldTypeAt(1));
   }
 
   /**
    * Test {@link ClassStructureDefinition#createInstance()}.
-   *
-   * <p>Method under test: {@link ClassStructureDefinition#createInstance()}
+   * <p>
+   * Method under test: {@link ClassStructureDefinition#createInstance()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"StructureInstance ClassStructureDefinition.createInstance()"})
   public void testCreateInstance() {
     // Arrange
     Class<Object> classStructure = Object.class;
 
     // Act
-    StructureInstance actualCreateInstanceResult =
-        new ClassStructureDefinition(classStructure).createInstance();
+    StructureInstance actualCreateInstanceResult = (new ClassStructureDefinition(classStructure)).createInstance();
 
     // Assert
-    FieldBaseStructureDefinition fieldBaseStructureDefinition =
-        ((FieldBaseStructureInstance) actualCreateInstanceResult).structureDefinition;
+    FieldBaseStructureDefinition fieldBaseStructureDefinition = ((FieldBaseStructureInstance) actualCreateInstanceResult).structureDefinition;
     assertTrue(fieldBaseStructureDefinition instanceof ClassStructureDefinition);
     assertTrue(actualCreateInstanceResult instanceof FieldBaseStructureInstance);
     assertEquals("java.lang.Object", fieldBaseStructureDefinition.getId());
@@ -144,8 +130,6 @@ public class ClassStructureDefinitionDiffblueTest {
     assertEquals(0, actualCreateInstanceResult.toArray().length);
     assertTrue(((FieldBaseStructureInstance) actualCreateInstanceResult).fieldValues.isEmpty());
     Class<Object> expectedResultClass = Object.class;
-    assertEquals(
-        expectedResultClass,
-        ((ClassStructureDefinition) fieldBaseStructureDefinition).classStructure);
+    assertEquals(expectedResultClass, ((ClassStructureDefinition) fieldBaseStructureDefinition).classStructure);
   }
 }

@@ -18,7 +18,6 @@ package org.activiti.core.common.model.connector;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.HashMap;
 import java.util.Map;
@@ -29,9 +28,8 @@ import org.junit.jupiter.api.Test;
 class ConnectorDefinitionDiffblueTest {
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>default or parameterless constructor of {@link ConnectorDefinition}
    *   <li>{@link ConnectorDefinition#setActions(Map)}
@@ -46,19 +44,12 @@ class ConnectorDefinitionDiffblueTest {
    */
   @Test
   @DisplayName("Test getters and setters")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void ConnectorDefinition.<init>()",
-    "Map ConnectorDefinition.getActions()",
-    "String ConnectorDefinition.getDescription()",
-    "String ConnectorDefinition.getId()",
-    "String ConnectorDefinition.getName()",
-    "void ConnectorDefinition.setActions(Map)",
-    "void ConnectorDefinition.setDescription(String)",
-    "void ConnectorDefinition.setId(String)",
-    "void ConnectorDefinition.setName(String)"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void ConnectorDefinition.<init>()", "Map ConnectorDefinition.getActions()",
+      "String ConnectorDefinition.getDescription()", "String ConnectorDefinition.getId()",
+      "String ConnectorDefinition.getName()", "void ConnectorDefinition.setActions(Map)",
+      "void ConnectorDefinition.setDescription(String)", "void ConnectorDefinition.setId(String)",
+      "void ConnectorDefinition.setName(String)"})
   void testGettersAndSetters() {
     // Arrange and Act
     ConnectorDefinition actualConnectorDefinition = new ConnectorDefinition();

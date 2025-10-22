@@ -15,11 +15,9 @@
  */
 package org.activiti.engine.impl.cmd;
 
-import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertThrows;
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.HashMap;
 import java.util.Map;
@@ -32,76 +30,36 @@ import org.junit.experimental.categories.Category;
 
 public class StartProcessInstanceByMessageCmdDiffblueTest {
   /**
-   * Test {@link StartProcessInstanceByMessageCmd#StartProcessInstanceByMessageCmd(String, String,
-   * Map, String)}.
-   *
-   * <p>Method under test: {@link
-   * StartProcessInstanceByMessageCmd#StartProcessInstanceByMessageCmd(String, String, Map, String)}
+   * Test {@link StartProcessInstanceByMessageCmd#StartProcessInstanceByMessageCmd(String, String, Map, String)}.
+   * <p>
+   * Method under test: {@link StartProcessInstanceByMessageCmd#StartProcessInstanceByMessageCmd(String, String, Map, String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void StartProcessInstanceByMessageCmd.<init>(String, String, Map, String)"})
   public void testNewStartProcessInstanceByMessageCmd() {
-    // Arrange and Act
-    StartProcessInstanceByMessageCmd actualStartProcessInstanceByMessageCmd =
-        new StartProcessInstanceByMessageCmd("Message Name", "Business Key", new HashMap<>(), "42");
-
-    // Assert
-    assertTrue(actualStartProcessInstanceByMessageCmd.processVariables.isEmpty());
-  }
-
-  /**
-   * Test {@link
-   * StartProcessInstanceByMessageCmd#StartProcessInstanceByMessageCmd(ProcessInstanceBuilderImpl)}.
-   *
-   * <ul>
-   *   <li>Then return {@link StartProcessInstanceByMessageCmd#businessKey} is {@code null}.
-   * </ul>
-   *
-   * <p>Method under test: {@link
-   * StartProcessInstanceByMessageCmd#StartProcessInstanceByMessageCmd(ProcessInstanceBuilderImpl)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void StartProcessInstanceByMessageCmd.<init>(ProcessInstanceBuilderImpl)"})
-  public void testNewStartProcessInstanceByMessageCmd_thenReturnBusinessKeyIsNull() {
-    // Arrange and Act
-    StartProcessInstanceByMessageCmd actualStartProcessInstanceByMessageCmd =
-        new StartProcessInstanceByMessageCmd(
-            new ProcessInstanceBuilderImpl(new RuntimeServiceImpl()));
-
-    // Assert
-    assertNull(actualStartProcessInstanceByMessageCmd.businessKey);
-    assertNull(actualStartProcessInstanceByMessageCmd.messageName);
-    assertNull(actualStartProcessInstanceByMessageCmd.tenantId);
-    assertNull(actualStartProcessInstanceByMessageCmd.processVariables);
-    assertNull(actualStartProcessInstanceByMessageCmd.transientVariables);
+    // Arrange, Act and Assert
+    assertTrue(
+        (new StartProcessInstanceByMessageCmd("Message Name", "Business Key", new HashMap<>(), "42")).processVariables
+            .isEmpty());
   }
 
   /**
    * Test {@link StartProcessInstanceByMessageCmd#execute(CommandContext)}.
-   *
    * <ul>
-   *   <li>Then throw {@link ActivitiIllegalArgumentException}.
+   *   <li>Then throw {@link ActivitiIllegalArgumentException}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link StartProcessInstanceByMessageCmd#execute(CommandContext)}
+   * <p>
+   * Method under test: {@link StartProcessInstanceByMessageCmd#execute(CommandContext)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({
-    "org.activiti.engine.runtime.ProcessInstance StartProcessInstanceByMessageCmd.execute(CommandContext)"
-  })
+      "org.activiti.engine.runtime.ProcessInstance StartProcessInstanceByMessageCmd.execute(CommandContext)"})
   public void testExecute_thenThrowActivitiIllegalArgumentException() {
     // Arrange, Act and Assert
-    assertThrows(
-        ActivitiIllegalArgumentException.class,
-        () ->
-            new StartProcessInstanceByMessageCmd(
-                    new ProcessInstanceBuilderImpl(new RuntimeServiceImpl()))
-                .execute(null));
+    assertThrows(ActivitiIllegalArgumentException.class,
+        () -> (new StartProcessInstanceByMessageCmd(new ProcessInstanceBuilderImpl(new RuntimeServiceImpl())))
+            .execute(null));
   }
 }

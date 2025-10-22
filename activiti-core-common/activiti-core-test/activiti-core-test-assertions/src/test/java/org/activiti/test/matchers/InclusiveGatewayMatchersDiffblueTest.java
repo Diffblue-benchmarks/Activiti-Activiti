@@ -16,7 +16,6 @@
 package org.activiti.test.matchers;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
@@ -25,35 +24,29 @@ import org.junit.jupiter.api.Test;
 class InclusiveGatewayMatchersDiffblueTest {
   /**
    * Test {@link InclusiveGatewayMatchers#getActivityType()}.
-   *
-   * <p>Method under test: {@link InclusiveGatewayMatchers#getActivityType()}
+   * <p>
+   * Method under test: {@link InclusiveGatewayMatchers#getActivityType()}
    */
   @Test
   @DisplayName("Test getActivityType()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"String InclusiveGatewayMatchers.getActivityType()"})
   void testGetActivityType() {
     // Arrange, Act and Assert
-    assertEquals(
-        "inclusiveGateway",
-        InclusiveGatewayMatchers.inclusiveGateway("Definition Key").getActivityType());
+    assertEquals("inclusiveGateway", InclusiveGatewayMatchers.inclusiveGateway("Definition Key").getActivityType());
   }
 
   /**
    * Test {@link InclusiveGatewayMatchers#inclusiveGateway(String)}.
-   *
-   * <p>Method under test: {@link InclusiveGatewayMatchers#inclusiveGateway(String)}
+   * <p>
+   * Method under test: {@link InclusiveGatewayMatchers#inclusiveGateway(String)}
    */
   @Test
   @DisplayName("Test inclusiveGateway(String)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"InclusiveGatewayMatchers InclusiveGatewayMatchers.inclusiveGateway(String)"})
   void testInclusiveGateway() {
     // Arrange, Act and Assert
-    assertEquals(
-        "inclusiveGateway",
-        InclusiveGatewayMatchers.inclusiveGateway("Definition Key").getActivityType());
+    assertEquals("inclusiveGateway", InclusiveGatewayMatchers.inclusiveGateway("Definition Key").getActivityType());
   }
 }

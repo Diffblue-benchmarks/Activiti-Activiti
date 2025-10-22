@@ -18,8 +18,7 @@ package org.activiti.engine.impl.bpmn.parser.factory;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.bpmn.model.MessageEventDefinition;
 import org.activiti.engine.impl.delegate.MessagePayloadMappingProvider;
@@ -29,40 +28,29 @@ import org.junit.experimental.categories.Category;
 
 public class DefaultMessageExecutionContextFactoryDiffblueTest {
   /**
-   * Test {@link DefaultMessageExecutionContextFactory#create(MessageEventDefinition,
-   * MessagePayloadMappingProvider, ExpressionManager)}.
-   *
-   * <p>Method under test: {@link
-   * DefaultMessageExecutionContextFactory#create(MessageEventDefinition,
-   * MessagePayloadMappingProvider, ExpressionManager)}
+   * Test {@link DefaultMessageExecutionContextFactory#create(MessageEventDefinition, MessagePayloadMappingProvider, ExpressionManager)}.
+   * <p>
+   * Method under test: {@link DefaultMessageExecutionContextFactory#create(MessageEventDefinition, MessagePayloadMappingProvider, ExpressionManager)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({
-    "MessageExecutionContext DefaultMessageExecutionContextFactory.create(MessageEventDefinition, MessagePayloadMappingProvider, ExpressionManager)"
-  })
+      "MessageExecutionContext DefaultMessageExecutionContextFactory.create(MessageEventDefinition, MessagePayloadMappingProvider, ExpressionManager)"})
   public void testCreate() {
     // Arrange
-    DefaultMessageExecutionContextFactory defaultMessageExecutionContextFactory =
-        new DefaultMessageExecutionContextFactory();
+    DefaultMessageExecutionContextFactory defaultMessageExecutionContextFactory = new DefaultMessageExecutionContextFactory();
     MessageEventDefinition messageEventDefinition = new MessageEventDefinition();
-    MessagePayloadMappingProvider messagePayloadMappingProvider =
-        mock(MessagePayloadMappingProvider.class);
+    MessagePayloadMappingProvider messagePayloadMappingProvider = mock(MessagePayloadMappingProvider.class);
     ExpressionManager expressionManager = new ExpressionManager();
 
     // Act
-    MessageExecutionContext actualCreateResult =
-        defaultMessageExecutionContextFactory.create(
-            messageEventDefinition, messagePayloadMappingProvider, expressionManager);
+    MessageExecutionContext actualCreateResult = defaultMessageExecutionContextFactory.create(messageEventDefinition,
+        messagePayloadMappingProvider, expressionManager);
 
     // Assert
     assertTrue(actualCreateResult instanceof DefaultMessageExecutionContext);
-    assertSame(
-        expressionManager,
-        ((DefaultMessageExecutionContext) actualCreateResult).getExpressionManager());
-    assertSame(
-        messagePayloadMappingProvider,
+    assertSame(expressionManager, ((DefaultMessageExecutionContext) actualCreateResult).getExpressionManager());
+    assertSame(messagePayloadMappingProvider,
         ((DefaultMessageExecutionContext) actualCreateResult).getMessagePayloadMappingProvider());
   }
 }

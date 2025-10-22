@@ -16,8 +16,7 @@
 package org.activiti.engine.impl.cmd;
 
 import static org.junit.Assert.assertEquals;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
@@ -25,20 +24,18 @@ import org.junit.experimental.categories.Category;
 public class ExecuteJobCmdDiffblueTest {
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>{@link ExecuteJobCmd#ExecuteJobCmd(String)}
    *   <li>{@link ExecuteJobCmd#getJobId()}
    * </ul>
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void ExecuteJobCmd.<init>(String)", "String ExecuteJobCmd.getJobId()"})
   public void testGettersAndSetters() {
     // Arrange, Act and Assert
-    assertEquals("42", new ExecuteJobCmd("42").getJobId());
+    assertEquals("42", (new ExecuteJobCmd("42")).getJobId());
   }
 }

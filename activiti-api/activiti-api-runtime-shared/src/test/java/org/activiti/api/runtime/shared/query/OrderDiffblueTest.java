@@ -16,7 +16,6 @@
 package org.activiti.api.runtime.shared.query;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.api.runtime.shared.query.Order.Direction;
 import org.junit.jupiter.api.DisplayName;
@@ -26,13 +25,12 @@ import org.junit.jupiter.api.Test;
 class OrderDiffblueTest {
   /**
    * Test {@link Order#Order(String)}.
-   *
-   * <p>Method under test: {@link Order#Order(String)}
+   * <p>
+   * Method under test: {@link Order#Order(String)}
    */
   @Test
   @DisplayName("Test new Order(String)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void Order.<init>(String)"})
   void testNewOrder() {
     // Arrange and Act
@@ -45,9 +43,8 @@ class OrderDiffblueTest {
 
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>{@link Order#getDirection()}
    *   <li>{@link Order#getProperty()}
@@ -55,8 +52,7 @@ class OrderDiffblueTest {
    */
   @Test
   @DisplayName("Test getters and setters")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"Direction Order.getDirection()", "String Order.getProperty()"})
   void testGettersAndSetters() {
     // Arrange
@@ -72,13 +68,12 @@ class OrderDiffblueTest {
 
   /**
    * Test {@link Order#by(String, Direction)}.
-   *
-   * <p>Method under test: {@link Order#by(String, Direction)}
+   * <p>
+   * Method under test: {@link Order#by(String, Direction)}
    */
   @Test
   @DisplayName("Test by(String, Direction)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"Order Order.by(String, Direction)"})
   void testBy() {
     // Arrange and Act

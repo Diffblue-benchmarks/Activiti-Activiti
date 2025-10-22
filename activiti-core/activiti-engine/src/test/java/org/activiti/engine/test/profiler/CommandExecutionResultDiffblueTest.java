@@ -18,8 +18,7 @@ package org.activiti.engine.test.profiler;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.HashMap;
 import java.util.Map;
@@ -29,17 +28,14 @@ import org.junit.experimental.categories.Category;
 public class CommandExecutionResultDiffblueTest {
   /**
    * Test {@link CommandExecutionResult#addDbSelect(String)}.
-   *
    * <ul>
-   *   <li>Then {@link CommandExecutionResult} (default constructor) DbSelects {@code Select}
-   *       longValue is one.
+   *   <li>Then {@link CommandExecutionResult} (default constructor) DbSelects {@code Select} longValue is one.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link CommandExecutionResult#addDbSelect(String)}
+   * <p>
+   * Method under test: {@link CommandExecutionResult#addDbSelect(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void CommandExecutionResult.addDbSelect(String)"})
   public void testAddDbSelect_thenCommandExecutionResultDbSelectsSelectLongValueIsOne() {
     // Arrange
@@ -56,17 +52,14 @@ public class CommandExecutionResultDiffblueTest {
 
   /**
    * Test {@link CommandExecutionResult#addDbSelect(String)}.
-   *
    * <ul>
-   *   <li>Then {@link CommandExecutionResult} (default constructor) DbSelects {@code Select}
-   *       longValue is two.
+   *   <li>Then {@link CommandExecutionResult} (default constructor) DbSelects {@code Select} longValue is two.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link CommandExecutionResult#addDbSelect(String)}
+   * <p>
+   * Method under test: {@link CommandExecutionResult#addDbSelect(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void CommandExecutionResult.addDbSelect(String)"})
   public void testAddDbSelect_thenCommandExecutionResultDbSelectsSelectLongValueIsTwo() {
     // Arrange
@@ -84,17 +77,14 @@ public class CommandExecutionResultDiffblueTest {
 
   /**
    * Test {@link CommandExecutionResult#addDbInsert(String)}.
-   *
    * <ul>
-   *   <li>Then {@link CommandExecutionResult} (default constructor) DbInserts {@code Insert}
-   *       longValue is one.
+   *   <li>Then {@link CommandExecutionResult} (default constructor) DbInserts {@code Insert} longValue is one.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link CommandExecutionResult#addDbInsert(String)}
+   * <p>
+   * Method under test: {@link CommandExecutionResult#addDbInsert(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void CommandExecutionResult.addDbInsert(String)"})
   public void testAddDbInsert_thenCommandExecutionResultDbInsertsInsertLongValueIsOne() {
     // Arrange
@@ -111,17 +101,14 @@ public class CommandExecutionResultDiffblueTest {
 
   /**
    * Test {@link CommandExecutionResult#addDbInsert(String)}.
-   *
    * <ul>
-   *   <li>Then {@link CommandExecutionResult} (default constructor) DbInserts {@code Insert}
-   *       longValue is two.
+   *   <li>Then {@link CommandExecutionResult} (default constructor) DbInserts {@code Insert} longValue is two.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link CommandExecutionResult#addDbInsert(String)}
+   * <p>
+   * Method under test: {@link CommandExecutionResult#addDbInsert(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void CommandExecutionResult.addDbInsert(String)"})
   public void testAddDbInsert_thenCommandExecutionResultDbInsertsInsertLongValueIsTwo() {
     // Arrange
@@ -139,17 +126,14 @@ public class CommandExecutionResultDiffblueTest {
 
   /**
    * Test {@link CommandExecutionResult#addDbUpdate(String)}.
-   *
    * <ul>
-   *   <li>Then {@link CommandExecutionResult} (default constructor) DbUpdates {@code 2020-03-01}
-   *       longValue is one.
+   *   <li>Then {@link CommandExecutionResult} (default constructor) DbUpdates {@code 2020-03-01} longValue is one.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link CommandExecutionResult#addDbUpdate(String)}
+   * <p>
+   * Method under test: {@link CommandExecutionResult#addDbUpdate(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void CommandExecutionResult.addDbUpdate(String)"})
   public void testAddDbUpdate_thenCommandExecutionResultDbUpdates20200301LongValueIsOne() {
     // Arrange
@@ -166,17 +150,14 @@ public class CommandExecutionResultDiffblueTest {
 
   /**
    * Test {@link CommandExecutionResult#addDbUpdate(String)}.
-   *
    * <ul>
-   *   <li>Then {@link CommandExecutionResult} (default constructor) DbUpdates {@code 2020-03-01}
-   *       longValue is two.
+   *   <li>Then {@link CommandExecutionResult} (default constructor) DbUpdates {@code 2020-03-01} longValue is two.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link CommandExecutionResult#addDbUpdate(String)}
+   * <p>
+   * Method under test: {@link CommandExecutionResult#addDbUpdate(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void CommandExecutionResult.addDbUpdate(String)"})
   public void testAddDbUpdate_thenCommandExecutionResultDbUpdates20200301LongValueIsTwo() {
     // Arrange
@@ -194,17 +175,14 @@ public class CommandExecutionResultDiffblueTest {
 
   /**
    * Test {@link CommandExecutionResult#addDbDelete(String)}.
-   *
    * <ul>
-   *   <li>Then {@link CommandExecutionResult} (default constructor) DbDeletes {@code Delete}
-   *       longValue is one.
+   *   <li>Then {@link CommandExecutionResult} (default constructor) DbDeletes {@code Delete} longValue is one.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link CommandExecutionResult#addDbDelete(String)}
+   * <p>
+   * Method under test: {@link CommandExecutionResult#addDbDelete(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void CommandExecutionResult.addDbDelete(String)"})
   public void testAddDbDelete_thenCommandExecutionResultDbDeletesDeleteLongValueIsOne() {
     // Arrange
@@ -221,17 +199,14 @@ public class CommandExecutionResultDiffblueTest {
 
   /**
    * Test {@link CommandExecutionResult#addDbDelete(String)}.
-   *
    * <ul>
-   *   <li>Then {@link CommandExecutionResult} (default constructor) DbDeletes {@code Delete}
-   *       longValue is two.
+   *   <li>Then {@link CommandExecutionResult} (default constructor) DbDeletes {@code Delete} longValue is two.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link CommandExecutionResult#addDbDelete(String)}
+   * <p>
+   * Method under test: {@link CommandExecutionResult#addDbDelete(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void CommandExecutionResult.addDbDelete(String)"})
   public void testAddDbDelete_thenCommandExecutionResultDbDeletesDeleteLongValueIsTwo() {
     // Arrange
@@ -249,9 +224,8 @@ public class CommandExecutionResultDiffblueTest {
 
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>default or parameterless constructor of {@link CommandExecutionResult}
    *   <li>{@link CommandExecutionResult#setCommandFqn(String)}
@@ -272,26 +246,15 @@ public class CommandExecutionResultDiffblueTest {
    * </ul>
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void CommandExecutionResult.<init>()",
-    "void CommandExecutionResult.addDatabaseTime(long)",
-    "String CommandExecutionResult.getCommandFqn()",
-    "long CommandExecutionResult.getDatabaseTimeInMs()",
-    "Map CommandExecutionResult.getDbDeletes()",
-    "Map CommandExecutionResult.getDbInserts()",
-    "Map CommandExecutionResult.getDbSelects()",
-    "Map CommandExecutionResult.getDbUpdates()",
-    "long CommandExecutionResult.getTotalTimeInMs()",
-    "void CommandExecutionResult.setCommandFqn(String)",
-    "void CommandExecutionResult.setDatabaseTimeInMs(long)",
-    "void CommandExecutionResult.setDbDeletes(Map)",
-    "void CommandExecutionResult.setDbInserts(Map)",
-    "void CommandExecutionResult.setDbSelects(Map)",
-    "void CommandExecutionResult.setDbUpdates(Map)",
-    "void CommandExecutionResult.setTotalTimeInMs(long)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void CommandExecutionResult.<init>()", "void CommandExecutionResult.addDatabaseTime(long)",
+      "String CommandExecutionResult.getCommandFqn()", "long CommandExecutionResult.getDatabaseTimeInMs()",
+      "Map CommandExecutionResult.getDbDeletes()", "Map CommandExecutionResult.getDbInserts()",
+      "Map CommandExecutionResult.getDbSelects()", "Map CommandExecutionResult.getDbUpdates()",
+      "long CommandExecutionResult.getTotalTimeInMs()", "void CommandExecutionResult.setCommandFqn(String)",
+      "void CommandExecutionResult.setDatabaseTimeInMs(long)", "void CommandExecutionResult.setDbDeletes(Map)",
+      "void CommandExecutionResult.setDbInserts(Map)", "void CommandExecutionResult.setDbSelects(Map)",
+      "void CommandExecutionResult.setDbUpdates(Map)", "void CommandExecutionResult.setTotalTimeInMs(long)"})
   public void testGettersAndSetters() {
     // Arrange and Act
     CommandExecutionResult actualCommandExecutionResult = new CommandExecutionResult();

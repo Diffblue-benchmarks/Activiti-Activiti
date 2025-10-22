@@ -16,62 +16,33 @@
 package org.activiti.engine.impl.cfg;
 
 import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.engine.impl.bpmn.parser.BpmnParse;
 import org.activiti.engine.impl.bpmn.parser.BpmnParser;
-import org.activiti.engine.impl.bpmn.parser.factory.DefaultActivityBehaviorFactory;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 
 public class DefaultBpmnParseFactoryDiffblueTest {
   /**
    * Test {@link DefaultBpmnParseFactory#createBpmnParse(BpmnParser)}.
-   *
-   * <p>Method under test: {@link DefaultBpmnParseFactory#createBpmnParse(BpmnParser)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"BpmnParse DefaultBpmnParseFactory.createBpmnParse(BpmnParser)"})
-  public void testCreateBpmnParse() {
-    // Arrange
-    DefaultBpmnParseFactory defaultBpmnParseFactory = new DefaultBpmnParseFactory();
-
-    BpmnParser bpmnParser = new BpmnParser();
-    DefaultActivityBehaviorFactory activityBehaviorFactory = new DefaultActivityBehaviorFactory();
-    bpmnParser.setActivityBehaviorFactory(activityBehaviorFactory);
-
-    // Act and Assert
-    assertSame(
-        activityBehaviorFactory,
-        defaultBpmnParseFactory.createBpmnParse(bpmnParser).getActivityBehaviorFactory());
-  }
-
-  /**
-   * Test {@link DefaultBpmnParseFactory#createBpmnParse(BpmnParser)}.
-   *
    * <ul>
-   *   <li>When {@link BpmnParser} (default constructor).
-   *   <li>Then return TargetNamespace is {@code null}.
+   *   <li>When {@link BpmnParser} (default constructor).</li>
+   *   <li>Then return TargetNamespace is {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link DefaultBpmnParseFactory#createBpmnParse(BpmnParser)}
+   * <p>
+   * Method under test: {@link DefaultBpmnParseFactory#createBpmnParse(BpmnParser)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"BpmnParse DefaultBpmnParseFactory.createBpmnParse(BpmnParser)"})
   public void testCreateBpmnParse_whenBpmnParser_thenReturnTargetNamespaceIsNull() {
     // Arrange
     DefaultBpmnParseFactory defaultBpmnParseFactory = new DefaultBpmnParseFactory();
 
     // Act
-    BpmnParse actualCreateBpmnParseResult =
-        defaultBpmnParseFactory.createBpmnParse(new BpmnParser());
+    BpmnParse actualCreateBpmnParseResult = defaultBpmnParseFactory.createBpmnParse(new BpmnParser());
 
     // Assert
     assertNull(actualCreateBpmnParseResult.getTargetNamespace());

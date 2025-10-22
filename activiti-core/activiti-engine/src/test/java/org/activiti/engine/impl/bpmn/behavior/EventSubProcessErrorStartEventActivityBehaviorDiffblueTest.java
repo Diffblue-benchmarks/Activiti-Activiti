@@ -19,8 +19,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -34,33 +33,27 @@ import org.junit.experimental.categories.Category;
 public class EventSubProcessErrorStartEventActivityBehaviorDiffblueTest {
   /**
    * Test {@link EventSubProcessErrorStartEventActivityBehavior#processDataObjects(Collection)}.
-   *
    * <ul>
-   *   <li>When {@link ArrayList#ArrayList()} add {@link BooleanDataObject} (default constructor).
-   *   <li>Then return size is one.
+   *   <li>When {@link ArrayList#ArrayList()} add {@link BooleanDataObject} (default constructor).</li>
+   *   <li>Then return size is one.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link
-   * EventSubProcessErrorStartEventActivityBehavior#processDataObjects(Collection)}
+   * <p>
+   * Method under test: {@link EventSubProcessErrorStartEventActivityBehavior#processDataObjects(Collection)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "Map EventSubProcessErrorStartEventActivityBehavior.processDataObjects(Collection)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Map EventSubProcessErrorStartEventActivityBehavior.processDataObjects(Collection)"})
   public void testProcessDataObjects_whenArrayListAddBooleanDataObject_thenReturnSizeIsOne() {
     // Arrange
-    EventSubProcessErrorStartEventActivityBehavior eventSubProcessErrorStartEventActivityBehavior =
-        new EventSubProcessErrorStartEventActivityBehavior();
+    EventSubProcessErrorStartEventActivityBehavior eventSubProcessErrorStartEventActivityBehavior = new EventSubProcessErrorStartEventActivityBehavior();
 
     ArrayList<ValuedDataObject> dataObjects = new ArrayList<>();
     dataObjects.add(new BooleanDataObject());
     dataObjects.add(new BooleanDataObject());
 
     // Act
-    Map<String, Object> actualProcessDataObjectsResult =
-        eventSubProcessErrorStartEventActivityBehavior.processDataObjects(dataObjects);
+    Map<String, Object> actualProcessDataObjectsResult = eventSubProcessErrorStartEventActivityBehavior
+        .processDataObjects(dataObjects);
 
     // Assert
     assertEquals(1, actualProcessDataObjectsResult.size());
@@ -69,62 +62,46 @@ public class EventSubProcessErrorStartEventActivityBehaviorDiffblueTest {
 
   /**
    * Test {@link EventSubProcessErrorStartEventActivityBehavior#processDataObjects(Collection)}.
-   *
    * <ul>
-   *   <li>When {@link ArrayList#ArrayList()}.
-   *   <li>Then return Empty.
+   *   <li>When {@link ArrayList#ArrayList()}.</li>
+   *   <li>Then return Empty.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link
-   * EventSubProcessErrorStartEventActivityBehavior#processDataObjects(Collection)}
+   * <p>
+   * Method under test: {@link EventSubProcessErrorStartEventActivityBehavior#processDataObjects(Collection)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "Map EventSubProcessErrorStartEventActivityBehavior.processDataObjects(Collection)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Map EventSubProcessErrorStartEventActivityBehavior.processDataObjects(Collection)"})
   public void testProcessDataObjects_whenArrayList_thenReturnEmpty() {
     // Arrange
-    EventSubProcessErrorStartEventActivityBehavior eventSubProcessErrorStartEventActivityBehavior =
-        new EventSubProcessErrorStartEventActivityBehavior();
+    EventSubProcessErrorStartEventActivityBehavior eventSubProcessErrorStartEventActivityBehavior = new EventSubProcessErrorStartEventActivityBehavior();
 
     // Act and Assert
-    assertTrue(
-        eventSubProcessErrorStartEventActivityBehavior
-            .processDataObjects(new ArrayList<>())
-            .isEmpty());
+    assertTrue(eventSubProcessErrorStartEventActivityBehavior.processDataObjects(new ArrayList<>()).isEmpty());
   }
 
   /**
    * Test {@link EventSubProcessErrorStartEventActivityBehavior#processDataObjects(Collection)}.
-   *
    * <ul>
-   *   <li>When {@link LinkedHashSet#LinkedHashSet()} add {@link BooleanDataObject} (default
-   *       constructor).
-   *   <li>Then return size is one.
+   *   <li>When {@link LinkedHashSet#LinkedHashSet()} add {@link BooleanDataObject} (default constructor).</li>
+   *   <li>Then return size is one.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link
-   * EventSubProcessErrorStartEventActivityBehavior#processDataObjects(Collection)}
+   * <p>
+   * Method under test: {@link EventSubProcessErrorStartEventActivityBehavior#processDataObjects(Collection)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "Map EventSubProcessErrorStartEventActivityBehavior.processDataObjects(Collection)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Map EventSubProcessErrorStartEventActivityBehavior.processDataObjects(Collection)"})
   public void testProcessDataObjects_whenLinkedHashSetAddBooleanDataObject_thenReturnSizeIsOne() {
     // Arrange
-    EventSubProcessErrorStartEventActivityBehavior eventSubProcessErrorStartEventActivityBehavior =
-        new EventSubProcessErrorStartEventActivityBehavior();
+    EventSubProcessErrorStartEventActivityBehavior eventSubProcessErrorStartEventActivityBehavior = new EventSubProcessErrorStartEventActivityBehavior();
 
     LinkedHashSet<ValuedDataObject> dataObjects = new LinkedHashSet<>();
     dataObjects.add(new BooleanDataObject());
 
     // Act
-    Map<String, Object> actualProcessDataObjectsResult =
-        eventSubProcessErrorStartEventActivityBehavior.processDataObjects(dataObjects);
+    Map<String, Object> actualProcessDataObjectsResult = eventSubProcessErrorStartEventActivityBehavior
+        .processDataObjects(dataObjects);
 
     // Assert
     assertEquals(1, actualProcessDataObjectsResult.size());
@@ -133,48 +110,36 @@ public class EventSubProcessErrorStartEventActivityBehaviorDiffblueTest {
 
   /**
    * Test {@link EventSubProcessErrorStartEventActivityBehavior#processDataObjects(Collection)}.
-   *
    * <ul>
-   *   <li>When {@code null}.
-   *   <li>Then return Empty.
+   *   <li>When {@code null}.</li>
+   *   <li>Then return Empty.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link
-   * EventSubProcessErrorStartEventActivityBehavior#processDataObjects(Collection)}
+   * <p>
+   * Method under test: {@link EventSubProcessErrorStartEventActivityBehavior#processDataObjects(Collection)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "Map EventSubProcessErrorStartEventActivityBehavior.processDataObjects(Collection)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Map EventSubProcessErrorStartEventActivityBehavior.processDataObjects(Collection)"})
   public void testProcessDataObjects_whenNull_thenReturnEmpty() {
     // Arrange, Act and Assert
-    assertTrue(
-        new EventSubProcessErrorStartEventActivityBehavior().processDataObjects(null).isEmpty());
+    assertTrue((new EventSubProcessErrorStartEventActivityBehavior()).processDataObjects(null).isEmpty());
   }
 
   /**
    * Test new {@link EventSubProcessErrorStartEventActivityBehavior} (default constructor).
-   *
-   * <p>Method under test: default or parameterless constructor of {@link
-   * EventSubProcessErrorStartEventActivityBehavior}
+   * <p>
+   * Method under test: default or parameterless constructor of {@link EventSubProcessErrorStartEventActivityBehavior}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void EventSubProcessErrorStartEventActivityBehavior.<init>()"})
   public void testNewEventSubProcessErrorStartEventActivityBehavior() {
     // Arrange and Act
-    EventSubProcessErrorStartEventActivityBehavior
-        actualEventSubProcessErrorStartEventActivityBehavior =
-            new EventSubProcessErrorStartEventActivityBehavior();
+    EventSubProcessErrorStartEventActivityBehavior actualEventSubProcessErrorStartEventActivityBehavior = new EventSubProcessErrorStartEventActivityBehavior();
 
     // Assert
-    assertNull(
-        actualEventSubProcessErrorStartEventActivityBehavior.getMultiInstanceActivityBehavior());
+    assertNull(actualEventSubProcessErrorStartEventActivityBehavior.getMultiInstanceActivityBehavior());
     assertFalse(actualEventSubProcessErrorStartEventActivityBehavior.hasLoopCharacteristics());
-    assertFalse(
-        actualEventSubProcessErrorStartEventActivityBehavior.hasMultiInstanceCharacteristics());
+    assertFalse(actualEventSubProcessErrorStartEventActivityBehavior.hasMultiInstanceCharacteristics());
   }
 }

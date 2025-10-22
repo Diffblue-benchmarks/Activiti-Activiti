@@ -23,8 +23,7 @@ import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.engine.ActivitiEngineAgendaFactory;
 import org.activiti.engine.impl.agenda.DefaultActivitiEngineAgenda;
@@ -36,32 +35,27 @@ import org.mockito.Mockito;
 public class CommandInvokerDiffblueTest {
   /**
    * Test {@link CommandInvoker#executeOperations(CommandContext)}.
-   *
    * <ul>
-   *   <li>Then calls {@link ActivitiEngineAgendaFactory#createAgenda(CommandContext)}.
+   *   <li>Then calls {@link ActivitiEngineAgendaFactory#createAgenda(CommandContext)}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link CommandInvoker#executeOperations(CommandContext)}
+   * <p>
+   * Method under test: {@link CommandInvoker#executeOperations(CommandContext)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void CommandInvoker.executeOperations(CommandContext)"})
   public void testExecuteOperations_thenCallsCreateAgenda() {
     // Arrange
     CommandInvoker commandInvoker = new CommandInvoker();
-
     ActivitiEngineAgendaFactory engineAgendaFactory = mock(ActivitiEngineAgendaFactory.class);
     when(engineAgendaFactory.createAgenda(Mockito.<CommandContext>any()))
         .thenReturn(new DefaultActivitiEngineAgenda(null));
 
     JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();
     processEngineConfiguration.setEngineAgendaFactory(engineAgendaFactory);
-    CommandContext commandContext =
-        new CommandContext(mock(Command.class), processEngineConfiguration);
 
     // Act
-    commandInvoker.executeOperations(commandContext);
+    commandInvoker.executeOperations(new CommandContext(mock(Command.class), processEngineConfiguration));
 
     // Assert
     verify(engineAgendaFactory).createAgenda(isA(CommandContext.class));
@@ -69,47 +63,40 @@ public class CommandInvokerDiffblueTest {
 
   /**
    * Test {@link CommandInvoker#executeOperation(Runnable)}.
-   *
    * <ul>
-   *   <li>Then throw {@link UnsupportedOperationException}.
+   *   <li>Then throw {@link UnsupportedOperationException}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link CommandInvoker#executeOperation(Runnable)}
+   * <p>
+   * Method under test: {@link CommandInvoker#executeOperation(Runnable)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void CommandInvoker.executeOperation(Runnable)"})
   public void testExecuteOperation_thenThrowUnsupportedOperationException() {
     // Arrange
     CommandInvoker commandInvoker = new CommandInvoker();
-
     Runnable runnable = mock(Runnable.class);
-    doThrow(new UnsupportedOperationException()).when(runnable).run();
+    doThrow(new UnsupportedOperationException("foo")).when(runnable).run();
 
     // Act and Assert
-    assertThrows(
-        UnsupportedOperationException.class, () -> commandInvoker.executeOperation(runnable));
+    assertThrows(UnsupportedOperationException.class, () -> commandInvoker.executeOperation(runnable));
     verify(runnable).run();
   }
 
   /**
    * Test {@link CommandInvoker#executeOperation(Runnable)}.
-   *
    * <ul>
-   *   <li>When {@link Runnable} {@link Runnable#run()} does nothing.
+   *   <li>When {@link Runnable} {@link Runnable#run()} does nothing.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link CommandInvoker#executeOperation(Runnable)}
+   * <p>
+   * Method under test: {@link CommandInvoker#executeOperation(Runnable)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void CommandInvoker.executeOperation(Runnable)"})
   public void testExecuteOperation_whenRunnableRunDoesNothing() {
     // Arrange
     CommandInvoker commandInvoker = new CommandInvoker();
-
     Runnable runnable = mock(Runnable.class);
     doNothing().when(runnable).run();
 
@@ -122,39 +109,34 @@ public class CommandInvokerDiffblueTest {
 
   /**
    * Test {@link CommandInvoker#setNext(CommandInterceptor)}.
-   *
-   * <p>Method under test: {@link CommandInvoker#setNext(CommandInterceptor)}
+   * <p>
+   * Method under test: {@link CommandInvoker#setNext(CommandInterceptor)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void CommandInvoker.setNext(CommandInterceptor)"})
   public void testSetNext() {
     // Arrange
     CommandInvoker commandInvoker = new CommandInvoker();
 
     // Act and Assert
-    assertThrows(
-        UnsupportedOperationException.class,
-        () -> commandInvoker.setNext(new CommandContextInterceptor()));
+    assertThrows(UnsupportedOperationException.class, () -> commandInvoker.setNext(new CommandContextInterceptor()));
   }
 
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>default or parameterless constructor of {@link CommandInvoker}
    *   <li>{@link CommandInvoker#getNext()}
    * </ul>
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void CommandInvoker.<init>()", "CommandInterceptor CommandInvoker.getNext()"})
   public void testGettersAndSetters() {
     // Arrange, Act and Assert
-    assertNull(new CommandInvoker().getNext());
+    assertNull((new CommandInvoker()).getNext());
   }
 }

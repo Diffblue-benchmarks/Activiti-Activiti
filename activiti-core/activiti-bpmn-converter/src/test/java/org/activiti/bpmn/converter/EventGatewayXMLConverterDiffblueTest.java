@@ -16,15 +16,12 @@
 package org.activiti.bpmn.converter;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
-import java.util.HashMap;
 import javax.xml.stream.XMLStreamWriter;
+import org.activiti.bpmn.model.ActivitiListener;
 import org.activiti.bpmn.model.BaseElement;
 import org.activiti.bpmn.model.BpmnModel;
 import org.activiti.bpmn.model.EventGateway;
-import org.activiti.bpmn.model.Message;
-import org.activiti.bpmn.model.Message.Builder;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
@@ -32,63 +29,33 @@ import org.junit.jupiter.api.Test;
 class EventGatewayXMLConverterDiffblueTest {
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>default or parameterless constructor of {@link EventGatewayXMLConverter}
-   *   <li>{@link EventGatewayXMLConverter#writeAdditionalAttributes(BaseElement, BpmnModel,
-   *       XMLStreamWriter)}
-   *   <li>{@link EventGatewayXMLConverter#writeAdditionalChildElements(BaseElement, BpmnModel,
-   *       XMLStreamWriter)}
+   *   <li>{@link EventGatewayXMLConverter#writeAdditionalAttributes(BaseElement, BpmnModel, XMLStreamWriter)}
+   *   <li>{@link EventGatewayXMLConverter#writeAdditionalChildElements(BaseElement, BpmnModel, XMLStreamWriter)}
    *   <li>{@link EventGatewayXMLConverter#getBpmnElementType()}
    *   <li>{@link EventGatewayXMLConverter#getXMLElementName()}
    * </ul>
    */
   @Test
   @DisplayName("Test getters and setters")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void EventGatewayXMLConverter.<init>()",
-    "Class EventGatewayXMLConverter.getBpmnElementType()",
-    "java.lang.String EventGatewayXMLConverter.getXMLElementName()",
-    "void EventGatewayXMLConverter.writeAdditionalAttributes(BaseElement, BpmnModel, XMLStreamWriter)",
-    "void EventGatewayXMLConverter.writeAdditionalChildElements(BaseElement, BpmnModel, XMLStreamWriter)"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void EventGatewayXMLConverter.<init>()", "Class EventGatewayXMLConverter.getBpmnElementType()",
+      "java.lang.String EventGatewayXMLConverter.getXMLElementName()",
+      "void EventGatewayXMLConverter.writeAdditionalAttributes(BaseElement, BpmnModel, XMLStreamWriter)",
+      "void EventGatewayXMLConverter.writeAdditionalChildElements(BaseElement, BpmnModel, XMLStreamWriter)"})
   void testGettersAndSetters() throws Exception {
     // Arrange and Act
     EventGatewayXMLConverter actualEventGatewayXMLConverter = new EventGatewayXMLConverter();
-    Builder builderResult = Message.builder();
-    Builder attributesResult = builderResult.attributes(new HashMap<>());
-    Message element =
-        attributesResult
-            .extensionElements(new HashMap<>())
-            .id("42")
-            .itemRef("Item Ref")
-            .name("Name")
-            .xmlColumnNumber(10)
-            .xmlRowNumber(10)
-            .build();
+    ActivitiListener element = new ActivitiListener();
     BpmnModel model = new BpmnModel();
-    actualEventGatewayXMLConverter.writeAdditionalAttributes(
-        element, model, new IndentingXMLStreamWriter(null));
-    Builder builderResult2 = Message.builder();
-    Builder attributesResult2 = builderResult2.attributes(new HashMap<>());
-    Message element2 =
-        attributesResult2
-            .extensionElements(new HashMap<>())
-            .id("42")
-            .itemRef("Item Ref")
-            .name("Name")
-            .xmlColumnNumber(10)
-            .xmlRowNumber(10)
-            .build();
+    actualEventGatewayXMLConverter.writeAdditionalAttributes(element, model, new IndentingXMLStreamWriter(null));
+    ActivitiListener element2 = new ActivitiListener();
     BpmnModel model2 = new BpmnModel();
-    actualEventGatewayXMLConverter.writeAdditionalChildElements(
-        element2, model2, new IndentingXMLStreamWriter(null));
-    Class<? extends BaseElement> actualBpmnElementType =
-        actualEventGatewayXMLConverter.getBpmnElementType();
+    actualEventGatewayXMLConverter.writeAdditionalChildElements(element2, model2, new IndentingXMLStreamWriter(null));
+    Class<? extends BaseElement> actualBpmnElementType = actualEventGatewayXMLConverter.getBpmnElementType();
 
     // Assert
     assertEquals("eventBasedGateway", actualEventGatewayXMLConverter.getXMLElementName());

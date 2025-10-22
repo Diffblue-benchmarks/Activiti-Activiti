@@ -17,8 +17,7 @@ package org.activiti.engine.impl.cmd;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.engine.impl.cfg.JtaProcessEngineConfiguration;
 import org.activiti.engine.impl.cfg.ProcessEngineConfigurationImpl;
@@ -27,28 +26,19 @@ import org.junit.experimental.categories.Category;
 
 public class HandleFailedJobCmdDiffblueTest {
   /**
-   * Test {@link HandleFailedJobCmd#HandleFailedJobCmd(String, ProcessEngineConfigurationImpl,
-   * Throwable)}.
-   *
-   * <p>Method under test: {@link HandleFailedJobCmd#HandleFailedJobCmd(String,
-   * ProcessEngineConfigurationImpl, Throwable)}
+   * Test {@link HandleFailedJobCmd#HandleFailedJobCmd(String, ProcessEngineConfigurationImpl, Throwable)}.
+   * <p>
+   * Method under test: {@link HandleFailedJobCmd#HandleFailedJobCmd(String, ProcessEngineConfigurationImpl, Throwable)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void HandleFailedJobCmd.<init>(String, ProcessEngineConfigurationImpl, Throwable)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void HandleFailedJobCmd.<init>(String, ProcessEngineConfigurationImpl, Throwable)"})
   public void testNewHandleFailedJobCmd() {
     // Arrange
     JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();
 
-    // Act
-    HandleFailedJobCmd actualHandleFailedJobCmd =
-        new HandleFailedJobCmd("42", processEngineConfiguration, new Throwable());
-
-    // Assert
-    Throwable throwable = actualHandleFailedJobCmd.exception;
+    // Act and Assert
+    Throwable throwable = (new HandleFailedJobCmd("42", processEngineConfiguration, new Throwable())).exception;
     assertNull(throwable.getLocalizedMessage());
     assertNull(throwable.getMessage());
     assertNull(throwable.getCause());

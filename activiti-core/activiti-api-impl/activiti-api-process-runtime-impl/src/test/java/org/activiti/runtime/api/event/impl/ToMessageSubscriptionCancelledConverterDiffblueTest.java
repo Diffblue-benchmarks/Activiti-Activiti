@@ -16,7 +16,6 @@
 package org.activiti.runtime.api.event.impl;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.engine.delegate.event.ActivitiEntityEvent;
 import org.activiti.engine.delegate.event.impl.ActivitiProcessCancelledEventImpl;
@@ -27,33 +26,25 @@ import org.junit.jupiter.api.Test;
 
 class ToMessageSubscriptionCancelledConverterDiffblueTest {
   /**
-   * Test {@link ToMessageSubscriptionCancelledConverter#from(ActivitiEntityEvent)} with {@code
-   * ActivitiEntityEvent}.
-   *
+   * Test {@link ToMessageSubscriptionCancelledConverter#from(ActivitiEntityEvent)} with {@code ActivitiEntityEvent}.
    * <ul>
-   *   <li>Then return not Present.
+   *   <li>Then return not Present.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ToMessageSubscriptionCancelledConverter#from(ActivitiEntityEvent)}
+   * <p>
+   * Method under test: {@link ToMessageSubscriptionCancelledConverter#from(ActivitiEntityEvent)}
    */
   @Test
   @DisplayName("Test from(ActivitiEntityEvent) with 'ActivitiEntityEvent'; then return not Present")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "java.util.Optional ToMessageSubscriptionCancelledConverter.from(ActivitiEntityEvent)"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"java.util.Optional ToMessageSubscriptionCancelledConverter.from(ActivitiEntityEvent)"})
   void testFromWithActivitiEntityEvent_thenReturnNotPresent() {
     // Arrange
-    ToMessageSubscriptionCancelledConverter toMessageSubscriptionCancelledConverter =
-        new ToMessageSubscriptionCancelledConverter(new MessageSubscriptionConverter());
+    ToMessageSubscriptionCancelledConverter toMessageSubscriptionCancelledConverter = new ToMessageSubscriptionCancelledConverter(
+        new MessageSubscriptionConverter());
 
     // Act and Assert
-    assertFalse(
-        toMessageSubscriptionCancelledConverter
-            .from(
-                new ActivitiProcessCancelledEventImpl(
-                    ExecutionEntityImpl.createWithEmptyRelationshipCollections()))
-            .isPresent());
+    assertFalse(toMessageSubscriptionCancelledConverter
+        .from(new ActivitiProcessCancelledEventImpl(ExecutionEntityImpl.createWithEmptyRelationshipCollections()))
+        .isPresent());
   }
 }

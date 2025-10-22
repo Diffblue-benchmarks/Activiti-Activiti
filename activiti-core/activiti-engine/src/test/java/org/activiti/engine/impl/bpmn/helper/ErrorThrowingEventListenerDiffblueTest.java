@@ -17,8 +17,7 @@ package org.activiti.engine.impl.bpmn.helper;
 
 import static org.junit.Assert.assertThrows;
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.engine.ActivitiException;
 import org.activiti.engine.delegate.event.ActivitiEvent;
@@ -29,56 +28,49 @@ import org.junit.experimental.categories.Category;
 public class ErrorThrowingEventListenerDiffblueTest {
   /**
    * Test {@link ErrorThrowingEventListener#onEvent(ActivitiEvent)}.
-   *
    * <ul>
-   *   <li>When {@link ActivitiActivityCancelledEventImpl} (default constructor).
-   *   <li>Then throw {@link ActivitiException}.
+   *   <li>When {@link ActivitiActivityCancelledEventImpl} (default constructor).</li>
+   *   <li>Then throw {@link ActivitiException}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ErrorThrowingEventListener#onEvent(ActivitiEvent)}
+   * <p>
+   * Method under test: {@link ErrorThrowingEventListener#onEvent(ActivitiEvent)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void ErrorThrowingEventListener.onEvent(ActivitiEvent)"})
   public void testOnEvent_whenActivitiActivityCancelledEventImpl_thenThrowActivitiException() {
     // Arrange
     ErrorThrowingEventListener errorThrowingEventListener = new ErrorThrowingEventListener();
 
     // Act and Assert
-    assertThrows(
-        ActivitiException.class,
+    assertThrows(ActivitiException.class,
         () -> errorThrowingEventListener.onEvent(new ActivitiActivityCancelledEventImpl()));
   }
 
   /**
    * Test {@link ErrorThrowingEventListener#onEventInternal(ActivitiEvent)}.
-   *
    * <ul>
-   *   <li>Then throw {@link ActivitiException}.
+   *   <li>Then throw {@link ActivitiException}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ErrorThrowingEventListener#onEventInternal(ActivitiEvent)}
+   * <p>
+   * Method under test: {@link ErrorThrowingEventListener#onEventInternal(ActivitiEvent)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void ErrorThrowingEventListener.onEventInternal(ActivitiEvent)"})
   public void testOnEventInternal_thenThrowActivitiException() {
     // Arrange
     ErrorThrowingEventListener errorThrowingEventListener = new ErrorThrowingEventListener();
 
     // Act and Assert
-    assertThrows(
-        ActivitiException.class,
+    assertThrows(ActivitiException.class,
         () -> errorThrowingEventListener.onEventInternal(new ActivitiActivityCancelledEventImpl()));
   }
 
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>default or parameterless constructor of {@link ErrorThrowingEventListener}
    *   <li>{@link ErrorThrowingEventListener#setErrorCode(String)}
@@ -86,13 +78,9 @@ public class ErrorThrowingEventListenerDiffblueTest {
    * </ul>
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void ErrorThrowingEventListener.<init>()",
-    "boolean ErrorThrowingEventListener.isFailOnException()",
-    "void ErrorThrowingEventListener.setErrorCode(String)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void ErrorThrowingEventListener.<init>()",
+      "boolean ErrorThrowingEventListener.isFailOnException()", "void ErrorThrowingEventListener.setErrorCode(String)"})
   public void testGettersAndSetters() {
     // Arrange and Act
     ErrorThrowingEventListener actualErrorThrowingEventListener = new ErrorThrowingEventListener();

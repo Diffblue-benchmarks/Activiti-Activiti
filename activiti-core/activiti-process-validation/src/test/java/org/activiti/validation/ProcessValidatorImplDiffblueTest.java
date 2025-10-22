@@ -23,7 +23,6 @@ import static org.mockito.ArgumentMatchers.isA;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
 import java.util.List;
@@ -38,35 +37,30 @@ import org.mockito.Mockito;
 class ProcessValidatorImplDiffblueTest {
   /**
    * Test new {@link ProcessValidatorImpl} (default constructor).
-   *
-   * <p>Method under test: default or parameterless constructor of {@link ProcessValidatorImpl}
+   * <p>
+   * Method under test: default or parameterless constructor of {@link ProcessValidatorImpl}
    */
   @Test
   @DisplayName("Test new ProcessValidatorImpl (default constructor)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void ProcessValidatorImpl.<init>()"})
   void testNewProcessValidatorImpl() {
     // Arrange, Act and Assert
-    assertNull(new ProcessValidatorImpl().getValidatorSets());
+    assertNull((new ProcessValidatorImpl()).getValidatorSets());
   }
 
   /**
    * Test {@link ProcessValidatorImpl#validate(BpmnModel)}.
-   *
    * <ul>
-   *   <li>Given {@link ProcessValidatorImpl} (default constructor) ValidatorSets is {@link
-   *       ArrayList#ArrayList()}.
-   *   <li>Then return Empty.
+   *   <li>Given {@link ProcessValidatorImpl} (default constructor) ValidatorSets is {@link ArrayList#ArrayList()}.</li>
+   *   <li>Then return Empty.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ProcessValidatorImpl#validate(BpmnModel)}
+   * <p>
+   * Method under test: {@link ProcessValidatorImpl#validate(BpmnModel)}
    */
   @Test
-  @DisplayName(
-      "Test validate(BpmnModel); given ProcessValidatorImpl (default constructor) ValidatorSets is ArrayList(); then return Empty")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test validate(BpmnModel); given ProcessValidatorImpl (default constructor) ValidatorSets is ArrayList(); then return Empty")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"List ProcessValidatorImpl.validate(BpmnModel)"})
   void testValidate_givenProcessValidatorImplValidatorSetsIsArrayList_thenReturnEmpty() {
     // Arrange
@@ -79,29 +73,24 @@ class ProcessValidatorImplDiffblueTest {
 
   /**
    * Test {@link ProcessValidatorImpl#validate(BpmnModel)}.
-   *
    * <ul>
-   *   <li>Given {@link Validator} {@link Validator#validate(BpmnModel, List)} does nothing.
-   *   <li>Then calls {@link Validator#validate(BpmnModel, List)}.
+   *   <li>Given {@link Validator} {@link Validator#validate(BpmnModel, List)} does nothing.</li>
+   *   <li>When {@link BpmnModel} (default constructor).</li>
+   *   <li>Then calls {@link Validator#validate(BpmnModel, List)}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ProcessValidatorImpl#validate(BpmnModel)}
+   * <p>
+   * Method under test: {@link ProcessValidatorImpl#validate(BpmnModel)}
    */
   @Test
-  @DisplayName(
-      "Test validate(BpmnModel); given Validator validate(BpmnModel, List) does nothing; then calls validate(BpmnModel, List)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test validate(BpmnModel); given Validator validate(BpmnModel, List) does nothing; when BpmnModel (default constructor); then calls validate(BpmnModel, List)")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"List ProcessValidatorImpl.validate(BpmnModel)"})
-  void testValidate_givenValidatorValidateDoesNothing_thenCallsValidate() {
+  void testValidate_givenValidatorValidateDoesNothing_whenBpmnModel_thenCallsValidate() {
     // Arrange
     Validator validator = mock(Validator.class);
-    doNothing()
-        .when(validator)
-        .validate(Mockito.<BpmnModel>any(), Mockito.<List<ValidationError>>any());
+    doNothing().when(validator).validate(Mockito.<BpmnModel>any(), Mockito.<List<ValidationError>>any());
 
-    ValidatorSet validatorSet = new ValidatorSet("42");
-    validatorSet.addValidator(mock(Validator.class));
+    ValidatorSet validatorSet = new ValidatorSet("Name");
     validatorSet.addValidator(validator);
 
     ProcessValidatorImpl processValidatorImpl = new ProcessValidatorImpl();
@@ -117,9 +106,8 @@ class ProcessValidatorImplDiffblueTest {
 
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>{@link ProcessValidatorImpl#setValidatorSets(List)}
    *   <li>{@link ProcessValidatorImpl#getValidatorSets()}
@@ -127,12 +115,9 @@ class ProcessValidatorImplDiffblueTest {
    */
   @Test
   @DisplayName("Test getters and setters")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "List ProcessValidatorImpl.getValidatorSets()",
-    "void ProcessValidatorImpl.setValidatorSets(List)"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"List ProcessValidatorImpl.getValidatorSets()",
+      "void ProcessValidatorImpl.setValidatorSets(List)"})
   void testGettersAndSetters() {
     // Arrange
     ProcessValidatorImpl processValidatorImpl = new ProcessValidatorImpl();
@@ -149,20 +134,17 @@ class ProcessValidatorImplDiffblueTest {
 
   /**
    * Test {@link ProcessValidatorImpl#addValidatorSet(ValidatorSet)}.
-   *
    * <ul>
-   *   <li>Given {@link ProcessValidatorImpl} (default constructor).
+   *   <li>Then {@link ProcessValidatorImpl} (default constructor) ValidatorSets size is one.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ProcessValidatorImpl#addValidatorSet(ValidatorSet)}
+   * <p>
+   * Method under test: {@link ProcessValidatorImpl#addValidatorSet(ValidatorSet)}
    */
   @Test
-  @DisplayName(
-      "Test addValidatorSet(ValidatorSet); given ProcessValidatorImpl (default constructor)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test addValidatorSet(ValidatorSet); then ProcessValidatorImpl (default constructor) ValidatorSets size is one")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void ProcessValidatorImpl.addValidatorSet(ValidatorSet)"})
-  void testAddValidatorSet_givenProcessValidatorImpl() {
+  void testAddValidatorSet_thenProcessValidatorImplValidatorSetsSizeIsOne() {
     // Arrange
     ProcessValidatorImpl processValidatorImpl = new ProcessValidatorImpl();
     ValidatorSet validatorSet = new ValidatorSet("Name");
@@ -178,34 +160,30 @@ class ProcessValidatorImplDiffblueTest {
 
   /**
    * Test {@link ProcessValidatorImpl#addValidatorSet(ValidatorSet)}.
-   *
    * <ul>
-   *   <li>Then {@link ProcessValidatorImpl} (default constructor) ValidatorSets is {@link
-   *       ArrayList#ArrayList()}.
+   *   <li>Then {@link ProcessValidatorImpl} (default constructor) ValidatorSets size is two.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ProcessValidatorImpl#addValidatorSet(ValidatorSet)}
+   * <p>
+   * Method under test: {@link ProcessValidatorImpl#addValidatorSet(ValidatorSet)}
    */
   @Test
-  @DisplayName(
-      "Test addValidatorSet(ValidatorSet); then ProcessValidatorImpl (default constructor) ValidatorSets is ArrayList()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test addValidatorSet(ValidatorSet); then ProcessValidatorImpl (default constructor) ValidatorSets size is two")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void ProcessValidatorImpl.addValidatorSet(ValidatorSet)"})
-  void testAddValidatorSet_thenProcessValidatorImplValidatorSetsIsArrayList() {
+  void testAddValidatorSet_thenProcessValidatorImplValidatorSetsSizeIsTwo() {
     // Arrange
     ProcessValidatorImpl processValidatorImpl = new ProcessValidatorImpl();
-    ArrayList<ValidatorSet> validatorSets = new ArrayList<>();
-    processValidatorImpl.setValidatorSets(validatorSets);
     ValidatorSet validatorSet = new ValidatorSet("Name");
+    processValidatorImpl.addValidatorSet(validatorSet);
+    ValidatorSet validatorSet2 = new ValidatorSet("Name");
 
     // Act
-    processValidatorImpl.addValidatorSet(validatorSet);
+    processValidatorImpl.addValidatorSet(validatorSet2);
 
     // Assert
-    List<ValidatorSet> validatorSets2 = processValidatorImpl.getValidatorSets();
-    assertEquals(1, validatorSets2.size());
-    assertSame(validatorSets, validatorSets2);
-    assertSame(validatorSet, validatorSets2.get(0));
+    List<ValidatorSet> validatorSets = processValidatorImpl.getValidatorSets();
+    assertEquals(2, validatorSets.size());
+    assertSame(validatorSet, validatorSets.get(0));
+    assertSame(validatorSet2, validatorSets.get(1));
   }
 }

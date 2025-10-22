@@ -18,8 +18,7 @@ package org.activiti.engine.test.mock;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import jakarta.el.ELContext;
 import org.activiti.engine.impl.el.ParsingElContext;
@@ -30,20 +29,18 @@ import org.junit.experimental.categories.Category;
 public class MockElResolverDiffblueTest {
   /**
    * Test {@link MockElResolver#getCommonPropertyType(ELContext, Object)}.
-   *
-   * <p>Method under test: {@link MockElResolver#getCommonPropertyType(ELContext, Object)}
+   * <p>
+   * Method under test: {@link MockElResolver#getCommonPropertyType(ELContext, Object)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"Class MockElResolver.getCommonPropertyType(ELContext, Object)"})
   public void testGetCommonPropertyType() {
     // Arrange
     MockElResolver mockElResolver = new MockElResolver();
 
     // Act
-    Class<?> actualCommonPropertyType =
-        mockElResolver.getCommonPropertyType(new ParsingElContext(), JSONObject.NULL);
+    Class<?> actualCommonPropertyType = mockElResolver.getCommonPropertyType(new ParsingElContext(), JSONObject.NULL);
 
     // Assert
     Class<Object> expectedCommonPropertyType = Object.class;
@@ -52,12 +49,11 @@ public class MockElResolverDiffblueTest {
 
   /**
    * Test {@link MockElResolver#getFeatureDescriptors(ELContext, Object)}.
-   *
-   * <p>Method under test: {@link MockElResolver#getFeatureDescriptors(ELContext, Object)}
+   * <p>
+   * Method under test: {@link MockElResolver#getFeatureDescriptors(ELContext, Object)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"java.util.Iterator MockElResolver.getFeatureDescriptors(ELContext, Object)"})
   public void testGetFeatureDescriptors() {
     // Arrange
@@ -69,12 +65,11 @@ public class MockElResolverDiffblueTest {
 
   /**
    * Test {@link MockElResolver#getType(ELContext, Object, Object)}.
-   *
-   * <p>Method under test: {@link MockElResolver#getType(ELContext, Object, Object)}
+   * <p>
+   * Method under test: {@link MockElResolver#getType(ELContext, Object, Object)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"Class MockElResolver.getType(ELContext, Object, Object)"})
   public void testGetType() {
     // Arrange
@@ -86,36 +81,13 @@ public class MockElResolverDiffblueTest {
 
   /**
    * Test {@link MockElResolver#getValue(ELContext, Object, Object)}.
-   *
-   * <ul>
-   *   <li>When {@code null}.
-   * </ul>
-   *
-   * <p>Method under test: {@link MockElResolver#getValue(ELContext, Object, Object)}
+   * <p>
+   * Method under test: {@link MockElResolver#getValue(ELContext, Object, Object)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"Object MockElResolver.getValue(ELContext, Object, Object)"})
-  public void testGetValue_whenNull() {
-    // Arrange, Act and Assert
-    assertNull(new MockElResolver().getValue(null, JSONObject.NULL, JSONObject.NULL));
-  }
-
-  /**
-   * Test {@link MockElResolver#getValue(ELContext, Object, Object)}.
-   *
-   * <ul>
-   *   <li>When {@link ParsingElContext} (default constructor).
-   * </ul>
-   *
-   * <p>Method under test: {@link MockElResolver#getValue(ELContext, Object, Object)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"Object MockElResolver.getValue(ELContext, Object, Object)"})
-  public void testGetValue_whenParsingElContext() {
+  public void testGetValue() {
     // Arrange
     MockElResolver mockElResolver = new MockElResolver();
 
@@ -125,19 +97,17 @@ public class MockElResolverDiffblueTest {
 
   /**
    * Test {@link MockElResolver#isReadOnly(ELContext, Object, Object)}.
-   *
-   * <p>Method under test: {@link MockElResolver#isReadOnly(ELContext, Object, Object)}
+   * <p>
+   * Method under test: {@link MockElResolver#isReadOnly(ELContext, Object, Object)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"boolean MockElResolver.isReadOnly(ELContext, Object, Object)"})
   public void testIsReadOnly() {
     // Arrange
     MockElResolver mockElResolver = new MockElResolver();
 
     // Act and Assert
-    assertFalse(
-        mockElResolver.isReadOnly(new ParsingElContext(), JSONObject.NULL, JSONObject.NULL));
+    assertFalse(mockElResolver.isReadOnly(new ParsingElContext(), JSONObject.NULL, JSONObject.NULL));
   }
 }

@@ -18,8 +18,7 @@ package org.activiti.engine.test.impl.logger;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
 import java.util.List;
@@ -30,12 +29,11 @@ import org.junit.experimental.categories.Category;
 public class DebugInfoExecutionTreeDiffblueTest {
   /**
    * Test DebugInfoExecutionTreeNode {@link DebugInfoExecutionTreeNode#getCurrentFlowElementInfo()}.
-   *
-   * <p>Method under test: {@link DebugInfoExecutionTreeNode#getCurrentFlowElementInfo()}
+   * <p>
+   * Method under test: {@link DebugInfoExecutionTreeNode#getCurrentFlowElementInfo()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"String DebugInfoExecutionTreeNode.getCurrentFlowElementInfo()"})
   public void testDebugInfoExecutionTreeNodeGetCurrentFlowElementInfo() {
     // Arrange
@@ -44,19 +42,16 @@ public class DebugInfoExecutionTreeDiffblueTest {
     debugInfoExecutionTreeNode.setActivityName("foo");
 
     // Act and Assert
-    assertEquals(
-        "null in flow element  with name foo",
-        debugInfoExecutionTreeNode.getCurrentFlowElementInfo());
+    assertEquals("null in flow element  with name foo", debugInfoExecutionTreeNode.getCurrentFlowElementInfo());
   }
 
   /**
    * Test DebugInfoExecutionTreeNode {@link DebugInfoExecutionTreeNode#getCurrentFlowElementInfo()}.
-   *
-   * <p>Method under test: {@link DebugInfoExecutionTreeNode#getCurrentFlowElementInfo()}
+   * <p>
+   * Method under test: {@link DebugInfoExecutionTreeNode#getCurrentFlowElementInfo()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"String DebugInfoExecutionTreeNode.getCurrentFlowElementInfo()"})
   public void testDebugInfoExecutionTreeNodeGetCurrentFlowElementInfo2() {
     // Arrange
@@ -65,33 +60,29 @@ public class DebugInfoExecutionTreeDiffblueTest {
     debugInfoExecutionTreeNode.setActivityName(null);
 
     // Act and Assert
-    assertEquals(
-        "null in flow element 'foo'", debugInfoExecutionTreeNode.getCurrentFlowElementInfo());
+    assertEquals("null in flow element 'foo'", debugInfoExecutionTreeNode.getCurrentFlowElementInfo());
   }
 
   /**
    * Test DebugInfoExecutionTreeNode {@link DebugInfoExecutionTreeNode#getCurrentFlowElementInfo()}.
-   *
    * <ul>
-   *   <li>Then return {@code null}.
+   *   <li>Then return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link DebugInfoExecutionTreeNode#getCurrentFlowElementInfo()}
+   * <p>
+   * Method under test: {@link DebugInfoExecutionTreeNode#getCurrentFlowElementInfo()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"String DebugInfoExecutionTreeNode.getCurrentFlowElementInfo()"})
   public void testDebugInfoExecutionTreeNodeGetCurrentFlowElementInfo_thenReturnNull() {
     // Arrange, Act and Assert
-    assertEquals("null", new DebugInfoExecutionTreeNode().getCurrentFlowElementInfo());
+    assertEquals("null", (new DebugInfoExecutionTreeNode()).getCurrentFlowElementInfo());
   }
 
   /**
    * Test DebugInfoExecutionTreeNode getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>default or parameterless constructor of {@link DebugInfoExecutionTreeNode}
    *   <li>{@link DebugInfoExecutionTreeNode#setActivityId(String)}
@@ -109,23 +100,17 @@ public class DebugInfoExecutionTreeDiffblueTest {
    * </ul>
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void DebugInfoExecutionTreeNode.<init>()",
-    "String DebugInfoExecutionTreeNode.getActivityId()",
-    "String DebugInfoExecutionTreeNode.getActivityName()",
-    "List DebugInfoExecutionTreeNode.getChildNodes()",
-    "String DebugInfoExecutionTreeNode.getId()",
-    "DebugInfoExecutionTreeNode DebugInfoExecutionTreeNode.getParentNode()",
-    "String DebugInfoExecutionTreeNode.getProcessDefinitionId()",
-    "void DebugInfoExecutionTreeNode.setActivityId(String)",
-    "void DebugInfoExecutionTreeNode.setActivityName(String)",
-    "void DebugInfoExecutionTreeNode.setChildNodes(List)",
-    "void DebugInfoExecutionTreeNode.setId(String)",
-    "void DebugInfoExecutionTreeNode.setParentNode(DebugInfoExecutionTreeNode)",
-    "void DebugInfoExecutionTreeNode.setProcessDefinitionId(String)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void DebugInfoExecutionTreeNode.<init>()", "String DebugInfoExecutionTreeNode.getActivityId()",
+      "String DebugInfoExecutionTreeNode.getActivityName()", "List DebugInfoExecutionTreeNode.getChildNodes()",
+      "String DebugInfoExecutionTreeNode.getId()",
+      "DebugInfoExecutionTreeNode DebugInfoExecutionTreeNode.getParentNode()",
+      "String DebugInfoExecutionTreeNode.getProcessDefinitionId()",
+      "void DebugInfoExecutionTreeNode.setActivityId(String)",
+      "void DebugInfoExecutionTreeNode.setActivityName(String)", "void DebugInfoExecutionTreeNode.setChildNodes(List)",
+      "void DebugInfoExecutionTreeNode.setId(String)",
+      "void DebugInfoExecutionTreeNode.setParentNode(DebugInfoExecutionTreeNode)",
+      "void DebugInfoExecutionTreeNode.setProcessDefinitionId(String)"})
   public void testDebugInfoExecutionTreeNodeGettersAndSetters() {
     // Arrange and Act
     DebugInfoExecutionTreeNode actualDebugInfoExecutionTreeNode = new DebugInfoExecutionTreeNode();
@@ -139,8 +124,7 @@ public class DebugInfoExecutionTreeDiffblueTest {
     actualDebugInfoExecutionTreeNode.setProcessDefinitionId("42");
     String actualActivityId = actualDebugInfoExecutionTreeNode.getActivityId();
     String actualActivityName = actualDebugInfoExecutionTreeNode.getActivityName();
-    List<DebugInfoExecutionTreeNode> actualChildNodes =
-        actualDebugInfoExecutionTreeNode.getChildNodes();
+    List<DebugInfoExecutionTreeNode> actualChildNodes = actualDebugInfoExecutionTreeNode.getChildNodes();
     String actualId = actualDebugInfoExecutionTreeNode.getId();
     DebugInfoExecutionTreeNode actualParentNode = actualDebugInfoExecutionTreeNode.getParentNode();
 
@@ -157,9 +141,8 @@ public class DebugInfoExecutionTreeDiffblueTest {
 
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>default or parameterless constructor of {@link DebugInfoExecutionTree}
    *   <li>{@link DebugInfoExecutionTree#setProcessInstance(DebugInfoExecutionTreeNode)}
@@ -167,13 +150,10 @@ public class DebugInfoExecutionTreeDiffblueTest {
    * </ul>
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void DebugInfoExecutionTree.<init>()",
-    "DebugInfoExecutionTreeNode DebugInfoExecutionTree.getProcessInstance()",
-    "void DebugInfoExecutionTree.setProcessInstance(DebugInfoExecutionTreeNode)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void DebugInfoExecutionTree.<init>()",
+      "DebugInfoExecutionTreeNode DebugInfoExecutionTree.getProcessInstance()",
+      "void DebugInfoExecutionTree.setProcessInstance(DebugInfoExecutionTreeNode)"})
   public void testGettersAndSetters() {
     // Arrange and Act
     DebugInfoExecutionTree actualDebugInfoExecutionTree = new DebugInfoExecutionTree();

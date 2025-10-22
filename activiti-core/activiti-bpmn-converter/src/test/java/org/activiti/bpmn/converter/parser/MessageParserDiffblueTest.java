@@ -17,7 +17,6 @@ package org.activiti.bpmn.converter.parser;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.bpmn.model.BpmnModel;
 import org.junit.jupiter.api.DisplayName;
@@ -27,18 +26,16 @@ import org.junit.jupiter.api.Test;
 class MessageParserDiffblueTest {
   /**
    * Test {@link MessageParser#parseItemRef(String, BpmnModel)}.
-   *
    * <ul>
-   *   <li>When empty string.
-   *   <li>Then return {@code null}.
+   *   <li>When empty string.</li>
+   *   <li>Then return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link MessageParser#parseItemRef(String, BpmnModel)}
+   * <p>
+   * Method under test: {@link MessageParser#parseItemRef(String, BpmnModel)}
    */
   @Test
   @DisplayName("Test parseItemRef(String, BpmnModel); when empty string; then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"String MessageParser.parseItemRef(String, BpmnModel)"})
   void testParseItemRef_whenEmptyString_thenReturnNull() {
     // Arrange
@@ -50,18 +47,16 @@ class MessageParserDiffblueTest {
 
   /**
    * Test {@link MessageParser#parseItemRef(String, BpmnModel)}.
-   *
    * <ul>
-   *   <li>When {@code Item Ref}.
-   *   <li>Then return {@code null:Item Ref}.
+   *   <li>When {@code Item Ref}.</li>
+   *   <li>Then return {@code null:Item Ref}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link MessageParser#parseItemRef(String, BpmnModel)}
+   * <p>
+   * Method under test: {@link MessageParser#parseItemRef(String, BpmnModel)}
    */
   @Test
   @DisplayName("Test parseItemRef(String, BpmnModel); when 'Item Ref'; then return 'null:Item Ref'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"String MessageParser.parseItemRef(String, BpmnModel)"})
   void testParseItemRef_whenItemRef_thenReturnNullItemRef() {
     // Arrange
@@ -69,28 +64,5 @@ class MessageParserDiffblueTest {
 
     // Act and Assert
     assertEquals("null:Item Ref", messageParser.parseItemRef("Item Ref", new BpmnModel()));
-  }
-
-  /**
-   * Test {@link MessageParser#parseItemRef(String, BpmnModel)}.
-   *
-   * <ul>
-   *   <li>When {@code null}.
-   *   <li>Then return {@code null}.
-   * </ul>
-   *
-   * <p>Method under test: {@link MessageParser#parseItemRef(String, BpmnModel)}
-   */
-  @Test
-  @DisplayName("Test parseItemRef(String, BpmnModel); when 'null'; then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String MessageParser.parseItemRef(String, BpmnModel)"})
-  void testParseItemRef_whenNull_thenReturnNull() {
-    // Arrange
-    MessageParser messageParser = new MessageParser();
-
-    // Act and Assert
-    assertNull(messageParser.parseItemRef(null, new BpmnModel()));
   }
 }

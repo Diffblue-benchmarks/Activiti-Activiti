@@ -19,8 +19,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.HashMap;
 import java.util.Map;
@@ -31,47 +30,32 @@ import org.junit.experimental.categories.Category;
 
 public class ExecuteExecutionListenerTransactionListenerDiffblueTest {
   /**
-   * Test {@link
-   * ExecuteExecutionListenerTransactionListener#ExecuteExecutionListenerTransactionListener(TransactionDependentExecutionListener,
-   * TransactionDependentExecutionListenerExecutionScope)}.
-   *
-   * <p>Method under test: {@link
-   * ExecuteExecutionListenerTransactionListener#ExecuteExecutionListenerTransactionListener(TransactionDependentExecutionListener,
-   * TransactionDependentExecutionListenerExecutionScope)}
+   * Test {@link ExecuteExecutionListenerTransactionListener#ExecuteExecutionListenerTransactionListener(TransactionDependentExecutionListener, TransactionDependentExecutionListenerExecutionScope)}.
+   * <p>
+   * Method under test: {@link ExecuteExecutionListenerTransactionListener#ExecuteExecutionListenerTransactionListener(TransactionDependentExecutionListener, TransactionDependentExecutionListenerExecutionScope)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({
-    "void ExecuteExecutionListenerTransactionListener.<init>(TransactionDependentExecutionListener, TransactionDependentExecutionListenerExecutionScope)"
-  })
+      "void ExecuteExecutionListenerTransactionListener.<init>(TransactionDependentExecutionListener, TransactionDependentExecutionListenerExecutionScope)"})
   public void testNewExecuteExecutionListenerTransactionListener() {
     // Arrange
-    TransactionDependentExecutionListener listener =
-        mock(TransactionDependentExecutionListener.class);
+    TransactionDependentExecutionListener listener = mock(TransactionDependentExecutionListener.class);
     AdhocSubProcess flowElement = new AdhocSubProcess();
     HashMap<String, Object> executionVariables = new HashMap<>();
     HashMap<String, Object> customPropertiesMap = new HashMap<>();
 
-    TransactionDependentExecutionListenerExecutionScope scope =
-        new TransactionDependentExecutionListenerExecutionScope(
-            "42", "42", flowElement, executionVariables, customPropertiesMap);
-
-    // Act
-    ExecuteExecutionListenerTransactionListener actualExecuteExecutionListenerTransactionListener =
-        new ExecuteExecutionListenerTransactionListener(listener, scope);
-
-    // Assert
-    TransactionDependentExecutionListenerExecutionScope
-        transactionDependentExecutionListenerExecutionScope =
-            actualExecuteExecutionListenerTransactionListener.scope;
+    // Act and Assert
+    TransactionDependentExecutionListenerExecutionScope transactionDependentExecutionListenerExecutionScope = (new ExecuteExecutionListenerTransactionListener(
+        listener, new TransactionDependentExecutionListenerExecutionScope("42", "42", flowElement, executionVariables,
+            customPropertiesMap))).scope;
     assertEquals("42", transactionDependentExecutionListenerExecutionScope.getExecutionId());
     assertEquals("42", transactionDependentExecutionListenerExecutionScope.getProcessInstanceId());
-    Map<String, Object> customPropertiesMap2 =
-        transactionDependentExecutionListenerExecutionScope.getCustomPropertiesMap();
+    Map<String, Object> customPropertiesMap2 = transactionDependentExecutionListenerExecutionScope
+        .getCustomPropertiesMap();
     assertTrue(customPropertiesMap2.isEmpty());
-    Map<String, Object> executionVariables2 =
-        transactionDependentExecutionListenerExecutionScope.getExecutionVariables();
+    Map<String, Object> executionVariables2 = transactionDependentExecutionListenerExecutionScope
+        .getExecutionVariables();
     assertTrue(executionVariables2.isEmpty());
     assertSame(customPropertiesMap, customPropertiesMap2);
     assertSame(executionVariables, executionVariables2);

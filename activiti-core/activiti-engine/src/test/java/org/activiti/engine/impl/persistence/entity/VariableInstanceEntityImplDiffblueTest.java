@@ -20,8 +20,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.Map;
 import org.activiti.engine.impl.util.json.JSONObject;
@@ -30,7 +29,6 @@ import org.activiti.engine.impl.variable.BooleanType;
 import org.activiti.engine.impl.variable.CustomObjectType;
 import org.activiti.engine.impl.variable.DoubleType;
 import org.activiti.engine.impl.variable.HistoricJPAEntityListVariableType;
-import org.activiti.engine.impl.variable.HistoricJPAEntityVariableType;
 import org.activiti.engine.impl.variable.IntegerType;
 import org.activiti.engine.impl.variable.JPAEntityListVariableType;
 import org.activiti.engine.impl.variable.VariableType;
@@ -40,9 +38,8 @@ import org.junit.experimental.categories.Category;
 public class VariableInstanceEntityImplDiffblueTest {
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>default or parameterless constructor of {@link VariableInstanceEntityImpl}
    *   <li>{@link VariableInstanceEntityImpl#forceUpdate()}
@@ -71,34 +68,20 @@ public class VariableInstanceEntityImplDiffblueTest {
    * </ul>
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void VariableInstanceEntityImpl.<init>()",
-    "void VariableInstanceEntityImpl.forceUpdate()",
-    "ByteArrayRef VariableInstanceEntityImpl.getByteArrayRef()",
-    "Object VariableInstanceEntityImpl.getCachedValue()",
-    "Double VariableInstanceEntityImpl.getDoubleValue()",
-    "String VariableInstanceEntityImpl.getExecutionId()",
-    "Long VariableInstanceEntityImpl.getLongValue()",
-    "String VariableInstanceEntityImpl.getName()",
-    "String VariableInstanceEntityImpl.getProcessInstanceId()",
-    "String VariableInstanceEntityImpl.getTaskId()",
-    "String VariableInstanceEntityImpl.getTextValue()",
-    "String VariableInstanceEntityImpl.getTextValue2()",
-    "VariableType VariableInstanceEntityImpl.getType()",
-    "void VariableInstanceEntityImpl.setCachedValue(Object)",
-    "void VariableInstanceEntityImpl.setDoubleValue(Double)",
-    "void VariableInstanceEntityImpl.setExecutionId(String)",
-    "void VariableInstanceEntityImpl.setLongValue(Long)",
-    "void VariableInstanceEntityImpl.setName(String)",
-    "void VariableInstanceEntityImpl.setProcessInstanceId(String)",
-    "void VariableInstanceEntityImpl.setTaskId(String)",
-    "void VariableInstanceEntityImpl.setTextValue(String)",
-    "void VariableInstanceEntityImpl.setTextValue2(String)",
-    "void VariableInstanceEntityImpl.setType(VariableType)",
-    "void VariableInstanceEntityImpl.setTypeName(String)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void VariableInstanceEntityImpl.<init>()", "void VariableInstanceEntityImpl.forceUpdate()",
+      "ByteArrayRef VariableInstanceEntityImpl.getByteArrayRef()", "Object VariableInstanceEntityImpl.getCachedValue()",
+      "Double VariableInstanceEntityImpl.getDoubleValue()", "String VariableInstanceEntityImpl.getExecutionId()",
+      "Long VariableInstanceEntityImpl.getLongValue()", "String VariableInstanceEntityImpl.getName()",
+      "String VariableInstanceEntityImpl.getProcessInstanceId()", "String VariableInstanceEntityImpl.getTaskId()",
+      "String VariableInstanceEntityImpl.getTextValue()", "String VariableInstanceEntityImpl.getTextValue2()",
+      "VariableType VariableInstanceEntityImpl.getType()", "void VariableInstanceEntityImpl.setCachedValue(Object)",
+      "void VariableInstanceEntityImpl.setDoubleValue(Double)",
+      "void VariableInstanceEntityImpl.setExecutionId(String)", "void VariableInstanceEntityImpl.setLongValue(Long)",
+      "void VariableInstanceEntityImpl.setName(String)", "void VariableInstanceEntityImpl.setProcessInstanceId(String)",
+      "void VariableInstanceEntityImpl.setTaskId(String)", "void VariableInstanceEntityImpl.setTextValue(String)",
+      "void VariableInstanceEntityImpl.setTextValue2(String)", "void VariableInstanceEntityImpl.setType(VariableType)",
+      "void VariableInstanceEntityImpl.setTypeName(String)"})
   public void testGettersAndSetters() {
     // Arrange and Act
     VariableInstanceEntityImpl actualVariableInstanceEntityImpl = new VariableInstanceEntityImpl();
@@ -149,21 +132,19 @@ public class VariableInstanceEntityImplDiffblueTest {
 
   /**
    * Test {@link VariableInstanceEntityImpl#getPersistentState()}.
-   *
    * <ul>
-   *   <li>Given {@link VariableInstanceEntityImpl} (default constructor).
-   *   <li>Then return Empty.
+   *   <li>Given {@link VariableInstanceEntityImpl} (default constructor).</li>
+   *   <li>Then return Empty.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link VariableInstanceEntityImpl#getPersistentState()}
+   * <p>
+   * Method under test: {@link VariableInstanceEntityImpl#getPersistentState()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"Object VariableInstanceEntityImpl.getPersistentState()"})
   public void testGetPersistentState_givenVariableInstanceEntityImpl_thenReturnEmpty() {
     // Arrange and Act
-    Object actualPersistentState = new VariableInstanceEntityImpl().getPersistentState();
+    Object actualPersistentState = (new VariableInstanceEntityImpl()).getPersistentState();
 
     // Assert
     assertTrue(actualPersistentState instanceof Map);
@@ -172,16 +153,14 @@ public class VariableInstanceEntityImplDiffblueTest {
 
   /**
    * Test {@link VariableInstanceEntityImpl#getPersistentState()}.
-   *
    * <ul>
-   *   <li>Then return {@code doubleValue} doubleValue is ten.
+   *   <li>Then return {@code doubleValue} doubleValue is ten.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link VariableInstanceEntityImpl#getPersistentState()}
+   * <p>
+   * Method under test: {@link VariableInstanceEntityImpl#getPersistentState()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"Object VariableInstanceEntityImpl.getPersistentState()"})
   public void testGetPersistentState_thenReturnDoubleValueDoubleValueIsTen() {
     // Arrange
@@ -194,22 +173,19 @@ public class VariableInstanceEntityImplDiffblueTest {
     // Assert
     assertTrue(actualPersistentState instanceof Map);
     assertEquals(1, ((Map<String, Double>) actualPersistentState).size());
-    assertEquals(
-        10.0d, ((Map<String, Double>) actualPersistentState).get("doubleValue").doubleValue(), 0.0);
+    assertEquals(10.0d, ((Map<String, Double>) actualPersistentState).get("doubleValue").doubleValue(), 0.0);
   }
 
   /**
    * Test {@link VariableInstanceEntityImpl#getPersistentState()}.
-   *
    * <ul>
-   *   <li>Then return {@code forcedUpdate}.
+   *   <li>Then return {@code forcedUpdate}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link VariableInstanceEntityImpl#getPersistentState()}
+   * <p>
+   * Method under test: {@link VariableInstanceEntityImpl#getPersistentState()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"Object VariableInstanceEntityImpl.getPersistentState()"})
   public void testGetPersistentState_thenReturnForcedUpdate() {
     // Arrange
@@ -227,16 +203,14 @@ public class VariableInstanceEntityImplDiffblueTest {
 
   /**
    * Test {@link VariableInstanceEntityImpl#getPersistentState()}.
-   *
    * <ul>
-   *   <li>Then return {@code longValue} longValue is forty-two.
+   *   <li>Then return {@code longValue} longValue is forty-two.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link VariableInstanceEntityImpl#getPersistentState()}
+   * <p>
+   * Method under test: {@link VariableInstanceEntityImpl#getPersistentState()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"Object VariableInstanceEntityImpl.getPersistentState()"})
   public void testGetPersistentState_thenReturnLongValueLongValueIsFortyTwo() {
     // Arrange
@@ -254,16 +228,14 @@ public class VariableInstanceEntityImplDiffblueTest {
 
   /**
    * Test {@link VariableInstanceEntityImpl#getPersistentState()}.
-   *
    * <ul>
-   *   <li>Then return {@code textValue2} is {@code 42}.
+   *   <li>Then return {@code textValue2} is {@code 42}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link VariableInstanceEntityImpl#getPersistentState()}
+   * <p>
+   * Method under test: {@link VariableInstanceEntityImpl#getPersistentState()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"Object VariableInstanceEntityImpl.getPersistentState()"})
   public void testGetPersistentState_thenReturnTextValue2Is42() {
     // Arrange
@@ -281,16 +253,14 @@ public class VariableInstanceEntityImplDiffblueTest {
 
   /**
    * Test {@link VariableInstanceEntityImpl#getPersistentState()}.
-   *
    * <ul>
-   *   <li>Then return {@code textValue} is {@code 42}.
+   *   <li>Then return {@code textValue} is {@code 42}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link VariableInstanceEntityImpl#getPersistentState()}
+   * <p>
+   * Method under test: {@link VariableInstanceEntityImpl#getPersistentState()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"Object VariableInstanceEntityImpl.getPersistentState()"})
   public void testGetPersistentState_thenReturnTextValueIs42() {
     // Arrange
@@ -308,25 +278,21 @@ public class VariableInstanceEntityImplDiffblueTest {
 
   /**
    * Test {@link VariableInstanceEntityImpl#setExecution(ExecutionEntity)}.
-   *
    * <ul>
-   *   <li>Then {@link VariableInstanceEntityImpl} (default constructor) PersistentState {@link
-   *       Map}.
+   *   <li>Then {@link VariableInstanceEntityImpl} (default constructor) PersistentState {@link Map}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link VariableInstanceEntityImpl#setExecution(ExecutionEntity)}
+   * <p>
+   * Method under test: {@link VariableInstanceEntityImpl#setExecution(ExecutionEntity)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void VariableInstanceEntityImpl.setExecution(ExecutionEntity)"})
   public void testSetExecution_thenVariableInstanceEntityImplPersistentStateMap() {
     // Arrange
     VariableInstanceEntityImpl variableInstanceEntityImpl = new VariableInstanceEntityImpl();
 
     // Act
-    variableInstanceEntityImpl.setExecution(
-        ExecutionEntityImpl.createWithEmptyRelationshipCollections());
+    variableInstanceEntityImpl.setExecution(ExecutionEntityImpl.createWithEmptyRelationshipCollections());
 
     // Assert
     Object persistentState = variableInstanceEntityImpl.getPersistentState();
@@ -338,34 +304,30 @@ public class VariableInstanceEntityImplDiffblueTest {
 
   /**
    * Test {@link VariableInstanceEntityImpl#getBytes()}.
-   *
    * <ul>
-   *   <li>Given {@link VariableInstanceEntityImpl} (default constructor).
+   *   <li>Given {@link VariableInstanceEntityImpl} (default constructor).</li>
    * </ul>
-   *
-   * <p>Method under test: {@link VariableInstanceEntityImpl#getBytes()}
+   * <p>
+   * Method under test: {@link VariableInstanceEntityImpl#getBytes()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"byte[] VariableInstanceEntityImpl.getBytes()"})
   public void testGetBytes_givenVariableInstanceEntityImpl() {
     // Arrange, Act and Assert
-    assertNull(new VariableInstanceEntityImpl().getBytes());
+    assertNull((new VariableInstanceEntityImpl()).getBytes());
   }
 
   /**
    * Test {@link VariableInstanceEntityImpl#getBytes()}.
-   *
    * <ul>
-   *   <li>Given {@link VariableInstanceEntityImpl} (default constructor) Bytes is {@code null}.
+   *   <li>Given {@link VariableInstanceEntityImpl} (default constructor) Bytes is {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link VariableInstanceEntityImpl#getBytes()}
+   * <p>
+   * Method under test: {@link VariableInstanceEntityImpl#getBytes()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"byte[] VariableInstanceEntityImpl.getBytes()"})
   public void testGetBytes_givenVariableInstanceEntityImplBytesIsNull() {
     // Arrange
@@ -377,95 +339,16 @@ public class VariableInstanceEntityImplDiffblueTest {
   }
 
   /**
-   * Test {@link VariableInstanceEntityImpl#setBytes(byte[])}.
-   *
-   * <ul>
-   *   <li>Given {@link VariableInstanceEntityImpl} (default constructor) Bytes is {@code null}.
-   * </ul>
-   *
-   * <p>Method under test: {@link VariableInstanceEntityImpl#setBytes(byte[])}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void VariableInstanceEntityImpl.setBytes(byte[])"})
-  public void testSetBytes_givenVariableInstanceEntityImplBytesIsNull() {
-    // Arrange
-    VariableInstanceEntityImpl variableInstanceEntityImpl = new VariableInstanceEntityImpl();
-    variableInstanceEntityImpl.setBytes(null);
-
-    // Act
-    variableInstanceEntityImpl.setBytes(null);
-
-    // Assert that nothing has changed
-    assertEquals("var-null", variableInstanceEntityImpl.getByteArrayRef().getName());
-  }
-
-  /**
-   * Test {@link VariableInstanceEntityImpl#setBytes(byte[])}.
-   *
-   * <ul>
-   *   <li>Then {@link VariableInstanceEntityImpl} (default constructor) ByteArrayRef Name is {@code
-   *       var-null}.
-   * </ul>
-   *
-   * <p>Method under test: {@link VariableInstanceEntityImpl#setBytes(byte[])}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void VariableInstanceEntityImpl.setBytes(byte[])"})
-  public void testSetBytes_thenVariableInstanceEntityImplByteArrayRefNameIsVarNull() {
-    // Arrange
-    VariableInstanceEntityImpl variableInstanceEntityImpl = new VariableInstanceEntityImpl();
-
-    // Act
-    variableInstanceEntityImpl.setBytes(null);
-
-    // Assert
-    assertEquals("var-null", variableInstanceEntityImpl.getByteArrayRef().getName());
-  }
-
-  /**
    * Test {@link VariableInstanceEntityImpl#getValue()}.
-   *
    * <ul>
-   *   <li>Given {@link HistoricJPAEntityVariableType} (default constructor) ForceCacheable is
-   *       {@code true}.
+   *   <li>Given {@code Object}.</li>
+   *   <li>Then return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link VariableInstanceEntityImpl#getValue()}
+   * <p>
+   * Method under test: {@link VariableInstanceEntityImpl#getValue()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"Object VariableInstanceEntityImpl.getValue()"})
-  public void testGetValue_givenHistoricJPAEntityVariableTypeForceCacheableIsTrue() {
-    // Arrange
-    HistoricJPAEntityVariableType type = new HistoricJPAEntityVariableType();
-    type.setForceCacheable(true);
-
-    VariableInstanceEntityImpl variableInstanceEntityImpl = new VariableInstanceEntityImpl();
-    variableInstanceEntityImpl.setTextValue("42");
-    variableInstanceEntityImpl.setType(type);
-
-    // Act and Assert
-    assertNull(variableInstanceEntityImpl.getValue());
-  }
-
-  /**
-   * Test {@link VariableInstanceEntityImpl#getValue()}.
-   *
-   * <ul>
-   *   <li>Given {@code Object}.
-   *   <li>Then return {@code null}.
-   * </ul>
-   *
-   * <p>Method under test: {@link VariableInstanceEntityImpl#getValue()}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"Object VariableInstanceEntityImpl.getValue()"})
   public void testGetValue_givenJavaLangObject_thenReturnNull() {
     // Arrange
@@ -479,18 +362,15 @@ public class VariableInstanceEntityImplDiffblueTest {
 
   /**
    * Test {@link VariableInstanceEntityImpl#getValue()}.
-   *
    * <ul>
-   *   <li>Given {@link VariableInstanceEntityImpl} (default constructor) CachedValue is {@code
-   *       null}.
-   *   <li>Then return {@code null}.
+   *   <li>Given {@link VariableInstanceEntityImpl} (default constructor) CachedValue is {@code null}.</li>
+   *   <li>Then return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link VariableInstanceEntityImpl#getValue()}
+   * <p>
+   * Method under test: {@link VariableInstanceEntityImpl#getValue()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"Object VariableInstanceEntityImpl.getValue()"})
   public void testGetValue_givenVariableInstanceEntityImplCachedValueIsNull_thenReturnNull() {
     // Arrange
@@ -507,17 +387,15 @@ public class VariableInstanceEntityImplDiffblueTest {
 
   /**
    * Test {@link VariableInstanceEntityImpl#getValue()}.
-   *
    * <ul>
-   *   <li>Given {@link VariableInstanceEntityImpl} (default constructor) LongValue is forty-two.
-   *   <li>Then return {@code false}.
+   *   <li>Given {@link VariableInstanceEntityImpl} (default constructor) LongValue is forty-two.</li>
+   *   <li>Then return {@code false}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link VariableInstanceEntityImpl#getValue()}
+   * <p>
+   * Method under test: {@link VariableInstanceEntityImpl#getValue()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"Object VariableInstanceEntityImpl.getValue()"})
   public void testGetValue_givenVariableInstanceEntityImplLongValueIsFortyTwo_thenReturnFalse() {
     // Arrange
@@ -531,17 +409,15 @@ public class VariableInstanceEntityImplDiffblueTest {
 
   /**
    * Test {@link VariableInstanceEntityImpl#getValue()}.
-   *
    * <ul>
-   *   <li>Given {@link VariableInstanceEntityImpl} (default constructor) LongValue is one.
-   *   <li>Then return {@code true}.
+   *   <li>Given {@link VariableInstanceEntityImpl} (default constructor) LongValue is one.</li>
+   *   <li>Then return {@code true}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link VariableInstanceEntityImpl#getValue()}
+   * <p>
+   * Method under test: {@link VariableInstanceEntityImpl#getValue()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"Object VariableInstanceEntityImpl.getValue()"})
   public void testGetValue_givenVariableInstanceEntityImplLongValueIsOne_thenReturnTrue() {
     // Arrange
@@ -555,18 +431,15 @@ public class VariableInstanceEntityImplDiffblueTest {
 
   /**
    * Test {@link VariableInstanceEntityImpl#getValue()}.
-   *
    * <ul>
-   *   <li>Given {@link VariableInstanceEntityImpl} (default constructor) Type is {@link
-   *       BigDecimalType} (default constructor).
-   *   <li>Then return {@code null}.
+   *   <li>Given {@link VariableInstanceEntityImpl} (default constructor) Type is {@link BigDecimalType} (default constructor).</li>
+   *   <li>Then return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link VariableInstanceEntityImpl#getValue()}
+   * <p>
+   * Method under test: {@link VariableInstanceEntityImpl#getValue()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"Object VariableInstanceEntityImpl.getValue()"})
   public void testGetValue_givenVariableInstanceEntityImplTypeIsBigDecimalType_thenReturnNull() {
     // Arrange
@@ -579,18 +452,15 @@ public class VariableInstanceEntityImplDiffblueTest {
 
   /**
    * Test {@link VariableInstanceEntityImpl#getValue()}.
-   *
    * <ul>
-   *   <li>Given {@link VariableInstanceEntityImpl} (default constructor) Type is {@link
-   *       BooleanType} (default constructor).
-   *   <li>Then return {@code null}.
+   *   <li>Given {@link VariableInstanceEntityImpl} (default constructor) Type is {@link BooleanType} (default constructor).</li>
+   *   <li>Then return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link VariableInstanceEntityImpl#getValue()}
+   * <p>
+   * Method under test: {@link VariableInstanceEntityImpl#getValue()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"Object VariableInstanceEntityImpl.getValue()"})
   public void testGetValue_givenVariableInstanceEntityImplTypeIsBooleanType_thenReturnNull() {
     // Arrange
@@ -603,18 +473,15 @@ public class VariableInstanceEntityImplDiffblueTest {
 
   /**
    * Test {@link VariableInstanceEntityImpl#getValue()}.
-   *
    * <ul>
-   *   <li>Given {@link VariableInstanceEntityImpl} (default constructor) Type is {@link DoubleType}
-   *       (default constructor).
-   *   <li>Then return {@code null}.
+   *   <li>Given {@link VariableInstanceEntityImpl} (default constructor) Type is {@link DoubleType} (default constructor).</li>
+   *   <li>Then return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link VariableInstanceEntityImpl#getValue()}
+   * <p>
+   * Method under test: {@link VariableInstanceEntityImpl#getValue()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"Object VariableInstanceEntityImpl.getValue()"})
   public void testGetValue_givenVariableInstanceEntityImplTypeIsDoubleType_thenReturnNull() {
     // Arrange
@@ -627,17 +494,14 @@ public class VariableInstanceEntityImplDiffblueTest {
 
   /**
    * Test {@link VariableInstanceEntityImpl#getValue()}.
-   *
    * <ul>
-   *   <li>Given {@link VariableInstanceEntityImpl} (default constructor) Type is {@link
-   *       JPAEntityListVariableType} (default constructor).
+   *   <li>Given {@link VariableInstanceEntityImpl} (default constructor) Type is {@link JPAEntityListVariableType} (default constructor).</li>
    * </ul>
-   *
-   * <p>Method under test: {@link VariableInstanceEntityImpl#getValue()}
+   * <p>
+   * Method under test: {@link VariableInstanceEntityImpl#getValue()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"Object VariableInstanceEntityImpl.getValue()"})
   public void testGetValue_givenVariableInstanceEntityImplTypeIsJPAEntityListVariableType() {
     // Arrange
@@ -650,16 +514,14 @@ public class VariableInstanceEntityImplDiffblueTest {
 
   /**
    * Test {@link VariableInstanceEntityImpl#setValue(Object)}.
-   *
    * <ul>
-   *   <li>Then {@link VariableInstanceEntityImpl} (default constructor) TextValue is {@code 42}.
+   *   <li>Then {@link VariableInstanceEntityImpl} (default constructor) TextValue is {@code 42}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link VariableInstanceEntityImpl#setValue(Object)}
+   * <p>
+   * Method under test: {@link VariableInstanceEntityImpl#setValue(Object)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void VariableInstanceEntityImpl.setValue(Object)"})
   public void testSetValue_thenVariableInstanceEntityImplTextValueIs42() {
     // Arrange
@@ -679,23 +541,19 @@ public class VariableInstanceEntityImplDiffblueTest {
     assertEquals(42, ((Integer) variableInstanceEntityImpl.getCachedValue()).intValue());
     assertEquals(42, ((Integer) variableInstanceEntityImpl.getValue()).intValue());
     assertEquals(42L, variableInstanceEntityImpl.getLongValue().longValue());
-    assertEquals(
-        42L, ((Long) ((Map<String, Object>) persistentState).get("longValue")).longValue());
+    assertEquals(42L, ((Long) ((Map<String, Object>) persistentState).get("longValue")).longValue());
   }
 
   /**
    * Test {@link VariableInstanceEntityImpl#setValue(Object)}.
-   *
    * <ul>
-   *   <li>Then {@link VariableInstanceEntityImpl} (default constructor) {@link
-   *       VariableInstanceEntityImpl#typeName} is {@code bigdecimal}.
+   *   <li>Then {@link VariableInstanceEntityImpl} (default constructor) {@link VariableInstanceEntityImpl#typeName} is {@code bigdecimal}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link VariableInstanceEntityImpl#setValue(Object)}
+   * <p>
+   * Method under test: {@link VariableInstanceEntityImpl#setValue(Object)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void VariableInstanceEntityImpl.setValue(Object)"})
   public void testSetValue_thenVariableInstanceEntityImplTypeNameIsBigdecimal() {
     // Arrange
@@ -716,17 +574,14 @@ public class VariableInstanceEntityImplDiffblueTest {
 
   /**
    * Test {@link VariableInstanceEntityImpl#setValue(Object)}.
-   *
    * <ul>
-   *   <li>Then {@link VariableInstanceEntityImpl} (default constructor) {@link
-   *       VariableInstanceEntityImpl#typeName} is {@code Type Name}.
+   *   <li>Then {@link VariableInstanceEntityImpl} (default constructor) {@link VariableInstanceEntityImpl#typeName} is {@code Type Name}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link VariableInstanceEntityImpl#setValue(Object)}
+   * <p>
+   * Method under test: {@link VariableInstanceEntityImpl#setValue(Object)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void VariableInstanceEntityImpl.setValue(Object)"})
   public void testSetValue_thenVariableInstanceEntityImplTypeNameIsTypeName() {
     // Arrange
@@ -747,17 +602,15 @@ public class VariableInstanceEntityImplDiffblueTest {
 
   /**
    * Test {@link VariableInstanceEntityImpl#getTypeName()}.
-   *
    * <ul>
-   *   <li>Given {@link VariableInstanceEntityImpl} (default constructor) TypeName is {@code foo}.
-   *   <li>Then return {@code foo}.
+   *   <li>Given {@link VariableInstanceEntityImpl} (default constructor) TypeName is {@code foo}.</li>
+   *   <li>Then return {@code foo}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link VariableInstanceEntityImpl#getTypeName()}
+   * <p>
+   * Method under test: {@link VariableInstanceEntityImpl#getTypeName()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"String VariableInstanceEntityImpl.getTypeName()"})
   public void testGetTypeName_givenVariableInstanceEntityImplTypeNameIsFoo_thenReturnFoo() {
     // Arrange
@@ -771,35 +624,31 @@ public class VariableInstanceEntityImplDiffblueTest {
 
   /**
    * Test {@link VariableInstanceEntityImpl#getTypeName()}.
-   *
    * <ul>
-   *   <li>Given {@link VariableInstanceEntityImpl} (default constructor).
-   *   <li>Then return {@code null}.
+   *   <li>Given {@link VariableInstanceEntityImpl} (default constructor).</li>
+   *   <li>Then return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link VariableInstanceEntityImpl#getTypeName()}
+   * <p>
+   * Method under test: {@link VariableInstanceEntityImpl#getTypeName()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"String VariableInstanceEntityImpl.getTypeName()"})
   public void testGetTypeName_givenVariableInstanceEntityImpl_thenReturnNull() {
     // Arrange, Act and Assert
-    assertNull(new VariableInstanceEntityImpl().getTypeName());
+    assertNull((new VariableInstanceEntityImpl()).getTypeName());
   }
 
   /**
    * Test {@link VariableInstanceEntityImpl#getTypeName()}.
-   *
    * <ul>
-   *   <li>Then return {@code bigdecimal}.
+   *   <li>Then return {@code bigdecimal}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link VariableInstanceEntityImpl#getTypeName()}
+   * <p>
+   * Method under test: {@link VariableInstanceEntityImpl#getTypeName()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"String VariableInstanceEntityImpl.getTypeName()"})
   public void testGetTypeName_thenReturnBigdecimal() {
     // Arrange
@@ -813,106 +662,54 @@ public class VariableInstanceEntityImplDiffblueTest {
 
   /**
    * Test {@link VariableInstanceEntityImpl#toString()}.
-   *
-   * <p>Method under test: {@link VariableInstanceEntityImpl#toString()}
+   * <p>
+   * Method under test: {@link VariableInstanceEntityImpl#toString()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"String VariableInstanceEntityImpl.toString()"})
   public void testToString() {
     // Arrange
     VariableInstanceEntityImpl variableInstanceEntityImpl = new VariableInstanceEntityImpl();
     variableInstanceEntityImpl.setType(null);
     variableInstanceEntityImpl.setLongValue(null);
-    variableInstanceEntityImpl.setDoubleValue(null);
+    variableInstanceEntityImpl.setDoubleValue(10.0d);
     variableInstanceEntityImpl.setTextValue(null);
-    variableInstanceEntityImpl.setTextValue2("not empty");
-    variableInstanceEntityImpl.setBytes(null);
-
-    // Act and Assert
-    assertEquals(
-        "VariableInstanceEntity[id=null, name=null, type=null, textValue2=not empty]",
-        variableInstanceEntityImpl.toString());
-  }
-
-  /**
-   * Test {@link VariableInstanceEntityImpl#toString()}.
-   *
-   * <p>Method under test: {@link VariableInstanceEntityImpl#toString()}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String VariableInstanceEntityImpl.toString()"})
-  public void testToString2() {
-    // Arrange
-    VariableInstanceEntityImpl variableInstanceEntityImpl = new VariableInstanceEntityImpl();
-    variableInstanceEntityImpl.setType(null);
-    variableInstanceEntityImpl.setLongValue(null);
-    variableInstanceEntityImpl.setDoubleValue(null);
-    variableInstanceEntityImpl.setTextValue("not empty");
     variableInstanceEntityImpl.setTextValue2(null);
     variableInstanceEntityImpl.setBytes(null);
 
     // Act and Assert
-    assertEquals(
-        "VariableInstanceEntity[id=null, name=null, type=null, textValue=not empty]",
+    assertEquals("VariableInstanceEntity[id=null, name=null, type=null, doubleValue=10.0]",
         variableInstanceEntityImpl.toString());
   }
 
   /**
    * Test {@link VariableInstanceEntityImpl#toString()}.
-   *
-   * <p>Method under test: {@link VariableInstanceEntityImpl#toString()}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String VariableInstanceEntityImpl.toString()"})
-  public void testToString3() {
-    // Arrange
-    VariableInstanceEntityImpl variableInstanceEntityImpl = new VariableInstanceEntityImpl();
-    variableInstanceEntityImpl.setDoubleValue(10.0d);
-
-    // Act and Assert
-    assertEquals(
-        "VariableInstanceEntity[id=null, name=null, type=null, doubleValue=10.0]",
-        variableInstanceEntityImpl.toString());
-  }
-
-  /**
-   * Test {@link VariableInstanceEntityImpl#toString()}.
-   *
    * <ul>
-   *   <li>Given {@link VariableInstanceEntityImpl} (default constructor).
+   *   <li>Given {@link VariableInstanceEntityImpl} (default constructor).</li>
    * </ul>
-   *
-   * <p>Method under test: {@link VariableInstanceEntityImpl#toString()}
+   * <p>
+   * Method under test: {@link VariableInstanceEntityImpl#toString()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"String VariableInstanceEntityImpl.toString()"})
   public void testToString_givenVariableInstanceEntityImpl() {
     // Arrange, Act and Assert
-    assertEquals(
-        "VariableInstanceEntity[id=null, name=null, type=null]",
-        new VariableInstanceEntityImpl().toString());
+    assertEquals("VariableInstanceEntity[id=null, name=null, type=null]",
+        (new VariableInstanceEntityImpl()).toString());
   }
 
   /**
    * Test {@link VariableInstanceEntityImpl#toString()}.
-   *
    * <ul>
-   *   <li>Then return {@code VariableInstanceEntity[id=null, name=null, type=bigdecimal]}.
+   *   <li>Then return {@code VariableInstanceEntity[id=null, name=null, type=bigdecimal]}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link VariableInstanceEntityImpl#toString()}
+   * <p>
+   * Method under test: {@link VariableInstanceEntityImpl#toString()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"String VariableInstanceEntityImpl.toString()"})
   public void testToString_thenReturnVariableInstanceEntityIdNullNameNullTypeBigdecimal() {
     // Arrange
@@ -920,23 +717,19 @@ public class VariableInstanceEntityImplDiffblueTest {
     variableInstanceEntityImpl.setType(new BigDecimalType());
 
     // Act and Assert
-    assertEquals(
-        "VariableInstanceEntity[id=null, name=null, type=bigdecimal]",
-        variableInstanceEntityImpl.toString());
+    assertEquals("VariableInstanceEntity[id=null, name=null, type=bigdecimal]", variableInstanceEntityImpl.toString());
   }
 
   /**
    * Test {@link VariableInstanceEntityImpl#toString()}.
-   *
    * <ul>
-   *   <li>Then return {@code VariableInstanceEntity[id=null, name=null, type=null]}.
+   *   <li>Then return {@code VariableInstanceEntity[id=null, name=null, type=null]}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link VariableInstanceEntityImpl#toString()}
+   * <p>
+   * Method under test: {@link VariableInstanceEntityImpl#toString()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"String VariableInstanceEntityImpl.toString()"})
   public void testToString_thenReturnVariableInstanceEntityIdNullNameNullTypeNull() {
     // Arrange
@@ -949,61 +742,110 @@ public class VariableInstanceEntityImplDiffblueTest {
     variableInstanceEntityImpl.setBytes(null);
 
     // Act and Assert
-    assertEquals(
-        "VariableInstanceEntity[id=null, name=null, type=null]",
-        variableInstanceEntityImpl.toString());
+    assertEquals("VariableInstanceEntity[id=null, name=null, type=null]", variableInstanceEntityImpl.toString());
   }
 
   /**
    * Test {@link VariableInstanceEntityImpl#toString()}.
-   *
    * <ul>
-   *   <li>Then return {@code VariableInstanceEntity[id=null, name=null, type=null, longValue=42]}.
+   *   <li>Then return {@code VariableInstanceEntity[id=null, name=null, type=null, longValue=1]}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link VariableInstanceEntityImpl#toString()}
+   * <p>
+   * Method under test: {@link VariableInstanceEntityImpl#toString()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"String VariableInstanceEntityImpl.toString()"})
-  public void testToString_thenReturnVariableInstanceEntityIdNullNameNullTypeNullLongValue42() {
+  public void testToString_thenReturnVariableInstanceEntityIdNullNameNullTypeNullLongValue1() {
     // Arrange
     VariableInstanceEntityImpl variableInstanceEntityImpl = new VariableInstanceEntityImpl();
-    variableInstanceEntityImpl.setLongValue(42L);
+    variableInstanceEntityImpl.setType(null);
+    variableInstanceEntityImpl.setLongValue(1L);
+    variableInstanceEntityImpl.setDoubleValue(null);
+    variableInstanceEntityImpl.setTextValue(null);
+    variableInstanceEntityImpl.setTextValue2(null);
+    variableInstanceEntityImpl.setBytes(null);
 
     // Act and Assert
-    assertEquals(
-        "VariableInstanceEntity[id=null, name=null, type=null, longValue=42]",
+    assertEquals("VariableInstanceEntity[id=null, name=null, type=null, longValue=1]",
         variableInstanceEntityImpl.toString());
   }
 
   /**
    * Test {@link VariableInstanceEntityImpl#toString()}.
-   *
    * <ul>
-   *   <li>Then return {@code VariableInstanceEntity[id=null, name=null, type=null, textValue2=]}.
+   *   <li>Then return {@code VariableInstanceEntity[id=null, name=null, type=null, textValue=]}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link VariableInstanceEntityImpl#toString()}
+   * <p>
+   * Method under test: {@link VariableInstanceEntityImpl#toString()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"String VariableInstanceEntityImpl.toString()"})
-  public void testToString_thenReturnVariableInstanceEntityIdNullNameNullTypeNullTextValue2() {
+  public void testToString_thenReturnVariableInstanceEntityIdNullNameNullTypeNullTextValue() {
+    // Arrange
+    VariableInstanceEntityImpl variableInstanceEntityImpl = new VariableInstanceEntityImpl();
+    variableInstanceEntityImpl.setType(null);
+    variableInstanceEntityImpl.setLongValue(null);
+    variableInstanceEntityImpl.setDoubleValue(null);
+    variableInstanceEntityImpl.setTextValue("");
+    variableInstanceEntityImpl.setTextValue2(null);
+    variableInstanceEntityImpl.setBytes(null);
+
+    // Act and Assert
+    assertEquals("VariableInstanceEntity[id=null, name=null, type=null, textValue=]",
+        variableInstanceEntityImpl.toString());
+  }
+
+  /**
+   * Test {@link VariableInstanceEntityImpl#toString()}.
+   * <ul>
+   *   <li>Then return {@code VariableInstanceEntity[id=null, name=null, type=null, textValue2=foo]}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link VariableInstanceEntityImpl#toString()}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String VariableInstanceEntityImpl.toString()"})
+  public void testToString_thenReturnVariableInstanceEntityIdNullNameNullTypeNullTextValue2Foo() {
     // Arrange
     VariableInstanceEntityImpl variableInstanceEntityImpl = new VariableInstanceEntityImpl();
     variableInstanceEntityImpl.setType(null);
     variableInstanceEntityImpl.setLongValue(null);
     variableInstanceEntityImpl.setDoubleValue(null);
     variableInstanceEntityImpl.setTextValue(null);
-    variableInstanceEntityImpl.setTextValue2("");
+    variableInstanceEntityImpl.setTextValue2("foo");
     variableInstanceEntityImpl.setBytes(null);
 
     // Act and Assert
-    assertEquals(
-        "VariableInstanceEntity[id=null, name=null, type=null, textValue2=]",
+    assertEquals("VariableInstanceEntity[id=null, name=null, type=null, textValue2=foo]",
+        variableInstanceEntityImpl.toString());
+  }
+
+  /**
+   * Test {@link VariableInstanceEntityImpl#toString()}.
+   * <ul>
+   *   <li>Then return {@code VariableInstanceEntity[id=null, name=null, type=null, textValue=foo]}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link VariableInstanceEntityImpl#toString()}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String VariableInstanceEntityImpl.toString()"})
+  public void testToString_thenReturnVariableInstanceEntityIdNullNameNullTypeNullTextValueFoo() {
+    // Arrange
+    VariableInstanceEntityImpl variableInstanceEntityImpl = new VariableInstanceEntityImpl();
+    variableInstanceEntityImpl.setType(null);
+    variableInstanceEntityImpl.setLongValue(null);
+    variableInstanceEntityImpl.setDoubleValue(null);
+    variableInstanceEntityImpl.setTextValue("foo");
+    variableInstanceEntityImpl.setTextValue2(null);
+    variableInstanceEntityImpl.setBytes(null);
+
+    // Act and Assert
+    assertEquals("VariableInstanceEntity[id=null, name=null, type=null, textValue=foo]",
         variableInstanceEntityImpl.toString());
   }
 }

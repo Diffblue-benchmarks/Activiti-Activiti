@@ -19,8 +19,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.io.UnsupportedEncodingException;
 import org.activiti.engine.impl.util.json.JSONObject;
@@ -30,9 +29,8 @@ import org.junit.experimental.categories.Category;
 public class TransientVariableInstanceDiffblueTest {
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>{@link TransientVariableInstance#TransientVariableInstance(String, Object)}
    *   <li>{@link TransientVariableInstance#setValue(Object)}
@@ -74,51 +72,30 @@ public class TransientVariableInstanceDiffblueTest {
    * </ul>
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void TransientVariableInstance.<init>(String, Object)",
-    "byte[] TransientVariableInstance.getBytes()",
-    "Object TransientVariableInstance.getCachedValue()",
-    "Double TransientVariableInstance.getDoubleValue()",
-    "String TransientVariableInstance.getExecutionId()",
-    "String TransientVariableInstance.getId()",
-    "Long TransientVariableInstance.getLongValue()",
-    "String TransientVariableInstance.getName()",
-    "Object TransientVariableInstance.getPersistentState()",
-    "String TransientVariableInstance.getProcessInstanceId()",
-    "int TransientVariableInstance.getRevision()",
-    "int TransientVariableInstance.getRevisionNext()",
-    "String TransientVariableInstance.getTaskId()",
-    "String TransientVariableInstance.getTextValue()",
-    "String TransientVariableInstance.getTextValue2()",
-    "String TransientVariableInstance.getTypeName()",
-    "Object TransientVariableInstance.getValue()",
-    "boolean TransientVariableInstance.isDeleted()",
-    "boolean TransientVariableInstance.isInserted()",
-    "boolean TransientVariableInstance.isUpdated()",
-    "void TransientVariableInstance.setBytes(byte[])",
-    "void TransientVariableInstance.setCachedValue(Object)",
-    "void TransientVariableInstance.setDeleted(boolean)",
-    "void TransientVariableInstance.setDoubleValue(Double)",
-    "void TransientVariableInstance.setExecutionId(String)",
-    "void TransientVariableInstance.setId(String)",
-    "void TransientVariableInstance.setInserted(boolean)",
-    "void TransientVariableInstance.setLongValue(Long)",
-    "void TransientVariableInstance.setName(String)",
-    "void TransientVariableInstance.setProcessInstanceId(String)",
-    "void TransientVariableInstance.setRevision(int)",
-    "void TransientVariableInstance.setTaskId(String)",
-    "void TransientVariableInstance.setTextValue(String)",
-    "void TransientVariableInstance.setTextValue2(String)",
-    "void TransientVariableInstance.setTypeName(String)",
-    "void TransientVariableInstance.setUpdated(boolean)",
-    "void TransientVariableInstance.setValue(Object)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void TransientVariableInstance.<init>(String, Object)",
+      "byte[] TransientVariableInstance.getBytes()", "Object TransientVariableInstance.getCachedValue()",
+      "Double TransientVariableInstance.getDoubleValue()", "String TransientVariableInstance.getExecutionId()",
+      "String TransientVariableInstance.getId()", "Long TransientVariableInstance.getLongValue()",
+      "String TransientVariableInstance.getName()", "Object TransientVariableInstance.getPersistentState()",
+      "String TransientVariableInstance.getProcessInstanceId()", "int TransientVariableInstance.getRevision()",
+      "int TransientVariableInstance.getRevisionNext()", "String TransientVariableInstance.getTaskId()",
+      "String TransientVariableInstance.getTextValue()", "String TransientVariableInstance.getTextValue2()",
+      "String TransientVariableInstance.getTypeName()", "Object TransientVariableInstance.getValue()",
+      "boolean TransientVariableInstance.isDeleted()", "boolean TransientVariableInstance.isInserted()",
+      "boolean TransientVariableInstance.isUpdated()", "void TransientVariableInstance.setBytes(byte[])",
+      "void TransientVariableInstance.setCachedValue(Object)", "void TransientVariableInstance.setDeleted(boolean)",
+      "void TransientVariableInstance.setDoubleValue(Double)", "void TransientVariableInstance.setExecutionId(String)",
+      "void TransientVariableInstance.setId(String)", "void TransientVariableInstance.setInserted(boolean)",
+      "void TransientVariableInstance.setLongValue(Long)", "void TransientVariableInstance.setName(String)",
+      "void TransientVariableInstance.setProcessInstanceId(String)", "void TransientVariableInstance.setRevision(int)",
+      "void TransientVariableInstance.setTaskId(String)", "void TransientVariableInstance.setTextValue(String)",
+      "void TransientVariableInstance.setTextValue2(String)", "void TransientVariableInstance.setTypeName(String)",
+      "void TransientVariableInstance.setUpdated(boolean)", "void TransientVariableInstance.setValue(Object)"})
   public void testGettersAndSetters() throws UnsupportedEncodingException {
     // Arrange and Act
-    TransientVariableInstance actualTransientVariableInstance =
-        new TransientVariableInstance("Variable Name", JSONObject.NULL);
+    TransientVariableInstance actualTransientVariableInstance = new TransientVariableInstance("Variable Name",
+        JSONObject.NULL);
     actualTransientVariableInstance.setValue(JSONObject.NULL);
     actualTransientVariableInstance.setBytes("AXAXAXAX".getBytes("UTF-8"));
     Object object = JSONObject.NULL;

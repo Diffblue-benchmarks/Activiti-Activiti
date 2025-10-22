@@ -19,10 +19,9 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.node.DoubleNode;
+import com.fasterxml.jackson.databind.node.MissingNode;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -39,13 +38,12 @@ import org.junit.jupiter.api.Test;
 class DecisionTaskJsonConverterDiffblueTest {
   /**
    * Test {@link DecisionTaskJsonConverter#fillTypes(Map, Map)}.
-   *
-   * <p>Method under test: {@link DecisionTaskJsonConverter#fillTypes(Map, Map)}
+   * <p>
+   * Method under test: {@link DecisionTaskJsonConverter#fillTypes(Map, Map)}
    */
   @Test
   @DisplayName("Test fillTypes(Map, Map)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void DecisionTaskJsonConverter.fillTypes(Map, Map)"})
   void testFillTypes() {
     // Arrange
@@ -62,13 +60,12 @@ class DecisionTaskJsonConverterDiffblueTest {
 
   /**
    * Test {@link DecisionTaskJsonConverter#fillJsonTypes(Map)}.
-   *
-   * <p>Method under test: {@link DecisionTaskJsonConverter#fillJsonTypes(Map)}
+   * <p>
+   * Method under test: {@link DecisionTaskJsonConverter#fillJsonTypes(Map)}
    */
   @Test
   @DisplayName("Test fillJsonTypes(Map)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void DecisionTaskJsonConverter.fillJsonTypes(Map)"})
   void testFillJsonTypes() {
     // Arrange
@@ -85,13 +82,12 @@ class DecisionTaskJsonConverterDiffblueTest {
 
   /**
    * Test {@link DecisionTaskJsonConverter#getStencilId(BaseElement)}.
-   *
-   * <p>Method under test: {@link DecisionTaskJsonConverter#getStencilId(BaseElement)}
+   * <p>
+   * Method under test: {@link DecisionTaskJsonConverter#getStencilId(BaseElement)}
    */
   @Test
   @DisplayName("Test getStencilId(BaseElement)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"String DecisionTaskJsonConverter.getStencilId(BaseElement)"})
   void testGetStencilId() {
     // Arrange
@@ -103,32 +99,26 @@ class DecisionTaskJsonConverterDiffblueTest {
 
   /**
    * Test {@link DecisionTaskJsonConverter#convertJsonToElement(JsonNode, JsonNode, Map)}.
-   *
    * <ul>
-   *   <li>When {@link HashMap#HashMap()}.
-   *   <li>Then return {@link ServiceTask}.
+   *   <li>When {@link HashMap#HashMap()}.</li>
+   *   <li>Then return {@link ServiceTask}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link DecisionTaskJsonConverter#convertJsonToElement(JsonNode, JsonNode,
-   * Map)}
+   * <p>
+   * Method under test: {@link DecisionTaskJsonConverter#convertJsonToElement(JsonNode, JsonNode, Map)}
    */
   @Test
-  @DisplayName(
-      "Test convertJsonToElement(JsonNode, JsonNode, Map); when HashMap(); then return ServiceTask")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "FlowElement DecisionTaskJsonConverter.convertJsonToElement(JsonNode, JsonNode, Map)"
-  })
+  @DisplayName("Test convertJsonToElement(JsonNode, JsonNode, Map); when HashMap(); then return ServiceTask")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"FlowElement DecisionTaskJsonConverter.convertJsonToElement(JsonNode, JsonNode, Map)"})
   void testConvertJsonToElement_whenHashMap_thenReturnServiceTask() {
     // Arrange
     DecisionTaskJsonConverter decisionTaskJsonConverter = new DecisionTaskJsonConverter();
-    DoubleNode elementNode = DoubleNode.valueOf(10.0d);
-    DoubleNode modelNode = DoubleNode.valueOf(10.0d);
+    MissingNode elementNode = MissingNode.getInstance();
+    MissingNode modelNode = MissingNode.getInstance();
 
     // Act
-    FlowElement actualConvertJsonToElementResult =
-        decisionTaskJsonConverter.convertJsonToElement(elementNode, modelNode, new HashMap<>());
+    FlowElement actualConvertJsonToElementResult = decisionTaskJsonConverter.convertJsonToElement(elementNode,
+        modelNode, new HashMap<>());
 
     // Assert
     assertTrue(actualConvertJsonToElementResult instanceof ServiceTask);
@@ -151,17 +141,14 @@ class DecisionTaskJsonConverterDiffblueTest {
     assertNull(actualConvertJsonToElementResult.getSubProcess());
     assertEquals(0, actualConvertJsonToElementResult.getXmlColumnNumber());
     assertEquals(0, actualConvertJsonToElementResult.getXmlRowNumber());
-    assertFalse(
-        ((ServiceTask) actualConvertJsonToElementResult).hasMultiInstanceLoopCharacteristics());
+    assertFalse(((ServiceTask) actualConvertJsonToElementResult).hasMultiInstanceLoopCharacteristics());
     assertFalse(((ServiceTask) actualConvertJsonToElementResult).isForCompensation());
     assertFalse(((ServiceTask) actualConvertJsonToElementResult).isAsynchronous());
     assertFalse(((ServiceTask) actualConvertJsonToElementResult).isNotExclusive());
     assertFalse(((ServiceTask) actualConvertJsonToElementResult).isExtended());
     assertTrue(((ServiceTask) actualConvertJsonToElementResult).getBoundaryEvents().isEmpty());
-    assertTrue(
-        ((ServiceTask) actualConvertJsonToElementResult).getDataInputAssociations().isEmpty());
-    assertTrue(
-        ((ServiceTask) actualConvertJsonToElementResult).getDataOutputAssociations().isEmpty());
+    assertTrue(((ServiceTask) actualConvertJsonToElementResult).getDataInputAssociations().isEmpty());
+    assertTrue(((ServiceTask) actualConvertJsonToElementResult).getDataOutputAssociations().isEmpty());
     assertTrue(((ServiceTask) actualConvertJsonToElementResult).getMapExceptions().isEmpty());
     assertTrue(actualConvertJsonToElementResult.getExecutionListeners().isEmpty());
     assertTrue(((ServiceTask) actualConvertJsonToElementResult).getIncomingFlows().isEmpty());
@@ -174,24 +161,18 @@ class DecisionTaskJsonConverterDiffblueTest {
   }
 
   /**
-   * Test {@link DecisionTaskJsonConverter#addExtensionAttributeToExtension(ExtensionElement,
-   * String, String)}.
-   *
+   * Test {@link DecisionTaskJsonConverter#addExtensionAttributeToExtension(ExtensionElement, String, String)}.
    * <ul>
-   *   <li>Then {@link ExtensionElement} (default constructor) Attributes Empty.
+   *   <li>Then {@link ExtensionElement} (default constructor) Attributes Empty.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link
-   * DecisionTaskJsonConverter#addExtensionAttributeToExtension(ExtensionElement, String, String)}
+   * <p>
+   * Method under test: {@link DecisionTaskJsonConverter#addExtensionAttributeToExtension(ExtensionElement, String, String)}
    */
   @Test
-  @DisplayName(
-      "Test addExtensionAttributeToExtension(ExtensionElement, String, String); then ExtensionElement (default constructor) Attributes Empty")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test addExtensionAttributeToExtension(ExtensionElement, String, String); then ExtensionElement (default constructor) Attributes Empty")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({
-    "void DecisionTaskJsonConverter.addExtensionAttributeToExtension(ExtensionElement, String, String)"
-  })
+      "void DecisionTaskJsonConverter.addExtensionAttributeToExtension(ExtensionElement, String, String)"})
   void testAddExtensionAttributeToExtension_thenExtensionElementAttributesEmpty() {
     // Arrange
     DecisionTaskJsonConverter decisionTaskJsonConverter = new DecisionTaskJsonConverter();
@@ -205,24 +186,18 @@ class DecisionTaskJsonConverterDiffblueTest {
   }
 
   /**
-   * Test {@link DecisionTaskJsonConverter#addExtensionAttributeToExtension(ExtensionElement,
-   * String, String)}.
-   *
+   * Test {@link DecisionTaskJsonConverter#addExtensionAttributeToExtension(ExtensionElement, String, String)}.
    * <ul>
-   *   <li>Then {@link ExtensionElement} (default constructor) Attributes size is one.
+   *   <li>Then {@link ExtensionElement} (default constructor) Attributes size is one.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link
-   * DecisionTaskJsonConverter#addExtensionAttributeToExtension(ExtensionElement, String, String)}
+   * <p>
+   * Method under test: {@link DecisionTaskJsonConverter#addExtensionAttributeToExtension(ExtensionElement, String, String)}
    */
   @Test
-  @DisplayName(
-      "Test addExtensionAttributeToExtension(ExtensionElement, String, String); then ExtensionElement (default constructor) Attributes size is one")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test addExtensionAttributeToExtension(ExtensionElement, String, String); then ExtensionElement (default constructor) Attributes size is one")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({
-    "void DecisionTaskJsonConverter.addExtensionAttributeToExtension(ExtensionElement, String, String)"
-  })
+      "void DecisionTaskJsonConverter.addExtensionAttributeToExtension(ExtensionElement, String, String)"})
   void testAddExtensionAttributeToExtension_thenExtensionElementAttributesSizeIsOne() {
     // Arrange
     DecisionTaskJsonConverter decisionTaskJsonConverter = new DecisionTaskJsonConverter();
@@ -245,13 +220,12 @@ class DecisionTaskJsonConverterDiffblueTest {
 
   /**
    * Test new {@link DecisionTaskJsonConverter} (default constructor).
-   *
-   * <p>Method under test: default or parameterless constructor of {@link DecisionTaskJsonConverter}
+   * <p>
+   * Method under test: default or parameterless constructor of {@link DecisionTaskJsonConverter}
    */
   @Test
   @DisplayName("Test new DecisionTaskJsonConverter (default constructor)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void DecisionTaskJsonConverter.<init>()"})
   void testNewDecisionTaskJsonConverter() {
     // Arrange and Act

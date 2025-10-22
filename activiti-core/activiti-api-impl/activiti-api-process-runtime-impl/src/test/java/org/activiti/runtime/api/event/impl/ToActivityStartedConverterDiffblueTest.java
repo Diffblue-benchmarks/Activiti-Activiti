@@ -18,7 +18,6 @@ package org.activiti.runtime.api.event.impl;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.Optional;
 import org.activiti.api.process.model.events.BPMNActivityEvent;
@@ -35,29 +34,24 @@ import org.junit.jupiter.api.Test;
 
 class ToActivityStartedConverterDiffblueTest {
   /**
-   * Test {@link ToActivityStartedConverter#from(ActivitiActivityEvent)} with {@code
-   * ActivitiActivityEvent}.
-   *
+   * Test {@link ToActivityStartedConverter#from(ActivitiActivityEvent)} with {@code ActivitiActivityEvent}.
    * <ul>
-   *   <li>Then {@link Optional#get()} return {@link BPMNActivityStartedEventImpl}.
+   *   <li>Then {@link Optional#get()} return {@link BPMNActivityStartedEventImpl}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ToActivityStartedConverter#from(ActivitiActivityEvent)}
+   * <p>
+   * Method under test: {@link ToActivityStartedConverter#from(ActivitiActivityEvent)}
    */
   @Test
-  @DisplayName(
-      "Test from(ActivitiActivityEvent) with 'ActivitiActivityEvent'; then get() return BPMNActivityStartedEventImpl")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test from(ActivitiActivityEvent) with 'ActivitiActivityEvent'; then get() return BPMNActivityStartedEventImpl")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"Optional ToActivityStartedConverter.from(ActivitiActivityEvent)"})
   void testFromWithActivitiActivityEvent_thenGetReturnBPMNActivityStartedEventImpl() {
     // Arrange
-    ToActivityStartedConverter toActivityStartedConverter =
-        new ToActivityStartedConverter(new ToActivityConverter());
+    ToActivityStartedConverter toActivityStartedConverter = new ToActivityStartedConverter(new ToActivityConverter());
 
     // Act
-    Optional<BPMNActivityStartedEvent> actualFromResult =
-        toActivityStartedConverter.from(new ActivitiActivityCancelledEventImpl());
+    Optional<BPMNActivityStartedEvent> actualFromResult = toActivityStartedConverter
+        .from(new ActivitiActivityCancelledEventImpl());
 
     // Assert
     BPMNActivityStartedEvent getResult = actualFromResult.get();

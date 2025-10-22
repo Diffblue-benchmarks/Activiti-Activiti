@@ -16,8 +16,7 @@
 package org.activiti.spring.autodeployment;
 
 import static org.junit.Assert.assertEquals;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import com.fasterxml.jackson.databind.json.JsonMapper;
 import org.activiti.core.common.spring.project.ApplicationUpgradeContextService;
@@ -28,32 +27,24 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 public class SingleResourceAutoDeploymentStrategyDiffblueTest {
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
-   *   <li>{@link
-   *       SingleResourceAutoDeploymentStrategy#SingleResourceAutoDeploymentStrategy(ApplicationUpgradeContextService)}
+   *   <li>{@link SingleResourceAutoDeploymentStrategy#SingleResourceAutoDeploymentStrategy(ApplicationUpgradeContextService)}
    *   <li>{@link SingleResourceAutoDeploymentStrategy#getDeploymentMode()}
    * </ul>
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void SingleResourceAutoDeploymentStrategy.<init>(ApplicationUpgradeContextService)",
-    "java.lang.String SingleResourceAutoDeploymentStrategy.getDeploymentMode()"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void SingleResourceAutoDeploymentStrategy.<init>(ApplicationUpgradeContextService)",
+      "java.lang.String SingleResourceAutoDeploymentStrategy.getDeploymentMode()"})
   public void testGettersAndSetters() {
     // Arrange
     JsonMapper objectMapper = JsonMapper.builder().findAndAddModules().build();
 
     // Act and Assert
-    assertEquals(
-        SingleResourceAutoDeploymentStrategy.DEPLOYMENT_MODE,
-        new SingleResourceAutoDeploymentStrategy(
-                new ApplicationUpgradeContextService(
-                    "Path", 1, true, objectMapper, new AnnotationConfigApplicationContext()))
-            .getDeploymentMode());
+    assertEquals(SingleResourceAutoDeploymentStrategy.DEPLOYMENT_MODE, (new SingleResourceAutoDeploymentStrategy(
+        new ApplicationUpgradeContextService("Path", 1, true, objectMapper, new AnnotationConfigApplicationContext())))
+        .getDeploymentMode());
   }
 }

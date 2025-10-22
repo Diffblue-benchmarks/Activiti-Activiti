@@ -25,8 +25,7 @@ import static org.mockito.ArgumentMatchers.isA;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
@@ -42,7 +41,6 @@ import org.activiti.engine.impl.cfg.CommandExecutorImpl;
 import org.activiti.engine.impl.interceptor.Command;
 import org.activiti.engine.impl.interceptor.CommandConfig;
 import org.activiti.engine.impl.interceptor.CommandContextInterceptor;
-import org.activiti.engine.impl.interceptor.CommandExecutor;
 import org.activiti.engine.impl.persistence.entity.ModelEntity;
 import org.activiti.engine.impl.persistence.entity.ModelEntityImpl;
 import org.activiti.engine.impl.persistence.entity.ProcessDefinitionEntityImpl;
@@ -57,33 +55,26 @@ import org.activiti.engine.repository.NativeProcessDefinitionQuery;
 import org.activiti.engine.repository.ProcessDefinition;
 import org.activiti.engine.repository.ProcessDefinitionQuery;
 import org.activiti.engine.task.IdentityLink;
-import org.activiti.engine.test.util.TestProcessUtil;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import org.mockito.Mockito;
-import org.springframework.test.annotation.DirtiesContext;
-import org.springframework.test.annotation.DirtiesContext.ClassMode;
 
-@DirtiesContext(classMode = ClassMode.AFTER_EACH_TEST_METHOD)
 public class RepositoryServiceImplDiffblueTest {
   /**
    * Test {@link RepositoryServiceImpl#createDeployment()}.
-   *
    * <ul>
-   *   <li>Then return {@code null}.
+   *   <li>Then return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link RepositoryServiceImpl#createDeployment()}
+   * <p>
+   * Method under test: {@link RepositoryServiceImpl#createDeployment()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"DeploymentBuilder RepositoryServiceImpl.createDeployment()"})
   public void testCreateDeployment_thenReturnNull() {
     // Arrange
     CommandContextInterceptor first = mock(CommandContextInterceptor.class);
-    when(first.execute(Mockito.<CommandConfig>any(), Mockito.<Command<DeploymentBuilder>>any()))
-        .thenReturn(null);
+    when(first.execute(Mockito.<CommandConfig>any(), Mockito.<Command<DeploymentBuilder>>any())).thenReturn(null);
     CommandExecutorImpl commandExecutor = new CommandExecutorImpl(new CommandConfig(), first);
 
     RepositoryServiceImpl repositoryServiceImpl = new RepositoryServiceImpl();
@@ -98,24 +89,20 @@ public class RepositoryServiceImplDiffblueTest {
   }
 
   /**
-   * Test {@link RepositoryServiceImpl#deleteDeployment(String, boolean)} with {@code deploymentId},
-   * {@code cascade}.
-   *
+   * Test {@link RepositoryServiceImpl#deleteDeployment(String, boolean)} with {@code deploymentId}, {@code cascade}.
    * <ul>
-   *   <li>Then calls {@link CommandContextInterceptor#execute(CommandConfig, Command)}.
+   *   <li>Then calls {@link CommandContextInterceptor#execute(CommandConfig, Command)}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link RepositoryServiceImpl#deleteDeployment(String, boolean)}
+   * <p>
+   * Method under test: {@link RepositoryServiceImpl#deleteDeployment(String, boolean)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void RepositoryServiceImpl.deleteDeployment(String, boolean)"})
   public void testDeleteDeploymentWithDeploymentIdCascade_thenCallsExecute() {
     // Arrange
     CommandContextInterceptor first = mock(CommandContextInterceptor.class);
-    when(first.execute(Mockito.<CommandConfig>any(), Mockito.<Command<Void>>any()))
-        .thenReturn(null);
+    when(first.execute(Mockito.<CommandConfig>any(), Mockito.<Command<Void>>any())).thenReturn(null);
     CommandExecutorImpl commandExecutor = new CommandExecutorImpl(new CommandConfig(), first);
 
     RepositoryServiceImpl repositoryServiceImpl = new RepositoryServiceImpl();
@@ -130,22 +117,19 @@ public class RepositoryServiceImplDiffblueTest {
 
   /**
    * Test {@link RepositoryServiceImpl#deleteDeployment(String)} with {@code deploymentId}.
-   *
    * <ul>
-   *   <li>Then calls {@link CommandContextInterceptor#execute(CommandConfig, Command)}.
+   *   <li>Then calls {@link CommandContextInterceptor#execute(CommandConfig, Command)}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link RepositoryServiceImpl#deleteDeployment(String)}
+   * <p>
+   * Method under test: {@link RepositoryServiceImpl#deleteDeployment(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void RepositoryServiceImpl.deleteDeployment(String)"})
   public void testDeleteDeploymentWithDeploymentId_thenCallsExecute() {
     // Arrange
     CommandContextInterceptor first = mock(CommandContextInterceptor.class);
-    when(first.execute(Mockito.<CommandConfig>any(), Mockito.<Command<Void>>any()))
-        .thenReturn(null);
+    when(first.execute(Mockito.<CommandConfig>any(), Mockito.<Command<Void>>any())).thenReturn(null);
     CommandExecutorImpl commandExecutor = new CommandExecutorImpl(new CommandConfig(), first);
 
     RepositoryServiceImpl repositoryServiceImpl = new RepositoryServiceImpl();
@@ -160,22 +144,19 @@ public class RepositoryServiceImplDiffblueTest {
 
   /**
    * Test {@link RepositoryServiceImpl#setDeploymentCategory(String, String)}.
-   *
    * <ul>
-   *   <li>Then calls {@link CommandContextInterceptor#execute(CommandConfig, Command)}.
+   *   <li>Then calls {@link CommandContextInterceptor#execute(CommandConfig, Command)}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link RepositoryServiceImpl#setDeploymentCategory(String, String)}
+   * <p>
+   * Method under test: {@link RepositoryServiceImpl#setDeploymentCategory(String, String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void RepositoryServiceImpl.setDeploymentCategory(String, String)"})
   public void testSetDeploymentCategory_thenCallsExecute() {
     // Arrange
     CommandContextInterceptor first = mock(CommandContextInterceptor.class);
-    when(first.execute(Mockito.<CommandConfig>any(), Mockito.<Command<Void>>any()))
-        .thenReturn(null);
+    when(first.execute(Mockito.<CommandConfig>any(), Mockito.<Command<Void>>any())).thenReturn(null);
     CommandExecutorImpl commandExecutor = new CommandExecutorImpl(new CommandConfig(), first);
 
     RepositoryServiceImpl repositoryServiceImpl = new RepositoryServiceImpl();
@@ -190,22 +171,19 @@ public class RepositoryServiceImplDiffblueTest {
 
   /**
    * Test {@link RepositoryServiceImpl#setDeploymentKey(String, String)}.
-   *
    * <ul>
-   *   <li>Then calls {@link CommandContextInterceptor#execute(CommandConfig, Command)}.
+   *   <li>Then calls {@link CommandContextInterceptor#execute(CommandConfig, Command)}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link RepositoryServiceImpl#setDeploymentKey(String, String)}
+   * <p>
+   * Method under test: {@link RepositoryServiceImpl#setDeploymentKey(String, String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void RepositoryServiceImpl.setDeploymentKey(String, String)"})
   public void testSetDeploymentKey_thenCallsExecute() {
     // Arrange
     CommandContextInterceptor first = mock(CommandContextInterceptor.class);
-    when(first.execute(Mockito.<CommandConfig>any(), Mockito.<Command<Void>>any()))
-        .thenReturn(null);
+    when(first.execute(Mockito.<CommandConfig>any(), Mockito.<Command<Void>>any())).thenReturn(null);
     CommandExecutorImpl commandExecutor = new CommandExecutorImpl(new CommandConfig(), first);
 
     RepositoryServiceImpl repositoryServiceImpl = new RepositoryServiceImpl();
@@ -220,22 +198,19 @@ public class RepositoryServiceImplDiffblueTest {
 
   /**
    * Test {@link RepositoryServiceImpl#deleteDeploymentCascade(String)}.
-   *
    * <ul>
-   *   <li>Then calls {@link CommandContextInterceptor#execute(CommandConfig, Command)}.
+   *   <li>Then calls {@link CommandContextInterceptor#execute(CommandConfig, Command)}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link RepositoryServiceImpl#deleteDeploymentCascade(String)}
+   * <p>
+   * Method under test: {@link RepositoryServiceImpl#deleteDeploymentCascade(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void RepositoryServiceImpl.deleteDeploymentCascade(String)"})
   public void testDeleteDeploymentCascade_thenCallsExecute() {
     // Arrange
     CommandContextInterceptor first = mock(CommandContextInterceptor.class);
-    when(first.execute(Mockito.<CommandConfig>any(), Mockito.<Command<Void>>any()))
-        .thenReturn(null);
+    when(first.execute(Mockito.<CommandConfig>any(), Mockito.<Command<Void>>any())).thenReturn(null);
     CommandExecutorImpl commandExecutor = new CommandExecutorImpl(new CommandConfig(), first);
 
     RepositoryServiceImpl repositoryServiceImpl = new RepositoryServiceImpl();
@@ -250,171 +225,103 @@ public class RepositoryServiceImplDiffblueTest {
 
   /**
    * Test {@link RepositoryServiceImpl#createProcessDefinitionQuery()}.
-   *
-   * <p>Method under test: {@link RepositoryServiceImpl#createProcessDefinitionQuery()}
+   * <p>
+   * Method under test: {@link RepositoryServiceImpl#createProcessDefinitionQuery()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"ProcessDefinitionQuery RepositoryServiceImpl.createProcessDefinitionQuery()"})
   public void testCreateProcessDefinitionQuery() {
     // Arrange and Act
-    ProcessDefinitionQuery actualCreateProcessDefinitionQueryResult =
-        new RepositoryServiceImpl().createProcessDefinitionQuery();
+    ProcessDefinitionQuery actualCreateProcessDefinitionQueryResult = (new RepositoryServiceImpl())
+        .createProcessDefinitionQuery();
 
     // Assert
     assertTrue(actualCreateProcessDefinitionQueryResult instanceof ProcessDefinitionQueryImpl);
-    assertEquals(
-        "RES.ID_ asc",
-        ((ProcessDefinitionQueryImpl) actualCreateProcessDefinitionQueryResult).getOrderBy());
-    assertEquals(
-        "RES.ID_ asc",
-        ((ProcessDefinitionQueryImpl) actualCreateProcessDefinitionQueryResult)
-            .getOrderByColumns());
-    assertNull(
-        ((ProcessDefinitionQueryImpl) actualCreateProcessDefinitionQueryResult).getVersion());
-    assertNull(
-        ((ProcessDefinitionQueryImpl) actualCreateProcessDefinitionQueryResult).getVersionGt());
-    assertNull(
-        ((ProcessDefinitionQueryImpl) actualCreateProcessDefinitionQueryResult).getVersionGte());
-    assertNull(
-        ((ProcessDefinitionQueryImpl) actualCreateProcessDefinitionQueryResult).getVersionLt());
-    assertNull(
-        ((ProcessDefinitionQueryImpl) actualCreateProcessDefinitionQueryResult).getVersionLte());
-    assertNull(
-        ((ProcessDefinitionQueryImpl) actualCreateProcessDefinitionQueryResult).getParameter());
-    assertNull(
-        ((ProcessDefinitionQueryImpl) actualCreateProcessDefinitionQueryResult).getDatabaseType());
-    assertNull(
-        ((ProcessDefinitionQueryImpl) actualCreateProcessDefinitionQueryResult)
-            .getAuthorizationUserId());
-    assertNull(
-        ((ProcessDefinitionQueryImpl) actualCreateProcessDefinitionQueryResult).getCategory());
-    assertNull(
-        ((ProcessDefinitionQueryImpl) actualCreateProcessDefinitionQueryResult).getCategoryLike());
-    assertNull(
-        ((ProcessDefinitionQueryImpl) actualCreateProcessDefinitionQueryResult)
-            .getCategoryNotEquals());
-    assertNull(
-        ((ProcessDefinitionQueryImpl) actualCreateProcessDefinitionQueryResult).getDeploymentId());
-    assertNull(
-        ((ProcessDefinitionQueryImpl) actualCreateProcessDefinitionQueryResult)
-            .getEventSubscriptionName());
-    assertNull(
-        ((ProcessDefinitionQueryImpl) actualCreateProcessDefinitionQueryResult)
-            .getEventSubscriptionType());
+    assertEquals("RES.ID_ asc", ((ProcessDefinitionQueryImpl) actualCreateProcessDefinitionQueryResult).getOrderBy());
+    assertEquals("RES.ID_ asc",
+        ((ProcessDefinitionQueryImpl) actualCreateProcessDefinitionQueryResult).getOrderByColumns());
+    assertNull(((ProcessDefinitionQueryImpl) actualCreateProcessDefinitionQueryResult).getVersion());
+    assertNull(((ProcessDefinitionQueryImpl) actualCreateProcessDefinitionQueryResult).getVersionGt());
+    assertNull(((ProcessDefinitionQueryImpl) actualCreateProcessDefinitionQueryResult).getVersionGte());
+    assertNull(((ProcessDefinitionQueryImpl) actualCreateProcessDefinitionQueryResult).getVersionLt());
+    assertNull(((ProcessDefinitionQueryImpl) actualCreateProcessDefinitionQueryResult).getVersionLte());
+    assertNull(((ProcessDefinitionQueryImpl) actualCreateProcessDefinitionQueryResult).getParameter());
+    assertNull(((ProcessDefinitionQueryImpl) actualCreateProcessDefinitionQueryResult).getDatabaseType());
+    assertNull(((ProcessDefinitionQueryImpl) actualCreateProcessDefinitionQueryResult).getAuthorizationUserId());
+    assertNull(((ProcessDefinitionQueryImpl) actualCreateProcessDefinitionQueryResult).getCategory());
+    assertNull(((ProcessDefinitionQueryImpl) actualCreateProcessDefinitionQueryResult).getCategoryLike());
+    assertNull(((ProcessDefinitionQueryImpl) actualCreateProcessDefinitionQueryResult).getCategoryNotEquals());
+    assertNull(((ProcessDefinitionQueryImpl) actualCreateProcessDefinitionQueryResult).getDeploymentId());
+    assertNull(((ProcessDefinitionQueryImpl) actualCreateProcessDefinitionQueryResult).getEventSubscriptionName());
+    assertNull(((ProcessDefinitionQueryImpl) actualCreateProcessDefinitionQueryResult).getEventSubscriptionType());
     assertNull(((ProcessDefinitionQueryImpl) actualCreateProcessDefinitionQueryResult).getId());
-    assertNull(
-        ((ProcessDefinitionQueryImpl) actualCreateProcessDefinitionQueryResult).getIdOrKey());
+    assertNull(((ProcessDefinitionQueryImpl) actualCreateProcessDefinitionQueryResult).getIdOrKey());
     assertNull(((ProcessDefinitionQueryImpl) actualCreateProcessDefinitionQueryResult).getKey());
-    assertNull(
-        ((ProcessDefinitionQueryImpl) actualCreateProcessDefinitionQueryResult).getKeyLike());
+    assertNull(((ProcessDefinitionQueryImpl) actualCreateProcessDefinitionQueryResult).getKeyLike());
     assertNull(((ProcessDefinitionQueryImpl) actualCreateProcessDefinitionQueryResult).getName());
-    assertNull(
-        ((ProcessDefinitionQueryImpl) actualCreateProcessDefinitionQueryResult).getNameLike());
-    assertNull(
-        ((ProcessDefinitionQueryImpl) actualCreateProcessDefinitionQueryResult).getProcDefId());
-    assertNull(
-        ((ProcessDefinitionQueryImpl) actualCreateProcessDefinitionQueryResult).getResourceName());
-    assertNull(
-        ((ProcessDefinitionQueryImpl) actualCreateProcessDefinitionQueryResult)
-            .getResourceNameLike());
-    assertNull(
-        ((ProcessDefinitionQueryImpl) actualCreateProcessDefinitionQueryResult).getTenantId());
-    assertNull(
-        ((ProcessDefinitionQueryImpl) actualCreateProcessDefinitionQueryResult).getTenantIdLike());
+    assertNull(((ProcessDefinitionQueryImpl) actualCreateProcessDefinitionQueryResult).getNameLike());
+    assertNull(((ProcessDefinitionQueryImpl) actualCreateProcessDefinitionQueryResult).getProcDefId());
+    assertNull(((ProcessDefinitionQueryImpl) actualCreateProcessDefinitionQueryResult).getResourceName());
+    assertNull(((ProcessDefinitionQueryImpl) actualCreateProcessDefinitionQueryResult).getResourceNameLike());
+    assertNull(((ProcessDefinitionQueryImpl) actualCreateProcessDefinitionQueryResult).getTenantId());
+    assertNull(((ProcessDefinitionQueryImpl) actualCreateProcessDefinitionQueryResult).getTenantIdLike());
     assertNull(((ProcessDefinitionQueryImpl) actualCreateProcessDefinitionQueryResult).orderBy);
-    assertNull(
-        ((ProcessDefinitionQueryImpl) actualCreateProcessDefinitionQueryResult)
-            .getAuthorizationGroups());
-    assertNull(
-        ((ProcessDefinitionQueryImpl) actualCreateProcessDefinitionQueryResult).getDeploymentIds());
+    assertNull(((ProcessDefinitionQueryImpl) actualCreateProcessDefinitionQueryResult).getAuthorizationGroups());
+    assertNull(((ProcessDefinitionQueryImpl) actualCreateProcessDefinitionQueryResult).getDeploymentIds());
     assertNull(((ProcessDefinitionQueryImpl) actualCreateProcessDefinitionQueryResult).getIds());
     assertNull(((ProcessDefinitionQueryImpl) actualCreateProcessDefinitionQueryResult).getKeys());
-    assertNull(
-        ((ProcessDefinitionQueryImpl) actualCreateProcessDefinitionQueryResult)
-            .nullHandlingOnOrder);
+    assertNull(((ProcessDefinitionQueryImpl) actualCreateProcessDefinitionQueryResult).nullHandlingOnOrder);
     assertNull(((ProcessDefinitionQueryImpl) actualCreateProcessDefinitionQueryResult).resultType);
-    assertNull(
-        ((ProcessDefinitionQueryImpl) actualCreateProcessDefinitionQueryResult).commandContext);
-    assertNull(
-        ((ProcessDefinitionQueryImpl) actualCreateProcessDefinitionQueryResult).commandExecutor);
-    assertNull(
-        ((ProcessDefinitionQueryImpl) actualCreateProcessDefinitionQueryResult)
-            .getSuspensionState());
-    assertNull(
-        ((ProcessDefinitionQueryImpl) actualCreateProcessDefinitionQueryResult).orderProperty);
-    assertEquals(
-        0,
-        ((ProcessDefinitionQueryImpl) actualCreateProcessDefinitionQueryResult).getFirstResult());
-    assertEquals(
-        1, ((ProcessDefinitionQueryImpl) actualCreateProcessDefinitionQueryResult).getFirstRow());
+    assertNull(((ProcessDefinitionQueryImpl) actualCreateProcessDefinitionQueryResult).commandContext);
+    assertNull(((ProcessDefinitionQueryImpl) actualCreateProcessDefinitionQueryResult).commandExecutor);
+    assertNull(((ProcessDefinitionQueryImpl) actualCreateProcessDefinitionQueryResult).getSuspensionState());
+    assertNull(((ProcessDefinitionQueryImpl) actualCreateProcessDefinitionQueryResult).orderProperty);
+    assertEquals(0, ((ProcessDefinitionQueryImpl) actualCreateProcessDefinitionQueryResult).getFirstResult());
+    assertEquals(1, ((ProcessDefinitionQueryImpl) actualCreateProcessDefinitionQueryResult).getFirstRow());
     assertFalse(((ProcessDefinitionQueryImpl) actualCreateProcessDefinitionQueryResult).isLatest());
-    assertFalse(
-        ((ProcessDefinitionQueryImpl) actualCreateProcessDefinitionQueryResult)
-            .isWithoutTenantId());
-    assertEquals(
-        Integer.MAX_VALUE,
+    assertFalse(((ProcessDefinitionQueryImpl) actualCreateProcessDefinitionQueryResult).isWithoutTenantId());
+    assertEquals(Integer.MAX_VALUE,
         ((ProcessDefinitionQueryImpl) actualCreateProcessDefinitionQueryResult).getLastRow());
-    assertEquals(
-        Integer.MAX_VALUE,
+    assertEquals(Integer.MAX_VALUE,
         ((ProcessDefinitionQueryImpl) actualCreateProcessDefinitionQueryResult).getMaxResults());
   }
 
   /**
    * Test {@link RepositoryServiceImpl#createNativeProcessDefinitionQuery()}.
-   *
-   * <p>Method under test: {@link RepositoryServiceImpl#createNativeProcessDefinitionQuery()}
+   * <p>
+   * Method under test: {@link RepositoryServiceImpl#createNativeProcessDefinitionQuery()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "NativeProcessDefinitionQuery RepositoryServiceImpl.createNativeProcessDefinitionQuery()"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"NativeProcessDefinitionQuery RepositoryServiceImpl.createNativeProcessDefinitionQuery()"})
   public void testCreateNativeProcessDefinitionQuery() {
     // Arrange and Act
-    NativeProcessDefinitionQuery actualCreateNativeProcessDefinitionQueryResult =
-        new RepositoryServiceImpl().createNativeProcessDefinitionQuery();
+    NativeProcessDefinitionQuery actualCreateNativeProcessDefinitionQueryResult = (new RepositoryServiceImpl())
+        .createNativeProcessDefinitionQuery();
 
     // Assert
+    assertTrue(actualCreateNativeProcessDefinitionQueryResult instanceof NativeProcessDefinitionQueryImpl);
+    assertNull(((NativeProcessDefinitionQueryImpl) actualCreateNativeProcessDefinitionQueryResult).resultType);
+    assertNull(((NativeProcessDefinitionQueryImpl) actualCreateNativeProcessDefinitionQueryResult).commandContext);
+    assertNull(((NativeProcessDefinitionQueryImpl) actualCreateNativeProcessDefinitionQueryResult).commandExecutor);
+    assertEquals(0, ((NativeProcessDefinitionQueryImpl) actualCreateNativeProcessDefinitionQueryResult).firstResult);
     assertTrue(
-        actualCreateNativeProcessDefinitionQueryResult instanceof NativeProcessDefinitionQueryImpl);
-    assertNull(
-        ((NativeProcessDefinitionQueryImpl) actualCreateNativeProcessDefinitionQueryResult)
-            .resultType);
-    assertNull(
-        ((NativeProcessDefinitionQueryImpl) actualCreateNativeProcessDefinitionQueryResult)
-            .commandContext);
-    assertNull(
-        ((NativeProcessDefinitionQueryImpl) actualCreateNativeProcessDefinitionQueryResult)
-            .commandExecutor);
-    assertEquals(
-        0,
-        ((NativeProcessDefinitionQueryImpl) actualCreateNativeProcessDefinitionQueryResult)
-            .firstResult);
-    assertTrue(
-        ((NativeProcessDefinitionQueryImpl) actualCreateNativeProcessDefinitionQueryResult)
-            .getParameters()
-            .isEmpty());
-    assertEquals(
-        Integer.MAX_VALUE,
-        ((NativeProcessDefinitionQueryImpl) actualCreateNativeProcessDefinitionQueryResult)
-            .maxResults);
+        ((NativeProcessDefinitionQueryImpl) actualCreateNativeProcessDefinitionQueryResult).getParameters().isEmpty());
+    assertEquals(Integer.MAX_VALUE,
+        ((NativeProcessDefinitionQueryImpl) actualCreateNativeProcessDefinitionQueryResult).maxResults);
   }
 
   /**
    * Test {@link RepositoryServiceImpl#getDeploymentResourceNames(String)}.
-   *
    * <ul>
-   *   <li>Then return Empty.
+   *   <li>Then return Empty.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link RepositoryServiceImpl#getDeploymentResourceNames(String)}
+   * <p>
+   * Method under test: {@link RepositoryServiceImpl#getDeploymentResourceNames(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"List RepositoryServiceImpl.getDeploymentResourceNames(String)"})
   public void testGetDeploymentResourceNames_thenReturnEmpty() {
     // Arrange
@@ -427,8 +334,7 @@ public class RepositoryServiceImplDiffblueTest {
     repositoryServiceImpl.setCommandExecutor(commandExecutor);
 
     // Act
-    List<String> actualDeploymentResourceNames =
-        repositoryServiceImpl.getDeploymentResourceNames("42");
+    List<String> actualDeploymentResourceNames = repositoryServiceImpl.getDeploymentResourceNames("42");
 
     // Assert
     verify(first).execute(isA(CommandConfig.class), isA(Command.class));
@@ -437,16 +343,14 @@ public class RepositoryServiceImplDiffblueTest {
 
   /**
    * Test {@link RepositoryServiceImpl#getResourceAsStream(String, String)}.
-   *
    * <ul>
-   *   <li>Then return read is eight.
+   *   <li>Then return read is eight.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link RepositoryServiceImpl#getResourceAsStream(String, String)}
+   * <p>
+   * Method under test: {@link RepositoryServiceImpl#getResourceAsStream(String, String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"InputStream RepositoryServiceImpl.getResourceAsStream(String, String)"})
   public void testGetResourceAsStream_thenReturnReadIsEight() throws IOException {
     // Arrange
@@ -459,8 +363,7 @@ public class RepositoryServiceImplDiffblueTest {
     repositoryServiceImpl.setCommandExecutor(commandExecutor);
 
     // Act
-    InputStream actualResourceAsStream =
-        repositoryServiceImpl.getResourceAsStream("42", "Resource Name");
+    InputStream actualResourceAsStream = repositoryServiceImpl.getResourceAsStream("42", "Resource Name");
 
     // Assert
     verify(first).execute(isA(CommandConfig.class), isA(Command.class));
@@ -471,22 +374,19 @@ public class RepositoryServiceImplDiffblueTest {
 
   /**
    * Test {@link RepositoryServiceImpl#changeDeploymentTenantId(String, String)}.
-   *
    * <ul>
-   *   <li>Then calls {@link CommandContextInterceptor#execute(CommandConfig, Command)}.
+   *   <li>Then calls {@link CommandContextInterceptor#execute(CommandConfig, Command)}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link RepositoryServiceImpl#changeDeploymentTenantId(String, String)}
+   * <p>
+   * Method under test: {@link RepositoryServiceImpl#changeDeploymentTenantId(String, String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void RepositoryServiceImpl.changeDeploymentTenantId(String, String)"})
   public void testChangeDeploymentTenantId_thenCallsExecute() {
     // Arrange
     CommandContextInterceptor first = mock(CommandContextInterceptor.class);
-    when(first.execute(Mockito.<CommandConfig>any(), Mockito.<Command<Void>>any()))
-        .thenReturn(null);
+    when(first.execute(Mockito.<CommandConfig>any(), Mockito.<Command<Void>>any())).thenReturn(null);
     CommandExecutorImpl commandExecutor = new CommandExecutorImpl(new CommandConfig(), first);
 
     RepositoryServiceImpl repositoryServiceImpl = new RepositoryServiceImpl();
@@ -501,25 +401,20 @@ public class RepositoryServiceImplDiffblueTest {
 
   /**
    * Test {@link RepositoryServiceImpl#createDeploymentQuery()}.
-   *
-   * <p>Method under test: {@link RepositoryServiceImpl#createDeploymentQuery()}
+   * <p>
+   * Method under test: {@link RepositoryServiceImpl#createDeploymentQuery()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"DeploymentQuery RepositoryServiceImpl.createDeploymentQuery()"})
   public void testCreateDeploymentQuery() {
     // Arrange and Act
-    DeploymentQuery actualCreateDeploymentQueryResult =
-        new RepositoryServiceImpl().createDeploymentQuery();
+    DeploymentQuery actualCreateDeploymentQueryResult = (new RepositoryServiceImpl()).createDeploymentQuery();
 
     // Assert
     assertTrue(actualCreateDeploymentQueryResult instanceof DeploymentQueryImpl);
-    assertEquals(
-        "RES.ID_ asc", ((DeploymentQueryImpl) actualCreateDeploymentQueryResult).getOrderBy());
-    assertEquals(
-        "RES.ID_ asc",
-        ((DeploymentQueryImpl) actualCreateDeploymentQueryResult).getOrderByColumns());
+    assertEquals("RES.ID_ asc", ((DeploymentQueryImpl) actualCreateDeploymentQueryResult).getOrderBy());
+    assertEquals("RES.ID_ asc", ((DeploymentQueryImpl) actualCreateDeploymentQueryResult).getOrderByColumns());
     assertNull(((DeploymentQueryImpl) actualCreateDeploymentQueryResult).getParameter());
     assertNull(((DeploymentQueryImpl) actualCreateDeploymentQueryResult).getDatabaseType());
     assertNull(((DeploymentQueryImpl) actualCreateDeploymentQueryResult).getCategory());
@@ -528,8 +423,7 @@ public class RepositoryServiceImplDiffblueTest {
     assertNull(((DeploymentQueryImpl) actualCreateDeploymentQueryResult).getName());
     assertNull(((DeploymentQueryImpl) actualCreateDeploymentQueryResult).getNameLike());
     assertNull(((DeploymentQueryImpl) actualCreateDeploymentQueryResult).getProcessDefinitionKey());
-    assertNull(
-        ((DeploymentQueryImpl) actualCreateDeploymentQueryResult).getProcessDefinitionKeyLike());
+    assertNull(((DeploymentQueryImpl) actualCreateDeploymentQueryResult).getProcessDefinitionKeyLike());
     assertNull(((DeploymentQueryImpl) actualCreateDeploymentQueryResult).getTenantId());
     assertNull(((DeploymentQueryImpl) actualCreateDeploymentQueryResult).getTenantIdLike());
     assertNull(((DeploymentQueryImpl) actualCreateDeploymentQueryResult).orderBy);
@@ -546,57 +440,43 @@ public class RepositoryServiceImplDiffblueTest {
     assertFalse(((DeploymentQueryImpl) actualCreateDeploymentQueryResult).isLatestVersion());
     assertFalse(((DeploymentQueryImpl) actualCreateDeploymentQueryResult).isWithoutTenantId());
     assertFalse(((DeploymentQueryImpl) actualCreateDeploymentQueryResult).latest);
-    assertEquals(
-        Integer.MAX_VALUE, ((DeploymentQueryImpl) actualCreateDeploymentQueryResult).getLastRow());
-    assertEquals(
-        Integer.MAX_VALUE,
-        ((DeploymentQueryImpl) actualCreateDeploymentQueryResult).getMaxResults());
+    assertEquals(Integer.MAX_VALUE, ((DeploymentQueryImpl) actualCreateDeploymentQueryResult).getLastRow());
+    assertEquals(Integer.MAX_VALUE, ((DeploymentQueryImpl) actualCreateDeploymentQueryResult).getMaxResults());
   }
 
   /**
    * Test {@link RepositoryServiceImpl#createNativeDeploymentQuery()}.
-   *
-   * <p>Method under test: {@link RepositoryServiceImpl#createNativeDeploymentQuery()}
+   * <p>
+   * Method under test: {@link RepositoryServiceImpl#createNativeDeploymentQuery()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"NativeDeploymentQuery RepositoryServiceImpl.createNativeDeploymentQuery()"})
   public void testCreateNativeDeploymentQuery() {
     // Arrange and Act
-    NativeDeploymentQuery actualCreateNativeDeploymentQueryResult =
-        new RepositoryServiceImpl().createNativeDeploymentQuery();
+    NativeDeploymentQuery actualCreateNativeDeploymentQueryResult = (new RepositoryServiceImpl())
+        .createNativeDeploymentQuery();
 
     // Assert
     assertTrue(actualCreateNativeDeploymentQueryResult instanceof NativeDeploymentQueryImpl);
     assertNull(((NativeDeploymentQueryImpl) actualCreateNativeDeploymentQueryResult).resultType);
-    assertNull(
-        ((NativeDeploymentQueryImpl) actualCreateNativeDeploymentQueryResult).commandContext);
-    assertNull(
-        ((NativeDeploymentQueryImpl) actualCreateNativeDeploymentQueryResult).commandExecutor);
-    assertEquals(
-        0, ((NativeDeploymentQueryImpl) actualCreateNativeDeploymentQueryResult).firstResult);
-    assertTrue(
-        ((NativeDeploymentQueryImpl) actualCreateNativeDeploymentQueryResult)
-            .getParameters()
-            .isEmpty());
-    assertEquals(
-        Integer.MAX_VALUE,
-        ((NativeDeploymentQueryImpl) actualCreateNativeDeploymentQueryResult).maxResults);
+    assertNull(((NativeDeploymentQueryImpl) actualCreateNativeDeploymentQueryResult).commandContext);
+    assertNull(((NativeDeploymentQueryImpl) actualCreateNativeDeploymentQueryResult).commandExecutor);
+    assertEquals(0, ((NativeDeploymentQueryImpl) actualCreateNativeDeploymentQueryResult).firstResult);
+    assertTrue(((NativeDeploymentQueryImpl) actualCreateNativeDeploymentQueryResult).getParameters().isEmpty());
+    assertEquals(Integer.MAX_VALUE, ((NativeDeploymentQueryImpl) actualCreateNativeDeploymentQueryResult).maxResults);
   }
 
   /**
    * Test {@link RepositoryServiceImpl#getProcessDefinition(String)}.
-   *
    * <ul>
-   *   <li>Then return {@link ProcessDefinitionEntityImpl} (default constructor).
+   *   <li>Then return {@link ProcessDefinitionEntityImpl} (default constructor).</li>
    * </ul>
-   *
-   * <p>Method under test: {@link RepositoryServiceImpl#getProcessDefinition(String)}
+   * <p>
+   * Method under test: {@link RepositoryServiceImpl#getProcessDefinition(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"ProcessDefinition RepositoryServiceImpl.getProcessDefinition(String)"})
   public void testGetProcessDefinition_thenReturnProcessDefinitionEntityImpl() {
     // Arrange
@@ -619,23 +499,20 @@ public class RepositoryServiceImplDiffblueTest {
 
   /**
    * Test {@link RepositoryServiceImpl#getBpmnModel(String)}.
-   *
    * <ul>
-   *   <li>Then return createOneTaskBpmnModel.
+   *   <li>Then return {@link BpmnModel} (default constructor).</li>
    * </ul>
-   *
-   * <p>Method under test: {@link RepositoryServiceImpl#getBpmnModel(String)}
+   * <p>
+   * Method under test: {@link RepositoryServiceImpl#getBpmnModel(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"BpmnModel RepositoryServiceImpl.getBpmnModel(String)"})
-  public void testGetBpmnModel_thenReturnCreateOneTaskBpmnModel() {
+  public void testGetBpmnModel_thenReturnBpmnModel() {
     // Arrange
     CommandContextInterceptor first = mock(CommandContextInterceptor.class);
-    BpmnModel createOneTaskBpmnModelResult = TestProcessUtil.createOneTaskBpmnModel();
-    when(first.execute(Mockito.<CommandConfig>any(), Mockito.<Command<BpmnModel>>any()))
-        .thenReturn(createOneTaskBpmnModelResult);
+    BpmnModel bpmnModel = new BpmnModel();
+    when(first.execute(Mockito.<CommandConfig>any(), Mockito.<Command<BpmnModel>>any())).thenReturn(bpmnModel);
     CommandExecutorImpl commandExecutor = new CommandExecutorImpl(new CommandConfig(), first);
 
     RepositoryServiceImpl repositoryServiceImpl = new RepositoryServiceImpl();
@@ -646,24 +523,20 @@ public class RepositoryServiceImplDiffblueTest {
 
     // Assert
     verify(first).execute(isA(CommandConfig.class), isA(Command.class));
-    assertSame(createOneTaskBpmnModelResult, actualBpmnModel);
+    assertSame(bpmnModel, actualBpmnModel);
   }
 
   /**
    * Test {@link RepositoryServiceImpl#getDeployedProcessDefinition(String)}.
-   *
    * <ul>
-   *   <li>Then return {@link ProcessDefinitionEntityImpl} (default constructor).
+   *   <li>Then return {@link ProcessDefinitionEntityImpl} (default constructor).</li>
    * </ul>
-   *
-   * <p>Method under test: {@link RepositoryServiceImpl#getDeployedProcessDefinition(String)}
+   * <p>
+   * Method under test: {@link RepositoryServiceImpl#getDeployedProcessDefinition(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "ProcessDefinition RepositoryServiceImpl.getDeployedProcessDefinition(String)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"ProcessDefinition RepositoryServiceImpl.getDeployedProcessDefinition(String)"})
   public void testGetDeployedProcessDefinition_thenReturnProcessDefinitionEntityImpl() {
     // Arrange
     CommandContextInterceptor first = mock(CommandContextInterceptor.class);
@@ -676,8 +549,7 @@ public class RepositoryServiceImplDiffblueTest {
     repositoryServiceImpl.setCommandExecutor(commandExecutor);
 
     // Act
-    ProcessDefinition actualDeployedProcessDefinition =
-        repositoryServiceImpl.getDeployedProcessDefinition("42");
+    ProcessDefinition actualDeployedProcessDefinition = repositoryServiceImpl.getDeployedProcessDefinition("42");
 
     // Assert
     verify(first).execute(isA(CommandConfig.class), isA(Command.class));
@@ -686,60 +558,54 @@ public class RepositoryServiceImplDiffblueTest {
 
   /**
    * Test {@link RepositoryServiceImpl#isProcessDefinitionSuspended(String)}.
-   *
    * <ul>
-   *   <li>Then return {@code false}.
+   *   <li>Then return {@code false}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link RepositoryServiceImpl#isProcessDefinitionSuspended(String)}
+   * <p>
+   * Method under test: {@link RepositoryServiceImpl#isProcessDefinitionSuspended(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"boolean RepositoryServiceImpl.isProcessDefinitionSuspended(String)"})
   public void testIsProcessDefinitionSuspended_thenReturnFalse() {
     // Arrange
-    CommandExecutor commandExecutor = mock(CommandExecutor.class);
-    when(commandExecutor.execute(Mockito.<Command<Boolean>>any())).thenReturn(false);
-
-    RepositoryServiceImpl repositoryServiceImpl = new RepositoryServiceImpl();
-    repositoryServiceImpl.setCommandExecutor(commandExecutor);
-
-    // Act
-    boolean actualIsProcessDefinitionSuspendedResult =
-        repositoryServiceImpl.isProcessDefinitionSuspended("42");
-
-    // Assert
-    verify(commandExecutor).execute(isA(Command.class));
-    assertFalse(actualIsProcessDefinitionSuspendedResult);
-  }
-
-  /**
-   * Test {@link RepositoryServiceImpl#isProcessDefinitionSuspended(String)}.
-   *
-   * <ul>
-   *   <li>Then return {@code true}.
-   * </ul>
-   *
-   * <p>Method under test: {@link RepositoryServiceImpl#isProcessDefinitionSuspended(String)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"boolean RepositoryServiceImpl.isProcessDefinitionSuspended(String)"})
-  public void testIsProcessDefinitionSuspended_thenReturnTrue() {
-    // Arrange
     CommandContextInterceptor first = mock(CommandContextInterceptor.class);
-    when(first.execute(Mockito.<CommandConfig>any(), Mockito.<Command<Boolean>>any()))
-        .thenReturn(true);
+    when(first.execute(Mockito.<CommandConfig>any(), Mockito.<Command<Boolean>>any())).thenReturn(false);
     CommandExecutorImpl commandExecutor = new CommandExecutorImpl(new CommandConfig(), first);
 
     RepositoryServiceImpl repositoryServiceImpl = new RepositoryServiceImpl();
     repositoryServiceImpl.setCommandExecutor(commandExecutor);
 
     // Act
-    boolean actualIsProcessDefinitionSuspendedResult =
-        repositoryServiceImpl.isProcessDefinitionSuspended("42");
+    boolean actualIsProcessDefinitionSuspendedResult = repositoryServiceImpl.isProcessDefinitionSuspended("42");
+
+    // Assert
+    verify(first).execute(isA(CommandConfig.class), isA(Command.class));
+    assertFalse(actualIsProcessDefinitionSuspendedResult);
+  }
+
+  /**
+   * Test {@link RepositoryServiceImpl#isProcessDefinitionSuspended(String)}.
+   * <ul>
+   *   <li>Then return {@code true}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link RepositoryServiceImpl#isProcessDefinitionSuspended(String)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean RepositoryServiceImpl.isProcessDefinitionSuspended(String)"})
+  public void testIsProcessDefinitionSuspended_thenReturnTrue() {
+    // Arrange
+    CommandContextInterceptor first = mock(CommandContextInterceptor.class);
+    when(first.execute(Mockito.<CommandConfig>any(), Mockito.<Command<Boolean>>any())).thenReturn(true);
+    CommandExecutorImpl commandExecutor = new CommandExecutorImpl(new CommandConfig(), first);
+
+    RepositoryServiceImpl repositoryServiceImpl = new RepositoryServiceImpl();
+    repositoryServiceImpl.setCommandExecutor(commandExecutor);
+
+    // Act
+    boolean actualIsProcessDefinitionSuspendedResult = repositoryServiceImpl.isProcessDefinitionSuspended("42");
 
     // Assert
     verify(first).execute(isA(CommandConfig.class), isA(Command.class));
@@ -747,33 +613,24 @@ public class RepositoryServiceImplDiffblueTest {
   }
 
   /**
-   * Test {@link RepositoryServiceImpl#suspendProcessDefinitionById(String, boolean, Date)} with
-   * {@code processDefinitionId}, {@code suspendProcessInstances}, {@code suspensionDate}.
-   *
-   * <p>Method under test: {@link RepositoryServiceImpl#suspendProcessDefinitionById(String,
-   * boolean, Date)}
+   * Test {@link RepositoryServiceImpl#suspendProcessDefinitionById(String, boolean, Date)} with {@code processDefinitionId}, {@code suspendProcessInstances}, {@code suspensionDate}.
+   * <p>
+   * Method under test: {@link RepositoryServiceImpl#suspendProcessDefinitionById(String, boolean, Date)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void RepositoryServiceImpl.suspendProcessDefinitionById(String, boolean, Date)"
-  })
-  public void
-      testSuspendProcessDefinitionByIdWithProcessDefinitionIdSuspendProcessInstancesSuspensionDate() {
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void RepositoryServiceImpl.suspendProcessDefinitionById(String, boolean, Date)"})
+  public void testSuspendProcessDefinitionByIdWithProcessDefinitionIdSuspendProcessInstancesSuspensionDate() {
     // Arrange
     CommandContextInterceptor first = mock(CommandContextInterceptor.class);
-    when(first.execute(Mockito.<CommandConfig>any(), Mockito.<Command<Void>>any()))
-        .thenReturn(null);
+    when(first.execute(Mockito.<CommandConfig>any(), Mockito.<Command<Void>>any())).thenReturn(null);
     CommandExecutorImpl commandExecutor = new CommandExecutorImpl(new CommandConfig(), first);
 
     RepositoryServiceImpl repositoryServiceImpl = new RepositoryServiceImpl();
     repositoryServiceImpl.setCommandExecutor(commandExecutor);
 
     // Act
-    repositoryServiceImpl.suspendProcessDefinitionById(
-        "42",
-        true,
+    repositoryServiceImpl.suspendProcessDefinitionById("42", true,
         Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
 
     // Assert
@@ -781,24 +638,20 @@ public class RepositoryServiceImplDiffblueTest {
   }
 
   /**
-   * Test {@link RepositoryServiceImpl#suspendProcessDefinitionById(String)} with {@code
-   * processDefinitionId}.
-   *
+   * Test {@link RepositoryServiceImpl#suspendProcessDefinitionById(String)} with {@code processDefinitionId}.
    * <ul>
-   *   <li>Then calls {@link CommandContextInterceptor#execute(CommandConfig, Command)}.
+   *   <li>Then calls {@link CommandContextInterceptor#execute(CommandConfig, Command)}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link RepositoryServiceImpl#suspendProcessDefinitionById(String)}
+   * <p>
+   * Method under test: {@link RepositoryServiceImpl#suspendProcessDefinitionById(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void RepositoryServiceImpl.suspendProcessDefinitionById(String)"})
   public void testSuspendProcessDefinitionByIdWithProcessDefinitionId_thenCallsExecute() {
     // Arrange
     CommandContextInterceptor first = mock(CommandContextInterceptor.class);
-    when(first.execute(Mockito.<CommandConfig>any(), Mockito.<Command<Void>>any()))
-        .thenReturn(null);
+    when(first.execute(Mockito.<CommandConfig>any(), Mockito.<Command<Void>>any())).thenReturn(null);
     CommandExecutorImpl commandExecutor = new CommandExecutorImpl(new CommandConfig(), first);
 
     RepositoryServiceImpl repositoryServiceImpl = new RepositoryServiceImpl();
@@ -812,33 +665,24 @@ public class RepositoryServiceImplDiffblueTest {
   }
 
   /**
-   * Test {@link RepositoryServiceImpl#suspendProcessDefinitionByKey(String, boolean, Date)} with
-   * {@code processDefinitionKey}, {@code suspendProcessInstances}, {@code suspensionDate}.
-   *
-   * <p>Method under test: {@link RepositoryServiceImpl#suspendProcessDefinitionByKey(String,
-   * boolean, Date)}
+   * Test {@link RepositoryServiceImpl#suspendProcessDefinitionByKey(String, boolean, Date)} with {@code processDefinitionKey}, {@code suspendProcessInstances}, {@code suspensionDate}.
+   * <p>
+   * Method under test: {@link RepositoryServiceImpl#suspendProcessDefinitionByKey(String, boolean, Date)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void RepositoryServiceImpl.suspendProcessDefinitionByKey(String, boolean, Date)"
-  })
-  public void
-      testSuspendProcessDefinitionByKeyWithProcessDefinitionKeySuspendProcessInstancesSuspensionDate() {
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void RepositoryServiceImpl.suspendProcessDefinitionByKey(String, boolean, Date)"})
+  public void testSuspendProcessDefinitionByKeyWithProcessDefinitionKeySuspendProcessInstancesSuspensionDate() {
     // Arrange
     CommandContextInterceptor first = mock(CommandContextInterceptor.class);
-    when(first.execute(Mockito.<CommandConfig>any(), Mockito.<Command<Void>>any()))
-        .thenReturn(null);
+    when(first.execute(Mockito.<CommandConfig>any(), Mockito.<Command<Void>>any())).thenReturn(null);
     CommandExecutorImpl commandExecutor = new CommandExecutorImpl(new CommandConfig(), first);
 
     RepositoryServiceImpl repositoryServiceImpl = new RepositoryServiceImpl();
     repositoryServiceImpl.setCommandExecutor(commandExecutor);
 
     // Act
-    repositoryServiceImpl.suspendProcessDefinitionByKey(
-        "Process Definition Key",
-        true,
+    repositoryServiceImpl.suspendProcessDefinitionByKey("Process Definition Key", true,
         Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
 
     // Assert
@@ -846,57 +690,17 @@ public class RepositoryServiceImplDiffblueTest {
   }
 
   /**
-   * Test {@link RepositoryServiceImpl#suspendProcessDefinitionByKey(String, boolean, Date, String)}
-   * with {@code processDefinitionKey}, {@code suspendProcessInstances}, {@code suspensionDate},
-   * {@code tenantId}.
-   *
-   * <p>Method under test: {@link RepositoryServiceImpl#suspendProcessDefinitionByKey(String,
-   * boolean, Date, String)}
+   * Test {@link RepositoryServiceImpl#suspendProcessDefinitionByKey(String, String)} with {@code processDefinitionKey}, {@code tenantId}.
+   * <p>
+   * Method under test: {@link RepositoryServiceImpl#suspendProcessDefinitionByKey(String, String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void RepositoryServiceImpl.suspendProcessDefinitionByKey(String, boolean, Date, String)"
-  })
-  public void
-      testSuspendProcessDefinitionByKeyWithProcessDefinitionKeySuspendProcessInstancesSuspensionDateTenantId() {
-    // Arrange
-    CommandContextInterceptor first = mock(CommandContextInterceptor.class);
-    when(first.execute(Mockito.<CommandConfig>any(), Mockito.<Command<Void>>any()))
-        .thenReturn(null);
-    CommandExecutorImpl commandExecutor = new CommandExecutorImpl(new CommandConfig(), first);
-
-    RepositoryServiceImpl repositoryServiceImpl = new RepositoryServiceImpl();
-    repositoryServiceImpl.setCommandExecutor(commandExecutor);
-
-    // Act
-    repositoryServiceImpl.suspendProcessDefinitionByKey(
-        "Process Definition Key",
-        true,
-        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()),
-        "42");
-
-    // Assert
-    verify(first).execute(isA(CommandConfig.class), isA(Command.class));
-  }
-
-  /**
-   * Test {@link RepositoryServiceImpl#suspendProcessDefinitionByKey(String, String)} with {@code
-   * processDefinitionKey}, {@code tenantId}.
-   *
-   * <p>Method under test: {@link RepositoryServiceImpl#suspendProcessDefinitionByKey(String,
-   * String)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void RepositoryServiceImpl.suspendProcessDefinitionByKey(String, String)"})
   public void testSuspendProcessDefinitionByKeyWithProcessDefinitionKeyTenantId() {
     // Arrange
     CommandContextInterceptor first = mock(CommandContextInterceptor.class);
-    when(first.execute(Mockito.<CommandConfig>any(), Mockito.<Command<Void>>any()))
-        .thenReturn(null);
+    when(first.execute(Mockito.<CommandConfig>any(), Mockito.<Command<Void>>any())).thenReturn(null);
     CommandExecutorImpl commandExecutor = new CommandExecutorImpl(new CommandConfig(), first);
 
     RepositoryServiceImpl repositoryServiceImpl = new RepositoryServiceImpl();
@@ -910,24 +714,20 @@ public class RepositoryServiceImplDiffblueTest {
   }
 
   /**
-   * Test {@link RepositoryServiceImpl#suspendProcessDefinitionByKey(String)} with {@code
-   * processDefinitionKey}.
-   *
+   * Test {@link RepositoryServiceImpl#suspendProcessDefinitionByKey(String)} with {@code processDefinitionKey}.
    * <ul>
-   *   <li>Then calls {@link CommandContextInterceptor#execute(CommandConfig, Command)}.
+   *   <li>Then calls {@link CommandContextInterceptor#execute(CommandConfig, Command)}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link RepositoryServiceImpl#suspendProcessDefinitionByKey(String)}
+   * <p>
+   * Method under test: {@link RepositoryServiceImpl#suspendProcessDefinitionByKey(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void RepositoryServiceImpl.suspendProcessDefinitionByKey(String)"})
   public void testSuspendProcessDefinitionByKeyWithProcessDefinitionKey_thenCallsExecute() {
     // Arrange
     CommandContextInterceptor first = mock(CommandContextInterceptor.class);
-    when(first.execute(Mockito.<CommandConfig>any(), Mockito.<Command<Void>>any()))
-        .thenReturn(null);
+    when(first.execute(Mockito.<CommandConfig>any(), Mockito.<Command<Void>>any())).thenReturn(null);
     CommandExecutorImpl commandExecutor = new CommandExecutorImpl(new CommandConfig(), first);
 
     RepositoryServiceImpl repositoryServiceImpl = new RepositoryServiceImpl();
@@ -941,33 +741,24 @@ public class RepositoryServiceImplDiffblueTest {
   }
 
   /**
-   * Test {@link RepositoryServiceImpl#activateProcessDefinitionById(String, boolean, Date)} with
-   * {@code processDefinitionId}, {@code activateProcessInstances}, {@code activationDate}.
-   *
-   * <p>Method under test: {@link RepositoryServiceImpl#activateProcessDefinitionById(String,
-   * boolean, Date)}
+   * Test {@link RepositoryServiceImpl#activateProcessDefinitionById(String, boolean, Date)} with {@code processDefinitionId}, {@code activateProcessInstances}, {@code activationDate}.
+   * <p>
+   * Method under test: {@link RepositoryServiceImpl#activateProcessDefinitionById(String, boolean, Date)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void RepositoryServiceImpl.activateProcessDefinitionById(String, boolean, Date)"
-  })
-  public void
-      testActivateProcessDefinitionByIdWithProcessDefinitionIdActivateProcessInstancesActivationDate() {
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void RepositoryServiceImpl.activateProcessDefinitionById(String, boolean, Date)"})
+  public void testActivateProcessDefinitionByIdWithProcessDefinitionIdActivateProcessInstancesActivationDate() {
     // Arrange
     CommandContextInterceptor first = mock(CommandContextInterceptor.class);
-    when(first.execute(Mockito.<CommandConfig>any(), Mockito.<Command<Void>>any()))
-        .thenReturn(null);
+    when(first.execute(Mockito.<CommandConfig>any(), Mockito.<Command<Void>>any())).thenReturn(null);
     CommandExecutorImpl commandExecutor = new CommandExecutorImpl(new CommandConfig(), first);
 
     RepositoryServiceImpl repositoryServiceImpl = new RepositoryServiceImpl();
     repositoryServiceImpl.setCommandExecutor(commandExecutor);
 
     // Act
-    repositoryServiceImpl.activateProcessDefinitionById(
-        "42",
-        true,
+    repositoryServiceImpl.activateProcessDefinitionById("42", true,
         Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
 
     // Assert
@@ -975,24 +766,20 @@ public class RepositoryServiceImplDiffblueTest {
   }
 
   /**
-   * Test {@link RepositoryServiceImpl#activateProcessDefinitionById(String)} with {@code
-   * processDefinitionId}.
-   *
+   * Test {@link RepositoryServiceImpl#activateProcessDefinitionById(String)} with {@code processDefinitionId}.
    * <ul>
-   *   <li>Then calls {@link CommandContextInterceptor#execute(CommandConfig, Command)}.
+   *   <li>Then calls {@link CommandContextInterceptor#execute(CommandConfig, Command)}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link RepositoryServiceImpl#activateProcessDefinitionById(String)}
+   * <p>
+   * Method under test: {@link RepositoryServiceImpl#activateProcessDefinitionById(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void RepositoryServiceImpl.activateProcessDefinitionById(String)"})
   public void testActivateProcessDefinitionByIdWithProcessDefinitionId_thenCallsExecute() {
     // Arrange
     CommandContextInterceptor first = mock(CommandContextInterceptor.class);
-    when(first.execute(Mockito.<CommandConfig>any(), Mockito.<Command<Void>>any()))
-        .thenReturn(null);
+    when(first.execute(Mockito.<CommandConfig>any(), Mockito.<Command<Void>>any())).thenReturn(null);
     CommandExecutorImpl commandExecutor = new CommandExecutorImpl(new CommandConfig(), first);
 
     RepositoryServiceImpl repositoryServiceImpl = new RepositoryServiceImpl();
@@ -1006,33 +793,24 @@ public class RepositoryServiceImplDiffblueTest {
   }
 
   /**
-   * Test {@link RepositoryServiceImpl#activateProcessDefinitionByKey(String, boolean, Date)} with
-   * {@code processDefinitionKey}, {@code activateProcessInstances}, {@code activationDate}.
-   *
-   * <p>Method under test: {@link RepositoryServiceImpl#activateProcessDefinitionByKey(String,
-   * boolean, Date)}
+   * Test {@link RepositoryServiceImpl#activateProcessDefinitionByKey(String, boolean, Date)} with {@code processDefinitionKey}, {@code activateProcessInstances}, {@code activationDate}.
+   * <p>
+   * Method under test: {@link RepositoryServiceImpl#activateProcessDefinitionByKey(String, boolean, Date)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void RepositoryServiceImpl.activateProcessDefinitionByKey(String, boolean, Date)"
-  })
-  public void
-      testActivateProcessDefinitionByKeyWithProcessDefinitionKeyActivateProcessInstancesActivationDate() {
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void RepositoryServiceImpl.activateProcessDefinitionByKey(String, boolean, Date)"})
+  public void testActivateProcessDefinitionByKeyWithProcessDefinitionKeyActivateProcessInstancesActivationDate() {
     // Arrange
     CommandContextInterceptor first = mock(CommandContextInterceptor.class);
-    when(first.execute(Mockito.<CommandConfig>any(), Mockito.<Command<Void>>any()))
-        .thenReturn(null);
+    when(first.execute(Mockito.<CommandConfig>any(), Mockito.<Command<Void>>any())).thenReturn(null);
     CommandExecutorImpl commandExecutor = new CommandExecutorImpl(new CommandConfig(), first);
 
     RepositoryServiceImpl repositoryServiceImpl = new RepositoryServiceImpl();
     repositoryServiceImpl.setCommandExecutor(commandExecutor);
 
     // Act
-    repositoryServiceImpl.activateProcessDefinitionByKey(
-        "Process Definition Key",
-        true,
+    repositoryServiceImpl.activateProcessDefinitionByKey("Process Definition Key", true,
         Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
 
     // Assert
@@ -1040,57 +818,17 @@ public class RepositoryServiceImplDiffblueTest {
   }
 
   /**
-   * Test {@link RepositoryServiceImpl#activateProcessDefinitionByKey(String, boolean, Date,
-   * String)} with {@code processDefinitionKey}, {@code activateProcessInstances}, {@code
-   * activationDate}, {@code tenantId}.
-   *
-   * <p>Method under test: {@link RepositoryServiceImpl#activateProcessDefinitionByKey(String,
-   * boolean, Date, String)}
+   * Test {@link RepositoryServiceImpl#activateProcessDefinitionByKey(String, String)} with {@code processDefinitionKey}, {@code tenantId}.
+   * <p>
+   * Method under test: {@link RepositoryServiceImpl#activateProcessDefinitionByKey(String, String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void RepositoryServiceImpl.activateProcessDefinitionByKey(String, boolean, Date, String)"
-  })
-  public void
-      testActivateProcessDefinitionByKeyWithProcessDefinitionKeyActivateProcessInstancesActivationDateTenantId() {
-    // Arrange
-    CommandContextInterceptor first = mock(CommandContextInterceptor.class);
-    when(first.execute(Mockito.<CommandConfig>any(), Mockito.<Command<Void>>any()))
-        .thenReturn(null);
-    CommandExecutorImpl commandExecutor = new CommandExecutorImpl(new CommandConfig(), first);
-
-    RepositoryServiceImpl repositoryServiceImpl = new RepositoryServiceImpl();
-    repositoryServiceImpl.setCommandExecutor(commandExecutor);
-
-    // Act
-    repositoryServiceImpl.activateProcessDefinitionByKey(
-        "Process Definition Key",
-        true,
-        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()),
-        "42");
-
-    // Assert
-    verify(first).execute(isA(CommandConfig.class), isA(Command.class));
-  }
-
-  /**
-   * Test {@link RepositoryServiceImpl#activateProcessDefinitionByKey(String, String)} with {@code
-   * processDefinitionKey}, {@code tenantId}.
-   *
-   * <p>Method under test: {@link RepositoryServiceImpl#activateProcessDefinitionByKey(String,
-   * String)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void RepositoryServiceImpl.activateProcessDefinitionByKey(String, String)"})
   public void testActivateProcessDefinitionByKeyWithProcessDefinitionKeyTenantId() {
     // Arrange
     CommandContextInterceptor first = mock(CommandContextInterceptor.class);
-    when(first.execute(Mockito.<CommandConfig>any(), Mockito.<Command<Void>>any()))
-        .thenReturn(null);
+    when(first.execute(Mockito.<CommandConfig>any(), Mockito.<Command<Void>>any())).thenReturn(null);
     CommandExecutorImpl commandExecutor = new CommandExecutorImpl(new CommandConfig(), first);
 
     RepositoryServiceImpl repositoryServiceImpl = new RepositoryServiceImpl();
@@ -1104,24 +842,20 @@ public class RepositoryServiceImplDiffblueTest {
   }
 
   /**
-   * Test {@link RepositoryServiceImpl#activateProcessDefinitionByKey(String)} with {@code
-   * processDefinitionKey}.
-   *
+   * Test {@link RepositoryServiceImpl#activateProcessDefinitionByKey(String)} with {@code processDefinitionKey}.
    * <ul>
-   *   <li>Then calls {@link CommandContextInterceptor#execute(CommandConfig, Command)}.
+   *   <li>Then calls {@link CommandContextInterceptor#execute(CommandConfig, Command)}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link RepositoryServiceImpl#activateProcessDefinitionByKey(String)}
+   * <p>
+   * Method under test: {@link RepositoryServiceImpl#activateProcessDefinitionByKey(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void RepositoryServiceImpl.activateProcessDefinitionByKey(String)"})
   public void testActivateProcessDefinitionByKeyWithProcessDefinitionKey_thenCallsExecute() {
     // Arrange
     CommandContextInterceptor first = mock(CommandContextInterceptor.class);
-    when(first.execute(Mockito.<CommandConfig>any(), Mockito.<Command<Void>>any()))
-        .thenReturn(null);
+    when(first.execute(Mockito.<CommandConfig>any(), Mockito.<Command<Void>>any())).thenReturn(null);
     CommandExecutorImpl commandExecutor = new CommandExecutorImpl(new CommandConfig(), first);
 
     RepositoryServiceImpl repositoryServiceImpl = new RepositoryServiceImpl();
@@ -1136,23 +870,19 @@ public class RepositoryServiceImplDiffblueTest {
 
   /**
    * Test {@link RepositoryServiceImpl#setProcessDefinitionCategory(String, String)}.
-   *
    * <ul>
-   *   <li>Then calls {@link CommandContextInterceptor#execute(CommandConfig, Command)}.
+   *   <li>Then calls {@link CommandContextInterceptor#execute(CommandConfig, Command)}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link RepositoryServiceImpl#setProcessDefinitionCategory(String,
-   * String)}
+   * <p>
+   * Method under test: {@link RepositoryServiceImpl#setProcessDefinitionCategory(String, String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void RepositoryServiceImpl.setProcessDefinitionCategory(String, String)"})
   public void testSetProcessDefinitionCategory_thenCallsExecute() {
     // Arrange
     CommandContextInterceptor first = mock(CommandContextInterceptor.class);
-    when(first.execute(Mockito.<CommandConfig>any(), Mockito.<Command<Void>>any()))
-        .thenReturn(null);
+    when(first.execute(Mockito.<CommandConfig>any(), Mockito.<Command<Void>>any())).thenReturn(null);
     CommandExecutorImpl commandExecutor = new CommandExecutorImpl(new CommandConfig(), first);
 
     RepositoryServiceImpl repositoryServiceImpl = new RepositoryServiceImpl();
@@ -1167,16 +897,14 @@ public class RepositoryServiceImplDiffblueTest {
 
   /**
    * Test {@link RepositoryServiceImpl#getProcessModel(String)}.
-   *
    * <ul>
-   *   <li>Then return read is eight.
+   *   <li>Then return read is eight.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link RepositoryServiceImpl#getProcessModel(String)}
+   * <p>
+   * Method under test: {@link RepositoryServiceImpl#getProcessModel(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"InputStream RepositoryServiceImpl.getProcessModel(String)"})
   public void testGetProcessModel_thenReturnReadIsEight() throws IOException {
     // Arrange
@@ -1200,23 +928,20 @@ public class RepositoryServiceImplDiffblueTest {
 
   /**
    * Test {@link RepositoryServiceImpl#newModel()}.
-   *
    * <ul>
-   *   <li>Then return {@link ModelEntityImpl} (default constructor).
+   *   <li>Then return {@link ModelEntityImpl} (default constructor).</li>
    * </ul>
-   *
-   * <p>Method under test: {@link RepositoryServiceImpl#newModel()}
+   * <p>
+   * Method under test: {@link RepositoryServiceImpl#newModel()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"Model RepositoryServiceImpl.newModel()"})
   public void testNewModel_thenReturnModelEntityImpl() {
     // Arrange
     CommandContextInterceptor first = mock(CommandContextInterceptor.class);
     ModelEntityImpl modelEntityImpl = new ModelEntityImpl();
-    when(first.execute(Mockito.<CommandConfig>any(), Mockito.<Command<Model>>any()))
-        .thenReturn(modelEntityImpl);
+    when(first.execute(Mockito.<CommandConfig>any(), Mockito.<Command<Model>>any())).thenReturn(modelEntityImpl);
     CommandExecutorImpl commandExecutor = new CommandExecutorImpl(new CommandConfig(), first);
 
     RepositoryServiceImpl repositoryServiceImpl = new RepositoryServiceImpl();
@@ -1232,24 +957,20 @@ public class RepositoryServiceImplDiffblueTest {
 
   /**
    * Test {@link RepositoryServiceImpl#deleteModel(String)}.
-   *
    * <ul>
-   *   <li>Given {@link CommandContextInterceptor} {@link
-   *       CommandContextInterceptor#execute(CommandConfig, Command)} return {@code null}.
-   *   <li>Then calls {@link CommandContextInterceptor#execute(CommandConfig, Command)}.
+   *   <li>Given {@link CommandContextInterceptor} {@link CommandContextInterceptor#execute(CommandConfig, Command)} return {@code null}.</li>
+   *   <li>Then calls {@link CommandContextInterceptor#execute(CommandConfig, Command)}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link RepositoryServiceImpl#deleteModel(String)}
+   * <p>
+   * Method under test: {@link RepositoryServiceImpl#deleteModel(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void RepositoryServiceImpl.deleteModel(String)"})
   public void testDeleteModel_givenCommandContextInterceptorExecuteReturnNull_thenCallsExecute() {
     // Arrange
     CommandContextInterceptor first = mock(CommandContextInterceptor.class);
-    when(first.execute(Mockito.<CommandConfig>any(), Mockito.<Command<Void>>any()))
-        .thenReturn(null);
+    when(first.execute(Mockito.<CommandConfig>any(), Mockito.<Command<Void>>any())).thenReturn(null);
     CommandExecutorImpl commandExecutor = new CommandExecutorImpl(new CommandConfig(), first);
 
     RepositoryServiceImpl repositoryServiceImpl = new RepositoryServiceImpl();
@@ -1264,22 +985,19 @@ public class RepositoryServiceImplDiffblueTest {
 
   /**
    * Test {@link RepositoryServiceImpl#addModelEditorSource(String, byte[])}.
-   *
    * <ul>
-   *   <li>Then calls {@link CommandContextInterceptor#execute(CommandConfig, Command)}.
+   *   <li>Then calls {@link CommandContextInterceptor#execute(CommandConfig, Command)}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link RepositoryServiceImpl#addModelEditorSource(String, byte[])}
+   * <p>
+   * Method under test: {@link RepositoryServiceImpl#addModelEditorSource(String, byte[])}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void RepositoryServiceImpl.addModelEditorSource(String, byte[])"})
   public void testAddModelEditorSource_thenCallsExecute() throws UnsupportedEncodingException {
     // Arrange
     CommandContextInterceptor first = mock(CommandContextInterceptor.class);
-    when(first.execute(Mockito.<CommandConfig>any(), Mockito.<Command<Object>>any()))
-        .thenReturn(JSONObject.NULL);
+    when(first.execute(Mockito.<CommandConfig>any(), Mockito.<Command<Object>>any())).thenReturn(JSONObject.NULL);
     CommandExecutorImpl commandExecutor = new CommandExecutorImpl(new CommandConfig(), first);
 
     RepositoryServiceImpl repositoryServiceImpl = new RepositoryServiceImpl();
@@ -1294,22 +1012,19 @@ public class RepositoryServiceImplDiffblueTest {
 
   /**
    * Test {@link RepositoryServiceImpl#addModelEditorSourceExtra(String, byte[])}.
-   *
    * <ul>
-   *   <li>Then calls {@link CommandContextInterceptor#execute(CommandConfig, Command)}.
+   *   <li>Then calls {@link CommandContextInterceptor#execute(CommandConfig, Command)}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link RepositoryServiceImpl#addModelEditorSourceExtra(String, byte[])}
+   * <p>
+   * Method under test: {@link RepositoryServiceImpl#addModelEditorSourceExtra(String, byte[])}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void RepositoryServiceImpl.addModelEditorSourceExtra(String, byte[])"})
   public void testAddModelEditorSourceExtra_thenCallsExecute() throws UnsupportedEncodingException {
     // Arrange
     CommandContextInterceptor first = mock(CommandContextInterceptor.class);
-    when(first.execute(Mockito.<CommandConfig>any(), Mockito.<Command<Object>>any()))
-        .thenReturn(JSONObject.NULL);
+    when(first.execute(Mockito.<CommandConfig>any(), Mockito.<Command<Object>>any())).thenReturn(JSONObject.NULL);
     CommandExecutorImpl commandExecutor = new CommandExecutorImpl(new CommandConfig(), first);
 
     RepositoryServiceImpl repositoryServiceImpl = new RepositoryServiceImpl();
@@ -1324,22 +1039,20 @@ public class RepositoryServiceImplDiffblueTest {
 
   /**
    * Test {@link RepositoryServiceImpl#createModelQuery()}.
-   *
-   * <p>Method under test: {@link RepositoryServiceImpl#createModelQuery()}
+   * <p>
+   * Method under test: {@link RepositoryServiceImpl#createModelQuery()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"ModelQuery RepositoryServiceImpl.createModelQuery()"})
   public void testCreateModelQuery() {
     // Arrange and Act
-    ModelQuery actualCreateModelQueryResult = new RepositoryServiceImpl().createModelQuery();
+    ModelQuery actualCreateModelQueryResult = (new RepositoryServiceImpl()).createModelQuery();
 
     // Assert
     assertTrue(actualCreateModelQueryResult instanceof ModelQueryImpl);
     assertEquals("RES.ID_ asc", ((ModelQueryImpl) actualCreateModelQueryResult).getOrderBy());
-    assertEquals(
-        "RES.ID_ asc", ((ModelQueryImpl) actualCreateModelQueryResult).getOrderByColumns());
+    assertEquals("RES.ID_ asc", ((ModelQueryImpl) actualCreateModelQueryResult).getOrderByColumns());
     assertNull(((ModelQueryImpl) actualCreateModelQueryResult).getVersion());
     assertNull(((ModelQueryImpl) actualCreateModelQueryResult).getParameter());
     assertNull(((ModelQueryImpl) actualCreateModelQueryResult).getDatabaseType());
@@ -1366,23 +1079,20 @@ public class RepositoryServiceImplDiffblueTest {
     assertFalse(((ModelQueryImpl) actualCreateModelQueryResult).isNotDeployed());
     assertFalse(((ModelQueryImpl) actualCreateModelQueryResult).isWithoutTenantId());
     assertEquals(Integer.MAX_VALUE, ((ModelQueryImpl) actualCreateModelQueryResult).getLastRow());
-    assertEquals(
-        Integer.MAX_VALUE, ((ModelQueryImpl) actualCreateModelQueryResult).getMaxResults());
+    assertEquals(Integer.MAX_VALUE, ((ModelQueryImpl) actualCreateModelQueryResult).getMaxResults());
   }
 
   /**
    * Test {@link RepositoryServiceImpl#createNativeModelQuery()}.
-   *
-   * <p>Method under test: {@link RepositoryServiceImpl#createNativeModelQuery()}
+   * <p>
+   * Method under test: {@link RepositoryServiceImpl#createNativeModelQuery()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"NativeModelQuery RepositoryServiceImpl.createNativeModelQuery()"})
   public void testCreateNativeModelQuery() {
     // Arrange and Act
-    NativeModelQuery actualCreateNativeModelQueryResult =
-        new RepositoryServiceImpl().createNativeModelQuery();
+    NativeModelQuery actualCreateNativeModelQueryResult = (new RepositoryServiceImpl()).createNativeModelQuery();
 
     // Assert
     assertTrue(actualCreateNativeModelQueryResult instanceof NativeModelQueryImpl);
@@ -1390,31 +1100,26 @@ public class RepositoryServiceImplDiffblueTest {
     assertNull(((NativeModelQueryImpl) actualCreateNativeModelQueryResult).commandContext);
     assertNull(((NativeModelQueryImpl) actualCreateNativeModelQueryResult).commandExecutor);
     assertEquals(0, ((NativeModelQueryImpl) actualCreateNativeModelQueryResult).firstResult);
-    assertTrue(
-        ((NativeModelQueryImpl) actualCreateNativeModelQueryResult).getParameters().isEmpty());
-    assertEquals(
-        Integer.MAX_VALUE, ((NativeModelQueryImpl) actualCreateNativeModelQueryResult).maxResults);
+    assertTrue(((NativeModelQueryImpl) actualCreateNativeModelQueryResult).getParameters().isEmpty());
+    assertEquals(Integer.MAX_VALUE, ((NativeModelQueryImpl) actualCreateNativeModelQueryResult).maxResults);
   }
 
   /**
    * Test {@link RepositoryServiceImpl#getModel(String)}.
-   *
    * <ul>
-   *   <li>Then return {@link ModelEntityImpl} (default constructor).
+   *   <li>Then return {@link ModelEntityImpl} (default constructor).</li>
    * </ul>
-   *
-   * <p>Method under test: {@link RepositoryServiceImpl#getModel(String)}
+   * <p>
+   * Method under test: {@link RepositoryServiceImpl#getModel(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"Model RepositoryServiceImpl.getModel(String)"})
   public void testGetModel_thenReturnModelEntityImpl() {
     // Arrange
     CommandContextInterceptor first = mock(CommandContextInterceptor.class);
     ModelEntityImpl modelEntityImpl = new ModelEntityImpl();
-    when(first.execute(Mockito.<CommandConfig>any(), Mockito.<Command<ModelEntity>>any()))
-        .thenReturn(modelEntityImpl);
+    when(first.execute(Mockito.<CommandConfig>any(), Mockito.<Command<ModelEntity>>any())).thenReturn(modelEntityImpl);
     CommandExecutorImpl commandExecutor = new CommandExecutorImpl(new CommandConfig(), first);
 
     RepositoryServiceImpl repositoryServiceImpl = new RepositoryServiceImpl();
@@ -1430,19 +1135,16 @@ public class RepositoryServiceImplDiffblueTest {
 
   /**
    * Test {@link RepositoryServiceImpl#getModelEditorSource(String)}.
-   *
    * <ul>
-   *   <li>Then return {@code AXAXAXAX} Bytes is {@code UTF-8}.
+   *   <li>Then return {@code AXAXAXAX} Bytes is {@code UTF-8}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link RepositoryServiceImpl#getModelEditorSource(String)}
+   * <p>
+   * Method under test: {@link RepositoryServiceImpl#getModelEditorSource(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"byte[] RepositoryServiceImpl.getModelEditorSource(String)"})
-  public void testGetModelEditorSource_thenReturnAxaxaxaxBytesIsUtf8()
-      throws UnsupportedEncodingException {
+  public void testGetModelEditorSource_thenReturnAxaxaxaxBytesIsUtf8() throws UnsupportedEncodingException {
     // Arrange
     CommandContextInterceptor first = mock(CommandContextInterceptor.class);
     when(first.execute(Mockito.<CommandConfig>any(), Mockito.<Command<byte[]>>any()))
@@ -1462,19 +1164,16 @@ public class RepositoryServiceImplDiffblueTest {
 
   /**
    * Test {@link RepositoryServiceImpl#getModelEditorSourceExtra(String)}.
-   *
    * <ul>
-   *   <li>Then return {@code AXAXAXAX} Bytes is {@code UTF-8}.
+   *   <li>Then return {@code AXAXAXAX} Bytes is {@code UTF-8}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link RepositoryServiceImpl#getModelEditorSourceExtra(String)}
+   * <p>
+   * Method under test: {@link RepositoryServiceImpl#getModelEditorSourceExtra(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"byte[] RepositoryServiceImpl.getModelEditorSourceExtra(String)"})
-  public void testGetModelEditorSourceExtra_thenReturnAxaxaxaxBytesIsUtf8()
-      throws UnsupportedEncodingException {
+  public void testGetModelEditorSourceExtra_thenReturnAxaxaxaxBytesIsUtf8() throws UnsupportedEncodingException {
     // Arrange
     CommandContextInterceptor first = mock(CommandContextInterceptor.class);
     when(first.execute(Mockito.<CommandConfig>any(), Mockito.<Command<byte[]>>any()))
@@ -1494,22 +1193,19 @@ public class RepositoryServiceImplDiffblueTest {
 
   /**
    * Test {@link RepositoryServiceImpl#addCandidateStarterUser(String, String)}.
-   *
    * <ul>
-   *   <li>Then calls {@link CommandContextInterceptor#execute(CommandConfig, Command)}.
+   *   <li>Then calls {@link CommandContextInterceptor#execute(CommandConfig, Command)}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link RepositoryServiceImpl#addCandidateStarterUser(String, String)}
+   * <p>
+   * Method under test: {@link RepositoryServiceImpl#addCandidateStarterUser(String, String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void RepositoryServiceImpl.addCandidateStarterUser(String, String)"})
   public void testAddCandidateStarterUser_thenCallsExecute() {
     // Arrange
     CommandContextInterceptor first = mock(CommandContextInterceptor.class);
-    when(first.execute(Mockito.<CommandConfig>any(), Mockito.<Command<Void>>any()))
-        .thenReturn(null);
+    when(first.execute(Mockito.<CommandConfig>any(), Mockito.<Command<Void>>any())).thenReturn(null);
     CommandExecutorImpl commandExecutor = new CommandExecutorImpl(new CommandConfig(), first);
 
     RepositoryServiceImpl repositoryServiceImpl = new RepositoryServiceImpl();
@@ -1524,22 +1220,19 @@ public class RepositoryServiceImplDiffblueTest {
 
   /**
    * Test {@link RepositoryServiceImpl#addCandidateStarterGroup(String, String)}.
-   *
    * <ul>
-   *   <li>Then calls {@link CommandContextInterceptor#execute(CommandConfig, Command)}.
+   *   <li>Then calls {@link CommandContextInterceptor#execute(CommandConfig, Command)}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link RepositoryServiceImpl#addCandidateStarterGroup(String, String)}
+   * <p>
+   * Method under test: {@link RepositoryServiceImpl#addCandidateStarterGroup(String, String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void RepositoryServiceImpl.addCandidateStarterGroup(String, String)"})
   public void testAddCandidateStarterGroup_thenCallsExecute() {
     // Arrange
     CommandContextInterceptor first = mock(CommandContextInterceptor.class);
-    when(first.execute(Mockito.<CommandConfig>any(), Mockito.<Command<Void>>any()))
-        .thenReturn(null);
+    when(first.execute(Mockito.<CommandConfig>any(), Mockito.<Command<Void>>any())).thenReturn(null);
     CommandExecutorImpl commandExecutor = new CommandExecutorImpl(new CommandConfig(), first);
 
     RepositoryServiceImpl repositoryServiceImpl = new RepositoryServiceImpl();
@@ -1554,22 +1247,19 @@ public class RepositoryServiceImplDiffblueTest {
 
   /**
    * Test {@link RepositoryServiceImpl#deleteCandidateStarterGroup(String, String)}.
-   *
    * <ul>
-   *   <li>Then calls {@link CommandContextInterceptor#execute(CommandConfig, Command)}.
+   *   <li>Then calls {@link CommandContextInterceptor#execute(CommandConfig, Command)}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link RepositoryServiceImpl#deleteCandidateStarterGroup(String, String)}
+   * <p>
+   * Method under test: {@link RepositoryServiceImpl#deleteCandidateStarterGroup(String, String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void RepositoryServiceImpl.deleteCandidateStarterGroup(String, String)"})
   public void testDeleteCandidateStarterGroup_thenCallsExecute() {
     // Arrange
     CommandContextInterceptor first = mock(CommandContextInterceptor.class);
-    when(first.execute(Mockito.<CommandConfig>any(), Mockito.<Command<Object>>any()))
-        .thenReturn(JSONObject.NULL);
+    when(first.execute(Mockito.<CommandConfig>any(), Mockito.<Command<Object>>any())).thenReturn(JSONObject.NULL);
     CommandExecutorImpl commandExecutor = new CommandExecutorImpl(new CommandConfig(), first);
 
     RepositoryServiceImpl repositoryServiceImpl = new RepositoryServiceImpl();
@@ -1584,22 +1274,19 @@ public class RepositoryServiceImplDiffblueTest {
 
   /**
    * Test {@link RepositoryServiceImpl#deleteCandidateStarterUser(String, String)}.
-   *
    * <ul>
-   *   <li>Then calls {@link CommandContextInterceptor#execute(CommandConfig, Command)}.
+   *   <li>Then calls {@link CommandContextInterceptor#execute(CommandConfig, Command)}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link RepositoryServiceImpl#deleteCandidateStarterUser(String, String)}
+   * <p>
+   * Method under test: {@link RepositoryServiceImpl#deleteCandidateStarterUser(String, String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void RepositoryServiceImpl.deleteCandidateStarterUser(String, String)"})
   public void testDeleteCandidateStarterUser_thenCallsExecute() {
     // Arrange
     CommandContextInterceptor first = mock(CommandContextInterceptor.class);
-    when(first.execute(Mockito.<CommandConfig>any(), Mockito.<Command<Object>>any()))
-        .thenReturn(JSONObject.NULL);
+    when(first.execute(Mockito.<CommandConfig>any(), Mockito.<Command<Object>>any())).thenReturn(JSONObject.NULL);
     CommandExecutorImpl commandExecutor = new CommandExecutorImpl(new CommandConfig(), first);
 
     RepositoryServiceImpl repositoryServiceImpl = new RepositoryServiceImpl();
@@ -1614,17 +1301,14 @@ public class RepositoryServiceImplDiffblueTest {
 
   /**
    * Test {@link RepositoryServiceImpl#getIdentityLinksForProcessDefinition(String)}.
-   *
    * <ul>
-   *   <li>Then return Empty.
+   *   <li>Then return Empty.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link
-   * RepositoryServiceImpl#getIdentityLinksForProcessDefinition(String)}
+   * <p>
+   * Method under test: {@link RepositoryServiceImpl#getIdentityLinksForProcessDefinition(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"List RepositoryServiceImpl.getIdentityLinksForProcessDefinition(String)"})
   public void testGetIdentityLinksForProcessDefinition_thenReturnEmpty() {
     // Arrange
@@ -1637,8 +1321,8 @@ public class RepositoryServiceImplDiffblueTest {
     repositoryServiceImpl.setCommandExecutor(commandExecutor);
 
     // Act
-    List<IdentityLink> actualIdentityLinksForProcessDefinition =
-        repositoryServiceImpl.getIdentityLinksForProcessDefinition("42");
+    List<IdentityLink> actualIdentityLinksForProcessDefinition = repositoryServiceImpl
+        .getIdentityLinksForProcessDefinition("42");
 
     // Assert
     verify(first).execute(isA(CommandConfig.class), isA(Command.class));
@@ -1647,15 +1331,14 @@ public class RepositoryServiceImplDiffblueTest {
 
   /**
    * Test new {@link RepositoryServiceImpl} (default constructor).
-   *
-   * <p>Method under test: default or parameterless constructor of {@link RepositoryServiceImpl}
+   * <p>
+   * Method under test: default or parameterless constructor of {@link RepositoryServiceImpl}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void RepositoryServiceImpl.<init>()"})
   public void testNewRepositoryServiceImpl() {
     // Arrange, Act and Assert
-    assertNull(new RepositoryServiceImpl().getCommandExecutor());
+    assertNull((new RepositoryServiceImpl()).getCommandExecutor());
   }
 }

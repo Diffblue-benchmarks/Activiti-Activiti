@@ -16,7 +16,6 @@
 package org.activiti.core.el;
 
 import static org.junit.jupiter.api.Assertions.assertNull;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import jakarta.el.CompositeELResolver;
 import jakarta.el.ELContext;
@@ -26,151 +25,122 @@ import org.junit.jupiter.api.Test;
 
 class ELResolverReflectionBlockerDecoratorDiffblueTest {
   /**
-   * Test {@link ELResolverReflectionBlockerDecorator#invoke(ELContext, Object, Object, Class[],
-   * Object[])}.
-   *
-   * <p>Method under test: {@link ELResolverReflectionBlockerDecorator#invoke(ELContext, Object,
-   * Object, Class[], Object[])}
+   * Test {@link ELResolverReflectionBlockerDecorator#invoke(ELContext, Object, Object, Class[], Object[])}.
+   * <p>
+   * Method under test: {@link ELResolverReflectionBlockerDecorator#invoke(ELContext, Object, Object, Class[], Object[])}
    */
   @Test
   @DisplayName("Test invoke(ELContext, Object, Object, Class[], Object[])")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({
-    "Object ELResolverReflectionBlockerDecorator.invoke(ELContext, Object, Object, Class[], Object[])"
-  })
+      "Object ELResolverReflectionBlockerDecorator.invoke(ELContext, Object, Object, Class[], Object[])"})
   void testInvoke() {
     // Arrange
-    ELResolverReflectionBlockerDecorator elResolverReflectionBlockerDecorator =
-        new ELResolverReflectionBlockerDecorator(new JsonNodeELResolver());
+    ELResolverReflectionBlockerDecorator elResolverReflectionBlockerDecorator = new ELResolverReflectionBlockerDecorator(
+        new JsonNodeELResolver());
     ActivitiElContext context = new ActivitiElContext();
     Class<Object> forNameResult = Object.class;
 
     // Act and Assert
-    assertNull(
-        elResolverReflectionBlockerDecorator.invoke(
-            context, "Base", "Method", new Class[] {forNameResult}, new Object[] {"Params"}));
+    assertNull(elResolverReflectionBlockerDecorator.invoke(context, "Base", "Method", new Class[]{forNameResult},
+        new Object[]{"Params"}));
   }
 
   /**
-   * Test {@link ELResolverReflectionBlockerDecorator#invoke(ELContext, Object, Object, Class[],
-   * Object[])}.
-   *
-   * <p>Method under test: {@link ELResolverReflectionBlockerDecorator#invoke(ELContext, Object,
-   * Object, Class[], Object[])}
+   * Test {@link ELResolverReflectionBlockerDecorator#invoke(ELContext, Object, Object, Class[], Object[])}.
+   * <p>
+   * Method under test: {@link ELResolverReflectionBlockerDecorator#invoke(ELContext, Object, Object, Class[], Object[])}
    */
   @Test
   @DisplayName("Test invoke(ELContext, Object, Object, Class[], Object[])")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({
-    "Object ELResolverReflectionBlockerDecorator.invoke(ELContext, Object, Object, Class[], Object[])"
-  })
+      "Object ELResolverReflectionBlockerDecorator.invoke(ELContext, Object, Object, Class[], Object[])"})
   void testInvoke2() {
     // Arrange
-    ELResolverReflectionBlockerDecorator elResolverReflectionBlockerDecorator =
-        new ELResolverReflectionBlockerDecorator(new CompositeELResolver());
+    ELResolverReflectionBlockerDecorator elResolverReflectionBlockerDecorator = new ELResolverReflectionBlockerDecorator(
+        new CompositeELResolver());
     ActivitiElContext context = new ActivitiElContext();
     Class<Object> forNameResult = Object.class;
 
     // Act and Assert
-    assertNull(
-        elResolverReflectionBlockerDecorator.invoke(
-            context, "Base", "Method", new Class[] {forNameResult}, new Object[] {"Params"}));
+    assertNull(elResolverReflectionBlockerDecorator.invoke(context, "Base", "Method", new Class[]{forNameResult},
+        new Object[]{"Params"}));
   }
 
   /**
-   * Test {@link ELResolverReflectionBlockerDecorator#invoke(ELContext, Object, Object, Class[],
-   * Object[])}.
-   *
-   * <p>Method under test: {@link ELResolverReflectionBlockerDecorator#invoke(ELContext, Object,
-   * Object, Class[], Object[])}
+   * Test {@link ELResolverReflectionBlockerDecorator#invoke(ELContext, Object, Object, Class[], Object[])}.
+   * <p>
+   * Method under test: {@link ELResolverReflectionBlockerDecorator#invoke(ELContext, Object, Object, Class[], Object[])}
    */
   @Test
   @DisplayName("Test invoke(ELContext, Object, Object, Class[], Object[])")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({
-    "Object ELResolverReflectionBlockerDecorator.invoke(ELContext, Object, Object, Class[], Object[])"
-  })
+      "Object ELResolverReflectionBlockerDecorator.invoke(ELContext, Object, Object, Class[], Object[])"})
   void testInvoke3() {
     // Arrange
-    ELResolverReflectionBlockerDecorator elResolverReflectionBlockerDecorator =
-        new ELResolverReflectionBlockerDecorator(
-            new ELResolverReflectionBlockerDecorator(new JsonNodeELResolver()));
+    ELResolverReflectionBlockerDecorator elResolverReflectionBlockerDecorator = new ELResolverReflectionBlockerDecorator(
+        new ELResolverReflectionBlockerDecorator(new JsonNodeELResolver()));
     ActivitiElContext context = new ActivitiElContext();
     Class<Object> forNameResult = Object.class;
 
     // Act and Assert
-    assertNull(
-        elResolverReflectionBlockerDecorator.invoke(
-            context, "Base", "Method", new Class[] {forNameResult}, new Object[] {"Params"}));
+    assertNull(elResolverReflectionBlockerDecorator.invoke(context, "Base", "Method", new Class[]{forNameResult},
+        new Object[]{"Params"}));
   }
 
   /**
-   * Test {@link ELResolverReflectionBlockerDecorator#invoke(ELContext, Object, Object, Class[],
-   * Object[])}.
-   *
-   * <p>Method under test: {@link ELResolverReflectionBlockerDecorator#invoke(ELContext, Object,
-   * Object, Class[], Object[])}
+   * Test {@link ELResolverReflectionBlockerDecorator#invoke(ELContext, Object, Object, Class[], Object[])}.
+   * <p>
+   * Method under test: {@link ELResolverReflectionBlockerDecorator#invoke(ELContext, Object, Object, Class[], Object[])}
    */
   @Test
   @DisplayName("Test invoke(ELContext, Object, Object, Class[], Object[])")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({
-    "Object ELResolverReflectionBlockerDecorator.invoke(ELContext, Object, Object, Class[], Object[])"
-  })
+      "Object ELResolverReflectionBlockerDecorator.invoke(ELContext, Object, Object, Class[], Object[])"})
   void testInvoke4() {
     // Arrange
     CompositeELResolver resolver = new CompositeELResolver();
     resolver.add(new JsonNodeELResolver());
     resolver.add(new ELResolverReflectionBlockerDecorator(new JsonNodeELResolver()));
-    ELResolverReflectionBlockerDecorator elResolverReflectionBlockerDecorator =
-        new ELResolverReflectionBlockerDecorator(resolver);
+    ELResolverReflectionBlockerDecorator elResolverReflectionBlockerDecorator = new ELResolverReflectionBlockerDecorator(
+        resolver);
     ActivitiElContext context = new ActivitiElContext();
     Class<Object> forNameResult = Object.class;
 
     // Act and Assert
-    assertNull(
-        elResolverReflectionBlockerDecorator.invoke(
-            context, "Base", "Method", new Class[] {forNameResult}, new Object[] {"Params"}));
+    assertNull(elResolverReflectionBlockerDecorator.invoke(context, "Base", "Method", new Class[]{forNameResult},
+        new Object[]{"Params"}));
   }
 
   /**
-   * Test {@link ELResolverReflectionBlockerDecorator#invoke(ELContext, Object, Object, Class[],
-   * Object[])}.
-   *
+   * Test {@link ELResolverReflectionBlockerDecorator#invoke(ELContext, Object, Object, Class[], Object[])}.
    * <ul>
-   *   <li>Given {@link CompositeELResolver} (default constructor) add {@link
-   *       JsonNodeELResolver#JsonNodeELResolver()}.
-   *   <li>Then return {@code null}.
+   *   <li>Given {@link CompositeELResolver} (default constructor) add {@link JsonNodeELResolver#JsonNodeELResolver()}.</li>
+   *   <li>Then return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ELResolverReflectionBlockerDecorator#invoke(ELContext, Object,
-   * Object, Class[], Object[])}
+   * <p>
+   * Method under test: {@link ELResolverReflectionBlockerDecorator#invoke(ELContext, Object, Object, Class[], Object[])}
    */
   @Test
-  @DisplayName(
-      "Test invoke(ELContext, Object, Object, Class[], Object[]); given CompositeELResolver (default constructor) add JsonNodeELResolver(); then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test invoke(ELContext, Object, Object, Class[], Object[]); given CompositeELResolver (default constructor) add JsonNodeELResolver(); then return 'null'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({
-    "Object ELResolverReflectionBlockerDecorator.invoke(ELContext, Object, Object, Class[], Object[])"
-  })
+      "Object ELResolverReflectionBlockerDecorator.invoke(ELContext, Object, Object, Class[], Object[])"})
   void testInvoke_givenCompositeELResolverAddJsonNodeELResolver_thenReturnNull() {
     // Arrange
     CompositeELResolver resolver = new CompositeELResolver();
     resolver.add(new JsonNodeELResolver());
     resolver.add(new JsonNodeELResolver());
-    ELResolverReflectionBlockerDecorator elResolverReflectionBlockerDecorator =
-        new ELResolverReflectionBlockerDecorator(resolver);
+    ELResolverReflectionBlockerDecorator elResolverReflectionBlockerDecorator = new ELResolverReflectionBlockerDecorator(
+        resolver);
     ActivitiElContext context = new ActivitiElContext();
     Class<Object> forNameResult = Object.class;
 
     // Act and Assert
-    assertNull(
-        elResolverReflectionBlockerDecorator.invoke(
-            context, "Base", "Method", new Class[] {forNameResult}, new Object[] {"Params"}));
+    assertNull(elResolverReflectionBlockerDecorator.invoke(context, "Base", "Method", new Class[]{forNameResult},
+        new Object[]{"Params"}));
   }
 }

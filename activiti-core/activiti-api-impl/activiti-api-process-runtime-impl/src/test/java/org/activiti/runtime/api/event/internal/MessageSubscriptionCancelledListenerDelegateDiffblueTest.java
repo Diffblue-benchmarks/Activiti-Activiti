@@ -17,7 +17,6 @@ package org.activiti.runtime.api.event.internal;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.mockito.Mockito.mock;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
 import java.util.List;
@@ -36,107 +35,71 @@ import org.junit.jupiter.api.Test;
 class MessageSubscriptionCancelledListenerDelegateDiffblueTest {
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
-   *   <li>{@link
-   *       MessageSubscriptionCancelledListenerDelegate#MessageSubscriptionCancelledListenerDelegate(List,
-   *       ToMessageSubscriptionCancelledConverter)}
+   *   <li>{@link MessageSubscriptionCancelledListenerDelegate#MessageSubscriptionCancelledListenerDelegate(List, ToMessageSubscriptionCancelledConverter)}
    *   <li>{@link MessageSubscriptionCancelledListenerDelegate#isFailOnException()}
    * </ul>
    */
   @Test
   @DisplayName("Test getters and setters")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({
-    "void MessageSubscriptionCancelledListenerDelegate.<init>(List, ToMessageSubscriptionCancelledConverter)",
-    "boolean MessageSubscriptionCancelledListenerDelegate.isFailOnException()"
-  })
+      "void MessageSubscriptionCancelledListenerDelegate.<init>(List, ToMessageSubscriptionCancelledConverter)",
+      "boolean MessageSubscriptionCancelledListenerDelegate.isFailOnException()"})
   void testGettersAndSetters() {
     // Arrange
-    ArrayList<ProcessRuntimeEventListener<MessageSubscriptionCancelledEvent>>
-        processRuntimeEventListeners = new ArrayList<>();
-
-    // Act
-    MessageSubscriptionCancelledListenerDelegate
-        actualMessageSubscriptionCancelledListenerDelegate =
-            new MessageSubscriptionCancelledListenerDelegate(
-                processRuntimeEventListeners,
-                new ToMessageSubscriptionCancelledConverter(new MessageSubscriptionConverter()));
-
-    // Assert
-    assertFalse(actualMessageSubscriptionCancelledListenerDelegate.isFailOnException());
-  }
-
-  /**
-   * Test {@link MessageSubscriptionCancelledListenerDelegate#isValidEvent(ActivitiEvent)}.
-   *
-   * <ul>
-   *   <li>Given {@link ArrayList#ArrayList()} add {@link ProcessRuntimeEventListener}.
-   * </ul>
-   *
-   * <p>Method under test: {@link
-   * MessageSubscriptionCancelledListenerDelegate#isValidEvent(ActivitiEvent)}
-   */
-  @Test
-  @DisplayName(
-      "Test isValidEvent(ActivitiEvent); given ArrayList() add ProcessRuntimeEventListener")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "boolean MessageSubscriptionCancelledListenerDelegate.isValidEvent(ActivitiEvent)"
-  })
-  void testIsValidEvent_givenArrayListAddProcessRuntimeEventListener() {
-    // Arrange
-    ArrayList<ProcessRuntimeEventListener<MessageSubscriptionCancelledEvent>>
-        processRuntimeEventListeners = new ArrayList<>();
-    processRuntimeEventListeners.add(mock(ProcessRuntimeEventListener.class));
-    MessageSubscriptionCancelledListenerDelegate messageSubscriptionCancelledListenerDelegate =
-        new MessageSubscriptionCancelledListenerDelegate(
-            processRuntimeEventListeners,
-            new ToMessageSubscriptionCancelledConverter(new MessageSubscriptionConverter()));
-
-    // Act
-    boolean actualIsValidEventResult =
-        messageSubscriptionCancelledListenerDelegate.isValidEvent(
-            new ActivitiEntityEventImpl("Entity", ActivitiEventType.ENTITY_CREATED));
-
-    // Assert
-    assertFalse(actualIsValidEventResult);
-  }
-
-  /**
-   * Test {@link MessageSubscriptionCancelledListenerDelegate#isValidEvent(ActivitiEvent)}.
-   *
-   * <ul>
-   *   <li>When {@link ActivitiActivityCancelledEventImpl} (default constructor).
-   * </ul>
-   *
-   * <p>Method under test: {@link
-   * MessageSubscriptionCancelledListenerDelegate#isValidEvent(ActivitiEvent)}
-   */
-  @Test
-  @DisplayName(
-      "Test isValidEvent(ActivitiEvent); when ActivitiActivityCancelledEventImpl (default constructor)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "boolean MessageSubscriptionCancelledListenerDelegate.isValidEvent(ActivitiEvent)"
-  })
-  void testIsValidEvent_whenActivitiActivityCancelledEventImpl() {
-    // Arrange
-    ArrayList<ProcessRuntimeEventListener<MessageSubscriptionCancelledEvent>>
-        processRuntimeEventListeners = new ArrayList<>();
-    MessageSubscriptionCancelledListenerDelegate messageSubscriptionCancelledListenerDelegate =
-        new MessageSubscriptionCancelledListenerDelegate(
-            processRuntimeEventListeners,
-            new ToMessageSubscriptionCancelledConverter(new MessageSubscriptionConverter()));
+    ArrayList<ProcessRuntimeEventListener<MessageSubscriptionCancelledEvent>> processRuntimeEventListeners = new ArrayList<>();
 
     // Act and Assert
-    assertFalse(
-        messageSubscriptionCancelledListenerDelegate.isValidEvent(
-            new ActivitiActivityCancelledEventImpl()));
+    assertFalse((new MessageSubscriptionCancelledListenerDelegate(processRuntimeEventListeners,
+        new ToMessageSubscriptionCancelledConverter(new MessageSubscriptionConverter()))).isFailOnException());
+  }
+
+  /**
+   * Test {@link MessageSubscriptionCancelledListenerDelegate#isValidEvent(ActivitiEvent)}.
+   * <ul>
+   *   <li>Given {@link ArrayList#ArrayList()} add {@link ProcessRuntimeEventListener}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link MessageSubscriptionCancelledListenerDelegate#isValidEvent(ActivitiEvent)}
+   */
+  @Test
+  @DisplayName("Test isValidEvent(ActivitiEvent); given ArrayList() add ProcessRuntimeEventListener")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean MessageSubscriptionCancelledListenerDelegate.isValidEvent(ActivitiEvent)"})
+  void testIsValidEvent_givenArrayListAddProcessRuntimeEventListener() {
+    // Arrange
+    ArrayList<ProcessRuntimeEventListener<MessageSubscriptionCancelledEvent>> processRuntimeEventListeners = new ArrayList<>();
+    processRuntimeEventListeners.add(mock(ProcessRuntimeEventListener.class));
+    MessageSubscriptionCancelledListenerDelegate messageSubscriptionCancelledListenerDelegate = new MessageSubscriptionCancelledListenerDelegate(
+        processRuntimeEventListeners, new ToMessageSubscriptionCancelledConverter(new MessageSubscriptionConverter()));
+
+    // Act and Assert
+    assertFalse(messageSubscriptionCancelledListenerDelegate
+        .isValidEvent(new ActivitiEntityEventImpl("Entity", ActivitiEventType.ENTITY_CREATED)));
+  }
+
+  /**
+   * Test {@link MessageSubscriptionCancelledListenerDelegate#isValidEvent(ActivitiEvent)}.
+   * <ul>
+   *   <li>When {@link ActivitiActivityCancelledEventImpl} (default constructor).</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link MessageSubscriptionCancelledListenerDelegate#isValidEvent(ActivitiEvent)}
+   */
+  @Test
+  @DisplayName("Test isValidEvent(ActivitiEvent); when ActivitiActivityCancelledEventImpl (default constructor)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean MessageSubscriptionCancelledListenerDelegate.isValidEvent(ActivitiEvent)"})
+  void testIsValidEvent_whenActivitiActivityCancelledEventImpl() {
+    // Arrange
+    ArrayList<ProcessRuntimeEventListener<MessageSubscriptionCancelledEvent>> processRuntimeEventListeners = new ArrayList<>();
+    MessageSubscriptionCancelledListenerDelegate messageSubscriptionCancelledListenerDelegate = new MessageSubscriptionCancelledListenerDelegate(
+        processRuntimeEventListeners, new ToMessageSubscriptionCancelledConverter(new MessageSubscriptionConverter()));
+
+    // Act and Assert
+    assertFalse(messageSubscriptionCancelledListenerDelegate.isValidEvent(new ActivitiActivityCancelledEventImpl()));
   }
 }

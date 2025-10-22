@@ -17,8 +17,7 @@ package org.activiti.engine.impl.cmd;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.HashMap;
 import java.util.Map;
@@ -28,54 +27,42 @@ import org.junit.experimental.categories.Category;
 public class ResolveTaskCmdDiffblueTest {
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>{@link ResolveTaskCmd#ResolveTaskCmd(String, Map)}
    *   <li>{@link ResolveTaskCmd#getSuspendedTaskException()}
    * </ul>
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void ResolveTaskCmd.<init>(String, Map)",
-    "void ResolveTaskCmd.<init>(String, Map, Map)",
-    "String ResolveTaskCmd.getSuspendedTaskException()"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void ResolveTaskCmd.<init>(String, Map)", "void ResolveTaskCmd.<init>(String, Map, Map)",
+      "String ResolveTaskCmd.getSuspendedTaskException()"})
   public void testGettersAndSetters() {
     // Arrange and Act
     ResolveTaskCmd actualResolveTaskCmd = new ResolveTaskCmd("42", new HashMap<>());
 
     // Assert
-    assertEquals(
-        "Cannot resolve a suspended task", actualResolveTaskCmd.getSuspendedTaskException());
+    assertEquals("Cannot resolve a suspended task", actualResolveTaskCmd.getSuspendedTaskException());
     assertTrue(actualResolveTaskCmd.variables.isEmpty());
   }
 
   /**
    * Test getters and setters.
-   *
    * <ul>
-   *   <li>Then return {@link ResolveTaskCmd#transientVariables} Empty.
+   *   <li>Then return {@link ResolveTaskCmd#transientVariables} Empty.</li>
    * </ul>
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>{@link ResolveTaskCmd#ResolveTaskCmd(String, Map, Map)}
    *   <li>{@link ResolveTaskCmd#getSuspendedTaskException()}
    * </ul>
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void ResolveTaskCmd.<init>(String, Map)",
-    "void ResolveTaskCmd.<init>(String, Map, Map)",
-    "String ResolveTaskCmd.getSuspendedTaskException()"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void ResolveTaskCmd.<init>(String, Map)", "void ResolveTaskCmd.<init>(String, Map, Map)",
+      "String ResolveTaskCmd.getSuspendedTaskException()"})
   public void testGettersAndSetters_thenReturnTransientVariablesEmpty() {
     // Arrange
     HashMap<String, Object> variables = new HashMap<>();
@@ -84,8 +71,7 @@ public class ResolveTaskCmdDiffblueTest {
     ResolveTaskCmd actualResolveTaskCmd = new ResolveTaskCmd("42", variables, new HashMap<>());
 
     // Assert
-    assertEquals(
-        "Cannot resolve a suspended task", actualResolveTaskCmd.getSuspendedTaskException());
+    assertEquals("Cannot resolve a suspended task", actualResolveTaskCmd.getSuspendedTaskException());
     assertTrue(actualResolveTaskCmd.transientVariables.isEmpty());
     assertTrue(actualResolveTaskCmd.variables.isEmpty());
   }

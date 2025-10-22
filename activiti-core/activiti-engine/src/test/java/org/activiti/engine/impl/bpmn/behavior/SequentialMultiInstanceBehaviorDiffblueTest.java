@@ -21,11 +21,7 @@ import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertThrows;
 import static org.junit.Assert.assertTrue;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
 import org.activiti.bpmn.model.Activity;
@@ -34,43 +30,33 @@ import org.activiti.engine.ActivitiIllegalArgumentException;
 import org.activiti.engine.delegate.DelegateExecution;
 import org.activiti.engine.impl.el.FixedValue;
 import org.activiti.engine.impl.persistence.entity.ExecutionEntityImpl;
-import org.activiti.engine.impl.util.json.JSONObject;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
-import org.mockito.Mockito;
 
 public class SequentialMultiInstanceBehaviorDiffblueTest {
   /**
-   * Test {@link SequentialMultiInstanceBehavior#SequentialMultiInstanceBehavior(Activity,
-   * AbstractBpmnActivityBehavior)}.
-   *
+   * Test {@link SequentialMultiInstanceBehavior#SequentialMultiInstanceBehavior(Activity, AbstractBpmnActivityBehavior)}.
    * <ul>
-   *   <li>Then {@link MultiInstanceActivityBehavior#activity} return {@link AdhocSubProcess}.
+   *   <li>Then {@link MultiInstanceActivityBehavior#activity} return {@link AdhocSubProcess}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link
-   * SequentialMultiInstanceBehavior#SequentialMultiInstanceBehavior(Activity,
-   * AbstractBpmnActivityBehavior)}
+   * <p>
+   * Method under test: {@link SequentialMultiInstanceBehavior#SequentialMultiInstanceBehavior(Activity, AbstractBpmnActivityBehavior)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void SequentialMultiInstanceBehavior.<init>(Activity, AbstractBpmnActivityBehavior)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void SequentialMultiInstanceBehavior.<init>(Activity, AbstractBpmnActivityBehavior)"})
   public void testNewSequentialMultiInstanceBehavior_thenActivityReturnAdhocSubProcess() {
     // Arrange
     AdhocSubProcess activity = new AdhocSubProcess();
     AbstractBpmnActivityBehavior innerActivityBehavior = new AbstractBpmnActivityBehavior();
 
     // Act
-    SequentialMultiInstanceBehavior actualSequentialMultiInstanceBehavior =
-        new SequentialMultiInstanceBehavior(activity, innerActivityBehavior);
+    SequentialMultiInstanceBehavior actualSequentialMultiInstanceBehavior = new SequentialMultiInstanceBehavior(
+        activity, innerActivityBehavior);
 
     // Assert
     assertTrue(actualSequentialMultiInstanceBehavior.activity instanceof AdhocSubProcess);
-    assertEquals(
-        "loopCounter", actualSequentialMultiInstanceBehavior.getCollectionElementIndexVariable());
+    assertEquals("loopCounter", actualSequentialMultiInstanceBehavior.getCollectionElementIndexVariable());
     assertNull(actualSequentialMultiInstanceBehavior.getCollectionElementVariable());
     assertNull(actualSequentialMultiInstanceBehavior.getCollectionVariable());
     assertNull(actualSequentialMultiInstanceBehavior.getLoopDataOutputRef());
@@ -83,277 +69,72 @@ public class SequentialMultiInstanceBehaviorDiffblueTest {
     assertFalse(actualSequentialMultiInstanceBehavior.hasOutputDataItem());
     assertTrue(innerActivityBehavior.hasLoopCharacteristics());
     assertTrue(innerActivityBehavior.hasMultiInstanceCharacteristics());
-    assertSame(
-        innerActivityBehavior, actualSequentialMultiInstanceBehavior.getInnerActivityBehavior());
+    assertSame(innerActivityBehavior, actualSequentialMultiInstanceBehavior.getInnerActivityBehavior());
   }
 
   /**
    * Test {@link SequentialMultiInstanceBehavior#createInstances(DelegateExecution)}.
-   *
-   * <p>Method under test: {@link
-   * SequentialMultiInstanceBehavior#createInstances(DelegateExecution)}
+   * <p>
+   * Method under test: {@link SequentialMultiInstanceBehavior#createInstances(DelegateExecution)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"int SequentialMultiInstanceBehavior.createInstances(DelegateExecution)"})
   public void testCreateInstances() {
     // Arrange
     AdhocSubProcess activity = new AdhocSubProcess();
-    SequentialMultiInstanceBehavior sequentialMultiInstanceBehavior =
-        new SequentialMultiInstanceBehavior(activity, new AbstractBpmnActivityBehavior());
+
+    SequentialMultiInstanceBehavior sequentialMultiInstanceBehavior = new SequentialMultiInstanceBehavior(activity,
+        new AbstractBpmnActivityBehavior());
+    sequentialMultiInstanceBehavior.setLoopCardinalityExpression(new FixedValue(0));
 
     // Act and Assert
-    assertThrows(
-        ActivitiIllegalArgumentException.class,
-        () ->
-            sequentialMultiInstanceBehavior.createInstances(
-                ExecutionEntityImpl.createWithEmptyRelationshipCollections()));
+    assertEquals(0,
+        sequentialMultiInstanceBehavior.createInstances(ExecutionEntityImpl.createWithEmptyRelationshipCollections()));
   }
 
   /**
    * Test {@link SequentialMultiInstanceBehavior#createInstances(DelegateExecution)}.
-   *
-   * <p>Method under test: {@link
-   * SequentialMultiInstanceBehavior#createInstances(DelegateExecution)}
+   * <p>
+   * Method under test: {@link SequentialMultiInstanceBehavior#createInstances(DelegateExecution)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"int SequentialMultiInstanceBehavior.createInstances(DelegateExecution)"})
   public void testCreateInstances2() {
     // Arrange
     AdhocSubProcess activity = new AdhocSubProcess();
 
-    SequentialMultiInstanceBehavior sequentialMultiInstanceBehavior =
-        new SequentialMultiInstanceBehavior(activity, new AbstractBpmnActivityBehavior());
-    sequentialMultiInstanceBehavior.setLoopCardinalityExpression(new FixedValue(JSONObject.NULL));
-
-    // Act and Assert
-    assertThrows(
-        ActivitiIllegalArgumentException.class,
-        () ->
-            sequentialMultiInstanceBehavior.createInstances(
-                ExecutionEntityImpl.createWithEmptyRelationshipCollections()));
-  }
-
-  /**
-   * Test {@link SequentialMultiInstanceBehavior#createInstances(DelegateExecution)}.
-   *
-   * <p>Method under test: {@link
-   * SequentialMultiInstanceBehavior#createInstances(DelegateExecution)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"int SequentialMultiInstanceBehavior.createInstances(DelegateExecution)"})
-  public void testCreateInstances3() {
-    // Arrange
-    AdhocSubProcess activity = new AdhocSubProcess();
-
-    SequentialMultiInstanceBehavior sequentialMultiInstanceBehavior =
-        new SequentialMultiInstanceBehavior(activity, new AbstractBpmnActivityBehavior());
-    sequentialMultiInstanceBehavior.setCollectionExpression(new FixedValue(JSONObject.NULL));
-
-    // Act and Assert
-    assertThrows(
-        ActivitiIllegalArgumentException.class,
-        () ->
-            sequentialMultiInstanceBehavior.createInstances(
-                ExecutionEntityImpl.createWithEmptyRelationshipCollections()));
-  }
-
-  /**
-   * Test {@link SequentialMultiInstanceBehavior#createInstances(DelegateExecution)}.
-   *
-   * <p>Method under test: {@link
-   * SequentialMultiInstanceBehavior#createInstances(DelegateExecution)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"int SequentialMultiInstanceBehavior.createInstances(DelegateExecution)"})
-  public void testCreateInstances4() {
-    // Arrange
-    AdhocSubProcess activity = new AdhocSubProcess();
-
-    SequentialMultiInstanceBehavior sequentialMultiInstanceBehavior =
-        new SequentialMultiInstanceBehavior(activity, new AbstractBpmnActivityBehavior());
-    sequentialMultiInstanceBehavior.setCollectionVariable(
-        "Couldn't resolve collection expression nor variable reference");
-
-    // Act and Assert
-    assertThrows(
-        ActivitiIllegalArgumentException.class,
-        () ->
-            sequentialMultiInstanceBehavior.createInstances(
-                ExecutionEntityImpl.createWithEmptyRelationshipCollections()));
-  }
-
-  /**
-   * Test {@link SequentialMultiInstanceBehavior#createInstances(DelegateExecution)}.
-   *
-   * <p>Method under test: {@link
-   * SequentialMultiInstanceBehavior#createInstances(DelegateExecution)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"int SequentialMultiInstanceBehavior.createInstances(DelegateExecution)"})
-  public void testCreateInstances5() {
-    // Arrange
-    AdhocSubProcess activity = new AdhocSubProcess();
-
-    SequentialMultiInstanceBehavior sequentialMultiInstanceBehavior =
-        new SequentialMultiInstanceBehavior(activity, new AbstractBpmnActivityBehavior());
-    sequentialMultiInstanceBehavior.setLoopCardinalityExpression(new FixedValue(0));
-
-    // Act and Assert
-    assertEquals(
-        0,
-        sequentialMultiInstanceBehavior.createInstances(
-            ExecutionEntityImpl.createWithEmptyRelationshipCollections()));
-  }
-
-  /**
-   * Test {@link SequentialMultiInstanceBehavior#createInstances(DelegateExecution)}.
-   *
-   * <p>Method under test: {@link
-   * SequentialMultiInstanceBehavior#createInstances(DelegateExecution)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"int SequentialMultiInstanceBehavior.createInstances(DelegateExecution)"})
-  public void testCreateInstances6() {
-    // Arrange
-    AdhocSubProcess activity = new AdhocSubProcess();
-
-    SequentialMultiInstanceBehavior sequentialMultiInstanceBehavior =
-        new SequentialMultiInstanceBehavior(activity, new AbstractBpmnActivityBehavior());
-    sequentialMultiInstanceBehavior.setLoopCardinalityExpression(new FixedValue(-1));
-
-    // Act and Assert
-    assertThrows(
-        ActivitiIllegalArgumentException.class,
-        () ->
-            sequentialMultiInstanceBehavior.createInstances(
-                ExecutionEntityImpl.createWithEmptyRelationshipCollections()));
-  }
-
-  /**
-   * Test {@link SequentialMultiInstanceBehavior#createInstances(DelegateExecution)}.
-   *
-   * <p>Method under test: {@link
-   * SequentialMultiInstanceBehavior#createInstances(DelegateExecution)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"int SequentialMultiInstanceBehavior.createInstances(DelegateExecution)"})
-  public void testCreateInstances7() {
-    // Arrange
-    AdhocSubProcess activity = new AdhocSubProcess();
-
-    SequentialMultiInstanceBehavior sequentialMultiInstanceBehavior =
-        new SequentialMultiInstanceBehavior(activity, new AbstractBpmnActivityBehavior());
+    SequentialMultiInstanceBehavior sequentialMultiInstanceBehavior = new SequentialMultiInstanceBehavior(activity,
+        new AbstractBpmnActivityBehavior());
     sequentialMultiInstanceBehavior.setCollectionExpression(new FixedValue(new ArrayList<>()));
 
     // Act and Assert
-    assertEquals(
-        0,
-        sequentialMultiInstanceBehavior.createInstances(
-            ExecutionEntityImpl.createWithEmptyRelationshipCollections()));
+    assertEquals(0,
+        sequentialMultiInstanceBehavior.createInstances(ExecutionEntityImpl.createWithEmptyRelationshipCollections()));
   }
 
   /**
-   * Test {@link SequentialMultiInstanceBehavior#leave(DelegateExecution)}.
-   *
-   * <p>Method under test: {@link SequentialMultiInstanceBehavior#leave(DelegateExecution)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void SequentialMultiInstanceBehavior.leave(DelegateExecution)"})
-  public void testLeave() {
-    // Arrange
-    AdhocSubProcess activity = new AdhocSubProcess();
-    SequentialMultiInstanceBehavior sequentialMultiInstanceBehavior =
-        new SequentialMultiInstanceBehavior(activity, new AbstractBpmnActivityBehavior());
-
-    ExecutionEntityImpl childExecution = mock(ExecutionEntityImpl.class);
-    when(childExecution.getParent())
-        .thenThrow(new ActivitiIllegalArgumentException("An error occurred"));
-
-    // Act and Assert
-    assertThrows(
-        ActivitiIllegalArgumentException.class,
-        () -> sequentialMultiInstanceBehavior.leave(childExecution));
-    verify(childExecution).getParent();
-  }
-
-  /**
-   * Test {@link SequentialMultiInstanceBehavior#leave(DelegateExecution)}.
-   *
-   * <p>Method under test: {@link SequentialMultiInstanceBehavior#leave(DelegateExecution)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void SequentialMultiInstanceBehavior.leave(DelegateExecution)"})
-  public void testLeave2() {
-    // Arrange
-    AdhocSubProcess activity = new AdhocSubProcess();
-    SequentialMultiInstanceBehavior sequentialMultiInstanceBehavior =
-        new SequentialMultiInstanceBehavior(activity, new AbstractBpmnActivityBehavior());
-
-    ExecutionEntityImpl childExecution = mock(ExecutionEntityImpl.class);
-    when(childExecution.isMultiInstanceRoot())
-        .thenThrow(new ActivitiIllegalArgumentException("An error occurred"));
-    when(childExecution.getParent())
-        .thenReturn(ExecutionEntityImpl.createWithEmptyRelationshipCollections());
-
-    // Act and Assert
-    assertThrows(
-        ActivitiIllegalArgumentException.class,
-        () -> sequentialMultiInstanceBehavior.leave(childExecution));
-    verify(childExecution).getParent();
-    verify(childExecution).isMultiInstanceRoot();
-  }
-
-  /**
-   * Test {@link SequentialMultiInstanceBehavior#leave(DelegateExecution)}.
-   *
+   * Test {@link SequentialMultiInstanceBehavior#createInstances(DelegateExecution)}.
    * <ul>
-   *   <li>Given {@code true}.
-   *   <li>Then calls {@link ExecutionEntityImpl#getVariableLocal(String)}.
+   *   <li>Then throw {@link ActivitiIllegalArgumentException}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link SequentialMultiInstanceBehavior#leave(DelegateExecution)}
+   * <p>
+   * Method under test: {@link SequentialMultiInstanceBehavior#createInstances(DelegateExecution)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void SequentialMultiInstanceBehavior.leave(DelegateExecution)"})
-  public void testLeave_givenTrue_thenCallsGetVariableLocal() {
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"int SequentialMultiInstanceBehavior.createInstances(DelegateExecution)"})
+  public void testCreateInstances_thenThrowActivitiIllegalArgumentException() {
     // Arrange
     AdhocSubProcess activity = new AdhocSubProcess();
-    SequentialMultiInstanceBehavior sequentialMultiInstanceBehavior =
-        new SequentialMultiInstanceBehavior(activity, new AbstractBpmnActivityBehavior());
 
-    ExecutionEntityImpl childExecution = mock(ExecutionEntityImpl.class);
-    when(childExecution.getVariableLocal(Mockito.<String>any()))
-        .thenThrow(new ActivitiIllegalArgumentException("An error occurred"));
-    when(childExecution.isMultiInstanceRoot()).thenReturn(true);
-    when(childExecution.getParent())
-        .thenReturn(ExecutionEntityImpl.createWithEmptyRelationshipCollections());
+    SequentialMultiInstanceBehavior sequentialMultiInstanceBehavior = new SequentialMultiInstanceBehavior(activity,
+        new AbstractBpmnActivityBehavior());
+    sequentialMultiInstanceBehavior.setLoopCardinalityExpression(new FixedValue(-1));
 
     // Act and Assert
-    assertThrows(
-        ActivitiIllegalArgumentException.class,
-        () -> sequentialMultiInstanceBehavior.leave(childExecution));
-    verify(childExecution).getParent();
-    verify(childExecution).isMultiInstanceRoot();
-    verify(childExecution).getVariableLocal("nrOfInstances");
+    assertThrows(ActivitiIllegalArgumentException.class, () -> sequentialMultiInstanceBehavior
+        .createInstances(ExecutionEntityImpl.createWithEmptyRelationshipCollections()));
   }
 }

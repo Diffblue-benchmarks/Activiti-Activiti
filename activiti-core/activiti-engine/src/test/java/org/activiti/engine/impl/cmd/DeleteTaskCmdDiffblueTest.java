@@ -19,36 +19,30 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import org.activiti.engine.impl.interceptor.CommandContext;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 
 public class DeleteTaskCmdDiffblueTest {
   /**
    * Test {@link DeleteTaskCmd#DeleteTaskCmd(String, String, boolean)}.
-   *
    * <ul>
-   *   <li>When {@code 42}.
-   *   <li>Then return {@link DeleteTaskCmd#taskId} is {@code 42}.
+   *   <li>When {@code 42}.</li>
+   *   <li>Then return {@link DeleteTaskCmd#taskId} is {@code 42}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link DeleteTaskCmd#DeleteTaskCmd(String, String, boolean)}
+   * <p>
+   * Method under test: {@link DeleteTaskCmd#DeleteTaskCmd(String, String, boolean)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void DeleteTaskCmd.<init>(String, String, boolean)",
-    "void DeleteTaskCmd.<init>(String, String, boolean, boolean)",
-    "void DeleteTaskCmd.<init>(Collection, String, boolean)",
-    "void DeleteTaskCmd.<init>(Collection, String, boolean, boolean)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void DeleteTaskCmd.<init>(String, String, boolean)",
+      "void DeleteTaskCmd.<init>(String, String, boolean, boolean)",
+      "void DeleteTaskCmd.<init>(Collection, String, boolean)",
+      "void DeleteTaskCmd.<init>(Collection, String, boolean, boolean)"})
   public void testNewDeleteTaskCmd_when42_thenReturnTaskIdIs42() {
     // Arrange and Act
     DeleteTaskCmd actualDeleteTaskCmd = new DeleteTaskCmd("42", "Just cause", true);
@@ -63,23 +57,19 @@ public class DeleteTaskCmdDiffblueTest {
 
   /**
    * Test {@link DeleteTaskCmd#DeleteTaskCmd(String, String, boolean, boolean)}.
-   *
    * <ul>
-   *   <li>When {@code 42}.
-   *   <li>Then return {@link DeleteTaskCmd#taskId} is {@code 42}.
+   *   <li>When {@code 42}.</li>
+   *   <li>Then return {@link DeleteTaskCmd#taskId} is {@code 42}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link DeleteTaskCmd#DeleteTaskCmd(String, String, boolean, boolean)}
+   * <p>
+   * Method under test: {@link DeleteTaskCmd#DeleteTaskCmd(String, String, boolean, boolean)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void DeleteTaskCmd.<init>(String, String, boolean)",
-    "void DeleteTaskCmd.<init>(String, String, boolean, boolean)",
-    "void DeleteTaskCmd.<init>(Collection, String, boolean)",
-    "void DeleteTaskCmd.<init>(Collection, String, boolean, boolean)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void DeleteTaskCmd.<init>(String, String, boolean)",
+      "void DeleteTaskCmd.<init>(String, String, boolean, boolean)",
+      "void DeleteTaskCmd.<init>(Collection, String, boolean)",
+      "void DeleteTaskCmd.<init>(Collection, String, boolean, boolean)"})
   public void testNewDeleteTaskCmd_when42_thenReturnTaskIdIs422() {
     // Arrange and Act
     DeleteTaskCmd actualDeleteTaskCmd = new DeleteTaskCmd("42", "Just cause", true, true);
@@ -94,23 +84,19 @@ public class DeleteTaskCmdDiffblueTest {
 
   /**
    * Test {@link DeleteTaskCmd#DeleteTaskCmd(Collection, String, boolean)}.
-   *
    * <ul>
-   *   <li>When {@link ArrayList#ArrayList()}.
-   *   <li>Then {@link DeleteTaskCmd#taskIds} return {@link List}.
+   *   <li>When {@link ArrayList#ArrayList()}.</li>
+   *   <li>Then {@link DeleteTaskCmd#taskIds} return {@link List}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link DeleteTaskCmd#DeleteTaskCmd(Collection, String, boolean)}
+   * <p>
+   * Method under test: {@link DeleteTaskCmd#DeleteTaskCmd(Collection, String, boolean)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void DeleteTaskCmd.<init>(String, String, boolean)",
-    "void DeleteTaskCmd.<init>(String, String, boolean, boolean)",
-    "void DeleteTaskCmd.<init>(Collection, String, boolean)",
-    "void DeleteTaskCmd.<init>(Collection, String, boolean, boolean)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void DeleteTaskCmd.<init>(String, String, boolean)",
+      "void DeleteTaskCmd.<init>(String, String, boolean, boolean)",
+      "void DeleteTaskCmd.<init>(Collection, String, boolean)",
+      "void DeleteTaskCmd.<init>(Collection, String, boolean, boolean)"})
   public void testNewDeleteTaskCmd_whenArrayList_thenTaskIdsReturnList() {
     // Arrange and Act
     DeleteTaskCmd actualDeleteTaskCmd = new DeleteTaskCmd(new ArrayList<>(), "Just cause", true);
@@ -127,27 +113,22 @@ public class DeleteTaskCmdDiffblueTest {
 
   /**
    * Test {@link DeleteTaskCmd#DeleteTaskCmd(Collection, String, boolean, boolean)}.
-   *
    * <ul>
-   *   <li>When {@link ArrayList#ArrayList()}.
-   *   <li>Then {@link DeleteTaskCmd#taskIds} return {@link List}.
+   *   <li>When {@link ArrayList#ArrayList()}.</li>
+   *   <li>Then {@link DeleteTaskCmd#taskIds} return {@link List}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link DeleteTaskCmd#DeleteTaskCmd(Collection, String, boolean, boolean)}
+   * <p>
+   * Method under test: {@link DeleteTaskCmd#DeleteTaskCmd(Collection, String, boolean, boolean)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void DeleteTaskCmd.<init>(String, String, boolean)",
-    "void DeleteTaskCmd.<init>(String, String, boolean, boolean)",
-    "void DeleteTaskCmd.<init>(Collection, String, boolean)",
-    "void DeleteTaskCmd.<init>(Collection, String, boolean, boolean)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void DeleteTaskCmd.<init>(String, String, boolean)",
+      "void DeleteTaskCmd.<init>(String, String, boolean, boolean)",
+      "void DeleteTaskCmd.<init>(Collection, String, boolean)",
+      "void DeleteTaskCmd.<init>(Collection, String, boolean, boolean)"})
   public void testNewDeleteTaskCmd_whenArrayList_thenTaskIdsReturnList2() {
     // Arrange and Act
-    DeleteTaskCmd actualDeleteTaskCmd =
-        new DeleteTaskCmd(new ArrayList<>(), "Just cause", true, true);
+    DeleteTaskCmd actualDeleteTaskCmd = new DeleteTaskCmd(new ArrayList<>(), "Just cause", true, true);
 
     // Assert
     Collection<String> collection = actualDeleteTaskCmd.taskIds;
@@ -157,26 +138,5 @@ public class DeleteTaskCmdDiffblueTest {
     assertTrue(collection.isEmpty());
     assertTrue(actualDeleteTaskCmd.cancel);
     assertTrue(actualDeleteTaskCmd.cascade);
-  }
-
-  /**
-   * Test {@link DeleteTaskCmd#execute(CommandContext)}.
-   *
-   * <ul>
-   *   <li>Then return {@code null}.
-   * </ul>
-   *
-   * <p>Method under test: {@link DeleteTaskCmd#execute(CommandContext)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"java.lang.Void DeleteTaskCmd.execute(CommandContext)"})
-  public void testExecute_thenReturnNull() {
-    // Arrange
-    DeleteTaskCmd deleteTaskCmd = new DeleteTaskCmd(new ArrayList<>(), "Just cause", true);
-
-    // Act and Assert
-    assertNull(deleteTaskCmd.execute(null));
   }
 }

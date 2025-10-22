@@ -20,8 +20,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.time.LocalDate;
 import java.time.ZoneOffset;
@@ -35,9 +34,8 @@ import org.junit.experimental.categories.Category;
 public class DeploymentEntityImplDiffblueTest {
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>default or parameterless constructor of {@link DeploymentEntityImpl}
    *   <li>{@link DeploymentEntityImpl#setCategory(String)}
@@ -63,37 +61,23 @@ public class DeploymentEntityImplDiffblueTest {
    * </ul>
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void DeploymentEntityImpl.<init>()",
-    "String DeploymentEntityImpl.getCategory()",
-    "Date DeploymentEntityImpl.getDeploymentTime()",
-    "String DeploymentEntityImpl.getEngineVersion()",
-    "String DeploymentEntityImpl.getKey()",
-    "String DeploymentEntityImpl.getName()",
-    "String DeploymentEntityImpl.getProjectReleaseVersion()",
-    "String DeploymentEntityImpl.getTenantId()",
-    "Integer DeploymentEntityImpl.getVersion()",
-    "boolean DeploymentEntityImpl.isNew()",
-    "void DeploymentEntityImpl.setCategory(String)",
-    "void DeploymentEntityImpl.setDeploymentTime(Date)",
-    "void DeploymentEntityImpl.setEngineVersion(String)",
-    "void DeploymentEntityImpl.setKey(String)",
-    "void DeploymentEntityImpl.setName(String)",
-    "void DeploymentEntityImpl.setNew(boolean)",
-    "void DeploymentEntityImpl.setProjectReleaseVersion(String)",
-    "void DeploymentEntityImpl.setResources(Map)",
-    "void DeploymentEntityImpl.setTenantId(String)",
-    "void DeploymentEntityImpl.setVersion(Integer)",
-    "String DeploymentEntityImpl.toString()"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void DeploymentEntityImpl.<init>()", "String DeploymentEntityImpl.getCategory()",
+      "Date DeploymentEntityImpl.getDeploymentTime()", "String DeploymentEntityImpl.getEngineVersion()",
+      "String DeploymentEntityImpl.getKey()", "String DeploymentEntityImpl.getName()",
+      "String DeploymentEntityImpl.getProjectReleaseVersion()", "String DeploymentEntityImpl.getTenantId()",
+      "Integer DeploymentEntityImpl.getVersion()", "boolean DeploymentEntityImpl.isNew()",
+      "void DeploymentEntityImpl.setCategory(String)", "void DeploymentEntityImpl.setDeploymentTime(Date)",
+      "void DeploymentEntityImpl.setEngineVersion(String)", "void DeploymentEntityImpl.setKey(String)",
+      "void DeploymentEntityImpl.setName(String)", "void DeploymentEntityImpl.setNew(boolean)",
+      "void DeploymentEntityImpl.setProjectReleaseVersion(String)", "void DeploymentEntityImpl.setResources(Map)",
+      "void DeploymentEntityImpl.setTenantId(String)", "void DeploymentEntityImpl.setVersion(Integer)",
+      "String DeploymentEntityImpl.toString()"})
   public void testGettersAndSetters() {
     // Arrange and Act
     DeploymentEntityImpl actualDeploymentEntityImpl = new DeploymentEntityImpl();
     actualDeploymentEntityImpl.setCategory("Category");
-    Date deploymentTime =
-        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant());
+    Date deploymentTime = Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant());
     actualDeploymentEntityImpl.setDeploymentTime(deploymentTime);
     actualDeploymentEntityImpl.setEngineVersion("1.0.2");
     actualDeploymentEntityImpl.setKey("Key");
@@ -134,18 +118,15 @@ public class DeploymentEntityImplDiffblueTest {
 
   /**
    * Test {@link DeploymentEntityImpl#addResource(ResourceEntity)}.
-   *
    * <ul>
-   *   <li>Given {@link DeploymentEntityImpl} (default constructor).
-   *   <li>Then {@link DeploymentEntityImpl} (default constructor) {@link
-   *       DeploymentEntityImpl#resources}.
+   *   <li>Given {@link DeploymentEntityImpl} (default constructor).</li>
+   *   <li>Then {@link DeploymentEntityImpl} (default constructor) {@link DeploymentEntityImpl#resources}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link DeploymentEntityImpl#addResource(ResourceEntity)}
+   * <p>
+   * Method under test: {@link DeploymentEntityImpl#addResource(ResourceEntity)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void DeploymentEntityImpl.addResource(ResourceEntity)"})
   public void testAddResource_givenDeploymentEntityImpl_thenDeploymentEntityImplResources() {
     // Arrange
@@ -167,17 +148,14 @@ public class DeploymentEntityImplDiffblueTest {
 
   /**
    * Test {@link DeploymentEntityImpl#addResource(ResourceEntity)}.
-   *
    * <ul>
-   *   <li>Then {@link DeploymentEntityImpl} (default constructor) Resources is {@link
-   *       HashMap#HashMap()}.
+   *   <li>Then {@link DeploymentEntityImpl} (default constructor) Resources is {@link HashMap#HashMap()}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link DeploymentEntityImpl#addResource(ResourceEntity)}
+   * <p>
+   * Method under test: {@link DeploymentEntityImpl#addResource(ResourceEntity)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void DeploymentEntityImpl.addResource(ResourceEntity)"})
   public void testAddResource_thenDeploymentEntityImplResourcesIsHashMap() {
     // Arrange
@@ -201,18 +179,15 @@ public class DeploymentEntityImplDiffblueTest {
 
   /**
    * Test {@link DeploymentEntityImpl#getResources()}.
-   *
    * <ul>
-   *   <li>Given {@link DeploymentEntityImpl} (default constructor) Resources is {@link
-   *       HashMap#HashMap()}.
-   *   <li>Then return Empty.
+   *   <li>Given {@link DeploymentEntityImpl} (default constructor) Resources is {@link HashMap#HashMap()}.</li>
+   *   <li>Then return Empty.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link DeploymentEntityImpl#getResources()}
+   * <p>
+   * Method under test: {@link DeploymentEntityImpl#getResources()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"Map DeploymentEntityImpl.getResources()"})
   public void testGetResources_givenDeploymentEntityImplResourcesIsHashMap_thenReturnEmpty() {
     // Arrange
@@ -226,35 +201,32 @@ public class DeploymentEntityImplDiffblueTest {
 
   /**
    * Test {@link DeploymentEntityImpl#getResources()}.
-   *
    * <ul>
-   *   <li>Given {@link DeploymentEntityImpl} (default constructor).
-   *   <li>Then return {@code null}.
+   *   <li>Given {@link DeploymentEntityImpl} (default constructor).</li>
+   *   <li>Then return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link DeploymentEntityImpl#getResources()}
+   * <p>
+   * Method under test: {@link DeploymentEntityImpl#getResources()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"Map DeploymentEntityImpl.getResources()"})
   public void testGetResources_givenDeploymentEntityImpl_thenReturnNull() {
     // Arrange, Act and Assert
-    assertNull(new DeploymentEntityImpl().getResources());
+    assertNull((new DeploymentEntityImpl()).getResources());
   }
 
   /**
    * Test {@link DeploymentEntityImpl#getPersistentState()}.
-   *
-   * <p>Method under test: {@link DeploymentEntityImpl#getPersistentState()}
+   * <p>
+   * Method under test: {@link DeploymentEntityImpl#getPersistentState()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"Object DeploymentEntityImpl.getPersistentState()"})
   public void testGetPersistentState() {
     // Arrange and Act
-    Object actualPersistentState = new DeploymentEntityImpl().getPersistentState();
+    Object actualPersistentState = (new DeploymentEntityImpl()).getPersistentState();
 
     // Assert
     assertTrue(actualPersistentState instanceof Map);
@@ -266,17 +238,15 @@ public class DeploymentEntityImplDiffblueTest {
 
   /**
    * Test {@link DeploymentEntityImpl#getDeployedArtifacts(Class)}.
-   *
    * <ul>
-   *   <li>When {@code Class}.
-   *   <li>Then return {@code null}.
+   *   <li>When {@code Class}.</li>
+   *   <li>Then return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link DeploymentEntityImpl#getDeployedArtifacts(Class)}
+   * <p>
+   * Method under test: {@link DeploymentEntityImpl#getDeployedArtifacts(Class)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"java.util.List DeploymentEntityImpl.getDeployedArtifacts(Class)"})
   public void testGetDeployedArtifacts_whenJavaLangClass_thenReturnNull() {
     // Arrange
@@ -290,17 +260,15 @@ public class DeploymentEntityImplDiffblueTest {
 
   /**
    * Test {@link DeploymentEntityImpl#getDeployedArtifacts(Class)}.
-   *
    * <ul>
-   *   <li>When {@code Object}.
-   *   <li>Then return size is one.
+   *   <li>When {@code Object}.</li>
+   *   <li>Then return size is one.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link DeploymentEntityImpl#getDeployedArtifacts(Class)}
+   * <p>
+   * Method under test: {@link DeploymentEntityImpl#getDeployedArtifacts(Class)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"java.util.List DeploymentEntityImpl.getDeployedArtifacts(Class)"})
   public void testGetDeployedArtifacts_whenJavaLangObject_thenReturnSizeIsOne() {
     // Arrange

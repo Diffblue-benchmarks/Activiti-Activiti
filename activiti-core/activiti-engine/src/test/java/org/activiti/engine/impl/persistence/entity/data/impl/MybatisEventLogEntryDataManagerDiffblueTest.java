@@ -19,8 +19,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.engine.impl.cfg.JtaProcessEngineConfiguration;
 import org.activiti.engine.impl.cfg.ProcessEngineConfigurationImpl;
@@ -32,27 +31,21 @@ import org.junit.experimental.categories.Category;
 public class MybatisEventLogEntryDataManagerDiffblueTest {
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
-   *   <li>{@link
-   *       MybatisEventLogEntryDataManager#MybatisEventLogEntryDataManager(ProcessEngineConfigurationImpl)}
+   *   <li>{@link MybatisEventLogEntryDataManager#MybatisEventLogEntryDataManager(ProcessEngineConfigurationImpl)}
    *   <li>{@link MybatisEventLogEntryDataManager#getManagedEntityClass()}
    * </ul>
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void MybatisEventLogEntryDataManager.<init>(ProcessEngineConfigurationImpl)",
-    "Class MybatisEventLogEntryDataManager.getManagedEntityClass()"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void MybatisEventLogEntryDataManager.<init>(ProcessEngineConfigurationImpl)",
+      "Class MybatisEventLogEntryDataManager.getManagedEntityClass()"})
   public void testGettersAndSetters() {
     // Arrange and Act
-    Class<? extends EventLogEntryEntity> actualManagedEntityClass =
-        new MybatisEventLogEntryDataManager(new JtaProcessEngineConfiguration())
-            .getManagedEntityClass();
+    Class<? extends EventLogEntryEntity> actualManagedEntityClass = (new MybatisEventLogEntryDataManager(
+        new JtaProcessEngineConfiguration())).getManagedEntityClass();
 
     // Assert
     Class<EventLogEntryEntityImpl> expectedManagedEntityClass = EventLogEntryEntityImpl.class;
@@ -61,17 +54,16 @@ public class MybatisEventLogEntryDataManagerDiffblueTest {
 
   /**
    * Test {@link MybatisEventLogEntryDataManager#create()}.
-   *
-   * <p>Method under test: {@link MybatisEventLogEntryDataManager#create()}
+   * <p>
+   * Method under test: {@link MybatisEventLogEntryDataManager#create()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"EventLogEntryEntity MybatisEventLogEntryDataManager.create()"})
   public void testCreate() {
     // Arrange and Act
-    EventLogEntryEntity actualCreateResult =
-        new MybatisEventLogEntryDataManager(new JtaProcessEngineConfiguration()).create();
+    EventLogEntryEntity actualCreateResult = (new MybatisEventLogEntryDataManager(new JtaProcessEngineConfiguration()))
+        .create();
 
     // Assert
     assertTrue(actualCreateResult instanceof EventLogEntryEntityImpl);

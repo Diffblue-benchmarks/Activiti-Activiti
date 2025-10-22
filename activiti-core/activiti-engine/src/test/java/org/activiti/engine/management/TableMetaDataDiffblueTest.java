@@ -18,8 +18,7 @@ package org.activiti.engine.management;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
 import java.util.List;
@@ -29,9 +28,8 @@ import org.junit.experimental.categories.Category;
 public class TableMetaDataDiffblueTest {
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>{@link TableMetaData#TableMetaData()}
    *   <li>{@link TableMetaData#setColumnNames(List)}
@@ -43,18 +41,11 @@ public class TableMetaDataDiffblueTest {
    * </ul>
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void TableMetaData.<init>()",
-    "void TableMetaData.<init>(String)",
-    "List TableMetaData.getColumnNames()",
-    "List TableMetaData.getColumnTypes()",
-    "String TableMetaData.getTableName()",
-    "void TableMetaData.setColumnNames(List)",
-    "void TableMetaData.setColumnTypes(List)",
-    "void TableMetaData.setTableName(String)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void TableMetaData.<init>()", "void TableMetaData.<init>(String)",
+      "List TableMetaData.getColumnNames()", "List TableMetaData.getColumnTypes()",
+      "String TableMetaData.getTableName()", "void TableMetaData.setColumnNames(List)",
+      "void TableMetaData.setColumnTypes(List)", "void TableMetaData.setTableName(String)"})
   public void testGettersAndSetters() {
     // Arrange and Act
     TableMetaData actualTableMetaData = new TableMetaData();
@@ -76,13 +67,11 @@ public class TableMetaDataDiffblueTest {
 
   /**
    * Test getters and setters.
-   *
    * <ul>
-   *   <li>When {@code Table Name}.
+   *   <li>When {@code Table Name}.</li>
    * </ul>
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>{@link TableMetaData#TableMetaData(String)}
    *   <li>{@link TableMetaData#setColumnNames(List)}
@@ -94,18 +83,11 @@ public class TableMetaDataDiffblueTest {
    * </ul>
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void TableMetaData.<init>()",
-    "void TableMetaData.<init>(String)",
-    "List TableMetaData.getColumnNames()",
-    "List TableMetaData.getColumnTypes()",
-    "String TableMetaData.getTableName()",
-    "void TableMetaData.setColumnNames(List)",
-    "void TableMetaData.setColumnTypes(List)",
-    "void TableMetaData.setTableName(String)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void TableMetaData.<init>()", "void TableMetaData.<init>(String)",
+      "List TableMetaData.getColumnNames()", "List TableMetaData.getColumnTypes()",
+      "String TableMetaData.getTableName()", "void TableMetaData.setColumnNames(List)",
+      "void TableMetaData.setColumnTypes(List)", "void TableMetaData.setTableName(String)"})
   public void testGettersAndSetters_whenTableName() {
     // Arrange and Act
     TableMetaData actualTableMetaData = new TableMetaData("Table Name");
@@ -127,12 +109,11 @@ public class TableMetaDataDiffblueTest {
 
   /**
    * Test {@link TableMetaData#addColumnMetaData(String, String)}.
-   *
-   * <p>Method under test: {@link TableMetaData#addColumnMetaData(String, String)}
+   * <p>
+   * Method under test: {@link TableMetaData#addColumnMetaData(String, String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void TableMetaData.addColumnMetaData(String, String)"})
   public void testAddColumnMetaData() {
     // Arrange

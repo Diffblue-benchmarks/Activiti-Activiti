@@ -17,7 +17,6 @@ package org.activiti.api.process.model.payloads;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
@@ -26,9 +25,8 @@ import org.junit.jupiter.api.Test;
 class SuspendProcessPayloadDiffblueTest {
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>{@link SuspendProcessPayload#SuspendProcessPayload(String)}
    *   <li>{@link SuspendProcessPayload#setProcessInstanceId(String)}
@@ -38,14 +36,9 @@ class SuspendProcessPayloadDiffblueTest {
    */
   @Test
   @DisplayName("Test getters and setters")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void SuspendProcessPayload.<init>(String)",
-    "String SuspendProcessPayload.getId()",
-    "String SuspendProcessPayload.getProcessInstanceId()",
-    "void SuspendProcessPayload.setProcessInstanceId(String)"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void SuspendProcessPayload.<init>(String)", "String SuspendProcessPayload.getId()",
+      "String SuspendProcessPayload.getProcessInstanceId()", "void SuspendProcessPayload.setProcessInstanceId(String)"})
   void testGettersAndSetters() {
     // Arrange and Act
     SuspendProcessPayload actualSuspendProcessPayload = new SuspendProcessPayload("42");
@@ -59,16 +52,15 @@ class SuspendProcessPayloadDiffblueTest {
 
   /**
    * Test {@link SuspendProcessPayload#SuspendProcessPayload()}.
-   *
-   * <p>Method under test: {@link SuspendProcessPayload#SuspendProcessPayload()}
+   * <p>
+   * Method under test: {@link SuspendProcessPayload#SuspendProcessPayload()}
    */
   @Test
   @DisplayName("Test new SuspendProcessPayload()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void SuspendProcessPayload.<init>()"})
   void testNewSuspendProcessPayload() {
     // Arrange, Act and Assert
-    assertNull(new SuspendProcessPayload().getProcessInstanceId());
+    assertNull((new SuspendProcessPayload()).getProcessInstanceId());
   }
 }

@@ -19,8 +19,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.HashMap;
 import java.util.Map;
@@ -31,20 +30,14 @@ import org.junit.experimental.categories.Category;
 
 public class ExecuteTaskListenerTransactionListenerDiffblueTest {
   /**
-   * Test {@link
-   * ExecuteTaskListenerTransactionListener#ExecuteTaskListenerTransactionListener(TransactionDependentTaskListener,
-   * TransactionDependentTaskListenerExecutionScope)}.
-   *
-   * <p>Method under test: {@link
-   * ExecuteTaskListenerTransactionListener#ExecuteTaskListenerTransactionListener(TransactionDependentTaskListener,
-   * TransactionDependentTaskListenerExecutionScope)}
+   * Test {@link ExecuteTaskListenerTransactionListener#ExecuteTaskListenerTransactionListener(TransactionDependentTaskListener, TransactionDependentTaskListenerExecutionScope)}.
+   * <p>
+   * Method under test: {@link ExecuteTaskListenerTransactionListener#ExecuteTaskListenerTransactionListener(TransactionDependentTaskListener, TransactionDependentTaskListenerExecutionScope)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({
-    "void ExecuteTaskListenerTransactionListener.<init>(TransactionDependentTaskListener, TransactionDependentTaskListenerExecutionScope)"
-  })
+      "void ExecuteTaskListenerTransactionListener.<init>(TransactionDependentTaskListener, TransactionDependentTaskListenerExecutionScope)"})
   public void testNewExecuteTaskListenerTransactionListener() {
     // Arrange
     TransactionDependentTaskListener listener = mock(TransactionDependentTaskListener.class);
@@ -52,24 +45,15 @@ public class ExecuteTaskListenerTransactionListenerDiffblueTest {
     HashMap<String, Object> executionVariables = new HashMap<>();
     HashMap<String, Object> customPropertiesMap = new HashMap<>();
 
-    TransactionDependentTaskListenerExecutionScope scope =
-        new TransactionDependentTaskListenerExecutionScope(
-            "42", "42", task, executionVariables, customPropertiesMap);
-
-    // Act
-    ExecuteTaskListenerTransactionListener actualExecuteTaskListenerTransactionListener =
-        new ExecuteTaskListenerTransactionListener(listener, scope);
-
-    // Assert
-    TransactionDependentTaskListenerExecutionScope transactionDependentTaskListenerExecutionScope =
-        actualExecuteTaskListenerTransactionListener.scope;
+    // Act and Assert
+    TransactionDependentTaskListenerExecutionScope transactionDependentTaskListenerExecutionScope = (new ExecuteTaskListenerTransactionListener(
+        listener, new TransactionDependentTaskListenerExecutionScope("42", "42", task, executionVariables,
+            customPropertiesMap))).scope;
     assertEquals("42", transactionDependentTaskListenerExecutionScope.getExecutionId());
     assertEquals("42", transactionDependentTaskListenerExecutionScope.getProcessInstanceId());
-    Map<String, Object> customPropertiesMap2 =
-        transactionDependentTaskListenerExecutionScope.getCustomPropertiesMap();
+    Map<String, Object> customPropertiesMap2 = transactionDependentTaskListenerExecutionScope.getCustomPropertiesMap();
     assertTrue(customPropertiesMap2.isEmpty());
-    Map<String, Object> executionVariables2 =
-        transactionDependentTaskListenerExecutionScope.getExecutionVariables();
+    Map<String, Object> executionVariables2 = transactionDependentTaskListenerExecutionScope.getExecutionVariables();
     assertTrue(executionVariables2.isEmpty());
     assertSame(customPropertiesMap, customPropertiesMap2);
     assertSame(executionVariables, executionVariables2);

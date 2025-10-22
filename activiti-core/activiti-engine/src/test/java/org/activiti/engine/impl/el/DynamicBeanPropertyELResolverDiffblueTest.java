@@ -19,8 +19,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import jakarta.el.ELContext;
 import org.activiti.engine.impl.util.json.JSONObject;
@@ -29,31 +28,25 @@ import org.junit.experimental.categories.Category;
 
 public class DynamicBeanPropertyELResolverDiffblueTest {
   /**
-   * Test {@link DynamicBeanPropertyELResolver#DynamicBeanPropertyELResolver(Class, String,
-   * String)}.
-   *
+   * Test {@link DynamicBeanPropertyELResolver#DynamicBeanPropertyELResolver(Class, String, String)}.
    * <ul>
-   *   <li>When {@link Object}.
-   *   <li>Then return not {@link DynamicBeanPropertyELResolver#readOnly}.
+   *   <li>When {@link Object}.</li>
+   *   <li>Then return not {@link DynamicBeanPropertyELResolver#readOnly}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link DynamicBeanPropertyELResolver#DynamicBeanPropertyELResolver(Class,
-   * String, String)}
+   * <p>
+   * Method under test: {@link DynamicBeanPropertyELResolver#DynamicBeanPropertyELResolver(Class, String, String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void DynamicBeanPropertyELResolver.<init>(Class, String, String)",
-    "void DynamicBeanPropertyELResolver.<init>(boolean, Class, String, String)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void DynamicBeanPropertyELResolver.<init>(Class, String, String)",
+      "void DynamicBeanPropertyELResolver.<init>(boolean, Class, String, String)"})
   public void testNewDynamicBeanPropertyELResolver_whenObject_thenReturnNotReadOnly() {
     // Arrange
     Class<Object> subject = Object.class;
 
     // Act
-    DynamicBeanPropertyELResolver actualDynamicBeanPropertyELResolver =
-        new DynamicBeanPropertyELResolver(subject, "Read Method Name", "Write Method Name");
+    DynamicBeanPropertyELResolver actualDynamicBeanPropertyELResolver = new DynamicBeanPropertyELResolver(subject,
+        "Read Method Name", "Write Method Name");
 
     // Assert
     assertEquals("Read Method Name", actualDynamicBeanPropertyELResolver.readMethodName);
@@ -64,31 +57,25 @@ public class DynamicBeanPropertyELResolverDiffblueTest {
   }
 
   /**
-   * Test {@link DynamicBeanPropertyELResolver#DynamicBeanPropertyELResolver(boolean, Class, String,
-   * String)}.
-   *
+   * Test {@link DynamicBeanPropertyELResolver#DynamicBeanPropertyELResolver(boolean, Class, String, String)}.
    * <ul>
-   *   <li>When {@code true}.
-   *   <li>Then return {@link DynamicBeanPropertyELResolver#readOnly}.
+   *   <li>When {@code true}.</li>
+   *   <li>Then return {@link DynamicBeanPropertyELResolver#readOnly}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link
-   * DynamicBeanPropertyELResolver#DynamicBeanPropertyELResolver(boolean, Class, String, String)}
+   * <p>
+   * Method under test: {@link DynamicBeanPropertyELResolver#DynamicBeanPropertyELResolver(boolean, Class, String, String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void DynamicBeanPropertyELResolver.<init>(Class, String, String)",
-    "void DynamicBeanPropertyELResolver.<init>(boolean, Class, String, String)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void DynamicBeanPropertyELResolver.<init>(Class, String, String)",
+      "void DynamicBeanPropertyELResolver.<init>(boolean, Class, String, String)"})
   public void testNewDynamicBeanPropertyELResolver_whenTrue_thenReturnReadOnly() {
     // Arrange
     Class<Object> subject = Object.class;
 
     // Act
-    DynamicBeanPropertyELResolver actualDynamicBeanPropertyELResolver =
-        new DynamicBeanPropertyELResolver(true, subject, "Read Method Name", "Write Method Name");
+    DynamicBeanPropertyELResolver actualDynamicBeanPropertyELResolver = new DynamicBeanPropertyELResolver(true, subject,
+        "Read Method Name", "Write Method Name");
 
     // Assert
     assertEquals("Read Method Name", actualDynamicBeanPropertyELResolver.readMethodName);
@@ -100,31 +87,25 @@ public class DynamicBeanPropertyELResolverDiffblueTest {
 
   /**
    * Test {@link DynamicBeanPropertyELResolver#getCommonPropertyType(ELContext, Object)}.
-   *
    * <ul>
-   *   <li>Given {@code Object}.
-   *   <li>Then return {@link Object}.
+   *   <li>Given {@code Object}.</li>
+   *   <li>Then return {@link Object}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link DynamicBeanPropertyELResolver#getCommonPropertyType(ELContext,
-   * Object)}
+   * <p>
+   * Method under test: {@link DynamicBeanPropertyELResolver#getCommonPropertyType(ELContext, Object)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "Class DynamicBeanPropertyELResolver.getCommonPropertyType(ELContext, Object)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Class DynamicBeanPropertyELResolver.getCommonPropertyType(ELContext, Object)"})
   public void testGetCommonPropertyType_givenJavaLangObject_thenReturnObject() {
     // Arrange
     Class<Object> subject = Object.class;
-    DynamicBeanPropertyELResolver dynamicBeanPropertyELResolver =
-        new DynamicBeanPropertyELResolver(subject, "Read Method Name", "Write Method Name");
+    DynamicBeanPropertyELResolver dynamicBeanPropertyELResolver = new DynamicBeanPropertyELResolver(subject,
+        "Read Method Name", "Write Method Name");
 
     // Act
-    Class<?> actualCommonPropertyType =
-        dynamicBeanPropertyELResolver.getCommonPropertyType(
-            new ParsingElContext(), JSONObject.NULL);
+    Class<?> actualCommonPropertyType = dynamicBeanPropertyELResolver.getCommonPropertyType(new ParsingElContext(),
+        JSONObject.NULL);
 
     // Assert
     Class<Object> expectedCommonPropertyType = Object.class;
@@ -133,52 +114,43 @@ public class DynamicBeanPropertyELResolverDiffblueTest {
 
   /**
    * Test {@link DynamicBeanPropertyELResolver#getFeatureDescriptors(ELContext, Object)}.
-   *
-   * <p>Method under test: {@link DynamicBeanPropertyELResolver#getFeatureDescriptors(ELContext,
-   * Object)}
+   * <p>
+   * Method under test: {@link DynamicBeanPropertyELResolver#getFeatureDescriptors(ELContext, Object)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "java.util.Iterator DynamicBeanPropertyELResolver.getFeatureDescriptors(ELContext, Object)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"java.util.Iterator DynamicBeanPropertyELResolver.getFeatureDescriptors(ELContext, Object)"})
   public void testGetFeatureDescriptors() {
     // Arrange
     Class<Object> subject = Object.class;
-    DynamicBeanPropertyELResolver dynamicBeanPropertyELResolver =
-        new DynamicBeanPropertyELResolver(subject, "Read Method Name", "Write Method Name");
+    DynamicBeanPropertyELResolver dynamicBeanPropertyELResolver = new DynamicBeanPropertyELResolver(subject,
+        "Read Method Name", "Write Method Name");
 
     // Act and Assert
-    assertNull(
-        dynamicBeanPropertyELResolver.getFeatureDescriptors(
-            new ParsingElContext(), JSONObject.NULL));
+    assertNull(dynamicBeanPropertyELResolver.getFeatureDescriptors(new ParsingElContext(), JSONObject.NULL));
   }
 
   /**
    * Test {@link DynamicBeanPropertyELResolver#getType(ELContext, Object, Object)}.
-   *
    * <ul>
-   *   <li>Given {@code Object}.
-   *   <li>Then {@link ParsingElContext} (default constructor) PropertyResolved.
+   *   <li>Given {@code Object}.</li>
+   *   <li>Then {@link ParsingElContext} (default constructor) PropertyResolved.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link DynamicBeanPropertyELResolver#getType(ELContext, Object, Object)}
+   * <p>
+   * Method under test: {@link DynamicBeanPropertyELResolver#getType(ELContext, Object, Object)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"Class DynamicBeanPropertyELResolver.getType(ELContext, Object, Object)"})
   public void testGetType_givenJavaLangObject_thenParsingElContextPropertyResolved() {
     // Arrange
     Class<Object> subject = Object.class;
-    DynamicBeanPropertyELResolver dynamicBeanPropertyELResolver =
-        new DynamicBeanPropertyELResolver(subject, "Read Method Name", "Write Method Name");
+    DynamicBeanPropertyELResolver dynamicBeanPropertyELResolver = new DynamicBeanPropertyELResolver(subject,
+        "Read Method Name", "Write Method Name");
     ParsingElContext context = new ParsingElContext();
 
     // Act
-    Class<?> actualType =
-        dynamicBeanPropertyELResolver.getType(context, JSONObject.NULL, JSONObject.NULL);
+    Class<?> actualType = dynamicBeanPropertyELResolver.getType(context, JSONObject.NULL, JSONObject.NULL);
 
     // Assert
     assertTrue(context.isPropertyResolved());
@@ -188,24 +160,22 @@ public class DynamicBeanPropertyELResolverDiffblueTest {
 
   /**
    * Test {@link DynamicBeanPropertyELResolver#getType(ELContext, Object, Object)}.
-   *
    * <ul>
-   *   <li>Given {@code Object}.
-   *   <li>When {@code null}.
-   *   <li>Then return {@code null}.
+   *   <li>Given {@code Object}.</li>
+   *   <li>When {@code null}.</li>
+   *   <li>Then return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link DynamicBeanPropertyELResolver#getType(ELContext, Object, Object)}
+   * <p>
+   * Method under test: {@link DynamicBeanPropertyELResolver#getType(ELContext, Object, Object)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"Class DynamicBeanPropertyELResolver.getType(ELContext, Object, Object)"})
   public void testGetType_givenJavaLangObject_whenNull_thenReturnNull() {
     // Arrange
     Class<Object> subject = Object.class;
-    DynamicBeanPropertyELResolver dynamicBeanPropertyELResolver =
-        new DynamicBeanPropertyELResolver(subject, "Read Method Name", "Write Method Name");
+    DynamicBeanPropertyELResolver dynamicBeanPropertyELResolver = new DynamicBeanPropertyELResolver(subject,
+        "Read Method Name", "Write Method Name");
     ParsingElContext context = new ParsingElContext();
 
     // Act and Assert
@@ -215,49 +185,43 @@ public class DynamicBeanPropertyELResolverDiffblueTest {
 
   /**
    * Test {@link DynamicBeanPropertyELResolver#getValue(ELContext, Object, Object)}.
-   *
    * <ul>
-   *   <li>Then return {@code false}.
+   *   <li>Then return {@code false}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link DynamicBeanPropertyELResolver#getValue(ELContext, Object, Object)}
+   * <p>
+   * Method under test: {@link DynamicBeanPropertyELResolver#getValue(ELContext, Object, Object)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"Object DynamicBeanPropertyELResolver.getValue(ELContext, Object, Object)"})
   public void testGetValue_thenReturnFalse() {
     // Arrange
     Class<Object> subject = Object.class;
-    DynamicBeanPropertyELResolver dynamicBeanPropertyELResolver =
-        new DynamicBeanPropertyELResolver(subject, "equals", "Write Method Name");
+    DynamicBeanPropertyELResolver dynamicBeanPropertyELResolver = new DynamicBeanPropertyELResolver(subject, "equals",
+        "Write Method Name");
     ParsingElContext context = new ParsingElContext();
 
     // Act and Assert
-    assertFalse(
-        (Boolean)
-            dynamicBeanPropertyELResolver.getValue(context, JSONObject.NULL, JSONObject.NULL));
+    assertFalse((Boolean) dynamicBeanPropertyELResolver.getValue(context, JSONObject.NULL, JSONObject.NULL));
     assertTrue(context.isPropertyResolved());
   }
 
   /**
    * Test {@link DynamicBeanPropertyELResolver#getValue(ELContext, Object, Object)}.
-   *
    * <ul>
-   *   <li>Then return {@code null}.
+   *   <li>Then return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link DynamicBeanPropertyELResolver#getValue(ELContext, Object, Object)}
+   * <p>
+   * Method under test: {@link DynamicBeanPropertyELResolver#getValue(ELContext, Object, Object)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"Object DynamicBeanPropertyELResolver.getValue(ELContext, Object, Object)"})
   public void testGetValue_thenReturnNull() {
     // Arrange
     Class<Object> subject = Object.class;
-    DynamicBeanPropertyELResolver dynamicBeanPropertyELResolver =
-        new DynamicBeanPropertyELResolver(subject, "Read Method Name", "Write Method Name");
+    DynamicBeanPropertyELResolver dynamicBeanPropertyELResolver = new DynamicBeanPropertyELResolver(subject,
+        "Read Method Name", "Write Method Name");
     ParsingElContext context = new ParsingElContext();
 
     // Act and Assert
@@ -267,51 +231,20 @@ public class DynamicBeanPropertyELResolverDiffblueTest {
 
   /**
    * Test {@link DynamicBeanPropertyELResolver#getValue(ELContext, Object, Object)}.
-   *
    * <ul>
-   *   <li>Then return {@code String[]}.
+   *   <li>Then return {@code true}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link DynamicBeanPropertyELResolver#getValue(ELContext, Object, Object)}
+   * <p>
+   * Method under test: {@link DynamicBeanPropertyELResolver#getValue(ELContext, Object, Object)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"Object DynamicBeanPropertyELResolver.getValue(ELContext, Object, Object)"})
-  public void testGetValue_thenReturnString() {
-    // Arrange
-    Class<Object> subject = Object.class;
-    DynamicBeanPropertyELResolver dynamicBeanPropertyELResolver =
-        new DynamicBeanPropertyELResolver(subject, "split", "Write Method Name");
-    ParsingElContext context = new ParsingElContext();
-
-    // Act
-    Object actualValue = dynamicBeanPropertyELResolver.getValue(context, "null", JSONObject.NULL);
-
-    // Assert
-    assertTrue(actualValue instanceof String[]);
-    assertEquals(0, ((String[]) actualValue).length);
-    assertTrue(context.isPropertyResolved());
-  }
-
-  /**
-   * Test {@link DynamicBeanPropertyELResolver#getValue(ELContext, Object, Object)}.
-   *
-   * <ul>
-   *   <li>Then return {@code true}.
-   * </ul>
-   *
-   * <p>Method under test: {@link DynamicBeanPropertyELResolver#getValue(ELContext, Object, Object)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"Object DynamicBeanPropertyELResolver.getValue(ELContext, Object, Object)"})
   public void testGetValue_thenReturnTrue() {
     // Arrange
     Class<Object> subject = Object.class;
-    DynamicBeanPropertyELResolver dynamicBeanPropertyELResolver =
-        new DynamicBeanPropertyELResolver(subject, "equals", "Write Method Name");
+    DynamicBeanPropertyELResolver dynamicBeanPropertyELResolver = new DynamicBeanPropertyELResolver(subject, "equals",
+        "Write Method Name");
     ParsingElContext context = new ParsingElContext();
 
     // Act
@@ -324,53 +257,43 @@ public class DynamicBeanPropertyELResolverDiffblueTest {
 
   /**
    * Test {@link DynamicBeanPropertyELResolver#isReadOnly(ELContext, Object, Object)}.
-   *
    * <ul>
-   *   <li>Then return {@code false}.
+   *   <li>Then return {@code false}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link DynamicBeanPropertyELResolver#isReadOnly(ELContext, Object,
-   * Object)}
+   * <p>
+   * Method under test: {@link DynamicBeanPropertyELResolver#isReadOnly(ELContext, Object, Object)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"boolean DynamicBeanPropertyELResolver.isReadOnly(ELContext, Object, Object)"})
   public void testIsReadOnly_thenReturnFalse() {
     // Arrange
     Class<Object> subject = Object.class;
-    DynamicBeanPropertyELResolver dynamicBeanPropertyELResolver =
-        new DynamicBeanPropertyELResolver(subject, "Read Method Name", "Write Method Name");
+    DynamicBeanPropertyELResolver dynamicBeanPropertyELResolver = new DynamicBeanPropertyELResolver(subject,
+        "Read Method Name", "Write Method Name");
 
     // Act and Assert
-    assertFalse(
-        dynamicBeanPropertyELResolver.isReadOnly(
-            new ParsingElContext(), JSONObject.NULL, JSONObject.NULL));
+    assertFalse(dynamicBeanPropertyELResolver.isReadOnly(new ParsingElContext(), JSONObject.NULL, JSONObject.NULL));
   }
 
   /**
    * Test {@link DynamicBeanPropertyELResolver#isReadOnly(ELContext, Object, Object)}.
-   *
    * <ul>
-   *   <li>Then return {@code true}.
+   *   <li>Then return {@code true}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link DynamicBeanPropertyELResolver#isReadOnly(ELContext, Object,
-   * Object)}
+   * <p>
+   * Method under test: {@link DynamicBeanPropertyELResolver#isReadOnly(ELContext, Object, Object)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"boolean DynamicBeanPropertyELResolver.isReadOnly(ELContext, Object, Object)"})
   public void testIsReadOnly_thenReturnTrue() {
     // Arrange
     Class<Object> subject = Object.class;
-    DynamicBeanPropertyELResolver dynamicBeanPropertyELResolver =
-        new DynamicBeanPropertyELResolver(true, subject, "Read Method Name", "Write Method Name");
+    DynamicBeanPropertyELResolver dynamicBeanPropertyELResolver = new DynamicBeanPropertyELResolver(true, subject,
+        "Read Method Name", "Write Method Name");
 
     // Act and Assert
-    assertTrue(
-        dynamicBeanPropertyELResolver.isReadOnly(
-            new ParsingElContext(), JSONObject.NULL, JSONObject.NULL));
+    assertTrue(dynamicBeanPropertyELResolver.isReadOnly(new ParsingElContext(), JSONObject.NULL, JSONObject.NULL));
   }
 }

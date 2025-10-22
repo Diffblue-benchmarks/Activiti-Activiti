@@ -16,8 +16,7 @@
 package org.activiti.engine.impl.util;
 
 import static org.junit.Assert.assertEquals;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
@@ -25,17 +24,15 @@ import org.junit.experimental.categories.Category;
 public class TimerUtilDiffblueTest {
   /**
    * Test {@link TimerUtil#prepareRepeat(String)}.
-   *
    * <ul>
-   *   <li>When {@code 2020-03-01}.
-   *   <li>Then return {@code 2020-03-01}.
+   *   <li>When {@code 2020-03-01}.</li>
+   *   <li>Then return {@code 2020-03-01}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link TimerUtil#prepareRepeat(String)}
+   * <p>
+   * Method under test: {@link TimerUtil#prepareRepeat(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"String TimerUtil.prepareRepeat(String)"})
   public void testPrepareRepeat_when20200301_thenReturn20200301() {
     // Arrange, Act and Assert
@@ -44,17 +41,15 @@ public class TimerUtilDiffblueTest {
 
   /**
    * Test {@link TimerUtil#prepareRepeat(String)}.
-   *
    * <ul>
-   *   <li>When {@code R}.
-   *   <li>Then return {@code R}.
+   *   <li>When {@code R}.</li>
+   *   <li>Then return {@code R}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link TimerUtil#prepareRepeat(String)}
+   * <p>
+   * Method under test: {@link TimerUtil#prepareRepeat(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"String TimerUtil.prepareRepeat(String)"})
   public void testPrepareRepeat_whenR_thenReturnR() {
     // Arrange, Act and Assert

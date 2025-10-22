@@ -20,22 +20,16 @@ import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.ArgumentMatchers.isA;
-import static org.mockito.ArgumentMatchers.isNull;
 import static org.mockito.Mockito.anyBoolean;
-import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 import javax.sql.DataSource;
 import org.activiti.engine.impl.db.DbSqlSessionFactory;
 import org.activiti.engine.impl.persistence.cache.CachedEntity;
@@ -43,13 +37,17 @@ import org.activiti.engine.impl.persistence.cache.EntityCache;
 import org.activiti.engine.impl.persistence.cache.EntityCacheImpl;
 import org.activiti.engine.impl.persistence.entity.AttachmentEntityImpl;
 import org.activiti.engine.impl.persistence.entity.Entity;
-import org.activiti.engine.impl.util.json.JSONObject;
+import org.apache.ibatis.executor.BatchExecutor;
+import org.apache.ibatis.executor.CachingExecutor;
 import org.apache.ibatis.mapping.Environment;
 import org.apache.ibatis.mapping.Environment.Builder;
 import org.apache.ibatis.session.Configuration;
+import org.apache.ibatis.session.ExecutorType;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.defaults.DefaultSqlSession;
 import org.apache.ibatis.session.defaults.DefaultSqlSessionFactory;
+import org.apache.ibatis.transaction.Transaction;
+import org.apache.ibatis.transaction.jdbc.JdbcTransaction;
 import org.apache.ibatis.transaction.jdbc.JdbcTransactionFactory;
 import org.apache.ibatis.transaction.managed.ManagedTransactionFactory;
 import org.junit.Test;
@@ -59,30 +57,25 @@ import org.mockito.Mockito;
 public class ProfilingDbSqlSessionDiffblueTest {
   /**
    * Test {@link ProfilingDbSqlSession#ProfilingDbSqlSession(DbSqlSessionFactory, EntityCache)}.
-   *
-   * <p>Method under test: {@link ProfilingDbSqlSession#ProfilingDbSqlSession(DbSqlSessionFactory,
-   * EntityCache)}
+   * <p>
+   * Method under test: {@link ProfilingDbSqlSession#ProfilingDbSqlSession(DbSqlSessionFactory, EntityCache)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void ProfilingDbSqlSession.<init>(DbSqlSessionFactory, EntityCache)"})
   public void testNewProfilingDbSqlSession() {
     // Arrange
     DbSqlSessionFactory dbSqlSessionFactory = mock(DbSqlSessionFactory.class);
     when(dbSqlSessionFactory.getDatabaseCatalog()).thenReturn("Database Catalog");
     when(dbSqlSessionFactory.getDatabaseSchema()).thenReturn("Database Schema");
-
-    Builder dataSourceResult = new Builder("42").dataSource(mock(DataSource.class));
-    Environment environment =
-        dataSourceResult.transactionFactory(new JdbcTransactionFactory()).build();
+    Builder dataSourceResult = (new Builder("42")).dataSource(mock(DataSource.class));
+    Environment environment = dataSourceResult.transactionFactory(new JdbcTransactionFactory()).build();
     Configuration configuration = new Configuration(environment);
-    when(dbSqlSessionFactory.getSqlSessionFactory())
-        .thenReturn(new DefaultSqlSessionFactory(configuration));
+    when(dbSqlSessionFactory.getSqlSessionFactory()).thenReturn(new DefaultSqlSessionFactory(configuration));
 
     // Act
-    ProfilingDbSqlSession actualProfilingDbSqlSession =
-        new ProfilingDbSqlSession(dbSqlSessionFactory, new EntityCacheImpl());
+    ProfilingDbSqlSession actualProfilingDbSqlSession = new ProfilingDbSqlSession(dbSqlSessionFactory,
+        new EntityCacheImpl());
 
     // Assert
     verify(dbSqlSessionFactory).getDatabaseCatalog();
@@ -98,30 +91,25 @@ public class ProfilingDbSqlSessionDiffblueTest {
 
   /**
    * Test {@link ProfilingDbSqlSession#ProfilingDbSqlSession(DbSqlSessionFactory, EntityCache)}.
-   *
-   * <p>Method under test: {@link ProfilingDbSqlSession#ProfilingDbSqlSession(DbSqlSessionFactory,
-   * EntityCache)}
+   * <p>
+   * Method under test: {@link ProfilingDbSqlSession#ProfilingDbSqlSession(DbSqlSessionFactory, EntityCache)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void ProfilingDbSqlSession.<init>(DbSqlSessionFactory, EntityCache)"})
   public void testNewProfilingDbSqlSession2() {
     // Arrange
     DbSqlSessionFactory dbSqlSessionFactory = mock(DbSqlSessionFactory.class);
     when(dbSqlSessionFactory.getDatabaseCatalog()).thenReturn("Database Catalog");
     when(dbSqlSessionFactory.getDatabaseSchema()).thenReturn("Database Schema");
-
-    Builder dataSourceResult = new Builder("42").dataSource(mock(DataSource.class));
-    Environment environment =
-        dataSourceResult.transactionFactory(new ManagedTransactionFactory()).build();
+    Builder dataSourceResult = (new Builder("42")).dataSource(mock(DataSource.class));
+    Environment environment = dataSourceResult.transactionFactory(new ManagedTransactionFactory()).build();
     Configuration configuration = new Configuration(environment);
-    when(dbSqlSessionFactory.getSqlSessionFactory())
-        .thenReturn(new DefaultSqlSessionFactory(configuration));
+    when(dbSqlSessionFactory.getSqlSessionFactory()).thenReturn(new DefaultSqlSessionFactory(configuration));
 
     // Act
-    ProfilingDbSqlSession actualProfilingDbSqlSession =
-        new ProfilingDbSqlSession(dbSqlSessionFactory, new EntityCacheImpl());
+    ProfilingDbSqlSession actualProfilingDbSqlSession = new ProfilingDbSqlSession(dbSqlSessionFactory,
+        new EntityCacheImpl());
 
     // Assert
     verify(dbSqlSessionFactory).getDatabaseCatalog();
@@ -136,38 +124,28 @@ public class ProfilingDbSqlSessionDiffblueTest {
   }
 
   /**
-   * Test {@link ProfilingDbSqlSession#ProfilingDbSqlSession(DbSqlSessionFactory, EntityCache,
-   * Connection, String, String)}.
-   *
+   * Test {@link ProfilingDbSqlSession#ProfilingDbSqlSession(DbSqlSessionFactory, EntityCache, Connection, String, String)}.
    * <ul>
-   *   <li>Then SqlSession return {@link DefaultSqlSession}.
+   *   <li>Then SqlSession return {@link DefaultSqlSession}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ProfilingDbSqlSession#ProfilingDbSqlSession(DbSqlSessionFactory,
-   * EntityCache, Connection, String, String)}
+   * <p>
+   * Method under test: {@link ProfilingDbSqlSession#ProfilingDbSqlSession(DbSqlSessionFactory, EntityCache, Connection, String, String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void ProfilingDbSqlSession.<init>(DbSqlSessionFactory, EntityCache, Connection, String, String)"
-  })
-  public void testNewProfilingDbSqlSession_thenSqlSessionReturnDefaultSqlSession()
-      throws SQLException {
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void ProfilingDbSqlSession.<init>(DbSqlSessionFactory, EntityCache, Connection, String, String)"})
+  public void testNewProfilingDbSqlSession_thenSqlSessionReturnDefaultSqlSession() throws SQLException {
     // Arrange
     DbSqlSessionFactory dbSqlSessionFactory = mock(DbSqlSessionFactory.class);
     Configuration configuration = new Configuration();
-    when(dbSqlSessionFactory.getSqlSessionFactory())
-        .thenReturn(new DefaultSqlSessionFactory(configuration));
+    when(dbSqlSessionFactory.getSqlSessionFactory()).thenReturn(new DefaultSqlSessionFactory(configuration));
     EntityCacheImpl entityCache = new EntityCacheImpl();
-
     Connection connection = mock(Connection.class);
     when(connection.getAutoCommit()).thenReturn(true);
 
     // Act
-    ProfilingDbSqlSession actualProfilingDbSqlSession =
-        new ProfilingDbSqlSession(
-            dbSqlSessionFactory, entityCache, connection, "Catalog", "Schema");
+    ProfilingDbSqlSession actualProfilingDbSqlSession = new ProfilingDbSqlSession(dbSqlSessionFactory, entityCache,
+        connection, "Catalog", "Schema");
 
     // Assert
     verify(connection).getAutoCommit();
@@ -182,184 +160,89 @@ public class ProfilingDbSqlSessionDiffblueTest {
 
   /**
    * Test {@link ProfilingDbSqlSession#flush()}.
-   *
    * <ul>
-   *   <li>Given {@code Object}.
-   *   <li>Then calls {@link DbSqlSessionFactory#getDatabaseCatalog()}.
+   *   <li>Then calls {@link Connection#getAutoCommit()}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ProfilingDbSqlSession#flush()}
+   * <p>
+   * Method under test: {@link ProfilingDbSqlSession#flush()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void ProfilingDbSqlSession.flush()"})
-  public void testFlush_givenJavaLangObject_thenCallsGetDatabaseCatalog() {
+  public void testFlush_thenCallsGetAutoCommit() throws SQLException {
     // Arrange
     DbSqlSessionFactory dbSqlSessionFactory = mock(DbSqlSessionFactory.class);
-    when(dbSqlSessionFactory.getDatabaseCatalog()).thenReturn("Database Catalog");
-    when(dbSqlSessionFactory.getDatabaseSchema()).thenReturn("Database Schema");
-
-    Builder dataSourceResult = new Builder("42").dataSource(mock(DataSource.class));
-    Environment environment =
-        dataSourceResult.transactionFactory(new JdbcTransactionFactory()).build();
-    Configuration configuration = new Configuration(environment);
-    when(dbSqlSessionFactory.getSqlSessionFactory())
-        .thenReturn(new DefaultSqlSessionFactory(configuration));
-
-    HashMap<Class<?>, Map<String, CachedEntity>> resultClassMapMap = new HashMap<>();
-    Class<Object> forNameResult = Object.class;
-    resultClassMapMap.put(forNameResult, new HashMap<>());
-
-    EntityCacheImpl entityCache = mock(EntityCacheImpl.class);
-    Mockito.<Map<Class<?>, Map<String, CachedEntity>>>when(entityCache.getAllCachedEntities())
-        .thenReturn(resultClassMapMap);
-    when(entityCache.put(Mockito.<Entity>any(), anyBoolean()))
-        .thenReturn(new CachedEntity(new AttachmentEntityImpl(), true));
-    entityCache.put(new AttachmentEntityImpl(), true);
-
-    ProfilingDbSqlSession profilingDbSqlSession =
-        new ProfilingDbSqlSession(dbSqlSessionFactory, entityCache);
+    when(dbSqlSessionFactory.getSqlSessionFactory()).thenReturn(new DefaultSqlSessionFactory(new Configuration()));
+    Connection connection = mock(Connection.class);
+    when(connection.getAutoCommit()).thenReturn(true);
 
     // Act
-    profilingDbSqlSession.flush();
+    (new ProfilingDbSqlSession(dbSqlSessionFactory, new EntityCacheImpl(), connection, "Catalog", "Schema")).flush();
 
     // Assert
-    verify(dbSqlSessionFactory).getDatabaseCatalog();
-    verify(dbSqlSessionFactory).getDatabaseSchema();
+    verify(connection).getAutoCommit();
     verify(dbSqlSessionFactory).getSqlSessionFactory();
-    verify(entityCache).getAllCachedEntities();
-    verify(entityCache).put(isA(Entity.class), eq(true));
-  }
-
-  /**
-   * Test {@link ProfilingDbSqlSession#flush()}.
-   *
-   * <ul>
-   *   <li>Then calls {@link DbSqlSessionFactory#getDatabaseCatalog()}.
-   * </ul>
-   *
-   * <p>Method under test: {@link ProfilingDbSqlSession#flush()}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void ProfilingDbSqlSession.flush()"})
-  public void testFlush_thenCallsGetDatabaseCatalog() {
-    // Arrange
-    DbSqlSessionFactory dbSqlSessionFactory = mock(DbSqlSessionFactory.class);
-    when(dbSqlSessionFactory.getDatabaseCatalog()).thenReturn("Database Catalog");
-    when(dbSqlSessionFactory.getDatabaseSchema()).thenReturn("Database Schema");
-
-    Builder dataSourceResult = new Builder("42").dataSource(mock(DataSource.class));
-    Environment environment =
-        dataSourceResult.transactionFactory(new JdbcTransactionFactory()).build();
-    Configuration configuration = new Configuration(environment);
-    when(dbSqlSessionFactory.getSqlSessionFactory())
-        .thenReturn(new DefaultSqlSessionFactory(configuration));
-
-    EntityCacheImpl entityCache = mock(EntityCacheImpl.class);
-    Mockito.<Map<Class<?>, Map<String, CachedEntity>>>when(entityCache.getAllCachedEntities())
-        .thenReturn(new HashMap<>());
-    when(entityCache.put(Mockito.<Entity>any(), anyBoolean()))
-        .thenReturn(new CachedEntity(new AttachmentEntityImpl(), true));
-    entityCache.put(new AttachmentEntityImpl(), true);
-
-    ProfilingDbSqlSession profilingDbSqlSession =
-        new ProfilingDbSqlSession(dbSqlSessionFactory, entityCache);
-
-    // Act
-    profilingDbSqlSession.flush();
-
-    // Assert
-    verify(dbSqlSessionFactory).getDatabaseCatalog();
-    verify(dbSqlSessionFactory).getDatabaseSchema();
-    verify(dbSqlSessionFactory).getSqlSessionFactory();
-    verify(entityCache).getAllCachedEntities();
-    verify(entityCache).put(isA(Entity.class), eq(true));
   }
 
   /**
    * Test {@link ProfilingDbSqlSession#commit()}.
-   *
    * <ul>
-   *   <li>Then calls {@link DbSqlSessionFactory#getDatabaseCatalog()}.
+   *   <li>Then calls {@link Connection#getAutoCommit()}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ProfilingDbSqlSession#commit()}
+   * <p>
+   * Method under test: {@link ProfilingDbSqlSession#commit()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void ProfilingDbSqlSession.commit()"})
-  public void testCommit_thenCallsGetDatabaseCatalog() {
+  public void testCommit_thenCallsGetAutoCommit() throws SQLException {
     // Arrange
     DbSqlSessionFactory dbSqlSessionFactory = mock(DbSqlSessionFactory.class);
-    when(dbSqlSessionFactory.getDatabaseCatalog()).thenReturn("Database Catalog");
-    when(dbSqlSessionFactory.getDatabaseSchema()).thenReturn("Database Schema");
-
-    Builder dataSourceResult = new Builder("42").dataSource(mock(DataSource.class));
-    Environment environment =
-        dataSourceResult.transactionFactory(new JdbcTransactionFactory()).build();
-    Configuration configuration = new Configuration(environment);
-    when(dbSqlSessionFactory.getSqlSessionFactory())
-        .thenReturn(new DefaultSqlSessionFactory(configuration));
-
-    EntityCacheImpl entityCache = mock(EntityCacheImpl.class);
-    when(entityCache.put(Mockito.<Entity>any(), anyBoolean()))
-        .thenReturn(new CachedEntity(new AttachmentEntityImpl(), true));
-    entityCache.put(new AttachmentEntityImpl(), true);
-
-    ProfilingDbSqlSession profilingDbSqlSession =
-        new ProfilingDbSqlSession(dbSqlSessionFactory, entityCache);
+    when(dbSqlSessionFactory.getSqlSessionFactory()).thenReturn(new DefaultSqlSessionFactory(new Configuration()));
+    Connection connection = mock(Connection.class);
+    when(connection.getAutoCommit()).thenReturn(true);
 
     // Act
-    profilingDbSqlSession.commit();
+    (new ProfilingDbSqlSession(dbSqlSessionFactory, new EntityCacheImpl(), connection, "Catalog", "Schema")).commit();
 
     // Assert
-    verify(dbSqlSessionFactory).getDatabaseCatalog();
-    verify(dbSqlSessionFactory).getDatabaseSchema();
+    verify(connection).getAutoCommit();
     verify(dbSqlSessionFactory).getSqlSessionFactory();
-    verify(entityCache).put(isA(Entity.class), eq(true));
   }
 
   /**
-   * Test {@link ProfilingDbSqlSession#selectById(Class, String, boolean)} with {@code entityClass},
-   * {@code id}, {@code useCache}.
-   *
+   * Test {@link ProfilingDbSqlSession#selectById(Class, String, boolean)} with {@code entityClass}, {@code id}, {@code useCache}.
    * <ul>
-   *   <li>Then return {@link AttachmentEntityImpl} (default constructor).
+   *   <li>Then return {@link AttachmentEntityImpl} (default constructor).</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ProfilingDbSqlSession#selectById(Class, String, boolean)}
+   * <p>
+   * Method under test: {@link ProfilingDbSqlSession#selectById(Class, String, boolean)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"Entity ProfilingDbSqlSession.selectById(Class, String, boolean)"})
   public void testSelectByIdWithEntityClassIdUseCache_thenReturnAttachmentEntityImpl() {
     // Arrange
+    Configuration configuration = mock(Configuration.class);
+    Configuration configuration2 = new Configuration();
+    when(configuration.newExecutor(Mockito.<Transaction>any(), Mockito.<ExecutorType>any())).thenReturn(
+        new CachingExecutor(new BatchExecutor(configuration2, new JdbcTransaction(mock(Connection.class)))));
+    Builder dataSourceResult = (new Builder("42")).dataSource(mock(DataSource.class));
+    Environment buildResult = dataSourceResult.transactionFactory(new JdbcTransactionFactory()).build();
+    when(configuration.getEnvironment()).thenReturn(buildResult);
+    when(configuration.getDefaultExecutorType()).thenReturn(ExecutorType.SIMPLE);
+    DefaultSqlSessionFactory defaultSqlSessionFactory = new DefaultSqlSessionFactory(configuration);
     DbSqlSessionFactory dbSqlSessionFactory = mock(DbSqlSessionFactory.class);
     when(dbSqlSessionFactory.getDatabaseCatalog()).thenReturn("Database Catalog");
     when(dbSqlSessionFactory.getDatabaseSchema()).thenReturn("Database Schema");
-
-    Builder dataSourceResult = new Builder("42").dataSource(mock(DataSource.class));
-    Environment environment =
-        dataSourceResult.transactionFactory(new JdbcTransactionFactory()).build();
-    Configuration configuration = new Configuration(environment);
-    when(dbSqlSessionFactory.getSqlSessionFactory())
-        .thenReturn(new DefaultSqlSessionFactory(configuration));
-
+    when(dbSqlSessionFactory.getSqlSessionFactory()).thenReturn(defaultSqlSessionFactory);
     EntityCacheImpl entityCache = mock(EntityCacheImpl.class);
     AttachmentEntityImpl attachmentEntityImpl = new AttachmentEntityImpl();
-    when(entityCache.findInCache(Mockito.<Class<Entity>>any(), Mockito.<String>any()))
-        .thenReturn(attachmentEntityImpl);
+    when(entityCache.findInCache(Mockito.<Class<Entity>>any(), Mockito.<String>any())).thenReturn(attachmentEntityImpl);
     when(entityCache.put(Mockito.<Entity>any(), anyBoolean()))
         .thenReturn(new CachedEntity(new AttachmentEntityImpl(), true));
     entityCache.put(new AttachmentEntityImpl(), true);
-
-    ProfilingDbSqlSession profilingDbSqlSession =
-        new ProfilingDbSqlSession(dbSqlSessionFactory, entityCache);
+    ProfilingDbSqlSession profilingDbSqlSession = new ProfilingDbSqlSession(dbSqlSessionFactory, entityCache);
     Class<Entity> entityClass = Entity.class;
 
     // Act
@@ -371,133 +254,35 @@ public class ProfilingDbSqlSessionDiffblueTest {
     verify(dbSqlSessionFactory).getSqlSessionFactory();
     verify(entityCache).findInCache(isA(Class.class), eq("42"));
     verify(entityCache).put(isA(Entity.class), eq(true));
+    verify(configuration).getDefaultExecutorType();
+    verify(configuration).getEnvironment();
+    verify(configuration).newExecutor(isA(Transaction.class), eq(ExecutorType.SIMPLE));
     assertSame(attachmentEntityImpl, actualSelectByIdResult);
   }
 
   /**
-   * Test {@link ProfilingDbSqlSession#selectListWithRawParameter(String, Object, int, int,
-   * boolean)} with {@code statement}, {@code parameter}, {@code firstResult}, {@code maxResults},
-   * {@code useCache}.
-   *
-   * <p>Method under test: {@link ProfilingDbSqlSession#selectListWithRawParameter(String, Object,
-   * int, int, boolean)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "List ProfilingDbSqlSession.selectListWithRawParameter(String, Object, int, int, boolean)"
-  })
-  public void testSelectListWithRawParameterWithStatementParameterFirstResultMaxResultsUseCache() {
-    // Arrange
-    DbSqlSessionFactory dbSqlSessionFactory = mock(DbSqlSessionFactory.class);
-    when(dbSqlSessionFactory.getDatabaseCatalog()).thenReturn("Database Catalog");
-    when(dbSqlSessionFactory.getDatabaseSchema()).thenReturn("Database Schema");
-    when(dbSqlSessionFactory.mapStatement(Mockito.<String>any())).thenReturn("Map Statement");
-
-    Builder dataSourceResult = new Builder("42").dataSource(mock(DataSource.class));
-    Environment environment =
-        dataSourceResult.transactionFactory(new JdbcTransactionFactory()).build();
-    Configuration configuration = new Configuration(environment);
-    when(dbSqlSessionFactory.getSqlSessionFactory())
-        .thenReturn(new DefaultSqlSessionFactory(configuration));
-    doNothing().when(dbSqlSessionFactory).setStatementMappings(Mockito.<Map<String, String>>any());
-    dbSqlSessionFactory.setStatementMappings(null);
-    ProfilingDbSqlSession profilingDbSqlSession =
-        new ProfilingDbSqlSession(dbSqlSessionFactory, new EntityCacheImpl());
-
-    // Act
-    List actualSelectListWithRawParameterResult =
-        profilingDbSqlSession.selectListWithRawParameter("MD", JSONObject.NULL, -1, -1, false);
-
-    // Assert
-    verify(dbSqlSessionFactory).getDatabaseCatalog();
-    verify(dbSqlSessionFactory).getDatabaseSchema();
-    verify(dbSqlSessionFactory).getSqlSessionFactory();
-    verify(dbSqlSessionFactory).mapStatement("MD");
-    verify(dbSqlSessionFactory).setStatementMappings(isNull());
-    assertTrue(actualSelectListWithRawParameterResult.isEmpty());
-  }
-
-  /**
-   * Test {@link ProfilingDbSqlSession#selectListWithRawParameterWithoutFilter(String, Object, int,
-   * int)}.
-   *
-   * <ul>
-   *   <li>Then return Empty.
-   * </ul>
-   *
-   * <p>Method under test: {@link
-   * ProfilingDbSqlSession#selectListWithRawParameterWithoutFilter(String, Object, int, int)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "List ProfilingDbSqlSession.selectListWithRawParameterWithoutFilter(String, Object, int, int)"
-  })
-  public void testSelectListWithRawParameterWithoutFilter_thenReturnEmpty() {
-    // Arrange
-    DbSqlSessionFactory dbSqlSessionFactory = mock(DbSqlSessionFactory.class);
-    when(dbSqlSessionFactory.getDatabaseCatalog()).thenReturn("Database Catalog");
-    when(dbSqlSessionFactory.getDatabaseSchema()).thenReturn("Database Schema");
-    when(dbSqlSessionFactory.mapStatement(Mockito.<String>any())).thenReturn("Map Statement");
-
-    Builder dataSourceResult = new Builder("42").dataSource(mock(DataSource.class));
-    Environment environment =
-        dataSourceResult.transactionFactory(new JdbcTransactionFactory()).build();
-    Configuration configuration = new Configuration(environment);
-    when(dbSqlSessionFactory.getSqlSessionFactory())
-        .thenReturn(new DefaultSqlSessionFactory(configuration));
-    doNothing().when(dbSqlSessionFactory).setStatementMappings(Mockito.<Map<String, String>>any());
-    dbSqlSessionFactory.setStatementMappings(null);
-    ProfilingDbSqlSession profilingDbSqlSession =
-        new ProfilingDbSqlSession(dbSqlSessionFactory, new EntityCacheImpl());
-
-    // Act
-    List actualSelectListWithRawParameterWithoutFilterResult =
-        profilingDbSqlSession.selectListWithRawParameterWithoutFilter(
-            "MD", JSONObject.NULL, -1, -1);
-
-    // Assert
-    verify(dbSqlSessionFactory).getDatabaseCatalog();
-    verify(dbSqlSessionFactory).getDatabaseSchema();
-    verify(dbSqlSessionFactory).getSqlSessionFactory();
-    verify(dbSqlSessionFactory).mapStatement("MD");
-    verify(dbSqlSessionFactory).setStatementMappings(isNull());
-    assertTrue(actualSelectListWithRawParameterWithoutFilterResult.isEmpty());
-  }
-
-  /**
    * Test {@link ProfilingDbSqlSession#flushBulkInsert(Collection, Class)}.
-   *
    * <ul>
-   *   <li>Then calls {@link DbSqlSessionFactory#getBulkInsertStatement(Class)}.
+   *   <li>Then calls {@link DbSqlSessionFactory#getBulkInsertStatement(Class)}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ProfilingDbSqlSession#flushBulkInsert(Collection, Class)}
+   * <p>
+   * Method under test: {@link ProfilingDbSqlSession#flushBulkInsert(Collection, Class)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void ProfilingDbSqlSession.flushBulkInsert(Collection, Class)"})
   public void testFlushBulkInsert_thenCallsGetBulkInsertStatement() {
     // Arrange
     DbSqlSessionFactory dbSqlSessionFactory = mock(DbSqlSessionFactory.class);
-    when(dbSqlSessionFactory.getBulkInsertStatement(Mockito.<Class<Object>>any()))
-        .thenReturn("Bulk Insert Statement");
+    when(dbSqlSessionFactory.getBulkInsertStatement(Mockito.<Class<Object>>any())).thenReturn("Bulk Insert Statement");
     when(dbSqlSessionFactory.getDatabaseCatalog()).thenReturn("Database Catalog");
     when(dbSqlSessionFactory.getDatabaseSchema()).thenReturn("Database Schema");
     when(dbSqlSessionFactory.mapStatement(Mockito.<String>any())).thenReturn("Map Statement");
-
-    Builder dataSourceResult = new Builder("42").dataSource(mock(DataSource.class));
-    Environment environment =
-        dataSourceResult.transactionFactory(new JdbcTransactionFactory()).build();
-    Configuration configuration = new Configuration(environment);
+    Builder dataSourceResult = (new Builder("42")).dataSource(mock(DataSource.class));
+    Environment environment = dataSourceResult.transactionFactory(new JdbcTransactionFactory()).build();
     when(dbSqlSessionFactory.getSqlSessionFactory())
-        .thenReturn(new DefaultSqlSessionFactory(configuration));
-    ProfilingDbSqlSession profilingDbSqlSession =
-        new ProfilingDbSqlSession(dbSqlSessionFactory, new EntityCacheImpl());
+        .thenReturn(new DefaultSqlSessionFactory(new Configuration(environment)));
+    ProfilingDbSqlSession profilingDbSqlSession = new ProfilingDbSqlSession(dbSqlSessionFactory, new EntityCacheImpl());
     ArrayList<Entity> entities = new ArrayList<>();
     Class<Entity> clazz = Entity.class;
 
@@ -509,45 +294,36 @@ public class ProfilingDbSqlSessionDiffblueTest {
     verify(dbSqlSessionFactory).getDatabaseCatalog();
     verify(dbSqlSessionFactory).getDatabaseSchema();
     verify(dbSqlSessionFactory).getSqlSessionFactory();
-    verify(dbSqlSessionFactory).mapStatement("Bulk Insert Statement");
+    verify(dbSqlSessionFactory).mapStatement(eq("Bulk Insert Statement"));
   }
 
   /**
    * Test {@link ProfilingDbSqlSession#flushUpdates()}.
-   *
    * <ul>
-   *   <li>Then calls {@link DbSqlSessionFactory#getDatabaseCatalog()}.
+   *   <li>Then calls {@link DbSqlSessionFactory#getDatabaseCatalog()}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ProfilingDbSqlSession#flushUpdates()}
+   * <p>
+   * Method under test: {@link ProfilingDbSqlSession#flushUpdates()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void ProfilingDbSqlSession.flushUpdates()"})
   public void testFlushUpdates_thenCallsGetDatabaseCatalog() {
     // Arrange
     DbSqlSessionFactory dbSqlSessionFactory = mock(DbSqlSessionFactory.class);
     when(dbSqlSessionFactory.getDatabaseCatalog()).thenReturn("Database Catalog");
     when(dbSqlSessionFactory.getDatabaseSchema()).thenReturn("Database Schema");
-
-    Builder dataSourceResult = new Builder("42").dataSource(mock(DataSource.class));
-    Environment environment =
-        dataSourceResult.transactionFactory(new JdbcTransactionFactory()).build();
-    Configuration configuration = new Configuration(environment);
+    Builder dataSourceResult = (new Builder("42")).dataSource(mock(DataSource.class));
+    Environment environment = dataSourceResult.transactionFactory(new JdbcTransactionFactory()).build();
     when(dbSqlSessionFactory.getSqlSessionFactory())
-        .thenReturn(new DefaultSqlSessionFactory(configuration));
-
+        .thenReturn(new DefaultSqlSessionFactory(new Configuration(environment)));
     EntityCacheImpl entityCache = mock(EntityCacheImpl.class);
     when(entityCache.put(Mockito.<Entity>any(), anyBoolean()))
         .thenReturn(new CachedEntity(new AttachmentEntityImpl(), true));
     entityCache.put(new AttachmentEntityImpl(), true);
 
-    ProfilingDbSqlSession profilingDbSqlSession =
-        new ProfilingDbSqlSession(dbSqlSessionFactory, entityCache);
-
     // Act
-    profilingDbSqlSession.flushUpdates();
+    (new ProfilingDbSqlSession(dbSqlSessionFactory, entityCache)).flushUpdates();
 
     // Assert
     verify(dbSqlSessionFactory).getDatabaseCatalog();
@@ -558,31 +334,22 @@ public class ProfilingDbSqlSessionDiffblueTest {
 
   /**
    * Test {@link ProfilingDbSqlSession#flushDeleteEntities(Class, Collection)}.
-   *
-   * <ul>
-   *   <li>Then calls {@link DbSqlSessionFactory#getDatabaseCatalog()}.
-   * </ul>
-   *
-   * <p>Method under test: {@link ProfilingDbSqlSession#flushDeleteEntities(Class, Collection)}
+   * <p>
+   * Method under test: {@link ProfilingDbSqlSession#flushDeleteEntities(Class, Collection)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void ProfilingDbSqlSession.flushDeleteEntities(Class, Collection)"})
-  public void testFlushDeleteEntities_thenCallsGetDatabaseCatalog() {
+  public void testFlushDeleteEntities() {
     // Arrange
     DbSqlSessionFactory dbSqlSessionFactory = mock(DbSqlSessionFactory.class);
     when(dbSqlSessionFactory.getDatabaseCatalog()).thenReturn("Database Catalog");
     when(dbSqlSessionFactory.getDatabaseSchema()).thenReturn("Database Schema");
-
-    Builder dataSourceResult = new Builder("42").dataSource(mock(DataSource.class));
-    Environment environment =
-        dataSourceResult.transactionFactory(new JdbcTransactionFactory()).build();
-    Configuration configuration = new Configuration(environment);
+    Builder dataSourceResult = (new Builder("42")).dataSource(mock(DataSource.class));
+    Environment environment = dataSourceResult.transactionFactory(new JdbcTransactionFactory()).build();
     when(dbSqlSessionFactory.getSqlSessionFactory())
-        .thenReturn(new DefaultSqlSessionFactory(configuration));
-    ProfilingDbSqlSession profilingDbSqlSession =
-        new ProfilingDbSqlSession(dbSqlSessionFactory, new EntityCacheImpl());
+        .thenReturn(new DefaultSqlSessionFactory(new Configuration(environment)));
+    ProfilingDbSqlSession profilingDbSqlSession = new ProfilingDbSqlSession(dbSqlSessionFactory, new EntityCacheImpl());
     Class<Entity> entityClass = Entity.class;
 
     // Act
@@ -596,92 +363,58 @@ public class ProfilingDbSqlSessionDiffblueTest {
 
   /**
    * Test {@link ProfilingDbSqlSession#flushBulkDeletes(Class)}.
-   *
    * <ul>
-   *   <li>Then calls {@link DbSqlSessionFactory#getDatabaseCatalog()}.
+   *   <li>Then calls {@link Connection#getAutoCommit()}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ProfilingDbSqlSession#flushBulkDeletes(Class)}
+   * <p>
+   * Method under test: {@link ProfilingDbSqlSession#flushBulkDeletes(Class)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void ProfilingDbSqlSession.flushBulkDeletes(Class)"})
-  public void testFlushBulkDeletes_thenCallsGetDatabaseCatalog() {
+  public void testFlushBulkDeletes_thenCallsGetAutoCommit() throws SQLException {
     // Arrange
     DbSqlSessionFactory dbSqlSessionFactory = mock(DbSqlSessionFactory.class);
-    when(dbSqlSessionFactory.getDatabaseCatalog()).thenReturn("Database Catalog");
-    when(dbSqlSessionFactory.getDatabaseSchema()).thenReturn("Database Schema");
-
-    Builder dataSourceResult = new Builder("42").dataSource(mock(DataSource.class));
-    Environment environment =
-        dataSourceResult.transactionFactory(new JdbcTransactionFactory()).build();
-    Configuration configuration = new Configuration(environment);
-    when(dbSqlSessionFactory.getSqlSessionFactory())
-        .thenReturn(new DefaultSqlSessionFactory(configuration));
-
-    EntityCacheImpl entityCache = mock(EntityCacheImpl.class);
-    when(entityCache.put(Mockito.<Entity>any(), anyBoolean()))
-        .thenReturn(new CachedEntity(new AttachmentEntityImpl(), true));
-    entityCache.put(new AttachmentEntityImpl(), true);
-
-    ProfilingDbSqlSession profilingDbSqlSession =
-        new ProfilingDbSqlSession(dbSqlSessionFactory, entityCache);
+    when(dbSqlSessionFactory.getSqlSessionFactory()).thenReturn(new DefaultSqlSessionFactory(new Configuration()));
+    Connection connection = mock(Connection.class);
+    when(connection.getAutoCommit()).thenReturn(true);
+    ProfilingDbSqlSession profilingDbSqlSession = new ProfilingDbSqlSession(dbSqlSessionFactory, new EntityCacheImpl(),
+        connection, "Catalog", "Schema");
     Class<Entity> entityClass = Entity.class;
 
     // Act
     profilingDbSqlSession.flushBulkDeletes(entityClass);
 
     // Assert
-    verify(dbSqlSessionFactory).getDatabaseCatalog();
-    verify(dbSqlSessionFactory).getDatabaseSchema();
+    verify(connection).getAutoCommit();
     verify(dbSqlSessionFactory).getSqlSessionFactory();
-    verify(entityCache).put(isA(Entity.class), eq(true));
   }
 
   /**
    * Test {@link ProfilingDbSqlSession#getCurrentCommandExecution()}.
-   *
    * <ul>
-   *   <li>Then return {@code null}.
+   *   <li>Then return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ProfilingDbSqlSession#getCurrentCommandExecution()}
+   * <p>
+   * Method under test: {@link ProfilingDbSqlSession#getCurrentCommandExecution()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"CommandExecutionResult ProfilingDbSqlSession.getCurrentCommandExecution()"})
-  public void testGetCurrentCommandExecution_thenReturnNull() {
+  public void testGetCurrentCommandExecution_thenReturnNull() throws SQLException {
     // Arrange
     DbSqlSessionFactory dbSqlSessionFactory = mock(DbSqlSessionFactory.class);
-    when(dbSqlSessionFactory.getDatabaseCatalog()).thenReturn("Database Catalog");
-    when(dbSqlSessionFactory.getDatabaseSchema()).thenReturn("Database Schema");
-
-    Builder dataSourceResult = new Builder("42").dataSource(mock(DataSource.class));
-    Environment environment =
-        dataSourceResult.transactionFactory(new JdbcTransactionFactory()).build();
-    Configuration configuration = new Configuration(environment);
-    when(dbSqlSessionFactory.getSqlSessionFactory())
-        .thenReturn(new DefaultSqlSessionFactory(configuration));
-
-    EntityCacheImpl entityCache = mock(EntityCacheImpl.class);
-    when(entityCache.put(Mockito.<Entity>any(), anyBoolean()))
-        .thenReturn(new CachedEntity(new AttachmentEntityImpl(), true));
-    entityCache.put(new AttachmentEntityImpl(), true);
-
-    ProfilingDbSqlSession profilingDbSqlSession =
-        new ProfilingDbSqlSession(dbSqlSessionFactory, entityCache);
+    when(dbSqlSessionFactory.getSqlSessionFactory()).thenReturn(new DefaultSqlSessionFactory(new Configuration()));
+    Connection connection = mock(Connection.class);
+    when(connection.getAutoCommit()).thenReturn(true);
 
     // Act
-    CommandExecutionResult actualCurrentCommandExecution =
-        profilingDbSqlSession.getCurrentCommandExecution();
+    CommandExecutionResult actualCurrentCommandExecution = (new ProfilingDbSqlSession(dbSqlSessionFactory,
+        new EntityCacheImpl(), connection, "Catalog", "Schema")).getCurrentCommandExecution();
 
     // Assert
-    verify(dbSqlSessionFactory).getDatabaseCatalog();
-    verify(dbSqlSessionFactory).getDatabaseSchema();
+    verify(connection).getAutoCommit();
     verify(dbSqlSessionFactory).getSqlSessionFactory();
-    verify(entityCache).put(isA(Entity.class), eq(true));
     assertNull(actualCurrentCommandExecution);
   }
 }

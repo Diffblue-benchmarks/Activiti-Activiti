@@ -19,8 +19,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.engine.history.HistoricActivityInstanceQuery;
 import org.activiti.engine.history.HistoricDetailQuery;
@@ -43,1090 +42,597 @@ import org.mockito.junit.MockitoJUnitRunner;
 
 @RunWith(MockitoJUnitRunner.class)
 public class HistoryServiceImplDiffblueTest {
-  @InjectMocks private HistoryServiceImpl historyServiceImpl;
+  @InjectMocks
+  private HistoryServiceImpl historyServiceImpl;
 
   /**
    * Test {@link HistoryServiceImpl#HistoryServiceImpl(ProcessEngineConfigurationImpl)}.
-   *
-   * <p>Method under test: {@link
-   * HistoryServiceImpl#HistoryServiceImpl(ProcessEngineConfigurationImpl)}
+   * <p>
+   * Method under test: {@link HistoryServiceImpl#HistoryServiceImpl(ProcessEngineConfigurationImpl)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void HistoryServiceImpl.<init>(ProcessEngineConfigurationImpl)"})
   public void testNewHistoryServiceImpl() {
     // Arrange and Act
-    HistoryServiceImpl actualHistoryServiceImpl =
-        new HistoryServiceImpl(new JtaProcessEngineConfiguration());
+    HistoryServiceImpl actualHistoryServiceImpl = new HistoryServiceImpl(new JtaProcessEngineConfiguration());
 
     // Assert
     assertNull(actualHistoryServiceImpl.getCommandExecutor());
-    assertNull(
-        ((HistoryServiceImpl)
-                actualHistoryServiceImpl.processEngineConfiguration.getHistoryService())
-            .getCommandExecutor());
+    assertNull(((HistoryServiceImpl) actualHistoryServiceImpl.processEngineConfiguration.getHistoryService())
+        .getCommandExecutor());
   }
 
   /**
    * Test {@link HistoryServiceImpl#createHistoricProcessInstanceQuery()}.
-   *
-   * <p>Method under test: {@link HistoryServiceImpl#createHistoricProcessInstanceQuery()}
+   * <p>
+   * Method under test: {@link HistoryServiceImpl#createHistoricProcessInstanceQuery()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "HistoricProcessInstanceQuery HistoryServiceImpl.createHistoricProcessInstanceQuery()"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"HistoricProcessInstanceQuery HistoryServiceImpl.createHistoricProcessInstanceQuery()"})
   public void testCreateHistoricProcessInstanceQuery() {
     // Arrange and Act
-    HistoricProcessInstanceQuery actualCreateHistoricProcessInstanceQueryResult =
-        new HistoryServiceImpl(new JtaProcessEngineConfiguration())
-            .createHistoricProcessInstanceQuery();
+    HistoricProcessInstanceQuery actualCreateHistoricProcessInstanceQueryResult = (new HistoryServiceImpl(
+        new JtaProcessEngineConfiguration())).createHistoricProcessInstanceQuery();
 
     // Assert
+    assertTrue(actualCreateHistoricProcessInstanceQueryResult instanceof HistoricProcessInstanceQueryImpl);
+    assertEquals("RES.ID_ asc",
+        ((HistoricProcessInstanceQueryImpl) actualCreateHistoricProcessInstanceQueryResult).getOrderBy());
+    assertEquals("RES.ID_ asc",
+        ((HistoricProcessInstanceQueryImpl) actualCreateHistoricProcessInstanceQueryResult).getOrderByColumns());
+    assertEquals("TEMPRES_ID_ asc",
+        ((HistoricProcessInstanceQueryImpl) actualCreateHistoricProcessInstanceQueryResult).getMssqlOrDB2OrderBy());
+    assertEquals("null:%:%", ((HistoricProcessInstanceQueryImpl) actualCreateHistoricProcessInstanceQueryResult)
+        .getProcessDefinitionIdLike());
+    assertNull(((HistoricProcessInstanceQueryImpl) actualCreateHistoricProcessInstanceQueryResult)
+        .getProcessDefinitionVersion());
+    assertNull(((HistoricProcessInstanceQueryImpl) actualCreateHistoricProcessInstanceQueryResult)
+        .getProcessInstanceVariablesLimit());
+    assertNull(((HistoricProcessInstanceQueryImpl) actualCreateHistoricProcessInstanceQueryResult).getParameter());
+    assertNull(((HistoricProcessInstanceQueryImpl) actualCreateHistoricProcessInstanceQueryResult).getDatabaseType());
+    assertNull(((HistoricProcessInstanceQueryImpl) actualCreateHistoricProcessInstanceQueryResult).getBusinessKey());
+    assertNull(((HistoricProcessInstanceQueryImpl) actualCreateHistoricProcessInstanceQueryResult).getDeploymentId());
+    assertNull(((HistoricProcessInstanceQueryImpl) actualCreateHistoricProcessInstanceQueryResult).getInvolvedUser());
+    assertNull(((HistoricProcessInstanceQueryImpl) actualCreateHistoricProcessInstanceQueryResult).getName());
+    assertNull(((HistoricProcessInstanceQueryImpl) actualCreateHistoricProcessInstanceQueryResult).getNameLike());
+    assertNull(
+        ((HistoricProcessInstanceQueryImpl) actualCreateHistoricProcessInstanceQueryResult).getNameLikeIgnoreCase());
+    assertNull(((HistoricProcessInstanceQueryImpl) actualCreateHistoricProcessInstanceQueryResult)
+        .getProcessDefinitionCategory());
+    assertNull(
+        ((HistoricProcessInstanceQueryImpl) actualCreateHistoricProcessInstanceQueryResult).getProcessDefinitionId());
+    assertNull(
+        ((HistoricProcessInstanceQueryImpl) actualCreateHistoricProcessInstanceQueryResult).getProcessDefinitionKey());
+    assertNull(
+        ((HistoricProcessInstanceQueryImpl) actualCreateHistoricProcessInstanceQueryResult).getProcessDefinitionName());
+    assertNull(
+        ((HistoricProcessInstanceQueryImpl) actualCreateHistoricProcessInstanceQueryResult).getProcessInstanceId());
+    assertNull(((HistoricProcessInstanceQueryImpl) actualCreateHistoricProcessInstanceQueryResult).getStartedBy());
+    assertNull(((HistoricProcessInstanceQueryImpl) actualCreateHistoricProcessInstanceQueryResult)
+        .getSuperProcessInstanceId());
+    assertNull(((HistoricProcessInstanceQueryImpl) actualCreateHistoricProcessInstanceQueryResult).getTenantId());
+    assertNull(((HistoricProcessInstanceQueryImpl) actualCreateHistoricProcessInstanceQueryResult).getTenantIdLike());
+    assertNull(((HistoricProcessInstanceQueryImpl) actualCreateHistoricProcessInstanceQueryResult).orderBy);
+    assertNull(((HistoricProcessInstanceQueryImpl) actualCreateHistoricProcessInstanceQueryResult).locale);
+    assertNull(((HistoricProcessInstanceQueryImpl) actualCreateHistoricProcessInstanceQueryResult).getFinishedAfter());
+    assertNull(((HistoricProcessInstanceQueryImpl) actualCreateHistoricProcessInstanceQueryResult).getFinishedBefore());
+    assertNull(((HistoricProcessInstanceQueryImpl) actualCreateHistoricProcessInstanceQueryResult).getStartedAfter());
+    assertNull(((HistoricProcessInstanceQueryImpl) actualCreateHistoricProcessInstanceQueryResult).getStartedBefore());
+    assertNull(((HistoricProcessInstanceQueryImpl) actualCreateHistoricProcessInstanceQueryResult).getDeploymentIds());
+    assertNull(((HistoricProcessInstanceQueryImpl) actualCreateHistoricProcessInstanceQueryResult).getInvolvedGroups());
+    assertNull(((HistoricProcessInstanceQueryImpl) actualCreateHistoricProcessInstanceQueryResult)
+        .getProcessDefinitionKeyIn());
+    assertNull(
+        ((HistoricProcessInstanceQueryImpl) actualCreateHistoricProcessInstanceQueryResult).getProcessKeyNotIn());
+    assertNull(
+        ((HistoricProcessInstanceQueryImpl) actualCreateHistoricProcessInstanceQueryResult).getProcessInstanceIds());
+    assertNull(((HistoricProcessInstanceQueryImpl) actualCreateHistoricProcessInstanceQueryResult).nullHandlingOnOrder);
+    assertNull(((HistoricProcessInstanceQueryImpl) actualCreateHistoricProcessInstanceQueryResult).resultType);
+    assertNull(
+        ((HistoricProcessInstanceQueryImpl) actualCreateHistoricProcessInstanceQueryResult).currentOrQueryObject);
+    assertNull(((HistoricProcessInstanceQueryImpl) actualCreateHistoricProcessInstanceQueryResult).commandContext);
+    assertNull(((HistoricProcessInstanceQueryImpl) actualCreateHistoricProcessInstanceQueryResult).commandExecutor);
+    assertNull(((HistoricProcessInstanceQueryImpl) actualCreateHistoricProcessInstanceQueryResult).orderProperty);
+    assertEquals(0,
+        ((HistoricProcessInstanceQueryImpl) actualCreateHistoricProcessInstanceQueryResult).getFirstResult());
+    assertEquals(1, ((HistoricProcessInstanceQueryImpl) actualCreateHistoricProcessInstanceQueryResult).getFirstRow());
+    assertFalse(((HistoricProcessInstanceQueryImpl) actualCreateHistoricProcessInstanceQueryResult)
+        .hasLocalQueryVariableValue());
+    assertFalse(((HistoricProcessInstanceQueryImpl) actualCreateHistoricProcessInstanceQueryResult)
+        .hasNonLocalQueryVariableValue());
+    assertFalse(((HistoricProcessInstanceQueryImpl) actualCreateHistoricProcessInstanceQueryResult).isDeleted());
+    assertFalse(
+        ((HistoricProcessInstanceQueryImpl) actualCreateHistoricProcessInstanceQueryResult).isExcludeSubprocesses());
+    assertFalse(((HistoricProcessInstanceQueryImpl) actualCreateHistoricProcessInstanceQueryResult).isFinished());
+    assertFalse(((HistoricProcessInstanceQueryImpl) actualCreateHistoricProcessInstanceQueryResult)
+        .isIncludeProcessVariables());
+    assertFalse(((HistoricProcessInstanceQueryImpl) actualCreateHistoricProcessInstanceQueryResult).isNotDeleted());
+    assertFalse(((HistoricProcessInstanceQueryImpl) actualCreateHistoricProcessInstanceQueryResult).isOpen());
+    assertFalse(((HistoricProcessInstanceQueryImpl) actualCreateHistoricProcessInstanceQueryResult).isUnfinished());
+    assertFalse(((HistoricProcessInstanceQueryImpl) actualCreateHistoricProcessInstanceQueryResult).isWithException());
+    assertFalse(
+        ((HistoricProcessInstanceQueryImpl) actualCreateHistoricProcessInstanceQueryResult).isWithoutTenantId());
+    assertFalse(((HistoricProcessInstanceQueryImpl) actualCreateHistoricProcessInstanceQueryResult).inOrStatement);
+    assertFalse(
+        ((HistoricProcessInstanceQueryImpl) actualCreateHistoricProcessInstanceQueryResult).withLocalizationFallback);
     assertTrue(
-        actualCreateHistoricProcessInstanceQueryResult instanceof HistoricProcessInstanceQueryImpl);
-    assertEquals(
-        "RES.ID_ asc",
-        ((HistoricProcessInstanceQueryImpl) actualCreateHistoricProcessInstanceQueryResult)
-            .getOrderBy());
-    assertEquals(
-        "RES.ID_ asc",
-        ((HistoricProcessInstanceQueryImpl) actualCreateHistoricProcessInstanceQueryResult)
-            .getOrderByColumns());
-    assertEquals(
-        "TEMPRES_ID_ asc",
-        ((HistoricProcessInstanceQueryImpl) actualCreateHistoricProcessInstanceQueryResult)
-            .getMssqlOrDB2OrderBy());
-    assertEquals(
-        "null:%:%",
-        ((HistoricProcessInstanceQueryImpl) actualCreateHistoricProcessInstanceQueryResult)
-            .getProcessDefinitionIdLike());
-    assertNull(
-        ((HistoricProcessInstanceQueryImpl) actualCreateHistoricProcessInstanceQueryResult)
-            .getProcessDefinitionVersion());
-    assertNull(
-        ((HistoricProcessInstanceQueryImpl) actualCreateHistoricProcessInstanceQueryResult)
-            .getProcessInstanceVariablesLimit());
-    assertNull(
-        ((HistoricProcessInstanceQueryImpl) actualCreateHistoricProcessInstanceQueryResult)
-            .getParameter());
-    assertNull(
-        ((HistoricProcessInstanceQueryImpl) actualCreateHistoricProcessInstanceQueryResult)
-            .getDatabaseType());
-    assertNull(
-        ((HistoricProcessInstanceQueryImpl) actualCreateHistoricProcessInstanceQueryResult)
-            .getBusinessKey());
-    assertNull(
-        ((HistoricProcessInstanceQueryImpl) actualCreateHistoricProcessInstanceQueryResult)
-            .getDeploymentId());
-    assertNull(
-        ((HistoricProcessInstanceQueryImpl) actualCreateHistoricProcessInstanceQueryResult)
-            .getInvolvedUser());
-    assertNull(
-        ((HistoricProcessInstanceQueryImpl) actualCreateHistoricProcessInstanceQueryResult)
-            .getName());
-    assertNull(
-        ((HistoricProcessInstanceQueryImpl) actualCreateHistoricProcessInstanceQueryResult)
-            .getNameLike());
-    assertNull(
-        ((HistoricProcessInstanceQueryImpl) actualCreateHistoricProcessInstanceQueryResult)
-            .getNameLikeIgnoreCase());
-    assertNull(
-        ((HistoricProcessInstanceQueryImpl) actualCreateHistoricProcessInstanceQueryResult)
-            .getProcessDefinitionCategory());
-    assertNull(
-        ((HistoricProcessInstanceQueryImpl) actualCreateHistoricProcessInstanceQueryResult)
-            .getProcessDefinitionId());
-    assertNull(
-        ((HistoricProcessInstanceQueryImpl) actualCreateHistoricProcessInstanceQueryResult)
-            .getProcessDefinitionKey());
-    assertNull(
-        ((HistoricProcessInstanceQueryImpl) actualCreateHistoricProcessInstanceQueryResult)
-            .getProcessDefinitionName());
-    assertNull(
-        ((HistoricProcessInstanceQueryImpl) actualCreateHistoricProcessInstanceQueryResult)
-            .getProcessInstanceId());
-    assertNull(
-        ((HistoricProcessInstanceQueryImpl) actualCreateHistoricProcessInstanceQueryResult)
-            .getStartedBy());
-    assertNull(
-        ((HistoricProcessInstanceQueryImpl) actualCreateHistoricProcessInstanceQueryResult)
-            .getSuperProcessInstanceId());
-    assertNull(
-        ((HistoricProcessInstanceQueryImpl) actualCreateHistoricProcessInstanceQueryResult)
-            .getTenantId());
-    assertNull(
-        ((HistoricProcessInstanceQueryImpl) actualCreateHistoricProcessInstanceQueryResult)
-            .getTenantIdLike());
-    assertNull(
-        ((HistoricProcessInstanceQueryImpl) actualCreateHistoricProcessInstanceQueryResult)
-            .orderBy);
-    assertNull(
-        ((HistoricProcessInstanceQueryImpl) actualCreateHistoricProcessInstanceQueryResult).locale);
-    assertNull(
-        ((HistoricProcessInstanceQueryImpl) actualCreateHistoricProcessInstanceQueryResult)
-            .getFinishedAfter());
-    assertNull(
-        ((HistoricProcessInstanceQueryImpl) actualCreateHistoricProcessInstanceQueryResult)
-            .getFinishedBefore());
-    assertNull(
-        ((HistoricProcessInstanceQueryImpl) actualCreateHistoricProcessInstanceQueryResult)
-            .getStartedAfter());
-    assertNull(
-        ((HistoricProcessInstanceQueryImpl) actualCreateHistoricProcessInstanceQueryResult)
-            .getStartedBefore());
-    assertNull(
-        ((HistoricProcessInstanceQueryImpl) actualCreateHistoricProcessInstanceQueryResult)
-            .getDeploymentIds());
-    assertNull(
-        ((HistoricProcessInstanceQueryImpl) actualCreateHistoricProcessInstanceQueryResult)
-            .getInvolvedGroups());
-    assertNull(
-        ((HistoricProcessInstanceQueryImpl) actualCreateHistoricProcessInstanceQueryResult)
-            .getProcessDefinitionKeyIn());
-    assertNull(
-        ((HistoricProcessInstanceQueryImpl) actualCreateHistoricProcessInstanceQueryResult)
-            .getProcessKeyNotIn());
-    assertNull(
-        ((HistoricProcessInstanceQueryImpl) actualCreateHistoricProcessInstanceQueryResult)
-            .getProcessInstanceIds());
-    assertNull(
-        ((HistoricProcessInstanceQueryImpl) actualCreateHistoricProcessInstanceQueryResult)
-            .nullHandlingOnOrder);
-    assertNull(
-        ((HistoricProcessInstanceQueryImpl) actualCreateHistoricProcessInstanceQueryResult)
-            .resultType);
-    assertNull(
-        ((HistoricProcessInstanceQueryImpl) actualCreateHistoricProcessInstanceQueryResult)
-            .currentOrQueryObject);
-    assertNull(
-        ((HistoricProcessInstanceQueryImpl) actualCreateHistoricProcessInstanceQueryResult)
-            .commandContext);
-    assertNull(
-        ((HistoricProcessInstanceQueryImpl) actualCreateHistoricProcessInstanceQueryResult)
-            .commandExecutor);
-    assertNull(
-        ((HistoricProcessInstanceQueryImpl) actualCreateHistoricProcessInstanceQueryResult)
-            .orderProperty);
-    assertEquals(
-        0,
-        ((HistoricProcessInstanceQueryImpl) actualCreateHistoricProcessInstanceQueryResult)
-            .getFirstResult());
-    assertEquals(
-        1,
-        ((HistoricProcessInstanceQueryImpl) actualCreateHistoricProcessInstanceQueryResult)
-            .getFirstRow());
-    assertFalse(
-        ((HistoricProcessInstanceQueryImpl) actualCreateHistoricProcessInstanceQueryResult)
-            .hasLocalQueryVariableValue());
-    assertFalse(
-        ((HistoricProcessInstanceQueryImpl) actualCreateHistoricProcessInstanceQueryResult)
-            .hasNonLocalQueryVariableValue());
-    assertFalse(
-        ((HistoricProcessInstanceQueryImpl) actualCreateHistoricProcessInstanceQueryResult)
-            .isDeleted());
-    assertFalse(
-        ((HistoricProcessInstanceQueryImpl) actualCreateHistoricProcessInstanceQueryResult)
-            .isExcludeSubprocesses());
-    assertFalse(
-        ((HistoricProcessInstanceQueryImpl) actualCreateHistoricProcessInstanceQueryResult)
-            .isFinished());
-    assertFalse(
-        ((HistoricProcessInstanceQueryImpl) actualCreateHistoricProcessInstanceQueryResult)
-            .isIncludeProcessVariables());
-    assertFalse(
-        ((HistoricProcessInstanceQueryImpl) actualCreateHistoricProcessInstanceQueryResult)
-            .isNotDeleted());
-    assertFalse(
-        ((HistoricProcessInstanceQueryImpl) actualCreateHistoricProcessInstanceQueryResult)
-            .isOpen());
-    assertFalse(
-        ((HistoricProcessInstanceQueryImpl) actualCreateHistoricProcessInstanceQueryResult)
-            .isUnfinished());
-    assertFalse(
-        ((HistoricProcessInstanceQueryImpl) actualCreateHistoricProcessInstanceQueryResult)
-            .isWithException());
-    assertFalse(
-        ((HistoricProcessInstanceQueryImpl) actualCreateHistoricProcessInstanceQueryResult)
-            .isWithoutTenantId());
-    assertFalse(
-        ((HistoricProcessInstanceQueryImpl) actualCreateHistoricProcessInstanceQueryResult)
-            .inOrStatement);
-    assertFalse(
-        ((HistoricProcessInstanceQueryImpl) actualCreateHistoricProcessInstanceQueryResult)
-            .withLocalizationFallback);
-    assertTrue(
-        ((HistoricProcessInstanceQueryImpl) actualCreateHistoricProcessInstanceQueryResult)
-            .getQueryVariableValues()
+        ((HistoricProcessInstanceQueryImpl) actualCreateHistoricProcessInstanceQueryResult).getQueryVariableValues()
             .isEmpty());
-    assertTrue(
-        ((HistoricProcessInstanceQueryImpl) actualCreateHistoricProcessInstanceQueryResult)
-            .getOrQueryObjects()
-            .isEmpty());
-    assertEquals(
-        Integer.MAX_VALUE,
-        ((HistoricProcessInstanceQueryImpl) actualCreateHistoricProcessInstanceQueryResult)
-            .getLastRow());
-    assertEquals(
-        Integer.MAX_VALUE,
-        ((HistoricProcessInstanceQueryImpl) actualCreateHistoricProcessInstanceQueryResult)
-            .getMaxResults());
+    assertTrue(((HistoricProcessInstanceQueryImpl) actualCreateHistoricProcessInstanceQueryResult).getOrQueryObjects()
+        .isEmpty());
+    assertEquals(Integer.MAX_VALUE,
+        ((HistoricProcessInstanceQueryImpl) actualCreateHistoricProcessInstanceQueryResult).getLastRow());
+    assertEquals(Integer.MAX_VALUE,
+        ((HistoricProcessInstanceQueryImpl) actualCreateHistoricProcessInstanceQueryResult).getMaxResults());
   }
 
   /**
    * Test {@link HistoryServiceImpl#createHistoricActivityInstanceQuery()}.
-   *
-   * <p>Method under test: {@link HistoryServiceImpl#createHistoricActivityInstanceQuery()}
+   * <p>
+   * Method under test: {@link HistoryServiceImpl#createHistoricActivityInstanceQuery()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "HistoricActivityInstanceQuery HistoryServiceImpl.createHistoricActivityInstanceQuery()"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"HistoricActivityInstanceQuery HistoryServiceImpl.createHistoricActivityInstanceQuery()"})
   public void testCreateHistoricActivityInstanceQuery() {
     // Arrange and Act
-    HistoricActivityInstanceQuery actualCreateHistoricActivityInstanceQueryResult =
-        new HistoryServiceImpl(new JtaProcessEngineConfiguration())
-            .createHistoricActivityInstanceQuery();
+    HistoricActivityInstanceQuery actualCreateHistoricActivityInstanceQueryResult = (new HistoryServiceImpl(
+        new JtaProcessEngineConfiguration())).createHistoricActivityInstanceQuery();
 
     // Assert
-    assertTrue(
-        actualCreateHistoricActivityInstanceQueryResult
-            instanceof HistoricActivityInstanceQueryImpl);
-    assertEquals(
-        "RES.ID_ asc",
-        ((HistoricActivityInstanceQueryImpl) actualCreateHistoricActivityInstanceQueryResult)
-            .getOrderBy());
-    assertEquals(
-        "RES.ID_ asc",
-        ((HistoricActivityInstanceQueryImpl) actualCreateHistoricActivityInstanceQueryResult)
-            .getOrderByColumns());
+    assertTrue(actualCreateHistoricActivityInstanceQueryResult instanceof HistoricActivityInstanceQueryImpl);
+    assertEquals("RES.ID_ asc",
+        ((HistoricActivityInstanceQueryImpl) actualCreateHistoricActivityInstanceQueryResult).getOrderBy());
+    assertEquals("RES.ID_ asc",
+        ((HistoricActivityInstanceQueryImpl) actualCreateHistoricActivityInstanceQueryResult).getOrderByColumns());
+    assertNull(((HistoricActivityInstanceQueryImpl) actualCreateHistoricActivityInstanceQueryResult).getParameter());
+    assertNull(((HistoricActivityInstanceQueryImpl) actualCreateHistoricActivityInstanceQueryResult).getDatabaseType());
+    assertNull(((HistoricActivityInstanceQueryImpl) actualCreateHistoricActivityInstanceQueryResult).getActivityId());
     assertNull(
-        ((HistoricActivityInstanceQueryImpl) actualCreateHistoricActivityInstanceQueryResult)
-            .getParameter());
+        ((HistoricActivityInstanceQueryImpl) actualCreateHistoricActivityInstanceQueryResult).getActivityInstanceId());
+    assertNull(((HistoricActivityInstanceQueryImpl) actualCreateHistoricActivityInstanceQueryResult).getActivityName());
+    assertNull(((HistoricActivityInstanceQueryImpl) actualCreateHistoricActivityInstanceQueryResult).getActivityType());
+    assertNull(((HistoricActivityInstanceQueryImpl) actualCreateHistoricActivityInstanceQueryResult).getAssignee());
+    assertNull(((HistoricActivityInstanceQueryImpl) actualCreateHistoricActivityInstanceQueryResult).getDeleteReason());
     assertNull(
-        ((HistoricActivityInstanceQueryImpl) actualCreateHistoricActivityInstanceQueryResult)
-            .getDatabaseType());
+        ((HistoricActivityInstanceQueryImpl) actualCreateHistoricActivityInstanceQueryResult).getDeleteReasonLike());
+    assertNull(((HistoricActivityInstanceQueryImpl) actualCreateHistoricActivityInstanceQueryResult).getExecutionId());
     assertNull(
-        ((HistoricActivityInstanceQueryImpl) actualCreateHistoricActivityInstanceQueryResult)
-            .getActivityId());
+        ((HistoricActivityInstanceQueryImpl) actualCreateHistoricActivityInstanceQueryResult).getProcessDefinitionId());
     assertNull(
-        ((HistoricActivityInstanceQueryImpl) actualCreateHistoricActivityInstanceQueryResult)
-            .getActivityInstanceId());
+        ((HistoricActivityInstanceQueryImpl) actualCreateHistoricActivityInstanceQueryResult).getProcessInstanceId());
+    assertNull(((HistoricActivityInstanceQueryImpl) actualCreateHistoricActivityInstanceQueryResult).getTenantId());
+    assertNull(((HistoricActivityInstanceQueryImpl) actualCreateHistoricActivityInstanceQueryResult).getTenantIdLike());
+    assertNull(((HistoricActivityInstanceQueryImpl) actualCreateHistoricActivityInstanceQueryResult).orderBy);
     assertNull(
-        ((HistoricActivityInstanceQueryImpl) actualCreateHistoricActivityInstanceQueryResult)
-            .getActivityName());
-    assertNull(
-        ((HistoricActivityInstanceQueryImpl) actualCreateHistoricActivityInstanceQueryResult)
-            .getActivityType());
-    assertNull(
-        ((HistoricActivityInstanceQueryImpl) actualCreateHistoricActivityInstanceQueryResult)
-            .getAssignee());
-    assertNull(
-        ((HistoricActivityInstanceQueryImpl) actualCreateHistoricActivityInstanceQueryResult)
-            .getDeleteReason());
-    assertNull(
-        ((HistoricActivityInstanceQueryImpl) actualCreateHistoricActivityInstanceQueryResult)
-            .getDeleteReasonLike());
-    assertNull(
-        ((HistoricActivityInstanceQueryImpl) actualCreateHistoricActivityInstanceQueryResult)
-            .getExecutionId());
-    assertNull(
-        ((HistoricActivityInstanceQueryImpl) actualCreateHistoricActivityInstanceQueryResult)
-            .getProcessDefinitionId());
-    assertNull(
-        ((HistoricActivityInstanceQueryImpl) actualCreateHistoricActivityInstanceQueryResult)
-            .getProcessInstanceId());
-    assertNull(
-        ((HistoricActivityInstanceQueryImpl) actualCreateHistoricActivityInstanceQueryResult)
-            .getTenantId());
-    assertNull(
-        ((HistoricActivityInstanceQueryImpl) actualCreateHistoricActivityInstanceQueryResult)
-            .getTenantIdLike());
-    assertNull(
-        ((HistoricActivityInstanceQueryImpl) actualCreateHistoricActivityInstanceQueryResult)
-            .orderBy);
-    assertNull(
-        ((HistoricActivityInstanceQueryImpl) actualCreateHistoricActivityInstanceQueryResult)
-            .nullHandlingOnOrder);
-    assertNull(
-        ((HistoricActivityInstanceQueryImpl) actualCreateHistoricActivityInstanceQueryResult)
-            .resultType);
-    assertNull(
-        ((HistoricActivityInstanceQueryImpl) actualCreateHistoricActivityInstanceQueryResult)
-            .commandContext);
-    assertNull(
-        ((HistoricActivityInstanceQueryImpl) actualCreateHistoricActivityInstanceQueryResult)
-            .commandExecutor);
-    assertNull(
-        ((HistoricActivityInstanceQueryImpl) actualCreateHistoricActivityInstanceQueryResult)
-            .orderProperty);
-    assertEquals(
-        0,
-        ((HistoricActivityInstanceQueryImpl) actualCreateHistoricActivityInstanceQueryResult)
-            .getFirstResult());
-    assertEquals(
-        1,
-        ((HistoricActivityInstanceQueryImpl) actualCreateHistoricActivityInstanceQueryResult)
-            .getFirstRow());
+        ((HistoricActivityInstanceQueryImpl) actualCreateHistoricActivityInstanceQueryResult).nullHandlingOnOrder);
+    assertNull(((HistoricActivityInstanceQueryImpl) actualCreateHistoricActivityInstanceQueryResult).resultType);
+    assertNull(((HistoricActivityInstanceQueryImpl) actualCreateHistoricActivityInstanceQueryResult).commandContext);
+    assertNull(((HistoricActivityInstanceQueryImpl) actualCreateHistoricActivityInstanceQueryResult).commandExecutor);
+    assertNull(((HistoricActivityInstanceQueryImpl) actualCreateHistoricActivityInstanceQueryResult).orderProperty);
+    assertEquals(0,
+        ((HistoricActivityInstanceQueryImpl) actualCreateHistoricActivityInstanceQueryResult).getFirstResult());
+    assertEquals(1,
+        ((HistoricActivityInstanceQueryImpl) actualCreateHistoricActivityInstanceQueryResult).getFirstRow());
+    assertFalse(((HistoricActivityInstanceQueryImpl) actualCreateHistoricActivityInstanceQueryResult).isFinished());
+    assertFalse(((HistoricActivityInstanceQueryImpl) actualCreateHistoricActivityInstanceQueryResult).isUnfinished());
     assertFalse(
-        ((HistoricActivityInstanceQueryImpl) actualCreateHistoricActivityInstanceQueryResult)
-            .isFinished());
-    assertFalse(
-        ((HistoricActivityInstanceQueryImpl) actualCreateHistoricActivityInstanceQueryResult)
-            .isUnfinished());
-    assertFalse(
-        ((HistoricActivityInstanceQueryImpl) actualCreateHistoricActivityInstanceQueryResult)
-            .isWithoutTenantId());
-    assertEquals(
-        Integer.MAX_VALUE,
-        ((HistoricActivityInstanceQueryImpl) actualCreateHistoricActivityInstanceQueryResult)
-            .getLastRow());
-    assertEquals(
-        Integer.MAX_VALUE,
-        ((HistoricActivityInstanceQueryImpl) actualCreateHistoricActivityInstanceQueryResult)
-            .getMaxResults());
+        ((HistoricActivityInstanceQueryImpl) actualCreateHistoricActivityInstanceQueryResult).isWithoutTenantId());
+    assertEquals(Integer.MAX_VALUE,
+        ((HistoricActivityInstanceQueryImpl) actualCreateHistoricActivityInstanceQueryResult).getLastRow());
+    assertEquals(Integer.MAX_VALUE,
+        ((HistoricActivityInstanceQueryImpl) actualCreateHistoricActivityInstanceQueryResult).getMaxResults());
   }
 
   /**
    * Test {@link HistoryServiceImpl#createHistoricTaskInstanceQuery()}.
-   *
    * <ul>
-   *   <li>Then return {@link HistoricTaskInstanceQueryImpl}.
+   *   <li>Then return {@link HistoricTaskInstanceQueryImpl}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link HistoryServiceImpl#createHistoricTaskInstanceQuery()}
+   * <p>
+   * Method under test: {@link HistoryServiceImpl#createHistoricTaskInstanceQuery()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "HistoricTaskInstanceQuery HistoryServiceImpl.createHistoricTaskInstanceQuery()"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"HistoricTaskInstanceQuery HistoryServiceImpl.createHistoricTaskInstanceQuery()"})
   public void testCreateHistoricTaskInstanceQuery_thenReturnHistoricTaskInstanceQueryImpl() {
     // Arrange and Act
-    HistoricTaskInstanceQuery actualCreateHistoricTaskInstanceQueryResult =
-        new HistoryServiceImpl(new JtaProcessEngineConfiguration())
-            .createHistoricTaskInstanceQuery();
+    HistoricTaskInstanceQuery actualCreateHistoricTaskInstanceQueryResult = (new HistoryServiceImpl(
+        new JtaProcessEngineConfiguration())).createHistoricTaskInstanceQuery();
 
     // Assert
-    assertTrue(
-        actualCreateHistoricTaskInstanceQueryResult instanceof HistoricTaskInstanceQueryImpl);
-    assertEquals(
-        "RES.ID_ asc",
+    assertTrue(actualCreateHistoricTaskInstanceQueryResult instanceof HistoricTaskInstanceQueryImpl);
+    assertEquals("RES.ID_ asc",
         ((HistoricTaskInstanceQueryImpl) actualCreateHistoricTaskInstanceQueryResult).getOrderBy());
-    assertEquals(
-        "RES.ID_ asc",
-        ((HistoricTaskInstanceQueryImpl) actualCreateHistoricTaskInstanceQueryResult)
-            .getOrderByColumns());
-    assertEquals(
-        "TEMPRES_ID_ asc",
-        ((HistoricTaskInstanceQueryImpl) actualCreateHistoricTaskInstanceQueryResult)
-            .getMssqlOrDB2OrderBy());
-    assertNull(
-        ((HistoricTaskInstanceQueryImpl) actualCreateHistoricTaskInstanceQueryResult)
-            .getTaskMaxPriority());
-    assertNull(
-        ((HistoricTaskInstanceQueryImpl) actualCreateHistoricTaskInstanceQueryResult)
-            .getTaskMinPriority());
-    assertNull(
-        ((HistoricTaskInstanceQueryImpl) actualCreateHistoricTaskInstanceQueryResult)
-            .getTaskPriority());
-    assertNull(
-        ((HistoricTaskInstanceQueryImpl) actualCreateHistoricTaskInstanceQueryResult)
-            .getTaskVariablesLimit());
-    assertNull(
-        ((HistoricTaskInstanceQueryImpl) actualCreateHistoricTaskInstanceQueryResult)
-            .getParameter());
-    assertNull(
-        ((HistoricTaskInstanceQueryImpl) actualCreateHistoricTaskInstanceQueryResult)
-            .getDatabaseType());
-    assertNull(
-        ((HistoricTaskInstanceQueryImpl) actualCreateHistoricTaskInstanceQueryResult)
-            .getCandidateGroup());
-    assertNull(
-        ((HistoricTaskInstanceQueryImpl) actualCreateHistoricTaskInstanceQueryResult)
-            .getCandidateUser());
-    assertNull(
-        ((HistoricTaskInstanceQueryImpl) actualCreateHistoricTaskInstanceQueryResult)
-            .getCategory());
-    assertNull(
-        ((HistoricTaskInstanceQueryImpl) actualCreateHistoricTaskInstanceQueryResult)
-            .getDeploymentId());
-    assertNull(
-        ((HistoricTaskInstanceQueryImpl) actualCreateHistoricTaskInstanceQueryResult)
-            .getExecutionId());
-    assertNull(
-        ((HistoricTaskInstanceQueryImpl) actualCreateHistoricTaskInstanceQueryResult)
-            .getInvolvedUser());
-    assertNull(
-        ((HistoricTaskInstanceQueryImpl) actualCreateHistoricTaskInstanceQueryResult).getLocale());
-    assertNull(
-        ((HistoricTaskInstanceQueryImpl) actualCreateHistoricTaskInstanceQueryResult)
-            .getProcessDefinitionId());
-    assertNull(
-        ((HistoricTaskInstanceQueryImpl) actualCreateHistoricTaskInstanceQueryResult)
-            .getProcessDefinitionKey());
-    assertNull(
-        ((HistoricTaskInstanceQueryImpl) actualCreateHistoricTaskInstanceQueryResult)
-            .getProcessDefinitionKeyLike());
-    assertNull(
-        ((HistoricTaskInstanceQueryImpl) actualCreateHistoricTaskInstanceQueryResult)
-            .getProcessDefinitionKeyLikeIgnoreCase());
-    assertNull(
-        ((HistoricTaskInstanceQueryImpl) actualCreateHistoricTaskInstanceQueryResult)
-            .getProcessDefinitionName());
-    assertNull(
-        ((HistoricTaskInstanceQueryImpl) actualCreateHistoricTaskInstanceQueryResult)
-            .getProcessDefinitionNameLike());
-    assertNull(
-        ((HistoricTaskInstanceQueryImpl) actualCreateHistoricTaskInstanceQueryResult)
-            .getProcessInstanceBusinessKey());
-    assertNull(
-        ((HistoricTaskInstanceQueryImpl) actualCreateHistoricTaskInstanceQueryResult)
-            .getProcessInstanceBusinessKeyLike());
-    assertNull(
-        ((HistoricTaskInstanceQueryImpl) actualCreateHistoricTaskInstanceQueryResult)
-            .getProcessInstanceBusinessKeyLikeIgnoreCase());
-    assertNull(
-        ((HistoricTaskInstanceQueryImpl) actualCreateHistoricTaskInstanceQueryResult)
-            .getProcessInstanceId());
-    assertNull(
-        ((HistoricTaskInstanceQueryImpl) actualCreateHistoricTaskInstanceQueryResult)
-            .getTaskAssignee());
-    assertNull(
-        ((HistoricTaskInstanceQueryImpl) actualCreateHistoricTaskInstanceQueryResult)
-            .getTaskAssigneeLike());
-    assertNull(
-        ((HistoricTaskInstanceQueryImpl) actualCreateHistoricTaskInstanceQueryResult)
-            .getTaskAssigneeLikeIgnoreCase());
-    assertNull(
-        ((HistoricTaskInstanceQueryImpl) actualCreateHistoricTaskInstanceQueryResult)
-            .getTaskDefinitionKey());
-    assertNull(
-        ((HistoricTaskInstanceQueryImpl) actualCreateHistoricTaskInstanceQueryResult)
-            .getTaskDefinitionKeyLike());
-    assertNull(
-        ((HistoricTaskInstanceQueryImpl) actualCreateHistoricTaskInstanceQueryResult)
-            .getTaskDeleteReason());
-    assertNull(
-        ((HistoricTaskInstanceQueryImpl) actualCreateHistoricTaskInstanceQueryResult)
-            .getTaskDeleteReasonLike());
-    assertNull(
-        ((HistoricTaskInstanceQueryImpl) actualCreateHistoricTaskInstanceQueryResult)
-            .getTaskDescription());
-    assertNull(
-        ((HistoricTaskInstanceQueryImpl) actualCreateHistoricTaskInstanceQueryResult)
-            .getTaskDescriptionLike());
-    assertNull(
-        ((HistoricTaskInstanceQueryImpl) actualCreateHistoricTaskInstanceQueryResult)
-            .getTaskDescriptionLikeIgnoreCase());
-    assertNull(
-        ((HistoricTaskInstanceQueryImpl) actualCreateHistoricTaskInstanceQueryResult).getTaskId());
-    assertNull(
-        ((HistoricTaskInstanceQueryImpl) actualCreateHistoricTaskInstanceQueryResult)
-            .getTaskName());
-    assertNull(
-        ((HistoricTaskInstanceQueryImpl) actualCreateHistoricTaskInstanceQueryResult)
-            .getTaskNameLike());
-    assertNull(
-        ((HistoricTaskInstanceQueryImpl) actualCreateHistoricTaskInstanceQueryResult)
-            .getTaskNameLikeIgnoreCase());
-    assertNull(
-        ((HistoricTaskInstanceQueryImpl) actualCreateHistoricTaskInstanceQueryResult)
-            .getTaskOwner());
-    assertNull(
-        ((HistoricTaskInstanceQueryImpl) actualCreateHistoricTaskInstanceQueryResult)
-            .getTaskOwnerLike());
-    assertNull(
-        ((HistoricTaskInstanceQueryImpl) actualCreateHistoricTaskInstanceQueryResult)
-            .getTaskOwnerLikeIgnoreCase());
-    assertNull(
-        ((HistoricTaskInstanceQueryImpl) actualCreateHistoricTaskInstanceQueryResult)
-            .getTaskParentTaskId());
-    assertNull(
-        ((HistoricTaskInstanceQueryImpl) actualCreateHistoricTaskInstanceQueryResult)
-            .getTenantId());
-    assertNull(
-        ((HistoricTaskInstanceQueryImpl) actualCreateHistoricTaskInstanceQueryResult)
-            .getTenantIdLike());
-    assertNull(
-        ((HistoricTaskInstanceQueryImpl) actualCreateHistoricTaskInstanceQueryResult).orderBy);
-    assertNull(
-        ((HistoricTaskInstanceQueryImpl) actualCreateHistoricTaskInstanceQueryResult)
-            .getCompletedAfterDate());
-    assertNull(
-        ((HistoricTaskInstanceQueryImpl) actualCreateHistoricTaskInstanceQueryResult)
-            .getCompletedBeforeDate());
-    assertNull(
-        ((HistoricTaskInstanceQueryImpl) actualCreateHistoricTaskInstanceQueryResult)
-            .getCompletedDate());
-    assertNull(
-        ((HistoricTaskInstanceQueryImpl) actualCreateHistoricTaskInstanceQueryResult)
-            .getCreationAfterDate());
-    assertNull(
-        ((HistoricTaskInstanceQueryImpl) actualCreateHistoricTaskInstanceQueryResult)
-            .getCreationBeforeDate());
-    assertNull(
-        ((HistoricTaskInstanceQueryImpl) actualCreateHistoricTaskInstanceQueryResult)
-            .getCreationDate());
-    assertNull(
-        ((HistoricTaskInstanceQueryImpl) actualCreateHistoricTaskInstanceQueryResult)
-            .getDueAfter());
-    assertNull(
-        ((HistoricTaskInstanceQueryImpl) actualCreateHistoricTaskInstanceQueryResult)
-            .getDueBefore());
-    assertNull(
-        ((HistoricTaskInstanceQueryImpl) actualCreateHistoricTaskInstanceQueryResult).getDueDate());
-    assertNull(
-        ((HistoricTaskInstanceQueryImpl) actualCreateHistoricTaskInstanceQueryResult)
-            .getCandidateGroups());
-    assertNull(
-        ((HistoricTaskInstanceQueryImpl) actualCreateHistoricTaskInstanceQueryResult)
-            .getDeploymentIds());
-    assertNull(
-        ((HistoricTaskInstanceQueryImpl) actualCreateHistoricTaskInstanceQueryResult)
-            .getInvolvedGroups());
-    assertNull(
-        ((HistoricTaskInstanceQueryImpl) actualCreateHistoricTaskInstanceQueryResult)
-            .getProcessCategoryInList());
-    assertNull(
-        ((HistoricTaskInstanceQueryImpl) actualCreateHistoricTaskInstanceQueryResult)
-            .getProcessCategoryNotInList());
-    assertNull(
-        ((HistoricTaskInstanceQueryImpl) actualCreateHistoricTaskInstanceQueryResult)
-            .getProcessDefinitionKeys());
-    assertNull(
-        ((HistoricTaskInstanceQueryImpl) actualCreateHistoricTaskInstanceQueryResult)
-            .getProcessInstanceIds());
-    assertNull(
-        ((HistoricTaskInstanceQueryImpl) actualCreateHistoricTaskInstanceQueryResult)
-            .getTaskAssigneeIds());
-    assertNull(
-        ((HistoricTaskInstanceQueryImpl) actualCreateHistoricTaskInstanceQueryResult)
-            .getTaskNameList());
-    assertNull(
-        ((HistoricTaskInstanceQueryImpl) actualCreateHistoricTaskInstanceQueryResult)
-            .getTaskNameListIgnoreCase());
-    assertNull(
-        ((HistoricTaskInstanceQueryImpl) actualCreateHistoricTaskInstanceQueryResult)
-            .nullHandlingOnOrder);
-    assertNull(
-        ((HistoricTaskInstanceQueryImpl) actualCreateHistoricTaskInstanceQueryResult).resultType);
-    assertNull(
-        ((HistoricTaskInstanceQueryImpl) actualCreateHistoricTaskInstanceQueryResult)
-            .currentOrQueryObject);
-    assertNull(
-        ((HistoricTaskInstanceQueryImpl) actualCreateHistoricTaskInstanceQueryResult)
-            .commandContext);
-    assertNull(
-        ((HistoricTaskInstanceQueryImpl) actualCreateHistoricTaskInstanceQueryResult)
-            .commandExecutor);
-    assertNull(
-        ((HistoricTaskInstanceQueryImpl) actualCreateHistoricTaskInstanceQueryResult)
-            .orderProperty);
-    assertEquals(
-        0,
-        ((HistoricTaskInstanceQueryImpl) actualCreateHistoricTaskInstanceQueryResult)
-            .getFirstResult());
-    assertEquals(
-        1,
-        ((HistoricTaskInstanceQueryImpl) actualCreateHistoricTaskInstanceQueryResult)
-            .getFirstRow());
+    assertEquals("RES.ID_ asc",
+        ((HistoricTaskInstanceQueryImpl) actualCreateHistoricTaskInstanceQueryResult).getOrderByColumns());
+    assertEquals("TEMPRES_ID_ asc",
+        ((HistoricTaskInstanceQueryImpl) actualCreateHistoricTaskInstanceQueryResult).getMssqlOrDB2OrderBy());
+    assertNull(((HistoricTaskInstanceQueryImpl) actualCreateHistoricTaskInstanceQueryResult).getTaskMaxPriority());
+    assertNull(((HistoricTaskInstanceQueryImpl) actualCreateHistoricTaskInstanceQueryResult).getTaskMinPriority());
+    assertNull(((HistoricTaskInstanceQueryImpl) actualCreateHistoricTaskInstanceQueryResult).getTaskPriority());
+    assertNull(((HistoricTaskInstanceQueryImpl) actualCreateHistoricTaskInstanceQueryResult).getTaskVariablesLimit());
+    assertNull(((HistoricTaskInstanceQueryImpl) actualCreateHistoricTaskInstanceQueryResult).getParameter());
+    assertNull(((HistoricTaskInstanceQueryImpl) actualCreateHistoricTaskInstanceQueryResult).getDatabaseType());
+    assertNull(((HistoricTaskInstanceQueryImpl) actualCreateHistoricTaskInstanceQueryResult).getCandidateGroup());
+    assertNull(((HistoricTaskInstanceQueryImpl) actualCreateHistoricTaskInstanceQueryResult).getCandidateUser());
+    assertNull(((HistoricTaskInstanceQueryImpl) actualCreateHistoricTaskInstanceQueryResult).getCategory());
+    assertNull(((HistoricTaskInstanceQueryImpl) actualCreateHistoricTaskInstanceQueryResult).getDeploymentId());
+    assertNull(((HistoricTaskInstanceQueryImpl) actualCreateHistoricTaskInstanceQueryResult).getExecutionId());
+    assertNull(((HistoricTaskInstanceQueryImpl) actualCreateHistoricTaskInstanceQueryResult).getInvolvedUser());
+    assertNull(((HistoricTaskInstanceQueryImpl) actualCreateHistoricTaskInstanceQueryResult).getLocale());
+    assertNull(((HistoricTaskInstanceQueryImpl) actualCreateHistoricTaskInstanceQueryResult).getProcessDefinitionId());
+    assertNull(((HistoricTaskInstanceQueryImpl) actualCreateHistoricTaskInstanceQueryResult).getProcessDefinitionKey());
+    assertNull(
+        ((HistoricTaskInstanceQueryImpl) actualCreateHistoricTaskInstanceQueryResult).getProcessDefinitionKeyLike());
+    assertNull(((HistoricTaskInstanceQueryImpl) actualCreateHistoricTaskInstanceQueryResult)
+        .getProcessDefinitionKeyLikeIgnoreCase());
+    assertNull(
+        ((HistoricTaskInstanceQueryImpl) actualCreateHistoricTaskInstanceQueryResult).getProcessDefinitionName());
+    assertNull(
+        ((HistoricTaskInstanceQueryImpl) actualCreateHistoricTaskInstanceQueryResult).getProcessDefinitionNameLike());
+    assertNull(
+        ((HistoricTaskInstanceQueryImpl) actualCreateHistoricTaskInstanceQueryResult).getProcessInstanceBusinessKey());
+    assertNull(((HistoricTaskInstanceQueryImpl) actualCreateHistoricTaskInstanceQueryResult)
+        .getProcessInstanceBusinessKeyLike());
+    assertNull(((HistoricTaskInstanceQueryImpl) actualCreateHistoricTaskInstanceQueryResult)
+        .getProcessInstanceBusinessKeyLikeIgnoreCase());
+    assertNull(((HistoricTaskInstanceQueryImpl) actualCreateHistoricTaskInstanceQueryResult).getProcessInstanceId());
+    assertNull(((HistoricTaskInstanceQueryImpl) actualCreateHistoricTaskInstanceQueryResult).getTaskAssignee());
+    assertNull(((HistoricTaskInstanceQueryImpl) actualCreateHistoricTaskInstanceQueryResult).getTaskAssigneeLike());
+    assertNull(
+        ((HistoricTaskInstanceQueryImpl) actualCreateHistoricTaskInstanceQueryResult).getTaskAssigneeLikeIgnoreCase());
+    assertNull(((HistoricTaskInstanceQueryImpl) actualCreateHistoricTaskInstanceQueryResult).getTaskDefinitionKey());
+    assertNull(
+        ((HistoricTaskInstanceQueryImpl) actualCreateHistoricTaskInstanceQueryResult).getTaskDefinitionKeyLike());
+    assertNull(((HistoricTaskInstanceQueryImpl) actualCreateHistoricTaskInstanceQueryResult).getTaskDeleteReason());
+    assertNull(((HistoricTaskInstanceQueryImpl) actualCreateHistoricTaskInstanceQueryResult).getTaskDeleteReasonLike());
+    assertNull(((HistoricTaskInstanceQueryImpl) actualCreateHistoricTaskInstanceQueryResult).getTaskDescription());
+    assertNull(((HistoricTaskInstanceQueryImpl) actualCreateHistoricTaskInstanceQueryResult).getTaskDescriptionLike());
+    assertNull(((HistoricTaskInstanceQueryImpl) actualCreateHistoricTaskInstanceQueryResult)
+        .getTaskDescriptionLikeIgnoreCase());
+    assertNull(((HistoricTaskInstanceQueryImpl) actualCreateHistoricTaskInstanceQueryResult).getTaskId());
+    assertNull(((HistoricTaskInstanceQueryImpl) actualCreateHistoricTaskInstanceQueryResult).getTaskName());
+    assertNull(((HistoricTaskInstanceQueryImpl) actualCreateHistoricTaskInstanceQueryResult).getTaskNameLike());
+    assertNull(
+        ((HistoricTaskInstanceQueryImpl) actualCreateHistoricTaskInstanceQueryResult).getTaskNameLikeIgnoreCase());
+    assertNull(((HistoricTaskInstanceQueryImpl) actualCreateHistoricTaskInstanceQueryResult).getTaskOwner());
+    assertNull(((HistoricTaskInstanceQueryImpl) actualCreateHistoricTaskInstanceQueryResult).getTaskOwnerLike());
+    assertNull(
+        ((HistoricTaskInstanceQueryImpl) actualCreateHistoricTaskInstanceQueryResult).getTaskOwnerLikeIgnoreCase());
+    assertNull(((HistoricTaskInstanceQueryImpl) actualCreateHistoricTaskInstanceQueryResult).getTaskParentTaskId());
+    assertNull(((HistoricTaskInstanceQueryImpl) actualCreateHistoricTaskInstanceQueryResult).getTenantId());
+    assertNull(((HistoricTaskInstanceQueryImpl) actualCreateHistoricTaskInstanceQueryResult).getTenantIdLike());
+    assertNull(((HistoricTaskInstanceQueryImpl) actualCreateHistoricTaskInstanceQueryResult).orderBy);
+    assertNull(((HistoricTaskInstanceQueryImpl) actualCreateHistoricTaskInstanceQueryResult).getCompletedAfterDate());
+    assertNull(((HistoricTaskInstanceQueryImpl) actualCreateHistoricTaskInstanceQueryResult).getCompletedBeforeDate());
+    assertNull(((HistoricTaskInstanceQueryImpl) actualCreateHistoricTaskInstanceQueryResult).getCompletedDate());
+    assertNull(((HistoricTaskInstanceQueryImpl) actualCreateHistoricTaskInstanceQueryResult).getCreationAfterDate());
+    assertNull(((HistoricTaskInstanceQueryImpl) actualCreateHistoricTaskInstanceQueryResult).getCreationBeforeDate());
+    assertNull(((HistoricTaskInstanceQueryImpl) actualCreateHistoricTaskInstanceQueryResult).getCreationDate());
+    assertNull(((HistoricTaskInstanceQueryImpl) actualCreateHistoricTaskInstanceQueryResult).getDueAfter());
+    assertNull(((HistoricTaskInstanceQueryImpl) actualCreateHistoricTaskInstanceQueryResult).getDueBefore());
+    assertNull(((HistoricTaskInstanceQueryImpl) actualCreateHistoricTaskInstanceQueryResult).getDueDate());
+    assertNull(((HistoricTaskInstanceQueryImpl) actualCreateHistoricTaskInstanceQueryResult).getCandidateGroups());
+    assertNull(((HistoricTaskInstanceQueryImpl) actualCreateHistoricTaskInstanceQueryResult).getDeploymentIds());
+    assertNull(((HistoricTaskInstanceQueryImpl) actualCreateHistoricTaskInstanceQueryResult).getInvolvedGroups());
+    assertNull(
+        ((HistoricTaskInstanceQueryImpl) actualCreateHistoricTaskInstanceQueryResult).getProcessCategoryInList());
+    assertNull(
+        ((HistoricTaskInstanceQueryImpl) actualCreateHistoricTaskInstanceQueryResult).getProcessCategoryNotInList());
+    assertNull(
+        ((HistoricTaskInstanceQueryImpl) actualCreateHistoricTaskInstanceQueryResult).getProcessDefinitionKeys());
+    assertNull(((HistoricTaskInstanceQueryImpl) actualCreateHistoricTaskInstanceQueryResult).getProcessInstanceIds());
+    assertNull(((HistoricTaskInstanceQueryImpl) actualCreateHistoricTaskInstanceQueryResult).getTaskAssigneeIds());
+    assertNull(((HistoricTaskInstanceQueryImpl) actualCreateHistoricTaskInstanceQueryResult).getTaskNameList());
+    assertNull(
+        ((HistoricTaskInstanceQueryImpl) actualCreateHistoricTaskInstanceQueryResult).getTaskNameListIgnoreCase());
+    assertNull(((HistoricTaskInstanceQueryImpl) actualCreateHistoricTaskInstanceQueryResult).nullHandlingOnOrder);
+    assertNull(((HistoricTaskInstanceQueryImpl) actualCreateHistoricTaskInstanceQueryResult).resultType);
+    assertNull(((HistoricTaskInstanceQueryImpl) actualCreateHistoricTaskInstanceQueryResult).currentOrQueryObject);
+    assertNull(((HistoricTaskInstanceQueryImpl) actualCreateHistoricTaskInstanceQueryResult).commandContext);
+    assertNull(((HistoricTaskInstanceQueryImpl) actualCreateHistoricTaskInstanceQueryResult).commandExecutor);
+    assertNull(((HistoricTaskInstanceQueryImpl) actualCreateHistoricTaskInstanceQueryResult).orderProperty);
+    assertEquals(0, ((HistoricTaskInstanceQueryImpl) actualCreateHistoricTaskInstanceQueryResult).getFirstResult());
+    assertEquals(1, ((HistoricTaskInstanceQueryImpl) actualCreateHistoricTaskInstanceQueryResult).getFirstRow());
     assertFalse(
-        ((HistoricTaskInstanceQueryImpl) actualCreateHistoricTaskInstanceQueryResult)
-            .hasLocalQueryVariableValue());
+        ((HistoricTaskInstanceQueryImpl) actualCreateHistoricTaskInstanceQueryResult).hasLocalQueryVariableValue());
     assertFalse(
-        ((HistoricTaskInstanceQueryImpl) actualCreateHistoricTaskInstanceQueryResult)
-            .hasNonLocalQueryVariableValue());
+        ((HistoricTaskInstanceQueryImpl) actualCreateHistoricTaskInstanceQueryResult).hasNonLocalQueryVariableValue());
+    assertFalse(((HistoricTaskInstanceQueryImpl) actualCreateHistoricTaskInstanceQueryResult).isFinished());
+    assertFalse(((HistoricTaskInstanceQueryImpl) actualCreateHistoricTaskInstanceQueryResult).isInOrStatement());
     assertFalse(
-        ((HistoricTaskInstanceQueryImpl) actualCreateHistoricTaskInstanceQueryResult).isFinished());
+        ((HistoricTaskInstanceQueryImpl) actualCreateHistoricTaskInstanceQueryResult).isIncludeProcessVariables());
     assertFalse(
-        ((HistoricTaskInstanceQueryImpl) actualCreateHistoricTaskInstanceQueryResult)
-            .isInOrStatement());
-    assertFalse(
-        ((HistoricTaskInstanceQueryImpl) actualCreateHistoricTaskInstanceQueryResult)
-            .isIncludeProcessVariables());
-    assertFalse(
-        ((HistoricTaskInstanceQueryImpl) actualCreateHistoricTaskInstanceQueryResult)
-            .isIncludeTaskLocalVariables());
-    assertFalse(
-        ((HistoricTaskInstanceQueryImpl) actualCreateHistoricTaskInstanceQueryResult)
-            .isProcessFinished());
-    assertFalse(
-        ((HistoricTaskInstanceQueryImpl) actualCreateHistoricTaskInstanceQueryResult)
-            .isProcessUnfinished());
-    assertFalse(
-        ((HistoricTaskInstanceQueryImpl) actualCreateHistoricTaskInstanceQueryResult)
-            .isUnfinished());
-    assertFalse(
-        ((HistoricTaskInstanceQueryImpl) actualCreateHistoricTaskInstanceQueryResult)
-            .isWithoutDueDate());
-    assertFalse(
-        ((HistoricTaskInstanceQueryImpl) actualCreateHistoricTaskInstanceQueryResult)
-            .isWithoutTenantId());
-    assertFalse(
-        ((HistoricTaskInstanceQueryImpl) actualCreateHistoricTaskInstanceQueryResult)
-            .withLocalizationFallback);
+        ((HistoricTaskInstanceQueryImpl) actualCreateHistoricTaskInstanceQueryResult).isIncludeTaskLocalVariables());
+    assertFalse(((HistoricTaskInstanceQueryImpl) actualCreateHistoricTaskInstanceQueryResult).isProcessFinished());
+    assertFalse(((HistoricTaskInstanceQueryImpl) actualCreateHistoricTaskInstanceQueryResult).isProcessUnfinished());
+    assertFalse(((HistoricTaskInstanceQueryImpl) actualCreateHistoricTaskInstanceQueryResult).isUnfinished());
+    assertFalse(((HistoricTaskInstanceQueryImpl) actualCreateHistoricTaskInstanceQueryResult).isWithoutDueDate());
+    assertFalse(((HistoricTaskInstanceQueryImpl) actualCreateHistoricTaskInstanceQueryResult).isWithoutTenantId());
+    assertFalse(((HistoricTaskInstanceQueryImpl) actualCreateHistoricTaskInstanceQueryResult).withLocalizationFallback);
+    assertTrue(((HistoricTaskInstanceQueryImpl) actualCreateHistoricTaskInstanceQueryResult).getQueryVariableValues()
+        .isEmpty());
     assertTrue(
-        ((HistoricTaskInstanceQueryImpl) actualCreateHistoricTaskInstanceQueryResult)
-            .getQueryVariableValues()
-            .isEmpty());
-    assertTrue(
-        ((HistoricTaskInstanceQueryImpl) actualCreateHistoricTaskInstanceQueryResult)
-            .getOrQueryObjects()
-            .isEmpty());
-    assertEquals(
-        Integer.MAX_VALUE,
+        ((HistoricTaskInstanceQueryImpl) actualCreateHistoricTaskInstanceQueryResult).getOrQueryObjects().isEmpty());
+    assertEquals(Integer.MAX_VALUE,
         ((HistoricTaskInstanceQueryImpl) actualCreateHistoricTaskInstanceQueryResult).getLastRow());
-    assertEquals(
-        Integer.MAX_VALUE,
-        ((HistoricTaskInstanceQueryImpl) actualCreateHistoricTaskInstanceQueryResult)
-            .getMaxResults());
+    assertEquals(Integer.MAX_VALUE,
+        ((HistoricTaskInstanceQueryImpl) actualCreateHistoricTaskInstanceQueryResult).getMaxResults());
   }
 
   /**
    * Test {@link HistoryServiceImpl#createHistoricDetailQuery()}.
-   *
-   * <p>Method under test: {@link HistoryServiceImpl#createHistoricDetailQuery()}
+   * <p>
+   * Method under test: {@link HistoryServiceImpl#createHistoricDetailQuery()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"HistoricDetailQuery HistoryServiceImpl.createHistoricDetailQuery()"})
   public void testCreateHistoricDetailQuery() {
     // Arrange and Act
-    HistoricDetailQuery actualCreateHistoricDetailQueryResult =
-        new HistoryServiceImpl(new JtaProcessEngineConfiguration()).createHistoricDetailQuery();
+    HistoricDetailQuery actualCreateHistoricDetailQueryResult = (new HistoryServiceImpl(
+        new JtaProcessEngineConfiguration())).createHistoricDetailQuery();
 
     // Assert
     assertTrue(actualCreateHistoricDetailQueryResult instanceof HistoricDetailQueryImpl);
-    assertEquals(
-        "RES.ID_ asc",
-        ((HistoricDetailQueryImpl) actualCreateHistoricDetailQueryResult).getOrderBy());
-    assertEquals(
-        "RES.ID_ asc",
-        ((HistoricDetailQueryImpl) actualCreateHistoricDetailQueryResult).getOrderByColumns());
+    assertEquals("RES.ID_ asc", ((HistoricDetailQueryImpl) actualCreateHistoricDetailQueryResult).getOrderBy());
+    assertEquals("RES.ID_ asc", ((HistoricDetailQueryImpl) actualCreateHistoricDetailQueryResult).getOrderByColumns());
     assertNull(((HistoricDetailQueryImpl) actualCreateHistoricDetailQueryResult).getParameter());
     assertNull(((HistoricDetailQueryImpl) actualCreateHistoricDetailQueryResult).getDatabaseType());
     assertNull(((HistoricDetailQueryImpl) actualCreateHistoricDetailQueryResult).getActivityId());
-    assertNull(
-        ((HistoricDetailQueryImpl) actualCreateHistoricDetailQueryResult).getActivityInstanceId());
+    assertNull(((HistoricDetailQueryImpl) actualCreateHistoricDetailQueryResult).getActivityInstanceId());
     assertNull(((HistoricDetailQueryImpl) actualCreateHistoricDetailQueryResult).getExecutionId());
     assertNull(((HistoricDetailQueryImpl) actualCreateHistoricDetailQueryResult).getId());
-    assertNull(
-        ((HistoricDetailQueryImpl) actualCreateHistoricDetailQueryResult).getProcessInstanceId());
+    assertNull(((HistoricDetailQueryImpl) actualCreateHistoricDetailQueryResult).getProcessInstanceId());
     assertNull(((HistoricDetailQueryImpl) actualCreateHistoricDetailQueryResult).getTaskId());
     assertNull(((HistoricDetailQueryImpl) actualCreateHistoricDetailQueryResult).getType());
     assertNull(((HistoricDetailQueryImpl) actualCreateHistoricDetailQueryResult).orderBy);
-    assertNull(
-        ((HistoricDetailQueryImpl) actualCreateHistoricDetailQueryResult).nullHandlingOnOrder);
+    assertNull(((HistoricDetailQueryImpl) actualCreateHistoricDetailQueryResult).nullHandlingOnOrder);
     assertNull(((HistoricDetailQueryImpl) actualCreateHistoricDetailQueryResult).resultType);
     assertNull(((HistoricDetailQueryImpl) actualCreateHistoricDetailQueryResult).commandContext);
     assertNull(((HistoricDetailQueryImpl) actualCreateHistoricDetailQueryResult).commandExecutor);
     assertNull(((HistoricDetailQueryImpl) actualCreateHistoricDetailQueryResult).orderProperty);
-    assertEquals(
-        0, ((HistoricDetailQueryImpl) actualCreateHistoricDetailQueryResult).getFirstResult());
-    assertEquals(
-        1, ((HistoricDetailQueryImpl) actualCreateHistoricDetailQueryResult).getFirstRow());
-    assertFalse(
-        ((HistoricDetailQueryImpl) actualCreateHistoricDetailQueryResult).getExcludeTaskRelated());
-    assertEquals(
-        Integer.MAX_VALUE,
-        ((HistoricDetailQueryImpl) actualCreateHistoricDetailQueryResult).getLastRow());
-    assertEquals(
-        Integer.MAX_VALUE,
-        ((HistoricDetailQueryImpl) actualCreateHistoricDetailQueryResult).getMaxResults());
+    assertEquals(0, ((HistoricDetailQueryImpl) actualCreateHistoricDetailQueryResult).getFirstResult());
+    assertEquals(1, ((HistoricDetailQueryImpl) actualCreateHistoricDetailQueryResult).getFirstRow());
+    assertFalse(((HistoricDetailQueryImpl) actualCreateHistoricDetailQueryResult).getExcludeTaskRelated());
+    assertEquals(Integer.MAX_VALUE, ((HistoricDetailQueryImpl) actualCreateHistoricDetailQueryResult).getLastRow());
+    assertEquals(Integer.MAX_VALUE, ((HistoricDetailQueryImpl) actualCreateHistoricDetailQueryResult).getMaxResults());
   }
 
   /**
    * Test {@link HistoryServiceImpl#createNativeHistoricDetailQuery()}.
-   *
-   * <p>Method under test: {@link HistoryServiceImpl#createNativeHistoricDetailQuery()}
+   * <p>
+   * Method under test: {@link HistoryServiceImpl#createNativeHistoricDetailQuery()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "NativeHistoricDetailQuery HistoryServiceImpl.createNativeHistoricDetailQuery()"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"NativeHistoricDetailQuery HistoryServiceImpl.createNativeHistoricDetailQuery()"})
   public void testCreateNativeHistoricDetailQuery() {
     // Arrange and Act
-    NativeHistoricDetailQuery actualCreateNativeHistoricDetailQueryResult =
-        new HistoryServiceImpl(new JtaProcessEngineConfiguration())
-            .createNativeHistoricDetailQuery();
+    NativeHistoricDetailQuery actualCreateNativeHistoricDetailQueryResult = (new HistoryServiceImpl(
+        new JtaProcessEngineConfiguration())).createNativeHistoricDetailQuery();
 
     // Assert
-    assertTrue(
-        actualCreateNativeHistoricDetailQueryResult instanceof NativeHistoricDetailQueryImpl);
-    assertNull(
-        ((NativeHistoricDetailQueryImpl) actualCreateNativeHistoricDetailQueryResult).resultType);
-    assertNull(
-        ((NativeHistoricDetailQueryImpl) actualCreateNativeHistoricDetailQueryResult)
-            .commandContext);
-    assertNull(
-        ((NativeHistoricDetailQueryImpl) actualCreateNativeHistoricDetailQueryResult)
-            .commandExecutor);
-    assertEquals(
-        0,
-        ((NativeHistoricDetailQueryImpl) actualCreateNativeHistoricDetailQueryResult).firstResult);
-    assertTrue(
-        ((NativeHistoricDetailQueryImpl) actualCreateNativeHistoricDetailQueryResult)
-            .getParameters()
-            .isEmpty());
-    assertEquals(
-        Integer.MAX_VALUE,
+    assertTrue(actualCreateNativeHistoricDetailQueryResult instanceof NativeHistoricDetailQueryImpl);
+    assertNull(((NativeHistoricDetailQueryImpl) actualCreateNativeHistoricDetailQueryResult).resultType);
+    assertNull(((NativeHistoricDetailQueryImpl) actualCreateNativeHistoricDetailQueryResult).commandContext);
+    assertNull(((NativeHistoricDetailQueryImpl) actualCreateNativeHistoricDetailQueryResult).commandExecutor);
+    assertEquals(0, ((NativeHistoricDetailQueryImpl) actualCreateNativeHistoricDetailQueryResult).firstResult);
+    assertTrue(((NativeHistoricDetailQueryImpl) actualCreateNativeHistoricDetailQueryResult).getParameters().isEmpty());
+    assertEquals(Integer.MAX_VALUE,
         ((NativeHistoricDetailQueryImpl) actualCreateNativeHistoricDetailQueryResult).maxResults);
   }
 
   /**
    * Test {@link HistoryServiceImpl#createHistoricVariableInstanceQuery()}.
-   *
-   * <p>Method under test: {@link HistoryServiceImpl#createHistoricVariableInstanceQuery()}
+   * <p>
+   * Method under test: {@link HistoryServiceImpl#createHistoricVariableInstanceQuery()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "HistoricVariableInstanceQuery HistoryServiceImpl.createHistoricVariableInstanceQuery()"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"HistoricVariableInstanceQuery HistoryServiceImpl.createHistoricVariableInstanceQuery()"})
   public void testCreateHistoricVariableInstanceQuery() {
     // Arrange and Act
-    HistoricVariableInstanceQuery actualCreateHistoricVariableInstanceQueryResult =
-        new HistoryServiceImpl(new JtaProcessEngineConfiguration())
-            .createHistoricVariableInstanceQuery();
+    HistoricVariableInstanceQuery actualCreateHistoricVariableInstanceQueryResult = (new HistoryServiceImpl(
+        new JtaProcessEngineConfiguration())).createHistoricVariableInstanceQuery();
 
     // Assert
-    assertTrue(
-        actualCreateHistoricVariableInstanceQueryResult
-            instanceof HistoricVariableInstanceQueryImpl);
-    assertEquals(
-        "RES.ID_ asc",
-        ((HistoricVariableInstanceQueryImpl) actualCreateHistoricVariableInstanceQueryResult)
-            .getOrderBy());
-    assertEquals(
-        "RES.ID_ asc",
-        ((HistoricVariableInstanceQueryImpl) actualCreateHistoricVariableInstanceQueryResult)
-            .getOrderByColumns());
+    assertTrue(actualCreateHistoricVariableInstanceQueryResult instanceof HistoricVariableInstanceQueryImpl);
+    assertEquals("RES.ID_ asc",
+        ((HistoricVariableInstanceQueryImpl) actualCreateHistoricVariableInstanceQueryResult).getOrderBy());
+    assertEquals("RES.ID_ asc",
+        ((HistoricVariableInstanceQueryImpl) actualCreateHistoricVariableInstanceQueryResult).getOrderByColumns());
+    assertNull(((HistoricVariableInstanceQueryImpl) actualCreateHistoricVariableInstanceQueryResult).getParameter());
+    assertNull(((HistoricVariableInstanceQueryImpl) actualCreateHistoricVariableInstanceQueryResult).getDatabaseType());
     assertNull(
-        ((HistoricVariableInstanceQueryImpl) actualCreateHistoricVariableInstanceQueryResult)
-            .getParameter());
+        ((HistoricVariableInstanceQueryImpl) actualCreateHistoricVariableInstanceQueryResult).getActivityInstanceId());
     assertNull(
-        ((HistoricVariableInstanceQueryImpl) actualCreateHistoricVariableInstanceQueryResult)
-            .getDatabaseType());
+        ((HistoricVariableInstanceQueryImpl) actualCreateHistoricVariableInstanceQueryResult).getProcessInstanceId());
+    assertNull(((HistoricVariableInstanceQueryImpl) actualCreateHistoricVariableInstanceQueryResult).getTaskId());
+    assertNull(((HistoricVariableInstanceQueryImpl) actualCreateHistoricVariableInstanceQueryResult).getVariableName());
     assertNull(
-        ((HistoricVariableInstanceQueryImpl) actualCreateHistoricVariableInstanceQueryResult)
-            .getActivityInstanceId());
+        ((HistoricVariableInstanceQueryImpl) actualCreateHistoricVariableInstanceQueryResult).getVariableNameLike());
+    assertNull(((HistoricVariableInstanceQueryImpl) actualCreateHistoricVariableInstanceQueryResult).orderBy);
+    assertNull(((HistoricVariableInstanceQueryImpl) actualCreateHistoricVariableInstanceQueryResult).executionId);
+    assertNull(((HistoricVariableInstanceQueryImpl) actualCreateHistoricVariableInstanceQueryResult).id);
+    assertNull(((HistoricVariableInstanceQueryImpl) actualCreateHistoricVariableInstanceQueryResult).executionIds);
+    assertNull(((HistoricVariableInstanceQueryImpl) actualCreateHistoricVariableInstanceQueryResult).taskIds);
     assertNull(
-        ((HistoricVariableInstanceQueryImpl) actualCreateHistoricVariableInstanceQueryResult)
-            .getProcessInstanceId());
+        ((HistoricVariableInstanceQueryImpl) actualCreateHistoricVariableInstanceQueryResult).nullHandlingOnOrder);
+    assertNull(((HistoricVariableInstanceQueryImpl) actualCreateHistoricVariableInstanceQueryResult).resultType);
     assertNull(
-        ((HistoricVariableInstanceQueryImpl) actualCreateHistoricVariableInstanceQueryResult)
-            .getTaskId());
-    assertNull(
-        ((HistoricVariableInstanceQueryImpl) actualCreateHistoricVariableInstanceQueryResult)
-            .getVariableName());
-    assertNull(
-        ((HistoricVariableInstanceQueryImpl) actualCreateHistoricVariableInstanceQueryResult)
-            .getVariableNameLike());
-    assertNull(
-        ((HistoricVariableInstanceQueryImpl) actualCreateHistoricVariableInstanceQueryResult)
-            .orderBy);
-    assertNull(
-        ((HistoricVariableInstanceQueryImpl) actualCreateHistoricVariableInstanceQueryResult)
-            .executionId);
-    assertNull(
-        ((HistoricVariableInstanceQueryImpl) actualCreateHistoricVariableInstanceQueryResult).id);
-    assertNull(
-        ((HistoricVariableInstanceQueryImpl) actualCreateHistoricVariableInstanceQueryResult)
-            .executionIds);
-    assertNull(
-        ((HistoricVariableInstanceQueryImpl) actualCreateHistoricVariableInstanceQueryResult)
-            .taskIds);
-    assertNull(
-        ((HistoricVariableInstanceQueryImpl) actualCreateHistoricVariableInstanceQueryResult)
-            .nullHandlingOnOrder);
-    assertNull(
-        ((HistoricVariableInstanceQueryImpl) actualCreateHistoricVariableInstanceQueryResult)
-            .resultType);
-    assertNull(
-        ((HistoricVariableInstanceQueryImpl) actualCreateHistoricVariableInstanceQueryResult)
-            .getQueryVariableValue());
-    assertNull(
-        ((HistoricVariableInstanceQueryImpl) actualCreateHistoricVariableInstanceQueryResult)
-            .commandContext);
-    assertNull(
-        ((HistoricVariableInstanceQueryImpl) actualCreateHistoricVariableInstanceQueryResult)
-            .commandExecutor);
-    assertNull(
-        ((HistoricVariableInstanceQueryImpl) actualCreateHistoricVariableInstanceQueryResult)
-            .orderProperty);
-    assertEquals(
-        0,
-        ((HistoricVariableInstanceQueryImpl) actualCreateHistoricVariableInstanceQueryResult)
-            .getFirstResult());
-    assertEquals(
-        1,
-        ((HistoricVariableInstanceQueryImpl) actualCreateHistoricVariableInstanceQueryResult)
-            .getFirstRow());
+        ((HistoricVariableInstanceQueryImpl) actualCreateHistoricVariableInstanceQueryResult).getQueryVariableValue());
+    assertNull(((HistoricVariableInstanceQueryImpl) actualCreateHistoricVariableInstanceQueryResult).commandContext);
+    assertNull(((HistoricVariableInstanceQueryImpl) actualCreateHistoricVariableInstanceQueryResult).commandExecutor);
+    assertNull(((HistoricVariableInstanceQueryImpl) actualCreateHistoricVariableInstanceQueryResult).orderProperty);
+    assertEquals(0,
+        ((HistoricVariableInstanceQueryImpl) actualCreateHistoricVariableInstanceQueryResult).getFirstResult());
+    assertEquals(1,
+        ((HistoricVariableInstanceQueryImpl) actualCreateHistoricVariableInstanceQueryResult).getFirstRow());
     assertFalse(
-        ((HistoricVariableInstanceQueryImpl) actualCreateHistoricVariableInstanceQueryResult)
-            .getExcludeTaskRelated());
+        ((HistoricVariableInstanceQueryImpl) actualCreateHistoricVariableInstanceQueryResult).getExcludeTaskRelated());
     assertFalse(
-        ((HistoricVariableInstanceQueryImpl) actualCreateHistoricVariableInstanceQueryResult)
-            .excludeVariableInitialization);
-    assertEquals(
-        Integer.MAX_VALUE,
-        ((HistoricVariableInstanceQueryImpl) actualCreateHistoricVariableInstanceQueryResult)
-            .getLastRow());
-    assertEquals(
-        Integer.MAX_VALUE,
-        ((HistoricVariableInstanceQueryImpl) actualCreateHistoricVariableInstanceQueryResult)
-            .getMaxResults());
+        ((HistoricVariableInstanceQueryImpl) actualCreateHistoricVariableInstanceQueryResult).excludeVariableInitialization);
+    assertEquals(Integer.MAX_VALUE,
+        ((HistoricVariableInstanceQueryImpl) actualCreateHistoricVariableInstanceQueryResult).getLastRow());
+    assertEquals(Integer.MAX_VALUE,
+        ((HistoricVariableInstanceQueryImpl) actualCreateHistoricVariableInstanceQueryResult).getMaxResults());
   }
 
   /**
    * Test {@link HistoryServiceImpl#createNativeHistoricVariableInstanceQuery()}.
-   *
-   * <p>Method under test: {@link HistoryServiceImpl#createNativeHistoricVariableInstanceQuery()}
+   * <p>
+   * Method under test: {@link HistoryServiceImpl#createNativeHistoricVariableInstanceQuery()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({
-    "NativeHistoricVariableInstanceQuery HistoryServiceImpl.createNativeHistoricVariableInstanceQuery()"
-  })
+      "NativeHistoricVariableInstanceQuery HistoryServiceImpl.createNativeHistoricVariableInstanceQuery()"})
   public void testCreateNativeHistoricVariableInstanceQuery() {
     // Arrange and Act
-    NativeHistoricVariableInstanceQuery actualCreateNativeHistoricVariableInstanceQueryResult =
-        new HistoryServiceImpl(new JtaProcessEngineConfiguration())
-            .createNativeHistoricVariableInstanceQuery();
+    NativeHistoricVariableInstanceQuery actualCreateNativeHistoricVariableInstanceQueryResult = (new HistoryServiceImpl(
+        new JtaProcessEngineConfiguration())).createNativeHistoricVariableInstanceQuery();
 
     // Assert
     assertTrue(
-        actualCreateNativeHistoricVariableInstanceQueryResult
-            instanceof NativeHistoricVariableInstanceQueryImpl);
+        actualCreateNativeHistoricVariableInstanceQueryResult instanceof NativeHistoricVariableInstanceQueryImpl);
     assertNull(
-        ((NativeHistoricVariableInstanceQueryImpl)
-                actualCreateNativeHistoricVariableInstanceQueryResult)
-            .resultType);
+        ((NativeHistoricVariableInstanceQueryImpl) actualCreateNativeHistoricVariableInstanceQueryResult).resultType);
     assertNull(
-        ((NativeHistoricVariableInstanceQueryImpl)
-                actualCreateNativeHistoricVariableInstanceQueryResult)
-            .commandContext);
+        ((NativeHistoricVariableInstanceQueryImpl) actualCreateNativeHistoricVariableInstanceQueryResult).commandContext);
     assertNull(
-        ((NativeHistoricVariableInstanceQueryImpl)
-                actualCreateNativeHistoricVariableInstanceQueryResult)
-            .commandExecutor);
-    assertEquals(
-        0,
-        ((NativeHistoricVariableInstanceQueryImpl)
-                actualCreateNativeHistoricVariableInstanceQueryResult)
-            .firstResult);
-    assertTrue(
-        ((NativeHistoricVariableInstanceQueryImpl)
-                actualCreateNativeHistoricVariableInstanceQueryResult)
-            .getParameters()
-            .isEmpty());
-    assertEquals(
-        Integer.MAX_VALUE,
-        ((NativeHistoricVariableInstanceQueryImpl)
-                actualCreateNativeHistoricVariableInstanceQueryResult)
-            .maxResults);
+        ((NativeHistoricVariableInstanceQueryImpl) actualCreateNativeHistoricVariableInstanceQueryResult).commandExecutor);
+    assertEquals(0,
+        ((NativeHistoricVariableInstanceQueryImpl) actualCreateNativeHistoricVariableInstanceQueryResult).firstResult);
+    assertTrue(((NativeHistoricVariableInstanceQueryImpl) actualCreateNativeHistoricVariableInstanceQueryResult)
+        .getParameters()
+        .isEmpty());
+    assertEquals(Integer.MAX_VALUE,
+        ((NativeHistoricVariableInstanceQueryImpl) actualCreateNativeHistoricVariableInstanceQueryResult).maxResults);
   }
 
   /**
    * Test {@link HistoryServiceImpl#createNativeHistoricProcessInstanceQuery()}.
-   *
-   * <p>Method under test: {@link HistoryServiceImpl#createNativeHistoricProcessInstanceQuery()}
+   * <p>
+   * Method under test: {@link HistoryServiceImpl#createNativeHistoricProcessInstanceQuery()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({
-    "NativeHistoricProcessInstanceQuery HistoryServiceImpl.createNativeHistoricProcessInstanceQuery()"
-  })
+      "NativeHistoricProcessInstanceQuery HistoryServiceImpl.createNativeHistoricProcessInstanceQuery()"})
   public void testCreateNativeHistoricProcessInstanceQuery() {
     // Arrange and Act
-    NativeHistoricProcessInstanceQuery actualCreateNativeHistoricProcessInstanceQueryResult =
-        new HistoryServiceImpl(new JtaProcessEngineConfiguration())
-            .createNativeHistoricProcessInstanceQuery();
+    NativeHistoricProcessInstanceQuery actualCreateNativeHistoricProcessInstanceQueryResult = (new HistoryServiceImpl(
+        new JtaProcessEngineConfiguration())).createNativeHistoricProcessInstanceQuery();
 
     // Assert
+    assertTrue(actualCreateNativeHistoricProcessInstanceQueryResult instanceof NativeHistoricProcessInstanceQueryImpl);
+    assertNull(
+        ((NativeHistoricProcessInstanceQueryImpl) actualCreateNativeHistoricProcessInstanceQueryResult).resultType);
+    assertNull(
+        ((NativeHistoricProcessInstanceQueryImpl) actualCreateNativeHistoricProcessInstanceQueryResult).commandContext);
+    assertNull(
+        ((NativeHistoricProcessInstanceQueryImpl) actualCreateNativeHistoricProcessInstanceQueryResult).commandExecutor);
+    assertEquals(0,
+        ((NativeHistoricProcessInstanceQueryImpl) actualCreateNativeHistoricProcessInstanceQueryResult).firstResult);
     assertTrue(
-        actualCreateNativeHistoricProcessInstanceQueryResult
-            instanceof NativeHistoricProcessInstanceQueryImpl);
-    assertNull(
-        ((NativeHistoricProcessInstanceQueryImpl)
-                actualCreateNativeHistoricProcessInstanceQueryResult)
-            .resultType);
-    assertNull(
-        ((NativeHistoricProcessInstanceQueryImpl)
-                actualCreateNativeHistoricProcessInstanceQueryResult)
-            .commandContext);
-    assertNull(
-        ((NativeHistoricProcessInstanceQueryImpl)
-                actualCreateNativeHistoricProcessInstanceQueryResult)
-            .commandExecutor);
-    assertEquals(
-        0,
-        ((NativeHistoricProcessInstanceQueryImpl)
-                actualCreateNativeHistoricProcessInstanceQueryResult)
-            .firstResult);
-    assertTrue(
-        ((NativeHistoricProcessInstanceQueryImpl)
-                actualCreateNativeHistoricProcessInstanceQueryResult)
-            .getParameters()
+        ((NativeHistoricProcessInstanceQueryImpl) actualCreateNativeHistoricProcessInstanceQueryResult).getParameters()
             .isEmpty());
-    assertEquals(
-        Integer.MAX_VALUE,
-        ((NativeHistoricProcessInstanceQueryImpl)
-                actualCreateNativeHistoricProcessInstanceQueryResult)
-            .maxResults);
+    assertEquals(Integer.MAX_VALUE,
+        ((NativeHistoricProcessInstanceQueryImpl) actualCreateNativeHistoricProcessInstanceQueryResult).maxResults);
   }
 
   /**
    * Test {@link HistoryServiceImpl#createNativeHistoricTaskInstanceQuery()}.
-   *
-   * <p>Method under test: {@link HistoryServiceImpl#createNativeHistoricTaskInstanceQuery()}
+   * <p>
+   * Method under test: {@link HistoryServiceImpl#createNativeHistoricTaskInstanceQuery()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "NativeHistoricTaskInstanceQuery HistoryServiceImpl.createNativeHistoricTaskInstanceQuery()"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"NativeHistoricTaskInstanceQuery HistoryServiceImpl.createNativeHistoricTaskInstanceQuery()"})
   public void testCreateNativeHistoricTaskInstanceQuery() {
     // Arrange and Act
-    NativeHistoricTaskInstanceQuery actualCreateNativeHistoricTaskInstanceQueryResult =
-        new HistoryServiceImpl(new JtaProcessEngineConfiguration())
-            .createNativeHistoricTaskInstanceQuery();
+    NativeHistoricTaskInstanceQuery actualCreateNativeHistoricTaskInstanceQueryResult = (new HistoryServiceImpl(
+        new JtaProcessEngineConfiguration())).createNativeHistoricTaskInstanceQuery();
 
     // Assert
-    assertTrue(
-        actualCreateNativeHistoricTaskInstanceQueryResult
-            instanceof NativeHistoricTaskInstanceQueryImpl);
+    assertTrue(actualCreateNativeHistoricTaskInstanceQueryResult instanceof NativeHistoricTaskInstanceQueryImpl);
+    assertNull(((NativeHistoricTaskInstanceQueryImpl) actualCreateNativeHistoricTaskInstanceQueryResult).resultType);
     assertNull(
-        ((NativeHistoricTaskInstanceQueryImpl) actualCreateNativeHistoricTaskInstanceQueryResult)
-            .resultType);
+        ((NativeHistoricTaskInstanceQueryImpl) actualCreateNativeHistoricTaskInstanceQueryResult).commandContext);
     assertNull(
-        ((NativeHistoricTaskInstanceQueryImpl) actualCreateNativeHistoricTaskInstanceQueryResult)
-            .commandContext);
-    assertNull(
-        ((NativeHistoricTaskInstanceQueryImpl) actualCreateNativeHistoricTaskInstanceQueryResult)
-            .commandExecutor);
-    assertEquals(
-        0,
-        ((NativeHistoricTaskInstanceQueryImpl) actualCreateNativeHistoricTaskInstanceQueryResult)
-            .firstResult);
-    assertTrue(
-        ((NativeHistoricTaskInstanceQueryImpl) actualCreateNativeHistoricTaskInstanceQueryResult)
-            .getParameters()
-            .isEmpty());
-    assertEquals(
-        Integer.MAX_VALUE,
-        ((NativeHistoricTaskInstanceQueryImpl) actualCreateNativeHistoricTaskInstanceQueryResult)
-            .maxResults);
+        ((NativeHistoricTaskInstanceQueryImpl) actualCreateNativeHistoricTaskInstanceQueryResult).commandExecutor);
+    assertEquals(0,
+        ((NativeHistoricTaskInstanceQueryImpl) actualCreateNativeHistoricTaskInstanceQueryResult).firstResult);
+    assertTrue(((NativeHistoricTaskInstanceQueryImpl) actualCreateNativeHistoricTaskInstanceQueryResult).getParameters()
+        .isEmpty());
+    assertEquals(Integer.MAX_VALUE,
+        ((NativeHistoricTaskInstanceQueryImpl) actualCreateNativeHistoricTaskInstanceQueryResult).maxResults);
   }
 
   /**
    * Test {@link HistoryServiceImpl#createNativeHistoricActivityInstanceQuery()}.
-   *
-   * <p>Method under test: {@link HistoryServiceImpl#createNativeHistoricActivityInstanceQuery()}
+   * <p>
+   * Method under test: {@link HistoryServiceImpl#createNativeHistoricActivityInstanceQuery()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({
-    "NativeHistoricActivityInstanceQuery HistoryServiceImpl.createNativeHistoricActivityInstanceQuery()"
-  })
+      "NativeHistoricActivityInstanceQuery HistoryServiceImpl.createNativeHistoricActivityInstanceQuery()"})
   public void testCreateNativeHistoricActivityInstanceQuery() {
     // Arrange and Act
-    NativeHistoricActivityInstanceQuery actualCreateNativeHistoricActivityInstanceQueryResult =
-        new HistoryServiceImpl(new JtaProcessEngineConfiguration())
-            .createNativeHistoricActivityInstanceQuery();
+    NativeHistoricActivityInstanceQuery actualCreateNativeHistoricActivityInstanceQueryResult = (new HistoryServiceImpl(
+        new JtaProcessEngineConfiguration())).createNativeHistoricActivityInstanceQuery();
 
     // Assert
     assertTrue(
-        actualCreateNativeHistoricActivityInstanceQueryResult
-            instanceof NativeHistoricActivityInstanceQueryImpl);
+        actualCreateNativeHistoricActivityInstanceQueryResult instanceof NativeHistoricActivityInstanceQueryImpl);
     assertNull(
-        ((NativeHistoricActivityInstanceQueryImpl)
-                actualCreateNativeHistoricActivityInstanceQueryResult)
-            .resultType);
+        ((NativeHistoricActivityInstanceQueryImpl) actualCreateNativeHistoricActivityInstanceQueryResult).resultType);
     assertNull(
-        ((NativeHistoricActivityInstanceQueryImpl)
-                actualCreateNativeHistoricActivityInstanceQueryResult)
-            .commandContext);
+        ((NativeHistoricActivityInstanceQueryImpl) actualCreateNativeHistoricActivityInstanceQueryResult).commandContext);
     assertNull(
-        ((NativeHistoricActivityInstanceQueryImpl)
-                actualCreateNativeHistoricActivityInstanceQueryResult)
-            .commandExecutor);
-    assertEquals(
-        0,
-        ((NativeHistoricActivityInstanceQueryImpl)
-                actualCreateNativeHistoricActivityInstanceQueryResult)
-            .firstResult);
-    assertTrue(
-        ((NativeHistoricActivityInstanceQueryImpl)
-                actualCreateNativeHistoricActivityInstanceQueryResult)
-            .getParameters()
-            .isEmpty());
-    assertEquals(
-        Integer.MAX_VALUE,
-        ((NativeHistoricActivityInstanceQueryImpl)
-                actualCreateNativeHistoricActivityInstanceQueryResult)
-            .maxResults);
+        ((NativeHistoricActivityInstanceQueryImpl) actualCreateNativeHistoricActivityInstanceQueryResult).commandExecutor);
+    assertEquals(0,
+        ((NativeHistoricActivityInstanceQueryImpl) actualCreateNativeHistoricActivityInstanceQueryResult).firstResult);
+    assertTrue(((NativeHistoricActivityInstanceQueryImpl) actualCreateNativeHistoricActivityInstanceQueryResult)
+        .getParameters()
+        .isEmpty());
+    assertEquals(Integer.MAX_VALUE,
+        ((NativeHistoricActivityInstanceQueryImpl) actualCreateNativeHistoricActivityInstanceQueryResult).maxResults);
   }
 
   /**
    * Test {@link HistoryServiceImpl#createProcessInstanceHistoryLogQuery(String)}.
-   *
-   * <p>Method under test: {@link HistoryServiceImpl#createProcessInstanceHistoryLogQuery(String)}
+   * <p>
+   * Method under test: {@link HistoryServiceImpl#createProcessInstanceHistoryLogQuery(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "ProcessInstanceHistoryLogQuery HistoryServiceImpl.createProcessInstanceHistoryLogQuery(String)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"ProcessInstanceHistoryLogQuery HistoryServiceImpl.createProcessInstanceHistoryLogQuery(String)"})
   public void testCreateProcessInstanceHistoryLogQuery() {
     // Arrange and Act
-    ProcessInstanceHistoryLogQuery actualCreateProcessInstanceHistoryLogQueryResult =
-        historyServiceImpl.createProcessInstanceHistoryLogQuery("42");
+    ProcessInstanceHistoryLogQuery actualCreateProcessInstanceHistoryLogQueryResult = historyServiceImpl
+        .createProcessInstanceHistoryLogQuery("42");
 
     // Assert
-    assertTrue(
-        actualCreateProcessInstanceHistoryLogQueryResult
-            instanceof ProcessInstanceHistoryLogQueryImpl);
-    assertEquals(
-        "42",
-        ((ProcessInstanceHistoryLogQueryImpl) actualCreateProcessInstanceHistoryLogQueryResult)
-            .processInstanceId);
-    assertNull(
-        ((ProcessInstanceHistoryLogQueryImpl) actualCreateProcessInstanceHistoryLogQueryResult)
-            .commandExecutor);
+    assertTrue(actualCreateProcessInstanceHistoryLogQueryResult instanceof ProcessInstanceHistoryLogQueryImpl);
+    assertEquals("42",
+        ((ProcessInstanceHistoryLogQueryImpl) actualCreateProcessInstanceHistoryLogQueryResult).processInstanceId);
+    assertNull(((ProcessInstanceHistoryLogQueryImpl) actualCreateProcessInstanceHistoryLogQueryResult).commandExecutor);
     assertFalse(
-        ((ProcessInstanceHistoryLogQueryImpl) actualCreateProcessInstanceHistoryLogQueryResult)
-            .includeActivities);
+        ((ProcessInstanceHistoryLogQueryImpl) actualCreateProcessInstanceHistoryLogQueryResult).includeActivities);
     assertFalse(
-        ((ProcessInstanceHistoryLogQueryImpl) actualCreateProcessInstanceHistoryLogQueryResult)
-            .includeComments);
+        ((ProcessInstanceHistoryLogQueryImpl) actualCreateProcessInstanceHistoryLogQueryResult).includeComments);
     assertFalse(
-        ((ProcessInstanceHistoryLogQueryImpl) actualCreateProcessInstanceHistoryLogQueryResult)
-            .includeFormProperties);
+        ((ProcessInstanceHistoryLogQueryImpl) actualCreateProcessInstanceHistoryLogQueryResult).includeFormProperties);
+    assertFalse(((ProcessInstanceHistoryLogQueryImpl) actualCreateProcessInstanceHistoryLogQueryResult).includeTasks);
     assertFalse(
-        ((ProcessInstanceHistoryLogQueryImpl) actualCreateProcessInstanceHistoryLogQueryResult)
-            .includeTasks);
+        ((ProcessInstanceHistoryLogQueryImpl) actualCreateProcessInstanceHistoryLogQueryResult).includeVariableUpdates);
     assertFalse(
-        ((ProcessInstanceHistoryLogQueryImpl) actualCreateProcessInstanceHistoryLogQueryResult)
-            .includeVariableUpdates);
-    assertFalse(
-        ((ProcessInstanceHistoryLogQueryImpl) actualCreateProcessInstanceHistoryLogQueryResult)
-            .includeVariables);
+        ((ProcessInstanceHistoryLogQueryImpl) actualCreateProcessInstanceHistoryLogQueryResult).includeVariables);
   }
 }

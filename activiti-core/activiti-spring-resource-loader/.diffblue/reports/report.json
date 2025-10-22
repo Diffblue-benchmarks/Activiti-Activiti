@@ -1,21 +1,21 @@
 {
   "meta" : {
-    "reportVersion" : "2.7"
+    "reportVersion" : "2.6"
   },
   "run" : {
-    "version" : "2025.09.01-44e352d-licensed",
-    "creationTimestamp" : "2025-10-15T18:17:05.474751764Z",
+    "version" : "2025.02.02-08b2a5a-licensed",
+    "creationTimestamp" : "2025-10-21T18:36:58.703503864Z",
     "command" : "dcover create --exclude-modules=org.activiti:activiti-dependency-check,org.activiti:activiti-api-dependencies,org.activiti:activiti-core-common-dependencies,org.activiti:activiti-core-dependencies,org.activiti:activiti-dependencies,org.activiti:activiti-spring-conformance-set0,org.activiti:activiti-spring-conformance-set1,org.activiti:activiti-spring-conformance-set2,org.activiti:activiti-spring-conformance-set3,org.activiti:activiti-spring-conformance-set4,org.activiti:activiti-spring-conformance-set5,org.activiti:activiti-spring-conformance-variables,org.activiti:activiti-spring-conformance-signals --coverage-reports --upload http://localhost:8080 --project-name Activiti-Activiti --name with-diffblue-tests",
-    "totalTime" : 141.835,
-    "environmentDetectionTime" : 0.028,
-    "indexingTime" : 0.552,
-    "entryPointsTime" : 0.017,
-    "generationTime" : 57130.517,
-    "timeToFirstTest" : 64050.991,
-    "timeToLastTest" : 60232.604,
-    "indexQueryTime" : 6.5,
-    "verificationTime" : 1196.553,
-    "validationTime" : 15.84
+    "totalTime" : 162.987,
+    "environmentDetectionTime" : 0.305,
+    "indexingTime" : 0.426,
+    "entryPointsTime" : 0.301,
+    "generationTime" : 59398.776,
+    "timeToFirstTest" : 65778.829,
+    "timeToLastTest" : 62451.086,
+    "indexQueryTime" : 7.615,
+    "verificationTime" : 1133.052,
+    "validationTime" : 38.338
   },
   "codes" : {
     "R000" : "Success",
@@ -30,9 +30,9 @@
   "summary" : {
     "classesCount" : 1,
     "methodsCount" : 4,
-    "cumulativeDiffblueTestCount" : 9,
+    "cumulativeDiffblueTestCount" : 7,
     "cumulativeManualTestCount" : 1,
-    "completeTestCount" : 9,
+    "completeTestCount" : 7,
     "incompleteTestCount" : 0,
     "skeletonTestCount" : 0,
     "totalPhysicalLineCount" : 52,
@@ -48,17 +48,17 @@
       "T003" : 1
     },
     "perTestOutcome" : {
-      "R000" : 9
+      "R000" : 7
     },
     "perTestValidation" : {
-      "V000" : 9,
+      "V000" : 7,
       "V003" : 1
     }
   },
   "classes" : {
     "org.activiti.spring.resources.DeploymentResourceLoader" : {
       "methodsCount" : 4,
-      "completeTestCount" : 9,
+      "completeTestCount" : 7,
       "incompleteTestCount" : 0,
       "perMethodTestability" : {
         "T000" : 1,
@@ -72,7 +72,7 @@
         "T003" : 1
       },
       "perTestOutcome" : {
-        "R000" : 9
+        "R000" : 7
       }
     }
   },
@@ -109,12 +109,12 @@
       ]
     },
     "org.activiti.spring.resources.DeploymentResourceLoader.loadResourcesForDeployment:(Ljava/lang/String;Lorg/activiti/spring/resources/ResourceReader;)Ljava/util/List;" : {
-      "completeTestCount" : 9,
+      "completeTestCount" : 7,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 9
+        "R000" : 7
       },
       "lineNumbers" : [
         35,
@@ -142,6 +142,5 @@
         78
       ]
     }
-  },
-  "validationMetrics" : { }
+  }
 }

@@ -1,25 +1,27 @@
 {
   "meta" : {
-    "reportVersion" : "2.7"
+    "reportVersion" : "2.6"
   },
   "run" : {
-    "version" : "2025.09.01-44e352d-licensed",
-    "creationTimestamp" : "2025-10-15T18:17:05.474751764Z",
+    "version" : "2025.02.02-08b2a5a-licensed",
+    "creationTimestamp" : "2025-10-21T18:36:58.703503864Z",
     "command" : "dcover create --exclude-modules=org.activiti:activiti-dependency-check,org.activiti:activiti-api-dependencies,org.activiti:activiti-core-common-dependencies,org.activiti:activiti-core-dependencies,org.activiti:activiti-dependencies,org.activiti:activiti-spring-conformance-set0,org.activiti:activiti-spring-conformance-set1,org.activiti:activiti-spring-conformance-set2,org.activiti:activiti-spring-conformance-set3,org.activiti:activiti-spring-conformance-set4,org.activiti:activiti-spring-conformance-set5,org.activiti:activiti-spring-conformance-variables,org.activiti:activiti-spring-conformance-signals --coverage-reports --upload http://localhost:8080 --project-name Activiti-Activiti --name with-diffblue-tests",
-    "totalTime" : 473.495,
-    "environmentDetectionTime" : 0.042,
-    "indexingTime" : 0.445,
-    "entryPointsTime" : 0.026,
-    "generationTime" : 757.078,
-    "timeToFirstTest" : 1665.704,
-    "timeToLastTest" : 1408.594,
-    "indexQueryTime" : 3.206,
-    "verificationTime" : 42.108,
-    "validationTime" : 11.861
+    "totalTime" : 194.542,
+    "environmentDetectionTime" : 0.282,
+    "indexingTime" : 0.345,
+    "entryPointsTime" : 0.278,
+    "generationTime" : 422.548,
+    "timeToFirstTest" : 1296.628,
+    "timeToLastTest" : 1056.407,
+    "indexQueryTime" : 4.096,
+    "verificationTime" : 36.614,
+    "validationTime" : 14.211
   },
   "codes" : {
+    "F009" : "Internal error",
     "R000" : "Success",
     "R002" : "Missing observers",
+    "R004" : "No meaningful assertions found",
     "R013" : "No inputs found that don't throw a trivial exception",
     "T000" : "Method eligible for test creation",
     "T001" : "Trivial getter",
@@ -32,9 +34,9 @@
   "summary" : {
     "classesCount" : 11,
     "methodsCount" : 28,
-    "cumulativeDiffblueTestCount" : 21,
+    "cumulativeDiffblueTestCount" : 10,
     "cumulativeManualTestCount" : 5,
-    "completeTestCount" : 21,
+    "completeTestCount" : 10,
     "incompleteTestCount" : 0,
     "skeletonTestCount" : 0,
     "totalPhysicalLineCount" : 221,
@@ -47,18 +49,20 @@
       "T012" : 4
     },
     "perMethodOutcome" : {
-      "R000" : 12,
-      "R002" : 5,
+      "F009" : 1,
+      "R000" : 11,
+      "R002" : 6,
+      "R004" : 1,
       "R013" : 1,
       "T003" : 1,
       "T010" : 3,
       "T012" : 4
     },
     "perTestOutcome" : {
-      "R000" : 21
+      "R000" : 10
     },
     "perTestValidation" : {
-      "V000" : 21
+      "V000" : 10
     }
   },
   "classes" : {
@@ -83,18 +87,15 @@
     },
     "org.activiti.application.ApplicationDiscovery" : {
       "methodsCount" : 2,
-      "completeTestCount" : 4,
+      "completeTestCount" : 0,
       "incompleteTestCount" : 0,
       "perMethodTestability" : {
         "T000" : 1,
         "T005" : 1
       },
       "perMethodOutcome" : {
-        "R000" : 1,
+        "F009" : 1,
         "R002" : 1
-      },
-      "perTestOutcome" : {
-        "R000" : 4
       }
     },
     "org.activiti.application.ApplicationEntry" : {
@@ -159,7 +160,7 @@
     },
     "org.activiti.application.ApplicationService" : {
       "methodsCount" : 2,
-      "completeTestCount" : 8,
+      "completeTestCount" : 4,
       "incompleteTestCount" : 0,
       "perMethodTestability" : {
         "T000" : 1,
@@ -170,7 +171,7 @@
         "R002" : 1
       },
       "perTestOutcome" : {
-        "R000" : 8
+        "R000" : 4
       }
     },
     "org.activiti.application.FileContent" : {
@@ -189,7 +190,7 @@
       }
     },
     "org.activiti.application.conf.ApplicationAutoConfiguration" : {
-      "methodsCount" : 1,
+      "methodsCount" : 3,
       "completeTestCount" : 0,
       "incompleteTestCount" : 0,
       "perMethodTestability" : {
@@ -198,12 +199,14 @@
         "T012" : 1
       },
       "perMethodOutcome" : {
+        "R002" : 1,
+        "R004" : 1,
         "T012" : 1
       }
     },
     "org.activiti.application.deployer.ApplicationDeployer" : {
       "methodsCount" : 2,
-      "completeTestCount" : 4,
+      "completeTestCount" : 1,
       "incompleteTestCount" : 0,
       "perMethodTestability" : {
         "T000" : 1,
@@ -214,7 +217,7 @@
         "R002" : 1
       },
       "perTestOutcome" : {
-        "R000" : 4
+        "R000" : 1
       }
     },
     "org.activiti.application.deployer.ApplicationEntryDeployer" : {
@@ -285,13 +288,10 @@
       ]
     },
     "org.activiti.application.ApplicationDiscovery.discoverApplications:()Ljava/util/List;" : {
-      "completeTestCount" : 4,
+      "completeTestCount" : 0,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
-      "perMethodOutcome" : "R000",
-      "perTestOutcome" : {
-        "R000" : 4
-      },
+      "perMethodOutcome" : "F009",
       "lineNumbers" : [
         39,
         40,
@@ -450,12 +450,12 @@
       ]
     },
     "org.activiti.application.ApplicationService.loadApplications:()Ljava/util/List;" : {
-      "completeTestCount" : 8,
+      "completeTestCount" : 4,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 8
+        "R000" : 4
       },
       "lineNumbers" : [
         37,
@@ -515,7 +515,7 @@
       "completeTestCount" : 0,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T005",
-      "perMethodOutcome" : "F009",
+      "perMethodOutcome" : "R002",
       "lineNumbers" : [
         37
       ]
@@ -524,7 +524,7 @@
       "completeTestCount" : 0,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
-      "perMethodOutcome" : "F009",
+      "perMethodOutcome" : "R004",
       "lineNumbers" : [
         44
       ]
@@ -556,12 +556,12 @@
       ]
     },
     "org.activiti.application.deployer.ApplicationDeployer.deploy:()V" : {
-      "completeTestCount" : 4,
+      "completeTestCount" : 1,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 4
+        "R000" : 1
       },
       "lineNumbers" : [
         36,
@@ -579,6 +579,5 @@
       "perMethodTestability" : "T010",
       "perMethodOutcome" : "T010"
     }
-  },
-  "validationMetrics" : { }
+  }
 }

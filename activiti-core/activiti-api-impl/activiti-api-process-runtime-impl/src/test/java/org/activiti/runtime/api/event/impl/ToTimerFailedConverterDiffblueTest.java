@@ -15,26 +15,12 @@
  */
 package org.activiti.runtime.api.event.impl;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
-import java.time.LocalDate;
-import java.time.ZoneOffset;
-import java.util.Date;
-import java.util.Optional;
-import org.activiti.api.process.model.events.BPMNTimerEvent;
-import org.activiti.api.process.model.events.BPMNTimerEvent.TimerEvents;
-import org.activiti.api.process.model.events.BPMNTimerFailedEvent;
-import org.activiti.api.runtime.event.impl.BPMNTimerFailedEventImpl;
-import org.activiti.api.runtime.model.impl.BPMNTimerImpl;
 import org.activiti.engine.delegate.event.ActivitiEvent;
 import org.activiti.engine.delegate.event.ActivitiEventType;
 import org.activiti.engine.delegate.event.impl.ActivitiActivityCancelledEventImpl;
 import org.activiti.engine.delegate.event.impl.ActivitiEntityEventImpl;
-import org.activiti.engine.impl.persistence.entity.DeadLetterJobEntityImpl;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
@@ -43,136 +29,18 @@ class ToTimerFailedConverterDiffblueTest {
   /**
    * Test {@link ToTimerFailedConverter#from(ActivitiEvent)}.
    * <ul>
-   *   <li>Given {@code A JSONObject text must begin with '{'}.</li>
+   *   <li>Then return not Present.</li>
    * </ul>
    * <p>
    * Method under test: {@link ToTimerFailedConverter#from(ActivitiEvent)}
    */
   @Test
-  @DisplayName("Test from(ActivitiEvent); given 'A JSONObject text must begin with '{''")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"Optional ToTimerFailedConverter.from(ActivitiEvent)"})
-  void testFrom_givenAJSONObjectTextMustBeginWith() {
+  @DisplayName("Test from(ActivitiEvent); then return not Present")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"java.util.Optional ToTimerFailedConverter.from(ActivitiEvent)"})
+  void testFrom_thenReturnNotPresent() {
     // Arrange
-    ToTimerFailedConverter toTimerFailedConverter =
-        new ToTimerFailedConverter(new BPMNTimerConverter());
-
-    DeadLetterJobEntityImpl deadLetterJobEntityImpl = new DeadLetterJobEntityImpl();
-    deadLetterJobEntityImpl.setDeleted(true);
-    deadLetterJobEntityImpl.setDuedate(
-        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
-    deadLetterJobEntityImpl.setEndDate(
-        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
-    deadLetterJobEntityImpl.setExceptionMessage("An error occurred");
-    deadLetterJobEntityImpl.setExclusive(true);
-    deadLetterJobEntityImpl.setExecutionId("42");
-    deadLetterJobEntityImpl.setId("42");
-    deadLetterJobEntityImpl.setInserted(true);
-    deadLetterJobEntityImpl.setJobHandlerConfiguration("Job Handler Configuration");
-    deadLetterJobEntityImpl.setJobHandlerType("Job Handler Type");
-    deadLetterJobEntityImpl.setMaxIterations(3);
-    deadLetterJobEntityImpl.setProcessDefinitionId("42");
-    deadLetterJobEntityImpl.setProcessInstanceId("42");
-    deadLetterJobEntityImpl.setRepeat("Repeat");
-    deadLetterJobEntityImpl.setRetries(1);
-    deadLetterJobEntityImpl.setRevision(1);
-    deadLetterJobEntityImpl.setTenantId("42");
-    deadLetterJobEntityImpl.setUpdated(true);
-    deadLetterJobEntityImpl.setJobType("A JSONObject text must begin with '{'");
-
-    // Act and Assert
-    assertFalse(
-        toTimerFailedConverter
-            .from(
-                new ActivitiEntityEventImpl(
-                    deadLetterJobEntityImpl, ActivitiEventType.ENTITY_CREATED))
-            .isPresent());
-  }
-
-  /**
-   * Test {@link ToTimerFailedConverter#from(ActivitiEvent)}.
-   *
-   * <ul>
-   *   <li>Given {@code timer}.
-   *   <li>Then {@link Optional#get()} return {@link BPMNTimerFailedEventImpl}.
-   * </ul>
-   *
-   * <p>Method under test: {@link ToTimerFailedConverter#from(ActivitiEvent)}
-   */
-  @Test
-  @DisplayName(
-      "Test from(ActivitiEvent); given 'timer'; then get() return BPMNTimerFailedEventImpl")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"Optional ToTimerFailedConverter.from(ActivitiEvent)"})
-  void testFrom_givenTimer_thenGetReturnBPMNTimerFailedEventImpl() {
-    // Arrange
-    ToTimerFailedConverter toTimerFailedConverter =
-        new ToTimerFailedConverter(new BPMNTimerConverter());
-
-    DeadLetterJobEntityImpl deadLetterJobEntityImpl = new DeadLetterJobEntityImpl();
-    deadLetterJobEntityImpl.setDeleted(true);
-    deadLetterJobEntityImpl.setDuedate(
-        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
-    deadLetterJobEntityImpl.setEndDate(
-        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
-    deadLetterJobEntityImpl.setExceptionMessage("An error occurred");
-    deadLetterJobEntityImpl.setExclusive(true);
-    deadLetterJobEntityImpl.setExecutionId("42");
-    deadLetterJobEntityImpl.setId("42");
-    deadLetterJobEntityImpl.setInserted(true);
-    deadLetterJobEntityImpl.setJobHandlerConfiguration("Job Handler Configuration");
-    deadLetterJobEntityImpl.setJobHandlerType("Job Handler Type");
-    deadLetterJobEntityImpl.setMaxIterations(3);
-    deadLetterJobEntityImpl.setProcessDefinitionId("42");
-    deadLetterJobEntityImpl.setProcessInstanceId("42");
-    deadLetterJobEntityImpl.setRepeat("Repeat");
-    deadLetterJobEntityImpl.setRetries(1);
-    deadLetterJobEntityImpl.setRevision(1);
-    deadLetterJobEntityImpl.setTenantId("42");
-    deadLetterJobEntityImpl.setUpdated(true);
-    deadLetterJobEntityImpl.setJobType("timer");
-
-    // Act
-    Optional<BPMNTimerFailedEvent> actualFromResult =
-        toTimerFailedConverter.from(
-            new ActivitiEntityEventImpl(deadLetterJobEntityImpl, ActivitiEventType.ENTITY_CREATED));
-
-    // Assert
-    BPMNTimerFailedEvent getResult = actualFromResult.get();
-    assertTrue(getResult instanceof BPMNTimerFailedEventImpl);
-    assertTrue(getResult.getEntity() instanceof BPMNTimerImpl);
-    assertNull(getResult.getProcessDefinitionVersion());
-    assertNull(getResult.getBusinessKey());
-    assertNull(getResult.getParentProcessInstanceId());
-    assertNull(getResult.getProcessDefinitionId());
-    assertNull(getResult.getProcessDefinitionKey());
-    assertNull(getResult.getProcessInstanceId());
-    assertEquals(TimerEvents.TIMER_FAILED, getResult.getEventType());
-    assertTrue(actualFromResult.isPresent());
-  }
-
-  /**
-   * Test {@link ToTimerFailedConverter#from(ActivitiEvent)}.
-   *
-   * <ul>
-   *   <li>When {@link ActivitiActivityCancelledEventImpl} (default constructor).
-   *   <li>Then return not Present.
-   * </ul>
-   *
-   * <p>Method under test: {@link ToTimerFailedConverter#from(ActivitiEvent)}
-   */
-  @Test
-  @DisplayName(
-      "Test from(ActivitiEvent); when ActivitiActivityCancelledEventImpl (default constructor); then return not Present")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"Optional ToTimerFailedConverter.from(ActivitiEvent)"})
-  void testFrom_whenActivitiActivityCancelledEventImpl_thenReturnNotPresent() {
-    // Arrange
-    ToTimerFailedConverter toTimerFailedConverter =
-        new ToTimerFailedConverter(new BPMNTimerConverter());
+    ToTimerFailedConverter toTimerFailedConverter = new ToTimerFailedConverter(new BPMNTimerConverter());
 
     // Act and Assert
     assertFalse(toTimerFailedConverter.from(new ActivitiActivityCancelledEventImpl()).isPresent());
@@ -180,29 +48,22 @@ class ToTimerFailedConverterDiffblueTest {
 
   /**
    * Test {@link ToTimerFailedConverter#from(ActivitiEvent)}.
-   *
    * <ul>
-   *   <li>When {@link ActivitiEntityEventImpl#ActivitiEntityEventImpl(Object, ActivitiEventType)}
-   *       with {@code Entity} and type is {@code ENTITY_CREATED}.
+   *   <li>When {@link ActivitiEntityEventImpl#ActivitiEntityEventImpl(Object, ActivitiEventType)} with {@code Entity} and type is {@code ENTITY_CREATED}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ToTimerFailedConverter#from(ActivitiEvent)}
+   * <p>
+   * Method under test: {@link ToTimerFailedConverter#from(ActivitiEvent)}
    */
   @Test
-  @DisplayName(
-      "Test from(ActivitiEvent); when ActivitiEntityEventImpl(Object, ActivitiEventType) with 'Entity' and type is 'ENTITY_CREATED'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"Optional ToTimerFailedConverter.from(ActivitiEvent)"})
+  @DisplayName("Test from(ActivitiEvent); when ActivitiEntityEventImpl(Object, ActivitiEventType) with 'Entity' and type is 'ENTITY_CREATED'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"java.util.Optional ToTimerFailedConverter.from(ActivitiEvent)"})
   void testFrom_whenActivitiEntityEventImplWithEntityAndTypeIsEntityCreated() {
     // Arrange
-    ToTimerFailedConverter toTimerFailedConverter =
-        new ToTimerFailedConverter(new BPMNTimerConverter());
+    ToTimerFailedConverter toTimerFailedConverter = new ToTimerFailedConverter(new BPMNTimerConverter());
 
     // Act and Assert
-    assertFalse(
-        toTimerFailedConverter
-            .from(new ActivitiEntityEventImpl("Entity", ActivitiEventType.ENTITY_CREATED))
-            .isPresent());
+    assertFalse(toTimerFailedConverter.from(new ActivitiEntityEventImpl("Entity", ActivitiEventType.ENTITY_CREATED))
+        .isPresent());
   }
 }

@@ -17,7 +17,6 @@ package org.activiti.application;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
@@ -30,13 +29,12 @@ import org.junit.jupiter.api.Test;
 class ApplicationReaderDiffblueTest {
   /**
    * Test {@link ApplicationReader#read(InputStream)}.
-   *
-   * <p>Method under test: {@link ApplicationReader#read(InputStream)}
+   * <p>
+   * Method under test: {@link ApplicationReader#read(InputStream)}
    */
   @Test
   @DisplayName("Test read(InputStream)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"ApplicationContent ApplicationReader.read(InputStream)"})
   void testRead() throws IOException {
     // Arrange
@@ -47,8 +45,7 @@ class ApplicationReaderDiffblueTest {
     ApplicationContent actualReadResult = applicationReader.read(inputStream);
 
     // Assert
-    int actualReadResult2 = inputStream.read(new byte[] {});
-    assertEquals(-1, actualReadResult2);
+    assertEquals(-1, inputStream.read(new byte[]{}));
     assertTrue(actualReadResult.getFileContents("Entry Type").isEmpty());
   }
 }

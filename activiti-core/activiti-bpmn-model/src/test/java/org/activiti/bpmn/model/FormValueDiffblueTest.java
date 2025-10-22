@@ -19,8 +19,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -32,17 +31,15 @@ import org.junit.experimental.categories.Category;
 public class FormValueDiffblueTest {
   /**
    * Test {@link FormValue#clone()}.
-   *
    * <ul>
-   *   <li>Given {@link FormValue} (default constructor) ExtensionElements is {@code null}.
-   *   <li>Then return Id is {@code null}.
+   *   <li>Given {@link FormValue} (default constructor) ExtensionElements is {@code null}.</li>
+   *   <li>Then return Id is {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link FormValue#clone()}
+   * <p>
+   * Method under test: {@link FormValue#clone()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"FormValue FormValue.clone()"})
   public void testClone_givenFormValueExtensionElementsIsNull_thenReturnIdIsNull() {
     // Arrange
@@ -64,21 +61,19 @@ public class FormValueDiffblueTest {
 
   /**
    * Test {@link FormValue#clone()}.
-   *
    * <ul>
-   *   <li>Given {@link FormValue} (default constructor).
-   *   <li>Then return Id is {@code null}.
+   *   <li>Given {@link FormValue} (default constructor).</li>
+   *   <li>Then return Id is {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link FormValue#clone()}
+   * <p>
+   * Method under test: {@link FormValue#clone()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"FormValue FormValue.clone()"})
   public void testClone_givenFormValue_thenReturnIdIsNull() {
     // Arrange and Act
-    FormValue actualCloneResult = new FormValue().clone();
+    FormValue actualCloneResult = (new FormValue()).clone();
 
     // Assert
     assertNull(actualCloneResult.getId());
@@ -91,17 +86,15 @@ public class FormValueDiffblueTest {
 
   /**
    * Test {@link FormValue#clone()}.
-   *
    * <ul>
-   *   <li>Given {@link HashMap#HashMap()} {@code 42} is {@link ArrayList#ArrayList()}.
-   *   <li>Then return Attributes size is one.
+   *   <li>Given {@link HashMap#HashMap()} {@code 42} is {@link ArrayList#ArrayList()}.</li>
+   *   <li>Then return Attributes size is one.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link FormValue#clone()}
+   * <p>
+   * Method under test: {@link FormValue#clone()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"FormValue FormValue.clone()"})
   public void testClone_givenHashMap42IsArrayList_thenReturnAttributesSizeIsOne() {
     // Arrange
@@ -124,17 +117,15 @@ public class FormValueDiffblueTest {
 
   /**
    * Test {@link FormValue#clone()}.
-   *
    * <ul>
-   *   <li>Given {@link HashMap#HashMap()} {@code foo} is {@link ArrayList#ArrayList()}.
-   *   <li>Then return Attributes size is one.
+   *   <li>Given {@link HashMap#HashMap()} {@code foo} is {@link ArrayList#ArrayList()}.</li>
+   *   <li>Then return Attributes size is one.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link FormValue#clone()}
+   * <p>
+   * Method under test: {@link FormValue#clone()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"FormValue FormValue.clone()"})
   public void testClone_givenHashMapFooIsArrayList_thenReturnAttributesSizeIsOne() {
     // Arrange
@@ -156,16 +147,14 @@ public class FormValueDiffblueTest {
 
   /**
    * Test {@link FormValue#clone()}.
-   *
    * <ul>
-   *   <li>Then return Attributes size is one.
+   *   <li>Then return Attributes size is one.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link FormValue#clone()}
+   * <p>
+   * Method under test: {@link FormValue#clone()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"FormValue FormValue.clone()"})
   public void testClone_thenReturnAttributesSizeIsOne() {
     // Arrange
@@ -183,16 +172,14 @@ public class FormValueDiffblueTest {
 
   /**
    * Test {@link FormValue#clone()}.
-   *
    * <ul>
-   *   <li>Then return Attributes size is two.
+   *   <li>Then return Attributes size is two.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link FormValue#clone()}
+   * <p>
+   * Method under test: {@link FormValue#clone()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"FormValue FormValue.clone()"})
   public void testClone_thenReturnAttributesSizeIsTwo() {
     // Arrange
@@ -212,9 +199,8 @@ public class FormValueDiffblueTest {
 
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>default or parameterless constructor of {@link FormValue}
    *   <li>{@link FormValue#setName(String)}
@@ -222,13 +208,8 @@ public class FormValueDiffblueTest {
    * </ul>
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void FormValue.<init>()",
-    "String FormValue.getName()",
-    "void FormValue.setName(String)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void FormValue.<init>()", "String FormValue.getName()", "void FormValue.setName(String)"})
   public void testGettersAndSetters() {
     // Arrange and Act
     FormValue actualFormValue = new FormValue();

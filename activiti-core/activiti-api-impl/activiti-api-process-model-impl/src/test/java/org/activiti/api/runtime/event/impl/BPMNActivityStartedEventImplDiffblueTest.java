@@ -19,7 +19,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.api.process.model.BPMNActivity;
 import org.activiti.api.process.model.events.BPMNActivityEvent;
@@ -32,18 +31,16 @@ import org.junit.jupiter.api.Test;
 class BPMNActivityStartedEventImplDiffblueTest {
   /**
    * Test {@link BPMNActivityStartedEventImpl#BPMNActivityStartedEventImpl()}.
-   *
-   * <p>Method under test: {@link BPMNActivityStartedEventImpl#BPMNActivityStartedEventImpl()}
+   * <p>
+   * Method under test: {@link BPMNActivityStartedEventImpl#BPMNActivityStartedEventImpl()}
    */
   @Test
   @DisplayName("Test new BPMNActivityStartedEventImpl()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void BPMNActivityStartedEventImpl.<init>()"})
   void testNewBPMNActivityStartedEventImpl() {
     // Arrange and Act
-    BPMNActivityStartedEventImpl actualBpmnActivityStartedEventImpl =
-        new BPMNActivityStartedEventImpl();
+    BPMNActivityStartedEventImpl actualBpmnActivityStartedEventImpl = new BPMNActivityStartedEventImpl();
 
     // Assert
     assertNull(actualBpmnActivityStartedEventImpl.getProcessDefinitionVersion());
@@ -53,28 +50,24 @@ class BPMNActivityStartedEventImplDiffblueTest {
     assertNull(actualBpmnActivityStartedEventImpl.getProcessDefinitionKey());
     assertNull(actualBpmnActivityStartedEventImpl.getProcessInstanceId());
     assertNull(actualBpmnActivityStartedEventImpl.getEntity());
-    assertEquals(
-        ActivityEvents.ACTIVITY_STARTED, actualBpmnActivityStartedEventImpl.getEventType());
+    assertEquals(ActivityEvents.ACTIVITY_STARTED, actualBpmnActivityStartedEventImpl.getEventType());
   }
 
   /**
    * Test {@link BPMNActivityStartedEventImpl#BPMNActivityStartedEventImpl(BPMNActivity)}.
-   *
-   * <p>Method under test: {@link
-   * BPMNActivityStartedEventImpl#BPMNActivityStartedEventImpl(BPMNActivity)}
+   * <p>
+   * Method under test: {@link BPMNActivityStartedEventImpl#BPMNActivityStartedEventImpl(BPMNActivity)}
    */
   @Test
   @DisplayName("Test new BPMNActivityStartedEventImpl(BPMNActivity)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void BPMNActivityStartedEventImpl.<init>(BPMNActivity)"})
   void testNewBPMNActivityStartedEventImpl2() {
     // Arrange
     BPMNActivityImpl entity = new BPMNActivityImpl("42", "Activity Name", "Activity Type");
 
     // Act
-    BPMNActivityStartedEventImpl actualBpmnActivityStartedEventImpl =
-        new BPMNActivityStartedEventImpl(entity);
+    BPMNActivityStartedEventImpl actualBpmnActivityStartedEventImpl = new BPMNActivityStartedEventImpl(entity);
 
     // Assert
     BPMNActivity entity2 = actualBpmnActivityStartedEventImpl.getEntity();
@@ -85,24 +78,21 @@ class BPMNActivityStartedEventImplDiffblueTest {
     assertNull(actualBpmnActivityStartedEventImpl.getProcessDefinitionId());
     assertNull(actualBpmnActivityStartedEventImpl.getProcessDefinitionKey());
     assertNull(actualBpmnActivityStartedEventImpl.getProcessInstanceId());
-    assertEquals(
-        ActivityEvents.ACTIVITY_STARTED, actualBpmnActivityStartedEventImpl.getEventType());
+    assertEquals(ActivityEvents.ACTIVITY_STARTED, actualBpmnActivityStartedEventImpl.getEventType());
     assertSame(entity, entity2);
   }
 
   /**
    * Test {@link BPMNActivityStartedEventImpl#getEventType()}.
-   *
-   * <p>Method under test: {@link BPMNActivityStartedEventImpl#getEventType()}
+   * <p>
+   * Method under test: {@link BPMNActivityStartedEventImpl#getEventType()}
    */
   @Test
   @DisplayName("Test getEventType()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"ActivityEvents BPMNActivityStartedEventImpl.getEventType()"})
   void testGetEventType() {
     // Arrange, Act and Assert
-    assertEquals(
-        ActivityEvents.ACTIVITY_STARTED, new BPMNActivityStartedEventImpl().getEventType());
+    assertEquals(ActivityEvents.ACTIVITY_STARTED, (new BPMNActivityStartedEventImpl()).getEventType());
   }
 }

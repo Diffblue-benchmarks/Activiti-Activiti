@@ -16,29 +16,69 @@
 package org.activiti.engine.impl.interceptor;
 
 import static org.junit.Assert.assertNull;
+import static org.mockito.ArgumentMatchers.isA;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import static org.mockito.Mockito.when;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
+import org.activiti.engine.ActivitiEngineAgendaFactory;
+import org.activiti.engine.impl.agenda.DefaultActivitiEngineAgenda;
+import org.activiti.engine.impl.agenda.ExecuteInactiveBehaviorsOperation;
+import org.activiti.engine.impl.cfg.JtaProcessEngineConfiguration;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
+import org.mockito.Mockito;
 
 public class DebugCommandInvokerDiffblueTest {
   /**
    * Test {@link DebugCommandInvoker#executeOperation(Runnable)}.
-   *
-   * <p>Method under test: {@link DebugCommandInvoker#executeOperation(Runnable)}
+   * <ul>
+   *   <li>Then calls {@link ActivitiEngineAgendaFactory#createAgenda(CommandContext)}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link DebugCommandInvoker#executeOperation(Runnable)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void DebugCommandInvoker.executeOperation(Runnable)"})
-  public void testExecuteOperation() {
+  public void testExecuteOperation_thenCallsCreateAgenda() {
     // Arrange
     DebugCommandInvoker debugCommandInvoker = new DebugCommandInvoker();
+    ActivitiEngineAgendaFactory engineAgendaFactory = mock(ActivitiEngineAgendaFactory.class);
+    when(engineAgendaFactory.createAgenda(Mockito.<CommandContext>any()))
+        .thenReturn(new DefaultActivitiEngineAgenda(null));
 
+    JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();
+    processEngineConfiguration.setEngineAgendaFactory(engineAgendaFactory);
+
+    ExecuteInactiveBehaviorsOperation runnable = new ExecuteInactiveBehaviorsOperation(
+        new CommandContext(mock(Command.class), processEngineConfiguration));
+    runnable.setExecution(null);
+
+    // Act
+    debugCommandInvoker.executeOperation(runnable);
+
+    // Assert
+    verify(engineAgendaFactory).createAgenda(isA(CommandContext.class));
+  }
+
+  /**
+   * Test {@link DebugCommandInvoker#executeOperation(Runnable)}.
+   * <ul>
+   *   <li>When {@link Runnable} {@link Runnable#run()} does nothing.</li>
+   *   <li>Then calls {@link Runnable#run()}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link DebugCommandInvoker#executeOperation(Runnable)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void DebugCommandInvoker.executeOperation(Runnable)"})
+  public void testExecuteOperation_whenRunnableRunDoesNothing_thenCallsRun() {
+    // Arrange
+    DebugCommandInvoker debugCommandInvoker = new DebugCommandInvoker();
     Runnable runnable = mock(Runnable.class);
     doNothing().when(runnable).run();
 
@@ -51,15 +91,14 @@ public class DebugCommandInvokerDiffblueTest {
 
   /**
    * Test new {@link DebugCommandInvoker} (default constructor).
-   *
-   * <p>Method under test: default or parameterless constructor of {@link DebugCommandInvoker}
+   * <p>
+   * Method under test: default or parameterless constructor of {@link DebugCommandInvoker}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void DebugCommandInvoker.<init>()"})
   public void testNewDebugCommandInvoker() {
     // Arrange, Act and Assert
-    assertNull(new DebugCommandInvoker().getNext());
+    assertNull((new DebugCommandInvoker()).getNext());
   }
 }

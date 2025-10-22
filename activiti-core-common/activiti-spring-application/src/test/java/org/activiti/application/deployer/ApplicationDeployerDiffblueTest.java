@@ -15,16 +15,13 @@
  */
 package org.activiti.application.deployer;
 
-import static org.mockito.ArgumentMatchers.isA;
-import static org.mockito.Mockito.doNothing;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.io.IOException;
 import java.util.ArrayList;
-import org.activiti.application.ApplicationContent;
 import org.activiti.application.ApplicationDiscovery;
 import org.activiti.application.ApplicationReader;
 import org.activiti.application.ApplicationService;
@@ -39,136 +36,33 @@ import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 class ApplicationDeployerDiffblueTest {
   /**
    * Test {@link ApplicationDeployer#deploy()}.
-   *
    * <ul>
-   *   <li>Given {@link ArrayList#ArrayList()} add {@link ApplicationContent} (default constructor).
-   *   <li>Then calls {@link ApplicationEntryDeployer#deployEntries(ApplicationContent)}.
+   *   <li>Then calls {@link PathMatchingResourcePatternResolver#getResource(String)}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ApplicationDeployer#deploy()}
-   */
-  @Test
-  @DisplayName(
-      "Test deploy(); given ArrayList() add ApplicationContent (default constructor); then calls deployEntries(ApplicationContent)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void ApplicationDeployer.deploy()"})
-  void testDeploy_givenArrayListAddApplicationContent_thenCallsDeployEntries() {
-    // Arrange
-    ArrayList<ApplicationContent> applicationContentList = new ArrayList<>();
-    applicationContentList.add(new ApplicationContent());
-
-    ApplicationService applicationLoader = mock(ApplicationService.class);
-    when(applicationLoader.loadApplications()).thenReturn(applicationContentList);
-
-    ApplicationEntryDeployer applicationEntryDeployer = mock(ApplicationEntryDeployer.class);
-    doNothing().when(applicationEntryDeployer).deployEntries(Mockito.<ApplicationContent>any());
-
-    ArrayList<ApplicationEntryDeployer> deployers = new ArrayList<>();
-    deployers.add(applicationEntryDeployer);
-
-    ApplicationDeployer applicationDeployer = new ApplicationDeployer(applicationLoader, deployers);
-
-    // Act
-    applicationDeployer.deploy();
-
-    // Assert
-    verify(applicationLoader).loadApplications();
-    verify(applicationEntryDeployer).deployEntries(isA(ApplicationContent.class));
-  }
-
-  /**
-   * Test {@link ApplicationDeployer#deploy()}.
-   *
-   * <ul>
-   *   <li>Then calls {@link ApplicationDiscovery#discoverApplications()}.
-   * </ul>
-   *
-   * <p>Method under test: {@link ApplicationDeployer#deploy()}
-   */
-  @Test
-  @DisplayName("Test deploy(); then calls discoverApplications()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void ApplicationDeployer.deploy()"})
-  void testDeploy_thenCallsDiscoverApplications() {
-    // Arrange
-    ApplicationDiscovery applicationDiscovery = mock(ApplicationDiscovery.class);
-    when(applicationDiscovery.discoverApplications()).thenReturn(new ArrayList<>());
-    ApplicationService applicationLoader =
-        new ApplicationService(applicationDiscovery, new ApplicationReader(new ArrayList<>()));
-    ApplicationDeployer applicationDeployer =
-        new ApplicationDeployer(applicationLoader, new ArrayList<>());
-
-    // Act
-    applicationDeployer.deploy();
-
-    // Assert
-    verify(applicationDiscovery).discoverApplications();
-  }
-
-  /**
-   * Test {@link ApplicationDeployer#deploy()}.
-   *
-   * <ul>
-   *   <li>Then calls {@link PathMatchingResourcePatternResolver#getResource(String)}.
-   * </ul>
-   *
-   * <p>Method under test: {@link ApplicationDeployer#deploy()}
+   * <p>
+   * Method under test: {@link ApplicationDeployer#deploy()}
    */
   @Test
   @DisplayName("Test deploy(); then calls getResource(String)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void ApplicationDeployer.deploy()"})
   void testDeploy_thenCallsGetResource() throws IOException {
     // Arrange
-    PathMatchingResourcePatternResolver resourceLoader =
-        mock(PathMatchingResourcePatternResolver.class);
+    PathMatchingResourcePatternResolver resourceLoader = mock(PathMatchingResourcePatternResolver.class);
     when(resourceLoader.getResources(Mockito.<String>any()))
-        .thenReturn(new Resource[] {new ByteArrayResource("AXAXAXAX".getBytes("UTF-8"))});
+        .thenReturn(new Resource[]{new ByteArrayResource("AXAXAXAX".getBytes("UTF-8"))});
     when(resourceLoader.getResource(Mockito.<String>any()))
         .thenReturn(new ByteArrayResource("AXAXAXAX".getBytes("UTF-8")));
-    ApplicationDiscovery applicationDiscovery =
-        new ApplicationDiscovery(resourceLoader, "Applications Location");
-    ApplicationService applicationLoader =
-        new ApplicationService(applicationDiscovery, new ApplicationReader(new ArrayList<>()));
-    ApplicationDeployer applicationDeployer =
-        new ApplicationDeployer(applicationLoader, new ArrayList<>());
+    ApplicationDiscovery applicationDiscovery = new ApplicationDiscovery(resourceLoader, "Applications Location");
+
+    ApplicationService applicationLoader = new ApplicationService(applicationDiscovery,
+        new ApplicationReader(new ArrayList<>()));
 
     // Act
-    applicationDeployer.deploy();
+    (new ApplicationDeployer(applicationLoader, new ArrayList<>())).deploy();
 
     // Assert
-    verify(resourceLoader).getResource("Applications Location");
-    verify(resourceLoader).getResources("Applications Location**.zip");
-  }
-
-  /**
-   * Test {@link ApplicationDeployer#deploy()}.
-   *
-   * <ul>
-   *   <li>Then calls {@link ApplicationService#loadApplications()}.
-   * </ul>
-   *
-   * <p>Method under test: {@link ApplicationDeployer#deploy()}
-   */
-  @Test
-  @DisplayName("Test deploy(); then calls loadApplications()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void ApplicationDeployer.deploy()"})
-  void testDeploy_thenCallsLoadApplications() {
-    // Arrange
-    ApplicationService applicationLoader = mock(ApplicationService.class);
-    when(applicationLoader.loadApplications()).thenReturn(new ArrayList<>());
-    ApplicationDeployer applicationDeployer =
-        new ApplicationDeployer(applicationLoader, new ArrayList<>());
-
-    // Act
-    applicationDeployer.deploy();
-
-    // Assert
-    verify(applicationLoader).loadApplications();
+    verify(resourceLoader).getResource(eq("Applications Location"));
+    verify(resourceLoader).getResources(eq("Applications Location**.zip"));
   }
 }

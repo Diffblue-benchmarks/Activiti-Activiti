@@ -16,7 +16,6 @@
 package org.activiti.api.task.model.builders;
 
 import static org.junit.jupiter.api.Assertions.assertNull;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.time.LocalDate;
 import java.time.ZoneOffset;
@@ -29,9 +28,8 @@ import org.junit.jupiter.api.Test;
 class RemoveTaskVariablesPayloadBuilderDiffblueTest {
   /**
    * Test {@link RemoveTaskVariablesPayloadBuilder#build()}.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>{@link RemoveTaskVariablesPayloadBuilder#build()}
    *   <li>default or parameterless constructor of {@link RemoveTaskVariablesPayloadBuilder}
@@ -45,42 +43,37 @@ class RemoveTaskVariablesPayloadBuilderDiffblueTest {
    */
   @Test
   @DisplayName("Test build()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void RemoveTaskVariablesPayloadBuilder.<init>()",
-    "UpdateTaskPayload RemoveTaskVariablesPayloadBuilder.build()",
-    "RemoveTaskVariablesPayloadBuilder RemoveTaskVariablesPayloadBuilder.withAssignee(String)",
-    "RemoveTaskVariablesPayloadBuilder RemoveTaskVariablesPayloadBuilder.withDescription(String)",
-    "RemoveTaskVariablesPayloadBuilder RemoveTaskVariablesPayloadBuilder.withDueDate(Date)",
-    "RemoveTaskVariablesPayloadBuilder RemoveTaskVariablesPayloadBuilder.withName(String)",
-    "RemoveTaskVariablesPayloadBuilder RemoveTaskVariablesPayloadBuilder.withPriority(int)",
-    "RemoveTaskVariablesPayloadBuilder RemoveTaskVariablesPayloadBuilder.withTaskId(String)"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void RemoveTaskVariablesPayloadBuilder.<init>()",
+      "UpdateTaskPayload RemoveTaskVariablesPayloadBuilder.build()",
+      "RemoveTaskVariablesPayloadBuilder RemoveTaskVariablesPayloadBuilder.withAssignee(String)",
+      "RemoveTaskVariablesPayloadBuilder RemoveTaskVariablesPayloadBuilder.withDescription(String)",
+      "RemoveTaskVariablesPayloadBuilder RemoveTaskVariablesPayloadBuilder.withDueDate(Date)",
+      "RemoveTaskVariablesPayloadBuilder RemoveTaskVariablesPayloadBuilder.withName(String)",
+      "RemoveTaskVariablesPayloadBuilder RemoveTaskVariablesPayloadBuilder.withPriority(int)",
+      "RemoveTaskVariablesPayloadBuilder RemoveTaskVariablesPayloadBuilder.withTaskId(String)"})
   void testBuild() {
-    // Arrange and Act
-    RemoveTaskVariablesPayloadBuilder actualWithDescriptionResult =
-        new RemoveTaskVariablesPayloadBuilder()
-            .withAssignee("Assignee")
-            .withDescription("The characteristics of someone or something");
-    UpdateTaskPayload actualUpdateTaskPayload =
-        actualWithDescriptionResult
-            .withDueDate(
-                Date.from(
-                    LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()))
-            .withName("Name")
-            .withPriority(1)
-            .withTaskId("42")
-            .build();
+    // Arrange
+    RemoveTaskVariablesPayloadBuilder withDescriptionResult = (new RemoveTaskVariablesPayloadBuilder())
+        .withAssignee("Assignee")
+        .withDescription("The characteristics of someone or something");
+
+    // Act
+    UpdateTaskPayload actualBuildResult = withDescriptionResult
+        .withDueDate(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()))
+        .withName("Name")
+        .withPriority(1)
+        .withTaskId("42")
+        .build();
 
     // Assert
-    assertNull(actualUpdateTaskPayload.getPriority());
-    assertNull(actualUpdateTaskPayload.getAssignee());
-    assertNull(actualUpdateTaskPayload.getDescription());
-    assertNull(actualUpdateTaskPayload.getFormKey());
-    assertNull(actualUpdateTaskPayload.getName());
-    assertNull(actualUpdateTaskPayload.getParentTaskId());
-    assertNull(actualUpdateTaskPayload.getTaskId());
-    assertNull(actualUpdateTaskPayload.getDueDate());
+    assertNull(actualBuildResult.getPriority());
+    assertNull(actualBuildResult.getAssignee());
+    assertNull(actualBuildResult.getDescription());
+    assertNull(actualBuildResult.getFormKey());
+    assertNull(actualBuildResult.getName());
+    assertNull(actualBuildResult.getParentTaskId());
+    assertNull(actualBuildResult.getTaskId());
+    assertNull(actualBuildResult.getDueDate());
   }
 }

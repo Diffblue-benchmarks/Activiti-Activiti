@@ -19,37 +19,27 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
-import static org.mockito.ArgumentMatchers.isNull;
-import static org.mockito.Mockito.doNothing;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
 import java.util.List;
 import org.activiti.bpmn.model.ActivitiListener;
 import org.activiti.bpmn.model.FieldExtension;
 import org.activiti.bpmn.model.FormProperty;
-import org.activiti.bpmn.model.FormValue;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
-import org.mockito.Mockito;
 
 public class AlfrescoUserTaskDiffblueTest {
   /**
    * Test {@link AlfrescoUserTask#clone()}.
-   *
    * <ul>
-   *   <li>Given {@link ActivitiListener} (default constructor) FieldExtensions is {@code null}.
+   *   <li>Given {@link ActivitiListener} (default constructor) FieldExtensions is {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link AlfrescoUserTask#clone()}
+   * <p>
+   * Method under test: {@link AlfrescoUserTask#clone()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"AlfrescoUserTask AlfrescoUserTask.clone()"})
   public void testClone_givenActivitiListenerFieldExtensionsIsNull() {
     // Arrange
@@ -84,19 +74,17 @@ public class AlfrescoUserTaskDiffblueTest {
 
   /**
    * Test {@link AlfrescoUserTask#clone()}.
-   *
    * <ul>
-   *   <li>Given {@link AlfrescoUserTask} (default constructor) FormProperties is {@code null}.
-   *   <li>Then return Behavior is {@code null}.
+   *   <li>Given {@link AlfrescoUserTask} (default constructor) TaskListeners is {@code null}.</li>
+   *   <li>Then return Behavior is {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link AlfrescoUserTask#clone()}
+   * <p>
+   * Method under test: {@link AlfrescoUserTask#clone()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"AlfrescoUserTask AlfrescoUserTask.clone()"})
-  public void testClone_givenAlfrescoUserTaskFormPropertiesIsNull_thenReturnBehaviorIsNull() {
+  public void testClone_givenAlfrescoUserTaskTaskListenersIsNull_thenReturnBehaviorIsNull() {
     // Arrange
     AlfrescoUserTask alfrescoUserTask = new AlfrescoUserTask();
     alfrescoUserTask.setFormProperties(null);
@@ -155,21 +143,19 @@ public class AlfrescoUserTaskDiffblueTest {
 
   /**
    * Test {@link AlfrescoUserTask#clone()}.
-   *
    * <ul>
-   *   <li>Given {@link AlfrescoUserTask} (default constructor).
-   *   <li>Then return Behavior is {@code null}.
+   *   <li>Given {@link AlfrescoUserTask} (default constructor).</li>
+   *   <li>Then return Behavior is {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link AlfrescoUserTask#clone()}
+   * <p>
+   * Method under test: {@link AlfrescoUserTask#clone()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"AlfrescoUserTask AlfrescoUserTask.clone()"})
   public void testClone_givenAlfrescoUserTask_thenReturnBehaviorIsNull() {
     // Arrange and Act
-    AlfrescoUserTask actualCloneResult = new AlfrescoUserTask().clone();
+    AlfrescoUserTask actualCloneResult = (new AlfrescoUserTask()).clone();
 
     // Assert
     assertNull(actualCloneResult.getBehavior());
@@ -221,18 +207,17 @@ public class AlfrescoUserTaskDiffblueTest {
 
   /**
    * Test {@link AlfrescoUserTask#clone()}.
-   *
    * <ul>
-   *   <li>Given {@link FormProperty} (default constructor) FormValues is {@code null}.
+   *   <li>Given {@link FormProperty} (default constructor) FormValues is {@code null}.</li>
+   *   <li>Then return FormProperties size is one.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link AlfrescoUserTask#clone()}
+   * <p>
+   * Method under test: {@link AlfrescoUserTask#clone()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"AlfrescoUserTask AlfrescoUserTask.clone()"})
-  public void testClone_givenFormPropertyFormValuesIsNull() {
+  public void testClone_givenFormPropertyFormValuesIsNull_thenReturnFormPropertiesSizeIsOne() {
     // Arrange
     FormProperty formProperty = new FormProperty();
     formProperty.setFormValues(null);
@@ -267,26 +252,23 @@ public class AlfrescoUserTaskDiffblueTest {
 
   /**
    * Test {@link AlfrescoUserTask#clone()}.
-   *
    * <ul>
-   *   <li>Then return FormProperties first FormValues size is one.
+   *   <li>Given {@link FormProperty} (default constructor) FormValues is {@code null}.</li>
+   *   <li>Then return FormProperties size is two.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link AlfrescoUserTask#clone()}
+   * <p>
+   * Method under test: {@link AlfrescoUserTask#clone()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"AlfrescoUserTask AlfrescoUserTask.clone()"})
-  public void testClone_thenReturnFormPropertiesFirstFormValuesSizeIsOne() {
+  public void testClone_givenFormPropertyFormValuesIsNull_thenReturnFormPropertiesSizeIsTwo() {
     // Arrange
-    ArrayList<FormValue> formValues = new ArrayList<>();
-    formValues.add(new FormValue());
-
     FormProperty formProperty = new FormProperty();
-    formProperty.setFormValues(formValues);
+    formProperty.setFormValues(null);
 
     ArrayList<FormProperty> formProperties = new ArrayList<>();
+    formProperties.add(new FormProperty());
     formProperties.add(formProperty);
 
     AlfrescoUserTask alfrescoUserTask = new AlfrescoUserTask();
@@ -295,47 +277,8 @@ public class AlfrescoUserTaskDiffblueTest {
 
     // Act and Assert
     List<FormProperty> formProperties2 = alfrescoUserTask.clone().getFormProperties();
-    assertEquals(1, formProperties2.size());
-    List<FormValue> formValues2 = formProperties2.get(0).getFormValues();
-    assertEquals(1, formValues2.size());
-    FormValue getResult = formValues2.get(0);
-    assertNull(getResult.getId());
-    assertNull(getResult.getName());
-    assertEquals(0, getResult.getXmlColumnNumber());
-    assertEquals(0, getResult.getXmlRowNumber());
-    assertTrue(getResult.getAttributes().isEmpty());
-    assertTrue(getResult.getExtensionElements().isEmpty());
-  }
-
-  /**
-   * Test {@link AlfrescoUserTask#clone()}.
-   *
-   * <ul>
-   *   <li>Then return FormProperties first Id is {@code null}.
-   * </ul>
-   *
-   * <p>Method under test: {@link AlfrescoUserTask#clone()}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"AlfrescoUserTask AlfrescoUserTask.clone()"})
-  public void testClone_thenReturnFormPropertiesFirstIdIsNull() {
-    // Arrange
-    FormProperty formProperty = new FormProperty();
-    formProperty.setFormValues(new ArrayList<>());
-
-    ArrayList<FormProperty> formProperties = new ArrayList<>();
-    formProperties.add(formProperty);
-
-    AlfrescoUserTask alfrescoUserTask = new AlfrescoUserTask();
-    alfrescoUserTask.setFormProperties(formProperties);
-    alfrescoUserTask.setTaskListeners(null);
-
-    // Act and Assert
-    List<FormProperty> formProperties2 = alfrescoUserTask.clone().getFormProperties();
-    assertEquals(1, formProperties2.size());
-    FormProperty getResult = formProperties2.get(0);
+    assertEquals(2, formProperties2.size());
+    FormProperty getResult = formProperties2.get(1);
     assertNull(getResult.getId());
     assertNull(getResult.getDatePattern());
     assertNull(getResult.getDefaultExpression());
@@ -355,16 +298,14 @@ public class AlfrescoUserTaskDiffblueTest {
 
   /**
    * Test {@link AlfrescoUserTask#clone()}.
-   *
    * <ul>
-   *   <li>Then return TaskListeners first FieldExtensions size is one.
+   *   <li>Then return TaskListeners first FieldExtensions size is one.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link AlfrescoUserTask#clone()}
+   * <p>
+   * Method under test: {@link AlfrescoUserTask#clone()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"AlfrescoUserTask AlfrescoUserTask.clone()"})
   public void testClone_thenReturnTaskListenersFirstFieldExtensionsSizeIsOne() {
     // Arrange
@@ -399,16 +340,14 @@ public class AlfrescoUserTaskDiffblueTest {
 
   /**
    * Test {@link AlfrescoUserTask#clone()}.
-   *
    * <ul>
-   *   <li>Then return TaskListeners first Instance is {@code null}.
+   *   <li>Then return TaskListeners first Instance is {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link AlfrescoUserTask#clone()}
+   * <p>
+   * Method under test: {@link AlfrescoUserTask#clone()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"AlfrescoUserTask AlfrescoUserTask.clone()"})
   public void testClone_thenReturnTaskListenersFirstInstanceIsNull() {
     // Arrange
@@ -442,84 +381,9 @@ public class AlfrescoUserTaskDiffblueTest {
   }
 
   /**
-   * Test {@link AlfrescoUserTask#setValues(AlfrescoUserTask)} with {@code AlfrescoUserTask}.
-   *
-   * <ul>
-   *   <li>Then calls {@link ActivitiListener#clone()}.
-   * </ul>
-   *
-   * <p>Method under test: {@link AlfrescoUserTask#setValues(AlfrescoUserTask)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void AlfrescoUserTask.setValues(AlfrescoUserTask)"})
-  public void testSetValuesWithAlfrescoUserTask_thenCallsClone() {
-    // Arrange
-    AlfrescoUserTask alfrescoUserTask = new AlfrescoUserTask();
-
-    ActivitiListener activitiListener = mock(ActivitiListener.class);
-    when(activitiListener.clone()).thenReturn(new ActivitiListener());
-    doNothing().when(activitiListener).setFieldExtensions(Mockito.<List<FieldExtension>>any());
-    activitiListener.setFieldExtensions(null);
-
-    ArrayList<ActivitiListener> taskListeners = new ArrayList<>();
-    taskListeners.add(activitiListener);
-
-    AlfrescoUserTask otherElement = new AlfrescoUserTask();
-    otherElement.setFormProperties(null);
-    otherElement.setTaskListeners(taskListeners);
-
-    // Act
-    alfrescoUserTask.setValues(otherElement);
-
-    // Assert
-    verify(activitiListener).clone();
-    verify(activitiListener).setFieldExtensions(isNull());
-  }
-
-  /**
-   * Test {@link AlfrescoUserTask#setValues(AlfrescoUserTask)} with {@code AlfrescoUserTask}.
-   *
-   * <ul>
-   *   <li>Then calls {@link FormProperty#clone()}.
-   * </ul>
-   *
-   * <p>Method under test: {@link AlfrescoUserTask#setValues(AlfrescoUserTask)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void AlfrescoUserTask.setValues(AlfrescoUserTask)"})
-  public void testSetValuesWithAlfrescoUserTask_thenCallsClone2() {
-    // Arrange
-    AlfrescoUserTask alfrescoUserTask = new AlfrescoUserTask();
-
-    FormProperty formProperty = mock(FormProperty.class);
-    when(formProperty.clone()).thenReturn(new FormProperty());
-    doNothing().when(formProperty).setFormValues(Mockito.<List<FormValue>>any());
-    formProperty.setFormValues(null);
-
-    ArrayList<FormProperty> formProperties = new ArrayList<>();
-    formProperties.add(formProperty);
-
-    AlfrescoUserTask otherElement = new AlfrescoUserTask();
-    otherElement.setFormProperties(formProperties);
-    otherElement.setTaskListeners(null);
-
-    // Act
-    alfrescoUserTask.setValues(otherElement);
-
-    // Assert
-    verify(formProperty).clone();
-    verify(formProperty).setFormValues(isNull());
-  }
-
-  /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>default or parameterless constructor of {@link AlfrescoUserTask}
    *   <li>{@link AlfrescoUserTask#setRunAs(String)}
@@ -529,15 +393,10 @@ public class AlfrescoUserTaskDiffblueTest {
    * </ul>
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void AlfrescoUserTask.<init>()",
-    "String AlfrescoUserTask.getRunAs()",
-    "String AlfrescoUserTask.getScriptProcessor()",
-    "void AlfrescoUserTask.setRunAs(String)",
-    "void AlfrescoUserTask.setScriptProcessor(String)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void AlfrescoUserTask.<init>()", "String AlfrescoUserTask.getRunAs()",
+      "String AlfrescoUserTask.getScriptProcessor()", "void AlfrescoUserTask.setRunAs(String)",
+      "void AlfrescoUserTask.setScriptProcessor(String)"})
   public void testGettersAndSetters() {
     // Arrange and Act
     AlfrescoUserTask actualAlfrescoUserTask = new AlfrescoUserTask();

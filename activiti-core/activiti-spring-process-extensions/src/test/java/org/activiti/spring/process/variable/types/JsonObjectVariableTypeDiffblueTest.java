@@ -23,7 +23,6 @@ import static org.mockito.ArgumentMatchers.isA;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.JsonMappingException;
@@ -43,9 +42,8 @@ import org.mockito.Mockito;
 class JsonObjectVariableTypeDiffblueTest {
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>{@link JsonObjectVariableType#JsonObjectVariableType(ObjectMapper)}
    *   <li>{@link JsonObjectVariableType#setObjectMapper(ObjectMapper)}
@@ -54,48 +52,40 @@ class JsonObjectVariableTypeDiffblueTest {
    */
   @Test
   @DisplayName("Test getters and setters")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void JsonObjectVariableType.<init>(ObjectMapper)",
-    "ObjectMapper JsonObjectVariableType.getObjectMapper()",
-    "void JsonObjectVariableType.setObjectMapper(ObjectMapper)"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void JsonObjectVariableType.<init>(ObjectMapper)",
+      "ObjectMapper JsonObjectVariableType.getObjectMapper()",
+      "void JsonObjectVariableType.setObjectMapper(ObjectMapper)"})
   void testGettersAndSetters() {
-    // Arrange
+    // Arrange and Act
+    JsonObjectVariableType actualJsonObjectVariableType = new JsonObjectVariableType(
+        JsonMapper.builder().findAndAddModules().build());
     JsonMapper objectMapper = JsonMapper.builder().findAndAddModules().build();
-
-    // Act
-    JsonObjectVariableType actualJsonObjectVariableType = new JsonObjectVariableType(objectMapper);
-    JsonMapper objectMapper2 = JsonMapper.builder().findAndAddModules().build();
-    actualJsonObjectVariableType.setObjectMapper(objectMapper2);
+    actualJsonObjectVariableType.setObjectMapper(objectMapper);
     ObjectMapper actualObjectMapper = actualJsonObjectVariableType.getObjectMapper();
 
     // Assert
     assertNull(actualJsonObjectVariableType.getName());
-    assertSame(objectMapper2, actualObjectMapper);
+    assertSame(objectMapper, actualObjectMapper);
   }
 
   /**
    * Test {@link JsonObjectVariableType#validate(Object, List)}.
-   *
-   * <p>Method under test: {@link JsonObjectVariableType#validate(Object, List)}
+   * <p>
+   * Method under test: {@link JsonObjectVariableType#validate(Object, List)}
    */
   @Test
   @DisplayName("Test validate(Object, List)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void JsonObjectVariableType.validate(Object, List)"})
   void testValidate() throws JsonMappingException {
     // Arrange
     SerializerFactory f = mock(SerializerFactory.class);
-    when(f.createSerializer(Mockito.<SerializerProvider>any(), Mockito.<JavaType>any()))
-        .thenReturn(null);
-
+    when(f.createSerializer(Mockito.<SerializerProvider>any(), Mockito.<JavaType>any())).thenReturn(null);
     Builder builderResult = JsonMapper.builder();
     builderResult.serializerFactory(f);
-    JsonMapper objectMapper = builderResult.findAndAddModules().build();
-    JsonObjectVariableType jsonObjectVariableType = new JsonObjectVariableType(objectMapper);
+    JsonObjectVariableType jsonObjectVariableType = new JsonObjectVariableType(
+        builderResult.findAndAddModules().build());
     ArrayList<ActivitiException> errors = new ArrayList<>();
 
     // Act
@@ -105,8 +95,7 @@ class JsonObjectVariableTypeDiffblueTest {
     verify(f).createSerializer(isA(SerializerProvider.class), isA(JavaType.class));
     assertEquals(1, errors.size());
     ActivitiException getResult = errors.get(0);
-    assertEquals(
-        "class java.lang.String is not serializable as json", getResult.getLocalizedMessage());
+    assertEquals("class java.lang.String is not serializable as json", getResult.getLocalizedMessage());
     assertEquals("class java.lang.String is not serializable as json", getResult.getMessage());
     assertNull(getResult.getCause());
     assertEquals(0, getResult.getSuppressed().length);
@@ -114,22 +103,20 @@ class JsonObjectVariableTypeDiffblueTest {
 
   /**
    * Test {@link JsonObjectVariableType#validate(Object, List)}.
-   *
    * <ul>
-   *   <li>Then {@link ArrayList#ArrayList()} size is one.
+   *   <li>Then {@link ArrayList#ArrayList()} size is one.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link JsonObjectVariableType#validate(Object, List)}
+   * <p>
+   * Method under test: {@link JsonObjectVariableType#validate(Object, List)}
    */
   @Test
   @DisplayName("Test validate(Object, List); then ArrayList() size is one")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void JsonObjectVariableType.validate(Object, List)"})
   void testValidate_thenArrayListSizeIsOne() {
     // Arrange
-    JsonMapper objectMapper = JsonMapper.builder().findAndAddModules().build();
-    JsonObjectVariableType jsonObjectVariableType = new JsonObjectVariableType(objectMapper);
+    JsonObjectVariableType jsonObjectVariableType = new JsonObjectVariableType(
+        JsonMapper.builder().findAndAddModules().build());
 
     ArrayList<ActivitiException> errors = new ArrayList<>();
     errors.add(new ActivitiException("An error occurred"));
@@ -147,22 +134,20 @@ class JsonObjectVariableTypeDiffblueTest {
 
   /**
    * Test {@link JsonObjectVariableType#validate(Object, List)}.
-   *
    * <ul>
-   *   <li>Then {@link ArrayList#ArrayList()} size is two.
+   *   <li>Then {@link ArrayList#ArrayList()} size is two.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link JsonObjectVariableType#validate(Object, List)}
+   * <p>
+   * Method under test: {@link JsonObjectVariableType#validate(Object, List)}
    */
   @Test
   @DisplayName("Test validate(Object, List); then ArrayList() size is two")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void JsonObjectVariableType.validate(Object, List)"})
   void testValidate_thenArrayListSizeIsTwo() {
     // Arrange
-    JsonMapper objectMapper = JsonMapper.builder().findAndAddModules().build();
-    JsonObjectVariableType jsonObjectVariableType = new JsonObjectVariableType(objectMapper);
+    JsonObjectVariableType jsonObjectVariableType = new JsonObjectVariableType(
+        JsonMapper.builder().findAndAddModules().build());
 
     ArrayList<ActivitiException> errors = new ArrayList<>();
     errors.add(new ActivitiException("An error occurred"));
@@ -181,23 +166,21 @@ class JsonObjectVariableTypeDiffblueTest {
 
   /**
    * Test {@link JsonObjectVariableType#validate(Object, List)}.
-   *
    * <ul>
-   *   <li>When {@link ArrayList#ArrayList()}.
-   *   <li>Then {@link ArrayList#ArrayList()} Empty.
+   *   <li>When {@link ArrayList#ArrayList()}.</li>
+   *   <li>Then {@link ArrayList#ArrayList()} Empty.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link JsonObjectVariableType#validate(Object, List)}
+   * <p>
+   * Method under test: {@link JsonObjectVariableType#validate(Object, List)}
    */
   @Test
   @DisplayName("Test validate(Object, List); when ArrayList(); then ArrayList() Empty")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void JsonObjectVariableType.validate(Object, List)"})
   void testValidate_whenArrayList_thenArrayListEmpty() {
     // Arrange
-    JsonMapper objectMapper = JsonMapper.builder().findAndAddModules().build();
-    JsonObjectVariableType jsonObjectVariableType = new JsonObjectVariableType(objectMapper);
+    JsonObjectVariableType jsonObjectVariableType = new JsonObjectVariableType(
+        JsonMapper.builder().findAndAddModules().build());
     ArrayList<ActivitiException> errors = new ArrayList<>();
 
     // Act
@@ -209,23 +192,21 @@ class JsonObjectVariableTypeDiffblueTest {
 
   /**
    * Test {@link JsonObjectVariableType#validate(Object, List)}.
-   *
    * <ul>
-   *   <li>When one.
-   *   <li>Then {@link ArrayList#ArrayList()} Empty.
+   *   <li>When one.</li>
+   *   <li>Then {@link ArrayList#ArrayList()} Empty.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link JsonObjectVariableType#validate(Object, List)}
+   * <p>
+   * Method under test: {@link JsonObjectVariableType#validate(Object, List)}
    */
   @Test
   @DisplayName("Test validate(Object, List); when one; then ArrayList() Empty")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void JsonObjectVariableType.validate(Object, List)"})
   void testValidate_whenOne_thenArrayListEmpty() {
     // Arrange
-    JsonMapper objectMapper = JsonMapper.builder().findAndAddModules().build();
-    JsonObjectVariableType jsonObjectVariableType = new JsonObjectVariableType(objectMapper);
+    JsonObjectVariableType jsonObjectVariableType = new JsonObjectVariableType(
+        JsonMapper.builder().findAndAddModules().build());
     ArrayList<ActivitiException> errors = new ArrayList<>();
 
     // Act

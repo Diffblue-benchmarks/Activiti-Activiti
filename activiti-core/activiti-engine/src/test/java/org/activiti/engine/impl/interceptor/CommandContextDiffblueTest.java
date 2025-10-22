@@ -25,13 +25,10 @@ import static org.mockito.ArgumentMatchers.isA;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import org.activiti.engine.ActivitiEngineAgenda;
 import org.activiti.engine.ActivitiEngineAgendaFactory;
 import org.activiti.engine.ActivitiException;
@@ -42,7 +39,6 @@ import org.activiti.engine.impl.cfg.JtaProcessEngineConfiguration;
 import org.activiti.engine.impl.cfg.ProcessEngineConfigurationImpl;
 import org.activiti.engine.impl.event.logger.DatabaseEventFlusher;
 import org.activiti.engine.impl.history.HistoryManager;
-import org.activiti.engine.impl.jobexecutor.FailedJobCommandFactory;
 import org.activiti.engine.impl.persistence.entity.AttachmentEntityManager;
 import org.activiti.engine.impl.persistence.entity.ByteArrayEntityManager;
 import org.activiti.engine.impl.persistence.entity.CommentEntityManager;
@@ -79,54 +75,43 @@ import org.mockito.Mockito;
 public class CommandContextDiffblueTest {
   /**
    * Test {@link CommandContext#CommandContext(Command, ProcessEngineConfigurationImpl)}.
-   *
    * <ul>
-   *   <li>Then Agenda return {@link DefaultActivitiEngineAgenda}.
+   *   <li>Then Agenda return {@link DefaultActivitiEngineAgenda}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link CommandContext#CommandContext(Command,
-   * ProcessEngineConfigurationImpl)}
+   * <p>
+   * Method under test: {@link CommandContext#CommandContext(Command, ProcessEngineConfigurationImpl)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void CommandContext.<init>(Command, ProcessEngineConfigurationImpl)"})
   public void testNewCommandContext_thenAgendaReturnDefaultActivitiEngineAgenda() {
     // Arrange
     Command<Object> command = mock(Command.class);
-
-    ActivitiEngineAgendaFactory activitiEngineAgendaFactory =
-        mock(ActivitiEngineAgendaFactory.class);
+    ActivitiEngineAgendaFactory engineAgendaFactory = mock(ActivitiEngineAgendaFactory.class);
     DefaultActivitiEngineAgenda defaultActivitiEngineAgenda = new DefaultActivitiEngineAgenda(null);
-    when(activitiEngineAgendaFactory.createAgenda(Mockito.<CommandContext>any()))
-        .thenReturn(defaultActivitiEngineAgenda);
+    when(engineAgendaFactory.createAgenda(Mockito.<CommandContext>any())).thenReturn(defaultActivitiEngineAgenda);
 
-    JtaProcessEngineConfiguration processEngineConfiguration =
-        mock(JtaProcessEngineConfiguration.class);
-    Mockito.<Map<Class<?>, SessionFactory>>when(processEngineConfiguration.getSessionFactories())
-        .thenReturn(new HashMap<>());
-    when(processEngineConfiguration.getEngineAgendaFactory())
-        .thenReturn(activitiEngineAgendaFactory);
-    when(processEngineConfiguration.getFailedJobCommandFactory())
-        .thenReturn(mock(FailedJobCommandFactory.class));
+    JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();
+    processEngineConfiguration.setEngineAgendaFactory(engineAgendaFactory);
 
     // Act
     CommandContext actualCommandContext = new CommandContext(command, processEngineConfiguration);
 
     // Assert
-    verify(activitiEngineAgendaFactory).createAgenda(isA(CommandContext.class));
-    verify(processEngineConfiguration).getEngineAgendaFactory();
-    verify(processEngineConfiguration).getFailedJobCommandFactory();
-    verify(processEngineConfiguration).getSessionFactories();
+    verify(engineAgendaFactory).createAgenda(isA(CommandContext.class));
     ActivitiEngineAgenda agenda = actualCommandContext.getAgenda();
     assertTrue(agenda instanceof DefaultActivitiEngineAgenda);
+    ProcessEngineConfigurationImpl processEngineConfiguration2 = actualCommandContext.getProcessEngineConfiguration();
+    assertTrue(processEngineConfiguration2 instanceof JtaProcessEngineConfiguration);
     assertNull(actualCommandContext.getResult());
     assertNull(actualCommandContext.getException());
     assertNull(actualCommandContext.getCloseListeners());
+    assertNull(actualCommandContext.getSessionFactories());
     assertNull(actualCommandContext.attributes);
     assertNull(actualCommandContext.getEventDispatcher());
     assertNull(actualCommandContext.getJobManager());
     assertNull(actualCommandContext.getHistoryManager());
+    assertNull(actualCommandContext.getFailedJobCommandFactory());
     assertNull(actualCommandContext.getAttachmentEntityManager());
     assertNull(actualCommandContext.getByteArrayEntityManager());
     assertNull(actualCommandContext.getCommentEntityManager());
@@ -157,26 +142,23 @@ public class CommandContextDiffblueTest {
     assertFalse(actualCommandContext.isReused());
     assertTrue(actualCommandContext.resultStack.isEmpty());
     assertTrue(actualCommandContext.getInvolvedExecutions().isEmpty());
-    assertTrue(actualCommandContext.getSessionFactories().isEmpty());
     assertTrue(actualCommandContext.getSessions().isEmpty());
     assertTrue(actualCommandContext.involvedExecutions.isEmpty());
     assertSame(defaultActivitiEngineAgenda, agenda);
-    assertSame(processEngineConfiguration, actualCommandContext.getProcessEngineConfiguration());
+    assertSame(processEngineConfiguration, processEngineConfiguration2);
     assertSame(command, actualCommandContext.getCommand());
   }
 
   /**
    * Test {@link CommandContext#close()}.
-   *
    * <ul>
-   *   <li>Then calls {@link ActivitiEngineAgendaFactory#createAgenda(CommandContext)}.
+   *   <li>Then calls {@link ActivitiEngineAgendaFactory#createAgenda(CommandContext)}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link CommandContext#close()}
+   * <p>
+   * Method under test: {@link CommandContext#close()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void CommandContext.close()"})
   public void testClose_thenCallsCreateAgenda() {
     // Arrange
@@ -186,45 +168,9 @@ public class CommandContextDiffblueTest {
 
     JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();
     processEngineConfiguration.setEngineAgendaFactory(engineAgendaFactory);
-    CommandContext commandContext =
-        new CommandContext(mock(Command.class), processEngineConfiguration);
 
     // Act
-    commandContext.close();
-
-    // Assert
-    verify(engineAgendaFactory).createAgenda(isA(CommandContext.class));
-  }
-
-  /**
-   * Test {@link CommandContext#close()}.
-   *
-   * <ul>
-   *   <li>Then calls {@link ActivitiEngineAgendaFactory#createAgenda(CommandContext)}.
-   * </ul>
-   *
-   * <p>Method under test: {@link CommandContext#close()}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void CommandContext.close()"})
-  public void testClose_thenCallsCreateAgenda2() {
-    // Arrange
-    ActivitiEngineAgendaFactory engineAgendaFactory = mock(ActivitiEngineAgendaFactory.class);
-    when(engineAgendaFactory.createAgenda(Mockito.<CommandContext>any()))
-        .thenReturn(new DefaultActivitiEngineAgenda(null));
-
-    JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();
-    processEngineConfiguration.setEngineAgendaFactory(engineAgendaFactory);
-
-    CommandContext commandContext =
-        new CommandContext(mock(Command.class), processEngineConfiguration);
-    commandContext.exception(null);
-    commandContext.addCloseListener(new DatabaseEventFlusher());
-
-    // Act
-    commandContext.close();
+    (new CommandContext(mock(Command.class), processEngineConfiguration)).close();
 
     // Assert
     verify(engineAgendaFactory).createAgenda(isA(CommandContext.class));
@@ -232,16 +178,14 @@ public class CommandContextDiffblueTest {
 
   /**
    * Test {@link CommandContext#rethrowExceptionIfNeeded()}.
-   *
    * <ul>
-   *   <li>Then throw {@link ActivitiException}.
+   *   <li>Then throw {@link ActivitiException}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link CommandContext#rethrowExceptionIfNeeded()}
+   * <p>
+   * Method under test: {@link CommandContext#rethrowExceptionIfNeeded()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void CommandContext.rethrowExceptionIfNeeded()"})
   public void testRethrowExceptionIfNeeded_thenThrowActivitiException() throws Error {
     // Arrange
@@ -251,22 +195,20 @@ public class CommandContextDiffblueTest {
 
     JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();
     processEngineConfiguration.setEngineAgendaFactory(engineAgendaFactory);
-    CommandContext commandContext =
-        new CommandContext(mock(Command.class), processEngineConfiguration);
 
     // Act and Assert
-    assertThrows(ActivitiException.class, () -> commandContext.rethrowExceptionIfNeeded());
+    assertThrows(ActivitiException.class,
+        () -> (new CommandContext(mock(Command.class), processEngineConfiguration)).rethrowExceptionIfNeeded());
     verify(engineAgendaFactory).createAgenda(isA(CommandContext.class));
   }
 
   /**
    * Test {@link CommandContext#addCloseListener(CommandContextCloseListener)}.
-   *
-   * <p>Method under test: {@link CommandContext#addCloseListener(CommandContextCloseListener)}
+   * <p>
+   * Method under test: {@link CommandContext#addCloseListener(CommandContextCloseListener)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void CommandContext.addCloseListener(CommandContextCloseListener)"})
   public void testAddCloseListener() {
     // Arrange
@@ -276,8 +218,7 @@ public class CommandContextDiffblueTest {
 
     JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();
     processEngineConfiguration.setEngineAgendaFactory(engineAgendaFactory);
-    CommandContext commandContext =
-        new CommandContext(mock(Command.class), processEngineConfiguration);
+    CommandContext commandContext = new CommandContext(mock(Command.class), processEngineConfiguration);
     DatabaseEventFlusher commandContextCloseListener = new DatabaseEventFlusher();
 
     // Act
@@ -292,16 +233,14 @@ public class CommandContextDiffblueTest {
 
   /**
    * Test {@link CommandContext#hasCloseListener(Class)}.
-   *
    * <ul>
-   *   <li>Then return {@code false}.
+   *   <li>Then return {@code false}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link CommandContext#hasCloseListener(Class)}
+   * <p>
+   * Method under test: {@link CommandContext#hasCloseListener(Class)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"boolean CommandContext.hasCloseListener(Class)"})
   public void testHasCloseListener_thenReturnFalse() {
     // Arrange
@@ -311,8 +250,7 @@ public class CommandContextDiffblueTest {
 
     JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();
     processEngineConfiguration.setEngineAgendaFactory(engineAgendaFactory);
-    CommandContext commandContext =
-        new CommandContext(mock(Command.class), processEngineConfiguration);
+    CommandContext commandContext = new CommandContext(mock(Command.class), processEngineConfiguration);
     Class<Object> type = Object.class;
 
     // Act
@@ -325,16 +263,14 @@ public class CommandContextDiffblueTest {
 
   /**
    * Test {@link CommandContext#executeCloseListenersClosing()}.
-   *
    * <ul>
-   *   <li>Then calls {@link ActivitiEngineAgendaFactory#createAgenda(CommandContext)}.
+   *   <li>Then calls {@link ActivitiEngineAgendaFactory#createAgenda(CommandContext)}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link CommandContext#executeCloseListenersClosing()}
+   * <p>
+   * Method under test: {@link CommandContext#executeCloseListenersClosing()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void CommandContext.executeCloseListenersClosing()"})
   public void testExecuteCloseListenersClosing_thenCallsCreateAgenda() {
     // Arrange
@@ -344,45 +280,9 @@ public class CommandContextDiffblueTest {
 
     JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();
     processEngineConfiguration.setEngineAgendaFactory(engineAgendaFactory);
-    CommandContext commandContext =
-        new CommandContext(mock(Command.class), processEngineConfiguration);
 
     // Act
-    commandContext.executeCloseListenersClosing();
-
-    // Assert
-    verify(engineAgendaFactory).createAgenda(isA(CommandContext.class));
-  }
-
-  /**
-   * Test {@link CommandContext#executeCloseListenersClosing()}.
-   *
-   * <ul>
-   *   <li>Then calls {@link ActivitiEngineAgendaFactory#createAgenda(CommandContext)}.
-   * </ul>
-   *
-   * <p>Method under test: {@link CommandContext#executeCloseListenersClosing()}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void CommandContext.executeCloseListenersClosing()"})
-  public void testExecuteCloseListenersClosing_thenCallsCreateAgenda2() {
-    // Arrange
-    ActivitiEngineAgendaFactory engineAgendaFactory = mock(ActivitiEngineAgendaFactory.class);
-    when(engineAgendaFactory.createAgenda(Mockito.<CommandContext>any()))
-        .thenReturn(new DefaultActivitiEngineAgenda(null));
-
-    JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();
-    processEngineConfiguration.setEngineAgendaFactory(engineAgendaFactory);
-
-    CommandContext commandContext =
-        new CommandContext(mock(Command.class), processEngineConfiguration);
-    commandContext.addCloseListener(new DatabaseEventFlusher());
-    commandContext.exception(null);
-
-    // Act
-    commandContext.executeCloseListenersClosing();
+    (new CommandContext(mock(Command.class), processEngineConfiguration)).executeCloseListenersClosing();
 
     // Assert
     verify(engineAgendaFactory).createAgenda(isA(CommandContext.class));
@@ -390,16 +290,14 @@ public class CommandContextDiffblueTest {
 
   /**
    * Test {@link CommandContext#executeCloseListenersAfterSessionFlushed()}.
-   *
    * <ul>
-   *   <li>Then calls {@link ActivitiEngineAgendaFactory#createAgenda(CommandContext)}.
+   *   <li>Then calls {@link ActivitiEngineAgendaFactory#createAgenda(CommandContext)}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link CommandContext#executeCloseListenersAfterSessionFlushed()}
+   * <p>
+   * Method under test: {@link CommandContext#executeCloseListenersAfterSessionFlushed()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void CommandContext.executeCloseListenersAfterSessionFlushed()"})
   public void testExecuteCloseListenersAfterSessionFlushed_thenCallsCreateAgenda() {
     // Arrange
@@ -409,45 +307,9 @@ public class CommandContextDiffblueTest {
 
     JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();
     processEngineConfiguration.setEngineAgendaFactory(engineAgendaFactory);
-    CommandContext commandContext =
-        new CommandContext(mock(Command.class), processEngineConfiguration);
 
     // Act
-    commandContext.executeCloseListenersAfterSessionFlushed();
-
-    // Assert
-    verify(engineAgendaFactory).createAgenda(isA(CommandContext.class));
-  }
-
-  /**
-   * Test {@link CommandContext#executeCloseListenersAfterSessionFlushed()}.
-   *
-   * <ul>
-   *   <li>Then calls {@link ActivitiEngineAgendaFactory#createAgenda(CommandContext)}.
-   * </ul>
-   *
-   * <p>Method under test: {@link CommandContext#executeCloseListenersAfterSessionFlushed()}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void CommandContext.executeCloseListenersAfterSessionFlushed()"})
-  public void testExecuteCloseListenersAfterSessionFlushed_thenCallsCreateAgenda2() {
-    // Arrange
-    ActivitiEngineAgendaFactory engineAgendaFactory = mock(ActivitiEngineAgendaFactory.class);
-    when(engineAgendaFactory.createAgenda(Mockito.<CommandContext>any()))
-        .thenReturn(new DefaultActivitiEngineAgenda(null));
-
-    JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();
-    processEngineConfiguration.setEngineAgendaFactory(engineAgendaFactory);
-
-    CommandContext commandContext =
-        new CommandContext(mock(Command.class), processEngineConfiguration);
-    commandContext.addCloseListener(new DatabaseEventFlusher());
-    commandContext.exception(null);
-
-    // Act
-    commandContext.executeCloseListenersAfterSessionFlushed();
+    (new CommandContext(mock(Command.class), processEngineConfiguration)).executeCloseListenersAfterSessionFlushed();
 
     // Assert
     verify(engineAgendaFactory).createAgenda(isA(CommandContext.class));
@@ -455,16 +317,14 @@ public class CommandContextDiffblueTest {
 
   /**
    * Test {@link CommandContext#executeCloseListenersClosed()}.
-   *
    * <ul>
-   *   <li>Then calls {@link ActivitiEngineAgendaFactory#createAgenda(CommandContext)}.
+   *   <li>Then calls {@link ActivitiEngineAgendaFactory#createAgenda(CommandContext)}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link CommandContext#executeCloseListenersClosed()}
+   * <p>
+   * Method under test: {@link CommandContext#executeCloseListenersClosed()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void CommandContext.executeCloseListenersClosed()"})
   public void testExecuteCloseListenersClosed_thenCallsCreateAgenda() {
     // Arrange
@@ -474,45 +334,9 @@ public class CommandContextDiffblueTest {
 
     JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();
     processEngineConfiguration.setEngineAgendaFactory(engineAgendaFactory);
-    CommandContext commandContext =
-        new CommandContext(mock(Command.class), processEngineConfiguration);
 
     // Act
-    commandContext.executeCloseListenersClosed();
-
-    // Assert
-    verify(engineAgendaFactory).createAgenda(isA(CommandContext.class));
-  }
-
-  /**
-   * Test {@link CommandContext#executeCloseListenersClosed()}.
-   *
-   * <ul>
-   *   <li>Then calls {@link ActivitiEngineAgendaFactory#createAgenda(CommandContext)}.
-   * </ul>
-   *
-   * <p>Method under test: {@link CommandContext#executeCloseListenersClosed()}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void CommandContext.executeCloseListenersClosed()"})
-  public void testExecuteCloseListenersClosed_thenCallsCreateAgenda2() {
-    // Arrange
-    ActivitiEngineAgendaFactory engineAgendaFactory = mock(ActivitiEngineAgendaFactory.class);
-    when(engineAgendaFactory.createAgenda(Mockito.<CommandContext>any()))
-        .thenReturn(new DefaultActivitiEngineAgenda(null));
-
-    JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();
-    processEngineConfiguration.setEngineAgendaFactory(engineAgendaFactory);
-
-    CommandContext commandContext =
-        new CommandContext(mock(Command.class), processEngineConfiguration);
-    commandContext.addCloseListener(new DatabaseEventFlusher());
-    commandContext.exception(null);
-
-    // Act
-    commandContext.executeCloseListenersClosed();
+    (new CommandContext(mock(Command.class), processEngineConfiguration)).executeCloseListenersClosed();
 
     // Assert
     verify(engineAgendaFactory).createAgenda(isA(CommandContext.class));
@@ -520,16 +344,14 @@ public class CommandContextDiffblueTest {
 
   /**
    * Test {@link CommandContext#executeCloseListenersCloseFailure()}.
-   *
    * <ul>
-   *   <li>Then calls {@link ActivitiEngineAgendaFactory#createAgenda(CommandContext)}.
+   *   <li>Then calls {@link ActivitiEngineAgendaFactory#createAgenda(CommandContext)}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link CommandContext#executeCloseListenersCloseFailure()}
+   * <p>
+   * Method under test: {@link CommandContext#executeCloseListenersCloseFailure()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void CommandContext.executeCloseListenersCloseFailure()"})
   public void testExecuteCloseListenersCloseFailure_thenCallsCreateAgenda() {
     // Arrange
@@ -539,45 +361,9 @@ public class CommandContextDiffblueTest {
 
     JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();
     processEngineConfiguration.setEngineAgendaFactory(engineAgendaFactory);
-    CommandContext commandContext =
-        new CommandContext(mock(Command.class), processEngineConfiguration);
 
     // Act
-    commandContext.executeCloseListenersCloseFailure();
-
-    // Assert
-    verify(engineAgendaFactory).createAgenda(isA(CommandContext.class));
-  }
-
-  /**
-   * Test {@link CommandContext#executeCloseListenersCloseFailure()}.
-   *
-   * <ul>
-   *   <li>Then calls {@link ActivitiEngineAgendaFactory#createAgenda(CommandContext)}.
-   * </ul>
-   *
-   * <p>Method under test: {@link CommandContext#executeCloseListenersCloseFailure()}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void CommandContext.executeCloseListenersCloseFailure()"})
-  public void testExecuteCloseListenersCloseFailure_thenCallsCreateAgenda2() {
-    // Arrange
-    ActivitiEngineAgendaFactory engineAgendaFactory = mock(ActivitiEngineAgendaFactory.class);
-    when(engineAgendaFactory.createAgenda(Mockito.<CommandContext>any()))
-        .thenReturn(new DefaultActivitiEngineAgenda(null));
-
-    JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();
-    processEngineConfiguration.setEngineAgendaFactory(engineAgendaFactory);
-
-    CommandContext commandContext =
-        new CommandContext(mock(Command.class), processEngineConfiguration);
-    commandContext.addCloseListener(new DatabaseEventFlusher());
-    commandContext.exception(null);
-
-    // Act
-    commandContext.executeCloseListenersCloseFailure();
+    (new CommandContext(mock(Command.class), processEngineConfiguration)).executeCloseListenersCloseFailure();
 
     // Assert
     verify(engineAgendaFactory).createAgenda(isA(CommandContext.class));
@@ -585,16 +371,14 @@ public class CommandContextDiffblueTest {
 
   /**
    * Test {@link CommandContext#flushSessions()}.
-   *
    * <ul>
-   *   <li>Then calls {@link ActivitiEngineAgendaFactory#createAgenda(CommandContext)}.
+   *   <li>Then calls {@link ActivitiEngineAgendaFactory#createAgenda(CommandContext)}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link CommandContext#flushSessions()}
+   * <p>
+   * Method under test: {@link CommandContext#flushSessions()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void CommandContext.flushSessions()"})
   public void testFlushSessions_thenCallsCreateAgenda() {
     // Arrange
@@ -604,11 +388,9 @@ public class CommandContextDiffblueTest {
 
     JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();
     processEngineConfiguration.setEngineAgendaFactory(engineAgendaFactory);
-    CommandContext commandContext =
-        new CommandContext(mock(Command.class), processEngineConfiguration);
 
     // Act
-    commandContext.flushSessions();
+    (new CommandContext(mock(Command.class), processEngineConfiguration)).flushSessions();
 
     // Assert
     verify(engineAgendaFactory).createAgenda(isA(CommandContext.class));
@@ -616,16 +398,14 @@ public class CommandContextDiffblueTest {
 
   /**
    * Test {@link CommandContext#closeSessions()}.
-   *
    * <ul>
-   *   <li>Then calls {@link ActivitiEngineAgendaFactory#createAgenda(CommandContext)}.
+   *   <li>Then calls {@link ActivitiEngineAgendaFactory#createAgenda(CommandContext)}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link CommandContext#closeSessions()}
+   * <p>
+   * Method under test: {@link CommandContext#closeSessions()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void CommandContext.closeSessions()"})
   public void testCloseSessions_thenCallsCreateAgenda() {
     // Arrange
@@ -635,11 +415,9 @@ public class CommandContextDiffblueTest {
 
     JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();
     processEngineConfiguration.setEngineAgendaFactory(engineAgendaFactory);
-    CommandContext commandContext =
-        new CommandContext(mock(Command.class), processEngineConfiguration);
 
     // Act
-    commandContext.closeSessions();
+    (new CommandContext(mock(Command.class), processEngineConfiguration)).closeSessions();
 
     // Assert
     verify(engineAgendaFactory).createAgenda(isA(CommandContext.class));
@@ -647,12 +425,11 @@ public class CommandContextDiffblueTest {
 
   /**
    * Test {@link CommandContext#exception(Throwable)}.
-   *
-   * <p>Method under test: {@link CommandContext#exception(Throwable)}
+   * <p>
+   * Method under test: {@link CommandContext#exception(Throwable)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void CommandContext.exception(Throwable)"})
   public void testException() {
     // Arrange
@@ -662,8 +439,7 @@ public class CommandContextDiffblueTest {
 
     JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();
     processEngineConfiguration.setEngineAgendaFactory(engineAgendaFactory);
-    CommandContext commandContext =
-        new CommandContext(mock(Command.class), processEngineConfiguration);
+    CommandContext commandContext = new CommandContext(mock(Command.class), processEngineConfiguration);
     Throwable exception = new Throwable();
 
     // Act
@@ -676,16 +452,14 @@ public class CommandContextDiffblueTest {
 
   /**
    * Test {@link CommandContext#getDeploymentEntityManager()}.
-   *
    * <ul>
-   *   <li>Then return {@code null}.
+   *   <li>Then return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link CommandContext#getDeploymentEntityManager()}
+   * <p>
+   * Method under test: {@link CommandContext#getDeploymentEntityManager()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"DeploymentEntityManager CommandContext.getDeploymentEntityManager()"})
   public void testGetDeploymentEntityManager_thenReturnNull() {
     // Arrange
@@ -695,12 +469,10 @@ public class CommandContextDiffblueTest {
 
     JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();
     processEngineConfiguration.setEngineAgendaFactory(engineAgendaFactory);
-    CommandContext commandContext =
-        new CommandContext(mock(Command.class), processEngineConfiguration);
 
     // Act
-    DeploymentEntityManager actualDeploymentEntityManager =
-        commandContext.getDeploymentEntityManager();
+    DeploymentEntityManager actualDeploymentEntityManager = (new CommandContext(mock(Command.class),
+        processEngineConfiguration)).getDeploymentEntityManager();
 
     // Assert
     verify(engineAgendaFactory).createAgenda(isA(CommandContext.class));
@@ -709,16 +481,14 @@ public class CommandContextDiffblueTest {
 
   /**
    * Test {@link CommandContext#getResourceEntityManager()}.
-   *
    * <ul>
-   *   <li>Then return {@code null}.
+   *   <li>Then return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link CommandContext#getResourceEntityManager()}
+   * <p>
+   * Method under test: {@link CommandContext#getResourceEntityManager()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"ResourceEntityManager CommandContext.getResourceEntityManager()"})
   public void testGetResourceEntityManager_thenReturnNull() {
     // Arrange
@@ -728,11 +498,10 @@ public class CommandContextDiffblueTest {
 
     JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();
     processEngineConfiguration.setEngineAgendaFactory(engineAgendaFactory);
-    CommandContext commandContext =
-        new CommandContext(mock(Command.class), processEngineConfiguration);
 
     // Act
-    ResourceEntityManager actualResourceEntityManager = commandContext.getResourceEntityManager();
+    ResourceEntityManager actualResourceEntityManager = (new CommandContext(mock(Command.class),
+        processEngineConfiguration)).getResourceEntityManager();
 
     // Assert
     verify(engineAgendaFactory).createAgenda(isA(CommandContext.class));
@@ -741,16 +510,14 @@ public class CommandContextDiffblueTest {
 
   /**
    * Test {@link CommandContext#getByteArrayEntityManager()}.
-   *
    * <ul>
-   *   <li>Then return {@code null}.
+   *   <li>Then return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link CommandContext#getByteArrayEntityManager()}
+   * <p>
+   * Method under test: {@link CommandContext#getByteArrayEntityManager()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"ByteArrayEntityManager CommandContext.getByteArrayEntityManager()"})
   public void testGetByteArrayEntityManager_thenReturnNull() {
     // Arrange
@@ -760,12 +527,10 @@ public class CommandContextDiffblueTest {
 
     JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();
     processEngineConfiguration.setEngineAgendaFactory(engineAgendaFactory);
-    CommandContext commandContext =
-        new CommandContext(mock(Command.class), processEngineConfiguration);
 
     // Act
-    ByteArrayEntityManager actualByteArrayEntityManager =
-        commandContext.getByteArrayEntityManager();
+    ByteArrayEntityManager actualByteArrayEntityManager = (new CommandContext(mock(Command.class),
+        processEngineConfiguration)).getByteArrayEntityManager();
 
     // Assert
     verify(engineAgendaFactory).createAgenda(isA(CommandContext.class));
@@ -774,19 +539,15 @@ public class CommandContextDiffblueTest {
 
   /**
    * Test {@link CommandContext#getProcessDefinitionEntityManager()}.
-   *
    * <ul>
-   *   <li>Then return {@code null}.
+   *   <li>Then return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link CommandContext#getProcessDefinitionEntityManager()}
+   * <p>
+   * Method under test: {@link CommandContext#getProcessDefinitionEntityManager()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "ProcessDefinitionEntityManager CommandContext.getProcessDefinitionEntityManager()"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"ProcessDefinitionEntityManager CommandContext.getProcessDefinitionEntityManager()"})
   public void testGetProcessDefinitionEntityManager_thenReturnNull() {
     // Arrange
     ActivitiEngineAgendaFactory engineAgendaFactory = mock(ActivitiEngineAgendaFactory.class);
@@ -795,12 +556,10 @@ public class CommandContextDiffblueTest {
 
     JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();
     processEngineConfiguration.setEngineAgendaFactory(engineAgendaFactory);
-    CommandContext commandContext =
-        new CommandContext(mock(Command.class), processEngineConfiguration);
 
     // Act
-    ProcessDefinitionEntityManager actualProcessDefinitionEntityManager =
-        commandContext.getProcessDefinitionEntityManager();
+    ProcessDefinitionEntityManager actualProcessDefinitionEntityManager = (new CommandContext(mock(Command.class),
+        processEngineConfiguration)).getProcessDefinitionEntityManager();
 
     // Assert
     verify(engineAgendaFactory).createAgenda(isA(CommandContext.class));
@@ -809,16 +568,14 @@ public class CommandContextDiffblueTest {
 
   /**
    * Test {@link CommandContext#getModelEntityManager()}.
-   *
    * <ul>
-   *   <li>Then return {@code null}.
+   *   <li>Then return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link CommandContext#getModelEntityManager()}
+   * <p>
+   * Method under test: {@link CommandContext#getModelEntityManager()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"ModelEntityManager CommandContext.getModelEntityManager()"})
   public void testGetModelEntityManager_thenReturnNull() {
     // Arrange
@@ -828,11 +585,10 @@ public class CommandContextDiffblueTest {
 
     JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();
     processEngineConfiguration.setEngineAgendaFactory(engineAgendaFactory);
-    CommandContext commandContext =
-        new CommandContext(mock(Command.class), processEngineConfiguration);
 
     // Act
-    ModelEntityManager actualModelEntityManager = commandContext.getModelEntityManager();
+    ModelEntityManager actualModelEntityManager = (new CommandContext(mock(Command.class), processEngineConfiguration))
+        .getModelEntityManager();
 
     // Assert
     verify(engineAgendaFactory).createAgenda(isA(CommandContext.class));
@@ -841,19 +597,15 @@ public class CommandContextDiffblueTest {
 
   /**
    * Test {@link CommandContext#getProcessDefinitionInfoEntityManager()}.
-   *
    * <ul>
-   *   <li>Then return {@code null}.
+   *   <li>Then return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link CommandContext#getProcessDefinitionInfoEntityManager()}
+   * <p>
+   * Method under test: {@link CommandContext#getProcessDefinitionInfoEntityManager()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "ProcessDefinitionInfoEntityManager CommandContext.getProcessDefinitionInfoEntityManager()"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"ProcessDefinitionInfoEntityManager CommandContext.getProcessDefinitionInfoEntityManager()"})
   public void testGetProcessDefinitionInfoEntityManager_thenReturnNull() {
     // Arrange
     ActivitiEngineAgendaFactory engineAgendaFactory = mock(ActivitiEngineAgendaFactory.class);
@@ -862,12 +614,10 @@ public class CommandContextDiffblueTest {
 
     JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();
     processEngineConfiguration.setEngineAgendaFactory(engineAgendaFactory);
-    CommandContext commandContext =
-        new CommandContext(mock(Command.class), processEngineConfiguration);
 
     // Act
-    ProcessDefinitionInfoEntityManager actualProcessDefinitionInfoEntityManager =
-        commandContext.getProcessDefinitionInfoEntityManager();
+    ProcessDefinitionInfoEntityManager actualProcessDefinitionInfoEntityManager = (new CommandContext(
+        mock(Command.class), processEngineConfiguration)).getProcessDefinitionInfoEntityManager();
 
     // Assert
     verify(engineAgendaFactory).createAgenda(isA(CommandContext.class));
@@ -876,16 +626,14 @@ public class CommandContextDiffblueTest {
 
   /**
    * Test {@link CommandContext#getExecutionEntityManager()}.
-   *
    * <ul>
-   *   <li>Then return {@code null}.
+   *   <li>Then return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link CommandContext#getExecutionEntityManager()}
+   * <p>
+   * Method under test: {@link CommandContext#getExecutionEntityManager()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"ExecutionEntityManager CommandContext.getExecutionEntityManager()"})
   public void testGetExecutionEntityManager_thenReturnNull() {
     // Arrange
@@ -895,12 +643,10 @@ public class CommandContextDiffblueTest {
 
     JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();
     processEngineConfiguration.setEngineAgendaFactory(engineAgendaFactory);
-    CommandContext commandContext =
-        new CommandContext(mock(Command.class), processEngineConfiguration);
 
     // Act
-    ExecutionEntityManager actualExecutionEntityManager =
-        commandContext.getExecutionEntityManager();
+    ExecutionEntityManager actualExecutionEntityManager = (new CommandContext(mock(Command.class),
+        processEngineConfiguration)).getExecutionEntityManager();
 
     // Assert
     verify(engineAgendaFactory).createAgenda(isA(CommandContext.class));
@@ -909,16 +655,14 @@ public class CommandContextDiffblueTest {
 
   /**
    * Test {@link CommandContext#getTaskEntityManager()}.
-   *
    * <ul>
-   *   <li>Then return {@code null}.
+   *   <li>Then return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link CommandContext#getTaskEntityManager()}
+   * <p>
+   * Method under test: {@link CommandContext#getTaskEntityManager()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"TaskEntityManager CommandContext.getTaskEntityManager()"})
   public void testGetTaskEntityManager_thenReturnNull() {
     // Arrange
@@ -928,11 +672,10 @@ public class CommandContextDiffblueTest {
 
     JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();
     processEngineConfiguration.setEngineAgendaFactory(engineAgendaFactory);
-    CommandContext commandContext =
-        new CommandContext(mock(Command.class), processEngineConfiguration);
 
     // Act
-    TaskEntityManager actualTaskEntityManager = commandContext.getTaskEntityManager();
+    TaskEntityManager actualTaskEntityManager = (new CommandContext(mock(Command.class), processEngineConfiguration))
+        .getTaskEntityManager();
 
     // Assert
     verify(engineAgendaFactory).createAgenda(isA(CommandContext.class));
@@ -941,16 +684,14 @@ public class CommandContextDiffblueTest {
 
   /**
    * Test {@link CommandContext#getIdentityLinkEntityManager()}.
-   *
    * <ul>
-   *   <li>Then return {@code null}.
+   *   <li>Then return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link CommandContext#getIdentityLinkEntityManager()}
+   * <p>
+   * Method under test: {@link CommandContext#getIdentityLinkEntityManager()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"IdentityLinkEntityManager CommandContext.getIdentityLinkEntityManager()"})
   public void testGetIdentityLinkEntityManager_thenReturnNull() {
     // Arrange
@@ -960,12 +701,10 @@ public class CommandContextDiffblueTest {
 
     JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();
     processEngineConfiguration.setEngineAgendaFactory(engineAgendaFactory);
-    CommandContext commandContext =
-        new CommandContext(mock(Command.class), processEngineConfiguration);
 
     // Act
-    IdentityLinkEntityManager actualIdentityLinkEntityManager =
-        commandContext.getIdentityLinkEntityManager();
+    IdentityLinkEntityManager actualIdentityLinkEntityManager = (new CommandContext(mock(Command.class),
+        processEngineConfiguration)).getIdentityLinkEntityManager();
 
     // Assert
     verify(engineAgendaFactory).createAgenda(isA(CommandContext.class));
@@ -974,19 +713,15 @@ public class CommandContextDiffblueTest {
 
   /**
    * Test {@link CommandContext#getVariableInstanceEntityManager()}.
-   *
    * <ul>
-   *   <li>Then return {@code null}.
+   *   <li>Then return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link CommandContext#getVariableInstanceEntityManager()}
+   * <p>
+   * Method under test: {@link CommandContext#getVariableInstanceEntityManager()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "VariableInstanceEntityManager CommandContext.getVariableInstanceEntityManager()"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"VariableInstanceEntityManager CommandContext.getVariableInstanceEntityManager()"})
   public void testGetVariableInstanceEntityManager_thenReturnNull() {
     // Arrange
     ActivitiEngineAgendaFactory engineAgendaFactory = mock(ActivitiEngineAgendaFactory.class);
@@ -995,12 +730,10 @@ public class CommandContextDiffblueTest {
 
     JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();
     processEngineConfiguration.setEngineAgendaFactory(engineAgendaFactory);
-    CommandContext commandContext =
-        new CommandContext(mock(Command.class), processEngineConfiguration);
 
     // Act
-    VariableInstanceEntityManager actualVariableInstanceEntityManager =
-        commandContext.getVariableInstanceEntityManager();
+    VariableInstanceEntityManager actualVariableInstanceEntityManager = (new CommandContext(mock(Command.class),
+        processEngineConfiguration)).getVariableInstanceEntityManager();
 
     // Assert
     verify(engineAgendaFactory).createAgenda(isA(CommandContext.class));
@@ -1009,19 +742,15 @@ public class CommandContextDiffblueTest {
 
   /**
    * Test {@link CommandContext#getHistoricProcessInstanceEntityManager()}.
-   *
    * <ul>
-   *   <li>Then return {@code null}.
+   *   <li>Then return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link CommandContext#getHistoricProcessInstanceEntityManager()}
+   * <p>
+   * Method under test: {@link CommandContext#getHistoricProcessInstanceEntityManager()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "HistoricProcessInstanceEntityManager CommandContext.getHistoricProcessInstanceEntityManager()"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"HistoricProcessInstanceEntityManager CommandContext.getHistoricProcessInstanceEntityManager()"})
   public void testGetHistoricProcessInstanceEntityManager_thenReturnNull() {
     // Arrange
     ActivitiEngineAgendaFactory engineAgendaFactory = mock(ActivitiEngineAgendaFactory.class);
@@ -1030,12 +759,10 @@ public class CommandContextDiffblueTest {
 
     JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();
     processEngineConfiguration.setEngineAgendaFactory(engineAgendaFactory);
-    CommandContext commandContext =
-        new CommandContext(mock(Command.class), processEngineConfiguration);
 
     // Act
-    HistoricProcessInstanceEntityManager actualHistoricProcessInstanceEntityManager =
-        commandContext.getHistoricProcessInstanceEntityManager();
+    HistoricProcessInstanceEntityManager actualHistoricProcessInstanceEntityManager = (new CommandContext(
+        mock(Command.class), processEngineConfiguration)).getHistoricProcessInstanceEntityManager();
 
     // Assert
     verify(engineAgendaFactory).createAgenda(isA(CommandContext.class));
@@ -1044,16 +771,14 @@ public class CommandContextDiffblueTest {
 
   /**
    * Test {@link CommandContext#getHistoricDetailEntityManager()}.
-   *
    * <ul>
-   *   <li>Then return {@code null}.
+   *   <li>Then return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link CommandContext#getHistoricDetailEntityManager()}
+   * <p>
+   * Method under test: {@link CommandContext#getHistoricDetailEntityManager()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"HistoricDetailEntityManager CommandContext.getHistoricDetailEntityManager()"})
   public void testGetHistoricDetailEntityManager_thenReturnNull() {
     // Arrange
@@ -1063,12 +788,10 @@ public class CommandContextDiffblueTest {
 
     JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();
     processEngineConfiguration.setEngineAgendaFactory(engineAgendaFactory);
-    CommandContext commandContext =
-        new CommandContext(mock(Command.class), processEngineConfiguration);
 
     // Act
-    HistoricDetailEntityManager actualHistoricDetailEntityManager =
-        commandContext.getHistoricDetailEntityManager();
+    HistoricDetailEntityManager actualHistoricDetailEntityManager = (new CommandContext(mock(Command.class),
+        processEngineConfiguration)).getHistoricDetailEntityManager();
 
     // Assert
     verify(engineAgendaFactory).createAgenda(isA(CommandContext.class));
@@ -1077,19 +800,15 @@ public class CommandContextDiffblueTest {
 
   /**
    * Test {@link CommandContext#getHistoricVariableInstanceEntityManager()}.
-   *
    * <ul>
-   *   <li>Then return {@code null}.
+   *   <li>Then return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link CommandContext#getHistoricVariableInstanceEntityManager()}
+   * <p>
+   * Method under test: {@link CommandContext#getHistoricVariableInstanceEntityManager()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "HistoricVariableInstanceEntityManager CommandContext.getHistoricVariableInstanceEntityManager()"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"HistoricVariableInstanceEntityManager CommandContext.getHistoricVariableInstanceEntityManager()"})
   public void testGetHistoricVariableInstanceEntityManager_thenReturnNull() {
     // Arrange
     ActivitiEngineAgendaFactory engineAgendaFactory = mock(ActivitiEngineAgendaFactory.class);
@@ -1098,12 +817,10 @@ public class CommandContextDiffblueTest {
 
     JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();
     processEngineConfiguration.setEngineAgendaFactory(engineAgendaFactory);
-    CommandContext commandContext =
-        new CommandContext(mock(Command.class), processEngineConfiguration);
 
     // Act
-    HistoricVariableInstanceEntityManager actualHistoricVariableInstanceEntityManager =
-        commandContext.getHistoricVariableInstanceEntityManager();
+    HistoricVariableInstanceEntityManager actualHistoricVariableInstanceEntityManager = (new CommandContext(
+        mock(Command.class), processEngineConfiguration)).getHistoricVariableInstanceEntityManager();
 
     // Assert
     verify(engineAgendaFactory).createAgenda(isA(CommandContext.class));
@@ -1112,19 +829,15 @@ public class CommandContextDiffblueTest {
 
   /**
    * Test {@link CommandContext#getHistoricActivityInstanceEntityManager()}.
-   *
    * <ul>
-   *   <li>Then return {@code null}.
+   *   <li>Then return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link CommandContext#getHistoricActivityInstanceEntityManager()}
+   * <p>
+   * Method under test: {@link CommandContext#getHistoricActivityInstanceEntityManager()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "HistoricActivityInstanceEntityManager CommandContext.getHistoricActivityInstanceEntityManager()"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"HistoricActivityInstanceEntityManager CommandContext.getHistoricActivityInstanceEntityManager()"})
   public void testGetHistoricActivityInstanceEntityManager_thenReturnNull() {
     // Arrange
     ActivitiEngineAgendaFactory engineAgendaFactory = mock(ActivitiEngineAgendaFactory.class);
@@ -1133,12 +846,10 @@ public class CommandContextDiffblueTest {
 
     JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();
     processEngineConfiguration.setEngineAgendaFactory(engineAgendaFactory);
-    CommandContext commandContext =
-        new CommandContext(mock(Command.class), processEngineConfiguration);
 
     // Act
-    HistoricActivityInstanceEntityManager actualHistoricActivityInstanceEntityManager =
-        commandContext.getHistoricActivityInstanceEntityManager();
+    HistoricActivityInstanceEntityManager actualHistoricActivityInstanceEntityManager = (new CommandContext(
+        mock(Command.class), processEngineConfiguration)).getHistoricActivityInstanceEntityManager();
 
     // Assert
     verify(engineAgendaFactory).createAgenda(isA(CommandContext.class));
@@ -1147,19 +858,15 @@ public class CommandContextDiffblueTest {
 
   /**
    * Test {@link CommandContext#getHistoricTaskInstanceEntityManager()}.
-   *
    * <ul>
-   *   <li>Then return {@code null}.
+   *   <li>Then return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link CommandContext#getHistoricTaskInstanceEntityManager()}
+   * <p>
+   * Method under test: {@link CommandContext#getHistoricTaskInstanceEntityManager()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "HistoricTaskInstanceEntityManager CommandContext.getHistoricTaskInstanceEntityManager()"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"HistoricTaskInstanceEntityManager CommandContext.getHistoricTaskInstanceEntityManager()"})
   public void testGetHistoricTaskInstanceEntityManager_thenReturnNull() {
     // Arrange
     ActivitiEngineAgendaFactory engineAgendaFactory = mock(ActivitiEngineAgendaFactory.class);
@@ -1168,12 +875,10 @@ public class CommandContextDiffblueTest {
 
     JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();
     processEngineConfiguration.setEngineAgendaFactory(engineAgendaFactory);
-    CommandContext commandContext =
-        new CommandContext(mock(Command.class), processEngineConfiguration);
 
     // Act
-    HistoricTaskInstanceEntityManager actualHistoricTaskInstanceEntityManager =
-        commandContext.getHistoricTaskInstanceEntityManager();
+    HistoricTaskInstanceEntityManager actualHistoricTaskInstanceEntityManager = (new CommandContext(mock(Command.class),
+        processEngineConfiguration)).getHistoricTaskInstanceEntityManager();
 
     // Assert
     verify(engineAgendaFactory).createAgenda(isA(CommandContext.class));
@@ -1182,19 +887,15 @@ public class CommandContextDiffblueTest {
 
   /**
    * Test {@link CommandContext#getHistoricIdentityLinkEntityManager()}.
-   *
    * <ul>
-   *   <li>Then return {@code null}.
+   *   <li>Then return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link CommandContext#getHistoricIdentityLinkEntityManager()}
+   * <p>
+   * Method under test: {@link CommandContext#getHistoricIdentityLinkEntityManager()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "HistoricIdentityLinkEntityManager CommandContext.getHistoricIdentityLinkEntityManager()"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"HistoricIdentityLinkEntityManager CommandContext.getHistoricIdentityLinkEntityManager()"})
   public void testGetHistoricIdentityLinkEntityManager_thenReturnNull() {
     // Arrange
     ActivitiEngineAgendaFactory engineAgendaFactory = mock(ActivitiEngineAgendaFactory.class);
@@ -1203,12 +904,10 @@ public class CommandContextDiffblueTest {
 
     JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();
     processEngineConfiguration.setEngineAgendaFactory(engineAgendaFactory);
-    CommandContext commandContext =
-        new CommandContext(mock(Command.class), processEngineConfiguration);
 
     // Act
-    HistoricIdentityLinkEntityManager actualHistoricIdentityLinkEntityManager =
-        commandContext.getHistoricIdentityLinkEntityManager();
+    HistoricIdentityLinkEntityManager actualHistoricIdentityLinkEntityManager = (new CommandContext(mock(Command.class),
+        processEngineConfiguration)).getHistoricIdentityLinkEntityManager();
 
     // Assert
     verify(engineAgendaFactory).createAgenda(isA(CommandContext.class));
@@ -1217,16 +916,14 @@ public class CommandContextDiffblueTest {
 
   /**
    * Test {@link CommandContext#getEventLogEntryEntityManager()}.
-   *
    * <ul>
-   *   <li>Then return {@code null}.
+   *   <li>Then return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link CommandContext#getEventLogEntryEntityManager()}
+   * <p>
+   * Method under test: {@link CommandContext#getEventLogEntryEntityManager()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"EventLogEntryEntityManager CommandContext.getEventLogEntryEntityManager()"})
   public void testGetEventLogEntryEntityManager_thenReturnNull() {
     // Arrange
@@ -1236,12 +933,10 @@ public class CommandContextDiffblueTest {
 
     JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();
     processEngineConfiguration.setEngineAgendaFactory(engineAgendaFactory);
-    CommandContext commandContext =
-        new CommandContext(mock(Command.class), processEngineConfiguration);
 
     // Act
-    EventLogEntryEntityManager actualEventLogEntryEntityManager =
-        commandContext.getEventLogEntryEntityManager();
+    EventLogEntryEntityManager actualEventLogEntryEntityManager = (new CommandContext(mock(Command.class),
+        processEngineConfiguration)).getEventLogEntryEntityManager();
 
     // Assert
     verify(engineAgendaFactory).createAgenda(isA(CommandContext.class));
@@ -1250,16 +945,14 @@ public class CommandContextDiffblueTest {
 
   /**
    * Test {@link CommandContext#getJobEntityManager()}.
-   *
    * <ul>
-   *   <li>Then return {@code null}.
+   *   <li>Then return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link CommandContext#getJobEntityManager()}
+   * <p>
+   * Method under test: {@link CommandContext#getJobEntityManager()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"JobEntityManager CommandContext.getJobEntityManager()"})
   public void testGetJobEntityManager_thenReturnNull() {
     // Arrange
@@ -1269,11 +962,10 @@ public class CommandContextDiffblueTest {
 
     JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();
     processEngineConfiguration.setEngineAgendaFactory(engineAgendaFactory);
-    CommandContext commandContext =
-        new CommandContext(mock(Command.class), processEngineConfiguration);
 
     // Act
-    JobEntityManager actualJobEntityManager = commandContext.getJobEntityManager();
+    JobEntityManager actualJobEntityManager = (new CommandContext(mock(Command.class), processEngineConfiguration))
+        .getJobEntityManager();
 
     // Assert
     verify(engineAgendaFactory).createAgenda(isA(CommandContext.class));
@@ -1282,16 +974,14 @@ public class CommandContextDiffblueTest {
 
   /**
    * Test {@link CommandContext#getTimerJobEntityManager()}.
-   *
    * <ul>
-   *   <li>Then return {@code null}.
+   *   <li>Then return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link CommandContext#getTimerJobEntityManager()}
+   * <p>
+   * Method under test: {@link CommandContext#getTimerJobEntityManager()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"TimerJobEntityManager CommandContext.getTimerJobEntityManager()"})
   public void testGetTimerJobEntityManager_thenReturnNull() {
     // Arrange
@@ -1301,11 +991,10 @@ public class CommandContextDiffblueTest {
 
     JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();
     processEngineConfiguration.setEngineAgendaFactory(engineAgendaFactory);
-    CommandContext commandContext =
-        new CommandContext(mock(Command.class), processEngineConfiguration);
 
     // Act
-    TimerJobEntityManager actualTimerJobEntityManager = commandContext.getTimerJobEntityManager();
+    TimerJobEntityManager actualTimerJobEntityManager = (new CommandContext(mock(Command.class),
+        processEngineConfiguration)).getTimerJobEntityManager();
 
     // Assert
     verify(engineAgendaFactory).createAgenda(isA(CommandContext.class));
@@ -1314,16 +1003,14 @@ public class CommandContextDiffblueTest {
 
   /**
    * Test {@link CommandContext#getSuspendedJobEntityManager()}.
-   *
    * <ul>
-   *   <li>Then return {@code null}.
+   *   <li>Then return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link CommandContext#getSuspendedJobEntityManager()}
+   * <p>
+   * Method under test: {@link CommandContext#getSuspendedJobEntityManager()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"SuspendedJobEntityManager CommandContext.getSuspendedJobEntityManager()"})
   public void testGetSuspendedJobEntityManager_thenReturnNull() {
     // Arrange
@@ -1333,12 +1020,10 @@ public class CommandContextDiffblueTest {
 
     JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();
     processEngineConfiguration.setEngineAgendaFactory(engineAgendaFactory);
-    CommandContext commandContext =
-        new CommandContext(mock(Command.class), processEngineConfiguration);
 
     // Act
-    SuspendedJobEntityManager actualSuspendedJobEntityManager =
-        commandContext.getSuspendedJobEntityManager();
+    SuspendedJobEntityManager actualSuspendedJobEntityManager = (new CommandContext(mock(Command.class),
+        processEngineConfiguration)).getSuspendedJobEntityManager();
 
     // Assert
     verify(engineAgendaFactory).createAgenda(isA(CommandContext.class));
@@ -1347,16 +1032,14 @@ public class CommandContextDiffblueTest {
 
   /**
    * Test {@link CommandContext#getDeadLetterJobEntityManager()}.
-   *
    * <ul>
-   *   <li>Then return {@code null}.
+   *   <li>Then return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link CommandContext#getDeadLetterJobEntityManager()}
+   * <p>
+   * Method under test: {@link CommandContext#getDeadLetterJobEntityManager()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"DeadLetterJobEntityManager CommandContext.getDeadLetterJobEntityManager()"})
   public void testGetDeadLetterJobEntityManager_thenReturnNull() {
     // Arrange
@@ -1366,12 +1049,10 @@ public class CommandContextDiffblueTest {
 
     JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();
     processEngineConfiguration.setEngineAgendaFactory(engineAgendaFactory);
-    CommandContext commandContext =
-        new CommandContext(mock(Command.class), processEngineConfiguration);
 
     // Act
-    DeadLetterJobEntityManager actualDeadLetterJobEntityManager =
-        commandContext.getDeadLetterJobEntityManager();
+    DeadLetterJobEntityManager actualDeadLetterJobEntityManager = (new CommandContext(mock(Command.class),
+        processEngineConfiguration)).getDeadLetterJobEntityManager();
 
     // Assert
     verify(engineAgendaFactory).createAgenda(isA(CommandContext.class));
@@ -1380,16 +1061,14 @@ public class CommandContextDiffblueTest {
 
   /**
    * Test {@link CommandContext#getAttachmentEntityManager()}.
-   *
    * <ul>
-   *   <li>Then return {@code null}.
+   *   <li>Then return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link CommandContext#getAttachmentEntityManager()}
+   * <p>
+   * Method under test: {@link CommandContext#getAttachmentEntityManager()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"AttachmentEntityManager CommandContext.getAttachmentEntityManager()"})
   public void testGetAttachmentEntityManager_thenReturnNull() {
     // Arrange
@@ -1399,12 +1078,10 @@ public class CommandContextDiffblueTest {
 
     JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();
     processEngineConfiguration.setEngineAgendaFactory(engineAgendaFactory);
-    CommandContext commandContext =
-        new CommandContext(mock(Command.class), processEngineConfiguration);
 
     // Act
-    AttachmentEntityManager actualAttachmentEntityManager =
-        commandContext.getAttachmentEntityManager();
+    AttachmentEntityManager actualAttachmentEntityManager = (new CommandContext(mock(Command.class),
+        processEngineConfiguration)).getAttachmentEntityManager();
 
     // Assert
     verify(engineAgendaFactory).createAgenda(isA(CommandContext.class));
@@ -1413,16 +1090,14 @@ public class CommandContextDiffblueTest {
 
   /**
    * Test {@link CommandContext#getTableDataManager()}.
-   *
    * <ul>
-   *   <li>Then return {@code null}.
+   *   <li>Then return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link CommandContext#getTableDataManager()}
+   * <p>
+   * Method under test: {@link CommandContext#getTableDataManager()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"TableDataManager CommandContext.getTableDataManager()"})
   public void testGetTableDataManager_thenReturnNull() {
     // Arrange
@@ -1432,11 +1107,10 @@ public class CommandContextDiffblueTest {
 
     JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();
     processEngineConfiguration.setEngineAgendaFactory(engineAgendaFactory);
-    CommandContext commandContext =
-        new CommandContext(mock(Command.class), processEngineConfiguration);
 
     // Act
-    TableDataManager actualTableDataManager = commandContext.getTableDataManager();
+    TableDataManager actualTableDataManager = (new CommandContext(mock(Command.class), processEngineConfiguration))
+        .getTableDataManager();
 
     // Assert
     verify(engineAgendaFactory).createAgenda(isA(CommandContext.class));
@@ -1445,16 +1119,14 @@ public class CommandContextDiffblueTest {
 
   /**
    * Test {@link CommandContext#getCommentEntityManager()}.
-   *
    * <ul>
-   *   <li>Then return {@code null}.
+   *   <li>Then return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link CommandContext#getCommentEntityManager()}
+   * <p>
+   * Method under test: {@link CommandContext#getCommentEntityManager()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"CommentEntityManager CommandContext.getCommentEntityManager()"})
   public void testGetCommentEntityManager_thenReturnNull() {
     // Arrange
@@ -1464,11 +1136,10 @@ public class CommandContextDiffblueTest {
 
     JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();
     processEngineConfiguration.setEngineAgendaFactory(engineAgendaFactory);
-    CommandContext commandContext =
-        new CommandContext(mock(Command.class), processEngineConfiguration);
 
     // Act
-    CommentEntityManager actualCommentEntityManager = commandContext.getCommentEntityManager();
+    CommentEntityManager actualCommentEntityManager = (new CommandContext(mock(Command.class),
+        processEngineConfiguration)).getCommentEntityManager();
 
     // Assert
     verify(engineAgendaFactory).createAgenda(isA(CommandContext.class));
@@ -1477,16 +1148,14 @@ public class CommandContextDiffblueTest {
 
   /**
    * Test {@link CommandContext#getPropertyEntityManager()}.
-   *
    * <ul>
-   *   <li>Then return {@code null}.
+   *   <li>Then return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link CommandContext#getPropertyEntityManager()}
+   * <p>
+   * Method under test: {@link CommandContext#getPropertyEntityManager()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"PropertyEntityManager CommandContext.getPropertyEntityManager()"})
   public void testGetPropertyEntityManager_thenReturnNull() {
     // Arrange
@@ -1496,11 +1165,10 @@ public class CommandContextDiffblueTest {
 
     JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();
     processEngineConfiguration.setEngineAgendaFactory(engineAgendaFactory);
-    CommandContext commandContext =
-        new CommandContext(mock(Command.class), processEngineConfiguration);
 
     // Act
-    PropertyEntityManager actualPropertyEntityManager = commandContext.getPropertyEntityManager();
+    PropertyEntityManager actualPropertyEntityManager = (new CommandContext(mock(Command.class),
+        processEngineConfiguration)).getPropertyEntityManager();
 
     // Assert
     verify(engineAgendaFactory).createAgenda(isA(CommandContext.class));
@@ -1509,19 +1177,15 @@ public class CommandContextDiffblueTest {
 
   /**
    * Test {@link CommandContext#getEventSubscriptionEntityManager()}.
-   *
    * <ul>
-   *   <li>Then return {@code null}.
+   *   <li>Then return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link CommandContext#getEventSubscriptionEntityManager()}
+   * <p>
+   * Method under test: {@link CommandContext#getEventSubscriptionEntityManager()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "EventSubscriptionEntityManager CommandContext.getEventSubscriptionEntityManager()"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"EventSubscriptionEntityManager CommandContext.getEventSubscriptionEntityManager()"})
   public void testGetEventSubscriptionEntityManager_thenReturnNull() {
     // Arrange
     ActivitiEngineAgendaFactory engineAgendaFactory = mock(ActivitiEngineAgendaFactory.class);
@@ -1530,12 +1194,10 @@ public class CommandContextDiffblueTest {
 
     JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();
     processEngineConfiguration.setEngineAgendaFactory(engineAgendaFactory);
-    CommandContext commandContext =
-        new CommandContext(mock(Command.class), processEngineConfiguration);
 
     // Act
-    EventSubscriptionEntityManager actualEventSubscriptionEntityManager =
-        commandContext.getEventSubscriptionEntityManager();
+    EventSubscriptionEntityManager actualEventSubscriptionEntityManager = (new CommandContext(mock(Command.class),
+        processEngineConfiguration)).getEventSubscriptionEntityManager();
 
     // Assert
     verify(engineAgendaFactory).createAgenda(isA(CommandContext.class));
@@ -1544,16 +1206,14 @@ public class CommandContextDiffblueTest {
 
   /**
    * Test {@link CommandContext#getHistoryManager()}.
-   *
    * <ul>
-   *   <li>Then return {@code null}.
+   *   <li>Then return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link CommandContext#getHistoryManager()}
+   * <p>
+   * Method under test: {@link CommandContext#getHistoryManager()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"HistoryManager CommandContext.getHistoryManager()"})
   public void testGetHistoryManager_thenReturnNull() {
     // Arrange
@@ -1563,11 +1223,10 @@ public class CommandContextDiffblueTest {
 
     JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();
     processEngineConfiguration.setEngineAgendaFactory(engineAgendaFactory);
-    CommandContext commandContext =
-        new CommandContext(mock(Command.class), processEngineConfiguration);
 
     // Act
-    HistoryManager actualHistoryManager = commandContext.getHistoryManager();
+    HistoryManager actualHistoryManager = (new CommandContext(mock(Command.class), processEngineConfiguration))
+        .getHistoryManager();
 
     // Assert
     verify(engineAgendaFactory).createAgenda(isA(CommandContext.class));
@@ -1576,16 +1235,14 @@ public class CommandContextDiffblueTest {
 
   /**
    * Test {@link CommandContext#getJobManager()}.
-   *
    * <ul>
-   *   <li>Then return {@code null}.
+   *   <li>Then return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link CommandContext#getJobManager()}
+   * <p>
+   * Method under test: {@link CommandContext#getJobManager()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"JobManager CommandContext.getJobManager()"})
   public void testGetJobManager_thenReturnNull() {
     // Arrange
@@ -1595,11 +1252,9 @@ public class CommandContextDiffblueTest {
 
     JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();
     processEngineConfiguration.setEngineAgendaFactory(engineAgendaFactory);
-    CommandContext commandContext =
-        new CommandContext(mock(Command.class), processEngineConfiguration);
 
     // Act
-    JobManager actualJobManager = commandContext.getJobManager();
+    JobManager actualJobManager = (new CommandContext(mock(Command.class), processEngineConfiguration)).getJobManager();
 
     // Assert
     verify(engineAgendaFactory).createAgenda(isA(CommandContext.class));
@@ -1608,16 +1263,14 @@ public class CommandContextDiffblueTest {
 
   /**
    * Test {@link CommandContext#addInvolvedExecution(ExecutionEntity)}.
-   *
    * <ul>
-   *   <li>Then calls {@link ActivitiEngineAgendaFactory#createAgenda(CommandContext)}.
+   *   <li>Then calls {@link ActivitiEngineAgendaFactory#createAgenda(CommandContext)}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link CommandContext#addInvolvedExecution(ExecutionEntity)}
+   * <p>
+   * Method under test: {@link CommandContext#addInvolvedExecution(ExecutionEntity)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void CommandContext.addInvolvedExecution(ExecutionEntity)"})
   public void testAddInvolvedExecution_thenCallsCreateAgenda() {
     // Arrange
@@ -1627,12 +1280,10 @@ public class CommandContextDiffblueTest {
 
     JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();
     processEngineConfiguration.setEngineAgendaFactory(engineAgendaFactory);
-    CommandContext commandContext =
-        new CommandContext(mock(Command.class), processEngineConfiguration);
+    CommandContext commandContext = new CommandContext(mock(Command.class), processEngineConfiguration);
 
     // Act
-    commandContext.addInvolvedExecution(
-        ExecutionEntityImpl.createWithEmptyRelationshipCollections());
+    commandContext.addInvolvedExecution(ExecutionEntityImpl.createWithEmptyRelationshipCollections());
 
     // Assert
     verify(engineAgendaFactory).createAgenda(isA(CommandContext.class));
@@ -1640,16 +1291,14 @@ public class CommandContextDiffblueTest {
 
   /**
    * Test {@link CommandContext#hasInvolvedExecutions()}.
-   *
    * <ul>
-   *   <li>Then return {@code false}.
+   *   <li>Then return {@code false}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link CommandContext#hasInvolvedExecutions()}
+   * <p>
+   * Method under test: {@link CommandContext#hasInvolvedExecutions()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"boolean CommandContext.hasInvolvedExecutions()"})
   public void testHasInvolvedExecutions_thenReturnFalse() {
     // Arrange
@@ -1659,11 +1308,10 @@ public class CommandContextDiffblueTest {
 
     JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();
     processEngineConfiguration.setEngineAgendaFactory(engineAgendaFactory);
-    CommandContext commandContext =
-        new CommandContext(mock(Command.class), processEngineConfiguration);
 
     // Act
-    boolean actualHasInvolvedExecutionsResult = commandContext.hasInvolvedExecutions();
+    boolean actualHasInvolvedExecutionsResult = (new CommandContext(mock(Command.class), processEngineConfiguration))
+        .hasInvolvedExecutions();
 
     // Assert
     verify(engineAgendaFactory).createAgenda(isA(CommandContext.class));
@@ -1672,16 +1320,14 @@ public class CommandContextDiffblueTest {
 
   /**
    * Test {@link CommandContext#getInvolvedExecutions()}.
-   *
    * <ul>
-   *   <li>Then return Empty.
+   *   <li>Then return Empty.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link CommandContext#getInvolvedExecutions()}
+   * <p>
+   * Method under test: {@link CommandContext#getInvolvedExecutions()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"Collection CommandContext.getInvolvedExecutions()"})
   public void testGetInvolvedExecutions_thenReturnEmpty() {
     // Arrange
@@ -1691,11 +1337,10 @@ public class CommandContextDiffblueTest {
 
     JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();
     processEngineConfiguration.setEngineAgendaFactory(engineAgendaFactory);
-    CommandContext commandContext =
-        new CommandContext(mock(Command.class), processEngineConfiguration);
 
     // Act
-    Collection<ExecutionEntity> actualInvolvedExecutions = commandContext.getInvolvedExecutions();
+    Collection<ExecutionEntity> actualInvolvedExecutions = (new CommandContext(mock(Command.class),
+        processEngineConfiguration)).getInvolvedExecutions();
 
     // Assert
     verify(engineAgendaFactory).createAgenda(isA(CommandContext.class));
@@ -1704,16 +1349,14 @@ public class CommandContextDiffblueTest {
 
   /**
    * Test {@link CommandContext#getEventDispatcher()}.
-   *
    * <ul>
-   *   <li>Then return {@code null}.
+   *   <li>Then return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link CommandContext#getEventDispatcher()}
+   * <p>
+   * Method under test: {@link CommandContext#getEventDispatcher()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"ActivitiEventDispatcher CommandContext.getEventDispatcher()"})
   public void testGetEventDispatcher_thenReturnNull() {
     // Arrange
@@ -1723,11 +1366,10 @@ public class CommandContextDiffblueTest {
 
     JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();
     processEngineConfiguration.setEngineAgendaFactory(engineAgendaFactory);
-    CommandContext commandContext =
-        new CommandContext(mock(Command.class), processEngineConfiguration);
 
     // Act
-    ActivitiEventDispatcher actualEventDispatcher = commandContext.getEventDispatcher();
+    ActivitiEventDispatcher actualEventDispatcher = (new CommandContext(mock(Command.class),
+        processEngineConfiguration)).getEventDispatcher();
 
     // Assert
     verify(engineAgendaFactory).createAgenda(isA(CommandContext.class));
@@ -1736,16 +1378,14 @@ public class CommandContextDiffblueTest {
 
   /**
    * Test {@link CommandContext#getResult()}.
-   *
    * <ul>
-   *   <li>Then return {@code null}.
+   *   <li>Then return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link CommandContext#getResult()}
+   * <p>
+   * Method under test: {@link CommandContext#getResult()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"Object CommandContext.getResult()"})
   public void testGetResult_thenReturnNull() {
     // Arrange
@@ -1755,11 +1395,9 @@ public class CommandContextDiffblueTest {
 
     JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();
     processEngineConfiguration.setEngineAgendaFactory(engineAgendaFactory);
-    CommandContext commandContext =
-        new CommandContext(mock(Command.class), processEngineConfiguration);
 
     // Act
-    Object actualResult = commandContext.getResult();
+    Object actualResult = (new CommandContext(mock(Command.class), processEngineConfiguration)).getResult();
 
     // Assert
     verify(engineAgendaFactory).createAgenda(isA(CommandContext.class));
@@ -1768,16 +1406,14 @@ public class CommandContextDiffblueTest {
 
   /**
    * Test {@link CommandContext#setResult(Object)}.
-   *
    * <ul>
-   *   <li>Then calls {@link ActivitiEngineAgendaFactory#createAgenda(CommandContext)}.
+   *   <li>Then calls {@link ActivitiEngineAgendaFactory#createAgenda(CommandContext)}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link CommandContext#setResult(Object)}
+   * <p>
+   * Method under test: {@link CommandContext#setResult(Object)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void CommandContext.setResult(Object)"})
   public void testSetResult_thenCallsCreateAgenda() {
     // Arrange
@@ -1787,11 +1423,9 @@ public class CommandContextDiffblueTest {
 
     JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();
     processEngineConfiguration.setEngineAgendaFactory(engineAgendaFactory);
-    CommandContext commandContext =
-        new CommandContext(mock(Command.class), processEngineConfiguration);
 
     // Act
-    commandContext.setResult(JSONObject.NULL);
+    (new CommandContext(mock(Command.class), processEngineConfiguration)).setResult(JSONObject.NULL);
 
     // Assert
     verify(engineAgendaFactory).createAgenda(isA(CommandContext.class));

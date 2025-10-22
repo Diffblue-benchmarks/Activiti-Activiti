@@ -20,8 +20,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.Map;
 import org.activiti.engine.impl.cfg.CommandExecutorImpl;
@@ -36,27 +35,22 @@ import org.junit.experimental.categories.Category;
 public class FailedJobListenerDiffblueTest {
   /**
    * Test {@link FailedJobListener#FailedJobListener(CommandExecutor, Job)}.
-   *
-   * <p>Method under test: {@link FailedJobListener#FailedJobListener(CommandExecutor, Job)}
+   * <p>
+   * Method under test: {@link FailedJobListener#FailedJobListener(CommandExecutor, Job)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void FailedJobListener.<init>(CommandExecutor, Job)",
-    "void FailedJobListener.afterSessionsFlush(org.activiti.engine.impl.interceptor.CommandContext)",
-    "void FailedJobListener.closing(org.activiti.engine.impl.interceptor.CommandContext)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void FailedJobListener.<init>(CommandExecutor, Job)",
+      "void FailedJobListener.afterSessionsFlush(org.activiti.engine.impl.interceptor.CommandContext)",
+      "void FailedJobListener.closing(org.activiti.engine.impl.interceptor.CommandContext)"})
   public void testNewFailedJobListener() {
     // Arrange
     CommandConfig defaultConfig = new CommandConfig();
     CommandContextInterceptor first = new CommandContextInterceptor();
-
     CommandExecutorImpl commandExecutor = new CommandExecutorImpl(defaultConfig, first);
 
     // Act
-    FailedJobListener actualFailedJobListener =
-        new FailedJobListener(commandExecutor, new DeadLetterJobEntityImpl());
+    FailedJobListener actualFailedJobListener = new FailedJobListener(commandExecutor, new DeadLetterJobEntityImpl());
 
     // Assert
     Job job = actualFailedJobListener.job;

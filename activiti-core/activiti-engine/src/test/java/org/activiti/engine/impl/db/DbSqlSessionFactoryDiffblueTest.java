@@ -21,8 +21,7 @@ import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.HashMap;
 import java.util.Map;
@@ -33,27 +32,36 @@ import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.defaults.DefaultSqlSessionFactory;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
-import org.springframework.test.annotation.DirtiesContext;
-import org.springframework.test.annotation.DirtiesContext.ClassMode;
 
-@DirtiesContext(classMode = ClassMode.AFTER_EACH_TEST_METHOD)
 public class DbSqlSessionFactoryDiffblueTest {
   /**
    * Test {@link DbSqlSessionFactory#mapStatement(String)}.
-   *
    * <ul>
-   *   <li>Given {@link DbSqlSessionFactory} (default constructor) StatementMappings is {@link
-   *       HashMap#HashMap()}.
-   *   <li>Then return {@code MD}.
+   *   <li>Given {@link DbSqlSessionFactory} (default constructor).</li>
    * </ul>
-   *
-   * <p>Method under test: {@link DbSqlSessionFactory#mapStatement(String)}
+   * <p>
+   * Method under test: {@link DbSqlSessionFactory#mapStatement(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"String DbSqlSessionFactory.mapStatement(String)"})
-  public void testMapStatement_givenDbSqlSessionFactoryStatementMappingsIsHashMap_thenReturnMd() {
+  public void testMapStatement_givenDbSqlSessionFactory() {
+    // Arrange, Act and Assert
+    assertEquals("MD", (new DbSqlSessionFactory()).mapStatement("MD"));
+  }
+
+  /**
+   * Test {@link DbSqlSessionFactory#mapStatement(String)}.
+   * <ul>
+   *   <li>Given {@link DbSqlSessionFactory} (default constructor) StatementMappings is {@link HashMap#HashMap()}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link DbSqlSessionFactory#mapStatement(String)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String DbSqlSessionFactory.mapStatement(String)"})
+  public void testMapStatement_givenDbSqlSessionFactoryStatementMappingsIsHashMap() {
     // Arrange
     DbSqlSessionFactory dbSqlSessionFactory = new DbSqlSessionFactory();
     dbSqlSessionFactory.setStatementMappings(new HashMap<>());
@@ -63,60 +71,12 @@ public class DbSqlSessionFactoryDiffblueTest {
   }
 
   /**
-   * Test {@link DbSqlSessionFactory#mapStatement(String)}.
-   *
-   * <ul>
-   *   <li>Given {@link DbSqlSessionFactory} (default constructor).
-   *   <li>When {@code MD}.
-   *   <li>Then return {@code MD}.
-   * </ul>
-   *
-   * <p>Method under test: {@link DbSqlSessionFactory#mapStatement(String)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String DbSqlSessionFactory.mapStatement(String)"})
-  public void testMapStatement_givenDbSqlSessionFactory_whenMd_thenReturnMd() {
-    // Arrange, Act and Assert
-    assertEquals("MD", new DbSqlSessionFactory().mapStatement("MD"));
-  }
-
-  /**
-   * Test {@link DbSqlSessionFactory#mapStatement(String)}.
-   *
-   * <ul>
-   *   <li>Given {@link HashMap#HashMap()} {@code 42} is {@code 42}.
-   *   <li>When {@code 42}.
-   *   <li>Then return {@code 42}.
-   * </ul>
-   *
-   * <p>Method under test: {@link DbSqlSessionFactory#mapStatement(String)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String DbSqlSessionFactory.mapStatement(String)"})
-  public void testMapStatement_givenHashMap42Is42_when42_thenReturn42() {
-    // Arrange
-    HashMap<String, String> statementMappings = new HashMap<>();
-    statementMappings.put("42", "42");
-
-    DbSqlSessionFactory dbSqlSessionFactory = new DbSqlSessionFactory();
-    dbSqlSessionFactory.setStatementMappings(statementMappings);
-
-    // Act and Assert
-    assertEquals("42", dbSqlSessionFactory.mapStatement("42"));
-  }
-
-  /**
    * Test {@link DbSqlSessionFactory#isBulkInsertable(Class)}.
-   *
-   * <p>Method under test: {@link DbSqlSessionFactory#isBulkInsertable(Class)}
+   * <p>
+   * Method under test: {@link DbSqlSessionFactory#isBulkInsertable(Class)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"java.lang.Boolean DbSqlSessionFactory.isBulkInsertable(Class)"})
   public void testIsBulkInsertable() {
     // Arrange
@@ -129,9 +89,8 @@ public class DbSqlSessionFactoryDiffblueTest {
 
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>default or parameterless constructor of {@link DbSqlSessionFactory}
    *   <li>{@link DbSqlSessionFactory#setBulkDeleteStatements(Map)}
@@ -169,43 +128,26 @@ public class DbSqlSessionFactoryDiffblueTest {
    * </ul>
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void DbSqlSessionFactory.<init>()",
-    "Map DbSqlSessionFactory.getBulkDeleteStatements()",
-    "Map DbSqlSessionFactory.getBulkInsertStatements()",
-    "String DbSqlSessionFactory.getDatabaseCatalog()",
-    "String DbSqlSessionFactory.getDatabaseSchema()",
-    "String DbSqlSessionFactory.getDatabaseTablePrefix()",
-    "String DbSqlSessionFactory.getDatabaseType()",
-    "Map DbSqlSessionFactory.getDeleteStatements()",
-    "IdGenerator DbSqlSessionFactory.getIdGenerator()",
-    "Map DbSqlSessionFactory.getInsertStatements()",
-    "int DbSqlSessionFactory.getMaxNrOfStatementsInBulkInsert()",
-    "Map DbSqlSessionFactory.getSelectStatements()",
-    "Class DbSqlSessionFactory.getSessionType()",
-    "SqlSessionFactory DbSqlSessionFactory.getSqlSessionFactory()",
-    "Map DbSqlSessionFactory.getStatementMappings()",
-    "Map DbSqlSessionFactory.getUpdateStatements()",
-    "boolean DbSqlSessionFactory.isDbHistoryUsed()",
-    "boolean DbSqlSessionFactory.isTablePrefixIsSchema()",
-    "void DbSqlSessionFactory.setBulkDeleteStatements(Map)",
-    "void DbSqlSessionFactory.setBulkInsertStatements(Map)",
-    "void DbSqlSessionFactory.setDatabaseCatalog(String)",
-    "void DbSqlSessionFactory.setDatabaseSchema(String)",
-    "void DbSqlSessionFactory.setDatabaseTablePrefix(String)",
-    "void DbSqlSessionFactory.setDbHistoryUsed(boolean)",
-    "void DbSqlSessionFactory.setDeleteStatements(Map)",
-    "void DbSqlSessionFactory.setIdGenerator(IdGenerator)",
-    "void DbSqlSessionFactory.setInsertStatements(Map)",
-    "void DbSqlSessionFactory.setMaxNrOfStatementsInBulkInsert(int)",
-    "void DbSqlSessionFactory.setSelectStatements(Map)",
-    "void DbSqlSessionFactory.setSqlSessionFactory(SqlSessionFactory)",
-    "void DbSqlSessionFactory.setStatementMappings(Map)",
-    "void DbSqlSessionFactory.setTablePrefixIsSchema(boolean)",
-    "void DbSqlSessionFactory.setUpdateStatements(Map)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void DbSqlSessionFactory.<init>()", "Map DbSqlSessionFactory.getBulkDeleteStatements()",
+      "Map DbSqlSessionFactory.getBulkInsertStatements()", "String DbSqlSessionFactory.getDatabaseCatalog()",
+      "String DbSqlSessionFactory.getDatabaseSchema()", "String DbSqlSessionFactory.getDatabaseTablePrefix()",
+      "String DbSqlSessionFactory.getDatabaseType()", "Map DbSqlSessionFactory.getDeleteStatements()",
+      "IdGenerator DbSqlSessionFactory.getIdGenerator()", "Map DbSqlSessionFactory.getInsertStatements()",
+      "int DbSqlSessionFactory.getMaxNrOfStatementsInBulkInsert()", "Map DbSqlSessionFactory.getSelectStatements()",
+      "Class DbSqlSessionFactory.getSessionType()", "SqlSessionFactory DbSqlSessionFactory.getSqlSessionFactory()",
+      "Map DbSqlSessionFactory.getStatementMappings()", "Map DbSqlSessionFactory.getUpdateStatements()",
+      "boolean DbSqlSessionFactory.isDbHistoryUsed()", "boolean DbSqlSessionFactory.isTablePrefixIsSchema()",
+      "void DbSqlSessionFactory.setBulkDeleteStatements(Map)", "void DbSqlSessionFactory.setBulkInsertStatements(Map)",
+      "void DbSqlSessionFactory.setDatabaseCatalog(String)", "void DbSqlSessionFactory.setDatabaseSchema(String)",
+      "void DbSqlSessionFactory.setDatabaseTablePrefix(String)", "void DbSqlSessionFactory.setDbHistoryUsed(boolean)",
+      "void DbSqlSessionFactory.setDeleteStatements(Map)", "void DbSqlSessionFactory.setIdGenerator(IdGenerator)",
+      "void DbSqlSessionFactory.setInsertStatements(Map)",
+      "void DbSqlSessionFactory.setMaxNrOfStatementsInBulkInsert(int)",
+      "void DbSqlSessionFactory.setSelectStatements(Map)",
+      "void DbSqlSessionFactory.setSqlSessionFactory(SqlSessionFactory)",
+      "void DbSqlSessionFactory.setStatementMappings(Map)", "void DbSqlSessionFactory.setTablePrefixIsSchema(boolean)",
+      "void DbSqlSessionFactory.setUpdateStatements(Map)"})
   public void testGettersAndSetters() {
     // Arrange and Act
     DbSqlSessionFactory actualDbSqlSessionFactory = new DbSqlSessionFactory();
@@ -233,10 +175,8 @@ public class DbSqlSessionFactoryDiffblueTest {
     actualDbSqlSessionFactory.setTablePrefixIsSchema(true);
     HashMap<Class<?>, String> updateStatements = new HashMap<>();
     actualDbSqlSessionFactory.setUpdateStatements(updateStatements);
-    Map<Class<?>, String> actualBulkDeleteStatements =
-        actualDbSqlSessionFactory.getBulkDeleteStatements();
-    Map<Class<?>, String> actualBulkInsertStatements =
-        actualDbSqlSessionFactory.getBulkInsertStatements();
+    Map<Class<?>, String> actualBulkDeleteStatements = actualDbSqlSessionFactory.getBulkDeleteStatements();
+    Map<Class<?>, String> actualBulkInsertStatements = actualDbSqlSessionFactory.getBulkInsertStatements();
     String actualDatabaseCatalog = actualDbSqlSessionFactory.getDatabaseCatalog();
     String actualDatabaseSchema = actualDbSqlSessionFactory.getDatabaseSchema();
     String actualDatabaseTablePrefix = actualDbSqlSessionFactory.getDatabaseTablePrefix();
@@ -244,8 +184,7 @@ public class DbSqlSessionFactoryDiffblueTest {
     Map<Class<?>, String> actualDeleteStatements = actualDbSqlSessionFactory.getDeleteStatements();
     IdGenerator actualIdGenerator = actualDbSqlSessionFactory.getIdGenerator();
     Map<Class<?>, String> actualInsertStatements = actualDbSqlSessionFactory.getInsertStatements();
-    int actualMaxNrOfStatementsInBulkInsert =
-        actualDbSqlSessionFactory.getMaxNrOfStatementsInBulkInsert();
+    int actualMaxNrOfStatementsInBulkInsert = actualDbSqlSessionFactory.getMaxNrOfStatementsInBulkInsert();
     Map<Class<?>, String> actualSelectStatements = actualDbSqlSessionFactory.getSelectStatements();
     Class<?> actualSessionType = actualDbSqlSessionFactory.getSessionType();
     SqlSessionFactory actualSqlSessionFactory = actualDbSqlSessionFactory.getSqlSessionFactory();

@@ -19,12 +19,12 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.ArgumentMatchers.isA;
 import static org.mockito.Mockito.atLeast;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.time.LocalDate;
 import java.time.ZoneOffset;
@@ -48,31 +48,30 @@ import org.mockito.Mockito;
 
 class ToAPITaskCreatedEventConverterDiffblueTest {
   /**
-   * Test {@link ToAPITaskCreatedEventConverter#from(ActivitiEntityEvent)} with {@code
-   * ActivitiEntityEvent}.
-   *
-   * <p>Method under test: {@link ToAPITaskCreatedEventConverter#from(ActivitiEntityEvent)}
+   * Test {@link ToAPITaskCreatedEventConverter#from(ActivitiEntityEvent)} with {@code ActivitiEntityEvent}.
+   * <p>
+   * Method under test: {@link ToAPITaskCreatedEventConverter#from(ActivitiEntityEvent)}
    */
   @Test
   @DisplayName("Test from(ActivitiEntityEvent) with 'ActivitiEntityEvent'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"Optional ToAPITaskCreatedEventConverter.from(ActivitiEntityEvent)"})
   void testFromWithActivitiEntityEvent() {
+    //   Diffblue Cover was unable to create a Spring-specific test for this Spring method.
+    //   Run dcover create --keep-partial-tests to gain insights into why
+    //   a non-Spring test was created.
+
     // Arrange
     APITaskConverter taskConverter = mock(APITaskConverter.class);
     TaskImpl taskImpl = new TaskImpl("42", "Name", TaskStatus.CREATED);
-    when(taskConverter.fromWithCandidates(Mockito.<org.activiti.engine.task.Task>any()))
-        .thenReturn(taskImpl);
-    ToAPITaskCreatedEventConverter toAPITaskCreatedEventConverter =
-        new ToAPITaskCreatedEventConverter(taskConverter);
 
+    when(taskConverter.fromWithCandidates(Mockito.<org.activiti.engine.task.Task>any())).thenReturn(taskImpl);
+    ToAPITaskCreatedEventConverter toAPITaskCreatedEventConverter = new ToAPITaskCreatedEventConverter(taskConverter);
     ActivitiEntityEvent internalEvent = mock(ActivitiEntityEvent.class);
     when(internalEvent.getEntity()).thenReturn(mock(TaskEntityImpl.class));
 
     // Act
-    Optional<TaskCreatedEvent> actualFromResult =
-        toAPITaskCreatedEventConverter.from(internalEvent);
+    Optional<TaskCreatedEvent> actualFromResult = toAPITaskCreatedEventConverter.from(internalEvent);
 
     // Assert
     verify(internalEvent).getEntity();
@@ -83,33 +82,29 @@ class ToAPITaskCreatedEventConverterDiffblueTest {
   }
 
   /**
-   * Test {@link ToAPITaskCreatedEventConverter#from(ActivitiEntityEvent)} with {@code
-   * ActivitiEntityEvent}.
-   *
+   * Test {@link ToAPITaskCreatedEventConverter#from(ActivitiEntityEvent)} with {@code ActivitiEntityEvent}.
    * <ul>
-   *   <li>Given {@link ArrayList#ArrayList()} add {@link IdentityLinkEntityImpl} (default
-   *       constructor).
+   *   <li>Given {@link ArrayList#ArrayList()} add {@link IdentityLinkEntityImpl} (default constructor).</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ToAPITaskCreatedEventConverter#from(ActivitiEntityEvent)}
+   * <p>
+   * Method under test: {@link ToAPITaskCreatedEventConverter#from(ActivitiEntityEvent)}
    */
   @Test
-  @DisplayName(
-      "Test from(ActivitiEntityEvent) with 'ActivitiEntityEvent'; given ArrayList() add IdentityLinkEntityImpl (default constructor)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test from(ActivitiEntityEvent) with 'ActivitiEntityEvent'; given ArrayList() add IdentityLinkEntityImpl (default constructor)")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"Optional ToAPITaskCreatedEventConverter.from(ActivitiEntityEvent)"})
   void testFromWithActivitiEntityEvent_givenArrayListAddIdentityLinkEntityImpl() {
+    //   Diffblue Cover was unable to create a Spring-specific test for this Spring method.
+    //   Run dcover create --keep-partial-tests to gain insights into why
+    //   a non-Spring test was created.
+
     // Arrange
     ArrayList<IdentityLink> identityLinkList = new ArrayList<>();
     identityLinkList.add(new IdentityLinkEntityImpl());
-
     TaskService taskService = mock(TaskService.class);
     when(taskService.getIdentityLinksForTask(Mockito.<String>any())).thenReturn(identityLinkList);
-    APITaskConverter taskConverter = new APITaskConverter(taskService);
-    ToAPITaskCreatedEventConverter toAPITaskCreatedEventConverter =
-        new ToAPITaskCreatedEventConverter(taskConverter);
-
+    ToAPITaskCreatedEventConverter toAPITaskCreatedEventConverter = new ToAPITaskCreatedEventConverter(
+        new APITaskConverter(taskService));
     TaskEntityImpl taskEntityImpl = mock(TaskEntityImpl.class);
     when(taskEntityImpl.isDeleted()).thenReturn(true);
     when(taskEntityImpl.getPriority()).thenReturn(1);
@@ -126,24 +121,19 @@ class ToAPITaskCreatedEventConverterDiffblueTest {
     when(taskEntityImpl.getProcessInstanceId()).thenReturn("42");
     when(taskEntityImpl.getTaskDefinitionKey()).thenReturn("Task Definition Key");
     when(taskEntityImpl.getClaimTime())
-        .thenReturn(
-            Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
+        .thenReturn(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
     when(taskEntityImpl.getCreateTime())
-        .thenReturn(
-            Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
+        .thenReturn(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
     when(taskEntityImpl.getDueDate())
-        .thenReturn(
-            Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
-
+        .thenReturn(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
     ActivitiEntityEvent internalEvent = mock(ActivitiEntityEvent.class);
     when(internalEvent.getEntity()).thenReturn(taskEntityImpl);
 
     // Act
-    Optional<TaskCreatedEvent> actualFromResult =
-        toAPITaskCreatedEventConverter.from(internalEvent);
+    Optional<TaskCreatedEvent> actualFromResult = toAPITaskCreatedEventConverter.from(internalEvent);
 
     // Assert
-    verify(taskService).getIdentityLinksForTask("42");
+    verify(taskService).getIdentityLinksForTask(eq("42"));
     verify(internalEvent).getEntity();
     verify(taskEntityImpl, atLeast(1)).getId();
     verify(taskEntityImpl).getAppVersion();
@@ -184,34 +174,30 @@ class ToAPITaskCreatedEventConverterDiffblueTest {
   }
 
   /**
-   * Test {@link ToAPITaskCreatedEventConverter#from(ActivitiEntityEvent)} with {@code
-   * ActivitiEntityEvent}.
-   *
+   * Test {@link ToAPITaskCreatedEventConverter#from(ActivitiEntityEvent)} with {@code ActivitiEntityEvent}.
    * <ul>
-   *   <li>Given {@link ArrayList#ArrayList()} add {@link IdentityLinkEntityImpl} (default
-   *       constructor).
+   *   <li>Given {@link ArrayList#ArrayList()} add {@link IdentityLinkEntityImpl} (default constructor).</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ToAPITaskCreatedEventConverter#from(ActivitiEntityEvent)}
+   * <p>
+   * Method under test: {@link ToAPITaskCreatedEventConverter#from(ActivitiEntityEvent)}
    */
   @Test
-  @DisplayName(
-      "Test from(ActivitiEntityEvent) with 'ActivitiEntityEvent'; given ArrayList() add IdentityLinkEntityImpl (default constructor)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test from(ActivitiEntityEvent) with 'ActivitiEntityEvent'; given ArrayList() add IdentityLinkEntityImpl (default constructor)")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"Optional ToAPITaskCreatedEventConverter.from(ActivitiEntityEvent)"})
   void testFromWithActivitiEntityEvent_givenArrayListAddIdentityLinkEntityImpl2() {
+    //   Diffblue Cover was unable to create a Spring-specific test for this Spring method.
+    //   Run dcover create --keep-partial-tests to gain insights into why
+    //   a non-Spring test was created.
+
     // Arrange
     ArrayList<IdentityLink> identityLinkList = new ArrayList<>();
     identityLinkList.add(new IdentityLinkEntityImpl());
     identityLinkList.add(new IdentityLinkEntityImpl());
-
     TaskService taskService = mock(TaskService.class);
     when(taskService.getIdentityLinksForTask(Mockito.<String>any())).thenReturn(identityLinkList);
-    APITaskConverter taskConverter = new APITaskConverter(taskService);
-    ToAPITaskCreatedEventConverter toAPITaskCreatedEventConverter =
-        new ToAPITaskCreatedEventConverter(taskConverter);
-
+    ToAPITaskCreatedEventConverter toAPITaskCreatedEventConverter = new ToAPITaskCreatedEventConverter(
+        new APITaskConverter(taskService));
     TaskEntityImpl taskEntityImpl = mock(TaskEntityImpl.class);
     when(taskEntityImpl.isDeleted()).thenReturn(true);
     when(taskEntityImpl.getPriority()).thenReturn(1);
@@ -228,24 +214,19 @@ class ToAPITaskCreatedEventConverterDiffblueTest {
     when(taskEntityImpl.getProcessInstanceId()).thenReturn("42");
     when(taskEntityImpl.getTaskDefinitionKey()).thenReturn("Task Definition Key");
     when(taskEntityImpl.getClaimTime())
-        .thenReturn(
-            Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
+        .thenReturn(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
     when(taskEntityImpl.getCreateTime())
-        .thenReturn(
-            Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
+        .thenReturn(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
     when(taskEntityImpl.getDueDate())
-        .thenReturn(
-            Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
-
+        .thenReturn(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
     ActivitiEntityEvent internalEvent = mock(ActivitiEntityEvent.class);
     when(internalEvent.getEntity()).thenReturn(taskEntityImpl);
 
     // Act
-    Optional<TaskCreatedEvent> actualFromResult =
-        toAPITaskCreatedEventConverter.from(internalEvent);
+    Optional<TaskCreatedEvent> actualFromResult = toAPITaskCreatedEventConverter.from(internalEvent);
 
     // Assert
-    verify(taskService).getIdentityLinksForTask("42");
+    verify(taskService).getIdentityLinksForTask(eq("42"));
     verify(internalEvent).getEntity();
     verify(taskEntityImpl, atLeast(1)).getId();
     verify(taskEntityImpl).getAppVersion();
@@ -286,29 +267,27 @@ class ToAPITaskCreatedEventConverterDiffblueTest {
   }
 
   /**
-   * Test {@link ToAPITaskCreatedEventConverter#from(ActivitiEntityEvent)} with {@code
-   * ActivitiEntityEvent}.
-   *
+   * Test {@link ToAPITaskCreatedEventConverter#from(ActivitiEntityEvent)} with {@code ActivitiEntityEvent}.
    * <ul>
-   *   <li>Then {@link Optional#get()} Entity return {@link TaskImpl}.
+   *   <li>Then {@link Optional#get()} Entity return {@link TaskImpl}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ToAPITaskCreatedEventConverter#from(ActivitiEntityEvent)}
+   * <p>
+   * Method under test: {@link ToAPITaskCreatedEventConverter#from(ActivitiEntityEvent)}
    */
   @Test
-  @DisplayName(
-      "Test from(ActivitiEntityEvent) with 'ActivitiEntityEvent'; then get() Entity return TaskImpl")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test from(ActivitiEntityEvent) with 'ActivitiEntityEvent'; then get() Entity return TaskImpl")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"Optional ToAPITaskCreatedEventConverter.from(ActivitiEntityEvent)"})
   void testFromWithActivitiEntityEvent_thenGetEntityReturnTaskImpl() {
+    //   Diffblue Cover was unable to create a Spring-specific test for this Spring method.
+    //   Run dcover create --keep-partial-tests to gain insights into why
+    //   a non-Spring test was created.
+
     // Arrange
     TaskService taskService = mock(TaskService.class);
     when(taskService.getIdentityLinksForTask(Mockito.<String>any())).thenReturn(new ArrayList<>());
-    APITaskConverter taskConverter = new APITaskConverter(taskService);
-    ToAPITaskCreatedEventConverter toAPITaskCreatedEventConverter =
-        new ToAPITaskCreatedEventConverter(taskConverter);
-
+    ToAPITaskCreatedEventConverter toAPITaskCreatedEventConverter = new ToAPITaskCreatedEventConverter(
+        new APITaskConverter(taskService));
     TaskEntityImpl taskEntityImpl = mock(TaskEntityImpl.class);
     when(taskEntityImpl.isDeleted()).thenReturn(true);
     when(taskEntityImpl.getPriority()).thenReturn(1);
@@ -325,24 +304,19 @@ class ToAPITaskCreatedEventConverterDiffblueTest {
     when(taskEntityImpl.getProcessInstanceId()).thenReturn("42");
     when(taskEntityImpl.getTaskDefinitionKey()).thenReturn("Task Definition Key");
     when(taskEntityImpl.getClaimTime())
-        .thenReturn(
-            Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
+        .thenReturn(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
     when(taskEntityImpl.getCreateTime())
-        .thenReturn(
-            Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
+        .thenReturn(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
     when(taskEntityImpl.getDueDate())
-        .thenReturn(
-            Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
-
+        .thenReturn(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
     ActivitiEntityEvent internalEvent = mock(ActivitiEntityEvent.class);
     when(internalEvent.getEntity()).thenReturn(taskEntityImpl);
 
     // Act
-    Optional<TaskCreatedEvent> actualFromResult =
-        toAPITaskCreatedEventConverter.from(internalEvent);
+    Optional<TaskCreatedEvent> actualFromResult = toAPITaskCreatedEventConverter.from(internalEvent);
 
     // Assert
-    verify(taskService).getIdentityLinksForTask("42");
+    verify(taskService).getIdentityLinksForTask(eq("42"));
     verify(internalEvent).getEntity();
     verify(taskEntityImpl, atLeast(1)).getId();
     verify(taskEntityImpl).getAppVersion();

@@ -19,8 +19,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertThrows;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.engine.ActivitiIllegalArgumentException;
 import org.activiti.engine.delegate.event.ActivitiEventType;
@@ -31,67 +30,41 @@ import org.junit.experimental.categories.Category;
 public class ActivitiEntityEventImplDiffblueTest {
   /**
    * Test {@link ActivitiEntityEventImpl#ActivitiEntityEventImpl(Object, ActivitiEventType)}.
-   *
    * <ul>
-   *   <li>Then throw {@link ActivitiIllegalArgumentException}.
+   *   <li>Then throw {@link ActivitiIllegalArgumentException}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ActivitiEntityEventImpl#ActivitiEntityEventImpl(Object,
-   * ActivitiEventType)}
+   * <p>
+   * Method under test: {@link ActivitiEntityEventImpl#ActivitiEntityEventImpl(Object, ActivitiEventType)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void ActivitiEntityEventImpl.<init>(Object, ActivitiEventType)"})
   public void testNewActivitiEntityEventImpl_thenThrowActivitiIllegalArgumentException() {
     // Arrange, Act and Assert
-    assertThrows(
-        ActivitiIllegalArgumentException.class, () -> new ActivitiEntityEventImpl(null, null));
-  }
-
-  /**
-   * Test {@link ActivitiEntityEventImpl#ActivitiEntityEventImpl(Object, ActivitiEventType)}.
-   *
-   * <ul>
-   *   <li>Then throw {@link ActivitiIllegalArgumentException}.
-   * </ul>
-   *
-   * <p>Method under test: {@link ActivitiEntityEventImpl#ActivitiEntityEventImpl(Object,
-   * ActivitiEventType)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void ActivitiEntityEventImpl.<init>(Object, ActivitiEventType)"})
-  public void testNewActivitiEntityEventImpl_thenThrowActivitiIllegalArgumentException2() {
-    // Arrange, Act and Assert
-    assertThrows(
-        ActivitiIllegalArgumentException.class,
+    assertThrows(ActivitiIllegalArgumentException.class,
         () -> new ActivitiEntityEventImpl(null, ActivitiEventType.ENTITY_CREATED));
+
   }
 
   /**
    * Test {@link ActivitiEntityEventImpl#ActivitiEntityEventImpl(Object, ActivitiEventType)}.
-   *
    * <ul>
-   *   <li>When {@link JSONObject#NULL}.
-   *   <li>Then return ExecutionId is {@code null}.
+   *   <li>When {@link JSONObject#NULL}.</li>
+   *   <li>Then return ExecutionId is {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ActivitiEntityEventImpl#ActivitiEntityEventImpl(Object,
-   * ActivitiEventType)}
+   * <p>
+   * Method under test: {@link ActivitiEntityEventImpl#ActivitiEntityEventImpl(Object, ActivitiEventType)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void ActivitiEntityEventImpl.<init>(Object, ActivitiEventType)"})
   public void testNewActivitiEntityEventImpl_whenNull_thenReturnExecutionIdIsNull() {
     // Arrange
     Object object = JSONObject.NULL;
 
     // Act
-    ActivitiEntityEventImpl actualActivitiEntityEventImpl =
-        new ActivitiEntityEventImpl(object, ActivitiEventType.ENTITY_CREATED);
+    ActivitiEntityEventImpl actualActivitiEntityEventImpl = new ActivitiEntityEventImpl(object,
+        ActivitiEventType.ENTITY_CREATED);
 
     // Assert
     assertNull(actualActivitiEntityEventImpl.getExecutionId());
@@ -104,22 +77,18 @@ public class ActivitiEntityEventImplDiffblueTest {
 
   /**
    * Test {@link ActivitiEntityEventImpl#getEntity()}.
-   *
-   * <p>Method under test: {@link ActivitiEntityEventImpl#getEntity()}
+   * <p>
+   * Method under test: {@link ActivitiEntityEventImpl#getEntity()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"Object ActivitiEntityEventImpl.getEntity()"})
   public void testGetEntity() {
     // Arrange
-    ActivitiEntityEventImpl activitiEntityEventImpl =
-        new ActivitiEntityEventImpl(JSONObject.NULL, ActivitiEventType.ENTITY_CREATED);
+    ActivitiEntityEventImpl activitiEntityEventImpl = new ActivitiEntityEventImpl(JSONObject.NULL,
+        ActivitiEventType.ENTITY_CREATED);
 
-    // Act
-    Object actualEntity = activitiEntityEventImpl.getEntity();
-
-    // Assert
-    assertSame(activitiEntityEventImpl.entity, actualEntity);
+    // Act and Assert
+    assertSame(activitiEntityEventImpl.entity, activitiEntityEventImpl.getEntity());
   }
 }

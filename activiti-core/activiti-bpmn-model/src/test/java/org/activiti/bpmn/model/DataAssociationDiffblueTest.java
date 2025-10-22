@@ -22,8 +22,7 @@ import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
 import java.util.List;
@@ -33,17 +32,15 @@ import org.junit.experimental.categories.Category;
 public class DataAssociationDiffblueTest {
   /**
    * Test {@link DataAssociation#clone()}.
-   *
    * <ul>
-   *   <li>Given {@link ArrayList#ArrayList()} add {@link Assignment} (default constructor).
-   *   <li>Then return Assignments size is one.
+   *   <li>Given {@link ArrayList#ArrayList()} add {@link Assignment} (default constructor).</li>
+   *   <li>Then return Assignments size is one.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link DataAssociation#clone()}
+   * <p>
+   * Method under test: {@link DataAssociation#clone()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"DataAssociation DataAssociation.clone()"})
   public void testClone_givenArrayListAddAssignment_thenReturnAssignmentsSizeIsOne() {
     // Arrange
@@ -68,17 +65,15 @@ public class DataAssociationDiffblueTest {
 
   /**
    * Test {@link DataAssociation#clone()}.
-   *
    * <ul>
-   *   <li>Given {@link DataAssociation} (default constructor) Assignments is {@code null}.
-   *   <li>Then return Id is {@code null}.
+   *   <li>Given {@link DataAssociation} (default constructor) Assignments is {@code null}.</li>
+   *   <li>Then return Id is {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link DataAssociation#clone()}
+   * <p>
+   * Method under test: {@link DataAssociation#clone()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"DataAssociation DataAssociation.clone()"})
   public void testClone_givenDataAssociationAssignmentsIsNull_thenReturnIdIsNull() {
     // Arrange
@@ -102,21 +97,19 @@ public class DataAssociationDiffblueTest {
 
   /**
    * Test {@link DataAssociation#clone()}.
-   *
    * <ul>
-   *   <li>Given {@link DataAssociation} (default constructor).
-   *   <li>Then return Id is {@code null}.
+   *   <li>Given {@link DataAssociation} (default constructor).</li>
+   *   <li>Then return Id is {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link DataAssociation#clone()}
+   * <p>
+   * Method under test: {@link DataAssociation#clone()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"DataAssociation DataAssociation.clone()"})
   public void testClone_givenDataAssociation_thenReturnIdIsNull() {
     // Arrange and Act
-    DataAssociation actualCloneResult = new DataAssociation().clone();
+    DataAssociation actualCloneResult = (new DataAssociation()).clone();
 
     // Assert
     assertNull(actualCloneResult.getId());
@@ -132,21 +125,18 @@ public class DataAssociationDiffblueTest {
 
   /**
    * Test {@link DataAssociation#setValues(DataAssociation)} with {@code otherAssociation}.
-   *
    * <ul>
-   *   <li>Then calls {@link Assignment#clone()}.
+   *   <li>Then calls {@link Assignment#clone()}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link DataAssociation#setValues(DataAssociation)}
+   * <p>
+   * Method under test: {@link DataAssociation#setValues(DataAssociation)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void DataAssociation.setValues(DataAssociation)"})
   public void testSetValuesWithOtherAssociation_thenCallsClone() {
     // Arrange
     DataAssociation dataAssociation = new DataAssociation();
-
     Assignment assignment = mock(Assignment.class);
     when(assignment.clone()).thenReturn(new Assignment());
 
@@ -165,9 +155,8 @@ public class DataAssociationDiffblueTest {
 
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>default or parameterless constructor of {@link DataAssociation}
    *   <li>{@link DataAssociation#setAssignments(List)}
@@ -181,19 +170,12 @@ public class DataAssociationDiffblueTest {
    * </ul>
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void DataAssociation.<init>()",
-    "List DataAssociation.getAssignments()",
-    "String DataAssociation.getSourceRef()",
-    "String DataAssociation.getTargetRef()",
-    "String DataAssociation.getTransformation()",
-    "void DataAssociation.setAssignments(List)",
-    "void DataAssociation.setSourceRef(String)",
-    "void DataAssociation.setTargetRef(String)",
-    "void DataAssociation.setTransformation(String)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void DataAssociation.<init>()", "List DataAssociation.getAssignments()",
+      "String DataAssociation.getSourceRef()", "String DataAssociation.getTargetRef()",
+      "String DataAssociation.getTransformation()", "void DataAssociation.setAssignments(List)",
+      "void DataAssociation.setSourceRef(String)", "void DataAssociation.setTargetRef(String)",
+      "void DataAssociation.setTransformation(String)"})
   public void testGettersAndSetters() {
     // Arrange and Act
     DataAssociation actualDataAssociation = new DataAssociation();

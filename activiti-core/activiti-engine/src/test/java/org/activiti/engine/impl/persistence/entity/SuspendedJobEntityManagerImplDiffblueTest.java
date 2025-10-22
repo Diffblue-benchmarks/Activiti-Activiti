@@ -20,19 +20,21 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.ArgumentMatchers.isA;
+import static org.mockito.Mockito.anyBoolean;
 import static org.mockito.Mockito.anyInt;
 import static org.mockito.Mockito.atLeast;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import org.activiti.engine.delegate.DelegateExecution;
 import org.activiti.engine.delegate.event.ActivitiEvent;
 import org.activiti.engine.delegate.event.ActivitiEventDispatcher;
 import org.activiti.engine.delegate.event.impl.ActivitiEventDispatcherImpl;
@@ -55,40 +57,35 @@ import org.mockito.junit.MockitoJUnitRunner;
 
 @RunWith(MockitoJUnitRunner.class)
 public class SuspendedJobEntityManagerImplDiffblueTest {
-  @Mock private SuspendedJobDataManager suspendedJobDataManager;
+  @Mock
+  private SuspendedJobDataManager suspendedJobDataManager;
 
-  @InjectMocks private SuspendedJobEntityManagerImpl suspendedJobEntityManagerImpl;
+  @InjectMocks
+  private SuspendedJobEntityManagerImpl suspendedJobEntityManagerImpl;
 
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
-   *   <li>{@link
-   *       SuspendedJobEntityManagerImpl#SuspendedJobEntityManagerImpl(ProcessEngineConfigurationImpl,
-   *       SuspendedJobDataManager)}
+   *   <li>{@link SuspendedJobEntityManagerImpl#SuspendedJobEntityManagerImpl(ProcessEngineConfigurationImpl, SuspendedJobDataManager)}
    *   <li>{@link SuspendedJobEntityManagerImpl#setJobDataManager(SuspendedJobDataManager)}
    * </ul>
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({
-    "void SuspendedJobEntityManagerImpl.<init>(ProcessEngineConfigurationImpl, SuspendedJobDataManager)",
-    "void SuspendedJobEntityManagerImpl.setJobDataManager(SuspendedJobDataManager)"
-  })
+      "void SuspendedJobEntityManagerImpl.<init>(ProcessEngineConfigurationImpl, SuspendedJobDataManager)",
+      "void SuspendedJobEntityManagerImpl.setJobDataManager(SuspendedJobDataManager)"})
   public void testGettersAndSetters() {
     // Arrange
     JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();
 
     // Act
-    SuspendedJobEntityManagerImpl actualSuspendedJobEntityManagerImpl =
-        new SuspendedJobEntityManagerImpl(
-            processEngineConfiguration,
-            new MybatisSuspendedJobDataManager(new JtaProcessEngineConfiguration()));
-    MybatisSuspendedJobDataManager jobDataManager =
-        new MybatisSuspendedJobDataManager(new JtaProcessEngineConfiguration());
+    SuspendedJobEntityManagerImpl actualSuspendedJobEntityManagerImpl = new SuspendedJobEntityManagerImpl(
+        processEngineConfiguration, new MybatisSuspendedJobDataManager(new JtaProcessEngineConfiguration()));
+    MybatisSuspendedJobDataManager jobDataManager = new MybatisSuspendedJobDataManager(
+        new JtaProcessEngineConfiguration());
     actualSuspendedJobEntityManagerImpl.setJobDataManager(jobDataManager);
 
     // Assert
@@ -97,114 +94,96 @@ public class SuspendedJobEntityManagerImplDiffblueTest {
 
   /**
    * Test {@link SuspendedJobEntityManagerImpl#findJobsByExecutionId(String)}.
-   *
-   * <p>Method under test: {@link SuspendedJobEntityManagerImpl#findJobsByExecutionId(String)}
+   * <p>
+   * Method under test: {@link SuspendedJobEntityManagerImpl#findJobsByExecutionId(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"List SuspendedJobEntityManagerImpl.findJobsByExecutionId(String)"})
   public void testFindJobsByExecutionId() {
     // Arrange
-    when(suspendedJobDataManager.findJobsByExecutionId(Mockito.<String>any()))
-        .thenReturn(new ArrayList<>());
+    when(suspendedJobDataManager.findJobsByExecutionId(Mockito.<String>any())).thenReturn(new ArrayList<>());
 
     // Act
-    List<SuspendedJobEntity> actualFindJobsByExecutionIdResult =
-        suspendedJobEntityManagerImpl.findJobsByExecutionId("42");
+    List<SuspendedJobEntity> actualFindJobsByExecutionIdResult = suspendedJobEntityManagerImpl
+        .findJobsByExecutionId("42");
 
     // Assert
-    verify(suspendedJobDataManager).findJobsByExecutionId("42");
+    verify(suspendedJobDataManager).findJobsByExecutionId(eq("42"));
     assertTrue(actualFindJobsByExecutionIdResult.isEmpty());
   }
 
   /**
    * Test {@link SuspendedJobEntityManagerImpl#findJobsByProcessInstanceId(String)}.
-   *
-   * <p>Method under test: {@link SuspendedJobEntityManagerImpl#findJobsByProcessInstanceId(String)}
+   * <p>
+   * Method under test: {@link SuspendedJobEntityManagerImpl#findJobsByProcessInstanceId(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"List SuspendedJobEntityManagerImpl.findJobsByProcessInstanceId(String)"})
   public void testFindJobsByProcessInstanceId() {
     // Arrange
-    when(suspendedJobDataManager.findJobsByProcessInstanceId(Mockito.<String>any()))
-        .thenReturn(new ArrayList<>());
+    when(suspendedJobDataManager.findJobsByProcessInstanceId(Mockito.<String>any())).thenReturn(new ArrayList<>());
 
     // Act
-    List<SuspendedJobEntity> actualFindJobsByProcessInstanceIdResult =
-        suspendedJobEntityManagerImpl.findJobsByProcessInstanceId("42");
+    List<SuspendedJobEntity> actualFindJobsByProcessInstanceIdResult = suspendedJobEntityManagerImpl
+        .findJobsByProcessInstanceId("42");
 
     // Assert
-    verify(suspendedJobDataManager).findJobsByProcessInstanceId("42");
+    verify(suspendedJobDataManager).findJobsByProcessInstanceId(eq("42"));
     assertTrue(actualFindJobsByProcessInstanceIdResult.isEmpty());
   }
 
   /**
-   * Test {@link SuspendedJobEntityManagerImpl#findJobsByQueryCriteria(SuspendedJobQueryImpl,
-   * Page)}.
-   *
+   * Test {@link SuspendedJobEntityManagerImpl#findJobsByQueryCriteria(SuspendedJobQueryImpl, Page)}.
    * <ul>
-   *   <li>Then return Empty.
+   *   <li>Then return Empty.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link
-   * SuspendedJobEntityManagerImpl#findJobsByQueryCriteria(SuspendedJobQueryImpl, Page)}
+   * <p>
+   * Method under test: {@link SuspendedJobEntityManagerImpl#findJobsByQueryCriteria(SuspendedJobQueryImpl, Page)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "List SuspendedJobEntityManagerImpl.findJobsByQueryCriteria(SuspendedJobQueryImpl, Page)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"List SuspendedJobEntityManagerImpl.findJobsByQueryCriteria(SuspendedJobQueryImpl, Page)"})
   public void testFindJobsByQueryCriteria_thenReturnEmpty() {
     // Arrange
     SuspendedJobDataManager jobDataManager = mock(SuspendedJobDataManager.class);
-    when(jobDataManager.findJobsByQueryCriteria(
-            Mockito.<SuspendedJobQueryImpl>any(), Mockito.<Page>any()))
+    when(jobDataManager.findJobsByQueryCriteria(Mockito.<SuspendedJobQueryImpl>any(), Mockito.<Page>any()))
         .thenReturn(new ArrayList<>());
-    SuspendedJobEntityManagerImpl suspendedJobEntityManagerImpl =
-        new SuspendedJobEntityManagerImpl(new JtaProcessEngineConfiguration(), jobDataManager);
+    SuspendedJobEntityManagerImpl suspendedJobEntityManagerImpl = new SuspendedJobEntityManagerImpl(
+        new JtaProcessEngineConfiguration(), jobDataManager);
     SuspendedJobQueryImpl jobQuery = new SuspendedJobQueryImpl();
 
     // Act
-    List<Job> actualFindJobsByQueryCriteriaResult =
-        suspendedJobEntityManagerImpl.findJobsByQueryCriteria(jobQuery, new Page(1, 3));
+    List<Job> actualFindJobsByQueryCriteriaResult = suspendedJobEntityManagerImpl.findJobsByQueryCriteria(jobQuery,
+        new Page(1, 3));
 
     // Assert
-    verify(jobDataManager)
-        .findJobsByQueryCriteria(isA(SuspendedJobQueryImpl.class), isA(Page.class));
+    verify(jobDataManager).findJobsByQueryCriteria(isA(SuspendedJobQueryImpl.class), isA(Page.class));
     assertTrue(actualFindJobsByQueryCriteriaResult.isEmpty());
   }
 
   /**
    * Test {@link SuspendedJobEntityManagerImpl#findJobCountByQueryCriteria(SuspendedJobQueryImpl)}.
-   *
    * <ul>
-   *   <li>Then return three.
+   *   <li>Then return three.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link
-   * SuspendedJobEntityManagerImpl#findJobCountByQueryCriteria(SuspendedJobQueryImpl)}
+   * <p>
+   * Method under test: {@link SuspendedJobEntityManagerImpl#findJobCountByQueryCriteria(SuspendedJobQueryImpl)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "long SuspendedJobEntityManagerImpl.findJobCountByQueryCriteria(SuspendedJobQueryImpl)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"long SuspendedJobEntityManagerImpl.findJobCountByQueryCriteria(SuspendedJobQueryImpl)"})
   public void testFindJobCountByQueryCriteria_thenReturnThree() {
     // Arrange
     SuspendedJobDataManager jobDataManager = mock(SuspendedJobDataManager.class);
-    when(jobDataManager.findJobCountByQueryCriteria(Mockito.<SuspendedJobQueryImpl>any()))
-        .thenReturn(3L);
-    SuspendedJobEntityManagerImpl suspendedJobEntityManagerImpl =
-        new SuspendedJobEntityManagerImpl(new JtaProcessEngineConfiguration(), jobDataManager);
+    when(jobDataManager.findJobCountByQueryCriteria(Mockito.<SuspendedJobQueryImpl>any())).thenReturn(3L);
+    SuspendedJobEntityManagerImpl suspendedJobEntityManagerImpl = new SuspendedJobEntityManagerImpl(
+        new JtaProcessEngineConfiguration(), jobDataManager);
 
     // Act
-    long actualFindJobCountByQueryCriteriaResult =
-        suspendedJobEntityManagerImpl.findJobCountByQueryCriteria(new SuspendedJobQueryImpl());
+    long actualFindJobCountByQueryCriteriaResult = suspendedJobEntityManagerImpl
+        .findJobCountByQueryCriteria(new SuspendedJobQueryImpl());
 
     // Assert
     verify(jobDataManager).findJobCountByQueryCriteria(isA(SuspendedJobQueryImpl.class));
@@ -213,625 +192,459 @@ public class SuspendedJobEntityManagerImplDiffblueTest {
 
   /**
    * Test {@link SuspendedJobEntityManagerImpl#updateJobTenantIdForDeployment(String, String)}.
-   *
-   * <p>Method under test: {@link
-   * SuspendedJobEntityManagerImpl#updateJobTenantIdForDeployment(String, String)}
+   * <p>
+   * Method under test: {@link SuspendedJobEntityManagerImpl#updateJobTenantIdForDeployment(String, String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void SuspendedJobEntityManagerImpl.updateJobTenantIdForDeployment(String, String)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void SuspendedJobEntityManagerImpl.updateJobTenantIdForDeployment(String, String)"})
   public void testUpdateJobTenantIdForDeployment() {
     // Arrange
-    doNothing()
-        .when(suspendedJobDataManager)
+    doNothing().when(suspendedJobDataManager)
         .updateJobTenantIdForDeployment(Mockito.<String>any(), Mockito.<String>any());
 
     // Act
     suspendedJobEntityManagerImpl.updateJobTenantIdForDeployment("42", "42");
 
     // Assert
-    verify(suspendedJobDataManager).updateJobTenantIdForDeployment("42", "42");
+    verify(suspendedJobDataManager).updateJobTenantIdForDeployment(eq("42"), eq("42"));
   }
 
   /**
-   * Test {@link SuspendedJobEntityManagerImpl#insert(SuspendedJobEntity)} with {@code
-   * SuspendedJobEntity}.
-   *
-   * <p>Method under test: {@link SuspendedJobEntityManagerImpl#insert(SuspendedJobEntity)}
+   * Test {@link SuspendedJobEntityManagerImpl#insert(SuspendedJobEntity)} with {@code SuspendedJobEntity}.
+   * <p>
+   * Method under test: {@link SuspendedJobEntityManagerImpl#insert(SuspendedJobEntity)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void SuspendedJobEntityManagerImpl.insert(SuspendedJobEntity)"})
   public void testInsertWithSuspendedJobEntity() {
     // Arrange
-    JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();
-    processEngineConfiguration.setEventDispatcher(new ActivitiEventDispatcherImpl());
-
+    ProcessEngineConfigurationImpl processEngineConfiguration = mock(ProcessEngineConfigurationImpl.class);
+    when(processEngineConfiguration.getEventDispatcher()).thenReturn(new ActivitiEventDispatcherImpl());
     SuspendedJobDataManager jobDataManager = mock(SuspendedJobDataManager.class);
     doNothing().when(jobDataManager).insert(Mockito.<SuspendedJobEntity>any());
-
-    SuspendedJobEntityManagerImpl suspendedJobEntityManagerImpl =
-        new SuspendedJobEntityManagerImpl(processEngineConfiguration, jobDataManager);
+    SuspendedJobEntityManagerImpl suspendedJobEntityManagerImpl = new SuspendedJobEntityManagerImpl(
+        processEngineConfiguration, jobDataManager);
+    SuspendedJobEntityImpl jobEntity = new SuspendedJobEntityImpl();
 
     // Act
-    suspendedJobEntityManagerImpl.insert(new SuspendedJobEntityImpl());
+    suspendedJobEntityManagerImpl.insert(jobEntity);
 
-    // Assert
+    // Assert that nothing has changed
+    verify(processEngineConfiguration).getEventDispatcher();
     verify(jobDataManager).insert(isA(SuspendedJobEntity.class));
+    assertEquals("", jobEntity.getTenantId());
   }
 
   /**
-   * Test {@link SuspendedJobEntityManagerImpl#insert(SuspendedJobEntity)} with {@code
-   * SuspendedJobEntity}.
-   *
-   * <p>Method under test: {@link SuspendedJobEntityManagerImpl#insert(SuspendedJobEntity)}
+   * Test {@link SuspendedJobEntityManagerImpl#insert(SuspendedJobEntity)} with {@code SuspendedJobEntity}.
+   * <p>
+   * Method under test: {@link SuspendedJobEntityManagerImpl#insert(SuspendedJobEntity)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void SuspendedJobEntityManagerImpl.insert(SuspendedJobEntity)"})
   public void testInsertWithSuspendedJobEntity2() {
     // Arrange
-    ExecutionDataManager executionDataManager = mock(ExecutionDataManager.class);
-    when(executionDataManager.findById(Mockito.<String>any()))
-        .thenReturn(ExecutionEntityImpl.createWithEmptyRelationshipCollections());
-    ExecutionEntityManagerImpl executionEntityManagerImpl =
-        new ExecutionEntityManagerImpl(new JtaProcessEngineConfiguration(), executionDataManager);
-
-    PerformanceSettings performanceSettings = new PerformanceSettings();
-    performanceSettings.setEnableEagerExecutionTreeFetching(true);
-    performanceSettings.setEnableExecutionRelationshipCounts(true);
-    performanceSettings.setEnableLocalization(true);
-    performanceSettings.setValidateExecutionRelationshipCountConfigOnBoot(true);
-
-    ProcessEngineConfigurationImpl processEngineConfiguration =
-        mock(ProcessEngineConfigurationImpl.class);
-    when(processEngineConfiguration.getEventDispatcher())
-        .thenReturn(new ActivitiEventDispatcherImpl());
-    when(processEngineConfiguration.getPerformanceSettings()).thenReturn(performanceSettings);
-    when(processEngineConfiguration.getExecutionEntityManager())
-        .thenReturn(executionEntityManagerImpl);
-
+    ActivitiEventDispatcher activitiEventDispatcher = mock(ActivitiEventDispatcher.class);
+    when(activitiEventDispatcher.isEnabled()).thenReturn(false);
+    ProcessEngineConfigurationImpl processEngineConfiguration = mock(ProcessEngineConfigurationImpl.class);
+    when(processEngineConfiguration.getEventDispatcher()).thenReturn(activitiEventDispatcher);
     SuspendedJobDataManager jobDataManager = mock(SuspendedJobDataManager.class);
     doNothing().when(jobDataManager).insert(Mockito.<SuspendedJobEntity>any());
-
-    SuspendedJobEntityManagerImpl suspendedJobEntityManagerImpl =
-        new SuspendedJobEntityManagerImpl(processEngineConfiguration, jobDataManager);
-
-    SuspendedJobEntity jobEntity = mock(SuspendedJobEntity.class);
-    when(jobEntity.getProcessDefinitionId()).thenReturn("42");
-    when(jobEntity.getProcessInstanceId()).thenReturn("42");
-    doNothing().when(jobEntity).setTenantId(Mockito.<String>any());
-    when(jobEntity.getExecutionId()).thenReturn("42");
+    SuspendedJobEntityManagerImpl suspendedJobEntityManagerImpl = new SuspendedJobEntityManagerImpl(
+        processEngineConfiguration, jobDataManager);
+    SuspendedJobEntityImpl jobEntity = new SuspendedJobEntityImpl();
 
     // Act
     suspendedJobEntityManagerImpl.insert(jobEntity);
 
-    // Assert
+    // Assert that nothing has changed
+    verify(activitiEventDispatcher).isEnabled();
     verify(processEngineConfiguration).getEventDispatcher();
-    verify(processEngineConfiguration).getExecutionEntityManager();
-    verify(processEngineConfiguration).getPerformanceSettings();
-    verify(jobEntity).setTenantId("");
-    verify(executionDataManager).findById("42");
     verify(jobDataManager).insert(isA(SuspendedJobEntity.class));
-    verify(jobEntity, atLeast(1)).getExecutionId();
-    verify(jobEntity, atLeast(1)).getProcessDefinitionId();
-    verify(jobEntity, atLeast(1)).getProcessInstanceId();
+    assertEquals("", jobEntity.getTenantId());
   }
 
   /**
-   * Test {@link SuspendedJobEntityManagerImpl#insert(SuspendedJobEntity)} with {@code
-   * SuspendedJobEntity}.
-   *
-   * <p>Method under test: {@link SuspendedJobEntityManagerImpl#insert(SuspendedJobEntity)}
+   * Test {@link SuspendedJobEntityManagerImpl#insert(SuspendedJobEntity)} with {@code SuspendedJobEntity}.
+   * <p>
+   * Method under test: {@link SuspendedJobEntityManagerImpl#insert(SuspendedJobEntity)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void SuspendedJobEntityManagerImpl.insert(SuspendedJobEntity)"})
   public void testInsertWithSuspendedJobEntity3() {
     // Arrange
+    ActivitiEventDispatcher activitiEventDispatcher = mock(ActivitiEventDispatcher.class);
+    doNothing().when(activitiEventDispatcher).dispatchEvent(Mockito.<ActivitiEvent>any());
+    when(activitiEventDispatcher.isEnabled()).thenReturn(true);
     ExecutionDataManager executionDataManager = mock(ExecutionDataManager.class);
     when(executionDataManager.findById(Mockito.<String>any()))
         .thenReturn(ExecutionEntityImpl.createWithEmptyRelationshipCollections());
-    ExecutionEntityManagerImpl executionEntityManagerImpl =
-        new ExecutionEntityManagerImpl(new JtaProcessEngineConfiguration(), executionDataManager);
+    ExecutionEntityManagerImpl executionEntityManagerImpl = new ExecutionEntityManagerImpl(
+        new JtaProcessEngineConfiguration(), executionDataManager);
 
     PerformanceSettings performanceSettings = new PerformanceSettings();
     performanceSettings.setEnableEagerExecutionTreeFetching(true);
-    performanceSettings.setEnableExecutionRelationshipCounts(false);
+    performanceSettings.setEnableExecutionRelationshipCounts(true);
     performanceSettings.setEnableLocalization(true);
     performanceSettings.setValidateExecutionRelationshipCountConfigOnBoot(true);
-
-    ProcessEngineConfigurationImpl processEngineConfiguration =
-        mock(ProcessEngineConfigurationImpl.class);
-    when(processEngineConfiguration.getEventDispatcher())
-        .thenReturn(new ActivitiEventDispatcherImpl());
+    ProcessEngineConfigurationImpl processEngineConfiguration = mock(ProcessEngineConfigurationImpl.class);
     when(processEngineConfiguration.getPerformanceSettings()).thenReturn(performanceSettings);
-    when(processEngineConfiguration.getExecutionEntityManager())
-        .thenReturn(executionEntityManagerImpl);
-
+    when(processEngineConfiguration.getExecutionEntityManager()).thenReturn(executionEntityManagerImpl);
+    when(processEngineConfiguration.getEventDispatcher()).thenReturn(activitiEventDispatcher);
     SuspendedJobDataManager jobDataManager = mock(SuspendedJobDataManager.class);
     doNothing().when(jobDataManager).insert(Mockito.<SuspendedJobEntity>any());
+    SuspendedJobEntityManagerImpl suspendedJobEntityManagerImpl = new SuspendedJobEntityManagerImpl(
+        processEngineConfiguration, jobDataManager);
 
-    SuspendedJobEntityManagerImpl suspendedJobEntityManagerImpl =
-        new SuspendedJobEntityManagerImpl(processEngineConfiguration, jobDataManager);
-
-    SuspendedJobEntity jobEntity = mock(SuspendedJobEntity.class);
-    when(jobEntity.getProcessDefinitionId()).thenReturn("42");
-    when(jobEntity.getProcessInstanceId()).thenReturn("42");
-    doNothing().when(jobEntity).setTenantId(Mockito.<String>any());
-    when(jobEntity.getExecutionId()).thenReturn("42");
+    SuspendedJobEntityImpl jobEntity = new SuspendedJobEntityImpl();
+    jobEntity.setExecutionId("42");
 
     // Act
     suspendedJobEntityManagerImpl.insert(jobEntity);
 
-    // Assert
+    // Assert that nothing has changed
+    verify(activitiEventDispatcher, atLeast(1)).dispatchEvent(Mockito.<ActivitiEvent>any());
+    verify(activitiEventDispatcher).isEnabled();
     verify(processEngineConfiguration).getEventDispatcher();
     verify(processEngineConfiguration).getExecutionEntityManager();
     verify(processEngineConfiguration).getPerformanceSettings();
-    verify(jobEntity).setTenantId("");
-    verify(executionDataManager).findById("42");
+    verify(executionDataManager).findById(eq("42"));
     verify(jobDataManager).insert(isA(SuspendedJobEntity.class));
-    verify(jobEntity, atLeast(1)).getExecutionId();
-    verify(jobEntity, atLeast(1)).getProcessDefinitionId();
-    verify(jobEntity, atLeast(1)).getProcessInstanceId();
+    assertEquals("", jobEntity.getTenantId());
   }
 
   /**
-   * Test {@link SuspendedJobEntityManagerImpl#insert(SuspendedJobEntity)} with {@code
-   * SuspendedJobEntity}.
-   *
-   * <p>Method under test: {@link SuspendedJobEntityManagerImpl#insert(SuspendedJobEntity)}
+   * Test {@link SuspendedJobEntityManagerImpl#insert(SuspendedJobEntity)} with {@code SuspendedJobEntity}.
+   * <p>
+   * Method under test: {@link SuspendedJobEntityManagerImpl#insert(SuspendedJobEntity)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void SuspendedJobEntityManagerImpl.insert(SuspendedJobEntity)"})
   public void testInsertWithSuspendedJobEntity4() {
     // Arrange
-    ExecutionEntityImpl executionEntityImpl = mock(ExecutionEntityImpl.class);
-    when(executionEntityImpl.getSuspendedJobCount()).thenReturn(3);
-    doNothing().when(executionEntityImpl).setSuspendedJobCount(anyInt());
-    when(executionEntityImpl.isCountEnabled()).thenReturn(true);
-    when(executionEntityImpl.getTenantId()).thenReturn("42");
-
+    ActivitiEventDispatcher activitiEventDispatcher = mock(ActivitiEventDispatcher.class);
+    doNothing().when(activitiEventDispatcher).dispatchEvent(Mockito.<ActivitiEvent>any());
+    when(activitiEventDispatcher.isEnabled()).thenReturn(true);
     ExecutionDataManager executionDataManager = mock(ExecutionDataManager.class);
-    when(executionDataManager.findById(Mockito.<String>any())).thenReturn(executionEntityImpl);
-    ExecutionEntityManagerImpl executionEntityManagerImpl =
-        new ExecutionEntityManagerImpl(new JtaProcessEngineConfiguration(), executionDataManager);
+    when(executionDataManager.findById(Mockito.<String>any()))
+        .thenReturn(ExecutionEntityImpl.createWithEmptyRelationshipCollections());
+    ExecutionEntityManagerImpl executionEntityManagerImpl = new ExecutionEntityManagerImpl(
+        new JtaProcessEngineConfiguration(), executionDataManager);
 
-    PerformanceSettings performanceSettings = new PerformanceSettings();
+    PerformanceSettings performanceSettings = mock(PerformanceSettings.class);
+    when(performanceSettings.isEnableExecutionRelationshipCounts()).thenReturn(false);
+    doNothing().when(performanceSettings).setEnableEagerExecutionTreeFetching(anyBoolean());
+    doNothing().when(performanceSettings).setEnableExecutionRelationshipCounts(anyBoolean());
+    doNothing().when(performanceSettings).setEnableLocalization(anyBoolean());
+    doNothing().when(performanceSettings).setValidateExecutionRelationshipCountConfigOnBoot(anyBoolean());
     performanceSettings.setEnableEagerExecutionTreeFetching(true);
     performanceSettings.setEnableExecutionRelationshipCounts(true);
     performanceSettings.setEnableLocalization(true);
     performanceSettings.setValidateExecutionRelationshipCountConfigOnBoot(true);
-
-    ProcessEngineConfigurationImpl processEngineConfiguration =
-        mock(ProcessEngineConfigurationImpl.class);
-    when(processEngineConfiguration.getEventDispatcher())
-        .thenReturn(new ActivitiEventDispatcherImpl());
+    ProcessEngineConfigurationImpl processEngineConfiguration = mock(ProcessEngineConfigurationImpl.class);
     when(processEngineConfiguration.getPerformanceSettings()).thenReturn(performanceSettings);
-    when(processEngineConfiguration.getExecutionEntityManager())
-        .thenReturn(executionEntityManagerImpl);
-
+    when(processEngineConfiguration.getExecutionEntityManager()).thenReturn(executionEntityManagerImpl);
+    when(processEngineConfiguration.getEventDispatcher()).thenReturn(activitiEventDispatcher);
     SuspendedJobDataManager jobDataManager = mock(SuspendedJobDataManager.class);
     doNothing().when(jobDataManager).insert(Mockito.<SuspendedJobEntity>any());
+    SuspendedJobEntityManagerImpl suspendedJobEntityManagerImpl = new SuspendedJobEntityManagerImpl(
+        processEngineConfiguration, jobDataManager);
 
-    SuspendedJobEntityManagerImpl suspendedJobEntityManagerImpl =
-        new SuspendedJobEntityManagerImpl(processEngineConfiguration, jobDataManager);
-
-    SuspendedJobEntity jobEntity = mock(SuspendedJobEntity.class);
-    when(jobEntity.getProcessDefinitionId()).thenReturn("42");
-    when(jobEntity.getProcessInstanceId()).thenReturn("42");
-    doNothing().when(jobEntity).setTenantId(Mockito.<String>any());
-    when(jobEntity.getExecutionId()).thenReturn("42");
+    SuspendedJobEntityImpl jobEntity = new SuspendedJobEntityImpl();
+    jobEntity.setExecutionId("42");
 
     // Act
     suspendedJobEntityManagerImpl.insert(jobEntity);
 
-    // Assert
+    // Assert that nothing has changed
+    verify(activitiEventDispatcher, atLeast(1)).dispatchEvent(Mockito.<ActivitiEvent>any());
+    verify(activitiEventDispatcher).isEnabled();
+    verify(performanceSettings).isEnableExecutionRelationshipCounts();
+    verify(performanceSettings).setEnableEagerExecutionTreeFetching(eq(true));
+    verify(performanceSettings).setEnableExecutionRelationshipCounts(eq(true));
+    verify(performanceSettings).setEnableLocalization(eq(true));
+    verify(performanceSettings).setValidateExecutionRelationshipCountConfigOnBoot(eq(true));
     verify(processEngineConfiguration).getEventDispatcher();
     verify(processEngineConfiguration).getExecutionEntityManager();
     verify(processEngineConfiguration).getPerformanceSettings();
-    verify(jobEntity).setTenantId("42");
-    verify(executionEntityImpl).getSuspendedJobCount();
-    verify(executionEntityImpl, atLeast(1)).getTenantId();
-    verify(executionEntityImpl).isCountEnabled();
-    verify(executionEntityImpl).setSuspendedJobCount(4);
-    verify(executionDataManager).findById("42");
+    verify(executionDataManager).findById(eq("42"));
     verify(jobDataManager).insert(isA(SuspendedJobEntity.class));
-    verify(jobEntity, atLeast(1)).getExecutionId();
-    verify(jobEntity, atLeast(1)).getProcessDefinitionId();
-    verify(jobEntity, atLeast(1)).getProcessInstanceId();
+    assertEquals("", jobEntity.getTenantId());
   }
 
   /**
-   * Test {@link SuspendedJobEntityManagerImpl#insert(SuspendedJobEntity)} with {@code
-   * SuspendedJobEntity}.
-   *
-   * <p>Method under test: {@link SuspendedJobEntityManagerImpl#insert(SuspendedJobEntity)}
+   * Test {@link SuspendedJobEntityManagerImpl#insert(SuspendedJobEntity)} with {@code SuspendedJobEntity}.
+   * <p>
+   * Method under test: {@link SuspendedJobEntityManagerImpl#insert(SuspendedJobEntity)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void SuspendedJobEntityManagerImpl.insert(SuspendedJobEntity)"})
   public void testInsertWithSuspendedJobEntity5() {
     // Arrange
-    ExecutionEntityManager executionEntityManager = mock(ExecutionEntityManager.class);
-    when(executionEntityManager.findById(Mockito.<String>any()))
-        .thenReturn(ExecutionEntityImpl.createWithEmptyRelationshipCollections());
-
-    PerformanceSettings performanceSettings = new PerformanceSettings();
-    performanceSettings.setEnableEagerExecutionTreeFetching(true);
-    performanceSettings.setEnableExecutionRelationshipCounts(true);
-    performanceSettings.setEnableLocalization(true);
-    performanceSettings.setValidateExecutionRelationshipCountConfigOnBoot(true);
-
     ActivitiEventDispatcher activitiEventDispatcher = mock(ActivitiEventDispatcher.class);
     doNothing().when(activitiEventDispatcher).dispatchEvent(Mockito.<ActivitiEvent>any());
     when(activitiEventDispatcher.isEnabled()).thenReturn(true);
-
-    ProcessEngineConfigurationImpl processEngineConfiguration =
-        mock(ProcessEngineConfigurationImpl.class);
-    when(processEngineConfiguration.getEventDispatcher()).thenReturn(activitiEventDispatcher);
-    when(processEngineConfiguration.getPerformanceSettings()).thenReturn(performanceSettings);
-    when(processEngineConfiguration.getExecutionEntityManager()).thenReturn(executionEntityManager);
-
-    SuspendedJobDataManager jobDataManager = mock(SuspendedJobDataManager.class);
-    doNothing().when(jobDataManager).insert(Mockito.<SuspendedJobEntity>any());
-
-    SuspendedJobEntityManagerImpl suspendedJobEntityManagerImpl =
-        new SuspendedJobEntityManagerImpl(processEngineConfiguration, jobDataManager);
-
-    SuspendedJobEntity jobEntity = mock(SuspendedJobEntity.class);
-    when(jobEntity.getProcessDefinitionId()).thenReturn("42");
-    when(jobEntity.getProcessInstanceId()).thenReturn("42");
-    doNothing().when(jobEntity).setTenantId(Mockito.<String>any());
-    when(jobEntity.getExecutionId()).thenReturn("42");
-
-    // Act
-    suspendedJobEntityManagerImpl.insert(jobEntity);
-
-    // Assert
-    verify(activitiEventDispatcher, atLeast(1)).dispatchEvent(Mockito.<ActivitiEvent>any());
-    verify(activitiEventDispatcher).isEnabled();
-    verify(processEngineConfiguration).getEventDispatcher();
-    verify(processEngineConfiguration).getExecutionEntityManager();
-    verify(processEngineConfiguration).getPerformanceSettings();
-    verify(jobEntity).setTenantId("");
-    verify(executionEntityManager).findById("42");
-    verify(jobDataManager).insert(isA(SuspendedJobEntity.class));
-    verify(jobEntity, atLeast(1)).getExecutionId();
-    verify(jobEntity, atLeast(1)).getProcessDefinitionId();
-    verify(jobEntity, atLeast(1)).getProcessInstanceId();
-  }
-
-  /**
-   * Test {@link SuspendedJobEntityManagerImpl#insert(SuspendedJobEntity)} with {@code
-   * SuspendedJobEntity}.
-   *
-   * <p>Method under test: {@link SuspendedJobEntityManagerImpl#insert(SuspendedJobEntity)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void SuspendedJobEntityManagerImpl.insert(SuspendedJobEntity)"})
-  public void testInsertWithSuspendedJobEntity6() {
-    // Arrange
-    ExecutionEntityImpl executionEntityImpl = mock(ExecutionEntityImpl.class);
-    when(executionEntityImpl.getSuspendedJobCount()).thenReturn(3);
-    doNothing().when(executionEntityImpl).setSuspendedJobCount(anyInt());
-    when(executionEntityImpl.isCountEnabled()).thenReturn(true);
-    when(executionEntityImpl.getTenantId()).thenReturn("42");
-
     ExecutionEntityManager executionEntityManager = mock(ExecutionEntityManager.class);
-    when(executionEntityManager.findById(Mockito.<String>any())).thenReturn(executionEntityImpl);
-
-    PerformanceSettings performanceSettings = new PerformanceSettings();
+    when(executionEntityManager.findById(Mockito.<String>any()))
+        .thenReturn(ExecutionEntityImpl.createWithEmptyRelationshipCollections());
+    PerformanceSettings performanceSettings = mock(PerformanceSettings.class);
+    when(performanceSettings.isEnableExecutionRelationshipCounts()).thenReturn(true);
+    doNothing().when(performanceSettings).setEnableEagerExecutionTreeFetching(anyBoolean());
+    doNothing().when(performanceSettings).setEnableExecutionRelationshipCounts(anyBoolean());
+    doNothing().when(performanceSettings).setEnableLocalization(anyBoolean());
+    doNothing().when(performanceSettings).setValidateExecutionRelationshipCountConfigOnBoot(anyBoolean());
     performanceSettings.setEnableEagerExecutionTreeFetching(true);
     performanceSettings.setEnableExecutionRelationshipCounts(true);
     performanceSettings.setEnableLocalization(true);
     performanceSettings.setValidateExecutionRelationshipCountConfigOnBoot(true);
-
-    ActivitiEventDispatcher activitiEventDispatcher = mock(ActivitiEventDispatcher.class);
-    when(activitiEventDispatcher.isEnabled()).thenReturn(false);
-
-    ProcessEngineConfigurationImpl processEngineConfiguration =
-        mock(ProcessEngineConfigurationImpl.class);
-    when(processEngineConfiguration.getEventDispatcher()).thenReturn(activitiEventDispatcher);
+    ProcessEngineConfigurationImpl processEngineConfiguration = mock(ProcessEngineConfigurationImpl.class);
     when(processEngineConfiguration.getPerformanceSettings()).thenReturn(performanceSettings);
     when(processEngineConfiguration.getExecutionEntityManager()).thenReturn(executionEntityManager);
-
+    when(processEngineConfiguration.getEventDispatcher()).thenReturn(activitiEventDispatcher);
     SuspendedJobDataManager jobDataManager = mock(SuspendedJobDataManager.class);
     doNothing().when(jobDataManager).insert(Mockito.<SuspendedJobEntity>any());
+    SuspendedJobEntityManagerImpl suspendedJobEntityManagerImpl = new SuspendedJobEntityManagerImpl(
+        processEngineConfiguration, jobDataManager);
 
-    SuspendedJobEntityManagerImpl suspendedJobEntityManagerImpl =
-        new SuspendedJobEntityManagerImpl(processEngineConfiguration, jobDataManager);
-
-    SuspendedJobEntity jobEntity = mock(SuspendedJobEntity.class);
-    doNothing().when(jobEntity).setTenantId(Mockito.<String>any());
-    when(jobEntity.getExecutionId()).thenReturn("42");
+    SuspendedJobEntityImpl jobEntity = new SuspendedJobEntityImpl();
+    jobEntity.setExecutionId("42");
 
     // Act
     suspendedJobEntityManagerImpl.insert(jobEntity);
 
-    // Assert
+    // Assert that nothing has changed
+    verify(activitiEventDispatcher, atLeast(1)).dispatchEvent(Mockito.<ActivitiEvent>any());
     verify(activitiEventDispatcher).isEnabled();
+    verify(performanceSettings).isEnableExecutionRelationshipCounts();
+    verify(performanceSettings).setEnableEagerExecutionTreeFetching(eq(true));
+    verify(performanceSettings).setEnableExecutionRelationshipCounts(eq(true));
+    verify(performanceSettings).setEnableLocalization(eq(true));
+    verify(performanceSettings).setValidateExecutionRelationshipCountConfigOnBoot(eq(true));
     verify(processEngineConfiguration).getEventDispatcher();
     verify(processEngineConfiguration).getExecutionEntityManager();
     verify(processEngineConfiguration).getPerformanceSettings();
-    verify(jobEntity).setTenantId("42");
-    verify(executionEntityManager).findById("42");
-    verify(executionEntityImpl).getSuspendedJobCount();
-    verify(executionEntityImpl, atLeast(1)).getTenantId();
-    verify(executionEntityImpl).isCountEnabled();
-    verify(executionEntityImpl).setSuspendedJobCount(4);
+    verify(executionEntityManager).findById(eq("42"));
     verify(jobDataManager).insert(isA(SuspendedJobEntity.class));
-    verify(jobEntity, atLeast(1)).getExecutionId();
+    assertEquals("", jobEntity.getTenantId());
   }
 
   /**
-   * Test {@link SuspendedJobEntityManagerImpl#insert(SuspendedJobEntity, boolean)} with {@code
-   * SuspendedJobEntity}, {@code boolean}.
-   *
-   * <p>Method under test: {@link SuspendedJobEntityManagerImpl#insert(SuspendedJobEntity, boolean)}
+   * Test {@link SuspendedJobEntityManagerImpl#insert(SuspendedJobEntity, boolean)} with {@code SuspendedJobEntity}, {@code boolean}.
+   * <p>
+   * Method under test: {@link SuspendedJobEntityManagerImpl#insert(SuspendedJobEntity, boolean)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void SuspendedJobEntityManagerImpl.insert(SuspendedJobEntity, boolean)"})
   public void testInsertWithSuspendedJobEntityBoolean() {
     // Arrange
-    JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();
-    processEngineConfiguration.setEventDispatcher(new ActivitiEventDispatcherImpl());
-
+    ProcessEngineConfigurationImpl processEngineConfiguration = mock(ProcessEngineConfigurationImpl.class);
+    when(processEngineConfiguration.getEventDispatcher()).thenReturn(new ActivitiEventDispatcherImpl());
     SuspendedJobDataManager jobDataManager = mock(SuspendedJobDataManager.class);
     doNothing().when(jobDataManager).insert(Mockito.<SuspendedJobEntity>any());
-
-    SuspendedJobEntityManagerImpl suspendedJobEntityManagerImpl =
-        new SuspendedJobEntityManagerImpl(processEngineConfiguration, jobDataManager);
+    SuspendedJobEntityManagerImpl suspendedJobEntityManagerImpl = new SuspendedJobEntityManagerImpl(
+        processEngineConfiguration, jobDataManager);
+    SuspendedJobEntityImpl jobEntity = new SuspendedJobEntityImpl();
 
     // Act
-    suspendedJobEntityManagerImpl.insert(new SuspendedJobEntityImpl(), true);
+    suspendedJobEntityManagerImpl.insert(jobEntity, true);
 
-    // Assert
+    // Assert that nothing has changed
+    verify(processEngineConfiguration).getEventDispatcher();
     verify(jobDataManager).insert(isA(SuspendedJobEntity.class));
+    assertEquals("", jobEntity.getTenantId());
   }
 
   /**
-   * Test {@link SuspendedJobEntityManagerImpl#insert(SuspendedJobEntity, boolean)} with {@code
-   * SuspendedJobEntity}, {@code boolean}.
-   *
-   * <p>Method under test: {@link SuspendedJobEntityManagerImpl#insert(SuspendedJobEntity, boolean)}
+   * Test {@link SuspendedJobEntityManagerImpl#insert(SuspendedJobEntity, boolean)} with {@code SuspendedJobEntity}, {@code boolean}.
+   * <p>
+   * Method under test: {@link SuspendedJobEntityManagerImpl#insert(SuspendedJobEntity, boolean)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void SuspendedJobEntityManagerImpl.insert(SuspendedJobEntity, boolean)"})
   public void testInsertWithSuspendedJobEntityBoolean2() {
     // Arrange
+    ActivitiEventDispatcher activitiEventDispatcher = mock(ActivitiEventDispatcher.class);
+    when(activitiEventDispatcher.isEnabled()).thenReturn(false);
+    ProcessEngineConfigurationImpl processEngineConfiguration = mock(ProcessEngineConfigurationImpl.class);
+    when(processEngineConfiguration.getEventDispatcher()).thenReturn(activitiEventDispatcher);
+    SuspendedJobDataManager jobDataManager = mock(SuspendedJobDataManager.class);
+    doNothing().when(jobDataManager).insert(Mockito.<SuspendedJobEntity>any());
+    SuspendedJobEntityManagerImpl suspendedJobEntityManagerImpl = new SuspendedJobEntityManagerImpl(
+        processEngineConfiguration, jobDataManager);
+    SuspendedJobEntityImpl jobEntity = new SuspendedJobEntityImpl();
+
+    // Act
+    suspendedJobEntityManagerImpl.insert(jobEntity, true);
+
+    // Assert that nothing has changed
+    verify(activitiEventDispatcher).isEnabled();
+    verify(processEngineConfiguration).getEventDispatcher();
+    verify(jobDataManager).insert(isA(SuspendedJobEntity.class));
+    assertEquals("", jobEntity.getTenantId());
+  }
+
+  /**
+   * Test {@link SuspendedJobEntityManagerImpl#insert(SuspendedJobEntity, boolean)} with {@code SuspendedJobEntity}, {@code boolean}.
+   * <p>
+   * Method under test: {@link SuspendedJobEntityManagerImpl#insert(SuspendedJobEntity, boolean)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void SuspendedJobEntityManagerImpl.insert(SuspendedJobEntity, boolean)"})
+  public void testInsertWithSuspendedJobEntityBoolean3() {
+    // Arrange
+    ActivitiEventDispatcher activitiEventDispatcher = mock(ActivitiEventDispatcher.class);
+    doNothing().when(activitiEventDispatcher).dispatchEvent(Mockito.<ActivitiEvent>any());
+    when(activitiEventDispatcher.isEnabled()).thenReturn(true);
     ExecutionDataManager executionDataManager = mock(ExecutionDataManager.class);
     when(executionDataManager.findById(Mockito.<String>any()))
         .thenReturn(ExecutionEntityImpl.createWithEmptyRelationshipCollections());
-    ExecutionEntityManagerImpl executionEntityManagerImpl =
-        new ExecutionEntityManagerImpl(new JtaProcessEngineConfiguration(), executionDataManager);
+    ExecutionEntityManagerImpl executionEntityManagerImpl = new ExecutionEntityManagerImpl(
+        new JtaProcessEngineConfiguration(), executionDataManager);
 
     PerformanceSettings performanceSettings = new PerformanceSettings();
     performanceSettings.setEnableEagerExecutionTreeFetching(true);
     performanceSettings.setEnableExecutionRelationshipCounts(true);
     performanceSettings.setEnableLocalization(true);
     performanceSettings.setValidateExecutionRelationshipCountConfigOnBoot(true);
-
-    ProcessEngineConfigurationImpl processEngineConfiguration =
-        mock(ProcessEngineConfigurationImpl.class);
-    when(processEngineConfiguration.getEventDispatcher())
-        .thenReturn(new ActivitiEventDispatcherImpl());
+    ProcessEngineConfigurationImpl processEngineConfiguration = mock(ProcessEngineConfigurationImpl.class);
     when(processEngineConfiguration.getPerformanceSettings()).thenReturn(performanceSettings);
-    when(processEngineConfiguration.getExecutionEntityManager())
-        .thenReturn(executionEntityManagerImpl);
-
+    when(processEngineConfiguration.getExecutionEntityManager()).thenReturn(executionEntityManagerImpl);
+    when(processEngineConfiguration.getEventDispatcher()).thenReturn(activitiEventDispatcher);
     SuspendedJobDataManager jobDataManager = mock(SuspendedJobDataManager.class);
     doNothing().when(jobDataManager).insert(Mockito.<SuspendedJobEntity>any());
+    SuspendedJobEntityManagerImpl suspendedJobEntityManagerImpl = new SuspendedJobEntityManagerImpl(
+        processEngineConfiguration, jobDataManager);
 
-    SuspendedJobEntityManagerImpl suspendedJobEntityManagerImpl =
-        new SuspendedJobEntityManagerImpl(processEngineConfiguration, jobDataManager);
-
-    SuspendedJobEntity jobEntity = mock(SuspendedJobEntity.class);
-    when(jobEntity.getProcessDefinitionId()).thenReturn("42");
-    when(jobEntity.getProcessInstanceId()).thenReturn("42");
-    doNothing().when(jobEntity).setTenantId(Mockito.<String>any());
-    when(jobEntity.getExecutionId()).thenReturn("42");
+    SuspendedJobEntityImpl jobEntity = new SuspendedJobEntityImpl();
+    jobEntity.setExecutionId("42");
 
     // Act
     suspendedJobEntityManagerImpl.insert(jobEntity, true);
 
-    // Assert
+    // Assert that nothing has changed
+    verify(activitiEventDispatcher, atLeast(1)).dispatchEvent(Mockito.<ActivitiEvent>any());
+    verify(activitiEventDispatcher).isEnabled();
     verify(processEngineConfiguration).getEventDispatcher();
     verify(processEngineConfiguration).getExecutionEntityManager();
     verify(processEngineConfiguration).getPerformanceSettings();
-    verify(jobEntity).setTenantId("");
-    verify(executionDataManager).findById("42");
+    verify(executionDataManager).findById(eq("42"));
     verify(jobDataManager).insert(isA(SuspendedJobEntity.class));
-    verify(jobEntity, atLeast(1)).getExecutionId();
-    verify(jobEntity, atLeast(1)).getProcessDefinitionId();
-    verify(jobEntity, atLeast(1)).getProcessInstanceId();
+    assertEquals("", jobEntity.getTenantId());
   }
 
   /**
-   * Test {@link SuspendedJobEntityManagerImpl#insert(SuspendedJobEntity, boolean)} with {@code
-   * SuspendedJobEntity}, {@code boolean}.
-   *
-   * <p>Method under test: {@link SuspendedJobEntityManagerImpl#insert(SuspendedJobEntity, boolean)}
+   * Test {@link SuspendedJobEntityManagerImpl#insert(SuspendedJobEntity, boolean)} with {@code SuspendedJobEntity}, {@code boolean}.
+   * <p>
+   * Method under test: {@link SuspendedJobEntityManagerImpl#insert(SuspendedJobEntity, boolean)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void SuspendedJobEntityManagerImpl.insert(SuspendedJobEntity, boolean)"})
-  public void testInsertWithSuspendedJobEntityBoolean3() {
-    // Arrange
-    ExecutionDataManager executionDataManager = mock(ExecutionDataManager.class);
-    when(executionDataManager.findById(Mockito.<String>any()))
-        .thenReturn(ExecutionEntityImpl.createWithEmptyRelationshipCollections());
-    ExecutionEntityManagerImpl executionEntityManagerImpl =
-        new ExecutionEntityManagerImpl(new JtaProcessEngineConfiguration(), executionDataManager);
-
-    PerformanceSettings performanceSettings = new PerformanceSettings();
-    performanceSettings.setEnableEagerExecutionTreeFetching(true);
-    performanceSettings.setEnableExecutionRelationshipCounts(false);
-    performanceSettings.setEnableLocalization(true);
-    performanceSettings.setValidateExecutionRelationshipCountConfigOnBoot(true);
-
-    ProcessEngineConfigurationImpl processEngineConfiguration =
-        mock(ProcessEngineConfigurationImpl.class);
-    when(processEngineConfiguration.getEventDispatcher())
-        .thenReturn(new ActivitiEventDispatcherImpl());
-    when(processEngineConfiguration.getPerformanceSettings()).thenReturn(performanceSettings);
-    when(processEngineConfiguration.getExecutionEntityManager())
-        .thenReturn(executionEntityManagerImpl);
-
-    SuspendedJobDataManager jobDataManager = mock(SuspendedJobDataManager.class);
-    doNothing().when(jobDataManager).insert(Mockito.<SuspendedJobEntity>any());
-
-    SuspendedJobEntityManagerImpl suspendedJobEntityManagerImpl =
-        new SuspendedJobEntityManagerImpl(processEngineConfiguration, jobDataManager);
-
-    SuspendedJobEntity jobEntity = mock(SuspendedJobEntity.class);
-    when(jobEntity.getProcessDefinitionId()).thenReturn("42");
-    when(jobEntity.getProcessInstanceId()).thenReturn("42");
-    doNothing().when(jobEntity).setTenantId(Mockito.<String>any());
-    when(jobEntity.getExecutionId()).thenReturn("42");
-
-    // Act
-    suspendedJobEntityManagerImpl.insert(jobEntity, true);
-
-    // Assert
-    verify(processEngineConfiguration).getEventDispatcher();
-    verify(processEngineConfiguration).getExecutionEntityManager();
-    verify(processEngineConfiguration).getPerformanceSettings();
-    verify(jobEntity).setTenantId("");
-    verify(executionDataManager).findById("42");
-    verify(jobDataManager).insert(isA(SuspendedJobEntity.class));
-    verify(jobEntity, atLeast(1)).getExecutionId();
-    verify(jobEntity, atLeast(1)).getProcessDefinitionId();
-    verify(jobEntity, atLeast(1)).getProcessInstanceId();
-  }
-
-  /**
-   * Test {@link SuspendedJobEntityManagerImpl#insert(SuspendedJobEntity, boolean)} with {@code
-   * SuspendedJobEntity}, {@code boolean}.
-   *
-   * <p>Method under test: {@link SuspendedJobEntityManagerImpl#insert(SuspendedJobEntity, boolean)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void SuspendedJobEntityManagerImpl.insert(SuspendedJobEntity, boolean)"})
   public void testInsertWithSuspendedJobEntityBoolean4() {
     // Arrange
+    ActivitiEventDispatcher activitiEventDispatcher = mock(ActivitiEventDispatcher.class);
+    doNothing().when(activitiEventDispatcher).dispatchEvent(Mockito.<ActivitiEvent>any());
+    when(activitiEventDispatcher.isEnabled()).thenReturn(true);
+    ExecutionDataManager executionDataManager = mock(ExecutionDataManager.class);
+    when(executionDataManager.findById(Mockito.<String>any()))
+        .thenReturn(ExecutionEntityImpl.createWithEmptyRelationshipCollections());
+    ExecutionEntityManagerImpl executionEntityManagerImpl = new ExecutionEntityManagerImpl(
+        new JtaProcessEngineConfiguration(), executionDataManager);
+
+    PerformanceSettings performanceSettings = mock(PerformanceSettings.class);
+    when(performanceSettings.isEnableExecutionRelationshipCounts()).thenReturn(false);
+    doNothing().when(performanceSettings).setEnableEagerExecutionTreeFetching(anyBoolean());
+    doNothing().when(performanceSettings).setEnableExecutionRelationshipCounts(anyBoolean());
+    doNothing().when(performanceSettings).setEnableLocalization(anyBoolean());
+    doNothing().when(performanceSettings).setValidateExecutionRelationshipCountConfigOnBoot(anyBoolean());
+    performanceSettings.setEnableEagerExecutionTreeFetching(true);
+    performanceSettings.setEnableExecutionRelationshipCounts(true);
+    performanceSettings.setEnableLocalization(true);
+    performanceSettings.setValidateExecutionRelationshipCountConfigOnBoot(true);
+    ProcessEngineConfigurationImpl processEngineConfiguration = mock(ProcessEngineConfigurationImpl.class);
+    when(processEngineConfiguration.getPerformanceSettings()).thenReturn(performanceSettings);
+    when(processEngineConfiguration.getExecutionEntityManager()).thenReturn(executionEntityManagerImpl);
+    when(processEngineConfiguration.getEventDispatcher()).thenReturn(activitiEventDispatcher);
+    SuspendedJobDataManager jobDataManager = mock(SuspendedJobDataManager.class);
+    doNothing().when(jobDataManager).insert(Mockito.<SuspendedJobEntity>any());
+    SuspendedJobEntityManagerImpl suspendedJobEntityManagerImpl = new SuspendedJobEntityManagerImpl(
+        processEngineConfiguration, jobDataManager);
+
+    SuspendedJobEntityImpl jobEntity = new SuspendedJobEntityImpl();
+    jobEntity.setExecutionId("42");
+
+    // Act
+    suspendedJobEntityManagerImpl.insert(jobEntity, true);
+
+    // Assert that nothing has changed
+    verify(activitiEventDispatcher, atLeast(1)).dispatchEvent(Mockito.<ActivitiEvent>any());
+    verify(activitiEventDispatcher).isEnabled();
+    verify(performanceSettings).isEnableExecutionRelationshipCounts();
+    verify(performanceSettings).setEnableEagerExecutionTreeFetching(eq(true));
+    verify(performanceSettings).setEnableExecutionRelationshipCounts(eq(true));
+    verify(performanceSettings).setEnableLocalization(eq(true));
+    verify(performanceSettings).setValidateExecutionRelationshipCountConfigOnBoot(eq(true));
+    verify(processEngineConfiguration).getEventDispatcher();
+    verify(processEngineConfiguration).getExecutionEntityManager();
+    verify(processEngineConfiguration).getPerformanceSettings();
+    verify(executionDataManager).findById(eq("42"));
+    verify(jobDataManager).insert(isA(SuspendedJobEntity.class));
+    assertEquals("", jobEntity.getTenantId());
+  }
+
+  /**
+   * Test {@link SuspendedJobEntityManagerImpl#insert(SuspendedJobEntity, boolean)} with {@code SuspendedJobEntity}, {@code boolean}.
+   * <p>
+   * Method under test: {@link SuspendedJobEntityManagerImpl#insert(SuspendedJobEntity, boolean)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void SuspendedJobEntityManagerImpl.insert(SuspendedJobEntity, boolean)"})
+  public void testInsertWithSuspendedJobEntityBoolean5() {
+    // Arrange
+    ActivitiEventDispatcher activitiEventDispatcher = mock(ActivitiEventDispatcher.class);
+    doNothing().when(activitiEventDispatcher).dispatchEvent(Mockito.<ActivitiEvent>any());
+    when(activitiEventDispatcher.isEnabled()).thenReturn(true);
     ExecutionEntityImpl executionEntityImpl = mock(ExecutionEntityImpl.class);
     when(executionEntityImpl.getSuspendedJobCount()).thenReturn(3);
     doNothing().when(executionEntityImpl).setSuspendedJobCount(anyInt());
     when(executionEntityImpl.isCountEnabled()).thenReturn(true);
     when(executionEntityImpl.getTenantId()).thenReturn("42");
-
     ExecutionDataManager executionDataManager = mock(ExecutionDataManager.class);
     when(executionDataManager.findById(Mockito.<String>any())).thenReturn(executionEntityImpl);
-    ExecutionEntityManagerImpl executionEntityManagerImpl =
-        new ExecutionEntityManagerImpl(new JtaProcessEngineConfiguration(), executionDataManager);
+    ExecutionEntityManagerImpl executionEntityManagerImpl = new ExecutionEntityManagerImpl(
+        new JtaProcessEngineConfiguration(), executionDataManager);
 
-    PerformanceSettings performanceSettings = new PerformanceSettings();
+    PerformanceSettings performanceSettings = mock(PerformanceSettings.class);
+    when(performanceSettings.isEnableExecutionRelationshipCounts()).thenReturn(true);
+    doNothing().when(performanceSettings).setEnableEagerExecutionTreeFetching(anyBoolean());
+    doNothing().when(performanceSettings).setEnableExecutionRelationshipCounts(anyBoolean());
+    doNothing().when(performanceSettings).setEnableLocalization(anyBoolean());
+    doNothing().when(performanceSettings).setValidateExecutionRelationshipCountConfigOnBoot(anyBoolean());
     performanceSettings.setEnableEagerExecutionTreeFetching(true);
     performanceSettings.setEnableExecutionRelationshipCounts(true);
     performanceSettings.setEnableLocalization(true);
     performanceSettings.setValidateExecutionRelationshipCountConfigOnBoot(true);
-
-    ProcessEngineConfigurationImpl processEngineConfiguration =
-        mock(ProcessEngineConfigurationImpl.class);
-    when(processEngineConfiguration.getEventDispatcher())
-        .thenReturn(new ActivitiEventDispatcherImpl());
+    ProcessEngineConfigurationImpl processEngineConfiguration = mock(ProcessEngineConfigurationImpl.class);
     when(processEngineConfiguration.getPerformanceSettings()).thenReturn(performanceSettings);
-    when(processEngineConfiguration.getExecutionEntityManager())
-        .thenReturn(executionEntityManagerImpl);
-
-    SuspendedJobDataManager jobDataManager = mock(SuspendedJobDataManager.class);
-    doNothing().when(jobDataManager).insert(Mockito.<SuspendedJobEntity>any());
-
-    SuspendedJobEntityManagerImpl suspendedJobEntityManagerImpl =
-        new SuspendedJobEntityManagerImpl(processEngineConfiguration, jobDataManager);
-
-    SuspendedJobEntity jobEntity = mock(SuspendedJobEntity.class);
-    when(jobEntity.getProcessDefinitionId()).thenReturn("42");
-    when(jobEntity.getProcessInstanceId()).thenReturn("42");
-    doNothing().when(jobEntity).setTenantId(Mockito.<String>any());
-    when(jobEntity.getExecutionId()).thenReturn("42");
-
-    // Act
-    suspendedJobEntityManagerImpl.insert(jobEntity, true);
-
-    // Assert
-    verify(processEngineConfiguration).getEventDispatcher();
-    verify(processEngineConfiguration).getExecutionEntityManager();
-    verify(processEngineConfiguration).getPerformanceSettings();
-    verify(jobEntity).setTenantId("42");
-    verify(executionEntityImpl).getSuspendedJobCount();
-    verify(executionEntityImpl, atLeast(1)).getTenantId();
-    verify(executionEntityImpl).isCountEnabled();
-    verify(executionEntityImpl).setSuspendedJobCount(4);
-    verify(executionDataManager).findById("42");
-    verify(jobDataManager).insert(isA(SuspendedJobEntity.class));
-    verify(jobEntity, atLeast(1)).getExecutionId();
-    verify(jobEntity, atLeast(1)).getProcessDefinitionId();
-    verify(jobEntity, atLeast(1)).getProcessInstanceId();
-  }
-
-  /**
-   * Test {@link SuspendedJobEntityManagerImpl#insert(SuspendedJobEntity, boolean)} with {@code
-   * SuspendedJobEntity}, {@code boolean}.
-   *
-   * <p>Method under test: {@link SuspendedJobEntityManagerImpl#insert(SuspendedJobEntity, boolean)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void SuspendedJobEntityManagerImpl.insert(SuspendedJobEntity, boolean)"})
-  public void testInsertWithSuspendedJobEntityBoolean5() {
-    // Arrange
-    ExecutionEntityManager executionEntityManager = mock(ExecutionEntityManager.class);
-    when(executionEntityManager.findById(Mockito.<String>any()))
-        .thenReturn(ExecutionEntityImpl.createWithEmptyRelationshipCollections());
-
-    PerformanceSettings performanceSettings = new PerformanceSettings();
-    performanceSettings.setEnableEagerExecutionTreeFetching(true);
-    performanceSettings.setEnableExecutionRelationshipCounts(true);
-    performanceSettings.setEnableLocalization(true);
-    performanceSettings.setValidateExecutionRelationshipCountConfigOnBoot(true);
-
-    ActivitiEventDispatcher activitiEventDispatcher = mock(ActivitiEventDispatcher.class);
-    doNothing().when(activitiEventDispatcher).dispatchEvent(Mockito.<ActivitiEvent>any());
-    when(activitiEventDispatcher.isEnabled()).thenReturn(true);
-
-    ProcessEngineConfigurationImpl processEngineConfiguration =
-        mock(ProcessEngineConfigurationImpl.class);
+    when(processEngineConfiguration.getExecutionEntityManager()).thenReturn(executionEntityManagerImpl);
     when(processEngineConfiguration.getEventDispatcher()).thenReturn(activitiEventDispatcher);
-    when(processEngineConfiguration.getPerformanceSettings()).thenReturn(performanceSettings);
-    when(processEngineConfiguration.getExecutionEntityManager()).thenReturn(executionEntityManager);
-
     SuspendedJobDataManager jobDataManager = mock(SuspendedJobDataManager.class);
     doNothing().when(jobDataManager).insert(Mockito.<SuspendedJobEntity>any());
+    SuspendedJobEntityManagerImpl suspendedJobEntityManagerImpl = new SuspendedJobEntityManagerImpl(
+        processEngineConfiguration, jobDataManager);
 
-    SuspendedJobEntityManagerImpl suspendedJobEntityManagerImpl =
-        new SuspendedJobEntityManagerImpl(processEngineConfiguration, jobDataManager);
-
-    SuspendedJobEntity jobEntity = mock(SuspendedJobEntity.class);
-    when(jobEntity.getProcessDefinitionId()).thenReturn("42");
-    when(jobEntity.getProcessInstanceId()).thenReturn("42");
-    doNothing().when(jobEntity).setTenantId(Mockito.<String>any());
-    when(jobEntity.getExecutionId()).thenReturn("42");
+    SuspendedJobEntityImpl jobEntity = new SuspendedJobEntityImpl();
+    jobEntity.setExecutionId("42");
 
     // Act
     suspendedJobEntityManagerImpl.insert(jobEntity, true);
@@ -839,485 +652,908 @@ public class SuspendedJobEntityManagerImplDiffblueTest {
     // Assert
     verify(activitiEventDispatcher, atLeast(1)).dispatchEvent(Mockito.<ActivitiEvent>any());
     verify(activitiEventDispatcher).isEnabled();
+    verify(performanceSettings).isEnableExecutionRelationshipCounts();
+    verify(performanceSettings).setEnableEagerExecutionTreeFetching(eq(true));
+    verify(performanceSettings).setEnableExecutionRelationshipCounts(eq(true));
+    verify(performanceSettings).setEnableLocalization(eq(true));
+    verify(performanceSettings).setValidateExecutionRelationshipCountConfigOnBoot(eq(true));
     verify(processEngineConfiguration).getEventDispatcher();
     verify(processEngineConfiguration).getExecutionEntityManager();
     verify(processEngineConfiguration).getPerformanceSettings();
-    verify(jobEntity).setTenantId("");
-    verify(executionEntityManager).findById("42");
-    verify(jobDataManager).insert(isA(SuspendedJobEntity.class));
-    verify(jobEntity, atLeast(1)).getExecutionId();
-    verify(jobEntity, atLeast(1)).getProcessDefinitionId();
-    verify(jobEntity, atLeast(1)).getProcessInstanceId();
-  }
-
-  /**
-   * Test {@link SuspendedJobEntityManagerImpl#insert(SuspendedJobEntity, boolean)} with {@code
-   * SuspendedJobEntity}, {@code boolean}.
-   *
-   * <p>Method under test: {@link SuspendedJobEntityManagerImpl#insert(SuspendedJobEntity, boolean)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void SuspendedJobEntityManagerImpl.insert(SuspendedJobEntity, boolean)"})
-  public void testInsertWithSuspendedJobEntityBoolean6() {
-    // Arrange
-    ExecutionEntityImpl executionEntityImpl = mock(ExecutionEntityImpl.class);
-    when(executionEntityImpl.getSuspendedJobCount()).thenReturn(3);
-    doNothing().when(executionEntityImpl).setSuspendedJobCount(anyInt());
-    when(executionEntityImpl.isCountEnabled()).thenReturn(true);
-    when(executionEntityImpl.getTenantId()).thenReturn("42");
-
-    ExecutionEntityManager executionEntityManager = mock(ExecutionEntityManager.class);
-    when(executionEntityManager.findById(Mockito.<String>any())).thenReturn(executionEntityImpl);
-
-    PerformanceSettings performanceSettings = new PerformanceSettings();
-    performanceSettings.setEnableEagerExecutionTreeFetching(true);
-    performanceSettings.setEnableExecutionRelationshipCounts(true);
-    performanceSettings.setEnableLocalization(true);
-    performanceSettings.setValidateExecutionRelationshipCountConfigOnBoot(true);
-
-    ActivitiEventDispatcher activitiEventDispatcher = mock(ActivitiEventDispatcher.class);
-    when(activitiEventDispatcher.isEnabled()).thenReturn(false);
-
-    ProcessEngineConfigurationImpl processEngineConfiguration =
-        mock(ProcessEngineConfigurationImpl.class);
-    when(processEngineConfiguration.getEventDispatcher()).thenReturn(activitiEventDispatcher);
-    when(processEngineConfiguration.getPerformanceSettings()).thenReturn(performanceSettings);
-    when(processEngineConfiguration.getExecutionEntityManager()).thenReturn(executionEntityManager);
-
-    SuspendedJobDataManager jobDataManager = mock(SuspendedJobDataManager.class);
-    doNothing().when(jobDataManager).insert(Mockito.<SuspendedJobEntity>any());
-
-    SuspendedJobEntityManagerImpl suspendedJobEntityManagerImpl =
-        new SuspendedJobEntityManagerImpl(processEngineConfiguration, jobDataManager);
-
-    SuspendedJobEntity jobEntity = mock(SuspendedJobEntity.class);
-    doNothing().when(jobEntity).setTenantId(Mockito.<String>any());
-    when(jobEntity.getExecutionId()).thenReturn("42");
-
-    // Act
-    suspendedJobEntityManagerImpl.insert(jobEntity, true);
-
-    // Assert
-    verify(activitiEventDispatcher).isEnabled();
-    verify(processEngineConfiguration).getEventDispatcher();
-    verify(processEngineConfiguration).getExecutionEntityManager();
-    verify(processEngineConfiguration).getPerformanceSettings();
-    verify(jobEntity).setTenantId("42");
-    verify(executionEntityManager).findById("42");
     verify(executionEntityImpl).getSuspendedJobCount();
     verify(executionEntityImpl, atLeast(1)).getTenantId();
     verify(executionEntityImpl).isCountEnabled();
-    verify(executionEntityImpl).setSuspendedJobCount(4);
+    verify(executionEntityImpl).setSuspendedJobCount(eq(4));
+    verify(executionDataManager).findById(eq("42"));
     verify(jobDataManager).insert(isA(SuspendedJobEntity.class));
-    verify(jobEntity, atLeast(1)).getExecutionId();
+    assertEquals("42", jobEntity.getTenantId());
   }
 
   /**
-   * Test {@link SuspendedJobEntityManagerImpl#insert(SuspendedJobEntity, boolean)} with {@code
-   * SuspendedJobEntity}, {@code boolean}.
-   *
-   * <p>Method under test: {@link SuspendedJobEntityManagerImpl#insert(SuspendedJobEntity, boolean)}
+   * Test {@link SuspendedJobEntityManagerImpl#insert(SuspendedJobEntity, boolean)} with {@code SuspendedJobEntity}, {@code boolean}.
+   * <p>
+   * Method under test: {@link SuspendedJobEntityManagerImpl#insert(SuspendedJobEntity, boolean)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void SuspendedJobEntityManagerImpl.insert(SuspendedJobEntity, boolean)"})
-  public void testInsertWithSuspendedJobEntityBoolean7() {
+  public void testInsertWithSuspendedJobEntityBoolean6() {
     // Arrange
+    ActivitiEventDispatcher activitiEventDispatcher = mock(ActivitiEventDispatcher.class);
+    doNothing().when(activitiEventDispatcher).dispatchEvent(Mockito.<ActivitiEvent>any());
+    when(activitiEventDispatcher.isEnabled()).thenReturn(true);
     ExecutionEntityImpl executionEntityImpl = mock(ExecutionEntityImpl.class);
     when(executionEntityImpl.getSuspendedJobCount()).thenReturn(3);
     doNothing().when(executionEntityImpl).setSuspendedJobCount(anyInt());
     when(executionEntityImpl.isCountEnabled()).thenReturn(true);
     when(executionEntityImpl.getTenantId()).thenReturn(null);
+    ExecutionDataManager executionDataManager = mock(ExecutionDataManager.class);
+    when(executionDataManager.findById(Mockito.<String>any())).thenReturn(executionEntityImpl);
+    ExecutionEntityManagerImpl executionEntityManagerImpl = new ExecutionEntityManagerImpl(
+        new JtaProcessEngineConfiguration(), executionDataManager);
 
-    ExecutionEntityManager executionEntityManager = mock(ExecutionEntityManager.class);
-    when(executionEntityManager.findById(Mockito.<String>any())).thenReturn(executionEntityImpl);
-
-    PerformanceSettings performanceSettings = new PerformanceSettings();
+    PerformanceSettings performanceSettings = mock(PerformanceSettings.class);
+    when(performanceSettings.isEnableExecutionRelationshipCounts()).thenReturn(true);
+    doNothing().when(performanceSettings).setEnableEagerExecutionTreeFetching(anyBoolean());
+    doNothing().when(performanceSettings).setEnableExecutionRelationshipCounts(anyBoolean());
+    doNothing().when(performanceSettings).setEnableLocalization(anyBoolean());
+    doNothing().when(performanceSettings).setValidateExecutionRelationshipCountConfigOnBoot(anyBoolean());
     performanceSettings.setEnableEagerExecutionTreeFetching(true);
     performanceSettings.setEnableExecutionRelationshipCounts(true);
     performanceSettings.setEnableLocalization(true);
     performanceSettings.setValidateExecutionRelationshipCountConfigOnBoot(true);
-
-    ActivitiEventDispatcher activitiEventDispatcher = mock(ActivitiEventDispatcher.class);
-    when(activitiEventDispatcher.isEnabled()).thenReturn(false);
-
-    ProcessEngineConfigurationImpl processEngineConfiguration =
-        mock(ProcessEngineConfigurationImpl.class);
-    when(processEngineConfiguration.getEventDispatcher()).thenReturn(activitiEventDispatcher);
+    ProcessEngineConfigurationImpl processEngineConfiguration = mock(ProcessEngineConfigurationImpl.class);
     when(processEngineConfiguration.getPerformanceSettings()).thenReturn(performanceSettings);
-    when(processEngineConfiguration.getExecutionEntityManager()).thenReturn(executionEntityManager);
-
+    when(processEngineConfiguration.getExecutionEntityManager()).thenReturn(executionEntityManagerImpl);
+    when(processEngineConfiguration.getEventDispatcher()).thenReturn(activitiEventDispatcher);
     SuspendedJobDataManager jobDataManager = mock(SuspendedJobDataManager.class);
     doNothing().when(jobDataManager).insert(Mockito.<SuspendedJobEntity>any());
+    SuspendedJobEntityManagerImpl suspendedJobEntityManagerImpl = new SuspendedJobEntityManagerImpl(
+        processEngineConfiguration, jobDataManager);
 
-    SuspendedJobEntityManagerImpl suspendedJobEntityManagerImpl =
-        new SuspendedJobEntityManagerImpl(processEngineConfiguration, jobDataManager);
+    SuspendedJobEntityImpl jobEntity = new SuspendedJobEntityImpl();
+    jobEntity.setExecutionId("42");
 
-    SuspendedJobEntity jobEntity = mock(SuspendedJobEntity.class);
-    when(jobEntity.getExecutionId()).thenReturn("42");
+    // Act
+    suspendedJobEntityManagerImpl.insert(jobEntity, true);
+
+    // Assert that nothing has changed
+    verify(activitiEventDispatcher, atLeast(1)).dispatchEvent(Mockito.<ActivitiEvent>any());
+    verify(activitiEventDispatcher).isEnabled();
+    verify(performanceSettings).isEnableExecutionRelationshipCounts();
+    verify(performanceSettings).setEnableEagerExecutionTreeFetching(eq(true));
+    verify(performanceSettings).setEnableExecutionRelationshipCounts(eq(true));
+    verify(performanceSettings).setEnableLocalization(eq(true));
+    verify(performanceSettings).setValidateExecutionRelationshipCountConfigOnBoot(eq(true));
+    verify(processEngineConfiguration).getEventDispatcher();
+    verify(processEngineConfiguration).getExecutionEntityManager();
+    verify(processEngineConfiguration).getPerformanceSettings();
+    verify(executionEntityImpl).getSuspendedJobCount();
+    verify(executionEntityImpl).getTenantId();
+    verify(executionEntityImpl).isCountEnabled();
+    verify(executionEntityImpl).setSuspendedJobCount(eq(4));
+    verify(executionDataManager).findById(eq("42"));
+    verify(jobDataManager).insert(isA(SuspendedJobEntity.class));
+    assertEquals("", jobEntity.getTenantId());
+  }
+
+  /**
+   * Test {@link SuspendedJobEntityManagerImpl#insert(SuspendedJobEntity, boolean)} with {@code SuspendedJobEntity}, {@code boolean}.
+   * <p>
+   * Method under test: {@link SuspendedJobEntityManagerImpl#insert(SuspendedJobEntity, boolean)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void SuspendedJobEntityManagerImpl.insert(SuspendedJobEntity, boolean)"})
+  public void testInsertWithSuspendedJobEntityBoolean7() {
+    // Arrange
+    ActivitiEventDispatcher activitiEventDispatcher = mock(ActivitiEventDispatcher.class);
+    doNothing().when(activitiEventDispatcher).dispatchEvent(Mockito.<ActivitiEvent>any());
+    when(activitiEventDispatcher.isEnabled()).thenReturn(true);
+    ExecutionEntityManager executionEntityManager = mock(ExecutionEntityManager.class);
+    when(executionEntityManager.findById(Mockito.<String>any()))
+        .thenReturn(ExecutionEntityImpl.createWithEmptyRelationshipCollections());
+    PerformanceSettings performanceSettings = mock(PerformanceSettings.class);
+    when(performanceSettings.isEnableExecutionRelationshipCounts()).thenReturn(true);
+    doNothing().when(performanceSettings).setEnableEagerExecutionTreeFetching(anyBoolean());
+    doNothing().when(performanceSettings).setEnableExecutionRelationshipCounts(anyBoolean());
+    doNothing().when(performanceSettings).setEnableLocalization(anyBoolean());
+    doNothing().when(performanceSettings).setValidateExecutionRelationshipCountConfigOnBoot(anyBoolean());
+    performanceSettings.setEnableEagerExecutionTreeFetching(true);
+    performanceSettings.setEnableExecutionRelationshipCounts(true);
+    performanceSettings.setEnableLocalization(true);
+    performanceSettings.setValidateExecutionRelationshipCountConfigOnBoot(true);
+    ProcessEngineConfigurationImpl processEngineConfiguration = mock(ProcessEngineConfigurationImpl.class);
+    when(processEngineConfiguration.getPerformanceSettings()).thenReturn(performanceSettings);
+    when(processEngineConfiguration.getExecutionEntityManager()).thenReturn(executionEntityManager);
+    when(processEngineConfiguration.getEventDispatcher()).thenReturn(activitiEventDispatcher);
+    SuspendedJobDataManager jobDataManager = mock(SuspendedJobDataManager.class);
+    doNothing().when(jobDataManager).insert(Mockito.<SuspendedJobEntity>any());
+    SuspendedJobEntityManagerImpl suspendedJobEntityManagerImpl = new SuspendedJobEntityManagerImpl(
+        processEngineConfiguration, jobDataManager);
+
+    SuspendedJobEntityImpl jobEntity = new SuspendedJobEntityImpl();
+    jobEntity.setExecutionId("42");
+
+    // Act
+    suspendedJobEntityManagerImpl.insert(jobEntity, true);
+
+    // Assert that nothing has changed
+    verify(activitiEventDispatcher, atLeast(1)).dispatchEvent(Mockito.<ActivitiEvent>any());
+    verify(activitiEventDispatcher).isEnabled();
+    verify(performanceSettings).isEnableExecutionRelationshipCounts();
+    verify(performanceSettings).setEnableEagerExecutionTreeFetching(eq(true));
+    verify(performanceSettings).setEnableExecutionRelationshipCounts(eq(true));
+    verify(performanceSettings).setEnableLocalization(eq(true));
+    verify(performanceSettings).setValidateExecutionRelationshipCountConfigOnBoot(eq(true));
+    verify(processEngineConfiguration).getEventDispatcher();
+    verify(processEngineConfiguration).getExecutionEntityManager();
+    verify(processEngineConfiguration).getPerformanceSettings();
+    verify(executionEntityManager).findById(eq("42"));
+    verify(jobDataManager).insert(isA(SuspendedJobEntity.class));
+    assertEquals("", jobEntity.getTenantId());
+  }
+
+  /**
+   * Test {@link SuspendedJobEntityManagerImpl#insert(SuspendedJobEntity, boolean)} with {@code SuspendedJobEntity}, {@code boolean}.
+   * <ul>
+   *   <li>Then calls {@link ActivitiEventDispatcher#dispatchEvent(ActivitiEvent)}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link SuspendedJobEntityManagerImpl#insert(SuspendedJobEntity, boolean)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void SuspendedJobEntityManagerImpl.insert(SuspendedJobEntity, boolean)"})
+  public void testInsertWithSuspendedJobEntityBoolean_thenCallsDispatchEvent() {
+    // Arrange
+    ActivitiEventDispatcher activitiEventDispatcher = mock(ActivitiEventDispatcher.class);
+    doNothing().when(activitiEventDispatcher).dispatchEvent(Mockito.<ActivitiEvent>any());
+    when(activitiEventDispatcher.isEnabled()).thenReturn(true);
+    ProcessEngineConfigurationImpl processEngineConfiguration = mock(ProcessEngineConfigurationImpl.class);
+    when(processEngineConfiguration.getEventDispatcher()).thenReturn(activitiEventDispatcher);
+    SuspendedJobDataManager jobDataManager = mock(SuspendedJobDataManager.class);
+    doNothing().when(jobDataManager).insert(Mockito.<SuspendedJobEntity>any());
+    SuspendedJobEntityManagerImpl suspendedJobEntityManagerImpl = new SuspendedJobEntityManagerImpl(
+        processEngineConfiguration, jobDataManager);
+    SuspendedJobEntityImpl jobEntity = new SuspendedJobEntityImpl();
+
+    // Act
+    suspendedJobEntityManagerImpl.insert(jobEntity, true);
+
+    // Assert that nothing has changed
+    verify(activitiEventDispatcher, atLeast(1)).dispatchEvent(Mockito.<ActivitiEvent>any());
+    verify(activitiEventDispatcher).isEnabled();
+    verify(processEngineConfiguration).getEventDispatcher();
+    verify(jobDataManager).insert(isA(SuspendedJobEntity.class));
+    assertEquals("", jobEntity.getTenantId());
+  }
+
+  /**
+   * Test {@link SuspendedJobEntityManagerImpl#insert(SuspendedJobEntity, boolean)} with {@code SuspendedJobEntity}, {@code boolean}.
+   * <ul>
+   *   <li>Then calls {@link DelegateExecution#getTenantId()}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link SuspendedJobEntityManagerImpl#insert(SuspendedJobEntity, boolean)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void SuspendedJobEntityManagerImpl.insert(SuspendedJobEntity, boolean)"})
+  public void testInsertWithSuspendedJobEntityBoolean_thenCallsGetTenantId() {
+    // Arrange
+    PerformanceSettings performanceSettings = mock(PerformanceSettings.class);
+    doNothing().when(performanceSettings).setEnableEagerExecutionTreeFetching(anyBoolean());
+    doNothing().when(performanceSettings).setEnableExecutionRelationshipCounts(anyBoolean());
+    doNothing().when(performanceSettings).setEnableLocalization(anyBoolean());
+    doNothing().when(performanceSettings).setValidateExecutionRelationshipCountConfigOnBoot(anyBoolean());
+    performanceSettings.setEnableEagerExecutionTreeFetching(true);
+    performanceSettings.setEnableExecutionRelationshipCounts(true);
+    performanceSettings.setEnableLocalization(true);
+    performanceSettings.setValidateExecutionRelationshipCountConfigOnBoot(true);
+    ActivitiEventDispatcher activitiEventDispatcher = mock(ActivitiEventDispatcher.class);
+    doNothing().when(activitiEventDispatcher).dispatchEvent(Mockito.<ActivitiEvent>any());
+    when(activitiEventDispatcher.isEnabled()).thenReturn(true);
+    ExecutionEntity executionEntity = mock(ExecutionEntity.class);
+    when(executionEntity.getTenantId()).thenReturn("42");
+    ExecutionEntityManager executionEntityManager = mock(ExecutionEntityManager.class);
+    when(executionEntityManager.findById(Mockito.<String>any())).thenReturn(executionEntity);
+    ProcessEngineConfigurationImpl processEngineConfiguration = mock(ProcessEngineConfigurationImpl.class);
+    when(processEngineConfiguration.getExecutionEntityManager()).thenReturn(executionEntityManager);
+    when(processEngineConfiguration.getEventDispatcher()).thenReturn(activitiEventDispatcher);
+    SuspendedJobDataManager jobDataManager = mock(SuspendedJobDataManager.class);
+    doNothing().when(jobDataManager).insert(Mockito.<SuspendedJobEntity>any());
+    SuspendedJobEntityManagerImpl suspendedJobEntityManagerImpl = new SuspendedJobEntityManagerImpl(
+        processEngineConfiguration, jobDataManager);
+
+    SuspendedJobEntityImpl jobEntity = new SuspendedJobEntityImpl();
+    jobEntity.setExecutionId("42");
 
     // Act
     suspendedJobEntityManagerImpl.insert(jobEntity, true);
 
     // Assert
+    verify(executionEntity, atLeast(1)).getTenantId();
+    verify(activitiEventDispatcher, atLeast(1)).dispatchEvent(Mockito.<ActivitiEvent>any());
     verify(activitiEventDispatcher).isEnabled();
+    verify(performanceSettings).setEnableEagerExecutionTreeFetching(eq(true));
+    verify(performanceSettings).setEnableExecutionRelationshipCounts(eq(true));
+    verify(performanceSettings).setEnableLocalization(eq(true));
+    verify(performanceSettings).setValidateExecutionRelationshipCountConfigOnBoot(eq(true));
     verify(processEngineConfiguration).getEventDispatcher();
     verify(processEngineConfiguration).getExecutionEntityManager();
-    verify(processEngineConfiguration).getPerformanceSettings();
-    verify(executionEntityManager).findById("42");
-    verify(executionEntityImpl).getSuspendedJobCount();
-    verify(executionEntityImpl).getTenantId();
-    verify(executionEntityImpl).isCountEnabled();
-    verify(executionEntityImpl).setSuspendedJobCount(4);
+    verify(executionEntityManager).findById(eq("42"));
     verify(jobDataManager).insert(isA(SuspendedJobEntity.class));
-    verify(jobEntity, atLeast(1)).getExecutionId();
+    assertEquals("42", jobEntity.getTenantId());
   }
 
   /**
-   * Test {@link SuspendedJobEntityManagerImpl#insert(SuspendedJobEntity, boolean)} with {@code
-   * SuspendedJobEntity}, {@code boolean}.
-   *
-   * <p>Method under test: {@link SuspendedJobEntityManagerImpl#insert(SuspendedJobEntity, boolean)}
+   * Test {@link SuspendedJobEntityManagerImpl#insert(SuspendedJobEntity, boolean)} with {@code SuspendedJobEntity}, {@code boolean}.
+   * <ul>
+   *   <li>When {@code false}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link SuspendedJobEntityManagerImpl#insert(SuspendedJobEntity, boolean)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void SuspendedJobEntityManagerImpl.insert(SuspendedJobEntity, boolean)"})
-  public void testInsertWithSuspendedJobEntityBoolean8() {
+  public void testInsertWithSuspendedJobEntityBoolean_whenFalse() {
     // Arrange
-    ExecutionEntityImpl executionEntityImpl = mock(ExecutionEntityImpl.class);
-    when(executionEntityImpl.getSuspendedJobCount()).thenReturn(3);
-    doNothing().when(executionEntityImpl).setSuspendedJobCount(anyInt());
-    when(executionEntityImpl.isCountEnabled()).thenReturn(true);
-    when(executionEntityImpl.getTenantId()).thenReturn("42");
-
-    ExecutionEntityManager executionEntityManager = mock(ExecutionEntityManager.class);
-    when(executionEntityManager.findById(Mockito.<String>any())).thenReturn(executionEntityImpl);
-
-    PerformanceSettings performanceSettings = new PerformanceSettings();
-    performanceSettings.setEnableEagerExecutionTreeFetching(true);
-    performanceSettings.setEnableExecutionRelationshipCounts(true);
-    performanceSettings.setEnableLocalization(true);
-    performanceSettings.setValidateExecutionRelationshipCountConfigOnBoot(true);
-
-    ProcessEngineConfigurationImpl processEngineConfiguration =
-        mock(ProcessEngineConfigurationImpl.class);
-    when(processEngineConfiguration.getEventDispatcher())
-        .thenReturn(mock(ActivitiEventDispatcher.class));
-    when(processEngineConfiguration.getPerformanceSettings()).thenReturn(performanceSettings);
-    when(processEngineConfiguration.getExecutionEntityManager()).thenReturn(executionEntityManager);
-
+    ProcessEngineConfigurationImpl processEngineConfiguration = mock(ProcessEngineConfigurationImpl.class);
+    when(processEngineConfiguration.getEventDispatcher()).thenReturn(mock(ActivitiEventDispatcher.class));
     SuspendedJobDataManager jobDataManager = mock(SuspendedJobDataManager.class);
     doNothing().when(jobDataManager).insert(Mockito.<SuspendedJobEntity>any());
-
-    SuspendedJobEntityManagerImpl suspendedJobEntityManagerImpl =
-        new SuspendedJobEntityManagerImpl(processEngineConfiguration, jobDataManager);
-
-    SuspendedJobEntity jobEntity = mock(SuspendedJobEntity.class);
-    doNothing().when(jobEntity).setTenantId(Mockito.<String>any());
-    when(jobEntity.getExecutionId()).thenReturn("42");
+    SuspendedJobEntityManagerImpl suspendedJobEntityManagerImpl = new SuspendedJobEntityManagerImpl(
+        processEngineConfiguration, jobDataManager);
+    SuspendedJobEntityImpl jobEntity = new SuspendedJobEntityImpl();
 
     // Act
     suspendedJobEntityManagerImpl.insert(jobEntity, false);
 
-    // Assert
+    // Assert that nothing has changed
     verify(processEngineConfiguration).getEventDispatcher();
-    verify(processEngineConfiguration).getExecutionEntityManager();
-    verify(processEngineConfiguration).getPerformanceSettings();
-    verify(jobEntity).setTenantId("42");
-    verify(executionEntityManager).findById("42");
-    verify(executionEntityImpl).getSuspendedJobCount();
-    verify(executionEntityImpl, atLeast(1)).getTenantId();
-    verify(executionEntityImpl).isCountEnabled();
-    verify(executionEntityImpl).setSuspendedJobCount(4);
     verify(jobDataManager).insert(isA(SuspendedJobEntity.class));
-    verify(jobEntity, atLeast(1)).getExecutionId();
+    assertEquals("", jobEntity.getTenantId());
   }
 
   /**
-   * Test {@link SuspendedJobEntityManagerImpl#insert(SuspendedJobEntity, boolean)} with {@code
-   * SuspendedJobEntity}, {@code boolean}.
-   *
+   * Test {@link SuspendedJobEntityManagerImpl#insert(SuspendedJobEntity)} with {@code SuspendedJobEntity}.
    * <ul>
-   *   <li>Then calls {@link ActivitiEventDispatcher#dispatchEvent(ActivitiEvent)}.
+   *   <li>Given {@link ExecutionEntityImpl} {@link ExecutionEntityImpl#getTenantId()} return {@code 42}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link SuspendedJobEntityManagerImpl#insert(SuspendedJobEntity, boolean)}
+   * <p>
+   * Method under test: {@link SuspendedJobEntityManagerImpl#insert(SuspendedJobEntity)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void SuspendedJobEntityManagerImpl.insert(SuspendedJobEntity, boolean)"})
-  public void testInsertWithSuspendedJobEntityBoolean_thenCallsDispatchEvent() {
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void SuspendedJobEntityManagerImpl.insert(SuspendedJobEntity)"})
+  public void testInsertWithSuspendedJobEntity_givenExecutionEntityImplGetTenantIdReturn42() {
     // Arrange
+    ActivitiEventDispatcher activitiEventDispatcher = mock(ActivitiEventDispatcher.class);
+    doNothing().when(activitiEventDispatcher).dispatchEvent(Mockito.<ActivitiEvent>any());
+    when(activitiEventDispatcher.isEnabled()).thenReturn(true);
     ExecutionEntityImpl executionEntityImpl = mock(ExecutionEntityImpl.class);
     when(executionEntityImpl.getSuspendedJobCount()).thenReturn(3);
     doNothing().when(executionEntityImpl).setSuspendedJobCount(anyInt());
     when(executionEntityImpl.isCountEnabled()).thenReturn(true);
     when(executionEntityImpl.getTenantId()).thenReturn("42");
-
     ExecutionDataManager executionDataManager = mock(ExecutionDataManager.class);
     when(executionDataManager.findById(Mockito.<String>any())).thenReturn(executionEntityImpl);
-    ExecutionEntityManagerImpl executionEntityManagerImpl =
-        new ExecutionEntityManagerImpl(new JtaProcessEngineConfiguration(), executionDataManager);
+    ExecutionEntityManagerImpl executionEntityManagerImpl = new ExecutionEntityManagerImpl(
+        new JtaProcessEngineConfiguration(), executionDataManager);
 
-    PerformanceSettings performanceSettings = new PerformanceSettings();
+    PerformanceSettings performanceSettings = mock(PerformanceSettings.class);
+    when(performanceSettings.isEnableExecutionRelationshipCounts()).thenReturn(true);
+    doNothing().when(performanceSettings).setEnableEagerExecutionTreeFetching(anyBoolean());
+    doNothing().when(performanceSettings).setEnableExecutionRelationshipCounts(anyBoolean());
+    doNothing().when(performanceSettings).setEnableLocalization(anyBoolean());
+    doNothing().when(performanceSettings).setValidateExecutionRelationshipCountConfigOnBoot(anyBoolean());
     performanceSettings.setEnableEagerExecutionTreeFetching(true);
     performanceSettings.setEnableExecutionRelationshipCounts(true);
     performanceSettings.setEnableLocalization(true);
     performanceSettings.setValidateExecutionRelationshipCountConfigOnBoot(true);
-
-    ActivitiEventDispatcher activitiEventDispatcher = mock(ActivitiEventDispatcher.class);
-    doNothing().when(activitiEventDispatcher).dispatchEvent(Mockito.<ActivitiEvent>any());
-    when(activitiEventDispatcher.isEnabled()).thenReturn(true);
-
-    ProcessEngineConfigurationImpl processEngineConfiguration =
-        mock(ProcessEngineConfigurationImpl.class);
-    when(processEngineConfiguration.getEventDispatcher()).thenReturn(activitiEventDispatcher);
+    ProcessEngineConfigurationImpl processEngineConfiguration = mock(ProcessEngineConfigurationImpl.class);
     when(processEngineConfiguration.getPerformanceSettings()).thenReturn(performanceSettings);
-    when(processEngineConfiguration.getExecutionEntityManager())
-        .thenReturn(executionEntityManagerImpl);
-
+    when(processEngineConfiguration.getExecutionEntityManager()).thenReturn(executionEntityManagerImpl);
+    when(processEngineConfiguration.getEventDispatcher()).thenReturn(activitiEventDispatcher);
     SuspendedJobDataManager jobDataManager = mock(SuspendedJobDataManager.class);
     doNothing().when(jobDataManager).insert(Mockito.<SuspendedJobEntity>any());
+    SuspendedJobEntityManagerImpl suspendedJobEntityManagerImpl = new SuspendedJobEntityManagerImpl(
+        processEngineConfiguration, jobDataManager);
 
-    SuspendedJobEntityManagerImpl suspendedJobEntityManagerImpl =
-        new SuspendedJobEntityManagerImpl(processEngineConfiguration, jobDataManager);
-
-    SuspendedJobEntity jobEntity = mock(SuspendedJobEntity.class);
-    when(jobEntity.getProcessDefinitionId()).thenReturn("42");
-    when(jobEntity.getProcessInstanceId()).thenReturn("42");
-    doNothing().when(jobEntity).setTenantId(Mockito.<String>any());
-    when(jobEntity.getExecutionId()).thenReturn("42");
+    SuspendedJobEntityImpl jobEntity = new SuspendedJobEntityImpl();
+    jobEntity.setExecutionId("42");
 
     // Act
-    suspendedJobEntityManagerImpl.insert(jobEntity, true);
+    suspendedJobEntityManagerImpl.insert(jobEntity);
 
     // Assert
     verify(activitiEventDispatcher, atLeast(1)).dispatchEvent(Mockito.<ActivitiEvent>any());
     verify(activitiEventDispatcher).isEnabled();
+    verify(performanceSettings).isEnableExecutionRelationshipCounts();
+    verify(performanceSettings).setEnableEagerExecutionTreeFetching(eq(true));
+    verify(performanceSettings).setEnableExecutionRelationshipCounts(eq(true));
+    verify(performanceSettings).setEnableLocalization(eq(true));
+    verify(performanceSettings).setValidateExecutionRelationshipCountConfigOnBoot(eq(true));
     verify(processEngineConfiguration).getEventDispatcher();
     verify(processEngineConfiguration).getExecutionEntityManager();
     verify(processEngineConfiguration).getPerformanceSettings();
-    verify(jobEntity).setTenantId("42");
     verify(executionEntityImpl).getSuspendedJobCount();
     verify(executionEntityImpl, atLeast(1)).getTenantId();
     verify(executionEntityImpl).isCountEnabled();
-    verify(executionEntityImpl).setSuspendedJobCount(4);
-    verify(executionDataManager).findById("42");
+    verify(executionEntityImpl).setSuspendedJobCount(eq(4));
+    verify(executionDataManager).findById(eq("42"));
     verify(jobDataManager).insert(isA(SuspendedJobEntity.class));
-    verify(jobEntity, atLeast(1)).getExecutionId();
-    verify(jobEntity, atLeast(1)).getProcessDefinitionId();
-    verify(jobEntity, atLeast(1)).getProcessInstanceId();
+    assertEquals("42", jobEntity.getTenantId());
   }
 
   /**
-   * Test {@link SuspendedJobEntityManagerImpl#insert(SuspendedJobEntity)} with {@code
-   * SuspendedJobEntity}.
-   *
+   * Test {@link SuspendedJobEntityManagerImpl#insert(SuspendedJobEntity)} with {@code SuspendedJobEntity}.
    * <ul>
-   *   <li>Given {@link ExecutionEntityImpl} {@link ExecutionEntityImpl#getTenantId()} return {@code
-   *       null}.
+   *   <li>Given {@link ExecutionEntityImpl} {@link ExecutionEntityImpl#getTenantId()} return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link SuspendedJobEntityManagerImpl#insert(SuspendedJobEntity)}
+   * <p>
+   * Method under test: {@link SuspendedJobEntityManagerImpl#insert(SuspendedJobEntity)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void SuspendedJobEntityManagerImpl.insert(SuspendedJobEntity)"})
   public void testInsertWithSuspendedJobEntity_givenExecutionEntityImplGetTenantIdReturnNull() {
     // Arrange
+    ActivitiEventDispatcher activitiEventDispatcher = mock(ActivitiEventDispatcher.class);
+    doNothing().when(activitiEventDispatcher).dispatchEvent(Mockito.<ActivitiEvent>any());
+    when(activitiEventDispatcher.isEnabled()).thenReturn(true);
     ExecutionEntityImpl executionEntityImpl = mock(ExecutionEntityImpl.class);
     when(executionEntityImpl.getSuspendedJobCount()).thenReturn(3);
     doNothing().when(executionEntityImpl).setSuspendedJobCount(anyInt());
     when(executionEntityImpl.isCountEnabled()).thenReturn(true);
     when(executionEntityImpl.getTenantId()).thenReturn(null);
+    ExecutionDataManager executionDataManager = mock(ExecutionDataManager.class);
+    when(executionDataManager.findById(Mockito.<String>any())).thenReturn(executionEntityImpl);
+    ExecutionEntityManagerImpl executionEntityManagerImpl = new ExecutionEntityManagerImpl(
+        new JtaProcessEngineConfiguration(), executionDataManager);
 
-    ExecutionEntityManager executionEntityManager = mock(ExecutionEntityManager.class);
-    when(executionEntityManager.findById(Mockito.<String>any())).thenReturn(executionEntityImpl);
-
-    PerformanceSettings performanceSettings = new PerformanceSettings();
+    PerformanceSettings performanceSettings = mock(PerformanceSettings.class);
+    when(performanceSettings.isEnableExecutionRelationshipCounts()).thenReturn(true);
+    doNothing().when(performanceSettings).setEnableEagerExecutionTreeFetching(anyBoolean());
+    doNothing().when(performanceSettings).setEnableExecutionRelationshipCounts(anyBoolean());
+    doNothing().when(performanceSettings).setEnableLocalization(anyBoolean());
+    doNothing().when(performanceSettings).setValidateExecutionRelationshipCountConfigOnBoot(anyBoolean());
     performanceSettings.setEnableEagerExecutionTreeFetching(true);
     performanceSettings.setEnableExecutionRelationshipCounts(true);
     performanceSettings.setEnableLocalization(true);
     performanceSettings.setValidateExecutionRelationshipCountConfigOnBoot(true);
-
-    ActivitiEventDispatcher activitiEventDispatcher = mock(ActivitiEventDispatcher.class);
-    when(activitiEventDispatcher.isEnabled()).thenReturn(false);
-
-    ProcessEngineConfigurationImpl processEngineConfiguration =
-        mock(ProcessEngineConfigurationImpl.class);
-    when(processEngineConfiguration.getEventDispatcher()).thenReturn(activitiEventDispatcher);
+    ProcessEngineConfigurationImpl processEngineConfiguration = mock(ProcessEngineConfigurationImpl.class);
     when(processEngineConfiguration.getPerformanceSettings()).thenReturn(performanceSettings);
-    when(processEngineConfiguration.getExecutionEntityManager()).thenReturn(executionEntityManager);
-
+    when(processEngineConfiguration.getExecutionEntityManager()).thenReturn(executionEntityManagerImpl);
+    when(processEngineConfiguration.getEventDispatcher()).thenReturn(activitiEventDispatcher);
     SuspendedJobDataManager jobDataManager = mock(SuspendedJobDataManager.class);
     doNothing().when(jobDataManager).insert(Mockito.<SuspendedJobEntity>any());
+    SuspendedJobEntityManagerImpl suspendedJobEntityManagerImpl = new SuspendedJobEntityManagerImpl(
+        processEngineConfiguration, jobDataManager);
 
-    SuspendedJobEntityManagerImpl suspendedJobEntityManagerImpl =
-        new SuspendedJobEntityManagerImpl(processEngineConfiguration, jobDataManager);
-
-    SuspendedJobEntity jobEntity = mock(SuspendedJobEntity.class);
-    when(jobEntity.getExecutionId()).thenReturn("42");
+    SuspendedJobEntityImpl jobEntity = new SuspendedJobEntityImpl();
+    jobEntity.setExecutionId("42");
 
     // Act
     suspendedJobEntityManagerImpl.insert(jobEntity);
 
-    // Assert
+    // Assert that nothing has changed
+    verify(activitiEventDispatcher, atLeast(1)).dispatchEvent(Mockito.<ActivitiEvent>any());
     verify(activitiEventDispatcher).isEnabled();
+    verify(performanceSettings).isEnableExecutionRelationshipCounts();
+    verify(performanceSettings).setEnableEagerExecutionTreeFetching(eq(true));
+    verify(performanceSettings).setEnableExecutionRelationshipCounts(eq(true));
+    verify(performanceSettings).setEnableLocalization(eq(true));
+    verify(performanceSettings).setValidateExecutionRelationshipCountConfigOnBoot(eq(true));
     verify(processEngineConfiguration).getEventDispatcher();
     verify(processEngineConfiguration).getExecutionEntityManager();
     verify(processEngineConfiguration).getPerformanceSettings();
-    verify(executionEntityManager).findById("42");
     verify(executionEntityImpl).getSuspendedJobCount();
     verify(executionEntityImpl).getTenantId();
     verify(executionEntityImpl).isCountEnabled();
-    verify(executionEntityImpl).setSuspendedJobCount(4);
+    verify(executionEntityImpl).setSuspendedJobCount(eq(4));
+    verify(executionDataManager).findById(eq("42"));
     verify(jobDataManager).insert(isA(SuspendedJobEntity.class));
-    verify(jobEntity, atLeast(1)).getExecutionId();
+    assertEquals("", jobEntity.getTenantId());
   }
 
   /**
-   * Test {@link SuspendedJobEntityManagerImpl#insert(SuspendedJobEntity)} with {@code
-   * SuspendedJobEntity}.
-   *
+   * Test {@link SuspendedJobEntityManagerImpl#insert(SuspendedJobEntity)} with {@code SuspendedJobEntity}.
    * <ul>
-   *   <li>Then calls {@link ActivitiEventDispatcher#dispatchEvent(ActivitiEvent)}.
+   *   <li>Then calls {@link DelegateExecution#getTenantId()}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link SuspendedJobEntityManagerImpl#insert(SuspendedJobEntity)}
+   * <p>
+   * Method under test: {@link SuspendedJobEntityManagerImpl#insert(SuspendedJobEntity)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void SuspendedJobEntityManagerImpl.insert(SuspendedJobEntity)"})
-  public void testInsertWithSuspendedJobEntity_thenCallsDispatchEvent() {
+  public void testInsertWithSuspendedJobEntity_thenCallsGetTenantId() {
     // Arrange
-    ExecutionEntityImpl executionEntityImpl = mock(ExecutionEntityImpl.class);
-    when(executionEntityImpl.getSuspendedJobCount()).thenReturn(3);
-    doNothing().when(executionEntityImpl).setSuspendedJobCount(anyInt());
-    when(executionEntityImpl.isCountEnabled()).thenReturn(true);
-    when(executionEntityImpl.getTenantId()).thenReturn("42");
-
-    ExecutionDataManager executionDataManager = mock(ExecutionDataManager.class);
-    when(executionDataManager.findById(Mockito.<String>any())).thenReturn(executionEntityImpl);
-    ExecutionEntityManagerImpl executionEntityManagerImpl =
-        new ExecutionEntityManagerImpl(new JtaProcessEngineConfiguration(), executionDataManager);
-
-    PerformanceSettings performanceSettings = new PerformanceSettings();
+    PerformanceSettings performanceSettings = mock(PerformanceSettings.class);
+    doNothing().when(performanceSettings).setEnableEagerExecutionTreeFetching(anyBoolean());
+    doNothing().when(performanceSettings).setEnableExecutionRelationshipCounts(anyBoolean());
+    doNothing().when(performanceSettings).setEnableLocalization(anyBoolean());
+    doNothing().when(performanceSettings).setValidateExecutionRelationshipCountConfigOnBoot(anyBoolean());
     performanceSettings.setEnableEagerExecutionTreeFetching(true);
     performanceSettings.setEnableExecutionRelationshipCounts(true);
     performanceSettings.setEnableLocalization(true);
     performanceSettings.setValidateExecutionRelationshipCountConfigOnBoot(true);
-
     ActivitiEventDispatcher activitiEventDispatcher = mock(ActivitiEventDispatcher.class);
     doNothing().when(activitiEventDispatcher).dispatchEvent(Mockito.<ActivitiEvent>any());
     when(activitiEventDispatcher.isEnabled()).thenReturn(true);
-
-    ProcessEngineConfigurationImpl processEngineConfiguration =
-        mock(ProcessEngineConfigurationImpl.class);
+    ExecutionEntity executionEntity = mock(ExecutionEntity.class);
+    when(executionEntity.getTenantId()).thenReturn("42");
+    ExecutionEntityManager executionEntityManager = mock(ExecutionEntityManager.class);
+    when(executionEntityManager.findById(Mockito.<String>any())).thenReturn(executionEntity);
+    ProcessEngineConfigurationImpl processEngineConfiguration = mock(ProcessEngineConfigurationImpl.class);
+    when(processEngineConfiguration.getExecutionEntityManager()).thenReturn(executionEntityManager);
     when(processEngineConfiguration.getEventDispatcher()).thenReturn(activitiEventDispatcher);
-    when(processEngineConfiguration.getPerformanceSettings()).thenReturn(performanceSettings);
-    when(processEngineConfiguration.getExecutionEntityManager())
-        .thenReturn(executionEntityManagerImpl);
-
     SuspendedJobDataManager jobDataManager = mock(SuspendedJobDataManager.class);
     doNothing().when(jobDataManager).insert(Mockito.<SuspendedJobEntity>any());
+    SuspendedJobEntityManagerImpl suspendedJobEntityManagerImpl = new SuspendedJobEntityManagerImpl(
+        processEngineConfiguration, jobDataManager);
 
-    SuspendedJobEntityManagerImpl suspendedJobEntityManagerImpl =
-        new SuspendedJobEntityManagerImpl(processEngineConfiguration, jobDataManager);
-
-    SuspendedJobEntity jobEntity = mock(SuspendedJobEntity.class);
-    when(jobEntity.getProcessDefinitionId()).thenReturn("42");
-    when(jobEntity.getProcessInstanceId()).thenReturn("42");
-    doNothing().when(jobEntity).setTenantId(Mockito.<String>any());
-    when(jobEntity.getExecutionId()).thenReturn("42");
+    SuspendedJobEntityImpl jobEntity = new SuspendedJobEntityImpl();
+    jobEntity.setExecutionId("42");
 
     // Act
     suspendedJobEntityManagerImpl.insert(jobEntity);
 
     // Assert
+    verify(executionEntity, atLeast(1)).getTenantId();
     verify(activitiEventDispatcher, atLeast(1)).dispatchEvent(Mockito.<ActivitiEvent>any());
     verify(activitiEventDispatcher).isEnabled();
+    verify(performanceSettings).setEnableEagerExecutionTreeFetching(eq(true));
+    verify(performanceSettings).setEnableExecutionRelationshipCounts(eq(true));
+    verify(performanceSettings).setEnableLocalization(eq(true));
+    verify(performanceSettings).setValidateExecutionRelationshipCountConfigOnBoot(eq(true));
     verify(processEngineConfiguration).getEventDispatcher();
     verify(processEngineConfiguration).getExecutionEntityManager();
-    verify(processEngineConfiguration).getPerformanceSettings();
-    verify(jobEntity).setTenantId("42");
-    verify(executionEntityImpl).getSuspendedJobCount();
-    verify(executionEntityImpl, atLeast(1)).getTenantId();
-    verify(executionEntityImpl).isCountEnabled();
-    verify(executionEntityImpl).setSuspendedJobCount(4);
-    verify(executionDataManager).findById("42");
+    verify(executionEntityManager).findById(eq("42"));
     verify(jobDataManager).insert(isA(SuspendedJobEntity.class));
-    verify(jobEntity, atLeast(1)).getExecutionId();
-    verify(jobEntity, atLeast(1)).getProcessDefinitionId();
-    verify(jobEntity, atLeast(1)).getProcessInstanceId();
+    assertEquals("42", jobEntity.getTenantId());
   }
 
   /**
-   * Test {@link SuspendedJobEntityManagerImpl#delete(SuspendedJobEntity)} with {@code
-   * SuspendedJobEntity}.
-   *
+   * Test {@link SuspendedJobEntityManagerImpl#insert(SuspendedJobEntity)} with {@code SuspendedJobEntity}.
    * <ul>
-   *   <li>Then calls {@link SuspendedJobDataManager#delete(Entity)}.
+   *   <li>When {@link SuspendedJobEntityImpl} (default constructor).</li>
    * </ul>
-   *
-   * <p>Method under test: {@link SuspendedJobEntityManagerImpl#delete(SuspendedJobEntity)}
+   * <p>
+   * Method under test: {@link SuspendedJobEntityManagerImpl#insert(SuspendedJobEntity)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void SuspendedJobEntityManagerImpl.delete(SuspendedJobEntity)"})
-  public void testDeleteWithSuspendedJobEntity_thenCallsDelete() {
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void SuspendedJobEntityManagerImpl.insert(SuspendedJobEntity)"})
+  public void testInsertWithSuspendedJobEntity_whenSuspendedJobEntityImpl() {
     // Arrange
-    JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();
-    processEngineConfiguration.setEventDispatcher(new ActivitiEventDispatcherImpl());
+    ActivitiEventDispatcher activitiEventDispatcher = mock(ActivitiEventDispatcher.class);
+    doNothing().when(activitiEventDispatcher).dispatchEvent(Mockito.<ActivitiEvent>any());
+    when(activitiEventDispatcher.isEnabled()).thenReturn(true);
+    ProcessEngineConfigurationImpl processEngineConfiguration = mock(ProcessEngineConfigurationImpl.class);
+    when(processEngineConfiguration.getEventDispatcher()).thenReturn(activitiEventDispatcher);
+    SuspendedJobDataManager jobDataManager = mock(SuspendedJobDataManager.class);
+    doNothing().when(jobDataManager).insert(Mockito.<SuspendedJobEntity>any());
+    SuspendedJobEntityManagerImpl suspendedJobEntityManagerImpl = new SuspendedJobEntityManagerImpl(
+        processEngineConfiguration, jobDataManager);
+    SuspendedJobEntityImpl jobEntity = new SuspendedJobEntityImpl();
 
+    // Act
+    suspendedJobEntityManagerImpl.insert(jobEntity);
+
+    // Assert that nothing has changed
+    verify(activitiEventDispatcher, atLeast(1)).dispatchEvent(Mockito.<ActivitiEvent>any());
+    verify(activitiEventDispatcher).isEnabled();
+    verify(processEngineConfiguration).getEventDispatcher();
+    verify(jobDataManager).insert(isA(SuspendedJobEntity.class));
+    assertEquals("", jobEntity.getTenantId());
+  }
+
+  /**
+   * Test {@link SuspendedJobEntityManagerImpl#delete(SuspendedJobEntity)} with {@code SuspendedJobEntity}.
+   * <p>
+   * Method under test: {@link SuspendedJobEntityManagerImpl#delete(SuspendedJobEntity)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void SuspendedJobEntityManagerImpl.delete(SuspendedJobEntity)"})
+  public void testDeleteWithSuspendedJobEntity() {
+    // Arrange
+    ProcessEngineConfigurationImpl processEngineConfiguration = mock(ProcessEngineConfigurationImpl.class);
+    when(processEngineConfiguration.getEventDispatcher()).thenReturn(new ActivitiEventDispatcherImpl());
     SuspendedJobDataManager jobDataManager = mock(SuspendedJobDataManager.class);
     doNothing().when(jobDataManager).delete(Mockito.<SuspendedJobEntity>any());
-
-    SuspendedJobEntityManagerImpl suspendedJobEntityManagerImpl =
-        new SuspendedJobEntityManagerImpl(processEngineConfiguration, jobDataManager);
+    SuspendedJobEntityManagerImpl suspendedJobEntityManagerImpl = new SuspendedJobEntityManagerImpl(
+        processEngineConfiguration, jobDataManager);
 
     // Act
     suspendedJobEntityManagerImpl.delete(new SuspendedJobEntityImpl());
 
     // Assert
+    verify(processEngineConfiguration, atLeast(1)).getEventDispatcher();
+    verify(jobDataManager).delete(isA(SuspendedJobEntity.class));
+  }
+
+  /**
+   * Test {@link SuspendedJobEntityManagerImpl#delete(SuspendedJobEntity)} with {@code SuspendedJobEntity}.
+   * <p>
+   * Method under test: {@link SuspendedJobEntityManagerImpl#delete(SuspendedJobEntity)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void SuspendedJobEntityManagerImpl.delete(SuspendedJobEntity)"})
+  public void testDeleteWithSuspendedJobEntity2() {
+    // Arrange
+    ActivitiEventDispatcher activitiEventDispatcher = mock(ActivitiEventDispatcher.class);
+    when(activitiEventDispatcher.isEnabled()).thenReturn(false);
+    ProcessEngineConfigurationImpl processEngineConfiguration = mock(ProcessEngineConfigurationImpl.class);
+    when(processEngineConfiguration.getEventDispatcher()).thenReturn(activitiEventDispatcher);
+    SuspendedJobDataManager jobDataManager = mock(SuspendedJobDataManager.class);
+    doNothing().when(jobDataManager).delete(Mockito.<SuspendedJobEntity>any());
+    SuspendedJobEntityManagerImpl suspendedJobEntityManagerImpl = new SuspendedJobEntityManagerImpl(
+        processEngineConfiguration, jobDataManager);
+
+    // Act
+    suspendedJobEntityManagerImpl.delete(new SuspendedJobEntityImpl());
+
+    // Assert
+    verify(activitiEventDispatcher, atLeast(1)).isEnabled();
+    verify(processEngineConfiguration, atLeast(1)).getEventDispatcher();
+    verify(jobDataManager).delete(isA(SuspendedJobEntity.class));
+  }
+
+  /**
+   * Test {@link SuspendedJobEntityManagerImpl#delete(SuspendedJobEntity)} with {@code SuspendedJobEntity}.
+   * <p>
+   * Method under test: {@link SuspendedJobEntityManagerImpl#delete(SuspendedJobEntity)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void SuspendedJobEntityManagerImpl.delete(SuspendedJobEntity)"})
+  public void testDeleteWithSuspendedJobEntity3() {
+    // Arrange
+    ActivitiEventDispatcher activitiEventDispatcher = mock(ActivitiEventDispatcher.class);
+    doNothing().when(activitiEventDispatcher).dispatchEvent(Mockito.<ActivitiEvent>any());
+    when(activitiEventDispatcher.isEnabled()).thenReturn(true);
+
+    PerformanceSettings performanceSettings = new PerformanceSettings();
+    performanceSettings.setEnableEagerExecutionTreeFetching(true);
+    performanceSettings.setEnableExecutionRelationshipCounts(true);
+    performanceSettings.setEnableLocalization(true);
+    performanceSettings.setValidateExecutionRelationshipCountConfigOnBoot(true);
+    ExecutionDataManager executionDataManager = mock(ExecutionDataManager.class);
+    when(executionDataManager.findById(Mockito.<String>any()))
+        .thenReturn(ExecutionEntityImpl.createWithEmptyRelationshipCollections());
+    ProcessEngineConfigurationImpl processEngineConfiguration = mock(ProcessEngineConfigurationImpl.class);
+    when(processEngineConfiguration.getExecutionEntityManager())
+        .thenReturn(new ExecutionEntityManagerImpl(new JtaProcessEngineConfiguration(), executionDataManager));
+    when(processEngineConfiguration.getPerformanceSettings()).thenReturn(performanceSettings);
+    when(processEngineConfiguration.getEventDispatcher()).thenReturn(activitiEventDispatcher);
+    SuspendedJobDataManager jobDataManager = mock(SuspendedJobDataManager.class);
+    doNothing().when(jobDataManager).delete(Mockito.<SuspendedJobEntity>any());
+    SuspendedJobEntityManagerImpl suspendedJobEntityManagerImpl = new SuspendedJobEntityManagerImpl(
+        processEngineConfiguration, jobDataManager);
+    SuspendedJobEntityImpl jobEntity = mock(SuspendedJobEntityImpl.class);
+    when(jobEntity.getExecutionId()).thenReturn("42");
+    when(jobEntity.getProcessDefinitionId()).thenReturn("42");
+    when(jobEntity.getProcessInstanceId()).thenReturn("42");
+    when(jobEntity.getExceptionByteArrayRef()).thenReturn(new ByteArrayRef());
+
+    // Act
+    suspendedJobEntityManagerImpl.delete(jobEntity);
+
+    // Assert
+    verify(activitiEventDispatcher, atLeast(1)).dispatchEvent(Mockito.<ActivitiEvent>any());
+    verify(activitiEventDispatcher, atLeast(1)).isEnabled();
+    verify(processEngineConfiguration, atLeast(1)).getEventDispatcher();
+    verify(processEngineConfiguration).getExecutionEntityManager();
+    verify(processEngineConfiguration, atLeast(1)).getPerformanceSettings();
+    verify(jobEntity).getExceptionByteArrayRef();
+    verify(jobEntity, atLeast(1)).getExecutionId();
+    verify(jobEntity).getProcessDefinitionId();
+    verify(jobEntity).getProcessInstanceId();
+    verify(jobDataManager).delete(isA(SuspendedJobEntity.class));
+    verify(executionDataManager).findById(eq("42"));
+  }
+
+  /**
+   * Test {@link SuspendedJobEntityManagerImpl#delete(SuspendedJobEntity)} with {@code SuspendedJobEntity}.
+   * <p>
+   * Method under test: {@link SuspendedJobEntityManagerImpl#delete(SuspendedJobEntity)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void SuspendedJobEntityManagerImpl.delete(SuspendedJobEntity)"})
+  public void testDeleteWithSuspendedJobEntity4() {
+    // Arrange
+    ActivitiEventDispatcher activitiEventDispatcher = mock(ActivitiEventDispatcher.class);
+    doNothing().when(activitiEventDispatcher).dispatchEvent(Mockito.<ActivitiEvent>any());
+    when(activitiEventDispatcher.isEnabled()).thenReturn(true);
+    PerformanceSettings performanceSettings = mock(PerformanceSettings.class);
+    when(performanceSettings.isEnableExecutionRelationshipCounts()).thenReturn(false);
+    doNothing().when(performanceSettings).setEnableEagerExecutionTreeFetching(anyBoolean());
+    doNothing().when(performanceSettings).setEnableExecutionRelationshipCounts(anyBoolean());
+    doNothing().when(performanceSettings).setEnableLocalization(anyBoolean());
+    doNothing().when(performanceSettings).setValidateExecutionRelationshipCountConfigOnBoot(anyBoolean());
+    performanceSettings.setEnableEagerExecutionTreeFetching(true);
+    performanceSettings.setEnableExecutionRelationshipCounts(true);
+    performanceSettings.setEnableLocalization(true);
+    performanceSettings.setValidateExecutionRelationshipCountConfigOnBoot(true);
+    ProcessEngineConfigurationImpl processEngineConfiguration = mock(ProcessEngineConfigurationImpl.class);
+    when(processEngineConfiguration.getPerformanceSettings()).thenReturn(performanceSettings);
+    when(processEngineConfiguration.getEventDispatcher()).thenReturn(activitiEventDispatcher);
+    SuspendedJobDataManager jobDataManager = mock(SuspendedJobDataManager.class);
+    doNothing().when(jobDataManager).delete(Mockito.<SuspendedJobEntity>any());
+    SuspendedJobEntityManagerImpl suspendedJobEntityManagerImpl = new SuspendedJobEntityManagerImpl(
+        processEngineConfiguration, jobDataManager);
+    SuspendedJobEntityImpl jobEntity = mock(SuspendedJobEntityImpl.class);
+    when(jobEntity.getExecutionId()).thenReturn("42");
+    when(jobEntity.getProcessDefinitionId()).thenReturn("42");
+    when(jobEntity.getProcessInstanceId()).thenReturn("42");
+    when(jobEntity.getExceptionByteArrayRef()).thenReturn(new ByteArrayRef());
+
+    // Act
+    suspendedJobEntityManagerImpl.delete(jobEntity);
+
+    // Assert
+    verify(activitiEventDispatcher, atLeast(1)).dispatchEvent(Mockito.<ActivitiEvent>any());
+    verify(activitiEventDispatcher, atLeast(1)).isEnabled();
+    verify(performanceSettings).isEnableExecutionRelationshipCounts();
+    verify(performanceSettings).setEnableEagerExecutionTreeFetching(eq(true));
+    verify(performanceSettings).setEnableExecutionRelationshipCounts(eq(true));
+    verify(performanceSettings).setEnableLocalization(eq(true));
+    verify(performanceSettings).setValidateExecutionRelationshipCountConfigOnBoot(eq(true));
+    verify(processEngineConfiguration, atLeast(1)).getEventDispatcher();
+    verify(processEngineConfiguration).getPerformanceSettings();
+    verify(jobEntity).getExceptionByteArrayRef();
+    verify(jobEntity, atLeast(1)).getExecutionId();
+    verify(jobEntity).getProcessDefinitionId();
+    verify(jobEntity).getProcessInstanceId();
+    verify(jobDataManager).delete(isA(SuspendedJobEntity.class));
+  }
+
+  /**
+   * Test {@link SuspendedJobEntityManagerImpl#delete(SuspendedJobEntity)} with {@code SuspendedJobEntity}.
+   * <ul>
+   *   <li>Then calls {@link ByteArrayRef#delete()}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link SuspendedJobEntityManagerImpl#delete(SuspendedJobEntity)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void SuspendedJobEntityManagerImpl.delete(SuspendedJobEntity)"})
+  public void testDeleteWithSuspendedJobEntity_thenCallsDelete() {
+    // Arrange
+    ActivitiEventDispatcher activitiEventDispatcher = mock(ActivitiEventDispatcher.class);
+    doNothing().when(activitiEventDispatcher).dispatchEvent(Mockito.<ActivitiEvent>any());
+    when(activitiEventDispatcher.isEnabled()).thenReturn(true);
+    PerformanceSettings performanceSettings = mock(PerformanceSettings.class);
+    when(performanceSettings.isEnableExecutionRelationshipCounts()).thenReturn(true);
+    doNothing().when(performanceSettings).setEnableEagerExecutionTreeFetching(anyBoolean());
+    doNothing().when(performanceSettings).setEnableExecutionRelationshipCounts(anyBoolean());
+    doNothing().when(performanceSettings).setEnableLocalization(anyBoolean());
+    doNothing().when(performanceSettings).setValidateExecutionRelationshipCountConfigOnBoot(anyBoolean());
+    performanceSettings.setEnableEagerExecutionTreeFetching(true);
+    performanceSettings.setEnableExecutionRelationshipCounts(true);
+    performanceSettings.setEnableLocalization(true);
+    performanceSettings.setValidateExecutionRelationshipCountConfigOnBoot(true);
+    ExecutionEntityManager executionEntityManager = mock(ExecutionEntityManager.class);
+    when(executionEntityManager.findById(Mockito.<String>any()))
+        .thenReturn(ExecutionEntityImpl.createWithEmptyRelationshipCollections());
+    ProcessEngineConfigurationImpl processEngineConfiguration = mock(ProcessEngineConfigurationImpl.class);
+    when(processEngineConfiguration.getExecutionEntityManager()).thenReturn(executionEntityManager);
+    when(processEngineConfiguration.getPerformanceSettings()).thenReturn(performanceSettings);
+    when(processEngineConfiguration.getEventDispatcher()).thenReturn(activitiEventDispatcher);
+    SuspendedJobDataManager jobDataManager = mock(SuspendedJobDataManager.class);
+    doNothing().when(jobDataManager).delete(Mockito.<SuspendedJobEntity>any());
+    SuspendedJobEntityManagerImpl suspendedJobEntityManagerImpl = new SuspendedJobEntityManagerImpl(
+        processEngineConfiguration, jobDataManager);
+    ByteArrayRef byteArrayRef = mock(ByteArrayRef.class);
+    doNothing().when(byteArrayRef).delete();
+    SuspendedJobEntityImpl jobEntity = mock(SuspendedJobEntityImpl.class);
+    when(jobEntity.getExecutionId()).thenReturn("42");
+    when(jobEntity.getProcessDefinitionId()).thenReturn("42");
+    when(jobEntity.getProcessInstanceId()).thenReturn("42");
+    when(jobEntity.getExceptionByteArrayRef()).thenReturn(byteArrayRef);
+
+    // Act
+    suspendedJobEntityManagerImpl.delete(jobEntity);
+
+    // Assert
+    verify(activitiEventDispatcher, atLeast(1)).dispatchEvent(Mockito.<ActivitiEvent>any());
+    verify(activitiEventDispatcher, atLeast(1)).isEnabled();
+    verify(performanceSettings, atLeast(1)).isEnableExecutionRelationshipCounts();
+    verify(performanceSettings).setEnableEagerExecutionTreeFetching(eq(true));
+    verify(performanceSettings).setEnableExecutionRelationshipCounts(eq(true));
+    verify(performanceSettings).setEnableLocalization(eq(true));
+    verify(performanceSettings).setValidateExecutionRelationshipCountConfigOnBoot(eq(true));
+    verify(processEngineConfiguration, atLeast(1)).getEventDispatcher();
+    verify(processEngineConfiguration).getExecutionEntityManager();
+    verify(processEngineConfiguration, atLeast(1)).getPerformanceSettings();
+    verify(jobEntity).getExceptionByteArrayRef();
+    verify(jobEntity, atLeast(1)).getExecutionId();
+    verify(jobEntity).getProcessDefinitionId();
+    verify(jobEntity).getProcessInstanceId();
+    verify(byteArrayRef).delete();
+    verify(executionEntityManager).findById(eq("42"));
+    verify(jobDataManager).delete(isA(SuspendedJobEntity.class));
+  }
+
+  /**
+   * Test {@link SuspendedJobEntityManagerImpl#delete(SuspendedJobEntity)} with {@code SuspendedJobEntity}.
+   * <ul>
+   *   <li>Then calls {@link EntityManager#findById(String)}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link SuspendedJobEntityManagerImpl#delete(SuspendedJobEntity)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void SuspendedJobEntityManagerImpl.delete(SuspendedJobEntity)"})
+  public void testDeleteWithSuspendedJobEntity_thenCallsFindById() {
+    // Arrange
+    ActivitiEventDispatcher activitiEventDispatcher = mock(ActivitiEventDispatcher.class);
+    doNothing().when(activitiEventDispatcher).dispatchEvent(Mockito.<ActivitiEvent>any());
+    when(activitiEventDispatcher.isEnabled()).thenReturn(true);
+
+    PerformanceSettings performanceSettings = new PerformanceSettings();
+    performanceSettings.setEnableEagerExecutionTreeFetching(true);
+    performanceSettings.setEnableExecutionRelationshipCounts(true);
+    performanceSettings.setEnableLocalization(true);
+    performanceSettings.setValidateExecutionRelationshipCountConfigOnBoot(true);
+    ExecutionEntityManager executionEntityManager = mock(ExecutionEntityManager.class);
+    when(executionEntityManager.findById(Mockito.<String>any()))
+        .thenReturn(ExecutionEntityImpl.createWithEmptyRelationshipCollections());
+    ProcessEngineConfigurationImpl processEngineConfiguration = mock(ProcessEngineConfigurationImpl.class);
+    when(processEngineConfiguration.getExecutionEntityManager()).thenReturn(executionEntityManager);
+    when(processEngineConfiguration.getPerformanceSettings()).thenReturn(performanceSettings);
+    when(processEngineConfiguration.getEventDispatcher()).thenReturn(activitiEventDispatcher);
+    SuspendedJobDataManager jobDataManager = mock(SuspendedJobDataManager.class);
+    doNothing().when(jobDataManager).delete(Mockito.<SuspendedJobEntity>any());
+    SuspendedJobEntityManagerImpl suspendedJobEntityManagerImpl = new SuspendedJobEntityManagerImpl(
+        processEngineConfiguration, jobDataManager);
+    SuspendedJobEntityImpl jobEntity = mock(SuspendedJobEntityImpl.class);
+    when(jobEntity.getExecutionId()).thenReturn("42");
+    when(jobEntity.getProcessDefinitionId()).thenReturn("42");
+    when(jobEntity.getProcessInstanceId()).thenReturn("42");
+    when(jobEntity.getExceptionByteArrayRef()).thenReturn(new ByteArrayRef());
+
+    // Act
+    suspendedJobEntityManagerImpl.delete(jobEntity);
+
+    // Assert
+    verify(activitiEventDispatcher, atLeast(1)).dispatchEvent(Mockito.<ActivitiEvent>any());
+    verify(activitiEventDispatcher, atLeast(1)).isEnabled();
+    verify(processEngineConfiguration, atLeast(1)).getEventDispatcher();
+    verify(processEngineConfiguration).getExecutionEntityManager();
+    verify(processEngineConfiguration, atLeast(1)).getPerformanceSettings();
+    verify(jobEntity).getExceptionByteArrayRef();
+    verify(jobEntity, atLeast(1)).getExecutionId();
+    verify(jobEntity).getProcessDefinitionId();
+    verify(jobEntity).getProcessInstanceId();
+    verify(executionEntityManager).findById(eq("42"));
+    verify(jobDataManager).delete(isA(SuspendedJobEntity.class));
+  }
+
+  /**
+   * Test {@link SuspendedJobEntityManagerImpl#delete(SuspendedJobEntity)} with {@code SuspendedJobEntity}.
+   * <ul>
+   *   <li>Then calls {@link ExecutionEntityImpl#getSuspendedJobCount()}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link SuspendedJobEntityManagerImpl#delete(SuspendedJobEntity)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void SuspendedJobEntityManagerImpl.delete(SuspendedJobEntity)"})
+  public void testDeleteWithSuspendedJobEntity_thenCallsGetSuspendedJobCount() {
+    // Arrange
+    ActivitiEventDispatcher activitiEventDispatcher = mock(ActivitiEventDispatcher.class);
+    doNothing().when(activitiEventDispatcher).dispatchEvent(Mockito.<ActivitiEvent>any());
+    when(activitiEventDispatcher.isEnabled()).thenReturn(true);
+
+    PerformanceSettings performanceSettings = new PerformanceSettings();
+    performanceSettings.setEnableEagerExecutionTreeFetching(true);
+    performanceSettings.setEnableExecutionRelationshipCounts(true);
+    performanceSettings.setEnableLocalization(true);
+    performanceSettings.setValidateExecutionRelationshipCountConfigOnBoot(true);
+    ExecutionEntityImpl executionEntityImpl = mock(ExecutionEntityImpl.class);
+    when(executionEntityImpl.getSuspendedJobCount()).thenReturn(3);
+    doNothing().when(executionEntityImpl).setSuspendedJobCount(anyInt());
+    when(executionEntityImpl.isCountEnabled()).thenReturn(true);
+    ExecutionDataManager executionDataManager = mock(ExecutionDataManager.class);
+    when(executionDataManager.findById(Mockito.<String>any())).thenReturn(executionEntityImpl);
+    ProcessEngineConfigurationImpl processEngineConfiguration = mock(ProcessEngineConfigurationImpl.class);
+    when(processEngineConfiguration.getExecutionEntityManager())
+        .thenReturn(new ExecutionEntityManagerImpl(new JtaProcessEngineConfiguration(), executionDataManager));
+    when(processEngineConfiguration.getPerformanceSettings()).thenReturn(performanceSettings);
+    when(processEngineConfiguration.getEventDispatcher()).thenReturn(activitiEventDispatcher);
+    SuspendedJobDataManager jobDataManager = mock(SuspendedJobDataManager.class);
+    doNothing().when(jobDataManager).delete(Mockito.<SuspendedJobEntity>any());
+    SuspendedJobEntityManagerImpl suspendedJobEntityManagerImpl = new SuspendedJobEntityManagerImpl(
+        processEngineConfiguration, jobDataManager);
+    SuspendedJobEntityImpl jobEntity = mock(SuspendedJobEntityImpl.class);
+    when(jobEntity.getExecutionId()).thenReturn("42");
+    when(jobEntity.getProcessDefinitionId()).thenReturn("42");
+    when(jobEntity.getProcessInstanceId()).thenReturn("42");
+    when(jobEntity.getExceptionByteArrayRef()).thenReturn(new ByteArrayRef());
+
+    // Act
+    suspendedJobEntityManagerImpl.delete(jobEntity);
+
+    // Assert
+    verify(activitiEventDispatcher, atLeast(1)).dispatchEvent(Mockito.<ActivitiEvent>any());
+    verify(activitiEventDispatcher, atLeast(1)).isEnabled();
+    verify(processEngineConfiguration, atLeast(1)).getEventDispatcher();
+    verify(processEngineConfiguration).getExecutionEntityManager();
+    verify(processEngineConfiguration, atLeast(1)).getPerformanceSettings();
+    verify(jobEntity).getExceptionByteArrayRef();
+    verify(jobEntity, atLeast(1)).getExecutionId();
+    verify(jobEntity).getProcessDefinitionId();
+    verify(jobEntity).getProcessInstanceId();
+    verify(executionEntityImpl).getSuspendedJobCount();
+    verify(executionEntityImpl).isCountEnabled();
+    verify(executionEntityImpl).setSuspendedJobCount(eq(2));
+    verify(jobDataManager).delete(isA(SuspendedJobEntity.class));
+    verify(executionDataManager).findById(eq("42"));
+  }
+
+  /**
+   * Test {@link SuspendedJobEntityManagerImpl#delete(SuspendedJobEntity)} with {@code SuspendedJobEntity}.
+   * <ul>
+   *   <li>When {@link SuspendedJobEntityImpl} (default constructor).</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link SuspendedJobEntityManagerImpl#delete(SuspendedJobEntity)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void SuspendedJobEntityManagerImpl.delete(SuspendedJobEntity)"})
+  public void testDeleteWithSuspendedJobEntity_whenSuspendedJobEntityImpl() {
+    // Arrange
+    ActivitiEventDispatcher activitiEventDispatcher = mock(ActivitiEventDispatcher.class);
+    doNothing().when(activitiEventDispatcher).dispatchEvent(Mockito.<ActivitiEvent>any());
+    when(activitiEventDispatcher.isEnabled()).thenReturn(true);
+    ProcessEngineConfigurationImpl processEngineConfiguration = mock(ProcessEngineConfigurationImpl.class);
+    when(processEngineConfiguration.getEventDispatcher()).thenReturn(activitiEventDispatcher);
+    SuspendedJobDataManager jobDataManager = mock(SuspendedJobDataManager.class);
+    doNothing().when(jobDataManager).delete(Mockito.<SuspendedJobEntity>any());
+    SuspendedJobEntityManagerImpl suspendedJobEntityManagerImpl = new SuspendedJobEntityManagerImpl(
+        processEngineConfiguration, jobDataManager);
+
+    // Act
+    suspendedJobEntityManagerImpl.delete(new SuspendedJobEntityImpl());
+
+    // Assert
+    verify(activitiEventDispatcher, atLeast(1)).dispatchEvent(Mockito.<ActivitiEvent>any());
+    verify(activitiEventDispatcher, atLeast(1)).isEnabled();
+    verify(processEngineConfiguration, atLeast(1)).getEventDispatcher();
     verify(jobDataManager).delete(isA(SuspendedJobEntity.class));
   }
 
   /**
    * Test {@link SuspendedJobEntityManagerImpl#deleteExceptionByteArrayRef(SuspendedJobEntity)}.
-   *
    * <ul>
-   *   <li>Then calls {@link SuspendedJobEntity#getExceptionByteArrayRef()}.
+   *   <li>Then calls {@link AbstractJobEntityImpl#getExceptionByteArrayRef()}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link
-   * SuspendedJobEntityManagerImpl#deleteExceptionByteArrayRef(SuspendedJobEntity)}
+   * <p>
+   * Method under test: {@link SuspendedJobEntityManagerImpl#deleteExceptionByteArrayRef(SuspendedJobEntity)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void SuspendedJobEntityManagerImpl.deleteExceptionByteArrayRef(SuspendedJobEntity)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void SuspendedJobEntityManagerImpl.deleteExceptionByteArrayRef(SuspendedJobEntity)"})
   public void testDeleteExceptionByteArrayRef_thenCallsGetExceptionByteArrayRef() {
     // Arrange
     JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();
-    SuspendedJobEntityManagerImpl suspendedJobEntityManagerImpl =
-        new SuspendedJobEntityManagerImpl(
-            processEngineConfiguration,
-            new MybatisSuspendedJobDataManager(new JtaProcessEngineConfiguration()));
-
+    SuspendedJobEntityManagerImpl suspendedJobEntityManagerImpl = new SuspendedJobEntityManagerImpl(
+        processEngineConfiguration, new MybatisSuspendedJobDataManager(new JtaProcessEngineConfiguration()));
     ByteArrayRef byteArrayRef = mock(ByteArrayRef.class);
     doNothing().when(byteArrayRef).delete();
-
-    SuspendedJobEntity jobEntity = mock(SuspendedJobEntity.class);
+    SuspendedJobEntityImpl jobEntity = mock(SuspendedJobEntityImpl.class);
     when(jobEntity.getExceptionByteArrayRef()).thenReturn(byteArrayRef);
 
     // Act
@@ -1330,31 +1566,24 @@ public class SuspendedJobEntityManagerImplDiffblueTest {
 
   /**
    * Test {@link SuspendedJobEntityManagerImpl#createSuspendedJob(AbstractJobEntity)}.
-   *
    * <ul>
-   *   <li>Then PersistentState return {@link Map}.
+   *   <li>Then PersistentState return {@link Map}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link
-   * SuspendedJobEntityManagerImpl#createSuspendedJob(AbstractJobEntity)}
+   * <p>
+   * Method under test: {@link SuspendedJobEntityManagerImpl#createSuspendedJob(AbstractJobEntity)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "SuspendedJobEntity SuspendedJobEntityManagerImpl.createSuspendedJob(AbstractJobEntity)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"SuspendedJobEntity SuspendedJobEntityManagerImpl.createSuspendedJob(AbstractJobEntity)"})
   public void testCreateSuspendedJob_thenPersistentStateReturnMap() {
     // Arrange
     JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();
-    SuspendedJobEntityManagerImpl suspendedJobEntityManagerImpl =
-        new SuspendedJobEntityManagerImpl(
-            processEngineConfiguration,
-            new MybatisSuspendedJobDataManager(new JtaProcessEngineConfiguration()));
+    SuspendedJobEntityManagerImpl suspendedJobEntityManagerImpl = new SuspendedJobEntityManagerImpl(
+        processEngineConfiguration, new MybatisSuspendedJobDataManager(new JtaProcessEngineConfiguration()));
 
     // Act
-    SuspendedJobEntity actualCreateSuspendedJobResult =
-        suspendedJobEntityManagerImpl.createSuspendedJob(new DeadLetterJobEntityImpl());
+    SuspendedJobEntity actualCreateSuspendedJobResult = suspendedJobEntityManagerImpl
+        .createSuspendedJob(new DeadLetterJobEntityImpl());
 
     // Assert
     Object persistentState = actualCreateSuspendedJobResult.getPersistentState();
@@ -1390,25 +1619,19 @@ public class SuspendedJobEntityManagerImplDiffblueTest {
 
   /**
    * Test {@link SuspendedJobEntityManagerImpl#getDataManager()}.
-   *
-   * <p>Method under test: {@link SuspendedJobEntityManagerImpl#getDataManager()}
+   * <p>
+   * Method under test: {@link SuspendedJobEntityManagerImpl#getDataManager()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"SuspendedJobDataManager SuspendedJobEntityManagerImpl.getDataManager()"})
   public void testGetDataManager() {
     // Arrange
     JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();
-    SuspendedJobEntityManagerImpl suspendedJobEntityManagerImpl =
-        new SuspendedJobEntityManagerImpl(
-            processEngineConfiguration,
-            new MybatisSuspendedJobDataManager(new JtaProcessEngineConfiguration()));
+    SuspendedJobEntityManagerImpl suspendedJobEntityManagerImpl = new SuspendedJobEntityManagerImpl(
+        processEngineConfiguration, new MybatisSuspendedJobDataManager(new JtaProcessEngineConfiguration()));
 
-    // Act
-    SuspendedJobDataManager actualDataManager = suspendedJobEntityManagerImpl.getDataManager();
-
-    // Assert
-    assertSame(suspendedJobEntityManagerImpl.jobDataManager, actualDataManager);
+    // Act and Assert
+    assertSame(suspendedJobEntityManagerImpl.jobDataManager, suspendedJobEntityManagerImpl.getDataManager());
   }
 }

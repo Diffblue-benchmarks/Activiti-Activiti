@@ -20,8 +20,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.io.UnsupportedEncodingException;
 import java.time.LocalDate;
@@ -33,9 +32,8 @@ import org.junit.experimental.categories.Category;
 public class EventLogEntryEntityImplDiffblueTest {
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>default or parameterless constructor of {@link EventLogEntryEntityImpl}
    *   <li>{@link EventLogEntryEntityImpl#setData(byte[])}
@@ -67,37 +65,21 @@ public class EventLogEntryEntityImplDiffblueTest {
    * </ul>
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void EventLogEntryEntityImpl.<init>()",
-    "byte[] EventLogEntryEntityImpl.getData()",
-    "String EventLogEntryEntityImpl.getExecutionId()",
-    "String EventLogEntryEntityImpl.getLockOwner()",
-    "String EventLogEntryEntityImpl.getLockTime()",
-    "long EventLogEntryEntityImpl.getLogNumber()",
-    "Object EventLogEntryEntityImpl.getPersistentState()",
-    "String EventLogEntryEntityImpl.getProcessDefinitionId()",
-    "String EventLogEntryEntityImpl.getProcessInstanceId()",
-    "int EventLogEntryEntityImpl.getProcessed()",
-    "String EventLogEntryEntityImpl.getTaskId()",
-    "Date EventLogEntryEntityImpl.getTimeStamp()",
-    "String EventLogEntryEntityImpl.getType()",
-    "String EventLogEntryEntityImpl.getUserId()",
-    "void EventLogEntryEntityImpl.setData(byte[])",
-    "void EventLogEntryEntityImpl.setExecutionId(String)",
-    "void EventLogEntryEntityImpl.setLockOwner(String)",
-    "void EventLogEntryEntityImpl.setLockTime(String)",
-    "void EventLogEntryEntityImpl.setLogNumber(long)",
-    "void EventLogEntryEntityImpl.setProcessDefinitionId(String)",
-    "void EventLogEntryEntityImpl.setProcessInstanceId(String)",
-    "void EventLogEntryEntityImpl.setProcessed(int)",
-    "void EventLogEntryEntityImpl.setTaskId(String)",
-    "void EventLogEntryEntityImpl.setTimeStamp(Date)",
-    "void EventLogEntryEntityImpl.setType(String)",
-    "void EventLogEntryEntityImpl.setUserId(String)",
-    "String EventLogEntryEntityImpl.toString()"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void EventLogEntryEntityImpl.<init>()", "byte[] EventLogEntryEntityImpl.getData()",
+      "String EventLogEntryEntityImpl.getExecutionId()", "String EventLogEntryEntityImpl.getLockOwner()",
+      "String EventLogEntryEntityImpl.getLockTime()", "long EventLogEntryEntityImpl.getLogNumber()",
+      "Object EventLogEntryEntityImpl.getPersistentState()", "String EventLogEntryEntityImpl.getProcessDefinitionId()",
+      "String EventLogEntryEntityImpl.getProcessInstanceId()", "int EventLogEntryEntityImpl.getProcessed()",
+      "String EventLogEntryEntityImpl.getTaskId()", "Date EventLogEntryEntityImpl.getTimeStamp()",
+      "String EventLogEntryEntityImpl.getType()", "String EventLogEntryEntityImpl.getUserId()",
+      "void EventLogEntryEntityImpl.setData(byte[])", "void EventLogEntryEntityImpl.setExecutionId(String)",
+      "void EventLogEntryEntityImpl.setLockOwner(String)", "void EventLogEntryEntityImpl.setLockTime(String)",
+      "void EventLogEntryEntityImpl.setLogNumber(long)", "void EventLogEntryEntityImpl.setProcessDefinitionId(String)",
+      "void EventLogEntryEntityImpl.setProcessInstanceId(String)", "void EventLogEntryEntityImpl.setProcessed(int)",
+      "void EventLogEntryEntityImpl.setTaskId(String)", "void EventLogEntryEntityImpl.setTimeStamp(Date)",
+      "void EventLogEntryEntityImpl.setType(String)", "void EventLogEntryEntityImpl.setUserId(String)",
+      "String EventLogEntryEntityImpl.toString()"})
   public void testGettersAndSetters() throws UnsupportedEncodingException {
     // Arrange and Act
     EventLogEntryEntityImpl actualEventLogEntryEntityImpl = new EventLogEntryEntityImpl();
@@ -111,8 +93,7 @@ public class EventLogEntryEntityImplDiffblueTest {
     actualEventLogEntryEntityImpl.setProcessInstanceId("42");
     actualEventLogEntryEntityImpl.setProcessed(1);
     actualEventLogEntryEntityImpl.setTaskId("42");
-    Date timeStamp =
-        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant());
+    Date timeStamp = Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant());
     actualEventLogEntryEntityImpl.setTimeStamp(timeStamp);
     actualEventLogEntryEntityImpl.setType("Type");
     actualEventLogEntryEntityImpl.setUserId("42");

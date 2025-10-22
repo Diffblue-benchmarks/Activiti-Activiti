@@ -21,8 +21,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.io.UnsupportedEncodingException;
 import org.junit.Test;
@@ -31,9 +30,8 @@ import org.junit.experimental.categories.Category;
 public class ResourceEntityImplDiffblueTest {
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>default or parameterless constructor of {@link ResourceEntityImpl}
    *   <li>{@link ResourceEntityImpl#setBytes(byte[])}
@@ -49,21 +47,13 @@ public class ResourceEntityImplDiffblueTest {
    * </ul>
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void ResourceEntityImpl.<init>()",
-    "byte[] ResourceEntityImpl.getBytes()",
-    "String ResourceEntityImpl.getDeploymentId()",
-    "String ResourceEntityImpl.getName()",
-    "java.lang.Object ResourceEntityImpl.getPersistentState()",
-    "boolean ResourceEntityImpl.isGenerated()",
-    "void ResourceEntityImpl.setBytes(byte[])",
-    "void ResourceEntityImpl.setDeploymentId(String)",
-    "void ResourceEntityImpl.setGenerated(boolean)",
-    "void ResourceEntityImpl.setName(String)",
-    "String ResourceEntityImpl.toString()"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void ResourceEntityImpl.<init>()", "byte[] ResourceEntityImpl.getBytes()",
+      "String ResourceEntityImpl.getDeploymentId()", "String ResourceEntityImpl.getName()",
+      "java.lang.Object ResourceEntityImpl.getPersistentState()", "boolean ResourceEntityImpl.isGenerated()",
+      "void ResourceEntityImpl.setBytes(byte[])", "void ResourceEntityImpl.setDeploymentId(String)",
+      "void ResourceEntityImpl.setGenerated(boolean)", "void ResourceEntityImpl.setName(String)",
+      "String ResourceEntityImpl.toString()"})
   public void testGettersAndSetters() throws UnsupportedEncodingException {
     // Arrange and Act
     ResourceEntityImpl actualResourceEntityImpl = new ResourceEntityImpl();

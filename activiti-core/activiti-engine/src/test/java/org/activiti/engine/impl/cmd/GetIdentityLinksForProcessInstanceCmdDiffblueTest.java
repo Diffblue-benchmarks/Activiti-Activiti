@@ -16,26 +16,22 @@
 package org.activiti.engine.impl.cmd;
 
 import static org.junit.Assert.assertEquals;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 
 public class GetIdentityLinksForProcessInstanceCmdDiffblueTest {
   /**
-   * Test {@link
-   * GetIdentityLinksForProcessInstanceCmd#GetIdentityLinksForProcessInstanceCmd(String)}.
-   *
-   * <p>Method under test: {@link
-   * GetIdentityLinksForProcessInstanceCmd#GetIdentityLinksForProcessInstanceCmd(String)}
+   * Test {@link GetIdentityLinksForProcessInstanceCmd#GetIdentityLinksForProcessInstanceCmd(String)}.
+   * <p>
+   * Method under test: {@link GetIdentityLinksForProcessInstanceCmd#GetIdentityLinksForProcessInstanceCmd(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void GetIdentityLinksForProcessInstanceCmd.<init>(String)"})
   public void testNewGetIdentityLinksForProcessInstanceCmd() {
     // Arrange, Act and Assert
-    assertEquals("42", new GetIdentityLinksForProcessInstanceCmd("42").processInstanceId);
+    assertEquals("42", (new GetIdentityLinksForProcessInstanceCmd("42")).processInstanceId);
   }
 }

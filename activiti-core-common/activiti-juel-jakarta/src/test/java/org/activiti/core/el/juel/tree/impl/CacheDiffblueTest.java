@@ -17,7 +17,6 @@ package org.activiti.core.el.juel.tree.impl;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
 import org.activiti.core.el.juel.tree.FunctionNode;
@@ -30,94 +29,84 @@ import org.junit.jupiter.api.Test;
 class CacheDiffblueTest {
   /**
    * Test {@link Cache#Cache(int)}.
-   *
-   * <p>Method under test: {@link Cache#Cache(int)}
+   * <p>
+   * Method under test: {@link Cache#Cache(int)}
    */
   @Test
   @DisplayName("Test new Cache(int)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void Cache.<init>(int)"})
   void testNewCache() {
     // Arrange, Act and Assert
-    assertEquals(0, new Cache(3).size());
+    assertEquals(0, (new Cache(3)).size());
   }
 
   /**
    * Test {@link Cache#Cache(int, int)}.
-   *
    * <ul>
-   *   <li>When one.
-   *   <li>Then return size is zero.
+   *   <li>When one.</li>
+   *   <li>Then return size is zero.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link Cache#Cache(int, int)}
+   * <p>
+   * Method under test: {@link Cache#Cache(int, int)}
    */
   @Test
   @DisplayName("Test new Cache(int, int); when one; then return size is zero")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void Cache.<init>(int, int)"})
   void testNewCache_whenOne_thenReturnSizeIsZero() {
     // Arrange, Act and Assert
-    assertEquals(0, new Cache(3, 1).size());
+    assertEquals(0, (new Cache(3, 1)).size());
   }
 
   /**
    * Test {@link Cache#size()}.
-   *
-   * <p>Method under test: {@link Cache#size()}
+   * <p>
+   * Method under test: {@link Cache#size()}
    */
   @Test
   @DisplayName("Test size()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"int Cache.size()"})
   void testSize() {
     // Arrange, Act and Assert
-    assertEquals(0, new Cache(3).size());
+    assertEquals(0, (new Cache(3)).size());
   }
 
   /**
    * Test {@link Cache#get(String)}.
-   *
-   * <p>Method under test: {@link Cache#get(String)}
+   * <p>
+   * Method under test: {@link Cache#get(String)}
    */
   @Test
   @DisplayName("Test get(String)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"Tree Cache.get(String)"})
   void testGet() {
     // Arrange, Act and Assert
-    assertNull(new Cache(3).get("Expression"));
+    assertNull((new Cache(3)).get("Expression"));
   }
 
   /**
    * Test {@link Cache#put(String, Tree)}.
-   *
-   * <p>Method under test: {@link Cache#put(String, Tree)}
+   * <p>
+   * Method under test: {@link Cache#put(String, Tree)}
    */
   @Test
   @DisplayName("Test put(String, Tree)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void Cache.put(String, Tree)"})
   void testPut() {
     // Arrange
     Cache cache = new Cache(3);
     AstNull root = new AstNull();
     ArrayList<FunctionNode> functions = new ArrayList<>();
-
-    Tree tree = new Tree(root, functions, new ArrayList<>(), true);
-    cache.put("Expression", tree);
+    cache.put("Expression", new Tree(root, functions, new ArrayList<>(), true));
     AstNull root2 = new AstNull();
     ArrayList<FunctionNode> functions2 = new ArrayList<>();
 
-    Tree tree2 = new Tree(root2, functions2, new ArrayList<>(), true);
-
     // Act
-    cache.put("Expression", tree2);
+    cache.put("Expression", new Tree(root2, functions2, new ArrayList<>(), true));
 
     // Assert that nothing has changed
     assertEquals(1, cache.size());
@@ -125,19 +114,16 @@ class CacheDiffblueTest {
 
   /**
    * Test {@link Cache#put(String, Tree)}.
-   *
    * <ul>
-   *   <li>Given {@link Cache#Cache(int)} with capacity is three.
-   *   <li>Then {@link Cache#Cache(int)} with capacity is three size is one.
+   *   <li>Given {@link Cache#Cache(int)} with capacity is three.</li>
+   *   <li>Then {@link Cache#Cache(int)} with capacity is three size is one.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link Cache#put(String, Tree)}
+   * <p>
+   * Method under test: {@link Cache#put(String, Tree)}
    */
   @Test
-  @DisplayName(
-      "Test put(String, Tree); given Cache(int) with capacity is three; then Cache(int) with capacity is three size is one")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test put(String, Tree); given Cache(int) with capacity is three; then Cache(int) with capacity is three size is one")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void Cache.put(String, Tree)"})
   void testPut_givenCacheWithCapacityIsThree_thenCacheWithCapacityIsThreeSizeIsOne() {
     // Arrange
@@ -145,10 +131,8 @@ class CacheDiffblueTest {
     AstNull root = new AstNull();
     ArrayList<FunctionNode> functions = new ArrayList<>();
 
-    Tree tree = new Tree(root, functions, new ArrayList<>(), true);
-
     // Act
-    cache.put("Expression", tree);
+    cache.put("Expression", new Tree(root, functions, new ArrayList<>(), true));
 
     // Assert
     assertEquals(1, cache.size());
@@ -156,19 +140,16 @@ class CacheDiffblueTest {
 
   /**
    * Test {@link Cache#put(String, Tree)}.
-   *
    * <ul>
-   *   <li>Given {@link Cache#Cache(int)} with capacity is zero.
-   *   <li>Then {@link Cache#Cache(int)} with capacity is zero size is zero.
+   *   <li>Given {@link Cache#Cache(int)} with capacity is zero.</li>
+   *   <li>Then {@link Cache#Cache(int)} with capacity is zero size is zero.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link Cache#put(String, Tree)}
+   * <p>
+   * Method under test: {@link Cache#put(String, Tree)}
    */
   @Test
-  @DisplayName(
-      "Test put(String, Tree); given Cache(int) with capacity is zero; then Cache(int) with capacity is zero size is zero")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test put(String, Tree); given Cache(int) with capacity is zero; then Cache(int) with capacity is zero size is zero")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void Cache.put(String, Tree)"})
   void testPut_givenCacheWithCapacityIsZero_thenCacheWithCapacityIsZeroSizeIsZero() {
     // Arrange
@@ -176,10 +157,8 @@ class CacheDiffblueTest {
     AstNull root = new AstNull();
     ArrayList<FunctionNode> functions = new ArrayList<>();
 
-    Tree tree = new Tree(root, functions, new ArrayList<>(), true);
-
     // Act
-    cache.put("Expression", tree);
+    cache.put("Expression", new Tree(root, functions, new ArrayList<>(), true));
 
     // Assert that nothing has changed
     assertEquals(0, cache.size());

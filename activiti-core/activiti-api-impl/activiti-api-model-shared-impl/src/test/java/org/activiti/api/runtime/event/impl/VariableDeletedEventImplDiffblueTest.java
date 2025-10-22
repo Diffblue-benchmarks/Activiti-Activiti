@@ -19,7 +19,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.api.model.shared.event.VariableEvent;
 import org.activiti.api.model.shared.event.VariableEvent.VariableEvents;
@@ -32,13 +31,12 @@ import org.junit.jupiter.api.Test;
 class VariableDeletedEventImplDiffblueTest {
   /**
    * Test {@link VariableDeletedEventImpl#VariableDeletedEventImpl()}.
-   *
-   * <p>Method under test: {@link VariableDeletedEventImpl#VariableDeletedEventImpl()}
+   * <p>
+   * Method under test: {@link VariableDeletedEventImpl#VariableDeletedEventImpl()}
    */
   @Test
   @DisplayName("Test new VariableDeletedEventImpl()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void VariableDeletedEventImpl.<init>()"})
   void testNewVariableDeletedEventImpl() {
     // Arrange and Act
@@ -57,14 +55,12 @@ class VariableDeletedEventImplDiffblueTest {
 
   /**
    * Test {@link VariableDeletedEventImpl#VariableDeletedEventImpl(VariableInstance)}.
-   *
-   * <p>Method under test: {@link
-   * VariableDeletedEventImpl#VariableDeletedEventImpl(VariableInstance)}
+   * <p>
+   * Method under test: {@link VariableDeletedEventImpl#VariableDeletedEventImpl(VariableInstance)}
    */
   @Test
   @DisplayName("Test new VariableDeletedEventImpl(VariableInstance)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void VariableDeletedEventImpl.<init>(VariableInstance)"})
   void testNewVariableDeletedEventImpl2() {
     // Arrange
@@ -88,16 +84,15 @@ class VariableDeletedEventImplDiffblueTest {
 
   /**
    * Test {@link VariableDeletedEventImpl#getEventType()}.
-   *
-   * <p>Method under test: {@link VariableDeletedEventImpl#getEventType()}
+   * <p>
+   * Method under test: {@link VariableDeletedEventImpl#getEventType()}
    */
   @Test
   @DisplayName("Test getEventType()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"VariableEvents VariableDeletedEventImpl.getEventType()"})
   void testGetEventType() {
     // Arrange, Act and Assert
-    assertEquals(VariableEvents.VARIABLE_DELETED, new VariableDeletedEventImpl().getEventType());
+    assertEquals(VariableEvents.VARIABLE_DELETED, (new VariableDeletedEventImpl()).getEventType());
   }
 }

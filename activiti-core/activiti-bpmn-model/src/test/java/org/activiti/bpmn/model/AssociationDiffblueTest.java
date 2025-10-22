@@ -18,8 +18,7 @@ package org.activiti.bpmn.model;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
@@ -27,9 +26,8 @@ import org.junit.experimental.categories.Category;
 public class AssociationDiffblueTest {
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>{@link Association#setAssociationDirection(AssociationDirection)}
    *   <li>{@link Association#setSourceRef(String)}
@@ -40,16 +38,10 @@ public class AssociationDiffblueTest {
    * </ul>
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "AssociationDirection Association.getAssociationDirection()",
-    "String Association.getSourceRef()",
-    "String Association.getTargetRef()",
-    "void Association.setAssociationDirection(AssociationDirection)",
-    "void Association.setSourceRef(String)",
-    "void Association.setTargetRef(String)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"AssociationDirection Association.getAssociationDirection()", "String Association.getSourceRef()",
+      "String Association.getTargetRef()", "void Association.setAssociationDirection(AssociationDirection)",
+      "void Association.setSourceRef(String)", "void Association.setTargetRef(String)"})
   public void testGettersAndSetters() {
     // Arrange
     Association association = new Association();
@@ -69,20 +61,18 @@ public class AssociationDiffblueTest {
 
   /**
    * Test {@link Association#clone()}.
-   *
    * <ul>
-   *   <li>Given {@link Association} (default constructor).
+   *   <li>Given {@link Association} (default constructor).</li>
    * </ul>
-   *
-   * <p>Method under test: {@link Association#clone()}
+   * <p>
+   * Method under test: {@link Association#clone()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"Association Association.clone()"})
   public void testClone_givenAssociation() {
     // Arrange and Act
-    Association actualCloneResult = new Association().clone();
+    Association actualCloneResult = (new Association()).clone();
 
     // Assert
     assertNull(actualCloneResult.getSourceRef());
@@ -97,16 +87,14 @@ public class AssociationDiffblueTest {
 
   /**
    * Test {@link Association#clone()}.
-   *
    * <ul>
-   *   <li>Given {@link Association} (default constructor) AssociationDirection is {@code null}.
+   *   <li>Given {@link Association} (default constructor) AssociationDirection is {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link Association#clone()}
+   * <p>
+   * Method under test: {@link Association#clone()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"Association Association.clone()"})
   public void testClone_givenAssociationAssociationDirectionIsNull() {
     // Arrange
@@ -129,12 +117,11 @@ public class AssociationDiffblueTest {
 
   /**
    * Test new {@link Association} (default constructor).
-   *
-   * <p>Method under test: default or parameterless constructor of {@link Association}
+   * <p>
+   * Method under test: default or parameterless constructor of {@link Association}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void Association.<init>()"})
   public void testNewAssociation() {
     // Arrange and Act

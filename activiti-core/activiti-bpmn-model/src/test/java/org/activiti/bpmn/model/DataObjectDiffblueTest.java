@@ -23,30 +23,29 @@ import static org.mockito.Mockito.atLeast;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
+import java.util.ArrayList;
+import java.util.HashMap;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 
 public class DataObjectDiffblueTest {
   /**
    * Test {@link DataObject#clone()}.
-   *
    * <ul>
-   *   <li>Given {@link BooleanDataObject} (default constructor).
-   *   <li>Then return {@link BooleanDataObject}.
+   *   <li>Given {@link BooleanDataObject} (default constructor).</li>
+   *   <li>Then return {@link BooleanDataObject}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link DataObject#clone()}
+   * <p>
+   * Method under test: {@link DataObject#clone()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"DataObject DataObject.clone()"})
   public void testClone_givenBooleanDataObject_thenReturnBooleanDataObject() {
     // Arrange and Act
-    BooleanDataObject actualCloneResult = new BooleanDataObject().clone();
+    BooleanDataObject actualCloneResult = (new BooleanDataObject()).clone();
 
     // Assert
     assertTrue(actualCloneResult instanceof BooleanDataObject);
@@ -66,20 +65,19 @@ public class DataObjectDiffblueTest {
 
   /**
    * Test {@link DataObject#clone()}.
-   *
    * <ul>
-   *   <li>Given {@link DataObject} (default constructor).
+   *   <li>Given {@link DataObject} (default constructor).</li>
+   *   <li>Then return Id is {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link DataObject#clone()}
+   * <p>
+   * Method under test: {@link DataObject#clone()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"DataObject DataObject.clone()"})
-  public void testClone_givenDataObject() {
+  public void testClone_givenDataObject_thenReturnIdIsNull() {
     // Arrange and Act
-    DataObject actualCloneResult = new DataObject().clone();
+    DataObject actualCloneResult = (new DataObject()).clone();
 
     // Assert
     assertNull(actualCloneResult.getId());
@@ -97,29 +95,26 @@ public class DataObjectDiffblueTest {
 
   /**
    * Test {@link DataObject#setValues(DataObject)} with {@code DataObject}.
-   *
    * <ul>
-   *   <li>Given {@code null}.
-   *   <li>Then {@link DataObject} (default constructor) Id is {@code 42}.
+   *   <li>Given {@code 42}.</li>
+   *   <li>Then {@link DataObject} (default constructor) Id is {@code 42}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link DataObject#setValues(DataObject)}
+   * <p>
+   * Method under test: {@link DataObject#setValues(DataObject)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void DataObject.setValues(DataObject)"})
-  public void testSetValuesWithDataObject_givenNull_thenDataObjectIdIs42() {
+  public void testSetValuesWithDataObject_given42_thenDataObjectIdIs42() {
     // Arrange
     DataObject dataObject = new DataObject();
-
     BooleanDataObject otherElement = mock(BooleanDataObject.class);
-    when(otherElement.getExecutionListeners()).thenReturn(null);
-    when(otherElement.getAttributes()).thenReturn(null);
-    when(otherElement.getExtensionElements()).thenReturn(null);
     when(otherElement.getId()).thenReturn("42");
     when(otherElement.getDocumentation()).thenReturn("Documentation");
     when(otherElement.getName()).thenReturn("Name");
+    when(otherElement.getExecutionListeners()).thenReturn(new ArrayList<>());
+    when(otherElement.getAttributes()).thenReturn(new HashMap<>());
+    when(otherElement.getExtensionElements()).thenReturn(new HashMap<>());
     ItemDefinition itemDefinition = new ItemDefinition();
     when(otherElement.getItemSubjectRef()).thenReturn(itemDefinition);
 
@@ -127,12 +122,12 @@ public class DataObjectDiffblueTest {
     dataObject.setValues(otherElement);
 
     // Assert
-    verify(otherElement).getAttributes();
-    verify(otherElement).getExtensionElements();
+    verify(otherElement, atLeast(1)).getAttributes();
+    verify(otherElement, atLeast(1)).getExtensionElements();
     verify(otherElement, atLeast(1)).getId();
     verify(otherElement).getItemSubjectRef();
     verify(otherElement).getDocumentation();
-    verify(otherElement).getExecutionListeners();
+    verify(otherElement, atLeast(1)).getExecutionListeners();
     verify(otherElement, atLeast(1)).getName();
     assertEquals("42", dataObject.getId());
     assertEquals("Documentation", dataObject.getDocumentation());
@@ -142,17 +137,15 @@ public class DataObjectDiffblueTest {
 
   /**
    * Test {@link DataObject#setValues(DataObject)} with {@code DataObject}.
-   *
    * <ul>
-   *   <li>When {@link DataObject} (default constructor).
-   *   <li>Then {@link DataObject} (default constructor) Id is {@code null}.
+   *   <li>When {@link DataObject} (default constructor).</li>
+   *   <li>Then {@link DataObject} (default constructor) Id is {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link DataObject#setValues(DataObject)}
+   * <p>
+   * Method under test: {@link DataObject#setValues(DataObject)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void DataObject.setValues(DataObject)"})
   public void testSetValuesWithDataObject_whenDataObject_thenDataObjectIdIsNull() {
     // Arrange
@@ -171,9 +164,8 @@ public class DataObjectDiffblueTest {
 
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>default or parameterless constructor of {@link DataObject}
    *   <li>{@link DataObject#setItemSubjectRef(ItemDefinition)}
@@ -181,13 +173,9 @@ public class DataObjectDiffblueTest {
    * </ul>
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void DataObject.<init>()",
-    "ItemDefinition DataObject.getItemSubjectRef()",
-    "void DataObject.setItemSubjectRef(ItemDefinition)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void DataObject.<init>()", "ItemDefinition DataObject.getItemSubjectRef()",
+      "void DataObject.setItemSubjectRef(ItemDefinition)"})
   public void testGettersAndSetters() {
     // Arrange and Act
     DataObject actualDataObject = new DataObject();

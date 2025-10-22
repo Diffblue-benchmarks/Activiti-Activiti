@@ -18,7 +18,6 @@ package org.activiti.runtime.api.event.impl;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.Optional;
 import org.activiti.api.process.model.events.BPMNMessageEvent;
@@ -35,29 +34,24 @@ import org.junit.jupiter.api.Test;
 
 class ToMessageSentConverterDiffblueTest {
   /**
-   * Test {@link ToMessageSentConverter#from(ActivitiMessageEvent)} with {@code
-   * ActivitiMessageEvent}.
-   *
+   * Test {@link ToMessageSentConverter#from(ActivitiMessageEvent)} with {@code ActivitiMessageEvent}.
    * <ul>
-   *   <li>Then {@link Optional#get()} return {@link BPMNMessageSentEventImpl}.
+   *   <li>Then {@link Optional#get()} return {@link BPMNMessageSentEventImpl}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ToMessageSentConverter#from(ActivitiMessageEvent)}
+   * <p>
+   * Method under test: {@link ToMessageSentConverter#from(ActivitiMessageEvent)}
    */
   @Test
-  @DisplayName(
-      "Test from(ActivitiMessageEvent) with 'ActivitiMessageEvent'; then get() return BPMNMessageSentEventImpl")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test from(ActivitiMessageEvent) with 'ActivitiMessageEvent'; then get() return BPMNMessageSentEventImpl")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"Optional ToMessageSentConverter.from(ActivitiMessageEvent)"})
   void testFromWithActivitiMessageEvent_thenGetReturnBPMNMessageSentEventImpl() {
     // Arrange
-    ToMessageSentConverter toMessageSentConverter =
-        new ToMessageSentConverter(new BPMNMessageConverter());
+    ToMessageSentConverter toMessageSentConverter = new ToMessageSentConverter(new BPMNMessageConverter());
 
     // Act
-    Optional<BPMNMessageSentEvent> actualFromResult =
-        toMessageSentConverter.from(new ActivitiMessageEventImpl(ActivitiEventType.ENTITY_CREATED));
+    Optional<BPMNMessageSentEvent> actualFromResult = toMessageSentConverter
+        .from(new ActivitiMessageEventImpl(ActivitiEventType.ENTITY_CREATED));
 
     // Assert
     BPMNMessageSentEvent getResult = actualFromResult.get();

@@ -21,8 +21,7 @@ import static org.mockito.Mockito.atLeast;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.engine.impl.persistence.entity.HistoricIdentityLinkEntity;
 import org.activiti.engine.impl.persistence.entity.HistoricIdentityLinkEntityImpl;
@@ -32,59 +31,44 @@ import org.junit.experimental.categories.Category;
 
 public class HistoricIdentityLinksByProcInstMatcherDiffblueTest {
   /**
-   * Test {@link HistoricIdentityLinksByProcInstMatcher#isRetained(HistoricIdentityLinkEntity,
-   * Object)} with {@code HistoricIdentityLinkEntity}, {@code Object}.
-   *
-   * <p>Method under test: {@link
-   * HistoricIdentityLinksByProcInstMatcher#isRetained(HistoricIdentityLinkEntity, Object)}
+   * Test {@link HistoricIdentityLinksByProcInstMatcher#isRetained(HistoricIdentityLinkEntity, Object)} with {@code HistoricIdentityLinkEntity}, {@code Object}.
+   * <p>
+   * Method under test: {@link HistoricIdentityLinksByProcInstMatcher#isRetained(HistoricIdentityLinkEntity, Object)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "boolean HistoricIdentityLinksByProcInstMatcher.isRetained(HistoricIdentityLinkEntity, Object)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean HistoricIdentityLinksByProcInstMatcher.isRetained(HistoricIdentityLinkEntity, Object)"})
   public void testIsRetainedWithHistoricIdentityLinkEntityObject() {
     // Arrange
-    HistoricIdentityLinksByProcInstMatcher historicIdentityLinksByProcInstMatcher =
-        new HistoricIdentityLinksByProcInstMatcher();
+    HistoricIdentityLinksByProcInstMatcher historicIdentityLinksByProcInstMatcher = new HistoricIdentityLinksByProcInstMatcher();
 
     // Act and Assert
     assertFalse(
-        historicIdentityLinksByProcInstMatcher.isRetained(
-            new HistoricIdentityLinkEntityImpl(), JSONObject.NULL));
+        historicIdentityLinksByProcInstMatcher.isRetained(new HistoricIdentityLinkEntityImpl(), JSONObject.NULL));
   }
 
   /**
-   * Test {@link HistoricIdentityLinksByProcInstMatcher#isRetained(HistoricIdentityLinkEntity,
-   * Object)} with {@code HistoricIdentityLinkEntity}, {@code Object}.
-   *
+   * Test {@link HistoricIdentityLinksByProcInstMatcher#isRetained(HistoricIdentityLinkEntity, Object)} with {@code HistoricIdentityLinkEntity}, {@code Object}.
    * <ul>
-   *   <li>Given {@code 42}.
-   *   <li>When {@code 42}.
-   *   <li>Then return {@code true}.
+   *   <li>Given {@code 42}.</li>
+   *   <li>When {@code 42}.</li>
+   *   <li>Then return {@code true}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link
-   * HistoricIdentityLinksByProcInstMatcher#isRetained(HistoricIdentityLinkEntity, Object)}
+   * <p>
+   * Method under test: {@link HistoricIdentityLinksByProcInstMatcher#isRetained(HistoricIdentityLinkEntity, Object)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "boolean HistoricIdentityLinksByProcInstMatcher.isRetained(HistoricIdentityLinkEntity, Object)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean HistoricIdentityLinksByProcInstMatcher.isRetained(HistoricIdentityLinkEntity, Object)"})
   public void testIsRetainedWithHistoricIdentityLinkEntityObject_given42_when42_thenReturnTrue() {
     // Arrange
-    HistoricIdentityLinksByProcInstMatcher historicIdentityLinksByProcInstMatcher =
-        new HistoricIdentityLinksByProcInstMatcher();
-
+    HistoricIdentityLinksByProcInstMatcher historicIdentityLinksByProcInstMatcher = new HistoricIdentityLinksByProcInstMatcher();
     HistoricIdentityLinkEntity historicIdentityLinkEntity = mock(HistoricIdentityLinkEntity.class);
     when(historicIdentityLinkEntity.getProcessInstanceId()).thenReturn("42");
 
     // Act
-    boolean actualIsRetainedResult =
-        historicIdentityLinksByProcInstMatcher.isRetained(historicIdentityLinkEntity, "42");
+    boolean actualIsRetainedResult = historicIdentityLinksByProcInstMatcher.isRetained(historicIdentityLinkEntity,
+        "42");
 
     // Assert
     verify(historicIdentityLinkEntity, atLeast(1)).getProcessInstanceId();
@@ -92,34 +76,26 @@ public class HistoricIdentityLinksByProcInstMatcherDiffblueTest {
   }
 
   /**
-   * Test {@link HistoricIdentityLinksByProcInstMatcher#isRetained(HistoricIdentityLinkEntity,
-   * Object)} with {@code HistoricIdentityLinkEntity}, {@code Object}.
-   *
+   * Test {@link HistoricIdentityLinksByProcInstMatcher#isRetained(HistoricIdentityLinkEntity, Object)} with {@code HistoricIdentityLinkEntity}, {@code Object}.
    * <ul>
-   *   <li>When {@code Parameter}.
-   *   <li>Then return {@code false}.
+   *   <li>When {@code Parameter}.</li>
+   *   <li>Then return {@code false}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link
-   * HistoricIdentityLinksByProcInstMatcher#isRetained(HistoricIdentityLinkEntity, Object)}
+   * <p>
+   * Method under test: {@link HistoricIdentityLinksByProcInstMatcher#isRetained(HistoricIdentityLinkEntity, Object)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "boolean HistoricIdentityLinksByProcInstMatcher.isRetained(HistoricIdentityLinkEntity, Object)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean HistoricIdentityLinksByProcInstMatcher.isRetained(HistoricIdentityLinkEntity, Object)"})
   public void testIsRetainedWithHistoricIdentityLinkEntityObject_whenParameter_thenReturnFalse() {
     // Arrange
-    HistoricIdentityLinksByProcInstMatcher historicIdentityLinksByProcInstMatcher =
-        new HistoricIdentityLinksByProcInstMatcher();
-
+    HistoricIdentityLinksByProcInstMatcher historicIdentityLinksByProcInstMatcher = new HistoricIdentityLinksByProcInstMatcher();
     HistoricIdentityLinkEntity historicIdentityLinkEntity = mock(HistoricIdentityLinkEntity.class);
     when(historicIdentityLinkEntity.getProcessInstanceId()).thenReturn("42");
 
     // Act
-    boolean actualIsRetainedResult =
-        historicIdentityLinksByProcInstMatcher.isRetained(historicIdentityLinkEntity, "Parameter");
+    boolean actualIsRetainedResult = historicIdentityLinksByProcInstMatcher.isRetained(historicIdentityLinkEntity,
+        "Parameter");
 
     // Assert
     verify(historicIdentityLinkEntity, atLeast(1)).getProcessInstanceId();

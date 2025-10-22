@@ -21,8 +21,7 @@ import static org.mockito.ArgumentMatchers.isA;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -39,48 +38,43 @@ import org.mockito.Mockito;
 public class ResetExpiredJobsCmdDiffblueTest {
   /**
    * Test {@link ResetExpiredJobsCmd#ResetExpiredJobsCmd(Collection)}.
-   *
-   * <p>Method under test: {@link ResetExpiredJobsCmd#ResetExpiredJobsCmd(Collection)}
+   * <p>
+   * Method under test: {@link ResetExpiredJobsCmd#ResetExpiredJobsCmd(Collection)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void ResetExpiredJobsCmd.<init>(Collection)"})
   public void testNewResetExpiredJobsCmd() {
     // Arrange, Act and Assert
-    Collection<String> collection = new ResetExpiredJobsCmd(new ArrayList<>()).jobIds;
+    Collection<String> collection = (new ResetExpiredJobsCmd(new ArrayList<>())).jobIds;
     assertTrue(collection instanceof List);
     assertTrue(collection.isEmpty());
   }
 
   /**
    * Test {@link ResetExpiredJobsCmd#execute(CommandContext)}.
-   *
    * <ul>
-   *   <li>Then return {@code null}.
+   *   <li>Then return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ResetExpiredJobsCmd#execute(CommandContext)}
+   * <p>
+   * Method under test: {@link ResetExpiredJobsCmd#execute(CommandContext)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"Void ResetExpiredJobsCmd.execute(CommandContext)"})
   public void testExecute_thenReturnNull() {
     // Arrange
     ResetExpiredJobsCmd resetExpiredJobsCmd = new ResetExpiredJobsCmd(new ArrayList<>());
-
     ActivitiEngineAgendaFactory engineAgendaFactory = mock(ActivitiEngineAgendaFactory.class);
     when(engineAgendaFactory.createAgenda(Mockito.<CommandContext>any()))
         .thenReturn(new DefaultActivitiEngineAgenda(null));
 
     JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();
     processEngineConfiguration.setEngineAgendaFactory(engineAgendaFactory);
-    CommandContext commandContext =
-        new CommandContext(mock(Command.class), processEngineConfiguration);
 
     // Act
-    Void actualExecuteResult = resetExpiredJobsCmd.execute(commandContext);
+    Void actualExecuteResult = resetExpiredJobsCmd
+        .execute(new CommandContext(mock(Command.class), processEngineConfiguration));
 
     // Assert
     verify(engineAgendaFactory).createAgenda(isA(CommandContext.class));

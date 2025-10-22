@@ -18,7 +18,6 @@ package org.activiti.core.el;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.lang.reflect.Method;
 import java.util.Map;
@@ -29,28 +28,26 @@ import org.junit.jupiter.api.Test;
 class ActivitiFunctionMapperDiffblueTest {
   /**
    * Test {@link ActivitiFunctionMapper#resolveFunction(String, String)}.
-   *
-   * <p>Method under test: {@link ActivitiFunctionMapper#resolveFunction(String, String)}
+   * <p>
+   * Method under test: {@link ActivitiFunctionMapper#resolveFunction(String, String)}
    */
   @Test
   @DisplayName("Test resolveFunction(String, String)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"Method ActivitiFunctionMapper.resolveFunction(String, String)"})
   void testResolveFunction() {
     // Arrange, Act and Assert
-    assertNull(new ActivitiFunctionMapper().resolveFunction("Prefix", "Local Name"));
+    assertNull((new ActivitiFunctionMapper()).resolveFunction("Prefix", "Local Name"));
   }
 
   /**
    * Test {@link ActivitiFunctionMapper#setFunction(String, String, Method)}.
-   *
-   * <p>Method under test: {@link ActivitiFunctionMapper#setFunction(String, String, Method)}
+   * <p>
+   * Method under test: {@link ActivitiFunctionMapper#setFunction(String, String, Method)}
    */
   @Test
   @DisplayName("Test setFunction(String, String, Method)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void ActivitiFunctionMapper.setFunction(String, String, Method)"})
   void testSetFunction() {
     // Arrange
@@ -67,16 +64,15 @@ class ActivitiFunctionMapperDiffblueTest {
 
   /**
    * Test new {@link ActivitiFunctionMapper} (default constructor).
-   *
-   * <p>Method under test: default or parameterless constructor of {@link ActivitiFunctionMapper}
+   * <p>
+   * Method under test: default or parameterless constructor of {@link ActivitiFunctionMapper}
    */
   @Test
   @DisplayName("Test new ActivitiFunctionMapper (default constructor)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void ActivitiFunctionMapper.<init>()"})
   void testNewActivitiFunctionMapper() {
     // Arrange, Act and Assert
-    assertTrue(new ActivitiFunctionMapper().map.isEmpty());
+    assertTrue((new ActivitiFunctionMapper()).map.isEmpty());
   }
 }

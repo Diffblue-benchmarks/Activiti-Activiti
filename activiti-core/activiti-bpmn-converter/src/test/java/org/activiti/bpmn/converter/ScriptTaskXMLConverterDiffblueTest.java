@@ -17,10 +17,10 @@ package org.activiti.bpmn.converter;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.Map;
 import javax.xml.stream.XMLStreamWriter;
@@ -37,21 +37,19 @@ import org.mockito.Mockito;
 class ScriptTaskXMLConverterDiffblueTest {
   /**
    * Test new {@link ScriptTaskXMLConverter} (default constructor).
-   *
-   * <p>Method under test: default or parameterless constructor of {@link ScriptTaskXMLConverter}
+   * <p>
+   * Method under test: default or parameterless constructor of {@link ScriptTaskXMLConverter}
    */
   @Test
   @DisplayName("Test new ScriptTaskXMLConverter (default constructor)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void ScriptTaskXMLConverter.<init>()"})
   void testNewScriptTaskXMLConverter() {
     // Arrange and Act
     ScriptTaskXMLConverter actualScriptTaskXMLConverter = new ScriptTaskXMLConverter();
 
     // Assert
-    Map<String, BaseChildElementParser> stringBaseChildElementParserMap =
-        actualScriptTaskXMLConverter.childParserMap;
+    Map<String, BaseChildElementParser> stringBaseChildElementParserMap = actualScriptTaskXMLConverter.childParserMap;
     assertEquals(1, stringBaseChildElementParserMap.size());
     BaseChildElementParser getResult = stringBaseChildElementParserMap.get("script");
     assertTrue(getResult instanceof ScriptTextParser);
@@ -63,9 +61,8 @@ class ScriptTaskXMLConverterDiffblueTest {
 
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>{@link ScriptTaskXMLConverter#getBpmnElementType()}
    *   <li>{@link ScriptTaskXMLConverter#getXMLElementName()}
@@ -73,19 +70,15 @@ class ScriptTaskXMLConverterDiffblueTest {
    */
   @Test
   @DisplayName("Test getters and setters")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "Class ScriptTaskXMLConverter.getBpmnElementType()",
-    "String ScriptTaskXMLConverter.getXMLElementName()"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"Class ScriptTaskXMLConverter.getBpmnElementType()",
+      "String ScriptTaskXMLConverter.getXMLElementName()"})
   void testGettersAndSetters() {
     // Arrange
     ScriptTaskXMLConverter scriptTaskXMLConverter = new ScriptTaskXMLConverter();
 
     // Act
-    Class<? extends BaseElement> actualBpmnElementType =
-        scriptTaskXMLConverter.getBpmnElementType();
+    Class<? extends BaseElement> actualBpmnElementType = scriptTaskXMLConverter.getBpmnElementType();
 
     // Assert
     assertEquals("scriptTask", scriptTaskXMLConverter.getXMLElementName());
@@ -94,45 +87,37 @@ class ScriptTaskXMLConverterDiffblueTest {
   }
 
   /**
-   * Test {@link ScriptTaskXMLConverter#writeAdditionalChildElements(BaseElement, BpmnModel,
-   * XMLStreamWriter)}.
-   *
+   * Test {@link ScriptTaskXMLConverter#writeAdditionalChildElements(BaseElement, BpmnModel, XMLStreamWriter)}.
    * <ul>
-   *   <li>Then calls {@link IndentingXMLStreamWriter#writeCData(String)}.
+   *   <li>Given {@code Script}.</li>
+   *   <li>Then calls {@link IndentingXMLStreamWriter#writeCData(String)}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ScriptTaskXMLConverter#writeAdditionalChildElements(BaseElement,
-   * BpmnModel, XMLStreamWriter)}
+   * <p>
+   * Method under test: {@link ScriptTaskXMLConverter#writeAdditionalChildElements(BaseElement, BpmnModel, XMLStreamWriter)}
    */
   @Test
-  @DisplayName(
-      "Test writeAdditionalChildElements(BaseElement, BpmnModel, XMLStreamWriter); then calls writeCData(String)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test writeAdditionalChildElements(BaseElement, BpmnModel, XMLStreamWriter); given 'Script'; then calls writeCData(String)")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({
-    "void ScriptTaskXMLConverter.writeAdditionalChildElements(BaseElement, BpmnModel, XMLStreamWriter)"
-  })
-  void testWriteAdditionalChildElements_thenCallsWriteCData() throws Exception {
+      "void ScriptTaskXMLConverter.writeAdditionalChildElements(BaseElement, BpmnModel, XMLStreamWriter)"})
+  void testWriteAdditionalChildElements_givenScript_thenCallsWriteCData() throws Exception {
     // Arrange
     ScriptTaskXMLConverter scriptTaskXMLConverter = new ScriptTaskXMLConverter();
 
     ScriptTask element = new ScriptTask();
-    element.setScript("not empty");
+    element.setScript("Script");
     BpmnModel model = new BpmnModel();
-
     IndentingXMLStreamWriter writer = mock(IndentingXMLStreamWriter.class);
     doNothing().when(writer).writeCData(Mockito.<String>any());
     doNothing().when(writer).writeEndElement();
     doNothing().when(writer).writeStartElement(Mockito.<String>any());
-    IndentingXMLStreamWriter writer2 = new IndentingXMLStreamWriter(writer);
 
     // Act
-    scriptTaskXMLConverter.writeAdditionalChildElements(
-        element, model, new IndentingXMLStreamWriter(writer2));
+    scriptTaskXMLConverter.writeAdditionalChildElements(element, model, new IndentingXMLStreamWriter(writer));
 
     // Assert
-    verify(writer).writeCData("not empty");
+    verify(writer).writeCData(eq("Script"));
     verify(writer).writeEndElement();
-    verify(writer).writeStartElement("script");
+    verify(writer).writeStartElement(eq("script"));
   }
 }

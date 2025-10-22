@@ -17,8 +17,7 @@ package org.activiti.engine.impl.bpmn.listener;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
 import java.util.List;
@@ -31,21 +30,19 @@ import org.junit.experimental.categories.Category;
 public class DelegateExpressionTaskListenerDiffblueTest {
   /**
    * Test {@link DelegateExpressionTaskListener#DelegateExpressionTaskListener(Expression, List)}.
-   *
-   * <p>Method under test: {@link
-   * DelegateExpressionTaskListener#DelegateExpressionTaskListener(Expression, List)}
+   * <p>
+   * Method under test: {@link DelegateExpressionTaskListener#DelegateExpressionTaskListener(Expression, List)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void DelegateExpressionTaskListener.<init>(Expression, List)"})
   public void testNewDelegateExpressionTaskListener() {
     // Arrange
     FixedValue expression = new FixedValue(JSONObject.NULL);
 
     // Act
-    DelegateExpressionTaskListener actualDelegateExpressionTaskListener =
-        new DelegateExpressionTaskListener(expression, new ArrayList<>());
+    DelegateExpressionTaskListener actualDelegateExpressionTaskListener = new DelegateExpressionTaskListener(expression,
+        new ArrayList<>());
 
     // Assert
     Expression expression2 = actualDelegateExpressionTaskListener.expression;
@@ -56,25 +53,21 @@ public class DelegateExpressionTaskListenerDiffblueTest {
 
   /**
    * Test {@link DelegateExpressionTaskListener#getExpressionText()}.
-   *
    * <ul>
-   *   <li>Given {@link FixedValue#FixedValue(Object)} with value is {@link JSONObject#NULL}.
-   *   <li>Then return {@code null}.
+   *   <li>Given {@link FixedValue#FixedValue(Object)} with value is {@link JSONObject#NULL}.</li>
+   *   <li>Then return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link DelegateExpressionTaskListener#getExpressionText()}
+   * <p>
+   * Method under test: {@link DelegateExpressionTaskListener#getExpressionText()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"java.lang.String DelegateExpressionTaskListener.getExpressionText()"})
   public void testGetExpressionText_givenFixedValueWithValueIsNull_thenReturnNull() {
     // Arrange
     FixedValue expression = new FixedValue(JSONObject.NULL);
-    DelegateExpressionTaskListener delegateExpressionTaskListener =
-        new DelegateExpressionTaskListener(expression, new ArrayList<>());
 
     // Act and Assert
-    assertEquals("null", delegateExpressionTaskListener.getExpressionText());
+    assertEquals("null", (new DelegateExpressionTaskListener(expression, new ArrayList<>())).getExpressionText());
   }
 }

@@ -18,11 +18,8 @@ package org.activiti.engine.delegate.event.impl;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
-import static org.junit.Assert.assertThrows;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
-import org.activiti.engine.ActivitiIllegalArgumentException;
 import org.activiti.engine.delegate.event.ActivitiEventType;
 import org.activiti.engine.impl.util.json.JSONObject;
 import org.junit.Test;
@@ -31,42 +28,20 @@ import org.junit.experimental.categories.Category;
 public class ActivitiSignalEventImplDiffblueTest {
   /**
    * Test {@link ActivitiSignalEventImpl#ActivitiSignalEventImpl(ActivitiEventType)}.
-   *
    * <ul>
-   *   <li>Then throw {@link ActivitiIllegalArgumentException}.
+   *   <li>When {@code ENTITY_CREATED}.</li>
+   *   <li>Then return SignalData is {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link
-   * ActivitiSignalEventImpl#ActivitiSignalEventImpl(ActivitiEventType)}
+   * <p>
+   * Method under test: {@link ActivitiSignalEventImpl#ActivitiSignalEventImpl(ActivitiEventType)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void ActivitiSignalEventImpl.<init>(ActivitiEventType)"})
-  public void testNewActivitiSignalEventImpl_thenThrowActivitiIllegalArgumentException() {
-    // Arrange, Act and Assert
-    assertThrows(ActivitiIllegalArgumentException.class, () -> new ActivitiSignalEventImpl(null));
-  }
-
-  /**
-   * Test {@link ActivitiSignalEventImpl#ActivitiSignalEventImpl(ActivitiEventType)}.
-   *
-   * <ul>
-   *   <li>When {@code ENTITY_CREATED}.
-   *   <li>Then return SignalData is {@code null}.
-   * </ul>
-   *
-   * <p>Method under test: {@link
-   * ActivitiSignalEventImpl#ActivitiSignalEventImpl(ActivitiEventType)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void ActivitiSignalEventImpl.<init>(ActivitiEventType)"})
   public void testNewActivitiSignalEventImpl_whenEntityCreated_thenReturnSignalDataIsNull() {
     // Arrange and Act
-    ActivitiSignalEventImpl actualActivitiSignalEventImpl =
-        new ActivitiSignalEventImpl(ActivitiEventType.ENTITY_CREATED);
+    ActivitiSignalEventImpl actualActivitiSignalEventImpl = new ActivitiSignalEventImpl(
+        ActivitiEventType.ENTITY_CREATED);
 
     // Assert
     assertNull(actualActivitiSignalEventImpl.getSignalData());
@@ -84,9 +59,8 @@ public class ActivitiSignalEventImplDiffblueTest {
 
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>{@link ActivitiSignalEventImpl#setSignalData(Object)}
    *   <li>{@link ActivitiSignalEventImpl#setSignalName(String)}
@@ -95,18 +69,12 @@ public class ActivitiSignalEventImplDiffblueTest {
    * </ul>
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "Object ActivitiSignalEventImpl.getSignalData()",
-    "String ActivitiSignalEventImpl.getSignalName()",
-    "void ActivitiSignalEventImpl.setSignalData(Object)",
-    "void ActivitiSignalEventImpl.setSignalName(String)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Object ActivitiSignalEventImpl.getSignalData()", "String ActivitiSignalEventImpl.getSignalName()",
+      "void ActivitiSignalEventImpl.setSignalData(Object)", "void ActivitiSignalEventImpl.setSignalName(String)"})
   public void testGettersAndSetters() {
     // Arrange
-    ActivitiSignalEventImpl activitiSignalEventImpl =
-        new ActivitiSignalEventImpl(ActivitiEventType.ENTITY_CREATED);
+    ActivitiSignalEventImpl activitiSignalEventImpl = new ActivitiSignalEventImpl(ActivitiEventType.ENTITY_CREATED);
     Object object = JSONObject.NULL;
 
     // Act

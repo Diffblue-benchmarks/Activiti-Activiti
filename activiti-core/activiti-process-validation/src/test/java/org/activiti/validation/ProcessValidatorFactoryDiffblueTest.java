@@ -17,7 +17,6 @@ package org.activiti.validation;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.List;
 import org.activiti.validation.validator.ValidatorSet;
@@ -28,18 +27,17 @@ import org.junit.jupiter.api.Test;
 class ProcessValidatorFactoryDiffblueTest {
   /**
    * Test {@link ProcessValidatorFactory#createDefaultProcessValidator()}.
-   *
-   * <p>Method under test: {@link ProcessValidatorFactory#createDefaultProcessValidator()}
+   * <p>
+   * Method under test: {@link ProcessValidatorFactory#createDefaultProcessValidator()}
    */
   @Test
   @DisplayName("Test createDefaultProcessValidator()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"ProcessValidator ProcessValidatorFactory.createDefaultProcessValidator()"})
   void testCreateDefaultProcessValidator() {
     // Arrange and Act
-    ProcessValidator actualCreateDefaultProcessValidatorResult =
-        new ProcessValidatorFactory().createDefaultProcessValidator();
+    ProcessValidator actualCreateDefaultProcessValidatorResult = (new ProcessValidatorFactory())
+        .createDefaultProcessValidator();
 
     // Assert
     assertTrue(actualCreateDefaultProcessValidatorResult instanceof ProcessValidatorImpl);

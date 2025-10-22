@@ -19,8 +19,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.bpmn.model.Signal;
 import org.activiti.bpmn.model.SignalEventDefinition;
@@ -29,35 +28,26 @@ import org.junit.experimental.categories.Category;
 
 public class BoundarySignalEventActivityBehaviorDiffblueTest {
   /**
-   * Test {@link
-   * BoundarySignalEventActivityBehavior#BoundarySignalEventActivityBehavior(SignalEventDefinition,
-   * Signal, boolean)}.
-   *
-   * <p>Method under test: {@link
-   * BoundarySignalEventActivityBehavior#BoundarySignalEventActivityBehavior(SignalEventDefinition,
-   * Signal, boolean)}
+   * Test {@link BoundarySignalEventActivityBehavior#BoundarySignalEventActivityBehavior(SignalEventDefinition, Signal, boolean)}.
+   * <p>
+   * Method under test: {@link BoundarySignalEventActivityBehavior#BoundarySignalEventActivityBehavior(SignalEventDefinition, Signal, boolean)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void BoundarySignalEventActivityBehavior.<init>(SignalEventDefinition, Signal, boolean)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void BoundarySignalEventActivityBehavior.<init>(SignalEventDefinition, Signal, boolean)"})
   public void testNewBoundarySignalEventActivityBehavior() {
     // Arrange
     SignalEventDefinition signalEventDefinition = new SignalEventDefinition();
 
     // Act
-    BoundarySignalEventActivityBehavior actualBoundarySignalEventActivityBehavior =
-        new BoundarySignalEventActivityBehavior(
-            signalEventDefinition, new Signal("42", "Name"), true);
+    BoundarySignalEventActivityBehavior actualBoundarySignalEventActivityBehavior = new BoundarySignalEventActivityBehavior(
+        signalEventDefinition, new Signal("42", "Name"), true);
 
     // Assert
     Signal signal = actualBoundarySignalEventActivityBehavior.signal;
     assertEquals("42", signal.getId());
     assertEquals("Name", signal.getName());
-    SignalEventDefinition signalEventDefinition2 =
-        actualBoundarySignalEventActivityBehavior.signalEventDefinition;
+    SignalEventDefinition signalEventDefinition2 = actualBoundarySignalEventActivityBehavior.signalEventDefinition;
     assertNull(signalEventDefinition2.getId());
     assertNull(signal.getScope());
     assertNull(signalEventDefinition2.getSignalExpression());

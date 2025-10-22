@@ -17,8 +17,7 @@ package org.activiti.engine.impl.persistence;
 
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertThrows;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.engine.ActivitiException;
 import org.activiti.engine.impl.interceptor.CommandContext;
@@ -29,87 +28,69 @@ import org.junit.experimental.categories.Category;
 public class GenericManagerFactoryDiffblueTest {
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>{@link GenericManagerFactory#GenericManagerFactory(Class)}
    *   <li>{@link GenericManagerFactory#getSessionType()}
    * </ul>
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void GenericManagerFactory.<init>(Class)",
-    "void GenericManagerFactory.<init>(Class, Class)",
-    "Class GenericManagerFactory.getSessionType()"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void GenericManagerFactory.<init>(Class)", "void GenericManagerFactory.<init>(Class, Class)",
+      "Class GenericManagerFactory.getSessionType()"})
   public void testGettersAndSetters() {
     // Arrange
     Class<Session> implementationClass = Session.class;
 
     // Act
-    GenericManagerFactory actualGenericManagerFactory =
-        new GenericManagerFactory(implementationClass);
-    Class<?> actualSessionType = actualGenericManagerFactory.getSessionType();
+    GenericManagerFactory actualGenericManagerFactory = new GenericManagerFactory(implementationClass);
 
     // Assert
-    assertSame(actualGenericManagerFactory.implementationClass, actualSessionType);
+    assertSame(actualGenericManagerFactory.implementationClass, actualGenericManagerFactory.getSessionType());
   }
 
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>{@link GenericManagerFactory#GenericManagerFactory(Class, Class)}
    *   <li>{@link GenericManagerFactory#getSessionType()}
    * </ul>
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void GenericManagerFactory.<init>(Class)",
-    "void GenericManagerFactory.<init>(Class, Class)",
-    "Class GenericManagerFactory.getSessionType()"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void GenericManagerFactory.<init>(Class)", "void GenericManagerFactory.<init>(Class, Class)",
+      "Class GenericManagerFactory.getSessionType()"})
   public void testGettersAndSetters2() {
     // Arrange
     Class<Session> typeClass = Session.class;
     Class<Session> implementationClass = Session.class;
 
     // Act
-    GenericManagerFactory actualGenericManagerFactory =
-        new GenericManagerFactory(typeClass, implementationClass);
-    Class<?> actualSessionType = actualGenericManagerFactory.getSessionType();
+    GenericManagerFactory actualGenericManagerFactory = new GenericManagerFactory(typeClass, implementationClass);
 
     // Assert
-    assertSame(actualGenericManagerFactory.implementationClass, actualSessionType);
+    assertSame(actualGenericManagerFactory.implementationClass, actualGenericManagerFactory.getSessionType());
   }
 
   /**
    * Test {@link GenericManagerFactory#openSession(CommandContext)}.
-   *
    * <ul>
-   *   <li>Then throw {@link ActivitiException}.
+   *   <li>Then throw {@link ActivitiException}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link GenericManagerFactory#openSession(CommandContext)}
+   * <p>
+   * Method under test: {@link GenericManagerFactory#openSession(CommandContext)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"Session GenericManagerFactory.openSession(CommandContext)"})
   public void testOpenSession_thenThrowActivitiException() {
     // Arrange
     Class<Session> implementationClass = Session.class;
 
     // Act and Assert
-    assertThrows(
-        ActivitiException.class,
-        () -> new GenericManagerFactory(implementationClass).openSession(null));
+    assertThrows(ActivitiException.class, () -> (new GenericManagerFactory(implementationClass)).openSession(null));
   }
 }

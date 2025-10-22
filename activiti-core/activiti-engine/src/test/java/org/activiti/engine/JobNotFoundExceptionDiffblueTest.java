@@ -17,8 +17,7 @@ package org.activiti.engine;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.engine.runtime.Job;
 import org.junit.Test;
@@ -27,12 +26,11 @@ import org.junit.experimental.categories.Category;
 public class JobNotFoundExceptionDiffblueTest {
   /**
    * Test {@link JobNotFoundException#JobNotFoundException(String)}.
-   *
-   * <p>Method under test: {@link JobNotFoundException#JobNotFoundException(String)}
+   * <p>
+   * Method under test: {@link JobNotFoundException#JobNotFoundException(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void JobNotFoundException.<init>(String)"})
   public void testNewJobNotFoundException() {
     // Arrange and Act
@@ -50,15 +48,14 @@ public class JobNotFoundExceptionDiffblueTest {
 
   /**
    * Test {@link JobNotFoundException#getJobId()}.
-   *
-   * <p>Method under test: {@link JobNotFoundException#getJobId()}
+   * <p>
+   * Method under test: {@link JobNotFoundException#getJobId()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"String JobNotFoundException.getJobId()"})
   public void testGetJobId() {
     // Arrange, Act and Assert
-    assertEquals("42", new JobNotFoundException("42").getJobId());
+    assertEquals("42", (new JobNotFoundException("42")).getJobId());
   }
 }

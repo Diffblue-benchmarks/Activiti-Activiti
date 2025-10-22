@@ -18,8 +18,7 @@ package org.activiti.bpmn.model;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
@@ -27,16 +26,15 @@ import org.junit.experimental.categories.Category;
 public class CancelEventDefinitionDiffblueTest {
   /**
    * Test {@link CancelEventDefinition#clone()}.
-   *
-   * <p>Method under test: {@link CancelEventDefinition#clone()}
+   * <p>
+   * Method under test: {@link CancelEventDefinition#clone()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"CancelEventDefinition CancelEventDefinition.clone()"})
   public void testClone() {
     // Arrange and Act
-    CancelEventDefinition actualCloneResult = new CancelEventDefinition().clone();
+    CancelEventDefinition actualCloneResult = (new CancelEventDefinition()).clone();
 
     // Assert
     assertNull(actualCloneResult.getId());
@@ -48,12 +46,11 @@ public class CancelEventDefinitionDiffblueTest {
 
   /**
    * Test new {@link CancelEventDefinition} (default constructor).
-   *
-   * <p>Method under test: default or parameterless constructor of {@link CancelEventDefinition}
+   * <p>
+   * Method under test: default or parameterless constructor of {@link CancelEventDefinition}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void CancelEventDefinition.<init>()"})
   public void testNewCancelEventDefinition() {
     // Arrange and Act

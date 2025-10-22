@@ -25,8 +25,7 @@ import static org.mockito.ArgumentMatchers.isA;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import jakarta.transaction.SystemException;
 import jakarta.transaction.TransactionManager;
@@ -59,25 +58,19 @@ import org.activiti.engine.runtime.TimerJobQuery;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import org.mockito.Mockito;
-import org.springframework.test.annotation.DirtiesContext;
-import org.springframework.test.annotation.DirtiesContext.ClassMode;
 
-@DirtiesContext(classMode = ClassMode.AFTER_EACH_TEST_METHOD)
 public class ManagementServiceImplDiffblueTest {
   /**
    * Test {@link ManagementServiceImpl#getTableCount()}.
-   *
    * <ul>
-   *   <li>Given {@link CommandInterceptor} {@link CommandInterceptor#execute(CommandConfig,
-   *       Command)} return {@link HashMap#HashMap()}.
-   *   <li>Then return Empty.
+   *   <li>Given {@link CommandInterceptor} {@link CommandInterceptor#execute(CommandConfig, Command)} return {@link HashMap#HashMap()}.</li>
+   *   <li>Then return Empty.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ManagementServiceImpl#getTableCount()}
+   * <p>
+   * Method under test: {@link ManagementServiceImpl#getTableCount()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"Map ManagementServiceImpl.getTableCount()"})
   public void testGetTableCount_givenCommandInterceptorExecuteReturnHashMap_thenReturnEmpty() {
     // Arrange
@@ -99,24 +92,20 @@ public class ManagementServiceImplDiffblueTest {
 
   /**
    * Test {@link ManagementServiceImpl#getTableName(Class)}.
-   *
    * <ul>
-   *   <li>Given {@link CommandInterceptor} {@link CommandInterceptor#execute(CommandConfig,
-   *       Command)} return {@code Execute}.
-   *   <li>Then return {@code Execute}.
+   *   <li>Given {@link CommandInterceptor} {@link CommandInterceptor#execute(CommandConfig, Command)} return {@code Execute}.</li>
+   *   <li>Then return {@code Execute}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ManagementServiceImpl#getTableName(Class)}
+   * <p>
+   * Method under test: {@link ManagementServiceImpl#getTableName(Class)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"String ManagementServiceImpl.getTableName(Class)"})
   public void testGetTableName_givenCommandInterceptorExecuteReturnExecute_thenReturnExecute() {
     // Arrange
     CommandInterceptor first = mock(CommandInterceptor.class);
-    when(first.execute(Mockito.<CommandConfig>any(), Mockito.<Command<String>>any()))
-        .thenReturn("Execute");
+    when(first.execute(Mockito.<CommandConfig>any(), Mockito.<Command<String>>any())).thenReturn("Execute");
     CommandExecutorImpl commandExecutor = new CommandExecutorImpl(new CommandConfig(), first);
 
     ManagementServiceImpl managementServiceImpl = new ManagementServiceImpl();
@@ -133,23 +122,20 @@ public class ManagementServiceImplDiffblueTest {
 
   /**
    * Test {@link ManagementServiceImpl#getTableMetaData(String)}.
-   *
    * <ul>
-   *   <li>Then return {@link TableMetaData#TableMetaData(String)} with {@code Table Name}.
+   *   <li>Then return {@link TableMetaData#TableMetaData(String)} with {@code Table Name}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ManagementServiceImpl#getTableMetaData(String)}
+   * <p>
+   * Method under test: {@link ManagementServiceImpl#getTableMetaData(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"TableMetaData ManagementServiceImpl.getTableMetaData(String)"})
   public void testGetTableMetaData_thenReturnTableMetaDataWithTableName() {
     // Arrange
     CommandInterceptor first = mock(CommandInterceptor.class);
     TableMetaData tableMetaData = new TableMetaData("Table Name");
-    when(first.execute(Mockito.<CommandConfig>any(), Mockito.<Command<TableMetaData>>any()))
-        .thenReturn(tableMetaData);
+    when(first.execute(Mockito.<CommandConfig>any(), Mockito.<Command<TableMetaData>>any())).thenReturn(tableMetaData);
     CommandExecutorImpl commandExecutor = new CommandExecutorImpl(new CommandConfig(), first);
 
     ManagementServiceImpl managementServiceImpl = new ManagementServiceImpl();
@@ -165,25 +151,21 @@ public class ManagementServiceImplDiffblueTest {
 
   /**
    * Test {@link ManagementServiceImpl#executeJob(String)}.
-   *
    * <ul>
-   *   <li>Given {@link CommandInterceptor} {@link CommandInterceptor#execute(CommandConfig,
-   *       Command)} return {@link JSONObject#NULL}.
-   *   <li>When {@code 42}.
-   *   <li>Then calls {@link CommandInterceptor#execute(CommandConfig, Command)}.
+   *   <li>Given {@link CommandInterceptor} {@link CommandInterceptor#execute(CommandConfig, Command)} return {@link JSONObject#NULL}.</li>
+   *   <li>When {@code 42}.</li>
+   *   <li>Then calls {@link CommandInterceptor#execute(CommandConfig, Command)}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ManagementServiceImpl#executeJob(String)}
+   * <p>
+   * Method under test: {@link ManagementServiceImpl#executeJob(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void ManagementServiceImpl.executeJob(String)"})
   public void testExecuteJob_givenCommandInterceptorExecuteReturnNull_when42_thenCallsExecute() {
     // Arrange
     CommandInterceptor first = mock(CommandInterceptor.class);
-    when(first.execute(Mockito.<CommandConfig>any(), Mockito.<Command<Object>>any()))
-        .thenReturn(JSONObject.NULL);
+    when(first.execute(Mockito.<CommandConfig>any(), Mockito.<Command<Object>>any())).thenReturn(JSONObject.NULL);
     CommandExecutorImpl commandExecutor = new CommandExecutorImpl(mock(CommandConfig.class), first);
 
     ManagementServiceImpl managementServiceImpl = new ManagementServiceImpl();
@@ -198,73 +180,62 @@ public class ManagementServiceImplDiffblueTest {
 
   /**
    * Test {@link ManagementServiceImpl#executeJob(String)}.
-   *
    * <ul>
-   *   <li>Then calls {@link CommandConfig#isContextReusePossible()}.
+   *   <li>Then calls {@link CommandConfig#isContextReusePossible()}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ManagementServiceImpl#executeJob(String)}
+   * <p>
+   * Method under test: {@link ManagementServiceImpl#executeJob(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void ManagementServiceImpl.executeJob(String)"})
   public void testExecuteJob_thenCallsIsContextReusePossible() {
     // Arrange
     CommandConfig defaultConfig = mock(CommandConfig.class);
-    when(defaultConfig.isContextReusePossible())
-        .thenThrow(new ActivitiIllegalArgumentException("An error occurred"));
-    CommandExecutorImpl commandExecutor =
-        new CommandExecutorImpl(defaultConfig, new CommandContextInterceptor());
+    when(defaultConfig.isContextReusePossible()).thenThrow(new ActivitiIllegalArgumentException("An error occurred"));
+    CommandExecutorImpl commandExecutor = new CommandExecutorImpl(defaultConfig, new CommandContextInterceptor());
 
     ManagementServiceImpl managementServiceImpl = new ManagementServiceImpl();
     managementServiceImpl.setCommandExecutor(commandExecutor);
 
     // Act and Assert
-    assertThrows(
-        ActivitiIllegalArgumentException.class, () -> managementServiceImpl.executeJob("42"));
+    assertThrows(ActivitiIllegalArgumentException.class, () -> managementServiceImpl.executeJob("42"));
     verify(defaultConfig).isContextReusePossible();
   }
 
   /**
    * Test {@link ManagementServiceImpl#executeJob(String)}.
-   *
    * <ul>
-   *   <li>When {@code null}.
-   *   <li>Then throw {@link ActivitiIllegalArgumentException}.
+   *   <li>When {@code null}.</li>
+   *   <li>Then throw {@link ActivitiIllegalArgumentException}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ManagementServiceImpl#executeJob(String)}
+   * <p>
+   * Method under test: {@link ManagementServiceImpl#executeJob(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void ManagementServiceImpl.executeJob(String)"})
   public void testExecuteJob_whenNull_thenThrowActivitiIllegalArgumentException() {
     // Arrange, Act and Assert
-    assertThrows(
-        ActivitiIllegalArgumentException.class, () -> new ManagementServiceImpl().executeJob(null));
+    assertThrows(ActivitiIllegalArgumentException.class, () -> (new ManagementServiceImpl()).executeJob(null));
   }
 
   /**
    * Test {@link ManagementServiceImpl#moveTimerToExecutableJob(String)}.
-   *
    * <ul>
-   *   <li>Then return {@link JobEntityImpl} (default constructor).
+   *   <li>Then return {@link JobEntityImpl} (default constructor).</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ManagementServiceImpl#moveTimerToExecutableJob(String)}
+   * <p>
+   * Method under test: {@link ManagementServiceImpl#moveTimerToExecutableJob(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"Job ManagementServiceImpl.moveTimerToExecutableJob(String)"})
   public void testMoveTimerToExecutableJob_thenReturnJobEntityImpl() {
     // Arrange
     CommandInterceptor first = mock(CommandInterceptor.class);
     JobEntityImpl jobEntityImpl = new JobEntityImpl();
-    when(first.execute(Mockito.<CommandConfig>any(), Mockito.<Command<JobEntity>>any()))
-        .thenReturn(jobEntityImpl);
+    when(first.execute(Mockito.<CommandConfig>any(), Mockito.<Command<JobEntity>>any())).thenReturn(jobEntityImpl);
     CommandExecutorImpl commandExecutor = new CommandExecutorImpl(new CommandConfig(), first);
 
     ManagementServiceImpl managementServiceImpl = new ManagementServiceImpl();
@@ -280,16 +251,14 @@ public class ManagementServiceImplDiffblueTest {
 
   /**
    * Test {@link ManagementServiceImpl#moveJobToDeadLetterJob(String)}.
-   *
    * <ul>
-   *   <li>Then return {@link DeadLetterJobEntityImpl} (default constructor).
+   *   <li>Then return {@link DeadLetterJobEntityImpl} (default constructor).</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ManagementServiceImpl#moveJobToDeadLetterJob(String)}
+   * <p>
+   * Method under test: {@link ManagementServiceImpl#moveJobToDeadLetterJob(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"Job ManagementServiceImpl.moveJobToDeadLetterJob(String)"})
   public void testMoveJobToDeadLetterJob_thenReturnDeadLetterJobEntityImpl() {
     // Arrange
@@ -312,32 +281,27 @@ public class ManagementServiceImplDiffblueTest {
 
   /**
    * Test {@link ManagementServiceImpl#moveDeadLetterJobToExecutableJob(String, int)}.
-   *
    * <ul>
-   *   <li>Then return {@link JobEntityImpl} (default constructor).
+   *   <li>Then return {@link JobEntityImpl} (default constructor).</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ManagementServiceImpl#moveDeadLetterJobToExecutableJob(String,
-   * int)}
+   * <p>
+   * Method under test: {@link ManagementServiceImpl#moveDeadLetterJobToExecutableJob(String, int)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"Job ManagementServiceImpl.moveDeadLetterJobToExecutableJob(String, int)"})
   public void testMoveDeadLetterJobToExecutableJob_thenReturnJobEntityImpl() {
     // Arrange
     CommandInterceptor first = mock(CommandInterceptor.class);
     JobEntityImpl jobEntityImpl = new JobEntityImpl();
-    when(first.execute(Mockito.<CommandConfig>any(), Mockito.<Command<JobEntity>>any()))
-        .thenReturn(jobEntityImpl);
+    when(first.execute(Mockito.<CommandConfig>any(), Mockito.<Command<JobEntity>>any())).thenReturn(jobEntityImpl);
     CommandExecutorImpl commandExecutor = new CommandExecutorImpl(new CommandConfig(), first);
 
     ManagementServiceImpl managementServiceImpl = new ManagementServiceImpl();
     managementServiceImpl.setCommandExecutor(commandExecutor);
 
     // Act
-    Job actualMoveDeadLetterJobToExecutableJobResult =
-        managementServiceImpl.moveDeadLetterJobToExecutableJob("42", 1);
+    Job actualMoveDeadLetterJobToExecutableJobResult = managementServiceImpl.moveDeadLetterJobToExecutableJob("42", 1);
 
     // Assert
     verify(first).execute(isA(CommandConfig.class), isA(Command.class));
@@ -346,24 +310,20 @@ public class ManagementServiceImplDiffblueTest {
 
   /**
    * Test {@link ManagementServiceImpl#deleteJob(String)}.
-   *
    * <ul>
-   *   <li>Given {@link CommandInterceptor} {@link CommandInterceptor#execute(CommandConfig,
-   *       Command)} return {@link JSONObject#NULL}.
-   *   <li>Then calls {@link CommandInterceptor#execute(CommandConfig, Command)}.
+   *   <li>Given {@link CommandInterceptor} {@link CommandInterceptor#execute(CommandConfig, Command)} return {@link JSONObject#NULL}.</li>
+   *   <li>Then calls {@link CommandInterceptor#execute(CommandConfig, Command)}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ManagementServiceImpl#deleteJob(String)}
+   * <p>
+   * Method under test: {@link ManagementServiceImpl#deleteJob(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void ManagementServiceImpl.deleteJob(String)"})
   public void testDeleteJob_givenCommandInterceptorExecuteReturnNull_thenCallsExecute() {
     // Arrange
     CommandInterceptor first = mock(CommandInterceptor.class);
-    when(first.execute(Mockito.<CommandConfig>any(), Mockito.<Command<Object>>any()))
-        .thenReturn(JSONObject.NULL);
+    when(first.execute(Mockito.<CommandConfig>any(), Mockito.<Command<Object>>any())).thenReturn(JSONObject.NULL);
     CommandExecutorImpl commandExecutor = new CommandExecutorImpl(new CommandConfig(), first);
 
     ManagementServiceImpl managementServiceImpl = new ManagementServiceImpl();
@@ -378,32 +338,28 @@ public class ManagementServiceImplDiffblueTest {
 
   /**
    * Test {@link ManagementServiceImpl#deleteJob(String)}.
-   *
    * <ul>
-   *   <li>Then calls {@link TransactionManager#getStatus()}.
+   *   <li>Then calls {@link TransactionManager#getStatus()}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ManagementServiceImpl#deleteJob(String)}
+   * <p>
+   * Method under test: {@link ManagementServiceImpl#deleteJob(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void ManagementServiceImpl.deleteJob(String)"})
   public void testDeleteJob_thenCallsGetStatus() throws SystemException {
     // Arrange
+    CommandInterceptor first = mock(CommandInterceptor.class);
+    when(first.execute(Mockito.<CommandConfig>any(), Mockito.<Command<Object>>any())).thenReturn(JSONObject.NULL);
     TransactionManager transactionManager = mock(TransactionManager.class);
     when(transactionManager.getStatus()).thenReturn(1);
-
     CommandInterceptor next = mock(CommandInterceptor.class);
-    when(next.execute(Mockito.<CommandConfig>any(), Mockito.<Command<Object>>any()))
-        .thenReturn(JSONObject.NULL);
+    when(next.execute(Mockito.<CommandConfig>any(), Mockito.<Command<Object>>any())).thenReturn(JSONObject.NULL);
 
-    JtaTransactionInterceptor commandInterceptor =
-        new JtaTransactionInterceptor(transactionManager);
+    JtaTransactionInterceptor commandInterceptor = new JtaTransactionInterceptor(transactionManager);
     commandInterceptor.setNext(next);
 
-    CommandExecutorImpl commandExecutor =
-        new CommandExecutorImpl(new CommandConfig(), mock(CommandInterceptor.class));
+    CommandExecutorImpl commandExecutor = new CommandExecutorImpl(new CommandConfig(), first);
     commandExecutor.setFirst(commandInterceptor);
 
     ManagementServiceImpl managementServiceImpl = new ManagementServiceImpl();
@@ -419,24 +375,20 @@ public class ManagementServiceImplDiffblueTest {
 
   /**
    * Test {@link ManagementServiceImpl#deleteTimerJob(String)}.
-   *
    * <ul>
-   *   <li>Given {@link CommandInterceptor} {@link CommandInterceptor#execute(CommandConfig,
-   *       Command)} return {@link JSONObject#NULL}.
-   *   <li>Then calls {@link CommandInterceptor#execute(CommandConfig, Command)}.
+   *   <li>Given {@link CommandInterceptor} {@link CommandInterceptor#execute(CommandConfig, Command)} return {@link JSONObject#NULL}.</li>
+   *   <li>Then calls {@link CommandInterceptor#execute(CommandConfig, Command)}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ManagementServiceImpl#deleteTimerJob(String)}
+   * <p>
+   * Method under test: {@link ManagementServiceImpl#deleteTimerJob(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void ManagementServiceImpl.deleteTimerJob(String)"})
   public void testDeleteTimerJob_givenCommandInterceptorExecuteReturnNull_thenCallsExecute() {
     // Arrange
     CommandInterceptor first = mock(CommandInterceptor.class);
-    when(first.execute(Mockito.<CommandConfig>any(), Mockito.<Command<Object>>any()))
-        .thenReturn(JSONObject.NULL);
+    when(first.execute(Mockito.<CommandConfig>any(), Mockito.<Command<Object>>any())).thenReturn(JSONObject.NULL);
     CommandExecutorImpl commandExecutor = new CommandExecutorImpl(new CommandConfig(), first);
 
     ManagementServiceImpl managementServiceImpl = new ManagementServiceImpl();
@@ -451,32 +403,28 @@ public class ManagementServiceImplDiffblueTest {
 
   /**
    * Test {@link ManagementServiceImpl#deleteTimerJob(String)}.
-   *
    * <ul>
-   *   <li>Then calls {@link TransactionManager#getStatus()}.
+   *   <li>Then calls {@link TransactionManager#getStatus()}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ManagementServiceImpl#deleteTimerJob(String)}
+   * <p>
+   * Method under test: {@link ManagementServiceImpl#deleteTimerJob(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void ManagementServiceImpl.deleteTimerJob(String)"})
   public void testDeleteTimerJob_thenCallsGetStatus() throws SystemException {
     // Arrange
+    CommandInterceptor first = mock(CommandInterceptor.class);
+    when(first.execute(Mockito.<CommandConfig>any(), Mockito.<Command<Object>>any())).thenReturn(JSONObject.NULL);
     TransactionManager transactionManager = mock(TransactionManager.class);
     when(transactionManager.getStatus()).thenReturn(1);
-
     CommandInterceptor next = mock(CommandInterceptor.class);
-    when(next.execute(Mockito.<CommandConfig>any(), Mockito.<Command<Object>>any()))
-        .thenReturn(JSONObject.NULL);
+    when(next.execute(Mockito.<CommandConfig>any(), Mockito.<Command<Object>>any())).thenReturn(JSONObject.NULL);
 
-    JtaTransactionInterceptor commandInterceptor =
-        new JtaTransactionInterceptor(transactionManager);
+    JtaTransactionInterceptor commandInterceptor = new JtaTransactionInterceptor(transactionManager);
     commandInterceptor.setNext(next);
 
-    CommandExecutorImpl commandExecutor =
-        new CommandExecutorImpl(new CommandConfig(), mock(CommandInterceptor.class));
+    CommandExecutorImpl commandExecutor = new CommandExecutorImpl(new CommandConfig(), first);
     commandExecutor.setFirst(commandInterceptor);
 
     ManagementServiceImpl managementServiceImpl = new ManagementServiceImpl();
@@ -492,22 +440,19 @@ public class ManagementServiceImplDiffblueTest {
 
   /**
    * Test {@link ManagementServiceImpl#deleteDeadLetterJob(String)}.
-   *
    * <ul>
-   *   <li>Then calls {@link CommandInterceptor#execute(CommandConfig, Command)}.
+   *   <li>Then calls {@link CommandInterceptor#execute(CommandConfig, Command)}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ManagementServiceImpl#deleteDeadLetterJob(String)}
+   * <p>
+   * Method under test: {@link ManagementServiceImpl#deleteDeadLetterJob(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void ManagementServiceImpl.deleteDeadLetterJob(String)"})
   public void testDeleteDeadLetterJob_thenCallsExecute() {
     // Arrange
     CommandInterceptor first = mock(CommandInterceptor.class);
-    when(first.execute(Mockito.<CommandConfig>any(), Mockito.<Command<Object>>any()))
-        .thenReturn(JSONObject.NULL);
+    when(first.execute(Mockito.<CommandConfig>any(), Mockito.<Command<Object>>any())).thenReturn(JSONObject.NULL);
     CommandExecutorImpl commandExecutor = new CommandExecutorImpl(new CommandConfig(), first);
 
     ManagementServiceImpl managementServiceImpl = new ManagementServiceImpl();
@@ -522,32 +467,28 @@ public class ManagementServiceImplDiffblueTest {
 
   /**
    * Test {@link ManagementServiceImpl#deleteDeadLetterJob(String)}.
-   *
    * <ul>
-   *   <li>Then calls {@link TransactionManager#getStatus()}.
+   *   <li>Then calls {@link TransactionManager#getStatus()}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ManagementServiceImpl#deleteDeadLetterJob(String)}
+   * <p>
+   * Method under test: {@link ManagementServiceImpl#deleteDeadLetterJob(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void ManagementServiceImpl.deleteDeadLetterJob(String)"})
   public void testDeleteDeadLetterJob_thenCallsGetStatus() throws SystemException {
     // Arrange
+    CommandInterceptor first = mock(CommandInterceptor.class);
+    when(first.execute(Mockito.<CommandConfig>any(), Mockito.<Command<Object>>any())).thenReturn(JSONObject.NULL);
     TransactionManager transactionManager = mock(TransactionManager.class);
     when(transactionManager.getStatus()).thenReturn(1);
-
     CommandInterceptor next = mock(CommandInterceptor.class);
-    when(next.execute(Mockito.<CommandConfig>any(), Mockito.<Command<Object>>any()))
-        .thenReturn(JSONObject.NULL);
+    when(next.execute(Mockito.<CommandConfig>any(), Mockito.<Command<Object>>any())).thenReturn(JSONObject.NULL);
 
-    JtaTransactionInterceptor commandInterceptor =
-        new JtaTransactionInterceptor(transactionManager);
+    JtaTransactionInterceptor commandInterceptor = new JtaTransactionInterceptor(transactionManager);
     commandInterceptor.setNext(next);
 
-    CommandExecutorImpl commandExecutor =
-        new CommandExecutorImpl(new CommandConfig(), mock(CommandInterceptor.class));
+    CommandExecutorImpl commandExecutor = new CommandExecutorImpl(new CommandConfig(), first);
     commandExecutor.setFirst(commandInterceptor);
 
     ManagementServiceImpl managementServiceImpl = new ManagementServiceImpl();
@@ -563,24 +504,20 @@ public class ManagementServiceImplDiffblueTest {
 
   /**
    * Test {@link ManagementServiceImpl#setJobRetries(String, int)}.
-   *
    * <ul>
-   *   <li>Given {@link CommandInterceptor} {@link CommandInterceptor#execute(CommandConfig,
-   *       Command)} return {@code null}.
-   *   <li>Then calls {@link CommandInterceptor#execute(CommandConfig, Command)}.
+   *   <li>Given {@link CommandInterceptor} {@link CommandInterceptor#execute(CommandConfig, Command)} return {@code null}.</li>
+   *   <li>Then calls {@link CommandInterceptor#execute(CommandConfig, Command)}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ManagementServiceImpl#setJobRetries(String, int)}
+   * <p>
+   * Method under test: {@link ManagementServiceImpl#setJobRetries(String, int)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void ManagementServiceImpl.setJobRetries(String, int)"})
   public void testSetJobRetries_givenCommandInterceptorExecuteReturnNull_thenCallsExecute() {
     // Arrange
     CommandInterceptor first = mock(CommandInterceptor.class);
-    when(first.execute(Mockito.<CommandConfig>any(), Mockito.<Command<Void>>any()))
-        .thenReturn(null);
+    when(first.execute(Mockito.<CommandConfig>any(), Mockito.<Command<Void>>any())).thenReturn(null);
     CommandExecutorImpl commandExecutor = new CommandExecutorImpl(new CommandConfig(), first);
 
     ManagementServiceImpl managementServiceImpl = new ManagementServiceImpl();
@@ -595,24 +532,20 @@ public class ManagementServiceImplDiffblueTest {
 
   /**
    * Test {@link ManagementServiceImpl#setTimerJobRetries(String, int)}.
-   *
    * <ul>
-   *   <li>Given {@link CommandInterceptor} {@link CommandInterceptor#execute(CommandConfig,
-   *       Command)} return {@code null}.
-   *   <li>Then calls {@link CommandInterceptor#execute(CommandConfig, Command)}.
+   *   <li>Given {@link CommandInterceptor} {@link CommandInterceptor#execute(CommandConfig, Command)} return {@code null}.</li>
+   *   <li>Then calls {@link CommandInterceptor#execute(CommandConfig, Command)}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ManagementServiceImpl#setTimerJobRetries(String, int)}
+   * <p>
+   * Method under test: {@link ManagementServiceImpl#setTimerJobRetries(String, int)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void ManagementServiceImpl.setTimerJobRetries(String, int)"})
   public void testSetTimerJobRetries_givenCommandInterceptorExecuteReturnNull_thenCallsExecute() {
     // Arrange
     CommandInterceptor first = mock(CommandInterceptor.class);
-    when(first.execute(Mockito.<CommandConfig>any(), Mockito.<Command<Void>>any()))
-        .thenReturn(null);
+    when(first.execute(Mockito.<CommandConfig>any(), Mockito.<Command<Void>>any())).thenReturn(null);
     CommandExecutorImpl commandExecutor = new CommandExecutorImpl(new CommandConfig(), first);
 
     ManagementServiceImpl managementServiceImpl = new ManagementServiceImpl();
@@ -627,17 +560,15 @@ public class ManagementServiceImplDiffblueTest {
 
   /**
    * Test {@link ManagementServiceImpl#createTablePageQuery()}.
-   *
-   * <p>Method under test: {@link ManagementServiceImpl#createTablePageQuery()}
+   * <p>
+   * Method under test: {@link ManagementServiceImpl#createTablePageQuery()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"TablePageQuery ManagementServiceImpl.createTablePageQuery()"})
   public void testCreateTablePageQuery() {
     // Arrange and Act
-    TablePageQuery actualCreateTablePageQueryResult =
-        new ManagementServiceImpl().createTablePageQuery();
+    TablePageQuery actualCreateTablePageQueryResult = (new ManagementServiceImpl()).createTablePageQuery();
 
     // Assert
     assertTrue(actualCreateTablePageQueryResult instanceof TablePageQueryImpl);
@@ -650,16 +581,15 @@ public class ManagementServiceImplDiffblueTest {
 
   /**
    * Test {@link ManagementServiceImpl#createJobQuery()}.
-   *
-   * <p>Method under test: {@link ManagementServiceImpl#createJobQuery()}
+   * <p>
+   * Method under test: {@link ManagementServiceImpl#createJobQuery()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"JobQuery ManagementServiceImpl.createJobQuery()"})
   public void testCreateJobQuery() {
     // Arrange and Act
-    JobQuery actualCreateJobQueryResult = new ManagementServiceImpl().createJobQuery();
+    JobQuery actualCreateJobQueryResult = (new ManagementServiceImpl()).createJobQuery();
 
     // Assert
     assertTrue(actualCreateJobQueryResult instanceof JobQueryImpl);
@@ -701,23 +631,20 @@ public class ManagementServiceImplDiffblueTest {
 
   /**
    * Test {@link ManagementServiceImpl#createTimerJobQuery()}.
-   *
-   * <p>Method under test: {@link ManagementServiceImpl#createTimerJobQuery()}
+   * <p>
+   * Method under test: {@link ManagementServiceImpl#createTimerJobQuery()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"TimerJobQuery ManagementServiceImpl.createTimerJobQuery()"})
   public void testCreateTimerJobQuery() {
     // Arrange and Act
-    TimerJobQuery actualCreateTimerJobQueryResult =
-        new ManagementServiceImpl().createTimerJobQuery();
+    TimerJobQuery actualCreateTimerJobQueryResult = (new ManagementServiceImpl()).createTimerJobQuery();
 
     // Assert
     assertTrue(actualCreateTimerJobQueryResult instanceof TimerJobQueryImpl);
     assertEquals("RES.ID_ asc", ((TimerJobQueryImpl) actualCreateTimerJobQueryResult).getOrderBy());
-    assertEquals(
-        "RES.ID_ asc", ((TimerJobQueryImpl) actualCreateTimerJobQueryResult).getOrderByColumns());
+    assertEquals("RES.ID_ asc", ((TimerJobQueryImpl) actualCreateTimerJobQueryResult).getOrderByColumns());
     assertNull(((TimerJobQueryImpl) actualCreateTimerJobQueryResult).getParameter());
     assertNull(((TimerJobQueryImpl) actualCreateTimerJobQueryResult).getDatabaseType());
     assertNull(((TimerJobQueryImpl) actualCreateTimerJobQueryResult).getExceptionMessage());
@@ -746,53 +673,40 @@ public class ManagementServiceImplDiffblueTest {
     assertFalse(((TimerJobQueryImpl) actualCreateTimerJobQueryResult).isOnlyTimers());
     assertFalse(((TimerJobQueryImpl) actualCreateTimerJobQueryResult).isWithException());
     assertFalse(((TimerJobQueryImpl) actualCreateTimerJobQueryResult).isWithoutTenantId());
-    assertEquals(
-        Integer.MAX_VALUE, ((TimerJobQueryImpl) actualCreateTimerJobQueryResult).getLastRow());
-    assertEquals(
-        Integer.MAX_VALUE, ((TimerJobQueryImpl) actualCreateTimerJobQueryResult).getMaxResults());
+    assertEquals(Integer.MAX_VALUE, ((TimerJobQueryImpl) actualCreateTimerJobQueryResult).getLastRow());
+    assertEquals(Integer.MAX_VALUE, ((TimerJobQueryImpl) actualCreateTimerJobQueryResult).getMaxResults());
   }
 
   /**
    * Test {@link ManagementServiceImpl#createSuspendedJobQuery()}.
-   *
-   * <p>Method under test: {@link ManagementServiceImpl#createSuspendedJobQuery()}
+   * <p>
+   * Method under test: {@link ManagementServiceImpl#createSuspendedJobQuery()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"SuspendedJobQuery ManagementServiceImpl.createSuspendedJobQuery()"})
   public void testCreateSuspendedJobQuery() {
     // Arrange and Act
-    SuspendedJobQuery actualCreateSuspendedJobQueryResult =
-        new ManagementServiceImpl().createSuspendedJobQuery();
+    SuspendedJobQuery actualCreateSuspendedJobQueryResult = (new ManagementServiceImpl()).createSuspendedJobQuery();
 
     // Assert
     assertTrue(actualCreateSuspendedJobQueryResult instanceof SuspendedJobQueryImpl);
-    assertEquals(
-        "RES.ID_ asc", ((SuspendedJobQueryImpl) actualCreateSuspendedJobQueryResult).getOrderBy());
-    assertEquals(
-        "RES.ID_ asc",
-        ((SuspendedJobQueryImpl) actualCreateSuspendedJobQueryResult).getOrderByColumns());
+    assertEquals("RES.ID_ asc", ((SuspendedJobQueryImpl) actualCreateSuspendedJobQueryResult).getOrderBy());
+    assertEquals("RES.ID_ asc", ((SuspendedJobQueryImpl) actualCreateSuspendedJobQueryResult).getOrderByColumns());
     assertNull(((SuspendedJobQueryImpl) actualCreateSuspendedJobQueryResult).getParameter());
     assertNull(((SuspendedJobQueryImpl) actualCreateSuspendedJobQueryResult).getDatabaseType());
     assertNull(((SuspendedJobQueryImpl) actualCreateSuspendedJobQueryResult).getExceptionMessage());
     assertNull(((SuspendedJobQueryImpl) actualCreateSuspendedJobQueryResult).getExecutionId());
     assertNull(((SuspendedJobQueryImpl) actualCreateSuspendedJobQueryResult).getId());
-    assertNull(
-        ((SuspendedJobQueryImpl) actualCreateSuspendedJobQueryResult).getProcessDefinitionId());
-    assertNull(
-        ((SuspendedJobQueryImpl) actualCreateSuspendedJobQueryResult).getProcessInstanceId());
+    assertNull(((SuspendedJobQueryImpl) actualCreateSuspendedJobQueryResult).getProcessDefinitionId());
+    assertNull(((SuspendedJobQueryImpl) actualCreateSuspendedJobQueryResult).getProcessInstanceId());
     assertNull(((SuspendedJobQueryImpl) actualCreateSuspendedJobQueryResult).getTenantId());
     assertNull(((SuspendedJobQueryImpl) actualCreateSuspendedJobQueryResult).getTenantIdLike());
     assertNull(((SuspendedJobQueryImpl) actualCreateSuspendedJobQueryResult).orderBy);
-    assertNull(
-        ((SuspendedJobQueryImpl) actualCreateSuspendedJobQueryResult).getDuedateHigherThan());
-    assertNull(
-        ((SuspendedJobQueryImpl) actualCreateSuspendedJobQueryResult)
-            .getDuedateHigherThanOrEqual());
+    assertNull(((SuspendedJobQueryImpl) actualCreateSuspendedJobQueryResult).getDuedateHigherThan());
+    assertNull(((SuspendedJobQueryImpl) actualCreateSuspendedJobQueryResult).getDuedateHigherThanOrEqual());
     assertNull(((SuspendedJobQueryImpl) actualCreateSuspendedJobQueryResult).getDuedateLowerThan());
-    assertNull(
-        ((SuspendedJobQueryImpl) actualCreateSuspendedJobQueryResult).getDuedateLowerThanOrEqual());
+    assertNull(((SuspendedJobQueryImpl) actualCreateSuspendedJobQueryResult).getDuedateLowerThanOrEqual());
     assertNull(((SuspendedJobQueryImpl) actualCreateSuspendedJobQueryResult).nullHandlingOnOrder);
     assertNull(((SuspendedJobQueryImpl) actualCreateSuspendedJobQueryResult).resultType);
     assertNull(((SuspendedJobQueryImpl) actualCreateSuspendedJobQueryResult).commandContext);
@@ -807,99 +721,71 @@ public class ManagementServiceImplDiffblueTest {
     assertFalse(((SuspendedJobQueryImpl) actualCreateSuspendedJobQueryResult).isOnlyTimers());
     assertFalse(((SuspendedJobQueryImpl) actualCreateSuspendedJobQueryResult).isWithException());
     assertFalse(((SuspendedJobQueryImpl) actualCreateSuspendedJobQueryResult).isWithoutTenantId());
-    assertEquals(
-        Integer.MAX_VALUE,
-        ((SuspendedJobQueryImpl) actualCreateSuspendedJobQueryResult).getLastRow());
-    assertEquals(
-        Integer.MAX_VALUE,
-        ((SuspendedJobQueryImpl) actualCreateSuspendedJobQueryResult).getMaxResults());
+    assertEquals(Integer.MAX_VALUE, ((SuspendedJobQueryImpl) actualCreateSuspendedJobQueryResult).getLastRow());
+    assertEquals(Integer.MAX_VALUE, ((SuspendedJobQueryImpl) actualCreateSuspendedJobQueryResult).getMaxResults());
   }
 
   /**
    * Test {@link ManagementServiceImpl#createDeadLetterJobQuery()}.
-   *
-   * <p>Method under test: {@link ManagementServiceImpl#createDeadLetterJobQuery()}
+   * <p>
+   * Method under test: {@link ManagementServiceImpl#createDeadLetterJobQuery()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"DeadLetterJobQuery ManagementServiceImpl.createDeadLetterJobQuery()"})
   public void testCreateDeadLetterJobQuery() {
     // Arrange and Act
-    DeadLetterJobQuery actualCreateDeadLetterJobQueryResult =
-        new ManagementServiceImpl().createDeadLetterJobQuery();
+    DeadLetterJobQuery actualCreateDeadLetterJobQueryResult = (new ManagementServiceImpl()).createDeadLetterJobQuery();
 
     // Assert
     assertTrue(actualCreateDeadLetterJobQueryResult instanceof DeadLetterJobQueryImpl);
-    assertEquals(
-        "RES.ID_ asc",
-        ((DeadLetterJobQueryImpl) actualCreateDeadLetterJobQueryResult).getOrderBy());
-    assertEquals(
-        "RES.ID_ asc",
-        ((DeadLetterJobQueryImpl) actualCreateDeadLetterJobQueryResult).getOrderByColumns());
+    assertEquals("RES.ID_ asc", ((DeadLetterJobQueryImpl) actualCreateDeadLetterJobQueryResult).getOrderBy());
+    assertEquals("RES.ID_ asc", ((DeadLetterJobQueryImpl) actualCreateDeadLetterJobQueryResult).getOrderByColumns());
     assertNull(((DeadLetterJobQueryImpl) actualCreateDeadLetterJobQueryResult).getParameter());
     assertNull(((DeadLetterJobQueryImpl) actualCreateDeadLetterJobQueryResult).getDatabaseType());
-    assertNull(
-        ((DeadLetterJobQueryImpl) actualCreateDeadLetterJobQueryResult).getExceptionMessage());
+    assertNull(((DeadLetterJobQueryImpl) actualCreateDeadLetterJobQueryResult).getExceptionMessage());
     assertNull(((DeadLetterJobQueryImpl) actualCreateDeadLetterJobQueryResult).getExecutionId());
     assertNull(((DeadLetterJobQueryImpl) actualCreateDeadLetterJobQueryResult).getId());
-    assertNull(
-        ((DeadLetterJobQueryImpl) actualCreateDeadLetterJobQueryResult).getProcessDefinitionId());
-    assertNull(
-        ((DeadLetterJobQueryImpl) actualCreateDeadLetterJobQueryResult).getProcessInstanceId());
+    assertNull(((DeadLetterJobQueryImpl) actualCreateDeadLetterJobQueryResult).getProcessDefinitionId());
+    assertNull(((DeadLetterJobQueryImpl) actualCreateDeadLetterJobQueryResult).getProcessInstanceId());
     assertNull(((DeadLetterJobQueryImpl) actualCreateDeadLetterJobQueryResult).getTenantId());
     assertNull(((DeadLetterJobQueryImpl) actualCreateDeadLetterJobQueryResult).getTenantIdLike());
     assertNull(((DeadLetterJobQueryImpl) actualCreateDeadLetterJobQueryResult).orderBy);
-    assertNull(
-        ((DeadLetterJobQueryImpl) actualCreateDeadLetterJobQueryResult).getDuedateHigherThan());
-    assertNull(
-        ((DeadLetterJobQueryImpl) actualCreateDeadLetterJobQueryResult)
-            .getDuedateHigherThanOrEqual());
-    assertNull(
-        ((DeadLetterJobQueryImpl) actualCreateDeadLetterJobQueryResult).getDuedateLowerThan());
-    assertNull(
-        ((DeadLetterJobQueryImpl) actualCreateDeadLetterJobQueryResult)
-            .getDuedateLowerThanOrEqual());
+    assertNull(((DeadLetterJobQueryImpl) actualCreateDeadLetterJobQueryResult).getDuedateHigherThan());
+    assertNull(((DeadLetterJobQueryImpl) actualCreateDeadLetterJobQueryResult).getDuedateHigherThanOrEqual());
+    assertNull(((DeadLetterJobQueryImpl) actualCreateDeadLetterJobQueryResult).getDuedateLowerThan());
+    assertNull(((DeadLetterJobQueryImpl) actualCreateDeadLetterJobQueryResult).getDuedateLowerThanOrEqual());
     assertNull(((DeadLetterJobQueryImpl) actualCreateDeadLetterJobQueryResult).nullHandlingOnOrder);
     assertNull(((DeadLetterJobQueryImpl) actualCreateDeadLetterJobQueryResult).resultType);
     assertNull(((DeadLetterJobQueryImpl) actualCreateDeadLetterJobQueryResult).commandContext);
     assertNull(((DeadLetterJobQueryImpl) actualCreateDeadLetterJobQueryResult).commandExecutor);
     assertNull(((DeadLetterJobQueryImpl) actualCreateDeadLetterJobQueryResult).orderProperty);
-    assertEquals(
-        0, ((DeadLetterJobQueryImpl) actualCreateDeadLetterJobQueryResult).getFirstResult());
+    assertEquals(0, ((DeadLetterJobQueryImpl) actualCreateDeadLetterJobQueryResult).getFirstResult());
     assertEquals(1, ((DeadLetterJobQueryImpl) actualCreateDeadLetterJobQueryResult).getFirstRow());
     assertFalse(((DeadLetterJobQueryImpl) actualCreateDeadLetterJobQueryResult).getExecutable());
     assertFalse(((DeadLetterJobQueryImpl) actualCreateDeadLetterJobQueryResult).isOnlyMessages());
     assertFalse(((DeadLetterJobQueryImpl) actualCreateDeadLetterJobQueryResult).isOnlyTimers());
     assertFalse(((DeadLetterJobQueryImpl) actualCreateDeadLetterJobQueryResult).isWithException());
-    assertFalse(
-        ((DeadLetterJobQueryImpl) actualCreateDeadLetterJobQueryResult).isWithoutTenantId());
-    assertEquals(
-        Integer.MAX_VALUE,
-        ((DeadLetterJobQueryImpl) actualCreateDeadLetterJobQueryResult).getLastRow());
-    assertEquals(
-        Integer.MAX_VALUE,
-        ((DeadLetterJobQueryImpl) actualCreateDeadLetterJobQueryResult).getMaxResults());
+    assertFalse(((DeadLetterJobQueryImpl) actualCreateDeadLetterJobQueryResult).isWithoutTenantId());
+    assertEquals(Integer.MAX_VALUE, ((DeadLetterJobQueryImpl) actualCreateDeadLetterJobQueryResult).getLastRow());
+    assertEquals(Integer.MAX_VALUE, ((DeadLetterJobQueryImpl) actualCreateDeadLetterJobQueryResult).getMaxResults());
   }
 
   /**
    * Test {@link ManagementServiceImpl#getJobExceptionStacktrace(String)}.
-   *
    * <ul>
-   *   <li>Then return {@code Execute}.
+   *   <li>Then return {@code Execute}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ManagementServiceImpl#getJobExceptionStacktrace(String)}
+   * <p>
+   * Method under test: {@link ManagementServiceImpl#getJobExceptionStacktrace(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"String ManagementServiceImpl.getJobExceptionStacktrace(String)"})
   public void testGetJobExceptionStacktrace_thenReturnExecute() {
     // Arrange
     CommandInterceptor first = mock(CommandInterceptor.class);
-    when(first.execute(Mockito.<CommandConfig>any(), Mockito.<Command<String>>any()))
-        .thenReturn("Execute");
+    when(first.execute(Mockito.<CommandConfig>any(), Mockito.<Command<String>>any())).thenReturn("Execute");
     CommandExecutorImpl commandExecutor = new CommandExecutorImpl(new CommandConfig(), first);
 
     ManagementServiceImpl managementServiceImpl = new ManagementServiceImpl();
@@ -915,30 +801,26 @@ public class ManagementServiceImplDiffblueTest {
 
   /**
    * Test {@link ManagementServiceImpl#getTimerJobExceptionStacktrace(String)}.
-   *
    * <ul>
-   *   <li>Then return {@code Execute}.
+   *   <li>Then return {@code Execute}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ManagementServiceImpl#getTimerJobExceptionStacktrace(String)}
+   * <p>
+   * Method under test: {@link ManagementServiceImpl#getTimerJobExceptionStacktrace(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"String ManagementServiceImpl.getTimerJobExceptionStacktrace(String)"})
   public void testGetTimerJobExceptionStacktrace_thenReturnExecute() {
     // Arrange
     CommandInterceptor first = mock(CommandInterceptor.class);
-    when(first.execute(Mockito.<CommandConfig>any(), Mockito.<Command<String>>any()))
-        .thenReturn("Execute");
+    when(first.execute(Mockito.<CommandConfig>any(), Mockito.<Command<String>>any())).thenReturn("Execute");
     CommandExecutorImpl commandExecutor = new CommandExecutorImpl(new CommandConfig(), first);
 
     ManagementServiceImpl managementServiceImpl = new ManagementServiceImpl();
     managementServiceImpl.setCommandExecutor(commandExecutor);
 
     // Act
-    String actualTimerJobExceptionStacktrace =
-        managementServiceImpl.getTimerJobExceptionStacktrace("42");
+    String actualTimerJobExceptionStacktrace = managementServiceImpl.getTimerJobExceptionStacktrace("42");
 
     // Assert
     verify(first).execute(isA(CommandConfig.class), isA(Command.class));
@@ -947,30 +829,26 @@ public class ManagementServiceImplDiffblueTest {
 
   /**
    * Test {@link ManagementServiceImpl#getSuspendedJobExceptionStacktrace(String)}.
-   *
    * <ul>
-   *   <li>Then return {@code Execute}.
+   *   <li>Then return {@code Execute}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ManagementServiceImpl#getSuspendedJobExceptionStacktrace(String)}
+   * <p>
+   * Method under test: {@link ManagementServiceImpl#getSuspendedJobExceptionStacktrace(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"String ManagementServiceImpl.getSuspendedJobExceptionStacktrace(String)"})
   public void testGetSuspendedJobExceptionStacktrace_thenReturnExecute() {
     // Arrange
     CommandInterceptor first = mock(CommandInterceptor.class);
-    when(first.execute(Mockito.<CommandConfig>any(), Mockito.<Command<String>>any()))
-        .thenReturn("Execute");
+    when(first.execute(Mockito.<CommandConfig>any(), Mockito.<Command<String>>any())).thenReturn("Execute");
     CommandExecutorImpl commandExecutor = new CommandExecutorImpl(new CommandConfig(), first);
 
     ManagementServiceImpl managementServiceImpl = new ManagementServiceImpl();
     managementServiceImpl.setCommandExecutor(commandExecutor);
 
     // Act
-    String actualSuspendedJobExceptionStacktrace =
-        managementServiceImpl.getSuspendedJobExceptionStacktrace("42");
+    String actualSuspendedJobExceptionStacktrace = managementServiceImpl.getSuspendedJobExceptionStacktrace("42");
 
     // Assert
     verify(first).execute(isA(CommandConfig.class), isA(Command.class));
@@ -979,30 +857,26 @@ public class ManagementServiceImplDiffblueTest {
 
   /**
    * Test {@link ManagementServiceImpl#getDeadLetterJobExceptionStacktrace(String)}.
-   *
    * <ul>
-   *   <li>Then return {@code Execute}.
+   *   <li>Then return {@code Execute}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ManagementServiceImpl#getDeadLetterJobExceptionStacktrace(String)}
+   * <p>
+   * Method under test: {@link ManagementServiceImpl#getDeadLetterJobExceptionStacktrace(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"String ManagementServiceImpl.getDeadLetterJobExceptionStacktrace(String)"})
   public void testGetDeadLetterJobExceptionStacktrace_thenReturnExecute() {
     // Arrange
     CommandInterceptor first = mock(CommandInterceptor.class);
-    when(first.execute(Mockito.<CommandConfig>any(), Mockito.<Command<String>>any()))
-        .thenReturn("Execute");
+    when(first.execute(Mockito.<CommandConfig>any(), Mockito.<Command<String>>any())).thenReturn("Execute");
     CommandExecutorImpl commandExecutor = new CommandExecutorImpl(new CommandConfig(), first);
 
     ManagementServiceImpl managementServiceImpl = new ManagementServiceImpl();
     managementServiceImpl.setCommandExecutor(commandExecutor);
 
     // Act
-    String actualDeadLetterJobExceptionStacktrace =
-        managementServiceImpl.getDeadLetterJobExceptionStacktrace("42");
+    String actualDeadLetterJobExceptionStacktrace = managementServiceImpl.getDeadLetterJobExceptionStacktrace("42");
 
     // Assert
     verify(first).execute(isA(CommandConfig.class), isA(Command.class));
@@ -1011,18 +885,15 @@ public class ManagementServiceImplDiffblueTest {
 
   /**
    * Test {@link ManagementServiceImpl#getProperties()}.
-   *
    * <ul>
-   *   <li>Given {@link CommandInterceptor} {@link CommandInterceptor#execute(CommandConfig,
-   *       Command)} return {@link HashMap#HashMap()}.
-   *   <li>Then return Empty.
+   *   <li>Given {@link CommandInterceptor} {@link CommandInterceptor#execute(CommandConfig, Command)} return {@link HashMap#HashMap()}.</li>
+   *   <li>Then return Empty.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ManagementServiceImpl#getProperties()}
+   * <p>
+   * Method under test: {@link ManagementServiceImpl#getProperties()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"Map ManagementServiceImpl.getProperties()"})
   public void testGetProperties_givenCommandInterceptorExecuteReturnHashMap_thenReturnEmpty() {
     // Arrange
@@ -1044,37 +915,29 @@ public class ManagementServiceImplDiffblueTest {
 
   /**
    * Test {@link ManagementServiceImpl#databaseSchemaUpgrade(Connection, String, String)}.
-   *
    * <ul>
-   *   <li>Then return {@code Execute}.
+   *   <li>Then return {@code Execute}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ManagementServiceImpl#databaseSchemaUpgrade(Connection, String,
-   * String)}
+   * <p>
+   * Method under test: {@link ManagementServiceImpl#databaseSchemaUpgrade(Connection, String, String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "String ManagementServiceImpl.databaseSchemaUpgrade(Connection, String, String)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String ManagementServiceImpl.databaseSchemaUpgrade(Connection, String, String)"})
   public void testDatabaseSchemaUpgrade_thenReturnExecute() {
     // Arrange
     CommandConfig defaultConfig = mock(CommandConfig.class);
     when(defaultConfig.transactionNotSupported()).thenReturn(new CommandConfig());
-
     CommandInterceptor first = mock(CommandInterceptor.class);
-    when(first.execute(Mockito.<CommandConfig>any(), Mockito.<Command<String>>any()))
-        .thenReturn("Execute");
-
+    when(first.execute(Mockito.<CommandConfig>any(), Mockito.<Command<String>>any())).thenReturn("Execute");
     CommandExecutorImpl commandExecutor = new CommandExecutorImpl(defaultConfig, first);
 
     ManagementServiceImpl managementServiceImpl = new ManagementServiceImpl();
     managementServiceImpl.setCommandExecutor(commandExecutor);
 
     // Act
-    String actualDatabaseSchemaUpgradeResult =
-        managementServiceImpl.databaseSchemaUpgrade(mock(Connection.class), "Catalog", "Schema");
+    String actualDatabaseSchemaUpgradeResult = managementServiceImpl.databaseSchemaUpgrade(mock(Connection.class),
+        "Catalog", "Schema");
 
     // Assert
     verify(defaultConfig).transactionNotSupported();
@@ -1084,110 +947,91 @@ public class ManagementServiceImplDiffblueTest {
 
   /**
    * Test {@link ManagementServiceImpl#executeCommand(Command)} with {@code command}.
-   *
    * <ul>
-   *   <li>When {@code null}.
-   *   <li>Then throw {@link ActivitiIllegalArgumentException}.
+   *   <li>When {@code null}.</li>
+   *   <li>Then throw {@link ActivitiIllegalArgumentException}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ManagementServiceImpl#executeCommand(Command)}
+   * <p>
+   * Method under test: {@link ManagementServiceImpl#executeCommand(Command)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"Object ManagementServiceImpl.executeCommand(Command)"})
   public void testExecuteCommandWithCommand_whenNull_thenThrowActivitiIllegalArgumentException() {
     // Arrange, Act and Assert
-    assertThrows(
-        ActivitiIllegalArgumentException.class,
-        () -> new ManagementServiceImpl().executeCommand(null));
+    assertThrows(ActivitiIllegalArgumentException.class, () -> (new ManagementServiceImpl()).executeCommand(null));
   }
 
   /**
-   * Test {@link ManagementServiceImpl#executeCommand(CommandConfig, Command)} with {@code config},
-   * {@code command}.
-   *
+   * Test {@link ManagementServiceImpl#executeCommand(CommandConfig, Command)} with {@code config}, {@code command}.
    * <ul>
-   *   <li>Then throw {@link ActivitiIllegalArgumentException}.
+   *   <li>Then throw {@link ActivitiIllegalArgumentException}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ManagementServiceImpl#executeCommand(CommandConfig, Command)}
+   * <p>
+   * Method under test: {@link ManagementServiceImpl#executeCommand(CommandConfig, Command)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"Object ManagementServiceImpl.executeCommand(CommandConfig, Command)"})
   public void testExecuteCommandWithConfigCommand_thenThrowActivitiIllegalArgumentException() {
     // Arrange, Act and Assert
-    assertThrows(
-        ActivitiIllegalArgumentException.class,
-        () -> new ManagementServiceImpl().executeCommand(null, null));
+    assertThrows(ActivitiIllegalArgumentException.class,
+        () -> (new ManagementServiceImpl()).executeCommand(null, null));
   }
 
   /**
-   * Test {@link ManagementServiceImpl#executeCommand(CommandConfig, Command)} with {@code config},
-   * {@code command}.
-   *
+   * Test {@link ManagementServiceImpl#executeCommand(CommandConfig, Command)} with {@code config}, {@code command}.
    * <ul>
-   *   <li>Then throw {@link ActivitiIllegalArgumentException}.
+   *   <li>Then throw {@link ActivitiIllegalArgumentException}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ManagementServiceImpl#executeCommand(CommandConfig, Command)}
+   * <p>
+   * Method under test: {@link ManagementServiceImpl#executeCommand(CommandConfig, Command)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"Object ManagementServiceImpl.executeCommand(CommandConfig, Command)"})
   public void testExecuteCommandWithConfigCommand_thenThrowActivitiIllegalArgumentException2() {
     // Arrange
     ManagementServiceImpl managementServiceImpl = new ManagementServiceImpl();
 
     // Act and Assert
-    assertThrows(
-        ActivitiIllegalArgumentException.class,
+    assertThrows(ActivitiIllegalArgumentException.class,
         () -> managementServiceImpl.executeCommand(new CommandConfig(), null));
   }
 
   /**
    * Test {@link ManagementServiceImpl#executeCustomSql(CustomSqlExecution)}.
-   *
    * <ul>
-   *   <li>Then throw {@link ActivitiIllegalArgumentException}.
+   *   <li>Then throw {@link ActivitiIllegalArgumentException}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ManagementServiceImpl#executeCustomSql(CustomSqlExecution)}
+   * <p>
+   * Method under test: {@link ManagementServiceImpl#executeCustomSql(CustomSqlExecution)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"Object ManagementServiceImpl.executeCustomSql(CustomSqlExecution)"})
   public void testExecuteCustomSql_thenThrowActivitiIllegalArgumentException() {
     // Arrange
     ManagementServiceImpl managementServiceImpl = new ManagementServiceImpl();
-
     CustomSqlExecution<Object, Object> customSqlExecution = mock(CustomSqlExecution.class);
-    when(customSqlExecution.getMapperClass())
-        .thenThrow(new ActivitiIllegalArgumentException("An error occurred"));
+    when(customSqlExecution.getMapperClass()).thenThrow(new ActivitiIllegalArgumentException("An error occurred"));
 
     // Act and Assert
-    assertThrows(
-        ActivitiIllegalArgumentException.class,
+    assertThrows(ActivitiIllegalArgumentException.class,
         () -> managementServiceImpl.executeCustomSql(customSqlExecution));
     verify(customSqlExecution).getMapperClass();
   }
 
   /**
    * Test {@link ManagementServiceImpl#getEventLogEntries(Long, Long)}.
-   *
    * <ul>
-   *   <li>Then return Empty.
+   *   <li>Then return Empty.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ManagementServiceImpl#getEventLogEntries(Long, Long)}
+   * <p>
+   * Method under test: {@link ManagementServiceImpl#getEventLogEntries(Long, Long)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"List ManagementServiceImpl.getEventLogEntries(Long, Long)"})
   public void testGetEventLogEntries_thenReturnEmpty() {
     // Arrange
@@ -1209,17 +1053,14 @@ public class ManagementServiceImplDiffblueTest {
 
   /**
    * Test {@link ManagementServiceImpl#getEventLogEntriesByProcessInstanceId(String)}.
-   *
    * <ul>
-   *   <li>Then return Empty.
+   *   <li>Then return Empty.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link
-   * ManagementServiceImpl#getEventLogEntriesByProcessInstanceId(String)}
+   * <p>
+   * Method under test: {@link ManagementServiceImpl#getEventLogEntriesByProcessInstanceId(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"List ManagementServiceImpl.getEventLogEntriesByProcessInstanceId(String)"})
   public void testGetEventLogEntriesByProcessInstanceId_thenReturnEmpty() {
     // Arrange
@@ -1232,8 +1073,8 @@ public class ManagementServiceImplDiffblueTest {
     managementServiceImpl.setCommandExecutor(commandExecutor);
 
     // Act
-    List<EventLogEntry> actualEventLogEntriesByProcessInstanceId =
-        managementServiceImpl.getEventLogEntriesByProcessInstanceId("42");
+    List<EventLogEntry> actualEventLogEntriesByProcessInstanceId = managementServiceImpl
+        .getEventLogEntriesByProcessInstanceId("42");
 
     // Assert
     verify(first).execute(isA(CommandConfig.class), isA(Command.class));
@@ -1242,22 +1083,19 @@ public class ManagementServiceImplDiffblueTest {
 
   /**
    * Test {@link ManagementServiceImpl#deleteEventLogEntry(long)}.
-   *
    * <ul>
-   *   <li>Then calls {@link CommandInterceptor#execute(CommandConfig, Command)}.
+   *   <li>Then calls {@link CommandInterceptor#execute(CommandConfig, Command)}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ManagementServiceImpl#deleteEventLogEntry(long)}
+   * <p>
+   * Method under test: {@link ManagementServiceImpl#deleteEventLogEntry(long)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void ManagementServiceImpl.deleteEventLogEntry(long)"})
   public void testDeleteEventLogEntry_thenCallsExecute() {
     // Arrange
     CommandInterceptor first = mock(CommandInterceptor.class);
-    when(first.execute(Mockito.<CommandConfig>any(), Mockito.<Command<Void>>any()))
-        .thenReturn(null);
+    when(first.execute(Mockito.<CommandConfig>any(), Mockito.<Command<Void>>any())).thenReturn(null);
     CommandExecutorImpl commandExecutor = new CommandExecutorImpl(new CommandConfig(), first);
 
     ManagementServiceImpl managementServiceImpl = new ManagementServiceImpl();
@@ -1272,15 +1110,14 @@ public class ManagementServiceImplDiffblueTest {
 
   /**
    * Test new {@link ManagementServiceImpl} (default constructor).
-   *
-   * <p>Method under test: default or parameterless constructor of {@link ManagementServiceImpl}
+   * <p>
+   * Method under test: default or parameterless constructor of {@link ManagementServiceImpl}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void ManagementServiceImpl.<init>()"})
   public void testNewManagementServiceImpl() {
     // Arrange, Act and Assert
-    assertNull(new ManagementServiceImpl().getCommandExecutor());
+    assertNull((new ManagementServiceImpl()).getCommandExecutor());
   }
 }

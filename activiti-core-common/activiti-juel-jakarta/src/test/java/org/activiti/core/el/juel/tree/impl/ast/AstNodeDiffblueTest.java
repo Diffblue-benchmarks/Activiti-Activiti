@@ -18,7 +18,6 @@ package org.activiti.core.el.juel.tree.impl.ast;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.mockito.Mockito.mock;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import jakarta.el.ELContext;
 import jakarta.el.ValueExpression;
@@ -34,30 +33,24 @@ import org.junit.jupiter.api.Test;
 class AstNodeDiffblueTest {
   /**
    * Test {@link AstNode#getValue(Bindings, ELContext, Class)}.
-   *
    * <ul>
-   *   <li>Then return {@code null}.
+   *   <li>Then return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link AstNode#getValue(Bindings, ELContext, Class)}
+   * <p>
+   * Method under test: {@link AstNode#getValue(Bindings, ELContext, Class)}
    */
   @Test
   @DisplayName("Test getValue(Bindings, ELContext, Class); then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"Object AstNode.getValue(Bindings, ELContext, Class)"})
   void testGetValue_thenReturnNull() {
     // Arrange
     AstNull astNull = new AstNull();
-    Method[] functions = new Method[] {null};
     TypeConverter converter = mock(TypeConverter.class);
     Class<Object> type = Object.class;
+    Bindings bindings = new Bindings(new Method[]{null},
+        new ValueExpression[]{new ObjectValueExpression(converter, "Object", type)});
 
-    ObjectValueExpression objectValueExpression =
-        new ObjectValueExpression(converter, "Object", type);
-    ValueExpression[] variables = new ValueExpression[] {objectValueExpression};
-
-    Bindings bindings = new Bindings(functions, variables);
     SimpleContext context = new SimpleContext();
     Class<Object> type2 = Object.class;
 
@@ -67,30 +60,23 @@ class AstNodeDiffblueTest {
 
   /**
    * Test {@link AstNode#getValue(Bindings, ELContext, Class)}.
-   *
    * <ul>
-   *   <li>Then return {@code null}.
+   *   <li>Then return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link AstNode#getValue(Bindings, ELContext, Class)}
+   * <p>
+   * Method under test: {@link AstNode#getValue(Bindings, ELContext, Class)}
    */
   @Test
   @DisplayName("Test getValue(Bindings, ELContext, Class); then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"Object AstNode.getValue(Bindings, ELContext, Class)"})
   void testGetValue_thenReturnNull2() {
     // Arrange
     AstNull astNull = new AstNull();
-    Method[] functions = new Method[] {null};
     TypeConverter converter = mock(TypeConverter.class);
     Class<Object> type = Object.class;
-
-    ObjectValueExpression objectValueExpression =
-        new ObjectValueExpression(converter, "Object", type);
-    ValueExpression[] variables = new ValueExpression[] {objectValueExpression};
-
-    Bindings bindings = new Bindings(functions, variables);
+    Bindings bindings = new Bindings(new Method[]{null},
+        new ValueExpression[]{new ObjectValueExpression(converter, "Object", type)});
 
     // Act and Assert
     assertNull(astNull.getValue(bindings, new SimpleContext(), null));
@@ -98,46 +84,35 @@ class AstNodeDiffblueTest {
 
   /**
    * Test {@link AstNode#getStructuralId(Bindings)}.
-   *
-   * <p>Method under test: {@link AstNode#getStructuralId(Bindings)}
+   * <p>
+   * Method under test: {@link AstNode#getStructuralId(Bindings)}
    */
   @Test
   @DisplayName("Test getStructuralId(Bindings)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String AstNode.getStructuralId(Bindings)"})
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"java.lang.String AstNode.getStructuralId(Bindings)"})
   void testGetStructuralId() {
     // Arrange
     AstNull astNull = new AstNull();
-    Method[] functions = new Method[] {null};
     TypeConverter converter = mock(TypeConverter.class);
     Class<Object> type = Object.class;
 
-    ObjectValueExpression objectValueExpression =
-        new ObjectValueExpression(converter, "Object", type);
-    ValueExpression[] variables = new ValueExpression[] {objectValueExpression};
-
-    Bindings bindings = new Bindings(functions, variables);
-
-    // Act
-    String actualStructuralId = astNull.getStructuralId(bindings);
-
-    // Assert
-    assertEquals("null", actualStructuralId);
+    // Act and Assert
+    assertEquals("null", astNull.getStructuralId(
+        new Bindings(new Method[]{null}, new ValueExpression[]{new ObjectValueExpression(converter, "Object", type)})));
   }
 
   /**
    * Test {@link AstNode#findAccessibleMethod(Method)}.
-   *
-   * <p>Method under test: {@link AstNode#findAccessibleMethod(Method)}
+   * <p>
+   * Method under test: {@link AstNode#findAccessibleMethod(Method)}
    */
   @Test
   @DisplayName("Test findAccessibleMethod(Method)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"Method AstNode.findAccessibleMethod(Method)"})
   void testFindAccessibleMethod() {
     // Arrange, Act and Assert
-    assertNull(new AstNull().findAccessibleMethod(null));
+    assertNull((new AstNull()).findAccessibleMethod(null));
   }
 }

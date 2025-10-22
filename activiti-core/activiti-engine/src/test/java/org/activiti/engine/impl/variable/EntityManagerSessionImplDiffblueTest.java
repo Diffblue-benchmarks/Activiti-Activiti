@@ -16,8 +16,7 @@
 package org.activiti.engine.impl.variable;
 
 import static org.junit.Assert.assertFalse;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.hibernate.engine.spi.SessionFactoryDelegatingImpl;
 import org.junit.Test;
@@ -26,21 +25,18 @@ import org.junit.experimental.categories.Category;
 public class EntityManagerSessionImplDiffblueTest {
   /**
    * Test {@link EntityManagerSessionImpl#isTransactionActive()}.
-   *
    * <ul>
-   *   <li>Then return {@code false}.
+   *   <li>Then return {@code false}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link EntityManagerSessionImpl#isTransactionActive()}
+   * <p>
+   * Method under test: {@link EntityManagerSessionImpl#isTransactionActive()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"boolean EntityManagerSessionImpl.isTransactionActive()"})
   public void testIsTransactionActive_thenReturnFalse() {
     // Arrange, Act and Assert
     assertFalse(
-        new EntityManagerSessionImpl(new SessionFactoryDelegatingImpl(null), false, true)
-            .isTransactionActive());
+        (new EntityManagerSessionImpl(new SessionFactoryDelegatingImpl(null), false, true)).isTransactionActive());
   }
 }

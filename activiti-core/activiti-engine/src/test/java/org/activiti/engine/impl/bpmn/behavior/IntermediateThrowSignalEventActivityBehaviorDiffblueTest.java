@@ -19,8 +19,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.bpmn.model.Signal;
 import org.activiti.bpmn.model.SignalEventDefinition;
@@ -29,241 +28,180 @@ import org.junit.experimental.categories.Category;
 
 public class IntermediateThrowSignalEventActivityBehaviorDiffblueTest {
   /**
-   * Test {@link
-   * IntermediateThrowSignalEventActivityBehavior#IntermediateThrowSignalEventActivityBehavior(SignalEventDefinition,
-   * Signal)}.
-   *
-   * <p>Method under test: {@link
-   * IntermediateThrowSignalEventActivityBehavior#IntermediateThrowSignalEventActivityBehavior(SignalEventDefinition,
-   * Signal)}
+   * Test {@link IntermediateThrowSignalEventActivityBehavior#IntermediateThrowSignalEventActivityBehavior(SignalEventDefinition, Signal)}.
+   * <p>
+   * Method under test: {@link IntermediateThrowSignalEventActivityBehavior#IntermediateThrowSignalEventActivityBehavior(SignalEventDefinition, Signal)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void IntermediateThrowSignalEventActivityBehavior.<init>(SignalEventDefinition, Signal)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void IntermediateThrowSignalEventActivityBehavior.<init>(SignalEventDefinition, Signal)"})
   public void testNewIntermediateThrowSignalEventActivityBehavior() {
     // Arrange
     SignalEventDefinition signalEventDefinition = new SignalEventDefinition();
-    signalEventDefinition.setSignalRef("not empty");
+    signalEventDefinition.setSignalRef(null);
 
     // Act
-    IntermediateThrowSignalEventActivityBehavior
-        actualIntermediateThrowSignalEventActivityBehavior =
-            new IntermediateThrowSignalEventActivityBehavior(signalEventDefinition, null);
+    IntermediateThrowSignalEventActivityBehavior actualIntermediateThrowSignalEventActivityBehavior = new IntermediateThrowSignalEventActivityBehavior(
+        signalEventDefinition, null);
 
     // Assert
-    SignalEventDefinition signalEventDefinition2 =
-        actualIntermediateThrowSignalEventActivityBehavior.signalEventDefinition;
-    assertEquals("not empty", signalEventDefinition2.getSignalRef());
-    assertEquals("not empty", actualIntermediateThrowSignalEventActivityBehavior.signalEventName);
+    SignalEventDefinition signalEventDefinition2 = actualIntermediateThrowSignalEventActivityBehavior.signalEventDefinition;
     assertNull(signalEventDefinition2.getId());
     assertNull(signalEventDefinition2.getSignalExpression());
+    assertNull(signalEventDefinition2.getSignalRef());
+    assertNull(actualIntermediateThrowSignalEventActivityBehavior.signalEventName);
     assertNull(actualIntermediateThrowSignalEventActivityBehavior.signalExpression);
-    assertNull(
-        actualIntermediateThrowSignalEventActivityBehavior.getMultiInstanceActivityBehavior());
+    assertNull(actualIntermediateThrowSignalEventActivityBehavior.getMultiInstanceActivityBehavior());
     assertEquals(0, signalEventDefinition2.getXmlColumnNumber());
     assertEquals(0, signalEventDefinition2.getXmlRowNumber());
     assertFalse(signalEventDefinition2.isAsync());
     assertFalse(actualIntermediateThrowSignalEventActivityBehavior.hasLoopCharacteristics());
-    assertFalse(
-        actualIntermediateThrowSignalEventActivityBehavior.hasMultiInstanceCharacteristics());
+    assertFalse(actualIntermediateThrowSignalEventActivityBehavior.hasMultiInstanceCharacteristics());
     assertFalse(actualIntermediateThrowSignalEventActivityBehavior.processInstanceScope);
     assertTrue(signalEventDefinition2.getAttributes().isEmpty());
     assertTrue(signalEventDefinition2.getExtensionElements().isEmpty());
   }
 
   /**
-   * Test {@link
-   * IntermediateThrowSignalEventActivityBehavior#IntermediateThrowSignalEventActivityBehavior(SignalEventDefinition,
-   * Signal)}.
-   *
-   * <p>Method under test: {@link
-   * IntermediateThrowSignalEventActivityBehavior#IntermediateThrowSignalEventActivityBehavior(SignalEventDefinition,
-   * Signal)}
+   * Test {@link IntermediateThrowSignalEventActivityBehavior#IntermediateThrowSignalEventActivityBehavior(SignalEventDefinition, Signal)}.
+   * <p>
+   * Method under test: {@link IntermediateThrowSignalEventActivityBehavior#IntermediateThrowSignalEventActivityBehavior(SignalEventDefinition, Signal)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void IntermediateThrowSignalEventActivityBehavior.<init>(SignalEventDefinition, Signal)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void IntermediateThrowSignalEventActivityBehavior.<init>(SignalEventDefinition, Signal)"})
   public void testNewIntermediateThrowSignalEventActivityBehavior2() {
     // Arrange
     SignalEventDefinition signalEventDefinition = new SignalEventDefinition();
-    signalEventDefinition.setSignalRef("not empty");
+    signalEventDefinition.setSignalRef(null);
 
     Signal signal = new Signal("42", "Name");
     signal.setScope(Signal.SCOPE_PROCESS_INSTANCE);
 
     // Act
-    IntermediateThrowSignalEventActivityBehavior
-        actualIntermediateThrowSignalEventActivityBehavior =
-            new IntermediateThrowSignalEventActivityBehavior(signalEventDefinition, signal);
+    IntermediateThrowSignalEventActivityBehavior actualIntermediateThrowSignalEventActivityBehavior = new IntermediateThrowSignalEventActivityBehavior(
+        signalEventDefinition, signal);
 
     // Assert
     assertEquals("Name", actualIntermediateThrowSignalEventActivityBehavior.signalEventName);
-    SignalEventDefinition signalEventDefinition2 =
-        actualIntermediateThrowSignalEventActivityBehavior.signalEventDefinition;
-    assertEquals("not empty", signalEventDefinition2.getSignalRef());
+    SignalEventDefinition signalEventDefinition2 = actualIntermediateThrowSignalEventActivityBehavior.signalEventDefinition;
     assertNull(signalEventDefinition2.getId());
     assertNull(signalEventDefinition2.getSignalExpression());
+    assertNull(signalEventDefinition2.getSignalRef());
     assertNull(actualIntermediateThrowSignalEventActivityBehavior.signalExpression);
-    assertNull(
-        actualIntermediateThrowSignalEventActivityBehavior.getMultiInstanceActivityBehavior());
+    assertNull(actualIntermediateThrowSignalEventActivityBehavior.getMultiInstanceActivityBehavior());
     assertEquals(0, signalEventDefinition2.getXmlColumnNumber());
     assertEquals(0, signalEventDefinition2.getXmlRowNumber());
     assertFalse(signalEventDefinition2.isAsync());
     assertFalse(actualIntermediateThrowSignalEventActivityBehavior.hasLoopCharacteristics());
-    assertFalse(
-        actualIntermediateThrowSignalEventActivityBehavior.hasMultiInstanceCharacteristics());
+    assertFalse(actualIntermediateThrowSignalEventActivityBehavior.hasMultiInstanceCharacteristics());
     assertTrue(signalEventDefinition2.getAttributes().isEmpty());
     assertTrue(signalEventDefinition2.getExtensionElements().isEmpty());
     assertTrue(actualIntermediateThrowSignalEventActivityBehavior.processInstanceScope);
   }
 
   /**
-   * Test {@link
-   * IntermediateThrowSignalEventActivityBehavior#IntermediateThrowSignalEventActivityBehavior(SignalEventDefinition,
-   * Signal)}.
-   *
-   * <p>Method under test: {@link
-   * IntermediateThrowSignalEventActivityBehavior#IntermediateThrowSignalEventActivityBehavior(SignalEventDefinition,
-   * Signal)}
+   * Test {@link IntermediateThrowSignalEventActivityBehavior#IntermediateThrowSignalEventActivityBehavior(SignalEventDefinition, Signal)}.
+   * <p>
+   * Method under test: {@link IntermediateThrowSignalEventActivityBehavior#IntermediateThrowSignalEventActivityBehavior(SignalEventDefinition, Signal)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void IntermediateThrowSignalEventActivityBehavior.<init>(SignalEventDefinition, Signal)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void IntermediateThrowSignalEventActivityBehavior.<init>(SignalEventDefinition, Signal)"})
   public void testNewIntermediateThrowSignalEventActivityBehavior3() {
+    // Arrange
+    SignalEventDefinition signalEventDefinition = new SignalEventDefinition();
+    signalEventDefinition.setSignalRef("Signal Event Definition");
+
+    // Act
+    IntermediateThrowSignalEventActivityBehavior actualIntermediateThrowSignalEventActivityBehavior = new IntermediateThrowSignalEventActivityBehavior(
+        signalEventDefinition, null);
+
+    // Assert
+    SignalEventDefinition signalEventDefinition2 = actualIntermediateThrowSignalEventActivityBehavior.signalEventDefinition;
+    assertEquals("Signal Event Definition", signalEventDefinition2.getSignalRef());
+    assertEquals("Signal Event Definition", actualIntermediateThrowSignalEventActivityBehavior.signalEventName);
+    assertNull(signalEventDefinition2.getId());
+    assertNull(signalEventDefinition2.getSignalExpression());
+    assertNull(actualIntermediateThrowSignalEventActivityBehavior.signalExpression);
+    assertNull(actualIntermediateThrowSignalEventActivityBehavior.getMultiInstanceActivityBehavior());
+    assertEquals(0, signalEventDefinition2.getXmlColumnNumber());
+    assertEquals(0, signalEventDefinition2.getXmlRowNumber());
+    assertFalse(signalEventDefinition2.isAsync());
+    assertFalse(actualIntermediateThrowSignalEventActivityBehavior.hasLoopCharacteristics());
+    assertFalse(actualIntermediateThrowSignalEventActivityBehavior.hasMultiInstanceCharacteristics());
+    assertFalse(actualIntermediateThrowSignalEventActivityBehavior.processInstanceScope);
+    assertTrue(signalEventDefinition2.getAttributes().isEmpty());
+    assertTrue(signalEventDefinition2.getExtensionElements().isEmpty());
+  }
+
+  /**
+   * Test {@link IntermediateThrowSignalEventActivityBehavior#IntermediateThrowSignalEventActivityBehavior(SignalEventDefinition, Signal)}.
+   * <p>
+   * Method under test: {@link IntermediateThrowSignalEventActivityBehavior#IntermediateThrowSignalEventActivityBehavior(SignalEventDefinition, Signal)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void IntermediateThrowSignalEventActivityBehavior.<init>(SignalEventDefinition, Signal)"})
+  public void testNewIntermediateThrowSignalEventActivityBehavior4() {
     // Arrange
     SignalEventDefinition signalEventDefinition = new SignalEventDefinition();
     signalEventDefinition.setSignalRef("");
 
     // Act
-    IntermediateThrowSignalEventActivityBehavior
-        actualIntermediateThrowSignalEventActivityBehavior =
-            new IntermediateThrowSignalEventActivityBehavior(signalEventDefinition, null);
+    IntermediateThrowSignalEventActivityBehavior actualIntermediateThrowSignalEventActivityBehavior = new IntermediateThrowSignalEventActivityBehavior(
+        signalEventDefinition, null);
 
     // Assert
-    SignalEventDefinition signalEventDefinition2 =
-        actualIntermediateThrowSignalEventActivityBehavior.signalEventDefinition;
+    SignalEventDefinition signalEventDefinition2 = actualIntermediateThrowSignalEventActivityBehavior.signalEventDefinition;
     assertEquals("", signalEventDefinition2.getSignalRef());
     assertNull(signalEventDefinition2.getId());
     assertNull(signalEventDefinition2.getSignalExpression());
     assertNull(actualIntermediateThrowSignalEventActivityBehavior.signalEventName);
     assertNull(actualIntermediateThrowSignalEventActivityBehavior.signalExpression);
-    assertNull(
-        actualIntermediateThrowSignalEventActivityBehavior.getMultiInstanceActivityBehavior());
+    assertNull(actualIntermediateThrowSignalEventActivityBehavior.getMultiInstanceActivityBehavior());
     assertEquals(0, signalEventDefinition2.getXmlColumnNumber());
     assertEquals(0, signalEventDefinition2.getXmlRowNumber());
     assertFalse(signalEventDefinition2.isAsync());
     assertFalse(actualIntermediateThrowSignalEventActivityBehavior.hasLoopCharacteristics());
-    assertFalse(
-        actualIntermediateThrowSignalEventActivityBehavior.hasMultiInstanceCharacteristics());
+    assertFalse(actualIntermediateThrowSignalEventActivityBehavior.hasMultiInstanceCharacteristics());
     assertFalse(actualIntermediateThrowSignalEventActivityBehavior.processInstanceScope);
     assertTrue(signalEventDefinition2.getAttributes().isEmpty());
     assertTrue(signalEventDefinition2.getExtensionElements().isEmpty());
   }
 
   /**
-   * Test {@link
-   * IntermediateThrowSignalEventActivityBehavior#IntermediateThrowSignalEventActivityBehavior(SignalEventDefinition,
-   * Signal)}.
-   *
+   * Test {@link IntermediateThrowSignalEventActivityBehavior#IntermediateThrowSignalEventActivityBehavior(SignalEventDefinition, Signal)}.
    * <ul>
-   *   <li>Given {@code null}.
+   *   <li>When {@link SignalEventDefinition} (default constructor).</li>
    * </ul>
-   *
-   * <p>Method under test: {@link
-   * IntermediateThrowSignalEventActivityBehavior#IntermediateThrowSignalEventActivityBehavior(SignalEventDefinition,
-   * Signal)}
+   * <p>
+   * Method under test: {@link IntermediateThrowSignalEventActivityBehavior#IntermediateThrowSignalEventActivityBehavior(SignalEventDefinition, Signal)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void IntermediateThrowSignalEventActivityBehavior.<init>(SignalEventDefinition, Signal)"
-  })
-  public void testNewIntermediateThrowSignalEventActivityBehavior_givenNull() {
-    // Arrange
-    SignalEventDefinition signalEventDefinition = new SignalEventDefinition();
-    signalEventDefinition.setSignalRef(null);
-
-    // Act
-    IntermediateThrowSignalEventActivityBehavior
-        actualIntermediateThrowSignalEventActivityBehavior =
-            new IntermediateThrowSignalEventActivityBehavior(signalEventDefinition, null);
-
-    // Assert
-    SignalEventDefinition signalEventDefinition2 =
-        actualIntermediateThrowSignalEventActivityBehavior.signalEventDefinition;
-    assertNull(signalEventDefinition2.getId());
-    assertNull(signalEventDefinition2.getSignalExpression());
-    assertNull(signalEventDefinition2.getSignalRef());
-    assertNull(actualIntermediateThrowSignalEventActivityBehavior.signalEventName);
-    assertNull(actualIntermediateThrowSignalEventActivityBehavior.signalExpression);
-    assertNull(
-        actualIntermediateThrowSignalEventActivityBehavior.getMultiInstanceActivityBehavior());
-    assertEquals(0, signalEventDefinition2.getXmlColumnNumber());
-    assertEquals(0, signalEventDefinition2.getXmlRowNumber());
-    assertFalse(signalEventDefinition2.isAsync());
-    assertFalse(actualIntermediateThrowSignalEventActivityBehavior.hasLoopCharacteristics());
-    assertFalse(
-        actualIntermediateThrowSignalEventActivityBehavior.hasMultiInstanceCharacteristics());
-    assertFalse(actualIntermediateThrowSignalEventActivityBehavior.processInstanceScope);
-    assertTrue(signalEventDefinition2.getAttributes().isEmpty());
-    assertTrue(signalEventDefinition2.getExtensionElements().isEmpty());
-  }
-
-  /**
-   * Test {@link
-   * IntermediateThrowSignalEventActivityBehavior#IntermediateThrowSignalEventActivityBehavior(SignalEventDefinition,
-   * Signal)}.
-   *
-   * <ul>
-   *   <li>When {@link SignalEventDefinition} (default constructor).
-   * </ul>
-   *
-   * <p>Method under test: {@link
-   * IntermediateThrowSignalEventActivityBehavior#IntermediateThrowSignalEventActivityBehavior(SignalEventDefinition,
-   * Signal)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void IntermediateThrowSignalEventActivityBehavior.<init>(SignalEventDefinition, Signal)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void IntermediateThrowSignalEventActivityBehavior.<init>(SignalEventDefinition, Signal)"})
   public void testNewIntermediateThrowSignalEventActivityBehavior_whenSignalEventDefinition() {
     // Arrange
     SignalEventDefinition signalEventDefinition = new SignalEventDefinition();
 
     // Act
-    IntermediateThrowSignalEventActivityBehavior
-        actualIntermediateThrowSignalEventActivityBehavior =
-            new IntermediateThrowSignalEventActivityBehavior(
-                signalEventDefinition, new Signal("42", "Name"));
+    IntermediateThrowSignalEventActivityBehavior actualIntermediateThrowSignalEventActivityBehavior = new IntermediateThrowSignalEventActivityBehavior(
+        signalEventDefinition, new Signal("42", "Name"));
 
     // Assert
     assertEquals("Name", actualIntermediateThrowSignalEventActivityBehavior.signalEventName);
-    SignalEventDefinition signalEventDefinition2 =
-        actualIntermediateThrowSignalEventActivityBehavior.signalEventDefinition;
+    SignalEventDefinition signalEventDefinition2 = actualIntermediateThrowSignalEventActivityBehavior.signalEventDefinition;
     assertNull(signalEventDefinition2.getId());
     assertNull(signalEventDefinition2.getSignalExpression());
     assertNull(signalEventDefinition2.getSignalRef());
     assertNull(actualIntermediateThrowSignalEventActivityBehavior.signalExpression);
-    assertNull(
-        actualIntermediateThrowSignalEventActivityBehavior.getMultiInstanceActivityBehavior());
+    assertNull(actualIntermediateThrowSignalEventActivityBehavior.getMultiInstanceActivityBehavior());
     assertEquals(0, signalEventDefinition2.getXmlColumnNumber());
     assertEquals(0, signalEventDefinition2.getXmlRowNumber());
     assertFalse(signalEventDefinition2.isAsync());
     assertFalse(actualIntermediateThrowSignalEventActivityBehavior.hasLoopCharacteristics());
-    assertFalse(
-        actualIntermediateThrowSignalEventActivityBehavior.hasMultiInstanceCharacteristics());
+    assertFalse(actualIntermediateThrowSignalEventActivityBehavior.hasMultiInstanceCharacteristics());
     assertFalse(actualIntermediateThrowSignalEventActivityBehavior.processInstanceScope);
     assertTrue(signalEventDefinition2.getAttributes().isEmpty());
     assertTrue(signalEventDefinition2.getExtensionElements().isEmpty());

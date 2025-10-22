@@ -19,7 +19,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.api.task.model.Task;
 import org.activiti.api.task.model.Task.TaskStatus;
@@ -33,13 +32,12 @@ import org.junit.jupiter.api.Test;
 class TaskActivatedImplDiffblueTest {
   /**
    * Test {@link TaskActivatedImpl#TaskActivatedImpl()}.
-   *
-   * <p>Method under test: {@link TaskActivatedImpl#TaskActivatedImpl()}
+   * <p>
+   * Method under test: {@link TaskActivatedImpl#TaskActivatedImpl()}
    */
   @Test
   @DisplayName("Test new TaskActivatedImpl()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void TaskActivatedImpl.<init>()"})
   void testNewTaskActivatedImpl() {
     // Arrange and Act
@@ -58,13 +56,12 @@ class TaskActivatedImplDiffblueTest {
 
   /**
    * Test {@link TaskActivatedImpl#TaskActivatedImpl(Task)}.
-   *
-   * <p>Method under test: {@link TaskActivatedImpl#TaskActivatedImpl(Task)}
+   * <p>
+   * Method under test: {@link TaskActivatedImpl#TaskActivatedImpl(Task)}
    */
   @Test
   @DisplayName("Test new TaskActivatedImpl(Task)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void TaskActivatedImpl.<init>(Task)"})
   void testNewTaskActivatedImpl2() {
     // Arrange
@@ -88,16 +85,15 @@ class TaskActivatedImplDiffblueTest {
 
   /**
    * Test {@link TaskActivatedImpl#getEventType()}.
-   *
-   * <p>Method under test: {@link TaskActivatedImpl#getEventType()}
+   * <p>
+   * Method under test: {@link TaskActivatedImpl#getEventType()}
    */
   @Test
   @DisplayName("Test getEventType()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"TaskRuntimeEvent.TaskEvents TaskActivatedImpl.getEventType()"})
   void testGetEventType() {
     // Arrange, Act and Assert
-    assertEquals(TaskEvents.TASK_ACTIVATED, new TaskActivatedImpl().getEventType());
+    assertEquals(TaskEvents.TASK_ACTIVATED, (new TaskActivatedImpl()).getEventType());
   }
 }

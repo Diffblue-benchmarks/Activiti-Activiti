@@ -19,7 +19,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.HashMap;
 import java.util.Map;
@@ -30,24 +29,22 @@ import org.junit.jupiter.api.Test;
 class ProcessExtensionModelDiffblueTest {
   /**
    * Test {@link ProcessExtensionModel#getExtensions(String)}.
-   *
-   * <p>Method under test: {@link ProcessExtensionModel#getExtensions(String)}
+   * <p>
+   * Method under test: {@link ProcessExtensionModel#getExtensions(String)}
    */
   @Test
   @DisplayName("Test getExtensions(String)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"Extension ProcessExtensionModel.getExtensions(String)"})
   void testGetExtensions() {
     // Arrange, Act and Assert
-    assertNull(new ProcessExtensionModel().getExtensions("Process Definition Key"));
+    assertNull((new ProcessExtensionModel()).getExtensions("Process Definition Key"));
   }
 
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>default or parameterless constructor of {@link ProcessExtensionModel}
    *   <li>{@link ProcessExtensionModel#setExtensions(Map)}
@@ -58,15 +55,10 @@ class ProcessExtensionModelDiffblueTest {
    */
   @Test
   @DisplayName("Test getters and setters")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void ProcessExtensionModel.<init>()",
-    "Map ProcessExtensionModel.getAllExtensions()",
-    "String ProcessExtensionModel.getId()",
-    "void ProcessExtensionModel.setExtensions(Map)",
-    "void ProcessExtensionModel.setId(String)"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void ProcessExtensionModel.<init>()", "Map ProcessExtensionModel.getAllExtensions()",
+      "String ProcessExtensionModel.getId()", "void ProcessExtensionModel.setExtensions(Map)",
+      "void ProcessExtensionModel.setId(String)"})
   void testGettersAndSetters() {
     // Arrange and Act
     ProcessExtensionModel actualProcessExtensionModel = new ProcessExtensionModel();

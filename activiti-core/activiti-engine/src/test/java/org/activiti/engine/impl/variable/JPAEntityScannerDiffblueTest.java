@@ -17,8 +17,7 @@ package org.activiti.engine.impl.variable;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import jakarta.persistence.Id;
 import org.junit.Test;
@@ -27,16 +26,14 @@ import org.junit.experimental.categories.Category;
 public class JPAEntityScannerDiffblueTest {
   /**
    * Test {@link JPAEntityScanner#scanClass(Class)}.
-   *
    * <ul>
-   *   <li>When {@code Id}.
+   *   <li>When {@code Id}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link JPAEntityScanner#scanClass(Class)}
+   * <p>
+   * Method under test: {@link JPAEntityScanner#scanClass(Class)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"EntityMetaData JPAEntityScanner.scanClass(Class)"})
   public void testScanClass_whenJakartaPersistenceId() {
     // Arrange
@@ -56,16 +53,14 @@ public class JPAEntityScannerDiffblueTest {
 
   /**
    * Test {@link JPAEntityScanner#scanClass(Class)}.
-   *
    * <ul>
-   *   <li>When {@code Object}.
+   *   <li>When {@code Object}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link JPAEntityScanner#scanClass(Class)}
+   * <p>
+   * Method under test: {@link JPAEntityScanner#scanClass(Class)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"EntityMetaData JPAEntityScanner.scanClass(Class)"})
   public void testScanClass_whenJavaLangObject() {
     // Arrange
@@ -85,20 +80,18 @@ public class JPAEntityScannerDiffblueTest {
 
   /**
    * Test {@link JPAEntityScanner#scanClass(Class)}.
-   *
    * <ul>
-   *   <li>When {@code null}.
+   *   <li>When {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link JPAEntityScanner#scanClass(Class)}
+   * <p>
+   * Method under test: {@link JPAEntityScanner#scanClass(Class)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"EntityMetaData JPAEntityScanner.scanClass(Class)"})
   public void testScanClass_whenNull() {
     // Arrange and Act
-    EntityMetaData actualScanClassResult = new JPAEntityScanner().scanClass(null);
+    EntityMetaData actualScanClassResult = (new JPAEntityScanner()).scanClass(null);
 
     // Assert
     assertNull(actualScanClassResult.getEntityClass());

@@ -20,8 +20,7 @@ import static org.mockito.ArgumentMatchers.isA;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.bpmn.model.BaseElement;
 import org.activiti.bpmn.model.BusinessRuleTask;
@@ -35,58 +34,46 @@ import org.mockito.Mockito;
 
 public class BusinessRuleParseHandlerDiffblueTest {
   /**
-   * Test {@link BusinessRuleParseHandler#executeParse(BpmnParse, BusinessRuleTask)} with {@code
-   * BpmnParse}, {@code BusinessRuleTask}.
-   *
-   * <p>Method under test: {@link BusinessRuleParseHandler#executeParse(BpmnParse,
-   * BusinessRuleTask)}
+   * Test {@link BusinessRuleParseHandler#executeParse(BpmnParse, BusinessRuleTask)} with {@code BpmnParse}, {@code BusinessRuleTask}.
+   * <p>
+   * Method under test: {@link BusinessRuleParseHandler#executeParse(BpmnParse, BusinessRuleTask)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void BusinessRuleParseHandler.executeParse(BpmnParse, BusinessRuleTask)"})
   public void testExecuteParseWithBpmnParseBusinessRuleTask() {
     // Arrange
     BusinessRuleParseHandler businessRuleParseHandler = new BusinessRuleParseHandler();
-
-    DefaultActivityBehaviorFactory activityBehaviorFactory =
-        mock(DefaultActivityBehaviorFactory.class);
-    when(activityBehaviorFactory.createBusinessRuleTaskActivityBehavior(
-            Mockito.<BusinessRuleTask>any()))
+    DefaultActivityBehaviorFactory activityBehaviorFactory = mock(DefaultActivityBehaviorFactory.class);
+    when(activityBehaviorFactory.createBusinessRuleTaskActivityBehavior(Mockito.<BusinessRuleTask>any()))
         .thenReturn(mock(ActivityBehavior.class));
 
-    BpmnParse bpmnParse = new BpmnParse(new BpmnParser());
-    bpmnParse.setActivityBehaviorFactory(activityBehaviorFactory);
+    BpmnParser parser = new BpmnParser();
+    parser.setActivityBehaviorFactory(activityBehaviorFactory);
+    BpmnParse bpmnParse = new BpmnParse(parser);
 
     // Act
     businessRuleParseHandler.executeParse(bpmnParse, new BusinessRuleTask());
 
     // Assert
-    verify(activityBehaviorFactory)
-        .createBusinessRuleTaskActivityBehavior(isA(BusinessRuleTask.class));
+    verify(activityBehaviorFactory).createBusinessRuleTaskActivityBehavior(isA(BusinessRuleTask.class));
   }
 
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>default or parameterless constructor of {@link BusinessRuleParseHandler}
    *   <li>{@link BusinessRuleParseHandler#getHandledType()}
    * </ul>
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void BusinessRuleParseHandler.<init>()",
-    "Class BusinessRuleParseHandler.getHandledType()"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void BusinessRuleParseHandler.<init>()", "Class BusinessRuleParseHandler.getHandledType()"})
   public void testGettersAndSetters() {
     // Arrange and Act
-    Class<? extends BaseElement> actualHandledType =
-        new BusinessRuleParseHandler().getHandledType();
+    Class<? extends BaseElement> actualHandledType = (new BusinessRuleParseHandler()).getHandledType();
 
     // Assert
     Class<BusinessRuleTask> expectedHandledType = BusinessRuleTask.class;

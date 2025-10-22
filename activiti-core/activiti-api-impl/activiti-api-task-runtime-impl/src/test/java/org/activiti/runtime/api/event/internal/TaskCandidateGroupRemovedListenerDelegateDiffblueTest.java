@@ -21,9 +21,7 @@ import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
-import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -33,7 +31,6 @@ import org.activiti.engine.delegate.event.ActivitiEntityEvent;
 import org.activiti.engine.delegate.event.ActivitiEvent;
 import org.activiti.engine.delegate.event.ActivitiEventType;
 import org.activiti.engine.delegate.event.impl.ActivitiEntityEventImpl;
-import org.activiti.engine.impl.persistence.entity.IdentityLinkEntityImpl;
 import org.activiti.runtime.api.event.impl.TaskCandidateGroupRemovedImpl;
 import org.activiti.runtime.api.event.impl.ToTaskCandidateGroupRemovedConverter;
 import org.activiti.runtime.api.model.impl.APITaskCandidateGroupConverter;
@@ -45,94 +42,58 @@ import org.mockito.Mockito;
 class TaskCandidateGroupRemovedListenerDelegateDiffblueTest {
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
-   *   <li>{@link
-   *       TaskCandidateGroupRemovedListenerDelegate#TaskCandidateGroupRemovedListenerDelegate(List,
-   *       ToTaskCandidateGroupRemovedConverter)}
+   *   <li>{@link TaskCandidateGroupRemovedListenerDelegate#TaskCandidateGroupRemovedListenerDelegate(List, ToTaskCandidateGroupRemovedConverter)}
    *   <li>{@link TaskCandidateGroupRemovedListenerDelegate#isFailOnException()}
    * </ul>
    */
   @Test
   @DisplayName("Test getters and setters")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({
-    "void TaskCandidateGroupRemovedListenerDelegate.<init>(List, ToTaskCandidateGroupRemovedConverter)",
-    "boolean TaskCandidateGroupRemovedListenerDelegate.isFailOnException()"
-  })
+      "void TaskCandidateGroupRemovedListenerDelegate.<init>(List, ToTaskCandidateGroupRemovedConverter)",
+      "boolean TaskCandidateGroupRemovedListenerDelegate.isFailOnException()"})
   void testGettersAndSetters() {
     // Arrange
-    ArrayList<TaskRuntimeEventListener<TaskCandidateGroupRemovedEvent>> listeners =
-        new ArrayList<>();
+    ArrayList<TaskRuntimeEventListener<TaskCandidateGroupRemovedEvent>> listeners = new ArrayList<>();
 
-    // Act
-    TaskCandidateGroupRemovedListenerDelegate actualTaskCandidateGroupRemovedListenerDelegate =
-        new TaskCandidateGroupRemovedListenerDelegate(
-            listeners,
-            new ToTaskCandidateGroupRemovedConverter(new APITaskCandidateGroupConverter()));
-
-    // Assert
-    assertFalse(actualTaskCandidateGroupRemovedListenerDelegate.isFailOnException());
+    // Act and Assert
+    assertFalse((new TaskCandidateGroupRemovedListenerDelegate(listeners,
+        new ToTaskCandidateGroupRemovedConverter(new APITaskCandidateGroupConverter()))).isFailOnException());
   }
 
   /**
    * Test {@link TaskCandidateGroupRemovedListenerDelegate#onEvent(ActivitiEvent)}.
-   *
    * <ul>
-   *   <li>Given {@link TaskRuntimeEventListener} {@link
-   *       TaskRuntimeEventListener#onEvent(RuntimeEvent)} does nothing.
-   *   <li>Then calls {@link TaskRuntimeEventListener#onEvent(RuntimeEvent)}.
+   *   <li>Given {@link TaskRuntimeEventListener} {@link TaskRuntimeEventListener#onEvent(RuntimeEvent)} does nothing.</li>
+   *   <li>Then calls {@link TaskRuntimeEventListener#onEvent(RuntimeEvent)}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link TaskCandidateGroupRemovedListenerDelegate#onEvent(ActivitiEvent)}
+   * <p>
+   * Method under test: {@link TaskCandidateGroupRemovedListenerDelegate#onEvent(ActivitiEvent)}
    */
   @Test
-  @DisplayName(
-      "Test onEvent(ActivitiEvent); given TaskRuntimeEventListener onEvent(RuntimeEvent) does nothing; then calls onEvent(RuntimeEvent)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test onEvent(ActivitiEvent); given TaskRuntimeEventListener onEvent(RuntimeEvent) does nothing; then calls onEvent(RuntimeEvent)")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void TaskCandidateGroupRemovedListenerDelegate.onEvent(ActivitiEvent)"})
-  void testOnEvent_givenTaskRuntimeEventListenerOnEventDoesNothing_thenCallsOnEvent()
-      throws UnsupportedEncodingException {
+  void testOnEvent_givenTaskRuntimeEventListenerOnEventDoesNothing_thenCallsOnEvent() {
     // Arrange
-    TaskRuntimeEventListener<TaskCandidateGroupRemovedEvent> taskRuntimeEventListener =
-        mock(TaskRuntimeEventListener.class);
-    doNothing()
-        .when(taskRuntimeEventListener)
-        .onEvent(Mockito.<TaskCandidateGroupRemovedEvent>any());
+    TaskRuntimeEventListener<TaskCandidateGroupRemovedEvent> taskRuntimeEventListener = mock(
+        TaskRuntimeEventListener.class);
+    doNothing().when(taskRuntimeEventListener).onEvent(Mockito.<TaskCandidateGroupRemovedEvent>any());
 
-    ArrayList<TaskRuntimeEventListener<TaskCandidateGroupRemovedEvent>> listeners =
-        new ArrayList<>();
+    ArrayList<TaskRuntimeEventListener<TaskCandidateGroupRemovedEvent>> listeners = new ArrayList<>();
     listeners.add(taskRuntimeEventListener);
-
-    ToTaskCandidateGroupRemovedConverter converter =
-        mock(ToTaskCandidateGroupRemovedConverter.class);
-    Optional<TaskCandidateGroupRemovedEvent> ofResult =
-        Optional.of(new TaskCandidateGroupRemovedImpl());
+    ToTaskCandidateGroupRemovedConverter converter = mock(ToTaskCandidateGroupRemovedConverter.class);
+    Optional<TaskCandidateGroupRemovedEvent> ofResult = Optional.of(new TaskCandidateGroupRemovedImpl());
     when(converter.from(Mockito.<ActivitiEntityEvent>any())).thenReturn(ofResult);
-
-    TaskCandidateGroupRemovedListenerDelegate taskCandidateGroupRemovedListenerDelegate =
-        new TaskCandidateGroupRemovedListenerDelegate(listeners, converter);
-
-    IdentityLinkEntityImpl identityLinkEntityImpl = new IdentityLinkEntityImpl();
-    identityLinkEntityImpl.setDeleted(true);
-    identityLinkEntityImpl.setDetails("AXAXAXAX".getBytes("UTF-8"));
-    identityLinkEntityImpl.setId("42");
-    identityLinkEntityImpl.setInserted(true);
-    identityLinkEntityImpl.setProcessDefId("42");
-    identityLinkEntityImpl.setProcessInstanceId("42");
-    identityLinkEntityImpl.setType("Type");
-    identityLinkEntityImpl.setUpdated(true);
-    identityLinkEntityImpl.setUserId("42");
-    identityLinkEntityImpl.setGroupId(null);
-    identityLinkEntityImpl.setTaskId(null);
+    TaskCandidateGroupRemovedListenerDelegate taskCandidateGroupRemovedListenerDelegate = new TaskCandidateGroupRemovedListenerDelegate(
+        listeners, converter);
 
     // Act
-    taskCandidateGroupRemovedListenerDelegate.onEvent(
-        new ActivitiEntityEventImpl(identityLinkEntityImpl, ActivitiEventType.ENTITY_CREATED));
+    taskCandidateGroupRemovedListenerDelegate
+        .onEvent(new ActivitiEntityEventImpl("Entity", ActivitiEventType.ENTITY_CREATED));
 
     // Assert
     verify(taskRuntimeEventListener).onEvent(isA(TaskCandidateGroupRemovedEvent.class));
@@ -141,44 +102,27 @@ class TaskCandidateGroupRemovedListenerDelegateDiffblueTest {
 
   /**
    * Test {@link TaskCandidateGroupRemovedListenerDelegate#onEvent(ActivitiEvent)}.
-   *
    * <ul>
-   *   <li>Then calls {@link ToTaskCandidateGroupRemovedConverter#from(ActivitiEntityEvent)}.
+   *   <li>Then calls {@link ToTaskCandidateGroupRemovedConverter#from(ActivitiEntityEvent)}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link TaskCandidateGroupRemovedListenerDelegate#onEvent(ActivitiEvent)}
+   * <p>
+   * Method under test: {@link TaskCandidateGroupRemovedListenerDelegate#onEvent(ActivitiEvent)}
    */
   @Test
   @DisplayName("Test onEvent(ActivitiEvent); then calls from(ActivitiEntityEvent)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void TaskCandidateGroupRemovedListenerDelegate.onEvent(ActivitiEvent)"})
-  void testOnEvent_thenCallsFrom() throws UnsupportedEncodingException {
+  void testOnEvent_thenCallsFrom() {
     // Arrange
-    ToTaskCandidateGroupRemovedConverter converter =
-        mock(ToTaskCandidateGroupRemovedConverter.class);
-    Optional<TaskCandidateGroupRemovedEvent> ofResult =
-        Optional.of(new TaskCandidateGroupRemovedImpl());
+    ToTaskCandidateGroupRemovedConverter converter = mock(ToTaskCandidateGroupRemovedConverter.class);
+    Optional<TaskCandidateGroupRemovedEvent> ofResult = Optional.of(new TaskCandidateGroupRemovedImpl());
     when(converter.from(Mockito.<ActivitiEntityEvent>any())).thenReturn(ofResult);
-    TaskCandidateGroupRemovedListenerDelegate taskCandidateGroupRemovedListenerDelegate =
-        new TaskCandidateGroupRemovedListenerDelegate(new ArrayList<>(), converter);
-
-    IdentityLinkEntityImpl identityLinkEntityImpl = new IdentityLinkEntityImpl();
-    identityLinkEntityImpl.setDeleted(true);
-    identityLinkEntityImpl.setDetails("AXAXAXAX".getBytes("UTF-8"));
-    identityLinkEntityImpl.setId("42");
-    identityLinkEntityImpl.setInserted(true);
-    identityLinkEntityImpl.setProcessDefId("42");
-    identityLinkEntityImpl.setProcessInstanceId("42");
-    identityLinkEntityImpl.setType("Type");
-    identityLinkEntityImpl.setUpdated(true);
-    identityLinkEntityImpl.setUserId("42");
-    identityLinkEntityImpl.setGroupId(null);
-    identityLinkEntityImpl.setTaskId(null);
+    TaskCandidateGroupRemovedListenerDelegate taskCandidateGroupRemovedListenerDelegate = new TaskCandidateGroupRemovedListenerDelegate(
+        new ArrayList<>(), converter);
 
     // Act
-    taskCandidateGroupRemovedListenerDelegate.onEvent(
-        new ActivitiEntityEventImpl(identityLinkEntityImpl, ActivitiEventType.ENTITY_CREATED));
+    taskCandidateGroupRemovedListenerDelegate
+        .onEvent(new ActivitiEntityEventImpl("Entity", ActivitiEventType.ENTITY_CREATED));
 
     // Assert
     verify(converter).from(isA(ActivitiEntityEvent.class));

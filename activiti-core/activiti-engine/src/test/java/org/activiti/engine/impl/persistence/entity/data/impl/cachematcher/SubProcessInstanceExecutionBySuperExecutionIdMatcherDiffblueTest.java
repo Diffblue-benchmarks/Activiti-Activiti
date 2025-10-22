@@ -16,8 +16,7 @@
 package org.activiti.engine.impl.persistence.entity.data.impl.cachematcher;
 
 import static org.junit.Assert.assertFalse;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.engine.impl.persistence.entity.ExecutionEntity;
 import org.activiti.engine.impl.persistence.entity.ExecutionEntityImpl;
@@ -27,31 +26,23 @@ import org.junit.experimental.categories.Category;
 
 public class SubProcessInstanceExecutionBySuperExecutionIdMatcherDiffblueTest {
   /**
-   * Test {@link SubProcessInstanceExecutionBySuperExecutionIdMatcher#isRetained(ExecutionEntity,
-   * Object)} with {@code ExecutionEntity}, {@code Object}.
-   *
+   * Test {@link SubProcessInstanceExecutionBySuperExecutionIdMatcher#isRetained(ExecutionEntity, Object)} with {@code ExecutionEntity}, {@code Object}.
    * <ul>
-   *   <li>Then return {@code false}.
+   *   <li>Then return {@code false}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link
-   * SubProcessInstanceExecutionBySuperExecutionIdMatcher#isRetained(ExecutionEntity, Object)}
+   * <p>
+   * Method under test: {@link SubProcessInstanceExecutionBySuperExecutionIdMatcher#isRetained(ExecutionEntity, Object)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({
-    "boolean SubProcessInstanceExecutionBySuperExecutionIdMatcher.isRetained(ExecutionEntity, Object)"
-  })
+      "boolean SubProcessInstanceExecutionBySuperExecutionIdMatcher.isRetained(ExecutionEntity, Object)"})
   public void testIsRetainedWithExecutionEntityObject_thenReturnFalse() {
     // Arrange
-    SubProcessInstanceExecutionBySuperExecutionIdMatcher
-        subProcessInstanceExecutionBySuperExecutionIdMatcher =
-            new SubProcessInstanceExecutionBySuperExecutionIdMatcher();
+    SubProcessInstanceExecutionBySuperExecutionIdMatcher subProcessInstanceExecutionBySuperExecutionIdMatcher = new SubProcessInstanceExecutionBySuperExecutionIdMatcher();
 
     // Act and Assert
-    assertFalse(
-        subProcessInstanceExecutionBySuperExecutionIdMatcher.isRetained(
-            ExecutionEntityImpl.createWithEmptyRelationshipCollections(), JSONObject.NULL));
+    assertFalse(subProcessInstanceExecutionBySuperExecutionIdMatcher
+        .isRetained(ExecutionEntityImpl.createWithEmptyRelationshipCollections(), JSONObject.NULL));
   }
 }

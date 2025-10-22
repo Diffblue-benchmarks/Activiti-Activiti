@@ -18,8 +18,7 @@ package org.activiti.engine.impl.util.json;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
@@ -27,37 +26,33 @@ import org.junit.experimental.categories.Category;
 public class JSONExceptionDiffblueTest {
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>{@link JSONException#JSONException(String)}
    *   <li>{@link JSONException#getCause()}
    * </ul>
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void JSONException.<init>(String)", "Throwable JSONException.getCause()"})
   public void testGettersAndSetters() {
     // Arrange and Act
     JSONException actualJsonException = new JSONException("An error occurred");
-    Throwable actualCause = actualJsonException.getCause();
 
     // Assert
     assertEquals("An error occurred", actualJsonException.getMessage());
-    assertNull(actualCause);
+    assertNull(actualJsonException.getCause());
     assertEquals(0, actualJsonException.getSuppressed().length);
   }
 
   /**
    * Test {@link JSONException#JSONException(Throwable)}.
-   *
-   * <p>Method under test: {@link JSONException#JSONException(Throwable)}
+   * <p>
+   * Method under test: {@link JSONException#JSONException(Throwable)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void JSONException.<init>(Throwable)"})
   public void testNewJSONException() {
     // Arrange

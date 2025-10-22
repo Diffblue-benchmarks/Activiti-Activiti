@@ -19,8 +19,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
@@ -28,21 +27,19 @@ import org.junit.experimental.categories.Category;
 public class ThrowEventDiffblueTest {
   /**
    * Test {@link ThrowEvent#clone()}.
-   *
    * <ul>
-   *   <li>Given {@link ThrowEvent} (default constructor).
-   *   <li>Then return Behavior is {@code null}.
+   *   <li>Given {@link ThrowEvent} (default constructor).</li>
+   *   <li>Then return Behavior is {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ThrowEvent#clone()}
+   * <p>
+   * Method under test: {@link ThrowEvent#clone()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"ThrowEvent ThrowEvent.clone()"})
   public void testClone_givenThrowEvent_thenReturnBehaviorIsNull() {
     // Arrange and Act
-    ThrowEvent actualCloneResult = new ThrowEvent().clone();
+    ThrowEvent actualCloneResult = (new ThrowEvent()).clone();
 
     // Assert
     assertNull(actualCloneResult.getBehavior());
@@ -66,12 +63,11 @@ public class ThrowEventDiffblueTest {
 
   /**
    * Test new {@link ThrowEvent} (default constructor).
-   *
-   * <p>Method under test: default or parameterless constructor of {@link ThrowEvent}
+   * <p>
+   * Method under test: default or parameterless constructor of {@link ThrowEvent}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void ThrowEvent.<init>()"})
   public void testNewThrowEvent() {
     // Arrange and Act

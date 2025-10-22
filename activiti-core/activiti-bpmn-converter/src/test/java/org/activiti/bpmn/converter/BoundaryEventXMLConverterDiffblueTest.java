@@ -19,7 +19,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
 import javax.xml.stream.XMLStreamWriter;
@@ -35,30 +34,22 @@ import org.junit.jupiter.api.Test;
 
 class BoundaryEventXMLConverterDiffblueTest {
   /**
-   * Test {@link BoundaryEventXMLConverter#writeAdditionalAttributes(BaseElement, BpmnModel,
-   * XMLStreamWriter)}.
-   *
+   * Test {@link BoundaryEventXMLConverter#writeAdditionalAttributes(BaseElement, BpmnModel, XMLStreamWriter)}.
    * <ul>
-   *   <li>Given {@link Activity} {@link Activity#getId()} return empty string.
-   *   <li>Then calls {@link Activity#getId()}.
+   *   <li>Given {@link Activity} {@link BaseElement#getId()} return empty string.</li>
+   *   <li>Then calls {@link BaseElement#getId()}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link BoundaryEventXMLConverter#writeAdditionalAttributes(BaseElement,
-   * BpmnModel, XMLStreamWriter)}
+   * <p>
+   * Method under test: {@link BoundaryEventXMLConverter#writeAdditionalAttributes(BaseElement, BpmnModel, XMLStreamWriter)}
    */
   @Test
-  @DisplayName(
-      "Test writeAdditionalAttributes(BaseElement, BpmnModel, XMLStreamWriter); given Activity getId() return empty string; then calls getId()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test writeAdditionalAttributes(BaseElement, BpmnModel, XMLStreamWriter); given Activity getId() return empty string; then calls getId()")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({
-    "void BoundaryEventXMLConverter.writeAdditionalAttributes(BaseElement, BpmnModel, XMLStreamWriter)"
-  })
-  void testWriteAdditionalAttributes_givenActivityGetIdReturnEmptyString_thenCallsGetId()
-      throws Exception {
+      "void BoundaryEventXMLConverter.writeAdditionalAttributes(BaseElement, BpmnModel, XMLStreamWriter)"})
+  void testWriteAdditionalAttributes_givenActivityGetIdReturnEmptyString_thenCallsGetId() throws Exception {
     // Arrange
     BoundaryEventXMLConverter boundaryEventXMLConverter = new BoundaryEventXMLConverter();
-
     Activity attachedToRef = mock(Activity.class);
     when(attachedToRef.getId()).thenReturn("");
 
@@ -71,38 +62,29 @@ class BoundaryEventXMLConverterDiffblueTest {
     BpmnModel model = new BpmnModel();
 
     // Act
-    boundaryEventXMLConverter.writeAdditionalAttributes(
-        element, model, new IndentingXMLStreamWriter(null));
+    boundaryEventXMLConverter.writeAdditionalAttributes(element, model, new IndentingXMLStreamWriter(null));
 
     // Assert
     verify(attachedToRef).getId();
   }
 
   /**
-   * Test {@link BoundaryEventXMLConverter#writeAdditionalAttributes(BaseElement, BpmnModel,
-   * XMLStreamWriter)}.
-   *
+   * Test {@link BoundaryEventXMLConverter#writeAdditionalAttributes(BaseElement, BpmnModel, XMLStreamWriter)}.
    * <ul>
-   *   <li>Given {@link Activity} {@link Activity#getId()} return {@code null}.
-   *   <li>Then calls {@link Activity#getId()}.
+   *   <li>Given {@link Activity} {@link BaseElement#getId()} return {@code null}.</li>
+   *   <li>Then calls {@link BaseElement#getId()}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link BoundaryEventXMLConverter#writeAdditionalAttributes(BaseElement,
-   * BpmnModel, XMLStreamWriter)}
+   * <p>
+   * Method under test: {@link BoundaryEventXMLConverter#writeAdditionalAttributes(BaseElement, BpmnModel, XMLStreamWriter)}
    */
   @Test
-  @DisplayName(
-      "Test writeAdditionalAttributes(BaseElement, BpmnModel, XMLStreamWriter); given Activity getId() return 'null'; then calls getId()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test writeAdditionalAttributes(BaseElement, BpmnModel, XMLStreamWriter); given Activity getId() return 'null'; then calls getId()")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({
-    "void BoundaryEventXMLConverter.writeAdditionalAttributes(BaseElement, BpmnModel, XMLStreamWriter)"
-  })
-  void testWriteAdditionalAttributes_givenActivityGetIdReturnNull_thenCallsGetId()
-      throws Exception {
+      "void BoundaryEventXMLConverter.writeAdditionalAttributes(BaseElement, BpmnModel, XMLStreamWriter)"})
+  void testWriteAdditionalAttributes_givenActivityGetIdReturnNull_thenCallsGetId() throws Exception {
     // Arrange
     BoundaryEventXMLConverter boundaryEventXMLConverter = new BoundaryEventXMLConverter();
-
     Activity attachedToRef = mock(Activity.class);
     when(attachedToRef.getId()).thenReturn("null");
 
@@ -115,8 +97,7 @@ class BoundaryEventXMLConverterDiffblueTest {
     BpmnModel model = new BpmnModel();
 
     // Act
-    boundaryEventXMLConverter.writeAdditionalAttributes(
-        element, model, new IndentingXMLStreamWriter(null));
+    boundaryEventXMLConverter.writeAdditionalAttributes(element, model, new IndentingXMLStreamWriter(null));
 
     // Assert
     verify(attachedToRef).getId();
@@ -124,9 +105,8 @@ class BoundaryEventXMLConverterDiffblueTest {
 
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>default or parameterless constructor of {@link BoundaryEventXMLConverter}
    *   <li>{@link BoundaryEventXMLConverter#getBpmnElementType()}
@@ -135,18 +115,13 @@ class BoundaryEventXMLConverterDiffblueTest {
    */
   @Test
   @DisplayName("Test getters and setters")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void BoundaryEventXMLConverter.<init>()",
-    "Class BoundaryEventXMLConverter.getBpmnElementType()",
-    "java.lang.String BoundaryEventXMLConverter.getXMLElementName()"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void BoundaryEventXMLConverter.<init>()", "Class BoundaryEventXMLConverter.getBpmnElementType()",
+      "java.lang.String BoundaryEventXMLConverter.getXMLElementName()"})
   void testGettersAndSetters() {
     // Arrange and Act
     BoundaryEventXMLConverter actualBoundaryEventXMLConverter = new BoundaryEventXMLConverter();
-    Class<? extends BaseElement> actualBpmnElementType =
-        actualBoundaryEventXMLConverter.getBpmnElementType();
+    Class<? extends BaseElement> actualBpmnElementType = actualBoundaryEventXMLConverter.getBpmnElementType();
 
     // Assert
     assertEquals("boundaryEvent", actualBoundaryEventXMLConverter.getXMLElementName());

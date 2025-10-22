@@ -19,8 +19,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.Map;
 import org.activiti.engine.impl.asyncexecutor.AsyncExecutor;
@@ -33,26 +32,22 @@ import org.junit.experimental.categories.Category;
 public class AsyncJobAddedNotificationDiffblueTest {
   /**
    * Test {@link AsyncJobAddedNotification#AsyncJobAddedNotification(JobEntity, AsyncExecutor)}.
-   *
-   * <p>Method under test: {@link AsyncJobAddedNotification#AsyncJobAddedNotification(JobEntity,
-   * AsyncExecutor)}
+   * <p>
+   * Method under test: {@link AsyncJobAddedNotification#AsyncJobAddedNotification(JobEntity, AsyncExecutor)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void AsyncJobAddedNotification.<init>(JobEntity, AsyncExecutor)",
-    "void AsyncJobAddedNotification.afterSessionsFlush(org.activiti.engine.impl.interceptor.CommandContext)",
-    "void AsyncJobAddedNotification.closeFailure(org.activiti.engine.impl.interceptor.CommandContext)",
-    "void AsyncJobAddedNotification.closing(org.activiti.engine.impl.interceptor.CommandContext)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void AsyncJobAddedNotification.<init>(JobEntity, AsyncExecutor)",
+      "void AsyncJobAddedNotification.afterSessionsFlush(org.activiti.engine.impl.interceptor.CommandContext)",
+      "void AsyncJobAddedNotification.closeFailure(org.activiti.engine.impl.interceptor.CommandContext)",
+      "void AsyncJobAddedNotification.closing(org.activiti.engine.impl.interceptor.CommandContext)"})
   public void testNewAsyncJobAddedNotification() {
     // Arrange
     JobEntityImpl job = new JobEntityImpl();
 
     // Act
-    AsyncJobAddedNotification actualAsyncJobAddedNotification =
-        new AsyncJobAddedNotification(job, new DefaultAsyncJobExecutor());
+    AsyncJobAddedNotification actualAsyncJobAddedNotification = new AsyncJobAddedNotification(job,
+        new DefaultAsyncJobExecutor());
 
     // Assert
     JobEntity jobEntity = actualAsyncJobAddedNotification.job;

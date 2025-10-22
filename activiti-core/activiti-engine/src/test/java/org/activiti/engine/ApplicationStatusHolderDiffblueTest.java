@@ -16,8 +16,7 @@
 package org.activiti.engine;
 
 import static org.junit.Assert.assertFalse;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
@@ -25,12 +24,11 @@ import org.junit.experimental.categories.Category;
 public class ApplicationStatusHolderDiffblueTest {
   /**
    * Test {@link ApplicationStatusHolder#isShutdownInProgress()}.
-   *
-   * <p>Method under test: {@link ApplicationStatusHolder#isShutdownInProgress()}
+   * <p>
+   * Method under test: {@link ApplicationStatusHolder#isShutdownInProgress()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"boolean ApplicationStatusHolder.isShutdownInProgress()"})
   public void testIsShutdownInProgress() {
     // Arrange, Act and Assert

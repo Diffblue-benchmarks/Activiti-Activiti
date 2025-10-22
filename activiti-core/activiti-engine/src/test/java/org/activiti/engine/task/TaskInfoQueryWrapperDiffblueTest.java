@@ -16,8 +16,7 @@
 package org.activiti.engine.task;
 
 import static org.junit.Assert.assertSame;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.engine.impl.HistoricTaskInstanceQueryImpl;
 import org.junit.Test;
@@ -26,9 +25,8 @@ import org.junit.experimental.categories.Category;
 public class TaskInfoQueryWrapperDiffblueTest {
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>{@link TaskInfoQueryWrapper#TaskInfoQueryWrapper(TaskInfoQuery)}
    *   <li>{@link TaskInfoQueryWrapper#setTaskInfoQuery(TaskInfoQuery)}
@@ -36,17 +34,13 @@ public class TaskInfoQueryWrapperDiffblueTest {
    * </ul>
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void TaskInfoQueryWrapper.<init>(TaskInfoQuery)",
-    "TaskInfoQuery TaskInfoQueryWrapper.getTaskInfoQuery()",
-    "void TaskInfoQueryWrapper.setTaskInfoQuery(TaskInfoQuery)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void TaskInfoQueryWrapper.<init>(TaskInfoQuery)",
+      "TaskInfoQuery TaskInfoQueryWrapper.getTaskInfoQuery()",
+      "void TaskInfoQueryWrapper.setTaskInfoQuery(TaskInfoQuery)"})
   public void testGettersAndSetters() {
     // Arrange and Act
-    TaskInfoQueryWrapper actualTaskInfoQueryWrapper =
-        new TaskInfoQueryWrapper(new HistoricTaskInstanceQueryImpl());
+    TaskInfoQueryWrapper actualTaskInfoQueryWrapper = new TaskInfoQueryWrapper(new HistoricTaskInstanceQueryImpl());
     HistoricTaskInstanceQueryImpl taskInfoQuery = new HistoricTaskInstanceQueryImpl();
     actualTaskInfoQueryWrapper.setTaskInfoQuery(taskInfoQuery);
 

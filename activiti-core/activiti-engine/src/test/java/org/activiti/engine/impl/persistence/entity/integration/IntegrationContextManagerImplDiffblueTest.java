@@ -16,8 +16,7 @@
 package org.activiti.engine.impl.persistence.entity.integration;
 
 import static org.junit.Assert.assertSame;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.engine.impl.cfg.JtaProcessEngineConfiguration;
 import org.activiti.engine.impl.cfg.ProcessEngineConfigurationImpl;
@@ -29,34 +28,26 @@ import org.junit.experimental.categories.Category;
 public class IntegrationContextManagerImplDiffblueTest {
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
-   *   <li>{@link
-   *       IntegrationContextManagerImpl#IntegrationContextManagerImpl(ProcessEngineConfigurationImpl,
-   *       IntegrationContextDataManager)}
+   *   <li>{@link IntegrationContextManagerImpl#IntegrationContextManagerImpl(ProcessEngineConfigurationImpl, IntegrationContextDataManager)}
    *   <li>{@link IntegrationContextManagerImpl#getDataManager()}
    * </ul>
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({
-    "void IntegrationContextManagerImpl.<init>(ProcessEngineConfigurationImpl, IntegrationContextDataManager)",
-    "org.activiti.engine.impl.persistence.entity.data.DataManager IntegrationContextManagerImpl.getDataManager()"
-  })
+      "void IntegrationContextManagerImpl.<init>(ProcessEngineConfigurationImpl, IntegrationContextDataManager)",
+      "org.activiti.engine.impl.persistence.entity.data.DataManager IntegrationContextManagerImpl.getDataManager()"})
   public void testGettersAndSetters() {
     // Arrange
     JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();
-    MybatisIntegrationContextDataManager dataManager =
-        new MybatisIntegrationContextDataManager(new JtaProcessEngineConfiguration());
+    MybatisIntegrationContextDataManager dataManager = new MybatisIntegrationContextDataManager(
+        new JtaProcessEngineConfiguration());
 
-    // Act
-    IntegrationContextManagerImpl actualIntegrationContextManagerImpl =
-        new IntegrationContextManagerImpl(processEngineConfiguration, dataManager);
-
-    // Assert
-    assertSame(dataManager, actualIntegrationContextManagerImpl.getDataManager());
+    // Act and Assert
+    assertSame(dataManager,
+        (new IntegrationContextManagerImpl(processEngineConfiguration, dataManager)).getDataManager());
   }
 }

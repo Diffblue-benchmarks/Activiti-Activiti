@@ -17,7 +17,6 @@ package org.activiti.core.el;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import jakarta.el.FunctionMapper;
 import jakarta.el.VariableMapper;
@@ -31,13 +30,12 @@ import org.junit.jupiter.api.Test;
 class ListResolverHelperDiffblueTest {
   /**
    * Test {@link ListResolverHelper#list(Object[])}.
-   *
-   * <p>Method under test: {@link ListResolverHelper#list(Object[])}
+   * <p>
+   * Method under test: {@link ListResolverHelper#list(Object[])}
    */
   @Test
   @DisplayName("Test list(Object[])")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"List ListResolverHelper.list(Object[])"})
   void testList() {
     // Arrange and Act
@@ -50,22 +48,17 @@ class ListResolverHelperDiffblueTest {
 
   /**
    * Test {@link ListResolverHelper#addListFunctions(ActivitiElContext)}.
-   *
    * <ul>
-   *   <li>Then {@link ActivitiElContext#ActivitiElContext()} FunctionMapper {@link
-   *       ActivitiFunctionMapper}.
+   *   <li>Then {@link ActivitiElContext#ActivitiElContext()} FunctionMapper {@link ActivitiFunctionMapper}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ListResolverHelper#addListFunctions(ActivitiElContext)}
+   * <p>
+   * Method under test: {@link ListResolverHelper#addListFunctions(ActivitiElContext)}
    */
   @Test
-  @DisplayName(
-      "Test addListFunctions(ActivitiElContext); then ActivitiElContext() FunctionMapper ActivitiFunctionMapper")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test addListFunctions(ActivitiElContext); then ActivitiElContext() FunctionMapper ActivitiFunctionMapper")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void ListResolverHelper.addListFunctions(ActivitiElContext)"})
-  void testAddListFunctions_thenActivitiElContextFunctionMapperActivitiFunctionMapper()
-      throws NoSuchMethodException {
+  void testAddListFunctions_thenActivitiElContextFunctionMapperActivitiFunctionMapper() throws NoSuchMethodException {
     // Arrange
     ActivitiElContext elContext = new ActivitiElContext();
 

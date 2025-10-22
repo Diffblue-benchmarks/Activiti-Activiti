@@ -19,8 +19,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertThrows;
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.engine.ActivitiIllegalArgumentException;
 import org.junit.Test;
@@ -29,37 +28,32 @@ import org.junit.experimental.categories.Category;
 public class HistoryLevelDiffblueTest {
   /**
    * Test {@link HistoryLevel#getHistoryLevelForKey(String)}.
-   *
    * <ul>
-   *   <li>When {@code Key}.
-   *   <li>Then throw {@link ActivitiIllegalArgumentException}.
+   *   <li>When {@code Key}.</li>
+   *   <li>Then throw {@link ActivitiIllegalArgumentException}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link HistoryLevel#getHistoryLevelForKey(String)}
+   * <p>
+   * Method under test: {@link HistoryLevel#getHistoryLevelForKey(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"HistoryLevel HistoryLevel.getHistoryLevelForKey(String)"})
   public void testGetHistoryLevelForKey_whenKey_thenThrowActivitiIllegalArgumentException() {
     // Arrange, Act and Assert
-    assertThrows(
-        ActivitiIllegalArgumentException.class, () -> HistoryLevel.getHistoryLevelForKey("Key"));
+    assertThrows(ActivitiIllegalArgumentException.class, () -> HistoryLevel.getHistoryLevelForKey("Key"));
   }
 
   /**
    * Test {@link HistoryLevel#getHistoryLevelForKey(String)}.
-   *
    * <ul>
-   *   <li>When {@code none}.
-   *   <li>Then return {@code NONE}.
+   *   <li>When {@code none}.</li>
+   *   <li>Then return {@code NONE}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link HistoryLevel#getHistoryLevelForKey(String)}
+   * <p>
+   * Method under test: {@link HistoryLevel#getHistoryLevelForKey(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"HistoryLevel HistoryLevel.getHistoryLevelForKey(String)"})
   public void testGetHistoryLevelForKey_whenNone_thenReturnNone() {
     // Arrange, Act and Assert
@@ -68,12 +62,11 @@ public class HistoryLevelDiffblueTest {
 
   /**
    * Test {@link HistoryLevel#getKey()}.
-   *
-   * <p>Method under test: {@link HistoryLevel#getKey()}
+   * <p>
+   * Method under test: {@link HistoryLevel#getKey()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"String HistoryLevel.getKey()"})
   public void testGetKey() {
     // Arrange, Act and Assert
@@ -82,17 +75,15 @@ public class HistoryLevelDiffblueTest {
 
   /**
    * Test {@link HistoryLevel#isAtLeast(HistoryLevel)}.
-   *
    * <ul>
-   *   <li>When {@code ACTIVITY}.
-   *   <li>Then return {@code false}.
+   *   <li>When {@code ACTIVITY}.</li>
+   *   <li>Then return {@code false}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link HistoryLevel#isAtLeast(HistoryLevel)}
+   * <p>
+   * Method under test: {@link HistoryLevel#isAtLeast(HistoryLevel)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"boolean HistoryLevel.isAtLeast(HistoryLevel)"})
   public void testIsAtLeast_whenActivity_thenReturnFalse() {
     // Arrange, Act and Assert
@@ -101,17 +92,15 @@ public class HistoryLevelDiffblueTest {
 
   /**
    * Test {@link HistoryLevel#isAtLeast(HistoryLevel)}.
-   *
    * <ul>
-   *   <li>When {@code NONE}.
-   *   <li>Then return {@code true}.
+   *   <li>When {@code NONE}.</li>
+   *   <li>Then return {@code true}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link HistoryLevel#isAtLeast(HistoryLevel)}
+   * <p>
+   * Method under test: {@link HistoryLevel#isAtLeast(HistoryLevel)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"boolean HistoryLevel.isAtLeast(HistoryLevel)"})
   public void testIsAtLeast_whenNone_thenReturnTrue() {
     // Arrange, Act and Assert

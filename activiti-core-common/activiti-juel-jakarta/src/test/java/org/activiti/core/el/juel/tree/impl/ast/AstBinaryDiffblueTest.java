@@ -22,7 +22,6 @@ import static org.mockito.ArgumentMatchers.isA;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import jakarta.el.ELContext;
 import jakarta.el.ValueExpression;
@@ -40,9 +39,8 @@ import org.mockito.Mockito;
 class AstBinaryDiffblueTest {
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>{@link AstBinary#AstBinary(AstNode, AstNode, Operator)}
    *   <li>{@link AstBinary#toString()}
@@ -52,14 +50,9 @@ class AstBinaryDiffblueTest {
    */
   @Test
   @DisplayName("Test getters and setters")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void AstBinary.<init>(AstNode, AstNode, Operator)",
-    "int AstBinary.getCardinality()",
-    "Operator AstBinary.getOperator()",
-    "java.lang.String AstBinary.toString()"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void AstBinary.<init>(AstNode, AstNode, Operator)", "int AstBinary.getCardinality()",
+      "Operator AstBinary.getOperator()", "java.lang.String AstBinary.toString()"})
   void testGettersAndSetters() {
     // Arrange
     AstNull left = new AstNull();
@@ -77,116 +70,94 @@ class AstBinaryDiffblueTest {
 
   /**
    * Test {@link AstBinary#eval(Bindings, ELContext)}.
-   *
-   * <p>Method under test: {@link AstBinary#eval(Bindings, ELContext)}
+   * <p>
+   * Method under test: {@link AstBinary#eval(Bindings, ELContext)}
    */
   @Test
   @DisplayName("Test eval(Bindings, ELContext)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"Object AstBinary.eval(Bindings, ELContext)"})
   void testEval() {
     // Arrange
     Operator operator = mock(Operator.class);
-    when(operator.eval(
-            Mockito.<Bindings>any(),
-            Mockito.<ELContext>any(),
-            Mockito.<AstNode>any(),
-            Mockito.<AstNode>any()))
-        .thenReturn("Eval");
+    when(operator.eval(Mockito.<Bindings>any(), Mockito.<ELContext>any(), Mockito.<AstNode>any(),
+        Mockito.<AstNode>any())).thenReturn("Eval");
     AstNull left = new AstNull();
-
     AstBinary astBinary = new AstBinary(left, new AstNull(), operator);
-    Method[] functions = new Method[] {null};
     TypeConverter converter = mock(TypeConverter.class);
     Class<Object> type = Object.class;
-
-    ObjectValueExpression objectValueExpression =
-        new ObjectValueExpression(converter, "Object", type);
-    ValueExpression[] variables = new ValueExpression[] {objectValueExpression};
-
-    Bindings bindings = new Bindings(functions, variables);
+    Bindings bindings = new Bindings(new Method[]{null},
+        new ValueExpression[]{new ObjectValueExpression(converter, "Object", type)});
 
     // Act
     Object actualEvalResult = astBinary.eval(bindings, new SimpleContext());
 
     // Assert
-    verify(operator)
-        .eval(isA(Bindings.class), isA(ELContext.class), isA(AstNode.class), isA(AstNode.class));
+    verify(operator).eval(isA(Bindings.class), isA(ELContext.class), isA(AstNode.class), isA(AstNode.class));
     assertEquals("Eval", actualEvalResult);
   }
 
   /**
    * Test {@link AstBinary#getChild(int)}.
-   *
    * <ul>
-   *   <li>When minus one.
-   *   <li>Then return {@code null}.
+   *   <li>When minus one.</li>
+   *   <li>Then return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link AstBinary#getChild(int)}
+   * <p>
+   * Method under test: {@link AstBinary#getChild(int)}
    */
   @Test
   @DisplayName("Test getChild(int); when minus one; then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"AstNode AstBinary.getChild(int)"})
   void testGetChild_whenMinusOne_thenReturnNull() {
     // Arrange
     AstNull left = new AstNull();
-    AstBinary astBinary = new AstBinary(left, new AstNull(), mock(Operator.class));
 
     // Act and Assert
-    assertNull(astBinary.getChild(-1));
+    assertNull((new AstBinary(left, new AstNull(), mock(Operator.class))).getChild(-1));
   }
 
   /**
    * Test {@link AstBinary#getChild(int)}.
-   *
    * <ul>
-   *   <li>When one.
-   *   <li>Then return {@link AstNull} (default constructor).
+   *   <li>When one.</li>
+   *   <li>Then return {@link AstNull} (default constructor).</li>
    * </ul>
-   *
-   * <p>Method under test: {@link AstBinary#getChild(int)}
+   * <p>
+   * Method under test: {@link AstBinary#getChild(int)}
    */
   @Test
   @DisplayName("Test getChild(int); when one; then return AstNull (default constructor)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"AstNode AstBinary.getChild(int)"})
   void testGetChild_whenOne_thenReturnAstNull() {
     // Arrange
     AstNull left = new AstNull();
     AstNull right = new AstNull();
 
-    AstBinary astBinary = new AstBinary(left, right, mock(Operator.class));
-
     // Act and Assert
-    assertSame(right, astBinary.getChild(1));
+    assertSame(right, (new AstBinary(left, right, mock(Operator.class))).getChild(1));
   }
 
   /**
    * Test {@link AstBinary#getChild(int)}.
-   *
    * <ul>
-   *   <li>When zero.
-   *   <li>Then return {@link AstNull} (default constructor).
+   *   <li>When zero.</li>
+   *   <li>Then return {@link AstNull} (default constructor).</li>
    * </ul>
-   *
-   * <p>Method under test: {@link AstBinary#getChild(int)}
+   * <p>
+   * Method under test: {@link AstBinary#getChild(int)}
    */
   @Test
   @DisplayName("Test getChild(int); when zero; then return AstNull (default constructor)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"AstNode AstBinary.getChild(int)"})
   void testGetChild_whenZero_thenReturnAstNull() {
     // Arrange
     AstNull left = new AstNull();
-    AstBinary astBinary = new AstBinary(left, new AstNull(), mock(Operator.class));
 
     // Act and Assert
-    assertSame(left, astBinary.getChild(0));
+    assertSame(left, (new AstBinary(left, new AstNull(), mock(Operator.class))).getChild(0));
   }
 }

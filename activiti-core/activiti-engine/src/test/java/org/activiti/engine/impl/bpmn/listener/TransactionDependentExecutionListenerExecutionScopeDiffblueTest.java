@@ -18,8 +18,7 @@ package org.activiti.engine.impl.bpmn.listener;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.HashMap;
 import java.util.Map;
@@ -31,13 +30,10 @@ import org.junit.experimental.categories.Category;
 public class TransactionDependentExecutionListenerExecutionScopeDiffblueTest {
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
-   *   <li>{@link
-   *       TransactionDependentExecutionListenerExecutionScope#TransactionDependentExecutionListenerExecutionScope(String,
-   *       String, FlowElement, Map, Map)}
+   *   <li>{@link TransactionDependentExecutionListenerExecutionScope#TransactionDependentExecutionListenerExecutionScope(String, String, FlowElement, Map, Map)}
    *   <li>{@link TransactionDependentExecutionListenerExecutionScope#getCustomPropertiesMap()}
    *   <li>{@link TransactionDependentExecutionListenerExecutionScope#getExecutionId()}
    *   <li>{@link TransactionDependentExecutionListenerExecutionScope#getExecutionVariables()}
@@ -46,16 +42,14 @@ public class TransactionDependentExecutionListenerExecutionScopeDiffblueTest {
    * </ul>
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({
-    "void TransactionDependentExecutionListenerExecutionScope.<init>(String, String, FlowElement, Map, Map)",
-    "Map TransactionDependentExecutionListenerExecutionScope.getCustomPropertiesMap()",
-    "String TransactionDependentExecutionListenerExecutionScope.getExecutionId()",
-    "Map TransactionDependentExecutionListenerExecutionScope.getExecutionVariables()",
-    "FlowElement TransactionDependentExecutionListenerExecutionScope.getFlowElement()",
-    "String TransactionDependentExecutionListenerExecutionScope.getProcessInstanceId()"
-  })
+      "void TransactionDependentExecutionListenerExecutionScope.<init>(String, String, FlowElement, Map, Map)",
+      "Map TransactionDependentExecutionListenerExecutionScope.getCustomPropertiesMap()",
+      "String TransactionDependentExecutionListenerExecutionScope.getExecutionId()",
+      "Map TransactionDependentExecutionListenerExecutionScope.getExecutionVariables()",
+      "FlowElement TransactionDependentExecutionListenerExecutionScope.getFlowElement()",
+      "String TransactionDependentExecutionListenerExecutionScope.getProcessInstanceId()"})
   public void testGettersAndSetters() {
     // Arrange
     AdhocSubProcess flowElement = new AdhocSubProcess();
@@ -63,23 +57,18 @@ public class TransactionDependentExecutionListenerExecutionScopeDiffblueTest {
     HashMap<String, Object> customPropertiesMap = new HashMap<>();
 
     // Act
-    TransactionDependentExecutionListenerExecutionScope
-        actualTransactionDependentExecutionListenerExecutionScope =
-            new TransactionDependentExecutionListenerExecutionScope(
-                "42", "42", flowElement, executionVariables, customPropertiesMap);
-    Map<String, Object> actualCustomPropertiesMap =
-        actualTransactionDependentExecutionListenerExecutionScope.getCustomPropertiesMap();
-    String actualExecutionId =
-        actualTransactionDependentExecutionListenerExecutionScope.getExecutionId();
-    Map<String, Object> actualExecutionVariables =
-        actualTransactionDependentExecutionListenerExecutionScope.getExecutionVariables();
-    FlowElement actualFlowElement =
-        actualTransactionDependentExecutionListenerExecutionScope.getFlowElement();
+    TransactionDependentExecutionListenerExecutionScope actualTransactionDependentExecutionListenerExecutionScope = new TransactionDependentExecutionListenerExecutionScope(
+        "42", "42", flowElement, executionVariables, customPropertiesMap);
+    Map<String, Object> actualCustomPropertiesMap = actualTransactionDependentExecutionListenerExecutionScope
+        .getCustomPropertiesMap();
+    String actualExecutionId = actualTransactionDependentExecutionListenerExecutionScope.getExecutionId();
+    Map<String, Object> actualExecutionVariables = actualTransactionDependentExecutionListenerExecutionScope
+        .getExecutionVariables();
+    FlowElement actualFlowElement = actualTransactionDependentExecutionListenerExecutionScope.getFlowElement();
 
     // Assert
     assertEquals("42", actualExecutionId);
-    assertEquals(
-        "42", actualTransactionDependentExecutionListenerExecutionScope.getProcessInstanceId());
+    assertEquals("42", actualTransactionDependentExecutionListenerExecutionScope.getProcessInstanceId());
     assertTrue(actualCustomPropertiesMap.isEmpty());
     assertTrue(actualExecutionVariables.isEmpty());
     assertSame(customPropertiesMap, actualCustomPropertiesMap);

@@ -19,8 +19,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
 import java.util.List;
@@ -34,18 +33,15 @@ import org.junit.experimental.categories.Category;
 
 public class DefaultClassDelegateFactoryDiffblueTest {
   /**
-   * Test {@link DefaultClassDelegateFactory#create(String, List)} with {@code className}, {@code
-   * fieldDeclarations}.
-   *
+   * Test {@link DefaultClassDelegateFactory#create(String, List)} with {@code className}, {@code fieldDeclarations}.
    * <ul>
-   *   <li>Then return {@link ClassDelegate#fieldDeclarations} size is one.
+   *   <li>Then return {@link ClassDelegate#fieldDeclarations} size is one.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link DefaultClassDelegateFactory#create(String, List)}
+   * <p>
+   * Method under test: {@link DefaultClassDelegateFactory#create(String, List)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"ClassDelegate DefaultClassDelegateFactory.create(String, List)"})
   public void testCreateWithClassNameFieldDeclarations_thenReturnFieldDeclarationsSizeIsOne() {
     // Arrange
@@ -56,25 +52,22 @@ public class DefaultClassDelegateFactoryDiffblueTest {
     fieldDeclarations.add(fieldDeclaration);
 
     // Act and Assert
-    List<FieldDeclaration> fieldDeclarationList =
-        defaultClassDelegateFactory.create("Class Name", fieldDeclarations).fieldDeclarations;
+    List<FieldDeclaration> fieldDeclarationList = defaultClassDelegateFactory.create("Class Name",
+        fieldDeclarations).fieldDeclarations;
     assertEquals(1, fieldDeclarationList.size());
     assertSame(fieldDeclaration, fieldDeclarationList.get(0));
   }
 
   /**
-   * Test {@link DefaultClassDelegateFactory#create(String, List)} with {@code className}, {@code
-   * fieldDeclarations}.
-   *
+   * Test {@link DefaultClassDelegateFactory#create(String, List)} with {@code className}, {@code fieldDeclarations}.
    * <ul>
-   *   <li>Then return {@link ClassDelegate#fieldDeclarations} size is two.
+   *   <li>Then return {@link ClassDelegate#fieldDeclarations} size is two.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link DefaultClassDelegateFactory#create(String, List)}
+   * <p>
+   * Method under test: {@link DefaultClassDelegateFactory#create(String, List)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"ClassDelegate DefaultClassDelegateFactory.create(String, List)"})
   public void testCreateWithClassNameFieldDeclarations_thenReturnFieldDeclarationsSizeIsTwo() {
     // Arrange
@@ -86,34 +79,30 @@ public class DefaultClassDelegateFactoryDiffblueTest {
     fieldDeclarations.add(fieldDeclaration);
 
     // Act and Assert
-    List<FieldDeclaration> fieldDeclarationList =
-        defaultClassDelegateFactory.create("Class Name", fieldDeclarations).fieldDeclarations;
+    List<FieldDeclaration> fieldDeclarationList = defaultClassDelegateFactory.create("Class Name",
+        fieldDeclarations).fieldDeclarations;
     assertEquals(2, fieldDeclarationList.size());
     assertSame(fieldDeclaration, fieldDeclarationList.get(1));
   }
 
   /**
-   * Test {@link DefaultClassDelegateFactory#create(String, List)} with {@code className}, {@code
-   * fieldDeclarations}.
-   *
+   * Test {@link DefaultClassDelegateFactory#create(String, List)} with {@code className}, {@code fieldDeclarations}.
    * <ul>
-   *   <li>When {@link ArrayList#ArrayList()}.
-   *   <li>Then return {@code Class Name}.
+   *   <li>When {@link ArrayList#ArrayList()}.</li>
+   *   <li>Then return {@code Class Name}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link DefaultClassDelegateFactory#create(String, List)}
+   * <p>
+   * Method under test: {@link DefaultClassDelegateFactory#create(String, List)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"ClassDelegate DefaultClassDelegateFactory.create(String, List)"})
   public void testCreateWithClassNameFieldDeclarations_whenArrayList_thenReturnClassName() {
     // Arrange
     DefaultClassDelegateFactory defaultClassDelegateFactory = new DefaultClassDelegateFactory();
 
     // Act
-    ClassDelegate actualCreateResult =
-        defaultClassDelegateFactory.create("Class Name", new ArrayList<>());
+    ClassDelegate actualCreateResult = defaultClassDelegateFactory.create("Class Name", new ArrayList<>());
 
     // Assert
     assertEquals("Class Name", actualCreateResult.getClassName());
@@ -131,19 +120,13 @@ public class DefaultClassDelegateFactoryDiffblueTest {
   }
 
   /**
-   * Test {@link DefaultClassDelegateFactory#create(String, String, List, Expression, List)} with
-   * {@code id}, {@code className}, {@code fieldDeclarations}, {@code skipExpression}, {@code
-   * mapExceptions}.
-   *
-   * <p>Method under test: {@link DefaultClassDelegateFactory#create(String, String, List,
-   * Expression, List)}
+   * Test {@link DefaultClassDelegateFactory#create(String, String, List, Expression, List)} with {@code id}, {@code className}, {@code fieldDeclarations}, {@code skipExpression}, {@code mapExceptions}.
+   * <p>
+   * Method under test: {@link DefaultClassDelegateFactory#create(String, String, List, Expression, List)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "ClassDelegate DefaultClassDelegateFactory.create(String, String, List, Expression, List)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"ClassDelegate DefaultClassDelegateFactory.create(String, String, List, Expression, List)"})
   public void testCreateWithIdClassNameFieldDeclarationsSkipExpressionMapExceptions() {
     // Arrange
     DefaultClassDelegateFactory defaultClassDelegateFactory = new DefaultClassDelegateFactory();
@@ -152,27 +135,20 @@ public class DefaultClassDelegateFactoryDiffblueTest {
     ArrayList<MapExceptionEntry> mapExceptions = new ArrayList<>();
 
     // Act
-    defaultClassDelegateFactory.create(
-        "42", "Class Name", fieldDeclarations, skipExpression, mapExceptions);
+    defaultClassDelegateFactory.create("42", "Class Name", fieldDeclarations, skipExpression, mapExceptions);
 
     // Assert
     assertTrue(mapExceptions.isEmpty());
   }
 
   /**
-   * Test {@link DefaultClassDelegateFactory#create(String, String, List, Expression, List)} with
-   * {@code id}, {@code className}, {@code fieldDeclarations}, {@code skipExpression}, {@code
-   * mapExceptions}.
-   *
-   * <p>Method under test: {@link DefaultClassDelegateFactory#create(String, String, List,
-   * Expression, List)}
+   * Test {@link DefaultClassDelegateFactory#create(String, String, List, Expression, List)} with {@code id}, {@code className}, {@code fieldDeclarations}, {@code skipExpression}, {@code mapExceptions}.
+   * <p>
+   * Method under test: {@link DefaultClassDelegateFactory#create(String, String, List, Expression, List)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "ClassDelegate DefaultClassDelegateFactory.create(String, String, List, Expression, List)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"ClassDelegate DefaultClassDelegateFactory.create(String, String, List, Expression, List)"})
   public void testCreateWithIdClassNameFieldDeclarationsSkipExpressionMapExceptions2() {
     // Arrange
     DefaultClassDelegateFactory defaultClassDelegateFactory = new DefaultClassDelegateFactory();
@@ -183,28 +159,20 @@ public class DefaultClassDelegateFactoryDiffblueTest {
     FixedValue skipExpression = new FixedValue(JSONObject.NULL);
 
     // Act and Assert
-    List<FieldDeclaration> fieldDeclarationList =
-        defaultClassDelegateFactory.create(
-                "42", "Class Name", fieldDeclarations, skipExpression, new ArrayList<>())
-            .fieldDeclarations;
+    List<FieldDeclaration> fieldDeclarationList = defaultClassDelegateFactory.create("42", "Class Name",
+        fieldDeclarations, skipExpression, new ArrayList<>()).fieldDeclarations;
     assertEquals(1, fieldDeclarationList.size());
     assertSame(fieldDeclaration, fieldDeclarationList.get(0));
   }
 
   /**
-   * Test {@link DefaultClassDelegateFactory#create(String, String, List, Expression, List)} with
-   * {@code id}, {@code className}, {@code fieldDeclarations}, {@code skipExpression}, {@code
-   * mapExceptions}.
-   *
-   * <p>Method under test: {@link DefaultClassDelegateFactory#create(String, String, List,
-   * Expression, List)}
+   * Test {@link DefaultClassDelegateFactory#create(String, String, List, Expression, List)} with {@code id}, {@code className}, {@code fieldDeclarations}, {@code skipExpression}, {@code mapExceptions}.
+   * <p>
+   * Method under test: {@link DefaultClassDelegateFactory#create(String, String, List, Expression, List)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "ClassDelegate DefaultClassDelegateFactory.create(String, String, List, Expression, List)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"ClassDelegate DefaultClassDelegateFactory.create(String, String, List, Expression, List)"})
   public void testCreateWithIdClassNameFieldDeclarationsSkipExpressionMapExceptions3() {
     // Arrange
     DefaultClassDelegateFactory defaultClassDelegateFactory = new DefaultClassDelegateFactory();
@@ -216,28 +184,20 @@ public class DefaultClassDelegateFactoryDiffblueTest {
     FixedValue skipExpression = new FixedValue(JSONObject.NULL);
 
     // Act and Assert
-    List<FieldDeclaration> fieldDeclarationList =
-        defaultClassDelegateFactory.create(
-                "42", "Class Name", fieldDeclarations, skipExpression, new ArrayList<>())
-            .fieldDeclarations;
+    List<FieldDeclaration> fieldDeclarationList = defaultClassDelegateFactory.create("42", "Class Name",
+        fieldDeclarations, skipExpression, new ArrayList<>()).fieldDeclarations;
     assertEquals(2, fieldDeclarationList.size());
     assertSame(fieldDeclaration, fieldDeclarationList.get(1));
   }
 
   /**
-   * Test {@link DefaultClassDelegateFactory#create(String, String, List, Expression, List)} with
-   * {@code id}, {@code className}, {@code fieldDeclarations}, {@code skipExpression}, {@code
-   * mapExceptions}.
-   *
-   * <p>Method under test: {@link DefaultClassDelegateFactory#create(String, String, List,
-   * Expression, List)}
+   * Test {@link DefaultClassDelegateFactory#create(String, String, List, Expression, List)} with {@code id}, {@code className}, {@code fieldDeclarations}, {@code skipExpression}, {@code mapExceptions}.
+   * <p>
+   * Method under test: {@link DefaultClassDelegateFactory#create(String, String, List, Expression, List)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "ClassDelegate DefaultClassDelegateFactory.create(String, String, List, Expression, List)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"ClassDelegate DefaultClassDelegateFactory.create(String, String, List, Expression, List)"})
   public void testCreateWithIdClassNameFieldDeclarationsSkipExpressionMapExceptions4() {
     // Arrange
     DefaultClassDelegateFactory defaultClassDelegateFactory = new DefaultClassDelegateFactory();
@@ -245,33 +205,25 @@ public class DefaultClassDelegateFactoryDiffblueTest {
     FixedValue skipExpression = new FixedValue(JSONObject.NULL);
 
     ArrayList<MapExceptionEntry> mapExceptions = new ArrayList<>();
-    MapExceptionEntry mapExceptionEntry =
-        new MapExceptionEntry("An error occurred", "Class Name", true);
+    MapExceptionEntry mapExceptionEntry = new MapExceptionEntry("An error occurred", "Class Name", true);
+
     mapExceptions.add(mapExceptionEntry);
 
     // Act and Assert
-    List<MapExceptionEntry> mapExceptionEntryList =
-        defaultClassDelegateFactory.create(
-                "42", "Class Name", fieldDeclarations, skipExpression, mapExceptions)
-            .mapExceptions;
+    List<MapExceptionEntry> mapExceptionEntryList = defaultClassDelegateFactory.create("42", "Class Name",
+        fieldDeclarations, skipExpression, mapExceptions).mapExceptions;
     assertEquals(1, mapExceptionEntryList.size());
     assertSame(mapExceptionEntry, mapExceptionEntryList.get(0));
   }
 
   /**
-   * Test {@link DefaultClassDelegateFactory#create(String, String, List, Expression, List)} with
-   * {@code id}, {@code className}, {@code fieldDeclarations}, {@code skipExpression}, {@code
-   * mapExceptions}.
-   *
-   * <p>Method under test: {@link DefaultClassDelegateFactory#create(String, String, List,
-   * Expression, List)}
+   * Test {@link DefaultClassDelegateFactory#create(String, String, List, Expression, List)} with {@code id}, {@code className}, {@code fieldDeclarations}, {@code skipExpression}, {@code mapExceptions}.
+   * <p>
+   * Method under test: {@link DefaultClassDelegateFactory#create(String, String, List, Expression, List)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "ClassDelegate DefaultClassDelegateFactory.create(String, String, List, Expression, List)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"ClassDelegate DefaultClassDelegateFactory.create(String, String, List, Expression, List)"})
   public void testCreateWithIdClassNameFieldDeclarationsSkipExpressionMapExceptions5() {
     // Arrange
     DefaultClassDelegateFactory defaultClassDelegateFactory = new DefaultClassDelegateFactory();
@@ -279,19 +231,15 @@ public class DefaultClassDelegateFactoryDiffblueTest {
     FixedValue skipExpression = new FixedValue(JSONObject.NULL);
 
     ArrayList<MapExceptionEntry> mapExceptions = new ArrayList<>();
-    MapExceptionEntry mapExceptionEntry =
-        new MapExceptionEntry("An error occurred", "Class Name", true);
+    mapExceptions.add(new MapExceptionEntry("An error occurred", "Class Name", true));
+    MapExceptionEntry mapExceptionEntry = new MapExceptionEntry("An error occurred", "Class Name", true);
+
     mapExceptions.add(mapExceptionEntry);
-    MapExceptionEntry mapExceptionEntry2 =
-        new MapExceptionEntry("An error occurred", "Class Name", true);
-    mapExceptions.add(mapExceptionEntry2);
 
     // Act and Assert
-    List<MapExceptionEntry> mapExceptionEntryList =
-        defaultClassDelegateFactory.create(
-                "42", "Class Name", fieldDeclarations, skipExpression, mapExceptions)
-            .mapExceptions;
+    List<MapExceptionEntry> mapExceptionEntryList = defaultClassDelegateFactory.create("42", "Class Name",
+        fieldDeclarations, skipExpression, mapExceptions).mapExceptions;
     assertEquals(2, mapExceptionEntryList.size());
-    assertSame(mapExceptionEntry2, mapExceptionEntryList.get(1));
+    assertSame(mapExceptionEntry, mapExceptionEntryList.get(1));
   }
 }

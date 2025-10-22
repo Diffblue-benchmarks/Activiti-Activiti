@@ -16,7 +16,6 @@
 package org.activiti.bpmn.converter.child;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
@@ -25,9 +24,8 @@ import org.junit.jupiter.api.Test;
 class DataStateParserDiffblueTest {
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>default or parameterless constructor of {@link DataStateParser}
    *   <li>{@link DataStateParser#getElementName()}
@@ -35,14 +33,10 @@ class DataStateParserDiffblueTest {
    */
   @Test
   @DisplayName("Test getters and setters")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void DataStateParser.<init>()",
-    "java.lang.String DataStateParser.getElementName()"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void DataStateParser.<init>()", "java.lang.String DataStateParser.getElementName()"})
   void testGettersAndSetters() {
     // Arrange, Act and Assert
-    assertEquals("dataState", new DataStateParser().getElementName());
+    assertEquals("dataState", (new DataStateParser()).getElementName());
   }
 }

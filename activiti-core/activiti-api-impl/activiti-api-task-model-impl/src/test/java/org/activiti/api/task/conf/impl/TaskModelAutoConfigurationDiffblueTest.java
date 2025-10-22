@@ -18,7 +18,6 @@ package org.activiti.api.task.conf.impl;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import com.fasterxml.jackson.core.Version;
 import com.fasterxml.jackson.databind.Module;
@@ -27,44 +26,32 @@ import java.util.List;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-@ContextConfiguration(classes = {TaskModelAutoConfiguration.class})
-@ExtendWith(SpringExtension.class)
 class TaskModelAutoConfigurationDiffblueTest {
-  @Autowired private TaskModelAutoConfiguration taskModelAutoConfiguration;
-
   /**
    * Test {@link TaskModelAutoConfiguration#customizeTaskModelObjectMapper()}.
-   *
-   * <p>Method under test: {@link TaskModelAutoConfiguration#customizeTaskModelObjectMapper()}
+   * <p>
+   * Method under test: {@link TaskModelAutoConfiguration#customizeTaskModelObjectMapper()}
    */
   @Test
   @DisplayName("Test customizeTaskModelObjectMapper()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"Module TaskModelAutoConfiguration.customizeTaskModelObjectMapper()"})
   void testCustomizeTaskModelObjectMapper() {
     // Arrange and Act
-    Module actualCustomizeTaskModelObjectMapperResult =
-        taskModelAutoConfiguration.customizeTaskModelObjectMapper();
+    Module actualCustomizeTaskModelObjectMapperResult = (new TaskModelAutoConfiguration())
+        .customizeTaskModelObjectMapper();
 
     // Assert
     assertTrue(actualCustomizeTaskModelObjectMapperResult instanceof SimpleModule);
-    Iterable<? extends Module> dependencies =
-        actualCustomizeTaskModelObjectMapperResult.getDependencies();
+    Iterable<? extends Module> dependencies = actualCustomizeTaskModelObjectMapperResult.getDependencies();
     assertTrue(dependencies instanceof List);
     Version versionResult = actualCustomizeTaskModelObjectMapperResult.version();
     assertEquals("", versionResult.getArtifactId());
     assertEquals("", versionResult.getGroupId());
     assertEquals("//0.0.0", versionResult.toFullString());
-    assertEquals(
-        "mapTaskRuntimeInterfaces", actualCustomizeTaskModelObjectMapperResult.getModuleName());
-    assertEquals(
-        "mapTaskRuntimeInterfaces", actualCustomizeTaskModelObjectMapperResult.getTypeId());
+    assertEquals("mapTaskRuntimeInterfaces", actualCustomizeTaskModelObjectMapperResult.getModuleName());
+    assertEquals("mapTaskRuntimeInterfaces", actualCustomizeTaskModelObjectMapperResult.getTypeId());
     assertEquals(0, versionResult.getMajorVersion());
     assertEquals(0, versionResult.getMinorVersion());
     assertEquals(0, versionResult.getPatchLevel());

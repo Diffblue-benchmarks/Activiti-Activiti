@@ -17,8 +17,7 @@ package org.activiti.bpmn.model.parse;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.bpmn.model.ActivitiListener;
 import org.activiti.bpmn.model.BaseElement;
@@ -29,12 +28,11 @@ import org.junit.experimental.categories.Category;
 public class ProblemDiffblueTest {
   /**
    * Test {@link Problem#Problem(String, String, int, int)}.
-   *
-   * <p>Method under test: {@link Problem#Problem(String, String, int, int)}
+   * <p>
+   * Method under test: {@link Problem#Problem(String, String, int, int)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void Problem.<init>(String, String, int, int)"})
   public void testNewProblem() {
     // Arrange and Act
@@ -49,12 +47,11 @@ public class ProblemDiffblueTest {
 
   /**
    * Test {@link Problem#Problem(String, GraphicInfo)}.
-   *
-   * <p>Method under test: {@link Problem#Problem(String, GraphicInfo)}
+   * <p>
+   * Method under test: {@link Problem#Problem(String, GraphicInfo)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void Problem.<init>(String, GraphicInfo)"})
   public void testNewProblem2() {
     // Arrange
@@ -80,17 +77,15 @@ public class ProblemDiffblueTest {
 
   /**
    * Test {@link Problem#Problem(String, BaseElement)}.
-   *
    * <ul>
-   *   <li>When {@link ActivitiListener} (default constructor).
-   *   <li>Then return {@link Problem#errorMessage} is {@code An error occurred}.
+   *   <li>When {@link ActivitiListener} (default constructor).</li>
+   *   <li>Then return {@link Problem#errorMessage} is {@code An error occurred}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link Problem#Problem(String, BaseElement)}
+   * <p>
+   * Method under test: {@link Problem#Problem(String, BaseElement)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void Problem.<init>(String, BaseElement)"})
   public void testNewProblem_whenActivitiListener_thenReturnErrorMessageIsAnErrorOccurred() {
     // Arrange and Act
@@ -105,43 +100,34 @@ public class ProblemDiffblueTest {
 
   /**
    * Test {@link Problem#toString()}.
-   *
    * <ul>
-   *   <li>Then return {@code An error occurred | line 2 | column 10}.
+   *   <li>Then return {@code An error occurred | line 2 | column 10}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link Problem#toString()}
+   * <p>
+   * Method under test: {@link Problem#toString()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"String Problem.toString()"})
   public void testToString_thenReturnAnErrorOccurredLine2Column10() {
-    // Arrange
-    Problem problem = new Problem("An error occurred", null, 2, 10);
-
-    // Act and Assert
-    assertEquals("An error occurred | line 2 | column 10", problem.toString());
+    // Arrange, Act and Assert
+    assertEquals("An error occurred | line 2 | column 10", (new Problem("An error occurred", null, 2, 10)).toString());
   }
 
   /**
    * Test {@link Problem#toString()}.
-   *
    * <ul>
-   *   <li>Then return {@code An error occurred | Local Name | line 2 | column 10}.
+   *   <li>Then return {@code An error occurred | Local Name | line 2 | column 10}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link Problem#toString()}
+   * <p>
+   * Method under test: {@link Problem#toString()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"String Problem.toString()"})
   public void testToString_thenReturnAnErrorOccurredLocalNameLine2Column10() {
-    // Arrange
-    Problem problem = new Problem("An error occurred", "Local Name", 2, 10);
-
-    // Act and Assert
-    assertEquals("An error occurred | Local Name | line 2 | column 10", problem.toString());
+    // Arrange, Act and Assert
+    assertEquals("An error occurred | Local Name | line 2 | column 10",
+        (new Problem("An error occurred", "Local Name", 2, 10)).toString());
   }
 }

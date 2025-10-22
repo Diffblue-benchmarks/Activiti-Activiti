@@ -20,12 +20,12 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.ArgumentMatchers.isA;
+import static org.mockito.ArgumentMatchers.isNull;
 import static org.mockito.Mockito.atLeast;
-import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.time.DateTimeException;
 import java.time.LocalDate;
@@ -49,828 +49,404 @@ import org.springframework.test.context.aot.DisabledInAotMode;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 @ContextConfiguration(classes = {TaskVariablesPayloadValidator.class})
-@DisabledInAotMode
 @ExtendWith(SpringExtension.class)
+@DisabledInAotMode
 class TaskVariablesPayloadValidatorDiffblueTest {
-  @MockBean private DateFormatterProvider dateFormatterProvider;
+  @MockBean
+  private DateFormatterProvider dateFormatterProvider;
 
-  @Autowired private TaskVariablesPayloadValidator taskVariablesPayloadValidator;
+  @Autowired
+  private TaskVariablesPayloadValidator taskVariablesPayloadValidator;
 
-  @MockBean private VariableNameValidator variableNameValidator;
+  @MockBean
+  private VariableNameValidator variableNameValidator;
 
   /**
-   * Test {@link
-   * TaskVariablesPayloadValidator#handleCreateTaskVariablePayload(CreateTaskVariablePayload)}.
-   *
-   * <p>Method under test: {@link
-   * TaskVariablesPayloadValidator#handleCreateTaskVariablePayload(CreateTaskVariablePayload)}
+   * Test {@link TaskVariablesPayloadValidator#handleCreateTaskVariablePayload(CreateTaskVariablePayload)}.
+   * <p>
+   * Method under test: {@link TaskVariablesPayloadValidator#handleCreateTaskVariablePayload(CreateTaskVariablePayload)}
    */
   @Test
   @DisplayName("Test handleCreateTaskVariablePayload(CreateTaskVariablePayload)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({
-    "CreateTaskVariablePayload TaskVariablesPayloadValidator.handleCreateTaskVariablePayload(CreateTaskVariablePayload)"
-  })
-  void testHandleCreateTaskVariablePayload() throws DateTimeException {
+      "CreateTaskVariablePayload TaskVariablesPayloadValidator.handleCreateTaskVariablePayload(CreateTaskVariablePayload)"})
+  void testHandleCreateTaskVariablePayload() {
+    // Arrange
+    when(variableNameValidator.validate(Mockito.<String>any())).thenReturn(false);
+
+    // Act and Assert
+    assertThrows(IllegalStateException.class, () -> taskVariablesPayloadValidator.handleCreateTaskVariablePayload(
+        new CreateTaskVariablePayload("42", "Variable has not a valid name: ", "Value")));
+    verify(variableNameValidator).validate(eq("Variable has not a valid name: "));
+  }
+
+  /**
+   * Test {@link TaskVariablesPayloadValidator#handleCreateTaskVariablePayload(CreateTaskVariablePayload)}.
+   * <p>
+   * Method under test: {@link TaskVariablesPayloadValidator#handleCreateTaskVariablePayload(CreateTaskVariablePayload)}
+   */
+  @Test
+  @DisplayName("Test handleCreateTaskVariablePayload(CreateTaskVariablePayload)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({
+      "CreateTaskVariablePayload TaskVariablesPayloadValidator.handleCreateTaskVariablePayload(CreateTaskVariablePayload)"})
+  void testHandleCreateTaskVariablePayload2() throws DateTimeException {
     // Arrange
     when(dateFormatterProvider.parse(Mockito.<String>any()))
         .thenThrow(new DateTimeException("Variable has not a valid name: "));
     when(variableNameValidator.validate(Mockito.<String>any())).thenReturn(true);
-    CreateTaskVariablePayload createTaskVariablePayload =
-        new CreateTaskVariablePayload("42", "Variable has not a valid name: ", "Value");
+    CreateTaskVariablePayload createTaskVariablePayload = new CreateTaskVariablePayload("42",
+        "Variable has not a valid name: ", "Value");
 
     // Act
-    CreateTaskVariablePayload actualHandleCreateTaskVariablePayloadResult =
-        taskVariablesPayloadValidator.handleCreateTaskVariablePayload(createTaskVariablePayload);
+    CreateTaskVariablePayload actualHandleCreateTaskVariablePayloadResult = taskVariablesPayloadValidator
+        .handleCreateTaskVariablePayload(createTaskVariablePayload);
 
     // Assert
-    verify(dateFormatterProvider).parse("Value");
-    verify(variableNameValidator).validate("Variable has not a valid name: ");
+    verify(dateFormatterProvider).parse(eq("Value"));
+    verify(variableNameValidator).validate(eq("Variable has not a valid name: "));
     assertEquals("Value", createTaskVariablePayload.getValue());
     assertSame(createTaskVariablePayload, actualHandleCreateTaskVariablePayloadResult);
   }
 
   /**
-   * Test {@link
-   * TaskVariablesPayloadValidator#handleCreateTaskVariablePayload(CreateTaskVariablePayload)}.
-   *
-   * <p>Method under test: {@link
-   * TaskVariablesPayloadValidator#handleCreateTaskVariablePayload(CreateTaskVariablePayload)}
+   * Test {@link TaskVariablesPayloadValidator#handleCreateTaskVariablePayload(CreateTaskVariablePayload)}.
+   * <p>
+   * Method under test: {@link TaskVariablesPayloadValidator#handleCreateTaskVariablePayload(CreateTaskVariablePayload)}
    */
   @Test
   @DisplayName("Test handleCreateTaskVariablePayload(CreateTaskVariablePayload)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({
-    "CreateTaskVariablePayload TaskVariablesPayloadValidator.handleCreateTaskVariablePayload(CreateTaskVariablePayload)"
-  })
-  void testHandleCreateTaskVariablePayload2() throws DateTimeException {
+      "CreateTaskVariablePayload TaskVariablesPayloadValidator.handleCreateTaskVariablePayload(CreateTaskVariablePayload)"})
+  void testHandleCreateTaskVariablePayload3() throws DateTimeException {
     // Arrange
-    when(dateFormatterProvider.parse(Mockito.<String>any())).thenThrow(new IllegalStateException());
+    when(dateFormatterProvider.parse(Mockito.<String>any()))
+        .thenThrow(new IllegalStateException("Variable has not a valid name: "));
     when(variableNameValidator.validate(Mockito.<String>any())).thenReturn(true);
-    CreateTaskVariablePayload createTaskVariablePayload =
-        new CreateTaskVariablePayload("42", "Variable has not a valid name: ", "Value");
 
     // Act and Assert
-    assertThrows(
-        IllegalStateException.class,
-        () ->
-            taskVariablesPayloadValidator.handleCreateTaskVariablePayload(
-                createTaskVariablePayload));
-    verify(dateFormatterProvider).parse("Value");
-    verify(variableNameValidator).validate("Variable has not a valid name: ");
+    assertThrows(IllegalStateException.class, () -> taskVariablesPayloadValidator.handleCreateTaskVariablePayload(
+        new CreateTaskVariablePayload("42", "Variable has not a valid name: ", "Value")));
+    verify(dateFormatterProvider).parse(eq("Value"));
+    verify(variableNameValidator).validate(eq("Variable has not a valid name: "));
   }
 
   /**
-   * Test {@link
-   * TaskVariablesPayloadValidator#handleCreateTaskVariablePayload(CreateTaskVariablePayload)}.
-   *
-   * <p>Method under test: {@link
-   * TaskVariablesPayloadValidator#handleCreateTaskVariablePayload(CreateTaskVariablePayload)}
-   */
-  @Test
-  @DisplayName("Test handleCreateTaskVariablePayload(CreateTaskVariablePayload)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "CreateTaskVariablePayload TaskVariablesPayloadValidator.handleCreateTaskVariablePayload(CreateTaskVariablePayload)"
-  })
-  void testHandleCreateTaskVariablePayload3() {
-    // Arrange
-    when(variableNameValidator.validate(Mockito.<String>any())).thenReturn(false);
-    CreateTaskVariablePayload createTaskVariablePayload =
-        new CreateTaskVariablePayload("42", "Variable has not a valid name: ", "Value");
-
-    // Act and Assert
-    assertThrows(
-        IllegalStateException.class,
-        () ->
-            taskVariablesPayloadValidator.handleCreateTaskVariablePayload(
-                createTaskVariablePayload));
-    verify(variableNameValidator).validate("Variable has not a valid name: ");
-  }
-
-  /**
-   * Test {@link
-   * TaskVariablesPayloadValidator#handleCreateTaskVariablePayload(CreateTaskVariablePayload)}.
-   *
-   * <p>Method under test: {@link
-   * TaskVariablesPayloadValidator#handleCreateTaskVariablePayload(CreateTaskVariablePayload)}
-   */
-  @Test
-  @DisplayName("Test handleCreateTaskVariablePayload(CreateTaskVariablePayload)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "CreateTaskVariablePayload TaskVariablesPayloadValidator.handleCreateTaskVariablePayload(CreateTaskVariablePayload)"
-  })
-  void testHandleCreateTaskVariablePayload4() {
-    // Arrange
-    when(variableNameValidator.validate(Mockito.<String>any())).thenReturn(false);
-    CreateTaskVariablePayload createTaskVariablePayload =
-        new CreateTaskVariablePayload("42", null, "Value");
-
-    // Act and Assert
-    assertThrows(
-        IllegalStateException.class,
-        () ->
-            taskVariablesPayloadValidator.handleCreateTaskVariablePayload(
-                createTaskVariablePayload));
-    verify(variableNameValidator).validate(null);
-  }
-
-  /**
-   * Test {@link
-   * TaskVariablesPayloadValidator#handleCreateTaskVariablePayload(CreateTaskVariablePayload)}.
-   *
-   * <p>Method under test: {@link
-   * TaskVariablesPayloadValidator#handleCreateTaskVariablePayload(CreateTaskVariablePayload)}
-   */
-  @Test
-  @DisplayName("Test handleCreateTaskVariablePayload(CreateTaskVariablePayload)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "CreateTaskVariablePayload TaskVariablesPayloadValidator.handleCreateTaskVariablePayload(CreateTaskVariablePayload)"
-  })
-  void testHandleCreateTaskVariablePayload5() {
-    // Arrange
-    DateFormatterProvider dateFormatterProvider = new DateFormatterProvider("2020-03-01");
-    TaskVariablesPayloadValidator taskVariablesPayloadValidator =
-        new TaskVariablesPayloadValidator(dateFormatterProvider, new VariableNameValidator());
-
-    // Act and Assert
-    assertThrows(
-        IllegalStateException.class,
-        () ->
-            taskVariablesPayloadValidator.handleCreateTaskVariablePayload(
-                new CreateTaskVariablePayload()));
-  }
-
-  /**
-   * Test {@link
-   * TaskVariablesPayloadValidator#handleCreateTaskVariablePayload(CreateTaskVariablePayload)}.
-   *
-   * <p>Method under test: {@link
-   * TaskVariablesPayloadValidator#handleCreateTaskVariablePayload(CreateTaskVariablePayload)}
-   */
-  @Test
-  @DisplayName("Test handleCreateTaskVariablePayload(CreateTaskVariablePayload)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "CreateTaskVariablePayload TaskVariablesPayloadValidator.handleCreateTaskVariablePayload(CreateTaskVariablePayload)"
-  })
-  void testHandleCreateTaskVariablePayload6() {
-    // Arrange
-    DateFormatterProvider dateFormatterProvider = new DateFormatterProvider("2020-03-01");
-    TaskVariablesPayloadValidator taskVariablesPayloadValidator =
-        new TaskVariablesPayloadValidator(dateFormatterProvider, new VariableNameValidator());
-    CreateTaskVariablePayload createTaskVariablePayload =
-        new CreateTaskVariablePayload("42", "not empty", "42");
-
-    // Act and Assert
-    assertThrows(
-        IllegalStateException.class,
-        () ->
-            taskVariablesPayloadValidator.handleCreateTaskVariablePayload(
-                createTaskVariablePayload));
-  }
-
-  /**
-   * Test {@link
-   * TaskVariablesPayloadValidator#handleCreateTaskVariablePayload(CreateTaskVariablePayload)}.
-   *
-   * <p>Method under test: {@link
-   * TaskVariablesPayloadValidator#handleCreateTaskVariablePayload(CreateTaskVariablePayload)}
-   */
-  @Test
-  @DisplayName("Test handleCreateTaskVariablePayload(CreateTaskVariablePayload)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "CreateTaskVariablePayload TaskVariablesPayloadValidator.handleCreateTaskVariablePayload(CreateTaskVariablePayload)"
-  })
-  void testHandleCreateTaskVariablePayload7() {
-    // Arrange
-    DateFormatterProvider dateFormatterProvider = new DateFormatterProvider("2020-03-01");
-    TaskVariablesPayloadValidator taskVariablesPayloadValidator =
-        new TaskVariablesPayloadValidator(dateFormatterProvider, new VariableNameValidator());
-    CreateTaskVariablePayload createTaskVariablePayload =
-        new CreateTaskVariablePayload("42", "Name", "42");
-
-    // Act
-    CreateTaskVariablePayload actualHandleCreateTaskVariablePayloadResult =
-        taskVariablesPayloadValidator.handleCreateTaskVariablePayload(createTaskVariablePayload);
-
-    // Assert
-    assertEquals("42", createTaskVariablePayload.getValue());
-    assertSame(createTaskVariablePayload, actualHandleCreateTaskVariablePayloadResult);
-  }
-
-  /**
-   * Test {@link
-   * TaskVariablesPayloadValidator#handleCreateTaskVariablePayload(CreateTaskVariablePayload)}.
-   *
+   * Test {@link TaskVariablesPayloadValidator#handleCreateTaskVariablePayload(CreateTaskVariablePayload)}.
    * <ul>
-   *   <li>Then {@link CreateTaskVariablePayload#CreateTaskVariablePayload()} Value is {@code null}.
+   *   <li>Given {@link DateFormatterProvider}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link
-   * TaskVariablesPayloadValidator#handleCreateTaskVariablePayload(CreateTaskVariablePayload)}
+   * <p>
+   * Method under test: {@link TaskVariablesPayloadValidator#handleCreateTaskVariablePayload(CreateTaskVariablePayload)}
    */
   @Test
-  @DisplayName(
-      "Test handleCreateTaskVariablePayload(CreateTaskVariablePayload); then CreateTaskVariablePayload() Value is 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test handleCreateTaskVariablePayload(CreateTaskVariablePayload); given DateFormatterProvider")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({
-    "CreateTaskVariablePayload TaskVariablesPayloadValidator.handleCreateTaskVariablePayload(CreateTaskVariablePayload)"
-  })
+      "CreateTaskVariablePayload TaskVariablesPayloadValidator.handleCreateTaskVariablePayload(CreateTaskVariablePayload)"})
+  void testHandleCreateTaskVariablePayload_givenDateFormatterProvider() {
+    // Arrange
+    when(variableNameValidator.validate(Mockito.<String>any())).thenReturn(false);
+
+    // Act and Assert
+    assertThrows(IllegalStateException.class,
+        () -> taskVariablesPayloadValidator.handleCreateTaskVariablePayload(new CreateTaskVariablePayload()));
+    verify(variableNameValidator).validate(isNull());
+  }
+
+  /**
+   * Test {@link TaskVariablesPayloadValidator#handleCreateTaskVariablePayload(CreateTaskVariablePayload)}.
+   * <ul>
+   *   <li>Then {@link CreateTaskVariablePayload#CreateTaskVariablePayload()} Value is {@code null}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link TaskVariablesPayloadValidator#handleCreateTaskVariablePayload(CreateTaskVariablePayload)}
+   */
+  @Test
+  @DisplayName("Test handleCreateTaskVariablePayload(CreateTaskVariablePayload); then CreateTaskVariablePayload() Value is 'null'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({
+      "CreateTaskVariablePayload TaskVariablesPayloadValidator.handleCreateTaskVariablePayload(CreateTaskVariablePayload)"})
   void testHandleCreateTaskVariablePayload_thenCreateTaskVariablePayloadValueIsNull() {
     // Arrange
     when(variableNameValidator.validate(Mockito.<String>any())).thenReturn(true);
     CreateTaskVariablePayload createTaskVariablePayload = new CreateTaskVariablePayload();
 
     // Act
-    CreateTaskVariablePayload actualHandleCreateTaskVariablePayloadResult =
-        taskVariablesPayloadValidator.handleCreateTaskVariablePayload(createTaskVariablePayload);
+    CreateTaskVariablePayload actualHandleCreateTaskVariablePayloadResult = taskVariablesPayloadValidator
+        .handleCreateTaskVariablePayload(createTaskVariablePayload);
 
     // Assert
-    verify(variableNameValidator).validate(null);
+    verify(variableNameValidator).validate(isNull());
     assertNull(createTaskVariablePayload.getValue());
     assertSame(createTaskVariablePayload, actualHandleCreateTaskVariablePayloadResult);
   }
 
   /**
-   * Test {@link
-   * TaskVariablesPayloadValidator#handleCreateTaskVariablePayload(CreateTaskVariablePayload)}.
-   *
+   * Test {@link TaskVariablesPayloadValidator#handleCreateTaskVariablePayload(CreateTaskVariablePayload)}.
    * <ul>
-   *   <li>Then return TaskId is {@code 42}.
+   *   <li>Then return TaskId is {@code 42}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link
-   * TaskVariablesPayloadValidator#handleCreateTaskVariablePayload(CreateTaskVariablePayload)}
+   * <p>
+   * Method under test: {@link TaskVariablesPayloadValidator#handleCreateTaskVariablePayload(CreateTaskVariablePayload)}
    */
   @Test
-  @DisplayName(
-      "Test handleCreateTaskVariablePayload(CreateTaskVariablePayload); then return TaskId is '42'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test handleCreateTaskVariablePayload(CreateTaskVariablePayload); then return TaskId is '42'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({
-    "CreateTaskVariablePayload TaskVariablesPayloadValidator.handleCreateTaskVariablePayload(CreateTaskVariablePayload)"
-  })
+      "CreateTaskVariablePayload TaskVariablesPayloadValidator.handleCreateTaskVariablePayload(CreateTaskVariablePayload)"})
   void testHandleCreateTaskVariablePayload_thenReturnTaskIdIs42() throws DateTimeException {
     // Arrange
-    Date fromResult =
-        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant());
+    Date fromResult = Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant());
     when(dateFormatterProvider.parse(Mockito.<String>any())).thenReturn(fromResult);
     when(variableNameValidator.validate(Mockito.<String>any())).thenReturn(true);
-    CreateTaskVariablePayload createTaskVariablePayload =
-        new CreateTaskVariablePayload("42", "Variable has not a valid name: ", "Value");
+    CreateTaskVariablePayload createTaskVariablePayload = new CreateTaskVariablePayload("42",
+        "Variable has not a valid name: ", "Value");
 
     // Act
-    CreateTaskVariablePayload actualHandleCreateTaskVariablePayloadResult =
-        taskVariablesPayloadValidator.handleCreateTaskVariablePayload(createTaskVariablePayload);
+    CreateTaskVariablePayload actualHandleCreateTaskVariablePayloadResult = taskVariablesPayloadValidator
+        .handleCreateTaskVariablePayload(createTaskVariablePayload);
 
     // Assert
-    verify(dateFormatterProvider).parse("Value");
-    verify(variableNameValidator).validate("Variable has not a valid name: ");
+    verify(dateFormatterProvider).parse(eq("Value"));
+    verify(variableNameValidator).validate(eq("Variable has not a valid name: "));
     assertEquals("42", actualHandleCreateTaskVariablePayloadResult.getTaskId());
-    assertEquals(
-        "Variable has not a valid name: ", actualHandleCreateTaskVariablePayloadResult.getName());
+    assertEquals("Variable has not a valid name: ", actualHandleCreateTaskVariablePayloadResult.getName());
     assertSame(fromResult, createTaskVariablePayload.getValue());
     assertSame(fromResult, actualHandleCreateTaskVariablePayloadResult.getValue());
   }
 
   /**
-   * Test {@link
-   * TaskVariablesPayloadValidator#handleCreateTaskVariablePayload(CreateTaskVariablePayload)}.
-   *
-   * <ul>
-   *   <li>Then throw {@link DateTimeException}.
-   * </ul>
-   *
-   * <p>Method under test: {@link
-   * TaskVariablesPayloadValidator#handleCreateTaskVariablePayload(CreateTaskVariablePayload)}
-   */
-  @Test
-  @DisplayName(
-      "Test handleCreateTaskVariablePayload(CreateTaskVariablePayload); then throw DateTimeException")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "CreateTaskVariablePayload TaskVariablesPayloadValidator.handleCreateTaskVariablePayload(CreateTaskVariablePayload)"
-  })
-  void testHandleCreateTaskVariablePayload_thenThrowDateTimeException() {
-    // Arrange
-    when(variableNameValidator.validate(Mockito.<String>any()))
-        .thenThrow(new DateTimeException("Variable has not a valid name: "));
-
-    // Act and Assert
-    assertThrows(
-        DateTimeException.class,
-        () ->
-            taskVariablesPayloadValidator.handleCreateTaskVariablePayload(
-                new CreateTaskVariablePayload()));
-    verify(variableNameValidator).validate(null);
-  }
-
-  /**
-   * Test {@link
-   * TaskVariablesPayloadValidator#handleUpdateTaskVariablePayload(UpdateTaskVariablePayload)}.
-   *
-   * <p>Method under test: {@link
-   * TaskVariablesPayloadValidator#handleUpdateTaskVariablePayload(UpdateTaskVariablePayload)}
+   * Test {@link TaskVariablesPayloadValidator#handleUpdateTaskVariablePayload(UpdateTaskVariablePayload)}.
+   * <p>
+   * Method under test: {@link TaskVariablesPayloadValidator#handleUpdateTaskVariablePayload(UpdateTaskVariablePayload)}
    */
   @Test
   @DisplayName("Test handleUpdateTaskVariablePayload(UpdateTaskVariablePayload)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({
-    "UpdateTaskVariablePayload TaskVariablesPayloadValidator.handleUpdateTaskVariablePayload(UpdateTaskVariablePayload)"
-  })
-  void testHandleUpdateTaskVariablePayload() throws DateTimeException {
+      "UpdateTaskVariablePayload TaskVariablesPayloadValidator.handleUpdateTaskVariablePayload(UpdateTaskVariablePayload)"})
+  void testHandleUpdateTaskVariablePayload() {
+    // Arrange
+    when(variableNameValidator.validate(Mockito.<String>any())).thenReturn(false);
+
+    // Act and Assert
+    assertThrows(IllegalStateException.class, () -> taskVariablesPayloadValidator.handleUpdateTaskVariablePayload(
+        new UpdateTaskVariablePayload("42", "You cannot update a variable with not a valid name: ", "Value")));
+    verify(variableNameValidator).validate(eq("You cannot update a variable with not a valid name: "));
+  }
+
+  /**
+   * Test {@link TaskVariablesPayloadValidator#handleUpdateTaskVariablePayload(UpdateTaskVariablePayload)}.
+   * <p>
+   * Method under test: {@link TaskVariablesPayloadValidator#handleUpdateTaskVariablePayload(UpdateTaskVariablePayload)}
+   */
+  @Test
+  @DisplayName("Test handleUpdateTaskVariablePayload(UpdateTaskVariablePayload)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({
+      "UpdateTaskVariablePayload TaskVariablesPayloadValidator.handleUpdateTaskVariablePayload(UpdateTaskVariablePayload)"})
+  void testHandleUpdateTaskVariablePayload2() throws DateTimeException {
     // Arrange
     when(dateFormatterProvider.parse(Mockito.<String>any()))
         .thenThrow(new DateTimeException("You cannot update a variable with not a valid name: "));
     when(variableNameValidator.validate(Mockito.<String>any())).thenReturn(true);
-    UpdateTaskVariablePayload updateTaskVariablePayload =
-        new UpdateTaskVariablePayload(
-            "42", "You cannot update a variable with not a valid name: ", "Value");
+    UpdateTaskVariablePayload updateTaskVariablePayload = new UpdateTaskVariablePayload("42",
+        "You cannot update a variable with not a valid name: ", "Value");
 
     // Act
-    UpdateTaskVariablePayload actualHandleUpdateTaskVariablePayloadResult =
-        taskVariablesPayloadValidator.handleUpdateTaskVariablePayload(updateTaskVariablePayload);
+    UpdateTaskVariablePayload actualHandleUpdateTaskVariablePayloadResult = taskVariablesPayloadValidator
+        .handleUpdateTaskVariablePayload(updateTaskVariablePayload);
 
     // Assert
-    verify(dateFormatterProvider).parse("Value");
-    verify(variableNameValidator).validate("You cannot update a variable with not a valid name: ");
+    verify(dateFormatterProvider).parse(eq("Value"));
+    verify(variableNameValidator).validate(eq("You cannot update a variable with not a valid name: "));
     assertEquals("Value", updateTaskVariablePayload.getValue());
     assertSame(updateTaskVariablePayload, actualHandleUpdateTaskVariablePayloadResult);
   }
 
   /**
-   * Test {@link
-   * TaskVariablesPayloadValidator#handleUpdateTaskVariablePayload(UpdateTaskVariablePayload)}.
-   *
-   * <p>Method under test: {@link
-   * TaskVariablesPayloadValidator#handleUpdateTaskVariablePayload(UpdateTaskVariablePayload)}
+   * Test {@link TaskVariablesPayloadValidator#handleUpdateTaskVariablePayload(UpdateTaskVariablePayload)}.
+   * <p>
+   * Method under test: {@link TaskVariablesPayloadValidator#handleUpdateTaskVariablePayload(UpdateTaskVariablePayload)}
    */
   @Test
   @DisplayName("Test handleUpdateTaskVariablePayload(UpdateTaskVariablePayload)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({
-    "UpdateTaskVariablePayload TaskVariablesPayloadValidator.handleUpdateTaskVariablePayload(UpdateTaskVariablePayload)"
-  })
-  void testHandleUpdateTaskVariablePayload2() throws DateTimeException {
+      "UpdateTaskVariablePayload TaskVariablesPayloadValidator.handleUpdateTaskVariablePayload(UpdateTaskVariablePayload)"})
+  void testHandleUpdateTaskVariablePayload3() throws DateTimeException {
     // Arrange
-    when(dateFormatterProvider.parse(Mockito.<String>any())).thenThrow(new IllegalStateException());
+    when(dateFormatterProvider.parse(Mockito.<String>any()))
+        .thenThrow(new IllegalStateException("You cannot update a variable with not a valid name: "));
     when(variableNameValidator.validate(Mockito.<String>any())).thenReturn(true);
-    UpdateTaskVariablePayload updateTaskVariablePayload =
-        new UpdateTaskVariablePayload(
-            "42", "You cannot update a variable with not a valid name: ", "Value");
 
     // Act and Assert
-    assertThrows(
-        IllegalStateException.class,
-        () ->
-            taskVariablesPayloadValidator.handleUpdateTaskVariablePayload(
-                updateTaskVariablePayload));
-    verify(dateFormatterProvider).parse("Value");
-    verify(variableNameValidator).validate("You cannot update a variable with not a valid name: ");
+    assertThrows(IllegalStateException.class, () -> taskVariablesPayloadValidator.handleUpdateTaskVariablePayload(
+        new UpdateTaskVariablePayload("42", "You cannot update a variable with not a valid name: ", "Value")));
+    verify(dateFormatterProvider).parse(eq("Value"));
+    verify(variableNameValidator).validate(eq("You cannot update a variable with not a valid name: "));
   }
 
   /**
-   * Test {@link
-   * TaskVariablesPayloadValidator#handleUpdateTaskVariablePayload(UpdateTaskVariablePayload)}.
-   *
-   * <p>Method under test: {@link
-   * TaskVariablesPayloadValidator#handleUpdateTaskVariablePayload(UpdateTaskVariablePayload)}
-   */
-  @Test
-  @DisplayName("Test handleUpdateTaskVariablePayload(UpdateTaskVariablePayload)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "UpdateTaskVariablePayload TaskVariablesPayloadValidator.handleUpdateTaskVariablePayload(UpdateTaskVariablePayload)"
-  })
-  void testHandleUpdateTaskVariablePayload3() {
-    // Arrange
-    when(variableNameValidator.validate(Mockito.<String>any())).thenReturn(false);
-    UpdateTaskVariablePayload updateTaskVariablePayload =
-        new UpdateTaskVariablePayload(
-            "42", "You cannot update a variable with not a valid name: ", "Value");
-
-    // Act and Assert
-    assertThrows(
-        IllegalStateException.class,
-        () ->
-            taskVariablesPayloadValidator.handleUpdateTaskVariablePayload(
-                updateTaskVariablePayload));
-    verify(variableNameValidator).validate("You cannot update a variable with not a valid name: ");
-  }
-
-  /**
-   * Test {@link
-   * TaskVariablesPayloadValidator#handleUpdateTaskVariablePayload(UpdateTaskVariablePayload)}.
-   *
-   * <p>Method under test: {@link
-   * TaskVariablesPayloadValidator#handleUpdateTaskVariablePayload(UpdateTaskVariablePayload)}
-   */
-  @Test
-  @DisplayName("Test handleUpdateTaskVariablePayload(UpdateTaskVariablePayload)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "UpdateTaskVariablePayload TaskVariablesPayloadValidator.handleUpdateTaskVariablePayload(UpdateTaskVariablePayload)"
-  })
-  void testHandleUpdateTaskVariablePayload4() {
-    // Arrange
-    when(variableNameValidator.validate(Mockito.<String>any())).thenReturn(false);
-    UpdateTaskVariablePayload updateTaskVariablePayload =
-        new UpdateTaskVariablePayload("42", null, "Value");
-
-    // Act and Assert
-    assertThrows(
-        IllegalStateException.class,
-        () ->
-            taskVariablesPayloadValidator.handleUpdateTaskVariablePayload(
-                updateTaskVariablePayload));
-    verify(variableNameValidator).validate(null);
-  }
-
-  /**
-   * Test {@link
-   * TaskVariablesPayloadValidator#handleUpdateTaskVariablePayload(UpdateTaskVariablePayload)}.
-   *
-   * <p>Method under test: {@link
-   * TaskVariablesPayloadValidator#handleUpdateTaskVariablePayload(UpdateTaskVariablePayload)}
-   */
-  @Test
-  @DisplayName("Test handleUpdateTaskVariablePayload(UpdateTaskVariablePayload)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "UpdateTaskVariablePayload TaskVariablesPayloadValidator.handleUpdateTaskVariablePayload(UpdateTaskVariablePayload)"
-  })
-  void testHandleUpdateTaskVariablePayload5() {
-    // Arrange
-    DateFormatterProvider dateFormatterProvider = new DateFormatterProvider("2020-03-01");
-    TaskVariablesPayloadValidator taskVariablesPayloadValidator =
-        new TaskVariablesPayloadValidator(dateFormatterProvider, new VariableNameValidator());
-
-    // Act and Assert
-    assertThrows(
-        IllegalStateException.class,
-        () ->
-            taskVariablesPayloadValidator.handleUpdateTaskVariablePayload(
-                new UpdateTaskVariablePayload()));
-  }
-
-  /**
-   * Test {@link
-   * TaskVariablesPayloadValidator#handleUpdateTaskVariablePayload(UpdateTaskVariablePayload)}.
-   *
-   * <p>Method under test: {@link
-   * TaskVariablesPayloadValidator#handleUpdateTaskVariablePayload(UpdateTaskVariablePayload)}
-   */
-  @Test
-  @DisplayName("Test handleUpdateTaskVariablePayload(UpdateTaskVariablePayload)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "UpdateTaskVariablePayload TaskVariablesPayloadValidator.handleUpdateTaskVariablePayload(UpdateTaskVariablePayload)"
-  })
-  void testHandleUpdateTaskVariablePayload6() {
-    // Arrange
-    DateFormatterProvider dateFormatterProvider = new DateFormatterProvider("2020-03-01");
-    TaskVariablesPayloadValidator taskVariablesPayloadValidator =
-        new TaskVariablesPayloadValidator(dateFormatterProvider, new VariableNameValidator());
-    UpdateTaskVariablePayload updateTaskVariablePayload =
-        new UpdateTaskVariablePayload("42", "not empty", "42");
-
-    // Act and Assert
-    assertThrows(
-        IllegalStateException.class,
-        () ->
-            taskVariablesPayloadValidator.handleUpdateTaskVariablePayload(
-                updateTaskVariablePayload));
-  }
-
-  /**
-   * Test {@link
-   * TaskVariablesPayloadValidator#handleUpdateTaskVariablePayload(UpdateTaskVariablePayload)}.
-   *
-   * <p>Method under test: {@link
-   * TaskVariablesPayloadValidator#handleUpdateTaskVariablePayload(UpdateTaskVariablePayload)}
-   */
-  @Test
-  @DisplayName("Test handleUpdateTaskVariablePayload(UpdateTaskVariablePayload)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "UpdateTaskVariablePayload TaskVariablesPayloadValidator.handleUpdateTaskVariablePayload(UpdateTaskVariablePayload)"
-  })
-  void testHandleUpdateTaskVariablePayload7() {
-    // Arrange
-    DateFormatterProvider dateFormatterProvider = new DateFormatterProvider("2020-03-01");
-    TaskVariablesPayloadValidator taskVariablesPayloadValidator =
-        new TaskVariablesPayloadValidator(dateFormatterProvider, new VariableNameValidator());
-    UpdateTaskVariablePayload updateTaskVariablePayload =
-        new UpdateTaskVariablePayload("42", "Name", "42");
-
-    // Act
-    UpdateTaskVariablePayload actualHandleUpdateTaskVariablePayloadResult =
-        taskVariablesPayloadValidator.handleUpdateTaskVariablePayload(updateTaskVariablePayload);
-
-    // Assert
-    assertEquals("42", updateTaskVariablePayload.getValue());
-    assertSame(updateTaskVariablePayload, actualHandleUpdateTaskVariablePayloadResult);
-  }
-
-  /**
-   * Test {@link
-   * TaskVariablesPayloadValidator#handleUpdateTaskVariablePayload(UpdateTaskVariablePayload)}.
-   *
+   * Test {@link TaskVariablesPayloadValidator#handleUpdateTaskVariablePayload(UpdateTaskVariablePayload)}.
    * <ul>
-   *   <li>Then return TaskId is {@code 42}.
+   *   <li>Given {@link DateFormatterProvider}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link
-   * TaskVariablesPayloadValidator#handleUpdateTaskVariablePayload(UpdateTaskVariablePayload)}
+   * <p>
+   * Method under test: {@link TaskVariablesPayloadValidator#handleUpdateTaskVariablePayload(UpdateTaskVariablePayload)}
    */
   @Test
-  @DisplayName(
-      "Test handleUpdateTaskVariablePayload(UpdateTaskVariablePayload); then return TaskId is '42'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test handleUpdateTaskVariablePayload(UpdateTaskVariablePayload); given DateFormatterProvider")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({
-    "UpdateTaskVariablePayload TaskVariablesPayloadValidator.handleUpdateTaskVariablePayload(UpdateTaskVariablePayload)"
-  })
+      "UpdateTaskVariablePayload TaskVariablesPayloadValidator.handleUpdateTaskVariablePayload(UpdateTaskVariablePayload)"})
+  void testHandleUpdateTaskVariablePayload_givenDateFormatterProvider() {
+    // Arrange
+    when(variableNameValidator.validate(Mockito.<String>any())).thenReturn(false);
+
+    // Act and Assert
+    assertThrows(IllegalStateException.class,
+        () -> taskVariablesPayloadValidator.handleUpdateTaskVariablePayload(new UpdateTaskVariablePayload()));
+    verify(variableNameValidator).validate(isNull());
+  }
+
+  /**
+   * Test {@link TaskVariablesPayloadValidator#handleUpdateTaskVariablePayload(UpdateTaskVariablePayload)}.
+   * <ul>
+   *   <li>Then return TaskId is {@code 42}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link TaskVariablesPayloadValidator#handleUpdateTaskVariablePayload(UpdateTaskVariablePayload)}
+   */
+  @Test
+  @DisplayName("Test handleUpdateTaskVariablePayload(UpdateTaskVariablePayload); then return TaskId is '42'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({
+      "UpdateTaskVariablePayload TaskVariablesPayloadValidator.handleUpdateTaskVariablePayload(UpdateTaskVariablePayload)"})
   void testHandleUpdateTaskVariablePayload_thenReturnTaskIdIs42() throws DateTimeException {
     // Arrange
-    Date fromResult =
-        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant());
+    Date fromResult = Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant());
     when(dateFormatterProvider.parse(Mockito.<String>any())).thenReturn(fromResult);
     when(variableNameValidator.validate(Mockito.<String>any())).thenReturn(true);
-    UpdateTaskVariablePayload updateTaskVariablePayload =
-        new UpdateTaskVariablePayload(
-            "42", "You cannot update a variable with not a valid name: ", "Value");
+    UpdateTaskVariablePayload updateTaskVariablePayload = new UpdateTaskVariablePayload("42",
+        "You cannot update a variable with not a valid name: ", "Value");
 
     // Act
-    UpdateTaskVariablePayload actualHandleUpdateTaskVariablePayloadResult =
-        taskVariablesPayloadValidator.handleUpdateTaskVariablePayload(updateTaskVariablePayload);
+    UpdateTaskVariablePayload actualHandleUpdateTaskVariablePayloadResult = taskVariablesPayloadValidator
+        .handleUpdateTaskVariablePayload(updateTaskVariablePayload);
 
     // Assert
-    verify(dateFormatterProvider).parse("Value");
-    verify(variableNameValidator).validate("You cannot update a variable with not a valid name: ");
+    verify(dateFormatterProvider).parse(eq("Value"));
+    verify(variableNameValidator).validate(eq("You cannot update a variable with not a valid name: "));
     assertEquals("42", actualHandleUpdateTaskVariablePayloadResult.getTaskId());
-    assertEquals(
-        "You cannot update a variable with not a valid name: ",
+    assertEquals("You cannot update a variable with not a valid name: ",
         actualHandleUpdateTaskVariablePayloadResult.getName());
     assertSame(fromResult, updateTaskVariablePayload.getValue());
     assertSame(fromResult, actualHandleUpdateTaskVariablePayloadResult.getValue());
   }
 
   /**
-   * Test {@link
-   * TaskVariablesPayloadValidator#handleUpdateTaskVariablePayload(UpdateTaskVariablePayload)}.
-   *
+   * Test {@link TaskVariablesPayloadValidator#handleUpdateTaskVariablePayload(UpdateTaskVariablePayload)}.
    * <ul>
-   *   <li>Then throw {@link DateTimeException}.
+   *   <li>Then {@link UpdateTaskVariablePayload#UpdateTaskVariablePayload()} Value is {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link
-   * TaskVariablesPayloadValidator#handleUpdateTaskVariablePayload(UpdateTaskVariablePayload)}
+   * <p>
+   * Method under test: {@link TaskVariablesPayloadValidator#handleUpdateTaskVariablePayload(UpdateTaskVariablePayload)}
    */
   @Test
-  @DisplayName(
-      "Test handleUpdateTaskVariablePayload(UpdateTaskVariablePayload); then throw DateTimeException")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test handleUpdateTaskVariablePayload(UpdateTaskVariablePayload); then UpdateTaskVariablePayload() Value is 'null'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({
-    "UpdateTaskVariablePayload TaskVariablesPayloadValidator.handleUpdateTaskVariablePayload(UpdateTaskVariablePayload)"
-  })
-  void testHandleUpdateTaskVariablePayload_thenThrowDateTimeException() {
-    // Arrange
-    when(variableNameValidator.validate(Mockito.<String>any()))
-        .thenThrow(new DateTimeException("You cannot update a variable with not a valid name: "));
-
-    // Act and Assert
-    assertThrows(
-        DateTimeException.class,
-        () ->
-            taskVariablesPayloadValidator.handleUpdateTaskVariablePayload(
-                new UpdateTaskVariablePayload()));
-    verify(variableNameValidator).validate(null);
-  }
-
-  /**
-   * Test {@link
-   * TaskVariablesPayloadValidator#handleUpdateTaskVariablePayload(UpdateTaskVariablePayload)}.
-   *
-   * <ul>
-   *   <li>Then {@link UpdateTaskVariablePayload#UpdateTaskVariablePayload()} Value is {@code null}.
-   * </ul>
-   *
-   * <p>Method under test: {@link
-   * TaskVariablesPayloadValidator#handleUpdateTaskVariablePayload(UpdateTaskVariablePayload)}
-   */
-  @Test
-  @DisplayName(
-      "Test handleUpdateTaskVariablePayload(UpdateTaskVariablePayload); then UpdateTaskVariablePayload() Value is 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "UpdateTaskVariablePayload TaskVariablesPayloadValidator.handleUpdateTaskVariablePayload(UpdateTaskVariablePayload)"
-  })
+      "UpdateTaskVariablePayload TaskVariablesPayloadValidator.handleUpdateTaskVariablePayload(UpdateTaskVariablePayload)"})
   void testHandleUpdateTaskVariablePayload_thenUpdateTaskVariablePayloadValueIsNull() {
     // Arrange
     when(variableNameValidator.validate(Mockito.<String>any())).thenReturn(true);
     UpdateTaskVariablePayload updateTaskVariablePayload = new UpdateTaskVariablePayload();
 
     // Act
-    UpdateTaskVariablePayload actualHandleUpdateTaskVariablePayloadResult =
-        taskVariablesPayloadValidator.handleUpdateTaskVariablePayload(updateTaskVariablePayload);
+    UpdateTaskVariablePayload actualHandleUpdateTaskVariablePayloadResult = taskVariablesPayloadValidator
+        .handleUpdateTaskVariablePayload(updateTaskVariablePayload);
 
     // Assert
-    verify(variableNameValidator).validate(null);
+    verify(variableNameValidator).validate(isNull());
     assertNull(updateTaskVariablePayload.getValue());
     assertSame(updateTaskVariablePayload, actualHandleUpdateTaskVariablePayloadResult);
   }
 
   /**
    * Test {@link TaskVariablesPayloadValidator#handlePayloadVariables(Map)}.
-   *
-   * <p>Method under test: {@link TaskVariablesPayloadValidator#handlePayloadVariables(Map)}
+   * <p>
+   * Method under test: {@link TaskVariablesPayloadValidator#handlePayloadVariables(Map)}
    */
   @Test
   @DisplayName("Test handlePayloadVariables(Map)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"Map TaskVariablesPayloadValidator.handlePayloadVariables(Map)"})
   void testHandlePayloadVariables() throws DateTimeException {
     // Arrange
-    when(dateFormatterProvider.parse(Mockito.<String>any()))
-        .thenThrow(new DateTimeException("foo"));
-    when(variableNameValidator.validateVariables(Mockito.<Map<String, Object>>any()))
-        .thenReturn(new HashSet<>());
-
-    HashMap<String, Object> variables = new HashMap<>();
-    variables.put("foo", "42");
-
-    // Act
-    Map<String, Object> actualHandlePayloadVariablesResult =
-        taskVariablesPayloadValidator.handlePayloadVariables(variables);
-
-    // Assert
-    verify(dateFormatterProvider).parse("42");
-    verify(variableNameValidator).validateVariables(isA(Map.class));
-    assertEquals(1, variables.size());
-    assertEquals("42", variables.get("foo"));
-    assertSame(variables, actualHandlePayloadVariablesResult);
-  }
-
-  /**
-   * Test {@link TaskVariablesPayloadValidator#handlePayloadVariables(Map)}.
-   *
-   * <p>Method under test: {@link TaskVariablesPayloadValidator#handlePayloadVariables(Map)}
-   */
-  @Test
-  @DisplayName("Test handlePayloadVariables(Map)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"Map TaskVariablesPayloadValidator.handlePayloadVariables(Map)"})
-  void testHandlePayloadVariables2() throws DateTimeException {
-    // Arrange
-    when(dateFormatterProvider.parse(Mockito.<String>any())).thenThrow(new IllegalStateException());
-    when(variableNameValidator.validateVariables(Mockito.<Map<String, Object>>any()))
-        .thenReturn(new HashSet<>());
+    when(dateFormatterProvider.parse(Mockito.<String>any())).thenThrow(new IllegalStateException("foo"));
+    when(variableNameValidator.validateVariables(Mockito.<Map<String, Object>>any())).thenReturn(new HashSet<>());
 
     HashMap<String, Object> variables = new HashMap<>();
     variables.put("foo", "42");
 
     // Act and Assert
-    assertThrows(
-        IllegalStateException.class,
-        () -> taskVariablesPayloadValidator.handlePayloadVariables(variables));
-    verify(dateFormatterProvider).parse("42");
+    assertThrows(IllegalStateException.class, () -> taskVariablesPayloadValidator.handlePayloadVariables(variables));
+    verify(dateFormatterProvider).parse(eq("42"));
     verify(variableNameValidator).validateVariables(isA(Map.class));
   }
 
   /**
    * Test {@link TaskVariablesPayloadValidator#handlePayloadVariables(Map)}.
-   *
-   * <p>Method under test: {@link TaskVariablesPayloadValidator#handlePayloadVariables(Map)}
-   */
-  @Test
-  @DisplayName("Test handlePayloadVariables(Map)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"Map TaskVariablesPayloadValidator.handlePayloadVariables(Map)"})
-  void testHandlePayloadVariables3() {
-    // Arrange
-    DateFormatterProvider dateFormatterProvider = new DateFormatterProvider("2020-03-01");
-    TaskVariablesPayloadValidator taskVariablesPayloadValidator =
-        new TaskVariablesPayloadValidator(dateFormatterProvider, new VariableNameValidator());
-
-    // Act and Assert
-    assertTrue(taskVariablesPayloadValidator.handlePayloadVariables(new HashMap<>()).isEmpty());
-  }
-
-  /**
-   * Test {@link TaskVariablesPayloadValidator#handlePayloadVariables(Map)}.
-   *
-   * <p>Method under test: {@link TaskVariablesPayloadValidator#handlePayloadVariables(Map)}
-   */
-  @Test
-  @DisplayName("Test handlePayloadVariables(Map)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"Map TaskVariablesPayloadValidator.handlePayloadVariables(Map)"})
-  void testHandlePayloadVariables4() {
-    // Arrange
-    VariableNameValidator variableNameValidator = mock(VariableNameValidator.class);
-    when(variableNameValidator.validateVariables(Mockito.<Map<String, Object>>any()))
-        .thenReturn(new HashSet<>());
-    TaskVariablesPayloadValidator taskVariablesPayloadValidator =
-        new TaskVariablesPayloadValidator(
-            new DateFormatterProvider("2020-03-01"), variableNameValidator);
-
-    HashMap<String, Object> variables = new HashMap<>();
-    variables.put("foo", "42");
-
-    // Act
-    Map<String, Object> actualHandlePayloadVariablesResult =
-        taskVariablesPayloadValidator.handlePayloadVariables(variables);
-
-    // Assert
-    verify(variableNameValidator).validateVariables(isA(Map.class));
-    assertEquals(1, variables.size());
-    assertEquals("42", variables.get("foo"));
-    assertSame(variables, actualHandlePayloadVariablesResult);
-  }
-
-  /**
-   * Test {@link TaskVariablesPayloadValidator#handlePayloadVariables(Map)}.
-   *
    * <ul>
-   *   <li>Given {@link HashSet#HashSet()} add {@code foo}.
-   *   <li>Then throw {@link IllegalStateException}.
+   *   <li>Given {@link HashSet#HashSet()} add {@code foo}.</li>
+   *   <li>Then throw {@link IllegalStateException}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link TaskVariablesPayloadValidator#handlePayloadVariables(Map)}
+   * <p>
+   * Method under test: {@link TaskVariablesPayloadValidator#handlePayloadVariables(Map)}
    */
   @Test
-  @DisplayName(
-      "Test handlePayloadVariables(Map); given HashSet() add 'foo'; then throw IllegalStateException")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test handlePayloadVariables(Map); given HashSet() add 'foo'; then throw IllegalStateException")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"Map TaskVariablesPayloadValidator.handlePayloadVariables(Map)"})
   void testHandlePayloadVariables_givenHashSetAddFoo_thenThrowIllegalStateException() {
     // Arrange
     HashSet<String> stringSet = new HashSet<>();
     stringSet.add("foo");
-    when(variableNameValidator.validateVariables(Mockito.<Map<String, Object>>any()))
-        .thenReturn(stringSet);
+    when(variableNameValidator.validateVariables(Mockito.<Map<String, Object>>any())).thenReturn(stringSet);
 
     // Act and Assert
-    assertThrows(
-        IllegalStateException.class,
+    assertThrows(IllegalStateException.class,
         () -> taskVariablesPayloadValidator.handlePayloadVariables(new HashMap<>()));
     verify(variableNameValidator).validateVariables(isA(Map.class));
   }
 
   /**
    * Test {@link TaskVariablesPayloadValidator#handlePayloadVariables(Map)}.
-   *
    * <ul>
-   *   <li>Given one.
-   *   <li>Then {@link HashMap#HashMap()} {@code foo} intValue is one.
+   *   <li>Given one.</li>
+   *   <li>Then {@link HashMap#HashMap()} {@code foo} intValue is one.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link TaskVariablesPayloadValidator#handlePayloadVariables(Map)}
+   * <p>
+   * Method under test: {@link TaskVariablesPayloadValidator#handlePayloadVariables(Map)}
    */
   @Test
   @DisplayName("Test handlePayloadVariables(Map); given one; then HashMap() 'foo' intValue is one")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"Map TaskVariablesPayloadValidator.handlePayloadVariables(Map)"})
   void testHandlePayloadVariables_givenOne_thenHashMapFooIntValueIsOne() {
     // Arrange
-    when(variableNameValidator.validateVariables(Mockito.<Map<String, Object>>any()))
-        .thenReturn(new HashSet<>());
+    when(variableNameValidator.validateVariables(Mockito.<Map<String, Object>>any())).thenReturn(new HashSet<>());
 
     HashMap<String, Object> variables = new HashMap<>();
     variables.put("foo", 1);
 
     // Act
-    Map<String, Object> actualHandlePayloadVariablesResult =
-        taskVariablesPayloadValidator.handlePayloadVariables(variables);
+    Map<String, Object> actualHandlePayloadVariablesResult = taskVariablesPayloadValidator
+        .handlePayloadVariables(variables);
 
     // Assert
     verify(variableNameValidator).validateVariables(isA(Map.class));
@@ -881,20 +457,17 @@ class TaskVariablesPayloadValidatorDiffblueTest {
 
   /**
    * Test {@link TaskVariablesPayloadValidator#handlePayloadVariables(Map)}.
-   *
    * <ul>
-   *   <li>Given {@link VariableNameValidator}.
-   *   <li>When {@code null}.
-   *   <li>Then return {@code null}.
+   *   <li>Given {@link VariableNameValidator}.</li>
+   *   <li>When {@code null}.</li>
+   *   <li>Then return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link TaskVariablesPayloadValidator#handlePayloadVariables(Map)}
+   * <p>
+   * Method under test: {@link TaskVariablesPayloadValidator#handlePayloadVariables(Map)}
    */
   @Test
-  @DisplayName(
-      "Test handlePayloadVariables(Map); given VariableNameValidator; when 'null'; then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test handlePayloadVariables(Map); given VariableNameValidator; when 'null'; then return 'null'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"Map TaskVariablesPayloadValidator.handlePayloadVariables(Map)"})
   void testHandlePayloadVariables_givenVariableNameValidator_whenNull_thenReturnNull() {
     // Arrange, Act and Assert
@@ -903,35 +476,63 @@ class TaskVariablesPayloadValidatorDiffblueTest {
 
   /**
    * Test {@link TaskVariablesPayloadValidator#handlePayloadVariables(Map)}.
-   *
    * <ul>
-   *   <li>Then return size is one.
+   *   <li>Then {@link HashMap#HashMap()} {@code foo} is {@code 42}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link TaskVariablesPayloadValidator#handlePayloadVariables(Map)}
+   * <p>
+   * Method under test: {@link TaskVariablesPayloadValidator#handlePayloadVariables(Map)}
    */
   @Test
-  @DisplayName("Test handlePayloadVariables(Map); then return size is one")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test handlePayloadVariables(Map); then HashMap() 'foo' is '42'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"Map TaskVariablesPayloadValidator.handlePayloadVariables(Map)"})
-  void testHandlePayloadVariables_thenReturnSizeIsOne() throws DateTimeException {
+  void testHandlePayloadVariables_thenHashMapFooIs42() throws DateTimeException {
     // Arrange
-    Date fromResult =
-        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant());
-    when(dateFormatterProvider.parse(Mockito.<String>any())).thenReturn(fromResult);
-    when(variableNameValidator.validateVariables(Mockito.<Map<String, Object>>any()))
-        .thenReturn(new HashSet<>());
+    when(dateFormatterProvider.parse(Mockito.<String>any())).thenThrow(new DateTimeException("foo"));
+    when(variableNameValidator.validateVariables(Mockito.<Map<String, Object>>any())).thenReturn(new HashSet<>());
 
     HashMap<String, Object> variables = new HashMap<>();
     variables.put("foo", "42");
 
     // Act
-    Map<String, Object> actualHandlePayloadVariablesResult =
-        taskVariablesPayloadValidator.handlePayloadVariables(variables);
+    Map<String, Object> actualHandlePayloadVariablesResult = taskVariablesPayloadValidator
+        .handlePayloadVariables(variables);
 
     // Assert
-    verify(dateFormatterProvider).parse("42");
+    verify(dateFormatterProvider).parse(eq("42"));
+    verify(variableNameValidator).validateVariables(isA(Map.class));
+    assertEquals(1, variables.size());
+    assertEquals("42", variables.get("foo"));
+    assertSame(variables, actualHandlePayloadVariablesResult);
+  }
+
+  /**
+   * Test {@link TaskVariablesPayloadValidator#handlePayloadVariables(Map)}.
+   * <ul>
+   *   <li>Then return size is one.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link TaskVariablesPayloadValidator#handlePayloadVariables(Map)}
+   */
+  @Test
+  @DisplayName("Test handlePayloadVariables(Map); then return size is one")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"Map TaskVariablesPayloadValidator.handlePayloadVariables(Map)"})
+  void testHandlePayloadVariables_thenReturnSizeIsOne() throws DateTimeException {
+    // Arrange
+    Date fromResult = Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant());
+    when(dateFormatterProvider.parse(Mockito.<String>any())).thenReturn(fromResult);
+    when(variableNameValidator.validateVariables(Mockito.<Map<String, Object>>any())).thenReturn(new HashSet<>());
+
+    HashMap<String, Object> variables = new HashMap<>();
+    variables.put("foo", "42");
+
+    // Act
+    Map<String, Object> actualHandlePayloadVariablesResult = taskVariablesPayloadValidator
+        .handlePayloadVariables(variables);
+
+    // Assert
+    verify(dateFormatterProvider).parse(eq("42"));
     verify(variableNameValidator).validateVariables(isA(Map.class));
     assertEquals(1, variables.size());
     assertEquals(1, actualHandlePayloadVariablesResult.size());
@@ -941,65 +542,33 @@ class TaskVariablesPayloadValidatorDiffblueTest {
 
   /**
    * Test {@link TaskVariablesPayloadValidator#handlePayloadVariables(Map)}.
-   *
    * <ul>
-   *   <li>Then throw {@link DateTimeException}.
+   *   <li>When {@link HashMap#HashMap()} {@code 42} is {@code 42}.</li>
+   *   <li>Then {@link HashMap#HashMap()} size is two.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link TaskVariablesPayloadValidator#handlePayloadVariables(Map)}
+   * <p>
+   * Method under test: {@link TaskVariablesPayloadValidator#handlePayloadVariables(Map)}
    */
   @Test
-  @DisplayName("Test handlePayloadVariables(Map); then throw DateTimeException")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test handlePayloadVariables(Map); when HashMap() '42' is '42'; then HashMap() size is two")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"Map TaskVariablesPayloadValidator.handlePayloadVariables(Map)"})
-  void testHandlePayloadVariables_thenThrowDateTimeException() {
+  void testHandlePayloadVariables_whenHashMap42Is42_thenHashMapSizeIsTwo() throws DateTimeException {
     // Arrange
-    when(variableNameValidator.validateVariables(Mockito.<Map<String, Object>>any()))
-        .thenThrow(new DateTimeException("foo"));
-
-    // Act and Assert
-    assertThrows(
-        DateTimeException.class,
-        () -> taskVariablesPayloadValidator.handlePayloadVariables(new HashMap<>()));
-    verify(variableNameValidator).validateVariables(isA(Map.class));
-  }
-
-  /**
-   * Test {@link TaskVariablesPayloadValidator#handlePayloadVariables(Map)}.
-   *
-   * <ul>
-   *   <li>When {@link HashMap#HashMap()} {@code 42} is {@code 42}.
-   *   <li>Then {@link HashMap#HashMap()} size is two.
-   * </ul>
-   *
-   * <p>Method under test: {@link TaskVariablesPayloadValidator#handlePayloadVariables(Map)}
-   */
-  @Test
-  @DisplayName(
-      "Test handlePayloadVariables(Map); when HashMap() '42' is '42'; then HashMap() size is two")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"Map TaskVariablesPayloadValidator.handlePayloadVariables(Map)"})
-  void testHandlePayloadVariables_whenHashMap42Is42_thenHashMapSizeIsTwo()
-      throws DateTimeException {
-    // Arrange
-    Date fromResult =
-        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant());
+    Date fromResult = Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant());
     when(dateFormatterProvider.parse(Mockito.<String>any())).thenReturn(fromResult);
-    when(variableNameValidator.validateVariables(Mockito.<Map<String, Object>>any()))
-        .thenReturn(new HashSet<>());
+    when(variableNameValidator.validateVariables(Mockito.<Map<String, Object>>any())).thenReturn(new HashSet<>());
 
     HashMap<String, Object> variables = new HashMap<>();
     variables.put("42", "42");
     variables.put("foo", "42");
 
     // Act
-    Map<String, Object> actualHandlePayloadVariablesResult =
-        taskVariablesPayloadValidator.handlePayloadVariables(variables);
+    Map<String, Object> actualHandlePayloadVariablesResult = taskVariablesPayloadValidator
+        .handlePayloadVariables(variables);
 
     // Assert
-    verify(dateFormatterProvider, atLeast(1)).parse("42");
+    verify(dateFormatterProvider, atLeast(1)).parse(eq("42"));
     verify(variableNameValidator).validateVariables(isA(Map.class));
     assertEquals(2, variables.size());
     assertEquals(2, actualHandlePayloadVariablesResult.size());
@@ -1011,27 +580,24 @@ class TaskVariablesPayloadValidatorDiffblueTest {
 
   /**
    * Test {@link TaskVariablesPayloadValidator#handlePayloadVariables(Map)}.
-   *
    * <ul>
-   *   <li>When {@link HashMap#HashMap()}.
-   *   <li>Then return Empty.
+   *   <li>When {@link HashMap#HashMap()}.</li>
+   *   <li>Then return Empty.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link TaskVariablesPayloadValidator#handlePayloadVariables(Map)}
+   * <p>
+   * Method under test: {@link TaskVariablesPayloadValidator#handlePayloadVariables(Map)}
    */
   @Test
   @DisplayName("Test handlePayloadVariables(Map); when HashMap(); then return Empty")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"Map TaskVariablesPayloadValidator.handlePayloadVariables(Map)"})
   void testHandlePayloadVariables_whenHashMap_thenReturnEmpty() {
     // Arrange
-    when(variableNameValidator.validateVariables(Mockito.<Map<String, Object>>any()))
-        .thenReturn(new HashSet<>());
+    when(variableNameValidator.validateVariables(Mockito.<Map<String, Object>>any())).thenReturn(new HashSet<>());
 
     // Act
-    Map<String, Object> actualHandlePayloadVariablesResult =
-        taskVariablesPayloadValidator.handlePayloadVariables(new HashMap<>());
+    Map<String, Object> actualHandlePayloadVariablesResult = taskVariablesPayloadValidator
+        .handlePayloadVariables(new HashMap<>());
 
     // Assert
     verify(variableNameValidator).validateVariables(isA(Map.class));

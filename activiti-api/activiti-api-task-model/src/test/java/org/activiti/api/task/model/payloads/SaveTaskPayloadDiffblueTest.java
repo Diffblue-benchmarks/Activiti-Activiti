@@ -19,7 +19,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.HashMap;
 import java.util.Map;
@@ -30,13 +29,12 @@ import org.junit.jupiter.api.Test;
 class SaveTaskPayloadDiffblueTest {
   /**
    * Test {@link SaveTaskPayload#SaveTaskPayload()}.
-   *
-   * <p>Method under test: {@link SaveTaskPayload#SaveTaskPayload()}
+   * <p>
+   * Method under test: {@link SaveTaskPayload#SaveTaskPayload()}
    */
   @Test
   @DisplayName("Test new SaveTaskPayload()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void SaveTaskPayload.<init>()"})
   void testNewSaveTaskPayload() {
     // Arrange and Act
@@ -49,13 +47,12 @@ class SaveTaskPayloadDiffblueTest {
 
   /**
    * Test {@link SaveTaskPayload#SaveTaskPayload(String, Map)}.
-   *
-   * <p>Method under test: {@link SaveTaskPayload#SaveTaskPayload(String, Map)}
+   * <p>
+   * Method under test: {@link SaveTaskPayload#SaveTaskPayload(String, Map)}
    */
   @Test
   @DisplayName("Test new SaveTaskPayload(String, Map)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void SaveTaskPayload.<init>(String, Map)"})
   void testNewSaveTaskPayload2() {
     // Arrange and Act
@@ -68,9 +65,8 @@ class SaveTaskPayloadDiffblueTest {
 
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>{@link SaveTaskPayload#setTaskId(String)}
    *   <li>{@link SaveTaskPayload#setVariables(Map)}
@@ -81,15 +77,10 @@ class SaveTaskPayloadDiffblueTest {
    */
   @Test
   @DisplayName("Test getters and setters")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "String SaveTaskPayload.getId()",
-    "String SaveTaskPayload.getTaskId()",
-    "Map SaveTaskPayload.getVariables()",
-    "void SaveTaskPayload.setTaskId(String)",
-    "void SaveTaskPayload.setVariables(Map)"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"String SaveTaskPayload.getId()", "String SaveTaskPayload.getTaskId()",
+      "Map SaveTaskPayload.getVariables()", "void SaveTaskPayload.setTaskId(String)",
+      "void SaveTaskPayload.setVariables(Map)"})
   void testGettersAndSetters() {
     // Arrange
     SaveTaskPayload saveTaskPayload = new SaveTaskPayload();

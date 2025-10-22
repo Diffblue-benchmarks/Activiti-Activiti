@@ -19,8 +19,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.Map;
 import org.activiti.engine.impl.cfg.JtaProcessEngineConfiguration;
@@ -33,25 +32,21 @@ import org.junit.experimental.categories.Category;
 public class MybatisModelDataManagerDiffblueTest {
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>{@link MybatisModelDataManager#MybatisModelDataManager(ProcessEngineConfigurationImpl)}
    *   <li>{@link MybatisModelDataManager#getManagedEntityClass()}
    * </ul>
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void MybatisModelDataManager.<init>(ProcessEngineConfigurationImpl)",
-    "Class MybatisModelDataManager.getManagedEntityClass()"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void MybatisModelDataManager.<init>(ProcessEngineConfigurationImpl)",
+      "Class MybatisModelDataManager.getManagedEntityClass()"})
   public void testGettersAndSetters() {
     // Arrange and Act
-    Class<? extends ModelEntity> actualManagedEntityClass =
-        new MybatisModelDataManager(new JtaProcessEngineConfiguration()).getManagedEntityClass();
+    Class<? extends ModelEntity> actualManagedEntityClass = (new MybatisModelDataManager(
+        new JtaProcessEngineConfiguration())).getManagedEntityClass();
 
     // Assert
     Class<ModelEntityImpl> expectedManagedEntityClass = ModelEntityImpl.class;
@@ -60,17 +55,15 @@ public class MybatisModelDataManagerDiffblueTest {
 
   /**
    * Test {@link MybatisModelDataManager#create()}.
-   *
-   * <p>Method under test: {@link MybatisModelDataManager#create()}
+   * <p>
+   * Method under test: {@link MybatisModelDataManager#create()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"ModelEntity MybatisModelDataManager.create()"})
   public void testCreate() {
     // Arrange and Act
-    ModelEntity actualCreateResult =
-        new MybatisModelDataManager(new JtaProcessEngineConfiguration()).create();
+    ModelEntity actualCreateResult = (new MybatisModelDataManager(new JtaProcessEngineConfiguration())).create();
 
     // Assert
     Object persistentState = actualCreateResult.getPersistentState();

@@ -21,8 +21,7 @@ import static org.junit.Assert.assertTrue;
 import static org.mockito.ArgumentMatchers.isA;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.HashMap;
 import java.util.Map;
@@ -45,86 +44,61 @@ import org.mockito.junit.MockitoJUnitRunner;
 @RunWith(MockitoJUnitRunner.class)
 public class DelegateExpressionTransactionDependentExecutionListenerDiffblueTest {
   @InjectMocks
-  private DelegateExpressionTransactionDependentExecutionListener
-      delegateExpressionTransactionDependentExecutionListener;
+  private DelegateExpressionTransactionDependentExecutionListener delegateExpressionTransactionDependentExecutionListener;
 
-  @Mock private Expression expression;
+  @Mock
+  private Expression expression;
 
   /**
-   * Test {@link
-   * DelegateExpressionTransactionDependentExecutionListener#DelegateExpressionTransactionDependentExecutionListener(Expression)}.
-   *
-   * <p>Method under test: {@link
-   * DelegateExpressionTransactionDependentExecutionListener#DelegateExpressionTransactionDependentExecutionListener(Expression)}
+   * Test {@link DelegateExpressionTransactionDependentExecutionListener#DelegateExpressionTransactionDependentExecutionListener(Expression)}.
+   * <p>
+   * Method under test: {@link DelegateExpressionTransactionDependentExecutionListener#DelegateExpressionTransactionDependentExecutionListener(Expression)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void DelegateExpressionTransactionDependentExecutionListener.<init>(Expression)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void DelegateExpressionTransactionDependentExecutionListener.<init>(Expression)"})
   public void testNewDelegateExpressionTransactionDependentExecutionListener() {
     // Arrange and Act
-    DelegateExpressionTransactionDependentExecutionListener
-        actualDelegateExpressionTransactionDependentExecutionListener =
-            new DelegateExpressionTransactionDependentExecutionListener(
-                new FixedValue(JSONObject.NULL));
+    DelegateExpressionTransactionDependentExecutionListener actualDelegateExpressionTransactionDependentExecutionListener = new DelegateExpressionTransactionDependentExecutionListener(
+        new FixedValue(JSONObject.NULL));
 
     // Assert
-    Expression expression =
-        actualDelegateExpressionTransactionDependentExecutionListener.expression;
+    Expression expression = actualDelegateExpressionTransactionDependentExecutionListener.expression;
     assertTrue(expression instanceof FixedValue);
     assertEquals("null", expression.getExpressionText());
-    assertEquals(
-        "null", actualDelegateExpressionTransactionDependentExecutionListener.getExpressionText());
+    assertEquals("null", actualDelegateExpressionTransactionDependentExecutionListener.getExpressionText());
   }
 
   /**
-   * Test {@link DelegateExpressionTransactionDependentExecutionListener#notify(String, String,
-   * FlowElement, Map, Map)} with {@code String}, {@code String}, {@code FlowElement}, {@code Map},
-   * {@code Map}.
-   *
-   * <p>Method under test: {@link
-   * DelegateExpressionTransactionDependentExecutionListener#notify(String, String, FlowElement,
-   * Map, Map)}
+   * Test {@link DelegateExpressionTransactionDependentExecutionListener#notify(String, String, FlowElement, Map, Map)} with {@code String}, {@code String}, {@code FlowElement}, {@code Map}, {@code Map}.
+   * <p>
+   * Method under test: {@link DelegateExpressionTransactionDependentExecutionListener#notify(String, String, FlowElement, Map, Map)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({
-    "void DelegateExpressionTransactionDependentExecutionListener.notify(String, String, FlowElement, Map, Map)"
-  })
+      "void DelegateExpressionTransactionDependentExecutionListener.notify(String, String, FlowElement, Map, Map)"})
   public void testNotifyWithStringStringFlowElementMapMap() {
     // Arrange
-    when(expression.getValue(Mockito.<VariableScope>any()))
-        .thenThrow(new ActivitiIllegalArgumentException("An error occurred"));
+    when(expression.getValue(Mockito.<VariableScope>any())).thenReturn(JSONObject.NULL);
     AdhocSubProcess flowElement = new AdhocSubProcess();
     HashMap<String, Object> executionVariables = new HashMap<>();
 
     // Act and Assert
-    assertThrows(
-        ActivitiIllegalArgumentException.class,
-        () ->
-            delegateExpressionTransactionDependentExecutionListener.notify(
-                "42", "42", flowElement, executionVariables, new HashMap<>()));
+    assertThrows(ActivitiIllegalArgumentException.class, () -> delegateExpressionTransactionDependentExecutionListener
+        .notify("42", "42", flowElement, executionVariables, new HashMap<>()));
     verify(expression).getValue(isA(VariableScope.class));
   }
 
   /**
-   * Test {@link DelegateExpressionTransactionDependentExecutionListener#notify(String, String,
-   * FlowElement, Map, Map)} with {@code String}, {@code String}, {@code FlowElement}, {@code Map},
-   * {@code Map}.
-   *
-   * <p>Method under test: {@link
-   * DelegateExpressionTransactionDependentExecutionListener#notify(String, String, FlowElement,
-   * Map, Map)}
+   * Test {@link DelegateExpressionTransactionDependentExecutionListener#notify(String, String, FlowElement, Map, Map)} with {@code String}, {@code String}, {@code FlowElement}, {@code Map}, {@code Map}.
+   * <p>
+   * Method under test: {@link DelegateExpressionTransactionDependentExecutionListener#notify(String, String, FlowElement, Map, Map)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({
-    "void DelegateExpressionTransactionDependentExecutionListener.notify(String, String, FlowElement, Map, Map)"
-  })
+      "void DelegateExpressionTransactionDependentExecutionListener.notify(String, String, FlowElement, Map, Map)"})
   public void testNotifyWithStringStringFlowElementMapMap2() {
     // Arrange
     when(expression.getValue(Mockito.<VariableScope>any()))
@@ -133,70 +107,28 @@ public class DelegateExpressionTransactionDependentExecutionListenerDiffblueTest
     HashMap<String, Object> executionVariables = new HashMap<>();
 
     // Act
-    delegateExpressionTransactionDependentExecutionListener.notify(
-        "42", "42", flowElement, executionVariables, new HashMap<>());
+    delegateExpressionTransactionDependentExecutionListener.notify("42", "42", flowElement, executionVariables,
+        new HashMap<>());
 
     // Assert
     verify(expression).getValue(isA(VariableScope.class));
   }
 
   /**
-   * Test {@link DelegateExpressionTransactionDependentExecutionListener#notify(String, String,
-   * FlowElement, Map, Map)} with {@code String}, {@code String}, {@code FlowElement}, {@code Map},
-   * {@code Map}.
-   *
-   * <ul>
-   *   <li>Given {@link Expression} {@link Expression#getValue(VariableScope)} return {@link
-   *       JSONObject#NULL}.
-   * </ul>
-   *
-   * <p>Method under test: {@link
-   * DelegateExpressionTransactionDependentExecutionListener#notify(String, String, FlowElement,
-   * Map, Map)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void DelegateExpressionTransactionDependentExecutionListener.notify(String, String, FlowElement, Map, Map)"
-  })
-  public void testNotifyWithStringStringFlowElementMapMap_givenExpressionGetValueReturnNull() {
-    // Arrange
-    when(expression.getValue(Mockito.<VariableScope>any())).thenReturn(JSONObject.NULL);
-    AdhocSubProcess flowElement = new AdhocSubProcess();
-    HashMap<String, Object> executionVariables = new HashMap<>();
-
-    // Act and Assert
-    assertThrows(
-        ActivitiIllegalArgumentException.class,
-        () ->
-            delegateExpressionTransactionDependentExecutionListener.notify(
-                "42", "42", flowElement, executionVariables, new HashMap<>()));
-    verify(expression).getValue(isA(VariableScope.class));
-  }
-
-  /**
    * Test {@link DelegateExpressionTransactionDependentExecutionListener#getExpressionText()}.
-   *
    * <ul>
-   *   <li>Given {@link FixedValue#FixedValue(Object)} with value is {@link JSONObject#NULL}.
-   *   <li>Then return {@code null}.
+   *   <li>Given {@link FixedValue#FixedValue(Object)} with value is {@link JSONObject#NULL}.</li>
+   *   <li>Then return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link
-   * DelegateExpressionTransactionDependentExecutionListener#getExpressionText()}
+   * <p>
+   * Method under test: {@link DelegateExpressionTransactionDependentExecutionListener#getExpressionText()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "String DelegateExpressionTransactionDependentExecutionListener.getExpressionText()"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String DelegateExpressionTransactionDependentExecutionListener.getExpressionText()"})
   public void testGetExpressionText_givenFixedValueWithValueIsNull_thenReturnNull() {
     // Arrange, Act and Assert
-    assertEquals(
-        "null",
-        new DelegateExpressionTransactionDependentExecutionListener(new FixedValue(JSONObject.NULL))
-            .getExpressionText());
+    assertEquals("null", (new DelegateExpressionTransactionDependentExecutionListener(new FixedValue(JSONObject.NULL)))
+        .getExpressionText());
   }
 }

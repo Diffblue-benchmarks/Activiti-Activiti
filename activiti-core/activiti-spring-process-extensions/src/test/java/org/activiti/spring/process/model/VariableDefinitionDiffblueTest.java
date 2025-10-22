@@ -18,7 +18,6 @@ package org.activiti.spring.process.model;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
@@ -27,9 +26,8 @@ import org.junit.jupiter.api.Test;
 class VariableDefinitionDiffblueTest {
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>{@link VariableDefinition#VariableDefinition()}
    *   <li>{@link VariableDefinition#setValue(Object)}
@@ -38,13 +36,9 @@ class VariableDefinitionDiffblueTest {
    */
   @Test
   @DisplayName("Test getters and setters")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void VariableDefinition.<init>()",
-    "Object VariableDefinition.getValue()",
-    "void VariableDefinition.setValue(Object)"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void VariableDefinition.<init>()", "Object VariableDefinition.getValue()",
+      "void VariableDefinition.setValue(Object)"})
   void testGettersAndSetters() {
     // Arrange and Act
     VariableDefinition actualVariableDefinition = new VariableDefinition();
@@ -64,13 +58,12 @@ class VariableDefinitionDiffblueTest {
 
   /**
    * Test {@link VariableDefinition#VariableDefinition(String, Object)}.
-   *
-   * <p>Method under test: {@link VariableDefinition#VariableDefinition(String, Object)}
+   * <p>
+   * Method under test: {@link VariableDefinition#VariableDefinition(String, Object)}
    */
   @Test
   @DisplayName("Test new VariableDefinition(String, Object)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void VariableDefinition.<init>(String, Object)"})
   void testNewVariableDefinition() {
     // Arrange and Act

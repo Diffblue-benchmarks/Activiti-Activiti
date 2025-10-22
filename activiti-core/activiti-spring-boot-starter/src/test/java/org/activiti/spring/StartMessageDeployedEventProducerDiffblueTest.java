@@ -23,7 +23,6 @@ import static org.mockito.ArgumentMatchers.isA;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -53,134 +52,71 @@ import org.springframework.context.ApplicationEventPublisher;
 
 @ExtendWith(MockitoExtension.class)
 class StartMessageDeployedEventProducerDiffblueTest {
-  @Mock private APIProcessDefinitionConverter aPIProcessDefinitionConverter;
+  @Mock
+  private APIProcessDefinitionConverter aPIProcessDefinitionConverter;
 
-  @Mock private ManagementService managementService;
+  @Mock
+  private ManagementService managementService;
 
-  @Mock private RepositoryService repositoryService;
+  @Mock
+  private RepositoryService repositoryService;
 
-  @InjectMocks private StartMessageDeployedEventProducer startMessageDeployedEventProducer;
+  @Mock
+  private StartMessageSubscriptionConverter startMessageSubscriptionConverter;
 
-  @Mock private StartMessageSubscriptionConverter startMessageSubscriptionConverter;
-
-  /**
-   * Test DispatchStartMessageDeployedEvents {@link
-   * DispatchStartMessageDeployedEvents#execute(CommandContext)}.
-   *
-   * <ul>
-   *   <li>Then return {@code null}.
-   * </ul>
-   *
-   * <p>Method under test: {@link DispatchStartMessageDeployedEvents#execute(CommandContext)}
-   */
-  @Test
-  @DisplayName(
-      "Test DispatchStartMessageDeployedEvents execute(CommandContext); then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"Void DispatchStartMessageDeployedEvents.execute(CommandContext)"})
-  void testDispatchStartMessageDeployedEventsExecute_thenReturnNull() {
-    // Arrange
-    ArrayList<ProcessRuntimeEventListener<StartMessageDeployedEvent>> listeners = new ArrayList<>();
-    listeners.add(mock(ProcessRuntimeEventListener.class));
-    RepositoryServiceImpl repositoryService = new RepositoryServiceImpl();
-    ManagementServiceImpl managementService = new ManagementServiceImpl();
-    StartMessageSubscriptionConverter subscriptionConverter =
-        new StartMessageSubscriptionConverter();
-
-    StartMessageDeployedEventProducer startMessageDeployedEventProducer =
-        new StartMessageDeployedEventProducer(
-            repositoryService,
-            managementService,
-            subscriptionConverter,
-            new APIProcessDefinitionConverter(new RepositoryServiceImpl()),
-            listeners,
-            mock(ApplicationEventPublisher.class));
-
-    // Act and Assert
-    assertNull(
-        startMessageDeployedEventProducer.new DispatchStartMessageDeployedEvents(new ArrayList<>())
-            .execute(null));
-  }
+  @InjectMocks
+  private StartMessageDeployedEventProducer startMessageDeployedEventProducer;
 
   /**
-   * Test DispatchStartMessageDeployedEvents {@link
-   * DispatchStartMessageDeployedEvents#execute(CommandContext)}.
-   *
+   * Test DispatchStartMessageDeployedEvents {@link DispatchStartMessageDeployedEvents#execute(CommandContext)}.
    * <ul>
-   *   <li>When {@code null}.
-   *   <li>Then return {@code null}.
+   *   <li>When {@code null}.</li>
+   *   <li>Then return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link DispatchStartMessageDeployedEvents#execute(CommandContext)}
+   * <p>
+   * Method under test: {@link DispatchStartMessageDeployedEvents#execute(CommandContext)}
    */
   @Test
-  @DisplayName(
-      "Test DispatchStartMessageDeployedEvents execute(CommandContext); when 'null'; then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test DispatchStartMessageDeployedEvents execute(CommandContext); when 'null'; then return 'null'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"Void DispatchStartMessageDeployedEvents.execute(CommandContext)"})
   void testDispatchStartMessageDeployedEventsExecute_whenNull_thenReturnNull() {
     // Arrange
     RepositoryServiceImpl repositoryService = new RepositoryServiceImpl();
     ManagementServiceImpl managementService = new ManagementServiceImpl();
-    StartMessageSubscriptionConverter subscriptionConverter =
-        new StartMessageSubscriptionConverter();
-    APIProcessDefinitionConverter converter =
-        new APIProcessDefinitionConverter(new RepositoryServiceImpl());
-
-    StartMessageDeployedEventProducer startMessageDeployedEventProducer =
-        new StartMessageDeployedEventProducer(
-            repositoryService,
-            managementService,
-            subscriptionConverter,
-            converter,
-            new ArrayList<>(),
-            mock(ApplicationEventPublisher.class));
+    StartMessageSubscriptionConverter subscriptionConverter = new StartMessageSubscriptionConverter();
+    APIProcessDefinitionConverter converter = new APIProcessDefinitionConverter(new RepositoryServiceImpl());
+    StartMessageDeployedEventProducer startMessageDeployedEventProducer = new StartMessageDeployedEventProducer(
+        repositoryService, managementService, subscriptionConverter, converter, new ArrayList<>(),
+        mock(ApplicationEventPublisher.class));
 
     // Act and Assert
     assertNull(
-        startMessageDeployedEventProducer.new DispatchStartMessageDeployedEvents(new ArrayList<>())
-            .execute(null));
+        (startMessageDeployedEventProducer.new DispatchStartMessageDeployedEvents(new ArrayList<>())).execute(null));
   }
 
   /**
-   * Test {@link
-   * StartMessageDeployedEventProducer#StartMessageDeployedEventProducer(RepositoryService,
-   * ManagementService, StartMessageSubscriptionConverter, APIProcessDefinitionConverter, List,
-   * ApplicationEventPublisher)}.
-   *
+   * Test {@link StartMessageDeployedEventProducer#StartMessageDeployedEventProducer(RepositoryService, ManagementService, StartMessageSubscriptionConverter, APIProcessDefinitionConverter, List, ApplicationEventPublisher)}.
    * <ul>
-   *   <li>Given {@link ProcessRuntimeEventListener}.
+   *   <li>Given {@link ProcessRuntimeEventListener}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link
-   * StartMessageDeployedEventProducer#StartMessageDeployedEventProducer(RepositoryService,
-   * ManagementService, StartMessageSubscriptionConverter, APIProcessDefinitionConverter, List,
-   * ApplicationEventPublisher)}
+   * <p>
+   * Method under test: {@link StartMessageDeployedEventProducer#StartMessageDeployedEventProducer(RepositoryService, ManagementService, StartMessageSubscriptionConverter, APIProcessDefinitionConverter, List, ApplicationEventPublisher)}
    */
   @Test
-  @DisplayName(
-      "Test new StartMessageDeployedEventProducer(RepositoryService, ManagementService, StartMessageSubscriptionConverter, APIProcessDefinitionConverter, List, ApplicationEventPublisher); given ProcessRuntimeEventListener")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test new StartMessageDeployedEventProducer(RepositoryService, ManagementService, StartMessageSubscriptionConverter, APIProcessDefinitionConverter, List, ApplicationEventPublisher); given ProcessRuntimeEventListener")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({
-    "void StartMessageDeployedEventProducer.<init>(RepositoryService, ManagementService, StartMessageSubscriptionConverter, APIProcessDefinitionConverter, List, ApplicationEventPublisher)"
-  })
+      "void StartMessageDeployedEventProducer.<init>(RepositoryService, ManagementService, StartMessageSubscriptionConverter, APIProcessDefinitionConverter, List, ApplicationEventPublisher)"})
   void testNewStartMessageDeployedEventProducer_givenProcessRuntimeEventListener() {
     // Arrange
     ArrayList<ProcessRuntimeEventListener<StartMessageDeployedEvent>> listeners = new ArrayList<>();
     listeners.add(mock(ProcessRuntimeEventListener.class));
 
     // Act
-    StartMessageDeployedEventProducer actualStartMessageDeployedEventProducer =
-        new StartMessageDeployedEventProducer(
-            repositoryService,
-            managementService,
-            startMessageSubscriptionConverter,
-            aPIProcessDefinitionConverter,
-            listeners,
-            mock(ApplicationEventPublisher.class));
+    StartMessageDeployedEventProducer actualStartMessageDeployedEventProducer = new StartMessageDeployedEventProducer(
+        repositoryService, managementService, startMessageSubscriptionConverter, aPIProcessDefinitionConverter,
+        listeners, mock(ApplicationEventPublisher.class));
 
     // Assert
     assertFalse(actualStartMessageDeployedEventProducer.isRunning());
@@ -189,28 +125,18 @@ class StartMessageDeployedEventProducerDiffblueTest {
   }
 
   /**
-   * Test {@link
-   * StartMessageDeployedEventProducer#StartMessageDeployedEventProducer(RepositoryService,
-   * ManagementService, StartMessageSubscriptionConverter, APIProcessDefinitionConverter, List,
-   * ApplicationEventPublisher)}.
-   *
+   * Test {@link StartMessageDeployedEventProducer#StartMessageDeployedEventProducer(RepositoryService, ManagementService, StartMessageSubscriptionConverter, APIProcessDefinitionConverter, List, ApplicationEventPublisher)}.
    * <ul>
-   *   <li>Given {@link ProcessRuntimeEventListener}.
+   *   <li>Given {@link ProcessRuntimeEventListener}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link
-   * StartMessageDeployedEventProducer#StartMessageDeployedEventProducer(RepositoryService,
-   * ManagementService, StartMessageSubscriptionConverter, APIProcessDefinitionConverter, List,
-   * ApplicationEventPublisher)}
+   * <p>
+   * Method under test: {@link StartMessageDeployedEventProducer#StartMessageDeployedEventProducer(RepositoryService, ManagementService, StartMessageSubscriptionConverter, APIProcessDefinitionConverter, List, ApplicationEventPublisher)}
    */
   @Test
-  @DisplayName(
-      "Test new StartMessageDeployedEventProducer(RepositoryService, ManagementService, StartMessageSubscriptionConverter, APIProcessDefinitionConverter, List, ApplicationEventPublisher); given ProcessRuntimeEventListener")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test new StartMessageDeployedEventProducer(RepositoryService, ManagementService, StartMessageSubscriptionConverter, APIProcessDefinitionConverter, List, ApplicationEventPublisher); given ProcessRuntimeEventListener")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({
-    "void StartMessageDeployedEventProducer.<init>(RepositoryService, ManagementService, StartMessageSubscriptionConverter, APIProcessDefinitionConverter, List, ApplicationEventPublisher)"
-  })
+      "void StartMessageDeployedEventProducer.<init>(RepositoryService, ManagementService, StartMessageSubscriptionConverter, APIProcessDefinitionConverter, List, ApplicationEventPublisher)"})
   void testNewStartMessageDeployedEventProducer_givenProcessRuntimeEventListener2() {
     // Arrange
     ArrayList<ProcessRuntimeEventListener<StartMessageDeployedEvent>> listeners = new ArrayList<>();
@@ -218,14 +144,9 @@ class StartMessageDeployedEventProducerDiffblueTest {
     listeners.add(mock(ProcessRuntimeEventListener.class));
 
     // Act
-    StartMessageDeployedEventProducer actualStartMessageDeployedEventProducer =
-        new StartMessageDeployedEventProducer(
-            repositoryService,
-            managementService,
-            startMessageSubscriptionConverter,
-            aPIProcessDefinitionConverter,
-            listeners,
-            mock(ApplicationEventPublisher.class));
+    StartMessageDeployedEventProducer actualStartMessageDeployedEventProducer = new StartMessageDeployedEventProducer(
+        repositoryService, managementService, startMessageSubscriptionConverter, aPIProcessDefinitionConverter,
+        listeners, mock(ApplicationEventPublisher.class));
 
     // Assert
     assertFalse(actualStartMessageDeployedEventProducer.isRunning());
@@ -234,38 +155,23 @@ class StartMessageDeployedEventProducerDiffblueTest {
   }
 
   /**
-   * Test {@link
-   * StartMessageDeployedEventProducer#StartMessageDeployedEventProducer(RepositoryService,
-   * ManagementService, StartMessageSubscriptionConverter, APIProcessDefinitionConverter, List,
-   * ApplicationEventPublisher)}.
-   *
+   * Test {@link StartMessageDeployedEventProducer#StartMessageDeployedEventProducer(RepositoryService, ManagementService, StartMessageSubscriptionConverter, APIProcessDefinitionConverter, List, ApplicationEventPublisher)}.
    * <ul>
-   *   <li>When {@link ArrayList#ArrayList()}.
+   *   <li>When {@link ArrayList#ArrayList()}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link
-   * StartMessageDeployedEventProducer#StartMessageDeployedEventProducer(RepositoryService,
-   * ManagementService, StartMessageSubscriptionConverter, APIProcessDefinitionConverter, List,
-   * ApplicationEventPublisher)}
+   * <p>
+   * Method under test: {@link StartMessageDeployedEventProducer#StartMessageDeployedEventProducer(RepositoryService, ManagementService, StartMessageSubscriptionConverter, APIProcessDefinitionConverter, List, ApplicationEventPublisher)}
    */
   @Test
-  @DisplayName(
-      "Test new StartMessageDeployedEventProducer(RepositoryService, ManagementService, StartMessageSubscriptionConverter, APIProcessDefinitionConverter, List, ApplicationEventPublisher); when ArrayList()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test new StartMessageDeployedEventProducer(RepositoryService, ManagementService, StartMessageSubscriptionConverter, APIProcessDefinitionConverter, List, ApplicationEventPublisher); when ArrayList()")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({
-    "void StartMessageDeployedEventProducer.<init>(RepositoryService, ManagementService, StartMessageSubscriptionConverter, APIProcessDefinitionConverter, List, ApplicationEventPublisher)"
-  })
+      "void StartMessageDeployedEventProducer.<init>(RepositoryService, ManagementService, StartMessageSubscriptionConverter, APIProcessDefinitionConverter, List, ApplicationEventPublisher)"})
   void testNewStartMessageDeployedEventProducer_whenArrayList() {
     // Arrange and Act
-    StartMessageDeployedEventProducer actualStartMessageDeployedEventProducer =
-        new StartMessageDeployedEventProducer(
-            repositoryService,
-            managementService,
-            startMessageSubscriptionConverter,
-            aPIProcessDefinitionConverter,
-            new ArrayList<>(),
-            mock(ApplicationEventPublisher.class));
+    StartMessageDeployedEventProducer actualStartMessageDeployedEventProducer = new StartMessageDeployedEventProducer(
+        repositoryService, managementService, startMessageSubscriptionConverter, aPIProcessDefinitionConverter,
+        new ArrayList<>(), mock(ApplicationEventPublisher.class));
 
     // Assert
     assertFalse(actualStartMessageDeployedEventProducer.isRunning());
@@ -275,17 +181,15 @@ class StartMessageDeployedEventProducerDiffblueTest {
 
   /**
    * Test {@link StartMessageDeployedEventProducer#doStart()}.
-   *
    * <ul>
-   *   <li>Then calls {@link ManagementService#executeCommand(Command)}.
+   *   <li>Then calls {@link ManagementService#executeCommand(Command)}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link StartMessageDeployedEventProducer#doStart()}
+   * <p>
+   * Method under test: {@link StartMessageDeployedEventProducer#doStart()}
    */
   @Test
   @DisplayName("Test doStart(); then calls executeCommand(Command)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void StartMessageDeployedEventProducer.doStart()"})
   void testDoStart_thenCallsExecuteCommand() {
     // Arrange

@@ -17,8 +17,7 @@ package org.activiti.engine.impl.bpmn.listener;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.engine.delegate.Expression;
 import org.activiti.engine.impl.el.FixedValue;
@@ -29,17 +28,15 @@ import org.junit.experimental.categories.Category;
 public class ExpressionTaskListenerDiffblueTest {
   /**
    * Test {@link ExpressionTaskListener#ExpressionTaskListener(Expression)}.
-   *
-   * <p>Method under test: {@link ExpressionTaskListener#ExpressionTaskListener(Expression)}
+   * <p>
+   * Method under test: {@link ExpressionTaskListener#ExpressionTaskListener(Expression)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void ExpressionTaskListener.<init>(Expression)"})
   public void testNewExpressionTaskListener() {
     // Arrange and Act
-    ExpressionTaskListener actualExpressionTaskListener =
-        new ExpressionTaskListener(new FixedValue(JSONObject.NULL));
+    ExpressionTaskListener actualExpressionTaskListener = new ExpressionTaskListener(new FixedValue(JSONObject.NULL));
 
     // Assert
     Expression expression = actualExpressionTaskListener.expression;
@@ -50,21 +47,18 @@ public class ExpressionTaskListenerDiffblueTest {
 
   /**
    * Test {@link ExpressionTaskListener#getExpressionText()}.
-   *
    * <ul>
-   *   <li>Given {@link FixedValue#FixedValue(Object)} with value is {@link JSONObject#NULL}.
-   *   <li>Then return {@code null}.
+   *   <li>Given {@link FixedValue#FixedValue(Object)} with value is {@link JSONObject#NULL}.</li>
+   *   <li>Then return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ExpressionTaskListener#getExpressionText()}
+   * <p>
+   * Method under test: {@link ExpressionTaskListener#getExpressionText()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"java.lang.String ExpressionTaskListener.getExpressionText()"})
   public void testGetExpressionText_givenFixedValueWithValueIsNull_thenReturnNull() {
     // Arrange, Act and Assert
-    assertEquals(
-        "null", new ExpressionTaskListener(new FixedValue(JSONObject.NULL)).getExpressionText());
+    assertEquals("null", (new ExpressionTaskListener(new FixedValue(JSONObject.NULL))).getExpressionText());
   }
 }

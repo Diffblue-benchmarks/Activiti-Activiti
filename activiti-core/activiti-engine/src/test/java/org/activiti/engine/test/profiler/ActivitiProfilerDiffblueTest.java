@@ -19,8 +19,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
 import java.util.List;
@@ -28,19 +27,25 @@ import org.activiti.engine.impl.cfg.JtaProcessEngineConfiguration;
 import org.activiti.engine.impl.cfg.ProcessEngineConfigurationImpl;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
+import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
+import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.annotation.DirtiesContext.ClassMode;
 
+@RunWith(MockitoJUnitRunner.class)
 @DirtiesContext(classMode = ClassMode.AFTER_EACH_TEST_METHOD)
 public class ActivitiProfilerDiffblueTest {
+  @InjectMocks
+  private ActivitiProfiler activitiProfiler;
+
   /**
    * Test {@link ActivitiProfiler#beforeInit(ProcessEngineConfigurationImpl)}.
-   *
-   * <p>Method under test: {@link ActivitiProfiler#beforeInit(ProcessEngineConfigurationImpl)}
+   * <p>
+   * Method under test: {@link ActivitiProfiler#beforeInit(ProcessEngineConfigurationImpl)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void ActivitiProfiler.beforeInit(ProcessEngineConfigurationImpl)"})
   public void testBeforeInit() {
     // Arrange
@@ -51,24 +56,20 @@ public class ActivitiProfilerDiffblueTest {
     instance.beforeInit(processEngineConfiguration);
 
     // Assert
-    assertTrue(
-        processEngineConfiguration.getDbSqlSessionFactory()
-            instanceof ProfilingDbSqlSessionFactory);
+    assertTrue(processEngineConfiguration.getDbSqlSessionFactory() instanceof ProfilingDbSqlSessionFactory);
     assertEquals(1, processEngineConfiguration.getCustomPreCommandInterceptors().size());
   }
 
   /**
    * Test {@link ActivitiProfiler#reset()}.
-   *
    * <ul>
-   *   <li>Given Instance.
+   *   <li>Given Instance.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ActivitiProfiler#reset()}
+   * <p>
+   * Method under test: {@link ActivitiProfiler#reset()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void ActivitiProfiler.reset()"})
   public void testReset_givenInstance() {
     // Arrange
@@ -83,16 +84,14 @@ public class ActivitiProfilerDiffblueTest {
 
   /**
    * Test {@link ActivitiProfiler#reset()}.
-   *
    * <ul>
-   *   <li>Then Instance CurrentProfileSession is {@code null}.
+   *   <li>Then Instance CurrentProfileSession is {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ActivitiProfiler#reset()}
+   * <p>
+   * Method under test: {@link ActivitiProfiler#reset()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void ActivitiProfiler.reset()"})
   public void testReset_thenInstanceCurrentProfileSessionIsNull() {
     // Arrange
@@ -109,42 +108,39 @@ public class ActivitiProfilerDiffblueTest {
 
   /**
    * Test {@link ActivitiProfiler#startProfileSession(String)}.
-   *
-   * <p>Method under test: {@link ActivitiProfiler#startProfileSession(String)}
+   * <p>
+   * Method under test: {@link ActivitiProfiler#startProfileSession(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void ActivitiProfiler.startProfileSession(String)"})
   public void testStartProfileSession() {
-    // Arrange
-    ActivitiProfiler instance = ActivitiProfiler.getInstance();
-
-    // Act
-    instance.startProfileSession("Name");
+    // Arrange and Act
+    activitiProfiler.startProfileSession("Name");
 
     // Assert
-    ProfileSession currentProfileSession = instance.getCurrentProfileSession();
+    ProfileSession currentProfileSession = activitiProfiler.getCurrentProfileSession();
     assertEquals("Name", currentProfileSession.getName());
     assertNull(currentProfileSession.getEndTime());
     assertNull(currentProfileSession.currentCommandExecution.get());
     assertNull(currentProfileSession.getCurrentCommandExecution());
     assertEquals(0L, currentProfileSession.getTotalTime());
+    List<ProfileSession> profileSessions = activitiProfiler.getProfileSessions();
+    assertEquals(1, profileSessions.size());
     assertTrue(currentProfileSession.getCommandExecutions().isEmpty());
+    assertSame(currentProfileSession, profileSessions.get(0));
   }
 
   /**
    * Test {@link ActivitiProfiler#stopCurrentProfileSession()}.
-   *
    * <ul>
-   *   <li>Then Instance CurrentProfileSession is {@code null}.
+   *   <li>Then Instance CurrentProfileSession is {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ActivitiProfiler#stopCurrentProfileSession()}
+   * <p>
+   * Method under test: {@link ActivitiProfiler#stopCurrentProfileSession()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void ActivitiProfiler.stopCurrentProfileSession()"})
   public void testStopCurrentProfileSession_thenInstanceCurrentProfileSessionIsNull() {
     // Arrange
@@ -160,9 +156,8 @@ public class ActivitiProfilerDiffblueTest {
 
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>default or parameterless constructor of {@link ActivitiProfiler}
    *   <li>{@link ActivitiProfiler#setCurrentProfileSession(ProfileSession)}
@@ -175,18 +170,13 @@ public class ActivitiProfilerDiffblueTest {
    * </ul>
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void ActivitiProfiler.<init>()",
-    "void ActivitiProfiler.configure(ProcessEngineConfigurationImpl)",
-    "ProfileSession ActivitiProfiler.getCurrentProfileSession()",
-    "ActivitiProfiler ActivitiProfiler.getInstance()",
-    "int ActivitiProfiler.getPriority()",
-    "List ActivitiProfiler.getProfileSessions()",
-    "void ActivitiProfiler.setCurrentProfileSession(ProfileSession)",
-    "void ActivitiProfiler.setProfileSessions(List)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void ActivitiProfiler.<init>()",
+      "void ActivitiProfiler.configure(ProcessEngineConfigurationImpl)",
+      "ProfileSession ActivitiProfiler.getCurrentProfileSession()", "ActivitiProfiler ActivitiProfiler.getInstance()",
+      "int ActivitiProfiler.getPriority()", "List ActivitiProfiler.getProfileSessions()",
+      "void ActivitiProfiler.setCurrentProfileSession(ProfileSession)",
+      "void ActivitiProfiler.setProfileSessions(List)"})
   public void testGettersAndSetters() {
     // Arrange and Act
     ActivitiProfiler actualActivitiProfiler = new ActivitiProfiler();
@@ -205,6 +195,6 @@ public class ActivitiProfilerDiffblueTest {
     assertTrue(actualProfileSessions.isEmpty());
     assertSame(profileSessions, actualProfileSessions);
     assertSame(currentProfileSession, actualCurrentProfileSession);
-    assertSame(ActivitiProfiler.INSTANCE, actualInstance);
+    assertSame(actualInstance.INSTANCE, actualInstance);
   }
 }

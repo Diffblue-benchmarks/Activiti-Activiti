@@ -19,8 +19,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
@@ -28,13 +27,11 @@ import org.junit.experimental.categories.Category;
 public class DiagramNodeDiffblueTest {
   /**
    * Test getters and setters.
-   *
    * <ul>
-   *   <li>Then return toString is {@code id=null, x=2.0, y=3.0, width=10.0, height=10.0}.
+   *   <li>Then return toString is {@code id=null, x=2.0, y=3.0, width=10.0, height=10.0}.</li>
    * </ul>
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>{@link DiagramNode#DiagramNode()}
    *   <li>{@link DiagramNode#setHeight(Double)}
@@ -51,24 +48,13 @@ public class DiagramNodeDiffblueTest {
    * </ul>
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void DiagramNode.<init>()",
-    "void DiagramNode.<init>(String)",
-    "void DiagramNode.<init>(String, Double, Double, Double, Double)",
-    "Double DiagramNode.getHeight()",
-    "Double DiagramNode.getWidth()",
-    "Double DiagramNode.getX()",
-    "Double DiagramNode.getY()",
-    "boolean DiagramNode.isEdge()",
-    "boolean DiagramNode.isNode()",
-    "void DiagramNode.setHeight(Double)",
-    "void DiagramNode.setWidth(Double)",
-    "void DiagramNode.setX(Double)",
-    "void DiagramNode.setY(Double)",
-    "String DiagramNode.toString()"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void DiagramNode.<init>()", "void DiagramNode.<init>(String)",
+      "void DiagramNode.<init>(String, Double, Double, Double, Double)", "Double DiagramNode.getHeight()",
+      "Double DiagramNode.getWidth()", "Double DiagramNode.getX()", "Double DiagramNode.getY()",
+      "boolean DiagramNode.isEdge()", "boolean DiagramNode.isNode()", "void DiagramNode.setHeight(Double)",
+      "void DiagramNode.setWidth(Double)", "void DiagramNode.setX(Double)", "void DiagramNode.setY(Double)",
+      "String DiagramNode.toString()"})
   public void testGettersAndSetters_thenReturnToStringIsIdNullX20Y30Width100Height100() {
     // Arrange and Act
     DiagramNode actualDiagramNode = new DiagramNode();
@@ -97,14 +83,12 @@ public class DiagramNodeDiffblueTest {
 
   /**
    * Test getters and setters.
-   *
    * <ul>
-   *   <li>When {@code 42}.
-   *   <li>Then return Id is {@code 42}.
+   *   <li>When {@code 42}.</li>
+   *   <li>Then return Id is {@code 42}.</li>
    * </ul>
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>{@link DiagramNode#DiagramNode(String)}
    *   <li>{@link DiagramNode#setHeight(Double)}
@@ -121,24 +105,13 @@ public class DiagramNodeDiffblueTest {
    * </ul>
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void DiagramNode.<init>()",
-    "void DiagramNode.<init>(String)",
-    "void DiagramNode.<init>(String, Double, Double, Double, Double)",
-    "Double DiagramNode.getHeight()",
-    "Double DiagramNode.getWidth()",
-    "Double DiagramNode.getX()",
-    "Double DiagramNode.getY()",
-    "boolean DiagramNode.isEdge()",
-    "boolean DiagramNode.isNode()",
-    "void DiagramNode.setHeight(Double)",
-    "void DiagramNode.setWidth(Double)",
-    "void DiagramNode.setX(Double)",
-    "void DiagramNode.setY(Double)",
-    "String DiagramNode.toString()"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void DiagramNode.<init>()", "void DiagramNode.<init>(String)",
+      "void DiagramNode.<init>(String, Double, Double, Double, Double)", "Double DiagramNode.getHeight()",
+      "Double DiagramNode.getWidth()", "Double DiagramNode.getX()", "Double DiagramNode.getY()",
+      "boolean DiagramNode.isEdge()", "boolean DiagramNode.isNode()", "void DiagramNode.setHeight(Double)",
+      "void DiagramNode.setWidth(Double)", "void DiagramNode.setX(Double)", "void DiagramNode.setY(Double)",
+      "String DiagramNode.toString()"})
   public void testGettersAndSetters_when42_thenReturnIdIs42() {
     // Arrange and Act
     DiagramNode actualDiagramNode = new DiagramNode("42");
@@ -167,14 +140,12 @@ public class DiagramNodeDiffblueTest {
 
   /**
    * Test getters and setters.
-   *
    * <ul>
-   *   <li>When two.
-   *   <li>Then return Id is {@code 42}.
+   *   <li>When two.</li>
+   *   <li>Then return Id is {@code 42}.</li>
    * </ul>
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>{@link DiagramNode#DiagramNode(String, Double, Double, Double, Double)}
    *   <li>{@link DiagramNode#setHeight(Double)}
@@ -191,24 +162,13 @@ public class DiagramNodeDiffblueTest {
    * </ul>
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void DiagramNode.<init>()",
-    "void DiagramNode.<init>(String)",
-    "void DiagramNode.<init>(String, Double, Double, Double, Double)",
-    "Double DiagramNode.getHeight()",
-    "Double DiagramNode.getWidth()",
-    "Double DiagramNode.getX()",
-    "Double DiagramNode.getY()",
-    "boolean DiagramNode.isEdge()",
-    "boolean DiagramNode.isNode()",
-    "void DiagramNode.setHeight(Double)",
-    "void DiagramNode.setWidth(Double)",
-    "void DiagramNode.setX(Double)",
-    "void DiagramNode.setY(Double)",
-    "String DiagramNode.toString()"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void DiagramNode.<init>()", "void DiagramNode.<init>(String)",
+      "void DiagramNode.<init>(String, Double, Double, Double, Double)", "Double DiagramNode.getHeight()",
+      "Double DiagramNode.getWidth()", "Double DiagramNode.getX()", "Double DiagramNode.getY()",
+      "boolean DiagramNode.isEdge()", "boolean DiagramNode.isNode()", "void DiagramNode.setHeight(Double)",
+      "void DiagramNode.setWidth(Double)", "void DiagramNode.setX(Double)", "void DiagramNode.setY(Double)",
+      "String DiagramNode.toString()"})
   public void testGettersAndSetters_whenTwo_thenReturnIdIs42() {
     // Arrange and Act
     DiagramNode actualDiagramNode = new DiagramNode("42", 2.0d, 3.0d, 10.0d, 10.0d);

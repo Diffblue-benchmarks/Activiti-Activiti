@@ -16,8 +16,7 @@
 package org.activiti.engine.impl.interceptor;
 
 import static org.junit.Assert.assertNull;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
@@ -25,17 +24,14 @@ import org.junit.experimental.categories.Category;
 public class AbstractCommandInterceptorDiffblueTest {
   /**
    * Test {@link AbstractCommandInterceptor#getNext()}.
-   *
-   * <p>Method under test: {@link AbstractCommandInterceptor#getNext()}
+   * <p>
+   * Method under test: {@link AbstractCommandInterceptor#getNext()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "org.activiti.engine.impl.interceptor.CommandInterceptor AbstractCommandInterceptor.getNext()"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"org.activiti.engine.impl.interceptor.CommandInterceptor AbstractCommandInterceptor.getNext()"})
   public void testGetNext() {
     // Arrange, Act and Assert
-    assertNull(new CommandContextInterceptor().getNext());
+    assertNull((new CommandContextInterceptor()).getNext());
   }
 }

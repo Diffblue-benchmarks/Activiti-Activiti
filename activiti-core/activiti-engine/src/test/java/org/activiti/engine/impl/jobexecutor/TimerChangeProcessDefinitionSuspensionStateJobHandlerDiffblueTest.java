@@ -18,120 +18,107 @@ package org.activiti.engine.impl.jobexecutor;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
-import org.activiti.engine.impl.util.json.Cookie;
 import org.activiti.engine.impl.util.json.JSONException;
 import org.activiti.engine.impl.util.json.JSONObject;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
+import org.mockito.Mockito;
 
 public class TimerChangeProcessDefinitionSuspensionStateJobHandlerDiffblueTest {
   /**
-   * Test {@link
-   * TimerChangeProcessDefinitionSuspensionStateJobHandler#createJobHandlerConfiguration(boolean)}.
-   *
+   * Test {@link TimerChangeProcessDefinitionSuspensionStateJobHandler#createJobHandlerConfiguration(boolean)}.
    * <ul>
-   *   <li>Then return {@code {"includeProcessInstances":false}}.
+   *   <li>Then return {@code {"includeProcessInstances":false}}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link
-   * TimerChangeProcessDefinitionSuspensionStateJobHandler#createJobHandlerConfiguration(boolean)}
+   * <p>
+   * Method under test: {@link TimerChangeProcessDefinitionSuspensionStateJobHandler#createJobHandlerConfiguration(boolean)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({
-    "java.lang.String TimerChangeProcessDefinitionSuspensionStateJobHandler.createJobHandlerConfiguration(boolean)"
-  })
+      "String TimerChangeProcessDefinitionSuspensionStateJobHandler.createJobHandlerConfiguration(boolean)"})
   public void testCreateJobHandlerConfiguration_thenReturnIncludeProcessInstancesFalse() {
     // Arrange, Act and Assert
-    assertEquals(
-        "{\"includeProcessInstances\":false}",
+    assertEquals("{\"includeProcessInstances\":false}",
         TimerChangeProcessDefinitionSuspensionStateJobHandler.createJobHandlerConfiguration(false));
   }
 
   /**
-   * Test {@link
-   * TimerChangeProcessDefinitionSuspensionStateJobHandler#createJobHandlerConfiguration(boolean)}.
-   *
+   * Test {@link TimerChangeProcessDefinitionSuspensionStateJobHandler#createJobHandlerConfiguration(boolean)}.
    * <ul>
-   *   <li>When {@code true}.
-   *   <li>Then return {@code {"includeProcessInstances":true}}.
+   *   <li>When {@code true}.</li>
+   *   <li>Then return {@code {"includeProcessInstances":true}}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link
-   * TimerChangeProcessDefinitionSuspensionStateJobHandler#createJobHandlerConfiguration(boolean)}
+   * <p>
+   * Method under test: {@link TimerChangeProcessDefinitionSuspensionStateJobHandler#createJobHandlerConfiguration(boolean)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({
-    "java.lang.String TimerChangeProcessDefinitionSuspensionStateJobHandler.createJobHandlerConfiguration(boolean)"
-  })
+      "String TimerChangeProcessDefinitionSuspensionStateJobHandler.createJobHandlerConfiguration(boolean)"})
   public void testCreateJobHandlerConfiguration_whenTrue_thenReturnIncludeProcessInstancesTrue() {
     // Arrange, Act and Assert
-    assertEquals(
-        "{\"includeProcessInstances\":true}",
+    assertEquals("{\"includeProcessInstances\":true}",
         TimerChangeProcessDefinitionSuspensionStateJobHandler.createJobHandlerConfiguration(true));
   }
 
   /**
-   * Test {@link
-   * TimerChangeProcessDefinitionSuspensionStateJobHandler#getIncludeProcessInstances(JSONObject)}.
-   *
+   * Test {@link TimerChangeProcessDefinitionSuspensionStateJobHandler#getIncludeProcessInstances(JSONObject)}.
    * <ul>
-   *   <li>Given {@code false}.
-   *   <li>Then return {@code false}.
+   *   <li>Given {@code false}.</li>
+   *   <li>Then return {@code false}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link
-   * TimerChangeProcessDefinitionSuspensionStateJobHandler#getIncludeProcessInstances(JSONObject)}
+   * <p>
+   * Method under test: {@link TimerChangeProcessDefinitionSuspensionStateJobHandler#getIncludeProcessInstances(JSONObject)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({
-    "boolean TimerChangeProcessDefinitionSuspensionStateJobHandler.getIncludeProcessInstances(JSONObject)"
-  })
+      "boolean TimerChangeProcessDefinitionSuspensionStateJobHandler.getIncludeProcessInstances(JSONObject)"})
   public void testGetIncludeProcessInstances_givenFalse_thenReturnFalse() throws JSONException {
     // Arrange
-    JSONObject jobHandlerCfgJson = Cookie.toJSONObject("=;");
-    jobHandlerCfgJson.put("includeProcessInstances", false);
+    JSONObject jobHandlerCfgJson = mock(JSONObject.class);
+    when(jobHandlerCfgJson.getBoolean(Mockito.<String>any())).thenReturn(false);
 
-    // Act and Assert
-    assertFalse(
-        TimerChangeProcessDefinitionSuspensionStateJobHandler.getIncludeProcessInstances(
-            jobHandlerCfgJson));
+    // Act
+    boolean actualIncludeProcessInstances = TimerChangeProcessDefinitionSuspensionStateJobHandler
+        .getIncludeProcessInstances(jobHandlerCfgJson);
+
+    // Assert
+    verify(jobHandlerCfgJson).getBoolean(eq("includeProcessInstances"));
+    assertFalse(actualIncludeProcessInstances);
   }
 
   /**
-   * Test {@link
-   * TimerChangeProcessDefinitionSuspensionStateJobHandler#getIncludeProcessInstances(JSONObject)}.
-   *
+   * Test {@link TimerChangeProcessDefinitionSuspensionStateJobHandler#getIncludeProcessInstances(JSONObject)}.
    * <ul>
-   *   <li>Given {@code true}.
-   *   <li>Then return {@code true}.
+   *   <li>Given {@code true}.</li>
+   *   <li>Then return {@code true}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link
-   * TimerChangeProcessDefinitionSuspensionStateJobHandler#getIncludeProcessInstances(JSONObject)}
+   * <p>
+   * Method under test: {@link TimerChangeProcessDefinitionSuspensionStateJobHandler#getIncludeProcessInstances(JSONObject)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({
-    "boolean TimerChangeProcessDefinitionSuspensionStateJobHandler.getIncludeProcessInstances(JSONObject)"
-  })
+      "boolean TimerChangeProcessDefinitionSuspensionStateJobHandler.getIncludeProcessInstances(JSONObject)"})
   public void testGetIncludeProcessInstances_givenTrue_thenReturnTrue() throws JSONException {
     // Arrange
-    JSONObject jobHandlerCfgJson = Cookie.toJSONObject("=;");
-    jobHandlerCfgJson.put("includeProcessInstances", true);
+    JSONObject jobHandlerCfgJson = mock(JSONObject.class);
+    when(jobHandlerCfgJson.getBoolean(Mockito.<String>any())).thenReturn(true);
 
-    // Act and Assert
-    assertTrue(
-        TimerChangeProcessDefinitionSuspensionStateJobHandler.getIncludeProcessInstances(
-            jobHandlerCfgJson));
+    // Act
+    boolean actualIncludeProcessInstances = TimerChangeProcessDefinitionSuspensionStateJobHandler
+        .getIncludeProcessInstances(jobHandlerCfgJson);
+
+    // Assert
+    verify(jobHandlerCfgJson).getBoolean(eq("includeProcessInstances"));
+    assertTrue(actualIncludeProcessInstances);
   }
 }

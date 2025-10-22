@@ -18,8 +18,7 @@ package org.activiti.engine.impl.bpmn.data;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.List;
 import org.junit.Test;
@@ -28,21 +27,16 @@ import org.junit.experimental.categories.Category;
 public class SimpleStructureDefinitionDiffblueTest {
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>{@link SimpleStructureDefinition#SimpleStructureDefinition(String)}
    *   <li>{@link SimpleStructureDefinition#getId()}
    * </ul>
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void SimpleStructureDefinition.<init>(String)",
-    "String SimpleStructureDefinition.getId()"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void SimpleStructureDefinition.<init>(String)", "String SimpleStructureDefinition.getId()"})
   public void testGettersAndSetters() {
     // Arrange and Act
     SimpleStructureDefinition actualSimpleStructureDefinition = new SimpleStructureDefinition("42");
@@ -55,31 +49,27 @@ public class SimpleStructureDefinitionDiffblueTest {
 
   /**
    * Test {@link SimpleStructureDefinition#getFieldSize()}.
-   *
-   * <p>Method under test: {@link SimpleStructureDefinition#getFieldSize()}
+   * <p>
+   * Method under test: {@link SimpleStructureDefinition#getFieldSize()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"int SimpleStructureDefinition.getFieldSize()"})
   public void testGetFieldSize() {
     // Arrange, Act and Assert
-    assertEquals(0, new SimpleStructureDefinition("42").getFieldSize());
+    assertEquals(0, (new SimpleStructureDefinition("42")).getFieldSize());
   }
 
   /**
    * Test {@link SimpleStructureDefinition#setFieldName(int, String, Class)}.
-   *
    * <ul>
-   *   <li>Then {@link SimpleStructureDefinition#SimpleStructureDefinition(String)} with id is
-   *       {@code 42} {@link SimpleStructureDefinition#fieldNames} size is two.
+   *   <li>Then {@link SimpleStructureDefinition#SimpleStructureDefinition(String)} with id is {@code 42} {@link SimpleStructureDefinition#fieldNames} size is two.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link SimpleStructureDefinition#setFieldName(int, String, Class)}
+   * <p>
+   * Method under test: {@link SimpleStructureDefinition#setFieldName(int, String, Class)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void SimpleStructureDefinition.setFieldName(int, String, Class)"})
   public void testSetFieldName_thenSimpleStructureDefinitionWithIdIs42FieldNamesSizeIsTwo() {
     // Arrange
@@ -104,22 +94,19 @@ public class SimpleStructureDefinitionDiffblueTest {
 
   /**
    * Test {@link SimpleStructureDefinition#createInstance()}.
-   *
-   * <p>Method under test: {@link SimpleStructureDefinition#createInstance()}
+   * <p>
+   * Method under test: {@link SimpleStructureDefinition#createInstance()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"StructureInstance SimpleStructureDefinition.createInstance()"})
   public void testCreateInstance() {
     // Arrange and Act
-    StructureInstance actualCreateInstanceResult =
-        new SimpleStructureDefinition("42").createInstance();
+    StructureInstance actualCreateInstanceResult = (new SimpleStructureDefinition("42")).createInstance();
 
     // Assert
     assertTrue(actualCreateInstanceResult instanceof FieldBaseStructureInstance);
-    FieldBaseStructureDefinition fieldBaseStructureDefinition =
-        ((FieldBaseStructureInstance) actualCreateInstanceResult).structureDefinition;
+    FieldBaseStructureDefinition fieldBaseStructureDefinition = ((FieldBaseStructureInstance) actualCreateInstanceResult).structureDefinition;
     assertTrue(fieldBaseStructureDefinition instanceof SimpleStructureDefinition);
     assertEquals("42", fieldBaseStructureDefinition.getId());
     assertEquals(0, fieldBaseStructureDefinition.getFieldSize());

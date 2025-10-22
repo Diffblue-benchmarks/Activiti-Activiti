@@ -23,61 +23,51 @@ import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.engine.ActivitiIllegalArgumentException;
 import org.activiti.engine.impl.AbstractQuery.NullHandlingOnOrder;
-import org.activiti.engine.impl.cfg.CommandExecutorImpl;
-import org.activiti.engine.impl.interceptor.CommandConfig;
 import org.activiti.engine.impl.interceptor.CommandContext;
-import org.activiti.engine.impl.interceptor.CommandContextInterceptor;
-import org.activiti.engine.impl.interceptor.CommandExecutor;
 import org.activiti.engine.query.QueryProperty;
 import org.activiti.engine.runtime.DeadLetterJobQuery;
-import org.activiti.engine.runtime.Job;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
-import org.springframework.test.annotation.DirtiesContext;
-import org.springframework.test.annotation.DirtiesContext.ClassMode;
 
-@DirtiesContext(classMode = ClassMode.AFTER_EACH_TEST_METHOD)
 public class AbstractQueryDiffblueTest {
   /**
-   * Test {@link AbstractQuery#setCommandExecutor(CommandExecutor)}.
-   *
-   * <p>Method under test: {@link AbstractQuery#setCommandExecutor(CommandExecutor)}
+   * Test {@link AbstractQuery#asc()}.
+   * <p>
+   * Method under test: {@link AbstractQuery#asc()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"AbstractQuery AbstractQuery.setCommandExecutor(CommandExecutor)"})
-  public void testSetCommandExecutor() {
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"org.activiti.engine.query.Query AbstractQuery.asc()"})
+  public void testAsc() {
     // Arrange
+    QueryProperty property = mock(QueryProperty.class);
+    when(property.getName()).thenReturn("Name");
+
     DeadLetterJobQueryImpl deadLetterJobQueryImpl = new DeadLetterJobQueryImpl();
-    CommandConfig defaultConfig = new CommandConfig();
-    CommandExecutorImpl commandExecutor =
-        new CommandExecutorImpl(defaultConfig, new CommandContextInterceptor());
+    deadLetterJobQueryImpl.addOrder("", AbstractQuery.SORTORDER_DESC, NullHandlingOnOrder.NULLS_LAST);
+    deadLetterJobQueryImpl.orderBy(property);
 
     // Act
-    AbstractQuery<DeadLetterJobQuery, Job> actualSetCommandExecutorResult =
-        deadLetterJobQueryImpl.setCommandExecutor(commandExecutor);
+    DeadLetterJobQuery actualAscResult = deadLetterJobQueryImpl.asc();
 
     // Assert
-    assertTrue(deadLetterJobQueryImpl.commandExecutor instanceof CommandExecutorImpl);
-    assertSame(deadLetterJobQueryImpl, actualSetCommandExecutorResult);
+    verify(property).getName();
+    assertSame(deadLetterJobQueryImpl, actualAscResult);
   }
 
   /**
    * Test {@link AbstractQuery#asc()}.
-   *
-   * <p>Method under test: {@link AbstractQuery#asc()}
+   * <p>
+   * Method under test: {@link AbstractQuery#asc()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"org.activiti.engine.query.Query AbstractQuery.asc()"})
-  public void testAsc() {
+  public void testAsc2() {
     // Arrange
     QueryProperty property = mock(QueryProperty.class);
     when(property.getName()).thenThrow(new ActivitiIllegalArgumentException("An error occurred"));
@@ -92,63 +82,32 @@ public class AbstractQueryDiffblueTest {
 
   /**
    * Test {@link AbstractQuery#asc()}.
-   *
-   * <p>Method under test: {@link AbstractQuery#asc()}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"org.activiti.engine.query.Query AbstractQuery.asc()"})
-  public void testAsc2() {
-    // Arrange
-    QueryProperty property = mock(QueryProperty.class);
-    when(property.getName()).thenReturn("Name");
-
-    DeadLetterJobQueryImpl deadLetterJobQueryImpl = new DeadLetterJobQueryImpl();
-    deadLetterJobQueryImpl.addOrder(
-        "", AbstractQuery.SORTORDER_DESC, NullHandlingOnOrder.NULLS_LAST);
-    deadLetterJobQueryImpl.orderBy(property);
-
-    // Act
-    DeadLetterJobQuery actualAscResult = deadLetterJobQueryImpl.asc();
-
-    // Assert
-    verify(property).getName();
-    assertSame(deadLetterJobQueryImpl, actualAscResult);
-  }
-
-  /**
-   * Test {@link AbstractQuery#asc()}.
-   *
    * <ul>
-   *   <li>Given {@link DeadLetterJobQueryImpl#DeadLetterJobQueryImpl()}.
-   *   <li>Then throw {@link ActivitiIllegalArgumentException}.
+   *   <li>Given {@link DeadLetterJobQueryImpl#DeadLetterJobQueryImpl()}.</li>
+   *   <li>Then throw {@link ActivitiIllegalArgumentException}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link AbstractQuery#asc()}
+   * <p>
+   * Method under test: {@link AbstractQuery#asc()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"org.activiti.engine.query.Query AbstractQuery.asc()"})
   public void testAsc_givenDeadLetterJobQueryImpl_thenThrowActivitiIllegalArgumentException() {
     // Arrange, Act and Assert
-    assertThrows(ActivitiIllegalArgumentException.class, () -> new DeadLetterJobQueryImpl().asc());
+    assertThrows(ActivitiIllegalArgumentException.class, () -> (new DeadLetterJobQueryImpl()).asc());
   }
 
   /**
    * Test {@link AbstractQuery#asc()}.
-   *
    * <ul>
-   *   <li>Given {@link QueryProperty} {@link QueryProperty#getName()} return {@code Name}.
-   *   <li>Then return {@link DeadLetterJobQueryImpl#DeadLetterJobQueryImpl()}.
+   *   <li>Given {@link QueryProperty} {@link QueryProperty#getName()} return {@code Name}.</li>
+   *   <li>Then return {@link DeadLetterJobQueryImpl#DeadLetterJobQueryImpl()}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link AbstractQuery#asc()}
+   * <p>
+   * Method under test: {@link AbstractQuery#asc()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"org.activiti.engine.query.Query AbstractQuery.asc()"})
   public void testAsc_givenQueryPropertyGetNameReturnName_thenReturnDeadLetterJobQueryImpl() {
     // Arrange
@@ -168,12 +127,11 @@ public class AbstractQueryDiffblueTest {
 
   /**
    * Test {@link AbstractQuery#desc()}.
-   *
-   * <p>Method under test: {@link AbstractQuery#desc()}
+   * <p>
+   * Method under test: {@link AbstractQuery#desc()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"org.activiti.engine.query.Query AbstractQuery.desc()"})
   public void testDesc() {
     // Arrange
@@ -190,36 +148,31 @@ public class AbstractQueryDiffblueTest {
 
   /**
    * Test {@link AbstractQuery#desc()}.
-   *
    * <ul>
-   *   <li>Given {@link DeadLetterJobQueryImpl#DeadLetterJobQueryImpl()}.
-   *   <li>Then throw {@link ActivitiIllegalArgumentException}.
+   *   <li>Given {@link DeadLetterJobQueryImpl#DeadLetterJobQueryImpl()}.</li>
+   *   <li>Then throw {@link ActivitiIllegalArgumentException}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link AbstractQuery#desc()}
+   * <p>
+   * Method under test: {@link AbstractQuery#desc()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"org.activiti.engine.query.Query AbstractQuery.desc()"})
   public void testDesc_givenDeadLetterJobQueryImpl_thenThrowActivitiIllegalArgumentException() {
     // Arrange, Act and Assert
-    assertThrows(ActivitiIllegalArgumentException.class, () -> new DeadLetterJobQueryImpl().desc());
+    assertThrows(ActivitiIllegalArgumentException.class, () -> (new DeadLetterJobQueryImpl()).desc());
   }
 
   /**
    * Test {@link AbstractQuery#desc()}.
-   *
    * <ul>
-   *   <li>Then {@link DeadLetterJobQueryImpl#DeadLetterJobQueryImpl()} OrderBy is {@code desc, Name
-   *       desc}.
+   *   <li>Then {@link DeadLetterJobQueryImpl#DeadLetterJobQueryImpl()} OrderBy is {@code desc, Name desc}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link AbstractQuery#desc()}
+   * <p>
+   * Method under test: {@link AbstractQuery#desc()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"org.activiti.engine.query.Query AbstractQuery.desc()"})
   public void testDesc_thenDeadLetterJobQueryImplOrderByIsDescNameDesc() {
     // Arrange
@@ -227,8 +180,7 @@ public class AbstractQueryDiffblueTest {
     when(property.getName()).thenReturn("Name");
 
     DeadLetterJobQueryImpl deadLetterJobQueryImpl = new DeadLetterJobQueryImpl();
-    deadLetterJobQueryImpl.addOrder(
-        "", AbstractQuery.SORTORDER_DESC, NullHandlingOnOrder.NULLS_LAST);
+    deadLetterJobQueryImpl.addOrder("", AbstractQuery.SORTORDER_DESC, NullHandlingOnOrder.NULLS_LAST);
     deadLetterJobQueryImpl.orderBy(property);
 
     // Act
@@ -240,25 +192,21 @@ public class AbstractQueryDiffblueTest {
     assertEquals(" desc, Name desc", deadLetterJobQueryImpl.getOrderBy());
     assertEquals(" desc, Name desc", ((DeadLetterJobQueryImpl) actualDescResult).getOrderBy());
     assertEquals(" desc, Name desc", deadLetterJobQueryImpl.getOrderByColumns());
-    assertEquals(
-        " desc, Name desc", ((DeadLetterJobQueryImpl) actualDescResult).getOrderByColumns());
+    assertEquals(" desc, Name desc", ((DeadLetterJobQueryImpl) actualDescResult).getOrderByColumns());
     assertEquals(" desc, Name desc", deadLetterJobQueryImpl.orderBy);
     assertEquals(" desc, Name desc", ((DeadLetterJobQueryImpl) actualDescResult).orderBy);
   }
 
   /**
    * Test {@link AbstractQuery#desc()}.
-   *
    * <ul>
-   *   <li>Then {@link DeadLetterJobQueryImpl#DeadLetterJobQueryImpl()} OrderBy is {@code Name
-   *       desc}.
+   *   <li>Then {@link DeadLetterJobQueryImpl#DeadLetterJobQueryImpl()} OrderBy is {@code Name desc}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link AbstractQuery#desc()}
+   * <p>
+   * Method under test: {@link AbstractQuery#desc()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"org.activiti.engine.query.Query AbstractQuery.desc()"})
   public void testDesc_thenDeadLetterJobQueryImplOrderByIsNameDesc() {
     // Arrange
@@ -284,50 +232,23 @@ public class AbstractQueryDiffblueTest {
 
   /**
    * Test {@link AbstractQuery#direction(Direction)}.
-   *
-   * <p>Method under test: {@link AbstractQuery#direction(Direction)}
+   * <p>
+   * Method under test: {@link AbstractQuery#direction(Direction)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"org.activiti.engine.query.Query AbstractQuery.direction(Direction)"})
   public void testDirection() {
-    // Arrange
-    QueryProperty property = mock(QueryProperty.class);
-    when(property.getName()).thenThrow(new ActivitiIllegalArgumentException("An error occurred"));
-
-    DeadLetterJobQueryImpl deadLetterJobQueryImpl = new DeadLetterJobQueryImpl();
-    deadLetterJobQueryImpl.orderBy(property);
-
-    // Act and Assert
-    assertThrows(
-        ActivitiIllegalArgumentException.class,
-        () -> deadLetterJobQueryImpl.direction(Direction.ASCENDING));
-    verify(property).getName();
-  }
-
-  /**
-   * Test {@link AbstractQuery#direction(Direction)}.
-   *
-   * <p>Method under test: {@link AbstractQuery#direction(Direction)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"org.activiti.engine.query.Query AbstractQuery.direction(Direction)"})
-  public void testDirection2() {
     // Arrange
     QueryProperty property = mock(QueryProperty.class);
     when(property.getName()).thenReturn("Name");
 
     DeadLetterJobQueryImpl deadLetterJobQueryImpl = new DeadLetterJobQueryImpl();
-    deadLetterJobQueryImpl.addOrder(
-        "", AbstractQuery.SORTORDER_DESC, NullHandlingOnOrder.NULLS_LAST);
+    deadLetterJobQueryImpl.addOrder("", AbstractQuery.SORTORDER_DESC, NullHandlingOnOrder.NULLS_LAST);
     deadLetterJobQueryImpl.orderBy(property);
 
     // Act
-    DeadLetterJobQuery actualDirectionResult =
-        deadLetterJobQueryImpl.direction(Direction.ASCENDING);
+    DeadLetterJobQuery actualDirectionResult = deadLetterJobQueryImpl.direction(Direction.ASCENDING);
 
     // Assert
     verify(property).getName();
@@ -336,36 +257,52 @@ public class AbstractQueryDiffblueTest {
 
   /**
    * Test {@link AbstractQuery#direction(Direction)}.
-   *
-   * <ul>
-   *   <li>Given {@link DeadLetterJobQueryImpl#DeadLetterJobQueryImpl()}.
-   * </ul>
-   *
-   * <p>Method under test: {@link AbstractQuery#direction(Direction)}
+   * <p>
+   * Method under test: {@link AbstractQuery#direction(Direction)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"org.activiti.engine.query.Query AbstractQuery.direction(Direction)"})
-  public void testDirection_givenDeadLetterJobQueryImpl() {
-    // Arrange, Act and Assert
-    assertThrows(
-        ActivitiIllegalArgumentException.class,
-        () -> new DeadLetterJobQueryImpl().direction(Direction.ASCENDING));
+  public void testDirection2() {
+    // Arrange
+    QueryProperty property = mock(QueryProperty.class);
+    when(property.getName()).thenThrow(new ActivitiIllegalArgumentException("An error occurred"));
+
+    DeadLetterJobQueryImpl deadLetterJobQueryImpl = new DeadLetterJobQueryImpl();
+    deadLetterJobQueryImpl.orderBy(property);
+
+    // Act and Assert
+    assertThrows(ActivitiIllegalArgumentException.class, () -> deadLetterJobQueryImpl.direction(Direction.ASCENDING));
+    verify(property).getName();
   }
 
   /**
    * Test {@link AbstractQuery#direction(Direction)}.
-   *
    * <ul>
-   *   <li>Then return {@link DeadLetterJobQueryImpl#DeadLetterJobQueryImpl()}.
+   *   <li>Given {@link DeadLetterJobQueryImpl#DeadLetterJobQueryImpl()}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link AbstractQuery#direction(Direction)}
+   * <p>
+   * Method under test: {@link AbstractQuery#direction(Direction)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"org.activiti.engine.query.Query AbstractQuery.direction(Direction)"})
+  public void testDirection_givenDeadLetterJobQueryImpl() {
+    // Arrange, Act and Assert
+    assertThrows(ActivitiIllegalArgumentException.class,
+        () -> (new DeadLetterJobQueryImpl()).direction(Direction.ASCENDING));
+  }
+
+  /**
+   * Test {@link AbstractQuery#direction(Direction)}.
+   * <ul>
+   *   <li>Then return {@link DeadLetterJobQueryImpl#DeadLetterJobQueryImpl()}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link AbstractQuery#direction(Direction)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"org.activiti.engine.query.Query AbstractQuery.direction(Direction)"})
   public void testDirection_thenReturnDeadLetterJobQueryImpl() {
     // Arrange
@@ -376,8 +313,7 @@ public class AbstractQueryDiffblueTest {
     deadLetterJobQueryImpl.orderBy(property);
 
     // Act
-    DeadLetterJobQuery actualDirectionResult =
-        deadLetterJobQueryImpl.direction(Direction.ASCENDING);
+    DeadLetterJobQuery actualDirectionResult = deadLetterJobQueryImpl.direction(Direction.ASCENDING);
 
     // Assert
     verify(property).getName();
@@ -386,16 +322,14 @@ public class AbstractQueryDiffblueTest {
 
   /**
    * Test {@link AbstractQuery#checkQueryOk()}.
-   *
    * <ul>
-   *   <li>Then throw {@link ActivitiIllegalArgumentException}.
+   *   <li>Then throw {@link ActivitiIllegalArgumentException}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link AbstractQuery#checkQueryOk()}
+   * <p>
+   * Method under test: {@link AbstractQuery#checkQueryOk()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void AbstractQuery.checkQueryOk()"})
   public void testCheckQueryOk_thenThrowActivitiIllegalArgumentException() {
     // Arrange
@@ -403,22 +337,19 @@ public class AbstractQueryDiffblueTest {
     deadLetterJobQueryImpl.orderBy(mock(QueryProperty.class));
 
     // Act and Assert
-    assertThrows(
-        ActivitiIllegalArgumentException.class, () -> deadLetterJobQueryImpl.checkQueryOk());
+    assertThrows(ActivitiIllegalArgumentException.class, () -> deadLetterJobQueryImpl.checkQueryOk());
   }
 
   /**
    * Test {@link AbstractQuery#singleResult()}.
-   *
    * <ul>
-   *   <li>Then throw {@link ActivitiIllegalArgumentException}.
+   *   <li>Then throw {@link ActivitiIllegalArgumentException}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link AbstractQuery#singleResult()}
+   * <p>
+   * Method under test: {@link AbstractQuery#singleResult()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"java.lang.Object AbstractQuery.singleResult()"})
   public void testSingleResult_thenThrowActivitiIllegalArgumentException() {
     // Arrange
@@ -426,22 +357,19 @@ public class AbstractQueryDiffblueTest {
     deadLetterJobQueryImpl.orderBy(mock(QueryProperty.class));
 
     // Act and Assert
-    assertThrows(
-        ActivitiIllegalArgumentException.class, () -> deadLetterJobQueryImpl.singleResult());
+    assertThrows(ActivitiIllegalArgumentException.class, () -> deadLetterJobQueryImpl.singleResult());
   }
 
   /**
    * Test {@link AbstractQuery#list()}.
-   *
    * <ul>
-   *   <li>Then throw {@link ActivitiIllegalArgumentException}.
+   *   <li>Then throw {@link ActivitiIllegalArgumentException}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link AbstractQuery#list()}
+   * <p>
+   * Method under test: {@link AbstractQuery#list()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"java.util.List AbstractQuery.list()"})
   public void testList_thenThrowActivitiIllegalArgumentException() {
     // Arrange
@@ -454,16 +382,14 @@ public class AbstractQueryDiffblueTest {
 
   /**
    * Test {@link AbstractQuery#listPage(int, int)}.
-   *
    * <ul>
-   *   <li>Then throw {@link ActivitiIllegalArgumentException}.
+   *   <li>Then throw {@link ActivitiIllegalArgumentException}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link AbstractQuery#listPage(int, int)}
+   * <p>
+   * Method under test: {@link AbstractQuery#listPage(int, int)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"java.util.List AbstractQuery.listPage(int, int)"})
   public void testListPage_thenThrowActivitiIllegalArgumentException() {
     // Arrange
@@ -471,22 +397,19 @@ public class AbstractQueryDiffblueTest {
     deadLetterJobQueryImpl.orderBy(mock(QueryProperty.class));
 
     // Act and Assert
-    assertThrows(
-        ActivitiIllegalArgumentException.class, () -> deadLetterJobQueryImpl.listPage(1, 3));
+    assertThrows(ActivitiIllegalArgumentException.class, () -> deadLetterJobQueryImpl.listPage(1, 3));
   }
 
   /**
    * Test {@link AbstractQuery#count()}.
-   *
    * <ul>
-   *   <li>Then throw {@link ActivitiIllegalArgumentException}.
+   *   <li>Then throw {@link ActivitiIllegalArgumentException}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link AbstractQuery#count()}
+   * <p>
+   * Method under test: {@link AbstractQuery#count()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"long AbstractQuery.count()"})
   public void testCount_thenThrowActivitiIllegalArgumentException() {
     // Arrange
@@ -499,16 +422,14 @@ public class AbstractQueryDiffblueTest {
 
   /**
    * Test {@link AbstractQuery#execute(CommandContext)}.
-   *
    * <ul>
-   *   <li>Then throw {@link ActivitiIllegalArgumentException}.
+   *   <li>Then throw {@link ActivitiIllegalArgumentException}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link AbstractQuery#execute(CommandContext)}
+   * <p>
+   * Method under test: {@link AbstractQuery#execute(CommandContext)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"java.lang.Object AbstractQuery.execute(CommandContext)"})
   public void testExecute_thenThrowActivitiIllegalArgumentException() {
     // Arrange
@@ -516,22 +437,19 @@ public class AbstractQueryDiffblueTest {
     deadLetterJobQueryImpl.orderBy(mock(QueryProperty.class));
 
     // Act and Assert
-    assertThrows(
-        ActivitiIllegalArgumentException.class, () -> deadLetterJobQueryImpl.execute(null));
+    assertThrows(ActivitiIllegalArgumentException.class, () -> deadLetterJobQueryImpl.execute(null));
   }
 
   /**
    * Test {@link AbstractQuery#executeSingleResult(CommandContext)}.
-   *
    * <ul>
-   *   <li>Then throw {@link ActivitiIllegalArgumentException}.
+   *   <li>Then throw {@link ActivitiIllegalArgumentException}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link AbstractQuery#executeSingleResult(CommandContext)}
+   * <p>
+   * Method under test: {@link AbstractQuery#executeSingleResult(CommandContext)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"java.lang.Object AbstractQuery.executeSingleResult(CommandContext)"})
   public void testExecuteSingleResult_thenThrowActivitiIllegalArgumentException() {
     // Arrange
@@ -539,309 +457,338 @@ public class AbstractQueryDiffblueTest {
     deadLetterJobQueryImpl.orderBy(mock(QueryProperty.class));
 
     // Act and Assert
-    assertThrows(
-        ActivitiIllegalArgumentException.class,
-        () -> deadLetterJobQueryImpl.executeSingleResult(null));
+    assertThrows(ActivitiIllegalArgumentException.class, () -> deadLetterJobQueryImpl.executeSingleResult(null));
   }
 
   /**
    * Test {@link AbstractQuery#addOrder(String, String, NullHandlingOnOrder)}.
-   *
-   * <p>Method under test: {@link AbstractQuery#addOrder(String, String, NullHandlingOnOrder)}
+   * <p>
+   * Method under test: {@link AbstractQuery#addOrder(String, String, NullHandlingOnOrder)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void AbstractQuery.addOrder(String, String, NullHandlingOnOrder)"})
   public void testAddOrder() {
     // Arrange
     DeadLetterJobQueryImpl deadLetterJobQueryImpl = new DeadLetterJobQueryImpl();
-    deadLetterJobQueryImpl.setDatabaseType("h2");
-    deadLetterJobQueryImpl.addOrder(
-        "h2", AbstractQuery.SORTORDER_ASC, NullHandlingOnOrder.NULLS_FIRST);
-
-    // Act
-    deadLetterJobQueryImpl.addOrder(
-        "Column", AbstractQuery.SORTORDER_ASC, NullHandlingOnOrder.NULLS_FIRST);
-
-    // Assert
-    assertEquals("h2 asc NULLS FIRST, Column asc NULLS FIRST", deadLetterJobQueryImpl.getOrderBy());
-    assertEquals(
-        "h2 asc NULLS FIRST, Column asc NULLS FIRST", deadLetterJobQueryImpl.getOrderByColumns());
-    assertEquals("h2 asc NULLS FIRST, Column asc NULLS FIRST", deadLetterJobQueryImpl.orderBy);
-  }
-
-  /**
-   * Test {@link AbstractQuery#addOrder(String, String, NullHandlingOnOrder)}.
-   *
-   * <p>Method under test: {@link AbstractQuery#addOrder(String, String, NullHandlingOnOrder)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void AbstractQuery.addOrder(String, String, NullHandlingOnOrder)"})
-  public void testAddOrder2() {
-    // Arrange
-    DeadLetterJobQueryImpl deadLetterJobQueryImpl = new DeadLetterJobQueryImpl();
     deadLetterJobQueryImpl.setDatabaseType("db2");
-    deadLetterJobQueryImpl.addOrder(
-        "h2", AbstractQuery.SORTORDER_ASC, NullHandlingOnOrder.NULLS_FIRST);
+    deadLetterJobQueryImpl.addOrder("h2", AbstractQuery.SORTORDER_ASC, NullHandlingOnOrder.NULLS_FIRST);
 
     // Act
-    deadLetterJobQueryImpl.addOrder(
-        "Column", AbstractQuery.SORTORDER_ASC, NullHandlingOnOrder.NULLS_FIRST);
+    deadLetterJobQueryImpl.addOrder("Column", AbstractQuery.SORTORDER_ASC, NullHandlingOnOrder.NULLS_FIRST);
 
     // Assert
-    assertEquals(
-        "case when h2 is null then 0 else 1 end,h2 asc, case when Column is null then 0 else 1 end,Column asc",
+    assertEquals("case when h2 is null then 0 else 1 end,h2 asc, case when Column is null then 0 else 1 end,Column asc",
         deadLetterJobQueryImpl.getOrderBy());
-    assertEquals(
-        "case when h2 is null then 0 else 1 end,h2 asc, case when Column is null then 0 else 1 end,Column asc",
+    assertEquals("case when h2 is null then 0 else 1 end,h2 asc, case when Column is null then 0 else 1 end,Column asc",
         deadLetterJobQueryImpl.getOrderByColumns());
-    assertEquals(
-        "case when h2 is null then 0 else 1 end,h2 asc, case when Column is null then 0 else 1 end,Column asc",
+    assertEquals("case when h2 is null then 0 else 1 end,h2 asc, case when Column is null then 0 else 1 end,Column asc",
         deadLetterJobQueryImpl.orderBy);
   }
 
   /**
    * Test {@link AbstractQuery#addOrder(String, String, NullHandlingOnOrder)}.
-   *
-   * <p>Method under test: {@link AbstractQuery#addOrder(String, String, NullHandlingOnOrder)}
+   * <p>
+   * Method under test: {@link AbstractQuery#addOrder(String, String, NullHandlingOnOrder)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void AbstractQuery.addOrder(String, String, NullHandlingOnOrder)"})
-  public void testAddOrder3() {
+  public void testAddOrder2() {
     // Arrange
     DeadLetterJobQueryImpl deadLetterJobQueryImpl = new DeadLetterJobQueryImpl();
-    deadLetterJobQueryImpl.setDatabaseType("hsql");
-    deadLetterJobQueryImpl.addOrder(
-        "h2", AbstractQuery.SORTORDER_ASC, NullHandlingOnOrder.NULLS_FIRST);
+    deadLetterJobQueryImpl.setDatabaseType("db2");
+    deadLetterJobQueryImpl.addOrder("h2", AbstractQuery.SORTORDER_ASC, NullHandlingOnOrder.NULLS_FIRST);
 
     // Act
-    deadLetterJobQueryImpl.addOrder(
-        "Column", AbstractQuery.SORTORDER_ASC, NullHandlingOnOrder.NULLS_FIRST);
+    deadLetterJobQueryImpl.addOrder("Column", AbstractQuery.SORTORDER_ASC, NullHandlingOnOrder.NULLS_LAST);
+
+    // Assert
+    assertEquals("case when h2 is null then 0 else 1 end,h2 asc, case when Column is null then 1 else 0 end,Column asc",
+        deadLetterJobQueryImpl.getOrderBy());
+    assertEquals("case when h2 is null then 0 else 1 end,h2 asc, case when Column is null then 1 else 0 end,Column asc",
+        deadLetterJobQueryImpl.getOrderByColumns());
+    assertEquals("case when h2 is null then 0 else 1 end,h2 asc, case when Column is null then 1 else 0 end,Column asc",
+        deadLetterJobQueryImpl.orderBy);
+  }
+
+  /**
+   * Test {@link AbstractQuery#addOrder(String, String, NullHandlingOnOrder)}.
+   * <ul>
+   *   <li>Given {@link DeadLetterJobQueryImpl#DeadLetterJobQueryImpl()} DatabaseType is {@code h2}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link AbstractQuery#addOrder(String, String, NullHandlingOnOrder)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void AbstractQuery.addOrder(String, String, NullHandlingOnOrder)"})
+  public void testAddOrder_givenDeadLetterJobQueryImplDatabaseTypeIsH2() {
+    // Arrange
+    DeadLetterJobQueryImpl deadLetterJobQueryImpl = new DeadLetterJobQueryImpl();
+    deadLetterJobQueryImpl.setDatabaseType("h2");
+    deadLetterJobQueryImpl.addOrder("h2", AbstractQuery.SORTORDER_ASC, NullHandlingOnOrder.NULLS_FIRST);
+
+    // Act
+    deadLetterJobQueryImpl.addOrder("Column", AbstractQuery.SORTORDER_ASC, NullHandlingOnOrder.NULLS_FIRST);
 
     // Assert
     assertEquals("h2 asc NULLS FIRST, Column asc NULLS FIRST", deadLetterJobQueryImpl.getOrderBy());
-    assertEquals(
-        "h2 asc NULLS FIRST, Column asc NULLS FIRST", deadLetterJobQueryImpl.getOrderByColumns());
+    assertEquals("h2 asc NULLS FIRST, Column asc NULLS FIRST", deadLetterJobQueryImpl.getOrderByColumns());
     assertEquals("h2 asc NULLS FIRST, Column asc NULLS FIRST", deadLetterJobQueryImpl.orderBy);
   }
 
   /**
    * Test {@link AbstractQuery#addOrder(String, String, NullHandlingOnOrder)}.
-   *
-   * <p>Method under test: {@link AbstractQuery#addOrder(String, String, NullHandlingOnOrder)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void AbstractQuery.addOrder(String, String, NullHandlingOnOrder)"})
-  public void testAddOrder4() {
-    // Arrange
-    DeadLetterJobQueryImpl deadLetterJobQueryImpl = new DeadLetterJobQueryImpl();
-    deadLetterJobQueryImpl.setDatabaseType("db2");
-
-    // Act
-    deadLetterJobQueryImpl.addOrder(
-        "Column", AbstractQuery.SORTORDER_ASC, NullHandlingOnOrder.NULLS_LAST);
-
-    // Assert
-    assertEquals(
-        "case when Column is null then 1 else 0 end,Column asc",
-        deadLetterJobQueryImpl.getOrderBy());
-    assertEquals(
-        "case when Column is null then 1 else 0 end,Column asc",
-        deadLetterJobQueryImpl.getOrderByColumns());
-    assertEquals(
-        "case when Column is null then 1 else 0 end,Column asc", deadLetterJobQueryImpl.orderBy);
-  }
-
-  /**
-   * Test {@link AbstractQuery#addOrder(String, String, NullHandlingOnOrder)}.
-   *
-   * <p>Method under test: {@link AbstractQuery#addOrder(String, String, NullHandlingOnOrder)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void AbstractQuery.addOrder(String, String, NullHandlingOnOrder)"})
-  public void testAddOrder5() {
-    // Arrange
-    DeadLetterJobQueryImpl deadLetterJobQueryImpl = new DeadLetterJobQueryImpl();
-    deadLetterJobQueryImpl.setDatabaseType("mariadb");
-    deadLetterJobQueryImpl.addOrder(
-        "h2", AbstractQuery.SORTORDER_ASC, NullHandlingOnOrder.NULLS_FIRST);
-
-    // Act
-    deadLetterJobQueryImpl.addOrder(
-        "Column", AbstractQuery.SORTORDER_ASC, NullHandlingOnOrder.NULLS_FIRST);
-
-    // Assert
-    assertEquals(
-        "isnull(h2) desc,h2 asc, isnull(Column) desc,Column asc",
-        deadLetterJobQueryImpl.getOrderBy());
-    assertEquals(
-        "isnull(h2) desc,h2 asc, isnull(Column) desc,Column asc",
-        deadLetterJobQueryImpl.getOrderByColumns());
-    assertEquals(
-        "isnull(h2) desc,h2 asc, isnull(Column) desc,Column asc", deadLetterJobQueryImpl.orderBy);
-  }
-
-  /**
-   * Test {@link AbstractQuery#addOrder(String, String, NullHandlingOnOrder)}.
-   *
-   * <p>Method under test: {@link AbstractQuery#addOrder(String, String, NullHandlingOnOrder)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void AbstractQuery.addOrder(String, String, NullHandlingOnOrder)"})
-  public void testAddOrder6() {
-    // Arrange
-    DeadLetterJobQueryImpl deadLetterJobQueryImpl = new DeadLetterJobQueryImpl();
-    deadLetterJobQueryImpl.setDatabaseType("mariadb");
-    deadLetterJobQueryImpl.addOrder(
-        "h2", AbstractQuery.SORTORDER_ASC, NullHandlingOnOrder.NULLS_FIRST);
-
-    // Act
-    deadLetterJobQueryImpl.addOrder(
-        "Column", AbstractQuery.SORTORDER_ASC, NullHandlingOnOrder.NULLS_LAST);
-
-    // Assert
-    assertEquals(
-        "isnull(h2) desc,h2 asc, isnull(Column) asc,Column asc",
-        deadLetterJobQueryImpl.getOrderBy());
-    assertEquals(
-        "isnull(h2) desc,h2 asc, isnull(Column) asc,Column asc",
-        deadLetterJobQueryImpl.getOrderByColumns());
-    assertEquals(
-        "isnull(h2) desc,h2 asc, isnull(Column) asc,Column asc", deadLetterJobQueryImpl.orderBy);
-  }
-
-  /**
-   * Test {@link AbstractQuery#addOrder(String, String, NullHandlingOnOrder)}.
-   *
    * <ul>
-   *   <li>Given {@link DeadLetterJobQueryImpl#DeadLetterJobQueryImpl()} DatabaseType is {@code
-   *       mysql}.
+   *   <li>Given {@link DeadLetterJobQueryImpl#DeadLetterJobQueryImpl()} DatabaseType is {@code h2}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link AbstractQuery#addOrder(String, String, NullHandlingOnOrder)}
+   * <p>
+   * Method under test: {@link AbstractQuery#addOrder(String, String, NullHandlingOnOrder)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void AbstractQuery.addOrder(String, String, NullHandlingOnOrder)"})
+  public void testAddOrder_givenDeadLetterJobQueryImplDatabaseTypeIsH22() {
+    // Arrange
+    DeadLetterJobQueryImpl deadLetterJobQueryImpl = new DeadLetterJobQueryImpl();
+    deadLetterJobQueryImpl.setDatabaseType("h2");
+    deadLetterJobQueryImpl.addOrder("h2", AbstractQuery.SORTORDER_ASC, NullHandlingOnOrder.NULLS_FIRST);
+
+    // Act
+    deadLetterJobQueryImpl.addOrder("Column", AbstractQuery.SORTORDER_ASC, NullHandlingOnOrder.NULLS_LAST);
+
+    // Assert
+    assertEquals("h2 asc NULLS FIRST, Column asc NULLS LAST", deadLetterJobQueryImpl.getOrderBy());
+    assertEquals("h2 asc NULLS FIRST, Column asc NULLS LAST", deadLetterJobQueryImpl.getOrderByColumns());
+    assertEquals("h2 asc NULLS FIRST, Column asc NULLS LAST", deadLetterJobQueryImpl.orderBy);
+  }
+
+  /**
+   * Test {@link AbstractQuery#addOrder(String, String, NullHandlingOnOrder)}.
+   * <ul>
+   *   <li>Given {@link DeadLetterJobQueryImpl#DeadLetterJobQueryImpl()} DatabaseType is {@code hsql}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link AbstractQuery#addOrder(String, String, NullHandlingOnOrder)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void AbstractQuery.addOrder(String, String, NullHandlingOnOrder)"})
+  public void testAddOrder_givenDeadLetterJobQueryImplDatabaseTypeIsHsql() {
+    // Arrange
+    DeadLetterJobQueryImpl deadLetterJobQueryImpl = new DeadLetterJobQueryImpl();
+    deadLetterJobQueryImpl.setDatabaseType("hsql");
+    deadLetterJobQueryImpl.addOrder("h2", AbstractQuery.SORTORDER_ASC, NullHandlingOnOrder.NULLS_FIRST);
+
+    // Act
+    deadLetterJobQueryImpl.addOrder("Column", AbstractQuery.SORTORDER_ASC, NullHandlingOnOrder.NULLS_FIRST);
+
+    // Assert
+    assertEquals("h2 asc NULLS FIRST, Column asc NULLS FIRST", deadLetterJobQueryImpl.getOrderBy());
+    assertEquals("h2 asc NULLS FIRST, Column asc NULLS FIRST", deadLetterJobQueryImpl.getOrderByColumns());
+    assertEquals("h2 asc NULLS FIRST, Column asc NULLS FIRST", deadLetterJobQueryImpl.orderBy);
+  }
+
+  /**
+   * Test {@link AbstractQuery#addOrder(String, String, NullHandlingOnOrder)}.
+   * <ul>
+   *   <li>Given {@link DeadLetterJobQueryImpl#DeadLetterJobQueryImpl()} DatabaseType is {@code hsql}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link AbstractQuery#addOrder(String, String, NullHandlingOnOrder)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void AbstractQuery.addOrder(String, String, NullHandlingOnOrder)"})
+  public void testAddOrder_givenDeadLetterJobQueryImplDatabaseTypeIsHsql2() {
+    // Arrange
+    DeadLetterJobQueryImpl deadLetterJobQueryImpl = new DeadLetterJobQueryImpl();
+    deadLetterJobQueryImpl.setDatabaseType("hsql");
+    deadLetterJobQueryImpl.addOrder("h2", AbstractQuery.SORTORDER_ASC, NullHandlingOnOrder.NULLS_FIRST);
+
+    // Act
+    deadLetterJobQueryImpl.addOrder("Column", AbstractQuery.SORTORDER_ASC, NullHandlingOnOrder.NULLS_LAST);
+
+    // Assert
+    assertEquals("h2 asc NULLS FIRST, Column asc NULLS LAST", deadLetterJobQueryImpl.getOrderBy());
+    assertEquals("h2 asc NULLS FIRST, Column asc NULLS LAST", deadLetterJobQueryImpl.getOrderByColumns());
+    assertEquals("h2 asc NULLS FIRST, Column asc NULLS LAST", deadLetterJobQueryImpl.orderBy);
+  }
+
+  /**
+   * Test {@link AbstractQuery#addOrder(String, String, NullHandlingOnOrder)}.
+   * <ul>
+   *   <li>Given {@link DeadLetterJobQueryImpl#DeadLetterJobQueryImpl()} DatabaseType is {@code mariadb}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link AbstractQuery#addOrder(String, String, NullHandlingOnOrder)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void AbstractQuery.addOrder(String, String, NullHandlingOnOrder)"})
+  public void testAddOrder_givenDeadLetterJobQueryImplDatabaseTypeIsMariadb() {
+    // Arrange
+    DeadLetterJobQueryImpl deadLetterJobQueryImpl = new DeadLetterJobQueryImpl();
+    deadLetterJobQueryImpl.setDatabaseType("mariadb");
+    deadLetterJobQueryImpl.addOrder("h2", AbstractQuery.SORTORDER_ASC, NullHandlingOnOrder.NULLS_FIRST);
+
+    // Act
+    deadLetterJobQueryImpl.addOrder("Column", AbstractQuery.SORTORDER_ASC, NullHandlingOnOrder.NULLS_LAST);
+
+    // Assert
+    assertEquals("isnull(h2) desc,h2 asc, isnull(Column) asc,Column asc", deadLetterJobQueryImpl.getOrderBy());
+    assertEquals("isnull(h2) desc,h2 asc, isnull(Column) asc,Column asc", deadLetterJobQueryImpl.getOrderByColumns());
+    assertEquals("isnull(h2) desc,h2 asc, isnull(Column) asc,Column asc", deadLetterJobQueryImpl.orderBy);
+  }
+
+  /**
+   * Test {@link AbstractQuery#addOrder(String, String, NullHandlingOnOrder)}.
+   * <ul>
+   *   <li>Given {@link DeadLetterJobQueryImpl#DeadLetterJobQueryImpl()} DatabaseType is {@code mysql}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link AbstractQuery#addOrder(String, String, NullHandlingOnOrder)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void AbstractQuery.addOrder(String, String, NullHandlingOnOrder)"})
   public void testAddOrder_givenDeadLetterJobQueryImplDatabaseTypeIsMysql() {
     // Arrange
     DeadLetterJobQueryImpl deadLetterJobQueryImpl = new DeadLetterJobQueryImpl();
     deadLetterJobQueryImpl.setDatabaseType("mysql");
-    deadLetterJobQueryImpl.addOrder(
-        "h2", AbstractQuery.SORTORDER_ASC, NullHandlingOnOrder.NULLS_FIRST);
+    deadLetterJobQueryImpl.addOrder("h2", AbstractQuery.SORTORDER_ASC, NullHandlingOnOrder.NULLS_FIRST);
 
     // Act
-    deadLetterJobQueryImpl.addOrder(
-        "Column", AbstractQuery.SORTORDER_ASC, NullHandlingOnOrder.NULLS_LAST);
+    deadLetterJobQueryImpl.addOrder("Column", AbstractQuery.SORTORDER_ASC, NullHandlingOnOrder.NULLS_LAST);
 
     // Assert
-    assertEquals(
-        "isnull(h2) desc,h2 asc, isnull(Column) asc,Column asc",
-        deadLetterJobQueryImpl.getOrderBy());
-    assertEquals(
-        "isnull(h2) desc,h2 asc, isnull(Column) asc,Column asc",
-        deadLetterJobQueryImpl.getOrderByColumns());
-    assertEquals(
-        "isnull(h2) desc,h2 asc, isnull(Column) asc,Column asc", deadLetterJobQueryImpl.orderBy);
+    assertEquals("isnull(h2) desc,h2 asc, isnull(Column) asc,Column asc", deadLetterJobQueryImpl.getOrderBy());
+    assertEquals("isnull(h2) desc,h2 asc, isnull(Column) asc,Column asc", deadLetterJobQueryImpl.getOrderByColumns());
+    assertEquals("isnull(h2) desc,h2 asc, isnull(Column) asc,Column asc", deadLetterJobQueryImpl.orderBy);
   }
 
   /**
    * Test {@link AbstractQuery#addOrder(String, String, NullHandlingOnOrder)}.
-   *
    * <ul>
-   *   <li>Given {@link DeadLetterJobQueryImpl#DeadLetterJobQueryImpl()} DatabaseType is {@code
-   *       oracle}.
+   *   <li>Given {@link DeadLetterJobQueryImpl#DeadLetterJobQueryImpl()} DatabaseType is {@code oracle}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link AbstractQuery#addOrder(String, String, NullHandlingOnOrder)}
+   * <p>
+   * Method under test: {@link AbstractQuery#addOrder(String, String, NullHandlingOnOrder)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void AbstractQuery.addOrder(String, String, NullHandlingOnOrder)"})
   public void testAddOrder_givenDeadLetterJobQueryImplDatabaseTypeIsOracle() {
     // Arrange
     DeadLetterJobQueryImpl deadLetterJobQueryImpl = new DeadLetterJobQueryImpl();
     deadLetterJobQueryImpl.setDatabaseType("oracle");
-    deadLetterJobQueryImpl.addOrder(
-        "h2", AbstractQuery.SORTORDER_ASC, NullHandlingOnOrder.NULLS_FIRST);
+    deadLetterJobQueryImpl.addOrder("h2", AbstractQuery.SORTORDER_ASC, NullHandlingOnOrder.NULLS_FIRST);
 
     // Act
-    deadLetterJobQueryImpl.addOrder(
-        "Column", AbstractQuery.SORTORDER_ASC, NullHandlingOnOrder.NULLS_LAST);
+    deadLetterJobQueryImpl.addOrder("Column", AbstractQuery.SORTORDER_ASC, NullHandlingOnOrder.NULLS_LAST);
 
     // Assert
     assertEquals("h2 asc NULLS FIRST, Column asc NULLS LAST", deadLetterJobQueryImpl.getOrderBy());
-    assertEquals(
-        "h2 asc NULLS FIRST, Column asc NULLS LAST", deadLetterJobQueryImpl.getOrderByColumns());
+    assertEquals("h2 asc NULLS FIRST, Column asc NULLS LAST", deadLetterJobQueryImpl.getOrderByColumns());
     assertEquals("h2 asc NULLS FIRST, Column asc NULLS LAST", deadLetterJobQueryImpl.orderBy);
   }
 
   /**
    * Test {@link AbstractQuery#addOrder(String, String, NullHandlingOnOrder)}.
-   *
    * <ul>
-   *   <li>Given {@link DeadLetterJobQueryImpl#DeadLetterJobQueryImpl()} DatabaseType is {@code
-   *       postgres}.
+   *   <li>Given {@link DeadLetterJobQueryImpl#DeadLetterJobQueryImpl()} DatabaseType is {@code oracle}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link AbstractQuery#addOrder(String, String, NullHandlingOnOrder)}
+   * <p>
+   * Method under test: {@link AbstractQuery#addOrder(String, String, NullHandlingOnOrder)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void AbstractQuery.addOrder(String, String, NullHandlingOnOrder)"})
+  public void testAddOrder_givenDeadLetterJobQueryImplDatabaseTypeIsOracle2() {
+    // Arrange
+    DeadLetterJobQueryImpl deadLetterJobQueryImpl = new DeadLetterJobQueryImpl();
+    deadLetterJobQueryImpl.setDatabaseType("oracle");
+    deadLetterJobQueryImpl.addOrder("h2", AbstractQuery.SORTORDER_ASC, NullHandlingOnOrder.NULLS_FIRST);
+
+    // Act
+    deadLetterJobQueryImpl.addOrder("Column", AbstractQuery.SORTORDER_ASC, NullHandlingOnOrder.NULLS_FIRST);
+
+    // Assert
+    assertEquals("h2 asc NULLS FIRST, Column asc NULLS FIRST", deadLetterJobQueryImpl.getOrderBy());
+    assertEquals("h2 asc NULLS FIRST, Column asc NULLS FIRST", deadLetterJobQueryImpl.getOrderByColumns());
+    assertEquals("h2 asc NULLS FIRST, Column asc NULLS FIRST", deadLetterJobQueryImpl.orderBy);
+  }
+
+  /**
+   * Test {@link AbstractQuery#addOrder(String, String, NullHandlingOnOrder)}.
+   * <ul>
+   *   <li>Given {@link DeadLetterJobQueryImpl#DeadLetterJobQueryImpl()} DatabaseType is {@code postgres}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link AbstractQuery#addOrder(String, String, NullHandlingOnOrder)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void AbstractQuery.addOrder(String, String, NullHandlingOnOrder)"})
   public void testAddOrder_givenDeadLetterJobQueryImplDatabaseTypeIsPostgres() {
     // Arrange
     DeadLetterJobQueryImpl deadLetterJobQueryImpl = new DeadLetterJobQueryImpl();
     deadLetterJobQueryImpl.setDatabaseType("postgres");
-    deadLetterJobQueryImpl.addOrder(
-        "h2", AbstractQuery.SORTORDER_ASC, NullHandlingOnOrder.NULLS_FIRST);
+    deadLetterJobQueryImpl.addOrder("h2", AbstractQuery.SORTORDER_ASC, NullHandlingOnOrder.NULLS_FIRST);
 
     // Act
-    deadLetterJobQueryImpl.addOrder(
-        "Column", AbstractQuery.SORTORDER_ASC, NullHandlingOnOrder.NULLS_LAST);
+    deadLetterJobQueryImpl.addOrder("Column", AbstractQuery.SORTORDER_ASC, NullHandlingOnOrder.NULLS_LAST);
 
     // Assert
     assertEquals("h2 asc NULLS FIRST, Column asc NULLS LAST", deadLetterJobQueryImpl.getOrderBy());
-    assertEquals(
-        "h2 asc NULLS FIRST, Column asc NULLS LAST", deadLetterJobQueryImpl.getOrderByColumns());
+    assertEquals("h2 asc NULLS FIRST, Column asc NULLS LAST", deadLetterJobQueryImpl.getOrderByColumns());
     assertEquals("h2 asc NULLS FIRST, Column asc NULLS LAST", deadLetterJobQueryImpl.orderBy);
   }
 
   /**
    * Test {@link AbstractQuery#addOrder(String, String, NullHandlingOnOrder)}.
-   *
    * <ul>
-   *   <li>Then {@link DeadLetterJobQueryImpl#DeadLetterJobQueryImpl()} OrderBy is {@code Column
-   *       asc}.
+   *   <li>Given {@link DeadLetterJobQueryImpl#DeadLetterJobQueryImpl()} DatabaseType is {@code postgres}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link AbstractQuery#addOrder(String, String, NullHandlingOnOrder)}
+   * <p>
+   * Method under test: {@link AbstractQuery#addOrder(String, String, NullHandlingOnOrder)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void AbstractQuery.addOrder(String, String, NullHandlingOnOrder)"})
+  public void testAddOrder_givenDeadLetterJobQueryImplDatabaseTypeIsPostgres2() {
+    // Arrange
+    DeadLetterJobQueryImpl deadLetterJobQueryImpl = new DeadLetterJobQueryImpl();
+    deadLetterJobQueryImpl.setDatabaseType("postgres");
+    deadLetterJobQueryImpl.addOrder("h2", AbstractQuery.SORTORDER_ASC, NullHandlingOnOrder.NULLS_FIRST);
+
+    // Act
+    deadLetterJobQueryImpl.addOrder("Column", AbstractQuery.SORTORDER_ASC, NullHandlingOnOrder.NULLS_FIRST);
+
+    // Assert
+    assertEquals("h2 asc NULLS FIRST, Column asc NULLS FIRST", deadLetterJobQueryImpl.getOrderBy());
+    assertEquals("h2 asc NULLS FIRST, Column asc NULLS FIRST", deadLetterJobQueryImpl.getOrderByColumns());
+    assertEquals("h2 asc NULLS FIRST, Column asc NULLS FIRST", deadLetterJobQueryImpl.orderBy);
+  }
+
+  /**
+   * Test {@link AbstractQuery#addOrder(String, String, NullHandlingOnOrder)}.
+   * <ul>
+   *   <li>Then {@link DeadLetterJobQueryImpl#DeadLetterJobQueryImpl()} OrderBy is {@code Column asc}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link AbstractQuery#addOrder(String, String, NullHandlingOnOrder)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void AbstractQuery.addOrder(String, String, NullHandlingOnOrder)"})
   public void testAddOrder_thenDeadLetterJobQueryImplOrderByIsColumnAsc() {
     // Arrange
     DeadLetterJobQueryImpl deadLetterJobQueryImpl = new DeadLetterJobQueryImpl();
 
     // Act
-    deadLetterJobQueryImpl.addOrder(
-        "Column", AbstractQuery.SORTORDER_ASC, NullHandlingOnOrder.NULLS_FIRST);
+    deadLetterJobQueryImpl.addOrder("Column", AbstractQuery.SORTORDER_ASC, NullHandlingOnOrder.NULLS_FIRST);
 
     // Assert
     assertEquals("Column asc", deadLetterJobQueryImpl.getOrderBy());
@@ -851,25 +798,21 @@ public class AbstractQueryDiffblueTest {
 
   /**
    * Test {@link AbstractQuery#addOrder(String, String, NullHandlingOnOrder)}.
-   *
    * <ul>
-   *   <li>Then {@link DeadLetterJobQueryImpl#DeadLetterJobQueryImpl()} OrderBy is {@code Column
-   *       asc}.
+   *   <li>Then {@link DeadLetterJobQueryImpl#DeadLetterJobQueryImpl()} OrderBy is {@code Column asc}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link AbstractQuery#addOrder(String, String, NullHandlingOnOrder)}
+   * <p>
+   * Method under test: {@link AbstractQuery#addOrder(String, String, NullHandlingOnOrder)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void AbstractQuery.addOrder(String, String, NullHandlingOnOrder)"})
   public void testAddOrder_thenDeadLetterJobQueryImplOrderByIsColumnAsc2() {
     // Arrange
     DeadLetterJobQueryImpl deadLetterJobQueryImpl = new DeadLetterJobQueryImpl();
 
     // Act
-    deadLetterJobQueryImpl.addOrder(
-        "Column", AbstractQuery.SORTORDER_ASC, NullHandlingOnOrder.NULLS_LAST);
+    deadLetterJobQueryImpl.addOrder("Column", AbstractQuery.SORTORDER_ASC, NullHandlingOnOrder.NULLS_LAST);
 
     // Assert
     assertEquals("Column asc", deadLetterJobQueryImpl.getOrderBy());
@@ -879,85 +822,22 @@ public class AbstractQueryDiffblueTest {
 
   /**
    * Test {@link AbstractQuery#addOrder(String, String, NullHandlingOnOrder)}.
-   *
    * <ul>
-   *   <li>Then {@link DeadLetterJobQueryImpl#DeadLetterJobQueryImpl()} OrderBy is {@code Column asc
-   *       NULLS LAST}.
+   *   <li>Then {@link DeadLetterJobQueryImpl#DeadLetterJobQueryImpl()} OrderBy is {@code h2 asc, Column asc}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link AbstractQuery#addOrder(String, String, NullHandlingOnOrder)}
+   * <p>
+   * Method under test: {@link AbstractQuery#addOrder(String, String, NullHandlingOnOrder)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void AbstractQuery.addOrder(String, String, NullHandlingOnOrder)"})
-  public void testAddOrder_thenDeadLetterJobQueryImplOrderByIsColumnAscNullsLast() {
-    // Arrange
-    DeadLetterJobQueryImpl deadLetterJobQueryImpl = new DeadLetterJobQueryImpl();
-    deadLetterJobQueryImpl.setDatabaseType("h2");
-
-    // Act
-    deadLetterJobQueryImpl.addOrder(
-        "Column", AbstractQuery.SORTORDER_ASC, NullHandlingOnOrder.NULLS_LAST);
-
-    // Assert
-    assertEquals("Column asc NULLS LAST", deadLetterJobQueryImpl.getOrderBy());
-    assertEquals("Column asc NULLS LAST", deadLetterJobQueryImpl.getOrderByColumns());
-    assertEquals("Column asc NULLS LAST", deadLetterJobQueryImpl.orderBy);
-  }
-
-  /**
-   * Test {@link AbstractQuery#addOrder(String, String, NullHandlingOnOrder)}.
-   *
-   * <ul>
-   *   <li>Then {@link DeadLetterJobQueryImpl#DeadLetterJobQueryImpl()} OrderBy is {@code Column asc
-   *       NULLS LAST}.
-   * </ul>
-   *
-   * <p>Method under test: {@link AbstractQuery#addOrder(String, String, NullHandlingOnOrder)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void AbstractQuery.addOrder(String, String, NullHandlingOnOrder)"})
-  public void testAddOrder_thenDeadLetterJobQueryImplOrderByIsColumnAscNullsLast2() {
-    // Arrange
-    DeadLetterJobQueryImpl deadLetterJobQueryImpl = new DeadLetterJobQueryImpl();
-    deadLetterJobQueryImpl.setDatabaseType("hsql");
-
-    // Act
-    deadLetterJobQueryImpl.addOrder(
-        "Column", AbstractQuery.SORTORDER_ASC, NullHandlingOnOrder.NULLS_LAST);
-
-    // Assert
-    assertEquals("Column asc NULLS LAST", deadLetterJobQueryImpl.getOrderBy());
-    assertEquals("Column asc NULLS LAST", deadLetterJobQueryImpl.getOrderByColumns());
-    assertEquals("Column asc NULLS LAST", deadLetterJobQueryImpl.orderBy);
-  }
-
-  /**
-   * Test {@link AbstractQuery#addOrder(String, String, NullHandlingOnOrder)}.
-   *
-   * <ul>
-   *   <li>Then {@link DeadLetterJobQueryImpl#DeadLetterJobQueryImpl()} OrderBy is {@code h2 asc,
-   *       Column asc}.
-   * </ul>
-   *
-   * <p>Method under test: {@link AbstractQuery#addOrder(String, String, NullHandlingOnOrder)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void AbstractQuery.addOrder(String, String, NullHandlingOnOrder)"})
   public void testAddOrder_thenDeadLetterJobQueryImplOrderByIsH2AscColumnAsc() {
     // Arrange
     DeadLetterJobQueryImpl deadLetterJobQueryImpl = new DeadLetterJobQueryImpl();
-    deadLetterJobQueryImpl.addOrder(
-        "h2", AbstractQuery.SORTORDER_ASC, NullHandlingOnOrder.NULLS_FIRST);
+    deadLetterJobQueryImpl.addOrder("h2", AbstractQuery.SORTORDER_ASC, NullHandlingOnOrder.NULLS_FIRST);
 
     // Act
-    deadLetterJobQueryImpl.addOrder(
-        "Column", AbstractQuery.SORTORDER_ASC, NullHandlingOnOrder.NULLS_FIRST);
+    deadLetterJobQueryImpl.addOrder("Column", AbstractQuery.SORTORDER_ASC, NullHandlingOnOrder.NULLS_FIRST);
 
     // Assert
     assertEquals("h2 asc, Column asc", deadLetterJobQueryImpl.getOrderBy());
@@ -967,18 +847,15 @@ public class AbstractQueryDiffblueTest {
 
   /**
    * Test {@link AbstractQuery#addOrder(String, String, NullHandlingOnOrder)}.
-   *
    * <ul>
-   *   <li>When {@code null}.
-   *   <li>Then {@link DeadLetterJobQueryImpl#DeadLetterJobQueryImpl()} OrderBy is {@code Column
-   *       asc}.
+   *   <li>When {@code null}.</li>
+   *   <li>Then {@link DeadLetterJobQueryImpl#DeadLetterJobQueryImpl()} OrderBy is {@code Column asc}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link AbstractQuery#addOrder(String, String, NullHandlingOnOrder)}
+   * <p>
+   * Method under test: {@link AbstractQuery#addOrder(String, String, NullHandlingOnOrder)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void AbstractQuery.addOrder(String, String, NullHandlingOnOrder)"})
   public void testAddOrder_whenNull_thenDeadLetterJobQueryImplOrderByIsColumnAsc() {
     // Arrange
@@ -995,40 +872,35 @@ public class AbstractQueryDiffblueTest {
 
   /**
    * Test {@link AbstractQuery#getOrderBy()}.
-   *
    * <ul>
-   *   <li>Then return {@code RES.ID_ asc}.
+   *   <li>Then return {@code RES.ID_ asc}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link AbstractQuery#getOrderBy()}
+   * <p>
+   * Method under test: {@link AbstractQuery#getOrderBy()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"String AbstractQuery.getOrderBy()"})
   public void testGetOrderBy_thenReturnResIdAsc() {
     // Arrange, Act and Assert
-    assertEquals("RES.ID_ asc", new DeadLetterJobQueryImpl().getOrderBy());
+    assertEquals("RES.ID_ asc", (new DeadLetterJobQueryImpl()).getOrderBy());
   }
 
   /**
    * Test {@link AbstractQuery#getOrderBy()}.
-   *
    * <ul>
-   *   <li>Then return {@code RES.ID_ asc asc}.
+   *   <li>Then return {@code RES.ID_ asc asc}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link AbstractQuery#getOrderBy()}
+   * <p>
+   * Method under test: {@link AbstractQuery#getOrderBy()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"String AbstractQuery.getOrderBy()"})
   public void testGetOrderBy_thenReturnResIdAscAsc() {
     // Arrange
     DeadLetterJobQueryImpl deadLetterJobQueryImpl = new DeadLetterJobQueryImpl();
-    deadLetterJobQueryImpl.addOrder(
-        "RES.ID_ asc", AbstractQuery.SORTORDER_ASC, NullHandlingOnOrder.NULLS_FIRST);
+    deadLetterJobQueryImpl.addOrder("RES.ID_ asc", AbstractQuery.SORTORDER_ASC, NullHandlingOnOrder.NULLS_FIRST);
 
     // Act and Assert
     assertEquals("RES.ID_ asc asc", deadLetterJobQueryImpl.getOrderBy());
@@ -1036,40 +908,35 @@ public class AbstractQueryDiffblueTest {
 
   /**
    * Test {@link AbstractQuery#getOrderByColumns()}.
-   *
    * <ul>
-   *   <li>Then return {@code RES.ID_ asc}.
+   *   <li>Then return {@code RES.ID_ asc}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link AbstractQuery#getOrderByColumns()}
+   * <p>
+   * Method under test: {@link AbstractQuery#getOrderByColumns()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"String AbstractQuery.getOrderByColumns()"})
   public void testGetOrderByColumns_thenReturnResIdAsc() {
     // Arrange, Act and Assert
-    assertEquals("RES.ID_ asc", new DeadLetterJobQueryImpl().getOrderByColumns());
+    assertEquals("RES.ID_ asc", (new DeadLetterJobQueryImpl()).getOrderByColumns());
   }
 
   /**
    * Test {@link AbstractQuery#getOrderByColumns()}.
-   *
    * <ul>
-   *   <li>Then return {@code RES.ID_ asc asc}.
+   *   <li>Then return {@code RES.ID_ asc asc}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link AbstractQuery#getOrderByColumns()}
+   * <p>
+   * Method under test: {@link AbstractQuery#getOrderByColumns()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"String AbstractQuery.getOrderByColumns()"})
   public void testGetOrderByColumns_thenReturnResIdAscAsc() {
     // Arrange
     DeadLetterJobQueryImpl deadLetterJobQueryImpl = new DeadLetterJobQueryImpl();
-    deadLetterJobQueryImpl.addOrder(
-        "RES.ID_ asc", AbstractQuery.SORTORDER_ASC, NullHandlingOnOrder.NULLS_FIRST);
+    deadLetterJobQueryImpl.addOrder("RES.ID_ asc", AbstractQuery.SORTORDER_ASC, NullHandlingOnOrder.NULLS_FIRST);
 
     // Act and Assert
     assertEquals("RES.ID_ asc asc", deadLetterJobQueryImpl.getOrderByColumns());
@@ -1077,26 +944,24 @@ public class AbstractQueryDiffblueTest {
 
   /**
    * Test {@link AbstractQuery#getDatabaseType()}.
-   *
-   * <p>Method under test: {@link AbstractQuery#getDatabaseType()}
+   * <p>
+   * Method under test: {@link AbstractQuery#getDatabaseType()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"String AbstractQuery.getDatabaseType()"})
   public void testGetDatabaseType() {
     // Arrange, Act and Assert
-    assertNull(new DeadLetterJobQueryImpl().getDatabaseType());
+    assertNull((new DeadLetterJobQueryImpl()).getDatabaseType());
   }
 
   /**
    * Test {@link AbstractQuery#setDatabaseType(String)}.
-   *
-   * <p>Method under test: {@link AbstractQuery#setDatabaseType(String)}
+   * <p>
+   * Method under test: {@link AbstractQuery#setDatabaseType(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void AbstractQuery.setDatabaseType(String)"})
   public void testSetDatabaseType() {
     // Arrange

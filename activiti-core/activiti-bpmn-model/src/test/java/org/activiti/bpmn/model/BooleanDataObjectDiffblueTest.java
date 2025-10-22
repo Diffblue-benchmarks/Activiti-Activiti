@@ -19,8 +19,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
@@ -28,19 +27,13 @@ import org.junit.experimental.categories.Category;
 public class BooleanDataObjectDiffblueTest {
   /**
    * Test {@link BooleanDataObject#setValue(Object)}.
-   *
-   * <ul>
-   *   <li>When {@code Value}.
-   *   <li>Then not {@link BooleanDataObject} (default constructor) Value.
-   * </ul>
-   *
-   * <p>Method under test: {@link BooleanDataObject#setValue(Object)}
+   * <p>
+   * Method under test: {@link BooleanDataObject#setValue(Object)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void BooleanDataObject.setValue(Object)"})
-  public void testSetValue_whenValue_thenNotBooleanDataObjectValue() {
+  public void testSetValue() {
     // Arrange
     BooleanDataObject booleanDataObject = new BooleanDataObject();
 
@@ -53,17 +46,15 @@ public class BooleanDataObjectDiffblueTest {
 
   /**
    * Test {@link BooleanDataObject#clone()}.
-   *
    * <ul>
-   *   <li>Given {@link BooleanDataObject} (default constructor) Value is {@code Value}.
-   *   <li>Then return not Value.
+   *   <li>Given {@link BooleanDataObject} (default constructor) Value is {@code Value}.</li>
+   *   <li>Then return not Value.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link BooleanDataObject#clone()}
+   * <p>
+   * Method under test: {@link BooleanDataObject#clone()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"BooleanDataObject BooleanDataObject.clone()"})
   public void testClone_givenBooleanDataObjectValueIsValue_thenReturnNotValue() {
     // Arrange
@@ -90,21 +81,19 @@ public class BooleanDataObjectDiffblueTest {
 
   /**
    * Test {@link BooleanDataObject#clone()}.
-   *
    * <ul>
-   *   <li>Given {@link BooleanDataObject} (default constructor).
-   *   <li>Then return Value is {@code null}.
+   *   <li>Given {@link BooleanDataObject} (default constructor).</li>
+   *   <li>Then return Value is {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link BooleanDataObject#clone()}
+   * <p>
+   * Method under test: {@link BooleanDataObject#clone()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"BooleanDataObject BooleanDataObject.clone()"})
   public void testClone_givenBooleanDataObject_thenReturnValueIsNull() {
     // Arrange and Act
-    BooleanDataObject actualCloneResult = new BooleanDataObject().clone();
+    BooleanDataObject actualCloneResult = (new BooleanDataObject()).clone();
 
     // Assert
     assertNull(actualCloneResult.getValue());
@@ -123,12 +112,11 @@ public class BooleanDataObjectDiffblueTest {
 
   /**
    * Test new {@link BooleanDataObject} (default constructor).
-   *
-   * <p>Method under test: default or parameterless constructor of {@link BooleanDataObject}
+   * <p>
+   * Method under test: default or parameterless constructor of {@link BooleanDataObject}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void BooleanDataObject.<init>()"})
   public void testNewBooleanDataObject() {
     // Arrange and Act

@@ -19,10 +19,9 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.node.DoubleNode;
+import com.fasterxml.jackson.databind.node.MissingNode;
 import java.util.HashMap;
 import java.util.Map;
 import org.activiti.bpmn.model.ActivitiListener;
@@ -36,13 +35,12 @@ import org.junit.jupiter.api.Test;
 class InclusiveGatewayJsonConverterDiffblueTest {
   /**
    * Test {@link InclusiveGatewayJsonConverter#fillJsonTypes(Map)}.
-   *
-   * <p>Method under test: {@link InclusiveGatewayJsonConverter#fillJsonTypes(Map)}
+   * <p>
+   * Method under test: {@link InclusiveGatewayJsonConverter#fillJsonTypes(Map)}
    */
   @Test
   @DisplayName("Test fillJsonTypes(Map)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void InclusiveGatewayJsonConverter.fillJsonTypes(Map)"})
   void testFillJsonTypes() {
     // Arrange
@@ -59,47 +57,39 @@ class InclusiveGatewayJsonConverterDiffblueTest {
 
   /**
    * Test {@link InclusiveGatewayJsonConverter#getStencilId(BaseElement)}.
-   *
-   * <p>Method under test: {@link InclusiveGatewayJsonConverter#getStencilId(BaseElement)}
+   * <p>
+   * Method under test: {@link InclusiveGatewayJsonConverter#getStencilId(BaseElement)}
    */
   @Test
   @DisplayName("Test getStencilId(BaseElement)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"String InclusiveGatewayJsonConverter.getStencilId(BaseElement)"})
   void testGetStencilId() {
     // Arrange
-    InclusiveGatewayJsonConverter inclusiveGatewayJsonConverter =
-        new InclusiveGatewayJsonConverter();
+    InclusiveGatewayJsonConverter inclusiveGatewayJsonConverter = new InclusiveGatewayJsonConverter();
 
     // Act and Assert
-    assertEquals(
-        "InclusiveGateway", inclusiveGatewayJsonConverter.getStencilId(new ActivitiListener()));
+    assertEquals("InclusiveGateway", inclusiveGatewayJsonConverter.getStencilId(new ActivitiListener()));
   }
 
   /**
    * Test {@link InclusiveGatewayJsonConverter#convertJsonToElement(JsonNode, JsonNode, Map)}.
-   *
-   * <p>Method under test: {@link InclusiveGatewayJsonConverter#convertJsonToElement(JsonNode,
-   * JsonNode, Map)}
+   * <p>
+   * Method under test: {@link InclusiveGatewayJsonConverter#convertJsonToElement(JsonNode, JsonNode, Map)}
    */
   @Test
   @DisplayName("Test convertJsonToElement(JsonNode, JsonNode, Map)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "FlowElement InclusiveGatewayJsonConverter.convertJsonToElement(JsonNode, JsonNode, Map)"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"FlowElement InclusiveGatewayJsonConverter.convertJsonToElement(JsonNode, JsonNode, Map)"})
   void testConvertJsonToElement() {
     // Arrange
-    InclusiveGatewayJsonConverter inclusiveGatewayJsonConverter =
-        new InclusiveGatewayJsonConverter();
-    DoubleNode elementNode = DoubleNode.valueOf(10.0d);
-    DoubleNode modelNode = DoubleNode.valueOf(10.0d);
+    InclusiveGatewayJsonConverter inclusiveGatewayJsonConverter = new InclusiveGatewayJsonConverter();
+    MissingNode elementNode = MissingNode.getInstance();
+    MissingNode modelNode = MissingNode.getInstance();
 
     // Act
-    FlowElement actualConvertJsonToElementResult =
-        inclusiveGatewayJsonConverter.convertJsonToElement(elementNode, modelNode, new HashMap<>());
+    FlowElement actualConvertJsonToElementResult = inclusiveGatewayJsonConverter.convertJsonToElement(elementNode,
+        modelNode, new HashMap<>());
 
     // Assert
     assertTrue(actualConvertJsonToElementResult instanceof InclusiveGateway);
@@ -124,19 +114,16 @@ class InclusiveGatewayJsonConverterDiffblueTest {
 
   /**
    * Test new {@link InclusiveGatewayJsonConverter} (default constructor).
-   *
-   * <p>Method under test: default or parameterless constructor of {@link
-   * InclusiveGatewayJsonConverter}
+   * <p>
+   * Method under test: default or parameterless constructor of {@link InclusiveGatewayJsonConverter}
    */
   @Test
   @DisplayName("Test new InclusiveGatewayJsonConverter (default constructor)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void InclusiveGatewayJsonConverter.<init>()"})
   void testNewInclusiveGatewayJsonConverter() {
     // Arrange and Act
-    InclusiveGatewayJsonConverter actualInclusiveGatewayJsonConverter =
-        new InclusiveGatewayJsonConverter();
+    InclusiveGatewayJsonConverter actualInclusiveGatewayJsonConverter = new InclusiveGatewayJsonConverter();
 
     // Assert
     assertNull(actualInclusiveGatewayJsonConverter.shapesArrayNode);

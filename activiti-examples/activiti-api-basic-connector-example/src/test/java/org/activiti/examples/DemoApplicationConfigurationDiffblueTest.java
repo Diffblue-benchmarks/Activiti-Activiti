@@ -16,7 +16,6 @@
 package org.activiti.examples;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
@@ -31,94 +30,36 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 @ContextConfiguration(classes = {DemoApplicationConfiguration.class})
 @ExtendWith(SpringExtension.class)
 class DemoApplicationConfigurationDiffblueTest {
-  @Autowired private DemoApplicationConfiguration demoApplicationConfiguration;
+  @Autowired
+  private DemoApplicationConfiguration demoApplicationConfiguration;
 
   /**
    * Test {@link DemoApplicationConfiguration#myUserDetailsService()}.
-   *
-   * <ul>
-   *   <li>Given {@link DemoApplicationConfiguration}.
-   * </ul>
-   *
-   * <p>Method under test: {@link DemoApplicationConfiguration#myUserDetailsService()}
+   * <p>
+   * Method under test: {@link DemoApplicationConfiguration#myUserDetailsService()}
    */
   @Test
-  @DisplayName("Test myUserDetailsService(); given DemoApplicationConfiguration")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test myUserDetailsService()")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({
-    "org.springframework.security.core.userdetails.UserDetailsService DemoApplicationConfiguration.myUserDetailsService()"
-  })
-  void testMyUserDetailsService_givenDemoApplicationConfiguration() {
+      "org.springframework.security.core.userdetails.UserDetailsService DemoApplicationConfiguration.myUserDetailsService()"})
+  void testMyUserDetailsService() {
     // Arrange, Act and Assert
-    assertTrue(
-        demoApplicationConfiguration.myUserDetailsService() instanceof InMemoryUserDetailsManager);
-  }
-
-  /**
-   * Test {@link DemoApplicationConfiguration#myUserDetailsService()}.
-   *
-   * <ul>
-   *   <li>Given {@link DemoApplicationConfiguration} (default constructor).
-   * </ul>
-   *
-   * <p>Method under test: {@link DemoApplicationConfiguration#myUserDetailsService()}
-   */
-  @Test
-  @DisplayName(
-      "Test myUserDetailsService(); given DemoApplicationConfiguration (default constructor)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "org.springframework.security.core.userdetails.UserDetailsService DemoApplicationConfiguration.myUserDetailsService()"
-  })
-  void testMyUserDetailsService_givenDemoApplicationConfiguration2() {
-    // Arrange, Act and Assert
-    assertTrue(
-        new DemoApplicationConfiguration().myUserDetailsService()
-            instanceof InMemoryUserDetailsManager);
+    assertTrue(demoApplicationConfiguration.myUserDetailsService() instanceof InMemoryUserDetailsManager);
   }
 
   /**
    * Test {@link DemoApplicationConfiguration#passwordEncoder()}.
-   *
-   * <ul>
-   *   <li>Given {@link DemoApplicationConfiguration}.
-   * </ul>
-   *
-   * <p>Method under test: {@link DemoApplicationConfiguration#passwordEncoder()}
+   * <p>
+   * Method under test: {@link DemoApplicationConfiguration#passwordEncoder()}
    */
   @Test
-  @DisplayName("Test passwordEncoder(); given DemoApplicationConfiguration")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test passwordEncoder()")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({
-    "org.springframework.security.crypto.password.PasswordEncoder DemoApplicationConfiguration.passwordEncoder()"
-  })
-  void testPasswordEncoder_givenDemoApplicationConfiguration() {
+      "org.springframework.security.crypto.password.PasswordEncoder DemoApplicationConfiguration.passwordEncoder()"})
+  void testPasswordEncoder() {
     // Arrange, Act and Assert
     assertTrue(demoApplicationConfiguration.passwordEncoder() instanceof BCryptPasswordEncoder);
-  }
-
-  /**
-   * Test {@link DemoApplicationConfiguration#passwordEncoder()}.
-   *
-   * <ul>
-   *   <li>Given {@link DemoApplicationConfiguration} (default constructor).
-   * </ul>
-   *
-   * <p>Method under test: {@link DemoApplicationConfiguration#passwordEncoder()}
-   */
-  @Test
-  @DisplayName("Test passwordEncoder(); given DemoApplicationConfiguration (default constructor)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "org.springframework.security.crypto.password.PasswordEncoder DemoApplicationConfiguration.passwordEncoder()"
-  })
-  void testPasswordEncoder_givenDemoApplicationConfiguration2() {
-    // Arrange, Act and Assert
-    assertTrue(
-        new DemoApplicationConfiguration().passwordEncoder() instanceof BCryptPasswordEncoder);
   }
 }

@@ -16,8 +16,7 @@
 package org.activiti.engine.impl.cfg;
 
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
@@ -25,9 +24,8 @@ import org.junit.experimental.categories.Category;
 public class PerformanceSettingsDiffblueTest {
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>default or parameterless constructor of {@link PerformanceSettings}
    *   <li>{@link PerformanceSettings#setEnableEagerExecutionTreeFetching(boolean)}
@@ -41,19 +39,16 @@ public class PerformanceSettingsDiffblueTest {
    * </ul>
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void PerformanceSettings.<init>()",
-    "boolean PerformanceSettings.isEnableEagerExecutionTreeFetching()",
-    "boolean PerformanceSettings.isEnableExecutionRelationshipCounts()",
-    "boolean PerformanceSettings.isEnableLocalization()",
-    "boolean PerformanceSettings.isValidateExecutionRelationshipCountConfigOnBoot()",
-    "void PerformanceSettings.setEnableEagerExecutionTreeFetching(boolean)",
-    "void PerformanceSettings.setEnableExecutionRelationshipCounts(boolean)",
-    "void PerformanceSettings.setEnableLocalization(boolean)",
-    "void PerformanceSettings.setValidateExecutionRelationshipCountConfigOnBoot(boolean)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void PerformanceSettings.<init>()",
+      "boolean PerformanceSettings.isEnableEagerExecutionTreeFetching()",
+      "boolean PerformanceSettings.isEnableExecutionRelationshipCounts()",
+      "boolean PerformanceSettings.isEnableLocalization()",
+      "boolean PerformanceSettings.isValidateExecutionRelationshipCountConfigOnBoot()",
+      "void PerformanceSettings.setEnableEagerExecutionTreeFetching(boolean)",
+      "void PerformanceSettings.setEnableExecutionRelationshipCounts(boolean)",
+      "void PerformanceSettings.setEnableLocalization(boolean)",
+      "void PerformanceSettings.setValidateExecutionRelationshipCountConfigOnBoot(boolean)"})
   public void testGettersAndSetters() {
     // Arrange and Act
     PerformanceSettings actualPerformanceSettings = new PerformanceSettings();
@@ -61,10 +56,10 @@ public class PerformanceSettingsDiffblueTest {
     actualPerformanceSettings.setEnableExecutionRelationshipCounts(true);
     actualPerformanceSettings.setEnableLocalization(true);
     actualPerformanceSettings.setValidateExecutionRelationshipCountConfigOnBoot(true);
-    boolean actualIsEnableEagerExecutionTreeFetchingResult =
-        actualPerformanceSettings.isEnableEagerExecutionTreeFetching();
-    boolean actualIsEnableExecutionRelationshipCountsResult =
-        actualPerformanceSettings.isEnableExecutionRelationshipCounts();
+    boolean actualIsEnableEagerExecutionTreeFetchingResult = actualPerformanceSettings
+        .isEnableEagerExecutionTreeFetching();
+    boolean actualIsEnableExecutionRelationshipCountsResult = actualPerformanceSettings
+        .isEnableExecutionRelationshipCounts();
     boolean actualIsEnableLocalizationResult = actualPerformanceSettings.isEnableLocalization();
 
     // Assert

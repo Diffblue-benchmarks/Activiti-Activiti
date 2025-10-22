@@ -18,8 +18,7 @@ package org.activiti.engine.impl.util;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
 import java.util.List;
@@ -29,12 +28,10 @@ import org.junit.experimental.categories.Category;
 public class ShellCommandExecutorDiffblueTest {
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
-   *   <li>{@link ShellCommandExecutor#ShellCommandExecutor(Boolean, Boolean, Boolean, String,
-   *       String, String, List)}
+   *   <li>{@link ShellCommandExecutor#ShellCommandExecutor(Boolean, Boolean, Boolean, String, String, String, List)}
    *   <li>{@link ShellCommandExecutor#setWaitFlag(Boolean)}
    *   <li>{@link ShellCommandExecutor#getArgList()}
    *   <li>{@link ShellCommandExecutor#getCleanEnvBoolean()}
@@ -46,27 +43,19 @@ public class ShellCommandExecutorDiffblueTest {
    * </ul>
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void ShellCommandExecutor.<init>(Boolean, Boolean, Boolean, String, String, String, List)",
-    "List ShellCommandExecutor.getArgList()",
-    "Boolean ShellCommandExecutor.getCleanEnvBoolean()",
-    "String ShellCommandExecutor.getDirectoryStr()",
-    "String ShellCommandExecutor.getErrorCodeVariableStr()",
-    "Boolean ShellCommandExecutor.getRedirectErrorFlag()",
-    "String ShellCommandExecutor.getResultVariableStr()",
-    "Boolean ShellCommandExecutor.getWaitFlag()",
-    "void ShellCommandExecutor.setWaitFlag(Boolean)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void ShellCommandExecutor.<init>(Boolean, Boolean, Boolean, String, String, String, List)",
+      "List ShellCommandExecutor.getArgList()", "Boolean ShellCommandExecutor.getCleanEnvBoolean()",
+      "String ShellCommandExecutor.getDirectoryStr()", "String ShellCommandExecutor.getErrorCodeVariableStr()",
+      "Boolean ShellCommandExecutor.getRedirectErrorFlag()", "String ShellCommandExecutor.getResultVariableStr()",
+      "Boolean ShellCommandExecutor.getWaitFlag()", "void ShellCommandExecutor.setWaitFlag(Boolean)"})
   public void testGettersAndSetters() {
     // Arrange
     ArrayList<String> argList = new ArrayList<>();
 
     // Act
-    ShellCommandExecutor actualShellCommandExecutor =
-        new ShellCommandExecutor(
-            true, true, true, "/directory", "Result Variable Str", "An error occurred", argList);
+    ShellCommandExecutor actualShellCommandExecutor = new ShellCommandExecutor(true, true, true, "/directory",
+        "Result Variable Str", "An error occurred", argList);
     actualShellCommandExecutor.setWaitFlag(true);
     List<String> actualArgList = actualShellCommandExecutor.getArgList();
     Boolean actualCleanEnvBoolean = actualShellCommandExecutor.getCleanEnvBoolean();
@@ -89,27 +78,16 @@ public class ShellCommandExecutorDiffblueTest {
 
   /**
    * Test {@link ShellCommandExecutor#ShellCommandExecutor(ShellExecutorContext)}.
-   *
-   * <p>Method under test: {@link ShellCommandExecutor#ShellCommandExecutor(ShellExecutorContext)}
+   * <p>
+   * Method under test: {@link ShellCommandExecutor#ShellCommandExecutor(ShellExecutorContext)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void ShellCommandExecutor.<init>(ShellExecutorContext)"})
   public void testNewShellCommandExecutor() {
-    // Arrange
-    ShellExecutorContext context =
-        new ShellExecutorContext(
-            true,
-            true,
-            true,
-            "/directory",
-            "Result Variable Str",
-            "An error occurred",
-            new ArrayList<>());
-
-    // Act
-    ShellCommandExecutor actualShellCommandExecutor = new ShellCommandExecutor(context);
+    // Arrange and Act
+    ShellCommandExecutor actualShellCommandExecutor = new ShellCommandExecutor(new ShellExecutorContext(true, true,
+        true, "/directory", "Result Variable Str", "An error occurred", new ArrayList<>()));
 
     // Assert
     assertEquals("/directory", actualShellCommandExecutor.getDirectoryStr());

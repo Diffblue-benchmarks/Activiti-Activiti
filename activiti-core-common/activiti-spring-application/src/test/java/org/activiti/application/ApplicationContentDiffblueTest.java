@@ -16,7 +16,6 @@
 package org.activiti.application;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
@@ -25,16 +24,15 @@ import org.junit.jupiter.api.Test;
 class ApplicationContentDiffblueTest {
   /**
    * Test {@link ApplicationContent#getFileContents(String)}.
-   *
-   * <p>Method under test: {@link ApplicationContent#getFileContents(String)}
+   * <p>
+   * Method under test: {@link ApplicationContent#getFileContents(String)}
    */
   @Test
   @DisplayName("Test getFileContents(String)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"java.util.List ApplicationContent.getFileContents(String)"})
   void testGetFileContents() {
     // Arrange, Act and Assert
-    assertTrue(new ApplicationContent().getFileContents("Entry Type").isEmpty());
+    assertTrue((new ApplicationContent()).getFileContents("Entry Type").isEmpty());
   }
 }

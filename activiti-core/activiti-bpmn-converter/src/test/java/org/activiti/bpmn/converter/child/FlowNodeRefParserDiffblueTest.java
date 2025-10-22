@@ -16,7 +16,6 @@
 package org.activiti.bpmn.converter.child;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
@@ -25,9 +24,8 @@ import org.junit.jupiter.api.Test;
 class FlowNodeRefParserDiffblueTest {
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>default or parameterless constructor of {@link FlowNodeRefParser}
    *   <li>{@link FlowNodeRefParser#getElementName()}
@@ -35,14 +33,10 @@ class FlowNodeRefParserDiffblueTest {
    */
   @Test
   @DisplayName("Test getters and setters")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void FlowNodeRefParser.<init>()",
-    "java.lang.String FlowNodeRefParser.getElementName()"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void FlowNodeRefParser.<init>()", "java.lang.String FlowNodeRefParser.getElementName()"})
   void testGettersAndSetters() {
     // Arrange, Act and Assert
-    assertEquals("flowNodeRef", new FlowNodeRefParser().getElementName());
+    assertEquals("flowNodeRef", (new FlowNodeRefParser()).getElementName());
   }
 }

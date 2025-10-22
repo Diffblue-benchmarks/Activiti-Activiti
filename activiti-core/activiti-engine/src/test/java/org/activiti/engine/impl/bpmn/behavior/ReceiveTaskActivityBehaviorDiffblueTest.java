@@ -17,8 +17,7 @@ package org.activiti.engine.impl.bpmn.behavior;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
@@ -26,18 +25,15 @@ import org.junit.experimental.categories.Category;
 public class ReceiveTaskActivityBehaviorDiffblueTest {
   /**
    * Test new {@link ReceiveTaskActivityBehavior} (default constructor).
-   *
-   * <p>Method under test: default or parameterless constructor of {@link
-   * ReceiveTaskActivityBehavior}
+   * <p>
+   * Method under test: default or parameterless constructor of {@link ReceiveTaskActivityBehavior}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void ReceiveTaskActivityBehavior.<init>()"})
   public void testNewReceiveTaskActivityBehavior() {
     // Arrange and Act
-    ReceiveTaskActivityBehavior actualReceiveTaskActivityBehavior =
-        new ReceiveTaskActivityBehavior();
+    ReceiveTaskActivityBehavior actualReceiveTaskActivityBehavior = new ReceiveTaskActivityBehavior();
 
     // Assert
     assertNull(actualReceiveTaskActivityBehavior.getMultiInstanceActivityBehavior());

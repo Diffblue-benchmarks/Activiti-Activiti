@@ -19,7 +19,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
@@ -28,13 +27,12 @@ import org.junit.jupiter.api.Test;
 class DeleteTaskPayloadDiffblueTest {
   /**
    * Test {@link DeleteTaskPayload#DeleteTaskPayload()}.
-   *
-   * <p>Method under test: {@link DeleteTaskPayload#DeleteTaskPayload()}
+   * <p>
+   * Method under test: {@link DeleteTaskPayload#DeleteTaskPayload()}
    */
   @Test
   @DisplayName("Test new DeleteTaskPayload()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void DeleteTaskPayload.<init>()"})
   void testNewDeleteTaskPayload() {
     // Arrange and Act
@@ -48,13 +46,12 @@ class DeleteTaskPayloadDiffblueTest {
 
   /**
    * Test {@link DeleteTaskPayload#DeleteTaskPayload(String, String)}.
-   *
-   * <p>Method under test: {@link DeleteTaskPayload#DeleteTaskPayload(String, String)}
+   * <p>
+   * Method under test: {@link DeleteTaskPayload#DeleteTaskPayload(String, String)}
    */
   @Test
   @DisplayName("Test new DeleteTaskPayload(String, String)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void DeleteTaskPayload.<init>(String, String)"})
   void testNewDeleteTaskPayload2() {
     // Arrange and Act
@@ -68,9 +65,8 @@ class DeleteTaskPayloadDiffblueTest {
 
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>{@link DeleteTaskPayload#setReason(String)}
    *   <li>{@link DeleteTaskPayload#setTaskId(String)}
@@ -81,15 +77,10 @@ class DeleteTaskPayloadDiffblueTest {
    */
   @Test
   @DisplayName("Test getters and setters")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "String DeleteTaskPayload.getId()",
-    "String DeleteTaskPayload.getReason()",
-    "String DeleteTaskPayload.getTaskId()",
-    "void DeleteTaskPayload.setReason(String)",
-    "void DeleteTaskPayload.setTaskId(String)"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"String DeleteTaskPayload.getId()", "String DeleteTaskPayload.getReason()",
+      "String DeleteTaskPayload.getTaskId()", "void DeleteTaskPayload.setReason(String)",
+      "void DeleteTaskPayload.setTaskId(String)"})
   void testGettersAndSetters() {
     // Arrange
     DeleteTaskPayload deleteTaskPayload = new DeleteTaskPayload();
@@ -107,40 +98,41 @@ class DeleteTaskPayloadDiffblueTest {
 
   /**
    * Test {@link DeleteTaskPayload#hasReason()}.
-   *
    * <ul>
-   *   <li>Given {@link DeleteTaskPayload#DeleteTaskPayload()}.
-   *   <li>Then return {@code false}.
+   *   <li>Given {@link DeleteTaskPayload#DeleteTaskPayload()} Reason is {@code foo}.</li>
+   *   <li>Then return {@code true}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link DeleteTaskPayload#hasReason()}
+   * <p>
+   * Method under test: {@link DeleteTaskPayload#hasReason()}
    */
   @Test
-  @DisplayName("Test hasReason(); given DeleteTaskPayload(); then return 'false'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test hasReason(); given DeleteTaskPayload() Reason is 'foo'; then return 'true'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"boolean DeleteTaskPayload.hasReason()"})
-  void testHasReason_givenDeleteTaskPayload_thenReturnFalse() {
-    // Arrange, Act and Assert
-    assertFalse(new DeleteTaskPayload().hasReason());
+  void testHasReason_givenDeleteTaskPayloadReasonIsFoo_thenReturnTrue() {
+    // Arrange
+    DeleteTaskPayload deleteTaskPayload = new DeleteTaskPayload();
+    deleteTaskPayload.setReason("foo");
+
+    // Act and Assert
+    assertTrue(deleteTaskPayload.hasReason());
   }
 
   /**
    * Test {@link DeleteTaskPayload#hasReason()}.
-   *
    * <ul>
-   *   <li>Then return {@code true}.
+   *   <li>Given {@link DeleteTaskPayload#DeleteTaskPayload()}.</li>
+   *   <li>Then return {@code false}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link DeleteTaskPayload#hasReason()}
+   * <p>
+   * Method under test: {@link DeleteTaskPayload#hasReason()}
    */
   @Test
-  @DisplayName("Test hasReason(); then return 'true'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test hasReason(); given DeleteTaskPayload(); then return 'false'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"boolean DeleteTaskPayload.hasReason()"})
-  void testHasReason_thenReturnTrue() {
+  void testHasReason_givenDeleteTaskPayload_thenReturnFalse() {
     // Arrange, Act and Assert
-    assertTrue(new DeleteTaskPayload("42", "Just cause").hasReason());
+    assertFalse((new DeleteTaskPayload()).hasReason());
   }
 }

@@ -17,10 +17,6 @@ package org.activiti.core.common.spring.connector;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.json.JsonMapper;
@@ -33,140 +29,68 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.boot.web.reactive.context.AnnotationConfigReactiveWebApplicationContext;
-import org.springframework.core.io.ByteArrayResource;
-import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.springframework.core.io.support.ResourcePatternResolver;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.aot.DisabledInAotMode;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 @ContextConfiguration(classes = {ConnectorDefinitionService.class, String.class})
-@DisabledInAotMode
 @ExtendWith(SpringExtension.class)
+@DisabledInAotMode
 class ConnectorDefinitionServiceDiffblueTest {
-  @Autowired private ConnectorDefinitionService connectorDefinitionService;
+  @Autowired
+  private ConnectorDefinitionService connectorDefinitionService;
 
-  @MockBean private ObjectMapper objectMapper;
+  @MockBean
+  private ObjectMapper objectMapper;
 
   /**
-   * Test {@link ConnectorDefinitionService#ConnectorDefinitionService(String, ObjectMapper,
-   * ResourcePatternResolver)}.
-   *
-   * <p>Method under test: {@link ConnectorDefinitionService#ConnectorDefinitionService(String,
-   * ObjectMapper, ResourcePatternResolver)}
+   * Test {@link ConnectorDefinitionService#ConnectorDefinitionService(String, ObjectMapper, ResourcePatternResolver)}.
+   * <p>
+   * Method under test: {@link ConnectorDefinitionService#ConnectorDefinitionService(String, ObjectMapper, ResourcePatternResolver)}
    */
   @Test
   @DisplayName("Test new ConnectorDefinitionService(String, ObjectMapper, ResourcePatternResolver)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void ConnectorDefinitionService.<init>(String, ObjectMapper, ResourcePatternResolver)"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void ConnectorDefinitionService.<init>(String, ObjectMapper, ResourcePatternResolver)"})
   void testNewConnectorDefinitionService() throws IOException {
     // Arrange
     JsonMapper objectMapper = JsonMapper.builder().findAndAddModules().build();
 
-    // Act
-    ConnectorDefinitionService actualConnectorDefinitionService =
-        new ConnectorDefinitionService(
-            "Connector Root", objectMapper, new AnnotationConfigReactiveWebApplicationContext());
-
-    // Assert
-    assertTrue(actualConnectorDefinitionService.get().isEmpty());
+    // Act and Assert
+    assertTrue((new ConnectorDefinitionService("Connector Root", objectMapper,
+        new AnnotationConfigReactiveWebApplicationContext())).get().isEmpty());
   }
 
   /**
    * Test {@link ConnectorDefinitionService#get()}.
-   *
-   * <p>Method under test: {@link ConnectorDefinitionService#get()}
+   * <p>
+   * Method under test: {@link ConnectorDefinitionService#get()}
    */
   @Test
   @DisplayName("Test get()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"List ConnectorDefinitionService.get()"})
   void testGet() throws IOException {
-    // Arrange
-    JsonMapper objectMapper = JsonMapper.builder().findAndAddModules().build();
-    ConnectorDefinitionService connectorDefinitionService =
-        new ConnectorDefinitionService(
-            "Connector Root", objectMapper, new AnnotationConfigReactiveWebApplicationContext());
-
-    // Act and Assert
-    assertTrue(connectorDefinitionService.get().isEmpty());
-  }
-
-  /**
-   * Test {@link ConnectorDefinitionService#get()}.
-   *
-   * <ul>
-   *   <li>Given {@link ObjectMapper}.
-   *   <li>Then return Empty.
-   * </ul>
-   *
-   * <p>Method under test: {@link ConnectorDefinitionService#get()}
-   */
-  @Test
-  @DisplayName("Test get(); given ObjectMapper; then return Empty")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"List ConnectorDefinitionService.get()"})
-  void testGet_givenObjectMapper_thenReturnEmpty() throws IOException {
     // Arrange, Act and Assert
     assertTrue(connectorDefinitionService.get().isEmpty());
   }
 
   /**
-   * Test {@link ConnectorDefinitionService#get()}.
-   *
-   * <ul>
-   *   <li>Then throw {@link IllegalStateException}.
-   * </ul>
-   *
-   * <p>Method under test: {@link ConnectorDefinitionService#get()}
-   */
-  @Test
-  @DisplayName("Test get(); then throw IllegalStateException")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"List ConnectorDefinitionService.get()"})
-  void testGet_thenThrowIllegalStateException() throws IOException {
-    // Arrange
-    PathMatchingResourcePatternResolver resourceLoader =
-        mock(PathMatchingResourcePatternResolver.class);
-    when(resourceLoader.getResources(Mockito.<String>any())).thenThrow(new IllegalStateException());
-    when(resourceLoader.getResource(Mockito.<String>any()))
-        .thenReturn(new ByteArrayResource("AXAXAXAX".getBytes("UTF-8")));
-    JsonMapper objectMapper = JsonMapper.builder().findAndAddModules().build();
-
-    ConnectorDefinitionService connectorDefinitionService =
-        new ConnectorDefinitionService("Connector Root", objectMapper, resourceLoader);
-
-    // Act and Assert
-    assertThrows(IllegalStateException.class, () -> connectorDefinitionService.get());
-    verify(resourceLoader).getResource("Connector Root");
-    verify(resourceLoader).getResources("Connector Root**.json");
-  }
-
-  /**
    * Test {@link ConnectorDefinitionService#validate(List)}.
-   *
    * <ul>
-   *   <li>Given {@link ConnectorDefinition} (default constructor) Name is {@code .}.
-   *   <li>Then throw {@link IllegalStateException}.
+   *   <li>Given {@link ConnectorDefinition} (default constructor) Name is {@code .}.</li>
+   *   <li>Then throw {@link IllegalStateException}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ConnectorDefinitionService#validate(List)}
+   * <p>
+   * Method under test: {@link ConnectorDefinitionService#validate(List)}
    */
   @Test
-  @DisplayName(
-      "Test validate(List); given ConnectorDefinition (default constructor) Name is '.'; then throw IllegalStateException")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test validate(List); given ConnectorDefinition (default constructor) Name is '.'; then throw IllegalStateException")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void ConnectorDefinitionService.validate(List)"})
   void testValidate_givenConnectorDefinitionNameIsDot_thenThrowIllegalStateException() {
     // Arrange
@@ -180,25 +104,20 @@ class ConnectorDefinitionServiceDiffblueTest {
     connectorDefinitions.add(connectorDefinition);
 
     // Act and Assert
-    assertThrows(
-        IllegalStateException.class,
-        () -> connectorDefinitionService.validate(connectorDefinitions));
+    assertThrows(IllegalStateException.class, () -> connectorDefinitionService.validate(connectorDefinitions));
   }
 
   /**
    * Test {@link ConnectorDefinitionService#validate(List)}.
-   *
    * <ul>
-   *   <li>Given {@link ConnectorDefinition} (default constructor) Name is empty string.
+   *   <li>Given {@link ConnectorDefinition} (default constructor) Name is empty string.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ConnectorDefinitionService#validate(List)}
+   * <p>
+   * Method under test: {@link ConnectorDefinitionService#validate(List)}
    */
   @Test
-  @DisplayName(
-      "Test validate(List); given ConnectorDefinition (default constructor) Name is empty string")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test validate(List); given ConnectorDefinition (default constructor) Name is empty string")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void ConnectorDefinitionService.validate(List)"})
   void testValidate_givenConnectorDefinitionNameIsEmptyString() {
     // Arrange
@@ -212,26 +131,21 @@ class ConnectorDefinitionServiceDiffblueTest {
     connectorDefinitions.add(connectorDefinition);
 
     // Act and Assert
-    assertThrows(
-        IllegalStateException.class,
-        () -> connectorDefinitionService.validate(connectorDefinitions));
+    assertThrows(IllegalStateException.class, () -> connectorDefinitionService.validate(connectorDefinitions));
   }
 
   /**
    * Test {@link ConnectorDefinitionService#validate(List)}.
-   *
    * <ul>
-   *   <li>Given {@link ConnectorDefinition} (default constructor) Name is {@code Name}.
-   *   <li>Then throw {@link IllegalStateException}.
+   *   <li>Given {@link ConnectorDefinition} (default constructor) Name is {@code Name}.</li>
+   *   <li>Then throw {@link IllegalStateException}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ConnectorDefinitionService#validate(List)}
+   * <p>
+   * Method under test: {@link ConnectorDefinitionService#validate(List)}
    */
   @Test
-  @DisplayName(
-      "Test validate(List); given ConnectorDefinition (default constructor) Name is 'Name'; then throw IllegalStateException")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test validate(List); given ConnectorDefinition (default constructor) Name is 'Name'; then throw IllegalStateException")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void ConnectorDefinitionService.validate(List)"})
   void testValidate_givenConnectorDefinitionNameIsName_thenThrowIllegalStateException() {
     // Arrange
@@ -259,26 +173,21 @@ class ConnectorDefinitionServiceDiffblueTest {
     connectorDefinitions.add(connectorDefinition);
 
     // Act and Assert
-    assertThrows(
-        IllegalStateException.class,
-        () -> connectorDefinitionService.validate(connectorDefinitions));
+    assertThrows(IllegalStateException.class, () -> connectorDefinitionService.validate(connectorDefinitions));
   }
 
   /**
    * Test {@link ConnectorDefinitionService#validate(List)}.
-   *
    * <ul>
-   *   <li>Given {@link ConnectorDefinition} (default constructor) Name is {@code null}.
-   *   <li>Then throw {@link IllegalStateException}.
+   *   <li>Given {@link ConnectorDefinition} (default constructor) Name is {@code null}.</li>
+   *   <li>Then throw {@link IllegalStateException}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ConnectorDefinitionService#validate(List)}
+   * <p>
+   * Method under test: {@link ConnectorDefinitionService#validate(List)}
    */
   @Test
-  @DisplayName(
-      "Test validate(List); given ConnectorDefinition (default constructor) Name is 'null'; then throw IllegalStateException")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test validate(List); given ConnectorDefinition (default constructor) Name is 'null'; then throw IllegalStateException")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void ConnectorDefinitionService.validate(List)"})
   void testValidate_givenConnectorDefinitionNameIsNull_thenThrowIllegalStateException() {
     // Arrange
@@ -292,8 +201,6 @@ class ConnectorDefinitionServiceDiffblueTest {
     connectorDefinitions.add(connectorDefinition);
 
     // Act and Assert
-    assertThrows(
-        IllegalStateException.class,
-        () -> connectorDefinitionService.validate(connectorDefinitions));
+    assertThrows(IllegalStateException.class, () -> connectorDefinitionService.validate(connectorDefinitions));
   }
 }

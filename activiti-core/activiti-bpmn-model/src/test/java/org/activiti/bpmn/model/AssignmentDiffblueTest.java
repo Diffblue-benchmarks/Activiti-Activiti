@@ -18,8 +18,7 @@ package org.activiti.bpmn.model;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
@@ -27,16 +26,15 @@ import org.junit.experimental.categories.Category;
 public class AssignmentDiffblueTest {
   /**
    * Test {@link Assignment#clone()}.
-   *
-   * <p>Method under test: {@link Assignment#clone()}
+   * <p>
+   * Method under test: {@link Assignment#clone()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"Assignment Assignment.clone()"})
   public void testClone() {
     // Arrange and Act
-    Assignment actualCloneResult = new Assignment().clone();
+    Assignment actualCloneResult = (new Assignment()).clone();
 
     // Assert
     assertNull(actualCloneResult.getFrom());
@@ -50,9 +48,8 @@ public class AssignmentDiffblueTest {
 
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>default or parameterless constructor of {@link Assignment}
    *   <li>{@link Assignment#setFrom(String)}
@@ -62,15 +59,9 @@ public class AssignmentDiffblueTest {
    * </ul>
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void Assignment.<init>()",
-    "String Assignment.getFrom()",
-    "String Assignment.getTo()",
-    "void Assignment.setFrom(String)",
-    "void Assignment.setTo(String)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void Assignment.<init>()", "String Assignment.getFrom()", "String Assignment.getTo()",
+      "void Assignment.setFrom(String)", "void Assignment.setTo(String)"})
   public void testGettersAndSetters() {
     // Arrange and Act
     Assignment actualAssignment = new Assignment();

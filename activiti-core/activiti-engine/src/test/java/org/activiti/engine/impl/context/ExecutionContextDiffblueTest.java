@@ -17,8 +17,7 @@ package org.activiti.engine.impl.context;
 
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.engine.impl.persistence.entity.ExecutionEntity;
 import org.activiti.engine.impl.persistence.entity.ExecutionEntityImpl;
@@ -28,46 +27,39 @@ import org.junit.experimental.categories.Category;
 public class ExecutionContextDiffblueTest {
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>{@link ExecutionContext#ExecutionContext(ExecutionEntity)}
    *   <li>{@link ExecutionContext#getExecution()}
    * </ul>
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void ExecutionContext.<init>(ExecutionEntity)",
-    "ExecutionEntity ExecutionContext.getExecution()"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void ExecutionContext.<init>(ExecutionEntity)",
+      "ExecutionEntity ExecutionContext.getExecution()"})
   public void testGettersAndSetters() {
     // Arrange
     ExecutionEntityImpl execution = ExecutionEntityImpl.createWithEmptyRelationshipCollections();
 
     // Act and Assert
-    assertSame(execution, new ExecutionContext(execution).getExecution());
+    assertSame(execution, (new ExecutionContext(execution)).getExecution());
   }
 
   /**
    * Test {@link ExecutionContext#getProcessInstance()}.
-   *
    * <ul>
-   *   <li>Then return {@code null}.
+   *   <li>Then return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ExecutionContext#getProcessInstance()}
+   * <p>
+   * Method under test: {@link ExecutionContext#getProcessInstance()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"ExecutionEntity ExecutionContext.getProcessInstance()"})
   public void testGetProcessInstance_thenReturnNull() {
     // Arrange, Act and Assert
     assertNull(
-        new ExecutionContext(ExecutionEntityImpl.createWithEmptyRelationshipCollections())
-            .getProcessInstance());
+        (new ExecutionContext(ExecutionEntityImpl.createWithEmptyRelationshipCollections())).getProcessInstance());
   }
 }

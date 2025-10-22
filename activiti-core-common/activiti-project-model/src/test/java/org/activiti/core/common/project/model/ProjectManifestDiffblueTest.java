@@ -16,7 +16,6 @@
 package org.activiti.core.common.project.model;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
@@ -25,9 +24,8 @@ import org.junit.jupiter.api.Test;
 class ProjectManifestDiffblueTest {
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>default or parameterless constructor of {@link ProjectManifest}
    *   <li>{@link ProjectManifest#setCreatedBy(String)}
@@ -50,27 +48,16 @@ class ProjectManifestDiffblueTest {
    */
   @Test
   @DisplayName("Test getters and setters")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void ProjectManifest.<init>()",
-    "String ProjectManifest.getCreatedBy()",
-    "String ProjectManifest.getCreationDate()",
-    "String ProjectManifest.getDescription()",
-    "String ProjectManifest.getId()",
-    "String ProjectManifest.getLastModifiedBy()",
-    "String ProjectManifest.getLastModifiedDate()",
-    "String ProjectManifest.getName()",
-    "String ProjectManifest.getVersion()",
-    "void ProjectManifest.setCreatedBy(String)",
-    "void ProjectManifest.setCreationDate(String)",
-    "void ProjectManifest.setDescription(String)",
-    "void ProjectManifest.setId(String)",
-    "void ProjectManifest.setLastModifiedBy(String)",
-    "void ProjectManifest.setLastModifiedDate(String)",
-    "void ProjectManifest.setName(String)",
-    "void ProjectManifest.setVersion(String)"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void ProjectManifest.<init>()", "String ProjectManifest.getCreatedBy()",
+      "String ProjectManifest.getCreationDate()", "String ProjectManifest.getDescription()",
+      "String ProjectManifest.getId()", "String ProjectManifest.getLastModifiedBy()",
+      "String ProjectManifest.getLastModifiedDate()", "String ProjectManifest.getName()",
+      "String ProjectManifest.getVersion()", "void ProjectManifest.setCreatedBy(String)",
+      "void ProjectManifest.setCreationDate(String)", "void ProjectManifest.setDescription(String)",
+      "void ProjectManifest.setId(String)", "void ProjectManifest.setLastModifiedBy(String)",
+      "void ProjectManifest.setLastModifiedDate(String)", "void ProjectManifest.setName(String)",
+      "void ProjectManifest.setVersion(String)"})
   void testGettersAndSetters() {
     // Arrange and Act
     ProjectManifest actualProjectManifest = new ProjectManifest();

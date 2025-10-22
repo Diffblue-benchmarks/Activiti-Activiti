@@ -17,8 +17,7 @@ package org.activiti.engine.impl.bpmn.helper;
 
 import static org.junit.Assert.assertThrows;
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.engine.ActivitiIllegalArgumentException;
 import org.activiti.engine.delegate.event.ActivitiEvent;
@@ -29,32 +28,28 @@ import org.junit.experimental.categories.Category;
 public class MessageThrowingEventListenerDiffblueTest {
   /**
    * Test {@link MessageThrowingEventListener#onEvent(ActivitiEvent)}.
-   *
    * <ul>
-   *   <li>Then throw {@link ActivitiIllegalArgumentException}.
+   *   <li>Then throw {@link ActivitiIllegalArgumentException}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link MessageThrowingEventListener#onEvent(ActivitiEvent)}
+   * <p>
+   * Method under test: {@link MessageThrowingEventListener#onEvent(ActivitiEvent)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void MessageThrowingEventListener.onEvent(ActivitiEvent)"})
   public void testOnEvent_thenThrowActivitiIllegalArgumentException() {
     // Arrange
     MessageThrowingEventListener messageThrowingEventListener = new MessageThrowingEventListener();
 
     // Act and Assert
-    assertThrows(
-        ActivitiIllegalArgumentException.class,
+    assertThrows(ActivitiIllegalArgumentException.class,
         () -> messageThrowingEventListener.onEvent(new ActivitiActivityCancelledEventImpl()));
   }
 
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>default or parameterless constructor of {@link MessageThrowingEventListener}
    *   <li>{@link MessageThrowingEventListener#setMessageName(String)}
@@ -62,17 +57,13 @@ public class MessageThrowingEventListenerDiffblueTest {
    * </ul>
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void MessageThrowingEventListener.<init>()",
-    "boolean MessageThrowingEventListener.isFailOnException()",
-    "void MessageThrowingEventListener.setMessageName(String)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void MessageThrowingEventListener.<init>()",
+      "boolean MessageThrowingEventListener.isFailOnException()",
+      "void MessageThrowingEventListener.setMessageName(String)"})
   public void testGettersAndSetters() {
     // Arrange and Act
-    MessageThrowingEventListener actualMessageThrowingEventListener =
-        new MessageThrowingEventListener();
+    MessageThrowingEventListener actualMessageThrowingEventListener = new MessageThrowingEventListener();
     actualMessageThrowingEventListener.setMessageName("Message Name");
 
     // Assert

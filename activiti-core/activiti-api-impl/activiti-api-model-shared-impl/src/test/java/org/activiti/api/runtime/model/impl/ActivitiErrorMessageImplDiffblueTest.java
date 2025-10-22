@@ -16,7 +16,6 @@
 package org.activiti.api.runtime.model.impl;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
@@ -25,9 +24,8 @@ import org.junit.jupiter.api.Test;
 class ActivitiErrorMessageImplDiffblueTest {
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>{@link ActivitiErrorMessageImpl#ActivitiErrorMessageImpl()}
    *   <li>{@link ActivitiErrorMessageImpl#setCode(int)}
@@ -38,16 +36,10 @@ class ActivitiErrorMessageImplDiffblueTest {
    */
   @Test
   @DisplayName("Test getters and setters")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void ActivitiErrorMessageImpl.<init>()",
-    "void ActivitiErrorMessageImpl.<init>(int, String)",
-    "int ActivitiErrorMessageImpl.getCode()",
-    "String ActivitiErrorMessageImpl.getMessage()",
-    "void ActivitiErrorMessageImpl.setCode(int)",
-    "void ActivitiErrorMessageImpl.setMessage(String)"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void ActivitiErrorMessageImpl.<init>()", "void ActivitiErrorMessageImpl.<init>(int, String)",
+      "int ActivitiErrorMessageImpl.getCode()", "String ActivitiErrorMessageImpl.getMessage()",
+      "void ActivitiErrorMessageImpl.setCode(int)", "void ActivitiErrorMessageImpl.setMessage(String)"})
   void testGettersAndSetters() {
     // Arrange and Act
     ActivitiErrorMessageImpl actualActivitiErrorMessageImpl = new ActivitiErrorMessageImpl();
@@ -62,13 +54,11 @@ class ActivitiErrorMessageImplDiffblueTest {
 
   /**
    * Test getters and setters.
-   *
    * <ul>
-   *   <li>When one.
+   *   <li>When one.</li>
    * </ul>
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>{@link ActivitiErrorMessageImpl#ActivitiErrorMessageImpl(int, String)}
    *   <li>{@link ActivitiErrorMessageImpl#setCode(int)}
@@ -79,20 +69,14 @@ class ActivitiErrorMessageImplDiffblueTest {
    */
   @Test
   @DisplayName("Test getters and setters; when one")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void ActivitiErrorMessageImpl.<init>()",
-    "void ActivitiErrorMessageImpl.<init>(int, String)",
-    "int ActivitiErrorMessageImpl.getCode()",
-    "String ActivitiErrorMessageImpl.getMessage()",
-    "void ActivitiErrorMessageImpl.setCode(int)",
-    "void ActivitiErrorMessageImpl.setMessage(String)"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void ActivitiErrorMessageImpl.<init>()", "void ActivitiErrorMessageImpl.<init>(int, String)",
+      "int ActivitiErrorMessageImpl.getCode()", "String ActivitiErrorMessageImpl.getMessage()",
+      "void ActivitiErrorMessageImpl.setCode(int)", "void ActivitiErrorMessageImpl.setMessage(String)"})
   void testGettersAndSetters_whenOne() {
     // Arrange and Act
-    ActivitiErrorMessageImpl actualActivitiErrorMessageImpl =
-        new ActivitiErrorMessageImpl(1, "Not all who wander are lost");
+    ActivitiErrorMessageImpl actualActivitiErrorMessageImpl = new ActivitiErrorMessageImpl(1,
+        "Not all who wander are lost");
     actualActivitiErrorMessageImpl.setCode(1);
     actualActivitiErrorMessageImpl.setMessage("Not all who wander are lost");
     int actualCode = actualActivitiErrorMessageImpl.getCode();

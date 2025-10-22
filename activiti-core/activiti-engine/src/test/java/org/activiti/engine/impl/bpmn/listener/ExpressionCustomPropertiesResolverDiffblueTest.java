@@ -18,8 +18,7 @@ package org.activiti.engine.impl.bpmn.listener;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThrows;
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.HashMap;
 import org.activiti.engine.ActivitiIllegalArgumentException;
@@ -34,18 +33,16 @@ import org.junit.experimental.categories.Category;
 public class ExpressionCustomPropertiesResolverDiffblueTest {
   /**
    * Test {@link ExpressionCustomPropertiesResolver#ExpressionCustomPropertiesResolver(Expression)}.
-   *
-   * <p>Method under test: {@link
-   * ExpressionCustomPropertiesResolver#ExpressionCustomPropertiesResolver(Expression)}
+   * <p>
+   * Method under test: {@link ExpressionCustomPropertiesResolver#ExpressionCustomPropertiesResolver(Expression)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void ExpressionCustomPropertiesResolver.<init>(Expression)"})
   public void testNewExpressionCustomPropertiesResolver() {
     // Arrange and Act
-    ExpressionCustomPropertiesResolver actualExpressionCustomPropertiesResolver =
-        new ExpressionCustomPropertiesResolver(new FixedValue(JSONObject.NULL));
+    ExpressionCustomPropertiesResolver actualExpressionCustomPropertiesResolver = new ExpressionCustomPropertiesResolver(
+        new FixedValue(JSONObject.NULL));
 
     // Assert
     Expression expression = actualExpressionCustomPropertiesResolver.expression;
@@ -56,81 +53,62 @@ public class ExpressionCustomPropertiesResolverDiffblueTest {
 
   /**
    * Test {@link ExpressionCustomPropertiesResolver#getCustomPropertiesMap(DelegateExecution)}.
-   *
    * <ul>
-   *   <li>Given {@link FixedValue#FixedValue(Object)} with value is {@link HashMap#HashMap()}.
-   *   <li>Then return Empty.
+   *   <li>Given {@link FixedValue#FixedValue(Object)} with value is {@link HashMap#HashMap()}.</li>
+   *   <li>Then return Empty.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link
-   * ExpressionCustomPropertiesResolver#getCustomPropertiesMap(DelegateExecution)}
+   * <p>
+   * Method under test: {@link ExpressionCustomPropertiesResolver#getCustomPropertiesMap(DelegateExecution)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "java.util.Map ExpressionCustomPropertiesResolver.getCustomPropertiesMap(DelegateExecution)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"java.util.Map ExpressionCustomPropertiesResolver.getCustomPropertiesMap(DelegateExecution)"})
   public void testGetCustomPropertiesMap_givenFixedValueWithValueIsHashMap_thenReturnEmpty() {
     // Arrange
-    ExpressionCustomPropertiesResolver expressionCustomPropertiesResolver =
-        new ExpressionCustomPropertiesResolver(new FixedValue(new HashMap<>()));
+    ExpressionCustomPropertiesResolver expressionCustomPropertiesResolver = new ExpressionCustomPropertiesResolver(
+        new FixedValue(new HashMap<>()));
 
     // Act and Assert
-    assertTrue(
-        expressionCustomPropertiesResolver
-            .getCustomPropertiesMap(ExecutionEntityImpl.createWithEmptyRelationshipCollections())
-            .isEmpty());
+    assertTrue(expressionCustomPropertiesResolver
+        .getCustomPropertiesMap(ExecutionEntityImpl.createWithEmptyRelationshipCollections())
+        .isEmpty());
   }
 
   /**
    * Test {@link ExpressionCustomPropertiesResolver#getCustomPropertiesMap(DelegateExecution)}.
-   *
    * <ul>
-   *   <li>Then throw {@link ActivitiIllegalArgumentException}.
+   *   <li>Then throw {@link ActivitiIllegalArgumentException}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link
-   * ExpressionCustomPropertiesResolver#getCustomPropertiesMap(DelegateExecution)}
+   * <p>
+   * Method under test: {@link ExpressionCustomPropertiesResolver#getCustomPropertiesMap(DelegateExecution)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "java.util.Map ExpressionCustomPropertiesResolver.getCustomPropertiesMap(DelegateExecution)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"java.util.Map ExpressionCustomPropertiesResolver.getCustomPropertiesMap(DelegateExecution)"})
   public void testGetCustomPropertiesMap_thenThrowActivitiIllegalArgumentException() {
     // Arrange
-    ExpressionCustomPropertiesResolver expressionCustomPropertiesResolver =
-        new ExpressionCustomPropertiesResolver(new FixedValue(JSONObject.NULL));
+    ExpressionCustomPropertiesResolver expressionCustomPropertiesResolver = new ExpressionCustomPropertiesResolver(
+        new FixedValue(JSONObject.NULL));
 
     // Act and Assert
-    assertThrows(
-        ActivitiIllegalArgumentException.class,
-        () ->
-            expressionCustomPropertiesResolver.getCustomPropertiesMap(
-                ExecutionEntityImpl.createWithEmptyRelationshipCollections()));
+    assertThrows(ActivitiIllegalArgumentException.class, () -> expressionCustomPropertiesResolver
+        .getCustomPropertiesMap(ExecutionEntityImpl.createWithEmptyRelationshipCollections()));
   }
 
   /**
    * Test {@link ExpressionCustomPropertiesResolver#getExpressionText()}.
-   *
    * <ul>
-   *   <li>Given {@link FixedValue#FixedValue(Object)} with value is {@link JSONObject#NULL}.
-   *   <li>Then return {@code null}.
+   *   <li>Given {@link FixedValue#FixedValue(Object)} with value is {@link JSONObject#NULL}.</li>
+   *   <li>Then return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ExpressionCustomPropertiesResolver#getExpressionText()}
+   * <p>
+   * Method under test: {@link ExpressionCustomPropertiesResolver#getExpressionText()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"java.lang.String ExpressionCustomPropertiesResolver.getExpressionText()"})
   public void testGetExpressionText_givenFixedValueWithValueIsNull_thenReturnNull() {
     // Arrange, Act and Assert
-    assertEquals(
-        "null",
-        new ExpressionCustomPropertiesResolver(new FixedValue(JSONObject.NULL))
-            .getExpressionText());
+    assertEquals("null", (new ExpressionCustomPropertiesResolver(new FixedValue(JSONObject.NULL))).getExpressionText());
   }
 }

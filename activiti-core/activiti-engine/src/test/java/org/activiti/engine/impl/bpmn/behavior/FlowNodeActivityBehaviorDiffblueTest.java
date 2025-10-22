@@ -17,8 +17,7 @@ package org.activiti.engine.impl.bpmn.behavior;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThrows;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.bpmn.model.AdhocSubProcess;
 import org.activiti.bpmn.model.FlowNode;
@@ -32,53 +31,42 @@ import org.junit.experimental.categories.Category;
 public class FlowNodeActivityBehaviorDiffblueTest {
   /**
    * Test {@link FlowNodeActivityBehavior#trigger(DelegateExecution, String, Object)}.
-   *
    * <ul>
-   *   <li>Given {@link AbstractBpmnActivityBehavior} (default constructor).
-   *   <li>Then throw {@link ActivitiException}.
+   *   <li>Given {@link AbstractBpmnActivityBehavior} (default constructor).</li>
+   *   <li>Then throw {@link ActivitiException}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link FlowNodeActivityBehavior#trigger(DelegateExecution, String,
-   * Object)}
+   * <p>
+   * Method under test: {@link FlowNodeActivityBehavior#trigger(DelegateExecution, String, Object)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void FlowNodeActivityBehavior.trigger(DelegateExecution, String, Object)"})
   public void testTrigger_givenAbstractBpmnActivityBehavior_thenThrowActivitiException() {
     // Arrange
     AbstractBpmnActivityBehavior abstractBpmnActivityBehavior = new AbstractBpmnActivityBehavior();
 
     // Act and Assert
-    assertThrows(
-        ActivitiException.class,
-        () ->
-            abstractBpmnActivityBehavior.trigger(
-                ExecutionEntityImpl.createWithEmptyRelationshipCollections(),
-                "Signal Name",
-                JSONObject.NULL));
+    assertThrows(ActivitiException.class, () -> abstractBpmnActivityBehavior
+        .trigger(ExecutionEntityImpl.createWithEmptyRelationshipCollections(), "Signal Name", JSONObject.NULL));
   }
 
   /**
    * Test {@link FlowNodeActivityBehavior#parseActivityType(FlowNode)}.
-   *
    * <ul>
-   *   <li>When {@link AdhocSubProcess} (default constructor).
-   *   <li>Then return {@code adhocSubProcess}.
+   *   <li>When {@link AdhocSubProcess} (default constructor).</li>
+   *   <li>Then return {@code adhocSubProcess}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link FlowNodeActivityBehavior#parseActivityType(FlowNode)}
+   * <p>
+   * Method under test: {@link FlowNodeActivityBehavior#parseActivityType(FlowNode)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"String FlowNodeActivityBehavior.parseActivityType(FlowNode)"})
   public void testParseActivityType_whenAdhocSubProcess_thenReturnAdhocSubProcess() {
     // Arrange
     AbstractBpmnActivityBehavior abstractBpmnActivityBehavior = new AbstractBpmnActivityBehavior();
 
     // Act and Assert
-    assertEquals(
-        "adhocSubProcess", abstractBpmnActivityBehavior.parseActivityType(new AdhocSubProcess()));
+    assertEquals("adhocSubProcess", abstractBpmnActivityBehavior.parseActivityType(new AdhocSubProcess()));
   }
 }

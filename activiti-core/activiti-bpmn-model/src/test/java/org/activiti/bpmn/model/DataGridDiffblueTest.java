@@ -24,8 +24,7 @@ import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
 import java.util.List;
@@ -36,17 +35,15 @@ import org.mockito.Mockito;
 public class DataGridDiffblueTest {
   /**
    * Test {@link DataGrid#clone()}.
-   *
    * <ul>
-   *   <li>Given {@link ArrayList#ArrayList()} add {@link DataGridField} (default constructor).
-   *   <li>Then return Rows first Fields size is one.
+   *   <li>Given {@link ArrayList#ArrayList()} add {@link DataGridField} (default constructor).</li>
+   *   <li>Then return Rows first Fields size is one.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link DataGrid#clone()}
+   * <p>
+   * Method under test: {@link DataGrid#clone()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"DataGrid DataGrid.clone()"})
   public void testClone_givenArrayListAddDataGridField_thenReturnRowsFirstFieldsSizeIsOne() {
     // Arrange
@@ -79,17 +76,15 @@ public class DataGridDiffblueTest {
 
   /**
    * Test {@link DataGrid#clone()}.
-   *
    * <ul>
-   *   <li>Given {@link DataGridRow} (default constructor) Fields is {@link ArrayList#ArrayList()}.
-   *   <li>Then return Rows first Index is zero.
+   *   <li>Given {@link DataGridRow} (default constructor) Fields is {@link ArrayList#ArrayList()}.</li>
+   *   <li>Then return Rows first Index is zero.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link DataGrid#clone()}
+   * <p>
+   * Method under test: {@link DataGrid#clone()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"DataGrid DataGrid.clone()"})
   public void testClone_givenDataGridRowFieldsIsArrayList_thenReturnRowsFirstIndexIsZero() {
     // Arrange
@@ -112,17 +107,15 @@ public class DataGridDiffblueTest {
 
   /**
    * Test {@link DataGrid#clone()}.
-   *
    * <ul>
-   *   <li>Given {@link DataGridRow} (default constructor) Fields is {@code null}.
-   *   <li>Then return Rows first Index is zero.
+   *   <li>Given {@link DataGridRow} (default constructor) Fields is {@code null}.</li>
+   *   <li>Then return Rows first Index is zero.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link DataGrid#clone()}
+   * <p>
+   * Method under test: {@link DataGrid#clone()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"DataGrid DataGrid.clone()"})
   public void testClone_givenDataGridRowFieldsIsNull_thenReturnRowsFirstIndexIsZero() {
     // Arrange
@@ -145,17 +138,15 @@ public class DataGridDiffblueTest {
 
   /**
    * Test {@link DataGrid#clone()}.
-   *
    * <ul>
-   *   <li>Given {@link DataGrid} (default constructor) Rows is {@code null}.
-   *   <li>Then return Rows Empty.
+   *   <li>Given {@link DataGrid} (default constructor) Rows is {@code null}.</li>
+   *   <li>Then return Rows Empty.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link DataGrid#clone()}
+   * <p>
+   * Method under test: {@link DataGrid#clone()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"DataGrid DataGrid.clone()"})
   public void testClone_givenDataGridRowsIsNull_thenReturnRowsEmpty() {
     // Arrange
@@ -168,42 +159,36 @@ public class DataGridDiffblueTest {
 
   /**
    * Test {@link DataGrid#clone()}.
-   *
    * <ul>
-   *   <li>Given {@link DataGrid} (default constructor).
-   *   <li>Then return Rows Empty.
+   *   <li>Given {@link DataGrid} (default constructor).</li>
+   *   <li>Then return Rows Empty.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link DataGrid#clone()}
+   * <p>
+   * Method under test: {@link DataGrid#clone()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"DataGrid DataGrid.clone()"})
   public void testClone_givenDataGrid_thenReturnRowsEmpty() {
     // Arrange, Act and Assert
-    assertTrue(new DataGrid().clone().getRows().isEmpty());
+    assertTrue((new DataGrid()).clone().getRows().isEmpty());
   }
 
   /**
    * Test {@link DataGrid#setValues(DataGrid)}.
-   *
    * <ul>
-   *   <li>Given {@link DataGridField} {@link DataGridField#clone()} return {@link DataGridField}
-   *       (default constructor).
-   *   <li>Then calls {@link DataGridField#clone()}.
+   *   <li>Given {@link DataGridField} {@link DataGridField#clone()} return {@link DataGridField} (default constructor).</li>
+   *   <li>Then calls {@link DataGridField#clone()}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link DataGrid#setValues(DataGrid)}
+   * <p>
+   * Method under test: {@link DataGrid#setValues(DataGrid)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void DataGrid.setValues(DataGrid)"})
   public void testSetValues_givenDataGridFieldCloneReturnDataGridField_thenCallsClone() {
     // Arrange
     DataGrid dataGrid = new DataGrid();
-
     DataGridField dataGridField = mock(DataGridField.class);
     when(dataGridField.clone()).thenReturn(new DataGridField());
 
@@ -228,23 +213,19 @@ public class DataGridDiffblueTest {
 
   /**
    * Test {@link DataGrid#setValues(DataGrid)}.
-   *
    * <ul>
-   *   <li>Given {@link DataGridRow} {@link DataGridRow#clone()} return {@link DataGridRow} (default
-   *       constructor).
-   *   <li>Then calls {@link DataGridRow#clone()}.
+   *   <li>Given {@link DataGridRow} {@link DataGridRow#clone()} return {@link DataGridRow} (default constructor).</li>
+   *   <li>Then calls {@link DataGridRow#clone()}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link DataGrid#setValues(DataGrid)}
+   * <p>
+   * Method under test: {@link DataGrid#setValues(DataGrid)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void DataGrid.setValues(DataGrid)"})
   public void testSetValues_givenDataGridRowCloneReturnDataGridRow_thenCallsClone() {
     // Arrange
     DataGrid dataGrid = new DataGrid();
-
     DataGridRow dataGridRow = mock(DataGridRow.class);
     when(dataGridRow.clone()).thenReturn(new DataGridRow());
     doNothing().when(dataGridRow).setFields(Mockito.<List<DataGridField>>any());
@@ -266,9 +247,8 @@ public class DataGridDiffblueTest {
 
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>default or parameterless constructor of {@link DataGrid}
    *   <li>{@link DataGrid#setRows(List)}
@@ -276,13 +256,8 @@ public class DataGridDiffblueTest {
    * </ul>
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void DataGrid.<init>()",
-    "List DataGrid.getRows()",
-    "void DataGrid.setRows(List)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void DataGrid.<init>()", "List DataGrid.getRows()", "void DataGrid.setRows(List)"})
   public void testGettersAndSetters() {
     // Arrange and Act
     DataGrid actualDataGrid = new DataGrid();

@@ -21,7 +21,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
 import java.util.List;
@@ -34,27 +33,23 @@ import org.junit.jupiter.api.Test;
 class RemoveVariablesPayloadBuilderDiffblueTest {
   /**
    * Test {@link RemoveVariablesPayloadBuilder#withProcessInstance(ProcessInstance)}.
-   *
-   * <p>Method under test: {@link
-   * RemoveVariablesPayloadBuilder#withProcessInstance(ProcessInstance)}
+   * <p>
+   * Method under test: {@link RemoveVariablesPayloadBuilder#withProcessInstance(ProcessInstance)}
    */
   @Test
   @DisplayName("Test withProcessInstance(ProcessInstance)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({
-    "RemoveVariablesPayloadBuilder RemoveVariablesPayloadBuilder.withProcessInstance(ProcessInstance)"
-  })
+      "RemoveVariablesPayloadBuilder RemoveVariablesPayloadBuilder.withProcessInstance(ProcessInstance)"})
   void testWithProcessInstance() {
     // Arrange
     RemoveVariablesPayloadBuilder removeVariablesResult = ProcessPayloadBuilder.removeVariables();
-
     ProcessInstance processInstance = mock(ProcessInstance.class);
     when(processInstance.getId()).thenReturn("42");
 
     // Act
-    RemoveVariablesPayloadBuilder actualWithProcessInstanceResult =
-        removeVariablesResult.withProcessInstance(processInstance);
+    RemoveVariablesPayloadBuilder actualWithProcessInstanceResult = removeVariablesResult
+        .withProcessInstance(processInstance);
 
     // Assert
     verify(processInstance).getId();
@@ -64,33 +59,25 @@ class RemoveVariablesPayloadBuilderDiffblueTest {
 
   /**
    * Test {@link RemoveVariablesPayloadBuilder#withVariableNames(String)} with {@code variableName}.
-   *
-   * <p>Method under test: {@link RemoveVariablesPayloadBuilder#withVariableNames(String)}
+   * <p>
+   * Method under test: {@link RemoveVariablesPayloadBuilder#withVariableNames(String)}
    */
   @Test
   @DisplayName("Test withVariableNames(String) with 'variableName'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "RemoveVariablesPayloadBuilder RemoveVariablesPayloadBuilder.withVariableNames(String)"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"RemoveVariablesPayloadBuilder RemoveVariablesPayloadBuilder.withVariableNames(String)"})
   void testWithVariableNamesWithVariableName() {
     // Arrange
     RemoveVariablesPayloadBuilder removeVariablesResult = ProcessPayloadBuilder.removeVariables();
 
-    // Act
-    RemoveVariablesPayloadBuilder actualWithVariableNamesResult =
-        removeVariablesResult.withVariableNames("Variable Name");
-
-    // Assert
-    assertSame(removeVariablesResult, actualWithVariableNamesResult);
+    // Act and Assert
+    assertSame(removeVariablesResult, removeVariablesResult.withVariableNames("Variable Name"));
   }
 
   /**
    * Test {@link RemoveVariablesPayloadBuilder#build()}.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>{@link RemoveVariablesPayloadBuilder#build()}
    *   <li>default or parameterless constructor of {@link RemoveVariablesPayloadBuilder}
@@ -100,28 +87,25 @@ class RemoveVariablesPayloadBuilderDiffblueTest {
    */
   @Test
   @DisplayName("Test build()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void RemoveVariablesPayloadBuilder.<init>()",
-    "RemoveProcessVariablesPayload RemoveVariablesPayloadBuilder.build()",
-    "RemoveVariablesPayloadBuilder RemoveVariablesPayloadBuilder.withProcessInstanceId(String)",
-    "RemoveVariablesPayloadBuilder RemoveVariablesPayloadBuilder.withVariableNames(List)"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void RemoveVariablesPayloadBuilder.<init>()",
+      "RemoveProcessVariablesPayload RemoveVariablesPayloadBuilder.build()",
+      "RemoveVariablesPayloadBuilder RemoveVariablesPayloadBuilder.withProcessInstanceId(String)",
+      "RemoveVariablesPayloadBuilder RemoveVariablesPayloadBuilder.withVariableNames(List)"})
   void testBuild() {
-    // Arrange and Act
-    RemoveVariablesPayloadBuilder actualWithVariableNamesResult =
-        new RemoveVariablesPayloadBuilder()
-            .withProcessInstance(mock(ProcessInstance.class))
-            .withProcessInstanceId("42")
-            .withVariableNames("Variable Name");
+    // Arrange
+    RemoveVariablesPayloadBuilder withVariableNamesResult = (new RemoveVariablesPayloadBuilder())
+        .withProcessInstance(mock(ProcessInstance.class))
+        .withProcessInstanceId("42")
+        .withVariableNames("Variable Name");
     ArrayList<String> variableNames = new ArrayList<>();
-    RemoveProcessVariablesPayload actualRemoveProcessVariablesPayload =
-        actualWithVariableNamesResult.withVariableNames(variableNames).build();
+
+    // Act
+    RemoveProcessVariablesPayload actualBuildResult = withVariableNamesResult.withVariableNames(variableNames).build();
 
     // Assert
-    assertEquals("42", actualRemoveProcessVariablesPayload.getProcessInstanceId());
-    List<String> variableNames2 = actualRemoveProcessVariablesPayload.getVariableNames();
+    assertEquals("42", actualBuildResult.getProcessInstanceId());
+    List<String> variableNames2 = actualBuildResult.getVariableNames();
     assertTrue(variableNames2.isEmpty());
     assertSame(variableNames, variableNames2);
   }

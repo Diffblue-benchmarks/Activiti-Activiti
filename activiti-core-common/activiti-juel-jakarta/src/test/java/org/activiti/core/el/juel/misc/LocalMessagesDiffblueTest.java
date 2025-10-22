@@ -16,7 +16,6 @@
 package org.activiti.core.el.juel.misc;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
@@ -25,42 +24,34 @@ import org.junit.jupiter.api.Test;
 class LocalMessagesDiffblueTest {
   /**
    * Test {@link LocalMessages#get(String, Object[])}.
-   *
    * <ul>
-   *   <li>When {@code Args} and {@code Args}.
-   *   <li>Then return {@code Unknown message: Key(Args, Args)}.
+   *   <li>When {@code Args} and {@code Args}.</li>
+   *   <li>Then return {@code Unknown message: Key(Args, Args)}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link LocalMessages#get(String, Object[])}
+   * <p>
+   * Method under test: {@link LocalMessages#get(String, Object[])}
    */
   @Test
-  @DisplayName(
-      "Test get(String, Object[]); when 'Args' and 'Args'; then return 'Unknown message: Key(Args, Args)'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test get(String, Object[]); when 'Args' and 'Args'; then return 'Unknown message: Key(Args, Args)'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"String LocalMessages.get(String, Object[])"})
   void testGet_whenArgsAndArgs_thenReturnUnknownMessageKeyArgsArgs() {
-    // Arrange and Act
-    String actualGetResult = LocalMessages.get("Key", "Args", "Args");
-
-    // Assert
-    assertEquals("Unknown message: Key(Args, Args)", actualGetResult);
+    // Arrange, Act and Assert
+    assertEquals("Unknown message: Key(Args, Args)", LocalMessages.get("Key", "Args", "Args"));
   }
 
   /**
    * Test {@link LocalMessages#get(String, Object[])}.
-   *
    * <ul>
-   *   <li>When {@code Args}.
-   *   <li>Then return {@code Unknown message: Key(Args)}.
+   *   <li>When {@code Args}.</li>
+   *   <li>Then return {@code Unknown message: Key(Args)}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link LocalMessages#get(String, Object[])}
+   * <p>
+   * Method under test: {@link LocalMessages#get(String, Object[])}
    */
   @Test
   @DisplayName("Test get(String, Object[]); when 'Args'; then return 'Unknown message: Key(Args)'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"String LocalMessages.get(String, Object[])"})
   void testGet_whenArgs_thenReturnUnknownMessageKeyArgs() {
     // Arrange, Act and Assert
@@ -69,18 +60,16 @@ class LocalMessagesDiffblueTest {
 
   /**
    * Test {@link LocalMessages#get(String, Object[])}.
-   *
    * <ul>
-   *   <li>When {@code Key}.
-   *   <li>Then return {@code Unknown message: Key}.
+   *   <li>When {@code Key}.</li>
+   *   <li>Then return {@code Unknown message: Key}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link LocalMessages#get(String, Object[])}
+   * <p>
+   * Method under test: {@link LocalMessages#get(String, Object[])}
    */
   @Test
   @DisplayName("Test get(String, Object[]); when 'Key'; then return 'Unknown message: Key'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"String LocalMessages.get(String, Object[])"})
   void testGet_whenKey_thenReturnUnknownMessageKey() {
     // Arrange, Act and Assert
@@ -89,18 +78,16 @@ class LocalMessagesDiffblueTest {
 
   /**
    * Test {@link LocalMessages#get(String, Object[])}.
-   *
    * <ul>
-   *   <li>When {@code message.unknown}.
-   *   <li>Then return {@code Unknown message}.
+   *   <li>When {@code message.unknown}.</li>
+   *   <li>Then return {@code Unknown message}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link LocalMessages#get(String, Object[])}
+   * <p>
+   * Method under test: {@link LocalMessages#get(String, Object[])}
    */
   @Test
   @DisplayName("Test get(String, Object[]); when 'message.unknown'; then return 'Unknown message'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"String LocalMessages.get(String, Object[])"})
   void testGet_whenMessageUnknown_thenReturnUnknownMessage() {
     // Arrange, Act and Assert
@@ -109,18 +96,16 @@ class LocalMessagesDiffblueTest {
 
   /**
    * Test {@link LocalMessages#get(String, Object[])}.
-   *
    * <ul>
-   *   <li>When {@code null}.
-   *   <li>Then return {@code Unknown message: Key}.
+   *   <li>When {@code null}.</li>
+   *   <li>Then return {@code Unknown message: Key}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link LocalMessages#get(String, Object[])}
+   * <p>
+   * Method under test: {@link LocalMessages#get(String, Object[])}
    */
   @Test
   @DisplayName("Test get(String, Object[]); when 'null'; then return 'Unknown message: Key'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"String LocalMessages.get(String, Object[])"})
   void testGet_whenNull_thenReturnUnknownMessageKey() {
     // Arrange, Act and Assert

@@ -18,7 +18,6 @@ package org.activiti.api.process.model.results;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.mockito.Mockito.mock;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.api.model.shared.Payload;
 import org.activiti.api.process.model.ProcessInstance;
@@ -29,21 +28,17 @@ import org.junit.jupiter.api.Test;
 class ProcessInstanceResultDiffblueTest {
   /**
    * Test {@link ProcessInstanceResult#ProcessInstanceResult()}.
-   *
    * <ul>
-   *   <li>Then return Payload is {@code null}.
+   *   <li>Then return Payload is {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ProcessInstanceResult#ProcessInstanceResult()}
+   * <p>
+   * Method under test: {@link ProcessInstanceResult#ProcessInstanceResult()}
    */
   @Test
   @DisplayName("Test new ProcessInstanceResult(); then return Payload is 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void ProcessInstanceResult.<init>()",
-    "void ProcessInstanceResult.<init>(Payload, ProcessInstance)"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void ProcessInstanceResult.<init>()",
+      "void ProcessInstanceResult.<init>(Payload, ProcessInstance)"})
   void testNewProcessInstanceResult_thenReturnPayloadIsNull() {
     // Arrange and Act
     ProcessInstanceResult actualProcessInstanceResult = new ProcessInstanceResult();
@@ -55,24 +50,18 @@ class ProcessInstanceResultDiffblueTest {
 
   /**
    * Test {@link ProcessInstanceResult#ProcessInstanceResult(Payload, ProcessInstance)}.
-   *
    * <ul>
-   *   <li>When {@link Payload}.
-   *   <li>Then return {@link Payload}.
+   *   <li>When {@link Payload}.</li>
+   *   <li>Then return {@link Payload}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ProcessInstanceResult#ProcessInstanceResult(Payload,
-   * ProcessInstance)}
+   * <p>
+   * Method under test: {@link ProcessInstanceResult#ProcessInstanceResult(Payload, ProcessInstance)}
    */
   @Test
-  @DisplayName(
-      "Test new ProcessInstanceResult(Payload, ProcessInstance); when Payload; then return Payload")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void ProcessInstanceResult.<init>()",
-    "void ProcessInstanceResult.<init>(Payload, ProcessInstance)"
-  })
+  @DisplayName("Test new ProcessInstanceResult(Payload, ProcessInstance); when Payload; then return Payload")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void ProcessInstanceResult.<init>()",
+      "void ProcessInstanceResult.<init>(Payload, ProcessInstance)"})
   void testNewProcessInstanceResult_whenPayload_thenReturnPayload() {
     // Arrange
     Payload payload = mock(Payload.class);

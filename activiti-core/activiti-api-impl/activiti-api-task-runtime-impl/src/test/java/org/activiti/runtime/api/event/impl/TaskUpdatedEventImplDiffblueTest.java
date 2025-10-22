@@ -19,7 +19,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.api.task.model.Task;
 import org.activiti.api.task.model.Task.TaskStatus;
@@ -33,13 +32,12 @@ import org.junit.jupiter.api.Test;
 class TaskUpdatedEventImplDiffblueTest {
   /**
    * Test {@link TaskUpdatedEventImpl#TaskUpdatedEventImpl(Task)}.
-   *
-   * <p>Method under test: {@link TaskUpdatedEventImpl#TaskUpdatedEventImpl(Task)}
+   * <p>
+   * Method under test: {@link TaskUpdatedEventImpl#TaskUpdatedEventImpl(Task)}
    */
   @Test
   @DisplayName("Test new TaskUpdatedEventImpl(Task)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void TaskUpdatedEventImpl.<init>(Task)"})
   void testNewTaskUpdatedEventImpl() {
     // Arrange
@@ -63,18 +61,16 @@ class TaskUpdatedEventImplDiffblueTest {
 
   /**
    * Test {@link TaskUpdatedEventImpl#getEventType()}.
-   *
-   * <p>Method under test: {@link TaskUpdatedEventImpl#getEventType()}
+   * <p>
+   * Method under test: {@link TaskUpdatedEventImpl#getEventType()}
    */
   @Test
   @DisplayName("Test getEventType()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"TaskRuntimeEvent.TaskEvents TaskUpdatedEventImpl.getEventType()"})
   void testGetEventType() {
     // Arrange, Act and Assert
-    assertEquals(
-        TaskEvents.TASK_UPDATED,
-        new TaskUpdatedEventImpl(new TaskImpl("42", "Name", TaskStatus.CREATED)).getEventType());
+    assertEquals(TaskEvents.TASK_UPDATED,
+        (new TaskUpdatedEventImpl(new TaskImpl("42", "Name", TaskStatus.CREATED))).getEventType());
   }
 }

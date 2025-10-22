@@ -17,7 +17,6 @@ package org.activiti.api.process.model.payloads;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
@@ -26,39 +25,36 @@ import org.junit.jupiter.api.Test;
 class GetVariablesPayloadDiffblueTest {
   /**
    * Test {@link GetVariablesPayload#GetVariablesPayload()}.
-   *
-   * <p>Method under test: {@link GetVariablesPayload#GetVariablesPayload()}
+   * <p>
+   * Method under test: {@link GetVariablesPayload#GetVariablesPayload()}
    */
   @Test
   @DisplayName("Test new GetVariablesPayload()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void GetVariablesPayload.<init>()"})
   void testNewGetVariablesPayload() {
     // Arrange, Act and Assert
-    assertNull(new GetVariablesPayload().getProcessInstanceId());
+    assertNull((new GetVariablesPayload()).getProcessInstanceId());
   }
 
   /**
    * Test {@link GetVariablesPayload#GetVariablesPayload(String)}.
-   *
-   * <p>Method under test: {@link GetVariablesPayload#GetVariablesPayload(String)}
+   * <p>
+   * Method under test: {@link GetVariablesPayload#GetVariablesPayload(String)}
    */
   @Test
   @DisplayName("Test new GetVariablesPayload(String)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void GetVariablesPayload.<init>(String)"})
   void testNewGetVariablesPayload2() {
     // Arrange, Act and Assert
-    assertEquals("42", new GetVariablesPayload("42").getProcessInstanceId());
+    assertEquals("42", (new GetVariablesPayload("42")).getProcessInstanceId());
   }
 
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>{@link GetVariablesPayload#setProcessInstanceId(String)}
    *   <li>{@link GetVariablesPayload#getId()}
@@ -67,13 +63,9 @@ class GetVariablesPayloadDiffblueTest {
    */
   @Test
   @DisplayName("Test getters and setters")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "String GetVariablesPayload.getId()",
-    "String GetVariablesPayload.getProcessInstanceId()",
-    "void GetVariablesPayload.setProcessInstanceId(String)"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"String GetVariablesPayload.getId()", "String GetVariablesPayload.getProcessInstanceId()",
+      "void GetVariablesPayload.setProcessInstanceId(String)"})
   void testGettersAndSetters() {
     // Arrange
     GetVariablesPayload getVariablesPayload = new GetVariablesPayload();

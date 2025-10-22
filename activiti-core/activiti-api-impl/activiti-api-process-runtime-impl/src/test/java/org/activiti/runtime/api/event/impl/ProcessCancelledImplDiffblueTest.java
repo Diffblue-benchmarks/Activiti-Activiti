@@ -19,7 +19,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.api.process.model.ProcessInstance;
 import org.activiti.api.process.model.events.ProcessRuntimeEvent;
@@ -32,14 +31,12 @@ import org.junit.jupiter.api.Test;
 class ProcessCancelledImplDiffblueTest {
   /**
    * Test {@link ProcessCancelledImpl#ProcessCancelledImpl(ProcessInstance, String)}.
-   *
-   * <p>Method under test: {@link ProcessCancelledImpl#ProcessCancelledImpl(ProcessInstance,
-   * String)}
+   * <p>
+   * Method under test: {@link ProcessCancelledImpl#ProcessCancelledImpl(ProcessInstance, String)}
    */
   @Test
   @DisplayName("Test new ProcessCancelledImpl(ProcessInstance, String)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void ProcessCancelledImpl.<init>(ProcessInstance, String)"})
   void testNewProcessCancelledImpl() {
     // Arrange
@@ -64,33 +61,30 @@ class ProcessCancelledImplDiffblueTest {
 
   /**
    * Test {@link ProcessCancelledImpl#getEventType()}.
-   *
-   * <p>Method under test: {@link ProcessCancelledImpl#getEventType()}
+   * <p>
+   * Method under test: {@link ProcessCancelledImpl#getEventType()}
    */
   @Test
   @DisplayName("Test getEventType()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"ProcessRuntimeEvent.ProcessEvents ProcessCancelledImpl.getEventType()"})
   void testGetEventType() {
     // Arrange, Act and Assert
-    assertEquals(
-        ProcessEvents.PROCESS_CANCELLED,
-        new ProcessCancelledImpl(new ProcessInstanceImpl(), "Cause").getEventType());
+    assertEquals(ProcessEvents.PROCESS_CANCELLED,
+        (new ProcessCancelledImpl(new ProcessInstanceImpl(), "Cause")).getEventType());
   }
 
   /**
    * Test {@link ProcessCancelledImpl#getCause()}.
-   *
-   * <p>Method under test: {@link ProcessCancelledImpl#getCause()}
+   * <p>
+   * Method under test: {@link ProcessCancelledImpl#getCause()}
    */
   @Test
   @DisplayName("Test getCause()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"String ProcessCancelledImpl.getCause()"})
   void testGetCause() {
     // Arrange, Act and Assert
-    assertEquals("Cause", new ProcessCancelledImpl(new ProcessInstanceImpl(), "Cause").getCause());
+    assertEquals("Cause", (new ProcessCancelledImpl(new ProcessInstanceImpl(), "Cause")).getCause());
   }
 }

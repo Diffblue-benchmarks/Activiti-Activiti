@@ -16,7 +16,6 @@
 package org.activiti.core.common.spring.security;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -33,21 +32,20 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 @ContextConfiguration(classes = {SimpleGrantedAuthoritiesRolesMapper.class})
 @ExtendWith(SpringExtension.class)
 class SimpleGrantedAuthoritiesRolesMapperDiffblueTest {
-  @Autowired private SimpleGrantedAuthoritiesRolesMapper simpleGrantedAuthoritiesRolesMapper;
+  @Autowired
+  private SimpleGrantedAuthoritiesRolesMapper simpleGrantedAuthoritiesRolesMapper;
 
   /**
    * Test {@link SimpleGrantedAuthoritiesRolesMapper#getRoles(Collection)}.
-   *
    * <ul>
-   *   <li>Given {@link SimpleGrantedAuthority#SimpleGrantedAuthority(String)} with {@code Role}.
+   *   <li>Given {@link SimpleGrantedAuthority#SimpleGrantedAuthority(String)} with {@code Role}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link SimpleGrantedAuthoritiesRolesMapper#getRoles(Collection)}
+   * <p>
+   * Method under test: {@link SimpleGrantedAuthoritiesRolesMapper#getRoles(Collection)}
    */
   @Test
   @DisplayName("Test getRoles(Collection); given SimpleGrantedAuthority(String) with 'Role'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"java.util.List SimpleGrantedAuthoritiesRolesMapper.getRoles(Collection)"})
   void testGetRoles_givenSimpleGrantedAuthorityWithRole() {
     // Arrange
@@ -60,17 +58,15 @@ class SimpleGrantedAuthoritiesRolesMapperDiffblueTest {
 
   /**
    * Test {@link SimpleGrantedAuthoritiesRolesMapper#getRoles(Collection)}.
-   *
    * <ul>
-   *   <li>Given {@link SimpleGrantedAuthority#SimpleGrantedAuthority(String)} with {@code Role}.
+   *   <li>Given {@link SimpleGrantedAuthority#SimpleGrantedAuthority(String)} with {@code Role}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link SimpleGrantedAuthoritiesRolesMapper#getRoles(Collection)}
+   * <p>
+   * Method under test: {@link SimpleGrantedAuthoritiesRolesMapper#getRoles(Collection)}
    */
   @Test
   @DisplayName("Test getRoles(Collection); given SimpleGrantedAuthority(String) with 'Role'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"java.util.List SimpleGrantedAuthoritiesRolesMapper.getRoles(Collection)"})
   void testGetRoles_givenSimpleGrantedAuthorityWithRole2() {
     // Arrange
@@ -84,18 +80,16 @@ class SimpleGrantedAuthoritiesRolesMapperDiffblueTest {
 
   /**
    * Test {@link SimpleGrantedAuthoritiesRolesMapper#getRoles(Collection)}.
-   *
    * <ul>
-   *   <li>When {@link ArrayList#ArrayList()}.
-   *   <li>Then return Empty.
+   *   <li>When {@link ArrayList#ArrayList()}.</li>
+   *   <li>Then return Empty.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link SimpleGrantedAuthoritiesRolesMapper#getRoles(Collection)}
+   * <p>
+   * Method under test: {@link SimpleGrantedAuthoritiesRolesMapper#getRoles(Collection)}
    */
   @Test
   @DisplayName("Test getRoles(Collection); when ArrayList(); then return Empty")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"java.util.List SimpleGrantedAuthoritiesRolesMapper.getRoles(Collection)"})
   void testGetRoles_whenArrayList_thenReturnEmpty() {
     // Arrange, Act and Assert

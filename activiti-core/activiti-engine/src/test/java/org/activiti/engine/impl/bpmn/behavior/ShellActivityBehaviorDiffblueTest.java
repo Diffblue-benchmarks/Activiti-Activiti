@@ -18,8 +18,7 @@ package org.activiti.engine.impl.bpmn.behavior;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.engine.delegate.DelegateExecution;
 import org.activiti.engine.delegate.Expression;
@@ -32,96 +31,76 @@ import org.junit.experimental.categories.Category;
 public class ShellActivityBehaviorDiffblueTest {
   /**
    * Test {@link ShellActivityBehavior#getStringFromField(Expression, DelegateExecution)}.
-   *
    * <ul>
-   *   <li>When {@link FixedValue#FixedValue(Object)} with value is {@link JSONObject#NULL}.
-   *   <li>Then return {@code null}.
+   *   <li>When {@link FixedValue#FixedValue(Object)} with value is {@link JSONObject#NULL}.</li>
+   *   <li>Then return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ShellActivityBehavior#getStringFromField(Expression,
-   * DelegateExecution)}
+   * <p>
+   * Method under test: {@link ShellActivityBehavior#getStringFromField(Expression, DelegateExecution)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "java.lang.String ShellActivityBehavior.getStringFromField(Expression, DelegateExecution)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"java.lang.String ShellActivityBehavior.getStringFromField(Expression, DelegateExecution)"})
   public void testGetStringFromField_whenFixedValueWithValueIsNull_thenReturnNull() {
     // Arrange
     ShellActivityBehavior shellActivityBehavior = new ShellActivityBehavior();
     FixedValue expression = new FixedValue(JSONObject.NULL);
 
     // Act and Assert
-    assertEquals(
-        "null",
-        shellActivityBehavior.getStringFromField(
-            expression, ExecutionEntityImpl.createWithEmptyRelationshipCollections()));
+    assertEquals("null", shellActivityBehavior.getStringFromField(expression,
+        ExecutionEntityImpl.createWithEmptyRelationshipCollections()));
   }
 
   /**
    * Test {@link ShellActivityBehavior#getStringFromField(Expression, DelegateExecution)}.
-   *
    * <ul>
-   *   <li>When {@link FixedValue#FixedValue(Object)} with value is {@code null}.
-   *   <li>Then return {@code null}.
+   *   <li>When {@link FixedValue#FixedValue(Object)} with value is {@code null}.</li>
+   *   <li>Then return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ShellActivityBehavior#getStringFromField(Expression,
-   * DelegateExecution)}
+   * <p>
+   * Method under test: {@link ShellActivityBehavior#getStringFromField(Expression, DelegateExecution)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "java.lang.String ShellActivityBehavior.getStringFromField(Expression, DelegateExecution)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"java.lang.String ShellActivityBehavior.getStringFromField(Expression, DelegateExecution)"})
   public void testGetStringFromField_whenFixedValueWithValueIsNull_thenReturnNull2() {
     // Arrange
     ShellActivityBehavior shellActivityBehavior = new ShellActivityBehavior();
     FixedValue expression = new FixedValue(null);
 
     // Act and Assert
-    assertNull(
-        shellActivityBehavior.getStringFromField(
-            expression, ExecutionEntityImpl.createWithEmptyRelationshipCollections()));
+    assertNull(shellActivityBehavior.getStringFromField(expression,
+        ExecutionEntityImpl.createWithEmptyRelationshipCollections()));
   }
 
   /**
    * Test {@link ShellActivityBehavior#getStringFromField(Expression, DelegateExecution)}.
-   *
    * <ul>
-   *   <li>When {@code null}.
-   *   <li>Then return {@code null}.
+   *   <li>When {@code null}.</li>
+   *   <li>Then return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ShellActivityBehavior#getStringFromField(Expression,
-   * DelegateExecution)}
+   * <p>
+   * Method under test: {@link ShellActivityBehavior#getStringFromField(Expression, DelegateExecution)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "java.lang.String ShellActivityBehavior.getStringFromField(Expression, DelegateExecution)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"java.lang.String ShellActivityBehavior.getStringFromField(Expression, DelegateExecution)"})
   public void testGetStringFromField_whenNull_thenReturnNull() {
     // Arrange
     ShellActivityBehavior shellActivityBehavior = new ShellActivityBehavior();
 
     // Act and Assert
     assertNull(
-        shellActivityBehavior.getStringFromField(
-            null, ExecutionEntityImpl.createWithEmptyRelationshipCollections()));
+        shellActivityBehavior.getStringFromField(null, ExecutionEntityImpl.createWithEmptyRelationshipCollections()));
   }
 
   /**
    * Test new {@link ShellActivityBehavior} (default constructor).
-   *
-   * <p>Method under test: default or parameterless constructor of {@link ShellActivityBehavior}
+   * <p>
+   * Method under test: default or parameterless constructor of {@link ShellActivityBehavior}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void ShellActivityBehavior.<init>()"})
   public void testNewShellActivityBehavior() {
     // Arrange and Act

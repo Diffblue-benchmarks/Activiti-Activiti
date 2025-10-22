@@ -20,7 +20,6 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import com.fasterxml.jackson.core.JsonFactory;
 import com.fasterxml.jackson.databind.MappingJsonFactory;
@@ -48,13 +47,12 @@ import org.junit.jupiter.api.Test;
 class CommonELResolversUtilDiffblueTest {
   /**
    * Test {@link CommonELResolversUtil#arrayResolver()}.
-   *
-   * <p>Method under test: {@link CommonELResolversUtil#arrayResolver()}
+   * <p>
+   * Method under test: {@link CommonELResolversUtil#arrayResolver()}
    */
   @Test
   @DisplayName("Test arrayResolver()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"ELResolver CommonELResolversUtil.arrayResolver()"})
   void testArrayResolver() {
     // Arrange and Act
@@ -68,13 +66,12 @@ class CommonELResolversUtilDiffblueTest {
 
   /**
    * Test {@link CommonELResolversUtil#listResolver()}.
-   *
-   * <p>Method under test: {@link CommonELResolversUtil#listResolver()}
+   * <p>
+   * Method under test: {@link CommonELResolversUtil#listResolver()}
    */
   @Test
   @DisplayName("Test listResolver()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"ELResolver CommonELResolversUtil.listResolver()"})
   void testListResolver() {
     // Arrange and Act
@@ -88,13 +85,12 @@ class CommonELResolversUtilDiffblueTest {
 
   /**
    * Test {@link CommonELResolversUtil#mapResolver()}.
-   *
-   * <p>Method under test: {@link CommonELResolversUtil#mapResolver()}
+   * <p>
+   * Method under test: {@link CommonELResolversUtil#mapResolver()}
    */
   @Test
   @DisplayName("Test mapResolver()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"ELResolver CommonELResolversUtil.mapResolver()"})
   void testMapResolver() {
     // Arrange and Act
@@ -108,25 +104,22 @@ class CommonELResolversUtilDiffblueTest {
 
   /**
    * Test {@link CommonELResolversUtil#jsonNodeResolver()}.
-   *
-   * <p>Method under test: {@link CommonELResolversUtil#jsonNodeResolver()}
+   * <p>
+   * Method under test: {@link CommonELResolversUtil#jsonNodeResolver()}
    */
   @Test
   @DisplayName("Test jsonNodeResolver()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"ELResolver CommonELResolversUtil.jsonNodeResolver()"})
   void testJsonNodeResolver() {
     // Arrange and Act
     ELResolver actualJsonNodeResolverResult = CommonELResolversUtil.jsonNodeResolver();
 
     // Assert
-    ObjectMapper objectMapper =
-        ((JsonNodeELResolver) actualJsonNodeResolverResult).getObjectMapper();
+    ObjectMapper objectMapper = ((JsonNodeELResolver) actualJsonNodeResolverResult).getObjectMapper();
     JsonFactory factory = objectMapper.getFactory();
     assertTrue(factory instanceof MappingJsonFactory);
-    assertTrue(
-        objectMapper.getDeserializationContext() instanceof DefaultDeserializationContext.Impl);
+    assertTrue(objectMapper.getDeserializationContext() instanceof DefaultDeserializationContext.Impl);
     assertTrue(objectMapper.getVisibilityChecker() instanceof Std);
     assertTrue(objectMapper.getPolymorphicTypeValidator() instanceof LaissezFaireSubTypeValidator);
     assertTrue(objectMapper.getSubtypeResolver() instanceof StdSubtypeResolver);
@@ -143,21 +136,19 @@ class CommonELResolversUtilDiffblueTest {
 
   /**
    * Test {@link CommonELResolversUtil#beanResolver()}.
-   *
-   * <p>Method under test: {@link CommonELResolversUtil#beanResolver()}
+   * <p>
+   * Method under test: {@link CommonELResolversUtil#beanResolver()}
    */
   @Test
   @DisplayName("Test beanResolver()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"ELResolver CommonELResolversUtil.beanResolver()"})
   void testBeanResolver() {
     // Arrange and Act
     ELResolver actualBeanResolverResult = CommonELResolversUtil.beanResolver();
 
     // Assert
-    Iterator<FeatureDescriptor> featureDescriptors =
-        actualBeanResolverResult.getFeatureDescriptors(null, "Base");
+    Iterator<FeatureDescriptor> featureDescriptors = actualBeanResolverResult.getFeatureDescriptors(null, "Base");
     assertTrue(featureDescriptors.next() instanceof PropertyDescriptor);
     assertTrue(featureDescriptors.next() instanceof PropertyDescriptor);
     assertTrue(featureDescriptors.next() instanceof PropertyDescriptor);
@@ -165,7 +156,6 @@ class CommonELResolversUtilDiffblueTest {
     assertTrue(actualBeanResolverResult instanceof ELResolverReflectionBlockerDecorator);
     assertFalse(featureDescriptors.hasNext());
     Class<Object> expectedCommonPropertyType = Object.class;
-    assertEquals(
-        expectedCommonPropertyType, actualBeanResolverResult.getCommonPropertyType(null, "Base"));
+    assertEquals(expectedCommonPropertyType, actualBeanResolverResult.getCommonPropertyType(null, "Base"));
   }
 }

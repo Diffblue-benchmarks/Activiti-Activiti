@@ -19,8 +19,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.Collection;
 import java.util.List;
@@ -34,190 +33,122 @@ import org.springframework.transaction.TransactionExecutionListener;
 
 public class SpringTransactionContextFactoryDiffblueTest {
   /**
-   * Test {@link
-   * SpringTransactionContextFactory#SpringTransactionContextFactory(PlatformTransactionManager)}.
-   *
-   * <p>Method under test: {@link
-   * SpringTransactionContextFactory#SpringTransactionContextFactory(PlatformTransactionManager)}
+   * Test {@link SpringTransactionContextFactory#SpringTransactionContextFactory(PlatformTransactionManager)}.
+   * <p>
+   * Method under test: {@link SpringTransactionContextFactory#SpringTransactionContextFactory(PlatformTransactionManager)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void SpringTransactionContextFactory.<init>(PlatformTransactionManager)",
-    "void SpringTransactionContextFactory.<init>(PlatformTransactionManager, Integer)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void SpringTransactionContextFactory.<init>(PlatformTransactionManager)",
+      "void SpringTransactionContextFactory.<init>(PlatformTransactionManager, Integer)"})
   public void testNewSpringTransactionContextFactory() {
     // Arrange and Act
-    SpringTransactionContextFactory actualSpringTransactionContextFactory =
-        new SpringTransactionContextFactory(new DataSourceTransactionManager());
+    SpringTransactionContextFactory actualSpringTransactionContextFactory = new SpringTransactionContextFactory(
+        new DataSourceTransactionManager());
 
     // Assert
-    PlatformTransactionManager platformTransactionManager =
-        actualSpringTransactionContextFactory.transactionManager;
-    Collection<TransactionExecutionListener> transactionExecutionListeners =
-        ((DataSourceTransactionManager) platformTransactionManager)
-            .getTransactionExecutionListeners();
+    PlatformTransactionManager platformTransactionManager = actualSpringTransactionContextFactory.transactionManager;
+    Collection<TransactionExecutionListener> transactionExecutionListeners = ((DataSourceTransactionManager) platformTransactionManager)
+        .getTransactionExecutionListeners();
     assertTrue(transactionExecutionListeners instanceof List);
     assertTrue(platformTransactionManager instanceof DataSourceTransactionManager);
     assertNull(actualSpringTransactionContextFactory.transactionSynchronizationAdapterOrder);
     assertNull(((DataSourceTransactionManager) platformTransactionManager).getDataSource());
-    assertEquals(
-        -1, ((DataSourceTransactionManager) platformTransactionManager).getDefaultTimeout());
-    assertEquals(
-        0,
-        ((DataSourceTransactionManager) platformTransactionManager)
-            .getTransactionSynchronization());
+    assertEquals(-1, ((DataSourceTransactionManager) platformTransactionManager).getDefaultTimeout());
+    assertEquals(0, ((DataSourceTransactionManager) platformTransactionManager).getTransactionSynchronization());
     assertFalse(((DataSourceTransactionManager) platformTransactionManager).isEnforceReadOnly());
-    assertFalse(
-        ((DataSourceTransactionManager) platformTransactionManager)
-            .isFailEarlyOnGlobalRollbackOnly());
-    assertFalse(
-        ((DataSourceTransactionManager) platformTransactionManager).isRollbackOnCommitFailure());
-    assertFalse(
-        ((DataSourceTransactionManager) platformTransactionManager)
-            .isValidateExistingTransaction());
+    assertFalse(((DataSourceTransactionManager) platformTransactionManager).isFailEarlyOnGlobalRollbackOnly());
+    assertFalse(((DataSourceTransactionManager) platformTransactionManager).isRollbackOnCommitFailure());
+    assertFalse(((DataSourceTransactionManager) platformTransactionManager).isValidateExistingTransaction());
     assertTrue(transactionExecutionListeners.isEmpty());
-    assertTrue(
-        ((DataSourceTransactionManager) platformTransactionManager)
-            .isGlobalRollbackOnParticipationFailure());
-    assertTrue(
-        ((DataSourceTransactionManager) platformTransactionManager).isNestedTransactionAllowed());
+    assertTrue(((DataSourceTransactionManager) platformTransactionManager).isGlobalRollbackOnParticipationFailure());
+    assertTrue(((DataSourceTransactionManager) platformTransactionManager).isNestedTransactionAllowed());
   }
 
   /**
-   * Test {@link
-   * SpringTransactionContextFactory#SpringTransactionContextFactory(PlatformTransactionManager,
-   * Integer)}.
-   *
-   * <p>Method under test: {@link
-   * SpringTransactionContextFactory#SpringTransactionContextFactory(PlatformTransactionManager,
-   * Integer)}
+   * Test {@link SpringTransactionContextFactory#SpringTransactionContextFactory(PlatformTransactionManager, Integer)}.
+   * <p>
+   * Method under test: {@link SpringTransactionContextFactory#SpringTransactionContextFactory(PlatformTransactionManager, Integer)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void SpringTransactionContextFactory.<init>(PlatformTransactionManager)",
-    "void SpringTransactionContextFactory.<init>(PlatformTransactionManager, Integer)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void SpringTransactionContextFactory.<init>(PlatformTransactionManager)",
+      "void SpringTransactionContextFactory.<init>(PlatformTransactionManager, Integer)"})
   public void testNewSpringTransactionContextFactory2() {
     // Arrange, Act and Assert
-    assertEquals(
-        1,
-        new SpringTransactionContextFactory(new DataSourceTransactionManager(), 1)
-            .transactionSynchronizationAdapterOrder.intValue());
+    assertEquals(1, (new SpringTransactionContextFactory(new DataSourceTransactionManager(),
+        1)).transactionSynchronizationAdapterOrder.intValue());
   }
 
   /**
    * Test {@link SpringTransactionContextFactory#openTransactionContext(CommandContext)}.
-   *
-   * <p>Method under test: {@link
-   * SpringTransactionContextFactory#openTransactionContext(CommandContext)}
+   * <p>
+   * Method under test: {@link SpringTransactionContextFactory#openTransactionContext(CommandContext)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "TransactionContext SpringTransactionContextFactory.openTransactionContext(CommandContext)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"TransactionContext SpringTransactionContextFactory.openTransactionContext(CommandContext)"})
   public void testOpenTransactionContext() {
     // Arrange and Act
-    TransactionContext actualOpenTransactionContextResult =
-        new SpringTransactionContextFactory(new DataSourceTransactionManager())
-            .openTransactionContext(null);
+    TransactionContext actualOpenTransactionContextResult = (new SpringTransactionContextFactory(
+        new DataSourceTransactionManager())).openTransactionContext(null);
 
     // Assert
-    PlatformTransactionManager platformTransactionManager =
-        ((SpringTransactionContext) actualOpenTransactionContextResult).transactionManager;
-    Collection<TransactionExecutionListener> transactionExecutionListeners =
-        ((DataSourceTransactionManager) platformTransactionManager)
-            .getTransactionExecutionListeners();
+    PlatformTransactionManager platformTransactionManager = ((SpringTransactionContext) actualOpenTransactionContextResult).transactionManager;
+    Collection<TransactionExecutionListener> transactionExecutionListeners = ((DataSourceTransactionManager) platformTransactionManager)
+        .getTransactionExecutionListeners();
     assertTrue(transactionExecutionListeners instanceof List);
     assertTrue(actualOpenTransactionContextResult instanceof SpringTransactionContext);
     assertTrue(platformTransactionManager instanceof DataSourceTransactionManager);
     assertNull(((DataSourceTransactionManager) platformTransactionManager).getDataSource());
     assertNull(((SpringTransactionContext) actualOpenTransactionContextResult).commandContext);
-    assertEquals(
-        -1, ((DataSourceTransactionManager) platformTransactionManager).getDefaultTimeout());
-    assertEquals(
-        0,
-        ((DataSourceTransactionManager) platformTransactionManager)
-            .getTransactionSynchronization());
+    assertEquals(-1, ((DataSourceTransactionManager) platformTransactionManager).getDefaultTimeout());
+    assertEquals(0, ((DataSourceTransactionManager) platformTransactionManager).getTransactionSynchronization());
     assertFalse(((DataSourceTransactionManager) platformTransactionManager).isEnforceReadOnly());
-    assertFalse(
-        ((DataSourceTransactionManager) platformTransactionManager)
-            .isFailEarlyOnGlobalRollbackOnly());
-    assertFalse(
-        ((DataSourceTransactionManager) platformTransactionManager).isRollbackOnCommitFailure());
-    assertFalse(
-        ((DataSourceTransactionManager) platformTransactionManager)
-            .isValidateExistingTransaction());
+    assertFalse(((DataSourceTransactionManager) platformTransactionManager).isFailEarlyOnGlobalRollbackOnly());
+    assertFalse(((DataSourceTransactionManager) platformTransactionManager).isRollbackOnCommitFailure());
+    assertFalse(((DataSourceTransactionManager) platformTransactionManager).isValidateExistingTransaction());
     assertTrue(transactionExecutionListeners.isEmpty());
-    assertTrue(
-        ((DataSourceTransactionManager) platformTransactionManager)
-            .isGlobalRollbackOnParticipationFailure());
-    assertTrue(
-        ((DataSourceTransactionManager) platformTransactionManager).isNestedTransactionAllowed());
-    assertEquals(
-        Integer.MAX_VALUE,
-        ((SpringTransactionContext) actualOpenTransactionContextResult)
-            .transactionSynchronizationAdapterOrder.intValue());
+    assertTrue(((DataSourceTransactionManager) platformTransactionManager).isGlobalRollbackOnParticipationFailure());
+    assertTrue(((DataSourceTransactionManager) platformTransactionManager).isNestedTransactionAllowed());
+    assertEquals(Integer.MAX_VALUE,
+        ((SpringTransactionContext) actualOpenTransactionContextResult).transactionSynchronizationAdapterOrder
+            .intValue());
   }
 
   /**
    * Test {@link SpringTransactionContextFactory#openTransactionContext(CommandContext)}.
-   *
-   * <p>Method under test: {@link
-   * SpringTransactionContextFactory#openTransactionContext(CommandContext)}
+   * <p>
+   * Method under test: {@link SpringTransactionContextFactory#openTransactionContext(CommandContext)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "TransactionContext SpringTransactionContextFactory.openTransactionContext(CommandContext)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"TransactionContext SpringTransactionContextFactory.openTransactionContext(CommandContext)"})
   public void testOpenTransactionContext2() {
     // Arrange and Act
-    TransactionContext actualOpenTransactionContextResult =
-        new SpringTransactionContextFactory(new DataSourceTransactionManager(), 1)
-            .openTransactionContext(null);
+    TransactionContext actualOpenTransactionContextResult = (new SpringTransactionContextFactory(
+        new DataSourceTransactionManager(), 1)).openTransactionContext(null);
 
     // Assert
-    PlatformTransactionManager platformTransactionManager =
-        ((SpringTransactionContext) actualOpenTransactionContextResult).transactionManager;
-    Collection<TransactionExecutionListener> transactionExecutionListeners =
-        ((DataSourceTransactionManager) platformTransactionManager)
-            .getTransactionExecutionListeners();
+    PlatformTransactionManager platformTransactionManager = ((SpringTransactionContext) actualOpenTransactionContextResult).transactionManager;
+    Collection<TransactionExecutionListener> transactionExecutionListeners = ((DataSourceTransactionManager) platformTransactionManager)
+        .getTransactionExecutionListeners();
     assertTrue(transactionExecutionListeners instanceof List);
     assertTrue(actualOpenTransactionContextResult instanceof SpringTransactionContext);
     assertTrue(platformTransactionManager instanceof DataSourceTransactionManager);
     assertNull(((DataSourceTransactionManager) platformTransactionManager).getDataSource());
     assertNull(((SpringTransactionContext) actualOpenTransactionContextResult).commandContext);
-    assertEquals(
-        -1, ((DataSourceTransactionManager) platformTransactionManager).getDefaultTimeout());
-    assertEquals(
-        0,
-        ((DataSourceTransactionManager) platformTransactionManager)
-            .getTransactionSynchronization());
-    assertEquals(
-        1,
-        ((SpringTransactionContext) actualOpenTransactionContextResult)
-            .transactionSynchronizationAdapterOrder.intValue());
+    assertEquals(-1, ((DataSourceTransactionManager) platformTransactionManager).getDefaultTimeout());
+    assertEquals(0, ((DataSourceTransactionManager) platformTransactionManager).getTransactionSynchronization());
+    assertEquals(1,
+        ((SpringTransactionContext) actualOpenTransactionContextResult).transactionSynchronizationAdapterOrder
+            .intValue());
     assertFalse(((DataSourceTransactionManager) platformTransactionManager).isEnforceReadOnly());
-    assertFalse(
-        ((DataSourceTransactionManager) platformTransactionManager)
-            .isFailEarlyOnGlobalRollbackOnly());
-    assertFalse(
-        ((DataSourceTransactionManager) platformTransactionManager).isRollbackOnCommitFailure());
-    assertFalse(
-        ((DataSourceTransactionManager) platformTransactionManager)
-            .isValidateExistingTransaction());
+    assertFalse(((DataSourceTransactionManager) platformTransactionManager).isFailEarlyOnGlobalRollbackOnly());
+    assertFalse(((DataSourceTransactionManager) platformTransactionManager).isRollbackOnCommitFailure());
+    assertFalse(((DataSourceTransactionManager) platformTransactionManager).isValidateExistingTransaction());
     assertTrue(transactionExecutionListeners.isEmpty());
-    assertTrue(
-        ((DataSourceTransactionManager) platformTransactionManager)
-            .isGlobalRollbackOnParticipationFailure());
-    assertTrue(
-        ((DataSourceTransactionManager) platformTransactionManager).isNestedTransactionAllowed());
+    assertTrue(((DataSourceTransactionManager) platformTransactionManager).isGlobalRollbackOnParticipationFailure());
+    assertTrue(((DataSourceTransactionManager) platformTransactionManager).isNestedTransactionAllowed());
   }
 }

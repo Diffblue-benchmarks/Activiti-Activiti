@@ -19,8 +19,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -32,65 +31,23 @@ import org.junit.experimental.categories.Category;
 public class ExtensionElementDiffblueTest {
   /**
    * Test {@link ExtensionElement#clone()}.
-   *
    * <ul>
-   *   <li>Given {@link ArrayList#ArrayList()} add {@link ExtensionElement} (default constructor).
-   *   <li>Then return ChildElements size is one.
+   *   <li>Given {@link ExtensionElement} (default constructor) ChildElements is {@code null}.</li>
+   *   <li>Then return Id is {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ExtensionElement#clone()}
+   * <p>
+   * Method under test: {@link ExtensionElement#clone()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"ExtensionElement ExtensionElement.clone()"})
-  public void testClone_givenArrayListAddExtensionElement_thenReturnChildElementsSizeIsOne() {
+  public void testClone_givenExtensionElementChildElementsIsNull_thenReturnIdIsNull() {
     // Arrange
-    ArrayList<ExtensionElement> extensionElementList = new ArrayList<>();
-    extensionElementList.add(new ExtensionElement());
-
-    HashMap<String, List<ExtensionElement>> childElements = new HashMap<>();
-    childElements.put("foo", extensionElementList);
-
     ExtensionElement extensionElement = new ExtensionElement();
-    extensionElement.setChildElements(childElements);
+    extensionElement.setChildElements(null);
 
-    // Act and Assert
-    Map<String, List<ExtensionElement>> childElements2 =
-        extensionElement.clone().getChildElements();
-    assertEquals(1, childElements2.size());
-    List<ExtensionElement> getResult = childElements2.get("foo");
-    assertEquals(1, getResult.size());
-    ExtensionElement getResult2 = getResult.get(0);
-    assertNull(getResult2.getId());
-    assertNull(getResult2.getElementText());
-    assertNull(getResult2.getName());
-    assertNull(getResult2.getNamespace());
-    assertNull(getResult2.getNamespacePrefix());
-    assertEquals(0, getResult2.getXmlColumnNumber());
-    assertEquals(0, getResult2.getXmlRowNumber());
-    assertTrue(getResult2.getAttributes().isEmpty());
-    assertTrue(getResult2.getExtensionElements().isEmpty());
-    assertTrue(getResult2.getChildElements().isEmpty());
-  }
-
-  /**
-   * Test {@link ExtensionElement#clone()}.
-   *
-   * <ul>
-   *   <li>Given {@link ExtensionElement} (default constructor).
-   *   <li>Then return Id is {@code null}.
-   * </ul>
-   *
-   * <p>Method under test: {@link ExtensionElement#clone()}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"ExtensionElement ExtensionElement.clone()"})
-  public void testClone_givenExtensionElement_thenReturnIdIsNull() {
-    // Arrange and Act
-    ExtensionElement actualCloneResult = new ExtensionElement().clone();
+    // Act
+    ExtensionElement actualCloneResult = extensionElement.clone();
 
     // Assert
     assertNull(actualCloneResult.getId());
@@ -107,17 +64,82 @@ public class ExtensionElementDiffblueTest {
 
   /**
    * Test {@link ExtensionElement#clone()}.
-   *
    * <ul>
-   *   <li>Given {@link HashMap#HashMap()} {@code foo} is {@link ArrayList#ArrayList()}.
-   *   <li>Then return Id is {@code null}.
+   *   <li>Given {@link ExtensionElement} (default constructor) Name is {@code Name}.</li>
+   *   <li>Then return ChildElements size is one.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ExtensionElement#clone()}
+   * <p>
+   * Method under test: {@link ExtensionElement#clone()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"ExtensionElement ExtensionElement.clone()"})
+  public void testClone_givenExtensionElementNameIsName_thenReturnChildElementsSizeIsOne() {
+    // Arrange
+    ExtensionElement childElement = new ExtensionElement();
+    childElement.setName("Name");
+
+    ExtensionElement extensionElement = new ExtensionElement();
+    extensionElement.addChildElement(childElement);
+
+    // Act and Assert
+    Map<String, List<ExtensionElement>> childElements = extensionElement.clone().getChildElements();
+    assertEquals(1, childElements.size());
+    List<ExtensionElement> getResult = childElements.get("Name");
+    assertEquals(1, getResult.size());
+    ExtensionElement getResult2 = getResult.get(0);
+    assertEquals("Name", getResult2.getName());
+    assertNull(getResult2.getId());
+    assertNull(getResult2.getElementText());
+    assertNull(getResult2.getNamespace());
+    assertNull(getResult2.getNamespacePrefix());
+    assertEquals(0, getResult2.getXmlColumnNumber());
+    assertEquals(0, getResult2.getXmlRowNumber());
+    assertTrue(getResult2.getAttributes().isEmpty());
+    assertTrue(getResult2.getExtensionElements().isEmpty());
+    assertTrue(getResult2.getChildElements().isEmpty());
+  }
+
+  /**
+   * Test {@link ExtensionElement#clone()}.
+   * <ul>
+   *   <li>Given {@link ExtensionElement} (default constructor).</li>
+   *   <li>Then return Id is {@code null}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link ExtensionElement#clone()}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"ExtensionElement ExtensionElement.clone()"})
+  public void testClone_givenExtensionElement_thenReturnIdIsNull() {
+    // Arrange and Act
+    ExtensionElement actualCloneResult = (new ExtensionElement()).clone();
+
+    // Assert
+    assertNull(actualCloneResult.getId());
+    assertNull(actualCloneResult.getElementText());
+    assertNull(actualCloneResult.getName());
+    assertNull(actualCloneResult.getNamespace());
+    assertNull(actualCloneResult.getNamespacePrefix());
+    assertEquals(0, actualCloneResult.getXmlColumnNumber());
+    assertEquals(0, actualCloneResult.getXmlRowNumber());
+    assertTrue(actualCloneResult.getAttributes().isEmpty());
+    assertTrue(actualCloneResult.getExtensionElements().isEmpty());
+    assertTrue(actualCloneResult.getChildElements().isEmpty());
+  }
+
+  /**
+   * Test {@link ExtensionElement#clone()}.
+   * <ul>
+   *   <li>Given {@link HashMap#HashMap()} {@code foo} is {@link ArrayList#ArrayList()}.</li>
+   *   <li>Then return Id is {@code null}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link ExtensionElement#clone()}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"ExtensionElement ExtensionElement.clone()"})
   public void testClone_givenHashMapFooIsArrayList_thenReturnIdIsNull() {
     // Arrange
@@ -145,9 +167,8 @@ public class ExtensionElementDiffblueTest {
 
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>default or parameterless constructor of {@link ExtensionElement}
    *   <li>{@link ExtensionElement#setChildElements(Map)}
@@ -163,21 +184,13 @@ public class ExtensionElementDiffblueTest {
    * </ul>
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void ExtensionElement.<init>()",
-    "Map ExtensionElement.getChildElements()",
-    "String ExtensionElement.getElementText()",
-    "String ExtensionElement.getName()",
-    "String ExtensionElement.getNamespace()",
-    "String ExtensionElement.getNamespacePrefix()",
-    "void ExtensionElement.setChildElements(Map)",
-    "void ExtensionElement.setElementText(String)",
-    "void ExtensionElement.setName(String)",
-    "void ExtensionElement.setNamespace(String)",
-    "void ExtensionElement.setNamespacePrefix(String)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void ExtensionElement.<init>()", "Map ExtensionElement.getChildElements()",
+      "String ExtensionElement.getElementText()", "String ExtensionElement.getName()",
+      "String ExtensionElement.getNamespace()", "String ExtensionElement.getNamespacePrefix()",
+      "void ExtensionElement.setChildElements(Map)", "void ExtensionElement.setElementText(String)",
+      "void ExtensionElement.setName(String)", "void ExtensionElement.setNamespace(String)",
+      "void ExtensionElement.setNamespacePrefix(String)"})
   public void testGettersAndSetters() {
     // Arrange and Act
     ExtensionElement actualExtensionElement = new ExtensionElement();
@@ -187,8 +200,7 @@ public class ExtensionElementDiffblueTest {
     actualExtensionElement.setName("Name");
     actualExtensionElement.setNamespace("Namespace");
     actualExtensionElement.setNamespacePrefix("Namespace Prefix");
-    Map<String, List<ExtensionElement>> actualChildElements =
-        actualExtensionElement.getChildElements();
+    Map<String, List<ExtensionElement>> actualChildElements = actualExtensionElement.getChildElements();
     String actualElementText = actualExtensionElement.getElementText();
     String actualName = actualExtensionElement.getName();
     String actualNamespace = actualExtensionElement.getNamespace();

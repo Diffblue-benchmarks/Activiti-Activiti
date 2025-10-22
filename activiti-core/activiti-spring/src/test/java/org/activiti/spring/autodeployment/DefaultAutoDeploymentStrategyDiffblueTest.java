@@ -16,8 +16,7 @@
 package org.activiti.spring.autodeployment;
 
 import static org.junit.Assert.assertEquals;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import com.fasterxml.jackson.databind.json.JsonMapper;
 import org.activiti.core.common.spring.project.ApplicationUpgradeContextService;
@@ -28,32 +27,24 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 public class DefaultAutoDeploymentStrategyDiffblueTest {
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
-   *   <li>{@link
-   *       DefaultAutoDeploymentStrategy#DefaultAutoDeploymentStrategy(ApplicationUpgradeContextService)}
+   *   <li>{@link DefaultAutoDeploymentStrategy#DefaultAutoDeploymentStrategy(ApplicationUpgradeContextService)}
    *   <li>{@link DefaultAutoDeploymentStrategy#getDeploymentMode()}
    * </ul>
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void DefaultAutoDeploymentStrategy.<init>(ApplicationUpgradeContextService)",
-    "java.lang.String DefaultAutoDeploymentStrategy.getDeploymentMode()"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void DefaultAutoDeploymentStrategy.<init>(ApplicationUpgradeContextService)",
+      "java.lang.String DefaultAutoDeploymentStrategy.getDeploymentMode()"})
   public void testGettersAndSetters() {
     // Arrange
     JsonMapper objectMapper = JsonMapper.builder().findAndAddModules().build();
 
     // Act and Assert
-    assertEquals(
-        DefaultAutoDeploymentStrategy.DEPLOYMENT_MODE,
-        new DefaultAutoDeploymentStrategy(
-                new ApplicationUpgradeContextService(
-                    "Path", 1, true, objectMapper, new AnnotationConfigApplicationContext()))
-            .getDeploymentMode());
+    assertEquals(DefaultAutoDeploymentStrategy.DEPLOYMENT_MODE, (new DefaultAutoDeploymentStrategy(
+        new ApplicationUpgradeContextService("Path", 1, true, objectMapper, new AnnotationConfigApplicationContext())))
+        .getDeploymentMode());
   }
 }

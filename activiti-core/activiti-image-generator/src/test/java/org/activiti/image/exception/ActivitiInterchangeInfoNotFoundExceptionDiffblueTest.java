@@ -17,28 +17,24 @@ package org.activiti.image.exception;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 
 public class ActivitiInterchangeInfoNotFoundExceptionDiffblueTest {
   /**
-   * Test {@link
-   * ActivitiInterchangeInfoNotFoundException#ActivitiInterchangeInfoNotFoundException(String)}.
-   *
-   * <p>Method under test: {@link
-   * ActivitiInterchangeInfoNotFoundException#ActivitiInterchangeInfoNotFoundException(String)}
+   * Test {@link ActivitiInterchangeInfoNotFoundException#ActivitiInterchangeInfoNotFoundException(String)}.
+   * <p>
+   * Method under test: {@link ActivitiInterchangeInfoNotFoundException#ActivitiInterchangeInfoNotFoundException(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void ActivitiInterchangeInfoNotFoundException.<init>(String)"})
   public void testNewActivitiInterchangeInfoNotFoundException() {
     // Arrange and Act
-    ActivitiInterchangeInfoNotFoundException actualActivitiInterchangeInfoNotFoundException =
-        new ActivitiInterchangeInfoNotFoundException("An error occurred");
+    ActivitiInterchangeInfoNotFoundException actualActivitiInterchangeInfoNotFoundException = new ActivitiInterchangeInfoNotFoundException(
+        "An error occurred");
 
     // Assert
     assertEquals("An error occurred", actualActivitiInterchangeInfoNotFoundException.getMessage());

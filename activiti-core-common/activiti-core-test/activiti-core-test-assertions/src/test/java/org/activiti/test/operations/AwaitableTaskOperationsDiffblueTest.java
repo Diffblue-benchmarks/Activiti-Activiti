@@ -21,7 +21,6 @@ import static org.mockito.ArgumentMatchers.isA;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
 import org.activiti.api.task.model.Task;
@@ -39,60 +38,23 @@ import org.mockito.Mockito;
 class AwaitableTaskOperationsDiffblueTest {
   /**
    * Test {@link AwaitableTaskOperations#claim(ClaimTaskPayload)}.
-   *
-   * <p>Method under test: {@link AwaitableTaskOperations#claim(ClaimTaskPayload)}
-   */
-  @Test
-  @DisplayName("Test claim(ClaimTaskPayload)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"TaskAssertions AwaitableTaskOperations.claim(ClaimTaskPayload)"})
-  void testClaim() {
-    // Arrange
-    TaskOperations taskOperations = mock(TaskOperations.class);
-    Task task = mock(Task.class);
-    TaskAssertionsImpl taskAssertions =
-        new TaskAssertionsImpl(task, new ArrayList<>(), mock(EventSource.class));
-    when(taskOperations.claim(Mockito.<ClaimTaskPayload>any()))
-        .thenReturn(new AwaitTaskAssertions(taskAssertions));
-    AwaitableTaskOperations taskOperations2 = new AwaitableTaskOperations(taskOperations, true);
-    AwaitableTaskOperations awaitableTaskOperations =
-        new AwaitableTaskOperations(taskOperations2, true);
-
-    // Act
-    TaskAssertions actualClaimResult = awaitableTaskOperations.claim(new ClaimTaskPayload());
-
-    // Assert
-    verify(taskOperations).claim(isA(ClaimTaskPayload.class));
-    assertTrue(actualClaimResult instanceof AwaitTaskAssertions);
-  }
-
-  /**
-   * Test {@link AwaitableTaskOperations#claim(ClaimTaskPayload)}.
-   *
    * <ul>
-   *   <li>Given {@link AwaitableTaskOperations#AwaitableTaskOperations(TaskOperations, boolean)}
-   *       with {@link TaskOperations} and awaitEnabled is {@code true}.
+   *   <li>Given {@link AwaitableTaskOperations#AwaitableTaskOperations(TaskOperations, boolean)} with {@link TaskOperations} and awaitEnabled is {@code true}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link AwaitableTaskOperations#claim(ClaimTaskPayload)}
+   * <p>
+   * Method under test: {@link AwaitableTaskOperations#claim(ClaimTaskPayload)}
    */
   @Test
-  @DisplayName(
-      "Test claim(ClaimTaskPayload); given AwaitableTaskOperations(TaskOperations, boolean) with TaskOperations and awaitEnabled is 'true'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test claim(ClaimTaskPayload); given AwaitableTaskOperations(TaskOperations, boolean) with TaskOperations and awaitEnabled is 'true'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"TaskAssertions AwaitableTaskOperations.claim(ClaimTaskPayload)"})
   void testClaim_givenAwaitableTaskOperationsWithTaskOperationsAndAwaitEnabledIsTrue() {
     // Arrange
     TaskOperations taskOperations = mock(TaskOperations.class);
     Task task = mock(Task.class);
-    TaskAssertionsImpl taskAssertions =
-        new TaskAssertionsImpl(task, new ArrayList<>(), mock(EventSource.class));
     when(taskOperations.claim(Mockito.<ClaimTaskPayload>any()))
-        .thenReturn(new AwaitTaskAssertions(taskAssertions));
-    AwaitableTaskOperations awaitableTaskOperations =
-        new AwaitableTaskOperations(taskOperations, true);
+        .thenReturn(new AwaitTaskAssertions(new TaskAssertionsImpl(task, new ArrayList<>(), mock(EventSource.class))));
+    AwaitableTaskOperations awaitableTaskOperations = new AwaitableTaskOperations(taskOperations, true);
 
     // Act
     TaskAssertions actualClaimResult = awaitableTaskOperations.claim(new ClaimTaskPayload());
@@ -104,30 +66,24 @@ class AwaitableTaskOperationsDiffblueTest {
 
   /**
    * Test {@link AwaitableTaskOperations#claim(ClaimTaskPayload)}.
-   *
    * <ul>
-   *   <li>Then return {@link AwaitTaskAssertions#AwaitTaskAssertions(TaskAssertions)} with
-   *       taskAssertions is {@link TaskAssertionsImpl#TaskAssertionsImpl(Task, List, EventSource)}.
+   *   <li>Then return {@link AwaitTaskAssertions#AwaitTaskAssertions(TaskAssertions)} with taskAssertions is {@link TaskAssertionsImpl#TaskAssertionsImpl(Task, List, EventSource)}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link AwaitableTaskOperations#claim(ClaimTaskPayload)}
+   * <p>
+   * Method under test: {@link AwaitableTaskOperations#claim(ClaimTaskPayload)}
    */
   @Test
-  @DisplayName(
-      "Test claim(ClaimTaskPayload); then return AwaitTaskAssertions(TaskAssertions) with taskAssertions is TaskAssertionsImpl(Task, List, EventSource)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test claim(ClaimTaskPayload); then return AwaitTaskAssertions(TaskAssertions) with taskAssertions is TaskAssertionsImpl(Task, List, EventSource)")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"TaskAssertions AwaitableTaskOperations.claim(ClaimTaskPayload)"})
   void testClaim_thenReturnAwaitTaskAssertionsWithTaskAssertionsIsTaskAssertionsImpl() {
     // Arrange
     TaskOperations taskOperations = mock(TaskOperations.class);
     Task task = mock(Task.class);
-    TaskAssertionsImpl taskAssertions =
-        new TaskAssertionsImpl(task, new ArrayList<>(), mock(EventSource.class));
-    AwaitTaskAssertions awaitTaskAssertions = new AwaitTaskAssertions(taskAssertions);
+    AwaitTaskAssertions awaitTaskAssertions = new AwaitTaskAssertions(
+        new TaskAssertionsImpl(task, new ArrayList<>(), mock(EventSource.class)));
     when(taskOperations.claim(Mockito.<ClaimTaskPayload>any())).thenReturn(awaitTaskAssertions);
-    AwaitableTaskOperations awaitableTaskOperations =
-        new AwaitableTaskOperations(taskOperations, false);
+    AwaitableTaskOperations awaitableTaskOperations = new AwaitableTaskOperations(taskOperations, false);
 
     // Act
     TaskAssertions actualClaimResult = awaitableTaskOperations.claim(new ClaimTaskPayload());
@@ -140,65 +96,26 @@ class AwaitableTaskOperationsDiffblueTest {
 
   /**
    * Test {@link AwaitableTaskOperations#complete(CompleteTaskPayload)}.
-   *
-   * <p>Method under test: {@link AwaitableTaskOperations#complete(CompleteTaskPayload)}
-   */
-  @Test
-  @DisplayName("Test complete(CompleteTaskPayload)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"TaskAssertions AwaitableTaskOperations.complete(CompleteTaskPayload)"})
-  void testComplete() {
-    // Arrange
-    TaskOperations taskOperations = mock(TaskOperations.class);
-    Task task = mock(Task.class);
-    TaskAssertionsImpl taskAssertions =
-        new TaskAssertionsImpl(task, new ArrayList<>(), mock(EventSource.class));
-    when(taskOperations.complete(Mockito.<CompleteTaskPayload>any()))
-        .thenReturn(new AwaitTaskAssertions(taskAssertions));
-    AwaitableTaskOperations taskOperations2 = new AwaitableTaskOperations(taskOperations, true);
-    AwaitableTaskOperations awaitableTaskOperations =
-        new AwaitableTaskOperations(taskOperations2, true);
-
-    // Act
-    TaskAssertions actualCompleteResult =
-        awaitableTaskOperations.complete(new CompleteTaskPayload());
-
-    // Assert
-    verify(taskOperations).complete(isA(CompleteTaskPayload.class));
-    assertTrue(actualCompleteResult instanceof AwaitTaskAssertions);
-  }
-
-  /**
-   * Test {@link AwaitableTaskOperations#complete(CompleteTaskPayload)}.
-   *
    * <ul>
-   *   <li>Given {@link AwaitableTaskOperations#AwaitableTaskOperations(TaskOperations, boolean)}
-   *       with {@link TaskOperations} and awaitEnabled is {@code true}.
+   *   <li>Given {@link AwaitableTaskOperations#AwaitableTaskOperations(TaskOperations, boolean)} with {@link TaskOperations} and awaitEnabled is {@code true}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link AwaitableTaskOperations#complete(CompleteTaskPayload)}
+   * <p>
+   * Method under test: {@link AwaitableTaskOperations#complete(CompleteTaskPayload)}
    */
   @Test
-  @DisplayName(
-      "Test complete(CompleteTaskPayload); given AwaitableTaskOperations(TaskOperations, boolean) with TaskOperations and awaitEnabled is 'true'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test complete(CompleteTaskPayload); given AwaitableTaskOperations(TaskOperations, boolean) with TaskOperations and awaitEnabled is 'true'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"TaskAssertions AwaitableTaskOperations.complete(CompleteTaskPayload)"})
   void testComplete_givenAwaitableTaskOperationsWithTaskOperationsAndAwaitEnabledIsTrue() {
     // Arrange
     TaskOperations taskOperations = mock(TaskOperations.class);
     Task task = mock(Task.class);
-    TaskAssertionsImpl taskAssertions =
-        new TaskAssertionsImpl(task, new ArrayList<>(), mock(EventSource.class));
     when(taskOperations.complete(Mockito.<CompleteTaskPayload>any()))
-        .thenReturn(new AwaitTaskAssertions(taskAssertions));
-    AwaitableTaskOperations awaitableTaskOperations =
-        new AwaitableTaskOperations(taskOperations, true);
+        .thenReturn(new AwaitTaskAssertions(new TaskAssertionsImpl(task, new ArrayList<>(), mock(EventSource.class))));
+    AwaitableTaskOperations awaitableTaskOperations = new AwaitableTaskOperations(taskOperations, true);
 
     // Act
-    TaskAssertions actualCompleteResult =
-        awaitableTaskOperations.complete(new CompleteTaskPayload());
+    TaskAssertions actualCompleteResult = awaitableTaskOperations.complete(new CompleteTaskPayload());
 
     // Assert
     verify(taskOperations).complete(isA(CompleteTaskPayload.class));
@@ -207,35 +124,27 @@ class AwaitableTaskOperationsDiffblueTest {
 
   /**
    * Test {@link AwaitableTaskOperations#complete(CompleteTaskPayload)}.
-   *
    * <ul>
-   *   <li>Then return {@link AwaitTaskAssertions#AwaitTaskAssertions(TaskAssertions)} with
-   *       taskAssertions is {@link TaskAssertionsImpl#TaskAssertionsImpl(Task, List, EventSource)}.
+   *   <li>Then return {@link AwaitTaskAssertions#AwaitTaskAssertions(TaskAssertions)} with taskAssertions is {@link TaskAssertionsImpl#TaskAssertionsImpl(Task, List, EventSource)}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link AwaitableTaskOperations#complete(CompleteTaskPayload)}
+   * <p>
+   * Method under test: {@link AwaitableTaskOperations#complete(CompleteTaskPayload)}
    */
   @Test
-  @DisplayName(
-      "Test complete(CompleteTaskPayload); then return AwaitTaskAssertions(TaskAssertions) with taskAssertions is TaskAssertionsImpl(Task, List, EventSource)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test complete(CompleteTaskPayload); then return AwaitTaskAssertions(TaskAssertions) with taskAssertions is TaskAssertionsImpl(Task, List, EventSource)")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"TaskAssertions AwaitableTaskOperations.complete(CompleteTaskPayload)"})
   void testComplete_thenReturnAwaitTaskAssertionsWithTaskAssertionsIsTaskAssertionsImpl() {
     // Arrange
     TaskOperations taskOperations = mock(TaskOperations.class);
     Task task = mock(Task.class);
-    TaskAssertionsImpl taskAssertions =
-        new TaskAssertionsImpl(task, new ArrayList<>(), mock(EventSource.class));
-    AwaitTaskAssertions awaitTaskAssertions = new AwaitTaskAssertions(taskAssertions);
-    when(taskOperations.complete(Mockito.<CompleteTaskPayload>any()))
-        .thenReturn(awaitTaskAssertions);
-    AwaitableTaskOperations awaitableTaskOperations =
-        new AwaitableTaskOperations(taskOperations, false);
+    AwaitTaskAssertions awaitTaskAssertions = new AwaitTaskAssertions(
+        new TaskAssertionsImpl(task, new ArrayList<>(), mock(EventSource.class)));
+    when(taskOperations.complete(Mockito.<CompleteTaskPayload>any())).thenReturn(awaitTaskAssertions);
+    AwaitableTaskOperations awaitableTaskOperations = new AwaitableTaskOperations(taskOperations, false);
 
     // Act
-    TaskAssertions actualCompleteResult =
-        awaitableTaskOperations.complete(new CompleteTaskPayload());
+    TaskAssertions actualCompleteResult = awaitableTaskOperations.complete(new CompleteTaskPayload());
 
     // Assert
     verify(taskOperations).complete(isA(CompleteTaskPayload.class));

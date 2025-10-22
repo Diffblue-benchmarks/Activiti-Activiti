@@ -19,8 +19,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.Map;
 import org.activiti.engine.impl.cfg.JtaProcessEngineConfiguration;
@@ -33,49 +32,39 @@ import org.junit.experimental.categories.Category;
 public class MybatisProcessDefinitionInfoDataManagerDiffblueTest {
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
-   *   <li>{@link
-   *       MybatisProcessDefinitionInfoDataManager#MybatisProcessDefinitionInfoDataManager(ProcessEngineConfigurationImpl)}
+   *   <li>{@link MybatisProcessDefinitionInfoDataManager#MybatisProcessDefinitionInfoDataManager(ProcessEngineConfigurationImpl)}
    *   <li>{@link MybatisProcessDefinitionInfoDataManager#getManagedEntityClass()}
    * </ul>
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void MybatisProcessDefinitionInfoDataManager.<init>(ProcessEngineConfigurationImpl)",
-    "Class MybatisProcessDefinitionInfoDataManager.getManagedEntityClass()"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void MybatisProcessDefinitionInfoDataManager.<init>(ProcessEngineConfigurationImpl)",
+      "Class MybatisProcessDefinitionInfoDataManager.getManagedEntityClass()"})
   public void testGettersAndSetters() {
     // Arrange and Act
-    Class<? extends ProcessDefinitionInfoEntity> actualManagedEntityClass =
-        new MybatisProcessDefinitionInfoDataManager(new JtaProcessEngineConfiguration())
-            .getManagedEntityClass();
+    Class<? extends ProcessDefinitionInfoEntity> actualManagedEntityClass = (new MybatisProcessDefinitionInfoDataManager(
+        new JtaProcessEngineConfiguration())).getManagedEntityClass();
 
     // Assert
-    Class<ProcessDefinitionInfoEntityImpl> expectedManagedEntityClass =
-        ProcessDefinitionInfoEntityImpl.class;
+    Class<ProcessDefinitionInfoEntityImpl> expectedManagedEntityClass = ProcessDefinitionInfoEntityImpl.class;
     assertEquals(expectedManagedEntityClass, actualManagedEntityClass);
   }
 
   /**
    * Test {@link MybatisProcessDefinitionInfoDataManager#create()}.
-   *
-   * <p>Method under test: {@link MybatisProcessDefinitionInfoDataManager#create()}
+   * <p>
+   * Method under test: {@link MybatisProcessDefinitionInfoDataManager#create()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "ProcessDefinitionInfoEntity MybatisProcessDefinitionInfoDataManager.create()"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"ProcessDefinitionInfoEntity MybatisProcessDefinitionInfoDataManager.create()"})
   public void testCreate() {
     // Arrange and Act
-    ProcessDefinitionInfoEntity actualCreateResult =
-        new MybatisProcessDefinitionInfoDataManager(new JtaProcessEngineConfiguration()).create();
+    ProcessDefinitionInfoEntity actualCreateResult = (new MybatisProcessDefinitionInfoDataManager(
+        new JtaProcessEngineConfiguration())).create();
 
     // Assert
     Object persistentState = actualCreateResult.getPersistentState();

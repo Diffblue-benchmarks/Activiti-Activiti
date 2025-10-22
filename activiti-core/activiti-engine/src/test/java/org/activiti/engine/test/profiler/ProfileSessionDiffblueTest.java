@@ -19,8 +19,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.time.LocalDate;
 import java.time.ZoneOffset;
@@ -34,9 +33,8 @@ import org.junit.experimental.categories.Category;
 public class ProfileSessionDiffblueTest {
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>{@link ProfileSession#ProfileSession(String)}
    *   <li>{@link ProfileSession#setCommandExecutions(Map)}
@@ -51,32 +49,22 @@ public class ProfileSessionDiffblueTest {
    * </ul>
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void ProfileSession.<init>(String)",
-    "Map ProfileSession.getCommandExecutions()",
-    "Date ProfileSession.getEndTime()",
-    "String ProfileSession.getName()",
-    "Date ProfileSession.getStartTime()",
-    "long ProfileSession.getTotalTime()",
-    "void ProfileSession.setCommandExecutions(Map)",
-    "void ProfileSession.setName(String)",
-    "void ProfileSession.setStartTime(Date)",
-    "void ProfileSession.setTotalTime(long)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void ProfileSession.<init>(String)", "Map ProfileSession.getCommandExecutions()",
+      "Date ProfileSession.getEndTime()", "String ProfileSession.getName()", "Date ProfileSession.getStartTime()",
+      "long ProfileSession.getTotalTime()", "void ProfileSession.setCommandExecutions(Map)",
+      "void ProfileSession.setName(String)", "void ProfileSession.setStartTime(Date)",
+      "void ProfileSession.setTotalTime(long)"})
   public void testGettersAndSetters() {
     // Arrange and Act
     ProfileSession actualProfileSession = new ProfileSession("Name");
     HashMap<String, List<CommandExecutionResult>> commandExecutionResults = new HashMap<>();
     actualProfileSession.setCommandExecutions(commandExecutionResults);
     actualProfileSession.setName("Name");
-    Date startTime =
-        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant());
+    Date startTime = Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant());
     actualProfileSession.setStartTime(startTime);
     actualProfileSession.setTotalTime(1L);
-    Map<String, List<CommandExecutionResult>> actualCommandExecutions =
-        actualProfileSession.getCommandExecutions();
+    Map<String, List<CommandExecutionResult>> actualCommandExecutions = actualProfileSession.getCommandExecutions();
     Date actualEndTime = actualProfileSession.getEndTime();
     String actualName = actualProfileSession.getName();
     Date actualStartTime = actualProfileSession.getStartTime();
@@ -94,27 +82,24 @@ public class ProfileSessionDiffblueTest {
 
   /**
    * Test {@link ProfileSession#getCurrentCommandExecution()}.
-   *
-   * <p>Method under test: {@link ProfileSession#getCurrentCommandExecution()}
+   * <p>
+   * Method under test: {@link ProfileSession#getCurrentCommandExecution()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"CommandExecutionResult ProfileSession.getCurrentCommandExecution()"})
   public void testGetCurrentCommandExecution() {
     // Arrange, Act and Assert
-    assertNull(new ProfileSession("Name").getCurrentCommandExecution());
+    assertNull((new ProfileSession("Name")).getCurrentCommandExecution());
   }
 
   /**
    * Test {@link ProfileSession#addCommandExecution(String, CommandExecutionResult)}.
-   *
-   * <p>Method under test: {@link ProfileSession#addCommandExecution(String,
-   * CommandExecutionResult)}
+   * <p>
+   * Method under test: {@link ProfileSession#addCommandExecution(String, CommandExecutionResult)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void ProfileSession.addCommandExecution(String, CommandExecutionResult)"})
   public void testAddCommandExecution() {
     // Arrange
@@ -125,8 +110,7 @@ public class ProfileSessionDiffblueTest {
     profileSession.addCommandExecution("Class Fqn", commandExecutionResult);
 
     // Assert
-    Map<String, List<CommandExecutionResult>> commandExecutions =
-        profileSession.getCommandExecutions();
+    Map<String, List<CommandExecutionResult>> commandExecutions = profileSession.getCommandExecutions();
     assertEquals(1, commandExecutions.size());
     List<CommandExecutionResult> getResult = commandExecutions.get("Class Fqn");
     assertEquals(1, getResult.size());
@@ -135,13 +119,11 @@ public class ProfileSessionDiffblueTest {
 
   /**
    * Test {@link ProfileSession#addCommandExecution(String, CommandExecutionResult)}.
-   *
-   * <p>Method under test: {@link ProfileSession#addCommandExecution(String,
-   * CommandExecutionResult)}
+   * <p>
+   * Method under test: {@link ProfileSession#addCommandExecution(String, CommandExecutionResult)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void ProfileSession.addCommandExecution(String, CommandExecutionResult)"})
   public void testAddCommandExecution2() {
     // Arrange
@@ -154,8 +136,7 @@ public class ProfileSessionDiffblueTest {
     profileSession.addCommandExecution("Class Fqn", commandExecutionResult2);
 
     // Assert
-    Map<String, List<CommandExecutionResult>> commandExecutions =
-        profileSession.getCommandExecutions();
+    Map<String, List<CommandExecutionResult>> commandExecutions = profileSession.getCommandExecutions();
     assertEquals(1, commandExecutions.size());
     List<CommandExecutionResult> getResult = commandExecutions.get("Class Fqn");
     assertEquals(2, getResult.size());
@@ -165,22 +146,19 @@ public class ProfileSessionDiffblueTest {
 
   /**
    * Test {@link ProfileSession#setEndTime(Date)}.
-   *
    * <ul>
-   *   <li>Given {@link ProfileSession#ProfileSession(String)} with {@code Name}.
+   *   <li>Given {@link ProfileSession#ProfileSession(String)} with {@code Name}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ProfileSession#setEndTime(Date)}
+   * <p>
+   * Method under test: {@link ProfileSession#setEndTime(Date)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void ProfileSession.setEndTime(Date)"})
   public void testSetEndTime_givenProfileSessionWithName() {
     // Arrange
     ProfileSession profileSession = new ProfileSession("Name");
-    Date endTimeStamp =
-        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant());
+    Date endTimeStamp = Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant());
 
     // Act
     profileSession.setEndTime(endTimeStamp);
@@ -191,24 +169,20 @@ public class ProfileSessionDiffblueTest {
 
   /**
    * Test {@link ProfileSession#setEndTime(Date)}.
-   *
    * <ul>
-   *   <li>Given {@link ProfileSession#ProfileSession(String)} with {@code Name} StartTime is {@code
-   *       null}.
+   *   <li>Given {@link ProfileSession#ProfileSession(String)} with {@code Name} StartTime is {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ProfileSession#setEndTime(Date)}
+   * <p>
+   * Method under test: {@link ProfileSession#setEndTime(Date)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void ProfileSession.setEndTime(Date)"})
   public void testSetEndTime_givenProfileSessionWithNameStartTimeIsNull() {
     // Arrange
     ProfileSession profileSession = new ProfileSession("Name");
     profileSession.setStartTime(null);
-    Date endTimeStamp =
-        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant());
+    Date endTimeStamp = Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant());
 
     // Act
     profileSession.setEndTime(endTimeStamp);
@@ -219,35 +193,31 @@ public class ProfileSessionDiffblueTest {
 
   /**
    * Test {@link ProfileSession#calculateSummaryStatistics()}.
-   *
    * <ul>
-   *   <li>Given {@link ProfileSession#ProfileSession(String)} with {@code Name}.
-   *   <li>Then return Empty.
+   *   <li>Given {@link ProfileSession#ProfileSession(String)} with {@code Name}.</li>
+   *   <li>Then return Empty.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ProfileSession#calculateSummaryStatistics()}
+   * <p>
+   * Method under test: {@link ProfileSession#calculateSummaryStatistics()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"Map ProfileSession.calculateSummaryStatistics()"})
   public void testCalculateSummaryStatistics_givenProfileSessionWithName_thenReturnEmpty() {
     // Arrange, Act and Assert
-    assertTrue(new ProfileSession("Name").calculateSummaryStatistics().isEmpty());
+    assertTrue((new ProfileSession("Name")).calculateSummaryStatistics().isEmpty());
   }
 
   /**
    * Test {@link ProfileSession#calculateSummaryStatistics()}.
-   *
    * <ul>
-   *   <li>Then return {@code Class Fqn} DbSelects Empty.
+   *   <li>Then return {@code Class Fqn} DbSelects Empty.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ProfileSession#calculateSummaryStatistics()}
+   * <p>
+   * Method under test: {@link ProfileSession#calculateSummaryStatistics()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"Map ProfileSession.calculateSummaryStatistics()"})
   public void testCalculateSummaryStatistics_thenReturnClassFqnDbSelectsEmpty() {
     // Arrange
@@ -255,8 +225,7 @@ public class ProfileSessionDiffblueTest {
     profileSession.addCommandExecution("Class Fqn", new CommandExecutionResult());
 
     // Act
-    Map<String, CommandStats> actualCalculateSummaryStatisticsResult =
-        profileSession.calculateSummaryStatistics();
+    Map<String, CommandStats> actualCalculateSummaryStatisticsResult = profileSession.calculateSummaryStatistics();
 
     // Assert
     assertEquals(1, actualCalculateSummaryStatisticsResult.size());
@@ -277,16 +246,14 @@ public class ProfileSessionDiffblueTest {
 
   /**
    * Test {@link ProfileSession#calculateSummaryStatistics()}.
-   *
    * <ul>
-   *   <li>Then return {@code Class Fqn} DbSelects size is one.
+   *   <li>Then return {@code Class Fqn} DbSelects size is one.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ProfileSession#calculateSummaryStatistics()}
+   * <p>
+   * Method under test: {@link ProfileSession#calculateSummaryStatistics()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"Map ProfileSession.calculateSummaryStatistics()"})
   public void testCalculateSummaryStatistics_thenReturnClassFqnDbSelectsSizeIsOne() {
     // Arrange
@@ -297,8 +264,7 @@ public class ProfileSessionDiffblueTest {
     profileSession.addCommandExecution("Class Fqn", commandExecutionResult);
 
     // Act
-    Map<String, CommandStats> actualCalculateSummaryStatisticsResult =
-        profileSession.calculateSummaryStatistics();
+    Map<String, CommandStats> actualCalculateSummaryStatisticsResult = profileSession.calculateSummaryStatistics();
 
     // Assert
     assertEquals(1, actualCalculateSummaryStatisticsResult.size());

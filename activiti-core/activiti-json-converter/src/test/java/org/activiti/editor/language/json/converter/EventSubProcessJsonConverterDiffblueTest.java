@@ -17,7 +17,6 @@ package org.activiti.editor.language.json.converter;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.HashMap;
 import java.util.Map;
@@ -30,13 +29,12 @@ import org.junit.jupiter.api.Test;
 class EventSubProcessJsonConverterDiffblueTest {
   /**
    * Test {@link EventSubProcessJsonConverter#fillJsonTypes(Map)}.
-   *
-   * <p>Method under test: {@link EventSubProcessJsonConverter#fillJsonTypes(Map)}
+   * <p>
+   * Method under test: {@link EventSubProcessJsonConverter#fillJsonTypes(Map)}
    */
   @Test
   @DisplayName("Test fillJsonTypes(Map)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void EventSubProcessJsonConverter.fillJsonTypes(Map)"})
   void testFillJsonTypes() {
     // Arrange
@@ -53,38 +51,33 @@ class EventSubProcessJsonConverterDiffblueTest {
 
   /**
    * Test {@link EventSubProcessJsonConverter#getStencilId(BaseElement)}.
-   *
-   * <p>Method under test: {@link EventSubProcessJsonConverter#getStencilId(BaseElement)}
+   * <p>
+   * Method under test: {@link EventSubProcessJsonConverter#getStencilId(BaseElement)}
    */
   @Test
   @DisplayName("Test getStencilId(BaseElement)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"String EventSubProcessJsonConverter.getStencilId(BaseElement)"})
   void testGetStencilId() {
     // Arrange
     EventSubProcessJsonConverter eventSubProcessJsonConverter = new EventSubProcessJsonConverter();
 
     // Act and Assert
-    assertEquals(
-        "EventSubProcess", eventSubProcessJsonConverter.getStencilId(new ActivitiListener()));
+    assertEquals("EventSubProcess", eventSubProcessJsonConverter.getStencilId(new ActivitiListener()));
   }
 
   /**
    * Test new {@link EventSubProcessJsonConverter} (default constructor).
-   *
-   * <p>Method under test: default or parameterless constructor of {@link
-   * EventSubProcessJsonConverter}
+   * <p>
+   * Method under test: default or parameterless constructor of {@link EventSubProcessJsonConverter}
    */
   @Test
   @DisplayName("Test new EventSubProcessJsonConverter (default constructor)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void EventSubProcessJsonConverter.<init>()"})
   void testNewEventSubProcessJsonConverter() {
     // Arrange and Act
-    EventSubProcessJsonConverter actualEventSubProcessJsonConverter =
-        new EventSubProcessJsonConverter();
+    EventSubProcessJsonConverter actualEventSubProcessJsonConverter = new EventSubProcessJsonConverter();
 
     // Assert
     assertNull(actualEventSubProcessJsonConverter.shapesArrayNode);

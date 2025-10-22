@@ -17,8 +17,7 @@ package org.activiti.engine.impl.el;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThrows;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.engine.ActivitiException;
 import org.activiti.engine.delegate.VariableScope;
@@ -29,47 +28,44 @@ import org.junit.experimental.categories.Category;
 public class FixedValueDiffblueTest {
   /**
    * Test {@link FixedValue#FixedValue(Object)}.
-   *
-   * <p>Method under test: {@link FixedValue#FixedValue(Object)}
+   * <p>
+   * Method under test: {@link FixedValue#FixedValue(Object)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void FixedValue.<init>(Object)"})
   public void testNewFixedValue() {
     // Arrange, Act and Assert
-    assertEquals("null", new FixedValue(JSONObject.NULL).getExpressionText());
+    assertEquals("null", (new FixedValue(JSONObject.NULL)).getExpressionText());
   }
 
   /**
    * Test {@link FixedValue#setValue(Object, VariableScope)}.
-   *
-   * <p>Method under test: {@link FixedValue#setValue(Object, VariableScope)}
+   * <p>
+   * Method under test: {@link FixedValue#setValue(Object, VariableScope)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void FixedValue.setValue(Object, VariableScope)"})
   public void testSetValue() {
-    // Arrange, Act and Assert
-    assertThrows(
-        ActivitiException.class,
-        () ->
-            new FixedValue(JSONObject.NULL)
-                .setValue(JSONObject.NULL, NoExecutionVariableScope.getSharedInstance()));
+    // Arrange
+    FixedValue fixedValue = new FixedValue(JSONObject.NULL);
+
+    // Act and Assert
+    assertThrows(ActivitiException.class,
+        () -> fixedValue.setValue(JSONObject.NULL, NoExecutionVariableScope.getSharedInstance()));
   }
 
   /**
    * Test {@link FixedValue#getExpressionText()}.
-   *
-   * <p>Method under test: {@link FixedValue#getExpressionText()}
+   * <p>
+   * Method under test: {@link FixedValue#getExpressionText()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"java.lang.String FixedValue.getExpressionText()"})
   public void testGetExpressionText() {
     // Arrange, Act and Assert
-    assertEquals("null", new FixedValue(JSONObject.NULL).getExpressionText());
+    assertEquals("null", (new FixedValue(JSONObject.NULL)).getExpressionText());
   }
 }

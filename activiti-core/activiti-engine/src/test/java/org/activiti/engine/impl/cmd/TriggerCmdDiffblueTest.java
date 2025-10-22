@@ -17,8 +17,7 @@ package org.activiti.engine.impl.cmd;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.HashMap;
 import java.util.Map;
@@ -30,97 +29,70 @@ import org.junit.experimental.categories.Category;
 public class TriggerCmdDiffblueTest {
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>{@link TriggerCmd#TriggerCmd(String, Map, VariablesPropagator)}
    *   <li>{@link TriggerCmd#getSuspendedExceptionMessage()}
    * </ul>
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void TriggerCmd.<init>(String, Map)",
-    "void TriggerCmd.<init>(String, Map, Map)",
-    "void TriggerCmd.<init>(String, Map, VariablesPropagator)",
-    "String TriggerCmd.getSuspendedExceptionMessage()"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void TriggerCmd.<init>(String, Map)", "void TriggerCmd.<init>(String, Map, Map)",
+      "void TriggerCmd.<init>(String, Map, VariablesPropagator)", "String TriggerCmd.getSuspendedExceptionMessage()"})
   public void testGettersAndSetters() {
     // Arrange
     HashMap<String, Object> availableVariables = new HashMap<>();
 
-    // Act
-    TriggerCmd actualTriggerCmd =
-        new TriggerCmd(
-            "42", availableVariables, new VariablesPropagator(new CopyVariablesCalculator()));
-
-    // Assert
-    assertEquals(
-        "Cannot trigger an execution that is suspended",
-        actualTriggerCmd.getSuspendedExceptionMessage());
+    // Act and Assert
+    assertEquals("Cannot trigger an execution that is suspended",
+        (new TriggerCmd("42", availableVariables, new VariablesPropagator(new CopyVariablesCalculator())))
+            .getSuspendedExceptionMessage());
   }
 
   /**
    * Test getters and setters.
-   *
    * <ul>
-   *   <li>When {@link HashMap#HashMap()}.
-   *   <li>Then return {@link TriggerCmd#processVariables} Empty.
+   *   <li>When {@link HashMap#HashMap()}.</li>
+   *   <li>Then return {@link TriggerCmd#processVariables} Empty.</li>
    * </ul>
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>{@link TriggerCmd#TriggerCmd(String, Map)}
    *   <li>{@link TriggerCmd#getSuspendedExceptionMessage()}
    * </ul>
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void TriggerCmd.<init>(String, Map)",
-    "void TriggerCmd.<init>(String, Map, Map)",
-    "void TriggerCmd.<init>(String, Map, VariablesPropagator)",
-    "String TriggerCmd.getSuspendedExceptionMessage()"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void TriggerCmd.<init>(String, Map)", "void TriggerCmd.<init>(String, Map, Map)",
+      "void TriggerCmd.<init>(String, Map, VariablesPropagator)", "String TriggerCmd.getSuspendedExceptionMessage()"})
   public void testGettersAndSetters_whenHashMap_thenReturnProcessVariablesEmpty() {
     // Arrange and Act
     TriggerCmd actualTriggerCmd = new TriggerCmd("42", new HashMap<>());
 
     // Assert
-    assertEquals(
-        "Cannot trigger an execution that is suspended",
-        actualTriggerCmd.getSuspendedExceptionMessage());
+    assertEquals("Cannot trigger an execution that is suspended", actualTriggerCmd.getSuspendedExceptionMessage());
     assertTrue(actualTriggerCmd.processVariables.isEmpty());
   }
 
   /**
    * Test getters and setters.
-   *
    * <ul>
-   *   <li>When {@link HashMap#HashMap()}.
-   *   <li>Then return {@link TriggerCmd#transientVariables} Empty.
+   *   <li>When {@link HashMap#HashMap()}.</li>
+   *   <li>Then return {@link TriggerCmd#transientVariables} Empty.</li>
    * </ul>
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>{@link TriggerCmd#TriggerCmd(String, Map, Map)}
    *   <li>{@link TriggerCmd#getSuspendedExceptionMessage()}
    * </ul>
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void TriggerCmd.<init>(String, Map)",
-    "void TriggerCmd.<init>(String, Map, Map)",
-    "void TriggerCmd.<init>(String, Map, VariablesPropagator)",
-    "String TriggerCmd.getSuspendedExceptionMessage()"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void TriggerCmd.<init>(String, Map)", "void TriggerCmd.<init>(String, Map, Map)",
+      "void TriggerCmd.<init>(String, Map, VariablesPropagator)", "String TriggerCmd.getSuspendedExceptionMessage()"})
   public void testGettersAndSetters_whenHashMap_thenReturnTransientVariablesEmpty() {
     // Arrange
     HashMap<String, Object> processVariables = new HashMap<>();
@@ -129,9 +101,7 @@ public class TriggerCmdDiffblueTest {
     TriggerCmd actualTriggerCmd = new TriggerCmd("42", processVariables, new HashMap<>());
 
     // Assert
-    assertEquals(
-        "Cannot trigger an execution that is suspended",
-        actualTriggerCmd.getSuspendedExceptionMessage());
+    assertEquals("Cannot trigger an execution that is suspended", actualTriggerCmd.getSuspendedExceptionMessage());
     assertTrue(actualTriggerCmd.processVariables.isEmpty());
     assertTrue(actualTriggerCmd.transientVariables.isEmpty());
   }

@@ -19,8 +19,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.List;
 import org.junit.Test;
@@ -29,12 +28,11 @@ import org.junit.experimental.categories.Category;
 public class TransactionDiffblueTest {
   /**
    * Test new {@link Transaction} (default constructor).
-   *
-   * <p>Method under test: default or parameterless constructor of {@link Transaction}
+   * <p>
+   * Method under test: default or parameterless constructor of {@link Transaction}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void Transaction.<init>()"})
   public void testNewTransaction() {
     // Arrange and Act

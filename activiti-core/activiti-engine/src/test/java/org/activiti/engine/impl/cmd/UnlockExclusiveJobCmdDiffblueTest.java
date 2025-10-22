@@ -20,8 +20,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertThrows;
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.Map;
 import org.activiti.engine.ActivitiIllegalArgumentException;
@@ -34,16 +33,15 @@ import org.junit.experimental.categories.Category;
 public class UnlockExclusiveJobCmdDiffblueTest {
   /**
    * Test {@link UnlockExclusiveJobCmd#UnlockExclusiveJobCmd(Job)}.
-   *
-   * <p>Method under test: {@link UnlockExclusiveJobCmd#UnlockExclusiveJobCmd(Job)}
+   * <p>
+   * Method under test: {@link UnlockExclusiveJobCmd#UnlockExclusiveJobCmd(Job)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void UnlockExclusiveJobCmd.<init>(Job)"})
   public void testNewUnlockExclusiveJobCmd() {
     // Arrange, Act and Assert
-    Job job = new UnlockExclusiveJobCmd(new DeadLetterJobEntityImpl()).job;
+    Job job = (new UnlockExclusiveJobCmd(new DeadLetterJobEntityImpl())).job;
     Object persistentState = ((DeadLetterJobEntityImpl) job).getPersistentState();
     assertTrue(persistentState instanceof Map);
     assertTrue(job instanceof DeadLetterJobEntityImpl);
@@ -77,40 +75,33 @@ public class UnlockExclusiveJobCmdDiffblueTest {
 
   /**
    * Test {@link UnlockExclusiveJobCmd#execute(CommandContext)}.
-   *
    * <ul>
-   *   <li>Then throw {@link ActivitiIllegalArgumentException}.
+   *   <li>Then return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link UnlockExclusiveJobCmd#execute(CommandContext)}
+   * <p>
+   * Method under test: {@link UnlockExclusiveJobCmd#execute(CommandContext)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"Object UnlockExclusiveJobCmd.execute(CommandContext)"})
-  public void testExecute_thenThrowActivitiIllegalArgumentException() {
+  public void testExecute_thenReturnNull() {
     // Arrange, Act and Assert
-    assertThrows(
-        ActivitiIllegalArgumentException.class,
-        () -> new UnlockExclusiveJobCmd(null).execute(null));
+    assertNull((new UnlockExclusiveJobCmd(new DeadLetterJobEntityImpl())).execute(null));
   }
 
   /**
    * Test {@link UnlockExclusiveJobCmd#execute(CommandContext)}.
-   *
    * <ul>
-   *   <li>When {@code null}.
-   *   <li>Then return {@code null}.
+   *   <li>Then throw {@link ActivitiIllegalArgumentException}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link UnlockExclusiveJobCmd#execute(CommandContext)}
+   * <p>
+   * Method under test: {@link UnlockExclusiveJobCmd#execute(CommandContext)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"Object UnlockExclusiveJobCmd.execute(CommandContext)"})
-  public void testExecute_whenNull_thenReturnNull() {
+  public void testExecute_thenThrowActivitiIllegalArgumentException() {
     // Arrange, Act and Assert
-    assertNull(new UnlockExclusiveJobCmd(new DeadLetterJobEntityImpl()).execute(null));
+    assertThrows(ActivitiIllegalArgumentException.class, () -> (new UnlockExclusiveJobCmd(null)).execute(null));
   }
 }

@@ -16,8 +16,7 @@
 package org.activiti.engine.impl.delegate;
 
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.engine.test.bpmn.event.message.MessageThrowCatchEventTest;
 import org.activiti.engine.test.bpmn.event.message.MessageThrowCatchEventTest.TestThrowMessageDelegate;
@@ -28,17 +27,14 @@ import org.junit.experimental.categories.Category;
 public class ThrowMessageDelegateFactoryDiffblueTest {
   /**
    * Test {@link ThrowMessageDelegateFactory#create()}.
-   *
-   * <p>Method under test: {@link ThrowMessageDelegateFactory#create()}
+   * <p>
+   * Method under test: {@link ThrowMessageDelegateFactory#create()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "org.activiti.engine.impl.delegate.ThrowMessageDelegate ThrowMessageDelegateFactory.create()"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"org.activiti.engine.impl.delegate.ThrowMessageDelegate ThrowMessageDelegateFactory.create()"})
   public void testCreate() {
     // Arrange, Act and Assert
-    assertTrue(new TestThrowMessageDelegateFactory().create() instanceof TestThrowMessageDelegate);
+    assertTrue((new TestThrowMessageDelegateFactory()).create() instanceof TestThrowMessageDelegate);
   }
 }

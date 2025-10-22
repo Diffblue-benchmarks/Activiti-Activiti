@@ -19,8 +19,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
@@ -28,17 +27,15 @@ import org.junit.experimental.categories.Category;
 public class DataSpecDiffblueTest {
   /**
    * Test {@link DataSpec#clone()}.
-   *
    * <ul>
-   *   <li>Given {@link DataSpec} (default constructor) Collection is {@code true}.
-   *   <li>Then return Collection.
+   *   <li>Given {@link DataSpec} (default constructor) Collection is {@code true}.</li>
+   *   <li>Then return Collection.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link DataSpec#clone()}
+   * <p>
+   * Method under test: {@link DataSpec#clone()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"DataSpec DataSpec.clone()"})
   public void testClone_givenDataSpecCollectionIsTrue_thenReturnCollection() {
     // Arrange
@@ -61,21 +58,19 @@ public class DataSpecDiffblueTest {
 
   /**
    * Test {@link DataSpec#clone()}.
-   *
    * <ul>
-   *   <li>Given {@link DataSpec} (default constructor).
-   *   <li>Then return not Collection.
+   *   <li>Given {@link DataSpec} (default constructor).</li>
+   *   <li>Then return not Collection.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link DataSpec#clone()}
+   * <p>
+   * Method under test: {@link DataSpec#clone()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"DataSpec DataSpec.clone()"})
   public void testClone_givenDataSpec_thenReturnNotCollection() {
     // Arrange and Act
-    DataSpec actualCloneResult = new DataSpec().clone();
+    DataSpec actualCloneResult = (new DataSpec()).clone();
 
     // Assert
     assertNull(actualCloneResult.getId());
@@ -90,9 +85,8 @@ public class DataSpecDiffblueTest {
 
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>default or parameterless constructor of {@link DataSpec}
    *   <li>{@link DataSpec#setCollection(boolean)}
@@ -104,17 +98,10 @@ public class DataSpecDiffblueTest {
    * </ul>
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void DataSpec.<init>()",
-    "String DataSpec.getItemSubjectRef()",
-    "String DataSpec.getName()",
-    "boolean DataSpec.isCollection()",
-    "void DataSpec.setCollection(boolean)",
-    "void DataSpec.setItemSubjectRef(String)",
-    "void DataSpec.setName(String)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void DataSpec.<init>()", "String DataSpec.getItemSubjectRef()", "String DataSpec.getName()",
+      "boolean DataSpec.isCollection()", "void DataSpec.setCollection(boolean)",
+      "void DataSpec.setItemSubjectRef(String)", "void DataSpec.setName(String)"})
   public void testGettersAndSetters() {
     // Arrange and Act
     DataSpec actualDataSpec = new DataSpec();

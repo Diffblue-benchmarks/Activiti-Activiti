@@ -19,8 +19,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.Map;
 import org.activiti.engine.impl.persistence.entity.AttachmentEntityImpl;
@@ -31,16 +30,15 @@ import org.junit.experimental.categories.Category;
 public class SaveAttachmentCmdDiffblueTest {
   /**
    * Test {@link SaveAttachmentCmd#SaveAttachmentCmd(Attachment)}.
-   *
-   * <p>Method under test: {@link SaveAttachmentCmd#SaveAttachmentCmd(Attachment)}
+   * <p>
+   * Method under test: {@link SaveAttachmentCmd#SaveAttachmentCmd(Attachment)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void SaveAttachmentCmd.<init>(Attachment)"})
   public void testNewSaveAttachmentCmd() {
     // Arrange, Act and Assert
-    Attachment attachment = new SaveAttachmentCmd(new AttachmentEntityImpl()).attachment;
+    Attachment attachment = (new SaveAttachmentCmd(new AttachmentEntityImpl())).attachment;
     Object persistentState = ((AttachmentEntityImpl) attachment).getPersistentState();
     assertTrue(persistentState instanceof Map);
     assertTrue(attachment instanceof AttachmentEntityImpl);

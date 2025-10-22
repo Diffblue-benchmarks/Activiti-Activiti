@@ -16,8 +16,7 @@
 package org.activiti.engine.impl.cmd;
 
 import static org.junit.Assert.assertEquals;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.time.LocalDate;
 import java.time.ZoneOffset;
@@ -28,25 +27,19 @@ import org.junit.experimental.categories.Category;
 public class SetTaskDueDateCmdDiffblueTest {
   /**
    * Test {@link SetTaskDueDateCmd#SetTaskDueDateCmd(String, Date)}.
-   *
-   * <p>Method under test: {@link SetTaskDueDateCmd#SetTaskDueDateCmd(String, Date)}
+   * <p>
+   * Method under test: {@link SetTaskDueDateCmd#SetTaskDueDateCmd(String, Date)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void SetTaskDueDateCmd.<init>(String, Date)"})
   public void testNewSetTaskDueDateCmd() {
-    // Arrange
-    Date dueDate =
-        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant());
-
-    // Act
-    SetTaskDueDateCmd actualSetTaskDueDateCmd = new SetTaskDueDateCmd("42", dueDate);
+    // Arrange and Act
+    SetTaskDueDateCmd actualSetTaskDueDateCmd = new SetTaskDueDateCmd("42",
+        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
 
     // Assert
     assertEquals("42", actualSetTaskDueDateCmd.taskId);
-    assertEquals(
-        "Cannot execute operation: task is suspended",
-        actualSetTaskDueDateCmd.getSuspendedTaskException());
+    assertEquals("Cannot execute operation: task is suspended", actualSetTaskDueDateCmd.getSuspendedTaskException());
   }
 }

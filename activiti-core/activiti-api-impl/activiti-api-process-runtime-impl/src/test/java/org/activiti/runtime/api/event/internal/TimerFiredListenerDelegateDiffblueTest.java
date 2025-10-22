@@ -20,19 +20,17 @@ import static org.mockito.ArgumentMatchers.isA;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import static org.mockito.Mockito.when;
 import com.diffblue.cover.annotations.MethodsUnderTest;
-import java.time.LocalDate;
-import java.time.ZoneOffset;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 import org.activiti.api.process.model.events.BPMNTimerFiredEvent;
 import org.activiti.api.process.runtime.events.listener.BPMNElementEventListener;
+import org.activiti.api.process.runtime.events.listener.ProcessRuntimeEventListener;
+import org.activiti.api.runtime.event.impl.BPMNTimerFiredEventImpl;
 import org.activiti.engine.delegate.event.ActivitiEvent;
-import org.activiti.engine.delegate.event.ActivitiEventType;
-import org.activiti.engine.delegate.event.impl.ActivitiEntityEventImpl;
-import org.activiti.engine.impl.persistence.entity.DeadLetterJobEntityImpl;
+import org.activiti.engine.delegate.event.impl.ActivitiActivityCancelledEventImpl;
 import org.activiti.runtime.api.event.impl.BPMNTimerConverter;
 import org.activiti.runtime.api.event.impl.ToTimerFiredConverter;
 import org.junit.jupiter.api.DisplayName;
@@ -43,93 +41,85 @@ import org.mockito.Mockito;
 class TimerFiredListenerDelegateDiffblueTest {
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
-   *   <li>{@link TimerFiredListenerDelegate#TimerFiredListenerDelegate(List,
-   *       ToTimerFiredConverter)}
+   *   <li>{@link TimerFiredListenerDelegate#TimerFiredListenerDelegate(List, ToTimerFiredConverter)}
    *   <li>{@link TimerFiredListenerDelegate#isFailOnException()}
    * </ul>
    */
   @Test
   @DisplayName("Test getters and setters")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void TimerFiredListenerDelegate.<init>(List, ToTimerFiredConverter)",
-    "boolean TimerFiredListenerDelegate.isFailOnException()"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void TimerFiredListenerDelegate.<init>(List, ToTimerFiredConverter)",
+      "boolean TimerFiredListenerDelegate.isFailOnException()"})
   void testGettersAndSetters() {
     // Arrange
-    ArrayList<BPMNElementEventListener<BPMNTimerFiredEvent>> processRuntimeEventListeners =
-        new ArrayList<>();
+    ArrayList<BPMNElementEventListener<BPMNTimerFiredEvent>> processRuntimeEventListeners = new ArrayList<>();
 
-    // Act
-    TimerFiredListenerDelegate actualTimerFiredListenerDelegate =
-        new TimerFiredListenerDelegate(
-            processRuntimeEventListeners, new ToTimerFiredConverter(new BPMNTimerConverter()));
-
-    // Assert
-    assertFalse(actualTimerFiredListenerDelegate.isFailOnException());
+    // Act and Assert
+    assertFalse((new TimerFiredListenerDelegate(processRuntimeEventListeners,
+        new ToTimerFiredConverter(new BPMNTimerConverter()))).isFailOnException());
   }
 
   /**
    * Test {@link TimerFiredListenerDelegate#onEvent(ActivitiEvent)}.
-   *
    * <ul>
-   *   <li>Given {@code timer}.
-   *   <li>Then calls {@link BPMNElementEventListener#onEvent(RuntimeEvent)}.
+   *   <li>Given {@link BPMNElementEventListener} {@link ProcessRuntimeEventListener#onEvent(RuntimeEvent)} does nothing.</li>
+   *   <li>Then calls {@link ProcessRuntimeEventListener#onEvent(RuntimeEvent)}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link TimerFiredListenerDelegate#onEvent(ActivitiEvent)}
+   * <p>
+   * Method under test: {@link TimerFiredListenerDelegate#onEvent(ActivitiEvent)}
    */
   @Test
-  @DisplayName("Test onEvent(ActivitiEvent); given 'timer'; then calls onEvent(RuntimeEvent)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test onEvent(ActivitiEvent); given BPMNElementEventListener onEvent(RuntimeEvent) does nothing; then calls onEvent(RuntimeEvent)")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void TimerFiredListenerDelegate.onEvent(ActivitiEvent)"})
-  void testOnEvent_givenTimer_thenCallsOnEvent() {
+  void testOnEvent_givenBPMNElementEventListenerOnEventDoesNothing_thenCallsOnEvent() {
     // Arrange
-    BPMNElementEventListener<BPMNTimerFiredEvent> bpmnElementEventListener =
-        mock(BPMNElementEventListener.class);
+    BPMNElementEventListener<BPMNTimerFiredEvent> bpmnElementEventListener = mock(BPMNElementEventListener.class);
     doNothing().when(bpmnElementEventListener).onEvent(Mockito.<BPMNTimerFiredEvent>any());
 
-    ArrayList<BPMNElementEventListener<BPMNTimerFiredEvent>> processRuntimeEventListeners =
-        new ArrayList<>();
+    ArrayList<BPMNElementEventListener<BPMNTimerFiredEvent>> processRuntimeEventListeners = new ArrayList<>();
     processRuntimeEventListeners.add(bpmnElementEventListener);
-    TimerFiredListenerDelegate timerFiredListenerDelegate =
-        new TimerFiredListenerDelegate(
-            processRuntimeEventListeners, new ToTimerFiredConverter(new BPMNTimerConverter()));
-
-    DeadLetterJobEntityImpl deadLetterJobEntityImpl = new DeadLetterJobEntityImpl();
-    deadLetterJobEntityImpl.setDeleted(true);
-    deadLetterJobEntityImpl.setDuedate(
-        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
-    deadLetterJobEntityImpl.setEndDate(
-        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
-    deadLetterJobEntityImpl.setExceptionMessage("An error occurred");
-    deadLetterJobEntityImpl.setExclusive(true);
-    deadLetterJobEntityImpl.setExecutionId("42");
-    deadLetterJobEntityImpl.setId("42");
-    deadLetterJobEntityImpl.setInserted(true);
-    deadLetterJobEntityImpl.setJobHandlerConfiguration("Job Handler Configuration");
-    deadLetterJobEntityImpl.setJobHandlerType("Job Handler Type");
-    deadLetterJobEntityImpl.setMaxIterations(3);
-    deadLetterJobEntityImpl.setProcessDefinitionId("42");
-    deadLetterJobEntityImpl.setProcessInstanceId("42");
-    deadLetterJobEntityImpl.setRepeat("Repeat");
-    deadLetterJobEntityImpl.setRetries(1);
-    deadLetterJobEntityImpl.setRevision(1);
-    deadLetterJobEntityImpl.setTenantId("42");
-    deadLetterJobEntityImpl.setUpdated(true);
-    deadLetterJobEntityImpl.setJobType("timer");
+    ToTimerFiredConverter converter = mock(ToTimerFiredConverter.class);
+    Optional<BPMNTimerFiredEvent> ofResult = Optional.of(new BPMNTimerFiredEventImpl());
+    when(converter.from(Mockito.<ActivitiEvent>any())).thenReturn(ofResult);
+    TimerFiredListenerDelegate timerFiredListenerDelegate = new TimerFiredListenerDelegate(processRuntimeEventListeners,
+        converter);
 
     // Act
-    timerFiredListenerDelegate.onEvent(
-        new ActivitiEntityEventImpl(deadLetterJobEntityImpl, ActivitiEventType.ENTITY_CREATED));
+    timerFiredListenerDelegate.onEvent(new ActivitiActivityCancelledEventImpl());
 
     // Assert
     verify(bpmnElementEventListener).onEvent(isA(BPMNTimerFiredEvent.class));
+    verify(converter).from(isA(ActivitiEvent.class));
+  }
+
+  /**
+   * Test {@link TimerFiredListenerDelegate#onEvent(ActivitiEvent)}.
+   * <ul>
+   *   <li>Then calls {@link ToTimerFiredConverter#from(ActivitiEvent)}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link TimerFiredListenerDelegate#onEvent(ActivitiEvent)}
+   */
+  @Test
+  @DisplayName("Test onEvent(ActivitiEvent); then calls from(ActivitiEvent)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void TimerFiredListenerDelegate.onEvent(ActivitiEvent)"})
+  void testOnEvent_thenCallsFrom() {
+    // Arrange
+    ToTimerFiredConverter converter = mock(ToTimerFiredConverter.class);
+    Optional<BPMNTimerFiredEvent> ofResult = Optional.of(new BPMNTimerFiredEventImpl());
+    when(converter.from(Mockito.<ActivitiEvent>any())).thenReturn(ofResult);
+    TimerFiredListenerDelegate timerFiredListenerDelegate = new TimerFiredListenerDelegate(new ArrayList<>(),
+        converter);
+
+    // Act
+    timerFiredListenerDelegate.onEvent(new ActivitiActivityCancelledEventImpl());
+
+    // Assert
+    verify(converter).from(isA(ActivitiEvent.class));
   }
 }

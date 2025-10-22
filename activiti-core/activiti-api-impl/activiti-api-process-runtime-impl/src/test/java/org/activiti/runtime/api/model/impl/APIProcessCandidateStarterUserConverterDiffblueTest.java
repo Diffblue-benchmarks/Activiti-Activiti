@@ -17,7 +17,6 @@ package org.activiti.runtime.api.model.impl;
 
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.api.process.model.ProcessCandidateStarterUser;
 import org.activiti.api.runtime.model.impl.ProcessCandidateStarterUserImpl;
@@ -38,27 +37,21 @@ class APIProcessCandidateStarterUserConverterDiffblueTest {
   private APIProcessCandidateStarterUserConverter aPIProcessCandidateStarterUserConverter;
 
   /**
-   * Test {@link APIProcessCandidateStarterUserConverter#from(IdentityLink)} with {@code
-   * IdentityLink}.
-   *
+   * Test {@link APIProcessCandidateStarterUserConverter#from(IdentityLink)} with {@code IdentityLink}.
    * <ul>
-   *   <li>Then return {@link ProcessCandidateStarterUserImpl}.
+   *   <li>Then return {@link ProcessCandidateStarterUserImpl}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link APIProcessCandidateStarterUserConverter#from(IdentityLink)}
+   * <p>
+   * Method under test: {@link APIProcessCandidateStarterUserConverter#from(IdentityLink)}
    */
   @Test
-  @DisplayName(
-      "Test from(IdentityLink) with 'IdentityLink'; then return ProcessCandidateStarterUserImpl")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "ProcessCandidateStarterUser APIProcessCandidateStarterUserConverter.from(IdentityLink)"
-  })
+  @DisplayName("Test from(IdentityLink) with 'IdentityLink'; then return ProcessCandidateStarterUserImpl")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"ProcessCandidateStarterUser APIProcessCandidateStarterUserConverter.from(IdentityLink)"})
   void testFromWithIdentityLink_thenReturnProcessCandidateStarterUserImpl() {
     // Arrange and Act
-    ProcessCandidateStarterUser actualFromResult =
-        aPIProcessCandidateStarterUserConverter.from(new IdentityLinkEntityImpl());
+    ProcessCandidateStarterUser actualFromResult = aPIProcessCandidateStarterUserConverter
+        .from(new IdentityLinkEntityImpl());
 
     // Assert
     assertTrue(actualFromResult instanceof ProcessCandidateStarterUserImpl);

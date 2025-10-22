@@ -19,10 +19,9 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.node.DoubleNode;
+import com.fasterxml.jackson.databind.node.MissingNode;
 import java.util.HashMap;
 import java.util.Map;
 import org.activiti.bpmn.model.ActivitiListener;
@@ -36,13 +35,12 @@ import org.junit.jupiter.api.Test;
 class ExclusiveGatewayJsonConverterDiffblueTest {
   /**
    * Test {@link ExclusiveGatewayJsonConverter#fillJsonTypes(Map)}.
-   *
-   * <p>Method under test: {@link ExclusiveGatewayJsonConverter#fillJsonTypes(Map)}
+   * <p>
+   * Method under test: {@link ExclusiveGatewayJsonConverter#fillJsonTypes(Map)}
    */
   @Test
   @DisplayName("Test fillJsonTypes(Map)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void ExclusiveGatewayJsonConverter.fillJsonTypes(Map)"})
   void testFillJsonTypes() {
     // Arrange
@@ -59,47 +57,39 @@ class ExclusiveGatewayJsonConverterDiffblueTest {
 
   /**
    * Test {@link ExclusiveGatewayJsonConverter#getStencilId(BaseElement)}.
-   *
-   * <p>Method under test: {@link ExclusiveGatewayJsonConverter#getStencilId(BaseElement)}
+   * <p>
+   * Method under test: {@link ExclusiveGatewayJsonConverter#getStencilId(BaseElement)}
    */
   @Test
   @DisplayName("Test getStencilId(BaseElement)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"String ExclusiveGatewayJsonConverter.getStencilId(BaseElement)"})
   void testGetStencilId() {
     // Arrange
-    ExclusiveGatewayJsonConverter exclusiveGatewayJsonConverter =
-        new ExclusiveGatewayJsonConverter();
+    ExclusiveGatewayJsonConverter exclusiveGatewayJsonConverter = new ExclusiveGatewayJsonConverter();
 
     // Act and Assert
-    assertEquals(
-        "ExclusiveGateway", exclusiveGatewayJsonConverter.getStencilId(new ActivitiListener()));
+    assertEquals("ExclusiveGateway", exclusiveGatewayJsonConverter.getStencilId(new ActivitiListener()));
   }
 
   /**
    * Test {@link ExclusiveGatewayJsonConverter#convertJsonToElement(JsonNode, JsonNode, Map)}.
-   *
-   * <p>Method under test: {@link ExclusiveGatewayJsonConverter#convertJsonToElement(JsonNode,
-   * JsonNode, Map)}
+   * <p>
+   * Method under test: {@link ExclusiveGatewayJsonConverter#convertJsonToElement(JsonNode, JsonNode, Map)}
    */
   @Test
   @DisplayName("Test convertJsonToElement(JsonNode, JsonNode, Map)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "FlowElement ExclusiveGatewayJsonConverter.convertJsonToElement(JsonNode, JsonNode, Map)"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"FlowElement ExclusiveGatewayJsonConverter.convertJsonToElement(JsonNode, JsonNode, Map)"})
   void testConvertJsonToElement() {
     // Arrange
-    ExclusiveGatewayJsonConverter exclusiveGatewayJsonConverter =
-        new ExclusiveGatewayJsonConverter();
-    DoubleNode elementNode = DoubleNode.valueOf(10.0d);
-    DoubleNode modelNode = DoubleNode.valueOf(10.0d);
+    ExclusiveGatewayJsonConverter exclusiveGatewayJsonConverter = new ExclusiveGatewayJsonConverter();
+    MissingNode elementNode = MissingNode.getInstance();
+    MissingNode modelNode = MissingNode.getInstance();
 
     // Act
-    FlowElement actualConvertJsonToElementResult =
-        exclusiveGatewayJsonConverter.convertJsonToElement(elementNode, modelNode, new HashMap<>());
+    FlowElement actualConvertJsonToElementResult = exclusiveGatewayJsonConverter.convertJsonToElement(elementNode,
+        modelNode, new HashMap<>());
 
     // Assert
     assertTrue(actualConvertJsonToElementResult instanceof ExclusiveGateway);
@@ -124,19 +114,16 @@ class ExclusiveGatewayJsonConverterDiffblueTest {
 
   /**
    * Test new {@link ExclusiveGatewayJsonConverter} (default constructor).
-   *
-   * <p>Method under test: default or parameterless constructor of {@link
-   * ExclusiveGatewayJsonConverter}
+   * <p>
+   * Method under test: default or parameterless constructor of {@link ExclusiveGatewayJsonConverter}
    */
   @Test
   @DisplayName("Test new ExclusiveGatewayJsonConverter (default constructor)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void ExclusiveGatewayJsonConverter.<init>()"})
   void testNewExclusiveGatewayJsonConverter() {
     // Arrange and Act
-    ExclusiveGatewayJsonConverter actualExclusiveGatewayJsonConverter =
-        new ExclusiveGatewayJsonConverter();
+    ExclusiveGatewayJsonConverter actualExclusiveGatewayJsonConverter = new ExclusiveGatewayJsonConverter();
 
     // Assert
     assertNull(actualExclusiveGatewayJsonConverter.shapesArrayNode);

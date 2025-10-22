@@ -16,7 +16,6 @@
 package org.activiti.api.runtime.model.impl;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -31,22 +30,21 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 @ContextConfiguration(classes = {LocalDateTimeToStringConverter.class})
 @ExtendWith(SpringExtension.class)
 class LocalDateTimeToStringConverterDiffblueTest {
-  @Autowired private LocalDateTimeToStringConverter localDateTimeToStringConverter;
+  @Autowired
+  private LocalDateTimeToStringConverter localDateTimeToStringConverter;
 
   /**
    * Test {@link LocalDateTimeToStringConverter#convert(LocalDateTime)} with {@code LocalDateTime}.
-   *
-   * <p>Method under test: {@link LocalDateTimeToStringConverter#convert(LocalDateTime)}
+   * <p>
+   * Method under test: {@link LocalDateTimeToStringConverter#convert(LocalDateTime)}
    */
   @Test
   @DisplayName("Test convert(LocalDateTime) with 'LocalDateTime'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"java.lang.String LocalDateTimeToStringConverter.convert(LocalDateTime)"})
   void testConvertWithLocalDateTime() {
     // Arrange, Act and Assert
-    assertEquals(
-        "1970-01-01T00:00:00",
+    assertEquals("1970-01-01T00:00:00",
         localDateTimeToStringConverter.convert(LocalDate.of(1970, 1, 1).atStartOfDay()));
   }
 }

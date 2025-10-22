@@ -17,8 +17,7 @@ package org.activiti.bpmn.model;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
@@ -26,12 +25,11 @@ import org.junit.experimental.categories.Category;
 public class ResourceDiffblueTest {
   /**
    * Test {@link Resource#Resource(String, String)}.
-   *
-   * <p>Method under test: {@link Resource#Resource(String, String)}
+   * <p>
+   * Method under test: {@link Resource#Resource(String, String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void Resource.<init>(String, String)"})
   public void testNewResource() {
     // Arrange and Act
@@ -48,17 +46,15 @@ public class ResourceDiffblueTest {
 
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>{@link Resource#setName(String)}
    *   <li>{@link Resource#getName()}
    * </ul>
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"String Resource.getName()", "void Resource.setName(String)"})
   public void testGettersAndSetters() {
     // Arrange
@@ -73,16 +69,15 @@ public class ResourceDiffblueTest {
 
   /**
    * Test {@link Resource#clone()}.
-   *
-   * <p>Method under test: {@link Resource#clone()}
+   * <p>
+   * Method under test: {@link Resource#clone()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"BaseElement Resource.clone()"})
   public void testClone() {
     // Arrange and Act
-    BaseElement actualCloneResult = new Resource("42", "Resource Name").clone();
+    BaseElement actualCloneResult = (new Resource("42", "Resource Name")).clone();
 
     // Assert
     assertTrue(actualCloneResult instanceof Resource);

@@ -19,8 +19,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -32,57 +31,51 @@ import org.junit.experimental.categories.Category;
 public class LocalDateTimeTypeDiffblueTest {
   /**
    * Test {@link LocalDateTimeType#isAbleToStore(Object)}.
-   *
    * <ul>
-   *   <li>When {@link JSONObject#NULL}.
-   *   <li>Then return {@code false}.
+   *   <li>When {@link JSONObject#NULL}.</li>
+   *   <li>Then return {@code false}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link LocalDateTimeType#isAbleToStore(Object)}
+   * <p>
+   * Method under test: {@link LocalDateTimeType#isAbleToStore(Object)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"boolean LocalDateTimeType.isAbleToStore(Object)"})
   public void testIsAbleToStore_whenNull_thenReturnFalse() {
     // Arrange, Act and Assert
-    assertFalse(new LocalDateTimeType().isAbleToStore(JSONObject.NULL));
+    assertFalse((new LocalDateTimeType()).isAbleToStore(JSONObject.NULL));
   }
 
   /**
    * Test {@link LocalDateTimeType#isAbleToStore(Object)}.
-   *
    * <ul>
-   *   <li>When {@code null}.
-   *   <li>Then return {@code true}.
+   *   <li>When {@code null}.</li>
+   *   <li>Then return {@code true}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link LocalDateTimeType#isAbleToStore(Object)}
+   * <p>
+   * Method under test: {@link LocalDateTimeType#isAbleToStore(Object)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"boolean LocalDateTimeType.isAbleToStore(Object)"})
   public void testIsAbleToStore_whenNull_thenReturnTrue() {
     // Arrange, Act and Assert
-    assertTrue(new LocalDateTimeType().isAbleToStore(null));
+    assertTrue((new LocalDateTimeType()).isAbleToStore(null));
   }
 
   /**
    * Test {@link LocalDateTimeType#setValue(Object, ValueFields)}.
-   *
-   * <p>Method under test: {@link LocalDateTimeType#setValue(Object, ValueFields)}
+   * <p>
+   * Method under test: {@link LocalDateTimeType#setValue(Object, ValueFields)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void LocalDateTimeType.setValue(Object, ValueFields)"})
   public void testSetValue() {
     // Arrange
     LocalDateTimeType localDateTimeType = new LocalDateTimeType();
     LocalDateTime atStartOfDayResult = LocalDate.of(1970, 1, 1).atStartOfDay();
-    HistoricDetailVariableInstanceUpdateEntityImpl valueFields =
-        new HistoricDetailVariableInstanceUpdateEntityImpl();
+    HistoricDetailVariableInstanceUpdateEntityImpl valueFields = new HistoricDetailVariableInstanceUpdateEntityImpl();
 
     // Act
     localDateTimeType.setValue(atStartOfDayResult, valueFields);
@@ -93,23 +86,19 @@ public class LocalDateTimeTypeDiffblueTest {
 
   /**
    * Test {@link LocalDateTimeType#setValue(Object, ValueFields)}.
-   *
    * <ul>
-   *   <li>Then {@link HistoricDetailVariableInstanceUpdateEntityImpl} (default constructor)
-   *       LongValue is {@code null}.
+   *   <li>Then {@link HistoricDetailVariableInstanceUpdateEntityImpl} (default constructor) LongValue is {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link LocalDateTimeType#setValue(Object, ValueFields)}
+   * <p>
+   * Method under test: {@link LocalDateTimeType#setValue(Object, ValueFields)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void LocalDateTimeType.setValue(Object, ValueFields)"})
   public void testSetValue_thenHistoricDetailVariableInstanceUpdateEntityImplLongValueIsNull() {
     // Arrange
     LocalDateTimeType localDateTimeType = new LocalDateTimeType();
-    HistoricDetailVariableInstanceUpdateEntityImpl valueFields =
-        new HistoricDetailVariableInstanceUpdateEntityImpl();
+    HistoricDetailVariableInstanceUpdateEntityImpl valueFields = new HistoricDetailVariableInstanceUpdateEntityImpl();
 
     // Act
     localDateTimeType.setValue(null, valueFields);
@@ -120,9 +109,8 @@ public class LocalDateTimeTypeDiffblueTest {
 
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>default or parameterless constructor of {@link LocalDateTimeType}
    *   <li>{@link LocalDateTimeType#getTypeName()}
@@ -130,13 +118,9 @@ public class LocalDateTimeTypeDiffblueTest {
    * </ul>
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void LocalDateTimeType.<init>()",
-    "String LocalDateTimeType.getTypeName()",
-    "boolean LocalDateTimeType.isCachable()"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void LocalDateTimeType.<init>()", "String LocalDateTimeType.getTypeName()",
+      "boolean LocalDateTimeType.isCachable()"})
   public void testGettersAndSetters() {
     // Arrange and Act
     LocalDateTimeType actualLocalDateTimeType = new LocalDateTimeType();

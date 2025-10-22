@@ -19,8 +19,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.Map;
 import org.activiti.engine.impl.cfg.JtaProcessEngineConfiguration;
@@ -34,76 +33,58 @@ import org.junit.experimental.categories.Category;
 
 public class MybatisHistoricVariableInstanceDataManagerDiffblueTest {
   /**
-   * Test {@link
-   * MybatisHistoricVariableInstanceDataManager#MybatisHistoricVariableInstanceDataManager(ProcessEngineConfigurationImpl)}.
-   *
-   * <p>Method under test: {@link
-   * MybatisHistoricVariableInstanceDataManager#MybatisHistoricVariableInstanceDataManager(ProcessEngineConfigurationImpl)}
+   * Test {@link MybatisHistoricVariableInstanceDataManager#MybatisHistoricVariableInstanceDataManager(ProcessEngineConfigurationImpl)}.
+   * <p>
+   * Method under test: {@link MybatisHistoricVariableInstanceDataManager#MybatisHistoricVariableInstanceDataManager(ProcessEngineConfigurationImpl)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void MybatisHistoricVariableInstanceDataManager.<init>(ProcessEngineConfigurationImpl)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void MybatisHistoricVariableInstanceDataManager.<init>(ProcessEngineConfigurationImpl)"})
   public void testNewMybatisHistoricVariableInstanceDataManager() {
     // Arrange and Act
-    MybatisHistoricVariableInstanceDataManager actualMybatisHistoricVariableInstanceDataManager =
-        new MybatisHistoricVariableInstanceDataManager(new JtaProcessEngineConfiguration());
+    MybatisHistoricVariableInstanceDataManager actualMybatisHistoricVariableInstanceDataManager = new MybatisHistoricVariableInstanceDataManager(
+        new JtaProcessEngineConfiguration());
 
     // Assert
     assertTrue(
-        actualMybatisHistoricVariableInstanceDataManager.historicVariableInstanceByProcInstMatcher
-            instanceof HistoricVariableInstanceByProcInstMatcher);
+        actualMybatisHistoricVariableInstanceDataManager.historicVariableInstanceByProcInstMatcher instanceof HistoricVariableInstanceByProcInstMatcher);
     assertTrue(
-        actualMybatisHistoricVariableInstanceDataManager.historicVariableInstanceByTaskIdMatcher
-            instanceof HistoricVariableInstanceByTaskIdMatcher);
+        actualMybatisHistoricVariableInstanceDataManager.historicVariableInstanceByTaskIdMatcher instanceof HistoricVariableInstanceByTaskIdMatcher);
     assertNull(actualMybatisHistoricVariableInstanceDataManager.getManagedEntitySubClasses());
-    Class<HistoricVariableInstanceEntityImpl> expectedManagedEntityClass =
-        HistoricVariableInstanceEntityImpl.class;
-    assertEquals(
-        expectedManagedEntityClass,
-        actualMybatisHistoricVariableInstanceDataManager.getManagedEntityClass());
+    Class<HistoricVariableInstanceEntityImpl> expectedManagedEntityClass = HistoricVariableInstanceEntityImpl.class;
+    assertEquals(expectedManagedEntityClass, actualMybatisHistoricVariableInstanceDataManager.getManagedEntityClass());
   }
 
   /**
    * Test {@link MybatisHistoricVariableInstanceDataManager#getManagedEntityClass()}.
-   *
-   * <p>Method under test: {@link
-   * MybatisHistoricVariableInstanceDataManager#getManagedEntityClass()}
+   * <p>
+   * Method under test: {@link MybatisHistoricVariableInstanceDataManager#getManagedEntityClass()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"Class MybatisHistoricVariableInstanceDataManager.getManagedEntityClass()"})
   public void testGetManagedEntityClass() {
     // Arrange and Act
-    Class<? extends HistoricVariableInstanceEntity> actualManagedEntityClass =
-        new MybatisHistoricVariableInstanceDataManager(new JtaProcessEngineConfiguration())
-            .getManagedEntityClass();
+    Class<? extends HistoricVariableInstanceEntity> actualManagedEntityClass = (new MybatisHistoricVariableInstanceDataManager(
+        new JtaProcessEngineConfiguration())).getManagedEntityClass();
 
     // Assert
-    Class<HistoricVariableInstanceEntityImpl> expectedManagedEntityClass =
-        HistoricVariableInstanceEntityImpl.class;
+    Class<HistoricVariableInstanceEntityImpl> expectedManagedEntityClass = HistoricVariableInstanceEntityImpl.class;
     assertEquals(expectedManagedEntityClass, actualManagedEntityClass);
   }
 
   /**
    * Test {@link MybatisHistoricVariableInstanceDataManager#create()}.
-   *
-   * <p>Method under test: {@link MybatisHistoricVariableInstanceDataManager#create()}
+   * <p>
+   * Method under test: {@link MybatisHistoricVariableInstanceDataManager#create()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "HistoricVariableInstanceEntity MybatisHistoricVariableInstanceDataManager.create()"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"HistoricVariableInstanceEntity MybatisHistoricVariableInstanceDataManager.create()"})
   public void testCreate() {
     // Arrange and Act
-    HistoricVariableInstanceEntity actualCreateResult =
-        new MybatisHistoricVariableInstanceDataManager(new JtaProcessEngineConfiguration())
-            .create();
+    HistoricVariableInstanceEntity actualCreateResult = (new MybatisHistoricVariableInstanceDataManager(
+        new JtaProcessEngineConfiguration())).create();
 
     // Assert
     Object persistentState = actualCreateResult.getPersistentState();

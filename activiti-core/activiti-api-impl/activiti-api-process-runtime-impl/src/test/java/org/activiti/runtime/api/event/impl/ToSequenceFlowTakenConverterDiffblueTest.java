@@ -18,7 +18,6 @@ package org.activiti.runtime.api.event.impl;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.Optional;
 import org.activiti.api.process.model.events.BPMNSequenceFlowTakenEvent;
@@ -35,24 +34,21 @@ import org.junit.jupiter.api.Test;
 
 class ToSequenceFlowTakenConverterDiffblueTest {
   /**
-   * Test {@link ToSequenceFlowTakenConverter#from(ActivitiSequenceFlowTakenEvent)} with {@code
-   * ActivitiSequenceFlowTakenEvent}.
-   *
-   * <p>Method under test: {@link ToSequenceFlowTakenConverter#from(ActivitiSequenceFlowTakenEvent)}
+   * Test {@link ToSequenceFlowTakenConverter#from(ActivitiSequenceFlowTakenEvent)} with {@code ActivitiSequenceFlowTakenEvent}.
+   * <p>
+   * Method under test: {@link ToSequenceFlowTakenConverter#from(ActivitiSequenceFlowTakenEvent)}
    */
   @Test
   @DisplayName("Test from(ActivitiSequenceFlowTakenEvent) with 'ActivitiSequenceFlowTakenEvent'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"Optional ToSequenceFlowTakenConverter.from(ActivitiSequenceFlowTakenEvent)"})
   void testFromWithActivitiSequenceFlowTakenEvent() {
     // Arrange
     ToSequenceFlowTakenConverter toSequenceFlowTakenConverter = new ToSequenceFlowTakenConverter();
 
     // Act
-    Optional<BPMNSequenceFlowTakenEvent> actualFromResult =
-        toSequenceFlowTakenConverter.from(
-            new ActivitiSequenceFlowTakenEventImpl(ActivitiEventType.ENTITY_CREATED));
+    Optional<BPMNSequenceFlowTakenEvent> actualFromResult = toSequenceFlowTakenConverter
+        .from(new ActivitiSequenceFlowTakenEventImpl(ActivitiEventType.ENTITY_CREATED));
 
     // Assert
     BPMNSequenceFlowTakenEvent getResult = actualFromResult.get();

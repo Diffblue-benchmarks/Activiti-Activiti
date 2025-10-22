@@ -18,19 +18,18 @@ package org.activiti.editor.language.json.converter;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.atLeast;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ArrayNode;
-import com.fasterxml.jackson.databind.node.BinaryNode;
-import com.fasterxml.jackson.databind.node.DoubleNode;
+import com.fasterxml.jackson.databind.node.BigIntegerNode;
 import com.fasterxml.jackson.databind.node.JsonNodeFactory;
 import com.fasterxml.jackson.databind.node.MissingNode;
-import java.io.UnsupportedEncodingException;
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -46,13 +45,12 @@ import org.mockito.Mockito;
 class MessageFlowJsonConverterDiffblueTest {
   /**
    * Test {@link MessageFlowJsonConverter#fillJsonTypes(Map)}.
-   *
-   * <p>Method under test: {@link MessageFlowJsonConverter#fillJsonTypes(Map)}
+   * <p>
+   * Method under test: {@link MessageFlowJsonConverter#fillJsonTypes(Map)}
    */
   @Test
   @DisplayName("Test fillJsonTypes(Map)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void MessageFlowJsonConverter.fillJsonTypes(Map)"})
   void testFillJsonTypes() {
     // Arrange
@@ -69,13 +67,12 @@ class MessageFlowJsonConverterDiffblueTest {
 
   /**
    * Test {@link MessageFlowJsonConverter#getStencilId(BaseElement)}.
-   *
-   * <p>Method under test: {@link MessageFlowJsonConverter#getStencilId(BaseElement)}
+   * <p>
+   * Method under test: {@link MessageFlowJsonConverter#getStencilId(BaseElement)}
    */
   @Test
   @DisplayName("Test getStencilId(BaseElement)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"String MessageFlowJsonConverter.getStencilId(BaseElement)"})
   void testGetStencilId() {
     // Arrange
@@ -87,181 +84,34 @@ class MessageFlowJsonConverterDiffblueTest {
 
   /**
    * Test {@link MessageFlowJsonConverter#convertJsonToElement(JsonNode, JsonNode, Map)}.
-   *
-   * <p>Method under test: {@link MessageFlowJsonConverter#convertJsonToElement(JsonNode, JsonNode,
-   * Map)}
+   * <p>
+   * Method under test: {@link MessageFlowJsonConverter#convertJsonToElement(JsonNode, JsonNode, Map)}
    */
   @Test
   @DisplayName("Test convertJsonToElement(JsonNode, JsonNode, Map)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "BaseElement MessageFlowJsonConverter.convertJsonToElement(JsonNode, JsonNode, Map)"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"BaseElement MessageFlowJsonConverter.convertJsonToElement(JsonNode, JsonNode, Map)"})
   void testConvertJsonToElement() {
     // Arrange
     MessageFlowJsonConverter messageFlowJsonConverter = new MessageFlowJsonConverter();
-
     ArrayNode elementNode = mock(ArrayNode.class);
-    when(elementNode.get(Mockito.<String>any())).thenReturn(DoubleNode.valueOf(10.0d));
-
-    ArrayNode arrayNode = mock(ArrayNode.class);
-    JsonNodeFactory nf = JsonNodeFactory.withExactBigDecimals(true);
-    when(arrayNode.get(Mockito.<String>any())).thenReturn(new ArrayNode(nf));
+    when(elementNode.get(Mockito.<String>any())).thenReturn(MissingNode.getInstance());
 
     ArrayList<JsonNode> jsonNodeList = new ArrayList<>();
-    jsonNodeList.add(arrayNode);
-
-    ArrayNode arrayNode2 = mock(ArrayNode.class);
-    when(arrayNode2.iterator()).thenReturn(jsonNodeList.iterator());
-
-    ArrayNode modelNode = mock(ArrayNode.class);
-    when(modelNode.get(Mockito.<String>any())).thenReturn(arrayNode2);
-
-    // Act
-    BaseElement actualConvertJsonToElementResult =
-        messageFlowJsonConverter.convertJsonToElement(elementNode, modelNode, new HashMap<>());
-
-    // Assert
-    verify(arrayNode2).iterator();
-    verify(arrayNode, atLeast(1)).get(Mockito.<String>any());
-    verify(modelNode).get("childShapes");
-    verify(elementNode).get("resourceId");
-    assertTrue(actualConvertJsonToElementResult instanceof MessageFlow);
-    assertNull(actualConvertJsonToElementResult.getId());
-    assertNull(((MessageFlow) actualConvertJsonToElementResult).getMessageRef());
-    assertNull(((MessageFlow) actualConvertJsonToElementResult).getName());
-    assertNull(((MessageFlow) actualConvertJsonToElementResult).getSourceRef());
-    assertNull(((MessageFlow) actualConvertJsonToElementResult).getTargetRef());
-    assertEquals(0, actualConvertJsonToElementResult.getXmlColumnNumber());
-    assertEquals(0, actualConvertJsonToElementResult.getXmlRowNumber());
-    assertTrue(actualConvertJsonToElementResult.getAttributes().isEmpty());
-    assertTrue(actualConvertJsonToElementResult.getExtensionElements().isEmpty());
-  }
-
-  /**
-   * Test {@link MessageFlowJsonConverter#convertJsonToElement(JsonNode, JsonNode, Map)}.
-   *
-   * <p>Method under test: {@link MessageFlowJsonConverter#convertJsonToElement(JsonNode, JsonNode,
-   * Map)}
-   */
-  @Test
-  @DisplayName("Test convertJsonToElement(JsonNode, JsonNode, Map)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "BaseElement MessageFlowJsonConverter.convertJsonToElement(JsonNode, JsonNode, Map)"
-  })
-  void testConvertJsonToElement2() throws UnsupportedEncodingException {
-    // Arrange
-    MessageFlowJsonConverter messageFlowJsonConverter = new MessageFlowJsonConverter();
-
-    ArrayNode arrayNode = mock(ArrayNode.class);
-    when(arrayNode.isNull()).thenReturn(false);
-    when(arrayNode.get(Mockito.<String>any())).thenReturn(DoubleNode.valueOf(10.0d));
-    when(arrayNode.asText()).thenReturn("QVhBWEFYQVg=");
-
-    ArrayNode elementNode = mock(ArrayNode.class);
-    when(elementNode.get(Mockito.<String>any())).thenReturn(arrayNode);
-
-    ArrayNode arrayNode2 = mock(ArrayNode.class);
-    when(arrayNode2.get(Mockito.<String>any()))
-        .thenReturn(new BinaryNode("AXAXAXAX".getBytes("UTF-8")));
-
-    ArrayList<JsonNode> jsonNodeList = new ArrayList<>();
-    jsonNodeList.add(arrayNode2);
-    Iterator<JsonNode> iteratorResult = jsonNodeList.iterator();
-
-    ArrayNode arrayNode3 = mock(ArrayNode.class);
-    JsonNodeFactory nf = JsonNodeFactory.withExactBigDecimals(true);
-    when(arrayNode3.get(Mockito.<String>any())).thenReturn(new ArrayNode(nf));
-    when(arrayNode3.asText()).thenReturn("As Text");
-    when(arrayNode3.iterator()).thenReturn(iteratorResult);
-    when(arrayNode3.size()).thenReturn(3);
-
-    ArrayNode arrayNode4 = mock(ArrayNode.class);
-    when(arrayNode4.get(Mockito.<String>any())).thenReturn(arrayNode3);
-
-    ArrayList<JsonNode> jsonNodeList2 = new ArrayList<>();
-    jsonNodeList2.add(arrayNode4);
-
-    ArrayNode arrayNode5 = mock(ArrayNode.class);
-    when(arrayNode5.iterator()).thenReturn(jsonNodeList2.iterator());
-
-    ArrayNode modelNode = mock(ArrayNode.class);
-    when(modelNode.get(Mockito.<String>any())).thenReturn(arrayNode5);
-
-    // Act
-    BaseElement actualConvertJsonToElementResult =
-        messageFlowJsonConverter.convertJsonToElement(elementNode, modelNode, new HashMap<>());
-
-    // Assert
-    verify(arrayNode).isNull();
-    verify(arrayNode5).iterator();
-    verify(arrayNode3).iterator();
-    verify(elementNode, atLeast(1)).get(Mockito.<String>any());
-    verify(arrayNode4, atLeast(1)).get(Mockito.<String>any());
-    verify(modelNode).get("childShapes");
-    verify(arrayNode3).get("overrideid");
-    verify(arrayNode).get("resourceId");
-    verify(arrayNode2).get("resourceId");
-    verify(arrayNode3).size();
-    verify(arrayNode).asText();
-    verify(arrayNode3).asText();
-    assertTrue(actualConvertJsonToElementResult instanceof MessageFlow);
-    assertEquals("As Text", ((MessageFlow) actualConvertJsonToElementResult).getSourceRef());
-    assertNull(actualConvertJsonToElementResult.getId());
-    assertNull(((MessageFlow) actualConvertJsonToElementResult).getMessageRef());
-    assertNull(((MessageFlow) actualConvertJsonToElementResult).getName());
-    assertNull(((MessageFlow) actualConvertJsonToElementResult).getTargetRef());
-    assertEquals(0, actualConvertJsonToElementResult.getXmlColumnNumber());
-    assertEquals(0, actualConvertJsonToElementResult.getXmlRowNumber());
-    assertTrue(actualConvertJsonToElementResult.getAttributes().isEmpty());
-    assertTrue(actualConvertJsonToElementResult.getExtensionElements().isEmpty());
-  }
-
-  /**
-   * Test {@link MessageFlowJsonConverter#convertJsonToElement(JsonNode, JsonNode, Map)}.
-   *
-   * <ul>
-   *   <li>Given {@link ArrayList#ArrayList()} add valueOf ten.
-   * </ul>
-   *
-   * <p>Method under test: {@link MessageFlowJsonConverter#convertJsonToElement(JsonNode, JsonNode,
-   * Map)}
-   */
-  @Test
-  @DisplayName(
-      "Test convertJsonToElement(JsonNode, JsonNode, Map); given ArrayList() add valueOf ten")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "BaseElement MessageFlowJsonConverter.convertJsonToElement(JsonNode, JsonNode, Map)"
-  })
-  void testConvertJsonToElement_givenArrayListAddValueOfTen() {
-    // Arrange
-    MessageFlowJsonConverter messageFlowJsonConverter = new MessageFlowJsonConverter();
-
-    ArrayNode elementNode = mock(ArrayNode.class);
-    when(elementNode.get(Mockito.<String>any())).thenReturn(DoubleNode.valueOf(10.0d));
-
-    ArrayList<JsonNode> jsonNodeList = new ArrayList<>();
-    jsonNodeList.add(DoubleNode.valueOf(10.0d));
-
+    jsonNodeList.add(new ArrayNode(JsonNodeFactory.withExactBigDecimals(true)));
     ArrayNode arrayNode = mock(ArrayNode.class);
     when(arrayNode.iterator()).thenReturn(jsonNodeList.iterator());
-
     ArrayNode modelNode = mock(ArrayNode.class);
     when(modelNode.get(Mockito.<String>any())).thenReturn(arrayNode);
 
     // Act
-    BaseElement actualConvertJsonToElementResult =
-        messageFlowJsonConverter.convertJsonToElement(elementNode, modelNode, new HashMap<>());
+    BaseElement actualConvertJsonToElementResult = messageFlowJsonConverter.convertJsonToElement(elementNode, modelNode,
+        new HashMap<>());
 
     // Assert
     verify(arrayNode).iterator();
-    verify(modelNode).get("childShapes");
-    verify(elementNode).get("resourceId");
+    verify(modelNode).get(eq("childShapes"));
+    verify(elementNode).get(eq("resourceId"));
     assertTrue(actualConvertJsonToElementResult instanceof MessageFlow);
     assertNull(actualConvertJsonToElementResult.getId());
     assertNull(((MessageFlow) actualConvertJsonToElementResult).getMessageRef());
@@ -276,59 +126,89 @@ class MessageFlowJsonConverterDiffblueTest {
 
   /**
    * Test {@link MessageFlowJsonConverter#convertJsonToElement(JsonNode, JsonNode, Map)}.
-   *
-   * <ul>
-   *   <li>Given {@link ArrayList#ArrayList()} add valueOf ten.
-   *   <li>Then calls {@link ArrayNode#size()}.
-   * </ul>
-   *
-   * <p>Method under test: {@link MessageFlowJsonConverter#convertJsonToElement(JsonNode, JsonNode,
-   * Map)}
+   * <p>
+   * Method under test: {@link MessageFlowJsonConverter#convertJsonToElement(JsonNode, JsonNode, Map)}
    */
   @Test
-  @DisplayName(
-      "Test convertJsonToElement(JsonNode, JsonNode, Map); given ArrayList() add valueOf ten; then calls size()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "BaseElement MessageFlowJsonConverter.convertJsonToElement(JsonNode, JsonNode, Map)"
-  })
-  void testConvertJsonToElement_givenArrayListAddValueOfTen_thenCallsSize() {
+  @DisplayName("Test convertJsonToElement(JsonNode, JsonNode, Map)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"BaseElement MessageFlowJsonConverter.convertJsonToElement(JsonNode, JsonNode, Map)"})
+  void testConvertJsonToElement2() {
     // Arrange
     MessageFlowJsonConverter messageFlowJsonConverter = new MessageFlowJsonConverter();
-
     ArrayNode elementNode = mock(ArrayNode.class);
-    when(elementNode.get(Mockito.<String>any())).thenReturn(DoubleNode.valueOf(10.0d));
+    when(elementNode.get(Mockito.<String>any())).thenReturn(MissingNode.getInstance());
+    ArrayNode arrayNode = mock(ArrayNode.class);
+    when(arrayNode.get(Mockito.<String>any())).thenReturn(new ArrayNode(JsonNodeFactory.withExactBigDecimals(true)));
 
     ArrayList<JsonNode> jsonNodeList = new ArrayList<>();
-    jsonNodeList.add(DoubleNode.valueOf(10.0d));
+    jsonNodeList.add(arrayNode);
+    ArrayNode arrayNode2 = mock(ArrayNode.class);
+    when(arrayNode2.iterator()).thenReturn(jsonNodeList.iterator());
+    ArrayNode modelNode = mock(ArrayNode.class);
+    when(modelNode.get(Mockito.<String>any())).thenReturn(arrayNode2);
 
+    // Act
+    BaseElement actualConvertJsonToElementResult = messageFlowJsonConverter.convertJsonToElement(elementNode, modelNode,
+        new HashMap<>());
+
+    // Assert
+    verify(arrayNode2).iterator();
+    verify(arrayNode, atLeast(1)).get(Mockito.<String>any());
+    verify(modelNode).get(eq("childShapes"));
+    verify(elementNode).get(eq("resourceId"));
+    assertTrue(actualConvertJsonToElementResult instanceof MessageFlow);
+    assertNull(actualConvertJsonToElementResult.getId());
+    assertNull(((MessageFlow) actualConvertJsonToElementResult).getMessageRef());
+    assertNull(((MessageFlow) actualConvertJsonToElementResult).getName());
+    assertNull(((MessageFlow) actualConvertJsonToElementResult).getSourceRef());
+    assertNull(((MessageFlow) actualConvertJsonToElementResult).getTargetRef());
+    assertEquals(0, actualConvertJsonToElementResult.getXmlColumnNumber());
+    assertEquals(0, actualConvertJsonToElementResult.getXmlRowNumber());
+    assertTrue(actualConvertJsonToElementResult.getAttributes().isEmpty());
+    assertTrue(actualConvertJsonToElementResult.getExtensionElements().isEmpty());
+  }
+
+  /**
+   * Test {@link MessageFlowJsonConverter#convertJsonToElement(JsonNode, JsonNode, Map)}.
+   * <p>
+   * Method under test: {@link MessageFlowJsonConverter#convertJsonToElement(JsonNode, JsonNode, Map)}
+   */
+  @Test
+  @DisplayName("Test convertJsonToElement(JsonNode, JsonNode, Map)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"BaseElement MessageFlowJsonConverter.convertJsonToElement(JsonNode, JsonNode, Map)"})
+  void testConvertJsonToElement3() {
+    // Arrange
+    MessageFlowJsonConverter messageFlowJsonConverter = new MessageFlowJsonConverter();
+    ArrayNode elementNode = mock(ArrayNode.class);
+    when(elementNode.get(Mockito.<String>any())).thenReturn(MissingNode.getInstance());
+
+    ArrayList<JsonNode> jsonNodeList = new ArrayList<>();
+    jsonNodeList.add(new ArrayNode(JsonNodeFactory.withExactBigDecimals(true)));
     ArrayNode arrayNode = mock(ArrayNode.class);
     when(arrayNode.iterator()).thenReturn(jsonNodeList.iterator());
     when(arrayNode.size()).thenReturn(3);
-
     ArrayNode arrayNode2 = mock(ArrayNode.class);
     when(arrayNode2.get(Mockito.<String>any())).thenReturn(arrayNode);
 
     ArrayList<JsonNode> jsonNodeList2 = new ArrayList<>();
     jsonNodeList2.add(arrayNode2);
-
     ArrayNode arrayNode3 = mock(ArrayNode.class);
     when(arrayNode3.iterator()).thenReturn(jsonNodeList2.iterator());
-
     ArrayNode modelNode = mock(ArrayNode.class);
     when(modelNode.get(Mockito.<String>any())).thenReturn(arrayNode3);
 
     // Act
-    BaseElement actualConvertJsonToElementResult =
-        messageFlowJsonConverter.convertJsonToElement(elementNode, modelNode, new HashMap<>());
+    BaseElement actualConvertJsonToElementResult = messageFlowJsonConverter.convertJsonToElement(elementNode, modelNode,
+        new HashMap<>());
 
     // Assert
     verify(arrayNode3).iterator();
     verify(arrayNode, atLeast(1)).iterator();
     verify(arrayNode2, atLeast(1)).get(Mockito.<String>any());
-    verify(modelNode).get("childShapes");
-    verify(elementNode).get("resourceId");
+    verify(modelNode).get(eq("childShapes"));
+    verify(elementNode).get(eq("resourceId"));
     verify(arrayNode).size();
     assertTrue(actualConvertJsonToElementResult instanceof MessageFlow);
     assertNull(actualConvertJsonToElementResult.getId());
@@ -344,303 +224,46 @@ class MessageFlowJsonConverterDiffblueTest {
 
   /**
    * Test {@link MessageFlowJsonConverter#convertJsonToElement(JsonNode, JsonNode, Map)}.
-   *
-   * <ul>
-   *   <li>Given {@link ArrayNode} {@link ArrayNode#asText()} return {@code As Text}.
-   *   <li>Then calls {@link ArrayNode#asText()}.
-   * </ul>
-   *
-   * <p>Method under test: {@link MessageFlowJsonConverter#convertJsonToElement(JsonNode, JsonNode,
-   * Map)}
+   * <p>
+   * Method under test: {@link MessageFlowJsonConverter#convertJsonToElement(JsonNode, JsonNode, Map)}
    */
   @Test
-  @DisplayName(
-      "Test convertJsonToElement(JsonNode, JsonNode, Map); given ArrayNode asText() return 'As Text'; then calls asText()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "BaseElement MessageFlowJsonConverter.convertJsonToElement(JsonNode, JsonNode, Map)"
-  })
-  void testConvertJsonToElement_givenArrayNodeAsTextReturnAsText_thenCallsAsText()
-      throws UnsupportedEncodingException {
+  @DisplayName("Test convertJsonToElement(JsonNode, JsonNode, Map)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"BaseElement MessageFlowJsonConverter.convertJsonToElement(JsonNode, JsonNode, Map)"})
+  void testConvertJsonToElement4() {
     // Arrange
     MessageFlowJsonConverter messageFlowJsonConverter = new MessageFlowJsonConverter();
-
     ArrayNode arrayNode = mock(ArrayNode.class);
-    when(arrayNode.asText()).thenReturn("As Text");
-
-    ArrayNode elementNode = mock(ArrayNode.class);
-    when(elementNode.get(Mockito.<String>any())).thenReturn(arrayNode);
-
-    ArrayNode arrayNode2 = mock(ArrayNode.class);
-    when(arrayNode2.get(Mockito.<String>any()))
-        .thenReturn(new BinaryNode("AXAXAXAX".getBytes("UTF-8")));
-
-    ArrayList<JsonNode> jsonNodeList = new ArrayList<>();
-    jsonNodeList.add(arrayNode2);
-
-    ArrayNode arrayNode3 = mock(ArrayNode.class);
-    when(arrayNode3.iterator()).thenReturn(jsonNodeList.iterator());
-    when(arrayNode3.size()).thenReturn(3);
-
-    ArrayNode arrayNode4 = mock(ArrayNode.class);
-    when(arrayNode4.get(Mockito.<String>any())).thenReturn(arrayNode3);
-
-    ArrayList<JsonNode> jsonNodeList2 = new ArrayList<>();
-    jsonNodeList2.add(arrayNode4);
-
-    ArrayNode arrayNode5 = mock(ArrayNode.class);
-    when(arrayNode5.iterator()).thenReturn(jsonNodeList2.iterator());
-
-    ArrayNode modelNode = mock(ArrayNode.class);
-    when(modelNode.get(Mockito.<String>any())).thenReturn(arrayNode5);
-
-    // Act
-    BaseElement actualConvertJsonToElementResult =
-        messageFlowJsonConverter.convertJsonToElement(elementNode, modelNode, new HashMap<>());
-
-    // Assert
-    verify(arrayNode5).iterator();
-    verify(arrayNode3, atLeast(1)).iterator();
-    verify(arrayNode4, atLeast(1)).get(Mockito.<String>any());
-    verify(modelNode).get("childShapes");
-    verify(elementNode).get("resourceId");
-    verify(arrayNode2).get("resourceId");
-    verify(arrayNode3).size();
-    verify(arrayNode).asText();
-    assertTrue(actualConvertJsonToElementResult instanceof MessageFlow);
-    assertNull(actualConvertJsonToElementResult.getId());
-    assertNull(((MessageFlow) actualConvertJsonToElementResult).getMessageRef());
-    assertNull(((MessageFlow) actualConvertJsonToElementResult).getName());
-    assertNull(((MessageFlow) actualConvertJsonToElementResult).getSourceRef());
-    assertNull(((MessageFlow) actualConvertJsonToElementResult).getTargetRef());
-    assertEquals(0, actualConvertJsonToElementResult.getXmlColumnNumber());
-    assertEquals(0, actualConvertJsonToElementResult.getXmlRowNumber());
-    assertTrue(actualConvertJsonToElementResult.getAttributes().isEmpty());
-    assertTrue(actualConvertJsonToElementResult.getExtensionElements().isEmpty());
-  }
-
-  /**
-   * Test {@link MessageFlowJsonConverter#convertJsonToElement(JsonNode, JsonNode, Map)}.
-   *
-   * <ul>
-   *   <li>Given {@link ArrayNode} {@link ArrayNode#get(String)} return Instance.
-   * </ul>
-   *
-   * <p>Method under test: {@link MessageFlowJsonConverter#convertJsonToElement(JsonNode, JsonNode,
-   * Map)}
-   */
-  @Test
-  @DisplayName(
-      "Test convertJsonToElement(JsonNode, JsonNode, Map); given ArrayNode get(String) return Instance")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "BaseElement MessageFlowJsonConverter.convertJsonToElement(JsonNode, JsonNode, Map)"
-  })
-  void testConvertJsonToElement_givenArrayNodeGetReturnInstance()
-      throws UnsupportedEncodingException {
-    // Arrange
-    MessageFlowJsonConverter messageFlowJsonConverter = new MessageFlowJsonConverter();
-
-    ArrayNode arrayNode = mock(ArrayNode.class);
-    when(arrayNode.isNull()).thenReturn(false);
     when(arrayNode.get(Mockito.<String>any())).thenReturn(MissingNode.getInstance());
-    when(arrayNode.asText()).thenReturn("QVhBWEFYQVg=");
-
+    when(arrayNode.isNull()).thenReturn(true);
+    when(arrayNode.asText()).thenReturn("");
     ArrayNode elementNode = mock(ArrayNode.class);
     when(elementNode.get(Mockito.<String>any())).thenReturn(arrayNode);
-
-    ArrayNode arrayNode2 = mock(ArrayNode.class);
-    when(arrayNode2.get(Mockito.<String>any()))
-        .thenReturn(new BinaryNode("AXAXAXAX".getBytes("UTF-8")));
-
-    ArrayList<JsonNode> jsonNodeList = new ArrayList<>();
-    jsonNodeList.add(arrayNode2);
-    Iterator<JsonNode> iteratorResult = jsonNodeList.iterator();
-
-    ArrayNode arrayNode3 = mock(ArrayNode.class);
-    when(arrayNode3.get(Mockito.<String>any())).thenReturn(DoubleNode.valueOf(10.0d));
-    when(arrayNode3.iterator()).thenReturn(iteratorResult);
-    when(arrayNode3.size()).thenReturn(3);
-
-    ArrayNode arrayNode4 = mock(ArrayNode.class);
-    when(arrayNode4.get(Mockito.<String>any())).thenReturn(arrayNode3);
-
-    ArrayList<JsonNode> jsonNodeList2 = new ArrayList<>();
-    jsonNodeList2.add(arrayNode4);
-
-    ArrayNode arrayNode5 = mock(ArrayNode.class);
-    when(arrayNode5.iterator()).thenReturn(jsonNodeList2.iterator());
-
-    ArrayNode modelNode = mock(ArrayNode.class);
-    when(modelNode.get(Mockito.<String>any())).thenReturn(arrayNode5);
-
-    // Act
-    BaseElement actualConvertJsonToElementResult =
-        messageFlowJsonConverter.convertJsonToElement(elementNode, modelNode, new HashMap<>());
-
-    // Assert
-    verify(arrayNode).isNull();
-    verify(arrayNode5).iterator();
-    verify(arrayNode3).iterator();
-    verify(elementNode, atLeast(1)).get(Mockito.<String>any());
-    verify(arrayNode4, atLeast(1)).get(Mockito.<String>any());
-    verify(modelNode).get("childShapes");
-    verify(arrayNode3, atLeast(1)).get("overrideid");
-    verify(arrayNode).get("resourceId");
-    verify(arrayNode2).get("resourceId");
-    verify(arrayNode3).size();
-    verify(arrayNode).asText();
-    assertTrue(actualConvertJsonToElementResult instanceof MessageFlow);
-    assertEquals("10.0", ((MessageFlow) actualConvertJsonToElementResult).getSourceRef());
-    assertNull(actualConvertJsonToElementResult.getId());
-    assertNull(((MessageFlow) actualConvertJsonToElementResult).getMessageRef());
-    assertNull(((MessageFlow) actualConvertJsonToElementResult).getName());
-    assertNull(((MessageFlow) actualConvertJsonToElementResult).getTargetRef());
-    assertEquals(0, actualConvertJsonToElementResult.getXmlColumnNumber());
-    assertEquals(0, actualConvertJsonToElementResult.getXmlRowNumber());
-    assertTrue(actualConvertJsonToElementResult.getAttributes().isEmpty());
-    assertTrue(actualConvertJsonToElementResult.getExtensionElements().isEmpty());
-  }
-
-  /**
-   * Test {@link MessageFlowJsonConverter#convertJsonToElement(JsonNode, JsonNode, Map)}.
-   *
-   * <ul>
-   *   <li>Given {@link ArrayNode} {@link ArrayNode#get(String)} return Instance.
-   *   <li>Then calls {@link ArrayNode#asText()}.
-   * </ul>
-   *
-   * <p>Method under test: {@link MessageFlowJsonConverter#convertJsonToElement(JsonNode, JsonNode,
-   * Map)}
-   */
-  @Test
-  @DisplayName(
-      "Test convertJsonToElement(JsonNode, JsonNode, Map); given ArrayNode get(String) return Instance; then calls asText()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "BaseElement MessageFlowJsonConverter.convertJsonToElement(JsonNode, JsonNode, Map)"
-  })
-  void testConvertJsonToElement_givenArrayNodeGetReturnInstance_thenCallsAsText() {
-    // Arrange
-    MessageFlowJsonConverter messageFlowJsonConverter = new MessageFlowJsonConverter();
-
-    ArrayNode arrayNode = mock(ArrayNode.class);
-    when(arrayNode.asText()).thenReturn("As Text");
-
-    ArrayNode elementNode = mock(ArrayNode.class);
-    when(elementNode.get(Mockito.<String>any())).thenReturn(arrayNode);
-
     ArrayNode arrayNode2 = mock(ArrayNode.class);
     when(arrayNode2.get(Mockito.<String>any())).thenReturn(MissingNode.getInstance());
 
     ArrayList<JsonNode> jsonNodeList = new ArrayList<>();
     jsonNodeList.add(arrayNode2);
-
-    ArrayNode arrayNode3 = mock(ArrayNode.class);
-    when(arrayNode3.iterator()).thenReturn(jsonNodeList.iterator());
-    when(arrayNode3.size()).thenReturn(3);
-
-    ArrayNode arrayNode4 = mock(ArrayNode.class);
-    when(arrayNode4.get(Mockito.<String>any())).thenReturn(arrayNode3);
-
-    ArrayList<JsonNode> jsonNodeList2 = new ArrayList<>();
-    jsonNodeList2.add(arrayNode4);
-
-    ArrayNode arrayNode5 = mock(ArrayNode.class);
-    when(arrayNode5.iterator()).thenReturn(jsonNodeList2.iterator());
-
-    ArrayNode modelNode = mock(ArrayNode.class);
-    when(modelNode.get(Mockito.<String>any())).thenReturn(arrayNode5);
-
-    // Act
-    BaseElement actualConvertJsonToElementResult =
-        messageFlowJsonConverter.convertJsonToElement(elementNode, modelNode, new HashMap<>());
-
-    // Assert
-    verify(arrayNode5).iterator();
-    verify(arrayNode3, atLeast(1)).iterator();
-    verify(arrayNode4, atLeast(1)).get(Mockito.<String>any());
-    verify(modelNode).get("childShapes");
-    verify(elementNode).get("resourceId");
-    verify(arrayNode2).get("resourceId");
-    verify(arrayNode3).size();
-    verify(arrayNode).asText();
-    assertTrue(actualConvertJsonToElementResult instanceof MessageFlow);
-    assertNull(actualConvertJsonToElementResult.getId());
-    assertNull(((MessageFlow) actualConvertJsonToElementResult).getMessageRef());
-    assertNull(((MessageFlow) actualConvertJsonToElementResult).getName());
-    assertNull(((MessageFlow) actualConvertJsonToElementResult).getSourceRef());
-    assertNull(((MessageFlow) actualConvertJsonToElementResult).getTargetRef());
-    assertEquals(0, actualConvertJsonToElementResult.getXmlColumnNumber());
-    assertEquals(0, actualConvertJsonToElementResult.getXmlRowNumber());
-    assertTrue(actualConvertJsonToElementResult.getAttributes().isEmpty());
-    assertTrue(actualConvertJsonToElementResult.getExtensionElements().isEmpty());
-  }
-
-  /**
-   * Test {@link MessageFlowJsonConverter#convertJsonToElement(JsonNode, JsonNode, Map)}.
-   *
-   * <ul>
-   *   <li>Given {@link ArrayNode} {@link ArrayNode#get(String)} return {@code null}.
-   *   <li>Then return SourceRef is {@code As Text}.
-   * </ul>
-   *
-   * <p>Method under test: {@link MessageFlowJsonConverter#convertJsonToElement(JsonNode, JsonNode,
-   * Map)}
-   */
-  @Test
-  @DisplayName(
-      "Test convertJsonToElement(JsonNode, JsonNode, Map); given ArrayNode get(String) return 'null'; then return SourceRef is 'As Text'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "BaseElement MessageFlowJsonConverter.convertJsonToElement(JsonNode, JsonNode, Map)"
-  })
-  void testConvertJsonToElement_givenArrayNodeGetReturnNull_thenReturnSourceRefIsAsText()
-      throws UnsupportedEncodingException {
-    // Arrange
-    MessageFlowJsonConverter messageFlowJsonConverter = new MessageFlowJsonConverter();
-
-    ArrayNode arrayNode = mock(ArrayNode.class);
-    when(arrayNode.isNull()).thenReturn(false);
-    when(arrayNode.get(Mockito.<String>any())).thenReturn(DoubleNode.valueOf(10.0d));
-    when(arrayNode.asText()).thenReturn("QVhBWEFYQVg=");
-
-    ArrayNode elementNode = mock(ArrayNode.class);
-    when(elementNode.get(Mockito.<String>any())).thenReturn(arrayNode);
-
-    ArrayNode arrayNode2 = mock(ArrayNode.class);
-    when(arrayNode2.get(Mockito.<String>any()))
-        .thenReturn(new BinaryNode("AXAXAXAX".getBytes("UTF-8")));
-
-    ArrayList<JsonNode> jsonNodeList = new ArrayList<>();
-    jsonNodeList.add(arrayNode2);
     Iterator<JsonNode> iteratorResult = jsonNodeList.iterator();
-
     ArrayNode arrayNode3 = mock(ArrayNode.class);
-    when(arrayNode3.get(Mockito.<String>any())).thenReturn(null);
+    when(arrayNode3.get(Mockito.<String>any())).thenReturn(new ArrayNode(JsonNodeFactory.withExactBigDecimals(true)));
     when(arrayNode3.asText()).thenReturn("As Text");
     when(arrayNode3.iterator()).thenReturn(iteratorResult);
     when(arrayNode3.size()).thenReturn(3);
-
     ArrayNode arrayNode4 = mock(ArrayNode.class);
     when(arrayNode4.get(Mockito.<String>any())).thenReturn(arrayNode3);
 
     ArrayList<JsonNode> jsonNodeList2 = new ArrayList<>();
     jsonNodeList2.add(arrayNode4);
-
     ArrayNode arrayNode5 = mock(ArrayNode.class);
     when(arrayNode5.iterator()).thenReturn(jsonNodeList2.iterator());
-
     ArrayNode modelNode = mock(ArrayNode.class);
     when(modelNode.get(Mockito.<String>any())).thenReturn(arrayNode5);
 
     // Act
-    BaseElement actualConvertJsonToElementResult =
-        messageFlowJsonConverter.convertJsonToElement(elementNode, modelNode, new HashMap<>());
+    BaseElement actualConvertJsonToElementResult = messageFlowJsonConverter.convertJsonToElement(elementNode, modelNode,
+        new HashMap<>());
 
     // Assert
     verify(arrayNode).isNull();
@@ -648,10 +271,9 @@ class MessageFlowJsonConverterDiffblueTest {
     verify(arrayNode3).iterator();
     verify(elementNode, atLeast(1)).get(Mockito.<String>any());
     verify(arrayNode4, atLeast(1)).get(Mockito.<String>any());
-    verify(modelNode).get("childShapes");
-    verify(arrayNode3).get("overrideid");
-    verify(arrayNode).get("resourceId");
-    verify(arrayNode2).get("resourceId");
+    verify(modelNode).get(eq("childShapes"));
+    verify(arrayNode3).get(eq("overrideid"));
+    verify(arrayNode2).get(eq("resourceId"));
     verify(arrayNode3).size();
     verify(arrayNode).asText();
     verify(arrayNode3).asText();
@@ -669,803 +291,49 @@ class MessageFlowJsonConverterDiffblueTest {
 
   /**
    * Test {@link MessageFlowJsonConverter#convertJsonToElement(JsonNode, JsonNode, Map)}.
-   *
-   * <ul>
-   *   <li>Given {@link ArrayNode} {@link ArrayNode#isNull()} return {@code true}.
-   *   <li>Then return SourceRef is {@code 10.0}.
-   * </ul>
-   *
-   * <p>Method under test: {@link MessageFlowJsonConverter#convertJsonToElement(JsonNode, JsonNode,
-   * Map)}
+   * <p>
+   * Method under test: {@link MessageFlowJsonConverter#convertJsonToElement(JsonNode, JsonNode, Map)}
    */
   @Test
-  @DisplayName(
-      "Test convertJsonToElement(JsonNode, JsonNode, Map); given ArrayNode isNull() return 'true'; then return SourceRef is '10.0'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "BaseElement MessageFlowJsonConverter.convertJsonToElement(JsonNode, JsonNode, Map)"
-  })
-  void testConvertJsonToElement_givenArrayNodeIsNullReturnTrue_thenReturnSourceRefIs100()
-      throws UnsupportedEncodingException {
+  @DisplayName("Test convertJsonToElement(JsonNode, JsonNode, Map)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"BaseElement MessageFlowJsonConverter.convertJsonToElement(JsonNode, JsonNode, Map)"})
+  void testConvertJsonToElement5() {
     // Arrange
     MessageFlowJsonConverter messageFlowJsonConverter = new MessageFlowJsonConverter();
-
     ArrayNode arrayNode = mock(ArrayNode.class);
+    when(arrayNode.get(Mockito.<String>any())).thenReturn(MissingNode.getInstance());
     when(arrayNode.isNull()).thenReturn(true);
-    when(arrayNode.asText()).thenReturn("QVhBWEFYQVg=");
-
+    when(arrayNode.asText()).thenReturn("");
     ArrayNode elementNode = mock(ArrayNode.class);
     when(elementNode.get(Mockito.<String>any())).thenReturn(arrayNode);
-
     ArrayNode arrayNode2 = mock(ArrayNode.class);
-    when(arrayNode2.get(Mockito.<String>any()))
-        .thenReturn(new BinaryNode("AXAXAXAX".getBytes("UTF-8")));
+    when(arrayNode2.get(Mockito.<String>any())).thenReturn(new ArrayNode(JsonNodeFactory.withExactBigDecimals(true)));
 
     ArrayList<JsonNode> jsonNodeList = new ArrayList<>();
     jsonNodeList.add(arrayNode2);
     Iterator<JsonNode> iteratorResult = jsonNodeList.iterator();
-
-    ArrayNode arrayNode3 = mock(ArrayNode.class);
-    when(arrayNode3.get(Mockito.<String>any())).thenReturn(DoubleNode.valueOf(10.0d));
-    when(arrayNode3.iterator()).thenReturn(iteratorResult);
-    when(arrayNode3.size()).thenReturn(3);
-
-    ArrayNode arrayNode4 = mock(ArrayNode.class);
-    when(arrayNode4.get(Mockito.<String>any())).thenReturn(arrayNode3);
-
-    ArrayList<JsonNode> jsonNodeList2 = new ArrayList<>();
-    jsonNodeList2.add(arrayNode4);
-
-    ArrayNode arrayNode5 = mock(ArrayNode.class);
-    when(arrayNode5.iterator()).thenReturn(jsonNodeList2.iterator());
-
-    ArrayNode modelNode = mock(ArrayNode.class);
-    when(modelNode.get(Mockito.<String>any())).thenReturn(arrayNode5);
-
-    // Act
-    BaseElement actualConvertJsonToElementResult =
-        messageFlowJsonConverter.convertJsonToElement(elementNode, modelNode, new HashMap<>());
-
-    // Assert
-    verify(arrayNode).isNull();
-    verify(arrayNode5).iterator();
-    verify(arrayNode3).iterator();
-    verify(elementNode, atLeast(1)).get(Mockito.<String>any());
-    verify(arrayNode4, atLeast(1)).get(Mockito.<String>any());
-    verify(modelNode).get("childShapes");
-    verify(arrayNode3, atLeast(1)).get("overrideid");
-    verify(arrayNode2).get("resourceId");
-    verify(arrayNode3).size();
-    verify(arrayNode).asText();
-    assertTrue(actualConvertJsonToElementResult instanceof MessageFlow);
-    assertEquals("10.0", ((MessageFlow) actualConvertJsonToElementResult).getSourceRef());
-    assertNull(actualConvertJsonToElementResult.getId());
-    assertNull(((MessageFlow) actualConvertJsonToElementResult).getMessageRef());
-    assertNull(((MessageFlow) actualConvertJsonToElementResult).getName());
-    assertNull(((MessageFlow) actualConvertJsonToElementResult).getTargetRef());
-    assertEquals(0, actualConvertJsonToElementResult.getXmlColumnNumber());
-    assertEquals(0, actualConvertJsonToElementResult.getXmlRowNumber());
-    assertTrue(actualConvertJsonToElementResult.getAttributes().isEmpty());
-    assertTrue(actualConvertJsonToElementResult.getExtensionElements().isEmpty());
-  }
-
-  /**
-   * Test {@link MessageFlowJsonConverter#convertJsonToElement(JsonNode, JsonNode, Map)}.
-   *
-   * <ul>
-   *   <li>Given {@link ArrayNode#ArrayNode(JsonNodeFactory)} with nf is withExactBigDecimals {@code
-   *       true}.
-   * </ul>
-   *
-   * <p>Method under test: {@link MessageFlowJsonConverter#convertJsonToElement(JsonNode, JsonNode,
-   * Map)}
-   */
-  @Test
-  @DisplayName(
-      "Test convertJsonToElement(JsonNode, JsonNode, Map); given ArrayNode(JsonNodeFactory) with nf is withExactBigDecimals 'true'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "BaseElement MessageFlowJsonConverter.convertJsonToElement(JsonNode, JsonNode, Map)"
-  })
-  void testConvertJsonToElement_givenArrayNodeWithNfIsWithExactBigDecimalsTrue() {
-    // Arrange
-    MessageFlowJsonConverter messageFlowJsonConverter = new MessageFlowJsonConverter();
-
-    ArrayNode elementNode = mock(ArrayNode.class);
-    when(elementNode.get(Mockito.<String>any())).thenReturn(DoubleNode.valueOf(10.0d));
-
-    ArrayNode modelNode = mock(ArrayNode.class);
-    JsonNodeFactory nf = JsonNodeFactory.withExactBigDecimals(true);
-    when(modelNode.get(Mockito.<String>any())).thenReturn(new ArrayNode(nf));
-
-    // Act
-    BaseElement actualConvertJsonToElementResult =
-        messageFlowJsonConverter.convertJsonToElement(elementNode, modelNode, new HashMap<>());
-
-    // Assert
-    verify(modelNode).get("childShapes");
-    verify(elementNode).get("resourceId");
-    assertTrue(actualConvertJsonToElementResult instanceof MessageFlow);
-    assertNull(actualConvertJsonToElementResult.getId());
-    assertNull(((MessageFlow) actualConvertJsonToElementResult).getMessageRef());
-    assertNull(((MessageFlow) actualConvertJsonToElementResult).getName());
-    assertNull(((MessageFlow) actualConvertJsonToElementResult).getSourceRef());
-    assertNull(((MessageFlow) actualConvertJsonToElementResult).getTargetRef());
-    assertEquals(0, actualConvertJsonToElementResult.getXmlColumnNumber());
-    assertEquals(0, actualConvertJsonToElementResult.getXmlRowNumber());
-    assertTrue(actualConvertJsonToElementResult.getAttributes().isEmpty());
-    assertTrue(actualConvertJsonToElementResult.getExtensionElements().isEmpty());
-  }
-
-  /**
-   * Test {@link MessageFlowJsonConverter#convertJsonToElement(JsonNode, JsonNode, Map)}.
-   *
-   * <ul>
-   *   <li>Given {@link ArrayNode#ArrayNode(JsonNodeFactory)} with nf is withExactBigDecimals {@code
-   *       true}.
-   * </ul>
-   *
-   * <p>Method under test: {@link MessageFlowJsonConverter#convertJsonToElement(JsonNode, JsonNode,
-   * Map)}
-   */
-  @Test
-  @DisplayName(
-      "Test convertJsonToElement(JsonNode, JsonNode, Map); given ArrayNode(JsonNodeFactory) with nf is withExactBigDecimals 'true'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "BaseElement MessageFlowJsonConverter.convertJsonToElement(JsonNode, JsonNode, Map)"
-  })
-  void testConvertJsonToElement_givenArrayNodeWithNfIsWithExactBigDecimalsTrue2() {
-    // Arrange
-    MessageFlowJsonConverter messageFlowJsonConverter = new MessageFlowJsonConverter();
-
-    ArrayNode elementNode = mock(ArrayNode.class);
-    JsonNodeFactory nf = JsonNodeFactory.withExactBigDecimals(true);
-    when(elementNode.get(Mockito.<String>any())).thenReturn(new ArrayNode(nf));
-
-    ArrayNode arrayNode = mock(ArrayNode.class);
-    when(arrayNode.get(Mockito.<String>any())).thenReturn(DoubleNode.valueOf(10.0d));
-
-    ArrayList<JsonNode> jsonNodeList = new ArrayList<>();
-    jsonNodeList.add(arrayNode);
-
-    ArrayNode arrayNode2 = mock(ArrayNode.class);
-    when(arrayNode2.iterator()).thenReturn(jsonNodeList.iterator());
-    when(arrayNode2.size()).thenReturn(3);
-
-    ArrayNode arrayNode3 = mock(ArrayNode.class);
-    when(arrayNode3.get(Mockito.<String>any())).thenReturn(arrayNode2);
-
-    ArrayList<JsonNode> jsonNodeList2 = new ArrayList<>();
-    jsonNodeList2.add(arrayNode3);
-
-    ArrayNode arrayNode4 = mock(ArrayNode.class);
-    when(arrayNode4.iterator()).thenReturn(jsonNodeList2.iterator());
-
-    ArrayNode modelNode = mock(ArrayNode.class);
-    when(modelNode.get(Mockito.<String>any())).thenReturn(arrayNode4);
-
-    // Act
-    BaseElement actualConvertJsonToElementResult =
-        messageFlowJsonConverter.convertJsonToElement(elementNode, modelNode, new HashMap<>());
-
-    // Assert
-    verify(arrayNode4).iterator();
-    verify(arrayNode2, atLeast(1)).iterator();
-    verify(arrayNode3, atLeast(1)).get(Mockito.<String>any());
-    verify(modelNode).get("childShapes");
-    verify(elementNode).get("resourceId");
-    verify(arrayNode).get("resourceId");
-    verify(arrayNode2).size();
-    assertTrue(actualConvertJsonToElementResult instanceof MessageFlow);
-    assertNull(actualConvertJsonToElementResult.getId());
-    assertNull(((MessageFlow) actualConvertJsonToElementResult).getMessageRef());
-    assertNull(((MessageFlow) actualConvertJsonToElementResult).getName());
-    assertNull(((MessageFlow) actualConvertJsonToElementResult).getSourceRef());
-    assertNull(((MessageFlow) actualConvertJsonToElementResult).getTargetRef());
-    assertEquals(0, actualConvertJsonToElementResult.getXmlColumnNumber());
-    assertEquals(0, actualConvertJsonToElementResult.getXmlRowNumber());
-    assertTrue(actualConvertJsonToElementResult.getAttributes().isEmpty());
-    assertTrue(actualConvertJsonToElementResult.getExtensionElements().isEmpty());
-  }
-
-  /**
-   * Test {@link MessageFlowJsonConverter#convertJsonToElement(JsonNode, JsonNode, Map)}.
-   *
-   * <ul>
-   *   <li>Given {@link BinaryNode#BinaryNode(byte[])} with data is {@code AXAXAXAX} Bytes is {@code
-   *       UTF-8}.
-   * </ul>
-   *
-   * <p>Method under test: {@link MessageFlowJsonConverter#convertJsonToElement(JsonNode, JsonNode,
-   * Map)}
-   */
-  @Test
-  @DisplayName(
-      "Test convertJsonToElement(JsonNode, JsonNode, Map); given BinaryNode(byte[]) with data is 'AXAXAXAX' Bytes is 'UTF-8'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "BaseElement MessageFlowJsonConverter.convertJsonToElement(JsonNode, JsonNode, Map)"
-  })
-  void testConvertJsonToElement_givenBinaryNodeWithDataIsAxaxaxaxBytesIsUtf8()
-      throws UnsupportedEncodingException {
-    // Arrange
-    MessageFlowJsonConverter messageFlowJsonConverter = new MessageFlowJsonConverter();
-
-    ArrayNode elementNode = mock(ArrayNode.class);
-    when(elementNode.get(Mockito.<String>any()))
-        .thenReturn(new BinaryNode("AXAXAXAX".getBytes("UTF-8")));
-    DoubleNode modelNode = DoubleNode.valueOf(10.0d);
-
-    // Act
-    BaseElement actualConvertJsonToElementResult =
-        messageFlowJsonConverter.convertJsonToElement(elementNode, modelNode, new HashMap<>());
-
-    // Assert
-    verify(elementNode).get("resourceId");
-    assertTrue(actualConvertJsonToElementResult instanceof MessageFlow);
-    assertNull(actualConvertJsonToElementResult.getId());
-    assertNull(((MessageFlow) actualConvertJsonToElementResult).getMessageRef());
-    assertNull(((MessageFlow) actualConvertJsonToElementResult).getName());
-    assertNull(((MessageFlow) actualConvertJsonToElementResult).getSourceRef());
-    assertNull(((MessageFlow) actualConvertJsonToElementResult).getTargetRef());
-    assertEquals(0, actualConvertJsonToElementResult.getXmlColumnNumber());
-    assertEquals(0, actualConvertJsonToElementResult.getXmlRowNumber());
-    assertTrue(actualConvertJsonToElementResult.getAttributes().isEmpty());
-    assertTrue(actualConvertJsonToElementResult.getExtensionElements().isEmpty());
-  }
-
-  /**
-   * Test {@link MessageFlowJsonConverter#convertJsonToElement(JsonNode, JsonNode, Map)}.
-   *
-   * <ul>
-   *   <li>Given Instance.
-   *   <li>When {@link ArrayNode} {@link ArrayNode#get(String)} return Instance.
-   * </ul>
-   *
-   * <p>Method under test: {@link MessageFlowJsonConverter#convertJsonToElement(JsonNode, JsonNode,
-   * Map)}
-   */
-  @Test
-  @DisplayName(
-      "Test convertJsonToElement(JsonNode, JsonNode, Map); given Instance; when ArrayNode get(String) return Instance")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "BaseElement MessageFlowJsonConverter.convertJsonToElement(JsonNode, JsonNode, Map)"
-  })
-  void testConvertJsonToElement_givenInstance_whenArrayNodeGetReturnInstance() {
-    // Arrange
-    MessageFlowJsonConverter messageFlowJsonConverter = new MessageFlowJsonConverter();
-
-    ArrayNode elementNode = mock(ArrayNode.class);
-    when(elementNode.get(Mockito.<String>any())).thenReturn(MissingNode.getInstance());
-    DoubleNode modelNode = DoubleNode.valueOf(10.0d);
-
-    // Act
-    BaseElement actualConvertJsonToElementResult =
-        messageFlowJsonConverter.convertJsonToElement(elementNode, modelNode, new HashMap<>());
-
-    // Assert
-    verify(elementNode).get("resourceId");
-    assertTrue(actualConvertJsonToElementResult instanceof MessageFlow);
-    assertNull(actualConvertJsonToElementResult.getId());
-    assertNull(((MessageFlow) actualConvertJsonToElementResult).getMessageRef());
-    assertNull(((MessageFlow) actualConvertJsonToElementResult).getName());
-    assertNull(((MessageFlow) actualConvertJsonToElementResult).getSourceRef());
-    assertNull(((MessageFlow) actualConvertJsonToElementResult).getTargetRef());
-    assertEquals(0, actualConvertJsonToElementResult.getXmlColumnNumber());
-    assertEquals(0, actualConvertJsonToElementResult.getXmlRowNumber());
-    assertTrue(actualConvertJsonToElementResult.getAttributes().isEmpty());
-    assertTrue(actualConvertJsonToElementResult.getExtensionElements().isEmpty());
-  }
-
-  /**
-   * Test {@link MessageFlowJsonConverter#convertJsonToElement(JsonNode, JsonNode, Map)}.
-   *
-   * <ul>
-   *   <li>Given valueOf ten.
-   *   <li>Then calls {@link ArrayNode#size()}.
-   * </ul>
-   *
-   * <p>Method under test: {@link MessageFlowJsonConverter#convertJsonToElement(JsonNode, JsonNode,
-   * Map)}
-   */
-  @Test
-  @DisplayName(
-      "Test convertJsonToElement(JsonNode, JsonNode, Map); given valueOf ten; then calls size()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "BaseElement MessageFlowJsonConverter.convertJsonToElement(JsonNode, JsonNode, Map)"
-  })
-  void testConvertJsonToElement_givenValueOfTen_thenCallsSize() {
-    // Arrange
-    MessageFlowJsonConverter messageFlowJsonConverter = new MessageFlowJsonConverter();
-
-    ArrayNode elementNode = mock(ArrayNode.class);
-    when(elementNode.get(Mockito.<String>any())).thenReturn(DoubleNode.valueOf(10.0d));
-
-    ArrayNode arrayNode = mock(ArrayNode.class);
-
-    ArrayList<JsonNode> jsonNodeList = new ArrayList<>();
-    when(arrayNode.iterator()).thenReturn(jsonNodeList.iterator());
-    when(arrayNode.size()).thenReturn(3);
-
-    ArrayNode arrayNode2 = mock(ArrayNode.class);
-    when(arrayNode2.get(Mockito.<String>any())).thenReturn(arrayNode);
-
-    ArrayList<JsonNode> jsonNodeList2 = new ArrayList<>();
-    jsonNodeList2.add(arrayNode2);
-
-    ArrayNode arrayNode3 = mock(ArrayNode.class);
-    when(arrayNode3.iterator()).thenReturn(jsonNodeList2.iterator());
-
-    ArrayNode modelNode = mock(ArrayNode.class);
-    when(modelNode.get(Mockito.<String>any())).thenReturn(arrayNode3);
-
-    // Act
-    BaseElement actualConvertJsonToElementResult =
-        messageFlowJsonConverter.convertJsonToElement(elementNode, modelNode, new HashMap<>());
-
-    // Assert
-    verify(arrayNode3).iterator();
-    verify(arrayNode, atLeast(1)).iterator();
-    verify(arrayNode2, atLeast(1)).get(Mockito.<String>any());
-    verify(modelNode).get("childShapes");
-    verify(elementNode).get("resourceId");
-    verify(arrayNode).size();
-    assertTrue(actualConvertJsonToElementResult instanceof MessageFlow);
-    assertNull(actualConvertJsonToElementResult.getId());
-    assertNull(((MessageFlow) actualConvertJsonToElementResult).getMessageRef());
-    assertNull(((MessageFlow) actualConvertJsonToElementResult).getName());
-    assertNull(((MessageFlow) actualConvertJsonToElementResult).getSourceRef());
-    assertNull(((MessageFlow) actualConvertJsonToElementResult).getTargetRef());
-    assertEquals(0, actualConvertJsonToElementResult.getXmlColumnNumber());
-    assertEquals(0, actualConvertJsonToElementResult.getXmlRowNumber());
-    assertTrue(actualConvertJsonToElementResult.getAttributes().isEmpty());
-    assertTrue(actualConvertJsonToElementResult.getExtensionElements().isEmpty());
-  }
-
-  /**
-   * Test {@link MessageFlowJsonConverter#convertJsonToElement(JsonNode, JsonNode, Map)}.
-   *
-   * <ul>
-   *   <li>Given valueOf ten.
-   *   <li>When {@link ArrayNode} {@link ArrayNode#get(String)} return valueOf ten.
-   * </ul>
-   *
-   * <p>Method under test: {@link MessageFlowJsonConverter#convertJsonToElement(JsonNode, JsonNode,
-   * Map)}
-   */
-  @Test
-  @DisplayName(
-      "Test convertJsonToElement(JsonNode, JsonNode, Map); given valueOf ten; when ArrayNode get(String) return valueOf ten")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "BaseElement MessageFlowJsonConverter.convertJsonToElement(JsonNode, JsonNode, Map)"
-  })
-  void testConvertJsonToElement_givenValueOfTen_whenArrayNodeGetReturnValueOfTen() {
-    // Arrange
-    MessageFlowJsonConverter messageFlowJsonConverter = new MessageFlowJsonConverter();
-
-    ArrayNode elementNode = mock(ArrayNode.class);
-    when(elementNode.get(Mockito.<String>any())).thenReturn(DoubleNode.valueOf(10.0d));
-
-    ArrayNode modelNode = mock(ArrayNode.class);
-    when(modelNode.get(Mockito.<String>any())).thenReturn(DoubleNode.valueOf(10.0d));
-
-    // Act
-    BaseElement actualConvertJsonToElementResult =
-        messageFlowJsonConverter.convertJsonToElement(elementNode, modelNode, new HashMap<>());
-
-    // Assert
-    verify(modelNode).get("childShapes");
-    verify(elementNode).get("resourceId");
-    assertTrue(actualConvertJsonToElementResult instanceof MessageFlow);
-    assertNull(actualConvertJsonToElementResult.getId());
-    assertNull(((MessageFlow) actualConvertJsonToElementResult).getMessageRef());
-    assertNull(((MessageFlow) actualConvertJsonToElementResult).getName());
-    assertNull(((MessageFlow) actualConvertJsonToElementResult).getSourceRef());
-    assertNull(((MessageFlow) actualConvertJsonToElementResult).getTargetRef());
-    assertEquals(0, actualConvertJsonToElementResult.getXmlColumnNumber());
-    assertEquals(0, actualConvertJsonToElementResult.getXmlRowNumber());
-    assertTrue(actualConvertJsonToElementResult.getAttributes().isEmpty());
-    assertTrue(actualConvertJsonToElementResult.getExtensionElements().isEmpty());
-  }
-
-  /**
-   * Test {@link MessageFlowJsonConverter#convertJsonToElement(JsonNode, JsonNode, Map)}.
-   *
-   * <ul>
-   *   <li>Given valueOf ten.
-   *   <li>When {@link ArrayNode} {@link ArrayNode#get(String)} return valueOf ten.
-   * </ul>
-   *
-   * <p>Method under test: {@link MessageFlowJsonConverter#convertJsonToElement(JsonNode, JsonNode,
-   * Map)}
-   */
-  @Test
-  @DisplayName(
-      "Test convertJsonToElement(JsonNode, JsonNode, Map); given valueOf ten; when ArrayNode get(String) return valueOf ten")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "BaseElement MessageFlowJsonConverter.convertJsonToElement(JsonNode, JsonNode, Map)"
-  })
-  void testConvertJsonToElement_givenValueOfTen_whenArrayNodeGetReturnValueOfTen2() {
-    // Arrange
-    MessageFlowJsonConverter messageFlowJsonConverter = new MessageFlowJsonConverter();
-
-    ArrayNode elementNode = mock(ArrayNode.class);
-    when(elementNode.get(Mockito.<String>any())).thenReturn(DoubleNode.valueOf(10.0d));
-
-    ArrayNode arrayNode = mock(ArrayNode.class);
-
-    ArrayList<JsonNode> jsonNodeList = new ArrayList<>();
-    when(arrayNode.iterator()).thenReturn(jsonNodeList.iterator());
-
-    ArrayNode modelNode = mock(ArrayNode.class);
-    when(modelNode.get(Mockito.<String>any())).thenReturn(arrayNode);
-
-    // Act
-    BaseElement actualConvertJsonToElementResult =
-        messageFlowJsonConverter.convertJsonToElement(elementNode, modelNode, new HashMap<>());
-
-    // Assert
-    verify(arrayNode).iterator();
-    verify(modelNode).get("childShapes");
-    verify(elementNode).get("resourceId");
-    assertTrue(actualConvertJsonToElementResult instanceof MessageFlow);
-    assertNull(actualConvertJsonToElementResult.getId());
-    assertNull(((MessageFlow) actualConvertJsonToElementResult).getMessageRef());
-    assertNull(((MessageFlow) actualConvertJsonToElementResult).getName());
-    assertNull(((MessageFlow) actualConvertJsonToElementResult).getSourceRef());
-    assertNull(((MessageFlow) actualConvertJsonToElementResult).getTargetRef());
-    assertEquals(0, actualConvertJsonToElementResult.getXmlColumnNumber());
-    assertEquals(0, actualConvertJsonToElementResult.getXmlRowNumber());
-    assertTrue(actualConvertJsonToElementResult.getAttributes().isEmpty());
-    assertTrue(actualConvertJsonToElementResult.getExtensionElements().isEmpty());
-  }
-
-  /**
-   * Test {@link MessageFlowJsonConverter#convertJsonToElement(JsonNode, JsonNode, Map)}.
-   *
-   * <ul>
-   *   <li>Given valueOf ten.
-   *   <li>When {@link ArrayNode} {@link ArrayNode#get(String)} return valueOf ten.
-   * </ul>
-   *
-   * <p>Method under test: {@link MessageFlowJsonConverter#convertJsonToElement(JsonNode, JsonNode,
-   * Map)}
-   */
-  @Test
-  @DisplayName(
-      "Test convertJsonToElement(JsonNode, JsonNode, Map); given valueOf ten; when ArrayNode get(String) return valueOf ten")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "BaseElement MessageFlowJsonConverter.convertJsonToElement(JsonNode, JsonNode, Map)"
-  })
-  void testConvertJsonToElement_givenValueOfTen_whenArrayNodeGetReturnValueOfTen3() {
-    // Arrange
-    MessageFlowJsonConverter messageFlowJsonConverter = new MessageFlowJsonConverter();
-
-    ArrayNode elementNode = mock(ArrayNode.class);
-    when(elementNode.get(Mockito.<String>any())).thenReturn(DoubleNode.valueOf(10.0d));
-
-    ArrayNode arrayNode = mock(ArrayNode.class);
-    when(arrayNode.get(Mockito.<String>any())).thenReturn(DoubleNode.valueOf(10.0d));
-
-    ArrayList<JsonNode> jsonNodeList = new ArrayList<>();
-    jsonNodeList.add(arrayNode);
-
-    ArrayNode arrayNode2 = mock(ArrayNode.class);
-    when(arrayNode2.iterator()).thenReturn(jsonNodeList.iterator());
-
-    ArrayNode modelNode = mock(ArrayNode.class);
-    when(modelNode.get(Mockito.<String>any())).thenReturn(arrayNode2);
-
-    // Act
-    BaseElement actualConvertJsonToElementResult =
-        messageFlowJsonConverter.convertJsonToElement(elementNode, modelNode, new HashMap<>());
-
-    // Assert
-    verify(arrayNode2).iterator();
-    verify(arrayNode, atLeast(1)).get(Mockito.<String>any());
-    verify(modelNode).get("childShapes");
-    verify(elementNode).get("resourceId");
-    assertTrue(actualConvertJsonToElementResult instanceof MessageFlow);
-    assertNull(actualConvertJsonToElementResult.getId());
-    assertNull(((MessageFlow) actualConvertJsonToElementResult).getMessageRef());
-    assertNull(((MessageFlow) actualConvertJsonToElementResult).getName());
-    assertNull(((MessageFlow) actualConvertJsonToElementResult).getSourceRef());
-    assertNull(((MessageFlow) actualConvertJsonToElementResult).getTargetRef());
-    assertEquals(0, actualConvertJsonToElementResult.getXmlColumnNumber());
-    assertEquals(0, actualConvertJsonToElementResult.getXmlRowNumber());
-    assertTrue(actualConvertJsonToElementResult.getAttributes().isEmpty());
-    assertTrue(actualConvertJsonToElementResult.getExtensionElements().isEmpty());
-  }
-
-  /**
-   * Test {@link MessageFlowJsonConverter#convertJsonToElement(JsonNode, JsonNode, Map)}.
-   *
-   * <ul>
-   *   <li>Given valueOf ten.
-   *   <li>When valueOf ten.
-   * </ul>
-   *
-   * <p>Method under test: {@link MessageFlowJsonConverter#convertJsonToElement(JsonNode, JsonNode,
-   * Map)}
-   */
-  @Test
-  @DisplayName(
-      "Test convertJsonToElement(JsonNode, JsonNode, Map); given valueOf ten; when valueOf ten")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "BaseElement MessageFlowJsonConverter.convertJsonToElement(JsonNode, JsonNode, Map)"
-  })
-  void testConvertJsonToElement_givenValueOfTen_whenValueOfTen() {
-    // Arrange
-    MessageFlowJsonConverter messageFlowJsonConverter = new MessageFlowJsonConverter();
-
-    ArrayNode elementNode = mock(ArrayNode.class);
-    when(elementNode.get(Mockito.<String>any())).thenReturn(DoubleNode.valueOf(10.0d));
-    DoubleNode modelNode = DoubleNode.valueOf(10.0d);
-
-    // Act
-    BaseElement actualConvertJsonToElementResult =
-        messageFlowJsonConverter.convertJsonToElement(elementNode, modelNode, new HashMap<>());
-
-    // Assert
-    verify(elementNode).get("resourceId");
-    assertTrue(actualConvertJsonToElementResult instanceof MessageFlow);
-    assertNull(actualConvertJsonToElementResult.getId());
-    assertNull(((MessageFlow) actualConvertJsonToElementResult).getMessageRef());
-    assertNull(((MessageFlow) actualConvertJsonToElementResult).getName());
-    assertNull(((MessageFlow) actualConvertJsonToElementResult).getSourceRef());
-    assertNull(((MessageFlow) actualConvertJsonToElementResult).getTargetRef());
-    assertEquals(0, actualConvertJsonToElementResult.getXmlColumnNumber());
-    assertEquals(0, actualConvertJsonToElementResult.getXmlRowNumber());
-    assertTrue(actualConvertJsonToElementResult.getAttributes().isEmpty());
-    assertTrue(actualConvertJsonToElementResult.getExtensionElements().isEmpty());
-  }
-
-  /**
-   * Test {@link MessageFlowJsonConverter#convertJsonToElement(JsonNode, JsonNode, Map)}.
-   *
-   * <ul>
-   *   <li>Then return SourceRef is {@code 10.0}.
-   * </ul>
-   *
-   * <p>Method under test: {@link MessageFlowJsonConverter#convertJsonToElement(JsonNode, JsonNode,
-   * Map)}
-   */
-  @Test
-  @DisplayName(
-      "Test convertJsonToElement(JsonNode, JsonNode, Map); then return SourceRef is '10.0'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "BaseElement MessageFlowJsonConverter.convertJsonToElement(JsonNode, JsonNode, Map)"
-  })
-  void testConvertJsonToElement_thenReturnSourceRefIs100() throws UnsupportedEncodingException {
-    // Arrange
-    MessageFlowJsonConverter messageFlowJsonConverter = new MessageFlowJsonConverter();
-
-    ArrayNode arrayNode = mock(ArrayNode.class);
-    when(arrayNode.isNull()).thenReturn(false);
-    when(arrayNode.get(Mockito.<String>any())).thenReturn(DoubleNode.valueOf(10.0d));
-    when(arrayNode.asText()).thenReturn("QVhBWEFYQVg=");
-
-    ArrayNode elementNode = mock(ArrayNode.class);
-    when(elementNode.get(Mockito.<String>any())).thenReturn(arrayNode);
-
-    ArrayNode arrayNode2 = mock(ArrayNode.class);
-    when(arrayNode2.get(Mockito.<String>any()))
-        .thenReturn(new BinaryNode("AXAXAXAX".getBytes("UTF-8")));
-
-    ArrayList<JsonNode> jsonNodeList = new ArrayList<>();
-    jsonNodeList.add(arrayNode2);
-    Iterator<JsonNode> iteratorResult = jsonNodeList.iterator();
-
-    ArrayNode arrayNode3 = mock(ArrayNode.class);
-    when(arrayNode3.get(Mockito.<String>any())).thenReturn(DoubleNode.valueOf(10.0d));
-    when(arrayNode3.iterator()).thenReturn(iteratorResult);
-    when(arrayNode3.size()).thenReturn(3);
-
-    ArrayNode arrayNode4 = mock(ArrayNode.class);
-    when(arrayNode4.get(Mockito.<String>any())).thenReturn(arrayNode3);
-
-    ArrayList<JsonNode> jsonNodeList2 = new ArrayList<>();
-    jsonNodeList2.add(arrayNode4);
-
-    ArrayNode arrayNode5 = mock(ArrayNode.class);
-    when(arrayNode5.iterator()).thenReturn(jsonNodeList2.iterator());
-
-    ArrayNode modelNode = mock(ArrayNode.class);
-    when(modelNode.get(Mockito.<String>any())).thenReturn(arrayNode5);
-
-    // Act
-    BaseElement actualConvertJsonToElementResult =
-        messageFlowJsonConverter.convertJsonToElement(elementNode, modelNode, new HashMap<>());
-
-    // Assert
-    verify(arrayNode).isNull();
-    verify(arrayNode5).iterator();
-    verify(arrayNode3).iterator();
-    verify(elementNode, atLeast(1)).get(Mockito.<String>any());
-    verify(arrayNode4, atLeast(1)).get(Mockito.<String>any());
-    verify(modelNode).get("childShapes");
-    verify(arrayNode3, atLeast(1)).get("overrideid");
-    verify(arrayNode).get("resourceId");
-    verify(arrayNode2).get("resourceId");
-    verify(arrayNode3).size();
-    verify(arrayNode).asText();
-    assertTrue(actualConvertJsonToElementResult instanceof MessageFlow);
-    assertEquals("10.0", ((MessageFlow) actualConvertJsonToElementResult).getSourceRef());
-    assertNull(actualConvertJsonToElementResult.getId());
-    assertNull(((MessageFlow) actualConvertJsonToElementResult).getMessageRef());
-    assertNull(((MessageFlow) actualConvertJsonToElementResult).getName());
-    assertNull(((MessageFlow) actualConvertJsonToElementResult).getTargetRef());
-    assertEquals(0, actualConvertJsonToElementResult.getXmlColumnNumber());
-    assertEquals(0, actualConvertJsonToElementResult.getXmlRowNumber());
-    assertTrue(actualConvertJsonToElementResult.getAttributes().isEmpty());
-    assertTrue(actualConvertJsonToElementResult.getExtensionElements().isEmpty());
-  }
-
-  /**
-   * Test {@link MessageFlowJsonConverter#convertJsonToElement(JsonNode, JsonNode, Map)}.
-   *
-   * <ul>
-   *   <li>Then return SourceRef is {@code 10.0}.
-   * </ul>
-   *
-   * <p>Method under test: {@link MessageFlowJsonConverter#convertJsonToElement(JsonNode, JsonNode,
-   * Map)}
-   */
-  @Test
-  @DisplayName(
-      "Test convertJsonToElement(JsonNode, JsonNode, Map); then return SourceRef is '10.0'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "BaseElement MessageFlowJsonConverter.convertJsonToElement(JsonNode, JsonNode, Map)"
-  })
-  void testConvertJsonToElement_thenReturnSourceRefIs1002() throws UnsupportedEncodingException {
-    // Arrange
-    MessageFlowJsonConverter messageFlowJsonConverter = new MessageFlowJsonConverter();
-
-    ArrayNode arrayNode = mock(ArrayNode.class);
-    when(arrayNode.isNull()).thenReturn(false);
-    when(arrayNode.get(Mockito.<String>any()))
-        .thenReturn(new BinaryNode("AXAXAXAX".getBytes("UTF-8")));
-    when(arrayNode.asText()).thenReturn("QVhBWEFYQVg=");
-
-    ArrayNode elementNode = mock(ArrayNode.class);
-    when(elementNode.get(Mockito.<String>any())).thenReturn(arrayNode);
-
-    ArrayNode arrayNode2 = mock(ArrayNode.class);
-    when(arrayNode2.get(Mockito.<String>any()))
-        .thenReturn(new BinaryNode("AXAXAXAX".getBytes("UTF-8")));
-
-    ArrayList<JsonNode> jsonNodeList = new ArrayList<>();
-    jsonNodeList.add(arrayNode2);
-    Iterator<JsonNode> iteratorResult = jsonNodeList.iterator();
-
-    ArrayNode arrayNode3 = mock(ArrayNode.class);
-    when(arrayNode3.get(Mockito.<String>any())).thenReturn(DoubleNode.valueOf(10.0d));
-    when(arrayNode3.iterator()).thenReturn(iteratorResult);
-    when(arrayNode3.size()).thenReturn(3);
-
-    ArrayNode arrayNode4 = mock(ArrayNode.class);
-    when(arrayNode4.get(Mockito.<String>any())).thenReturn(arrayNode3);
-
-    ArrayList<JsonNode> jsonNodeList2 = new ArrayList<>();
-    jsonNodeList2.add(arrayNode4);
-
-    ArrayNode arrayNode5 = mock(ArrayNode.class);
-    when(arrayNode5.iterator()).thenReturn(jsonNodeList2.iterator());
-
-    ArrayNode modelNode = mock(ArrayNode.class);
-    when(modelNode.get(Mockito.<String>any())).thenReturn(arrayNode5);
-
-    // Act
-    BaseElement actualConvertJsonToElementResult =
-        messageFlowJsonConverter.convertJsonToElement(elementNode, modelNode, new HashMap<>());
-
-    // Assert
-    verify(arrayNode).isNull();
-    verify(arrayNode5).iterator();
-    verify(arrayNode3).iterator();
-    verify(elementNode, atLeast(1)).get(Mockito.<String>any());
-    verify(arrayNode4, atLeast(1)).get(Mockito.<String>any());
-    verify(modelNode).get("childShapes");
-    verify(arrayNode3, atLeast(1)).get("overrideid");
-    verify(arrayNode).get("resourceId");
-    verify(arrayNode2).get("resourceId");
-    verify(arrayNode3).size();
-    verify(arrayNode).asText();
-    assertTrue(actualConvertJsonToElementResult instanceof MessageFlow);
-    assertEquals("10.0", ((MessageFlow) actualConvertJsonToElementResult).getSourceRef());
-    assertNull(actualConvertJsonToElementResult.getId());
-    assertNull(((MessageFlow) actualConvertJsonToElementResult).getMessageRef());
-    assertNull(((MessageFlow) actualConvertJsonToElementResult).getName());
-    assertNull(((MessageFlow) actualConvertJsonToElementResult).getTargetRef());
-    assertEquals(0, actualConvertJsonToElementResult.getXmlColumnNumber());
-    assertEquals(0, actualConvertJsonToElementResult.getXmlRowNumber());
-    assertTrue(actualConvertJsonToElementResult.getAttributes().isEmpty());
-    assertTrue(actualConvertJsonToElementResult.getExtensionElements().isEmpty());
-  }
-
-  /**
-   * Test {@link MessageFlowJsonConverter#convertJsonToElement(JsonNode, JsonNode, Map)}.
-   *
-   * <ul>
-   *   <li>Then return SourceRef is {@code As Text}.
-   * </ul>
-   *
-   * <p>Method under test: {@link MessageFlowJsonConverter#convertJsonToElement(JsonNode, JsonNode,
-   * Map)}
-   */
-  @Test
-  @DisplayName(
-      "Test convertJsonToElement(JsonNode, JsonNode, Map); then return SourceRef is 'As Text'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "BaseElement MessageFlowJsonConverter.convertJsonToElement(JsonNode, JsonNode, Map)"
-  })
-  void testConvertJsonToElement_thenReturnSourceRefIsAsText() throws UnsupportedEncodingException {
-    // Arrange
-    MessageFlowJsonConverter messageFlowJsonConverter = new MessageFlowJsonConverter();
-
-    ArrayNode arrayNode = mock(ArrayNode.class);
-    when(arrayNode.isNull()).thenReturn(false);
-    when(arrayNode.get(Mockito.<String>any())).thenReturn(DoubleNode.valueOf(10.0d));
-    when(arrayNode.asText()).thenReturn("QVhBWEFYQVg=");
-
-    ArrayNode elementNode = mock(ArrayNode.class);
-    when(elementNode.get(Mockito.<String>any())).thenReturn(arrayNode);
-
-    ArrayNode arrayNode2 = mock(ArrayNode.class);
-    when(arrayNode2.get(Mockito.<String>any()))
-        .thenReturn(new BinaryNode("AXAXAXAX".getBytes("UTF-8")));
-
-    ArrayList<JsonNode> jsonNodeList = new ArrayList<>();
-    jsonNodeList.add(arrayNode2);
-    Iterator<JsonNode> iteratorResult = jsonNodeList.iterator();
-
     ArrayNode arrayNode3 = mock(ArrayNode.class);
     when(arrayNode3.isNull()).thenReturn(true);
-
+    when(arrayNode3.asText()).thenReturn("As Text");
     ArrayNode arrayNode4 = mock(ArrayNode.class);
     when(arrayNode4.get(Mockito.<String>any())).thenReturn(arrayNode3);
     when(arrayNode4.asText()).thenReturn("As Text");
     when(arrayNode4.iterator()).thenReturn(iteratorResult);
     when(arrayNode4.size()).thenReturn(3);
-
     ArrayNode arrayNode5 = mock(ArrayNode.class);
     when(arrayNode5.get(Mockito.<String>any())).thenReturn(arrayNode4);
 
     ArrayList<JsonNode> jsonNodeList2 = new ArrayList<>();
     jsonNodeList2.add(arrayNode5);
-
     ArrayNode arrayNode6 = mock(ArrayNode.class);
     when(arrayNode6.iterator()).thenReturn(jsonNodeList2.iterator());
-
     ArrayNode modelNode = mock(ArrayNode.class);
     when(modelNode.get(Mockito.<String>any())).thenReturn(arrayNode6);
 
     // Act
-    BaseElement actualConvertJsonToElementResult =
-        messageFlowJsonConverter.convertJsonToElement(elementNode, modelNode, new HashMap<>());
+    BaseElement actualConvertJsonToElementResult = messageFlowJsonConverter.convertJsonToElement(elementNode, modelNode,
+        new HashMap<>());
 
     // Assert
     verify(arrayNode).isNull();
@@ -1474,10 +342,9 @@ class MessageFlowJsonConverterDiffblueTest {
     verify(arrayNode4).iterator();
     verify(elementNode, atLeast(1)).get(Mockito.<String>any());
     verify(arrayNode5, atLeast(1)).get(Mockito.<String>any());
-    verify(modelNode).get("childShapes");
-    verify(arrayNode4).get("overrideid");
-    verify(arrayNode).get("resourceId");
-    verify(arrayNode2).get("resourceId");
+    verify(modelNode).get(eq("childShapes"));
+    verify(arrayNode4).get(eq("overrideid"));
+    verify(arrayNode2).get(eq("resourceId"));
     verify(arrayNode4).size();
     verify(arrayNode).asText();
     verify(arrayNode4).asText();
@@ -1495,64 +362,201 @@ class MessageFlowJsonConverterDiffblueTest {
 
   /**
    * Test {@link MessageFlowJsonConverter#convertJsonToElement(JsonNode, JsonNode, Map)}.
-   *
    * <ul>
-   *   <li>Then return SourceRef is {@code QVhBWEFYQVg=}.
+   *   <li>Given {@link ArrayList#ArrayList()} add Instance.</li>
+   *   <li>Then calls {@link ArrayNode#size()}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link MessageFlowJsonConverter#convertJsonToElement(JsonNode, JsonNode,
-   * Map)}
+   * <p>
+   * Method under test: {@link MessageFlowJsonConverter#convertJsonToElement(JsonNode, JsonNode, Map)}
    */
   @Test
-  @DisplayName(
-      "Test convertJsonToElement(JsonNode, JsonNode, Map); then return SourceRef is 'QVhBWEFYQVg='")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "BaseElement MessageFlowJsonConverter.convertJsonToElement(JsonNode, JsonNode, Map)"
-  })
-  void testConvertJsonToElement_thenReturnSourceRefIsQVhBWEFYQVg()
-      throws UnsupportedEncodingException {
+  @DisplayName("Test convertJsonToElement(JsonNode, JsonNode, Map); given ArrayList() add Instance; then calls size()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"BaseElement MessageFlowJsonConverter.convertJsonToElement(JsonNode, JsonNode, Map)"})
+  void testConvertJsonToElement_givenArrayListAddInstance_thenCallsSize() {
     // Arrange
     MessageFlowJsonConverter messageFlowJsonConverter = new MessageFlowJsonConverter();
+    ArrayNode elementNode = mock(ArrayNode.class);
+    when(elementNode.get(Mockito.<String>any())).thenReturn(MissingNode.getInstance());
 
+    ArrayList<JsonNode> jsonNodeList = new ArrayList<>();
+    jsonNodeList.add(MissingNode.getInstance());
     ArrayNode arrayNode = mock(ArrayNode.class);
-    when(arrayNode.isNull()).thenReturn(false);
-    when(arrayNode.get(Mockito.<String>any())).thenReturn(DoubleNode.valueOf(10.0d));
-    when(arrayNode.asText()).thenReturn("QVhBWEFYQVg=");
+    when(arrayNode.iterator()).thenReturn(jsonNodeList.iterator());
+    when(arrayNode.size()).thenReturn(3);
+    ArrayNode arrayNode2 = mock(ArrayNode.class);
+    when(arrayNode2.get(Mockito.<String>any())).thenReturn(arrayNode);
 
+    ArrayList<JsonNode> jsonNodeList2 = new ArrayList<>();
+    jsonNodeList2.add(arrayNode2);
+    ArrayNode arrayNode3 = mock(ArrayNode.class);
+    when(arrayNode3.iterator()).thenReturn(jsonNodeList2.iterator());
+    ArrayNode modelNode = mock(ArrayNode.class);
+    when(modelNode.get(Mockito.<String>any())).thenReturn(arrayNode3);
+
+    // Act
+    BaseElement actualConvertJsonToElementResult = messageFlowJsonConverter.convertJsonToElement(elementNode, modelNode,
+        new HashMap<>());
+
+    // Assert
+    verify(arrayNode3).iterator();
+    verify(arrayNode, atLeast(1)).iterator();
+    verify(arrayNode2, atLeast(1)).get(Mockito.<String>any());
+    verify(modelNode).get(eq("childShapes"));
+    verify(elementNode).get(eq("resourceId"));
+    verify(arrayNode).size();
+    assertTrue(actualConvertJsonToElementResult instanceof MessageFlow);
+    assertNull(actualConvertJsonToElementResult.getId());
+    assertNull(((MessageFlow) actualConvertJsonToElementResult).getMessageRef());
+    assertNull(((MessageFlow) actualConvertJsonToElementResult).getName());
+    assertNull(((MessageFlow) actualConvertJsonToElementResult).getSourceRef());
+    assertNull(((MessageFlow) actualConvertJsonToElementResult).getTargetRef());
+    assertEquals(0, actualConvertJsonToElementResult.getXmlColumnNumber());
+    assertEquals(0, actualConvertJsonToElementResult.getXmlRowNumber());
+    assertTrue(actualConvertJsonToElementResult.getAttributes().isEmpty());
+    assertTrue(actualConvertJsonToElementResult.getExtensionElements().isEmpty());
+  }
+
+  /**
+   * Test {@link MessageFlowJsonConverter#convertJsonToElement(JsonNode, JsonNode, Map)}.
+   * <ul>
+   *   <li>Given {@link ArrayList#ArrayList()} add Instance.</li>
+   *   <li>Then return SourceRef is {@code null}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link MessageFlowJsonConverter#convertJsonToElement(JsonNode, JsonNode, Map)}
+   */
+  @Test
+  @DisplayName("Test convertJsonToElement(JsonNode, JsonNode, Map); given ArrayList() add Instance; then return SourceRef is 'null'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"BaseElement MessageFlowJsonConverter.convertJsonToElement(JsonNode, JsonNode, Map)"})
+  void testConvertJsonToElement_givenArrayListAddInstance_thenReturnSourceRefIsNull() {
+    // Arrange
+    MessageFlowJsonConverter messageFlowJsonConverter = new MessageFlowJsonConverter();
+    ArrayNode elementNode = mock(ArrayNode.class);
+    when(elementNode.get(Mockito.<String>any())).thenReturn(MissingNode.getInstance());
+
+    ArrayList<JsonNode> jsonNodeList = new ArrayList<>();
+    jsonNodeList.add(MissingNode.getInstance());
+    ArrayNode arrayNode = mock(ArrayNode.class);
+    when(arrayNode.iterator()).thenReturn(jsonNodeList.iterator());
+    ArrayNode modelNode = mock(ArrayNode.class);
+    when(modelNode.get(Mockito.<String>any())).thenReturn(arrayNode);
+
+    // Act
+    BaseElement actualConvertJsonToElementResult = messageFlowJsonConverter.convertJsonToElement(elementNode, modelNode,
+        new HashMap<>());
+
+    // Assert
+    verify(arrayNode).iterator();
+    verify(modelNode).get(eq("childShapes"));
+    verify(elementNode).get(eq("resourceId"));
+    assertTrue(actualConvertJsonToElementResult instanceof MessageFlow);
+    assertNull(actualConvertJsonToElementResult.getId());
+    assertNull(((MessageFlow) actualConvertJsonToElementResult).getMessageRef());
+    assertNull(((MessageFlow) actualConvertJsonToElementResult).getName());
+    assertNull(((MessageFlow) actualConvertJsonToElementResult).getSourceRef());
+    assertNull(((MessageFlow) actualConvertJsonToElementResult).getTargetRef());
+    assertEquals(0, actualConvertJsonToElementResult.getXmlColumnNumber());
+    assertEquals(0, actualConvertJsonToElementResult.getXmlRowNumber());
+    assertTrue(actualConvertJsonToElementResult.getAttributes().isEmpty());
+    assertTrue(actualConvertJsonToElementResult.getExtensionElements().isEmpty());
+  }
+
+  /**
+   * Test {@link MessageFlowJsonConverter#convertJsonToElement(JsonNode, JsonNode, Map)}.
+   * <ul>
+   *   <li>Given {@link ArrayNode} {@link ArrayNode#get(String)} return Instance.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link MessageFlowJsonConverter#convertJsonToElement(JsonNode, JsonNode, Map)}
+   */
+  @Test
+  @DisplayName("Test convertJsonToElement(JsonNode, JsonNode, Map); given ArrayNode get(String) return Instance")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"BaseElement MessageFlowJsonConverter.convertJsonToElement(JsonNode, JsonNode, Map)"})
+  void testConvertJsonToElement_givenArrayNodeGetReturnInstance() {
+    // Arrange
+    MessageFlowJsonConverter messageFlowJsonConverter = new MessageFlowJsonConverter();
+    ArrayNode elementNode = mock(ArrayNode.class);
+    when(elementNode.get(Mockito.<String>any())).thenReturn(MissingNode.getInstance());
+    ArrayNode arrayNode = mock(ArrayNode.class);
+    when(arrayNode.get(Mockito.<String>any())).thenReturn(MissingNode.getInstance());
+
+    ArrayList<JsonNode> jsonNodeList = new ArrayList<>();
+    jsonNodeList.add(arrayNode);
+    ArrayNode arrayNode2 = mock(ArrayNode.class);
+    when(arrayNode2.iterator()).thenReturn(jsonNodeList.iterator());
+    ArrayNode modelNode = mock(ArrayNode.class);
+    when(modelNode.get(Mockito.<String>any())).thenReturn(arrayNode2);
+
+    // Act
+    BaseElement actualConvertJsonToElementResult = messageFlowJsonConverter.convertJsonToElement(elementNode, modelNode,
+        new HashMap<>());
+
+    // Assert
+    verify(arrayNode2).iterator();
+    verify(arrayNode, atLeast(1)).get(Mockito.<String>any());
+    verify(modelNode).get(eq("childShapes"));
+    verify(elementNode).get(eq("resourceId"));
+    assertTrue(actualConvertJsonToElementResult instanceof MessageFlow);
+    assertNull(actualConvertJsonToElementResult.getId());
+    assertNull(((MessageFlow) actualConvertJsonToElementResult).getMessageRef());
+    assertNull(((MessageFlow) actualConvertJsonToElementResult).getName());
+    assertNull(((MessageFlow) actualConvertJsonToElementResult).getSourceRef());
+    assertNull(((MessageFlow) actualConvertJsonToElementResult).getTargetRef());
+    assertEquals(0, actualConvertJsonToElementResult.getXmlColumnNumber());
+    assertEquals(0, actualConvertJsonToElementResult.getXmlRowNumber());
+    assertTrue(actualConvertJsonToElementResult.getAttributes().isEmpty());
+    assertTrue(actualConvertJsonToElementResult.getExtensionElements().isEmpty());
+  }
+
+  /**
+   * Test {@link MessageFlowJsonConverter#convertJsonToElement(JsonNode, JsonNode, Map)}.
+   * <ul>
+   *   <li>Given {@link ArrayNode} {@link ArrayNode#get(String)} return {@code null}.</li>
+   *   <li>Then return SourceRef is {@code As Text}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link MessageFlowJsonConverter#convertJsonToElement(JsonNode, JsonNode, Map)}
+   */
+  @Test
+  @DisplayName("Test convertJsonToElement(JsonNode, JsonNode, Map); given ArrayNode get(String) return 'null'; then return SourceRef is 'As Text'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"BaseElement MessageFlowJsonConverter.convertJsonToElement(JsonNode, JsonNode, Map)"})
+  void testConvertJsonToElement_givenArrayNodeGetReturnNull_thenReturnSourceRefIsAsText() {
+    // Arrange
+    MessageFlowJsonConverter messageFlowJsonConverter = new MessageFlowJsonConverter();
+    ArrayNode arrayNode = mock(ArrayNode.class);
+    when(arrayNode.get(Mockito.<String>any())).thenReturn(MissingNode.getInstance());
+    when(arrayNode.isNull()).thenReturn(true);
+    when(arrayNode.asText()).thenReturn("");
     ArrayNode elementNode = mock(ArrayNode.class);
     when(elementNode.get(Mockito.<String>any())).thenReturn(arrayNode);
-
     ArrayNode arrayNode2 = mock(ArrayNode.class);
-    when(arrayNode2.get(Mockito.<String>any()))
-        .thenReturn(new BinaryNode("AXAXAXAX".getBytes("UTF-8")));
+    when(arrayNode2.get(Mockito.<String>any())).thenReturn(MissingNode.getInstance());
 
     ArrayList<JsonNode> jsonNodeList = new ArrayList<>();
     jsonNodeList.add(arrayNode2);
     Iterator<JsonNode> iteratorResult = jsonNodeList.iterator();
-
     ArrayNode arrayNode3 = mock(ArrayNode.class);
-    when(arrayNode3.get(Mockito.<String>any()))
-        .thenReturn(new BinaryNode("AXAXAXAX".getBytes("UTF-8")));
+    when(arrayNode3.get(Mockito.<String>any())).thenReturn(null);
+    when(arrayNode3.asText()).thenReturn("As Text");
     when(arrayNode3.iterator()).thenReturn(iteratorResult);
     when(arrayNode3.size()).thenReturn(3);
-
     ArrayNode arrayNode4 = mock(ArrayNode.class);
     when(arrayNode4.get(Mockito.<String>any())).thenReturn(arrayNode3);
 
     ArrayList<JsonNode> jsonNodeList2 = new ArrayList<>();
     jsonNodeList2.add(arrayNode4);
-
     ArrayNode arrayNode5 = mock(ArrayNode.class);
     when(arrayNode5.iterator()).thenReturn(jsonNodeList2.iterator());
-
     ArrayNode modelNode = mock(ArrayNode.class);
     when(modelNode.get(Mockito.<String>any())).thenReturn(arrayNode5);
 
     // Act
-    BaseElement actualConvertJsonToElementResult =
-        messageFlowJsonConverter.convertJsonToElement(elementNode, modelNode, new HashMap<>());
+    BaseElement actualConvertJsonToElementResult = messageFlowJsonConverter.convertJsonToElement(elementNode, modelNode,
+        new HashMap<>());
 
     // Assert
     verify(arrayNode).isNull();
@@ -1560,14 +564,14 @@ class MessageFlowJsonConverterDiffblueTest {
     verify(arrayNode3).iterator();
     verify(elementNode, atLeast(1)).get(Mockito.<String>any());
     verify(arrayNode4, atLeast(1)).get(Mockito.<String>any());
-    verify(modelNode).get("childShapes");
-    verify(arrayNode3, atLeast(1)).get("overrideid");
-    verify(arrayNode).get("resourceId");
-    verify(arrayNode2).get("resourceId");
+    verify(modelNode).get(eq("childShapes"));
+    verify(arrayNode3).get(eq("overrideid"));
+    verify(arrayNode2).get(eq("resourceId"));
     verify(arrayNode3).size();
     verify(arrayNode).asText();
+    verify(arrayNode3).asText();
     assertTrue(actualConvertJsonToElementResult instanceof MessageFlow);
-    assertEquals("QVhBWEFYQVg=", ((MessageFlow) actualConvertJsonToElementResult).getSourceRef());
+    assertEquals("As Text", ((MessageFlow) actualConvertJsonToElementResult).getSourceRef());
     assertNull(actualConvertJsonToElementResult.getId());
     assertNull(((MessageFlow) actualConvertJsonToElementResult).getMessageRef());
     assertNull(((MessageFlow) actualConvertJsonToElementResult).getName());
@@ -1579,14 +583,651 @@ class MessageFlowJsonConverterDiffblueTest {
   }
 
   /**
+   * Test {@link MessageFlowJsonConverter#convertJsonToElement(JsonNode, JsonNode, Map)}.
+   * <ul>
+   *   <li>Given {@link ArrayNode} {@link JsonNode#isNull()} return {@code false}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link MessageFlowJsonConverter#convertJsonToElement(JsonNode, JsonNode, Map)}
+   */
+  @Test
+  @DisplayName("Test convertJsonToElement(JsonNode, JsonNode, Map); given ArrayNode isNull() return 'false'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"BaseElement MessageFlowJsonConverter.convertJsonToElement(JsonNode, JsonNode, Map)"})
+  void testConvertJsonToElement_givenArrayNodeIsNullReturnFalse() {
+    // Arrange
+    MessageFlowJsonConverter messageFlowJsonConverter = new MessageFlowJsonConverter();
+    ArrayNode arrayNode = mock(ArrayNode.class);
+    when(arrayNode.get(Mockito.<String>any())).thenReturn(MissingNode.getInstance());
+    when(arrayNode.isNull()).thenReturn(false);
+    when(arrayNode.asText()).thenReturn("");
+    ArrayNode elementNode = mock(ArrayNode.class);
+    when(elementNode.get(Mockito.<String>any())).thenReturn(arrayNode);
+    ArrayNode arrayNode2 = mock(ArrayNode.class);
+    when(arrayNode2.get(Mockito.<String>any())).thenReturn(MissingNode.getInstance());
+
+    ArrayList<JsonNode> jsonNodeList = new ArrayList<>();
+    jsonNodeList.add(arrayNode2);
+    Iterator<JsonNode> iteratorResult = jsonNodeList.iterator();
+    ArrayNode arrayNode3 = mock(ArrayNode.class);
+    when(arrayNode3.get(Mockito.<String>any())).thenReturn(MissingNode.getInstance());
+    when(arrayNode3.asText()).thenReturn("As Text");
+    when(arrayNode3.iterator()).thenReturn(iteratorResult);
+    when(arrayNode3.size()).thenReturn(3);
+    ArrayNode arrayNode4 = mock(ArrayNode.class);
+    when(arrayNode4.get(Mockito.<String>any())).thenReturn(arrayNode3);
+
+    ArrayList<JsonNode> jsonNodeList2 = new ArrayList<>();
+    jsonNodeList2.add(arrayNode4);
+    ArrayNode arrayNode5 = mock(ArrayNode.class);
+    when(arrayNode5.iterator()).thenReturn(jsonNodeList2.iterator());
+    ArrayNode modelNode = mock(ArrayNode.class);
+    when(modelNode.get(Mockito.<String>any())).thenReturn(arrayNode5);
+
+    // Act
+    BaseElement actualConvertJsonToElementResult = messageFlowJsonConverter.convertJsonToElement(elementNode, modelNode,
+        new HashMap<>());
+
+    // Assert
+    verify(arrayNode).isNull();
+    verify(arrayNode5).iterator();
+    verify(arrayNode3).iterator();
+    verify(elementNode, atLeast(1)).get(Mockito.<String>any());
+    verify(arrayNode4, atLeast(1)).get(Mockito.<String>any());
+    verify(modelNode).get(eq("childShapes"));
+    verify(arrayNode3).get(eq("overrideid"));
+    verify(arrayNode).get(eq("resourceId"));
+    verify(arrayNode2).get(eq("resourceId"));
+    verify(arrayNode3).size();
+    verify(arrayNode).asText();
+    verify(arrayNode3).asText();
+    assertTrue(actualConvertJsonToElementResult instanceof MessageFlow);
+    assertEquals("As Text", ((MessageFlow) actualConvertJsonToElementResult).getSourceRef());
+    assertNull(actualConvertJsonToElementResult.getId());
+    assertNull(((MessageFlow) actualConvertJsonToElementResult).getMessageRef());
+    assertNull(((MessageFlow) actualConvertJsonToElementResult).getName());
+    assertNull(((MessageFlow) actualConvertJsonToElementResult).getTargetRef());
+    assertEquals(0, actualConvertJsonToElementResult.getXmlColumnNumber());
+    assertEquals(0, actualConvertJsonToElementResult.getXmlRowNumber());
+    assertTrue(actualConvertJsonToElementResult.getAttributes().isEmpty());
+    assertTrue(actualConvertJsonToElementResult.getExtensionElements().isEmpty());
+  }
+
+  /**
+   * Test {@link MessageFlowJsonConverter#convertJsonToElement(JsonNode, JsonNode, Map)}.
+   * <ul>
+   *   <li>Given {@link ArrayNode} {@link ArrayNode#size()} return three.</li>
+   *   <li>Then calls {@link ArrayNode#size()}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link MessageFlowJsonConverter#convertJsonToElement(JsonNode, JsonNode, Map)}
+   */
+  @Test
+  @DisplayName("Test convertJsonToElement(JsonNode, JsonNode, Map); given ArrayNode size() return three; then calls size()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"BaseElement MessageFlowJsonConverter.convertJsonToElement(JsonNode, JsonNode, Map)"})
+  void testConvertJsonToElement_givenArrayNodeSizeReturnThree_thenCallsSize() {
+    // Arrange
+    MessageFlowJsonConverter messageFlowJsonConverter = new MessageFlowJsonConverter();
+    ArrayNode elementNode = mock(ArrayNode.class);
+    when(elementNode.get(Mockito.<String>any())).thenReturn(MissingNode.getInstance());
+    ArrayNode arrayNode = mock(ArrayNode.class);
+
+    ArrayList<JsonNode> jsonNodeList = new ArrayList<>();
+    when(arrayNode.iterator()).thenReturn(jsonNodeList.iterator());
+    when(arrayNode.size()).thenReturn(3);
+    ArrayNode arrayNode2 = mock(ArrayNode.class);
+    when(arrayNode2.get(Mockito.<String>any())).thenReturn(arrayNode);
+
+    ArrayList<JsonNode> jsonNodeList2 = new ArrayList<>();
+    jsonNodeList2.add(arrayNode2);
+    ArrayNode arrayNode3 = mock(ArrayNode.class);
+    when(arrayNode3.iterator()).thenReturn(jsonNodeList2.iterator());
+    ArrayNode modelNode = mock(ArrayNode.class);
+    when(modelNode.get(Mockito.<String>any())).thenReturn(arrayNode3);
+
+    // Act
+    BaseElement actualConvertJsonToElementResult = messageFlowJsonConverter.convertJsonToElement(elementNode, modelNode,
+        new HashMap<>());
+
+    // Assert
+    verify(arrayNode3).iterator();
+    verify(arrayNode, atLeast(1)).iterator();
+    verify(arrayNode2, atLeast(1)).get(Mockito.<String>any());
+    verify(modelNode).get(eq("childShapes"));
+    verify(elementNode).get(eq("resourceId"));
+    verify(arrayNode).size();
+    assertTrue(actualConvertJsonToElementResult instanceof MessageFlow);
+    assertNull(actualConvertJsonToElementResult.getId());
+    assertNull(((MessageFlow) actualConvertJsonToElementResult).getMessageRef());
+    assertNull(((MessageFlow) actualConvertJsonToElementResult).getName());
+    assertNull(((MessageFlow) actualConvertJsonToElementResult).getSourceRef());
+    assertNull(((MessageFlow) actualConvertJsonToElementResult).getTargetRef());
+    assertEquals(0, actualConvertJsonToElementResult.getXmlColumnNumber());
+    assertEquals(0, actualConvertJsonToElementResult.getXmlRowNumber());
+    assertTrue(actualConvertJsonToElementResult.getAttributes().isEmpty());
+    assertTrue(actualConvertJsonToElementResult.getExtensionElements().isEmpty());
+  }
+
+  /**
+   * Test {@link MessageFlowJsonConverter#convertJsonToElement(JsonNode, JsonNode, Map)}.
+   * <ul>
+   *   <li>Given {@link ArrayNode#ArrayNode(JsonNodeFactory)} with nf is withExactBigDecimals {@code true}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link MessageFlowJsonConverter#convertJsonToElement(JsonNode, JsonNode, Map)}
+   */
+  @Test
+  @DisplayName("Test convertJsonToElement(JsonNode, JsonNode, Map); given ArrayNode(JsonNodeFactory) with nf is withExactBigDecimals 'true'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"BaseElement MessageFlowJsonConverter.convertJsonToElement(JsonNode, JsonNode, Map)"})
+  void testConvertJsonToElement_givenArrayNodeWithNfIsWithExactBigDecimalsTrue() {
+    // Arrange
+    MessageFlowJsonConverter messageFlowJsonConverter = new MessageFlowJsonConverter();
+    ArrayNode elementNode = mock(ArrayNode.class);
+    when(elementNode.get(Mockito.<String>any())).thenReturn(new ArrayNode(JsonNodeFactory.withExactBigDecimals(true)));
+    MissingNode modelNode = MissingNode.getInstance();
+
+    // Act
+    BaseElement actualConvertJsonToElementResult = messageFlowJsonConverter.convertJsonToElement(elementNode, modelNode,
+        new HashMap<>());
+
+    // Assert
+    verify(elementNode).get(eq("resourceId"));
+    assertTrue(actualConvertJsonToElementResult instanceof MessageFlow);
+    assertNull(actualConvertJsonToElementResult.getId());
+    assertNull(((MessageFlow) actualConvertJsonToElementResult).getMessageRef());
+    assertNull(((MessageFlow) actualConvertJsonToElementResult).getName());
+    assertNull(((MessageFlow) actualConvertJsonToElementResult).getSourceRef());
+    assertNull(((MessageFlow) actualConvertJsonToElementResult).getTargetRef());
+    assertEquals(0, actualConvertJsonToElementResult.getXmlColumnNumber());
+    assertEquals(0, actualConvertJsonToElementResult.getXmlRowNumber());
+    assertTrue(actualConvertJsonToElementResult.getAttributes().isEmpty());
+    assertTrue(actualConvertJsonToElementResult.getExtensionElements().isEmpty());
+  }
+
+  /**
+   * Test {@link MessageFlowJsonConverter#convertJsonToElement(JsonNode, JsonNode, Map)}.
+   * <ul>
+   *   <li>Given {@link ArrayNode#ArrayNode(JsonNodeFactory)} with nf is withExactBigDecimals {@code true}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link MessageFlowJsonConverter#convertJsonToElement(JsonNode, JsonNode, Map)}
+   */
+  @Test
+  @DisplayName("Test convertJsonToElement(JsonNode, JsonNode, Map); given ArrayNode(JsonNodeFactory) with nf is withExactBigDecimals 'true'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"BaseElement MessageFlowJsonConverter.convertJsonToElement(JsonNode, JsonNode, Map)"})
+  void testConvertJsonToElement_givenArrayNodeWithNfIsWithExactBigDecimalsTrue2() {
+    // Arrange
+    MessageFlowJsonConverter messageFlowJsonConverter = new MessageFlowJsonConverter();
+    ArrayNode elementNode = mock(ArrayNode.class);
+    when(elementNode.get(Mockito.<String>any())).thenReturn(MissingNode.getInstance());
+    ArrayNode modelNode = mock(ArrayNode.class);
+    when(modelNode.get(Mockito.<String>any())).thenReturn(new ArrayNode(JsonNodeFactory.withExactBigDecimals(true)));
+
+    // Act
+    BaseElement actualConvertJsonToElementResult = messageFlowJsonConverter.convertJsonToElement(elementNode, modelNode,
+        new HashMap<>());
+
+    // Assert
+    verify(modelNode).get(eq("childShapes"));
+    verify(elementNode).get(eq("resourceId"));
+    assertTrue(actualConvertJsonToElementResult instanceof MessageFlow);
+    assertNull(actualConvertJsonToElementResult.getId());
+    assertNull(((MessageFlow) actualConvertJsonToElementResult).getMessageRef());
+    assertNull(((MessageFlow) actualConvertJsonToElementResult).getName());
+    assertNull(((MessageFlow) actualConvertJsonToElementResult).getSourceRef());
+    assertNull(((MessageFlow) actualConvertJsonToElementResult).getTargetRef());
+    assertEquals(0, actualConvertJsonToElementResult.getXmlColumnNumber());
+    assertEquals(0, actualConvertJsonToElementResult.getXmlRowNumber());
+    assertTrue(actualConvertJsonToElementResult.getAttributes().isEmpty());
+    assertTrue(actualConvertJsonToElementResult.getExtensionElements().isEmpty());
+  }
+
+  /**
+   * Test {@link MessageFlowJsonConverter#convertJsonToElement(JsonNode, JsonNode, Map)}.
+   * <ul>
+   *   <li>Given {@link BigIntegerNode#BigIntegerNode(BigInteger)} with v is valueOf one.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link MessageFlowJsonConverter#convertJsonToElement(JsonNode, JsonNode, Map)}
+   */
+  @Test
+  @DisplayName("Test convertJsonToElement(JsonNode, JsonNode, Map); given BigIntegerNode(BigInteger) with v is valueOf one")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"BaseElement MessageFlowJsonConverter.convertJsonToElement(JsonNode, JsonNode, Map)"})
+  void testConvertJsonToElement_givenBigIntegerNodeWithVIsValueOfOne() {
+    // Arrange
+    MessageFlowJsonConverter messageFlowJsonConverter = new MessageFlowJsonConverter();
+    ArrayNode elementNode = mock(ArrayNode.class);
+    when(elementNode.get(Mockito.<String>any())).thenReturn(new BigIntegerNode(BigInteger.valueOf(1L)));
+    ArrayNode arrayNode = mock(ArrayNode.class);
+    when(arrayNode.get(Mockito.<String>any())).thenReturn(MissingNode.getInstance());
+
+    ArrayList<JsonNode> jsonNodeList = new ArrayList<>();
+    jsonNodeList.add(arrayNode);
+    Iterator<JsonNode> iteratorResult = jsonNodeList.iterator();
+    ArrayNode arrayNode2 = mock(ArrayNode.class);
+    when(arrayNode2.get(Mockito.<String>any())).thenReturn(MissingNode.getInstance());
+    when(arrayNode2.iterator()).thenReturn(iteratorResult);
+    when(arrayNode2.size()).thenReturn(3);
+    ArrayNode arrayNode3 = mock(ArrayNode.class);
+    when(arrayNode3.get(Mockito.<String>any())).thenReturn(arrayNode2);
+
+    ArrayList<JsonNode> jsonNodeList2 = new ArrayList<>();
+    jsonNodeList2.add(arrayNode3);
+    ArrayNode arrayNode4 = mock(ArrayNode.class);
+    when(arrayNode4.iterator()).thenReturn(jsonNodeList2.iterator());
+    ArrayNode modelNode = mock(ArrayNode.class);
+    when(modelNode.get(Mockito.<String>any())).thenReturn(arrayNode4);
+
+    // Act
+    BaseElement actualConvertJsonToElementResult = messageFlowJsonConverter.convertJsonToElement(elementNode, modelNode,
+        new HashMap<>());
+
+    // Assert
+    verify(arrayNode4).iterator();
+    verify(arrayNode2, atLeast(1)).iterator();
+    verify(arrayNode3, atLeast(1)).get(Mockito.<String>any());
+    verify(modelNode).get(eq("childShapes"));
+    verify(elementNode).get(eq("resourceId"));
+    verify(arrayNode).get(eq("resourceId"));
+    verify(arrayNode2).size();
+    assertTrue(actualConvertJsonToElementResult instanceof MessageFlow);
+    assertNull(actualConvertJsonToElementResult.getId());
+    assertNull(((MessageFlow) actualConvertJsonToElementResult).getMessageRef());
+    assertNull(((MessageFlow) actualConvertJsonToElementResult).getName());
+    assertNull(((MessageFlow) actualConvertJsonToElementResult).getSourceRef());
+    assertNull(((MessageFlow) actualConvertJsonToElementResult).getTargetRef());
+    assertEquals(0, actualConvertJsonToElementResult.getXmlColumnNumber());
+    assertEquals(0, actualConvertJsonToElementResult.getXmlRowNumber());
+    assertTrue(actualConvertJsonToElementResult.getAttributes().isEmpty());
+    assertTrue(actualConvertJsonToElementResult.getExtensionElements().isEmpty());
+  }
+
+  /**
+   * Test {@link MessageFlowJsonConverter#convertJsonToElement(JsonNode, JsonNode, Map)}.
+   * <ul>
+   *   <li>Given Instance.</li>
+   *   <li>Then return SourceRef is {@code null}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link MessageFlowJsonConverter#convertJsonToElement(JsonNode, JsonNode, Map)}
+   */
+  @Test
+  @DisplayName("Test convertJsonToElement(JsonNode, JsonNode, Map); given Instance; then return SourceRef is 'null'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"BaseElement MessageFlowJsonConverter.convertJsonToElement(JsonNode, JsonNode, Map)"})
+  void testConvertJsonToElement_givenInstance_thenReturnSourceRefIsNull() {
+    // Arrange
+    MessageFlowJsonConverter messageFlowJsonConverter = new MessageFlowJsonConverter();
+    ArrayNode elementNode = mock(ArrayNode.class);
+    when(elementNode.get(Mockito.<String>any())).thenReturn(MissingNode.getInstance());
+    ArrayNode modelNode = mock(ArrayNode.class);
+    when(modelNode.get(Mockito.<String>any())).thenReturn(MissingNode.getInstance());
+
+    // Act
+    BaseElement actualConvertJsonToElementResult = messageFlowJsonConverter.convertJsonToElement(elementNode, modelNode,
+        new HashMap<>());
+
+    // Assert
+    verify(modelNode).get(eq("childShapes"));
+    verify(elementNode).get(eq("resourceId"));
+    assertTrue(actualConvertJsonToElementResult instanceof MessageFlow);
+    assertNull(actualConvertJsonToElementResult.getId());
+    assertNull(((MessageFlow) actualConvertJsonToElementResult).getMessageRef());
+    assertNull(((MessageFlow) actualConvertJsonToElementResult).getName());
+    assertNull(((MessageFlow) actualConvertJsonToElementResult).getSourceRef());
+    assertNull(((MessageFlow) actualConvertJsonToElementResult).getTargetRef());
+    assertEquals(0, actualConvertJsonToElementResult.getXmlColumnNumber());
+    assertEquals(0, actualConvertJsonToElementResult.getXmlRowNumber());
+    assertTrue(actualConvertJsonToElementResult.getAttributes().isEmpty());
+    assertTrue(actualConvertJsonToElementResult.getExtensionElements().isEmpty());
+  }
+
+  /**
+   * Test {@link MessageFlowJsonConverter#convertJsonToElement(JsonNode, JsonNode, Map)}.
+   * <ul>
+   *   <li>Given Instance.</li>
+   *   <li>Then return SourceRef is {@code null}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link MessageFlowJsonConverter#convertJsonToElement(JsonNode, JsonNode, Map)}
+   */
+  @Test
+  @DisplayName("Test convertJsonToElement(JsonNode, JsonNode, Map); given Instance; then return SourceRef is 'null'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"BaseElement MessageFlowJsonConverter.convertJsonToElement(JsonNode, JsonNode, Map)"})
+  void testConvertJsonToElement_givenInstance_thenReturnSourceRefIsNull2() {
+    // Arrange
+    MessageFlowJsonConverter messageFlowJsonConverter = new MessageFlowJsonConverter();
+    ArrayNode elementNode = mock(ArrayNode.class);
+    when(elementNode.get(Mockito.<String>any())).thenReturn(MissingNode.getInstance());
+    ArrayNode arrayNode = mock(ArrayNode.class);
+
+    ArrayList<JsonNode> jsonNodeList = new ArrayList<>();
+    when(arrayNode.iterator()).thenReturn(jsonNodeList.iterator());
+    ArrayNode modelNode = mock(ArrayNode.class);
+    when(modelNode.get(Mockito.<String>any())).thenReturn(arrayNode);
+
+    // Act
+    BaseElement actualConvertJsonToElementResult = messageFlowJsonConverter.convertJsonToElement(elementNode, modelNode,
+        new HashMap<>());
+
+    // Assert
+    verify(arrayNode).iterator();
+    verify(modelNode).get(eq("childShapes"));
+    verify(elementNode).get(eq("resourceId"));
+    assertTrue(actualConvertJsonToElementResult instanceof MessageFlow);
+    assertNull(actualConvertJsonToElementResult.getId());
+    assertNull(((MessageFlow) actualConvertJsonToElementResult).getMessageRef());
+    assertNull(((MessageFlow) actualConvertJsonToElementResult).getName());
+    assertNull(((MessageFlow) actualConvertJsonToElementResult).getSourceRef());
+    assertNull(((MessageFlow) actualConvertJsonToElementResult).getTargetRef());
+    assertEquals(0, actualConvertJsonToElementResult.getXmlColumnNumber());
+    assertEquals(0, actualConvertJsonToElementResult.getXmlRowNumber());
+    assertTrue(actualConvertJsonToElementResult.getAttributes().isEmpty());
+    assertTrue(actualConvertJsonToElementResult.getExtensionElements().isEmpty());
+  }
+
+  /**
+   * Test {@link MessageFlowJsonConverter#convertJsonToElement(JsonNode, JsonNode, Map)}.
+   * <ul>
+   *   <li>Given Instance.</li>
+   *   <li>When Instance.</li>
+   *   <li>Then return SourceRef is {@code null}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link MessageFlowJsonConverter#convertJsonToElement(JsonNode, JsonNode, Map)}
+   */
+  @Test
+  @DisplayName("Test convertJsonToElement(JsonNode, JsonNode, Map); given Instance; when Instance; then return SourceRef is 'null'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"BaseElement MessageFlowJsonConverter.convertJsonToElement(JsonNode, JsonNode, Map)"})
+  void testConvertJsonToElement_givenInstance_whenInstance_thenReturnSourceRefIsNull() {
+    // Arrange
+    MessageFlowJsonConverter messageFlowJsonConverter = new MessageFlowJsonConverter();
+    ArrayNode elementNode = mock(ArrayNode.class);
+    when(elementNode.get(Mockito.<String>any())).thenReturn(MissingNode.getInstance());
+    MissingNode modelNode = MissingNode.getInstance();
+
+    // Act
+    BaseElement actualConvertJsonToElementResult = messageFlowJsonConverter.convertJsonToElement(elementNode, modelNode,
+        new HashMap<>());
+
+    // Assert
+    verify(elementNode).get(eq("resourceId"));
+    assertTrue(actualConvertJsonToElementResult instanceof MessageFlow);
+    assertNull(actualConvertJsonToElementResult.getId());
+    assertNull(((MessageFlow) actualConvertJsonToElementResult).getMessageRef());
+    assertNull(((MessageFlow) actualConvertJsonToElementResult).getName());
+    assertNull(((MessageFlow) actualConvertJsonToElementResult).getSourceRef());
+    assertNull(((MessageFlow) actualConvertJsonToElementResult).getTargetRef());
+    assertEquals(0, actualConvertJsonToElementResult.getXmlColumnNumber());
+    assertEquals(0, actualConvertJsonToElementResult.getXmlRowNumber());
+    assertTrue(actualConvertJsonToElementResult.getAttributes().isEmpty());
+    assertTrue(actualConvertJsonToElementResult.getExtensionElements().isEmpty());
+  }
+
+  /**
+   * Test {@link MessageFlowJsonConverter#convertJsonToElement(JsonNode, JsonNode, Map)}.
+   * <ul>
+   *   <li>Then return SourceRef is {@code 1}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link MessageFlowJsonConverter#convertJsonToElement(JsonNode, JsonNode, Map)}
+   */
+  @Test
+  @DisplayName("Test convertJsonToElement(JsonNode, JsonNode, Map); then return SourceRef is '1'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"BaseElement MessageFlowJsonConverter.convertJsonToElement(JsonNode, JsonNode, Map)"})
+  void testConvertJsonToElement_thenReturnSourceRefIs1() {
+    // Arrange
+    MessageFlowJsonConverter messageFlowJsonConverter = new MessageFlowJsonConverter();
+    ArrayNode arrayNode = mock(ArrayNode.class);
+    when(arrayNode.get(Mockito.<String>any())).thenReturn(MissingNode.getInstance());
+    when(arrayNode.isNull()).thenReturn(true);
+    when(arrayNode.asText()).thenReturn("");
+    ArrayNode elementNode = mock(ArrayNode.class);
+    when(elementNode.get(Mockito.<String>any())).thenReturn(arrayNode);
+    ArrayNode arrayNode2 = mock(ArrayNode.class);
+    when(arrayNode2.get(Mockito.<String>any())).thenReturn(MissingNode.getInstance());
+
+    ArrayList<JsonNode> jsonNodeList = new ArrayList<>();
+    jsonNodeList.add(arrayNode2);
+    Iterator<JsonNode> iteratorResult = jsonNodeList.iterator();
+    ArrayNode arrayNode3 = mock(ArrayNode.class);
+    when(arrayNode3.get(Mockito.<String>any())).thenReturn(new BigIntegerNode(BigInteger.valueOf(1L)));
+    when(arrayNode3.asText()).thenReturn("As Text");
+    when(arrayNode3.iterator()).thenReturn(iteratorResult);
+    when(arrayNode3.size()).thenReturn(3);
+    ArrayNode arrayNode4 = mock(ArrayNode.class);
+    when(arrayNode4.get(Mockito.<String>any())).thenReturn(arrayNode3);
+
+    ArrayList<JsonNode> jsonNodeList2 = new ArrayList<>();
+    jsonNodeList2.add(arrayNode4);
+    ArrayNode arrayNode5 = mock(ArrayNode.class);
+    when(arrayNode5.iterator()).thenReturn(jsonNodeList2.iterator());
+    ArrayNode modelNode = mock(ArrayNode.class);
+    when(modelNode.get(Mockito.<String>any())).thenReturn(arrayNode5);
+
+    // Act
+    BaseElement actualConvertJsonToElementResult = messageFlowJsonConverter.convertJsonToElement(elementNode, modelNode,
+        new HashMap<>());
+
+    // Assert
+    verify(arrayNode).isNull();
+    verify(arrayNode5).iterator();
+    verify(arrayNode3).iterator();
+    verify(elementNode, atLeast(1)).get(Mockito.<String>any());
+    verify(arrayNode4, atLeast(1)).get(Mockito.<String>any());
+    verify(modelNode).get(eq("childShapes"));
+    verify(arrayNode3, atLeast(1)).get(eq("overrideid"));
+    verify(arrayNode2).get(eq("resourceId"));
+    verify(arrayNode3).size();
+    verify(arrayNode).asText();
+    assertTrue(actualConvertJsonToElementResult instanceof MessageFlow);
+    assertEquals("1", ((MessageFlow) actualConvertJsonToElementResult).getSourceRef());
+    assertNull(actualConvertJsonToElementResult.getId());
+    assertNull(((MessageFlow) actualConvertJsonToElementResult).getMessageRef());
+    assertNull(((MessageFlow) actualConvertJsonToElementResult).getName());
+    assertNull(((MessageFlow) actualConvertJsonToElementResult).getTargetRef());
+    assertEquals(0, actualConvertJsonToElementResult.getXmlColumnNumber());
+    assertEquals(0, actualConvertJsonToElementResult.getXmlRowNumber());
+    assertTrue(actualConvertJsonToElementResult.getAttributes().isEmpty());
+    assertTrue(actualConvertJsonToElementResult.getExtensionElements().isEmpty());
+  }
+
+  /**
+   * Test {@link MessageFlowJsonConverter#convertJsonToElement(JsonNode, JsonNode, Map)}.
+   * <ul>
+   *   <li>Then return SourceRef is {@code As Text}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link MessageFlowJsonConverter#convertJsonToElement(JsonNode, JsonNode, Map)}
+   */
+  @Test
+  @DisplayName("Test convertJsonToElement(JsonNode, JsonNode, Map); then return SourceRef is 'As Text'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"BaseElement MessageFlowJsonConverter.convertJsonToElement(JsonNode, JsonNode, Map)"})
+  void testConvertJsonToElement_thenReturnSourceRefIsAsText() {
+    // Arrange
+    MessageFlowJsonConverter messageFlowJsonConverter = new MessageFlowJsonConverter();
+    ArrayNode arrayNode = mock(ArrayNode.class);
+    when(arrayNode.get(Mockito.<String>any())).thenReturn(MissingNode.getInstance());
+    when(arrayNode.isNull()).thenReturn(true);
+    when(arrayNode.asText()).thenReturn("");
+    ArrayNode elementNode = mock(ArrayNode.class);
+    when(elementNode.get(Mockito.<String>any())).thenReturn(arrayNode);
+    ArrayNode arrayNode2 = mock(ArrayNode.class);
+    when(arrayNode2.get(Mockito.<String>any())).thenReturn(MissingNode.getInstance());
+
+    ArrayList<JsonNode> jsonNodeList = new ArrayList<>();
+    jsonNodeList.add(arrayNode2);
+    Iterator<JsonNode> iteratorResult = jsonNodeList.iterator();
+    ArrayNode arrayNode3 = mock(ArrayNode.class);
+    when(arrayNode3.get(Mockito.<String>any())).thenReturn(MissingNode.getInstance());
+    when(arrayNode3.asText()).thenReturn("As Text");
+    when(arrayNode3.iterator()).thenReturn(iteratorResult);
+    when(arrayNode3.size()).thenReturn(3);
+    ArrayNode arrayNode4 = mock(ArrayNode.class);
+    when(arrayNode4.get(Mockito.<String>any())).thenReturn(arrayNode3);
+
+    ArrayList<JsonNode> jsonNodeList2 = new ArrayList<>();
+    jsonNodeList2.add(arrayNode4);
+    ArrayNode arrayNode5 = mock(ArrayNode.class);
+    when(arrayNode5.iterator()).thenReturn(jsonNodeList2.iterator());
+    ArrayNode modelNode = mock(ArrayNode.class);
+    when(modelNode.get(Mockito.<String>any())).thenReturn(arrayNode5);
+
+    // Act
+    BaseElement actualConvertJsonToElementResult = messageFlowJsonConverter.convertJsonToElement(elementNode, modelNode,
+        new HashMap<>());
+
+    // Assert
+    verify(arrayNode).isNull();
+    verify(arrayNode5).iterator();
+    verify(arrayNode3).iterator();
+    verify(elementNode, atLeast(1)).get(Mockito.<String>any());
+    verify(arrayNode4, atLeast(1)).get(Mockito.<String>any());
+    verify(modelNode).get(eq("childShapes"));
+    verify(arrayNode3).get(eq("overrideid"));
+    verify(arrayNode2).get(eq("resourceId"));
+    verify(arrayNode3).size();
+    verify(arrayNode).asText();
+    verify(arrayNode3).asText();
+    assertTrue(actualConvertJsonToElementResult instanceof MessageFlow);
+    assertEquals("As Text", ((MessageFlow) actualConvertJsonToElementResult).getSourceRef());
+    assertNull(actualConvertJsonToElementResult.getId());
+    assertNull(((MessageFlow) actualConvertJsonToElementResult).getMessageRef());
+    assertNull(((MessageFlow) actualConvertJsonToElementResult).getName());
+    assertNull(((MessageFlow) actualConvertJsonToElementResult).getTargetRef());
+    assertEquals(0, actualConvertJsonToElementResult.getXmlColumnNumber());
+    assertEquals(0, actualConvertJsonToElementResult.getXmlRowNumber());
+    assertTrue(actualConvertJsonToElementResult.getAttributes().isEmpty());
+    assertTrue(actualConvertJsonToElementResult.getExtensionElements().isEmpty());
+  }
+
+  /**
+   * Test {@link MessageFlowJsonConverter#convertJsonToElement(JsonNode, JsonNode, Map)}.
+   * <ul>
+   *   <li>Then return SourceRef is {@code As Text}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link MessageFlowJsonConverter#convertJsonToElement(JsonNode, JsonNode, Map)}
+   */
+  @Test
+  @DisplayName("Test convertJsonToElement(JsonNode, JsonNode, Map); then return SourceRef is 'As Text'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"BaseElement MessageFlowJsonConverter.convertJsonToElement(JsonNode, JsonNode, Map)"})
+  void testConvertJsonToElement_thenReturnSourceRefIsAsText2() {
+    // Arrange
+    MessageFlowJsonConverter messageFlowJsonConverter = new MessageFlowJsonConverter();
+    ArrayNode arrayNode = mock(ArrayNode.class);
+    when(arrayNode.get(Mockito.<String>any())).thenReturn(MissingNode.getInstance());
+    when(arrayNode.isNull()).thenReturn(true);
+    when(arrayNode.asText()).thenReturn("");
+    ArrayNode elementNode = mock(ArrayNode.class);
+    when(elementNode.get(Mockito.<String>any())).thenReturn(arrayNode);
+    ArrayNode arrayNode2 = mock(ArrayNode.class);
+    when(arrayNode2.get(Mockito.<String>any())).thenReturn(MissingNode.getInstance());
+
+    ArrayList<JsonNode> jsonNodeList = new ArrayList<>();
+    jsonNodeList.add(arrayNode2);
+    Iterator<JsonNode> iteratorResult = jsonNodeList.iterator();
+    ArrayNode arrayNode3 = mock(ArrayNode.class);
+    when(arrayNode3.isNull()).thenReturn(true);
+    when(arrayNode3.asText()).thenReturn("As Text");
+    ArrayNode arrayNode4 = mock(ArrayNode.class);
+    when(arrayNode4.get(Mockito.<String>any())).thenReturn(arrayNode3);
+    when(arrayNode4.asText()).thenReturn("As Text");
+    when(arrayNode4.iterator()).thenReturn(iteratorResult);
+    when(arrayNode4.size()).thenReturn(3);
+    ArrayNode arrayNode5 = mock(ArrayNode.class);
+    when(arrayNode5.get(Mockito.<String>any())).thenReturn(arrayNode4);
+
+    ArrayList<JsonNode> jsonNodeList2 = new ArrayList<>();
+    jsonNodeList2.add(arrayNode5);
+    ArrayNode arrayNode6 = mock(ArrayNode.class);
+    when(arrayNode6.iterator()).thenReturn(jsonNodeList2.iterator());
+    ArrayNode modelNode = mock(ArrayNode.class);
+    when(modelNode.get(Mockito.<String>any())).thenReturn(arrayNode6);
+
+    // Act
+    BaseElement actualConvertJsonToElementResult = messageFlowJsonConverter.convertJsonToElement(elementNode, modelNode,
+        new HashMap<>());
+
+    // Assert
+    verify(arrayNode).isNull();
+    verify(arrayNode3).isNull();
+    verify(arrayNode6).iterator();
+    verify(arrayNode4).iterator();
+    verify(elementNode, atLeast(1)).get(Mockito.<String>any());
+    verify(arrayNode5, atLeast(1)).get(Mockito.<String>any());
+    verify(modelNode).get(eq("childShapes"));
+    verify(arrayNode4).get(eq("overrideid"));
+    verify(arrayNode2).get(eq("resourceId"));
+    verify(arrayNode4).size();
+    verify(arrayNode).asText();
+    verify(arrayNode4).asText();
+    assertTrue(actualConvertJsonToElementResult instanceof MessageFlow);
+    assertEquals("As Text", ((MessageFlow) actualConvertJsonToElementResult).getSourceRef());
+    assertNull(actualConvertJsonToElementResult.getId());
+    assertNull(((MessageFlow) actualConvertJsonToElementResult).getMessageRef());
+    assertNull(((MessageFlow) actualConvertJsonToElementResult).getName());
+    assertNull(((MessageFlow) actualConvertJsonToElementResult).getTargetRef());
+    assertEquals(0, actualConvertJsonToElementResult.getXmlColumnNumber());
+    assertEquals(0, actualConvertJsonToElementResult.getXmlRowNumber());
+    assertTrue(actualConvertJsonToElementResult.getAttributes().isEmpty());
+    assertTrue(actualConvertJsonToElementResult.getExtensionElements().isEmpty());
+  }
+
+  /**
+   * Test {@link MessageFlowJsonConverter#convertJsonToElement(JsonNode, JsonNode, Map)}.
+   * <ul>
+   *   <li>When {@link ArrayNode#ArrayNode(JsonNodeFactory)} with nf is withExactBigDecimals {@code true}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link MessageFlowJsonConverter#convertJsonToElement(JsonNode, JsonNode, Map)}
+   */
+  @Test
+  @DisplayName("Test convertJsonToElement(JsonNode, JsonNode, Map); when ArrayNode(JsonNodeFactory) with nf is withExactBigDecimals 'true'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"BaseElement MessageFlowJsonConverter.convertJsonToElement(JsonNode, JsonNode, Map)"})
+  void testConvertJsonToElement_whenArrayNodeWithNfIsWithExactBigDecimalsTrue() {
+    // Arrange
+    MessageFlowJsonConverter messageFlowJsonConverter = new MessageFlowJsonConverter();
+    ArrayNode elementNode = mock(ArrayNode.class);
+    when(elementNode.get(Mockito.<String>any())).thenReturn(MissingNode.getInstance());
+    ArrayNode modelNode = new ArrayNode(JsonNodeFactory.withExactBigDecimals(true));
+
+    // Act
+    BaseElement actualConvertJsonToElementResult = messageFlowJsonConverter.convertJsonToElement(elementNode, modelNode,
+        new HashMap<>());
+
+    // Assert
+    verify(elementNode).get(eq("resourceId"));
+    assertTrue(actualConvertJsonToElementResult instanceof MessageFlow);
+    assertNull(actualConvertJsonToElementResult.getId());
+    assertNull(((MessageFlow) actualConvertJsonToElementResult).getMessageRef());
+    assertNull(((MessageFlow) actualConvertJsonToElementResult).getName());
+    assertNull(((MessageFlow) actualConvertJsonToElementResult).getSourceRef());
+    assertNull(((MessageFlow) actualConvertJsonToElementResult).getTargetRef());
+    assertEquals(0, actualConvertJsonToElementResult.getXmlColumnNumber());
+    assertEquals(0, actualConvertJsonToElementResult.getXmlRowNumber());
+    assertTrue(actualConvertJsonToElementResult.getAttributes().isEmpty());
+    assertTrue(actualConvertJsonToElementResult.getExtensionElements().isEmpty());
+  }
+
+  /**
    * Test new {@link MessageFlowJsonConverter} (default constructor).
-   *
-   * <p>Method under test: default or parameterless constructor of {@link MessageFlowJsonConverter}
+   * <p>
+   * Method under test: default or parameterless constructor of {@link MessageFlowJsonConverter}
    */
   @Test
   @DisplayName("Test new MessageFlowJsonConverter (default constructor)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void MessageFlowJsonConverter.<init>()"})
   void testNewMessageFlowJsonConverter() {
     // Arrange and Act

@@ -17,7 +17,6 @@ package org.activiti.bpmn.converter.child;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.List;
 import org.activiti.bpmn.model.ActivitiListener;
@@ -30,20 +29,16 @@ import org.junit.jupiter.api.Test;
 class TaskListenerParserDiffblueTest {
   /**
    * Test {@link TaskListenerParser#addListenerToParent(ActivitiListener, BaseElement)}.
-   *
    * <ul>
-   *   <li>When {@link UserTask} (default constructor).
-   *   <li>Then {@link UserTask} (default constructor) TaskListeners size is one.
+   *   <li>When {@link UserTask} (default constructor).</li>
+   *   <li>Then {@link UserTask} (default constructor) TaskListeners size is one.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link TaskListenerParser#addListenerToParent(ActivitiListener,
-   * BaseElement)}
+   * <p>
+   * Method under test: {@link TaskListenerParser#addListenerToParent(ActivitiListener, BaseElement)}
    */
   @Test
-  @DisplayName(
-      "Test addListenerToParent(ActivitiListener, BaseElement); when UserTask (default constructor); then UserTask (default constructor) TaskListeners size is one")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test addListenerToParent(ActivitiListener, BaseElement); when UserTask (default constructor); then UserTask (default constructor) TaskListeners size is one")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void TaskListenerParser.addListenerToParent(ActivitiListener, BaseElement)"})
   void testAddListenerToParent_whenUserTask_thenUserTaskTaskListenersSizeIsOne() {
     // Arrange
@@ -62,9 +57,8 @@ class TaskListenerParserDiffblueTest {
 
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>default or parameterless constructor of {@link TaskListenerParser}
    *   <li>{@link TaskListenerParser#getElementName()}
@@ -72,14 +66,10 @@ class TaskListenerParserDiffblueTest {
    */
   @Test
   @DisplayName("Test getters and setters")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void TaskListenerParser.<init>()",
-    "java.lang.String TaskListenerParser.getElementName()"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void TaskListenerParser.<init>()", "java.lang.String TaskListenerParser.getElementName()"})
   void testGettersAndSetters() {
     // Arrange, Act and Assert
-    assertEquals("taskListener", new TaskListenerParser().getElementName());
+    assertEquals("taskListener", (new TaskListenerParser()).getElementName());
   }
 }

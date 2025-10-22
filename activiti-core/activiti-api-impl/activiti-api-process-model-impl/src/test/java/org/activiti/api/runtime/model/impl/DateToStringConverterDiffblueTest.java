@@ -16,7 +16,6 @@
 package org.activiti.api.runtime.model.impl;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.time.LocalDate;
 import java.time.ZoneOffset;
@@ -32,27 +31,24 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 @ContextConfiguration(classes = {DateToStringConverter.class})
 @ExtendWith(SpringExtension.class)
 class DateToStringConverterDiffblueTest {
-  @Autowired private DateToStringConverter dateToStringConverter;
+  @Autowired
+  private DateToStringConverter dateToStringConverter;
 
   /**
    * Test {@link DateToStringConverter#convert(Date)} with {@code Date}.
-   *
    * <ul>
-   *   <li>Then return {@code 1970-01-01T00:00:00Z}.
+   *   <li>Then return {@code 1970-01-01T00:00:00Z}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link DateToStringConverter#convert(Date)}
+   * <p>
+   * Method under test: {@link DateToStringConverter#convert(Date)}
    */
   @Test
   @DisplayName("Test convert(Date) with 'Date'; then return '1970-01-01T00:00:00Z'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"java.lang.String DateToStringConverter.convert(Date)"})
   void testConvertWithDate_thenReturn19700101t000000z() {
     // Arrange, Act and Assert
-    assertEquals(
-        "1970-01-01T00:00:00Z",
-        dateToStringConverter.convert(
-            Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant())));
+    assertEquals("1970-01-01T00:00:00Z", dateToStringConverter
+        .convert(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant())));
   }
 }

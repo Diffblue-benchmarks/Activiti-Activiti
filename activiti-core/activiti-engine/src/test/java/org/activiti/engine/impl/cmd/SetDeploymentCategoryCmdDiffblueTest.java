@@ -16,8 +16,7 @@
 package org.activiti.engine.impl.cmd;
 
 import static org.junit.Assert.assertEquals;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
@@ -25,9 +24,8 @@ import org.junit.experimental.categories.Category;
 public class SetDeploymentCategoryCmdDiffblueTest {
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>{@link SetDeploymentCategoryCmd#SetDeploymentCategoryCmd(String, String)}
    *   <li>{@link SetDeploymentCategoryCmd#setCategory(String)}
@@ -37,19 +35,13 @@ public class SetDeploymentCategoryCmdDiffblueTest {
    * </ul>
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void SetDeploymentCategoryCmd.<init>(String, String)",
-    "String SetDeploymentCategoryCmd.getCategory()",
-    "String SetDeploymentCategoryCmd.getDeploymentId()",
-    "void SetDeploymentCategoryCmd.setCategory(String)",
-    "void SetDeploymentCategoryCmd.setDeploymentId(String)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void SetDeploymentCategoryCmd.<init>(String, String)",
+      "String SetDeploymentCategoryCmd.getCategory()", "String SetDeploymentCategoryCmd.getDeploymentId()",
+      "void SetDeploymentCategoryCmd.setCategory(String)", "void SetDeploymentCategoryCmd.setDeploymentId(String)"})
   public void testGettersAndSetters() {
     // Arrange and Act
-    SetDeploymentCategoryCmd actualSetDeploymentCategoryCmd =
-        new SetDeploymentCategoryCmd("42", "Category");
+    SetDeploymentCategoryCmd actualSetDeploymentCategoryCmd = new SetDeploymentCategoryCmd("42", "Category");
     actualSetDeploymentCategoryCmd.setCategory("Category");
     actualSetDeploymentCategoryCmd.setDeploymentId("42");
     String actualCategory = actualSetDeploymentCategoryCmd.getCategory();

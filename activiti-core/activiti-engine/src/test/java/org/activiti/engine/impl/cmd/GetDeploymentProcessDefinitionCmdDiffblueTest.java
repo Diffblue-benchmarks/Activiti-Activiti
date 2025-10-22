@@ -16,8 +16,7 @@
 package org.activiti.engine.impl.cmd;
 
 import static org.junit.Assert.assertEquals;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
@@ -25,16 +24,14 @@ import org.junit.experimental.categories.Category;
 public class GetDeploymentProcessDefinitionCmdDiffblueTest {
   /**
    * Test {@link GetDeploymentProcessDefinitionCmd#GetDeploymentProcessDefinitionCmd(String)}.
-   *
-   * <p>Method under test: {@link
-   * GetDeploymentProcessDefinitionCmd#GetDeploymentProcessDefinitionCmd(String)}
+   * <p>
+   * Method under test: {@link GetDeploymentProcessDefinitionCmd#GetDeploymentProcessDefinitionCmd(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void GetDeploymentProcessDefinitionCmd.<init>(String)"})
   public void testNewGetDeploymentProcessDefinitionCmd() {
     // Arrange, Act and Assert
-    assertEquals("42", new GetDeploymentProcessDefinitionCmd("42").processDefinitionId);
+    assertEquals("42", (new GetDeploymentProcessDefinitionCmd("42")).processDefinitionId);
   }
 }

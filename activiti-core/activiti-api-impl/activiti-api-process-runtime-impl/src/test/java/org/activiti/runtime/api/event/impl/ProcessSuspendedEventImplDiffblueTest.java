@@ -19,7 +19,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.api.process.model.ProcessInstance;
 import org.activiti.api.process.model.events.ProcessRuntimeEvent;
@@ -32,22 +31,19 @@ import org.junit.jupiter.api.Test;
 class ProcessSuspendedEventImplDiffblueTest {
   /**
    * Test {@link ProcessSuspendedEventImpl#ProcessSuspendedEventImpl(ProcessInstance)}.
-   *
-   * <p>Method under test: {@link
-   * ProcessSuspendedEventImpl#ProcessSuspendedEventImpl(ProcessInstance)}
+   * <p>
+   * Method under test: {@link ProcessSuspendedEventImpl#ProcessSuspendedEventImpl(ProcessInstance)}
    */
   @Test
   @DisplayName("Test new ProcessSuspendedEventImpl(ProcessInstance)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void ProcessSuspendedEventImpl.<init>(ProcessInstance)"})
   void testNewProcessSuspendedEventImpl() {
     // Arrange
     ProcessInstanceImpl entity = new ProcessInstanceImpl();
 
     // Act
-    ProcessSuspendedEventImpl actualProcessSuspendedEventImpl =
-        new ProcessSuspendedEventImpl(entity);
+    ProcessSuspendedEventImpl actualProcessSuspendedEventImpl = new ProcessSuspendedEventImpl(entity);
 
     // Assert
     ProcessInstance entity2 = actualProcessSuspendedEventImpl.getEntity();
@@ -64,18 +60,16 @@ class ProcessSuspendedEventImplDiffblueTest {
 
   /**
    * Test {@link ProcessSuspendedEventImpl#getEventType()}.
-   *
-   * <p>Method under test: {@link ProcessSuspendedEventImpl#getEventType()}
+   * <p>
+   * Method under test: {@link ProcessSuspendedEventImpl#getEventType()}
    */
   @Test
   @DisplayName("Test getEventType()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"ProcessRuntimeEvent.ProcessEvents ProcessSuspendedEventImpl.getEventType()"})
   void testGetEventType() {
     // Arrange, Act and Assert
-    assertEquals(
-        ProcessEvents.PROCESS_SUSPENDED,
-        new ProcessSuspendedEventImpl(new ProcessInstanceImpl()).getEventType());
+    assertEquals(ProcessEvents.PROCESS_SUSPENDED,
+        (new ProcessSuspendedEventImpl(new ProcessInstanceImpl())).getEventType());
   }
 }

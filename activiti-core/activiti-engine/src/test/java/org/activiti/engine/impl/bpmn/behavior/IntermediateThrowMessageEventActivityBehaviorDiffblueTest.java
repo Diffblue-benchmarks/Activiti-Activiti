@@ -17,8 +17,7 @@ package org.activiti.engine.impl.bpmn.behavior;
 
 import static org.junit.Assert.assertSame;
 import static org.mockito.Mockito.mock;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.bpmn.model.MessageEventDefinition;
 import org.activiti.bpmn.model.ThrowEvent;
@@ -33,50 +32,36 @@ import org.junit.experimental.categories.Category;
 public class IntermediateThrowMessageEventActivityBehaviorDiffblueTest {
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
-   *   <li>{@link
-   *       IntermediateThrowMessageEventActivityBehavior#IntermediateThrowMessageEventActivityBehavior(ThrowEvent,
-   *       MessageEventDefinition, ThrowMessageDelegate, MessageExecutionContext)}
+   *   <li>{@link IntermediateThrowMessageEventActivityBehavior#IntermediateThrowMessageEventActivityBehavior(ThrowEvent, MessageEventDefinition, ThrowMessageDelegate, MessageExecutionContext)}
    *   <li>{@link IntermediateThrowMessageEventActivityBehavior#getThrowEvent()}
    * </ul>
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({
-    "void IntermediateThrowMessageEventActivityBehavior.<init>(ThrowEvent, MessageEventDefinition, ThrowMessageDelegate, MessageExecutionContext)",
-    "ThrowEvent IntermediateThrowMessageEventActivityBehavior.getThrowEvent()"
-  })
+      "void IntermediateThrowMessageEventActivityBehavior.<init>(ThrowEvent, MessageEventDefinition, ThrowMessageDelegate, MessageExecutionContext)",
+      "ThrowEvent IntermediateThrowMessageEventActivityBehavior.getThrowEvent()"})
   public void testGettersAndSetters() {
     // Arrange
     ThrowEvent throwEvent = new ThrowEvent();
     MessageEventDefinition messageEventDefinition = new MessageEventDefinition();
     ThrowMessageDelegate delegate = mock(ThrowMessageDelegate.class);
     MessageEventDefinition messageEventDefinition2 = new MessageEventDefinition();
-    DefaultMessageExecutionContext messageExecutionContext =
-        new DefaultMessageExecutionContext(
-            messageEventDefinition2,
-            new ExpressionManager(),
-            mock(MessagePayloadMappingProvider.class));
+    DefaultMessageExecutionContext messageExecutionContext = new DefaultMessageExecutionContext(messageEventDefinition2,
+        new ExpressionManager(), mock(MessagePayloadMappingProvider.class));
 
     // Act
-    IntermediateThrowMessageEventActivityBehavior
-        actualIntermediateThrowMessageEventActivityBehavior =
-            new IntermediateThrowMessageEventActivityBehavior(
-                throwEvent, messageEventDefinition, delegate, messageExecutionContext);
-    ThrowEvent actualThrowEvent =
-        actualIntermediateThrowMessageEventActivityBehavior.getThrowEvent();
+    IntermediateThrowMessageEventActivityBehavior actualIntermediateThrowMessageEventActivityBehavior = new IntermediateThrowMessageEventActivityBehavior(
+        throwEvent, messageEventDefinition, delegate, messageExecutionContext);
+    ThrowEvent actualThrowEvent = actualIntermediateThrowMessageEventActivityBehavior.getThrowEvent();
 
     // Assert
-    assertSame(
-        messageEventDefinition,
-        actualIntermediateThrowMessageEventActivityBehavior.getMessageEventDefinition());
+    assertSame(messageEventDefinition, actualIntermediateThrowMessageEventActivityBehavior.getMessageEventDefinition());
     assertSame(throwEvent, actualThrowEvent);
-    assertSame(
-        messageExecutionContext,
+    assertSame(messageExecutionContext,
         actualIntermediateThrowMessageEventActivityBehavior.getMessageExecutionContext());
     assertSame(delegate, actualIntermediateThrowMessageEventActivityBehavior.getDelegate());
   }

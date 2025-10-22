@@ -19,10 +19,9 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.node.DoubleNode;
+import com.fasterxml.jackson.databind.node.MissingNode;
 import java.util.HashMap;
 import java.util.Map;
 import org.activiti.bpmn.model.ActivitiListener;
@@ -36,13 +35,12 @@ import org.junit.jupiter.api.Test;
 class ReceiveTaskJsonConverterDiffblueTest {
   /**
    * Test {@link ReceiveTaskJsonConverter#fillJsonTypes(Map)}.
-   *
-   * <p>Method under test: {@link ReceiveTaskJsonConverter#fillJsonTypes(Map)}
+   * <p>
+   * Method under test: {@link ReceiveTaskJsonConverter#fillJsonTypes(Map)}
    */
   @Test
   @DisplayName("Test fillJsonTypes(Map)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void ReceiveTaskJsonConverter.fillJsonTypes(Map)"})
   void testFillJsonTypes() {
     // Arrange
@@ -59,13 +57,12 @@ class ReceiveTaskJsonConverterDiffblueTest {
 
   /**
    * Test {@link ReceiveTaskJsonConverter#getStencilId(BaseElement)}.
-   *
-   * <p>Method under test: {@link ReceiveTaskJsonConverter#getStencilId(BaseElement)}
+   * <p>
+   * Method under test: {@link ReceiveTaskJsonConverter#getStencilId(BaseElement)}
    */
   @Test
   @DisplayName("Test getStencilId(BaseElement)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"String ReceiveTaskJsonConverter.getStencilId(BaseElement)"})
   void testGetStencilId() {
     // Arrange
@@ -77,26 +74,22 @@ class ReceiveTaskJsonConverterDiffblueTest {
 
   /**
    * Test {@link ReceiveTaskJsonConverter#convertJsonToElement(JsonNode, JsonNode, Map)}.
-   *
-   * <p>Method under test: {@link ReceiveTaskJsonConverter#convertJsonToElement(JsonNode, JsonNode,
-   * Map)}
+   * <p>
+   * Method under test: {@link ReceiveTaskJsonConverter#convertJsonToElement(JsonNode, JsonNode, Map)}
    */
   @Test
   @DisplayName("Test convertJsonToElement(JsonNode, JsonNode, Map)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "FlowElement ReceiveTaskJsonConverter.convertJsonToElement(JsonNode, JsonNode, Map)"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"FlowElement ReceiveTaskJsonConverter.convertJsonToElement(JsonNode, JsonNode, Map)"})
   void testConvertJsonToElement() {
     // Arrange
     ReceiveTaskJsonConverter receiveTaskJsonConverter = new ReceiveTaskJsonConverter();
-    DoubleNode elementNode = DoubleNode.valueOf(10.0d);
-    DoubleNode modelNode = DoubleNode.valueOf(10.0d);
+    MissingNode elementNode = MissingNode.getInstance();
+    MissingNode modelNode = MissingNode.getInstance();
 
     // Act
-    FlowElement actualConvertJsonToElementResult =
-        receiveTaskJsonConverter.convertJsonToElement(elementNode, modelNode, new HashMap<>());
+    FlowElement actualConvertJsonToElementResult = receiveTaskJsonConverter.convertJsonToElement(elementNode, modelNode,
+        new HashMap<>());
 
     // Assert
     assertTrue(actualConvertJsonToElementResult instanceof ReceiveTask);
@@ -112,16 +105,13 @@ class ReceiveTaskJsonConverterDiffblueTest {
     assertNull(actualConvertJsonToElementResult.getSubProcess());
     assertEquals(0, actualConvertJsonToElementResult.getXmlColumnNumber());
     assertEquals(0, actualConvertJsonToElementResult.getXmlRowNumber());
-    assertFalse(
-        ((ReceiveTask) actualConvertJsonToElementResult).hasMultiInstanceLoopCharacteristics());
+    assertFalse(((ReceiveTask) actualConvertJsonToElementResult).hasMultiInstanceLoopCharacteristics());
     assertFalse(((ReceiveTask) actualConvertJsonToElementResult).isForCompensation());
     assertFalse(((ReceiveTask) actualConvertJsonToElementResult).isAsynchronous());
     assertFalse(((ReceiveTask) actualConvertJsonToElementResult).isNotExclusive());
     assertTrue(((ReceiveTask) actualConvertJsonToElementResult).getBoundaryEvents().isEmpty());
-    assertTrue(
-        ((ReceiveTask) actualConvertJsonToElementResult).getDataInputAssociations().isEmpty());
-    assertTrue(
-        ((ReceiveTask) actualConvertJsonToElementResult).getDataOutputAssociations().isEmpty());
+    assertTrue(((ReceiveTask) actualConvertJsonToElementResult).getDataInputAssociations().isEmpty());
+    assertTrue(((ReceiveTask) actualConvertJsonToElementResult).getDataOutputAssociations().isEmpty());
     assertTrue(((ReceiveTask) actualConvertJsonToElementResult).getMapExceptions().isEmpty());
     assertTrue(actualConvertJsonToElementResult.getExecutionListeners().isEmpty());
     assertTrue(((ReceiveTask) actualConvertJsonToElementResult).getIncomingFlows().isEmpty());
@@ -133,13 +123,12 @@ class ReceiveTaskJsonConverterDiffblueTest {
 
   /**
    * Test new {@link ReceiveTaskJsonConverter} (default constructor).
-   *
-   * <p>Method under test: default or parameterless constructor of {@link ReceiveTaskJsonConverter}
+   * <p>
+   * Method under test: default or parameterless constructor of {@link ReceiveTaskJsonConverter}
    */
   @Test
   @DisplayName("Test new ReceiveTaskJsonConverter (default constructor)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void ReceiveTaskJsonConverter.<init>()"})
   void testNewReceiveTaskJsonConverter() {
     // Arrange and Act

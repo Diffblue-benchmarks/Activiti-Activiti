@@ -19,7 +19,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.api.process.model.ProcessInstance;
 import org.activiti.api.process.model.events.ProcessRuntimeEvent;
@@ -32,13 +31,12 @@ import org.junit.jupiter.api.Test;
 class ProcessUpdatedEventImplDiffblueTest {
   /**
    * Test {@link ProcessUpdatedEventImpl#ProcessUpdatedEventImpl(ProcessInstance)}.
-   *
-   * <p>Method under test: {@link ProcessUpdatedEventImpl#ProcessUpdatedEventImpl(ProcessInstance)}
+   * <p>
+   * Method under test: {@link ProcessUpdatedEventImpl#ProcessUpdatedEventImpl(ProcessInstance)}
    */
   @Test
   @DisplayName("Test new ProcessUpdatedEventImpl(ProcessInstance)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void ProcessUpdatedEventImpl.<init>(ProcessInstance)"})
   void testNewProcessUpdatedEventImpl() {
     // Arrange
@@ -62,18 +60,16 @@ class ProcessUpdatedEventImplDiffblueTest {
 
   /**
    * Test {@link ProcessUpdatedEventImpl#getEventType()}.
-   *
-   * <p>Method under test: {@link ProcessUpdatedEventImpl#getEventType()}
+   * <p>
+   * Method under test: {@link ProcessUpdatedEventImpl#getEventType()}
    */
   @Test
   @DisplayName("Test getEventType()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"ProcessRuntimeEvent.ProcessEvents ProcessUpdatedEventImpl.getEventType()"})
   void testGetEventType() {
     // Arrange, Act and Assert
-    assertEquals(
-        ProcessEvents.PROCESS_UPDATED,
-        new ProcessUpdatedEventImpl(new ProcessInstanceImpl()).getEventType());
+    assertEquals(ProcessEvents.PROCESS_UPDATED,
+        (new ProcessUpdatedEventImpl(new ProcessInstanceImpl())).getEventType());
   }
 }

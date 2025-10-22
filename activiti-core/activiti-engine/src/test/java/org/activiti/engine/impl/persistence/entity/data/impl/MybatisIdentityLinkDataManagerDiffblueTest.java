@@ -19,8 +19,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.Map;
 import org.activiti.engine.impl.cfg.JtaProcessEngineConfiguration;
@@ -33,45 +32,38 @@ import org.junit.experimental.categories.Category;
 
 public class MybatisIdentityLinkDataManagerDiffblueTest {
   /**
-   * Test {@link
-   * MybatisIdentityLinkDataManager#MybatisIdentityLinkDataManager(ProcessEngineConfigurationImpl)}.
-   *
-   * <p>Method under test: {@link
-   * MybatisIdentityLinkDataManager#MybatisIdentityLinkDataManager(ProcessEngineConfigurationImpl)}
+   * Test {@link MybatisIdentityLinkDataManager#MybatisIdentityLinkDataManager(ProcessEngineConfigurationImpl)}.
+   * <p>
+   * Method under test: {@link MybatisIdentityLinkDataManager#MybatisIdentityLinkDataManager(ProcessEngineConfigurationImpl)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void MybatisIdentityLinkDataManager.<init>(ProcessEngineConfigurationImpl)"})
   public void testNewMybatisIdentityLinkDataManager() {
     // Arrange and Act
-    MybatisIdentityLinkDataManager actualMybatisIdentityLinkDataManager =
-        new MybatisIdentityLinkDataManager(new JtaProcessEngineConfiguration());
+    MybatisIdentityLinkDataManager actualMybatisIdentityLinkDataManager = new MybatisIdentityLinkDataManager(
+        new JtaProcessEngineConfiguration());
 
     // Assert
     assertTrue(
-        actualMybatisIdentityLinkDataManager.identityLinkByProcessInstanceMatcher
-            instanceof IdentityLinksByProcInstMatcher);
+        actualMybatisIdentityLinkDataManager.identityLinkByProcessInstanceMatcher instanceof IdentityLinksByProcInstMatcher);
     assertNull(actualMybatisIdentityLinkDataManager.getManagedEntitySubClasses());
     Class<IdentityLinkEntityImpl> expectedManagedEntityClass = IdentityLinkEntityImpl.class;
-    assertEquals(
-        expectedManagedEntityClass, actualMybatisIdentityLinkDataManager.getManagedEntityClass());
+    assertEquals(expectedManagedEntityClass, actualMybatisIdentityLinkDataManager.getManagedEntityClass());
   }
 
   /**
    * Test {@link MybatisIdentityLinkDataManager#getManagedEntityClass()}.
-   *
-   * <p>Method under test: {@link MybatisIdentityLinkDataManager#getManagedEntityClass()}
+   * <p>
+   * Method under test: {@link MybatisIdentityLinkDataManager#getManagedEntityClass()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"Class MybatisIdentityLinkDataManager.getManagedEntityClass()"})
   public void testGetManagedEntityClass() {
     // Arrange and Act
-    Class<? extends IdentityLinkEntity> actualManagedEntityClass =
-        new MybatisIdentityLinkDataManager(new JtaProcessEngineConfiguration())
-            .getManagedEntityClass();
+    Class<? extends IdentityLinkEntity> actualManagedEntityClass = (new MybatisIdentityLinkDataManager(
+        new JtaProcessEngineConfiguration())).getManagedEntityClass();
 
     // Assert
     Class<IdentityLinkEntityImpl> expectedManagedEntityClass = IdentityLinkEntityImpl.class;
@@ -80,17 +72,16 @@ public class MybatisIdentityLinkDataManagerDiffblueTest {
 
   /**
    * Test {@link MybatisIdentityLinkDataManager#create()}.
-   *
-   * <p>Method under test: {@link MybatisIdentityLinkDataManager#create()}
+   * <p>
+   * Method under test: {@link MybatisIdentityLinkDataManager#create()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"IdentityLinkEntity MybatisIdentityLinkDataManager.create()"})
   public void testCreate() {
     // Arrange and Act
-    IdentityLinkEntity actualCreateResult =
-        new MybatisIdentityLinkDataManager(new JtaProcessEngineConfiguration()).create();
+    IdentityLinkEntity actualCreateResult = (new MybatisIdentityLinkDataManager(new JtaProcessEngineConfiguration()))
+        .create();
 
     // Assert
     Object persistentState = actualCreateResult.getPersistentState();

@@ -16,7 +16,6 @@
 package org.activiti.bpmn.converter.child;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
@@ -25,9 +24,8 @@ import org.junit.jupiter.api.Test;
 class DataInputAssociationParserDiffblueTest {
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>default or parameterless constructor of {@link DataInputAssociationParser}
    *   <li>{@link DataInputAssociationParser#getElementName()}
@@ -35,14 +33,11 @@ class DataInputAssociationParserDiffblueTest {
    */
   @Test
   @DisplayName("Test getters and setters")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void DataInputAssociationParser.<init>()",
-    "java.lang.String DataInputAssociationParser.getElementName()"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void DataInputAssociationParser.<init>()",
+      "java.lang.String DataInputAssociationParser.getElementName()"})
   void testGettersAndSetters() {
     // Arrange, Act and Assert
-    assertEquals("dataInputAssociation", new DataInputAssociationParser().getElementName());
+    assertEquals("dataInputAssociation", (new DataInputAssociationParser()).getElementName());
   }
 }

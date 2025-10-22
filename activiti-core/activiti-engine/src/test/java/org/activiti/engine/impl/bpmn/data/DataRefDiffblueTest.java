@@ -16,8 +16,7 @@
 package org.activiti.engine.impl.bpmn.data;
 
 import static org.junit.Assert.assertEquals;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
@@ -25,20 +24,18 @@ import org.junit.experimental.categories.Category;
 public class DataRefDiffblueTest {
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>{@link DataRef#DataRef(String)}
    *   <li>{@link DataRef#getIdRef()}
    * </ul>
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void DataRef.<init>(String)", "String DataRef.getIdRef()"})
   public void testGettersAndSetters() {
     // Arrange, Act and Assert
-    assertEquals("Id Ref", new DataRef("Id Ref").getIdRef());
+    assertEquals("Id Ref", (new DataRef("Id Ref")).getIdRef());
   }
 }

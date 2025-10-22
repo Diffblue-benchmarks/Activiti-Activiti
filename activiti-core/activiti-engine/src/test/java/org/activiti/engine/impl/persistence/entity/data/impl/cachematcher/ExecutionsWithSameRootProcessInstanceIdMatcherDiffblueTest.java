@@ -16,219 +16,144 @@
 package org.activiti.engine.impl.persistence.entity.data.impl.cachematcher;
 
 import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertSame;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.LinkedHashSet;
 import org.activiti.engine.impl.persistence.cache.CachedEntity;
+import org.activiti.engine.impl.persistence.entity.AbstractEntity;
 import org.activiti.engine.impl.persistence.entity.ExecutionEntity;
 import org.activiti.engine.impl.persistence.entity.ExecutionEntityImpl;
+import org.activiti.engine.impl.util.json.JSONObject;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 
 public class ExecutionsWithSameRootProcessInstanceIdMatcherDiffblueTest {
   /**
-   * Test {@link ExecutionsWithSameRootProcessInstanceIdMatcher#getMatchingExecution(Collection,
-   * Collection, String)}.
-   *
-   * <p>Method under test: {@link
-   * ExecutionsWithSameRootProcessInstanceIdMatcher#getMatchingExecution(Collection, Collection,
-   * String)}
+   * Test {@link ExecutionsWithSameRootProcessInstanceIdMatcher#getMatchingExecution(Collection, Collection, String)}.
+   * <p>
+   * Method under test: {@link ExecutionsWithSameRootProcessInstanceIdMatcher#getMatchingExecution(Collection, Collection, String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({
-    "ExecutionEntity ExecutionsWithSameRootProcessInstanceIdMatcher.getMatchingExecution(Collection, Collection, String)"
-  })
+      "ExecutionEntity ExecutionsWithSameRootProcessInstanceIdMatcher.getMatchingExecution(Collection, Collection, String)"})
   public void testGetMatchingExecution() {
     // Arrange
-    ExecutionsWithSameRootProcessInstanceIdMatcher executionsWithSameRootProcessInstanceIdMatcher =
-        new ExecutionsWithSameRootProcessInstanceIdMatcher();
+    ExecutionsWithSameRootProcessInstanceIdMatcher executionsWithSameRootProcessInstanceIdMatcher = new ExecutionsWithSameRootProcessInstanceIdMatcher();
+    ArrayList<ExecutionEntity> databaseEntities = new ArrayList<>();
 
-    LinkedHashSet<CachedEntity> cachedEntities = new LinkedHashSet<>();
-    cachedEntities.add(
-        new CachedEntity(ExecutionEntityImpl.createWithEmptyRelationshipCollections(), true));
+    ArrayList<CachedEntity> cachedEntities = new ArrayList<>();
+    cachedEntities.add(new CachedEntity(ExecutionEntityImpl.createWithEmptyRelationshipCollections(), true));
 
     // Act and Assert
     assertNull(
-        executionsWithSameRootProcessInstanceIdMatcher.getMatchingExecution(
-            null, cachedEntities, "42"));
+        executionsWithSameRootProcessInstanceIdMatcher.getMatchingExecution(databaseEntities, cachedEntities, "42"));
   }
 
   /**
-   * Test {@link ExecutionsWithSameRootProcessInstanceIdMatcher#getMatchingExecution(Collection,
-   * Collection, String)}.
-   *
+   * Test {@link ExecutionsWithSameRootProcessInstanceIdMatcher#getMatchingExecution(Collection, Collection, String)}.
    * <ul>
-   *   <li>Given createWithEmptyRelationshipCollections.
+   *   <li>Given createWithEmptyRelationshipCollections.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link
-   * ExecutionsWithSameRootProcessInstanceIdMatcher#getMatchingExecution(Collection, Collection,
-   * String)}
+   * <p>
+   * Method under test: {@link ExecutionsWithSameRootProcessInstanceIdMatcher#getMatchingExecution(Collection, Collection, String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({
-    "ExecutionEntity ExecutionsWithSameRootProcessInstanceIdMatcher.getMatchingExecution(Collection, Collection, String)"
-  })
+      "ExecutionEntity ExecutionsWithSameRootProcessInstanceIdMatcher.getMatchingExecution(Collection, Collection, String)"})
   public void testGetMatchingExecution_givenCreateWithEmptyRelationshipCollections() {
     // Arrange
-    ExecutionsWithSameRootProcessInstanceIdMatcher executionsWithSameRootProcessInstanceIdMatcher =
-        new ExecutionsWithSameRootProcessInstanceIdMatcher();
+    ExecutionsWithSameRootProcessInstanceIdMatcher executionsWithSameRootProcessInstanceIdMatcher = new ExecutionsWithSameRootProcessInstanceIdMatcher();
 
-    LinkedHashSet<ExecutionEntity> databaseEntities = new LinkedHashSet<>();
+    ArrayList<ExecutionEntity> databaseEntities = new ArrayList<>();
     databaseEntities.add(ExecutionEntityImpl.createWithEmptyRelationshipCollections());
 
     // Act and Assert
     assertNull(
-        executionsWithSameRootProcessInstanceIdMatcher.getMatchingExecution(
-            databaseEntities, null, "42"));
+        executionsWithSameRootProcessInstanceIdMatcher.getMatchingExecution(databaseEntities, new ArrayList<>(), "42"));
   }
 
   /**
-   * Test {@link ExecutionsWithSameRootProcessInstanceIdMatcher#getMatchingExecution(Collection,
-   * Collection, String)}.
-   *
+   * Test {@link ExecutionsWithSameRootProcessInstanceIdMatcher#getMatchingExecution(Collection, Collection, String)}.
    * <ul>
-   *   <li>Given {@link ExecutionEntityImpl} {@link ExecutionEntityImpl#getId()} return {@code 42}.
-   *   <li>Then calls {@link ExecutionEntityImpl#getId()}.
+   *   <li>Given createWithEmptyRelationshipCollections.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link
-   * ExecutionsWithSameRootProcessInstanceIdMatcher#getMatchingExecution(Collection, Collection,
-   * String)}
+   * <p>
+   * Method under test: {@link ExecutionsWithSameRootProcessInstanceIdMatcher#getMatchingExecution(Collection, Collection, String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({
-    "ExecutionEntity ExecutionsWithSameRootProcessInstanceIdMatcher.getMatchingExecution(Collection, Collection, String)"
-  })
-  public void testGetMatchingExecution_givenExecutionEntityImplGetIdReturn42_thenCallsGetId() {
+      "ExecutionEntity ExecutionsWithSameRootProcessInstanceIdMatcher.getMatchingExecution(Collection, Collection, String)"})
+  public void testGetMatchingExecution_givenCreateWithEmptyRelationshipCollections2() {
     // Arrange
-    ExecutionsWithSameRootProcessInstanceIdMatcher executionsWithSameRootProcessInstanceIdMatcher =
-        new ExecutionsWithSameRootProcessInstanceIdMatcher();
+    ExecutionsWithSameRootProcessInstanceIdMatcher executionsWithSameRootProcessInstanceIdMatcher = new ExecutionsWithSameRootProcessInstanceIdMatcher();
 
-    ExecutionEntityImpl executionEntityImpl = mock(ExecutionEntityImpl.class);
-    when(executionEntityImpl.getId()).thenReturn("42");
+    ArrayList<ExecutionEntity> databaseEntities = new ArrayList<>();
+    databaseEntities.add(ExecutionEntityImpl.createWithEmptyRelationshipCollections());
+    databaseEntities.add(ExecutionEntityImpl.createWithEmptyRelationshipCollections());
 
-    LinkedHashSet<ExecutionEntity> databaseEntities = new LinkedHashSet<>();
-    databaseEntities.add(executionEntityImpl);
-
-    // Act
-    executionsWithSameRootProcessInstanceIdMatcher.getMatchingExecution(
-        databaseEntities, null, "42");
-
-    // Assert
-    verify(executionEntityImpl).getId();
+    // Act and Assert
+    assertNull(
+        executionsWithSameRootProcessInstanceIdMatcher.getMatchingExecution(databaseEntities, new ArrayList<>(), "42"));
   }
 
   /**
-   * Test {@link ExecutionsWithSameRootProcessInstanceIdMatcher#getMatchingExecution(Collection,
-   * Collection, String)}.
-   *
+   * Test {@link ExecutionsWithSameRootProcessInstanceIdMatcher#getMatchingExecution(Collection, Collection, String)}.
    * <ul>
-   *   <li>Then return createWithEmptyRelationshipCollections.
+   *   <li>Then calls {@link AbstractEntity#getId()}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link
-   * ExecutionsWithSameRootProcessInstanceIdMatcher#getMatchingExecution(Collection, Collection,
-   * String)}
+   * <p>
+   * Method under test: {@link ExecutionsWithSameRootProcessInstanceIdMatcher#getMatchingExecution(Collection, Collection, String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({
-    "ExecutionEntity ExecutionsWithSameRootProcessInstanceIdMatcher.getMatchingExecution(Collection, Collection, String)"
-  })
-  public void testGetMatchingExecution_thenReturnCreateWithEmptyRelationshipCollections() {
+      "ExecutionEntity ExecutionsWithSameRootProcessInstanceIdMatcher.getMatchingExecution(Collection, Collection, String)"})
+  public void testGetMatchingExecution_thenCallsGetId() {
     // Arrange
-    ExecutionsWithSameRootProcessInstanceIdMatcher executionsWithSameRootProcessInstanceIdMatcher =
-        new ExecutionsWithSameRootProcessInstanceIdMatcher();
+    ExecutionsWithSameRootProcessInstanceIdMatcher executionsWithSameRootProcessInstanceIdMatcher = new ExecutionsWithSameRootProcessInstanceIdMatcher();
+    ArrayList<ExecutionEntity> databaseEntities = new ArrayList<>();
+    ExecutionEntityImpl entity = mock(ExecutionEntityImpl.class);
+    when(entity.getPersistentState()).thenReturn(JSONObject.NULL);
+    when(entity.getId()).thenReturn("42");
+    CachedEntity cachedEntity = new CachedEntity(entity, true);
 
-    ExecutionEntityImpl createWithEmptyRelationshipCollectionsResult =
-        ExecutionEntityImpl.createWithEmptyRelationshipCollections();
-    createWithEmptyRelationshipCollectionsResult.setId("42");
-
-    CachedEntity cachedEntity = mock(CachedEntity.class);
-    when(cachedEntity.getEntity()).thenReturn(createWithEmptyRelationshipCollectionsResult);
-
-    LinkedHashSet<CachedEntity> cachedEntities = new LinkedHashSet<>();
+    ArrayList<CachedEntity> cachedEntities = new ArrayList<>();
     cachedEntities.add(cachedEntity);
 
     // Act
-    ExecutionEntity actualMatchingExecution =
-        executionsWithSameRootProcessInstanceIdMatcher.getMatchingExecution(
-            null, cachedEntities, "42");
+    executionsWithSameRootProcessInstanceIdMatcher.getMatchingExecution(databaseEntities, cachedEntities, "42");
 
     // Assert
-    verify(cachedEntity).getEntity();
-    assertSame(createWithEmptyRelationshipCollectionsResult, actualMatchingExecution);
+    verify(entity).getId();
+    verify(entity).getPersistentState();
   }
 
   /**
-   * Test {@link ExecutionsWithSameRootProcessInstanceIdMatcher#getMatchingExecution(Collection,
-   * Collection, String)}.
-   *
+   * Test {@link ExecutionsWithSameRootProcessInstanceIdMatcher#getMatchingExecution(Collection, Collection, String)}.
    * <ul>
-   *   <li>When {@link ArrayList#ArrayList()}.
-   *   <li>Then return {@code null}.
+   *   <li>Then return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link
-   * ExecutionsWithSameRootProcessInstanceIdMatcher#getMatchingExecution(Collection, Collection,
-   * String)}
+   * <p>
+   * Method under test: {@link ExecutionsWithSameRootProcessInstanceIdMatcher#getMatchingExecution(Collection, Collection, String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({
-    "ExecutionEntity ExecutionsWithSameRootProcessInstanceIdMatcher.getMatchingExecution(Collection, Collection, String)"
-  })
-  public void testGetMatchingExecution_whenArrayList_thenReturnNull() {
+      "ExecutionEntity ExecutionsWithSameRootProcessInstanceIdMatcher.getMatchingExecution(Collection, Collection, String)"})
+  public void testGetMatchingExecution_thenReturnNull() {
     // Arrange
-    ExecutionsWithSameRootProcessInstanceIdMatcher executionsWithSameRootProcessInstanceIdMatcher =
-        new ExecutionsWithSameRootProcessInstanceIdMatcher();
+    ExecutionsWithSameRootProcessInstanceIdMatcher executionsWithSameRootProcessInstanceIdMatcher = new ExecutionsWithSameRootProcessInstanceIdMatcher();
     ArrayList<ExecutionEntity> databaseEntities = new ArrayList<>();
 
     // Act and Assert
     assertNull(
-        executionsWithSameRootProcessInstanceIdMatcher.getMatchingExecution(
-            databaseEntities, new ArrayList<>(), "42"));
-  }
-
-  /**
-   * Test {@link ExecutionsWithSameRootProcessInstanceIdMatcher#getMatchingExecution(Collection,
-   * Collection, String)}.
-   *
-   * <ul>
-   *   <li>When {@code null}.
-   *   <li>Then return {@code null}.
-   * </ul>
-   *
-   * <p>Method under test: {@link
-   * ExecutionsWithSameRootProcessInstanceIdMatcher#getMatchingExecution(Collection, Collection,
-   * String)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "ExecutionEntity ExecutionsWithSameRootProcessInstanceIdMatcher.getMatchingExecution(Collection, Collection, String)"
-  })
-  public void testGetMatchingExecution_whenNull_thenReturnNull() {
-    // Arrange, Act and Assert
-    assertNull(
-        new ExecutionsWithSameRootProcessInstanceIdMatcher()
-            .getMatchingExecution(null, null, "42"));
+        executionsWithSameRootProcessInstanceIdMatcher.getMatchingExecution(databaseEntities, new ArrayList<>(), "42"));
   }
 }

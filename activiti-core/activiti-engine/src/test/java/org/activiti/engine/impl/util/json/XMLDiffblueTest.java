@@ -17,14 +17,13 @@ package org.activiti.engine.impl.util.json;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThrows;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -35,17 +34,15 @@ import org.mockito.Mockito;
 public class XMLDiffblueTest {
   /**
    * Test {@link XML#escape(String)}.
-   *
    * <ul>
-   *   <li>When {@code -->}.
-   *   <li>Then return {@code --&gt;}.
+   *   <li>When {@code -->}.</li>
+   *   <li>Then return {@code --&gt;}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link XML#escape(String)}
+   * <p>
+   * Method under test: {@link XML#escape(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"String XML.escape(String)"})
   public void testEscape_whenDashDashGreaterThanSign_thenReturnGt() {
     // Arrange, Act and Assert
@@ -54,17 +51,15 @@ public class XMLDiffblueTest {
 
   /**
    * Test {@link XML#escape(String)}.
-   *
    * <ul>
-   *   <li>When {@code <}.
-   *   <li>Then return {@code &lt;}.
+   *   <li>When {@code <}.</li>
+   *   <li>Then return {@code &lt;}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link XML#escape(String)}
+   * <p>
+   * Method under test: {@link XML#escape(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"String XML.escape(String)"})
   public void testEscape_whenLessThanSign_thenReturnLt() {
     // Arrange, Act and Assert
@@ -73,17 +68,15 @@ public class XMLDiffblueTest {
 
   /**
    * Test {@link XML#escape(String)}.
-   *
    * <ul>
-   *   <li>When {@code String}.
-   *   <li>Then return {@code String}.
+   *   <li>When {@code String}.</li>
+   *   <li>Then return {@code String}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link XML#escape(String)}
+   * <p>
+   * Method under test: {@link XML#escape(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"String XML.escape(String)"})
   public void testEscape_whenString_thenReturnString() {
     // Arrange, Act and Assert
@@ -92,17 +85,15 @@ public class XMLDiffblueTest {
 
   /**
    * Test {@link XML#noSpace(String)}.
-   *
    * <ul>
-   *   <li>When empty string.
-   *   <li>Then throw {@link JSONException}.
+   *   <li>When empty string.</li>
+   *   <li>Then throw {@link JSONException}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link XML#noSpace(String)}
+   * <p>
+   * Method under test: {@link XML#noSpace(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void XML.noSpace(String)"})
   public void testNoSpace_whenEmptyString_thenThrowJSONException() throws JSONException {
     // Arrange, Act and Assert
@@ -111,31 +102,15 @@ public class XMLDiffblueTest {
 
   /**
    * Test {@link XML#toJSONObject(String)}.
-   *
-   * <p>Method under test: {@link XML#toJSONObject(String)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"JSONObject XML.toJSONObject(String)"})
-  public void testToJSONObject() throws JSONException {
-    // Arrange, Act and Assert
-    assertEquals(0, XML.toJSONObject("<?>?>").length());
-  }
-
-  /**
-   * Test {@link XML#toJSONObject(String)}.
-   *
    * <ul>
-   *   <li>When empty string.
-   *   <li>Then return length is zero.
+   *   <li>When empty string.</li>
+   *   <li>Then return length is zero.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link XML#toJSONObject(String)}
+   * <p>
+   * Method under test: {@link XML#toJSONObject(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"JSONObject XML.toJSONObject(String)"})
   public void testToJSONObject_whenEmptyString_thenReturnLengthIsZero() throws JSONException {
     // Arrange, Act and Assert
@@ -144,16 +119,14 @@ public class XMLDiffblueTest {
 
   /**
    * Test {@link XML#toJSONObject(String)}.
-   *
    * <ul>
-   *   <li>When {@code <?>}.
+   *   <li>When {@code <?>}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link XML#toJSONObject(String)}
+   * <p>
+   * Method under test: {@link XML#toJSONObject(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"JSONObject XML.toJSONObject(String)"})
   public void testToJSONObject_whenLessThanSignQuestionMarkGreaterThanSign() throws JSONException {
     // Arrange, Act and Assert
@@ -162,17 +135,15 @@ public class XMLDiffblueTest {
 
   /**
    * Test {@link XML#toJSONObject(String)}.
-   *
    * <ul>
-   *   <li>When {@code String}.
-   *   <li>Then return length is zero.
+   *   <li>When {@code String}.</li>
+   *   <li>Then return length is zero.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link XML#toJSONObject(String)}
+   * <p>
+   * Method under test: {@link XML#toJSONObject(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"JSONObject XML.toJSONObject(String)"})
   public void testToJSONObject_whenString_thenReturnLengthIsZero() throws JSONException {
     // Arrange, Act and Assert
@@ -180,266 +151,100 @@ public class XMLDiffblueTest {
   }
 
   /**
-   * Test {@link XML#toJSONObject(String)}.
-   *
-   * <ul>
-   *   <li>When {@code <?>String}.
-   *   <li>Then return length is zero.
-   * </ul>
-   *
-   * <p>Method under test: {@link XML#toJSONObject(String)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"JSONObject XML.toJSONObject(String)"})
-  public void testToJSONObject_whenString_thenReturnLengthIsZero2() throws JSONException {
-    // Arrange, Act and Assert
-    assertEquals(0, XML.toJSONObject("<?>String").length());
-  }
-
-  /**
    * Test {@link XML#toString(Object)} with {@code o}.
-   *
-   * <p>Method under test: {@link XML#toString(Object)}
+   * <p>
+   * Method under test: {@link XML#toString(Object)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"String XML.toString(Object)"})
   public void testToStringWithO() throws JSONException {
     // Arrange, Act and Assert
-    assertEquals(
-        "<HTTP-Version>https://example.org/example</HTTP-Version><Status-Code/><Reason-Phrase/>",
+    assertEquals("<HTTP-Version>https://example.org/example</HTTP-Version><Status-Code/><Reason-Phrase/>",
         XML.toString(HTTP.toJSONObject("https://example.org/example")));
   }
 
   /**
-   * Test {@link XML#toString(Object)} with {@code o}.
-   *
-   * <p>Method under test: {@link XML#toString(Object)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String XML.toString(Object)"})
-  public void testToStringWithO2() throws JSONException {
-    // Arrange
-    JSONObject toJSONObjectResult = HTTP.toJSONObject("https://example.org/example");
-    toJSONObjectResult.append("content", JSONObject.NULL);
-
-    // Act and Assert
-    assertEquals(
-        "<HTTP-Version>https://example.org/example</HTTP-Version><Status-Code/><Reason-Phrase/>null",
-        XML.toString(toJSONObjectResult));
-  }
-
-  /**
-   * Test {@link XML#toString(Object)} with {@code o}.
-   *
-   * <p>Method under test: {@link XML#toString(Object)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String XML.toString(Object)"})
-  public void testToStringWithO3() throws JSONException {
-    // Arrange
-    JSONObject toJSONObjectResult = HTTP.toJSONObject("https://example.org/example");
-    toJSONObjectResult.increment("content");
-
-    // Act and Assert
-    assertEquals(
-        "<HTTP-Version>https://example.org/example</HTTP-Version><Status-Code/><Reason-Phrase/>1",
-        XML.toString(toJSONObjectResult));
-  }
-
-  /**
-   * Test {@link XML#toString(Object)} with {@code o}.
-   *
-   * <p>Method under test: {@link XML#toString(Object)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String XML.toString(Object)"})
-  public void testToStringWithO4() throws JSONException {
-    // Arrange
-    JSONObject toJSONObjectResult = HTTP.toJSONObject("https://example.org/example");
-    toJSONObjectResult.put("content", (Map) new HashMap<>());
-
-    // Act and Assert
-    assertEquals(
-        "<HTTP-Version>https://example.org/example</HTTP-Version><Status-Code/><Reason-Phrase/>{}",
-        XML.toString(toJSONObjectResult));
-  }
-
-  /**
    * Test {@link XML#toString(Object, String)} with {@code o}, {@code tagName}.
-   *
-   * <p>Method under test: {@link XML#toString(Object, String)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String XML.toString(Object, String)"})
-  public void testToStringWithOTagName() throws JSONException {
-    // Arrange
-    JSONObject jsonObject = mock(JSONObject.class);
-    when(jsonObject.keys()).thenThrow(new JSONException("An error occurred"));
-
-    // Act and Assert
-    assertThrows(JSONException.class, () -> XML.toString(jsonObject, "Tag Name"));
-    verify(jsonObject).keys();
-  }
-
-  /**
-   * Test {@link XML#toString(Object, String)} with {@code o}, {@code tagName}.
-   *
-   * <p>Method under test: {@link XML#toString(Object, String)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String XML.toString(Object, String)"})
-  public void testToStringWithOTagName2() throws JSONException {
-    // Arrange
-    ArrayList<Object> objectList = new ArrayList<>();
-    objectList.add(JSONObject.NULL);
-    Iterator<Object> iteratorResult = objectList.iterator();
-
-    JSONObject jsonObject = mock(JSONObject.class);
-    when(jsonObject.opt(Mockito.<String>any())).thenThrow(new JSONException("An error occurred"));
-    when(jsonObject.keys()).thenReturn(iteratorResult);
-
-    // Act and Assert
-    assertThrows(JSONException.class, () -> XML.toString(jsonObject, "Tag Name"));
-    verify(jsonObject).keys();
-    verify(jsonObject).opt("null");
-  }
-
-  /**
-   * Test {@link XML#toString(Object, String)} with {@code o}, {@code tagName}.
-   *
-   * <p>Method under test: {@link XML#toString(Object, String)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String XML.toString(Object, String)"})
-  public void testToStringWithOTagName3() throws JSONException {
-    // Arrange
-    ArrayList<Object> objectList = new ArrayList<>();
-    objectList.add(
-        HTTP.toJSONObject(
-            "{\"HTTP-Version\":\"https://example.org/example\",\"Status-Code\":\"\",\"Reason-Phrase\":\"\"}"));
-    Iterator<Object> iteratorResult = objectList.iterator();
-
-    JSONObject jsonObject = mock(JSONObject.class);
-    when(jsonObject.keys()).thenThrow(new JSONException("An error occurred"));
-
-    JSONObject jsonObject2 = mock(JSONObject.class);
-    when(jsonObject2.opt(Mockito.<String>any())).thenReturn(jsonObject);
-    when(jsonObject2.keys()).thenReturn(iteratorResult);
-
-    // Act and Assert
-    assertThrows(JSONException.class, () -> XML.toString(jsonObject2, "Tag Name"));
-    verify(jsonObject2).keys();
-    verify(jsonObject).keys();
-    verify(jsonObject2)
-        .opt(
-            "{\"Request-URI\":\"\",\"Method\":\"{\\\"HTTP-Version\\\":\\\"https://example.org/example\\\",\\\"Status-Code\\\":\\\"\\\",\\\"Reason-Phrase\\\":\\\"\\\"}\",\"HTTP-Version\":\"\"}");
-  }
-
-  /**
-   * Test {@link XML#toString(Object, String)} with {@code o}, {@code tagName}.
-   *
    * <ul>
-   *   <li>Given {@link ArrayList#ArrayList()} add {@code content}.
+   *   <li>Given {@link ArrayList#ArrayList()} add {@code content}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link XML#toString(Object, String)}
+   * <p>
+   * Method under test: {@link XML#toString(Object, String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"String XML.toString(Object, String)"})
   public void testToStringWithOTagName_givenArrayListAddContent() throws JSONException {
     // Arrange
     ArrayList<Object> objectList = new ArrayList<>();
     objectList.add("content");
     Iterator<Object> iteratorResult = objectList.iterator();
-
     JSONObject jsonObject = mock(JSONObject.class);
-    when(jsonObject.opt(Mockito.<String>any())).thenReturn(mock(JSONObject.class));
-    when(jsonObject.keys()).thenReturn(iteratorResult);
+    when(jsonObject.keys()).thenThrow(new JSONException("An error occurred"));
+    JSONObject jsonObject2 = mock(JSONObject.class);
+    when(jsonObject2.opt(Mockito.<String>any())).thenReturn(jsonObject);
+    when(jsonObject2.keys()).thenReturn(iteratorResult);
 
     // Act
-    XML.toString(jsonObject, "Tag Name");
+    XML.toString(jsonObject2, "Tag Name");
 
     // Assert
-    verify(jsonObject).keys();
-    verify(jsonObject).opt("content");
+    verify(jsonObject2).keys();
+    verify(jsonObject2).opt(eq("content"));
   }
 
   /**
    * Test {@link XML#toString(Object, String)} with {@code o}, {@code tagName}.
-   *
    * <ul>
-   *   <li>Given {@link ArrayList#ArrayList()} add {@code content}.
-   *   <li>When {@code null}.
-   *   <li>Then calls {@link JSONObject#opt(String)}.
+   *   <li>Given {@link ArrayList#ArrayList()} add {@code content}.</li>
+   *   <li>When {@code null}.</li>
+   *   <li>Then calls {@link JSONObject#opt(String)}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link XML#toString(Object, String)}
+   * <p>
+   * Method under test: {@link XML#toString(Object, String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"String XML.toString(Object, String)"})
-  public void testToStringWithOTagName_givenArrayListAddContent_whenNull_thenCallsOpt()
-      throws JSONException {
+  public void testToStringWithOTagName_givenArrayListAddContent_whenNull_thenCallsOpt() throws JSONException {
     // Arrange
     ArrayList<Object> objectList = new ArrayList<>();
     objectList.add("content");
     Iterator<Object> iteratorResult = objectList.iterator();
-
     JSONObject jsonObject = mock(JSONObject.class);
-    when(jsonObject.opt(Mockito.<String>any())).thenReturn(mock(JSONObject.class));
-    when(jsonObject.keys()).thenReturn(iteratorResult);
+    when(jsonObject.keys()).thenThrow(new JSONException("An error occurred"));
+    JSONObject jsonObject2 = mock(JSONObject.class);
+    when(jsonObject2.opt(Mockito.<String>any())).thenReturn(jsonObject);
+    when(jsonObject2.keys()).thenReturn(iteratorResult);
 
     // Act
-    XML.toString(jsonObject, null);
+    XML.toString(jsonObject2, null);
 
     // Assert
-    verify(jsonObject).keys();
-    verify(jsonObject).opt("content");
+    verify(jsonObject2).keys();
+    verify(jsonObject2).opt(eq("content"));
   }
 
   /**
    * Test {@link XML#toString(Object, String)} with {@code o}, {@code tagName}.
-   *
    * <ul>
-   *   <li>Given {@link ArrayList#ArrayList()} add {@link JSONArray#JSONArray()}.
-   *   <li>Then throw {@link JSONException}.
+   *   <li>Given {@link ArrayList#ArrayList()} add {@link JSONArray#JSONArray()}.</li>
+   *   <li>Then throw {@link JSONException}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link XML#toString(Object, String)}
+   * <p>
+   * Method under test: {@link XML#toString(Object, String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"String XML.toString(Object, String)"})
-  public void testToStringWithOTagName_givenArrayListAddJSONArray_thenThrowJSONException()
-      throws JSONException {
+  public void testToStringWithOTagName_givenArrayListAddJSONArray_thenThrowJSONException() throws JSONException {
     // Arrange
     ArrayList<Object> objectList = new ArrayList<>();
     objectList.add(new JSONArray());
     Iterator<Object> iteratorResult = objectList.iterator();
-
     JSONObject jsonObject = mock(JSONObject.class);
     when(jsonObject.keys()).thenThrow(new JSONException("An error occurred"));
-
     JSONObject jsonObject2 = mock(JSONObject.class);
     when(jsonObject2.opt(Mockito.<String>any())).thenReturn(jsonObject);
     when(jsonObject2.keys()).thenReturn(iteratorResult);
@@ -448,33 +253,28 @@ public class XMLDiffblueTest {
     assertThrows(JSONException.class, () -> XML.toString(jsonObject2, "Tag Name"));
     verify(jsonObject2).keys();
     verify(jsonObject).keys();
-    verify(jsonObject2).opt("[]");
+    verify(jsonObject2).opt(eq("[]"));
   }
 
   /**
    * Test {@link XML#toString(Object, String)} with {@code o}, {@code tagName}.
-   *
    * <ul>
-   *   <li>Given {@link ArrayList#ArrayList()} add {@link JSONObject#JSONObject()}.
-   *   <li>Then throw {@link JSONException}.
+   *   <li>Given {@link ArrayList#ArrayList()} add {@link JSONObject#JSONObject()}.</li>
+   *   <li>Then throw {@link JSONException}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link XML#toString(Object, String)}
+   * <p>
+   * Method under test: {@link XML#toString(Object, String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"String XML.toString(Object, String)"})
-  public void testToStringWithOTagName_givenArrayListAddJSONObject_thenThrowJSONException()
-      throws JSONException {
+  public void testToStringWithOTagName_givenArrayListAddJSONObject_thenThrowJSONException() throws JSONException {
     // Arrange
     ArrayList<Object> objectList = new ArrayList<>();
     objectList.add(new JSONObject());
     Iterator<Object> iteratorResult = objectList.iterator();
-
     JSONObject jsonObject = mock(JSONObject.class);
     when(jsonObject.keys()).thenThrow(new JSONException("An error occurred"));
-
     JSONObject jsonObject2 = mock(JSONObject.class);
     when(jsonObject2.opt(Mockito.<String>any())).thenReturn(jsonObject);
     when(jsonObject2.keys()).thenReturn(iteratorResult);
@@ -483,33 +283,28 @@ public class XMLDiffblueTest {
     assertThrows(JSONException.class, () -> XML.toString(jsonObject2, "Tag Name"));
     verify(jsonObject2).keys();
     verify(jsonObject).keys();
-    verify(jsonObject2).opt("{}");
+    verify(jsonObject2).opt(eq("{}"));
   }
 
   /**
    * Test {@link XML#toString(Object, String)} with {@code o}, {@code tagName}.
-   *
    * <ul>
-   *   <li>Given {@link ArrayList#ArrayList()} add {@link JSONObject#NULL}.
-   *   <li>Then throw {@link JSONException}.
+   *   <li>Given {@link ArrayList#ArrayList()} add {@link JSONObject#NULL}.</li>
+   *   <li>Then throw {@link JSONException}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link XML#toString(Object, String)}
+   * <p>
+   * Method under test: {@link XML#toString(Object, String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"String XML.toString(Object, String)"})
-  public void testToStringWithOTagName_givenArrayListAddNull_thenThrowJSONException()
-      throws JSONException {
+  public void testToStringWithOTagName_givenArrayListAddNull_thenThrowJSONException() throws JSONException {
     // Arrange
     ArrayList<Object> objectList = new ArrayList<>();
     objectList.add(JSONObject.NULL);
     Iterator<Object> iteratorResult = objectList.iterator();
-
     JSONObject jsonObject = mock(JSONObject.class);
     when(jsonObject.keys()).thenThrow(new JSONException("An error occurred"));
-
     JSONObject jsonObject2 = mock(JSONObject.class);
     when(jsonObject2.opt(Mockito.<String>any())).thenReturn(jsonObject);
     when(jsonObject2.keys()).thenReturn(iteratorResult);
@@ -518,34 +313,29 @@ public class XMLDiffblueTest {
     assertThrows(JSONException.class, () -> XML.toString(jsonObject2, "Tag Name"));
     verify(jsonObject2).keys();
     verify(jsonObject).keys();
-    verify(jsonObject2).opt("null");
+    verify(jsonObject2).opt(eq("null"));
   }
 
   /**
    * Test {@link XML#toString(Object, String)} with {@code o}, {@code tagName}.
-   *
    * <ul>
-   *   <li>Given {@link ArrayList#ArrayList()} add {@link JSONObject#NULL}.
-   *   <li>When {@code null}.
-   *   <li>Then throw {@link JSONException}.
+   *   <li>Given {@link ArrayList#ArrayList()} add {@link JSONObject#NULL}.</li>
+   *   <li>When {@code null}.</li>
+   *   <li>Then throw {@link JSONException}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link XML#toString(Object, String)}
+   * <p>
+   * Method under test: {@link XML#toString(Object, String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"String XML.toString(Object, String)"})
-  public void testToStringWithOTagName_givenArrayListAddNull_whenNull_thenThrowJSONException()
-      throws JSONException {
+  public void testToStringWithOTagName_givenArrayListAddNull_whenNull_thenThrowJSONException() throws JSONException {
     // Arrange
     ArrayList<Object> objectList = new ArrayList<>();
     objectList.add(JSONObject.NULL);
     Iterator<Object> iteratorResult = objectList.iterator();
-
     JSONObject jsonObject = mock(JSONObject.class);
     when(jsonObject.keys()).thenThrow(new JSONException("An error occurred"));
-
     JSONObject jsonObject2 = mock(JSONObject.class);
     when(jsonObject2.opt(Mockito.<String>any())).thenReturn(jsonObject);
     when(jsonObject2.keys()).thenReturn(iteratorResult);
@@ -554,32 +344,27 @@ public class XMLDiffblueTest {
     assertThrows(JSONException.class, () -> XML.toString(jsonObject2, null));
     verify(jsonObject2).keys();
     verify(jsonObject).keys();
-    verify(jsonObject2).opt("null");
+    verify(jsonObject2).opt(eq("null"));
   }
 
   /**
    * Test {@link XML#toString(Object, String)} with {@code o}, {@code tagName}.
-   *
    * <ul>
-   *   <li>Given {@link ArrayList#ArrayList()} add toJSONObject {@code https://example.org/example}.
+   *   <li>Given {@link ArrayList#ArrayList()} add toJSONObject {@code https://example.org/example}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link XML#toString(Object, String)}
+   * <p>
+   * Method under test: {@link XML#toString(Object, String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"String XML.toString(Object, String)"})
-  public void testToStringWithOTagName_givenArrayListAddToJSONObjectHttpsExampleOrgExample()
-      throws JSONException {
+  public void testToStringWithOTagName_givenArrayListAddToJSONObjectHttpsExampleOrgExample() throws JSONException {
     // Arrange
     ArrayList<Object> objectList = new ArrayList<>();
     objectList.add(HTTP.toJSONObject("https://example.org/example"));
     Iterator<Object> iteratorResult = objectList.iterator();
-
     JSONObject jsonObject = mock(JSONObject.class);
     when(jsonObject.keys()).thenThrow(new JSONException("An error occurred"));
-
     JSONObject jsonObject2 = mock(JSONObject.class);
     when(jsonObject2.opt(Mockito.<String>any())).thenReturn(jsonObject);
     when(jsonObject2.keys()).thenReturn(iteratorResult);
@@ -589,26 +374,22 @@ public class XMLDiffblueTest {
     verify(jsonObject2).keys();
     verify(jsonObject).keys();
     verify(jsonObject2)
-        .opt(
-            "{\"HTTP-Version\":\"https://example.org/example\",\"Status-Code\":\"\",\"Reason-Phrase\":\"\"}");
+        .opt(eq("{\"HTTP-Version\":\"https://example.org/example\",\"Status-Code\":\"\",\"Reason-Phrase\":\"\"}"));
   }
 
   /**
    * Test {@link XML#toString(Object, String)} with {@code o}, {@code tagName}.
-   *
    * <ul>
-   *   <li>Given {@link ArrayList#ArrayList()} iterator.
-   *   <li>Then return {@code <Tag Name></Tag Name>}.
+   *   <li>Given {@link ArrayList#ArrayList()} iterator.</li>
+   *   <li>Then return {@code <Tag Name></Tag Name>}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link XML#toString(Object, String)}
+   * <p>
+   * Method under test: {@link XML#toString(Object, String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"String XML.toString(Object, String)"})
-  public void testToStringWithOTagName_givenArrayListIterator_thenReturnTagNameTagName()
-      throws JSONException {
+  public void testToStringWithOTagName_givenArrayListIterator_thenReturnTagNameTagName() throws JSONException {
     // Arrange
     JSONObject jsonObject = mock(JSONObject.class);
 
@@ -625,26 +406,21 @@ public class XMLDiffblueTest {
 
   /**
    * Test {@link XML#toString(Object, String)} with {@code o}, {@code tagName}.
-   *
    * <ul>
-   *   <li>Given {@link JSONArray#JSONArray()}.
-   *   <li>When {@link JSONObject} {@link JSONObject#opt(String)} return {@link
-   *       JSONArray#JSONArray()}.
+   *   <li>Given {@link JSONArray#JSONArray()}.</li>
+   *   <li>When {@link JSONObject} {@link JSONObject#opt(String)} return {@link JSONArray#JSONArray()}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link XML#toString(Object, String)}
+   * <p>
+   * Method under test: {@link XML#toString(Object, String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"String XML.toString(Object, String)"})
-  public void testToStringWithOTagName_givenJSONArray_whenJSONObjectOptReturnJSONArray()
-      throws JSONException {
+  public void testToStringWithOTagName_givenJSONArray_whenJSONObjectOptReturnJSONArray() throws JSONException {
     // Arrange
     ArrayList<Object> objectList = new ArrayList<>();
     objectList.add(JSONObject.NULL);
     Iterator<Object> iteratorResult = objectList.iterator();
-
     JSONObject jsonObject = mock(JSONObject.class);
     when(jsonObject.opt(Mockito.<String>any())).thenReturn(new JSONArray());
     when(jsonObject.keys()).thenReturn(iteratorResult);
@@ -654,7 +430,7 @@ public class XMLDiffblueTest {
 
     // Assert
     verify(jsonObject).keys();
-    verify(jsonObject).opt("null");
+    verify(jsonObject).opt(eq("null"));
     assertEquals("<Tag Name></Tag Name>", actualToStringResult);
   }
 
@@ -667,11 +443,9 @@ public class XMLDiffblueTest {
    * Method under test: {@link XML#toString(Object, String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"String XML.toString(Object, String)"})
-  public void testToStringWithOTagName_givenJSONObjectAppendLeftCurlyBracketAndNull()
-      throws JSONException {
+  public void testToStringWithOTagName_givenJSONObjectAppendLeftCurlyBracketAndNull() throws JSONException {
     // Arrange
     JSONObject jsonObject = new JSONObject();
     jsonObject.append("{", JSONObject.NULL);
@@ -679,10 +453,8 @@ public class XMLDiffblueTest {
     ArrayList<Object> objectList = new ArrayList<>();
     objectList.add(jsonObject);
     Iterator<Object> iteratorResult = objectList.iterator();
-
     JSONObject jsonObject2 = mock(JSONObject.class);
     when(jsonObject2.keys()).thenThrow(new JSONException("An error occurred"));
-
     JSONObject jsonObject3 = mock(JSONObject.class);
     when(jsonObject3.opt(Mockito.<String>any())).thenReturn(jsonObject2);
     when(jsonObject3.keys()).thenReturn(iteratorResult);
@@ -691,97 +463,22 @@ public class XMLDiffblueTest {
     assertThrows(JSONException.class, () -> XML.toString(jsonObject3, "Tag Name"));
     verify(jsonObject3).keys();
     verify(jsonObject2).keys();
-    verify(jsonObject3).opt("{\"{\":[null]}");
+    verify(jsonObject3).opt(eq("{\"{\":[null]}"));
   }
 
   /**
    * Test {@link XML#toString(Object, String)} with {@code o}, {@code tagName}.
    * <ul>
-   *   <li>Given {@link JSONObject#JSONObject()} append {@code {} and {@code null}.</li>
+   *   <li>Given {@link JSONObject#JSONObject()} {@code ,} is {@code 0.5}.</li>
+   *   <li>Then throw {@link JSONException}.</li>
    * </ul>
    * <p>
    * Method under test: {@link XML#toString(Object, String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"String XML.toString(Object, String)"})
-  public void testToStringWithOTagName_givenJSONObjectAppendLeftCurlyBracketAndNull2()
-      throws JSONException {
-    // Arrange
-    JSONObject jsonObject = new JSONObject();
-    jsonObject.append("{", null);
-
-    ArrayList<Object> objectList = new ArrayList<>();
-    objectList.add(jsonObject);
-    Iterator<Object> iteratorResult = objectList.iterator();
-
-    JSONObject jsonObject2 = mock(JSONObject.class);
-    when(jsonObject2.keys()).thenThrow(new JSONException("An error occurred"));
-
-    JSONObject jsonObject3 = mock(JSONObject.class);
-    when(jsonObject3.opt(Mockito.<String>any())).thenReturn(jsonObject2);
-    when(jsonObject3.keys()).thenReturn(iteratorResult);
-
-    // Act and Assert
-    assertThrows(JSONException.class, () -> XML.toString(jsonObject3, "Tag Name"));
-    verify(jsonObject3).keys();
-    verify(jsonObject2).keys();
-    verify(jsonObject3).opt("{\"{\":[null]}");
-  }
-
-  /**
-   * Test {@link XML#toString(Object, String)} with {@code o}, {@code tagName}.
-   * <ul>
-   *   <li>Given {@link JSONObject#JSONObject()} append {@code {} and ten.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link XML#toString(Object, String)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String XML.toString(Object, String)"})
-  public void testToStringWithOTagName_givenJSONObjectAppendLeftCurlyBracketAndTen()
-      throws JSONException {
-    // Arrange
-    JSONObject jsonObject = new JSONObject();
-    jsonObject.append("{", 10.0f);
-
-    ArrayList<Object> objectList = new ArrayList<>();
-    objectList.add(jsonObject);
-    Iterator<Object> iteratorResult = objectList.iterator();
-
-    JSONObject jsonObject2 = mock(JSONObject.class);
-    when(jsonObject2.keys()).thenThrow(new JSONException("An error occurred"));
-
-    JSONObject jsonObject3 = mock(JSONObject.class);
-    when(jsonObject3.opt(Mockito.<String>any())).thenReturn(jsonObject2);
-    when(jsonObject3.keys()).thenReturn(iteratorResult);
-
-    // Act and Assert
-    assertThrows(JSONException.class, () -> XML.toString(jsonObject3, "Tag Name"));
-    verify(jsonObject3).keys();
-    verify(jsonObject2).keys();
-    verify(jsonObject3).opt("{\"{\":[10]}");
-  }
-
-  /**
-   * Test {@link XML#toString(Object, String)} with {@code o}, {@code tagName}.
-   *
-   * <ul>
-   *   <li>Given {@link JSONObject#JSONObject()} {@code ,} is {@code 0.5}.
-   *   <li>Then throw {@link JSONException}.
-   * </ul>
-   *
-   * <p>Method under test: {@link XML#toString(Object, String)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String XML.toString(Object, String)"})
-  public void testToStringWithOTagName_givenJSONObjectCommaIs05_thenThrowJSONException()
-      throws JSONException {
+  public void testToStringWithOTagName_givenJSONObjectCommaIs05_thenThrowJSONException() throws JSONException {
     // Arrange
     JSONObject jsonObject = new JSONObject();
     jsonObject.put(",", 0.5d);
@@ -790,10 +487,8 @@ public class XMLDiffblueTest {
     ArrayList<Object> objectList = new ArrayList<>();
     objectList.add(jsonObject);
     Iterator<Object> iteratorResult = objectList.iterator();
-
     JSONObject jsonObject2 = mock(JSONObject.class);
     when(jsonObject2.keys()).thenThrow(new JSONException("An error occurred"));
-
     JSONObject jsonObject3 = mock(JSONObject.class);
     when(jsonObject3.opt(Mockito.<String>any())).thenReturn(jsonObject2);
     when(jsonObject3.keys()).thenReturn(iteratorResult);
@@ -802,25 +497,22 @@ public class XMLDiffblueTest {
     assertThrows(JSONException.class, () -> XML.toString(jsonObject3, "Tag Name"));
     verify(jsonObject3).keys();
     verify(jsonObject2).keys();
-    verify(jsonObject3).opt("{\"{\":[null],\",\":0.5}");
+    verify(jsonObject3).opt(eq("{\"{\":[null],\",\":0.5}"));
   }
 
   /**
    * Test {@link XML#toString(Object, String)} with {@code o}, {@code tagName}.
-   *
    * <ul>
-   *   <li>Given {@link JSONObject#JSONObject()} {@code ,} is {@code false}.
-   *   <li>Then throw {@link JSONException}.
+   *   <li>Given {@link JSONObject#JSONObject()} {@code ,} is {@code false}.</li>
+   *   <li>Then throw {@link JSONException}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link XML#toString(Object, String)}
+   * <p>
+   * Method under test: {@link XML#toString(Object, String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"String XML.toString(Object, String)"})
-  public void testToStringWithOTagName_givenJSONObjectCommaIsFalse_thenThrowJSONException()
-      throws JSONException {
+  public void testToStringWithOTagName_givenJSONObjectCommaIsFalse_thenThrowJSONException() throws JSONException {
     // Arrange
     JSONObject jsonObject = new JSONObject();
     jsonObject.put(",", false);
@@ -829,10 +521,8 @@ public class XMLDiffblueTest {
     ArrayList<Object> objectList = new ArrayList<>();
     objectList.add(jsonObject);
     Iterator<Object> iteratorResult = objectList.iterator();
-
     JSONObject jsonObject2 = mock(JSONObject.class);
     when(jsonObject2.keys()).thenThrow(new JSONException("An error occurred"));
-
     JSONObject jsonObject3 = mock(JSONObject.class);
     when(jsonObject3.opt(Mockito.<String>any())).thenReturn(jsonObject2);
     when(jsonObject3.keys()).thenReturn(iteratorResult);
@@ -841,25 +531,22 @@ public class XMLDiffblueTest {
     assertThrows(JSONException.class, () -> XML.toString(jsonObject3, "Tag Name"));
     verify(jsonObject3).keys();
     verify(jsonObject2).keys();
-    verify(jsonObject3).opt("{\"{\":[null],\",\":false}");
+    verify(jsonObject3).opt(eq("{\"{\":[null],\",\":false}"));
   }
 
   /**
    * Test {@link XML#toString(Object, String)} with {@code o}, {@code tagName}.
-   *
    * <ul>
-   *   <li>Given {@link JSONObject#JSONObject()} {@code ,} is {@code false}.
-   *   <li>Then throw {@link JSONException}.
+   *   <li>Given {@link JSONObject#JSONObject()} {@code ,} is {@code false}.</li>
+   *   <li>Then throw {@link JSONException}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link XML#toString(Object, String)}
+   * <p>
+   * Method under test: {@link XML#toString(Object, String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"String XML.toString(Object, String)"})
-  public void testToStringWithOTagName_givenJSONObjectCommaIsFalse_thenThrowJSONException2()
-      throws JSONException {
+  public void testToStringWithOTagName_givenJSONObjectCommaIsFalse_thenThrowJSONException2() throws JSONException {
     // Arrange
     JSONObject jsonObject = new JSONObject();
     jsonObject.append("{", JSONObject.NULL);
@@ -869,10 +556,8 @@ public class XMLDiffblueTest {
     ArrayList<Object> objectList = new ArrayList<>();
     objectList.add(jsonObject);
     Iterator<Object> iteratorResult = objectList.iterator();
-
     JSONObject jsonObject2 = mock(JSONObject.class);
     when(jsonObject2.keys()).thenThrow(new JSONException("An error occurred"));
-
     JSONObject jsonObject3 = mock(JSONObject.class);
     when(jsonObject3.opt(Mockito.<String>any())).thenReturn(jsonObject2);
     when(jsonObject3.keys()).thenReturn(iteratorResult);
@@ -881,25 +566,22 @@ public class XMLDiffblueTest {
     assertThrows(JSONException.class, () -> XML.toString(jsonObject3, "Tag Name"));
     verify(jsonObject3).keys();
     verify(jsonObject2).keys();
-    verify(jsonObject3).opt("{\"{\":[null,null],\",\":false}");
+    verify(jsonObject3).opt(eq("{\"{\":[null,null],\",\":false}"));
   }
 
   /**
    * Test {@link XML#toString(Object, String)} with {@code o}, {@code tagName}.
-   *
    * <ul>
-   *   <li>Given {@link JSONObject#JSONObject()} {@code ,} is {@link HashMap#HashMap()}.
-   *   <li>Then throw {@link JSONException}.
+   *   <li>Given {@link JSONObject#JSONObject()} {@code ,} is {@link HashMap#HashMap()}.</li>
+   *   <li>Then throw {@link JSONException}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link XML#toString(Object, String)}
+   * <p>
+   * Method under test: {@link XML#toString(Object, String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"String XML.toString(Object, String)"})
-  public void testToStringWithOTagName_givenJSONObjectCommaIsHashMap_thenThrowJSONException()
-      throws JSONException {
+  public void testToStringWithOTagName_givenJSONObjectCommaIsHashMap_thenThrowJSONException() throws JSONException {
     // Arrange
     JSONObject jsonObject = new JSONObject();
     jsonObject.put(",", (Map) new HashMap<>());
@@ -908,10 +590,8 @@ public class XMLDiffblueTest {
     ArrayList<Object> objectList = new ArrayList<>();
     objectList.add(jsonObject);
     Iterator<Object> iteratorResult = objectList.iterator();
-
     JSONObject jsonObject2 = mock(JSONObject.class);
     when(jsonObject2.keys()).thenThrow(new JSONException("An error occurred"));
-
     JSONObject jsonObject3 = mock(JSONObject.class);
     when(jsonObject3.opt(Mockito.<String>any())).thenReturn(jsonObject2);
     when(jsonObject3.keys()).thenReturn(iteratorResult);
@@ -920,25 +600,22 @@ public class XMLDiffblueTest {
     assertThrows(JSONException.class, () -> XML.toString(jsonObject3, "Tag Name"));
     verify(jsonObject3).keys();
     verify(jsonObject2).keys();
-    verify(jsonObject3).opt("{\"{\":[null],\",\":{}}");
+    verify(jsonObject3).opt(eq("{\"{\":[null],\",\":{}}"));
   }
 
   /**
    * Test {@link XML#toString(Object, String)} with {@code o}, {@code tagName}.
-   *
    * <ul>
-   *   <li>Given {@link JSONObject#JSONObject()} increment {@code ,}.
-   *   <li>Then throw {@link JSONException}.
+   *   <li>Given {@link JSONObject#JSONObject()} increment {@code ,}.</li>
+   *   <li>Then throw {@link JSONException}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link XML#toString(Object, String)}
+   * <p>
+   * Method under test: {@link XML#toString(Object, String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"String XML.toString(Object, String)"})
-  public void testToStringWithOTagName_givenJSONObjectIncrementComma_thenThrowJSONException()
-      throws JSONException {
+  public void testToStringWithOTagName_givenJSONObjectIncrementComma_thenThrowJSONException() throws JSONException {
     // Arrange
     JSONObject jsonObject = new JSONObject();
     jsonObject.increment(",");
@@ -947,10 +624,8 @@ public class XMLDiffblueTest {
     ArrayList<Object> objectList = new ArrayList<>();
     objectList.add(jsonObject);
     Iterator<Object> iteratorResult = objectList.iterator();
-
     JSONObject jsonObject2 = mock(JSONObject.class);
     when(jsonObject2.keys()).thenThrow(new JSONException("An error occurred"));
-
     JSONObject jsonObject3 = mock(JSONObject.class);
     when(jsonObject3.opt(Mockito.<String>any())).thenReturn(jsonObject2);
     when(jsonObject3.keys()).thenReturn(iteratorResult);
@@ -959,7 +634,7 @@ public class XMLDiffblueTest {
     assertThrows(JSONException.class, () -> XML.toString(jsonObject3, "Tag Name"));
     verify(jsonObject3).keys();
     verify(jsonObject2).keys();
-    verify(jsonObject3).opt("{\"{\":[null],\",\":1}");
+    verify(jsonObject3).opt(eq("{\"{\":[null],\",\":1}"));
   }
 
   /**
@@ -971,8 +646,7 @@ public class XMLDiffblueTest {
    * Method under test: {@link XML#toString(Object, String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"String XML.toString(Object, String)"})
   public void testToStringWithOTagName_givenJSONObjectLeftCurlyBracketIsTen() throws JSONException {
     // Arrange
@@ -982,10 +656,8 @@ public class XMLDiffblueTest {
     ArrayList<Object> objectList = new ArrayList<>();
     objectList.add(jsonObject);
     Iterator<Object> iteratorResult = objectList.iterator();
-
     JSONObject jsonObject2 = mock(JSONObject.class);
     when(jsonObject2.keys()).thenThrow(new JSONException("An error occurred"));
-
     JSONObject jsonObject3 = mock(JSONObject.class);
     when(jsonObject3.opt(Mockito.<String>any())).thenReturn(jsonObject2);
     when(jsonObject3.keys()).thenReturn(iteratorResult);
@@ -994,30 +666,26 @@ public class XMLDiffblueTest {
     assertThrows(JSONException.class, () -> XML.toString(jsonObject3, "Tag Name"));
     verify(jsonObject3).keys();
     verify(jsonObject2).keys();
-    verify(jsonObject3).opt("{\"{\":10}");
+    verify(jsonObject3).opt(eq("{\"{\":10}"));
   }
 
   /**
    * Test {@link XML#toString(Object, String)} with {@code o}, {@code tagName}.
-   *
    * <ul>
-   *   <li>Given {@link JSONObject#NULL}.
-   *   <li>Then return {@code <Tag Name><null>null</null></Tag Name>}.
+   *   <li>Given {@link JSONObject#NULL}.</li>
+   *   <li>Then return {@code <Tag Name><null>null</null></Tag Name>}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link XML#toString(Object, String)}
+   * <p>
+   * Method under test: {@link XML#toString(Object, String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"String XML.toString(Object, String)"})
-  public void testToStringWithOTagName_givenNull_thenReturnTagNameNullNullNullTagName()
-      throws JSONException {
+  public void testToStringWithOTagName_givenNull_thenReturnTagNameNullNullNullTagName() throws JSONException {
     // Arrange
     ArrayList<Object> objectList = new ArrayList<>();
     objectList.add(JSONObject.NULL);
     Iterator<Object> iteratorResult = objectList.iterator();
-
     JSONObject jsonObject = mock(JSONObject.class);
     when(jsonObject.opt(Mockito.<String>any())).thenReturn(JSONObject.NULL);
     when(jsonObject.keys()).thenReturn(iteratorResult);
@@ -1027,31 +695,27 @@ public class XMLDiffblueTest {
 
     // Assert
     verify(jsonObject).keys();
-    verify(jsonObject).opt("null");
+    verify(jsonObject).opt(eq("null"));
     assertEquals("<Tag Name><null>null</null></Tag Name>", actualToStringResult);
   }
 
   /**
    * Test {@link XML#toString(Object, String)} with {@code o}, {@code tagName}.
-   *
    * <ul>
-   *   <li>Given {@code null}.
-   *   <li>Then return {@code <Tag Name><null/></Tag Name>}.
+   *   <li>Given {@code null}.</li>
+   *   <li>Then return {@code <Tag Name><null/></Tag Name>}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link XML#toString(Object, String)}
+   * <p>
+   * Method under test: {@link XML#toString(Object, String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"String XML.toString(Object, String)"})
-  public void testToStringWithOTagName_givenNull_thenReturnTagNameNullTagName()
-      throws JSONException {
+  public void testToStringWithOTagName_givenNull_thenReturnTagNameNullTagName() throws JSONException {
     // Arrange
     ArrayList<Object> objectList = new ArrayList<>();
     objectList.add(JSONObject.NULL);
     Iterator<Object> iteratorResult = objectList.iterator();
-
     JSONObject jsonObject = mock(JSONObject.class);
     when(jsonObject.opt(Mockito.<String>any())).thenReturn(null);
     when(jsonObject.keys()).thenReturn(iteratorResult);
@@ -1061,50 +725,43 @@ public class XMLDiffblueTest {
 
     // Assert
     verify(jsonObject).keys();
-    verify(jsonObject).opt("null");
+    verify(jsonObject).opt(eq("null"));
     assertEquals("<Tag Name><null/></Tag Name>", actualToStringResult);
   }
 
   /**
    * Test {@link XML#toString(Object, String)} with {@code o}, {@code tagName}.
-   *
    * <ul>
-   *   <li>Then return a string.
+   *   <li>Then return a string.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link XML#toString(Object, String)}
+   * <p>
+   * Method under test: {@link XML#toString(Object, String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"String XML.toString(Object, String)"})
   public void testToStringWithOTagName_thenReturnAString() throws JSONException {
     // Arrange, Act and Assert
-    assertEquals(
-        "<Tag Name><HTTP-Version>https://example.org/example</HTTP-Version><Status-Code/><Reason-Phrase/></Tag"
-            + " Name>",
-        XML.toString(HTTP.toJSONObject("https://example.org/example"), "Tag Name"));
+    assertEquals("<Tag Name><HTTP-Version>https://example.org/example</HTTP-Version><Status-Code/><Reason-Phrase/></Tag"
+        + " Name>", XML.toString(HTTP.toJSONObject("https://example.org/example"), "Tag Name"));
   }
 
   /**
    * Test {@link XML#toString(Object, String)} with {@code o}, {@code tagName}.
-   *
    * <ul>
-   *   <li>Then return {@code <Tag Name><null>&lt;/</null></Tag Name>}.
+   *   <li>Then return {@code <Tag Name><null>&lt;/</null></Tag Name>}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link XML#toString(Object, String)}
+   * <p>
+   * Method under test: {@link XML#toString(Object, String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"String XML.toString(Object, String)"})
   public void testToStringWithOTagName_thenReturnTagNameNullLtNullTagName() throws JSONException {
     // Arrange
     ArrayList<Object> objectList = new ArrayList<>();
     objectList.add(JSONObject.NULL);
     Iterator<Object> iteratorResult = objectList.iterator();
-
     JSONObject jsonObject = mock(JSONObject.class);
     when(jsonObject.opt(Mockito.<String>any())).thenReturn("</");
     when(jsonObject.keys()).thenReturn(iteratorResult);
@@ -1114,23 +771,21 @@ public class XMLDiffblueTest {
 
     // Assert
     verify(jsonObject).keys();
-    verify(jsonObject).opt("null");
+    verify(jsonObject).opt(eq("null"));
     assertEquals("<Tag Name><null>&lt;/</null></Tag Name>", actualToStringResult);
   }
 
   /**
    * Test {@link XML#toString(Object, String)} with {@code o}, {@code tagName}.
-   *
    * <ul>
-   *   <li>When {@link JSONArray#JSONArray()}.
-   *   <li>Then return empty string.
+   *   <li>When {@link JSONArray#JSONArray()}.</li>
+   *   <li>Then return empty string.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link XML#toString(Object, String)}
+   * <p>
+   * Method under test: {@link XML#toString(Object, String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"String XML.toString(Object, String)"})
   public void testToStringWithOTagName_whenJSONArray_thenReturnEmptyString() throws JSONException {
     // Arrange, Act and Assert
@@ -1139,180 +794,257 @@ public class XMLDiffblueTest {
 
   /**
    * Test {@link XML#toString(Object, String)} with {@code o}, {@code tagName}.
-   *
    * <ul>
-   *   <li>When {@link JSONObject#JSONObject()}.
-   *   <li>Then return {@code <Tag Name></Tag Name>}.
+   *   <li>When {@link JSONObject#JSONObject()}.</li>
+   *   <li>Then return {@code <Tag Name></Tag Name>}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link XML#toString(Object, String)}
+   * <p>
+   * Method under test: {@link XML#toString(Object, String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"String XML.toString(Object, String)"})
-  public void testToStringWithOTagName_whenJSONObject_thenReturnTagNameTagName()
-      throws JSONException {
+  public void testToStringWithOTagName_whenJSONObject_thenReturnTagNameTagName() throws JSONException {
     // Arrange, Act and Assert
     assertEquals("<Tag Name></Tag Name>", XML.toString(new JSONObject(), "Tag Name"));
   }
 
   /**
    * Test {@link XML#toString(Object, String)} with {@code o}, {@code tagName}.
-   *
    * <ul>
-   *   <li>When {@link JSONObject#NULL}.
-   *   <li>Then return {@code <Tag Name>null</Tag Name>}.
+   *   <li>When {@code null}.</li>
+   *   <li>Then return {@code "null"}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link XML#toString(Object, String)}
+   * <p>
+   * Method under test: {@link XML#toString(Object, String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"String XML.toString(Object, String)"})
-  public void testToStringWithOTagName_whenNull_thenReturnTagNameNullTagName()
-      throws JSONException {
+  public void testToStringWithOTagName_whenNull_thenReturnNull() throws JSONException {
+    // Arrange, Act and Assert
+    assertEquals("\"null\"", XML.toString(null, null));
+  }
+
+  /**
+   * Test {@link XML#toString(Object, String)} with {@code o}, {@code tagName}.
+   * <ul>
+   *   <li>When {@link JSONObject#NULL}.</li>
+   *   <li>Then return {@code <Tag Name>null</Tag Name>}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link XML#toString(Object, String)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String XML.toString(Object, String)"})
+  public void testToStringWithOTagName_whenNull_thenReturnTagNameNullTagName() throws JSONException {
     // Arrange, Act and Assert
     assertEquals("<Tag Name>null</Tag Name>", XML.toString(JSONObject.NULL, "Tag Name"));
   }
 
   /**
-   * Test {@link XML#toString(Object, String)} with {@code o}, {@code tagName}.
-   *
+   * Test {@link XML#toString(Object)} with {@code o}.
    * <ul>
-   *   <li>When {@code null}.
-   *   <li>Then return {@code <Tag Name>null</Tag Name>}.
+   *   <li>Given {@code content}.</li>
+   *   <li>When {@link JSONObject#JSONObject()} append {@code content} and {@link JSONObject#NULL}.</li>
+   *   <li>Then return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link XML#toString(Object, String)}
+   * <p>
+   * Method under test: {@link XML#toString(Object)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String XML.toString(Object, String)"})
-  public void testToStringWithOTagName_whenNull_thenReturnTagNameNullTagName2()
-      throws JSONException {
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String XML.toString(Object)"})
+  public void testToStringWithO_givenContent_whenJSONObjectAppendContentAndNull_thenReturnNull() throws JSONException {
+    // Arrange
+    JSONObject jsonObject = new JSONObject();
+    jsonObject.append("content", JSONObject.NULL);
+
+    // Act and Assert
+    assertEquals("null", XML.toString(jsonObject));
+  }
+
+  /**
+   * Test {@link XML#toString(Object)} with {@code o}.
+   * <ul>
+   *   <li>Given empty string.</li>
+   *   <li>Then return {@code <Key/>}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link XML#toString(Object)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String XML.toString(Object)"})
+  public void testToStringWithO_givenEmptyString_thenReturnKey() throws JSONException {
+    // Arrange
+    JSONObject jsonObject = new JSONObject();
+    jsonObject.append("Key", "");
+
+    // Act and Assert
+    assertEquals("<Key/>", XML.toString(jsonObject));
+  }
+
+  /**
+   * Test {@link XML#toString(Object)} with {@code o}.
+   * <ul>
+   *   <li>Given {@code false}.</li>
+   *   <li>When {@link JSONArray#JSONArray()} {@code false}.</li>
+   *   <li>Then return {@code <array>false</array>}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link XML#toString(Object)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String XML.toString(Object)"})
+  public void testToStringWithO_givenFalse_whenJSONArrayFalse_thenReturnArrayFalseArray() throws JSONException {
+    // Arrange
+    JSONArray jsonArray = new JSONArray();
+    jsonArray.put(false);
+
+    // Act and Assert
+    assertEquals("<array>false</array>", XML.toString(jsonArray));
+  }
+
+  /**
+   * Test {@link XML#toString(Object)} with {@code o}.
+   * <ul>
+   *   <li>Given {@link HashMap#HashMap()} {@link JSONObject#NULL} is {@link JSONObject#NULL}.</li>
+   *   <li>Then return {@code <Key><null/></Key>}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link XML#toString(Object)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String XML.toString(Object)"})
+  public void testToStringWithO_givenHashMapNullIsNull_thenReturnKeyNullKey() throws JSONException {
+    // Arrange
+    HashMap<Object, Object> value = new HashMap<>();
+    value.put(JSONObject.NULL, JSONObject.NULL);
+
+    JSONObject jsonObject = new JSONObject();
+    jsonObject.put("Key", (Map) value);
+
+    // Act and Assert
+    assertEquals("<Key><null/></Key>", XML.toString(jsonObject));
+  }
+
+  /**
+   * Test {@link XML#toString(Object)} with {@code o}.
+   * <ul>
+   *   <li>Given {@link HashMap#HashMap()}.</li>
+   *   <li>When {@link JSONObject#JSONObject()} {@code Key} is {@link HashMap#HashMap()}.</li>
+   *   <li>Then return {@code <Key></Key>}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link XML#toString(Object)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String XML.toString(Object)"})
+  public void testToStringWithO_givenHashMap_whenJSONObjectKeyIsHashMap_thenReturnKeyKey() throws JSONException {
+    // Arrange
+    JSONObject jsonObject = new JSONObject();
+    jsonObject.put("Key", (Map) new HashMap<>());
+
+    // Act and Assert
+    assertEquals("<Key></Key>", XML.toString(jsonObject));
+  }
+
+  /**
+   * Test {@link XML#toString(Object)} with {@code o}.
+   * <ul>
+   *   <li>Given {@link JSONArray#JSONArray()}.</li>
+   *   <li>When {@link JSONObject#JSONObject()} append {@code Key} and {@link JSONArray#JSONArray()}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link XML#toString(Object)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String XML.toString(Object)"})
+  public void testToStringWithO_givenJSONArray_whenJSONObjectAppendKeyAndJSONArray() throws JSONException {
+    // Arrange
+    JSONObject jsonObject = new JSONObject();
+    jsonObject.append("Key", new JSONArray());
+
+    // Act and Assert
+    assertEquals("<Key></Key>", XML.toString(jsonObject));
+  }
+
+  /**
+   * Test {@link XML#toString(Object)} with {@code o}.
+   * <ul>
+   *   <li>Given {@link JSONObject#NULL}.</li>
+   *   <li>When {@link JSONObject#JSONObject()} append {@code Key} and {@link JSONObject#NULL}.</li>
+   *   <li>Then return {@code <Key>null</Key>}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link XML#toString(Object)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String XML.toString(Object)"})
+  public void testToStringWithO_givenNull_whenJSONObjectAppendKeyAndNull_thenReturnKeyNullKey() throws JSONException {
+    // Arrange
+    JSONObject jsonObject = new JSONObject();
+    jsonObject.append("Key", JSONObject.NULL);
+
+    // Act and Assert
+    assertEquals("<Key>null</Key>", XML.toString(jsonObject));
+  }
+
+  /**
+   * Test {@link XML#toString(Object)} with {@code o}.
+   * <ul>
+   *   <li>Then return {@code {}}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link XML#toString(Object)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String XML.toString(Object)"})
+  public void testToStringWithO_thenReturnLeftCurlyBracketRightCurlyBracket() throws JSONException {
+    // Arrange
+    JSONObject jsonObject = new JSONObject();
+    jsonObject.put("content", (Map) new HashMap<>());
+
+    // Act and Assert
+    assertEquals("{}", XML.toString(jsonObject));
+  }
+
+  /**
+   * Test {@link XML#toString(Object)} with {@code o}.
+   * <ul>
+   *   <li>When {@code -->}.</li>
+   *   <li>Then return {@code "--&gt;"}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link XML#toString(Object)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String XML.toString(Object)"})
+  public void testToStringWithO_whenDashDashGreaterThanSign_thenReturnGt() throws JSONException {
     // Arrange, Act and Assert
-    assertEquals("<Tag Name>null</Tag Name>", XML.toString(null, "Tag Name"));
+    assertEquals("\"--&gt;\"", XML.toString("-->"));
   }
 
   /**
    * Test {@link XML#toString(Object)} with {@code o}.
-   *
    * <ul>
-   *   <li>Given {@code HTTP-Version}.
-   *   <li>Then return {@code <Status-Code/><Reason-Phrase/>null}.
+   *   <li>When {@link JSONArray#JSONArray()}.</li>
+   *   <li>Then return empty string.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link XML#toString(Object)}
+   * <p>
+   * Method under test: {@link XML#toString(Object)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String XML.toString(Object)"})
-  public void testToStringWithO_givenHttpVersion_thenReturnStatusCodeReasonPhraseNull()
-      throws JSONException {
-    // Arrange
-    JSONObject toJSONObjectResult = HTTP.toJSONObject("https://example.org/example");
-    toJSONObjectResult.put("HTTP-Version", (Collection) new ArrayList<>());
-    toJSONObjectResult.append("content", JSONObject.NULL);
-
-    // Act and Assert
-    assertEquals("<Status-Code/><Reason-Phrase/>null", XML.toString(toJSONObjectResult));
-  }
-
-  /**
-   * Test {@link XML#toString(Object)} with {@code o}.
-   *
-   * <ul>
-   *   <li>Given {@code https://example.org/example}.
-   *   <li>Then return a string.
-   * </ul>
-   *
-   * <p>Method under test: {@link XML#toString(Object)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String XML.toString(Object)"})
-  public void testToStringWithO_givenHttpsExampleOrgExample_thenReturnAString()
-      throws JSONException {
-    // Arrange
-    JSONObject toJSONObjectResult = HTTP.toJSONObject("https://example.org/example");
-    toJSONObjectResult.append("https://example.org/example", JSONObject.NULL);
-    toJSONObjectResult.increment("content");
-
-    // Act and Assert
-    assertEquals(
-        "<https://example.org/example>null</https://example.org/example><HTTP-Version>https://example.org/example"
-            + "</HTTP-Version><Status-Code/><Reason-Phrase/>1",
-        XML.toString(toJSONObjectResult));
-  }
-
-  /**
-   * Test {@link XML#toString(Object)} with {@code o}.
-   *
-   * <ul>
-   *   <li>Given {@code true}.
-   *   <li>When {@link JSONArray#JSONArray()} {@code true}.
-   *   <li>Then return {@code <array>true</array>}.
-   * </ul>
-   *
-   * <p>Method under test: {@link XML#toString(Object)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String XML.toString(Object)"})
-  public void testToStringWithO_givenTrue_whenJSONArrayTrue_thenReturnArrayTrueArray()
-      throws JSONException {
-    // Arrange
-    JSONArray jsonArray = new JSONArray();
-    jsonArray.put(true);
-
-    // Act and Assert
-    assertEquals("<array>true</array>", XML.toString(jsonArray));
-  }
-
-  /**
-   * Test {@link XML#toString(Object)} with {@code o}.
-   *
-   * <ul>
-   *   <li>When {@link JSONArray#JSONArray()} {@link HashMap#HashMap()}.
-   *   <li>Then return {@code <array></array><array>true</array>}.
-   * </ul>
-   *
-   * <p>Method under test: {@link XML#toString(Object)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String XML.toString(Object)"})
-  public void testToStringWithO_whenJSONArrayHashMap_thenReturnArrayArrayArrayTrueArray()
-      throws JSONException {
-    // Arrange
-    JSONArray jsonArray = new JSONArray();
-    jsonArray.put((Map) new HashMap<>());
-    jsonArray.put(true);
-
-    // Act and Assert
-    assertEquals("<array></array><array>true</array>", XML.toString(jsonArray));
-  }
-
-  /**
-   * Test {@link XML#toString(Object)} with {@code o}.
-   *
-   * <ul>
-   *   <li>When {@link JSONArray#JSONArray()}.
-   *   <li>Then return empty string.
-   * </ul>
-   *
-   * <p>Method under test: {@link XML#toString(Object)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"String XML.toString(Object)"})
   public void testToStringWithO_whenJSONArray_thenReturnEmptyString() throws JSONException {
     // Arrange, Act and Assert
@@ -1321,37 +1053,54 @@ public class XMLDiffblueTest {
 
   /**
    * Test {@link XML#toString(Object)} with {@code o}.
-   *
    * <ul>
-   *   <li>When {@link JSONObject#JSONObject(Object)} with bean is {@link JSONObject#NULL}.
-   *   <li>Then return empty string.
+   *   <li>When {@link JSONObject#JSONObject()} append {@code content} and {@link JSONObject#NULL}.</li>
+   *   <li>Then return {@code null null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link XML#toString(Object)}
+   * <p>
+   * Method under test: {@link XML#toString(Object)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"String XML.toString(Object)"})
-  public void testToStringWithO_whenJSONObjectWithBeanIsNull_thenReturnEmptyString()
-      throws JSONException {
-    // Arrange, Act and Assert
-    assertEquals("", XML.toString(new JSONObject(JSONObject.NULL)));
+  public void testToStringWithO_whenJSONObjectAppendContentAndNull_thenReturnNullNull() throws JSONException {
+    // Arrange
+    JSONObject jsonObject = new JSONObject();
+    jsonObject.append("content", JSONObject.NULL);
+    jsonObject.append("content", JSONObject.NULL);
+
+    // Act and Assert
+    assertEquals("null\nnull", XML.toString(jsonObject));
   }
 
   /**
    * Test {@link XML#toString(Object)} with {@code o}.
-   *
    * <ul>
-   *   <li>When {@code <}.
-   *   <li>Then return {@code "&lt;"}.
+   *   <li>When {@link JSONObject#JSONObject()}.</li>
+   *   <li>Then return empty string.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link XML#toString(Object)}
+   * <p>
+   * Method under test: {@link XML#toString(Object)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String XML.toString(Object)"})
+  public void testToStringWithO_whenJSONObject_thenReturnEmptyString() throws JSONException {
+    // Arrange, Act and Assert
+    assertEquals("", XML.toString(new JSONObject()));
+  }
+
+  /**
+   * Test {@link XML#toString(Object)} with {@code o}.
+   * <ul>
+   *   <li>When {@code <}.</li>
+   *   <li>Then return {@code "&lt;"}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link XML#toString(Object)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"String XML.toString(Object)"})
   public void testToStringWithO_whenLessThanSign_thenReturnLt() throws JSONException {
     // Arrange, Act and Assert
@@ -1360,17 +1109,15 @@ public class XMLDiffblueTest {
 
   /**
    * Test {@link XML#toString(Object)} with {@code o}.
-   *
    * <ul>
-   *   <li>When {@link JSONObject#NULL}.
-   *   <li>Then return {@code "null"}.
+   *   <li>When {@link JSONObject#NULL}.</li>
+   *   <li>Then return {@code "null"}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link XML#toString(Object)}
+   * <p>
+   * Method under test: {@link XML#toString(Object)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"String XML.toString(Object)"})
   public void testToStringWithO_whenNull_thenReturnNull() throws JSONException {
     // Arrange, Act and Assert
@@ -1379,39 +1126,18 @@ public class XMLDiffblueTest {
 
   /**
    * Test {@link XML#toString(Object)} with {@code o}.
-   *
    * <ul>
-   *   <li>When {@code null}.
-   *   <li>Then return {@code "null"}.
+   *   <li>When {@code null}.</li>
+   *   <li>Then return {@code "null"}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link XML#toString(Object)}
+   * <p>
+   * Method under test: {@link XML#toString(Object)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"String XML.toString(Object)"})
   public void testToStringWithO_whenNull_thenReturnNull2() throws JSONException {
     // Arrange, Act and Assert
     assertEquals("\"null\"", XML.toString(null));
-  }
-
-  /**
-   * Test {@link XML#toString(Object)} with {@code o}.
-   *
-   * <ul>
-   *   <li>When {@code />}.
-   *   <li>Then return {@code "/&gt;"}.
-   * </ul>
-   *
-   * <p>Method under test: {@link XML#toString(Object)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String XML.toString(Object)"})
-  public void testToStringWithO_whenSlashGreaterThanSign_thenReturnGt() throws JSONException {
-    // Arrange, Act and Assert
-    assertEquals("\"/&gt;\"", XML.toString("/>"));
   }
 }

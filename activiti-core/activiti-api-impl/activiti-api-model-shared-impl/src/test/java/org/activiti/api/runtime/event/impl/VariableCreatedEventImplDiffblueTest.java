@@ -19,7 +19,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.api.model.shared.event.VariableEvent;
 import org.activiti.api.model.shared.event.VariableEvent.VariableEvents;
@@ -32,13 +31,12 @@ import org.junit.jupiter.api.Test;
 class VariableCreatedEventImplDiffblueTest {
   /**
    * Test {@link VariableCreatedEventImpl#VariableCreatedEventImpl()}.
-   *
-   * <p>Method under test: {@link VariableCreatedEventImpl#VariableCreatedEventImpl()}
+   * <p>
+   * Method under test: {@link VariableCreatedEventImpl#VariableCreatedEventImpl()}
    */
   @Test
   @DisplayName("Test new VariableCreatedEventImpl()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void VariableCreatedEventImpl.<init>()"})
   void testNewVariableCreatedEventImpl() {
     // Arrange and Act
@@ -57,27 +55,22 @@ class VariableCreatedEventImplDiffblueTest {
 
   /**
    * Test {@link VariableCreatedEventImpl#VariableCreatedEventImpl(VariableInstance, String)}.
-   *
    * <ul>
-   *   <li>Then Entity return {@link VariableInstanceImpl}.
+   *   <li>Then Entity return {@link VariableInstanceImpl}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link
-   * VariableCreatedEventImpl#VariableCreatedEventImpl(VariableInstance, String)}
+   * <p>
+   * Method under test: {@link VariableCreatedEventImpl#VariableCreatedEventImpl(VariableInstance, String)}
    */
   @Test
-  @DisplayName(
-      "Test new VariableCreatedEventImpl(VariableInstance, String); then Entity return VariableInstanceImpl")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test new VariableCreatedEventImpl(VariableInstance, String); then Entity return VariableInstanceImpl")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void VariableCreatedEventImpl.<init>(VariableInstance, String)"})
   void testNewVariableCreatedEventImpl_thenEntityReturnVariableInstanceImpl() {
     // Arrange
     VariableInstanceImpl<Object> entity = new VariableInstanceImpl<>();
 
     // Act
-    VariableCreatedEventImpl actualVariableCreatedEventImpl =
-        new VariableCreatedEventImpl(entity, "42");
+    VariableCreatedEventImpl actualVariableCreatedEventImpl = new VariableCreatedEventImpl(entity, "42");
 
     // Assert
     VariableInstance entity2 = actualVariableCreatedEventImpl.getEntity();
@@ -94,16 +87,15 @@ class VariableCreatedEventImplDiffblueTest {
 
   /**
    * Test {@link VariableCreatedEventImpl#getEventType()}.
-   *
-   * <p>Method under test: {@link VariableCreatedEventImpl#getEventType()}
+   * <p>
+   * Method under test: {@link VariableCreatedEventImpl#getEventType()}
    */
   @Test
   @DisplayName("Test getEventType()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"VariableEvents VariableCreatedEventImpl.getEventType()"})
   void testGetEventType() {
     // Arrange, Act and Assert
-    assertEquals(VariableEvents.VARIABLE_CREATED, new VariableCreatedEventImpl().getEventType());
+    assertEquals(VariableEvents.VARIABLE_CREATED, (new VariableCreatedEventImpl()).getEventType());
   }
 }

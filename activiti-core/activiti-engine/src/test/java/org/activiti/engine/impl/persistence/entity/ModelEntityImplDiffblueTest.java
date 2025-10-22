@@ -20,8 +20,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.time.LocalDate;
 import java.time.ZoneOffset;
@@ -33,9 +32,8 @@ import org.junit.experimental.categories.Category;
 public class ModelEntityImplDiffblueTest {
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>default or parameterless constructor of {@link ModelEntityImpl}
    *   <li>{@link ModelEntityImpl#setCategory(String)}
@@ -63,46 +61,30 @@ public class ModelEntityImplDiffblueTest {
    * </ul>
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void ModelEntityImpl.<init>()",
-    "String ModelEntityImpl.getCategory()",
-    "Date ModelEntityImpl.getCreateTime()",
-    "String ModelEntityImpl.getDeploymentId()",
-    "String ModelEntityImpl.getEditorSourceExtraValueId()",
-    "String ModelEntityImpl.getEditorSourceValueId()",
-    "String ModelEntityImpl.getKey()",
-    "Date ModelEntityImpl.getLastUpdateTime()",
-    "String ModelEntityImpl.getMetaInfo()",
-    "String ModelEntityImpl.getName()",
-    "String ModelEntityImpl.getTenantId()",
-    "Integer ModelEntityImpl.getVersion()",
-    "void ModelEntityImpl.setCategory(String)",
-    "void ModelEntityImpl.setCreateTime(Date)",
-    "void ModelEntityImpl.setDeploymentId(String)",
-    "void ModelEntityImpl.setEditorSourceExtraValueId(String)",
-    "void ModelEntityImpl.setEditorSourceValueId(String)",
-    "void ModelEntityImpl.setKey(String)",
-    "void ModelEntityImpl.setLastUpdateTime(Date)",
-    "void ModelEntityImpl.setMetaInfo(String)",
-    "void ModelEntityImpl.setName(String)",
-    "void ModelEntityImpl.setTenantId(String)",
-    "void ModelEntityImpl.setVersion(Integer)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void ModelEntityImpl.<init>()", "String ModelEntityImpl.getCategory()",
+      "Date ModelEntityImpl.getCreateTime()", "String ModelEntityImpl.getDeploymentId()",
+      "String ModelEntityImpl.getEditorSourceExtraValueId()", "String ModelEntityImpl.getEditorSourceValueId()",
+      "String ModelEntityImpl.getKey()", "Date ModelEntityImpl.getLastUpdateTime()",
+      "String ModelEntityImpl.getMetaInfo()", "String ModelEntityImpl.getName()",
+      "String ModelEntityImpl.getTenantId()", "Integer ModelEntityImpl.getVersion()",
+      "void ModelEntityImpl.setCategory(String)", "void ModelEntityImpl.setCreateTime(Date)",
+      "void ModelEntityImpl.setDeploymentId(String)", "void ModelEntityImpl.setEditorSourceExtraValueId(String)",
+      "void ModelEntityImpl.setEditorSourceValueId(String)", "void ModelEntityImpl.setKey(String)",
+      "void ModelEntityImpl.setLastUpdateTime(Date)", "void ModelEntityImpl.setMetaInfo(String)",
+      "void ModelEntityImpl.setName(String)", "void ModelEntityImpl.setTenantId(String)",
+      "void ModelEntityImpl.setVersion(Integer)"})
   public void testGettersAndSetters() {
     // Arrange and Act
     ModelEntityImpl actualModelEntityImpl = new ModelEntityImpl();
     actualModelEntityImpl.setCategory("Category");
-    Date createTime =
-        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant());
+    Date createTime = Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant());
     actualModelEntityImpl.setCreateTime(createTime);
     actualModelEntityImpl.setDeploymentId("42");
     actualModelEntityImpl.setEditorSourceExtraValueId("42");
     actualModelEntityImpl.setEditorSourceValueId("42");
     actualModelEntityImpl.setKey("Key");
-    Date lastUpdateTime =
-        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant());
+    Date lastUpdateTime = Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant());
     actualModelEntityImpl.setLastUpdateTime(lastUpdateTime);
     actualModelEntityImpl.setMetaInfo("Meta Info");
     actualModelEntityImpl.setName("Name");
@@ -141,16 +123,15 @@ public class ModelEntityImplDiffblueTest {
 
   /**
    * Test {@link ModelEntityImpl#getPersistentState()}.
-   *
-   * <p>Method under test: {@link ModelEntityImpl#getPersistentState()}
+   * <p>
+   * Method under test: {@link ModelEntityImpl#getPersistentState()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"Object ModelEntityImpl.getPersistentState()"})
   public void testGetPersistentState() {
     // Arrange and Act
-    Object actualPersistentState = new ModelEntityImpl().getPersistentState();
+    Object actualPersistentState = (new ModelEntityImpl()).getPersistentState();
 
     // Assert
     assertTrue(actualPersistentState instanceof Map);
@@ -169,17 +150,15 @@ public class ModelEntityImplDiffblueTest {
 
   /**
    * Test {@link ModelEntityImpl#hasEditorSource()}.
-   *
    * <ul>
-   *   <li>Given {@link ModelEntityImpl} (default constructor) EditorSourceValueId is {@code foo}.
-   *   <li>Then return {@code true}.
+   *   <li>Given {@link ModelEntityImpl} (default constructor) EditorSourceValueId is {@code foo}.</li>
+   *   <li>Then return {@code true}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ModelEntityImpl#hasEditorSource()}
+   * <p>
+   * Method under test: {@link ModelEntityImpl#hasEditorSource()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"boolean ModelEntityImpl.hasEditorSource()"})
   public void testHasEditorSource_givenModelEntityImplEditorSourceValueIdIsFoo_thenReturnTrue() {
     // Arrange
@@ -192,54 +171,48 @@ public class ModelEntityImplDiffblueTest {
 
   /**
    * Test {@link ModelEntityImpl#hasEditorSource()}.
-   *
    * <ul>
-   *   <li>Given {@link ModelEntityImpl} (default constructor).
-   *   <li>Then return {@code false}.
+   *   <li>Given {@link ModelEntityImpl} (default constructor).</li>
+   *   <li>Then return {@code false}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ModelEntityImpl#hasEditorSource()}
+   * <p>
+   * Method under test: {@link ModelEntityImpl#hasEditorSource()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"boolean ModelEntityImpl.hasEditorSource()"})
   public void testHasEditorSource_givenModelEntityImpl_thenReturnFalse() {
     // Arrange, Act and Assert
-    assertFalse(new ModelEntityImpl().hasEditorSource());
+    assertFalse((new ModelEntityImpl()).hasEditorSource());
   }
 
   /**
    * Test {@link ModelEntityImpl#hasEditorSourceExtra()}.
-   *
    * <ul>
-   *   <li>Given {@link ModelEntityImpl} (default constructor).
-   *   <li>Then return {@code false}.
+   *   <li>Given {@link ModelEntityImpl} (default constructor).</li>
+   *   <li>Then return {@code false}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ModelEntityImpl#hasEditorSourceExtra()}
+   * <p>
+   * Method under test: {@link ModelEntityImpl#hasEditorSourceExtra()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"boolean ModelEntityImpl.hasEditorSourceExtra()"})
   public void testHasEditorSourceExtra_givenModelEntityImpl_thenReturnFalse() {
     // Arrange, Act and Assert
-    assertFalse(new ModelEntityImpl().hasEditorSourceExtra());
+    assertFalse((new ModelEntityImpl()).hasEditorSourceExtra());
   }
 
   /**
    * Test {@link ModelEntityImpl#hasEditorSourceExtra()}.
-   *
    * <ul>
-   *   <li>Then return {@code true}.
+   *   <li>Then return {@code true}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ModelEntityImpl#hasEditorSourceExtra()}
+   * <p>
+   * Method under test: {@link ModelEntityImpl#hasEditorSourceExtra()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"boolean ModelEntityImpl.hasEditorSourceExtra()"})
   public void testHasEditorSourceExtra_thenReturnTrue() {
     // Arrange

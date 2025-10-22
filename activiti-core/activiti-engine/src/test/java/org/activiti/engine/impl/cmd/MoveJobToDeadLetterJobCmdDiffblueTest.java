@@ -16,8 +16,7 @@
 package org.activiti.engine.impl.cmd;
 
 import static org.junit.Assert.assertEquals;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
@@ -25,23 +24,18 @@ import org.junit.experimental.categories.Category;
 public class MoveJobToDeadLetterJobCmdDiffblueTest {
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>{@link MoveJobToDeadLetterJobCmd#MoveJobToDeadLetterJobCmd(String)}
    *   <li>{@link MoveJobToDeadLetterJobCmd#getJobId()}
    * </ul>
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void MoveJobToDeadLetterJobCmd.<init>(String)",
-    "String MoveJobToDeadLetterJobCmd.getJobId()"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void MoveJobToDeadLetterJobCmd.<init>(String)", "String MoveJobToDeadLetterJobCmd.getJobId()"})
   public void testGettersAndSetters() {
     // Arrange, Act and Assert
-    assertEquals("42", new MoveJobToDeadLetterJobCmd("42").getJobId());
+    assertEquals("42", (new MoveJobToDeadLetterJobCmd("42")).getJobId());
   }
 }

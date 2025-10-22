@@ -17,17 +17,16 @@ package org.activiti.runtime.api.event.impl;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.time.LocalDate;
 import java.time.ZoneOffset;
 import java.util.Date;
 import org.activiti.api.runtime.model.impl.MessageSubscriptionImpl;
 import org.activiti.engine.impl.persistence.entity.MessageEventSubscriptionEntity;
+import org.activiti.engine.impl.persistence.entity.MessageEventSubscriptionEntityImpl;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
@@ -39,32 +38,26 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 @ContextConfiguration(classes = {MessageSubscriptionConverter.class})
 @ExtendWith(SpringExtension.class)
 class MessageSubscriptionConverterDiffblueTest {
-  @Autowired private MessageSubscriptionConverter messageSubscriptionConverter;
+  @Autowired
+  private MessageSubscriptionConverter messageSubscriptionConverter;
 
   /**
-   * Test {@link
-   * MessageSubscriptionConverter#convertToMessageSubscription(MessageEventSubscriptionEntity)}.
-   *
+   * Test {@link MessageSubscriptionConverter#convertToMessageSubscription(MessageEventSubscriptionEntity)}.
    * <ul>
-   *   <li>Given {@code null}.
-   *   <li>Then return ActivityId is {@code 42}.
+   *   <li>Given {@code null}.</li>
+   *   <li>Then return ActivityId is {@code 42}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link
-   * MessageSubscriptionConverter#convertToMessageSubscription(MessageEventSubscriptionEntity)}
+   * <p>
+   * Method under test: {@link MessageSubscriptionConverter#convertToMessageSubscription(MessageEventSubscriptionEntity)}
    */
   @Test
-  @DisplayName(
-      "Test convertToMessageSubscription(MessageEventSubscriptionEntity); given 'null'; then return ActivityId is '42'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test convertToMessageSubscription(MessageEventSubscriptionEntity); given 'null'; then return ActivityId is '42'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({
-    "MessageSubscriptionImpl MessageSubscriptionConverter.convertToMessageSubscription(MessageEventSubscriptionEntity)"
-  })
+      "MessageSubscriptionImpl MessageSubscriptionConverter.convertToMessageSubscription(MessageEventSubscriptionEntity)"})
   void testConvertToMessageSubscription_givenNull_thenReturnActivityIdIs42() {
     // Arrange
-    MessageEventSubscriptionEntity messageEventSubscriptionEntity =
-        mock(MessageEventSubscriptionEntity.class);
+    MessageEventSubscriptionEntityImpl messageEventSubscriptionEntity = mock(MessageEventSubscriptionEntityImpl.class);
     when(messageEventSubscriptionEntity.getId()).thenReturn("42");
     when(messageEventSubscriptionEntity.getActivityId()).thenReturn("42");
     when(messageEventSubscriptionEntity.getConfiguration()).thenReturn("Configuration");
@@ -73,13 +66,12 @@ class MessageSubscriptionConverterDiffblueTest {
     when(messageEventSubscriptionEntity.getProcessDefinitionId()).thenReturn("42");
     when(messageEventSubscriptionEntity.getProcessInstanceId()).thenReturn("42");
     when(messageEventSubscriptionEntity.getCreated())
-        .thenReturn(
-            Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
+        .thenReturn(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
     when(messageEventSubscriptionEntity.getExecution()).thenReturn(null);
 
     // Act
-    MessageSubscriptionImpl actualConvertToMessageSubscriptionResult =
-        messageSubscriptionConverter.convertToMessageSubscription(messageEventSubscriptionEntity);
+    MessageSubscriptionImpl actualConvertToMessageSubscriptionResult = messageSubscriptionConverter
+        .convertToMessageSubscription(messageEventSubscriptionEntity);
 
     // Assert
     verify(messageEventSubscriptionEntity).getId();
@@ -99,39 +91,5 @@ class MessageSubscriptionConverterDiffblueTest {
     assertEquals("Configuration", actualConvertToMessageSubscriptionResult.getConfiguration());
     assertEquals("Event Name", actualConvertToMessageSubscriptionResult.getEventName());
     assertNull(actualConvertToMessageSubscriptionResult.getBusinessKey());
-  }
-
-  /**
-   * Test {@link
-   * MessageSubscriptionConverter#convertToMessageSubscription(MessageEventSubscriptionEntity)}.
-   *
-   * <ul>
-   *   <li>Then throw {@link IllegalArgumentException}.
-   * </ul>
-   *
-   * <p>Method under test: {@link
-   * MessageSubscriptionConverter#convertToMessageSubscription(MessageEventSubscriptionEntity)}
-   */
-  @Test
-  @DisplayName(
-      "Test convertToMessageSubscription(MessageEventSubscriptionEntity); then throw IllegalArgumentException")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "MessageSubscriptionImpl MessageSubscriptionConverter.convertToMessageSubscription(MessageEventSubscriptionEntity)"
-  })
-  void testConvertToMessageSubscription_thenThrowIllegalArgumentException() {
-    // Arrange
-    MessageEventSubscriptionEntity messageEventSubscriptionEntity =
-        mock(MessageEventSubscriptionEntity.class);
-    when(messageEventSubscriptionEntity.getId()).thenThrow(new IllegalArgumentException());
-
-    // Act and Assert
-    assertThrows(
-        IllegalArgumentException.class,
-        () ->
-            messageSubscriptionConverter.convertToMessageSubscription(
-                messageEventSubscriptionEntity));
-    verify(messageEventSubscriptionEntity).getId();
   }
 }

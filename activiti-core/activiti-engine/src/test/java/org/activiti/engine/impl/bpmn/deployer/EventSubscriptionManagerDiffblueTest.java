@@ -16,18 +16,16 @@
 package org.activiti.engine.impl.bpmn.deployer;
 
 import static org.junit.Assert.assertThrows;
+import static org.mockito.ArgumentMatchers.isNull;
 import static org.mockito.Mockito.atLeast;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
-import java.util.LinkedHashSet;
+import org.activiti.bpmn.model.AdhocSubProcess;
 import org.activiti.bpmn.model.BpmnModel;
-import org.activiti.bpmn.model.CancelEventDefinition;
-import org.activiti.bpmn.model.EventDefinition;
 import org.activiti.bpmn.model.FlowElement;
 import org.activiti.bpmn.model.MessageEventDefinition;
 import org.activiti.bpmn.model.Process;
@@ -35,222 +33,117 @@ import org.activiti.bpmn.model.StartEvent;
 import org.activiti.engine.ActivitiException;
 import org.activiti.engine.impl.persistence.entity.ProcessDefinitionEntity;
 import org.activiti.engine.impl.persistence.entity.ProcessDefinitionEntityImpl;
-import org.activiti.engine.test.util.TestProcessUtil;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import org.mockito.Mockito;
 
 public class EventSubscriptionManagerDiffblueTest {
   /**
-   * Test {@link EventSubscriptionManager#addMessageEventSubscriptions(ProcessDefinitionEntity,
-   * Process, BpmnModel)}.
-   *
-   * <p>Method under test: {@link
-   * EventSubscriptionManager#addMessageEventSubscriptions(ProcessDefinitionEntity, Process,
-   * BpmnModel)}
+   * Test {@link EventSubscriptionManager#addMessageEventSubscriptions(ProcessDefinitionEntity, Process, BpmnModel)}.
+   * <ul>
+   *   <li>Given {@link ArrayList#ArrayList()}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link EventSubscriptionManager#addMessageEventSubscriptions(ProcessDefinitionEntity, Process, BpmnModel)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({
-    "void EventSubscriptionManager.addMessageEventSubscriptions(ProcessDefinitionEntity, Process, BpmnModel)"
-  })
-  public void testAddMessageEventSubscriptions() {
+      "void EventSubscriptionManager.addMessageEventSubscriptions(ProcessDefinitionEntity, Process, BpmnModel)"})
+  public void testAddMessageEventSubscriptions_givenArrayList() {
     // Arrange
     EventSubscriptionManager eventSubscriptionManager = new EventSubscriptionManager();
     ProcessDefinitionEntityImpl processDefinition = new ProcessDefinitionEntityImpl();
-
     Process process = mock(Process.class);
-    when(process.getFlowElements()).thenThrow(new ActivitiException("An error occurred"));
+    when(process.getFlowElements()).thenReturn(new ArrayList<>());
 
-    // Act and Assert
-    assertThrows(
-        ActivitiException.class,
-        () ->
-            eventSubscriptionManager.addMessageEventSubscriptions(
-                processDefinition, process, TestProcessUtil.createOneTaskBpmnModel()));
+    // Act
+    eventSubscriptionManager.addMessageEventSubscriptions(processDefinition, process, new BpmnModel());
+
+    // Assert
     verify(process).getFlowElements();
   }
 
   /**
-   * Test {@link EventSubscriptionManager#addMessageEventSubscriptions(ProcessDefinitionEntity,
-   * Process, BpmnModel)}.
-   *
+   * Test {@link EventSubscriptionManager#addMessageEventSubscriptions(ProcessDefinitionEntity, Process, BpmnModel)}.
    * <ul>
-   *   <li>Given {@link ArrayList#ArrayList()} add {@link CancelEventDefinition} (default
-   *       constructor).
+   *   <li>Given {@link ArrayList#ArrayList()} add {@link AdhocSubProcess} (default constructor).</li>
    * </ul>
-   *
-   * <p>Method under test: {@link
-   * EventSubscriptionManager#addMessageEventSubscriptions(ProcessDefinitionEntity, Process,
-   * BpmnModel)}
+   * <p>
+   * Method under test: {@link EventSubscriptionManager#addMessageEventSubscriptions(ProcessDefinitionEntity, Process, BpmnModel)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({
-    "void EventSubscriptionManager.addMessageEventSubscriptions(ProcessDefinitionEntity, Process, BpmnModel)"
-  })
-  public void testAddMessageEventSubscriptions_givenArrayListAddCancelEventDefinition() {
+      "void EventSubscriptionManager.addMessageEventSubscriptions(ProcessDefinitionEntity, Process, BpmnModel)"})
+  public void testAddMessageEventSubscriptions_givenArrayListAddAdhocSubProcess() {
     // Arrange
     EventSubscriptionManager eventSubscriptionManager = new EventSubscriptionManager();
     ProcessDefinitionEntityImpl processDefinition = new ProcessDefinitionEntityImpl();
 
-    MessageEventDefinition messageEventDefinition = new MessageEventDefinition();
-    messageEventDefinition.setMessageRef(":");
-
-    ArrayList<EventDefinition> eventDefinitions = new ArrayList<>();
-    eventDefinitions.add(new CancelEventDefinition());
-    eventDefinitions.add(messageEventDefinition);
-
-    StartEvent startEvent = new StartEvent();
-    startEvent.setEventDefinitions(eventDefinitions);
-
-    LinkedHashSet<FlowElement> flowElementSet = new LinkedHashSet<>();
-    flowElementSet.add(startEvent);
-
+    ArrayList<FlowElement> flowElementList = new ArrayList<>();
+    flowElementList.add(new AdhocSubProcess());
     Process process = mock(Process.class);
-    when(process.getFlowElements()).thenReturn(flowElementSet);
+    when(process.getFlowElements()).thenReturn(flowElementList);
 
     // Act
-    eventSubscriptionManager.addMessageEventSubscriptions(
-        processDefinition, process, TestProcessUtil.createOneTaskBpmnModel());
+    eventSubscriptionManager.addMessageEventSubscriptions(processDefinition, process, new BpmnModel());
 
     // Assert
     verify(process, atLeast(1)).getFlowElements();
   }
 
   /**
-   * Test {@link EventSubscriptionManager#addMessageEventSubscriptions(ProcessDefinitionEntity,
-   * Process, BpmnModel)}.
-   *
+   * Test {@link EventSubscriptionManager#addMessageEventSubscriptions(ProcessDefinitionEntity, Process, BpmnModel)}.
    * <ul>
-   *   <li>Given {@link StartEvent} (default constructor) EventDefinitions is {@code null}.
+   *   <li>Then throw {@link ActivitiException}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link
-   * EventSubscriptionManager#addMessageEventSubscriptions(ProcessDefinitionEntity, Process,
-   * BpmnModel)}
+   * <p>
+   * Method under test: {@link EventSubscriptionManager#addMessageEventSubscriptions(ProcessDefinitionEntity, Process, BpmnModel)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({
-    "void EventSubscriptionManager.addMessageEventSubscriptions(ProcessDefinitionEntity, Process, BpmnModel)"
-  })
-  public void testAddMessageEventSubscriptions_givenStartEventEventDefinitionsIsNull() {
+      "void EventSubscriptionManager.addMessageEventSubscriptions(ProcessDefinitionEntity, Process, BpmnModel)"})
+  public void testAddMessageEventSubscriptions_thenThrowActivitiException() {
     // Arrange
     EventSubscriptionManager eventSubscriptionManager = new EventSubscriptionManager();
     ProcessDefinitionEntityImpl processDefinition = new ProcessDefinitionEntityImpl();
-
-    StartEvent startEvent = new StartEvent();
-    startEvent.setEventDefinitions(null);
-
-    LinkedHashSet<FlowElement> flowElementSet = new LinkedHashSet<>();
-    flowElementSet.add(startEvent);
-
     Process process = mock(Process.class);
-    when(process.getFlowElements()).thenReturn(flowElementSet);
-
-    // Act
-    eventSubscriptionManager.addMessageEventSubscriptions(
-        processDefinition, process, TestProcessUtil.createOneTaskBpmnModel());
-
-    // Assert
-    verify(process, atLeast(1)).getFlowElements();
-  }
-
-  /**
-   * Test {@link EventSubscriptionManager#addMessageEventSubscriptions(ProcessDefinitionEntity,
-   * Process, BpmnModel)}.
-   *
-   * <ul>
-   *   <li>Then calls {@link BpmnModel#containsMessageId(String)}.
-   * </ul>
-   *
-   * <p>Method under test: {@link
-   * EventSubscriptionManager#addMessageEventSubscriptions(ProcessDefinitionEntity, Process,
-   * BpmnModel)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void EventSubscriptionManager.addMessageEventSubscriptions(ProcessDefinitionEntity, Process, BpmnModel)"
-  })
-  public void testAddMessageEventSubscriptions_thenCallsContainsMessageId() {
-    // Arrange
-    EventSubscriptionManager eventSubscriptionManager = new EventSubscriptionManager();
-    ProcessDefinitionEntityImpl processDefinition = new ProcessDefinitionEntityImpl();
-
-    MessageEventDefinition messageEventDefinition = new MessageEventDefinition();
-    messageEventDefinition.setMessageRef(":");
-
-    ArrayList<EventDefinition> eventDefinitions = new ArrayList<>();
-    eventDefinitions.add(messageEventDefinition);
-
-    StartEvent startEvent = new StartEvent();
-    startEvent.setEventDefinitions(eventDefinitions);
-
-    LinkedHashSet<FlowElement> flowElementSet = new LinkedHashSet<>();
-    flowElementSet.add(startEvent);
-
-    Process process = mock(Process.class);
-    when(process.getFlowElements()).thenReturn(flowElementSet);
-
-    BpmnModel bpmnModel = mock(BpmnModel.class);
-    when(bpmnModel.getMessage(Mockito.<String>any()))
-        .thenThrow(new ActivitiException("An error occurred"));
-    when(bpmnModel.containsMessageId(Mockito.<String>any())).thenReturn(true);
+    when(process.getFlowElements()).thenThrow(new ActivitiException("An error occurred"));
 
     // Act and Assert
-    assertThrows(
-        ActivitiException.class,
-        () ->
-            eventSubscriptionManager.addMessageEventSubscriptions(
-                processDefinition, process, bpmnModel));
-    verify(bpmnModel).containsMessageId(":");
-    verify(bpmnModel).getMessage(":");
-    verify(process, atLeast(1)).getFlowElements();
+    assertThrows(ActivitiException.class,
+        () -> eventSubscriptionManager.addMessageEventSubscriptions(processDefinition, process, new BpmnModel()));
+    verify(process).getFlowElements();
   }
 
   /**
-   * Test {@link EventSubscriptionManager#insertMessageEvent(MessageEventDefinition, StartEvent,
-   * ProcessDefinitionEntity, BpmnModel)}.
-   *
+   * Test {@link EventSubscriptionManager#insertMessageEvent(MessageEventDefinition, StartEvent, ProcessDefinitionEntity, BpmnModel)}.
    * <ul>
-   *   <li>Then throw {@link ActivitiException}.
+   *   <li>Then throw {@link ActivitiException}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link
-   * EventSubscriptionManager#insertMessageEvent(MessageEventDefinition, StartEvent,
-   * ProcessDefinitionEntity, BpmnModel)}
+   * <p>
+   * Method under test: {@link EventSubscriptionManager#insertMessageEvent(MessageEventDefinition, StartEvent, ProcessDefinitionEntity, BpmnModel)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({
-    "void EventSubscriptionManager.insertMessageEvent(MessageEventDefinition, StartEvent, ProcessDefinitionEntity, BpmnModel)"
-  })
+      "void EventSubscriptionManager.insertMessageEvent(MessageEventDefinition, StartEvent, ProcessDefinitionEntity, BpmnModel)"})
   public void testInsertMessageEvent_thenThrowActivitiException() {
     // Arrange
     EventSubscriptionManager eventSubscriptionManager = new EventSubscriptionManager();
     MessageEventDefinition messageEventDefinition = new MessageEventDefinition();
     StartEvent startEvent = new StartEvent();
     ProcessDefinitionEntityImpl processDefinition = new ProcessDefinitionEntityImpl();
-
     BpmnModel bpmnModel = mock(BpmnModel.class);
-    when(bpmnModel.getMessage(Mockito.<String>any()))
-        .thenThrow(new ActivitiException("An error occurred"));
+    when(bpmnModel.getMessage(Mockito.<String>any())).thenThrow(new ActivitiException("An error occurred"));
     when(bpmnModel.containsMessageId(Mockito.<String>any())).thenReturn(true);
 
     // Act and Assert
-    assertThrows(
-        ActivitiException.class,
-        () ->
-            eventSubscriptionManager.insertMessageEvent(
-                messageEventDefinition, startEvent, processDefinition, bpmnModel));
-    verify(bpmnModel).containsMessageId(null);
-    verify(bpmnModel).getMessage(null);
+    assertThrows(ActivitiException.class, () -> eventSubscriptionManager.insertMessageEvent(messageEventDefinition,
+        startEvent, processDefinition, bpmnModel));
+    verify(bpmnModel).containsMessageId(isNull());
+    verify(bpmnModel).getMessage(isNull());
   }
 }

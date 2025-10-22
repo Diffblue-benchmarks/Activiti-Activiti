@@ -20,11 +20,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.time.LocalDate;
 import java.time.ZoneOffset;
@@ -33,15 +29,15 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import org.activiti.engine.impl.util.json.JSONObject;
+import org.activiti.engine.impl.variable.BigDecimalType;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 
 public class HistoricTaskInstanceEntityImplDiffblueTest {
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>{@link HistoricTaskInstanceEntityImpl#HistoricTaskInstanceEntityImpl()}
    *   <li>{@link HistoricTaskInstanceEntityImpl#setAssignee(String)}
@@ -76,59 +72,44 @@ public class HistoricTaskInstanceEntityImplDiffblueTest {
    * </ul>
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void HistoricTaskInstanceEntityImpl.<init>()",
-    "String HistoricTaskInstanceEntityImpl.getAssignee()",
-    "String HistoricTaskInstanceEntityImpl.getBusinessKey()",
-    "String HistoricTaskInstanceEntityImpl.getCategory()",
-    "Date HistoricTaskInstanceEntityImpl.getClaimTime()",
-    "Date HistoricTaskInstanceEntityImpl.getDueDate()",
-    "String HistoricTaskInstanceEntityImpl.getExecutionId()",
-    "String HistoricTaskInstanceEntityImpl.getFormKey()",
-    "String HistoricTaskInstanceEntityImpl.getOwner()",
-    "String HistoricTaskInstanceEntityImpl.getParentTaskId()",
-    "int HistoricTaskInstanceEntityImpl.getPriority()",
-    "String HistoricTaskInstanceEntityImpl.getTaskDefinitionKey()",
-    "String HistoricTaskInstanceEntityImpl.getTenantId()",
-    "void HistoricTaskInstanceEntityImpl.setAssignee(String)",
-    "void HistoricTaskInstanceEntityImpl.setBusinessKey(String)",
-    "void HistoricTaskInstanceEntityImpl.setCategory(String)",
-    "void HistoricTaskInstanceEntityImpl.setClaimTime(Date)",
-    "void HistoricTaskInstanceEntityImpl.setDescription(String)",
-    "void HistoricTaskInstanceEntityImpl.setDueDate(Date)",
-    "void HistoricTaskInstanceEntityImpl.setExecutionId(String)",
-    "void HistoricTaskInstanceEntityImpl.setFormKey(String)",
-    "void HistoricTaskInstanceEntityImpl.setLocalizedDescription(String)",
-    "void HistoricTaskInstanceEntityImpl.setLocalizedName(String)",
-    "void HistoricTaskInstanceEntityImpl.setName(String)",
-    "void HistoricTaskInstanceEntityImpl.setOwner(String)",
-    "void HistoricTaskInstanceEntityImpl.setParentTaskId(String)",
-    "void HistoricTaskInstanceEntityImpl.setPriority(int)",
-    "void HistoricTaskInstanceEntityImpl.setQueryVariables(List)",
-    "void HistoricTaskInstanceEntityImpl.setTaskDefinitionKey(String)",
-    "void HistoricTaskInstanceEntityImpl.setTenantId(String)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void HistoricTaskInstanceEntityImpl.<init>()",
+      "String HistoricTaskInstanceEntityImpl.getAssignee()", "String HistoricTaskInstanceEntityImpl.getBusinessKey()",
+      "String HistoricTaskInstanceEntityImpl.getCategory()", "Date HistoricTaskInstanceEntityImpl.getClaimTime()",
+      "Date HistoricTaskInstanceEntityImpl.getDueDate()", "String HistoricTaskInstanceEntityImpl.getExecutionId()",
+      "String HistoricTaskInstanceEntityImpl.getFormKey()", "String HistoricTaskInstanceEntityImpl.getOwner()",
+      "String HistoricTaskInstanceEntityImpl.getParentTaskId()", "int HistoricTaskInstanceEntityImpl.getPriority()",
+      "String HistoricTaskInstanceEntityImpl.getTaskDefinitionKey()",
+      "String HistoricTaskInstanceEntityImpl.getTenantId()", "void HistoricTaskInstanceEntityImpl.setAssignee(String)",
+      "void HistoricTaskInstanceEntityImpl.setBusinessKey(String)",
+      "void HistoricTaskInstanceEntityImpl.setCategory(String)",
+      "void HistoricTaskInstanceEntityImpl.setClaimTime(Date)",
+      "void HistoricTaskInstanceEntityImpl.setDescription(String)",
+      "void HistoricTaskInstanceEntityImpl.setDueDate(Date)",
+      "void HistoricTaskInstanceEntityImpl.setExecutionId(String)",
+      "void HistoricTaskInstanceEntityImpl.setFormKey(String)",
+      "void HistoricTaskInstanceEntityImpl.setLocalizedDescription(String)",
+      "void HistoricTaskInstanceEntityImpl.setLocalizedName(String)",
+      "void HistoricTaskInstanceEntityImpl.setName(String)", "void HistoricTaskInstanceEntityImpl.setOwner(String)",
+      "void HistoricTaskInstanceEntityImpl.setParentTaskId(String)",
+      "void HistoricTaskInstanceEntityImpl.setPriority(int)",
+      "void HistoricTaskInstanceEntityImpl.setQueryVariables(List)",
+      "void HistoricTaskInstanceEntityImpl.setTaskDefinitionKey(String)",
+      "void HistoricTaskInstanceEntityImpl.setTenantId(String)"})
   public void testGettersAndSetters() {
     // Arrange and Act
-    HistoricTaskInstanceEntityImpl actualHistoricTaskInstanceEntityImpl =
-        new HistoricTaskInstanceEntityImpl();
+    HistoricTaskInstanceEntityImpl actualHistoricTaskInstanceEntityImpl = new HistoricTaskInstanceEntityImpl();
     actualHistoricTaskInstanceEntityImpl.setAssignee("Assignee");
     actualHistoricTaskInstanceEntityImpl.setBusinessKey("Business Key");
     actualHistoricTaskInstanceEntityImpl.setCategory("Category");
-    Date claimTime =
-        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant());
+    Date claimTime = Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant());
     actualHistoricTaskInstanceEntityImpl.setClaimTime(claimTime);
-    actualHistoricTaskInstanceEntityImpl.setDescription(
-        "The characteristics of someone or something");
-    Date dueDate =
-        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant());
+    actualHistoricTaskInstanceEntityImpl.setDescription("The characteristics of someone or something");
+    Date dueDate = Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant());
     actualHistoricTaskInstanceEntityImpl.setDueDate(dueDate);
     actualHistoricTaskInstanceEntityImpl.setExecutionId("42");
     actualHistoricTaskInstanceEntityImpl.setFormKey("Form Key");
-    actualHistoricTaskInstanceEntityImpl.setLocalizedDescription(
-        "The characteristics of someone or something");
+    actualHistoricTaskInstanceEntityImpl.setLocalizedDescription("The characteristics of someone or something");
     actualHistoricTaskInstanceEntityImpl.setLocalizedName("Name");
     actualHistoricTaskInstanceEntityImpl.setName("Name");
     actualHistoricTaskInstanceEntityImpl.setOwner("Owner");
@@ -177,54 +158,18 @@ public class HistoricTaskInstanceEntityImplDiffblueTest {
 
   /**
    * Test {@link HistoricTaskInstanceEntityImpl#getPersistentState()}.
-   *
-   * <p>Method under test: {@link HistoricTaskInstanceEntityImpl#getPersistentState()}
+   * <p>
+   * Method under test: {@link HistoricTaskInstanceEntityImpl#getPersistentState()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"Object HistoricTaskInstanceEntityImpl.getPersistentState()"})
   public void testGetPersistentState() {
     // Arrange
-    HistoricTaskInstanceEntityImpl historicTaskInstanceEntityImpl =
-        new HistoricTaskInstanceEntityImpl();
-    Date dueDate =
-        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant());
-    historicTaskInstanceEntityImpl.setDueDate(dueDate);
-
-    // Act
-    Object actualPersistentState = historicTaskInstanceEntityImpl.getPersistentState();
-
-    // Assert
-    assertTrue(actualPersistentState instanceof Map);
-    assertEquals(13, ((Map<String, Object>) actualPersistentState).size());
-    assertNull(((Map<String, Object>) actualPersistentState).get("deleteReason"));
-    assertTrue(((Map<String, Object>) actualPersistentState).containsKey("assignee"));
-    assertTrue(((Map<String, Object>) actualPersistentState).containsKey("description"));
-    assertTrue(((Map<String, Object>) actualPersistentState).containsKey("durationInMillis"));
-    assertTrue(((Map<String, Object>) actualPersistentState).containsKey("formKey"));
-    assertTrue(((Map<String, Object>) actualPersistentState).containsKey("name"));
-    assertTrue(((Map<String, Object>) actualPersistentState).containsKey("owner"));
-    assertTrue(((Map<String, Object>) actualPersistentState).containsKey("processDefinitionId"));
-    assertTrue(((Map<String, Object>) actualPersistentState).containsKey("taskDefinitionKey"));
-    assertSame(dueDate, ((Map<String, Object>) actualPersistentState).get("dueDate"));
-  }
-
-  /**
-   * Test {@link HistoricTaskInstanceEntityImpl#getPersistentState()}.
-   *
-   * <p>Method under test: {@link HistoricTaskInstanceEntityImpl#getPersistentState()}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"Object HistoricTaskInstanceEntityImpl.getPersistentState()"})
-  public void testGetPersistentState2() {
-    // Arrange
-    HistoricTaskInstanceEntityImpl historicTaskInstanceEntityImpl =
-        new HistoricTaskInstanceEntityImpl();
-    Date claimTime =
-        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant());
+    HistoricTaskInstanceEntityImpl historicTaskInstanceEntityImpl = new HistoricTaskInstanceEntityImpl();
+    historicTaskInstanceEntityImpl.setParentTaskId(null);
+    historicTaskInstanceEntityImpl.setDueDate(null);
+    Date claimTime = Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant());
     historicTaskInstanceEntityImpl.setClaimTime(claimTime);
 
     // Act
@@ -247,22 +192,19 @@ public class HistoricTaskInstanceEntityImplDiffblueTest {
 
   /**
    * Test {@link HistoricTaskInstanceEntityImpl#getPersistentState()}.
-   *
-   * <ul>
-   *   <li>Then return {@code parentTaskId} is {@code 42}.
-   * </ul>
-   *
-   * <p>Method under test: {@link HistoricTaskInstanceEntityImpl#getPersistentState()}
+   * <p>
+   * Method under test: {@link HistoricTaskInstanceEntityImpl#getPersistentState()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"Object HistoricTaskInstanceEntityImpl.getPersistentState()"})
-  public void testGetPersistentState_thenReturnParentTaskIdIs42() {
+  public void testGetPersistentState2() {
     // Arrange
-    HistoricTaskInstanceEntityImpl historicTaskInstanceEntityImpl =
-        new HistoricTaskInstanceEntityImpl();
-    historicTaskInstanceEntityImpl.setParentTaskId("42");
+    HistoricTaskInstanceEntityImpl historicTaskInstanceEntityImpl = new HistoricTaskInstanceEntityImpl();
+    historicTaskInstanceEntityImpl.setParentTaskId(null);
+    Date dueDate = Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant());
+    historicTaskInstanceEntityImpl.setDueDate(dueDate);
+    historicTaskInstanceEntityImpl.setClaimTime(null);
 
     // Act
     Object actualPersistentState = historicTaskInstanceEntityImpl.getPersistentState();
@@ -270,7 +212,43 @@ public class HistoricTaskInstanceEntityImplDiffblueTest {
     // Assert
     assertTrue(actualPersistentState instanceof Map);
     assertEquals(13, ((Map<String, Object>) actualPersistentState).size());
-    assertEquals("42", ((Map<String, Object>) actualPersistentState).get("parentTaskId"));
+    assertNull(((Map<String, Object>) actualPersistentState).get("deleteReason"));
+    assertTrue(((Map<String, Object>) actualPersistentState).containsKey("assignee"));
+    assertTrue(((Map<String, Object>) actualPersistentState).containsKey("description"));
+    assertTrue(((Map<String, Object>) actualPersistentState).containsKey("durationInMillis"));
+    assertTrue(((Map<String, Object>) actualPersistentState).containsKey("formKey"));
+    assertTrue(((Map<String, Object>) actualPersistentState).containsKey("name"));
+    assertTrue(((Map<String, Object>) actualPersistentState).containsKey("owner"));
+    assertTrue(((Map<String, Object>) actualPersistentState).containsKey("processDefinitionId"));
+    assertTrue(((Map<String, Object>) actualPersistentState).containsKey("taskDefinitionKey"));
+    assertSame(dueDate, ((Map<String, Object>) actualPersistentState).get("dueDate"));
+  }
+
+  /**
+   * Test {@link HistoricTaskInstanceEntityImpl#getPersistentState()}.
+   * <ul>
+   *   <li>Then return {@code parentTaskId} is {@code foo}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link HistoricTaskInstanceEntityImpl#getPersistentState()}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Object HistoricTaskInstanceEntityImpl.getPersistentState()"})
+  public void testGetPersistentState_thenReturnParentTaskIdIsFoo() {
+    // Arrange
+    HistoricTaskInstanceEntityImpl historicTaskInstanceEntityImpl = new HistoricTaskInstanceEntityImpl();
+    historicTaskInstanceEntityImpl.setParentTaskId("foo");
+    historicTaskInstanceEntityImpl.setDueDate(null);
+    historicTaskInstanceEntityImpl.setClaimTime(null);
+
+    // Act
+    Object actualPersistentState = historicTaskInstanceEntityImpl.getPersistentState();
+
+    // Assert
+    assertTrue(actualPersistentState instanceof Map);
+    assertEquals(13, ((Map<String, Object>) actualPersistentState).size());
+    assertEquals("foo", ((Map<String, Object>) actualPersistentState).get("parentTaskId"));
     assertNull(((Map<String, Object>) actualPersistentState).get("deleteReason"));
     assertTrue(((Map<String, Object>) actualPersistentState).containsKey("assignee"));
     assertTrue(((Map<String, Object>) actualPersistentState).containsKey("description"));
@@ -284,20 +262,18 @@ public class HistoricTaskInstanceEntityImplDiffblueTest {
 
   /**
    * Test {@link HistoricTaskInstanceEntityImpl#getPersistentState()}.
-   *
    * <ul>
-   *   <li>Then return size is twelve.
+   *   <li>Then return size is twelve.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link HistoricTaskInstanceEntityImpl#getPersistentState()}
+   * <p>
+   * Method under test: {@link HistoricTaskInstanceEntityImpl#getPersistentState()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"Object HistoricTaskInstanceEntityImpl.getPersistentState()"})
   public void testGetPersistentState_thenReturnSizeIsTwelve() {
     // Arrange and Act
-    Object actualPersistentState = new HistoricTaskInstanceEntityImpl().getPersistentState();
+    Object actualPersistentState = (new HistoricTaskInstanceEntityImpl()).getPersistentState();
 
     // Assert
     assertTrue(actualPersistentState instanceof Map);
@@ -317,22 +293,18 @@ public class HistoricTaskInstanceEntityImplDiffblueTest {
 
   /**
    * Test {@link HistoricTaskInstanceEntityImpl#getName()}.
-   *
    * <ul>
-   *   <li>Given {@link HistoricTaskInstanceEntityImpl#HistoricTaskInstanceEntityImpl()}
-   *       LocalizedName is empty string.
+   *   <li>Given {@link HistoricTaskInstanceEntityImpl#HistoricTaskInstanceEntityImpl()} LocalizedName is empty string.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link HistoricTaskInstanceEntityImpl#getName()}
+   * <p>
+   * Method under test: {@link HistoricTaskInstanceEntityImpl#getName()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"String HistoricTaskInstanceEntityImpl.getName()"})
   public void testGetName_givenHistoricTaskInstanceEntityImplLocalizedNameIsEmptyString() {
     // Arrange
-    HistoricTaskInstanceEntityImpl historicTaskInstanceEntityImpl =
-        new HistoricTaskInstanceEntityImpl();
+    HistoricTaskInstanceEntityImpl historicTaskInstanceEntityImpl = new HistoricTaskInstanceEntityImpl();
     historicTaskInstanceEntityImpl.setLocalizedName("");
 
     // Act and Assert
@@ -341,59 +313,53 @@ public class HistoricTaskInstanceEntityImplDiffblueTest {
 
   /**
    * Test {@link HistoricTaskInstanceEntityImpl#getName()}.
-   *
    * <ul>
-   *   <li>Given {@link HistoricTaskInstanceEntityImpl#HistoricTaskInstanceEntityImpl()}.
-   *   <li>Then return {@code null}.
+   *   <li>Given {@link HistoricTaskInstanceEntityImpl#HistoricTaskInstanceEntityImpl()} LocalizedName is {@code foo}.</li>
+   *   <li>Then return {@code foo}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link HistoricTaskInstanceEntityImpl#getName()}
+   * <p>
+   * Method under test: {@link HistoricTaskInstanceEntityImpl#getName()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"String HistoricTaskInstanceEntityImpl.getName()"})
-  public void testGetName_givenHistoricTaskInstanceEntityImpl_thenReturnNull() {
-    // Arrange, Act and Assert
-    assertNull(new HistoricTaskInstanceEntityImpl().getName());
+  public void testGetName_givenHistoricTaskInstanceEntityImplLocalizedNameIsFoo_thenReturnFoo() {
+    // Arrange
+    HistoricTaskInstanceEntityImpl historicTaskInstanceEntityImpl = new HistoricTaskInstanceEntityImpl();
+    historicTaskInstanceEntityImpl.setLocalizedName("foo");
+
+    // Act and Assert
+    assertEquals("foo", historicTaskInstanceEntityImpl.getName());
   }
 
   /**
    * Test {@link HistoricTaskInstanceEntityImpl#getName()}.
-   *
    * <ul>
-   *   <li>Then return {@code Name}.
+   *   <li>Given {@link HistoricTaskInstanceEntityImpl#HistoricTaskInstanceEntityImpl()}.</li>
+   *   <li>Then return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link HistoricTaskInstanceEntityImpl#getName()}
+   * <p>
+   * Method under test: {@link HistoricTaskInstanceEntityImpl#getName()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"String HistoricTaskInstanceEntityImpl.getName()"})
-  public void testGetName_thenReturnName() {
-    // Arrange
-    HistoricTaskInstanceEntityImpl historicTaskInstanceEntityImpl =
-        new HistoricTaskInstanceEntityImpl();
-    historicTaskInstanceEntityImpl.setLocalizedName("Name");
-
-    // Act and Assert
-    assertEquals("Name", historicTaskInstanceEntityImpl.getName());
+  public void testGetName_givenHistoricTaskInstanceEntityImpl_thenReturnNull() {
+    // Arrange, Act and Assert
+    assertNull((new HistoricTaskInstanceEntityImpl()).getName());
   }
 
   /**
    * Test {@link HistoricTaskInstanceEntityImpl#getDescription()}.
-   *
-   * <p>Method under test: {@link HistoricTaskInstanceEntityImpl#getDescription()}
+   * <p>
+   * Method under test: {@link HistoricTaskInstanceEntityImpl#getDescription()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"String HistoricTaskInstanceEntityImpl.getDescription()"})
   public void testGetDescription() {
     // Arrange
-    HistoricTaskInstanceEntityImpl historicTaskInstanceEntityImpl =
-        new HistoricTaskInstanceEntityImpl();
+    HistoricTaskInstanceEntityImpl historicTaskInstanceEntityImpl = new HistoricTaskInstanceEntityImpl();
     historicTaskInstanceEntityImpl.setLocalizedDescription("");
 
     // Act and Assert
@@ -402,167 +368,184 @@ public class HistoricTaskInstanceEntityImplDiffblueTest {
 
   /**
    * Test {@link HistoricTaskInstanceEntityImpl#getDescription()}.
-   *
    * <ul>
-   *   <li>Given {@link HistoricTaskInstanceEntityImpl#HistoricTaskInstanceEntityImpl()}.
-   *   <li>Then return {@code null}.
+   *   <li>Given {@link HistoricTaskInstanceEntityImpl#HistoricTaskInstanceEntityImpl()}.</li>
+   *   <li>Then return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link HistoricTaskInstanceEntityImpl#getDescription()}
+   * <p>
+   * Method under test: {@link HistoricTaskInstanceEntityImpl#getDescription()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"String HistoricTaskInstanceEntityImpl.getDescription()"})
   public void testGetDescription_givenHistoricTaskInstanceEntityImpl_thenReturnNull() {
     // Arrange, Act and Assert
-    assertNull(new HistoricTaskInstanceEntityImpl().getDescription());
+    assertNull((new HistoricTaskInstanceEntityImpl()).getDescription());
   }
 
   /**
    * Test {@link HistoricTaskInstanceEntityImpl#getDescription()}.
-   *
    * <ul>
-   *   <li>Then return {@code The characteristics of someone or something}.
+   *   <li>Then return {@code foo}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link HistoricTaskInstanceEntityImpl#getDescription()}
+   * <p>
+   * Method under test: {@link HistoricTaskInstanceEntityImpl#getDescription()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"String HistoricTaskInstanceEntityImpl.getDescription()"})
-  public void testGetDescription_thenReturnTheCharacteristicsOfSomeoneOrSomething() {
+  public void testGetDescription_thenReturnFoo() {
     // Arrange
-    HistoricTaskInstanceEntityImpl historicTaskInstanceEntityImpl =
-        new HistoricTaskInstanceEntityImpl();
-    historicTaskInstanceEntityImpl.setLocalizedDescription(
-        "The characteristics of someone or something");
+    HistoricTaskInstanceEntityImpl historicTaskInstanceEntityImpl = new HistoricTaskInstanceEntityImpl();
+    historicTaskInstanceEntityImpl.setLocalizedDescription("foo");
 
     // Act and Assert
-    assertEquals(
-        "The characteristics of someone or something",
-        historicTaskInstanceEntityImpl.getDescription());
+    assertEquals("foo", historicTaskInstanceEntityImpl.getDescription());
   }
 
   /**
    * Test {@link HistoricTaskInstanceEntityImpl#getCreateTime()}.
-   *
-   * <p>Method under test: {@link HistoricTaskInstanceEntityImpl#getCreateTime()}
+   * <p>
+   * Method under test: {@link HistoricTaskInstanceEntityImpl#getCreateTime()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"Date HistoricTaskInstanceEntityImpl.getCreateTime()"})
   public void testGetCreateTime() {
     // Arrange, Act and Assert
-    assertNull(new HistoricTaskInstanceEntityImpl().getCreateTime());
+    assertNull((new HistoricTaskInstanceEntityImpl()).getCreateTime());
   }
 
   /**
    * Test {@link HistoricTaskInstanceEntityImpl#getTime()}.
-   *
-   * <p>Method under test: {@link HistoricTaskInstanceEntityImpl#getTime()}
+   * <p>
+   * Method under test: {@link HistoricTaskInstanceEntityImpl#getTime()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"Date HistoricTaskInstanceEntityImpl.getTime()"})
   public void testGetTime() {
     // Arrange, Act and Assert
-    assertNull(new HistoricTaskInstanceEntityImpl().getTime());
+    assertNull((new HistoricTaskInstanceEntityImpl()).getTime());
   }
 
   /**
    * Test {@link HistoricTaskInstanceEntityImpl#getWorkTimeInMillis()}.
-   *
    * <ul>
-   *   <li>Given {@link HistoricTaskInstanceEntityImpl#HistoricTaskInstanceEntityImpl()}.
-   *   <li>Then return {@code null}.
+   *   <li>Given {@link HistoricTaskInstanceEntityImpl#HistoricTaskInstanceEntityImpl()} ClaimTime is {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link HistoricTaskInstanceEntityImpl#getWorkTimeInMillis()}
+   * <p>
+   * Method under test: {@link HistoricTaskInstanceEntityImpl#getWorkTimeInMillis()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"java.lang.Long HistoricTaskInstanceEntityImpl.getWorkTimeInMillis()"})
-  public void testGetWorkTimeInMillis_givenHistoricTaskInstanceEntityImpl_thenReturnNull() {
-    // Arrange, Act and Assert
-    assertNull(new HistoricTaskInstanceEntityImpl().getWorkTimeInMillis());
-  }
-
-  /**
-   * Test {@link HistoricTaskInstanceEntityImpl#getWorkTimeInMillis()}.
-   *
-   * <ul>
-   *   <li>Then return longValue is zero.
-   * </ul>
-   *
-   * <p>Method under test: {@link HistoricTaskInstanceEntityImpl#getWorkTimeInMillis()}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"java.lang.Long HistoricTaskInstanceEntityImpl.getWorkTimeInMillis()"})
-  public void testGetWorkTimeInMillis_thenReturnLongValueIsZero() {
+  public void testGetWorkTimeInMillis_givenHistoricTaskInstanceEntityImplClaimTimeIsNull() {
     // Arrange
-    HistoricTaskInstanceEntityImpl historicTaskInstanceEntityImpl =
-        new HistoricTaskInstanceEntityImpl();
-    historicTaskInstanceEntityImpl.setClaimTime(
-        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
-    historicTaskInstanceEntityImpl.setEndTime(
-        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
-
-    // Act and Assert
-    assertEquals(0L, historicTaskInstanceEntityImpl.getWorkTimeInMillis().longValue());
-  }
-
-  /**
-   * Test {@link HistoricTaskInstanceEntityImpl#getWorkTimeInMillis()}.
-   *
-   * <ul>
-   *   <li>Then return {@code null}.
-   * </ul>
-   *
-   * <p>Method under test: {@link HistoricTaskInstanceEntityImpl#getWorkTimeInMillis()}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"java.lang.Long HistoricTaskInstanceEntityImpl.getWorkTimeInMillis()"})
-  public void testGetWorkTimeInMillis_thenReturnNull() {
-    // Arrange
-    HistoricTaskInstanceEntityImpl historicTaskInstanceEntityImpl =
-        new HistoricTaskInstanceEntityImpl();
-    historicTaskInstanceEntityImpl.setEndTime(
-        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
+    HistoricTaskInstanceEntityImpl historicTaskInstanceEntityImpl = new HistoricTaskInstanceEntityImpl();
+    historicTaskInstanceEntityImpl
+        .setEndTime(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
+    historicTaskInstanceEntityImpl.setClaimTime(null);
 
     // Act and Assert
     assertNull(historicTaskInstanceEntityImpl.getWorkTimeInMillis());
   }
 
   /**
-   * Test {@link HistoricTaskInstanceEntityImpl#getTaskLocalVariables()}.
-   *
+   * Test {@link HistoricTaskInstanceEntityImpl#getWorkTimeInMillis()}.
    * <ul>
-   *   <li>Given {@link ArrayList#ArrayList()} add {@link HistoricVariableInstanceEntityImpl}
-   *       (default constructor).
+   *   <li>Given {@link HistoricTaskInstanceEntityImpl#HistoricTaskInstanceEntityImpl()}.</li>
+   *   <li>Then return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link HistoricTaskInstanceEntityImpl#getTaskLocalVariables()}
+   * <p>
+   * Method under test: {@link HistoricTaskInstanceEntityImpl#getWorkTimeInMillis()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"Map HistoricTaskInstanceEntityImpl.getTaskLocalVariables()"})
-  public void testGetTaskLocalVariables_givenArrayListAddHistoricVariableInstanceEntityImpl() {
-    // Arrange
-    ArrayList<HistoricVariableInstanceEntity> queryVariables = new ArrayList<>();
-    queryVariables.add(new HistoricVariableInstanceEntityImpl());
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"java.lang.Long HistoricTaskInstanceEntityImpl.getWorkTimeInMillis()"})
+  public void testGetWorkTimeInMillis_givenHistoricTaskInstanceEntityImpl_thenReturnNull() {
+    // Arrange, Act and Assert
+    assertNull((new HistoricTaskInstanceEntityImpl()).getWorkTimeInMillis());
+  }
 
-    HistoricTaskInstanceEntityImpl historicTaskInstanceEntityImpl =
-        new HistoricTaskInstanceEntityImpl();
+  /**
+   * Test {@link HistoricTaskInstanceEntityImpl#getWorkTimeInMillis()}.
+   * <ul>
+   *   <li>Then return longValue is zero.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link HistoricTaskInstanceEntityImpl#getWorkTimeInMillis()}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"java.lang.Long HistoricTaskInstanceEntityImpl.getWorkTimeInMillis()"})
+  public void testGetWorkTimeInMillis_thenReturnLongValueIsZero() {
+    // Arrange
+    HistoricTaskInstanceEntityImpl historicTaskInstanceEntityImpl = new HistoricTaskInstanceEntityImpl();
+    historicTaskInstanceEntityImpl
+        .setEndTime(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
+    historicTaskInstanceEntityImpl
+        .setClaimTime(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
+
+    // Act and Assert
+    assertEquals(0L, historicTaskInstanceEntityImpl.getWorkTimeInMillis().longValue());
+  }
+
+  /**
+   * Test {@link HistoricTaskInstanceEntityImpl#getTaskLocalVariables()}.
+   * <ul>
+   *   <li>Given {@link HistoricTaskInstanceEntityImpl#HistoricTaskInstanceEntityImpl()}.</li>
+   *   <li>Then return Empty.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link HistoricTaskInstanceEntityImpl#getTaskLocalVariables()}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Map HistoricTaskInstanceEntityImpl.getTaskLocalVariables()"})
+  public void testGetTaskLocalVariables_givenHistoricTaskInstanceEntityImpl_thenReturnEmpty() {
+    // Arrange, Act and Assert
+    assertTrue((new HistoricTaskInstanceEntityImpl()).getTaskLocalVariables().isEmpty());
+  }
+
+  /**
+   * Test {@link HistoricTaskInstanceEntityImpl#getTaskLocalVariables()}.
+   * <ul>
+   *   <li>Given {@link HistoricVariableInstanceEntityImpl} (default constructor) Id is {@code foo}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link HistoricTaskInstanceEntityImpl#getTaskLocalVariables()}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Map HistoricTaskInstanceEntityImpl.getTaskLocalVariables()"})
+  public void testGetTaskLocalVariables_givenHistoricVariableInstanceEntityImplIdIsFoo() {
+    // Arrange
+    HistoricVariableInstanceEntityImpl historicVariableInstanceEntityImpl = new HistoricVariableInstanceEntityImpl();
+    historicVariableInstanceEntityImpl.setCachedValue(JSONObject.NULL);
+    historicVariableInstanceEntityImpl
+        .setCreateTime(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
+    historicVariableInstanceEntityImpl.setDeleted(true);
+    historicVariableInstanceEntityImpl.setDoubleValue(10.0d);
+    historicVariableInstanceEntityImpl.setExecutionId("42");
+    historicVariableInstanceEntityImpl.setInserted(true);
+    historicVariableInstanceEntityImpl
+        .setLastUpdatedTime(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
+    historicVariableInstanceEntityImpl.setLongValue(42L);
+    historicVariableInstanceEntityImpl.setName("Name");
+    historicVariableInstanceEntityImpl.setProcessInstanceId("42");
+    historicVariableInstanceEntityImpl.setRevision(1);
+    historicVariableInstanceEntityImpl.setTextValue("42");
+    historicVariableInstanceEntityImpl.setTextValue2("42");
+    historicVariableInstanceEntityImpl.setUpdated(true);
+    historicVariableInstanceEntityImpl.setVariableType(new BigDecimalType());
+    historicVariableInstanceEntityImpl.setId("foo");
+    historicVariableInstanceEntityImpl.setTaskId(null);
+
+    ArrayList<HistoricVariableInstanceEntity> queryVariables = new ArrayList<>();
+    queryVariables.add(historicVariableInstanceEntityImpl);
+
+    HistoricTaskInstanceEntityImpl historicTaskInstanceEntityImpl = new HistoricTaskInstanceEntityImpl();
     historicTaskInstanceEntityImpl.setQueryVariables(queryVariables);
 
     // Act and Assert
@@ -571,78 +554,62 @@ public class HistoricTaskInstanceEntityImplDiffblueTest {
 
   /**
    * Test {@link HistoricTaskInstanceEntityImpl#getTaskLocalVariables()}.
-   *
    * <ul>
-   *   <li>Given {@link HistoricTaskInstanceEntityImpl#HistoricTaskInstanceEntityImpl()}.
-   *   <li>Then return Empty.
+   *   <li>Given {@link HistoricVariableInstanceEntityImpl} (default constructor) Id is {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link HistoricTaskInstanceEntityImpl#getTaskLocalVariables()}
+   * <p>
+   * Method under test: {@link HistoricTaskInstanceEntityImpl#getTaskLocalVariables()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"Map HistoricTaskInstanceEntityImpl.getTaskLocalVariables()"})
-  public void testGetTaskLocalVariables_givenHistoricTaskInstanceEntityImpl_thenReturnEmpty() {
-    // Arrange, Act and Assert
-    assertTrue(new HistoricTaskInstanceEntityImpl().getTaskLocalVariables().isEmpty());
-  }
-
-  /**
-   * Test {@link HistoricTaskInstanceEntityImpl#getTaskLocalVariables()}.
-   *
-   * <ul>
-   *   <li>Given {@link HistoricVariableInstanceEntity} {@link
-   *       HistoricVariableInstanceEntity#getTaskId()} return {@code null}.
-   * </ul>
-   *
-   * <p>Method under test: {@link HistoricTaskInstanceEntityImpl#getTaskLocalVariables()}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"Map HistoricTaskInstanceEntityImpl.getTaskLocalVariables()"})
-  public void testGetTaskLocalVariables_givenHistoricVariableInstanceEntityGetTaskIdReturnNull() {
+  public void testGetTaskLocalVariables_givenHistoricVariableInstanceEntityImplIdIsNull() {
     // Arrange
-    HistoricVariableInstanceEntity historicVariableInstanceEntity =
-        mock(HistoricVariableInstanceEntity.class);
-    when(historicVariableInstanceEntity.getTaskId()).thenReturn(null);
-    when(historicVariableInstanceEntity.getId()).thenReturn("42");
+    HistoricVariableInstanceEntityImpl historicVariableInstanceEntityImpl = new HistoricVariableInstanceEntityImpl();
+    historicVariableInstanceEntityImpl.setCachedValue(JSONObject.NULL);
+    historicVariableInstanceEntityImpl
+        .setCreateTime(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
+    historicVariableInstanceEntityImpl.setDeleted(true);
+    historicVariableInstanceEntityImpl.setDoubleValue(10.0d);
+    historicVariableInstanceEntityImpl.setExecutionId("42");
+    historicVariableInstanceEntityImpl.setInserted(true);
+    historicVariableInstanceEntityImpl
+        .setLastUpdatedTime(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
+    historicVariableInstanceEntityImpl.setLongValue(42L);
+    historicVariableInstanceEntityImpl.setName("Name");
+    historicVariableInstanceEntityImpl.setProcessInstanceId("42");
+    historicVariableInstanceEntityImpl.setRevision(1);
+    historicVariableInstanceEntityImpl.setTextValue("42");
+    historicVariableInstanceEntityImpl.setTextValue2("42");
+    historicVariableInstanceEntityImpl.setUpdated(true);
+    historicVariableInstanceEntityImpl.setVariableType(new BigDecimalType());
+    historicVariableInstanceEntityImpl.setId(null);
+    historicVariableInstanceEntityImpl.setTaskId(null);
 
     ArrayList<HistoricVariableInstanceEntity> queryVariables = new ArrayList<>();
-    queryVariables.add(historicVariableInstanceEntity);
+    queryVariables.add(historicVariableInstanceEntityImpl);
 
-    HistoricTaskInstanceEntityImpl historicTaskInstanceEntityImpl =
-        new HistoricTaskInstanceEntityImpl();
+    HistoricTaskInstanceEntityImpl historicTaskInstanceEntityImpl = new HistoricTaskInstanceEntityImpl();
     historicTaskInstanceEntityImpl.setQueryVariables(queryVariables);
 
-    // Act
-    Map<String, Object> actualTaskLocalVariables =
-        historicTaskInstanceEntityImpl.getTaskLocalVariables();
-
-    // Assert
-    verify(historicVariableInstanceEntity).getId();
-    verify(historicVariableInstanceEntity).getTaskId();
-    assertTrue(actualTaskLocalVariables.isEmpty());
+    // Act and Assert
+    assertTrue(historicTaskInstanceEntityImpl.getTaskLocalVariables().isEmpty());
   }
 
   /**
    * Test {@link HistoricTaskInstanceEntityImpl#getTaskLocalVariables()}.
-   *
    * <ul>
-   *   <li>Then return Empty.
+   *   <li>Then return Empty.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link HistoricTaskInstanceEntityImpl#getTaskLocalVariables()}
+   * <p>
+   * Method under test: {@link HistoricTaskInstanceEntityImpl#getTaskLocalVariables()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"Map HistoricTaskInstanceEntityImpl.getTaskLocalVariables()"})
   public void testGetTaskLocalVariables_thenReturnEmpty() {
     // Arrange
-    HistoricTaskInstanceEntityImpl historicTaskInstanceEntityImpl =
-        new HistoricTaskInstanceEntityImpl();
+    HistoricTaskInstanceEntityImpl historicTaskInstanceEntityImpl = new HistoricTaskInstanceEntityImpl();
     historicTaskInstanceEntityImpl.setQueryVariables(new ArrayList<>());
 
     // Act and Assert
@@ -651,67 +618,107 @@ public class HistoricTaskInstanceEntityImplDiffblueTest {
 
   /**
    * Test {@link HistoricTaskInstanceEntityImpl#getTaskLocalVariables()}.
-   *
    * <ul>
-   *   <li>Then return size is one.
+   *   <li>Then return size is one.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link HistoricTaskInstanceEntityImpl#getTaskLocalVariables()}
+   * <p>
+   * Method under test: {@link HistoricTaskInstanceEntityImpl#getTaskLocalVariables()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"Map HistoricTaskInstanceEntityImpl.getTaskLocalVariables()"})
   public void testGetTaskLocalVariables_thenReturnSizeIsOne() {
     // Arrange
-    HistoricVariableInstanceEntity historicVariableInstanceEntity =
-        mock(HistoricVariableInstanceEntity.class);
-    when(historicVariableInstanceEntity.getValue()).thenReturn(JSONObject.NULL);
-    when(historicVariableInstanceEntity.getName()).thenReturn("Name");
-    when(historicVariableInstanceEntity.getTaskId()).thenReturn("42");
-    when(historicVariableInstanceEntity.getId()).thenReturn("42");
+    HistoricVariableInstanceEntityImpl historicVariableInstanceEntityImpl = new HistoricVariableInstanceEntityImpl();
+    historicVariableInstanceEntityImpl.setCachedValue(JSONObject.NULL);
+    historicVariableInstanceEntityImpl
+        .setCreateTime(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
+    historicVariableInstanceEntityImpl.setDeleted(true);
+    historicVariableInstanceEntityImpl.setDoubleValue(10.0d);
+    historicVariableInstanceEntityImpl.setExecutionId("42");
+    historicVariableInstanceEntityImpl.setInserted(true);
+    historicVariableInstanceEntityImpl
+        .setLastUpdatedTime(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
+    historicVariableInstanceEntityImpl.setLongValue(42L);
+    historicVariableInstanceEntityImpl.setName("Name");
+    historicVariableInstanceEntityImpl.setProcessInstanceId("42");
+    historicVariableInstanceEntityImpl.setRevision(1);
+    historicVariableInstanceEntityImpl.setTextValue("42");
+    historicVariableInstanceEntityImpl.setTextValue2("42");
+    historicVariableInstanceEntityImpl.setUpdated(true);
+    historicVariableInstanceEntityImpl.setVariableType(new BigDecimalType());
+    historicVariableInstanceEntityImpl.setId("foo");
+    historicVariableInstanceEntityImpl.setTaskId("foo");
 
     ArrayList<HistoricVariableInstanceEntity> queryVariables = new ArrayList<>();
-    queryVariables.add(historicVariableInstanceEntity);
+    queryVariables.add(historicVariableInstanceEntityImpl);
 
-    HistoricTaskInstanceEntityImpl historicTaskInstanceEntityImpl =
-        new HistoricTaskInstanceEntityImpl();
+    HistoricTaskInstanceEntityImpl historicTaskInstanceEntityImpl = new HistoricTaskInstanceEntityImpl();
     historicTaskInstanceEntityImpl.setQueryVariables(queryVariables);
 
     // Act
-    Map<String, Object> actualTaskLocalVariables =
-        historicTaskInstanceEntityImpl.getTaskLocalVariables();
+    Map<String, Object> actualTaskLocalVariables = historicTaskInstanceEntityImpl.getTaskLocalVariables();
 
     // Assert
-    verify(historicVariableInstanceEntity).getId();
-    verify(historicVariableInstanceEntity).getValue();
-    verify(historicVariableInstanceEntity).getName();
-    verify(historicVariableInstanceEntity).getTaskId();
     assertEquals(1, actualTaskLocalVariables.size());
     assertTrue(actualTaskLocalVariables.containsKey("Name"));
   }
 
   /**
    * Test {@link HistoricTaskInstanceEntityImpl#getProcessVariables()}.
-   *
    * <ul>
-   *   <li>Given {@link ArrayList#ArrayList()} add {@link HistoricVariableInstanceEntityImpl}
-   *       (default constructor).
+   *   <li>Given {@link HistoricTaskInstanceEntityImpl#HistoricTaskInstanceEntityImpl()}.</li>
+   *   <li>Then return Empty.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link HistoricTaskInstanceEntityImpl#getProcessVariables()}
+   * <p>
+   * Method under test: {@link HistoricTaskInstanceEntityImpl#getProcessVariables()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"Map HistoricTaskInstanceEntityImpl.getProcessVariables()"})
-  public void testGetProcessVariables_givenArrayListAddHistoricVariableInstanceEntityImpl() {
-    // Arrange
-    ArrayList<HistoricVariableInstanceEntity> queryVariables = new ArrayList<>();
-    queryVariables.add(new HistoricVariableInstanceEntityImpl());
+  public void testGetProcessVariables_givenHistoricTaskInstanceEntityImpl_thenReturnEmpty() {
+    // Arrange, Act and Assert
+    assertTrue((new HistoricTaskInstanceEntityImpl()).getProcessVariables().isEmpty());
+  }
 
-    HistoricTaskInstanceEntityImpl historicTaskInstanceEntityImpl =
-        new HistoricTaskInstanceEntityImpl();
+  /**
+   * Test {@link HistoricTaskInstanceEntityImpl#getProcessVariables()}.
+   * <ul>
+   *   <li>Given {@link HistoricVariableInstanceEntityImpl} (default constructor) Id is {@code null}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link HistoricTaskInstanceEntityImpl#getProcessVariables()}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Map HistoricTaskInstanceEntityImpl.getProcessVariables()"})
+  public void testGetProcessVariables_givenHistoricVariableInstanceEntityImplIdIsNull() {
+    // Arrange
+    HistoricVariableInstanceEntityImpl historicVariableInstanceEntityImpl = new HistoricVariableInstanceEntityImpl();
+    historicVariableInstanceEntityImpl.setCachedValue(JSONObject.NULL);
+    historicVariableInstanceEntityImpl
+        .setCreateTime(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
+    historicVariableInstanceEntityImpl.setDeleted(true);
+    historicVariableInstanceEntityImpl.setDoubleValue(10.0d);
+    historicVariableInstanceEntityImpl.setExecutionId("42");
+    historicVariableInstanceEntityImpl.setInserted(true);
+    historicVariableInstanceEntityImpl
+        .setLastUpdatedTime(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
+    historicVariableInstanceEntityImpl.setLongValue(42L);
+    historicVariableInstanceEntityImpl.setName("Name");
+    historicVariableInstanceEntityImpl.setProcessInstanceId("42");
+    historicVariableInstanceEntityImpl.setRevision(1);
+    historicVariableInstanceEntityImpl.setTextValue("42");
+    historicVariableInstanceEntityImpl.setTextValue2("42");
+    historicVariableInstanceEntityImpl.setUpdated(true);
+    historicVariableInstanceEntityImpl.setVariableType(new BigDecimalType());
+    historicVariableInstanceEntityImpl.setId(null);
+    historicVariableInstanceEntityImpl.setTaskId(null);
+
+    ArrayList<HistoricVariableInstanceEntity> queryVariables = new ArrayList<>();
+    queryVariables.add(historicVariableInstanceEntityImpl);
+
+    HistoricTaskInstanceEntityImpl historicTaskInstanceEntityImpl = new HistoricTaskInstanceEntityImpl();
     historicTaskInstanceEntityImpl.setQueryVariables(queryVariables);
 
     // Act and Assert
@@ -720,78 +727,62 @@ public class HistoricTaskInstanceEntityImplDiffblueTest {
 
   /**
    * Test {@link HistoricTaskInstanceEntityImpl#getProcessVariables()}.
-   *
    * <ul>
-   *   <li>Given {@link HistoricTaskInstanceEntityImpl#HistoricTaskInstanceEntityImpl()}.
-   *   <li>Then return Empty.
+   *   <li>Given {@link HistoricVariableInstanceEntityImpl} (default constructor) TaskId is {@code foo}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link HistoricTaskInstanceEntityImpl#getProcessVariables()}
+   * <p>
+   * Method under test: {@link HistoricTaskInstanceEntityImpl#getProcessVariables()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"Map HistoricTaskInstanceEntityImpl.getProcessVariables()"})
-  public void testGetProcessVariables_givenHistoricTaskInstanceEntityImpl_thenReturnEmpty() {
-    // Arrange, Act and Assert
-    assertTrue(new HistoricTaskInstanceEntityImpl().getProcessVariables().isEmpty());
-  }
-
-  /**
-   * Test {@link HistoricTaskInstanceEntityImpl#getProcessVariables()}.
-   *
-   * <ul>
-   *   <li>Given {@link HistoricVariableInstanceEntity} {@link
-   *       HistoricVariableInstanceEntity#getTaskId()} return {@code 42}.
-   * </ul>
-   *
-   * <p>Method under test: {@link HistoricTaskInstanceEntityImpl#getProcessVariables()}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"Map HistoricTaskInstanceEntityImpl.getProcessVariables()"})
-  public void testGetProcessVariables_givenHistoricVariableInstanceEntityGetTaskIdReturn42() {
+  public void testGetProcessVariables_givenHistoricVariableInstanceEntityImplTaskIdIsFoo() {
     // Arrange
-    HistoricVariableInstanceEntity historicVariableInstanceEntity =
-        mock(HistoricVariableInstanceEntity.class);
-    when(historicVariableInstanceEntity.getTaskId()).thenReturn("42");
-    when(historicVariableInstanceEntity.getId()).thenReturn("42");
+    HistoricVariableInstanceEntityImpl historicVariableInstanceEntityImpl = new HistoricVariableInstanceEntityImpl();
+    historicVariableInstanceEntityImpl.setCachedValue(JSONObject.NULL);
+    historicVariableInstanceEntityImpl
+        .setCreateTime(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
+    historicVariableInstanceEntityImpl.setDeleted(true);
+    historicVariableInstanceEntityImpl.setDoubleValue(10.0d);
+    historicVariableInstanceEntityImpl.setExecutionId("42");
+    historicVariableInstanceEntityImpl.setInserted(true);
+    historicVariableInstanceEntityImpl
+        .setLastUpdatedTime(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
+    historicVariableInstanceEntityImpl.setLongValue(42L);
+    historicVariableInstanceEntityImpl.setName("Name");
+    historicVariableInstanceEntityImpl.setProcessInstanceId("42");
+    historicVariableInstanceEntityImpl.setRevision(1);
+    historicVariableInstanceEntityImpl.setTextValue("42");
+    historicVariableInstanceEntityImpl.setTextValue2("42");
+    historicVariableInstanceEntityImpl.setUpdated(true);
+    historicVariableInstanceEntityImpl.setVariableType(new BigDecimalType());
+    historicVariableInstanceEntityImpl.setId("foo");
+    historicVariableInstanceEntityImpl.setTaskId("foo");
 
     ArrayList<HistoricVariableInstanceEntity> queryVariables = new ArrayList<>();
-    queryVariables.add(historicVariableInstanceEntity);
+    queryVariables.add(historicVariableInstanceEntityImpl);
 
-    HistoricTaskInstanceEntityImpl historicTaskInstanceEntityImpl =
-        new HistoricTaskInstanceEntityImpl();
+    HistoricTaskInstanceEntityImpl historicTaskInstanceEntityImpl = new HistoricTaskInstanceEntityImpl();
     historicTaskInstanceEntityImpl.setQueryVariables(queryVariables);
 
-    // Act
-    Map<String, Object> actualProcessVariables =
-        historicTaskInstanceEntityImpl.getProcessVariables();
-
-    // Assert
-    verify(historicVariableInstanceEntity).getId();
-    verify(historicVariableInstanceEntity).getTaskId();
-    assertTrue(actualProcessVariables.isEmpty());
+    // Act and Assert
+    assertTrue(historicTaskInstanceEntityImpl.getProcessVariables().isEmpty());
   }
 
   /**
    * Test {@link HistoricTaskInstanceEntityImpl#getProcessVariables()}.
-   *
    * <ul>
-   *   <li>Then return Empty.
+   *   <li>Then return Empty.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link HistoricTaskInstanceEntityImpl#getProcessVariables()}
+   * <p>
+   * Method under test: {@link HistoricTaskInstanceEntityImpl#getProcessVariables()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"Map HistoricTaskInstanceEntityImpl.getProcessVariables()"})
   public void testGetProcessVariables_thenReturnEmpty() {
     // Arrange
-    HistoricTaskInstanceEntityImpl historicTaskInstanceEntityImpl =
-        new HistoricTaskInstanceEntityImpl();
+    HistoricTaskInstanceEntityImpl historicTaskInstanceEntityImpl = new HistoricTaskInstanceEntityImpl();
     historicTaskInstanceEntityImpl.setQueryVariables(new ArrayList<>());
 
     // Act and Assert
@@ -800,82 +791,83 @@ public class HistoricTaskInstanceEntityImplDiffblueTest {
 
   /**
    * Test {@link HistoricTaskInstanceEntityImpl#getProcessVariables()}.
-   *
    * <ul>
-   *   <li>Then return size is one.
+   *   <li>Then return size is one.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link HistoricTaskInstanceEntityImpl#getProcessVariables()}
+   * <p>
+   * Method under test: {@link HistoricTaskInstanceEntityImpl#getProcessVariables()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"Map HistoricTaskInstanceEntityImpl.getProcessVariables()"})
   public void testGetProcessVariables_thenReturnSizeIsOne() {
     // Arrange
-    HistoricVariableInstanceEntity historicVariableInstanceEntity =
-        mock(HistoricVariableInstanceEntity.class);
-    when(historicVariableInstanceEntity.getValue()).thenReturn(JSONObject.NULL);
-    when(historicVariableInstanceEntity.getName()).thenReturn("Name");
-    when(historicVariableInstanceEntity.getTaskId()).thenReturn(null);
-    when(historicVariableInstanceEntity.getId()).thenReturn("42");
+    HistoricVariableInstanceEntityImpl historicVariableInstanceEntityImpl = new HistoricVariableInstanceEntityImpl();
+    historicVariableInstanceEntityImpl.setCachedValue(JSONObject.NULL);
+    historicVariableInstanceEntityImpl
+        .setCreateTime(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
+    historicVariableInstanceEntityImpl.setDeleted(true);
+    historicVariableInstanceEntityImpl.setDoubleValue(10.0d);
+    historicVariableInstanceEntityImpl.setExecutionId("42");
+    historicVariableInstanceEntityImpl.setInserted(true);
+    historicVariableInstanceEntityImpl
+        .setLastUpdatedTime(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
+    historicVariableInstanceEntityImpl.setLongValue(42L);
+    historicVariableInstanceEntityImpl.setName("Name");
+    historicVariableInstanceEntityImpl.setProcessInstanceId("42");
+    historicVariableInstanceEntityImpl.setRevision(1);
+    historicVariableInstanceEntityImpl.setTextValue("42");
+    historicVariableInstanceEntityImpl.setTextValue2("42");
+    historicVariableInstanceEntityImpl.setUpdated(true);
+    historicVariableInstanceEntityImpl.setVariableType(new BigDecimalType());
+    historicVariableInstanceEntityImpl.setId("foo");
+    historicVariableInstanceEntityImpl.setTaskId(null);
 
     ArrayList<HistoricVariableInstanceEntity> queryVariables = new ArrayList<>();
-    queryVariables.add(historicVariableInstanceEntity);
+    queryVariables.add(historicVariableInstanceEntityImpl);
 
-    HistoricTaskInstanceEntityImpl historicTaskInstanceEntityImpl =
-        new HistoricTaskInstanceEntityImpl();
+    HistoricTaskInstanceEntityImpl historicTaskInstanceEntityImpl = new HistoricTaskInstanceEntityImpl();
     historicTaskInstanceEntityImpl.setQueryVariables(queryVariables);
 
     // Act
-    Map<String, Object> actualProcessVariables =
-        historicTaskInstanceEntityImpl.getProcessVariables();
+    Map<String, Object> actualProcessVariables = historicTaskInstanceEntityImpl.getProcessVariables();
 
     // Assert
-    verify(historicVariableInstanceEntity).getId();
-    verify(historicVariableInstanceEntity).getValue();
-    verify(historicVariableInstanceEntity).getName();
-    verify(historicVariableInstanceEntity).getTaskId();
     assertEquals(1, actualProcessVariables.size());
     assertTrue(actualProcessVariables.containsKey("Name"));
   }
 
   /**
    * Test {@link HistoricTaskInstanceEntityImpl#getQueryVariables()}.
-   *
    * <ul>
-   *   <li>Given {@link HistoricTaskInstanceEntityImpl#HistoricTaskInstanceEntityImpl()}.
-   *   <li>Then return {@code null}.
+   *   <li>Given {@link HistoricTaskInstanceEntityImpl#HistoricTaskInstanceEntityImpl()}.</li>
+   *   <li>Then return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link HistoricTaskInstanceEntityImpl#getQueryVariables()}
+   * <p>
+   * Method under test: {@link HistoricTaskInstanceEntityImpl#getQueryVariables()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"List HistoricTaskInstanceEntityImpl.getQueryVariables()"})
   public void testGetQueryVariables_givenHistoricTaskInstanceEntityImpl_thenReturnNull() {
     // Arrange, Act and Assert
-    assertNull(new HistoricTaskInstanceEntityImpl().getQueryVariables());
+    assertNull((new HistoricTaskInstanceEntityImpl()).getQueryVariables());
   }
 
   /**
    * Test {@link HistoricTaskInstanceEntityImpl#getQueryVariables()}.
-   *
    * <ul>
-   *   <li>Then return Empty.
+   *   <li>Then return Empty.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link HistoricTaskInstanceEntityImpl#getQueryVariables()}
+   * <p>
+   * Method under test: {@link HistoricTaskInstanceEntityImpl#getQueryVariables()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"List HistoricTaskInstanceEntityImpl.getQueryVariables()"})
   public void testGetQueryVariables_thenReturnEmpty() {
     // Arrange
-    HistoricTaskInstanceEntityImpl historicTaskInstanceEntityImpl =
-        new HistoricTaskInstanceEntityImpl();
+    HistoricTaskInstanceEntityImpl historicTaskInstanceEntityImpl = new HistoricTaskInstanceEntityImpl();
     historicTaskInstanceEntityImpl.setQueryVariables(new ArrayList<>());
 
     // Act and Assert

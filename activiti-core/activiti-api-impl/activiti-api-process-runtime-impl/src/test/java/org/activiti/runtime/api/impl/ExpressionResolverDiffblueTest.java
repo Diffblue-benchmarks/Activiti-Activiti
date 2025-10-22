@@ -17,13 +17,12 @@ package org.activiti.runtime.api.impl;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.ArgumentMatchers.isA;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -48,31 +47,30 @@ import org.springframework.test.context.aot.DisabledInAotMode;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 @ContextConfiguration(classes = {ExpressionResolver.class})
-@DisabledInAotMode
 @ExtendWith(SpringExtension.class)
+@DisabledInAotMode
 class ExpressionResolverDiffblueTest {
-  @MockBean private DelegateInterceptor delegateInterceptor;
+  @MockBean
+  private DelegateInterceptor delegateInterceptor;
 
-  @MockBean private ExpressionManager expressionManager;
+  @MockBean
+  private ExpressionManager expressionManager;
 
-  @Autowired private ExpressionResolver expressionResolver;
+  @Autowired
+  private ExpressionResolver expressionResolver;
 
-  @MockBean private ObjectMapper objectMapper;
+  @MockBean
+  private ObjectMapper objectMapper;
 
   /**
-   * Test {@link ExpressionResolver#ExpressionResolver(ExpressionManager, ObjectMapper,
-   * DelegateInterceptor)}.
-   *
-   * <p>Method under test: {@link ExpressionResolver#ExpressionResolver(ExpressionManager,
-   * ObjectMapper, DelegateInterceptor)}
+   * Test {@link ExpressionResolver#ExpressionResolver(ExpressionManager, ObjectMapper, DelegateInterceptor)}.
+   * <p>
+   * Method under test: {@link ExpressionResolver#ExpressionResolver(ExpressionManager, ObjectMapper, DelegateInterceptor)}
    */
   @Test
   @DisplayName("Test new ExpressionResolver(ExpressionManager, ObjectMapper, DelegateInterceptor)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void ExpressionResolver.<init>(ExpressionManager, ObjectMapper, DelegateInterceptor)"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void ExpressionResolver.<init>(ExpressionManager, ObjectMapper, DelegateInterceptor)"})
   void testNewExpressionResolver() {
     //   Diffblue Cover was unable to create a Spring-specific test for this Spring method.
     //   Run dcover create --keep-partial-tests to gain insights into why
@@ -80,75 +78,70 @@ class ExpressionResolverDiffblueTest {
 
     // Arrange
     ExpressionManager expressionManager = new ExpressionManager();
-    JsonMapper mapper = JsonMapper.builder().findAndAddModules().build();
 
-    // Act
-    ExpressionResolver actualExpressionResolver =
-        new ExpressionResolver(expressionManager, mapper, mock(DelegateInterceptor.class));
-
-    // Assert
-    assertFalse(actualExpressionResolver.containsExpression("Source"));
+    // Act and Assert
+    assertFalse((new ExpressionResolver(expressionManager, JsonMapper.builder().findAndAddModules().build(),
+        mock(DelegateInterceptor.class))).containsExpression("Source"));
   }
 
   /**
    * Test {@link ExpressionResolver#resolveExpressionsMap(ExpressionEvaluator, Map)}.
-   *
-   * <p>Method under test: {@link ExpressionResolver#resolveExpressionsMap(ExpressionEvaluator,
-   * Map)}
+   * <p>
+   * Method under test: {@link ExpressionResolver#resolveExpressionsMap(ExpressionEvaluator, Map)}
    */
   @Test
   @DisplayName("Test resolveExpressionsMap(ExpressionEvaluator, Map)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"Map ExpressionResolver.resolveExpressionsMap(ExpressionEvaluator, Map)"})
   void testResolveExpressionsMap() {
     // Arrange
-    ExpressionManager expressionManager = new ExpressionManager();
-    JsonMapper mapper = JsonMapper.builder().findAndAddModules().build();
-
-    ExpressionResolver expressionResolver =
-        new ExpressionResolver(expressionManager, mapper, mock(DelegateInterceptor.class));
-
     ExpressionEvaluator expressionEvaluator = mock(ExpressionEvaluator.class);
-    when(expressionEvaluator.evaluate(
-            Mockito.<Expression>any(),
-            Mockito.<ExpressionManager>any(),
-            Mockito.<DelegateInterceptor>any()))
-        .thenReturn("Evaluate");
 
     HashMap<String, Object> sourceMap = new HashMap<>();
     sourceMap.put("([\\$]\\{([^\\}]*)\\})", "42");
-    sourceMap.put("foo", "${U}");
+    sourceMap.put("foo", "42");
 
-    // Act
-    Map<String, Object> actualResolveExpressionsMapResult =
-        expressionResolver.resolveExpressionsMap(expressionEvaluator, sourceMap);
-
-    // Assert
-    verify(expressionEvaluator)
-        .evaluate(
-            isA(Expression.class), isA(ExpressionManager.class), isA(DelegateInterceptor.class));
-    assertEquals(2, actualResolveExpressionsMapResult.size());
-    assertEquals("42", actualResolveExpressionsMapResult.get("([\\$]\\{([^\\}]*)\\})"));
-    assertEquals("Evaluate", actualResolveExpressionsMapResult.get("foo"));
+    // Act and Assert
+    assertEquals(sourceMap, expressionResolver.resolveExpressionsMap(expressionEvaluator, sourceMap));
   }
 
   /**
    * Test {@link ExpressionResolver#resolveExpressionsMap(ExpressionEvaluator, Map)}.
-   *
    * <ul>
-   *   <li>Given empty string.
-   *   <li>When {@link HashMap#HashMap()} {@code foo} is empty string.
+   *   <li>Given {@code 42}.</li>
+   *   <li>When {@link HashMap#HashMap()} {@code foo} is {@code 42}.</li>
+   *   <li>Then return {@link HashMap#HashMap()}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ExpressionResolver#resolveExpressionsMap(ExpressionEvaluator,
-   * Map)}
+   * <p>
+   * Method under test: {@link ExpressionResolver#resolveExpressionsMap(ExpressionEvaluator, Map)}
    */
   @Test
-  @DisplayName(
-      "Test resolveExpressionsMap(ExpressionEvaluator, Map); given empty string; when HashMap() 'foo' is empty string")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test resolveExpressionsMap(ExpressionEvaluator, Map); given '42'; when HashMap() 'foo' is '42'; then return HashMap()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"Map ExpressionResolver.resolveExpressionsMap(ExpressionEvaluator, Map)"})
+  void testResolveExpressionsMap_given42_whenHashMapFooIs42_thenReturnHashMap() {
+    // Arrange
+    ExpressionEvaluator expressionEvaluator = mock(ExpressionEvaluator.class);
+
+    HashMap<String, Object> sourceMap = new HashMap<>();
+    sourceMap.put("foo", "42");
+
+    // Act and Assert
+    assertEquals(sourceMap, expressionResolver.resolveExpressionsMap(expressionEvaluator, sourceMap));
+  }
+
+  /**
+   * Test {@link ExpressionResolver#resolveExpressionsMap(ExpressionEvaluator, Map)}.
+   * <ul>
+   *   <li>Given empty string.</li>
+   *   <li>When {@link HashMap#HashMap()} {@code foo} is empty string.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link ExpressionResolver#resolveExpressionsMap(ExpressionEvaluator, Map)}
+   */
+  @Test
+  @DisplayName("Test resolveExpressionsMap(ExpressionEvaluator, Map); given empty string; when HashMap() 'foo' is empty string")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"Map ExpressionResolver.resolveExpressionsMap(ExpressionEvaluator, Map)"})
   void testResolveExpressionsMap_givenEmptyString_whenHashMapFooIsEmptyString() {
     // Arrange
@@ -157,141 +150,58 @@ class ExpressionResolverDiffblueTest {
     HashMap<String, Object> sourceMap = new HashMap<>();
     sourceMap.put("foo", "");
 
-    // Act
-    Map<String, Object> actualResolveExpressionsMapResult =
-        expressionResolver.resolveExpressionsMap(expressionEvaluator, sourceMap);
-
-    // Assert
-    assertEquals(sourceMap, actualResolveExpressionsMapResult);
+    // Act and Assert
+    assertEquals(sourceMap, expressionResolver.resolveExpressionsMap(expressionEvaluator, sourceMap));
   }
 
   /**
    * Test {@link ExpressionResolver#resolveExpressionsMap(ExpressionEvaluator, Map)}.
-   *
    * <ul>
-   *   <li>Given {@link ObjectMapper}.
-   *   <li>When {@link HashMap#HashMap()} {@code foo} is {@code 42}.
-   *   <li>Then return {@link HashMap#HashMap()}.
+   *   <li>Given {@link ExpressionManager}.</li>
+   *   <li>When {@link HashMap#HashMap()}.</li>
+   *   <li>Then return Empty.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ExpressionResolver#resolveExpressionsMap(ExpressionEvaluator,
-   * Map)}
+   * <p>
+   * Method under test: {@link ExpressionResolver#resolveExpressionsMap(ExpressionEvaluator, Map)}
    */
   @Test
-  @DisplayName(
-      "Test resolveExpressionsMap(ExpressionEvaluator, Map); given ObjectMapper; when HashMap() 'foo' is '42'; then return HashMap()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test resolveExpressionsMap(ExpressionEvaluator, Map); given ExpressionManager; when HashMap(); then return Empty")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"Map ExpressionResolver.resolveExpressionsMap(ExpressionEvaluator, Map)"})
-  void testResolveExpressionsMap_givenObjectMapper_whenHashMapFooIs42_thenReturnHashMap() {
-    // Arrange
-    ExpressionEvaluator expressionEvaluator = mock(ExpressionEvaluator.class);
-
-    HashMap<String, Object> sourceMap = new HashMap<>();
-    sourceMap.put("foo", "42");
-
-    // Act
-    Map<String, Object> actualResolveExpressionsMapResult =
-        expressionResolver.resolveExpressionsMap(expressionEvaluator, sourceMap);
-
-    // Assert
-    assertEquals(sourceMap, actualResolveExpressionsMapResult);
-  }
-
-  /**
-   * Test {@link ExpressionResolver#resolveExpressionsMap(ExpressionEvaluator, Map)}.
-   *
-   * <ul>
-   *   <li>Given {@link ObjectMapper}.
-   *   <li>When {@link HashMap#HashMap()} {@code foo} is {@code 42}.
-   *   <li>Then return {@link HashMap#HashMap()}.
-   * </ul>
-   *
-   * <p>Method under test: {@link ExpressionResolver#resolveExpressionsMap(ExpressionEvaluator,
-   * Map)}
-   */
-  @Test
-  @DisplayName(
-      "Test resolveExpressionsMap(ExpressionEvaluator, Map); given ObjectMapper; when HashMap() 'foo' is '42'; then return HashMap()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"Map ExpressionResolver.resolveExpressionsMap(ExpressionEvaluator, Map)"})
-  void testResolveExpressionsMap_givenObjectMapper_whenHashMapFooIs42_thenReturnHashMap2() {
-    // Arrange
-    ExpressionEvaluator expressionEvaluator = mock(ExpressionEvaluator.class);
-
-    HashMap<String, Object> sourceMap = new HashMap<>();
-    sourceMap.put("([\\$]\\{([^\\}]*)\\})", "42");
-    sourceMap.put("foo", "42");
-
-    // Act
-    Map<String, Object> actualResolveExpressionsMapResult =
-        expressionResolver.resolveExpressionsMap(expressionEvaluator, sourceMap);
-
-    // Assert
-    assertEquals(sourceMap, actualResolveExpressionsMapResult);
-  }
-
-  /**
-   * Test {@link ExpressionResolver#resolveExpressionsMap(ExpressionEvaluator, Map)}.
-   *
-   * <ul>
-   *   <li>Given {@link ObjectMapper}.
-   *   <li>When {@link HashMap#HashMap()}.
-   *   <li>Then return Empty.
-   * </ul>
-   *
-   * <p>Method under test: {@link ExpressionResolver#resolveExpressionsMap(ExpressionEvaluator,
-   * Map)}
-   */
-  @Test
-  @DisplayName(
-      "Test resolveExpressionsMap(ExpressionEvaluator, Map); given ObjectMapper; when HashMap(); then return Empty")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"Map ExpressionResolver.resolveExpressionsMap(ExpressionEvaluator, Map)"})
-  void testResolveExpressionsMap_givenObjectMapper_whenHashMap_thenReturnEmpty() {
+  void testResolveExpressionsMap_givenExpressionManager_whenHashMap_thenReturnEmpty() {
     // Arrange
     ExpressionEvaluator expressionEvaluator = mock(ExpressionEvaluator.class);
 
     // Act and Assert
-    assertTrue(
-        expressionResolver.resolveExpressionsMap(expressionEvaluator, new HashMap<>()).isEmpty());
+    assertTrue(expressionResolver.resolveExpressionsMap(expressionEvaluator, new HashMap<>()).isEmpty());
   }
 
   /**
    * Test {@link ExpressionResolver#resolveExpressionsMap(ExpressionEvaluator, Map)}.
-   *
    * <ul>
-   *   <li>Given {@link ObjectNode#ObjectNode(JsonNodeFactory)} with nc is withExactBigDecimals
-   *       {@code true}.
+   *   <li>Given {@link ObjectNode#ObjectNode(JsonNodeFactory)} with nc is withExactBigDecimals {@code true}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ExpressionResolver#resolveExpressionsMap(ExpressionEvaluator,
-   * Map)}
+   * <p>
+   * Method under test: {@link ExpressionResolver#resolveExpressionsMap(ExpressionEvaluator, Map)}
    */
   @Test
-  @DisplayName(
-      "Test resolveExpressionsMap(ExpressionEvaluator, Map); given ObjectNode(JsonNodeFactory) with nc is withExactBigDecimals 'true'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test resolveExpressionsMap(ExpressionEvaluator, Map); given ObjectNode(JsonNodeFactory) with nc is withExactBigDecimals 'true'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"Map ExpressionResolver.resolveExpressionsMap(ExpressionEvaluator, Map)"})
-  void testResolveExpressionsMap_givenObjectNodeWithNcIsWithExactBigDecimalsTrue()
-      throws IllegalArgumentException {
+  void testResolveExpressionsMap_givenObjectNodeWithNcIsWithExactBigDecimalsTrue() throws IllegalArgumentException {
     // Arrange
-    Mockito.<Map<String, ?>>when(
-            objectMapper.convertValue(
-                Mockito.<Object>any(), Mockito.<TypeReference<Map<String, Object>>>any()))
+    Mockito
+        .<Map<String, ?>>when(
+            objectMapper.convertValue(Mockito.<Object>any(), Mockito.<TypeReference<Map<String, Object>>>any()))
         .thenReturn(new HashMap<>());
     ExpressionEvaluator expressionEvaluator = mock(ExpressionEvaluator.class);
 
     HashMap<String, Object> sourceMap = new HashMap<>();
-    JsonNodeFactory nc = JsonNodeFactory.withExactBigDecimals(true);
-    sourceMap.put("foo", new ObjectNode(nc));
+    sourceMap.put("foo", new ObjectNode(JsonNodeFactory.withExactBigDecimals(true)));
 
     // Act
-    Map<String, Object> actualResolveExpressionsMapResult =
-        expressionResolver.resolveExpressionsMap(expressionEvaluator, sourceMap);
+    Map<String, Object> actualResolveExpressionsMapResult = expressionResolver
+        .resolveExpressionsMap(expressionEvaluator, sourceMap);
 
     // Assert
     verify(objectMapper).convertValue(isA(Object.class), isA(TypeReference.class));
@@ -303,21 +213,17 @@ class ExpressionResolverDiffblueTest {
 
   /**
    * Test {@link ExpressionResolver#resolveExpressionsMap(ExpressionEvaluator, Map)}.
-   *
    * <ul>
-   *   <li>Given one.
-   *   <li>When {@link HashMap#HashMap()} {@code foo} is one.
-   *   <li>Then return {@link HashMap#HashMap()}.
+   *   <li>Given one.</li>
+   *   <li>When {@link HashMap#HashMap()} {@code foo} is one.</li>
+   *   <li>Then return {@link HashMap#HashMap()}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ExpressionResolver#resolveExpressionsMap(ExpressionEvaluator,
-   * Map)}
+   * <p>
+   * Method under test: {@link ExpressionResolver#resolveExpressionsMap(ExpressionEvaluator, Map)}
    */
   @Test
-  @DisplayName(
-      "Test resolveExpressionsMap(ExpressionEvaluator, Map); given one; when HashMap() 'foo' is one; then return HashMap()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test resolveExpressionsMap(ExpressionEvaluator, Map); given one; when HashMap() 'foo' is one; then return HashMap()")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"Map ExpressionResolver.resolveExpressionsMap(ExpressionEvaluator, Map)"})
   void testResolveExpressionsMap_givenOne_whenHashMapFooIsOne_thenReturnHashMap() {
     // Arrange
@@ -326,124 +232,68 @@ class ExpressionResolverDiffblueTest {
     HashMap<String, Object> sourceMap = new HashMap<>();
     sourceMap.put("foo", 1);
 
-    // Act
-    Map<String, Object> actualResolveExpressionsMapResult =
-        expressionResolver.resolveExpressionsMap(expressionEvaluator, sourceMap);
-
-    // Assert
-    assertEquals(sourceMap, actualResolveExpressionsMapResult);
+    // Act and Assert
+    assertEquals(sourceMap, expressionResolver.resolveExpressionsMap(expressionEvaluator, sourceMap));
   }
 
   /**
    * Test {@link ExpressionResolver#resolveExpressionsMap(ExpressionEvaluator, Map)}.
-   *
    * <ul>
-   *   <li>Then calls {@link ExpressionManager#createExpression(String)}.
+   *   <li>Then return {@code foo} is {@code Evaluate}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ExpressionResolver#resolveExpressionsMap(ExpressionEvaluator,
-   * Map)}
+   * <p>
+   * Method under test: {@link ExpressionResolver#resolveExpressionsMap(ExpressionEvaluator, Map)}
    */
   @Test
-  @DisplayName(
-      "Test resolveExpressionsMap(ExpressionEvaluator, Map); then calls createExpression(String)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test resolveExpressionsMap(ExpressionEvaluator, Map); then return 'foo' is 'Evaluate'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"Map ExpressionResolver.resolveExpressionsMap(ExpressionEvaluator, Map)"})
-  void testResolveExpressionsMap_thenCallsCreateExpression() {
+  void testResolveExpressionsMap_thenReturnFooIsEvaluate() {
     // Arrange
-    when(expressionManager.createExpression(Mockito.<String>any()))
-        .thenReturn(new FixedValue("Value"));
-
+    when(expressionManager.createExpression(Mockito.<String>any())).thenReturn(new FixedValue("Value"));
     ExpressionEvaluator expressionEvaluator = mock(ExpressionEvaluator.class);
-    when(expressionEvaluator.evaluate(
-            Mockito.<Expression>any(),
-            Mockito.<ExpressionManager>any(),
-            Mockito.<DelegateInterceptor>any()))
-        .thenReturn("Evaluate");
+    when(expressionEvaluator.evaluate(Mockito.<Expression>any(), Mockito.<ExpressionManager>any(),
+        Mockito.<DelegateInterceptor>any())).thenReturn("Evaluate");
 
     HashMap<String, Object> sourceMap = new HashMap<>();
     sourceMap.put("foo", "${U}");
 
     // Act
-    Map<String, Object> actualResolveExpressionsMapResult =
-        expressionResolver.resolveExpressionsMap(expressionEvaluator, sourceMap);
+    Map<String, Object> actualResolveExpressionsMapResult = expressionResolver
+        .resolveExpressionsMap(expressionEvaluator, sourceMap);
 
     // Assert
-    verify(expressionManager).createExpression("${U}");
-    verify(expressionEvaluator)
-        .evaluate(
-            isA(Expression.class), isA(ExpressionManager.class), isA(DelegateInterceptor.class));
+    verify(expressionManager).createExpression(eq("${U}"));
+    verify(expressionEvaluator).evaluate(isA(Expression.class), isA(ExpressionManager.class),
+        isA(DelegateInterceptor.class));
     assertEquals(1, actualResolveExpressionsMapResult.size());
     assertEquals("Evaluate", actualResolveExpressionsMapResult.get("foo"));
   }
 
   /**
-   * Test {@link ExpressionResolver#resolveExpressionsMap(ExpressionEvaluator, Map)}.
-   *
-   * <ul>
-   *   <li>Then return {@code foo} is {@code null}.
-   * </ul>
-   *
-   * <p>Method under test: {@link ExpressionResolver#resolveExpressionsMap(ExpressionEvaluator,
-   * Map)}
-   */
-  @Test
-  @DisplayName("Test resolveExpressionsMap(ExpressionEvaluator, Map); then return 'foo' is 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"Map ExpressionResolver.resolveExpressionsMap(ExpressionEvaluator, Map)"})
-  void testResolveExpressionsMap_thenReturnFooIsNull() {
-    // Arrange
-    JsonMapper mapper = JsonMapper.builder().findAndAddModules().build();
-    ExpressionResolver expressionResolver =
-        new ExpressionResolver(null, mapper, mock(DelegateInterceptor.class));
-    ExpressionEvaluator expressionEvaluator = mock(ExpressionEvaluator.class);
-
-    HashMap<String, Object> sourceMap = new HashMap<>();
-    sourceMap.put("([\\$]\\{([^\\}]*)\\})", "42");
-    sourceMap.put("foo", "${U}");
-
-    // Act
-    Map<String, Object> actualResolveExpressionsMapResult =
-        expressionResolver.resolveExpressionsMap(expressionEvaluator, sourceMap);
-
-    // Assert
-    assertEquals(2, actualResolveExpressionsMapResult.size());
-    assertEquals("42", actualResolveExpressionsMapResult.get("([\\$]\\{([^\\}]*)\\})"));
-    assertNull(actualResolveExpressionsMapResult.get("foo"));
-  }
-
-  /**
    * Test {@link ExpressionResolver#containsExpression(Object)}.
-   *
    * <ul>
-   *   <li>Given {@link HashMap#HashMap()} {@code foo} is {@code 42}.
-   *   <li>Then calls {@link ObjectMapper#convertValue(Object, TypeReference)}.
+   *   <li>Given {@link HashMap#HashMap()} {@code foo} is {@code 42}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ExpressionResolver#containsExpression(Object)}
+   * <p>
+   * Method under test: {@link ExpressionResolver#containsExpression(Object)}
    */
   @Test
-  @DisplayName(
-      "Test containsExpression(Object); given HashMap() 'foo' is '42'; then calls convertValue(Object, TypeReference)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test containsExpression(Object); given HashMap() 'foo' is '42'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"boolean ExpressionResolver.containsExpression(Object)"})
-  void testContainsExpression_givenHashMapFooIs42_thenCallsConvertValue()
-      throws IllegalArgumentException {
+  void testContainsExpression_givenHashMapFooIs42() throws IllegalArgumentException {
     // Arrange
     HashMap<String, Object> stringObjectMap = new HashMap<>();
     stringObjectMap.put("foo", "42");
-    Mockito.<Map<String, ?>>when(
-            objectMapper.convertValue(
-                Mockito.<Object>any(), Mockito.<TypeReference<Map<String, Object>>>any()))
+    Mockito
+        .<Map<String, ?>>when(
+            objectMapper.convertValue(Mockito.<Object>any(), Mockito.<TypeReference<Map<String, Object>>>any()))
         .thenReturn(stringObjectMap);
-    JsonNodeFactory nc = JsonNodeFactory.withExactBigDecimals(true);
 
     // Act
-    boolean actualContainsExpressionResult =
-        expressionResolver.containsExpression(new ObjectNode(nc));
+    boolean actualContainsExpressionResult = expressionResolver
+        .containsExpression(new ObjectNode(JsonNodeFactory.withExactBigDecimals(true)));
 
     // Assert
     verify(objectMapper).convertValue(isA(Object.class), isA(TypeReference.class));
@@ -452,20 +302,17 @@ class ExpressionResolverDiffblueTest {
 
   /**
    * Test {@link ExpressionResolver#containsExpression(Object)}.
-   *
    * <ul>
-   *   <li>Given {@link ObjectMapper}.
-   *   <li>When {@code null}.
-   *   <li>Then return {@code false}.
+   *   <li>Given {@link ObjectMapper}.</li>
+   *   <li>When {@code null}.</li>
+   *   <li>Then return {@code false}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ExpressionResolver#containsExpression(Object)}
+   * <p>
+   * Method under test: {@link ExpressionResolver#containsExpression(Object)}
    */
   @Test
-  @DisplayName(
-      "Test containsExpression(Object); given ObjectMapper; when 'null'; then return 'false'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test containsExpression(Object); given ObjectMapper; when 'null'; then return 'false'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"boolean ExpressionResolver.containsExpression(Object)"})
   void testContainsExpression_givenObjectMapper_whenNull_thenReturnFalse() {
     // Arrange, Act and Assert
@@ -474,19 +321,17 @@ class ExpressionResolverDiffblueTest {
 
   /**
    * Test {@link ExpressionResolver#containsExpression(Object)}.
-   *
    * <ul>
-   *   <li>Given {@link ObjectMapper}.
-   *   <li>When one.
-   *   <li>Then return {@code false}.
+   *   <li>Given {@link ObjectMapper}.</li>
+   *   <li>When one.</li>
+   *   <li>Then return {@code false}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ExpressionResolver#containsExpression(Object)}
+   * <p>
+   * Method under test: {@link ExpressionResolver#containsExpression(Object)}
    */
   @Test
   @DisplayName("Test containsExpression(Object); given ObjectMapper; when one; then return 'false'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"boolean ExpressionResolver.containsExpression(Object)"})
   void testContainsExpression_givenObjectMapper_whenOne_thenReturnFalse() {
     // Arrange, Act and Assert
@@ -495,20 +340,17 @@ class ExpressionResolverDiffblueTest {
 
   /**
    * Test {@link ExpressionResolver#containsExpression(Object)}.
-   *
    * <ul>
-   *   <li>Given {@link ObjectMapper}.
-   *   <li>When {@code Source}.
-   *   <li>Then return {@code false}.
+   *   <li>Given {@link ObjectMapper}.</li>
+   *   <li>When {@code Source}.</li>
+   *   <li>Then return {@code false}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ExpressionResolver#containsExpression(Object)}
+   * <p>
+   * Method under test: {@link ExpressionResolver#containsExpression(Object)}
    */
   @Test
-  @DisplayName(
-      "Test containsExpression(Object); given ObjectMapper; when 'Source'; then return 'false'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test containsExpression(Object); given ObjectMapper; when 'Source'; then return 'false'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"boolean ExpressionResolver.containsExpression(Object)"})
   void testContainsExpression_givenObjectMapper_whenSource_thenReturnFalse() {
     // Arrange, Act and Assert
@@ -517,20 +359,17 @@ class ExpressionResolverDiffblueTest {
 
   /**
    * Test {@link ExpressionResolver#containsExpression(Object)}.
-   *
    * <ul>
-   *   <li>Given {@link ObjectMapper}.
-   *   <li>When {@code ${U}}.
-   *   <li>Then return {@code true}.
+   *   <li>Given {@link ObjectMapper}.</li>
+   *   <li>When {@code ${U}}.</li>
+   *   <li>Then return {@code true}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ExpressionResolver#containsExpression(Object)}
+   * <p>
+   * Method under test: {@link ExpressionResolver#containsExpression(Object)}
    */
   @Test
-  @DisplayName(
-      "Test containsExpression(Object); given ObjectMapper; when '${U}'; then return 'true'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test containsExpression(Object); given ObjectMapper; when '${U}'; then return 'true'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"boolean ExpressionResolver.containsExpression(Object)"})
   void testContainsExpression_givenObjectMapper_whenU_thenReturnTrue() {
     // Arrange, Act and Assert
@@ -539,29 +378,26 @@ class ExpressionResolverDiffblueTest {
 
   /**
    * Test {@link ExpressionResolver#containsExpression(Object)}.
-   *
    * <ul>
-   *   <li>Then calls {@link ObjectMapper#convertValue(Object, TypeReference)}.
+   *   <li>When {@link ObjectNode#ObjectNode(JsonNodeFactory)} with nc is withExactBigDecimals {@code true}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ExpressionResolver#containsExpression(Object)}
+   * <p>
+   * Method under test: {@link ExpressionResolver#containsExpression(Object)}
    */
   @Test
-  @DisplayName("Test containsExpression(Object); then calls convertValue(Object, TypeReference)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test containsExpression(Object); when ObjectNode(JsonNodeFactory) with nc is withExactBigDecimals 'true'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"boolean ExpressionResolver.containsExpression(Object)"})
-  void testContainsExpression_thenCallsConvertValue() throws IllegalArgumentException {
+  void testContainsExpression_whenObjectNodeWithNcIsWithExactBigDecimalsTrue() throws IllegalArgumentException {
     // Arrange
-    Mockito.<Map<String, ?>>when(
-            objectMapper.convertValue(
-                Mockito.<Object>any(), Mockito.<TypeReference<Map<String, Object>>>any()))
+    Mockito
+        .<Map<String, ?>>when(
+            objectMapper.convertValue(Mockito.<Object>any(), Mockito.<TypeReference<Map<String, Object>>>any()))
         .thenReturn(new HashMap<>());
-    JsonNodeFactory nc = JsonNodeFactory.withExactBigDecimals(true);
 
     // Act
-    boolean actualContainsExpressionResult =
-        expressionResolver.containsExpression(new ObjectNode(nc));
+    boolean actualContainsExpressionResult = expressionResolver
+        .containsExpression(new ObjectNode(JsonNodeFactory.withExactBigDecimals(true)));
 
     // Assert
     verify(objectMapper).convertValue(isA(Object.class), isA(TypeReference.class));

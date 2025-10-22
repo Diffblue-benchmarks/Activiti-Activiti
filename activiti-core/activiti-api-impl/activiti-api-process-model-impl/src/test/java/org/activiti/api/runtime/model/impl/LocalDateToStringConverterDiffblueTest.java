@@ -16,7 +16,6 @@
 package org.activiti.api.runtime.model.impl;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.time.LocalDate;
 import org.junit.jupiter.api.DisplayName;
@@ -30,23 +29,21 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 @ContextConfiguration(classes = {LocalDateToStringConverter.class})
 @ExtendWith(SpringExtension.class)
 class LocalDateToStringConverterDiffblueTest {
-  @Autowired private LocalDateToStringConverter localDateToStringConverter;
+  @Autowired
+  private LocalDateToStringConverter localDateToStringConverter;
 
   /**
    * Test {@link LocalDateToStringConverter#convert(LocalDate)} with {@code LocalDate}.
-   *
    * <ul>
-   *   <li>When {@link LocalDate} with {@code 1970} and one and one.
-   *   <li>Then return {@code 1970-01-01}.
+   *   <li>When {@link LocalDate} with {@code 1970} and one and one.</li>
+   *   <li>Then return {@code 1970-01-01}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link LocalDateToStringConverter#convert(LocalDate)}
+   * <p>
+   * Method under test: {@link LocalDateToStringConverter#convert(LocalDate)}
    */
   @Test
-  @DisplayName(
-      "Test convert(LocalDate) with 'LocalDate'; when LocalDate with '1970' and one and one; then return '1970-01-01'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test convert(LocalDate) with 'LocalDate'; when LocalDate with '1970' and one and one; then return '1970-01-01'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"java.lang.String LocalDateToStringConverter.convert(LocalDate)"})
   void testConvertWithLocalDate_whenLocalDateWith1970AndOneAndOne_thenReturn19700101() {
     // Arrange, Act and Assert

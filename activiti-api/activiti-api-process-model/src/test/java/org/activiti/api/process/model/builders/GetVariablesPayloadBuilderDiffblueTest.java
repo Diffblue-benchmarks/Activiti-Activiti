@@ -20,7 +20,6 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.api.process.model.ProcessInstance;
 import org.junit.jupiter.api.DisplayName;
@@ -30,26 +29,21 @@ import org.junit.jupiter.api.Test;
 class GetVariablesPayloadBuilderDiffblueTest {
   /**
    * Test {@link GetVariablesPayloadBuilder#withProcessInstance(ProcessInstance)}.
-   *
-   * <p>Method under test: {@link GetVariablesPayloadBuilder#withProcessInstance(ProcessInstance)}
+   * <p>
+   * Method under test: {@link GetVariablesPayloadBuilder#withProcessInstance(ProcessInstance)}
    */
   @Test
   @DisplayName("Test withProcessInstance(ProcessInstance)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "GetVariablesPayloadBuilder GetVariablesPayloadBuilder.withProcessInstance(ProcessInstance)"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"GetVariablesPayloadBuilder GetVariablesPayloadBuilder.withProcessInstance(ProcessInstance)"})
   void testWithProcessInstance() {
     // Arrange
     GetVariablesPayloadBuilder variablesResult = ProcessPayloadBuilder.variables();
-
     ProcessInstance processInstance = mock(ProcessInstance.class);
     when(processInstance.getId()).thenReturn("42");
 
     // Act
-    GetVariablesPayloadBuilder actualWithProcessInstanceResult =
-        variablesResult.withProcessInstance(processInstance);
+    GetVariablesPayloadBuilder actualWithProcessInstanceResult = variablesResult.withProcessInstance(processInstance);
 
     // Assert
     verify(processInstance).getId();
@@ -59,9 +53,8 @@ class GetVariablesPayloadBuilderDiffblueTest {
 
   /**
    * Test {@link GetVariablesPayloadBuilder#build()}.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>{@link GetVariablesPayloadBuilder#build()}
    *   <li>default or parameterless constructor of {@link GetVariablesPayloadBuilder}
@@ -70,19 +63,14 @@ class GetVariablesPayloadBuilderDiffblueTest {
    */
   @Test
   @DisplayName("Test build()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void GetVariablesPayloadBuilder.<init>()",
-    "org.activiti.api.process.model.payloads.GetVariablesPayload GetVariablesPayloadBuilder.build()",
-    "GetVariablesPayloadBuilder GetVariablesPayloadBuilder.withProcessInstanceId(String)"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void GetVariablesPayloadBuilder.<init>()",
+      "org.activiti.api.process.model.payloads.GetVariablesPayload GetVariablesPayloadBuilder.build()",
+      "GetVariablesPayloadBuilder GetVariablesPayloadBuilder.withProcessInstanceId(String)"})
   void testBuild() {
     // Arrange, Act and Assert
-    assertEquals(
-        "42",
-        new GetVariablesPayloadBuilder()
-            .withProcessInstance(mock(ProcessInstance.class))
+    assertEquals("42",
+        (new GetVariablesPayloadBuilder()).withProcessInstance(mock(ProcessInstance.class))
             .withProcessInstanceId("42")
             .build()
             .getProcessInstanceId());

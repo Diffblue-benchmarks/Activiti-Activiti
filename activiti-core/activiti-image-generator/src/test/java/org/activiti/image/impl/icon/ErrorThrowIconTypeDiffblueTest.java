@@ -17,8 +17,7 @@ package org.activiti.image.impl.icon;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
@@ -26,9 +25,8 @@ import org.junit.experimental.categories.Category;
 public class ErrorThrowIconTypeDiffblueTest {
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>default or parameterless constructor of {@link ErrorThrowIconType}
    *   <li>{@link ErrorThrowIconType#getAnchorValue()}
@@ -39,16 +37,10 @@ public class ErrorThrowIconTypeDiffblueTest {
    * </ul>
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void ErrorThrowIconType.<init>()",
-    "String ErrorThrowIconType.getAnchorValue()",
-    "String ErrorThrowIconType.getDValue()",
-    "String ErrorThrowIconType.getFillValue()",
-    "String ErrorThrowIconType.getStrokeWidth()",
-    "String ErrorThrowIconType.getStyleValue()"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void ErrorThrowIconType.<init>()", "String ErrorThrowIconType.getAnchorValue()",
+      "String ErrorThrowIconType.getDValue()", "String ErrorThrowIconType.getFillValue()",
+      "String ErrorThrowIconType.getStrokeWidth()", "String ErrorThrowIconType.getStyleValue()"})
   public void testGettersAndSetters() {
     // Arrange and Act
     ErrorThrowIconType actualErrorThrowIconType = new ErrorThrowIconType();
@@ -63,8 +55,7 @@ public class ErrorThrowIconTypeDiffblueTest {
             + " 4.832305699999999  L16.996148 14.132659  L20.820839 9.171502  z",
         actualDValue);
     assertEquals("#585858", actualFillValue);
-    assertEquals(
-        "stroke-width:1.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10",
+    assertEquals("stroke-width:1.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10",
         actualErrorThrowIconType.getStyleValue());
     assertNull(actualAnchorValue);
     assertNull(actualStrokeWidth);

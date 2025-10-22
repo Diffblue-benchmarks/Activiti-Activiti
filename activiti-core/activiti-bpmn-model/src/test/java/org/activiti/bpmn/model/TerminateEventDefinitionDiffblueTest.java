@@ -19,8 +19,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
@@ -28,18 +27,15 @@ import org.junit.experimental.categories.Category;
 public class TerminateEventDefinitionDiffblueTest {
   /**
    * Test {@link TerminateEventDefinition#clone()}.
-   *
    * <ul>
-   *   <li>Given {@link TerminateEventDefinition} (default constructor) TerminateAll is {@code
-   *       true}.
-   *   <li>Then return TerminateAll.
+   *   <li>Given {@link TerminateEventDefinition} (default constructor) TerminateAll is {@code true}.</li>
+   *   <li>Then return TerminateAll.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link TerminateEventDefinition#clone()}
+   * <p>
+   * Method under test: {@link TerminateEventDefinition#clone()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"TerminateEventDefinition TerminateEventDefinition.clone()"})
   public void testClone_givenTerminateEventDefinitionTerminateAllIsTrue_thenReturnTerminateAll() {
     // Arrange
@@ -61,21 +57,19 @@ public class TerminateEventDefinitionDiffblueTest {
 
   /**
    * Test {@link TerminateEventDefinition#clone()}.
-   *
    * <ul>
-   *   <li>Given {@link TerminateEventDefinition} (default constructor).
-   *   <li>Then return not TerminateAll.
+   *   <li>Given {@link TerminateEventDefinition} (default constructor).</li>
+   *   <li>Then return not TerminateAll.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link TerminateEventDefinition#clone()}
+   * <p>
+   * Method under test: {@link TerminateEventDefinition#clone()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"TerminateEventDefinition TerminateEventDefinition.clone()"})
   public void testClone_givenTerminateEventDefinition_thenReturnNotTerminateAll() {
     // Arrange and Act
-    TerminateEventDefinition actualCloneResult = new TerminateEventDefinition().clone();
+    TerminateEventDefinition actualCloneResult = (new TerminateEventDefinition()).clone();
 
     // Assert
     assertNull(actualCloneResult.getId());
@@ -89,9 +83,8 @@ public class TerminateEventDefinitionDiffblueTest {
 
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>default or parameterless constructor of {@link TerminateEventDefinition}
    *   <li>{@link TerminateEventDefinition#setTerminateAll(boolean)}
@@ -101,23 +94,18 @@ public class TerminateEventDefinitionDiffblueTest {
    * </ul>
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void TerminateEventDefinition.<init>()",
-    "boolean TerminateEventDefinition.isTerminateAll()",
-    "boolean TerminateEventDefinition.isTerminateMultiInstance()",
-    "void TerminateEventDefinition.setTerminateAll(boolean)",
-    "void TerminateEventDefinition.setTerminateMultiInstance(boolean)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void TerminateEventDefinition.<init>()", "boolean TerminateEventDefinition.isTerminateAll()",
+      "boolean TerminateEventDefinition.isTerminateMultiInstance()",
+      "void TerminateEventDefinition.setTerminateAll(boolean)",
+      "void TerminateEventDefinition.setTerminateMultiInstance(boolean)"})
   public void testGettersAndSetters() {
     // Arrange and Act
     TerminateEventDefinition actualTerminateEventDefinition = new TerminateEventDefinition();
     actualTerminateEventDefinition.setTerminateAll(true);
     actualTerminateEventDefinition.setTerminateMultiInstance(true);
     boolean actualIsTerminateAllResult = actualTerminateEventDefinition.isTerminateAll();
-    boolean actualIsTerminateMultiInstanceResult =
-        actualTerminateEventDefinition.isTerminateMultiInstance();
+    boolean actualIsTerminateMultiInstanceResult = actualTerminateEventDefinition.isTerminateMultiInstance();
 
     // Assert
     assertNull(actualTerminateEventDefinition.getId());

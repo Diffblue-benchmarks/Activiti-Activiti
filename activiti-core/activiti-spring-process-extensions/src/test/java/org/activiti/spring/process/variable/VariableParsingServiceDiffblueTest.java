@@ -16,7 +16,6 @@
 package org.activiti.spring.process.variable;
 
 import static org.junit.jupiter.api.Assertions.assertNull;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.Map;
 import org.activiti.engine.ActivitiException;
@@ -33,29 +32,30 @@ import org.springframework.test.context.aot.DisabledInAotMode;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 @ContextConfiguration(classes = {VariableParsingService.class})
-@DisabledInAotMode
 @ExtendWith(SpringExtension.class)
+@DisabledInAotMode
 class VariableParsingServiceDiffblueTest {
-  @Autowired private Map<String, VariableType> map;
+  @Autowired
+  private Map<String, VariableType> map;
 
-  @Autowired private VariableParsingService variableParsingService;
+  @Autowired
+  private VariableParsingService variableParsingService;
 
-  @MockBean private VariableType variableType;
+  @MockBean
+  private VariableType variableType;
 
   /**
    * Test {@link VariableParsingService#parse(VariableDefinition)}.
-   *
    * <ul>
-   *   <li>When {@link VariableDefinition#VariableDefinition()}.
-   *   <li>Then return {@code null}.
+   *   <li>When {@link VariableDefinition#VariableDefinition()}.</li>
+   *   <li>Then return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link VariableParsingService#parse(VariableDefinition)}
+   * <p>
+   * Method under test: {@link VariableParsingService#parse(VariableDefinition)}
    */
   @Test
   @DisplayName("Test parse(VariableDefinition); when VariableDefinition(); then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"java.lang.Object VariableParsingService.parse(VariableDefinition)"})
   void testParse_whenVariableDefinition_thenReturnNull() throws ActivitiException {
     // Arrange, Act and Assert

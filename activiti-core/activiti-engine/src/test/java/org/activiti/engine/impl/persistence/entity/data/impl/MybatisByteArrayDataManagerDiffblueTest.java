@@ -19,8 +19,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.engine.impl.cfg.JtaProcessEngineConfiguration;
 import org.activiti.engine.impl.cfg.ProcessEngineConfigurationImpl;
@@ -32,27 +31,21 @@ import org.junit.experimental.categories.Category;
 public class MybatisByteArrayDataManagerDiffblueTest {
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
-   *   <li>{@link
-   *       MybatisByteArrayDataManager#MybatisByteArrayDataManager(ProcessEngineConfigurationImpl)}
+   *   <li>{@link MybatisByteArrayDataManager#MybatisByteArrayDataManager(ProcessEngineConfigurationImpl)}
    *   <li>{@link MybatisByteArrayDataManager#getManagedEntityClass()}
    * </ul>
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void MybatisByteArrayDataManager.<init>(ProcessEngineConfigurationImpl)",
-    "Class MybatisByteArrayDataManager.getManagedEntityClass()"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void MybatisByteArrayDataManager.<init>(ProcessEngineConfigurationImpl)",
+      "Class MybatisByteArrayDataManager.getManagedEntityClass()"})
   public void testGettersAndSetters() {
     // Arrange and Act
-    Class<? extends ByteArrayEntity> actualManagedEntityClass =
-        new MybatisByteArrayDataManager(new JtaProcessEngineConfiguration())
-            .getManagedEntityClass();
+    Class<? extends ByteArrayEntity> actualManagedEntityClass = (new MybatisByteArrayDataManager(
+        new JtaProcessEngineConfiguration())).getManagedEntityClass();
 
     // Assert
     Class<ByteArrayEntityImpl> expectedManagedEntityClass = ByteArrayEntityImpl.class;
@@ -61,17 +54,16 @@ public class MybatisByteArrayDataManagerDiffblueTest {
 
   /**
    * Test {@link MybatisByteArrayDataManager#create()}.
-   *
-   * <p>Method under test: {@link MybatisByteArrayDataManager#create()}
+   * <p>
+   * Method under test: {@link MybatisByteArrayDataManager#create()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"ByteArrayEntity MybatisByteArrayDataManager.create()"})
   public void testCreate() {
     // Arrange and Act
-    ByteArrayEntity actualCreateResult =
-        new MybatisByteArrayDataManager(new JtaProcessEngineConfiguration()).create();
+    ByteArrayEntity actualCreateResult = (new MybatisByteArrayDataManager(new JtaProcessEngineConfiguration()))
+        .create();
 
     // Assert
     assertTrue(actualCreateResult instanceof ByteArrayEntityImpl);

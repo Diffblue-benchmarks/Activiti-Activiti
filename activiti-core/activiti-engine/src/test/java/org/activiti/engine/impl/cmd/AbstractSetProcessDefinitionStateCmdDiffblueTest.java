@@ -19,6 +19,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertThrows;
 import static org.junit.Assert.assertTrue;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.ArgumentMatchers.isA;
 import static org.mockito.Mockito.anyInt;
 import static org.mockito.Mockito.atLeast;
@@ -26,8 +27,7 @@ import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.time.LocalDate;
 import java.time.ZoneOffset;
@@ -35,9 +35,11 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import org.activiti.engine.ActivitiIllegalArgumentException;
-import org.activiti.engine.impl.asyncexecutor.DefaultJobManager;
+import org.activiti.engine.impl.asyncexecutor.JobManager;
 import org.activiti.engine.impl.cfg.JtaProcessEngineConfiguration;
+import org.activiti.engine.impl.cfg.ProcessEngineConfigurationImpl;
 import org.activiti.engine.impl.interceptor.CommandContext;
+import org.activiti.engine.impl.persistence.deploy.DefaultDeploymentCache;
 import org.activiti.engine.impl.persistence.deploy.DeploymentManager;
 import org.activiti.engine.impl.persistence.entity.ProcessDefinitionEntity;
 import org.activiti.engine.impl.persistence.entity.ProcessDefinitionEntityImpl;
@@ -50,146 +52,146 @@ import org.mockito.Mockito;
 
 public class AbstractSetProcessDefinitionStateCmdDiffblueTest {
   /**
-   * Test {@link AbstractSetProcessDefinitionStateCmd#execute(CommandContext)}.
-   *
-   * <ul>
-   *   <li>Then throw {@link ActivitiIllegalArgumentException}.
-   * </ul>
-   *
-   * <p>Method under test: {@link AbstractSetProcessDefinitionStateCmd#execute(CommandContext)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"java.lang.Void AbstractSetProcessDefinitionStateCmd.execute(CommandContext)"})
-  public void testExecute_thenThrowActivitiIllegalArgumentException() {
-    // Arrange
-    Date executionDate =
-        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant());
-    ActivateProcessDefinitionCmd activateProcessDefinitionCmd =
-        new ActivateProcessDefinitionCmd(null, true, executionDate, "42");
-
-    // Act and Assert
-    assertThrows(
-        ActivitiIllegalArgumentException.class, () -> activateProcessDefinitionCmd.execute(null));
-  }
-
-  /**
    * Test {@link AbstractSetProcessDefinitionStateCmd#executeInternal(CommandContext, List)}.
-   *
-   * <ul>
-   *   <li>Then calls {@link CommandContext#getJobManager()}.
-   * </ul>
-   *
-   * <p>Method under test: {@link
-   * AbstractSetProcessDefinitionStateCmd#executeInternal(CommandContext, List)}
+   * <p>
+   * Method under test: {@link AbstractSetProcessDefinitionStateCmd#executeInternal(CommandContext, List)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void AbstractSetProcessDefinitionStateCmd.executeInternal(CommandContext, List)"
-  })
-  public void testExecuteInternal_thenCallsGetJobManager() {
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void AbstractSetProcessDefinitionStateCmd.executeInternal(CommandContext, List)"})
+  public void testExecuteInternal() {
     // Arrange
-    ProcessDefinitionEntityImpl processDefinitionEntity = new ProcessDefinitionEntityImpl();
-    Date executionDate =
-        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant());
-
-    ActivateProcessDefinitionCmd activateProcessDefinitionCmd =
-        new ActivateProcessDefinitionCmd(processDefinitionEntity, true, executionDate, "42");
-
+    ActivateProcessDefinitionCmd activateProcessDefinitionCmd = new ActivateProcessDefinitionCmd("42",
+        "Process Definition Key", false,
+        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()), "42");
+    JobManager jobManager = mock(JobManager.class);
+    doNothing().when(jobManager).scheduleTimerJob(Mockito.<TimerJobEntity>any());
     CommandContext commandContext = mock(CommandContext.class);
-    when(commandContext.getJobManager())
-        .thenThrow(new ActivitiIllegalArgumentException("An error occurred"));
+    when(commandContext.getJobManager()).thenReturn(jobManager);
     JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();
-    TimerJobEntityManagerImpl timerJobEntityManagerImpl =
-        new TimerJobEntityManagerImpl(
-            processEngineConfiguration,
-            new MybatisTimerJobDataManager(new JtaProcessEngineConfiguration()));
-    when(commandContext.getTimerJobEntityManager()).thenReturn(timerJobEntityManagerImpl);
-
-    ArrayList<ProcessDefinitionEntity> processDefinitions = new ArrayList<>();
-    processDefinitions.add(new ProcessDefinitionEntityImpl());
-
-    // Act and Assert
-    assertThrows(
-        ActivitiIllegalArgumentException.class,
-        () -> activateProcessDefinitionCmd.executeInternal(commandContext, processDefinitions));
-    verify(commandContext).getJobManager();
-    verify(commandContext).getTimerJobEntityManager();
-  }
-
-  /**
-   * Test {@link AbstractSetProcessDefinitionStateCmd#executeInternal(CommandContext, List)}.
-   *
-   * <ul>
-   *   <li>Then calls {@link CommandContext#getProcessEngineConfiguration()}.
-   * </ul>
-   *
-   * <p>Method under test: {@link
-   * AbstractSetProcessDefinitionStateCmd#executeInternal(CommandContext, List)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void AbstractSetProcessDefinitionStateCmd.executeInternal(CommandContext, List)"
-  })
-  public void testExecuteInternal_thenCallsGetProcessEngineConfiguration() {
-    // Arrange
-    ActivateProcessDefinitionCmd activateProcessDefinitionCmd =
-        new ActivateProcessDefinitionCmd(new ProcessDefinitionEntityImpl(), true, null, "42");
-
-    CommandContext commandContext = mock(CommandContext.class);
-    when(commandContext.getProcessEngineConfiguration())
-        .thenThrow(new ActivitiIllegalArgumentException("An error occurred"));
-
-    ProcessDefinitionEntityImpl processDefinitionEntityImpl =
-        mock(ProcessDefinitionEntityImpl.class);
-    when(processDefinitionEntityImpl.getSuspensionState()).thenReturn(-1);
-    doNothing().when(processDefinitionEntityImpl).setSuspensionState(anyInt());
+    when(commandContext.getTimerJobEntityManager()).thenReturn(new TimerJobEntityManagerImpl(processEngineConfiguration,
+        new MybatisTimerJobDataManager(new JtaProcessEngineConfiguration())));
+    ProcessDefinitionEntityImpl processDefinitionEntityImpl = mock(ProcessDefinitionEntityImpl.class);
+    when(processDefinitionEntityImpl.getId()).thenReturn("42");
+    when(processDefinitionEntityImpl.getTenantId()).thenReturn("42");
 
     ArrayList<ProcessDefinitionEntity> processDefinitions = new ArrayList<>();
     processDefinitions.add(processDefinitionEntityImpl);
 
-    // Act and Assert
-    assertThrows(
-        ActivitiIllegalArgumentException.class,
-        () -> activateProcessDefinitionCmd.executeInternal(commandContext, processDefinitions));
-    verify(commandContext).getProcessEngineConfiguration();
-    verify(processDefinitionEntityImpl).getSuspensionState();
-    verify(processDefinitionEntityImpl).setSuspensionState(1);
+    // Act
+    activateProcessDefinitionCmd.executeInternal(commandContext, processDefinitions);
+
+    // Assert
+    verify(jobManager).scheduleTimerJob(isA(TimerJobEntity.class));
+    verify(commandContext).getJobManager();
+    verify(commandContext).getTimerJobEntityManager();
+    verify(processDefinitionEntityImpl).getId();
+    verify(processDefinitionEntityImpl, atLeast(1)).getTenantId();
+  }
+
+  /**
+   * Test {@link AbstractSetProcessDefinitionStateCmd#executeInternal(CommandContext, List)}.
+   * <ul>
+   *   <li>Given {@link ProcessDefinitionEntityImpl} {@link ProcessDefinitionEntityImpl#getTenantId()} return {@code null}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link AbstractSetProcessDefinitionStateCmd#executeInternal(CommandContext, List)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void AbstractSetProcessDefinitionStateCmd.executeInternal(CommandContext, List)"})
+  public void testExecuteInternal_givenProcessDefinitionEntityImplGetTenantIdReturnNull() {
+    // Arrange
+    ActivateProcessDefinitionCmd activateProcessDefinitionCmd = new ActivateProcessDefinitionCmd("42",
+        "Process Definition Key", true,
+        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()), "42");
+    JobManager jobManager = mock(JobManager.class);
+    doNothing().when(jobManager).scheduleTimerJob(Mockito.<TimerJobEntity>any());
+    CommandContext commandContext = mock(CommandContext.class);
+    when(commandContext.getJobManager()).thenReturn(jobManager);
+    JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();
+    when(commandContext.getTimerJobEntityManager()).thenReturn(new TimerJobEntityManagerImpl(processEngineConfiguration,
+        new MybatisTimerJobDataManager(new JtaProcessEngineConfiguration())));
+    ProcessDefinitionEntityImpl processDefinitionEntityImpl = mock(ProcessDefinitionEntityImpl.class);
+    when(processDefinitionEntityImpl.getId()).thenReturn("42");
+    when(processDefinitionEntityImpl.getTenantId()).thenReturn(null);
+
+    ArrayList<ProcessDefinitionEntity> processDefinitions = new ArrayList<>();
+    processDefinitions.add(processDefinitionEntityImpl);
+
+    // Act
+    activateProcessDefinitionCmd.executeInternal(commandContext, processDefinitions);
+
+    // Assert
+    verify(jobManager).scheduleTimerJob(isA(TimerJobEntity.class));
+    verify(commandContext).getJobManager();
+    verify(commandContext).getTimerJobEntityManager();
+    verify(processDefinitionEntityImpl).getId();
+    verify(processDefinitionEntityImpl).getTenantId();
+  }
+
+  /**
+   * Test {@link AbstractSetProcessDefinitionStateCmd#executeInternal(CommandContext, List)}.
+   * <ul>
+   *   <li>Then calls {@link JobManager#scheduleTimerJob(TimerJobEntity)}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link AbstractSetProcessDefinitionStateCmd#executeInternal(CommandContext, List)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void AbstractSetProcessDefinitionStateCmd.executeInternal(CommandContext, List)"})
+  public void testExecuteInternal_thenCallsScheduleTimerJob() {
+    // Arrange
+    ActivateProcessDefinitionCmd activateProcessDefinitionCmd = new ActivateProcessDefinitionCmd("42",
+        "Process Definition Key", true,
+        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()), "42");
+    JobManager jobManager = mock(JobManager.class);
+    doNothing().when(jobManager).scheduleTimerJob(Mockito.<TimerJobEntity>any());
+    CommandContext commandContext = mock(CommandContext.class);
+    when(commandContext.getJobManager()).thenReturn(jobManager);
+    JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();
+    when(commandContext.getTimerJobEntityManager()).thenReturn(new TimerJobEntityManagerImpl(processEngineConfiguration,
+        new MybatisTimerJobDataManager(new JtaProcessEngineConfiguration())));
+    ProcessDefinitionEntityImpl processDefinitionEntityImpl = mock(ProcessDefinitionEntityImpl.class);
+    when(processDefinitionEntityImpl.getId()).thenReturn("42");
+    when(processDefinitionEntityImpl.getTenantId()).thenReturn("42");
+
+    ArrayList<ProcessDefinitionEntity> processDefinitions = new ArrayList<>();
+    processDefinitions.add(processDefinitionEntityImpl);
+
+    // Act
+    activateProcessDefinitionCmd.executeInternal(commandContext, processDefinitions);
+
+    // Assert
+    verify(jobManager).scheduleTimerJob(isA(TimerJobEntity.class));
+    verify(commandContext).getJobManager();
+    verify(commandContext).getTimerJobEntityManager();
+    verify(processDefinitionEntityImpl).getId();
+    verify(processDefinitionEntityImpl, atLeast(1)).getTenantId();
   }
 
   /**
    * Test {@link AbstractSetProcessDefinitionStateCmd#findProcessDefinition(CommandContext)}.
-   *
    * <ul>
-   *   <li>Then return size is one.
+   *   <li>Then return size is one.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link
-   * AbstractSetProcessDefinitionStateCmd#findProcessDefinition(CommandContext)}
+   * <p>
+   * Method under test: {@link AbstractSetProcessDefinitionStateCmd#findProcessDefinition(CommandContext)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "List AbstractSetProcessDefinitionStateCmd.findProcessDefinition(CommandContext)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"List AbstractSetProcessDefinitionStateCmd.findProcessDefinition(CommandContext)"})
   public void testFindProcessDefinition_thenReturnSizeIsOne() {
     // Arrange
     ProcessDefinitionEntityImpl processDefinitionEntity = new ProcessDefinitionEntityImpl();
-    Date executionDate =
-        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant());
-
-    ActivateProcessDefinitionCmd activateProcessDefinitionCmd =
-        new ActivateProcessDefinitionCmd(processDefinitionEntity, true, executionDate, "42");
+    ActivateProcessDefinitionCmd activateProcessDefinitionCmd = new ActivateProcessDefinitionCmd(
+        processDefinitionEntity, true,
+        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()), "42");
 
     // Act
-    List<ProcessDefinitionEntity> actualFindProcessDefinitionResult =
-        activateProcessDefinitionCmd.findProcessDefinition(null);
+    List<ProcessDefinitionEntity> actualFindProcessDefinitionResult = activateProcessDefinitionCmd
+        .findProcessDefinition(null);
 
     // Assert
     assertEquals(1, actualFindProcessDefinitionResult.size());
@@ -200,244 +202,63 @@ public class AbstractSetProcessDefinitionStateCmdDiffblueTest {
 
   /**
    * Test {@link AbstractSetProcessDefinitionStateCmd#findProcessDefinition(CommandContext)}.
-   *
    * <ul>
-   *   <li>Then throw {@link ActivitiIllegalArgumentException}.
+   *   <li>Then throw {@link ActivitiIllegalArgumentException}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link
-   * AbstractSetProcessDefinitionStateCmd#findProcessDefinition(CommandContext)}
+   * <p>
+   * Method under test: {@link AbstractSetProcessDefinitionStateCmd#findProcessDefinition(CommandContext)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "List AbstractSetProcessDefinitionStateCmd.findProcessDefinition(CommandContext)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"List AbstractSetProcessDefinitionStateCmd.findProcessDefinition(CommandContext)"})
   public void testFindProcessDefinition_thenThrowActivitiIllegalArgumentException() {
-    // Arrange
-    Date executionDate =
-        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant());
-    ActivateProcessDefinitionCmd activateProcessDefinitionCmd =
-        new ActivateProcessDefinitionCmd(null, true, executionDate, "42");
-
-    // Act and Assert
-    assertThrows(
-        ActivitiIllegalArgumentException.class,
-        () -> activateProcessDefinitionCmd.findProcessDefinition(null));
+    // Arrange, Act and Assert
+    assertThrows(ActivitiIllegalArgumentException.class,
+        () -> (new ActivateProcessDefinitionCmd(null, true,
+            Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()), "42"))
+            .findProcessDefinition(null));
   }
 
   /**
-   * Test {@link AbstractSetProcessDefinitionStateCmd#createTimerForDelayedExecution(CommandContext,
-   * List)}.
-   *
-   * <p>Method under test: {@link
-   * AbstractSetProcessDefinitionStateCmd#createTimerForDelayedExecution(CommandContext, List)}
+   * Test {@link AbstractSetProcessDefinitionStateCmd#changeProcessDefinitionState(CommandContext, List)}.
+   * <ul>
+   *   <li>Then calls {@link ProcessEngineConfigurationImpl#getDeploymentManager()}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link AbstractSetProcessDefinitionStateCmd#changeProcessDefinitionState(CommandContext, List)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void AbstractSetProcessDefinitionStateCmd.createTimerForDelayedExecution(CommandContext, List)"
-  })
-  public void testCreateTimerForDelayedExecution() {
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void AbstractSetProcessDefinitionStateCmd.changeProcessDefinitionState(CommandContext, List)"})
+  public void testChangeProcessDefinitionState_thenCallsGetDeploymentManager() {
     // Arrange
     ProcessDefinitionEntityImpl processDefinitionEntity = new ProcessDefinitionEntityImpl();
-    Date executionDate =
-        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant());
-
-    ActivateProcessDefinitionCmd activateProcessDefinitionCmd =
-        new ActivateProcessDefinitionCmd(processDefinitionEntity, false, executionDate, "42");
-
-    DefaultJobManager defaultJobManager = mock(DefaultJobManager.class);
-    doNothing().when(defaultJobManager).scheduleTimerJob(Mockito.<TimerJobEntity>any());
-
+    ActivateProcessDefinitionCmd activateProcessDefinitionCmd = new ActivateProcessDefinitionCmd(
+        processDefinitionEntity, false,
+        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()), "42");
+    DeploymentManager deploymentManager = mock(DeploymentManager.class);
+    when(deploymentManager.getProcessDefinitionCache()).thenReturn(new DefaultDeploymentCache<>());
+    ProcessEngineConfigurationImpl processEngineConfigurationImpl = mock(ProcessEngineConfigurationImpl.class);
+    when(processEngineConfigurationImpl.getDeploymentManager()).thenReturn(deploymentManager);
     CommandContext commandContext = mock(CommandContext.class);
-    when(commandContext.getJobManager()).thenReturn(defaultJobManager);
-    JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();
-    TimerJobEntityManagerImpl timerJobEntityManagerImpl =
-        new TimerJobEntityManagerImpl(
-            processEngineConfiguration,
-            new MybatisTimerJobDataManager(new JtaProcessEngineConfiguration()));
-    when(commandContext.getTimerJobEntityManager()).thenReturn(timerJobEntityManagerImpl);
-
-    ProcessDefinitionEntityImpl processDefinitionEntityImpl =
-        mock(ProcessDefinitionEntityImpl.class);
+    when(commandContext.getProcessEngineConfiguration()).thenReturn(processEngineConfigurationImpl);
+    ProcessDefinitionEntityImpl processDefinitionEntityImpl = mock(ProcessDefinitionEntityImpl.class);
     when(processDefinitionEntityImpl.getId()).thenReturn("42");
-    when(processDefinitionEntityImpl.getTenantId()).thenReturn("42");
-
-    ArrayList<ProcessDefinitionEntity> processDefinitions = new ArrayList<>();
-    processDefinitions.add(processDefinitionEntityImpl);
-
-    // Act
-    activateProcessDefinitionCmd.createTimerForDelayedExecution(commandContext, processDefinitions);
-
-    // Assert
-    verify(defaultJobManager).scheduleTimerJob(isA(TimerJobEntity.class));
-    verify(commandContext).getJobManager();
-    verify(commandContext).getTimerJobEntityManager();
-    verify(processDefinitionEntityImpl).getId();
-    verify(processDefinitionEntityImpl, atLeast(1)).getTenantId();
-  }
-
-  /**
-   * Test {@link AbstractSetProcessDefinitionStateCmd#createTimerForDelayedExecution(CommandContext,
-   * List)}.
-   *
-   * <ul>
-   *   <li>Then calls {@link DefaultJobManager#scheduleTimerJob(TimerJobEntity)}.
-   * </ul>
-   *
-   * <p>Method under test: {@link
-   * AbstractSetProcessDefinitionStateCmd#createTimerForDelayedExecution(CommandContext, List)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void AbstractSetProcessDefinitionStateCmd.createTimerForDelayedExecution(CommandContext, List)"
-  })
-  public void testCreateTimerForDelayedExecution_thenCallsScheduleTimerJob() {
-    // Arrange
-    ProcessDefinitionEntityImpl processDefinitionEntity = new ProcessDefinitionEntityImpl();
-    Date executionDate =
-        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant());
-
-    ActivateProcessDefinitionCmd activateProcessDefinitionCmd =
-        new ActivateProcessDefinitionCmd(processDefinitionEntity, true, executionDate, "42");
-
-    DefaultJobManager defaultJobManager = mock(DefaultJobManager.class);
-    doNothing().when(defaultJobManager).scheduleTimerJob(Mockito.<TimerJobEntity>any());
-
-    CommandContext commandContext = mock(CommandContext.class);
-    when(commandContext.getJobManager()).thenReturn(defaultJobManager);
-    JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();
-    TimerJobEntityManagerImpl timerJobEntityManagerImpl =
-        new TimerJobEntityManagerImpl(
-            processEngineConfiguration,
-            new MybatisTimerJobDataManager(new JtaProcessEngineConfiguration()));
-    when(commandContext.getTimerJobEntityManager()).thenReturn(timerJobEntityManagerImpl);
-
-    ProcessDefinitionEntityImpl processDefinitionEntityImpl =
-        mock(ProcessDefinitionEntityImpl.class);
-    when(processDefinitionEntityImpl.getId()).thenReturn("42");
-    when(processDefinitionEntityImpl.getTenantId()).thenReturn("42");
-
-    ArrayList<ProcessDefinitionEntity> processDefinitions = new ArrayList<>();
-    processDefinitions.add(processDefinitionEntityImpl);
-
-    // Act
-    activateProcessDefinitionCmd.createTimerForDelayedExecution(commandContext, processDefinitions);
-
-    // Assert
-    verify(defaultJobManager).scheduleTimerJob(isA(TimerJobEntity.class));
-    verify(commandContext).getJobManager();
-    verify(commandContext).getTimerJobEntityManager();
-    verify(processDefinitionEntityImpl).getId();
-    verify(processDefinitionEntityImpl, atLeast(1)).getTenantId();
-  }
-
-  /**
-   * Test {@link AbstractSetProcessDefinitionStateCmd#createTimerForDelayedExecution(CommandContext,
-   * List)}.
-   *
-   * <ul>
-   *   <li>Then throw {@link ActivitiIllegalArgumentException}.
-   * </ul>
-   *
-   * <p>Method under test: {@link
-   * AbstractSetProcessDefinitionStateCmd#createTimerForDelayedExecution(CommandContext, List)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void AbstractSetProcessDefinitionStateCmd.createTimerForDelayedExecution(CommandContext, List)"
-  })
-  public void testCreateTimerForDelayedExecution_thenThrowActivitiIllegalArgumentException() {
-    // Arrange
-    ProcessDefinitionEntityImpl processDefinitionEntity = new ProcessDefinitionEntityImpl();
-    Date executionDate =
-        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant());
-
-    ActivateProcessDefinitionCmd activateProcessDefinitionCmd =
-        new ActivateProcessDefinitionCmd(processDefinitionEntity, true, executionDate, "42");
-
-    CommandContext commandContext = mock(CommandContext.class);
-    when(commandContext.getJobManager())
-        .thenThrow(new ActivitiIllegalArgumentException("An error occurred"));
-    JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();
-    TimerJobEntityManagerImpl timerJobEntityManagerImpl =
-        new TimerJobEntityManagerImpl(
-            processEngineConfiguration,
-            new MybatisTimerJobDataManager(new JtaProcessEngineConfiguration()));
-    when(commandContext.getTimerJobEntityManager()).thenReturn(timerJobEntityManagerImpl);
-
-    ArrayList<ProcessDefinitionEntity> processDefinitions = new ArrayList<>();
-    processDefinitions.add(new ProcessDefinitionEntityImpl());
-
-    // Act and Assert
-    assertThrows(
-        ActivitiIllegalArgumentException.class,
-        () ->
-            activateProcessDefinitionCmd.createTimerForDelayedExecution(
-                commandContext, processDefinitions));
-    verify(commandContext).getJobManager();
-    verify(commandContext).getTimerJobEntityManager();
-  }
-
-  /**
-   * Test {@link AbstractSetProcessDefinitionStateCmd#changeProcessDefinitionState(CommandContext,
-   * List)}.
-   *
-   * <ul>
-   *   <li>Then throw {@link ActivitiIllegalArgumentException}.
-   * </ul>
-   *
-   * <p>Method under test: {@link
-   * AbstractSetProcessDefinitionStateCmd#changeProcessDefinitionState(CommandContext, List)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void AbstractSetProcessDefinitionStateCmd.changeProcessDefinitionState(CommandContext, List)"
-  })
-  public void testChangeProcessDefinitionState_thenThrowActivitiIllegalArgumentException() {
-    // Arrange
-    ProcessDefinitionEntityImpl processDefinitionEntity = new ProcessDefinitionEntityImpl();
-    Date executionDate =
-        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant());
-
-    ActivateProcessDefinitionCmd activateProcessDefinitionCmd =
-        new ActivateProcessDefinitionCmd(processDefinitionEntity, true, executionDate, "42");
-
-    JtaProcessEngineConfiguration jtaProcessEngineConfiguration =
-        new JtaProcessEngineConfiguration();
-    jtaProcessEngineConfiguration.setDeploymentManager(new DeploymentManager());
-
-    CommandContext commandContext = mock(CommandContext.class);
-    when(commandContext.getProcessEngineConfiguration()).thenReturn(jtaProcessEngineConfiguration);
-
-    ProcessDefinitionEntityImpl processDefinitionEntityImpl =
-        mock(ProcessDefinitionEntityImpl.class);
-    when(processDefinitionEntityImpl.getId())
-        .thenThrow(new ActivitiIllegalArgumentException("An error occurred"));
     when(processDefinitionEntityImpl.getSuspensionState()).thenReturn(-1);
     doNothing().when(processDefinitionEntityImpl).setSuspensionState(anyInt());
 
     ArrayList<ProcessDefinitionEntity> processDefinitions = new ArrayList<>();
     processDefinitions.add(processDefinitionEntityImpl);
 
-    // Act and Assert
-    assertThrows(
-        ActivitiIllegalArgumentException.class,
-        () ->
-            activateProcessDefinitionCmd.changeProcessDefinitionState(
-                commandContext, processDefinitions));
+    // Act
+    activateProcessDefinitionCmd.changeProcessDefinitionState(commandContext, processDefinitions);
+
+    // Assert
+    verify(processEngineConfigurationImpl).getDeploymentManager();
     verify(commandContext).getProcessEngineConfiguration();
+    verify(deploymentManager).getProcessDefinitionCache();
     verify(processDefinitionEntityImpl).getId();
     verify(processDefinitionEntityImpl).getSuspensionState();
-    verify(processDefinitionEntityImpl).setSuspensionState(1);
+    verify(processDefinitionEntityImpl).setSuspensionState(eq(1));
   }
 }

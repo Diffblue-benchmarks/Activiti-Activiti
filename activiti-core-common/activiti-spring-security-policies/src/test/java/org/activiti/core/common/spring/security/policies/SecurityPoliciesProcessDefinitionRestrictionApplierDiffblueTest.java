@@ -20,7 +20,6 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.HashSet;
 import java.util.Set;
@@ -37,29 +36,23 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 @ExtendWith(SpringExtension.class)
 class SecurityPoliciesProcessDefinitionRestrictionApplierDiffblueTest {
   @Autowired
-  private SecurityPoliciesProcessDefinitionRestrictionApplier
-      securityPoliciesProcessDefinitionRestrictionApplier;
+  private SecurityPoliciesProcessDefinitionRestrictionApplier securityPoliciesProcessDefinitionRestrictionApplier;
 
   /**
    * Test {@link SecurityPoliciesProcessDefinitionRestrictionApplier#restrictToKeys(Set)}.
-   *
    * <ul>
-   *   <li>Given {@code 42}.
-   *   <li>When {@link HashSet#HashSet()} add {@code 42}.
-   *   <li>Then return hasDefinitionKeys.
+   *   <li>Given {@code 42}.</li>
+   *   <li>When {@link HashSet#HashSet()} add {@code 42}.</li>
+   *   <li>Then return hasDefinitionKeys.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link
-   * SecurityPoliciesProcessDefinitionRestrictionApplier#restrictToKeys(Set)}
+   * <p>
+   * Method under test: {@link SecurityPoliciesProcessDefinitionRestrictionApplier#restrictToKeys(Set)}
    */
   @Test
-  @DisplayName(
-      "Test restrictToKeys(Set); given '42'; when HashSet() add '42'; then return hasDefinitionKeys")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test restrictToKeys(Set); given '42'; when HashSet() add '42'; then return hasDefinitionKeys")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({
-    "GetProcessDefinitionsPayload SecurityPoliciesProcessDefinitionRestrictionApplier.restrictToKeys(Set)"
-  })
+      "GetProcessDefinitionsPayload SecurityPoliciesProcessDefinitionRestrictionApplier.restrictToKeys(Set)"})
   void testRestrictToKeys_given42_whenHashSetAdd42_thenReturnHasDefinitionKeys() {
     // Arrange
     HashSet<String> keys = new HashSet<>();
@@ -67,8 +60,8 @@ class SecurityPoliciesProcessDefinitionRestrictionApplierDiffblueTest {
     keys.add("foo");
 
     // Act
-    GetProcessDefinitionsPayload actualRestrictToKeysResult =
-        securityPoliciesProcessDefinitionRestrictionApplier.restrictToKeys(keys);
+    GetProcessDefinitionsPayload actualRestrictToKeysResult = securityPoliciesProcessDefinitionRestrictionApplier
+        .restrictToKeys(keys);
 
     // Assert
     assertNull(actualRestrictToKeysResult.getProcessDefinitionId());
@@ -78,32 +71,27 @@ class SecurityPoliciesProcessDefinitionRestrictionApplierDiffblueTest {
 
   /**
    * Test {@link SecurityPoliciesProcessDefinitionRestrictionApplier#restrictToKeys(Set)}.
-   *
    * <ul>
-   *   <li>Given {@code foo}.
-   *   <li>When {@link HashSet#HashSet()} add {@code foo}.
-   *   <li>Then return hasDefinitionKeys.
+   *   <li>Given {@code foo}.</li>
+   *   <li>When {@link HashSet#HashSet()} add {@code foo}.</li>
+   *   <li>Then return hasDefinitionKeys.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link
-   * SecurityPoliciesProcessDefinitionRestrictionApplier#restrictToKeys(Set)}
+   * <p>
+   * Method under test: {@link SecurityPoliciesProcessDefinitionRestrictionApplier#restrictToKeys(Set)}
    */
   @Test
-  @DisplayName(
-      "Test restrictToKeys(Set); given 'foo'; when HashSet() add 'foo'; then return hasDefinitionKeys")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test restrictToKeys(Set); given 'foo'; when HashSet() add 'foo'; then return hasDefinitionKeys")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({
-    "GetProcessDefinitionsPayload SecurityPoliciesProcessDefinitionRestrictionApplier.restrictToKeys(Set)"
-  })
+      "GetProcessDefinitionsPayload SecurityPoliciesProcessDefinitionRestrictionApplier.restrictToKeys(Set)"})
   void testRestrictToKeys_givenFoo_whenHashSetAddFoo_thenReturnHasDefinitionKeys() {
     // Arrange
     HashSet<String> keys = new HashSet<>();
     keys.add("foo");
 
     // Act
-    GetProcessDefinitionsPayload actualRestrictToKeysResult =
-        securityPoliciesProcessDefinitionRestrictionApplier.restrictToKeys(keys);
+    GetProcessDefinitionsPayload actualRestrictToKeysResult = securityPoliciesProcessDefinitionRestrictionApplier
+        .restrictToKeys(keys);
 
     // Assert
     assertNull(actualRestrictToKeysResult.getProcessDefinitionId());
@@ -113,26 +101,22 @@ class SecurityPoliciesProcessDefinitionRestrictionApplierDiffblueTest {
 
   /**
    * Test {@link SecurityPoliciesProcessDefinitionRestrictionApplier#restrictToKeys(Set)}.
-   *
    * <ul>
-   *   <li>When {@link HashSet#HashSet()}.
-   *   <li>Then return not hasDefinitionKeys.
+   *   <li>When {@link HashSet#HashSet()}.</li>
+   *   <li>Then return not hasDefinitionKeys.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link
-   * SecurityPoliciesProcessDefinitionRestrictionApplier#restrictToKeys(Set)}
+   * <p>
+   * Method under test: {@link SecurityPoliciesProcessDefinitionRestrictionApplier#restrictToKeys(Set)}
    */
   @Test
   @DisplayName("Test restrictToKeys(Set); when HashSet(); then return not hasDefinitionKeys")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({
-    "GetProcessDefinitionsPayload SecurityPoliciesProcessDefinitionRestrictionApplier.restrictToKeys(Set)"
-  })
+      "GetProcessDefinitionsPayload SecurityPoliciesProcessDefinitionRestrictionApplier.restrictToKeys(Set)"})
   void testRestrictToKeys_whenHashSet_thenReturnNotHasDefinitionKeys() {
     // Arrange and Act
-    GetProcessDefinitionsPayload actualRestrictToKeysResult =
-        securityPoliciesProcessDefinitionRestrictionApplier.restrictToKeys(new HashSet<>());
+    GetProcessDefinitionsPayload actualRestrictToKeysResult = securityPoliciesProcessDefinitionRestrictionApplier
+        .restrictToKeys(new HashSet<>());
 
     // Assert
     assertNull(actualRestrictToKeysResult.getProcessDefinitionId());
@@ -142,20 +126,16 @@ class SecurityPoliciesProcessDefinitionRestrictionApplierDiffblueTest {
 
   /**
    * Test {@link SecurityPoliciesProcessDefinitionRestrictionApplier#denyAll()}.
-   *
-   * <p>Method under test: {@link SecurityPoliciesProcessDefinitionRestrictionApplier#denyAll()}
+   * <p>
+   * Method under test: {@link SecurityPoliciesProcessDefinitionRestrictionApplier#denyAll()}
    */
   @Test
   @DisplayName("Test denyAll()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "GetProcessDefinitionsPayload SecurityPoliciesProcessDefinitionRestrictionApplier.denyAll()"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"GetProcessDefinitionsPayload SecurityPoliciesProcessDefinitionRestrictionApplier.denyAll()"})
   void testDenyAll() {
     // Arrange and Act
-    GetProcessDefinitionsPayload actualDenyAllResult =
-        securityPoliciesProcessDefinitionRestrictionApplier.denyAll();
+    GetProcessDefinitionsPayload actualDenyAllResult = securityPoliciesProcessDefinitionRestrictionApplier.denyAll();
 
     // Assert
     assertNull(actualDenyAllResult.getProcessDefinitionId());
@@ -165,20 +145,16 @@ class SecurityPoliciesProcessDefinitionRestrictionApplierDiffblueTest {
 
   /**
    * Test {@link SecurityPoliciesProcessDefinitionRestrictionApplier#allowAll()}.
-   *
-   * <p>Method under test: {@link SecurityPoliciesProcessDefinitionRestrictionApplier#allowAll()}
+   * <p>
+   * Method under test: {@link SecurityPoliciesProcessDefinitionRestrictionApplier#allowAll()}
    */
   @Test
   @DisplayName("Test allowAll()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "GetProcessDefinitionsPayload SecurityPoliciesProcessDefinitionRestrictionApplier.allowAll()"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"GetProcessDefinitionsPayload SecurityPoliciesProcessDefinitionRestrictionApplier.allowAll()"})
   void testAllowAll() {
     // Arrange and Act
-    GetProcessDefinitionsPayload actualAllowAllResult =
-        securityPoliciesProcessDefinitionRestrictionApplier.allowAll();
+    GetProcessDefinitionsPayload actualAllowAllResult = securityPoliciesProcessDefinitionRestrictionApplier.allowAll();
 
     // Assert
     assertNull(actualAllowAllResult.getProcessDefinitionId());

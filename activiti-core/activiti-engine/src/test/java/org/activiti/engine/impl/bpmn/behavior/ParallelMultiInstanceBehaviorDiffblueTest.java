@@ -21,8 +21,7 @@ import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertThrows;
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.bpmn.model.Activity;
 import org.activiti.bpmn.model.AdhocSubProcess;
@@ -30,42 +29,33 @@ import org.activiti.engine.ActivitiIllegalArgumentException;
 import org.activiti.engine.delegate.DelegateExecution;
 import org.activiti.engine.impl.el.FixedValue;
 import org.activiti.engine.impl.persistence.entity.ExecutionEntityImpl;
-import org.activiti.engine.impl.util.json.JSONObject;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 
 public class ParallelMultiInstanceBehaviorDiffblueTest {
   /**
-   * Test {@link ParallelMultiInstanceBehavior#ParallelMultiInstanceBehavior(Activity,
-   * AbstractBpmnActivityBehavior)}.
-   *
+   * Test {@link ParallelMultiInstanceBehavior#ParallelMultiInstanceBehavior(Activity, AbstractBpmnActivityBehavior)}.
    * <ul>
-   *   <li>Then {@link MultiInstanceActivityBehavior#activity} return {@link AdhocSubProcess}.
+   *   <li>Then {@link MultiInstanceActivityBehavior#activity} return {@link AdhocSubProcess}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link
-   * ParallelMultiInstanceBehavior#ParallelMultiInstanceBehavior(Activity,
-   * AbstractBpmnActivityBehavior)}
+   * <p>
+   * Method under test: {@link ParallelMultiInstanceBehavior#ParallelMultiInstanceBehavior(Activity, AbstractBpmnActivityBehavior)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void ParallelMultiInstanceBehavior.<init>(Activity, AbstractBpmnActivityBehavior)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void ParallelMultiInstanceBehavior.<init>(Activity, AbstractBpmnActivityBehavior)"})
   public void testNewParallelMultiInstanceBehavior_thenActivityReturnAdhocSubProcess() {
     // Arrange
     AdhocSubProcess activity = new AdhocSubProcess();
     AbstractBpmnActivityBehavior originalActivityBehavior = new AbstractBpmnActivityBehavior();
 
     // Act
-    ParallelMultiInstanceBehavior actualParallelMultiInstanceBehavior =
-        new ParallelMultiInstanceBehavior(activity, originalActivityBehavior);
+    ParallelMultiInstanceBehavior actualParallelMultiInstanceBehavior = new ParallelMultiInstanceBehavior(activity,
+        originalActivityBehavior);
 
     // Assert
     assertTrue(actualParallelMultiInstanceBehavior.activity instanceof AdhocSubProcess);
-    assertEquals(
-        "loopCounter", actualParallelMultiInstanceBehavior.getCollectionElementIndexVariable());
+    assertEquals("loopCounter", actualParallelMultiInstanceBehavior.getCollectionElementIndexVariable());
     assertNull(actualParallelMultiInstanceBehavior.getCollectionElementVariable());
     assertNull(actualParallelMultiInstanceBehavior.getCollectionVariable());
     assertNull(actualParallelMultiInstanceBehavior.getLoopDataOutputRef());
@@ -78,230 +68,30 @@ public class ParallelMultiInstanceBehaviorDiffblueTest {
     assertFalse(actualParallelMultiInstanceBehavior.hasOutputDataItem());
     assertTrue(originalActivityBehavior.hasLoopCharacteristics());
     assertTrue(originalActivityBehavior.hasMultiInstanceCharacteristics());
-    assertSame(
-        originalActivityBehavior, actualParallelMultiInstanceBehavior.getInnerActivityBehavior());
+    assertSame(originalActivityBehavior, actualParallelMultiInstanceBehavior.getInnerActivityBehavior());
   }
 
   /**
    * Test {@link ParallelMultiInstanceBehavior#createInstances(DelegateExecution)}.
-   *
-   * <p>Method under test: {@link ParallelMultiInstanceBehavior#createInstances(DelegateExecution)}
+   * <ul>
+   *   <li>Then throw {@link ActivitiIllegalArgumentException}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link ParallelMultiInstanceBehavior#createInstances(DelegateExecution)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"int ParallelMultiInstanceBehavior.createInstances(DelegateExecution)"})
-  public void testCreateInstances() {
-    // Arrange
-    AdhocSubProcess activity = new AdhocSubProcess();
-    ParallelMultiInstanceBehavior parallelMultiInstanceBehavior =
-        new ParallelMultiInstanceBehavior(activity, new AbstractBpmnActivityBehavior());
-
-    // Act and Assert
-    assertThrows(
-        ActivitiIllegalArgumentException.class,
-        () ->
-            parallelMultiInstanceBehavior.createInstances(
-                ExecutionEntityImpl.createWithEmptyRelationshipCollections()));
-  }
-
-  /**
-   * Test {@link ParallelMultiInstanceBehavior#createInstances(DelegateExecution)}.
-   *
-   * <p>Method under test: {@link ParallelMultiInstanceBehavior#createInstances(DelegateExecution)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"int ParallelMultiInstanceBehavior.createInstances(DelegateExecution)"})
-  public void testCreateInstances2() {
+  public void testCreateInstances_thenThrowActivitiIllegalArgumentException() {
     // Arrange
     AdhocSubProcess activity = new AdhocSubProcess();
 
-    ParallelMultiInstanceBehavior parallelMultiInstanceBehavior =
-        new ParallelMultiInstanceBehavior(activity, new AbstractBpmnActivityBehavior());
-    parallelMultiInstanceBehavior.setLoopCardinalityExpression(new FixedValue(JSONObject.NULL));
-
-    // Act and Assert
-    assertThrows(
-        ActivitiIllegalArgumentException.class,
-        () ->
-            parallelMultiInstanceBehavior.createInstances(
-                ExecutionEntityImpl.createWithEmptyRelationshipCollections()));
-  }
-
-  /**
-   * Test {@link ParallelMultiInstanceBehavior#createInstances(DelegateExecution)}.
-   *
-   * <p>Method under test: {@link ParallelMultiInstanceBehavior#createInstances(DelegateExecution)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"int ParallelMultiInstanceBehavior.createInstances(DelegateExecution)"})
-  public void testCreateInstances3() {
-    // Arrange
-    AdhocSubProcess activity = new AdhocSubProcess();
-
-    ParallelMultiInstanceBehavior parallelMultiInstanceBehavior =
-        new ParallelMultiInstanceBehavior(activity, new AbstractBpmnActivityBehavior());
-    parallelMultiInstanceBehavior.setCollectionExpression(new FixedValue(JSONObject.NULL));
-
-    // Act and Assert
-    assertThrows(
-        ActivitiIllegalArgumentException.class,
-        () ->
-            parallelMultiInstanceBehavior.createInstances(
-                ExecutionEntityImpl.createWithEmptyRelationshipCollections()));
-  }
-
-  /**
-   * Test {@link ParallelMultiInstanceBehavior#createInstances(DelegateExecution)}.
-   *
-   * <p>Method under test: {@link ParallelMultiInstanceBehavior#createInstances(DelegateExecution)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"int ParallelMultiInstanceBehavior.createInstances(DelegateExecution)"})
-  public void testCreateInstances4() {
-    // Arrange
-    AdhocSubProcess activity = new AdhocSubProcess();
-
-    ParallelMultiInstanceBehavior parallelMultiInstanceBehavior =
-        new ParallelMultiInstanceBehavior(activity, new AbstractBpmnActivityBehavior());
-    parallelMultiInstanceBehavior.setCollectionVariable(
-        "Couldn't resolve collection expression nor variable reference");
-
-    // Act and Assert
-    assertThrows(
-        ActivitiIllegalArgumentException.class,
-        () ->
-            parallelMultiInstanceBehavior.createInstances(
-                ExecutionEntityImpl.createWithEmptyRelationshipCollections()));
-  }
-
-  /**
-   * Test {@link ParallelMultiInstanceBehavior#createInstances(DelegateExecution)}.
-   *
-   * <p>Method under test: {@link ParallelMultiInstanceBehavior#createInstances(DelegateExecution)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"int ParallelMultiInstanceBehavior.createInstances(DelegateExecution)"})
-  public void testCreateInstances5() {
-    // Arrange
-    AdhocSubProcess activity = new AdhocSubProcess();
-
-    ParallelMultiInstanceBehavior parallelMultiInstanceBehavior =
-        new ParallelMultiInstanceBehavior(activity, new AbstractBpmnActivityBehavior());
+    ParallelMultiInstanceBehavior parallelMultiInstanceBehavior = new ParallelMultiInstanceBehavior(activity,
+        new AbstractBpmnActivityBehavior());
     parallelMultiInstanceBehavior.setLoopCardinalityExpression(new FixedValue(-1));
 
     // Act and Assert
-    assertThrows(
-        ActivitiIllegalArgumentException.class,
-        () ->
-            parallelMultiInstanceBehavior.createInstances(
-                ExecutionEntityImpl.createWithEmptyRelationshipCollections()));
-  }
-
-  /**
-   * Test {@link ParallelMultiInstanceBehavior#leave(DelegateExecution)}.
-   *
-   * <p>Method under test: {@link ParallelMultiInstanceBehavior#leave(DelegateExecution)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void ParallelMultiInstanceBehavior.leave(DelegateExecution)"})
-  public void testLeave() {
-    // Arrange
-    AdhocSubProcess activity = new AdhocSubProcess();
-    ParallelMultiInstanceBehavior parallelMultiInstanceBehavior =
-        new ParallelMultiInstanceBehavior(activity, new AbstractBpmnActivityBehavior());
-
-    // Act and Assert
-    assertThrows(
-        ActivitiIllegalArgumentException.class,
-        () ->
-            parallelMultiInstanceBehavior.leave(
-                ExecutionEntityImpl.createWithEmptyRelationshipCollections()));
-  }
-
-  /**
-   * Test {@link ParallelMultiInstanceBehavior#leave(DelegateExecution)}.
-   *
-   * <p>Method under test: {@link ParallelMultiInstanceBehavior#leave(DelegateExecution)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void ParallelMultiInstanceBehavior.leave(DelegateExecution)"})
-  public void testLeave2() {
-    // Arrange
-    AdhocSubProcess activity = new AdhocSubProcess();
-
-    ParallelMultiInstanceBehavior parallelMultiInstanceBehavior =
-        new ParallelMultiInstanceBehavior(activity, new AbstractBpmnActivityBehavior());
-    parallelMultiInstanceBehavior.setLoopCardinalityExpression(new FixedValue(JSONObject.NULL));
-
-    // Act and Assert
-    assertThrows(
-        ActivitiIllegalArgumentException.class,
-        () ->
-            parallelMultiInstanceBehavior.leave(
-                ExecutionEntityImpl.createWithEmptyRelationshipCollections()));
-  }
-
-  /**
-   * Test {@link ParallelMultiInstanceBehavior#leave(DelegateExecution)}.
-   *
-   * <p>Method under test: {@link ParallelMultiInstanceBehavior#leave(DelegateExecution)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void ParallelMultiInstanceBehavior.leave(DelegateExecution)"})
-  public void testLeave3() {
-    // Arrange
-    AdhocSubProcess activity = new AdhocSubProcess();
-
-    ParallelMultiInstanceBehavior parallelMultiInstanceBehavior =
-        new ParallelMultiInstanceBehavior(activity, new AbstractBpmnActivityBehavior());
-    parallelMultiInstanceBehavior.setCollectionExpression(new FixedValue(JSONObject.NULL));
-
-    // Act and Assert
-    assertThrows(
-        ActivitiIllegalArgumentException.class,
-        () ->
-            parallelMultiInstanceBehavior.leave(
-                ExecutionEntityImpl.createWithEmptyRelationshipCollections()));
-  }
-
-  /**
-   * Test {@link ParallelMultiInstanceBehavior#leave(DelegateExecution)}.
-   *
-   * <p>Method under test: {@link ParallelMultiInstanceBehavior#leave(DelegateExecution)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void ParallelMultiInstanceBehavior.leave(DelegateExecution)"})
-  public void testLeave4() {
-    // Arrange
-    AdhocSubProcess activity = new AdhocSubProcess();
-
-    ParallelMultiInstanceBehavior parallelMultiInstanceBehavior =
-        new ParallelMultiInstanceBehavior(activity, new AbstractBpmnActivityBehavior());
-    parallelMultiInstanceBehavior.setCollectionVariable(
-        "Couldn't resolve collection expression nor variable reference");
-
-    // Act and Assert
-    assertThrows(
-        ActivitiIllegalArgumentException.class,
-        () ->
-            parallelMultiInstanceBehavior.leave(
-                ExecutionEntityImpl.createWithEmptyRelationshipCollections()));
+    assertThrows(ActivitiIllegalArgumentException.class, () -> parallelMultiInstanceBehavior
+        .createInstances(ExecutionEntityImpl.createWithEmptyRelationshipCollections()));
   }
 }

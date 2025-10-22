@@ -16,8 +16,7 @@
 package org.activiti.engine.impl.cmd;
 
 import static org.junit.Assert.assertEquals;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
@@ -25,21 +24,15 @@ import org.junit.experimental.categories.Category;
 public class NeedsActiveExecutionCmdDiffblueTest {
   /**
    * Test {@link NeedsActiveExecutionCmd#getSuspendedExceptionMessage()}.
-   *
-   * <p>Method under test: {@link NeedsActiveExecutionCmd#getSuspendedExceptionMessage()}
+   * <p>
+   * Method under test: {@link NeedsActiveExecutionCmd#getSuspendedExceptionMessage()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"java.lang.String NeedsActiveExecutionCmd.getSuspendedExceptionMessage()"})
   public void testGetSuspendedExceptionMessage() {
-    // Arrange
-    MessageEventReceivedCmd messageEventReceivedCmd =
-        new MessageEventReceivedCmd("Message Name", "42", true);
-
-    // Act and Assert
-    assertEquals(
-        "Cannot execution operation because execution '42' is suspended",
-        messageEventReceivedCmd.getSuspendedExceptionMessage());
+    // Arrange, Act and Assert
+    assertEquals("Cannot execution operation because execution '42' is suspended",
+        (new MessageEventReceivedCmd("Message Name", "42", true)).getSuspendedExceptionMessage());
   }
 }

@@ -21,12 +21,7 @@ import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertThrows;
 import static org.junit.Assert.assertTrue;
-import static org.mockito.Mockito.doNothing;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.time.LocalDate;
 import java.time.ZoneOffset;
@@ -35,33 +30,24 @@ import java.util.Date;
 import java.util.List;
 import org.activiti.engine.ActivitiException;
 import org.activiti.engine.ActivitiIllegalArgumentException;
-import org.activiti.engine.history.HistoricTaskInstance;
 import org.activiti.engine.history.HistoricTaskInstanceQuery;
 import org.activiti.engine.impl.AbstractQuery.NullHandlingOnOrder;
 import org.activiti.engine.impl.cfg.CommandExecutorImpl;
 import org.activiti.engine.impl.interceptor.CommandConfig;
 import org.activiti.engine.impl.interceptor.CommandContextInterceptor;
 import org.activiti.engine.impl.interceptor.CommandExecutor;
-import org.activiti.engine.impl.persistence.entity.HistoricTaskInstanceEntityImpl;
 import org.activiti.engine.impl.util.json.JSONObject;
-import org.activiti.engine.query.QueryProperty;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
-import org.mockito.Mockito;
-import org.springframework.test.annotation.DirtiesContext;
-import org.springframework.test.annotation.DirtiesContext.ClassMode;
 
-@DirtiesContext(classMode = ClassMode.AFTER_EACH_TEST_METHOD)
 public class HistoricTaskInstanceQueryImplDiffblueTest {
   /**
    * Test getters and setters.
-   *
    * <ul>
-   *   <li>Then return DatabaseType is {@code null}.
+   *   <li>Then return DatabaseType is {@code null}.</li>
    * </ul>
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>{@link HistoricTaskInstanceQueryImpl#HistoricTaskInstanceQueryImpl(CommandExecutor)}
    *   <li>{@link HistoricTaskInstanceQueryImpl#getCandidateGroup()}
@@ -136,90 +122,74 @@ public class HistoricTaskInstanceQueryImplDiffblueTest {
    * </ul>
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void HistoricTaskInstanceQueryImpl.<init>(CommandExecutor)",
-    "void HistoricTaskInstanceQueryImpl.<init>(CommandExecutor, String)",
-    "String HistoricTaskInstanceQueryImpl.getCandidateGroup()",
-    "String HistoricTaskInstanceQueryImpl.getCandidateUser()",
-    "String HistoricTaskInstanceQueryImpl.getCategory()",
-    "Date HistoricTaskInstanceQueryImpl.getCompletedAfterDate()",
-    "Date HistoricTaskInstanceQueryImpl.getCompletedBeforeDate()",
-    "Date HistoricTaskInstanceQueryImpl.getCompletedDate()",
-    "Date HistoricTaskInstanceQueryImpl.getCreationAfterDate()",
-    "Date HistoricTaskInstanceQueryImpl.getCreationBeforeDate()",
-    "Date HistoricTaskInstanceQueryImpl.getCreationDate()",
-    "String HistoricTaskInstanceQueryImpl.getDeploymentId()",
-    "List HistoricTaskInstanceQueryImpl.getDeploymentIds()",
-    "Date HistoricTaskInstanceQueryImpl.getDueAfter()",
-    "Date HistoricTaskInstanceQueryImpl.getDueBefore()",
-    "Date HistoricTaskInstanceQueryImpl.getDueDate()",
-    "String HistoricTaskInstanceQueryImpl.getExecutionId()",
-    "List HistoricTaskInstanceQueryImpl.getInvolvedGroups()",
-    "String HistoricTaskInstanceQueryImpl.getInvolvedUser()",
-    "String HistoricTaskInstanceQueryImpl.getLocale()",
-    "List HistoricTaskInstanceQueryImpl.getOrQueryObjects()",
-    "List HistoricTaskInstanceQueryImpl.getProcessCategoryInList()",
-    "List HistoricTaskInstanceQueryImpl.getProcessCategoryNotInList()",
-    "String HistoricTaskInstanceQueryImpl.getProcessDefinitionId()",
-    "String HistoricTaskInstanceQueryImpl.getProcessDefinitionKey()",
-    "String HistoricTaskInstanceQueryImpl.getProcessDefinitionKeyLike()",
-    "String HistoricTaskInstanceQueryImpl.getProcessDefinitionKeyLikeIgnoreCase()",
-    "List HistoricTaskInstanceQueryImpl.getProcessDefinitionKeys()",
-    "String HistoricTaskInstanceQueryImpl.getProcessDefinitionName()",
-    "String HistoricTaskInstanceQueryImpl.getProcessDefinitionNameLike()",
-    "String HistoricTaskInstanceQueryImpl.getProcessInstanceBusinessKey()",
-    "String HistoricTaskInstanceQueryImpl.getProcessInstanceBusinessKeyLike()",
-    "String HistoricTaskInstanceQueryImpl.getProcessInstanceBusinessKeyLikeIgnoreCase()",
-    "String HistoricTaskInstanceQueryImpl.getProcessInstanceId()",
-    "List HistoricTaskInstanceQueryImpl.getProcessInstanceIds()",
-    "String HistoricTaskInstanceQueryImpl.getTaskAssignee()",
-    "List HistoricTaskInstanceQueryImpl.getTaskAssigneeIds()",
-    "String HistoricTaskInstanceQueryImpl.getTaskAssigneeLike()",
-    "String HistoricTaskInstanceQueryImpl.getTaskAssigneeLikeIgnoreCase()",
-    "String HistoricTaskInstanceQueryImpl.getTaskDefinitionKey()",
-    "String HistoricTaskInstanceQueryImpl.getTaskDefinitionKeyLike()",
-    "String HistoricTaskInstanceQueryImpl.getTaskDeleteReason()",
-    "String HistoricTaskInstanceQueryImpl.getTaskDeleteReasonLike()",
-    "String HistoricTaskInstanceQueryImpl.getTaskDescription()",
-    "String HistoricTaskInstanceQueryImpl.getTaskDescriptionLike()",
-    "String HistoricTaskInstanceQueryImpl.getTaskDescriptionLikeIgnoreCase()",
-    "String HistoricTaskInstanceQueryImpl.getTaskId()",
-    "Integer HistoricTaskInstanceQueryImpl.getTaskMaxPriority()",
-    "Integer HistoricTaskInstanceQueryImpl.getTaskMinPriority()",
-    "String HistoricTaskInstanceQueryImpl.getTaskName()",
-    "String HistoricTaskInstanceQueryImpl.getTaskNameLike()",
-    "String HistoricTaskInstanceQueryImpl.getTaskNameLikeIgnoreCase()",
-    "List HistoricTaskInstanceQueryImpl.getTaskNameList()",
-    "List HistoricTaskInstanceQueryImpl.getTaskNameListIgnoreCase()",
-    "String HistoricTaskInstanceQueryImpl.getTaskOwner()",
-    "String HistoricTaskInstanceQueryImpl.getTaskOwnerLike()",
-    "String HistoricTaskInstanceQueryImpl.getTaskOwnerLikeIgnoreCase()",
-    "String HistoricTaskInstanceQueryImpl.getTaskParentTaskId()",
-    "Integer HistoricTaskInstanceQueryImpl.getTaskPriority()",
-    "Integer HistoricTaskInstanceQueryImpl.getTaskVariablesLimit()",
-    "String HistoricTaskInstanceQueryImpl.getTenantId()",
-    "String HistoricTaskInstanceQueryImpl.getTenantIdLike()",
-    "boolean HistoricTaskInstanceQueryImpl.isFinished()",
-    "boolean HistoricTaskInstanceQueryImpl.isInOrStatement()",
-    "boolean HistoricTaskInstanceQueryImpl.isIncludeProcessVariables()",
-    "boolean HistoricTaskInstanceQueryImpl.isIncludeTaskLocalVariables()",
-    "boolean HistoricTaskInstanceQueryImpl.isProcessFinished()",
-    "boolean HistoricTaskInstanceQueryImpl.isProcessUnfinished()",
-    "boolean HistoricTaskInstanceQueryImpl.isUnfinished()",
-    "boolean HistoricTaskInstanceQueryImpl.isWithoutDueDate()",
-    "boolean HistoricTaskInstanceQueryImpl.isWithoutTenantId()"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void HistoricTaskInstanceQueryImpl.<init>(CommandExecutor)",
+      "void HistoricTaskInstanceQueryImpl.<init>(CommandExecutor, String)",
+      "String HistoricTaskInstanceQueryImpl.getCandidateGroup()",
+      "String HistoricTaskInstanceQueryImpl.getCandidateUser()", "String HistoricTaskInstanceQueryImpl.getCategory()",
+      "Date HistoricTaskInstanceQueryImpl.getCompletedAfterDate()",
+      "Date HistoricTaskInstanceQueryImpl.getCompletedBeforeDate()",
+      "Date HistoricTaskInstanceQueryImpl.getCompletedDate()",
+      "Date HistoricTaskInstanceQueryImpl.getCreationAfterDate()",
+      "Date HistoricTaskInstanceQueryImpl.getCreationBeforeDate()",
+      "Date HistoricTaskInstanceQueryImpl.getCreationDate()", "String HistoricTaskInstanceQueryImpl.getDeploymentId()",
+      "List HistoricTaskInstanceQueryImpl.getDeploymentIds()", "Date HistoricTaskInstanceQueryImpl.getDueAfter()",
+      "Date HistoricTaskInstanceQueryImpl.getDueBefore()", "Date HistoricTaskInstanceQueryImpl.getDueDate()",
+      "String HistoricTaskInstanceQueryImpl.getExecutionId()", "List HistoricTaskInstanceQueryImpl.getInvolvedGroups()",
+      "String HistoricTaskInstanceQueryImpl.getInvolvedUser()", "String HistoricTaskInstanceQueryImpl.getLocale()",
+      "List HistoricTaskInstanceQueryImpl.getOrQueryObjects()",
+      "List HistoricTaskInstanceQueryImpl.getProcessCategoryInList()",
+      "List HistoricTaskInstanceQueryImpl.getProcessCategoryNotInList()",
+      "String HistoricTaskInstanceQueryImpl.getProcessDefinitionId()",
+      "String HistoricTaskInstanceQueryImpl.getProcessDefinitionKey()",
+      "String HistoricTaskInstanceQueryImpl.getProcessDefinitionKeyLike()",
+      "String HistoricTaskInstanceQueryImpl.getProcessDefinitionKeyLikeIgnoreCase()",
+      "List HistoricTaskInstanceQueryImpl.getProcessDefinitionKeys()",
+      "String HistoricTaskInstanceQueryImpl.getProcessDefinitionName()",
+      "String HistoricTaskInstanceQueryImpl.getProcessDefinitionNameLike()",
+      "String HistoricTaskInstanceQueryImpl.getProcessInstanceBusinessKey()",
+      "String HistoricTaskInstanceQueryImpl.getProcessInstanceBusinessKeyLike()",
+      "String HistoricTaskInstanceQueryImpl.getProcessInstanceBusinessKeyLikeIgnoreCase()",
+      "String HistoricTaskInstanceQueryImpl.getProcessInstanceId()",
+      "List HistoricTaskInstanceQueryImpl.getProcessInstanceIds()",
+      "String HistoricTaskInstanceQueryImpl.getTaskAssignee()",
+      "List HistoricTaskInstanceQueryImpl.getTaskAssigneeIds()",
+      "String HistoricTaskInstanceQueryImpl.getTaskAssigneeLike()",
+      "String HistoricTaskInstanceQueryImpl.getTaskAssigneeLikeIgnoreCase()",
+      "String HistoricTaskInstanceQueryImpl.getTaskDefinitionKey()",
+      "String HistoricTaskInstanceQueryImpl.getTaskDefinitionKeyLike()",
+      "String HistoricTaskInstanceQueryImpl.getTaskDeleteReason()",
+      "String HistoricTaskInstanceQueryImpl.getTaskDeleteReasonLike()",
+      "String HistoricTaskInstanceQueryImpl.getTaskDescription()",
+      "String HistoricTaskInstanceQueryImpl.getTaskDescriptionLike()",
+      "String HistoricTaskInstanceQueryImpl.getTaskDescriptionLikeIgnoreCase()",
+      "String HistoricTaskInstanceQueryImpl.getTaskId()", "Integer HistoricTaskInstanceQueryImpl.getTaskMaxPriority()",
+      "Integer HistoricTaskInstanceQueryImpl.getTaskMinPriority()",
+      "String HistoricTaskInstanceQueryImpl.getTaskName()", "String HistoricTaskInstanceQueryImpl.getTaskNameLike()",
+      "String HistoricTaskInstanceQueryImpl.getTaskNameLikeIgnoreCase()",
+      "List HistoricTaskInstanceQueryImpl.getTaskNameList()",
+      "List HistoricTaskInstanceQueryImpl.getTaskNameListIgnoreCase()",
+      "String HistoricTaskInstanceQueryImpl.getTaskOwner()", "String HistoricTaskInstanceQueryImpl.getTaskOwnerLike()",
+      "String HistoricTaskInstanceQueryImpl.getTaskOwnerLikeIgnoreCase()",
+      "String HistoricTaskInstanceQueryImpl.getTaskParentTaskId()",
+      "Integer HistoricTaskInstanceQueryImpl.getTaskPriority()",
+      "Integer HistoricTaskInstanceQueryImpl.getTaskVariablesLimit()",
+      "String HistoricTaskInstanceQueryImpl.getTenantId()", "String HistoricTaskInstanceQueryImpl.getTenantIdLike()",
+      "boolean HistoricTaskInstanceQueryImpl.isFinished()", "boolean HistoricTaskInstanceQueryImpl.isInOrStatement()",
+      "boolean HistoricTaskInstanceQueryImpl.isIncludeProcessVariables()",
+      "boolean HistoricTaskInstanceQueryImpl.isIncludeTaskLocalVariables()",
+      "boolean HistoricTaskInstanceQueryImpl.isProcessFinished()",
+      "boolean HistoricTaskInstanceQueryImpl.isProcessUnfinished()",
+      "boolean HistoricTaskInstanceQueryImpl.isUnfinished()",
+      "boolean HistoricTaskInstanceQueryImpl.isWithoutDueDate()",
+      "boolean HistoricTaskInstanceQueryImpl.isWithoutTenantId()"})
   public void testGettersAndSetters_thenReturnDatabaseTypeIsNull() {
     // Arrange
     CommandConfig defaultConfig = new CommandConfig();
-    CommandExecutorImpl commandExecutor =
-        new CommandExecutorImpl(defaultConfig, new CommandContextInterceptor());
 
     // Act
-    HistoricTaskInstanceQueryImpl actualHistoricTaskInstanceQueryImpl =
-        new HistoricTaskInstanceQueryImpl(commandExecutor);
+    HistoricTaskInstanceQueryImpl actualHistoricTaskInstanceQueryImpl = new HistoricTaskInstanceQueryImpl(
+        new CommandExecutorImpl(defaultConfig, new CommandContextInterceptor()));
     String actualCandidateGroup = actualHistoricTaskInstanceQueryImpl.getCandidateGroup();
     String actualCandidateUser = actualHistoricTaskInstanceQueryImpl.getCandidateUser();
     String actualCategory = actualHistoricTaskInstanceQueryImpl.getCategory();
@@ -238,63 +208,46 @@ public class HistoricTaskInstanceQueryImplDiffblueTest {
     List<String> actualInvolvedGroups = actualHistoricTaskInstanceQueryImpl.getInvolvedGroups();
     String actualInvolvedUser = actualHistoricTaskInstanceQueryImpl.getInvolvedUser();
     String actualLocale = actualHistoricTaskInstanceQueryImpl.getLocale();
-    List<HistoricTaskInstanceQueryImpl> actualOrQueryObjects =
-        actualHistoricTaskInstanceQueryImpl.getOrQueryObjects();
-    List<String> actualProcessCategoryInList =
-        actualHistoricTaskInstanceQueryImpl.getProcessCategoryInList();
-    List<String> actualProcessCategoryNotInList =
-        actualHistoricTaskInstanceQueryImpl.getProcessCategoryNotInList();
+    List<HistoricTaskInstanceQueryImpl> actualOrQueryObjects = actualHistoricTaskInstanceQueryImpl.getOrQueryObjects();
+    List<String> actualProcessCategoryInList = actualHistoricTaskInstanceQueryImpl.getProcessCategoryInList();
+    List<String> actualProcessCategoryNotInList = actualHistoricTaskInstanceQueryImpl.getProcessCategoryNotInList();
     String actualProcessDefinitionId = actualHistoricTaskInstanceQueryImpl.getProcessDefinitionId();
-    String actualProcessDefinitionKey =
-        actualHistoricTaskInstanceQueryImpl.getProcessDefinitionKey();
-    String actualProcessDefinitionKeyLike =
-        actualHistoricTaskInstanceQueryImpl.getProcessDefinitionKeyLike();
-    String actualProcessDefinitionKeyLikeIgnoreCase =
-        actualHistoricTaskInstanceQueryImpl.getProcessDefinitionKeyLikeIgnoreCase();
-    List<String> actualProcessDefinitionKeys =
-        actualHistoricTaskInstanceQueryImpl.getProcessDefinitionKeys();
-    String actualProcessDefinitionName =
-        actualHistoricTaskInstanceQueryImpl.getProcessDefinitionName();
-    String actualProcessDefinitionNameLike =
-        actualHistoricTaskInstanceQueryImpl.getProcessDefinitionNameLike();
-    String actualProcessInstanceBusinessKey =
-        actualHistoricTaskInstanceQueryImpl.getProcessInstanceBusinessKey();
-    String actualProcessInstanceBusinessKeyLike =
-        actualHistoricTaskInstanceQueryImpl.getProcessInstanceBusinessKeyLike();
-    String actualProcessInstanceBusinessKeyLikeIgnoreCase =
-        actualHistoricTaskInstanceQueryImpl.getProcessInstanceBusinessKeyLikeIgnoreCase();
+    String actualProcessDefinitionKey = actualHistoricTaskInstanceQueryImpl.getProcessDefinitionKey();
+    String actualProcessDefinitionKeyLike = actualHistoricTaskInstanceQueryImpl.getProcessDefinitionKeyLike();
+    String actualProcessDefinitionKeyLikeIgnoreCase = actualHistoricTaskInstanceQueryImpl
+        .getProcessDefinitionKeyLikeIgnoreCase();
+    List<String> actualProcessDefinitionKeys = actualHistoricTaskInstanceQueryImpl.getProcessDefinitionKeys();
+    String actualProcessDefinitionName = actualHistoricTaskInstanceQueryImpl.getProcessDefinitionName();
+    String actualProcessDefinitionNameLike = actualHistoricTaskInstanceQueryImpl.getProcessDefinitionNameLike();
+    String actualProcessInstanceBusinessKey = actualHistoricTaskInstanceQueryImpl.getProcessInstanceBusinessKey();
+    String actualProcessInstanceBusinessKeyLike = actualHistoricTaskInstanceQueryImpl
+        .getProcessInstanceBusinessKeyLike();
+    String actualProcessInstanceBusinessKeyLikeIgnoreCase = actualHistoricTaskInstanceQueryImpl
+        .getProcessInstanceBusinessKeyLikeIgnoreCase();
     String actualProcessInstanceId = actualHistoricTaskInstanceQueryImpl.getProcessInstanceId();
-    List<String> actualProcessInstanceIds =
-        actualHistoricTaskInstanceQueryImpl.getProcessInstanceIds();
+    List<String> actualProcessInstanceIds = actualHistoricTaskInstanceQueryImpl.getProcessInstanceIds();
     String actualTaskAssignee = actualHistoricTaskInstanceQueryImpl.getTaskAssignee();
     List<String> actualTaskAssigneeIds = actualHistoricTaskInstanceQueryImpl.getTaskAssigneeIds();
     String actualTaskAssigneeLike = actualHistoricTaskInstanceQueryImpl.getTaskAssigneeLike();
-    String actualTaskAssigneeLikeIgnoreCase =
-        actualHistoricTaskInstanceQueryImpl.getTaskAssigneeLikeIgnoreCase();
+    String actualTaskAssigneeLikeIgnoreCase = actualHistoricTaskInstanceQueryImpl.getTaskAssigneeLikeIgnoreCase();
     String actualTaskDefinitionKey = actualHistoricTaskInstanceQueryImpl.getTaskDefinitionKey();
-    String actualTaskDefinitionKeyLike =
-        actualHistoricTaskInstanceQueryImpl.getTaskDefinitionKeyLike();
+    String actualTaskDefinitionKeyLike = actualHistoricTaskInstanceQueryImpl.getTaskDefinitionKeyLike();
     String actualTaskDeleteReason = actualHistoricTaskInstanceQueryImpl.getTaskDeleteReason();
-    String actualTaskDeleteReasonLike =
-        actualHistoricTaskInstanceQueryImpl.getTaskDeleteReasonLike();
+    String actualTaskDeleteReasonLike = actualHistoricTaskInstanceQueryImpl.getTaskDeleteReasonLike();
     String actualTaskDescription = actualHistoricTaskInstanceQueryImpl.getTaskDescription();
     String actualTaskDescriptionLike = actualHistoricTaskInstanceQueryImpl.getTaskDescriptionLike();
-    String actualTaskDescriptionLikeIgnoreCase =
-        actualHistoricTaskInstanceQueryImpl.getTaskDescriptionLikeIgnoreCase();
+    String actualTaskDescriptionLikeIgnoreCase = actualHistoricTaskInstanceQueryImpl.getTaskDescriptionLikeIgnoreCase();
     String actualTaskId = actualHistoricTaskInstanceQueryImpl.getTaskId();
     Integer actualTaskMaxPriority = actualHistoricTaskInstanceQueryImpl.getTaskMaxPriority();
     Integer actualTaskMinPriority = actualHistoricTaskInstanceQueryImpl.getTaskMinPriority();
     String actualTaskName = actualHistoricTaskInstanceQueryImpl.getTaskName();
     String actualTaskNameLike = actualHistoricTaskInstanceQueryImpl.getTaskNameLike();
-    String actualTaskNameLikeIgnoreCase =
-        actualHistoricTaskInstanceQueryImpl.getTaskNameLikeIgnoreCase();
+    String actualTaskNameLikeIgnoreCase = actualHistoricTaskInstanceQueryImpl.getTaskNameLikeIgnoreCase();
     List<String> actualTaskNameList = actualHistoricTaskInstanceQueryImpl.getTaskNameList();
-    List<String> actualTaskNameListIgnoreCase =
-        actualHistoricTaskInstanceQueryImpl.getTaskNameListIgnoreCase();
+    List<String> actualTaskNameListIgnoreCase = actualHistoricTaskInstanceQueryImpl.getTaskNameListIgnoreCase();
     String actualTaskOwner = actualHistoricTaskInstanceQueryImpl.getTaskOwner();
     String actualTaskOwnerLike = actualHistoricTaskInstanceQueryImpl.getTaskOwnerLike();
-    String actualTaskOwnerLikeIgnoreCase =
-        actualHistoricTaskInstanceQueryImpl.getTaskOwnerLikeIgnoreCase();
+    String actualTaskOwnerLikeIgnoreCase = actualHistoricTaskInstanceQueryImpl.getTaskOwnerLikeIgnoreCase();
     String actualTaskParentTaskId = actualHistoricTaskInstanceQueryImpl.getTaskParentTaskId();
     Integer actualTaskPriority = actualHistoricTaskInstanceQueryImpl.getTaskPriority();
     Integer actualTaskVariablesLimit = actualHistoricTaskInstanceQueryImpl.getTaskVariablesLimit();
@@ -302,13 +255,10 @@ public class HistoricTaskInstanceQueryImplDiffblueTest {
     String actualTenantIdLike = actualHistoricTaskInstanceQueryImpl.getTenantIdLike();
     boolean actualIsFinishedResult = actualHistoricTaskInstanceQueryImpl.isFinished();
     boolean actualIsInOrStatementResult = actualHistoricTaskInstanceQueryImpl.isInOrStatement();
-    boolean actualIsIncludeProcessVariablesResult =
-        actualHistoricTaskInstanceQueryImpl.isIncludeProcessVariables();
-    boolean actualIsIncludeTaskLocalVariablesResult =
-        actualHistoricTaskInstanceQueryImpl.isIncludeTaskLocalVariables();
+    boolean actualIsIncludeProcessVariablesResult = actualHistoricTaskInstanceQueryImpl.isIncludeProcessVariables();
+    boolean actualIsIncludeTaskLocalVariablesResult = actualHistoricTaskInstanceQueryImpl.isIncludeTaskLocalVariables();
     boolean actualIsProcessFinishedResult = actualHistoricTaskInstanceQueryImpl.isProcessFinished();
-    boolean actualIsProcessUnfinishedResult =
-        actualHistoricTaskInstanceQueryImpl.isProcessUnfinished();
+    boolean actualIsProcessUnfinishedResult = actualHistoricTaskInstanceQueryImpl.isProcessUnfinished();
     boolean actualIsUnfinishedResult = actualHistoricTaskInstanceQueryImpl.isUnfinished();
     boolean actualIsWithoutDueDateResult = actualHistoricTaskInstanceQueryImpl.isWithoutDueDate();
     boolean actualIsWithoutTenantIdResult = actualHistoricTaskInstanceQueryImpl.isWithoutTenantId();
@@ -392,17 +342,14 @@ public class HistoricTaskInstanceQueryImplDiffblueTest {
 
   /**
    * Test getters and setters.
-   *
    * <ul>
-   *   <li>When {@code Database Type}.
-   *   <li>Then return {@code Database Type}.
+   *   <li>When {@code Database Type}.</li>
+   *   <li>Then return {@code Database Type}.</li>
    * </ul>
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
-   *   <li>{@link HistoricTaskInstanceQueryImpl#HistoricTaskInstanceQueryImpl(CommandExecutor,
-   *       String)}
+   *   <li>{@link HistoricTaskInstanceQueryImpl#HistoricTaskInstanceQueryImpl(CommandExecutor, String)}
    *   <li>{@link HistoricTaskInstanceQueryImpl#getCandidateGroup()}
    *   <li>{@link HistoricTaskInstanceQueryImpl#getCandidateUser()}
    *   <li>{@link HistoricTaskInstanceQueryImpl#getCategory()}
@@ -475,90 +422,74 @@ public class HistoricTaskInstanceQueryImplDiffblueTest {
    * </ul>
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void HistoricTaskInstanceQueryImpl.<init>(CommandExecutor)",
-    "void HistoricTaskInstanceQueryImpl.<init>(CommandExecutor, String)",
-    "String HistoricTaskInstanceQueryImpl.getCandidateGroup()",
-    "String HistoricTaskInstanceQueryImpl.getCandidateUser()",
-    "String HistoricTaskInstanceQueryImpl.getCategory()",
-    "Date HistoricTaskInstanceQueryImpl.getCompletedAfterDate()",
-    "Date HistoricTaskInstanceQueryImpl.getCompletedBeforeDate()",
-    "Date HistoricTaskInstanceQueryImpl.getCompletedDate()",
-    "Date HistoricTaskInstanceQueryImpl.getCreationAfterDate()",
-    "Date HistoricTaskInstanceQueryImpl.getCreationBeforeDate()",
-    "Date HistoricTaskInstanceQueryImpl.getCreationDate()",
-    "String HistoricTaskInstanceQueryImpl.getDeploymentId()",
-    "List HistoricTaskInstanceQueryImpl.getDeploymentIds()",
-    "Date HistoricTaskInstanceQueryImpl.getDueAfter()",
-    "Date HistoricTaskInstanceQueryImpl.getDueBefore()",
-    "Date HistoricTaskInstanceQueryImpl.getDueDate()",
-    "String HistoricTaskInstanceQueryImpl.getExecutionId()",
-    "List HistoricTaskInstanceQueryImpl.getInvolvedGroups()",
-    "String HistoricTaskInstanceQueryImpl.getInvolvedUser()",
-    "String HistoricTaskInstanceQueryImpl.getLocale()",
-    "List HistoricTaskInstanceQueryImpl.getOrQueryObjects()",
-    "List HistoricTaskInstanceQueryImpl.getProcessCategoryInList()",
-    "List HistoricTaskInstanceQueryImpl.getProcessCategoryNotInList()",
-    "String HistoricTaskInstanceQueryImpl.getProcessDefinitionId()",
-    "String HistoricTaskInstanceQueryImpl.getProcessDefinitionKey()",
-    "String HistoricTaskInstanceQueryImpl.getProcessDefinitionKeyLike()",
-    "String HistoricTaskInstanceQueryImpl.getProcessDefinitionKeyLikeIgnoreCase()",
-    "List HistoricTaskInstanceQueryImpl.getProcessDefinitionKeys()",
-    "String HistoricTaskInstanceQueryImpl.getProcessDefinitionName()",
-    "String HistoricTaskInstanceQueryImpl.getProcessDefinitionNameLike()",
-    "String HistoricTaskInstanceQueryImpl.getProcessInstanceBusinessKey()",
-    "String HistoricTaskInstanceQueryImpl.getProcessInstanceBusinessKeyLike()",
-    "String HistoricTaskInstanceQueryImpl.getProcessInstanceBusinessKeyLikeIgnoreCase()",
-    "String HistoricTaskInstanceQueryImpl.getProcessInstanceId()",
-    "List HistoricTaskInstanceQueryImpl.getProcessInstanceIds()",
-    "String HistoricTaskInstanceQueryImpl.getTaskAssignee()",
-    "List HistoricTaskInstanceQueryImpl.getTaskAssigneeIds()",
-    "String HistoricTaskInstanceQueryImpl.getTaskAssigneeLike()",
-    "String HistoricTaskInstanceQueryImpl.getTaskAssigneeLikeIgnoreCase()",
-    "String HistoricTaskInstanceQueryImpl.getTaskDefinitionKey()",
-    "String HistoricTaskInstanceQueryImpl.getTaskDefinitionKeyLike()",
-    "String HistoricTaskInstanceQueryImpl.getTaskDeleteReason()",
-    "String HistoricTaskInstanceQueryImpl.getTaskDeleteReasonLike()",
-    "String HistoricTaskInstanceQueryImpl.getTaskDescription()",
-    "String HistoricTaskInstanceQueryImpl.getTaskDescriptionLike()",
-    "String HistoricTaskInstanceQueryImpl.getTaskDescriptionLikeIgnoreCase()",
-    "String HistoricTaskInstanceQueryImpl.getTaskId()",
-    "Integer HistoricTaskInstanceQueryImpl.getTaskMaxPriority()",
-    "Integer HistoricTaskInstanceQueryImpl.getTaskMinPriority()",
-    "String HistoricTaskInstanceQueryImpl.getTaskName()",
-    "String HistoricTaskInstanceQueryImpl.getTaskNameLike()",
-    "String HistoricTaskInstanceQueryImpl.getTaskNameLikeIgnoreCase()",
-    "List HistoricTaskInstanceQueryImpl.getTaskNameList()",
-    "List HistoricTaskInstanceQueryImpl.getTaskNameListIgnoreCase()",
-    "String HistoricTaskInstanceQueryImpl.getTaskOwner()",
-    "String HistoricTaskInstanceQueryImpl.getTaskOwnerLike()",
-    "String HistoricTaskInstanceQueryImpl.getTaskOwnerLikeIgnoreCase()",
-    "String HistoricTaskInstanceQueryImpl.getTaskParentTaskId()",
-    "Integer HistoricTaskInstanceQueryImpl.getTaskPriority()",
-    "Integer HistoricTaskInstanceQueryImpl.getTaskVariablesLimit()",
-    "String HistoricTaskInstanceQueryImpl.getTenantId()",
-    "String HistoricTaskInstanceQueryImpl.getTenantIdLike()",
-    "boolean HistoricTaskInstanceQueryImpl.isFinished()",
-    "boolean HistoricTaskInstanceQueryImpl.isInOrStatement()",
-    "boolean HistoricTaskInstanceQueryImpl.isIncludeProcessVariables()",
-    "boolean HistoricTaskInstanceQueryImpl.isIncludeTaskLocalVariables()",
-    "boolean HistoricTaskInstanceQueryImpl.isProcessFinished()",
-    "boolean HistoricTaskInstanceQueryImpl.isProcessUnfinished()",
-    "boolean HistoricTaskInstanceQueryImpl.isUnfinished()",
-    "boolean HistoricTaskInstanceQueryImpl.isWithoutDueDate()",
-    "boolean HistoricTaskInstanceQueryImpl.isWithoutTenantId()"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void HistoricTaskInstanceQueryImpl.<init>(CommandExecutor)",
+      "void HistoricTaskInstanceQueryImpl.<init>(CommandExecutor, String)",
+      "String HistoricTaskInstanceQueryImpl.getCandidateGroup()",
+      "String HistoricTaskInstanceQueryImpl.getCandidateUser()", "String HistoricTaskInstanceQueryImpl.getCategory()",
+      "Date HistoricTaskInstanceQueryImpl.getCompletedAfterDate()",
+      "Date HistoricTaskInstanceQueryImpl.getCompletedBeforeDate()",
+      "Date HistoricTaskInstanceQueryImpl.getCompletedDate()",
+      "Date HistoricTaskInstanceQueryImpl.getCreationAfterDate()",
+      "Date HistoricTaskInstanceQueryImpl.getCreationBeforeDate()",
+      "Date HistoricTaskInstanceQueryImpl.getCreationDate()", "String HistoricTaskInstanceQueryImpl.getDeploymentId()",
+      "List HistoricTaskInstanceQueryImpl.getDeploymentIds()", "Date HistoricTaskInstanceQueryImpl.getDueAfter()",
+      "Date HistoricTaskInstanceQueryImpl.getDueBefore()", "Date HistoricTaskInstanceQueryImpl.getDueDate()",
+      "String HistoricTaskInstanceQueryImpl.getExecutionId()", "List HistoricTaskInstanceQueryImpl.getInvolvedGroups()",
+      "String HistoricTaskInstanceQueryImpl.getInvolvedUser()", "String HistoricTaskInstanceQueryImpl.getLocale()",
+      "List HistoricTaskInstanceQueryImpl.getOrQueryObjects()",
+      "List HistoricTaskInstanceQueryImpl.getProcessCategoryInList()",
+      "List HistoricTaskInstanceQueryImpl.getProcessCategoryNotInList()",
+      "String HistoricTaskInstanceQueryImpl.getProcessDefinitionId()",
+      "String HistoricTaskInstanceQueryImpl.getProcessDefinitionKey()",
+      "String HistoricTaskInstanceQueryImpl.getProcessDefinitionKeyLike()",
+      "String HistoricTaskInstanceQueryImpl.getProcessDefinitionKeyLikeIgnoreCase()",
+      "List HistoricTaskInstanceQueryImpl.getProcessDefinitionKeys()",
+      "String HistoricTaskInstanceQueryImpl.getProcessDefinitionName()",
+      "String HistoricTaskInstanceQueryImpl.getProcessDefinitionNameLike()",
+      "String HistoricTaskInstanceQueryImpl.getProcessInstanceBusinessKey()",
+      "String HistoricTaskInstanceQueryImpl.getProcessInstanceBusinessKeyLike()",
+      "String HistoricTaskInstanceQueryImpl.getProcessInstanceBusinessKeyLikeIgnoreCase()",
+      "String HistoricTaskInstanceQueryImpl.getProcessInstanceId()",
+      "List HistoricTaskInstanceQueryImpl.getProcessInstanceIds()",
+      "String HistoricTaskInstanceQueryImpl.getTaskAssignee()",
+      "List HistoricTaskInstanceQueryImpl.getTaskAssigneeIds()",
+      "String HistoricTaskInstanceQueryImpl.getTaskAssigneeLike()",
+      "String HistoricTaskInstanceQueryImpl.getTaskAssigneeLikeIgnoreCase()",
+      "String HistoricTaskInstanceQueryImpl.getTaskDefinitionKey()",
+      "String HistoricTaskInstanceQueryImpl.getTaskDefinitionKeyLike()",
+      "String HistoricTaskInstanceQueryImpl.getTaskDeleteReason()",
+      "String HistoricTaskInstanceQueryImpl.getTaskDeleteReasonLike()",
+      "String HistoricTaskInstanceQueryImpl.getTaskDescription()",
+      "String HistoricTaskInstanceQueryImpl.getTaskDescriptionLike()",
+      "String HistoricTaskInstanceQueryImpl.getTaskDescriptionLikeIgnoreCase()",
+      "String HistoricTaskInstanceQueryImpl.getTaskId()", "Integer HistoricTaskInstanceQueryImpl.getTaskMaxPriority()",
+      "Integer HistoricTaskInstanceQueryImpl.getTaskMinPriority()",
+      "String HistoricTaskInstanceQueryImpl.getTaskName()", "String HistoricTaskInstanceQueryImpl.getTaskNameLike()",
+      "String HistoricTaskInstanceQueryImpl.getTaskNameLikeIgnoreCase()",
+      "List HistoricTaskInstanceQueryImpl.getTaskNameList()",
+      "List HistoricTaskInstanceQueryImpl.getTaskNameListIgnoreCase()",
+      "String HistoricTaskInstanceQueryImpl.getTaskOwner()", "String HistoricTaskInstanceQueryImpl.getTaskOwnerLike()",
+      "String HistoricTaskInstanceQueryImpl.getTaskOwnerLikeIgnoreCase()",
+      "String HistoricTaskInstanceQueryImpl.getTaskParentTaskId()",
+      "Integer HistoricTaskInstanceQueryImpl.getTaskPriority()",
+      "Integer HistoricTaskInstanceQueryImpl.getTaskVariablesLimit()",
+      "String HistoricTaskInstanceQueryImpl.getTenantId()", "String HistoricTaskInstanceQueryImpl.getTenantIdLike()",
+      "boolean HistoricTaskInstanceQueryImpl.isFinished()", "boolean HistoricTaskInstanceQueryImpl.isInOrStatement()",
+      "boolean HistoricTaskInstanceQueryImpl.isIncludeProcessVariables()",
+      "boolean HistoricTaskInstanceQueryImpl.isIncludeTaskLocalVariables()",
+      "boolean HistoricTaskInstanceQueryImpl.isProcessFinished()",
+      "boolean HistoricTaskInstanceQueryImpl.isProcessUnfinished()",
+      "boolean HistoricTaskInstanceQueryImpl.isUnfinished()",
+      "boolean HistoricTaskInstanceQueryImpl.isWithoutDueDate()",
+      "boolean HistoricTaskInstanceQueryImpl.isWithoutTenantId()"})
   public void testGettersAndSetters_whenDatabaseType_thenReturnDatabaseType() {
     // Arrange
     CommandConfig defaultConfig = new CommandConfig();
-    CommandExecutorImpl commandExecutor =
-        new CommandExecutorImpl(defaultConfig, new CommandContextInterceptor());
 
     // Act
-    HistoricTaskInstanceQueryImpl actualHistoricTaskInstanceQueryImpl =
-        new HistoricTaskInstanceQueryImpl(commandExecutor, "Database Type");
+    HistoricTaskInstanceQueryImpl actualHistoricTaskInstanceQueryImpl = new HistoricTaskInstanceQueryImpl(
+        new CommandExecutorImpl(defaultConfig, new CommandContextInterceptor()), "Database Type");
     String actualCandidateGroup = actualHistoricTaskInstanceQueryImpl.getCandidateGroup();
     String actualCandidateUser = actualHistoricTaskInstanceQueryImpl.getCandidateUser();
     String actualCategory = actualHistoricTaskInstanceQueryImpl.getCategory();
@@ -577,63 +508,46 @@ public class HistoricTaskInstanceQueryImplDiffblueTest {
     List<String> actualInvolvedGroups = actualHistoricTaskInstanceQueryImpl.getInvolvedGroups();
     String actualInvolvedUser = actualHistoricTaskInstanceQueryImpl.getInvolvedUser();
     String actualLocale = actualHistoricTaskInstanceQueryImpl.getLocale();
-    List<HistoricTaskInstanceQueryImpl> actualOrQueryObjects =
-        actualHistoricTaskInstanceQueryImpl.getOrQueryObjects();
-    List<String> actualProcessCategoryInList =
-        actualHistoricTaskInstanceQueryImpl.getProcessCategoryInList();
-    List<String> actualProcessCategoryNotInList =
-        actualHistoricTaskInstanceQueryImpl.getProcessCategoryNotInList();
+    List<HistoricTaskInstanceQueryImpl> actualOrQueryObjects = actualHistoricTaskInstanceQueryImpl.getOrQueryObjects();
+    List<String> actualProcessCategoryInList = actualHistoricTaskInstanceQueryImpl.getProcessCategoryInList();
+    List<String> actualProcessCategoryNotInList = actualHistoricTaskInstanceQueryImpl.getProcessCategoryNotInList();
     String actualProcessDefinitionId = actualHistoricTaskInstanceQueryImpl.getProcessDefinitionId();
-    String actualProcessDefinitionKey =
-        actualHistoricTaskInstanceQueryImpl.getProcessDefinitionKey();
-    String actualProcessDefinitionKeyLike =
-        actualHistoricTaskInstanceQueryImpl.getProcessDefinitionKeyLike();
-    String actualProcessDefinitionKeyLikeIgnoreCase =
-        actualHistoricTaskInstanceQueryImpl.getProcessDefinitionKeyLikeIgnoreCase();
-    List<String> actualProcessDefinitionKeys =
-        actualHistoricTaskInstanceQueryImpl.getProcessDefinitionKeys();
-    String actualProcessDefinitionName =
-        actualHistoricTaskInstanceQueryImpl.getProcessDefinitionName();
-    String actualProcessDefinitionNameLike =
-        actualHistoricTaskInstanceQueryImpl.getProcessDefinitionNameLike();
-    String actualProcessInstanceBusinessKey =
-        actualHistoricTaskInstanceQueryImpl.getProcessInstanceBusinessKey();
-    String actualProcessInstanceBusinessKeyLike =
-        actualHistoricTaskInstanceQueryImpl.getProcessInstanceBusinessKeyLike();
-    String actualProcessInstanceBusinessKeyLikeIgnoreCase =
-        actualHistoricTaskInstanceQueryImpl.getProcessInstanceBusinessKeyLikeIgnoreCase();
+    String actualProcessDefinitionKey = actualHistoricTaskInstanceQueryImpl.getProcessDefinitionKey();
+    String actualProcessDefinitionKeyLike = actualHistoricTaskInstanceQueryImpl.getProcessDefinitionKeyLike();
+    String actualProcessDefinitionKeyLikeIgnoreCase = actualHistoricTaskInstanceQueryImpl
+        .getProcessDefinitionKeyLikeIgnoreCase();
+    List<String> actualProcessDefinitionKeys = actualHistoricTaskInstanceQueryImpl.getProcessDefinitionKeys();
+    String actualProcessDefinitionName = actualHistoricTaskInstanceQueryImpl.getProcessDefinitionName();
+    String actualProcessDefinitionNameLike = actualHistoricTaskInstanceQueryImpl.getProcessDefinitionNameLike();
+    String actualProcessInstanceBusinessKey = actualHistoricTaskInstanceQueryImpl.getProcessInstanceBusinessKey();
+    String actualProcessInstanceBusinessKeyLike = actualHistoricTaskInstanceQueryImpl
+        .getProcessInstanceBusinessKeyLike();
+    String actualProcessInstanceBusinessKeyLikeIgnoreCase = actualHistoricTaskInstanceQueryImpl
+        .getProcessInstanceBusinessKeyLikeIgnoreCase();
     String actualProcessInstanceId = actualHistoricTaskInstanceQueryImpl.getProcessInstanceId();
-    List<String> actualProcessInstanceIds =
-        actualHistoricTaskInstanceQueryImpl.getProcessInstanceIds();
+    List<String> actualProcessInstanceIds = actualHistoricTaskInstanceQueryImpl.getProcessInstanceIds();
     String actualTaskAssignee = actualHistoricTaskInstanceQueryImpl.getTaskAssignee();
     List<String> actualTaskAssigneeIds = actualHistoricTaskInstanceQueryImpl.getTaskAssigneeIds();
     String actualTaskAssigneeLike = actualHistoricTaskInstanceQueryImpl.getTaskAssigneeLike();
-    String actualTaskAssigneeLikeIgnoreCase =
-        actualHistoricTaskInstanceQueryImpl.getTaskAssigneeLikeIgnoreCase();
+    String actualTaskAssigneeLikeIgnoreCase = actualHistoricTaskInstanceQueryImpl.getTaskAssigneeLikeIgnoreCase();
     String actualTaskDefinitionKey = actualHistoricTaskInstanceQueryImpl.getTaskDefinitionKey();
-    String actualTaskDefinitionKeyLike =
-        actualHistoricTaskInstanceQueryImpl.getTaskDefinitionKeyLike();
+    String actualTaskDefinitionKeyLike = actualHistoricTaskInstanceQueryImpl.getTaskDefinitionKeyLike();
     String actualTaskDeleteReason = actualHistoricTaskInstanceQueryImpl.getTaskDeleteReason();
-    String actualTaskDeleteReasonLike =
-        actualHistoricTaskInstanceQueryImpl.getTaskDeleteReasonLike();
+    String actualTaskDeleteReasonLike = actualHistoricTaskInstanceQueryImpl.getTaskDeleteReasonLike();
     String actualTaskDescription = actualHistoricTaskInstanceQueryImpl.getTaskDescription();
     String actualTaskDescriptionLike = actualHistoricTaskInstanceQueryImpl.getTaskDescriptionLike();
-    String actualTaskDescriptionLikeIgnoreCase =
-        actualHistoricTaskInstanceQueryImpl.getTaskDescriptionLikeIgnoreCase();
+    String actualTaskDescriptionLikeIgnoreCase = actualHistoricTaskInstanceQueryImpl.getTaskDescriptionLikeIgnoreCase();
     String actualTaskId = actualHistoricTaskInstanceQueryImpl.getTaskId();
     Integer actualTaskMaxPriority = actualHistoricTaskInstanceQueryImpl.getTaskMaxPriority();
     Integer actualTaskMinPriority = actualHistoricTaskInstanceQueryImpl.getTaskMinPriority();
     String actualTaskName = actualHistoricTaskInstanceQueryImpl.getTaskName();
     String actualTaskNameLike = actualHistoricTaskInstanceQueryImpl.getTaskNameLike();
-    String actualTaskNameLikeIgnoreCase =
-        actualHistoricTaskInstanceQueryImpl.getTaskNameLikeIgnoreCase();
+    String actualTaskNameLikeIgnoreCase = actualHistoricTaskInstanceQueryImpl.getTaskNameLikeIgnoreCase();
     List<String> actualTaskNameList = actualHistoricTaskInstanceQueryImpl.getTaskNameList();
-    List<String> actualTaskNameListIgnoreCase =
-        actualHistoricTaskInstanceQueryImpl.getTaskNameListIgnoreCase();
+    List<String> actualTaskNameListIgnoreCase = actualHistoricTaskInstanceQueryImpl.getTaskNameListIgnoreCase();
     String actualTaskOwner = actualHistoricTaskInstanceQueryImpl.getTaskOwner();
     String actualTaskOwnerLike = actualHistoricTaskInstanceQueryImpl.getTaskOwnerLike();
-    String actualTaskOwnerLikeIgnoreCase =
-        actualHistoricTaskInstanceQueryImpl.getTaskOwnerLikeIgnoreCase();
+    String actualTaskOwnerLikeIgnoreCase = actualHistoricTaskInstanceQueryImpl.getTaskOwnerLikeIgnoreCase();
     String actualTaskParentTaskId = actualHistoricTaskInstanceQueryImpl.getTaskParentTaskId();
     Integer actualTaskPriority = actualHistoricTaskInstanceQueryImpl.getTaskPriority();
     Integer actualTaskVariablesLimit = actualHistoricTaskInstanceQueryImpl.getTaskVariablesLimit();
@@ -641,13 +555,10 @@ public class HistoricTaskInstanceQueryImplDiffblueTest {
     String actualTenantIdLike = actualHistoricTaskInstanceQueryImpl.getTenantIdLike();
     boolean actualIsFinishedResult = actualHistoricTaskInstanceQueryImpl.isFinished();
     boolean actualIsInOrStatementResult = actualHistoricTaskInstanceQueryImpl.isInOrStatement();
-    boolean actualIsIncludeProcessVariablesResult =
-        actualHistoricTaskInstanceQueryImpl.isIncludeProcessVariables();
-    boolean actualIsIncludeTaskLocalVariablesResult =
-        actualHistoricTaskInstanceQueryImpl.isIncludeTaskLocalVariables();
+    boolean actualIsIncludeProcessVariablesResult = actualHistoricTaskInstanceQueryImpl.isIncludeProcessVariables();
+    boolean actualIsIncludeTaskLocalVariablesResult = actualHistoricTaskInstanceQueryImpl.isIncludeTaskLocalVariables();
     boolean actualIsProcessFinishedResult = actualHistoricTaskInstanceQueryImpl.isProcessFinished();
-    boolean actualIsProcessUnfinishedResult =
-        actualHistoricTaskInstanceQueryImpl.isProcessUnfinished();
+    boolean actualIsProcessUnfinishedResult = actualHistoricTaskInstanceQueryImpl.isProcessUnfinished();
     boolean actualIsUnfinishedResult = actualHistoricTaskInstanceQueryImpl.isUnfinished();
     boolean actualIsWithoutDueDateResult = actualHistoricTaskInstanceQueryImpl.isWithoutDueDate();
     boolean actualIsWithoutTenantIdResult = actualHistoricTaskInstanceQueryImpl.isWithoutTenantId();
@@ -731,17 +642,15 @@ public class HistoricTaskInstanceQueryImplDiffblueTest {
 
   /**
    * Test {@link HistoricTaskInstanceQueryImpl#HistoricTaskInstanceQueryImpl()}.
-   *
-   * <p>Method under test: {@link HistoricTaskInstanceQueryImpl#HistoricTaskInstanceQueryImpl()}
+   * <p>
+   * Method under test: {@link HistoricTaskInstanceQueryImpl#HistoricTaskInstanceQueryImpl()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void HistoricTaskInstanceQueryImpl.<init>()"})
   public void testNewHistoricTaskInstanceQueryImpl() {
     // Arrange and Act
-    HistoricTaskInstanceQueryImpl actualHistoricTaskInstanceQueryImpl =
-        new HistoricTaskInstanceQueryImpl();
+    HistoricTaskInstanceQueryImpl actualHistoricTaskInstanceQueryImpl = new HistoricTaskInstanceQueryImpl();
 
     // Assert
     assertEquals("RES.ID_ asc", actualHistoricTaskInstanceQueryImpl.getOrderBy());
@@ -833,29 +742,23 @@ public class HistoricTaskInstanceQueryImplDiffblueTest {
     assertTrue(actualHistoricTaskInstanceQueryImpl.getOrQueryObjects().isEmpty());
     assertEquals(Integer.MAX_VALUE, actualHistoricTaskInstanceQueryImpl.getLastRow());
     assertEquals(Integer.MAX_VALUE, actualHistoricTaskInstanceQueryImpl.getMaxResults());
-    Object actualParameter = actualHistoricTaskInstanceQueryImpl.getParameter();
-    assertSame(actualHistoricTaskInstanceQueryImpl, actualParameter);
+    assertSame(actualHistoricTaskInstanceQueryImpl, actualHistoricTaskInstanceQueryImpl.getParameter());
   }
 
   /**
    * Test {@link HistoricTaskInstanceQueryImpl#processInstanceId(String)}.
-   *
-   * <p>Method under test: {@link HistoricTaskInstanceQueryImpl#processInstanceId(String)}
+   * <p>
+   * Method under test: {@link HistoricTaskInstanceQueryImpl#processInstanceId(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "HistoricTaskInstanceQueryImpl HistoricTaskInstanceQueryImpl.processInstanceId(String)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"HistoricTaskInstanceQueryImpl HistoricTaskInstanceQueryImpl.processInstanceId(String)"})
   public void testProcessInstanceId() {
     // Arrange
-    HistoricTaskInstanceQueryImpl historicTaskInstanceQueryImpl =
-        new HistoricTaskInstanceQueryImpl();
+    HistoricTaskInstanceQueryImpl historicTaskInstanceQueryImpl = new HistoricTaskInstanceQueryImpl();
 
     // Act
-    HistoricTaskInstanceQueryImpl actualProcessInstanceIdResult =
-        historicTaskInstanceQueryImpl.processInstanceId("42");
+    HistoricTaskInstanceQueryImpl actualProcessInstanceIdResult = historicTaskInstanceQueryImpl.processInstanceId("42");
 
     // Assert
     assertEquals("42", historicTaskInstanceQueryImpl.getProcessInstanceId());
@@ -864,32 +767,51 @@ public class HistoricTaskInstanceQueryImplDiffblueTest {
 
   /**
    * Test {@link HistoricTaskInstanceQueryImpl#processInstanceIdIn(List)}.
-   *
-   * <ul>
-   *   <li>Given {@code 42}.
-   *   <li>When {@link ArrayList#ArrayList()} add {@code 42}.
-   * </ul>
-   *
-   * <p>Method under test: {@link HistoricTaskInstanceQueryImpl#processInstanceIdIn(List)}
+   * <p>
+   * Method under test: {@link HistoricTaskInstanceQueryImpl#processInstanceIdIn(List)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "HistoricTaskInstanceQueryImpl HistoricTaskInstanceQueryImpl.processInstanceIdIn(List)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"HistoricTaskInstanceQueryImpl HistoricTaskInstanceQueryImpl.processInstanceIdIn(List)"})
+  public void testProcessInstanceIdIn() {
+    // Arrange
+    HistoricTaskInstanceQueryImpl historicTaskInstanceQueryImpl = new HistoricTaskInstanceQueryImpl();
+
+    ArrayList<String> processInstanceIds = new ArrayList<>();
+    processInstanceIds.add("Process instance id list is empty");
+
+    // Act
+    HistoricTaskInstanceQueryImpl actualProcessInstanceIdInResult = historicTaskInstanceQueryImpl
+        .processInstanceIdIn(processInstanceIds);
+
+    // Assert
+    assertSame(processInstanceIds, historicTaskInstanceQueryImpl.getProcessInstanceIds());
+    assertSame(historicTaskInstanceQueryImpl, actualProcessInstanceIdInResult);
+  }
+
+  /**
+   * Test {@link HistoricTaskInstanceQueryImpl#processInstanceIdIn(List)}.
+   * <ul>
+   *   <li>Given {@code 42}.</li>
+   *   <li>When {@link ArrayList#ArrayList()} add {@code 42}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link HistoricTaskInstanceQueryImpl#processInstanceIdIn(List)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"HistoricTaskInstanceQueryImpl HistoricTaskInstanceQueryImpl.processInstanceIdIn(List)"})
   public void testProcessInstanceIdIn_given42_whenArrayListAdd42() {
     // Arrange
-    HistoricTaskInstanceQueryImpl historicTaskInstanceQueryImpl =
-        new HistoricTaskInstanceQueryImpl();
+    HistoricTaskInstanceQueryImpl historicTaskInstanceQueryImpl = new HistoricTaskInstanceQueryImpl();
 
     ArrayList<String> processInstanceIds = new ArrayList<>();
     processInstanceIds.add("42");
     processInstanceIds.add("Process instance id list is empty");
 
     // Act
-    HistoricTaskInstanceQueryImpl actualProcessInstanceIdInResult =
-        historicTaskInstanceQueryImpl.processInstanceIdIn(processInstanceIds);
+    HistoricTaskInstanceQueryImpl actualProcessInstanceIdInResult = historicTaskInstanceQueryImpl
+        .processInstanceIdIn(processInstanceIds);
 
     // Assert
     assertSame(processInstanceIds, historicTaskInstanceQueryImpl.getProcessInstanceIds());
@@ -898,220 +820,130 @@ public class HistoricTaskInstanceQueryImplDiffblueTest {
 
   /**
    * Test {@link HistoricTaskInstanceQueryImpl#processInstanceIdIn(List)}.
-   *
    * <ul>
-   *   <li>Given {@code null}.
-   *   <li>When {@link ArrayList#ArrayList()} add {@code null}.
+   *   <li>Given {@code null}.</li>
+   *   <li>When {@link ArrayList#ArrayList()} add {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link HistoricTaskInstanceQueryImpl#processInstanceIdIn(List)}
+   * <p>
+   * Method under test: {@link HistoricTaskInstanceQueryImpl#processInstanceIdIn(List)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "HistoricTaskInstanceQueryImpl HistoricTaskInstanceQueryImpl.processInstanceIdIn(List)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"HistoricTaskInstanceQueryImpl HistoricTaskInstanceQueryImpl.processInstanceIdIn(List)"})
   public void testProcessInstanceIdIn_givenNull_whenArrayListAddNull() {
     // Arrange
-    HistoricTaskInstanceQueryImpl historicTaskInstanceQueryImpl =
-        new HistoricTaskInstanceQueryImpl();
+    HistoricTaskInstanceQueryImpl historicTaskInstanceQueryImpl = new HistoricTaskInstanceQueryImpl();
 
     ArrayList<String> processInstanceIds = new ArrayList<>();
     processInstanceIds.add(null);
 
     // Act and Assert
-    assertThrows(
-        ActivitiIllegalArgumentException.class,
+    assertThrows(ActivitiIllegalArgumentException.class,
         () -> historicTaskInstanceQueryImpl.processInstanceIdIn(processInstanceIds));
   }
 
   /**
    * Test {@link HistoricTaskInstanceQueryImpl#processInstanceIdIn(List)}.
-   *
    * <ul>
-   *   <li>Given {@code Process Instance Ids}.
+   *   <li>When {@link ArrayList#ArrayList()}.</li>
+   *   <li>Then throw {@link ActivitiIllegalArgumentException}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link HistoricTaskInstanceQueryImpl#processInstanceIdIn(List)}
+   * <p>
+   * Method under test: {@link HistoricTaskInstanceQueryImpl#processInstanceIdIn(List)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "HistoricTaskInstanceQueryImpl HistoricTaskInstanceQueryImpl.processInstanceIdIn(List)"
-  })
-  public void testProcessInstanceIdIn_givenProcessInstanceIds() {
-    // Arrange
-    HistoricTaskInstanceQueryImpl historicTaskInstanceQueryImpl =
-        new HistoricTaskInstanceQueryImpl();
-
-    ArrayList<String> processInstanceIds = new ArrayList<>();
-    processInstanceIds.add("Process Instance Ids");
-
-    // Act
-    HistoricTaskInstanceQueryImpl actualProcessInstanceIdInResult =
-        historicTaskInstanceQueryImpl.processInstanceIdIn(processInstanceIds);
-
-    // Assert
-    assertSame(processInstanceIds, historicTaskInstanceQueryImpl.getProcessInstanceIds());
-    assertSame(historicTaskInstanceQueryImpl, actualProcessInstanceIdInResult);
-  }
-
-  /**
-   * Test {@link HistoricTaskInstanceQueryImpl#processInstanceIdIn(List)}.
-   *
-   * <ul>
-   *   <li>When {@link ArrayList#ArrayList()}.
-   *   <li>Then throw {@link ActivitiIllegalArgumentException}.
-   * </ul>
-   *
-   * <p>Method under test: {@link HistoricTaskInstanceQueryImpl#processInstanceIdIn(List)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "HistoricTaskInstanceQueryImpl HistoricTaskInstanceQueryImpl.processInstanceIdIn(List)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"HistoricTaskInstanceQueryImpl HistoricTaskInstanceQueryImpl.processInstanceIdIn(List)"})
   public void testProcessInstanceIdIn_whenArrayList_thenThrowActivitiIllegalArgumentException() {
     // Arrange
-    HistoricTaskInstanceQueryImpl historicTaskInstanceQueryImpl =
-        new HistoricTaskInstanceQueryImpl();
+    HistoricTaskInstanceQueryImpl historicTaskInstanceQueryImpl = new HistoricTaskInstanceQueryImpl();
 
     // Act and Assert
-    assertThrows(
-        ActivitiIllegalArgumentException.class,
+    assertThrows(ActivitiIllegalArgumentException.class,
         () -> historicTaskInstanceQueryImpl.processInstanceIdIn(new ArrayList<>()));
   }
 
   /**
-   * Test {@link HistoricTaskInstanceQueryImpl#processInstanceIdIn(List)}.
-   *
-   * <ul>
-   *   <li>When {@code null}.
-   *   <li>Then throw {@link ActivitiIllegalArgumentException}.
-   * </ul>
-   *
-   * <p>Method under test: {@link HistoricTaskInstanceQueryImpl#processInstanceIdIn(List)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "HistoricTaskInstanceQueryImpl HistoricTaskInstanceQueryImpl.processInstanceIdIn(List)"
-  })
-  public void testProcessInstanceIdIn_whenNull_thenThrowActivitiIllegalArgumentException() {
-    // Arrange, Act and Assert
-    assertThrows(
-        ActivitiIllegalArgumentException.class,
-        () -> new HistoricTaskInstanceQueryImpl().processInstanceIdIn(null));
-  }
-
-  /**
    * Test {@link HistoricTaskInstanceQueryImpl#processInstanceBusinessKey(String)}.
-   *
-   * <p>Method under test: {@link HistoricTaskInstanceQueryImpl#processInstanceBusinessKey(String)}
+   * <p>
+   * Method under test: {@link HistoricTaskInstanceQueryImpl#processInstanceBusinessKey(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "HistoricTaskInstanceQueryImpl HistoricTaskInstanceQueryImpl.processInstanceBusinessKey(String)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"HistoricTaskInstanceQueryImpl HistoricTaskInstanceQueryImpl.processInstanceBusinessKey(String)"})
   public void testProcessInstanceBusinessKey() {
     // Arrange
-    HistoricTaskInstanceQueryImpl historicTaskInstanceQueryImpl =
-        new HistoricTaskInstanceQueryImpl();
+    HistoricTaskInstanceQueryImpl historicTaskInstanceQueryImpl = new HistoricTaskInstanceQueryImpl();
 
     // Act
-    HistoricTaskInstanceQueryImpl actualProcessInstanceBusinessKeyResult =
-        historicTaskInstanceQueryImpl.processInstanceBusinessKey("Process Instance Business Key");
+    HistoricTaskInstanceQueryImpl actualProcessInstanceBusinessKeyResult = historicTaskInstanceQueryImpl
+        .processInstanceBusinessKey("Process Instance Business Key");
 
     // Assert
-    assertEquals(
-        "Process Instance Business Key",
-        historicTaskInstanceQueryImpl.getProcessInstanceBusinessKey());
+    assertEquals("Process Instance Business Key", historicTaskInstanceQueryImpl.getProcessInstanceBusinessKey());
     assertSame(historicTaskInstanceQueryImpl, actualProcessInstanceBusinessKeyResult);
   }
 
   /**
    * Test {@link HistoricTaskInstanceQueryImpl#processInstanceBusinessKeyLike(String)}.
-   *
-   * <p>Method under test: {@link
-   * HistoricTaskInstanceQueryImpl#processInstanceBusinessKeyLike(String)}
+   * <p>
+   * Method under test: {@link HistoricTaskInstanceQueryImpl#processInstanceBusinessKeyLike(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({
-    "HistoricTaskInstanceQueryImpl HistoricTaskInstanceQueryImpl.processInstanceBusinessKeyLike(String)"
-  })
+      "HistoricTaskInstanceQueryImpl HistoricTaskInstanceQueryImpl.processInstanceBusinessKeyLike(String)"})
   public void testProcessInstanceBusinessKeyLike() {
     // Arrange
-    HistoricTaskInstanceQueryImpl historicTaskInstanceQueryImpl =
-        new HistoricTaskInstanceQueryImpl();
+    HistoricTaskInstanceQueryImpl historicTaskInstanceQueryImpl = new HistoricTaskInstanceQueryImpl();
 
     // Act
-    HistoricTaskInstanceQueryImpl actualProcessInstanceBusinessKeyLikeResult =
-        historicTaskInstanceQueryImpl.processInstanceBusinessKeyLike(
-            "Process Instance Business Key Like");
+    HistoricTaskInstanceQueryImpl actualProcessInstanceBusinessKeyLikeResult = historicTaskInstanceQueryImpl
+        .processInstanceBusinessKeyLike("Process Instance Business Key Like");
 
     // Assert
-    assertEquals(
-        "Process Instance Business Key Like",
+    assertEquals("Process Instance Business Key Like",
         historicTaskInstanceQueryImpl.getProcessInstanceBusinessKeyLike());
     assertSame(historicTaskInstanceQueryImpl, actualProcessInstanceBusinessKeyLikeResult);
   }
 
   /**
    * Test {@link HistoricTaskInstanceQueryImpl#processInstanceBusinessKeyLikeIgnoreCase(String)}.
-   *
-   * <p>Method under test: {@link
-   * HistoricTaskInstanceQueryImpl#processInstanceBusinessKeyLikeIgnoreCase(String)}
+   * <p>
+   * Method under test: {@link HistoricTaskInstanceQueryImpl#processInstanceBusinessKeyLikeIgnoreCase(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({
-    "HistoricTaskInstanceQuery HistoricTaskInstanceQueryImpl.processInstanceBusinessKeyLikeIgnoreCase(String)"
-  })
+      "HistoricTaskInstanceQuery HistoricTaskInstanceQueryImpl.processInstanceBusinessKeyLikeIgnoreCase(String)"})
   public void testProcessInstanceBusinessKeyLikeIgnoreCase() {
     // Arrange
-    HistoricTaskInstanceQueryImpl historicTaskInstanceQueryImpl =
-        new HistoricTaskInstanceQueryImpl();
+    HistoricTaskInstanceQueryImpl historicTaskInstanceQueryImpl = new HistoricTaskInstanceQueryImpl();
 
     // Act
-    HistoricTaskInstanceQuery actualProcessInstanceBusinessKeyLikeIgnoreCaseResult =
-        historicTaskInstanceQueryImpl.processInstanceBusinessKeyLikeIgnoreCase(
-            "Process Instance Business Key Like Ignore Case");
+    HistoricTaskInstanceQuery actualProcessInstanceBusinessKeyLikeIgnoreCaseResult = historicTaskInstanceQueryImpl
+        .processInstanceBusinessKeyLikeIgnoreCase("Process Instance Business Key Like Ignore Case");
 
     // Assert
-    assertEquals(
-        "process instance business key like ignore case",
+    assertEquals("process instance business key like ignore case",
         historicTaskInstanceQueryImpl.getProcessInstanceBusinessKeyLikeIgnoreCase());
     assertSame(historicTaskInstanceQueryImpl, actualProcessInstanceBusinessKeyLikeIgnoreCaseResult);
   }
 
   /**
    * Test {@link HistoricTaskInstanceQueryImpl#executionId(String)}.
-   *
-   * <p>Method under test: {@link HistoricTaskInstanceQueryImpl#executionId(String)}
+   * <p>
+   * Method under test: {@link HistoricTaskInstanceQueryImpl#executionId(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "HistoricTaskInstanceQueryImpl HistoricTaskInstanceQueryImpl.executionId(String)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"HistoricTaskInstanceQueryImpl HistoricTaskInstanceQueryImpl.executionId(String)"})
   public void testExecutionId() {
     // Arrange
-    HistoricTaskInstanceQueryImpl historicTaskInstanceQueryImpl =
-        new HistoricTaskInstanceQueryImpl();
+    HistoricTaskInstanceQueryImpl historicTaskInstanceQueryImpl = new HistoricTaskInstanceQueryImpl();
 
     // Act
-    HistoricTaskInstanceQueryImpl actualExecutionIdResult =
-        historicTaskInstanceQueryImpl.executionId("42");
+    HistoricTaskInstanceQueryImpl actualExecutionIdResult = historicTaskInstanceQueryImpl.executionId("42");
 
     // Assert
     assertEquals("42", historicTaskInstanceQueryImpl.getExecutionId());
@@ -1120,23 +952,19 @@ public class HistoricTaskInstanceQueryImplDiffblueTest {
 
   /**
    * Test {@link HistoricTaskInstanceQueryImpl#processDefinitionId(String)}.
-   *
-   * <p>Method under test: {@link HistoricTaskInstanceQueryImpl#processDefinitionId(String)}
+   * <p>
+   * Method under test: {@link HistoricTaskInstanceQueryImpl#processDefinitionId(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "HistoricTaskInstanceQueryImpl HistoricTaskInstanceQueryImpl.processDefinitionId(String)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"HistoricTaskInstanceQueryImpl HistoricTaskInstanceQueryImpl.processDefinitionId(String)"})
   public void testProcessDefinitionId() {
     // Arrange
-    HistoricTaskInstanceQueryImpl historicTaskInstanceQueryImpl =
-        new HistoricTaskInstanceQueryImpl();
+    HistoricTaskInstanceQueryImpl historicTaskInstanceQueryImpl = new HistoricTaskInstanceQueryImpl();
 
     // Act
-    HistoricTaskInstanceQueryImpl actualProcessDefinitionIdResult =
-        historicTaskInstanceQueryImpl.processDefinitionId("42");
+    HistoricTaskInstanceQueryImpl actualProcessDefinitionIdResult = historicTaskInstanceQueryImpl
+        .processDefinitionId("42");
 
     // Assert
     assertEquals("42", historicTaskInstanceQueryImpl.getProcessDefinitionId());
@@ -1145,23 +973,19 @@ public class HistoricTaskInstanceQueryImplDiffblueTest {
 
   /**
    * Test {@link HistoricTaskInstanceQueryImpl#processDefinitionKey(String)}.
-   *
-   * <p>Method under test: {@link HistoricTaskInstanceQueryImpl#processDefinitionKey(String)}
+   * <p>
+   * Method under test: {@link HistoricTaskInstanceQueryImpl#processDefinitionKey(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "HistoricTaskInstanceQuery HistoricTaskInstanceQueryImpl.processDefinitionKey(String)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"HistoricTaskInstanceQuery HistoricTaskInstanceQueryImpl.processDefinitionKey(String)"})
   public void testProcessDefinitionKey() {
     // Arrange
-    HistoricTaskInstanceQueryImpl historicTaskInstanceQueryImpl =
-        new HistoricTaskInstanceQueryImpl();
+    HistoricTaskInstanceQueryImpl historicTaskInstanceQueryImpl = new HistoricTaskInstanceQueryImpl();
 
     // Act
-    HistoricTaskInstanceQuery actualProcessDefinitionKeyResult =
-        historicTaskInstanceQueryImpl.processDefinitionKey("Process Definition Key");
+    HistoricTaskInstanceQuery actualProcessDefinitionKeyResult = historicTaskInstanceQueryImpl
+        .processDefinitionKey("Process Definition Key");
 
     // Assert
     assertEquals("Process Definition Key", historicTaskInstanceQueryImpl.getProcessDefinitionKey());
@@ -1170,87 +994,71 @@ public class HistoricTaskInstanceQueryImplDiffblueTest {
 
   /**
    * Test {@link HistoricTaskInstanceQueryImpl#processDefinitionKeyLike(String)}.
-   *
-   * <p>Method under test: {@link HistoricTaskInstanceQueryImpl#processDefinitionKeyLike(String)}
+   * <p>
+   * Method under test: {@link HistoricTaskInstanceQueryImpl#processDefinitionKeyLike(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "HistoricTaskInstanceQuery HistoricTaskInstanceQueryImpl.processDefinitionKeyLike(String)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"HistoricTaskInstanceQuery HistoricTaskInstanceQueryImpl.processDefinitionKeyLike(String)"})
   public void testProcessDefinitionKeyLike() {
     // Arrange
-    HistoricTaskInstanceQueryImpl historicTaskInstanceQueryImpl =
-        new HistoricTaskInstanceQueryImpl();
+    HistoricTaskInstanceQueryImpl historicTaskInstanceQueryImpl = new HistoricTaskInstanceQueryImpl();
 
     // Act
-    HistoricTaskInstanceQuery actualProcessDefinitionKeyLikeResult =
-        historicTaskInstanceQueryImpl.processDefinitionKeyLike("Process Definition Key Like");
+    HistoricTaskInstanceQuery actualProcessDefinitionKeyLikeResult = historicTaskInstanceQueryImpl
+        .processDefinitionKeyLike("Process Definition Key Like");
 
     // Assert
-    assertEquals(
-        "Process Definition Key Like", historicTaskInstanceQueryImpl.getProcessDefinitionKeyLike());
+    assertEquals("Process Definition Key Like", historicTaskInstanceQueryImpl.getProcessDefinitionKeyLike());
     assertSame(historicTaskInstanceQueryImpl, actualProcessDefinitionKeyLikeResult);
   }
 
   /**
    * Test {@link HistoricTaskInstanceQueryImpl#processDefinitionKeyLikeIgnoreCase(String)}.
-   *
-   * <p>Method under test: {@link
-   * HistoricTaskInstanceQueryImpl#processDefinitionKeyLikeIgnoreCase(String)}
+   * <p>
+   * Method under test: {@link HistoricTaskInstanceQueryImpl#processDefinitionKeyLikeIgnoreCase(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({
-    "HistoricTaskInstanceQuery HistoricTaskInstanceQueryImpl.processDefinitionKeyLikeIgnoreCase(String)"
-  })
+      "HistoricTaskInstanceQuery HistoricTaskInstanceQueryImpl.processDefinitionKeyLikeIgnoreCase(String)"})
   public void testProcessDefinitionKeyLikeIgnoreCase() {
     // Arrange
-    HistoricTaskInstanceQueryImpl historicTaskInstanceQueryImpl =
-        new HistoricTaskInstanceQueryImpl();
+    HistoricTaskInstanceQueryImpl historicTaskInstanceQueryImpl = new HistoricTaskInstanceQueryImpl();
 
     // Act
-    HistoricTaskInstanceQuery actualProcessDefinitionKeyLikeIgnoreCaseResult =
-        historicTaskInstanceQueryImpl.processDefinitionKeyLikeIgnoreCase(
-            "Process Definition Key Like Ignore Case");
+    HistoricTaskInstanceQuery actualProcessDefinitionKeyLikeIgnoreCaseResult = historicTaskInstanceQueryImpl
+        .processDefinitionKeyLikeIgnoreCase("Process Definition Key Like Ignore Case");
 
     // Assert
-    assertEquals(
-        "process definition key like ignore case",
+    assertEquals("process definition key like ignore case",
         historicTaskInstanceQueryImpl.getProcessDefinitionKeyLikeIgnoreCase());
     assertSame(historicTaskInstanceQueryImpl, actualProcessDefinitionKeyLikeIgnoreCaseResult);
   }
 
   /**
    * Test {@link HistoricTaskInstanceQueryImpl#processDefinitionKeyIn(List)}.
-   *
    * <ul>
-   *   <li>Given {@code 42}.
-   *   <li>When {@link ArrayList#ArrayList()} add {@code 42}.
+   *   <li>Given {@code 42}.</li>
+   *   <li>When {@link ArrayList#ArrayList()} add {@code 42}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link HistoricTaskInstanceQueryImpl#processDefinitionKeyIn(List)}
+   * <p>
+   * Method under test: {@link HistoricTaskInstanceQueryImpl#processDefinitionKeyIn(List)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "HistoricTaskInstanceQuery HistoricTaskInstanceQueryImpl.processDefinitionKeyIn(List)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"HistoricTaskInstanceQuery HistoricTaskInstanceQueryImpl.processDefinitionKeyIn(List)"})
   public void testProcessDefinitionKeyIn_given42_whenArrayListAdd42() {
     // Arrange
-    HistoricTaskInstanceQueryImpl historicTaskInstanceQueryImpl =
-        new HistoricTaskInstanceQueryImpl();
+    HistoricTaskInstanceQueryImpl historicTaskInstanceQueryImpl = new HistoricTaskInstanceQueryImpl();
 
     ArrayList<String> processDefinitionKeys = new ArrayList<>();
     processDefinitionKeys.add("42");
     processDefinitionKeys.add("foo");
 
     // Act
-    HistoricTaskInstanceQuery actualProcessDefinitionKeyInResult =
-        historicTaskInstanceQueryImpl.processDefinitionKeyIn(processDefinitionKeys);
+    HistoricTaskInstanceQuery actualProcessDefinitionKeyInResult = historicTaskInstanceQueryImpl
+        .processDefinitionKeyIn(processDefinitionKeys);
 
     // Assert
     assertSame(processDefinitionKeys, historicTaskInstanceQueryImpl.getProcessDefinitionKeys());
@@ -1259,31 +1067,26 @@ public class HistoricTaskInstanceQueryImplDiffblueTest {
 
   /**
    * Test {@link HistoricTaskInstanceQueryImpl#processDefinitionKeyIn(List)}.
-   *
    * <ul>
-   *   <li>Given {@code foo}.
-   *   <li>When {@link ArrayList#ArrayList()} add {@code foo}.
+   *   <li>Given {@code foo}.</li>
+   *   <li>When {@link ArrayList#ArrayList()} add {@code foo}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link HistoricTaskInstanceQueryImpl#processDefinitionKeyIn(List)}
+   * <p>
+   * Method under test: {@link HistoricTaskInstanceQueryImpl#processDefinitionKeyIn(List)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "HistoricTaskInstanceQuery HistoricTaskInstanceQueryImpl.processDefinitionKeyIn(List)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"HistoricTaskInstanceQuery HistoricTaskInstanceQueryImpl.processDefinitionKeyIn(List)"})
   public void testProcessDefinitionKeyIn_givenFoo_whenArrayListAddFoo() {
     // Arrange
-    HistoricTaskInstanceQueryImpl historicTaskInstanceQueryImpl =
-        new HistoricTaskInstanceQueryImpl();
+    HistoricTaskInstanceQueryImpl historicTaskInstanceQueryImpl = new HistoricTaskInstanceQueryImpl();
 
     ArrayList<String> processDefinitionKeys = new ArrayList<>();
     processDefinitionKeys.add("foo");
 
     // Act
-    HistoricTaskInstanceQuery actualProcessDefinitionKeyInResult =
-        historicTaskInstanceQueryImpl.processDefinitionKeyIn(processDefinitionKeys);
+    HistoricTaskInstanceQuery actualProcessDefinitionKeyInResult = historicTaskInstanceQueryImpl
+        .processDefinitionKeyIn(processDefinitionKeys);
 
     // Assert
     assertSame(processDefinitionKeys, historicTaskInstanceQueryImpl.getProcessDefinitionKeys());
@@ -1292,28 +1095,23 @@ public class HistoricTaskInstanceQueryImplDiffblueTest {
 
   /**
    * Test {@link HistoricTaskInstanceQueryImpl#processDefinitionKeyIn(List)}.
-   *
    * <ul>
-   *   <li>When {@link ArrayList#ArrayList()}.
+   *   <li>When {@link ArrayList#ArrayList()}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link HistoricTaskInstanceQueryImpl#processDefinitionKeyIn(List)}
+   * <p>
+   * Method under test: {@link HistoricTaskInstanceQueryImpl#processDefinitionKeyIn(List)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "HistoricTaskInstanceQuery HistoricTaskInstanceQueryImpl.processDefinitionKeyIn(List)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"HistoricTaskInstanceQuery HistoricTaskInstanceQueryImpl.processDefinitionKeyIn(List)"})
   public void testProcessDefinitionKeyIn_whenArrayList() {
     // Arrange
-    HistoricTaskInstanceQueryImpl historicTaskInstanceQueryImpl =
-        new HistoricTaskInstanceQueryImpl();
+    HistoricTaskInstanceQueryImpl historicTaskInstanceQueryImpl = new HistoricTaskInstanceQueryImpl();
     ArrayList<String> processDefinitionKeys = new ArrayList<>();
 
     // Act
-    HistoricTaskInstanceQuery actualProcessDefinitionKeyInResult =
-        historicTaskInstanceQueryImpl.processDefinitionKeyIn(processDefinitionKeys);
+    HistoricTaskInstanceQuery actualProcessDefinitionKeyInResult = historicTaskInstanceQueryImpl
+        .processDefinitionKeyIn(processDefinitionKeys);
 
     // Assert
     assertSame(processDefinitionKeys, historicTaskInstanceQueryImpl.getProcessDefinitionKeys());
@@ -1322,85 +1120,93 @@ public class HistoricTaskInstanceQueryImplDiffblueTest {
 
   /**
    * Test {@link HistoricTaskInstanceQueryImpl#processDefinitionName(String)}.
-   *
-   * <p>Method under test: {@link HistoricTaskInstanceQueryImpl#processDefinitionName(String)}
+   * <p>
+   * Method under test: {@link HistoricTaskInstanceQueryImpl#processDefinitionName(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "HistoricTaskInstanceQuery HistoricTaskInstanceQueryImpl.processDefinitionName(String)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"HistoricTaskInstanceQuery HistoricTaskInstanceQueryImpl.processDefinitionName(String)"})
   public void testProcessDefinitionName() {
     // Arrange
-    HistoricTaskInstanceQueryImpl historicTaskInstanceQueryImpl =
-        new HistoricTaskInstanceQueryImpl();
+    HistoricTaskInstanceQueryImpl historicTaskInstanceQueryImpl = new HistoricTaskInstanceQueryImpl();
 
     // Act
-    HistoricTaskInstanceQuery actualProcessDefinitionNameResult =
-        historicTaskInstanceQueryImpl.processDefinitionName("Process Definition Name");
+    HistoricTaskInstanceQuery actualProcessDefinitionNameResult = historicTaskInstanceQueryImpl
+        .processDefinitionName("Process Definition Name");
 
     // Assert
-    assertEquals(
-        "Process Definition Name", historicTaskInstanceQueryImpl.getProcessDefinitionName());
+    assertEquals("Process Definition Name", historicTaskInstanceQueryImpl.getProcessDefinitionName());
     assertSame(historicTaskInstanceQueryImpl, actualProcessDefinitionNameResult);
   }
 
   /**
    * Test {@link HistoricTaskInstanceQueryImpl#processDefinitionNameLike(String)}.
-   *
-   * <p>Method under test: {@link HistoricTaskInstanceQueryImpl#processDefinitionNameLike(String)}
+   * <p>
+   * Method under test: {@link HistoricTaskInstanceQueryImpl#processDefinitionNameLike(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "HistoricTaskInstanceQuery HistoricTaskInstanceQueryImpl.processDefinitionNameLike(String)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"HistoricTaskInstanceQuery HistoricTaskInstanceQueryImpl.processDefinitionNameLike(String)"})
   public void testProcessDefinitionNameLike() {
     // Arrange
-    HistoricTaskInstanceQueryImpl historicTaskInstanceQueryImpl =
-        new HistoricTaskInstanceQueryImpl();
+    HistoricTaskInstanceQueryImpl historicTaskInstanceQueryImpl = new HistoricTaskInstanceQueryImpl();
 
     // Act
-    HistoricTaskInstanceQuery actualProcessDefinitionNameLikeResult =
-        historicTaskInstanceQueryImpl.processDefinitionNameLike("Process Definition Name Like");
+    HistoricTaskInstanceQuery actualProcessDefinitionNameLikeResult = historicTaskInstanceQueryImpl
+        .processDefinitionNameLike("Process Definition Name Like");
 
     // Assert
-    assertEquals(
-        "Process Definition Name Like",
-        historicTaskInstanceQueryImpl.getProcessDefinitionNameLike());
+    assertEquals("Process Definition Name Like", historicTaskInstanceQueryImpl.getProcessDefinitionNameLike());
     assertSame(historicTaskInstanceQueryImpl, actualProcessDefinitionNameLikeResult);
   }
 
   /**
    * Test {@link HistoricTaskInstanceQueryImpl#processCategoryIn(List)}.
-   *
-   * <ul>
-   *   <li>Given {@code 42}.
-   *   <li>When {@link ArrayList#ArrayList()} add {@code 42}.
-   * </ul>
-   *
-   * <p>Method under test: {@link HistoricTaskInstanceQueryImpl#processCategoryIn(List)}
+   * <p>
+   * Method under test: {@link HistoricTaskInstanceQueryImpl#processCategoryIn(List)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "HistoricTaskInstanceQuery HistoricTaskInstanceQueryImpl.processCategoryIn(List)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"HistoricTaskInstanceQuery HistoricTaskInstanceQueryImpl.processCategoryIn(List)"})
+  public void testProcessCategoryIn() {
+    // Arrange
+    HistoricTaskInstanceQueryImpl historicTaskInstanceQueryImpl = new HistoricTaskInstanceQueryImpl();
+
+    ArrayList<String> processCategoryInList = new ArrayList<>();
+    processCategoryInList.add("Process category list is empty");
+
+    // Act
+    HistoricTaskInstanceQuery actualProcessCategoryInResult = historicTaskInstanceQueryImpl
+        .processCategoryIn(processCategoryInList);
+
+    // Assert
+    assertSame(processCategoryInList, historicTaskInstanceQueryImpl.getProcessCategoryInList());
+    assertSame(historicTaskInstanceQueryImpl, actualProcessCategoryInResult);
+  }
+
+  /**
+   * Test {@link HistoricTaskInstanceQueryImpl#processCategoryIn(List)}.
+   * <ul>
+   *   <li>Given {@code 42}.</li>
+   *   <li>When {@link ArrayList#ArrayList()} add {@code 42}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link HistoricTaskInstanceQueryImpl#processCategoryIn(List)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"HistoricTaskInstanceQuery HistoricTaskInstanceQueryImpl.processCategoryIn(List)"})
   public void testProcessCategoryIn_given42_whenArrayListAdd42() {
     // Arrange
-    HistoricTaskInstanceQueryImpl historicTaskInstanceQueryImpl =
-        new HistoricTaskInstanceQueryImpl();
+    HistoricTaskInstanceQueryImpl historicTaskInstanceQueryImpl = new HistoricTaskInstanceQueryImpl();
 
     ArrayList<String> processCategoryInList = new ArrayList<>();
     processCategoryInList.add("42");
     processCategoryInList.add("Process category list is empty");
 
     // Act
-    HistoricTaskInstanceQuery actualProcessCategoryInResult =
-        historicTaskInstanceQueryImpl.processCategoryIn(processCategoryInList);
+    HistoricTaskInstanceQuery actualProcessCategoryInResult = historicTaskInstanceQueryImpl
+        .processCategoryIn(processCategoryInList);
 
     // Assert
     assertSame(processCategoryInList, historicTaskInstanceQueryImpl.getProcessCategoryInList());
@@ -1409,283 +1215,161 @@ public class HistoricTaskInstanceQueryImplDiffblueTest {
 
   /**
    * Test {@link HistoricTaskInstanceQueryImpl#processCategoryIn(List)}.
-   *
    * <ul>
-   *   <li>Given {@code null}.
-   *   <li>When {@link ArrayList#ArrayList()} add {@code null}.
+   *   <li>Given {@code null}.</li>
+   *   <li>When {@link ArrayList#ArrayList()} add {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link HistoricTaskInstanceQueryImpl#processCategoryIn(List)}
+   * <p>
+   * Method under test: {@link HistoricTaskInstanceQueryImpl#processCategoryIn(List)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "HistoricTaskInstanceQuery HistoricTaskInstanceQueryImpl.processCategoryIn(List)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"HistoricTaskInstanceQuery HistoricTaskInstanceQueryImpl.processCategoryIn(List)"})
   public void testProcessCategoryIn_givenNull_whenArrayListAddNull() {
     // Arrange
-    HistoricTaskInstanceQueryImpl historicTaskInstanceQueryImpl =
-        new HistoricTaskInstanceQueryImpl();
+    HistoricTaskInstanceQueryImpl historicTaskInstanceQueryImpl = new HistoricTaskInstanceQueryImpl();
 
     ArrayList<String> processCategoryInList = new ArrayList<>();
     processCategoryInList.add(null);
 
     // Act and Assert
-    assertThrows(
-        ActivitiIllegalArgumentException.class,
+    assertThrows(ActivitiIllegalArgumentException.class,
         () -> historicTaskInstanceQueryImpl.processCategoryIn(processCategoryInList));
   }
 
   /**
    * Test {@link HistoricTaskInstanceQueryImpl#processCategoryIn(List)}.
-   *
    * <ul>
-   *   <li>Given {@code Process Category In List}.
+   *   <li>When {@link ArrayList#ArrayList()}.</li>
+   *   <li>Then throw {@link ActivitiIllegalArgumentException}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link HistoricTaskInstanceQueryImpl#processCategoryIn(List)}
+   * <p>
+   * Method under test: {@link HistoricTaskInstanceQueryImpl#processCategoryIn(List)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "HistoricTaskInstanceQuery HistoricTaskInstanceQueryImpl.processCategoryIn(List)"
-  })
-  public void testProcessCategoryIn_givenProcessCategoryInList() {
-    // Arrange
-    HistoricTaskInstanceQueryImpl historicTaskInstanceQueryImpl =
-        new HistoricTaskInstanceQueryImpl();
-
-    ArrayList<String> processCategoryInList = new ArrayList<>();
-    processCategoryInList.add("Process Category In List");
-
-    // Act
-    HistoricTaskInstanceQuery actualProcessCategoryInResult =
-        historicTaskInstanceQueryImpl.processCategoryIn(processCategoryInList);
-
-    // Assert
-    assertSame(processCategoryInList, historicTaskInstanceQueryImpl.getProcessCategoryInList());
-    assertSame(historicTaskInstanceQueryImpl, actualProcessCategoryInResult);
-  }
-
-  /**
-   * Test {@link HistoricTaskInstanceQueryImpl#processCategoryIn(List)}.
-   *
-   * <ul>
-   *   <li>When {@link ArrayList#ArrayList()}.
-   *   <li>Then throw {@link ActivitiIllegalArgumentException}.
-   * </ul>
-   *
-   * <p>Method under test: {@link HistoricTaskInstanceQueryImpl#processCategoryIn(List)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "HistoricTaskInstanceQuery HistoricTaskInstanceQueryImpl.processCategoryIn(List)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"HistoricTaskInstanceQuery HistoricTaskInstanceQueryImpl.processCategoryIn(List)"})
   public void testProcessCategoryIn_whenArrayList_thenThrowActivitiIllegalArgumentException() {
     // Arrange
-    HistoricTaskInstanceQueryImpl historicTaskInstanceQueryImpl =
-        new HistoricTaskInstanceQueryImpl();
+    HistoricTaskInstanceQueryImpl historicTaskInstanceQueryImpl = new HistoricTaskInstanceQueryImpl();
 
     // Act and Assert
-    assertThrows(
-        ActivitiIllegalArgumentException.class,
+    assertThrows(ActivitiIllegalArgumentException.class,
         () -> historicTaskInstanceQueryImpl.processCategoryIn(new ArrayList<>()));
   }
 
   /**
-   * Test {@link HistoricTaskInstanceQueryImpl#processCategoryIn(List)}.
-   *
-   * <ul>
-   *   <li>When {@code null}.
-   *   <li>Then throw {@link ActivitiIllegalArgumentException}.
-   * </ul>
-   *
-   * <p>Method under test: {@link HistoricTaskInstanceQueryImpl#processCategoryIn(List)}
+   * Test {@link HistoricTaskInstanceQueryImpl#processCategoryNotIn(List)}.
+   * <p>
+   * Method under test: {@link HistoricTaskInstanceQueryImpl#processCategoryNotIn(List)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "HistoricTaskInstanceQuery HistoricTaskInstanceQueryImpl.processCategoryIn(List)"
-  })
-  public void testProcessCategoryIn_whenNull_thenThrowActivitiIllegalArgumentException() {
-    // Arrange, Act and Assert
-    assertThrows(
-        ActivitiIllegalArgumentException.class,
-        () -> new HistoricTaskInstanceQueryImpl().processCategoryIn(null));
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"HistoricTaskInstanceQuery HistoricTaskInstanceQueryImpl.processCategoryNotIn(List)"})
+  public void testProcessCategoryNotIn() {
+    // Arrange
+    HistoricTaskInstanceQueryImpl historicTaskInstanceQueryImpl = new HistoricTaskInstanceQueryImpl();
+
+    ArrayList<String> processCategoryNotInList = new ArrayList<>();
+    processCategoryNotInList.add("Process category list is empty");
+
+    // Act
+    HistoricTaskInstanceQuery actualProcessCategoryNotInResult = historicTaskInstanceQueryImpl
+        .processCategoryNotIn(processCategoryNotInList);
+
+    // Assert
+    assertSame(processCategoryNotInList, historicTaskInstanceQueryImpl.getProcessCategoryNotInList());
+    assertSame(historicTaskInstanceQueryImpl, actualProcessCategoryNotInResult);
   }
 
   /**
    * Test {@link HistoricTaskInstanceQueryImpl#processCategoryNotIn(List)}.
-   *
    * <ul>
-   *   <li>Given {@code 42}.
-   *   <li>When {@link ArrayList#ArrayList()} add {@code 42}.
+   *   <li>Given {@code 42}.</li>
+   *   <li>When {@link ArrayList#ArrayList()} add {@code 42}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link HistoricTaskInstanceQueryImpl#processCategoryNotIn(List)}
+   * <p>
+   * Method under test: {@link HistoricTaskInstanceQueryImpl#processCategoryNotIn(List)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "HistoricTaskInstanceQuery HistoricTaskInstanceQueryImpl.processCategoryNotIn(List)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"HistoricTaskInstanceQuery HistoricTaskInstanceQueryImpl.processCategoryNotIn(List)"})
   public void testProcessCategoryNotIn_given42_whenArrayListAdd42() {
     // Arrange
-    HistoricTaskInstanceQueryImpl historicTaskInstanceQueryImpl =
-        new HistoricTaskInstanceQueryImpl();
+    HistoricTaskInstanceQueryImpl historicTaskInstanceQueryImpl = new HistoricTaskInstanceQueryImpl();
 
     ArrayList<String> processCategoryNotInList = new ArrayList<>();
     processCategoryNotInList.add("42");
     processCategoryNotInList.add("Process category list is empty");
 
     // Act
-    HistoricTaskInstanceQuery actualProcessCategoryNotInResult =
-        historicTaskInstanceQueryImpl.processCategoryNotIn(processCategoryNotInList);
+    HistoricTaskInstanceQuery actualProcessCategoryNotInResult = historicTaskInstanceQueryImpl
+        .processCategoryNotIn(processCategoryNotInList);
 
     // Assert
-    assertSame(
-        processCategoryNotInList, historicTaskInstanceQueryImpl.getProcessCategoryNotInList());
+    assertSame(processCategoryNotInList, historicTaskInstanceQueryImpl.getProcessCategoryNotInList());
     assertSame(historicTaskInstanceQueryImpl, actualProcessCategoryNotInResult);
   }
 
   /**
    * Test {@link HistoricTaskInstanceQueryImpl#processCategoryNotIn(List)}.
-   *
    * <ul>
-   *   <li>Given {@code null}.
-   *   <li>When {@link ArrayList#ArrayList()} add {@code null}.
+   *   <li>Given {@code null}.</li>
+   *   <li>When {@link ArrayList#ArrayList()} add {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link HistoricTaskInstanceQueryImpl#processCategoryNotIn(List)}
+   * <p>
+   * Method under test: {@link HistoricTaskInstanceQueryImpl#processCategoryNotIn(List)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "HistoricTaskInstanceQuery HistoricTaskInstanceQueryImpl.processCategoryNotIn(List)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"HistoricTaskInstanceQuery HistoricTaskInstanceQueryImpl.processCategoryNotIn(List)"})
   public void testProcessCategoryNotIn_givenNull_whenArrayListAddNull() {
     // Arrange
-    HistoricTaskInstanceQueryImpl historicTaskInstanceQueryImpl =
-        new HistoricTaskInstanceQueryImpl();
+    HistoricTaskInstanceQueryImpl historicTaskInstanceQueryImpl = new HistoricTaskInstanceQueryImpl();
 
     ArrayList<String> processCategoryNotInList = new ArrayList<>();
     processCategoryNotInList.add(null);
 
     // Act and Assert
-    assertThrows(
-        ActivitiIllegalArgumentException.class,
+    assertThrows(ActivitiIllegalArgumentException.class,
         () -> historicTaskInstanceQueryImpl.processCategoryNotIn(processCategoryNotInList));
   }
 
   /**
    * Test {@link HistoricTaskInstanceQueryImpl#processCategoryNotIn(List)}.
-   *
    * <ul>
-   *   <li>Given {@code Process Category Not In List}.
+   *   <li>When {@link ArrayList#ArrayList()}.</li>
+   *   <li>Then throw {@link ActivitiIllegalArgumentException}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link HistoricTaskInstanceQueryImpl#processCategoryNotIn(List)}
+   * <p>
+   * Method under test: {@link HistoricTaskInstanceQueryImpl#processCategoryNotIn(List)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "HistoricTaskInstanceQuery HistoricTaskInstanceQueryImpl.processCategoryNotIn(List)"
-  })
-  public void testProcessCategoryNotIn_givenProcessCategoryNotInList() {
-    // Arrange
-    HistoricTaskInstanceQueryImpl historicTaskInstanceQueryImpl =
-        new HistoricTaskInstanceQueryImpl();
-
-    ArrayList<String> processCategoryNotInList = new ArrayList<>();
-    processCategoryNotInList.add("Process Category Not In List");
-
-    // Act
-    HistoricTaskInstanceQuery actualProcessCategoryNotInResult =
-        historicTaskInstanceQueryImpl.processCategoryNotIn(processCategoryNotInList);
-
-    // Assert
-    assertSame(
-        processCategoryNotInList, historicTaskInstanceQueryImpl.getProcessCategoryNotInList());
-    assertSame(historicTaskInstanceQueryImpl, actualProcessCategoryNotInResult);
-  }
-
-  /**
-   * Test {@link HistoricTaskInstanceQueryImpl#processCategoryNotIn(List)}.
-   *
-   * <ul>
-   *   <li>When {@link ArrayList#ArrayList()}.
-   *   <li>Then throw {@link ActivitiIllegalArgumentException}.
-   * </ul>
-   *
-   * <p>Method under test: {@link HistoricTaskInstanceQueryImpl#processCategoryNotIn(List)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "HistoricTaskInstanceQuery HistoricTaskInstanceQueryImpl.processCategoryNotIn(List)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"HistoricTaskInstanceQuery HistoricTaskInstanceQueryImpl.processCategoryNotIn(List)"})
   public void testProcessCategoryNotIn_whenArrayList_thenThrowActivitiIllegalArgumentException() {
     // Arrange
-    HistoricTaskInstanceQueryImpl historicTaskInstanceQueryImpl =
-        new HistoricTaskInstanceQueryImpl();
+    HistoricTaskInstanceQueryImpl historicTaskInstanceQueryImpl = new HistoricTaskInstanceQueryImpl();
 
     // Act and Assert
-    assertThrows(
-        ActivitiIllegalArgumentException.class,
+    assertThrows(ActivitiIllegalArgumentException.class,
         () -> historicTaskInstanceQueryImpl.processCategoryNotIn(new ArrayList<>()));
   }
 
   /**
-   * Test {@link HistoricTaskInstanceQueryImpl#processCategoryNotIn(List)}.
-   *
-   * <ul>
-   *   <li>When {@code null}.
-   *   <li>Then throw {@link ActivitiIllegalArgumentException}.
-   * </ul>
-   *
-   * <p>Method under test: {@link HistoricTaskInstanceQueryImpl#processCategoryNotIn(List)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "HistoricTaskInstanceQuery HistoricTaskInstanceQueryImpl.processCategoryNotIn(List)"
-  })
-  public void testProcessCategoryNotIn_whenNull_thenThrowActivitiIllegalArgumentException() {
-    // Arrange, Act and Assert
-    assertThrows(
-        ActivitiIllegalArgumentException.class,
-        () -> new HistoricTaskInstanceQueryImpl().processCategoryNotIn(null));
-  }
-
-  /**
    * Test {@link HistoricTaskInstanceQueryImpl#deploymentId(String)}.
-   *
-   * <p>Method under test: {@link HistoricTaskInstanceQueryImpl#deploymentId(String)}
+   * <p>
+   * Method under test: {@link HistoricTaskInstanceQueryImpl#deploymentId(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "HistoricTaskInstanceQuery HistoricTaskInstanceQueryImpl.deploymentId(String)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"HistoricTaskInstanceQuery HistoricTaskInstanceQueryImpl.deploymentId(String)"})
   public void testDeploymentId() {
     // Arrange
-    HistoricTaskInstanceQueryImpl historicTaskInstanceQueryImpl =
-        new HistoricTaskInstanceQueryImpl();
+    HistoricTaskInstanceQueryImpl historicTaskInstanceQueryImpl = new HistoricTaskInstanceQueryImpl();
 
     // Act
-    HistoricTaskInstanceQuery actualDeploymentIdResult =
-        historicTaskInstanceQueryImpl.deploymentId("42");
+    HistoricTaskInstanceQuery actualDeploymentIdResult = historicTaskInstanceQueryImpl.deploymentId("42");
 
     // Assert
     assertEquals("42", historicTaskInstanceQueryImpl.getDeploymentId());
@@ -1694,32 +1378,26 @@ public class HistoricTaskInstanceQueryImplDiffblueTest {
 
   /**
    * Test {@link HistoricTaskInstanceQueryImpl#deploymentIdIn(List)}.
-   *
    * <ul>
-   *   <li>Given {@code 42}.
-   *   <li>When {@link ArrayList#ArrayList()} add {@code 42}.
+   *   <li>Given {@code 42}.</li>
+   *   <li>When {@link ArrayList#ArrayList()} add {@code 42}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link HistoricTaskInstanceQueryImpl#deploymentIdIn(List)}
+   * <p>
+   * Method under test: {@link HistoricTaskInstanceQueryImpl#deploymentIdIn(List)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "HistoricTaskInstanceQuery HistoricTaskInstanceQueryImpl.deploymentIdIn(List)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"HistoricTaskInstanceQuery HistoricTaskInstanceQueryImpl.deploymentIdIn(List)"})
   public void testDeploymentIdIn_given42_whenArrayListAdd42() {
     // Arrange
-    HistoricTaskInstanceQueryImpl historicTaskInstanceQueryImpl =
-        new HistoricTaskInstanceQueryImpl();
+    HistoricTaskInstanceQueryImpl historicTaskInstanceQueryImpl = new HistoricTaskInstanceQueryImpl();
 
     ArrayList<String> deploymentIds = new ArrayList<>();
     deploymentIds.add("42");
     deploymentIds.add("foo");
 
     // Act
-    HistoricTaskInstanceQuery actualDeploymentIdInResult =
-        historicTaskInstanceQueryImpl.deploymentIdIn(deploymentIds);
+    HistoricTaskInstanceQuery actualDeploymentIdInResult = historicTaskInstanceQueryImpl.deploymentIdIn(deploymentIds);
 
     // Assert
     assertSame(deploymentIds, historicTaskInstanceQueryImpl.getDeploymentIds());
@@ -1728,31 +1406,25 @@ public class HistoricTaskInstanceQueryImplDiffblueTest {
 
   /**
    * Test {@link HistoricTaskInstanceQueryImpl#deploymentIdIn(List)}.
-   *
    * <ul>
-   *   <li>Given {@code foo}.
-   *   <li>When {@link ArrayList#ArrayList()} add {@code foo}.
+   *   <li>Given {@code foo}.</li>
+   *   <li>When {@link ArrayList#ArrayList()} add {@code foo}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link HistoricTaskInstanceQueryImpl#deploymentIdIn(List)}
+   * <p>
+   * Method under test: {@link HistoricTaskInstanceQueryImpl#deploymentIdIn(List)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "HistoricTaskInstanceQuery HistoricTaskInstanceQueryImpl.deploymentIdIn(List)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"HistoricTaskInstanceQuery HistoricTaskInstanceQueryImpl.deploymentIdIn(List)"})
   public void testDeploymentIdIn_givenFoo_whenArrayListAddFoo() {
     // Arrange
-    HistoricTaskInstanceQueryImpl historicTaskInstanceQueryImpl =
-        new HistoricTaskInstanceQueryImpl();
+    HistoricTaskInstanceQueryImpl historicTaskInstanceQueryImpl = new HistoricTaskInstanceQueryImpl();
 
     ArrayList<String> deploymentIds = new ArrayList<>();
     deploymentIds.add("foo");
 
     // Act
-    HistoricTaskInstanceQuery actualDeploymentIdInResult =
-        historicTaskInstanceQueryImpl.deploymentIdIn(deploymentIds);
+    HistoricTaskInstanceQuery actualDeploymentIdInResult = historicTaskInstanceQueryImpl.deploymentIdIn(deploymentIds);
 
     // Assert
     assertSame(deploymentIds, historicTaskInstanceQueryImpl.getDeploymentIds());
@@ -1761,28 +1433,22 @@ public class HistoricTaskInstanceQueryImplDiffblueTest {
 
   /**
    * Test {@link HistoricTaskInstanceQueryImpl#deploymentIdIn(List)}.
-   *
    * <ul>
-   *   <li>When {@link ArrayList#ArrayList()}.
+   *   <li>When {@link ArrayList#ArrayList()}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link HistoricTaskInstanceQueryImpl#deploymentIdIn(List)}
+   * <p>
+   * Method under test: {@link HistoricTaskInstanceQueryImpl#deploymentIdIn(List)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "HistoricTaskInstanceQuery HistoricTaskInstanceQueryImpl.deploymentIdIn(List)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"HistoricTaskInstanceQuery HistoricTaskInstanceQueryImpl.deploymentIdIn(List)"})
   public void testDeploymentIdIn_whenArrayList() {
     // Arrange
-    HistoricTaskInstanceQueryImpl historicTaskInstanceQueryImpl =
-        new HistoricTaskInstanceQueryImpl();
+    HistoricTaskInstanceQueryImpl historicTaskInstanceQueryImpl = new HistoricTaskInstanceQueryImpl();
     ArrayList<String> deploymentIds = new ArrayList<>();
 
     // Act
-    HistoricTaskInstanceQuery actualDeploymentIdInResult =
-        historicTaskInstanceQueryImpl.deploymentIdIn(deploymentIds);
+    HistoricTaskInstanceQuery actualDeploymentIdInResult = historicTaskInstanceQueryImpl.deploymentIdIn(deploymentIds);
 
     // Assert
     assertSame(deploymentIds, historicTaskInstanceQueryImpl.getDeploymentIds());
@@ -1791,17 +1457,15 @@ public class HistoricTaskInstanceQueryImplDiffblueTest {
 
   /**
    * Test {@link HistoricTaskInstanceQueryImpl#taskId(String)}.
-   *
-   * <p>Method under test: {@link HistoricTaskInstanceQueryImpl#taskId(String)}
+   * <p>
+   * Method under test: {@link HistoricTaskInstanceQueryImpl#taskId(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"HistoricTaskInstanceQuery HistoricTaskInstanceQueryImpl.taskId(String)"})
   public void testTaskId() {
     // Arrange
-    HistoricTaskInstanceQueryImpl historicTaskInstanceQueryImpl =
-        new HistoricTaskInstanceQueryImpl();
+    HistoricTaskInstanceQueryImpl historicTaskInstanceQueryImpl = new HistoricTaskInstanceQueryImpl();
 
     // Act
     HistoricTaskInstanceQuery actualTaskIdResult = historicTaskInstanceQueryImpl.taskId("42");
@@ -1813,21 +1477,18 @@ public class HistoricTaskInstanceQueryImplDiffblueTest {
 
   /**
    * Test {@link HistoricTaskInstanceQueryImpl#taskName(String)}.
-   *
-   * <p>Method under test: {@link HistoricTaskInstanceQueryImpl#taskName(String)}
+   * <p>
+   * Method under test: {@link HistoricTaskInstanceQueryImpl#taskName(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"HistoricTaskInstanceQuery HistoricTaskInstanceQueryImpl.taskName(String)"})
   public void testTaskName() {
     // Arrange
-    HistoricTaskInstanceQueryImpl historicTaskInstanceQueryImpl =
-        new HistoricTaskInstanceQueryImpl();
+    HistoricTaskInstanceQueryImpl historicTaskInstanceQueryImpl = new HistoricTaskInstanceQueryImpl();
 
     // Act
-    HistoricTaskInstanceQuery actualTaskNameResult =
-        historicTaskInstanceQueryImpl.taskName("Task Name");
+    HistoricTaskInstanceQuery actualTaskNameResult = historicTaskInstanceQueryImpl.taskName("Task Name");
 
     // Assert
     assertEquals("Task Name", historicTaskInstanceQueryImpl.getTaskName());
@@ -1836,54 +1497,46 @@ public class HistoricTaskInstanceQueryImplDiffblueTest {
 
   /**
    * Test {@link HistoricTaskInstanceQueryImpl#taskNameIn(List)}.
-   *
-   * <p>Method under test: {@link HistoricTaskInstanceQueryImpl#taskNameIn(List)}
+   * <p>
+   * Method under test: {@link HistoricTaskInstanceQueryImpl#taskNameIn(List)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"HistoricTaskInstanceQuery HistoricTaskInstanceQueryImpl.taskNameIn(List)"})
   public void testTaskNameIn() {
     // Arrange
-    HistoricTaskInstanceQueryImpl historicTaskInstanceQueryImpl =
-        new HistoricTaskInstanceQueryImpl();
+    HistoricTaskInstanceQueryImpl historicTaskInstanceQueryImpl = new HistoricTaskInstanceQueryImpl();
     historicTaskInstanceQueryImpl.taskNameLikeIgnoreCase("Task Name Like Ignore Case");
 
     ArrayList<String> taskNameList = new ArrayList<>();
     taskNameList.add("Task name list is empty");
 
     // Act and Assert
-    assertThrows(
-        ActivitiIllegalArgumentException.class,
-        () -> historicTaskInstanceQueryImpl.taskNameIn(taskNameList));
+    assertThrows(ActivitiIllegalArgumentException.class, () -> historicTaskInstanceQueryImpl.taskNameIn(taskNameList));
   }
 
   /**
    * Test {@link HistoricTaskInstanceQueryImpl#taskNameIn(List)}.
-   *
    * <ul>
-   *   <li>Given {@code 42}.
-   *   <li>When {@link ArrayList#ArrayList()} add {@code 42}.
+   *   <li>Given {@code 42}.</li>
+   *   <li>When {@link ArrayList#ArrayList()} add {@code 42}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link HistoricTaskInstanceQueryImpl#taskNameIn(List)}
+   * <p>
+   * Method under test: {@link HistoricTaskInstanceQueryImpl#taskNameIn(List)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"HistoricTaskInstanceQuery HistoricTaskInstanceQueryImpl.taskNameIn(List)"})
   public void testTaskNameIn_given42_whenArrayListAdd42() {
     // Arrange
-    HistoricTaskInstanceQueryImpl historicTaskInstanceQueryImpl =
-        new HistoricTaskInstanceQueryImpl();
+    HistoricTaskInstanceQueryImpl historicTaskInstanceQueryImpl = new HistoricTaskInstanceQueryImpl();
 
     ArrayList<String> taskNameList = new ArrayList<>();
     taskNameList.add("42");
     taskNameList.add("Task name list is empty");
 
     // Act
-    HistoricTaskInstanceQuery actualTaskNameInResult =
-        historicTaskInstanceQueryImpl.taskNameIn(taskNameList);
+    HistoricTaskInstanceQuery actualTaskNameInResult = historicTaskInstanceQueryImpl.taskNameIn(taskNameList);
 
     // Assert
     assertSame(taskNameList, historicTaskInstanceQueryImpl.getTaskNameList());
@@ -1892,133 +1545,91 @@ public class HistoricTaskInstanceQueryImplDiffblueTest {
 
   /**
    * Test {@link HistoricTaskInstanceQueryImpl#taskNameIn(List)}.
-   *
    * <ul>
-   *   <li>Given {@link HistoricTaskInstanceQueryImpl#HistoricTaskInstanceQueryImpl()} taskNameLike
-   *       {@code Task Name Like}.
+   *   <li>Given {@link HistoricTaskInstanceQueryImpl#HistoricTaskInstanceQueryImpl()} taskNameLike {@code Task Name Like}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link HistoricTaskInstanceQueryImpl#taskNameIn(List)}
+   * <p>
+   * Method under test: {@link HistoricTaskInstanceQueryImpl#taskNameIn(List)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"HistoricTaskInstanceQuery HistoricTaskInstanceQueryImpl.taskNameIn(List)"})
   public void testTaskNameIn_givenHistoricTaskInstanceQueryImplTaskNameLikeTaskNameLike() {
     // Arrange
-    HistoricTaskInstanceQueryImpl historicTaskInstanceQueryImpl =
-        new HistoricTaskInstanceQueryImpl();
+    HistoricTaskInstanceQueryImpl historicTaskInstanceQueryImpl = new HistoricTaskInstanceQueryImpl();
     historicTaskInstanceQueryImpl.taskNameLike("Task Name Like");
 
     ArrayList<String> taskNameList = new ArrayList<>();
     taskNameList.add("Task name list is empty");
 
     // Act and Assert
-    assertThrows(
-        ActivitiIllegalArgumentException.class,
-        () -> historicTaskInstanceQueryImpl.taskNameIn(taskNameList));
+    assertThrows(ActivitiIllegalArgumentException.class, () -> historicTaskInstanceQueryImpl.taskNameIn(taskNameList));
   }
 
   /**
    * Test {@link HistoricTaskInstanceQueryImpl#taskNameIn(List)}.
-   *
    * <ul>
-   *   <li>Given {@link HistoricTaskInstanceQueryImpl#HistoricTaskInstanceQueryImpl()} taskName
-   *       {@code Task Name}.
+   *   <li>Given {@link HistoricTaskInstanceQueryImpl#HistoricTaskInstanceQueryImpl()} taskName {@code Task Name}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link HistoricTaskInstanceQueryImpl#taskNameIn(List)}
+   * <p>
+   * Method under test: {@link HistoricTaskInstanceQueryImpl#taskNameIn(List)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"HistoricTaskInstanceQuery HistoricTaskInstanceQueryImpl.taskNameIn(List)"})
   public void testTaskNameIn_givenHistoricTaskInstanceQueryImplTaskNameTaskName() {
     // Arrange
-    HistoricTaskInstanceQueryImpl historicTaskInstanceQueryImpl =
-        new HistoricTaskInstanceQueryImpl();
+    HistoricTaskInstanceQueryImpl historicTaskInstanceQueryImpl = new HistoricTaskInstanceQueryImpl();
     historicTaskInstanceQueryImpl.taskName("Task Name");
 
     ArrayList<String> taskNameList = new ArrayList<>();
     taskNameList.add("Task name list is empty");
 
     // Act and Assert
-    assertThrows(
-        ActivitiIllegalArgumentException.class,
-        () -> historicTaskInstanceQueryImpl.taskNameIn(taskNameList));
+    assertThrows(ActivitiIllegalArgumentException.class, () -> historicTaskInstanceQueryImpl.taskNameIn(taskNameList));
   }
 
   /**
    * Test {@link HistoricTaskInstanceQueryImpl#taskNameIn(List)}.
-   *
    * <ul>
-   *   <li>Given {@link HistoricTaskInstanceQueryImpl#HistoricTaskInstanceQueryImpl()}.
-   *   <li>When {@link ArrayList#ArrayList()}.
+   *   <li>Given {@link HistoricTaskInstanceQueryImpl#HistoricTaskInstanceQueryImpl()}.</li>
+   *   <li>When {@link ArrayList#ArrayList()}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link HistoricTaskInstanceQueryImpl#taskNameIn(List)}
+   * <p>
+   * Method under test: {@link HistoricTaskInstanceQueryImpl#taskNameIn(List)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"HistoricTaskInstanceQuery HistoricTaskInstanceQueryImpl.taskNameIn(List)"})
   public void testTaskNameIn_givenHistoricTaskInstanceQueryImpl_whenArrayList() {
     // Arrange
-    HistoricTaskInstanceQueryImpl historicTaskInstanceQueryImpl =
-        new HistoricTaskInstanceQueryImpl();
+    HistoricTaskInstanceQueryImpl historicTaskInstanceQueryImpl = new HistoricTaskInstanceQueryImpl();
 
     // Act and Assert
-    assertThrows(
-        ActivitiIllegalArgumentException.class,
+    assertThrows(ActivitiIllegalArgumentException.class,
         () -> historicTaskInstanceQueryImpl.taskNameIn(new ArrayList<>()));
   }
 
   /**
    * Test {@link HistoricTaskInstanceQueryImpl#taskNameIn(List)}.
-   *
    * <ul>
-   *   <li>Given {@link HistoricTaskInstanceQueryImpl#HistoricTaskInstanceQueryImpl()}.
-   *   <li>When {@code null}.
+   *   <li>Then {@link HistoricTaskInstanceQueryImpl#HistoricTaskInstanceQueryImpl()} TaskNameList is {@link ArrayList#ArrayList()}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link HistoricTaskInstanceQueryImpl#taskNameIn(List)}
+   * <p>
+   * Method under test: {@link HistoricTaskInstanceQueryImpl#taskNameIn(List)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"HistoricTaskInstanceQuery HistoricTaskInstanceQueryImpl.taskNameIn(List)"})
-  public void testTaskNameIn_givenHistoricTaskInstanceQueryImpl_whenNull() {
-    // Arrange, Act and Assert
-    assertThrows(
-        ActivitiIllegalArgumentException.class,
-        () -> new HistoricTaskInstanceQueryImpl().taskNameIn(null));
-  }
-
-  /**
-   * Test {@link HistoricTaskInstanceQueryImpl#taskNameIn(List)}.
-   *
-   * <ul>
-   *   <li>Then {@link HistoricTaskInstanceQueryImpl#HistoricTaskInstanceQueryImpl()} TaskNameList
-   *       is {@link ArrayList#ArrayList()}.
-   * </ul>
-   *
-   * <p>Method under test: {@link HistoricTaskInstanceQueryImpl#taskNameIn(List)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"HistoricTaskInstanceQuery HistoricTaskInstanceQueryImpl.taskNameIn(List)"})
   public void testTaskNameIn_thenHistoricTaskInstanceQueryImplTaskNameListIsArrayList() {
     // Arrange
-    HistoricTaskInstanceQueryImpl historicTaskInstanceQueryImpl =
-        new HistoricTaskInstanceQueryImpl();
+    HistoricTaskInstanceQueryImpl historicTaskInstanceQueryImpl = new HistoricTaskInstanceQueryImpl();
 
     ArrayList<String> taskNameList = new ArrayList<>();
     taskNameList.add("Task name list is empty");
 
     // Act
-    HistoricTaskInstanceQuery actualTaskNameInResult =
-        historicTaskInstanceQueryImpl.taskNameIn(taskNameList);
+    HistoricTaskInstanceQuery actualTaskNameInResult = historicTaskInstanceQueryImpl.taskNameIn(taskNameList);
 
     // Assert
     assertSame(taskNameList, historicTaskInstanceQueryImpl.getTaskNameList());
@@ -2027,217 +1638,175 @@ public class HistoricTaskInstanceQueryImplDiffblueTest {
 
   /**
    * Test {@link HistoricTaskInstanceQueryImpl#taskNameInIgnoreCase(List)}.
-   *
-   * <p>Method under test: {@link HistoricTaskInstanceQueryImpl#taskNameInIgnoreCase(List)}
+   * <p>
+   * Method under test: {@link HistoricTaskInstanceQueryImpl#taskNameInIgnoreCase(List)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "HistoricTaskInstanceQuery HistoricTaskInstanceQueryImpl.taskNameInIgnoreCase(List)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"HistoricTaskInstanceQuery HistoricTaskInstanceQueryImpl.taskNameInIgnoreCase(List)"})
   public void testTaskNameInIgnoreCase() {
     // Arrange
-    HistoricTaskInstanceQueryImpl historicTaskInstanceQueryImpl =
-        new HistoricTaskInstanceQueryImpl();
+    HistoricTaskInstanceQueryImpl historicTaskInstanceQueryImpl = new HistoricTaskInstanceQueryImpl();
     historicTaskInstanceQueryImpl.taskNameLike("Task Name Like");
 
     ArrayList<String> taskNameList = new ArrayList<>();
-    taskNameList.add("Task Name List");
+    taskNameList.add("Task name list is empty");
 
     // Act and Assert
-    assertThrows(
-        ActivitiIllegalArgumentException.class,
+    assertThrows(ActivitiIllegalArgumentException.class,
         () -> historicTaskInstanceQueryImpl.taskNameInIgnoreCase(taskNameList));
   }
 
   /**
    * Test {@link HistoricTaskInstanceQueryImpl#taskNameInIgnoreCase(List)}.
-   *
-   * <p>Method under test: {@link HistoricTaskInstanceQueryImpl#taskNameInIgnoreCase(List)}
+   * <p>
+   * Method under test: {@link HistoricTaskInstanceQueryImpl#taskNameInIgnoreCase(List)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "HistoricTaskInstanceQuery HistoricTaskInstanceQueryImpl.taskNameInIgnoreCase(List)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"HistoricTaskInstanceQuery HistoricTaskInstanceQueryImpl.taskNameInIgnoreCase(List)"})
   public void testTaskNameInIgnoreCase2() {
     // Arrange
-    HistoricTaskInstanceQueryImpl historicTaskInstanceQueryImpl =
-        new HistoricTaskInstanceQueryImpl();
+    HistoricTaskInstanceQueryImpl historicTaskInstanceQueryImpl = new HistoricTaskInstanceQueryImpl();
     historicTaskInstanceQueryImpl.taskNameLikeIgnoreCase("Task Name Like Ignore Case");
 
     ArrayList<String> taskNameList = new ArrayList<>();
-    taskNameList.add("Task Name List");
+    taskNameList.add("Task name list is empty");
 
     // Act and Assert
-    assertThrows(
-        ActivitiIllegalArgumentException.class,
+    assertThrows(ActivitiIllegalArgumentException.class,
         () -> historicTaskInstanceQueryImpl.taskNameInIgnoreCase(taskNameList));
   }
 
   /**
    * Test {@link HistoricTaskInstanceQueryImpl#taskNameInIgnoreCase(List)}.
-   *
    * <ul>
-   *   <li>Given {@link HistoricTaskInstanceQueryImpl#HistoricTaskInstanceQueryImpl()} taskName
-   *       {@code Task Name}.
+   *   <li>Given {@code 42}.</li>
+   *   <li>When {@link ArrayList#ArrayList()} add {@code 42}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link HistoricTaskInstanceQueryImpl#taskNameInIgnoreCase(List)}
+   * <p>
+   * Method under test: {@link HistoricTaskInstanceQueryImpl#taskNameInIgnoreCase(List)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "HistoricTaskInstanceQuery HistoricTaskInstanceQueryImpl.taskNameInIgnoreCase(List)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"HistoricTaskInstanceQuery HistoricTaskInstanceQueryImpl.taskNameInIgnoreCase(List)"})
+  public void testTaskNameInIgnoreCase_given42_whenArrayListAdd42() {
+    // Arrange
+    HistoricTaskInstanceQueryImpl historicTaskInstanceQueryImpl = new HistoricTaskInstanceQueryImpl();
+
+    ArrayList<String> taskNameList = new ArrayList<>();
+    taskNameList.add("42");
+    taskNameList.add("Task name list is empty");
+
+    // Act and Assert
+    assertSame(historicTaskInstanceQueryImpl, historicTaskInstanceQueryImpl.taskNameInIgnoreCase(taskNameList));
+  }
+
+  /**
+   * Test {@link HistoricTaskInstanceQueryImpl#taskNameInIgnoreCase(List)}.
+   * <ul>
+   *   <li>Given {@link HistoricTaskInstanceQueryImpl#HistoricTaskInstanceQueryImpl()} taskName {@code Task Name}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link HistoricTaskInstanceQueryImpl#taskNameInIgnoreCase(List)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"HistoricTaskInstanceQuery HistoricTaskInstanceQueryImpl.taskNameInIgnoreCase(List)"})
   public void testTaskNameInIgnoreCase_givenHistoricTaskInstanceQueryImplTaskNameTaskName() {
     // Arrange
-    HistoricTaskInstanceQueryImpl historicTaskInstanceQueryImpl =
-        new HistoricTaskInstanceQueryImpl();
+    HistoricTaskInstanceQueryImpl historicTaskInstanceQueryImpl = new HistoricTaskInstanceQueryImpl();
     historicTaskInstanceQueryImpl.taskName("Task Name");
 
     ArrayList<String> taskNameList = new ArrayList<>();
-    taskNameList.add("Task Name List");
+    taskNameList.add("Task name list is empty");
 
     // Act and Assert
-    assertThrows(
-        ActivitiIllegalArgumentException.class,
+    assertThrows(ActivitiIllegalArgumentException.class,
         () -> historicTaskInstanceQueryImpl.taskNameInIgnoreCase(taskNameList));
   }
 
   /**
    * Test {@link HistoricTaskInstanceQueryImpl#taskNameInIgnoreCase(List)}.
-   *
    * <ul>
-   *   <li>Given {@link HistoricTaskInstanceQueryImpl#HistoricTaskInstanceQueryImpl()}.
-   *   <li>When {@link ArrayList#ArrayList()}.
+   *   <li>Given {@link HistoricTaskInstanceQueryImpl#HistoricTaskInstanceQueryImpl()}.</li>
+   *   <li>When {@link ArrayList#ArrayList()}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link HistoricTaskInstanceQueryImpl#taskNameInIgnoreCase(List)}
+   * <p>
+   * Method under test: {@link HistoricTaskInstanceQueryImpl#taskNameInIgnoreCase(List)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "HistoricTaskInstanceQuery HistoricTaskInstanceQueryImpl.taskNameInIgnoreCase(List)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"HistoricTaskInstanceQuery HistoricTaskInstanceQueryImpl.taskNameInIgnoreCase(List)"})
   public void testTaskNameInIgnoreCase_givenHistoricTaskInstanceQueryImpl_whenArrayList() {
     // Arrange
-    HistoricTaskInstanceQueryImpl historicTaskInstanceQueryImpl =
-        new HistoricTaskInstanceQueryImpl();
+    HistoricTaskInstanceQueryImpl historicTaskInstanceQueryImpl = new HistoricTaskInstanceQueryImpl();
 
     // Act and Assert
-    assertThrows(
-        ActivitiIllegalArgumentException.class,
+    assertThrows(ActivitiIllegalArgumentException.class,
         () -> historicTaskInstanceQueryImpl.taskNameInIgnoreCase(new ArrayList<>()));
   }
 
   /**
    * Test {@link HistoricTaskInstanceQueryImpl#taskNameInIgnoreCase(List)}.
-   *
    * <ul>
-   *   <li>Given {@link HistoricTaskInstanceQueryImpl#HistoricTaskInstanceQueryImpl()}.
-   *   <li>When {@code null}.
+   *   <li>Given {@code null}.</li>
+   *   <li>When {@link ArrayList#ArrayList()} add {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link HistoricTaskInstanceQueryImpl#taskNameInIgnoreCase(List)}
+   * <p>
+   * Method under test: {@link HistoricTaskInstanceQueryImpl#taskNameInIgnoreCase(List)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "HistoricTaskInstanceQuery HistoricTaskInstanceQueryImpl.taskNameInIgnoreCase(List)"
-  })
-  public void testTaskNameInIgnoreCase_givenHistoricTaskInstanceQueryImpl_whenNull() {
-    // Arrange, Act and Assert
-    assertThrows(
-        ActivitiIllegalArgumentException.class,
-        () -> new HistoricTaskInstanceQueryImpl().taskNameInIgnoreCase(null));
-  }
-
-  /**
-   * Test {@link HistoricTaskInstanceQueryImpl#taskNameInIgnoreCase(List)}.
-   *
-   * <ul>
-   *   <li>Given {@code null}.
-   *   <li>When {@link ArrayList#ArrayList()} add {@code null}.
-   * </ul>
-   *
-   * <p>Method under test: {@link HistoricTaskInstanceQueryImpl#taskNameInIgnoreCase(List)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "HistoricTaskInstanceQuery HistoricTaskInstanceQueryImpl.taskNameInIgnoreCase(List)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"HistoricTaskInstanceQuery HistoricTaskInstanceQueryImpl.taskNameInIgnoreCase(List)"})
   public void testTaskNameInIgnoreCase_givenNull_whenArrayListAddNull() {
     // Arrange
-    HistoricTaskInstanceQueryImpl historicTaskInstanceQueryImpl =
-        new HistoricTaskInstanceQueryImpl();
+    HistoricTaskInstanceQueryImpl historicTaskInstanceQueryImpl = new HistoricTaskInstanceQueryImpl();
 
     ArrayList<String> taskNameList = new ArrayList<>();
     taskNameList.add(null);
 
     // Act and Assert
-    assertThrows(
-        ActivitiIllegalArgumentException.class,
+    assertThrows(ActivitiIllegalArgumentException.class,
         () -> historicTaskInstanceQueryImpl.taskNameInIgnoreCase(taskNameList));
   }
 
   /**
    * Test {@link HistoricTaskInstanceQueryImpl#taskNameInIgnoreCase(List)}.
-   *
    * <ul>
-   *   <li>Then return {@link HistoricTaskInstanceQueryImpl#HistoricTaskInstanceQueryImpl()}.
+   *   <li>Then return {@link HistoricTaskInstanceQueryImpl#HistoricTaskInstanceQueryImpl()}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link HistoricTaskInstanceQueryImpl#taskNameInIgnoreCase(List)}
+   * <p>
+   * Method under test: {@link HistoricTaskInstanceQueryImpl#taskNameInIgnoreCase(List)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "HistoricTaskInstanceQuery HistoricTaskInstanceQueryImpl.taskNameInIgnoreCase(List)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"HistoricTaskInstanceQuery HistoricTaskInstanceQueryImpl.taskNameInIgnoreCase(List)"})
   public void testTaskNameInIgnoreCase_thenReturnHistoricTaskInstanceQueryImpl() {
     // Arrange
-    HistoricTaskInstanceQueryImpl historicTaskInstanceQueryImpl =
-        new HistoricTaskInstanceQueryImpl();
+    HistoricTaskInstanceQueryImpl historicTaskInstanceQueryImpl = new HistoricTaskInstanceQueryImpl();
 
     ArrayList<String> taskNameList = new ArrayList<>();
-    taskNameList.add("Task Name List");
+    taskNameList.add("Task name list is empty");
 
-    // Act
-    HistoricTaskInstanceQuery actualTaskNameInIgnoreCaseResult =
-        historicTaskInstanceQueryImpl.taskNameInIgnoreCase(taskNameList);
-
-    // Assert
-    assertSame(historicTaskInstanceQueryImpl, actualTaskNameInIgnoreCaseResult);
+    // Act and Assert
+    assertSame(historicTaskInstanceQueryImpl, historicTaskInstanceQueryImpl.taskNameInIgnoreCase(taskNameList));
   }
 
   /**
    * Test {@link HistoricTaskInstanceQueryImpl#taskNameLike(String)}.
-   *
-   * <p>Method under test: {@link HistoricTaskInstanceQueryImpl#taskNameLike(String)}
+   * <p>
+   * Method under test: {@link HistoricTaskInstanceQueryImpl#taskNameLike(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "HistoricTaskInstanceQuery HistoricTaskInstanceQueryImpl.taskNameLike(String)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"HistoricTaskInstanceQuery HistoricTaskInstanceQueryImpl.taskNameLike(String)"})
   public void testTaskNameLike() {
     // Arrange
-    HistoricTaskInstanceQueryImpl historicTaskInstanceQueryImpl =
-        new HistoricTaskInstanceQueryImpl();
+    HistoricTaskInstanceQueryImpl historicTaskInstanceQueryImpl = new HistoricTaskInstanceQueryImpl();
 
     // Act
-    HistoricTaskInstanceQuery actualTaskNameLikeResult =
-        historicTaskInstanceQueryImpl.taskNameLike("Task Name Like");
+    HistoricTaskInstanceQuery actualTaskNameLikeResult = historicTaskInstanceQueryImpl.taskNameLike("Task Name Like");
 
     // Assert
     assertEquals("Task Name Like", historicTaskInstanceQueryImpl.getTaskNameLike());
@@ -2246,49 +1815,39 @@ public class HistoricTaskInstanceQueryImplDiffblueTest {
 
   /**
    * Test {@link HistoricTaskInstanceQueryImpl#taskNameLikeIgnoreCase(String)}.
-   *
-   * <p>Method under test: {@link HistoricTaskInstanceQueryImpl#taskNameLikeIgnoreCase(String)}
+   * <p>
+   * Method under test: {@link HistoricTaskInstanceQueryImpl#taskNameLikeIgnoreCase(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "HistoricTaskInstanceQuery HistoricTaskInstanceQueryImpl.taskNameLikeIgnoreCase(String)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"HistoricTaskInstanceQuery HistoricTaskInstanceQueryImpl.taskNameLikeIgnoreCase(String)"})
   public void testTaskNameLikeIgnoreCase() {
     // Arrange
-    HistoricTaskInstanceQueryImpl historicTaskInstanceQueryImpl =
-        new HistoricTaskInstanceQueryImpl();
+    HistoricTaskInstanceQueryImpl historicTaskInstanceQueryImpl = new HistoricTaskInstanceQueryImpl();
 
     // Act
-    HistoricTaskInstanceQuery actualTaskNameLikeIgnoreCaseResult =
-        historicTaskInstanceQueryImpl.taskNameLikeIgnoreCase("Task Name Like Ignore Case");
+    HistoricTaskInstanceQuery actualTaskNameLikeIgnoreCaseResult = historicTaskInstanceQueryImpl
+        .taskNameLikeIgnoreCase("Task Name Like Ignore Case");
 
     // Assert
-    assertEquals(
-        "task name like ignore case", historicTaskInstanceQueryImpl.getTaskNameLikeIgnoreCase());
+    assertEquals("task name like ignore case", historicTaskInstanceQueryImpl.getTaskNameLikeIgnoreCase());
     assertSame(historicTaskInstanceQueryImpl, actualTaskNameLikeIgnoreCaseResult);
   }
 
   /**
    * Test {@link HistoricTaskInstanceQueryImpl#taskParentTaskId(String)}.
-   *
-   * <p>Method under test: {@link HistoricTaskInstanceQueryImpl#taskParentTaskId(String)}
+   * <p>
+   * Method under test: {@link HistoricTaskInstanceQueryImpl#taskParentTaskId(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "HistoricTaskInstanceQuery HistoricTaskInstanceQueryImpl.taskParentTaskId(String)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"HistoricTaskInstanceQuery HistoricTaskInstanceQueryImpl.taskParentTaskId(String)"})
   public void testTaskParentTaskId() {
     // Arrange
-    HistoricTaskInstanceQueryImpl historicTaskInstanceQueryImpl =
-        new HistoricTaskInstanceQueryImpl();
+    HistoricTaskInstanceQueryImpl historicTaskInstanceQueryImpl = new HistoricTaskInstanceQueryImpl();
 
     // Act
-    HistoricTaskInstanceQuery actualTaskParentTaskIdResult =
-        historicTaskInstanceQueryImpl.taskParentTaskId("42");
+    HistoricTaskInstanceQuery actualTaskParentTaskIdResult = historicTaskInstanceQueryImpl.taskParentTaskId("42");
 
     // Assert
     assertEquals("42", historicTaskInstanceQueryImpl.getTaskParentTaskId());
@@ -2297,23 +1856,19 @@ public class HistoricTaskInstanceQueryImplDiffblueTest {
 
   /**
    * Test {@link HistoricTaskInstanceQueryImpl#taskDescription(String)}.
-   *
-   * <p>Method under test: {@link HistoricTaskInstanceQueryImpl#taskDescription(String)}
+   * <p>
+   * Method under test: {@link HistoricTaskInstanceQueryImpl#taskDescription(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "HistoricTaskInstanceQuery HistoricTaskInstanceQueryImpl.taskDescription(String)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"HistoricTaskInstanceQuery HistoricTaskInstanceQueryImpl.taskDescription(String)"})
   public void testTaskDescription() {
     // Arrange
-    HistoricTaskInstanceQueryImpl historicTaskInstanceQueryImpl =
-        new HistoricTaskInstanceQueryImpl();
+    HistoricTaskInstanceQueryImpl historicTaskInstanceQueryImpl = new HistoricTaskInstanceQueryImpl();
 
     // Act
-    HistoricTaskInstanceQuery actualTaskDescriptionResult =
-        historicTaskInstanceQueryImpl.taskDescription("Task Description");
+    HistoricTaskInstanceQuery actualTaskDescriptionResult = historicTaskInstanceQueryImpl
+        .taskDescription("Task Description");
 
     // Assert
     assertEquals("Task Description", historicTaskInstanceQueryImpl.getTaskDescription());
@@ -2322,23 +1877,19 @@ public class HistoricTaskInstanceQueryImplDiffblueTest {
 
   /**
    * Test {@link HistoricTaskInstanceQueryImpl#taskDescriptionLike(String)}.
-   *
-   * <p>Method under test: {@link HistoricTaskInstanceQueryImpl#taskDescriptionLike(String)}
+   * <p>
+   * Method under test: {@link HistoricTaskInstanceQueryImpl#taskDescriptionLike(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "HistoricTaskInstanceQuery HistoricTaskInstanceQueryImpl.taskDescriptionLike(String)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"HistoricTaskInstanceQuery HistoricTaskInstanceQueryImpl.taskDescriptionLike(String)"})
   public void testTaskDescriptionLike() {
     // Arrange
-    HistoricTaskInstanceQueryImpl historicTaskInstanceQueryImpl =
-        new HistoricTaskInstanceQueryImpl();
+    HistoricTaskInstanceQueryImpl historicTaskInstanceQueryImpl = new HistoricTaskInstanceQueryImpl();
 
     // Act
-    HistoricTaskInstanceQuery actualTaskDescriptionLikeResult =
-        historicTaskInstanceQueryImpl.taskDescriptionLike("Task Description Like");
+    HistoricTaskInstanceQuery actualTaskDescriptionLikeResult = historicTaskInstanceQueryImpl
+        .taskDescriptionLike("Task Description Like");
 
     // Assert
     assertEquals("Task Description Like", historicTaskInstanceQueryImpl.getTaskDescriptionLike());
@@ -2347,52 +1898,40 @@ public class HistoricTaskInstanceQueryImplDiffblueTest {
 
   /**
    * Test {@link HistoricTaskInstanceQueryImpl#taskDescriptionLikeIgnoreCase(String)}.
-   *
-   * <p>Method under test: {@link
-   * HistoricTaskInstanceQueryImpl#taskDescriptionLikeIgnoreCase(String)}
+   * <p>
+   * Method under test: {@link HistoricTaskInstanceQueryImpl#taskDescriptionLikeIgnoreCase(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "HistoricTaskInstanceQuery HistoricTaskInstanceQueryImpl.taskDescriptionLikeIgnoreCase(String)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"HistoricTaskInstanceQuery HistoricTaskInstanceQueryImpl.taskDescriptionLikeIgnoreCase(String)"})
   public void testTaskDescriptionLikeIgnoreCase() {
     // Arrange
-    HistoricTaskInstanceQueryImpl historicTaskInstanceQueryImpl =
-        new HistoricTaskInstanceQueryImpl();
+    HistoricTaskInstanceQueryImpl historicTaskInstanceQueryImpl = new HistoricTaskInstanceQueryImpl();
 
     // Act
-    HistoricTaskInstanceQuery actualTaskDescriptionLikeIgnoreCaseResult =
-        historicTaskInstanceQueryImpl.taskDescriptionLikeIgnoreCase(
-            "Task Description Like Ignore Case");
+    HistoricTaskInstanceQuery actualTaskDescriptionLikeIgnoreCaseResult = historicTaskInstanceQueryImpl
+        .taskDescriptionLikeIgnoreCase("Task Description Like Ignore Case");
 
     // Assert
-    assertEquals(
-        "task description like ignore case",
-        historicTaskInstanceQueryImpl.getTaskDescriptionLikeIgnoreCase());
+    assertEquals("task description like ignore case", historicTaskInstanceQueryImpl.getTaskDescriptionLikeIgnoreCase());
     assertSame(historicTaskInstanceQueryImpl, actualTaskDescriptionLikeIgnoreCaseResult);
   }
 
   /**
    * Test {@link HistoricTaskInstanceQueryImpl#taskDeleteReason(String)}.
-   *
-   * <p>Method under test: {@link HistoricTaskInstanceQueryImpl#taskDeleteReason(String)}
+   * <p>
+   * Method under test: {@link HistoricTaskInstanceQueryImpl#taskDeleteReason(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "HistoricTaskInstanceQuery HistoricTaskInstanceQueryImpl.taskDeleteReason(String)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"HistoricTaskInstanceQuery HistoricTaskInstanceQueryImpl.taskDeleteReason(String)"})
   public void testTaskDeleteReason() {
     // Arrange
-    HistoricTaskInstanceQueryImpl historicTaskInstanceQueryImpl =
-        new HistoricTaskInstanceQueryImpl();
+    HistoricTaskInstanceQueryImpl historicTaskInstanceQueryImpl = new HistoricTaskInstanceQueryImpl();
 
     // Act
-    HistoricTaskInstanceQuery actualTaskDeleteReasonResult =
-        historicTaskInstanceQueryImpl.taskDeleteReason("Just cause");
+    HistoricTaskInstanceQuery actualTaskDeleteReasonResult = historicTaskInstanceQueryImpl
+        .taskDeleteReason("Just cause");
 
     // Assert
     assertEquals("Just cause", historicTaskInstanceQueryImpl.getTaskDeleteReason());
@@ -2401,23 +1940,19 @@ public class HistoricTaskInstanceQueryImplDiffblueTest {
 
   /**
    * Test {@link HistoricTaskInstanceQueryImpl#taskDeleteReasonLike(String)}.
-   *
-   * <p>Method under test: {@link HistoricTaskInstanceQueryImpl#taskDeleteReasonLike(String)}
+   * <p>
+   * Method under test: {@link HistoricTaskInstanceQueryImpl#taskDeleteReasonLike(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "HistoricTaskInstanceQuery HistoricTaskInstanceQueryImpl.taskDeleteReasonLike(String)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"HistoricTaskInstanceQuery HistoricTaskInstanceQueryImpl.taskDeleteReasonLike(String)"})
   public void testTaskDeleteReasonLike() {
     // Arrange
-    HistoricTaskInstanceQueryImpl historicTaskInstanceQueryImpl =
-        new HistoricTaskInstanceQueryImpl();
+    HistoricTaskInstanceQueryImpl historicTaskInstanceQueryImpl = new HistoricTaskInstanceQueryImpl();
 
     // Act
-    HistoricTaskInstanceQuery actualTaskDeleteReasonLikeResult =
-        historicTaskInstanceQueryImpl.taskDeleteReasonLike("Just cause");
+    HistoricTaskInstanceQuery actualTaskDeleteReasonLikeResult = historicTaskInstanceQueryImpl
+        .taskDeleteReasonLike("Just cause");
 
     // Assert
     assertEquals("Just cause", historicTaskInstanceQueryImpl.getTaskDeleteReasonLike());
@@ -2426,23 +1961,18 @@ public class HistoricTaskInstanceQueryImplDiffblueTest {
 
   /**
    * Test {@link HistoricTaskInstanceQueryImpl#taskAssignee(String)}.
-   *
-   * <p>Method under test: {@link HistoricTaskInstanceQueryImpl#taskAssignee(String)}
+   * <p>
+   * Method under test: {@link HistoricTaskInstanceQueryImpl#taskAssignee(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "HistoricTaskInstanceQuery HistoricTaskInstanceQueryImpl.taskAssignee(String)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"HistoricTaskInstanceQuery HistoricTaskInstanceQueryImpl.taskAssignee(String)"})
   public void testTaskAssignee() {
     // Arrange
-    HistoricTaskInstanceQueryImpl historicTaskInstanceQueryImpl =
-        new HistoricTaskInstanceQueryImpl();
+    HistoricTaskInstanceQueryImpl historicTaskInstanceQueryImpl = new HistoricTaskInstanceQueryImpl();
 
     // Act
-    HistoricTaskInstanceQuery actualTaskAssigneeResult =
-        historicTaskInstanceQueryImpl.taskAssignee("Task Assignee");
+    HistoricTaskInstanceQuery actualTaskAssigneeResult = historicTaskInstanceQueryImpl.taskAssignee("Task Assignee");
 
     // Assert
     assertEquals("Task Assignee", historicTaskInstanceQueryImpl.getTaskAssignee());
@@ -2451,23 +1981,19 @@ public class HistoricTaskInstanceQueryImplDiffblueTest {
 
   /**
    * Test {@link HistoricTaskInstanceQueryImpl#taskAssigneeLike(String)}.
-   *
-   * <p>Method under test: {@link HistoricTaskInstanceQueryImpl#taskAssigneeLike(String)}
+   * <p>
+   * Method under test: {@link HistoricTaskInstanceQueryImpl#taskAssigneeLike(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "HistoricTaskInstanceQuery HistoricTaskInstanceQueryImpl.taskAssigneeLike(String)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"HistoricTaskInstanceQuery HistoricTaskInstanceQueryImpl.taskAssigneeLike(String)"})
   public void testTaskAssigneeLike() {
     // Arrange
-    HistoricTaskInstanceQueryImpl historicTaskInstanceQueryImpl =
-        new HistoricTaskInstanceQueryImpl();
+    HistoricTaskInstanceQueryImpl historicTaskInstanceQueryImpl = new HistoricTaskInstanceQueryImpl();
 
     // Act
-    HistoricTaskInstanceQuery actualTaskAssigneeLikeResult =
-        historicTaskInstanceQueryImpl.taskAssigneeLike("Task Assignee Like");
+    HistoricTaskInstanceQuery actualTaskAssigneeLikeResult = historicTaskInstanceQueryImpl
+        .taskAssigneeLike("Task Assignee Like");
 
     // Assert
     assertEquals("Task Assignee Like", historicTaskInstanceQueryImpl.getTaskAssigneeLike());
@@ -2476,221 +2002,184 @@ public class HistoricTaskInstanceQueryImplDiffblueTest {
 
   /**
    * Test {@link HistoricTaskInstanceQueryImpl#taskAssigneeLikeIgnoreCase(String)}.
-   *
-   * <p>Method under test: {@link HistoricTaskInstanceQueryImpl#taskAssigneeLikeIgnoreCase(String)}
+   * <p>
+   * Method under test: {@link HistoricTaskInstanceQueryImpl#taskAssigneeLikeIgnoreCase(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "HistoricTaskInstanceQuery HistoricTaskInstanceQueryImpl.taskAssigneeLikeIgnoreCase(String)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"HistoricTaskInstanceQuery HistoricTaskInstanceQueryImpl.taskAssigneeLikeIgnoreCase(String)"})
   public void testTaskAssigneeLikeIgnoreCase() {
     // Arrange
-    HistoricTaskInstanceQueryImpl historicTaskInstanceQueryImpl =
-        new HistoricTaskInstanceQueryImpl();
+    HistoricTaskInstanceQueryImpl historicTaskInstanceQueryImpl = new HistoricTaskInstanceQueryImpl();
 
     // Act
-    HistoricTaskInstanceQuery actualTaskAssigneeLikeIgnoreCaseResult =
-        historicTaskInstanceQueryImpl.taskAssigneeLikeIgnoreCase("Task Assignee Like Ignore Case");
+    HistoricTaskInstanceQuery actualTaskAssigneeLikeIgnoreCaseResult = historicTaskInstanceQueryImpl
+        .taskAssigneeLikeIgnoreCase("Task Assignee Like Ignore Case");
 
     // Assert
-    assertEquals(
-        "task assignee like ignore case",
-        historicTaskInstanceQueryImpl.getTaskAssigneeLikeIgnoreCase());
+    assertEquals("task assignee like ignore case", historicTaskInstanceQueryImpl.getTaskAssigneeLikeIgnoreCase());
     assertSame(historicTaskInstanceQueryImpl, actualTaskAssigneeLikeIgnoreCaseResult);
   }
 
   /**
    * Test {@link HistoricTaskInstanceQueryImpl#taskAssigneeIds(List)}.
-   *
-   * <p>Method under test: {@link HistoricTaskInstanceQueryImpl#taskAssigneeIds(List)}
+   * <p>
+   * Method under test: {@link HistoricTaskInstanceQueryImpl#taskAssigneeIds(List)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "HistoricTaskInstanceQuery HistoricTaskInstanceQueryImpl.taskAssigneeIds(List)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"HistoricTaskInstanceQuery HistoricTaskInstanceQueryImpl.taskAssigneeIds(List)"})
   public void testTaskAssigneeIds() {
     // Arrange
-    HistoricTaskInstanceQueryImpl historicTaskInstanceQueryImpl =
-        new HistoricTaskInstanceQueryImpl();
+    HistoricTaskInstanceQueryImpl historicTaskInstanceQueryImpl = new HistoricTaskInstanceQueryImpl();
     historicTaskInstanceQueryImpl.taskAssigneeLike("Task Assignee Like");
 
     ArrayList<String> assigneeIds = new ArrayList<>();
-    assigneeIds.add("Assignee Ids");
+    assigneeIds.add("Task assignee list is empty");
 
     // Act and Assert
-    assertThrows(
-        ActivitiIllegalArgumentException.class,
+    assertThrows(ActivitiIllegalArgumentException.class,
         () -> historicTaskInstanceQueryImpl.taskAssigneeIds(assigneeIds));
   }
 
   /**
    * Test {@link HistoricTaskInstanceQueryImpl#taskAssigneeIds(List)}.
-   *
-   * <p>Method under test: {@link HistoricTaskInstanceQueryImpl#taskAssigneeIds(List)}
+   * <p>
+   * Method under test: {@link HistoricTaskInstanceQueryImpl#taskAssigneeIds(List)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "HistoricTaskInstanceQuery HistoricTaskInstanceQueryImpl.taskAssigneeIds(List)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"HistoricTaskInstanceQuery HistoricTaskInstanceQueryImpl.taskAssigneeIds(List)"})
   public void testTaskAssigneeIds2() {
     // Arrange
-    HistoricTaskInstanceQueryImpl historicTaskInstanceQueryImpl =
-        new HistoricTaskInstanceQueryImpl();
+    HistoricTaskInstanceQueryImpl historicTaskInstanceQueryImpl = new HistoricTaskInstanceQueryImpl();
     historicTaskInstanceQueryImpl.taskAssigneeLikeIgnoreCase("Task Assignee Like Ignore Case");
 
     ArrayList<String> assigneeIds = new ArrayList<>();
-    assigneeIds.add("Assignee Ids");
+    assigneeIds.add("Task assignee list is empty");
 
     // Act and Assert
-    assertThrows(
-        ActivitiIllegalArgumentException.class,
+    assertThrows(ActivitiIllegalArgumentException.class,
         () -> historicTaskInstanceQueryImpl.taskAssigneeIds(assigneeIds));
   }
 
   /**
    * Test {@link HistoricTaskInstanceQueryImpl#taskAssigneeIds(List)}.
-   *
    * <ul>
-   *   <li>Given {@link HistoricTaskInstanceQueryImpl#HistoricTaskInstanceQueryImpl()} taskAssignee
-   *       {@code Task Assignee}.
+   *   <li>Given {@code 42}.</li>
+   *   <li>When {@link ArrayList#ArrayList()} add {@code 42}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link HistoricTaskInstanceQueryImpl#taskAssigneeIds(List)}
+   * <p>
+   * Method under test: {@link HistoricTaskInstanceQueryImpl#taskAssigneeIds(List)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "HistoricTaskInstanceQuery HistoricTaskInstanceQueryImpl.taskAssigneeIds(List)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"HistoricTaskInstanceQuery HistoricTaskInstanceQueryImpl.taskAssigneeIds(List)"})
+  public void testTaskAssigneeIds_given42_whenArrayListAdd42() {
+    // Arrange
+    HistoricTaskInstanceQueryImpl historicTaskInstanceQueryImpl = new HistoricTaskInstanceQueryImpl();
+
+    ArrayList<String> assigneeIds = new ArrayList<>();
+    assigneeIds.add("42");
+    assigneeIds.add("Task assignee list is empty");
+
+    // Act
+    HistoricTaskInstanceQuery actualTaskAssigneeIdsResult = historicTaskInstanceQueryImpl.taskAssigneeIds(assigneeIds);
+
+    // Assert
+    assertSame(assigneeIds, historicTaskInstanceQueryImpl.getTaskAssigneeIds());
+    assertSame(historicTaskInstanceQueryImpl, actualTaskAssigneeIdsResult);
+  }
+
+  /**
+   * Test {@link HistoricTaskInstanceQueryImpl#taskAssigneeIds(List)}.
+   * <ul>
+   *   <li>Given {@link HistoricTaskInstanceQueryImpl#HistoricTaskInstanceQueryImpl()} taskAssignee {@code Task Assignee}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link HistoricTaskInstanceQueryImpl#taskAssigneeIds(List)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"HistoricTaskInstanceQuery HistoricTaskInstanceQueryImpl.taskAssigneeIds(List)"})
   public void testTaskAssigneeIds_givenHistoricTaskInstanceQueryImplTaskAssigneeTaskAssignee() {
     // Arrange
-    HistoricTaskInstanceQueryImpl historicTaskInstanceQueryImpl =
-        new HistoricTaskInstanceQueryImpl();
+    HistoricTaskInstanceQueryImpl historicTaskInstanceQueryImpl = new HistoricTaskInstanceQueryImpl();
     historicTaskInstanceQueryImpl.taskAssignee("Task Assignee");
 
     ArrayList<String> assigneeIds = new ArrayList<>();
-    assigneeIds.add("Assignee Ids");
+    assigneeIds.add("Task assignee list is empty");
 
     // Act and Assert
-    assertThrows(
-        ActivitiIllegalArgumentException.class,
+    assertThrows(ActivitiIllegalArgumentException.class,
         () -> historicTaskInstanceQueryImpl.taskAssigneeIds(assigneeIds));
   }
 
   /**
    * Test {@link HistoricTaskInstanceQueryImpl#taskAssigneeIds(List)}.
-   *
    * <ul>
-   *   <li>Given {@link HistoricTaskInstanceQueryImpl#HistoricTaskInstanceQueryImpl()}.
-   *   <li>When {@link ArrayList#ArrayList()}.
+   *   <li>Given {@link HistoricTaskInstanceQueryImpl#HistoricTaskInstanceQueryImpl()}.</li>
+   *   <li>When {@link ArrayList#ArrayList()}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link HistoricTaskInstanceQueryImpl#taskAssigneeIds(List)}
+   * <p>
+   * Method under test: {@link HistoricTaskInstanceQueryImpl#taskAssigneeIds(List)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "HistoricTaskInstanceQuery HistoricTaskInstanceQueryImpl.taskAssigneeIds(List)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"HistoricTaskInstanceQuery HistoricTaskInstanceQueryImpl.taskAssigneeIds(List)"})
   public void testTaskAssigneeIds_givenHistoricTaskInstanceQueryImpl_whenArrayList() {
     // Arrange
-    HistoricTaskInstanceQueryImpl historicTaskInstanceQueryImpl =
-        new HistoricTaskInstanceQueryImpl();
+    HistoricTaskInstanceQueryImpl historicTaskInstanceQueryImpl = new HistoricTaskInstanceQueryImpl();
 
     // Act and Assert
-    assertThrows(
-        ActivitiIllegalArgumentException.class,
+    assertThrows(ActivitiIllegalArgumentException.class,
         () -> historicTaskInstanceQueryImpl.taskAssigneeIds(new ArrayList<>()));
   }
 
   /**
    * Test {@link HistoricTaskInstanceQueryImpl#taskAssigneeIds(List)}.
-   *
    * <ul>
-   *   <li>Given {@link HistoricTaskInstanceQueryImpl#HistoricTaskInstanceQueryImpl()}.
-   *   <li>When {@code null}.
+   *   <li>Given {@code null}.</li>
+   *   <li>When {@link ArrayList#ArrayList()} add {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link HistoricTaskInstanceQueryImpl#taskAssigneeIds(List)}
+   * <p>
+   * Method under test: {@link HistoricTaskInstanceQueryImpl#taskAssigneeIds(List)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "HistoricTaskInstanceQuery HistoricTaskInstanceQueryImpl.taskAssigneeIds(List)"
-  })
-  public void testTaskAssigneeIds_givenHistoricTaskInstanceQueryImpl_whenNull() {
-    // Arrange, Act and Assert
-    assertThrows(
-        ActivitiIllegalArgumentException.class,
-        () -> new HistoricTaskInstanceQueryImpl().taskAssigneeIds(null));
-  }
-
-  /**
-   * Test {@link HistoricTaskInstanceQueryImpl#taskAssigneeIds(List)}.
-   *
-   * <ul>
-   *   <li>Given {@code null}.
-   *   <li>When {@link ArrayList#ArrayList()} add {@code null}.
-   * </ul>
-   *
-   * <p>Method under test: {@link HistoricTaskInstanceQueryImpl#taskAssigneeIds(List)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "HistoricTaskInstanceQuery HistoricTaskInstanceQueryImpl.taskAssigneeIds(List)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"HistoricTaskInstanceQuery HistoricTaskInstanceQueryImpl.taskAssigneeIds(List)"})
   public void testTaskAssigneeIds_givenNull_whenArrayListAddNull() {
     // Arrange
-    HistoricTaskInstanceQueryImpl historicTaskInstanceQueryImpl =
-        new HistoricTaskInstanceQueryImpl();
+    HistoricTaskInstanceQueryImpl historicTaskInstanceQueryImpl = new HistoricTaskInstanceQueryImpl();
 
     ArrayList<String> assigneeIds = new ArrayList<>();
     assigneeIds.add(null);
 
     // Act and Assert
-    assertThrows(
-        ActivitiIllegalArgumentException.class,
+    assertThrows(ActivitiIllegalArgumentException.class,
         () -> historicTaskInstanceQueryImpl.taskAssigneeIds(assigneeIds));
   }
 
   /**
    * Test {@link HistoricTaskInstanceQueryImpl#taskAssigneeIds(List)}.
-   *
    * <ul>
-   *   <li>Then {@link HistoricTaskInstanceQueryImpl#HistoricTaskInstanceQueryImpl()}
-   *       TaskAssigneeIds is {@link ArrayList#ArrayList()}.
+   *   <li>Then {@link HistoricTaskInstanceQueryImpl#HistoricTaskInstanceQueryImpl()} TaskAssigneeIds is {@link ArrayList#ArrayList()}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link HistoricTaskInstanceQueryImpl#taskAssigneeIds(List)}
+   * <p>
+   * Method under test: {@link HistoricTaskInstanceQueryImpl#taskAssigneeIds(List)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "HistoricTaskInstanceQuery HistoricTaskInstanceQueryImpl.taskAssigneeIds(List)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"HistoricTaskInstanceQuery HistoricTaskInstanceQueryImpl.taskAssigneeIds(List)"})
   public void testTaskAssigneeIds_thenHistoricTaskInstanceQueryImplTaskAssigneeIdsIsArrayList() {
     // Arrange
-    HistoricTaskInstanceQueryImpl historicTaskInstanceQueryImpl =
-        new HistoricTaskInstanceQueryImpl();
+    HistoricTaskInstanceQueryImpl historicTaskInstanceQueryImpl = new HistoricTaskInstanceQueryImpl();
 
     ArrayList<String> assigneeIds = new ArrayList<>();
-    assigneeIds.add("Assignee Ids");
+    assigneeIds.add("Task assignee list is empty");
 
     // Act
-    HistoricTaskInstanceQuery actualTaskAssigneeIdsResult =
-        historicTaskInstanceQueryImpl.taskAssigneeIds(assigneeIds);
+    HistoricTaskInstanceQuery actualTaskAssigneeIdsResult = historicTaskInstanceQueryImpl.taskAssigneeIds(assigneeIds);
 
     // Assert
     assertSame(assigneeIds, historicTaskInstanceQueryImpl.getTaskAssigneeIds());
@@ -2699,21 +2188,18 @@ public class HistoricTaskInstanceQueryImplDiffblueTest {
 
   /**
    * Test {@link HistoricTaskInstanceQueryImpl#taskOwner(String)}.
-   *
-   * <p>Method under test: {@link HistoricTaskInstanceQueryImpl#taskOwner(String)}
+   * <p>
+   * Method under test: {@link HistoricTaskInstanceQueryImpl#taskOwner(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"HistoricTaskInstanceQuery HistoricTaskInstanceQueryImpl.taskOwner(String)"})
   public void testTaskOwner() {
     // Arrange
-    HistoricTaskInstanceQueryImpl historicTaskInstanceQueryImpl =
-        new HistoricTaskInstanceQueryImpl();
+    HistoricTaskInstanceQueryImpl historicTaskInstanceQueryImpl = new HistoricTaskInstanceQueryImpl();
 
     // Act
-    HistoricTaskInstanceQuery actualTaskOwnerResult =
-        historicTaskInstanceQueryImpl.taskOwner("Task Owner");
+    HistoricTaskInstanceQuery actualTaskOwnerResult = historicTaskInstanceQueryImpl.taskOwner("Task Owner");
 
     // Assert
     assertEquals("Task Owner", historicTaskInstanceQueryImpl.getTaskOwner());
@@ -2722,23 +2208,19 @@ public class HistoricTaskInstanceQueryImplDiffblueTest {
 
   /**
    * Test {@link HistoricTaskInstanceQueryImpl#taskOwnerLike(String)}.
-   *
-   * <p>Method under test: {@link HistoricTaskInstanceQueryImpl#taskOwnerLike(String)}
+   * <p>
+   * Method under test: {@link HistoricTaskInstanceQueryImpl#taskOwnerLike(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "HistoricTaskInstanceQuery HistoricTaskInstanceQueryImpl.taskOwnerLike(String)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"HistoricTaskInstanceQuery HistoricTaskInstanceQueryImpl.taskOwnerLike(String)"})
   public void testTaskOwnerLike() {
     // Arrange
-    HistoricTaskInstanceQueryImpl historicTaskInstanceQueryImpl =
-        new HistoricTaskInstanceQueryImpl();
+    HistoricTaskInstanceQueryImpl historicTaskInstanceQueryImpl = new HistoricTaskInstanceQueryImpl();
 
     // Act
-    HistoricTaskInstanceQuery actualTaskOwnerLikeResult =
-        historicTaskInstanceQueryImpl.taskOwnerLike("Task Owner Like");
+    HistoricTaskInstanceQuery actualTaskOwnerLikeResult = historicTaskInstanceQueryImpl
+        .taskOwnerLike("Task Owner Like");
 
     // Assert
     assertEquals("Task Owner Like", historicTaskInstanceQueryImpl.getTaskOwnerLike());
@@ -2747,43 +2229,36 @@ public class HistoricTaskInstanceQueryImplDiffblueTest {
 
   /**
    * Test {@link HistoricTaskInstanceQueryImpl#taskOwnerLikeIgnoreCase(String)}.
-   *
-   * <p>Method under test: {@link HistoricTaskInstanceQueryImpl#taskOwnerLikeIgnoreCase(String)}
+   * <p>
+   * Method under test: {@link HistoricTaskInstanceQueryImpl#taskOwnerLikeIgnoreCase(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "HistoricTaskInstanceQuery HistoricTaskInstanceQueryImpl.taskOwnerLikeIgnoreCase(String)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"HistoricTaskInstanceQuery HistoricTaskInstanceQueryImpl.taskOwnerLikeIgnoreCase(String)"})
   public void testTaskOwnerLikeIgnoreCase() {
     // Arrange
-    HistoricTaskInstanceQueryImpl historicTaskInstanceQueryImpl =
-        new HistoricTaskInstanceQueryImpl();
+    HistoricTaskInstanceQueryImpl historicTaskInstanceQueryImpl = new HistoricTaskInstanceQueryImpl();
 
     // Act
-    HistoricTaskInstanceQuery actualTaskOwnerLikeIgnoreCaseResult =
-        historicTaskInstanceQueryImpl.taskOwnerLikeIgnoreCase("Task Owner Like Ignore Case");
+    HistoricTaskInstanceQuery actualTaskOwnerLikeIgnoreCaseResult = historicTaskInstanceQueryImpl
+        .taskOwnerLikeIgnoreCase("Task Owner Like Ignore Case");
 
     // Assert
-    assertEquals(
-        "task owner like ignore case", historicTaskInstanceQueryImpl.getTaskOwnerLikeIgnoreCase());
+    assertEquals("task owner like ignore case", historicTaskInstanceQueryImpl.getTaskOwnerLikeIgnoreCase());
     assertSame(historicTaskInstanceQueryImpl, actualTaskOwnerLikeIgnoreCaseResult);
   }
 
   /**
    * Test {@link HistoricTaskInstanceQueryImpl#finished()}.
-   *
-   * <p>Method under test: {@link HistoricTaskInstanceQueryImpl#finished()}
+   * <p>
+   * Method under test: {@link HistoricTaskInstanceQueryImpl#finished()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"HistoricTaskInstanceQuery HistoricTaskInstanceQueryImpl.finished()"})
   public void testFinished() {
     // Arrange
-    HistoricTaskInstanceQueryImpl historicTaskInstanceQueryImpl =
-        new HistoricTaskInstanceQueryImpl();
+    HistoricTaskInstanceQueryImpl historicTaskInstanceQueryImpl = new HistoricTaskInstanceQueryImpl();
 
     // Act
     HistoricTaskInstanceQuery actualFinishedResult = historicTaskInstanceQueryImpl.finished();
@@ -2795,17 +2270,15 @@ public class HistoricTaskInstanceQueryImplDiffblueTest {
 
   /**
    * Test {@link HistoricTaskInstanceQueryImpl#unfinished()}.
-   *
-   * <p>Method under test: {@link HistoricTaskInstanceQueryImpl#unfinished()}
+   * <p>
+   * Method under test: {@link HistoricTaskInstanceQueryImpl#unfinished()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"HistoricTaskInstanceQuery HistoricTaskInstanceQueryImpl.unfinished()"})
   public void testUnfinished() {
     // Arrange
-    HistoricTaskInstanceQueryImpl historicTaskInstanceQueryImpl =
-        new HistoricTaskInstanceQueryImpl();
+    HistoricTaskInstanceQueryImpl historicTaskInstanceQueryImpl = new HistoricTaskInstanceQueryImpl();
 
     // Act
     HistoricTaskInstanceQuery actualUnfinishedResult = historicTaskInstanceQueryImpl.unfinished();
@@ -2816,30 +2289,23 @@ public class HistoricTaskInstanceQueryImplDiffblueTest {
   }
 
   /**
-   * Test {@link HistoricTaskInstanceQueryImpl#taskVariableValueEquals(String, Object)} with {@code
-   * variableName}, {@code variableValue}.
-   *
+   * Test {@link HistoricTaskInstanceQueryImpl#taskVariableValueEquals(String, Object)} with {@code variableName}, {@code variableValue}.
    * <ul>
-   *   <li>When {@link JSONObject#NULL}.
+   *   <li>When {@link JSONObject#NULL}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link HistoricTaskInstanceQueryImpl#taskVariableValueEquals(String,
-   * Object)}
+   * <p>
+   * Method under test: {@link HistoricTaskInstanceQueryImpl#taskVariableValueEquals(String, Object)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "HistoricTaskInstanceQuery HistoricTaskInstanceQueryImpl.taskVariableValueEquals(String, Object)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"HistoricTaskInstanceQuery HistoricTaskInstanceQueryImpl.taskVariableValueEquals(String, Object)"})
   public void testTaskVariableValueEqualsWithVariableNameVariableValue_whenNull() {
     // Arrange
-    HistoricTaskInstanceQueryImpl historicTaskInstanceQueryImpl =
-        new HistoricTaskInstanceQueryImpl();
+    HistoricTaskInstanceQueryImpl historicTaskInstanceQueryImpl = new HistoricTaskInstanceQueryImpl();
 
     // Act
-    HistoricTaskInstanceQuery actualTaskVariableValueEqualsResult =
-        historicTaskInstanceQueryImpl.taskVariableValueEquals("Variable Name", JSONObject.NULL);
+    HistoricTaskInstanceQuery actualTaskVariableValueEqualsResult = historicTaskInstanceQueryImpl
+        .taskVariableValueEquals("Variable Name", JSONObject.NULL);
 
     // Assert
     assertTrue(historicTaskInstanceQueryImpl.hasLocalQueryVariableValue());
@@ -2847,30 +2313,23 @@ public class HistoricTaskInstanceQueryImplDiffblueTest {
   }
 
   /**
-   * Test {@link HistoricTaskInstanceQueryImpl#taskVariableValueEquals(String, Object)} with {@code
-   * variableName}, {@code variableValue}.
-   *
+   * Test {@link HistoricTaskInstanceQueryImpl#taskVariableValueEquals(String, Object)} with {@code variableName}, {@code variableValue}.
    * <ul>
-   *   <li>When {@code null}.
+   *   <li>When {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link HistoricTaskInstanceQueryImpl#taskVariableValueEquals(String,
-   * Object)}
+   * <p>
+   * Method under test: {@link HistoricTaskInstanceQueryImpl#taskVariableValueEquals(String, Object)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "HistoricTaskInstanceQuery HistoricTaskInstanceQueryImpl.taskVariableValueEquals(String, Object)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"HistoricTaskInstanceQuery HistoricTaskInstanceQueryImpl.taskVariableValueEquals(String, Object)"})
   public void testTaskVariableValueEqualsWithVariableNameVariableValue_whenNull2() {
     // Arrange
-    HistoricTaskInstanceQueryImpl historicTaskInstanceQueryImpl =
-        new HistoricTaskInstanceQueryImpl();
+    HistoricTaskInstanceQueryImpl historicTaskInstanceQueryImpl = new HistoricTaskInstanceQueryImpl();
 
     // Act
-    HistoricTaskInstanceQuery actualTaskVariableValueEqualsResult =
-        historicTaskInstanceQueryImpl.taskVariableValueEquals("Variable Name", null);
+    HistoricTaskInstanceQuery actualTaskVariableValueEqualsResult = historicTaskInstanceQueryImpl
+        .taskVariableValueEquals("Variable Name", null);
 
     // Assert
     assertTrue(historicTaskInstanceQueryImpl.hasLocalQueryVariableValue());
@@ -2878,25 +2337,20 @@ public class HistoricTaskInstanceQueryImplDiffblueTest {
   }
 
   /**
-   * Test {@link HistoricTaskInstanceQueryImpl#taskVariableValueEquals(Object)} with {@code
-   * variableValue}.
-   *
-   * <p>Method under test: {@link HistoricTaskInstanceQueryImpl#taskVariableValueEquals(Object)}
+   * Test {@link HistoricTaskInstanceQueryImpl#taskVariableValueEquals(Object)} with {@code variableValue}.
+   * <p>
+   * Method under test: {@link HistoricTaskInstanceQueryImpl#taskVariableValueEquals(Object)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "HistoricTaskInstanceQuery HistoricTaskInstanceQueryImpl.taskVariableValueEquals(Object)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"HistoricTaskInstanceQuery HistoricTaskInstanceQueryImpl.taskVariableValueEquals(Object)"})
   public void testTaskVariableValueEqualsWithVariableValue() {
     // Arrange
-    HistoricTaskInstanceQueryImpl historicTaskInstanceQueryImpl =
-        new HistoricTaskInstanceQueryImpl();
+    HistoricTaskInstanceQueryImpl historicTaskInstanceQueryImpl = new HistoricTaskInstanceQueryImpl();
 
     // Act
-    HistoricTaskInstanceQuery actualTaskVariableValueEqualsResult =
-        historicTaskInstanceQueryImpl.taskVariableValueEquals(JSONObject.NULL);
+    HistoricTaskInstanceQuery actualTaskVariableValueEqualsResult = historicTaskInstanceQueryImpl
+        .taskVariableValueEquals(JSONObject.NULL);
 
     // Assert
     assertTrue(historicTaskInstanceQueryImpl.hasLocalQueryVariableValue());
@@ -2905,24 +2359,20 @@ public class HistoricTaskInstanceQueryImplDiffblueTest {
 
   /**
    * Test {@link HistoricTaskInstanceQueryImpl#taskVariableValueEqualsIgnoreCase(String, String)}.
-   *
-   * <p>Method under test: {@link
-   * HistoricTaskInstanceQueryImpl#taskVariableValueEqualsIgnoreCase(String, String)}
+   * <p>
+   * Method under test: {@link HistoricTaskInstanceQueryImpl#taskVariableValueEqualsIgnoreCase(String, String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({
-    "HistoricTaskInstanceQuery HistoricTaskInstanceQueryImpl.taskVariableValueEqualsIgnoreCase(String, String)"
-  })
+      "HistoricTaskInstanceQuery HistoricTaskInstanceQueryImpl.taskVariableValueEqualsIgnoreCase(String, String)"})
   public void testTaskVariableValueEqualsIgnoreCase() {
     // Arrange
-    HistoricTaskInstanceQueryImpl historicTaskInstanceQueryImpl =
-        new HistoricTaskInstanceQueryImpl();
+    HistoricTaskInstanceQueryImpl historicTaskInstanceQueryImpl = new HistoricTaskInstanceQueryImpl();
 
     // Act
-    HistoricTaskInstanceQuery actualTaskVariableValueEqualsIgnoreCaseResult =
-        historicTaskInstanceQueryImpl.taskVariableValueEqualsIgnoreCase("Name", "42");
+    HistoricTaskInstanceQuery actualTaskVariableValueEqualsIgnoreCaseResult = historicTaskInstanceQueryImpl
+        .taskVariableValueEqualsIgnoreCase("Name", "42");
 
     // Assert
     assertTrue(historicTaskInstanceQueryImpl.hasLocalQueryVariableValue());
@@ -2930,26 +2380,21 @@ public class HistoricTaskInstanceQueryImplDiffblueTest {
   }
 
   /**
-   * Test {@link HistoricTaskInstanceQueryImpl#taskVariableValueNotEqualsIgnoreCase(String,
-   * String)}.
-   *
-   * <p>Method under test: {@link
-   * HistoricTaskInstanceQueryImpl#taskVariableValueNotEqualsIgnoreCase(String, String)}
+   * Test {@link HistoricTaskInstanceQueryImpl#taskVariableValueNotEqualsIgnoreCase(String, String)}.
+   * <p>
+   * Method under test: {@link HistoricTaskInstanceQueryImpl#taskVariableValueNotEqualsIgnoreCase(String, String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({
-    "HistoricTaskInstanceQuery HistoricTaskInstanceQueryImpl.taskVariableValueNotEqualsIgnoreCase(String, String)"
-  })
+      "HistoricTaskInstanceQuery HistoricTaskInstanceQueryImpl.taskVariableValueNotEqualsIgnoreCase(String, String)"})
   public void testTaskVariableValueNotEqualsIgnoreCase() {
     // Arrange
-    HistoricTaskInstanceQueryImpl historicTaskInstanceQueryImpl =
-        new HistoricTaskInstanceQueryImpl();
+    HistoricTaskInstanceQueryImpl historicTaskInstanceQueryImpl = new HistoricTaskInstanceQueryImpl();
 
     // Act
-    HistoricTaskInstanceQuery actualTaskVariableValueNotEqualsIgnoreCaseResult =
-        historicTaskInstanceQueryImpl.taskVariableValueNotEqualsIgnoreCase("Name", "42");
+    HistoricTaskInstanceQuery actualTaskVariableValueNotEqualsIgnoreCaseResult = historicTaskInstanceQueryImpl
+        .taskVariableValueNotEqualsIgnoreCase("Name", "42");
 
     // Assert
     assertTrue(historicTaskInstanceQueryImpl.hasLocalQueryVariableValue());
@@ -2958,28 +2403,23 @@ public class HistoricTaskInstanceQueryImplDiffblueTest {
 
   /**
    * Test {@link HistoricTaskInstanceQueryImpl#taskVariableValueNotEquals(String, Object)}.
-   *
    * <ul>
-   *   <li>When {@link JSONObject#NULL}.
+   *   <li>When {@link JSONObject#NULL}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link HistoricTaskInstanceQueryImpl#taskVariableValueNotEquals(String,
-   * Object)}
+   * <p>
+   * Method under test: {@link HistoricTaskInstanceQueryImpl#taskVariableValueNotEquals(String, Object)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({
-    "HistoricTaskInstanceQuery HistoricTaskInstanceQueryImpl.taskVariableValueNotEquals(String, Object)"
-  })
+      "HistoricTaskInstanceQuery HistoricTaskInstanceQueryImpl.taskVariableValueNotEquals(String, Object)"})
   public void testTaskVariableValueNotEquals_whenNull() {
     // Arrange
-    HistoricTaskInstanceQueryImpl historicTaskInstanceQueryImpl =
-        new HistoricTaskInstanceQueryImpl();
+    HistoricTaskInstanceQueryImpl historicTaskInstanceQueryImpl = new HistoricTaskInstanceQueryImpl();
 
     // Act
-    HistoricTaskInstanceQuery actualTaskVariableValueNotEqualsResult =
-        historicTaskInstanceQueryImpl.taskVariableValueNotEquals("Variable Name", JSONObject.NULL);
+    HistoricTaskInstanceQuery actualTaskVariableValueNotEqualsResult = historicTaskInstanceQueryImpl
+        .taskVariableValueNotEquals("Variable Name", JSONObject.NULL);
 
     // Assert
     assertTrue(historicTaskInstanceQueryImpl.hasLocalQueryVariableValue());
@@ -2988,28 +2428,23 @@ public class HistoricTaskInstanceQueryImplDiffblueTest {
 
   /**
    * Test {@link HistoricTaskInstanceQueryImpl#taskVariableValueNotEquals(String, Object)}.
-   *
    * <ul>
-   *   <li>When {@code null}.
+   *   <li>When {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link HistoricTaskInstanceQueryImpl#taskVariableValueNotEquals(String,
-   * Object)}
+   * <p>
+   * Method under test: {@link HistoricTaskInstanceQueryImpl#taskVariableValueNotEquals(String, Object)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({
-    "HistoricTaskInstanceQuery HistoricTaskInstanceQueryImpl.taskVariableValueNotEquals(String, Object)"
-  })
+      "HistoricTaskInstanceQuery HistoricTaskInstanceQueryImpl.taskVariableValueNotEquals(String, Object)"})
   public void testTaskVariableValueNotEquals_whenNull2() {
     // Arrange
-    HistoricTaskInstanceQueryImpl historicTaskInstanceQueryImpl =
-        new HistoricTaskInstanceQueryImpl();
+    HistoricTaskInstanceQueryImpl historicTaskInstanceQueryImpl = new HistoricTaskInstanceQueryImpl();
 
     // Act
-    HistoricTaskInstanceQuery actualTaskVariableValueNotEqualsResult =
-        historicTaskInstanceQueryImpl.taskVariableValueNotEquals("Variable Name", null);
+    HistoricTaskInstanceQuery actualTaskVariableValueNotEqualsResult = historicTaskInstanceQueryImpl
+        .taskVariableValueNotEquals("Variable Name", null);
 
     // Assert
     assertTrue(historicTaskInstanceQueryImpl.hasLocalQueryVariableValue());
@@ -3018,24 +2453,20 @@ public class HistoricTaskInstanceQueryImplDiffblueTest {
 
   /**
    * Test {@link HistoricTaskInstanceQueryImpl#taskVariableValueGreaterThan(String, Object)}.
-   *
-   * <p>Method under test: {@link HistoricTaskInstanceQueryImpl#taskVariableValueGreaterThan(String,
-   * Object)}
+   * <p>
+   * Method under test: {@link HistoricTaskInstanceQueryImpl#taskVariableValueGreaterThan(String, Object)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({
-    "HistoricTaskInstanceQuery HistoricTaskInstanceQueryImpl.taskVariableValueGreaterThan(String, Object)"
-  })
+      "HistoricTaskInstanceQuery HistoricTaskInstanceQueryImpl.taskVariableValueGreaterThan(String, Object)"})
   public void testTaskVariableValueGreaterThan() {
     // Arrange
-    HistoricTaskInstanceQueryImpl historicTaskInstanceQueryImpl =
-        new HistoricTaskInstanceQueryImpl();
+    HistoricTaskInstanceQueryImpl historicTaskInstanceQueryImpl = new HistoricTaskInstanceQueryImpl();
 
     // Act
-    HistoricTaskInstanceQuery actualTaskVariableValueGreaterThanResult =
-        historicTaskInstanceQueryImpl.taskVariableValueGreaterThan("Name", JSONObject.NULL);
+    HistoricTaskInstanceQuery actualTaskVariableValueGreaterThanResult = historicTaskInstanceQueryImpl
+        .taskVariableValueGreaterThan("Name", JSONObject.NULL);
 
     // Assert
     assertTrue(historicTaskInstanceQueryImpl.hasLocalQueryVariableValue());
@@ -3043,48 +2474,21 @@ public class HistoricTaskInstanceQueryImplDiffblueTest {
   }
 
   /**
-   * Test {@link HistoricTaskInstanceQueryImpl#taskVariableValueGreaterThan(String, Object)}.
-   *
-   * <ul>
-   *   <li>Then throw {@link ActivitiIllegalArgumentException}.
-   * </ul>
-   *
-   * <p>Method under test: {@link HistoricTaskInstanceQueryImpl#taskVariableValueGreaterThan(String,
-   * Object)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "HistoricTaskInstanceQuery HistoricTaskInstanceQueryImpl.taskVariableValueGreaterThan(String, Object)"
-  })
-  public void testTaskVariableValueGreaterThan_thenThrowActivitiIllegalArgumentException() {
-    // Arrange, Act and Assert
-    assertThrows(
-        ActivitiIllegalArgumentException.class,
-        () -> new HistoricTaskInstanceQueryImpl().taskVariableValueGreaterThan("Name", null));
-  }
-
-  /**
    * Test {@link HistoricTaskInstanceQueryImpl#taskVariableValueGreaterThanOrEqual(String, Object)}.
-   *
-   * <p>Method under test: {@link
-   * HistoricTaskInstanceQueryImpl#taskVariableValueGreaterThanOrEqual(String, Object)}
+   * <p>
+   * Method under test: {@link HistoricTaskInstanceQueryImpl#taskVariableValueGreaterThanOrEqual(String, Object)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({
-    "HistoricTaskInstanceQuery HistoricTaskInstanceQueryImpl.taskVariableValueGreaterThanOrEqual(String, Object)"
-  })
+      "HistoricTaskInstanceQuery HistoricTaskInstanceQueryImpl.taskVariableValueGreaterThanOrEqual(String, Object)"})
   public void testTaskVariableValueGreaterThanOrEqual() {
     // Arrange
-    HistoricTaskInstanceQueryImpl historicTaskInstanceQueryImpl =
-        new HistoricTaskInstanceQueryImpl();
+    HistoricTaskInstanceQueryImpl historicTaskInstanceQueryImpl = new HistoricTaskInstanceQueryImpl();
 
     // Act
-    HistoricTaskInstanceQuery actualTaskVariableValueGreaterThanOrEqualResult =
-        historicTaskInstanceQueryImpl.taskVariableValueGreaterThanOrEqual("Name", JSONObject.NULL);
+    HistoricTaskInstanceQuery actualTaskVariableValueGreaterThanOrEqualResult = historicTaskInstanceQueryImpl
+        .taskVariableValueGreaterThanOrEqual("Name", JSONObject.NULL);
 
     // Assert
     assertTrue(historicTaskInstanceQueryImpl.hasLocalQueryVariableValue());
@@ -3092,45 +2496,21 @@ public class HistoricTaskInstanceQueryImplDiffblueTest {
   }
 
   /**
-   * Test {@link HistoricTaskInstanceQueryImpl#taskVariableValueGreaterThanOrEqual(String, Object)}.
-   *
-   * <p>Method under test: {@link
-   * HistoricTaskInstanceQueryImpl#taskVariableValueGreaterThanOrEqual(String, Object)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "HistoricTaskInstanceQuery HistoricTaskInstanceQueryImpl.taskVariableValueGreaterThanOrEqual(String, Object)"
-  })
-  public void testTaskVariableValueGreaterThanOrEqual2() {
-    // Arrange, Act and Assert
-    assertThrows(
-        ActivitiIllegalArgumentException.class,
-        () ->
-            new HistoricTaskInstanceQueryImpl().taskVariableValueGreaterThanOrEqual("Name", null));
-  }
-
-  /**
    * Test {@link HistoricTaskInstanceQueryImpl#taskVariableValueLessThan(String, Object)}.
-   *
-   * <p>Method under test: {@link HistoricTaskInstanceQueryImpl#taskVariableValueLessThan(String,
-   * Object)}
+   * <p>
+   * Method under test: {@link HistoricTaskInstanceQueryImpl#taskVariableValueLessThan(String, Object)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({
-    "HistoricTaskInstanceQuery HistoricTaskInstanceQueryImpl.taskVariableValueLessThan(String, Object)"
-  })
+      "HistoricTaskInstanceQuery HistoricTaskInstanceQueryImpl.taskVariableValueLessThan(String, Object)"})
   public void testTaskVariableValueLessThan() {
     // Arrange
-    HistoricTaskInstanceQueryImpl historicTaskInstanceQueryImpl =
-        new HistoricTaskInstanceQueryImpl();
+    HistoricTaskInstanceQueryImpl historicTaskInstanceQueryImpl = new HistoricTaskInstanceQueryImpl();
 
     // Act
-    HistoricTaskInstanceQuery actualTaskVariableValueLessThanResult =
-        historicTaskInstanceQueryImpl.taskVariableValueLessThan("Name", JSONObject.NULL);
+    HistoricTaskInstanceQuery actualTaskVariableValueLessThanResult = historicTaskInstanceQueryImpl
+        .taskVariableValueLessThan("Name", JSONObject.NULL);
 
     // Assert
     assertTrue(historicTaskInstanceQueryImpl.hasLocalQueryVariableValue());
@@ -3138,49 +2518,21 @@ public class HistoricTaskInstanceQueryImplDiffblueTest {
   }
 
   /**
-   * Test {@link HistoricTaskInstanceQueryImpl#taskVariableValueLessThan(String, Object)}.
-   *
-   * <ul>
-   *   <li>When {@code null}.
-   *   <li>Then throw {@link ActivitiIllegalArgumentException}.
-   * </ul>
-   *
-   * <p>Method under test: {@link HistoricTaskInstanceQueryImpl#taskVariableValueLessThan(String,
-   * Object)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "HistoricTaskInstanceQuery HistoricTaskInstanceQueryImpl.taskVariableValueLessThan(String, Object)"
-  })
-  public void testTaskVariableValueLessThan_whenNull_thenThrowActivitiIllegalArgumentException() {
-    // Arrange, Act and Assert
-    assertThrows(
-        ActivitiIllegalArgumentException.class,
-        () -> new HistoricTaskInstanceQueryImpl().taskVariableValueLessThan("Name", null));
-  }
-
-  /**
    * Test {@link HistoricTaskInstanceQueryImpl#taskVariableValueLessThanOrEqual(String, Object)}.
-   *
-   * <p>Method under test: {@link
-   * HistoricTaskInstanceQueryImpl#taskVariableValueLessThanOrEqual(String, Object)}
+   * <p>
+   * Method under test: {@link HistoricTaskInstanceQueryImpl#taskVariableValueLessThanOrEqual(String, Object)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({
-    "HistoricTaskInstanceQuery HistoricTaskInstanceQueryImpl.taskVariableValueLessThanOrEqual(String, Object)"
-  })
+      "HistoricTaskInstanceQuery HistoricTaskInstanceQueryImpl.taskVariableValueLessThanOrEqual(String, Object)"})
   public void testTaskVariableValueLessThanOrEqual() {
     // Arrange
-    HistoricTaskInstanceQueryImpl historicTaskInstanceQueryImpl =
-        new HistoricTaskInstanceQueryImpl();
+    HistoricTaskInstanceQueryImpl historicTaskInstanceQueryImpl = new HistoricTaskInstanceQueryImpl();
 
     // Act
-    HistoricTaskInstanceQuery actualTaskVariableValueLessThanOrEqualResult =
-        historicTaskInstanceQueryImpl.taskVariableValueLessThanOrEqual("Name", JSONObject.NULL);
+    HistoricTaskInstanceQuery actualTaskVariableValueLessThanOrEqualResult = historicTaskInstanceQueryImpl
+        .taskVariableValueLessThanOrEqual("Name", JSONObject.NULL);
 
     // Assert
     assertTrue(historicTaskInstanceQueryImpl.hasLocalQueryVariableValue());
@@ -3188,48 +2540,20 @@ public class HistoricTaskInstanceQueryImplDiffblueTest {
   }
 
   /**
-   * Test {@link HistoricTaskInstanceQueryImpl#taskVariableValueLessThanOrEqual(String, Object)}.
-   *
-   * <ul>
-   *   <li>Then throw {@link ActivitiIllegalArgumentException}.
-   * </ul>
-   *
-   * <p>Method under test: {@link
-   * HistoricTaskInstanceQueryImpl#taskVariableValueLessThanOrEqual(String, Object)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "HistoricTaskInstanceQuery HistoricTaskInstanceQueryImpl.taskVariableValueLessThanOrEqual(String, Object)"
-  })
-  public void testTaskVariableValueLessThanOrEqual_thenThrowActivitiIllegalArgumentException() {
-    // Arrange, Act and Assert
-    assertThrows(
-        ActivitiIllegalArgumentException.class,
-        () -> new HistoricTaskInstanceQueryImpl().taskVariableValueLessThanOrEqual("Name", null));
-  }
-
-  /**
    * Test {@link HistoricTaskInstanceQueryImpl#taskVariableValueLike(String, String)}.
-   *
-   * <p>Method under test: {@link HistoricTaskInstanceQueryImpl#taskVariableValueLike(String,
-   * String)}
+   * <p>
+   * Method under test: {@link HistoricTaskInstanceQueryImpl#taskVariableValueLike(String, String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "HistoricTaskInstanceQuery HistoricTaskInstanceQueryImpl.taskVariableValueLike(String, String)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"HistoricTaskInstanceQuery HistoricTaskInstanceQueryImpl.taskVariableValueLike(String, String)"})
   public void testTaskVariableValueLike() {
     // Arrange
-    HistoricTaskInstanceQueryImpl historicTaskInstanceQueryImpl =
-        new HistoricTaskInstanceQueryImpl();
+    HistoricTaskInstanceQueryImpl historicTaskInstanceQueryImpl = new HistoricTaskInstanceQueryImpl();
 
     // Act
-    HistoricTaskInstanceQuery actualTaskVariableValueLikeResult =
-        historicTaskInstanceQueryImpl.taskVariableValueLike("Name", "42");
+    HistoricTaskInstanceQuery actualTaskVariableValueLikeResult = historicTaskInstanceQueryImpl
+        .taskVariableValueLike("Name", "42");
 
     // Assert
     assertTrue(historicTaskInstanceQueryImpl.hasLocalQueryVariableValue());
@@ -3238,24 +2562,20 @@ public class HistoricTaskInstanceQueryImplDiffblueTest {
 
   /**
    * Test {@link HistoricTaskInstanceQueryImpl#taskVariableValueLikeIgnoreCase(String, String)}.
-   *
-   * <p>Method under test: {@link
-   * HistoricTaskInstanceQueryImpl#taskVariableValueLikeIgnoreCase(String, String)}
+   * <p>
+   * Method under test: {@link HistoricTaskInstanceQueryImpl#taskVariableValueLikeIgnoreCase(String, String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({
-    "HistoricTaskInstanceQuery HistoricTaskInstanceQueryImpl.taskVariableValueLikeIgnoreCase(String, String)"
-  })
+      "HistoricTaskInstanceQuery HistoricTaskInstanceQueryImpl.taskVariableValueLikeIgnoreCase(String, String)"})
   public void testTaskVariableValueLikeIgnoreCase() {
     // Arrange
-    HistoricTaskInstanceQueryImpl historicTaskInstanceQueryImpl =
-        new HistoricTaskInstanceQueryImpl();
+    HistoricTaskInstanceQueryImpl historicTaskInstanceQueryImpl = new HistoricTaskInstanceQueryImpl();
 
     // Act
-    HistoricTaskInstanceQuery actualTaskVariableValueLikeIgnoreCaseResult =
-        historicTaskInstanceQueryImpl.taskVariableValueLikeIgnoreCase("Name", "42");
+    HistoricTaskInstanceQuery actualTaskVariableValueLikeIgnoreCaseResult = historicTaskInstanceQueryImpl
+        .taskVariableValueLikeIgnoreCase("Name", "42");
 
     // Assert
     assertTrue(historicTaskInstanceQueryImpl.hasLocalQueryVariableValue());
@@ -3263,30 +2583,24 @@ public class HistoricTaskInstanceQueryImplDiffblueTest {
   }
 
   /**
-   * Test {@link HistoricTaskInstanceQueryImpl#processVariableValueEquals(String, Object)} with
-   * {@code variableName}, {@code variableValue}.
-   *
+   * Test {@link HistoricTaskInstanceQueryImpl#processVariableValueEquals(String, Object)} with {@code variableName}, {@code variableValue}.
    * <ul>
-   *   <li>When {@link JSONObject#NULL}.
+   *   <li>When {@link JSONObject#NULL}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link HistoricTaskInstanceQueryImpl#processVariableValueEquals(String,
-   * Object)}
+   * <p>
+   * Method under test: {@link HistoricTaskInstanceQueryImpl#processVariableValueEquals(String, Object)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({
-    "HistoricTaskInstanceQuery HistoricTaskInstanceQueryImpl.processVariableValueEquals(String, Object)"
-  })
+      "HistoricTaskInstanceQuery HistoricTaskInstanceQueryImpl.processVariableValueEquals(String, Object)"})
   public void testProcessVariableValueEqualsWithVariableNameVariableValue_whenNull() {
     // Arrange
-    HistoricTaskInstanceQueryImpl historicTaskInstanceQueryImpl =
-        new HistoricTaskInstanceQueryImpl();
+    HistoricTaskInstanceQueryImpl historicTaskInstanceQueryImpl = new HistoricTaskInstanceQueryImpl();
 
     // Act
-    HistoricTaskInstanceQuery actualProcessVariableValueEqualsResult =
-        historicTaskInstanceQueryImpl.processVariableValueEquals("Variable Name", JSONObject.NULL);
+    HistoricTaskInstanceQuery actualProcessVariableValueEqualsResult = historicTaskInstanceQueryImpl
+        .processVariableValueEquals("Variable Name", JSONObject.NULL);
 
     // Assert
     assertTrue(historicTaskInstanceQueryImpl.hasNonLocalQueryVariableValue());
@@ -3294,30 +2608,24 @@ public class HistoricTaskInstanceQueryImplDiffblueTest {
   }
 
   /**
-   * Test {@link HistoricTaskInstanceQueryImpl#processVariableValueEquals(String, Object)} with
-   * {@code variableName}, {@code variableValue}.
-   *
+   * Test {@link HistoricTaskInstanceQueryImpl#processVariableValueEquals(String, Object)} with {@code variableName}, {@code variableValue}.
    * <ul>
-   *   <li>When {@code null}.
+   *   <li>When {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link HistoricTaskInstanceQueryImpl#processVariableValueEquals(String,
-   * Object)}
+   * <p>
+   * Method under test: {@link HistoricTaskInstanceQueryImpl#processVariableValueEquals(String, Object)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({
-    "HistoricTaskInstanceQuery HistoricTaskInstanceQueryImpl.processVariableValueEquals(String, Object)"
-  })
+      "HistoricTaskInstanceQuery HistoricTaskInstanceQueryImpl.processVariableValueEquals(String, Object)"})
   public void testProcessVariableValueEqualsWithVariableNameVariableValue_whenNull2() {
     // Arrange
-    HistoricTaskInstanceQueryImpl historicTaskInstanceQueryImpl =
-        new HistoricTaskInstanceQueryImpl();
+    HistoricTaskInstanceQueryImpl historicTaskInstanceQueryImpl = new HistoricTaskInstanceQueryImpl();
 
     // Act
-    HistoricTaskInstanceQuery actualProcessVariableValueEqualsResult =
-        historicTaskInstanceQueryImpl.processVariableValueEquals("Variable Name", null);
+    HistoricTaskInstanceQuery actualProcessVariableValueEqualsResult = historicTaskInstanceQueryImpl
+        .processVariableValueEquals("Variable Name", null);
 
     // Assert
     assertTrue(historicTaskInstanceQueryImpl.hasNonLocalQueryVariableValue());
@@ -3325,25 +2633,20 @@ public class HistoricTaskInstanceQueryImplDiffblueTest {
   }
 
   /**
-   * Test {@link HistoricTaskInstanceQueryImpl#processVariableValueEquals(Object)} with {@code
-   * variableValue}.
-   *
-   * <p>Method under test: {@link HistoricTaskInstanceQueryImpl#processVariableValueEquals(Object)}
+   * Test {@link HistoricTaskInstanceQueryImpl#processVariableValueEquals(Object)} with {@code variableValue}.
+   * <p>
+   * Method under test: {@link HistoricTaskInstanceQueryImpl#processVariableValueEquals(Object)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "HistoricTaskInstanceQuery HistoricTaskInstanceQueryImpl.processVariableValueEquals(Object)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"HistoricTaskInstanceQuery HistoricTaskInstanceQueryImpl.processVariableValueEquals(Object)"})
   public void testProcessVariableValueEqualsWithVariableValue() {
     // Arrange
-    HistoricTaskInstanceQueryImpl historicTaskInstanceQueryImpl =
-        new HistoricTaskInstanceQueryImpl();
+    HistoricTaskInstanceQueryImpl historicTaskInstanceQueryImpl = new HistoricTaskInstanceQueryImpl();
 
     // Act
-    HistoricTaskInstanceQuery actualProcessVariableValueEqualsResult =
-        historicTaskInstanceQueryImpl.processVariableValueEquals(JSONObject.NULL);
+    HistoricTaskInstanceQuery actualProcessVariableValueEqualsResult = historicTaskInstanceQueryImpl
+        .processVariableValueEquals(JSONObject.NULL);
 
     // Assert
     assertTrue(historicTaskInstanceQueryImpl.hasNonLocalQueryVariableValue());
@@ -3352,29 +2655,23 @@ public class HistoricTaskInstanceQueryImplDiffblueTest {
 
   /**
    * Test {@link HistoricTaskInstanceQueryImpl#processVariableValueNotEquals(String, Object)}.
-   *
    * <ul>
-   *   <li>When {@link JSONObject#NULL}.
+   *   <li>When {@link JSONObject#NULL}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link
-   * HistoricTaskInstanceQueryImpl#processVariableValueNotEquals(String, Object)}
+   * <p>
+   * Method under test: {@link HistoricTaskInstanceQueryImpl#processVariableValueNotEquals(String, Object)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({
-    "HistoricTaskInstanceQuery HistoricTaskInstanceQueryImpl.processVariableValueNotEquals(String, Object)"
-  })
+      "HistoricTaskInstanceQuery HistoricTaskInstanceQueryImpl.processVariableValueNotEquals(String, Object)"})
   public void testProcessVariableValueNotEquals_whenNull() {
     // Arrange
-    HistoricTaskInstanceQueryImpl historicTaskInstanceQueryImpl =
-        new HistoricTaskInstanceQueryImpl();
+    HistoricTaskInstanceQueryImpl historicTaskInstanceQueryImpl = new HistoricTaskInstanceQueryImpl();
 
     // Act
-    HistoricTaskInstanceQuery actualProcessVariableValueNotEqualsResult =
-        historicTaskInstanceQueryImpl.processVariableValueNotEquals(
-            "Variable Name", JSONObject.NULL);
+    HistoricTaskInstanceQuery actualProcessVariableValueNotEqualsResult = historicTaskInstanceQueryImpl
+        .processVariableValueNotEquals("Variable Name", JSONObject.NULL);
 
     // Assert
     assertTrue(historicTaskInstanceQueryImpl.hasNonLocalQueryVariableValue());
@@ -3383,28 +2680,23 @@ public class HistoricTaskInstanceQueryImplDiffblueTest {
 
   /**
    * Test {@link HistoricTaskInstanceQueryImpl#processVariableValueNotEquals(String, Object)}.
-   *
    * <ul>
-   *   <li>When {@code null}.
+   *   <li>When {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link
-   * HistoricTaskInstanceQueryImpl#processVariableValueNotEquals(String, Object)}
+   * <p>
+   * Method under test: {@link HistoricTaskInstanceQueryImpl#processVariableValueNotEquals(String, Object)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({
-    "HistoricTaskInstanceQuery HistoricTaskInstanceQueryImpl.processVariableValueNotEquals(String, Object)"
-  })
+      "HistoricTaskInstanceQuery HistoricTaskInstanceQueryImpl.processVariableValueNotEquals(String, Object)"})
   public void testProcessVariableValueNotEquals_whenNull2() {
     // Arrange
-    HistoricTaskInstanceQueryImpl historicTaskInstanceQueryImpl =
-        new HistoricTaskInstanceQueryImpl();
+    HistoricTaskInstanceQueryImpl historicTaskInstanceQueryImpl = new HistoricTaskInstanceQueryImpl();
 
     // Act
-    HistoricTaskInstanceQuery actualProcessVariableValueNotEqualsResult =
-        historicTaskInstanceQueryImpl.processVariableValueNotEquals("Variable Name", null);
+    HistoricTaskInstanceQuery actualProcessVariableValueNotEqualsResult = historicTaskInstanceQueryImpl
+        .processVariableValueNotEquals("Variable Name", null);
 
     // Assert
     assertTrue(historicTaskInstanceQueryImpl.hasNonLocalQueryVariableValue());
@@ -3412,26 +2704,21 @@ public class HistoricTaskInstanceQueryImplDiffblueTest {
   }
 
   /**
-   * Test {@link HistoricTaskInstanceQueryImpl#processVariableValueEqualsIgnoreCase(String,
-   * String)}.
-   *
-   * <p>Method under test: {@link
-   * HistoricTaskInstanceQueryImpl#processVariableValueEqualsIgnoreCase(String, String)}
+   * Test {@link HistoricTaskInstanceQueryImpl#processVariableValueEqualsIgnoreCase(String, String)}.
+   * <p>
+   * Method under test: {@link HistoricTaskInstanceQueryImpl#processVariableValueEqualsIgnoreCase(String, String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({
-    "HistoricTaskInstanceQuery HistoricTaskInstanceQueryImpl.processVariableValueEqualsIgnoreCase(String, String)"
-  })
+      "HistoricTaskInstanceQuery HistoricTaskInstanceQueryImpl.processVariableValueEqualsIgnoreCase(String, String)"})
   public void testProcessVariableValueEqualsIgnoreCase() {
     // Arrange
-    HistoricTaskInstanceQueryImpl historicTaskInstanceQueryImpl =
-        new HistoricTaskInstanceQueryImpl();
+    HistoricTaskInstanceQueryImpl historicTaskInstanceQueryImpl = new HistoricTaskInstanceQueryImpl();
 
     // Act
-    HistoricTaskInstanceQuery actualProcessVariableValueEqualsIgnoreCaseResult =
-        historicTaskInstanceQueryImpl.processVariableValueEqualsIgnoreCase("Name", "42");
+    HistoricTaskInstanceQuery actualProcessVariableValueEqualsIgnoreCaseResult = historicTaskInstanceQueryImpl
+        .processVariableValueEqualsIgnoreCase("Name", "42");
 
     // Assert
     assertTrue(historicTaskInstanceQueryImpl.hasNonLocalQueryVariableValue());
@@ -3439,26 +2726,21 @@ public class HistoricTaskInstanceQueryImplDiffblueTest {
   }
 
   /**
-   * Test {@link HistoricTaskInstanceQueryImpl#processVariableValueNotEqualsIgnoreCase(String,
-   * String)}.
-   *
-   * <p>Method under test: {@link
-   * HistoricTaskInstanceQueryImpl#processVariableValueNotEqualsIgnoreCase(String, String)}
+   * Test {@link HistoricTaskInstanceQueryImpl#processVariableValueNotEqualsIgnoreCase(String, String)}.
+   * <p>
+   * Method under test: {@link HistoricTaskInstanceQueryImpl#processVariableValueNotEqualsIgnoreCase(String, String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({
-    "HistoricTaskInstanceQuery HistoricTaskInstanceQueryImpl.processVariableValueNotEqualsIgnoreCase(String, String)"
-  })
+      "HistoricTaskInstanceQuery HistoricTaskInstanceQueryImpl.processVariableValueNotEqualsIgnoreCase(String, String)"})
   public void testProcessVariableValueNotEqualsIgnoreCase() {
     // Arrange
-    HistoricTaskInstanceQueryImpl historicTaskInstanceQueryImpl =
-        new HistoricTaskInstanceQueryImpl();
+    HistoricTaskInstanceQueryImpl historicTaskInstanceQueryImpl = new HistoricTaskInstanceQueryImpl();
 
     // Act
-    HistoricTaskInstanceQuery actualProcessVariableValueNotEqualsIgnoreCaseResult =
-        historicTaskInstanceQueryImpl.processVariableValueNotEqualsIgnoreCase("Name", "42");
+    HistoricTaskInstanceQuery actualProcessVariableValueNotEqualsIgnoreCaseResult = historicTaskInstanceQueryImpl
+        .processVariableValueNotEqualsIgnoreCase("Name", "42");
 
     // Assert
     assertTrue(historicTaskInstanceQueryImpl.hasNonLocalQueryVariableValue());
@@ -3467,24 +2749,20 @@ public class HistoricTaskInstanceQueryImplDiffblueTest {
 
   /**
    * Test {@link HistoricTaskInstanceQueryImpl#processVariableValueGreaterThan(String, Object)}.
-   *
-   * <p>Method under test: {@link
-   * HistoricTaskInstanceQueryImpl#processVariableValueGreaterThan(String, Object)}
+   * <p>
+   * Method under test: {@link HistoricTaskInstanceQueryImpl#processVariableValueGreaterThan(String, Object)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({
-    "HistoricTaskInstanceQuery HistoricTaskInstanceQueryImpl.processVariableValueGreaterThan(String, Object)"
-  })
+      "HistoricTaskInstanceQuery HistoricTaskInstanceQueryImpl.processVariableValueGreaterThan(String, Object)"})
   public void testProcessVariableValueGreaterThan() {
     // Arrange
-    HistoricTaskInstanceQueryImpl historicTaskInstanceQueryImpl =
-        new HistoricTaskInstanceQueryImpl();
+    HistoricTaskInstanceQueryImpl historicTaskInstanceQueryImpl = new HistoricTaskInstanceQueryImpl();
 
     // Act
-    HistoricTaskInstanceQuery actualProcessVariableValueGreaterThanResult =
-        historicTaskInstanceQueryImpl.processVariableValueGreaterThan("Name", JSONObject.NULL);
+    HistoricTaskInstanceQuery actualProcessVariableValueGreaterThanResult = historicTaskInstanceQueryImpl
+        .processVariableValueGreaterThan("Name", JSONObject.NULL);
 
     // Assert
     assertTrue(historicTaskInstanceQueryImpl.hasNonLocalQueryVariableValue());
@@ -3492,50 +2770,21 @@ public class HistoricTaskInstanceQueryImplDiffblueTest {
   }
 
   /**
-   * Test {@link HistoricTaskInstanceQueryImpl#processVariableValueGreaterThan(String, Object)}.
-   *
-   * <ul>
-   *   <li>Then throw {@link ActivitiIllegalArgumentException}.
-   * </ul>
-   *
-   * <p>Method under test: {@link
-   * HistoricTaskInstanceQueryImpl#processVariableValueGreaterThan(String, Object)}
+   * Test {@link HistoricTaskInstanceQueryImpl#processVariableValueGreaterThanOrEqual(String, Object)}.
+   * <p>
+   * Method under test: {@link HistoricTaskInstanceQueryImpl#processVariableValueGreaterThanOrEqual(String, Object)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({
-    "HistoricTaskInstanceQuery HistoricTaskInstanceQueryImpl.processVariableValueGreaterThan(String, Object)"
-  })
-  public void testProcessVariableValueGreaterThan_thenThrowActivitiIllegalArgumentException() {
-    // Arrange, Act and Assert
-    assertThrows(
-        ActivitiIllegalArgumentException.class,
-        () -> new HistoricTaskInstanceQueryImpl().processVariableValueGreaterThan("Name", null));
-  }
-
-  /**
-   * Test {@link HistoricTaskInstanceQueryImpl#processVariableValueGreaterThanOrEqual(String,
-   * Object)}.
-   *
-   * <p>Method under test: {@link
-   * HistoricTaskInstanceQueryImpl#processVariableValueGreaterThanOrEqual(String, Object)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "HistoricTaskInstanceQuery HistoricTaskInstanceQueryImpl.processVariableValueGreaterThanOrEqual(String, Object)"
-  })
+      "HistoricTaskInstanceQuery HistoricTaskInstanceQueryImpl.processVariableValueGreaterThanOrEqual(String, Object)"})
   public void testProcessVariableValueGreaterThanOrEqual() {
     // Arrange
-    HistoricTaskInstanceQueryImpl historicTaskInstanceQueryImpl =
-        new HistoricTaskInstanceQueryImpl();
+    HistoricTaskInstanceQueryImpl historicTaskInstanceQueryImpl = new HistoricTaskInstanceQueryImpl();
 
     // Act
-    HistoricTaskInstanceQuery actualProcessVariableValueGreaterThanOrEqualResult =
-        historicTaskInstanceQueryImpl.processVariableValueGreaterThanOrEqual(
-            "Name", JSONObject.NULL);
+    HistoricTaskInstanceQuery actualProcessVariableValueGreaterThanOrEqualResult = historicTaskInstanceQueryImpl
+        .processVariableValueGreaterThanOrEqual("Name", JSONObject.NULL);
 
     // Assert
     assertTrue(historicTaskInstanceQueryImpl.hasNonLocalQueryVariableValue());
@@ -3543,47 +2792,21 @@ public class HistoricTaskInstanceQueryImplDiffblueTest {
   }
 
   /**
-   * Test {@link HistoricTaskInstanceQueryImpl#processVariableValueGreaterThanOrEqual(String,
-   * Object)}.
-   *
-   * <p>Method under test: {@link
-   * HistoricTaskInstanceQueryImpl#processVariableValueGreaterThanOrEqual(String, Object)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "HistoricTaskInstanceQuery HistoricTaskInstanceQueryImpl.processVariableValueGreaterThanOrEqual(String, Object)"
-  })
-  public void testProcessVariableValueGreaterThanOrEqual2() {
-    // Arrange, Act and Assert
-    assertThrows(
-        ActivitiIllegalArgumentException.class,
-        () ->
-            new HistoricTaskInstanceQueryImpl()
-                .processVariableValueGreaterThanOrEqual("Name", null));
-  }
-
-  /**
    * Test {@link HistoricTaskInstanceQueryImpl#processVariableValueLessThan(String, Object)}.
-   *
-   * <p>Method under test: {@link HistoricTaskInstanceQueryImpl#processVariableValueLessThan(String,
-   * Object)}
+   * <p>
+   * Method under test: {@link HistoricTaskInstanceQueryImpl#processVariableValueLessThan(String, Object)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({
-    "HistoricTaskInstanceQuery HistoricTaskInstanceQueryImpl.processVariableValueLessThan(String, Object)"
-  })
+      "HistoricTaskInstanceQuery HistoricTaskInstanceQueryImpl.processVariableValueLessThan(String, Object)"})
   public void testProcessVariableValueLessThan() {
     // Arrange
-    HistoricTaskInstanceQueryImpl historicTaskInstanceQueryImpl =
-        new HistoricTaskInstanceQueryImpl();
+    HistoricTaskInstanceQueryImpl historicTaskInstanceQueryImpl = new HistoricTaskInstanceQueryImpl();
 
     // Act
-    HistoricTaskInstanceQuery actualProcessVariableValueLessThanResult =
-        historicTaskInstanceQueryImpl.processVariableValueLessThan("Name", JSONObject.NULL);
+    HistoricTaskInstanceQuery actualProcessVariableValueLessThanResult = historicTaskInstanceQueryImpl
+        .processVariableValueLessThan("Name", JSONObject.NULL);
 
     // Assert
     assertTrue(historicTaskInstanceQueryImpl.hasNonLocalQueryVariableValue());
@@ -3591,48 +2814,21 @@ public class HistoricTaskInstanceQueryImplDiffblueTest {
   }
 
   /**
-   * Test {@link HistoricTaskInstanceQueryImpl#processVariableValueLessThan(String, Object)}.
-   *
-   * <ul>
-   *   <li>Then throw {@link ActivitiIllegalArgumentException}.
-   * </ul>
-   *
-   * <p>Method under test: {@link HistoricTaskInstanceQueryImpl#processVariableValueLessThan(String,
-   * Object)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "HistoricTaskInstanceQuery HistoricTaskInstanceQueryImpl.processVariableValueLessThan(String, Object)"
-  })
-  public void testProcessVariableValueLessThan_thenThrowActivitiIllegalArgumentException() {
-    // Arrange, Act and Assert
-    assertThrows(
-        ActivitiIllegalArgumentException.class,
-        () -> new HistoricTaskInstanceQueryImpl().processVariableValueLessThan("Name", null));
-  }
-
-  /**
    * Test {@link HistoricTaskInstanceQueryImpl#processVariableValueLessThanOrEqual(String, Object)}.
-   *
-   * <p>Method under test: {@link
-   * HistoricTaskInstanceQueryImpl#processVariableValueLessThanOrEqual(String, Object)}
+   * <p>
+   * Method under test: {@link HistoricTaskInstanceQueryImpl#processVariableValueLessThanOrEqual(String, Object)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({
-    "HistoricTaskInstanceQuery HistoricTaskInstanceQueryImpl.processVariableValueLessThanOrEqual(String, Object)"
-  })
+      "HistoricTaskInstanceQuery HistoricTaskInstanceQueryImpl.processVariableValueLessThanOrEqual(String, Object)"})
   public void testProcessVariableValueLessThanOrEqual() {
     // Arrange
-    HistoricTaskInstanceQueryImpl historicTaskInstanceQueryImpl =
-        new HistoricTaskInstanceQueryImpl();
+    HistoricTaskInstanceQueryImpl historicTaskInstanceQueryImpl = new HistoricTaskInstanceQueryImpl();
 
     // Act
-    HistoricTaskInstanceQuery actualProcessVariableValueLessThanOrEqualResult =
-        historicTaskInstanceQueryImpl.processVariableValueLessThanOrEqual("Name", JSONObject.NULL);
+    HistoricTaskInstanceQuery actualProcessVariableValueLessThanOrEqualResult = historicTaskInstanceQueryImpl
+        .processVariableValueLessThanOrEqual("Name", JSONObject.NULL);
 
     // Assert
     assertTrue(historicTaskInstanceQueryImpl.hasNonLocalQueryVariableValue());
@@ -3640,45 +2836,21 @@ public class HistoricTaskInstanceQueryImplDiffblueTest {
   }
 
   /**
-   * Test {@link HistoricTaskInstanceQueryImpl#processVariableValueLessThanOrEqual(String, Object)}.
-   *
-   * <p>Method under test: {@link
-   * HistoricTaskInstanceQueryImpl#processVariableValueLessThanOrEqual(String, Object)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "HistoricTaskInstanceQuery HistoricTaskInstanceQueryImpl.processVariableValueLessThanOrEqual(String, Object)"
-  })
-  public void testProcessVariableValueLessThanOrEqual2() {
-    // Arrange, Act and Assert
-    assertThrows(
-        ActivitiIllegalArgumentException.class,
-        () ->
-            new HistoricTaskInstanceQueryImpl().processVariableValueLessThanOrEqual("Name", null));
-  }
-
-  /**
    * Test {@link HistoricTaskInstanceQueryImpl#processVariableValueLike(String, String)}.
-   *
-   * <p>Method under test: {@link HistoricTaskInstanceQueryImpl#processVariableValueLike(String,
-   * String)}
+   * <p>
+   * Method under test: {@link HistoricTaskInstanceQueryImpl#processVariableValueLike(String, String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({
-    "HistoricTaskInstanceQuery HistoricTaskInstanceQueryImpl.processVariableValueLike(String, String)"
-  })
+      "HistoricTaskInstanceQuery HistoricTaskInstanceQueryImpl.processVariableValueLike(String, String)"})
   public void testProcessVariableValueLike() {
     // Arrange
-    HistoricTaskInstanceQueryImpl historicTaskInstanceQueryImpl =
-        new HistoricTaskInstanceQueryImpl();
+    HistoricTaskInstanceQueryImpl historicTaskInstanceQueryImpl = new HistoricTaskInstanceQueryImpl();
 
     // Act
-    HistoricTaskInstanceQuery actualProcessVariableValueLikeResult =
-        historicTaskInstanceQueryImpl.processVariableValueLike("Name", "42");
+    HistoricTaskInstanceQuery actualProcessVariableValueLikeResult = historicTaskInstanceQueryImpl
+        .processVariableValueLike("Name", "42");
 
     // Assert
     assertTrue(historicTaskInstanceQueryImpl.hasNonLocalQueryVariableValue());
@@ -3687,24 +2859,20 @@ public class HistoricTaskInstanceQueryImplDiffblueTest {
 
   /**
    * Test {@link HistoricTaskInstanceQueryImpl#processVariableValueLikeIgnoreCase(String, String)}.
-   *
-   * <p>Method under test: {@link
-   * HistoricTaskInstanceQueryImpl#processVariableValueLikeIgnoreCase(String, String)}
+   * <p>
+   * Method under test: {@link HistoricTaskInstanceQueryImpl#processVariableValueLikeIgnoreCase(String, String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({
-    "HistoricTaskInstanceQuery HistoricTaskInstanceQueryImpl.processVariableValueLikeIgnoreCase(String, String)"
-  })
+      "HistoricTaskInstanceQuery HistoricTaskInstanceQueryImpl.processVariableValueLikeIgnoreCase(String, String)"})
   public void testProcessVariableValueLikeIgnoreCase() {
     // Arrange
-    HistoricTaskInstanceQueryImpl historicTaskInstanceQueryImpl =
-        new HistoricTaskInstanceQueryImpl();
+    HistoricTaskInstanceQueryImpl historicTaskInstanceQueryImpl = new HistoricTaskInstanceQueryImpl();
 
     // Act
-    HistoricTaskInstanceQuery actualProcessVariableValueLikeIgnoreCaseResult =
-        historicTaskInstanceQueryImpl.processVariableValueLikeIgnoreCase("Name", "42");
+    HistoricTaskInstanceQuery actualProcessVariableValueLikeIgnoreCaseResult = historicTaskInstanceQueryImpl
+        .processVariableValueLikeIgnoreCase("Name", "42");
 
     // Assert
     assertTrue(historicTaskInstanceQueryImpl.hasNonLocalQueryVariableValue());
@@ -3713,23 +2881,19 @@ public class HistoricTaskInstanceQueryImplDiffblueTest {
 
   /**
    * Test {@link HistoricTaskInstanceQueryImpl#taskDefinitionKey(String)}.
-   *
-   * <p>Method under test: {@link HistoricTaskInstanceQueryImpl#taskDefinitionKey(String)}
+   * <p>
+   * Method under test: {@link HistoricTaskInstanceQueryImpl#taskDefinitionKey(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "HistoricTaskInstanceQuery HistoricTaskInstanceQueryImpl.taskDefinitionKey(String)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"HistoricTaskInstanceQuery HistoricTaskInstanceQueryImpl.taskDefinitionKey(String)"})
   public void testTaskDefinitionKey() {
     // Arrange
-    HistoricTaskInstanceQueryImpl historicTaskInstanceQueryImpl =
-        new HistoricTaskInstanceQueryImpl();
+    HistoricTaskInstanceQueryImpl historicTaskInstanceQueryImpl = new HistoricTaskInstanceQueryImpl();
 
     // Act
-    HistoricTaskInstanceQuery actualTaskDefinitionKeyResult =
-        historicTaskInstanceQueryImpl.taskDefinitionKey("Task Definition Key");
+    HistoricTaskInstanceQuery actualTaskDefinitionKeyResult = historicTaskInstanceQueryImpl
+        .taskDefinitionKey("Task Definition Key");
 
     // Assert
     assertEquals("Task Definition Key", historicTaskInstanceQueryImpl.getTaskDefinitionKey());
@@ -3738,49 +2902,39 @@ public class HistoricTaskInstanceQueryImplDiffblueTest {
 
   /**
    * Test {@link HistoricTaskInstanceQueryImpl#taskDefinitionKeyLike(String)}.
-   *
-   * <p>Method under test: {@link HistoricTaskInstanceQueryImpl#taskDefinitionKeyLike(String)}
+   * <p>
+   * Method under test: {@link HistoricTaskInstanceQueryImpl#taskDefinitionKeyLike(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "HistoricTaskInstanceQuery HistoricTaskInstanceQueryImpl.taskDefinitionKeyLike(String)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"HistoricTaskInstanceQuery HistoricTaskInstanceQueryImpl.taskDefinitionKeyLike(String)"})
   public void testTaskDefinitionKeyLike() {
     // Arrange
-    HistoricTaskInstanceQueryImpl historicTaskInstanceQueryImpl =
-        new HistoricTaskInstanceQueryImpl();
+    HistoricTaskInstanceQueryImpl historicTaskInstanceQueryImpl = new HistoricTaskInstanceQueryImpl();
 
     // Act
-    HistoricTaskInstanceQuery actualTaskDefinitionKeyLikeResult =
-        historicTaskInstanceQueryImpl.taskDefinitionKeyLike("Task Definition Key Like");
+    HistoricTaskInstanceQuery actualTaskDefinitionKeyLikeResult = historicTaskInstanceQueryImpl
+        .taskDefinitionKeyLike("Task Definition Key Like");
 
     // Assert
-    assertEquals(
-        "Task Definition Key Like", historicTaskInstanceQueryImpl.getTaskDefinitionKeyLike());
+    assertEquals("Task Definition Key Like", historicTaskInstanceQueryImpl.getTaskDefinitionKeyLike());
     assertSame(historicTaskInstanceQueryImpl, actualTaskDefinitionKeyLikeResult);
   }
 
   /**
    * Test {@link HistoricTaskInstanceQueryImpl#taskPriority(Integer)}.
-   *
-   * <p>Method under test: {@link HistoricTaskInstanceQueryImpl#taskPriority(Integer)}
+   * <p>
+   * Method under test: {@link HistoricTaskInstanceQueryImpl#taskPriority(Integer)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "HistoricTaskInstanceQuery HistoricTaskInstanceQueryImpl.taskPriority(Integer)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"HistoricTaskInstanceQuery HistoricTaskInstanceQueryImpl.taskPriority(Integer)"})
   public void testTaskPriority() {
     // Arrange
-    HistoricTaskInstanceQueryImpl historicTaskInstanceQueryImpl =
-        new HistoricTaskInstanceQueryImpl();
+    HistoricTaskInstanceQueryImpl historicTaskInstanceQueryImpl = new HistoricTaskInstanceQueryImpl();
 
     // Act
-    HistoricTaskInstanceQuery actualTaskPriorityResult =
-        historicTaskInstanceQueryImpl.taskPriority(1);
+    HistoricTaskInstanceQuery actualTaskPriorityResult = historicTaskInstanceQueryImpl.taskPriority(1);
 
     // Assert
     assertEquals(1, historicTaskInstanceQueryImpl.getTaskPriority().intValue());
@@ -3789,23 +2943,18 @@ public class HistoricTaskInstanceQueryImplDiffblueTest {
 
   /**
    * Test {@link HistoricTaskInstanceQueryImpl#taskMinPriority(Integer)}.
-   *
-   * <p>Method under test: {@link HistoricTaskInstanceQueryImpl#taskMinPriority(Integer)}
+   * <p>
+   * Method under test: {@link HistoricTaskInstanceQueryImpl#taskMinPriority(Integer)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "HistoricTaskInstanceQuery HistoricTaskInstanceQueryImpl.taskMinPriority(Integer)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"HistoricTaskInstanceQuery HistoricTaskInstanceQueryImpl.taskMinPriority(Integer)"})
   public void testTaskMinPriority() {
     // Arrange
-    HistoricTaskInstanceQueryImpl historicTaskInstanceQueryImpl =
-        new HistoricTaskInstanceQueryImpl();
+    HistoricTaskInstanceQueryImpl historicTaskInstanceQueryImpl = new HistoricTaskInstanceQueryImpl();
 
     // Act
-    HistoricTaskInstanceQuery actualTaskMinPriorityResult =
-        historicTaskInstanceQueryImpl.taskMinPriority(1);
+    HistoricTaskInstanceQuery actualTaskMinPriorityResult = historicTaskInstanceQueryImpl.taskMinPriority(1);
 
     // Assert
     assertEquals(1, historicTaskInstanceQueryImpl.getTaskMinPriority().intValue());
@@ -3814,23 +2963,18 @@ public class HistoricTaskInstanceQueryImplDiffblueTest {
 
   /**
    * Test {@link HistoricTaskInstanceQueryImpl#taskMaxPriority(Integer)}.
-   *
-   * <p>Method under test: {@link HistoricTaskInstanceQueryImpl#taskMaxPriority(Integer)}
+   * <p>
+   * Method under test: {@link HistoricTaskInstanceQueryImpl#taskMaxPriority(Integer)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "HistoricTaskInstanceQuery HistoricTaskInstanceQueryImpl.taskMaxPriority(Integer)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"HistoricTaskInstanceQuery HistoricTaskInstanceQueryImpl.taskMaxPriority(Integer)"})
   public void testTaskMaxPriority() {
     // Arrange
-    HistoricTaskInstanceQueryImpl historicTaskInstanceQueryImpl =
-        new HistoricTaskInstanceQueryImpl();
+    HistoricTaskInstanceQueryImpl historicTaskInstanceQueryImpl = new HistoricTaskInstanceQueryImpl();
 
     // Act
-    HistoricTaskInstanceQuery actualTaskMaxPriorityResult =
-        historicTaskInstanceQueryImpl.taskMaxPriority(1);
+    HistoricTaskInstanceQuery actualTaskMaxPriorityResult = historicTaskInstanceQueryImpl.taskMaxPriority(1);
 
     // Assert
     assertEquals(1, historicTaskInstanceQueryImpl.getTaskMaxPriority().intValue());
@@ -3839,21 +2983,18 @@ public class HistoricTaskInstanceQueryImplDiffblueTest {
 
   /**
    * Test {@link HistoricTaskInstanceQueryImpl#processFinished()}.
-   *
-   * <p>Method under test: {@link HistoricTaskInstanceQueryImpl#processFinished()}
+   * <p>
+   * Method under test: {@link HistoricTaskInstanceQueryImpl#processFinished()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"HistoricTaskInstanceQuery HistoricTaskInstanceQueryImpl.processFinished()"})
   public void testProcessFinished() {
     // Arrange
-    HistoricTaskInstanceQueryImpl historicTaskInstanceQueryImpl =
-        new HistoricTaskInstanceQueryImpl();
+    HistoricTaskInstanceQueryImpl historicTaskInstanceQueryImpl = new HistoricTaskInstanceQueryImpl();
 
     // Act
-    HistoricTaskInstanceQuery actualProcessFinishedResult =
-        historicTaskInstanceQueryImpl.processFinished();
+    HistoricTaskInstanceQuery actualProcessFinishedResult = historicTaskInstanceQueryImpl.processFinished();
 
     // Assert
     assertTrue(historicTaskInstanceQueryImpl.isProcessFinished());
@@ -3862,21 +3003,18 @@ public class HistoricTaskInstanceQueryImplDiffblueTest {
 
   /**
    * Test {@link HistoricTaskInstanceQueryImpl#processUnfinished()}.
-   *
-   * <p>Method under test: {@link HistoricTaskInstanceQueryImpl#processUnfinished()}
+   * <p>
+   * Method under test: {@link HistoricTaskInstanceQueryImpl#processUnfinished()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"HistoricTaskInstanceQuery HistoricTaskInstanceQueryImpl.processUnfinished()"})
   public void testProcessUnfinished() {
     // Arrange
-    HistoricTaskInstanceQueryImpl historicTaskInstanceQueryImpl =
-        new HistoricTaskInstanceQueryImpl();
+    HistoricTaskInstanceQueryImpl historicTaskInstanceQueryImpl = new HistoricTaskInstanceQueryImpl();
 
     // Act
-    HistoricTaskInstanceQuery actualProcessUnfinishedResult =
-        historicTaskInstanceQueryImpl.processUnfinished();
+    HistoricTaskInstanceQuery actualProcessUnfinishedResult = historicTaskInstanceQueryImpl.processUnfinished();
 
     // Assert
     assertTrue(historicTaskInstanceQueryImpl.isProcessUnfinished());
@@ -3885,258 +3023,180 @@ public class HistoricTaskInstanceQueryImplDiffblueTest {
 
   /**
    * Test {@link HistoricTaskInstanceQueryImpl#taskDueDate(Date)}.
-   *
-   * <p>Method under test: {@link HistoricTaskInstanceQueryImpl#taskDueDate(Date)}
+   * <p>
+   * Method under test: {@link HistoricTaskInstanceQueryImpl#taskDueDate(Date)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"HistoricTaskInstanceQuery HistoricTaskInstanceQueryImpl.taskDueDate(Date)"})
   public void testTaskDueDate() {
     // Arrange
-    HistoricTaskInstanceQueryImpl historicTaskInstanceQueryImpl =
-        new HistoricTaskInstanceQueryImpl();
-    Date dueDate =
-        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant());
+    HistoricTaskInstanceQueryImpl historicTaskInstanceQueryImpl = new HistoricTaskInstanceQueryImpl();
+    Date dueDate = Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant());
 
-    // Act
-    HistoricTaskInstanceQuery actualTaskDueDateResult =
-        historicTaskInstanceQueryImpl.taskDueDate(dueDate);
-
-    // Assert
-    assertSame(historicTaskInstanceQueryImpl, actualTaskDueDateResult);
+    // Act and Assert
+    assertSame(historicTaskInstanceQueryImpl, historicTaskInstanceQueryImpl.taskDueDate(dueDate));
     assertSame(dueDate, historicTaskInstanceQueryImpl.getDueDate());
   }
 
   /**
    * Test {@link HistoricTaskInstanceQueryImpl#taskDueAfter(Date)}.
-   *
-   * <p>Method under test: {@link HistoricTaskInstanceQueryImpl#taskDueAfter(Date)}
+   * <p>
+   * Method under test: {@link HistoricTaskInstanceQueryImpl#taskDueAfter(Date)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"HistoricTaskInstanceQuery HistoricTaskInstanceQueryImpl.taskDueAfter(Date)"})
   public void testTaskDueAfter() {
     // Arrange
-    HistoricTaskInstanceQueryImpl historicTaskInstanceQueryImpl =
-        new HistoricTaskInstanceQueryImpl();
-    Date dueAfter =
-        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant());
+    HistoricTaskInstanceQueryImpl historicTaskInstanceQueryImpl = new HistoricTaskInstanceQueryImpl();
+    Date dueAfter = Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant());
 
-    // Act
-    HistoricTaskInstanceQuery actualTaskDueAfterResult =
-        historicTaskInstanceQueryImpl.taskDueAfter(dueAfter);
-
-    // Assert
-    assertSame(historicTaskInstanceQueryImpl, actualTaskDueAfterResult);
+    // Act and Assert
+    assertSame(historicTaskInstanceQueryImpl, historicTaskInstanceQueryImpl.taskDueAfter(dueAfter));
     assertSame(dueAfter, historicTaskInstanceQueryImpl.getDueAfter());
   }
 
   /**
    * Test {@link HistoricTaskInstanceQueryImpl#taskDueBefore(Date)}.
-   *
-   * <p>Method under test: {@link HistoricTaskInstanceQueryImpl#taskDueBefore(Date)}
+   * <p>
+   * Method under test: {@link HistoricTaskInstanceQueryImpl#taskDueBefore(Date)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"HistoricTaskInstanceQuery HistoricTaskInstanceQueryImpl.taskDueBefore(Date)"})
   public void testTaskDueBefore() {
     // Arrange
-    HistoricTaskInstanceQueryImpl historicTaskInstanceQueryImpl =
-        new HistoricTaskInstanceQueryImpl();
-    Date dueBefore =
-        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant());
+    HistoricTaskInstanceQueryImpl historicTaskInstanceQueryImpl = new HistoricTaskInstanceQueryImpl();
+    Date dueBefore = Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant());
 
-    // Act
-    HistoricTaskInstanceQuery actualTaskDueBeforeResult =
-        historicTaskInstanceQueryImpl.taskDueBefore(dueBefore);
-
-    // Assert
-    assertSame(historicTaskInstanceQueryImpl, actualTaskDueBeforeResult);
+    // Act and Assert
+    assertSame(historicTaskInstanceQueryImpl, historicTaskInstanceQueryImpl.taskDueBefore(dueBefore));
     assertSame(dueBefore, historicTaskInstanceQueryImpl.getDueBefore());
   }
 
   /**
    * Test {@link HistoricTaskInstanceQueryImpl#taskCreatedOn(Date)}.
-   *
-   * <p>Method under test: {@link HistoricTaskInstanceQueryImpl#taskCreatedOn(Date)}
+   * <p>
+   * Method under test: {@link HistoricTaskInstanceQueryImpl#taskCreatedOn(Date)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"HistoricTaskInstanceQuery HistoricTaskInstanceQueryImpl.taskCreatedOn(Date)"})
   public void testTaskCreatedOn() {
     // Arrange
-    HistoricTaskInstanceQueryImpl historicTaskInstanceQueryImpl =
-        new HistoricTaskInstanceQueryImpl();
-    Date creationDate =
-        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant());
+    HistoricTaskInstanceQueryImpl historicTaskInstanceQueryImpl = new HistoricTaskInstanceQueryImpl();
+    Date creationDate = Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant());
 
-    // Act
-    HistoricTaskInstanceQuery actualTaskCreatedOnResult =
-        historicTaskInstanceQueryImpl.taskCreatedOn(creationDate);
-
-    // Assert
-    assertSame(historicTaskInstanceQueryImpl, actualTaskCreatedOnResult);
+    // Act and Assert
+    assertSame(historicTaskInstanceQueryImpl, historicTaskInstanceQueryImpl.taskCreatedOn(creationDate));
     assertSame(creationDate, historicTaskInstanceQueryImpl.getCreationDate());
   }
 
   /**
    * Test {@link HistoricTaskInstanceQueryImpl#taskCreatedBefore(Date)}.
-   *
-   * <p>Method under test: {@link HistoricTaskInstanceQueryImpl#taskCreatedBefore(Date)}
+   * <p>
+   * Method under test: {@link HistoricTaskInstanceQueryImpl#taskCreatedBefore(Date)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "HistoricTaskInstanceQuery HistoricTaskInstanceQueryImpl.taskCreatedBefore(Date)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"HistoricTaskInstanceQuery HistoricTaskInstanceQueryImpl.taskCreatedBefore(Date)"})
   public void testTaskCreatedBefore() {
     // Arrange
-    HistoricTaskInstanceQueryImpl historicTaskInstanceQueryImpl =
-        new HistoricTaskInstanceQueryImpl();
-    Date creationBeforeDate =
-        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant());
+    HistoricTaskInstanceQueryImpl historicTaskInstanceQueryImpl = new HistoricTaskInstanceQueryImpl();
+    Date creationBeforeDate = Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant());
 
-    // Act
-    HistoricTaskInstanceQuery actualTaskCreatedBeforeResult =
-        historicTaskInstanceQueryImpl.taskCreatedBefore(creationBeforeDate);
-
-    // Assert
-    assertSame(historicTaskInstanceQueryImpl, actualTaskCreatedBeforeResult);
+    // Act and Assert
+    assertSame(historicTaskInstanceQueryImpl, historicTaskInstanceQueryImpl.taskCreatedBefore(creationBeforeDate));
     assertSame(creationBeforeDate, historicTaskInstanceQueryImpl.getCreationBeforeDate());
   }
 
   /**
    * Test {@link HistoricTaskInstanceQueryImpl#taskCreatedAfter(Date)}.
-   *
-   * <p>Method under test: {@link HistoricTaskInstanceQueryImpl#taskCreatedAfter(Date)}
+   * <p>
+   * Method under test: {@link HistoricTaskInstanceQueryImpl#taskCreatedAfter(Date)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "HistoricTaskInstanceQuery HistoricTaskInstanceQueryImpl.taskCreatedAfter(Date)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"HistoricTaskInstanceQuery HistoricTaskInstanceQueryImpl.taskCreatedAfter(Date)"})
   public void testTaskCreatedAfter() {
     // Arrange
-    HistoricTaskInstanceQueryImpl historicTaskInstanceQueryImpl =
-        new HistoricTaskInstanceQueryImpl();
-    Date creationAfterDate =
-        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant());
+    HistoricTaskInstanceQueryImpl historicTaskInstanceQueryImpl = new HistoricTaskInstanceQueryImpl();
+    Date creationAfterDate = Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant());
 
-    // Act
-    HistoricTaskInstanceQuery actualTaskCreatedAfterResult =
-        historicTaskInstanceQueryImpl.taskCreatedAfter(creationAfterDate);
-
-    // Assert
-    assertSame(historicTaskInstanceQueryImpl, actualTaskCreatedAfterResult);
+    // Act and Assert
+    assertSame(historicTaskInstanceQueryImpl, historicTaskInstanceQueryImpl.taskCreatedAfter(creationAfterDate));
     assertSame(creationAfterDate, historicTaskInstanceQueryImpl.getCreationAfterDate());
   }
 
   /**
    * Test {@link HistoricTaskInstanceQueryImpl#taskCompletedOn(Date)}.
-   *
-   * <p>Method under test: {@link HistoricTaskInstanceQueryImpl#taskCompletedOn(Date)}
+   * <p>
+   * Method under test: {@link HistoricTaskInstanceQueryImpl#taskCompletedOn(Date)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "HistoricTaskInstanceQuery HistoricTaskInstanceQueryImpl.taskCompletedOn(Date)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"HistoricTaskInstanceQuery HistoricTaskInstanceQueryImpl.taskCompletedOn(Date)"})
   public void testTaskCompletedOn() {
     // Arrange
-    HistoricTaskInstanceQueryImpl historicTaskInstanceQueryImpl =
-        new HistoricTaskInstanceQueryImpl();
-    Date completedDate =
-        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant());
+    HistoricTaskInstanceQueryImpl historicTaskInstanceQueryImpl = new HistoricTaskInstanceQueryImpl();
+    Date completedDate = Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant());
 
-    // Act
-    HistoricTaskInstanceQuery actualTaskCompletedOnResult =
-        historicTaskInstanceQueryImpl.taskCompletedOn(completedDate);
-
-    // Assert
-    assertSame(historicTaskInstanceQueryImpl, actualTaskCompletedOnResult);
+    // Act and Assert
+    assertSame(historicTaskInstanceQueryImpl, historicTaskInstanceQueryImpl.taskCompletedOn(completedDate));
     assertSame(completedDate, historicTaskInstanceQueryImpl.getCompletedDate());
   }
 
   /**
    * Test {@link HistoricTaskInstanceQueryImpl#taskCompletedBefore(Date)}.
-   *
-   * <p>Method under test: {@link HistoricTaskInstanceQueryImpl#taskCompletedBefore(Date)}
+   * <p>
+   * Method under test: {@link HistoricTaskInstanceQueryImpl#taskCompletedBefore(Date)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "HistoricTaskInstanceQuery HistoricTaskInstanceQueryImpl.taskCompletedBefore(Date)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"HistoricTaskInstanceQuery HistoricTaskInstanceQueryImpl.taskCompletedBefore(Date)"})
   public void testTaskCompletedBefore() {
     // Arrange
-    HistoricTaskInstanceQueryImpl historicTaskInstanceQueryImpl =
-        new HistoricTaskInstanceQueryImpl();
-    Date completedBeforeDate =
-        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant());
+    HistoricTaskInstanceQueryImpl historicTaskInstanceQueryImpl = new HistoricTaskInstanceQueryImpl();
+    Date completedBeforeDate = Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant());
 
-    // Act
-    HistoricTaskInstanceQuery actualTaskCompletedBeforeResult =
-        historicTaskInstanceQueryImpl.taskCompletedBefore(completedBeforeDate);
-
-    // Assert
-    assertSame(historicTaskInstanceQueryImpl, actualTaskCompletedBeforeResult);
+    // Act and Assert
+    assertSame(historicTaskInstanceQueryImpl, historicTaskInstanceQueryImpl.taskCompletedBefore(completedBeforeDate));
     assertSame(completedBeforeDate, historicTaskInstanceQueryImpl.getCompletedBeforeDate());
   }
 
   /**
    * Test {@link HistoricTaskInstanceQueryImpl#taskCompletedAfter(Date)}.
-   *
-   * <p>Method under test: {@link HistoricTaskInstanceQueryImpl#taskCompletedAfter(Date)}
+   * <p>
+   * Method under test: {@link HistoricTaskInstanceQueryImpl#taskCompletedAfter(Date)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "HistoricTaskInstanceQuery HistoricTaskInstanceQueryImpl.taskCompletedAfter(Date)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"HistoricTaskInstanceQuery HistoricTaskInstanceQueryImpl.taskCompletedAfter(Date)"})
   public void testTaskCompletedAfter() {
     // Arrange
-    HistoricTaskInstanceQueryImpl historicTaskInstanceQueryImpl =
-        new HistoricTaskInstanceQueryImpl();
-    Date completedAfterDate =
-        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant());
+    HistoricTaskInstanceQueryImpl historicTaskInstanceQueryImpl = new HistoricTaskInstanceQueryImpl();
+    Date completedAfterDate = Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant());
 
-    // Act
-    HistoricTaskInstanceQuery actualTaskCompletedAfterResult =
-        historicTaskInstanceQueryImpl.taskCompletedAfter(completedAfterDate);
-
-    // Assert
-    assertSame(historicTaskInstanceQueryImpl, actualTaskCompletedAfterResult);
+    // Act and Assert
+    assertSame(historicTaskInstanceQueryImpl, historicTaskInstanceQueryImpl.taskCompletedAfter(completedAfterDate));
     assertSame(completedAfterDate, historicTaskInstanceQueryImpl.getCompletedAfterDate());
   }
 
   /**
    * Test {@link HistoricTaskInstanceQueryImpl#withoutTaskDueDate()}.
-   *
-   * <p>Method under test: {@link HistoricTaskInstanceQueryImpl#withoutTaskDueDate()}
+   * <p>
+   * Method under test: {@link HistoricTaskInstanceQueryImpl#withoutTaskDueDate()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "HistoricTaskInstanceQuery HistoricTaskInstanceQueryImpl.withoutTaskDueDate()"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"HistoricTaskInstanceQuery HistoricTaskInstanceQueryImpl.withoutTaskDueDate()"})
   public void testWithoutTaskDueDate() {
     // Arrange
-    HistoricTaskInstanceQueryImpl historicTaskInstanceQueryImpl =
-        new HistoricTaskInstanceQueryImpl();
+    HistoricTaskInstanceQueryImpl historicTaskInstanceQueryImpl = new HistoricTaskInstanceQueryImpl();
 
     // Act
-    HistoricTaskInstanceQuery actualWithoutTaskDueDateResult =
-        historicTaskInstanceQueryImpl.withoutTaskDueDate();
+    HistoricTaskInstanceQuery actualWithoutTaskDueDateResult = historicTaskInstanceQueryImpl.withoutTaskDueDate();
 
     // Assert
     assertTrue(historicTaskInstanceQueryImpl.isWithoutDueDate());
@@ -4145,23 +3205,18 @@ public class HistoricTaskInstanceQueryImplDiffblueTest {
 
   /**
    * Test {@link HistoricTaskInstanceQueryImpl#taskCategory(String)}.
-   *
-   * <p>Method under test: {@link HistoricTaskInstanceQueryImpl#taskCategory(String)}
+   * <p>
+   * Method under test: {@link HistoricTaskInstanceQueryImpl#taskCategory(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "HistoricTaskInstanceQuery HistoricTaskInstanceQueryImpl.taskCategory(String)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"HistoricTaskInstanceQuery HistoricTaskInstanceQueryImpl.taskCategory(String)"})
   public void testTaskCategory() {
     // Arrange
-    HistoricTaskInstanceQueryImpl historicTaskInstanceQueryImpl =
-        new HistoricTaskInstanceQueryImpl();
+    HistoricTaskInstanceQueryImpl historicTaskInstanceQueryImpl = new HistoricTaskInstanceQueryImpl();
 
     // Act
-    HistoricTaskInstanceQuery actualTaskCategoryResult =
-        historicTaskInstanceQueryImpl.taskCategory("Category");
+    HistoricTaskInstanceQuery actualTaskCategoryResult = historicTaskInstanceQueryImpl.taskCategory("Category");
 
     // Assert
     assertEquals("Category", historicTaskInstanceQueryImpl.getCategory());
@@ -4169,25 +3224,20 @@ public class HistoricTaskInstanceQueryImplDiffblueTest {
   }
 
   /**
-   * Test {@link HistoricTaskInstanceQueryImpl#taskCandidateUser(String)} with {@code
-   * candidateUser}.
-   *
-   * <p>Method under test: {@link HistoricTaskInstanceQueryImpl#taskCandidateUser(String)}
+   * Test {@link HistoricTaskInstanceQueryImpl#taskCandidateUser(String)} with {@code candidateUser}.
+   * <p>
+   * Method under test: {@link HistoricTaskInstanceQueryImpl#taskCandidateUser(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "HistoricTaskInstanceQuery HistoricTaskInstanceQueryImpl.taskCandidateUser(String)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"HistoricTaskInstanceQuery HistoricTaskInstanceQueryImpl.taskCandidateUser(String)"})
   public void testTaskCandidateUserWithCandidateUser() {
     // Arrange
-    HistoricTaskInstanceQueryImpl historicTaskInstanceQueryImpl =
-        new HistoricTaskInstanceQueryImpl();
+    HistoricTaskInstanceQueryImpl historicTaskInstanceQueryImpl = new HistoricTaskInstanceQueryImpl();
 
     // Act
-    HistoricTaskInstanceQuery actualTaskCandidateUserResult =
-        historicTaskInstanceQueryImpl.taskCandidateUser("2020-03-01");
+    HistoricTaskInstanceQuery actualTaskCandidateUserResult = historicTaskInstanceQueryImpl
+        .taskCandidateUser("2020-03-01");
 
     // Assert
     assertEquals("2020-03-01", historicTaskInstanceQueryImpl.getCandidateUser());
@@ -4195,57 +3245,45 @@ public class HistoricTaskInstanceQueryImplDiffblueTest {
   }
 
   /**
-   * Test {@link HistoricTaskInstanceQueryImpl#taskCandidateUser(String, List)} with {@code
-   * candidateUser}, {@code usersGroups}.
-   *
-   * <p>Method under test: {@link HistoricTaskInstanceQueryImpl#taskCandidateUser(String, List)}
+   * Test {@link HistoricTaskInstanceQueryImpl#taskCandidateUser(String, List)} with {@code candidateUser}, {@code usersGroups}.
+   * <p>
+   * Method under test: {@link HistoricTaskInstanceQueryImpl#taskCandidateUser(String, List)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "HistoricTaskInstanceQuery HistoricTaskInstanceQueryImpl.taskCandidateUser(String, List)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"HistoricTaskInstanceQuery HistoricTaskInstanceQueryImpl.taskCandidateUser(String, List)"})
   public void testTaskCandidateUserWithCandidateUserUsersGroups() {
     // Arrange
-    HistoricTaskInstanceQueryImpl historicTaskInstanceQueryImpl =
-        new HistoricTaskInstanceQueryImpl();
+    HistoricTaskInstanceQueryImpl historicTaskInstanceQueryImpl = new HistoricTaskInstanceQueryImpl();
 
     // Act and Assert
-    assertThrows(
-        ActivitiIllegalArgumentException.class,
+    assertThrows(ActivitiIllegalArgumentException.class,
         () -> historicTaskInstanceQueryImpl.taskCandidateUser(null, new ArrayList<>()));
   }
 
   /**
-   * Test {@link HistoricTaskInstanceQueryImpl#taskCandidateUser(String, List)} with {@code
-   * candidateUser}, {@code usersGroups}.
-   *
+   * Test {@link HistoricTaskInstanceQueryImpl#taskCandidateUser(String, List)} with {@code candidateUser}, {@code usersGroups}.
    * <ul>
-   *   <li>Given {@code 42}.
-   *   <li>When {@link ArrayList#ArrayList()} add {@code 42}.
+   *   <li>Given {@code 42}.</li>
+   *   <li>When {@link ArrayList#ArrayList()} add {@code 42}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link HistoricTaskInstanceQueryImpl#taskCandidateUser(String, List)}
+   * <p>
+   * Method under test: {@link HistoricTaskInstanceQueryImpl#taskCandidateUser(String, List)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "HistoricTaskInstanceQuery HistoricTaskInstanceQueryImpl.taskCandidateUser(String, List)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"HistoricTaskInstanceQuery HistoricTaskInstanceQueryImpl.taskCandidateUser(String, List)"})
   public void testTaskCandidateUserWithCandidateUserUsersGroups_given42_whenArrayListAdd42() {
     // Arrange
-    HistoricTaskInstanceQueryImpl historicTaskInstanceQueryImpl =
-        new HistoricTaskInstanceQueryImpl();
+    HistoricTaskInstanceQueryImpl historicTaskInstanceQueryImpl = new HistoricTaskInstanceQueryImpl();
 
     ArrayList<String> usersGroups = new ArrayList<>();
     usersGroups.add("42");
     usersGroups.add("foo");
 
     // Act
-    HistoricTaskInstanceQuery actualTaskCandidateUserResult =
-        historicTaskInstanceQueryImpl.taskCandidateUser("2020-03-01", usersGroups);
+    HistoricTaskInstanceQuery actualTaskCandidateUserResult = historicTaskInstanceQueryImpl
+        .taskCandidateUser("2020-03-01", usersGroups);
 
     // Assert
     assertEquals("2020-03-01", historicTaskInstanceQueryImpl.getCandidateUser());
@@ -4254,33 +3292,27 @@ public class HistoricTaskInstanceQueryImplDiffblueTest {
   }
 
   /**
-   * Test {@link HistoricTaskInstanceQueryImpl#taskCandidateUser(String, List)} with {@code
-   * candidateUser}, {@code usersGroups}.
-   *
+   * Test {@link HistoricTaskInstanceQueryImpl#taskCandidateUser(String, List)} with {@code candidateUser}, {@code usersGroups}.
    * <ul>
-   *   <li>Given {@code foo}.
-   *   <li>When {@link ArrayList#ArrayList()} add {@code foo}.
+   *   <li>Given {@code foo}.</li>
+   *   <li>When {@link ArrayList#ArrayList()} add {@code foo}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link HistoricTaskInstanceQueryImpl#taskCandidateUser(String, List)}
+   * <p>
+   * Method under test: {@link HistoricTaskInstanceQueryImpl#taskCandidateUser(String, List)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "HistoricTaskInstanceQuery HistoricTaskInstanceQueryImpl.taskCandidateUser(String, List)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"HistoricTaskInstanceQuery HistoricTaskInstanceQueryImpl.taskCandidateUser(String, List)"})
   public void testTaskCandidateUserWithCandidateUserUsersGroups_givenFoo_whenArrayListAddFoo() {
     // Arrange
-    HistoricTaskInstanceQueryImpl historicTaskInstanceQueryImpl =
-        new HistoricTaskInstanceQueryImpl();
+    HistoricTaskInstanceQueryImpl historicTaskInstanceQueryImpl = new HistoricTaskInstanceQueryImpl();
 
     ArrayList<String> usersGroups = new ArrayList<>();
     usersGroups.add("foo");
 
     // Act
-    HistoricTaskInstanceQuery actualTaskCandidateUserResult =
-        historicTaskInstanceQueryImpl.taskCandidateUser("2020-03-01", usersGroups);
+    HistoricTaskInstanceQuery actualTaskCandidateUserResult = historicTaskInstanceQueryImpl
+        .taskCandidateUser("2020-03-01", usersGroups);
 
     // Assert
     assertEquals("2020-03-01", historicTaskInstanceQueryImpl.getCandidateUser());
@@ -4289,30 +3321,24 @@ public class HistoricTaskInstanceQueryImplDiffblueTest {
   }
 
   /**
-   * Test {@link HistoricTaskInstanceQueryImpl#taskCandidateUser(String, List)} with {@code
-   * candidateUser}, {@code usersGroups}.
-   *
+   * Test {@link HistoricTaskInstanceQueryImpl#taskCandidateUser(String, List)} with {@code candidateUser}, {@code usersGroups}.
    * <ul>
-   *   <li>When {@link ArrayList#ArrayList()}.
+   *   <li>When {@link ArrayList#ArrayList()}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link HistoricTaskInstanceQueryImpl#taskCandidateUser(String, List)}
+   * <p>
+   * Method under test: {@link HistoricTaskInstanceQueryImpl#taskCandidateUser(String, List)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "HistoricTaskInstanceQuery HistoricTaskInstanceQueryImpl.taskCandidateUser(String, List)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"HistoricTaskInstanceQuery HistoricTaskInstanceQueryImpl.taskCandidateUser(String, List)"})
   public void testTaskCandidateUserWithCandidateUserUsersGroups_whenArrayList() {
     // Arrange
-    HistoricTaskInstanceQueryImpl historicTaskInstanceQueryImpl =
-        new HistoricTaskInstanceQueryImpl();
+    HistoricTaskInstanceQueryImpl historicTaskInstanceQueryImpl = new HistoricTaskInstanceQueryImpl();
     ArrayList<String> usersGroups = new ArrayList<>();
 
     // Act
-    HistoricTaskInstanceQuery actualTaskCandidateUserResult =
-        historicTaskInstanceQueryImpl.taskCandidateUser("2020-03-01", usersGroups);
+    HistoricTaskInstanceQuery actualTaskCandidateUserResult = historicTaskInstanceQueryImpl
+        .taskCandidateUser("2020-03-01", usersGroups);
 
     // Assert
     assertEquals("2020-03-01", historicTaskInstanceQueryImpl.getCandidateUser());
@@ -4321,52 +3347,40 @@ public class HistoricTaskInstanceQueryImplDiffblueTest {
   }
 
   /**
-   * Test {@link HistoricTaskInstanceQueryImpl#taskCandidateUser(String)} with {@code
-   * candidateUser}.
-   *
+   * Test {@link HistoricTaskInstanceQueryImpl#taskCandidateUser(String)} with {@code candidateUser}.
    * <ul>
-   *   <li>Then throw {@link ActivitiIllegalArgumentException}.
+   *   <li>Then throw {@link ActivitiIllegalArgumentException}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link HistoricTaskInstanceQueryImpl#taskCandidateUser(String)}
+   * <p>
+   * Method under test: {@link HistoricTaskInstanceQueryImpl#taskCandidateUser(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "HistoricTaskInstanceQuery HistoricTaskInstanceQueryImpl.taskCandidateUser(String)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"HistoricTaskInstanceQuery HistoricTaskInstanceQueryImpl.taskCandidateUser(String)"})
   public void testTaskCandidateUserWithCandidateUser_thenThrowActivitiIllegalArgumentException() {
     // Arrange, Act and Assert
-    assertThrows(
-        ActivitiIllegalArgumentException.class,
-        () -> new HistoricTaskInstanceQueryImpl().taskCandidateUser(null));
+    assertThrows(ActivitiIllegalArgumentException.class,
+        () -> (new HistoricTaskInstanceQueryImpl()).taskCandidateUser(null));
   }
 
   /**
    * Test {@link HistoricTaskInstanceQueryImpl#taskCandidateGroup(String)}.
-   *
    * <ul>
-   *   <li>Then {@link HistoricTaskInstanceQueryImpl#HistoricTaskInstanceQueryImpl()} CandidateGroup
-   *       is {@code 2020-03-01}.
+   *   <li>Then {@link HistoricTaskInstanceQueryImpl#HistoricTaskInstanceQueryImpl()} CandidateGroup is {@code 2020-03-01}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link HistoricTaskInstanceQueryImpl#taskCandidateGroup(String)}
+   * <p>
+   * Method under test: {@link HistoricTaskInstanceQueryImpl#taskCandidateGroup(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "HistoricTaskInstanceQuery HistoricTaskInstanceQueryImpl.taskCandidateGroup(String)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"HistoricTaskInstanceQuery HistoricTaskInstanceQueryImpl.taskCandidateGroup(String)"})
   public void testTaskCandidateGroup_thenHistoricTaskInstanceQueryImplCandidateGroupIs20200301() {
     // Arrange
-    HistoricTaskInstanceQueryImpl historicTaskInstanceQueryImpl =
-        new HistoricTaskInstanceQueryImpl();
+    HistoricTaskInstanceQueryImpl historicTaskInstanceQueryImpl = new HistoricTaskInstanceQueryImpl();
 
     // Act
-    HistoricTaskInstanceQuery actualTaskCandidateGroupResult =
-        historicTaskInstanceQueryImpl.taskCandidateGroup("2020-03-01");
+    HistoricTaskInstanceQuery actualTaskCandidateGroupResult = historicTaskInstanceQueryImpl
+        .taskCandidateGroup("2020-03-01");
 
     // Assert
     assertEquals("2020-03-01", historicTaskInstanceQueryImpl.getCandidateGroup());
@@ -4376,49 +3390,40 @@ public class HistoricTaskInstanceQueryImplDiffblueTest {
 
   /**
    * Test {@link HistoricTaskInstanceQueryImpl#taskCandidateGroup(String)}.
-   *
    * <ul>
-   *   <li>When {@code null}.
-   *   <li>Then throw {@link ActivitiIllegalArgumentException}.
+   *   <li>When {@code null}.</li>
+   *   <li>Then throw {@link ActivitiIllegalArgumentException}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link HistoricTaskInstanceQueryImpl#taskCandidateGroup(String)}
+   * <p>
+   * Method under test: {@link HistoricTaskInstanceQueryImpl#taskCandidateGroup(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "HistoricTaskInstanceQuery HistoricTaskInstanceQueryImpl.taskCandidateGroup(String)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"HistoricTaskInstanceQuery HistoricTaskInstanceQueryImpl.taskCandidateGroup(String)"})
   public void testTaskCandidateGroup_whenNull_thenThrowActivitiIllegalArgumentException() {
     // Arrange, Act and Assert
-    assertThrows(
-        ActivitiIllegalArgumentException.class,
-        () -> new HistoricTaskInstanceQueryImpl().taskCandidateGroup(null));
+    assertThrows(ActivitiIllegalArgumentException.class,
+        () -> (new HistoricTaskInstanceQueryImpl()).taskCandidateGroup(null));
   }
 
   /**
    * Test {@link HistoricTaskInstanceQueryImpl#taskCandidateGroupIn(List)}.
-   *
-   * <p>Method under test: {@link HistoricTaskInstanceQueryImpl#taskCandidateGroupIn(List)}
+   * <p>
+   * Method under test: {@link HistoricTaskInstanceQueryImpl#taskCandidateGroupIn(List)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "HistoricTaskInstanceQuery HistoricTaskInstanceQueryImpl.taskCandidateGroupIn(List)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"HistoricTaskInstanceQuery HistoricTaskInstanceQueryImpl.taskCandidateGroupIn(List)"})
   public void testTaskCandidateGroupIn() {
     // Arrange
-    HistoricTaskInstanceQueryImpl historicTaskInstanceQueryImpl =
-        new HistoricTaskInstanceQueryImpl();
+    HistoricTaskInstanceQueryImpl historicTaskInstanceQueryImpl = new HistoricTaskInstanceQueryImpl();
 
     ArrayList<String> candidateGroups = new ArrayList<>();
     candidateGroups.add("Candidate group list is empty");
 
     // Act
-    HistoricTaskInstanceQuery actualTaskCandidateGroupInResult =
-        historicTaskInstanceQueryImpl.taskCandidateGroupIn(candidateGroups);
+    HistoricTaskInstanceQuery actualTaskCandidateGroupInResult = historicTaskInstanceQueryImpl
+        .taskCandidateGroupIn(candidateGroups);
 
     // Assert
     assertSame(candidateGroups, historicTaskInstanceQueryImpl.getCandidateGroups());
@@ -4427,58 +3432,48 @@ public class HistoricTaskInstanceQueryImplDiffblueTest {
 
   /**
    * Test {@link HistoricTaskInstanceQueryImpl#taskCandidateGroupIn(List)}.
-   *
-   * <p>Method under test: {@link HistoricTaskInstanceQueryImpl#taskCandidateGroupIn(List)}
+   * <p>
+   * Method under test: {@link HistoricTaskInstanceQueryImpl#taskCandidateGroupIn(List)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "HistoricTaskInstanceQuery HistoricTaskInstanceQueryImpl.taskCandidateGroupIn(List)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"HistoricTaskInstanceQuery HistoricTaskInstanceQueryImpl.taskCandidateGroupIn(List)"})
   public void testTaskCandidateGroupIn2() {
     // Arrange
-    HistoricTaskInstanceQueryImpl historicTaskInstanceQueryImpl =
-        new HistoricTaskInstanceQueryImpl();
+    HistoricTaskInstanceQueryImpl historicTaskInstanceQueryImpl = new HistoricTaskInstanceQueryImpl();
     historicTaskInstanceQueryImpl.taskCandidateGroup("2020-03-01");
 
     ArrayList<String> candidateGroups = new ArrayList<>();
     candidateGroups.add("Candidate group list is empty");
 
     // Act and Assert
-    assertThrows(
-        ActivitiIllegalArgumentException.class,
+    assertThrows(ActivitiIllegalArgumentException.class,
         () -> historicTaskInstanceQueryImpl.taskCandidateGroupIn(candidateGroups));
   }
 
   /**
    * Test {@link HistoricTaskInstanceQueryImpl#taskCandidateGroupIn(List)}.
-   *
    * <ul>
-   *   <li>Given {@code 42}.
-   *   <li>When {@link ArrayList#ArrayList()} add {@code 42}.
+   *   <li>Given {@code 42}.</li>
+   *   <li>When {@link ArrayList#ArrayList()} add {@code 42}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link HistoricTaskInstanceQueryImpl#taskCandidateGroupIn(List)}
+   * <p>
+   * Method under test: {@link HistoricTaskInstanceQueryImpl#taskCandidateGroupIn(List)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "HistoricTaskInstanceQuery HistoricTaskInstanceQueryImpl.taskCandidateGroupIn(List)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"HistoricTaskInstanceQuery HistoricTaskInstanceQueryImpl.taskCandidateGroupIn(List)"})
   public void testTaskCandidateGroupIn_given42_whenArrayListAdd42() {
     // Arrange
-    HistoricTaskInstanceQueryImpl historicTaskInstanceQueryImpl =
-        new HistoricTaskInstanceQueryImpl();
+    HistoricTaskInstanceQueryImpl historicTaskInstanceQueryImpl = new HistoricTaskInstanceQueryImpl();
 
     ArrayList<String> candidateGroups = new ArrayList<>();
     candidateGroups.add("42");
     candidateGroups.add("Candidate group list is empty");
 
     // Act
-    HistoricTaskInstanceQuery actualTaskCandidateGroupInResult =
-        historicTaskInstanceQueryImpl.taskCandidateGroupIn(candidateGroups);
+    HistoricTaskInstanceQuery actualTaskCandidateGroupInResult = historicTaskInstanceQueryImpl
+        .taskCandidateGroupIn(candidateGroups);
 
     // Assert
     assertSame(candidateGroups, historicTaskInstanceQueryImpl.getCandidateGroups());
@@ -4487,73 +3482,40 @@ public class HistoricTaskInstanceQueryImplDiffblueTest {
 
   /**
    * Test {@link HistoricTaskInstanceQueryImpl#taskCandidateGroupIn(List)}.
-   *
    * <ul>
-   *   <li>When {@link ArrayList#ArrayList()}.
-   *   <li>Then throw {@link ActivitiIllegalArgumentException}.
+   *   <li>When {@link ArrayList#ArrayList()}.</li>
+   *   <li>Then throw {@link ActivitiIllegalArgumentException}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link HistoricTaskInstanceQueryImpl#taskCandidateGroupIn(List)}
+   * <p>
+   * Method under test: {@link HistoricTaskInstanceQueryImpl#taskCandidateGroupIn(List)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "HistoricTaskInstanceQuery HistoricTaskInstanceQueryImpl.taskCandidateGroupIn(List)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"HistoricTaskInstanceQuery HistoricTaskInstanceQueryImpl.taskCandidateGroupIn(List)"})
   public void testTaskCandidateGroupIn_whenArrayList_thenThrowActivitiIllegalArgumentException() {
     // Arrange
-    HistoricTaskInstanceQueryImpl historicTaskInstanceQueryImpl =
-        new HistoricTaskInstanceQueryImpl();
+    HistoricTaskInstanceQueryImpl historicTaskInstanceQueryImpl = new HistoricTaskInstanceQueryImpl();
 
     // Act and Assert
-    assertThrows(
-        ActivitiIllegalArgumentException.class,
+    assertThrows(ActivitiIllegalArgumentException.class,
         () -> historicTaskInstanceQueryImpl.taskCandidateGroupIn(new ArrayList<>()));
   }
 
   /**
-   * Test {@link HistoricTaskInstanceQueryImpl#taskCandidateGroupIn(List)}.
-   *
-   * <ul>
-   *   <li>When {@code null}.
-   *   <li>Then throw {@link ActivitiIllegalArgumentException}.
-   * </ul>
-   *
-   * <p>Method under test: {@link HistoricTaskInstanceQueryImpl#taskCandidateGroupIn(List)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "HistoricTaskInstanceQuery HistoricTaskInstanceQueryImpl.taskCandidateGroupIn(List)"
-  })
-  public void testTaskCandidateGroupIn_whenNull_thenThrowActivitiIllegalArgumentException() {
-    // Arrange, Act and Assert
-    assertThrows(
-        ActivitiIllegalArgumentException.class,
-        () -> new HistoricTaskInstanceQueryImpl().taskCandidateGroupIn(null));
-  }
-
-  /**
    * Test {@link HistoricTaskInstanceQueryImpl#taskInvolvedUser(String)}.
-   *
-   * <p>Method under test: {@link HistoricTaskInstanceQueryImpl#taskInvolvedUser(String)}
+   * <p>
+   * Method under test: {@link HistoricTaskInstanceQueryImpl#taskInvolvedUser(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "HistoricTaskInstanceQuery HistoricTaskInstanceQueryImpl.taskInvolvedUser(String)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"HistoricTaskInstanceQuery HistoricTaskInstanceQueryImpl.taskInvolvedUser(String)"})
   public void testTaskInvolvedUser() {
     // Arrange
-    HistoricTaskInstanceQueryImpl historicTaskInstanceQueryImpl =
-        new HistoricTaskInstanceQueryImpl();
+    HistoricTaskInstanceQueryImpl historicTaskInstanceQueryImpl = new HistoricTaskInstanceQueryImpl();
 
     // Act
-    HistoricTaskInstanceQuery actualTaskInvolvedUserResult =
-        historicTaskInstanceQueryImpl.taskInvolvedUser("Involved User");
+    HistoricTaskInstanceQuery actualTaskInvolvedUserResult = historicTaskInstanceQueryImpl
+        .taskInvolvedUser("Involved User");
 
     // Assert
     assertEquals("Involved User", historicTaskInstanceQueryImpl.getInvolvedUser());
@@ -4562,26 +3524,22 @@ public class HistoricTaskInstanceQueryImplDiffblueTest {
 
   /**
    * Test {@link HistoricTaskInstanceQueryImpl#taskInvolvedGroupsIn(List)}.
-   *
-   * <p>Method under test: {@link HistoricTaskInstanceQueryImpl#taskInvolvedGroupsIn(List)}
+   * <p>
+   * Method under test: {@link HistoricTaskInstanceQueryImpl#taskInvolvedGroupsIn(List)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "HistoricTaskInstanceQuery HistoricTaskInstanceQueryImpl.taskInvolvedGroupsIn(List)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"HistoricTaskInstanceQuery HistoricTaskInstanceQueryImpl.taskInvolvedGroupsIn(List)"})
   public void testTaskInvolvedGroupsIn() {
     // Arrange
-    HistoricTaskInstanceQueryImpl historicTaskInstanceQueryImpl =
-        new HistoricTaskInstanceQueryImpl();
+    HistoricTaskInstanceQueryImpl historicTaskInstanceQueryImpl = new HistoricTaskInstanceQueryImpl();
 
     ArrayList<String> involvedGroups = new ArrayList<>();
     involvedGroups.add("Involved groups list is null or empty.");
 
     // Act
-    HistoricTaskInstanceQuery actualTaskInvolvedGroupsInResult =
-        historicTaskInstanceQueryImpl.taskInvolvedGroupsIn(involvedGroups);
+    HistoricTaskInstanceQuery actualTaskInvolvedGroupsInResult = historicTaskInstanceQueryImpl
+        .taskInvolvedGroupsIn(involvedGroups);
 
     // Assert
     assertSame(involvedGroups, historicTaskInstanceQueryImpl.getInvolvedGroups());
@@ -4590,32 +3548,27 @@ public class HistoricTaskInstanceQueryImplDiffblueTest {
 
   /**
    * Test {@link HistoricTaskInstanceQueryImpl#taskInvolvedGroupsIn(List)}.
-   *
    * <ul>
-   *   <li>Given {@code 42}.
-   *   <li>When {@link ArrayList#ArrayList()} add {@code 42}.
+   *   <li>Given {@code 42}.</li>
+   *   <li>When {@link ArrayList#ArrayList()} add {@code 42}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link HistoricTaskInstanceQueryImpl#taskInvolvedGroupsIn(List)}
+   * <p>
+   * Method under test: {@link HistoricTaskInstanceQueryImpl#taskInvolvedGroupsIn(List)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "HistoricTaskInstanceQuery HistoricTaskInstanceQueryImpl.taskInvolvedGroupsIn(List)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"HistoricTaskInstanceQuery HistoricTaskInstanceQueryImpl.taskInvolvedGroupsIn(List)"})
   public void testTaskInvolvedGroupsIn_given42_whenArrayListAdd42() {
     // Arrange
-    HistoricTaskInstanceQueryImpl historicTaskInstanceQueryImpl =
-        new HistoricTaskInstanceQueryImpl();
+    HistoricTaskInstanceQueryImpl historicTaskInstanceQueryImpl = new HistoricTaskInstanceQueryImpl();
 
     ArrayList<String> involvedGroups = new ArrayList<>();
     involvedGroups.add("42");
     involvedGroups.add("Involved groups list is null or empty.");
 
     // Act
-    HistoricTaskInstanceQuery actualTaskInvolvedGroupsInResult =
-        historicTaskInstanceQueryImpl.taskInvolvedGroupsIn(involvedGroups);
+    HistoricTaskInstanceQuery actualTaskInvolvedGroupsInResult = historicTaskInstanceQueryImpl
+        .taskInvolvedGroupsIn(involvedGroups);
 
     // Assert
     assertSame(involvedGroups, historicTaskInstanceQueryImpl.getInvolvedGroups());
@@ -4624,79 +3577,43 @@ public class HistoricTaskInstanceQueryImplDiffblueTest {
 
   /**
    * Test {@link HistoricTaskInstanceQueryImpl#taskInvolvedGroupsIn(List)}.
-   *
    * <ul>
-   *   <li>When {@link ArrayList#ArrayList()}.
-   *   <li>Then throw {@link ActivitiIllegalArgumentException}.
+   *   <li>When {@link ArrayList#ArrayList()}.</li>
+   *   <li>Then throw {@link ActivitiIllegalArgumentException}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link HistoricTaskInstanceQueryImpl#taskInvolvedGroupsIn(List)}
+   * <p>
+   * Method under test: {@link HistoricTaskInstanceQueryImpl#taskInvolvedGroupsIn(List)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "HistoricTaskInstanceQuery HistoricTaskInstanceQueryImpl.taskInvolvedGroupsIn(List)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"HistoricTaskInstanceQuery HistoricTaskInstanceQueryImpl.taskInvolvedGroupsIn(List)"})
   public void testTaskInvolvedGroupsIn_whenArrayList_thenThrowActivitiIllegalArgumentException() {
     // Arrange
-    HistoricTaskInstanceQueryImpl historicTaskInstanceQueryImpl =
-        new HistoricTaskInstanceQueryImpl();
+    HistoricTaskInstanceQueryImpl historicTaskInstanceQueryImpl = new HistoricTaskInstanceQueryImpl();
 
     // Act and Assert
-    assertThrows(
-        ActivitiIllegalArgumentException.class,
+    assertThrows(ActivitiIllegalArgumentException.class,
         () -> historicTaskInstanceQueryImpl.taskInvolvedGroupsIn(new ArrayList<>()));
   }
 
   /**
-   * Test {@link HistoricTaskInstanceQueryImpl#taskInvolvedGroupsIn(List)}.
-   *
-   * <ul>
-   *   <li>When {@code null}.
-   *   <li>Then throw {@link ActivitiIllegalArgumentException}.
-   * </ul>
-   *
-   * <p>Method under test: {@link HistoricTaskInstanceQueryImpl#taskInvolvedGroupsIn(List)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "HistoricTaskInstanceQuery HistoricTaskInstanceQueryImpl.taskInvolvedGroupsIn(List)"
-  })
-  public void testTaskInvolvedGroupsIn_whenNull_thenThrowActivitiIllegalArgumentException() {
-    // Arrange, Act and Assert
-    assertThrows(
-        ActivitiIllegalArgumentException.class,
-        () -> new HistoricTaskInstanceQueryImpl().taskInvolvedGroupsIn(null));
-  }
-
-  /**
    * Test {@link HistoricTaskInstanceQueryImpl#taskTenantId(String)}.
-   *
    * <ul>
-   *   <li>When {@code 42}.
-   *   <li>Then {@link HistoricTaskInstanceQueryImpl#HistoricTaskInstanceQueryImpl()} TenantId is
-   *       {@code 42}.
+   *   <li>When {@code 42}.</li>
+   *   <li>Then {@link HistoricTaskInstanceQueryImpl#HistoricTaskInstanceQueryImpl()} TenantId is {@code 42}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link HistoricTaskInstanceQueryImpl#taskTenantId(String)}
+   * <p>
+   * Method under test: {@link HistoricTaskInstanceQueryImpl#taskTenantId(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "HistoricTaskInstanceQuery HistoricTaskInstanceQueryImpl.taskTenantId(String)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"HistoricTaskInstanceQuery HistoricTaskInstanceQueryImpl.taskTenantId(String)"})
   public void testTaskTenantId_when42_thenHistoricTaskInstanceQueryImplTenantIdIs42() {
     // Arrange
-    HistoricTaskInstanceQueryImpl historicTaskInstanceQueryImpl =
-        new HistoricTaskInstanceQueryImpl();
+    HistoricTaskInstanceQueryImpl historicTaskInstanceQueryImpl = new HistoricTaskInstanceQueryImpl();
 
     // Act
-    HistoricTaskInstanceQuery actualTaskTenantIdResult =
-        historicTaskInstanceQueryImpl.taskTenantId("42");
+    HistoricTaskInstanceQuery actualTaskTenantIdResult = historicTaskInstanceQueryImpl.taskTenantId("42");
 
     // Assert
     assertEquals("42", historicTaskInstanceQueryImpl.getTenantId());
@@ -4705,51 +3622,40 @@ public class HistoricTaskInstanceQueryImplDiffblueTest {
 
   /**
    * Test {@link HistoricTaskInstanceQueryImpl#taskTenantId(String)}.
-   *
    * <ul>
-   *   <li>When {@code null}.
-   *   <li>Then throw {@link ActivitiIllegalArgumentException}.
+   *   <li>When {@code null}.</li>
+   *   <li>Then throw {@link ActivitiIllegalArgumentException}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link HistoricTaskInstanceQueryImpl#taskTenantId(String)}
+   * <p>
+   * Method under test: {@link HistoricTaskInstanceQueryImpl#taskTenantId(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "HistoricTaskInstanceQuery HistoricTaskInstanceQueryImpl.taskTenantId(String)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"HistoricTaskInstanceQuery HistoricTaskInstanceQueryImpl.taskTenantId(String)"})
   public void testTaskTenantId_whenNull_thenThrowActivitiIllegalArgumentException() {
     // Arrange, Act and Assert
-    assertThrows(
-        ActivitiIllegalArgumentException.class,
-        () -> new HistoricTaskInstanceQueryImpl().taskTenantId(null));
+    assertThrows(ActivitiIllegalArgumentException.class,
+        () -> (new HistoricTaskInstanceQueryImpl()).taskTenantId(null));
   }
 
   /**
    * Test {@link HistoricTaskInstanceQueryImpl#taskTenantIdLike(String)}.
-   *
    * <ul>
-   *   <li>Then {@link HistoricTaskInstanceQueryImpl#HistoricTaskInstanceQueryImpl()} TenantIdLike
-   *       is {@code Tenant Id Like}.
+   *   <li>Then {@link HistoricTaskInstanceQueryImpl#HistoricTaskInstanceQueryImpl()} TenantIdLike is {@code Tenant Id Like}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link HistoricTaskInstanceQueryImpl#taskTenantIdLike(String)}
+   * <p>
+   * Method under test: {@link HistoricTaskInstanceQueryImpl#taskTenantIdLike(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "HistoricTaskInstanceQuery HistoricTaskInstanceQueryImpl.taskTenantIdLike(String)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"HistoricTaskInstanceQuery HistoricTaskInstanceQueryImpl.taskTenantIdLike(String)"})
   public void testTaskTenantIdLike_thenHistoricTaskInstanceQueryImplTenantIdLikeIsTenantIdLike() {
     // Arrange
-    HistoricTaskInstanceQueryImpl historicTaskInstanceQueryImpl =
-        new HistoricTaskInstanceQueryImpl();
+    HistoricTaskInstanceQueryImpl historicTaskInstanceQueryImpl = new HistoricTaskInstanceQueryImpl();
 
     // Act
-    HistoricTaskInstanceQuery actualTaskTenantIdLikeResult =
-        historicTaskInstanceQueryImpl.taskTenantIdLike("Tenant Id Like");
+    HistoricTaskInstanceQuery actualTaskTenantIdLikeResult = historicTaskInstanceQueryImpl
+        .taskTenantIdLike("Tenant Id Like");
 
     // Assert
     assertEquals("Tenant Id Like", historicTaskInstanceQueryImpl.getTenantIdLike());
@@ -4758,46 +3664,36 @@ public class HistoricTaskInstanceQueryImplDiffblueTest {
 
   /**
    * Test {@link HistoricTaskInstanceQueryImpl#taskTenantIdLike(String)}.
-   *
    * <ul>
-   *   <li>When {@code null}.
-   *   <li>Then throw {@link ActivitiIllegalArgumentException}.
+   *   <li>When {@code null}.</li>
+   *   <li>Then throw {@link ActivitiIllegalArgumentException}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link HistoricTaskInstanceQueryImpl#taskTenantIdLike(String)}
+   * <p>
+   * Method under test: {@link HistoricTaskInstanceQueryImpl#taskTenantIdLike(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "HistoricTaskInstanceQuery HistoricTaskInstanceQueryImpl.taskTenantIdLike(String)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"HistoricTaskInstanceQuery HistoricTaskInstanceQueryImpl.taskTenantIdLike(String)"})
   public void testTaskTenantIdLike_whenNull_thenThrowActivitiIllegalArgumentException() {
     // Arrange, Act and Assert
-    assertThrows(
-        ActivitiIllegalArgumentException.class,
-        () -> new HistoricTaskInstanceQueryImpl().taskTenantIdLike(null));
+    assertThrows(ActivitiIllegalArgumentException.class,
+        () -> (new HistoricTaskInstanceQueryImpl()).taskTenantIdLike(null));
   }
 
   /**
    * Test {@link HistoricTaskInstanceQueryImpl#taskWithoutTenantId()}.
-   *
-   * <p>Method under test: {@link HistoricTaskInstanceQueryImpl#taskWithoutTenantId()}
+   * <p>
+   * Method under test: {@link HistoricTaskInstanceQueryImpl#taskWithoutTenantId()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "HistoricTaskInstanceQuery HistoricTaskInstanceQueryImpl.taskWithoutTenantId()"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"HistoricTaskInstanceQuery HistoricTaskInstanceQueryImpl.taskWithoutTenantId()"})
   public void testTaskWithoutTenantId() {
     // Arrange
-    HistoricTaskInstanceQueryImpl historicTaskInstanceQueryImpl =
-        new HistoricTaskInstanceQueryImpl();
+    HistoricTaskInstanceQueryImpl historicTaskInstanceQueryImpl = new HistoricTaskInstanceQueryImpl();
 
     // Act
-    HistoricTaskInstanceQuery actualTaskWithoutTenantIdResult =
-        historicTaskInstanceQueryImpl.taskWithoutTenantId();
+    HistoricTaskInstanceQuery actualTaskWithoutTenantIdResult = historicTaskInstanceQueryImpl.taskWithoutTenantId();
 
     // Assert
     assertTrue(historicTaskInstanceQueryImpl.isWithoutTenantId());
@@ -4806,17 +3702,15 @@ public class HistoricTaskInstanceQueryImplDiffblueTest {
 
   /**
    * Test {@link HistoricTaskInstanceQueryImpl#locale(String)}.
-   *
-   * <p>Method under test: {@link HistoricTaskInstanceQueryImpl#locale(String)}
+   * <p>
+   * Method under test: {@link HistoricTaskInstanceQueryImpl#locale(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"HistoricTaskInstanceQuery HistoricTaskInstanceQueryImpl.locale(String)"})
   public void testLocale() {
     // Arrange
-    HistoricTaskInstanceQueryImpl historicTaskInstanceQueryImpl =
-        new HistoricTaskInstanceQueryImpl();
+    HistoricTaskInstanceQueryImpl historicTaskInstanceQueryImpl = new HistoricTaskInstanceQueryImpl();
 
     // Act
     HistoricTaskInstanceQuery actualLocaleResult = historicTaskInstanceQueryImpl.locale("en");
@@ -4827,49 +3721,20 @@ public class HistoricTaskInstanceQueryImplDiffblueTest {
   }
 
   /**
-   * Test {@link HistoricTaskInstanceQueryImpl#withLocalizationFallback()}.
-   *
-   * <p>Method under test: {@link HistoricTaskInstanceQueryImpl#withLocalizationFallback()}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "HistoricTaskInstanceQuery HistoricTaskInstanceQueryImpl.withLocalizationFallback()"
-  })
-  public void testWithLocalizationFallback() {
-    // Arrange
-    HistoricTaskInstanceQueryImpl historicTaskInstanceQueryImpl =
-        new HistoricTaskInstanceQueryImpl();
-
-    // Act
-    HistoricTaskInstanceQuery actualWithLocalizationFallbackResult =
-        historicTaskInstanceQueryImpl.withLocalizationFallback();
-
-    // Assert
-    assertTrue(historicTaskInstanceQueryImpl.withLocalizationFallback);
-    assertSame(historicTaskInstanceQueryImpl, actualWithLocalizationFallbackResult);
-  }
-
-  /**
    * Test {@link HistoricTaskInstanceQueryImpl#includeTaskLocalVariables()}.
-   *
-   * <p>Method under test: {@link HistoricTaskInstanceQueryImpl#includeTaskLocalVariables()}
+   * <p>
+   * Method under test: {@link HistoricTaskInstanceQueryImpl#includeTaskLocalVariables()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "HistoricTaskInstanceQuery HistoricTaskInstanceQueryImpl.includeTaskLocalVariables()"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"HistoricTaskInstanceQuery HistoricTaskInstanceQueryImpl.includeTaskLocalVariables()"})
   public void testIncludeTaskLocalVariables() {
     // Arrange
-    HistoricTaskInstanceQueryImpl historicTaskInstanceQueryImpl =
-        new HistoricTaskInstanceQueryImpl();
+    HistoricTaskInstanceQueryImpl historicTaskInstanceQueryImpl = new HistoricTaskInstanceQueryImpl();
 
     // Act
-    HistoricTaskInstanceQuery actualIncludeTaskLocalVariablesResult =
-        historicTaskInstanceQueryImpl.includeTaskLocalVariables();
+    HistoricTaskInstanceQuery actualIncludeTaskLocalVariablesResult = historicTaskInstanceQueryImpl
+        .includeTaskLocalVariables();
 
     // Assert
     assertTrue(historicTaskInstanceQueryImpl.isIncludeTaskLocalVariables());
@@ -4878,23 +3743,19 @@ public class HistoricTaskInstanceQueryImplDiffblueTest {
 
   /**
    * Test {@link HistoricTaskInstanceQueryImpl#includeProcessVariables()}.
-   *
-   * <p>Method under test: {@link HistoricTaskInstanceQueryImpl#includeProcessVariables()}
+   * <p>
+   * Method under test: {@link HistoricTaskInstanceQueryImpl#includeProcessVariables()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "HistoricTaskInstanceQuery HistoricTaskInstanceQueryImpl.includeProcessVariables()"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"HistoricTaskInstanceQuery HistoricTaskInstanceQueryImpl.includeProcessVariables()"})
   public void testIncludeProcessVariables() {
     // Arrange
-    HistoricTaskInstanceQueryImpl historicTaskInstanceQueryImpl =
-        new HistoricTaskInstanceQueryImpl();
+    HistoricTaskInstanceQueryImpl historicTaskInstanceQueryImpl = new HistoricTaskInstanceQueryImpl();
 
     // Act
-    HistoricTaskInstanceQuery actualIncludeProcessVariablesResult =
-        historicTaskInstanceQueryImpl.includeProcessVariables();
+    HistoricTaskInstanceQuery actualIncludeProcessVariablesResult = historicTaskInstanceQueryImpl
+        .includeProcessVariables();
 
     // Assert
     assertTrue(historicTaskInstanceQueryImpl.isIncludeProcessVariables());
@@ -4903,23 +3764,18 @@ public class HistoricTaskInstanceQueryImplDiffblueTest {
 
   /**
    * Test {@link HistoricTaskInstanceQueryImpl#limitTaskVariables(Integer)}.
-   *
-   * <p>Method under test: {@link HistoricTaskInstanceQueryImpl#limitTaskVariables(Integer)}
+   * <p>
+   * Method under test: {@link HistoricTaskInstanceQueryImpl#limitTaskVariables(Integer)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "HistoricTaskInstanceQuery HistoricTaskInstanceQueryImpl.limitTaskVariables(Integer)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"HistoricTaskInstanceQuery HistoricTaskInstanceQueryImpl.limitTaskVariables(Integer)"})
   public void testLimitTaskVariables() {
     // Arrange
-    HistoricTaskInstanceQueryImpl historicTaskInstanceQueryImpl =
-        new HistoricTaskInstanceQueryImpl();
+    HistoricTaskInstanceQueryImpl historicTaskInstanceQueryImpl = new HistoricTaskInstanceQueryImpl();
 
     // Act
-    HistoricTaskInstanceQuery actualLimitTaskVariablesResult =
-        historicTaskInstanceQueryImpl.limitTaskVariables(1);
+    HistoricTaskInstanceQuery actualLimitTaskVariablesResult = historicTaskInstanceQueryImpl.limitTaskVariables(1);
 
     // Assert
     assertEquals(1, historicTaskInstanceQueryImpl.getTaskVariablesLimit().intValue());
@@ -4928,17 +3784,15 @@ public class HistoricTaskInstanceQueryImplDiffblueTest {
 
   /**
    * Test {@link HistoricTaskInstanceQueryImpl#or()}.
-   *
-   * <p>Method under test: {@link HistoricTaskInstanceQueryImpl#or()}
+   * <p>
+   * Method under test: {@link HistoricTaskInstanceQueryImpl#or()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"HistoricTaskInstanceQuery HistoricTaskInstanceQueryImpl.or()"})
   public void testOr() {
     // Arrange
-    HistoricTaskInstanceQueryImpl historicTaskInstanceQueryImpl =
-        new HistoricTaskInstanceQueryImpl();
+    HistoricTaskInstanceQueryImpl historicTaskInstanceQueryImpl = new HistoricTaskInstanceQueryImpl();
 
     // Act
     HistoricTaskInstanceQuery actualOrResult = historicTaskInstanceQueryImpl.or();
@@ -4950,114 +3804,48 @@ public class HistoricTaskInstanceQueryImplDiffblueTest {
 
   /**
    * Test {@link HistoricTaskInstanceQueryImpl#endOr()}.
-   *
-   * <p>Method under test: {@link HistoricTaskInstanceQueryImpl#endOr()}
+   * <p>
+   * Method under test: {@link HistoricTaskInstanceQueryImpl#endOr()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"HistoricTaskInstanceQuery HistoricTaskInstanceQueryImpl.endOr()"})
   public void testEndOr() {
     // Arrange, Act and Assert
-    assertThrows(ActivitiException.class, () -> new HistoricTaskInstanceQueryImpl().endOr());
-  }
-
-  /**
-   * Test {@link HistoricTaskInstanceQueryImpl#localize(HistoricTaskInstance)}.
-   *
-   * <ul>
-   *   <li>Then throw {@link ActivitiIllegalArgumentException}.
-   * </ul>
-   *
-   * <p>Method under test: {@link HistoricTaskInstanceQueryImpl#localize(HistoricTaskInstance)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void HistoricTaskInstanceQueryImpl.localize(HistoricTaskInstance)"})
-  public void testLocalize_thenThrowActivitiIllegalArgumentException() {
-    // Arrange
-    HistoricTaskInstanceQueryImpl historicTaskInstanceQueryImpl =
-        new HistoricTaskInstanceQueryImpl();
-    historicTaskInstanceQueryImpl.locale("en");
-
-    HistoricTaskInstanceEntityImpl task = mock(HistoricTaskInstanceEntityImpl.class);
-    when(task.getTaskDefinitionKey())
-        .thenThrow(new ActivitiIllegalArgumentException("An error occurred"));
-    when(task.getProcessDefinitionId()).thenReturn("42");
-    doNothing().when(task).setLocalizedDescription(Mockito.<String>any());
-    doNothing().when(task).setLocalizedName(Mockito.<String>any());
-
-    // Act and Assert
-    assertThrows(
-        ActivitiIllegalArgumentException.class, () -> historicTaskInstanceQueryImpl.localize(task));
-    verify(task).getProcessDefinitionId();
-    verify(task).getTaskDefinitionKey();
-    verify(task).setLocalizedDescription(null);
-    verify(task).setLocalizedName(null);
-  }
-
-  /**
-   * Test {@link HistoricTaskInstanceQueryImpl#checkQueryOk()}.
-   *
-   * <ul>
-   *   <li>Then throw {@link ActivitiIllegalArgumentException}.
-   * </ul>
-   *
-   * <p>Method under test: {@link HistoricTaskInstanceQueryImpl#checkQueryOk()}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void HistoricTaskInstanceQueryImpl.checkQueryOk()"})
-  public void testCheckQueryOk_thenThrowActivitiIllegalArgumentException() {
-    // Arrange
-    HistoricTaskInstanceQueryImpl historicTaskInstanceQueryImpl =
-        new HistoricTaskInstanceQueryImpl();
-    historicTaskInstanceQueryImpl.orderBy(mock(QueryProperty.class));
-
-    // Act and Assert
-    assertThrows(
-        ActivitiIllegalArgumentException.class, () -> historicTaskInstanceQueryImpl.checkQueryOk());
+    assertThrows(ActivitiException.class, () -> (new HistoricTaskInstanceQueryImpl()).endOr());
   }
 
   /**
    * Test {@link HistoricTaskInstanceQueryImpl#getMssqlOrDB2OrderBy()}.
-   *
    * <ul>
-   *   <li>Then return {@code TEMPRES_ID_ asc}.
+   *   <li>Then return {@code TEMPRES_ID_ asc}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link HistoricTaskInstanceQueryImpl#getMssqlOrDB2OrderBy()}
+   * <p>
+   * Method under test: {@link HistoricTaskInstanceQueryImpl#getMssqlOrDB2OrderBy()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"String HistoricTaskInstanceQueryImpl.getMssqlOrDB2OrderBy()"})
   public void testGetMssqlOrDB2OrderBy_thenReturnTempresIdAsc() {
     // Arrange, Act and Assert
-    assertEquals("TEMPRES_ID_ asc", new HistoricTaskInstanceQueryImpl().getMssqlOrDB2OrderBy());
+    assertEquals("TEMPRES_ID_ asc", (new HistoricTaskInstanceQueryImpl()).getMssqlOrDB2OrderBy());
   }
 
   /**
    * Test {@link HistoricTaskInstanceQueryImpl#getMssqlOrDB2OrderBy()}.
-   *
    * <ul>
-   *   <li>Then return {@code TEMPRES_ID_ asc asc}.
+   *   <li>Then return {@code TEMPRES_ID_ asc asc}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link HistoricTaskInstanceQueryImpl#getMssqlOrDB2OrderBy()}
+   * <p>
+   * Method under test: {@link HistoricTaskInstanceQueryImpl#getMssqlOrDB2OrderBy()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"String HistoricTaskInstanceQueryImpl.getMssqlOrDB2OrderBy()"})
   public void testGetMssqlOrDB2OrderBy_thenReturnTempresIdAscAsc() {
     // Arrange
-    HistoricTaskInstanceQueryImpl historicTaskInstanceQueryImpl =
-        new HistoricTaskInstanceQueryImpl();
-    historicTaskInstanceQueryImpl.addOrder(
-        "RES.ID_ asc", AbstractQuery.SORTORDER_ASC, NullHandlingOnOrder.NULLS_FIRST);
+    HistoricTaskInstanceQueryImpl historicTaskInstanceQueryImpl = new HistoricTaskInstanceQueryImpl();
+    historicTaskInstanceQueryImpl.addOrder("RES.ID_ asc", AbstractQuery.SORTORDER_ASC, NullHandlingOnOrder.NULLS_FIRST);
 
     // Act and Assert
     assertEquals("TEMPRES_ID_ asc asc", historicTaskInstanceQueryImpl.getMssqlOrDB2OrderBy());
@@ -5065,40 +3853,35 @@ public class HistoricTaskInstanceQueryImplDiffblueTest {
 
   /**
    * Test {@link HistoricTaskInstanceQueryImpl#getCandidateGroups()}.
-   *
    * <ul>
-   *   <li>Given {@link HistoricTaskInstanceQueryImpl#HistoricTaskInstanceQueryImpl()}.
-   *   <li>Then return {@code null}.
+   *   <li>Given {@link HistoricTaskInstanceQueryImpl#HistoricTaskInstanceQueryImpl()}.</li>
+   *   <li>Then return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link HistoricTaskInstanceQueryImpl#getCandidateGroups()}
+   * <p>
+   * Method under test: {@link HistoricTaskInstanceQueryImpl#getCandidateGroups()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"List HistoricTaskInstanceQueryImpl.getCandidateGroups()"})
   public void testGetCandidateGroups_givenHistoricTaskInstanceQueryImpl_thenReturnNull() {
     // Arrange, Act and Assert
-    assertNull(new HistoricTaskInstanceQueryImpl().getCandidateGroups());
+    assertNull((new HistoricTaskInstanceQueryImpl()).getCandidateGroups());
   }
 
   /**
    * Test {@link HistoricTaskInstanceQueryImpl#getCandidateGroups()}.
-   *
    * <ul>
-   *   <li>Then return size is one.
+   *   <li>Then return size is one.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link HistoricTaskInstanceQueryImpl#getCandidateGroups()}
+   * <p>
+   * Method under test: {@link HistoricTaskInstanceQueryImpl#getCandidateGroups()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"List HistoricTaskInstanceQueryImpl.getCandidateGroups()"})
   public void testGetCandidateGroups_thenReturnSizeIsOne() {
     // Arrange
-    HistoricTaskInstanceQueryImpl historicTaskInstanceQueryImpl =
-        new HistoricTaskInstanceQueryImpl();
+    HistoricTaskInstanceQueryImpl historicTaskInstanceQueryImpl = new HistoricTaskInstanceQueryImpl();
     historicTaskInstanceQueryImpl.taskCandidateGroup("2020-03-01");
 
     // Act

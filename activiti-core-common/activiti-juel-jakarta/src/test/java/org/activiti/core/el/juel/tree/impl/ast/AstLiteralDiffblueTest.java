@@ -17,7 +17,6 @@ package org.activiti.core.el.juel.tree.impl.ast;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
@@ -26,31 +25,29 @@ import org.junit.jupiter.api.Test;
 class AstLiteralDiffblueTest {
   /**
    * Test {@link AstLiteral#getCardinality()}.
-   *
-   * <p>Method under test: {@link AstLiteral#getCardinality()}
+   * <p>
+   * Method under test: {@link AstLiteral#getCardinality()}
    */
   @Test
   @DisplayName("Test getCardinality()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"int AstLiteral.getCardinality()"})
   void testGetCardinality() {
     // Arrange, Act and Assert
-    assertEquals(0, new AstNull().getCardinality());
+    assertEquals(0, (new AstNull()).getCardinality());
   }
 
   /**
    * Test {@link AstLiteral#getChild(int)}.
-   *
-   * <p>Method under test: {@link AstLiteral#getChild(int)}
+   * <p>
+   * Method under test: {@link AstLiteral#getChild(int)}
    */
   @Test
   @DisplayName("Test getChild(int)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"org.activiti.core.el.juel.tree.impl.ast.AstNode AstLiteral.getChild(int)"})
   void testGetChild() {
     // Arrange, Act and Assert
-    assertNull(new AstNull().getChild(1));
+    assertNull((new AstNull()).getChild(1));
   }
 }

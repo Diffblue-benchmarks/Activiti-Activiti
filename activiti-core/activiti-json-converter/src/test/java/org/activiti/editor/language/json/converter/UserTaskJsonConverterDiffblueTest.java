@@ -25,16 +25,18 @@ import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ArrayNode;
-import com.fasterxml.jackson.databind.node.BinaryNode;
-import com.fasterxml.jackson.databind.node.DoubleNode;
+import com.fasterxml.jackson.databind.node.BigIntegerNode;
+import com.fasterxml.jackson.databind.node.BooleanNode;
+import com.fasterxml.jackson.databind.node.ContainerNode;
 import com.fasterxml.jackson.databind.node.JsonNodeFactory;
 import com.fasterxml.jackson.databind.node.MissingNode;
 import com.fasterxml.jackson.databind.node.NullNode;
-import java.io.UnsupportedEncodingException;
+import com.fasterxml.jackson.databind.node.ObjectNode;
+import com.fasterxml.jackson.databind.node.TextNode;
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -53,13 +55,12 @@ import org.mockito.Mockito;
 class UserTaskJsonConverterDiffblueTest {
   /**
    * Test {@link UserTaskJsonConverter#fillJsonTypes(Map)}.
-   *
-   * <p>Method under test: {@link UserTaskJsonConverter#fillJsonTypes(Map)}
+   * <p>
+   * Method under test: {@link UserTaskJsonConverter#fillJsonTypes(Map)}
    */
   @Test
   @DisplayName("Test fillJsonTypes(Map)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void UserTaskJsonConverter.fillJsonTypes(Map)"})
   void testFillJsonTypes() {
     // Arrange
@@ -76,13 +77,12 @@ class UserTaskJsonConverterDiffblueTest {
 
   /**
    * Test {@link UserTaskJsonConverter#getStencilId(BaseElement)}.
-   *
-   * <p>Method under test: {@link UserTaskJsonConverter#getStencilId(BaseElement)}
+   * <p>
+   * Method under test: {@link UserTaskJsonConverter#getStencilId(BaseElement)}
    */
   @Test
   @DisplayName("Test getStencilId(BaseElement)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"String UserTaskJsonConverter.getStencilId(BaseElement)"})
   void testGetStencilId() {
     // Arrange
@@ -93,20 +93,167 @@ class UserTaskJsonConverterDiffblueTest {
   }
 
   /**
-   * Test {@link UserTaskJsonConverter#getExtensionElementValue(String, UserTask)}.
-   *
-   * <ul>
-   *   <li>When {@link UserTask} (default constructor).
-   *   <li>Then return empty string.
-   * </ul>
-   *
-   * <p>Method under test: {@link UserTaskJsonConverter#getExtensionElementValue(String, UserTask)}
+   * Test {@link UserTaskJsonConverter#convertElementToJson(ObjectNode, BaseElement)}.
+   * <p>
+   * Method under test: {@link UserTaskJsonConverter#convertElementToJson(ObjectNode, BaseElement)}
    */
   @Test
-  @DisplayName(
-      "Test getExtensionElementValue(String, UserTask); when UserTask (default constructor); then return empty string")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test convertElementToJson(ObjectNode, BaseElement)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void UserTaskJsonConverter.convertElementToJson(ObjectNode, BaseElement)"})
+  void testConvertElementToJson() {
+    // Arrange
+    UserTaskJsonConverter userTaskJsonConverter = new UserTaskJsonConverter();
+    userTaskJsonConverter.setFormKeyMap(null);
+    ObjectNode propertiesNode = new ObjectNode(JsonNodeFactory.withExactBigDecimals(true));
+
+    ArrayList<ExtensionElement> extensionElementList = new ArrayList<>();
+    extensionElementList.add(new ExtensionElement());
+
+    HashMap<String, List<ExtensionElement>> extensionElements = new HashMap<>();
+    extensionElements.put("activiti-idm-assignee", new ArrayList<>());
+    extensionElements.put("activiti-idm-assignee-field", new ArrayList<>());
+    extensionElements.put("activiti-idm-candidate-user", new ArrayList<>());
+    extensionElements.put("activiti-idm-candidate-group", new ArrayList<>());
+    extensionElements.put("initiator-can-complete", extensionElementList);
+
+    ArrayList<String> candidateUsers = new ArrayList<>();
+    candidateUsers.add("${taskAssignmentBean.assignTaskToCandidateUsers(");
+
+    ArrayList<String> candidateGroups = new ArrayList<>();
+    candidateGroups.add("${taskAssignmentBean.assignTaskToCandidateGroups(");
+
+    UserTask baseElement = new UserTask();
+    baseElement.setExtensionElements(extensionElements);
+    baseElement.setAssignee("${taskAssignmentBean.assignTaskToAssignee(");
+    baseElement.setCandidateUsers(candidateUsers);
+    baseElement.setCandidateGroups(candidateGroups);
+    baseElement.setPriority(null);
+
+    // Act
+    userTaskJsonConverter.convertElementToJson(propertiesNode, baseElement);
+
+    // Assert
+    Iterator<JsonNode> iteratorResult = propertiesNode.iterator();
+    JsonNode nextResult = iteratorResult.next();
+    assertTrue(nextResult instanceof ObjectNode);
+    Iterator<JsonNode> iteratorResult2 = nextResult.iterator();
+    JsonNode nextResult2 = iteratorResult2.next();
+    assertTrue(nextResult2 instanceof ObjectNode);
+    Iterator<JsonNode> iteratorResult3 = nextResult2.iterator();
+    assertTrue(iteratorResult3.next() instanceof TextNode);
+    assertEquals(
+        "{\n" + "  \"assignment\" : {\n" + "    \"type\" : \"static\",\n"
+            + "    \"assignee\" : \"${taskAssignmentBean.assignTaskToAssignee(\",\n" + "    \"candidateUsers\" : [ {\n"
+            + "      \"value\" : \"${taskAssignmentBean.assignTaskToCandidateUsers(\"\n" + "    } ],\n"
+            + "    \"candidateGroups\" : [ {\n"
+            + "      \"value\" : \"${taskAssignmentBean.assignTaskToCandidateGroups(\"\n" + "    } ]\n" + "  }\n" + "}",
+        nextResult.toPrettyString());
+    assertEquals(
+        "{\n" + "  \"type\" : \"static\",\n" + "  \"assignee\" : \"${taskAssignmentBean.assignTaskToAssignee(\",\n"
+            + "  \"candidateUsers\" : [ {\n" + "    \"value\" : \"${taskAssignmentBean.assignTaskToCandidateUsers(\"\n"
+            + "  } ],\n" + "  \"candidateGroups\" : [ {\n"
+            + "    \"value\" : \"${taskAssignmentBean.assignTaskToCandidateGroups(\"\n" + "  } ]\n" + "}",
+        nextResult2.toPrettyString());
+    assertEquals("{\n" + "  \"usertaskassignment\" : {\n" + "    \"assignment\" : {\n"
+        + "      \"type\" : \"static\",\n" + "      \"assignee\" : \"${taskAssignmentBean.assignTaskToAssignee(\",\n"
+        + "      \"candidateUsers\" : [ {\n"
+        + "        \"value\" : \"${taskAssignmentBean.assignTaskToCandidateUsers(\"\n" + "      } ],\n"
+        + "      \"candidateGroups\" : [ {\n"
+        + "        \"value\" : \"${taskAssignmentBean.assignTaskToCandidateGroups(\"\n" + "      } ]\n" + "    }\n"
+        + "  }\n" + "}", propertiesNode.toPrettyString());
+    assertFalse(iteratorResult.hasNext());
+    assertFalse(iteratorResult2.hasNext());
+    assertTrue(iteratorResult3.hasNext());
+  }
+
+  /**
+   * Test {@link UserTaskJsonConverter#convertElementToJson(ObjectNode, BaseElement)}.
+   * <ul>
+   *   <li>Given {@link HashMap#HashMap()} {@code foo} is {@link ArrayList#ArrayList()}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link UserTaskJsonConverter#convertElementToJson(ObjectNode, BaseElement)}
+   */
+  @Test
+  @DisplayName("Test convertElementToJson(ObjectNode, BaseElement); given HashMap() 'foo' is ArrayList()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void UserTaskJsonConverter.convertElementToJson(ObjectNode, BaseElement)"})
+  void testConvertElementToJson_givenHashMapFooIsArrayList() {
+    // Arrange
+    UserTaskJsonConverter userTaskJsonConverter = new UserTaskJsonConverter();
+    userTaskJsonConverter.setFormKeyMap(null);
+    ObjectNode propertiesNode = new ObjectNode(JsonNodeFactory.withExactBigDecimals(true));
+
+    ArrayList<ExtensionElement> extensionElementList = new ArrayList<>();
+    extensionElementList.add(new ExtensionElement());
+
+    HashMap<String, List<ExtensionElement>> extensionElements = new HashMap<>();
+    extensionElements.put("foo", new ArrayList<>());
+    extensionElements.put("activiti-idm-assignee-field", new ArrayList<>());
+    extensionElements.put("activiti-idm-candidate-user", new ArrayList<>());
+    extensionElements.put("activiti-idm-candidate-group", new ArrayList<>());
+    extensionElements.put("initiator-can-complete", extensionElementList);
+
+    ArrayList<String> candidateUsers = new ArrayList<>();
+    candidateUsers.add("${taskAssignmentBean.assignTaskToCandidateUsers(");
+
+    ArrayList<String> candidateGroups = new ArrayList<>();
+    candidateGroups.add("Base Element");
+
+    UserTask baseElement = new UserTask();
+    baseElement.setExtensionElements(extensionElements);
+    baseElement.setAssignee("${taskAssignmentBean.assignTaskToAssignee(");
+    baseElement.setCandidateUsers(candidateUsers);
+    baseElement.setCandidateGroups(candidateGroups);
+    baseElement.setPriority(null);
+
+    // Act
+    userTaskJsonConverter.convertElementToJson(propertiesNode, baseElement);
+
+    // Assert
+    Iterator<JsonNode> iteratorResult = propertiesNode.iterator();
+    JsonNode nextResult = iteratorResult.next();
+    assertTrue(nextResult instanceof ObjectNode);
+    Iterator<JsonNode> iteratorResult2 = nextResult.iterator();
+    JsonNode nextResult2 = iteratorResult2.next();
+    assertTrue(nextResult2 instanceof ObjectNode);
+    Iterator<JsonNode> iteratorResult3 = nextResult2.iterator();
+    assertTrue(iteratorResult3.next() instanceof TextNode);
+    assertEquals(
+        "{\n" + "  \"assignment\" : {\n" + "    \"type\" : \"static\",\n"
+            + "    \"assignee\" : \"${taskAssignmentBean.assignTaskToAssignee(\",\n" + "    \"candidateUsers\" : [ {\n"
+            + "      \"value\" : \"${taskAssignmentBean.assignTaskToCandidateUsers(\"\n" + "    } ],\n"
+            + "    \"candidateGroups\" : [ {\n" + "      \"value\" : \"Base Element\"\n" + "    } ]\n" + "  }\n" + "}",
+        nextResult.toPrettyString());
+    assertEquals(
+        "{\n" + "  \"type\" : \"static\",\n" + "  \"assignee\" : \"${taskAssignmentBean.assignTaskToAssignee(\",\n"
+            + "  \"candidateUsers\" : [ {\n" + "    \"value\" : \"${taskAssignmentBean.assignTaskToCandidateUsers(\"\n"
+            + "  } ],\n" + "  \"candidateGroups\" : [ {\n" + "    \"value\" : \"Base Element\"\n" + "  } ]\n" + "}",
+        nextResult2.toPrettyString());
+    assertEquals("{\n" + "  \"usertaskassignment\" : {\n" + "    \"assignment\" : {\n"
+        + "      \"type\" : \"static\",\n" + "      \"assignee\" : \"${taskAssignmentBean.assignTaskToAssignee(\",\n"
+        + "      \"candidateUsers\" : [ {\n"
+        + "        \"value\" : \"${taskAssignmentBean.assignTaskToCandidateUsers(\"\n" + "      } ],\n"
+        + "      \"candidateGroups\" : [ {\n" + "        \"value\" : \"Base Element\"\n" + "      } ]\n" + "    }\n"
+        + "  }\n" + "}", propertiesNode.toPrettyString());
+    assertFalse(iteratorResult.hasNext());
+    assertFalse(iteratorResult2.hasNext());
+    assertTrue(iteratorResult3.hasNext());
+  }
+
+  /**
+   * Test {@link UserTaskJsonConverter#getExtensionElementValue(String, UserTask)}.
+   * <ul>
+   *   <li>When {@link UserTask} (default constructor).</li>
+   *   <li>Then return empty string.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link UserTaskJsonConverter#getExtensionElementValue(String, UserTask)}
+   */
+  @Test
+  @DisplayName("Test getExtensionElementValue(String, UserTask); when UserTask (default constructor); then return empty string")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"String UserTaskJsonConverter.getExtensionElementValue(String, UserTask)"})
   void testGetExtensionElementValue_whenUserTask_thenReturnEmptyString() {
     // Arrange
@@ -118,32 +265,25 @@ class UserTaskJsonConverterDiffblueTest {
 
   /**
    * Test {@link UserTaskJsonConverter#convertJsonToElement(JsonNode, JsonNode, Map)}.
-   *
    * <ul>
-   *   <li>When {@link HashMap#HashMap()}.
-   *   <li>Then return {@link UserTask}.
+   *   <li>When {@link ArrayNode#ArrayNode(JsonNodeFactory)} with nf is withExactBigDecimals {@code true}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link UserTaskJsonConverter#convertJsonToElement(JsonNode, JsonNode,
-   * Map)}
+   * <p>
+   * Method under test: {@link UserTaskJsonConverter#convertJsonToElement(JsonNode, JsonNode, Map)}
    */
   @Test
-  @DisplayName(
-      "Test convertJsonToElement(JsonNode, JsonNode, Map); when HashMap(); then return UserTask")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "FlowElement UserTaskJsonConverter.convertJsonToElement(JsonNode, JsonNode, Map)"
-  })
-  void testConvertJsonToElement_whenHashMap_thenReturnUserTask() {
+  @DisplayName("Test convertJsonToElement(JsonNode, JsonNode, Map); when ArrayNode(JsonNodeFactory) with nf is withExactBigDecimals 'true'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"FlowElement UserTaskJsonConverter.convertJsonToElement(JsonNode, JsonNode, Map)"})
+  void testConvertJsonToElement_whenArrayNodeWithNfIsWithExactBigDecimalsTrue() {
     // Arrange
     UserTaskJsonConverter userTaskJsonConverter = new UserTaskJsonConverter();
-    DoubleNode elementNode = DoubleNode.valueOf(10.0d);
-    DoubleNode modelNode = DoubleNode.valueOf(10.0d);
+    ArrayNode elementNode = new ArrayNode(JsonNodeFactory.withExactBigDecimals(true));
+    MissingNode modelNode = MissingNode.getInstance();
 
     // Act
-    FlowElement actualConvertJsonToElementResult =
-        userTaskJsonConverter.convertJsonToElement(elementNode, modelNode, new HashMap<>());
+    FlowElement actualConvertJsonToElementResult = userTaskJsonConverter.convertJsonToElement(elementNode, modelNode,
+        new HashMap<>());
 
     // Assert
     assertTrue(actualConvertJsonToElementResult instanceof UserTask);
@@ -168,8 +308,7 @@ class UserTaskJsonConverterDiffblueTest {
     assertNull(actualConvertJsonToElementResult.getSubProcess());
     assertEquals(0, actualConvertJsonToElementResult.getXmlColumnNumber());
     assertEquals(0, actualConvertJsonToElementResult.getXmlRowNumber());
-    assertFalse(
-        ((UserTask) actualConvertJsonToElementResult).hasMultiInstanceLoopCharacteristics());
+    assertFalse(((UserTask) actualConvertJsonToElementResult).hasMultiInstanceLoopCharacteristics());
     assertFalse(((UserTask) actualConvertJsonToElementResult).isForCompensation());
     assertFalse(((UserTask) actualConvertJsonToElementResult).isAsynchronous());
     assertFalse(((UserTask) actualConvertJsonToElementResult).isNotExclusive());
@@ -188,36 +327,99 @@ class UserTaskJsonConverterDiffblueTest {
     assertTrue(((UserTask) actualConvertJsonToElementResult).getTaskListeners().isEmpty());
     assertTrue(actualConvertJsonToElementResult.getAttributes().isEmpty());
     assertTrue(actualConvertJsonToElementResult.getExtensionElements().isEmpty());
-    assertTrue(
-        ((UserTask) actualConvertJsonToElementResult).getCustomGroupIdentityLinks().isEmpty());
-    assertTrue(
-        ((UserTask) actualConvertJsonToElementResult).getCustomUserIdentityLinks().isEmpty());
+    assertTrue(((UserTask) actualConvertJsonToElementResult).getCustomGroupIdentityLinks().isEmpty());
+    assertTrue(((UserTask) actualConvertJsonToElementResult).getCustomUserIdentityLinks().isEmpty());
+    assertTrue(((UserTask) actualConvertJsonToElementResult).isExclusive());
+  }
+
+  /**
+   * Test {@link UserTaskJsonConverter#convertJsonToElement(JsonNode, JsonNode, Map)}.
+   * <ul>
+   *   <li>When {@link HashMap#HashMap()}.</li>
+   *   <li>Then return {@link UserTask}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link UserTaskJsonConverter#convertJsonToElement(JsonNode, JsonNode, Map)}
+   */
+  @Test
+  @DisplayName("Test convertJsonToElement(JsonNode, JsonNode, Map); when HashMap(); then return UserTask")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"FlowElement UserTaskJsonConverter.convertJsonToElement(JsonNode, JsonNode, Map)"})
+  void testConvertJsonToElement_whenHashMap_thenReturnUserTask() {
+    // Arrange
+    UserTaskJsonConverter userTaskJsonConverter = new UserTaskJsonConverter();
+    MissingNode elementNode = MissingNode.getInstance();
+    MissingNode modelNode = MissingNode.getInstance();
+
+    // Act
+    FlowElement actualConvertJsonToElementResult = userTaskJsonConverter.convertJsonToElement(elementNode, modelNode,
+        new HashMap<>());
+
+    // Assert
+    assertTrue(actualConvertJsonToElementResult instanceof UserTask);
+    assertNull(((UserTask) actualConvertJsonToElementResult).getBehavior());
+    assertNull(((UserTask) actualConvertJsonToElementResult).getDefaultFlow());
+    assertNull(((UserTask) actualConvertJsonToElementResult).getFailedJobRetryTimeCycleValue());
+    assertNull(actualConvertJsonToElementResult.getId());
+    assertNull(actualConvertJsonToElementResult.getDocumentation());
+    assertNull(actualConvertJsonToElementResult.getName());
+    assertNull(((UserTask) actualConvertJsonToElementResult).getAssignee());
+    assertNull(((UserTask) actualConvertJsonToElementResult).getBusinessCalendarName());
+    assertNull(((UserTask) actualConvertJsonToElementResult).getCategory());
+    assertNull(((UserTask) actualConvertJsonToElementResult).getDueDate());
+    assertNull(((UserTask) actualConvertJsonToElementResult).getExtensionId());
+    assertNull(((UserTask) actualConvertJsonToElementResult).getFormKey());
+    assertNull(((UserTask) actualConvertJsonToElementResult).getOwner());
+    assertNull(((UserTask) actualConvertJsonToElementResult).getPriority());
+    assertNull(((UserTask) actualConvertJsonToElementResult).getSkipExpression());
+    assertNull(actualConvertJsonToElementResult.getParentContainer());
+    assertNull(((UserTask) actualConvertJsonToElementResult).getIoSpecification());
+    assertNull(((UserTask) actualConvertJsonToElementResult).getLoopCharacteristics());
+    assertNull(actualConvertJsonToElementResult.getSubProcess());
+    assertEquals(0, actualConvertJsonToElementResult.getXmlColumnNumber());
+    assertEquals(0, actualConvertJsonToElementResult.getXmlRowNumber());
+    assertFalse(((UserTask) actualConvertJsonToElementResult).hasMultiInstanceLoopCharacteristics());
+    assertFalse(((UserTask) actualConvertJsonToElementResult).isForCompensation());
+    assertFalse(((UserTask) actualConvertJsonToElementResult).isAsynchronous());
+    assertFalse(((UserTask) actualConvertJsonToElementResult).isNotExclusive());
+    assertFalse(((UserTask) actualConvertJsonToElementResult).isExtended());
+    assertTrue(((UserTask) actualConvertJsonToElementResult).getBoundaryEvents().isEmpty());
+    assertTrue(((UserTask) actualConvertJsonToElementResult).getDataInputAssociations().isEmpty());
+    assertTrue(((UserTask) actualConvertJsonToElementResult).getDataOutputAssociations().isEmpty());
+    assertTrue(((UserTask) actualConvertJsonToElementResult).getMapExceptions().isEmpty());
+    assertTrue(actualConvertJsonToElementResult.getExecutionListeners().isEmpty());
+    assertTrue(((UserTask) actualConvertJsonToElementResult).getIncomingFlows().isEmpty());
+    assertTrue(((UserTask) actualConvertJsonToElementResult).getOutgoingFlows().isEmpty());
+    assertTrue(((UserTask) actualConvertJsonToElementResult).getCandidateGroups().isEmpty());
+    assertTrue(((UserTask) actualConvertJsonToElementResult).getCandidateUsers().isEmpty());
+    assertTrue(((UserTask) actualConvertJsonToElementResult).getCustomProperties().isEmpty());
+    assertTrue(((UserTask) actualConvertJsonToElementResult).getFormProperties().isEmpty());
+    assertTrue(((UserTask) actualConvertJsonToElementResult).getTaskListeners().isEmpty());
+    assertTrue(actualConvertJsonToElementResult.getAttributes().isEmpty());
+    assertTrue(actualConvertJsonToElementResult.getExtensionElements().isEmpty());
+    assertTrue(((UserTask) actualConvertJsonToElementResult).getCustomGroupIdentityLinks().isEmpty());
+    assertTrue(((UserTask) actualConvertJsonToElementResult).getCustomUserIdentityLinks().isEmpty());
     assertTrue(((UserTask) actualConvertJsonToElementResult).isExclusive());
   }
 
   /**
    * Test {@link UserTaskJsonConverter#fillAssigneeInfo(JsonNode, JsonNode, UserTask)}.
-   *
    * <ul>
-   *   <li>When {@link BinaryNode#BinaryNode(byte[])} with data is {@code AXAXAXAX} Bytes is {@code
-   *       UTF-8}.
+   *   <li>When False.</li>
+   *   <li>Then {@link UserTask} (default constructor) ExtensionElements size is one.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link UserTaskJsonConverter#fillAssigneeInfo(JsonNode, JsonNode,
-   * UserTask)}
+   * <p>
+   * Method under test: {@link UserTaskJsonConverter#fillAssigneeInfo(JsonNode, JsonNode, UserTask)}
    */
   @Test
-  @DisplayName(
-      "Test fillAssigneeInfo(JsonNode, JsonNode, UserTask); when BinaryNode(byte[]) with data is 'AXAXAXAX' Bytes is 'UTF-8'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test fillAssigneeInfo(JsonNode, JsonNode, UserTask); when False; then UserTask (default constructor) ExtensionElements size is one")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void UserTaskJsonConverter.fillAssigneeInfo(JsonNode, JsonNode, UserTask)"})
-  void testFillAssigneeInfo_whenBinaryNodeWithDataIsAxaxaxaxBytesIsUtf8()
-      throws UnsupportedEncodingException {
+  void testFillAssigneeInfo_whenFalse_thenUserTaskExtensionElementsSizeIsOne() {
     // Arrange
     UserTaskJsonConverter userTaskJsonConverter = new UserTaskJsonConverter();
-    DoubleNode idmDefNode = DoubleNode.valueOf(10.0d);
-    BinaryNode canCompleteTaskNode = new BinaryNode("AXAXAXAX".getBytes("UTF-8"));
+    MissingNode idmDefNode = MissingNode.getInstance();
+    BooleanNode canCompleteTaskNode = BooleanNode.getFalse();
     UserTask task = new UserTask();
 
     // Act
@@ -237,31 +439,28 @@ class UserTaskJsonConverterDiffblueTest {
     assertTrue(getResult2.getAttributes().isEmpty());
     assertTrue(getResult2.getExtensionElements().isEmpty());
     assertTrue(getResult2.getChildElements().isEmpty());
-    assertEquals(Boolean.FALSE.toString(), getResult2.getElementText());
+    String expectedElementText = Boolean.FALSE.toString();
+    assertEquals(expectedElementText, getResult2.getElementText());
     assertEquals(BaseBpmnJsonConverter.NAMESPACE, getResult2.getNamespace());
   }
 
   /**
    * Test {@link UserTaskJsonConverter#fillAssigneeInfo(JsonNode, JsonNode, UserTask)}.
-   *
    * <ul>
-   *   <li>When Instance.
-   *   <li>Then {@link UserTask} (default constructor) ExtensionElements size is one.
+   *   <li>When {@link UserTask} (default constructor).</li>
+   *   <li>Then {@link UserTask} (default constructor) ExtensionElements size is one.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link UserTaskJsonConverter#fillAssigneeInfo(JsonNode, JsonNode,
-   * UserTask)}
+   * <p>
+   * Method under test: {@link UserTaskJsonConverter#fillAssigneeInfo(JsonNode, JsonNode, UserTask)}
    */
   @Test
-  @DisplayName(
-      "Test fillAssigneeInfo(JsonNode, JsonNode, UserTask); when Instance; then UserTask (default constructor) ExtensionElements size is one")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test fillAssigneeInfo(JsonNode, JsonNode, UserTask); when UserTask (default constructor); then UserTask (default constructor) ExtensionElements size is one")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void UserTaskJsonConverter.fillAssigneeInfo(JsonNode, JsonNode, UserTask)"})
-  void testFillAssigneeInfo_whenInstance_thenUserTaskExtensionElementsSizeIsOne() {
+  void testFillAssigneeInfo_whenUserTask_thenUserTaskExtensionElementsSizeIsOne() {
     // Arrange
     UserTaskJsonConverter userTaskJsonConverter = new UserTaskJsonConverter();
-    DoubleNode idmDefNode = DoubleNode.valueOf(10.0d);
+    MissingNode idmDefNode = MissingNode.getInstance();
     MissingNode canCompleteTaskNode = MissingNode.getInstance();
     UserTask task = new UserTask();
 
@@ -282,31 +481,69 @@ class UserTaskJsonConverterDiffblueTest {
     assertTrue(getResult2.getAttributes().isEmpty());
     assertTrue(getResult2.getExtensionElements().isEmpty());
     assertTrue(getResult2.getChildElements().isEmpty());
-    assertEquals(Boolean.FALSE.toString(), getResult2.getElementText());
+    String expectedElementText = Boolean.FALSE.toString();
+    assertEquals(expectedElementText, getResult2.getElementText());
     assertEquals(BaseBpmnJsonConverter.NAMESPACE, getResult2.getNamespace());
   }
 
   /**
    * Test {@link UserTaskJsonConverter#fillAssigneeInfo(JsonNode, JsonNode, UserTask)}.
-   *
    * <ul>
-   *   <li>When Instance.
-   *   <li>Then {@link UserTask} (default constructor) ExtensionElements size is one.
+   *   <li>When {@link UserTask} (default constructor).</li>
+   *   <li>Then {@link UserTask} (default constructor) ExtensionElements size is one.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link UserTaskJsonConverter#fillAssigneeInfo(JsonNode, JsonNode,
-   * UserTask)}
+   * <p>
+   * Method under test: {@link UserTaskJsonConverter#fillAssigneeInfo(JsonNode, JsonNode, UserTask)}
    */
   @Test
-  @DisplayName(
-      "Test fillAssigneeInfo(JsonNode, JsonNode, UserTask); when Instance; then UserTask (default constructor) ExtensionElements size is one")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test fillAssigneeInfo(JsonNode, JsonNode, UserTask); when UserTask (default constructor); then UserTask (default constructor) ExtensionElements size is one")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void UserTaskJsonConverter.fillAssigneeInfo(JsonNode, JsonNode, UserTask)"})
-  void testFillAssigneeInfo_whenInstance_thenUserTaskExtensionElementsSizeIsOne2() {
+  void testFillAssigneeInfo_whenUserTask_thenUserTaskExtensionElementsSizeIsOne2() {
     // Arrange
     UserTaskJsonConverter userTaskJsonConverter = new UserTaskJsonConverter();
-    DoubleNode idmDefNode = DoubleNode.valueOf(10.0d);
+    MissingNode idmDefNode = MissingNode.getInstance();
+    UserTask task = new UserTask();
+
+    // Act
+    userTaskJsonConverter.fillAssigneeInfo(idmDefNode, null, task);
+
+    // Assert
+    Map<String, List<ExtensionElement>> extensionElements = task.getExtensionElements();
+    assertEquals(1, extensionElements.size());
+    List<ExtensionElement> getResult = extensionElements.get("initiator-can-complete");
+    assertEquals(1, getResult.size());
+    ExtensionElement getResult2 = getResult.get(0);
+    assertEquals("initiator-can-complete", getResult2.getName());
+    assertEquals("modeler", getResult2.getNamespacePrefix());
+    assertNull(getResult2.getId());
+    assertEquals(0, getResult2.getXmlColumnNumber());
+    assertEquals(0, getResult2.getXmlRowNumber());
+    assertTrue(getResult2.getAttributes().isEmpty());
+    assertTrue(getResult2.getExtensionElements().isEmpty());
+    assertTrue(getResult2.getChildElements().isEmpty());
+    String expectedElementText = Boolean.FALSE.toString();
+    assertEquals(expectedElementText, getResult2.getElementText());
+    assertEquals(BaseBpmnJsonConverter.NAMESPACE, getResult2.getNamespace());
+  }
+
+  /**
+   * Test {@link UserTaskJsonConverter#fillAssigneeInfo(JsonNode, JsonNode, UserTask)}.
+   * <ul>
+   *   <li>When {@link UserTask} (default constructor).</li>
+   *   <li>Then {@link UserTask} (default constructor) ExtensionElements size is one.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link UserTaskJsonConverter#fillAssigneeInfo(JsonNode, JsonNode, UserTask)}
+   */
+  @Test
+  @DisplayName("Test fillAssigneeInfo(JsonNode, JsonNode, UserTask); when UserTask (default constructor); then UserTask (default constructor) ExtensionElements size is one")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void UserTaskJsonConverter.fillAssigneeInfo(JsonNode, JsonNode, UserTask)"})
+  void testFillAssigneeInfo_whenUserTask_thenUserTaskExtensionElementsSizeIsOne3() {
+    // Arrange
+    UserTaskJsonConverter userTaskJsonConverter = new UserTaskJsonConverter();
+    MissingNode idmDefNode = MissingNode.getInstance();
     NullNode canCompleteTaskNode = NullNode.getInstance();
     UserTask task = new UserTask();
 
@@ -327,187 +564,69 @@ class UserTaskJsonConverterDiffblueTest {
     assertTrue(getResult2.getAttributes().isEmpty());
     assertTrue(getResult2.getExtensionElements().isEmpty());
     assertTrue(getResult2.getChildElements().isEmpty());
-    assertEquals(Boolean.FALSE.toString(), getResult2.getElementText());
-    assertEquals(BaseBpmnJsonConverter.NAMESPACE, getResult2.getNamespace());
-  }
-
-  /**
-   * Test {@link UserTaskJsonConverter#fillAssigneeInfo(JsonNode, JsonNode, UserTask)}.
-   *
-   * <ul>
-   *   <li>When {@code null}.
-   *   <li>Then {@link UserTask} (default constructor) ExtensionElements size is one.
-   * </ul>
-   *
-   * <p>Method under test: {@link UserTaskJsonConverter#fillAssigneeInfo(JsonNode, JsonNode,
-   * UserTask)}
-   */
-  @Test
-  @DisplayName(
-      "Test fillAssigneeInfo(JsonNode, JsonNode, UserTask); when 'null'; then UserTask (default constructor) ExtensionElements size is one")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void UserTaskJsonConverter.fillAssigneeInfo(JsonNode, JsonNode, UserTask)"})
-  void testFillAssigneeInfo_whenNull_thenUserTaskExtensionElementsSizeIsOne() {
-    // Arrange
-    UserTaskJsonConverter userTaskJsonConverter = new UserTaskJsonConverter();
-    DoubleNode idmDefNode = DoubleNode.valueOf(10.0d);
-    UserTask task = new UserTask();
-
-    // Act
-    userTaskJsonConverter.fillAssigneeInfo(idmDefNode, null, task);
-
-    // Assert
-    Map<String, List<ExtensionElement>> extensionElements = task.getExtensionElements();
-    assertEquals(1, extensionElements.size());
-    List<ExtensionElement> getResult = extensionElements.get("initiator-can-complete");
-    assertEquals(1, getResult.size());
-    ExtensionElement getResult2 = getResult.get(0);
-    assertEquals("initiator-can-complete", getResult2.getName());
-    assertEquals("modeler", getResult2.getNamespacePrefix());
-    assertNull(getResult2.getId());
-    assertEquals(0, getResult2.getXmlColumnNumber());
-    assertEquals(0, getResult2.getXmlRowNumber());
-    assertTrue(getResult2.getAttributes().isEmpty());
-    assertTrue(getResult2.getExtensionElements().isEmpty());
-    assertTrue(getResult2.getChildElements().isEmpty());
-    assertEquals(Boolean.FALSE.toString(), getResult2.getElementText());
-    assertEquals(BaseBpmnJsonConverter.NAMESPACE, getResult2.getNamespace());
-  }
-
-  /**
-   * Test {@link UserTaskJsonConverter#fillAssigneeInfo(JsonNode, JsonNode, UserTask)}.
-   *
-   * <ul>
-   *   <li>When {@link UserTask} (default constructor).
-   *   <li>Then {@link UserTask} (default constructor) ExtensionElements size is one.
-   * </ul>
-   *
-   * <p>Method under test: {@link UserTaskJsonConverter#fillAssigneeInfo(JsonNode, JsonNode,
-   * UserTask)}
-   */
-  @Test
-  @DisplayName(
-      "Test fillAssigneeInfo(JsonNode, JsonNode, UserTask); when UserTask (default constructor); then UserTask (default constructor) ExtensionElements size is one")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void UserTaskJsonConverter.fillAssigneeInfo(JsonNode, JsonNode, UserTask)"})
-  void testFillAssigneeInfo_whenUserTask_thenUserTaskExtensionElementsSizeIsOne() {
-    // Arrange
-    UserTaskJsonConverter userTaskJsonConverter = new UserTaskJsonConverter();
-    DoubleNode idmDefNode = DoubleNode.valueOf(10.0d);
-    DoubleNode canCompleteTaskNode = DoubleNode.valueOf(10.0d);
-    UserTask task = new UserTask();
-
-    // Act
-    userTaskJsonConverter.fillAssigneeInfo(idmDefNode, canCompleteTaskNode, task);
-
-    // Assert
-    Map<String, List<ExtensionElement>> extensionElements = task.getExtensionElements();
-    assertEquals(1, extensionElements.size());
-    List<ExtensionElement> getResult = extensionElements.get("initiator-can-complete");
-    assertEquals(1, getResult.size());
-    ExtensionElement getResult2 = getResult.get(0);
-    assertEquals("initiator-can-complete", getResult2.getName());
-    assertEquals("modeler", getResult2.getNamespacePrefix());
-    assertNull(getResult2.getId());
-    assertEquals(0, getResult2.getXmlColumnNumber());
-    assertEquals(0, getResult2.getXmlRowNumber());
-    assertTrue(getResult2.getAttributes().isEmpty());
-    assertTrue(getResult2.getExtensionElements().isEmpty());
-    assertTrue(getResult2.getChildElements().isEmpty());
-    assertEquals(Boolean.FALSE.toString(), getResult2.getElementText());
+    String expectedElementText = Boolean.FALSE.toString();
+    assertEquals(expectedElementText, getResult2.getElementText());
     assertEquals(BaseBpmnJsonConverter.NAMESPACE, getResult2.getNamespace());
   }
 
   /**
    * Test {@link UserTaskJsonConverter#fillCandidateUsers(JsonNode, JsonNode, UserTask)}.
-   *
-   * <p>Method under test: {@link UserTaskJsonConverter#fillCandidateUsers(JsonNode, JsonNode,
-   * UserTask)}
+   * <p>
+   * Method under test: {@link UserTaskJsonConverter#fillCandidateUsers(JsonNode, JsonNode, UserTask)}
    */
   @Test
   @DisplayName("Test fillCandidateUsers(JsonNode, JsonNode, UserTask)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void UserTaskJsonConverter.fillCandidateUsers(JsonNode, JsonNode, UserTask)"})
   void testFillCandidateUsers() {
     // Arrange
     UserTaskJsonConverter userTaskJsonConverter = new UserTaskJsonConverter();
 
-    ArrayNode arrayNode = mock(ArrayNode.class);
-    when(arrayNode.get(Mockito.<String>any())).thenReturn(DoubleNode.valueOf(10.0d));
-    when(arrayNode.isNull()).thenReturn(false);
-
     ArrayList<JsonNode> jsonNodeList = new ArrayList<>();
-    jsonNodeList.add(arrayNode);
-    Iterator<JsonNode> iteratorResult = jsonNodeList.iterator();
-
-    ArrayNode arrayNode2 = mock(ArrayNode.class);
-    when(arrayNode2.size()).thenReturn(3);
-    when(arrayNode2.iterator()).thenReturn(iteratorResult);
-    when(arrayNode2.isArray()).thenReturn(true);
-
+    jsonNodeList.add(new ArrayNode(JsonNodeFactory.withExactBigDecimals(true)));
+    ArrayNode arrayNode = mock(ArrayNode.class);
+    when(arrayNode.iterator()).thenReturn(jsonNodeList.iterator());
+    when(arrayNode.isArray()).thenReturn(true);
     ArrayNode idmDefNode = mock(ArrayNode.class);
-    when(idmDefNode.get(Mockito.<String>any())).thenReturn(arrayNode2);
-    DoubleNode canCompleteTaskNode = DoubleNode.valueOf(10.0d);
+    when(idmDefNode.get(Mockito.<String>any())).thenReturn(arrayNode);
+    MissingNode canCompleteTaskNode = MissingNode.getInstance();
     UserTask task = new UserTask();
 
     // Act
     userTaskJsonConverter.fillCandidateUsers(idmDefNode, canCompleteTaskNode, task);
 
-    // Assert
-    verify(arrayNode).isNull();
-    verify(arrayNode2, atLeast(1)).iterator();
+    // Assert that nothing has changed
+    verify(arrayNode, atLeast(1)).iterator();
     verify(idmDefNode, atLeast(1)).get(Mockito.<String>any());
-    verify(arrayNode, atLeast(1)).get(Mockito.<String>any());
-    verify(arrayNode2, atLeast(1)).isArray();
-    verify(arrayNode2).size();
-    List<String> candidateUsers = task.getCandidateUsers();
-    assertEquals(1, candidateUsers.size());
-    assertEquals(
-        "${taskAssignmentBean.assignTaskToCandidateUsers('10.0', execution)}",
-        candidateUsers.get(0));
-    Map<String, List<ExtensionElement>> extensionElements = task.getExtensionElements();
-    assertEquals(6, extensionElements.size());
-    assertEquals(1, extensionElements.get("user-info-email-10.0").size());
-    assertEquals(1, extensionElements.get("user-info-externalid-10.0").size());
-    assertEquals(1, extensionElements.get("user-info-firstname-10.0").size());
-    assertEquals(1, extensionElements.get("user-info-lastname-10.0").size());
-    assertTrue(extensionElements.containsKey("activiti-idm-candidate-user"));
-    assertTrue(extensionElements.containsKey("initiator-can-complete"));
+    verify(arrayNode, atLeast(1)).isArray();
+    assertTrue(task.getCandidateUsers().isEmpty());
+    assertTrue(task.getExtensionElements().isEmpty());
   }
 
   /**
    * Test {@link UserTaskJsonConverter#fillCandidateUsers(JsonNode, JsonNode, UserTask)}.
-   *
-   * <p>Method under test: {@link UserTaskJsonConverter#fillCandidateUsers(JsonNode, JsonNode,
-   * UserTask)}
+   * <p>
+   * Method under test: {@link UserTaskJsonConverter#fillCandidateUsers(JsonNode, JsonNode, UserTask)}
    */
   @Test
   @DisplayName("Test fillCandidateUsers(JsonNode, JsonNode, UserTask)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void UserTaskJsonConverter.fillCandidateUsers(JsonNode, JsonNode, UserTask)"})
   void testFillCandidateUsers2() {
     // Arrange
     UserTaskJsonConverter userTaskJsonConverter = new UserTaskJsonConverter();
-
     ArrayNode arrayNode = mock(ArrayNode.class);
-    JsonNodeFactory nf = JsonNodeFactory.withExactBigDecimals(true);
-    when(arrayNode.get(Mockito.<String>any())).thenReturn(new ArrayNode(nf));
+    when(arrayNode.get(Mockito.<String>any())).thenReturn(new ArrayNode(JsonNodeFactory.withExactBigDecimals(true)));
     when(arrayNode.isNull()).thenReturn(false);
 
     ArrayList<JsonNode> jsonNodeList = new ArrayList<>();
     jsonNodeList.add(arrayNode);
-
     ArrayNode arrayNode2 = mock(ArrayNode.class);
     when(arrayNode2.iterator()).thenReturn(jsonNodeList.iterator());
     when(arrayNode2.isArray()).thenReturn(true);
-
     ArrayNode idmDefNode = mock(ArrayNode.class);
     when(idmDefNode.get(Mockito.<String>any())).thenReturn(arrayNode2);
-    DoubleNode canCompleteTaskNode = DoubleNode.valueOf(10.0d);
+    MissingNode canCompleteTaskNode = MissingNode.getInstance();
     UserTask task = new UserTask();
 
     // Act
@@ -525,36 +644,30 @@ class UserTaskJsonConverterDiffblueTest {
 
   /**
    * Test {@link UserTaskJsonConverter#fillCandidateUsers(JsonNode, JsonNode, UserTask)}.
-   *
-   * <p>Method under test: {@link UserTaskJsonConverter#fillCandidateUsers(JsonNode, JsonNode,
-   * UserTask)}
+   * <p>
+   * Method under test: {@link UserTaskJsonConverter#fillCandidateUsers(JsonNode, JsonNode, UserTask)}
    */
   @Test
   @DisplayName("Test fillCandidateUsers(JsonNode, JsonNode, UserTask)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void UserTaskJsonConverter.fillCandidateUsers(JsonNode, JsonNode, UserTask)"})
-  void testFillCandidateUsers3() throws UnsupportedEncodingException {
+  void testFillCandidateUsers3() {
     // Arrange
     UserTaskJsonConverter userTaskJsonConverter = new UserTaskJsonConverter();
-
     ArrayNode arrayNode = mock(ArrayNode.class);
-    when(arrayNode.get(Mockito.<String>any()))
-        .thenReturn(new BinaryNode("AXAXAXAX".getBytes("UTF-8")));
+    when(arrayNode.get(Mockito.<String>any())).thenReturn(new BigIntegerNode(BigInteger.valueOf(1L)));
     when(arrayNode.isNull()).thenReturn(false);
 
     ArrayList<JsonNode> jsonNodeList = new ArrayList<>();
     jsonNodeList.add(arrayNode);
     Iterator<JsonNode> iteratorResult = jsonNodeList.iterator();
-
     ArrayNode arrayNode2 = mock(ArrayNode.class);
     when(arrayNode2.size()).thenReturn(3);
     when(arrayNode2.iterator()).thenReturn(iteratorResult);
     when(arrayNode2.isArray()).thenReturn(true);
-
     ArrayNode idmDefNode = mock(ArrayNode.class);
     when(idmDefNode.get(Mockito.<String>any())).thenReturn(arrayNode2);
-    DoubleNode canCompleteTaskNode = DoubleNode.valueOf(10.0d);
+    MissingNode canCompleteTaskNode = MissingNode.getInstance();
     UserTask task = new UserTask();
 
     // Act
@@ -569,38 +682,32 @@ class UserTaskJsonConverterDiffblueTest {
     verify(arrayNode2).size();
     List<String> candidateUsers = task.getCandidateUsers();
     assertEquals(1, candidateUsers.size());
-    assertEquals(
-        "${taskAssignmentBean.assignTaskToCandidateUsers('QVhBWEFYQVg=', execution)}",
-        candidateUsers.get(0));
+    assertEquals("${taskAssignmentBean.assignTaskToCandidateUsers('1', execution)}", candidateUsers.get(0));
     Map<String, List<ExtensionElement>> extensionElements = task.getExtensionElements();
     assertEquals(6, extensionElements.size());
-    assertEquals(1, extensionElements.get("user-info-email-QVhBWEFYQVg=").size());
-    assertEquals(1, extensionElements.get("user-info-externalid-QVhBWEFYQVg=").size());
-    assertEquals(1, extensionElements.get("user-info-firstname-QVhBWEFYQVg=").size());
-    assertEquals(1, extensionElements.get("user-info-lastname-QVhBWEFYQVg=").size());
+    assertEquals(1, extensionElements.get("user-info-email-1").size());
+    assertEquals(1, extensionElements.get("user-info-externalid-1").size());
+    assertEquals(1, extensionElements.get("user-info-firstname-1").size());
+    assertEquals(1, extensionElements.get("user-info-lastname-1").size());
     assertTrue(extensionElements.containsKey("activiti-idm-candidate-user"));
     assertTrue(extensionElements.containsKey("initiator-can-complete"));
   }
 
   /**
    * Test {@link UserTaskJsonConverter#fillCandidateUsers(JsonNode, JsonNode, UserTask)}.
-   *
-   * <p>Method under test: {@link UserTaskJsonConverter#fillCandidateUsers(JsonNode, JsonNode,
-   * UserTask)}
+   * <p>
+   * Method under test: {@link UserTaskJsonConverter#fillCandidateUsers(JsonNode, JsonNode, UserTask)}
    */
   @Test
   @DisplayName("Test fillCandidateUsers(JsonNode, JsonNode, UserTask)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void UserTaskJsonConverter.fillCandidateUsers(JsonNode, JsonNode, UserTask)"})
   void testFillCandidateUsers4() {
     // Arrange
     UserTaskJsonConverter userTaskJsonConverter = new UserTaskJsonConverter();
-
     ArrayNode arrayNode = mock(ArrayNode.class);
     when(arrayNode.isNull()).thenReturn(false);
     when(arrayNode.asText()).thenReturn("As Text");
-
     ArrayNode arrayNode2 = mock(ArrayNode.class);
     when(arrayNode2.get(Mockito.<String>any())).thenReturn(arrayNode);
     when(arrayNode2.isNull()).thenReturn(false);
@@ -608,15 +715,13 @@ class UserTaskJsonConverterDiffblueTest {
     ArrayList<JsonNode> jsonNodeList = new ArrayList<>();
     jsonNodeList.add(arrayNode2);
     Iterator<JsonNode> iteratorResult = jsonNodeList.iterator();
-
     ArrayNode arrayNode3 = mock(ArrayNode.class);
     when(arrayNode3.size()).thenReturn(3);
     when(arrayNode3.iterator()).thenReturn(iteratorResult);
     when(arrayNode3.isArray()).thenReturn(true);
-
     ArrayNode idmDefNode = mock(ArrayNode.class);
     when(idmDefNode.get(Mockito.<String>any())).thenReturn(arrayNode3);
-    DoubleNode canCompleteTaskNode = DoubleNode.valueOf(10.0d);
+    MissingNode canCompleteTaskNode = MissingNode.getInstance();
     UserTask task = new UserTask();
 
     // Act
@@ -633,9 +738,7 @@ class UserTaskJsonConverterDiffblueTest {
     verify(arrayNode, atLeast(1)).asText();
     List<String> candidateUsers = task.getCandidateUsers();
     assertEquals(1, candidateUsers.size());
-    assertEquals(
-        "${taskAssignmentBean.assignTaskToCandidateUsers('As Text', execution)}",
-        candidateUsers.get(0));
+    assertEquals("${taskAssignmentBean.assignTaskToCandidateUsers('As Text', execution)}", candidateUsers.get(0));
     Map<String, List<ExtensionElement>> extensionElements = task.getExtensionElements();
     assertEquals(6, extensionElements.size());
     assertEquals(1, extensionElements.get("user-info-email-As Text").size());
@@ -648,20 +751,91 @@ class UserTaskJsonConverterDiffblueTest {
 
   /**
    * Test {@link UserTaskJsonConverter#fillCandidateUsers(JsonNode, JsonNode, UserTask)}.
-   *
    * <ul>
-   *   <li>Given {@link ArrayList#ArrayList()} add {@code null}.
-   *   <li>Then {@link UserTask} (default constructor) CandidateUsers Empty.
+   *   <li>Given {@link ArrayList#ArrayList()} add {@link BigIntegerNode#BigIntegerNode(BigInteger)} with v is valueOf one.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link UserTaskJsonConverter#fillCandidateUsers(JsonNode, JsonNode,
-   * UserTask)}
+   * <p>
+   * Method under test: {@link UserTaskJsonConverter#fillCandidateUsers(JsonNode, JsonNode, UserTask)}
    */
   @Test
-  @DisplayName(
-      "Test fillCandidateUsers(JsonNode, JsonNode, UserTask); given ArrayList() add 'null'; then UserTask (default constructor) CandidateUsers Empty")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test fillCandidateUsers(JsonNode, JsonNode, UserTask); given ArrayList() add BigIntegerNode(BigInteger) with v is valueOf one")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void UserTaskJsonConverter.fillCandidateUsers(JsonNode, JsonNode, UserTask)"})
+  void testFillCandidateUsers_givenArrayListAddBigIntegerNodeWithVIsValueOfOne() {
+    // Arrange
+    UserTaskJsonConverter userTaskJsonConverter = new UserTaskJsonConverter();
+
+    ArrayList<JsonNode> jsonNodeList = new ArrayList<>();
+    jsonNodeList.add(new BigIntegerNode(BigInteger.valueOf(1L)));
+    ArrayNode arrayNode = mock(ArrayNode.class);
+    when(arrayNode.iterator()).thenReturn(jsonNodeList.iterator());
+    when(arrayNode.isArray()).thenReturn(true);
+    ArrayNode idmDefNode = mock(ArrayNode.class);
+    when(idmDefNode.get(Mockito.<String>any())).thenReturn(arrayNode);
+    MissingNode canCompleteTaskNode = MissingNode.getInstance();
+    UserTask task = new UserTask();
+
+    // Act
+    userTaskJsonConverter.fillCandidateUsers(idmDefNode, canCompleteTaskNode, task);
+
+    // Assert that nothing has changed
+    verify(arrayNode, atLeast(1)).iterator();
+    verify(idmDefNode, atLeast(1)).get(Mockito.<String>any());
+    verify(arrayNode, atLeast(1)).isArray();
+    assertTrue(task.getCandidateUsers().isEmpty());
+    assertTrue(task.getExtensionElements().isEmpty());
+  }
+
+  /**
+   * Test {@link UserTaskJsonConverter#fillCandidateUsers(JsonNode, JsonNode, UserTask)}.
+   * <ul>
+   *   <li>Given {@link ArrayList#ArrayList()} add Instance.</li>
+   *   <li>Then {@link UserTask} (default constructor) CandidateUsers Empty.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link UserTaskJsonConverter#fillCandidateUsers(JsonNode, JsonNode, UserTask)}
+   */
+  @Test
+  @DisplayName("Test fillCandidateUsers(JsonNode, JsonNode, UserTask); given ArrayList() add Instance; then UserTask (default constructor) CandidateUsers Empty")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void UserTaskJsonConverter.fillCandidateUsers(JsonNode, JsonNode, UserTask)"})
+  void testFillCandidateUsers_givenArrayListAddInstance_thenUserTaskCandidateUsersEmpty() {
+    // Arrange
+    UserTaskJsonConverter userTaskJsonConverter = new UserTaskJsonConverter();
+
+    ArrayList<JsonNode> jsonNodeList = new ArrayList<>();
+    jsonNodeList.add(MissingNode.getInstance());
+    ArrayNode arrayNode = mock(ArrayNode.class);
+    when(arrayNode.iterator()).thenReturn(jsonNodeList.iterator());
+    when(arrayNode.isArray()).thenReturn(true);
+    ArrayNode idmDefNode = mock(ArrayNode.class);
+    when(idmDefNode.get(Mockito.<String>any())).thenReturn(arrayNode);
+    MissingNode canCompleteTaskNode = MissingNode.getInstance();
+    UserTask task = new UserTask();
+
+    // Act
+    userTaskJsonConverter.fillCandidateUsers(idmDefNode, canCompleteTaskNode, task);
+
+    // Assert that nothing has changed
+    verify(arrayNode, atLeast(1)).iterator();
+    verify(idmDefNode, atLeast(1)).get(Mockito.<String>any());
+    verify(arrayNode, atLeast(1)).isArray();
+    assertTrue(task.getCandidateUsers().isEmpty());
+    assertTrue(task.getExtensionElements().isEmpty());
+  }
+
+  /**
+   * Test {@link UserTaskJsonConverter#fillCandidateUsers(JsonNode, JsonNode, UserTask)}.
+   * <ul>
+   *   <li>Given {@link ArrayList#ArrayList()} add {@code null}.</li>
+   *   <li>Then {@link UserTask} (default constructor) CandidateUsers Empty.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link UserTaskJsonConverter#fillCandidateUsers(JsonNode, JsonNode, UserTask)}
+   */
+  @Test
+  @DisplayName("Test fillCandidateUsers(JsonNode, JsonNode, UserTask); given ArrayList() add 'null'; then UserTask (default constructor) CandidateUsers Empty")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void UserTaskJsonConverter.fillCandidateUsers(JsonNode, JsonNode, UserTask)"})
   void testFillCandidateUsers_givenArrayListAddNull_thenUserTaskCandidateUsersEmpty() {
     // Arrange
@@ -669,14 +843,12 @@ class UserTaskJsonConverterDiffblueTest {
 
     ArrayList<JsonNode> jsonNodeList = new ArrayList<>();
     jsonNodeList.add(null);
-
     ArrayNode arrayNode = mock(ArrayNode.class);
     when(arrayNode.iterator()).thenReturn(jsonNodeList.iterator());
     when(arrayNode.isArray()).thenReturn(true);
-
     ArrayNode idmDefNode = mock(ArrayNode.class);
     when(idmDefNode.get(Mockito.<String>any())).thenReturn(arrayNode);
-    DoubleNode canCompleteTaskNode = DoubleNode.valueOf(10.0d);
+    MissingNode canCompleteTaskNode = MissingNode.getInstance();
     UserTask task = new UserTask();
 
     // Act
@@ -692,91 +864,41 @@ class UserTaskJsonConverterDiffblueTest {
 
   /**
    * Test {@link UserTaskJsonConverter#fillCandidateUsers(JsonNode, JsonNode, UserTask)}.
-   *
    * <ul>
-   *   <li>Given {@link ArrayList#ArrayList()} add valueOf ten.
+   *   <li>Given {@link ArrayNode} {@link ContainerNode#asText()} return {@code null}.</li>
+   *   <li>Then calls {@link ContainerNode#asText()}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link UserTaskJsonConverter#fillCandidateUsers(JsonNode, JsonNode,
-   * UserTask)}
+   * <p>
+   * Method under test: {@link UserTaskJsonConverter#fillCandidateUsers(JsonNode, JsonNode, UserTask)}
    */
   @Test
-  @DisplayName(
-      "Test fillCandidateUsers(JsonNode, JsonNode, UserTask); given ArrayList() add valueOf ten")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test fillCandidateUsers(JsonNode, JsonNode, UserTask); given ArrayNode asText() return 'null'; then calls asText()")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void UserTaskJsonConverter.fillCandidateUsers(JsonNode, JsonNode, UserTask)"})
-  void testFillCandidateUsers_givenArrayListAddValueOfTen() {
+  void testFillCandidateUsers_givenArrayNodeAsTextReturnNull_thenCallsAsText() {
     // Arrange
     UserTaskJsonConverter userTaskJsonConverter = new UserTaskJsonConverter();
-
-    ArrayList<JsonNode> jsonNodeList = new ArrayList<>();
-    jsonNodeList.add(DoubleNode.valueOf(10.0d));
-
-    ArrayNode arrayNode = mock(ArrayNode.class);
-    when(arrayNode.iterator()).thenReturn(jsonNodeList.iterator());
-    when(arrayNode.isArray()).thenReturn(true);
-
-    ArrayNode idmDefNode = mock(ArrayNode.class);
-    when(idmDefNode.get(Mockito.<String>any())).thenReturn(arrayNode);
-    DoubleNode canCompleteTaskNode = DoubleNode.valueOf(10.0d);
-    UserTask task = new UserTask();
-
-    // Act
-    userTaskJsonConverter.fillCandidateUsers(idmDefNode, canCompleteTaskNode, task);
-
-    // Assert that nothing has changed
-    verify(arrayNode, atLeast(1)).iterator();
-    verify(idmDefNode, atLeast(1)).get(Mockito.<String>any());
-    verify(arrayNode, atLeast(1)).isArray();
-    assertTrue(task.getCandidateUsers().isEmpty());
-    assertTrue(task.getExtensionElements().isEmpty());
-  }
-
-  /**
-   * Test {@link UserTaskJsonConverter#fillCandidateUsers(JsonNode, JsonNode, UserTask)}.
-   *
-   * <ul>
-   *   <li>Given {@link ArrayNode} {@link ArrayNode#asText()} return {@code null}.
-   *   <li>When {@link ArrayNode}.
-   * </ul>
-   *
-   * <p>Method under test: {@link UserTaskJsonConverter#fillCandidateUsers(JsonNode, JsonNode,
-   * UserTask)}
-   */
-  @Test
-  @DisplayName(
-      "Test fillCandidateUsers(JsonNode, JsonNode, UserTask); given ArrayNode asText() return 'null'; when ArrayNode")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void UserTaskJsonConverter.fillCandidateUsers(JsonNode, JsonNode, UserTask)"})
-  void testFillCandidateUsers_givenArrayNodeAsTextReturnNull_whenArrayNode() {
-    // Arrange
-    UserTaskJsonConverter userTaskJsonConverter = new UserTaskJsonConverter();
-
     ArrayNode arrayNode = mock(ArrayNode.class);
     when(arrayNode.isNull()).thenReturn(false);
     when(arrayNode.asText()).thenReturn(null);
-
     ArrayNode arrayNode2 = mock(ArrayNode.class);
     when(arrayNode2.get(Mockito.<String>any())).thenReturn(arrayNode);
     when(arrayNode2.isNull()).thenReturn(false);
 
     ArrayList<JsonNode> jsonNodeList = new ArrayList<>();
     jsonNodeList.add(arrayNode2);
-
     ArrayNode arrayNode3 = mock(ArrayNode.class);
     when(arrayNode3.iterator()).thenReturn(jsonNodeList.iterator());
     when(arrayNode3.isArray()).thenReturn(true);
-
     ArrayNode idmDefNode = mock(ArrayNode.class);
     when(idmDefNode.get(Mockito.<String>any())).thenReturn(arrayNode3);
+    MissingNode canCompleteTaskNode = MissingNode.getInstance();
+    UserTask task = new UserTask();
 
     // Act
-    userTaskJsonConverter.fillCandidateUsers(
-        idmDefNode, mock(ArrayNode.class), mock(UserTask.class));
+    userTaskJsonConverter.fillCandidateUsers(idmDefNode, canCompleteTaskNode, task);
 
-    // Assert
+    // Assert that nothing has changed
     verify(arrayNode2).isNull();
     verify(arrayNode, atLeast(1)).isNull();
     verify(arrayNode3, atLeast(1)).iterator();
@@ -784,41 +906,38 @@ class UserTaskJsonConverterDiffblueTest {
     verify(arrayNode2, atLeast(1)).get(Mockito.<String>any());
     verify(arrayNode3, atLeast(1)).isArray();
     verify(arrayNode, atLeast(1)).asText();
+    assertTrue(task.getCandidateUsers().isEmpty());
+    assertTrue(task.getExtensionElements().isEmpty());
   }
 
   /**
    * Test {@link UserTaskJsonConverter#fillCandidateUsers(JsonNode, JsonNode, UserTask)}.
-   *
    * <ul>
-   *   <li>Given {@link ArrayNode} {@link ArrayNode#isNull()} return {@code true}.
+   *   <li>Given {@link ArrayNode} {@link ArrayNode#get(String)} return Instance.</li>
+   *   <li>Then calls {@link JsonNode#isNull()}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link UserTaskJsonConverter#fillCandidateUsers(JsonNode, JsonNode,
-   * UserTask)}
+   * <p>
+   * Method under test: {@link UserTaskJsonConverter#fillCandidateUsers(JsonNode, JsonNode, UserTask)}
    */
   @Test
-  @DisplayName(
-      "Test fillCandidateUsers(JsonNode, JsonNode, UserTask); given ArrayNode isNull() return 'true'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test fillCandidateUsers(JsonNode, JsonNode, UserTask); given ArrayNode get(String) return Instance; then calls isNull()")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void UserTaskJsonConverter.fillCandidateUsers(JsonNode, JsonNode, UserTask)"})
-  void testFillCandidateUsers_givenArrayNodeIsNullReturnTrue() {
+  void testFillCandidateUsers_givenArrayNodeGetReturnInstance_thenCallsIsNull() {
     // Arrange
     UserTaskJsonConverter userTaskJsonConverter = new UserTaskJsonConverter();
-
     ArrayNode arrayNode = mock(ArrayNode.class);
+    when(arrayNode.get(Mockito.<String>any())).thenReturn(MissingNode.getInstance());
     when(arrayNode.isNull()).thenReturn(true);
 
     ArrayList<JsonNode> jsonNodeList = new ArrayList<>();
     jsonNodeList.add(arrayNode);
-
     ArrayNode arrayNode2 = mock(ArrayNode.class);
     when(arrayNode2.iterator()).thenReturn(jsonNodeList.iterator());
     when(arrayNode2.isArray()).thenReturn(true);
-
     ArrayNode idmDefNode = mock(ArrayNode.class);
     when(idmDefNode.get(Mockito.<String>any())).thenReturn(arrayNode2);
-    DoubleNode canCompleteTaskNode = DoubleNode.valueOf(10.0d);
+    MissingNode canCompleteTaskNode = MissingNode.getInstance();
     UserTask task = new UserTask();
 
     // Act
@@ -835,41 +954,77 @@ class UserTaskJsonConverterDiffblueTest {
 
   /**
    * Test {@link UserTaskJsonConverter#fillCandidateUsers(JsonNode, JsonNode, UserTask)}.
-   *
    * <ul>
-   *   <li>Given {@link ArrayNode} {@link ArrayNode#isNull()} return {@code true}.
+   *   <li>Given {@link ArrayNode} {@link ArrayNode#get(String)} return Instance.</li>
+   *   <li>Then calls {@link JsonNode#isNull()}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link UserTaskJsonConverter#fillCandidateUsers(JsonNode, JsonNode,
-   * UserTask)}
+   * <p>
+   * Method under test: {@link UserTaskJsonConverter#fillCandidateUsers(JsonNode, JsonNode, UserTask)}
    */
   @Test
-  @DisplayName(
-      "Test fillCandidateUsers(JsonNode, JsonNode, UserTask); given ArrayNode isNull() return 'true'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test fillCandidateUsers(JsonNode, JsonNode, UserTask); given ArrayNode get(String) return Instance; then calls isNull()")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void UserTaskJsonConverter.fillCandidateUsers(JsonNode, JsonNode, UserTask)"})
-  void testFillCandidateUsers_givenArrayNodeIsNullReturnTrue2() {
+  void testFillCandidateUsers_givenArrayNodeGetReturnInstance_thenCallsIsNull2() {
     // Arrange
     UserTaskJsonConverter userTaskJsonConverter = new UserTaskJsonConverter();
+    ArrayNode arrayNode = mock(ArrayNode.class);
+    when(arrayNode.get(Mockito.<String>any())).thenReturn(MissingNode.getInstance());
+    when(arrayNode.isNull()).thenReturn(false);
 
+    ArrayList<JsonNode> jsonNodeList = new ArrayList<>();
+    jsonNodeList.add(arrayNode);
+    ArrayNode arrayNode2 = mock(ArrayNode.class);
+    when(arrayNode2.iterator()).thenReturn(jsonNodeList.iterator());
+    when(arrayNode2.isArray()).thenReturn(true);
+    ArrayNode idmDefNode = mock(ArrayNode.class);
+    when(idmDefNode.get(Mockito.<String>any())).thenReturn(arrayNode2);
+    MissingNode canCompleteTaskNode = MissingNode.getInstance();
+    UserTask task = new UserTask();
+
+    // Act
+    userTaskJsonConverter.fillCandidateUsers(idmDefNode, canCompleteTaskNode, task);
+
+    // Assert that nothing has changed
+    verify(arrayNode).isNull();
+    verify(arrayNode2, atLeast(1)).iterator();
+    verify(idmDefNode, atLeast(1)).get(Mockito.<String>any());
+    verify(arrayNode, atLeast(1)).get(Mockito.<String>any());
+    verify(arrayNode2, atLeast(1)).isArray();
+    assertTrue(task.getCandidateUsers().isEmpty());
+    assertTrue(task.getExtensionElements().isEmpty());
+  }
+
+  /**
+   * Test {@link UserTaskJsonConverter#fillCandidateUsers(JsonNode, JsonNode, UserTask)}.
+   * <ul>
+   *   <li>Given {@link ArrayNode} {@link JsonNode#isNull()} return {@code true}.</li>
+   *   <li>Then calls {@link JsonNode#isNull()}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link UserTaskJsonConverter#fillCandidateUsers(JsonNode, JsonNode, UserTask)}
+   */
+  @Test
+  @DisplayName("Test fillCandidateUsers(JsonNode, JsonNode, UserTask); given ArrayNode isNull() return 'true'; then calls isNull()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void UserTaskJsonConverter.fillCandidateUsers(JsonNode, JsonNode, UserTask)"})
+  void testFillCandidateUsers_givenArrayNodeIsNullReturnTrue_thenCallsIsNull() {
+    // Arrange
+    UserTaskJsonConverter userTaskJsonConverter = new UserTaskJsonConverter();
     ArrayNode arrayNode = mock(ArrayNode.class);
     when(arrayNode.isNull()).thenReturn(true);
-
     ArrayNode arrayNode2 = mock(ArrayNode.class);
     when(arrayNode2.get(Mockito.<String>any())).thenReturn(arrayNode);
     when(arrayNode2.isNull()).thenReturn(false);
 
     ArrayList<JsonNode> jsonNodeList = new ArrayList<>();
     jsonNodeList.add(arrayNode2);
-
     ArrayNode arrayNode3 = mock(ArrayNode.class);
     when(arrayNode3.iterator()).thenReturn(jsonNodeList.iterator());
     when(arrayNode3.isArray()).thenReturn(true);
-
     ArrayNode idmDefNode = mock(ArrayNode.class);
     when(idmDefNode.get(Mockito.<String>any())).thenReturn(arrayNode3);
-    DoubleNode canCompleteTaskNode = DoubleNode.valueOf(10.0d);
+    MissingNode canCompleteTaskNode = MissingNode.getInstance();
     UserTask task = new UserTask();
 
     // Act
@@ -888,96 +1043,22 @@ class UserTaskJsonConverterDiffblueTest {
 
   /**
    * Test {@link UserTaskJsonConverter#fillCandidateUsers(JsonNode, JsonNode, UserTask)}.
-   *
    * <ul>
-   *   <li>Given {@link ArrayNode} {@link ArrayNode#size()} return zero.
-   *   <li>Then calls {@link UserTask#addExtensionElement(ExtensionElement)}.
+   *   <li>Given {@link ArrayNode#ArrayNode(JsonNodeFactory)} with nf is withExactBigDecimals {@code true}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link UserTaskJsonConverter#fillCandidateUsers(JsonNode, JsonNode,
-   * UserTask)}
+   * <p>
+   * Method under test: {@link UserTaskJsonConverter#fillCandidateUsers(JsonNode, JsonNode, UserTask)}
    */
   @Test
-  @DisplayName(
-      "Test fillCandidateUsers(JsonNode, JsonNode, UserTask); given ArrayNode size() return zero; then calls addExtensionElement(ExtensionElement)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void UserTaskJsonConverter.fillCandidateUsers(JsonNode, JsonNode, UserTask)"})
-  void testFillCandidateUsers_givenArrayNodeSizeReturnZero_thenCallsAddExtensionElement() {
-    // Arrange
-    UserTaskJsonConverter userTaskJsonConverter = new UserTaskJsonConverter();
-
-    ArrayNode arrayNode = mock(ArrayNode.class);
-    when(arrayNode.isNull()).thenReturn(false);
-    when(arrayNode.asText()).thenReturn("As Text");
-
-    ArrayNode arrayNode2 = mock(ArrayNode.class);
-    when(arrayNode2.get(Mockito.<String>any())).thenReturn(arrayNode);
-    when(arrayNode2.isNull()).thenReturn(false);
-
-    ArrayList<JsonNode> jsonNodeList = new ArrayList<>();
-    jsonNodeList.add(arrayNode2);
-    Iterator<JsonNode> iteratorResult = jsonNodeList.iterator();
-
-    ArrayNode arrayNode3 = mock(ArrayNode.class);
-    when(arrayNode3.size()).thenReturn(0);
-    when(arrayNode3.iterator()).thenReturn(iteratorResult);
-    when(arrayNode3.isArray()).thenReturn(true);
-
-    ArrayNode idmDefNode = mock(ArrayNode.class);
-    when(idmDefNode.get(Mockito.<String>any())).thenReturn(arrayNode3);
-
-    ArrayNode canCompleteTaskNode = mock(ArrayNode.class);
-    when(canCompleteTaskNode.isNull()).thenReturn(false);
-    when(canCompleteTaskNode.asText()).thenReturn("As Text");
-
-    UserTask task = mock(UserTask.class);
-    doNothing().when(task).addExtensionElement(Mockito.<ExtensionElement>any());
-    doNothing().when(task).setCandidateUsers(Mockito.<List<String>>any());
-
-    // Act
-    userTaskJsonConverter.fillCandidateUsers(idmDefNode, canCompleteTaskNode, task);
-
-    // Assert
-    verify(arrayNode2).isNull();
-    verify(canCompleteTaskNode).isNull();
-    verify(arrayNode, atLeast(1)).isNull();
-    verify(arrayNode3, atLeast(1)).iterator();
-    verify(idmDefNode, atLeast(1)).get(Mockito.<String>any());
-    verify(arrayNode2, atLeast(1)).get(Mockito.<String>any());
-    verify(arrayNode3, atLeast(1)).isArray();
-    verify(arrayNode3).size();
-    verify(canCompleteTaskNode).asText();
-    verify(arrayNode, atLeast(1)).asText();
-    verify(task, atLeast(1)).addExtensionElement(Mockito.<ExtensionElement>any());
-    verify(task).setCandidateUsers(isA(List.class));
-  }
-
-  /**
-   * Test {@link UserTaskJsonConverter#fillCandidateUsers(JsonNode, JsonNode, UserTask)}.
-   *
-   * <ul>
-   *   <li>Given {@link ArrayNode#ArrayNode(JsonNodeFactory)} with nf is withExactBigDecimals {@code
-   *       true}.
-   * </ul>
-   *
-   * <p>Method under test: {@link UserTaskJsonConverter#fillCandidateUsers(JsonNode, JsonNode,
-   * UserTask)}
-   */
-  @Test
-  @DisplayName(
-      "Test fillCandidateUsers(JsonNode, JsonNode, UserTask); given ArrayNode(JsonNodeFactory) with nf is withExactBigDecimals 'true'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test fillCandidateUsers(JsonNode, JsonNode, UserTask); given ArrayNode(JsonNodeFactory) with nf is withExactBigDecimals 'true'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void UserTaskJsonConverter.fillCandidateUsers(JsonNode, JsonNode, UserTask)"})
   void testFillCandidateUsers_givenArrayNodeWithNfIsWithExactBigDecimalsTrue() {
     // Arrange
     UserTaskJsonConverter userTaskJsonConverter = new UserTaskJsonConverter();
-
     ArrayNode idmDefNode = mock(ArrayNode.class);
-    JsonNodeFactory nf = JsonNodeFactory.withExactBigDecimals(true);
-    when(idmDefNode.get(Mockito.<String>any())).thenReturn(new ArrayNode(nf));
-    DoubleNode canCompleteTaskNode = DoubleNode.valueOf(10.0d);
+    when(idmDefNode.get(Mockito.<String>any())).thenReturn(new ArrayNode(JsonNodeFactory.withExactBigDecimals(true)));
+    MissingNode canCompleteTaskNode = MissingNode.getInstance();
     UserTask task = new UserTask();
 
     // Act
@@ -991,104 +1072,53 @@ class UserTaskJsonConverterDiffblueTest {
 
   /**
    * Test {@link UserTaskJsonConverter#fillCandidateUsers(JsonNode, JsonNode, UserTask)}.
-   *
    * <ul>
-   *   <li>Given {@code false}.
-   *   <li>When {@link ArrayNode} {@link ArrayNode#isNull()} return {@code false}.
+   *   <li>Given Instance.</li>
+   *   <li>When {@link ArrayNode} {@link ArrayNode#get(String)} return Instance.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link UserTaskJsonConverter#fillCandidateUsers(JsonNode, JsonNode,
-   * UserTask)}
+   * <p>
+   * Method under test: {@link UserTaskJsonConverter#fillCandidateUsers(JsonNode, JsonNode, UserTask)}
    */
   @Test
-  @DisplayName(
-      "Test fillCandidateUsers(JsonNode, JsonNode, UserTask); given 'false'; when ArrayNode isNull() return 'false'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test fillCandidateUsers(JsonNode, JsonNode, UserTask); given Instance; when ArrayNode get(String) return Instance")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void UserTaskJsonConverter.fillCandidateUsers(JsonNode, JsonNode, UserTask)"})
-  void testFillCandidateUsers_givenFalse_whenArrayNodeIsNullReturnFalse() {
+  void testFillCandidateUsers_givenInstance_whenArrayNodeGetReturnInstance() {
     // Arrange
     UserTaskJsonConverter userTaskJsonConverter = new UserTaskJsonConverter();
-
-    ArrayNode arrayNode = mock(ArrayNode.class);
-    when(arrayNode.isNull()).thenReturn(false);
-    when(arrayNode.asText()).thenReturn("As Text");
-
-    ArrayNode arrayNode2 = mock(ArrayNode.class);
-    when(arrayNode2.get(Mockito.<String>any())).thenReturn(arrayNode);
-    when(arrayNode2.isNull()).thenReturn(false);
-
-    ArrayList<JsonNode> jsonNodeList = new ArrayList<>();
-    jsonNodeList.add(arrayNode2);
-    Iterator<JsonNode> iteratorResult = jsonNodeList.iterator();
-
-    ArrayNode arrayNode3 = mock(ArrayNode.class);
-    when(arrayNode3.size()).thenReturn(3);
-    when(arrayNode3.iterator()).thenReturn(iteratorResult);
-    when(arrayNode3.isArray()).thenReturn(true);
-
     ArrayNode idmDefNode = mock(ArrayNode.class);
-    when(idmDefNode.get(Mockito.<String>any())).thenReturn(arrayNode3);
-
-    ArrayNode canCompleteTaskNode = mock(ArrayNode.class);
-    when(canCompleteTaskNode.isNull()).thenReturn(false);
-    when(canCompleteTaskNode.asText()).thenReturn("As Text");
+    when(idmDefNode.get(Mockito.<String>any())).thenReturn(MissingNode.getInstance());
+    MissingNode canCompleteTaskNode = MissingNode.getInstance();
     UserTask task = new UserTask();
 
     // Act
     userTaskJsonConverter.fillCandidateUsers(idmDefNode, canCompleteTaskNode, task);
 
-    // Assert
-    verify(arrayNode2).isNull();
-    verify(canCompleteTaskNode).isNull();
-    verify(arrayNode, atLeast(1)).isNull();
-    verify(arrayNode3, atLeast(1)).iterator();
+    // Assert that nothing has changed
     verify(idmDefNode, atLeast(1)).get(Mockito.<String>any());
-    verify(arrayNode2, atLeast(1)).get(Mockito.<String>any());
-    verify(arrayNode3, atLeast(1)).isArray();
-    verify(arrayNode3).size();
-    verify(canCompleteTaskNode).asText();
-    verify(arrayNode, atLeast(1)).asText();
-    List<String> candidateUsers = task.getCandidateUsers();
-    assertEquals(1, candidateUsers.size());
-    assertEquals(
-        "${taskAssignmentBean.assignTaskToCandidateUsers('As Text', execution)}",
-        candidateUsers.get(0));
-    Map<String, List<ExtensionElement>> extensionElements = task.getExtensionElements();
-    assertEquals(6, extensionElements.size());
-    assertEquals(1, extensionElements.get("user-info-email-As Text").size());
-    assertEquals(1, extensionElements.get("user-info-externalid-As Text").size());
-    assertEquals(1, extensionElements.get("user-info-firstname-As Text").size());
-    assertEquals(1, extensionElements.get("user-info-lastname-As Text").size());
-    assertTrue(extensionElements.containsKey("activiti-idm-candidate-user"));
-    assertTrue(extensionElements.containsKey("initiator-can-complete"));
+    assertTrue(task.getCandidateUsers().isEmpty());
+    assertTrue(task.getExtensionElements().isEmpty());
   }
 
   /**
    * Test {@link UserTaskJsonConverter#fillCandidateUsers(JsonNode, JsonNode, UserTask)}.
-   *
    * <ul>
-   *   <li>Given {@code true}.
-   *   <li>When {@link ArrayNode} {@link ArrayNode#isNull()} return {@code true}.
+   *   <li>Given {@code true}.</li>
+   *   <li>When {@link ArrayNode} {@link JsonNode#isNull()} return {@code true}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link UserTaskJsonConverter#fillCandidateUsers(JsonNode, JsonNode,
-   * UserTask)}
+   * <p>
+   * Method under test: {@link UserTaskJsonConverter#fillCandidateUsers(JsonNode, JsonNode, UserTask)}
    */
   @Test
-  @DisplayName(
-      "Test fillCandidateUsers(JsonNode, JsonNode, UserTask); given 'true'; when ArrayNode isNull() return 'true'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test fillCandidateUsers(JsonNode, JsonNode, UserTask); given 'true'; when ArrayNode isNull() return 'true'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void UserTaskJsonConverter.fillCandidateUsers(JsonNode, JsonNode, UserTask)"})
   void testFillCandidateUsers_givenTrue_whenArrayNodeIsNullReturnTrue() {
     // Arrange
     UserTaskJsonConverter userTaskJsonConverter = new UserTaskJsonConverter();
-
     ArrayNode arrayNode = mock(ArrayNode.class);
     when(arrayNode.isNull()).thenReturn(false);
     when(arrayNode.asText()).thenReturn("As Text");
-
     ArrayNode arrayNode2 = mock(ArrayNode.class);
     when(arrayNode2.get(Mockito.<String>any())).thenReturn(arrayNode);
     when(arrayNode2.isNull()).thenReturn(false);
@@ -1096,17 +1126,15 @@ class UserTaskJsonConverterDiffblueTest {
     ArrayList<JsonNode> jsonNodeList = new ArrayList<>();
     jsonNodeList.add(arrayNode2);
     Iterator<JsonNode> iteratorResult = jsonNodeList.iterator();
-
     ArrayNode arrayNode3 = mock(ArrayNode.class);
     when(arrayNode3.size()).thenReturn(3);
     when(arrayNode3.iterator()).thenReturn(iteratorResult);
     when(arrayNode3.isArray()).thenReturn(true);
-
     ArrayNode idmDefNode = mock(ArrayNode.class);
     when(idmDefNode.get(Mockito.<String>any())).thenReturn(arrayNode3);
-
     ArrayNode canCompleteTaskNode = mock(ArrayNode.class);
     when(canCompleteTaskNode.isNull()).thenReturn(true);
+    when(canCompleteTaskNode.asText()).thenReturn("As Text");
     UserTask task = new UserTask();
 
     // Act
@@ -1124,9 +1152,7 @@ class UserTaskJsonConverterDiffblueTest {
     verify(arrayNode, atLeast(1)).asText();
     List<String> candidateUsers = task.getCandidateUsers();
     assertEquals(1, candidateUsers.size());
-    assertEquals(
-        "${taskAssignmentBean.assignTaskToCandidateUsers('As Text', execution)}",
-        candidateUsers.get(0));
+    assertEquals("${taskAssignmentBean.assignTaskToCandidateUsers('As Text', execution)}", candidateUsers.get(0));
     Map<String, List<ExtensionElement>> extensionElements = task.getExtensionElements();
     assertEquals(6, extensionElements.size());
     assertEquals(1, extensionElements.get("user-info-email-As Text").size());
@@ -1139,63 +1165,22 @@ class UserTaskJsonConverterDiffblueTest {
 
   /**
    * Test {@link UserTaskJsonConverter#fillCandidateUsers(JsonNode, JsonNode, UserTask)}.
-   *
    * <ul>
-   *   <li>Given valueOf ten.
-   *   <li>When {@link ArrayNode} {@link ArrayNode#get(String)} return valueOf ten.
+   *   <li>Then calls {@link BaseElement#addExtensionElement(ExtensionElement)}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link UserTaskJsonConverter#fillCandidateUsers(JsonNode, JsonNode,
-   * UserTask)}
+   * <p>
+   * Method under test: {@link UserTaskJsonConverter#fillCandidateUsers(JsonNode, JsonNode, UserTask)}
    */
   @Test
-  @DisplayName(
-      "Test fillCandidateUsers(JsonNode, JsonNode, UserTask); given valueOf ten; when ArrayNode get(String) return valueOf ten")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void UserTaskJsonConverter.fillCandidateUsers(JsonNode, JsonNode, UserTask)"})
-  void testFillCandidateUsers_givenValueOfTen_whenArrayNodeGetReturnValueOfTen() {
-    // Arrange
-    UserTaskJsonConverter userTaskJsonConverter = new UserTaskJsonConverter();
-
-    ArrayNode idmDefNode = mock(ArrayNode.class);
-    when(idmDefNode.get(Mockito.<String>any())).thenReturn(DoubleNode.valueOf(10.0d));
-    DoubleNode canCompleteTaskNode = DoubleNode.valueOf(10.0d);
-    UserTask task = new UserTask();
-
-    // Act
-    userTaskJsonConverter.fillCandidateUsers(idmDefNode, canCompleteTaskNode, task);
-
-    // Assert that nothing has changed
-    verify(idmDefNode, atLeast(1)).get(Mockito.<String>any());
-    assertTrue(task.getCandidateUsers().isEmpty());
-    assertTrue(task.getExtensionElements().isEmpty());
-  }
-
-  /**
-   * Test {@link UserTaskJsonConverter#fillCandidateUsers(JsonNode, JsonNode, UserTask)}.
-   *
-   * <ul>
-   *   <li>Then calls {@link UserTask#addExtensionElement(ExtensionElement)}.
-   * </ul>
-   *
-   * <p>Method under test: {@link UserTaskJsonConverter#fillCandidateUsers(JsonNode, JsonNode,
-   * UserTask)}
-   */
-  @Test
-  @DisplayName(
-      "Test fillCandidateUsers(JsonNode, JsonNode, UserTask); then calls addExtensionElement(ExtensionElement)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test fillCandidateUsers(JsonNode, JsonNode, UserTask); then calls addExtensionElement(ExtensionElement)")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void UserTaskJsonConverter.fillCandidateUsers(JsonNode, JsonNode, UserTask)"})
   void testFillCandidateUsers_thenCallsAddExtensionElement() {
     // Arrange
     UserTaskJsonConverter userTaskJsonConverter = new UserTaskJsonConverter();
-
     ArrayNode arrayNode = mock(ArrayNode.class);
     when(arrayNode.isNull()).thenReturn(false);
     when(arrayNode.asText()).thenReturn("As Text");
-
     ArrayNode arrayNode2 = mock(ArrayNode.class);
     when(arrayNode2.get(Mockito.<String>any())).thenReturn(arrayNode);
     when(arrayNode2.isNull()).thenReturn(false);
@@ -1203,19 +1188,15 @@ class UserTaskJsonConverterDiffblueTest {
     ArrayList<JsonNode> jsonNodeList = new ArrayList<>();
     jsonNodeList.add(arrayNode2);
     Iterator<JsonNode> iteratorResult = jsonNodeList.iterator();
-
     ArrayNode arrayNode3 = mock(ArrayNode.class);
     when(arrayNode3.size()).thenReturn(3);
     when(arrayNode3.iterator()).thenReturn(iteratorResult);
     when(arrayNode3.isArray()).thenReturn(true);
-
     ArrayNode idmDefNode = mock(ArrayNode.class);
     when(idmDefNode.get(Mockito.<String>any())).thenReturn(arrayNode3);
-
     ArrayNode canCompleteTaskNode = mock(ArrayNode.class);
-    when(canCompleteTaskNode.isNull()).thenReturn(false);
+    when(canCompleteTaskNode.isNull()).thenReturn(true);
     when(canCompleteTaskNode.asText()).thenReturn("As Text");
-
     UserTask task = mock(UserTask.class);
     doNothing().when(task).addExtensionElement(Mockito.<ExtensionElement>any());
     doNothing().when(task).setCandidateUsers(Mockito.<List<String>>any());
@@ -1232,7 +1213,6 @@ class UserTaskJsonConverterDiffblueTest {
     verify(arrayNode2, atLeast(1)).get(Mockito.<String>any());
     verify(arrayNode3, atLeast(1)).isArray();
     verify(arrayNode3).size();
-    verify(canCompleteTaskNode).asText();
     verify(arrayNode, atLeast(1)).asText();
     verify(task, atLeast(1)).addExtensionElement(Mockito.<ExtensionElement>any());
     verify(task).setCandidateUsers(isA(List.class));
@@ -1240,30 +1220,139 @@ class UserTaskJsonConverterDiffblueTest {
 
   /**
    * Test {@link UserTaskJsonConverter#fillCandidateUsers(JsonNode, JsonNode, UserTask)}.
-   *
    * <ul>
-   *   <li>When {@link BinaryNode#BinaryNode(byte[])} with data is {@code AXAXAXAX} Bytes is {@code
-   *       UTF-8}.
+   *   <li>Then {@link UserTask} (default constructor) CandidateUsers Empty.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link UserTaskJsonConverter#fillCandidateUsers(JsonNode, JsonNode,
-   * UserTask)}
+   * <p>
+   * Method under test: {@link UserTaskJsonConverter#fillCandidateUsers(JsonNode, JsonNode, UserTask)}
    */
   @Test
-  @DisplayName(
-      "Test fillCandidateUsers(JsonNode, JsonNode, UserTask); when BinaryNode(byte[]) with data is 'AXAXAXAX' Bytes is 'UTF-8'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test fillCandidateUsers(JsonNode, JsonNode, UserTask); then UserTask (default constructor) CandidateUsers Empty")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void UserTaskJsonConverter.fillCandidateUsers(JsonNode, JsonNode, UserTask)"})
-  void testFillCandidateUsers_whenBinaryNodeWithDataIsAxaxaxaxBytesIsUtf8()
-      throws UnsupportedEncodingException {
+  void testFillCandidateUsers_thenUserTaskCandidateUsersEmpty() {
     // Arrange
     UserTaskJsonConverter userTaskJsonConverter = new UserTaskJsonConverter();
+    ArrayNode arrayNode = mock(ArrayNode.class);
 
+    ArrayList<JsonNode> jsonNodeList = new ArrayList<>();
+    when(arrayNode.iterator()).thenReturn(jsonNodeList.iterator());
+    when(arrayNode.isArray()).thenReturn(true);
+    ArrayNode idmDefNode = mock(ArrayNode.class);
+    when(idmDefNode.get(Mockito.<String>any())).thenReturn(arrayNode);
+    MissingNode canCompleteTaskNode = MissingNode.getInstance();
+    UserTask task = new UserTask();
+
+    // Act
+    userTaskJsonConverter.fillCandidateUsers(idmDefNode, canCompleteTaskNode, task);
+
+    // Assert that nothing has changed
+    verify(arrayNode, atLeast(1)).iterator();
+    verify(idmDefNode, atLeast(1)).get(Mockito.<String>any());
+    verify(arrayNode, atLeast(1)).isArray();
+    assertTrue(task.getCandidateUsers().isEmpty());
+    assertTrue(task.getExtensionElements().isEmpty());
+  }
+
+  /**
+   * Test {@link UserTaskJsonConverter#fillCandidateUsers(JsonNode, JsonNode, UserTask)}.
+   * <ul>
+   *   <li>Then {@link UserTask} (default constructor) CandidateUsers first is {@code 1}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link UserTaskJsonConverter#fillCandidateUsers(JsonNode, JsonNode, UserTask)}
+   */
+  @Test
+  @DisplayName("Test fillCandidateUsers(JsonNode, JsonNode, UserTask); then UserTask (default constructor) CandidateUsers first is '1'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void UserTaskJsonConverter.fillCandidateUsers(JsonNode, JsonNode, UserTask)"})
+  void testFillCandidateUsers_thenUserTaskCandidateUsersFirstIs1() {
+    // Arrange
+    UserTaskJsonConverter userTaskJsonConverter = new UserTaskJsonConverter();
+    ArrayNode arrayNode = mock(ArrayNode.class);
+    when(arrayNode.get(Mockito.<String>any())).thenReturn(new BigIntegerNode(BigInteger.valueOf(1L)));
+    when(arrayNode.isNull()).thenReturn(false);
+
+    ArrayList<JsonNode> jsonNodeList = new ArrayList<>();
+    jsonNodeList.add(arrayNode);
+    Iterator<JsonNode> iteratorResult = jsonNodeList.iterator();
+    ArrayNode arrayNode2 = mock(ArrayNode.class);
+    when(arrayNode2.size()).thenReturn(0);
+    when(arrayNode2.iterator()).thenReturn(iteratorResult);
+    when(arrayNode2.isArray()).thenReturn(true);
+    ArrayNode idmDefNode = mock(ArrayNode.class);
+    when(idmDefNode.get(Mockito.<String>any())).thenReturn(arrayNode2);
+    MissingNode canCompleteTaskNode = MissingNode.getInstance();
+    UserTask task = new UserTask();
+
+    // Act
+    userTaskJsonConverter.fillCandidateUsers(idmDefNode, canCompleteTaskNode, task);
+
+    // Assert
+    verify(arrayNode).isNull();
+    verify(arrayNode2, atLeast(1)).iterator();
+    verify(idmDefNode, atLeast(1)).get(Mockito.<String>any());
+    verify(arrayNode, atLeast(1)).get(Mockito.<String>any());
+    verify(arrayNode2, atLeast(1)).isArray();
+    verify(arrayNode2).size();
+    List<String> candidateUsers = task.getCandidateUsers();
+    assertEquals(1, candidateUsers.size());
+    assertEquals("1", candidateUsers.get(0));
+    Map<String, List<ExtensionElement>> extensionElements = task.getExtensionElements();
+    assertEquals(6, extensionElements.size());
+    assertEquals(1, extensionElements.get("user-info-email-1").size());
+    assertEquals(1, extensionElements.get("user-info-externalid-1").size());
+    assertEquals(1, extensionElements.get("user-info-firstname-1").size());
+    assertEquals(1, extensionElements.get("user-info-lastname-1").size());
+    assertTrue(extensionElements.containsKey("activiti-idm-candidate-user"));
+    assertTrue(extensionElements.containsKey("initiator-can-complete"));
+  }
+
+  /**
+   * Test {@link UserTaskJsonConverter#fillCandidateUsers(JsonNode, JsonNode, UserTask)}.
+   * <ul>
+   *   <li>When {@link ArrayNode#ArrayNode(JsonNodeFactory)} with nf is withExactBigDecimals {@code true}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link UserTaskJsonConverter#fillCandidateUsers(JsonNode, JsonNode, UserTask)}
+   */
+  @Test
+  @DisplayName("Test fillCandidateUsers(JsonNode, JsonNode, UserTask); when ArrayNode(JsonNodeFactory) with nf is withExactBigDecimals 'true'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void UserTaskJsonConverter.fillCandidateUsers(JsonNode, JsonNode, UserTask)"})
+  void testFillCandidateUsers_whenArrayNodeWithNfIsWithExactBigDecimalsTrue() {
+    // Arrange
+    UserTaskJsonConverter userTaskJsonConverter = new UserTaskJsonConverter();
+    ArrayNode idmDefNode = new ArrayNode(JsonNodeFactory.withExactBigDecimals(true));
+    MissingNode canCompleteTaskNode = MissingNode.getInstance();
+    UserTask task = new UserTask();
+
+    // Act
+    userTaskJsonConverter.fillCandidateUsers(idmDefNode, canCompleteTaskNode, task);
+
+    // Assert that nothing has changed
+    assertTrue(task.getCandidateUsers().isEmpty());
+    assertTrue(task.getExtensionElements().isEmpty());
+  }
+
+  /**
+   * Test {@link UserTaskJsonConverter#fillCandidateUsers(JsonNode, JsonNode, UserTask)}.
+   * <ul>
+   *   <li>When {@link ArrayNode#ArrayNode(JsonNodeFactory)} with nf is withExactBigDecimals {@code true}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link UserTaskJsonConverter#fillCandidateUsers(JsonNode, JsonNode, UserTask)}
+   */
+  @Test
+  @DisplayName("Test fillCandidateUsers(JsonNode, JsonNode, UserTask); when ArrayNode(JsonNodeFactory) with nf is withExactBigDecimals 'true'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void UserTaskJsonConverter.fillCandidateUsers(JsonNode, JsonNode, UserTask)"})
+  void testFillCandidateUsers_whenArrayNodeWithNfIsWithExactBigDecimalsTrue2() {
+    // Arrange
+    UserTaskJsonConverter userTaskJsonConverter = new UserTaskJsonConverter();
     ArrayNode arrayNode = mock(ArrayNode.class);
     when(arrayNode.isNull()).thenReturn(false);
     when(arrayNode.asText()).thenReturn("As Text");
-
     ArrayNode arrayNode2 = mock(ArrayNode.class);
     when(arrayNode2.get(Mockito.<String>any())).thenReturn(arrayNode);
     when(arrayNode2.isNull()).thenReturn(false);
@@ -1271,15 +1360,13 @@ class UserTaskJsonConverterDiffblueTest {
     ArrayList<JsonNode> jsonNodeList = new ArrayList<>();
     jsonNodeList.add(arrayNode2);
     Iterator<JsonNode> iteratorResult = jsonNodeList.iterator();
-
     ArrayNode arrayNode3 = mock(ArrayNode.class);
     when(arrayNode3.size()).thenReturn(3);
     when(arrayNode3.iterator()).thenReturn(iteratorResult);
     when(arrayNode3.isArray()).thenReturn(true);
-
     ArrayNode idmDefNode = mock(ArrayNode.class);
     when(idmDefNode.get(Mockito.<String>any())).thenReturn(arrayNode3);
-    BinaryNode canCompleteTaskNode = new BinaryNode("AXAXAXAX".getBytes("UTF-8"));
+    ArrayNode canCompleteTaskNode = new ArrayNode(JsonNodeFactory.withExactBigDecimals(true));
     UserTask task = new UserTask();
 
     // Act
@@ -1296,9 +1383,7 @@ class UserTaskJsonConverterDiffblueTest {
     verify(arrayNode, atLeast(1)).asText();
     List<String> candidateUsers = task.getCandidateUsers();
     assertEquals(1, candidateUsers.size());
-    assertEquals(
-        "${taskAssignmentBean.assignTaskToCandidateUsers('As Text', execution)}",
-        candidateUsers.get(0));
+    assertEquals("${taskAssignmentBean.assignTaskToCandidateUsers('As Text', execution)}", candidateUsers.get(0));
     Map<String, List<ExtensionElement>> extensionElements = task.getExtensionElements();
     assertEquals(6, extensionElements.size());
     assertEquals(1, extensionElements.get("user-info-email-As Text").size());
@@ -1311,27 +1396,50 @@ class UserTaskJsonConverterDiffblueTest {
 
   /**
    * Test {@link UserTaskJsonConverter#fillCandidateUsers(JsonNode, JsonNode, UserTask)}.
-   *
    * <ul>
-   *   <li>When {@code null}.
+   *   <li>When Instance.</li>
+   *   <li>Then {@link UserTask} (default constructor) CandidateUsers Empty.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link UserTaskJsonConverter#fillCandidateUsers(JsonNode, JsonNode,
-   * UserTask)}
+   * <p>
+   * Method under test: {@link UserTaskJsonConverter#fillCandidateUsers(JsonNode, JsonNode, UserTask)}
+   */
+  @Test
+  @DisplayName("Test fillCandidateUsers(JsonNode, JsonNode, UserTask); when Instance; then UserTask (default constructor) CandidateUsers Empty")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void UserTaskJsonConverter.fillCandidateUsers(JsonNode, JsonNode, UserTask)"})
+  void testFillCandidateUsers_whenInstance_thenUserTaskCandidateUsersEmpty() {
+    // Arrange
+    UserTaskJsonConverter userTaskJsonConverter = new UserTaskJsonConverter();
+    MissingNode idmDefNode = MissingNode.getInstance();
+    MissingNode canCompleteTaskNode = MissingNode.getInstance();
+    UserTask task = new UserTask();
+
+    // Act
+    userTaskJsonConverter.fillCandidateUsers(idmDefNode, canCompleteTaskNode, task);
+
+    // Assert that nothing has changed
+    assertTrue(task.getCandidateUsers().isEmpty());
+    assertTrue(task.getExtensionElements().isEmpty());
+  }
+
+  /**
+   * Test {@link UserTaskJsonConverter#fillCandidateUsers(JsonNode, JsonNode, UserTask)}.
+   * <ul>
+   *   <li>When {@code null}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link UserTaskJsonConverter#fillCandidateUsers(JsonNode, JsonNode, UserTask)}
    */
   @Test
   @DisplayName("Test fillCandidateUsers(JsonNode, JsonNode, UserTask); when 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void UserTaskJsonConverter.fillCandidateUsers(JsonNode, JsonNode, UserTask)"})
   void testFillCandidateUsers_whenNull() {
     // Arrange
     UserTaskJsonConverter userTaskJsonConverter = new UserTaskJsonConverter();
-
     ArrayNode arrayNode = mock(ArrayNode.class);
     when(arrayNode.isNull()).thenReturn(false);
     when(arrayNode.asText()).thenReturn("As Text");
-
     ArrayNode arrayNode2 = mock(ArrayNode.class);
     when(arrayNode2.get(Mockito.<String>any())).thenReturn(arrayNode);
     when(arrayNode2.isNull()).thenReturn(false);
@@ -1339,12 +1447,10 @@ class UserTaskJsonConverterDiffblueTest {
     ArrayList<JsonNode> jsonNodeList = new ArrayList<>();
     jsonNodeList.add(arrayNode2);
     Iterator<JsonNode> iteratorResult = jsonNodeList.iterator();
-
     ArrayNode arrayNode3 = mock(ArrayNode.class);
     when(arrayNode3.size()).thenReturn(3);
     when(arrayNode3.iterator()).thenReturn(iteratorResult);
     when(arrayNode3.isArray()).thenReturn(true);
-
     ArrayNode idmDefNode = mock(ArrayNode.class);
     when(idmDefNode.get(Mockito.<String>any())).thenReturn(arrayNode3);
     UserTask task = new UserTask();
@@ -1363,9 +1469,7 @@ class UserTaskJsonConverterDiffblueTest {
     verify(arrayNode, atLeast(1)).asText();
     List<String> candidateUsers = task.getCandidateUsers();
     assertEquals(1, candidateUsers.size());
-    assertEquals(
-        "${taskAssignmentBean.assignTaskToCandidateUsers('As Text', execution)}",
-        candidateUsers.get(0));
+    assertEquals("${taskAssignmentBean.assignTaskToCandidateUsers('As Text', execution)}", candidateUsers.get(0));
     Map<String, List<ExtensionElement>> extensionElements = task.getExtensionElements();
     assertEquals(6, extensionElements.size());
     assertEquals(1, extensionElements.get("user-info-email-As Text").size());
@@ -1377,170 +1481,63 @@ class UserTaskJsonConverterDiffblueTest {
   }
 
   /**
-   * Test {@link UserTaskJsonConverter#fillCandidateUsers(JsonNode, JsonNode, UserTask)}.
-   *
-   * <ul>
-   *   <li>When valueOf ten.
-   *   <li>Then {@link UserTask} (default constructor) CandidateUsers Empty.
-   * </ul>
-   *
-   * <p>Method under test: {@link UserTaskJsonConverter#fillCandidateUsers(JsonNode, JsonNode,
-   * UserTask)}
-   */
-  @Test
-  @DisplayName(
-      "Test fillCandidateUsers(JsonNode, JsonNode, UserTask); when valueOf ten; then UserTask (default constructor) CandidateUsers Empty")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void UserTaskJsonConverter.fillCandidateUsers(JsonNode, JsonNode, UserTask)"})
-  void testFillCandidateUsers_whenValueOfTen_thenUserTaskCandidateUsersEmpty() {
-    // Arrange
-    UserTaskJsonConverter userTaskJsonConverter = new UserTaskJsonConverter();
-    DoubleNode idmDefNode = DoubleNode.valueOf(10.0d);
-    DoubleNode canCompleteTaskNode = DoubleNode.valueOf(10.0d);
-    UserTask task = new UserTask();
-
-    // Act
-    userTaskJsonConverter.fillCandidateUsers(idmDefNode, canCompleteTaskNode, task);
-
-    // Assert that nothing has changed
-    assertTrue(task.getCandidateUsers().isEmpty());
-    assertTrue(task.getExtensionElements().isEmpty());
-  }
-
-  /**
-   * Test {@link UserTaskJsonConverter#fillCandidateUsers(JsonNode, JsonNode, UserTask)}.
-   *
-   * <ul>
-   *   <li>When valueOf ten.
-   *   <li>Then {@link UserTask} (default constructor) CandidateUsers Empty.
-   * </ul>
-   *
-   * <p>Method under test: {@link UserTaskJsonConverter#fillCandidateUsers(JsonNode, JsonNode,
-   * UserTask)}
-   */
-  @Test
-  @DisplayName(
-      "Test fillCandidateUsers(JsonNode, JsonNode, UserTask); when valueOf ten; then UserTask (default constructor) CandidateUsers Empty")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void UserTaskJsonConverter.fillCandidateUsers(JsonNode, JsonNode, UserTask)"})
-  void testFillCandidateUsers_whenValueOfTen_thenUserTaskCandidateUsersEmpty2() {
-    // Arrange
-    UserTaskJsonConverter userTaskJsonConverter = new UserTaskJsonConverter();
-
-    ArrayNode arrayNode = mock(ArrayNode.class);
-
-    ArrayList<JsonNode> jsonNodeList = new ArrayList<>();
-    when(arrayNode.iterator()).thenReturn(jsonNodeList.iterator());
-    when(arrayNode.isArray()).thenReturn(true);
-
-    ArrayNode idmDefNode = mock(ArrayNode.class);
-    when(idmDefNode.get(Mockito.<String>any())).thenReturn(arrayNode);
-    DoubleNode canCompleteTaskNode = DoubleNode.valueOf(10.0d);
-    UserTask task = new UserTask();
-
-    // Act
-    userTaskJsonConverter.fillCandidateUsers(idmDefNode, canCompleteTaskNode, task);
-
-    // Assert that nothing has changed
-    verify(arrayNode, atLeast(1)).iterator();
-    verify(idmDefNode, atLeast(1)).get(Mockito.<String>any());
-    verify(arrayNode, atLeast(1)).isArray();
-    assertTrue(task.getCandidateUsers().isEmpty());
-    assertTrue(task.getExtensionElements().isEmpty());
-  }
-
-  /**
    * Test {@link UserTaskJsonConverter#fillCandidateGroups(JsonNode, JsonNode, UserTask)}.
-   *
-   * <p>Method under test: {@link UserTaskJsonConverter#fillCandidateGroups(JsonNode, JsonNode,
-   * UserTask)}
+   * <p>
+   * Method under test: {@link UserTaskJsonConverter#fillCandidateGroups(JsonNode, JsonNode, UserTask)}
    */
   @Test
   @DisplayName("Test fillCandidateGroups(JsonNode, JsonNode, UserTask)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void UserTaskJsonConverter.fillCandidateGroups(JsonNode, JsonNode, UserTask)"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void UserTaskJsonConverter.fillCandidateGroups(JsonNode, JsonNode, UserTask)"})
   void testFillCandidateGroups() {
     // Arrange
     UserTaskJsonConverter userTaskJsonConverter = new UserTaskJsonConverter();
 
-    ArrayNode arrayNode = mock(ArrayNode.class);
-    when(arrayNode.get(Mockito.<String>any())).thenReturn(DoubleNode.valueOf(10.0d));
-    when(arrayNode.isNull()).thenReturn(false);
-
     ArrayList<JsonNode> jsonNodeList = new ArrayList<>();
-    jsonNodeList.add(arrayNode);
-    Iterator<JsonNode> iteratorResult = jsonNodeList.iterator();
-
-    ArrayNode arrayNode2 = mock(ArrayNode.class);
-    when(arrayNode2.size()).thenReturn(3);
-    when(arrayNode2.iterator()).thenReturn(iteratorResult);
-    when(arrayNode2.isArray()).thenReturn(true);
-
+    jsonNodeList.add(new ArrayNode(JsonNodeFactory.withExactBigDecimals(true)));
+    ArrayNode arrayNode = mock(ArrayNode.class);
+    when(arrayNode.iterator()).thenReturn(jsonNodeList.iterator());
+    when(arrayNode.isArray()).thenReturn(true);
     ArrayNode idmDefNode = mock(ArrayNode.class);
-    when(idmDefNode.get(Mockito.<String>any())).thenReturn(arrayNode2);
-    DoubleNode canCompleteTaskNode = DoubleNode.valueOf(10.0d);
+    when(idmDefNode.get(Mockito.<String>any())).thenReturn(arrayNode);
+    MissingNode canCompleteTaskNode = MissingNode.getInstance();
     UserTask task = new UserTask();
 
     // Act
     userTaskJsonConverter.fillCandidateGroups(idmDefNode, canCompleteTaskNode, task);
 
-    // Assert
-    verify(arrayNode).isNull();
-    verify(arrayNode2, atLeast(1)).iterator();
+    // Assert that nothing has changed
+    verify(arrayNode, atLeast(1)).iterator();
     verify(idmDefNode, atLeast(1)).get(Mockito.<String>any());
-    verify(arrayNode, atLeast(1)).get(Mockito.<String>any());
-    verify(arrayNode2, atLeast(1)).isArray();
-    verify(arrayNode2).size();
-    List<String> candidateGroups = task.getCandidateGroups();
-    assertEquals(1, candidateGroups.size());
-    assertEquals(
-        "${taskAssignmentBean.assignTaskToCandidateGroups('10.0', execution)}",
-        candidateGroups.get(0));
-    Map<String, List<ExtensionElement>> extensionElements = task.getExtensionElements();
-    assertEquals(4, extensionElements.size());
-    assertEquals(1, extensionElements.get("group-info-externalid-10.0").size());
-    assertEquals(1, extensionElements.get("group-info-name-10.0").size());
-    assertTrue(extensionElements.containsKey("activiti-idm-candidate-group"));
-    assertTrue(extensionElements.containsKey("initiator-can-complete"));
+    verify(arrayNode, atLeast(1)).isArray();
+    assertTrue(task.getCandidateGroups().isEmpty());
+    assertTrue(task.getExtensionElements().isEmpty());
   }
 
   /**
    * Test {@link UserTaskJsonConverter#fillCandidateGroups(JsonNode, JsonNode, UserTask)}.
-   *
-   * <p>Method under test: {@link UserTaskJsonConverter#fillCandidateGroups(JsonNode, JsonNode,
-   * UserTask)}
+   * <p>
+   * Method under test: {@link UserTaskJsonConverter#fillCandidateGroups(JsonNode, JsonNode, UserTask)}
    */
   @Test
   @DisplayName("Test fillCandidateGroups(JsonNode, JsonNode, UserTask)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void UserTaskJsonConverter.fillCandidateGroups(JsonNode, JsonNode, UserTask)"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void UserTaskJsonConverter.fillCandidateGroups(JsonNode, JsonNode, UserTask)"})
   void testFillCandidateGroups2() {
     // Arrange
     UserTaskJsonConverter userTaskJsonConverter = new UserTaskJsonConverter();
-
     ArrayNode arrayNode = mock(ArrayNode.class);
-    JsonNodeFactory nf = JsonNodeFactory.withExactBigDecimals(true);
-    when(arrayNode.get(Mockito.<String>any())).thenReturn(new ArrayNode(nf));
+    when(arrayNode.get(Mockito.<String>any())).thenReturn(new ArrayNode(JsonNodeFactory.withExactBigDecimals(true)));
     when(arrayNode.isNull()).thenReturn(false);
 
     ArrayList<JsonNode> jsonNodeList = new ArrayList<>();
     jsonNodeList.add(arrayNode);
-
     ArrayNode arrayNode2 = mock(ArrayNode.class);
     when(arrayNode2.iterator()).thenReturn(jsonNodeList.iterator());
     when(arrayNode2.isArray()).thenReturn(true);
-
     ArrayNode idmDefNode = mock(ArrayNode.class);
     when(idmDefNode.get(Mockito.<String>any())).thenReturn(arrayNode2);
-    DoubleNode canCompleteTaskNode = DoubleNode.valueOf(10.0d);
+    MissingNode canCompleteTaskNode = MissingNode.getInstance();
     UserTask task = new UserTask();
 
     // Act
@@ -1558,38 +1555,30 @@ class UserTaskJsonConverterDiffblueTest {
 
   /**
    * Test {@link UserTaskJsonConverter#fillCandidateGroups(JsonNode, JsonNode, UserTask)}.
-   *
-   * <p>Method under test: {@link UserTaskJsonConverter#fillCandidateGroups(JsonNode, JsonNode,
-   * UserTask)}
+   * <p>
+   * Method under test: {@link UserTaskJsonConverter#fillCandidateGroups(JsonNode, JsonNode, UserTask)}
    */
   @Test
   @DisplayName("Test fillCandidateGroups(JsonNode, JsonNode, UserTask)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void UserTaskJsonConverter.fillCandidateGroups(JsonNode, JsonNode, UserTask)"
-  })
-  void testFillCandidateGroups3() throws UnsupportedEncodingException {
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void UserTaskJsonConverter.fillCandidateGroups(JsonNode, JsonNode, UserTask)"})
+  void testFillCandidateGroups3() {
     // Arrange
     UserTaskJsonConverter userTaskJsonConverter = new UserTaskJsonConverter();
-
     ArrayNode arrayNode = mock(ArrayNode.class);
-    when(arrayNode.get(Mockito.<String>any()))
-        .thenReturn(new BinaryNode("AXAXAXAX".getBytes("UTF-8")));
+    when(arrayNode.get(Mockito.<String>any())).thenReturn(new BigIntegerNode(BigInteger.valueOf(1L)));
     when(arrayNode.isNull()).thenReturn(false);
 
     ArrayList<JsonNode> jsonNodeList = new ArrayList<>();
     jsonNodeList.add(arrayNode);
     Iterator<JsonNode> iteratorResult = jsonNodeList.iterator();
-
     ArrayNode arrayNode2 = mock(ArrayNode.class);
     when(arrayNode2.size()).thenReturn(3);
     when(arrayNode2.iterator()).thenReturn(iteratorResult);
     when(arrayNode2.isArray()).thenReturn(true);
-
     ArrayNode idmDefNode = mock(ArrayNode.class);
     when(idmDefNode.get(Mockito.<String>any())).thenReturn(arrayNode2);
-    DoubleNode canCompleteTaskNode = DoubleNode.valueOf(10.0d);
+    MissingNode canCompleteTaskNode = MissingNode.getInstance();
     UserTask task = new UserTask();
 
     // Act
@@ -1604,38 +1593,30 @@ class UserTaskJsonConverterDiffblueTest {
     verify(arrayNode2).size();
     List<String> candidateGroups = task.getCandidateGroups();
     assertEquals(1, candidateGroups.size());
-    assertEquals(
-        "${taskAssignmentBean.assignTaskToCandidateGroups('QVhBWEFYQVg=', execution)}",
-        candidateGroups.get(0));
+    assertEquals("${taskAssignmentBean.assignTaskToCandidateGroups('1', execution)}", candidateGroups.get(0));
     Map<String, List<ExtensionElement>> extensionElements = task.getExtensionElements();
     assertEquals(4, extensionElements.size());
-    assertEquals(1, extensionElements.get("group-info-externalid-QVhBWEFYQVg=").size());
-    assertEquals(1, extensionElements.get("group-info-name-QVhBWEFYQVg=").size());
+    assertEquals(1, extensionElements.get("group-info-externalid-1").size());
+    assertEquals(1, extensionElements.get("group-info-name-1").size());
     assertTrue(extensionElements.containsKey("activiti-idm-candidate-group"));
     assertTrue(extensionElements.containsKey("initiator-can-complete"));
   }
 
   /**
    * Test {@link UserTaskJsonConverter#fillCandidateGroups(JsonNode, JsonNode, UserTask)}.
-   *
-   * <p>Method under test: {@link UserTaskJsonConverter#fillCandidateGroups(JsonNode, JsonNode,
-   * UserTask)}
+   * <p>
+   * Method under test: {@link UserTaskJsonConverter#fillCandidateGroups(JsonNode, JsonNode, UserTask)}
    */
   @Test
   @DisplayName("Test fillCandidateGroups(JsonNode, JsonNode, UserTask)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void UserTaskJsonConverter.fillCandidateGroups(JsonNode, JsonNode, UserTask)"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void UserTaskJsonConverter.fillCandidateGroups(JsonNode, JsonNode, UserTask)"})
   void testFillCandidateGroups4() {
     // Arrange
     UserTaskJsonConverter userTaskJsonConverter = new UserTaskJsonConverter();
-
     ArrayNode arrayNode = mock(ArrayNode.class);
     when(arrayNode.isNull()).thenReturn(false);
     when(arrayNode.asText()).thenReturn("As Text");
-
     ArrayNode arrayNode2 = mock(ArrayNode.class);
     when(arrayNode2.get(Mockito.<String>any())).thenReturn(arrayNode);
     when(arrayNode2.isNull()).thenReturn(false);
@@ -1643,15 +1624,13 @@ class UserTaskJsonConverterDiffblueTest {
     ArrayList<JsonNode> jsonNodeList = new ArrayList<>();
     jsonNodeList.add(arrayNode2);
     Iterator<JsonNode> iteratorResult = jsonNodeList.iterator();
-
     ArrayNode arrayNode3 = mock(ArrayNode.class);
     when(arrayNode3.size()).thenReturn(3);
     when(arrayNode3.iterator()).thenReturn(iteratorResult);
     when(arrayNode3.isArray()).thenReturn(true);
-
     ArrayNode idmDefNode = mock(ArrayNode.class);
     when(idmDefNode.get(Mockito.<String>any())).thenReturn(arrayNode3);
-    DoubleNode canCompleteTaskNode = DoubleNode.valueOf(10.0d);
+    MissingNode canCompleteTaskNode = MissingNode.getInstance();
     UserTask task = new UserTask();
 
     // Act
@@ -1668,9 +1647,7 @@ class UserTaskJsonConverterDiffblueTest {
     verify(arrayNode, atLeast(1)).asText();
     List<String> candidateGroups = task.getCandidateGroups();
     assertEquals(1, candidateGroups.size());
-    assertEquals(
-        "${taskAssignmentBean.assignTaskToCandidateGroups('As Text', execution)}",
-        candidateGroups.get(0));
+    assertEquals("${taskAssignmentBean.assignTaskToCandidateGroups('As Text', execution)}", candidateGroups.get(0));
     Map<String, List<ExtensionElement>> extensionElements = task.getExtensionElements();
     assertEquals(4, extensionElements.size());
     assertEquals(1, extensionElements.get("group-info-externalid-As Text").size());
@@ -1681,37 +1658,103 @@ class UserTaskJsonConverterDiffblueTest {
 
   /**
    * Test {@link UserTaskJsonConverter#fillCandidateGroups(JsonNode, JsonNode, UserTask)}.
-   *
    * <ul>
-   *   <li>Given {@link ArrayList#ArrayList()} add {@code null}.
-   *   <li>Then {@link UserTask} (default constructor) CandidateGroups Empty.
+   *   <li>Given {@link ArrayList#ArrayList()} add {@link BigIntegerNode#BigIntegerNode(BigInteger)} with v is valueOf one.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link UserTaskJsonConverter#fillCandidateGroups(JsonNode, JsonNode,
-   * UserTask)}
+   * <p>
+   * Method under test: {@link UserTaskJsonConverter#fillCandidateGroups(JsonNode, JsonNode, UserTask)}
    */
   @Test
-  @DisplayName(
-      "Test fillCandidateGroups(JsonNode, JsonNode, UserTask); given ArrayList() add 'null'; then UserTask (default constructor) CandidateGroups Empty")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void UserTaskJsonConverter.fillCandidateGroups(JsonNode, JsonNode, UserTask)"
-  })
+  @DisplayName("Test fillCandidateGroups(JsonNode, JsonNode, UserTask); given ArrayList() add BigIntegerNode(BigInteger) with v is valueOf one")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void UserTaskJsonConverter.fillCandidateGroups(JsonNode, JsonNode, UserTask)"})
+  void testFillCandidateGroups_givenArrayListAddBigIntegerNodeWithVIsValueOfOne() {
+    // Arrange
+    UserTaskJsonConverter userTaskJsonConverter = new UserTaskJsonConverter();
+
+    ArrayList<JsonNode> jsonNodeList = new ArrayList<>();
+    jsonNodeList.add(new BigIntegerNode(BigInteger.valueOf(1L)));
+    ArrayNode arrayNode = mock(ArrayNode.class);
+    when(arrayNode.iterator()).thenReturn(jsonNodeList.iterator());
+    when(arrayNode.isArray()).thenReturn(true);
+    ArrayNode idmDefNode = mock(ArrayNode.class);
+    when(idmDefNode.get(Mockito.<String>any())).thenReturn(arrayNode);
+    MissingNode canCompleteTaskNode = MissingNode.getInstance();
+    UserTask task = new UserTask();
+
+    // Act
+    userTaskJsonConverter.fillCandidateGroups(idmDefNode, canCompleteTaskNode, task);
+
+    // Assert that nothing has changed
+    verify(arrayNode, atLeast(1)).iterator();
+    verify(idmDefNode, atLeast(1)).get(Mockito.<String>any());
+    verify(arrayNode, atLeast(1)).isArray();
+    assertTrue(task.getCandidateGroups().isEmpty());
+    assertTrue(task.getExtensionElements().isEmpty());
+  }
+
+  /**
+   * Test {@link UserTaskJsonConverter#fillCandidateGroups(JsonNode, JsonNode, UserTask)}.
+   * <ul>
+   *   <li>Given {@link ArrayList#ArrayList()} add Instance.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link UserTaskJsonConverter#fillCandidateGroups(JsonNode, JsonNode, UserTask)}
+   */
+  @Test
+  @DisplayName("Test fillCandidateGroups(JsonNode, JsonNode, UserTask); given ArrayList() add Instance")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void UserTaskJsonConverter.fillCandidateGroups(JsonNode, JsonNode, UserTask)"})
+  void testFillCandidateGroups_givenArrayListAddInstance() {
+    // Arrange
+    UserTaskJsonConverter userTaskJsonConverter = new UserTaskJsonConverter();
+
+    ArrayList<JsonNode> jsonNodeList = new ArrayList<>();
+    jsonNodeList.add(MissingNode.getInstance());
+    ArrayNode arrayNode = mock(ArrayNode.class);
+    when(arrayNode.iterator()).thenReturn(jsonNodeList.iterator());
+    when(arrayNode.isArray()).thenReturn(true);
+    ArrayNode idmDefNode = mock(ArrayNode.class);
+    when(idmDefNode.get(Mockito.<String>any())).thenReturn(arrayNode);
+    MissingNode canCompleteTaskNode = MissingNode.getInstance();
+    UserTask task = new UserTask();
+
+    // Act
+    userTaskJsonConverter.fillCandidateGroups(idmDefNode, canCompleteTaskNode, task);
+
+    // Assert that nothing has changed
+    verify(arrayNode, atLeast(1)).iterator();
+    verify(idmDefNode, atLeast(1)).get(Mockito.<String>any());
+    verify(arrayNode, atLeast(1)).isArray();
+    assertTrue(task.getCandidateGroups().isEmpty());
+    assertTrue(task.getExtensionElements().isEmpty());
+  }
+
+  /**
+   * Test {@link UserTaskJsonConverter#fillCandidateGroups(JsonNode, JsonNode, UserTask)}.
+   * <ul>
+   *   <li>Given {@link ArrayList#ArrayList()} add {@code null}.</li>
+   *   <li>Then {@link UserTask} (default constructor) CandidateGroups Empty.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link UserTaskJsonConverter#fillCandidateGroups(JsonNode, JsonNode, UserTask)}
+   */
+  @Test
+  @DisplayName("Test fillCandidateGroups(JsonNode, JsonNode, UserTask); given ArrayList() add 'null'; then UserTask (default constructor) CandidateGroups Empty")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void UserTaskJsonConverter.fillCandidateGroups(JsonNode, JsonNode, UserTask)"})
   void testFillCandidateGroups_givenArrayListAddNull_thenUserTaskCandidateGroupsEmpty() {
     // Arrange
     UserTaskJsonConverter userTaskJsonConverter = new UserTaskJsonConverter();
 
     ArrayList<JsonNode> jsonNodeList = new ArrayList<>();
     jsonNodeList.add(null);
-
     ArrayNode arrayNode = mock(ArrayNode.class);
     when(arrayNode.iterator()).thenReturn(jsonNodeList.iterator());
     when(arrayNode.isArray()).thenReturn(true);
-
     ArrayNode idmDefNode = mock(ArrayNode.class);
     when(idmDefNode.get(Mockito.<String>any())).thenReturn(arrayNode);
-    DoubleNode canCompleteTaskNode = DoubleNode.valueOf(10.0d);
+    MissingNode canCompleteTaskNode = MissingNode.getInstance();
     UserTask task = new UserTask();
 
     // Act
@@ -1727,95 +1770,41 @@ class UserTaskJsonConverterDiffblueTest {
 
   /**
    * Test {@link UserTaskJsonConverter#fillCandidateGroups(JsonNode, JsonNode, UserTask)}.
-   *
    * <ul>
-   *   <li>Given {@link ArrayList#ArrayList()} add valueOf ten.
+   *   <li>Given {@link ArrayNode} {@link ContainerNode#asText()} return {@code null}.</li>
+   *   <li>Then calls {@link ContainerNode#asText()}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link UserTaskJsonConverter#fillCandidateGroups(JsonNode, JsonNode,
-   * UserTask)}
+   * <p>
+   * Method under test: {@link UserTaskJsonConverter#fillCandidateGroups(JsonNode, JsonNode, UserTask)}
    */
   @Test
-  @DisplayName(
-      "Test fillCandidateGroups(JsonNode, JsonNode, UserTask); given ArrayList() add valueOf ten")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void UserTaskJsonConverter.fillCandidateGroups(JsonNode, JsonNode, UserTask)"
-  })
-  void testFillCandidateGroups_givenArrayListAddValueOfTen() {
+  @DisplayName("Test fillCandidateGroups(JsonNode, JsonNode, UserTask); given ArrayNode asText() return 'null'; then calls asText()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void UserTaskJsonConverter.fillCandidateGroups(JsonNode, JsonNode, UserTask)"})
+  void testFillCandidateGroups_givenArrayNodeAsTextReturnNull_thenCallsAsText() {
     // Arrange
     UserTaskJsonConverter userTaskJsonConverter = new UserTaskJsonConverter();
-
-    ArrayList<JsonNode> jsonNodeList = new ArrayList<>();
-    jsonNodeList.add(DoubleNode.valueOf(10.0d));
-
-    ArrayNode arrayNode = mock(ArrayNode.class);
-    when(arrayNode.iterator()).thenReturn(jsonNodeList.iterator());
-    when(arrayNode.isArray()).thenReturn(true);
-
-    ArrayNode idmDefNode = mock(ArrayNode.class);
-    when(idmDefNode.get(Mockito.<String>any())).thenReturn(arrayNode);
-    DoubleNode canCompleteTaskNode = DoubleNode.valueOf(10.0d);
-    UserTask task = new UserTask();
-
-    // Act
-    userTaskJsonConverter.fillCandidateGroups(idmDefNode, canCompleteTaskNode, task);
-
-    // Assert that nothing has changed
-    verify(arrayNode, atLeast(1)).iterator();
-    verify(idmDefNode, atLeast(1)).get(Mockito.<String>any());
-    verify(arrayNode, atLeast(1)).isArray();
-    assertTrue(task.getCandidateGroups().isEmpty());
-    assertTrue(task.getExtensionElements().isEmpty());
-  }
-
-  /**
-   * Test {@link UserTaskJsonConverter#fillCandidateGroups(JsonNode, JsonNode, UserTask)}.
-   *
-   * <ul>
-   *   <li>Given {@link ArrayNode} {@link ArrayNode#asText()} return {@code null}.
-   *   <li>When {@link ArrayNode}.
-   * </ul>
-   *
-   * <p>Method under test: {@link UserTaskJsonConverter#fillCandidateGroups(JsonNode, JsonNode,
-   * UserTask)}
-   */
-  @Test
-  @DisplayName(
-      "Test fillCandidateGroups(JsonNode, JsonNode, UserTask); given ArrayNode asText() return 'null'; when ArrayNode")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void UserTaskJsonConverter.fillCandidateGroups(JsonNode, JsonNode, UserTask)"
-  })
-  void testFillCandidateGroups_givenArrayNodeAsTextReturnNull_whenArrayNode() {
-    // Arrange
-    UserTaskJsonConverter userTaskJsonConverter = new UserTaskJsonConverter();
-
     ArrayNode arrayNode = mock(ArrayNode.class);
     when(arrayNode.isNull()).thenReturn(false);
     when(arrayNode.asText()).thenReturn(null);
-
     ArrayNode arrayNode2 = mock(ArrayNode.class);
     when(arrayNode2.get(Mockito.<String>any())).thenReturn(arrayNode);
     when(arrayNode2.isNull()).thenReturn(false);
 
     ArrayList<JsonNode> jsonNodeList = new ArrayList<>();
     jsonNodeList.add(arrayNode2);
-
     ArrayNode arrayNode3 = mock(ArrayNode.class);
     when(arrayNode3.iterator()).thenReturn(jsonNodeList.iterator());
     when(arrayNode3.isArray()).thenReturn(true);
-
     ArrayNode idmDefNode = mock(ArrayNode.class);
     when(idmDefNode.get(Mockito.<String>any())).thenReturn(arrayNode3);
+    MissingNode canCompleteTaskNode = MissingNode.getInstance();
+    UserTask task = new UserTask();
 
     // Act
-    userTaskJsonConverter.fillCandidateGroups(
-        idmDefNode, mock(ArrayNode.class), mock(UserTask.class));
+    userTaskJsonConverter.fillCandidateGroups(idmDefNode, canCompleteTaskNode, task);
 
-    // Assert
+    // Assert that nothing has changed
     verify(arrayNode2).isNull();
     verify(arrayNode).isNull();
     verify(arrayNode3, atLeast(1)).iterator();
@@ -1823,43 +1812,38 @@ class UserTaskJsonConverterDiffblueTest {
     verify(arrayNode2, atLeast(1)).get(Mockito.<String>any());
     verify(arrayNode3, atLeast(1)).isArray();
     verify(arrayNode).asText();
+    assertTrue(task.getCandidateGroups().isEmpty());
+    assertTrue(task.getExtensionElements().isEmpty());
   }
 
   /**
    * Test {@link UserTaskJsonConverter#fillCandidateGroups(JsonNode, JsonNode, UserTask)}.
-   *
    * <ul>
-   *   <li>Given {@link ArrayNode} {@link ArrayNode#isNull()} return {@code true}.
+   *   <li>Given {@link ArrayNode} {@link ArrayNode#get(String)} return Instance.</li>
+   *   <li>Then calls {@link JsonNode#isNull()}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link UserTaskJsonConverter#fillCandidateGroups(JsonNode, JsonNode,
-   * UserTask)}
+   * <p>
+   * Method under test: {@link UserTaskJsonConverter#fillCandidateGroups(JsonNode, JsonNode, UserTask)}
    */
   @Test
-  @DisplayName(
-      "Test fillCandidateGroups(JsonNode, JsonNode, UserTask); given ArrayNode isNull() return 'true'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void UserTaskJsonConverter.fillCandidateGroups(JsonNode, JsonNode, UserTask)"
-  })
-  void testFillCandidateGroups_givenArrayNodeIsNullReturnTrue() {
+  @DisplayName("Test fillCandidateGroups(JsonNode, JsonNode, UserTask); given ArrayNode get(String) return Instance; then calls isNull()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void UserTaskJsonConverter.fillCandidateGroups(JsonNode, JsonNode, UserTask)"})
+  void testFillCandidateGroups_givenArrayNodeGetReturnInstance_thenCallsIsNull() {
     // Arrange
     UserTaskJsonConverter userTaskJsonConverter = new UserTaskJsonConverter();
-
     ArrayNode arrayNode = mock(ArrayNode.class);
+    when(arrayNode.get(Mockito.<String>any())).thenReturn(MissingNode.getInstance());
     when(arrayNode.isNull()).thenReturn(true);
 
     ArrayList<JsonNode> jsonNodeList = new ArrayList<>();
     jsonNodeList.add(arrayNode);
-
     ArrayNode arrayNode2 = mock(ArrayNode.class);
     when(arrayNode2.iterator()).thenReturn(jsonNodeList.iterator());
     when(arrayNode2.isArray()).thenReturn(true);
-
     ArrayNode idmDefNode = mock(ArrayNode.class);
     when(idmDefNode.get(Mockito.<String>any())).thenReturn(arrayNode2);
-    DoubleNode canCompleteTaskNode = DoubleNode.valueOf(10.0d);
+    MissingNode canCompleteTaskNode = MissingNode.getInstance();
     UserTask task = new UserTask();
 
     // Act
@@ -1876,43 +1860,77 @@ class UserTaskJsonConverterDiffblueTest {
 
   /**
    * Test {@link UserTaskJsonConverter#fillCandidateGroups(JsonNode, JsonNode, UserTask)}.
-   *
    * <ul>
-   *   <li>Given {@link ArrayNode} {@link ArrayNode#isNull()} return {@code true}.
+   *   <li>Given {@link ArrayNode} {@link ArrayNode#get(String)} return Instance.</li>
+   *   <li>Then calls {@link JsonNode#isNull()}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link UserTaskJsonConverter#fillCandidateGroups(JsonNode, JsonNode,
-   * UserTask)}
+   * <p>
+   * Method under test: {@link UserTaskJsonConverter#fillCandidateGroups(JsonNode, JsonNode, UserTask)}
    */
   @Test
-  @DisplayName(
-      "Test fillCandidateGroups(JsonNode, JsonNode, UserTask); given ArrayNode isNull() return 'true'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void UserTaskJsonConverter.fillCandidateGroups(JsonNode, JsonNode, UserTask)"
-  })
-  void testFillCandidateGroups_givenArrayNodeIsNullReturnTrue2() {
+  @DisplayName("Test fillCandidateGroups(JsonNode, JsonNode, UserTask); given ArrayNode get(String) return Instance; then calls isNull()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void UserTaskJsonConverter.fillCandidateGroups(JsonNode, JsonNode, UserTask)"})
+  void testFillCandidateGroups_givenArrayNodeGetReturnInstance_thenCallsIsNull2() {
     // Arrange
     UserTaskJsonConverter userTaskJsonConverter = new UserTaskJsonConverter();
+    ArrayNode arrayNode = mock(ArrayNode.class);
+    when(arrayNode.get(Mockito.<String>any())).thenReturn(MissingNode.getInstance());
+    when(arrayNode.isNull()).thenReturn(false);
 
+    ArrayList<JsonNode> jsonNodeList = new ArrayList<>();
+    jsonNodeList.add(arrayNode);
+    ArrayNode arrayNode2 = mock(ArrayNode.class);
+    when(arrayNode2.iterator()).thenReturn(jsonNodeList.iterator());
+    when(arrayNode2.isArray()).thenReturn(true);
+    ArrayNode idmDefNode = mock(ArrayNode.class);
+    when(idmDefNode.get(Mockito.<String>any())).thenReturn(arrayNode2);
+    MissingNode canCompleteTaskNode = MissingNode.getInstance();
+    UserTask task = new UserTask();
+
+    // Act
+    userTaskJsonConverter.fillCandidateGroups(idmDefNode, canCompleteTaskNode, task);
+
+    // Assert that nothing has changed
+    verify(arrayNode).isNull();
+    verify(arrayNode2, atLeast(1)).iterator();
+    verify(idmDefNode, atLeast(1)).get(Mockito.<String>any());
+    verify(arrayNode, atLeast(1)).get(Mockito.<String>any());
+    verify(arrayNode2, atLeast(1)).isArray();
+    assertTrue(task.getCandidateGroups().isEmpty());
+    assertTrue(task.getExtensionElements().isEmpty());
+  }
+
+  /**
+   * Test {@link UserTaskJsonConverter#fillCandidateGroups(JsonNode, JsonNode, UserTask)}.
+   * <ul>
+   *   <li>Given {@link ArrayNode} {@link JsonNode#isNull()} return {@code true}.</li>
+   *   <li>Then calls {@link JsonNode#isNull()}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link UserTaskJsonConverter#fillCandidateGroups(JsonNode, JsonNode, UserTask)}
+   */
+  @Test
+  @DisplayName("Test fillCandidateGroups(JsonNode, JsonNode, UserTask); given ArrayNode isNull() return 'true'; then calls isNull()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void UserTaskJsonConverter.fillCandidateGroups(JsonNode, JsonNode, UserTask)"})
+  void testFillCandidateGroups_givenArrayNodeIsNullReturnTrue_thenCallsIsNull() {
+    // Arrange
+    UserTaskJsonConverter userTaskJsonConverter = new UserTaskJsonConverter();
     ArrayNode arrayNode = mock(ArrayNode.class);
     when(arrayNode.isNull()).thenReturn(true);
-
     ArrayNode arrayNode2 = mock(ArrayNode.class);
     when(arrayNode2.get(Mockito.<String>any())).thenReturn(arrayNode);
     when(arrayNode2.isNull()).thenReturn(false);
 
     ArrayList<JsonNode> jsonNodeList = new ArrayList<>();
     jsonNodeList.add(arrayNode2);
-
     ArrayNode arrayNode3 = mock(ArrayNode.class);
     when(arrayNode3.iterator()).thenReturn(jsonNodeList.iterator());
     when(arrayNode3.isArray()).thenReturn(true);
-
     ArrayNode idmDefNode = mock(ArrayNode.class);
     when(idmDefNode.get(Mockito.<String>any())).thenReturn(arrayNode3);
-    DoubleNode canCompleteTaskNode = DoubleNode.valueOf(10.0d);
+    MissingNode canCompleteTaskNode = MissingNode.getInstance();
     UserTask task = new UserTask();
 
     // Act
@@ -1931,99 +1949,22 @@ class UserTaskJsonConverterDiffblueTest {
 
   /**
    * Test {@link UserTaskJsonConverter#fillCandidateGroups(JsonNode, JsonNode, UserTask)}.
-   *
    * <ul>
-   *   <li>Given {@link ArrayNode} {@link ArrayNode#size()} return zero.
+   *   <li>Given {@link ArrayNode#ArrayNode(JsonNodeFactory)} with nf is withExactBigDecimals {@code true}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link UserTaskJsonConverter#fillCandidateGroups(JsonNode, JsonNode,
-   * UserTask)}
+   * <p>
+   * Method under test: {@link UserTaskJsonConverter#fillCandidateGroups(JsonNode, JsonNode, UserTask)}
    */
   @Test
-  @DisplayName(
-      "Test fillCandidateGroups(JsonNode, JsonNode, UserTask); given ArrayNode size() return zero")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void UserTaskJsonConverter.fillCandidateGroups(JsonNode, JsonNode, UserTask)"
-  })
-  void testFillCandidateGroups_givenArrayNodeSizeReturnZero() {
-    // Arrange
-    UserTaskJsonConverter userTaskJsonConverter = new UserTaskJsonConverter();
-
-    ArrayNode arrayNode = mock(ArrayNode.class);
-    when(arrayNode.isNull()).thenReturn(false);
-    when(arrayNode.asText()).thenReturn("As Text");
-
-    ArrayNode arrayNode2 = mock(ArrayNode.class);
-    when(arrayNode2.get(Mockito.<String>any())).thenReturn(arrayNode);
-    when(arrayNode2.isNull()).thenReturn(false);
-
-    ArrayList<JsonNode> jsonNodeList = new ArrayList<>();
-    jsonNodeList.add(arrayNode2);
-    Iterator<JsonNode> iteratorResult = jsonNodeList.iterator();
-
-    ArrayNode arrayNode3 = mock(ArrayNode.class);
-    when(arrayNode3.size()).thenReturn(0);
-    when(arrayNode3.iterator()).thenReturn(iteratorResult);
-    when(arrayNode3.isArray()).thenReturn(true);
-
-    ArrayNode idmDefNode = mock(ArrayNode.class);
-    when(idmDefNode.get(Mockito.<String>any())).thenReturn(arrayNode3);
-
-    ArrayNode canCompleteTaskNode = mock(ArrayNode.class);
-    when(canCompleteTaskNode.isNull()).thenReturn(false);
-    when(canCompleteTaskNode.asText()).thenReturn("As Text");
-
-    UserTask task = mock(UserTask.class);
-    doNothing().when(task).addExtensionElement(Mockito.<ExtensionElement>any());
-    doNothing().when(task).setCandidateGroups(Mockito.<List<String>>any());
-
-    // Act
-    userTaskJsonConverter.fillCandidateGroups(idmDefNode, canCompleteTaskNode, task);
-
-    // Assert
-    verify(arrayNode2).isNull();
-    verify(canCompleteTaskNode).isNull();
-    verify(arrayNode, atLeast(1)).isNull();
-    verify(arrayNode3, atLeast(1)).iterator();
-    verify(idmDefNode, atLeast(1)).get(Mockito.<String>any());
-    verify(arrayNode2, atLeast(1)).get(Mockito.<String>any());
-    verify(arrayNode3, atLeast(1)).isArray();
-    verify(arrayNode3).size();
-    verify(canCompleteTaskNode).asText();
-    verify(arrayNode, atLeast(1)).asText();
-    verify(task, atLeast(1)).addExtensionElement(Mockito.<ExtensionElement>any());
-    verify(task).setCandidateGroups(isA(List.class));
-  }
-
-  /**
-   * Test {@link UserTaskJsonConverter#fillCandidateGroups(JsonNode, JsonNode, UserTask)}.
-   *
-   * <ul>
-   *   <li>Given {@link ArrayNode#ArrayNode(JsonNodeFactory)} with nf is withExactBigDecimals {@code
-   *       true}.
-   * </ul>
-   *
-   * <p>Method under test: {@link UserTaskJsonConverter#fillCandidateGroups(JsonNode, JsonNode,
-   * UserTask)}
-   */
-  @Test
-  @DisplayName(
-      "Test fillCandidateGroups(JsonNode, JsonNode, UserTask); given ArrayNode(JsonNodeFactory) with nf is withExactBigDecimals 'true'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void UserTaskJsonConverter.fillCandidateGroups(JsonNode, JsonNode, UserTask)"
-  })
+  @DisplayName("Test fillCandidateGroups(JsonNode, JsonNode, UserTask); given ArrayNode(JsonNodeFactory) with nf is withExactBigDecimals 'true'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void UserTaskJsonConverter.fillCandidateGroups(JsonNode, JsonNode, UserTask)"})
   void testFillCandidateGroups_givenArrayNodeWithNfIsWithExactBigDecimalsTrue() {
     // Arrange
     UserTaskJsonConverter userTaskJsonConverter = new UserTaskJsonConverter();
-
     ArrayNode idmDefNode = mock(ArrayNode.class);
-    JsonNodeFactory nf = JsonNodeFactory.withExactBigDecimals(true);
-    when(idmDefNode.get(Mockito.<String>any())).thenReturn(new ArrayNode(nf));
-    DoubleNode canCompleteTaskNode = DoubleNode.valueOf(10.0d);
+    when(idmDefNode.get(Mockito.<String>any())).thenReturn(new ArrayNode(JsonNodeFactory.withExactBigDecimals(true)));
+    MissingNode canCompleteTaskNode = MissingNode.getInstance();
     UserTask task = new UserTask();
 
     // Act
@@ -2037,106 +1978,53 @@ class UserTaskJsonConverterDiffblueTest {
 
   /**
    * Test {@link UserTaskJsonConverter#fillCandidateGroups(JsonNode, JsonNode, UserTask)}.
-   *
    * <ul>
-   *   <li>Given {@code false}.
-   *   <li>When {@link ArrayNode} {@link ArrayNode#isNull()} return {@code false}.
+   *   <li>Given Instance.</li>
+   *   <li>When {@link ArrayNode} {@link ArrayNode#get(String)} return Instance.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link UserTaskJsonConverter#fillCandidateGroups(JsonNode, JsonNode,
-   * UserTask)}
+   * <p>
+   * Method under test: {@link UserTaskJsonConverter#fillCandidateGroups(JsonNode, JsonNode, UserTask)}
    */
   @Test
-  @DisplayName(
-      "Test fillCandidateGroups(JsonNode, JsonNode, UserTask); given 'false'; when ArrayNode isNull() return 'false'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void UserTaskJsonConverter.fillCandidateGroups(JsonNode, JsonNode, UserTask)"
-  })
-  void testFillCandidateGroups_givenFalse_whenArrayNodeIsNullReturnFalse() {
+  @DisplayName("Test fillCandidateGroups(JsonNode, JsonNode, UserTask); given Instance; when ArrayNode get(String) return Instance")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void UserTaskJsonConverter.fillCandidateGroups(JsonNode, JsonNode, UserTask)"})
+  void testFillCandidateGroups_givenInstance_whenArrayNodeGetReturnInstance() {
     // Arrange
     UserTaskJsonConverter userTaskJsonConverter = new UserTaskJsonConverter();
-
-    ArrayNode arrayNode = mock(ArrayNode.class);
-    when(arrayNode.isNull()).thenReturn(false);
-    when(arrayNode.asText()).thenReturn("As Text");
-
-    ArrayNode arrayNode2 = mock(ArrayNode.class);
-    when(arrayNode2.get(Mockito.<String>any())).thenReturn(arrayNode);
-    when(arrayNode2.isNull()).thenReturn(false);
-
-    ArrayList<JsonNode> jsonNodeList = new ArrayList<>();
-    jsonNodeList.add(arrayNode2);
-    Iterator<JsonNode> iteratorResult = jsonNodeList.iterator();
-
-    ArrayNode arrayNode3 = mock(ArrayNode.class);
-    when(arrayNode3.size()).thenReturn(3);
-    when(arrayNode3.iterator()).thenReturn(iteratorResult);
-    when(arrayNode3.isArray()).thenReturn(true);
-
     ArrayNode idmDefNode = mock(ArrayNode.class);
-    when(idmDefNode.get(Mockito.<String>any())).thenReturn(arrayNode3);
-
-    ArrayNode canCompleteTaskNode = mock(ArrayNode.class);
-    when(canCompleteTaskNode.isNull()).thenReturn(false);
-    when(canCompleteTaskNode.asText()).thenReturn("As Text");
+    when(idmDefNode.get(Mockito.<String>any())).thenReturn(MissingNode.getInstance());
+    MissingNode canCompleteTaskNode = MissingNode.getInstance();
     UserTask task = new UserTask();
 
     // Act
     userTaskJsonConverter.fillCandidateGroups(idmDefNode, canCompleteTaskNode, task);
 
-    // Assert
-    verify(arrayNode2).isNull();
-    verify(canCompleteTaskNode).isNull();
-    verify(arrayNode, atLeast(1)).isNull();
-    verify(arrayNode3, atLeast(1)).iterator();
+    // Assert that nothing has changed
     verify(idmDefNode, atLeast(1)).get(Mockito.<String>any());
-    verify(arrayNode2, atLeast(1)).get(Mockito.<String>any());
-    verify(arrayNode3, atLeast(1)).isArray();
-    verify(arrayNode3).size();
-    verify(canCompleteTaskNode).asText();
-    verify(arrayNode, atLeast(1)).asText();
-    List<String> candidateGroups = task.getCandidateGroups();
-    assertEquals(1, candidateGroups.size());
-    assertEquals(
-        "${taskAssignmentBean.assignTaskToCandidateGroups('As Text', execution)}",
-        candidateGroups.get(0));
-    Map<String, List<ExtensionElement>> extensionElements = task.getExtensionElements();
-    assertEquals(4, extensionElements.size());
-    assertEquals(1, extensionElements.get("group-info-externalid-As Text").size());
-    assertEquals(1, extensionElements.get("group-info-name-As Text").size());
-    assertTrue(extensionElements.containsKey("activiti-idm-candidate-group"));
-    assertTrue(extensionElements.containsKey("initiator-can-complete"));
+    assertTrue(task.getCandidateGroups().isEmpty());
+    assertTrue(task.getExtensionElements().isEmpty());
   }
 
   /**
    * Test {@link UserTaskJsonConverter#fillCandidateGroups(JsonNode, JsonNode, UserTask)}.
-   *
    * <ul>
-   *   <li>Given {@code true}.
-   *   <li>When {@link ArrayNode} {@link ArrayNode#isNull()} return {@code true}.
+   *   <li>Given {@code true}.</li>
+   *   <li>When {@link ArrayNode} {@link JsonNode#isNull()} return {@code true}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link UserTaskJsonConverter#fillCandidateGroups(JsonNode, JsonNode,
-   * UserTask)}
+   * <p>
+   * Method under test: {@link UserTaskJsonConverter#fillCandidateGroups(JsonNode, JsonNode, UserTask)}
    */
   @Test
-  @DisplayName(
-      "Test fillCandidateGroups(JsonNode, JsonNode, UserTask); given 'true'; when ArrayNode isNull() return 'true'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void UserTaskJsonConverter.fillCandidateGroups(JsonNode, JsonNode, UserTask)"
-  })
+  @DisplayName("Test fillCandidateGroups(JsonNode, JsonNode, UserTask); given 'true'; when ArrayNode isNull() return 'true'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void UserTaskJsonConverter.fillCandidateGroups(JsonNode, JsonNode, UserTask)"})
   void testFillCandidateGroups_givenTrue_whenArrayNodeIsNullReturnTrue() {
     // Arrange
     UserTaskJsonConverter userTaskJsonConverter = new UserTaskJsonConverter();
-
     ArrayNode arrayNode = mock(ArrayNode.class);
     when(arrayNode.isNull()).thenReturn(false);
     when(arrayNode.asText()).thenReturn("As Text");
-
     ArrayNode arrayNode2 = mock(ArrayNode.class);
     when(arrayNode2.get(Mockito.<String>any())).thenReturn(arrayNode);
     when(arrayNode2.isNull()).thenReturn(false);
@@ -2144,17 +2032,15 @@ class UserTaskJsonConverterDiffblueTest {
     ArrayList<JsonNode> jsonNodeList = new ArrayList<>();
     jsonNodeList.add(arrayNode2);
     Iterator<JsonNode> iteratorResult = jsonNodeList.iterator();
-
     ArrayNode arrayNode3 = mock(ArrayNode.class);
     when(arrayNode3.size()).thenReturn(3);
     when(arrayNode3.iterator()).thenReturn(iteratorResult);
     when(arrayNode3.isArray()).thenReturn(true);
-
     ArrayNode idmDefNode = mock(ArrayNode.class);
     when(idmDefNode.get(Mockito.<String>any())).thenReturn(arrayNode3);
-
     ArrayNode canCompleteTaskNode = mock(ArrayNode.class);
     when(canCompleteTaskNode.isNull()).thenReturn(true);
+    when(canCompleteTaskNode.asText()).thenReturn("As Text");
     UserTask task = new UserTask();
 
     // Act
@@ -2172,9 +2058,7 @@ class UserTaskJsonConverterDiffblueTest {
     verify(arrayNode, atLeast(1)).asText();
     List<String> candidateGroups = task.getCandidateGroups();
     assertEquals(1, candidateGroups.size());
-    assertEquals(
-        "${taskAssignmentBean.assignTaskToCandidateGroups('As Text', execution)}",
-        candidateGroups.get(0));
+    assertEquals("${taskAssignmentBean.assignTaskToCandidateGroups('As Text', execution)}", candidateGroups.get(0));
     Map<String, List<ExtensionElement>> extensionElements = task.getExtensionElements();
     assertEquals(4, extensionElements.size());
     assertEquals(1, extensionElements.get("group-info-externalid-As Text").size());
@@ -2185,67 +2069,22 @@ class UserTaskJsonConverterDiffblueTest {
 
   /**
    * Test {@link UserTaskJsonConverter#fillCandidateGroups(JsonNode, JsonNode, UserTask)}.
-   *
    * <ul>
-   *   <li>Given valueOf ten.
-   *   <li>When {@link ArrayNode} {@link ArrayNode#get(String)} return valueOf ten.
+   *   <li>Then calls {@link BaseElement#addExtensionElement(ExtensionElement)}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link UserTaskJsonConverter#fillCandidateGroups(JsonNode, JsonNode,
-   * UserTask)}
+   * <p>
+   * Method under test: {@link UserTaskJsonConverter#fillCandidateGroups(JsonNode, JsonNode, UserTask)}
    */
   @Test
-  @DisplayName(
-      "Test fillCandidateGroups(JsonNode, JsonNode, UserTask); given valueOf ten; when ArrayNode get(String) return valueOf ten")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void UserTaskJsonConverter.fillCandidateGroups(JsonNode, JsonNode, UserTask)"
-  })
-  void testFillCandidateGroups_givenValueOfTen_whenArrayNodeGetReturnValueOfTen() {
-    // Arrange
-    UserTaskJsonConverter userTaskJsonConverter = new UserTaskJsonConverter();
-
-    ArrayNode idmDefNode = mock(ArrayNode.class);
-    when(idmDefNode.get(Mockito.<String>any())).thenReturn(DoubleNode.valueOf(10.0d));
-    DoubleNode canCompleteTaskNode = DoubleNode.valueOf(10.0d);
-    UserTask task = new UserTask();
-
-    // Act
-    userTaskJsonConverter.fillCandidateGroups(idmDefNode, canCompleteTaskNode, task);
-
-    // Assert that nothing has changed
-    verify(idmDefNode, atLeast(1)).get(Mockito.<String>any());
-    assertTrue(task.getCandidateGroups().isEmpty());
-    assertTrue(task.getExtensionElements().isEmpty());
-  }
-
-  /**
-   * Test {@link UserTaskJsonConverter#fillCandidateGroups(JsonNode, JsonNode, UserTask)}.
-   *
-   * <ul>
-   *   <li>Then calls {@link UserTask#addExtensionElement(ExtensionElement)}.
-   * </ul>
-   *
-   * <p>Method under test: {@link UserTaskJsonConverter#fillCandidateGroups(JsonNode, JsonNode,
-   * UserTask)}
-   */
-  @Test
-  @DisplayName(
-      "Test fillCandidateGroups(JsonNode, JsonNode, UserTask); then calls addExtensionElement(ExtensionElement)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void UserTaskJsonConverter.fillCandidateGroups(JsonNode, JsonNode, UserTask)"
-  })
+  @DisplayName("Test fillCandidateGroups(JsonNode, JsonNode, UserTask); then calls addExtensionElement(ExtensionElement)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void UserTaskJsonConverter.fillCandidateGroups(JsonNode, JsonNode, UserTask)"})
   void testFillCandidateGroups_thenCallsAddExtensionElement() {
     // Arrange
     UserTaskJsonConverter userTaskJsonConverter = new UserTaskJsonConverter();
-
     ArrayNode arrayNode = mock(ArrayNode.class);
     when(arrayNode.isNull()).thenReturn(false);
     when(arrayNode.asText()).thenReturn("As Text");
-
     ArrayNode arrayNode2 = mock(ArrayNode.class);
     when(arrayNode2.get(Mockito.<String>any())).thenReturn(arrayNode);
     when(arrayNode2.isNull()).thenReturn(false);
@@ -2253,19 +2092,15 @@ class UserTaskJsonConverterDiffblueTest {
     ArrayList<JsonNode> jsonNodeList = new ArrayList<>();
     jsonNodeList.add(arrayNode2);
     Iterator<JsonNode> iteratorResult = jsonNodeList.iterator();
-
     ArrayNode arrayNode3 = mock(ArrayNode.class);
     when(arrayNode3.size()).thenReturn(3);
     when(arrayNode3.iterator()).thenReturn(iteratorResult);
     when(arrayNode3.isArray()).thenReturn(true);
-
     ArrayNode idmDefNode = mock(ArrayNode.class);
     when(idmDefNode.get(Mockito.<String>any())).thenReturn(arrayNode3);
-
     ArrayNode canCompleteTaskNode = mock(ArrayNode.class);
-    when(canCompleteTaskNode.isNull()).thenReturn(false);
+    when(canCompleteTaskNode.isNull()).thenReturn(true);
     when(canCompleteTaskNode.asText()).thenReturn("As Text");
-
     UserTask task = mock(UserTask.class);
     doNothing().when(task).addExtensionElement(Mockito.<ExtensionElement>any());
     doNothing().when(task).setCandidateGroups(Mockito.<List<String>>any());
@@ -2282,7 +2117,6 @@ class UserTaskJsonConverterDiffblueTest {
     verify(arrayNode2, atLeast(1)).get(Mockito.<String>any());
     verify(arrayNode3, atLeast(1)).isArray();
     verify(arrayNode3).size();
-    verify(canCompleteTaskNode).asText();
     verify(arrayNode, atLeast(1)).asText();
     verify(task, atLeast(1)).addExtensionElement(Mockito.<ExtensionElement>any());
     verify(task).setCandidateGroups(isA(List.class));
@@ -2290,32 +2124,137 @@ class UserTaskJsonConverterDiffblueTest {
 
   /**
    * Test {@link UserTaskJsonConverter#fillCandidateGroups(JsonNode, JsonNode, UserTask)}.
-   *
    * <ul>
-   *   <li>When {@link BinaryNode#BinaryNode(byte[])} with data is {@code AXAXAXAX} Bytes is {@code
-   *       UTF-8}.
+   *   <li>Then {@link UserTask} (default constructor) CandidateGroups Empty.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link UserTaskJsonConverter#fillCandidateGroups(JsonNode, JsonNode,
-   * UserTask)}
+   * <p>
+   * Method under test: {@link UserTaskJsonConverter#fillCandidateGroups(JsonNode, JsonNode, UserTask)}
    */
   @Test
-  @DisplayName(
-      "Test fillCandidateGroups(JsonNode, JsonNode, UserTask); when BinaryNode(byte[]) with data is 'AXAXAXAX' Bytes is 'UTF-8'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void UserTaskJsonConverter.fillCandidateGroups(JsonNode, JsonNode, UserTask)"
-  })
-  void testFillCandidateGroups_whenBinaryNodeWithDataIsAxaxaxaxBytesIsUtf8()
-      throws UnsupportedEncodingException {
+  @DisplayName("Test fillCandidateGroups(JsonNode, JsonNode, UserTask); then UserTask (default constructor) CandidateGroups Empty")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void UserTaskJsonConverter.fillCandidateGroups(JsonNode, JsonNode, UserTask)"})
+  void testFillCandidateGroups_thenUserTaskCandidateGroupsEmpty() {
     // Arrange
     UserTaskJsonConverter userTaskJsonConverter = new UserTaskJsonConverter();
+    ArrayNode arrayNode = mock(ArrayNode.class);
 
+    ArrayList<JsonNode> jsonNodeList = new ArrayList<>();
+    when(arrayNode.iterator()).thenReturn(jsonNodeList.iterator());
+    when(arrayNode.isArray()).thenReturn(true);
+    ArrayNode idmDefNode = mock(ArrayNode.class);
+    when(idmDefNode.get(Mockito.<String>any())).thenReturn(arrayNode);
+    MissingNode canCompleteTaskNode = MissingNode.getInstance();
+    UserTask task = new UserTask();
+
+    // Act
+    userTaskJsonConverter.fillCandidateGroups(idmDefNode, canCompleteTaskNode, task);
+
+    // Assert that nothing has changed
+    verify(arrayNode, atLeast(1)).iterator();
+    verify(idmDefNode, atLeast(1)).get(Mockito.<String>any());
+    verify(arrayNode, atLeast(1)).isArray();
+    assertTrue(task.getCandidateGroups().isEmpty());
+    assertTrue(task.getExtensionElements().isEmpty());
+  }
+
+  /**
+   * Test {@link UserTaskJsonConverter#fillCandidateGroups(JsonNode, JsonNode, UserTask)}.
+   * <ul>
+   *   <li>Then {@link UserTask} (default constructor) CandidateGroups first is {@code 1}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link UserTaskJsonConverter#fillCandidateGroups(JsonNode, JsonNode, UserTask)}
+   */
+  @Test
+  @DisplayName("Test fillCandidateGroups(JsonNode, JsonNode, UserTask); then UserTask (default constructor) CandidateGroups first is '1'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void UserTaskJsonConverter.fillCandidateGroups(JsonNode, JsonNode, UserTask)"})
+  void testFillCandidateGroups_thenUserTaskCandidateGroupsFirstIs1() {
+    // Arrange
+    UserTaskJsonConverter userTaskJsonConverter = new UserTaskJsonConverter();
+    ArrayNode arrayNode = mock(ArrayNode.class);
+    when(arrayNode.get(Mockito.<String>any())).thenReturn(new BigIntegerNode(BigInteger.valueOf(1L)));
+    when(arrayNode.isNull()).thenReturn(false);
+
+    ArrayList<JsonNode> jsonNodeList = new ArrayList<>();
+    jsonNodeList.add(arrayNode);
+    Iterator<JsonNode> iteratorResult = jsonNodeList.iterator();
+    ArrayNode arrayNode2 = mock(ArrayNode.class);
+    when(arrayNode2.size()).thenReturn(0);
+    when(arrayNode2.iterator()).thenReturn(iteratorResult);
+    when(arrayNode2.isArray()).thenReturn(true);
+    ArrayNode idmDefNode = mock(ArrayNode.class);
+    when(idmDefNode.get(Mockito.<String>any())).thenReturn(arrayNode2);
+    MissingNode canCompleteTaskNode = MissingNode.getInstance();
+    UserTask task = new UserTask();
+
+    // Act
+    userTaskJsonConverter.fillCandidateGroups(idmDefNode, canCompleteTaskNode, task);
+
+    // Assert
+    verify(arrayNode).isNull();
+    verify(arrayNode2, atLeast(1)).iterator();
+    verify(idmDefNode, atLeast(1)).get(Mockito.<String>any());
+    verify(arrayNode, atLeast(1)).get(Mockito.<String>any());
+    verify(arrayNode2, atLeast(1)).isArray();
+    verify(arrayNode2).size();
+    List<String> candidateGroups = task.getCandidateGroups();
+    assertEquals(1, candidateGroups.size());
+    assertEquals("1", candidateGroups.get(0));
+    Map<String, List<ExtensionElement>> extensionElements = task.getExtensionElements();
+    assertEquals(4, extensionElements.size());
+    assertEquals(1, extensionElements.get("group-info-externalid-1").size());
+    assertEquals(1, extensionElements.get("group-info-name-1").size());
+    assertTrue(extensionElements.containsKey("activiti-idm-candidate-group"));
+    assertTrue(extensionElements.containsKey("initiator-can-complete"));
+  }
+
+  /**
+   * Test {@link UserTaskJsonConverter#fillCandidateGroups(JsonNode, JsonNode, UserTask)}.
+   * <ul>
+   *   <li>When {@link ArrayNode#ArrayNode(JsonNodeFactory)} with nf is withExactBigDecimals {@code true}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link UserTaskJsonConverter#fillCandidateGroups(JsonNode, JsonNode, UserTask)}
+   */
+  @Test
+  @DisplayName("Test fillCandidateGroups(JsonNode, JsonNode, UserTask); when ArrayNode(JsonNodeFactory) with nf is withExactBigDecimals 'true'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void UserTaskJsonConverter.fillCandidateGroups(JsonNode, JsonNode, UserTask)"})
+  void testFillCandidateGroups_whenArrayNodeWithNfIsWithExactBigDecimalsTrue() {
+    // Arrange
+    UserTaskJsonConverter userTaskJsonConverter = new UserTaskJsonConverter();
+    ArrayNode idmDefNode = new ArrayNode(JsonNodeFactory.withExactBigDecimals(true));
+    MissingNode canCompleteTaskNode = MissingNode.getInstance();
+    UserTask task = new UserTask();
+
+    // Act
+    userTaskJsonConverter.fillCandidateGroups(idmDefNode, canCompleteTaskNode, task);
+
+    // Assert that nothing has changed
+    assertTrue(task.getCandidateGroups().isEmpty());
+    assertTrue(task.getExtensionElements().isEmpty());
+  }
+
+  /**
+   * Test {@link UserTaskJsonConverter#fillCandidateGroups(JsonNode, JsonNode, UserTask)}.
+   * <ul>
+   *   <li>When {@link ArrayNode#ArrayNode(JsonNodeFactory)} with nf is withExactBigDecimals {@code true}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link UserTaskJsonConverter#fillCandidateGroups(JsonNode, JsonNode, UserTask)}
+   */
+  @Test
+  @DisplayName("Test fillCandidateGroups(JsonNode, JsonNode, UserTask); when ArrayNode(JsonNodeFactory) with nf is withExactBigDecimals 'true'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void UserTaskJsonConverter.fillCandidateGroups(JsonNode, JsonNode, UserTask)"})
+  void testFillCandidateGroups_whenArrayNodeWithNfIsWithExactBigDecimalsTrue2() {
+    // Arrange
+    UserTaskJsonConverter userTaskJsonConverter = new UserTaskJsonConverter();
     ArrayNode arrayNode = mock(ArrayNode.class);
     when(arrayNode.isNull()).thenReturn(false);
     when(arrayNode.asText()).thenReturn("As Text");
-
     ArrayNode arrayNode2 = mock(ArrayNode.class);
     when(arrayNode2.get(Mockito.<String>any())).thenReturn(arrayNode);
     when(arrayNode2.isNull()).thenReturn(false);
@@ -2323,15 +2262,13 @@ class UserTaskJsonConverterDiffblueTest {
     ArrayList<JsonNode> jsonNodeList = new ArrayList<>();
     jsonNodeList.add(arrayNode2);
     Iterator<JsonNode> iteratorResult = jsonNodeList.iterator();
-
     ArrayNode arrayNode3 = mock(ArrayNode.class);
     when(arrayNode3.size()).thenReturn(3);
     when(arrayNode3.iterator()).thenReturn(iteratorResult);
     when(arrayNode3.isArray()).thenReturn(true);
-
     ArrayNode idmDefNode = mock(ArrayNode.class);
     when(idmDefNode.get(Mockito.<String>any())).thenReturn(arrayNode3);
-    BinaryNode canCompleteTaskNode = new BinaryNode("AXAXAXAX".getBytes("UTF-8"));
+    ArrayNode canCompleteTaskNode = new ArrayNode(JsonNodeFactory.withExactBigDecimals(true));
     UserTask task = new UserTask();
 
     // Act
@@ -2348,9 +2285,7 @@ class UserTaskJsonConverterDiffblueTest {
     verify(arrayNode, atLeast(1)).asText();
     List<String> candidateGroups = task.getCandidateGroups();
     assertEquals(1, candidateGroups.size());
-    assertEquals(
-        "${taskAssignmentBean.assignTaskToCandidateGroups('As Text', execution)}",
-        candidateGroups.get(0));
+    assertEquals("${taskAssignmentBean.assignTaskToCandidateGroups('As Text', execution)}", candidateGroups.get(0));
     Map<String, List<ExtensionElement>> extensionElements = task.getExtensionElements();
     assertEquals(4, extensionElements.size());
     assertEquals(1, extensionElements.get("group-info-externalid-As Text").size());
@@ -2361,29 +2296,50 @@ class UserTaskJsonConverterDiffblueTest {
 
   /**
    * Test {@link UserTaskJsonConverter#fillCandidateGroups(JsonNode, JsonNode, UserTask)}.
-   *
    * <ul>
-   *   <li>When {@code null}.
+   *   <li>When Instance.</li>
+   *   <li>Then {@link UserTask} (default constructor) CandidateGroups Empty.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link UserTaskJsonConverter#fillCandidateGroups(JsonNode, JsonNode,
-   * UserTask)}
+   * <p>
+   * Method under test: {@link UserTaskJsonConverter#fillCandidateGroups(JsonNode, JsonNode, UserTask)}
+   */
+  @Test
+  @DisplayName("Test fillCandidateGroups(JsonNode, JsonNode, UserTask); when Instance; then UserTask (default constructor) CandidateGroups Empty")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void UserTaskJsonConverter.fillCandidateGroups(JsonNode, JsonNode, UserTask)"})
+  void testFillCandidateGroups_whenInstance_thenUserTaskCandidateGroupsEmpty() {
+    // Arrange
+    UserTaskJsonConverter userTaskJsonConverter = new UserTaskJsonConverter();
+    MissingNode idmDefNode = MissingNode.getInstance();
+    MissingNode canCompleteTaskNode = MissingNode.getInstance();
+    UserTask task = new UserTask();
+
+    // Act
+    userTaskJsonConverter.fillCandidateGroups(idmDefNode, canCompleteTaskNode, task);
+
+    // Assert that nothing has changed
+    assertTrue(task.getCandidateGroups().isEmpty());
+    assertTrue(task.getExtensionElements().isEmpty());
+  }
+
+  /**
+   * Test {@link UserTaskJsonConverter#fillCandidateGroups(JsonNode, JsonNode, UserTask)}.
+   * <ul>
+   *   <li>When {@code null}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link UserTaskJsonConverter#fillCandidateGroups(JsonNode, JsonNode, UserTask)}
    */
   @Test
   @DisplayName("Test fillCandidateGroups(JsonNode, JsonNode, UserTask); when 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void UserTaskJsonConverter.fillCandidateGroups(JsonNode, JsonNode, UserTask)"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void UserTaskJsonConverter.fillCandidateGroups(JsonNode, JsonNode, UserTask)"})
   void testFillCandidateGroups_whenNull() {
     // Arrange
     UserTaskJsonConverter userTaskJsonConverter = new UserTaskJsonConverter();
-
     ArrayNode arrayNode = mock(ArrayNode.class);
     when(arrayNode.isNull()).thenReturn(false);
     when(arrayNode.asText()).thenReturn("As Text");
-
     ArrayNode arrayNode2 = mock(ArrayNode.class);
     when(arrayNode2.get(Mockito.<String>any())).thenReturn(arrayNode);
     when(arrayNode2.isNull()).thenReturn(false);
@@ -2391,12 +2347,10 @@ class UserTaskJsonConverterDiffblueTest {
     ArrayList<JsonNode> jsonNodeList = new ArrayList<>();
     jsonNodeList.add(arrayNode2);
     Iterator<JsonNode> iteratorResult = jsonNodeList.iterator();
-
     ArrayNode arrayNode3 = mock(ArrayNode.class);
     when(arrayNode3.size()).thenReturn(3);
     when(arrayNode3.iterator()).thenReturn(iteratorResult);
     when(arrayNode3.isArray()).thenReturn(true);
-
     ArrayNode idmDefNode = mock(ArrayNode.class);
     when(idmDefNode.get(Mockito.<String>any())).thenReturn(arrayNode3);
     UserTask task = new UserTask();
@@ -2415,9 +2369,7 @@ class UserTaskJsonConverterDiffblueTest {
     verify(arrayNode, atLeast(1)).asText();
     List<String> candidateGroups = task.getCandidateGroups();
     assertEquals(1, candidateGroups.size());
-    assertEquals(
-        "${taskAssignmentBean.assignTaskToCandidateGroups('As Text', execution)}",
-        candidateGroups.get(0));
+    assertEquals("${taskAssignmentBean.assignTaskToCandidateGroups('As Text', execution)}", candidateGroups.get(0));
     Map<String, List<ExtensionElement>> extensionElements = task.getExtensionElements();
     assertEquals(4, extensionElements.size());
     assertEquals(1, extensionElements.get("group-info-externalid-As Text").size());
@@ -2427,97 +2379,14 @@ class UserTaskJsonConverterDiffblueTest {
   }
 
   /**
-   * Test {@link UserTaskJsonConverter#fillCandidateGroups(JsonNode, JsonNode, UserTask)}.
-   *
-   * <ul>
-   *   <li>When valueOf ten.
-   *   <li>Then {@link UserTask} (default constructor) CandidateGroups Empty.
-   * </ul>
-   *
-   * <p>Method under test: {@link UserTaskJsonConverter#fillCandidateGroups(JsonNode, JsonNode,
-   * UserTask)}
-   */
-  @Test
-  @DisplayName(
-      "Test fillCandidateGroups(JsonNode, JsonNode, UserTask); when valueOf ten; then UserTask (default constructor) CandidateGroups Empty")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void UserTaskJsonConverter.fillCandidateGroups(JsonNode, JsonNode, UserTask)"
-  })
-  void testFillCandidateGroups_whenValueOfTen_thenUserTaskCandidateGroupsEmpty() {
-    // Arrange
-    UserTaskJsonConverter userTaskJsonConverter = new UserTaskJsonConverter();
-    DoubleNode idmDefNode = DoubleNode.valueOf(10.0d);
-    DoubleNode canCompleteTaskNode = DoubleNode.valueOf(10.0d);
-    UserTask task = new UserTask();
-
-    // Act
-    userTaskJsonConverter.fillCandidateGroups(idmDefNode, canCompleteTaskNode, task);
-
-    // Assert that nothing has changed
-    assertTrue(task.getCandidateGroups().isEmpty());
-    assertTrue(task.getExtensionElements().isEmpty());
-  }
-
-  /**
-   * Test {@link UserTaskJsonConverter#fillCandidateGroups(JsonNode, JsonNode, UserTask)}.
-   *
-   * <ul>
-   *   <li>When valueOf ten.
-   *   <li>Then {@link UserTask} (default constructor) CandidateGroups Empty.
-   * </ul>
-   *
-   * <p>Method under test: {@link UserTaskJsonConverter#fillCandidateGroups(JsonNode, JsonNode,
-   * UserTask)}
-   */
-  @Test
-  @DisplayName(
-      "Test fillCandidateGroups(JsonNode, JsonNode, UserTask); when valueOf ten; then UserTask (default constructor) CandidateGroups Empty")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void UserTaskJsonConverter.fillCandidateGroups(JsonNode, JsonNode, UserTask)"
-  })
-  void testFillCandidateGroups_whenValueOfTen_thenUserTaskCandidateGroupsEmpty2() {
-    // Arrange
-    UserTaskJsonConverter userTaskJsonConverter = new UserTaskJsonConverter();
-
-    ArrayNode arrayNode = mock(ArrayNode.class);
-
-    ArrayList<JsonNode> jsonNodeList = new ArrayList<>();
-    when(arrayNode.iterator()).thenReturn(jsonNodeList.iterator());
-    when(arrayNode.isArray()).thenReturn(true);
-
-    ArrayNode idmDefNode = mock(ArrayNode.class);
-    when(idmDefNode.get(Mockito.<String>any())).thenReturn(arrayNode);
-    DoubleNode canCompleteTaskNode = DoubleNode.valueOf(10.0d);
-    UserTask task = new UserTask();
-
-    // Act
-    userTaskJsonConverter.fillCandidateGroups(idmDefNode, canCompleteTaskNode, task);
-
-    // Assert that nothing has changed
-    verify(arrayNode, atLeast(1)).iterator();
-    verify(idmDefNode, atLeast(1)).get(Mockito.<String>any());
-    verify(arrayNode, atLeast(1)).isArray();
-    assertTrue(task.getCandidateGroups().isEmpty());
-    assertTrue(task.getExtensionElements().isEmpty());
-  }
-
-  /**
    * Test {@link UserTaskJsonConverter#addInitiatorCanCompleteExtensionElement(boolean, UserTask)}.
-   *
-   * <p>Method under test: {@link
-   * UserTaskJsonConverter#addInitiatorCanCompleteExtensionElement(boolean, UserTask)}
+   * <p>
+   * Method under test: {@link UserTaskJsonConverter#addInitiatorCanCompleteExtensionElement(boolean, UserTask)}
    */
   @Test
   @DisplayName("Test addInitiatorCanCompleteExtensionElement(boolean, UserTask)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void UserTaskJsonConverter.addInitiatorCanCompleteExtensionElement(boolean, UserTask)"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void UserTaskJsonConverter.addInitiatorCanCompleteExtensionElement(boolean, UserTask)"})
   void testAddInitiatorCanCompleteExtensionElement() {
     // Arrange
     UserTaskJsonConverter userTaskJsonConverter = new UserTaskJsonConverter();
@@ -2540,92 +2409,46 @@ class UserTaskJsonConverterDiffblueTest {
     assertTrue(getResult2.getAttributes().isEmpty());
     assertTrue(getResult2.getExtensionElements().isEmpty());
     assertTrue(getResult2.getChildElements().isEmpty());
-    assertEquals(Boolean.TRUE.toString(), getResult2.getElementText());
+    String expectedElementText = Boolean.TRUE.toString();
+    assertEquals(expectedElementText, getResult2.getElementText());
     assertEquals(BaseBpmnJsonConverter.NAMESPACE, getResult2.getNamespace());
   }
 
   /**
-   * Test {@link UserTaskJsonConverter#addExtensionElement(String, JsonNode, UserTask)} with {@code
-   * name}, {@code elementNode}, {@code task}.
-   *
-   * <p>Method under test: {@link UserTaskJsonConverter#addExtensionElement(String, JsonNode,
-   * UserTask)}
+   * Test {@link UserTaskJsonConverter#addExtensionElement(String, JsonNode, UserTask)} with {@code name}, {@code elementNode}, {@code task}.
+   * <p>
+   * Method under test: {@link UserTaskJsonConverter#addExtensionElement(String, JsonNode, UserTask)}
    */
   @Test
-  @DisplayName(
-      "Test addExtensionElement(String, JsonNode, UserTask) with 'name', 'elementNode', 'task'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test addExtensionElement(String, JsonNode, UserTask) with 'name', 'elementNode', 'task'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void UserTaskJsonConverter.addExtensionElement(String, JsonNode, UserTask)"})
   void testAddExtensionElementWithNameElementNodeTask() {
     // Arrange
     UserTaskJsonConverter userTaskJsonConverter = new UserTaskJsonConverter();
-    DoubleNode elementNode = DoubleNode.valueOf(10.0d);
+    ArrayNode elementNode = new ArrayNode(JsonNodeFactory.withExactBigDecimals(true));
     UserTask task = new UserTask();
 
     // Act
     userTaskJsonConverter.addExtensionElement("Name", elementNode, task);
-
-    // Assert
-    Map<String, List<ExtensionElement>> extensionElements = task.getExtensionElements();
-    assertEquals(1, extensionElements.size());
-    List<ExtensionElement> getResult = extensionElements.get("Name");
-    assertEquals(1, getResult.size());
-    ExtensionElement getResult2 = getResult.get(0);
-    assertEquals("10.0", getResult2.getElementText());
-    assertEquals("Name", getResult2.getName());
-    assertEquals("modeler", getResult2.getNamespacePrefix());
-    assertNull(getResult2.getId());
-    assertEquals(0, getResult2.getXmlColumnNumber());
-    assertEquals(0, getResult2.getXmlRowNumber());
-    assertTrue(getResult2.getAttributes().isEmpty());
-    assertTrue(getResult2.getExtensionElements().isEmpty());
-    assertTrue(getResult2.getChildElements().isEmpty());
-    assertEquals(BaseBpmnJsonConverter.NAMESPACE, getResult2.getNamespace());
-  }
-
-  /**
-   * Test {@link UserTaskJsonConverter#addExtensionElement(String, JsonNode, UserTask)} with {@code
-   * name}, {@code elementNode}, {@code task}.
-   *
-   * <p>Method under test: {@link UserTaskJsonConverter#addExtensionElement(String, JsonNode,
-   * UserTask)}
-   */
-  @Test
-  @DisplayName(
-      "Test addExtensionElement(String, JsonNode, UserTask) with 'name', 'elementNode', 'task'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void UserTaskJsonConverter.addExtensionElement(String, JsonNode, UserTask)"})
-  void testAddExtensionElementWithNameElementNodeTask2() {
-    // Arrange
-    UserTaskJsonConverter userTaskJsonConverter = new UserTaskJsonConverter();
-    UserTask task = new UserTask();
-
-    // Act
-    userTaskJsonConverter.addExtensionElement("Name", (JsonNode) null, task);
 
     // Assert that nothing has changed
     assertTrue(task.getExtensionElements().isEmpty());
   }
 
   /**
-   * Test {@link UserTaskJsonConverter#addExtensionElement(String, JsonNode, UserTask)} with {@code
-   * name}, {@code elementNode}, {@code task}.
-   *
-   * <p>Method under test: {@link UserTaskJsonConverter#addExtensionElement(String, JsonNode,
-   * UserTask)}
+   * Test {@link UserTaskJsonConverter#addExtensionElement(String, JsonNode, UserTask)} with {@code name}, {@code elementNode}, {@code task}.
+   * <p>
+   * Method under test: {@link UserTaskJsonConverter#addExtensionElement(String, JsonNode, UserTask)}
    */
   @Test
-  @DisplayName(
-      "Test addExtensionElement(String, JsonNode, UserTask) with 'name', 'elementNode', 'task'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test addExtensionElement(String, JsonNode, UserTask) with 'name', 'elementNode', 'task'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void UserTaskJsonConverter.addExtensionElement(String, JsonNode, UserTask)"})
-  void testAddExtensionElementWithNameElementNodeTask3() {
+  void testAddExtensionElementWithNameElementNodeTask2() {
     // Arrange
     UserTaskJsonConverter userTaskJsonConverter = new UserTaskJsonConverter();
-    BinaryNode elementNode = new BinaryNode(new byte[] {'A', 1, 'A', 1, 'A', 1, 'A', 1});
+    BigIntegerNode elementNode = new BigIntegerNode(BigInteger.valueOf(1L));
     UserTask task = new UserTask();
 
     // Act
@@ -2637,8 +2460,8 @@ class UserTaskJsonConverterDiffblueTest {
     List<ExtensionElement> getResult = extensionElements.get("Name");
     assertEquals(1, getResult.size());
     ExtensionElement getResult2 = getResult.get(0);
+    assertEquals("1", getResult2.getElementText());
     assertEquals("Name", getResult2.getName());
-    assertEquals("QQFBAUEBQQE=", getResult2.getElementText());
     assertEquals("modeler", getResult2.getNamespacePrefix());
     assertNull(getResult2.getId());
     assertEquals(0, getResult2.getXmlColumnNumber());
@@ -2650,21 +2473,16 @@ class UserTaskJsonConverterDiffblueTest {
   }
 
   /**
-   * Test {@link UserTaskJsonConverter#addExtensionElement(String, JsonNode, UserTask)} with {@code
-   * name}, {@code elementNode}, {@code task}.
-   *
+   * Test {@link UserTaskJsonConverter#addExtensionElement(String, JsonNode, UserTask)} with {@code name}, {@code elementNode}, {@code task}.
    * <ul>
-   *   <li>When Instance.
+   *   <li>When Instance.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link UserTaskJsonConverter#addExtensionElement(String, JsonNode,
-   * UserTask)}
+   * <p>
+   * Method under test: {@link UserTaskJsonConverter#addExtensionElement(String, JsonNode, UserTask)}
    */
   @Test
-  @DisplayName(
-      "Test addExtensionElement(String, JsonNode, UserTask) with 'name', 'elementNode', 'task'; when Instance")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test addExtensionElement(String, JsonNode, UserTask) with 'name', 'elementNode', 'task'; when Instance")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void UserTaskJsonConverter.addExtensionElement(String, JsonNode, UserTask)"})
   void testAddExtensionElementWithNameElementNodeTask_whenInstance() {
     // Arrange
@@ -2680,21 +2498,16 @@ class UserTaskJsonConverterDiffblueTest {
   }
 
   /**
-   * Test {@link UserTaskJsonConverter#addExtensionElement(String, JsonNode, UserTask)} with {@code
-   * name}, {@code elementNode}, {@code task}.
-   *
+   * Test {@link UserTaskJsonConverter#addExtensionElement(String, JsonNode, UserTask)} with {@code name}, {@code elementNode}, {@code task}.
    * <ul>
-   *   <li>When Instance.
+   *   <li>When Instance.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link UserTaskJsonConverter#addExtensionElement(String, JsonNode,
-   * UserTask)}
+   * <p>
+   * Method under test: {@link UserTaskJsonConverter#addExtensionElement(String, JsonNode, UserTask)}
    */
   @Test
-  @DisplayName(
-      "Test addExtensionElement(String, JsonNode, UserTask) with 'name', 'elementNode', 'task'; when Instance")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test addExtensionElement(String, JsonNode, UserTask) with 'name', 'elementNode', 'task'; when Instance")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void UserTaskJsonConverter.addExtensionElement(String, JsonNode, UserTask)"})
   void testAddExtensionElementWithNameElementNodeTask_whenInstance2() {
     // Arrange
@@ -2710,47 +2523,37 @@ class UserTaskJsonConverterDiffblueTest {
   }
 
   /**
-   * Test {@link UserTaskJsonConverter#addExtensionElement(String, JsonNode, UserTask)} with {@code
-   * name}, {@code elementNode}, {@code task}.
-   *
+   * Test {@link UserTaskJsonConverter#addExtensionElement(String, JsonNode, UserTask)} with {@code name}, {@code elementNode}, {@code task}.
    * <ul>
-   *   <li>When valueOf ten.
+   *   <li>When {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link UserTaskJsonConverter#addExtensionElement(String, JsonNode,
-   * UserTask)}
+   * <p>
+   * Method under test: {@link UserTaskJsonConverter#addExtensionElement(String, JsonNode, UserTask)}
    */
   @Test
-  @DisplayName(
-      "Test addExtensionElement(String, JsonNode, UserTask) with 'name', 'elementNode', 'task'; when valueOf ten")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test addExtensionElement(String, JsonNode, UserTask) with 'name', 'elementNode', 'task'; when 'null'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void UserTaskJsonConverter.addExtensionElement(String, JsonNode, UserTask)"})
-  void testAddExtensionElementWithNameElementNodeTask_whenValueOfTen() {
+  void testAddExtensionElementWithNameElementNodeTask_whenNull() {
     // Arrange
     UserTaskJsonConverter userTaskJsonConverter = new UserTaskJsonConverter();
-    DoubleNode elementNode = DoubleNode.valueOf(10.0d);
     UserTask task = new UserTask();
 
     // Act
-    userTaskJsonConverter.addExtensionElement(null, elementNode, task);
+    userTaskJsonConverter.addExtensionElement("Name", (JsonNode) null, task);
 
     // Assert that nothing has changed
     assertTrue(task.getExtensionElements().isEmpty());
   }
 
   /**
-   * Test {@link UserTaskJsonConverter#addExtensionElement(String, String, UserTask)} with {@code
-   * name}, {@code elementText}, {@code task}.
-   *
-   * <p>Method under test: {@link UserTaskJsonConverter#addExtensionElement(String, String,
-   * UserTask)}
+   * Test {@link UserTaskJsonConverter#addExtensionElement(String, String, UserTask)} with {@code name}, {@code elementText}, {@code task}.
+   * <p>
+   * Method under test: {@link UserTaskJsonConverter#addExtensionElement(String, String, UserTask)}
    */
   @Test
-  @DisplayName(
-      "Test addExtensionElement(String, String, UserTask) with 'name', 'elementText', 'task'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test addExtensionElement(String, String, UserTask) with 'name', 'elementText', 'task'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void UserTaskJsonConverter.addExtensionElement(String, String, UserTask)"})
   void testAddExtensionElementWithNameElementTextTask() {
     // Arrange
@@ -2779,17 +2582,13 @@ class UserTaskJsonConverterDiffblueTest {
   }
 
   /**
-   * Test {@link UserTaskJsonConverter#addExtensionElement(String, String, UserTask)} with {@code
-   * name}, {@code elementText}, {@code task}.
-   *
-   * <p>Method under test: {@link UserTaskJsonConverter#addExtensionElement(String, String,
-   * UserTask)}
+   * Test {@link UserTaskJsonConverter#addExtensionElement(String, String, UserTask)} with {@code name}, {@code elementText}, {@code task}.
+   * <p>
+   * Method under test: {@link UserTaskJsonConverter#addExtensionElement(String, String, UserTask)}
    */
   @Test
-  @DisplayName(
-      "Test addExtensionElement(String, String, UserTask) with 'name', 'elementText', 'task'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test addExtensionElement(String, String, UserTask) with 'name', 'elementText', 'task'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void UserTaskJsonConverter.addExtensionElement(String, String, UserTask)"})
   void testAddExtensionElementWithNameElementTextTask2() {
     // Arrange
@@ -2805,13 +2604,12 @@ class UserTaskJsonConverterDiffblueTest {
 
   /**
    * Test new {@link UserTaskJsonConverter} (default constructor).
-   *
-   * <p>Method under test: default or parameterless constructor of {@link UserTaskJsonConverter}
+   * <p>
+   * Method under test: default or parameterless constructor of {@link UserTaskJsonConverter}
    */
   @Test
   @DisplayName("Test new UserTaskJsonConverter (default constructor)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void UserTaskJsonConverter.<init>()"})
   void testNewUserTaskJsonConverter() {
     // Arrange and Act

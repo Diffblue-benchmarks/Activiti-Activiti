@@ -19,11 +19,8 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import org.junit.Test;
@@ -32,9 +29,8 @@ import org.junit.experimental.categories.Category;
 public class MessageFlowDiffblueTest {
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>{@link MessageFlow#MessageFlow()}
    *   <li>{@link MessageFlow#setMessageRef(String)}
@@ -49,21 +45,12 @@ public class MessageFlowDiffblueTest {
    * </ul>
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void MessageFlow.<init>()",
-    "void MessageFlow.<init>(String, String)",
-    "String MessageFlow.getMessageRef()",
-    "String MessageFlow.getName()",
-    "String MessageFlow.getSourceRef()",
-    "String MessageFlow.getTargetRef()",
-    "void MessageFlow.setMessageRef(String)",
-    "void MessageFlow.setName(String)",
-    "void MessageFlow.setSourceRef(String)",
-    "void MessageFlow.setTargetRef(String)",
-    "String MessageFlow.toString()"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void MessageFlow.<init>()", "void MessageFlow.<init>(String, String)",
+      "String MessageFlow.getMessageRef()", "String MessageFlow.getName()", "String MessageFlow.getSourceRef()",
+      "String MessageFlow.getTargetRef()", "void MessageFlow.setMessageRef(String)", "void MessageFlow.setName(String)",
+      "void MessageFlow.setSourceRef(String)", "void MessageFlow.setTargetRef(String)",
+      "String MessageFlow.toString()"})
   public void testGettersAndSetters() {
     // Arrange and Act
     MessageFlow actualMessageFlow = new MessageFlow();
@@ -91,13 +78,11 @@ public class MessageFlowDiffblueTest {
 
   /**
    * Test getters and setters.
-   *
    * <ul>
-   *   <li>When {@code Source Ref}.
+   *   <li>When {@code Source Ref}.</li>
    * </ul>
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>{@link MessageFlow#MessageFlow(String, String)}
    *   <li>{@link MessageFlow#setMessageRef(String)}
@@ -112,21 +97,12 @@ public class MessageFlowDiffblueTest {
    * </ul>
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void MessageFlow.<init>()",
-    "void MessageFlow.<init>(String, String)",
-    "String MessageFlow.getMessageRef()",
-    "String MessageFlow.getName()",
-    "String MessageFlow.getSourceRef()",
-    "String MessageFlow.getTargetRef()",
-    "void MessageFlow.setMessageRef(String)",
-    "void MessageFlow.setName(String)",
-    "void MessageFlow.setSourceRef(String)",
-    "void MessageFlow.setTargetRef(String)",
-    "String MessageFlow.toString()"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void MessageFlow.<init>()", "void MessageFlow.<init>(String, String)",
+      "String MessageFlow.getMessageRef()", "String MessageFlow.getName()", "String MessageFlow.getSourceRef()",
+      "String MessageFlow.getTargetRef()", "void MessageFlow.setMessageRef(String)", "void MessageFlow.setName(String)",
+      "void MessageFlow.setSourceRef(String)", "void MessageFlow.setTargetRef(String)",
+      "String MessageFlow.toString()"})
   public void testGettersAndSetters_whenSourceRef() {
     // Arrange and Act
     MessageFlow actualMessageFlow = new MessageFlow("Source Ref", "Target Ref");
@@ -154,82 +130,14 @@ public class MessageFlowDiffblueTest {
 
   /**
    * Test {@link MessageFlow#clone()}.
-   *
    * <ul>
-   *   <li>Given {@link HashMap#HashMap()} {@code 42} is {@link ArrayList#ArrayList()}.
-   *   <li>Then return Attributes size is one.
+   *   <li>Given {@link MessageFlow#MessageFlow(String, String)} with {@code Source Ref} and {@code Target Ref} ExtensionElements is {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link MessageFlow#clone()}
+   * <p>
+   * Method under test: {@link MessageFlow#clone()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"MessageFlow MessageFlow.clone()"})
-  public void testClone_givenHashMap42IsArrayList_thenReturnAttributesSizeIsOne() {
-    // Arrange
-    HashMap<String, List<ExtensionElement>> extensionElements = new HashMap<>();
-    extensionElements.put("42", new ArrayList<>());
-    extensionElements.put("foo", new ArrayList<>());
-
-    MessageFlow messageFlow = new MessageFlow("Source Ref", "Target Ref");
-    messageFlow.setExtensionElements(extensionElements);
-    ExtensionAttribute attribute = new ExtensionAttribute("Name");
-    messageFlow.addAttribute(attribute);
-
-    // Act and Assert
-    Map<String, List<ExtensionAttribute>> attributes = messageFlow.clone().getAttributes();
-    assertEquals(1, attributes.size());
-    List<ExtensionAttribute> getResult = attributes.get("Name");
-    assertEquals(1, getResult.size());
-    assertSame(attribute, getResult.get(0));
-  }
-
-  /**
-   * Test {@link MessageFlow#clone()}.
-   *
-   * <ul>
-   *   <li>Given {@link HashMap#HashMap()} {@code foo} is {@link ArrayList#ArrayList()}.
-   *   <li>Then return Attributes size is one.
-   * </ul>
-   *
-   * <p>Method under test: {@link MessageFlow#clone()}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"MessageFlow MessageFlow.clone()"})
-  public void testClone_givenHashMapFooIsArrayList_thenReturnAttributesSizeIsOne() {
-    // Arrange
-    HashMap<String, List<ExtensionElement>> extensionElements = new HashMap<>();
-    extensionElements.put("foo", new ArrayList<>());
-
-    MessageFlow messageFlow = new MessageFlow("Source Ref", "Target Ref");
-    messageFlow.setExtensionElements(extensionElements);
-    ExtensionAttribute attribute = new ExtensionAttribute("Name");
-    messageFlow.addAttribute(attribute);
-
-    // Act and Assert
-    Map<String, List<ExtensionAttribute>> attributes = messageFlow.clone().getAttributes();
-    assertEquals(1, attributes.size());
-    List<ExtensionAttribute> getResult = attributes.get("Name");
-    assertEquals(1, getResult.size());
-    assertSame(attribute, getResult.get(0));
-  }
-
-  /**
-   * Test {@link MessageFlow#clone()}.
-   *
-   * <ul>
-   *   <li>Given {@link MessageFlow#MessageFlow(String, String)} with {@code Source Ref} and {@code
-   *       Target Ref} ExtensionElements is {@code null}.
-   * </ul>
-   *
-   * <p>Method under test: {@link MessageFlow#clone()}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"MessageFlow MessageFlow.clone()"})
   public void testClone_givenMessageFlowWithSourceRefAndTargetRefExtensionElementsIsNull() {
     // Arrange
@@ -254,22 +162,19 @@ public class MessageFlowDiffblueTest {
 
   /**
    * Test {@link MessageFlow#clone()}.
-   *
    * <ul>
-   *   <li>Given {@link MessageFlow#MessageFlow(String, String)} with {@code Source Ref} and {@code
-   *       Target Ref}.
-   *   <li>Then return {@code Source Ref}.
+   *   <li>Given {@link MessageFlow#MessageFlow(String, String)} with {@code Source Ref} and {@code Target Ref}.</li>
+   *   <li>Then return {@code Source Ref}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link MessageFlow#clone()}
+   * <p>
+   * Method under test: {@link MessageFlow#clone()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"MessageFlow MessageFlow.clone()"})
   public void testClone_givenMessageFlowWithSourceRefAndTargetRef_thenReturnSourceRef() {
     // Arrange and Act
-    MessageFlow actualCloneResult = new MessageFlow("Source Ref", "Target Ref").clone();
+    MessageFlow actualCloneResult = (new MessageFlow("Source Ref", "Target Ref")).clone();
 
     // Assert
     assertEquals("Source Ref", actualCloneResult.getSourceRef());
@@ -285,16 +190,14 @@ public class MessageFlowDiffblueTest {
 
   /**
    * Test {@link MessageFlow#clone()}.
-   *
    * <ul>
-   *   <li>Then return Attributes size is one.
+   *   <li>Then return Attributes size is one.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link MessageFlow#clone()}
+   * <p>
+   * Method under test: {@link MessageFlow#clone()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"MessageFlow MessageFlow.clone()"})
   public void testClone_thenReturnAttributesSizeIsOne() {
     // Arrange
@@ -312,16 +215,14 @@ public class MessageFlowDiffblueTest {
 
   /**
    * Test {@link MessageFlow#clone()}.
-   *
    * <ul>
-   *   <li>Then return Attributes size is two.
+   *   <li>Then return Attributes size is two.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link MessageFlow#clone()}
+   * <p>
+   * Method under test: {@link MessageFlow#clone()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"MessageFlow MessageFlow.clone()"})
   public void testClone_thenReturnAttributesSizeIsTwo() {
     // Arrange

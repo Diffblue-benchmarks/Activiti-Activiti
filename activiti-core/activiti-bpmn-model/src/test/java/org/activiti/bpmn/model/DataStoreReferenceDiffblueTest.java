@@ -18,8 +18,7 @@ package org.activiti.bpmn.model;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
@@ -27,21 +26,19 @@ import org.junit.experimental.categories.Category;
 public class DataStoreReferenceDiffblueTest {
   /**
    * Test {@link DataStoreReference#clone()}.
-   *
    * <ul>
-   *   <li>Given {@link DataStoreReference} (default constructor).
-   *   <li>Then return Id is {@code null}.
+   *   <li>Given {@link DataStoreReference} (default constructor).</li>
+   *   <li>Then return Id is {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link DataStoreReference#clone()}
+   * <p>
+   * Method under test: {@link DataStoreReference#clone()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"DataStoreReference DataStoreReference.clone()"})
   public void testClone_givenDataStoreReference_thenReturnIdIsNull() {
     // Arrange and Act
-    DataStoreReference actualCloneResult = new DataStoreReference().clone();
+    DataStoreReference actualCloneResult = (new DataStoreReference()).clone();
 
     // Assert
     assertNull(actualCloneResult.getId());
@@ -61,9 +58,8 @@ public class DataStoreReferenceDiffblueTest {
 
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>default or parameterless constructor of {@link DataStoreReference}
    *   <li>{@link DataStoreReference#setDataState(String)}
@@ -75,17 +71,11 @@ public class DataStoreReferenceDiffblueTest {
    * </ul>
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void DataStoreReference.<init>()",
-    "String DataStoreReference.getDataState()",
-    "String DataStoreReference.getDataStoreRef()",
-    "String DataStoreReference.getItemSubjectRef()",
-    "void DataStoreReference.setDataState(String)",
-    "void DataStoreReference.setDataStoreRef(String)",
-    "void DataStoreReference.setItemSubjectRef(String)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void DataStoreReference.<init>()", "String DataStoreReference.getDataState()",
+      "String DataStoreReference.getDataStoreRef()", "String DataStoreReference.getItemSubjectRef()",
+      "void DataStoreReference.setDataState(String)", "void DataStoreReference.setDataStoreRef(String)",
+      "void DataStoreReference.setItemSubjectRef(String)"})
   public void testGettersAndSetters() {
     // Arrange and Act
     DataStoreReference actualDataStoreReference = new DataStoreReference();

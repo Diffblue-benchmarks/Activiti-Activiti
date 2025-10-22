@@ -16,8 +16,7 @@
 package org.activiti.engine.impl.event;
 
 import static org.junit.Assert.assertEquals;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
@@ -25,24 +24,18 @@ import org.junit.experimental.categories.Category;
 public class SignalEventHandlerDiffblueTest {
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>default or parameterless constructor of {@link SignalEventHandler}
    *   <li>{@link SignalEventHandler#getEventHandlerType()}
    * </ul>
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void SignalEventHandler.<init>()",
-    "java.lang.String SignalEventHandler.getEventHandlerType()"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void SignalEventHandler.<init>()", "java.lang.String SignalEventHandler.getEventHandlerType()"})
   public void testGettersAndSetters() {
     // Arrange, Act and Assert
-    assertEquals(
-        SignalEventHandler.EVENT_HANDLER_TYPE, new SignalEventHandler().getEventHandlerType());
+    assertEquals(SignalEventHandler.EVENT_HANDLER_TYPE, (new SignalEventHandler()).getEventHandlerType());
   }
 }

@@ -20,8 +20,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.Map;
 import java.util.Optional;
@@ -34,12 +33,11 @@ import org.junit.experimental.categories.Category;
 public class ThrowMessageDiffblueTest {
   /**
    * Test {@link ThrowMessage#ThrowMessage()}.
-   *
-   * <p>Method under test: {@link ThrowMessage#ThrowMessage()}
+   * <p>
+   * Method under test: {@link ThrowMessage#ThrowMessage()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void ThrowMessage.<init>()"})
   public void testNewThrowMessage() {
     // Arrange and Act
@@ -55,12 +53,11 @@ public class ThrowMessageDiffblueTest {
 
   /**
    * Test {@link ThrowMessage#ThrowMessage(String)}.
-   *
-   * <p>Method under test: {@link ThrowMessage#ThrowMessage(String)}
+   * <p>
+   * Method under test: {@link ThrowMessage#ThrowMessage(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void ThrowMessage.<init>(String)"})
   public void testNewThrowMessage2() {
     // Arrange and Act
@@ -76,9 +73,8 @@ public class ThrowMessageDiffblueTest {
 
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>{@link ThrowMessage#getBusinessKey()}
    *   <li>{@link ThrowMessage#getCorrelationKey()}
@@ -87,14 +83,9 @@ public class ThrowMessageDiffblueTest {
    * </ul>
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "Optional ThrowMessage.getBusinessKey()",
-    "Optional ThrowMessage.getCorrelationKey()",
-    "String ThrowMessage.getName()",
-    "Optional ThrowMessage.getPayload()"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Optional ThrowMessage.getBusinessKey()", "Optional ThrowMessage.getCorrelationKey()",
+      "String ThrowMessage.getName()", "Optional ThrowMessage.getPayload()"})
   public void testGettersAndSetters() {
     // Arrange
     ThrowMessage throwMessage = new ThrowMessage();
@@ -114,12 +105,11 @@ public class ThrowMessageDiffblueTest {
 
   /**
    * Test {@link ThrowMessage#builder()}.
-   *
-   * <p>Method under test: {@link ThrowMessage#builder()}
+   * <p>
+   * Method under test: {@link ThrowMessage#builder()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"INameStage ThrowMessage.builder()"})
   public void testBuilder() {
     // Arrange and Act
@@ -128,12 +118,12 @@ public class ThrowMessageDiffblueTest {
 
     // Assert
     assertTrue(actualBuilderResult instanceof ThrowMessagBuilder);
-    ThrowMessage throwMessage = ((ThrowMessagBuilder) actualBuilderResult).build();
-    assertEquals("Name", throwMessage.getName());
-    Optional<String> businessKey = throwMessage.getBusinessKey();
+    ThrowMessage buildResult = ((ThrowMessagBuilder) actualBuilderResult).build();
+    assertEquals("Name", buildResult.getName());
+    Optional<String> businessKey = buildResult.getBusinessKey();
     assertFalse(businessKey.isPresent());
-    assertSame(businessKey, throwMessage.getCorrelationKey());
-    assertSame(businessKey, throwMessage.getPayload());
+    assertSame(businessKey, buildResult.getCorrelationKey());
+    assertSame(businessKey, buildResult.getPayload());
     assertSame(actualBuilderResult, actualNameResult);
   }
 }

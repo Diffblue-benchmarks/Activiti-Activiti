@@ -25,17 +25,20 @@ import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import com.fasterxml.jackson.databind.json.JsonMapper;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
+import javax.script.ScriptEngineManager;
 import javax.sql.DataSource;
 import org.activiti.core.common.spring.project.ApplicationUpgradeContextService;
+import org.activiti.core.el.CustomFunctionProvider;
 import org.activiti.engine.ActivitiException;
 import org.activiti.engine.ProcessEngine;
 import org.activiti.engine.ProcessEngineConfiguration;
@@ -46,15 +49,25 @@ import org.activiti.engine.impl.RepositoryServiceImpl;
 import org.activiti.engine.impl.RuntimeServiceImpl;
 import org.activiti.engine.impl.TaskServiceImpl;
 import org.activiti.engine.impl.bpmn.deployer.BpmnDeployer;
+import org.activiti.engine.impl.bpmn.deployer.BpmnDeploymentHelper;
+import org.activiti.engine.impl.bpmn.listener.ListenerNotificationHelper;
+import org.activiti.engine.impl.calendar.BusinessCalendarManager;
 import org.activiti.engine.impl.cfg.DelegateExpressionFieldInjectionMode;
 import org.activiti.engine.impl.cfg.TransactionContextFactory;
 import org.activiti.engine.impl.cfg.TransactionPropagation;
+import org.activiti.engine.impl.el.ExpressionManager;
 import org.activiti.engine.impl.interceptor.CommandConfig;
+import org.activiti.engine.impl.interceptor.CommandContextFactory;
 import org.activiti.engine.impl.interceptor.CommandInterceptor;
 import org.activiti.engine.impl.interceptor.TransactionContextInterceptor;
 import org.activiti.engine.impl.persistence.deploy.Deployer;
 import org.activiti.engine.impl.persistence.entity.integration.IntegrationContextManagerImpl;
+import org.activiti.engine.impl.scripting.ScriptingEngines;
+import org.activiti.engine.impl.util.DefaultClockImpl;
+import org.activiti.engine.impl.util.ProcessInstanceHelper;
+import org.activiti.engine.impl.variable.DefaultVariableTypes;
 import org.activiti.engine.integration.IntegrationContextServiceImpl;
+import org.activiti.engine.test.impl.logger.ProcessExecutionLoggerConfigurator;
 import org.activiti.spring.autodeployment.DefaultAutoDeploymentStrategy;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
@@ -67,82 +80,60 @@ import org.springframework.core.io.ByteArrayResource;
 import org.springframework.core.io.Resource;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.jdbc.datasource.TransactionAwareDataSourceProxy;
-import org.springframework.test.annotation.DirtiesContext;
-import org.springframework.test.annotation.DirtiesContext.ClassMode;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.TransactionExecutionListener;
 import org.springframework.transaction.annotation.Transactional;
 
-@ContextConfiguration(
-    locations = {
-      "/org/activiti/spring/test/transaction/SpringTransactionIntegrationTest-context.xml"
-    })
-@DirtiesContext(classMode = ClassMode.AFTER_EACH_TEST_METHOD)
+@ContextConfiguration(locations = {
+    "/org/activiti/spring/test/transaction/SpringTransactionIntegrationTest-context.xml"})
 @RunWith(SpringJUnit4ClassRunner.class)
 @Transactional
 public class SpringProcessEngineConfigurationDiffblueTest {
-  @Autowired private SpringProcessEngineConfiguration springProcessEngineConfiguration;
+  @Autowired
+  private SpringProcessEngineConfiguration springProcessEngineConfiguration;
 
   /**
    * Test {@link SpringProcessEngineConfiguration#SpringProcessEngineConfiguration()}.
-   *
-   * <p>Method under test: {@link
-   * SpringProcessEngineConfiguration#SpringProcessEngineConfiguration()}
+   * <p>
+   * Method under test: {@link SpringProcessEngineConfiguration#SpringProcessEngineConfiguration()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void SpringProcessEngineConfiguration.<init>()"})
   public void testNewSpringProcessEngineConfiguration() throws IOException {
     // Arrange and Act
-    SpringProcessEngineConfiguration actualSpringProcessEngineConfiguration =
-        new SpringProcessEngineConfiguration();
+    SpringProcessEngineConfiguration actualSpringProcessEngineConfiguration = new SpringProcessEngineConfiguration();
 
     // Assert
-    Collection<? extends Deployer> defaultDeployers =
-        actualSpringProcessEngineConfiguration.getDefaultDeployers();
+    Collection<? extends Deployer> defaultDeployers = actualSpringProcessEngineConfiguration.getDefaultDeployers();
     assertEquals(1, defaultDeployers.size());
     assertTrue(defaultDeployers instanceof List);
-    assertTrue(
-        actualSpringProcessEngineConfiguration.getDynamicBpmnService()
-            instanceof DynamicBpmnServiceImpl);
-    assertTrue(
-        actualSpringProcessEngineConfiguration.getHistoryService() instanceof HistoryServiceImpl);
-    assertTrue(
-        actualSpringProcessEngineConfiguration.getManagementService()
-            instanceof ManagementServiceImpl);
-    assertTrue(
-        actualSpringProcessEngineConfiguration.getRepositoryService()
-            instanceof RepositoryServiceImpl);
-    assertTrue(
-        actualSpringProcessEngineConfiguration.getRuntimeService() instanceof RuntimeServiceImpl);
+    assertTrue(actualSpringProcessEngineConfiguration.getDynamicBpmnService() instanceof DynamicBpmnServiceImpl);
+    assertTrue(actualSpringProcessEngineConfiguration.getHistoryService() instanceof HistoryServiceImpl);
+    assertTrue(actualSpringProcessEngineConfiguration.getManagementService() instanceof ManagementServiceImpl);
+    assertTrue(actualSpringProcessEngineConfiguration.getRepositoryService() instanceof RepositoryServiceImpl);
+    assertTrue(actualSpringProcessEngineConfiguration.getRuntimeService() instanceof RuntimeServiceImpl);
     assertTrue(actualSpringProcessEngineConfiguration.getTaskService() instanceof TaskServiceImpl);
     assertTrue(
-        actualSpringProcessEngineConfiguration.getIntegrationContextManager()
-            instanceof IntegrationContextManagerImpl);
+        actualSpringProcessEngineConfiguration.getIntegrationContextManager() instanceof IntegrationContextManagerImpl);
     assertTrue(
-        actualSpringProcessEngineConfiguration.getIntegrationContextService()
-            instanceof IntegrationContextServiceImpl);
+        actualSpringProcessEngineConfiguration.getIntegrationContextService() instanceof IntegrationContextServiceImpl);
     assertEquals("", actualSpringProcessEngineConfiguration.getDatabaseCatalog());
     assertEquals("", actualSpringProcessEngineConfiguration.getDatabaseTablePrefix());
     assertEquals("", actualSpringProcessEngineConfiguration.getJdbcPassword());
     assertEquals("@class", actualSpringProcessEngineConfiguration.getJavaClassFieldForJackson());
-    assertEquals(
-        "SpringAutoDeployment", actualSpringProcessEngineConfiguration.getDeploymentName());
+    assertEquals("SpringAutoDeployment", actualSpringProcessEngineConfiguration.getDeploymentName());
     assertEquals("UTF-8", actualSpringProcessEngineConfiguration.getXmlEncoding());
-    assertEquals(
-        "activiti@localhost", actualSpringProcessEngineConfiguration.getMailServerDefaultFrom());
+    assertEquals("activiti@localhost", actualSpringProcessEngineConfiguration.getMailServerDefaultFrom());
     assertEquals("audit", actualSpringProcessEngineConfiguration.getHistory());
     assertEquals("camelContext", actualSpringProcessEngineConfiguration.getDefaultCamelContext());
     assertEquals("default", actualSpringProcessEngineConfiguration.getProcessEngineName());
     assertEquals("default", actualSpringProcessEngineConfiguration.getDeploymentMode());
-    assertEquals(
-        "jdbc:h2:tcp://localhost/~/activiti", actualSpringProcessEngineConfiguration.getJdbcUrl());
+    assertEquals("jdbc:h2:tcp://localhost/~/activiti", actualSpringProcessEngineConfiguration.getJdbcUrl());
     assertEquals("localhost", actualSpringProcessEngineConfiguration.getMailServerHost());
-    assertEquals(
-        "org.activiti.engine.impl.webservice.CxfWebServiceClientFactory",
+    assertEquals("org.activiti.engine.impl.webservice.CxfWebServiceClientFactory",
         actualSpringProcessEngineConfiguration.getWsSyncFactoryClassName());
     assertEquals("org.h2.Driver", actualSpringProcessEngineConfiguration.getJdbcDriver());
     assertEquals("sa", actualSpringProcessEngineConfiguration.getJdbcUsername());
@@ -196,8 +187,7 @@ public class SpringProcessEngineConfigurationDiffblueTest {
     assertNull(actualSpringProcessEngineConfiguration.getEventDispatcher());
     assertNull(actualSpringProcessEngineConfiguration.getProcessDefinitionHelper());
     assertNull(actualSpringProcessEngineConfiguration.getAsyncExecutor());
-    assertNull(
-        actualSpringProcessEngineConfiguration.getAsyncExecutorExecuteAsyncRunnableFactory());
+    assertNull(actualSpringProcessEngineConfiguration.getAsyncExecutorExecuteAsyncRunnableFactory());
     assertNull(actualSpringProcessEngineConfiguration.getJobManager());
     assertNull(actualSpringProcessEngineConfiguration.getListenerNotificationHelper());
     assertNull(actualSpringProcessEngineConfiguration.getBpmnParser());
@@ -284,35 +274,26 @@ public class SpringProcessEngineConfigurationDiffblueTest {
     assertEquals(-1, actualSpringProcessEngineConfiguration.getKnowledgeBaseCacheLimit());
     assertEquals(-1, actualSpringProcessEngineConfiguration.getMaxLengthStringVariableType());
     assertEquals(-1, actualSpringProcessEngineConfiguration.getProcessDefinitionCacheLimit());
-    assertEquals(
-        0, actualSpringProcessEngineConfiguration.getJdbcDefaultTransactionIsolationLevel());
+    assertEquals(0, actualSpringProcessEngineConfiguration.getJdbcDefaultTransactionIsolationLevel());
     assertEquals(0, actualSpringProcessEngineConfiguration.getJdbcMaxActiveConnections());
     assertEquals(0, actualSpringProcessEngineConfiguration.getJdbcMaxCheckoutTime());
     assertEquals(0, actualSpringProcessEngineConfiguration.getJdbcMaxIdleConnections());
     assertEquals(0, actualSpringProcessEngineConfiguration.getJdbcMaxWaitTime());
     assertEquals(0, actualSpringProcessEngineConfiguration.getJdbcPingConnectionNotUsedFor());
-    assertEquals(
-        0, actualSpringProcessEngineConfiguration.getAsyncExecutorDefaultQueueSizeFullWaitTime());
+    assertEquals(0, actualSpringProcessEngineConfiguration.getAsyncExecutorDefaultQueueSizeFullWaitTime());
     assertEquals(0, actualSpringProcessEngineConfiguration.getDeploymentResources().length);
-    assertEquals(
-        1, actualSpringProcessEngineConfiguration.getAsyncExecutorMaxAsyncJobsDuePerAcquisition());
-    assertEquals(
-        1, actualSpringProcessEngineConfiguration.getAsyncExecutorMaxTimerJobsPerAcquisition());
+    assertEquals(1, actualSpringProcessEngineConfiguration.getAsyncExecutorMaxAsyncJobsDuePerAcquisition());
+    assertEquals(1, actualSpringProcessEngineConfiguration.getAsyncExecutorMaxTimerJobsPerAcquisition());
     assertEquals(10, actualSpringProcessEngineConfiguration.getAsyncFailedJobWaitTime());
     assertEquals(10, actualSpringProcessEngineConfiguration.getDefaultFailedJobWaitTime());
     assertEquals(10, actualSpringProcessEngineConfiguration.getAsyncExecutorMaxPoolSize());
     assertEquals(100, actualSpringProcessEngineConfiguration.getAsyncExecutorThreadPoolQueueSize());
     assertEquals(100, actualSpringProcessEngineConfiguration.getMaxNrOfStatementsInBulkInsert());
-    assertEquals(
-        10000,
-        actualSpringProcessEngineConfiguration.getAsyncExecutorDefaultAsyncJobAcquireWaitTime());
-    assertEquals(
-        10000,
-        actualSpringProcessEngineConfiguration.getAsyncExecutorDefaultTimerJobAcquireWaitTime());
+    assertEquals(10000, actualSpringProcessEngineConfiguration.getAsyncExecutorDefaultAsyncJobAcquireWaitTime());
+    assertEquals(10000, actualSpringProcessEngineConfiguration.getAsyncExecutorDefaultTimerJobAcquireWaitTime());
     assertEquals(2, actualSpringProcessEngineConfiguration.getAsyncExecutorCorePoolSize());
     assertEquals(20000, actualSpringProcessEngineConfiguration.getExecutionQueryLimit());
-    assertEquals(
-        20000, actualSpringProcessEngineConfiguration.getHistoricProcessInstancesQueryLimit());
+    assertEquals(20000, actualSpringProcessEngineConfiguration.getHistoricProcessInstancesQueryLimit());
     assertEquals(20000, actualSpringProcessEngineConfiguration.getHistoricTaskQueryLimit());
     assertEquals(20000, actualSpringProcessEngineConfiguration.getTaskQueryLimit());
     assertEquals(25, actualSpringProcessEngineConfiguration.getMailServerPort());
@@ -320,30 +301,19 @@ public class SpringProcessEngineConfigurationDiffblueTest {
     assertEquals(25, actualSpringProcessEngineConfiguration.getBatchSizeTasks());
     assertEquals(2500, actualSpringProcessEngineConfiguration.getIdBlockSize());
     assertEquals(3, actualSpringProcessEngineConfiguration.getAsyncExecutorNumberOfRetries());
-    assertEquals(
-        3, actualSpringProcessEngineConfiguration.getAsyncExecutorResetExpiredJobsPageSize());
+    assertEquals(3, actualSpringProcessEngineConfiguration.getAsyncExecutorResetExpiredJobsPageSize());
     assertEquals(30, actualSpringProcessEngineConfiguration.getDefaultBpmnParseHandlers().size());
-    assertEquals(
-        300000, actualSpringProcessEngineConfiguration.getAsyncExecutorAsyncJobLockTimeInMillis());
-    assertEquals(
-        300000, actualSpringProcessEngineConfiguration.getAsyncExecutorTimerLockTimeInMillis());
+    assertEquals(300000, actualSpringProcessEngineConfiguration.getAsyncExecutorAsyncJobLockTimeInMillis());
+    assertEquals(300000, actualSpringProcessEngineConfiguration.getAsyncExecutorTimerLockTimeInMillis());
     assertEquals(4000, actualSpringProcessEngineConfiguration.getMaxLengthString());
-    assertEquals(
-        5000L, actualSpringProcessEngineConfiguration.getAsyncExecutorThreadKeepAliveTime());
+    assertEquals(5000L, actualSpringProcessEngineConfiguration.getAsyncExecutorThreadKeepAliveTime());
     byte[] byteArray = new byte[51];
-    assertEquals(
-        51,
-        actualSpringProcessEngineConfiguration.getMyBatisXmlConfigurationStream().read(byteArray));
+    assertEquals(51, actualSpringProcessEngineConfiguration.getMyBatisXmlConfigurationStream().read(byteArray));
     assertEquals(60, actualSpringProcessEngineConfiguration.getLockTimeAsyncJobWaitTime());
-    assertEquals(
-        60000, actualSpringProcessEngineConfiguration.getAsyncExecutorResetExpiredJobsInterval());
-    assertEquals(
-        60L, actualSpringProcessEngineConfiguration.getAsyncExecutorSecondsToWaitOnShutdown());
-    assertEquals(
-        70,
-        actualSpringProcessEngineConfiguration.DEFAULT_MAX_NR_OF_STATEMENTS_BULK_INSERT_SQL_SERVER);
-    assertEquals(
-        DelegateExpressionFieldInjectionMode.MIXED,
+    assertEquals(60000, actualSpringProcessEngineConfiguration.getAsyncExecutorResetExpiredJobsInterval());
+    assertEquals(60L, actualSpringProcessEngineConfiguration.getAsyncExecutorSecondsToWaitOnShutdown());
+    assertEquals(70, actualSpringProcessEngineConfiguration.DEFAULT_MAX_NR_OF_STATEMENTS_BULK_INSERT_SQL_SERVER);
+    assertEquals(DelegateExpressionFieldInjectionMode.MIXED,
         actualSpringProcessEngineConfiguration.getDelegateExpressionFieldInjectionMode());
     assertFalse(actualSpringProcessEngineConfiguration.getMailServerUseSSL());
     assertFalse(actualSpringProcessEngineConfiguration.getMailServerUseTLS());
@@ -369,163 +339,524 @@ public class SpringProcessEngineConfigurationDiffblueTest {
     assertTrue(actualSpringProcessEngineConfiguration.isBulkInsertEnabled());
     assertTrue(actualSpringProcessEngineConfiguration.isEnableConfiguratorServiceLoader());
     assertTrue(actualSpringProcessEngineConfiguration.isEnableEventDispatcher());
-    assertTrue(
-        actualSpringProcessEngineConfiguration
-            .isSerializableVariableTypeTrackDeserializedObjects());
+    assertTrue(actualSpringProcessEngineConfiguration.isSerializableVariableTypeTrackDeserializedObjects());
     assertTrue(actualSpringProcessEngineConfiguration.isUsingRelationalDatabase());
-    assertEquals(
-        Boolean.FALSE.toString(), actualSpringProcessEngineConfiguration.getDatabaseSchemaUpdate());
-    assertArrayEquals(
-        "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n\n<!DOCTYPE c".getBytes("UTF-8"), byteArray);
+    String expectedDatabaseSchemaUpdate = Boolean.FALSE.toString();
+    assertEquals(expectedDatabaseSchemaUpdate, actualSpringProcessEngineConfiguration.getDatabaseSchemaUpdate());
+    assertArrayEquals("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n\n<!DOCTYPE c".getBytes("UTF-8"), byteArray);
   }
 
   /**
-   * Test {@link
-   * SpringProcessEngineConfiguration#SpringProcessEngineConfiguration(ApplicationUpgradeContextService)}.
-   *
+   * Test {@link SpringProcessEngineConfiguration#SpringProcessEngineConfiguration(ApplicationUpgradeContextService)}.
    * <ul>
-   *   <li>Then return RollbackDeployment.
+   *   <li>Then return RollbackDeployment.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link
-   * SpringProcessEngineConfiguration#SpringProcessEngineConfiguration(ApplicationUpgradeContextService)}
+   * <p>
+   * Method under test: {@link SpringProcessEngineConfiguration#SpringProcessEngineConfiguration(ApplicationUpgradeContextService)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void SpringProcessEngineConfiguration.<init>(ApplicationUpgradeContextService)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void SpringProcessEngineConfiguration.<init>(ApplicationUpgradeContextService)"})
   public void testNewSpringProcessEngineConfiguration_thenReturnRollbackDeployment() {
     // Arrange
     JsonMapper objectMapper = JsonMapper.builder().findAndAddModules().build();
 
     // Act
-    SpringProcessEngineConfiguration actualSpringProcessEngineConfiguration =
-        new SpringProcessEngineConfiguration(
-            new ApplicationUpgradeContextService(
-                "Path", 1, true, objectMapper, new AnnotationConfigApplicationContext()));
+    SpringProcessEngineConfiguration actualSpringProcessEngineConfiguration = new SpringProcessEngineConfiguration(
+        new ApplicationUpgradeContextService("Path", 1, true, objectMapper, new AnnotationConfigApplicationContext()));
 
     // Assert
-    Collection<? extends Deployer> defaultDeployers =
-        actualSpringProcessEngineConfiguration.getDefaultDeployers();
-    assertTrue(defaultDeployers instanceof List);
+    Collection<? extends Deployer> defaultDeployers = actualSpringProcessEngineConfiguration.getDefaultDeployers();
     assertEquals(1, defaultDeployers.size());
+    assertTrue(defaultDeployers instanceof List);
+    assertTrue(actualSpringProcessEngineConfiguration.isRollbackDeployment());
     BpmnDeployer bpmnDeployer = actualSpringProcessEngineConfiguration.getBpmnDeployer();
     assertSame(bpmnDeployer, ((List<? extends Deployer>) defaultDeployers).get(0));
-    assertTrue(actualSpringProcessEngineConfiguration.isRollbackDeployment());
-    assertSame(
-        actualSpringProcessEngineConfiguration.getBpmnDeploymentHelper(),
-        bpmnDeployer.getBpmnDeploymentHelper());
+    BpmnDeploymentHelper expectedBpmnDeploymentHelper = actualSpringProcessEngineConfiguration
+        .getBpmnDeploymentHelper();
+    assertSame(expectedBpmnDeploymentHelper, bpmnDeployer.getBpmnDeploymentHelper());
   }
 
   /**
-   * Test {@link
-   * SpringProcessEngineConfiguration#SpringProcessEngineConfiguration(ApplicationUpgradeContextService)}.
-   *
+   * Test {@link SpringProcessEngineConfiguration#SpringProcessEngineConfiguration(ApplicationUpgradeContextService)}.
    * <ul>
-   *   <li>Then throw {@link ActivitiException}.
+   *   <li>Then throw {@link ActivitiException}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link
-   * SpringProcessEngineConfiguration#SpringProcessEngineConfiguration(ApplicationUpgradeContextService)}
+   * <p>
+   * Method under test: {@link SpringProcessEngineConfiguration#SpringProcessEngineConfiguration(ApplicationUpgradeContextService)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void SpringProcessEngineConfiguration.<init>(ApplicationUpgradeContextService)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void SpringProcessEngineConfiguration.<init>(ApplicationUpgradeContextService)"})
   public void testNewSpringProcessEngineConfiguration_thenThrowActivitiException() {
     // Arrange
-    ApplicationUpgradeContextService applicationUpgradeContextService =
-        mock(ApplicationUpgradeContextService.class);
-    when(applicationUpgradeContextService.isRollbackDeployment())
-        .thenThrow(new ActivitiException("An error occurred"));
+    ApplicationUpgradeContextService applicationUpgradeContextService = mock(ApplicationUpgradeContextService.class);
+    when(applicationUpgradeContextService.isRollbackDeployment()).thenThrow(new ActivitiException("An error occurred"));
 
     // Act and Assert
-    assertThrows(
-        ActivitiException.class,
-        () -> new SpringProcessEngineConfiguration(applicationUpgradeContextService));
+    assertThrows(ActivitiException.class, () -> new SpringProcessEngineConfiguration(applicationUpgradeContextService));
     verify(applicationUpgradeContextService).isRollbackDeployment();
   }
 
   /**
-   * Test {@link
-   * SpringProcessEngineConfiguration#SpringProcessEngineConfiguration(ApplicationUpgradeContextService)}.
-   *
+   * Test {@link SpringProcessEngineConfiguration#SpringProcessEngineConfiguration(ApplicationUpgradeContextService)}.
    * <ul>
-   *   <li>When {@code null}.
-   *   <li>Then return not RollbackDeployment.
+   *   <li>When {@code null}.</li>
+   *   <li>Then return not RollbackDeployment.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link
-   * SpringProcessEngineConfiguration#SpringProcessEngineConfiguration(ApplicationUpgradeContextService)}
+   * <p>
+   * Method under test: {@link SpringProcessEngineConfiguration#SpringProcessEngineConfiguration(ApplicationUpgradeContextService)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void SpringProcessEngineConfiguration.<init>(ApplicationUpgradeContextService)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void SpringProcessEngineConfiguration.<init>(ApplicationUpgradeContextService)"})
   public void testNewSpringProcessEngineConfiguration_whenNull_thenReturnNotRollbackDeployment() {
     // Arrange and Act
-    SpringProcessEngineConfiguration actualSpringProcessEngineConfiguration =
-        new SpringProcessEngineConfiguration(null);
+    SpringProcessEngineConfiguration actualSpringProcessEngineConfiguration = new SpringProcessEngineConfiguration(
+        null);
 
     // Assert
-    Collection<? extends Deployer> defaultDeployers =
-        actualSpringProcessEngineConfiguration.getDefaultDeployers();
-    assertTrue(defaultDeployers instanceof List);
+    Collection<? extends Deployer> defaultDeployers = actualSpringProcessEngineConfiguration.getDefaultDeployers();
     assertEquals(1, defaultDeployers.size());
+    assertTrue(defaultDeployers instanceof List);
+    assertFalse(actualSpringProcessEngineConfiguration.isRollbackDeployment());
     BpmnDeployer bpmnDeployer = actualSpringProcessEngineConfiguration.getBpmnDeployer();
     assertSame(bpmnDeployer, ((List<? extends Deployer>) defaultDeployers).get(0));
-    assertFalse(actualSpringProcessEngineConfiguration.isRollbackDeployment());
-    assertSame(
-        actualSpringProcessEngineConfiguration.getBpmnDeploymentHelper(),
-        bpmnDeployer.getBpmnDeploymentHelper());
+    BpmnDeploymentHelper expectedBpmnDeploymentHelper = actualSpringProcessEngineConfiguration
+        .getBpmnDeploymentHelper();
+    assertSame(expectedBpmnDeploymentHelper, bpmnDeployer.getBpmnDeploymentHelper());
+  }
+
+  /**
+   * Test {@link SpringProcessEngineConfiguration#buildProcessEngine()}.
+   * <p>
+   * Method under test: {@link SpringProcessEngineConfiguration#buildProcessEngine()}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"ProcessEngine SpringProcessEngineConfiguration.buildProcessEngine()"})
+  public void testBuildProcessEngine() {
+    // Arrange
+    SpringProcessEngineConfiguration springProcessEngineConfiguration = new SpringProcessEngineConfiguration();
+    springProcessEngineConfiguration.addCustomFunctionProvider(mock(CustomFunctionProvider.class));
+
+    // Act and Assert
+    assertThrows(ActivitiException.class, () -> springProcessEngineConfiguration.buildProcessEngine());
+  }
+
+  /**
+   * Test {@link SpringProcessEngineConfiguration#buildProcessEngine()}.
+   * <p>
+   * Method under test: {@link SpringProcessEngineConfiguration#buildProcessEngine()}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"ProcessEngine SpringProcessEngineConfiguration.buildProcessEngine()"})
+  public void testBuildProcessEngine2() {
+    // Arrange
+    SpringProcessEngineConfiguration springProcessEngineConfiguration = new SpringProcessEngineConfiguration();
+    springProcessEngineConfiguration.setDefaultCommandConfig(new CommandConfig());
+    springProcessEngineConfiguration.addConfigurator(new ProcessExecutionLoggerConfigurator());
+
+    // Act and Assert
+    assertThrows(ActivitiException.class, () -> springProcessEngineConfiguration.buildProcessEngine());
+  }
+
+  /**
+   * Test {@link SpringProcessEngineConfiguration#buildProcessEngine()}.
+   * <p>
+   * Method under test: {@link SpringProcessEngineConfiguration#buildProcessEngine()}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"ProcessEngine SpringProcessEngineConfiguration.buildProcessEngine()"})
+  public void testBuildProcessEngine3() {
+    // Arrange
+    SpringProcessEngineConfiguration springProcessEngineConfiguration = new SpringProcessEngineConfiguration();
+    springProcessEngineConfiguration.setSchemaCommandConfig(new CommandConfig());
+    springProcessEngineConfiguration.addConfigurator(new ProcessExecutionLoggerConfigurator());
+
+    // Act and Assert
+    assertThrows(ActivitiException.class, () -> springProcessEngineConfiguration.buildProcessEngine());
+  }
+
+  /**
+   * Test {@link SpringProcessEngineConfiguration#buildProcessEngine()}.
+   * <p>
+   * Method under test: {@link SpringProcessEngineConfiguration#buildProcessEngine()}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"ProcessEngine SpringProcessEngineConfiguration.buildProcessEngine()"})
+  public void testBuildProcessEngine4() {
+    // Arrange
+    SpringProcessEngineConfiguration springProcessEngineConfiguration = new SpringProcessEngineConfiguration();
+    springProcessEngineConfiguration.setCustomPreCommandInterceptors(new ArrayList<>());
+    springProcessEngineConfiguration.addConfigurator(new ProcessExecutionLoggerConfigurator());
+
+    // Act and Assert
+    assertThrows(ActivitiException.class, () -> springProcessEngineConfiguration.buildProcessEngine());
+  }
+
+  /**
+   * Test {@link SpringProcessEngineConfiguration#buildProcessEngine()}.
+   * <p>
+   * Method under test: {@link SpringProcessEngineConfiguration#buildProcessEngine()}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"ProcessEngine SpringProcessEngineConfiguration.buildProcessEngine()"})
+  public void testBuildProcessEngine5() {
+    // Arrange
+    SpringProcessEngineConfiguration springProcessEngineConfiguration = new SpringProcessEngineConfiguration();
+    springProcessEngineConfiguration.setScriptingEngines(new ScriptingEngines(new ScriptEngineManager()));
+    springProcessEngineConfiguration.addConfigurator(new ProcessExecutionLoggerConfigurator());
+
+    // Act and Assert
+    assertThrows(ActivitiException.class, () -> springProcessEngineConfiguration.buildProcessEngine());
+  }
+
+  /**
+   * Test {@link SpringProcessEngineConfiguration#buildProcessEngine()}.
+   * <p>
+   * Method under test: {@link SpringProcessEngineConfiguration#buildProcessEngine()}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"ProcessEngine SpringProcessEngineConfiguration.buildProcessEngine()"})
+  public void testBuildProcessEngine6() {
+    // Arrange
+    SpringProcessEngineConfiguration springProcessEngineConfiguration = new SpringProcessEngineConfiguration();
+    springProcessEngineConfiguration.setVariableTypes(new DefaultVariableTypes());
+    springProcessEngineConfiguration.addConfigurator(new ProcessExecutionLoggerConfigurator());
+
+    // Act and Assert
+    assertThrows(ActivitiException.class, () -> springProcessEngineConfiguration.buildProcessEngine());
+  }
+
+  /**
+   * Test {@link SpringProcessEngineConfiguration#buildProcessEngine()}.
+   * <p>
+   * Method under test: {@link SpringProcessEngineConfiguration#buildProcessEngine()}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"ProcessEngine SpringProcessEngineConfiguration.buildProcessEngine()"})
+  public void testBuildProcessEngine7() {
+    // Arrange
+    SpringProcessEngineConfiguration springProcessEngineConfiguration = new SpringProcessEngineConfiguration();
+    springProcessEngineConfiguration.setSerializePOJOsInVariablesToJson(true);
+    springProcessEngineConfiguration.addConfigurator(new ProcessExecutionLoggerConfigurator());
+
+    // Act and Assert
+    assertThrows(ActivitiException.class, () -> springProcessEngineConfiguration.buildProcessEngine());
+  }
+
+  /**
+   * Test {@link SpringProcessEngineConfiguration#buildProcessEngine()}.
+   * <p>
+   * Method under test: {@link SpringProcessEngineConfiguration#buildProcessEngine()}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"ProcessEngine SpringProcessEngineConfiguration.buildProcessEngine()"})
+  public void testBuildProcessEngine8() {
+    // Arrange
+    SpringProcessEngineConfiguration springProcessEngineConfiguration = new SpringProcessEngineConfiguration();
+    springProcessEngineConfiguration.setExpressionManager(new ExpressionManager());
+    springProcessEngineConfiguration.addConfigurator(new ProcessExecutionLoggerConfigurator());
+
+    // Act and Assert
+    assertThrows(ActivitiException.class, () -> springProcessEngineConfiguration.buildProcessEngine());
+  }
+
+  /**
+   * Test {@link SpringProcessEngineConfiguration#buildProcessEngine()}.
+   * <p>
+   * Method under test: {@link SpringProcessEngineConfiguration#buildProcessEngine()}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"ProcessEngine SpringProcessEngineConfiguration.buildProcessEngine()"})
+  public void testBuildProcessEngine9() {
+    // Arrange
+    SpringProcessEngineConfiguration springProcessEngineConfiguration = new SpringProcessEngineConfiguration();
+    springProcessEngineConfiguration.setBusinessCalendarManager(mock(BusinessCalendarManager.class));
+    springProcessEngineConfiguration.addConfigurator(new ProcessExecutionLoggerConfigurator());
+
+    // Act and Assert
+    assertThrows(ActivitiException.class, () -> springProcessEngineConfiguration.buildProcessEngine());
+  }
+
+  /**
+   * Test {@link SpringProcessEngineConfiguration#buildProcessEngine()}.
+   * <p>
+   * Method under test: {@link SpringProcessEngineConfiguration#buildProcessEngine()}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"ProcessEngine SpringProcessEngineConfiguration.buildProcessEngine()"})
+  public void testBuildProcessEngine10() {
+    // Arrange
+    SpringProcessEngineConfiguration springProcessEngineConfiguration = new SpringProcessEngineConfiguration();
+    springProcessEngineConfiguration.setCommandContextFactory(new CommandContextFactory());
+    springProcessEngineConfiguration.addConfigurator(new ProcessExecutionLoggerConfigurator());
+
+    // Act and Assert
+    assertThrows(ActivitiException.class, () -> springProcessEngineConfiguration.buildProcessEngine());
+  }
+
+  /**
+   * Test {@link SpringProcessEngineConfiguration#buildProcessEngine()}.
+   * <p>
+   * Method under test: {@link SpringProcessEngineConfiguration#buildProcessEngine()}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"ProcessEngine SpringProcessEngineConfiguration.buildProcessEngine()"})
+  public void testBuildProcessEngine11() {
+    // Arrange
+    SpringProcessEngineConfiguration springProcessEngineConfiguration = new SpringProcessEngineConfiguration();
+    springProcessEngineConfiguration.setTransactionContextFactory(mock(TransactionContextFactory.class));
+    springProcessEngineConfiguration.addConfigurator(new ProcessExecutionLoggerConfigurator());
+
+    // Act and Assert
+    assertThrows(ActivitiException.class, () -> springProcessEngineConfiguration.buildProcessEngine());
+  }
+
+  /**
+   * Test {@link SpringProcessEngineConfiguration#buildProcessEngine()}.
+   * <p>
+   * Method under test: {@link SpringProcessEngineConfiguration#buildProcessEngine()}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"ProcessEngine SpringProcessEngineConfiguration.buildProcessEngine()"})
+  public void testBuildProcessEngine12() {
+    // Arrange
+    SpringProcessEngineConfiguration springProcessEngineConfiguration = new SpringProcessEngineConfiguration();
+    springProcessEngineConfiguration.setProcessInstanceHelper(new ProcessInstanceHelper());
+    springProcessEngineConfiguration.addConfigurator(new ProcessExecutionLoggerConfigurator());
+
+    // Act and Assert
+    assertThrows(ActivitiException.class, () -> springProcessEngineConfiguration.buildProcessEngine());
+  }
+
+  /**
+   * Test {@link SpringProcessEngineConfiguration#buildProcessEngine()}.
+   * <p>
+   * Method under test: {@link SpringProcessEngineConfiguration#buildProcessEngine()}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"ProcessEngine SpringProcessEngineConfiguration.buildProcessEngine()"})
+  public void testBuildProcessEngine13() {
+    // Arrange
+    SpringProcessEngineConfiguration springProcessEngineConfiguration = new SpringProcessEngineConfiguration();
+    springProcessEngineConfiguration.setListenerNotificationHelper(new ListenerNotificationHelper());
+    springProcessEngineConfiguration.addConfigurator(new ProcessExecutionLoggerConfigurator());
+
+    // Act and Assert
+    assertThrows(ActivitiException.class, () -> springProcessEngineConfiguration.buildProcessEngine());
+  }
+
+  /**
+   * Test {@link SpringProcessEngineConfiguration#buildProcessEngine()}.
+   * <p>
+   * Method under test: {@link SpringProcessEngineConfiguration#buildProcessEngine()}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"ProcessEngine SpringProcessEngineConfiguration.buildProcessEngine()"})
+  public void testBuildProcessEngine14() {
+    // Arrange
+    SpringProcessEngineConfiguration springProcessEngineConfiguration = new SpringProcessEngineConfiguration();
+    springProcessEngineConfiguration.setCustomPreVariableTypes(new ArrayList<>());
+    springProcessEngineConfiguration.addConfigurator(new ProcessExecutionLoggerConfigurator());
+
+    // Act and Assert
+    assertThrows(ActivitiException.class, () -> springProcessEngineConfiguration.buildProcessEngine());
+  }
+
+  /**
+   * Test {@link SpringProcessEngineConfiguration#buildProcessEngine()}.
+   * <p>
+   * Method under test: {@link SpringProcessEngineConfiguration#buildProcessEngine()}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"ProcessEngine SpringProcessEngineConfiguration.buildProcessEngine()"})
+  public void testBuildProcessEngine15() {
+    // Arrange
+    SpringProcessEngineConfiguration springProcessEngineConfiguration = new SpringProcessEngineConfiguration();
+    springProcessEngineConfiguration.setCustomPostVariableTypes(new ArrayList<>());
+    springProcessEngineConfiguration.addConfigurator(new ProcessExecutionLoggerConfigurator());
+
+    // Act and Assert
+    assertThrows(ActivitiException.class, () -> springProcessEngineConfiguration.buildProcessEngine());
+  }
+
+  /**
+   * Test {@link SpringProcessEngineConfiguration#buildProcessEngine()}.
+   * <p>
+   * Method under test: {@link SpringProcessEngineConfiguration#buildProcessEngine()}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"ProcessEngine SpringProcessEngineConfiguration.buildProcessEngine()"})
+  public void testBuildProcessEngine16() {
+    // Arrange
+    SpringProcessEngineConfiguration springProcessEngineConfiguration = new SpringProcessEngineConfiguration();
+    springProcessEngineConfiguration.setResolverFactories(new ArrayList<>());
+    springProcessEngineConfiguration.addConfigurator(new ProcessExecutionLoggerConfigurator());
+
+    // Act and Assert
+    assertThrows(ActivitiException.class, () -> springProcessEngineConfiguration.buildProcessEngine());
+  }
+
+  /**
+   * Test {@link SpringProcessEngineConfiguration#buildProcessEngine()}.
+   * <p>
+   * Method under test: {@link SpringProcessEngineConfiguration#buildProcessEngine()}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"ProcessEngine SpringProcessEngineConfiguration.buildProcessEngine()"})
+  public void testBuildProcessEngine17() {
+    // Arrange
+    SpringProcessEngineConfiguration springProcessEngineConfiguration = new SpringProcessEngineConfiguration();
+    springProcessEngineConfiguration.setMaxLengthStringVariableType(3);
+    springProcessEngineConfiguration.addConfigurator(new ProcessExecutionLoggerConfigurator());
+
+    // Act and Assert
+    assertThrows(ActivitiException.class, () -> springProcessEngineConfiguration.buildProcessEngine());
+  }
+
+  /**
+   * Test {@link SpringProcessEngineConfiguration#buildProcessEngine()}.
+   * <p>
+   * Method under test: {@link SpringProcessEngineConfiguration#buildProcessEngine()}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"ProcessEngine SpringProcessEngineConfiguration.buildProcessEngine()"})
+  public void testBuildProcessEngine18() {
+    // Arrange
+    SpringProcessEngineConfiguration springProcessEngineConfiguration = new SpringProcessEngineConfiguration();
+    springProcessEngineConfiguration.setClock(new DefaultClockImpl());
+    springProcessEngineConfiguration.addConfigurator(new ProcessExecutionLoggerConfigurator());
+
+    // Act and Assert
+    assertThrows(ActivitiException.class, () -> springProcessEngineConfiguration.buildProcessEngine());
+  }
+
+  /**
+   * Test {@link SpringProcessEngineConfiguration#buildProcessEngine()}.
+   * <p>
+   * Method under test: {@link SpringProcessEngineConfiguration#buildProcessEngine()}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"ProcessEngine SpringProcessEngineConfiguration.buildProcessEngine()"})
+  public void testBuildProcessEngine19() {
+    // Arrange
+    SpringProcessEngineConfiguration springProcessEngineConfiguration = new SpringProcessEngineConfiguration();
+    springProcessEngineConfiguration.setDatabaseType("Found {} Process Engine Configurators in total:");
+    springProcessEngineConfiguration.addConfigurator(new ProcessExecutionLoggerConfigurator());
+
+    // Act and Assert
+    assertThrows(ActivitiException.class, () -> springProcessEngineConfiguration.buildProcessEngine());
+  }
+
+  /**
+   * Test {@link SpringProcessEngineConfiguration#buildProcessEngine()}.
+   * <ul>
+   *   <li>Given {@link SpringProcessEngineConfiguration#SpringProcessEngineConfiguration()}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link SpringProcessEngineConfiguration#buildProcessEngine()}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"ProcessEngine SpringProcessEngineConfiguration.buildProcessEngine()"})
+  public void testBuildProcessEngine_givenSpringProcessEngineConfiguration() {
+    // Arrange, Act and Assert
+    assertThrows(ActivitiException.class, () -> (new SpringProcessEngineConfiguration()).buildProcessEngine());
+  }
+
+  /**
+   * Test {@link SpringProcessEngineConfiguration#buildProcessEngine()}.
+   * <ul>
+   *   <li>Given {@link SpringProcessEngineConfiguration#SpringProcessEngineConfiguration()} Beans is {@link HashMap#HashMap()}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link SpringProcessEngineConfiguration#buildProcessEngine()}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"ProcessEngine SpringProcessEngineConfiguration.buildProcessEngine()"})
+  public void testBuildProcessEngine_givenSpringProcessEngineConfigurationBeansIsHashMap() {
+    // Arrange
+    SpringProcessEngineConfiguration springProcessEngineConfiguration = new SpringProcessEngineConfiguration();
+    springProcessEngineConfiguration.setBeans(new HashMap<>());
+    springProcessEngineConfiguration.addConfigurator(new ProcessExecutionLoggerConfigurator());
+
+    // Act and Assert
+    assertThrows(ActivitiException.class, () -> springProcessEngineConfiguration.buildProcessEngine());
+  }
+
+  /**
+   * Test {@link SpringProcessEngineConfiguration#buildProcessEngine()}.
+   * <ul>
+   *   <li>Then throw {@link ActivitiException}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link SpringProcessEngineConfiguration#buildProcessEngine()}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"ProcessEngine SpringProcessEngineConfiguration.buildProcessEngine()"})
+  public void testBuildProcessEngine_thenThrowActivitiException() {
+    // Arrange
+    SpringProcessEngineConfiguration springProcessEngineConfiguration = new SpringProcessEngineConfiguration();
+    springProcessEngineConfiguration.addConfigurator(new ProcessExecutionLoggerConfigurator());
+
+    // Act and Assert
+    assertThrows(ActivitiException.class, () -> springProcessEngineConfiguration.buildProcessEngine());
+  }
+
+  /**
+   * Test {@link SpringProcessEngineConfiguration#buildProcessEngine()}.
+   * <ul>
+   *   <li>Then throw {@link ActivitiException}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link SpringProcessEngineConfiguration#buildProcessEngine()}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"ProcessEngine SpringProcessEngineConfiguration.buildProcessEngine()"})
+  public void testBuildProcessEngine_thenThrowActivitiException2() {
+    // Arrange
+    SpringProcessEngineConfiguration springProcessEngineConfiguration = new SpringProcessEngineConfiguration();
+    springProcessEngineConfiguration.addConfigurator(new ProcessExecutionLoggerConfigurator());
+    springProcessEngineConfiguration.addConfigurator(new ProcessExecutionLoggerConfigurator());
+
+    // Act and Assert
+    assertThrows(ActivitiException.class, () -> springProcessEngineConfiguration.buildProcessEngine());
   }
 
   /**
    * Test {@link SpringProcessEngineConfiguration#initDefaultCommandConfig()}.
-   *
-   * <p>Method under test: {@link SpringProcessEngineConfiguration#initDefaultCommandConfig()}
+   * <p>
+   * Method under test: {@link SpringProcessEngineConfiguration#initDefaultCommandConfig()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void SpringProcessEngineConfiguration.initDefaultCommandConfig()"})
   public void testInitDefaultCommandConfig() {
     // Arrange
-    SpringProcessEngineConfiguration springProcessEngineConfiguration =
-        new SpringProcessEngineConfiguration();
-
-    // Act
-    springProcessEngineConfiguration.initDefaultCommandConfig();
-
-    // Assert
-    CommandConfig defaultCommandConfig = springProcessEngineConfiguration.getDefaultCommandConfig();
-    assertEquals(TransactionPropagation.REQUIRED, defaultCommandConfig.getTransactionPropagation());
-    assertTrue(defaultCommandConfig.isContextReusePossible());
-  }
-
-  /**
-   * Test {@link SpringProcessEngineConfiguration#initDefaultCommandConfig()}.
-   *
-   * <p>Method under test: {@link SpringProcessEngineConfiguration#initDefaultCommandConfig()}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void SpringProcessEngineConfiguration.initDefaultCommandConfig()"})
-  public void testInitDefaultCommandConfig2() {
-    // Arrange
-    JsonMapper objectMapper = JsonMapper.builder().findAndAddModules().build();
-
-    SpringProcessEngineConfiguration springProcessEngineConfiguration =
-        new SpringProcessEngineConfiguration(
-            new ApplicationUpgradeContextService(
-                "Path", 1, true, objectMapper, new AnnotationConfigApplicationContext()));
+    SpringProcessEngineConfiguration springProcessEngineConfiguration = new SpringProcessEngineConfiguration();
     springProcessEngineConfiguration.setDefaultCommandConfig(new CommandConfig());
 
     // Act
@@ -538,104 +869,96 @@ public class SpringProcessEngineConfigurationDiffblueTest {
   }
 
   /**
-   * Test {@link SpringProcessEngineConfiguration#createTransactionInterceptor()}.
-   *
-   * <p>Method under test: {@link SpringProcessEngineConfiguration#createTransactionInterceptor()}
+   * Test {@link SpringProcessEngineConfiguration#initDefaultCommandConfig()}.
+   * <ul>
+   *   <li>Given {@link SpringProcessEngineConfiguration#SpringProcessEngineConfiguration()}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link SpringProcessEngineConfiguration#initDefaultCommandConfig()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "CommandInterceptor SpringProcessEngineConfiguration.createTransactionInterceptor()"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void SpringProcessEngineConfiguration.initDefaultCommandConfig()"})
+  public void testInitDefaultCommandConfig_givenSpringProcessEngineConfiguration() {
+    // Arrange
+    SpringProcessEngineConfiguration springProcessEngineConfiguration = new SpringProcessEngineConfiguration();
+
+    // Act
+    springProcessEngineConfiguration.initDefaultCommandConfig();
+
+    // Assert
+    CommandConfig defaultCommandConfig = springProcessEngineConfiguration.getDefaultCommandConfig();
+    assertEquals(TransactionPropagation.REQUIRED, defaultCommandConfig.getTransactionPropagation());
+    assertTrue(defaultCommandConfig.isContextReusePossible());
+  }
+
+  /**
+   * Test {@link SpringProcessEngineConfiguration#createTransactionInterceptor()}.
+   * <p>
+   * Method under test: {@link SpringProcessEngineConfiguration#createTransactionInterceptor()}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"CommandInterceptor SpringProcessEngineConfiguration.createTransactionInterceptor()"})
   public void testCreateTransactionInterceptor() {
     // Arrange
-    JsonMapper objectMapper = JsonMapper.builder().findAndAddModules().build();
-
-    SpringProcessEngineConfiguration springProcessEngineConfiguration =
-        new SpringProcessEngineConfiguration(
-            new ApplicationUpgradeContextService(
-                "Path", 1, true, objectMapper, new AnnotationConfigApplicationContext()));
+    SpringProcessEngineConfiguration springProcessEngineConfiguration = new SpringProcessEngineConfiguration();
     springProcessEngineConfiguration.setTransactionManager(new DataSourceTransactionManager());
 
     // Act
-    CommandInterceptor actualCreateTransactionInterceptorResult =
-        springProcessEngineConfiguration.createTransactionInterceptor();
+    CommandInterceptor actualCreateTransactionInterceptorResult = springProcessEngineConfiguration
+        .createTransactionInterceptor();
 
     // Assert
-    PlatformTransactionManager platformTransactionManager =
-        ((SpringTransactionInterceptor) actualCreateTransactionInterceptorResult)
-            .transactionManager;
-    Collection<TransactionExecutionListener> transactionExecutionListeners =
-        ((DataSourceTransactionManager) platformTransactionManager)
-            .getTransactionExecutionListeners();
+    PlatformTransactionManager platformTransactionManager = ((SpringTransactionInterceptor) actualCreateTransactionInterceptorResult).transactionManager;
+    Collection<TransactionExecutionListener> transactionExecutionListeners = ((DataSourceTransactionManager) platformTransactionManager)
+        .getTransactionExecutionListeners();
     assertTrue(transactionExecutionListeners instanceof List);
     assertTrue(actualCreateTransactionInterceptorResult instanceof SpringTransactionInterceptor);
     assertTrue(platformTransactionManager instanceof DataSourceTransactionManager);
     assertNull(((DataSourceTransactionManager) platformTransactionManager).getDataSource());
     assertNull(actualCreateTransactionInterceptorResult.getNext());
-    assertEquals(
-        -1, ((DataSourceTransactionManager) platformTransactionManager).getDefaultTimeout());
-    assertEquals(
-        0,
-        ((DataSourceTransactionManager) platformTransactionManager)
-            .getTransactionSynchronization());
+    assertEquals(-1, ((DataSourceTransactionManager) platformTransactionManager).getDefaultTimeout());
+    assertEquals(0, ((DataSourceTransactionManager) platformTransactionManager).getTransactionSynchronization());
     assertFalse(((DataSourceTransactionManager) platformTransactionManager).isEnforceReadOnly());
-    assertFalse(
-        ((DataSourceTransactionManager) platformTransactionManager)
-            .isFailEarlyOnGlobalRollbackOnly());
-    assertFalse(
-        ((DataSourceTransactionManager) platformTransactionManager).isRollbackOnCommitFailure());
-    assertFalse(
-        ((DataSourceTransactionManager) platformTransactionManager)
-            .isValidateExistingTransaction());
+    assertFalse(((DataSourceTransactionManager) platformTransactionManager).isFailEarlyOnGlobalRollbackOnly());
+    assertFalse(((DataSourceTransactionManager) platformTransactionManager).isRollbackOnCommitFailure());
+    assertFalse(((DataSourceTransactionManager) platformTransactionManager).isValidateExistingTransaction());
     assertTrue(transactionExecutionListeners.isEmpty());
-    assertTrue(
-        ((DataSourceTransactionManager) platformTransactionManager)
-            .isGlobalRollbackOnParticipationFailure());
-    assertTrue(
-        ((DataSourceTransactionManager) platformTransactionManager).isNestedTransactionAllowed());
-    assertSame(
-        ((SpringTransactionInterceptor) actualCreateTransactionInterceptorResult)
-            .transactionManager,
-        springProcessEngineConfiguration.getTransactionManager());
+    assertTrue(((DataSourceTransactionManager) platformTransactionManager).isGlobalRollbackOnParticipationFailure());
+    assertTrue(((DataSourceTransactionManager) platformTransactionManager).isNestedTransactionAllowed());
+    PlatformTransactionManager expectedTransactionManager = ((SpringTransactionInterceptor) actualCreateTransactionInterceptorResult).transactionManager;
+    assertSame(expectedTransactionManager, springProcessEngineConfiguration.getTransactionManager());
   }
 
   /**
    * Test {@link SpringProcessEngineConfiguration#createTransactionInterceptor()}.
-   *
    * <ul>
-   *   <li>Then throw {@link ActivitiException}.
+   *   <li>Then throw {@link ActivitiException}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link SpringProcessEngineConfiguration#createTransactionInterceptor()}
+   * <p>
+   * Method under test: {@link SpringProcessEngineConfiguration#createTransactionInterceptor()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "CommandInterceptor SpringProcessEngineConfiguration.createTransactionInterceptor()"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"CommandInterceptor SpringProcessEngineConfiguration.createTransactionInterceptor()"})
   public void testCreateTransactionInterceptor_thenThrowActivitiException() {
     // Arrange, Act and Assert
-    assertThrows(
-        ActivitiException.class,
-        () -> new SpringProcessEngineConfiguration().createTransactionInterceptor());
+    assertThrows(ActivitiException.class,
+        () -> (new SpringProcessEngineConfiguration()).createTransactionInterceptor());
   }
 
   /**
    * Test {@link SpringProcessEngineConfiguration#initTransactionContextFactory()}.
-   *
-   * <p>Method under test: {@link SpringProcessEngineConfiguration#initTransactionContextFactory()}
+   * <p>
+   * Method under test: {@link SpringProcessEngineConfiguration#initTransactionContextFactory()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void SpringProcessEngineConfiguration.initTransactionContextFactory()"})
   public void testInitTransactionContextFactory() {
     // Arrange
-    SpringProcessEngineConfiguration springProcessEngineConfiguration =
-        new SpringProcessEngineConfiguration();
+    SpringProcessEngineConfiguration springProcessEngineConfiguration = new SpringProcessEngineConfiguration();
 
     // Act
     springProcessEngineConfiguration.initTransactionContextFactory();
@@ -646,21 +969,15 @@ public class SpringProcessEngineConfigurationDiffblueTest {
 
   /**
    * Test {@link SpringProcessEngineConfiguration#initTransactionContextFactory()}.
-   *
-   * <p>Method under test: {@link SpringProcessEngineConfiguration#initTransactionContextFactory()}
+   * <p>
+   * Method under test: {@link SpringProcessEngineConfiguration#initTransactionContextFactory()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void SpringProcessEngineConfiguration.initTransactionContextFactory()"})
   public void testInitTransactionContextFactory2() {
     // Arrange
-    JsonMapper objectMapper = JsonMapper.builder().findAndAddModules().build();
-
-    SpringProcessEngineConfiguration springProcessEngineConfiguration =
-        new SpringProcessEngineConfiguration(
-            new ApplicationUpgradeContextService(
-                "Path", 1, true, objectMapper, new AnnotationConfigApplicationContext()));
+    SpringProcessEngineConfiguration springProcessEngineConfiguration = new SpringProcessEngineConfiguration();
     springProcessEngineConfiguration.setTransactionContextFactory(null);
     DataSourceTransactionManager transactionManager = new DataSourceTransactionManager();
     springProcessEngineConfiguration.setTransactionManager(transactionManager);
@@ -669,87 +986,66 @@ public class SpringProcessEngineConfigurationDiffblueTest {
     springProcessEngineConfiguration.initTransactionContextFactory();
 
     // Assert
-    Collection<? extends CommandInterceptor> defaultCommandInterceptors =
-        springProcessEngineConfiguration.getDefaultCommandInterceptors();
+    Collection<? extends CommandInterceptor> defaultCommandInterceptors = springProcessEngineConfiguration
+        .getDefaultCommandInterceptors();
     assertEquals(3, defaultCommandInterceptors.size());
     assertTrue(defaultCommandInterceptors instanceof List);
-    CommandInterceptor getResult =
-        ((List<? extends CommandInterceptor>) defaultCommandInterceptors).get(2);
+    CommandInterceptor getResult = ((List<? extends CommandInterceptor>) defaultCommandInterceptors).get(2);
     assertTrue(getResult instanceof TransactionContextInterceptor);
-    TransactionContextFactory transactionContextFactory =
-        springProcessEngineConfiguration.getTransactionContextFactory();
+    TransactionContextFactory transactionContextFactory = springProcessEngineConfiguration
+        .getTransactionContextFactory();
     assertTrue(transactionContextFactory instanceof SpringTransactionContextFactory);
-    assertNull(
-        ((SpringTransactionContextFactory) transactionContextFactory)
-            .transactionSynchronizationAdapterOrder);
+    assertNull(((SpringTransactionContextFactory) transactionContextFactory).transactionSynchronizationAdapterOrder);
     assertNull(getResult.getNext());
-    assertSame(
-        transactionManager,
-        ((SpringTransactionContextFactory) transactionContextFactory).transactionManager);
-    assertSame(
-        transactionContextFactory,
-        ((TransactionContextInterceptor) getResult).getTransactionContextFactory());
+    assertSame(transactionManager, ((SpringTransactionContextFactory) transactionContextFactory).transactionManager);
+    assertSame(transactionContextFactory, ((TransactionContextInterceptor) getResult).getTransactionContextFactory());
   }
 
   /**
    * Test {@link SpringProcessEngineConfiguration#autoDeployResources(ProcessEngine)}.
-   *
    * <ul>
-   *   <li>Then throw {@link ActivitiException}.
+   *   <li>Then throw {@link ActivitiException}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link
-   * SpringProcessEngineConfiguration#autoDeployResources(ProcessEngine)}
+   * <p>
+   * Method under test: {@link SpringProcessEngineConfiguration#autoDeployResources(ProcessEngine)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void SpringProcessEngineConfiguration.autoDeployResources(ProcessEngine)"})
   public void testAutoDeployResources_thenThrowActivitiException() {
     // Arrange
-    SpringProcessEngineConfiguration springProcessEngineConfiguration =
-        new SpringProcessEngineConfiguration();
+    SpringProcessEngineConfiguration springProcessEngineConfiguration = new SpringProcessEngineConfiguration();
     springProcessEngineConfiguration.setDeploymentMode("Deployment Mode");
-
     ProcessEngine processEngine = mock(ProcessEngine.class);
-    when(processEngine.getRepositoryService())
-        .thenThrow(new ActivitiException("An error occurred"));
+    when(processEngine.getRepositoryService()).thenThrow(new ActivitiException("An error occurred"));
 
     // Act and Assert
-    assertThrows(
-        ActivitiException.class,
-        () -> springProcessEngineConfiguration.autoDeployResources(processEngine));
+    assertThrows(ActivitiException.class, () -> springProcessEngineConfiguration.autoDeployResources(processEngine));
     verify(processEngine).getRepositoryService();
   }
 
   /**
    * Test {@link SpringProcessEngineConfiguration#setDataSource(DataSource)}.
-   *
    * <ul>
-   *   <li>Then return DataSource TargetDataSource is {@code null}.
+   *   <li>Then return DataSource TargetDataSource is {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link SpringProcessEngineConfiguration#setDataSource(DataSource)}
+   * <p>
+   * Method under test: {@link SpringProcessEngineConfiguration#setDataSource(DataSource)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "ProcessEngineConfiguration SpringProcessEngineConfiguration.setDataSource(DataSource)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"ProcessEngineConfiguration SpringProcessEngineConfiguration.setDataSource(DataSource)"})
   public void testSetDataSource_thenReturnDataSourceTargetDataSourceIsNull() {
     // Arrange
-    SpringProcessEngineConfiguration springProcessEngineConfiguration =
-        new SpringProcessEngineConfiguration();
+    SpringProcessEngineConfiguration springProcessEngineConfiguration = new SpringProcessEngineConfiguration();
     TransactionAwareDataSourceProxy dataSource = new TransactionAwareDataSourceProxy();
 
     // Act
-    ProcessEngineConfiguration actualSetDataSourceResult =
-        springProcessEngineConfiguration.setDataSource(dataSource);
+    ProcessEngineConfiguration actualSetDataSourceResult = springProcessEngineConfiguration.setDataSource(dataSource);
 
     // Assert
-    Collection<? extends Deployer> defaultDeployers =
-        ((SpringProcessEngineConfiguration) actualSetDataSourceResult).getDefaultDeployers();
+    Collection<? extends Deployer> defaultDeployers = ((SpringProcessEngineConfiguration) actualSetDataSourceResult)
+        .getDefaultDeployers();
     assertEquals(1, defaultDeployers.size());
     assertTrue(defaultDeployers instanceof List);
     assertTrue(actualSetDataSourceResult instanceof SpringProcessEngineConfiguration);
@@ -758,42 +1054,36 @@ public class SpringProcessEngineConfigurationDiffblueTest {
     assertNull(((TransactionAwareDataSourceProxy) dataSource2).getTargetDataSource());
     assertSame(dataSource, springProcessEngineConfiguration.getDataSource());
     assertSame(dataSource, dataSource2);
-    BpmnDeployer bpmnDeployer =
-        ((SpringProcessEngineConfiguration) actualSetDataSourceResult).getBpmnDeployer();
+    BpmnDeployer bpmnDeployer = ((SpringProcessEngineConfiguration) actualSetDataSourceResult).getBpmnDeployer();
     assertSame(bpmnDeployer, ((List<? extends Deployer>) defaultDeployers).get(0));
-    assertSame(
-        ((SpringProcessEngineConfiguration) actualSetDataSourceResult).getBpmnDeploymentHelper(),
-        bpmnDeployer.getBpmnDeploymentHelper());
+    BpmnDeploymentHelper expectedBpmnDeploymentHelper = ((SpringProcessEngineConfiguration) actualSetDataSourceResult)
+        .getBpmnDeploymentHelper();
+    assertSame(expectedBpmnDeploymentHelper, bpmnDeployer.getBpmnDeploymentHelper());
   }
 
   /**
    * Test {@link SpringProcessEngineConfiguration#setDataSource(DataSource)}.
-   *
    * <ul>
-   *   <li>When {@link DataSource}.
-   *   <li>Then return DataSource LogWriter is {@code null}.
+   *   <li>When {@link DataSource}.</li>
+   *   <li>Then return DataSource LogWriter is {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link SpringProcessEngineConfiguration#setDataSource(DataSource)}
+   * <p>
+   * Method under test: {@link SpringProcessEngineConfiguration#setDataSource(DataSource)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "ProcessEngineConfiguration SpringProcessEngineConfiguration.setDataSource(DataSource)"
-  })
-  public void testSetDataSource_whenDataSource_thenReturnDataSourceLogWriterIsNull()
-      throws SQLException {
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"ProcessEngineConfiguration SpringProcessEngineConfiguration.setDataSource(DataSource)"})
+  public void testSetDataSource_whenDataSource_thenReturnDataSourceLogWriterIsNull() throws SQLException {
     // Arrange
     DataSource dataSource = mock(DataSource.class);
 
     // Act
-    ProcessEngineConfiguration actualSetDataSourceResult =
-        new SpringProcessEngineConfiguration().setDataSource(dataSource);
+    ProcessEngineConfiguration actualSetDataSourceResult = (new SpringProcessEngineConfiguration())
+        .setDataSource(dataSource);
 
     // Assert
-    Collection<? extends Deployer> defaultDeployers =
-        ((SpringProcessEngineConfiguration) actualSetDataSourceResult).getDefaultDeployers();
+    Collection<? extends Deployer> defaultDeployers = ((SpringProcessEngineConfiguration) actualSetDataSourceResult)
+        .getDefaultDeployers();
     assertEquals(1, defaultDeployers.size());
     assertTrue(defaultDeployers instanceof List);
     assertTrue(actualSetDataSourceResult instanceof SpringProcessEngineConfiguration);
@@ -801,29 +1091,25 @@ public class SpringProcessEngineConfigurationDiffblueTest {
     assertTrue(dataSource2 instanceof TransactionAwareDataSourceProxy);
     assertNull(dataSource2.getLogWriter());
     assertEquals(0, dataSource2.getLoginTimeout());
-    BpmnDeployer bpmnDeployer =
-        ((SpringProcessEngineConfiguration) actualSetDataSourceResult).getBpmnDeployer();
+    BpmnDeployer bpmnDeployer = ((SpringProcessEngineConfiguration) actualSetDataSourceResult).getBpmnDeployer();
     assertSame(bpmnDeployer, ((List<? extends Deployer>) defaultDeployers).get(0));
-    assertSame(
-        ((SpringProcessEngineConfiguration) actualSetDataSourceResult).getBpmnDeploymentHelper(),
-        bpmnDeployer.getBpmnDeploymentHelper());
+    BpmnDeploymentHelper expectedBpmnDeploymentHelper = ((SpringProcessEngineConfiguration) actualSetDataSourceResult)
+        .getBpmnDeploymentHelper();
+    assertSame(expectedBpmnDeploymentHelper, bpmnDeployer.getBpmnDeploymentHelper());
     assertSame(dataSource, ((TransactionAwareDataSourceProxy) dataSource2).getTargetDataSource());
   }
 
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>{@link SpringProcessEngineConfiguration#setApplicationContext(ApplicationContext)}
    *   <li>{@link SpringProcessEngineConfiguration#setDeploymentMode(String)}
    *   <li>{@link SpringProcessEngineConfiguration#setDeploymentName(String)}
    *   <li>{@link SpringProcessEngineConfiguration#setDeploymentResources(Resource[])}
-   *   <li>{@link
-   *       SpringProcessEngineConfiguration#setTransactionManager(PlatformTransactionManager)}
-   *   <li>{@link
-   *       SpringProcessEngineConfiguration#setTransactionSynchronizationAdapterOrder(Integer)}
+   *   <li>{@link SpringProcessEngineConfiguration#setTransactionManager(PlatformTransactionManager)}
+   *   <li>{@link SpringProcessEngineConfiguration#setTransactionSynchronizationAdapterOrder(Integer)}
    *   <li>{@link SpringProcessEngineConfiguration#getApplicationContext()}
    *   <li>{@link SpringProcessEngineConfiguration#getDeploymentMode()}
    *   <li>{@link SpringProcessEngineConfiguration#getDeploymentName()}
@@ -833,99 +1119,81 @@ public class SpringProcessEngineConfigurationDiffblueTest {
    * </ul>
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "ApplicationContext SpringProcessEngineConfiguration.getApplicationContext()",
-    "String SpringProcessEngineConfiguration.getDeploymentMode()",
-    "String SpringProcessEngineConfiguration.getDeploymentName()",
-    "Resource[] SpringProcessEngineConfiguration.getDeploymentResources()",
-    "PlatformTransactionManager SpringProcessEngineConfiguration.getTransactionManager()",
-    "org.activiti.api.runtime.shared.identity.UserGroupManager SpringProcessEngineConfiguration.getUserGroupManager()",
-    "void SpringProcessEngineConfiguration.setApplicationContext(ApplicationContext)",
-    "void SpringProcessEngineConfiguration.setDeploymentMode(String)",
-    "void SpringProcessEngineConfiguration.setDeploymentName(String)",
-    "void SpringProcessEngineConfiguration.setDeploymentResources(Resource[])",
-    "void SpringProcessEngineConfiguration.setTransactionManager(PlatformTransactionManager)",
-    "void SpringProcessEngineConfiguration.setTransactionSynchronizationAdapterOrder(Integer)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"ApplicationContext SpringProcessEngineConfiguration.getApplicationContext()",
+      "String SpringProcessEngineConfiguration.getDeploymentMode()",
+      "String SpringProcessEngineConfiguration.getDeploymentName()",
+      "Resource[] SpringProcessEngineConfiguration.getDeploymentResources()",
+      "PlatformTransactionManager SpringProcessEngineConfiguration.getTransactionManager()",
+      "org.activiti.api.runtime.shared.identity.UserGroupManager SpringProcessEngineConfiguration.getUserGroupManager()",
+      "void SpringProcessEngineConfiguration.setApplicationContext(ApplicationContext)",
+      "void SpringProcessEngineConfiguration.setDeploymentMode(String)",
+      "void SpringProcessEngineConfiguration.setDeploymentName(String)",
+      "void SpringProcessEngineConfiguration.setDeploymentResources(Resource[])",
+      "void SpringProcessEngineConfiguration.setTransactionManager(PlatformTransactionManager)",
+      "void SpringProcessEngineConfiguration.setTransactionSynchronizationAdapterOrder(Integer)"})
   public void testGettersAndSetters() throws UnsupportedEncodingException, BeansException {
     // Arrange
-    SpringProcessEngineConfiguration springProcessEngineConfiguration =
-        new SpringProcessEngineConfiguration();
-    ApplicationContext applicationContext = mock(ApplicationContext.class);
+    SpringProcessEngineConfiguration springProcessEngineConfiguration = new SpringProcessEngineConfiguration();
+    AnnotationConfigApplicationContext applicationContext = new AnnotationConfigApplicationContext();
 
     // Act
     springProcessEngineConfiguration.setApplicationContext(applicationContext);
     springProcessEngineConfiguration.setDeploymentMode("Deployment Mode");
     springProcessEngineConfiguration.setDeploymentName("Deployment Name");
-    Resource[] deploymentResources =
-        new Resource[] {new ByteArrayResource("AXAXAXAX".getBytes("UTF-8"))};
+    Resource[] deploymentResources = new Resource[]{new ByteArrayResource("AXAXAXAX".getBytes("UTF-8"))};
     springProcessEngineConfiguration.setDeploymentResources(deploymentResources);
     DataSourceTransactionManager transactionManager = new DataSourceTransactionManager();
     springProcessEngineConfiguration.setTransactionManager(transactionManager);
     springProcessEngineConfiguration.setTransactionSynchronizationAdapterOrder(1);
-    ApplicationContext actualApplicationContext =
-        springProcessEngineConfiguration.getApplicationContext();
+    ApplicationContext actualApplicationContext = springProcessEngineConfiguration.getApplicationContext();
     String actualDeploymentMode = springProcessEngineConfiguration.getDeploymentMode();
     String actualDeploymentName = springProcessEngineConfiguration.getDeploymentName();
-    Resource[] actualDeploymentResources =
-        springProcessEngineConfiguration.getDeploymentResources();
-    PlatformTransactionManager actualTransactionManager =
-        springProcessEngineConfiguration.getTransactionManager();
+    Resource[] actualDeploymentResources = springProcessEngineConfiguration.getDeploymentResources();
+    PlatformTransactionManager actualTransactionManager = springProcessEngineConfiguration.getTransactionManager();
 
     // Assert
     assertEquals("Deployment Mode", actualDeploymentMode);
     assertEquals("Deployment Name", actualDeploymentName);
     assertNull(springProcessEngineConfiguration.getUserGroupManager());
+    assertSame(applicationContext, actualApplicationContext);
     assertSame(transactionManager, actualTransactionManager);
     assertSame(deploymentResources, actualDeploymentResources);
-    assertSame(applicationContext, actualApplicationContext);
   }
 
   /**
    * Test {@link SpringProcessEngineConfiguration#getAutoDeploymentStrategy(String)}.
-   *
    * <ul>
-   *   <li>When {@code default}.
+   *   <li>When {@code default}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link
-   * SpringProcessEngineConfiguration#getAutoDeploymentStrategy(String)}
+   * <p>
+   * Method under test: {@link SpringProcessEngineConfiguration#getAutoDeploymentStrategy(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({
-    "org.activiti.spring.autodeployment.AutoDeploymentStrategy SpringProcessEngineConfiguration.getAutoDeploymentStrategy(String)"
-  })
+      "org.activiti.spring.autodeployment.AutoDeploymentStrategy SpringProcessEngineConfiguration.getAutoDeploymentStrategy(String)"})
   public void testGetAutoDeploymentStrategy_whenDefault() {
     // Arrange, Act and Assert
-    assertTrue(
-        new SpringProcessEngineConfiguration().getAutoDeploymentStrategy("default")
-            instanceof DefaultAutoDeploymentStrategy);
+    assertTrue((new SpringProcessEngineConfiguration())
+        .getAutoDeploymentStrategy("default") instanceof DefaultAutoDeploymentStrategy);
   }
 
   /**
    * Test {@link SpringProcessEngineConfiguration#getAutoDeploymentStrategy(String)}.
-   *
    * <ul>
-   *   <li>When {@code Mode}.
+   *   <li>When {@code Mode}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link
-   * SpringProcessEngineConfiguration#getAutoDeploymentStrategy(String)}
+   * <p>
+   * Method under test: {@link SpringProcessEngineConfiguration#getAutoDeploymentStrategy(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({
-    "org.activiti.spring.autodeployment.AutoDeploymentStrategy SpringProcessEngineConfiguration.getAutoDeploymentStrategy(String)"
-  })
+      "org.activiti.spring.autodeployment.AutoDeploymentStrategy SpringProcessEngineConfiguration.getAutoDeploymentStrategy(String)"})
   public void testGetAutoDeploymentStrategy_whenMode() {
     // Arrange, Act and Assert
-    assertTrue(
-        new SpringProcessEngineConfiguration().getAutoDeploymentStrategy("Mode")
-            instanceof DefaultAutoDeploymentStrategy);
+    assertTrue((new SpringProcessEngineConfiguration())
+        .getAutoDeploymentStrategy("Mode") instanceof DefaultAutoDeploymentStrategy);
   }
 }

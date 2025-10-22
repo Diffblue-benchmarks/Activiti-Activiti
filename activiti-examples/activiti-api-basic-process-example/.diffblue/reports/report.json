@@ -1,24 +1,25 @@
 {
   "meta" : {
-    "reportVersion" : "2.7"
+    "reportVersion" : "2.6"
   },
   "run" : {
-    "version" : "2025.09.01-44e352d-licensed",
-    "creationTimestamp" : "2025-10-15T18:17:05.474751764Z",
+    "version" : "2025.02.02-08b2a5a-licensed",
+    "creationTimestamp" : "2025-10-21T18:36:58.703503864Z",
     "command" : "dcover create --exclude-modules=org.activiti:activiti-dependency-check,org.activiti:activiti-api-dependencies,org.activiti:activiti-core-common-dependencies,org.activiti:activiti-core-dependencies,org.activiti:activiti-dependencies,org.activiti:activiti-spring-conformance-set0,org.activiti:activiti-spring-conformance-set1,org.activiti:activiti-spring-conformance-set2,org.activiti:activiti-spring-conformance-set3,org.activiti:activiti-spring-conformance-set4,org.activiti:activiti-spring-conformance-set5,org.activiti:activiti-spring-conformance-variables,org.activiti:activiti-spring-conformance-signals --coverage-reports --upload http://localhost:8080 --project-name Activiti-Activiti --name with-diffblue-tests",
-    "totalTime" : 166.866,
-    "environmentDetectionTime" : 0.027,
-    "indexingTime" : 0.589,
-    "entryPointsTime" : 0.02,
-    "generationTime" : 59588.614,
-    "timeToFirstTest" : 67495.975,
-    "timeToLastTest" : 63269.463,
-    "indexQueryTime" : 3.848,
-    "verificationTime" : 1262.43,
-    "validationTime" : 18.939
+    "totalTime" : 171.946,
+    "environmentDetectionTime" : 0.215,
+    "indexingTime" : 0.451,
+    "entryPointsTime" : 0.212,
+    "generationTime" : 60985.668,
+    "timeToFirstTest" : 68478.435,
+    "timeToLastTest" : 64596.944,
+    "indexQueryTime" : 4.9830000000000005,
+    "verificationTime" : 1189.051,
+    "validationTime" : 45.382
   },
   "codes" : {
     "R000" : "Success",
+    "R002" : "Missing observers",
     "R013" : "No inputs found that don't throw a trivial exception",
     "T000" : "Method eligible for test creation",
     "T003" : "Private method",
@@ -32,9 +33,9 @@
   "summary" : {
     "classesCount" : 4,
     "methodsCount" : 27,
-    "cumulativeDiffblueTestCount" : 9,
+    "cumulativeDiffblueTestCount" : 6,
     "cumulativeManualTestCount" : 1,
-    "completeTestCount" : 9,
+    "completeTestCount" : 6,
     "incompleteTestCount" : 0,
     "skeletonTestCount" : 0,
     "totalPhysicalLineCount" : 201,
@@ -47,25 +48,26 @@
     },
     "perMethodOutcome" : {
       "R000" : 6,
+      "R002" : 1,
       "R013" : 3,
       "T003" : 1,
       "T004" : 8,
-      "T005" : 3,
+      "T005" : 2,
       "T006" : 1,
       "T012" : 5
     },
     "perTestOutcome" : {
-      "R000" : 9
+      "R000" : 6
     },
     "perTestValidation" : {
-      "V000" : 9,
+      "V000" : 6,
       "V003" : 1
     }
   },
   "classes" : {
     "org.activiti.examples.DemoApplication" : {
       "methodsCount" : 13,
-      "completeTestCount" : 4,
+      "completeTestCount" : 3,
       "incompleteTestCount" : 0,
       "perMethodTestability" : {
         "T000" : 7,
@@ -75,19 +77,19 @@
       },
       "perMethodOutcome" : {
         "R000" : 3,
+        "R002" : 1,
         "R013" : 3,
         "T003" : 1,
-        "T005" : 1,
         "T006" : 1,
         "T012" : 4
       },
       "perTestOutcome" : {
-        "R000" : 4
+        "R000" : 3
       }
     },
     "org.activiti.examples.DemoApplicationConfiguration" : {
       "methodsCount" : 4,
-      "completeTestCount" : 4,
+      "completeTestCount" : 2,
       "incompleteTestCount" : 0,
       "perMethodTestability" : {
         "T000" : 3,
@@ -99,7 +101,7 @@
         "T012" : 1
       },
       "perTestOutcome" : {
-        "R000" : 4
+        "R000" : 2
       }
     },
     "org.activiti.examples.SecurityUtil" : {
@@ -134,7 +136,7 @@
       "completeTestCount" : 0,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
-      "perMethodOutcome" : "T005",
+      "perMethodOutcome" : "R002",
       "lineNumbers" : [
         44,
         46
@@ -261,12 +263,12 @@
       ]
     },
     "org.activiti.examples.DemoApplication.processTextConnector:()Lorg/activiti/api/process/runtime/connector/Connector;" : {
-      "completeTestCount" : 2,
+      "completeTestCount" : 1,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 2
+        "R000" : 1
       },
       "lineNumbers" : [
         95
@@ -319,12 +321,12 @@
       ]
     },
     "org.activiti.examples.DemoApplicationConfiguration.myUserDetailsService:()Lorg/springframework/security/core/userdetails/UserDetailsService;" : {
-      "completeTestCount" : 2,
+      "completeTestCount" : 1,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 2
+        "R000" : 1
       },
       "lineNumbers" : [
         42,
@@ -340,12 +342,12 @@
       ]
     },
     "org.activiti.examples.DemoApplicationConfiguration.passwordEncoder:()Lorg/springframework/security/crypto/password/PasswordEncoder;" : {
-      "completeTestCount" : 2,
+      "completeTestCount" : 1,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 2
+        "R000" : 1
       },
       "lineNumbers" : [
         63

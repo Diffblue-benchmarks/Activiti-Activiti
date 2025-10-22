@@ -19,38 +19,32 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
-import org.springframework.test.annotation.DirtiesContext;
-import org.springframework.test.annotation.DirtiesContext.ClassMode;
 
-@DirtiesContext(classMode = ClassMode.AFTER_EACH_TEST_METHOD)
 public class AbstractEntityNoRevisionDiffblueTest {
   /**
    * Test {@link AbstractEntityNoRevision#getId()}.
-   *
-   * <p>Method under test: {@link AbstractEntityNoRevision#getId()}
+   * <p>
+   * Method under test: {@link AbstractEntityNoRevision#getId()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"String AbstractEntityNoRevision.getId()"})
   public void testGetId() {
     // Arrange, Act and Assert
-    assertNull(new CommentEntityImpl().getId());
+    assertNull((new CommentEntityImpl()).getId());
   }
 
   /**
    * Test {@link AbstractEntityNoRevision#setId(String)}.
-   *
-   * <p>Method under test: {@link AbstractEntityNoRevision#setId(String)}
+   * <p>
+   * Method under test: {@link AbstractEntityNoRevision#setId(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void AbstractEntityNoRevision.setId(String)"})
   public void testSetId() {
     // Arrange
@@ -65,17 +59,15 @@ public class AbstractEntityNoRevisionDiffblueTest {
 
   /**
    * Test {@link AbstractEntityNoRevision#isInserted()}.
-   *
    * <ul>
-   *   <li>Given {@link CommentEntityImpl} (default constructor) Inserted is {@code true}.
-   *   <li>Then return {@code true}.
+   *   <li>Given {@link CommentEntityImpl} (default constructor) Inserted is {@code true}.</li>
+   *   <li>Then return {@code true}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link AbstractEntityNoRevision#isInserted()}
+   * <p>
+   * Method under test: {@link AbstractEntityNoRevision#isInserted()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"boolean AbstractEntityNoRevision.isInserted()"})
   public void testIsInserted_givenCommentEntityImplInsertedIsTrue_thenReturnTrue() {
     // Arrange
@@ -88,31 +80,28 @@ public class AbstractEntityNoRevisionDiffblueTest {
 
   /**
    * Test {@link AbstractEntityNoRevision#isInserted()}.
-   *
    * <ul>
-   *   <li>Given {@link CommentEntityImpl} (default constructor).
-   *   <li>Then return {@code false}.
+   *   <li>Given {@link CommentEntityImpl} (default constructor).</li>
+   *   <li>Then return {@code false}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link AbstractEntityNoRevision#isInserted()}
+   * <p>
+   * Method under test: {@link AbstractEntityNoRevision#isInserted()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"boolean AbstractEntityNoRevision.isInserted()"})
   public void testIsInserted_givenCommentEntityImpl_thenReturnFalse() {
     // Arrange, Act and Assert
-    assertFalse(new CommentEntityImpl().isInserted());
+    assertFalse((new CommentEntityImpl()).isInserted());
   }
 
   /**
    * Test {@link AbstractEntityNoRevision#setInserted(boolean)}.
-   *
-   * <p>Method under test: {@link AbstractEntityNoRevision#setInserted(boolean)}
+   * <p>
+   * Method under test: {@link AbstractEntityNoRevision#setInserted(boolean)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void AbstractEntityNoRevision.setInserted(boolean)"})
   public void testSetInserted() {
     // Arrange
@@ -127,17 +116,15 @@ public class AbstractEntityNoRevisionDiffblueTest {
 
   /**
    * Test {@link AbstractEntityNoRevision#isUpdated()}.
-   *
    * <ul>
-   *   <li>Given {@link CommentEntityImpl} (default constructor) Updated is {@code true}.
-   *   <li>Then return {@code true}.
+   *   <li>Given {@link CommentEntityImpl} (default constructor) Updated is {@code true}.</li>
+   *   <li>Then return {@code true}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link AbstractEntityNoRevision#isUpdated()}
+   * <p>
+   * Method under test: {@link AbstractEntityNoRevision#isUpdated()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"boolean AbstractEntityNoRevision.isUpdated()"})
   public void testIsUpdated_givenCommentEntityImplUpdatedIsTrue_thenReturnTrue() {
     // Arrange
@@ -150,31 +137,28 @@ public class AbstractEntityNoRevisionDiffblueTest {
 
   /**
    * Test {@link AbstractEntityNoRevision#isUpdated()}.
-   *
    * <ul>
-   *   <li>Given {@link CommentEntityImpl} (default constructor).
-   *   <li>Then return {@code false}.
+   *   <li>Given {@link CommentEntityImpl} (default constructor).</li>
+   *   <li>Then return {@code false}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link AbstractEntityNoRevision#isUpdated()}
+   * <p>
+   * Method under test: {@link AbstractEntityNoRevision#isUpdated()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"boolean AbstractEntityNoRevision.isUpdated()"})
   public void testIsUpdated_givenCommentEntityImpl_thenReturnFalse() {
     // Arrange, Act and Assert
-    assertFalse(new CommentEntityImpl().isUpdated());
+    assertFalse((new CommentEntityImpl()).isUpdated());
   }
 
   /**
    * Test {@link AbstractEntityNoRevision#setUpdated(boolean)}.
-   *
-   * <p>Method under test: {@link AbstractEntityNoRevision#setUpdated(boolean)}
+   * <p>
+   * Method under test: {@link AbstractEntityNoRevision#setUpdated(boolean)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void AbstractEntityNoRevision.setUpdated(boolean)"})
   public void testSetUpdated() {
     // Arrange
@@ -189,17 +173,15 @@ public class AbstractEntityNoRevisionDiffblueTest {
 
   /**
    * Test {@link AbstractEntityNoRevision#isDeleted()}.
-   *
    * <ul>
-   *   <li>Given {@link CommentEntityImpl} (default constructor) Deleted is {@code true}.
-   *   <li>Then return {@code true}.
+   *   <li>Given {@link CommentEntityImpl} (default constructor) Deleted is {@code true}.</li>
+   *   <li>Then return {@code true}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link AbstractEntityNoRevision#isDeleted()}
+   * <p>
+   * Method under test: {@link AbstractEntityNoRevision#isDeleted()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"boolean AbstractEntityNoRevision.isDeleted()"})
   public void testIsDeleted_givenCommentEntityImplDeletedIsTrue_thenReturnTrue() {
     // Arrange
@@ -212,31 +194,28 @@ public class AbstractEntityNoRevisionDiffblueTest {
 
   /**
    * Test {@link AbstractEntityNoRevision#isDeleted()}.
-   *
    * <ul>
-   *   <li>Given {@link CommentEntityImpl} (default constructor).
-   *   <li>Then return {@code false}.
+   *   <li>Given {@link CommentEntityImpl} (default constructor).</li>
+   *   <li>Then return {@code false}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link AbstractEntityNoRevision#isDeleted()}
+   * <p>
+   * Method under test: {@link AbstractEntityNoRevision#isDeleted()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"boolean AbstractEntityNoRevision.isDeleted()"})
   public void testIsDeleted_givenCommentEntityImpl_thenReturnFalse() {
     // Arrange, Act and Assert
-    assertFalse(new CommentEntityImpl().isDeleted());
+    assertFalse((new CommentEntityImpl()).isDeleted());
   }
 
   /**
    * Test {@link AbstractEntityNoRevision#setDeleted(boolean)}.
-   *
-   * <p>Method under test: {@link AbstractEntityNoRevision#setDeleted(boolean)}
+   * <p>
+   * Method under test: {@link AbstractEntityNoRevision#setDeleted(boolean)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void AbstractEntityNoRevision.setDeleted(boolean)"})
   public void testSetDeleted() {
     // Arrange

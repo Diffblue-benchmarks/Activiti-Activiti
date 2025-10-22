@@ -16,8 +16,7 @@
 package org.activiti.engine.impl.calendar;
 
 import static org.junit.Assert.assertEquals;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
@@ -25,12 +24,11 @@ import org.junit.experimental.categories.Category;
 public class ValueSetDiffblueTest {
   /**
    * Test new {@link ValueSet} (default constructor).
-   *
-   * <p>Method under test: default or parameterless constructor of {@link ValueSet}
+   * <p>
+   * Method under test: default or parameterless constructor of {@link ValueSet}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void ValueSet.<init>()"})
   public void testNewValueSet() {
     // Arrange and Act

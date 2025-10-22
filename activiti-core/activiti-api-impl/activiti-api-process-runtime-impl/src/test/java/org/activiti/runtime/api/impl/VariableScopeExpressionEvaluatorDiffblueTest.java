@@ -17,7 +17,6 @@ package org.activiti.runtime.api.impl;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.mock;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.engine.delegate.Expression;
 import org.activiti.engine.delegate.VariableScope;
@@ -35,41 +34,35 @@ import org.springframework.test.context.aot.DisabledInAotMode;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 @ContextConfiguration(classes = {VariableScopeExpressionEvaluator.class})
-@DisabledInAotMode
 @ExtendWith(SpringExtension.class)
+@DisabledInAotMode
 class VariableScopeExpressionEvaluatorDiffblueTest {
-  @MockBean private VariableScope variableScope;
+  @MockBean
+  private VariableScope variableScope;
 
-  @Autowired private VariableScopeExpressionEvaluator variableScopeExpressionEvaluator;
+  @Autowired
+  private VariableScopeExpressionEvaluator variableScopeExpressionEvaluator;
 
   /**
-   * Test {@link VariableScopeExpressionEvaluator#evaluate(Expression, ExpressionManager,
-   * DelegateInterceptor)}.
-   *
+   * Test {@link VariableScopeExpressionEvaluator#evaluate(Expression, ExpressionManager, DelegateInterceptor)}.
    * <ul>
-   *   <li>When {@link FixedValue#FixedValue(Object)} with {@code Value}.
-   *   <li>Then return {@code Value}.
+   *   <li>When {@link FixedValue#FixedValue(Object)} with {@code Value}.</li>
+   *   <li>Then return {@code Value}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link VariableScopeExpressionEvaluator#evaluate(Expression,
-   * ExpressionManager, DelegateInterceptor)}
+   * <p>
+   * Method under test: {@link VariableScopeExpressionEvaluator#evaluate(Expression, ExpressionManager, DelegateInterceptor)}
    */
   @Test
-  @DisplayName(
-      "Test evaluate(Expression, ExpressionManager, DelegateInterceptor); when FixedValue(Object) with 'Value'; then return 'Value'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test evaluate(Expression, ExpressionManager, DelegateInterceptor); when FixedValue(Object) with 'Value'; then return 'Value'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({
-    "java.lang.Object VariableScopeExpressionEvaluator.evaluate(Expression, ExpressionManager, DelegateInterceptor)"
-  })
+      "java.lang.Object VariableScopeExpressionEvaluator.evaluate(Expression, ExpressionManager, DelegateInterceptor)"})
   void testEvaluate_whenFixedValueWithValue_thenReturnValue() {
     // Arrange
     FixedValue expression = new FixedValue("Value");
 
     // Act and Assert
-    assertEquals(
-        "Value",
-        variableScopeExpressionEvaluator.evaluate(
-            expression, new ExpressionManager(), mock(DelegateInterceptor.class)));
+    assertEquals("Value", variableScopeExpressionEvaluator.evaluate(expression, new ExpressionManager(),
+        mock(DelegateInterceptor.class)));
   }
 }

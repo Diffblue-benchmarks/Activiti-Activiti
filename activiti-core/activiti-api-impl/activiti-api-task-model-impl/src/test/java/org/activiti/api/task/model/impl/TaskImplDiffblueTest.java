@@ -21,7 +21,6 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.time.LocalDate;
 import java.time.ZoneOffset;
@@ -37,9 +36,8 @@ import org.junit.jupiter.api.Test;
 class TaskImplDiffblueTest {
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>{@link TaskImpl#TaskImpl()}
    *   <li>{@link TaskImpl#setAssignee(String)}
@@ -91,57 +89,26 @@ class TaskImplDiffblueTest {
    */
   @Test
   @DisplayName("Test getters and setters")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void TaskImpl.<init>()",
-    "void TaskImpl.<init>(String, String, Task.TaskStatus)",
-    "String TaskImpl.getAssignee()",
-    "String TaskImpl.getBusinessKey()",
-    "List TaskImpl.getCandidateGroups()",
-    "List TaskImpl.getCandidateUsers()",
-    "Date TaskImpl.getClaimedDate()",
-    "String TaskImpl.getCompletedBy()",
-    "Date TaskImpl.getCompletedDate()",
-    "Date TaskImpl.getCreatedDate()",
-    "String TaskImpl.getDescription()",
-    "Date TaskImpl.getDueDate()",
-    "Long TaskImpl.getDuration()",
-    "String TaskImpl.getFormKey()",
-    "String TaskImpl.getId()",
-    "String TaskImpl.getName()",
-    "String TaskImpl.getOwner()",
-    "String TaskImpl.getParentTaskId()",
-    "int TaskImpl.getPriority()",
-    "String TaskImpl.getProcessDefinitionId()",
-    "Integer TaskImpl.getProcessDefinitionVersion()",
-    "String TaskImpl.getProcessInstanceId()",
-    "Task.TaskStatus TaskImpl.getStatus()",
-    "String TaskImpl.getTaskDefinitionKey()",
-    "void TaskImpl.setAssignee(String)",
-    "void TaskImpl.setBusinessKey(String)",
-    "void TaskImpl.setCandidateGroups(List)",
-    "void TaskImpl.setCandidateUsers(List)",
-    "void TaskImpl.setClaimedDate(Date)",
-    "void TaskImpl.setCompletedBy(String)",
-    "void TaskImpl.setCompletedDate(Date)",
-    "void TaskImpl.setCreatedDate(Date)",
-    "void TaskImpl.setDescription(String)",
-    "void TaskImpl.setDueDate(Date)",
-    "void TaskImpl.setDuration(Long)",
-    "void TaskImpl.setFormKey(String)",
-    "void TaskImpl.setId(String)",
-    "void TaskImpl.setName(String)",
-    "void TaskImpl.setOwner(String)",
-    "void TaskImpl.setParentTaskId(String)",
-    "void TaskImpl.setPriority(int)",
-    "void TaskImpl.setProcessDefinitionId(String)",
-    "void TaskImpl.setProcessDefinitionVersion(Integer)",
-    "void TaskImpl.setProcessInstanceId(String)",
-    "void TaskImpl.setStatus(Task.TaskStatus)",
-    "void TaskImpl.setTaskDefinitionKey(String)",
-    "String TaskImpl.toString()"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void TaskImpl.<init>()", "void TaskImpl.<init>(String, String, Task.TaskStatus)",
+      "String TaskImpl.getAssignee()", "String TaskImpl.getBusinessKey()", "List TaskImpl.getCandidateGroups()",
+      "List TaskImpl.getCandidateUsers()", "Date TaskImpl.getClaimedDate()", "String TaskImpl.getCompletedBy()",
+      "Date TaskImpl.getCompletedDate()", "Date TaskImpl.getCreatedDate()", "String TaskImpl.getDescription()",
+      "Date TaskImpl.getDueDate()", "Long TaskImpl.getDuration()", "String TaskImpl.getFormKey()",
+      "String TaskImpl.getId()", "String TaskImpl.getName()", "String TaskImpl.getOwner()",
+      "String TaskImpl.getParentTaskId()", "int TaskImpl.getPriority()", "String TaskImpl.getProcessDefinitionId()",
+      "Integer TaskImpl.getProcessDefinitionVersion()", "String TaskImpl.getProcessInstanceId()",
+      "Task.TaskStatus TaskImpl.getStatus()", "String TaskImpl.getTaskDefinitionKey()",
+      "void TaskImpl.setAssignee(String)", "void TaskImpl.setBusinessKey(String)",
+      "void TaskImpl.setCandidateGroups(List)", "void TaskImpl.setCandidateUsers(List)",
+      "void TaskImpl.setClaimedDate(Date)", "void TaskImpl.setCompletedBy(String)",
+      "void TaskImpl.setCompletedDate(Date)", "void TaskImpl.setCreatedDate(Date)",
+      "void TaskImpl.setDescription(String)", "void TaskImpl.setDueDate(Date)", "void TaskImpl.setDuration(Long)",
+      "void TaskImpl.setFormKey(String)", "void TaskImpl.setId(String)", "void TaskImpl.setName(String)",
+      "void TaskImpl.setOwner(String)", "void TaskImpl.setParentTaskId(String)", "void TaskImpl.setPriority(int)",
+      "void TaskImpl.setProcessDefinitionId(String)", "void TaskImpl.setProcessDefinitionVersion(Integer)",
+      "void TaskImpl.setProcessInstanceId(String)", "void TaskImpl.setStatus(Task.TaskStatus)",
+      "void TaskImpl.setTaskDefinitionKey(String)", "String TaskImpl.toString()"})
   void testGettersAndSetters() {
     // Arrange and Act
     TaskImpl actualTaskImpl = new TaskImpl();
@@ -151,19 +118,15 @@ class TaskImplDiffblueTest {
     actualTaskImpl.setCandidateGroups(candidateGroups);
     ArrayList<String> candidateUsers = new ArrayList<>();
     actualTaskImpl.setCandidateUsers(candidateUsers);
-    Date claimedDate =
-        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant());
+    Date claimedDate = Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant());
     actualTaskImpl.setClaimedDate(claimedDate);
     actualTaskImpl.setCompletedBy("Completed By");
-    Date completedDate =
-        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant());
+    Date completedDate = Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant());
     actualTaskImpl.setCompletedDate(completedDate);
-    Date createdDate =
-        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant());
+    Date createdDate = Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant());
     actualTaskImpl.setCreatedDate(createdDate);
     actualTaskImpl.setDescription("The characteristics of someone or something");
-    Date dueDate =
-        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant());
+    Date dueDate = Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant());
     actualTaskImpl.setDueDate(dueDate);
     actualTaskImpl.setDuration(1L);
     actualTaskImpl.setFormKey("Form Key");
@@ -230,13 +193,11 @@ class TaskImplDiffblueTest {
 
   /**
    * Test getters and setters.
-   *
    * <ul>
-   *   <li>When {@code 42}.
+   *   <li>When {@code 42}.</li>
    * </ul>
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>{@link TaskImpl#TaskImpl(String, String, Task.TaskStatus)}
    *   <li>{@link TaskImpl#setAssignee(String)}
@@ -288,57 +249,26 @@ class TaskImplDiffblueTest {
    */
   @Test
   @DisplayName("Test getters and setters; when '42'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void TaskImpl.<init>()",
-    "void TaskImpl.<init>(String, String, Task.TaskStatus)",
-    "String TaskImpl.getAssignee()",
-    "String TaskImpl.getBusinessKey()",
-    "List TaskImpl.getCandidateGroups()",
-    "List TaskImpl.getCandidateUsers()",
-    "Date TaskImpl.getClaimedDate()",
-    "String TaskImpl.getCompletedBy()",
-    "Date TaskImpl.getCompletedDate()",
-    "Date TaskImpl.getCreatedDate()",
-    "String TaskImpl.getDescription()",
-    "Date TaskImpl.getDueDate()",
-    "Long TaskImpl.getDuration()",
-    "String TaskImpl.getFormKey()",
-    "String TaskImpl.getId()",
-    "String TaskImpl.getName()",
-    "String TaskImpl.getOwner()",
-    "String TaskImpl.getParentTaskId()",
-    "int TaskImpl.getPriority()",
-    "String TaskImpl.getProcessDefinitionId()",
-    "Integer TaskImpl.getProcessDefinitionVersion()",
-    "String TaskImpl.getProcessInstanceId()",
-    "Task.TaskStatus TaskImpl.getStatus()",
-    "String TaskImpl.getTaskDefinitionKey()",
-    "void TaskImpl.setAssignee(String)",
-    "void TaskImpl.setBusinessKey(String)",
-    "void TaskImpl.setCandidateGroups(List)",
-    "void TaskImpl.setCandidateUsers(List)",
-    "void TaskImpl.setClaimedDate(Date)",
-    "void TaskImpl.setCompletedBy(String)",
-    "void TaskImpl.setCompletedDate(Date)",
-    "void TaskImpl.setCreatedDate(Date)",
-    "void TaskImpl.setDescription(String)",
-    "void TaskImpl.setDueDate(Date)",
-    "void TaskImpl.setDuration(Long)",
-    "void TaskImpl.setFormKey(String)",
-    "void TaskImpl.setId(String)",
-    "void TaskImpl.setName(String)",
-    "void TaskImpl.setOwner(String)",
-    "void TaskImpl.setParentTaskId(String)",
-    "void TaskImpl.setPriority(int)",
-    "void TaskImpl.setProcessDefinitionId(String)",
-    "void TaskImpl.setProcessDefinitionVersion(Integer)",
-    "void TaskImpl.setProcessInstanceId(String)",
-    "void TaskImpl.setStatus(Task.TaskStatus)",
-    "void TaskImpl.setTaskDefinitionKey(String)",
-    "String TaskImpl.toString()"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void TaskImpl.<init>()", "void TaskImpl.<init>(String, String, Task.TaskStatus)",
+      "String TaskImpl.getAssignee()", "String TaskImpl.getBusinessKey()", "List TaskImpl.getCandidateGroups()",
+      "List TaskImpl.getCandidateUsers()", "Date TaskImpl.getClaimedDate()", "String TaskImpl.getCompletedBy()",
+      "Date TaskImpl.getCompletedDate()", "Date TaskImpl.getCreatedDate()", "String TaskImpl.getDescription()",
+      "Date TaskImpl.getDueDate()", "Long TaskImpl.getDuration()", "String TaskImpl.getFormKey()",
+      "String TaskImpl.getId()", "String TaskImpl.getName()", "String TaskImpl.getOwner()",
+      "String TaskImpl.getParentTaskId()", "int TaskImpl.getPriority()", "String TaskImpl.getProcessDefinitionId()",
+      "Integer TaskImpl.getProcessDefinitionVersion()", "String TaskImpl.getProcessInstanceId()",
+      "Task.TaskStatus TaskImpl.getStatus()", "String TaskImpl.getTaskDefinitionKey()",
+      "void TaskImpl.setAssignee(String)", "void TaskImpl.setBusinessKey(String)",
+      "void TaskImpl.setCandidateGroups(List)", "void TaskImpl.setCandidateUsers(List)",
+      "void TaskImpl.setClaimedDate(Date)", "void TaskImpl.setCompletedBy(String)",
+      "void TaskImpl.setCompletedDate(Date)", "void TaskImpl.setCreatedDate(Date)",
+      "void TaskImpl.setDescription(String)", "void TaskImpl.setDueDate(Date)", "void TaskImpl.setDuration(Long)",
+      "void TaskImpl.setFormKey(String)", "void TaskImpl.setId(String)", "void TaskImpl.setName(String)",
+      "void TaskImpl.setOwner(String)", "void TaskImpl.setParentTaskId(String)", "void TaskImpl.setPriority(int)",
+      "void TaskImpl.setProcessDefinitionId(String)", "void TaskImpl.setProcessDefinitionVersion(Integer)",
+      "void TaskImpl.setProcessInstanceId(String)", "void TaskImpl.setStatus(Task.TaskStatus)",
+      "void TaskImpl.setTaskDefinitionKey(String)", "String TaskImpl.toString()"})
   void testGettersAndSetters_when42() {
     // Arrange and Act
     TaskImpl actualTaskImpl = new TaskImpl("42", "Name", TaskStatus.CREATED);
@@ -348,19 +278,15 @@ class TaskImplDiffblueTest {
     actualTaskImpl.setCandidateGroups(candidateGroups);
     ArrayList<String> candidateUsers = new ArrayList<>();
     actualTaskImpl.setCandidateUsers(candidateUsers);
-    Date claimedDate =
-        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant());
+    Date claimedDate = Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant());
     actualTaskImpl.setClaimedDate(claimedDate);
     actualTaskImpl.setCompletedBy("Completed By");
-    Date completedDate =
-        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant());
+    Date completedDate = Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant());
     actualTaskImpl.setCompletedDate(completedDate);
-    Date createdDate =
-        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant());
+    Date createdDate = Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant());
     actualTaskImpl.setCreatedDate(createdDate);
     actualTaskImpl.setDescription("The characteristics of someone or something");
-    Date dueDate =
-        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant());
+    Date dueDate = Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant());
     actualTaskImpl.setDueDate(dueDate);
     actualTaskImpl.setDuration(1L);
     actualTaskImpl.setFormKey("Form Key");
@@ -427,39 +353,33 @@ class TaskImplDiffblueTest {
 
   /**
    * Test {@link TaskImpl#isStandalone()}.
-   *
    * <ul>
-   *   <li>Given {@link TaskImpl#TaskImpl(String, String, TaskStatus)} with id is {@code 42} and
-   *       {@code Name} and status is {@code CREATED}.
-   *   <li>Then return {@code true}.
+   *   <li>Given {@link TaskImpl#TaskImpl(String, String, TaskStatus)} with id is {@code 42} and {@code Name} and status is {@code CREATED}.</li>
+   *   <li>Then return {@code true}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link TaskImpl#isStandalone()}
+   * <p>
+   * Method under test: {@link TaskImpl#isStandalone()}
    */
   @Test
-  @DisplayName(
-      "Test isStandalone(); given TaskImpl(String, String, TaskStatus) with id is '42' and 'Name' and status is 'CREATED'; then return 'true'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test isStandalone(); given TaskImpl(String, String, TaskStatus) with id is '42' and 'Name' and status is 'CREATED'; then return 'true'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"boolean TaskImpl.isStandalone()"})
   void testIsStandalone_givenTaskImplWithIdIs42AndNameAndStatusIsCreated_thenReturnTrue() {
     // Arrange, Act and Assert
-    assertTrue(new TaskImpl("42", "Name", TaskStatus.CREATED).isStandalone());
+    assertTrue((new TaskImpl("42", "Name", TaskStatus.CREATED)).isStandalone());
   }
 
   /**
    * Test {@link TaskImpl#isStandalone()}.
-   *
    * <ul>
-   *   <li>Then return {@code false}.
+   *   <li>Then return {@code false}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link TaskImpl#isStandalone()}
+   * <p>
+   * Method under test: {@link TaskImpl#isStandalone()}
    */
   @Test
   @DisplayName("Test isStandalone(); then return 'false'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"boolean TaskImpl.isStandalone()"})
   void testIsStandalone_thenReturnFalse() {
     // Arrange
@@ -472,14 +392,12 @@ class TaskImplDiffblueTest {
 
   /**
    * Test {@link TaskImpl#equals(Object)}, and {@link TaskImpl#hashCode()}.
-   *
    * <ul>
-   *   <li>When other is equal.
-   *   <li>Then return equal.
+   *   <li>When other is equal.</li>
+   *   <li>Then return equal.</li>
    * </ul>
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>{@link TaskImpl#equals(Object)}
    *   <li>{@link TaskImpl#hashCode()}
@@ -487,8 +405,7 @@ class TaskImplDiffblueTest {
    */
   @Test
   @DisplayName("Test equals(Object), and hashCode(); when other is equal; then return equal")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"boolean TaskImpl.equals(Object)", "int TaskImpl.hashCode()"})
   void testEqualsAndHashCode_whenOtherIsEqual_thenReturnEqual() {
     // Arrange
@@ -497,19 +414,18 @@ class TaskImplDiffblueTest {
 
     // Act and Assert
     assertEquals(taskImpl, taskImpl2);
-    assertEquals(taskImpl.hashCode(), taskImpl2.hashCode());
+    int expectedHashCodeResult = taskImpl.hashCode();
+    assertEquals(expectedHashCodeResult, taskImpl2.hashCode());
   }
 
   /**
    * Test {@link TaskImpl#equals(Object)}, and {@link TaskImpl#hashCode()}.
-   *
    * <ul>
-   *   <li>When other is same.
-   *   <li>Then return equal.
+   *   <li>When other is same.</li>
+   *   <li>Then return equal.</li>
    * </ul>
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>{@link TaskImpl#equals(Object)}
    *   <li>{@link TaskImpl#hashCode()}
@@ -517,8 +433,7 @@ class TaskImplDiffblueTest {
    */
   @Test
   @DisplayName("Test equals(Object), and hashCode(); when other is same; then return equal")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"boolean TaskImpl.equals(Object)", "int TaskImpl.hashCode()"})
   void testEqualsAndHashCode_whenOtherIsSame_thenReturnEqual() {
     // Arrange
@@ -532,18 +447,16 @@ class TaskImplDiffblueTest {
 
   /**
    * Test {@link TaskImpl#equals(Object)}.
-   *
    * <ul>
-   *   <li>When other is different.
-   *   <li>Then return not equal.
+   *   <li>When other is different.</li>
+   *   <li>Then return not equal.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link TaskImpl#equals(Object)}
+   * <p>
+   * Method under test: {@link TaskImpl#equals(Object)}
    */
   @Test
   @DisplayName("Test equals(Object); when other is different; then return not equal")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"boolean TaskImpl.equals(Object)", "int TaskImpl.hashCode()"})
   void testEquals_whenOtherIsDifferent_thenReturnNotEqual() {
     // Arrange
@@ -555,18 +468,16 @@ class TaskImplDiffblueTest {
 
   /**
    * Test {@link TaskImpl#equals(Object)}.
-   *
    * <ul>
-   *   <li>When other is different.
-   *   <li>Then return not equal.
+   *   <li>When other is different.</li>
+   *   <li>Then return not equal.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link TaskImpl#equals(Object)}
+   * <p>
+   * Method under test: {@link TaskImpl#equals(Object)}
    */
   @Test
   @DisplayName("Test equals(Object); when other is different; then return not equal")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"boolean TaskImpl.equals(Object)", "int TaskImpl.hashCode()"})
   void testEquals_whenOtherIsDifferent_thenReturnNotEqual2() {
     // Arrange
@@ -578,18 +489,16 @@ class TaskImplDiffblueTest {
 
   /**
    * Test {@link TaskImpl#equals(Object)}.
-   *
    * <ul>
-   *   <li>When other is different.
-   *   <li>Then return not equal.
+   *   <li>When other is different.</li>
+   *   <li>Then return not equal.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link TaskImpl#equals(Object)}
+   * <p>
+   * Method under test: {@link TaskImpl#equals(Object)}
    */
   @Test
   @DisplayName("Test equals(Object); when other is different; then return not equal")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"boolean TaskImpl.equals(Object)", "int TaskImpl.hashCode()"})
   void testEquals_whenOtherIsDifferent_thenReturnNotEqual3() {
     // Arrange
@@ -601,18 +510,16 @@ class TaskImplDiffblueTest {
 
   /**
    * Test {@link TaskImpl#equals(Object)}.
-   *
    * <ul>
-   *   <li>When other is different.
-   *   <li>Then return not equal.
+   *   <li>When other is different.</li>
+   *   <li>Then return not equal.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link TaskImpl#equals(Object)}
+   * <p>
+   * Method under test: {@link TaskImpl#equals(Object)}
    */
   @Test
   @DisplayName("Test equals(Object); when other is different; then return not equal")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"boolean TaskImpl.equals(Object)", "int TaskImpl.hashCode()"})
   void testEquals_whenOtherIsDifferent_thenReturnNotEqual4() {
     // Arrange
@@ -625,18 +532,16 @@ class TaskImplDiffblueTest {
 
   /**
    * Test {@link TaskImpl#equals(Object)}.
-   *
    * <ul>
-   *   <li>When other is different.
-   *   <li>Then return not equal.
+   *   <li>When other is different.</li>
+   *   <li>Then return not equal.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link TaskImpl#equals(Object)}
+   * <p>
+   * Method under test: {@link TaskImpl#equals(Object)}
    */
   @Test
   @DisplayName("Test equals(Object); when other is different; then return not equal")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"boolean TaskImpl.equals(Object)", "int TaskImpl.hashCode()"})
   void testEquals_whenOtherIsDifferent_thenReturnNotEqual5() {
     // Arrange
@@ -649,18 +554,16 @@ class TaskImplDiffblueTest {
 
   /**
    * Test {@link TaskImpl#equals(Object)}.
-   *
    * <ul>
-   *   <li>When other is different.
-   *   <li>Then return not equal.
+   *   <li>When other is different.</li>
+   *   <li>Then return not equal.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link TaskImpl#equals(Object)}
+   * <p>
+   * Method under test: {@link TaskImpl#equals(Object)}
    */
   @Test
   @DisplayName("Test equals(Object); when other is different; then return not equal")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"boolean TaskImpl.equals(Object)", "int TaskImpl.hashCode()"})
   void testEquals_whenOtherIsDifferent_thenReturnNotEqual6() {
     // Arrange
@@ -673,24 +576,21 @@ class TaskImplDiffblueTest {
 
   /**
    * Test {@link TaskImpl#equals(Object)}.
-   *
    * <ul>
-   *   <li>When other is different.
-   *   <li>Then return not equal.
+   *   <li>When other is different.</li>
+   *   <li>Then return not equal.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link TaskImpl#equals(Object)}
+   * <p>
+   * Method under test: {@link TaskImpl#equals(Object)}
    */
   @Test
   @DisplayName("Test equals(Object); when other is different; then return not equal")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"boolean TaskImpl.equals(Object)", "int TaskImpl.hashCode()"})
   void testEquals_whenOtherIsDifferent_thenReturnNotEqual7() {
     // Arrange
     TaskImpl taskImpl = new TaskImpl("42", "Name", TaskStatus.CREATED);
-    taskImpl.setCreatedDate(
-        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
+    taskImpl.setCreatedDate(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
 
     // Act and Assert
     assertNotEquals(taskImpl, new TaskImpl("42", "Name", TaskStatus.CREATED));
@@ -698,24 +598,21 @@ class TaskImplDiffblueTest {
 
   /**
    * Test {@link TaskImpl#equals(Object)}.
-   *
    * <ul>
-   *   <li>When other is different.
-   *   <li>Then return not equal.
+   *   <li>When other is different.</li>
+   *   <li>Then return not equal.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link TaskImpl#equals(Object)}
+   * <p>
+   * Method under test: {@link TaskImpl#equals(Object)}
    */
   @Test
   @DisplayName("Test equals(Object); when other is different; then return not equal")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"boolean TaskImpl.equals(Object)", "int TaskImpl.hashCode()"})
   void testEquals_whenOtherIsDifferent_thenReturnNotEqual8() {
     // Arrange
     TaskImpl taskImpl = new TaskImpl("42", "Name", TaskStatus.CREATED);
-    taskImpl.setClaimedDate(
-        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
+    taskImpl.setClaimedDate(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
 
     // Act and Assert
     assertNotEquals(taskImpl, new TaskImpl("42", "Name", TaskStatus.CREATED));
@@ -723,24 +620,21 @@ class TaskImplDiffblueTest {
 
   /**
    * Test {@link TaskImpl#equals(Object)}.
-   *
    * <ul>
-   *   <li>When other is different.
-   *   <li>Then return not equal.
+   *   <li>When other is different.</li>
+   *   <li>Then return not equal.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link TaskImpl#equals(Object)}
+   * <p>
+   * Method under test: {@link TaskImpl#equals(Object)}
    */
   @Test
   @DisplayName("Test equals(Object); when other is different; then return not equal")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"boolean TaskImpl.equals(Object)", "int TaskImpl.hashCode()"})
   void testEquals_whenOtherIsDifferent_thenReturnNotEqual9() {
     // Arrange
     TaskImpl taskImpl = new TaskImpl("42", "Name", TaskStatus.CREATED);
-    taskImpl.setDueDate(
-        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
+    taskImpl.setDueDate(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
 
     // Act and Assert
     assertNotEquals(taskImpl, new TaskImpl("42", "Name", TaskStatus.CREATED));
@@ -748,18 +642,16 @@ class TaskImplDiffblueTest {
 
   /**
    * Test {@link TaskImpl#equals(Object)}.
-   *
    * <ul>
-   *   <li>When other is different.
-   *   <li>Then return not equal.
+   *   <li>When other is different.</li>
+   *   <li>Then return not equal.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link TaskImpl#equals(Object)}
+   * <p>
+   * Method under test: {@link TaskImpl#equals(Object)}
    */
   @Test
   @DisplayName("Test equals(Object); when other is different; then return not equal")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"boolean TaskImpl.equals(Object)", "int TaskImpl.hashCode()"})
   void testEquals_whenOtherIsDifferent_thenReturnNotEqual10() {
     // Arrange
@@ -772,18 +664,16 @@ class TaskImplDiffblueTest {
 
   /**
    * Test {@link TaskImpl#equals(Object)}.
-   *
    * <ul>
-   *   <li>When other is different.
-   *   <li>Then return not equal.
+   *   <li>When other is different.</li>
+   *   <li>Then return not equal.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link TaskImpl#equals(Object)}
+   * <p>
+   * Method under test: {@link TaskImpl#equals(Object)}
    */
   @Test
   @DisplayName("Test equals(Object); when other is different; then return not equal")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"boolean TaskImpl.equals(Object)", "int TaskImpl.hashCode()"})
   void testEquals_whenOtherIsDifferent_thenReturnNotEqual11() {
     // Arrange
@@ -796,18 +686,16 @@ class TaskImplDiffblueTest {
 
   /**
    * Test {@link TaskImpl#equals(Object)}.
-   *
    * <ul>
-   *   <li>When other is different.
-   *   <li>Then return not equal.
+   *   <li>When other is different.</li>
+   *   <li>Then return not equal.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link TaskImpl#equals(Object)}
+   * <p>
+   * Method under test: {@link TaskImpl#equals(Object)}
    */
   @Test
   @DisplayName("Test equals(Object); when other is different; then return not equal")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"boolean TaskImpl.equals(Object)", "int TaskImpl.hashCode()"})
   void testEquals_whenOtherIsDifferent_thenReturnNotEqual12() {
     // Arrange
@@ -820,18 +708,16 @@ class TaskImplDiffblueTest {
 
   /**
    * Test {@link TaskImpl#equals(Object)}.
-   *
    * <ul>
-   *   <li>When other is different.
-   *   <li>Then return not equal.
+   *   <li>When other is different.</li>
+   *   <li>Then return not equal.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link TaskImpl#equals(Object)}
+   * <p>
+   * Method under test: {@link TaskImpl#equals(Object)}
    */
   @Test
   @DisplayName("Test equals(Object); when other is different; then return not equal")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"boolean TaskImpl.equals(Object)", "int TaskImpl.hashCode()"})
   void testEquals_whenOtherIsDifferent_thenReturnNotEqual13() {
     // Arrange
@@ -844,18 +730,16 @@ class TaskImplDiffblueTest {
 
   /**
    * Test {@link TaskImpl#equals(Object)}.
-   *
    * <ul>
-   *   <li>When other is different.
-   *   <li>Then return not equal.
+   *   <li>When other is different.</li>
+   *   <li>Then return not equal.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link TaskImpl#equals(Object)}
+   * <p>
+   * Method under test: {@link TaskImpl#equals(Object)}
    */
   @Test
   @DisplayName("Test equals(Object); when other is different; then return not equal")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"boolean TaskImpl.equals(Object)", "int TaskImpl.hashCode()"})
   void testEquals_whenOtherIsDifferent_thenReturnNotEqual14() {
     // Arrange
@@ -868,24 +752,21 @@ class TaskImplDiffblueTest {
 
   /**
    * Test {@link TaskImpl#equals(Object)}.
-   *
    * <ul>
-   *   <li>When other is different.
-   *   <li>Then return not equal.
+   *   <li>When other is different.</li>
+   *   <li>Then return not equal.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link TaskImpl#equals(Object)}
+   * <p>
+   * Method under test: {@link TaskImpl#equals(Object)}
    */
   @Test
   @DisplayName("Test equals(Object); when other is different; then return not equal")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"boolean TaskImpl.equals(Object)", "int TaskImpl.hashCode()"})
   void testEquals_whenOtherIsDifferent_thenReturnNotEqual15() {
     // Arrange
     TaskImpl taskImpl = new TaskImpl("42", "Name", TaskStatus.CREATED);
-    taskImpl.setCompletedDate(
-        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
+    taskImpl.setCompletedDate(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
 
     // Act and Assert
     assertNotEquals(taskImpl, new TaskImpl("42", "Name", TaskStatus.CREATED));
@@ -893,18 +774,16 @@ class TaskImplDiffblueTest {
 
   /**
    * Test {@link TaskImpl#equals(Object)}.
-   *
    * <ul>
-   *   <li>When other is different.
-   *   <li>Then return not equal.
+   *   <li>When other is different.</li>
+   *   <li>Then return not equal.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link TaskImpl#equals(Object)}
+   * <p>
+   * Method under test: {@link TaskImpl#equals(Object)}
    */
   @Test
   @DisplayName("Test equals(Object); when other is different; then return not equal")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"boolean TaskImpl.equals(Object)", "int TaskImpl.hashCode()"})
   void testEquals_whenOtherIsDifferent_thenReturnNotEqual16() {
     // Arrange
@@ -917,18 +796,16 @@ class TaskImplDiffblueTest {
 
   /**
    * Test {@link TaskImpl#equals(Object)}.
-   *
    * <ul>
-   *   <li>When other is different.
-   *   <li>Then return not equal.
+   *   <li>When other is different.</li>
+   *   <li>Then return not equal.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link TaskImpl#equals(Object)}
+   * <p>
+   * Method under test: {@link TaskImpl#equals(Object)}
    */
   @Test
   @DisplayName("Test equals(Object); when other is different; then return not equal")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"boolean TaskImpl.equals(Object)", "int TaskImpl.hashCode()"})
   void testEquals_whenOtherIsDifferent_thenReturnNotEqual17() {
     // Arrange
@@ -941,18 +818,16 @@ class TaskImplDiffblueTest {
 
   /**
    * Test {@link TaskImpl#equals(Object)}.
-   *
    * <ul>
-   *   <li>When other is different.
-   *   <li>Then return not equal.
+   *   <li>When other is different.</li>
+   *   <li>Then return not equal.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link TaskImpl#equals(Object)}
+   * <p>
+   * Method under test: {@link TaskImpl#equals(Object)}
    */
   @Test
   @DisplayName("Test equals(Object); when other is different; then return not equal")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"boolean TaskImpl.equals(Object)", "int TaskImpl.hashCode()"})
   void testEquals_whenOtherIsDifferent_thenReturnNotEqual18() {
     // Arrange
@@ -965,18 +840,16 @@ class TaskImplDiffblueTest {
 
   /**
    * Test {@link TaskImpl#equals(Object)}.
-   *
    * <ul>
-   *   <li>When other is different.
-   *   <li>Then return not equal.
+   *   <li>When other is different.</li>
+   *   <li>Then return not equal.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link TaskImpl#equals(Object)}
+   * <p>
+   * Method under test: {@link TaskImpl#equals(Object)}
    */
   @Test
   @DisplayName("Test equals(Object); when other is different; then return not equal")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"boolean TaskImpl.equals(Object)", "int TaskImpl.hashCode()"})
   void testEquals_whenOtherIsDifferent_thenReturnNotEqual19() {
     // Arrange
@@ -989,18 +862,16 @@ class TaskImplDiffblueTest {
 
   /**
    * Test {@link TaskImpl#equals(Object)}.
-   *
    * <ul>
-   *   <li>When other is different.
-   *   <li>Then return not equal.
+   *   <li>When other is different.</li>
+   *   <li>Then return not equal.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link TaskImpl#equals(Object)}
+   * <p>
+   * Method under test: {@link TaskImpl#equals(Object)}
    */
   @Test
   @DisplayName("Test equals(Object); when other is different; then return not equal")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"boolean TaskImpl.equals(Object)", "int TaskImpl.hashCode()"})
   void testEquals_whenOtherIsDifferent_thenReturnNotEqual20() {
     // Arrange
@@ -1013,18 +884,16 @@ class TaskImplDiffblueTest {
 
   /**
    * Test {@link TaskImpl#equals(Object)}.
-   *
    * <ul>
-   *   <li>When other is different.
-   *   <li>Then return not equal.
+   *   <li>When other is different.</li>
+   *   <li>Then return not equal.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link TaskImpl#equals(Object)}
+   * <p>
+   * Method under test: {@link TaskImpl#equals(Object)}
    */
   @Test
   @DisplayName("Test equals(Object); when other is different; then return not equal")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"boolean TaskImpl.equals(Object)", "int TaskImpl.hashCode()"})
   void testEquals_whenOtherIsDifferent_thenReturnNotEqual21() {
     // Arrange
@@ -1037,18 +906,16 @@ class TaskImplDiffblueTest {
 
   /**
    * Test {@link TaskImpl#equals(Object)}.
-   *
    * <ul>
-   *   <li>When other is {@code null}.
-   *   <li>Then return not equal.
+   *   <li>When other is {@code null}.</li>
+   *   <li>Then return not equal.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link TaskImpl#equals(Object)}
+   * <p>
+   * Method under test: {@link TaskImpl#equals(Object)}
    */
   @Test
   @DisplayName("Test equals(Object); when other is 'null'; then return not equal")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"boolean TaskImpl.equals(Object)", "int TaskImpl.hashCode()"})
   void testEquals_whenOtherIsNull_thenReturnNotEqual() {
     // Arrange, Act and Assert
@@ -1057,18 +924,16 @@ class TaskImplDiffblueTest {
 
   /**
    * Test {@link TaskImpl#equals(Object)}.
-   *
    * <ul>
-   *   <li>When other is wrong type.
-   *   <li>Then return not equal.
+   *   <li>When other is wrong type.</li>
+   *   <li>Then return not equal.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link TaskImpl#equals(Object)}
+   * <p>
+   * Method under test: {@link TaskImpl#equals(Object)}
    */
   @Test
   @DisplayName("Test equals(Object); when other is wrong type; then return not equal")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"boolean TaskImpl.equals(Object)", "int TaskImpl.hashCode()"})
   void testEquals_whenOtherIsWrongType_thenReturnNotEqual() {
     // Arrange, Act and Assert

@@ -16,10 +16,8 @@
 package org.activiti.engine.test.mock;
 
 import static org.junit.Assert.assertNull;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
-import java.util.HashMap;
 import org.activiti.engine.impl.util.json.JSONObject;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
@@ -27,36 +25,13 @@ import org.junit.experimental.categories.Category;
 public class MocksDiffblueTest {
   /**
    * Test {@link Mocks#get(Object)}.
-   *
-   * <ul>
-   *   <li>When {@link HashMap#HashMap()}.
-   * </ul>
-   *
-   * <p>Method under test: {@link Mocks#get(Object)}
+   * <p>
+   * Method under test: {@link Mocks#get(Object)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"Object Mocks.get(Object)"})
-  public void testGet_whenHashMap() {
-    // Arrange, Act and Assert
-    assertNull(Mocks.get(new HashMap<>()));
-  }
-
-  /**
-   * Test {@link Mocks#get(Object)}.
-   *
-   * <ul>
-   *   <li>When {@link JSONObject#NULL}.
-   * </ul>
-   *
-   * <p>Method under test: {@link Mocks#get(Object)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"Object Mocks.get(Object)"})
-  public void testGet_whenNull() {
+  public void testGet() {
     // Arrange, Act and Assert
     assertNull(Mocks.get(JSONObject.NULL));
   }

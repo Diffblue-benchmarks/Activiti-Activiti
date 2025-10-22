@@ -19,11 +19,8 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import org.junit.Test;
@@ -32,82 +29,15 @@ import org.junit.experimental.categories.Category;
 public class IOParameterDiffblueTest {
   /**
    * Test {@link IOParameter#clone()}.
-   *
    * <ul>
-   *   <li>Given {@link HashMap#HashMap()} {@code 42} is {@link ArrayList#ArrayList()}.
-   *   <li>Then return Attributes size is one.
+   *   <li>Given {@link IOParameter} (default constructor) ExtensionElements is {@code null}.</li>
+   *   <li>Then return Id is {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link IOParameter#clone()}
+   * <p>
+   * Method under test: {@link IOParameter#clone()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"IOParameter IOParameter.clone()"})
-  public void testClone_givenHashMap42IsArrayList_thenReturnAttributesSizeIsOne() {
-    // Arrange
-    HashMap<String, List<ExtensionElement>> extensionElements = new HashMap<>();
-    extensionElements.put("42", new ArrayList<>());
-    extensionElements.put("foo", new ArrayList<>());
-
-    IOParameter ioParameter = new IOParameter();
-    ioParameter.setExtensionElements(extensionElements);
-    ExtensionAttribute attribute = new ExtensionAttribute("Name");
-    ioParameter.addAttribute(attribute);
-
-    // Act and Assert
-    Map<String, List<ExtensionAttribute>> attributes = ioParameter.clone().getAttributes();
-    assertEquals(1, attributes.size());
-    List<ExtensionAttribute> getResult = attributes.get("Name");
-    assertEquals(1, getResult.size());
-    assertSame(attribute, getResult.get(0));
-  }
-
-  /**
-   * Test {@link IOParameter#clone()}.
-   *
-   * <ul>
-   *   <li>Given {@link HashMap#HashMap()} {@code foo} is {@link ArrayList#ArrayList()}.
-   *   <li>Then return Attributes size is one.
-   * </ul>
-   *
-   * <p>Method under test: {@link IOParameter#clone()}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"IOParameter IOParameter.clone()"})
-  public void testClone_givenHashMapFooIsArrayList_thenReturnAttributesSizeIsOne() {
-    // Arrange
-    HashMap<String, List<ExtensionElement>> extensionElements = new HashMap<>();
-    extensionElements.put("foo", new ArrayList<>());
-
-    IOParameter ioParameter = new IOParameter();
-    ioParameter.setExtensionElements(extensionElements);
-    ExtensionAttribute attribute = new ExtensionAttribute("Name");
-    ioParameter.addAttribute(attribute);
-
-    // Act and Assert
-    Map<String, List<ExtensionAttribute>> attributes = ioParameter.clone().getAttributes();
-    assertEquals(1, attributes.size());
-    List<ExtensionAttribute> getResult = attributes.get("Name");
-    assertEquals(1, getResult.size());
-    assertSame(attribute, getResult.get(0));
-  }
-
-  /**
-   * Test {@link IOParameter#clone()}.
-   *
-   * <ul>
-   *   <li>Given {@link IOParameter} (default constructor) ExtensionElements is {@code null}.
-   *   <li>Then return Id is {@code null}.
-   * </ul>
-   *
-   * <p>Method under test: {@link IOParameter#clone()}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"IOParameter IOParameter.clone()"})
   public void testClone_givenIOParameterExtensionElementsIsNull_thenReturnIdIsNull() {
     // Arrange
@@ -132,21 +62,19 @@ public class IOParameterDiffblueTest {
 
   /**
    * Test {@link IOParameter#clone()}.
-   *
    * <ul>
-   *   <li>Given {@link IOParameter} (default constructor).
-   *   <li>Then return Id is {@code null}.
+   *   <li>Given {@link IOParameter} (default constructor).</li>
+   *   <li>Then return Id is {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link IOParameter#clone()}
+   * <p>
+   * Method under test: {@link IOParameter#clone()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"IOParameter IOParameter.clone()"})
   public void testClone_givenIOParameter_thenReturnIdIsNull() {
     // Arrange and Act
-    IOParameter actualCloneResult = new IOParameter().clone();
+    IOParameter actualCloneResult = (new IOParameter()).clone();
 
     // Assert
     assertNull(actualCloneResult.getId());
@@ -162,16 +90,14 @@ public class IOParameterDiffblueTest {
 
   /**
    * Test {@link IOParameter#clone()}.
-   *
    * <ul>
-   *   <li>Then return Attributes size is one.
+   *   <li>Then return Attributes size is one.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link IOParameter#clone()}
+   * <p>
+   * Method under test: {@link IOParameter#clone()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"IOParameter IOParameter.clone()"})
   public void testClone_thenReturnAttributesSizeIsOne() {
     // Arrange
@@ -189,16 +115,14 @@ public class IOParameterDiffblueTest {
 
   /**
    * Test {@link IOParameter#clone()}.
-   *
    * <ul>
-   *   <li>Then return Attributes size is two.
+   *   <li>Then return Attributes size is two.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link IOParameter#clone()}
+   * <p>
+   * Method under test: {@link IOParameter#clone()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"IOParameter IOParameter.clone()"})
   public void testClone_thenReturnAttributesSizeIsTwo() {
     // Arrange
@@ -218,9 +142,8 @@ public class IOParameterDiffblueTest {
 
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>default or parameterless constructor of {@link IOParameter}
    *   <li>{@link IOParameter#setSource(String)}
@@ -234,19 +157,12 @@ public class IOParameterDiffblueTest {
    * </ul>
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void IOParameter.<init>()",
-    "String IOParameter.getSource()",
-    "String IOParameter.getSourceExpression()",
-    "String IOParameter.getTarget()",
-    "String IOParameter.getTargetExpression()",
-    "void IOParameter.setSource(String)",
-    "void IOParameter.setSourceExpression(String)",
-    "void IOParameter.setTarget(String)",
-    "void IOParameter.setTargetExpression(String)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void IOParameter.<init>()", "String IOParameter.getSource()",
+      "String IOParameter.getSourceExpression()", "String IOParameter.getTarget()",
+      "String IOParameter.getTargetExpression()", "void IOParameter.setSource(String)",
+      "void IOParameter.setSourceExpression(String)", "void IOParameter.setTarget(String)",
+      "void IOParameter.setTargetExpression(String)"})
   public void testGettersAndSetters() {
     // Arrange and Act
     IOParameter actualIoParameter = new IOParameter();

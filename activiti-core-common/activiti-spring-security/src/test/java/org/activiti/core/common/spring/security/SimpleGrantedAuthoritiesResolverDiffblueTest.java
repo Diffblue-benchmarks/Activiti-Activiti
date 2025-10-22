@@ -20,7 +20,6 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import com.sun.security.auth.UserPrincipal;
 import java.security.Principal;
@@ -42,28 +41,28 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 @ContextConfiguration(classes = {SimpleGrantedAuthoritiesResolver.class})
 @ExtendWith(SpringExtension.class)
 class SimpleGrantedAuthoritiesResolverDiffblueTest {
-  @Autowired private SimpleGrantedAuthoritiesResolver simpleGrantedAuthoritiesResolver;
+  @Autowired
+  private SimpleGrantedAuthoritiesResolver simpleGrantedAuthoritiesResolver;
 
   /**
-   * Test {@link SimpleGrantedAuthoritiesResolver#getAuthorities(Authentication)} with {@code
-   * authentication}.
-   *
+   * Test {@link SimpleGrantedAuthoritiesResolver#getAuthorities(Authentication)} with {@code authentication}.
    * <ul>
-   *   <li>Then return {@link List}.
+   *   <li>Then return {@link List}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link SimpleGrantedAuthoritiesResolver#getAuthorities(Authentication)}
+   * <p>
+   * Method under test: {@link SimpleGrantedAuthoritiesResolver#getAuthorities(Authentication)}
    */
   @Test
   @DisplayName("Test getAuthorities(Authentication) with 'authentication'; then return List")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"Collection SimpleGrantedAuthoritiesResolver.getAuthorities(Authentication)"})
   void testGetAuthoritiesWithAuthentication_thenReturnList() {
-    // Arrange and Act
-    Collection<? extends GrantedAuthority> actualAuthorities =
-        simpleGrantedAuthoritiesResolver.getAuthorities(
-            new TestingAuthenticationToken("Principal", "Credentials"));
+    // Arrange
+    SimpleGrantedAuthoritiesResolver simpleGrantedAuthoritiesResolver2 = new SimpleGrantedAuthoritiesResolver();
+
+    // Act
+    Collection<? extends GrantedAuthority> actualAuthorities = simpleGrantedAuthoritiesResolver2
+        .getAuthorities(new TestingAuthenticationToken("Principal", "Credentials"));
 
     // Assert
     assertTrue(actualAuthorities instanceof List);
@@ -72,34 +71,26 @@ class SimpleGrantedAuthoritiesResolverDiffblueTest {
 
   /**
    * Test {@link SimpleGrantedAuthoritiesResolver#getAuthorities(Principal)} with {@code principal}.
-   *
    * <ul>
-   *   <li>Then return {@link List}.
+   *   <li>Then return {@link List}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link SimpleGrantedAuthoritiesResolver#getAuthorities(Principal)}
+   * <p>
+   * Method under test: {@link SimpleGrantedAuthoritiesResolver#getAuthorities(Principal)}
    */
   @Test
   @DisplayName("Test getAuthorities(Principal) with 'principal'; then return List")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"Collection SimpleGrantedAuthoritiesResolver.getAuthorities(Principal)"})
   void testGetAuthoritiesWithPrincipal_thenReturnList() {
     // Arrange
+    SimpleGrantedAuthoritiesResolver simpleGrantedAuthoritiesResolver2 = new SimpleGrantedAuthoritiesResolver();
     ArrayList<GrantedAuthority> authorities = new ArrayList<>();
     Class<Authentication> originalAuthentication = Authentication.class;
 
-    RunAsUserToken principal =
-        new RunAsUserToken(
-            "Invalid principal authorities",
-            "Principal",
-            "Credentials",
-            authorities,
-            originalAuthentication);
-
     // Act
-    Collection<? extends GrantedAuthority> actualAuthorities =
-        simpleGrantedAuthoritiesResolver.getAuthorities(principal);
+    Collection<? extends GrantedAuthority> actualAuthorities = simpleGrantedAuthoritiesResolver2
+        .getAuthorities(new RunAsUserToken("Invalid principal authorities", "Principal", "Credentials", authorities,
+            originalAuthentication));
 
     // Assert
     assertTrue(actualAuthorities instanceof List);
@@ -108,43 +99,40 @@ class SimpleGrantedAuthoritiesResolverDiffblueTest {
 
   /**
    * Test {@link SimpleGrantedAuthoritiesResolver#getAuthorities(Principal)} with {@code principal}.
-   *
    * <ul>
-   *   <li>Then throw {@link SecurityException}.
+   *   <li>Then throw {@link SecurityException}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link SimpleGrantedAuthoritiesResolver#getAuthorities(Principal)}
+   * <p>
+   * Method under test: {@link SimpleGrantedAuthoritiesResolver#getAuthorities(Principal)}
    */
   @Test
   @DisplayName("Test getAuthorities(Principal) with 'principal'; then throw SecurityException")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"Collection SimpleGrantedAuthoritiesResolver.getAuthorities(Principal)"})
   void testGetAuthoritiesWithPrincipal_thenThrowSecurityException() {
-    // Arrange, Act and Assert
-    assertThrows(
-        SecurityException.class,
-        () -> simpleGrantedAuthoritiesResolver.getAuthorities(new UserPrincipal("principal")));
+    // Arrange
+    SimpleGrantedAuthoritiesResolver simpleGrantedAuthoritiesResolver2 = new SimpleGrantedAuthoritiesResolver();
+
+    // Act and Assert
+    assertThrows(SecurityException.class,
+        () -> simpleGrantedAuthoritiesResolver2.getAuthorities(new UserPrincipal("principal")));
   }
 
   /**
    * Test {@link SimpleGrantedAuthoritiesResolver#securityException()}.
-   *
-   * <p>Method under test: {@link SimpleGrantedAuthoritiesResolver#securityException()}
+   * <p>
+   * Method under test: {@link SimpleGrantedAuthoritiesResolver#securityException()}
    */
   @Test
   @DisplayName("Test securityException()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"SecurityException SimpleGrantedAuthoritiesResolver.securityException()"})
   void testSecurityException() {
     // Arrange and Act
-    SecurityException actualSecurityExceptionResult =
-        simpleGrantedAuthoritiesResolver.securityException();
+    SecurityException actualSecurityExceptionResult = (new SimpleGrantedAuthoritiesResolver()).securityException();
 
     // Assert
-    assertEquals(
-        "Invalid principal authorities", actualSecurityExceptionResult.getLocalizedMessage());
+    assertEquals("Invalid principal authorities", actualSecurityExceptionResult.getLocalizedMessage());
     assertEquals("Invalid principal authorities", actualSecurityExceptionResult.getMessage());
     assertNull(actualSecurityExceptionResult.getCause());
     assertEquals(0, actualSecurityExceptionResult.getSuppressed().length);
@@ -152,18 +140,16 @@ class SimpleGrantedAuthoritiesResolverDiffblueTest {
 
   /**
    * Test {@link SimpleGrantedAuthoritiesResolver#emptyAuthorities()}.
-   *
-   * <p>Method under test: {@link SimpleGrantedAuthoritiesResolver#emptyAuthorities()}
+   * <p>
+   * Method under test: {@link SimpleGrantedAuthoritiesResolver#emptyAuthorities()}
    */
   @Test
   @DisplayName("Test emptyAuthorities()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"Collection SimpleGrantedAuthoritiesResolver.emptyAuthorities()"})
   void testEmptyAuthorities() {
     // Arrange and Act
-    Collection<Object> actualEmptyAuthoritiesResult =
-        simpleGrantedAuthoritiesResolver.emptyAuthorities();
+    Collection<Object> actualEmptyAuthoritiesResult = (new SimpleGrantedAuthoritiesResolver()).emptyAuthorities();
 
     // Assert
     assertTrue(actualEmptyAuthoritiesResult instanceof List);
@@ -172,61 +158,52 @@ class SimpleGrantedAuthoritiesResolverDiffblueTest {
 
   /**
    * Test {@link SimpleGrantedAuthoritiesResolver#isSupportedPrincipal(Principal)}.
-   *
    * <ul>
-   *   <li>Then return {@code true}.
+   *   <li>Then return {@code true}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link SimpleGrantedAuthoritiesResolver#isSupportedPrincipal(Principal)}
+   * <p>
+   * Method under test: {@link SimpleGrantedAuthoritiesResolver#isSupportedPrincipal(Principal)}
    */
   @Test
   @DisplayName("Test isSupportedPrincipal(Principal); then return 'true'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "java.lang.Boolean SimpleGrantedAuthoritiesResolver.isSupportedPrincipal(Principal)"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"java.lang.Boolean SimpleGrantedAuthoritiesResolver.isSupportedPrincipal(Principal)"})
   void testIsSupportedPrincipal_thenReturnTrue() {
     // Arrange
+    SimpleGrantedAuthoritiesResolver simpleGrantedAuthoritiesResolver2 = new SimpleGrantedAuthoritiesResolver();
     ArrayList<GrantedAuthority> authorities = new ArrayList<>();
     Class<Authentication> originalAuthentication = Authentication.class;
 
-    RunAsUserToken principal =
-        new RunAsUserToken("Key", "Principal", "Credentials", authorities, originalAuthentication);
-
     // Act and Assert
-    assertTrue(simpleGrantedAuthoritiesResolver.isSupportedPrincipal(principal));
+    assertTrue(simpleGrantedAuthoritiesResolver2.isSupportedPrincipal(
+        new RunAsUserToken("Key", "Principal", "Credentials", authorities, originalAuthentication)));
   }
 
   /**
    * Test {@link SimpleGrantedAuthoritiesResolver#isSupportedPrincipal(Principal)}.
-   *
    * <ul>
-   *   <li>When {@link UserPrincipal#UserPrincipal(String)} with name is {@code principal}.
-   *   <li>Then return {@code false}.
+   *   <li>When {@link UserPrincipal#UserPrincipal(String)} with name is {@code principal}.</li>
+   *   <li>Then return {@code false}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link SimpleGrantedAuthoritiesResolver#isSupportedPrincipal(Principal)}
+   * <p>
+   * Method under test: {@link SimpleGrantedAuthoritiesResolver#isSupportedPrincipal(Principal)}
    */
   @Test
-  @DisplayName(
-      "Test isSupportedPrincipal(Principal); when UserPrincipal(String) with name is 'principal'; then return 'false'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "java.lang.Boolean SimpleGrantedAuthoritiesResolver.isSupportedPrincipal(Principal)"
-  })
+  @DisplayName("Test isSupportedPrincipal(Principal); when UserPrincipal(String) with name is 'principal'; then return 'false'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"java.lang.Boolean SimpleGrantedAuthoritiesResolver.isSupportedPrincipal(Principal)"})
   void testIsSupportedPrincipal_whenUserPrincipalWithNameIsPrincipal_thenReturnFalse() {
-    // Arrange, Act and Assert
-    assertFalse(
-        simpleGrantedAuthoritiesResolver.isSupportedPrincipal(new UserPrincipal("principal")));
+    // Arrange
+    SimpleGrantedAuthoritiesResolver simpleGrantedAuthoritiesResolver2 = new SimpleGrantedAuthoritiesResolver();
+
+    // Act and Assert
+    assertFalse(simpleGrantedAuthoritiesResolver2.isSupportedPrincipal(new UserPrincipal("principal")));
   }
 
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>default or parameterless constructor of {@link SimpleGrantedAuthoritiesResolver}
    *   <li>{@link SimpleGrantedAuthoritiesResolver#getPrincipalClass()}
@@ -234,16 +211,12 @@ class SimpleGrantedAuthoritiesResolverDiffblueTest {
    */
   @Test
   @DisplayName("Test getters and setters")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void SimpleGrantedAuthoritiesResolver.<init>()",
-    "Class SimpleGrantedAuthoritiesResolver.getPrincipalClass()"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void SimpleGrantedAuthoritiesResolver.<init>()",
+      "Class SimpleGrantedAuthoritiesResolver.getPrincipalClass()"})
   void testGettersAndSetters() {
     // Arrange and Act
-    Class<? extends Authentication> actualPrincipalClass =
-        new SimpleGrantedAuthoritiesResolver().getPrincipalClass();
+    Class<? extends Authentication> actualPrincipalClass = (new SimpleGrantedAuthoritiesResolver()).getPrincipalClass();
 
     // Assert
     Class<Authentication> expectedPrincipalClass = Authentication.class;

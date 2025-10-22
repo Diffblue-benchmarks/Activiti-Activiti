@@ -19,7 +19,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.api.process.model.ProcessInstance;
 import org.activiti.api.process.model.events.ProcessRuntimeEvent;
@@ -32,18 +31,15 @@ import org.junit.jupiter.api.Test;
 class ProcessCompletedImplDiffblueTest {
   /**
    * Test {@link ProcessCompletedImpl#ProcessCompletedImpl(ProcessInstance)}.
-   *
    * <ul>
-   *   <li>Then Entity return {@link ProcessInstanceImpl}.
+   *   <li>Then Entity return {@link ProcessInstanceImpl}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ProcessCompletedImpl#ProcessCompletedImpl(ProcessInstance)}
+   * <p>
+   * Method under test: {@link ProcessCompletedImpl#ProcessCompletedImpl(ProcessInstance)}
    */
   @Test
-  @DisplayName(
-      "Test new ProcessCompletedImpl(ProcessInstance); then Entity return ProcessInstanceImpl")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test new ProcessCompletedImpl(ProcessInstance); then Entity return ProcessInstanceImpl")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void ProcessCompletedImpl.<init>(ProcessInstance)"})
   void testNewProcessCompletedImpl_thenEntityReturnProcessInstanceImpl() {
     // Arrange
@@ -67,18 +63,15 @@ class ProcessCompletedImplDiffblueTest {
 
   /**
    * Test {@link ProcessCompletedImpl#getEventType()}.
-   *
-   * <p>Method under test: {@link ProcessCompletedImpl#getEventType()}
+   * <p>
+   * Method under test: {@link ProcessCompletedImpl#getEventType()}
    */
   @Test
   @DisplayName("Test getEventType()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"ProcessRuntimeEvent.ProcessEvents ProcessCompletedImpl.getEventType()"})
   void testGetEventType() {
     // Arrange, Act and Assert
-    assertEquals(
-        ProcessEvents.PROCESS_COMPLETED,
-        new ProcessCompletedImpl(new ProcessInstanceImpl()).getEventType());
+    assertEquals(ProcessEvents.PROCESS_COMPLETED, (new ProcessCompletedImpl(new ProcessInstanceImpl())).getEventType());
   }
 }

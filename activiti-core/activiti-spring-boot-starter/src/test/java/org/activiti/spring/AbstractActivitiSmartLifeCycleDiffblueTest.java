@@ -21,7 +21,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
 import org.activiti.engine.RepositoryService;
@@ -36,54 +35,43 @@ import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.annotation.DirtiesContext.ClassMode;
 
-@DirtiesContext(classMode = ClassMode.AFTER_EACH_TEST_METHOD)
 @ExtendWith(MockitoExtension.class)
+@DirtiesContext(classMode = ClassMode.AFTER_EACH_TEST_METHOD)
 class AbstractActivitiSmartLifeCycleDiffblueTest {
-  @Mock private APIDeploymentConverter aPIDeploymentConverter;
+  @Mock
+  private APIDeploymentConverter aPIDeploymentConverter;
 
-  @Mock private RepositoryService repositoryService;
+  @Mock
+  private RepositoryService repositoryService;
 
   /**
    * Test {@link AbstractActivitiSmartLifeCycle#isAutoStartup()}.
-   *
-   * <p>Method under test: {@link AbstractActivitiSmartLifeCycle#isAutoStartup()}
+   * <p>
+   * Method under test: {@link AbstractActivitiSmartLifeCycle#isAutoStartup()}
    */
   @Test
   @DisplayName("Test isAutoStartup()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"boolean AbstractActivitiSmartLifeCycle.isAutoStartup()"})
   void testIsAutoStartup() {
-    // Arrange
-    ApplicationDeployedEventProducer applicationDeployedEventProducer =
-        new ApplicationDeployedEventProducer(
-            repositoryService,
-            aPIDeploymentConverter,
-            new ArrayList<>(),
-            mock(ApplicationEventPublisher.class));
-
-    // Act and Assert
-    assertTrue(applicationDeployedEventProducer.isAutoStartup());
+    // Arrange, Act and Assert
+    assertTrue((new ApplicationDeployedEventProducer(repositoryService, aPIDeploymentConverter, new ArrayList<>(),
+        mock(ApplicationEventPublisher.class))).isAutoStartup());
   }
 
   /**
    * Test {@link AbstractActivitiSmartLifeCycle#setPhase(int)}.
-   *
-   * <p>Method under test: {@link AbstractActivitiSmartLifeCycle#setPhase(int)}
+   * <p>
+   * Method under test: {@link AbstractActivitiSmartLifeCycle#setPhase(int)}
    */
   @Test
   @DisplayName("Test setPhase(int)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void AbstractActivitiSmartLifeCycle.setPhase(int)"})
   void testSetPhase() {
     // Arrange
-    ApplicationDeployedEventProducer applicationDeployedEventProducer =
-        new ApplicationDeployedEventProducer(
-            repositoryService,
-            aPIDeploymentConverter,
-            new ArrayList<>(),
-            mock(ApplicationEventPublisher.class));
+    ApplicationDeployedEventProducer applicationDeployedEventProducer = new ApplicationDeployedEventProducer(
+        repositoryService, aPIDeploymentConverter, new ArrayList<>(), mock(ApplicationEventPublisher.class));
 
     // Act
     applicationDeployedEventProducer.setPhase(1);
@@ -94,46 +82,32 @@ class AbstractActivitiSmartLifeCycleDiffblueTest {
 
   /**
    * Test {@link AbstractActivitiSmartLifeCycle#getPhase()}.
-   *
-   * <p>Method under test: {@link AbstractActivitiSmartLifeCycle#getPhase()}
+   * <p>
+   * Method under test: {@link AbstractActivitiSmartLifeCycle#getPhase()}
    */
   @Test
   @DisplayName("Test getPhase()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"int AbstractActivitiSmartLifeCycle.getPhase()"})
   void testGetPhase() {
-    // Arrange
-    ApplicationDeployedEventProducer applicationDeployedEventProducer =
-        new ApplicationDeployedEventProducer(
-            repositoryService,
-            aPIDeploymentConverter,
-            new ArrayList<>(),
-            mock(ApplicationEventPublisher.class));
-
-    // Act and Assert
-    assertEquals(Integer.MAX_VALUE, applicationDeployedEventProducer.getPhase());
+    // Arrange, Act and Assert
+    assertEquals(Integer.MAX_VALUE, (new ApplicationDeployedEventProducer(repositoryService, aPIDeploymentConverter,
+        new ArrayList<>(), mock(ApplicationEventPublisher.class))).getPhase());
   }
 
   /**
    * Test {@link AbstractActivitiSmartLifeCycle#stop(Runnable)} with {@code Runnable}.
-   *
-   * <p>Method under test: {@link AbstractActivitiSmartLifeCycle#stop(Runnable)}
+   * <p>
+   * Method under test: {@link AbstractActivitiSmartLifeCycle#stop(Runnable)}
    */
   @Test
   @DisplayName("Test stop(Runnable) with 'Runnable'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void AbstractActivitiSmartLifeCycle.stop(Runnable)"})
   void testStopWithRunnable() {
     // Arrange
-    ApplicationDeployedEventProducer applicationDeployedEventProducer =
-        new ApplicationDeployedEventProducer(
-            repositoryService,
-            aPIDeploymentConverter,
-            new ArrayList<>(),
-            mock(ApplicationEventPublisher.class));
-
+    ApplicationDeployedEventProducer applicationDeployedEventProducer = new ApplicationDeployedEventProducer(
+        repositoryService, aPIDeploymentConverter, new ArrayList<>(), mock(ApplicationEventPublisher.class));
     Runnable callback = mock(Runnable.class);
     doNothing().when(callback).run();
 
@@ -146,24 +120,16 @@ class AbstractActivitiSmartLifeCycleDiffblueTest {
 
   /**
    * Test {@link AbstractActivitiSmartLifeCycle#isRunning()}.
-   *
-   * <p>Method under test: {@link AbstractActivitiSmartLifeCycle#isRunning()}
+   * <p>
+   * Method under test: {@link AbstractActivitiSmartLifeCycle#isRunning()}
    */
   @Test
   @DisplayName("Test isRunning()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"boolean AbstractActivitiSmartLifeCycle.isRunning()"})
   void testIsRunning() {
-    // Arrange
-    ApplicationDeployedEventProducer applicationDeployedEventProducer =
-        new ApplicationDeployedEventProducer(
-            repositoryService,
-            aPIDeploymentConverter,
-            new ArrayList<>(),
-            mock(ApplicationEventPublisher.class));
-
-    // Act and Assert
-    assertFalse(applicationDeployedEventProducer.isRunning());
+    // Arrange, Act and Assert
+    assertFalse((new ApplicationDeployedEventProducer(repositoryService, aPIDeploymentConverter, new ArrayList<>(),
+        mock(ApplicationEventPublisher.class))).isRunning());
   }
 }

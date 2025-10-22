@@ -17,16 +17,18 @@ package org.activiti.engine.impl.util.json;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThrows;
+import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.Mockito.anyInt;
 import static org.mockito.Mockito.atLeast;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
@@ -34,771 +36,1066 @@ import org.mockito.Mockito;
 
 public class JSONMLDiffblueTest {
   /**
-   * Test {@link JSONML#toJSONArray(XMLTokener)} with {@code x}.
-   *
-   * <p>Method under test: {@link JSONML#toJSONArray(XMLTokener)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"JSONArray JSONML.toJSONArray(XMLTokener)"})
-  public void testToJSONArrayWithX() throws JSONException {
-    // Arrange
-    XMLTokener x = mock(XMLTokener.class);
-    when(x.nextToken()).thenThrow(new JSONException("An error occurred"));
-    when(x.nextContent()).thenReturn(XML.LT);
-
-    // Act and Assert
-    assertThrows(JSONException.class, () -> JSONML.toJSONArray(x));
-    verify(x).nextContent();
-    verify(x).nextToken();
-  }
-
-  /**
-   * Test {@link JSONML#toJSONArray(XMLTokener)} with {@code x}.
-   *
-   * <p>Method under test: {@link JSONML#toJSONArray(XMLTokener)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"JSONArray JSONML.toJSONArray(XMLTokener)"})
-  public void testToJSONArrayWithX2() throws JSONException {
-    // Arrange
-    XMLTokener x = mock(XMLTokener.class);
-    when(x.next()).thenThrow(new JSONException("An error occurred"));
-    when(x.nextToken()).thenReturn(XML.BANG);
-    when(x.nextContent()).thenReturn(XML.LT);
-
-    // Act and Assert
-    assertThrows(JSONException.class, () -> JSONML.toJSONArray(x));
-    verify(x).next();
-    verify(x).nextContent();
-    verify(x).nextToken();
-  }
-
-  /**
-   * Test {@link JSONML#toJSONArray(XMLTokener)} with {@code x}.
-   *
-   * <ul>
-   *   <li>Given {@link XML#BANG}.
-   *   <li>When {@link XMLTokener} {@link XMLTokener#nextToken()} return {@link XML#BANG}.
-   *   <li>Then calls {@link XMLTokener#next()}.
-   * </ul>
-   *
-   * <p>Method under test: {@link JSONML#toJSONArray(XMLTokener)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"JSONArray JSONML.toJSONArray(XMLTokener)"})
-  public void testToJSONArrayWithX_givenBang_whenXMLTokenerNextTokenReturnBang_thenCallsNext()
-      throws JSONException {
-    // Arrange
-    XMLTokener x = mock(XMLTokener.class);
-    when(x.skipPast(Mockito.<String>any())).thenThrow(new JSONException("An error occurred"));
-    when(x.next()).thenReturn('-');
-    when(x.nextToken()).thenReturn(XML.BANG);
-    when(x.nextContent()).thenReturn(XML.LT);
-
-    // Act and Assert
-    assertThrows(JSONException.class, () -> JSONML.toJSONArray(x));
-    verify(x, atLeast(1)).next();
-    verify(x).nextContent();
-    verify(x).nextToken();
-    verify(x).skipPast("-->");
-  }
-
-  /**
-   * Test {@link JSONML#toJSONArray(XMLTokener)} with {@code x}.
-   *
-   * <ul>
-   *   <li>Given {@link XML#QUEST}.
-   *   <li>Then calls {@link XMLTokener#skipPast(String)}.
-   * </ul>
-   *
-   * <p>Method under test: {@link JSONML#toJSONArray(XMLTokener)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"JSONArray JSONML.toJSONArray(XMLTokener)"})
-  public void testToJSONArrayWithX_givenQuest_thenCallsSkipPast() throws JSONException {
-    // Arrange
-    XMLTokener x = mock(XMLTokener.class);
-    when(x.skipPast(Mockito.<String>any())).thenThrow(new JSONException("An error occurred"));
-    when(x.nextToken()).thenReturn(XML.QUEST);
-    when(x.nextContent()).thenReturn(XML.LT);
-
-    // Act and Assert
-    assertThrows(JSONException.class, () -> JSONML.toJSONArray(x));
-    verify(x).nextContent();
-    verify(x).nextToken();
-    verify(x).skipPast("?>");
-  }
-
-  /**
-   * Test {@link JSONML#toJSONArray(XMLTokener)} with {@code x}.
-   *
-   * <ul>
-   *   <li>Given {@link XML#SLASH}.
-   *   <li>When {@link XMLTokener} {@link XMLTokener#nextToken()} return {@link XML#SLASH}.
-   * </ul>
-   *
-   * <p>Method under test: {@link JSONML#toJSONArray(XMLTokener)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"JSONArray JSONML.toJSONArray(XMLTokener)"})
-  public void testToJSONArrayWithX_givenSlash_whenXMLTokenerNextTokenReturnSlash()
-      throws JSONException {
-    // Arrange
-    XMLTokener x = mock(XMLTokener.class);
-    when(x.nextToken()).thenReturn(XML.SLASH);
-    when(x.nextContent()).thenReturn(XML.LT);
-
-    // Act and Assert
-    assertThrows(JSONException.class, () -> JSONML.toJSONArray(x));
-    verify(x).nextContent();
-    verify(x, atLeast(1)).nextToken();
-  }
-
-  /**
-   * Test {@link JSONML#toJSONObject(XMLTokener)} with {@code x}.
-   *
-   * <p>Method under test: {@link JSONML#toJSONObject(XMLTokener)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"JSONObject JSONML.toJSONObject(XMLTokener)"})
-  public void testToJSONObjectWithX() throws JSONException {
-    // Arrange
-    XMLTokener x = mock(XMLTokener.class);
-    when(x.nextToken()).thenThrow(new JSONException("An error occurred"));
-    when(x.nextContent()).thenReturn(XML.LT);
-
-    // Act and Assert
-    assertThrows(JSONException.class, () -> JSONML.toJSONObject(x));
-    verify(x).nextContent();
-    verify(x).nextToken();
-  }
-
-  /**
-   * Test {@link JSONML#toJSONObject(XMLTokener)} with {@code x}.
-   *
-   * <p>Method under test: {@link JSONML#toJSONObject(XMLTokener)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"JSONObject JSONML.toJSONObject(XMLTokener)"})
-  public void testToJSONObjectWithX2() throws JSONException {
-    // Arrange
-    XMLTokener x = mock(XMLTokener.class);
-    when(x.next()).thenThrow(new JSONException("An error occurred"));
-    when(x.nextToken()).thenReturn(XML.BANG);
-    when(x.nextContent()).thenReturn(XML.LT);
-
-    // Act and Assert
-    assertThrows(JSONException.class, () -> JSONML.toJSONObject(x));
-    verify(x).next();
-    verify(x).nextContent();
-    verify(x).nextToken();
-  }
-
-  /**
-   * Test {@link JSONML#toJSONObject(XMLTokener)} with {@code x}.
-   *
-   * <ul>
-   *   <li>Given {@link XML#BANG}.
-   *   <li>When {@link XMLTokener} {@link XMLTokener#nextToken()} return {@link XML#BANG}.
-   *   <li>Then calls {@link XMLTokener#next()}.
-   * </ul>
-   *
-   * <p>Method under test: {@link JSONML#toJSONObject(XMLTokener)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"JSONObject JSONML.toJSONObject(XMLTokener)"})
-  public void testToJSONObjectWithX_givenBang_whenXMLTokenerNextTokenReturnBang_thenCallsNext()
-      throws JSONException {
-    // Arrange
-    XMLTokener x = mock(XMLTokener.class);
-    when(x.skipPast(Mockito.<String>any())).thenThrow(new JSONException("An error occurred"));
-    when(x.next()).thenReturn('-');
-    when(x.nextToken()).thenReturn(XML.BANG);
-    when(x.nextContent()).thenReturn(XML.LT);
-
-    // Act and Assert
-    assertThrows(JSONException.class, () -> JSONML.toJSONObject(x));
-    verify(x, atLeast(1)).next();
-    verify(x).nextContent();
-    verify(x).nextToken();
-    verify(x).skipPast("-->");
-  }
-
-  /**
-   * Test {@link JSONML#toJSONObject(XMLTokener)} with {@code x}.
-   *
-   * <ul>
-   *   <li>Given {@link XML#QUEST}.
-   *   <li>Then calls {@link XMLTokener#skipPast(String)}.
-   * </ul>
-   *
-   * <p>Method under test: {@link JSONML#toJSONObject(XMLTokener)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"JSONObject JSONML.toJSONObject(XMLTokener)"})
-  public void testToJSONObjectWithX_givenQuest_thenCallsSkipPast() throws JSONException {
-    // Arrange
-    XMLTokener x = mock(XMLTokener.class);
-    when(x.skipPast(Mockito.<String>any())).thenThrow(new JSONException("An error occurred"));
-    when(x.nextToken()).thenReturn(XML.QUEST);
-    when(x.nextContent()).thenReturn(XML.LT);
-
-    // Act and Assert
-    assertThrows(JSONException.class, () -> JSONML.toJSONObject(x));
-    verify(x).nextContent();
-    verify(x).nextToken();
-    verify(x).skipPast("?>");
-  }
-
-  /**
-   * Test {@link JSONML#toJSONObject(XMLTokener)} with {@code x}.
-   *
-   * <ul>
-   *   <li>Given {@link XML#SLASH}.
-   *   <li>When {@link XMLTokener} {@link XMLTokener#nextToken()} return {@link XML#SLASH}.
-   * </ul>
-   *
-   * <p>Method under test: {@link JSONML#toJSONObject(XMLTokener)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"JSONObject JSONML.toJSONObject(XMLTokener)"})
-  public void testToJSONObjectWithX_givenSlash_whenXMLTokenerNextTokenReturnSlash()
-      throws JSONException {
-    // Arrange
-    XMLTokener x = mock(XMLTokener.class);
-    when(x.nextToken()).thenReturn(XML.SLASH);
-    when(x.nextContent()).thenReturn(XML.LT);
-
-    // Act and Assert
-    assertThrows(JSONException.class, () -> JSONML.toJSONObject(x));
-    verify(x).nextContent();
-    verify(x, atLeast(1)).nextToken();
-  }
-
-  /**
    * Test {@link JSONML#toString(JSONArray)} with {@code ja}.
-   *
-   * <p>Method under test: {@link JSONML#toString(JSONArray)}
+   * <p>
+   * Method under test: {@link JSONML#toString(JSONArray)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"String JSONML.toString(JSONArray)"})
   public void testToStringWithJa() throws JSONException {
     // Arrange
     JSONArray ja = new JSONArray("[]");
     ja.put((Collection) new ArrayList<>());
-    ja.put(true);
 
     // Act and Assert
-    assertEquals("<[]></[]>", JSONML.toString(ja));
+    assertEquals("<[]/>", JSONML.toString(ja));
   }
 
   /**
    * Test {@link JSONML#toString(JSONArray)} with {@code ja}.
-   *
-   * <p>Method under test: {@link JSONML#toString(JSONArray)}
+   * <p>
+   * Method under test: {@link JSONML#toString(JSONArray)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"String JSONML.toString(JSONArray)"})
   public void testToStringWithJa2() throws JSONException {
     // Arrange
     JSONArray ja = new JSONArray("[]");
     ja.put((Map) new HashMap<>());
-    ja.put(true);
 
     // Act and Assert
-    assertEquals("<{}></{}>", JSONML.toString(ja));
+    assertEquals("<{}/>", JSONML.toString(ja));
   }
 
   /**
    * Test {@link JSONML#toString(JSONArray)} with {@code ja}.
-   *
    * <ul>
-   *   <li>Given one.
-   *   <li>Then return {@code <null/>}.
+   *   <li>Given {@code false}.</li>
+   *   <li>Then return {@code <false/>}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link JSONML#toString(JSONArray)}
+   * <p>
+   * Method under test: {@link JSONML#toString(JSONArray)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"String JSONML.toString(JSONArray)"})
-  public void testToStringWithJa_givenOne_thenReturnNull() throws JSONException {
-    // Arrange
-    JSONArray ja = new JSONArray("[]");
-    ja.put(1, (Map) new HashMap<>());
-
-    // Act and Assert
-    assertEquals("<null/>", JSONML.toString(ja));
-  }
-
-  /**
-   * Test {@link JSONML#toString(JSONArray)} with {@code ja}.
-   *
-   * <ul>
-   *   <li>Given {@code true}.
-   *   <li>Then return {@code <true/>}.
-   * </ul>
-   *
-   * <p>Method under test: {@link JSONML#toString(JSONArray)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String JSONML.toString(JSONArray)"})
-  public void testToStringWithJa_givenTrue_thenReturnTrue() throws JSONException {
-    // Arrange
-    JSONArray ja = new JSONArray("[]");
-    ja.put(true);
-
-    // Act and Assert
-    assertEquals("<true/>", JSONML.toString(ja));
-  }
-
-  /**
-   * Test {@link JSONML#toString(JSONArray)} with {@code ja}.
-   *
-   * <ul>
-   *   <li>Then return {@code <false></false>}.
-   * </ul>
-   *
-   * <p>Method under test: {@link JSONML#toString(JSONArray)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String JSONML.toString(JSONArray)"})
-  public void testToStringWithJa_thenReturnFalseFalse() throws JSONException {
+  public void testToStringWithJa_givenFalse_thenReturnFalse() throws JSONException {
     // Arrange
     JSONArray ja = new JSONArray("[]");
     ja.put(false);
-    ja.put(true);
 
     // Act and Assert
-    assertEquals("<false></false>", JSONML.toString(ja));
+    assertEquals("<false/>", JSONML.toString(ja));
   }
 
   /**
    * Test {@link JSONML#toString(JSONArray)} with {@code ja}.
-   *
    * <ul>
-   *   <li>Then return {@code <null></null>}.
+   *   <li>Then return {@code <null></null>}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link JSONML#toString(JSONArray)}
+   * <p>
+   * Method under test: {@link JSONML#toString(JSONArray)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"String JSONML.toString(JSONArray)"})
   public void testToStringWithJa_thenReturnNullNull() throws JSONException {
     // Arrange
     JSONArray ja = new JSONArray("[]");
-    ja.put(4, false);
-    ja.put(true);
+    ja.put(2, true);
+    ja.put(false);
 
     // Act and Assert
     assertEquals("<null></null>", JSONML.toString(ja));
   }
 
   /**
-   * Test {@link JSONML#toString(JSONObject)} with {@code jo}.
-   *
+   * Test {@link JSONML#toString(JSONArray)} with {@code ja}.
    * <ul>
-   *   <li>Given {@code 0.5}.
-   *   <li>Then return {@code <[0.5] name="" value=""/>}.
+   *   <li>Then return {@code <true></true>}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link JSONML#toString(JSONObject)}
+   * <p>
+   * Method under test: {@link JSONML#toString(JSONArray)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String JSONML.toString(JSONObject)"})
-  public void testToStringWithJo_given05_thenReturn05NameValue() throws JSONException {
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String JSONML.toString(JSONArray)"})
+  public void testToStringWithJa_thenReturnTrueTrue() throws JSONException {
     // Arrange
-    JSONObject jo = Cookie.toJSONObject("=;");
-    jo.append("tagName", 0.5d);
+    JSONArray ja = new JSONArray("[]");
+    ja.put(true);
+    ja.put(false);
 
     // Act and Assert
-    assertEquals("<[0.5] name=\"\" value=\"\"/>", JSONML.toString(jo));
+    assertEquals("<true></true>", JSONML.toString(ja));
   }
 
   /**
    * Test {@link JSONML#toString(JSONObject)} with {@code jo}.
-   *
-   * <ul>
-   *   <li>Given {@code 42}.
-   *   <li>Then return {@code <[&quot;42&quot;] name="" value=""/>}.
-   * </ul>
-   *
-   * <p>Method under test: {@link JSONML#toString(JSONObject)}
+   * <p>
+   * Method under test: {@link JSONML#toString(JSONObject)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"String JSONML.toString(JSONObject)"})
-  public void testToStringWithJo_given42_thenReturnQuot42QuotNameValue() throws JSONException {
+  public void testToStringWithJo() throws JSONException {
     // Arrange
-    JSONObject jo = Cookie.toJSONObject("=;");
-    jo.append("tagName", "42");
+    JSONArray jsonArray = mock(JSONArray.class);
+    when(jsonArray.get(anyInt())).thenThrow(new JSONException("An error occurred"));
+    when(jsonArray.length()).thenReturn(3);
+    JSONObject jo = mock(JSONObject.class);
+    when(jo.optJSONArray(Mockito.<String>any())).thenReturn(jsonArray);
+
+    ArrayList<Object> objectList = new ArrayList<>();
+    when(jo.keys()).thenReturn(objectList.iterator());
+    when(jo.optString(Mockito.<String>any())).thenReturn("tagName");
 
     // Act and Assert
-    assertEquals("<[&quot;42&quot;] name=\"\" value=\"\"/>", JSONML.toString(jo));
+    assertThrows(JSONException.class, () -> JSONML.toString(jo));
+    verify(jsonArray).get(eq(0));
+    verify(jsonArray).length();
+    verify(jo).keys();
+    verify(jo).optJSONArray(eq("childNodes"));
+    verify(jo).optString(eq("tagName"));
   }
 
   /**
    * Test {@link JSONML#toString(JSONObject)} with {@code jo}.
-   *
    * <ul>
-   *   <li>Given {@code childNodes}.
+   *   <li>Given {@link ArrayList#ArrayList()} add {@code childNodes}.</li>
+   *   <li>Then throw {@link JSONException}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link JSONML#toString(JSONObject)}
+   * <p>
+   * Method under test: {@link JSONML#toString(JSONObject)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"String JSONML.toString(JSONObject)"})
-  public void testToStringWithJo_givenChildNodes() throws JSONException {
+  public void testToStringWithJo_givenArrayListAddChildNodes_thenThrowJSONException() throws JSONException {
     // Arrange
-    JSONObject jo = Cookie.toJSONObject("=;");
-    jo.put("childNodes", (Map) new HashMap<>());
-    jo.append("tagName", JSONObject.NULL);
+    ArrayList<Object> objectList = new ArrayList<>();
+    objectList.add("childNodes");
+    Iterator<Object> iteratorResult = objectList.iterator();
+    JSONArray jsonArray = mock(JSONArray.class);
+    when(jsonArray.length()).thenThrow(new JSONException("An error occurred"));
+    JSONObject jsonObject = mock(JSONObject.class);
+    when(jsonObject.optJSONArray(Mockito.<String>any())).thenReturn(jsonArray);
+    when(jsonObject.keys()).thenReturn(iteratorResult);
+    when(jsonObject.optString(Mockito.<String>any())).thenReturn("foo");
+    JSONArray jsonArray2 = mock(JSONArray.class);
+    when(jsonArray2.get(anyInt())).thenReturn(jsonObject);
+    when(jsonArray2.length()).thenReturn(3);
+    JSONObject jo = mock(JSONObject.class);
+    when(jo.optJSONArray(Mockito.<String>any())).thenReturn(jsonArray2);
+
+    ArrayList<Object> objectList2 = new ArrayList<>();
+    when(jo.keys()).thenReturn(objectList2.iterator());
+    when(jo.optString(Mockito.<String>any())).thenReturn("tagName");
 
     // Act and Assert
-    assertEquals("<[null] name=\"\" value=\"\"/>", JSONML.toString(jo));
+    assertThrows(JSONException.class, () -> JSONML.toString(jo));
+    verify(jsonArray2).get(eq(0));
+    verify(jsonArray2).length();
+    verify(jsonArray).length();
+    verify(jo).keys();
+    verify(jsonObject).keys();
+    verify(jo).optJSONArray(eq("childNodes"));
+    verify(jsonObject).optJSONArray(eq("childNodes"));
+    verify(jo).optString(eq("tagName"));
+    verify(jsonObject).optString(eq("tagName"));
   }
 
   /**
    * Test {@link JSONML#toString(JSONObject)} with {@code jo}.
-   *
    * <ul>
-   *   <li>Given {@code ,}.
-   *   <li>Then return {@code <[null] name="" ,="{}" value=""/>}.
+   *   <li>Given {@link ArrayList#ArrayList()} add {@link JSONObject#JSONObject()}.</li>
+   *   <li>Then throw {@link JSONException}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link JSONML#toString(JSONObject)}
+   * <p>
+   * Method under test: {@link JSONML#toString(JSONObject)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"String JSONML.toString(JSONObject)"})
-  public void testToStringWithJo_givenComma_thenReturnNullNameValue() throws JSONException {
+  public void testToStringWithJo_givenArrayListAddJSONObject_thenThrowJSONException() throws JSONException {
     // Arrange
-    JSONObject jo = Cookie.toJSONObject("=;");
-    jo.put(",", (Map) new HashMap<>());
-    jo.append("tagName", JSONObject.NULL);
+    ArrayList<Object> objectList = new ArrayList<>();
+    objectList.add(new JSONObject());
+    Iterator<Object> iteratorResult = objectList.iterator();
+    JSONArray jsonArray = mock(JSONArray.class);
+    when(jsonArray.length()).thenThrow(new JSONException("An error occurred"));
+    JSONObject jsonObject = mock(JSONObject.class);
+    when(jsonObject.optJSONArray(Mockito.<String>any())).thenReturn(jsonArray);
+    when(jsonObject.keys()).thenReturn(iteratorResult);
+    when(jsonObject.optString(Mockito.<String>any())).thenReturn("foo");
+    JSONArray jsonArray2 = mock(JSONArray.class);
+    when(jsonArray2.get(anyInt())).thenReturn(jsonObject);
+    when(jsonArray2.length()).thenReturn(3);
+    JSONObject jo = mock(JSONObject.class);
+    when(jo.optJSONArray(Mockito.<String>any())).thenReturn(jsonArray2);
+
+    ArrayList<Object> objectList2 = new ArrayList<>();
+    when(jo.keys()).thenReturn(objectList2.iterator());
+    when(jo.optString(Mockito.<String>any())).thenReturn("tagName");
 
     // Act and Assert
-    assertEquals("<[null] name=\"\" ,=\"{}\" value=\"\"/>", JSONML.toString(jo));
+    assertThrows(JSONException.class, () -> JSONML.toString(jo));
+    verify(jsonArray2).get(eq(0));
+    verify(jsonArray2).length();
+    verify(jsonArray).length();
+    verify(jo).keys();
+    verify(jsonObject).keys();
+    verify(jo).optJSONArray(eq("childNodes"));
+    verify(jsonObject).optJSONArray(eq("childNodes"));
+    verify(jsonObject, atLeast(1)).optString(Mockito.<String>any());
+    verify(jo).optString(eq("tagName"));
   }
 
   /**
    * Test {@link JSONML#toString(JSONObject)} with {@code jo}.
-   *
    * <ul>
-   *   <li>Given forty-two.
-   *   <li>Then return {@code <[42] name="" value=""/>}.
+   *   <li>Given {@link ArrayList#ArrayList()} add {@link JSONObject#NULL}.</li>
+   *   <li>Then throw {@link JSONException}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link JSONML#toString(JSONObject)}
+   * <p>
+   * Method under test: {@link JSONML#toString(JSONObject)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"String JSONML.toString(JSONObject)"})
-  public void testToStringWithJo_givenFortyTwo_thenReturn42NameValue() throws JSONException {
+  public void testToStringWithJo_givenArrayListAddNull_thenThrowJSONException() throws JSONException {
     // Arrange
-    JSONObject jo = Cookie.toJSONObject("=;");
-    jo.append("tagName", 42);
+    ArrayList<Object> objectList = new ArrayList<>();
+    objectList.add(JSONObject.NULL);
+    Iterator<Object> iteratorResult = objectList.iterator();
+    JSONArray jsonArray = mock(JSONArray.class);
+    when(jsonArray.length()).thenThrow(new JSONException("An error occurred"));
+    JSONObject jsonObject = mock(JSONObject.class);
+    when(jsonObject.optJSONArray(Mockito.<String>any())).thenReturn(jsonArray);
+    when(jsonObject.keys()).thenReturn(iteratorResult);
+    when(jsonObject.optString(Mockito.<String>any())).thenReturn("foo");
+    JSONArray jsonArray2 = mock(JSONArray.class);
+    when(jsonArray2.get(anyInt())).thenReturn(jsonObject);
+    when(jsonArray2.length()).thenReturn(3);
+    JSONObject jo = mock(JSONObject.class);
+    when(jo.optJSONArray(Mockito.<String>any())).thenReturn(jsonArray2);
+
+    ArrayList<Object> objectList2 = new ArrayList<>();
+    when(jo.keys()).thenReturn(objectList2.iterator());
+    when(jo.optString(Mockito.<String>any())).thenReturn("tagName");
 
     // Act and Assert
-    assertEquals("<[42] name=\"\" value=\"\"/>", JSONML.toString(jo));
+    assertThrows(JSONException.class, () -> JSONML.toString(jo));
+    verify(jsonArray2).get(eq(0));
+    verify(jsonArray2).length();
+    verify(jsonArray).length();
+    verify(jo).keys();
+    verify(jsonObject).keys();
+    verify(jo).optJSONArray(eq("childNodes"));
+    verify(jsonObject).optJSONArray(eq("childNodes"));
+    verify(jsonObject, atLeast(1)).optString(Mockito.<String>any());
+    verify(jo).optString(eq("tagName"));
   }
 
   /**
    * Test {@link JSONML#toString(JSONObject)} with {@code jo}.
-   *
    * <ul>
-   *   <li>Given {@link JSONArray#JSONArray()}.
-   *   <li>Then return {@code <[[]] name="" value=""/>}.
+   *   <li>Given {@link ArrayList#ArrayList()} add {@code tagName}.</li>
+   *   <li>Then throw {@link JSONException}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link JSONML#toString(JSONObject)}
+   * <p>
+   * Method under test: {@link JSONML#toString(JSONObject)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"String JSONML.toString(JSONObject)"})
-  public void testToStringWithJo_givenJSONArray_thenReturnNameValue() throws JSONException {
+  public void testToStringWithJo_givenArrayListAddTagName_thenThrowJSONException() throws JSONException {
     // Arrange
-    JSONObject jo = Cookie.toJSONObject("=;");
-    jo.append("tagName", new JSONArray());
+    ArrayList<Object> objectList = new ArrayList<>();
+    objectList.add("tagName");
+    Iterator<Object> iteratorResult = objectList.iterator();
+    JSONArray jsonArray = mock(JSONArray.class);
+    when(jsonArray.length()).thenThrow(new JSONException("An error occurred"));
+    JSONObject jsonObject = mock(JSONObject.class);
+    when(jsonObject.optJSONArray(Mockito.<String>any())).thenReturn(jsonArray);
+    when(jsonObject.keys()).thenReturn(iteratorResult);
+    when(jsonObject.optString(Mockito.<String>any())).thenReturn("foo");
+    JSONArray jsonArray2 = mock(JSONArray.class);
+    when(jsonArray2.get(anyInt())).thenReturn(jsonObject);
+    when(jsonArray2.length()).thenReturn(3);
+    JSONObject jo = mock(JSONObject.class);
+    when(jo.optJSONArray(Mockito.<String>any())).thenReturn(jsonArray2);
+
+    ArrayList<Object> objectList2 = new ArrayList<>();
+    when(jo.keys()).thenReturn(objectList2.iterator());
+    when(jo.optString(Mockito.<String>any())).thenReturn("tagName");
 
     // Act and Assert
-    assertEquals("<[[]] name=\"\" value=\"\"/>", JSONML.toString(jo));
+    assertThrows(JSONException.class, () -> JSONML.toString(jo));
+    verify(jsonArray2).get(eq(0));
+    verify(jsonArray2).length();
+    verify(jsonArray).length();
+    verify(jo).keys();
+    verify(jsonObject).keys();
+    verify(jo).optJSONArray(eq("childNodes"));
+    verify(jsonObject).optJSONArray(eq("childNodes"));
+    verify(jo).optString(eq("tagName"));
+    verify(jsonObject).optString(eq("tagName"));
   }
 
   /**
    * Test {@link JSONML#toString(JSONObject)} with {@code jo}.
-   *
    * <ul>
-   *   <li>Given {@link JSONObject#JSONObject()}.
-   *   <li>Then return {@code <[{}] name="" value=""/>}.
+   *   <li>Given {@link ArrayList#ArrayList()} add toJSONObject {@code https://example.org/example}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link JSONML#toString(JSONObject)}
+   * <p>
+   * Method under test: {@link JSONML#toString(JSONObject)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"String JSONML.toString(JSONObject)"})
-  public void testToStringWithJo_givenJSONObject_thenReturnNameValue() throws JSONException {
+  public void testToStringWithJo_givenArrayListAddToJSONObjectHttpsExampleOrgExample() throws JSONException {
     // Arrange
-    JSONObject jo = Cookie.toJSONObject("=;");
-    jo.append("tagName", new JSONObject());
+    ArrayList<Object> objectList = new ArrayList<>();
+    objectList.add(HTTP.toJSONObject("https://example.org/example"));
+    Iterator<Object> iteratorResult = objectList.iterator();
+    JSONArray jsonArray = mock(JSONArray.class);
+    when(jsonArray.length()).thenThrow(new JSONException("An error occurred"));
+    JSONObject jsonObject = mock(JSONObject.class);
+    when(jsonObject.optJSONArray(Mockito.<String>any())).thenReturn(jsonArray);
+    when(jsonObject.keys()).thenReturn(iteratorResult);
+    when(jsonObject.optString(Mockito.<String>any())).thenReturn("foo");
+    JSONArray jsonArray2 = mock(JSONArray.class);
+    when(jsonArray2.get(anyInt())).thenReturn(jsonObject);
+    when(jsonArray2.length()).thenReturn(3);
+    JSONObject jo = mock(JSONObject.class);
+    when(jo.optJSONArray(Mockito.<String>any())).thenReturn(jsonArray2);
+
+    ArrayList<Object> objectList2 = new ArrayList<>();
+    when(jo.keys()).thenReturn(objectList2.iterator());
+    when(jo.optString(Mockito.<String>any())).thenReturn("tagName");
 
     // Act and Assert
-    assertEquals("<[{}] name=\"\" value=\"\"/>", JSONML.toString(jo));
+    assertThrows(JSONException.class, () -> JSONML.toString(jo));
+    verify(jsonArray2).get(eq(0));
+    verify(jsonArray2).length();
+    verify(jsonArray).length();
+    verify(jo).keys();
+    verify(jsonObject).keys();
+    verify(jo).optJSONArray(eq("childNodes"));
+    verify(jsonObject).optJSONArray(eq("childNodes"));
+    verify(jsonObject, atLeast(1)).optString(Mockito.<String>any());
+    verify(jo).optString(eq("tagName"));
   }
 
   /**
    * Test {@link JSONML#toString(JSONObject)} with {@code jo}.
-   *
    * <ul>
-   *   <li>Given {@code null}.
+   *   <li>Given {@link JSONArray} {@link JSONArray#get(int)} return {@link JSONArray#JSONArray()}.</li>
+   *   <li>Then throw {@link JSONException}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link JSONML#toString(JSONObject)}
+   * <p>
+   * Method under test: {@link JSONML#toString(JSONObject)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"String JSONML.toString(JSONObject)"})
-  public void testToStringWithJo_givenNull() throws JSONException {
+  public void testToStringWithJo_givenJSONArrayGetReturnJSONArray_thenThrowJSONException() throws JSONException {
     // Arrange
-    JSONObject jo = Cookie.toJSONObject("=;");
-    jo.append("tagName", null);
+    JSONArray jsonArray = mock(JSONArray.class);
+    when(jsonArray.get(anyInt())).thenReturn(new JSONArray());
+    when(jsonArray.length()).thenReturn(3);
+    JSONObject jo = mock(JSONObject.class);
+    when(jo.optJSONArray(Mockito.<String>any())).thenReturn(jsonArray);
+
+    ArrayList<Object> objectList = new ArrayList<>();
+    when(jo.keys()).thenReturn(objectList.iterator());
+    when(jo.optString(Mockito.<String>any())).thenReturn("tagName");
 
     // Act and Assert
-    assertEquals("<[null] name=\"\" value=\"\"/>", JSONML.toString(jo));
+    assertThrows(JSONException.class, () -> JSONML.toString(jo));
+    verify(jsonArray).get(eq(0));
+    verify(jsonArray).length();
+    verify(jo).keys();
+    verify(jo).optJSONArray(eq("childNodes"));
+    verify(jo).optString(eq("tagName"));
   }
 
   /**
    * Test {@link JSONML#toString(JSONObject)} with {@code jo}.
-   *
    * <ul>
-   *   <li>Given {@code &quot;}.
-   *   <li>Then return {@code <[null,&quot;42&quot;] name="" &amp;quot;="[null]" value=""/>}.
+   *   <li>Given {@link JSONArray} {@link JSONArray#get(int)} return {@link JSONObject#NULL}.</li>
+   *   <li>Then return {@code <tagName></tagName>}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link JSONML#toString(JSONObject)}
+   * <p>
+   * Method under test: {@link JSONML#toString(JSONObject)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"String JSONML.toString(JSONObject)"})
-  public void testToStringWithJo_givenQuot_thenReturnNullQuot42QuotNameAmpQuotNullValue()
-      throws JSONException {
+  public void testToStringWithJo_givenJSONArrayGetReturnNull_thenReturnTagNameTagName() throws JSONException {
     // Arrange
-    JSONObject jo = Cookie.toJSONObject("=;");
-    jo.append("tagName", JSONObject.NULL);
-    jo.append("&quot;", JSONObject.NULL);
-    jo.append("tagName", "42");
+    JSONArray jsonArray = mock(JSONArray.class);
+    when(jsonArray.get(anyInt())).thenReturn(JSONObject.NULL);
+    when(jsonArray.length()).thenReturn(3);
+    JSONObject jo = mock(JSONObject.class);
+    when(jo.optJSONArray(Mockito.<String>any())).thenReturn(jsonArray);
 
-    // Act and Assert
-    assertEquals(
-        "<[null,&quot;42&quot;] name=\"\" &amp;quot;=\"[null]\" value=\"\"/>", JSONML.toString(jo));
+    ArrayList<Object> objectList = new ArrayList<>();
+    when(jo.keys()).thenReturn(objectList.iterator());
+    when(jo.optString(Mockito.<String>any())).thenReturn("tagName");
+
+    // Act
+    String actualToStringResult = JSONML.toString(jo);
+
+    // Assert
+    verify(jsonArray, atLeast(1)).get(anyInt());
+    verify(jsonArray).length();
+    verify(jo).keys();
+    verify(jo).optJSONArray(eq("childNodes"));
+    verify(jo).optString(eq("tagName"));
+    assertEquals("<tagName></tagName>", actualToStringResult);
   }
 
   /**
    * Test {@link JSONML#toString(JSONObject)} with {@code jo}.
-   *
    * <ul>
-   *   <li>Given {@code &quot;}.
-   *   <li>Then return {@code <[&quot;42&quot;] name="" &amp;quot;="[null]" value=""/>}.
+   *   <li>Given {@link JSONArray} {@link JSONArray#get(int)} return {@code null}.</li>
+   *   <li>Then return {@code <tagName></tagName>}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link JSONML#toString(JSONObject)}
+   * <p>
+   * Method under test: {@link JSONML#toString(JSONObject)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"String JSONML.toString(JSONObject)"})
-  public void testToStringWithJo_givenQuot_thenReturnQuot42QuotNameAmpQuotNullValue()
-      throws JSONException {
+  public void testToStringWithJo_givenJSONArrayGetReturnNull_thenReturnTagNameTagName2() throws JSONException {
     // Arrange
-    JSONObject jo = Cookie.toJSONObject("=;");
-    jo.append("&quot;", JSONObject.NULL);
-    jo.append("tagName", "42");
+    JSONArray jsonArray = mock(JSONArray.class);
+    when(jsonArray.get(anyInt())).thenReturn(null);
+    when(jsonArray.length()).thenReturn(3);
+    JSONObject jo = mock(JSONObject.class);
+    when(jo.optJSONArray(Mockito.<String>any())).thenReturn(jsonArray);
 
-    // Act and Assert
-    assertEquals(
-        "<[&quot;42&quot;] name=\"\" &amp;quot;=\"[null]\" value=\"\"/>", JSONML.toString(jo));
+    ArrayList<Object> objectList = new ArrayList<>();
+    when(jo.keys()).thenReturn(objectList.iterator());
+    when(jo.optString(Mockito.<String>any())).thenReturn("tagName");
+
+    // Act
+    String actualToStringResult = JSONML.toString(jo);
+
+    // Assert
+    verify(jsonArray, atLeast(1)).get(anyInt());
+    verify(jsonArray).length();
+    verify(jo).keys();
+    verify(jo).optJSONArray(eq("childNodes"));
+    verify(jo).optString(eq("tagName"));
+    assertEquals("<tagName></tagName>", actualToStringResult);
   }
 
   /**
    * Test {@link JSONML#toString(JSONObject)} with {@code jo}.
-   *
    * <ul>
-   *   <li>Given ten.
-   *   <li>Then return {@code <[10] name="" value=""/>}.
+   *   <li>Given {@link JSONArray#JSONArray(String)} with source is {@code []}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link JSONML#toString(JSONObject)}
+   * <p>
+   * Method under test: {@link JSONML#toString(JSONObject)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"String JSONML.toString(JSONObject)"})
-  public void testToStringWithJo_givenTen_thenReturn10NameValue() throws JSONException {
+  public void testToStringWithJo_givenJSONArrayWithSourceIsLeftSquareBracketRightSquareBracket() throws JSONException {
     // Arrange
-    JSONObject jo = Cookie.toJSONObject("=;");
-    jo.append("tagName", 10.0d);
+    JSONObject jo = mock(JSONObject.class);
+    when(jo.optJSONArray(Mockito.<String>any())).thenReturn(new JSONArray("[]"));
 
-    // Act and Assert
-    assertEquals("<[10] name=\"\" value=\"\"/>", JSONML.toString(jo));
+    ArrayList<Object> objectList = new ArrayList<>();
+    when(jo.keys()).thenReturn(objectList.iterator());
+    when(jo.optString(Mockito.<String>any())).thenReturn("tagName");
+
+    // Act
+    String actualToStringResult = JSONML.toString(jo);
+
+    // Assert
+    verify(jo).keys();
+    verify(jo).optJSONArray(eq("childNodes"));
+    verify(jo).optString(eq("tagName"));
+    assertEquals("<tagName></tagName>", actualToStringResult);
   }
 
   /**
    * Test {@link JSONML#toString(JSONObject)} with {@code jo}.
-   *
    * <ul>
-   *   <li>Given ten.
-   *   <li>Then return {@code <[10] name="" value=""/>}.
+   *   <li>Given {@link JSONException#JSONException(String)} with message is {@code An error occurred}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link JSONML#toString(JSONObject)}
+   * <p>
+   * Method under test: {@link JSONML#toString(JSONObject)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"String JSONML.toString(JSONObject)"})
-  public void testToStringWithJo_givenTen_thenReturn10NameValue2() throws JSONException {
+  public void testToStringWithJo_givenJSONExceptionWithMessageIsAnErrorOccurred() throws JSONException {
     // Arrange
-    JSONObject jo = Cookie.toJSONObject("=;");
-    jo.append("tagName", 10.0f);
+    JSONObject jo = mock(JSONObject.class);
+    when(jo.optJSONArray(Mockito.<String>any())).thenThrow(new JSONException("An error occurred"));
+
+    ArrayList<Object> objectList = new ArrayList<>();
+    when(jo.keys()).thenReturn(objectList.iterator());
+    when(jo.optString(Mockito.<String>any())).thenReturn("tagName");
 
     // Act and Assert
-    assertEquals("<[10] name=\"\" value=\"\"/>", JSONML.toString(jo));
+    assertThrows(JSONException.class, () -> JSONML.toString(jo));
+    verify(jo).keys();
+    verify(jo).optJSONArray(eq("childNodes"));
+    verify(jo).optString(eq("tagName"));
   }
 
   /**
    * Test {@link JSONML#toString(JSONObject)} with {@code jo}.
-   *
    * <ul>
-   *   <li>Given toJSONObject {@code https://example.org/example}.
-   *   <li>Then return a string.
+   *   <li>Given {@link JSONObject#JSONObject()} append {@code tagName} and {@link JSONObject#NULL}.</li>
+   *   <li>Then throw {@link JSONException}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link JSONML#toString(JSONObject)}
+   * <p>
+   * Method under test: {@link JSONML#toString(JSONObject)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"String JSONML.toString(JSONObject)"})
-  public void testToStringWithJo_givenToJSONObjectHttpsExampleOrgExample_thenReturnAString()
-      throws JSONException {
+  public void testToStringWithJo_givenJSONObjectAppendTagNameAndNull_thenThrowJSONException() throws JSONException {
     // Arrange
-    JSONObject jo = Cookie.toJSONObject("=;");
-    jo.append("tagName", HTTP.toJSONObject("https://example.org/example"));
+    JSONObject jsonObject = new JSONObject();
+    jsonObject.append("tagName", JSONObject.NULL);
+
+    ArrayList<Object> objectList = new ArrayList<>();
+    objectList.add(jsonObject);
+    Iterator<Object> iteratorResult = objectList.iterator();
+    JSONArray jsonArray = mock(JSONArray.class);
+    when(jsonArray.length()).thenThrow(new JSONException("An error occurred"));
+    JSONObject jsonObject2 = mock(JSONObject.class);
+    when(jsonObject2.optJSONArray(Mockito.<String>any())).thenReturn(jsonArray);
+    when(jsonObject2.keys()).thenReturn(iteratorResult);
+    when(jsonObject2.optString(Mockito.<String>any())).thenReturn("foo");
+    JSONArray jsonArray2 = mock(JSONArray.class);
+    when(jsonArray2.get(anyInt())).thenReturn(jsonObject2);
+    when(jsonArray2.length()).thenReturn(3);
+    JSONObject jo = mock(JSONObject.class);
+    when(jo.optJSONArray(Mockito.<String>any())).thenReturn(jsonArray2);
+
+    ArrayList<Object> objectList2 = new ArrayList<>();
+    when(jo.keys()).thenReturn(objectList2.iterator());
+    when(jo.optString(Mockito.<String>any())).thenReturn("tagName");
 
     // Act and Assert
-    assertEquals(
-        "<[{&quot;HTTP-Version&quot;:&quot;https://example.org/example&quot;,&quot;Status-Code&quot;:&quot;"
-            + "&quot;,&quot;Reason-Phrase&quot;:&quot;&quot;}] name=\"\" value=\"\"/>",
-        JSONML.toString(jo));
+    assertThrows(JSONException.class, () -> JSONML.toString(jo));
+    verify(jsonArray2).get(eq(0));
+    verify(jsonArray2).length();
+    verify(jsonArray).length();
+    verify(jo).keys();
+    verify(jsonObject2).keys();
+    verify(jo).optJSONArray(eq("childNodes"));
+    verify(jsonObject2).optJSONArray(eq("childNodes"));
+    verify(jsonObject2, atLeast(1)).optString(Mockito.<String>any());
+    verify(jo).optString(eq("tagName"));
   }
 
   /**
    * Test {@link JSONML#toString(JSONObject)} with {@code jo}.
-   *
    * <ul>
-   *   <li>Given {@code true}.
-   *   <li>Then return {@code <[true] name="" value=""/>}.
+   *   <li>Given {@link JSONObject#JSONObject()} {@code childNodes} is {@code 0.5}.</li>
+   *   <li>Then throw {@link JSONException}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link JSONML#toString(JSONObject)}
+   * <p>
+   * Method under test: {@link JSONML#toString(JSONObject)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"String JSONML.toString(JSONObject)"})
-  public void testToStringWithJo_givenTrue_thenReturnTrueNameValue() throws JSONException {
+  public void testToStringWithJo_givenJSONObjectChildNodesIs05_thenThrowJSONException() throws JSONException {
     // Arrange
-    JSONObject jo = Cookie.toJSONObject("=;");
-    jo.append("tagName", true);
+    JSONObject jsonObject = new JSONObject();
+    jsonObject.put("childNodes", 0.5d);
+    jsonObject.append("tagName", JSONObject.NULL);
+
+    ArrayList<Object> objectList = new ArrayList<>();
+    objectList.add(jsonObject);
+    Iterator<Object> iteratorResult = objectList.iterator();
+    JSONArray jsonArray = mock(JSONArray.class);
+    when(jsonArray.length()).thenThrow(new JSONException("An error occurred"));
+    JSONObject jsonObject2 = mock(JSONObject.class);
+    when(jsonObject2.optJSONArray(Mockito.<String>any())).thenReturn(jsonArray);
+    when(jsonObject2.keys()).thenReturn(iteratorResult);
+    when(jsonObject2.optString(Mockito.<String>any())).thenReturn("foo");
+    JSONArray jsonArray2 = mock(JSONArray.class);
+    when(jsonArray2.get(anyInt())).thenReturn(jsonObject2);
+    when(jsonArray2.length()).thenReturn(3);
+    JSONObject jo = mock(JSONObject.class);
+    when(jo.optJSONArray(Mockito.<String>any())).thenReturn(jsonArray2);
+
+    ArrayList<Object> objectList2 = new ArrayList<>();
+    when(jo.keys()).thenReturn(objectList2.iterator());
+    when(jo.optString(Mockito.<String>any())).thenReturn("tagName");
 
     // Act and Assert
-    assertEquals("<[true] name=\"\" value=\"\"/>", JSONML.toString(jo));
+    assertThrows(JSONException.class, () -> JSONML.toString(jo));
+    verify(jsonArray2).get(eq(0));
+    verify(jsonArray2).length();
+    verify(jsonArray).length();
+    verify(jo).keys();
+    verify(jsonObject2).keys();
+    verify(jo).optJSONArray(eq("childNodes"));
+    verify(jsonObject2).optJSONArray(eq("childNodes"));
+    verify(jsonObject2, atLeast(1)).optString(Mockito.<String>any());
+    verify(jo).optString(eq("tagName"));
   }
 
   /**
    * Test {@link JSONML#toString(JSONObject)} with {@code jo}.
-   *
    * <ul>
-   *   <li>Then return {@code <[null] name="" value=""/>}.
+   *   <li>Given {@link JSONObject#JSONObject()} {@code childNodes} is {@code false}.</li>
+   *   <li>Then throw {@link JSONException}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link JSONML#toString(JSONObject)}
+   * <p>
+   * Method under test: {@link JSONML#toString(JSONObject)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"String JSONML.toString(JSONObject)"})
-  public void testToStringWithJo_thenReturnNullNameValue() throws JSONException {
+  public void testToStringWithJo_givenJSONObjectChildNodesIsFalse_thenThrowJSONException() throws JSONException {
     // Arrange
-    JSONObject jo = Cookie.toJSONObject("=;");
-    jo.append("tagName", JSONObject.NULL);
+    JSONObject jsonObject = new JSONObject();
+    jsonObject.put("childNodes", false);
+    jsonObject.append("tagName", JSONObject.NULL);
+
+    ArrayList<Object> objectList = new ArrayList<>();
+    objectList.add(jsonObject);
+    Iterator<Object> iteratorResult = objectList.iterator();
+    JSONArray jsonArray = mock(JSONArray.class);
+    when(jsonArray.length()).thenThrow(new JSONException("An error occurred"));
+    JSONObject jsonObject2 = mock(JSONObject.class);
+    when(jsonObject2.optJSONArray(Mockito.<String>any())).thenReturn(jsonArray);
+    when(jsonObject2.keys()).thenReturn(iteratorResult);
+    when(jsonObject2.optString(Mockito.<String>any())).thenReturn("foo");
+    JSONArray jsonArray2 = mock(JSONArray.class);
+    when(jsonArray2.get(anyInt())).thenReturn(jsonObject2);
+    when(jsonArray2.length()).thenReturn(3);
+    JSONObject jo = mock(JSONObject.class);
+    when(jo.optJSONArray(Mockito.<String>any())).thenReturn(jsonArray2);
+
+    ArrayList<Object> objectList2 = new ArrayList<>();
+    when(jo.keys()).thenReturn(objectList2.iterator());
+    when(jo.optString(Mockito.<String>any())).thenReturn("tagName");
 
     // Act and Assert
-    assertEquals("<[null] name=\"\" value=\"\"/>", JSONML.toString(jo));
+    assertThrows(JSONException.class, () -> JSONML.toString(jo));
+    verify(jsonArray2).get(eq(0));
+    verify(jsonArray2).length();
+    verify(jsonArray).length();
+    verify(jo).keys();
+    verify(jsonObject2).keys();
+    verify(jo).optJSONArray(eq("childNodes"));
+    verify(jsonObject2).optJSONArray(eq("childNodes"));
+    verify(jsonObject2, atLeast(1)).optString(Mockito.<String>any());
+    verify(jo).optString(eq("tagName"));
   }
 
   /**
    * Test {@link JSONML#toString(JSONObject)} with {@code jo}.
-   *
    * <ul>
-   *   <li>Then return {@code <[&quot;&quot;] name="" value=""/>}.
+   *   <li>Given {@link JSONObject#JSONObject()} {@code childNodes} is {@code false}.</li>
+   *   <li>Then throw {@link JSONException}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link JSONML#toString(JSONObject)}
+   * <p>
+   * Method under test: {@link JSONML#toString(JSONObject)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"String JSONML.toString(JSONObject)"})
-  public void testToStringWithJo_thenReturnQuotQuotNameValue() throws JSONException {
+  public void testToStringWithJo_givenJSONObjectChildNodesIsFalse_thenThrowJSONException2() throws JSONException {
     // Arrange
-    JSONObject jo = Cookie.toJSONObject("=;");
-    jo.append("tagName", "");
+    JSONObject jsonObject = new JSONObject();
+    jsonObject.append("tagName", JSONObject.NULL);
+    jsonObject.put("childNodes", false);
+    jsonObject.append("tagName", JSONObject.NULL);
+
+    ArrayList<Object> objectList = new ArrayList<>();
+    objectList.add(jsonObject);
+    Iterator<Object> iteratorResult = objectList.iterator();
+    JSONArray jsonArray = mock(JSONArray.class);
+    when(jsonArray.length()).thenThrow(new JSONException("An error occurred"));
+    JSONObject jsonObject2 = mock(JSONObject.class);
+    when(jsonObject2.optJSONArray(Mockito.<String>any())).thenReturn(jsonArray);
+    when(jsonObject2.keys()).thenReturn(iteratorResult);
+    when(jsonObject2.optString(Mockito.<String>any())).thenReturn("foo");
+    JSONArray jsonArray2 = mock(JSONArray.class);
+    when(jsonArray2.get(anyInt())).thenReturn(jsonObject2);
+    when(jsonArray2.length()).thenReturn(3);
+    JSONObject jo = mock(JSONObject.class);
+    when(jo.optJSONArray(Mockito.<String>any())).thenReturn(jsonArray2);
+
+    ArrayList<Object> objectList2 = new ArrayList<>();
+    when(jo.keys()).thenReturn(objectList2.iterator());
+    when(jo.optString(Mockito.<String>any())).thenReturn("tagName");
 
     // Act and Assert
-    assertEquals("<[&quot;&quot;] name=\"\" value=\"\"/>", JSONML.toString(jo));
+    assertThrows(JSONException.class, () -> JSONML.toString(jo));
+    verify(jsonArray2).get(eq(0));
+    verify(jsonArray2).length();
+    verify(jsonArray).length();
+    verify(jo).keys();
+    verify(jsonObject2).keys();
+    verify(jo).optJSONArray(eq("childNodes"));
+    verify(jsonObject2).optJSONArray(eq("childNodes"));
+    verify(jsonObject2, atLeast(1)).optString(Mockito.<String>any());
+    verify(jo).optString(eq("tagName"));
+  }
+
+  /**
+   * Test {@link JSONML#toString(JSONObject)} with {@code jo}.
+   * <ul>
+   *   <li>Given {@link JSONObject#JSONObject()} {@code childNodes} is {@link HashMap#HashMap()}.</li>
+   *   <li>Then throw {@link JSONException}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link JSONML#toString(JSONObject)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String JSONML.toString(JSONObject)"})
+  public void testToStringWithJo_givenJSONObjectChildNodesIsHashMap_thenThrowJSONException() throws JSONException {
+    // Arrange
+    JSONObject jsonObject = new JSONObject();
+    jsonObject.put("childNodes", (Map) new HashMap<>());
+    jsonObject.append("tagName", JSONObject.NULL);
+
+    ArrayList<Object> objectList = new ArrayList<>();
+    objectList.add(jsonObject);
+    Iterator<Object> iteratorResult = objectList.iterator();
+    JSONArray jsonArray = mock(JSONArray.class);
+    when(jsonArray.length()).thenThrow(new JSONException("An error occurred"));
+    JSONObject jsonObject2 = mock(JSONObject.class);
+    when(jsonObject2.optJSONArray(Mockito.<String>any())).thenReturn(jsonArray);
+    when(jsonObject2.keys()).thenReturn(iteratorResult);
+    when(jsonObject2.optString(Mockito.<String>any())).thenReturn("foo");
+    JSONArray jsonArray2 = mock(JSONArray.class);
+    when(jsonArray2.get(anyInt())).thenReturn(jsonObject2);
+    when(jsonArray2.length()).thenReturn(3);
+    JSONObject jo = mock(JSONObject.class);
+    when(jo.optJSONArray(Mockito.<String>any())).thenReturn(jsonArray2);
+
+    ArrayList<Object> objectList2 = new ArrayList<>();
+    when(jo.keys()).thenReturn(objectList2.iterator());
+    when(jo.optString(Mockito.<String>any())).thenReturn("tagName");
+
+    // Act and Assert
+    assertThrows(JSONException.class, () -> JSONML.toString(jo));
+    verify(jsonArray2).get(eq(0));
+    verify(jsonArray2).length();
+    verify(jsonArray).length();
+    verify(jo).keys();
+    verify(jsonObject2).keys();
+    verify(jo).optJSONArray(eq("childNodes"));
+    verify(jsonObject2).optJSONArray(eq("childNodes"));
+    verify(jsonObject2, atLeast(1)).optString(Mockito.<String>any());
+    verify(jo).optString(eq("tagName"));
+  }
+
+  /**
+   * Test {@link JSONML#toString(JSONObject)} with {@code jo}.
+   * <ul>
+   *   <li>Given {@link JSONObject#JSONObject()} increment {@code childNodes}.</li>
+   *   <li>Then throw {@link JSONException}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link JSONML#toString(JSONObject)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String JSONML.toString(JSONObject)"})
+  public void testToStringWithJo_givenJSONObjectIncrementChildNodes_thenThrowJSONException() throws JSONException {
+    // Arrange
+    JSONObject jsonObject = new JSONObject();
+    jsonObject.increment("childNodes");
+    jsonObject.append("tagName", JSONObject.NULL);
+
+    ArrayList<Object> objectList = new ArrayList<>();
+    objectList.add(jsonObject);
+    Iterator<Object> iteratorResult = objectList.iterator();
+    JSONArray jsonArray = mock(JSONArray.class);
+    when(jsonArray.length()).thenThrow(new JSONException("An error occurred"));
+    JSONObject jsonObject2 = mock(JSONObject.class);
+    when(jsonObject2.optJSONArray(Mockito.<String>any())).thenReturn(jsonArray);
+    when(jsonObject2.keys()).thenReturn(iteratorResult);
+    when(jsonObject2.optString(Mockito.<String>any())).thenReturn("foo");
+    JSONArray jsonArray2 = mock(JSONArray.class);
+    when(jsonArray2.get(anyInt())).thenReturn(jsonObject2);
+    when(jsonArray2.length()).thenReturn(3);
+    JSONObject jo = mock(JSONObject.class);
+    when(jo.optJSONArray(Mockito.<String>any())).thenReturn(jsonArray2);
+
+    ArrayList<Object> objectList2 = new ArrayList<>();
+    when(jo.keys()).thenReturn(objectList2.iterator());
+    when(jo.optString(Mockito.<String>any())).thenReturn("tagName");
+
+    // Act and Assert
+    assertThrows(JSONException.class, () -> JSONML.toString(jo));
+    verify(jsonArray2).get(eq(0));
+    verify(jsonArray2).length();
+    verify(jsonArray).length();
+    verify(jo).keys();
+    verify(jsonObject2).keys();
+    verify(jo).optJSONArray(eq("childNodes"));
+    verify(jsonObject2).optJSONArray(eq("childNodes"));
+    verify(jsonObject2, atLeast(1)).optString(Mockito.<String>any());
+    verify(jo).optString(eq("tagName"));
+  }
+
+  /**
+   * Test {@link JSONML#toString(JSONObject)} with {@code jo}.
+   * <ul>
+   *   <li>Given {@link JSONObject} {@link JSONObject#optString(String)} return {@code null}.</li>
+   *   <li>Then calls {@link JSONArray#get(int)}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link JSONML#toString(JSONObject)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String JSONML.toString(JSONObject)"})
+  public void testToStringWithJo_givenJSONObjectOptStringReturnNull_thenCallsGet() throws JSONException {
+    // Arrange
+    JSONArray jsonArray = mock(JSONArray.class);
+    when(jsonArray.length()).thenThrow(new JSONException("An error occurred"));
+    JSONObject jsonObject = mock(JSONObject.class);
+    when(jsonObject.optJSONArray(Mockito.<String>any())).thenReturn(jsonArray);
+
+    ArrayList<Object> objectList = new ArrayList<>();
+    when(jsonObject.keys()).thenReturn(objectList.iterator());
+    when(jsonObject.optString(Mockito.<String>any())).thenReturn(null);
+    JSONArray jsonArray2 = mock(JSONArray.class);
+    when(jsonArray2.get(anyInt())).thenReturn(jsonObject);
+    when(jsonArray2.length()).thenReturn(3);
+    JSONObject jo = mock(JSONObject.class);
+    when(jo.optJSONArray(Mockito.<String>any())).thenReturn(jsonArray2);
+
+    ArrayList<Object> objectList2 = new ArrayList<>();
+    when(jo.keys()).thenReturn(objectList2.iterator());
+    when(jo.optString(Mockito.<String>any())).thenReturn("tagName");
+
+    // Act
+    JSONML.toString(jo);
+
+    // Assert
+    verify(jsonArray2, atLeast(1)).get(anyInt());
+    verify(jsonArray2).length();
+    verify(jo).keys();
+    verify(jo).optJSONArray(eq("childNodes"));
+    verify(jo).optString(eq("tagName"));
+    verify(jsonObject, atLeast(1)).optString(eq("tagName"));
+  }
+
+  /**
+   * Test {@link JSONML#toString(JSONObject)} with {@code jo}.
+   * <ul>
+   *   <li>Given {@link JSONObject#JSONObject()} {@code tagName} is ten.</li>
+   *   <li>Then throw {@link JSONException}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link JSONML#toString(JSONObject)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String JSONML.toString(JSONObject)"})
+  public void testToStringWithJo_givenJSONObjectTagNameIsTen_thenThrowJSONException() throws JSONException {
+    // Arrange
+    JSONObject jsonObject = new JSONObject();
+    jsonObject.put("tagName", 10.0d);
+
+    ArrayList<Object> objectList = new ArrayList<>();
+    objectList.add(jsonObject);
+    Iterator<Object> iteratorResult = objectList.iterator();
+    JSONArray jsonArray = mock(JSONArray.class);
+    when(jsonArray.length()).thenThrow(new JSONException("An error occurred"));
+    JSONObject jsonObject2 = mock(JSONObject.class);
+    when(jsonObject2.optJSONArray(Mockito.<String>any())).thenReturn(jsonArray);
+    when(jsonObject2.keys()).thenReturn(iteratorResult);
+    when(jsonObject2.optString(Mockito.<String>any())).thenReturn("foo");
+    JSONArray jsonArray2 = mock(JSONArray.class);
+    when(jsonArray2.get(anyInt())).thenReturn(jsonObject2);
+    when(jsonArray2.length()).thenReturn(3);
+    JSONObject jo = mock(JSONObject.class);
+    when(jo.optJSONArray(Mockito.<String>any())).thenReturn(jsonArray2);
+
+    ArrayList<Object> objectList2 = new ArrayList<>();
+    when(jo.keys()).thenReturn(objectList2.iterator());
+    when(jo.optString(Mockito.<String>any())).thenReturn("tagName");
+
+    // Act and Assert
+    assertThrows(JSONException.class, () -> JSONML.toString(jo));
+    verify(jsonArray2).get(eq(0));
+    verify(jsonArray2).length();
+    verify(jsonArray).length();
+    verify(jo).keys();
+    verify(jsonObject2).keys();
+    verify(jo).optJSONArray(eq("childNodes"));
+    verify(jsonObject2).optJSONArray(eq("childNodes"));
+    verify(jsonObject2, atLeast(1)).optString(Mockito.<String>any());
+    verify(jo).optString(eq("tagName"));
+  }
+
+  /**
+   * Test {@link JSONML#toString(JSONObject)} with {@code jo}.
+   * <ul>
+   *   <li>Given {@code null}.</li>
+   *   <li>Then return {@code <tagName/>}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link JSONML#toString(JSONObject)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String JSONML.toString(JSONObject)"})
+  public void testToStringWithJo_givenNull_thenReturnTagName() throws JSONException {
+    // Arrange
+    JSONObject jo = mock(JSONObject.class);
+    when(jo.optJSONArray(Mockito.<String>any())).thenReturn(null);
+
+    ArrayList<Object> objectList = new ArrayList<>();
+    when(jo.keys()).thenReturn(objectList.iterator());
+    when(jo.optString(Mockito.<String>any())).thenReturn("tagName");
+
+    // Act
+    String actualToStringResult = JSONML.toString(jo);
+
+    // Assert
+    verify(jo).keys();
+    verify(jo).optJSONArray(eq("childNodes"));
+    verify(jo).optString(eq("tagName"));
+    assertEquals("<tagName/>", actualToStringResult);
+  }
+
+  /**
+   * Test {@link JSONML#toString(JSONObject)} with {@code jo}.
+   * <ul>
+   *   <li>Then return {@code <tagName><foo></foo><foo></foo><foo></foo></tagName>}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link JSONML#toString(JSONObject)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String JSONML.toString(JSONObject)"})
+  public void testToStringWithJo_thenReturnTagNameFooFooFooFooFooFooTagName() throws JSONException {
+    // Arrange
+    JSONObject jsonObject = mock(JSONObject.class);
+    when(jsonObject.optJSONArray(Mockito.<String>any())).thenReturn(new JSONArray("[]"));
+
+    ArrayList<Object> objectList = new ArrayList<>();
+    when(jsonObject.keys()).thenReturn(objectList.iterator());
+    when(jsonObject.optString(Mockito.<String>any())).thenReturn("foo");
+    JSONArray jsonArray = mock(JSONArray.class);
+    when(jsonArray.get(anyInt())).thenReturn(jsonObject);
+    when(jsonArray.length()).thenReturn(3);
+    JSONObject jo = mock(JSONObject.class);
+    when(jo.optJSONArray(Mockito.<String>any())).thenReturn(jsonArray);
+
+    ArrayList<Object> objectList2 = new ArrayList<>();
+    when(jo.keys()).thenReturn(objectList2.iterator());
+    when(jo.optString(Mockito.<String>any())).thenReturn("tagName");
+
+    // Act
+    String actualToStringResult = JSONML.toString(jo);
+
+    // Assert
+    verify(jsonArray, atLeast(1)).get(anyInt());
+    verify(jsonArray).length();
+    verify(jo).keys();
+    verify(jsonObject, atLeast(1)).keys();
+    verify(jo).optJSONArray(eq("childNodes"));
+    verify(jsonObject, atLeast(1)).optJSONArray(eq("childNodes"));
+    verify(jo).optString(eq("tagName"));
+    verify(jsonObject, atLeast(1)).optString(eq("tagName"));
+    assertEquals("<tagName><foo></foo><foo></foo><foo></foo></tagName>", actualToStringResult);
+  }
+
+  /**
+   * Test {@link JSONML#toString(JSONObject)} with {@code jo}.
+   * <ul>
+   *   <li>Then return {@code <tagName>tagNametagNametagName</tagName>}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link JSONML#toString(JSONObject)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String JSONML.toString(JSONObject)"})
+  public void testToStringWithJo_thenReturnTagNameTagNametagNametagNameTagName() throws JSONException {
+    // Arrange
+    JSONArray jsonArray = mock(JSONArray.class);
+    when(jsonArray.get(anyInt())).thenReturn("tagName");
+    when(jsonArray.length()).thenReturn(3);
+    JSONObject jo = mock(JSONObject.class);
+    when(jo.optJSONArray(Mockito.<String>any())).thenReturn(jsonArray);
+
+    ArrayList<Object> objectList = new ArrayList<>();
+    when(jo.keys()).thenReturn(objectList.iterator());
+    when(jo.optString(Mockito.<String>any())).thenReturn("tagName");
+
+    // Act
+    String actualToStringResult = JSONML.toString(jo);
+
+    // Assert
+    verify(jsonArray, atLeast(1)).get(anyInt());
+    verify(jsonArray).length();
+    verify(jo).keys();
+    verify(jo).optJSONArray(eq("childNodes"));
+    verify(jo).optString(eq("tagName"));
+    assertEquals("<tagName>tagNametagNametagName</tagName>", actualToStringResult);
+  }
+
+  /**
+   * Test {@link JSONML#toString(JSONObject)} with {@code jo}.
+   * <ul>
+   *   <li>Then throw {@link JSONException}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link JSONML#toString(JSONObject)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String JSONML.toString(JSONObject)"})
+  public void testToStringWithJo_thenThrowJSONException() throws JSONException {
+    // Arrange
+    JSONArray jsonArray = mock(JSONArray.class);
+    when(jsonArray.length()).thenThrow(new JSONException("An error occurred"));
+    JSONObject jsonObject = mock(JSONObject.class);
+    when(jsonObject.optJSONArray(Mockito.<String>any())).thenReturn(jsonArray);
+
+    ArrayList<Object> objectList = new ArrayList<>();
+    when(jsonObject.keys()).thenReturn(objectList.iterator());
+    when(jsonObject.optString(Mockito.<String>any())).thenReturn("foo");
+    JSONArray jsonArray2 = mock(JSONArray.class);
+    when(jsonArray2.get(anyInt())).thenReturn(jsonObject);
+    when(jsonArray2.length()).thenReturn(3);
+    JSONObject jo = mock(JSONObject.class);
+    when(jo.optJSONArray(Mockito.<String>any())).thenReturn(jsonArray2);
+
+    ArrayList<Object> objectList2 = new ArrayList<>();
+    when(jo.keys()).thenReturn(objectList2.iterator());
+    when(jo.optString(Mockito.<String>any())).thenReturn("tagName");
+
+    // Act and Assert
+    assertThrows(JSONException.class, () -> JSONML.toString(jo));
+    verify(jsonArray2).get(eq(0));
+    verify(jsonArray2).length();
+    verify(jsonArray).length();
+    verify(jo).keys();
+    verify(jsonObject).keys();
+    verify(jo).optJSONArray(eq("childNodes"));
+    verify(jsonObject).optJSONArray(eq("childNodes"));
+    verify(jo).optString(eq("tagName"));
+    verify(jsonObject).optString(eq("tagName"));
   }
 }

@@ -21,8 +21,7 @@ import static org.mockito.ArgumentMatchers.isA;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.engine.delegate.DelegateExecution;
 import org.activiti.engine.impl.persistence.entity.ExecutionEntityImpl;
@@ -33,46 +32,39 @@ import org.mockito.Mockito;
 public class ActivityBehaviorInvocationDiffblueTest {
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
-   *   <li>{@link ActivityBehaviorInvocation#ActivityBehaviorInvocation(ActivityBehavior,
-   *       DelegateExecution)}
+   *   <li>{@link ActivityBehaviorInvocation#ActivityBehaviorInvocation(ActivityBehavior, DelegateExecution)}
    *   <li>{@link ActivityBehaviorInvocation#getTarget()}
    * </ul>
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void ActivityBehaviorInvocation.<init>(ActivityBehavior, DelegateExecution)",
-    "Object ActivityBehaviorInvocation.getTarget()"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void ActivityBehaviorInvocation.<init>(ActivityBehavior, DelegateExecution)",
+      "Object ActivityBehaviorInvocation.getTarget()"})
   public void testGettersAndSetters() {
     // Arrange
     ActivityBehavior behaviorInstance = mock(ActivityBehavior.class);
 
     // Act
-    ActivityBehaviorInvocation actualActivityBehaviorInvocation =
-        new ActivityBehaviorInvocation(
-            behaviorInstance, ExecutionEntityImpl.createWithEmptyRelationshipCollections());
+    ActivityBehaviorInvocation actualActivityBehaviorInvocation = new ActivityBehaviorInvocation(behaviorInstance,
+        ExecutionEntityImpl.createWithEmptyRelationshipCollections());
     Object actualTarget = actualActivityBehaviorInvocation.getTarget();
 
     // Assert
-    assertNull(actualActivityBehaviorInvocation.getInvocationResult());
     assertNull(actualActivityBehaviorInvocation.getInvocationParameters());
+    assertNull(actualActivityBehaviorInvocation.getInvocationResult());
     assertSame(behaviorInstance, actualTarget);
   }
 
   /**
    * Test {@link ActivityBehaviorInvocation#invoke()}.
-   *
-   * <p>Method under test: {@link ActivityBehaviorInvocation#invoke()}
+   * <p>
+   * Method under test: {@link ActivityBehaviorInvocation#invoke()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void ActivityBehaviorInvocation.invoke()"})
   public void testInvoke() {
     // Arrange
@@ -80,8 +72,7 @@ public class ActivityBehaviorInvocationDiffblueTest {
     doNothing().when(behaviorInstance).execute(Mockito.<DelegateExecution>any());
 
     // Act
-    new ActivityBehaviorInvocation(
-            behaviorInstance, ExecutionEntityImpl.createWithEmptyRelationshipCollections())
+    (new ActivityBehaviorInvocation(behaviorInstance, ExecutionEntityImpl.createWithEmptyRelationshipCollections()))
         .invoke();
 
     // Assert

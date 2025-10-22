@@ -16,8 +16,7 @@
 package org.activiti.engine.impl.cmd;
 
 import static org.junit.Assert.assertEquals;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
@@ -27,31 +26,18 @@ import org.junit.experimental.categories.Category;
 
 public class CreateAttachmentCmdDiffblueTest {
   /**
-   * Test {@link CreateAttachmentCmd#CreateAttachmentCmd(String, String, String, String, String,
-   * InputStream, String)}.
-   *
-   * <p>Method under test: {@link CreateAttachmentCmd#CreateAttachmentCmd(String, String, String,
-   * String, String, InputStream, String)}
+   * Test {@link CreateAttachmentCmd#CreateAttachmentCmd(String, String, String, String, String, InputStream, String)}.
+   * <p>
+   * Method under test: {@link CreateAttachmentCmd#CreateAttachmentCmd(String, String, String, String, String, InputStream, String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void CreateAttachmentCmd.<init>(String, String, String, String, String, InputStream, String)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void CreateAttachmentCmd.<init>(String, String, String, String, String, InputStream, String)"})
   public void testNewCreateAttachmentCmd() throws IOException {
-    // Arrange and Act
-    CreateAttachmentCmd actualCreateAttachmentCmd =
-        new CreateAttachmentCmd(
-            "Attachment Type",
-            "42",
-            "42",
-            "Attachment Name",
-            "Attachment Description",
-            new ByteArrayInputStream("AXAXAXAX".getBytes("UTF-8")),
-            "https://example.org/example");
-
-    // Assert
-    assertEquals(8, actualCreateAttachmentCmd.content.read(new byte[8]));
+    // Arrange, Act and Assert
+    assertEquals(8,
+        (new CreateAttachmentCmd("Attachment Type", "42", "42", "Attachment Name", "Attachment Description",
+            new ByteArrayInputStream("AXAXAXAX".getBytes("UTF-8")), "https://example.org/example")).content
+            .read(new byte[8]));
   }
 }

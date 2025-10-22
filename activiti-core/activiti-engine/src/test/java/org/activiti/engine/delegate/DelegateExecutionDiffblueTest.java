@@ -16,8 +16,7 @@
 package org.activiti.engine.delegate;
 
 import static org.junit.Assert.assertNull;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.engine.impl.persistence.entity.ExecutionEntityImpl;
 import org.junit.Test;
@@ -26,15 +25,12 @@ import org.junit.experimental.categories.Category;
 public class DelegateExecutionDiffblueTest {
   /**
    * Test {@link DelegateExecution#getEngineServices()}.
-   *
-   * <p>Method under test: {@link DelegateExecution#getEngineServices()}
+   * <p>
+   * Method under test: {@link DelegateExecution#getEngineServices()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "org.activiti.engine.ProcessEngineConfiguration DelegateExecution.getEngineServices()"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"org.activiti.engine.ProcessEngineConfiguration DelegateExecution.getEngineServices()"})
   public void testGetEngineServices() {
     // Arrange, Act and Assert
     assertNull(ExecutionEntityImpl.createWithEmptyRelationshipCollections().getEngineServices());

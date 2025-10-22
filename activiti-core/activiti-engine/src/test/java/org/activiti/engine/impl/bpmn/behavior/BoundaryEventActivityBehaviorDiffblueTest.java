@@ -17,8 +17,7 @@ package org.activiti.engine.impl.bpmn.behavior;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.engine.delegate.DelegateExecution;
 import org.activiti.engine.impl.persistence.entity.ExecutionEntityImpl;
@@ -28,38 +27,34 @@ import org.junit.experimental.categories.Category;
 public class BoundaryEventActivityBehaviorDiffblueTest {
   /**
    * Test {@link BoundaryEventActivityBehavior#BoundaryEventActivityBehavior()}.
-   *
-   * <p>Method under test: {@link BoundaryEventActivityBehavior#BoundaryEventActivityBehavior()}
+   * <p>
+   * Method under test: {@link BoundaryEventActivityBehavior#BoundaryEventActivityBehavior()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void BoundaryEventActivityBehavior.<init>()"})
   public void testNewBoundaryEventActivityBehavior() {
     // Arrange, Act and Assert
-    assertFalse(new BoundaryEventActivityBehavior().isInterrupting());
+    assertFalse((new BoundaryEventActivityBehavior()).isInterrupting());
   }
 
   /**
    * Test {@link BoundaryEventActivityBehavior#BoundaryEventActivityBehavior(boolean)}.
-   *
-   * <p>Method under test: {@link
-   * BoundaryEventActivityBehavior#BoundaryEventActivityBehavior(boolean)}
+   * <p>
+   * Method under test: {@link BoundaryEventActivityBehavior#BoundaryEventActivityBehavior(boolean)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void BoundaryEventActivityBehavior.<init>(boolean)"})
   public void testNewBoundaryEventActivityBehavior2() {
     // Arrange, Act and Assert
-    assertTrue(new BoundaryEventActivityBehavior(true).isInterrupting());
+    assertTrue((new BoundaryEventActivityBehavior(true)).isInterrupting());
   }
 
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>{@link BoundaryEventActivityBehavior#setInterrupting(boolean)}
    *   <li>{@link BoundaryEventActivityBehavior#execute(DelegateExecution)}
@@ -67,22 +62,17 @@ public class BoundaryEventActivityBehaviorDiffblueTest {
    * </ul>
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void BoundaryEventActivityBehavior.execute(DelegateExecution)",
-    "boolean BoundaryEventActivityBehavior.isInterrupting()",
-    "void BoundaryEventActivityBehavior.setInterrupting(boolean)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void BoundaryEventActivityBehavior.execute(DelegateExecution)",
+      "boolean BoundaryEventActivityBehavior.isInterrupting()",
+      "void BoundaryEventActivityBehavior.setInterrupting(boolean)"})
   public void testGettersAndSetters() {
     // Arrange
-    BoundaryEventActivityBehavior boundaryEventActivityBehavior =
-        new BoundaryEventActivityBehavior();
+    BoundaryEventActivityBehavior boundaryEventActivityBehavior = new BoundaryEventActivityBehavior();
 
     // Act
     boundaryEventActivityBehavior.setInterrupting(true);
-    boundaryEventActivityBehavior.execute(
-        ExecutionEntityImpl.createWithEmptyRelationshipCollections());
+    boundaryEventActivityBehavior.execute(ExecutionEntityImpl.createWithEmptyRelationshipCollections());
 
     // Assert
     assertTrue(boundaryEventActivityBehavior.isInterrupting());

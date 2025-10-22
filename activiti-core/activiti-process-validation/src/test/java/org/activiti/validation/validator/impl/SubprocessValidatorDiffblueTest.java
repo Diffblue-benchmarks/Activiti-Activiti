@@ -21,16 +21,16 @@ import static org.mockito.Mockito.anyBoolean;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import org.activiti.bpmn.model.BpmnModel;
 import org.activiti.bpmn.model.EventSubProcess;
 import org.activiti.bpmn.model.FlowElement;
 import org.activiti.bpmn.model.Process;
-import org.activiti.bpmn.model.StartEvent;
 import org.activiti.bpmn.model.SubProcess;
+import org.activiti.validation.ValidationError;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
@@ -39,18 +39,15 @@ import org.mockito.Mockito;
 class SubprocessValidatorDiffblueTest {
   /**
    * Test {@link SubprocessValidator#executeValidation(BpmnModel, Process, List)}.
-   *
    * <ul>
-   *   <li>Given {@link ArrayList#ArrayList()} add {@link EventSubProcess} (default constructor).
+   *   <li>Given {@link ArrayList#ArrayList()} add {@link EventSubProcess} (default constructor).</li>
    * </ul>
-   *
-   * <p>Method under test: {@link SubprocessValidator#executeValidation(BpmnModel, Process, List)}
+   * <p>
+   * Method under test: {@link SubprocessValidator#executeValidation(BpmnModel, Process, List)}
    */
   @Test
-  @DisplayName(
-      "Test executeValidation(BpmnModel, Process, List); given ArrayList() add EventSubProcess (default constructor)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test executeValidation(BpmnModel, Process, List); given ArrayList() add EventSubProcess (default constructor)")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void SubprocessValidator.executeValidation(BpmnModel, Process, List)"})
   void testExecuteValidation_givenArrayListAddEventSubProcess() {
     // Arrange
@@ -59,10 +56,8 @@ class SubprocessValidatorDiffblueTest {
 
     ArrayList<SubProcess> subProcessList = new ArrayList<>();
     subProcessList.add(new EventSubProcess());
-
     Process process = mock(Process.class);
-    when(process.findFlowElementsOfType(Mockito.<Class<SubProcess>>any()))
-        .thenReturn(subProcessList);
+    when(process.findFlowElementsOfType(Mockito.<Class<SubProcess>>any())).thenReturn(subProcessList);
 
     // Act
     subprocessValidator.executeValidation(bpmnModel, process, new ArrayList<>());
@@ -73,19 +68,155 @@ class SubprocessValidatorDiffblueTest {
 
   /**
    * Test {@link SubprocessValidator#executeValidation(BpmnModel, Process, List)}.
-   *
    * <ul>
-   *   <li>Then calls {@link Process#findFlowElementsInSubProcessOfType(SubProcess, Class,
-   *       boolean)}.
+   *   <li>Given {@link ArrayList#ArrayList()}.</li>
+   *   <li>Then calls {@link Process#findFlowElementsOfType(Class)}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link SubprocessValidator#executeValidation(BpmnModel, Process, List)}
+   * <p>
+   * Method under test: {@link SubprocessValidator#executeValidation(BpmnModel, Process, List)}
    */
   @Test
-  @DisplayName(
-      "Test executeValidation(BpmnModel, Process, List); then calls findFlowElementsInSubProcessOfType(SubProcess, Class, boolean)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test executeValidation(BpmnModel, Process, List); given ArrayList(); then calls findFlowElementsOfType(Class)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void SubprocessValidator.executeValidation(BpmnModel, Process, List)"})
+  void testExecuteValidation_givenArrayList_thenCallsFindFlowElementsOfType() {
+    // Arrange
+    SubprocessValidator subprocessValidator = new SubprocessValidator();
+    BpmnModel bpmnModel = new BpmnModel();
+    Process process = mock(Process.class);
+    when(process.findFlowElementsOfType(Mockito.<Class<SubProcess>>any())).thenReturn(new ArrayList<>());
+
+    // Act
+    subprocessValidator.executeValidation(bpmnModel, process, new ArrayList<>());
+
+    // Assert
+    verify(process).findFlowElementsOfType(isA(Class.class));
+  }
+
+  /**
+   * Test {@link SubprocessValidator#executeValidation(BpmnModel, Process, List)}.
+   * <ul>
+   *   <li>Given {@link ValidationError} (default constructor) ActivityId is {@code 42}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link SubprocessValidator#executeValidation(BpmnModel, Process, List)}
+   */
+  @Test
+  @DisplayName("Test executeValidation(BpmnModel, Process, List); given ValidationError (default constructor) ActivityId is '42'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void SubprocessValidator.executeValidation(BpmnModel, Process, List)"})
+  void testExecuteValidation_givenValidationErrorActivityIdIs42() {
+    // Arrange
+    SubprocessValidator subprocessValidator = new SubprocessValidator();
+    BpmnModel bpmnModel = new BpmnModel();
+
+    ArrayList<SubProcess> subProcessList = new ArrayList<>();
+    subProcessList.add(new SubProcess());
+    Process process = mock(Process.class);
+    when(process.findFlowElementsInSubProcessOfType(Mockito.<SubProcess>any(), Mockito.<Class<FlowElement>>any(),
+        anyBoolean())).thenReturn(new ArrayList<>());
+    when(process.findFlowElementsOfType(Mockito.<Class<SubProcess>>any())).thenReturn(subProcessList);
+
+    ValidationError validationError = new ValidationError();
+    validationError.setActivityId("42");
+    validationError.setActivityName("Activity Name");
+    validationError.setDefaultDescription("Default Description");
+    validationError.setKey("Key");
+    validationError.setParams(new HashMap<>());
+    validationError.setProblem("Problem");
+    validationError.setProcessDefinitionId("42");
+    validationError.setProcessDefinitionName("Process Definition Name");
+    validationError.setValidatorSetName("Validator Set Name");
+    validationError.setWarning(true);
+    validationError.setXmlColumnNumber(10);
+    validationError.setXmlLineNumber(2);
+
+    ArrayList<ValidationError> errors = new ArrayList<>();
+    errors.add(validationError);
+
+    // Act
+    subprocessValidator.executeValidation(bpmnModel, process, errors);
+
+    // Assert
+    verify(process).findFlowElementsInSubProcessOfType(isA(SubProcess.class), isA(Class.class), eq(false));
+    verify(process).findFlowElementsOfType(isA(Class.class));
+  }
+
+  /**
+   * Test {@link SubprocessValidator#executeValidation(BpmnModel, Process, List)}.
+   * <ul>
+   *   <li>Given {@link ValidationError} (default constructor) ActivityId is {@code Activity Id}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link SubprocessValidator#executeValidation(BpmnModel, Process, List)}
+   */
+  @Test
+  @DisplayName("Test executeValidation(BpmnModel, Process, List); given ValidationError (default constructor) ActivityId is 'Activity Id'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void SubprocessValidator.executeValidation(BpmnModel, Process, List)"})
+  void testExecuteValidation_givenValidationErrorActivityIdIsActivityId() {
+    // Arrange
+    SubprocessValidator subprocessValidator = new SubprocessValidator();
+    BpmnModel bpmnModel = new BpmnModel();
+
+    ArrayList<SubProcess> subProcessList = new ArrayList<>();
+    subProcessList.add(new SubProcess());
+    Process process = mock(Process.class);
+    when(process.findFlowElementsInSubProcessOfType(Mockito.<SubProcess>any(), Mockito.<Class<FlowElement>>any(),
+        anyBoolean())).thenReturn(new ArrayList<>());
+    when(process.findFlowElementsOfType(Mockito.<Class<SubProcess>>any())).thenReturn(subProcessList);
+
+    ValidationError validationError = new ValidationError();
+    validationError.setActivityId("42");
+    validationError.setActivityName("Activity Name");
+    validationError.setDefaultDescription("Default Description");
+    validationError.setKey("Key");
+    validationError.setParams(new HashMap<>());
+    validationError.setProblem("Problem");
+    validationError.setProcessDefinitionId("42");
+    validationError.setProcessDefinitionName("Process Definition Name");
+    validationError.setValidatorSetName("Validator Set Name");
+    validationError.setWarning(true);
+    validationError.setXmlColumnNumber(10);
+    validationError.setXmlLineNumber(2);
+
+    ValidationError validationError2 = new ValidationError();
+    validationError2.setActivityId("Activity Id");
+    validationError2.setActivityName("42");
+    validationError2.setDefaultDescription("42");
+    validationError2.setKey("42");
+    validationError2.setParams(new HashMap<>());
+    validationError2.setProblem("42");
+    validationError2.setProcessDefinitionId("Process Definition Id");
+    validationError2.setProcessDefinitionName("42");
+    validationError2.setValidatorSetName("42");
+    validationError2.setWarning(false);
+    validationError2.setXmlColumnNumber(1);
+    validationError2.setXmlLineNumber(10);
+
+    ArrayList<ValidationError> errors = new ArrayList<>();
+    errors.add(validationError2);
+    errors.add(validationError);
+
+    // Act
+    subprocessValidator.executeValidation(bpmnModel, process, errors);
+
+    // Assert
+    verify(process).findFlowElementsInSubProcessOfType(isA(SubProcess.class), isA(Class.class), eq(false));
+    verify(process).findFlowElementsOfType(isA(Class.class));
+  }
+
+  /**
+   * Test {@link SubprocessValidator#executeValidation(BpmnModel, Process, List)}.
+   * <ul>
+   *   <li>Then calls {@link Process#findFlowElementsInSubProcessOfType(SubProcess, Class, boolean)}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link SubprocessValidator#executeValidation(BpmnModel, Process, List)}
+   */
+  @Test
+  @DisplayName("Test executeValidation(BpmnModel, Process, List); then calls findFlowElementsInSubProcessOfType(SubProcess, Class, boolean)")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void SubprocessValidator.executeValidation(BpmnModel, Process, List)"})
   void testExecuteValidation_thenCallsFindFlowElementsInSubProcessOfType() {
     // Arrange
@@ -94,23 +225,16 @@ class SubprocessValidatorDiffblueTest {
 
     ArrayList<SubProcess> subProcessList = new ArrayList<>();
     subProcessList.add(new SubProcess());
-
-    ArrayList<FlowElement> flowElementList = new ArrayList<>();
-    flowElementList.add(new StartEvent());
-
     Process process = mock(Process.class);
-    when(process.findFlowElementsInSubProcessOfType(
-            Mockito.<SubProcess>any(), Mockito.<Class<FlowElement>>any(), anyBoolean()))
-        .thenReturn(flowElementList);
-    when(process.findFlowElementsOfType(Mockito.<Class<SubProcess>>any()))
-        .thenReturn(subProcessList);
+    when(process.findFlowElementsInSubProcessOfType(Mockito.<SubProcess>any(), Mockito.<Class<FlowElement>>any(),
+        anyBoolean())).thenReturn(new ArrayList<>());
+    when(process.findFlowElementsOfType(Mockito.<Class<SubProcess>>any())).thenReturn(subProcessList);
 
     // Act
     subprocessValidator.executeValidation(bpmnModel, process, new ArrayList<>());
 
     // Assert
-    verify(process)
-        .findFlowElementsInSubProcessOfType(isA(SubProcess.class), isA(Class.class), eq(false));
+    verify(process).findFlowElementsInSubProcessOfType(isA(SubProcess.class), isA(Class.class), eq(false));
     verify(process).findFlowElementsOfType(isA(Class.class));
   }
 }

@@ -19,8 +19,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertThrows;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.engine.ActivitiException;
 import org.activiti.engine.delegate.DelegateExecution;
@@ -36,26 +35,21 @@ import org.mockito.junit.MockitoJUnitRunner;
 
 @RunWith(MockitoJUnitRunner.class)
 public class ServiceTaskExpressionActivityBehaviorDiffblueTest {
-  @Mock private Expression expression;
+  @Mock
+  private Expression expression;
 
   /**
-   * Test {@link ServiceTaskExpressionActivityBehavior#ServiceTaskExpressionActivityBehavior(String,
-   * Expression, Expression, String)}.
-   *
-   * <p>Method under test: {@link
-   * ServiceTaskExpressionActivityBehavior#ServiceTaskExpressionActivityBehavior(String, Expression,
-   * Expression, String)}
+   * Test {@link ServiceTaskExpressionActivityBehavior#ServiceTaskExpressionActivityBehavior(String, Expression, Expression, String)}.
+   * <p>
+   * Method under test: {@link ServiceTaskExpressionActivityBehavior#ServiceTaskExpressionActivityBehavior(String, Expression, Expression, String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void ServiceTaskExpressionActivityBehavior.<init>(String, Expression, Expression, String)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void ServiceTaskExpressionActivityBehavior.<init>(String, Expression, Expression, String)"})
   public void testNewServiceTaskExpressionActivityBehavior() {
     // Arrange and Act
-    ServiceTaskExpressionActivityBehavior actualServiceTaskExpressionActivityBehavior =
-        new ServiceTaskExpressionActivityBehavior("42", expression, expression, "Result Variable");
+    ServiceTaskExpressionActivityBehavior actualServiceTaskExpressionActivityBehavior = new ServiceTaskExpressionActivityBehavior(
+        "42", expression, expression, "Result Variable");
 
     // Assert
     assertEquals("42", actualServiceTaskExpressionActivityBehavior.serviceTaskId);
@@ -67,143 +61,119 @@ public class ServiceTaskExpressionActivityBehaviorDiffblueTest {
 
   /**
    * Test {@link ServiceTaskExpressionActivityBehavior#execute(DelegateExecution)}.
-   *
    * <ul>
-   *   <li>Given {@code 42}.
+   *   <li>Given {@code 42}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ServiceTaskExpressionActivityBehavior#execute(DelegateExecution)}
+   * <p>
+   * Method under test: {@link ServiceTaskExpressionActivityBehavior#execute(DelegateExecution)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void ServiceTaskExpressionActivityBehavior.execute(DelegateExecution)"})
   public void testExecute_given42() {
     // Arrange
     FixedValue expression = new FixedValue(JSONObject.NULL);
-    ServiceTaskExpressionActivityBehavior serviceTaskExpressionActivityBehavior =
-        new ServiceTaskExpressionActivityBehavior(
-            "42", expression, new FixedValue(true), "Result Variable");
-
+    ServiceTaskExpressionActivityBehavior serviceTaskExpressionActivityBehavior = new ServiceTaskExpressionActivityBehavior(
+        "42", expression, new FixedValue(true), "Result Variable");
     ExecutionEntityImpl execution = ExecutionEntityImpl.createWithEmptyRelationshipCollections();
     execution.setProcessDefinitionId("42");
     execution.setTransientVariableLocal("_ACTIVITI_SKIP_EXPRESSION_ENABLED", true);
 
     // Act and Assert
-    assertThrows(
-        ActivitiException.class, () -> serviceTaskExpressionActivityBehavior.execute(execution));
+    assertThrows(ActivitiException.class, () -> serviceTaskExpressionActivityBehavior.execute(execution));
   }
 
   /**
    * Test {@link ServiceTaskExpressionActivityBehavior#execute(DelegateExecution)}.
-   *
    * <ul>
-   *   <li>Given {@link FixedValue#FixedValue(Object)} with value is {@code true}.
-   *   <li>Then throw {@link ActivitiException}.
+   *   <li>Given {@link FixedValue#FixedValue(Object)} with value is {@code true}.</li>
+   *   <li>Then throw {@link ActivitiException}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ServiceTaskExpressionActivityBehavior#execute(DelegateExecution)}
+   * <p>
+   * Method under test: {@link ServiceTaskExpressionActivityBehavior#execute(DelegateExecution)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void ServiceTaskExpressionActivityBehavior.execute(DelegateExecution)"})
   public void testExecute_givenFixedValueWithValueIsTrue_thenThrowActivitiException() {
     // Arrange
     FixedValue expression = new FixedValue(JSONObject.NULL);
-    ServiceTaskExpressionActivityBehavior serviceTaskExpressionActivityBehavior =
-        new ServiceTaskExpressionActivityBehavior(
-            "42", expression, new FixedValue(true), "Result Variable");
-
+    ServiceTaskExpressionActivityBehavior serviceTaskExpressionActivityBehavior = new ServiceTaskExpressionActivityBehavior(
+        "42", expression, new FixedValue(true), "Result Variable");
     ExecutionEntityImpl execution = ExecutionEntityImpl.createWithEmptyRelationshipCollections();
     execution.setTransientVariableLocal("_ACTIVITI_SKIP_EXPRESSION_ENABLED", true);
 
     // Act and Assert
-    assertThrows(
-        ActivitiException.class, () -> serviceTaskExpressionActivityBehavior.execute(execution));
+    assertThrows(ActivitiException.class, () -> serviceTaskExpressionActivityBehavior.execute(execution));
   }
 
   /**
    * Test {@link ServiceTaskExpressionActivityBehavior#execute(DelegateExecution)}.
-   *
    * <ul>
-   *   <li>Given {@link JSONObject#NULL}.
+   *   <li>Given {@link JSONObject#NULL}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ServiceTaskExpressionActivityBehavior#execute(DelegateExecution)}
+   * <p>
+   * Method under test: {@link ServiceTaskExpressionActivityBehavior#execute(DelegateExecution)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void ServiceTaskExpressionActivityBehavior.execute(DelegateExecution)"})
   public void testExecute_givenNull() {
     // Arrange
     FixedValue expression = new FixedValue(JSONObject.NULL);
-    ServiceTaskExpressionActivityBehavior serviceTaskExpressionActivityBehavior =
-        new ServiceTaskExpressionActivityBehavior(
-            "42", expression, new FixedValue(JSONObject.NULL), "Result Variable");
-
+    ServiceTaskExpressionActivityBehavior serviceTaskExpressionActivityBehavior = new ServiceTaskExpressionActivityBehavior(
+        "42", expression, new FixedValue(JSONObject.NULL), "Result Variable");
     ExecutionEntityImpl execution = ExecutionEntityImpl.createWithEmptyRelationshipCollections();
     execution.setTransientVariableLocal("_ACTIVITI_SKIP_EXPRESSION_ENABLED", JSONObject.NULL);
 
     // Act and Assert
-    assertThrows(
-        ActivitiException.class, () -> serviceTaskExpressionActivityBehavior.execute(execution));
+    assertThrows(ActivitiException.class, () -> serviceTaskExpressionActivityBehavior.execute(execution));
   }
 
   /**
    * Test {@link ServiceTaskExpressionActivityBehavior#execute(DelegateExecution)}.
-   *
    * <ul>
-   *   <li>Given {@code true}.
-   *   <li>Then throw {@link ActivitiException}.
+   *   <li>Given {@code true}.</li>
+   *   <li>Then throw {@link ActivitiException}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ServiceTaskExpressionActivityBehavior#execute(DelegateExecution)}
+   * <p>
+   * Method under test: {@link ServiceTaskExpressionActivityBehavior#execute(DelegateExecution)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void ServiceTaskExpressionActivityBehavior.execute(DelegateExecution)"})
   public void testExecute_givenTrue_thenThrowActivitiException() {
     // Arrange
     FixedValue expression = new FixedValue(JSONObject.NULL);
-    ServiceTaskExpressionActivityBehavior serviceTaskExpressionActivityBehavior =
-        new ServiceTaskExpressionActivityBehavior(
-            "42", expression, new FixedValue(JSONObject.NULL), "Result Variable");
-
+    ServiceTaskExpressionActivityBehavior serviceTaskExpressionActivityBehavior = new ServiceTaskExpressionActivityBehavior(
+        "42", expression, new FixedValue(JSONObject.NULL), "Result Variable");
     ExecutionEntityImpl execution = ExecutionEntityImpl.createWithEmptyRelationshipCollections();
     execution.setTransientVariableLocal("_ACTIVITI_SKIP_EXPRESSION_ENABLED", true);
 
     // Act and Assert
-    assertThrows(
-        ActivitiException.class, () -> serviceTaskExpressionActivityBehavior.execute(execution));
+    assertThrows(ActivitiException.class, () -> serviceTaskExpressionActivityBehavior.execute(execution));
   }
 
   /**
    * Test {@link ServiceTaskExpressionActivityBehavior#execute(DelegateExecution)}.
-   *
    * <ul>
-   *   <li>When {@link ExecutionEntityImpl} (default constructor).
-   *   <li>Then throw {@link ActivitiException}.
+   *   <li>When {@link ExecutionEntityImpl} (default constructor).</li>
+   *   <li>Then throw {@link ActivitiException}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ServiceTaskExpressionActivityBehavior#execute(DelegateExecution)}
+   * <p>
+   * Method under test: {@link ServiceTaskExpressionActivityBehavior#execute(DelegateExecution)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void ServiceTaskExpressionActivityBehavior.execute(DelegateExecution)"})
   public void testExecute_whenExecutionEntityImpl_thenThrowActivitiException() {
     // Arrange
     FixedValue expression = new FixedValue(JSONObject.NULL);
-    ServiceTaskExpressionActivityBehavior serviceTaskExpressionActivityBehavior =
-        new ServiceTaskExpressionActivityBehavior(
-            "42", expression, new FixedValue(JSONObject.NULL), "Result Variable");
+    ServiceTaskExpressionActivityBehavior serviceTaskExpressionActivityBehavior = new ServiceTaskExpressionActivityBehavior(
+        "42", expression, new FixedValue(JSONObject.NULL), "Result Variable");
 
     // Act and Assert
-    assertThrows(
-        ActivitiException.class,
+    assertThrows(ActivitiException.class,
         () -> serviceTaskExpressionActivityBehavior.execute(new ExecutionEntityImpl()));
   }
 }

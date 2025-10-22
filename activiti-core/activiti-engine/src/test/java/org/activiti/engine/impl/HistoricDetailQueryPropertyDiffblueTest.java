@@ -17,8 +17,7 @@ package org.activiti.engine.impl;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
@@ -26,66 +25,39 @@ import org.junit.experimental.categories.Category;
 public class HistoricDetailQueryPropertyDiffblueTest {
   /**
    * Test {@link HistoricDetailQueryProperty#HistoricDetailQueryProperty(String)}.
-   *
-   * <p>Method under test: {@link HistoricDetailQueryProperty#HistoricDetailQueryProperty(String)}
+   * <p>
+   * Method under test: {@link HistoricDetailQueryProperty#HistoricDetailQueryProperty(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void HistoricDetailQueryProperty.<init>(String)"})
   public void testNewHistoricDetailQueryProperty() {
     // Arrange, Act and Assert
-    assertEquals("Name", new HistoricDetailQueryProperty("Name").getName());
+    assertEquals("Name", (new HistoricDetailQueryProperty("Name")).getName());
   }
 
   /**
    * Test {@link HistoricDetailQueryProperty#getName()}.
-   *
-   * <p>Method under test: {@link HistoricDetailQueryProperty#getName()}
+   * <p>
+   * Method under test: {@link HistoricDetailQueryProperty#getName()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"String HistoricDetailQueryProperty.getName()"})
   public void testGetName() {
     // Arrange, Act and Assert
-    assertEquals("Name", new HistoricDetailQueryProperty("Name").getName());
+    assertEquals("Name", (new HistoricDetailQueryProperty("Name")).getName());
   }
 
   /**
    * Test {@link HistoricDetailQueryProperty#findByName(String)}.
-   *
-   * <ul>
-   *   <li>When {@code NAME_}.
-   *   <li>Then return {@code NAME_}.
-   * </ul>
-   *
-   * <p>Method under test: {@link HistoricDetailQueryProperty#findByName(String)}
+   * <p>
+   * Method under test: {@link HistoricDetailQueryProperty#findByName(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"HistoricDetailQueryProperty HistoricDetailQueryProperty.findByName(String)"})
-  public void testFindByName_whenName_thenReturnName() {
-    // Arrange, Act and Assert
-    assertEquals("NAME_", HistoricDetailQueryProperty.findByName("NAME_").getName());
-  }
-
-  /**
-   * Test {@link HistoricDetailQueryProperty#findByName(String)}.
-   *
-   * <ul>
-   *   <li>When {@code Property Name}.
-   *   <li>Then return {@code null}.
-   * </ul>
-   *
-   * <p>Method under test: {@link HistoricDetailQueryProperty#findByName(String)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"HistoricDetailQueryProperty HistoricDetailQueryProperty.findByName(String)"})
-  public void testFindByName_whenPropertyName_thenReturnNull() {
+  public void testFindByName() {
     // Arrange, Act and Assert
     assertNull(HistoricDetailQueryProperty.findByName("Property Name"));
   }

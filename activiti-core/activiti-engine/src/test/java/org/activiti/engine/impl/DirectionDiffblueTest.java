@@ -17,8 +17,7 @@ package org.activiti.engine.impl;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
@@ -26,40 +25,37 @@ import org.junit.experimental.categories.Category;
 public class DirectionDiffblueTest {
   /**
    * Test {@link Direction#Direction(String)}.
-   *
-   * <p>Method under test: {@link Direction#Direction(String)}
+   * <p>
+   * Method under test: {@link Direction#Direction(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void Direction.<init>(String)"})
   public void testNewDirection() {
     // Arrange, Act and Assert
-    assertEquals("Name", new Direction("Name").getName());
+    assertEquals("Name", (new Direction("Name")).getName());
   }
 
   /**
    * Test {@link Direction#getName()}.
-   *
-   * <p>Method under test: {@link Direction#getName()}
+   * <p>
+   * Method under test: {@link Direction#getName()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"String Direction.getName()"})
   public void testGetName() {
     // Arrange, Act and Assert
-    assertEquals("Name", new Direction("Name").getName());
+    assertEquals("Name", (new Direction("Name")).getName());
   }
 
   /**
    * Test {@link Direction#findByName(String)}.
-   *
-   * <p>Method under test: {@link Direction#findByName(String)}
+   * <p>
+   * Method under test: {@link Direction#findByName(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"Direction Direction.findByName(String)"})
   public void testFindByName() {
     // Arrange, Act and Assert

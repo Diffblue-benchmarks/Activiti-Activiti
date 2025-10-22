@@ -20,8 +20,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.io.UnsupportedEncodingException;
 import org.junit.Test;
@@ -30,9 +29,8 @@ import org.junit.experimental.categories.Category;
 public class ByteArrayEntityImplDiffblueTest {
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>default or parameterless constructor of {@link ByteArrayEntityImpl}
    *   <li>{@link ByteArrayEntityImpl#setBytes(byte[])}
@@ -44,17 +42,11 @@ public class ByteArrayEntityImplDiffblueTest {
    * </ul>
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void ByteArrayEntityImpl.<init>()",
-    "byte[] ByteArrayEntityImpl.getBytes()",
-    "String ByteArrayEntityImpl.getDeploymentId()",
-    "String ByteArrayEntityImpl.getName()",
-    "void ByteArrayEntityImpl.setBytes(byte[])",
-    "void ByteArrayEntityImpl.setDeploymentId(String)",
-    "void ByteArrayEntityImpl.setName(String)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void ByteArrayEntityImpl.<init>()", "byte[] ByteArrayEntityImpl.getBytes()",
+      "String ByteArrayEntityImpl.getDeploymentId()", "String ByteArrayEntityImpl.getName()",
+      "void ByteArrayEntityImpl.setBytes(byte[])", "void ByteArrayEntityImpl.setDeploymentId(String)",
+      "void ByteArrayEntityImpl.setName(String)"})
   public void testGettersAndSetters() throws UnsupportedEncodingException {
     // Arrange and Act
     ByteArrayEntityImpl actualByteArrayEntityImpl = new ByteArrayEntityImpl();
@@ -79,19 +71,16 @@ public class ByteArrayEntityImplDiffblueTest {
 
   /**
    * Test {@link ByteArrayEntityImpl#toString()}.
-   *
    * <ul>
-   *   <li>Then return {@code ByteArrayEntity[id=42, name=Name, size=8]}.
+   *   <li>Then return {@code ByteArrayEntity[id=42, name=Name, size=8]}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ByteArrayEntityImpl#toString()}
+   * <p>
+   * Method under test: {@link ByteArrayEntityImpl#toString()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"String ByteArrayEntityImpl.toString()"})
-  public void testToString_thenReturnByteArrayEntityId42NameNameSize8()
-      throws UnsupportedEncodingException {
+  public void testToString_thenReturnByteArrayEntityId42NameNameSize8() throws UnsupportedEncodingException {
     // Arrange
     ByteArrayEntityImpl byteArrayEntityImpl = new ByteArrayEntityImpl();
     byteArrayEntityImpl.setDeleted(true);
@@ -109,20 +98,17 @@ public class ByteArrayEntityImplDiffblueTest {
 
   /**
    * Test {@link ByteArrayEntityImpl#toString()}.
-   *
    * <ul>
-   *   <li>Then return {@code ByteArrayEntity[id=null, name=null, size=0]}.
+   *   <li>Then return {@code ByteArrayEntity[id=null, name=null, size=0]}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ByteArrayEntityImpl#toString()}
+   * <p>
+   * Method under test: {@link ByteArrayEntityImpl#toString()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"String ByteArrayEntityImpl.toString()"})
   public void testToString_thenReturnByteArrayEntityIdNullNameNullSize0() {
     // Arrange, Act and Assert
-    assertEquals(
-        "ByteArrayEntity[id=null, name=null, size=0]", new ByteArrayEntityImpl().toString());
+    assertEquals("ByteArrayEntity[id=null, name=null, size=0]", (new ByteArrayEntityImpl()).toString());
   }
 }

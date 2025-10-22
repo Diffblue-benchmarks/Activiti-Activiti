@@ -17,8 +17,7 @@ package org.activiti.engine.impl.interceptor;
 
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.engine.impl.cfg.JtaProcessEngineConfiguration;
 import org.activiti.engine.impl.cfg.ProcessEngineConfigurationImpl;
@@ -28,9 +27,8 @@ import org.junit.experimental.categories.Category;
 public class CommandContextInterceptorDiffblueTest {
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>{@link CommandContextInterceptor#CommandContextInterceptor()}
    *   <li>{@link CommandContextInterceptor#setCommandContextFactory(CommandContextFactory)}
@@ -40,16 +38,13 @@ public class CommandContextInterceptorDiffblueTest {
    * </ul>
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void CommandContextInterceptor.<init>()",
-    "void CommandContextInterceptor.<init>(CommandContextFactory, ProcessEngineConfigurationImpl)",
-    "CommandContextFactory CommandContextInterceptor.getCommandContextFactory()",
-    "ProcessEngineConfigurationImpl CommandContextInterceptor.getProcessEngineConfiguration()",
-    "void CommandContextInterceptor.setCommandContextFactory(CommandContextFactory)",
-    "void CommandContextInterceptor.setProcessEngineContext(ProcessEngineConfigurationImpl)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void CommandContextInterceptor.<init>()",
+      "void CommandContextInterceptor.<init>(CommandContextFactory, ProcessEngineConfigurationImpl)",
+      "CommandContextFactory CommandContextInterceptor.getCommandContextFactory()",
+      "ProcessEngineConfigurationImpl CommandContextInterceptor.getProcessEngineConfiguration()",
+      "void CommandContextInterceptor.setCommandContextFactory(CommandContextFactory)",
+      "void CommandContextInterceptor.setProcessEngineContext(ProcessEngineConfigurationImpl)"})
   public void testGettersAndSetters() {
     // Arrange and Act
     CommandContextInterceptor actualCommandContextInterceptor = new CommandContextInterceptor();
@@ -57,10 +52,9 @@ public class CommandContextInterceptorDiffblueTest {
     actualCommandContextInterceptor.setCommandContextFactory(commandContextFactory);
     JtaProcessEngineConfiguration processEngineContext = new JtaProcessEngineConfiguration();
     actualCommandContextInterceptor.setProcessEngineContext(processEngineContext);
-    CommandContextFactory actualCommandContextFactory =
-        actualCommandContextInterceptor.getCommandContextFactory();
-    ProcessEngineConfigurationImpl actualProcessEngineConfiguration =
-        actualCommandContextInterceptor.getProcessEngineConfiguration();
+    CommandContextFactory actualCommandContextFactory = actualCommandContextInterceptor.getCommandContextFactory();
+    ProcessEngineConfigurationImpl actualProcessEngineConfiguration = actualCommandContextInterceptor
+        .getProcessEngineConfiguration();
 
     // Assert
     assertNull(actualCommandContextFactory.getProcessEngineConfiguration());
@@ -71,16 +65,13 @@ public class CommandContextInterceptorDiffblueTest {
 
   /**
    * Test getters and setters.
-   *
    * <ul>
-   *   <li>When {@link CommandContextFactory} (default constructor).
+   *   <li>When {@link CommandContextFactory} (default constructor).</li>
    * </ul>
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
-   *   <li>{@link CommandContextInterceptor#CommandContextInterceptor(CommandContextFactory,
-   *       ProcessEngineConfigurationImpl)}
+   *   <li>{@link CommandContextInterceptor#CommandContextInterceptor(CommandContextFactory, ProcessEngineConfigurationImpl)}
    *   <li>{@link CommandContextInterceptor#setCommandContextFactory(CommandContextFactory)}
    *   <li>{@link CommandContextInterceptor#setProcessEngineContext(ProcessEngineConfigurationImpl)}
    *   <li>{@link CommandContextInterceptor#getCommandContextFactory()}
@@ -88,31 +79,27 @@ public class CommandContextInterceptorDiffblueTest {
    * </ul>
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void CommandContextInterceptor.<init>()",
-    "void CommandContextInterceptor.<init>(CommandContextFactory, ProcessEngineConfigurationImpl)",
-    "CommandContextFactory CommandContextInterceptor.getCommandContextFactory()",
-    "ProcessEngineConfigurationImpl CommandContextInterceptor.getProcessEngineConfiguration()",
-    "void CommandContextInterceptor.setCommandContextFactory(CommandContextFactory)",
-    "void CommandContextInterceptor.setProcessEngineContext(ProcessEngineConfigurationImpl)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void CommandContextInterceptor.<init>()",
+      "void CommandContextInterceptor.<init>(CommandContextFactory, ProcessEngineConfigurationImpl)",
+      "CommandContextFactory CommandContextInterceptor.getCommandContextFactory()",
+      "ProcessEngineConfigurationImpl CommandContextInterceptor.getProcessEngineConfiguration()",
+      "void CommandContextInterceptor.setCommandContextFactory(CommandContextFactory)",
+      "void CommandContextInterceptor.setProcessEngineContext(ProcessEngineConfigurationImpl)"})
   public void testGettersAndSetters_whenCommandContextFactory() {
     // Arrange
     CommandContextFactory commandContextFactory = new CommandContextFactory();
 
     // Act
-    CommandContextInterceptor actualCommandContextInterceptor =
-        new CommandContextInterceptor(commandContextFactory, new JtaProcessEngineConfiguration());
+    CommandContextInterceptor actualCommandContextInterceptor = new CommandContextInterceptor(commandContextFactory,
+        new JtaProcessEngineConfiguration());
     CommandContextFactory commandContextFactory2 = new CommandContextFactory();
     actualCommandContextInterceptor.setCommandContextFactory(commandContextFactory2);
     JtaProcessEngineConfiguration processEngineContext = new JtaProcessEngineConfiguration();
     actualCommandContextInterceptor.setProcessEngineContext(processEngineContext);
-    CommandContextFactory actualCommandContextFactory =
-        actualCommandContextInterceptor.getCommandContextFactory();
-    ProcessEngineConfigurationImpl actualProcessEngineConfiguration =
-        actualCommandContextInterceptor.getProcessEngineConfiguration();
+    CommandContextFactory actualCommandContextFactory = actualCommandContextInterceptor.getCommandContextFactory();
+    ProcessEngineConfigurationImpl actualProcessEngineConfiguration = actualCommandContextInterceptor
+        .getProcessEngineConfiguration();
 
     // Assert
     assertNull(actualCommandContextFactory.getProcessEngineConfiguration());

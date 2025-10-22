@@ -21,7 +21,6 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.mock;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import jakarta.el.ELContext;
 import jakarta.el.ELException;
@@ -38,9 +37,8 @@ import org.junit.jupiter.api.Test;
 class AstTextDiffblueTest {
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>{@link AstText#AstText(String)}
    *   <li>{@link AstText#toString()}
@@ -52,16 +50,9 @@ class AstTextDiffblueTest {
    */
   @Test
   @DisplayName("Test getters and setters")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void AstText.<init>(String)",
-    "int AstText.getCardinality()",
-    "boolean AstText.isLeftValue()",
-    "boolean AstText.isLiteralText()",
-    "boolean AstText.isMethodInvocation()",
-    "String AstText.toString()"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void AstText.<init>(String)", "int AstText.getCardinality()", "boolean AstText.isLeftValue()",
+      "boolean AstText.isLiteralText()", "boolean AstText.isMethodInvocation()", "String AstText.toString()"})
   void testGettersAndSetters() {
     // Arrange and Act
     AstText actualAstText = new AstText("42");
@@ -80,26 +71,20 @@ class AstTextDiffblueTest {
 
   /**
    * Test {@link AstText#getType(Bindings, ELContext)}.
-   *
-   * <p>Method under test: {@link AstText#getType(Bindings, ELContext)}
+   * <p>
+   * Method under test: {@link AstText#getType(Bindings, ELContext)}
    */
   @Test
   @DisplayName("Test getType(Bindings, ELContext)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"Class AstText.getType(Bindings, ELContext)"})
   void testGetType() {
     // Arrange
     AstText astText = new AstText("42");
-    Method[] functions = new Method[] {null};
     TypeConverter converter = mock(TypeConverter.class);
     Class<Object> type = Object.class;
-
-    ObjectValueExpression objectValueExpression =
-        new ObjectValueExpression(converter, "Object", type);
-    ValueExpression[] variables = new ValueExpression[] {objectValueExpression};
-
-    Bindings bindings = new Bindings(functions, variables);
+    Bindings bindings = new Bindings(new Method[]{null},
+        new ValueExpression[]{new ObjectValueExpression(converter, "Object", type)});
 
     // Act and Assert
     assertNull(astText.getType(bindings, new SimpleContext()));
@@ -107,26 +92,20 @@ class AstTextDiffblueTest {
 
   /**
    * Test {@link AstText#isReadOnly(Bindings, ELContext)}.
-   *
-   * <p>Method under test: {@link AstText#isReadOnly(Bindings, ELContext)}
+   * <p>
+   * Method under test: {@link AstText#isReadOnly(Bindings, ELContext)}
    */
   @Test
   @DisplayName("Test isReadOnly(Bindings, ELContext)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"boolean AstText.isReadOnly(Bindings, ELContext)"})
   void testIsReadOnly() {
     // Arrange
     AstText astText = new AstText("42");
-    Method[] functions = new Method[] {null};
     TypeConverter converter = mock(TypeConverter.class);
     Class<Object> type = Object.class;
-
-    ObjectValueExpression objectValueExpression =
-        new ObjectValueExpression(converter, "Object", type);
-    ValueExpression[] variables = new ValueExpression[] {objectValueExpression};
-
-    Bindings bindings = new Bindings(functions, variables);
+    Bindings bindings = new Bindings(new Method[]{null},
+        new ValueExpression[]{new ObjectValueExpression(converter, "Object", type)});
 
     // Act and Assert
     assertTrue(astText.isReadOnly(bindings, new SimpleContext()));
@@ -134,31 +113,23 @@ class AstTextDiffblueTest {
 
   /**
    * Test {@link AstText#setValue(Bindings, ELContext, Object)}.
-   *
    * <ul>
-   *   <li>Given {@link AstText#AstText(String)} with value is {@code 42}.
+   *   <li>Given {@link AstText#AstText(String)} with value is {@code 42}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link AstText#setValue(Bindings, ELContext, Object)}
+   * <p>
+   * Method under test: {@link AstText#setValue(Bindings, ELContext, Object)}
    */
   @Test
-  @DisplayName(
-      "Test setValue(Bindings, ELContext, Object); given AstText(String) with value is '42'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setValue(Bindings, ELContext, Object); given AstText(String) with value is '42'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void AstText.setValue(Bindings, ELContext, Object)"})
   void testSetValue_givenAstTextWithValueIs42() {
     // Arrange
     AstText astText = new AstText("42");
-    Method[] functions = new Method[] {null};
     TypeConverter converter = mock(TypeConverter.class);
     Class<Object> type = Object.class;
-
-    ObjectValueExpression objectValueExpression =
-        new ObjectValueExpression(converter, "Object", type);
-    ValueExpression[] variables = new ValueExpression[] {objectValueExpression};
-
-    Bindings bindings = new Bindings(functions, variables);
+    Bindings bindings = new Bindings(new Method[]{null},
+        new ValueExpression[]{new ObjectValueExpression(converter, "Object", type)});
 
     // Act and Assert
     assertThrows(ELException.class, () -> astText.setValue(bindings, new SimpleContext(), "Value"));
@@ -166,31 +137,23 @@ class AstTextDiffblueTest {
 
   /**
    * Test {@link AstText#setValue(Bindings, ELContext, Object)}.
-   *
    * <ul>
-   *   <li>Given {@link AstText#AstText(String)} with value is empty string.
+   *   <li>Given {@link AstText#AstText(String)} with value is empty string.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link AstText#setValue(Bindings, ELContext, Object)}
+   * <p>
+   * Method under test: {@link AstText#setValue(Bindings, ELContext, Object)}
    */
   @Test
-  @DisplayName(
-      "Test setValue(Bindings, ELContext, Object); given AstText(String) with value is empty string")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setValue(Bindings, ELContext, Object); given AstText(String) with value is empty string")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void AstText.setValue(Bindings, ELContext, Object)"})
   void testSetValue_givenAstTextWithValueIsEmptyString() {
     // Arrange
     AstText astText = new AstText("");
-    Method[] functions = new Method[] {null};
     TypeConverter converter = mock(TypeConverter.class);
     Class<Object> type = Object.class;
-
-    ObjectValueExpression objectValueExpression =
-        new ObjectValueExpression(converter, "Object", type);
-    ValueExpression[] variables = new ValueExpression[] {objectValueExpression};
-
-    Bindings bindings = new Bindings(functions, variables);
+    Bindings bindings = new Bindings(new Method[]{null},
+        new ValueExpression[]{new ObjectValueExpression(converter, "Object", type)});
 
     // Act and Assert
     assertThrows(ELException.class, () -> astText.setValue(bindings, new SimpleContext(), "Value"));
@@ -198,26 +161,20 @@ class AstTextDiffblueTest {
 
   /**
    * Test {@link AstText#getValueReference(Bindings, ELContext)}.
-   *
-   * <p>Method under test: {@link AstText#getValueReference(Bindings, ELContext)}
+   * <p>
+   * Method under test: {@link AstText#getValueReference(Bindings, ELContext)}
    */
   @Test
   @DisplayName("Test getValueReference(Bindings, ELContext)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"jakarta.el.ValueReference AstText.getValueReference(Bindings, ELContext)"})
   void testGetValueReference() {
     // Arrange
     AstText astText = new AstText("42");
-    Method[] functions = new Method[] {null};
     TypeConverter converter = mock(TypeConverter.class);
     Class<Object> type = Object.class;
-
-    ObjectValueExpression objectValueExpression =
-        new ObjectValueExpression(converter, "Object", type);
-    ValueExpression[] variables = new ValueExpression[] {objectValueExpression};
-
-    Bindings bindings = new Bindings(functions, variables);
+    Bindings bindings = new Bindings(new Method[]{null},
+        new ValueExpression[]{new ObjectValueExpression(converter, "Object", type)});
 
     // Act and Assert
     assertNull(astText.getValueReference(bindings, new SimpleContext()));
@@ -225,26 +182,20 @@ class AstTextDiffblueTest {
 
   /**
    * Test {@link AstText#eval(Bindings, ELContext)}.
-   *
-   * <p>Method under test: {@link AstText#eval(Bindings, ELContext)}
+   * <p>
+   * Method under test: {@link AstText#eval(Bindings, ELContext)}
    */
   @Test
   @DisplayName("Test eval(Bindings, ELContext)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"Object AstText.eval(Bindings, ELContext)"})
   void testEval() {
     // Arrange
     AstText astText = new AstText("42");
-    Method[] functions = new Method[] {null};
     TypeConverter converter = mock(TypeConverter.class);
     Class<Object> type = Object.class;
-
-    ObjectValueExpression objectValueExpression =
-        new ObjectValueExpression(converter, "Object", type);
-    ValueExpression[] variables = new ValueExpression[] {objectValueExpression};
-
-    Bindings bindings = new Bindings(functions, variables);
+    Bindings bindings = new Bindings(new Method[]{null},
+        new ValueExpression[]{new ObjectValueExpression(converter, "Object", type)});
 
     // Act and Assert
     assertEquals("42", astText.eval(bindings, new SimpleContext()));
@@ -252,32 +203,25 @@ class AstTextDiffblueTest {
 
   /**
    * Test {@link AstText#getMethodInfo(Bindings, ELContext, Class, Class[])}.
-   *
-   * <p>Method under test: {@link AstText#getMethodInfo(Bindings, ELContext, Class, Class[])}
+   * <p>
+   * Method under test: {@link AstText#getMethodInfo(Bindings, ELContext, Class, Class[])}
    */
   @Test
   @DisplayName("Test getMethodInfo(Bindings, ELContext, Class, Class[])")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "jakarta.el.MethodInfo AstText.getMethodInfo(Bindings, ELContext, Class, Class[])"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"jakarta.el.MethodInfo AstText.getMethodInfo(Bindings, ELContext, Class, Class[])"})
   void testGetMethodInfo() {
     // Arrange
     AstText astText = new AstText("42");
-    Method[] functions = new Method[] {null};
     TypeConverter converter = mock(TypeConverter.class);
     Class<Object> type = Object.class;
+    Bindings bindings = new Bindings(new Method[]{null},
+        new ValueExpression[]{new ObjectValueExpression(converter, "Object", type)});
 
-    ObjectValueExpression objectValueExpression =
-        new ObjectValueExpression(converter, "Object", type);
-    ValueExpression[] variables = new ValueExpression[] {objectValueExpression};
-
-    Bindings bindings = new Bindings(functions, variables);
     SimpleContext context = new SimpleContext();
     Class<Object> returnType = Object.class;
     Class<Object> forNameResult = Object.class;
-    Class<?>[] paramTypes = new Class[] {forNameResult};
+    Class<?>[] paramTypes = new Class[]{forNameResult};
 
     // Act and Assert
     assertNull(astText.getMethodInfo(bindings, context, returnType, paramTypes));
@@ -288,39 +232,31 @@ class AstTextDiffblueTest {
 
   /**
    * Test {@link AstText#invoke(Bindings, ELContext, Class, Class[], Object[])}.
-   *
    * <ul>
-   *   <li>Then return {@code 42}.
+   *   <li>Then return {@code 42}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link AstText#invoke(Bindings, ELContext, Class, Class[], Object[])}
+   * <p>
+   * Method under test: {@link AstText#invoke(Bindings, ELContext, Class, Class[], Object[])}
    */
   @Test
   @DisplayName("Test invoke(Bindings, ELContext, Class, Class[], Object[]); then return '42'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"Object AstText.invoke(Bindings, ELContext, Class, Class[], Object[])"})
   void testInvoke_thenReturn42() {
     // Arrange
     AstText astText = new AstText("42");
-    Method[] functions = new Method[] {null};
     TypeConverter converter = mock(TypeConverter.class);
     Class<Object> type = Object.class;
+    Bindings bindings = new Bindings(new Method[]{null},
+        new ValueExpression[]{new ObjectValueExpression(converter, "Object", type)});
 
-    ObjectValueExpression objectValueExpression =
-        new ObjectValueExpression(converter, "Object", type);
-    ValueExpression[] variables = new ValueExpression[] {objectValueExpression};
-
-    Bindings bindings = new Bindings(functions, variables);
     SimpleContext context = new SimpleContext();
     Class<Object> returnType = Object.class;
     Class<Object> forNameResult = Object.class;
-    Class<?>[] paramTypes = new Class[] {forNameResult};
+    Class<?>[] paramTypes = new Class[]{forNameResult};
 
     // Act and Assert
-    assertEquals(
-        "42",
-        astText.invoke(bindings, context, returnType, paramTypes, new Object[] {"Param Values"}));
+    assertEquals("42", astText.invoke(bindings, context, returnType, paramTypes, new Object[]{"Param Values"}));
     assertEquals(1, paramTypes.length);
     Class<Object> expectedResultClass = Object.class;
     assertEquals(expectedResultClass, paramTypes[0]);
@@ -328,37 +264,30 @@ class AstTextDiffblueTest {
 
   /**
    * Test {@link AstText#invoke(Bindings, ELContext, Class, Class[], Object[])}.
-   *
    * <ul>
-   *   <li>Then return {@code 42}.
+   *   <li>Then return {@code 42}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link AstText#invoke(Bindings, ELContext, Class, Class[], Object[])}
+   * <p>
+   * Method under test: {@link AstText#invoke(Bindings, ELContext, Class, Class[], Object[])}
    */
   @Test
   @DisplayName("Test invoke(Bindings, ELContext, Class, Class[], Object[]); then return '42'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"Object AstText.invoke(Bindings, ELContext, Class, Class[], Object[])"})
   void testInvoke_thenReturn422() {
     // Arrange
     AstText astText = new AstText("42");
-    Method[] functions = new Method[] {null};
     TypeConverter converter = mock(TypeConverter.class);
     Class<Object> type = Object.class;
+    Bindings bindings = new Bindings(new Method[]{null},
+        new ValueExpression[]{new ObjectValueExpression(converter, "Object", type)});
 
-    ObjectValueExpression objectValueExpression =
-        new ObjectValueExpression(converter, "Object", type);
-    ValueExpression[] variables = new ValueExpression[] {objectValueExpression};
-
-    Bindings bindings = new Bindings(functions, variables);
     SimpleContext context = new SimpleContext();
     Class<Object> forNameResult = Object.class;
-    Class<?>[] paramTypes = new Class[] {forNameResult};
+    Class<?>[] paramTypes = new Class[]{forNameResult};
 
     // Act and Assert
-    assertEquals(
-        "42", astText.invoke(bindings, context, null, paramTypes, new Object[] {"Param Values"}));
+    assertEquals("42", astText.invoke(bindings, context, null, paramTypes, new Object[]{"Param Values"}));
     assertEquals(1, paramTypes.length);
     Class<Object> expectedResultClass = Object.class;
     assertEquals(expectedResultClass, paramTypes[0]);
@@ -366,36 +295,26 @@ class AstTextDiffblueTest {
 
   /**
    * Test {@link AstText#appendStructure(StringBuilder, Bindings)}.
-   *
    * <ul>
-   *   <li>Then {@link StringBuilder#StringBuilder(String)} with {@code foo} toString is {@code
-   *       foo}.
+   *   <li>Then {@link StringBuilder#StringBuilder(String)} with {@code foo} toString is {@code foo}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link AstText#appendStructure(StringBuilder, Bindings)}
+   * <p>
+   * Method under test: {@link AstText#appendStructure(StringBuilder, Bindings)}
    */
   @Test
-  @DisplayName(
-      "Test appendStructure(StringBuilder, Bindings); then StringBuilder(String) with 'foo' toString is 'foo'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test appendStructure(StringBuilder, Bindings); then StringBuilder(String) with 'foo' toString is 'foo'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void AstText.appendStructure(StringBuilder, Bindings)"})
   void testAppendStructure_thenStringBuilderWithFooToStringIsFoo() {
     // Arrange
     AstText astText = new AstText("");
     StringBuilder b = new StringBuilder("foo");
-    Method[] functions = new Method[] {null};
     TypeConverter converter = mock(TypeConverter.class);
     Class<Object> type = Object.class;
 
-    ObjectValueExpression objectValueExpression =
-        new ObjectValueExpression(converter, "Object", type);
-    ValueExpression[] variables = new ValueExpression[] {objectValueExpression};
-
-    Bindings bindings = new Bindings(functions, variables);
-
     // Act
-    astText.appendStructure(b, bindings);
+    astText.appendStructure(b,
+        new Bindings(new Method[]{null}, new ValueExpression[]{new ObjectValueExpression(converter, "Object", type)}));
 
     // Assert that nothing has changed
     assertEquals("foo", b.toString());
@@ -403,36 +322,26 @@ class AstTextDiffblueTest {
 
   /**
    * Test {@link AstText#appendStructure(StringBuilder, Bindings)}.
-   *
    * <ul>
-   *   <li>Then {@link StringBuilder#StringBuilder(String)} with {@code foo} toString is {@code
-   *       foo42}.
+   *   <li>Then {@link StringBuilder#StringBuilder(String)} with {@code foo} toString is {@code foo42}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link AstText#appendStructure(StringBuilder, Bindings)}
+   * <p>
+   * Method under test: {@link AstText#appendStructure(StringBuilder, Bindings)}
    */
   @Test
-  @DisplayName(
-      "Test appendStructure(StringBuilder, Bindings); then StringBuilder(String) with 'foo' toString is 'foo42'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test appendStructure(StringBuilder, Bindings); then StringBuilder(String) with 'foo' toString is 'foo42'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void AstText.appendStructure(StringBuilder, Bindings)"})
   void testAppendStructure_thenStringBuilderWithFooToStringIsFoo42() {
     // Arrange
     AstText astText = new AstText("42");
     StringBuilder b = new StringBuilder("foo");
-    Method[] functions = new Method[] {null};
     TypeConverter converter = mock(TypeConverter.class);
     Class<Object> type = Object.class;
 
-    ObjectValueExpression objectValueExpression =
-        new ObjectValueExpression(converter, "Object", type);
-    ValueExpression[] variables = new ValueExpression[] {objectValueExpression};
-
-    Bindings bindings = new Bindings(functions, variables);
-
     // Act
-    astText.appendStructure(b, bindings);
+    astText.appendStructure(b,
+        new Bindings(new Method[]{null}, new ValueExpression[]{new ObjectValueExpression(converter, "Object", type)}));
 
     // Assert
     assertEquals("foo42", b.toString());
@@ -440,16 +349,15 @@ class AstTextDiffblueTest {
 
   /**
    * Test {@link AstText#getChild(int)}.
-   *
-   * <p>Method under test: {@link AstText#getChild(int)}
+   * <p>
+   * Method under test: {@link AstText#getChild(int)}
    */
   @Test
   @DisplayName("Test getChild(int)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"org.activiti.core.el.juel.tree.impl.ast.AstNode AstText.getChild(int)"})
   void testGetChild() {
     // Arrange, Act and Assert
-    assertNull(new AstText("42").getChild(1));
+    assertNull((new AstText("42")).getChild(1));
   }
 }

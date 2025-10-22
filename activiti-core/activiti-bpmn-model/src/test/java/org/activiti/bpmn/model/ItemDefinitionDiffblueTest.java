@@ -19,8 +19,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -32,17 +31,15 @@ import org.junit.experimental.categories.Category;
 public class ItemDefinitionDiffblueTest {
   /**
    * Test {@link ItemDefinition#clone()}.
-   *
    * <ul>
-   *   <li>Given {@link HashMap#HashMap()} {@code 42} is {@link ArrayList#ArrayList()}.
-   *   <li>Then return Attributes size is one.
+   *   <li>Given {@link HashMap#HashMap()} {@code 42} is {@link ArrayList#ArrayList()}.</li>
+   *   <li>Then return Attributes size is one.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ItemDefinition#clone()}
+   * <p>
+   * Method under test: {@link ItemDefinition#clone()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"ItemDefinition ItemDefinition.clone()"})
   public void testClone_givenHashMap42IsArrayList_thenReturnAttributesSizeIsOne() {
     // Arrange
@@ -65,17 +62,15 @@ public class ItemDefinitionDiffblueTest {
 
   /**
    * Test {@link ItemDefinition#clone()}.
-   *
    * <ul>
-   *   <li>Given {@link HashMap#HashMap()} {@code foo} is {@link ArrayList#ArrayList()}.
-   *   <li>Then return Attributes size is one.
+   *   <li>Given {@link HashMap#HashMap()} {@code foo} is {@link ArrayList#ArrayList()}.</li>
+   *   <li>Then return Attributes size is one.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ItemDefinition#clone()}
+   * <p>
+   * Method under test: {@link ItemDefinition#clone()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"ItemDefinition ItemDefinition.clone()"})
   public void testClone_givenHashMapFooIsArrayList_thenReturnAttributesSizeIsOne() {
     // Arrange
@@ -97,17 +92,15 @@ public class ItemDefinitionDiffblueTest {
 
   /**
    * Test {@link ItemDefinition#clone()}.
-   *
    * <ul>
-   *   <li>Given {@link ItemDefinition} (default constructor) ExtensionElements is {@code null}.
-   *   <li>Then return Id is {@code null}.
+   *   <li>Given {@link ItemDefinition} (default constructor) ExtensionElements is {@code null}.</li>
+   *   <li>Then return Id is {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ItemDefinition#clone()}
+   * <p>
+   * Method under test: {@link ItemDefinition#clone()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"ItemDefinition ItemDefinition.clone()"})
   public void testClone_givenItemDefinitionExtensionElementsIsNull_thenReturnIdIsNull() {
     // Arrange
@@ -130,21 +123,19 @@ public class ItemDefinitionDiffblueTest {
 
   /**
    * Test {@link ItemDefinition#clone()}.
-   *
    * <ul>
-   *   <li>Given {@link ItemDefinition} (default constructor).
-   *   <li>Then return Id is {@code null}.
+   *   <li>Given {@link ItemDefinition} (default constructor).</li>
+   *   <li>Then return Id is {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ItemDefinition#clone()}
+   * <p>
+   * Method under test: {@link ItemDefinition#clone()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"ItemDefinition ItemDefinition.clone()"})
   public void testClone_givenItemDefinition_thenReturnIdIsNull() {
     // Arrange and Act
-    ItemDefinition actualCloneResult = new ItemDefinition().clone();
+    ItemDefinition actualCloneResult = (new ItemDefinition()).clone();
 
     // Assert
     assertNull(actualCloneResult.getId());
@@ -158,16 +149,14 @@ public class ItemDefinitionDiffblueTest {
 
   /**
    * Test {@link ItemDefinition#clone()}.
-   *
    * <ul>
-   *   <li>Then return Attributes size is one.
+   *   <li>Then return Attributes size is one.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ItemDefinition#clone()}
+   * <p>
+   * Method under test: {@link ItemDefinition#clone()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"ItemDefinition ItemDefinition.clone()"})
   public void testClone_thenReturnAttributesSizeIsOne() {
     // Arrange
@@ -185,16 +174,14 @@ public class ItemDefinitionDiffblueTest {
 
   /**
    * Test {@link ItemDefinition#clone()}.
-   *
    * <ul>
-   *   <li>Then return Attributes size is two.
+   *   <li>Then return Attributes size is two.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ItemDefinition#clone()}
+   * <p>
+   * Method under test: {@link ItemDefinition#clone()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"ItemDefinition ItemDefinition.clone()"})
   public void testClone_thenReturnAttributesSizeIsTwo() {
     // Arrange
@@ -214,9 +201,8 @@ public class ItemDefinitionDiffblueTest {
 
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>default or parameterless constructor of {@link ItemDefinition}
    *   <li>{@link ItemDefinition#setItemKind(String)}
@@ -226,15 +212,10 @@ public class ItemDefinitionDiffblueTest {
    * </ul>
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void ItemDefinition.<init>()",
-    "String ItemDefinition.getItemKind()",
-    "String ItemDefinition.getStructureRef()",
-    "void ItemDefinition.setItemKind(String)",
-    "void ItemDefinition.setStructureRef(String)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void ItemDefinition.<init>()", "String ItemDefinition.getItemKind()",
+      "String ItemDefinition.getStructureRef()", "void ItemDefinition.setItemKind(String)",
+      "void ItemDefinition.setStructureRef(String)"})
   public void testGettersAndSetters() {
     // Arrange and Act
     ItemDefinition actualItemDefinition = new ItemDefinition();

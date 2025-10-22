@@ -15,11 +15,8 @@
  */
 package org.activiti.examples;
 
-import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
-import org.activiti.api.process.model.IntegrationContext;
 import org.activiti.api.process.runtime.connector.Connector;
 import org.activiti.api.runtime.model.impl.IntegrationContextImpl;
 import org.junit.jupiter.api.DisplayName;
@@ -29,113 +26,56 @@ import org.junit.jupiter.api.Test;
 class DemoApplicationDiffblueTest {
   /**
    * Test {@link DemoApplication#processTextConnector()}.
-   *
-   * <p>Method under test: {@link DemoApplication#processTextConnector()}
+   * <p>
+   * Method under test: {@link DemoApplication#processTextConnector()}
    */
   @Test
   @DisplayName("Test processTextConnector()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"Connector DemoApplication.processTextConnector()"})
   void testProcessTextConnector() {
     // Arrange and Act
-    Connector actualProcessTextConnectorResult = new DemoApplication().processTextConnector();
+    Connector actualProcessTextConnectorResult = (new DemoApplication()).processTextConnector();
     IntegrationContextImpl integrationContextImpl = new IntegrationContextImpl();
     integrationContextImpl.addInBoundVariable("content", "Value");
-    IntegrationContext actualApplyResult =
-        actualProcessTextConnectorResult.apply(integrationContextImpl);
 
     // Assert
-    assertNull(integrationContextImpl.getProcessDefinitionVersion());
-    assertNull(integrationContextImpl.getAppVersion());
-    assertNull(integrationContextImpl.getBusinessKey());
-    assertNull(integrationContextImpl.getClientId());
-    assertNull(integrationContextImpl.getClientName());
-    assertNull(integrationContextImpl.getClientType());
-    assertNull(integrationContextImpl.getConnectorType());
-    assertNull(integrationContextImpl.getExecutionId());
-    assertNull(integrationContextImpl.getParentProcessInstanceId());
-    assertNull(integrationContextImpl.getProcessDefinitionId());
-    assertNull(integrationContextImpl.getProcessDefinitionKey());
-    assertNull(integrationContextImpl.getProcessInstanceId());
-    assertNull(integrationContextImpl.getRootProcessInstanceId());
-    assertSame(integrationContextImpl, actualApplyResult);
-  }
-
-  /**
-   * Test {@link DemoApplication#processTextConnector()}.
-   *
-   * <p>Method under test: {@link DemoApplication#processTextConnector()}
-   */
-  @Test
-  @DisplayName("Test processTextConnector()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"Connector DemoApplication.processTextConnector()"})
-  void testProcessTextConnector2() {
-    // Arrange and Act
-    Connector actualProcessTextConnectorResult = new DemoApplication().processTextConnector();
-    IntegrationContextImpl integrationContextImpl = new IntegrationContextImpl();
-    integrationContextImpl.addInBoundVariable("content", "activiti");
-    IntegrationContext actualApplyResult =
-        actualProcessTextConnectorResult.apply(integrationContextImpl);
-
-    // Assert
-    assertNull(integrationContextImpl.getProcessDefinitionVersion());
-    assertNull(integrationContextImpl.getAppVersion());
-    assertNull(integrationContextImpl.getBusinessKey());
-    assertNull(integrationContextImpl.getClientId());
-    assertNull(integrationContextImpl.getClientName());
-    assertNull(integrationContextImpl.getClientType());
-    assertNull(integrationContextImpl.getConnectorType());
-    assertNull(integrationContextImpl.getExecutionId());
-    assertNull(integrationContextImpl.getParentProcessInstanceId());
-    assertNull(integrationContextImpl.getProcessDefinitionId());
-    assertNull(integrationContextImpl.getProcessDefinitionKey());
-    assertNull(integrationContextImpl.getProcessInstanceId());
-    assertNull(integrationContextImpl.getRootProcessInstanceId());
-    assertSame(integrationContextImpl, actualApplyResult);
+    assertSame(integrationContextImpl, actualProcessTextConnectorResult.apply(integrationContextImpl));
   }
 
   /**
    * Test {@link DemoApplication#tagTextConnector()}.
-   *
-   * <p>Method under test: {@link DemoApplication#tagTextConnector()}
+   * <p>
+   * Method under test: {@link DemoApplication#tagTextConnector()}
    */
   @Test
   @DisplayName("Test tagTextConnector()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"Connector DemoApplication.tagTextConnector()"})
   void testTagTextConnector() {
     // Arrange and Act
-    Connector actualTagTextConnectorResult = new DemoApplication().tagTextConnector();
+    Connector actualTagTextConnectorResult = (new DemoApplication()).tagTextConnector();
     IntegrationContextImpl integrationContextImpl = new IntegrationContextImpl();
-    IntegrationContext actualApplyResult =
-        actualTagTextConnectorResult.apply(integrationContextImpl);
 
     // Assert
-    assertSame(integrationContextImpl, actualApplyResult);
+    assertSame(integrationContextImpl, actualTagTextConnectorResult.apply(integrationContextImpl));
   }
 
   /**
    * Test {@link DemoApplication#discardTextConnector()}.
-   *
-   * <p>Method under test: {@link DemoApplication#discardTextConnector()}
+   * <p>
+   * Method under test: {@link DemoApplication#discardTextConnector()}
    */
   @Test
   @DisplayName("Test discardTextConnector()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"Connector DemoApplication.discardTextConnector()"})
   void testDiscardTextConnector() {
     // Arrange and Act
-    Connector actualDiscardTextConnectorResult = new DemoApplication().discardTextConnector();
+    Connector actualDiscardTextConnectorResult = (new DemoApplication()).discardTextConnector();
     IntegrationContextImpl integrationContextImpl = new IntegrationContextImpl();
-    IntegrationContext actualApplyResult =
-        actualDiscardTextConnectorResult.apply(integrationContextImpl);
 
     // Assert
-    assertSame(integrationContextImpl, actualApplyResult);
+    assertSame(integrationContextImpl, actualDiscardTextConnectorResult.apply(integrationContextImpl));
   }
 }

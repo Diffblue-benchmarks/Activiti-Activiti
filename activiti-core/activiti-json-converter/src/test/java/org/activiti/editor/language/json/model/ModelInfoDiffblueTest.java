@@ -16,7 +16,6 @@
 package org.activiti.editor.language.json.model;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
@@ -25,9 +24,8 @@ import org.junit.jupiter.api.Test;
 class ModelInfoDiffblueTest {
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>{@link ModelInfo#ModelInfo(String, String, String)}
    *   <li>{@link ModelInfo#setId(String)}
@@ -40,17 +38,10 @@ class ModelInfoDiffblueTest {
    */
   @Test
   @DisplayName("Test getters and setters")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void ModelInfo.<init>(String, String, String)",
-    "String ModelInfo.getId()",
-    "String ModelInfo.getKey()",
-    "String ModelInfo.getName()",
-    "void ModelInfo.setId(String)",
-    "void ModelInfo.setKey(String)",
-    "void ModelInfo.setName(String)"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void ModelInfo.<init>(String, String, String)", "String ModelInfo.getId()",
+      "String ModelInfo.getKey()", "String ModelInfo.getName()", "void ModelInfo.setId(String)",
+      "void ModelInfo.setKey(String)", "void ModelInfo.setName(String)"})
   void testGettersAndSetters() {
     // Arrange and Act
     ModelInfo actualModelInfo = new ModelInfo("42", "Name", "Key");

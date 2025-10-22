@@ -18,10 +18,6 @@ package org.activiti.core.common.spring.connector.autoconfigure;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import com.fasterxml.jackson.core.JsonFactory;
 import com.fasterxml.jackson.databind.MappingJsonFactory;
@@ -37,8 +33,6 @@ import com.fasterxml.jackson.databind.ser.DefaultSerializerProvider;
 import com.fasterxml.jackson.databind.ser.DefaultSerializerProvider.Impl;
 import com.fasterxml.jackson.databind.util.StdDateFormat;
 import java.io.IOException;
-import java.util.List;
-import org.activiti.core.common.model.connector.ConnectorDefinition;
 import org.activiti.core.common.spring.connector.ConnectorDefinitionService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
@@ -53,17 +47,17 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 @ContextConfiguration(classes = {ConnectorAutoConfiguration.class})
 @ExtendWith(SpringExtension.class)
 class ConnectorAutoConfigurationDiffblueTest {
-  @Autowired private ConnectorAutoConfiguration connectorAutoConfiguration;
+  @Autowired
+  private ConnectorAutoConfiguration connectorAutoConfiguration;
 
   /**
    * Test {@link ConnectorAutoConfiguration#objectMapper()}.
-   *
-   * <p>Method under test: {@link ConnectorAutoConfiguration#objectMapper()}
+   * <p>
+   * Method under test: {@link ConnectorAutoConfiguration#objectMapper()}
    */
   @Test
   @DisplayName("Test objectMapper()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"ObjectMapper ConnectorAutoConfiguration.objectMapper()"})
   void testObjectMapper() {
     // Arrange and Act
@@ -72,13 +66,9 @@ class ConnectorAutoConfigurationDiffblueTest {
     // Assert
     JsonFactory factory = actualObjectMapperResult.getFactory();
     assertTrue(factory instanceof MappingJsonFactory);
-    assertTrue(
-        actualObjectMapperResult.getDeserializationContext()
-            instanceof DefaultDeserializationContext.Impl);
+    assertTrue(actualObjectMapperResult.getDeserializationContext() instanceof DefaultDeserializationContext.Impl);
     assertTrue(actualObjectMapperResult.getVisibilityChecker() instanceof Std);
-    assertTrue(
-        actualObjectMapperResult.getPolymorphicTypeValidator()
-            instanceof LaissezFaireSubTypeValidator);
+    assertTrue(actualObjectMapperResult.getPolymorphicTypeValidator() instanceof LaissezFaireSubTypeValidator);
     assertTrue(actualObjectMapperResult.getSubtypeResolver() instanceof StdSubtypeResolver);
     assertTrue(actualObjectMapperResult.getSerializerFactory() instanceof BeanSerializerFactory);
     assertTrue(actualObjectMapperResult.getSerializerProvider() instanceof Impl);
@@ -91,87 +81,44 @@ class ConnectorAutoConfigurationDiffblueTest {
   }
 
   /**
-   * Test {@link ConnectorAutoConfiguration#connectorDefinitionService(String, ObjectMapper,
-   * ResourcePatternResolver)}.
-   *
-   * <p>Method under test: {@link ConnectorAutoConfiguration#connectorDefinitionService(String,
-   * ObjectMapper, ResourcePatternResolver)}
+   * Test {@link ConnectorAutoConfiguration#connectorDefinitionService(String, ObjectMapper, ResourcePatternResolver)}.
+   * <p>
+   * Method under test: {@link ConnectorAutoConfiguration#connectorDefinitionService(String, ObjectMapper, ResourcePatternResolver)}
    */
   @Test
   @DisplayName("Test connectorDefinitionService(String, ObjectMapper, ResourcePatternResolver)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({
-    "ConnectorDefinitionService ConnectorAutoConfiguration.connectorDefinitionService(String, ObjectMapper, ResourcePatternResolver)"
-  })
+      "ConnectorDefinitionService ConnectorAutoConfiguration.connectorDefinitionService(String, ObjectMapper, ResourcePatternResolver)"})
   void testConnectorDefinitionService() throws IOException {
     // Arrange
     JsonMapper objectMapper = JsonMapper.builder().findAndAddModules().build();
 
     // Act and Assert
-    assertTrue(
-        connectorAutoConfiguration
-            .connectorDefinitionService(
-                "Connector Root", objectMapper, new AnnotationConfigReactiveWebApplicationContext())
-            .get()
-            .isEmpty());
+    assertTrue(connectorAutoConfiguration
+        .connectorDefinitionService("Connector Root", objectMapper, new AnnotationConfigReactiveWebApplicationContext())
+        .get()
+        .isEmpty());
   }
 
   /**
    * Test {@link ConnectorAutoConfiguration#connectorDefinitions(ConnectorDefinitionService)}.
-   *
-   * <p>Method under test: {@link
-   * ConnectorAutoConfiguration#connectorDefinitions(ConnectorDefinitionService)}
+   * <ul>
+   *   <li>Then return Empty.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link ConnectorAutoConfiguration#connectorDefinitions(ConnectorDefinitionService)}
    */
   @Test
-  @DisplayName("Test connectorDefinitions(ConnectorDefinitionService)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "List ConnectorAutoConfiguration.connectorDefinitions(ConnectorDefinitionService)"
-  })
-  void testConnectorDefinitions() throws IOException {
+  @DisplayName("Test connectorDefinitions(ConnectorDefinitionService); then return Empty")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"java.util.List ConnectorAutoConfiguration.connectorDefinitions(ConnectorDefinitionService)"})
+  void testConnectorDefinitions_thenReturnEmpty() throws IOException {
     // Arrange
     JsonMapper objectMapper = JsonMapper.builder().findAndAddModules().build();
-    ConnectorDefinitionService connectorDefinitionService =
-        new ConnectorDefinitionService(
-            "Connector Root", objectMapper, new AnnotationConfigReactiveWebApplicationContext());
 
     // Act and Assert
-    assertTrue(
-        connectorAutoConfiguration.connectorDefinitions(connectorDefinitionService).isEmpty());
-  }
-
-  /**
-   * Test {@link ConnectorAutoConfiguration#connectorDefinitions(ConnectorDefinitionService)}.
-   *
-   * <ul>
-   *   <li>Given {@code null}.
-   *   <li>Then calls {@link ConnectorDefinitionService#get()}.
-   * </ul>
-   *
-   * <p>Method under test: {@link
-   * ConnectorAutoConfiguration#connectorDefinitions(ConnectorDefinitionService)}
-   */
-  @Test
-  @DisplayName(
-      "Test connectorDefinitions(ConnectorDefinitionService); given 'null'; then calls get()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "List ConnectorAutoConfiguration.connectorDefinitions(ConnectorDefinitionService)"
-  })
-  void testConnectorDefinitions_givenNull_thenCallsGet() throws IOException {
-    // Arrange
-    ConnectorDefinitionService connectorDefinitionService = mock(ConnectorDefinitionService.class);
-    when(connectorDefinitionService.get()).thenReturn(null);
-
-    // Act
-    List<ConnectorDefinition> actualConnectorDefinitionsResult =
-        connectorAutoConfiguration.connectorDefinitions(connectorDefinitionService);
-
-    // Assert
-    verify(connectorDefinitionService).get();
-    assertTrue(actualConnectorDefinitionsResult.isEmpty());
+    assertTrue(connectorAutoConfiguration.connectorDefinitions(new ConnectorDefinitionService("Connector Root",
+        objectMapper, new AnnotationConfigReactiveWebApplicationContext())).isEmpty());
   }
 }

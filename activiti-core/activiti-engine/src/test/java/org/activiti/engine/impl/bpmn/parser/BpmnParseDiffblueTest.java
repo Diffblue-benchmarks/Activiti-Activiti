@@ -21,21 +21,13 @@ import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertThrows;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.ArgumentMatchers.eq;
-import static org.mockito.ArgumentMatchers.isA;
-import static org.mockito.Mockito.anyInt;
-import static org.mockito.Mockito.atLeast;
-import static org.mockito.Mockito.doNothing;
-import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import groovy.lang.GroovyClassLoader;
 import java.io.ByteArrayInputStream;
-import java.io.DataInputStream;
-import java.io.IOException;
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
@@ -43,25 +35,18 @@ import java.net.URL;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashMap;
-import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-import org.activiti.bpmn.model.ActivitiListener;
 import org.activiti.bpmn.model.AdhocSubProcess;
-import org.activiti.bpmn.model.Artifact;
 import org.activiti.bpmn.model.Association;
 import org.activiti.bpmn.model.BooleanDataObject;
 import org.activiti.bpmn.model.BoundaryEvent;
 import org.activiti.bpmn.model.BpmnModel;
 import org.activiti.bpmn.model.FlowElement;
-import org.activiti.bpmn.model.FlowElementsContainer;
-import org.activiti.bpmn.model.GraphicInfo;
 import org.activiti.bpmn.model.Process;
 import org.activiti.bpmn.model.SequenceFlow;
 import org.activiti.bpmn.model.SubProcess;
-import org.activiti.engine.ActivitiException;
 import org.activiti.engine.ActivitiIllegalArgumentException;
 import org.activiti.engine.impl.bpmn.behavior.AdhocSubProcessActivityBehavior;
 import org.activiti.engine.impl.bpmn.parser.factory.ActivityBehaviorFactory;
@@ -74,11 +59,8 @@ import org.activiti.engine.impl.persistence.entity.DeploymentEntityImpl;
 import org.activiti.engine.impl.persistence.entity.ProcessDefinitionEntity;
 import org.activiti.engine.impl.persistence.entity.ProcessDefinitionEntityImpl;
 import org.activiti.engine.impl.util.io.InputStreamSource;
-import org.activiti.engine.impl.util.io.ResourceStreamSource;
 import org.activiti.engine.impl.util.io.StreamSource;
-import org.activiti.engine.impl.util.io.StringStreamSource;
 import org.activiti.engine.impl.util.io.UrlStreamSource;
-import org.activiti.engine.test.util.TestProcessUtil;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import org.junit.runner.RunWith;
@@ -89,26 +71,26 @@ import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.annotation.DirtiesContext.ClassMode;
 
-@DirtiesContext(classMode = ClassMode.AFTER_EACH_TEST_METHOD)
 @RunWith(MockitoJUnitRunner.class)
+@DirtiesContext(classMode = ClassMode.AFTER_EACH_TEST_METHOD)
 public class BpmnParseDiffblueTest {
-  @InjectMocks private BpmnParse bpmnParse;
+  @InjectMocks
+  private BpmnParse bpmnParse;
 
-  @Mock private BpmnParser bpmnParser;
+  @Mock
+  private BpmnParser bpmnParser;
 
   /**
    * Test {@link BpmnParse#BpmnParse(BpmnParser)}.
-   *
    * <ul>
-   *   <li>When {@link BpmnParser} (default constructor).
-   *   <li>Then return TargetNamespace is {@code null}.
+   *   <li>When {@link BpmnParser} (default constructor).</li>
+   *   <li>Then return TargetNamespace is {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link BpmnParse#BpmnParse(BpmnParser)}
+   * <p>
+   * Method under test: {@link BpmnParse#BpmnParse(BpmnParser)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void BpmnParse.<init>(BpmnParser)"})
   public void testNewBpmnParse_whenBpmnParser_thenReturnTargetNamespaceIsNull() {
     // Arrange and Act
@@ -138,9 +120,8 @@ public class BpmnParseDiffblueTest {
 
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>{@link BpmnParse#deployment(DeploymentEntity)}
    *   <li>{@link BpmnParse#name(String)}
@@ -171,36 +152,22 @@ public class BpmnParseDiffblueTest {
    * </ul>
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "BpmnParse BpmnParse.deployment(DeploymentEntity)",
-    "ActivityBehaviorFactory BpmnParse.getActivityBehaviorFactory()",
-    "BpmnModel BpmnParse.getBpmnModel()",
-    "BpmnParseHandlers BpmnParse.getBpmnParserHandlers()",
-    "FlowElement BpmnParse.getCurrentFlowElement()",
-    "Process BpmnParse.getCurrentProcess()",
-    "ProcessDefinitionEntity BpmnParse.getCurrentProcessDefinition()",
-    "DeploymentEntity BpmnParse.getDeployment()",
-    "ListenerFactory BpmnParse.getListenerFactory()",
-    "List BpmnParse.getProcessDefinitions()",
-    "Map BpmnParse.getSequenceFlows()",
-    "String BpmnParse.getTargetNamespace()",
-    "boolean BpmnParse.isValidateProcess()",
-    "boolean BpmnParse.isValidateSchema()",
-    "BpmnParse BpmnParse.name(String)",
-    "void BpmnParse.setActivityBehaviorFactory(ActivityBehaviorFactory)",
-    "void BpmnParse.setBpmnModel(BpmnModel)",
-    "void BpmnParse.setBpmnParserHandlers(BpmnParseHandlers)",
-    "void BpmnParse.setCurrentFlowElement(FlowElement)",
-    "void BpmnParse.setCurrentProcess(Process)",
-    "void BpmnParse.setCurrentProcessDefinition(ProcessDefinitionEntity)",
-    "void BpmnParse.setDeployment(DeploymentEntity)",
-    "void BpmnParse.setListenerFactory(ListenerFactory)",
-    "BpmnParse BpmnParse.setSourceSystemId(String)",
-    "void BpmnParse.setValidateProcess(boolean)",
-    "void BpmnParse.setValidateSchema(boolean)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"BpmnParse BpmnParse.deployment(DeploymentEntity)",
+      "ActivityBehaviorFactory BpmnParse.getActivityBehaviorFactory()", "BpmnModel BpmnParse.getBpmnModel()",
+      "BpmnParseHandlers BpmnParse.getBpmnParserHandlers()", "FlowElement BpmnParse.getCurrentFlowElement()",
+      "Process BpmnParse.getCurrentProcess()", "ProcessDefinitionEntity BpmnParse.getCurrentProcessDefinition()",
+      "DeploymentEntity BpmnParse.getDeployment()", "ListenerFactory BpmnParse.getListenerFactory()",
+      "List BpmnParse.getProcessDefinitions()", "Map BpmnParse.getSequenceFlows()",
+      "String BpmnParse.getTargetNamespace()", "boolean BpmnParse.isValidateProcess()",
+      "boolean BpmnParse.isValidateSchema()", "BpmnParse BpmnParse.name(String)",
+      "void BpmnParse.setActivityBehaviorFactory(ActivityBehaviorFactory)", "void BpmnParse.setBpmnModel(BpmnModel)",
+      "void BpmnParse.setBpmnParserHandlers(BpmnParseHandlers)", "void BpmnParse.setCurrentFlowElement(FlowElement)",
+      "void BpmnParse.setCurrentProcess(Process)",
+      "void BpmnParse.setCurrentProcessDefinition(ProcessDefinitionEntity)",
+      "void BpmnParse.setDeployment(DeploymentEntity)", "void BpmnParse.setListenerFactory(ListenerFactory)",
+      "BpmnParse BpmnParse.setSourceSystemId(String)", "void BpmnParse.setValidateProcess(boolean)",
+      "void BpmnParse.setValidateSchema(boolean)"})
   public void testGettersAndSetters() {
     // Arrange
     BpmnParse bpmnParse = new BpmnParse(new BpmnParser());
@@ -210,13 +177,13 @@ public class BpmnParseDiffblueTest {
     BpmnParse actualNameResult = bpmnParse.name("Name");
     DefaultActivityBehaviorFactory activityBehaviorFactory = new DefaultActivityBehaviorFactory();
     bpmnParse.setActivityBehaviorFactory(activityBehaviorFactory);
-    BpmnModel bpmnModel = TestProcessUtil.createOneTaskBpmnModel();
+    BpmnModel bpmnModel = new BpmnModel();
     bpmnParse.setBpmnModel(bpmnModel);
     BpmnParseHandlers bpmnParserHandlers = new BpmnParseHandlers();
     bpmnParse.setBpmnParserHandlers(bpmnParserHandlers);
     AdhocSubProcess currentFlowElement = new AdhocSubProcess();
     bpmnParse.setCurrentFlowElement(currentFlowElement);
-    Process currentProcess = TestProcessUtil.createOneTaskProcessWithId("42");
+    Process currentProcess = new Process();
     bpmnParse.setCurrentProcess(currentProcess);
     ProcessDefinitionEntityImpl currentProcessDefinition = new ProcessDefinitionEntityImpl();
     bpmnParse.setCurrentProcessDefinition(currentProcessDefinition);
@@ -232,8 +199,7 @@ public class BpmnParseDiffblueTest {
     BpmnParseHandlers actualBpmnParserHandlers = bpmnParse.getBpmnParserHandlers();
     FlowElement actualCurrentFlowElement = bpmnParse.getCurrentFlowElement();
     Process actualCurrentProcess = bpmnParse.getCurrentProcess();
-    ProcessDefinitionEntity actualCurrentProcessDefinition =
-        bpmnParse.getCurrentProcessDefinition();
+    ProcessDefinitionEntity actualCurrentProcessDefinition = bpmnParse.getCurrentProcessDefinition();
     DeploymentEntity actualDeployment = bpmnParse.getDeployment();
     ListenerFactory actualListenerFactory = bpmnParse.getListenerFactory();
     List<ProcessDefinitionEntity> actualProcessDefinitions = bpmnParse.getProcessDefinitions();
@@ -249,6 +215,8 @@ public class BpmnParseDiffblueTest {
     assertTrue(actualIsValidateProcessResult);
     assertTrue(actualIsValidateSchemaResult);
     assertSame(currentFlowElement, actualCurrentFlowElement);
+    assertSame(bpmnModel, actualBpmnModel);
+    assertSame(currentProcess, actualCurrentProcess);
     assertSame(bpmnParse, actualDeploymentResult);
     assertSame(bpmnParse, actualNameResult);
     assertSame(bpmnParse, actualSetSourceSystemIdResult);
@@ -257,193 +225,81 @@ public class BpmnParseDiffblueTest {
     assertSame(listenerFactory, actualListenerFactory);
     assertSame(deployment, actualDeployment);
     assertSame(currentProcessDefinition, actualCurrentProcessDefinition);
-    assertSame(bpmnModel, actualBpmnModel);
-    assertSame(currentProcess, actualCurrentProcess);
-  }
-
-  /**
-   * Test {@link BpmnParse#execute()}.
-   *
-   * <ul>
-   *   <li>Then throw {@link ActivitiException}.
-   * </ul>
-   *
-   * <p>Method under test: {@link BpmnParse#execute()}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"BpmnParse BpmnParse.execute()"})
-  public void testExecute_thenThrowActivitiException() throws IOException {
-    // Arrange
-    DataInputStream dataInputStream = mock(DataInputStream.class);
-    when(dataInputStream.read(Mockito.<byte[]>any(), anyInt(), anyInt()))
-        .thenThrow(new ActivitiException("An error occurred"));
-    doThrow(new ActivitiException("An error occurred")).when(dataInputStream).close();
-
-    StreamSource streamSource = mock(StreamSource.class);
-    when(streamSource.getInputStream()).thenReturn(dataInputStream);
-
-    BpmnParse bpmnParse = new BpmnParse(new BpmnParser());
-    bpmnParse.setStreamSource(streamSource);
-
-    // Act and Assert
-    assertThrows(ActivitiException.class, () -> bpmnParse.execute());
-    verify(dataInputStream).read(isA(byte[].class), eq(0), eq(8192));
-    verify(dataInputStream).close();
-    verify(streamSource).getInputStream();
   }
 
   /**
    * Test {@link BpmnParse#sourceInputStream(InputStream)}.
-   *
    * <ul>
-   *   <li>Given {@link BpmnParse#BpmnParse(BpmnParser)} with parser is {@link BpmnParser} (default
-   *       constructor) name {@code null}.
+   *   <li>Given {@link BpmnParse#BpmnParse(BpmnParser)} with parser is {@link BpmnParser} (default constructor) name {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link BpmnParse#sourceInputStream(InputStream)}
+   * <p>
+   * Method under test: {@link BpmnParse#sourceInputStream(InputStream)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"BpmnParse BpmnParse.sourceInputStream(InputStream)"})
-  public void testSourceInputStream_givenBpmnParseWithParserIsBpmnParserNameNull()
-      throws UnsupportedEncodingException {
+  public void testSourceInputStream_givenBpmnParseWithParserIsBpmnParserNameNull() throws UnsupportedEncodingException {
     // Arrange
     BpmnParse bpmnParse = new BpmnParse(new BpmnParser());
     bpmnParse.name(null);
     bpmnParse.setStreamSource(mock(StreamSource.class));
 
     // Act and Assert
-    assertThrows(
-        ActivitiIllegalArgumentException.class,
+    assertThrows(ActivitiIllegalArgumentException.class,
         () -> bpmnParse.sourceInputStream(new ByteArrayInputStream("AXAXAXAX".getBytes("UTF-8"))));
   }
 
   /**
    * Test {@link BpmnParse#sourceInputStream(InputStream)}.
-   *
    * <ul>
-   *   <li>Given {@link ByteArrayInputStream#ByteArrayInputStream(byte[])} with {@code AXAXAXAX}
-   *       Bytes is {@code UTF-8}.
+   *   <li>Given {@link ByteArrayInputStream#ByteArrayInputStream(byte[])} with {@code AXAXAXAX} Bytes is {@code UTF-8}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link BpmnParse#sourceInputStream(InputStream)}
+   * <p>
+   * Method under test: {@link BpmnParse#sourceInputStream(InputStream)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"BpmnParse BpmnParse.sourceInputStream(InputStream)"})
   public void testSourceInputStream_givenByteArrayInputStreamWithAxaxaxaxBytesIsUtf8()
       throws UnsupportedEncodingException {
     // Arrange
     BpmnParse bpmnParse = new BpmnParse(new BpmnParser());
     bpmnParse.name("foo");
-    bpmnParse.setStreamSource(
-        new InputStreamSource(new ByteArrayInputStream("AXAXAXAX".getBytes("UTF-8"))));
+    bpmnParse.setStreamSource(new InputStreamSource(new ByteArrayInputStream("AXAXAXAX".getBytes("UTF-8"))));
 
     // Act and Assert
-    assertThrows(
-        ActivitiIllegalArgumentException.class,
+    assertThrows(ActivitiIllegalArgumentException.class,
         () -> bpmnParse.sourceInputStream(new ByteArrayInputStream("AXAXAXAX".getBytes("UTF-8"))));
   }
 
   /**
-   * Test {@link BpmnParse#sourceInputStream(InputStream)}.
-   *
-   * <ul>
-   *   <li>Then {@link BpmnParse#BpmnParse(BpmnParser)} with parser is {@link BpmnParser} (default
-   *       constructor) {@link BpmnParse#name} is {@code foo}.
-   * </ul>
-   *
-   * <p>Method under test: {@link BpmnParse#sourceInputStream(InputStream)}
+   * Test {@link BpmnParse#sourceResource(String, ClassLoader)} with {@code resource}, {@code classLoader}.
+   * <p>
+   * Method under test: {@link BpmnParse#sourceResource(String, ClassLoader)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"BpmnParse BpmnParse.sourceInputStream(InputStream)"})
-  public void testSourceInputStream_thenBpmnParseWithParserIsBpmnParserNameIsFoo()
-      throws UnsupportedEncodingException {
-    // Arrange
-    BpmnParse bpmnParse = new BpmnParse(new BpmnParser());
-    bpmnParse.name("foo");
-    bpmnParse.setStreamSource(null);
-
-    // Act
-    BpmnParse actualSourceInputStreamResult =
-        bpmnParse.sourceInputStream(new ByteArrayInputStream("AXAXAXAX".getBytes("UTF-8")));
-
-    // Assert
-    assertTrue(bpmnParse.streamSource instanceof InputStreamSource);
-    assertEquals("foo", bpmnParse.name);
-    assertSame(bpmnParse, actualSourceInputStreamResult);
-  }
-
-  /**
-   * Test {@link BpmnParse#sourceInputStream(InputStream)}.
-   *
-   * <ul>
-   *   <li>Then {@link BpmnParse#BpmnParse(BpmnParser)} with parser is {@link BpmnParser} (default
-   *       constructor) {@link BpmnParse#name} is {@code inputStream}.
-   * </ul>
-   *
-   * <p>Method under test: {@link BpmnParse#sourceInputStream(InputStream)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"BpmnParse BpmnParse.sourceInputStream(InputStream)"})
-  public void testSourceInputStream_thenBpmnParseWithParserIsBpmnParserNameIsInputStream()
-      throws UnsupportedEncodingException {
-    // Arrange
-    BpmnParse bpmnParse = new BpmnParse(new BpmnParser());
-
-    // Act
-    BpmnParse actualSourceInputStreamResult =
-        bpmnParse.sourceInputStream(new ByteArrayInputStream("AXAXAXAX".getBytes("UTF-8")));
-
-    // Assert
-    assertTrue(bpmnParse.streamSource instanceof InputStreamSource);
-    assertEquals("inputStream", bpmnParse.name);
-    assertSame(bpmnParse, actualSourceInputStreamResult);
-  }
-
-  /**
-   * Test {@link BpmnParse#sourceResource(String, ClassLoader)} with {@code resource}, {@code
-   * classLoader}.
-   *
-   * <p>Method under test: {@link BpmnParse#sourceResource(String, ClassLoader)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"BpmnParse BpmnParse.sourceResource(String, ClassLoader)"})
   public void testSourceResourceWithResourceClassLoader() throws UnsupportedEncodingException {
     // Arrange
     bpmnParse.name("foo");
-    bpmnParse.setStreamSource(
-        new InputStreamSource(new ByteArrayInputStream("AXAXAXAX".getBytes("UTF-8"))));
+    bpmnParse.setStreamSource(new InputStreamSource(new ByteArrayInputStream("AXAXAXAX".getBytes("UTF-8"))));
 
     // Act and Assert
-    assertThrows(
-        ActivitiIllegalArgumentException.class,
+    assertThrows(ActivitiIllegalArgumentException.class,
         () -> bpmnParse.sourceResource("Resource", new GroovyClassLoader()));
   }
 
   /**
-   * Test {@link BpmnParse#sourceResource(String, ClassLoader)} with {@code resource}, {@code
-   * classLoader}.
-   *
+   * Test {@link BpmnParse#sourceResource(String, ClassLoader)} with {@code resource}, {@code classLoader}.
    * <ul>
-   *   <li>Given {@link BpmnParse} name {@code null}.
+   *   <li>Given {@link BpmnParse} name {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link BpmnParse#sourceResource(String, ClassLoader)}
+   * <p>
+   * Method under test: {@link BpmnParse#sourceResource(String, ClassLoader)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"BpmnParse BpmnParse.sourceResource(String, ClassLoader)"})
   public void testSourceResourceWithResourceClassLoader_givenBpmnParseNameNull() {
     // Arrange
@@ -451,77 +307,20 @@ public class BpmnParseDiffblueTest {
     bpmnParse.setStreamSource(mock(StreamSource.class));
 
     // Act and Assert
-    assertThrows(
-        ActivitiIllegalArgumentException.class,
+    assertThrows(ActivitiIllegalArgumentException.class,
         () -> bpmnParse.sourceResource("Resource", new GroovyClassLoader()));
   }
 
   /**
-   * Test {@link BpmnParse#sourceResource(String, ClassLoader)} with {@code resource}, {@code
-   * classLoader}.
-   *
-   * <ul>
-   *   <li>Then {@link BpmnParse} {@link BpmnParse#name} is {@code foo}.
-   * </ul>
-   *
-   * <p>Method under test: {@link BpmnParse#sourceResource(String, ClassLoader)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"BpmnParse BpmnParse.sourceResource(String, ClassLoader)"})
-  public void testSourceResourceWithResourceClassLoader_thenBpmnParseNameIsFoo() {
-    // Arrange
-    bpmnParse.name("foo");
-    bpmnParse.setStreamSource(null);
-
-    // Act
-    BpmnParse actualSourceResourceResult =
-        bpmnParse.sourceResource("Resource", new GroovyClassLoader());
-
-    // Assert
-    assertTrue(bpmnParse.streamSource instanceof ResourceStreamSource);
-    assertEquals("foo", bpmnParse.name);
-    assertSame(bpmnParse, actualSourceResourceResult);
-  }
-
-  /**
-   * Test {@link BpmnParse#sourceResource(String, ClassLoader)} with {@code resource}, {@code
-   * classLoader}.
-   *
-   * <ul>
-   *   <li>Then {@link BpmnParse} {@link BpmnParse#name} is {@code Resource}.
-   * </ul>
-   *
-   * <p>Method under test: {@link BpmnParse#sourceResource(String, ClassLoader)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"BpmnParse BpmnParse.sourceResource(String, ClassLoader)"})
-  public void testSourceResourceWithResourceClassLoader_thenBpmnParseNameIsResource() {
-    // Arrange and Act
-    BpmnParse actualSourceResourceResult =
-        bpmnParse.sourceResource("Resource", new GroovyClassLoader());
-
-    // Assert
-    assertTrue(bpmnParse.streamSource instanceof ResourceStreamSource);
-    assertEquals("Resource", bpmnParse.name);
-    assertSame(bpmnParse, actualSourceResourceResult);
-  }
-
-  /**
    * Test {@link BpmnParse#sourceResource(String)} with {@code resource}.
-   *
    * <ul>
-   *   <li>Given {@link BpmnParse} name {@code null}.
+   *   <li>Given {@link BpmnParse} name {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link BpmnParse#sourceResource(String)}
+   * <p>
+   * Method under test: {@link BpmnParse#sourceResource(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"BpmnParse BpmnParse.sourceResource(String)"})
   public void testSourceResourceWithResource_givenBpmnParseNameNull() {
     // Arrange
@@ -529,99 +328,40 @@ public class BpmnParseDiffblueTest {
     bpmnParse.setStreamSource(mock(StreamSource.class));
 
     // Act and Assert
-    assertThrows(
-        ActivitiIllegalArgumentException.class, () -> bpmnParse.sourceResource("Resource"));
+    assertThrows(ActivitiIllegalArgumentException.class, () -> bpmnParse.sourceResource("Resource"));
   }
 
   /**
    * Test {@link BpmnParse#sourceResource(String)} with {@code resource}.
-   *
    * <ul>
-   *   <li>Given {@link BpmnParse}.
-   *   <li>Then {@link BpmnParse} {@link BpmnParse#name} is {@code Resource}.
+   *   <li>Given {@link ByteArrayInputStream#ByteArrayInputStream(byte[])} with {@code AXAXAXAX} Bytes is {@code UTF-8}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link BpmnParse#sourceResource(String)}
+   * <p>
+   * Method under test: {@link BpmnParse#sourceResource(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"BpmnParse BpmnParse.sourceResource(String)"})
-  public void testSourceResourceWithResource_givenBpmnParse_thenBpmnParseNameIsResource() {
-    // Arrange and Act
-    BpmnParse actualSourceResourceResult = bpmnParse.sourceResource("Resource");
-
-    // Assert
-    assertTrue(bpmnParse.streamSource instanceof ResourceStreamSource);
-    assertEquals("Resource", bpmnParse.name);
-    assertSame(bpmnParse, actualSourceResourceResult);
-  }
-
-  /**
-   * Test {@link BpmnParse#sourceResource(String)} with {@code resource}.
-   *
-   * <ul>
-   *   <li>Given {@link ByteArrayInputStream#ByteArrayInputStream(byte[])} with {@code AXAXAXAX}
-   *       Bytes is {@code UTF-8}.
-   * </ul>
-   *
-   * <p>Method under test: {@link BpmnParse#sourceResource(String)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"BpmnParse BpmnParse.sourceResource(String)"})
   public void testSourceResourceWithResource_givenByteArrayInputStreamWithAxaxaxaxBytesIsUtf8()
       throws UnsupportedEncodingException {
     // Arrange
     bpmnParse.name("foo");
-    bpmnParse.setStreamSource(
-        new InputStreamSource(new ByteArrayInputStream("AXAXAXAX".getBytes("UTF-8"))));
+    bpmnParse.setStreamSource(new InputStreamSource(new ByteArrayInputStream("AXAXAXAX".getBytes("UTF-8"))));
 
     // Act and Assert
-    assertThrows(
-        ActivitiIllegalArgumentException.class, () -> bpmnParse.sourceResource("Resource"));
-  }
-
-  /**
-   * Test {@link BpmnParse#sourceResource(String)} with {@code resource}.
-   *
-   * <ul>
-   *   <li>Then {@link BpmnParse} {@link BpmnParse#name} is {@code foo}.
-   * </ul>
-   *
-   * <p>Method under test: {@link BpmnParse#sourceResource(String)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"BpmnParse BpmnParse.sourceResource(String)"})
-  public void testSourceResourceWithResource_thenBpmnParseNameIsFoo() {
-    // Arrange
-    bpmnParse.name("foo");
-    bpmnParse.setStreamSource(null);
-
-    // Act
-    BpmnParse actualSourceResourceResult = bpmnParse.sourceResource("Resource");
-
-    // Assert
-    assertTrue(bpmnParse.streamSource instanceof ResourceStreamSource);
-    assertEquals("foo", bpmnParse.name);
-    assertSame(bpmnParse, actualSourceResourceResult);
+    assertThrows(ActivitiIllegalArgumentException.class, () -> bpmnParse.sourceResource("Resource"));
   }
 
   /**
    * Test {@link BpmnParse#sourceString(String)}.
-   *
    * <ul>
-   *   <li>Given {@link BpmnParse} name {@code null}.
+   *   <li>Given {@link BpmnParse} name {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link BpmnParse#sourceString(String)}
+   * <p>
+   * Method under test: {@link BpmnParse#sourceString(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"BpmnParse BpmnParse.sourceString(String)"})
   public void testSourceString_givenBpmnParseNameNull() {
     // Arrange
@@ -634,285 +374,189 @@ public class BpmnParseDiffblueTest {
 
   /**
    * Test {@link BpmnParse#sourceString(String)}.
-   *
    * <ul>
-   *   <li>Given {@link BpmnParse} StreamSource is {@code null}.
-   *   <li>Then {@link BpmnParse} {@link BpmnParse#name} is {@code foo}.
+   *   <li>Given {@link ByteArrayInputStream#ByteArrayInputStream(byte[])} with {@code AXAXAXAX} Bytes is {@code UTF-8}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link BpmnParse#sourceString(String)}
+   * <p>
+   * Method under test: {@link BpmnParse#sourceString(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"BpmnParse BpmnParse.sourceString(String)"})
-  public void testSourceString_givenBpmnParseStreamSourceIsNull_thenBpmnParseNameIsFoo() {
+  public void testSourceString_givenByteArrayInputStreamWithAxaxaxaxBytesIsUtf8() throws UnsupportedEncodingException {
     // Arrange
     bpmnParse.name("foo");
-    bpmnParse.setStreamSource(null);
-
-    // Act
-    BpmnParse actualSourceStringResult = bpmnParse.sourceString("String");
-
-    // Assert
-    assertTrue(bpmnParse.streamSource instanceof StringStreamSource);
-    assertEquals("foo", bpmnParse.name);
-    assertSame(bpmnParse, actualSourceStringResult);
-  }
-
-  /**
-   * Test {@link BpmnParse#sourceString(String)}.
-   *
-   * <ul>
-   *   <li>Given {@link BpmnParse}.
-   *   <li>Then {@link BpmnParse} {@link BpmnParse#name} is {@code string}.
-   * </ul>
-   *
-   * <p>Method under test: {@link BpmnParse#sourceString(String)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"BpmnParse BpmnParse.sourceString(String)"})
-  public void testSourceString_givenBpmnParse_thenBpmnParseNameIsString() {
-    // Arrange and Act
-    BpmnParse actualSourceStringResult = bpmnParse.sourceString("String");
-
-    // Assert
-    assertTrue(bpmnParse.streamSource instanceof StringStreamSource);
-    assertEquals("string", bpmnParse.name);
-    assertSame(bpmnParse, actualSourceStringResult);
-  }
-
-  /**
-   * Test {@link BpmnParse#sourceString(String)}.
-   *
-   * <ul>
-   *   <li>Given {@link ByteArrayInputStream#ByteArrayInputStream(byte[])} with {@code AXAXAXAX}
-   *       Bytes is {@code UTF-8}.
-   * </ul>
-   *
-   * <p>Method under test: {@link BpmnParse#sourceString(String)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"BpmnParse BpmnParse.sourceString(String)"})
-  public void testSourceString_givenByteArrayInputStreamWithAxaxaxaxBytesIsUtf8()
-      throws UnsupportedEncodingException {
-    // Arrange
-    bpmnParse.name("foo");
-    bpmnParse.setStreamSource(
-        new InputStreamSource(new ByteArrayInputStream("AXAXAXAX".getBytes("UTF-8"))));
+    bpmnParse.setStreamSource(new InputStreamSource(new ByteArrayInputStream("AXAXAXAX".getBytes("UTF-8"))));
 
     // Act and Assert
     assertThrows(ActivitiIllegalArgumentException.class, () -> bpmnParse.sourceString("String"));
   }
 
   /**
-   * Test {@link BpmnParse#sourceUrl(URL)} with {@code URL}.
-   *
-   * <p>Method under test: {@link BpmnParse#sourceUrl(URL)}
+   * Test {@link BpmnParse#sourceUrl(String)} with {@code String}.
+   * <ul>
+   *   <li>Given {@link BpmnParse} StreamSource is {@link StreamSource}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link BpmnParse#sourceUrl(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"BpmnParse BpmnParse.sourceUrl(String)"})
+  public void testSourceUrlWithString_givenBpmnParseStreamSourceIsStreamSource() {
+    // Arrange
+    bpmnParse.setStreamSource(mock(StreamSource.class));
+    bpmnParse.name(null);
+
+    // Act and Assert
+    assertThrows(ActivitiIllegalArgumentException.class, () -> bpmnParse.sourceUrl("https://example.org/example"));
+  }
+
+  /**
+   * Test {@link BpmnParse#sourceUrl(String)} with {@code String}.
+   * <ul>
+   *   <li>Given {@link BpmnParse}.</li>
+   *   <li>When {@code Url}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link BpmnParse#sourceUrl(String)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"BpmnParse BpmnParse.sourceUrl(String)"})
+  public void testSourceUrlWithString_givenBpmnParse_whenUrl() {
+    // Arrange, Act and Assert
+    assertThrows(ActivitiIllegalArgumentException.class, () -> bpmnParse.sourceUrl("Url"));
+  }
+
+  /**
+   * Test {@link BpmnParse#sourceUrl(String)} with {@code String}.
+   * <ul>
+   *   <li>Given {@link ByteArrayInputStream#ByteArrayInputStream(byte[])} with {@code AXAXAXAX} Bytes is {@code UTF-8}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link BpmnParse#sourceUrl(String)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"BpmnParse BpmnParse.sourceUrl(String)"})
+  public void testSourceUrlWithString_givenByteArrayInputStreamWithAxaxaxaxBytesIsUtf8()
+      throws UnsupportedEncodingException {
+    // Arrange
+    bpmnParse.setStreamSource(new InputStreamSource(new ByteArrayInputStream("AXAXAXAX".getBytes("UTF-8"))));
+    bpmnParse.name("foo");
+
+    // Act and Assert
+    assertThrows(ActivitiIllegalArgumentException.class, () -> bpmnParse.sourceUrl("https://example.org/example"));
+  }
+
+  /**
+   * Test {@link BpmnParse#sourceUrl(URL)} with {@code URL}.
+   * <p>
+   * Method under test: {@link BpmnParse#sourceUrl(URL)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"BpmnParse BpmnParse.sourceUrl(URL)"})
   public void testSourceUrlWithUrl() throws MalformedURLException {
     // Arrange
     BpmnParse bpmnParse = new BpmnParse(new BpmnParser());
 
     // Act
-    BpmnParse actualSourceUrlResult =
-        bpmnParse.sourceUrl(
-            Paths.get(System.getProperty("java.io.tmpdir"), "test.txt").toUri().toURL());
+    BpmnParse actualSourceUrlResult = bpmnParse
+        .sourceUrl(Paths.get(System.getProperty("java.io.tmpdir"), "test.txt").toUri().toURL());
 
     // Assert
     assertTrue(bpmnParse.streamSource instanceof UrlStreamSource);
-    String expectedString =
-        String.join(
-            "", "file:", Paths.get(System.getProperty("java.io.tmpdir"), "test.txt").toString());
-    assertEquals(expectedString, bpmnParse.name);
+    assertEquals(String.join("", "file:", Paths.get(System.getProperty("java.io.tmpdir"), "test.txt").toString()),
+        bpmnParse.name);
     assertSame(bpmnParse, actualSourceUrlResult);
   }
 
   /**
    * Test {@link BpmnParse#sourceUrl(URL)} with {@code URL}.
-   *
    * <ul>
-   *   <li>Given {@link BpmnParse#BpmnParse(BpmnParser)} with parser is {@link BpmnParser} (default
-   *       constructor) name {@code null}.
+   *   <li>Given {@link BpmnParse#BpmnParse(BpmnParser)} with parser is {@link BpmnParser} (default constructor) name {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link BpmnParse#sourceUrl(URL)}
+   * <p>
+   * Method under test: {@link BpmnParse#sourceUrl(URL)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"BpmnParse BpmnParse.sourceUrl(URL)"})
-  public void testSourceUrlWithUrl_givenBpmnParseWithParserIsBpmnParserNameNull()
-      throws MalformedURLException {
+  public void testSourceUrlWithUrl_givenBpmnParseWithParserIsBpmnParserNameNull() throws MalformedURLException {
     // Arrange
     BpmnParse bpmnParse = new BpmnParse(new BpmnParser());
     bpmnParse.name(null);
     bpmnParse.setStreamSource(mock(StreamSource.class));
 
     // Act and Assert
-    assertThrows(
-        ActivitiIllegalArgumentException.class,
-        () ->
-            bpmnParse.sourceUrl(
-                Paths.get(System.getProperty("java.io.tmpdir"), "test.txt").toUri().toURL()));
+    assertThrows(ActivitiIllegalArgumentException.class,
+        () -> bpmnParse.sourceUrl(Paths.get(System.getProperty("java.io.tmpdir"), "test.txt").toUri().toURL()));
   }
 
   /**
    * Test {@link BpmnParse#sourceUrl(URL)} with {@code URL}.
-   *
    * <ul>
-   *   <li>Given {@link ByteArrayInputStream#ByteArrayInputStream(byte[])} with {@code AXAXAXAX}
-   *       Bytes is {@code UTF-8}.
+   *   <li>Given {@link ByteArrayInputStream#ByteArrayInputStream(byte[])} with {@code AXAXAXAX} Bytes is {@code UTF-8}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link BpmnParse#sourceUrl(URL)}
+   * <p>
+   * Method under test: {@link BpmnParse#sourceUrl(URL)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"BpmnParse BpmnParse.sourceUrl(URL)"})
   public void testSourceUrlWithUrl_givenByteArrayInputStreamWithAxaxaxaxBytesIsUtf8()
       throws UnsupportedEncodingException, MalformedURLException {
     // Arrange
     BpmnParse bpmnParse = new BpmnParse(new BpmnParser());
     bpmnParse.name("foo");
-    bpmnParse.setStreamSource(
-        new InputStreamSource(new ByteArrayInputStream("AXAXAXAX".getBytes("UTF-8"))));
+    bpmnParse.setStreamSource(new InputStreamSource(new ByteArrayInputStream("AXAXAXAX".getBytes("UTF-8"))));
 
     // Act and Assert
-    assertThrows(
-        ActivitiIllegalArgumentException.class,
-        () ->
-            bpmnParse.sourceUrl(
-                Paths.get(System.getProperty("java.io.tmpdir"), "test.txt").toUri().toURL()));
-  }
-
-  /**
-   * Test {@link BpmnParse#sourceUrl(URL)} with {@code URL}.
-   *
-   * <ul>
-   *   <li>Then {@link BpmnParse#BpmnParse(BpmnParser)} with parser is {@link BpmnParser} (default
-   *       constructor) {@link BpmnParse#name} is {@code foo}.
-   * </ul>
-   *
-   * <p>Method under test: {@link BpmnParse#sourceUrl(URL)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"BpmnParse BpmnParse.sourceUrl(URL)"})
-  public void testSourceUrlWithUrl_thenBpmnParseWithParserIsBpmnParserNameIsFoo()
-      throws MalformedURLException {
-    // Arrange
-    BpmnParse bpmnParse = new BpmnParse(new BpmnParser());
-    bpmnParse.name("foo");
-    bpmnParse.setStreamSource(null);
-
-    // Act
-    BpmnParse actualSourceUrlResult =
-        bpmnParse.sourceUrl(
-            Paths.get(System.getProperty("java.io.tmpdir"), "test.txt").toUri().toURL());
-
-    // Assert
-    assertTrue(bpmnParse.streamSource instanceof UrlStreamSource);
-    assertEquals("foo", bpmnParse.name);
-    assertSame(bpmnParse, actualSourceUrlResult);
-  }
-
-  /**
-   * Test {@link BpmnParse#setStreamSource(StreamSource)}.
-   *
-   * <p>Method under test: {@link BpmnParse#setStreamSource(StreamSource)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void BpmnParse.setStreamSource(StreamSource)"})
-  public void testSetStreamSource() {
-    // Arrange
-    BpmnParse bpmnParse = new BpmnParse(new BpmnParser());
-    bpmnParse.setStreamSource(mock(StreamSource.class));
-
-    // Act and Assert
-    assertThrows(
-        ActivitiIllegalArgumentException.class,
-        () -> bpmnParse.setStreamSource(mock(StreamSource.class)));
-  }
-
-  /**
-   * Test {@link BpmnParse#setStreamSource(StreamSource)}.
-   *
-   * <p>Method under test: {@link BpmnParse#setStreamSource(StreamSource)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void BpmnParse.setStreamSource(StreamSource)"})
-  public void testSetStreamSource2() throws UnsupportedEncodingException {
-    // Arrange
-    BpmnParse bpmnParse = new BpmnParse(new BpmnParser());
-    bpmnParse.deployment(new DeploymentEntityImpl());
-    bpmnParse.setStreamSource(
-        new InputStreamSource(new ByteArrayInputStream("AXAXAXAX".getBytes("UTF-8"))));
-
-    // Act and Assert
-    assertThrows(
-        ActivitiIllegalArgumentException.class,
-        () ->
-            bpmnParse.setStreamSource(
-                new InputStreamSource(new ByteArrayInputStream("AXAXAXAX".getBytes("UTF-8")))));
-  }
-
-  /**
-   * Test {@link BpmnParse#setStreamSource(StreamSource)}.
-   *
-   * <ul>
-   *   <li>Given {@link ByteArrayInputStream#ByteArrayInputStream(byte[])} with {@code AXAXAXAX}
-   *       Bytes is {@code UTF-8}.
-   * </ul>
-   *
-   * <p>Method under test: {@link BpmnParse#setStreamSource(StreamSource)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void BpmnParse.setStreamSource(StreamSource)"})
-  public void testSetStreamSource_givenByteArrayInputStreamWithAxaxaxaxBytesIsUtf8()
-      throws UnsupportedEncodingException {
-    // Arrange
-    BpmnParse bpmnParse = new BpmnParse(new BpmnParser());
-    bpmnParse.setStreamSource(
-        new InputStreamSource(new ByteArrayInputStream("AXAXAXAX".getBytes("UTF-8"))));
-
-    // Act and Assert
-    assertThrows(
-        ActivitiIllegalArgumentException.class,
-        () -> bpmnParse.setStreamSource(mock(StreamSource.class)));
+    assertThrows(ActivitiIllegalArgumentException.class,
+        () -> bpmnParse.sourceUrl(Paths.get(System.getProperty("java.io.tmpdir"), "test.txt").toUri().toURL()));
   }
 
   /**
    * Test {@link BpmnParse#applyParseHandlers()}.
-   *
-   * <ul>
-   *   <li>Then {@link BpmnParse#BpmnParse(BpmnParser)} with parser is {@link BpmnParser} (default
-   *       constructor) SequenceFlows Empty.
-   * </ul>
-   *
-   * <p>Method under test: {@link BpmnParse#applyParseHandlers()}
+   * <p>
+   * Method under test: {@link BpmnParse#applyParseHandlers()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void BpmnParse.applyParseHandlers()"})
-  public void testApplyParseHandlers_thenBpmnParseWithParserIsBpmnParserSequenceFlowsEmpty() {
+  public void testApplyParseHandlers() {
+    // Arrange
+    BpmnParser parser = new BpmnParser();
+    parser.setBpmnParserHandlers(new BpmnParseHandlers());
+
+    BpmnModel bpmnModel = new BpmnModel();
+    Process process = new Process();
+    bpmnModel.addProcess(process);
+
+    BpmnParse bpmnParse = new BpmnParse(parser);
+    bpmnParse.setBpmnModel(bpmnModel);
+
+    // Act
+    bpmnParse.applyParseHandlers();
+
+    // Assert
+    assertSame(process, bpmnParse.getCurrentProcess());
+  }
+
+  /**
+   * Test {@link BpmnParse#applyParseHandlers()}.
+   * <ul>
+   *   <li>Then {@link BpmnParse#BpmnParse(BpmnParser)} with parser is {@link BpmnParser} (default constructor) CurrentProcess is {@code null}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link BpmnParse#applyParseHandlers()}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void BpmnParse.applyParseHandlers()"})
+  public void testApplyParseHandlers_thenBpmnParseWithParserIsBpmnParserCurrentProcessIsNull() {
     // Arrange
     BpmnParse bpmnParse = new BpmnParse(new BpmnParser());
     bpmnParse.setBpmnModel(new BpmnModel());
@@ -921,24 +565,29 @@ public class BpmnParseDiffblueTest {
     bpmnParse.applyParseHandlers();
 
     // Assert
+    assertNull(bpmnParse.getCurrentProcess());
     assertTrue(bpmnParse.getSequenceFlows().isEmpty());
   }
 
   /**
    * Test {@link BpmnParse#processFlowElements(Collection)}.
-   *
-   * <p>Method under test: {@link BpmnParse#processFlowElements(Collection)}
+   * <p>
+   * Method under test: {@link BpmnParse#processFlowElements(Collection)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void BpmnParse.processFlowElements(Collection)"})
   public void testProcessFlowElements() {
     // Arrange
-    BpmnParse bpmnParse = new BpmnParse(new BpmnParser());
-    bpmnParse.setBpmnParserHandlers(new BpmnParseHandlers());
+    BpmnParseHandlers bpmnParserHandlers = new BpmnParseHandlers();
+    bpmnParserHandlers.addHandler(new AdhocSubProcessParseHandler());
 
-    LinkedHashSet<FlowElement> flowElements = new LinkedHashSet<>();
+    BpmnParser parser = new BpmnParser();
+    parser.setActivityBehaviorFactory(new DefaultActivityBehaviorFactory());
+    parser.setBpmnParserHandlers(bpmnParserHandlers);
+    BpmnParse bpmnParse = new BpmnParse(parser);
+
+    ArrayList<FlowElement> flowElements = new ArrayList<>();
     AdhocSubProcess adhocSubProcess = new AdhocSubProcess();
     flowElements.add(adhocSubProcess);
 
@@ -946,151 +595,67 @@ public class BpmnParseDiffblueTest {
     bpmnParse.processFlowElements(flowElements);
 
     // Assert
+    assertEquals(1, flowElements.size());
+    FlowElement getResult = flowElements.get(0);
+    assertTrue(getResult instanceof AdhocSubProcess);
+    Object behavior = ((AdhocSubProcess) getResult).getBehavior();
+    assertTrue(behavior instanceof AdhocSubProcessActivityBehavior);
+    assertNull(((AdhocSubProcessActivityBehavior) behavior).getMultiInstanceActivityBehavior());
     assertSame(adhocSubProcess, bpmnParse.getCurrentFlowElement());
   }
 
   /**
    * Test {@link BpmnParse#processFlowElements(Collection)}.
-   *
-   * <p>Method under test: {@link BpmnParse#processFlowElements(Collection)}
+   * <ul>
+   *   <li>Given {@link AdhocSubProcess} (default constructor).</li>
+   *   <li>Then {@link ArrayList#ArrayList()} first Behavior is {@code null}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link BpmnParse#processFlowElements(Collection)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void BpmnParse.processFlowElements(Collection)"})
-  public void testProcessFlowElements2() {
+  public void testProcessFlowElements_givenAdhocSubProcess_thenArrayListFirstBehaviorIsNull() {
     // Arrange
-    BpmnParse bpmnParse = new BpmnParse(new BpmnParser());
-    bpmnParse.setBpmnParserHandlers(new BpmnParseHandlers());
+    BpmnParser parser = new BpmnParser();
+    parser.setBpmnParserHandlers(new BpmnParseHandlers());
+    BpmnParse bpmnParse = new BpmnParse(parser);
 
-    LinkedHashSet<FlowElement> flowElements = new LinkedHashSet<>();
-    BoundaryEvent boundaryEvent = new BoundaryEvent();
-    flowElements.add(boundaryEvent);
-
-    // Act
-    bpmnParse.processFlowElements(flowElements);
-
-    // Assert
-    assertSame(boundaryEvent, bpmnParse.getCurrentFlowElement());
-  }
-
-  /**
-   * Test {@link BpmnParse#processFlowElements(Collection)}.
-   *
-   * <p>Method under test: {@link BpmnParse#processFlowElements(Collection)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void BpmnParse.processFlowElements(Collection)"})
-  public void testProcessFlowElements3() {
-    // Arrange
-    BpmnParseHandlers bpmnParserHandlers = new BpmnParseHandlers();
-    bpmnParserHandlers.addHandler(new AdhocSubProcessParseHandler());
-
-    BpmnParse bpmnParse = new BpmnParse(new BpmnParser());
-    bpmnParse.setActivityBehaviorFactory(new DefaultActivityBehaviorFactory());
-    bpmnParse.setBpmnParserHandlers(bpmnParserHandlers);
-
-    LinkedHashSet<FlowElement> flowElements = new LinkedHashSet<>();
-    flowElements.add(new AdhocSubProcess());
-
-    // Act
-    bpmnParse.processFlowElements(flowElements);
-
-    // Assert
-    FlowElement currentFlowElement = bpmnParse.getCurrentFlowElement();
-    Collection<Artifact> artifacts = ((AdhocSubProcess) currentFlowElement).getArtifacts();
-    assertTrue(artifacts instanceof List);
-    assertTrue(currentFlowElement instanceof AdhocSubProcess);
-    Object behavior = ((AdhocSubProcess) currentFlowElement).getBehavior();
-    assertTrue(behavior instanceof AdhocSubProcessActivityBehavior);
-    assertNull(((AdhocSubProcessActivityBehavior) behavior).getMultiInstanceActivityBehavior());
-    assertTrue(artifacts.isEmpty());
-  }
-
-  /**
-   * Test {@link BpmnParse#processFlowElements(Collection)}.
-   *
-   * <p>Method under test: {@link BpmnParse#processFlowElements(Collection)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void BpmnParse.processFlowElements(Collection)"})
-  public void testProcessFlowElements4() {
-    // Arrange
-    BpmnParseHandlers bpmnParserHandlers = new BpmnParseHandlers();
-    bpmnParserHandlers.addHandler(new AdhocSubProcessParseHandler());
-
-    BpmnParse bpmnParse = new BpmnParse(new BpmnParser());
-    bpmnParse.setBpmnModel(TestProcessUtil.createOneTaskBpmnModel());
-    bpmnParse.setActivityBehaviorFactory(new DefaultActivityBehaviorFactory());
-    bpmnParse.setBpmnParserHandlers(bpmnParserHandlers);
-
+    ArrayList<FlowElement> flowElements = new ArrayList<>();
     AdhocSubProcess adhocSubProcess = new AdhocSubProcess();
-    Association artifact = new Association();
-    adhocSubProcess.addArtifact(artifact);
-
-    LinkedHashSet<FlowElement> flowElements = new LinkedHashSet<>();
     flowElements.add(adhocSubProcess);
 
     // Act
     bpmnParse.processFlowElements(flowElements);
 
     // Assert
-    FlowElement currentFlowElement = bpmnParse.getCurrentFlowElement();
-    Collection<Artifact> artifacts = ((AdhocSubProcess) currentFlowElement).getArtifacts();
-    assertEquals(1, artifacts.size());
-    assertTrue(artifacts instanceof List);
-    assertTrue(currentFlowElement instanceof AdhocSubProcess);
-    assertSame(artifact, ((List<Artifact>) artifacts).get(0));
+    assertEquals(1, flowElements.size());
+    FlowElement getResult = flowElements.get(0);
+    assertTrue(getResult instanceof AdhocSubProcess);
+    assertNull(((AdhocSubProcess) getResult).getBehavior());
+    assertSame(adhocSubProcess, bpmnParse.getCurrentFlowElement());
   }
 
   /**
    * Test {@link BpmnParse#processFlowElements(Collection)}.
-   *
-   * <p>Method under test: {@link BpmnParse#processFlowElements(Collection)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void BpmnParse.processFlowElements(Collection)"})
-  public void testProcessFlowElements5() {
-    // Arrange
-    BpmnParse bpmnParse = new BpmnParse(new BpmnParser());
-    bpmnParse.setBpmnParserHandlers(new BpmnParseHandlers());
-
-    LinkedHashSet<FlowElement> flowElements = new LinkedHashSet<>();
-    SequenceFlow sequenceFlow = new SequenceFlow("Source Ref", "Target Ref");
-    flowElements.add(sequenceFlow);
-
-    // Act
-    bpmnParse.processFlowElements(flowElements);
-
-    // Assert
-    assertSame(sequenceFlow, bpmnParse.getCurrentFlowElement());
-  }
-
-  /**
-   * Test {@link BpmnParse#processFlowElements(Collection)}.
-   *
    * <ul>
-   *   <li>Given {@link BooleanDataObject} (default constructor).
+   *   <li>Given {@link BooleanDataObject} (default constructor).</li>
+   *   <li>When {@link ArrayList#ArrayList()} add {@link BooleanDataObject} (default constructor).</li>
    * </ul>
-   *
-   * <p>Method under test: {@link BpmnParse#processFlowElements(Collection)}
+   * <p>
+   * Method under test: {@link BpmnParse#processFlowElements(Collection)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void BpmnParse.processFlowElements(Collection)"})
-  public void testProcessFlowElements_givenBooleanDataObject() {
+  public void testProcessFlowElements_givenBooleanDataObject_whenArrayListAddBooleanDataObject() {
     // Arrange
-    BpmnParse bpmnParse = new BpmnParse(new BpmnParser());
-    bpmnParse.setBpmnParserHandlers(new BpmnParseHandlers());
+    BpmnParser parser = new BpmnParser();
+    parser.setBpmnParserHandlers(new BpmnParseHandlers());
+    BpmnParse bpmnParse = new BpmnParse(parser);
 
-    LinkedHashSet<FlowElement> flowElements = new LinkedHashSet<>();
+    ArrayList<FlowElement> flowElements = new ArrayList<>();
     flowElements.add(new BooleanDataObject());
 
     // Act
@@ -1102,16 +667,134 @@ public class BpmnParseDiffblueTest {
 
   /**
    * Test {@link BpmnParse#processFlowElements(Collection)}.
-   *
    * <ul>
-   *   <li>When {@link ArrayList#ArrayList()}.
+   *   <li>Given {@link BoundaryEvent} (default constructor).</li>
+   *   <li>Then {@link ArrayList#ArrayList()} first {@link BoundaryEvent}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link BpmnParse#processFlowElements(Collection)}
+   * <p>
+   * Method under test: {@link BpmnParse#processFlowElements(Collection)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void BpmnParse.processFlowElements(Collection)"})
+  public void testProcessFlowElements_givenBoundaryEvent_thenArrayListFirstBoundaryEvent() {
+    // Arrange
+    BpmnParser parser = new BpmnParser();
+    parser.setBpmnParserHandlers(new BpmnParseHandlers());
+    BpmnParse bpmnParse = new BpmnParse(parser);
+
+    ArrayList<FlowElement> flowElements = new ArrayList<>();
+    BoundaryEvent boundaryEvent = new BoundaryEvent();
+    flowElements.add(boundaryEvent);
+
+    // Act
+    bpmnParse.processFlowElements(flowElements);
+
+    // Assert
+    assertEquals(1, flowElements.size());
+    FlowElement getResult = flowElements.get(0);
+    assertTrue(getResult instanceof BoundaryEvent);
+    assertNull(((BoundaryEvent) getResult).getBehavior());
+    assertSame(boundaryEvent, bpmnParse.getCurrentFlowElement());
+  }
+
+  /**
+   * Test {@link BpmnParse#processFlowElements(Collection)}.
+   * <ul>
+   *   <li>Given {@link BpmnModel} (default constructor) addProcess {@link Process} (default constructor).</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link BpmnParse#processFlowElements(Collection)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void BpmnParse.processFlowElements(Collection)"})
+  public void testProcessFlowElements_givenBpmnModelAddProcessProcess() {
+    // Arrange
+    BpmnParseHandlers bpmnParserHandlers = new BpmnParseHandlers();
+    bpmnParserHandlers.addHandler(new AdhocSubProcessParseHandler());
+
+    BpmnParser parser = new BpmnParser();
+    parser.setActivityBehaviorFactory(new DefaultActivityBehaviorFactory());
+    parser.setBpmnParserHandlers(bpmnParserHandlers);
+
+    BpmnModel bpmnModel = new BpmnModel();
+    bpmnModel.addProcess(new Process());
+
+    BpmnParse bpmnParse = new BpmnParse(parser);
+    bpmnParse.setBpmnModel(bpmnModel);
+
+    AdhocSubProcess adhocSubProcess = new AdhocSubProcess();
+    adhocSubProcess.addArtifact(new Association());
+
+    ArrayList<FlowElement> flowElements = new ArrayList<>();
+    flowElements.add(adhocSubProcess);
+
+    // Act
+    bpmnParse.processFlowElements(flowElements);
+
+    // Assert
+    assertEquals(1, flowElements.size());
+    FlowElement getResult = flowElements.get(0);
+    assertTrue(getResult instanceof AdhocSubProcess);
+    Object behavior = ((AdhocSubProcess) getResult).getBehavior();
+    assertTrue(behavior instanceof AdhocSubProcessActivityBehavior);
+    assertNull(((AdhocSubProcessActivityBehavior) behavior).getMultiInstanceActivityBehavior());
+    assertSame(adhocSubProcess, bpmnParse.getCurrentFlowElement());
+  }
+
+  /**
+   * Test {@link BpmnParse#processFlowElements(Collection)}.
+   * <ul>
+   *   <li>Given {@link BpmnParse#BpmnParse(BpmnParser)} with parser is {@link BpmnParser} (default constructor) BpmnModel is {@link BpmnModel} (default constructor).</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link BpmnParse#processFlowElements(Collection)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void BpmnParse.processFlowElements(Collection)"})
+  public void testProcessFlowElements_givenBpmnParseWithParserIsBpmnParserBpmnModelIsBpmnModel() {
+    // Arrange
+    BpmnParseHandlers bpmnParserHandlers = new BpmnParseHandlers();
+    bpmnParserHandlers.addHandler(new AdhocSubProcessParseHandler());
+
+    BpmnParser parser = new BpmnParser();
+    parser.setActivityBehaviorFactory(new DefaultActivityBehaviorFactory());
+    parser.setBpmnParserHandlers(bpmnParserHandlers);
+
+    BpmnParse bpmnParse = new BpmnParse(parser);
+    bpmnParse.setBpmnModel(new BpmnModel());
+
+    AdhocSubProcess adhocSubProcess = new AdhocSubProcess();
+    adhocSubProcess.addArtifact(new Association());
+
+    ArrayList<FlowElement> flowElements = new ArrayList<>();
+    flowElements.add(adhocSubProcess);
+
+    // Act
+    bpmnParse.processFlowElements(flowElements);
+
+    // Assert
+    assertEquals(1, flowElements.size());
+    FlowElement getResult = flowElements.get(0);
+    assertTrue(getResult instanceof AdhocSubProcess);
+    Object behavior = ((AdhocSubProcess) getResult).getBehavior();
+    assertTrue(behavior instanceof AdhocSubProcessActivityBehavior);
+    assertNull(((AdhocSubProcessActivityBehavior) behavior).getMultiInstanceActivityBehavior());
+    assertSame(adhocSubProcess, bpmnParse.getCurrentFlowElement());
+  }
+
+  /**
+   * Test {@link BpmnParse#processFlowElements(Collection)}.
+   * <ul>
+   *   <li>When {@link ArrayList#ArrayList()}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link BpmnParse#processFlowElements(Collection)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void BpmnParse.processFlowElements(Collection)"})
   public void testProcessFlowElements_whenArrayList() {
     // Arrange
@@ -1126,253 +809,39 @@ public class BpmnParseDiffblueTest {
 
   /**
    * Test {@link BpmnParse#createBPMNEdge(String, List)}.
-   *
    * <ul>
-   *   <li>Given {@link AdhocSubProcess} {@link AdhocSubProcess#getId()} return {@code 42}.
-   *   <li>When {@code not empty}.
-   *   <li>Then calls {@link AdhocSubProcess#getId()}.
+   *   <li>Then calls {@link BpmnModel#getArtifact(String)}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link BpmnParse#createBPMNEdge(String, List)}
+   * <p>
+   * Method under test: {@link BpmnParse#createBPMNEdge(String, List)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void BpmnParse.createBPMNEdge(String, List)"})
-  public void testCreateBPMNEdge_givenAdhocSubProcessGetIdReturn42_whenNotEmpty_thenCallsGetId() {
+  public void testCreateBPMNEdge_thenCallsGetArtifact() {
     // Arrange
-    AdhocSubProcess element = mock(AdhocSubProcess.class);
-    when(element.getId()).thenReturn("42");
-    when(element.getFlowElements()).thenReturn(new ArrayList<>());
-    when(element.getFlowElementMap()).thenReturn(new HashMap<>());
-    when(element.getArtifact(Mockito.<String>any())).thenReturn(new Association());
-    when(element.getFlowElement(Mockito.<String>any())).thenReturn(new AdhocSubProcess());
-    doNothing().when(element).setId(Mockito.<String>any());
-    doNothing().when(element).setParentContainer(Mockito.<FlowElementsContainer>any());
-    element.setId(null);
+    BpmnModel bpmnModel = mock(BpmnModel.class);
+    when(bpmnModel.getArtifact(Mockito.<String>any())).thenReturn(new Association());
+    when(bpmnModel.getFlowElement(Mockito.<String>any())).thenReturn(new AdhocSubProcess());
 
-    Process process = TestProcessUtil.createOneTaskProcessWithId("42");
-    process.addFlowElement(element);
-    process.setFlowElementMap(new HashMap<>());
-    process.addArtifact(new Association());
-
-    BpmnModel bpmnModel = TestProcessUtil.createOneTaskBpmnModel();
-    bpmnModel.addProcess(process);
+    BpmnParse bpmnParse = new BpmnParse(new BpmnParser());
     bpmnParse.setBpmnModel(bpmnModel);
 
-    GraphicInfo graphicInfo = new GraphicInfo();
-    graphicInfo.setElement(new ActivitiListener());
-    graphicInfo.setExpanded(true);
-    graphicInfo.setHeight(10.0d);
-    graphicInfo.setWidth(10.0d);
-    graphicInfo.setX(2.0d);
-    graphicInfo.setXmlColumnNumber(10);
-    graphicInfo.setXmlRowNumber(10);
-    graphicInfo.setY(3.0d);
-
-    ArrayList<GraphicInfo> graphicList = new ArrayList<>();
-    graphicList.add(graphicInfo);
-
     // Act
-    bpmnParse.createBPMNEdge("not empty", graphicList);
+    bpmnParse.createBPMNEdge("Key", new ArrayList<>());
 
     // Assert
-    verify(element, atLeast(1)).getId();
-    verify(element).setId(null);
-    verify(element).setParentContainer(isA(FlowElementsContainer.class));
-    verify(element).getArtifact("not empty");
-    verify(element).getFlowElement("not empty");
-    verify(element).getFlowElementMap();
-    verify(element, atLeast(1)).getFlowElements();
-  }
-
-  /**
-   * Test {@link BpmnParse#createBPMNEdge(String, List)}.
-   *
-   * <ul>
-   *   <li>Given {@link ArrayList#ArrayList()} add {@link AdhocSubProcess} (default constructor).
-   *   <li>When {@code not empty}.
-   *   <li>Then calls {@link AdhocSubProcess#getId()}.
-   * </ul>
-   *
-   * <p>Method under test: {@link BpmnParse#createBPMNEdge(String, List)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void BpmnParse.createBPMNEdge(String, List)"})
-  public void testCreateBPMNEdge_givenArrayListAddAdhocSubProcess_whenNotEmpty_thenCallsGetId() {
-    // Arrange
-    ArrayList<FlowElement> flowElementList = new ArrayList<>();
-    flowElementList.add(new AdhocSubProcess());
-
-    AdhocSubProcess element = mock(AdhocSubProcess.class);
-    when(element.getId()).thenReturn("42");
-    when(element.getFlowElements()).thenReturn(flowElementList);
-    when(element.getFlowElementMap()).thenReturn(new HashMap<>());
-    when(element.getArtifact(Mockito.<String>any())).thenReturn(new Association());
-    when(element.getFlowElement(Mockito.<String>any())).thenReturn(new AdhocSubProcess());
-    doNothing().when(element).setId(Mockito.<String>any());
-    doNothing().when(element).setParentContainer(Mockito.<FlowElementsContainer>any());
-    element.setId(null);
-
-    Process process = TestProcessUtil.createOneTaskProcessWithId("42");
-    process.addFlowElement(element);
-    process.setFlowElementMap(new HashMap<>());
-    process.addArtifact(new Association());
-
-    BpmnModel bpmnModel = TestProcessUtil.createOneTaskBpmnModel();
-    bpmnModel.addProcess(process);
-    bpmnParse.setBpmnModel(bpmnModel);
-
-    GraphicInfo graphicInfo = new GraphicInfo();
-    graphicInfo.setElement(new ActivitiListener());
-    graphicInfo.setExpanded(true);
-    graphicInfo.setHeight(10.0d);
-    graphicInfo.setWidth(10.0d);
-    graphicInfo.setX(2.0d);
-    graphicInfo.setXmlColumnNumber(10);
-    graphicInfo.setXmlRowNumber(10);
-    graphicInfo.setY(3.0d);
-
-    ArrayList<GraphicInfo> graphicList = new ArrayList<>();
-    graphicList.add(graphicInfo);
-
-    // Act
-    bpmnParse.createBPMNEdge("not empty", graphicList);
-
-    // Assert
-    verify(element, atLeast(1)).getId();
-    verify(element).setId(null);
-    verify(element).setParentContainer(isA(FlowElementsContainer.class));
-    verify(element).getArtifact("not empty");
-    verify(element).getFlowElement("not empty");
-    verify(element).getFlowElementMap();
-    verify(element, atLeast(1)).getFlowElements();
-  }
-
-  /**
-   * Test {@link BpmnParse#createBPMNEdge(String, List)}.
-   *
-   * <ul>
-   *   <li>Given {@link Process} {@link Process#getArtifact(String)} return {@code null}.
-   *   <li>Then calls {@link Process#getArtifact(String)}.
-   * </ul>
-   *
-   * <p>Method under test: {@link BpmnParse#createBPMNEdge(String, List)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void BpmnParse.createBPMNEdge(String, List)"})
-  public void testCreateBPMNEdge_givenProcessGetArtifactReturnNull_thenCallsGetArtifact() {
-    // Arrange
-    Process process = mock(Process.class);
-    when(process.findFlowElementsOfType(Mockito.<Class<SubProcess>>any()))
-        .thenReturn(new ArrayList<>());
-    when(process.getArtifact(Mockito.<String>any())).thenReturn(null);
-    when(process.getFlowElement(Mockito.<String>any())).thenReturn(new AdhocSubProcess());
-    doNothing().when(process).addArtifact(Mockito.<Artifact>any());
-    doNothing().when(process).addFlowElement(Mockito.<FlowElement>any());
-    doNothing().when(process).setFlowElementMap(Mockito.<Map<String, FlowElement>>any());
-    process.addFlowElement(new AdhocSubProcess());
-    process.setFlowElementMap(new HashMap<>());
-    process.addArtifact(new Association());
-
-    BpmnModel bpmnModel = TestProcessUtil.createOneTaskBpmnModel();
-    bpmnModel.addProcess(process);
-    bpmnParse.setBpmnModel(bpmnModel);
-
-    GraphicInfo graphicInfo = new GraphicInfo();
-    graphicInfo.setElement(new ActivitiListener());
-    graphicInfo.setExpanded(true);
-    graphicInfo.setHeight(10.0d);
-    graphicInfo.setWidth(10.0d);
-    graphicInfo.setX(2.0d);
-    graphicInfo.setXmlColumnNumber(10);
-    graphicInfo.setXmlRowNumber(10);
-    graphicInfo.setY(3.0d);
-
-    ArrayList<GraphicInfo> graphicList = new ArrayList<>();
-    graphicList.add(graphicInfo);
-
-    // Act
-    bpmnParse.createBPMNEdge("", graphicList);
-
-    // Assert
-    verify(process).addArtifact(isA(Artifact.class));
-    verify(process).addFlowElement(isA(FlowElement.class));
-    verify(process).findFlowElementsOfType(isA(Class.class));
-    verify(process).getArtifact("");
-    verify(process).getFlowElement("");
-    verify(process).setFlowElementMap(isA(Map.class));
-  }
-
-  /**
-   * Test {@link BpmnParse#createBPMNEdge(String, List)}.
-   *
-   * <ul>
-   *   <li>Given {@link Process} {@link Process#getFlowElement(String)} return {@code null}.
-   *   <li>Then calls {@link Process#getArtifact(String)}.
-   * </ul>
-   *
-   * <p>Method under test: {@link BpmnParse#createBPMNEdge(String, List)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void BpmnParse.createBPMNEdge(String, List)"})
-  public void testCreateBPMNEdge_givenProcessGetFlowElementReturnNull_thenCallsGetArtifact() {
-    // Arrange
-    Process process = mock(Process.class);
-    when(process.findFlowElementsOfType(Mockito.<Class<SubProcess>>any()))
-        .thenReturn(new ArrayList<>());
-    when(process.getArtifact(Mockito.<String>any())).thenReturn(new Association());
-    when(process.getFlowElement(Mockito.<String>any())).thenReturn(null);
-    doNothing().when(process).addArtifact(Mockito.<Artifact>any());
-    doNothing().when(process).addFlowElement(Mockito.<FlowElement>any());
-    doNothing().when(process).setFlowElementMap(Mockito.<Map<String, FlowElement>>any());
-    process.addFlowElement(new AdhocSubProcess());
-    process.setFlowElementMap(new HashMap<>());
-    process.addArtifact(new Association());
-
-    BpmnModel bpmnModel = TestProcessUtil.createOneTaskBpmnModel();
-    bpmnModel.addProcess(process);
-    bpmnParse.setBpmnModel(bpmnModel);
-
-    GraphicInfo graphicInfo = new GraphicInfo();
-    graphicInfo.setElement(new ActivitiListener());
-    graphicInfo.setExpanded(true);
-    graphicInfo.setHeight(10.0d);
-    graphicInfo.setWidth(10.0d);
-    graphicInfo.setX(2.0d);
-    graphicInfo.setXmlColumnNumber(10);
-    graphicInfo.setXmlRowNumber(10);
-    graphicInfo.setY(3.0d);
-
-    ArrayList<GraphicInfo> graphicList = new ArrayList<>();
-    graphicList.add(graphicInfo);
-
-    // Act
-    bpmnParse.createBPMNEdge("", graphicList);
-
-    // Assert
-    verify(process).addArtifact(isA(Artifact.class));
-    verify(process).addFlowElement(isA(FlowElement.class));
-    verify(process).findFlowElementsOfType(isA(Class.class));
-    verify(process).getArtifact("");
-    verify(process).getFlowElement("");
-    verify(process).setFlowElementMap(isA(Map.class));
+    verify(bpmnModel).getArtifact(eq("Key"));
+    verify(bpmnModel).getFlowElement(eq("Key"));
   }
 
   /**
    * Test {@link BpmnParse#getProcessDefinition(String)}.
-   *
-   * <p>Method under test: {@link BpmnParse#getProcessDefinition(String)}
+   * <p>
+   * Method under test: {@link BpmnParse#getProcessDefinition(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"ProcessDefinitionEntity BpmnParse.getProcessDefinition(String)"})
   public void testGetProcessDefinition() {
     // Arrange, Act and Assert
@@ -1381,12 +850,11 @@ public class BpmnParseDiffblueTest {
 
   /**
    * Test {@link BpmnParse#setCurrentSubProcess(SubProcess)}.
-   *
-   * <p>Method under test: {@link BpmnParse#setCurrentSubProcess(SubProcess)}
+   * <p>
+   * Method under test: {@link BpmnParse#setCurrentSubProcess(SubProcess)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void BpmnParse.setCurrentSubProcess(SubProcess)"})
   public void testSetCurrentSubProcess() {
     // Arrange
@@ -1408,15 +876,14 @@ public class BpmnParseDiffblueTest {
 
   /**
    * Test {@link BpmnParse#getCurrentSubProcess()}.
-   *
-   * <p>Method under test: {@link BpmnParse#getCurrentSubProcess()}
+   * <p>
+   * Method under test: {@link BpmnParse#getCurrentSubProcess()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"SubProcess BpmnParse.getCurrentSubProcess()"})
   public void testGetCurrentSubProcess() {
     // Arrange, Act and Assert
-    assertNull(new BpmnParse(new BpmnParser()).getCurrentSubProcess());
+    assertNull((new BpmnParse(new BpmnParser())).getCurrentSubProcess());
   }
 }

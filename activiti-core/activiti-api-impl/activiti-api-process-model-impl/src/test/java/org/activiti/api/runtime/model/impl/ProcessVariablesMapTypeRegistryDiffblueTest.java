@@ -18,7 +18,6 @@ package org.activiti.api.runtime.model.impl;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.Optional;
 import org.junit.jupiter.api.DisplayName;
@@ -28,13 +27,12 @@ import org.junit.jupiter.api.Test;
 class ProcessVariablesMapTypeRegistryDiffblueTest {
   /**
    * Test {@link ProcessVariablesMapTypeRegistry#forType(String)} with {@code type}.
-   *
-   * <p>Method under test: {@link ProcessVariablesMapTypeRegistry#forType(String)}
+   * <p>
+   * Method under test: {@link ProcessVariablesMapTypeRegistry#forType(String)}
    */
   @Test
   @DisplayName("Test forType(String) with 'type'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"Class ProcessVariablesMapTypeRegistry.forType(String)"})
   void testForTypeWithType() {
     // Arrange and Act
@@ -46,15 +44,13 @@ class ProcessVariablesMapTypeRegistryDiffblueTest {
   }
 
   /**
-   * Test {@link ProcessVariablesMapTypeRegistry#forType(String, Class)} with {@code type}, {@code
-   * defaultType}.
-   *
-   * <p>Method under test: {@link ProcessVariablesMapTypeRegistry#forType(String, Class)}
+   * Test {@link ProcessVariablesMapTypeRegistry#forType(String, Class)} with {@code type}, {@code defaultType}.
+   * <p>
+   * Method under test: {@link ProcessVariablesMapTypeRegistry#forType(String, Class)}
    */
   @Test
   @DisplayName("Test forType(String, Class) with 'type', 'defaultType'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"Class ProcessVariablesMapTypeRegistry.forType(String, Class)"})
   void testForTypeWithTypeDefaultType() {
     // Arrange
@@ -70,33 +66,29 @@ class ProcessVariablesMapTypeRegistryDiffblueTest {
 
   /**
    * Test {@link ProcessVariablesMapTypeRegistry#forClass(Class)}.
-   *
-   * <p>Method under test: {@link ProcessVariablesMapTypeRegistry#forClass(Class)}
+   * <p>
+   * Method under test: {@link ProcessVariablesMapTypeRegistry#forClass(Class)}
    */
   @Test
   @DisplayName("Test forClass(Class)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"String ProcessVariablesMapTypeRegistry.forClass(Class)"})
   void testForClass() {
     // Arrange
     Class<Object> clazz = Object.class;
 
     // Act and Assert
-    assertEquals(
-        ProcessVariablesMapTypeRegistry.OBJECT_TYPE_KEY,
-        ProcessVariablesMapTypeRegistry.forClass(clazz));
+    assertEquals(ProcessVariablesMapTypeRegistry.OBJECT_TYPE_KEY, ProcessVariablesMapTypeRegistry.forClass(clazz));
   }
 
   /**
    * Test {@link ProcessVariablesMapTypeRegistry#isScalarType(Class)}.
-   *
-   * <p>Method under test: {@link ProcessVariablesMapTypeRegistry#isScalarType(Class)}
+   * <p>
+   * Method under test: {@link ProcessVariablesMapTypeRegistry#isScalarType(Class)}
    */
   @Test
   @DisplayName("Test isScalarType(Class)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"boolean ProcessVariablesMapTypeRegistry.isScalarType(Class)"})
   void testIsScalarType() {
     // Arrange
@@ -108,21 +100,19 @@ class ProcessVariablesMapTypeRegistryDiffblueTest {
 
   /**
    * Test {@link ProcessVariablesMapTypeRegistry#getContainerType(Class, Object)}.
-   *
-   * <p>Method under test: {@link ProcessVariablesMapTypeRegistry#getContainerType(Class, Object)}
+   * <p>
+   * Method under test: {@link ProcessVariablesMapTypeRegistry#getContainerType(Class, Object)}
    */
   @Test
   @DisplayName("Test getContainerType(Class, Object)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"Optional ProcessVariablesMapTypeRegistry.getContainerType(Class, Object)"})
   void testGetContainerType() {
     // Arrange
     Class<Object> clazz = Object.class;
 
     // Act
-    Optional<Class<?>> actualContainerType =
-        ProcessVariablesMapTypeRegistry.getContainerType(clazz, "Value");
+    Optional<Class<?>> actualContainerType = ProcessVariablesMapTypeRegistry.getContainerType(clazz, "Value");
 
     // Assert
     assertFalse(actualContainerType.isPresent());
@@ -130,13 +120,12 @@ class ProcessVariablesMapTypeRegistryDiffblueTest {
 
   /**
    * Test {@link ProcessVariablesMapTypeRegistry#canConvert(Object)}.
-   *
-   * <p>Method under test: {@link ProcessVariablesMapTypeRegistry#canConvert(Object)}
+   * <p>
+   * Method under test: {@link ProcessVariablesMapTypeRegistry#canConvert(Object)}
    */
   @Test
   @DisplayName("Test canConvert(Object)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"boolean ProcessVariablesMapTypeRegistry.canConvert(Object)"})
   void testCanConvert() {
     // Arrange, Act and Assert
@@ -145,40 +134,34 @@ class ProcessVariablesMapTypeRegistryDiffblueTest {
 
   /**
    * Test {@link ProcessVariablesMapTypeRegistry#containsType(String)}.
-   *
    * <ul>
-   *   <li>When {@link ProcessVariablesMapTypeRegistry#OBJECT_TYPE_KEY}.
-   *   <li>Then return {@code true}.
+   *   <li>When {@link ProcessVariablesMapTypeRegistry#OBJECT_TYPE_KEY}.</li>
+   *   <li>Then return {@code true}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ProcessVariablesMapTypeRegistry#containsType(String)}
+   * <p>
+   * Method under test: {@link ProcessVariablesMapTypeRegistry#containsType(String)}
    */
   @Test
   @DisplayName("Test containsType(String); when OBJECT_TYPE_KEY; then return 'true'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"boolean ProcessVariablesMapTypeRegistry.containsType(String)"})
   void testContainsType_whenObject_type_key_thenReturnTrue() {
     // Arrange, Act and Assert
-    assertTrue(
-        ProcessVariablesMapTypeRegistry.containsType(
-            ProcessVariablesMapTypeRegistry.OBJECT_TYPE_KEY));
+    assertTrue(ProcessVariablesMapTypeRegistry.containsType(ProcessVariablesMapTypeRegistry.OBJECT_TYPE_KEY));
   }
 
   /**
    * Test {@link ProcessVariablesMapTypeRegistry#containsType(String)}.
-   *
    * <ul>
-   *   <li>When {@code Type}.
-   *   <li>Then return {@code false}.
+   *   <li>When {@code Type}.</li>
+   *   <li>Then return {@code false}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ProcessVariablesMapTypeRegistry#containsType(String)}
+   * <p>
+   * Method under test: {@link ProcessVariablesMapTypeRegistry#containsType(String)}
    */
   @Test
   @DisplayName("Test containsType(String); when 'Type'; then return 'false'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"boolean ProcessVariablesMapTypeRegistry.containsType(String)"})
   void testContainsType_whenType_thenReturnFalse() {
     // Arrange, Act and Assert

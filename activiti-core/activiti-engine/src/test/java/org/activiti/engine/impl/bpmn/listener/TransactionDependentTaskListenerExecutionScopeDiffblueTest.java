@@ -18,8 +18,7 @@ package org.activiti.engine.impl.bpmn.listener;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.HashMap;
 import java.util.Map;
@@ -30,13 +29,10 @@ import org.junit.experimental.categories.Category;
 public class TransactionDependentTaskListenerExecutionScopeDiffblueTest {
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
-   *   <li>{@link
-   *       TransactionDependentTaskListenerExecutionScope#TransactionDependentTaskListenerExecutionScope(String,
-   *       String, Task, Map, Map)}
+   *   <li>{@link TransactionDependentTaskListenerExecutionScope#TransactionDependentTaskListenerExecutionScope(String, String, Task, Map, Map)}
    *   <li>{@link TransactionDependentTaskListenerExecutionScope#getCustomPropertiesMap()}
    *   <li>{@link TransactionDependentTaskListenerExecutionScope#getExecutionId()}
    *   <li>{@link TransactionDependentTaskListenerExecutionScope#getExecutionVariables()}
@@ -45,16 +41,13 @@ public class TransactionDependentTaskListenerExecutionScopeDiffblueTest {
    * </ul>
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void TransactionDependentTaskListenerExecutionScope.<init>(String, String, Task, Map, Map)",
-    "Map TransactionDependentTaskListenerExecutionScope.getCustomPropertiesMap()",
-    "String TransactionDependentTaskListenerExecutionScope.getExecutionId()",
-    "Map TransactionDependentTaskListenerExecutionScope.getExecutionVariables()",
-    "String TransactionDependentTaskListenerExecutionScope.getProcessInstanceId()",
-    "Task TransactionDependentTaskListenerExecutionScope.getTask()"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void TransactionDependentTaskListenerExecutionScope.<init>(String, String, Task, Map, Map)",
+      "Map TransactionDependentTaskListenerExecutionScope.getCustomPropertiesMap()",
+      "String TransactionDependentTaskListenerExecutionScope.getExecutionId()",
+      "Map TransactionDependentTaskListenerExecutionScope.getExecutionVariables()",
+      "String TransactionDependentTaskListenerExecutionScope.getProcessInstanceId()",
+      "Task TransactionDependentTaskListenerExecutionScope.getTask()"})
   public void testGettersAndSetters() {
     // Arrange
     Task task = new Task();
@@ -62,18 +55,14 @@ public class TransactionDependentTaskListenerExecutionScopeDiffblueTest {
     HashMap<String, Object> customPropertiesMap = new HashMap<>();
 
     // Act
-    TransactionDependentTaskListenerExecutionScope
-        actualTransactionDependentTaskListenerExecutionScope =
-            new TransactionDependentTaskListenerExecutionScope(
-                "42", "42", task, executionVariables, customPropertiesMap);
-    Map<String, Object> actualCustomPropertiesMap =
-        actualTransactionDependentTaskListenerExecutionScope.getCustomPropertiesMap();
-    String actualExecutionId =
-        actualTransactionDependentTaskListenerExecutionScope.getExecutionId();
-    Map<String, Object> actualExecutionVariables =
-        actualTransactionDependentTaskListenerExecutionScope.getExecutionVariables();
-    String actualProcessInstanceId =
-        actualTransactionDependentTaskListenerExecutionScope.getProcessInstanceId();
+    TransactionDependentTaskListenerExecutionScope actualTransactionDependentTaskListenerExecutionScope = new TransactionDependentTaskListenerExecutionScope(
+        "42", "42", task, executionVariables, customPropertiesMap);
+    Map<String, Object> actualCustomPropertiesMap = actualTransactionDependentTaskListenerExecutionScope
+        .getCustomPropertiesMap();
+    String actualExecutionId = actualTransactionDependentTaskListenerExecutionScope.getExecutionId();
+    Map<String, Object> actualExecutionVariables = actualTransactionDependentTaskListenerExecutionScope
+        .getExecutionVariables();
+    String actualProcessInstanceId = actualTransactionDependentTaskListenerExecutionScope.getProcessInstanceId();
     Task actualTask = actualTransactionDependentTaskListenerExecutionScope.getTask();
 
     // Assert

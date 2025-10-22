@@ -16,8 +16,7 @@
 package org.activiti.engine.impl.delegate;
 
 import static org.junit.Assert.assertFalse;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
 import org.activiti.engine.delegate.DelegateExecution;
@@ -30,47 +29,21 @@ import org.junit.experimental.categories.Category;
 public class ThrowMessageDelegateExpressionDiffblueTest {
   /**
    * Test {@link ThrowMessageDelegateExpression#send(DelegateExecution, ThrowMessage)}.
-   *
-   * <p>Method under test: {@link ThrowMessageDelegateExpression#send(DelegateExecution,
-   * ThrowMessage)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "boolean ThrowMessageDelegateExpression.send(DelegateExecution, ThrowMessage)"
-  })
-  public void testSend() {
-    // Arrange
-    ThrowMessageDelegateExpression throwMessageDelegateExpression =
-        new ThrowMessageDelegateExpression(new FixedValue(JSONObject.NULL), null);
-    ExecutionEntityImpl execution = ExecutionEntityImpl.createWithEmptyRelationshipCollections();
-
-    // Act and Assert
-    assertFalse(throwMessageDelegateExpression.send(execution, new ThrowMessage()));
-  }
-
-  /**
-   * Test {@link ThrowMessageDelegateExpression#send(DelegateExecution, ThrowMessage)}.
-   *
    * <ul>
-   *   <li>Then return {@code false}.
+   *   <li>Given {@link FixedValue#FixedValue(Object)} with value is {@link JSONObject#NULL}.</li>
+   *   <li>Then return {@code false}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ThrowMessageDelegateExpression#send(DelegateExecution,
-   * ThrowMessage)}
+   * <p>
+   * Method under test: {@link ThrowMessageDelegateExpression#send(DelegateExecution, ThrowMessage)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "boolean ThrowMessageDelegateExpression.send(DelegateExecution, ThrowMessage)"
-  })
-  public void testSend_thenReturnFalse() {
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean ThrowMessageDelegateExpression.send(DelegateExecution, ThrowMessage)"})
+  public void testSend_givenFixedValueWithValueIsNull_thenReturnFalse() {
     // Arrange
     FixedValue delegateExpression = new FixedValue(JSONObject.NULL);
-    ThrowMessageDelegateExpression throwMessageDelegateExpression =
-        new ThrowMessageDelegateExpression(delegateExpression, new ArrayList<>());
+    ThrowMessageDelegateExpression throwMessageDelegateExpression = new ThrowMessageDelegateExpression(
+        delegateExpression, new ArrayList<>());
     ExecutionEntityImpl execution = ExecutionEntityImpl.createWithEmptyRelationshipCollections();
 
     // Act and Assert

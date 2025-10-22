@@ -16,8 +16,7 @@
 package org.activiti.engine.impl.cmd;
 
 import static org.junit.Assert.assertEquals;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
@@ -25,24 +24,18 @@ import org.junit.experimental.categories.Category;
 public class ClaimTaskCmdDiffblueTest {
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>{@link ClaimTaskCmd#ClaimTaskCmd(String, String)}
    *   <li>{@link ClaimTaskCmd#getSuspendedTaskException()}
    * </ul>
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void ClaimTaskCmd.<init>(String, String)",
-    "String ClaimTaskCmd.getSuspendedTaskException()"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void ClaimTaskCmd.<init>(String, String)", "String ClaimTaskCmd.getSuspendedTaskException()"})
   public void testGettersAndSetters() {
     // Arrange, Act and Assert
-    assertEquals(
-        "Cannot claim a suspended task", new ClaimTaskCmd("42", "42").getSuspendedTaskException());
+    assertEquals("Cannot claim a suspended task", (new ClaimTaskCmd("42", "42")).getSuspendedTaskException());
   }
 }

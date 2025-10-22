@@ -19,8 +19,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.Map;
 import org.activiti.engine.impl.cfg.JtaProcessEngineConfiguration;
@@ -33,45 +32,38 @@ import org.junit.experimental.categories.Category;
 
 public class MybatisDeadLetterJobDataManagerDiffblueTest {
   /**
-   * Test {@link
-   * MybatisDeadLetterJobDataManager#MybatisDeadLetterJobDataManager(ProcessEngineConfigurationImpl)}.
-   *
-   * <p>Method under test: {@link
-   * MybatisDeadLetterJobDataManager#MybatisDeadLetterJobDataManager(ProcessEngineConfigurationImpl)}
+   * Test {@link MybatisDeadLetterJobDataManager#MybatisDeadLetterJobDataManager(ProcessEngineConfigurationImpl)}.
+   * <p>
+   * Method under test: {@link MybatisDeadLetterJobDataManager#MybatisDeadLetterJobDataManager(ProcessEngineConfigurationImpl)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void MybatisDeadLetterJobDataManager.<init>(ProcessEngineConfigurationImpl)"})
   public void testNewMybatisDeadLetterJobDataManager() {
     // Arrange and Act
-    MybatisDeadLetterJobDataManager actualMybatisDeadLetterJobDataManager =
-        new MybatisDeadLetterJobDataManager(new JtaProcessEngineConfiguration());
+    MybatisDeadLetterJobDataManager actualMybatisDeadLetterJobDataManager = new MybatisDeadLetterJobDataManager(
+        new JtaProcessEngineConfiguration());
 
     // Assert
     assertTrue(
-        actualMybatisDeadLetterJobDataManager.deadLetterByExecutionIdMatcher
-            instanceof DeadLetterJobsByExecutionIdMatcher);
+        actualMybatisDeadLetterJobDataManager.deadLetterByExecutionIdMatcher instanceof DeadLetterJobsByExecutionIdMatcher);
     assertNull(actualMybatisDeadLetterJobDataManager.getManagedEntitySubClasses());
     Class<DeadLetterJobEntityImpl> expectedManagedEntityClass = DeadLetterJobEntityImpl.class;
-    assertEquals(
-        expectedManagedEntityClass, actualMybatisDeadLetterJobDataManager.getManagedEntityClass());
+    assertEquals(expectedManagedEntityClass, actualMybatisDeadLetterJobDataManager.getManagedEntityClass());
   }
 
   /**
    * Test {@link MybatisDeadLetterJobDataManager#getManagedEntityClass()}.
-   *
-   * <p>Method under test: {@link MybatisDeadLetterJobDataManager#getManagedEntityClass()}
+   * <p>
+   * Method under test: {@link MybatisDeadLetterJobDataManager#getManagedEntityClass()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"Class MybatisDeadLetterJobDataManager.getManagedEntityClass()"})
   public void testGetManagedEntityClass() {
     // Arrange and Act
-    Class<? extends DeadLetterJobEntity> actualManagedEntityClass =
-        new MybatisDeadLetterJobDataManager(new JtaProcessEngineConfiguration())
-            .getManagedEntityClass();
+    Class<? extends DeadLetterJobEntity> actualManagedEntityClass = (new MybatisDeadLetterJobDataManager(
+        new JtaProcessEngineConfiguration())).getManagedEntityClass();
 
     // Assert
     Class<DeadLetterJobEntityImpl> expectedManagedEntityClass = DeadLetterJobEntityImpl.class;
@@ -80,17 +72,16 @@ public class MybatisDeadLetterJobDataManagerDiffblueTest {
 
   /**
    * Test {@link MybatisDeadLetterJobDataManager#create()}.
-   *
-   * <p>Method under test: {@link MybatisDeadLetterJobDataManager#create()}
+   * <p>
+   * Method under test: {@link MybatisDeadLetterJobDataManager#create()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"DeadLetterJobEntity MybatisDeadLetterJobDataManager.create()"})
   public void testCreate() {
     // Arrange and Act
-    DeadLetterJobEntity actualCreateResult =
-        new MybatisDeadLetterJobDataManager(new JtaProcessEngineConfiguration()).create();
+    DeadLetterJobEntity actualCreateResult = (new MybatisDeadLetterJobDataManager(new JtaProcessEngineConfiguration()))
+        .create();
 
     // Assert
     Object persistentState = actualCreateResult.getPersistentState();

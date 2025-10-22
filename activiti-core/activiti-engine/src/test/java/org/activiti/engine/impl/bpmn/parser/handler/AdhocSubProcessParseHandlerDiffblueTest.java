@@ -19,42 +19,41 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.bpmn.model.AdhocSubProcess;
 import org.activiti.bpmn.model.Association;
 import org.activiti.bpmn.model.BaseElement;
 import org.activiti.bpmn.model.BooleanDataObject;
 import org.activiti.bpmn.model.BoundaryEvent;
+import org.activiti.bpmn.model.BpmnModel;
+import org.activiti.bpmn.model.Process;
 import org.activiti.bpmn.model.SubProcess;
 import org.activiti.engine.impl.bpmn.behavior.AdhocSubProcessActivityBehavior;
 import org.activiti.engine.impl.bpmn.parser.BpmnParse;
 import org.activiti.engine.impl.bpmn.parser.BpmnParseHandlers;
 import org.activiti.engine.impl.bpmn.parser.BpmnParser;
 import org.activiti.engine.impl.bpmn.parser.factory.DefaultActivityBehaviorFactory;
-import org.activiti.engine.test.util.TestProcessUtil;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 
 public class AdhocSubProcessParseHandlerDiffblueTest {
   /**
-   * Test {@link AdhocSubProcessParseHandler#executeParse(BpmnParse, SubProcess)} with {@code
-   * BpmnParse}, {@code SubProcess}.
-   *
-   * <p>Method under test: {@link AdhocSubProcessParseHandler#executeParse(BpmnParse, SubProcess)}
+   * Test {@link AdhocSubProcessParseHandler#executeParse(BpmnParse, SubProcess)} with {@code BpmnParse}, {@code SubProcess}.
+   * <p>
+   * Method under test: {@link AdhocSubProcessParseHandler#executeParse(BpmnParse, SubProcess)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void AdhocSubProcessParseHandler.executeParse(BpmnParse, SubProcess)"})
   public void testExecuteParseWithBpmnParseSubProcess() {
     // Arrange
     AdhocSubProcessParseHandler adhocSubProcessParseHandler = new AdhocSubProcessParseHandler();
 
-    BpmnParse bpmnParse = new BpmnParse(new BpmnParser());
-    bpmnParse.setBpmnParserHandlers(new BpmnParseHandlers());
-    bpmnParse.setActivityBehaviorFactory(new DefaultActivityBehaviorFactory());
+    BpmnParser parser = new BpmnParser();
+    parser.setBpmnParserHandlers(new BpmnParseHandlers());
+    parser.setActivityBehaviorFactory(new DefaultActivityBehaviorFactory());
+    BpmnParse bpmnParse = new BpmnParse(parser);
 
     SubProcess subProcess = new SubProcess();
     AdhocSubProcess element = new AdhocSubProcess();
@@ -68,14 +67,12 @@ public class AdhocSubProcessParseHandlerDiffblueTest {
   }
 
   /**
-   * Test {@link AdhocSubProcessParseHandler#executeParse(BpmnParse, SubProcess)} with {@code
-   * BpmnParse}, {@code SubProcess}.
-   *
-   * <p>Method under test: {@link AdhocSubProcessParseHandler#executeParse(BpmnParse, SubProcess)}
+   * Test {@link AdhocSubProcessParseHandler#executeParse(BpmnParse, SubProcess)} with {@code BpmnParse}, {@code SubProcess}.
+   * <p>
+   * Method under test: {@link AdhocSubProcessParseHandler#executeParse(BpmnParse, SubProcess)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void AdhocSubProcessParseHandler.executeParse(BpmnParse, SubProcess)"})
   public void testExecuteParseWithBpmnParseSubProcess2() {
     // Arrange
@@ -84,9 +81,10 @@ public class AdhocSubProcessParseHandlerDiffblueTest {
     BpmnParseHandlers bpmnParserHandlers = new BpmnParseHandlers();
     bpmnParserHandlers.addHandler(new AdhocSubProcessParseHandler());
 
-    BpmnParse bpmnParse = new BpmnParse(new BpmnParser());
-    bpmnParse.setBpmnParserHandlers(bpmnParserHandlers);
-    bpmnParse.setActivityBehaviorFactory(new DefaultActivityBehaviorFactory());
+    BpmnParser parser = new BpmnParser();
+    parser.setBpmnParserHandlers(bpmnParserHandlers);
+    parser.setActivityBehaviorFactory(new DefaultActivityBehaviorFactory());
+    BpmnParse bpmnParse = new BpmnParse(parser);
 
     SubProcess subProcess = new SubProcess();
     AdhocSubProcess element = new AdhocSubProcess();
@@ -100,22 +98,21 @@ public class AdhocSubProcessParseHandlerDiffblueTest {
   }
 
   /**
-   * Test {@link AdhocSubProcessParseHandler#executeParse(BpmnParse, SubProcess)} with {@code
-   * BpmnParse}, {@code SubProcess}.
-   *
-   * <p>Method under test: {@link AdhocSubProcessParseHandler#executeParse(BpmnParse, SubProcess)}
+   * Test {@link AdhocSubProcessParseHandler#executeParse(BpmnParse, SubProcess)} with {@code BpmnParse}, {@code SubProcess}.
+   * <p>
+   * Method under test: {@link AdhocSubProcessParseHandler#executeParse(BpmnParse, SubProcess)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void AdhocSubProcessParseHandler.executeParse(BpmnParse, SubProcess)"})
   public void testExecuteParseWithBpmnParseSubProcess3() {
     // Arrange
     AdhocSubProcessParseHandler adhocSubProcessParseHandler = new AdhocSubProcessParseHandler();
 
-    BpmnParse bpmnParse = new BpmnParse(new BpmnParser());
-    bpmnParse.setBpmnParserHandlers(new BpmnParseHandlers());
-    bpmnParse.setActivityBehaviorFactory(new DefaultActivityBehaviorFactory());
+    BpmnParser parser = new BpmnParser();
+    parser.setBpmnParserHandlers(new BpmnParseHandlers());
+    parser.setActivityBehaviorFactory(new DefaultActivityBehaviorFactory());
+    BpmnParse bpmnParse = new BpmnParse(parser);
 
     SubProcess subProcess = new SubProcess();
     BoundaryEvent element = new BoundaryEvent();
@@ -129,26 +126,24 @@ public class AdhocSubProcessParseHandlerDiffblueTest {
   }
 
   /**
-   * Test {@link AdhocSubProcessParseHandler#executeParse(BpmnParse, SubProcess)} with {@code
-   * BpmnParse}, {@code SubProcess}.
-   *
+   * Test {@link AdhocSubProcessParseHandler#executeParse(BpmnParse, SubProcess)} with {@code BpmnParse}, {@code SubProcess}.
    * <ul>
-   *   <li>Given {@link BooleanDataObject} (default constructor).
+   *   <li>Given {@link BooleanDataObject} (default constructor).</li>
    * </ul>
-   *
-   * <p>Method under test: {@link AdhocSubProcessParseHandler#executeParse(BpmnParse, SubProcess)}
+   * <p>
+   * Method under test: {@link AdhocSubProcessParseHandler#executeParse(BpmnParse, SubProcess)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void AdhocSubProcessParseHandler.executeParse(BpmnParse, SubProcess)"})
   public void testExecuteParseWithBpmnParseSubProcess_givenBooleanDataObject() {
     // Arrange
     AdhocSubProcessParseHandler adhocSubProcessParseHandler = new AdhocSubProcessParseHandler();
 
-    BpmnParse bpmnParse = new BpmnParse(new BpmnParser());
-    bpmnParse.setBpmnParserHandlers(new BpmnParseHandlers());
-    bpmnParse.setActivityBehaviorFactory(new DefaultActivityBehaviorFactory());
+    BpmnParser parser = new BpmnParser();
+    parser.setBpmnParserHandlers(new BpmnParseHandlers());
+    parser.setActivityBehaviorFactory(new DefaultActivityBehaviorFactory());
+    BpmnParse bpmnParse = new BpmnParse(parser);
 
     SubProcess subProcess = new SubProcess();
     subProcess.addFlowElement(new BooleanDataObject());
@@ -164,26 +159,25 @@ public class AdhocSubProcessParseHandlerDiffblueTest {
   }
 
   /**
-   * Test {@link AdhocSubProcessParseHandler#executeParse(BpmnParse, SubProcess)} with {@code
-   * BpmnParse}, {@code SubProcess}.
-   *
+   * Test {@link AdhocSubProcessParseHandler#executeParse(BpmnParse, SubProcess)} with {@code BpmnParse}, {@code SubProcess}.
    * <ul>
-   *   <li>Given createOneTaskBpmnModel.
+   *   <li>Given {@link BpmnModel} (default constructor).</li>
    * </ul>
-   *
-   * <p>Method under test: {@link AdhocSubProcessParseHandler#executeParse(BpmnParse, SubProcess)}
+   * <p>
+   * Method under test: {@link AdhocSubProcessParseHandler#executeParse(BpmnParse, SubProcess)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void AdhocSubProcessParseHandler.executeParse(BpmnParse, SubProcess)"})
-  public void testExecuteParseWithBpmnParseSubProcess_givenCreateOneTaskBpmnModel() {
+  public void testExecuteParseWithBpmnParseSubProcess_givenBpmnModel() {
     // Arrange
     AdhocSubProcessParseHandler adhocSubProcessParseHandler = new AdhocSubProcessParseHandler();
 
-    BpmnParse bpmnParse = new BpmnParse(new BpmnParser());
-    bpmnParse.setBpmnModel(TestProcessUtil.createOneTaskBpmnModel());
-    bpmnParse.setActivityBehaviorFactory(new DefaultActivityBehaviorFactory());
+    BpmnParser parser = new BpmnParser();
+    parser.setActivityBehaviorFactory(new DefaultActivityBehaviorFactory());
+
+    BpmnParse bpmnParse = new BpmnParse(parser);
+    bpmnParse.setBpmnModel(new BpmnModel());
 
     SubProcess subProcess = new SubProcess();
     subProcess.addArtifact(new Association());
@@ -199,26 +193,25 @@ public class AdhocSubProcessParseHandlerDiffblueTest {
   }
 
   /**
-   * Test {@link AdhocSubProcessParseHandler#executeParse(BpmnParse, SubProcess)} with {@code
-   * BpmnParse}, {@code SubProcess}.
-   *
+   * Test {@link AdhocSubProcessParseHandler#executeParse(BpmnParse, SubProcess)} with {@code BpmnParse}, {@code SubProcess}.
    * <ul>
-   *   <li>Given createOneTaskBpmnModel.
+   *   <li>Given {@link BpmnModel} (default constructor).</li>
    * </ul>
-   *
-   * <p>Method under test: {@link AdhocSubProcessParseHandler#executeParse(BpmnParse, SubProcess)}
+   * <p>
+   * Method under test: {@link AdhocSubProcessParseHandler#executeParse(BpmnParse, SubProcess)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void AdhocSubProcessParseHandler.executeParse(BpmnParse, SubProcess)"})
-  public void testExecuteParseWithBpmnParseSubProcess_givenCreateOneTaskBpmnModel2() {
+  public void testExecuteParseWithBpmnParseSubProcess_givenBpmnModel2() {
     // Arrange
     AdhocSubProcessParseHandler adhocSubProcessParseHandler = new AdhocSubProcessParseHandler();
 
-    BpmnParse bpmnParse = new BpmnParse(new BpmnParser());
-    bpmnParse.setBpmnModel(TestProcessUtil.createOneTaskBpmnModel());
-    bpmnParse.setActivityBehaviorFactory(new DefaultActivityBehaviorFactory());
+    BpmnParser parser = new BpmnParser();
+    parser.setActivityBehaviorFactory(new DefaultActivityBehaviorFactory());
+
+    BpmnParse bpmnParse = new BpmnParse(parser);
+    bpmnParse.setBpmnModel(new BpmnModel());
 
     SubProcess subProcess = new SubProcess();
     subProcess.addArtifact(new Association());
@@ -235,25 +228,60 @@ public class AdhocSubProcessParseHandlerDiffblueTest {
   }
 
   /**
-   * Test {@link AdhocSubProcessParseHandler#executeParse(BpmnParse, SubProcess)} with {@code
-   * BpmnParse}, {@code SubProcess}.
-   *
+   * Test {@link AdhocSubProcessParseHandler#executeParse(BpmnParse, SubProcess)} with {@code BpmnParse}, {@code SubProcess}.
    * <ul>
-   *   <li>When {@link SubProcess} (default constructor).
+   *   <li>Given {@link BpmnModel} (default constructor) addProcess {@link Process} (default constructor).</li>
    * </ul>
-   *
-   * <p>Method under test: {@link AdhocSubProcessParseHandler#executeParse(BpmnParse, SubProcess)}
+   * <p>
+   * Method under test: {@link AdhocSubProcessParseHandler#executeParse(BpmnParse, SubProcess)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void AdhocSubProcessParseHandler.executeParse(BpmnParse, SubProcess)"})
+  public void testExecuteParseWithBpmnParseSubProcess_givenBpmnModelAddProcessProcess() {
+    // Arrange
+    AdhocSubProcessParseHandler adhocSubProcessParseHandler = new AdhocSubProcessParseHandler();
+
+    BpmnParser parser = new BpmnParser();
+    parser.setActivityBehaviorFactory(new DefaultActivityBehaviorFactory());
+
+    BpmnModel bpmnModel = new BpmnModel();
+    bpmnModel.addProcess(new Process());
+
+    BpmnParse bpmnParse = new BpmnParse(parser);
+    bpmnParse.setBpmnModel(bpmnModel);
+
+    SubProcess subProcess = new SubProcess();
+    subProcess.addArtifact(new Association());
+
+    // Act
+    adhocSubProcessParseHandler.executeParse(bpmnParse, subProcess);
+
+    // Assert
+    Object behavior = subProcess.getBehavior();
+    assertTrue(behavior instanceof AdhocSubProcessActivityBehavior);
+    assertNull(bpmnParse.getCurrentFlowElement());
+    assertNull(((AdhocSubProcessActivityBehavior) behavior).getMultiInstanceActivityBehavior());
+  }
+
+  /**
+   * Test {@link AdhocSubProcessParseHandler#executeParse(BpmnParse, SubProcess)} with {@code BpmnParse}, {@code SubProcess}.
+   * <ul>
+   *   <li>When {@link SubProcess} (default constructor).</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link AdhocSubProcessParseHandler#executeParse(BpmnParse, SubProcess)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void AdhocSubProcessParseHandler.executeParse(BpmnParse, SubProcess)"})
   public void testExecuteParseWithBpmnParseSubProcess_whenSubProcess() {
     // Arrange
     AdhocSubProcessParseHandler adhocSubProcessParseHandler = new AdhocSubProcessParseHandler();
 
-    BpmnParse bpmnParse = new BpmnParse(new BpmnParser());
-    bpmnParse.setActivityBehaviorFactory(new DefaultActivityBehaviorFactory());
+    BpmnParser parser = new BpmnParser();
+    parser.setActivityBehaviorFactory(new DefaultActivityBehaviorFactory());
+    BpmnParse bpmnParse = new BpmnParse(parser);
     SubProcess subProcess = new SubProcess();
 
     // Act
@@ -268,25 +296,19 @@ public class AdhocSubProcessParseHandlerDiffblueTest {
 
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>default or parameterless constructor of {@link AdhocSubProcessParseHandler}
    *   <li>{@link AdhocSubProcessParseHandler#getHandledType()}
    * </ul>
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void AdhocSubProcessParseHandler.<init>()",
-    "Class AdhocSubProcessParseHandler.getHandledType()"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void AdhocSubProcessParseHandler.<init>()", "Class AdhocSubProcessParseHandler.getHandledType()"})
   public void testGettersAndSetters() {
     // Arrange and Act
-    Class<? extends BaseElement> actualHandledType =
-        new AdhocSubProcessParseHandler().getHandledType();
+    Class<? extends BaseElement> actualHandledType = (new AdhocSubProcessParseHandler()).getHandledType();
 
     // Assert
     Class<AdhocSubProcess> expectedHandledType = AdhocSubProcess.class;

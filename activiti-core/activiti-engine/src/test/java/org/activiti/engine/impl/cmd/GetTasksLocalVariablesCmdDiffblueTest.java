@@ -17,8 +17,7 @@ package org.activiti.engine.impl.cmd;
 
 import static org.junit.Assert.assertThrows;
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.HashSet;
 import java.util.Set;
@@ -30,36 +29,32 @@ import org.junit.experimental.categories.Category;
 public class GetTasksLocalVariablesCmdDiffblueTest {
   /**
    * Test {@link GetTasksLocalVariablesCmd#GetTasksLocalVariablesCmd(Set)}.
-   *
-   * <p>Method under test: {@link GetTasksLocalVariablesCmd#GetTasksLocalVariablesCmd(Set)}
+   * <p>
+   * Method under test: {@link GetTasksLocalVariablesCmd#GetTasksLocalVariablesCmd(Set)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void GetTasksLocalVariablesCmd.<init>(Set)"})
   public void testNewGetTasksLocalVariablesCmd() {
     // Arrange, Act and Assert
-    assertTrue(new GetTasksLocalVariablesCmd(new HashSet<>()).taskIds.isEmpty());
+    assertTrue((new GetTasksLocalVariablesCmd(new HashSet<>())).taskIds.isEmpty());
   }
 
   /**
    * Test {@link GetTasksLocalVariablesCmd#execute(CommandContext)}.
-   *
    * <ul>
-   *   <li>When {@code null}.
-   *   <li>Then throw {@link ActivitiIllegalArgumentException}.
+   *   <li>When {@code null}.</li>
+   *   <li>Then throw {@link ActivitiIllegalArgumentException}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link GetTasksLocalVariablesCmd#execute(CommandContext)}
+   * <p>
+   * Method under test: {@link GetTasksLocalVariablesCmd#execute(CommandContext)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"java.util.List GetTasksLocalVariablesCmd.execute(CommandContext)"})
   public void testExecute_whenNull_thenThrowActivitiIllegalArgumentException() {
     // Arrange, Act and Assert
-    assertThrows(
-        ActivitiIllegalArgumentException.class,
-        () -> new GetTasksLocalVariablesCmd(new HashSet<>()).execute(null));
+    assertThrows(ActivitiIllegalArgumentException.class,
+        () -> (new GetTasksLocalVariablesCmd(new HashSet<>())).execute(null));
   }
 }

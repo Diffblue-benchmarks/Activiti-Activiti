@@ -24,8 +24,7 @@ import static org.mockito.Mockito.atLeast;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -36,21 +35,19 @@ import org.junit.experimental.categories.Category;
 public class TaskDiffblueTest {
   /**
    * Test {@link Task#clone()}.
-   *
    * <ul>
-   *   <li>Given {@link BusinessRuleTask} (default constructor).
-   *   <li>Then return {@link BusinessRuleTask}.
+   *   <li>Given {@link BusinessRuleTask} (default constructor).</li>
+   *   <li>Then return {@link BusinessRuleTask}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link Task#clone()}
+   * <p>
+   * Method under test: {@link Task#clone()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"FlowElement Task.clone()"})
   public void testClone_givenBusinessRuleTask_thenReturnBusinessRuleTask() {
     // Arrange and Act
-    BusinessRuleTask actualCloneResult = new BusinessRuleTask().clone();
+    BusinessRuleTask actualCloneResult = (new BusinessRuleTask()).clone();
 
     // Assert
     assertTrue(actualCloneResult instanceof BusinessRuleTask);
@@ -63,63 +60,15 @@ public class TaskDiffblueTest {
 
   /**
    * Test {@link Task#clone()}.
-   *
    * <ul>
-   *   <li>Given {@link IOSpecification} (default constructor) DataOutputs is {@code null}.
+   *   <li>Given {@link Task} (default constructor) ForCompensation is {@code true}.</li>
+   *   <li>Then return ForCompensation.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link Task#clone()}
+   * <p>
+   * Method under test: {@link Task#clone()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"FlowElement Task.clone()"})
-  public void testClone_givenIOSpecificationDataOutputsIsNull() {
-    // Arrange
-    IOSpecification ioSpecification = new IOSpecification();
-    ioSpecification.setDataInputs(null);
-    ioSpecification.setDataOutputs(null);
-
-    ArrayList<BoundaryEvent> boundaryEvents = new ArrayList<>();
-    boundaryEvents.add(new BoundaryEvent());
-
-    Task task = new Task();
-    task.setLoopCharacteristics(null);
-    task.setIoSpecification(ioSpecification);
-    task.setDataInputAssociations(null);
-    task.setDataOutputAssociations(null);
-    task.setBoundaryEvents(boundaryEvents);
-
-    // Act
-    FlowElement actualCloneResult = task.clone();
-
-    // Assert
-    assertTrue(actualCloneResult instanceof Task);
-    IOSpecification ioSpecification2 = ((Task) actualCloneResult).getIoSpecification();
-    assertNull(ioSpecification2.getId());
-    assertEquals(0, ioSpecification2.getXmlColumnNumber());
-    assertEquals(0, ioSpecification2.getXmlRowNumber());
-    assertTrue(ioSpecification2.getDataInputRefs().isEmpty());
-    assertTrue(ioSpecification2.getDataInputs().isEmpty());
-    assertTrue(ioSpecification2.getDataOutputRefs().isEmpty());
-    assertTrue(ioSpecification2.getDataOutputs().isEmpty());
-    assertTrue(ioSpecification2.getAttributes().isEmpty());
-    assertTrue(ioSpecification2.getExtensionElements().isEmpty());
-  }
-
-  /**
-   * Test {@link Task#clone()}.
-   *
-   * <ul>
-   *   <li>Given {@link Task} (default constructor) ForCompensation is {@code true}.
-   *   <li>Then return ForCompensation.
-   * </ul>
-   *
-   * <p>Method under test: {@link Task#clone()}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"FlowElement Task.clone()"})
   public void testClone_givenTaskForCompensationIsTrue_thenReturnForCompensation() {
     // Arrange
@@ -134,7 +83,6 @@ public class TaskDiffblueTest {
     assertNull(((Task) actualCloneResult).getIoSpecification());
     assertNull(((Task) actualCloneResult).getLoopCharacteristics());
     assertFalse(((Task) actualCloneResult).hasMultiInstanceLoopCharacteristics());
-    assertTrue(((Task) actualCloneResult).getBoundaryEvents().isEmpty());
     assertTrue(((Task) actualCloneResult).getDataInputAssociations().isEmpty());
     assertTrue(((Task) actualCloneResult).getDataOutputAssociations().isEmpty());
     assertTrue(((Task) actualCloneResult).isForCompensation());
@@ -142,27 +90,54 @@ public class TaskDiffblueTest {
 
   /**
    * Test {@link Task#clone()}.
-   *
    * <ul>
-   *   <li>Given {@link Task} (default constructor) IoSpecification is {@code null}.
-   *   <li>Then return BoundaryEvents size is one.
+   *   <li>Given {@link Task} (default constructor).</li>
+   *   <li>Then return not ForCompensation.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link Task#clone()}
+   * <p>
+   * Method under test: {@link Task#clone()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"FlowElement Task.clone()"})
-  public void testClone_givenTaskIoSpecificationIsNull_thenReturnBoundaryEventsSizeIsOne() {
+  public void testClone_givenTask_thenReturnNotForCompensation() {
+    // Arrange and Act
+    FlowElement actualCloneResult = (new Task()).clone();
+
+    // Assert
+    assertTrue(actualCloneResult instanceof Task);
+    assertNull(((Task) actualCloneResult).getIoSpecification());
+    assertNull(((Task) actualCloneResult).getLoopCharacteristics());
+    assertFalse(((Task) actualCloneResult).hasMultiInstanceLoopCharacteristics());
+    assertFalse(((Task) actualCloneResult).isForCompensation());
+    assertTrue(((Task) actualCloneResult).getDataInputAssociations().isEmpty());
+    assertTrue(((Task) actualCloneResult).getDataOutputAssociations().isEmpty());
+  }
+
+  /**
+   * Test {@link Task#clone()}.
+   * <ul>
+   *   <li>Then return BoundaryEvents size is one.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link Task#clone()}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"FlowElement Task.clone()"})
+  public void testClone_thenReturnBoundaryEventsSizeIsOne() {
     // Arrange
+    IOSpecification ioSpecification = new IOSpecification();
+    ioSpecification.setDataInputs(null);
+    ioSpecification.setDataOutputs(null);
+
     ArrayList<BoundaryEvent> boundaryEvents = new ArrayList<>();
     BoundaryEvent boundaryEvent = new BoundaryEvent();
     boundaryEvents.add(boundaryEvent);
 
     Task task = new Task();
+    task.setIoSpecification(ioSpecification);
     task.setLoopCharacteristics(null);
-    task.setIoSpecification(null);
     task.setDataInputAssociations(null);
     task.setDataOutputAssociations(null);
     task.setBoundaryEvents(boundaryEvents);
@@ -174,53 +149,66 @@ public class TaskDiffblueTest {
     assertTrue(actualCloneResult instanceof Task);
     List<BoundaryEvent> boundaryEvents2 = ((Task) actualCloneResult).getBoundaryEvents();
     assertEquals(1, boundaryEvents2.size());
+    assertTrue(((Task) actualCloneResult).getIoSpecification().getDataOutputs().isEmpty());
     assertSame(boundaryEvent, boundaryEvents2.get(0));
   }
 
   /**
    * Test {@link Task#clone()}.
-   *
    * <ul>
-   *   <li>Given {@link Task} (default constructor).
-   *   <li>Then return not ForCompensation.
+   *   <li>Then return BoundaryEvents size is one.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link Task#clone()}
+   * <p>
+   * Method under test: {@link Task#clone()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"FlowElement Task.clone()"})
-  public void testClone_givenTask_thenReturnNotForCompensation() {
-    // Arrange and Act
-    FlowElement actualCloneResult = new Task().clone();
+  public void testClone_thenReturnBoundaryEventsSizeIsOne2() {
+    // Arrange
+    IOSpecification ioSpecification = new IOSpecification();
+    ioSpecification.setDataInputs(null);
+    ioSpecification.setDataOutputs(new ArrayList<>());
+
+    ArrayList<BoundaryEvent> boundaryEvents = new ArrayList<>();
+    BoundaryEvent boundaryEvent = new BoundaryEvent();
+    boundaryEvents.add(boundaryEvent);
+
+    Task task = new Task();
+    task.setIoSpecification(ioSpecification);
+    task.setLoopCharacteristics(null);
+    task.setDataInputAssociations(null);
+    task.setDataOutputAssociations(null);
+    task.setBoundaryEvents(boundaryEvents);
+
+    // Act
+    FlowElement actualCloneResult = task.clone();
 
     // Assert
     assertTrue(actualCloneResult instanceof Task);
-    assertNull(((Task) actualCloneResult).getIoSpecification());
-    assertNull(((Task) actualCloneResult).getLoopCharacteristics());
-    assertFalse(((Task) actualCloneResult).hasMultiInstanceLoopCharacteristics());
-    assertFalse(((Task) actualCloneResult).isForCompensation());
-    assertTrue(((Task) actualCloneResult).getBoundaryEvents().isEmpty());
-    assertTrue(((Task) actualCloneResult).getDataInputAssociations().isEmpty());
-    assertTrue(((Task) actualCloneResult).getDataOutputAssociations().isEmpty());
+    List<BoundaryEvent> boundaryEvents2 = ((Task) actualCloneResult).getBoundaryEvents();
+    assertEquals(1, boundaryEvents2.size());
+    assertTrue(((Task) actualCloneResult).getIoSpecification().getDataOutputs().isEmpty());
+    assertSame(boundaryEvent, boundaryEvents2.get(0));
   }
 
   /**
    * Test {@link Task#clone()}.
-   *
    * <ul>
-   *   <li>Then return DataInputAssociations size is one.
+   *   <li>Then return DataInputAssociations size is one.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link Task#clone()}
+   * <p>
+   * Method under test: {@link Task#clone()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"FlowElement Task.clone()"})
   public void testClone_thenReturnDataInputAssociationsSizeIsOne() {
     // Arrange
+    IOSpecification ioSpecification = new IOSpecification();
+    ioSpecification.setDataInputs(null);
+    ioSpecification.setDataOutputs(null);
+
     ArrayList<DataAssociation> dataInputAssociations = new ArrayList<>();
     dataInputAssociations.add(new DataAssociation());
 
@@ -228,8 +216,8 @@ public class TaskDiffblueTest {
     boundaryEvents.add(new BoundaryEvent());
 
     Task task = new Task();
+    task.setIoSpecification(ioSpecification);
     task.setLoopCharacteristics(null);
-    task.setIoSpecification(null);
     task.setDataInputAssociations(dataInputAssociations);
     task.setDataOutputAssociations(null);
     task.setBoundaryEvents(boundaryEvents);
@@ -239,8 +227,7 @@ public class TaskDiffblueTest {
 
     // Assert
     assertTrue(actualCloneResult instanceof Task);
-    List<DataAssociation> dataInputAssociations2 =
-        ((Task) actualCloneResult).getDataInputAssociations();
+    List<DataAssociation> dataInputAssociations2 = ((Task) actualCloneResult).getDataInputAssociations();
     assertEquals(1, dataInputAssociations2.size());
     DataAssociation getResult = dataInputAssociations2.get(0);
     assertNull(getResult.getId());
@@ -256,19 +243,21 @@ public class TaskDiffblueTest {
 
   /**
    * Test {@link Task#clone()}.
-   *
    * <ul>
-   *   <li>Then return DataOutputAssociations size is one.
+   *   <li>Then return DataOutputAssociations size is one.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link Task#clone()}
+   * <p>
+   * Method under test: {@link Task#clone()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"FlowElement Task.clone()"})
   public void testClone_thenReturnDataOutputAssociationsSizeIsOne() {
     // Arrange
+    IOSpecification ioSpecification = new IOSpecification();
+    ioSpecification.setDataInputs(null);
+    ioSpecification.setDataOutputs(null);
+
     ArrayList<DataAssociation> dataOutputAssociations = new ArrayList<>();
     dataOutputAssociations.add(new DataAssociation());
 
@@ -276,8 +265,8 @@ public class TaskDiffblueTest {
     boundaryEvents.add(new BoundaryEvent());
 
     Task task = new Task();
+    task.setIoSpecification(ioSpecification);
     task.setLoopCharacteristics(null);
-    task.setIoSpecification(null);
     task.setDataInputAssociations(null);
     task.setDataOutputAssociations(dataOutputAssociations);
     task.setBoundaryEvents(boundaryEvents);
@@ -287,8 +276,7 @@ public class TaskDiffblueTest {
 
     // Assert
     assertTrue(actualCloneResult instanceof Task);
-    List<DataAssociation> dataOutputAssociations2 =
-        ((Task) actualCloneResult).getDataOutputAssociations();
+    List<DataAssociation> dataOutputAssociations2 = ((Task) actualCloneResult).getDataOutputAssociations();
     assertEquals(1, dataOutputAssociations2.size());
     DataAssociation getResult = dataOutputAssociations2.get(0);
     assertNull(getResult.getId());
@@ -304,16 +292,14 @@ public class TaskDiffblueTest {
 
   /**
    * Test {@link Task#clone()}.
-   *
    * <ul>
-   *   <li>Then return IoSpecification DataOutputs size is one.
+   *   <li>Then return IoSpecification DataOutputs size is one.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link Task#clone()}
+   * <p>
+   * Method under test: {@link Task#clone()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"FlowElement Task.clone()"})
   public void testClone_thenReturnIoSpecificationDataOutputsSizeIsOne() {
     // Arrange
@@ -328,8 +314,8 @@ public class TaskDiffblueTest {
     boundaryEvents.add(new BoundaryEvent());
 
     Task task = new Task();
-    task.setLoopCharacteristics(null);
     task.setIoSpecification(ioSpecification);
+    task.setLoopCharacteristics(null);
     task.setDataInputAssociations(null);
     task.setDataOutputAssociations(null);
     task.setBoundaryEvents(boundaryEvents);
@@ -354,28 +340,19 @@ public class TaskDiffblueTest {
 
   /**
    * Test {@link Task#clone()}.
-   *
    * <ul>
-   *   <li>Then return IoSpecification Id is {@code null}.
+   *   <li>Then return IoSpecification Id is {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link Task#clone()}
+   * <p>
+   * Method under test: {@link Task#clone()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"FlowElement Task.clone()"})
   public void testClone_thenReturnIoSpecificationIdIsNull() {
     // Arrange
-    ArrayList<BoundaryEvent> boundaryEvents = new ArrayList<>();
-    boundaryEvents.add(new BoundaryEvent());
-
     Task task = new Task();
-    task.setLoopCharacteristics(null);
     task.setIoSpecification(new IOSpecification());
-    task.setDataInputAssociations(null);
-    task.setDataOutputAssociations(null);
-    task.setBoundaryEvents(boundaryEvents);
 
     // Act
     FlowElement actualCloneResult = task.clone();
@@ -389,36 +366,43 @@ public class TaskDiffblueTest {
     assertTrue(ioSpecification.getDataInputRefs().isEmpty());
     assertTrue(ioSpecification.getDataInputs().isEmpty());
     assertTrue(ioSpecification.getDataOutputRefs().isEmpty());
-    assertTrue(ioSpecification.getDataOutputs().isEmpty());
     assertTrue(ioSpecification.getAttributes().isEmpty());
     assertTrue(ioSpecification.getExtensionElements().isEmpty());
   }
 
   /**
    * Test {@link Task#clone()}.
-   *
    * <ul>
-   *   <li>Then return LoopCharacteristics Id is {@code null}.
+   *   <li>Then return LoopCharacteristics Id is {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link Task#clone()}
+   * <p>
+   * Method under test: {@link Task#clone()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"FlowElement Task.clone()"})
   public void testClone_thenReturnLoopCharacteristicsIdIsNull() {
     // Arrange
+    IOSpecification ioSpecification = new IOSpecification();
+    ioSpecification.setDataInputs(null);
+    ioSpecification.setDataOutputs(null);
+
+    ArrayList<BoundaryEvent> boundaryEvents = new ArrayList<>();
+    boundaryEvents.add(new BoundaryEvent());
+
     Task task = new Task();
+    task.setIoSpecification(ioSpecification);
     task.setLoopCharacteristics(new MultiInstanceLoopCharacteristics());
+    task.setDataInputAssociations(null);
+    task.setDataOutputAssociations(null);
+    task.setBoundaryEvents(boundaryEvents);
 
     // Act
     FlowElement actualCloneResult = task.clone();
 
     // Assert
     assertTrue(actualCloneResult instanceof Task);
-    MultiInstanceLoopCharacteristics loopCharacteristics =
-        ((Task) actualCloneResult).getLoopCharacteristics();
+    MultiInstanceLoopCharacteristics loopCharacteristics = ((Task) actualCloneResult).getLoopCharacteristics();
     assertNull(loopCharacteristics.getId());
     assertNull(loopCharacteristics.getCompletionCondition());
     assertNull(loopCharacteristics.getElementIndexVariable());
@@ -437,22 +421,518 @@ public class TaskDiffblueTest {
 
   /**
    * Test {@link Task#setValues(Task)} with {@code Task}.
-   *
-   * <ul>
-   *   <li>Given {@link ArrayList#ArrayList()}.
-   *   <li>Then {@link Task} (default constructor) LoopCharacteristics Id is {@code null}.
-   * </ul>
-   *
-   * <p>Method under test: {@link Task#setValues(Task)}
+   * <p>
+   * Method under test: {@link Task#setValues(Task)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void Task.setValues(Task)"})
-  public void testSetValuesWithTask_givenArrayList_thenTaskLoopCharacteristicsIdIsNull() {
+  public void testSetValuesWithTask() {
     // Arrange
     Task task = new Task();
 
+    IOSpecification ioSpecification = new IOSpecification();
+    ioSpecification.setDataInputs(null);
+    ioSpecification.setDataOutputs(null);
+
+    ArrayList<BoundaryEvent> boundaryEvents = new ArrayList<>();
+    boundaryEvents.add(new BoundaryEvent());
+
+    Task otherElement = new Task();
+    otherElement.setIoSpecification(ioSpecification);
+    MultiInstanceLoopCharacteristics loopCharacteristics = new MultiInstanceLoopCharacteristics();
+    otherElement.setLoopCharacteristics(loopCharacteristics);
+    otherElement.setDataInputAssociations(null);
+    otherElement.setDataOutputAssociations(null);
+    otherElement.setBoundaryEvents(boundaryEvents);
+
+    // Act
+    task.setValues(otherElement);
+
+    // Assert that nothing has changed
+    assertFalse(otherElement.isForCompensation());
+    assertFalse(otherElement.isAsynchronous());
+    assertFalse(otherElement.isNotExclusive());
+    assertTrue(otherElement.hasMultiInstanceLoopCharacteristics());
+    assertTrue(otherElement.isExclusive());
+    assertSame(ioSpecification, otherElement.getIoSpecification());
+    assertSame(loopCharacteristics, otherElement.getLoopCharacteristics());
+  }
+
+  /**
+   * Test {@link Task#setValues(Task)} with {@code Task}.
+   * <ul>
+   *   <li>Given {@link ArrayList#ArrayList()} add {@link DataSpec} (default constructor).</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link Task#setValues(Task)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void Task.setValues(Task)"})
+  public void testSetValuesWithTask_givenArrayListAddDataSpec() {
+    // Arrange
+    Task task = new Task();
+
+    ArrayList<DataSpec> dataOutputs = new ArrayList<>();
+    dataOutputs.add(new DataSpec());
+
+    IOSpecification ioSpecification = new IOSpecification();
+    ioSpecification.setDataInputs(null);
+    ioSpecification.setDataOutputs(dataOutputs);
+
+    ArrayList<BoundaryEvent> boundaryEvents = new ArrayList<>();
+    boundaryEvents.add(new BoundaryEvent());
+
+    Task otherElement = new Task();
+    otherElement.setIoSpecification(ioSpecification);
+    otherElement.setLoopCharacteristics(null);
+    otherElement.setDataInputAssociations(null);
+    otherElement.setDataOutputAssociations(null);
+    otherElement.setBoundaryEvents(boundaryEvents);
+
+    // Act
+    task.setValues(otherElement);
+
+    // Assert that nothing has changed
+    assertFalse(otherElement.hasMultiInstanceLoopCharacteristics());
+    assertFalse(otherElement.isForCompensation());
+    assertFalse(otherElement.isAsynchronous());
+    assertFalse(otherElement.isNotExclusive());
+    assertTrue(otherElement.isExclusive());
+    assertSame(ioSpecification, otherElement.getIoSpecification());
+  }
+
+  /**
+   * Test {@link Task#setValues(Task)} with {@code Task}.
+   * <ul>
+   *   <li>Given {@link IOSpecification} (default constructor) DataOutputs is {@link ArrayList#ArrayList()}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link Task#setValues(Task)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void Task.setValues(Task)"})
+  public void testSetValuesWithTask_givenIOSpecificationDataOutputsIsArrayList() {
+    // Arrange
+    Task task = new Task();
+
+    IOSpecification ioSpecification = new IOSpecification();
+    ioSpecification.setDataInputs(null);
+    ioSpecification.setDataOutputs(new ArrayList<>());
+
+    ArrayList<BoundaryEvent> boundaryEvents = new ArrayList<>();
+    boundaryEvents.add(new BoundaryEvent());
+
+    Task otherElement = new Task();
+    otherElement.setIoSpecification(ioSpecification);
+    otherElement.setLoopCharacteristics(null);
+    otherElement.setDataInputAssociations(null);
+    otherElement.setDataOutputAssociations(null);
+    otherElement.setBoundaryEvents(boundaryEvents);
+
+    // Act
+    task.setValues(otherElement);
+
+    // Assert that nothing has changed
+    assertFalse(otherElement.hasMultiInstanceLoopCharacteristics());
+    assertFalse(otherElement.isForCompensation());
+    assertFalse(otherElement.isAsynchronous());
+    assertFalse(otherElement.isNotExclusive());
+    assertTrue(otherElement.isExclusive());
+    assertSame(ioSpecification, otherElement.getIoSpecification());
+  }
+
+  /**
+   * Test {@link Task#setValues(Task)} with {@code Task}.
+   * <ul>
+   *   <li>Then calls {@link IOSpecification#clone()}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link Task#setValues(Task)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void Task.setValues(Task)"})
+  public void testSetValuesWithTask_thenCallsClone() {
+    // Arrange
+    Task task = new Task();
+    IOSpecification ioSpecification = mock(IOSpecification.class);
+    IOSpecification ioSpecification2 = new IOSpecification();
+    when(ioSpecification.clone()).thenReturn(ioSpecification2);
+    BusinessRuleTask otherElement = mock(BusinessRuleTask.class);
+    when(otherElement.isForCompensation()).thenReturn(true);
+    when(otherElement.isAsynchronous()).thenReturn(true);
+    when(otherElement.isNotExclusive()).thenReturn(true);
+    when(otherElement.getDefaultFlow()).thenReturn("Default Flow");
+    when(otherElement.getFailedJobRetryTimeCycleValue()).thenReturn("42");
+    when(otherElement.getId()).thenReturn("42");
+    when(otherElement.getDocumentation()).thenReturn("Documentation");
+    when(otherElement.getName()).thenReturn("Name");
+    when(otherElement.getBoundaryEvents()).thenReturn(new ArrayList<>());
+    when(otherElement.getDataInputAssociations()).thenReturn(new ArrayList<>());
+    when(otherElement.getDataOutputAssociations()).thenReturn(new ArrayList<>());
+    when(otherElement.getExecutionListeners()).thenReturn(new ArrayList<>());
+    when(otherElement.getAttributes()).thenReturn(new HashMap<>());
+    when(otherElement.getExtensionElements()).thenReturn(new HashMap<>());
+    when(otherElement.getIoSpecification()).thenReturn(ioSpecification);
+    when(otherElement.getLoopCharacteristics()).thenReturn(new MultiInstanceLoopCharacteristics());
+
+    // Act
+    task.setValues(otherElement);
+
+    // Assert
+    verify(otherElement).getBoundaryEvents();
+    verify(otherElement, atLeast(1)).getDataInputAssociations();
+    verify(otherElement, atLeast(1)).getDataOutputAssociations();
+    verify(otherElement).getDefaultFlow();
+    verify(otherElement).getFailedJobRetryTimeCycleValue();
+    verify(otherElement, atLeast(1)).getIoSpecification();
+    verify(otherElement, atLeast(1)).getLoopCharacteristics();
+    verify(otherElement).isForCompensation();
+    verify(otherElement, atLeast(1)).getAttributes();
+    verify(otherElement, atLeast(1)).getExtensionElements();
+    verify(otherElement).getId();
+    verify(otherElement).getDocumentation();
+    verify(otherElement, atLeast(1)).getExecutionListeners();
+    verify(otherElement).getName();
+    verify(otherElement).isAsynchronous();
+    verify(otherElement).isNotExclusive();
+    verify(ioSpecification).clone();
+    assertEquals("42", task.getFailedJobRetryTimeCycleValue());
+    assertEquals("42", task.getId());
+    assertEquals("Default Flow", task.getDefaultFlow());
+    assertEquals("Documentation", task.getDocumentation());
+    assertEquals("Name", task.getName());
+    assertFalse(task.isExclusive());
+    assertTrue(task.hasMultiInstanceLoopCharacteristics());
+    assertTrue(task.isForCompensation());
+    assertTrue(task.isAsynchronous());
+    assertTrue(task.isNotExclusive());
+    assertSame(ioSpecification2, task.getIoSpecification());
+  }
+
+  /**
+   * Test {@link Task#setValues(Task)} with {@code Task}.
+   * <ul>
+   *   <li>Then calls {@link MultiInstanceLoopCharacteristics#clone()}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link Task#setValues(Task)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void Task.setValues(Task)"})
+  public void testSetValuesWithTask_thenCallsClone2() {
+    // Arrange
+    Task task = new Task();
+    IOSpecification ioSpecification = mock(IOSpecification.class);
+    IOSpecification ioSpecification2 = new IOSpecification();
+    when(ioSpecification.clone()).thenReturn(ioSpecification2);
+    MultiInstanceLoopCharacteristics multiInstanceLoopCharacteristics = mock(MultiInstanceLoopCharacteristics.class);
+    MultiInstanceLoopCharacteristics multiInstanceLoopCharacteristics2 = new MultiInstanceLoopCharacteristics();
+    when(multiInstanceLoopCharacteristics.clone()).thenReturn(multiInstanceLoopCharacteristics2);
+    BusinessRuleTask otherElement = mock(BusinessRuleTask.class);
+    when(otherElement.isForCompensation()).thenReturn(true);
+    when(otherElement.isAsynchronous()).thenReturn(true);
+    when(otherElement.isNotExclusive()).thenReturn(true);
+    when(otherElement.getDefaultFlow()).thenReturn("Default Flow");
+    when(otherElement.getFailedJobRetryTimeCycleValue()).thenReturn("42");
+    when(otherElement.getId()).thenReturn("42");
+    when(otherElement.getDocumentation()).thenReturn("Documentation");
+    when(otherElement.getName()).thenReturn("Name");
+    when(otherElement.getBoundaryEvents()).thenReturn(new ArrayList<>());
+    when(otherElement.getDataInputAssociations()).thenReturn(new ArrayList<>());
+    when(otherElement.getDataOutputAssociations()).thenReturn(new ArrayList<>());
+    when(otherElement.getExecutionListeners()).thenReturn(new ArrayList<>());
+    when(otherElement.getAttributes()).thenReturn(new HashMap<>());
+    when(otherElement.getExtensionElements()).thenReturn(new HashMap<>());
+    when(otherElement.getIoSpecification()).thenReturn(ioSpecification);
+    when(otherElement.getLoopCharacteristics()).thenReturn(multiInstanceLoopCharacteristics);
+
+    // Act
+    task.setValues(otherElement);
+
+    // Assert
+    verify(otherElement).getBoundaryEvents();
+    verify(otherElement, atLeast(1)).getDataInputAssociations();
+    verify(otherElement, atLeast(1)).getDataOutputAssociations();
+    verify(otherElement).getDefaultFlow();
+    verify(otherElement).getFailedJobRetryTimeCycleValue();
+    verify(otherElement, atLeast(1)).getIoSpecification();
+    verify(otherElement, atLeast(1)).getLoopCharacteristics();
+    verify(otherElement).isForCompensation();
+    verify(otherElement, atLeast(1)).getAttributes();
+    verify(otherElement, atLeast(1)).getExtensionElements();
+    verify(otherElement).getId();
+    verify(otherElement).getDocumentation();
+    verify(otherElement, atLeast(1)).getExecutionListeners();
+    verify(otherElement).getName();
+    verify(otherElement).isAsynchronous();
+    verify(otherElement).isNotExclusive();
+    verify(ioSpecification).clone();
+    verify(multiInstanceLoopCharacteristics).clone();
+    assertEquals("42", task.getFailedJobRetryTimeCycleValue());
+    assertEquals("42", task.getId());
+    assertEquals("Default Flow", task.getDefaultFlow());
+    assertEquals("Documentation", task.getDocumentation());
+    assertEquals("Name", task.getName());
+    assertFalse(task.isExclusive());
+    assertTrue(task.hasMultiInstanceLoopCharacteristics());
+    assertTrue(task.isForCompensation());
+    assertTrue(task.isAsynchronous());
+    assertTrue(task.isNotExclusive());
+    assertSame(ioSpecification2, task.getIoSpecification());
+    assertSame(multiInstanceLoopCharacteristics2, task.getLoopCharacteristics());
+  }
+
+  /**
+   * Test {@link Task#setValues(Task)} with {@code Task}.
+   * <ul>
+   *   <li>Then calls {@link DataAssociation#clone()}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link Task#setValues(Task)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void Task.setValues(Task)"})
+  public void testSetValuesWithTask_thenCallsClone3() {
+    // Arrange
+    Task task = new Task();
+
+    IOSpecification ioSpecification = new IOSpecification();
+    ioSpecification.setDataInputs(null);
+    ioSpecification.setDataOutputs(null);
+    DataAssociation dataAssociation = mock(DataAssociation.class);
+    when(dataAssociation.clone()).thenReturn(new DataAssociation());
+
+    ArrayList<DataAssociation> dataOutputAssociations = new ArrayList<>();
+    dataOutputAssociations.add(dataAssociation);
+
+    ArrayList<BoundaryEvent> boundaryEvents = new ArrayList<>();
+    boundaryEvents.add(new BoundaryEvent());
+
+    Task otherElement = new Task();
+    otherElement.setIoSpecification(ioSpecification);
+    otherElement.setLoopCharacteristics(null);
+    otherElement.setDataInputAssociations(null);
+    otherElement.setDataOutputAssociations(dataOutputAssociations);
+    otherElement.setBoundaryEvents(boundaryEvents);
+
+    // Act
+    task.setValues(otherElement);
+
+    // Assert that nothing has changed
+    verify(dataAssociation).clone();
+    assertFalse(otherElement.hasMultiInstanceLoopCharacteristics());
+    assertFalse(otherElement.isForCompensation());
+    assertFalse(otherElement.isAsynchronous());
+    assertFalse(otherElement.isNotExclusive());
+    assertTrue(otherElement.isExclusive());
+    assertSame(ioSpecification, otherElement.getIoSpecification());
+  }
+
+  /**
+   * Test {@link Task#setValues(Task)} with {@code Task}.
+   * <ul>
+   *   <li>Then calls {@link DataAssociation#clone()}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link Task#setValues(Task)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void Task.setValues(Task)"})
+  public void testSetValuesWithTask_thenCallsClone4() {
+    // Arrange
+    Task task = new Task();
+
+    IOSpecification ioSpecification = new IOSpecification();
+    ioSpecification.setDataInputs(null);
+    ioSpecification.setDataOutputs(null);
+    DataAssociation dataAssociation = mock(DataAssociation.class);
+    when(dataAssociation.clone()).thenReturn(new DataAssociation());
+
+    ArrayList<DataAssociation> dataInputAssociations = new ArrayList<>();
+    dataInputAssociations.add(dataAssociation);
+
+    ArrayList<BoundaryEvent> boundaryEvents = new ArrayList<>();
+    boundaryEvents.add(new BoundaryEvent());
+
+    Task otherElement = new Task();
+    otherElement.setIoSpecification(ioSpecification);
+    otherElement.setLoopCharacteristics(null);
+    otherElement.setDataInputAssociations(dataInputAssociations);
+    otherElement.setDataOutputAssociations(null);
+    otherElement.setBoundaryEvents(boundaryEvents);
+
+    // Act
+    task.setValues(otherElement);
+
+    // Assert that nothing has changed
+    verify(dataAssociation).clone();
+    assertFalse(otherElement.hasMultiInstanceLoopCharacteristics());
+    assertFalse(otherElement.isForCompensation());
+    assertFalse(otherElement.isAsynchronous());
+    assertFalse(otherElement.isNotExclusive());
+    assertTrue(otherElement.isExclusive());
+    assertSame(ioSpecification, otherElement.getIoSpecification());
+  }
+
+  /**
+   * Test {@link Task#setValues(Task)} with {@code Task}.
+   * <ul>
+   *   <li>Then {@link Task} (default constructor) DataInputAssociations size is one.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link Task#setValues(Task)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void Task.setValues(Task)"})
+  public void testSetValuesWithTask_thenTaskDataInputAssociationsSizeIsOne() {
+    // Arrange
+    Task task = new Task();
+
+    ArrayList<DataAssociation> dataAssociationList = new ArrayList<>();
+    dataAssociationList.add(new DataAssociation());
+    BusinessRuleTask otherElement = mock(BusinessRuleTask.class);
+    when(otherElement.isForCompensation()).thenReturn(true);
+    when(otherElement.isAsynchronous()).thenReturn(true);
+    when(otherElement.isNotExclusive()).thenReturn(true);
+    when(otherElement.getDefaultFlow()).thenReturn("Default Flow");
+    when(otherElement.getFailedJobRetryTimeCycleValue()).thenReturn("42");
+    when(otherElement.getId()).thenReturn("42");
+    when(otherElement.getDocumentation()).thenReturn("Documentation");
+    when(otherElement.getName()).thenReturn("Name");
+    when(otherElement.getBoundaryEvents()).thenReturn(new ArrayList<>());
+    when(otherElement.getDataInputAssociations()).thenReturn(dataAssociationList);
+    when(otherElement.getDataOutputAssociations()).thenReturn(new ArrayList<>());
+    when(otherElement.getExecutionListeners()).thenReturn(new ArrayList<>());
+    when(otherElement.getAttributes()).thenReturn(new HashMap<>());
+    when(otherElement.getExtensionElements()).thenReturn(new HashMap<>());
+    when(otherElement.getIoSpecification()).thenReturn(new IOSpecification());
+    when(otherElement.getLoopCharacteristics()).thenReturn(new MultiInstanceLoopCharacteristics());
+
+    // Act
+    task.setValues(otherElement);
+
+    // Assert
+    verify(otherElement).getBoundaryEvents();
+    verify(otherElement, atLeast(1)).getDataInputAssociations();
+    verify(otherElement, atLeast(1)).getDataOutputAssociations();
+    verify(otherElement).getDefaultFlow();
+    verify(otherElement).getFailedJobRetryTimeCycleValue();
+    verify(otherElement, atLeast(1)).getIoSpecification();
+    verify(otherElement, atLeast(1)).getLoopCharacteristics();
+    verify(otherElement).isForCompensation();
+    verify(otherElement, atLeast(1)).getAttributes();
+    verify(otherElement, atLeast(1)).getExtensionElements();
+    verify(otherElement).getId();
+    verify(otherElement).getDocumentation();
+    verify(otherElement, atLeast(1)).getExecutionListeners();
+    verify(otherElement).getName();
+    verify(otherElement).isAsynchronous();
+    verify(otherElement).isNotExclusive();
+    List<DataAssociation> dataInputAssociations = task.getDataInputAssociations();
+    assertEquals(1, dataInputAssociations.size());
+    DataAssociation getResult = dataInputAssociations.get(0);
+    assertNull(getResult.getId());
+    assertNull(getResult.getSourceRef());
+    assertNull(getResult.getTargetRef());
+    assertNull(getResult.getTransformation());
+    assertEquals(0, getResult.getXmlColumnNumber());
+    assertEquals(0, getResult.getXmlRowNumber());
+    assertTrue(getResult.getAssignments().isEmpty());
+    assertTrue(getResult.getAttributes().isEmpty());
+    assertTrue(getResult.getExtensionElements().isEmpty());
+  }
+
+  /**
+   * Test {@link Task#setValues(Task)} with {@code Task}.
+   * <ul>
+   *   <li>Then {@link Task} (default constructor) DataOutputAssociations size is one.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link Task#setValues(Task)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void Task.setValues(Task)"})
+  public void testSetValuesWithTask_thenTaskDataOutputAssociationsSizeIsOne() {
+    // Arrange
+    Task task = new Task();
+
+    ArrayList<DataAssociation> dataAssociationList = new ArrayList<>();
+    dataAssociationList.add(new DataAssociation());
+    BusinessRuleTask otherElement = mock(BusinessRuleTask.class);
+    when(otherElement.isForCompensation()).thenReturn(true);
+    when(otherElement.isAsynchronous()).thenReturn(true);
+    when(otherElement.isNotExclusive()).thenReturn(true);
+    when(otherElement.getDefaultFlow()).thenReturn("Default Flow");
+    when(otherElement.getFailedJobRetryTimeCycleValue()).thenReturn("42");
+    when(otherElement.getId()).thenReturn("42");
+    when(otherElement.getDocumentation()).thenReturn("Documentation");
+    when(otherElement.getName()).thenReturn("Name");
+    when(otherElement.getBoundaryEvents()).thenReturn(new ArrayList<>());
+    when(otherElement.getDataInputAssociations()).thenReturn(new ArrayList<>());
+    when(otherElement.getDataOutputAssociations()).thenReturn(dataAssociationList);
+    when(otherElement.getExecutionListeners()).thenReturn(new ArrayList<>());
+    when(otherElement.getAttributes()).thenReturn(new HashMap<>());
+    when(otherElement.getExtensionElements()).thenReturn(new HashMap<>());
+    when(otherElement.getIoSpecification()).thenReturn(new IOSpecification());
+    when(otherElement.getLoopCharacteristics()).thenReturn(new MultiInstanceLoopCharacteristics());
+
+    // Act
+    task.setValues(otherElement);
+
+    // Assert
+    verify(otherElement).getBoundaryEvents();
+    verify(otherElement, atLeast(1)).getDataInputAssociations();
+    verify(otherElement, atLeast(1)).getDataOutputAssociations();
+    verify(otherElement).getDefaultFlow();
+    verify(otherElement).getFailedJobRetryTimeCycleValue();
+    verify(otherElement, atLeast(1)).getIoSpecification();
+    verify(otherElement, atLeast(1)).getLoopCharacteristics();
+    verify(otherElement).isForCompensation();
+    verify(otherElement, atLeast(1)).getAttributes();
+    verify(otherElement, atLeast(1)).getExtensionElements();
+    verify(otherElement).getId();
+    verify(otherElement).getDocumentation();
+    verify(otherElement, atLeast(1)).getExecutionListeners();
+    verify(otherElement).getName();
+    verify(otherElement).isAsynchronous();
+    verify(otherElement).isNotExclusive();
+    List<DataAssociation> dataOutputAssociations = task.getDataOutputAssociations();
+    assertEquals(1, dataOutputAssociations.size());
+    DataAssociation getResult = dataOutputAssociations.get(0);
+    assertNull(getResult.getId());
+    assertNull(getResult.getSourceRef());
+    assertNull(getResult.getTargetRef());
+    assertNull(getResult.getTransformation());
+    assertEquals(0, getResult.getXmlColumnNumber());
+    assertEquals(0, getResult.getXmlRowNumber());
+    assertTrue(getResult.getAssignments().isEmpty());
+    assertTrue(getResult.getAttributes().isEmpty());
+    assertTrue(getResult.getExtensionElements().isEmpty());
+  }
+
+  /**
+   * Test {@link Task#setValues(Task)} with {@code Task}.
+   * <ul>
+   *   <li>Then {@link Task} (default constructor) FailedJobRetryTimeCycleValue is {@code 42}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link Task#setValues(Task)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void Task.setValues(Task)"})
+  public void testSetValuesWithTask_thenTaskFailedJobRetryTimeCycleValueIs42() {
+    // Arrange
+    Task task = new Task();
     BusinessRuleTask otherElement = mock(BusinessRuleTask.class);
     when(otherElement.isForCompensation()).thenReturn(true);
     when(otherElement.isAsynchronous()).thenReturn(true);
@@ -491,518 +971,182 @@ public class TaskDiffblueTest {
     verify(otherElement).getName();
     verify(otherElement).isAsynchronous();
     verify(otherElement).isNotExclusive();
-    MultiInstanceLoopCharacteristics loopCharacteristics = task.getLoopCharacteristics();
-    assertNull(loopCharacteristics.getId());
-    assertNull(loopCharacteristics.getCompletionCondition());
-    assertNull(loopCharacteristics.getElementIndexVariable());
-    assertNull(loopCharacteristics.getElementVariable());
-    assertNull(loopCharacteristics.getInputDataItem());
-    assertNull(loopCharacteristics.getLoopCardinality());
-    assertNull(loopCharacteristics.getLoopDataOutputRef());
-    assertNull(loopCharacteristics.getOutputDataItem());
-    assertEquals(0, loopCharacteristics.getXmlColumnNumber());
-    assertEquals(0, loopCharacteristics.getXmlRowNumber());
-    assertFalse(loopCharacteristics.isSequential());
-    assertTrue(loopCharacteristics.getAttributes().isEmpty());
-    assertTrue(loopCharacteristics.getExtensionElements().isEmpty());
+    assertEquals("42", task.getFailedJobRetryTimeCycleValue());
+    assertEquals("42", task.getId());
+    assertEquals("Default Flow", task.getDefaultFlow());
+    assertEquals("Documentation", task.getDocumentation());
+    assertEquals("Name", task.getName());
+    assertFalse(task.isExclusive());
     assertTrue(task.hasMultiInstanceLoopCharacteristics());
+    assertTrue(task.isForCompensation());
+    assertTrue(task.isAsynchronous());
+    assertTrue(task.isNotExclusive());
   }
 
   /**
    * Test {@link Task#setValues(Task)} with {@code Task}.
-   *
    * <ul>
-   *   <li>Then {@link Task} (default constructor) BoundaryEvents size is one.
+   *   <li>When {@link Task} (default constructor) DataInputAssociations is {@link ArrayList#ArrayList()}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link Task#setValues(Task)}
+   * <p>
+   * Method under test: {@link Task#setValues(Task)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void Task.setValues(Task)"})
-  public void testSetValuesWithTask_thenTaskBoundaryEventsSizeIsOne() {
+  public void testSetValuesWithTask_whenTaskDataInputAssociationsIsArrayList() {
     // Arrange
     Task task = new Task();
 
-    ArrayList<BoundaryEvent> boundaryEventList = new ArrayList<>();
-    BoundaryEvent boundaryEvent = new BoundaryEvent();
-    boundaryEventList.add(boundaryEvent);
+    IOSpecification ioSpecification = new IOSpecification();
+    ioSpecification.setDataInputs(null);
+    ioSpecification.setDataOutputs(null);
 
-    BusinessRuleTask otherElement = mock(BusinessRuleTask.class);
-    when(otherElement.getBoundaryEvents()).thenReturn(boundaryEventList);
-    when(otherElement.getDataInputAssociations()).thenReturn(null);
-    when(otherElement.getDataOutputAssociations()).thenReturn(null);
-    when(otherElement.getExecutionListeners()).thenReturn(null);
-    when(otherElement.getAttributes()).thenReturn(null);
-    when(otherElement.getExtensionElements()).thenReturn(null);
-    when(otherElement.getIoSpecification()).thenReturn(null);
-    when(otherElement.getLoopCharacteristics()).thenReturn(null);
-    when(otherElement.isForCompensation()).thenReturn(true);
-    when(otherElement.isAsynchronous()).thenReturn(true);
-    when(otherElement.isNotExclusive()).thenReturn(true);
-    when(otherElement.getDefaultFlow()).thenReturn("Default Flow");
-    when(otherElement.getFailedJobRetryTimeCycleValue()).thenReturn("42");
-    when(otherElement.getId()).thenReturn("42");
-    when(otherElement.getDocumentation()).thenReturn("Documentation");
-    when(otherElement.getName()).thenReturn("Name");
+    ArrayList<DataAssociation> dataInputAssociations = new ArrayList<>();
+    dataInputAssociations.add(new DataAssociation());
+
+    ArrayList<BoundaryEvent> boundaryEvents = new ArrayList<>();
+    boundaryEvents.add(new BoundaryEvent());
+
+    Task otherElement = new Task();
+    otherElement.setIoSpecification(ioSpecification);
+    otherElement.setLoopCharacteristics(null);
+    otherElement.setDataInputAssociations(dataInputAssociations);
+    otherElement.setDataOutputAssociations(null);
+    otherElement.setBoundaryEvents(boundaryEvents);
 
     // Act
     task.setValues(otherElement);
 
-    // Assert
-    verify(otherElement).getBoundaryEvents();
-    verify(otherElement).getDataInputAssociations();
-    verify(otherElement).getDataOutputAssociations();
-    verify(otherElement).getDefaultFlow();
-    verify(otherElement).getFailedJobRetryTimeCycleValue();
-    verify(otherElement).getIoSpecification();
-    verify(otherElement).getLoopCharacteristics();
-    verify(otherElement).isForCompensation();
-    verify(otherElement).getAttributes();
-    verify(otherElement).getExtensionElements();
-    verify(otherElement).getId();
-    verify(otherElement).getDocumentation();
-    verify(otherElement).getExecutionListeners();
-    verify(otherElement).getName();
-    verify(otherElement).isAsynchronous();
-    verify(otherElement).isNotExclusive();
-    List<BoundaryEvent> boundaryEvents = task.getBoundaryEvents();
-    assertEquals(1, boundaryEvents.size());
-    assertSame(boundaryEvent, boundaryEvents.get(0));
+    // Assert that nothing has changed
+    assertFalse(otherElement.hasMultiInstanceLoopCharacteristics());
+    assertFalse(otherElement.isForCompensation());
+    assertFalse(otherElement.isAsynchronous());
+    assertFalse(otherElement.isNotExclusive());
+    assertTrue(otherElement.isExclusive());
+    assertSame(ioSpecification, otherElement.getIoSpecification());
   }
 
   /**
    * Test {@link Task#setValues(Task)} with {@code Task}.
-   *
    * <ul>
-   *   <li>Then {@link Task} (default constructor) DataInputAssociations first is {@link
-   *       DataAssociation} (default constructor).
+   *   <li>When {@link Task} (default constructor) DataInputAssociations is {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link Task#setValues(Task)}
+   * <p>
+   * Method under test: {@link Task#setValues(Task)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void Task.setValues(Task)"})
-  public void testSetValuesWithTask_thenTaskDataInputAssociationsFirstIsDataAssociation() {
+  public void testSetValuesWithTask_whenTaskDataInputAssociationsIsNull() {
     // Arrange
     Task task = new Task();
 
-    ArrayList<BoundaryEvent> boundaryEventList = new ArrayList<>();
-    boundaryEventList.add(new BoundaryEvent());
+    IOSpecification ioSpecification = new IOSpecification();
+    ioSpecification.setDataInputs(null);
+    ioSpecification.setDataOutputs(null);
 
-    DataAssociation dataAssociation = mock(DataAssociation.class);
-    DataAssociation dataAssociation2 = new DataAssociation();
-    when(dataAssociation.clone()).thenReturn(dataAssociation2);
+    ArrayList<BoundaryEvent> boundaryEvents = new ArrayList<>();
+    boundaryEvents.add(new BoundaryEvent());
 
-    ArrayList<DataAssociation> dataAssociationList = new ArrayList<>();
-    dataAssociationList.add(dataAssociation);
-
-    ArrayList<DataAssociation> dataAssociationList2 = new ArrayList<>();
-    dataAssociationList2.add(new DataAssociation());
-
-    ArrayList<ActivitiListener> activitiListenerList = new ArrayList<>();
-    activitiListenerList.add(new ActivitiListener());
-
-    BusinessRuleTask otherElement = mock(BusinessRuleTask.class);
-    when(otherElement.getBoundaryEvents()).thenReturn(boundaryEventList);
-    when(otherElement.getDataInputAssociations()).thenReturn(dataAssociationList);
-    when(otherElement.getDataOutputAssociations()).thenReturn(dataAssociationList2);
-    when(otherElement.getExecutionListeners()).thenReturn(activitiListenerList);
-    when(otherElement.getAttributes()).thenReturn(null);
-    when(otherElement.getExtensionElements()).thenReturn(null);
-    when(otherElement.getIoSpecification()).thenReturn(null);
-    when(otherElement.getLoopCharacteristics()).thenReturn(null);
-    when(otherElement.isForCompensation()).thenReturn(true);
-    when(otherElement.isAsynchronous()).thenReturn(true);
-    when(otherElement.isNotExclusive()).thenReturn(true);
-    when(otherElement.getDefaultFlow()).thenReturn("Default Flow");
-    when(otherElement.getFailedJobRetryTimeCycleValue()).thenReturn("42");
-    when(otherElement.getId()).thenReturn("42");
-    when(otherElement.getDocumentation()).thenReturn("Documentation");
-    when(otherElement.getName()).thenReturn("Name");
+    Task otherElement = new Task();
+    otherElement.setIoSpecification(ioSpecification);
+    otherElement.setLoopCharacteristics(null);
+    otherElement.setDataInputAssociations(null);
+    otherElement.setDataOutputAssociations(null);
+    otherElement.setBoundaryEvents(boundaryEvents);
 
     // Act
     task.setValues(otherElement);
 
-    // Assert
-    verify(otherElement).getBoundaryEvents();
-    verify(otherElement, atLeast(1)).getDataInputAssociations();
-    verify(otherElement, atLeast(1)).getDataOutputAssociations();
-    verify(otherElement).getDefaultFlow();
-    verify(otherElement).getFailedJobRetryTimeCycleValue();
-    verify(otherElement).getIoSpecification();
-    verify(otherElement).getLoopCharacteristics();
-    verify(otherElement).isForCompensation();
-    verify(otherElement).getAttributes();
-    verify(otherElement).getExtensionElements();
-    verify(otherElement).getId();
-    verify(dataAssociation).clone();
-    verify(otherElement).getDocumentation();
-    verify(otherElement, atLeast(1)).getExecutionListeners();
-    verify(otherElement).getName();
-    verify(otherElement).isAsynchronous();
-    verify(otherElement).isNotExclusive();
-    List<DataAssociation> dataInputAssociations = task.getDataInputAssociations();
-    assertEquals(1, dataInputAssociations.size());
-    assertEquals(1, task.getDataOutputAssociations().size());
-    assertEquals(1, task.getExecutionListeners().size());
-    assertSame(dataAssociation2, dataInputAssociations.get(0));
+    // Assert that nothing has changed
+    assertFalse(otherElement.hasMultiInstanceLoopCharacteristics());
+    assertFalse(otherElement.isForCompensation());
+    assertFalse(otherElement.isAsynchronous());
+    assertFalse(otherElement.isNotExclusive());
+    assertTrue(otherElement.isExclusive());
+    assertSame(ioSpecification, otherElement.getIoSpecification());
   }
 
   /**
    * Test {@link Task#setValues(Task)} with {@code Task}.
-   *
    * <ul>
-   *   <li>Then {@link Task} (default constructor) DataInputAssociations size is one.
+   *   <li>When {@link Task} (default constructor) DataOutputAssociations is {@link ArrayList#ArrayList()}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link Task#setValues(Task)}
+   * <p>
+   * Method under test: {@link Task#setValues(Task)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void Task.setValues(Task)"})
-  public void testSetValuesWithTask_thenTaskDataInputAssociationsSizeIsOne() {
+  public void testSetValuesWithTask_whenTaskDataOutputAssociationsIsArrayList() {
     // Arrange
     Task task = new Task();
 
-    ArrayList<BoundaryEvent> boundaryEventList = new ArrayList<>();
-    boundaryEventList.add(new BoundaryEvent());
+    IOSpecification ioSpecification = new IOSpecification();
+    ioSpecification.setDataInputs(null);
+    ioSpecification.setDataOutputs(null);
 
-    ArrayList<DataAssociation> dataAssociationList = new ArrayList<>();
-    dataAssociationList.add(new DataAssociation());
+    ArrayList<DataAssociation> dataOutputAssociations = new ArrayList<>();
+    dataOutputAssociations.add(new DataAssociation());
 
-    ArrayList<DataAssociation> dataAssociationList2 = new ArrayList<>();
-    dataAssociationList2.add(new DataAssociation());
+    ArrayList<BoundaryEvent> boundaryEvents = new ArrayList<>();
+    boundaryEvents.add(new BoundaryEvent());
 
-    ArrayList<ActivitiListener> activitiListenerList = new ArrayList<>();
-    activitiListenerList.add(new ActivitiListener());
-
-    BusinessRuleTask otherElement = mock(BusinessRuleTask.class);
-    when(otherElement.getBoundaryEvents()).thenReturn(boundaryEventList);
-    when(otherElement.getDataInputAssociations()).thenReturn(dataAssociationList);
-    when(otherElement.getDataOutputAssociations()).thenReturn(dataAssociationList2);
-    when(otherElement.getExecutionListeners()).thenReturn(activitiListenerList);
-    when(otherElement.getAttributes()).thenReturn(null);
-    when(otherElement.getExtensionElements()).thenReturn(null);
-    when(otherElement.getIoSpecification()).thenReturn(null);
-    when(otherElement.getLoopCharacteristics()).thenReturn(null);
-    when(otherElement.isForCompensation()).thenReturn(true);
-    when(otherElement.isAsynchronous()).thenReturn(true);
-    when(otherElement.isNotExclusive()).thenReturn(true);
-    when(otherElement.getDefaultFlow()).thenReturn("Default Flow");
-    when(otherElement.getFailedJobRetryTimeCycleValue()).thenReturn("42");
-    when(otherElement.getId()).thenReturn("42");
-    when(otherElement.getDocumentation()).thenReturn("Documentation");
-    when(otherElement.getName()).thenReturn("Name");
+    Task otherElement = new Task();
+    otherElement.setIoSpecification(ioSpecification);
+    otherElement.setLoopCharacteristics(null);
+    otherElement.setDataInputAssociations(null);
+    otherElement.setDataOutputAssociations(dataOutputAssociations);
+    otherElement.setBoundaryEvents(boundaryEvents);
 
     // Act
     task.setValues(otherElement);
 
-    // Assert
-    verify(otherElement).getBoundaryEvents();
-    verify(otherElement, atLeast(1)).getDataInputAssociations();
-    verify(otherElement, atLeast(1)).getDataOutputAssociations();
-    verify(otherElement).getDefaultFlow();
-    verify(otherElement).getFailedJobRetryTimeCycleValue();
-    verify(otherElement).getIoSpecification();
-    verify(otherElement).getLoopCharacteristics();
-    verify(otherElement).isForCompensation();
-    verify(otherElement).getAttributes();
-    verify(otherElement).getExtensionElements();
-    verify(otherElement).getId();
-    verify(otherElement).getDocumentation();
-    verify(otherElement, atLeast(1)).getExecutionListeners();
-    verify(otherElement).getName();
-    verify(otherElement).isAsynchronous();
-    verify(otherElement).isNotExclusive();
-    assertEquals(1, task.getDataInputAssociations().size());
-    assertEquals(1, task.getDataOutputAssociations().size());
-    assertEquals(1, task.getExecutionListeners().size());
+    // Assert that nothing has changed
+    assertFalse(otherElement.hasMultiInstanceLoopCharacteristics());
+    assertFalse(otherElement.isForCompensation());
+    assertFalse(otherElement.isAsynchronous());
+    assertFalse(otherElement.isNotExclusive());
+    assertTrue(otherElement.isExclusive());
+    assertSame(ioSpecification, otherElement.getIoSpecification());
   }
 
   /**
    * Test {@link Task#setValues(Task)} with {@code Task}.
-   *
    * <ul>
-   *   <li>Then {@link Task} (default constructor) DataOutputAssociations first is {@link
-   *       DataAssociation} (default constructor).
+   *   <li>When {@link Task} (default constructor).</li>
+   *   <li>Then not {@link Task} (default constructor) hasMultiInstanceLoopCharacteristics.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link Task#setValues(Task)}
+   * <p>
+   * Method under test: {@link Task#setValues(Task)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void Task.setValues(Task)"})
-  public void testSetValuesWithTask_thenTaskDataOutputAssociationsFirstIsDataAssociation() {
+  public void testSetValuesWithTask_whenTask_thenNotTaskHasMultiInstanceLoopCharacteristics() {
     // Arrange
     Task task = new Task();
-
-    ArrayList<BoundaryEvent> boundaryEventList = new ArrayList<>();
-    boundaryEventList.add(new BoundaryEvent());
-
-    DataAssociation dataAssociation = mock(DataAssociation.class);
-    DataAssociation dataAssociation2 = new DataAssociation();
-    when(dataAssociation.clone()).thenReturn(dataAssociation2);
-
-    ArrayList<DataAssociation> dataAssociationList = new ArrayList<>();
-    dataAssociationList.add(dataAssociation);
-
-    DataAssociation dataAssociation3 = mock(DataAssociation.class);
-    DataAssociation dataAssociation4 = new DataAssociation();
-    when(dataAssociation3.clone()).thenReturn(dataAssociation4);
-
-    ArrayList<DataAssociation> dataAssociationList2 = new ArrayList<>();
-    dataAssociationList2.add(dataAssociation3);
-
-    ArrayList<ActivitiListener> activitiListenerList = new ArrayList<>();
-    activitiListenerList.add(new ActivitiListener());
-
-    BusinessRuleTask otherElement = mock(BusinessRuleTask.class);
-    when(otherElement.getBoundaryEvents()).thenReturn(boundaryEventList);
-    when(otherElement.getDataInputAssociations()).thenReturn(dataAssociationList);
-    when(otherElement.getDataOutputAssociations()).thenReturn(dataAssociationList2);
-    when(otherElement.getExecutionListeners()).thenReturn(activitiListenerList);
-    when(otherElement.getAttributes()).thenReturn(null);
-    when(otherElement.getExtensionElements()).thenReturn(null);
-    when(otherElement.getIoSpecification()).thenReturn(null);
-    when(otherElement.getLoopCharacteristics()).thenReturn(null);
-    when(otherElement.isForCompensation()).thenReturn(true);
-    when(otherElement.isAsynchronous()).thenReturn(true);
-    when(otherElement.isNotExclusive()).thenReturn(true);
-    when(otherElement.getDefaultFlow()).thenReturn("Default Flow");
-    when(otherElement.getFailedJobRetryTimeCycleValue()).thenReturn("42");
-    when(otherElement.getId()).thenReturn("42");
-    when(otherElement.getDocumentation()).thenReturn("Documentation");
-    when(otherElement.getName()).thenReturn("Name");
+    Task otherElement = new Task();
 
     // Act
     task.setValues(otherElement);
 
-    // Assert
-    verify(otherElement).getBoundaryEvents();
-    verify(otherElement, atLeast(1)).getDataInputAssociations();
-    verify(otherElement, atLeast(1)).getDataOutputAssociations();
-    verify(otherElement).getDefaultFlow();
-    verify(otherElement).getFailedJobRetryTimeCycleValue();
-    verify(otherElement).getIoSpecification();
-    verify(otherElement).getLoopCharacteristics();
-    verify(otherElement).isForCompensation();
-    verify(otherElement).getAttributes();
-    verify(otherElement).getExtensionElements();
-    verify(otherElement).getId();
-    verify(dataAssociation).clone();
-    verify(dataAssociation3).clone();
-    verify(otherElement).getDocumentation();
-    verify(otherElement, atLeast(1)).getExecutionListeners();
-    verify(otherElement).getName();
-    verify(otherElement).isAsynchronous();
-    verify(otherElement).isNotExclusive();
-    List<DataAssociation> dataInputAssociations = task.getDataInputAssociations();
-    assertEquals(1, dataInputAssociations.size());
-    List<DataAssociation> dataOutputAssociations = task.getDataOutputAssociations();
-    assertEquals(1, dataOutputAssociations.size());
-    assertEquals(1, task.getExecutionListeners().size());
-    assertSame(dataAssociation2, dataInputAssociations.get(0));
-    assertSame(dataAssociation4, dataOutputAssociations.get(0));
-  }
-
-  /**
-   * Test {@link Task#setValues(Task)} with {@code Task}.
-   *
-   * <ul>
-   *   <li>Then {@link Task} (default constructor) IoSpecification Id is {@code null}.
-   * </ul>
-   *
-   * <p>Method under test: {@link Task#setValues(Task)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void Task.setValues(Task)"})
-  public void testSetValuesWithTask_thenTaskIoSpecificationIdIsNull() {
-    // Arrange
-    Task task = new Task();
-
-    ArrayList<BoundaryEvent> boundaryEventList = new ArrayList<>();
-    boundaryEventList.add(new BoundaryEvent());
-
-    DataAssociation dataAssociation = mock(DataAssociation.class);
-    when(dataAssociation.clone()).thenReturn(new DataAssociation());
-
-    ArrayList<DataAssociation> dataAssociationList = new ArrayList<>();
-    dataAssociationList.add(dataAssociation);
-
-    DataAssociation dataAssociation2 = mock(DataAssociation.class);
-    when(dataAssociation2.clone()).thenReturn(new DataAssociation());
-
-    ArrayList<DataAssociation> dataAssociationList2 = new ArrayList<>();
-    dataAssociationList2.add(dataAssociation2);
-
-    ArrayList<ActivitiListener> activitiListenerList = new ArrayList<>();
-    activitiListenerList.add(new ActivitiListener());
-
-    IOSpecification ioSpecification = mock(IOSpecification.class);
-    when(ioSpecification.clone()).thenReturn(new IOSpecification());
-
-    BusinessRuleTask otherElement = mock(BusinessRuleTask.class);
-    when(otherElement.getBoundaryEvents()).thenReturn(boundaryEventList);
-    when(otherElement.getDataInputAssociations()).thenReturn(dataAssociationList);
-    when(otherElement.getDataOutputAssociations()).thenReturn(dataAssociationList2);
-    when(otherElement.getExecutionListeners()).thenReturn(activitiListenerList);
-    when(otherElement.getAttributes()).thenReturn(null);
-    when(otherElement.getExtensionElements()).thenReturn(null);
-    when(otherElement.getIoSpecification()).thenReturn(ioSpecification);
-    when(otherElement.getLoopCharacteristics()).thenReturn(null);
-    when(otherElement.isForCompensation()).thenReturn(true);
-    when(otherElement.isAsynchronous()).thenReturn(true);
-    when(otherElement.isNotExclusive()).thenReturn(true);
-    when(otherElement.getDefaultFlow()).thenReturn("Default Flow");
-    when(otherElement.getFailedJobRetryTimeCycleValue()).thenReturn("42");
-    when(otherElement.getId()).thenReturn("42");
-    when(otherElement.getDocumentation()).thenReturn("Documentation");
-    when(otherElement.getName()).thenReturn("Name");
-
-    // Act
-    task.setValues(otherElement);
-
-    // Assert
-    verify(otherElement).getBoundaryEvents();
-    verify(otherElement, atLeast(1)).getDataInputAssociations();
-    verify(otherElement, atLeast(1)).getDataOutputAssociations();
-    verify(otherElement).getDefaultFlow();
-    verify(otherElement).getFailedJobRetryTimeCycleValue();
-    verify(otherElement, atLeast(1)).getIoSpecification();
-    verify(otherElement).getLoopCharacteristics();
-    verify(otherElement).isForCompensation();
-    verify(otherElement).getAttributes();
-    verify(otherElement).getExtensionElements();
-    verify(otherElement).getId();
-    verify(dataAssociation).clone();
-    verify(dataAssociation2).clone();
-    verify(otherElement).getDocumentation();
-    verify(otherElement, atLeast(1)).getExecutionListeners();
-    verify(otherElement).getName();
-    verify(otherElement).isAsynchronous();
-    verify(otherElement).isNotExclusive();
-    verify(ioSpecification).clone();
-    IOSpecification ioSpecification2 = task.getIoSpecification();
-    assertNull(ioSpecification2.getId());
-    assertEquals(0, ioSpecification2.getXmlColumnNumber());
-    assertEquals(0, ioSpecification2.getXmlRowNumber());
-    assertTrue(ioSpecification2.getDataInputRefs().isEmpty());
-    assertTrue(ioSpecification2.getDataInputs().isEmpty());
-    assertTrue(ioSpecification2.getDataOutputRefs().isEmpty());
-    assertTrue(ioSpecification2.getDataOutputs().isEmpty());
-    assertTrue(ioSpecification2.getAttributes().isEmpty());
-    assertTrue(ioSpecification2.getExtensionElements().isEmpty());
-  }
-
-  /**
-   * Test {@link Task#setValues(Task)} with {@code Task}.
-   *
-   * <ul>
-   *   <li>Then {@link Task} (default constructor) IoSpecification is {@link IOSpecification}
-   *       (default constructor).
-   * </ul>
-   *
-   * <p>Method under test: {@link Task#setValues(Task)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void Task.setValues(Task)"})
-  public void testSetValuesWithTask_thenTaskIoSpecificationIsIOSpecification() {
-    // Arrange
-    Task task = new Task();
-
-    ArrayList<BoundaryEvent> boundaryEventList = new ArrayList<>();
-    boundaryEventList.add(new BoundaryEvent());
-
-    DataAssociation dataAssociation = mock(DataAssociation.class);
-    when(dataAssociation.clone()).thenReturn(new DataAssociation());
-
-    ArrayList<DataAssociation> dataAssociationList = new ArrayList<>();
-    dataAssociationList.add(dataAssociation);
-
-    DataAssociation dataAssociation2 = mock(DataAssociation.class);
-    when(dataAssociation2.clone()).thenReturn(new DataAssociation());
-
-    ArrayList<DataAssociation> dataAssociationList2 = new ArrayList<>();
-    dataAssociationList2.add(dataAssociation2);
-
-    ArrayList<ActivitiListener> activitiListenerList = new ArrayList<>();
-    activitiListenerList.add(new ActivitiListener());
-
-    IOSpecification ioSpecification = mock(IOSpecification.class);
-    IOSpecification ioSpecification2 = new IOSpecification();
-    when(ioSpecification.clone()).thenReturn(ioSpecification2);
-
-    MultiInstanceLoopCharacteristics multiInstanceLoopCharacteristics =
-        mock(MultiInstanceLoopCharacteristics.class);
-    MultiInstanceLoopCharacteristics multiInstanceLoopCharacteristics2 =
-        new MultiInstanceLoopCharacteristics();
-    when(multiInstanceLoopCharacteristics.clone()).thenReturn(multiInstanceLoopCharacteristics2);
-
-    BusinessRuleTask otherElement = mock(BusinessRuleTask.class);
-    when(otherElement.getBoundaryEvents()).thenReturn(boundaryEventList);
-    when(otherElement.getDataInputAssociations()).thenReturn(dataAssociationList);
-    when(otherElement.getDataOutputAssociations()).thenReturn(dataAssociationList2);
-    when(otherElement.getExecutionListeners()).thenReturn(activitiListenerList);
-    when(otherElement.getAttributes()).thenReturn(null);
-    when(otherElement.getExtensionElements()).thenReturn(null);
-    when(otherElement.getIoSpecification()).thenReturn(ioSpecification);
-    when(otherElement.getLoopCharacteristics()).thenReturn(multiInstanceLoopCharacteristics);
-    when(otherElement.isForCompensation()).thenReturn(true);
-    when(otherElement.isAsynchronous()).thenReturn(true);
-    when(otherElement.isNotExclusive()).thenReturn(true);
-    when(otherElement.getDefaultFlow()).thenReturn("Default Flow");
-    when(otherElement.getFailedJobRetryTimeCycleValue()).thenReturn("42");
-    when(otherElement.getId()).thenReturn("42");
-    when(otherElement.getDocumentation()).thenReturn("Documentation");
-    when(otherElement.getName()).thenReturn("Name");
-
-    // Act
-    task.setValues(otherElement);
-
-    // Assert
-    verify(otherElement).getBoundaryEvents();
-    verify(otherElement, atLeast(1)).getDataInputAssociations();
-    verify(otherElement, atLeast(1)).getDataOutputAssociations();
-    verify(otherElement).getDefaultFlow();
-    verify(otherElement).getFailedJobRetryTimeCycleValue();
-    verify(otherElement, atLeast(1)).getIoSpecification();
-    verify(otherElement, atLeast(1)).getLoopCharacteristics();
-    verify(otherElement).isForCompensation();
-    verify(otherElement).getAttributes();
-    verify(otherElement).getExtensionElements();
-    verify(otherElement).getId();
-    verify(dataAssociation).clone();
-    verify(dataAssociation2).clone();
-    verify(otherElement).getDocumentation();
-    verify(otherElement, atLeast(1)).getExecutionListeners();
-    verify(otherElement).getName();
-    verify(otherElement).isAsynchronous();
-    verify(otherElement).isNotExclusive();
-    verify(ioSpecification).clone();
-    verify(multiInstanceLoopCharacteristics).clone();
-    assertTrue(task.hasMultiInstanceLoopCharacteristics());
-    assertSame(ioSpecification2, task.getIoSpecification());
-    assertSame(multiInstanceLoopCharacteristics2, task.getLoopCharacteristics());
+    // Assert that nothing has changed
+    assertFalse(otherElement.hasMultiInstanceLoopCharacteristics());
+    assertFalse(otherElement.isForCompensation());
+    assertFalse(otherElement.isAsynchronous());
+    assertFalse(otherElement.isNotExclusive());
+    assertTrue(otherElement.isExclusive());
   }
 
   /**
    * Test new {@link Task} (default constructor).
-   *
-   * <p>Method under test: default or parameterless constructor of {@link Task}
+   * <p>
+   * Method under test: default or parameterless constructor of {@link Task}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void Task.<init>()"})
   public void testNewTask() {
     // Arrange and Act

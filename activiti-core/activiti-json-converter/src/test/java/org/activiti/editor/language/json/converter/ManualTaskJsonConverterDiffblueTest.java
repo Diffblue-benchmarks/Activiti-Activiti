@@ -19,10 +19,9 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.node.DoubleNode;
+import com.fasterxml.jackson.databind.node.MissingNode;
 import java.util.HashMap;
 import java.util.Map;
 import org.activiti.bpmn.model.ActivitiListener;
@@ -36,13 +35,12 @@ import org.junit.jupiter.api.Test;
 class ManualTaskJsonConverterDiffblueTest {
   /**
    * Test {@link ManualTaskJsonConverter#fillJsonTypes(Map)}.
-   *
-   * <p>Method under test: {@link ManualTaskJsonConverter#fillJsonTypes(Map)}
+   * <p>
+   * Method under test: {@link ManualTaskJsonConverter#fillJsonTypes(Map)}
    */
   @Test
   @DisplayName("Test fillJsonTypes(Map)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void ManualTaskJsonConverter.fillJsonTypes(Map)"})
   void testFillJsonTypes() {
     // Arrange
@@ -59,13 +57,12 @@ class ManualTaskJsonConverterDiffblueTest {
 
   /**
    * Test {@link ManualTaskJsonConverter#getStencilId(BaseElement)}.
-   *
-   * <p>Method under test: {@link ManualTaskJsonConverter#getStencilId(BaseElement)}
+   * <p>
+   * Method under test: {@link ManualTaskJsonConverter#getStencilId(BaseElement)}
    */
   @Test
   @DisplayName("Test getStencilId(BaseElement)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"String ManualTaskJsonConverter.getStencilId(BaseElement)"})
   void testGetStencilId() {
     // Arrange
@@ -77,26 +74,22 @@ class ManualTaskJsonConverterDiffblueTest {
 
   /**
    * Test {@link ManualTaskJsonConverter#convertJsonToElement(JsonNode, JsonNode, Map)}.
-   *
-   * <p>Method under test: {@link ManualTaskJsonConverter#convertJsonToElement(JsonNode, JsonNode,
-   * Map)}
+   * <p>
+   * Method under test: {@link ManualTaskJsonConverter#convertJsonToElement(JsonNode, JsonNode, Map)}
    */
   @Test
   @DisplayName("Test convertJsonToElement(JsonNode, JsonNode, Map)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "FlowElement ManualTaskJsonConverter.convertJsonToElement(JsonNode, JsonNode, Map)"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"FlowElement ManualTaskJsonConverter.convertJsonToElement(JsonNode, JsonNode, Map)"})
   void testConvertJsonToElement() {
     // Arrange
     ManualTaskJsonConverter manualTaskJsonConverter = new ManualTaskJsonConverter();
-    DoubleNode elementNode = DoubleNode.valueOf(10.0d);
-    DoubleNode modelNode = DoubleNode.valueOf(10.0d);
+    MissingNode elementNode = MissingNode.getInstance();
+    MissingNode modelNode = MissingNode.getInstance();
 
     // Act
-    FlowElement actualConvertJsonToElementResult =
-        manualTaskJsonConverter.convertJsonToElement(elementNode, modelNode, new HashMap<>());
+    FlowElement actualConvertJsonToElementResult = manualTaskJsonConverter.convertJsonToElement(elementNode, modelNode,
+        new HashMap<>());
 
     // Assert
     assertTrue(actualConvertJsonToElementResult instanceof ManualTask);
@@ -112,16 +105,13 @@ class ManualTaskJsonConverterDiffblueTest {
     assertNull(actualConvertJsonToElementResult.getSubProcess());
     assertEquals(0, actualConvertJsonToElementResult.getXmlColumnNumber());
     assertEquals(0, actualConvertJsonToElementResult.getXmlRowNumber());
-    assertFalse(
-        ((ManualTask) actualConvertJsonToElementResult).hasMultiInstanceLoopCharacteristics());
+    assertFalse(((ManualTask) actualConvertJsonToElementResult).hasMultiInstanceLoopCharacteristics());
     assertFalse(((ManualTask) actualConvertJsonToElementResult).isForCompensation());
     assertFalse(((ManualTask) actualConvertJsonToElementResult).isAsynchronous());
     assertFalse(((ManualTask) actualConvertJsonToElementResult).isNotExclusive());
     assertTrue(((ManualTask) actualConvertJsonToElementResult).getBoundaryEvents().isEmpty());
-    assertTrue(
-        ((ManualTask) actualConvertJsonToElementResult).getDataInputAssociations().isEmpty());
-    assertTrue(
-        ((ManualTask) actualConvertJsonToElementResult).getDataOutputAssociations().isEmpty());
+    assertTrue(((ManualTask) actualConvertJsonToElementResult).getDataInputAssociations().isEmpty());
+    assertTrue(((ManualTask) actualConvertJsonToElementResult).getDataOutputAssociations().isEmpty());
     assertTrue(((ManualTask) actualConvertJsonToElementResult).getMapExceptions().isEmpty());
     assertTrue(actualConvertJsonToElementResult.getExecutionListeners().isEmpty());
     assertTrue(((ManualTask) actualConvertJsonToElementResult).getIncomingFlows().isEmpty());
@@ -133,13 +123,12 @@ class ManualTaskJsonConverterDiffblueTest {
 
   /**
    * Test new {@link ManualTaskJsonConverter} (default constructor).
-   *
-   * <p>Method under test: default or parameterless constructor of {@link ManualTaskJsonConverter}
+   * <p>
+   * Method under test: default or parameterless constructor of {@link ManualTaskJsonConverter}
    */
   @Test
   @DisplayName("Test new ManualTaskJsonConverter (default constructor)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void ManualTaskJsonConverter.<init>()"})
   void testNewManualTaskJsonConverter() {
     // Arrange and Act

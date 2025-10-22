@@ -18,8 +18,7 @@ package org.activiti.engine.impl.bpmn.diagram;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.Iterator;
 import java.util.Map;
@@ -29,103 +28,86 @@ import org.junit.experimental.categories.Category;
 public class Bpmn20NamespaceContextDiffblueTest {
   /**
    * Test new {@link Bpmn20NamespaceContext} (default constructor).
-   *
-   * <p>Method under test: default or parameterless constructor of {@link Bpmn20NamespaceContext}
+   * <p>
+   * Method under test: default or parameterless constructor of {@link Bpmn20NamespaceContext}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void Bpmn20NamespaceContext.<init>()"})
   public void testNewBpmn20NamespaceContext() {
     // Arrange, Act and Assert
-    Map<String, String> stringStringMap = new Bpmn20NamespaceContext().namespaceUris;
+    Map<String, String> stringStringMap = (new Bpmn20NamespaceContext()).namespaceUris;
     assertEquals(4, stringStringMap.size());
-    assertEquals(
-        "http://www.omg.org/spec/BPMN/20100524/DI",
-        stringStringMap.get(Bpmn20NamespaceContext.BPMNDI));
-    assertEquals(
-        "http://www.omg.org/spec/BPMN/20100524/MODEL",
-        stringStringMap.get(Bpmn20NamespaceContext.BPMN));
-    assertEquals(
-        "http://www.omg.org/spec/DD/20100524/DC",
-        stringStringMap.get(Bpmn20NamespaceContext.OMGDI));
-    assertEquals(
-        "http://www.omg.org/spec/DD/20100524/DI",
-        stringStringMap.get(Bpmn20NamespaceContext.OMGDC));
+    assertEquals("http://www.omg.org/spec/BPMN/20100524/DI", stringStringMap.get(Bpmn20NamespaceContext.BPMNDI));
+    assertEquals("http://www.omg.org/spec/BPMN/20100524/MODEL", stringStringMap.get(Bpmn20NamespaceContext.BPMN));
+    assertEquals("http://www.omg.org/spec/DD/20100524/DC", stringStringMap.get(Bpmn20NamespaceContext.OMGDI));
+    assertEquals("http://www.omg.org/spec/DD/20100524/DI", stringStringMap.get(Bpmn20NamespaceContext.OMGDC));
   }
 
   /**
    * Test {@link Bpmn20NamespaceContext#getNamespaceURI(String)}.
-   *
-   * <p>Method under test: {@link Bpmn20NamespaceContext#getNamespaceURI(String)}
+   * <p>
+   * Method under test: {@link Bpmn20NamespaceContext#getNamespaceURI(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"String Bpmn20NamespaceContext.getNamespaceURI(String)"})
   public void testGetNamespaceURI() {
     // Arrange, Act and Assert
-    assertNull(new Bpmn20NamespaceContext().getNamespaceURI("Prefix"));
+    assertNull((new Bpmn20NamespaceContext()).getNamespaceURI("Prefix"));
   }
 
   /**
    * Test {@link Bpmn20NamespaceContext#getPrefix(String)}.
-   *
    * <ul>
-   *   <li>When {@code http://www.omg.org/spec/BPMN/20100524/MODEL}.
-   *   <li>Then return {@link Bpmn20NamespaceContext#BPMN}.
+   *   <li>When {@code http://www.omg.org/spec/BPMN/20100524/MODEL}.</li>
+   *   <li>Then return {@link Bpmn20NamespaceContext#BPMN}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link Bpmn20NamespaceContext#getPrefix(String)}
+   * <p>
+   * Method under test: {@link Bpmn20NamespaceContext#getPrefix(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"String Bpmn20NamespaceContext.getPrefix(String)"})
   public void testGetPrefix_whenHttpWwwOmgOrgSpecBpmn20100524Model_thenReturnBpmn() {
     // Arrange, Act and Assert
-    assertEquals(
-        Bpmn20NamespaceContext.BPMN,
-        new Bpmn20NamespaceContext().getPrefix("http://www.omg.org/spec/BPMN/20100524/MODEL"));
+    assertEquals(Bpmn20NamespaceContext.BPMN,
+        (new Bpmn20NamespaceContext()).getPrefix("http://www.omg.org/spec/BPMN/20100524/MODEL"));
   }
 
   /**
    * Test {@link Bpmn20NamespaceContext#getPrefix(String)}.
-   *
    * <ul>
-   *   <li>When {@code Namespace URI}.
-   *   <li>Then return {@code null}.
+   *   <li>When {@code Namespace URI}.</li>
+   *   <li>Then return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link Bpmn20NamespaceContext#getPrefix(String)}
+   * <p>
+   * Method under test: {@link Bpmn20NamespaceContext#getPrefix(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"String Bpmn20NamespaceContext.getPrefix(String)"})
   public void testGetPrefix_whenNamespaceUri_thenReturnNull() {
     // Arrange, Act and Assert
-    assertNull(new Bpmn20NamespaceContext().getPrefix("Namespace URI"));
+    assertNull((new Bpmn20NamespaceContext()).getPrefix("Namespace URI"));
   }
 
   /**
    * Test {@link Bpmn20NamespaceContext#getPrefixes(String)}.
-   *
    * <ul>
-   *   <li>When {@code http://www.omg.org/spec/BPMN/20100524/MODEL}.
-   *   <li>Then return next is {@link Bpmn20NamespaceContext#BPMN}.
+   *   <li>When {@code http://www.omg.org/spec/BPMN/20100524/MODEL}.</li>
+   *   <li>Then return next is {@link Bpmn20NamespaceContext#BPMN}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link Bpmn20NamespaceContext#getPrefixes(String)}
+   * <p>
+   * Method under test: {@link Bpmn20NamespaceContext#getPrefixes(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"Iterator Bpmn20NamespaceContext.getPrefixes(String)"})
   public void testGetPrefixes_whenHttpWwwOmgOrgSpecBpmn20100524Model_thenReturnNextIsBpmn() {
     // Arrange and Act
-    Iterator<String> actualPrefixes =
-        new Bpmn20NamespaceContext().getPrefixes("http://www.omg.org/spec/BPMN/20100524/MODEL");
+    Iterator<String> actualPrefixes = (new Bpmn20NamespaceContext())
+        .getPrefixes("http://www.omg.org/spec/BPMN/20100524/MODEL");
 
     // Assert
     String actualNextResult = actualPrefixes.next();
@@ -135,19 +117,17 @@ public class Bpmn20NamespaceContextDiffblueTest {
 
   /**
    * Test {@link Bpmn20NamespaceContext#getPrefixes(String)}.
-   *
    * <ul>
-   *   <li>When {@code Namespace URI}.
+   *   <li>When {@code Namespace URI}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link Bpmn20NamespaceContext#getPrefixes(String)}
+   * <p>
+   * Method under test: {@link Bpmn20NamespaceContext#getPrefixes(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"Iterator Bpmn20NamespaceContext.getPrefixes(String)"})
   public void testGetPrefixes_whenNamespaceUri() {
     // Arrange, Act and Assert
-    assertFalse(new Bpmn20NamespaceContext().getPrefixes("Namespace URI").hasNext());
+    assertFalse((new Bpmn20NamespaceContext()).getPrefixes("Namespace URI").hasNext());
   }
 }

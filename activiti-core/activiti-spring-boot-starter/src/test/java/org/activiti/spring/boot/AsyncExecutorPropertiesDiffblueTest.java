@@ -17,7 +17,6 @@ package org.activiti.spring.boot;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
@@ -26,9 +25,8 @@ import org.junit.jupiter.api.Test;
 class AsyncExecutorPropertiesDiffblueTest {
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>default or parameterless constructor of {@link AsyncExecutorProperties}
    *   <li>{@link AsyncExecutorProperties#setAsyncJobLockTimeInMillis(int)}
@@ -69,45 +67,36 @@ class AsyncExecutorPropertiesDiffblueTest {
    */
   @Test
   @DisplayName("Test getters and setters")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void AsyncExecutorProperties.<init>()",
-    "int AsyncExecutorProperties.getAsyncJobLockTimeInMillis()",
-    "int AsyncExecutorProperties.getCorePoolSize()",
-    "int AsyncExecutorProperties.getDefaultAsyncJobAcquireWaitTimeInMillis()",
-    "int AsyncExecutorProperties.getDefaultQueueSizeFullWaitTime()",
-    "int AsyncExecutorProperties.getDefaultTimerJobAcquireWaitTimeInMillis()",
-    "long AsyncExecutorProperties.getKeepAliveTime()",
-    "int AsyncExecutorProperties.getMaxAsyncJobsDuePerAcquisition()",
-    "int AsyncExecutorProperties.getMaxPoolSize()",
-    "int AsyncExecutorProperties.getMaxTimerJobsPerAcquisition()",
-    "int AsyncExecutorProperties.getNumberOfRetries()",
-    "int AsyncExecutorProperties.getQueueSize()",
-    "int AsyncExecutorProperties.getResetExpiredJobsInterval()",
-    "int AsyncExecutorProperties.getResetExpiredJobsPageSize()",
-    "int AsyncExecutorProperties.getRetryWaitTimeInMillis()",
-    "long AsyncExecutorProperties.getSecondsToWaitOnShutdown()",
-    "int AsyncExecutorProperties.getTimerLockTimeInMillis()",
-    "boolean AsyncExecutorProperties.isMessageQueueMode()",
-    "void AsyncExecutorProperties.setAsyncJobLockTimeInMillis(int)",
-    "void AsyncExecutorProperties.setCorePoolSize(int)",
-    "void AsyncExecutorProperties.setDefaultAsyncJobAcquireWaitTimeInMillis(int)",
-    "void AsyncExecutorProperties.setDefaultQueueSizeFullWaitTime(int)",
-    "void AsyncExecutorProperties.setDefaultTimerJobAcquireWaitTimeInMillis(int)",
-    "void AsyncExecutorProperties.setKeepAliveTime(long)",
-    "void AsyncExecutorProperties.setMaxAsyncJobsDuePerAcquisition(int)",
-    "void AsyncExecutorProperties.setMaxPoolSize(int)",
-    "void AsyncExecutorProperties.setMaxTimerJobsPerAcquisition(int)",
-    "void AsyncExecutorProperties.setMessageQueueMode(boolean)",
-    "void AsyncExecutorProperties.setNumberOfRetries(int)",
-    "void AsyncExecutorProperties.setQueueSize(int)",
-    "void AsyncExecutorProperties.setResetExpiredJobsInterval(int)",
-    "void AsyncExecutorProperties.setResetExpiredJobsPageSize(int)",
-    "void AsyncExecutorProperties.setRetryWaitTimeInMillis(int)",
-    "void AsyncExecutorProperties.setSecondsToWaitOnShutdown(long)",
-    "void AsyncExecutorProperties.setTimerLockTimeInMillis(int)"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void AsyncExecutorProperties.<init>()",
+      "int AsyncExecutorProperties.getAsyncJobLockTimeInMillis()", "int AsyncExecutorProperties.getCorePoolSize()",
+      "int AsyncExecutorProperties.getDefaultAsyncJobAcquireWaitTimeInMillis()",
+      "int AsyncExecutorProperties.getDefaultQueueSizeFullWaitTime()",
+      "int AsyncExecutorProperties.getDefaultTimerJobAcquireWaitTimeInMillis()",
+      "long AsyncExecutorProperties.getKeepAliveTime()",
+      "int AsyncExecutorProperties.getMaxAsyncJobsDuePerAcquisition()", "int AsyncExecutorProperties.getMaxPoolSize()",
+      "int AsyncExecutorProperties.getMaxTimerJobsPerAcquisition()", "int AsyncExecutorProperties.getNumberOfRetries()",
+      "int AsyncExecutorProperties.getQueueSize()", "int AsyncExecutorProperties.getResetExpiredJobsInterval()",
+      "int AsyncExecutorProperties.getResetExpiredJobsPageSize()",
+      "int AsyncExecutorProperties.getRetryWaitTimeInMillis()",
+      "long AsyncExecutorProperties.getSecondsToWaitOnShutdown()",
+      "int AsyncExecutorProperties.getTimerLockTimeInMillis()", "boolean AsyncExecutorProperties.isMessageQueueMode()",
+      "void AsyncExecutorProperties.setAsyncJobLockTimeInMillis(int)",
+      "void AsyncExecutorProperties.setCorePoolSize(int)",
+      "void AsyncExecutorProperties.setDefaultAsyncJobAcquireWaitTimeInMillis(int)",
+      "void AsyncExecutorProperties.setDefaultQueueSizeFullWaitTime(int)",
+      "void AsyncExecutorProperties.setDefaultTimerJobAcquireWaitTimeInMillis(int)",
+      "void AsyncExecutorProperties.setKeepAliveTime(long)",
+      "void AsyncExecutorProperties.setMaxAsyncJobsDuePerAcquisition(int)",
+      "void AsyncExecutorProperties.setMaxPoolSize(int)",
+      "void AsyncExecutorProperties.setMaxTimerJobsPerAcquisition(int)",
+      "void AsyncExecutorProperties.setMessageQueueMode(boolean)",
+      "void AsyncExecutorProperties.setNumberOfRetries(int)", "void AsyncExecutorProperties.setQueueSize(int)",
+      "void AsyncExecutorProperties.setResetExpiredJobsInterval(int)",
+      "void AsyncExecutorProperties.setResetExpiredJobsPageSize(int)",
+      "void AsyncExecutorProperties.setRetryWaitTimeInMillis(int)",
+      "void AsyncExecutorProperties.setSecondsToWaitOnShutdown(long)",
+      "void AsyncExecutorProperties.setTimerLockTimeInMillis(int)"})
   void testGettersAndSetters() {
     // Arrange and Act
     AsyncExecutorProperties actualAsyncExecutorProperties = new AsyncExecutorProperties();
@@ -128,27 +117,21 @@ class AsyncExecutorPropertiesDiffblueTest {
     actualAsyncExecutorProperties.setRetryWaitTimeInMillis(1);
     actualAsyncExecutorProperties.setSecondsToWaitOnShutdown(1L);
     actualAsyncExecutorProperties.setTimerLockTimeInMillis(1);
-    int actualAsyncJobLockTimeInMillis =
-        actualAsyncExecutorProperties.getAsyncJobLockTimeInMillis();
+    int actualAsyncJobLockTimeInMillis = actualAsyncExecutorProperties.getAsyncJobLockTimeInMillis();
     int actualCorePoolSize = actualAsyncExecutorProperties.getCorePoolSize();
-    int actualDefaultAsyncJobAcquireWaitTimeInMillis =
-        actualAsyncExecutorProperties.getDefaultAsyncJobAcquireWaitTimeInMillis();
-    int actualDefaultQueueSizeFullWaitTime =
-        actualAsyncExecutorProperties.getDefaultQueueSizeFullWaitTime();
-    int actualDefaultTimerJobAcquireWaitTimeInMillis =
-        actualAsyncExecutorProperties.getDefaultTimerJobAcquireWaitTimeInMillis();
+    int actualDefaultAsyncJobAcquireWaitTimeInMillis = actualAsyncExecutorProperties
+        .getDefaultAsyncJobAcquireWaitTimeInMillis();
+    int actualDefaultQueueSizeFullWaitTime = actualAsyncExecutorProperties.getDefaultQueueSizeFullWaitTime();
+    int actualDefaultTimerJobAcquireWaitTimeInMillis = actualAsyncExecutorProperties
+        .getDefaultTimerJobAcquireWaitTimeInMillis();
     long actualKeepAliveTime = actualAsyncExecutorProperties.getKeepAliveTime();
-    int actualMaxAsyncJobsDuePerAcquisition =
-        actualAsyncExecutorProperties.getMaxAsyncJobsDuePerAcquisition();
+    int actualMaxAsyncJobsDuePerAcquisition = actualAsyncExecutorProperties.getMaxAsyncJobsDuePerAcquisition();
     int actualMaxPoolSize = actualAsyncExecutorProperties.getMaxPoolSize();
-    int actualMaxTimerJobsPerAcquisition =
-        actualAsyncExecutorProperties.getMaxTimerJobsPerAcquisition();
+    int actualMaxTimerJobsPerAcquisition = actualAsyncExecutorProperties.getMaxTimerJobsPerAcquisition();
     int actualNumberOfRetries = actualAsyncExecutorProperties.getNumberOfRetries();
     int actualQueueSize = actualAsyncExecutorProperties.getQueueSize();
-    int actualResetExpiredJobsInterval =
-        actualAsyncExecutorProperties.getResetExpiredJobsInterval();
-    int actualResetExpiredJobsPageSize =
-        actualAsyncExecutorProperties.getResetExpiredJobsPageSize();
+    int actualResetExpiredJobsInterval = actualAsyncExecutorProperties.getResetExpiredJobsInterval();
+    int actualResetExpiredJobsPageSize = actualAsyncExecutorProperties.getResetExpiredJobsPageSize();
     int actualRetryWaitTimeInMillis = actualAsyncExecutorProperties.getRetryWaitTimeInMillis();
     long actualSecondsToWaitOnShutdown = actualAsyncExecutorProperties.getSecondsToWaitOnShutdown();
     int actualTimerLockTimeInMillis = actualAsyncExecutorProperties.getTimerLockTimeInMillis();

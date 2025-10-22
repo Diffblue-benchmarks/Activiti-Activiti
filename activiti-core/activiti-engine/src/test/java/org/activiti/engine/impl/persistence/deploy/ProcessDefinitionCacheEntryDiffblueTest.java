@@ -16,26 +16,22 @@
 package org.activiti.engine.impl.persistence.deploy;
 
 import static org.junit.Assert.assertSame;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.bpmn.model.BpmnModel;
 import org.activiti.bpmn.model.Process;
 import org.activiti.engine.impl.persistence.entity.ProcessDefinitionEntityImpl;
 import org.activiti.engine.repository.ProcessDefinition;
-import org.activiti.engine.test.util.TestProcessUtil;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 
 public class ProcessDefinitionCacheEntryDiffblueTest {
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
-   *   <li>{@link ProcessDefinitionCacheEntry#ProcessDefinitionCacheEntry(ProcessDefinition,
-   *       BpmnModel, Process)}
+   *   <li>{@link ProcessDefinitionCacheEntry#ProcessDefinitionCacheEntry(ProcessDefinition, BpmnModel, Process)}
    *   <li>{@link ProcessDefinitionCacheEntry#setBpmnModel(BpmnModel)}
    *   <li>{@link ProcessDefinitionCacheEntry#setProcess(Process)}
    *   <li>{@link ProcessDefinitionCacheEntry#setProcessDefinition(ProcessDefinition)}
@@ -45,29 +41,24 @@ public class ProcessDefinitionCacheEntryDiffblueTest {
    * </ul>
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void ProcessDefinitionCacheEntry.<init>(ProcessDefinition, BpmnModel, Process)",
-    "BpmnModel ProcessDefinitionCacheEntry.getBpmnModel()",
-    "Process ProcessDefinitionCacheEntry.getProcess()",
-    "ProcessDefinition ProcessDefinitionCacheEntry.getProcessDefinition()",
-    "void ProcessDefinitionCacheEntry.setBpmnModel(BpmnModel)",
-    "void ProcessDefinitionCacheEntry.setProcess(Process)",
-    "void ProcessDefinitionCacheEntry.setProcessDefinition(ProcessDefinition)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void ProcessDefinitionCacheEntry.<init>(ProcessDefinition, BpmnModel, Process)",
+      "BpmnModel ProcessDefinitionCacheEntry.getBpmnModel()", "Process ProcessDefinitionCacheEntry.getProcess()",
+      "ProcessDefinition ProcessDefinitionCacheEntry.getProcessDefinition()",
+      "void ProcessDefinitionCacheEntry.setBpmnModel(BpmnModel)",
+      "void ProcessDefinitionCacheEntry.setProcess(Process)",
+      "void ProcessDefinitionCacheEntry.setProcessDefinition(ProcessDefinition)"})
   public void testGettersAndSetters() {
     // Arrange
     ProcessDefinitionEntityImpl processDefinition = new ProcessDefinitionEntityImpl();
-    BpmnModel bpmnModel = TestProcessUtil.createOneTaskBpmnModel();
+    BpmnModel bpmnModel = new BpmnModel();
 
     // Act
-    ProcessDefinitionCacheEntry actualProcessDefinitionCacheEntry =
-        new ProcessDefinitionCacheEntry(
-            processDefinition, bpmnModel, TestProcessUtil.createOneTaskProcessWithId("42"));
-    BpmnModel bpmnModel2 = TestProcessUtil.createOneTaskBpmnModel();
+    ProcessDefinitionCacheEntry actualProcessDefinitionCacheEntry = new ProcessDefinitionCacheEntry(processDefinition,
+        bpmnModel, new Process());
+    BpmnModel bpmnModel2 = new BpmnModel();
     actualProcessDefinitionCacheEntry.setBpmnModel(bpmnModel2);
-    Process process = TestProcessUtil.createOneTaskProcessWithId("42");
+    Process process = new Process();
     actualProcessDefinitionCacheEntry.setProcess(process);
     ProcessDefinitionEntityImpl processDefinition2 = new ProcessDefinitionEntityImpl();
     actualProcessDefinitionCacheEntry.setProcessDefinition(processDefinition2);
@@ -75,8 +66,8 @@ public class ProcessDefinitionCacheEntryDiffblueTest {
     Process actualProcess = actualProcessDefinitionCacheEntry.getProcess();
 
     // Assert
-    assertSame(processDefinition2, actualProcessDefinitionCacheEntry.getProcessDefinition());
     assertSame(bpmnModel2, actualBpmnModel);
     assertSame(process, actualProcess);
+    assertSame(processDefinition2, actualProcessDefinitionCacheEntry.getProcessDefinition());
   }
 }

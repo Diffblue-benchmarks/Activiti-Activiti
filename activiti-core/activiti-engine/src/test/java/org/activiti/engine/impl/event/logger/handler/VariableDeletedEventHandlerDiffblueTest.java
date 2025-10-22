@@ -16,8 +16,7 @@
 package org.activiti.engine.impl.event.logger.handler;
 
 import static org.junit.Assert.assertNull;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
@@ -25,18 +24,15 @@ import org.junit.experimental.categories.Category;
 public class VariableDeletedEventHandlerDiffblueTest {
   /**
    * Test new {@link VariableDeletedEventHandler} (default constructor).
-   *
-   * <p>Method under test: default or parameterless constructor of {@link
-   * VariableDeletedEventHandler}
+   * <p>
+   * Method under test: default or parameterless constructor of {@link VariableDeletedEventHandler}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void VariableDeletedEventHandler.<init>()"})
   public void testNewVariableDeletedEventHandler() {
     // Arrange and Act
-    VariableDeletedEventHandler actualVariableDeletedEventHandler =
-        new VariableDeletedEventHandler();
+    VariableDeletedEventHandler actualVariableDeletedEventHandler = new VariableDeletedEventHandler();
 
     // Assert
     assertNull(actualVariableDeletedEventHandler.objectMapper);

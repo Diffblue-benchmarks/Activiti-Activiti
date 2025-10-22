@@ -21,8 +21,7 @@ import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.engine.delegate.event.impl.ActivitiEventDispatcherImpl;
 import org.activiti.engine.impl.cfg.JtaProcessEngineConfiguration;
@@ -34,20 +33,15 @@ import org.junit.experimental.categories.Category;
 public class ProcessExecutionLoggerConfiguratorDiffblueTest {
   /**
    * Test {@link ProcessExecutionLoggerConfigurator#beforeInit(ProcessEngineConfigurationImpl)}.
-   *
-   * <p>Method under test: {@link
-   * ProcessExecutionLoggerConfigurator#beforeInit(ProcessEngineConfigurationImpl)}
+   * <p>
+   * Method under test: {@link ProcessExecutionLoggerConfigurator#beforeInit(ProcessEngineConfigurationImpl)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void ProcessExecutionLoggerConfigurator.beforeInit(ProcessEngineConfigurationImpl)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void ProcessExecutionLoggerConfigurator.beforeInit(ProcessEngineConfigurationImpl)"})
   public void testBeforeInit() {
     // Arrange
-    ProcessExecutionLoggerConfigurator processExecutionLoggerConfigurator =
-        new ProcessExecutionLoggerConfigurator();
+    ProcessExecutionLoggerConfigurator processExecutionLoggerConfigurator = new ProcessExecutionLoggerConfigurator();
     JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();
 
     // Act
@@ -57,41 +51,30 @@ public class ProcessExecutionLoggerConfiguratorDiffblueTest {
     CommandInterceptor commandInvoker = processEngineConfiguration.getCommandInvoker();
     assertTrue(commandInvoker instanceof LoggingCommandInvoker);
     assertNull(commandInvoker.getNext());
-    ProcessExecutionLogger processExecutionLogger =
-        ((LoggingCommandInvoker) commandInvoker).processExecutionLogger;
+    ProcessExecutionLogger processExecutionLogger = ((LoggingCommandInvoker) commandInvoker).processExecutionLogger;
     assertTrue(processExecutionLogger.createdExecutions.isEmpty());
     assertTrue(processExecutionLogger.debugInfoMap.isEmpty());
     assertTrue(processExecutionLogger.deletedExecutions.isEmpty());
-    assertSame(
-        processExecutionLogger, processExecutionLoggerConfigurator.getProcessExecutionLogger());
+    assertSame(processExecutionLogger, processExecutionLoggerConfigurator.getProcessExecutionLogger());
   }
 
   /**
    * Test {@link ProcessExecutionLoggerConfigurator#configure(ProcessEngineConfigurationImpl)}.
-   *
    * <ul>
-   *   <li>Given {@link ActivitiEventDispatcherImpl} (default constructor).
-   *   <li>Then calls {@link JtaProcessEngineConfiguration#getEventDispatcher()}.
+   *   <li>Given {@link ActivitiEventDispatcherImpl} (default constructor).</li>
+   *   <li>Then calls {@link ProcessEngineConfigurationImpl#getEventDispatcher()}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link
-   * ProcessExecutionLoggerConfigurator#configure(ProcessEngineConfigurationImpl)}
+   * <p>
+   * Method under test: {@link ProcessExecutionLoggerConfigurator#configure(ProcessEngineConfigurationImpl)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void ProcessExecutionLoggerConfigurator.configure(ProcessEngineConfigurationImpl)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void ProcessExecutionLoggerConfigurator.configure(ProcessEngineConfigurationImpl)"})
   public void testConfigure_givenActivitiEventDispatcherImpl_thenCallsGetEventDispatcher() {
     // Arrange
-    ProcessExecutionLoggerConfigurator processExecutionLoggerConfigurator =
-        new ProcessExecutionLoggerConfigurator();
-
-    JtaProcessEngineConfiguration processEngineConfiguration =
-        mock(JtaProcessEngineConfiguration.class);
-    when(processEngineConfiguration.getEventDispatcher())
-        .thenReturn(new ActivitiEventDispatcherImpl());
+    ProcessExecutionLoggerConfigurator processExecutionLoggerConfigurator = new ProcessExecutionLoggerConfigurator();
+    JtaProcessEngineConfiguration processEngineConfiguration = mock(JtaProcessEngineConfiguration.class);
+    when(processEngineConfiguration.getEventDispatcher()).thenReturn(new ActivitiEventDispatcherImpl());
 
     // Act
     processExecutionLoggerConfigurator.configure(processEngineConfiguration);
@@ -102,34 +85,26 @@ public class ProcessExecutionLoggerConfiguratorDiffblueTest {
 
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>default or parameterless constructor of {@link ProcessExecutionLoggerConfigurator}
-   *   <li>{@link
-   *       ProcessExecutionLoggerConfigurator#setProcessExecutionLogger(ProcessExecutionLogger)}
+   *   <li>{@link ProcessExecutionLoggerConfigurator#setProcessExecutionLogger(ProcessExecutionLogger)}
    *   <li>{@link ProcessExecutionLoggerConfigurator#getProcessExecutionLogger()}
    * </ul>
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void ProcessExecutionLoggerConfigurator.<init>()",
-    "ProcessExecutionLogger ProcessExecutionLoggerConfigurator.getProcessExecutionLogger()",
-    "void ProcessExecutionLoggerConfigurator.setProcessExecutionLogger(ProcessExecutionLogger)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void ProcessExecutionLoggerConfigurator.<init>()",
+      "ProcessExecutionLogger ProcessExecutionLoggerConfigurator.getProcessExecutionLogger()",
+      "void ProcessExecutionLoggerConfigurator.setProcessExecutionLogger(ProcessExecutionLogger)"})
   public void testGettersAndSetters() {
     // Arrange and Act
-    ProcessExecutionLoggerConfigurator actualProcessExecutionLoggerConfigurator =
-        new ProcessExecutionLoggerConfigurator();
+    ProcessExecutionLoggerConfigurator actualProcessExecutionLoggerConfigurator = new ProcessExecutionLoggerConfigurator();
     ProcessExecutionLogger processExecutionLogger = new ProcessExecutionLogger();
     actualProcessExecutionLoggerConfigurator.setProcessExecutionLogger(processExecutionLogger);
 
     // Assert
-    assertSame(
-        processExecutionLogger,
-        actualProcessExecutionLoggerConfigurator.getProcessExecutionLogger());
+    assertSame(processExecutionLogger, actualProcessExecutionLoggerConfigurator.getProcessExecutionLogger());
   }
 }

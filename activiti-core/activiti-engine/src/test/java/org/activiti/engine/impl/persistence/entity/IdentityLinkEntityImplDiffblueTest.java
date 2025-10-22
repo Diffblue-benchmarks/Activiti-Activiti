@@ -21,24 +21,19 @@ import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertThrows;
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.io.UnsupportedEncodingException;
 import java.util.Map;
 import org.activiti.engine.ActivitiException;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
-import org.springframework.test.annotation.DirtiesContext;
-import org.springframework.test.annotation.DirtiesContext.ClassMode;
 
-@DirtiesContext(classMode = ClassMode.AFTER_EACH_TEST_METHOD)
 public class IdentityLinkEntityImplDiffblueTest {
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>default or parameterless constructor of {@link IdentityLinkEntityImpl}
    *   <li>{@link IdentityLinkEntityImpl#setDetails(byte[])}
@@ -57,24 +52,14 @@ public class IdentityLinkEntityImplDiffblueTest {
    * </ul>
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void IdentityLinkEntityImpl.<init>()",
-    "byte[] IdentityLinkEntityImpl.getDetails()",
-    "String IdentityLinkEntityImpl.getGroupId()",
-    "String IdentityLinkEntityImpl.getProcessDefId()",
-    "String IdentityLinkEntityImpl.getProcessDefinitionId()",
-    "String IdentityLinkEntityImpl.getProcessInstanceId()",
-    "String IdentityLinkEntityImpl.getTaskId()",
-    "String IdentityLinkEntityImpl.getType()",
-    "String IdentityLinkEntityImpl.getUserId()",
-    "void IdentityLinkEntityImpl.setDetails(byte[])",
-    "void IdentityLinkEntityImpl.setProcessDefId(String)",
-    "void IdentityLinkEntityImpl.setProcessInstanceId(String)",
-    "void IdentityLinkEntityImpl.setTaskId(String)",
-    "void IdentityLinkEntityImpl.setType(String)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void IdentityLinkEntityImpl.<init>()", "byte[] IdentityLinkEntityImpl.getDetails()",
+      "String IdentityLinkEntityImpl.getGroupId()", "String IdentityLinkEntityImpl.getProcessDefId()",
+      "String IdentityLinkEntityImpl.getProcessDefinitionId()", "String IdentityLinkEntityImpl.getProcessInstanceId()",
+      "String IdentityLinkEntityImpl.getTaskId()", "String IdentityLinkEntityImpl.getType()",
+      "String IdentityLinkEntityImpl.getUserId()", "void IdentityLinkEntityImpl.setDetails(byte[])",
+      "void IdentityLinkEntityImpl.setProcessDefId(String)", "void IdentityLinkEntityImpl.setProcessInstanceId(String)",
+      "void IdentityLinkEntityImpl.setTaskId(String)", "void IdentityLinkEntityImpl.setType(String)"})
   public void testGettersAndSetters() throws UnsupportedEncodingException {
     // Arrange and Act
     IdentityLinkEntityImpl actualIdentityLinkEntityImpl = new IdentityLinkEntityImpl();
@@ -110,21 +95,19 @@ public class IdentityLinkEntityImplDiffblueTest {
 
   /**
    * Test {@link IdentityLinkEntityImpl#getPersistentState()}.
-   *
    * <ul>
-   *   <li>Given {@link IdentityLinkEntityImpl} (default constructor).
-   *   <li>Then return size is two.
+   *   <li>Given {@link IdentityLinkEntityImpl} (default constructor).</li>
+   *   <li>Then return size is two.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link IdentityLinkEntityImpl#getPersistentState()}
+   * <p>
+   * Method under test: {@link IdentityLinkEntityImpl#getPersistentState()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"Object IdentityLinkEntityImpl.getPersistentState()"})
   public void testGetPersistentState_givenIdentityLinkEntityImpl_thenReturnSizeIsTwo() {
     // Arrange and Act
-    Object actualPersistentState = new IdentityLinkEntityImpl().getPersistentState();
+    Object actualPersistentState = (new IdentityLinkEntityImpl()).getPersistentState();
 
     // Assert
     assertTrue(actualPersistentState instanceof Map);
@@ -135,16 +118,14 @@ public class IdentityLinkEntityImplDiffblueTest {
 
   /**
    * Test {@link IdentityLinkEntityImpl#getPersistentState()}.
-   *
    * <ul>
-   *   <li>Then return {@code groupId} is {@code foo}.
+   *   <li>Then return {@code groupId} is {@code foo}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link IdentityLinkEntityImpl#getPersistentState()}
+   * <p>
+   * Method under test: {@link IdentityLinkEntityImpl#getPersistentState()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"Object IdentityLinkEntityImpl.getPersistentState()"})
   public void testGetPersistentState_thenReturnGroupIdIsFoo() {
     // Arrange
@@ -174,16 +155,14 @@ public class IdentityLinkEntityImplDiffblueTest {
 
   /**
    * Test {@link IdentityLinkEntityImpl#getPersistentState()}.
-   *
    * <ul>
-   *   <li>Then return {@code processDefId} is {@code foo}.
+   *   <li>Then return {@code processDefId} is {@code foo}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link IdentityLinkEntityImpl#getPersistentState()}
+   * <p>
+   * Method under test: {@link IdentityLinkEntityImpl#getPersistentState()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"Object IdentityLinkEntityImpl.getPersistentState()"})
   public void testGetPersistentState_thenReturnProcessDefIdIsFoo() {
     // Arrange
@@ -213,16 +192,14 @@ public class IdentityLinkEntityImplDiffblueTest {
 
   /**
    * Test {@link IdentityLinkEntityImpl#getPersistentState()}.
-   *
    * <ul>
-   *   <li>Then return {@code processInstanceId} is {@code foo}.
+   *   <li>Then return {@code processInstanceId} is {@code foo}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link IdentityLinkEntityImpl#getPersistentState()}
+   * <p>
+   * Method under test: {@link IdentityLinkEntityImpl#getPersistentState()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"Object IdentityLinkEntityImpl.getPersistentState()"})
   public void testGetPersistentState_thenReturnProcessInstanceIdIsFoo() {
     // Arrange
@@ -252,16 +229,14 @@ public class IdentityLinkEntityImplDiffblueTest {
 
   /**
    * Test {@link IdentityLinkEntityImpl#getPersistentState()}.
-   *
    * <ul>
-   *   <li>Then return {@code taskId} is {@code foo}.
+   *   <li>Then return {@code taskId} is {@code foo}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link IdentityLinkEntityImpl#getPersistentState()}
+   * <p>
+   * Method under test: {@link IdentityLinkEntityImpl#getPersistentState()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"Object IdentityLinkEntityImpl.getPersistentState()"})
   public void testGetPersistentState_thenReturnTaskIdIsFoo() {
     // Arrange
@@ -291,16 +266,14 @@ public class IdentityLinkEntityImplDiffblueTest {
 
   /**
    * Test {@link IdentityLinkEntityImpl#getPersistentState()}.
-   *
    * <ul>
-   *   <li>Then return {@code userId} is {@code foo}.
+   *   <li>Then return {@code userId} is {@code foo}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link IdentityLinkEntityImpl#getPersistentState()}
+   * <p>
+   * Method under test: {@link IdentityLinkEntityImpl#getPersistentState()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"Object IdentityLinkEntityImpl.getPersistentState()"})
   public void testGetPersistentState_thenReturnUserIdIsFoo() {
     // Arrange
@@ -330,17 +303,15 @@ public class IdentityLinkEntityImplDiffblueTest {
 
   /**
    * Test {@link IdentityLinkEntityImpl#isUser()}.
-   *
    * <ul>
-   *   <li>Given {@link IdentityLinkEntityImpl} (default constructor) UserId is {@code 42}.
-   *   <li>Then return {@code true}.
+   *   <li>Given {@link IdentityLinkEntityImpl} (default constructor) UserId is {@code 42}.</li>
+   *   <li>Then return {@code true}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link IdentityLinkEntityImpl#isUser()}
+   * <p>
+   * Method under test: {@link IdentityLinkEntityImpl#isUser()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"boolean IdentityLinkEntityImpl.isUser()"})
   public void testIsUser_givenIdentityLinkEntityImplUserIdIs42_thenReturnTrue() {
     // Arrange
@@ -353,36 +324,32 @@ public class IdentityLinkEntityImplDiffblueTest {
 
   /**
    * Test {@link IdentityLinkEntityImpl#isUser()}.
-   *
    * <ul>
-   *   <li>Given {@link IdentityLinkEntityImpl} (default constructor).
-   *   <li>Then return {@code false}.
+   *   <li>Given {@link IdentityLinkEntityImpl} (default constructor).</li>
+   *   <li>Then return {@code false}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link IdentityLinkEntityImpl#isUser()}
+   * <p>
+   * Method under test: {@link IdentityLinkEntityImpl#isUser()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"boolean IdentityLinkEntityImpl.isUser()"})
   public void testIsUser_givenIdentityLinkEntityImpl_thenReturnFalse() {
     // Arrange, Act and Assert
-    assertFalse(new IdentityLinkEntityImpl().isUser());
+    assertFalse((new IdentityLinkEntityImpl()).isUser());
   }
 
   /**
    * Test {@link IdentityLinkEntityImpl#isGroup()}.
-   *
    * <ul>
-   *   <li>Given {@link IdentityLinkEntityImpl} (default constructor) GroupId is {@code 42}.
-   *   <li>Then return {@code true}.
+   *   <li>Given {@link IdentityLinkEntityImpl} (default constructor) GroupId is {@code 42}.</li>
+   *   <li>Then return {@code true}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link IdentityLinkEntityImpl#isGroup()}
+   * <p>
+   * Method under test: {@link IdentityLinkEntityImpl#isGroup()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"boolean IdentityLinkEntityImpl.isGroup()"})
   public void testIsGroup_givenIdentityLinkEntityImplGroupIdIs42_thenReturnTrue() {
     // Arrange
@@ -395,36 +362,32 @@ public class IdentityLinkEntityImplDiffblueTest {
 
   /**
    * Test {@link IdentityLinkEntityImpl#isGroup()}.
-   *
    * <ul>
-   *   <li>Given {@link IdentityLinkEntityImpl} (default constructor).
-   *   <li>Then return {@code false}.
+   *   <li>Given {@link IdentityLinkEntityImpl} (default constructor).</li>
+   *   <li>Then return {@code false}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link IdentityLinkEntityImpl#isGroup()}
+   * <p>
+   * Method under test: {@link IdentityLinkEntityImpl#isGroup()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"boolean IdentityLinkEntityImpl.isGroup()"})
   public void testIsGroup_givenIdentityLinkEntityImpl_thenReturnFalse() {
     // Arrange, Act and Assert
-    assertFalse(new IdentityLinkEntityImpl().isGroup());
+    assertFalse((new IdentityLinkEntityImpl()).isGroup());
   }
 
   /**
    * Test {@link IdentityLinkEntityImpl#setUserId(String)}.
-   *
    * <ul>
-   *   <li>Given {@link IdentityLinkEntityImpl} (default constructor) GroupId is {@code 42}.
-   *   <li>Then throw {@link ActivitiException}.
+   *   <li>Given {@link IdentityLinkEntityImpl} (default constructor) GroupId is {@code 42}.</li>
+   *   <li>Then throw {@link ActivitiException}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link IdentityLinkEntityImpl#setUserId(String)}
+   * <p>
+   * Method under test: {@link IdentityLinkEntityImpl#setUserId(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void IdentityLinkEntityImpl.setUserId(String)"})
   public void testSetUserId_givenIdentityLinkEntityImplGroupIdIs42_thenThrowActivitiException() {
     // Arrange
@@ -437,17 +400,14 @@ public class IdentityLinkEntityImplDiffblueTest {
 
   /**
    * Test {@link IdentityLinkEntityImpl#setUserId(String)}.
-   *
    * <ul>
-   *   <li>Then {@link IdentityLinkEntityImpl} (default constructor) PersistentState {@code userId}
-   *       is {@code 42}.
+   *   <li>Then {@link IdentityLinkEntityImpl} (default constructor) PersistentState {@code userId} is {@code 42}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link IdentityLinkEntityImpl#setUserId(String)}
+   * <p>
+   * Method under test: {@link IdentityLinkEntityImpl#setUserId(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void IdentityLinkEntityImpl.setUserId(String)"})
   public void testSetUserId_thenIdentityLinkEntityImplPersistentStateUserIdIs42() {
     // Arrange
@@ -469,17 +429,15 @@ public class IdentityLinkEntityImplDiffblueTest {
 
   /**
    * Test {@link IdentityLinkEntityImpl#setUserId(String)}.
-   *
    * <ul>
-   *   <li>When {@code null}.
-   *   <li>Then not {@link IdentityLinkEntityImpl} (default constructor) User.
+   *   <li>When {@code null}.</li>
+   *   <li>Then not {@link IdentityLinkEntityImpl} (default constructor) User.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link IdentityLinkEntityImpl#setUserId(String)}
+   * <p>
+   * Method under test: {@link IdentityLinkEntityImpl#setUserId(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void IdentityLinkEntityImpl.setUserId(String)"})
   public void testSetUserId_whenNull_thenNotIdentityLinkEntityImplUser() {
     // Arrange
@@ -501,17 +459,15 @@ public class IdentityLinkEntityImplDiffblueTest {
 
   /**
    * Test {@link IdentityLinkEntityImpl#setGroupId(String)}.
-   *
    * <ul>
-   *   <li>Given {@link IdentityLinkEntityImpl} (default constructor) UserId is {@code 42}.
-   *   <li>Then throw {@link ActivitiException}.
+   *   <li>Given {@link IdentityLinkEntityImpl} (default constructor) UserId is {@code 42}.</li>
+   *   <li>Then throw {@link ActivitiException}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link IdentityLinkEntityImpl#setGroupId(String)}
+   * <p>
+   * Method under test: {@link IdentityLinkEntityImpl#setGroupId(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void IdentityLinkEntityImpl.setGroupId(String)"})
   public void testSetGroupId_givenIdentityLinkEntityImplUserIdIs42_thenThrowActivitiException() {
     // Arrange
@@ -524,17 +480,14 @@ public class IdentityLinkEntityImplDiffblueTest {
 
   /**
    * Test {@link IdentityLinkEntityImpl#setGroupId(String)}.
-   *
    * <ul>
-   *   <li>Then {@link IdentityLinkEntityImpl} (default constructor) PersistentState {@code groupId}
-   *       is {@code 42}.
+   *   <li>Then {@link IdentityLinkEntityImpl} (default constructor) PersistentState {@code groupId} is {@code 42}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link IdentityLinkEntityImpl#setGroupId(String)}
+   * <p>
+   * Method under test: {@link IdentityLinkEntityImpl#setGroupId(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void IdentityLinkEntityImpl.setGroupId(String)"})
   public void testSetGroupId_thenIdentityLinkEntityImplPersistentStateGroupIdIs42() {
     // Arrange
@@ -556,17 +509,15 @@ public class IdentityLinkEntityImplDiffblueTest {
 
   /**
    * Test {@link IdentityLinkEntityImpl#setGroupId(String)}.
-   *
    * <ul>
-   *   <li>When {@code null}.
-   *   <li>Then not {@link IdentityLinkEntityImpl} (default constructor) Group.
+   *   <li>When {@code null}.</li>
+   *   <li>Then not {@link IdentityLinkEntityImpl} (default constructor) Group.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link IdentityLinkEntityImpl#setGroupId(String)}
+   * <p>
+   * Method under test: {@link IdentityLinkEntityImpl#setGroupId(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void IdentityLinkEntityImpl.setGroupId(String)"})
   public void testSetGroupId_whenNull_thenNotIdentityLinkEntityImplGroup() {
     // Arrange
@@ -588,97 +539,84 @@ public class IdentityLinkEntityImplDiffblueTest {
 
   /**
    * Test {@link IdentityLinkEntityImpl#getTask()}.
-   *
    * <ul>
-   *   <li>Given {@link IdentityLinkEntityImpl} (default constructor).
-   *   <li>Then return {@code null}.
+   *   <li>Given {@link IdentityLinkEntityImpl} (default constructor).</li>
+   *   <li>Then return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link IdentityLinkEntityImpl#getTask()}
+   * <p>
+   * Method under test: {@link IdentityLinkEntityImpl#getTask()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "org.activiti.engine.impl.persistence.entity.TaskEntity IdentityLinkEntityImpl.getTask()"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"org.activiti.engine.impl.persistence.entity.TaskEntity IdentityLinkEntityImpl.getTask()"})
   public void testGetTask_givenIdentityLinkEntityImpl_thenReturnNull() {
     // Arrange, Act and Assert
-    assertNull(new IdentityLinkEntityImpl().getTask());
+    assertNull((new IdentityLinkEntityImpl()).getTask());
   }
 
   /**
    * Test {@link IdentityLinkEntityImpl#getProcessInstance()}.
-   *
    * <ul>
-   *   <li>Given {@link IdentityLinkEntityImpl} (default constructor).
-   *   <li>Then return {@code null}.
+   *   <li>Given {@link IdentityLinkEntityImpl} (default constructor).</li>
+   *   <li>Then return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link IdentityLinkEntityImpl#getProcessInstance()}
+   * <p>
+   * Method under test: {@link IdentityLinkEntityImpl#getProcessInstance()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"ExecutionEntity IdentityLinkEntityImpl.getProcessInstance()"})
   public void testGetProcessInstance_givenIdentityLinkEntityImpl_thenReturnNull() {
     // Arrange, Act and Assert
-    assertNull(new IdentityLinkEntityImpl().getProcessInstance());
+    assertNull((new IdentityLinkEntityImpl()).getProcessInstance());
   }
 
   /**
    * Test {@link IdentityLinkEntityImpl#setProcessInstance(ExecutionEntity)}.
-   *
-   * <p>Method under test: {@link IdentityLinkEntityImpl#setProcessInstance(ExecutionEntity)}
+   * <p>
+   * Method under test: {@link IdentityLinkEntityImpl#setProcessInstance(ExecutionEntity)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void IdentityLinkEntityImpl.setProcessInstance(ExecutionEntity)"})
   public void testSetProcessInstance() {
     // Arrange
     IdentityLinkEntityImpl identityLinkEntityImpl = new IdentityLinkEntityImpl();
-    ExecutionEntityImpl processInstance =
-        ExecutionEntityImpl.createWithEmptyRelationshipCollections();
+    ExecutionEntityImpl processInstance = ExecutionEntityImpl.createWithEmptyRelationshipCollections();
 
     // Act
     identityLinkEntityImpl.setProcessInstance(processInstance);
 
     // Assert
     assertTrue(identityLinkEntityImpl.processInstance instanceof ExecutionEntityImpl);
-    ExecutionEntityImpl actualSourceActivityExecution =
-        processInstance.getSourceActivityExecution();
-    assertSame(processInstance, actualSourceActivityExecution);
+    assertSame(processInstance, processInstance.getSourceActivityExecution());
     assertSame(processInstance, identityLinkEntityImpl.getProcessInstance());
   }
 
   /**
    * Test {@link IdentityLinkEntityImpl#getProcessDef()}.
-   *
    * <ul>
-   *   <li>Given {@link IdentityLinkEntityImpl} (default constructor).
-   *   <li>Then return {@code null}.
+   *   <li>Given {@link IdentityLinkEntityImpl} (default constructor).</li>
+   *   <li>Then return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link IdentityLinkEntityImpl#getProcessDef()}
+   * <p>
+   * Method under test: {@link IdentityLinkEntityImpl#getProcessDef()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"ProcessDefinitionEntity IdentityLinkEntityImpl.getProcessDef()"})
   public void testGetProcessDef_givenIdentityLinkEntityImpl_thenReturnNull() {
     // Arrange, Act and Assert
-    assertNull(new IdentityLinkEntityImpl().getProcessDef());
+    assertNull((new IdentityLinkEntityImpl()).getProcessDef());
   }
 
   /**
    * Test {@link IdentityLinkEntityImpl#setProcessDef(ProcessDefinitionEntity)}.
-   *
-   * <p>Method under test: {@link IdentityLinkEntityImpl#setProcessDef(ProcessDefinitionEntity)}
+   * <p>
+   * Method under test: {@link IdentityLinkEntityImpl#setProcessDef(ProcessDefinitionEntity)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void IdentityLinkEntityImpl.setProcessDef(ProcessDefinitionEntity)"})
   public void testSetProcessDef() {
     // Arrange
@@ -695,16 +633,14 @@ public class IdentityLinkEntityImplDiffblueTest {
 
   /**
    * Test {@link IdentityLinkEntityImpl#toString()}.
-   *
    * <ul>
-   *   <li>Then return {@code IdentityLinkEntity[id=42, type=Type, details=AXAXAXAX]}.
+   *   <li>Then return {@code IdentityLinkEntity[id=42, type=Type, details=AXAXAXAX]}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link IdentityLinkEntityImpl#toString()}
+   * <p>
+   * Method under test: {@link IdentityLinkEntityImpl#toString()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"String IdentityLinkEntityImpl.toString()"})
   public void testToString_thenReturnIdentityLinkEntityId42TypeTypeDetailsAxaxaxax()
       throws UnsupportedEncodingException {
@@ -723,23 +659,19 @@ public class IdentityLinkEntityImplDiffblueTest {
     identityLinkEntityImpl.setDetails("AXAXAXAX".getBytes("UTF-8"));
 
     // Act and Assert
-    assertEquals(
-        "IdentityLinkEntity[id=42, type=Type, details=AXAXAXAX]",
-        identityLinkEntityImpl.toString());
+    assertEquals("IdentityLinkEntity[id=42, type=Type, details=AXAXAXAX]", identityLinkEntityImpl.toString());
   }
 
   /**
    * Test {@link IdentityLinkEntityImpl#toString()}.
-   *
    * <ul>
-   *   <li>Then return {@code IdentityLinkEntity[id=42, type=Type, groupId=foo]}.
+   *   <li>Then return {@code IdentityLinkEntity[id=42, type=Type, groupId=foo]}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link IdentityLinkEntityImpl#toString()}
+   * <p>
+   * Method under test: {@link IdentityLinkEntityImpl#toString()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"String IdentityLinkEntityImpl.toString()"})
   public void testToString_thenReturnIdentityLinkEntityId42TypeTypeGroupIdFoo() {
     // Arrange
@@ -757,22 +689,19 @@ public class IdentityLinkEntityImplDiffblueTest {
     identityLinkEntityImpl.setDetails(null);
 
     // Act and Assert
-    assertEquals(
-        "IdentityLinkEntity[id=42, type=Type, groupId=foo]", identityLinkEntityImpl.toString());
+    assertEquals("IdentityLinkEntity[id=42, type=Type, groupId=foo]", identityLinkEntityImpl.toString());
   }
 
   /**
    * Test {@link IdentityLinkEntityImpl#toString()}.
-   *
    * <ul>
-   *   <li>Then return {@code IdentityLinkEntity[id=42, type=Type, processDefId=foo]}.
+   *   <li>Then return {@code IdentityLinkEntity[id=42, type=Type, processDefId=foo]}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link IdentityLinkEntityImpl#toString()}
+   * <p>
+   * Method under test: {@link IdentityLinkEntityImpl#toString()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"String IdentityLinkEntityImpl.toString()"})
   public void testToString_thenReturnIdentityLinkEntityId42TypeTypeProcessDefIdFoo() {
     // Arrange
@@ -790,23 +719,19 @@ public class IdentityLinkEntityImplDiffblueTest {
     identityLinkEntityImpl.setDetails(null);
 
     // Act and Assert
-    assertEquals(
-        "IdentityLinkEntity[id=42, type=Type, processDefId=foo]",
-        identityLinkEntityImpl.toString());
+    assertEquals("IdentityLinkEntity[id=42, type=Type, processDefId=foo]", identityLinkEntityImpl.toString());
   }
 
   /**
    * Test {@link IdentityLinkEntityImpl#toString()}.
-   *
    * <ul>
-   *   <li>Then return {@code IdentityLinkEntity[id=42, type=Type, processInstanceId=foo]}.
+   *   <li>Then return {@code IdentityLinkEntity[id=42, type=Type, processInstanceId=foo]}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link IdentityLinkEntityImpl#toString()}
+   * <p>
+   * Method under test: {@link IdentityLinkEntityImpl#toString()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"String IdentityLinkEntityImpl.toString()"})
   public void testToString_thenReturnIdentityLinkEntityId42TypeTypeProcessInstanceIdFoo() {
     // Arrange
@@ -824,23 +749,19 @@ public class IdentityLinkEntityImplDiffblueTest {
     identityLinkEntityImpl.setDetails(null);
 
     // Act and Assert
-    assertEquals(
-        "IdentityLinkEntity[id=42, type=Type, processInstanceId=foo]",
-        identityLinkEntityImpl.toString());
+    assertEquals("IdentityLinkEntity[id=42, type=Type, processInstanceId=foo]", identityLinkEntityImpl.toString());
   }
 
   /**
    * Test {@link IdentityLinkEntityImpl#toString()}.
-   *
    * <ul>
-   *   <li>Then return {@code IdentityLinkEntity[id=42, type=Type, taskId=foo]}.
+   *   <li>Then return {@code IdentityLinkEntity[id=42, type=Type, taskId=foo]}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link IdentityLinkEntityImpl#toString()}
+   * <p>
+   * Method under test: {@link IdentityLinkEntityImpl#toString()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"String IdentityLinkEntityImpl.toString()"})
   public void testToString_thenReturnIdentityLinkEntityId42TypeTypeTaskIdFoo() {
     // Arrange
@@ -858,22 +779,19 @@ public class IdentityLinkEntityImplDiffblueTest {
     identityLinkEntityImpl.setDetails(null);
 
     // Act and Assert
-    assertEquals(
-        "IdentityLinkEntity[id=42, type=Type, taskId=foo]", identityLinkEntityImpl.toString());
+    assertEquals("IdentityLinkEntity[id=42, type=Type, taskId=foo]", identityLinkEntityImpl.toString());
   }
 
   /**
    * Test {@link IdentityLinkEntityImpl#toString()}.
-   *
    * <ul>
-   *   <li>Then return {@code IdentityLinkEntity[id=42, type=Type, userId=foo]}.
+   *   <li>Then return {@code IdentityLinkEntity[id=42, type=Type, userId=foo]}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link IdentityLinkEntityImpl#toString()}
+   * <p>
+   * Method under test: {@link IdentityLinkEntityImpl#toString()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"String IdentityLinkEntityImpl.toString()"})
   public void testToString_thenReturnIdentityLinkEntityId42TypeTypeUserIdFoo() {
     // Arrange
@@ -891,25 +809,22 @@ public class IdentityLinkEntityImplDiffblueTest {
     identityLinkEntityImpl.setDetails(null);
 
     // Act and Assert
-    assertEquals(
-        "IdentityLinkEntity[id=42, type=Type, userId=foo]", identityLinkEntityImpl.toString());
+    assertEquals("IdentityLinkEntity[id=42, type=Type, userId=foo]", identityLinkEntityImpl.toString());
   }
 
   /**
    * Test {@link IdentityLinkEntityImpl#toString()}.
-   *
    * <ul>
-   *   <li>Then return {@code IdentityLinkEntity[id=null, type=null]}.
+   *   <li>Then return {@code IdentityLinkEntity[id=null, type=null]}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link IdentityLinkEntityImpl#toString()}
+   * <p>
+   * Method under test: {@link IdentityLinkEntityImpl#toString()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"String IdentityLinkEntityImpl.toString()"})
   public void testToString_thenReturnIdentityLinkEntityIdNullTypeNull() {
     // Arrange, Act and Assert
-    assertEquals("IdentityLinkEntity[id=null, type=null]", new IdentityLinkEntityImpl().toString());
+    assertEquals("IdentityLinkEntity[id=null, type=null]", (new IdentityLinkEntityImpl()).toString());
   }
 }

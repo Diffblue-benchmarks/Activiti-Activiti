@@ -19,8 +19,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.engine.impl.persistence.entity.HistoricDetailVariableInstanceUpdateEntityImpl;
 import org.activiti.engine.impl.util.json.JSONObject;
@@ -30,17 +29,15 @@ import org.junit.experimental.categories.Category;
 public class ByteArrayTypeDiffblueTest {
   /**
    * Test {@link ByteArrayType#getValue(ValueFields)}.
-   *
    * <ul>
-   *   <li>When {@link HistoricDetailVariableInstanceUpdateEntityImpl} (default constructor).
-   *   <li>Then return {@code null}.
+   *   <li>When {@link HistoricDetailVariableInstanceUpdateEntityImpl} (default constructor).</li>
+   *   <li>Then return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ByteArrayType#getValue(ValueFields)}
+   * <p>
+   * Method under test: {@link ByteArrayType#getValue(ValueFields)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"Object ByteArrayType.getValue(ValueFields)"})
   public void testGetValue_whenHistoricDetailVariableInstanceUpdateEntityImpl_thenReturnNull() {
     // Arrange
@@ -52,47 +49,42 @@ public class ByteArrayTypeDiffblueTest {
 
   /**
    * Test {@link ByteArrayType#isAbleToStore(Object)}.
-   *
    * <ul>
-   *   <li>When {@link JSONObject#NULL}.
-   *   <li>Then return {@code false}.
+   *   <li>When {@link JSONObject#NULL}.</li>
+   *   <li>Then return {@code false}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ByteArrayType#isAbleToStore(Object)}
+   * <p>
+   * Method under test: {@link ByteArrayType#isAbleToStore(Object)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"boolean ByteArrayType.isAbleToStore(Object)"})
   public void testIsAbleToStore_whenNull_thenReturnFalse() {
     // Arrange, Act and Assert
-    assertFalse(new ByteArrayType().isAbleToStore(JSONObject.NULL));
+    assertFalse((new ByteArrayType()).isAbleToStore(JSONObject.NULL));
   }
 
   /**
    * Test {@link ByteArrayType#isAbleToStore(Object)}.
-   *
    * <ul>
-   *   <li>When {@code null}.
-   *   <li>Then return {@code true}.
+   *   <li>When {@code null}.</li>
+   *   <li>Then return {@code true}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ByteArrayType#isAbleToStore(Object)}
+   * <p>
+   * Method under test: {@link ByteArrayType#isAbleToStore(Object)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"boolean ByteArrayType.isAbleToStore(Object)"})
   public void testIsAbleToStore_whenNull_thenReturnTrue() {
     // Arrange, Act and Assert
-    assertTrue(new ByteArrayType().isAbleToStore(null));
+    assertTrue((new ByteArrayType()).isAbleToStore(null));
   }
 
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>default or parameterless constructor of {@link ByteArrayType}
    *   <li>{@link ByteArrayType#getTypeName()}
@@ -100,13 +92,9 @@ public class ByteArrayTypeDiffblueTest {
    * </ul>
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void ByteArrayType.<init>()",
-    "String ByteArrayType.getTypeName()",
-    "boolean ByteArrayType.isCachable()"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void ByteArrayType.<init>()", "String ByteArrayType.getTypeName()",
+      "boolean ByteArrayType.isCachable()"})
   public void testGettersAndSetters() {
     // Arrange and Act
     ByteArrayType actualByteArrayType = new ByteArrayType();

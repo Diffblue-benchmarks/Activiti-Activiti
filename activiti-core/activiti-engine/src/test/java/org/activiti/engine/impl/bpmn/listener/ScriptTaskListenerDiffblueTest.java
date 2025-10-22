@@ -18,8 +18,7 @@ package org.activiti.engine.impl.bpmn.listener;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThrows;
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.engine.delegate.Expression;
 import org.activiti.engine.impl.el.FixedValue;
@@ -30,16 +29,14 @@ import org.junit.experimental.categories.Category;
 public class ScriptTaskListenerDiffblueTest {
   /**
    * Test {@link ScriptTaskListener#validateParameters()}.
-   *
    * <ul>
-   *   <li>Given {@link ScriptTaskListener} (default constructor) Language is {@code null}.
+   *   <li>Given {@link ScriptTaskListener} (default constructor) Language is {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ScriptTaskListener#validateParameters()}
+   * <p>
+   * Method under test: {@link ScriptTaskListener#validateParameters()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void ScriptTaskListener.validateParameters()"})
   public void testValidateParameters_givenScriptTaskListenerLanguageIsNull() {
     // Arrange
@@ -54,29 +51,25 @@ public class ScriptTaskListenerDiffblueTest {
 
   /**
    * Test {@link ScriptTaskListener#validateParameters()}.
-   *
    * <ul>
-   *   <li>Given {@link ScriptTaskListener} (default constructor).
-   *   <li>Then throw {@link IllegalArgumentException}.
+   *   <li>Given {@link ScriptTaskListener} (default constructor).</li>
+   *   <li>Then throw {@link IllegalArgumentException}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ScriptTaskListener#validateParameters()}
+   * <p>
+   * Method under test: {@link ScriptTaskListener#validateParameters()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void ScriptTaskListener.validateParameters()"})
   public void testValidateParameters_givenScriptTaskListener_thenThrowIllegalArgumentException() {
     // Arrange, Act and Assert
-    assertThrows(
-        IllegalArgumentException.class, () -> new ScriptTaskListener().validateParameters());
+    assertThrows(IllegalArgumentException.class, () -> (new ScriptTaskListener()).validateParameters());
   }
 
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>default or parameterless constructor of {@link ScriptTaskListener}
    *   <li>{@link ScriptTaskListener#setLanguage(Expression)}
@@ -86,15 +79,10 @@ public class ScriptTaskListenerDiffblueTest {
    * </ul>
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void ScriptTaskListener.<init>()",
-    "void ScriptTaskListener.setAutoStoreVariables(boolean)",
-    "void ScriptTaskListener.setLanguage(Expression)",
-    "void ScriptTaskListener.setResultVariable(Expression)",
-    "void ScriptTaskListener.setScript(Expression)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void ScriptTaskListener.<init>()", "void ScriptTaskListener.setAutoStoreVariables(boolean)",
+      "void ScriptTaskListener.setLanguage(Expression)", "void ScriptTaskListener.setResultVariable(Expression)",
+      "void ScriptTaskListener.setScript(Expression)"})
   public void testGettersAndSetters() {
     // Arrange and Act
     ScriptTaskListener actualScriptTaskListener = new ScriptTaskListener();

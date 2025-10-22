@@ -23,8 +23,7 @@ import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import jakarta.el.MethodNotFoundException;
 import jakarta.el.PropertyNotFoundException;
@@ -47,62 +46,48 @@ import org.mockito.Mockito;
 public class JuelExpressionDiffblueTest {
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>{@link JuelExpression#JuelExpression(ValueExpression, String)}
    *   <li>{@link JuelExpression#getExpressionText()}
    * </ul>
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void JuelExpression.<init>(ValueExpression, String)",
-    "String JuelExpression.getExpressionText()"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void JuelExpression.<init>(ValueExpression, String)",
+      "String JuelExpression.getExpressionText()"})
   public void testGettersAndSetters() {
     // Arrange
     TypeConverter converter = mock(TypeConverter.class);
     Class<Object> type = Object.class;
 
-    ObjectValueExpression valueExpression =
-        new ObjectValueExpression(converter, JSONObject.NULL, type);
-
     // Act and Assert
-    assertEquals(
-        "Expression Text",
-        new JuelExpression(valueExpression, "Expression Text").getExpressionText());
+    assertEquals("Expression Text",
+        (new JuelExpression(new ObjectValueExpression(converter, JSONObject.NULL, type), "Expression Text"))
+            .getExpressionText());
   }
 
   /**
-   * Test {@link JuelExpression#getValue(ExpressionManager, DelegateInterceptor, Map)} with {@code
-   * expressionManager}, {@code delegateInterceptor}, {@code availableVariables}.
-   *
-   * <p>Method under test: {@link JuelExpression#getValue(ExpressionManager, DelegateInterceptor,
-   * Map)}
+   * Test {@link JuelExpression#getValue(ExpressionManager, DelegateInterceptor, Map)} with {@code expressionManager}, {@code delegateInterceptor}, {@code availableVariables}.
+   * <p>
+   * Method under test: {@link JuelExpression#getValue(ExpressionManager, DelegateInterceptor, Map)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"Object JuelExpression.getValue(ExpressionManager, DelegateInterceptor, Map)"})
   public void testGetValueWithExpressionManagerDelegateInterceptorAvailableVariables() {
     // Arrange
     TypeConverter converter = mock(TypeConverter.class);
     Class<Object> type = Object.class;
-
-    ObjectValueExpression valueExpression =
-        new ObjectValueExpression(converter, JSONObject.NULL, type);
-    JuelExpression juelExpression = new JuelExpression(valueExpression, "Expression Text");
+    JuelExpression juelExpression = new JuelExpression(new ObjectValueExpression(converter, JSONObject.NULL, type),
+        "Expression Text");
     ExpressionManager expressionManager = new ExpressionManager();
-
     DelegateInterceptor delegateInterceptor = mock(DelegateInterceptor.class);
     doNothing().when(delegateInterceptor).handleInvocation(Mockito.<DelegateInvocation>any());
 
     // Act
-    Object actualValue =
-        juelExpression.getValue(expressionManager, delegateInterceptor, new HashMap<>());
+    Object actualValue = juelExpression.getValue(expressionManager, delegateInterceptor, new HashMap<>());
 
     // Assert
     verify(delegateInterceptor).handleInvocation(isA(DelegateInvocation.class));
@@ -110,159 +95,122 @@ public class JuelExpressionDiffblueTest {
   }
 
   /**
-   * Test {@link JuelExpression#getValue(ExpressionManager, DelegateInterceptor, Map)} with {@code
-   * expressionManager}, {@code delegateInterceptor}, {@code availableVariables}.
-   *
-   * <p>Method under test: {@link JuelExpression#getValue(ExpressionManager, DelegateInterceptor,
-   * Map)}
+   * Test {@link JuelExpression#getValue(ExpressionManager, DelegateInterceptor, Map)} with {@code expressionManager}, {@code delegateInterceptor}, {@code availableVariables}.
+   * <p>
+   * Method under test: {@link JuelExpression#getValue(ExpressionManager, DelegateInterceptor, Map)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"Object JuelExpression.getValue(ExpressionManager, DelegateInterceptor, Map)"})
   public void testGetValueWithExpressionManagerDelegateInterceptorAvailableVariables2() {
     // Arrange
     TypeConverter converter = mock(TypeConverter.class);
     Class<Object> type = Object.class;
+    JuelExpression juelExpression = new JuelExpression(new ObjectValueExpression(converter, JSONObject.NULL, type),
+        "Expression Text");
 
-    ObjectValueExpression valueExpression =
-        new ObjectValueExpression(converter, JSONObject.NULL, type);
-    JuelExpression juelExpression = new JuelExpression(valueExpression, "Expression Text");
     ExpressionManager expressionManager = new ExpressionManager();
-
+    expressionManager.setCustomFunctionProviders(new ArrayList<>());
     DelegateInterceptor delegateInterceptor = mock(DelegateInterceptor.class);
-    doThrow(new ActivitiException("An error occurred"))
-        .when(delegateInterceptor)
-        .handleInvocation(Mockito.<DelegateInvocation>any());
+    doNothing().when(delegateInterceptor).handleInvocation(Mockito.<DelegateInvocation>any());
 
-    // Act and Assert
-    assertThrows(
-        ActivitiException.class,
-        () -> juelExpression.getValue(expressionManager, delegateInterceptor, new HashMap<>()));
+    // Act
+    Object actualValue = juelExpression.getValue(expressionManager, delegateInterceptor, new HashMap<>());
+
+    // Assert
     verify(delegateInterceptor).handleInvocation(isA(DelegateInvocation.class));
+    assertNull(actualValue);
   }
 
   /**
-   * Test {@link JuelExpression#getValue(ExpressionManager, DelegateInterceptor, Map)} with {@code
-   * expressionManager}, {@code delegateInterceptor}, {@code availableVariables}.
-   *
-   * <p>Method under test: {@link JuelExpression#getValue(ExpressionManager, DelegateInterceptor,
-   * Map)}
+   * Test {@link JuelExpression#getValue(ExpressionManager, DelegateInterceptor, Map)} with {@code expressionManager}, {@code delegateInterceptor}, {@code availableVariables}.
+   * <p>
+   * Method under test: {@link JuelExpression#getValue(ExpressionManager, DelegateInterceptor, Map)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"Object JuelExpression.getValue(ExpressionManager, DelegateInterceptor, Map)"})
   public void testGetValueWithExpressionManagerDelegateInterceptorAvailableVariables3() {
     // Arrange
     TypeConverter converter = mock(TypeConverter.class);
     Class<Object> type = Object.class;
-
-    ObjectValueExpression valueExpression =
-        new ObjectValueExpression(converter, JSONObject.NULL, type);
-    JuelExpression juelExpression = new JuelExpression(valueExpression, "Expression Text");
+    JuelExpression juelExpression = new JuelExpression(new ObjectValueExpression(converter, JSONObject.NULL, type),
+        "Expression Text");
     ExpressionManager expressionManager = new ExpressionManager();
-
     DelegateInterceptor delegateInterceptor = mock(DelegateInterceptor.class);
-    doThrow(new PropertyNotFoundException("An error occurred"))
-        .when(delegateInterceptor)
+    doThrow(new ActivitiException("An error occurred")).when(delegateInterceptor)
         .handleInvocation(Mockito.<DelegateInvocation>any());
 
     // Act and Assert
-    assertThrows(
-        ActivitiException.class,
+    assertThrows(ActivitiException.class,
         () -> juelExpression.getValue(expressionManager, delegateInterceptor, new HashMap<>()));
     verify(delegateInterceptor).handleInvocation(isA(DelegateInvocation.class));
   }
 
   /**
-   * Test {@link JuelExpression#getValue(ExpressionManager, DelegateInterceptor, Map)} with {@code
-   * expressionManager}, {@code delegateInterceptor}, {@code availableVariables}.
-   *
-   * <p>Method under test: {@link JuelExpression#getValue(ExpressionManager, DelegateInterceptor,
-   * Map)}
+   * Test {@link JuelExpression#getValue(ExpressionManager, DelegateInterceptor, Map)} with {@code expressionManager}, {@code delegateInterceptor}, {@code availableVariables}.
+   * <p>
+   * Method under test: {@link JuelExpression#getValue(ExpressionManager, DelegateInterceptor, Map)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"Object JuelExpression.getValue(ExpressionManager, DelegateInterceptor, Map)"})
   public void testGetValueWithExpressionManagerDelegateInterceptorAvailableVariables4() {
     // Arrange
     TypeConverter converter = mock(TypeConverter.class);
     Class<Object> type = Object.class;
-
-    ObjectValueExpression valueExpression =
-        new ObjectValueExpression(converter, JSONObject.NULL, type);
-    JuelExpression juelExpression = new JuelExpression(valueExpression, "Expression Text");
+    JuelExpression juelExpression = new JuelExpression(new ObjectValueExpression(converter, JSONObject.NULL, type),
+        "Expression Text");
     ExpressionManager expressionManager = new ExpressionManager();
-
     DelegateInterceptor delegateInterceptor = mock(DelegateInterceptor.class);
-    doThrow(new MethodNotFoundException("An error occurred"))
-        .when(delegateInterceptor)
+    doThrow(new PropertyNotFoundException("An error occurred")).when(delegateInterceptor)
         .handleInvocation(Mockito.<DelegateInvocation>any());
 
     // Act and Assert
-    assertThrows(
-        ActivitiException.class,
+    assertThrows(ActivitiException.class,
         () -> juelExpression.getValue(expressionManager, delegateInterceptor, new HashMap<>()));
     verify(delegateInterceptor).handleInvocation(isA(DelegateInvocation.class));
   }
 
   /**
-   * Test {@link JuelExpression#getValue(ExpressionManager, DelegateInterceptor, Map)} with {@code
-   * expressionManager}, {@code delegateInterceptor}, {@code availableVariables}.
-   *
-   * <p>Method under test: {@link JuelExpression#getValue(ExpressionManager, DelegateInterceptor,
-   * Map)}
+   * Test {@link JuelExpression#getValue(ExpressionManager, DelegateInterceptor, Map)} with {@code expressionManager}, {@code delegateInterceptor}, {@code availableVariables}.
+   * <p>
+   * Method under test: {@link JuelExpression#getValue(ExpressionManager, DelegateInterceptor, Map)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"Object JuelExpression.getValue(ExpressionManager, DelegateInterceptor, Map)"})
   public void testGetValueWithExpressionManagerDelegateInterceptorAvailableVariables5() {
     // Arrange
     TypeConverter converter = mock(TypeConverter.class);
     Class<Object> type = Object.class;
-
-    ObjectValueExpression valueExpression =
-        new ObjectValueExpression(converter, JSONObject.NULL, type);
-    JuelExpression juelExpression = new JuelExpression(valueExpression, "Expression Text");
-
+    JuelExpression juelExpression = new JuelExpression(new ObjectValueExpression(converter, JSONObject.NULL, type),
+        "Expression Text");
     ExpressionManager expressionManager = new ExpressionManager();
-    expressionManager.setCustomFunctionProviders(new ArrayList<>());
-
     DelegateInterceptor delegateInterceptor = mock(DelegateInterceptor.class);
-    doNothing().when(delegateInterceptor).handleInvocation(Mockito.<DelegateInvocation>any());
+    doThrow(new MethodNotFoundException("An error occurred")).when(delegateInterceptor)
+        .handleInvocation(Mockito.<DelegateInvocation>any());
 
-    // Act
-    Object actualValue =
-        juelExpression.getValue(expressionManager, delegateInterceptor, new HashMap<>());
-
-    // Assert
+    // Act and Assert
+    assertThrows(ActivitiException.class,
+        () -> juelExpression.getValue(expressionManager, delegateInterceptor, new HashMap<>()));
     verify(delegateInterceptor).handleInvocation(isA(DelegateInvocation.class));
-    assertNull(actualValue);
   }
 
   /**
-   * Test {@link JuelExpression#getValue(ExpressionManager, DelegateInterceptor, Map)} with {@code
-   * expressionManager}, {@code delegateInterceptor}, {@code availableVariables}.
-   *
-   * <p>Method under test: {@link JuelExpression#getValue(ExpressionManager, DelegateInterceptor,
-   * Map)}
+   * Test {@link JuelExpression#getValue(ExpressionManager, DelegateInterceptor, Map)} with {@code expressionManager}, {@code delegateInterceptor}, {@code availableVariables}.
+   * <p>
+   * Method under test: {@link JuelExpression#getValue(ExpressionManager, DelegateInterceptor, Map)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"Object JuelExpression.getValue(ExpressionManager, DelegateInterceptor, Map)"})
   public void testGetValueWithExpressionManagerDelegateInterceptorAvailableVariables6() {
     // Arrange
     TypeConverter converter = mock(TypeConverter.class);
     Class<Object> type = Object.class;
-
-    ObjectValueExpression valueExpression =
-        new ObjectValueExpression(converter, JSONObject.NULL, type);
-    JuelExpression juelExpression = new JuelExpression(valueExpression, "Expression Text");
-
+    JuelExpression juelExpression = new JuelExpression(new ObjectValueExpression(converter, JSONObject.NULL, type),
+        "Expression Text");
     CustomFunctionProvider customFunctionProvider = mock(CustomFunctionProvider.class);
     doNothing().when(customFunctionProvider).addCustomFunctions(Mockito.<ActivitiElContext>any());
 
@@ -271,13 +219,11 @@ public class JuelExpressionDiffblueTest {
 
     ExpressionManager expressionManager = new ExpressionManager();
     expressionManager.setCustomFunctionProviders(customFunctionProviders);
-
     DelegateInterceptor delegateInterceptor = mock(DelegateInterceptor.class);
     doNothing().when(delegateInterceptor).handleInvocation(Mockito.<DelegateInvocation>any());
 
     // Act
-    Object actualValue =
-        juelExpression.getValue(expressionManager, delegateInterceptor, new HashMap<>());
+    Object actualValue = juelExpression.getValue(expressionManager, delegateInterceptor, new HashMap<>());
 
     // Assert
     verify(customFunctionProvider).addCustomFunctions(isA(ActivitiElContext.class));
@@ -286,72 +232,21 @@ public class JuelExpressionDiffblueTest {
   }
 
   /**
-   * Test {@link JuelExpression#getValue(ExpressionManager, DelegateInterceptor, Map)} with {@code
-   * expressionManager}, {@code delegateInterceptor}, {@code availableVariables}.
-   *
-   * <p>Method under test: {@link JuelExpression#getValue(ExpressionManager, DelegateInterceptor,
-   * Map)}
+   * Test {@link JuelExpression#getValue(ExpressionManager, DelegateInterceptor, Map)} with {@code expressionManager}, {@code delegateInterceptor}, {@code availableVariables}.
+   * <p>
+   * Method under test: {@link JuelExpression#getValue(ExpressionManager, DelegateInterceptor, Map)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"Object JuelExpression.getValue(ExpressionManager, DelegateInterceptor, Map)"})
   public void testGetValueWithExpressionManagerDelegateInterceptorAvailableVariables7() {
     // Arrange
     TypeConverter converter = mock(TypeConverter.class);
     Class<Object> type = Object.class;
-
-    ObjectValueExpression valueExpression =
-        new ObjectValueExpression(converter, JSONObject.NULL, type);
-    JuelExpression juelExpression = new JuelExpression(valueExpression, "Expression Text");
-
-    CustomFunctionProvider customFunctionProvider = mock(CustomFunctionProvider.class);
-    doThrow(new ActivitiException("An error occurred"))
-        .when(customFunctionProvider)
-        .addCustomFunctions(Mockito.<ActivitiElContext>any());
-
-    ArrayList<CustomFunctionProvider> customFunctionProviders = new ArrayList<>();
-    customFunctionProviders.add(customFunctionProvider);
-
-    ExpressionManager expressionManager = new ExpressionManager();
-    expressionManager.setCustomFunctionProviders(customFunctionProviders);
-
-    DelegateInterceptor delegateInterceptor = mock(DelegateInterceptor.class);
-    doNothing().when(delegateInterceptor).handleInvocation(Mockito.<DelegateInvocation>any());
-
-    // Act
-    Object actualValue =
-        juelExpression.getValue(expressionManager, delegateInterceptor, new HashMap<>());
-
-    // Assert
-    verify(customFunctionProvider).addCustomFunctions(isA(ActivitiElContext.class));
-    verify(delegateInterceptor).handleInvocation(isA(DelegateInvocation.class));
-    assertNull(actualValue);
-  }
-
-  /**
-   * Test {@link JuelExpression#getValue(ExpressionManager, DelegateInterceptor, Map)} with {@code
-   * expressionManager}, {@code delegateInterceptor}, {@code availableVariables}.
-   *
-   * <p>Method under test: {@link JuelExpression#getValue(ExpressionManager, DelegateInterceptor,
-   * Map)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"Object JuelExpression.getValue(ExpressionManager, DelegateInterceptor, Map)"})
-  public void testGetValueWithExpressionManagerDelegateInterceptorAvailableVariables8() {
-    // Arrange
-    TypeConverter converter = mock(TypeConverter.class);
-    Class<Object> type = Object.class;
-
-    ObjectValueExpression valueExpression =
-        new ObjectValueExpression(converter, JSONObject.NULL, type);
-    JuelExpression juelExpression = new JuelExpression(valueExpression, "Expression Text");
-
+    JuelExpression juelExpression = new JuelExpression(new ObjectValueExpression(converter, JSONObject.NULL, type),
+        "Expression Text");
     CustomFunctionProvider customFunctionProvider = mock(CustomFunctionProvider.class);
     doNothing().when(customFunctionProvider).addCustomFunctions(Mockito.<ActivitiElContext>any());
-
     CustomFunctionProvider customFunctionProvider2 = mock(CustomFunctionProvider.class);
     doNothing().when(customFunctionProvider2).addCustomFunctions(Mockito.<ActivitiElContext>any());
 
@@ -361,13 +256,11 @@ public class JuelExpressionDiffblueTest {
 
     ExpressionManager expressionManager = new ExpressionManager();
     expressionManager.setCustomFunctionProviders(customFunctionProviders);
-
     DelegateInterceptor delegateInterceptor = mock(DelegateInterceptor.class);
     doNothing().when(delegateInterceptor).handleInvocation(Mockito.<DelegateInvocation>any());
 
     // Act
-    Object actualValue =
-        juelExpression.getValue(expressionManager, delegateInterceptor, new HashMap<>());
+    Object actualValue = juelExpression.getValue(expressionManager, delegateInterceptor, new HashMap<>());
 
     // Assert
     verify(customFunctionProvider2).addCustomFunctions(isA(ActivitiElContext.class));
@@ -377,28 +270,67 @@ public class JuelExpressionDiffblueTest {
   }
 
   /**
-   * Test {@link JuelExpression#toString()}.
-   *
-   * <ul>
-   *   <li>Given {@code Object}.
-   *   <li>Then return {@code null}.
-   * </ul>
-   *
-   * <p>Method under test: {@link JuelExpression#toString()}
+   * Test {@link JuelExpression#getValue(ExpressionManager, DelegateInterceptor, Map)} with {@code expressionManager}, {@code delegateInterceptor}, {@code availableVariables}.
+   * <p>
+   * Method under test: {@link JuelExpression#getValue(ExpressionManager, DelegateInterceptor, Map)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Object JuelExpression.getValue(ExpressionManager, DelegateInterceptor, Map)"})
+  public void testGetValueWithExpressionManagerDelegateInterceptorAvailableVariables8() {
+    // Arrange
+    TypeConverter converter = mock(TypeConverter.class);
+    Class<Object> type = Object.class;
+    JuelExpression juelExpression = new JuelExpression(new ObjectValueExpression(converter, JSONObject.NULL, type),
+        "Expression Text");
+    CustomFunctionProvider customFunctionProvider = mock(CustomFunctionProvider.class);
+    doNothing().when(customFunctionProvider).addCustomFunctions(Mockito.<ActivitiElContext>any());
+    CustomFunctionProvider customFunctionProvider2 = mock(CustomFunctionProvider.class);
+    doNothing().when(customFunctionProvider2).addCustomFunctions(Mockito.<ActivitiElContext>any());
+    CustomFunctionProvider customFunctionProvider3 = mock(CustomFunctionProvider.class);
+    doThrow(new ActivitiException("An error occurred")).when(customFunctionProvider3)
+        .addCustomFunctions(Mockito.<ActivitiElContext>any());
+
+    ArrayList<CustomFunctionProvider> customFunctionProviders = new ArrayList<>();
+    customFunctionProviders.add(customFunctionProvider3);
+    customFunctionProviders.add(customFunctionProvider2);
+    customFunctionProviders.add(customFunctionProvider);
+
+    ExpressionManager expressionManager = new ExpressionManager();
+    expressionManager.setCustomFunctionProviders(customFunctionProviders);
+    DelegateInterceptor delegateInterceptor = mock(DelegateInterceptor.class);
+    doNothing().when(delegateInterceptor).handleInvocation(Mockito.<DelegateInvocation>any());
+
+    // Act
+    Object actualValue = juelExpression.getValue(expressionManager, delegateInterceptor, new HashMap<>());
+
+    // Assert
+    verify(customFunctionProvider3).addCustomFunctions(isA(ActivitiElContext.class));
+    verify(customFunctionProvider2).addCustomFunctions(isA(ActivitiElContext.class));
+    verify(customFunctionProvider).addCustomFunctions(isA(ActivitiElContext.class));
+    verify(delegateInterceptor).handleInvocation(isA(DelegateInvocation.class));
+    assertNull(actualValue);
+  }
+
+  /**
+   * Test {@link JuelExpression#toString()}.
+   * <ul>
+   *   <li>Given {@code Object}.</li>
+   *   <li>Then return {@code null}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link JuelExpression#toString()}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"String JuelExpression.toString()"})
   public void testToString_givenJavaLangObject_thenReturnNull() {
     // Arrange
     TypeConverter converter = mock(TypeConverter.class);
     Class<Object> type = Object.class;
 
-    ObjectValueExpression valueExpression =
-        new ObjectValueExpression(converter, JSONObject.NULL, type);
-
     // Act and Assert
-    assertNull(new JuelExpression(valueExpression, "Expression Text").toString());
+    assertNull((new JuelExpression(new ObjectValueExpression(converter, JSONObject.NULL, type), "Expression Text"))
+        .toString());
   }
 }

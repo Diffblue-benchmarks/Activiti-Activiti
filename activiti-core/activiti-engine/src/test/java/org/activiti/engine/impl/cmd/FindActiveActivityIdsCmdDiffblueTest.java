@@ -22,8 +22,7 @@ import static org.mockito.Mockito.atLeast;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
 import java.util.List;
@@ -36,37 +35,32 @@ import org.junit.experimental.categories.Category;
 public class FindActiveActivityIdsCmdDiffblueTest {
   /**
    * Test {@link FindActiveActivityIdsCmd#FindActiveActivityIdsCmd(String)}.
-   *
-   * <p>Method under test: {@link FindActiveActivityIdsCmd#FindActiveActivityIdsCmd(String)}
+   * <p>
+   * Method under test: {@link FindActiveActivityIdsCmd#FindActiveActivityIdsCmd(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void FindActiveActivityIdsCmd.<init>(String)"})
   public void testNewFindActiveActivityIdsCmd() {
     // Arrange, Act and Assert
-    assertEquals("42", new FindActiveActivityIdsCmd("42").executionId);
+    assertEquals("42", (new FindActiveActivityIdsCmd("42")).executionId);
   }
 
   /**
    * Test {@link FindActiveActivityIdsCmd#findActiveActivityIds(ExecutionEntity)}.
-   *
    * <ul>
-   *   <li>Given createWithEmptyRelationshipCollections.
+   *   <li>Given createWithEmptyRelationshipCollections.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link FindActiveActivityIdsCmd#findActiveActivityIds(ExecutionEntity)}
+   * <p>
+   * Method under test: {@link FindActiveActivityIdsCmd#findActiveActivityIds(ExecutionEntity)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"List FindActiveActivityIdsCmd.findActiveActivityIds(ExecutionEntity)"})
   public void testFindActiveActivityIds_givenCreateWithEmptyRelationshipCollections() {
     // Arrange
     FindActiveActivityIdsCmd findActiveActivityIdsCmd = new FindActiveActivityIdsCmd("42");
-
-    ExecutionEntityImpl executionEntity =
-        ExecutionEntityImpl.createWithEmptyRelationshipCollections();
+    ExecutionEntityImpl executionEntity = ExecutionEntityImpl.createWithEmptyRelationshipCollections();
     executionEntity.addChildExecution(ExecutionEntityImpl.createWithEmptyRelationshipCollections());
 
     // Act and Assert
@@ -75,42 +69,14 @@ public class FindActiveActivityIdsCmdDiffblueTest {
 
   /**
    * Test {@link FindActiveActivityIdsCmd#findActiveActivityIds(ExecutionEntity)}.
-   *
    * <ul>
-   *   <li>Given {@code false}.
+   *   <li>When createWithEmptyRelationshipCollections.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link FindActiveActivityIdsCmd#findActiveActivityIds(ExecutionEntity)}
+   * <p>
+   * Method under test: {@link FindActiveActivityIdsCmd#findActiveActivityIds(ExecutionEntity)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"List FindActiveActivityIdsCmd.findActiveActivityIds(ExecutionEntity)"})
-  public void testFindActiveActivityIds_givenFalse() {
-    // Arrange
-    FindActiveActivityIdsCmd findActiveActivityIdsCmd = new FindActiveActivityIdsCmd("42");
-
-    ExecutionEntityImpl executionEntity =
-        ExecutionEntityImpl.createWithEmptyRelationshipCollections();
-    executionEntity.setActive(false);
-    executionEntity.addChildExecution(ExecutionEntityImpl.createWithEmptyRelationshipCollections());
-
-    // Act and Assert
-    assertTrue(findActiveActivityIdsCmd.findActiveActivityIds(executionEntity).isEmpty());
-  }
-
-  /**
-   * Test {@link FindActiveActivityIdsCmd#findActiveActivityIds(ExecutionEntity)}.
-   *
-   * <ul>
-   *   <li>When createWithEmptyRelationshipCollections.
-   * </ul>
-   *
-   * <p>Method under test: {@link FindActiveActivityIdsCmd#findActiveActivityIds(ExecutionEntity)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"List FindActiveActivityIdsCmd.findActiveActivityIds(ExecutionEntity)"})
   public void testFindActiveActivityIds_whenCreateWithEmptyRelationshipCollections() {
     // Arrange
@@ -118,30 +84,24 @@ public class FindActiveActivityIdsCmdDiffblueTest {
 
     // Act and Assert
     assertTrue(
-        findActiveActivityIdsCmd
-            .findActiveActivityIds(ExecutionEntityImpl.createWithEmptyRelationshipCollections())
+        findActiveActivityIdsCmd.findActiveActivityIds(ExecutionEntityImpl.createWithEmptyRelationshipCollections())
             .isEmpty());
   }
 
   /**
    * Test {@link FindActiveActivityIdsCmd#collectActiveActivityIds(ExecutionEntity, List)}.
-   *
-   * <p>Method under test: {@link FindActiveActivityIdsCmd#collectActiveActivityIds(ExecutionEntity,
-   * List)}
+   * <p>
+   * Method under test: {@link FindActiveActivityIdsCmd#collectActiveActivityIds(ExecutionEntity, List)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void FindActiveActivityIdsCmd.collectActiveActivityIds(ExecutionEntity, List)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void FindActiveActivityIdsCmd.collectActiveActivityIds(ExecutionEntity, List)"})
   public void testCollectActiveActivityIds() {
     // Arrange
     FindActiveActivityIdsCmd findActiveActivityIdsCmd = new FindActiveActivityIdsCmd("42");
 
     ArrayList<ExecutionEntityImpl> executionEntityImplList = new ArrayList<>();
     executionEntityImplList.add(ExecutionEntityImpl.createWithEmptyRelationshipCollections());
-
     ExecutionEntityImpl executionEntity = mock(ExecutionEntityImpl.class);
     when(executionEntity.getActivityId()).thenReturn("42");
     when(executionEntity.isActive()).thenReturn(true);
@@ -161,25 +121,19 @@ public class FindActiveActivityIdsCmdDiffblueTest {
 
   /**
    * Test {@link FindActiveActivityIdsCmd#collectActiveActivityIds(ExecutionEntity, List)}.
-   *
    * <ul>
-   *   <li>Given {@link ArrayList#ArrayList()}.
-   *   <li>Then {@link ArrayList#ArrayList()} size is one.
+   *   <li>Given {@link ArrayList#ArrayList()}.</li>
+   *   <li>Then {@link ArrayList#ArrayList()} size is one.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link FindActiveActivityIdsCmd#collectActiveActivityIds(ExecutionEntity,
-   * List)}
+   * <p>
+   * Method under test: {@link FindActiveActivityIdsCmd#collectActiveActivityIds(ExecutionEntity, List)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void FindActiveActivityIdsCmd.collectActiveActivityIds(ExecutionEntity, List)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void FindActiveActivityIdsCmd.collectActiveActivityIds(ExecutionEntity, List)"})
   public void testCollectActiveActivityIds_givenArrayList_thenArrayListSizeIsOne() {
     // Arrange
     FindActiveActivityIdsCmd findActiveActivityIdsCmd = new FindActiveActivityIdsCmd("42");
-
     ExecutionEntityImpl executionEntity = mock(ExecutionEntityImpl.class);
     when(executionEntity.getActivityId()).thenReturn("42");
     when(executionEntity.isActive()).thenReturn(true);
@@ -199,24 +153,18 @@ public class FindActiveActivityIdsCmdDiffblueTest {
 
   /**
    * Test {@link FindActiveActivityIdsCmd#collectActiveActivityIds(ExecutionEntity, List)}.
-   *
    * <ul>
-   *   <li>Given {@code false}.
+   *   <li>Given {@code false}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link FindActiveActivityIdsCmd#collectActiveActivityIds(ExecutionEntity,
-   * List)}
+   * <p>
+   * Method under test: {@link FindActiveActivityIdsCmd#collectActiveActivityIds(ExecutionEntity, List)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void FindActiveActivityIdsCmd.collectActiveActivityIds(ExecutionEntity, List)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void FindActiveActivityIdsCmd.collectActiveActivityIds(ExecutionEntity, List)"})
   public void testCollectActiveActivityIds_givenFalse() {
     // Arrange
     FindActiveActivityIdsCmd findActiveActivityIdsCmd = new FindActiveActivityIdsCmd("42");
-
     ExecutionEntityImpl executionEntity = mock(ExecutionEntityImpl.class);
     when(executionEntity.isActive()).thenReturn(false);
     when(executionEntity.getExecutions()).thenReturn(new ArrayList<>());
@@ -233,26 +181,20 @@ public class FindActiveActivityIdsCmdDiffblueTest {
 
   /**
    * Test {@link FindActiveActivityIdsCmd#collectActiveActivityIds(ExecutionEntity, List)}.
-   *
    * <ul>
-   *   <li>Given {@code foo}.
-   *   <li>When {@link ArrayList#ArrayList()} add {@code foo}.
-   *   <li>Then {@link ArrayList#ArrayList()} size is two.
+   *   <li>Given {@code foo}.</li>
+   *   <li>When {@link ArrayList#ArrayList()} add {@code foo}.</li>
+   *   <li>Then {@link ArrayList#ArrayList()} size is two.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link FindActiveActivityIdsCmd#collectActiveActivityIds(ExecutionEntity,
-   * List)}
+   * <p>
+   * Method under test: {@link FindActiveActivityIdsCmd#collectActiveActivityIds(ExecutionEntity, List)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void FindActiveActivityIdsCmd.collectActiveActivityIds(ExecutionEntity, List)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void FindActiveActivityIdsCmd.collectActiveActivityIds(ExecutionEntity, List)"})
   public void testCollectActiveActivityIds_givenFoo_whenArrayListAddFoo_thenArrayListSizeIsTwo() {
     // Arrange
     FindActiveActivityIdsCmd findActiveActivityIdsCmd = new FindActiveActivityIdsCmd("42");
-
     ExecutionEntityImpl executionEntity = mock(ExecutionEntityImpl.class);
     when(executionEntity.getActivityId()).thenReturn("42");
     when(executionEntity.isActive()).thenReturn(true);
@@ -275,59 +217,44 @@ public class FindActiveActivityIdsCmdDiffblueTest {
 
   /**
    * Test {@link FindActiveActivityIdsCmd#collectActiveActivityIds(ExecutionEntity, List)}.
-   *
    * <ul>
-   *   <li>Then throw {@link ActivitiIllegalArgumentException}.
+   *   <li>Then throw {@link ActivitiIllegalArgumentException}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link FindActiveActivityIdsCmd#collectActiveActivityIds(ExecutionEntity,
-   * List)}
+   * <p>
+   * Method under test: {@link FindActiveActivityIdsCmd#collectActiveActivityIds(ExecutionEntity, List)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void FindActiveActivityIdsCmd.collectActiveActivityIds(ExecutionEntity, List)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void FindActiveActivityIdsCmd.collectActiveActivityIds(ExecutionEntity, List)"})
   public void testCollectActiveActivityIds_thenThrowActivitiIllegalArgumentException() {
     // Arrange
     FindActiveActivityIdsCmd findActiveActivityIdsCmd = new FindActiveActivityIdsCmd("42");
-
     ExecutionEntityImpl executionEntity = mock(ExecutionEntityImpl.class);
-    when(executionEntity.getActivityId())
-        .thenThrow(new ActivitiIllegalArgumentException("An error occurred"));
+    when(executionEntity.getActivityId()).thenThrow(new ActivitiIllegalArgumentException("An error occurred"));
     when(executionEntity.isActive()).thenReturn(true);
 
     // Act and Assert
-    assertThrows(
-        ActivitiIllegalArgumentException.class,
-        () ->
-            findActiveActivityIdsCmd.collectActiveActivityIds(executionEntity, new ArrayList<>()));
+    assertThrows(ActivitiIllegalArgumentException.class,
+        () -> findActiveActivityIdsCmd.collectActiveActivityIds(executionEntity, new ArrayList<>()));
     verify(executionEntity).getActivityId();
     verify(executionEntity).isActive();
   }
 
   /**
    * Test {@link FindActiveActivityIdsCmd#collectActiveActivityIds(ExecutionEntity, List)}.
-   *
    * <ul>
-   *   <li>When createWithEmptyRelationshipCollections.
+   *   <li>When createWithEmptyRelationshipCollections.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link FindActiveActivityIdsCmd#collectActiveActivityIds(ExecutionEntity,
-   * List)}
+   * <p>
+   * Method under test: {@link FindActiveActivityIdsCmd#collectActiveActivityIds(ExecutionEntity, List)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void FindActiveActivityIdsCmd.collectActiveActivityIds(ExecutionEntity, List)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void FindActiveActivityIdsCmd.collectActiveActivityIds(ExecutionEntity, List)"})
   public void testCollectActiveActivityIds_whenCreateWithEmptyRelationshipCollections() {
     // Arrange
     FindActiveActivityIdsCmd findActiveActivityIdsCmd = new FindActiveActivityIdsCmd("42");
-    ExecutionEntityImpl executionEntity =
-        ExecutionEntityImpl.createWithEmptyRelationshipCollections();
+    ExecutionEntityImpl executionEntity = ExecutionEntityImpl.createWithEmptyRelationshipCollections();
     ArrayList<String> activeActivityIds = new ArrayList<>();
 
     // Act

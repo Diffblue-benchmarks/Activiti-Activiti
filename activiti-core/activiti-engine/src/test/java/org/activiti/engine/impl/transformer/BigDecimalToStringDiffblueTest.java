@@ -18,8 +18,7 @@ package org.activiti.engine.impl.transformer;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -32,41 +31,35 @@ import org.junit.experimental.categories.Category;
 public class BigDecimalToStringDiffblueTest {
   /**
    * Test {@link BigDecimalToString#primTransform(Object)}.
-   *
    * <ul>
-   *   <li>When {@link BigDecimal#BigDecimal(String)} with {@code 2.3}.
-   *   <li>Then return {@code 2.3}.
+   *   <li>When {@link BigDecimal#BigDecimal(String)} with {@code 2.3}.</li>
+   *   <li>Then return {@code 2.3}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link BigDecimalToString#primTransform(Object)}
+   * <p>
+   * Method under test: {@link BigDecimalToString#primTransform(Object)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"Object BigDecimalToString.primTransform(Object)"})
   public void testPrimTransform_whenBigDecimalWith23_thenReturn23() throws Exception {
     // Arrange
     BigDecimalToString bigDecimalToString = new BigDecimalToString();
 
-    // Act
-    Object actualPrimTransformResult = bigDecimalToString.primTransform(new BigDecimal("2.3"));
-
-    // Assert
-    assertEquals("2.3", actualPrimTransformResult);
+    // Act and Assert
+    assertEquals("2.3", bigDecimalToString.primTransform(new BigDecimal("2.3")));
   }
 
   /**
    * Test new {@link BigDecimalToString} (default constructor).
-   *
-   * <p>Method under test: default or parameterless constructor of {@link BigDecimalToString}
+   * <p>
+   * Method under test: default or parameterless constructor of {@link BigDecimalToString}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void BigDecimalToString.<init>()"})
   public void testNewBigDecimalToString() {
     // Arrange, Act and Assert
-    DecimalFormat decimalFormat = new BigDecimalToString().format;
+    DecimalFormat decimalFormat = (new BigDecimalToString()).format;
     assertEquals("", decimalFormat.getNegativeSuffix());
     assertEquals("", decimalFormat.getPositivePrefix());
     assertEquals("", decimalFormat.getPositiveSuffix());

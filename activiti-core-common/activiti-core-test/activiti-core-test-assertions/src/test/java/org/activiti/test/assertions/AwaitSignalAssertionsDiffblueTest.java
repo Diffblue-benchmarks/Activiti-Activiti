@@ -22,7 +22,6 @@ import static org.mockito.Mockito.atLeast;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.api.process.model.ProcessInstance;
 import org.activiti.test.matchers.OperationScopeMatcher;
@@ -33,41 +32,31 @@ import org.mockito.Mockito;
 
 class AwaitSignalAssertionsDiffblueTest {
   /**
-   * Test {@link AwaitSignalAssertions#expectEventsOnProcessInstance(ProcessInstance,
-   * OperationScopeMatcher[])}.
-   *
-   * <p>Method under test: {@link
-   * AwaitSignalAssertions#expectEventsOnProcessInstance(ProcessInstance, OperationScopeMatcher[])}
+   * Test {@link AwaitSignalAssertions#expectEventsOnProcessInstance(ProcessInstance, OperationScopeMatcher[])}.
+   * <p>
+   * Method under test: {@link AwaitSignalAssertions#expectEventsOnProcessInstance(ProcessInstance, OperationScopeMatcher[])}
    */
   @Test
   @DisplayName("Test expectEventsOnProcessInstance(ProcessInstance, OperationScopeMatcher[])")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({
-    "SignalAssertions AwaitSignalAssertions.expectEventsOnProcessInstance(ProcessInstance, OperationScopeMatcher[])"
-  })
+      "SignalAssertions AwaitSignalAssertions.expectEventsOnProcessInstance(ProcessInstance, OperationScopeMatcher[])"})
   void testExpectEventsOnProcessInstance() {
     // Arrange
     SignalAssertions signalAssertions = mock(SignalAssertions.class);
-    when(signalAssertions.expectEventsOnProcessInstance(
-            Mockito.<ProcessInstance>any(), isA(OperationScopeMatcher[].class)))
-        .thenReturn(mock(SignalAssertions.class));
+    when(signalAssertions.expectEventsOnProcessInstance(Mockito.<ProcessInstance>any(),
+        isA(OperationScopeMatcher[].class))).thenReturn(mock(SignalAssertions.class));
 
     // Act
-    SignalAssertions actualExpectEventsOnProcessInstanceResult =
-        new AwaitSignalAssertions(signalAssertions)
-            .expectEventsOnProcessInstance(
-                mock(ProcessInstance.class), mock(OperationScopeMatcher.class));
-    SignalAssertions actualExpectEventsOnProcessInstanceResult2 =
-        actualExpectEventsOnProcessInstanceResult.expectEventsOnProcessInstance(
-            mock(ProcessInstance.class), mock(OperationScopeMatcher.class));
+    SignalAssertions actualExpectEventsOnProcessInstanceResult = (new AwaitSignalAssertions(signalAssertions))
+        .expectEventsOnProcessInstance(mock(ProcessInstance.class), mock(OperationScopeMatcher.class));
+    SignalAssertions actualExpectEventsOnProcessInstanceResult2 = actualExpectEventsOnProcessInstanceResult
+        .expectEventsOnProcessInstance(mock(ProcessInstance.class), mock(OperationScopeMatcher.class));
 
     // Assert
-    verify(signalAssertions, atLeast(1))
-        .expectEventsOnProcessInstance(
-            Mockito.<ProcessInstance>any(), isA(OperationScopeMatcher[].class));
+    verify(signalAssertions, atLeast(1)).expectEventsOnProcessInstance(Mockito.<ProcessInstance>any(),
+        isA(OperationScopeMatcher[].class));
     assertTrue(actualExpectEventsOnProcessInstanceResult instanceof AwaitSignalAssertions);
-    assertSame(
-        actualExpectEventsOnProcessInstanceResult, actualExpectEventsOnProcessInstanceResult2);
+    assertSame(actualExpectEventsOnProcessInstanceResult, actualExpectEventsOnProcessInstanceResult2);
   }
 }

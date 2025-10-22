@@ -19,8 +19,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.time.LocalDate;
 import java.time.ZoneOffset;
@@ -28,94 +27,84 @@ import java.util.Date;
 import java.util.Map;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
-import org.springframework.test.annotation.DirtiesContext;
-import org.springframework.test.annotation.DirtiesContext.ClassMode;
 
-@DirtiesContext(classMode = ClassMode.AFTER_EACH_TEST_METHOD)
 public class HistoricScopeInstanceEntityImplDiffblueTest {
   /**
    * Test {@link HistoricScopeInstanceEntityImpl#getProcessInstanceId()}.
-   *
-   * <p>Method under test: {@link HistoricScopeInstanceEntityImpl#getProcessInstanceId()}
+   * <p>
+   * Method under test: {@link HistoricScopeInstanceEntityImpl#getProcessInstanceId()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"String HistoricScopeInstanceEntityImpl.getProcessInstanceId()"})
   public void testGetProcessInstanceId() {
     // Arrange, Act and Assert
-    assertNull(new HistoricActivityInstanceEntityImpl().getProcessInstanceId());
+    assertNull((new HistoricActivityInstanceEntityImpl()).getProcessInstanceId());
   }
 
   /**
    * Test {@link HistoricScopeInstanceEntityImpl#getProcessDefinitionId()}.
-   *
-   * <p>Method under test: {@link HistoricScopeInstanceEntityImpl#getProcessDefinitionId()}
+   * <p>
+   * Method under test: {@link HistoricScopeInstanceEntityImpl#getProcessDefinitionId()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"String HistoricScopeInstanceEntityImpl.getProcessDefinitionId()"})
   public void testGetProcessDefinitionId() {
     // Arrange, Act and Assert
-    assertNull(new HistoricActivityInstanceEntityImpl().getProcessDefinitionId());
+    assertNull((new HistoricActivityInstanceEntityImpl()).getProcessDefinitionId());
   }
 
   /**
    * Test {@link HistoricScopeInstanceEntityImpl#getStartTime()}.
-   *
-   * <p>Method under test: {@link HistoricScopeInstanceEntityImpl#getStartTime()}
+   * <p>
+   * Method under test: {@link HistoricScopeInstanceEntityImpl#getStartTime()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"Date HistoricScopeInstanceEntityImpl.getStartTime()"})
   public void testGetStartTime() {
     // Arrange, Act and Assert
-    assertNull(new HistoricActivityInstanceEntityImpl().getStartTime());
+    assertNull((new HistoricActivityInstanceEntityImpl()).getStartTime());
   }
 
   /**
    * Test {@link HistoricScopeInstanceEntityImpl#getEndTime()}.
-   *
-   * <p>Method under test: {@link HistoricScopeInstanceEntityImpl#getEndTime()}
+   * <p>
+   * Method under test: {@link HistoricScopeInstanceEntityImpl#getEndTime()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"Date HistoricScopeInstanceEntityImpl.getEndTime()"})
   public void testGetEndTime() {
     // Arrange, Act and Assert
-    assertNull(new HistoricActivityInstanceEntityImpl().getEndTime());
+    assertNull((new HistoricActivityInstanceEntityImpl()).getEndTime());
   }
 
   /**
    * Test {@link HistoricScopeInstanceEntityImpl#getDurationInMillis()}.
-   *
-   * <p>Method under test: {@link HistoricScopeInstanceEntityImpl#getDurationInMillis()}
+   * <p>
+   * Method under test: {@link HistoricScopeInstanceEntityImpl#getDurationInMillis()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"Long HistoricScopeInstanceEntityImpl.getDurationInMillis()"})
   public void testGetDurationInMillis() {
     // Arrange, Act and Assert
-    assertNull(new HistoricActivityInstanceEntityImpl().getDurationInMillis());
+    assertNull((new HistoricActivityInstanceEntityImpl()).getDurationInMillis());
   }
 
   /**
    * Test {@link HistoricScopeInstanceEntityImpl#setProcessInstanceId(String)}.
-   *
-   * <p>Method under test: {@link HistoricScopeInstanceEntityImpl#setProcessInstanceId(String)}
+   * <p>
+   * Method under test: {@link HistoricScopeInstanceEntityImpl#setProcessInstanceId(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void HistoricScopeInstanceEntityImpl.setProcessInstanceId(String)"})
   public void testSetProcessInstanceId() {
     // Arrange
-    HistoricActivityInstanceEntityImpl historicActivityInstanceEntityImpl =
-        new HistoricActivityInstanceEntityImpl();
+    HistoricActivityInstanceEntityImpl historicActivityInstanceEntityImpl = new HistoricActivityInstanceEntityImpl();
 
     // Act
     historicActivityInstanceEntityImpl.setProcessInstanceId("42");
@@ -126,17 +115,15 @@ public class HistoricScopeInstanceEntityImplDiffblueTest {
 
   /**
    * Test {@link HistoricScopeInstanceEntityImpl#setProcessDefinitionId(String)}.
-   *
-   * <p>Method under test: {@link HistoricScopeInstanceEntityImpl#setProcessDefinitionId(String)}
+   * <p>
+   * Method under test: {@link HistoricScopeInstanceEntityImpl#setProcessDefinitionId(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void HistoricScopeInstanceEntityImpl.setProcessDefinitionId(String)"})
   public void testSetProcessDefinitionId() {
     // Arrange
-    HistoricActivityInstanceEntityImpl historicActivityInstanceEntityImpl =
-        new HistoricActivityInstanceEntityImpl();
+    HistoricActivityInstanceEntityImpl historicActivityInstanceEntityImpl = new HistoricActivityInstanceEntityImpl();
 
     // Act
     historicActivityInstanceEntityImpl.setProcessDefinitionId("42");
@@ -147,19 +134,16 @@ public class HistoricScopeInstanceEntityImplDiffblueTest {
 
   /**
    * Test {@link HistoricScopeInstanceEntityImpl#setStartTime(Date)}.
-   *
-   * <p>Method under test: {@link HistoricScopeInstanceEntityImpl#setStartTime(Date)}
+   * <p>
+   * Method under test: {@link HistoricScopeInstanceEntityImpl#setStartTime(Date)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void HistoricScopeInstanceEntityImpl.setStartTime(Date)"})
   public void testSetStartTime() {
     // Arrange
-    HistoricActivityInstanceEntityImpl historicActivityInstanceEntityImpl =
-        new HistoricActivityInstanceEntityImpl();
-    Date startTime =
-        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant());
+    HistoricActivityInstanceEntityImpl historicActivityInstanceEntityImpl = new HistoricActivityInstanceEntityImpl();
+    Date startTime = Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant());
 
     // Act
     historicActivityInstanceEntityImpl.setStartTime(startTime);
@@ -171,19 +155,16 @@ public class HistoricScopeInstanceEntityImplDiffblueTest {
 
   /**
    * Test {@link HistoricScopeInstanceEntityImpl#setEndTime(Date)}.
-   *
-   * <p>Method under test: {@link HistoricScopeInstanceEntityImpl#setEndTime(Date)}
+   * <p>
+   * Method under test: {@link HistoricScopeInstanceEntityImpl#setEndTime(Date)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void HistoricScopeInstanceEntityImpl.setEndTime(Date)"})
   public void testSetEndTime() {
     // Arrange
-    HistoricActivityInstanceEntityImpl historicActivityInstanceEntityImpl =
-        new HistoricActivityInstanceEntityImpl();
-    Date endTime =
-        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant());
+    HistoricActivityInstanceEntityImpl historicActivityInstanceEntityImpl = new HistoricActivityInstanceEntityImpl();
+    Date endTime = Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant());
 
     // Act
     historicActivityInstanceEntityImpl.setEndTime(endTime);
@@ -202,17 +183,15 @@ public class HistoricScopeInstanceEntityImplDiffblueTest {
 
   /**
    * Test {@link HistoricScopeInstanceEntityImpl#setDurationInMillis(Long)}.
-   *
-   * <p>Method under test: {@link HistoricScopeInstanceEntityImpl#setDurationInMillis(Long)}
+   * <p>
+   * Method under test: {@link HistoricScopeInstanceEntityImpl#setDurationInMillis(Long)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void HistoricScopeInstanceEntityImpl.setDurationInMillis(Long)"})
   public void testSetDurationInMillis() {
     // Arrange
-    HistoricActivityInstanceEntityImpl historicActivityInstanceEntityImpl =
-        new HistoricActivityInstanceEntityImpl();
+    HistoricActivityInstanceEntityImpl historicActivityInstanceEntityImpl = new HistoricActivityInstanceEntityImpl();
 
     // Act
     historicActivityInstanceEntityImpl.setDurationInMillis(1L);
@@ -231,31 +210,28 @@ public class HistoricScopeInstanceEntityImplDiffblueTest {
 
   /**
    * Test {@link HistoricScopeInstanceEntityImpl#getDeleteReason()}.
-   *
-   * <p>Method under test: {@link HistoricScopeInstanceEntityImpl#getDeleteReason()}
+   * <p>
+   * Method under test: {@link HistoricScopeInstanceEntityImpl#getDeleteReason()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"String HistoricScopeInstanceEntityImpl.getDeleteReason()"})
   public void testGetDeleteReason() {
     // Arrange, Act and Assert
-    assertNull(new HistoricActivityInstanceEntityImpl().getDeleteReason());
+    assertNull((new HistoricActivityInstanceEntityImpl()).getDeleteReason());
   }
 
   /**
    * Test {@link HistoricScopeInstanceEntityImpl#setDeleteReason(String)}.
-   *
-   * <p>Method under test: {@link HistoricScopeInstanceEntityImpl#setDeleteReason(String)}
+   * <p>
+   * Method under test: {@link HistoricScopeInstanceEntityImpl#setDeleteReason(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void HistoricScopeInstanceEntityImpl.setDeleteReason(String)"})
   public void testSetDeleteReason() {
     // Arrange
-    HistoricActivityInstanceEntityImpl historicActivityInstanceEntityImpl =
-        new HistoricActivityInstanceEntityImpl();
+    HistoricActivityInstanceEntityImpl historicActivityInstanceEntityImpl = new HistoricActivityInstanceEntityImpl();
 
     // Act
     historicActivityInstanceEntityImpl.setDeleteReason("Just cause");

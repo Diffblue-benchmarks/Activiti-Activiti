@@ -18,7 +18,6 @@ package org.activiti.api.task.model.impl;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
@@ -27,13 +26,11 @@ import org.junit.jupiter.api.Test;
 class TaskCandidateUserImplDiffblueTest {
   /**
    * Test getters and setters.
-   *
    * <ul>
-   *   <li>Then return TaskId is {@code null}.
+   *   <li>Then return TaskId is {@code null}.</li>
    * </ul>
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>{@link TaskCandidateUserImpl#TaskCandidateUserImpl()}
    *   <li>{@link TaskCandidateUserImpl#getUserId()}
@@ -41,13 +38,9 @@ class TaskCandidateUserImplDiffblueTest {
    */
   @Test
   @DisplayName("Test getters and setters; then return TaskId is 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void TaskCandidateUserImpl.<init>()",
-    "void TaskCandidateUserImpl.<init>(String, String)",
-    "String TaskCandidateUserImpl.getUserId()"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void TaskCandidateUserImpl.<init>()", "void TaskCandidateUserImpl.<init>(String, String)",
+      "String TaskCandidateUserImpl.getUserId()"})
   void testGettersAndSetters_thenReturnTaskIdIsNull() {
     // Arrange and Act
     TaskCandidateUserImpl actualTaskCandidateUserImpl = new TaskCandidateUserImpl();
@@ -60,14 +53,12 @@ class TaskCandidateUserImplDiffblueTest {
 
   /**
    * Test getters and setters.
-   *
    * <ul>
-   *   <li>When {@code 42}.
-   *   <li>Then return TaskId is {@code 42}.
+   *   <li>When {@code 42}.</li>
+   *   <li>Then return TaskId is {@code 42}.</li>
    * </ul>
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>{@link TaskCandidateUserImpl#TaskCandidateUserImpl(String, String)}
    *   <li>{@link TaskCandidateUserImpl#getUserId()}
@@ -75,13 +66,9 @@ class TaskCandidateUserImplDiffblueTest {
    */
   @Test
   @DisplayName("Test getters and setters; when '42'; then return TaskId is '42'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void TaskCandidateUserImpl.<init>()",
-    "void TaskCandidateUserImpl.<init>(String, String)",
-    "String TaskCandidateUserImpl.getUserId()"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void TaskCandidateUserImpl.<init>()", "void TaskCandidateUserImpl.<init>(String, String)",
+      "String TaskCandidateUserImpl.getUserId()"})
   void testGettersAndSetters_when42_thenReturnTaskIdIs42() {
     // Arrange and Act
     TaskCandidateUserImpl actualTaskCandidateUserImpl = new TaskCandidateUserImpl("42", "42");
@@ -93,16 +80,13 @@ class TaskCandidateUserImplDiffblueTest {
   }
 
   /**
-   * Test {@link TaskCandidateUserImpl#equals(Object)}, and {@link
-   * TaskCandidateUserImpl#hashCode()}.
-   *
+   * Test {@link TaskCandidateUserImpl#equals(Object)}, and {@link TaskCandidateUserImpl#hashCode()}.
    * <ul>
-   *   <li>When other is equal.
-   *   <li>Then return equal.
+   *   <li>When other is equal.</li>
+   *   <li>Then return equal.</li>
    * </ul>
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>{@link TaskCandidateUserImpl#equals(Object)}
    *   <li>{@link TaskCandidateUserImpl#hashCode()}
@@ -110,12 +94,8 @@ class TaskCandidateUserImplDiffblueTest {
    */
   @Test
   @DisplayName("Test equals(Object), and hashCode(); when other is equal; then return equal")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "boolean TaskCandidateUserImpl.equals(Object)",
-    "int TaskCandidateUserImpl.hashCode()"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean TaskCandidateUserImpl.equals(Object)", "int TaskCandidateUserImpl.hashCode()"})
   void testEqualsAndHashCode_whenOtherIsEqual_thenReturnEqual() {
     // Arrange
     TaskCandidateUserImpl taskCandidateUserImpl = new TaskCandidateUserImpl("42", "42");
@@ -123,20 +103,18 @@ class TaskCandidateUserImplDiffblueTest {
 
     // Act and Assert
     assertEquals(taskCandidateUserImpl, taskCandidateUserImpl2);
-    assertEquals(taskCandidateUserImpl.hashCode(), taskCandidateUserImpl2.hashCode());
+    int expectedHashCodeResult = taskCandidateUserImpl.hashCode();
+    assertEquals(expectedHashCodeResult, taskCandidateUserImpl2.hashCode());
   }
 
   /**
-   * Test {@link TaskCandidateUserImpl#equals(Object)}, and {@link
-   * TaskCandidateUserImpl#hashCode()}.
-   *
+   * Test {@link TaskCandidateUserImpl#equals(Object)}, and {@link TaskCandidateUserImpl#hashCode()}.
    * <ul>
-   *   <li>When other is same.
-   *   <li>Then return equal.
+   *   <li>When other is same.</li>
+   *   <li>Then return equal.</li>
    * </ul>
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>{@link TaskCandidateUserImpl#equals(Object)}
    *   <li>{@link TaskCandidateUserImpl#hashCode()}
@@ -144,12 +122,8 @@ class TaskCandidateUserImplDiffblueTest {
    */
   @Test
   @DisplayName("Test equals(Object), and hashCode(); when other is same; then return equal")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "boolean TaskCandidateUserImpl.equals(Object)",
-    "int TaskCandidateUserImpl.hashCode()"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean TaskCandidateUserImpl.equals(Object)", "int TaskCandidateUserImpl.hashCode()"})
   void testEqualsAndHashCode_whenOtherIsSame_thenReturnEqual() {
     // Arrange
     TaskCandidateUserImpl taskCandidateUserImpl = new TaskCandidateUserImpl("42", "42");
@@ -162,22 +136,17 @@ class TaskCandidateUserImplDiffblueTest {
 
   /**
    * Test {@link TaskCandidateUserImpl#equals(Object)}.
-   *
    * <ul>
-   *   <li>When other is different.
-   *   <li>Then return not equal.
+   *   <li>When other is different.</li>
+   *   <li>Then return not equal.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link TaskCandidateUserImpl#equals(Object)}
+   * <p>
+   * Method under test: {@link TaskCandidateUserImpl#equals(Object)}
    */
   @Test
   @DisplayName("Test equals(Object); when other is different; then return not equal")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "boolean TaskCandidateUserImpl.equals(Object)",
-    "int TaskCandidateUserImpl.hashCode()"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean TaskCandidateUserImpl.equals(Object)", "int TaskCandidateUserImpl.hashCode()"})
   void testEquals_whenOtherIsDifferent_thenReturnNotEqual() {
     // Arrange
     TaskCandidateUserImpl taskCandidateUserImpl = new TaskCandidateUserImpl("User Id", "42");
@@ -188,22 +157,17 @@ class TaskCandidateUserImplDiffblueTest {
 
   /**
    * Test {@link TaskCandidateUserImpl#equals(Object)}.
-   *
    * <ul>
-   *   <li>When other is different.
-   *   <li>Then return not equal.
+   *   <li>When other is different.</li>
+   *   <li>Then return not equal.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link TaskCandidateUserImpl#equals(Object)}
+   * <p>
+   * Method under test: {@link TaskCandidateUserImpl#equals(Object)}
    */
   @Test
   @DisplayName("Test equals(Object); when other is different; then return not equal")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "boolean TaskCandidateUserImpl.equals(Object)",
-    "int TaskCandidateUserImpl.hashCode()"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean TaskCandidateUserImpl.equals(Object)", "int TaskCandidateUserImpl.hashCode()"})
   void testEquals_whenOtherIsDifferent_thenReturnNotEqual2() {
     // Arrange
     TaskCandidateUserImpl taskCandidateUserImpl = new TaskCandidateUserImpl("42", "Task Id");
@@ -214,22 +178,17 @@ class TaskCandidateUserImplDiffblueTest {
 
   /**
    * Test {@link TaskCandidateUserImpl#equals(Object)}.
-   *
    * <ul>
-   *   <li>When other is {@code null}.
-   *   <li>Then return not equal.
+   *   <li>When other is {@code null}.</li>
+   *   <li>Then return not equal.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link TaskCandidateUserImpl#equals(Object)}
+   * <p>
+   * Method under test: {@link TaskCandidateUserImpl#equals(Object)}
    */
   @Test
   @DisplayName("Test equals(Object); when other is 'null'; then return not equal")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "boolean TaskCandidateUserImpl.equals(Object)",
-    "int TaskCandidateUserImpl.hashCode()"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean TaskCandidateUserImpl.equals(Object)", "int TaskCandidateUserImpl.hashCode()"})
   void testEquals_whenOtherIsNull_thenReturnNotEqual() {
     // Arrange, Act and Assert
     assertNotEquals(new TaskCandidateUserImpl("42", "42"), null);
@@ -237,25 +196,19 @@ class TaskCandidateUserImplDiffblueTest {
 
   /**
    * Test {@link TaskCandidateUserImpl#equals(Object)}.
-   *
    * <ul>
-   *   <li>When other is wrong type.
-   *   <li>Then return not equal.
+   *   <li>When other is wrong type.</li>
+   *   <li>Then return not equal.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link TaskCandidateUserImpl#equals(Object)}
+   * <p>
+   * Method under test: {@link TaskCandidateUserImpl#equals(Object)}
    */
   @Test
   @DisplayName("Test equals(Object); when other is wrong type; then return not equal")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "boolean TaskCandidateUserImpl.equals(Object)",
-    "int TaskCandidateUserImpl.hashCode()"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean TaskCandidateUserImpl.equals(Object)", "int TaskCandidateUserImpl.hashCode()"})
   void testEquals_whenOtherIsWrongType_thenReturnNotEqual() {
     // Arrange, Act and Assert
-    assertNotEquals(
-        new TaskCandidateUserImpl("42", "42"), "Different type to TaskCandidateUserImpl");
+    assertNotEquals(new TaskCandidateUserImpl("42", "42"), "Different type to TaskCandidateUserImpl");
   }
 }

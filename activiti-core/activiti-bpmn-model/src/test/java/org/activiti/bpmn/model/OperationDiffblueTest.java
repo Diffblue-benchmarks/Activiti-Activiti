@@ -19,11 +19,9 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import org.junit.Test;
@@ -32,131 +30,15 @@ import org.junit.experimental.categories.Category;
 public class OperationDiffblueTest {
   /**
    * Test {@link Operation#clone()}.
-   *
    * <ul>
-   *   <li>Given {@link ArrayList#ArrayList()} add {@code foo}.
-   *   <li>Then return ErrorMessageRef size is one.
+   *   <li>Given {@link Operation} (default constructor) ErrorMessageRef is {@code null}.</li>
+   *   <li>Then return Id is {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link Operation#clone()}
+   * <p>
+   * Method under test: {@link Operation#clone()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"Operation Operation.clone()"})
-  public void testClone_givenArrayListAddFoo_thenReturnErrorMessageRefSizeIsOne() {
-    // Arrange
-    ArrayList<String> errorMessageRef = new ArrayList<>();
-    errorMessageRef.add("foo");
-
-    Operation operation = new Operation();
-    operation.setErrorMessageRef(errorMessageRef);
-    operation.addAttribute(new ExtensionAttribute("Name"));
-
-    // Act
-    Operation actualCloneResult = operation.clone();
-
-    // Assert
-    List<String> errorMessageRef2 = actualCloneResult.getErrorMessageRef();
-    assertEquals(1, errorMessageRef2.size());
-    assertEquals("foo", errorMessageRef2.get(0));
-    Map<String, List<ExtensionAttribute>> attributes = actualCloneResult.getAttributes();
-    assertEquals(1, attributes.size());
-    assertTrue(attributes.containsKey("Name"));
-  }
-
-  /**
-   * Test {@link Operation#clone()}.
-   *
-   * <ul>
-   *   <li>Given {@link HashMap#HashMap()} {@code 42} is {@link ArrayList#ArrayList()}.
-   *   <li>Then return Id is {@code null}.
-   * </ul>
-   *
-   * <p>Method under test: {@link Operation#clone()}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"Operation Operation.clone()"})
-  public void testClone_givenHashMap42IsArrayList_thenReturnIdIsNull() {
-    // Arrange
-    HashMap<String, List<ExtensionElement>> extensionElements = new HashMap<>();
-    extensionElements.put("42", new ArrayList<>());
-    extensionElements.put("foo", new ArrayList<>());
-
-    Operation operation = new Operation();
-    operation.setExtensionElements(extensionElements);
-    operation.setAttributes(null);
-
-    // Act
-    Operation actualCloneResult = operation.clone();
-
-    // Assert
-    assertNull(actualCloneResult.getId());
-    assertNull(actualCloneResult.getImplementationRef());
-    assertNull(actualCloneResult.getInMessageRef());
-    assertNull(actualCloneResult.getName());
-    assertNull(actualCloneResult.getOutMessageRef());
-    assertEquals(0, actualCloneResult.getXmlColumnNumber());
-    assertEquals(0, actualCloneResult.getXmlRowNumber());
-    assertTrue(actualCloneResult.getErrorMessageRef().isEmpty());
-    assertTrue(actualCloneResult.getAttributes().isEmpty());
-    assertTrue(actualCloneResult.getExtensionElements().isEmpty());
-  }
-
-  /**
-   * Test {@link Operation#clone()}.
-   *
-   * <ul>
-   *   <li>Given {@link Operation} (default constructor) Attributes is {@link HashMap#HashMap()}.
-   *   <li>Then return Id is {@code null}.
-   * </ul>
-   *
-   * <p>Method under test: {@link Operation#clone()}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"Operation Operation.clone()"})
-  public void testClone_givenOperationAttributesIsHashMap_thenReturnIdIsNull() {
-    // Arrange
-    HashMap<String, List<ExtensionAttribute>> attributes = new HashMap<>();
-    attributes.put("foo", new ArrayList<>());
-
-    Operation operation = new Operation();
-    operation.setExtensionElements(null);
-    operation.setAttributes(attributes);
-
-    // Act
-    Operation actualCloneResult = operation.clone();
-
-    // Assert
-    assertNull(actualCloneResult.getId());
-    assertNull(actualCloneResult.getImplementationRef());
-    assertNull(actualCloneResult.getInMessageRef());
-    assertNull(actualCloneResult.getName());
-    assertNull(actualCloneResult.getOutMessageRef());
-    assertEquals(0, actualCloneResult.getXmlColumnNumber());
-    assertEquals(0, actualCloneResult.getXmlRowNumber());
-    assertTrue(actualCloneResult.getErrorMessageRef().isEmpty());
-    assertTrue(actualCloneResult.getAttributes().isEmpty());
-    assertTrue(actualCloneResult.getExtensionElements().isEmpty());
-  }
-
-  /**
-   * Test {@link Operation#clone()}.
-   *
-   * <ul>
-   *   <li>Given {@link Operation} (default constructor) ErrorMessageRef is {@code null}.
-   *   <li>Then return Id is {@code null}.
-   * </ul>
-   *
-   * <p>Method under test: {@link Operation#clone()}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"Operation Operation.clone()"})
   public void testClone_givenOperationErrorMessageRefIsNull_thenReturnIdIsNull() {
     // Arrange
@@ -181,57 +63,15 @@ public class OperationDiffblueTest {
 
   /**
    * Test {@link Operation#clone()}.
-   *
    * <ul>
-   *   <li>Given {@link Operation} (default constructor) ExtensionElements is {@link
-   *       HashMap#HashMap()}.
-   *   <li>Then return Id is {@code null}.
+   *   <li>Given {@link Operation} (default constructor) ExtensionElements is {@code null}.</li>
+   *   <li>Then return Id is {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link Operation#clone()}
+   * <p>
+   * Method under test: {@link Operation#clone()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"Operation Operation.clone()"})
-  public void testClone_givenOperationExtensionElementsIsHashMap_thenReturnIdIsNull() {
-    // Arrange
-    HashMap<String, List<ExtensionElement>> extensionElements = new HashMap<>();
-    extensionElements.put("foo", new ArrayList<>());
-
-    Operation operation = new Operation();
-    operation.setExtensionElements(extensionElements);
-    operation.setAttributes(null);
-
-    // Act
-    Operation actualCloneResult = operation.clone();
-
-    // Assert
-    assertNull(actualCloneResult.getId());
-    assertNull(actualCloneResult.getImplementationRef());
-    assertNull(actualCloneResult.getInMessageRef());
-    assertNull(actualCloneResult.getName());
-    assertNull(actualCloneResult.getOutMessageRef());
-    assertEquals(0, actualCloneResult.getXmlColumnNumber());
-    assertEquals(0, actualCloneResult.getXmlRowNumber());
-    assertTrue(actualCloneResult.getErrorMessageRef().isEmpty());
-    assertTrue(actualCloneResult.getAttributes().isEmpty());
-    assertTrue(actualCloneResult.getExtensionElements().isEmpty());
-  }
-
-  /**
-   * Test {@link Operation#clone()}.
-   *
-   * <ul>
-   *   <li>Given {@link Operation} (default constructor) ExtensionElements is {@code null}.
-   *   <li>Then return Id is {@code null}.
-   * </ul>
-   *
-   * <p>Method under test: {@link Operation#clone()}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"Operation Operation.clone()"})
   public void testClone_givenOperationExtensionElementsIsNull_thenReturnIdIsNull() {
     // Arrange
@@ -257,21 +97,19 @@ public class OperationDiffblueTest {
 
   /**
    * Test {@link Operation#clone()}.
-   *
    * <ul>
-   *   <li>Given {@link Operation} (default constructor).
-   *   <li>Then return Id is {@code null}.
+   *   <li>Given {@link Operation} (default constructor).</li>
+   *   <li>Then return Id is {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link Operation#clone()}
+   * <p>
+   * Method under test: {@link Operation#clone()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"Operation Operation.clone()"})
   public void testClone_givenOperation_thenReturnIdIsNull() {
     // Arrange and Act
-    Operation actualCloneResult = new Operation().clone();
+    Operation actualCloneResult = (new Operation()).clone();
 
     // Assert
     assertNull(actualCloneResult.getId());
@@ -288,18 +126,16 @@ public class OperationDiffblueTest {
 
   /**
    * Test {@link Operation#clone()}.
-   *
    * <ul>
-   *   <li>Then return Attributes {@code Name} size is one.
+   *   <li>Then return Attributes size is one.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link Operation#clone()}
+   * <p>
+   * Method under test: {@link Operation#clone()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"Operation Operation.clone()"})
-  public void testClone_thenReturnAttributesNameSizeIsOne() {
+  public void testClone_thenReturnAttributesSizeIsOne() {
     // Arrange
     Operation operation = new Operation();
     ExtensionAttribute attribute = new ExtensionAttribute("Name");
@@ -315,16 +151,14 @@ public class OperationDiffblueTest {
 
   /**
    * Test {@link Operation#clone()}.
-   *
    * <ul>
-   *   <li>Then return Attributes size is two.
+   *   <li>Then return Attributes size is two.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link Operation#clone()}
+   * <p>
+   * Method under test: {@link Operation#clone()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"Operation Operation.clone()"})
   public void testClone_thenReturnAttributesSizeIsTwo() {
     // Arrange
@@ -344,9 +178,8 @@ public class OperationDiffblueTest {
 
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>default or parameterless constructor of {@link Operation}
    *   <li>{@link Operation#setErrorMessageRef(List)}
@@ -362,21 +195,12 @@ public class OperationDiffblueTest {
    * </ul>
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void Operation.<init>()",
-    "List Operation.getErrorMessageRef()",
-    "String Operation.getImplementationRef()",
-    "String Operation.getInMessageRef()",
-    "String Operation.getName()",
-    "String Operation.getOutMessageRef()",
-    "void Operation.setErrorMessageRef(List)",
-    "void Operation.setImplementationRef(String)",
-    "void Operation.setInMessageRef(String)",
-    "void Operation.setName(String)",
-    "void Operation.setOutMessageRef(String)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void Operation.<init>()", "List Operation.getErrorMessageRef()",
+      "String Operation.getImplementationRef()", "String Operation.getInMessageRef()", "String Operation.getName()",
+      "String Operation.getOutMessageRef()", "void Operation.setErrorMessageRef(List)",
+      "void Operation.setImplementationRef(String)", "void Operation.setInMessageRef(String)",
+      "void Operation.setName(String)", "void Operation.setOutMessageRef(String)"})
   public void testGettersAndSetters() {
     // Arrange and Act
     Operation actualOperation = new Operation();

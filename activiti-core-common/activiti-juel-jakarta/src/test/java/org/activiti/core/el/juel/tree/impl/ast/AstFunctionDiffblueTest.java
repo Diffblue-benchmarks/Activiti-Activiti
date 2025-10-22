@@ -21,7 +21,6 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.mock;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import jakarta.el.ValueExpression;
 import java.lang.reflect.Method;
@@ -36,15 +35,12 @@ import org.junit.jupiter.api.Test;
 class AstFunctionDiffblueTest {
   /**
    * Test getters and setters.
-   *
    * <ul>
-   *   <li>When {@link AstParameters#AstParameters(List)} with nodes is {@link
-   *       ArrayList#ArrayList()}.
-   *   <li>Then return not VarArgs.
+   *   <li>When {@link AstParameters#AstParameters(List)} with nodes is {@link ArrayList#ArrayList()}.</li>
+   *   <li>Then return not VarArgs.</li>
    * </ul>
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>{@link AstFunction#AstFunction(String, int, AstParameters)}
    *   <li>{@link AstFunction#getCardinality()}
@@ -55,23 +51,15 @@ class AstFunctionDiffblueTest {
    * </ul>
    */
   @Test
-  @DisplayName(
-      "Test getters and setters; when AstParameters(List) with nodes is ArrayList(); then return not VarArgs")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void AstFunction.<init>(String, int, AstParameters)",
-    "void AstFunction.<init>(String, int, AstParameters, boolean)",
-    "int AstFunction.getCardinality()",
-    "int AstFunction.getIndex()",
-    "String AstFunction.getName()",
-    "boolean AstFunction.isVarArgs()",
-    "String AstFunction.toString()"
-  })
+  @DisplayName("Test getters and setters; when AstParameters(List) with nodes is ArrayList(); then return not VarArgs")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void AstFunction.<init>(String, int, AstParameters)",
+      "void AstFunction.<init>(String, int, AstParameters, boolean)", "int AstFunction.getCardinality()",
+      "int AstFunction.getIndex()", "String AstFunction.getName()", "boolean AstFunction.isVarArgs()",
+      "String AstFunction.toString()"})
   void testGettersAndSetters_whenAstParametersWithNodesIsArrayList_thenReturnNotVarArgs() {
     // Arrange and Act
-    AstFunction actualAstFunction =
-        new AstFunction("Name", 1, new AstParameters(new ArrayList<>()));
+    AstFunction actualAstFunction = new AstFunction("Name", 1, new AstParameters(new ArrayList<>()));
     int actualCardinality = actualAstFunction.getCardinality();
     int actualIndex = actualAstFunction.getIndex();
     String actualName = actualAstFunction.getName();
@@ -87,14 +75,12 @@ class AstFunctionDiffblueTest {
 
   /**
    * Test getters and setters.
-   *
    * <ul>
-   *   <li>When {@code true}.
-   *   <li>Then return VarArgs.
+   *   <li>When {@code true}.</li>
+   *   <li>Then return VarArgs.</li>
    * </ul>
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>{@link AstFunction#AstFunction(String, int, AstParameters, boolean)}
    *   <li>{@link AstFunction#getCardinality()}
@@ -106,21 +92,14 @@ class AstFunctionDiffblueTest {
    */
   @Test
   @DisplayName("Test getters and setters; when 'true'; then return VarArgs")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void AstFunction.<init>(String, int, AstParameters)",
-    "void AstFunction.<init>(String, int, AstParameters, boolean)",
-    "int AstFunction.getCardinality()",
-    "int AstFunction.getIndex()",
-    "String AstFunction.getName()",
-    "boolean AstFunction.isVarArgs()",
-    "String AstFunction.toString()"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void AstFunction.<init>(String, int, AstParameters)",
+      "void AstFunction.<init>(String, int, AstParameters, boolean)", "int AstFunction.getCardinality()",
+      "int AstFunction.getIndex()", "String AstFunction.getName()", "boolean AstFunction.isVarArgs()",
+      "String AstFunction.toString()"})
   void testGettersAndSetters_whenTrue_thenReturnVarArgs() {
     // Arrange and Act
-    AstFunction actualAstFunction =
-        new AstFunction("Name", 1, new AstParameters(new ArrayList<>()), true);
+    AstFunction actualAstFunction = new AstFunction("Name", 1, new AstParameters(new ArrayList<>()), true);
     int actualCardinality = actualAstFunction.getCardinality();
     int actualIndex = actualAstFunction.getIndex();
     String actualName = actualAstFunction.getName();
@@ -136,17 +115,157 @@ class AstFunctionDiffblueTest {
 
   /**
    * Test {@link AstFunction#appendStructure(StringBuilder, Bindings)}.
-   *
-   * <p>Method under test: {@link AstFunction#appendStructure(StringBuilder, Bindings)}
+   * <p>
+   * Method under test: {@link AstFunction#appendStructure(StringBuilder, Bindings)}
    */
   @Test
   @DisplayName("Test appendStructure(StringBuilder, Bindings)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void AstFunction.appendStructure(StringBuilder, Bindings)"})
   void testAppendStructure() {
     // Arrange
+    AstFunction astFunction = new AstFunction("Name", -1, new AstParameters(new ArrayList<>()));
+    StringBuilder b = new StringBuilder("foo");
+    TypeConverter converter = mock(TypeConverter.class);
+    Class<Object> type = Object.class;
+
+    // Act
+    astFunction.appendStructure(b,
+        new Bindings(new Method[]{null}, new ValueExpression[]{new ObjectValueExpression(converter, "Object", type)}));
+
+    // Assert
+    assertEquals("fooName()", b.toString());
+  }
+
+  /**
+   * Test {@link AstFunction#appendStructure(StringBuilder, Bindings)}.
+   * <ul>
+   *   <li>Then {@link StringBuilder#StringBuilder(String)} with {@code foo} toString is {@code foo<fn>()}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link AstFunction#appendStructure(StringBuilder, Bindings)}
+   */
+  @Test
+  @DisplayName("Test appendStructure(StringBuilder, Bindings); then StringBuilder(String) with 'foo' toString is 'foo<fn>()'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void AstFunction.appendStructure(StringBuilder, Bindings)"})
+  void testAppendStructure_thenStringBuilderWithFooToStringIsFooFn() {
+    // Arrange
     AstFunction astFunction = new AstFunction("Name", 0, new AstParameters(new ArrayList<>()));
+    StringBuilder b = new StringBuilder("foo");
+    TypeConverter converter = mock(TypeConverter.class);
+    Class<Object> type = Object.class;
+
+    // Act
+    astFunction.appendStructure(b,
+        new Bindings(new Method[]{null}, new ValueExpression[]{new ObjectValueExpression(converter, "Object", type)}));
+
+    // Assert
+    assertEquals("foo<fn>()", b.toString());
+  }
+
+  /**
+   * Test {@link AstFunction#appendStructure(StringBuilder, Bindings)}.
+   * <ul>
+   *   <li>Then {@link StringBuilder#StringBuilder(String)} with {@code foo} toString is {@code fooName()}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link AstFunction#appendStructure(StringBuilder, Bindings)}
+   */
+  @Test
+  @DisplayName("Test appendStructure(StringBuilder, Bindings); then StringBuilder(String) with 'foo' toString is 'fooName()'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void AstFunction.appendStructure(StringBuilder, Bindings)"})
+  void testAppendStructure_thenStringBuilderWithFooToStringIsFooName() {
+    // Arrange
+    AstFunction astFunction = new AstFunction("Name", 1, new AstParameters(new ArrayList<>()));
+    StringBuilder b = new StringBuilder("foo");
+    TypeConverter converter = mock(TypeConverter.class);
+    Class<Object> type = Object.class;
+
+    // Act
+    astFunction.appendStructure(b,
+        new Bindings(new Method[]{null}, new ValueExpression[]{new ObjectValueExpression(converter, "Object", type)}));
+
+    // Assert
+    assertEquals("fooName()", b.toString());
+  }
+
+  /**
+   * Test {@link AstFunction#appendStructure(StringBuilder, Bindings)}.
+   * <ul>
+   *   <li>Then {@link StringBuilder#StringBuilder(String)} with {@code foo} toString is {@code fooName(null)}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link AstFunction#appendStructure(StringBuilder, Bindings)}
+   */
+  @Test
+  @DisplayName("Test appendStructure(StringBuilder, Bindings); then StringBuilder(String) with 'foo' toString is 'fooName(null)'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void AstFunction.appendStructure(StringBuilder, Bindings)"})
+  void testAppendStructure_thenStringBuilderWithFooToStringIsFooNameNull() {
+    // Arrange
+    ArrayList<AstNode> nodes = new ArrayList<>();
+    nodes.add(new AstNull());
+    AstFunction astFunction = new AstFunction("Name", 1, new AstParameters(nodes));
+    StringBuilder b = new StringBuilder("foo");
+    TypeConverter converter = mock(TypeConverter.class);
+    Class<Object> type = Object.class;
+
+    // Act
+    astFunction.appendStructure(b,
+        new Bindings(new Method[]{null}, new ValueExpression[]{new ObjectValueExpression(converter, "Object", type)}));
+
+    // Assert
+    assertEquals("fooName(null)", b.toString());
+  }
+
+  /**
+   * Test {@link AstFunction#appendStructure(StringBuilder, Bindings)}.
+   * <ul>
+   *   <li>Then {@link StringBuilder#StringBuilder(String)} with {@code foo} toString is {@code fooName(null, null)}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link AstFunction#appendStructure(StringBuilder, Bindings)}
+   */
+  @Test
+  @DisplayName("Test appendStructure(StringBuilder, Bindings); then StringBuilder(String) with 'foo' toString is 'fooName(null, null)'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void AstFunction.appendStructure(StringBuilder, Bindings)"})
+  void testAppendStructure_thenStringBuilderWithFooToStringIsFooNameNullNull() {
+    // Arrange
+    ArrayList<AstNode> nodes = new ArrayList<>();
+    nodes.add(new AstNull());
+    nodes.add(new AstNull());
+    AstFunction astFunction = new AstFunction("Name", 1, new AstParameters(nodes));
+    StringBuilder b = new StringBuilder("foo");
+    TypeConverter converter = mock(TypeConverter.class);
+    Class<Object> type = Object.class;
+
+    // Act
+    astFunction.appendStructure(b,
+        new Bindings(new Method[]{null}, new ValueExpression[]{new ObjectValueExpression(converter, "Object", type)}));
+
+    // Assert
+    assertEquals("fooName(null, null)", b.toString());
+  }
+
+  /**
+   * Test {@link AstFunction#appendStructure(StringBuilder, Bindings)}.
+   * <ul>
+   *   <li>When {@code null}.</li>
+   *   <li>Then {@link StringBuilder#StringBuilder(String)} with {@code foo} toString is {@code fooName()}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link AstFunction#appendStructure(StringBuilder, Bindings)}
+   */
+  @Test
+  @DisplayName("Test appendStructure(StringBuilder, Bindings); when 'null'; then StringBuilder(String) with 'foo' toString is 'fooName()'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void AstFunction.appendStructure(StringBuilder, Bindings)"})
+  void testAppendStructure_whenNull_thenStringBuilderWithFooToStringIsFooName() {
+    // Arrange
+    AstFunction astFunction = new AstFunction("Name", 1, new AstParameters(new ArrayList<>()));
     StringBuilder b = new StringBuilder("foo");
 
     // Act
@@ -157,227 +276,35 @@ class AstFunctionDiffblueTest {
   }
 
   /**
-   * Test {@link AstFunction#appendStructure(StringBuilder, Bindings)}.
-   *
-   * <p>Method under test: {@link AstFunction#appendStructure(StringBuilder, Bindings)}
-   */
-  @Test
-  @DisplayName("Test appendStructure(StringBuilder, Bindings)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void AstFunction.appendStructure(StringBuilder, Bindings)"})
-  void testAppendStructure2() {
-    // Arrange
-    AstFunction astFunction = new AstFunction("Name", -1, new AstParameters(new ArrayList<>()));
-    StringBuilder b = new StringBuilder("foo");
-    Method[] functions = new Method[] {null};
-    TypeConverter converter = mock(TypeConverter.class);
-    Class<Object> type = Object.class;
-
-    ObjectValueExpression objectValueExpression =
-        new ObjectValueExpression(converter, "Object", type);
-    ValueExpression[] variables = new ValueExpression[] {objectValueExpression};
-
-    Bindings bindings = new Bindings(functions, variables);
-
-    // Act
-    astFunction.appendStructure(b, bindings);
-
-    // Assert
-    assertEquals("fooName()", b.toString());
-  }
-
-  /**
-   * Test {@link AstFunction#appendStructure(StringBuilder, Bindings)}.
-   *
-   * <ul>
-   *   <li>Then {@link StringBuilder#StringBuilder(String)} with {@code foo} toString is {@code
-   *       foo<fn>()}.
-   * </ul>
-   *
-   * <p>Method under test: {@link AstFunction#appendStructure(StringBuilder, Bindings)}
-   */
-  @Test
-  @DisplayName(
-      "Test appendStructure(StringBuilder, Bindings); then StringBuilder(String) with 'foo' toString is 'foo<fn>()'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void AstFunction.appendStructure(StringBuilder, Bindings)"})
-  void testAppendStructure_thenStringBuilderWithFooToStringIsFooFn() {
-    // Arrange
-    AstFunction astFunction = new AstFunction("Name", 0, new AstParameters(new ArrayList<>()));
-    StringBuilder b = new StringBuilder("foo");
-    Method[] functions = new Method[] {null};
-    TypeConverter converter = mock(TypeConverter.class);
-    Class<Object> type = Object.class;
-
-    ObjectValueExpression objectValueExpression =
-        new ObjectValueExpression(converter, "Object", type);
-    ValueExpression[] variables = new ValueExpression[] {objectValueExpression};
-
-    Bindings bindings = new Bindings(functions, variables);
-
-    // Act
-    astFunction.appendStructure(b, bindings);
-
-    // Assert
-    assertEquals("foo<fn>()", b.toString());
-  }
-
-  /**
-   * Test {@link AstFunction#appendStructure(StringBuilder, Bindings)}.
-   *
-   * <ul>
-   *   <li>Then {@link StringBuilder#StringBuilder(String)} with {@code foo} toString is {@code
-   *       fooName()}.
-   * </ul>
-   *
-   * <p>Method under test: {@link AstFunction#appendStructure(StringBuilder, Bindings)}
-   */
-  @Test
-  @DisplayName(
-      "Test appendStructure(StringBuilder, Bindings); then StringBuilder(String) with 'foo' toString is 'fooName()'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void AstFunction.appendStructure(StringBuilder, Bindings)"})
-  void testAppendStructure_thenStringBuilderWithFooToStringIsFooName() {
-    // Arrange
-    AstFunction astFunction = new AstFunction("Name", 1, new AstParameters(new ArrayList<>()));
-    StringBuilder b = new StringBuilder("foo");
-    Method[] functions = new Method[] {null};
-    TypeConverter converter = mock(TypeConverter.class);
-    Class<Object> type = Object.class;
-
-    ObjectValueExpression objectValueExpression =
-        new ObjectValueExpression(converter, "Object", type);
-    ValueExpression[] variables = new ValueExpression[] {objectValueExpression};
-
-    Bindings bindings = new Bindings(functions, variables);
-
-    // Act
-    astFunction.appendStructure(b, bindings);
-
-    // Assert
-    assertEquals("fooName()", b.toString());
-  }
-
-  /**
-   * Test {@link AstFunction#appendStructure(StringBuilder, Bindings)}.
-   *
-   * <ul>
-   *   <li>Then {@link StringBuilder#StringBuilder(String)} with {@code foo} toString is {@code
-   *       fooName(null)}.
-   * </ul>
-   *
-   * <p>Method under test: {@link AstFunction#appendStructure(StringBuilder, Bindings)}
-   */
-  @Test
-  @DisplayName(
-      "Test appendStructure(StringBuilder, Bindings); then StringBuilder(String) with 'foo' toString is 'fooName(null)'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void AstFunction.appendStructure(StringBuilder, Bindings)"})
-  void testAppendStructure_thenStringBuilderWithFooToStringIsFooNameNull() {
-    // Arrange
-    ArrayList<AstNode> nodes = new ArrayList<>();
-    nodes.add(new AstNull());
-    AstFunction astFunction = new AstFunction("Name", 1, new AstParameters(nodes));
-    StringBuilder b = new StringBuilder("foo");
-    Method[] functions = new Method[] {null};
-    TypeConverter converter = mock(TypeConverter.class);
-    Class<Object> type = Object.class;
-
-    ObjectValueExpression objectValueExpression =
-        new ObjectValueExpression(converter, "Object", type);
-    ValueExpression[] variables = new ValueExpression[] {objectValueExpression};
-
-    Bindings bindings = new Bindings(functions, variables);
-
-    // Act
-    astFunction.appendStructure(b, bindings);
-
-    // Assert
-    assertEquals("fooName(null)", b.toString());
-  }
-
-  /**
-   * Test {@link AstFunction#appendStructure(StringBuilder, Bindings)}.
-   *
-   * <ul>
-   *   <li>Then {@link StringBuilder#StringBuilder(String)} with {@code foo} toString is {@code
-   *       fooName(null, null)}.
-   * </ul>
-   *
-   * <p>Method under test: {@link AstFunction#appendStructure(StringBuilder, Bindings)}
-   */
-  @Test
-  @DisplayName(
-      "Test appendStructure(StringBuilder, Bindings); then StringBuilder(String) with 'foo' toString is 'fooName(null, null)'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void AstFunction.appendStructure(StringBuilder, Bindings)"})
-  void testAppendStructure_thenStringBuilderWithFooToStringIsFooNameNullNull() {
-    // Arrange
-    ArrayList<AstNode> nodes = new ArrayList<>();
-    nodes.add(new AstNull());
-    nodes.add(new AstNull());
-    AstFunction astFunction = new AstFunction("Name", 1, new AstParameters(nodes));
-    StringBuilder b = new StringBuilder("foo");
-    Method[] functions = new Method[] {null};
-    TypeConverter converter = mock(TypeConverter.class);
-    Class<Object> type = Object.class;
-
-    ObjectValueExpression objectValueExpression =
-        new ObjectValueExpression(converter, "Object", type);
-    ValueExpression[] variables = new ValueExpression[] {objectValueExpression};
-
-    Bindings bindings = new Bindings(functions, variables);
-
-    // Act
-    astFunction.appendStructure(b, bindings);
-
-    // Assert
-    assertEquals("fooName(null, null)", b.toString());
-  }
-
-  /**
    * Test {@link AstFunction#getParamCount()}.
-   *
    * <ul>
-   *   <li>Given {@link AstParameters#AstParameters(List)} with nodes is {@link
-   *       ArrayList#ArrayList()}.
-   *   <li>Then return zero.
+   *   <li>Given {@link AstParameters#AstParameters(List)} with nodes is {@link ArrayList#ArrayList()}.</li>
+   *   <li>Then return zero.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link AstFunction#getParamCount()}
+   * <p>
+   * Method under test: {@link AstFunction#getParamCount()}
    */
   @Test
-  @DisplayName(
-      "Test getParamCount(); given AstParameters(List) with nodes is ArrayList(); then return zero")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getParamCount(); given AstParameters(List) with nodes is ArrayList(); then return zero")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"int AstFunction.getParamCount()"})
   void testGetParamCount_givenAstParametersWithNodesIsArrayList_thenReturnZero() {
     // Arrange, Act and Assert
-    assertEquals(
-        0, new AstFunction("Name", 1, new AstParameters(new ArrayList<>())).getParamCount());
+    assertEquals(0, (new AstFunction("Name", 1, new AstParameters(new ArrayList<>()))).getParamCount());
   }
 
   /**
    * Test {@link AstFunction#getParam(int)}.
-   *
    * <ul>
-   *   <li>Given {@link ArrayList#ArrayList()} add {@link AstNull} (default constructor).
-   *   <li>Then return {@link AstNull} (default constructor).
+   *   <li>Given {@link ArrayList#ArrayList()} add {@link AstNull} (default constructor).</li>
+   *   <li>Then return {@link AstNull} (default constructor).</li>
    * </ul>
-   *
-   * <p>Method under test: {@link AstFunction#getParam(int)}
+   * <p>
+   * Method under test: {@link AstFunction#getParam(int)}
    */
   @Test
-  @DisplayName(
-      "Test getParam(int); given ArrayList() add AstNull (default constructor); then return AstNull (default constructor)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getParam(int); given ArrayList() add AstNull (default constructor); then return AstNull (default constructor)")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"AstNode AstFunction.getParam(int)"})
   void testGetParam_givenArrayListAddAstNull_thenReturnAstNull() {
     // Arrange
@@ -387,51 +314,45 @@ class AstFunctionDiffblueTest {
     nodes.add(astNull);
 
     // Act and Assert
-    assertSame(astNull, new AstFunction("Name", 1, new AstParameters(nodes)).getParam(1));
+    assertSame(astNull, (new AstFunction("Name", 1, new AstParameters(nodes))).getParam(1));
   }
 
   /**
    * Test {@link AstFunction#getChild(int)}.
-   *
    * <ul>
-   *   <li>When one.
-   *   <li>Then return {@code null}.
+   *   <li>When one.</li>
+   *   <li>Then return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link AstFunction#getChild(int)}
+   * <p>
+   * Method under test: {@link AstFunction#getChild(int)}
    */
   @Test
   @DisplayName("Test getChild(int); when one; then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"AstNode AstFunction.getChild(int)"})
   void testGetChild_whenOne_thenReturnNull() {
     // Arrange, Act and Assert
-    assertNull(new AstFunction("Name", 1, new AstParameters(new ArrayList<>())).getChild(1));
+    assertNull((new AstFunction("Name", 1, new AstParameters(new ArrayList<>()))).getChild(1));
   }
 
   /**
    * Test {@link AstFunction#getChild(int)}.
-   *
    * <ul>
-   *   <li>When zero.
-   *   <li>Then return {@link AstParameters#AstParameters(List)} with nodes is {@link
-   *       ArrayList#ArrayList()}.
+   *   <li>When zero.</li>
+   *   <li>Then return {@link AstParameters#AstParameters(List)} with nodes is {@link ArrayList#ArrayList()}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link AstFunction#getChild(int)}
+   * <p>
+   * Method under test: {@link AstFunction#getChild(int)}
    */
   @Test
-  @DisplayName(
-      "Test getChild(int); when zero; then return AstParameters(List) with nodes is ArrayList()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getChild(int); when zero; then return AstParameters(List) with nodes is ArrayList()")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"AstNode AstFunction.getChild(int)"})
   void testGetChild_whenZero_thenReturnAstParametersWithNodesIsArrayList() {
     // Arrange
     AstParameters params = new AstParameters(new ArrayList<>());
 
     // Act and Assert
-    assertSame(params, new AstFunction("Name", 1, params).getChild(0));
+    assertSame(params, (new AstFunction("Name", 1, params)).getChild(0));
   }
 }

@@ -16,7 +16,6 @@
 package org.activiti.runtime.api.event.impl;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.engine.delegate.event.ActivitiEntityEvent;
 import org.activiti.engine.delegate.event.impl.ActivitiProcessCancelledEventImpl;
@@ -33,35 +32,31 @@ import org.springframework.test.context.aot.DisabledInAotMode;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 @ContextConfiguration(classes = {ToAPITaskUpdatedEventConverter.class})
-@DisabledInAotMode
 @ExtendWith(SpringExtension.class)
+@DisabledInAotMode
 class ToAPITaskUpdatedEventConverterDiffblueTest {
-  @MockBean private APITaskConverter aPITaskConverter;
+  @MockBean
+  private APITaskConverter aPITaskConverter;
 
-  @Autowired private ToAPITaskUpdatedEventConverter toAPITaskUpdatedEventConverter;
+  @Autowired
+  private ToAPITaskUpdatedEventConverter toAPITaskUpdatedEventConverter;
 
   /**
-   * Test {@link ToAPITaskUpdatedEventConverter#from(ActivitiEntityEvent)} with {@code
-   * ActivitiEntityEvent}.
-   *
+   * Test {@link ToAPITaskUpdatedEventConverter#from(ActivitiEntityEvent)} with {@code ActivitiEntityEvent}.
    * <ul>
-   *   <li>Then return not Present.
+   *   <li>Then return not Present.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ToAPITaskUpdatedEventConverter#from(ActivitiEntityEvent)}
+   * <p>
+   * Method under test: {@link ToAPITaskUpdatedEventConverter#from(ActivitiEntityEvent)}
    */
   @Test
   @DisplayName("Test from(ActivitiEntityEvent) with 'ActivitiEntityEvent'; then return not Present")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"java.util.Optional ToAPITaskUpdatedEventConverter.from(ActivitiEntityEvent)"})
   void testFromWithActivitiEntityEvent_thenReturnNotPresent() {
     // Arrange, Act and Assert
-    assertFalse(
-        toAPITaskUpdatedEventConverter
-            .from(
-                new ActivitiProcessCancelledEventImpl(
-                    ExecutionEntityImpl.createWithEmptyRelationshipCollections()))
-            .isPresent());
+    assertFalse(toAPITaskUpdatedEventConverter
+        .from(new ActivitiProcessCancelledEventImpl(ExecutionEntityImpl.createWithEmptyRelationshipCollections()))
+        .isPresent());
   }
 }

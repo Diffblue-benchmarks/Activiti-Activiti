@@ -18,8 +18,7 @@ package org.activiti.engine.impl.bpmn.listener;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThrows;
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.engine.delegate.DelegateExecution;
 import org.activiti.engine.delegate.Expression;
@@ -32,88 +31,73 @@ import org.junit.experimental.categories.Category;
 public class ScriptExecutionListenerDiffblueTest {
   /**
    * Test {@link ScriptExecutionListener#notify(DelegateExecution)} with {@code DelegateExecution}.
-   *
    * <ul>
-   *   <li>Given {@link ScriptExecutionListener} (default constructor).
+   *   <li>Given {@link ScriptExecutionListener} (default constructor).</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ScriptExecutionListener#notify(DelegateExecution)}
+   * <p>
+   * Method under test: {@link ScriptExecutionListener#notify(DelegateExecution)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void ScriptExecutionListener.notify(DelegateExecution)"})
   public void testNotifyWithDelegateExecution_givenScriptExecutionListener() {
     // Arrange
     ScriptExecutionListener scriptExecutionListener = new ScriptExecutionListener();
 
     // Act and Assert
-    assertThrows(
-        IllegalArgumentException.class,
-        () ->
-            scriptExecutionListener.notify(
-                ExecutionEntityImpl.createWithEmptyRelationshipCollections()));
+    assertThrows(IllegalArgumentException.class,
+        () -> scriptExecutionListener.notify(ExecutionEntityImpl.createWithEmptyRelationshipCollections()));
   }
 
   /**
    * Test {@link ScriptExecutionListener#notify(DelegateExecution)} with {@code DelegateExecution}.
-   *
    * <ul>
-   *   <li>Given {@link ScriptExecutionListener} (default constructor) Language is {@code null}.
+   *   <li>Given {@link ScriptExecutionListener} (default constructor) Language is {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ScriptExecutionListener#notify(DelegateExecution)}
+   * <p>
+   * Method under test: {@link ScriptExecutionListener#notify(DelegateExecution)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void ScriptExecutionListener.notify(DelegateExecution)"})
   public void testNotifyWithDelegateExecution_givenScriptExecutionListenerLanguageIsNull() {
     // Arrange
     ScriptExecutionListener scriptExecutionListener = new ScriptExecutionListener();
     scriptExecutionListener.setResultVariable(null);
-    scriptExecutionListener.setScript(new FixedValue(JSONObject.NULL));
     scriptExecutionListener.setLanguage(null);
+    scriptExecutionListener.setScript(new FixedValue(JSONObject.NULL));
 
     // Act and Assert
-    assertThrows(
-        IllegalArgumentException.class,
-        () ->
-            scriptExecutionListener.notify(
-                ExecutionEntityImpl.createWithEmptyRelationshipCollections()));
+    assertThrows(IllegalArgumentException.class,
+        () -> scriptExecutionListener.notify(ExecutionEntityImpl.createWithEmptyRelationshipCollections()));
   }
 
   /**
    * Test {@link ScriptExecutionListener#validateParameters()}.
-   *
    * <ul>
-   *   <li>Given {@link ScriptExecutionListener} (default constructor).
+   *   <li>Given {@link ScriptExecutionListener} (default constructor).</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ScriptExecutionListener#validateParameters()}
+   * <p>
+   * Method under test: {@link ScriptExecutionListener#validateParameters()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void ScriptExecutionListener.validateParameters()"})
   public void testValidateParameters_givenScriptExecutionListener() {
     // Arrange, Act and Assert
-    assertThrows(
-        IllegalArgumentException.class, () -> new ScriptExecutionListener().validateParameters());
+    assertThrows(IllegalArgumentException.class, () -> (new ScriptExecutionListener()).validateParameters());
   }
 
   /**
    * Test {@link ScriptExecutionListener#validateParameters()}.
-   *
    * <ul>
-   *   <li>Given {@link ScriptExecutionListener} (default constructor) Language is {@code null}.
+   *   <li>Given {@link ScriptExecutionListener} (default constructor) Language is {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ScriptExecutionListener#validateParameters()}
+   * <p>
+   * Method under test: {@link ScriptExecutionListener#validateParameters()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void ScriptExecutionListener.validateParameters()"})
   public void testValidateParameters_givenScriptExecutionListenerLanguageIsNull() {
     // Arrange
@@ -123,15 +107,13 @@ public class ScriptExecutionListenerDiffblueTest {
     scriptExecutionListener.setLanguage(null);
 
     // Act and Assert
-    assertThrows(
-        IllegalArgumentException.class, () -> scriptExecutionListener.validateParameters());
+    assertThrows(IllegalArgumentException.class, () -> scriptExecutionListener.validateParameters());
   }
 
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>default or parameterless constructor of {@link ScriptExecutionListener}
    *   <li>{@link ScriptExecutionListener#setLanguage(Expression)}
@@ -140,14 +122,10 @@ public class ScriptExecutionListenerDiffblueTest {
    * </ul>
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void ScriptExecutionListener.<init>()",
-    "void ScriptExecutionListener.setLanguage(Expression)",
-    "void ScriptExecutionListener.setResultVariable(Expression)",
-    "void ScriptExecutionListener.setScript(Expression)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void ScriptExecutionListener.<init>()", "void ScriptExecutionListener.setLanguage(Expression)",
+      "void ScriptExecutionListener.setResultVariable(Expression)",
+      "void ScriptExecutionListener.setScript(Expression)"})
   public void testGettersAndSetters() {
     // Arrange and Act
     ScriptExecutionListener actualScriptExecutionListener = new ScriptExecutionListener();

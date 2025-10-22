@@ -19,6 +19,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.ArgumentMatchers.isA;
 import static org.mockito.ArgumentMatchers.isNull;
 import static org.mockito.Mockito.atLeast;
@@ -26,21 +27,23 @@ import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ArrayNode;
-import com.fasterxml.jackson.databind.node.DoubleNode;
+import com.fasterxml.jackson.databind.node.BigIntegerNode;
 import com.fasterxml.jackson.databind.node.JsonNodeFactory;
+import com.fasterxml.jackson.databind.node.MissingNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import java.math.BigInteger;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
+import org.activiti.bpmn.model.Process;
 import org.activiti.engine.impl.bpmn.parser.BpmnParse;
 import org.activiti.engine.impl.bpmn.parser.BpmnParser;
 import org.activiti.engine.impl.cfg.IdGenerator;
+import org.activiti.engine.impl.persistence.entity.DeploymentEntity;
 import org.activiti.engine.impl.persistence.entity.DeploymentEntityImpl;
 import org.activiti.engine.impl.persistence.entity.ProcessDefinitionEntity;
 import org.activiti.engine.impl.persistence.entity.ProcessDefinitionEntityImpl;
@@ -51,21 +54,18 @@ import org.mockito.Mockito;
 public class BpmnDeployerDiffblueTest {
   /**
    * Test {@link BpmnDeployer#setProcessDefinitionDiagramNames(ParsedDeployment)}.
-   *
    * <ul>
-   *   <li>Given {@link ArrayList#ArrayList()}.
+   *   <li>Then calls {@link ParsedDeployment#getAllProcessDefinitions()}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link BpmnDeployer#setProcessDefinitionDiagramNames(ParsedDeployment)}
+   * <p>
+   * Method under test: {@link BpmnDeployer#setProcessDefinitionDiagramNames(ParsedDeployment)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void BpmnDeployer.setProcessDefinitionDiagramNames(ParsedDeployment)"})
-  public void testSetProcessDefinitionDiagramNames_givenArrayList() {
+  public void testSetProcessDefinitionDiagramNames_thenCallsGetAllProcessDefinitions() {
     // Arrange
     BpmnDeployer bpmnDeployer = new BpmnDeployer();
-
     ParsedDeployment parsedDeployment = mock(ParsedDeployment.class);
     when(parsedDeployment.getAllProcessDefinitions()).thenReturn(new ArrayList<>());
     when(parsedDeployment.getDeployment()).thenReturn(new DeploymentEntityImpl());
@@ -79,58 +79,16 @@ public class BpmnDeployerDiffblueTest {
   }
 
   /**
-   * Test {@link BpmnDeployer#setProcessDefinitionDiagramNames(ParsedDeployment)}.
-   *
-   * <ul>
-   *   <li>Then calls {@link DeploymentEntityImpl#getResources()}.
-   * </ul>
-   *
-   * <p>Method under test: {@link BpmnDeployer#setProcessDefinitionDiagramNames(ParsedDeployment)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void BpmnDeployer.setProcessDefinitionDiagramNames(ParsedDeployment)"})
-  public void testSetProcessDefinitionDiagramNames_thenCallsGetResources() {
-    // Arrange
-    BpmnDeployer bpmnDeployer = new BpmnDeployer();
-
-    DeploymentEntityImpl deploymentEntityImpl = mock(DeploymentEntityImpl.class);
-    when(deploymentEntityImpl.getResources()).thenReturn(new HashMap<>());
-
-    ProcessDefinitionEntityImpl processDefinitionEntityImpl = new ProcessDefinitionEntityImpl();
-    processDefinitionEntityImpl.setResourceName("All Process Definitions");
-
-    ArrayList<ProcessDefinitionEntity> processDefinitionEntityList = new ArrayList<>();
-    processDefinitionEntityList.add(processDefinitionEntityImpl);
-
-    ParsedDeployment parsedDeployment = mock(ParsedDeployment.class);
-    when(parsedDeployment.getAllProcessDefinitions()).thenReturn(processDefinitionEntityList);
-    when(parsedDeployment.getDeployment()).thenReturn(deploymentEntityImpl);
-
-    // Act
-    bpmnDeployer.setProcessDefinitionDiagramNames(parsedDeployment);
-
-    // Assert
-    verify(parsedDeployment).getAllProcessDefinitions();
-    verify(parsedDeployment).getDeployment();
-    verify(deploymentEntityImpl).getResources();
-  }
-
-  /**
    * Test {@link BpmnDeployer#getPreviousVersionsOfProcessDefinitions(ParsedDeployment)}.
-   *
    * <ul>
-   *   <li>Given {@link BpmnDeployer} (default constructor).
-   *   <li>Then return Empty.
+   *   <li>Given {@link BpmnDeployer} (default constructor).</li>
+   *   <li>Then return Empty.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link
-   * BpmnDeployer#getPreviousVersionsOfProcessDefinitions(ParsedDeployment)}
+   * <p>
+   * Method under test: {@link BpmnDeployer#getPreviousVersionsOfProcessDefinitions(ParsedDeployment)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"Map BpmnDeployer.getPreviousVersionsOfProcessDefinitions(ParsedDeployment)"})
   public void testGetPreviousVersionsOfProcessDefinitions_givenBpmnDeployer_thenReturnEmpty() {
     // Arrange
@@ -139,67 +97,30 @@ public class BpmnDeployerDiffblueTest {
     ArrayList<ProcessDefinitionEntity> processDefinitions = new ArrayList<>();
     HashMap<ProcessDefinitionEntity, BpmnParse> mapProcessDefinitionsToParses = new HashMap<>();
 
-    ParsedDeployment parsedDeployment =
-        new ParsedDeployment(
-            entity, processDefinitions, mapProcessDefinitionsToParses, new HashMap<>());
-
     // Act and Assert
-    assertTrue(bpmnDeployer.getPreviousVersionsOfProcessDefinitions(parsedDeployment).isEmpty());
+    assertTrue(bpmnDeployer
+        .getPreviousVersionsOfProcessDefinitions(
+            new ParsedDeployment(entity, processDefinitions, mapProcessDefinitionsToParses, new HashMap<>()))
+        .isEmpty());
   }
 
   /**
    * Test {@link BpmnDeployer#setProcessDefinitionVersionsAndIds(ParsedDeployment, Map)}.
-   *
-   * <p>Method under test: {@link BpmnDeployer#setProcessDefinitionVersionsAndIds(ParsedDeployment,
-   * Map)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void BpmnDeployer.setProcessDefinitionVersionsAndIds(ParsedDeployment, Map)"})
-  public void testSetProcessDefinitionVersionsAndIds() {
-    // Arrange
-    BpmnDeployer bpmnDeployer = new BpmnDeployer();
-
-    DeploymentEntityImpl deploymentEntityImpl = new DeploymentEntityImpl();
-    deploymentEntityImpl.setProjectReleaseVersion("1.0.2");
-
-    ParsedDeployment parsedDeployment = mock(ParsedDeployment.class);
-    when(parsedDeployment.getAllProcessDefinitions()).thenReturn(new ArrayList<>());
-    when(parsedDeployment.getDeployment()).thenReturn(deploymentEntityImpl);
-
-    // Act
-    bpmnDeployer.setProcessDefinitionVersionsAndIds(parsedDeployment, new HashMap<>());
-
-    // Assert
-    verify(parsedDeployment).getAllProcessDefinitions();
-    verify(parsedDeployment, atLeast(1)).getDeployment();
-  }
-
-  /**
-   * Test {@link BpmnDeployer#setProcessDefinitionVersionsAndIds(ParsedDeployment, Map)}.
-   *
    * <ul>
-   *   <li>Then calls {@link ParsedDeployment#getAllProcessDefinitions()}.
+   *   <li>Then calls {@link ParsedDeployment#getAllProcessDefinitions()}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link BpmnDeployer#setProcessDefinitionVersionsAndIds(ParsedDeployment,
-   * Map)}
+   * <p>
+   * Method under test: {@link BpmnDeployer#setProcessDefinitionVersionsAndIds(ParsedDeployment, Map)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void BpmnDeployer.setProcessDefinitionVersionsAndIds(ParsedDeployment, Map)"})
   public void testSetProcessDefinitionVersionsAndIds_thenCallsGetAllProcessDefinitions() {
     // Arrange
     BpmnDeployer bpmnDeployer = new BpmnDeployer();
-
-    DeploymentEntityImpl deploymentEntityImpl = new DeploymentEntityImpl();
-    deploymentEntityImpl.setProjectReleaseVersion(null);
-
     ParsedDeployment parsedDeployment = mock(ParsedDeployment.class);
     when(parsedDeployment.getAllProcessDefinitions()).thenReturn(new ArrayList<>());
-    when(parsedDeployment.getDeployment()).thenReturn(deploymentEntityImpl);
+    when(parsedDeployment.getDeployment()).thenReturn(new DeploymentEntityImpl());
 
     // Act
     bpmnDeployer.setProcessDefinitionVersionsAndIds(parsedDeployment, new HashMap<>());
@@ -210,23 +131,81 @@ public class BpmnDeployerDiffblueTest {
   }
 
   /**
-   * Test {@link BpmnDeployer#updateTimersAndEvents(ParsedDeployment, Map)}.
-   *
+   * Test {@link BpmnDeployer#setProcessDefinitionVersionsAndIds(ParsedDeployment, Map)}.
    * <ul>
-   *   <li>Given {@link ArrayList#ArrayList()}.
-   *   <li>Then calls {@link ParsedDeployment#getAllProcessDefinitions()}.
+   *   <li>Then calls {@link ParsedDeployment#getAllProcessDefinitions()}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link BpmnDeployer#updateTimersAndEvents(ParsedDeployment, Map)}
+   * <p>
+   * Method under test: {@link BpmnDeployer#setProcessDefinitionVersionsAndIds(ParsedDeployment, Map)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void BpmnDeployer.setProcessDefinitionVersionsAndIds(ParsedDeployment, Map)"})
+  public void testSetProcessDefinitionVersionsAndIds_thenCallsGetAllProcessDefinitions2() {
+    // Arrange
+    BpmnDeployer bpmnDeployer = new BpmnDeployer();
+    DeploymentEntity deploymentEntity = mock(DeploymentEntity.class);
+    when(deploymentEntity.getVersion()).thenReturn(1);
+    when(deploymentEntity.getProjectReleaseVersion()).thenReturn("1.0.2");
+    ParsedDeployment parsedDeployment = mock(ParsedDeployment.class);
+    when(parsedDeployment.getAllProcessDefinitions()).thenReturn(new ArrayList<>());
+    when(parsedDeployment.getDeployment()).thenReturn(deploymentEntity);
+
+    // Act
+    bpmnDeployer.setProcessDefinitionVersionsAndIds(parsedDeployment, new HashMap<>());
+
+    // Assert
+    verify(parsedDeployment).getAllProcessDefinitions();
+    verify(parsedDeployment, atLeast(1)).getDeployment();
+    verify(deploymentEntity).getProjectReleaseVersion();
+    verify(deploymentEntity).getVersion();
+  }
+
+  /**
+   * Test {@link BpmnDeployer#setProcessDefinitionVersionsAndIds(ParsedDeployment, Map)}.
+   * <ul>
+   *   <li>Then calls {@link DeploymentEntity#getProjectReleaseVersion()}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link BpmnDeployer#setProcessDefinitionVersionsAndIds(ParsedDeployment, Map)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void BpmnDeployer.setProcessDefinitionVersionsAndIds(ParsedDeployment, Map)"})
+  public void testSetProcessDefinitionVersionsAndIds_thenCallsGetProjectReleaseVersion() {
+    // Arrange
+    BpmnDeployer bpmnDeployer = new BpmnDeployer();
+    DeploymentEntity entity = mock(DeploymentEntity.class);
+    when(entity.getVersion()).thenReturn(1);
+    when(entity.getProjectReleaseVersion()).thenReturn("1.0.2");
+    ArrayList<ProcessDefinitionEntity> processDefinitions = new ArrayList<>();
+    HashMap<ProcessDefinitionEntity, BpmnParse> mapProcessDefinitionsToParses = new HashMap<>();
+    ParsedDeployment parsedDeployment = new ParsedDeployment(entity, processDefinitions, mapProcessDefinitionsToParses,
+        new HashMap<>());
+
+    // Act
+    bpmnDeployer.setProcessDefinitionVersionsAndIds(parsedDeployment, new HashMap<>());
+
+    // Assert
+    verify(entity).getProjectReleaseVersion();
+    verify(entity).getVersion();
+  }
+
+  /**
+   * Test {@link BpmnDeployer#updateTimersAndEvents(ParsedDeployment, Map)}.
+   * <ul>
+   *   <li>Given {@link ArrayList#ArrayList()}.</li>
+   *   <li>Then calls {@link ParsedDeployment#getAllProcessDefinitions()}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link BpmnDeployer#updateTimersAndEvents(ParsedDeployment, Map)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void BpmnDeployer.updateTimersAndEvents(ParsedDeployment, Map)"})
   public void testUpdateTimersAndEvents_givenArrayList_thenCallsGetAllProcessDefinitions() {
     // Arrange
     BpmnDeployer bpmnDeployer = new BpmnDeployer();
-
     ParsedDeployment parsedDeployment = mock(ParsedDeployment.class);
     when(parsedDeployment.getAllProcessDefinitions()).thenReturn(new ArrayList<>());
 
@@ -239,26 +218,20 @@ public class BpmnDeployerDiffblueTest {
 
   /**
    * Test {@link BpmnDeployer#updateTimersAndEvents(ParsedDeployment, Map)}.
-   *
    * <ul>
-   *   <li>Then calls {@link BpmnDeploymentHelper#updateTimersAndEvents(ProcessDefinitionEntity,
-   *       ProcessDefinitionEntity, ParsedDeployment)}.
+   *   <li>Then calls {@link BpmnDeploymentHelper#updateTimersAndEvents(ProcessDefinitionEntity, ProcessDefinitionEntity, ParsedDeployment)}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link BpmnDeployer#updateTimersAndEvents(ParsedDeployment, Map)}
+   * <p>
+   * Method under test: {@link BpmnDeployer#updateTimersAndEvents(ParsedDeployment, Map)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void BpmnDeployer.updateTimersAndEvents(ParsedDeployment, Map)"})
   public void testUpdateTimersAndEvents_thenCallsUpdateTimersAndEvents() {
     // Arrange
     BpmnDeploymentHelper bpmnDeploymentHelper = mock(BpmnDeploymentHelper.class);
-    doNothing()
-        .when(bpmnDeploymentHelper)
-        .updateTimersAndEvents(
-            Mockito.<ProcessDefinitionEntity>any(),
-            Mockito.<ProcessDefinitionEntity>any(),
+    doNothing().when(bpmnDeploymentHelper)
+        .updateTimersAndEvents(Mockito.<ProcessDefinitionEntity>any(), Mockito.<ProcessDefinitionEntity>any(),
             Mockito.<ParsedDeployment>any());
 
     BpmnDeployer bpmnDeployer = new BpmnDeployer();
@@ -266,7 +239,6 @@ public class BpmnDeployerDiffblueTest {
 
     ArrayList<ProcessDefinitionEntity> processDefinitionEntityList = new ArrayList<>();
     processDefinitionEntityList.add(new ProcessDefinitionEntityImpl());
-
     ParsedDeployment parsedDeployment = mock(ParsedDeployment.class);
     when(parsedDeployment.getAllProcessDefinitions()).thenReturn(processDefinitionEntityList);
 
@@ -274,28 +246,48 @@ public class BpmnDeployerDiffblueTest {
     bpmnDeployer.updateTimersAndEvents(parsedDeployment, new HashMap<>());
 
     // Assert
-    verify(bpmnDeploymentHelper)
-        .updateTimersAndEvents(
-            isA(ProcessDefinitionEntity.class), isNull(), isA(ParsedDeployment.class));
+    verify(bpmnDeploymentHelper).updateTimersAndEvents(isA(ProcessDefinitionEntity.class), isNull(),
+        isA(ParsedDeployment.class));
     verify(parsedDeployment).getAllProcessDefinitions();
   }
 
   /**
    * Test {@link BpmnDeployer#dispatchProcessDefinitionEntityInitializedEvent(ParsedDeployment)}.
-   *
-   * <p>Method under test: {@link
-   * BpmnDeployer#dispatchProcessDefinitionEntityInitializedEvent(ParsedDeployment)}
+   * <p>
+   * Method under test: {@link BpmnDeployer#dispatchProcessDefinitionEntityInitializedEvent(ParsedDeployment)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void BpmnDeployer.dispatchProcessDefinitionEntityInitializedEvent(ParsedDeployment)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void BpmnDeployer.dispatchProcessDefinitionEntityInitializedEvent(ParsedDeployment)"})
   public void testDispatchProcessDefinitionEntityInitializedEvent() {
     // Arrange
     BpmnDeployer bpmnDeployer = new BpmnDeployer();
+    ParsedDeployment parsedDeployment = mock(ParsedDeployment.class);
+    when(parsedDeployment.getAllProcessDefinitions()).thenReturn(new ArrayList<>());
 
+    // Act
+    bpmnDeployer.dispatchProcessDefinitionEntityInitializedEvent(parsedDeployment);
+
+    // Assert
+    verify(parsedDeployment).getAllProcessDefinitions();
+  }
+
+  /**
+   * Test {@link BpmnDeployer#dispatchProcessDefinitionEntityInitializedEvent(ParsedDeployment)}.
+   * <p>
+   * Method under test: {@link BpmnDeployer#dispatchProcessDefinitionEntityInitializedEvent(ParsedDeployment)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void BpmnDeployer.dispatchProcessDefinitionEntityInitializedEvent(ParsedDeployment)"})
+  public void testDispatchProcessDefinitionEntityInitializedEvent2() {
+    // Arrange
+    BpmnDeploymentHelper bpmnDeploymentHelper = new BpmnDeploymentHelper();
+    Process process = new Process();
+    bpmnDeploymentHelper.addAuthorizationsForNewProcessDefinition(process, new ProcessDefinitionEntityImpl());
+
+    BpmnDeployer bpmnDeployer = new BpmnDeployer();
+    bpmnDeployer.setBpmnDeploymentHelper(bpmnDeploymentHelper);
     ParsedDeployment parsedDeployment = mock(ParsedDeployment.class);
     when(parsedDeployment.getAllProcessDefinitions()).thenReturn(new ArrayList<>());
 
@@ -308,17 +300,14 @@ public class BpmnDeployerDiffblueTest {
 
   /**
    * Test {@link BpmnDeployer#getIdForNewProcessDefinition(ProcessDefinitionEntity)}.
-   *
    * <ul>
-   *   <li>Then return {@code null:0:42}.
+   *   <li>Then return {@code null:0:42}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link
-   * BpmnDeployer#getIdForNewProcessDefinition(ProcessDefinitionEntity)}
+   * <p>
+   * Method under test: {@link BpmnDeployer#getIdForNewProcessDefinition(ProcessDefinitionEntity)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"String BpmnDeployer.getIdForNewProcessDefinition(ProcessDefinitionEntity)"})
   public void testGetIdForNewProcessDefinition_thenReturnNull042() {
     // Arrange
@@ -329,8 +318,8 @@ public class BpmnDeployerDiffblueTest {
     bpmnDeployer.setIdGenerator(idGenerator);
 
     // Act
-    String actualIdForNewProcessDefinition =
-        bpmnDeployer.getIdForNewProcessDefinition(new ProcessDefinitionEntityImpl());
+    String actualIdForNewProcessDefinition = bpmnDeployer
+        .getIdForNewProcessDefinition(new ProcessDefinitionEntityImpl());
 
     // Assert
     verify(idGenerator).getNextId();
@@ -338,35 +327,24 @@ public class BpmnDeployerDiffblueTest {
   }
 
   /**
-   * Test {@link
-   * BpmnDeployer#makeProcessDefinitionsConsistentWithPersistedVersions(ParsedDeployment)}.
-   *
-   * <p>Method under test: {@link
-   * BpmnDeployer#makeProcessDefinitionsConsistentWithPersistedVersions(ParsedDeployment)}
+   * Test {@link BpmnDeployer#makeProcessDefinitionsConsistentWithPersistedVersions(ParsedDeployment)}.
+   * <p>
+   * Method under test: {@link BpmnDeployer#makeProcessDefinitionsConsistentWithPersistedVersions(ParsedDeployment)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void BpmnDeployer.makeProcessDefinitionsConsistentWithPersistedVersions(ParsedDeployment)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void BpmnDeployer.makeProcessDefinitionsConsistentWithPersistedVersions(ParsedDeployment)"})
   public void testMakeProcessDefinitionsConsistentWithPersistedVersions() {
     // Arrange
     BpmnDeploymentHelper bpmnDeploymentHelper = mock(BpmnDeploymentHelper.class);
-    when(bpmnDeploymentHelper.getPersistedInstanceOfProcessDefinition(
-            Mockito.<ProcessDefinitionEntity>any()))
+    when(bpmnDeploymentHelper.getPersistedInstanceOfProcessDefinition(Mockito.<ProcessDefinitionEntity>any()))
         .thenReturn(new ProcessDefinitionEntityImpl());
 
     BpmnDeployer bpmnDeployer = new BpmnDeployer();
     bpmnDeployer.setBpmnDeploymentHelper(bpmnDeploymentHelper);
 
-    ProcessDefinitionEntityImpl processDefinitionEntityImpl = new ProcessDefinitionEntityImpl();
-    processDefinitionEntityImpl.setDeploymentId("");
-    processDefinitionEntityImpl.setTenantId(null);
-
     ArrayList<ProcessDefinitionEntity> processDefinitionEntityList = new ArrayList<>();
-    processDefinitionEntityList.add(processDefinitionEntityImpl);
-
+    processDefinitionEntityList.add(new ProcessDefinitionEntityImpl());
     ParsedDeployment parsedDeployment = mock(ParsedDeployment.class);
     when(parsedDeployment.getAllProcessDefinitions()).thenReturn(processDefinitionEntityList);
 
@@ -374,41 +352,29 @@ public class BpmnDeployerDiffblueTest {
     bpmnDeployer.makeProcessDefinitionsConsistentWithPersistedVersions(parsedDeployment);
 
     // Assert
-    verify(bpmnDeploymentHelper)
-        .getPersistedInstanceOfProcessDefinition(isA(ProcessDefinitionEntity.class));
+    verify(bpmnDeploymentHelper).getPersistedInstanceOfProcessDefinition(isA(ProcessDefinitionEntity.class));
     verify(parsedDeployment).getAllProcessDefinitions();
   }
 
   /**
-   * Test {@link
-   * BpmnDeployer#makeProcessDefinitionsConsistentWithPersistedVersions(ParsedDeployment)}.
-   *
-   * <p>Method under test: {@link
-   * BpmnDeployer#makeProcessDefinitionsConsistentWithPersistedVersions(ParsedDeployment)}
+   * Test {@link BpmnDeployer#makeProcessDefinitionsConsistentWithPersistedVersions(ParsedDeployment)}.
+   * <p>
+   * Method under test: {@link BpmnDeployer#makeProcessDefinitionsConsistentWithPersistedVersions(ParsedDeployment)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void BpmnDeployer.makeProcessDefinitionsConsistentWithPersistedVersions(ParsedDeployment)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void BpmnDeployer.makeProcessDefinitionsConsistentWithPersistedVersions(ParsedDeployment)"})
   public void testMakeProcessDefinitionsConsistentWithPersistedVersions2() {
     // Arrange
     BpmnDeploymentHelper bpmnDeploymentHelper = mock(BpmnDeploymentHelper.class);
-    when(bpmnDeploymentHelper.getPersistedInstanceOfProcessDefinition(
-            Mockito.<ProcessDefinitionEntity>any()))
+    when(bpmnDeploymentHelper.getPersistedInstanceOfProcessDefinition(Mockito.<ProcessDefinitionEntity>any()))
         .thenReturn(null);
 
     BpmnDeployer bpmnDeployer = new BpmnDeployer();
     bpmnDeployer.setBpmnDeploymentHelper(bpmnDeploymentHelper);
 
-    ProcessDefinitionEntityImpl processDefinitionEntityImpl = new ProcessDefinitionEntityImpl();
-    processDefinitionEntityImpl.setDeploymentId("");
-    processDefinitionEntityImpl.setTenantId(null);
-
     ArrayList<ProcessDefinitionEntity> processDefinitionEntityList = new ArrayList<>();
-    processDefinitionEntityList.add(processDefinitionEntityImpl);
-
+    processDefinitionEntityList.add(new ProcessDefinitionEntityImpl());
     ParsedDeployment parsedDeployment = mock(ParsedDeployment.class);
     when(parsedDeployment.getAllProcessDefinitions()).thenReturn(processDefinitionEntityList);
 
@@ -416,32 +382,24 @@ public class BpmnDeployerDiffblueTest {
     bpmnDeployer.makeProcessDefinitionsConsistentWithPersistedVersions(parsedDeployment);
 
     // Assert
-    verify(bpmnDeploymentHelper)
-        .getPersistedInstanceOfProcessDefinition(isA(ProcessDefinitionEntity.class));
+    verify(bpmnDeploymentHelper).getPersistedInstanceOfProcessDefinition(isA(ProcessDefinitionEntity.class));
     verify(parsedDeployment).getAllProcessDefinitions();
   }
 
   /**
-   * Test {@link
-   * BpmnDeployer#makeProcessDefinitionsConsistentWithPersistedVersions(ParsedDeployment)}.
-   *
+   * Test {@link BpmnDeployer#makeProcessDefinitionsConsistentWithPersistedVersions(ParsedDeployment)}.
    * <ul>
-   *   <li>Given {@link ArrayList#ArrayList()}.
+   *   <li>Given {@link ArrayList#ArrayList()}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link
-   * BpmnDeployer#makeProcessDefinitionsConsistentWithPersistedVersions(ParsedDeployment)}
+   * <p>
+   * Method under test: {@link BpmnDeployer#makeProcessDefinitionsConsistentWithPersistedVersions(ParsedDeployment)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void BpmnDeployer.makeProcessDefinitionsConsistentWithPersistedVersions(ParsedDeployment)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void BpmnDeployer.makeProcessDefinitionsConsistentWithPersistedVersions(ParsedDeployment)"})
   public void testMakeProcessDefinitionsConsistentWithPersistedVersions_givenArrayList() {
     // Arrange
     BpmnDeployer bpmnDeployer = new BpmnDeployer();
-
     ParsedDeployment parsedDeployment = mock(ParsedDeployment.class);
     when(parsedDeployment.getAllProcessDefinitions()).thenReturn(new ArrayList<>());
 
@@ -453,407 +411,380 @@ public class BpmnDeployerDiffblueTest {
   }
 
   /**
-   * Test {@link BpmnDeployer#localizeFlowElements(Collection, ObjectNode)}.
-   *
-   * <ul>
-   *   <li>Given {@code localization}.
-   *   <li>When {@code null}.
-   *   <li>Then return {@code false}.
-   * </ul>
-   *
-   * <p>Method under test: {@link BpmnDeployer#localizeFlowElements(Collection, ObjectNode)}
+   * Test {@link BpmnDeployer#isEqualToCurrentLocalizationValue(String, String, String, String, ObjectNode)}.
+   * <p>
+   * Method under test: {@link BpmnDeployer#isEqualToCurrentLocalizationValue(String, String, String, String, ObjectNode)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"boolean BpmnDeployer.localizeFlowElements(Collection, ObjectNode)"})
-  public void testLocalizeFlowElements_givenLocalization_whenNull_thenReturnFalse() {
-    // Arrange
-    BpmnDeployer bpmnDeployer = new BpmnDeployer();
-    JsonNodeFactory nc = JsonNodeFactory.withExactBigDecimals(true);
-
-    ObjectNode infoNode = new ObjectNode(nc);
-    infoNode.put("localization", (JsonNode) null);
-
-    // Act and Assert
-    assertFalse(bpmnDeployer.localizeFlowElements(null, infoNode));
-  }
-
-  /**
-   * Test {@link BpmnDeployer#isEqualToCurrentLocalizationValue(String, String, String, String,
-   * ObjectNode)}.
-   *
-   * <p>Method under test: {@link BpmnDeployer#isEqualToCurrentLocalizationValue(String, String,
-   * String, String, ObjectNode)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({
-    "boolean BpmnDeployer.isEqualToCurrentLocalizationValue(String, String, String, String, ObjectNode)"
-  })
+      "boolean BpmnDeployer.isEqualToCurrentLocalizationValue(String, String, String, String, ObjectNode)"})
   public void testIsEqualToCurrentLocalizationValue() {
     // Arrange
     BpmnDeployer bpmnDeployer = new BpmnDeployer();
-    JsonNodeFactory nc = JsonNodeFactory.withExactBigDecimals(true);
 
     // Act and Assert
-    assertFalse(
-        bpmnDeployer.isEqualToCurrentLocalizationValue(
-            "en", "42", "Property Name", "42", new ObjectNode(nc)));
+    assertFalse(bpmnDeployer.isEqualToCurrentLocalizationValue("en", "42", "Property Name", "42",
+        new ObjectNode(JsonNodeFactory.withExactBigDecimals(true))));
   }
 
   /**
-   * Test {@link BpmnDeployer#isEqualToCurrentLocalizationValue(String, String, String, String,
-   * ObjectNode)}.
-   *
-   * <ul>
-   *   <li>Given {@link ArrayNode} {@link ArrayNode#isNull()} return {@code true}.
-   * </ul>
-   *
-   * <p>Method under test: {@link BpmnDeployer#isEqualToCurrentLocalizationValue(String, String,
-   * String, String, ObjectNode)}
+   * Test {@link BpmnDeployer#isEqualToCurrentLocalizationValue(String, String, String, String, ObjectNode)}.
+   * <p>
+   * Method under test: {@link BpmnDeployer#isEqualToCurrentLocalizationValue(String, String, String, String, ObjectNode)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({
-    "boolean BpmnDeployer.isEqualToCurrentLocalizationValue(String, String, String, String, ObjectNode)"
-  })
-  public void testIsEqualToCurrentLocalizationValue_givenArrayNodeIsNullReturnTrue() {
+      "boolean BpmnDeployer.isEqualToCurrentLocalizationValue(String, String, String, String, ObjectNode)"})
+  public void testIsEqualToCurrentLocalizationValue2() {
     // Arrange
     BpmnDeployer bpmnDeployer = new BpmnDeployer();
-
-    ArrayNode arrayNode = mock(ArrayNode.class);
-    when(arrayNode.isMissingNode()).thenReturn(false);
-    when(arrayNode.isNull()).thenReturn(true);
-
-    ArrayNode arrayNode2 = mock(ArrayNode.class);
-    when(arrayNode2.path(Mockito.<String>any())).thenReturn(arrayNode);
-
-    ArrayNode arrayNode3 = mock(ArrayNode.class);
-    when(arrayNode3.path(Mockito.<String>any())).thenReturn(arrayNode2);
-
-    ArrayNode arrayNode4 = mock(ArrayNode.class);
-    when(arrayNode4.path(Mockito.<String>any())).thenReturn(arrayNode3);
-
     ObjectNode infoNode = mock(ObjectNode.class);
-    when(infoNode.path(Mockito.<String>any())).thenReturn(arrayNode4);
+    when(infoNode.path(Mockito.<String>any())).thenReturn(new ArrayNode(JsonNodeFactory.withExactBigDecimals(true)));
 
     // Act
-    boolean actualIsEqualToCurrentLocalizationValueResult =
-        bpmnDeployer.isEqualToCurrentLocalizationValue("en", "42", "Property Name", "42", infoNode);
+    boolean actualIsEqualToCurrentLocalizationValueResult = bpmnDeployer.isEqualToCurrentLocalizationValue("en", "42",
+        "Property Name", "42", infoNode);
 
     // Assert
-    verify(arrayNode).isMissingNode();
-    verify(arrayNode).isNull();
-    verify(arrayNode3).path("42");
-    verify(arrayNode2).path("Property Name");
-    verify(arrayNode4).path("en");
-    verify(infoNode).path("localization");
+    verify(infoNode).path(eq("localization"));
     assertFalse(actualIsEqualToCurrentLocalizationValueResult);
   }
 
   /**
-   * Test {@link BpmnDeployer#isEqualToCurrentLocalizationValue(String, String, String, String,
-   * ObjectNode)}.
-   *
-   * <ul>
-   *   <li>Given {@link ArrayNode} {@link ArrayNode#path(String)} return valueOf ten.
-   * </ul>
-   *
-   * <p>Method under test: {@link BpmnDeployer#isEqualToCurrentLocalizationValue(String, String,
-   * String, String, ObjectNode)}
+   * Test {@link BpmnDeployer#isEqualToCurrentLocalizationValue(String, String, String, String, ObjectNode)}.
+   * <p>
+   * Method under test: {@link BpmnDeployer#isEqualToCurrentLocalizationValue(String, String, String, String, ObjectNode)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({
-    "boolean BpmnDeployer.isEqualToCurrentLocalizationValue(String, String, String, String, ObjectNode)"
-  })
-  public void testIsEqualToCurrentLocalizationValue_givenArrayNodePathReturnValueOfTen() {
+      "boolean BpmnDeployer.isEqualToCurrentLocalizationValue(String, String, String, String, ObjectNode)"})
+  public void testIsEqualToCurrentLocalizationValue3() {
     // Arrange
     BpmnDeployer bpmnDeployer = new BpmnDeployer();
-
     ArrayNode arrayNode = mock(ArrayNode.class);
-    when(arrayNode.path(Mockito.<String>any())).thenReturn(DoubleNode.valueOf(10.0d));
-
+    when(arrayNode.path(Mockito.<String>any())).thenReturn(new ArrayNode(JsonNodeFactory.withExactBigDecimals(true)));
     ObjectNode infoNode = mock(ObjectNode.class);
     when(infoNode.path(Mockito.<String>any())).thenReturn(arrayNode);
 
     // Act
-    boolean actualIsEqualToCurrentLocalizationValueResult =
-        bpmnDeployer.isEqualToCurrentLocalizationValue("en", "42", "Property Name", "42", infoNode);
+    boolean actualIsEqualToCurrentLocalizationValueResult = bpmnDeployer.isEqualToCurrentLocalizationValue("en", "42",
+        "Property Name", "42", infoNode);
 
     // Assert
-    verify(arrayNode).path("en");
-    verify(infoNode).path("localization");
+    verify(arrayNode).path(eq("en"));
+    verify(infoNode).path(eq("localization"));
     assertFalse(actualIsEqualToCurrentLocalizationValueResult);
   }
 
   /**
-   * Test {@link BpmnDeployer#isEqualToCurrentLocalizationValue(String, String, String, String,
-   * ObjectNode)}.
-   *
-   * <ul>
-   *   <li>Given {@link ArrayNode} {@link ArrayNode#path(String)} return valueOf ten.
-   * </ul>
-   *
-   * <p>Method under test: {@link BpmnDeployer#isEqualToCurrentLocalizationValue(String, String,
-   * String, String, ObjectNode)}
+   * Test {@link BpmnDeployer#isEqualToCurrentLocalizationValue(String, String, String, String, ObjectNode)}.
+   * <p>
+   * Method under test: {@link BpmnDeployer#isEqualToCurrentLocalizationValue(String, String, String, String, ObjectNode)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({
-    "boolean BpmnDeployer.isEqualToCurrentLocalizationValue(String, String, String, String, ObjectNode)"
-  })
-  public void testIsEqualToCurrentLocalizationValue_givenArrayNodePathReturnValueOfTen2() {
+      "boolean BpmnDeployer.isEqualToCurrentLocalizationValue(String, String, String, String, ObjectNode)"})
+  public void testIsEqualToCurrentLocalizationValue4() {
     // Arrange
     BpmnDeployer bpmnDeployer = new BpmnDeployer();
-
     ArrayNode arrayNode = mock(ArrayNode.class);
-    when(arrayNode.path(Mockito.<String>any())).thenReturn(DoubleNode.valueOf(10.0d));
-
+    when(arrayNode.path(Mockito.<String>any())).thenReturn(new ArrayNode(JsonNodeFactory.withExactBigDecimals(true)));
     ArrayNode arrayNode2 = mock(ArrayNode.class);
     when(arrayNode2.path(Mockito.<String>any())).thenReturn(arrayNode);
-
     ObjectNode infoNode = mock(ObjectNode.class);
     when(infoNode.path(Mockito.<String>any())).thenReturn(arrayNode2);
 
     // Act
-    boolean actualIsEqualToCurrentLocalizationValueResult =
-        bpmnDeployer.isEqualToCurrentLocalizationValue("en", "42", "Property Name", "42", infoNode);
+    boolean actualIsEqualToCurrentLocalizationValueResult = bpmnDeployer.isEqualToCurrentLocalizationValue("en", "42",
+        "Property Name", "42", infoNode);
 
     // Assert
-    verify(arrayNode).path("42");
-    verify(arrayNode2).path("en");
-    verify(infoNode).path("localization");
+    verify(arrayNode).path(eq("42"));
+    verify(arrayNode2).path(eq("en"));
+    verify(infoNode).path(eq("localization"));
     assertFalse(actualIsEqualToCurrentLocalizationValueResult);
   }
 
   /**
-   * Test {@link BpmnDeployer#isEqualToCurrentLocalizationValue(String, String, String, String,
-   * ObjectNode)}.
-   *
-   * <ul>
-   *   <li>Given {@link ArrayNode} {@link ArrayNode#path(String)} return valueOf ten.
-   * </ul>
-   *
-   * <p>Method under test: {@link BpmnDeployer#isEqualToCurrentLocalizationValue(String, String,
-   * String, String, ObjectNode)}
+   * Test {@link BpmnDeployer#isEqualToCurrentLocalizationValue(String, String, String, String, ObjectNode)}.
+   * <p>
+   * Method under test: {@link BpmnDeployer#isEqualToCurrentLocalizationValue(String, String, String, String, ObjectNode)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({
-    "boolean BpmnDeployer.isEqualToCurrentLocalizationValue(String, String, String, String, ObjectNode)"
-  })
-  public void testIsEqualToCurrentLocalizationValue_givenArrayNodePathReturnValueOfTen3() {
+      "boolean BpmnDeployer.isEqualToCurrentLocalizationValue(String, String, String, String, ObjectNode)"})
+  public void testIsEqualToCurrentLocalizationValue5() {
     // Arrange
     BpmnDeployer bpmnDeployer = new BpmnDeployer();
-
     ArrayNode arrayNode = mock(ArrayNode.class);
-    when(arrayNode.path(Mockito.<String>any())).thenReturn(DoubleNode.valueOf(10.0d));
-
+    when(arrayNode.path(Mockito.<String>any())).thenReturn(new ArrayNode(JsonNodeFactory.withExactBigDecimals(true)));
     ArrayNode arrayNode2 = mock(ArrayNode.class);
     when(arrayNode2.path(Mockito.<String>any())).thenReturn(arrayNode);
-
     ArrayNode arrayNode3 = mock(ArrayNode.class);
     when(arrayNode3.path(Mockito.<String>any())).thenReturn(arrayNode2);
-
     ObjectNode infoNode = mock(ObjectNode.class);
     when(infoNode.path(Mockito.<String>any())).thenReturn(arrayNode3);
 
     // Act
-    boolean actualIsEqualToCurrentLocalizationValueResult =
-        bpmnDeployer.isEqualToCurrentLocalizationValue("en", "42", "Property Name", "42", infoNode);
+    boolean actualIsEqualToCurrentLocalizationValueResult = bpmnDeployer.isEqualToCurrentLocalizationValue("en", "42",
+        "Property Name", "42", infoNode);
 
     // Assert
-    verify(arrayNode2).path("42");
-    verify(arrayNode).path("Property Name");
-    verify(arrayNode3).path("en");
-    verify(infoNode).path("localization");
+    verify(arrayNode2).path(eq("42"));
+    verify(arrayNode).path(eq("Property Name"));
+    verify(arrayNode3).path(eq("en"));
+    verify(infoNode).path(eq("localization"));
     assertFalse(actualIsEqualToCurrentLocalizationValueResult);
   }
 
   /**
-   * Test {@link BpmnDeployer#isEqualToCurrentLocalizationValue(String, String, String, String,
-   * ObjectNode)}.
-   *
-   * <ul>
-   *   <li>Given {@code localization}.
-   * </ul>
-   *
-   * <p>Method under test: {@link BpmnDeployer#isEqualToCurrentLocalizationValue(String, String,
-   * String, String, ObjectNode)}
+   * Test {@link BpmnDeployer#isEqualToCurrentLocalizationValue(String, String, String, String, ObjectNode)}.
+   * <p>
+   * Method under test: {@link BpmnDeployer#isEqualToCurrentLocalizationValue(String, String, String, String, ObjectNode)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({
-    "boolean BpmnDeployer.isEqualToCurrentLocalizationValue(String, String, String, String, ObjectNode)"
-  })
-  public void testIsEqualToCurrentLocalizationValue_givenLocalization() {
+      "boolean BpmnDeployer.isEqualToCurrentLocalizationValue(String, String, String, String, ObjectNode)"})
+  public void testIsEqualToCurrentLocalizationValue6() {
     // Arrange
     BpmnDeployer bpmnDeployer = new BpmnDeployer();
-    JsonNodeFactory nc = JsonNodeFactory.withExactBigDecimals(true);
-
-    ObjectNode infoNode = new ObjectNode(nc);
-    infoNode.put("localization", (JsonNode) null);
-
-    // Act and Assert
-    assertFalse(
-        bpmnDeployer.isEqualToCurrentLocalizationValue(
-            "en", "42", "Property Name", "42", infoNode));
-  }
-
-  /**
-   * Test {@link BpmnDeployer#isEqualToCurrentLocalizationValue(String, String, String, String,
-   * ObjectNode)}.
-   *
-   * <ul>
-   *   <li>Given valueOf ten.
-   * </ul>
-   *
-   * <p>Method under test: {@link BpmnDeployer#isEqualToCurrentLocalizationValue(String, String,
-   * String, String, ObjectNode)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "boolean BpmnDeployer.isEqualToCurrentLocalizationValue(String, String, String, String, ObjectNode)"
-  })
-  public void testIsEqualToCurrentLocalizationValue_givenValueOfTen() {
-    // Arrange
-    BpmnDeployer bpmnDeployer = new BpmnDeployer();
-
-    ObjectNode infoNode = mock(ObjectNode.class);
-    when(infoNode.path(Mockito.<String>any())).thenReturn(DoubleNode.valueOf(10.0d));
-
-    // Act
-    boolean actualIsEqualToCurrentLocalizationValueResult =
-        bpmnDeployer.isEqualToCurrentLocalizationValue("en", "42", "Property Name", "42", infoNode);
-
-    // Assert
-    verify(infoNode).path("localization");
-    assertFalse(actualIsEqualToCurrentLocalizationValueResult);
-  }
-
-  /**
-   * Test {@link BpmnDeployer#isEqualToCurrentLocalizationValue(String, String, String, String,
-   * ObjectNode)}.
-   *
-   * <ul>
-   *   <li>Then calls {@link ArrayNode#asText()}.
-   * </ul>
-   *
-   * <p>Method under test: {@link BpmnDeployer#isEqualToCurrentLocalizationValue(String, String,
-   * String, String, ObjectNode)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "boolean BpmnDeployer.isEqualToCurrentLocalizationValue(String, String, String, String, ObjectNode)"
-  })
-  public void testIsEqualToCurrentLocalizationValue_thenCallsAsText() {
-    // Arrange
-    BpmnDeployer bpmnDeployer = new BpmnDeployer();
-
     ArrayNode arrayNode = mock(ArrayNode.class);
-    when(arrayNode.isMissingNode()).thenReturn(false);
-    when(arrayNode.isNull()).thenReturn(false);
-    when(arrayNode.asText()).thenReturn("As Text");
-
+    when(arrayNode.path(Mockito.<String>any())).thenReturn(new BigIntegerNode(BigInteger.valueOf(1L)));
     ArrayNode arrayNode2 = mock(ArrayNode.class);
     when(arrayNode2.path(Mockito.<String>any())).thenReturn(arrayNode);
-
     ArrayNode arrayNode3 = mock(ArrayNode.class);
     when(arrayNode3.path(Mockito.<String>any())).thenReturn(arrayNode2);
+    ObjectNode infoNode = mock(ObjectNode.class);
+    when(infoNode.path(Mockito.<String>any())).thenReturn(arrayNode3);
 
+    // Act
+    boolean actualIsEqualToCurrentLocalizationValueResult = bpmnDeployer.isEqualToCurrentLocalizationValue("en", "42",
+        "Property Name", "42", infoNode);
+
+    // Assert
+    verify(arrayNode2).path(eq("42"));
+    verify(arrayNode).path(eq("Property Name"));
+    verify(arrayNode3).path(eq("en"));
+    verify(infoNode).path(eq("localization"));
+    assertFalse(actualIsEqualToCurrentLocalizationValueResult);
+  }
+
+  /**
+   * Test {@link BpmnDeployer#isEqualToCurrentLocalizationValue(String, String, String, String, ObjectNode)}.
+   * <ul>
+   *   <li>Given {@link ArrayNode} {@link JsonNode#isMissingNode()} return {@code true}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link BpmnDeployer#isEqualToCurrentLocalizationValue(String, String, String, String, ObjectNode)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "boolean BpmnDeployer.isEqualToCurrentLocalizationValue(String, String, String, String, ObjectNode)"})
+  public void testIsEqualToCurrentLocalizationValue_givenArrayNodeIsMissingNodeReturnTrue() {
+    // Arrange
+    BpmnDeployer bpmnDeployer = new BpmnDeployer();
+    ArrayNode arrayNode = mock(ArrayNode.class);
+    when(arrayNode.isMissingNode()).thenReturn(true);
+    ArrayNode arrayNode2 = mock(ArrayNode.class);
+    when(arrayNode2.path(Mockito.<String>any())).thenReturn(arrayNode);
+    ArrayNode arrayNode3 = mock(ArrayNode.class);
+    when(arrayNode3.path(Mockito.<String>any())).thenReturn(arrayNode2);
     ArrayNode arrayNode4 = mock(ArrayNode.class);
     when(arrayNode4.path(Mockito.<String>any())).thenReturn(arrayNode3);
-
     ObjectNode infoNode = mock(ObjectNode.class);
     when(infoNode.path(Mockito.<String>any())).thenReturn(arrayNode4);
 
     // Act
-    boolean actualIsEqualToCurrentLocalizationValueResult =
-        bpmnDeployer.isEqualToCurrentLocalizationValue("en", "42", "Property Name", "42", infoNode);
+    boolean actualIsEqualToCurrentLocalizationValueResult = bpmnDeployer.isEqualToCurrentLocalizationValue("en", "42",
+        "Property Name", "42", infoNode);
 
     // Assert
     verify(arrayNode).isMissingNode();
-    verify(arrayNode).isNull();
-    verify(arrayNode3).path("42");
-    verify(arrayNode2).path("Property Name");
-    verify(arrayNode4).path("en");
-    verify(arrayNode).asText();
-    verify(infoNode).path("localization");
+    verify(arrayNode3).path(eq("42"));
+    verify(arrayNode2).path(eq("Property Name"));
+    verify(arrayNode4).path(eq("en"));
+    verify(infoNode).path(eq("localization"));
     assertFalse(actualIsEqualToCurrentLocalizationValueResult);
   }
 
   /**
-   * Test {@link BpmnDeployer#isEqualToCurrentLocalizationValue(String, String, String, String,
-   * ObjectNode)}.
-   *
+   * Test {@link BpmnDeployer#isEqualToCurrentLocalizationValue(String, String, String, String, ObjectNode)}.
    * <ul>
-   *   <li>When {@code As Text}.
-   *   <li>Then return {@code true}.
+   *   <li>Given {@link ArrayNode} {@link ArrayNode#path(String)} return Instance.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link BpmnDeployer#isEqualToCurrentLocalizationValue(String, String,
-   * String, String, ObjectNode)}
+   * <p>
+   * Method under test: {@link BpmnDeployer#isEqualToCurrentLocalizationValue(String, String, String, String, ObjectNode)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({
-    "boolean BpmnDeployer.isEqualToCurrentLocalizationValue(String, String, String, String, ObjectNode)"
-  })
-  public void testIsEqualToCurrentLocalizationValue_whenAsText_thenReturnTrue() {
+      "boolean BpmnDeployer.isEqualToCurrentLocalizationValue(String, String, String, String, ObjectNode)"})
+  public void testIsEqualToCurrentLocalizationValue_givenArrayNodePathReturnInstance() {
     // Arrange
     BpmnDeployer bpmnDeployer = new BpmnDeployer();
-
     ArrayNode arrayNode = mock(ArrayNode.class);
-    when(arrayNode.isMissingNode()).thenReturn(false);
-    when(arrayNode.isNull()).thenReturn(false);
-    when(arrayNode.asText()).thenReturn("As Text");
+    when(arrayNode.path(Mockito.<String>any())).thenReturn(MissingNode.getInstance());
+    ObjectNode infoNode = mock(ObjectNode.class);
+    when(infoNode.path(Mockito.<String>any())).thenReturn(arrayNode);
 
+    // Act
+    boolean actualIsEqualToCurrentLocalizationValueResult = bpmnDeployer.isEqualToCurrentLocalizationValue("en", "42",
+        "Property Name", "42", infoNode);
+
+    // Assert
+    verify(arrayNode).path(eq("en"));
+    verify(infoNode).path(eq("localization"));
+    assertFalse(actualIsEqualToCurrentLocalizationValueResult);
+  }
+
+  /**
+   * Test {@link BpmnDeployer#isEqualToCurrentLocalizationValue(String, String, String, String, ObjectNode)}.
+   * <ul>
+   *   <li>Given {@link ArrayNode} {@link ArrayNode#path(String)} return Instance.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link BpmnDeployer#isEqualToCurrentLocalizationValue(String, String, String, String, ObjectNode)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "boolean BpmnDeployer.isEqualToCurrentLocalizationValue(String, String, String, String, ObjectNode)"})
+  public void testIsEqualToCurrentLocalizationValue_givenArrayNodePathReturnInstance2() {
+    // Arrange
+    BpmnDeployer bpmnDeployer = new BpmnDeployer();
+    ArrayNode arrayNode = mock(ArrayNode.class);
+    when(arrayNode.path(Mockito.<String>any())).thenReturn(MissingNode.getInstance());
     ArrayNode arrayNode2 = mock(ArrayNode.class);
     when(arrayNode2.path(Mockito.<String>any())).thenReturn(arrayNode);
+    ObjectNode infoNode = mock(ObjectNode.class);
+    when(infoNode.path(Mockito.<String>any())).thenReturn(arrayNode2);
 
+    // Act
+    boolean actualIsEqualToCurrentLocalizationValueResult = bpmnDeployer.isEqualToCurrentLocalizationValue("en", "42",
+        "Property Name", "42", infoNode);
+
+    // Assert
+    verify(arrayNode).path(eq("42"));
+    verify(arrayNode2).path(eq("en"));
+    verify(infoNode).path(eq("localization"));
+    assertFalse(actualIsEqualToCurrentLocalizationValueResult);
+  }
+
+  /**
+   * Test {@link BpmnDeployer#isEqualToCurrentLocalizationValue(String, String, String, String, ObjectNode)}.
+   * <ul>
+   *   <li>Given {@link ArrayNode} {@link ArrayNode#path(String)} return Instance.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link BpmnDeployer#isEqualToCurrentLocalizationValue(String, String, String, String, ObjectNode)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "boolean BpmnDeployer.isEqualToCurrentLocalizationValue(String, String, String, String, ObjectNode)"})
+  public void testIsEqualToCurrentLocalizationValue_givenArrayNodePathReturnInstance3() {
+    // Arrange
+    BpmnDeployer bpmnDeployer = new BpmnDeployer();
+    ArrayNode arrayNode = mock(ArrayNode.class);
+    when(arrayNode.path(Mockito.<String>any())).thenReturn(MissingNode.getInstance());
+    ArrayNode arrayNode2 = mock(ArrayNode.class);
+    when(arrayNode2.path(Mockito.<String>any())).thenReturn(arrayNode);
     ArrayNode arrayNode3 = mock(ArrayNode.class);
     when(arrayNode3.path(Mockito.<String>any())).thenReturn(arrayNode2);
+    ObjectNode infoNode = mock(ObjectNode.class);
+    when(infoNode.path(Mockito.<String>any())).thenReturn(arrayNode3);
 
+    // Act
+    boolean actualIsEqualToCurrentLocalizationValueResult = bpmnDeployer.isEqualToCurrentLocalizationValue("en", "42",
+        "Property Name", "42", infoNode);
+
+    // Assert
+    verify(arrayNode2).path(eq("42"));
+    verify(arrayNode).path(eq("Property Name"));
+    verify(arrayNode3).path(eq("en"));
+    verify(infoNode).path(eq("localization"));
+    assertFalse(actualIsEqualToCurrentLocalizationValueResult);
+  }
+
+  /**
+   * Test {@link BpmnDeployer#isEqualToCurrentLocalizationValue(String, String, String, String, ObjectNode)}.
+   * <ul>
+   *   <li>Given Instance.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link BpmnDeployer#isEqualToCurrentLocalizationValue(String, String, String, String, ObjectNode)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "boolean BpmnDeployer.isEqualToCurrentLocalizationValue(String, String, String, String, ObjectNode)"})
+  public void testIsEqualToCurrentLocalizationValue_givenInstance() {
+    // Arrange
+    BpmnDeployer bpmnDeployer = new BpmnDeployer();
+    ObjectNode infoNode = mock(ObjectNode.class);
+    when(infoNode.path(Mockito.<String>any())).thenReturn(MissingNode.getInstance());
+
+    // Act
+    boolean actualIsEqualToCurrentLocalizationValueResult = bpmnDeployer.isEqualToCurrentLocalizationValue("en", "42",
+        "Property Name", "42", infoNode);
+
+    // Assert
+    verify(infoNode).path(eq("localization"));
+    assertFalse(actualIsEqualToCurrentLocalizationValueResult);
+  }
+
+  /**
+   * Test {@link BpmnDeployer#isEqualToCurrentLocalizationValue(String, String, String, String, ObjectNode)}.
+   * <ul>
+   *   <li>Then calls {@link JsonNode#isNull()}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link BpmnDeployer#isEqualToCurrentLocalizationValue(String, String, String, String, ObjectNode)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "boolean BpmnDeployer.isEqualToCurrentLocalizationValue(String, String, String, String, ObjectNode)"})
+  public void testIsEqualToCurrentLocalizationValue_thenCallsIsNull() {
+    // Arrange
+    BpmnDeployer bpmnDeployer = new BpmnDeployer();
+    ArrayNode arrayNode = mock(ArrayNode.class);
+    when(arrayNode.isMissingNode()).thenReturn(false);
+    when(arrayNode.isNull()).thenReturn(true);
+    ArrayNode arrayNode2 = mock(ArrayNode.class);
+    when(arrayNode2.path(Mockito.<String>any())).thenReturn(arrayNode);
+    ArrayNode arrayNode3 = mock(ArrayNode.class);
+    when(arrayNode3.path(Mockito.<String>any())).thenReturn(arrayNode2);
     ArrayNode arrayNode4 = mock(ArrayNode.class);
     when(arrayNode4.path(Mockito.<String>any())).thenReturn(arrayNode3);
-
     ObjectNode infoNode = mock(ObjectNode.class);
     when(infoNode.path(Mockito.<String>any())).thenReturn(arrayNode4);
 
     // Act
-    boolean actualIsEqualToCurrentLocalizationValueResult =
-        bpmnDeployer.isEqualToCurrentLocalizationValue(
-            "en", "42", "Property Name", "As Text", infoNode);
+    boolean actualIsEqualToCurrentLocalizationValueResult = bpmnDeployer.isEqualToCurrentLocalizationValue("en", "42",
+        "Property Name", "42", infoNode);
 
     // Assert
     verify(arrayNode).isMissingNode();
     verify(arrayNode).isNull();
-    verify(arrayNode3).path("42");
-    verify(arrayNode2).path("Property Name");
-    verify(arrayNode4).path("en");
-    verify(arrayNode).asText();
-    verify(infoNode).path("localization");
-    assertTrue(actualIsEqualToCurrentLocalizationValueResult);
+    verify(arrayNode3).path(eq("42"));
+    verify(arrayNode2).path(eq("Property Name"));
+    verify(arrayNode4).path(eq("en"));
+    verify(infoNode).path(eq("localization"));
+    assertFalse(actualIsEqualToCurrentLocalizationValueResult);
   }
 
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>default or parameterless constructor of {@link BpmnDeployer}
    *   <li>{@link BpmnDeployer#setBpmnDeploymentHelper(BpmnDeploymentHelper)}
@@ -867,19 +798,14 @@ public class BpmnDeployerDiffblueTest {
    * </ul>
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void BpmnDeployer.<init>()",
-    "BpmnDeploymentHelper BpmnDeployer.getBpmnDeploymentHelper()",
-    "CachingAndArtifactsManager BpmnDeployer.getCachingAndArtifcatsManager()",
-    "ParsedDeploymentBuilderFactory BpmnDeployer.getExParsedDeploymentBuilderFactory()",
-    "IdGenerator BpmnDeployer.getIdGenerator()",
-    "void BpmnDeployer.setBpmnDeploymentHelper(BpmnDeploymentHelper)",
-    "void BpmnDeployer.setCachingAndArtifactsManager(CachingAndArtifactsManager)",
-    "void BpmnDeployer.setIdGenerator(IdGenerator)",
-    "void BpmnDeployer.setParsedDeploymentBuilderFactory(ParsedDeploymentBuilderFactory)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void BpmnDeployer.<init>()", "BpmnDeploymentHelper BpmnDeployer.getBpmnDeploymentHelper()",
+      "CachingAndArtifactsManager BpmnDeployer.getCachingAndArtifcatsManager()",
+      "ParsedDeploymentBuilderFactory BpmnDeployer.getExParsedDeploymentBuilderFactory()",
+      "IdGenerator BpmnDeployer.getIdGenerator()", "void BpmnDeployer.setBpmnDeploymentHelper(BpmnDeploymentHelper)",
+      "void BpmnDeployer.setCachingAndArtifactsManager(CachingAndArtifactsManager)",
+      "void BpmnDeployer.setIdGenerator(IdGenerator)",
+      "void BpmnDeployer.setParsedDeploymentBuilderFactory(ParsedDeploymentBuilderFactory)"})
   public void testGettersAndSetters() {
     // Arrange and Act
     BpmnDeployer actualBpmnDeployer = new BpmnDeployer();
@@ -889,15 +815,13 @@ public class BpmnDeployerDiffblueTest {
     actualBpmnDeployer.setCachingAndArtifactsManager(manager);
     IdGenerator idGenerator = mock(IdGenerator.class);
     actualBpmnDeployer.setIdGenerator(idGenerator);
-    ParsedDeploymentBuilderFactory parsedDeploymentBuilderFactory =
-        new ParsedDeploymentBuilderFactory();
+    ParsedDeploymentBuilderFactory parsedDeploymentBuilderFactory = new ParsedDeploymentBuilderFactory();
     parsedDeploymentBuilderFactory.setBpmnParser(new BpmnParser());
     actualBpmnDeployer.setParsedDeploymentBuilderFactory(parsedDeploymentBuilderFactory);
     BpmnDeploymentHelper actualBpmnDeploymentHelper = actualBpmnDeployer.getBpmnDeploymentHelper();
-    CachingAndArtifactsManager actualCachingAndArtifcatsManager =
-        actualBpmnDeployer.getCachingAndArtifcatsManager();
-    ParsedDeploymentBuilderFactory actualExParsedDeploymentBuilderFactory =
-        actualBpmnDeployer.getExParsedDeploymentBuilderFactory();
+    CachingAndArtifactsManager actualCachingAndArtifcatsManager = actualBpmnDeployer.getCachingAndArtifcatsManager();
+    ParsedDeploymentBuilderFactory actualExParsedDeploymentBuilderFactory = actualBpmnDeployer
+        .getExParsedDeploymentBuilderFactory();
 
     // Assert
     assertSame(bpmnDeploymentHelper, actualBpmnDeploymentHelper);

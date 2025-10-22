@@ -19,8 +19,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
@@ -28,26 +27,20 @@ import org.junit.experimental.categories.Category;
 public class GetTaskDataObjectCmdDiffblueTest {
   /**
    * Test {@link GetTaskDataObjectCmd#GetTaskDataObjectCmd(String, String, String, boolean)}.
-   *
    * <ul>
-   *   <li>When {@code en}.
-   *   <li>Then return {@link GetTaskDataObjectCmd#locale} is {@code en}.
+   *   <li>When {@code en}.</li>
+   *   <li>Then return {@link GetTaskDataObjectCmd#locale} is {@code en}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link GetTaskDataObjectCmd#GetTaskDataObjectCmd(String, String, String,
-   * boolean)}
+   * <p>
+   * Method under test: {@link GetTaskDataObjectCmd#GetTaskDataObjectCmd(String, String, String, boolean)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void GetTaskDataObjectCmd.<init>(String, String)",
-    "void GetTaskDataObjectCmd.<init>(String, String, String, boolean)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void GetTaskDataObjectCmd.<init>(String, String)",
+      "void GetTaskDataObjectCmd.<init>(String, String, String, boolean)"})
   public void testNewGetTaskDataObjectCmd_whenEn_thenReturnLocaleIsEn() {
     // Arrange and Act
-    GetTaskDataObjectCmd actualGetTaskDataObjectCmd =
-        new GetTaskDataObjectCmd("42", "Variable Name", "en", true);
+    GetTaskDataObjectCmd actualGetTaskDataObjectCmd = new GetTaskDataObjectCmd("42", "Variable Name", "en", true);
 
     // Assert
     assertEquals("42", actualGetTaskDataObjectCmd.taskId);
@@ -58,25 +51,20 @@ public class GetTaskDataObjectCmdDiffblueTest {
 
   /**
    * Test {@link GetTaskDataObjectCmd#GetTaskDataObjectCmd(String, String)}.
-   *
    * <ul>
-   *   <li>When {@code Variable Name}.
-   *   <li>Then return {@link GetTaskDataObjectCmd#locale} is {@code null}.
+   *   <li>When {@code Variable Name}.</li>
+   *   <li>Then return {@link GetTaskDataObjectCmd#locale} is {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link GetTaskDataObjectCmd#GetTaskDataObjectCmd(String, String)}
+   * <p>
+   * Method under test: {@link GetTaskDataObjectCmd#GetTaskDataObjectCmd(String, String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void GetTaskDataObjectCmd.<init>(String, String)",
-    "void GetTaskDataObjectCmd.<init>(String, String, String, boolean)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void GetTaskDataObjectCmd.<init>(String, String)",
+      "void GetTaskDataObjectCmd.<init>(String, String, String, boolean)"})
   public void testNewGetTaskDataObjectCmd_whenVariableName_thenReturnLocaleIsNull() {
     // Arrange and Act
-    GetTaskDataObjectCmd actualGetTaskDataObjectCmd =
-        new GetTaskDataObjectCmd("42", "Variable Name");
+    GetTaskDataObjectCmd actualGetTaskDataObjectCmd = new GetTaskDataObjectCmd("42", "Variable Name");
 
     // Assert
     assertEquals("42", actualGetTaskDataObjectCmd.taskId);

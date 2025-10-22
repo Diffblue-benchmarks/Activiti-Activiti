@@ -20,8 +20,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.time.LocalDate;
 import java.time.ZoneOffset;
@@ -33,9 +32,8 @@ import org.junit.experimental.categories.Category;
 public class AttachmentEntityImplDiffblueTest {
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>default or parameterless constructor of {@link AttachmentEntityImpl}
    *   <li>{@link AttachmentEntityImpl#setContent(ByteArrayEntity)}
@@ -61,31 +59,18 @@ public class AttachmentEntityImplDiffblueTest {
    * </ul>
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void AttachmentEntityImpl.<init>()",
-    "ByteArrayEntity AttachmentEntityImpl.getContent()",
-    "String AttachmentEntityImpl.getContentId()",
-    "String AttachmentEntityImpl.getDescription()",
-    "String AttachmentEntityImpl.getName()",
-    "String AttachmentEntityImpl.getProcessInstanceId()",
-    "String AttachmentEntityImpl.getTaskId()",
-    "Date AttachmentEntityImpl.getTime()",
-    "String AttachmentEntityImpl.getType()",
-    "String AttachmentEntityImpl.getUrl()",
-    "String AttachmentEntityImpl.getUserId()",
-    "void AttachmentEntityImpl.setContent(ByteArrayEntity)",
-    "void AttachmentEntityImpl.setContentId(String)",
-    "void AttachmentEntityImpl.setDescription(String)",
-    "void AttachmentEntityImpl.setName(String)",
-    "void AttachmentEntityImpl.setProcessInstanceId(String)",
-    "void AttachmentEntityImpl.setTaskId(String)",
-    "void AttachmentEntityImpl.setTime(Date)",
-    "void AttachmentEntityImpl.setType(String)",
-    "void AttachmentEntityImpl.setUrl(String)",
-    "void AttachmentEntityImpl.setUserId(String)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void AttachmentEntityImpl.<init>()", "ByteArrayEntity AttachmentEntityImpl.getContent()",
+      "String AttachmentEntityImpl.getContentId()", "String AttachmentEntityImpl.getDescription()",
+      "String AttachmentEntityImpl.getName()", "String AttachmentEntityImpl.getProcessInstanceId()",
+      "String AttachmentEntityImpl.getTaskId()", "Date AttachmentEntityImpl.getTime()",
+      "String AttachmentEntityImpl.getType()", "String AttachmentEntityImpl.getUrl()",
+      "String AttachmentEntityImpl.getUserId()", "void AttachmentEntityImpl.setContent(ByteArrayEntity)",
+      "void AttachmentEntityImpl.setContentId(String)", "void AttachmentEntityImpl.setDescription(String)",
+      "void AttachmentEntityImpl.setName(String)", "void AttachmentEntityImpl.setProcessInstanceId(String)",
+      "void AttachmentEntityImpl.setTaskId(String)", "void AttachmentEntityImpl.setTime(Date)",
+      "void AttachmentEntityImpl.setType(String)", "void AttachmentEntityImpl.setUrl(String)",
+      "void AttachmentEntityImpl.setUserId(String)"})
   public void testGettersAndSetters() {
     // Arrange and Act
     AttachmentEntityImpl actualAttachmentEntityImpl = new AttachmentEntityImpl();
@@ -96,8 +81,7 @@ public class AttachmentEntityImplDiffblueTest {
     actualAttachmentEntityImpl.setName("Name");
     actualAttachmentEntityImpl.setProcessInstanceId("42");
     actualAttachmentEntityImpl.setTaskId("42");
-    Date time =
-        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant());
+    Date time = Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant());
     actualAttachmentEntityImpl.setTime(time);
     actualAttachmentEntityImpl.setType("Type");
     actualAttachmentEntityImpl.setUrl("https://example.org/example");
@@ -132,16 +116,15 @@ public class AttachmentEntityImplDiffblueTest {
 
   /**
    * Test {@link AttachmentEntityImpl#getPersistentState()}.
-   *
-   * <p>Method under test: {@link AttachmentEntityImpl#getPersistentState()}
+   * <p>
+   * Method under test: {@link AttachmentEntityImpl#getPersistentState()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"Object AttachmentEntityImpl.getPersistentState()"})
   public void testGetPersistentState() {
     // Arrange and Act
-    Object actualPersistentState = new AttachmentEntityImpl().getPersistentState();
+    Object actualPersistentState = (new AttachmentEntityImpl()).getPersistentState();
 
     // Assert
     assertTrue(actualPersistentState instanceof Map);

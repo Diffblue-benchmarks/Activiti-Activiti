@@ -17,7 +17,6 @@ package org.activiti.api.runtime.shared;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
@@ -26,18 +25,17 @@ import org.junit.jupiter.api.Test;
 class UnprocessableEntityExceptionDiffblueTest {
   /**
    * Test {@link UnprocessableEntityException#UnprocessableEntityException(String)}.
-   *
-   * <p>Method under test: {@link UnprocessableEntityException#UnprocessableEntityException(String)}
+   * <p>
+   * Method under test: {@link UnprocessableEntityException#UnprocessableEntityException(String)}
    */
   @Test
   @DisplayName("Test new UnprocessableEntityException(String)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void UnprocessableEntityException.<init>(String)"})
   void testNewUnprocessableEntityException() {
     // Arrange and Act
-    UnprocessableEntityException actualUnprocessableEntityException =
-        new UnprocessableEntityException("An error occurred");
+    UnprocessableEntityException actualUnprocessableEntityException = new UnprocessableEntityException(
+        "An error occurred");
 
     // Assert
     assertEquals("An error occurred", actualUnprocessableEntityException.getMessage());

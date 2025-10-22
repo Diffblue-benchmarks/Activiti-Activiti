@@ -19,8 +19,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
 import java.util.List;
@@ -30,9 +29,8 @@ import org.junit.experimental.categories.Category;
 public class SequenceFlowDiffblueTest {
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>{@link SequenceFlow#SequenceFlow()}
    *   <li>{@link SequenceFlow#setConditionExpression(String)}
@@ -53,27 +51,16 @@ public class SequenceFlowDiffblueTest {
    * </ul>
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void SequenceFlow.<init>()",
-    "void SequenceFlow.<init>(String, String)",
-    "String SequenceFlow.getConditionExpression()",
-    "String SequenceFlow.getSkipExpression()",
-    "FlowElement SequenceFlow.getSourceFlowElement()",
-    "String SequenceFlow.getSourceRef()",
-    "FlowElement SequenceFlow.getTargetFlowElement()",
-    "String SequenceFlow.getTargetRef()",
-    "List SequenceFlow.getWaypoints()",
-    "void SequenceFlow.setConditionExpression(String)",
-    "void SequenceFlow.setSkipExpression(String)",
-    "void SequenceFlow.setSourceFlowElement(FlowElement)",
-    "void SequenceFlow.setSourceRef(String)",
-    "void SequenceFlow.setTargetFlowElement(FlowElement)",
-    "void SequenceFlow.setTargetRef(String)",
-    "void SequenceFlow.setWaypoints(List)",
-    "String SequenceFlow.toString()"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void SequenceFlow.<init>()", "void SequenceFlow.<init>(String, String)",
+      "String SequenceFlow.getConditionExpression()", "String SequenceFlow.getSkipExpression()",
+      "FlowElement SequenceFlow.getSourceFlowElement()", "String SequenceFlow.getSourceRef()",
+      "FlowElement SequenceFlow.getTargetFlowElement()", "String SequenceFlow.getTargetRef()",
+      "List SequenceFlow.getWaypoints()", "void SequenceFlow.setConditionExpression(String)",
+      "void SequenceFlow.setSkipExpression(String)", "void SequenceFlow.setSourceFlowElement(FlowElement)",
+      "void SequenceFlow.setSourceRef(String)", "void SequenceFlow.setTargetFlowElement(FlowElement)",
+      "void SequenceFlow.setTargetRef(String)", "void SequenceFlow.setWaypoints(List)",
+      "String SequenceFlow.toString()"})
   public void testGettersAndSetters() {
     // Arrange and Act
     SequenceFlow actualSequenceFlow = new SequenceFlow();
@@ -119,13 +106,11 @@ public class SequenceFlowDiffblueTest {
 
   /**
    * Test getters and setters.
-   *
    * <ul>
-   *   <li>When {@code Source Ref}.
+   *   <li>When {@code Source Ref}.</li>
    * </ul>
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>{@link SequenceFlow#SequenceFlow(String, String)}
    *   <li>{@link SequenceFlow#setConditionExpression(String)}
@@ -146,27 +131,16 @@ public class SequenceFlowDiffblueTest {
    * </ul>
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void SequenceFlow.<init>()",
-    "void SequenceFlow.<init>(String, String)",
-    "String SequenceFlow.getConditionExpression()",
-    "String SequenceFlow.getSkipExpression()",
-    "FlowElement SequenceFlow.getSourceFlowElement()",
-    "String SequenceFlow.getSourceRef()",
-    "FlowElement SequenceFlow.getTargetFlowElement()",
-    "String SequenceFlow.getTargetRef()",
-    "List SequenceFlow.getWaypoints()",
-    "void SequenceFlow.setConditionExpression(String)",
-    "void SequenceFlow.setSkipExpression(String)",
-    "void SequenceFlow.setSourceFlowElement(FlowElement)",
-    "void SequenceFlow.setSourceRef(String)",
-    "void SequenceFlow.setTargetFlowElement(FlowElement)",
-    "void SequenceFlow.setTargetRef(String)",
-    "void SequenceFlow.setWaypoints(List)",
-    "String SequenceFlow.toString()"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void SequenceFlow.<init>()", "void SequenceFlow.<init>(String, String)",
+      "String SequenceFlow.getConditionExpression()", "String SequenceFlow.getSkipExpression()",
+      "FlowElement SequenceFlow.getSourceFlowElement()", "String SequenceFlow.getSourceRef()",
+      "FlowElement SequenceFlow.getTargetFlowElement()", "String SequenceFlow.getTargetRef()",
+      "List SequenceFlow.getWaypoints()", "void SequenceFlow.setConditionExpression(String)",
+      "void SequenceFlow.setSkipExpression(String)", "void SequenceFlow.setSourceFlowElement(FlowElement)",
+      "void SequenceFlow.setSourceRef(String)", "void SequenceFlow.setTargetFlowElement(FlowElement)",
+      "void SequenceFlow.setTargetRef(String)", "void SequenceFlow.setWaypoints(List)",
+      "String SequenceFlow.toString()"})
   public void testGettersAndSetters_whenSourceRef() {
     // Arrange and Act
     SequenceFlow actualSequenceFlow = new SequenceFlow("Source Ref", "Target Ref");
@@ -212,16 +186,15 @@ public class SequenceFlowDiffblueTest {
 
   /**
    * Test {@link SequenceFlow#clone()}.
-   *
-   * <p>Method under test: {@link SequenceFlow#clone()}
+   * <p>
+   * Method under test: {@link SequenceFlow#clone()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"SequenceFlow SequenceFlow.clone()"})
   public void testClone() {
     // Arrange and Act
-    SequenceFlow actualCloneResult = new SequenceFlow("Source Ref", "Target Ref").clone();
+    SequenceFlow actualCloneResult = (new SequenceFlow("Source Ref", "Target Ref")).clone();
 
     // Assert
     assertEquals("Source Ref", actualCloneResult.getSourceRef());

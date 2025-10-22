@@ -16,8 +16,7 @@
 package org.activiti.image.impl.icon;
 
 import static org.junit.Assert.assertEquals;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
@@ -25,9 +24,8 @@ import org.junit.experimental.categories.Category;
 public class SendTaskIconTypeDiffblueTest {
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>default or parameterless constructor of {@link SendTaskIconType}
    *   <li>{@link SendTaskIconType#getDValue()}
@@ -35,23 +33,17 @@ public class SendTaskIconTypeDiffblueTest {
    * </ul>
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void SendTaskIconType.<init>()",
-    "String SendTaskIconType.getDValue()",
-    "String SendTaskIconType.getStyleValue()"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void SendTaskIconType.<init>()", "String SendTaskIconType.getDValue()",
+      "String SendTaskIconType.getStyleValue()"})
   public void testGettersAndSetters() {
     // Arrange and Act
     SendTaskIconType actualSendTaskIconType = new SendTaskIconType();
     String actualDValue = actualSendTaskIconType.getDValue();
 
     // Assert
-    assertEquals(
-        "M 1 3 L 9 11 L 17 3 L 1 3 z M 1 5 L 1 13 L 5 9 L 1 5 z M 17 5 L 13 9 L 17 13 L 17 5 z M 6 10 L 1 15 L"
-            + " 17 15 L 12 10 L 9 13 L 6 10 z ",
-        actualDValue);
+    assertEquals("M 1 3 L 9 11 L 17 3 L 1 3 z M 1 5 L 1 13 L 5 9 L 1 5 z M 17 5 L 13 9 L 17 13 L 17 5 z M 6 10 L 1 15 L"
+        + " 17 15 L 12 10 L 9 13 L 6 10 z ", actualDValue);
     assertEquals("fill:#16964d;stroke:none;", actualSendTaskIconType.getStyleValue());
   }
 }

@@ -20,8 +20,7 @@ import static org.mockito.ArgumentMatchers.isA;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.engine.delegate.DelegateExecution;
 import org.activiti.engine.impl.delegate.ActivityBehavior;
@@ -34,12 +33,11 @@ import org.mockito.Mockito;
 public class DelegateInvocationDiffblueTest {
   /**
    * Test {@link DelegateInvocation#proceed()}.
-   *
-   * <p>Method under test: {@link DelegateInvocation#proceed()}
+   * <p>
+   * Method under test: {@link DelegateInvocation#proceed()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void DelegateInvocation.proceed()"})
   public void testProceed() {
     // Arrange
@@ -47,8 +45,7 @@ public class DelegateInvocationDiffblueTest {
     doNothing().when(behaviorInstance).execute(Mockito.<DelegateExecution>any());
 
     // Act
-    new ActivityBehaviorInvocation(
-            behaviorInstance, ExecutionEntityImpl.createWithEmptyRelationshipCollections())
+    (new ActivityBehaviorInvocation(behaviorInstance, ExecutionEntityImpl.createWithEmptyRelationshipCollections()))
         .proceed();
 
     // Assert
@@ -57,12 +54,11 @@ public class DelegateInvocationDiffblueTest {
 
   /**
    * Test {@link DelegateInvocation#getInvocationResult()}.
-   *
-   * <p>Method under test: {@link DelegateInvocation#getInvocationResult()}
+   * <p>
+   * Method under test: {@link DelegateInvocation#getInvocationResult()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"java.lang.Object DelegateInvocation.getInvocationResult()"})
   public void testGetInvocationResult() {
     // Arrange
@@ -70,19 +66,17 @@ public class DelegateInvocationDiffblueTest {
 
     // Act and Assert
     assertNull(
-        new ActivityBehaviorInvocation(
-                behaviorInstance, ExecutionEntityImpl.createWithEmptyRelationshipCollections())
+        (new ActivityBehaviorInvocation(behaviorInstance, ExecutionEntityImpl.createWithEmptyRelationshipCollections()))
             .getInvocationResult());
   }
 
   /**
    * Test {@link DelegateInvocation#getInvocationParameters()}.
-   *
-   * <p>Method under test: {@link DelegateInvocation#getInvocationParameters()}
+   * <p>
+   * Method under test: {@link DelegateInvocation#getInvocationParameters()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"java.lang.Object[] DelegateInvocation.getInvocationParameters()"})
   public void testGetInvocationParameters() {
     // Arrange
@@ -90,8 +84,7 @@ public class DelegateInvocationDiffblueTest {
 
     // Act and Assert
     assertNull(
-        new ActivityBehaviorInvocation(
-                behaviorInstance, ExecutionEntityImpl.createWithEmptyRelationshipCollections())
+        (new ActivityBehaviorInvocation(behaviorInstance, ExecutionEntityImpl.createWithEmptyRelationshipCollections()))
             .getInvocationParameters());
   }
 }

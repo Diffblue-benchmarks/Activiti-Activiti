@@ -16,15 +16,17 @@
 package org.activiti.spring.impl.test;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
+import static org.junit.Assert.assertTrue;
 import static org.mockito.ArgumentMatchers.isA;
 import static org.mockito.Mockito.atLeast;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.HashMap;
 import java.util.Map;
@@ -38,12 +40,12 @@ import org.activiti.engine.impl.ProcessEngineImpl;
 import org.activiti.engine.impl.RepositoryServiceImpl;
 import org.activiti.engine.impl.RuntimeServiceImpl;
 import org.activiti.engine.impl.TaskServiceImpl;
-import org.activiti.engine.impl.asyncexecutor.DefaultAsyncJobExecutor;
 import org.activiti.engine.impl.cfg.CommandExecutorImpl;
 import org.activiti.engine.impl.cfg.JtaProcessEngineConfiguration;
 import org.activiti.engine.impl.cfg.TransactionContextFactory;
 import org.activiti.engine.impl.interceptor.CommandConfig;
 import org.activiti.engine.impl.interceptor.SessionFactory;
+import org.activiti.spring.SpringAsyncExecutor;
 import org.activiti.spring.SpringProcessEngineConfiguration;
 import org.activiti.spring.SpringTransactionInterceptor;
 import org.activiti.spring.test.autodeployment.FailOnNoProcessAutoDeploymentStrategyTest;
@@ -56,37 +58,33 @@ import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.annotation.DirtiesContext.ClassMode;
 
-@DirtiesContext(classMode = ClassMode.AFTER_EACH_TEST_METHOD)
 @RunWith(MockitoJUnitRunner.class)
+@DirtiesContext(classMode = ClassMode.AFTER_EACH_TEST_METHOD)
 public class SpringActivitiTestCaseDiffblueTest {
-  @Mock private ApplicationContext applicationContext;
+  @Mock
+  private ApplicationContext applicationContext;
 
   @InjectMocks
   private FailOnNoProcessAutoDeploymentStrategyTest failOnNoProcessAutoDeploymentStrategyTest;
 
   /**
    * Test {@link SpringActivitiTestCase#initializeProcessEngine()}.
-   *
-   * <p>Method under test: {@link SpringActivitiTestCase#initializeProcessEngine()}
+   * <p>
+   * Method under test: {@link SpringActivitiTestCase#initializeProcessEngine()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void SpringActivitiTestCase.initializeProcessEngine()"})
   public void testInitializeProcessEngine() throws BeansException {
     // Arrange
-    ProcessEngineLifecycleListener processEngineLifecycleListener =
-        mock(ProcessEngineLifecycleListener.class);
-    doNothing()
-        .when(processEngineLifecycleListener)
-        .onProcessEngineBuilt(Mockito.<ProcessEngine>any());
-
-    JtaProcessEngineConfiguration processEngineConfiguration =
-        mock(JtaProcessEngineConfiguration.class);
+    ProcessEngineLifecycleListener processEngineLifecycleListener = mock(ProcessEngineLifecycleListener.class);
+    doNothing().when(processEngineLifecycleListener).onProcessEngineBuilt(Mockito.<ProcessEngine>any());
+    JtaProcessEngineConfiguration processEngineConfiguration = mock(JtaProcessEngineConfiguration.class);
     when(processEngineConfiguration.isUsingRelationalDatabase()).thenReturn(false);
     when(processEngineConfiguration.getProcessEngineName()).thenReturn("Process Engine Name");
     Mockito.<Map<Class<?>, SessionFactory>>when(processEngineConfiguration.getSessionFactories())
@@ -96,25 +94,19 @@ public class SpringActivitiTestCaseDiffblueTest {
     when(processEngineConfiguration.getHistoryService())
         .thenReturn(new HistoryServiceImpl(new SpringProcessEngineConfiguration()));
     when(processEngineConfiguration.getManagementService()).thenReturn(new ManagementServiceImpl());
-    when(processEngineConfiguration.getProcessEngineLifecycleListener())
-        .thenReturn(processEngineLifecycleListener);
+    when(processEngineConfiguration.getProcessEngineLifecycleListener()).thenReturn(processEngineLifecycleListener);
     when(processEngineConfiguration.getRepositoryService()).thenReturn(new RepositoryServiceImpl());
     when(processEngineConfiguration.getRuntimeService()).thenReturn(new RuntimeServiceImpl());
     when(processEngineConfiguration.getTaskService())
         .thenReturn(new TaskServiceImpl(new SpringProcessEngineConfiguration()));
-    when(processEngineConfiguration.getEventDispatcher())
-        .thenReturn(new ActivitiEventDispatcherImpl());
-    when(processEngineConfiguration.getAsyncExecutor()).thenReturn(new DefaultAsyncJobExecutor());
-    when(processEngineConfiguration.getTransactionContextFactory())
-        .thenReturn(mock(TransactionContextFactory.class));
+    when(processEngineConfiguration.getEventDispatcher()).thenReturn(new ActivitiEventDispatcherImpl());
+    when(processEngineConfiguration.getAsyncExecutor()).thenReturn(new SpringAsyncExecutor());
+    when(processEngineConfiguration.getTransactionContextFactory()).thenReturn(mock(TransactionContextFactory.class));
     CommandConfig defaultConfig = new CommandConfig();
-    CommandExecutorImpl commandExecutorImpl =
-        new CommandExecutorImpl(
-            defaultConfig, new SpringTransactionInterceptor(new DataSourceTransactionManager()));
-    when(processEngineConfiguration.getCommandExecutor()).thenReturn(commandExecutorImpl);
+    when(processEngineConfiguration.getCommandExecutor()).thenReturn(
+        new CommandExecutorImpl(defaultConfig, new SpringTransactionInterceptor(new DataSourceTransactionManager())));
     ProcessEngineImpl processEngineImpl = new ProcessEngineImpl(processEngineConfiguration);
-    when(applicationContext.getBean(Mockito.<Class<ProcessEngine>>any()))
-        .thenReturn(processEngineImpl);
+    when(applicationContext.getBean(Mockito.<Class<ProcessEngine>>any())).thenReturn(processEngineImpl);
 
     // Act
     failOnNoProcessAutoDeploymentStrategyTest.initializeProcessEngine();
@@ -136,12 +128,37 @@ public class SpringActivitiTestCaseDiffblueTest {
     verify(processEngineConfiguration).getTransactionContextFactory();
     verify(processEngineConfiguration).isUsingRelationalDatabase();
     verify(applicationContext).getBean(isA(Class.class));
-    Map<Object, ProcessEngine> objectProcessEngineMap =
-        failOnNoProcessAutoDeploymentStrategyTest.cachedProcessEngines;
+    Map<Object, ProcessEngine> objectProcessEngineMap = failOnNoProcessAutoDeploymentStrategyTest.cachedProcessEngines;
     assertEquals(1, objectProcessEngineMap.size());
-    assertSame(
-        processEngineImpl,
-        objectProcessEngineMap.get(
-            "classpath:org/activiti/spring/test/autodeployment/errorHandling/spring-context.xml"));
+    assertSame(processEngineImpl, objectProcessEngineMap
+        .get("classpath:org/activiti/spring/test/autodeployment/errorHandling/spring-context.xml"));
+  }
+
+  /**
+   * Test {@link SpringActivitiTestCase#setApplicationContext(ApplicationContext)}.
+   * <p>
+   * Method under test: {@link SpringActivitiTestCase#setApplicationContext(ApplicationContext)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void SpringActivitiTestCase.setApplicationContext(ApplicationContext)"})
+  public void testSetApplicationContext() {
+    // Arrange
+    FailOnNoProcessAutoDeploymentStrategyTest failOnNoProcessAutoDeploymentStrategyTest = new FailOnNoProcessAutoDeploymentStrategyTest();
+
+    // Act
+    failOnNoProcessAutoDeploymentStrategyTest.setApplicationContext(new AnnotationConfigApplicationContext());
+
+    // Assert
+    ApplicationContext applicationContext = failOnNoProcessAutoDeploymentStrategyTest.applicationContext;
+    assertTrue(applicationContext instanceof AnnotationConfigApplicationContext);
+    assertEquals("", applicationContext.getApplicationName());
+    assertNull(applicationContext.getParentBeanFactory());
+    assertNull(applicationContext.getParent());
+    assertEquals(0L, applicationContext.getStartupDate());
+    assertEquals(5, applicationContext.getBeanDefinitionCount());
+    assertEquals(5, applicationContext.getBeanDefinitionNames().length);
+    assertFalse(((AnnotationConfigApplicationContext) applicationContext).isActive());
+    assertFalse(((AnnotationConfigApplicationContext) applicationContext).isRunning());
   }
 }

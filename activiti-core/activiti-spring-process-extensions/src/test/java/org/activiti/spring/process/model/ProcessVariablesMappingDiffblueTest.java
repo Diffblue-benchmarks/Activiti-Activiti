@@ -19,7 +19,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.HashMap;
 import java.util.Map;
@@ -31,24 +30,22 @@ import org.junit.jupiter.api.Test;
 class ProcessVariablesMappingDiffblueTest {
   /**
    * Test {@link ProcessVariablesMapping#getInputMapping(String)}.
-   *
-   * <p>Method under test: {@link ProcessVariablesMapping#getInputMapping(String)}
+   * <p>
+   * Method under test: {@link ProcessVariablesMapping#getInputMapping(String)}
    */
   @Test
   @DisplayName("Test getInputMapping(String)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"Mapping ProcessVariablesMapping.getInputMapping(String)"})
   void testGetInputMapping() {
     // Arrange, Act and Assert
-    assertNull(new ProcessVariablesMapping().getInputMapping("Input Name"));
+    assertNull((new ProcessVariablesMapping()).getInputMapping("Input Name"));
   }
 
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>default or parameterless constructor of {@link ProcessVariablesMapping}
    *   <li>{@link ProcessVariablesMapping#setInputs(Map)}
@@ -61,17 +58,11 @@ class ProcessVariablesMappingDiffblueTest {
    */
   @Test
   @DisplayName("Test getters and setters")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void ProcessVariablesMapping.<init>()",
-    "Map ProcessVariablesMapping.getInputs()",
-    "MappingType ProcessVariablesMapping.getMappingType()",
-    "Map ProcessVariablesMapping.getOutputs()",
-    "void ProcessVariablesMapping.setInputs(Map)",
-    "void ProcessVariablesMapping.setMappingType(MappingType)",
-    "void ProcessVariablesMapping.setOutputs(Map)"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void ProcessVariablesMapping.<init>()", "Map ProcessVariablesMapping.getInputs()",
+      "MappingType ProcessVariablesMapping.getMappingType()", "Map ProcessVariablesMapping.getOutputs()",
+      "void ProcessVariablesMapping.setInputs(Map)", "void ProcessVariablesMapping.setMappingType(MappingType)",
+      "void ProcessVariablesMapping.setOutputs(Map)"})
   void testGettersAndSetters() {
     // Arrange and Act
     ProcessVariablesMapping actualProcessVariablesMapping = new ProcessVariablesMapping();

@@ -18,8 +18,7 @@ package org.activiti.spring;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import jakarta.persistence.EntityManagerFactory;
 import org.junit.Test;
@@ -27,20 +26,17 @@ import org.junit.experimental.categories.Category;
 
 public class SpringEntityManagerSessionFactoryDiffblueTest {
   /**
-   * Test {@link SpringEntityManagerSessionFactory#SpringEntityManagerSessionFactory(Object,
-   * boolean, boolean)}.
-   *
-   * <p>Method under test: {@link
-   * SpringEntityManagerSessionFactory#SpringEntityManagerSessionFactory(Object, boolean, boolean)}
+   * Test {@link SpringEntityManagerSessionFactory#SpringEntityManagerSessionFactory(Object, boolean, boolean)}.
+   * <p>
+   * Method under test: {@link SpringEntityManagerSessionFactory#SpringEntityManagerSessionFactory(Object, boolean, boolean)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void SpringEntityManagerSessionFactory.<init>(Object, boolean, boolean)"})
   public void testNewSpringEntityManagerSessionFactory() {
     // Arrange and Act
-    SpringEntityManagerSessionFactory actualSpringEntityManagerSessionFactory =
-        new SpringEntityManagerSessionFactory(null, true, true);
+    SpringEntityManagerSessionFactory actualSpringEntityManagerSessionFactory = new SpringEntityManagerSessionFactory(
+        null, true, true);
 
     // Assert
     assertNull(actualSpringEntityManagerSessionFactory.entityManagerFactory);

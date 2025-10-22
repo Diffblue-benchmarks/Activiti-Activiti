@@ -18,7 +18,6 @@ package org.activiti.api.runtime.event.impl;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.api.process.model.BPMNSignal;
 import org.activiti.api.process.model.events.BPMNSignalEvent;
@@ -31,18 +30,16 @@ import org.junit.jupiter.api.Test;
 class BPMNSignalReceivedEventImplDiffblueTest {
   /**
    * Test {@link BPMNSignalReceivedEventImpl#BPMNSignalReceivedEventImpl()}.
-   *
-   * <p>Method under test: {@link BPMNSignalReceivedEventImpl#BPMNSignalReceivedEventImpl()}
+   * <p>
+   * Method under test: {@link BPMNSignalReceivedEventImpl#BPMNSignalReceivedEventImpl()}
    */
   @Test
   @DisplayName("Test new BPMNSignalReceivedEventImpl()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void BPMNSignalReceivedEventImpl.<init>()"})
   void testNewBPMNSignalReceivedEventImpl() {
     // Arrange and Act
-    BPMNSignalReceivedEventImpl actualBpmnSignalReceivedEventImpl =
-        new BPMNSignalReceivedEventImpl();
+    BPMNSignalReceivedEventImpl actualBpmnSignalReceivedEventImpl = new BPMNSignalReceivedEventImpl();
 
     // Assert
     assertNull(actualBpmnSignalReceivedEventImpl.getProcessDefinitionVersion());
@@ -57,22 +54,19 @@ class BPMNSignalReceivedEventImplDiffblueTest {
 
   /**
    * Test {@link BPMNSignalReceivedEventImpl#BPMNSignalReceivedEventImpl(BPMNSignal)}.
-   *
-   * <p>Method under test: {@link
-   * BPMNSignalReceivedEventImpl#BPMNSignalReceivedEventImpl(BPMNSignal)}
+   * <p>
+   * Method under test: {@link BPMNSignalReceivedEventImpl#BPMNSignalReceivedEventImpl(BPMNSignal)}
    */
   @Test
   @DisplayName("Test new BPMNSignalReceivedEventImpl(BPMNSignal)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void BPMNSignalReceivedEventImpl.<init>(BPMNSignal)"})
   void testNewBPMNSignalReceivedEventImpl2() {
     // Arrange
     BPMNSignalImpl entity = new BPMNSignalImpl("42");
 
     // Act
-    BPMNSignalReceivedEventImpl actualBpmnSignalReceivedEventImpl =
-        new BPMNSignalReceivedEventImpl(entity);
+    BPMNSignalReceivedEventImpl actualBpmnSignalReceivedEventImpl = new BPMNSignalReceivedEventImpl(entity);
 
     // Assert
     assertNull(actualBpmnSignalReceivedEventImpl.getProcessDefinitionVersion());
@@ -87,16 +81,15 @@ class BPMNSignalReceivedEventImplDiffblueTest {
 
   /**
    * Test {@link BPMNSignalReceivedEventImpl#getEventType()}.
-   *
-   * <p>Method under test: {@link BPMNSignalReceivedEventImpl#getEventType()}
+   * <p>
+   * Method under test: {@link BPMNSignalReceivedEventImpl#getEventType()}
    */
   @Test
   @DisplayName("Test getEventType()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"BPMNSignalEvent.SignalEvents BPMNSignalReceivedEventImpl.getEventType()"})
   void testGetEventType() {
     // Arrange, Act and Assert
-    assertEquals(SignalEvents.SIGNAL_RECEIVED, new BPMNSignalReceivedEventImpl().getEventType());
+    assertEquals(SignalEvents.SIGNAL_RECEIVED, (new BPMNSignalReceivedEventImpl()).getEventType());
   }
 }

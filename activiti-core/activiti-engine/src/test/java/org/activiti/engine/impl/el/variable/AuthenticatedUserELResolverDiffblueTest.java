@@ -18,8 +18,7 @@ package org.activiti.engine.impl.el.variable;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.engine.delegate.VariableScope;
 import org.activiti.engine.impl.el.NoExecutionVariableScope;
@@ -29,59 +28,58 @@ import org.junit.experimental.categories.Category;
 public class AuthenticatedUserELResolverDiffblueTest {
   /**
    * Test {@link AuthenticatedUserELResolver#canResolve(String, VariableScope)}.
-   *
    * <ul>
-   *   <li>When {@code authenticatedUserId}.
-   *   <li>Then return {@code true}.
+   *   <li>When {@code authenticatedUserId}.</li>
+   *   <li>Then return {@code true}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link AuthenticatedUserELResolver#canResolve(String, VariableScope)}
+   * <p>
+   * Method under test: {@link AuthenticatedUserELResolver#canResolve(String, VariableScope)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"boolean AuthenticatedUserELResolver.canResolve(String, VariableScope)"})
   public void testCanResolve_whenAuthenticatedUserId_thenReturnTrue() {
-    // Arrange, Act and Assert
+    // Arrange
+    AuthenticatedUserELResolver authenticatedUserELResolver = new AuthenticatedUserELResolver();
+
+    // Act and Assert
     assertTrue(
-        new AuthenticatedUserELResolver()
-            .canResolve("authenticatedUserId", NoExecutionVariableScope.getSharedInstance()));
+        authenticatedUserELResolver.canResolve("authenticatedUserId", NoExecutionVariableScope.getSharedInstance()));
   }
 
   /**
    * Test {@link AuthenticatedUserELResolver#canResolve(String, VariableScope)}.
-   *
    * <ul>
-   *   <li>When {@code Property}.
-   *   <li>Then return {@code false}.
+   *   <li>When {@code Property}.</li>
+   *   <li>Then return {@code false}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link AuthenticatedUserELResolver#canResolve(String, VariableScope)}
+   * <p>
+   * Method under test: {@link AuthenticatedUserELResolver#canResolve(String, VariableScope)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"boolean AuthenticatedUserELResolver.canResolve(String, VariableScope)"})
   public void testCanResolve_whenProperty_thenReturnFalse() {
-    // Arrange, Act and Assert
-    assertFalse(
-        new AuthenticatedUserELResolver()
-            .canResolve("Property", NoExecutionVariableScope.getSharedInstance()));
+    // Arrange
+    AuthenticatedUserELResolver authenticatedUserELResolver = new AuthenticatedUserELResolver();
+
+    // Act and Assert
+    assertFalse(authenticatedUserELResolver.canResolve("Property", NoExecutionVariableScope.getSharedInstance()));
   }
 
   /**
    * Test {@link AuthenticatedUserELResolver#resolve(String, VariableScope)}.
-   *
-   * <p>Method under test: {@link AuthenticatedUserELResolver#resolve(String, VariableScope)}
+   * <p>
+   * Method under test: {@link AuthenticatedUserELResolver#resolve(String, VariableScope)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"java.lang.Object AuthenticatedUserELResolver.resolve(String, VariableScope)"})
   public void testResolve() {
-    // Arrange, Act and Assert
-    assertNull(
-        new AuthenticatedUserELResolver()
-            .resolve("Property", NoExecutionVariableScope.getSharedInstance()));
+    // Arrange
+    AuthenticatedUserELResolver authenticatedUserELResolver = new AuthenticatedUserELResolver();
+
+    // Act and Assert
+    assertNull(authenticatedUserELResolver.resolve("Property", NoExecutionVariableScope.getSharedInstance()));
   }
 }

@@ -19,10 +19,8 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
-import static org.junit.Assert.assertThrows;
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.time.LocalDate;
 import java.time.ZoneOffset;
@@ -30,7 +28,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import org.activiti.bpmn.model.ActivitiListener;
-import org.activiti.engine.ActivitiException;
 import org.activiti.engine.task.DelegationState;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
@@ -38,9 +35,8 @@ import org.junit.experimental.categories.Category;
 public class TaskEntityImplDiffblueTest {
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>{@link TaskEntityImpl#forceUpdate()}
    *   <li>{@link TaskEntityImpl#setAppVersion(Integer)}
@@ -102,67 +98,36 @@ public class TaskEntityImplDiffblueTest {
    * </ul>
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void TaskEntityImpl.forceUpdate()",
-    "Integer TaskEntityImpl.getAppVersion()",
-    "String TaskEntityImpl.getAssignee()",
-    "String TaskEntityImpl.getBusinessKey()",
-    "String TaskEntityImpl.getCategory()",
-    "Date TaskEntityImpl.getClaimTime()",
-    "Date TaskEntityImpl.getCreateTime()",
-    "ActivitiListener TaskEntityImpl.getCurrentActivitiListener()",
-    "DelegationState TaskEntityImpl.getDelegationState()",
-    "Date TaskEntityImpl.getDueDate()",
-    "String TaskEntityImpl.getEventName()",
-    "String TaskEntityImpl.getExecutionId()",
-    "String TaskEntityImpl.getFormKey()",
-    "String TaskEntityImpl.getLocalizedDescription()",
-    "String TaskEntityImpl.getLocalizedName()",
-    "String TaskEntityImpl.getOwner()",
-    "String TaskEntityImpl.getParentTaskId()",
-    "int TaskEntityImpl.getPriority()",
-    "String TaskEntityImpl.getProcessDefinitionId()",
-    "String TaskEntityImpl.getProcessInstanceId()",
-    "int TaskEntityImpl.getRevision()",
-    "int TaskEntityImpl.getSuspensionState()",
-    "String TaskEntityImpl.getTaskDefinitionKey()",
-    "String TaskEntityImpl.getTenantId()",
-    "boolean TaskEntityImpl.isActivityIdUsedForDetails()",
-    "boolean TaskEntityImpl.isCanceled()",
-    "boolean TaskEntityImpl.isDeleted()",
-    "void TaskEntityImpl.setAppVersion(Integer)",
-    "void TaskEntityImpl.setBusinessKey(String)",
-    "void TaskEntityImpl.setCanceled(boolean)",
-    "void TaskEntityImpl.setCategory(String)",
-    "void TaskEntityImpl.setClaimTime(Date)",
-    "void TaskEntityImpl.setCreateTime(Date)",
-    "void TaskEntityImpl.setCurrentActivitiListener(ActivitiListener)",
-    "void TaskEntityImpl.setDelegationState(DelegationState)",
-    "void TaskEntityImpl.setDeleted(boolean)",
-    "void TaskEntityImpl.setDescription(String)",
-    "void TaskEntityImpl.setDueDate(Date)",
-    "void TaskEntityImpl.setEventName(String)",
-    "void TaskEntityImpl.setExecution(ExecutionEntity)",
-    "void TaskEntityImpl.setExecutionId(String)",
-    "void TaskEntityImpl.setFormKey(String)",
-    "void TaskEntityImpl.setLocalizedDescription(String)",
-    "void TaskEntityImpl.setLocalizedName(String)",
-    "void TaskEntityImpl.setName(String)",
-    "void TaskEntityImpl.setOwner(String)",
-    "void TaskEntityImpl.setParentTaskId(String)",
-    "void TaskEntityImpl.setPriority(int)",
-    "void TaskEntityImpl.setProcessDefinitionId(String)",
-    "void TaskEntityImpl.setProcessInstance(ExecutionEntity)",
-    "void TaskEntityImpl.setProcessInstanceId(String)",
-    "void TaskEntityImpl.setQueryVariables(List)",
-    "void TaskEntityImpl.setRevision(int)",
-    "void TaskEntityImpl.setSuspensionState(int)",
-    "void TaskEntityImpl.setTaskDefinitionKey(String)",
-    "void TaskEntityImpl.setTenantId(String)",
-    "String TaskEntityImpl.toString()"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void TaskEntityImpl.forceUpdate()", "Integer TaskEntityImpl.getAppVersion()",
+      "String TaskEntityImpl.getAssignee()", "String TaskEntityImpl.getBusinessKey()",
+      "String TaskEntityImpl.getCategory()", "Date TaskEntityImpl.getClaimTime()",
+      "Date TaskEntityImpl.getCreateTime()", "ActivitiListener TaskEntityImpl.getCurrentActivitiListener()",
+      "DelegationState TaskEntityImpl.getDelegationState()", "Date TaskEntityImpl.getDueDate()",
+      "String TaskEntityImpl.getEventName()", "String TaskEntityImpl.getExecutionId()",
+      "String TaskEntityImpl.getFormKey()", "String TaskEntityImpl.getLocalizedDescription()",
+      "String TaskEntityImpl.getLocalizedName()", "String TaskEntityImpl.getOwner()",
+      "String TaskEntityImpl.getParentTaskId()", "int TaskEntityImpl.getPriority()",
+      "String TaskEntityImpl.getProcessDefinitionId()", "String TaskEntityImpl.getProcessInstanceId()",
+      "int TaskEntityImpl.getRevision()", "int TaskEntityImpl.getSuspensionState()",
+      "String TaskEntityImpl.getTaskDefinitionKey()", "String TaskEntityImpl.getTenantId()",
+      "boolean TaskEntityImpl.isActivityIdUsedForDetails()", "boolean TaskEntityImpl.isCanceled()",
+      "boolean TaskEntityImpl.isDeleted()", "void TaskEntityImpl.setAppVersion(Integer)",
+      "void TaskEntityImpl.setBusinessKey(String)", "void TaskEntityImpl.setCanceled(boolean)",
+      "void TaskEntityImpl.setCategory(String)", "void TaskEntityImpl.setClaimTime(Date)",
+      "void TaskEntityImpl.setCreateTime(Date)", "void TaskEntityImpl.setCurrentActivitiListener(ActivitiListener)",
+      "void TaskEntityImpl.setDelegationState(DelegationState)", "void TaskEntityImpl.setDeleted(boolean)",
+      "void TaskEntityImpl.setDescription(String)", "void TaskEntityImpl.setDueDate(Date)",
+      "void TaskEntityImpl.setEventName(String)", "void TaskEntityImpl.setExecution(ExecutionEntity)",
+      "void TaskEntityImpl.setExecutionId(String)", "void TaskEntityImpl.setFormKey(String)",
+      "void TaskEntityImpl.setLocalizedDescription(String)", "void TaskEntityImpl.setLocalizedName(String)",
+      "void TaskEntityImpl.setName(String)", "void TaskEntityImpl.setOwner(String)",
+      "void TaskEntityImpl.setParentTaskId(String)", "void TaskEntityImpl.setPriority(int)",
+      "void TaskEntityImpl.setProcessDefinitionId(String)", "void TaskEntityImpl.setProcessInstance(ExecutionEntity)",
+      "void TaskEntityImpl.setProcessInstanceId(String)", "void TaskEntityImpl.setQueryVariables(List)",
+      "void TaskEntityImpl.setRevision(int)", "void TaskEntityImpl.setSuspensionState(int)",
+      "void TaskEntityImpl.setTaskDefinitionKey(String)", "void TaskEntityImpl.setTenantId(String)",
+      "String TaskEntityImpl.toString()"})
   public void testGettersAndSetters() {
     // Arrange
     TaskEntityImpl taskEntityImpl = new TaskEntityImpl();
@@ -173,19 +138,16 @@ public class TaskEntityImplDiffblueTest {
     taskEntityImpl.setBusinessKey("Business Key");
     taskEntityImpl.setCanceled(true);
     taskEntityImpl.setCategory("Category");
-    Date claimTime =
-        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant());
+    Date claimTime = Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant());
     taskEntityImpl.setClaimTime(claimTime);
-    Date createTime =
-        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant());
+    Date createTime = Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant());
     taskEntityImpl.setCreateTime(createTime);
     ActivitiListener currentActivitiListener = new ActivitiListener();
     taskEntityImpl.setCurrentActivitiListener(currentActivitiListener);
     taskEntityImpl.setDelegationState(DelegationState.PENDING);
     taskEntityImpl.setDeleted(true);
     taskEntityImpl.setDescription("The characteristics of someone or something");
-    Date dueDate =
-        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant());
+    Date dueDate = Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant());
     taskEntityImpl.setDueDate(dueDate);
     taskEntityImpl.setEventName("Event Name");
     taskEntityImpl.setExecution(ExecutionEntityImpl.createWithEmptyRelationshipCollections());
@@ -261,19 +223,5 @@ public class TaskEntityImplDiffblueTest {
     assertSame(claimTime, actualClaimTime);
     assertSame(createTime, actualCreateTime);
     assertSame(dueDate, actualDueDate);
-  }
-
-  /**
-   * Test {@link TaskEntityImpl#getVariableInstanceEntities()}.
-   *
-   * <p>Method under test: {@link TaskEntityImpl#getVariableInstanceEntities()}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"java.util.Map TaskEntityImpl.getVariableInstanceEntities()"})
-  public void testGetVariableInstanceEntities() {
-    // Arrange, Act and Assert
-    assertThrows(ActivitiException.class, () -> new TaskEntityImpl().getVariableInstanceEntities());
   }
 }

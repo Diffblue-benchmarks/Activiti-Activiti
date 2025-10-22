@@ -19,30 +19,20 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
-import static org.junit.Assert.assertThrows;
 import static org.junit.Assert.assertTrue;
-import static org.mockito.Mockito.mock;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
-import org.activiti.engine.ActivitiIllegalArgumentException;
-import org.activiti.engine.impl.interceptor.CommandContext;
-import org.activiti.engine.query.QueryProperty;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
-import org.springframework.test.annotation.DirtiesContext;
-import org.springframework.test.annotation.DirtiesContext.ClassMode;
 
-@DirtiesContext(classMode = ClassMode.AFTER_EACH_TEST_METHOD)
 public class HistoricDetailQueryImplDiffblueTest {
   /**
    * Test {@link HistoricDetailQueryImpl#HistoricDetailQueryImpl()}.
-   *
-   * <p>Method under test: {@link HistoricDetailQueryImpl#HistoricDetailQueryImpl()}
+   * <p>
+   * Method under test: {@link HistoricDetailQueryImpl#HistoricDetailQueryImpl()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void HistoricDetailQueryImpl.<init>()"})
   public void testNewHistoricDetailQueryImpl() {
     // Arrange and Act
@@ -70,18 +60,16 @@ public class HistoricDetailQueryImplDiffblueTest {
     assertFalse(actualHistoricDetailQueryImpl.getExcludeTaskRelated());
     assertEquals(Integer.MAX_VALUE, actualHistoricDetailQueryImpl.getLastRow());
     assertEquals(Integer.MAX_VALUE, actualHistoricDetailQueryImpl.getMaxResults());
-    Object actualParameter = actualHistoricDetailQueryImpl.getParameter();
-    assertSame(actualHistoricDetailQueryImpl, actualParameter);
+    assertSame(actualHistoricDetailQueryImpl, actualHistoricDetailQueryImpl.getParameter());
   }
 
   /**
    * Test {@link HistoricDetailQueryImpl#id(String)}.
-   *
-   * <p>Method under test: {@link HistoricDetailQueryImpl#id(String)}
+   * <p>
+   * Method under test: {@link HistoricDetailQueryImpl#id(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"HistoricDetailQueryImpl HistoricDetailQueryImpl.id(String)"})
   public void testId() {
     // Arrange
@@ -97,20 +85,18 @@ public class HistoricDetailQueryImplDiffblueTest {
 
   /**
    * Test {@link HistoricDetailQueryImpl#processInstanceId(String)}.
-   *
-   * <p>Method under test: {@link HistoricDetailQueryImpl#processInstanceId(String)}
+   * <p>
+   * Method under test: {@link HistoricDetailQueryImpl#processInstanceId(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"HistoricDetailQueryImpl HistoricDetailQueryImpl.processInstanceId(String)"})
   public void testProcessInstanceId() {
     // Arrange
     HistoricDetailQueryImpl historicDetailQueryImpl = new HistoricDetailQueryImpl();
 
     // Act
-    HistoricDetailQueryImpl actualProcessInstanceIdResult =
-        historicDetailQueryImpl.processInstanceId("42");
+    HistoricDetailQueryImpl actualProcessInstanceIdResult = historicDetailQueryImpl.processInstanceId("42");
 
     // Assert
     assertEquals("42", historicDetailQueryImpl.getProcessInstanceId());
@@ -119,12 +105,11 @@ public class HistoricDetailQueryImplDiffblueTest {
 
   /**
    * Test {@link HistoricDetailQueryImpl#executionId(String)}.
-   *
-   * <p>Method under test: {@link HistoricDetailQueryImpl#executionId(String)}
+   * <p>
+   * Method under test: {@link HistoricDetailQueryImpl#executionId(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"HistoricDetailQueryImpl HistoricDetailQueryImpl.executionId(String)"})
   public void testExecutionId() {
     // Arrange
@@ -140,20 +125,18 @@ public class HistoricDetailQueryImplDiffblueTest {
 
   /**
    * Test {@link HistoricDetailQueryImpl#activityInstanceId(String)}.
-   *
-   * <p>Method under test: {@link HistoricDetailQueryImpl#activityInstanceId(String)}
+   * <p>
+   * Method under test: {@link HistoricDetailQueryImpl#activityInstanceId(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"HistoricDetailQueryImpl HistoricDetailQueryImpl.activityInstanceId(String)"})
   public void testActivityInstanceId() {
     // Arrange
     HistoricDetailQueryImpl historicDetailQueryImpl = new HistoricDetailQueryImpl();
 
     // Act
-    HistoricDetailQueryImpl actualActivityInstanceIdResult =
-        historicDetailQueryImpl.activityInstanceId("42");
+    HistoricDetailQueryImpl actualActivityInstanceIdResult = historicDetailQueryImpl.activityInstanceId("42");
 
     // Assert
     assertEquals("42", historicDetailQueryImpl.getActivityInstanceId());
@@ -162,12 +145,11 @@ public class HistoricDetailQueryImplDiffblueTest {
 
   /**
    * Test {@link HistoricDetailQueryImpl#taskId(String)}.
-   *
-   * <p>Method under test: {@link HistoricDetailQueryImpl#taskId(String)}
+   * <p>
+   * Method under test: {@link HistoricDetailQueryImpl#taskId(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"HistoricDetailQueryImpl HistoricDetailQueryImpl.taskId(String)"})
   public void testTaskId() {
     // Arrange
@@ -183,12 +165,11 @@ public class HistoricDetailQueryImplDiffblueTest {
 
   /**
    * Test {@link HistoricDetailQueryImpl#variableUpdates()}.
-   *
-   * <p>Method under test: {@link HistoricDetailQueryImpl#variableUpdates()}
+   * <p>
+   * Method under test: {@link HistoricDetailQueryImpl#variableUpdates()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"HistoricDetailQueryImpl HistoricDetailQueryImpl.variableUpdates()"})
   public void testVariableUpdates() {
     // Arrange
@@ -204,70 +185,21 @@ public class HistoricDetailQueryImplDiffblueTest {
 
   /**
    * Test {@link HistoricDetailQueryImpl#excludeTaskDetails()}.
-   *
-   * <p>Method under test: {@link HistoricDetailQueryImpl#excludeTaskDetails()}
+   * <p>
+   * Method under test: {@link HistoricDetailQueryImpl#excludeTaskDetails()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"HistoricDetailQueryImpl HistoricDetailQueryImpl.excludeTaskDetails()"})
   public void testExcludeTaskDetails() {
     // Arrange
     HistoricDetailQueryImpl historicDetailQueryImpl = new HistoricDetailQueryImpl();
 
     // Act
-    HistoricDetailQueryImpl actualExcludeTaskDetailsResult =
-        historicDetailQueryImpl.excludeTaskDetails();
+    HistoricDetailQueryImpl actualExcludeTaskDetailsResult = historicDetailQueryImpl.excludeTaskDetails();
 
     // Assert
     assertTrue(historicDetailQueryImpl.getExcludeTaskRelated());
     assertSame(historicDetailQueryImpl, actualExcludeTaskDetailsResult);
-  }
-
-  /**
-   * Test {@link HistoricDetailQueryImpl#executeCount(CommandContext)}.
-   *
-   * <ul>
-   *   <li>Then throw {@link ActivitiIllegalArgumentException}.
-   * </ul>
-   *
-   * <p>Method under test: {@link HistoricDetailQueryImpl#executeCount(CommandContext)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"long HistoricDetailQueryImpl.executeCount(CommandContext)"})
-  public void testExecuteCount_thenThrowActivitiIllegalArgumentException() {
-    // Arrange
-    HistoricDetailQueryImpl historicDetailQueryImpl = new HistoricDetailQueryImpl();
-    historicDetailQueryImpl.orderBy(mock(QueryProperty.class));
-
-    // Act and Assert
-    assertThrows(
-        ActivitiIllegalArgumentException.class, () -> historicDetailQueryImpl.executeCount(null));
-  }
-
-  /**
-   * Test {@link HistoricDetailQueryImpl#executeList(CommandContext, Page)}.
-   *
-   * <ul>
-   *   <li>Then throw {@link ActivitiIllegalArgumentException}.
-   * </ul>
-   *
-   * <p>Method under test: {@link HistoricDetailQueryImpl#executeList(CommandContext, Page)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"java.util.List HistoricDetailQueryImpl.executeList(CommandContext, Page)"})
-  public void testExecuteList_thenThrowActivitiIllegalArgumentException() {
-    // Arrange
-    HistoricDetailQueryImpl historicDetailQueryImpl = new HistoricDetailQueryImpl();
-    historicDetailQueryImpl.orderBy(mock(QueryProperty.class));
-
-    // Act and Assert
-    assertThrows(
-        ActivitiIllegalArgumentException.class,
-        () -> historicDetailQueryImpl.executeList(null, new Page(1, 3)));
   }
 }

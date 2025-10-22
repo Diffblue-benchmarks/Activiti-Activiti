@@ -18,7 +18,6 @@ package org.activiti.api.runtime.conf.impl;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import com.fasterxml.jackson.core.Version;
 import com.fasterxml.jackson.databind.Module;
@@ -27,44 +26,32 @@ import java.util.List;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-@ContextConfiguration(classes = {CommonModelAutoConfiguration.class})
-@ExtendWith(SpringExtension.class)
 class CommonModelAutoConfigurationDiffblueTest {
-  @Autowired private CommonModelAutoConfiguration commonModelAutoConfiguration;
-
   /**
    * Test {@link CommonModelAutoConfiguration#customizeCommonModelObjectMapper()}.
-   *
-   * <p>Method under test: {@link CommonModelAutoConfiguration#customizeCommonModelObjectMapper()}
+   * <p>
+   * Method under test: {@link CommonModelAutoConfiguration#customizeCommonModelObjectMapper()}
    */
   @Test
   @DisplayName("Test customizeCommonModelObjectMapper()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"Module CommonModelAutoConfiguration.customizeCommonModelObjectMapper()"})
   void testCustomizeCommonModelObjectMapper() {
     // Arrange and Act
-    Module actualCustomizeCommonModelObjectMapperResult =
-        commonModelAutoConfiguration.customizeCommonModelObjectMapper();
+    Module actualCustomizeCommonModelObjectMapperResult = (new CommonModelAutoConfiguration())
+        .customizeCommonModelObjectMapper();
 
     // Assert
     assertTrue(actualCustomizeCommonModelObjectMapperResult instanceof SimpleModule);
-    Iterable<? extends Module> dependencies =
-        actualCustomizeCommonModelObjectMapperResult.getDependencies();
+    Iterable<? extends Module> dependencies = actualCustomizeCommonModelObjectMapperResult.getDependencies();
     assertTrue(dependencies instanceof List);
     Version versionResult = actualCustomizeCommonModelObjectMapperResult.version();
     assertEquals("", versionResult.getArtifactId());
     assertEquals("", versionResult.getGroupId());
     assertEquals("//0.0.0", versionResult.toFullString());
-    assertEquals(
-        "mapCommonModelInterfaces", actualCustomizeCommonModelObjectMapperResult.getModuleName());
-    assertEquals(
-        "mapCommonModelInterfaces", actualCustomizeCommonModelObjectMapperResult.getTypeId());
+    assertEquals("mapCommonModelInterfaces", actualCustomizeCommonModelObjectMapperResult.getModuleName());
+    assertEquals("mapCommonModelInterfaces", actualCustomizeCommonModelObjectMapperResult.getTypeId());
     assertEquals(0, versionResult.getMajorVersion());
     assertEquals(0, versionResult.getMinorVersion());
     assertEquals(0, versionResult.getPatchLevel());

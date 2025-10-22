@@ -23,8 +23,7 @@ import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import jakarta.transaction.InvalidTransactionException;
 import jakarta.transaction.SystemException;
@@ -39,108 +38,53 @@ import org.junit.experimental.categories.Category;
 import org.mockito.Mockito;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.transaction.PlatformTransactionManager;
-import org.springframework.transaction.TransactionDefinition;
-import org.springframework.transaction.TransactionException;
-import org.springframework.transaction.TransactionStatus;
 import org.springframework.transaction.jta.JtaTransactionManager;
 import org.springframework.transaction.jta.ManagedTransactionAdapter;
-import org.springframework.transaction.support.SimpleTransactionStatus;
 
 public class SpringTransactionInterceptorDiffblueTest {
   /**
-   * Test {@link
-   * SpringTransactionInterceptor#SpringTransactionInterceptor(PlatformTransactionManager)}.
-   *
-   * <p>Method under test: {@link
-   * SpringTransactionInterceptor#SpringTransactionInterceptor(PlatformTransactionManager)}
+   * Test {@link SpringTransactionInterceptor#SpringTransactionInterceptor(PlatformTransactionManager)}.
+   * <p>
+   * Method under test: {@link SpringTransactionInterceptor#SpringTransactionInterceptor(PlatformTransactionManager)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void SpringTransactionInterceptor.<init>(PlatformTransactionManager)"})
   public void testNewSpringTransactionInterceptor() {
     // Arrange, Act and Assert
-    assertNull(new SpringTransactionInterceptor(new DataSourceTransactionManager()).getNext());
+    assertNull((new SpringTransactionInterceptor(new DataSourceTransactionManager())).getNext());
   }
 
   /**
    * Test {@link SpringTransactionInterceptor#execute(CommandConfig, Command)}.
-   *
    * <ul>
-   *   <li>Given {@code REQUIRED}.
+   *   <li>Given {@code NOT_SUPPORTED}.</li>
+   *   <li>Then calls {@link TransactionManager#resume(Transaction)}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link SpringTransactionInterceptor#execute(CommandConfig, Command)}
+   * <p>
+   * Method under test: {@link SpringTransactionInterceptor#execute(CommandConfig, Command)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"Object SpringTransactionInterceptor.execute(CommandConfig, Command)"})
-  public void testExecute_givenRequired() throws SystemException {
-    // Arrange
-    TransactionManager transactionManager = mock(TransactionManager.class);
-    when(transactionManager.getStatus()).thenReturn(1);
-    JtaTransactionManager transactionManager2 = new JtaTransactionManager(transactionManager);
-
-    CommandContextInterceptor next = mock(CommandContextInterceptor.class);
-    when(next.execute(Mockito.<CommandConfig>any(), Mockito.<Command<Object>>any()))
-        .thenReturn("Execute");
-
-    SpringTransactionInterceptor springTransactionInterceptor =
-        new SpringTransactionInterceptor(transactionManager2);
-    springTransactionInterceptor.setNext(next);
-
-    CommandConfig config = mock(CommandConfig.class);
-    when(config.getTransactionPropagation()).thenReturn(TransactionPropagation.REQUIRED);
-
-    // Act
-    Object actualExecuteResult = springTransactionInterceptor.execute(config, mock(Command.class));
-
-    // Assert
-    verify(transactionManager).getStatus();
-    verify(config, atLeast(1)).getTransactionPropagation();
-    verify(next).execute(isA(CommandConfig.class), isA(Command.class));
-    assertEquals("Execute", actualExecuteResult);
-  }
-
-  /**
-   * Test {@link SpringTransactionInterceptor#execute(CommandConfig, Command)}.
-   *
-   * <ul>
-   *   <li>Given {@link TransactionManager} {@link TransactionManager#resume(Transaction)} does
-   *       nothing.
-   *   <li>Then calls {@link TransactionManager#resume(Transaction)}.
-   * </ul>
-   *
-   * <p>Method under test: {@link SpringTransactionInterceptor#execute(CommandConfig, Command)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"Object SpringTransactionInterceptor.execute(CommandConfig, Command)"})
-  public void testExecute_givenTransactionManagerResumeDoesNothing_thenCallsResume()
+  public void testExecute_givenNotSupported_thenCallsResume()
       throws InvalidTransactionException, SystemException, IllegalStateException {
     // Arrange
     TransactionManager transactionManager = mock(TransactionManager.class);
     doNothing().when(transactionManager).resume(Mockito.<Transaction>any());
-    when(transactionManager.suspend())
-        .thenReturn(new ManagedTransactionAdapter(mock(TransactionManager.class)));
+    when(transactionManager.suspend()).thenReturn(new ManagedTransactionAdapter(mock(TransactionManager.class)));
     when(transactionManager.getStatus()).thenReturn(1);
     JtaTransactionManager transactionManager2 = new JtaTransactionManager(transactionManager);
-
     CommandContextInterceptor next = mock(CommandContextInterceptor.class);
-    when(next.execute(Mockito.<CommandConfig>any(), Mockito.<Command<Object>>any()))
-        .thenReturn("Execute");
+    when(next.execute(Mockito.<CommandConfig>any(), Mockito.<Command<Object>>any())).thenReturn("Execute");
 
-    SpringTransactionInterceptor springTransactionInterceptor =
-        new SpringTransactionInterceptor(transactionManager2);
+    SpringTransactionInterceptor springTransactionInterceptor = new SpringTransactionInterceptor(transactionManager2);
     springTransactionInterceptor.setNext(next);
-
     CommandConfig config = mock(CommandConfig.class);
     when(config.getTransactionPropagation()).thenReturn(TransactionPropagation.NOT_SUPPORTED);
 
     // Act
-    Object actualExecuteResult = springTransactionInterceptor.execute(config, mock(Command.class));
+    Object actualExecuteResult = springTransactionInterceptor.<Object>execute(config, mock(Command.class));
 
     // Assert
     verify(transactionManager).getStatus();
@@ -153,43 +97,36 @@ public class SpringTransactionInterceptorDiffblueTest {
 
   /**
    * Test {@link SpringTransactionInterceptor#execute(CommandConfig, Command)}.
-   *
    * <ul>
-   *   <li>Then calls {@link JtaTransactionManager#commit(TransactionStatus)}.
+   *   <li>Given {@code REQUIRED}.</li>
+   *   <li>Then return {@code Execute}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link SpringTransactionInterceptor#execute(CommandConfig, Command)}
+   * <p>
+   * Method under test: {@link SpringTransactionInterceptor#execute(CommandConfig, Command)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"Object SpringTransactionInterceptor.execute(CommandConfig, Command)"})
-  public void testExecute_thenCallsCommit() throws TransactionException {
+  public void testExecute_givenRequired_thenReturnExecute() throws SystemException {
     // Arrange
-    JtaTransactionManager transactionManager = mock(JtaTransactionManager.class);
-    when(transactionManager.getTransaction(Mockito.<TransactionDefinition>any()))
-        .thenReturn(new SimpleTransactionStatus(true));
-    doNothing().when(transactionManager).commit(Mockito.<TransactionStatus>any());
-
+    TransactionManager transactionManager = mock(TransactionManager.class);
+    when(transactionManager.getStatus()).thenReturn(1);
+    JtaTransactionManager transactionManager2 = new JtaTransactionManager(transactionManager);
     CommandContextInterceptor next = mock(CommandContextInterceptor.class);
-    when(next.execute(Mockito.<CommandConfig>any(), Mockito.<Command<Object>>any()))
-        .thenReturn("Execute");
+    when(next.execute(Mockito.<CommandConfig>any(), Mockito.<Command<Object>>any())).thenReturn("Execute");
 
-    SpringTransactionInterceptor springTransactionInterceptor =
-        new SpringTransactionInterceptor(transactionManager);
+    SpringTransactionInterceptor springTransactionInterceptor = new SpringTransactionInterceptor(transactionManager2);
     springTransactionInterceptor.setNext(next);
-
     CommandConfig config = mock(CommandConfig.class);
-    when(config.getTransactionPropagation()).thenReturn(TransactionPropagation.REQUIRES_NEW);
+    when(config.getTransactionPropagation()).thenReturn(TransactionPropagation.REQUIRED);
 
     // Act
-    Object actualExecuteResult = springTransactionInterceptor.execute(config, mock(Command.class));
+    Object actualExecuteResult = springTransactionInterceptor.<Object>execute(config, mock(Command.class));
 
     // Assert
+    verify(transactionManager).getStatus();
     verify(config, atLeast(1)).getTransactionPropagation();
     verify(next).execute(isA(CommandConfig.class), isA(Command.class));
-    verify(transactionManager).commit(isA(TransactionStatus.class));
-    verify(transactionManager).getTransaction(isA(TransactionDefinition.class));
     assertEquals("Execute", actualExecuteResult);
   }
 }

@@ -16,8 +16,7 @@
 package org.activiti.engine.impl.cmd;
 
 import static org.junit.Assert.assertEquals;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
@@ -25,15 +24,14 @@ import org.junit.experimental.categories.Category;
 public class GetTaskAttachmentsCmdDiffblueTest {
   /**
    * Test {@link GetTaskAttachmentsCmd#GetTaskAttachmentsCmd(String)}.
-   *
-   * <p>Method under test: {@link GetTaskAttachmentsCmd#GetTaskAttachmentsCmd(String)}
+   * <p>
+   * Method under test: {@link GetTaskAttachmentsCmd#GetTaskAttachmentsCmd(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void GetTaskAttachmentsCmd.<init>(String)"})
   public void testNewGetTaskAttachmentsCmd() {
     // Arrange, Act and Assert
-    assertEquals("42", new GetTaskAttachmentsCmd("42").taskId);
+    assertEquals("42", (new GetTaskAttachmentsCmd("42")).taskId);
   }
 }

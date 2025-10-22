@@ -18,7 +18,6 @@ package org.activiti.api.runtime.model.impl;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
@@ -27,9 +26,8 @@ import org.junit.jupiter.api.Test;
 class BPMNErrorImplDiffblueTest {
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>{@link BPMNErrorImpl#BPMNErrorImpl()}
    *   <li>{@link BPMNErrorImpl#setErrorCode(String)}
@@ -41,16 +39,10 @@ class BPMNErrorImplDiffblueTest {
    */
   @Test
   @DisplayName("Test getters and setters")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void BPMNErrorImpl.<init>()",
-    "String BPMNErrorImpl.getErrorCode()",
-    "String BPMNErrorImpl.getErrorId()",
-    "void BPMNErrorImpl.setErrorCode(String)",
-    "void BPMNErrorImpl.setErrorId(String)",
-    "String BPMNErrorImpl.toString()"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void BPMNErrorImpl.<init>()", "String BPMNErrorImpl.getErrorCode()",
+      "String BPMNErrorImpl.getErrorId()", "void BPMNErrorImpl.setErrorCode(String)",
+      "void BPMNErrorImpl.setErrorId(String)", "String BPMNErrorImpl.toString()"})
   void testGettersAndSetters() {
     // Arrange and Act
     BPMNErrorImpl actualBpmnErrorImpl = new BPMNErrorImpl();
@@ -76,13 +68,12 @@ class BPMNErrorImplDiffblueTest {
 
   /**
    * Test {@link BPMNErrorImpl#BPMNErrorImpl(String)}.
-   *
-   * <p>Method under test: {@link BPMNErrorImpl#BPMNErrorImpl(String)}
+   * <p>
+   * Method under test: {@link BPMNErrorImpl#BPMNErrorImpl(String)}
    */
   @Test
   @DisplayName("Test new BPMNErrorImpl(String)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void BPMNErrorImpl.<init>(String)"})
   void testNewBPMNErrorImpl() {
     // Arrange and Act
@@ -101,13 +92,12 @@ class BPMNErrorImplDiffblueTest {
 
   /**
    * Test {@link BPMNErrorImpl#BPMNErrorImpl(String, String, String)}.
-   *
-   * <p>Method under test: {@link BPMNErrorImpl#BPMNErrorImpl(String, String, String)}
+   * <p>
+   * Method under test: {@link BPMNErrorImpl#BPMNErrorImpl(String, String, String)}
    */
   @Test
   @DisplayName("Test new BPMNErrorImpl(String, String, String)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void BPMNErrorImpl.<init>(String, String, String)"})
   void testNewBPMNErrorImpl2() {
     // Arrange and Act
@@ -126,14 +116,12 @@ class BPMNErrorImplDiffblueTest {
 
   /**
    * Test {@link BPMNErrorImpl#equals(Object)}, and {@link BPMNErrorImpl#hashCode()}.
-   *
    * <ul>
-   *   <li>When other is equal.
-   *   <li>Then return equal.
+   *   <li>When other is equal.</li>
+   *   <li>Then return equal.</li>
    * </ul>
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>{@link BPMNErrorImpl#equals(Object)}
    *   <li>{@link BPMNErrorImpl#hashCode()}
@@ -141,8 +129,7 @@ class BPMNErrorImplDiffblueTest {
    */
   @Test
   @DisplayName("Test equals(Object), and hashCode(); when other is equal; then return equal")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"boolean BPMNErrorImpl.equals(Object)", "int BPMNErrorImpl.hashCode()"})
   void testEqualsAndHashCode_whenOtherIsEqual_thenReturnEqual() {
     // Arrange
@@ -151,19 +138,18 @@ class BPMNErrorImplDiffblueTest {
 
     // Act and Assert
     assertEquals(bpmnErrorImpl, bpmnErrorImpl2);
-    assertEquals(bpmnErrorImpl.hashCode(), bpmnErrorImpl2.hashCode());
+    int expectedHashCodeResult = bpmnErrorImpl.hashCode();
+    assertEquals(expectedHashCodeResult, bpmnErrorImpl2.hashCode());
   }
 
   /**
    * Test {@link BPMNErrorImpl#equals(Object)}, and {@link BPMNErrorImpl#hashCode()}.
-   *
    * <ul>
-   *   <li>When other is same.
-   *   <li>Then return equal.
+   *   <li>When other is same.</li>
+   *   <li>Then return equal.</li>
    * </ul>
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>{@link BPMNErrorImpl#equals(Object)}
    *   <li>{@link BPMNErrorImpl#hashCode()}
@@ -171,8 +157,7 @@ class BPMNErrorImplDiffblueTest {
    */
   @Test
   @DisplayName("Test equals(Object), and hashCode(); when other is same; then return equal")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"boolean BPMNErrorImpl.equals(Object)", "int BPMNErrorImpl.hashCode()"})
   void testEqualsAndHashCode_whenOtherIsSame_thenReturnEqual() {
     // Arrange
@@ -186,22 +171,20 @@ class BPMNErrorImplDiffblueTest {
 
   /**
    * Test {@link BPMNErrorImpl#equals(Object)}.
-   *
    * <ul>
-   *   <li>When other is different.
-   *   <li>Then return not equal.
+   *   <li>When other is different.</li>
+   *   <li>Then return not equal.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link BPMNErrorImpl#equals(Object)}
+   * <p>
+   * Method under test: {@link BPMNErrorImpl#equals(Object)}
    */
   @Test
   @DisplayName("Test equals(Object); when other is different; then return not equal")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"boolean BPMNErrorImpl.equals(Object)", "int BPMNErrorImpl.hashCode()"})
   void testEquals_whenOtherIsDifferent_thenReturnNotEqual() {
     // Arrange
-    BPMNErrorImpl bpmnErrorImpl = new BPMNErrorImpl();
+    BPMNErrorImpl bpmnErrorImpl = new BPMNErrorImpl("Element Id");
 
     // Act and Assert
     assertNotEquals(bpmnErrorImpl, new BPMNErrorImpl("42"));
@@ -209,18 +192,16 @@ class BPMNErrorImplDiffblueTest {
 
   /**
    * Test {@link BPMNErrorImpl#equals(Object)}.
-   *
    * <ul>
-   *   <li>When other is different.
-   *   <li>Then return not equal.
+   *   <li>When other is different.</li>
+   *   <li>Then return not equal.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link BPMNErrorImpl#equals(Object)}
+   * <p>
+   * Method under test: {@link BPMNErrorImpl#equals(Object)}
    */
   @Test
   @DisplayName("Test equals(Object); when other is different; then return not equal")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"boolean BPMNErrorImpl.equals(Object)", "int BPMNErrorImpl.hashCode()"})
   void testEquals_whenOtherIsDifferent_thenReturnNotEqual2() {
     // Arrange
@@ -232,18 +213,16 @@ class BPMNErrorImplDiffblueTest {
 
   /**
    * Test {@link BPMNErrorImpl#equals(Object)}.
-   *
    * <ul>
-   *   <li>When other is different.
-   *   <li>Then return not equal.
+   *   <li>When other is different.</li>
+   *   <li>Then return not equal.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link BPMNErrorImpl#equals(Object)}
+   * <p>
+   * Method under test: {@link BPMNErrorImpl#equals(Object)}
    */
   @Test
   @DisplayName("Test equals(Object); when other is different; then return not equal")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"boolean BPMNErrorImpl.equals(Object)", "int BPMNErrorImpl.hashCode()"})
   void testEquals_whenOtherIsDifferent_thenReturnNotEqual3() {
     // Arrange
@@ -256,18 +235,16 @@ class BPMNErrorImplDiffblueTest {
 
   /**
    * Test {@link BPMNErrorImpl#equals(Object)}.
-   *
    * <ul>
-   *   <li>When other is different.
-   *   <li>Then return not equal.
+   *   <li>When other is different.</li>
+   *   <li>Then return not equal.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link BPMNErrorImpl#equals(Object)}
+   * <p>
+   * Method under test: {@link BPMNErrorImpl#equals(Object)}
    */
   @Test
   @DisplayName("Test equals(Object); when other is different; then return not equal")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"boolean BPMNErrorImpl.equals(Object)", "int BPMNErrorImpl.hashCode()"})
   void testEquals_whenOtherIsDifferent_thenReturnNotEqual4() {
     // Arrange
@@ -280,18 +257,16 @@ class BPMNErrorImplDiffblueTest {
 
   /**
    * Test {@link BPMNErrorImpl#equals(Object)}.
-   *
    * <ul>
-   *   <li>When other is different.
-   *   <li>Then return not equal.
+   *   <li>When other is different.</li>
+   *   <li>Then return not equal.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link BPMNErrorImpl#equals(Object)}
+   * <p>
+   * Method under test: {@link BPMNErrorImpl#equals(Object)}
    */
   @Test
   @DisplayName("Test equals(Object); when other is different; then return not equal")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"boolean BPMNErrorImpl.equals(Object)", "int BPMNErrorImpl.hashCode()"})
   void testEquals_whenOtherIsDifferent_thenReturnNotEqual5() {
     // Arrange
@@ -304,18 +279,16 @@ class BPMNErrorImplDiffblueTest {
 
   /**
    * Test {@link BPMNErrorImpl#equals(Object)}.
-   *
    * <ul>
-   *   <li>When other is {@code null}.
-   *   <li>Then return not equal.
+   *   <li>When other is {@code null}.</li>
+   *   <li>Then return not equal.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link BPMNErrorImpl#equals(Object)}
+   * <p>
+   * Method under test: {@link BPMNErrorImpl#equals(Object)}
    */
   @Test
   @DisplayName("Test equals(Object); when other is 'null'; then return not equal")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"boolean BPMNErrorImpl.equals(Object)", "int BPMNErrorImpl.hashCode()"})
   void testEquals_whenOtherIsNull_thenReturnNotEqual() {
     // Arrange, Act and Assert
@@ -324,18 +297,16 @@ class BPMNErrorImplDiffblueTest {
 
   /**
    * Test {@link BPMNErrorImpl#equals(Object)}.
-   *
    * <ul>
-   *   <li>When other is wrong type.
-   *   <li>Then return not equal.
+   *   <li>When other is wrong type.</li>
+   *   <li>Then return not equal.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link BPMNErrorImpl#equals(Object)}
+   * <p>
+   * Method under test: {@link BPMNErrorImpl#equals(Object)}
    */
   @Test
   @DisplayName("Test equals(Object); when other is wrong type; then return not equal")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"boolean BPMNErrorImpl.equals(Object)", "int BPMNErrorImpl.hashCode()"})
   void testEquals_whenOtherIsWrongType_thenReturnNotEqual() {
     // Arrange, Act and Assert

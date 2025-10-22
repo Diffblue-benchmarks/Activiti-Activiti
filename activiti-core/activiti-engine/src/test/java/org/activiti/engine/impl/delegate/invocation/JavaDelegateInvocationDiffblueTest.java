@@ -21,8 +21,7 @@ import static org.mockito.ArgumentMatchers.isA;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.engine.delegate.DelegateExecution;
 import org.activiti.engine.delegate.JavaDelegate;
@@ -34,45 +33,39 @@ import org.mockito.Mockito;
 public class JavaDelegateInvocationDiffblueTest {
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>{@link JavaDelegateInvocation#JavaDelegateInvocation(JavaDelegate, DelegateExecution)}
    *   <li>{@link JavaDelegateInvocation#getTarget()}
    * </ul>
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void JavaDelegateInvocation.<init>(JavaDelegate, DelegateExecution)",
-    "Object JavaDelegateInvocation.getTarget()"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void JavaDelegateInvocation.<init>(JavaDelegate, DelegateExecution)",
+      "Object JavaDelegateInvocation.getTarget()"})
   public void testGettersAndSetters() {
     // Arrange
     JavaDelegate delegateInstance = mock(JavaDelegate.class);
 
     // Act
-    JavaDelegateInvocation actualJavaDelegateInvocation =
-        new JavaDelegateInvocation(
-            delegateInstance, ExecutionEntityImpl.createWithEmptyRelationshipCollections());
+    JavaDelegateInvocation actualJavaDelegateInvocation = new JavaDelegateInvocation(delegateInstance,
+        ExecutionEntityImpl.createWithEmptyRelationshipCollections());
     Object actualTarget = actualJavaDelegateInvocation.getTarget();
 
     // Assert
-    assertNull(actualJavaDelegateInvocation.getInvocationResult());
     assertNull(actualJavaDelegateInvocation.getInvocationParameters());
+    assertNull(actualJavaDelegateInvocation.getInvocationResult());
     assertSame(delegateInstance, actualTarget);
   }
 
   /**
    * Test {@link JavaDelegateInvocation#invoke()}.
-   *
-   * <p>Method under test: {@link JavaDelegateInvocation#invoke()}
+   * <p>
+   * Method under test: {@link JavaDelegateInvocation#invoke()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void JavaDelegateInvocation.invoke()"})
   public void testInvoke() {
     // Arrange
@@ -80,8 +73,7 @@ public class JavaDelegateInvocationDiffblueTest {
     doNothing().when(delegateInstance).execute(Mockito.<DelegateExecution>any());
 
     // Act
-    new JavaDelegateInvocation(
-            delegateInstance, ExecutionEntityImpl.createWithEmptyRelationshipCollections())
+    (new JavaDelegateInvocation(delegateInstance, ExecutionEntityImpl.createWithEmptyRelationshipCollections()))
         .invoke();
 
     // Assert

@@ -19,8 +19,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.HashMap;
 import java.util.List;
@@ -43,57 +42,49 @@ import org.activiti.engine.impl.bpmn.parser.factory.DefaultMessageExecutionConte
 import org.activiti.engine.impl.bpmn.parser.factory.MessageExecutionContext;
 import org.activiti.engine.impl.delegate.BpmnMessagePayloadMappingProvider;
 import org.activiti.engine.impl.delegate.DefaultThrowMessageJavaDelegate;
-import org.activiti.engine.test.util.TestProcessUtil;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 
 public class IntermediateThrowEventParseHandlerDiffblueTest {
   /**
-   * Test {@link IntermediateThrowEventParseHandler#executeParse(BpmnParse, ThrowEvent)} with {@code
-   * BpmnParse}, {@code ThrowEvent}.
-   *
-   * <p>Method under test: {@link IntermediateThrowEventParseHandler#executeParse(BpmnParse,
-   * ThrowEvent)}
+   * Test {@link IntermediateThrowEventParseHandler#executeParse(BpmnParse, ThrowEvent)} with {@code BpmnParse}, {@code ThrowEvent}.
+   * <p>
+   * Method under test: {@link IntermediateThrowEventParseHandler#executeParse(BpmnParse, ThrowEvent)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void IntermediateThrowEventParseHandler.executeParse(BpmnParse, ThrowEvent)"})
   public void testExecuteParseWithBpmnParseThrowEvent() {
     // Arrange
-    IntermediateThrowEventParseHandler intermediateThrowEventParseHandler =
-        new IntermediateThrowEventParseHandler();
+    IntermediateThrowEventParseHandler intermediateThrowEventParseHandler = new IntermediateThrowEventParseHandler();
 
-    BpmnParse bpmnParse = new BpmnParse(new BpmnParser());
-    bpmnParse.setActivityBehaviorFactory(new DefaultActivityBehaviorFactory());
+    BpmnParser parser = new BpmnParser();
+    parser.setActivityBehaviorFactory(new DefaultActivityBehaviorFactory());
+    BpmnParse bpmnParse = new BpmnParse(parser);
     ThrowEvent intermediateEvent = new ThrowEvent();
 
     // Act
     intermediateThrowEventParseHandler.executeParse(bpmnParse, intermediateEvent);
 
     // Assert
-    assertTrue(
-        intermediateEvent.getBehavior() instanceof IntermediateThrowNoneEventActivityBehavior);
+    assertTrue(intermediateEvent.getBehavior() instanceof IntermediateThrowNoneEventActivityBehavior);
   }
 
   /**
-   * Test {@link IntermediateThrowEventParseHandler#executeParse(BpmnParse, ThrowEvent)} with {@code
-   * BpmnParse}, {@code ThrowEvent}.
-   *
-   * <p>Method under test: {@link IntermediateThrowEventParseHandler#executeParse(BpmnParse,
-   * ThrowEvent)}
+   * Test {@link IntermediateThrowEventParseHandler#executeParse(BpmnParse, ThrowEvent)} with {@code BpmnParse}, {@code ThrowEvent}.
+   * <p>
+   * Method under test: {@link IntermediateThrowEventParseHandler#executeParse(BpmnParse, ThrowEvent)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void IntermediateThrowEventParseHandler.executeParse(BpmnParse, ThrowEvent)"})
   public void testExecuteParseWithBpmnParseThrowEvent2() {
     // Arrange
-    IntermediateThrowEventParseHandler intermediateThrowEventParseHandler =
-        new IntermediateThrowEventParseHandler();
+    IntermediateThrowEventParseHandler intermediateThrowEventParseHandler = new IntermediateThrowEventParseHandler();
 
-    BpmnParse bpmnParse = new BpmnParse(new BpmnParser());
-    bpmnParse.setActivityBehaviorFactory(new DefaultActivityBehaviorFactory());
+    BpmnParser parser = new BpmnParser();
+    parser.setActivityBehaviorFactory(new DefaultActivityBehaviorFactory());
+    BpmnParse bpmnParse = new BpmnParse(parser);
 
     ThrowEvent intermediateEvent = new ThrowEvent();
     intermediateEvent.addEventDefinition(new CompensateEventDefinition());
@@ -102,96 +93,23 @@ public class IntermediateThrowEventParseHandlerDiffblueTest {
     intermediateThrowEventParseHandler.executeParse(bpmnParse, intermediateEvent);
 
     // Assert
-    assertTrue(
-        intermediateEvent.getBehavior()
-            instanceof IntermediateThrowCompensationEventActivityBehavior);
+    assertTrue(intermediateEvent.getBehavior() instanceof IntermediateThrowCompensationEventActivityBehavior);
   }
 
   /**
-   * Test {@link IntermediateThrowEventParseHandler#executeParse(BpmnParse, ThrowEvent)} with {@code
-   * BpmnParse}, {@code ThrowEvent}.
-   *
-   * <p>Method under test: {@link IntermediateThrowEventParseHandler#executeParse(BpmnParse,
-   * ThrowEvent)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void IntermediateThrowEventParseHandler.executeParse(BpmnParse, ThrowEvent)"})
-  public void testExecuteParseWithBpmnParseThrowEvent3() {
-    // Arrange
-    IntermediateThrowEventParseHandler intermediateThrowEventParseHandler =
-        new IntermediateThrowEventParseHandler();
-
-    BpmnModel bpmnModel = TestProcessUtil.createOneTaskBpmnModel();
-
-    Builder builderResult = Message.builder();
-
-    Builder attributesResult = builderResult.attributes(new HashMap<>());
-    bpmnModel.addMessage(
-        attributesResult
-            .extensionElements(new HashMap<>())
-            .id("42")
-            .itemRef("Item Ref")
-            .name("Name")
-            .xmlColumnNumber(10)
-            .xmlRowNumber(10)
-            .build());
-
-    BpmnParse bpmnParse = new BpmnParse(new BpmnParser());
-    bpmnParse.setActivityBehaviorFactory(new DefaultActivityBehaviorFactory());
-    bpmnParse.setBpmnModel(bpmnModel);
-
-    MessageEventDefinition eventDefinition = new MessageEventDefinition();
-    eventDefinition.setMessageRef("class");
-
-    ThrowEvent intermediateEvent = new ThrowEvent();
-    intermediateEvent.addEventDefinition(eventDefinition);
-
-    // Act
-    intermediateThrowEventParseHandler.executeParse(bpmnParse, intermediateEvent);
-
-    // Assert
-    Object behavior = intermediateEvent.getBehavior();
-    assertTrue(behavior instanceof IntermediateThrowMessageEventActivityBehavior);
-    MessageExecutionContext messageExecutionContext =
-        ((IntermediateThrowMessageEventActivityBehavior) behavior).getMessageExecutionContext();
-    assertTrue(messageExecutionContext instanceof DefaultMessageExecutionContext);
-    assertTrue(
-        ((DefaultMessageExecutionContext) messageExecutionContext)
-                .getMessagePayloadMappingProvider()
-            instanceof BpmnMessagePayloadMappingProvider);
-    assertTrue(
-        ((IntermediateThrowMessageEventActivityBehavior) behavior).getDelegate()
-            instanceof DefaultThrowMessageJavaDelegate);
-    assertNull(((DefaultMessageExecutionContext) messageExecutionContext).getExpressionManager());
-    assertSame(
-        eventDefinition,
-        ((IntermediateThrowMessageEventActivityBehavior) behavior).getMessageEventDefinition());
-    assertSame(
-        intermediateEvent,
-        ((IntermediateThrowMessageEventActivityBehavior) behavior).getThrowEvent());
-  }
-
-  /**
-   * Test {@link IntermediateThrowEventParseHandler#executeParse(BpmnParse, ThrowEvent)} with {@code
-   * BpmnParse}, {@code ThrowEvent}.
-   *
+   * Test {@link IntermediateThrowEventParseHandler#executeParse(BpmnParse, ThrowEvent)} with {@code BpmnParse}, {@code ThrowEvent}.
    * <ul>
-   *   <li>Then {@link ThrowEvent} (default constructor) Behavior is {@code null}.
+   *   <li>Then {@link ThrowEvent} (default constructor) Behavior is {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link IntermediateThrowEventParseHandler#executeParse(BpmnParse,
-   * ThrowEvent)}
+   * <p>
+   * Method under test: {@link IntermediateThrowEventParseHandler#executeParse(BpmnParse, ThrowEvent)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void IntermediateThrowEventParseHandler.executeParse(BpmnParse, ThrowEvent)"})
   public void testExecuteParseWithBpmnParseThrowEvent_thenThrowEventBehaviorIsNull() {
     // Arrange
-    IntermediateThrowEventParseHandler intermediateThrowEventParseHandler =
-        new IntermediateThrowEventParseHandler();
+    IntermediateThrowEventParseHandler intermediateThrowEventParseHandler = new IntermediateThrowEventParseHandler();
     BpmnParse bpmnParse = new BpmnParse(new BpmnParser());
 
     ThrowEvent intermediateEvent = new ThrowEvent();
@@ -205,42 +123,36 @@ public class IntermediateThrowEventParseHandlerDiffblueTest {
   }
 
   /**
-   * Test {@link IntermediateThrowEventParseHandler#executeParse(BpmnParse, ThrowEvent)} with {@code
-   * BpmnParse}, {@code ThrowEvent}.
-   *
+   * Test {@link IntermediateThrowEventParseHandler#executeParse(BpmnParse, ThrowEvent)} with {@code BpmnParse}, {@code ThrowEvent}.
    * <ul>
-   *   <li>Then {@link ThrowEvent} (default constructor) EventDefinitions size is one.
+   *   <li>Then {@link ThrowEvent} (default constructor) EventDefinitions size is one.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link IntermediateThrowEventParseHandler#executeParse(BpmnParse,
-   * ThrowEvent)}
+   * <p>
+   * Method under test: {@link IntermediateThrowEventParseHandler#executeParse(BpmnParse, ThrowEvent)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void IntermediateThrowEventParseHandler.executeParse(BpmnParse, ThrowEvent)"})
   public void testExecuteParseWithBpmnParseThrowEvent_thenThrowEventEventDefinitionsSizeIsOne() {
     // Arrange
-    IntermediateThrowEventParseHandler intermediateThrowEventParseHandler =
-        new IntermediateThrowEventParseHandler();
+    IntermediateThrowEventParseHandler intermediateThrowEventParseHandler = new IntermediateThrowEventParseHandler();
 
-    BpmnModel bpmnModel = TestProcessUtil.createOneTaskBpmnModel();
+    BpmnParser parser = new BpmnParser();
+    parser.setActivityBehaviorFactory(new DefaultActivityBehaviorFactory());
 
+    BpmnModel bpmnModel = new BpmnModel();
     Builder builderResult = Message.builder();
-
     Builder attributesResult = builderResult.attributes(new HashMap<>());
-    bpmnModel.addMessage(
-        attributesResult
-            .extensionElements(new HashMap<>())
-            .id("42")
-            .itemRef("Item Ref")
-            .name("Name")
-            .xmlColumnNumber(10)
-            .xmlRowNumber(10)
-            .build());
+    Message message = attributesResult.extensionElements(new HashMap<>())
+        .id("42")
+        .itemRef("Item Ref")
+        .name("Name")
+        .xmlColumnNumber(10)
+        .xmlRowNumber(10)
+        .build();
+    bpmnModel.addMessage(message);
 
-    BpmnParse bpmnParse = new BpmnParse(new BpmnParser());
-    bpmnParse.setActivityBehaviorFactory(new DefaultActivityBehaviorFactory());
+    BpmnParse bpmnParse = new BpmnParse(parser);
     bpmnParse.setBpmnModel(bpmnModel);
 
     MessageEventDefinition eventDefinition = new MessageEventDefinition();
@@ -259,47 +171,35 @@ public class IntermediateThrowEventParseHandlerDiffblueTest {
     assertTrue(getResult instanceof MessageEventDefinition);
     Object behavior = intermediateEvent.getBehavior();
     assertTrue(behavior instanceof IntermediateThrowMessageEventActivityBehavior);
-    MessageExecutionContext messageExecutionContext =
-        ((IntermediateThrowMessageEventActivityBehavior) behavior).getMessageExecutionContext();
+    MessageExecutionContext messageExecutionContext = ((IntermediateThrowMessageEventActivityBehavior) behavior)
+        .getMessageExecutionContext();
     assertTrue(messageExecutionContext instanceof DefaultMessageExecutionContext);
-    assertTrue(
-        ((DefaultMessageExecutionContext) messageExecutionContext)
-                .getMessagePayloadMappingProvider()
-            instanceof BpmnMessagePayloadMappingProvider);
-    assertTrue(
-        ((IntermediateThrowMessageEventActivityBehavior) behavior).getDelegate()
-            instanceof DefaultThrowMessageJavaDelegate);
+    assertTrue(((DefaultMessageExecutionContext) messageExecutionContext)
+        .getMessagePayloadMappingProvider() instanceof BpmnMessagePayloadMappingProvider);
+    assertTrue(((IntermediateThrowMessageEventActivityBehavior) behavior)
+        .getDelegate() instanceof DefaultThrowMessageJavaDelegate);
     assertEquals("Name", ((MessageEventDefinition) getResult).getMessageRef());
     assertNull(((DefaultMessageExecutionContext) messageExecutionContext).getExpressionManager());
-    assertSame(
-        eventDefinition,
-        ((IntermediateThrowMessageEventActivityBehavior) behavior).getMessageEventDefinition());
-    assertSame(
-        intermediateEvent,
-        ((IntermediateThrowMessageEventActivityBehavior) behavior).getThrowEvent());
+    assertSame(eventDefinition, ((IntermediateThrowMessageEventActivityBehavior) behavior).getMessageEventDefinition());
+    assertSame(intermediateEvent, ((IntermediateThrowMessageEventActivityBehavior) behavior).getThrowEvent());
   }
 
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>default or parameterless constructor of {@link IntermediateThrowEventParseHandler}
    *   <li>{@link IntermediateThrowEventParseHandler#getHandledType()}
    * </ul>
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void IntermediateThrowEventParseHandler.<init>()",
-    "Class IntermediateThrowEventParseHandler.getHandledType()"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void IntermediateThrowEventParseHandler.<init>()",
+      "Class IntermediateThrowEventParseHandler.getHandledType()"})
   public void testGettersAndSetters() {
     // Arrange and Act
-    Class<? extends BaseElement> actualHandledType =
-        new IntermediateThrowEventParseHandler().getHandledType();
+    Class<? extends BaseElement> actualHandledType = (new IntermediateThrowEventParseHandler()).getHandledType();
 
     // Assert
     Class<ThrowEvent> expectedHandledType = ThrowEvent.class;

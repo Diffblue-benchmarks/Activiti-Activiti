@@ -17,7 +17,6 @@ package org.activiti.editor.language.json.converter.util;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -28,20 +27,17 @@ import org.junit.jupiter.api.Test;
 class CollectionUtilsDiffblueTest {
   /**
    * Test {@link CollectionUtils#isEmpty(Collection)}.
-   *
    * <ul>
-   *   <li>Given {@code 42}.
-   *   <li>When {@link ArrayList#ArrayList()} add {@code 42}.
-   *   <li>Then return {@code false}.
+   *   <li>Given {@code 42}.</li>
+   *   <li>When {@link ArrayList#ArrayList()} add {@code 42}.</li>
+   *   <li>Then return {@code false}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link CollectionUtils#isEmpty(Collection)}
+   * <p>
+   * Method under test: {@link CollectionUtils#isEmpty(Collection)}
    */
   @Test
-  @DisplayName(
-      "Test isEmpty(Collection); given '42'; when ArrayList() add '42'; then return 'false'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test isEmpty(Collection); given '42'; when ArrayList() add '42'; then return 'false'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"boolean CollectionUtils.isEmpty(Collection)"})
   void testIsEmpty_given42_whenArrayListAdd42_thenReturnFalse() {
     // Arrange
@@ -54,20 +50,17 @@ class CollectionUtilsDiffblueTest {
 
   /**
    * Test {@link CollectionUtils#isEmpty(Collection)}.
-   *
    * <ul>
-   *   <li>Given {@code 42}.
-   *   <li>When {@link ArrayList#ArrayList()} add {@code 42}.
-   *   <li>Then return {@code false}.
+   *   <li>Given {@code 42}.</li>
+   *   <li>When {@link ArrayList#ArrayList()} add {@code 42}.</li>
+   *   <li>Then return {@code false}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link CollectionUtils#isEmpty(Collection)}
+   * <p>
+   * Method under test: {@link CollectionUtils#isEmpty(Collection)}
    */
   @Test
-  @DisplayName(
-      "Test isEmpty(Collection); given '42'; when ArrayList() add '42'; then return 'false'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test isEmpty(Collection); given '42'; when ArrayList() add '42'; then return 'false'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"boolean CollectionUtils.isEmpty(Collection)"})
   void testIsEmpty_given42_whenArrayListAdd42_thenReturnFalse2() {
     // Arrange
@@ -81,18 +74,16 @@ class CollectionUtilsDiffblueTest {
 
   /**
    * Test {@link CollectionUtils#isEmpty(Collection)}.
-   *
    * <ul>
-   *   <li>When {@link ArrayList#ArrayList()}.
-   *   <li>Then return {@code true}.
+   *   <li>When {@link ArrayList#ArrayList()}.</li>
+   *   <li>Then return {@code true}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link CollectionUtils#isEmpty(Collection)}
+   * <p>
+   * Method under test: {@link CollectionUtils#isEmpty(Collection)}
    */
   @Test
   @DisplayName("Test isEmpty(Collection); when ArrayList(); then return 'true'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"boolean CollectionUtils.isEmpty(Collection)"})
   void testIsEmpty_whenArrayList_thenReturnTrue() {
     // Arrange, Act and Assert
@@ -101,18 +92,16 @@ class CollectionUtilsDiffblueTest {
 
   /**
    * Test {@link CollectionUtils#isEmpty(Collection)}.
-   *
    * <ul>
-   *   <li>When {@code null}.
-   *   <li>Then return {@code true}.
+   *   <li>When {@code null}.</li>
+   *   <li>Then return {@code true}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link CollectionUtils#isEmpty(Collection)}
+   * <p>
+   * Method under test: {@link CollectionUtils#isEmpty(Collection)}
    */
   @Test
   @DisplayName("Test isEmpty(Collection); when 'null'; then return 'true'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"boolean CollectionUtils.isEmpty(Collection)"})
   void testIsEmpty_whenNull_thenReturnTrue() {
     // Arrange, Act and Assert
@@ -121,20 +110,17 @@ class CollectionUtilsDiffblueTest {
 
   /**
    * Test {@link CollectionUtils#isNotEmpty(Collection)}.
-   *
    * <ul>
-   *   <li>Given {@code 42}.
-   *   <li>When {@link ArrayList#ArrayList()} add {@code 42}.
-   *   <li>Then return {@code true}.
+   *   <li>Given {@code 42}.</li>
+   *   <li>When {@link ArrayList#ArrayList()} add {@code 42}.</li>
+   *   <li>Then return {@code true}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link CollectionUtils#isNotEmpty(Collection)}
+   * <p>
+   * Method under test: {@link CollectionUtils#isNotEmpty(Collection)}
    */
   @Test
-  @DisplayName(
-      "Test isNotEmpty(Collection); given '42'; when ArrayList() add '42'; then return 'true'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test isNotEmpty(Collection); given '42'; when ArrayList() add '42'; then return 'true'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"boolean CollectionUtils.isNotEmpty(Collection)"})
   void testIsNotEmpty_given42_whenArrayListAdd42_thenReturnTrue() {
     // Arrange
@@ -147,20 +133,17 @@ class CollectionUtilsDiffblueTest {
 
   /**
    * Test {@link CollectionUtils#isNotEmpty(Collection)}.
-   *
    * <ul>
-   *   <li>Given {@code 42}.
-   *   <li>When {@link ArrayList#ArrayList()} add {@code 42}.
-   *   <li>Then return {@code true}.
+   *   <li>Given {@code 42}.</li>
+   *   <li>When {@link ArrayList#ArrayList()} add {@code 42}.</li>
+   *   <li>Then return {@code true}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link CollectionUtils#isNotEmpty(Collection)}
+   * <p>
+   * Method under test: {@link CollectionUtils#isNotEmpty(Collection)}
    */
   @Test
-  @DisplayName(
-      "Test isNotEmpty(Collection); given '42'; when ArrayList() add '42'; then return 'true'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test isNotEmpty(Collection); given '42'; when ArrayList() add '42'; then return 'true'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"boolean CollectionUtils.isNotEmpty(Collection)"})
   void testIsNotEmpty_given42_whenArrayListAdd42_thenReturnTrue2() {
     // Arrange
@@ -174,18 +157,16 @@ class CollectionUtilsDiffblueTest {
 
   /**
    * Test {@link CollectionUtils#isNotEmpty(Collection)}.
-   *
    * <ul>
-   *   <li>When {@link ArrayList#ArrayList()}.
-   *   <li>Then return {@code false}.
+   *   <li>When {@link ArrayList#ArrayList()}.</li>
+   *   <li>Then return {@code false}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link CollectionUtils#isNotEmpty(Collection)}
+   * <p>
+   * Method under test: {@link CollectionUtils#isNotEmpty(Collection)}
    */
   @Test
   @DisplayName("Test isNotEmpty(Collection); when ArrayList(); then return 'false'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"boolean CollectionUtils.isNotEmpty(Collection)"})
   void testIsNotEmpty_whenArrayList_thenReturnFalse() {
     // Arrange, Act and Assert
@@ -194,18 +175,16 @@ class CollectionUtilsDiffblueTest {
 
   /**
    * Test {@link CollectionUtils#isNotEmpty(Collection)}.
-   *
    * <ul>
-   *   <li>When {@code null}.
-   *   <li>Then return {@code false}.
+   *   <li>When {@code null}.</li>
+   *   <li>Then return {@code false}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link CollectionUtils#isNotEmpty(Collection)}
+   * <p>
+   * Method under test: {@link CollectionUtils#isNotEmpty(Collection)}
    */
   @Test
   @DisplayName("Test isNotEmpty(Collection); when 'null'; then return 'false'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"boolean CollectionUtils.isNotEmpty(Collection)"})
   void testIsNotEmpty_whenNull_thenReturnFalse() {
     // Arrange, Act and Assert

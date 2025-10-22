@@ -18,8 +18,7 @@ package org.activiti.engine.impl.bpmn.behavior;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.bpmn.model.CompensateEventDefinition;
 import org.junit.Test;
@@ -27,23 +26,17 @@ import org.junit.experimental.categories.Category;
 
 public class IntermediateThrowCompensationEventActivityBehaviorDiffblueTest {
   /**
-   * Test {@link
-   * IntermediateThrowCompensationEventActivityBehavior#IntermediateThrowCompensationEventActivityBehavior(CompensateEventDefinition)}.
-   *
-   * <p>Method under test: {@link
-   * IntermediateThrowCompensationEventActivityBehavior#IntermediateThrowCompensationEventActivityBehavior(CompensateEventDefinition)}
+   * Test {@link IntermediateThrowCompensationEventActivityBehavior#IntermediateThrowCompensationEventActivityBehavior(CompensateEventDefinition)}.
+   * <p>
+   * Method under test: {@link IntermediateThrowCompensationEventActivityBehavior#IntermediateThrowCompensationEventActivityBehavior(CompensateEventDefinition)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void IntermediateThrowCompensationEventActivityBehavior.<init>(CompensateEventDefinition)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void IntermediateThrowCompensationEventActivityBehavior.<init>(CompensateEventDefinition)"})
   public void testNewIntermediateThrowCompensationEventActivityBehavior() {
     // Arrange, Act and Assert
-    CompensateEventDefinition compensateEventDefinition =
-        new IntermediateThrowCompensationEventActivityBehavior(new CompensateEventDefinition())
-            .compensateEventDefinition;
+    CompensateEventDefinition compensateEventDefinition = (new IntermediateThrowCompensationEventActivityBehavior(
+        new CompensateEventDefinition())).compensateEventDefinition;
     assertNull(compensateEventDefinition.getId());
     assertNull(compensateEventDefinition.getActivityRef());
     assertEquals(0, compensateEventDefinition.getXmlColumnNumber());

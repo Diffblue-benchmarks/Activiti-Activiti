@@ -23,8 +23,7 @@ import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import jakarta.transaction.InvalidTransactionException;
 import jakarta.transaction.NotSupportedException;
@@ -39,213 +38,85 @@ import org.mockito.Mockito;
 public class JtaTransactionInterceptorDiffblueTest {
   /**
    * Test {@link JtaTransactionInterceptor#JtaTransactionInterceptor(TransactionManager)}.
-   *
-   * <p>Method under test: {@link
-   * JtaTransactionInterceptor#JtaTransactionInterceptor(TransactionManager)}
+   * <p>
+   * Method under test: {@link JtaTransactionInterceptor#JtaTransactionInterceptor(TransactionManager)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void JtaTransactionInterceptor.<init>(TransactionManager)"})
   public void testNewJtaTransactionInterceptor() {
     // Arrange, Act and Assert
-    assertNull(new JtaTransactionInterceptor(mock(TransactionManager.class)).getNext());
+    assertNull((new JtaTransactionInterceptor(mock(TransactionManager.class))).getNext());
   }
 
   /**
    * Test {@link JtaTransactionInterceptor#execute(CommandConfig, Command)}.
-   *
-   * <ul>
-   *   <li>Given {@link TransactionManager} {@link TransactionManager#getStatus()} throw {@link
-   *       RuntimeException#RuntimeException()}.
-   * </ul>
-   *
-   * <p>Method under test: {@link JtaTransactionInterceptor#execute(CommandConfig, Command)}
+   * <p>
+   * Method under test: {@link JtaTransactionInterceptor#execute(CommandConfig, Command)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"java.lang.Object JtaTransactionInterceptor.execute(CommandConfig, Command)"})
-  public void testExecute_givenTransactionManagerGetStatusThrowRuntimeException()
-      throws SystemException {
-    // Arrange
-    TransactionManager transactionManager = mock(TransactionManager.class);
-    when(transactionManager.getStatus()).thenThrow(new RuntimeException());
-    JtaTransactionInterceptor jtaTransactionInterceptor =
-        new JtaTransactionInterceptor(transactionManager);
-
-    // Act and Assert
-    assertThrows(
-        RuntimeException.class,
-        () -> jtaTransactionInterceptor.execute(new CommandConfig(), mock(Command.class)));
-    verify(transactionManager).getStatus();
-  }
-
-  /**
-   * Test {@link JtaTransactionInterceptor#execute(CommandConfig, Command)}.
-   *
-   * <ul>
-   *   <li>Given {@link TransactionManager} {@link TransactionManager#getStatus()} throw {@link
-   *       RuntimeException#RuntimeException()}.
-   * </ul>
-   *
-   * <p>Method under test: {@link JtaTransactionInterceptor#execute(CommandConfig, Command)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"java.lang.Object JtaTransactionInterceptor.execute(CommandConfig, Command)"})
-  public void testExecute_givenTransactionManagerGetStatusThrowRuntimeException2()
-      throws InvalidTransactionException,
-          NotSupportedException,
-          SystemException,
-          IllegalStateException,
-          SecurityException {
-    // Arrange
-    TransactionManager transactionManager = mock(TransactionManager.class);
-    doNothing().when(transactionManager).resume(Mockito.<Transaction>any());
-    when(transactionManager.suspend()).thenReturn(mock(Transaction.class));
-    doNothing().when(transactionManager).begin();
-    doNothing().when(transactionManager).rollback();
-    when(transactionManager.getStatus()).thenReturn(1);
-
-    TransactionManager transactionManager2 = mock(TransactionManager.class);
-    when(transactionManager2.getStatus()).thenThrow(new RuntimeException());
-    JtaTransactionInterceptor next = new JtaTransactionInterceptor(transactionManager2);
-
-    JtaTransactionInterceptor jtaTransactionInterceptor =
-        new JtaTransactionInterceptor(transactionManager);
-    jtaTransactionInterceptor.setNext(next);
-
-    // Act and Assert
-    assertThrows(
-        RuntimeException.class,
-        () ->
-            jtaTransactionInterceptor.execute(
-                new CommandConfig(true, TransactionPropagation.REQUIRES_NEW), mock(Command.class)));
-    verify(transactionManager).begin();
-    verify(transactionManager).getStatus();
-    verify(transactionManager2).getStatus();
-    verify(transactionManager).resume(isA(Transaction.class));
-    verify(transactionManager).rollback();
-    verify(transactionManager).suspend();
-  }
-
-  /**
-   * Test {@link JtaTransactionInterceptor#execute(CommandConfig, Command)}.
-   *
-   * <ul>
-   *   <li>Given {@link TransactionManager} {@link TransactionManager#resume(Transaction)} throw
-   *       {@link RuntimeException#RuntimeException()}.
-   *   <li>Then calls {@link TransactionManager#resume(Transaction)}.
-   * </ul>
-   *
-   * <p>Method under test: {@link JtaTransactionInterceptor#execute(CommandConfig, Command)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"java.lang.Object JtaTransactionInterceptor.execute(CommandConfig, Command)"})
-  public void testExecute_givenTransactionManagerResumeThrowRuntimeException_thenCallsResume()
-      throws InvalidTransactionException,
-          NotSupportedException,
-          SystemException,
-          IllegalStateException,
-          SecurityException {
-    // Arrange
-    TransactionManager transactionManager = mock(TransactionManager.class);
-    doThrow(new RuntimeException()).when(transactionManager).resume(Mockito.<Transaction>any());
-    when(transactionManager.suspend()).thenReturn(mock(Transaction.class));
-    doNothing().when(transactionManager).begin();
-    doNothing().when(transactionManager).rollback();
-    when(transactionManager.getStatus()).thenReturn(1);
-    JtaTransactionInterceptor jtaTransactionInterceptor =
-        new JtaTransactionInterceptor(transactionManager);
-
-    // Act and Assert
-    assertThrows(
-        RuntimeException.class,
-        () ->
-            jtaTransactionInterceptor.execute(
-                new CommandConfig(true, TransactionPropagation.REQUIRES_NEW), mock(Command.class)));
-    verify(transactionManager).begin();
-    verify(transactionManager).getStatus();
-    verify(transactionManager).resume(isA(Transaction.class));
-    verify(transactionManager).rollback();
-    verify(transactionManager).suspend();
-  }
-
-  /**
-   * Test {@link JtaTransactionInterceptor#execute(CommandConfig, Command)}.
-   *
-   * <ul>
-   *   <li>Given {@link TransactionManager} {@link TransactionManager#suspend()} throw {@link
-   *       RuntimeException#RuntimeException()}.
-   * </ul>
-   *
-   * <p>Method under test: {@link JtaTransactionInterceptor#execute(CommandConfig, Command)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"java.lang.Object JtaTransactionInterceptor.execute(CommandConfig, Command)"})
-  public void testExecute_givenTransactionManagerSuspendThrowRuntimeException()
-      throws SystemException {
-    // Arrange
-    TransactionManager transactionManager = mock(TransactionManager.class);
-    when(transactionManager.suspend()).thenThrow(new RuntimeException());
-    when(transactionManager.getStatus()).thenReturn(1);
-    JtaTransactionInterceptor jtaTransactionInterceptor =
-        new JtaTransactionInterceptor(transactionManager);
-
-    // Act and Assert
-    assertThrows(
-        RuntimeException.class,
-        () ->
-            jtaTransactionInterceptor.execute(
-                new CommandConfig(true, TransactionPropagation.REQUIRES_NEW), mock(Command.class)));
-    verify(transactionManager).getStatus();
-    verify(transactionManager).suspend();
-  }
-
-  /**
-   * Test {@link JtaTransactionInterceptor#execute(CommandConfig, Command)}.
-   *
-   * <ul>
-   *   <li>Then calls {@link TransactionManager#setRollbackOnly()}.
-   * </ul>
-   *
-   * <p>Method under test: {@link JtaTransactionInterceptor#execute(CommandConfig, Command)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"java.lang.Object JtaTransactionInterceptor.execute(CommandConfig, Command)"})
-  public void testExecute_thenCallsSetRollbackOnly()
-      throws NotSupportedException, SystemException, IllegalStateException, SecurityException {
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Object JtaTransactionInterceptor.execute(CommandConfig, Command)"})
+  public void testExecute() throws InvalidTransactionException, NotSupportedException, SystemException,
+      IllegalStateException, SecurityException {
     // Arrange
     TransactionManager transactionManager = mock(TransactionManager.class);
     doNothing().when(transactionManager).begin();
     doNothing().when(transactionManager).rollback();
     when(transactionManager.getStatus()).thenReturn(6);
-
     TransactionManager transactionManager2 = mock(TransactionManager.class);
-    doThrow(new RuntimeException()).when(transactionManager2).setRollbackOnly();
+    doThrow(new RuntimeException("Running command with propagation {}")).when(transactionManager2)
+        .resume(Mockito.<Transaction>any());
+    when(transactionManager2.suspend()).thenReturn(mock(Transaction.class));
+    doNothing().when(transactionManager2).begin();
+    doNothing().when(transactionManager2).rollback();
     when(transactionManager2.getStatus()).thenReturn(1);
     JtaTransactionInterceptor next = new JtaTransactionInterceptor(transactionManager2);
 
-    JtaTransactionInterceptor jtaTransactionInterceptor =
-        new JtaTransactionInterceptor(transactionManager);
+    JtaTransactionInterceptor jtaTransactionInterceptor = new JtaTransactionInterceptor(transactionManager);
     jtaTransactionInterceptor.setNext(next);
 
     // Act and Assert
-    assertThrows(
-        RuntimeException.class,
-        () -> jtaTransactionInterceptor.execute(new CommandConfig(), mock(Command.class)));
+    assertThrows(RuntimeException.class, () -> jtaTransactionInterceptor
+        .<Object>execute(new CommandConfig(true, TransactionPropagation.REQUIRES_NEW), mock(Command.class)));
     verify(transactionManager).begin();
+    verify(transactionManager2).begin();
     verify(transactionManager).getStatus();
     verify(transactionManager2).getStatus();
+    verify(transactionManager2).resume(isA(Transaction.class));
     verify(transactionManager).rollback();
-    verify(transactionManager2).setRollbackOnly();
+    verify(transactionManager2).rollback();
+    verify(transactionManager2).suspend();
+  }
+
+  /**
+   * Test {@link JtaTransactionInterceptor#execute(CommandConfig, Command)}.
+   * <ul>
+   *   <li>Then throw {@link RuntimeException}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link JtaTransactionInterceptor#execute(CommandConfig, Command)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Object JtaTransactionInterceptor.execute(CommandConfig, Command)"})
+  public void testExecute_thenThrowRuntimeException() throws SystemException {
+    // Arrange
+    TransactionManager transactionManager = mock(TransactionManager.class);
+    when(transactionManager.suspend()).thenThrow(new RuntimeException("Running command with propagation {}"));
+    when(transactionManager.getStatus()).thenReturn(1);
+    TransactionManager transactionManager2 = mock(TransactionManager.class);
+    when(transactionManager2.suspend()).thenReturn(mock(Transaction.class));
+    when(transactionManager2.getStatus()).thenReturn(1);
+    JtaTransactionInterceptor next = new JtaTransactionInterceptor(transactionManager2);
+
+    JtaTransactionInterceptor jtaTransactionInterceptor = new JtaTransactionInterceptor(transactionManager);
+    jtaTransactionInterceptor.setNext(next);
+
+    // Act and Assert
+    assertThrows(RuntimeException.class, () -> jtaTransactionInterceptor
+        .<Object>execute(new CommandConfig(true, TransactionPropagation.REQUIRES_NEW), mock(Command.class)));
+    verify(transactionManager).getStatus();
+    verify(transactionManager).suspend();
   }
 }

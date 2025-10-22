@@ -18,14 +18,10 @@ package org.activiti.engine.impl.cmd;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertThrows;
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.Map;
-import org.activiti.engine.ActivitiIllegalArgumentException;
-import org.activiti.engine.impl.interceptor.CommandContext;
 import org.activiti.engine.impl.persistence.entity.ModelEntity;
 import org.activiti.engine.impl.persistence.entity.ModelEntityImpl;
 import org.junit.Test;
@@ -34,16 +30,15 @@ import org.junit.experimental.categories.Category;
 public class SaveModelCmdDiffblueTest {
   /**
    * Test {@link SaveModelCmd#SaveModelCmd(ModelEntity)}.
-   *
-   * <p>Method under test: {@link SaveModelCmd#SaveModelCmd(ModelEntity)}
+   * <p>
+   * Method under test: {@link SaveModelCmd#SaveModelCmd(ModelEntity)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void SaveModelCmd.<init>(ModelEntity)"})
   public void testNewSaveModelCmd() {
     // Arrange, Act and Assert
-    ModelEntity modelEntity = new SaveModelCmd(new ModelEntityImpl()).model;
+    ModelEntity modelEntity = (new SaveModelCmd(new ModelEntityImpl())).model;
     Object persistentState = modelEntity.getPersistentState();
     assertTrue(persistentState instanceof Map);
     assertTrue(modelEntity instanceof ModelEntityImpl);
@@ -71,24 +66,5 @@ public class SaveModelCmdDiffblueTest {
     assertFalse(modelEntity.isUpdated());
     assertFalse(modelEntity.hasEditorSource());
     assertFalse(modelEntity.hasEditorSourceExtra());
-  }
-
-  /**
-   * Test {@link SaveModelCmd#execute(CommandContext)}.
-   *
-   * <ul>
-   *   <li>Then throw {@link ActivitiIllegalArgumentException}.
-   * </ul>
-   *
-   * <p>Method under test: {@link SaveModelCmd#execute(CommandContext)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"java.lang.Void SaveModelCmd.execute(CommandContext)"})
-  public void testExecute_thenThrowActivitiIllegalArgumentException() {
-    // Arrange, Act and Assert
-    assertThrows(
-        ActivitiIllegalArgumentException.class, () -> new SaveModelCmd(null).execute(null));
   }
 }

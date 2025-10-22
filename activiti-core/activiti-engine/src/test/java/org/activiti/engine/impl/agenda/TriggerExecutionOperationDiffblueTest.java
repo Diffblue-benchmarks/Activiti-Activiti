@@ -22,8 +22,7 @@ import static org.mockito.ArgumentMatchers.isA;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.engine.ActivitiEngineAgendaFactory;
 import org.activiti.engine.ActivitiException;
@@ -39,36 +38,31 @@ import org.mockito.Mockito;
 
 public class TriggerExecutionOperationDiffblueTest {
   /**
-   * Test {@link TriggerExecutionOperation#TriggerExecutionOperation(CommandContext,
-   * ExecutionEntity)}.
-   *
+   * Test {@link TriggerExecutionOperation#TriggerExecutionOperation(CommandContext, ExecutionEntity)}.
    * <ul>
-   *   <li>Then Agenda return {@link DefaultActivitiEngineAgenda}.
+   *   <li>Then Agenda return {@link DefaultActivitiEngineAgenda}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link
-   * TriggerExecutionOperation#TriggerExecutionOperation(CommandContext, ExecutionEntity)}
+   * <p>
+   * Method under test: {@link TriggerExecutionOperation#TriggerExecutionOperation(CommandContext, ExecutionEntity)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void TriggerExecutionOperation.<init>(CommandContext, ExecutionEntity)"})
   public void testNewTriggerExecutionOperation_thenAgendaReturnDefaultActivitiEngineAgenda() {
     // Arrange
     ActivitiEngineAgendaFactory engineAgendaFactory = mock(ActivitiEngineAgendaFactory.class);
     DefaultActivitiEngineAgenda defaultActivitiEngineAgenda = new DefaultActivitiEngineAgenda(null);
-    when(engineAgendaFactory.createAgenda(Mockito.<CommandContext>any()))
-        .thenReturn(defaultActivitiEngineAgenda);
+    when(engineAgendaFactory.createAgenda(Mockito.<CommandContext>any())).thenReturn(defaultActivitiEngineAgenda);
 
     JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();
     processEngineConfiguration.setEngineAgendaFactory(engineAgendaFactory);
-    CommandContext commandContext =
-        new CommandContext(mock(Command.class), processEngineConfiguration);
+    CommandContext commandContext = new CommandContext(mock(Command.class), processEngineConfiguration);
+
     ExecutionEntityImpl execution = ExecutionEntityImpl.createWithEmptyRelationshipCollections();
 
     // Act
-    TriggerExecutionOperation actualTriggerExecutionOperation =
-        new TriggerExecutionOperation(commandContext, execution);
+    TriggerExecutionOperation actualTriggerExecutionOperation = new TriggerExecutionOperation(commandContext,
+        execution);
 
     // Assert
     verify(engineAgendaFactory).createAgenda(isA(CommandContext.class));
@@ -83,16 +77,14 @@ public class TriggerExecutionOperationDiffblueTest {
 
   /**
    * Test {@link TriggerExecutionOperation#run()}.
-   *
    * <ul>
-   *   <li>Then throw {@link ActivitiException}.
+   *   <li>Then throw {@link ActivitiException}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link TriggerExecutionOperation#run()}
+   * <p>
+   * Method under test: {@link TriggerExecutionOperation#run()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void TriggerExecutionOperation.run()"})
   public void testRun_thenThrowActivitiException() {
     // Arrange
@@ -102,16 +94,11 @@ public class TriggerExecutionOperationDiffblueTest {
 
     JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();
     processEngineConfiguration.setEngineAgendaFactory(engineAgendaFactory);
-    CommandContext commandContext =
-        new CommandContext(mock(Command.class), processEngineConfiguration);
+    CommandContext commandContext = new CommandContext(mock(Command.class), processEngineConfiguration);
 
     // Act and Assert
-    assertThrows(
-        ActivitiException.class,
-        () ->
-            new TriggerExecutionOperation(
-                    commandContext, ExecutionEntityImpl.createWithEmptyRelationshipCollections())
-                .run());
+    assertThrows(ActivitiException.class, () -> (new TriggerExecutionOperation(commandContext,
+        ExecutionEntityImpl.createWithEmptyRelationshipCollections())).run());
     verify(engineAgendaFactory).createAgenda(isA(CommandContext.class));
   }
 }

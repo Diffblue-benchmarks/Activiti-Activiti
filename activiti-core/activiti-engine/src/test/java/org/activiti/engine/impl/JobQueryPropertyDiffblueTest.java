@@ -17,8 +17,7 @@ package org.activiti.engine.impl;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
@@ -26,66 +25,39 @@ import org.junit.experimental.categories.Category;
 public class JobQueryPropertyDiffblueTest {
   /**
    * Test {@link JobQueryProperty#JobQueryProperty(String)}.
-   *
-   * <p>Method under test: {@link JobQueryProperty#JobQueryProperty(String)}
+   * <p>
+   * Method under test: {@link JobQueryProperty#JobQueryProperty(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void JobQueryProperty.<init>(String)"})
   public void testNewJobQueryProperty() {
     // Arrange, Act and Assert
-    assertEquals("Name", new JobQueryProperty("Name").getName());
+    assertEquals("Name", (new JobQueryProperty("Name")).getName());
   }
 
   /**
    * Test {@link JobQueryProperty#getName()}.
-   *
-   * <p>Method under test: {@link JobQueryProperty#getName()}
+   * <p>
+   * Method under test: {@link JobQueryProperty#getName()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"String JobQueryProperty.getName()"})
   public void testGetName() {
     // Arrange, Act and Assert
-    assertEquals("Name", new JobQueryProperty("Name").getName());
+    assertEquals("Name", (new JobQueryProperty("Name")).getName());
   }
 
   /**
    * Test {@link JobQueryProperty#findByName(String)}.
-   *
-   * <ul>
-   *   <li>When {@code ID_}.
-   *   <li>Then return Name is {@code ID_}.
-   * </ul>
-   *
-   * <p>Method under test: {@link JobQueryProperty#findByName(String)}
+   * <p>
+   * Method under test: {@link JobQueryProperty#findByName(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"JobQueryProperty JobQueryProperty.findByName(String)"})
-  public void testFindByName_whenId_thenReturnNameIsId() {
-    // Arrange, Act and Assert
-    assertEquals("ID_", JobQueryProperty.findByName("ID_").getName());
-  }
-
-  /**
-   * Test {@link JobQueryProperty#findByName(String)}.
-   *
-   * <ul>
-   *   <li>When {@code Property Name}.
-   *   <li>Then return {@code null}.
-   * </ul>
-   *
-   * <p>Method under test: {@link JobQueryProperty#findByName(String)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"JobQueryProperty JobQueryProperty.findByName(String)"})
-  public void testFindByName_whenPropertyName_thenReturnNull() {
+  public void testFindByName() {
     // Arrange, Act and Assert
     assertNull(JobQueryProperty.findByName("Property Name"));
   }

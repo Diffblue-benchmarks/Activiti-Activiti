@@ -16,7 +16,6 @@
 package org.activiti.api.task.model.builders;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.api.task.model.payloads.ClaimTaskPayload;
 import org.junit.jupiter.api.DisplayName;
@@ -26,9 +25,8 @@ import org.junit.jupiter.api.Test;
 class ClaimTaskPayloadBuilderDiffblueTest {
   /**
    * Test {@link ClaimTaskPayloadBuilder#build()}.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>{@link ClaimTaskPayloadBuilder#build()}
    *   <li>default or parameterless constructor of {@link ClaimTaskPayloadBuilder}
@@ -38,21 +36,18 @@ class ClaimTaskPayloadBuilderDiffblueTest {
    */
   @Test
   @DisplayName("Test build()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void ClaimTaskPayloadBuilder.<init>()",
-    "ClaimTaskPayload ClaimTaskPayloadBuilder.build()",
-    "ClaimTaskPayloadBuilder ClaimTaskPayloadBuilder.withAssignee(String)",
-    "ClaimTaskPayloadBuilder ClaimTaskPayloadBuilder.withTaskId(String)"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void ClaimTaskPayloadBuilder.<init>()", "ClaimTaskPayload ClaimTaskPayloadBuilder.build()",
+      "ClaimTaskPayloadBuilder ClaimTaskPayloadBuilder.withAssignee(String)",
+      "ClaimTaskPayloadBuilder ClaimTaskPayloadBuilder.withTaskId(String)"})
   void testBuild() {
     // Arrange and Act
-    ClaimTaskPayload actualClaimTaskPayload =
-        new ClaimTaskPayloadBuilder().withAssignee("Assignee").withTaskId("42").build();
+    ClaimTaskPayload actualBuildResult = (new ClaimTaskPayloadBuilder()).withAssignee("Assignee")
+        .withTaskId("42")
+        .build();
 
     // Assert
-    assertEquals("42", actualClaimTaskPayload.getTaskId());
-    assertEquals("Assignee", actualClaimTaskPayload.getAssignee());
+    assertEquals("42", actualBuildResult.getTaskId());
+    assertEquals("Assignee", actualBuildResult.getAssignee());
   }
 }

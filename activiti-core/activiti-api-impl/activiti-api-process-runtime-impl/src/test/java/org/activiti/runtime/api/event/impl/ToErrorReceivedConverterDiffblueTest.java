@@ -18,7 +18,6 @@ package org.activiti.runtime.api.event.impl;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.Optional;
 import org.activiti.api.process.model.events.BPMNErrorReceivedEvent;
@@ -35,27 +34,23 @@ import org.junit.jupiter.api.Test;
 class ToErrorReceivedConverterDiffblueTest {
   /**
    * Test {@link ToErrorReceivedConverter#from(ActivitiErrorEvent)} with {@code ActivitiErrorEvent}.
-   *
    * <ul>
-   *   <li>Then {@link Optional#get()} return {@link BPMNErrorReceivedEventImpl}.
+   *   <li>Then {@link Optional#get()} return {@link BPMNErrorReceivedEventImpl}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ToErrorReceivedConverter#from(ActivitiErrorEvent)}
+   * <p>
+   * Method under test: {@link ToErrorReceivedConverter#from(ActivitiErrorEvent)}
    */
   @Test
-  @DisplayName(
-      "Test from(ActivitiErrorEvent) with 'ActivitiErrorEvent'; then get() return BPMNErrorReceivedEventImpl")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test from(ActivitiErrorEvent) with 'ActivitiErrorEvent'; then get() return BPMNErrorReceivedEventImpl")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"Optional ToErrorReceivedConverter.from(ActivitiErrorEvent)"})
   void testFromWithActivitiErrorEvent_thenGetReturnBPMNErrorReceivedEventImpl() {
     // Arrange
-    ToErrorReceivedConverter toErrorReceivedConverter =
-        new ToErrorReceivedConverter(new BPMNErrorConverter());
+    ToErrorReceivedConverter toErrorReceivedConverter = new ToErrorReceivedConverter(new BPMNErrorConverter());
 
     // Act
-    Optional<BPMNErrorReceivedEvent> actualFromResult =
-        toErrorReceivedConverter.from(new ActivitiErrorEventImpl(ActivitiEventType.ENTITY_CREATED));
+    Optional<BPMNErrorReceivedEvent> actualFromResult = toErrorReceivedConverter
+        .from(new ActivitiErrorEventImpl(ActivitiEventType.ENTITY_CREATED));
 
     // Assert
     BPMNErrorReceivedEvent getResult = actualFromResult.get();

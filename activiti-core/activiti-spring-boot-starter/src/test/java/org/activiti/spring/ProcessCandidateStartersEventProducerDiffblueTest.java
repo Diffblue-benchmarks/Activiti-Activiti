@@ -19,7 +19,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.mock;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
 import java.util.List;
@@ -37,42 +36,30 @@ import org.springframework.context.ApplicationEventPublisher;
 
 @ExtendWith(MockitoExtension.class)
 class ProcessCandidateStartersEventProducerDiffblueTest {
-  @Mock private RepositoryService repositoryService;
+  @Mock
+  private RepositoryService repositoryService;
 
   /**
-   * Test {@link
-   * ProcessCandidateStartersEventProducer#ProcessCandidateStartersEventProducer(RepositoryService,
-   * List, List, ApplicationEventPublisher)}.
-   *
+   * Test {@link ProcessCandidateStartersEventProducer#ProcessCandidateStartersEventProducer(RepositoryService, List, List, ApplicationEventPublisher)}.
    * <ul>
-   *   <li>Given {@link ProcessRuntimeEventListener}.
+   *   <li>Given {@link ProcessRuntimeEventListener}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link
-   * ProcessCandidateStartersEventProducer#ProcessCandidateStartersEventProducer(RepositoryService,
-   * List, List, ApplicationEventPublisher)}
+   * <p>
+   * Method under test: {@link ProcessCandidateStartersEventProducer#ProcessCandidateStartersEventProducer(RepositoryService, List, List, ApplicationEventPublisher)}
    */
   @Test
-  @DisplayName(
-      "Test new ProcessCandidateStartersEventProducer(RepositoryService, List, List, ApplicationEventPublisher); given ProcessRuntimeEventListener")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test new ProcessCandidateStartersEventProducer(RepositoryService, List, List, ApplicationEventPublisher); given ProcessRuntimeEventListener")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({
-    "void ProcessCandidateStartersEventProducer.<init>(RepositoryService, List, List, ApplicationEventPublisher)"
-  })
+      "void ProcessCandidateStartersEventProducer.<init>(RepositoryService, List, List, ApplicationEventPublisher)"})
   void testNewProcessCandidateStartersEventProducer_givenProcessRuntimeEventListener() {
     // Arrange
-    ArrayList<ProcessRuntimeEventListener<ProcessCandidateStarterUserAddedEvent>>
-        candidateStarterUserListeners = new ArrayList<>();
+    ArrayList<ProcessRuntimeEventListener<ProcessCandidateStarterUserAddedEvent>> candidateStarterUserListeners = new ArrayList<>();
     candidateStarterUserListeners.add(mock(ProcessRuntimeEventListener.class));
 
     // Act
-    ProcessCandidateStartersEventProducer actualProcessCandidateStartersEventProducer =
-        new ProcessCandidateStartersEventProducer(
-            repositoryService,
-            candidateStarterUserListeners,
-            new ArrayList<>(),
-            mock(ApplicationEventPublisher.class));
+    ProcessCandidateStartersEventProducer actualProcessCandidateStartersEventProducer = new ProcessCandidateStartersEventProducer(
+        repositoryService, candidateStarterUserListeners, new ArrayList<>(), mock(ApplicationEventPublisher.class));
 
     // Assert
     assertFalse(actualProcessCandidateStartersEventProducer.isRunning());
@@ -81,40 +68,27 @@ class ProcessCandidateStartersEventProducerDiffblueTest {
   }
 
   /**
-   * Test {@link
-   * ProcessCandidateStartersEventProducer#ProcessCandidateStartersEventProducer(RepositoryService,
-   * List, List, ApplicationEventPublisher)}.
-   *
+   * Test {@link ProcessCandidateStartersEventProducer#ProcessCandidateStartersEventProducer(RepositoryService, List, List, ApplicationEventPublisher)}.
    * <ul>
-   *   <li>Given {@link ProcessRuntimeEventListener}.
+   *   <li>Given {@link ProcessRuntimeEventListener}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link
-   * ProcessCandidateStartersEventProducer#ProcessCandidateStartersEventProducer(RepositoryService,
-   * List, List, ApplicationEventPublisher)}
+   * <p>
+   * Method under test: {@link ProcessCandidateStartersEventProducer#ProcessCandidateStartersEventProducer(RepositoryService, List, List, ApplicationEventPublisher)}
    */
   @Test
-  @DisplayName(
-      "Test new ProcessCandidateStartersEventProducer(RepositoryService, List, List, ApplicationEventPublisher); given ProcessRuntimeEventListener")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test new ProcessCandidateStartersEventProducer(RepositoryService, List, List, ApplicationEventPublisher); given ProcessRuntimeEventListener")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({
-    "void ProcessCandidateStartersEventProducer.<init>(RepositoryService, List, List, ApplicationEventPublisher)"
-  })
+      "void ProcessCandidateStartersEventProducer.<init>(RepositoryService, List, List, ApplicationEventPublisher)"})
   void testNewProcessCandidateStartersEventProducer_givenProcessRuntimeEventListener2() {
     // Arrange
-    ArrayList<ProcessRuntimeEventListener<ProcessCandidateStarterUserAddedEvent>>
-        candidateStarterUserListeners = new ArrayList<>();
+    ArrayList<ProcessRuntimeEventListener<ProcessCandidateStarterUserAddedEvent>> candidateStarterUserListeners = new ArrayList<>();
     candidateStarterUserListeners.add(mock(ProcessRuntimeEventListener.class));
     candidateStarterUserListeners.add(mock(ProcessRuntimeEventListener.class));
 
     // Act
-    ProcessCandidateStartersEventProducer actualProcessCandidateStartersEventProducer =
-        new ProcessCandidateStartersEventProducer(
-            repositoryService,
-            candidateStarterUserListeners,
-            new ArrayList<>(),
-            mock(ApplicationEventPublisher.class));
+    ProcessCandidateStartersEventProducer actualProcessCandidateStartersEventProducer = new ProcessCandidateStartersEventProducer(
+        repositoryService, candidateStarterUserListeners, new ArrayList<>(), mock(ApplicationEventPublisher.class));
 
     // Assert
     assertFalse(actualProcessCandidateStartersEventProducer.isRunning());
@@ -123,42 +97,29 @@ class ProcessCandidateStartersEventProducerDiffblueTest {
   }
 
   /**
-   * Test {@link
-   * ProcessCandidateStartersEventProducer#ProcessCandidateStartersEventProducer(RepositoryService,
-   * List, List, ApplicationEventPublisher)}.
-   *
+   * Test {@link ProcessCandidateStartersEventProducer#ProcessCandidateStartersEventProducer(RepositoryService, List, List, ApplicationEventPublisher)}.
    * <ul>
-   *   <li>Given {@link ProcessRuntimeEventListener}.
+   *   <li>Given {@link ProcessRuntimeEventListener}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link
-   * ProcessCandidateStartersEventProducer#ProcessCandidateStartersEventProducer(RepositoryService,
-   * List, List, ApplicationEventPublisher)}
+   * <p>
+   * Method under test: {@link ProcessCandidateStartersEventProducer#ProcessCandidateStartersEventProducer(RepositoryService, List, List, ApplicationEventPublisher)}
    */
   @Test
-  @DisplayName(
-      "Test new ProcessCandidateStartersEventProducer(RepositoryService, List, List, ApplicationEventPublisher); given ProcessRuntimeEventListener")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test new ProcessCandidateStartersEventProducer(RepositoryService, List, List, ApplicationEventPublisher); given ProcessRuntimeEventListener")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({
-    "void ProcessCandidateStartersEventProducer.<init>(RepositoryService, List, List, ApplicationEventPublisher)"
-  })
+      "void ProcessCandidateStartersEventProducer.<init>(RepositoryService, List, List, ApplicationEventPublisher)"})
   void testNewProcessCandidateStartersEventProducer_givenProcessRuntimeEventListener3() {
     // Arrange
-    ArrayList<ProcessRuntimeEventListener<ProcessCandidateStarterUserAddedEvent>>
-        candidateStarterUserListeners = new ArrayList<>();
+    ArrayList<ProcessRuntimeEventListener<ProcessCandidateStarterUserAddedEvent>> candidateStarterUserListeners = new ArrayList<>();
 
-    ArrayList<ProcessRuntimeEventListener<ProcessCandidateStarterGroupAddedEvent>>
-        candidateStarterGroupListeners = new ArrayList<>();
+    ArrayList<ProcessRuntimeEventListener<ProcessCandidateStarterGroupAddedEvent>> candidateStarterGroupListeners = new ArrayList<>();
     candidateStarterGroupListeners.add(mock(ProcessRuntimeEventListener.class));
 
     // Act
-    ProcessCandidateStartersEventProducer actualProcessCandidateStartersEventProducer =
-        new ProcessCandidateStartersEventProducer(
-            repositoryService,
-            candidateStarterUserListeners,
-            candidateStarterGroupListeners,
-            mock(ApplicationEventPublisher.class));
+    ProcessCandidateStartersEventProducer actualProcessCandidateStartersEventProducer = new ProcessCandidateStartersEventProducer(
+        repositoryService, candidateStarterUserListeners, candidateStarterGroupListeners,
+        mock(ApplicationEventPublisher.class));
 
     // Assert
     assertFalse(actualProcessCandidateStartersEventProducer.isRunning());
@@ -167,43 +128,30 @@ class ProcessCandidateStartersEventProducerDiffblueTest {
   }
 
   /**
-   * Test {@link
-   * ProcessCandidateStartersEventProducer#ProcessCandidateStartersEventProducer(RepositoryService,
-   * List, List, ApplicationEventPublisher)}.
-   *
+   * Test {@link ProcessCandidateStartersEventProducer#ProcessCandidateStartersEventProducer(RepositoryService, List, List, ApplicationEventPublisher)}.
    * <ul>
-   *   <li>Given {@link ProcessRuntimeEventListener}.
+   *   <li>Given {@link ProcessRuntimeEventListener}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link
-   * ProcessCandidateStartersEventProducer#ProcessCandidateStartersEventProducer(RepositoryService,
-   * List, List, ApplicationEventPublisher)}
+   * <p>
+   * Method under test: {@link ProcessCandidateStartersEventProducer#ProcessCandidateStartersEventProducer(RepositoryService, List, List, ApplicationEventPublisher)}
    */
   @Test
-  @DisplayName(
-      "Test new ProcessCandidateStartersEventProducer(RepositoryService, List, List, ApplicationEventPublisher); given ProcessRuntimeEventListener")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test new ProcessCandidateStartersEventProducer(RepositoryService, List, List, ApplicationEventPublisher); given ProcessRuntimeEventListener")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({
-    "void ProcessCandidateStartersEventProducer.<init>(RepositoryService, List, List, ApplicationEventPublisher)"
-  })
+      "void ProcessCandidateStartersEventProducer.<init>(RepositoryService, List, List, ApplicationEventPublisher)"})
   void testNewProcessCandidateStartersEventProducer_givenProcessRuntimeEventListener4() {
     // Arrange
-    ArrayList<ProcessRuntimeEventListener<ProcessCandidateStarterUserAddedEvent>>
-        candidateStarterUserListeners = new ArrayList<>();
+    ArrayList<ProcessRuntimeEventListener<ProcessCandidateStarterUserAddedEvent>> candidateStarterUserListeners = new ArrayList<>();
 
-    ArrayList<ProcessRuntimeEventListener<ProcessCandidateStarterGroupAddedEvent>>
-        candidateStarterGroupListeners = new ArrayList<>();
+    ArrayList<ProcessRuntimeEventListener<ProcessCandidateStarterGroupAddedEvent>> candidateStarterGroupListeners = new ArrayList<>();
     candidateStarterGroupListeners.add(mock(ProcessRuntimeEventListener.class));
     candidateStarterGroupListeners.add(mock(ProcessRuntimeEventListener.class));
 
     // Act
-    ProcessCandidateStartersEventProducer actualProcessCandidateStartersEventProducer =
-        new ProcessCandidateStartersEventProducer(
-            repositoryService,
-            candidateStarterUserListeners,
-            candidateStarterGroupListeners,
-            mock(ApplicationEventPublisher.class));
+    ProcessCandidateStartersEventProducer actualProcessCandidateStartersEventProducer = new ProcessCandidateStartersEventProducer(
+        repositoryService, candidateStarterUserListeners, candidateStarterGroupListeners,
+        mock(ApplicationEventPublisher.class));
 
     // Assert
     assertFalse(actualProcessCandidateStartersEventProducer.isRunning());
@@ -212,38 +160,25 @@ class ProcessCandidateStartersEventProducerDiffblueTest {
   }
 
   /**
-   * Test {@link
-   * ProcessCandidateStartersEventProducer#ProcessCandidateStartersEventProducer(RepositoryService,
-   * List, List, ApplicationEventPublisher)}.
-   *
+   * Test {@link ProcessCandidateStartersEventProducer#ProcessCandidateStartersEventProducer(RepositoryService, List, List, ApplicationEventPublisher)}.
    * <ul>
-   *   <li>When {@link ApplicationEventPublisher}.
+   *   <li>When {@link ApplicationEventPublisher}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link
-   * ProcessCandidateStartersEventProducer#ProcessCandidateStartersEventProducer(RepositoryService,
-   * List, List, ApplicationEventPublisher)}
+   * <p>
+   * Method under test: {@link ProcessCandidateStartersEventProducer#ProcessCandidateStartersEventProducer(RepositoryService, List, List, ApplicationEventPublisher)}
    */
   @Test
-  @DisplayName(
-      "Test new ProcessCandidateStartersEventProducer(RepositoryService, List, List, ApplicationEventPublisher); when ApplicationEventPublisher")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test new ProcessCandidateStartersEventProducer(RepositoryService, List, List, ApplicationEventPublisher); when ApplicationEventPublisher")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({
-    "void ProcessCandidateStartersEventProducer.<init>(RepositoryService, List, List, ApplicationEventPublisher)"
-  })
+      "void ProcessCandidateStartersEventProducer.<init>(RepositoryService, List, List, ApplicationEventPublisher)"})
   void testNewProcessCandidateStartersEventProducer_whenApplicationEventPublisher() {
     // Arrange
-    ArrayList<ProcessRuntimeEventListener<ProcessCandidateStarterUserAddedEvent>>
-        candidateStarterUserListeners = new ArrayList<>();
+    ArrayList<ProcessRuntimeEventListener<ProcessCandidateStarterUserAddedEvent>> candidateStarterUserListeners = new ArrayList<>();
 
     // Act
-    ProcessCandidateStartersEventProducer actualProcessCandidateStartersEventProducer =
-        new ProcessCandidateStartersEventProducer(
-            repositoryService,
-            candidateStarterUserListeners,
-            new ArrayList<>(),
-            mock(ApplicationEventPublisher.class));
+    ProcessCandidateStartersEventProducer actualProcessCandidateStartersEventProducer = new ProcessCandidateStartersEventProducer(
+        repositoryService, candidateStarterUserListeners, new ArrayList<>(), mock(ApplicationEventPublisher.class));
 
     // Assert
     assertFalse(actualProcessCandidateStartersEventProducer.isRunning());

@@ -16,8 +16,7 @@
 package org.activiti.engine.impl.transformer;
 
 import static org.junit.Assert.assertEquals;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
@@ -25,15 +24,14 @@ import org.junit.experimental.categories.Category;
 public class LongToStringDiffblueTest {
   /**
    * Test {@link LongToString#primTransform(Object)}.
-   *
-   * <p>Method under test: {@link LongToString#primTransform(Object)}
+   * <p>
+   * Method under test: {@link LongToString#primTransform(Object)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"Object LongToString.primTransform(Object)"})
   public void testPrimTransform() throws Exception {
     // Arrange, Act and Assert
-    assertEquals("1", new LongToString().primTransform(1L));
+    assertEquals("1", (new LongToString()).primTransform(1L));
   }
 }

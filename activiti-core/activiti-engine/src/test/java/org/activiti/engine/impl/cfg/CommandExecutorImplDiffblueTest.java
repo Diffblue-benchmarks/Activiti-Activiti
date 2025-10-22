@@ -20,8 +20,7 @@ import static org.mockito.ArgumentMatchers.isA;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.engine.impl.interceptor.Command;
 import org.activiti.engine.impl.interceptor.CommandConfig;
@@ -35,9 +34,8 @@ import org.mockito.Mockito;
 public class CommandExecutorImplDiffblueTest {
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>{@link CommandExecutorImpl#CommandExecutorImpl(CommandConfig, CommandInterceptor)}
    *   <li>{@link CommandExecutorImpl#setFirst(CommandInterceptor)}
@@ -46,21 +44,17 @@ public class CommandExecutorImplDiffblueTest {
    * </ul>
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void CommandExecutorImpl.<init>(CommandConfig, CommandInterceptor)",
-    "CommandConfig CommandExecutorImpl.getDefaultConfig()",
-    "CommandInterceptor CommandExecutorImpl.getFirst()",
-    "void CommandExecutorImpl.setFirst(CommandInterceptor)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void CommandExecutorImpl.<init>(CommandConfig, CommandInterceptor)",
+      "CommandConfig CommandExecutorImpl.getDefaultConfig()", "CommandInterceptor CommandExecutorImpl.getFirst()",
+      "void CommandExecutorImpl.setFirst(CommandInterceptor)"})
   public void testGettersAndSetters() {
     // Arrange
     CommandConfig defaultConfig = new CommandConfig();
 
     // Act
-    CommandExecutorImpl actualCommandExecutorImpl =
-        new CommandExecutorImpl(defaultConfig, new CommandContextInterceptor());
+    CommandExecutorImpl actualCommandExecutorImpl = new CommandExecutorImpl(defaultConfig,
+        new CommandContextInterceptor());
     CommandContextInterceptor commandInterceptor = new CommandContextInterceptor();
     actualCommandExecutorImpl.setFirst(commandInterceptor);
     CommandConfig actualDefaultConfig = actualCommandExecutorImpl.getDefaultConfig();
@@ -72,56 +66,47 @@ public class CommandExecutorImplDiffblueTest {
 
   /**
    * Test {@link CommandExecutorImpl#execute(Command)} with {@code command}.
-   *
    * <ul>
-   *   <li>Given {@link CommandInterceptor} {@link CommandInterceptor#execute(CommandConfig,
-   *       Command)} return {@link JSONObject#NULL}.
-   *   <li>Then calls {@link CommandInterceptor#execute(CommandConfig, Command)}.
+   *   <li>Given {@link CommandInterceptor} {@link CommandInterceptor#execute(CommandConfig, Command)} return {@link JSONObject#NULL}.</li>
+   *   <li>Then calls {@link CommandInterceptor#execute(CommandConfig, Command)}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link CommandExecutorImpl#execute(Command)}
+   * <p>
+   * Method under test: {@link CommandExecutorImpl#execute(Command)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"Object CommandExecutorImpl.execute(Command)"})
   public void testExecuteWithCommand_givenCommandInterceptorExecuteReturnNull_thenCallsExecute() {
     // Arrange
     CommandInterceptor first = mock(CommandInterceptor.class);
-    when(first.execute(Mockito.<CommandConfig>any(), Mockito.<Command<Object>>any()))
-        .thenReturn(JSONObject.NULL);
-    CommandExecutorImpl commandExecutorImpl = new CommandExecutorImpl(new CommandConfig(), first);
+    when(first.execute(Mockito.<CommandConfig>any(), Mockito.<Command<Object>>any())).thenReturn(JSONObject.NULL);
 
     // Act
-    commandExecutorImpl.execute(mock(Command.class));
+    (new CommandExecutorImpl(new CommandConfig(), first)).<Object>execute(mock(Command.class));
 
     // Assert
     verify(first).execute(isA(CommandConfig.class), isA(Command.class));
   }
 
   /**
-   * Test {@link CommandExecutorImpl#execute(CommandConfig, Command)} with {@code config}, {@code
-   * command}.
-   *
+   * Test {@link CommandExecutorImpl#execute(CommandConfig, Command)} with {@code config}, {@code command}.
    * <ul>
-   *   <li>Then calls {@link CommandInterceptor#execute(CommandConfig, Command)}.
+   *   <li>Then calls {@link CommandInterceptor#execute(CommandConfig, Command)}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link CommandExecutorImpl#execute(CommandConfig, Command)}
+   * <p>
+   * Method under test: {@link CommandExecutorImpl#execute(CommandConfig, Command)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"Object CommandExecutorImpl.execute(CommandConfig, Command)"})
   public void testExecuteWithConfigCommand_thenCallsExecute() {
     // Arrange
     CommandInterceptor first = mock(CommandInterceptor.class);
-    when(first.execute(Mockito.<CommandConfig>any(), Mockito.<Command<Object>>any()))
-        .thenReturn(JSONObject.NULL);
+    when(first.execute(Mockito.<CommandConfig>any(), Mockito.<Command<Object>>any())).thenReturn(JSONObject.NULL);
     CommandExecutorImpl commandExecutorImpl = new CommandExecutorImpl(new CommandConfig(), first);
 
     // Act
-    commandExecutorImpl.execute(new CommandConfig(), mock(Command.class));
+    commandExecutorImpl.<Object>execute(new CommandConfig(), mock(Command.class));
 
     // Assert
     verify(first).execute(isA(CommandConfig.class), isA(Command.class));

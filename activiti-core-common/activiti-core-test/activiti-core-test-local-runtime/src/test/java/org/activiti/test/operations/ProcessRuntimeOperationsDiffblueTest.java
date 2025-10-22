@@ -17,19 +17,22 @@ package org.activiti.test.operations;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.isA;
+import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.List;
 import org.activiti.api.process.model.ProcessInstance;
+import org.activiti.api.process.model.payloads.SignalPayload;
 import org.activiti.api.process.model.payloads.StartProcessPayload;
 import org.activiti.api.process.runtime.ProcessRuntime;
 import org.activiti.test.EventSource;
 import org.activiti.test.TaskSource;
 import org.activiti.test.assertions.ProcessInstanceAssertions;
 import org.activiti.test.assertions.ProcessInstanceAssertionsImpl;
+import org.activiti.test.assertions.SignalAssertions;
+import org.activiti.test.assertions.SignalAssertionsImpl;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
@@ -42,42 +45,63 @@ import org.springframework.test.context.aot.DisabledInAotMode;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 @ContextConfiguration(classes = {ProcessRuntimeOperations.class})
-@DisabledInAotMode
 @ExtendWith(SpringExtension.class)
+@DisabledInAotMode
 class ProcessRuntimeOperationsDiffblueTest {
-  @MockBean private EventSource eventSource;
+  @MockBean
+  private EventSource eventSource;
 
-  @Autowired private List<TaskSource> list;
+  @Autowired
+  private List<TaskSource> list;
 
-  @MockBean private ProcessRuntime processRuntime;
+  @MockBean
+  private ProcessRuntime processRuntime;
 
-  @Autowired private ProcessRuntimeOperations processRuntimeOperations;
+  @Autowired
+  private ProcessRuntimeOperations processRuntimeOperations;
 
-  @MockBean private TaskSource taskSource;
+  @MockBean
+  private TaskSource taskSource;
 
   /**
    * Test {@link ProcessRuntimeOperations#start(StartProcessPayload)}.
-   *
-   * <p>Method under test: {@link ProcessRuntimeOperations#start(StartProcessPayload)}
+   * <p>
+   * Method under test: {@link ProcessRuntimeOperations#start(StartProcessPayload)}
    */
   @Test
   @DisplayName("Test start(StartProcessPayload)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "ProcessInstanceAssertions ProcessRuntimeOperations.start(StartProcessPayload)"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"ProcessInstanceAssertions ProcessRuntimeOperations.start(StartProcessPayload)"})
   void testStart() {
     // Arrange
-    when(processRuntime.start(Mockito.<StartProcessPayload>any()))
-        .thenReturn(mock(ProcessInstance.class));
+    when(processRuntime.start(Mockito.<StartProcessPayload>any())).thenReturn(mock(ProcessInstance.class));
 
     // Act
-    ProcessInstanceAssertions actualStartResult =
-        processRuntimeOperations.start(new StartProcessPayload());
+    ProcessInstanceAssertions actualStartResult = processRuntimeOperations.start(new StartProcessPayload());
 
     // Assert
     verify(processRuntime).start(isA(StartProcessPayload.class));
     assertTrue(actualStartResult instanceof ProcessInstanceAssertionsImpl);
+  }
+
+  /**
+   * Test {@link ProcessRuntimeOperations#signal(SignalPayload)}.
+   * <p>
+   * Method under test: {@link ProcessRuntimeOperations#signal(SignalPayload)}
+   */
+  @Test
+  @DisplayName("Test signal(SignalPayload)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"SignalAssertions ProcessRuntimeOperations.signal(SignalPayload)"})
+  void testSignal() {
+    // Arrange
+    doNothing().when(processRuntime).signal(Mockito.<SignalPayload>any());
+
+    // Act
+    SignalAssertions actualSignalResult = processRuntimeOperations.signal(new SignalPayload());
+
+    // Assert
+    verify(processRuntime).signal(isA(SignalPayload.class));
+    assertTrue(actualSignalResult instanceof SignalAssertionsImpl);
   }
 }

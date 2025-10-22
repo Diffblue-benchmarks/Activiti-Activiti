@@ -23,8 +23,7 @@ import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
 import java.util.List;
@@ -34,17 +33,15 @@ import org.junit.experimental.categories.Category;
 public class IOSpecificationDiffblueTest {
   /**
    * Test {@link IOSpecification#clone()}.
-   *
    * <ul>
-   *   <li>Given {@link ArrayList#ArrayList()} add {@link DataSpec} (default constructor).
-   *   <li>Then return not DataOutputs first Collection.
+   *   <li>Given {@link ArrayList#ArrayList()} add {@link DataSpec} (default constructor).</li>
+   *   <li>Then return not DataOutputs first Collection.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link IOSpecification#clone()}
+   * <p>
+   * Method under test: {@link IOSpecification#clone()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"IOSpecification IOSpecification.clone()"})
   public void testClone_givenArrayListAddDataSpec_thenReturnNotDataOutputsFirstCollection() {
     // Arrange
@@ -71,17 +68,15 @@ public class IOSpecificationDiffblueTest {
 
   /**
    * Test {@link IOSpecification#clone()}.
-   *
    * <ul>
-   *   <li>Given {@link DataSpec} (default constructor) Collection is {@code true}.
-   *   <li>Then return DataOutputs first Collection.
+   *   <li>Given {@link DataSpec} (default constructor) Collection is {@code true}.</li>
+   *   <li>Then return DataOutputs first Collection.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link IOSpecification#clone()}
+   * <p>
+   * Method under test: {@link IOSpecification#clone()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"IOSpecification IOSpecification.clone()"})
   public void testClone_givenDataSpecCollectionIsTrue_thenReturnDataOutputsFirstCollection() {
     // Arrange
@@ -111,17 +106,15 @@ public class IOSpecificationDiffblueTest {
 
   /**
    * Test {@link IOSpecification#clone()}.
-   *
    * <ul>
-   *   <li>Given {@link IOSpecification} (default constructor) DataOutputs is {@code null}.
-   *   <li>Then return Id is {@code null}.
+   *   <li>Given {@link IOSpecification} (default constructor) DataOutputs is {@code null}.</li>
+   *   <li>Then return Id is {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link IOSpecification#clone()}
+   * <p>
+   * Method under test: {@link IOSpecification#clone()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"IOSpecification IOSpecification.clone()"})
   public void testClone_givenIOSpecificationDataOutputsIsNull_thenReturnIdIsNull() {
     // Arrange
@@ -146,21 +139,19 @@ public class IOSpecificationDiffblueTest {
 
   /**
    * Test {@link IOSpecification#clone()}.
-   *
    * <ul>
-   *   <li>Given {@link IOSpecification} (default constructor).
-   *   <li>Then return Id is {@code null}.
+   *   <li>Given {@link IOSpecification} (default constructor).</li>
+   *   <li>Then return Id is {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link IOSpecification#clone()}
+   * <p>
+   * Method under test: {@link IOSpecification#clone()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"IOSpecification IOSpecification.clone()"})
   public void testClone_givenIOSpecification_thenReturnIdIsNull() {
     // Arrange and Act
-    IOSpecification actualCloneResult = new IOSpecification().clone();
+    IOSpecification actualCloneResult = (new IOSpecification()).clone();
 
     // Assert
     assertNull(actualCloneResult.getId());
@@ -176,16 +167,14 @@ public class IOSpecificationDiffblueTest {
 
   /**
    * Test {@link IOSpecification#clone()}.
-   *
    * <ul>
-   *   <li>Then return DataInputs size is one.
+   *   <li>Then return DataInputs size is one.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link IOSpecification#clone()}
+   * <p>
+   * Method under test: {@link IOSpecification#clone()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"IOSpecification IOSpecification.clone()"})
   public void testClone_thenReturnDataInputsSizeIsOne() {
     // Arrange
@@ -212,23 +201,19 @@ public class IOSpecificationDiffblueTest {
 
   /**
    * Test {@link IOSpecification#setValues(IOSpecification)} with {@code otherSpec}.
-   *
    * <ul>
-   *   <li>Given {@link DataSpec} {@link DataSpec#clone()} return {@link DataSpec} (default
-   *       constructor).
-   *   <li>Then calls {@link DataSpec#clone()}.
+   *   <li>Given {@link DataSpec} {@link DataSpec#clone()} return {@link DataSpec} (default constructor).</li>
+   *   <li>Then calls {@link DataSpec#clone()}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link IOSpecification#setValues(IOSpecification)}
+   * <p>
+   * Method under test: {@link IOSpecification#setValues(IOSpecification)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void IOSpecification.setValues(IOSpecification)"})
   public void testSetValuesWithOtherSpec_givenDataSpecCloneReturnDataSpec_thenCallsClone() {
     // Arrange
     IOSpecification ioSpecification = new IOSpecification();
-
     DataSpec dataSpec = mock(DataSpec.class);
     when(dataSpec.clone()).thenReturn(new DataSpec());
 
@@ -248,23 +233,19 @@ public class IOSpecificationDiffblueTest {
 
   /**
    * Test {@link IOSpecification#setValues(IOSpecification)} with {@code otherSpec}.
-   *
    * <ul>
-   *   <li>Given {@link DataSpec} {@link DataSpec#clone()} return {@link DataSpec} (default
-   *       constructor).
-   *   <li>Then calls {@link DataSpec#clone()}.
+   *   <li>Given {@link DataSpec} {@link DataSpec#clone()} return {@link DataSpec} (default constructor).</li>
+   *   <li>Then calls {@link DataSpec#clone()}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link IOSpecification#setValues(IOSpecification)}
+   * <p>
+   * Method under test: {@link IOSpecification#setValues(IOSpecification)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void IOSpecification.setValues(IOSpecification)"})
   public void testSetValuesWithOtherSpec_givenDataSpecCloneReturnDataSpec_thenCallsClone2() {
     // Arrange
     IOSpecification ioSpecification = new IOSpecification();
-
     DataSpec dataSpec = mock(DataSpec.class);
     when(dataSpec.clone()).thenReturn(new DataSpec());
 
@@ -284,9 +265,8 @@ public class IOSpecificationDiffblueTest {
 
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>default or parameterless constructor of {@link IOSpecification}
    *   <li>{@link IOSpecification#setDataInputRefs(List)}
@@ -300,19 +280,12 @@ public class IOSpecificationDiffblueTest {
    * </ul>
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void IOSpecification.<init>()",
-    "List IOSpecification.getDataInputRefs()",
-    "List IOSpecification.getDataInputs()",
-    "List IOSpecification.getDataOutputRefs()",
-    "List IOSpecification.getDataOutputs()",
-    "void IOSpecification.setDataInputRefs(List)",
-    "void IOSpecification.setDataInputs(List)",
-    "void IOSpecification.setDataOutputRefs(List)",
-    "void IOSpecification.setDataOutputs(List)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void IOSpecification.<init>()", "List IOSpecification.getDataInputRefs()",
+      "List IOSpecification.getDataInputs()", "List IOSpecification.getDataOutputRefs()",
+      "List IOSpecification.getDataOutputs()", "void IOSpecification.setDataInputRefs(List)",
+      "void IOSpecification.setDataInputs(List)", "void IOSpecification.setDataOutputRefs(List)",
+      "void IOSpecification.setDataOutputs(List)"})
   public void testGettersAndSetters() {
     // Arrange and Act
     IOSpecification actualIoSpecification = new IOSpecification();

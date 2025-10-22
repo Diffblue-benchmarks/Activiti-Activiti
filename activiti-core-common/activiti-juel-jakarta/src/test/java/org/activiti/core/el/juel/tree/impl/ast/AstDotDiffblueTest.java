@@ -19,7 +19,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.mock;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import jakarta.el.ELContext;
 import jakarta.el.ELException;
@@ -37,9 +36,8 @@ import org.junit.jupiter.api.Test;
 class AstDotDiffblueTest {
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>{@link AstDot#AstDot(AstNode, String, boolean)}
    *   <li>{@link AstDot#toString()}
@@ -48,14 +46,10 @@ class AstDotDiffblueTest {
    */
   @Test
   @DisplayName("Test getters and setters")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void AstDot.<init>(AstNode, String, boolean)",
-    "void AstDot.<init>(AstNode, String, boolean, boolean)",
-    "int AstDot.getCardinality()",
-    "String AstDot.toString()"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void AstDot.<init>(AstNode, String, boolean)",
+      "void AstDot.<init>(AstNode, String, boolean, boolean)", "int AstDot.getCardinality()",
+      "String AstDot.toString()"})
   void testGettersAndSetters() {
     // Arrange
     AstNull base = new AstNull();
@@ -73,9 +67,8 @@ class AstDotDiffblueTest {
 
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>{@link AstDot#AstDot(AstNode, String, boolean, boolean)}
    *   <li>{@link AstDot#toString()}
@@ -84,14 +77,10 @@ class AstDotDiffblueTest {
    */
   @Test
   @DisplayName("Test getters and setters")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void AstDot.<init>(AstNode, String, boolean)",
-    "void AstDot.<init>(AstNode, String, boolean, boolean)",
-    "int AstDot.getCardinality()",
-    "String AstDot.toString()"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void AstDot.<init>(AstNode, String, boolean)",
+      "void AstDot.<init>(AstNode, String, boolean, boolean)", "int AstDot.getCardinality()",
+      "String AstDot.toString()"})
   void testGettersAndSetters2() {
     // Arrange
     AstNull base = new AstNull();
@@ -109,26 +98,20 @@ class AstDotDiffblueTest {
 
   /**
    * Test {@link AstDot#getProperty(Bindings, ELContext)}.
-   *
-   * <p>Method under test: {@link AstDot#getProperty(Bindings, ELContext)}
+   * <p>
+   * Method under test: {@link AstDot#getProperty(Bindings, ELContext)}
    */
   @Test
   @DisplayName("Test getProperty(Bindings, ELContext)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"String AstDot.getProperty(Bindings, ELContext)"})
   void testGetProperty() throws ELException {
     // Arrange
     AstDot astDot = new AstDot(new AstNull(), "Property", true);
-    Method[] functions = new Method[] {null};
     TypeConverter converter = mock(TypeConverter.class);
     Class<Object> type = Object.class;
-
-    ObjectValueExpression objectValueExpression =
-        new ObjectValueExpression(converter, "Object", type);
-    ValueExpression[] variables = new ValueExpression[] {objectValueExpression};
-
-    Bindings bindings = new Bindings(functions, variables);
+    Bindings bindings = new Bindings(new Method[]{null},
+        new ValueExpression[]{new ObjectValueExpression(converter, "Object", type)});
 
     // Act and Assert
     assertEquals("Property", astDot.getProperty(bindings, new SimpleContext()));
@@ -136,142 +119,26 @@ class AstDotDiffblueTest {
 
   /**
    * Test {@link AstDot#appendStructure(StringBuilder, Bindings)}.
-   *
-   * <p>Method under test: {@link AstDot#appendStructure(StringBuilder, Bindings)}
-   */
-  @Test
-  @DisplayName("Test appendStructure(StringBuilder, Bindings)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void AstDot.appendStructure(StringBuilder, Bindings)"})
-  void testAppendStructure() {
-    // Arrange
-    AstDot astDot =
-        new AstDot(
-            new AstFunction("null", 1, new AstParameters(new ArrayList<>())), "Property", true);
-    StringBuilder b = new StringBuilder("foo");
-    Method[] functions = new Method[] {null};
-    TypeConverter converter = mock(TypeConverter.class);
-    Class<Object> type = Object.class;
-
-    ObjectValueExpression objectValueExpression =
-        new ObjectValueExpression(converter, "Object", type);
-    ValueExpression[] variables = new ValueExpression[] {objectValueExpression};
-
-    Bindings bindings = new Bindings(functions, variables);
-
-    // Act
-    astDot.appendStructure(b, bindings);
-
-    // Assert
-    assertEquals("foonull().Property", b.toString());
-  }
-
-  /**
-   * Test {@link AstDot#appendStructure(StringBuilder, Bindings)}.
-   *
-   * <p>Method under test: {@link AstDot#appendStructure(StringBuilder, Bindings)}
-   */
-  @Test
-  @DisplayName("Test appendStructure(StringBuilder, Bindings)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void AstDot.appendStructure(StringBuilder, Bindings)"})
-  void testAppendStructure2() {
-    // Arrange
-    AstDot astDot =
-        new AstDot(
-            new AstFunction("null", -1, new AstParameters(new ArrayList<>())), "Property", true);
-    StringBuilder b = new StringBuilder("foo");
-    Method[] functions = new Method[] {null};
-    TypeConverter converter = mock(TypeConverter.class);
-    Class<Object> type = Object.class;
-
-    ObjectValueExpression objectValueExpression =
-        new ObjectValueExpression(converter, "Object", type);
-    ValueExpression[] variables = new ValueExpression[] {objectValueExpression};
-
-    Bindings bindings = new Bindings(functions, variables);
-
-    // Act
-    astDot.appendStructure(b, bindings);
-
-    // Assert
-    assertEquals("foonull().Property", b.toString());
-  }
-
-  /**
-   * Test {@link AstDot#appendStructure(StringBuilder, Bindings)}.
-   *
    * <ul>
-   *   <li>Then {@link StringBuilder#StringBuilder(String)} with {@code foo} toString is {@code
-   *       foo<fn>().Property}.
+   *   <li>Then {@link StringBuilder#StringBuilder(String)} with {@code foo} toString is {@code foonull.null.Property}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link AstDot#appendStructure(StringBuilder, Bindings)}
+   * <p>
+   * Method under test: {@link AstDot#appendStructure(StringBuilder, Bindings)}
    */
   @Test
-  @DisplayName(
-      "Test appendStructure(StringBuilder, Bindings); then StringBuilder(String) with 'foo' toString is 'foo<fn>().Property'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void AstDot.appendStructure(StringBuilder, Bindings)"})
-  void testAppendStructure_thenStringBuilderWithFooToStringIsFooFnProperty() {
-    // Arrange
-    AstDot astDot =
-        new AstDot(
-            new AstFunction("null", 0, new AstParameters(new ArrayList<>())), "Property", true);
-    StringBuilder b = new StringBuilder("foo");
-    Method[] functions = new Method[] {null};
-    TypeConverter converter = mock(TypeConverter.class);
-    Class<Object> type = Object.class;
-
-    ObjectValueExpression objectValueExpression =
-        new ObjectValueExpression(converter, "Object", type);
-    ValueExpression[] variables = new ValueExpression[] {objectValueExpression};
-
-    Bindings bindings = new Bindings(functions, variables);
-
-    // Act
-    astDot.appendStructure(b, bindings);
-
-    // Assert
-    assertEquals("foo<fn>().Property", b.toString());
-  }
-
-  /**
-   * Test {@link AstDot#appendStructure(StringBuilder, Bindings)}.
-   *
-   * <ul>
-   *   <li>Then {@link StringBuilder#StringBuilder(String)} with {@code foo} toString is {@code
-   *       foonull.null.Property}.
-   * </ul>
-   *
-   * <p>Method under test: {@link AstDot#appendStructure(StringBuilder, Bindings)}
-   */
-  @Test
-  @DisplayName(
-      "Test appendStructure(StringBuilder, Bindings); then StringBuilder(String) with 'foo' toString is 'foonull.null.Property'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test appendStructure(StringBuilder, Bindings); then StringBuilder(String) with 'foo' toString is 'foonull.null.Property'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void AstDot.appendStructure(StringBuilder, Bindings)"})
   void testAppendStructure_thenStringBuilderWithFooToStringIsFoonullNullProperty() {
     // Arrange
-    AstDot base = new AstDot(new AstNull(), "null", true);
-    AstDot astDot = new AstDot(base, "Property", true);
+    AstDot astDot = new AstDot(new AstDot(new AstNull(), "null", true), "Property", true);
     StringBuilder b = new StringBuilder("foo");
-    Method[] functions = new Method[] {null};
     TypeConverter converter = mock(TypeConverter.class);
     Class<Object> type = Object.class;
 
-    ObjectValueExpression objectValueExpression =
-        new ObjectValueExpression(converter, "Object", type);
-    ValueExpression[] variables = new ValueExpression[] {objectValueExpression};
-
-    Bindings bindings = new Bindings(functions, variables);
-
     // Act
-    astDot.appendStructure(b, bindings);
+    astDot.appendStructure(b,
+        new Bindings(new Method[]{null}, new ValueExpression[]{new ObjectValueExpression(converter, "Object", type)}));
 
     // Assert
     assertEquals("foonull.null.Property", b.toString());
@@ -279,38 +146,55 @@ class AstDotDiffblueTest {
 
   /**
    * Test {@link AstDot#appendStructure(StringBuilder, Bindings)}.
-   *
    * <ul>
-   *   <li>Then {@link StringBuilder#StringBuilder(String)} with {@code foo} toString is {@code
-   *       foonull.Property}.
+   *   <li>Then {@link StringBuilder#StringBuilder(String)} with {@code foo} toString is {@code foonull.Property}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link AstDot#appendStructure(StringBuilder, Bindings)}
+   * <p>
+   * Method under test: {@link AstDot#appendStructure(StringBuilder, Bindings)}
    */
   @Test
-  @DisplayName(
-      "Test appendStructure(StringBuilder, Bindings); then StringBuilder(String) with 'foo' toString is 'foonull.Property'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test appendStructure(StringBuilder, Bindings); then StringBuilder(String) with 'foo' toString is 'foonull.Property'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void AstDot.appendStructure(StringBuilder, Bindings)"})
   void testAppendStructure_thenStringBuilderWithFooToStringIsFoonullProperty() {
     // Arrange
     AstDot astDot = new AstDot(new AstNull(), "Property", true);
     StringBuilder b = new StringBuilder("foo");
-    Method[] functions = new Method[] {null};
     TypeConverter converter = mock(TypeConverter.class);
     Class<Object> type = Object.class;
 
-    ObjectValueExpression objectValueExpression =
-        new ObjectValueExpression(converter, "Object", type);
-    ValueExpression[] variables = new ValueExpression[] {objectValueExpression};
-
-    Bindings bindings = new Bindings(functions, variables);
-
     // Act
-    astDot.appendStructure(b, bindings);
+    astDot.appendStructure(b,
+        new Bindings(new Method[]{null}, new ValueExpression[]{new ObjectValueExpression(converter, "Object", type)}));
 
     // Assert
     assertEquals("foonull.Property", b.toString());
+  }
+
+  /**
+   * Test {@link AstDot#appendStructure(StringBuilder, Bindings)}.
+   * <ul>
+   *   <li>Then {@link StringBuilder#StringBuilder(String)} with {@code foo} toString is {@code foonull().Property}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link AstDot#appendStructure(StringBuilder, Bindings)}
+   */
+  @Test
+  @DisplayName("Test appendStructure(StringBuilder, Bindings); then StringBuilder(String) with 'foo' toString is 'foonull().Property'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void AstDot.appendStructure(StringBuilder, Bindings)"})
+  void testAppendStructure_thenStringBuilderWithFooToStringIsFoonullProperty2() {
+    // Arrange
+    AstDot astDot = new AstDot(new AstFunction("null", 1, new AstParameters(new ArrayList<>())), "Property", true);
+    StringBuilder b = new StringBuilder("foo");
+    TypeConverter converter = mock(TypeConverter.class);
+    Class<Object> type = Object.class;
+
+    // Act
+    astDot.appendStructure(b,
+        new Bindings(new Method[]{null}, new ValueExpression[]{new ObjectValueExpression(converter, "Object", type)}));
+
+    // Assert
+    assertEquals("foonull().Property", b.toString());
   }
 }

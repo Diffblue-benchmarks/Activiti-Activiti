@@ -19,7 +19,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
 import java.util.List;
@@ -30,13 +29,12 @@ import org.junit.jupiter.api.Test;
 class CandidateUsersPayloadDiffblueTest {
   /**
    * Test {@link CandidateUsersPayload#CandidateUsersPayload()}.
-   *
-   * <p>Method under test: {@link CandidateUsersPayload#CandidateUsersPayload()}
+   * <p>
+   * Method under test: {@link CandidateUsersPayload#CandidateUsersPayload()}
    */
   @Test
   @DisplayName("Test new CandidateUsersPayload()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void CandidateUsersPayload.<init>()"})
   void testNewCandidateUsersPayload() {
     // Arrange and Act
@@ -49,19 +47,16 @@ class CandidateUsersPayloadDiffblueTest {
 
   /**
    * Test {@link CandidateUsersPayload#CandidateUsersPayload(String, List)}.
-   *
    * <ul>
-   *   <li>Given {@code 42}.
-   *   <li>When {@link ArrayList#ArrayList()} add {@code 42}.
+   *   <li>Given {@code 42}.</li>
+   *   <li>When {@link ArrayList#ArrayList()} add {@code 42}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link CandidateUsersPayload#CandidateUsersPayload(String, List)}
+   * <p>
+   * Method under test: {@link CandidateUsersPayload#CandidateUsersPayload(String, List)}
    */
   @Test
-  @DisplayName(
-      "Test new CandidateUsersPayload(String, List); given '42'; when ArrayList() add '42'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test new CandidateUsersPayload(String, List); given '42'; when ArrayList() add '42'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void CandidateUsersPayload.<init>(String, List)"})
   void testNewCandidateUsersPayload_given42_whenArrayListAdd42() {
     // Arrange
@@ -70,8 +65,7 @@ class CandidateUsersPayloadDiffblueTest {
     candidateUsers.add("foo");
 
     // Act
-    CandidateUsersPayload actualCandidateUsersPayload =
-        new CandidateUsersPayload("42", candidateUsers);
+    CandidateUsersPayload actualCandidateUsersPayload = new CandidateUsersPayload("42", candidateUsers);
 
     // Assert
     assertEquals("42", actualCandidateUsersPayload.getTaskId());
@@ -80,19 +74,16 @@ class CandidateUsersPayloadDiffblueTest {
 
   /**
    * Test {@link CandidateUsersPayload#CandidateUsersPayload(String, List)}.
-   *
    * <ul>
-   *   <li>Given {@code foo}.
-   *   <li>Then return CandidateUsers is {@link ArrayList#ArrayList()}.
+   *   <li>Given {@code foo}.</li>
+   *   <li>Then return CandidateUsers is {@link ArrayList#ArrayList()}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link CandidateUsersPayload#CandidateUsersPayload(String, List)}
+   * <p>
+   * Method under test: {@link CandidateUsersPayload#CandidateUsersPayload(String, List)}
    */
   @Test
-  @DisplayName(
-      "Test new CandidateUsersPayload(String, List); given 'foo'; then return CandidateUsers is ArrayList()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test new CandidateUsersPayload(String, List); given 'foo'; then return CandidateUsers is ArrayList()")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void CandidateUsersPayload.<init>(String, List)"})
   void testNewCandidateUsersPayload_givenFoo_thenReturnCandidateUsersIsArrayList() {
     // Arrange
@@ -100,8 +91,7 @@ class CandidateUsersPayloadDiffblueTest {
     candidateUsers.add("foo");
 
     // Act
-    CandidateUsersPayload actualCandidateUsersPayload =
-        new CandidateUsersPayload("42", candidateUsers);
+    CandidateUsersPayload actualCandidateUsersPayload = new CandidateUsersPayload("42", candidateUsers);
 
     // Assert
     assertEquals("42", actualCandidateUsersPayload.getTaskId());
@@ -110,24 +100,20 @@ class CandidateUsersPayloadDiffblueTest {
 
   /**
    * Test {@link CandidateUsersPayload#CandidateUsersPayload(String, List)}.
-   *
    * <ul>
-   *   <li>When {@link ArrayList#ArrayList()}.
-   *   <li>Then return CandidateUsers Empty.
+   *   <li>When {@link ArrayList#ArrayList()}.</li>
+   *   <li>Then return CandidateUsers Empty.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link CandidateUsersPayload#CandidateUsersPayload(String, List)}
+   * <p>
+   * Method under test: {@link CandidateUsersPayload#CandidateUsersPayload(String, List)}
    */
   @Test
-  @DisplayName(
-      "Test new CandidateUsersPayload(String, List); when ArrayList(); then return CandidateUsers Empty")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test new CandidateUsersPayload(String, List); when ArrayList(); then return CandidateUsers Empty")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void CandidateUsersPayload.<init>(String, List)"})
   void testNewCandidateUsersPayload_whenArrayList_thenReturnCandidateUsersEmpty() {
     // Arrange and Act
-    CandidateUsersPayload actualCandidateUsersPayload =
-        new CandidateUsersPayload("42", new ArrayList<>());
+    CandidateUsersPayload actualCandidateUsersPayload = new CandidateUsersPayload("42", new ArrayList<>());
 
     // Assert
     assertEquals("42", actualCandidateUsersPayload.getTaskId());
@@ -136,9 +122,8 @@ class CandidateUsersPayloadDiffblueTest {
 
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>{@link CandidateUsersPayload#setCandidateUsers(List)}
    *   <li>{@link CandidateUsersPayload#setTaskId(String)}
@@ -149,15 +134,10 @@ class CandidateUsersPayloadDiffblueTest {
    */
   @Test
   @DisplayName("Test getters and setters")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "List CandidateUsersPayload.getCandidateUsers()",
-    "String CandidateUsersPayload.getId()",
-    "String CandidateUsersPayload.getTaskId()",
-    "void CandidateUsersPayload.setCandidateUsers(List)",
-    "void CandidateUsersPayload.setTaskId(String)"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"List CandidateUsersPayload.getCandidateUsers()", "String CandidateUsersPayload.getId()",
+      "String CandidateUsersPayload.getTaskId()", "void CandidateUsersPayload.setCandidateUsers(List)",
+      "void CandidateUsersPayload.setTaskId(String)"})
   void testGettersAndSetters() {
     // Arrange
     CandidateUsersPayload candidateUsersPayload = new CandidateUsersPayload();

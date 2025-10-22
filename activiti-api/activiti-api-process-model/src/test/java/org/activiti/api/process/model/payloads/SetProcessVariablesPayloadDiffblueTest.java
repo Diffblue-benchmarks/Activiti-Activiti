@@ -19,7 +19,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.HashMap;
 import java.util.Map;
@@ -30,13 +29,12 @@ import org.junit.jupiter.api.Test;
 class SetProcessVariablesPayloadDiffblueTest {
   /**
    * Test {@link SetProcessVariablesPayload#SetProcessVariablesPayload()}.
-   *
-   * <p>Method under test: {@link SetProcessVariablesPayload#SetProcessVariablesPayload()}
+   * <p>
+   * Method under test: {@link SetProcessVariablesPayload#SetProcessVariablesPayload()}
    */
   @Test
   @DisplayName("Test new SetProcessVariablesPayload()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void SetProcessVariablesPayload.<init>()"})
   void testNewSetProcessVariablesPayload() {
     // Arrange and Act
@@ -49,19 +47,16 @@ class SetProcessVariablesPayloadDiffblueTest {
 
   /**
    * Test {@link SetProcessVariablesPayload#SetProcessVariablesPayload(String, Map)}.
-   *
-   * <p>Method under test: {@link SetProcessVariablesPayload#SetProcessVariablesPayload(String,
-   * Map)}
+   * <p>
+   * Method under test: {@link SetProcessVariablesPayload#SetProcessVariablesPayload(String, Map)}
    */
   @Test
   @DisplayName("Test new SetProcessVariablesPayload(String, Map)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void SetProcessVariablesPayload.<init>(String, Map)"})
   void testNewSetProcessVariablesPayload2() {
     // Arrange and Act
-    SetProcessVariablesPayload actualSetProcessVariablesPayload =
-        new SetProcessVariablesPayload("42", new HashMap<>());
+    SetProcessVariablesPayload actualSetProcessVariablesPayload = new SetProcessVariablesPayload("42", new HashMap<>());
 
     // Assert
     assertEquals("42", actualSetProcessVariablesPayload.getProcessInstanceId());
@@ -70,9 +65,8 @@ class SetProcessVariablesPayloadDiffblueTest {
 
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>{@link SetProcessVariablesPayload#setProcessInstanceId(String)}
    *   <li>{@link SetProcessVariablesPayload#setVariables(Map)}
@@ -83,15 +77,11 @@ class SetProcessVariablesPayloadDiffblueTest {
    */
   @Test
   @DisplayName("Test getters and setters")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "String SetProcessVariablesPayload.getId()",
-    "String SetProcessVariablesPayload.getProcessInstanceId()",
-    "Map SetProcessVariablesPayload.getVariables()",
-    "void SetProcessVariablesPayload.setProcessInstanceId(String)",
-    "void SetProcessVariablesPayload.setVariables(Map)"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"String SetProcessVariablesPayload.getId()",
+      "String SetProcessVariablesPayload.getProcessInstanceId()", "Map SetProcessVariablesPayload.getVariables()",
+      "void SetProcessVariablesPayload.setProcessInstanceId(String)",
+      "void SetProcessVariablesPayload.setVariables(Map)"})
   void testGettersAndSetters() {
     // Arrange
     SetProcessVariablesPayload setProcessVariablesPayload = new SetProcessVariablesPayload();

@@ -17,18 +17,20 @@ package org.activiti.engine.impl.util.condition;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ArrayNode;
-import com.fasterxml.jackson.databind.node.DoubleNode;
+import com.fasterxml.jackson.databind.node.BigIntegerNode;
 import com.fasterxml.jackson.databind.node.JsonNodeFactory;
 import com.fasterxml.jackson.databind.node.MissingNode;
 import com.fasterxml.jackson.databind.node.NullNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import java.math.BigInteger;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import org.mockito.Mockito;
@@ -36,83 +38,93 @@ import org.mockito.Mockito;
 public class ConditionUtilDiffblueTest {
   /**
    * Test {@link ConditionUtil#getActiveValue(String, String, ObjectNode)}.
-   *
    * <ul>
-   *   <li>Given {@link ArrayNode} {@link ArrayNode#isNull()} return {@code false}.
-   *   <li>Then return {@code As Text}.
+   *   <li>Given {@link ArrayNode} {@link JsonNode#isNull()} return {@code true}.</li>
+   *   <li>Then calls {@link JsonNode#isNull()}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ConditionUtil#getActiveValue(String, String, ObjectNode)}
+   * <p>
+   * Method under test: {@link ConditionUtil#getActiveValue(String, String, ObjectNode)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"String ConditionUtil.getActiveValue(String, String, ObjectNode)"})
-  public void testGetActiveValue_givenArrayNodeIsNullReturnFalse_thenReturnAsText() {
-    // Arrange
-    ArrayNode arrayNode = mock(ArrayNode.class);
-    when(arrayNode.isNull()).thenReturn(false);
-    when(arrayNode.asText()).thenReturn("As Text");
-
-    ObjectNode elementProperties = mock(ObjectNode.class);
-    when(elementProperties.get(Mockito.<String>any())).thenReturn(arrayNode);
-
-    // Act
-    String actualActiveValue =
-        ConditionUtil.getActiveValue("42", "Property Name", elementProperties);
-
-    // Assert
-    verify(arrayNode).isNull();
-    verify(arrayNode).asText();
-    verify(elementProperties).get("Property Name");
-    assertEquals("As Text", actualActiveValue);
-  }
-
-  /**
-   * Test {@link ConditionUtil#getActiveValue(String, String, ObjectNode)}.
-   *
-   * <ul>
-   *   <li>Given {@link ArrayNode} {@link ArrayNode#isNull()} return {@code true}.
-   *   <li>Then return {@code null}.
-   * </ul>
-   *
-   * <p>Method under test: {@link ConditionUtil#getActiveValue(String, String, ObjectNode)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String ConditionUtil.getActiveValue(String, String, ObjectNode)"})
-  public void testGetActiveValue_givenArrayNodeIsNullReturnTrue_thenReturnNull() {
+  public void testGetActiveValue_givenArrayNodeIsNullReturnTrue_thenCallsIsNull() {
     // Arrange
     ArrayNode arrayNode = mock(ArrayNode.class);
     when(arrayNode.isNull()).thenReturn(true);
-
     ObjectNode elementProperties = mock(ObjectNode.class);
     when(elementProperties.get(Mockito.<String>any())).thenReturn(arrayNode);
 
     // Act
-    String actualActiveValue =
-        ConditionUtil.getActiveValue("42", "Property Name", elementProperties);
+    String actualActiveValue = ConditionUtil.getActiveValue("42", "Property Name", elementProperties);
 
     // Assert
     verify(arrayNode).isNull();
-    verify(elementProperties).get("Property Name");
+    verify(elementProperties).get(eq("Property Name"));
     assertNull(actualActiveValue);
   }
 
   /**
    * Test {@link ConditionUtil#getActiveValue(String, String, ObjectNode)}.
-   *
    * <ul>
-   *   <li>Given Instance.
-   *   <li>Then return empty string.
+   *   <li>Given {@link ArrayNode#ArrayNode(JsonNodeFactory)} with nf is withExactBigDecimals {@code true}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ConditionUtil#getActiveValue(String, String, ObjectNode)}
+   * <p>
+   * Method under test: {@link ConditionUtil#getActiveValue(String, String, ObjectNode)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String ConditionUtil.getActiveValue(String, String, ObjectNode)"})
+  public void testGetActiveValue_givenArrayNodeWithNfIsWithExactBigDecimalsTrue() {
+    // Arrange
+    ObjectNode elementProperties = mock(ObjectNode.class);
+    when(elementProperties.get(Mockito.<String>any()))
+        .thenReturn(new ArrayNode(JsonNodeFactory.withExactBigDecimals(true)));
+
+    // Act
+    String actualActiveValue = ConditionUtil.getActiveValue("42", "Property Name", elementProperties);
+
+    // Assert
+    verify(elementProperties).get(eq("Property Name"));
+    assertEquals("", actualActiveValue);
+  }
+
+  /**
+   * Test {@link ConditionUtil#getActiveValue(String, String, ObjectNode)}.
+   * <ul>
+   *   <li>Given {@link BigIntegerNode#BigIntegerNode(BigInteger)} with v is valueOf one.</li>
+   *   <li>Then return {@code 1}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link ConditionUtil#getActiveValue(String, String, ObjectNode)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String ConditionUtil.getActiveValue(String, String, ObjectNode)"})
+  public void testGetActiveValue_givenBigIntegerNodeWithVIsValueOfOne_thenReturn1() {
+    // Arrange
+    ObjectNode elementProperties = mock(ObjectNode.class);
+    when(elementProperties.get(Mockito.<String>any())).thenReturn(new BigIntegerNode(BigInteger.valueOf(1L)));
+
+    // Act
+    String actualActiveValue = ConditionUtil.getActiveValue("42", "Property Name", elementProperties);
+
+    // Assert
+    verify(elementProperties).get(eq("Property Name"));
+    assertEquals("1", actualActiveValue);
+  }
+
+  /**
+   * Test {@link ConditionUtil#getActiveValue(String, String, ObjectNode)}.
+   * <ul>
+   *   <li>Given Instance.</li>
+   *   <li>Then return empty string.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link ConditionUtil#getActiveValue(String, String, ObjectNode)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"String ConditionUtil.getActiveValue(String, String, ObjectNode)"})
   public void testGetActiveValue_givenInstance_thenReturnEmptyString() {
     // Arrange
@@ -120,28 +132,25 @@ public class ConditionUtilDiffblueTest {
     when(elementProperties.get(Mockito.<String>any())).thenReturn(MissingNode.getInstance());
 
     // Act
-    String actualActiveValue =
-        ConditionUtil.getActiveValue("42", "Property Name", elementProperties);
+    String actualActiveValue = ConditionUtil.getActiveValue("42", "Property Name", elementProperties);
 
     // Assert
-    verify(elementProperties).get("Property Name");
+    verify(elementProperties).get(eq("Property Name"));
     assertEquals("", actualActiveValue);
   }
 
   /**
    * Test {@link ConditionUtil#getActiveValue(String, String, ObjectNode)}.
-   *
    * <ul>
-   *   <li>Given Instance.
-   *   <li>When {@link ObjectNode} {@link ObjectNode#get(String)} return Instance.
-   *   <li>Then return {@code null}.
+   *   <li>Given Instance.</li>
+   *   <li>When {@link ObjectNode} {@link ObjectNode#get(String)} return Instance.</li>
+   *   <li>Then return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ConditionUtil#getActiveValue(String, String, ObjectNode)}
+   * <p>
+   * Method under test: {@link ConditionUtil#getActiveValue(String, String, ObjectNode)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"String ConditionUtil.getActiveValue(String, String, ObjectNode)"})
   public void testGetActiveValue_givenInstance_whenObjectNodeGetReturnInstance_thenReturnNull() {
     // Arrange
@@ -149,117 +158,45 @@ public class ConditionUtilDiffblueTest {
     when(elementProperties.get(Mockito.<String>any())).thenReturn(NullNode.getInstance());
 
     // Act
-    String actualActiveValue =
-        ConditionUtil.getActiveValue("42", "Property Name", elementProperties);
+    String actualActiveValue = ConditionUtil.getActiveValue("42", "Property Name", elementProperties);
 
     // Assert
-    verify(elementProperties).get("Property Name");
+    verify(elementProperties).get(eq("Property Name"));
     assertNull(actualActiveValue);
   }
 
   /**
    * Test {@link ConditionUtil#getActiveValue(String, String, ObjectNode)}.
-   *
    * <ul>
-   *   <li>Given {@code null}.
-   *   <li>When {@link ObjectNode} {@link ObjectNode#get(String)} return {@code null}.
-   *   <li>Then return {@code 42}.
+   *   <li>When {@code null}.</li>
+   *   <li>Then return {@code 42}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ConditionUtil#getActiveValue(String, String, ObjectNode)}
+   * <p>
+   * Method under test: {@link ConditionUtil#getActiveValue(String, String, ObjectNode)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String ConditionUtil.getActiveValue(String, String, ObjectNode)"})
-  public void testGetActiveValue_givenNull_whenObjectNodeGetReturnNull_thenReturn42() {
-    // Arrange
-    ObjectNode elementProperties = mock(ObjectNode.class);
-    when(elementProperties.get(Mockito.<String>any())).thenReturn(null);
-
-    // Act
-    String actualActiveValue =
-        ConditionUtil.getActiveValue("42", "Property Name", elementProperties);
-
-    // Assert
-    verify(elementProperties).get("Property Name");
-    assertEquals("42", actualActiveValue);
-  }
-
-  /**
-   * Test {@link ConditionUtil#getActiveValue(String, String, ObjectNode)}.
-   *
-   * <ul>
-   *   <li>Given valueOf ten.
-   *   <li>Then return {@code 10.0}.
-   * </ul>
-   *
-   * <p>Method under test: {@link ConditionUtil#getActiveValue(String, String, ObjectNode)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String ConditionUtil.getActiveValue(String, String, ObjectNode)"})
-  public void testGetActiveValue_givenValueOfTen_thenReturn100() {
-    // Arrange
-    ObjectNode elementProperties = mock(ObjectNode.class);
-    when(elementProperties.get(Mockito.<String>any())).thenReturn(DoubleNode.valueOf(10.0d));
-
-    // Act
-    String actualActiveValue =
-        ConditionUtil.getActiveValue("42", "Property Name", elementProperties);
-
-    // Assert
-    verify(elementProperties).get("Property Name");
-    assertEquals("10.0", actualActiveValue);
-  }
-
-  /**
-   * Test {@link ConditionUtil#getActiveValue(String, String, ObjectNode)}.
-   *
-   * <ul>
-   *   <li>When {@code null}.
-   *   <li>Then return {@code 42}.
-   * </ul>
-   *
-   * <p>Method under test: {@link ConditionUtil#getActiveValue(String, String, ObjectNode)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"String ConditionUtil.getActiveValue(String, String, ObjectNode)"})
   public void testGetActiveValue_whenNull_thenReturn42() {
-    // Arrange and Act
-    String actualActiveValue = ConditionUtil.getActiveValue("42", "Property Name", null);
-
-    // Assert
-    assertEquals("42", actualActiveValue);
+    // Arrange, Act and Assert
+    assertEquals("42", ConditionUtil.getActiveValue("42", "Property Name", null));
   }
 
   /**
    * Test {@link ConditionUtil#getActiveValue(String, String, ObjectNode)}.
-   *
    * <ul>
-   *   <li>When {@link ObjectNode#ObjectNode(JsonNodeFactory)} with nc is withExactBigDecimals
-   *       {@code true}.
-   *   <li>Then return {@code 42}.
+   *   <li>When {@link ObjectNode#ObjectNode(JsonNodeFactory)} with nc is withExactBigDecimals {@code true}.</li>
+   *   <li>Then return {@code 42}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ConditionUtil#getActiveValue(String, String, ObjectNode)}
+   * <p>
+   * Method under test: {@link ConditionUtil#getActiveValue(String, String, ObjectNode)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"String ConditionUtil.getActiveValue(String, String, ObjectNode)"})
   public void testGetActiveValue_whenObjectNodeWithNcIsWithExactBigDecimalsTrue_thenReturn42() {
-    // Arrange
-    JsonNodeFactory nc = JsonNodeFactory.withExactBigDecimals(true);
-
-    // Act
-    String actualActiveValue =
-        ConditionUtil.getActiveValue("42", "Property Name", new ObjectNode(nc));
-
-    // Assert
-    assertEquals("42", actualActiveValue);
+    // Arrange, Act and Assert
+    assertEquals("42", ConditionUtil.getActiveValue("42", "Property Name",
+        new ObjectNode(JsonNodeFactory.withExactBigDecimals(true))));
   }
 }

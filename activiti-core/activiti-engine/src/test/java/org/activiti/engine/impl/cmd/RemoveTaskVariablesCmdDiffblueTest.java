@@ -16,8 +16,7 @@
 package org.activiti.engine.impl.cmd;
 
 import static org.junit.Assert.assertEquals;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -27,29 +26,20 @@ import org.junit.experimental.categories.Category;
 public class RemoveTaskVariablesCmdDiffblueTest {
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>{@link RemoveTaskVariablesCmd#RemoveTaskVariablesCmd(String, Collection, boolean)}
    *   <li>{@link RemoveTaskVariablesCmd#getSuspendedTaskException()}
    * </ul>
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void RemoveTaskVariablesCmd.<init>(String, Collection, boolean)",
-    "String RemoveTaskVariablesCmd.getSuspendedTaskException()"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void RemoveTaskVariablesCmd.<init>(String, Collection, boolean)",
+      "String RemoveTaskVariablesCmd.getSuspendedTaskException()"})
   public void testGettersAndSetters() {
-    // Arrange and Act
-    RemoveTaskVariablesCmd actualRemoveTaskVariablesCmd =
-        new RemoveTaskVariablesCmd("42", new ArrayList<>(), true);
-
-    // Assert
-    assertEquals(
-        "Cannot remove variables from a suspended task.",
-        actualRemoveTaskVariablesCmd.getSuspendedTaskException());
+    // Arrange, Act and Assert
+    assertEquals("Cannot remove variables from a suspended task.",
+        (new RemoveTaskVariablesCmd("42", new ArrayList<>(), true)).getSuspendedTaskException());
   }
 }

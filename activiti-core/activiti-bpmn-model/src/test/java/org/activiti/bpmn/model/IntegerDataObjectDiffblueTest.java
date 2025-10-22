@@ -18,8 +18,7 @@ package org.activiti.bpmn.model;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
@@ -27,17 +26,15 @@ import org.junit.experimental.categories.Category;
 public class IntegerDataObjectDiffblueTest {
   /**
    * Test {@link IntegerDataObject#setValue(Object)}.
-   *
    * <ul>
-   *   <li>When forty-two.
-   *   <li>Then {@link IntegerDataObject} (default constructor) Value intValue is forty-two.
+   *   <li>When forty-two.</li>
+   *   <li>Then {@link IntegerDataObject} (default constructor) Value intValue is forty-two.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link IntegerDataObject#setValue(Object)}
+   * <p>
+   * Method under test: {@link IntegerDataObject#setValue(Object)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void IntegerDataObject.setValue(Object)"})
   public void testSetValue_whenFortyTwo_thenIntegerDataObjectValueIntValueIsFortyTwo() {
     // Arrange
@@ -52,21 +49,19 @@ public class IntegerDataObjectDiffblueTest {
 
   /**
    * Test {@link IntegerDataObject#clone()}.
-   *
    * <ul>
-   *   <li>Given {@link IntegerDataObject} (default constructor).
-   *   <li>Then return Value is {@code null}.
+   *   <li>Given {@link IntegerDataObject} (default constructor).</li>
+   *   <li>Then return Value is {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link IntegerDataObject#clone()}
+   * <p>
+   * Method under test: {@link IntegerDataObject#clone()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"IntegerDataObject IntegerDataObject.clone()"})
   public void testClone_givenIntegerDataObject_thenReturnValueIsNull() {
     // Arrange and Act
-    IntegerDataObject actualCloneResult = new IntegerDataObject().clone();
+    IntegerDataObject actualCloneResult = (new IntegerDataObject()).clone();
 
     // Assert
     assertNull(actualCloneResult.getValue());
@@ -85,16 +80,14 @@ public class IntegerDataObjectDiffblueTest {
 
   /**
    * Test {@link IntegerDataObject#clone()}.
-   *
    * <ul>
-   *   <li>Then return Value intValue is forty-two.
+   *   <li>Then return Value intValue is forty-two.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link IntegerDataObject#clone()}
+   * <p>
+   * Method under test: {@link IntegerDataObject#clone()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"IntegerDataObject IntegerDataObject.clone()"})
   public void testClone_thenReturnValueIntValueIsFortyTwo() {
     // Arrange
@@ -121,12 +114,11 @@ public class IntegerDataObjectDiffblueTest {
 
   /**
    * Test new {@link IntegerDataObject} (default constructor).
-   *
-   * <p>Method under test: default or parameterless constructor of {@link IntegerDataObject}
+   * <p>
+   * Method under test: default or parameterless constructor of {@link IntegerDataObject}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void IntegerDataObject.<init>()"})
   public void testNewIntegerDataObject() {
     // Arrange and Act

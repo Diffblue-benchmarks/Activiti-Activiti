@@ -15,26 +15,25 @@
  */
 package org.activiti.engine.impl.test;
 
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertThrows;
 import static org.junit.Assert.assertTrue;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.ArgumentMatchers.isA;
 import static org.mockito.Mockito.anyBoolean;
 import static org.mockito.Mockito.atLeast;
 import static org.mockito.Mockito.doNothing;
-import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.HashMap;
 import java.util.Map;
 import org.activiti.engine.ActivitiObjectNotFoundException;
 import org.activiti.engine.ProcessEngine;
+import org.activiti.engine.ProcessEngineConfiguration;
 import org.activiti.engine.ProcessEngineLifecycleListener;
 import org.activiti.engine.delegate.event.impl.ActivitiEventDispatcherImpl;
 import org.activiti.engine.impl.DynamicBpmnServiceImpl;
@@ -65,28 +64,20 @@ import org.mockito.Mockito;
 public class TestHelperDiffblueTest {
   /**
    * Test {@link TestHelper#annotationDeploymentSetUp(ProcessEngine, Class, String)}.
-   *
    * <ul>
-   *   <li>Then return {@code null}.
+   *   <li>Then return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link TestHelper#annotationDeploymentSetUp(ProcessEngine, Class,
-   * String)}
+   * <p>
+   * Method under test: {@link TestHelper#annotationDeploymentSetUp(ProcessEngine, Class, String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"String TestHelper.annotationDeploymentSetUp(ProcessEngine, Class, String)"})
   public void testAnnotationDeploymentSetUp_thenReturnNull() {
     // Arrange
-    ProcessEngineLifecycleListener processEngineLifecycleListener =
-        mock(ProcessEngineLifecycleListener.class);
-    doNothing()
-        .when(processEngineLifecycleListener)
-        .onProcessEngineBuilt(Mockito.<ProcessEngine>any());
-
-    JtaProcessEngineConfiguration processEngineConfiguration =
-        mock(JtaProcessEngineConfiguration.class);
+    ProcessEngineLifecycleListener processEngineLifecycleListener = mock(ProcessEngineLifecycleListener.class);
+    doNothing().when(processEngineLifecycleListener).onProcessEngineBuilt(Mockito.<ProcessEngine>any());
+    JtaProcessEngineConfiguration processEngineConfiguration = mock(JtaProcessEngineConfiguration.class);
     when(processEngineConfiguration.isUsingRelationalDatabase()).thenReturn(false);
     when(processEngineConfiguration.getProcessEngineName()).thenReturn("Process Engine Name");
     Mockito.<Map<Class<?>, SessionFactory>>when(processEngineConfiguration.getSessionFactories())
@@ -96,27 +87,23 @@ public class TestHelperDiffblueTest {
     when(processEngineConfiguration.getHistoryService())
         .thenReturn(new HistoryServiceImpl(new JtaProcessEngineConfiguration()));
     when(processEngineConfiguration.getManagementService()).thenReturn(new ManagementServiceImpl());
-    when(processEngineConfiguration.getProcessEngineLifecycleListener())
-        .thenReturn(processEngineLifecycleListener);
+    when(processEngineConfiguration.getProcessEngineLifecycleListener()).thenReturn(processEngineLifecycleListener);
     when(processEngineConfiguration.getRepositoryService()).thenReturn(new RepositoryServiceImpl());
     when(processEngineConfiguration.getRuntimeService()).thenReturn(new RuntimeServiceImpl());
     when(processEngineConfiguration.getTaskService())
         .thenReturn(new TaskServiceImpl(new JtaProcessEngineConfiguration()));
-    when(processEngineConfiguration.getEventDispatcher())
-        .thenReturn(new ActivitiEventDispatcherImpl());
+    when(processEngineConfiguration.getEventDispatcher()).thenReturn(new ActivitiEventDispatcherImpl());
     when(processEngineConfiguration.getAsyncExecutor()).thenReturn(new DefaultAsyncJobExecutor());
-    when(processEngineConfiguration.getTransactionContextFactory())
-        .thenReturn(mock(TransactionContextFactory.class));
+    when(processEngineConfiguration.getTransactionContextFactory()).thenReturn(mock(TransactionContextFactory.class));
     CommandConfig defaultConfig = new CommandConfig();
-    CommandExecutorImpl commandExecutorImpl =
-        new CommandExecutorImpl(defaultConfig, new CommandContextInterceptor());
-    when(processEngineConfiguration.getCommandExecutor()).thenReturn(commandExecutorImpl);
+    when(processEngineConfiguration.getCommandExecutor())
+        .thenReturn(new CommandExecutorImpl(defaultConfig, new CommandContextInterceptor()));
     ProcessEngineImpl processEngine = new ProcessEngineImpl(processEngineConfiguration);
     Class<Object> testClass = Object.class;
 
     // Act
-    String actualAnnotationDeploymentSetUpResult =
-        TestHelper.annotationDeploymentSetUp(processEngine, testClass, "Method Name");
+    String actualAnnotationDeploymentSetUpResult = TestHelper.annotationDeploymentSetUp(processEngine, testClass,
+        "Method Name");
 
     // Assert
     verify(processEngineConfiguration).getAsyncExecutor();
@@ -139,29 +126,22 @@ public class TestHelperDiffblueTest {
 
   /**
    * Test {@link TestHelper#annotationDeploymentTearDown(ProcessEngine, String, Class, String)}.
-   *
-   * <p>Method under test: {@link TestHelper#annotationDeploymentTearDown(ProcessEngine, String,
-   * Class, String)}
+   * <ul>
+   *   <li>Then calls {@link ProcessEngineConfiguration#getAsyncExecutor()}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link TestHelper#annotationDeploymentTearDown(ProcessEngine, String, Class, String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void TestHelper.annotationDeploymentTearDown(ProcessEngine, String, Class, String)"
-  })
-  public void testAnnotationDeploymentTearDown() {
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void TestHelper.annotationDeploymentTearDown(ProcessEngine, String, Class, String)"})
+  public void testAnnotationDeploymentTearDown_thenCallsGetAsyncExecutor() {
     // Arrange
-    ProcessEngineLifecycleListener processEngineLifecycleListener =
-        mock(ProcessEngineLifecycleListener.class);
-    doNothing()
-        .when(processEngineLifecycleListener)
-        .onProcessEngineBuilt(Mockito.<ProcessEngine>any());
-
+    ProcessEngineLifecycleListener processEngineLifecycleListener = mock(ProcessEngineLifecycleListener.class);
+    doNothing().when(processEngineLifecycleListener).onProcessEngineBuilt(Mockito.<ProcessEngine>any());
     RepositoryServiceImpl repositoryServiceImpl = mock(RepositoryServiceImpl.class);
     doNothing().when(repositoryServiceImpl).deleteDeployment(Mockito.<String>any(), anyBoolean());
-
-    JtaProcessEngineConfiguration processEngineConfiguration =
-        mock(JtaProcessEngineConfiguration.class);
+    JtaProcessEngineConfiguration processEngineConfiguration = mock(JtaProcessEngineConfiguration.class);
     when(processEngineConfiguration.isUsingRelationalDatabase()).thenReturn(false);
     when(processEngineConfiguration.getProcessEngineName()).thenReturn("Process Engine Name");
     Mockito.<Map<Class<?>, SessionFactory>>when(processEngineConfiguration.getSessionFactories())
@@ -171,21 +151,17 @@ public class TestHelperDiffblueTest {
     when(processEngineConfiguration.getHistoryService())
         .thenReturn(new HistoryServiceImpl(new JtaProcessEngineConfiguration()));
     when(processEngineConfiguration.getManagementService()).thenReturn(new ManagementServiceImpl());
-    when(processEngineConfiguration.getProcessEngineLifecycleListener())
-        .thenReturn(processEngineLifecycleListener);
+    when(processEngineConfiguration.getProcessEngineLifecycleListener()).thenReturn(processEngineLifecycleListener);
     when(processEngineConfiguration.getRepositoryService()).thenReturn(repositoryServiceImpl);
     when(processEngineConfiguration.getRuntimeService()).thenReturn(new RuntimeServiceImpl());
     when(processEngineConfiguration.getTaskService())
         .thenReturn(new TaskServiceImpl(new JtaProcessEngineConfiguration()));
-    when(processEngineConfiguration.getEventDispatcher())
-        .thenReturn(new ActivitiEventDispatcherImpl());
+    when(processEngineConfiguration.getEventDispatcher()).thenReturn(new ActivitiEventDispatcherImpl());
     when(processEngineConfiguration.getAsyncExecutor()).thenReturn(new DefaultAsyncJobExecutor());
-    when(processEngineConfiguration.getTransactionContextFactory())
-        .thenReturn(mock(TransactionContextFactory.class));
+    when(processEngineConfiguration.getTransactionContextFactory()).thenReturn(mock(TransactionContextFactory.class));
     CommandConfig defaultConfig = new CommandConfig();
-    CommandExecutorImpl commandExecutorImpl =
-        new CommandExecutorImpl(defaultConfig, new CommandContextInterceptor());
-    when(processEngineConfiguration.getCommandExecutor()).thenReturn(commandExecutorImpl);
+    when(processEngineConfiguration.getCommandExecutor())
+        .thenReturn(new CommandExecutorImpl(defaultConfig, new CommandContextInterceptor()));
     ProcessEngineImpl processEngine = new ProcessEngineImpl(processEngineConfiguration);
     Class<Object> testClass = Object.class;
 
@@ -197,7 +173,7 @@ public class TestHelperDiffblueTest {
     verify(processEngineConfiguration, atLeast(1)).getProcessEngineLifecycleListener();
     verify(processEngineConfiguration).getProcessEngineName();
     verify(processEngineLifecycleListener).onProcessEngineBuilt(isA(ProcessEngine.class));
-    verify(repositoryServiceImpl).deleteDeployment("42", true);
+    verify(repositoryServiceImpl).deleteDeployment(eq("42"), eq(true));
     verify(processEngineConfiguration).getCommandExecutor();
     verify(processEngineConfiguration).getDynamicBpmnService();
     verify(processEngineConfiguration).getEventDispatcher();
@@ -213,101 +189,19 @@ public class TestHelperDiffblueTest {
 
   /**
    * Test {@link TestHelper#annotationDeploymentTearDown(ProcessEngine, String, Class, String)}.
-   *
-   * <p>Method under test: {@link TestHelper#annotationDeploymentTearDown(ProcessEngine, String,
-   * Class, String)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void TestHelper.annotationDeploymentTearDown(ProcessEngine, String, Class, String)"
-  })
-  public void testAnnotationDeploymentTearDown2() {
-    // Arrange
-    ProcessEngineLifecycleListener processEngineLifecycleListener =
-        mock(ProcessEngineLifecycleListener.class);
-    doNothing()
-        .when(processEngineLifecycleListener)
-        .onProcessEngineBuilt(Mockito.<ProcessEngine>any());
-
-    RepositoryServiceImpl repositoryServiceImpl = mock(RepositoryServiceImpl.class);
-    doThrow(new ActivitiObjectNotFoundException("An error occurred"))
-        .when(repositoryServiceImpl)
-        .deleteDeployment(Mockito.<String>any(), anyBoolean());
-
-    JtaProcessEngineConfiguration processEngineConfiguration =
-        mock(JtaProcessEngineConfiguration.class);
-    when(processEngineConfiguration.isUsingRelationalDatabase()).thenReturn(false);
-    when(processEngineConfiguration.getProcessEngineName()).thenReturn("Process Engine Name");
-    Mockito.<Map<Class<?>, SessionFactory>>when(processEngineConfiguration.getSessionFactories())
-        .thenReturn(new HashMap<>());
-    when(processEngineConfiguration.getDynamicBpmnService())
-        .thenReturn(new DynamicBpmnServiceImpl(new JtaProcessEngineConfiguration()));
-    when(processEngineConfiguration.getHistoryService())
-        .thenReturn(new HistoryServiceImpl(new JtaProcessEngineConfiguration()));
-    when(processEngineConfiguration.getManagementService()).thenReturn(new ManagementServiceImpl());
-    when(processEngineConfiguration.getProcessEngineLifecycleListener())
-        .thenReturn(processEngineLifecycleListener);
-    when(processEngineConfiguration.getRepositoryService()).thenReturn(repositoryServiceImpl);
-    when(processEngineConfiguration.getRuntimeService()).thenReturn(new RuntimeServiceImpl());
-    when(processEngineConfiguration.getTaskService())
-        .thenReturn(new TaskServiceImpl(new JtaProcessEngineConfiguration()));
-    when(processEngineConfiguration.getEventDispatcher())
-        .thenReturn(new ActivitiEventDispatcherImpl());
-    when(processEngineConfiguration.getAsyncExecutor()).thenReturn(new DefaultAsyncJobExecutor());
-    when(processEngineConfiguration.getTransactionContextFactory())
-        .thenReturn(mock(TransactionContextFactory.class));
-    CommandConfig defaultConfig = new CommandConfig();
-    CommandExecutorImpl commandExecutorImpl =
-        new CommandExecutorImpl(defaultConfig, new CommandContextInterceptor());
-    when(processEngineConfiguration.getCommandExecutor()).thenReturn(commandExecutorImpl);
-    ProcessEngineImpl processEngine = new ProcessEngineImpl(processEngineConfiguration);
-    Class<Object> testClass = Object.class;
-
-    // Act
-    TestHelper.annotationDeploymentTearDown(processEngine, "42", testClass, "Method Name");
-
-    // Assert
-    verify(processEngineConfiguration).getAsyncExecutor();
-    verify(processEngineConfiguration, atLeast(1)).getProcessEngineLifecycleListener();
-    verify(processEngineConfiguration).getProcessEngineName();
-    verify(processEngineLifecycleListener).onProcessEngineBuilt(isA(ProcessEngine.class));
-    verify(repositoryServiceImpl).deleteDeployment("42", true);
-    verify(processEngineConfiguration).getCommandExecutor();
-    verify(processEngineConfiguration).getDynamicBpmnService();
-    verify(processEngineConfiguration).getEventDispatcher();
-    verify(processEngineConfiguration).getHistoryService();
-    verify(processEngineConfiguration).getManagementService();
-    verify(processEngineConfiguration).getRepositoryService();
-    verify(processEngineConfiguration).getRuntimeService();
-    verify(processEngineConfiguration).getSessionFactories();
-    verify(processEngineConfiguration).getTaskService();
-    verify(processEngineConfiguration).getTransactionContextFactory();
-    verify(processEngineConfiguration).isUsingRelationalDatabase();
-  }
-
-  /**
-   * Test {@link TestHelper#annotationDeploymentTearDown(ProcessEngine, String, Class, String)}.
-   *
    * <ul>
-   *   <li>Then calls {@link ProcessEngineImpl#getRepositoryService()}.
+   *   <li>Then calls {@link ProcessEngineImpl#getRepositoryService()}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link TestHelper#annotationDeploymentTearDown(ProcessEngine, String,
-   * Class, String)}
+   * <p>
+   * Method under test: {@link TestHelper#annotationDeploymentTearDown(ProcessEngine, String, Class, String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void TestHelper.annotationDeploymentTearDown(ProcessEngine, String, Class, String)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void TestHelper.annotationDeploymentTearDown(ProcessEngine, String, Class, String)"})
   public void testAnnotationDeploymentTearDown_thenCallsGetRepositoryService() {
     // Arrange
     ProcessEngineImpl processEngine = mock(ProcessEngineImpl.class);
-    when(processEngine.getRepositoryService())
-        .thenThrow(new ActivitiObjectNotFoundException("An error occurred"));
+    when(processEngine.getRepositoryService()).thenThrow(new ActivitiObjectNotFoundException("An error occurred"));
     Class<Object> testClass = Object.class;
 
     // Act
@@ -318,48 +212,35 @@ public class TestHelperDiffblueTest {
   }
 
   /**
-   * Test {@link TestHelper#handleMockServiceTaskAnnotation(ActivitiMockSupport, MockServiceTask)}
-   * with {@code mockSupport}, {@code mockedServiceTask}.
-   *
-   * <p>Method under test: {@link TestHelper#handleMockServiceTaskAnnotation(ActivitiMockSupport,
-   * MockServiceTask)}
+   * Test {@link TestHelper#handleMockServiceTaskAnnotation(ActivitiMockSupport, MockServiceTask)} with {@code mockSupport}, {@code mockedServiceTask}.
+   * <p>
+   * Method under test: {@link TestHelper#handleMockServiceTaskAnnotation(ActivitiMockSupport, MockServiceTask)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void TestHelper.handleMockServiceTaskAnnotation(ActivitiMockSupport, MockServiceTask)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void TestHelper.handleMockServiceTaskAnnotation(ActivitiMockSupport, MockServiceTask)"})
   public void testHandleMockServiceTaskAnnotationWithMockSupportMockedServiceTask() {
     // Arrange
     MockServiceTask mockedServiceTask = mock(MockServiceTask.class);
-    when(mockedServiceTask.originalClassName())
-        .thenThrow(new ActivitiObjectNotFoundException("An error occurred"));
+    when(mockedServiceTask.originalClassName()).thenThrow(new ActivitiObjectNotFoundException("An error occurred"));
 
     // Act and Assert
-    assertThrows(
-        ActivitiObjectNotFoundException.class,
+    assertThrows(ActivitiObjectNotFoundException.class,
         () -> TestHelper.handleMockServiceTaskAnnotation(null, mockedServiceTask));
     verify(mockedServiceTask).originalClassName();
   }
 
   /**
-   * Test {@link TestHelper#handleMockServiceTaskAnnotation(ActivitiMockSupport, MockServiceTask)}
-   * with {@code mockSupport}, {@code mockedServiceTask}.
-   *
-   * <p>Method under test: {@link TestHelper#handleMockServiceTaskAnnotation(ActivitiMockSupport,
-   * MockServiceTask)}
+   * Test {@link TestHelper#handleMockServiceTaskAnnotation(ActivitiMockSupport, MockServiceTask)} with {@code mockSupport}, {@code mockedServiceTask}.
+   * <p>
+   * Method under test: {@link TestHelper#handleMockServiceTaskAnnotation(ActivitiMockSupport, MockServiceTask)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void TestHelper.handleMockServiceTaskAnnotation(ActivitiMockSupport, MockServiceTask)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void TestHelper.handleMockServiceTaskAnnotation(ActivitiMockSupport, MockServiceTask)"})
   public void testHandleMockServiceTaskAnnotationWithMockSupportMockedServiceTask2() {
     // Arrange
     ActivitiMockSupport mockSupport = new ActivitiMockSupport(new TestActivityBehaviorFactory());
-
     MockServiceTask mockedServiceTask = mock(MockServiceTask.class);
     when(mockedServiceTask.mockedClassName()).thenReturn("Mocked Class Name");
     when(mockedServiceTask.originalClassName()).thenReturn("Original Class Name");
@@ -374,16 +255,14 @@ public class TestHelperDiffblueTest {
 
   /**
    * Test {@link TestHelper#annotationMockSupportTeardown(ActivitiMockSupport)}.
-   *
    * <ul>
-   *   <li>Then calls {@link ActivitiMockSupport#reset()}.
+   *   <li>Then calls {@link ActivitiMockSupport#reset()}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link TestHelper#annotationMockSupportTeardown(ActivitiMockSupport)}
+   * <p>
+   * Method under test: {@link TestHelper#annotationMockSupportTeardown(ActivitiMockSupport)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void TestHelper.annotationMockSupportTeardown(ActivitiMockSupport)"})
   public void testAnnotationMockSupportTeardown_thenCallsReset() {
     // Arrange
@@ -399,21 +278,18 @@ public class TestHelperDiffblueTest {
 
   /**
    * Test {@link TestHelper#annotationMockSupportTeardown(ActivitiMockSupport)}.
-   *
    * <ul>
-   *   <li>Then calls {@link TestActivityBehaviorFactory#reset()}.
+   *   <li>Then calls {@link TestActivityBehaviorFactory#reset()}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link TestHelper#annotationMockSupportTeardown(ActivitiMockSupport)}
+   * <p>
+   * Method under test: {@link TestHelper#annotationMockSupportTeardown(ActivitiMockSupport)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void TestHelper.annotationMockSupportTeardown(ActivitiMockSupport)"})
   public void testAnnotationMockSupportTeardown_thenCallsReset2() {
     // Arrange
-    TestActivityBehaviorFactory testActivityBehaviorFactory =
-        mock(TestActivityBehaviorFactory.class);
+    TestActivityBehaviorFactory testActivityBehaviorFactory = mock(TestActivityBehaviorFactory.class);
     doNothing().when(testActivityBehaviorFactory).reset();
 
     // Act
@@ -424,54 +300,23 @@ public class TestHelperDiffblueTest {
   }
 
   /**
-   * Test {@link TestHelper#getBpmnProcessDefinitionResource(Class, String)}.
-   *
-   * <ul>
-   *   <li>Then return {@code java/lang/Object.Name.bpmn20.xml}.
-   * </ul>
-   *
-   * <p>Method under test: {@link TestHelper#getBpmnProcessDefinitionResource(Class, String)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String TestHelper.getBpmnProcessDefinitionResource(Class, String)"})
-  public void testGetBpmnProcessDefinitionResource_thenReturnJavaLangObjectNameBpmn20Xml() {
-    // Arrange
-    Class<Object> type = Object.class;
-
-    // Act and Assert
-    assertEquals(
-        "java/lang/Object.Name.bpmn20.xml",
-        TestHelper.getBpmnProcessDefinitionResource(type, "Name"));
-  }
-
-  /**
    * Test {@link TestHelper#assertAndEnsureCleanDb(ProcessEngine)}.
-   *
    * <ul>
-   *   <li>Then calls {@link JtaProcessEngineConfiguration#getAsyncExecutor()}.
+   *   <li>Then calls {@link ProcessEngineConfiguration#getAsyncExecutor()}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link TestHelper#assertAndEnsureCleanDb(ProcessEngine)}
+   * <p>
+   * Method under test: {@link TestHelper#assertAndEnsureCleanDb(ProcessEngine)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void TestHelper.assertAndEnsureCleanDb(ProcessEngine)"})
   public void testAssertAndEnsureCleanDb_thenCallsGetAsyncExecutor() {
     // Arrange
     ManagementServiceImpl managementServiceImpl = mock(ManagementServiceImpl.class);
     when(managementServiceImpl.getTableCount()).thenReturn(new HashMap<>());
-
-    ProcessEngineLifecycleListener processEngineLifecycleListener =
-        mock(ProcessEngineLifecycleListener.class);
-    doNothing()
-        .when(processEngineLifecycleListener)
-        .onProcessEngineBuilt(Mockito.<ProcessEngine>any());
-
-    JtaProcessEngineConfiguration processEngineConfiguration =
-        mock(JtaProcessEngineConfiguration.class);
+    ProcessEngineLifecycleListener processEngineLifecycleListener = mock(ProcessEngineLifecycleListener.class);
+    doNothing().when(processEngineLifecycleListener).onProcessEngineBuilt(Mockito.<ProcessEngine>any());
+    JtaProcessEngineConfiguration processEngineConfiguration = mock(JtaProcessEngineConfiguration.class);
     when(processEngineConfiguration.isUsingRelationalDatabase()).thenReturn(false);
     when(processEngineConfiguration.getProcessEngineName()).thenReturn("Process Engine Name");
     Mockito.<Map<Class<?>, SessionFactory>>when(processEngineConfiguration.getSessionFactories())
@@ -481,21 +326,17 @@ public class TestHelperDiffblueTest {
     when(processEngineConfiguration.getHistoryService())
         .thenReturn(new HistoryServiceImpl(new JtaProcessEngineConfiguration()));
     when(processEngineConfiguration.getManagementService()).thenReturn(managementServiceImpl);
-    when(processEngineConfiguration.getProcessEngineLifecycleListener())
-        .thenReturn(processEngineLifecycleListener);
+    when(processEngineConfiguration.getProcessEngineLifecycleListener()).thenReturn(processEngineLifecycleListener);
     when(processEngineConfiguration.getRepositoryService()).thenReturn(new RepositoryServiceImpl());
     when(processEngineConfiguration.getRuntimeService()).thenReturn(new RuntimeServiceImpl());
     when(processEngineConfiguration.getTaskService())
         .thenReturn(new TaskServiceImpl(new JtaProcessEngineConfiguration()));
-    when(processEngineConfiguration.getEventDispatcher())
-        .thenReturn(new ActivitiEventDispatcherImpl());
+    when(processEngineConfiguration.getEventDispatcher()).thenReturn(new ActivitiEventDispatcherImpl());
     when(processEngineConfiguration.getAsyncExecutor()).thenReturn(new DefaultAsyncJobExecutor());
-    when(processEngineConfiguration.getTransactionContextFactory())
-        .thenReturn(mock(TransactionContextFactory.class));
+    when(processEngineConfiguration.getTransactionContextFactory()).thenReturn(mock(TransactionContextFactory.class));
     CommandConfig defaultConfig = new CommandConfig();
-    CommandExecutorImpl commandExecutorImpl =
-        new CommandExecutorImpl(defaultConfig, new CommandContextInterceptor());
-    when(processEngineConfiguration.getCommandExecutor()).thenReturn(commandExecutorImpl);
+    when(processEngineConfiguration.getCommandExecutor())
+        .thenReturn(new CommandExecutorImpl(defaultConfig, new CommandContextInterceptor()));
 
     // Act
     TestHelper.assertAndEnsureCleanDb(new ProcessEngineImpl(processEngineConfiguration));
@@ -521,35 +362,28 @@ public class TestHelperDiffblueTest {
 
   /**
    * Test {@link TestHelper#initializeTestActivityBehaviorFactory(ActivityBehaviorFactory)}.
-   *
-   * <p>Method under test: {@link
-   * TestHelper#initializeTestActivityBehaviorFactory(ActivityBehaviorFactory)}
+   * <p>
+   * Method under test: {@link TestHelper#initializeTestActivityBehaviorFactory(ActivityBehaviorFactory)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({
-    "TestActivityBehaviorFactory TestHelper.initializeTestActivityBehaviorFactory(ActivityBehaviorFactory)"
-  })
+      "TestActivityBehaviorFactory TestHelper.initializeTestActivityBehaviorFactory(ActivityBehaviorFactory)"})
   public void testInitializeTestActivityBehaviorFactory() {
     // Arrange
-    DefaultActivityBehaviorFactory existingActivityBehaviorFactory =
-        new DefaultActivityBehaviorFactory();
+    DefaultActivityBehaviorFactory existingActivityBehaviorFactory = new DefaultActivityBehaviorFactory();
 
     // Act
-    TestActivityBehaviorFactory actualInitializeTestActivityBehaviorFactoryResult =
-        TestHelper.initializeTestActivityBehaviorFactory(existingActivityBehaviorFactory);
+    TestActivityBehaviorFactory actualInitializeTestActivityBehaviorFactoryResult = TestHelper
+        .initializeTestActivityBehaviorFactory(existingActivityBehaviorFactory);
 
     // Assert
-    assertTrue(
-        actualInitializeTestActivityBehaviorFactoryResult.getMessageExecutionContextFactory()
-            instanceof DefaultMessageExecutionContextFactory);
-    assertTrue(
-        actualInitializeTestActivityBehaviorFactoryResult.getMessagePayloadMappingProviderFactory()
-            instanceof BpmnMessagePayloadMappingProviderFactory);
+    assertTrue(actualInitializeTestActivityBehaviorFactoryResult
+        .getMessageExecutionContextFactory() instanceof DefaultMessageExecutionContextFactory);
+    assertTrue(actualInitializeTestActivityBehaviorFactoryResult
+        .getMessagePayloadMappingProviderFactory() instanceof BpmnMessagePayloadMappingProviderFactory);
     assertNull(actualInitializeTestActivityBehaviorFactoryResult.getExpressionManager());
-    assertSame(
-        existingActivityBehaviorFactory,
+    assertSame(existingActivityBehaviorFactory,
         actualInitializeTestActivityBehaviorFactoryResult.getWrappedActivityBehaviorFactory());
   }
 }

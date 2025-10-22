@@ -17,7 +17,6 @@ package org.activiti.common.util;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.time.DateTimeException;
 import org.junit.jupiter.api.DisplayName;
@@ -31,17 +30,17 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 @ContextConfiguration(classes = {DateFormatterProvider.class, String.class})
 @ExtendWith(SpringExtension.class)
 class DateFormatterProviderDiffblueTest {
-  @Autowired private DateFormatterProvider dateFormatterProvider;
+  @Autowired
+  private DateFormatterProvider dateFormatterProvider;
 
   /**
    * Test {@link DateFormatterProvider#DateFormatterProvider(String)}.
-   *
-   * <p>Method under test: {@link DateFormatterProvider#DateFormatterProvider(String)}
+   * <p>
+   * Method under test: {@link DateFormatterProvider#DateFormatterProvider(String)}
    */
   @Test
   @DisplayName("Test new DateFormatterProvider(String)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void DateFormatterProvider.<init>(String)"})
   void testNewDateFormatterProvider() {
     // Arrange and Act
@@ -54,9 +53,8 @@ class DateFormatterProviderDiffblueTest {
 
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>{@link DateFormatterProvider#setDateFormatPattern(String)}
    *   <li>{@link DateFormatterProvider#getDateFormatPattern()}
@@ -65,13 +63,9 @@ class DateFormatterProviderDiffblueTest {
    */
   @Test
   @DisplayName("Test getters and setters")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "String DateFormatterProvider.getDateFormatPattern()",
-    "java.time.ZoneId DateFormatterProvider.getZoneId()",
-    "void DateFormatterProvider.setDateFormatPattern(String)"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"String DateFormatterProvider.getDateFormatPattern()",
+      "java.time.ZoneId DateFormatterProvider.getZoneId()", "void DateFormatterProvider.setDateFormatPattern(String)"})
   void testGettersAndSetters() {
     // Arrange
     DateFormatterProvider dateFormatterProvider = new DateFormatterProvider("2020-03-01");
@@ -87,18 +81,16 @@ class DateFormatterProviderDiffblueTest {
 
   /**
    * Test {@link DateFormatterProvider#toDate(Object)}.
-   *
    * <ul>
-   *   <li>When forty-two.
-   *   <li>Then throw {@link DateTimeException}.
+   *   <li>When forty-two.</li>
+   *   <li>Then throw {@link DateTimeException}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link DateFormatterProvider#toDate(Object)}
+   * <p>
+   * Method under test: {@link DateFormatterProvider#toDate(Object)}
    */
   @Test
   @DisplayName("Test toDate(Object); when forty-two; then throw DateTimeException")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"java.util.Date DateFormatterProvider.toDate(Object)"})
   void testToDate_whenFortyTwo_thenThrowDateTimeException() {
     // Arrange, Act and Assert

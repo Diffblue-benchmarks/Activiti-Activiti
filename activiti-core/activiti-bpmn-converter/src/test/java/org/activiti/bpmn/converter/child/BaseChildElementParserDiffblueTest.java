@@ -17,7 +17,6 @@ package org.activiti.bpmn.converter.child;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.bpmn.model.ActivitiListener;
 import org.activiti.bpmn.model.BaseElement;
@@ -28,19 +27,16 @@ import org.junit.jupiter.api.Test;
 class BaseChildElementParserDiffblueTest {
   /**
    * Test {@link BaseChildElementParser#accepts(BaseElement)}.
-   *
    * <ul>
-   *   <li>When {@link ActivitiListener} (default constructor).
-   *   <li>Then return {@code true}.
+   *   <li>When {@link ActivitiListener} (default constructor).</li>
+   *   <li>Then return {@code true}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link BaseChildElementParser#accepts(BaseElement)}
+   * <p>
+   * Method under test: {@link BaseChildElementParser#accepts(BaseElement)}
    */
   @Test
-  @DisplayName(
-      "Test accepts(BaseElement); when ActivitiListener (default constructor); then return 'true'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test accepts(BaseElement); when ActivitiListener (default constructor); then return 'true'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"boolean BaseChildElementParser.accepts(BaseElement)"})
   void testAccepts_whenActivitiListener_thenReturnTrue() {
     // Arrange
@@ -52,21 +48,19 @@ class BaseChildElementParserDiffblueTest {
 
   /**
    * Test {@link BaseChildElementParser#accepts(BaseElement)}.
-   *
    * <ul>
-   *   <li>When {@code null}.
-   *   <li>Then return {@code false}.
+   *   <li>When {@code null}.</li>
+   *   <li>Then return {@code false}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link BaseChildElementParser#accepts(BaseElement)}
+   * <p>
+   * Method under test: {@link BaseChildElementParser#accepts(BaseElement)}
    */
   @Test
   @DisplayName("Test accepts(BaseElement); when 'null'; then return 'false'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"boolean BaseChildElementParser.accepts(BaseElement)"})
   void testAccepts_whenNull_thenReturnFalse() {
     // Arrange, Act and Assert
-    assertFalse(new ActivitiEventListenerParser().accepts(null));
+    assertFalse((new ActivitiEventListenerParser()).accepts(null));
   }
 }

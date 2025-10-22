@@ -26,11 +26,11 @@ import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.concurrent.RejectedExecutionException;
 import org.activiti.engine.impl.asyncexecutor.AsyncExecutor;
+import org.activiti.engine.impl.persistence.entity.AbstractEntity;
 import org.activiti.engine.impl.persistence.entity.JobEntityImpl;
 import org.activiti.engine.runtime.Job;
 import org.junit.Test;
@@ -43,21 +43,20 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
 
-@ContextConfiguration(
-    locations = {"/org/activiti/spring/test/components/SpringjobExecutorTest-context.xml"})
+@ContextConfiguration(locations = {"/org/activiti/spring/test/components/SpringjobExecutorTest-context.xml"})
 @RunWith(SpringJUnit4ClassRunner.class)
 @Transactional
 public class SpringAsyncExecutorDiffblueTest {
-  @Autowired private SpringAsyncExecutor springAsyncExecutor;
+  @Autowired
+  private SpringAsyncExecutor springAsyncExecutor;
 
   /**
    * Test {@link SpringAsyncExecutor#SpringAsyncExecutor()}.
-   *
-   * <p>Method under test: {@link SpringAsyncExecutor#SpringAsyncExecutor()}
+   * <p>
+   * Method under test: {@link SpringAsyncExecutor#SpringAsyncExecutor()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void SpringAsyncExecutor.<init>()"})
   public void testNewSpringAsyncExecutor() {
     // Arrange and Act
@@ -95,13 +94,11 @@ public class SpringAsyncExecutorDiffblueTest {
 
   /**
    * Test {@link SpringAsyncExecutor#SpringAsyncExecutor(TaskExecutor, SpringRejectedJobsHandler)}.
-   *
-   * <p>Method under test: {@link SpringAsyncExecutor#SpringAsyncExecutor(TaskExecutor,
-   * SpringRejectedJobsHandler)}
+   * <p>
+   * Method under test: {@link SpringAsyncExecutor#SpringAsyncExecutor(TaskExecutor, SpringRejectedJobsHandler)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void SpringAsyncExecutor.<init>(TaskExecutor, SpringRejectedJobsHandler)"})
   public void testNewSpringAsyncExecutor2() {
     // Arrange
@@ -109,8 +106,7 @@ public class SpringAsyncExecutorDiffblueTest {
     SpringRejectedJobsHandler rejectedJobsHandler = mock(SpringRejectedJobsHandler.class);
 
     // Act
-    SpringAsyncExecutor actualSpringAsyncExecutor =
-        new SpringAsyncExecutor(taskExecutor, rejectedJobsHandler);
+    SpringAsyncExecutor actualSpringAsyncExecutor = new SpringAsyncExecutor(taskExecutor, rejectedJobsHandler);
 
     // Assert
     assertNull(actualSpringAsyncExecutor.getAsyncJobAcquisitionThread());
@@ -144,9 +140,8 @@ public class SpringAsyncExecutorDiffblueTest {
 
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>{@link SpringAsyncExecutor#setRejectedJobsHandler(SpringRejectedJobsHandler)}
    *   <li>{@link SpringAsyncExecutor#setTaskExecutor(TaskExecutor)}
@@ -156,15 +151,12 @@ public class SpringAsyncExecutorDiffblueTest {
    * </ul>
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "SpringRejectedJobsHandler SpringAsyncExecutor.getRejectedJobsHandler()",
-    "TaskExecutor SpringAsyncExecutor.getTaskExecutor()",
-    "void SpringAsyncExecutor.initAsyncJobExecutionThreadPool()",
-    "void SpringAsyncExecutor.setRejectedJobsHandler(SpringRejectedJobsHandler)",
-    "void SpringAsyncExecutor.setTaskExecutor(TaskExecutor)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"SpringRejectedJobsHandler SpringAsyncExecutor.getRejectedJobsHandler()",
+      "TaskExecutor SpringAsyncExecutor.getTaskExecutor()",
+      "void SpringAsyncExecutor.initAsyncJobExecutionThreadPool()",
+      "void SpringAsyncExecutor.setRejectedJobsHandler(SpringRejectedJobsHandler)",
+      "void SpringAsyncExecutor.setTaskExecutor(TaskExecutor)"})
   public void testGettersAndSetters() {
     // Arrange
     SpringAsyncExecutor springAsyncExecutor = new SpringAsyncExecutor();
@@ -175,8 +167,7 @@ public class SpringAsyncExecutorDiffblueTest {
     TaskExecutor taskExecutor = mock(TaskExecutor.class);
     springAsyncExecutor.setTaskExecutor(taskExecutor);
     springAsyncExecutor.initAsyncJobExecutionThreadPool();
-    SpringRejectedJobsHandler actualRejectedJobsHandler =
-        springAsyncExecutor.getRejectedJobsHandler();
+    SpringRejectedJobsHandler actualRejectedJobsHandler = springAsyncExecutor.getRejectedJobsHandler();
 
     // Assert
     assertSame(rejectedJobsHandler, actualRejectedJobsHandler);
@@ -185,24 +176,51 @@ public class SpringAsyncExecutorDiffblueTest {
 
   /**
    * Test {@link SpringAsyncExecutor#executeAsyncJob(Job)}.
-   *
-   * <ul>
-   *   <li>Given {@link TaskExecutor} {@link TaskExecutor#execute(Runnable)} does nothing.
-   *   <li>Then return {@code true}.
-   * </ul>
-   *
-   * <p>Method under test: {@link SpringAsyncExecutor#executeAsyncJob(Job)}
+   * <p>
+   * Method under test: {@link SpringAsyncExecutor#executeAsyncJob(Job)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean SpringAsyncExecutor.executeAsyncJob(Job)"})
+  public void testExecuteAsyncJob() {
+    // Arrange
+    TaskExecutor taskExecutor = mock(TaskExecutor.class);
+    doNothing().when(taskExecutor).execute(Mockito.<Runnable>any());
+    SpringRejectedJobsHandler rejectedJobsHandler = mock(SpringRejectedJobsHandler.class);
+    doNothing().when(rejectedJobsHandler).jobRejected(Mockito.<AsyncExecutor>any(), Mockito.<Job>any());
+    TaskExecutor taskExecutor2 = mock(TaskExecutor.class);
+    doThrow(new RejectedExecutionException("foo")).when(taskExecutor2).execute(Mockito.<Runnable>any());
+
+    SpringAsyncExecutor springAsyncExecutor = new SpringAsyncExecutor(taskExecutor, rejectedJobsHandler);
+    springAsyncExecutor.setTaskExecutor(taskExecutor2);
+
+    // Act
+    boolean actualExecuteAsyncJobResult = springAsyncExecutor.executeAsyncJob(new JobEntityImpl());
+
+    // Assert
+    verify(rejectedJobsHandler).jobRejected(isA(AsyncExecutor.class), isA(Job.class));
+    verify(taskExecutor2).execute(isA(Runnable.class));
+    assertFalse(actualExecuteAsyncJobResult);
+  }
+
+  /**
+   * Test {@link SpringAsyncExecutor#executeAsyncJob(Job)}.
+   * <ul>
+   *   <li>Given {@link TaskExecutor} {@link TaskExecutor#execute(Runnable)} does nothing.</li>
+   *   <li>Then return {@code true}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link SpringAsyncExecutor#executeAsyncJob(Job)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"boolean SpringAsyncExecutor.executeAsyncJob(Job)"})
   public void testExecuteAsyncJob_givenTaskExecutorExecuteDoesNothing_thenReturnTrue() {
     // Arrange
     TaskExecutor taskExecutor = mock(TaskExecutor.class);
     doNothing().when(taskExecutor).execute(Mockito.<Runnable>any());
-    SpringAsyncExecutor springAsyncExecutor =
-        new SpringAsyncExecutor(taskExecutor, mock(SpringRejectedJobsHandler.class));
+    SpringAsyncExecutor springAsyncExecutor = new SpringAsyncExecutor(taskExecutor,
+        mock(SpringRejectedJobsHandler.class));
 
     // Act
     boolean actualExecuteAsyncJobResult = springAsyncExecutor.executeAsyncJob(new JobEntityImpl());
@@ -214,64 +232,22 @@ public class SpringAsyncExecutorDiffblueTest {
 
   /**
    * Test {@link SpringAsyncExecutor#executeAsyncJob(Job)}.
-   *
    * <ul>
-   *   <li>Given {@link TaskExecutor} {@link TaskExecutor#execute(Runnable)} throw {@link
-   *       RejectedExecutionException#RejectedExecutionException()}.
+   *   <li>Then calls {@link AbstractEntity#getId()}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link SpringAsyncExecutor#executeAsyncJob(Job)}
+   * <p>
+   * Method under test: {@link SpringAsyncExecutor#executeAsyncJob(Job)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"boolean SpringAsyncExecutor.executeAsyncJob(Job)"})
-  public void testExecuteAsyncJob_givenTaskExecutorExecuteThrowRejectedExecutionException() {
-    // Arrange
-    TaskExecutor taskExecutor = mock(TaskExecutor.class);
-    doThrow(new RejectedExecutionException()).when(taskExecutor).execute(Mockito.<Runnable>any());
-
-    SpringRejectedJobsHandler rejectedJobsHandler = mock(SpringRejectedJobsHandler.class);
-    doNothing()
-        .when(rejectedJobsHandler)
-        .jobRejected(Mockito.<AsyncExecutor>any(), Mockito.<Job>any());
-
-    SpringAsyncExecutor springAsyncExecutor =
-        new SpringAsyncExecutor(taskExecutor, rejectedJobsHandler);
-
-    // Act
-    boolean actualExecuteAsyncJobResult = springAsyncExecutor.executeAsyncJob(new JobEntityImpl());
-
-    // Assert
-    verify(rejectedJobsHandler).jobRejected(isA(AsyncExecutor.class), isA(Job.class));
-    verify(taskExecutor).execute(isA(Runnable.class));
-    assertFalse(actualExecuteAsyncJobResult);
-  }
-
-  /**
-   * Test {@link SpringAsyncExecutor#executeAsyncJob(Job)}.
-   *
-   * <ul>
-   *   <li>Then calls {@link JobEntityImpl#getId()}.
-   * </ul>
-   *
-   * <p>Method under test: {@link SpringAsyncExecutor#executeAsyncJob(Job)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"boolean SpringAsyncExecutor.executeAsyncJob(Job)"})
   public void testExecuteAsyncJob_thenCallsGetId() {
     // Arrange
     SpringRejectedJobsHandler rejectedJobsHandler = mock(SpringRejectedJobsHandler.class);
-    doNothing()
-        .when(rejectedJobsHandler)
-        .jobRejected(Mockito.<AsyncExecutor>any(), Mockito.<Job>any());
-    SpringAsyncExecutor springAsyncExecutor =
-        new SpringAsyncExecutor(mock(TaskExecutor.class), rejectedJobsHandler);
-
+    doNothing().when(rejectedJobsHandler).jobRejected(Mockito.<AsyncExecutor>any(), Mockito.<Job>any());
+    SpringAsyncExecutor springAsyncExecutor = new SpringAsyncExecutor(mock(TaskExecutor.class), rejectedJobsHandler);
     JobEntityImpl job = mock(JobEntityImpl.class);
-    when(job.getId()).thenThrow(new RejectedExecutionException());
+    when(job.getId()).thenThrow(new RejectedExecutionException("foo"));
 
     // Act
     boolean actualExecuteAsyncJobResult = springAsyncExecutor.executeAsyncJob(job);

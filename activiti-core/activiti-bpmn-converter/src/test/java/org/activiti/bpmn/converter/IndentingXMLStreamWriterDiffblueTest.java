@@ -16,7 +16,6 @@
 package org.activiti.bpmn.converter;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import javax.xml.stream.XMLStreamWriter;
 import org.junit.jupiter.api.DisplayName;
@@ -26,51 +25,40 @@ import org.junit.jupiter.api.Test;
 class IndentingXMLStreamWriterDiffblueTest {
   /**
    * Test {@link IndentingXMLStreamWriter#IndentingXMLStreamWriter(XMLStreamWriter)}.
-   *
-   * <p>Method under test: {@link
-   * IndentingXMLStreamWriter#IndentingXMLStreamWriter(XMLStreamWriter)}
+   * <p>
+   * Method under test: {@link IndentingXMLStreamWriter#IndentingXMLStreamWriter(XMLStreamWriter)}
    */
   @Test
   @DisplayName("Test new IndentingXMLStreamWriter(XMLStreamWriter)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void IndentingXMLStreamWriter.<init>(XMLStreamWriter)"})
   void testNewIndentingXMLStreamWriter() {
     // Arrange, Act and Assert
-    assertEquals(2, new IndentingXMLStreamWriter(null).getIndentStep());
+    assertEquals(2, (new IndentingXMLStreamWriter(null)).getIndentStep());
   }
 
   /**
    * Test {@link IndentingXMLStreamWriter#getIndentStep()}.
-   *
-   * <ul>
-   *   <li>Given {@link IndentingXMLStreamWriter#IndentingXMLStreamWriter(XMLStreamWriter)} with
-   *       writer is {@code null}.
-   *   <li>Then return two.
-   * </ul>
-   *
-   * <p>Method under test: {@link IndentingXMLStreamWriter#getIndentStep()}
+   * <p>
+   * Method under test: {@link IndentingXMLStreamWriter#getIndentStep()}
    */
   @Test
-  @DisplayName(
-      "Test getIndentStep(); given IndentingXMLStreamWriter(XMLStreamWriter) with writer is 'null'; then return two")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getIndentStep()")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"int IndentingXMLStreamWriter.getIndentStep()"})
-  void testGetIndentStep_givenIndentingXMLStreamWriterWithWriterIsNull_thenReturnTwo() {
+  void testGetIndentStep() {
     // Arrange, Act and Assert
-    assertEquals(2, new IndentingXMLStreamWriter(null).getIndentStep());
+    assertEquals(2, (new IndentingXMLStreamWriter(null)).getIndentStep());
   }
 
   /**
    * Test {@link IndentingXMLStreamWriter#setIndentStep(int)} with {@code indentStep}.
-   *
-   * <p>Method under test: {@link IndentingXMLStreamWriter#setIndentStep(int)}
+   * <p>
+   * Method under test: {@link IndentingXMLStreamWriter#setIndentStep(int)}
    */
   @Test
   @DisplayName("Test setIndentStep(int) with 'indentStep'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void IndentingXMLStreamWriter.setIndentStep(int)"})
   void testSetIndentStepWithIndentStep() {
     // Arrange

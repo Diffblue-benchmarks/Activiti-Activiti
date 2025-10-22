@@ -19,8 +19,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
 import java.util.List;
@@ -31,18 +30,15 @@ import org.junit.experimental.categories.Category;
 public class AcquiredJobsDiffblueTest {
   /**
    * Test {@link AcquiredJobs#addJobIdBatch(List)}.
-   *
    * <ul>
-   *   <li>Given {@code 42}.
-   *   <li>Then {@link AcquiredJobs} (default constructor) {@link AcquiredJobs#acquiredJobs} size is
-   *       two.
+   *   <li>Given {@code 42}.</li>
+   *   <li>Then {@link AcquiredJobs} (default constructor) {@link AcquiredJobs#acquiredJobs} size is two.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link AcquiredJobs#addJobIdBatch(List)}
+   * <p>
+   * Method under test: {@link AcquiredJobs#addJobIdBatch(List)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void AcquiredJobs.addJobIdBatch(List)"})
   public void testAddJobIdBatch_given42_thenAcquiredJobsAcquiredJobsSizeIsTwo() {
     // Arrange
@@ -65,18 +61,15 @@ public class AcquiredJobsDiffblueTest {
 
   /**
    * Test {@link AcquiredJobs#addJobIdBatch(List)}.
-   *
    * <ul>
-   *   <li>Given {@code foo}.
-   *   <li>Then {@link AcquiredJobs} (default constructor) {@link AcquiredJobs#acquiredJobs} size is
-   *       one.
+   *   <li>Given {@code foo}.</li>
+   *   <li>Then {@link AcquiredJobs} (default constructor) {@link AcquiredJobs#acquiredJobs} size is one.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link AcquiredJobs#addJobIdBatch(List)}
+   * <p>
+   * Method under test: {@link AcquiredJobs#addJobIdBatch(List)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void AcquiredJobs.addJobIdBatch(List)"})
   public void testAddJobIdBatch_givenFoo_thenAcquiredJobsAcquiredJobsSizeIsOne() {
     // Arrange
@@ -100,17 +93,15 @@ public class AcquiredJobsDiffblueTest {
 
   /**
    * Test {@link AcquiredJobs#addJobIdBatch(List)}.
-   *
    * <ul>
-   *   <li>When {@link ArrayList#ArrayList()}.
-   *   <li>Then {@link AcquiredJobs} (default constructor) size is zero.
+   *   <li>When {@link ArrayList#ArrayList()}.</li>
+   *   <li>Then {@link AcquiredJobs} (default constructor) size is zero.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link AcquiredJobs#addJobIdBatch(List)}
+   * <p>
+   * Method under test: {@link AcquiredJobs#addJobIdBatch(List)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void AcquiredJobs.addJobIdBatch(List)"})
   public void testAddJobIdBatch_whenArrayList_thenAcquiredJobsSizeIsZero() {
     // Arrange
@@ -130,45 +121,41 @@ public class AcquiredJobsDiffblueTest {
 
   /**
    * Test {@link AcquiredJobs#contains(String)}.
-   *
-   * <p>Method under test: {@link AcquiredJobs#contains(String)}
+   * <p>
+   * Method under test: {@link AcquiredJobs#contains(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"boolean AcquiredJobs.contains(String)"})
   public void testContains() {
     // Arrange, Act and Assert
-    assertFalse(new AcquiredJobs().contains("42"));
+    assertFalse((new AcquiredJobs()).contains("42"));
   }
 
   /**
    * Test {@link AcquiredJobs#size()}.
-   *
-   * <p>Method under test: {@link AcquiredJobs#size()}
+   * <p>
+   * Method under test: {@link AcquiredJobs#size()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"int AcquiredJobs.size()"})
   public void testSize() {
     // Arrange, Act and Assert
-    assertEquals(0, new AcquiredJobs().size());
+    assertEquals(0, (new AcquiredJobs()).size());
   }
 
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>default or parameterless constructor of {@link AcquiredJobs}
    *   <li>{@link AcquiredJobs#getJobIdBatches()}
    * </ul>
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void AcquiredJobs.<init>()", "List AcquiredJobs.getJobIdBatches()"})
   public void testGettersAndSetters() {
     // Arrange and Act

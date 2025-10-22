@@ -23,8 +23,7 @@ import static org.mockito.Mockito.atLeast;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.time.LocalDate;
 import java.time.ZoneOffset;
@@ -41,260 +40,212 @@ import org.junit.experimental.categories.Category;
 public class ProcessInstanceHistoryLogImplDiffblueTest {
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
-   *   <li>{@link
-   *       ProcessInstanceHistoryLogImpl#ProcessInstanceHistoryLogImpl(HistoricProcessInstance)}
+   *   <li>{@link ProcessInstanceHistoryLogImpl#ProcessInstanceHistoryLogImpl(HistoricProcessInstance)}
    *   <li>{@link ProcessInstanceHistoryLogImpl#getHistoricData()}
    * </ul>
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void ProcessInstanceHistoryLogImpl.<init>(HistoricProcessInstance)",
-    "List ProcessInstanceHistoryLogImpl.getHistoricData()"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void ProcessInstanceHistoryLogImpl.<init>(HistoricProcessInstance)",
+      "List ProcessInstanceHistoryLogImpl.getHistoricData()"})
   public void testGettersAndSetters() {
     // Arrange, Act and Assert
     assertTrue(
-        new ProcessInstanceHistoryLogImpl(new HistoricProcessInstanceEntityImpl())
-            .getHistoricData()
-            .isEmpty());
+        (new ProcessInstanceHistoryLogImpl(new HistoricProcessInstanceEntityImpl())).getHistoricData().isEmpty());
   }
 
   /**
    * Test {@link ProcessInstanceHistoryLogImpl#getId()}.
-   *
    * <ul>
-   *   <li>Then return {@code null}.
+   *   <li>Then return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ProcessInstanceHistoryLogImpl#getId()}
+   * <p>
+   * Method under test: {@link ProcessInstanceHistoryLogImpl#getId()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"java.lang.String ProcessInstanceHistoryLogImpl.getId()"})
   public void testGetId_thenReturnNull() {
     // Arrange, Act and Assert
-    assertNull(new ProcessInstanceHistoryLogImpl(new HistoricProcessInstanceEntityImpl()).getId());
+    assertNull((new ProcessInstanceHistoryLogImpl(new HistoricProcessInstanceEntityImpl())).getId());
   }
 
   /**
    * Test {@link ProcessInstanceHistoryLogImpl#getBusinessKey()}.
-   *
    * <ul>
-   *   <li>Then return {@code null}.
+   *   <li>Then return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ProcessInstanceHistoryLogImpl#getBusinessKey()}
+   * <p>
+   * Method under test: {@link ProcessInstanceHistoryLogImpl#getBusinessKey()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"java.lang.String ProcessInstanceHistoryLogImpl.getBusinessKey()"})
   public void testGetBusinessKey_thenReturnNull() {
     // Arrange, Act and Assert
-    assertNull(
-        new ProcessInstanceHistoryLogImpl(new HistoricProcessInstanceEntityImpl())
-            .getBusinessKey());
+    assertNull((new ProcessInstanceHistoryLogImpl(new HistoricProcessInstanceEntityImpl())).getBusinessKey());
   }
 
   /**
    * Test {@link ProcessInstanceHistoryLogImpl#getProcessDefinitionId()}.
-   *
    * <ul>
-   *   <li>Then return {@code null}.
+   *   <li>Then return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ProcessInstanceHistoryLogImpl#getProcessDefinitionId()}
+   * <p>
+   * Method under test: {@link ProcessInstanceHistoryLogImpl#getProcessDefinitionId()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"java.lang.String ProcessInstanceHistoryLogImpl.getProcessDefinitionId()"})
   public void testGetProcessDefinitionId_thenReturnNull() {
     // Arrange, Act and Assert
-    assertNull(
-        new ProcessInstanceHistoryLogImpl(new HistoricProcessInstanceEntityImpl())
-            .getProcessDefinitionId());
+    assertNull((new ProcessInstanceHistoryLogImpl(new HistoricProcessInstanceEntityImpl())).getProcessDefinitionId());
   }
 
   /**
    * Test {@link ProcessInstanceHistoryLogImpl#getStartTime()}.
-   *
    * <ul>
-   *   <li>Then return {@code null}.
+   *   <li>Then return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ProcessInstanceHistoryLogImpl#getStartTime()}
+   * <p>
+   * Method under test: {@link ProcessInstanceHistoryLogImpl#getStartTime()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"Date ProcessInstanceHistoryLogImpl.getStartTime()"})
   public void testGetStartTime_thenReturnNull() {
     // Arrange, Act and Assert
-    assertNull(
-        new ProcessInstanceHistoryLogImpl(new HistoricProcessInstanceEntityImpl()).getStartTime());
+    assertNull((new ProcessInstanceHistoryLogImpl(new HistoricProcessInstanceEntityImpl())).getStartTime());
   }
 
   /**
    * Test {@link ProcessInstanceHistoryLogImpl#getEndTime()}.
-   *
    * <ul>
-   *   <li>Then return {@code null}.
+   *   <li>Then return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ProcessInstanceHistoryLogImpl#getEndTime()}
+   * <p>
+   * Method under test: {@link ProcessInstanceHistoryLogImpl#getEndTime()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"Date ProcessInstanceHistoryLogImpl.getEndTime()"})
   public void testGetEndTime_thenReturnNull() {
     // Arrange, Act and Assert
-    assertNull(
-        new ProcessInstanceHistoryLogImpl(new HistoricProcessInstanceEntityImpl()).getEndTime());
+    assertNull((new ProcessInstanceHistoryLogImpl(new HistoricProcessInstanceEntityImpl())).getEndTime());
   }
 
   /**
    * Test {@link ProcessInstanceHistoryLogImpl#getDurationInMillis()}.
-   *
    * <ul>
-   *   <li>Then return {@code null}.
+   *   <li>Then return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ProcessInstanceHistoryLogImpl#getDurationInMillis()}
+   * <p>
+   * Method under test: {@link ProcessInstanceHistoryLogImpl#getDurationInMillis()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"java.lang.Long ProcessInstanceHistoryLogImpl.getDurationInMillis()"})
   public void testGetDurationInMillis_thenReturnNull() {
     // Arrange, Act and Assert
-    assertNull(
-        new ProcessInstanceHistoryLogImpl(new HistoricProcessInstanceEntityImpl())
-            .getDurationInMillis());
+    assertNull((new ProcessInstanceHistoryLogImpl(new HistoricProcessInstanceEntityImpl())).getDurationInMillis());
   }
 
   /**
    * Test {@link ProcessInstanceHistoryLogImpl#getStartUserId()}.
-   *
    * <ul>
-   *   <li>Then return {@code null}.
+   *   <li>Then return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ProcessInstanceHistoryLogImpl#getStartUserId()}
+   * <p>
+   * Method under test: {@link ProcessInstanceHistoryLogImpl#getStartUserId()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"java.lang.String ProcessInstanceHistoryLogImpl.getStartUserId()"})
   public void testGetStartUserId_thenReturnNull() {
     // Arrange, Act and Assert
-    assertNull(
-        new ProcessInstanceHistoryLogImpl(new HistoricProcessInstanceEntityImpl())
-            .getStartUserId());
+    assertNull((new ProcessInstanceHistoryLogImpl(new HistoricProcessInstanceEntityImpl())).getStartUserId());
   }
 
   /**
    * Test {@link ProcessInstanceHistoryLogImpl#getStartActivityId()}.
-   *
    * <ul>
-   *   <li>Then return {@code null}.
+   *   <li>Then return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ProcessInstanceHistoryLogImpl#getStartActivityId()}
+   * <p>
+   * Method under test: {@link ProcessInstanceHistoryLogImpl#getStartActivityId()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"java.lang.String ProcessInstanceHistoryLogImpl.getStartActivityId()"})
   public void testGetStartActivityId_thenReturnNull() {
     // Arrange, Act and Assert
-    assertNull(
-        new ProcessInstanceHistoryLogImpl(new HistoricProcessInstanceEntityImpl())
-            .getStartActivityId());
+    assertNull((new ProcessInstanceHistoryLogImpl(new HistoricProcessInstanceEntityImpl())).getStartActivityId());
   }
 
   /**
    * Test {@link ProcessInstanceHistoryLogImpl#getDeleteReason()}.
-   *
    * <ul>
-   *   <li>Then return {@code null}.
+   *   <li>Then return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ProcessInstanceHistoryLogImpl#getDeleteReason()}
+   * <p>
+   * Method under test: {@link ProcessInstanceHistoryLogImpl#getDeleteReason()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"java.lang.String ProcessInstanceHistoryLogImpl.getDeleteReason()"})
   public void testGetDeleteReason_thenReturnNull() {
     // Arrange, Act and Assert
-    assertNull(
-        new ProcessInstanceHistoryLogImpl(new HistoricProcessInstanceEntityImpl())
-            .getDeleteReason());
+    assertNull((new ProcessInstanceHistoryLogImpl(new HistoricProcessInstanceEntityImpl())).getDeleteReason());
   }
 
   /**
    * Test {@link ProcessInstanceHistoryLogImpl#getSuperProcessInstanceId()}.
-   *
    * <ul>
-   *   <li>Then return {@code null}.
+   *   <li>Then return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ProcessInstanceHistoryLogImpl#getSuperProcessInstanceId()}
+   * <p>
+   * Method under test: {@link ProcessInstanceHistoryLogImpl#getSuperProcessInstanceId()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"java.lang.String ProcessInstanceHistoryLogImpl.getSuperProcessInstanceId()"})
   public void testGetSuperProcessInstanceId_thenReturnNull() {
     // Arrange, Act and Assert
     assertNull(
-        new ProcessInstanceHistoryLogImpl(new HistoricProcessInstanceEntityImpl())
-            .getSuperProcessInstanceId());
+        (new ProcessInstanceHistoryLogImpl(new HistoricProcessInstanceEntityImpl())).getSuperProcessInstanceId());
   }
 
   /**
    * Test {@link ProcessInstanceHistoryLogImpl#getTenantId()}.
-   *
    * <ul>
-   *   <li>Then return empty string.
+   *   <li>Then return empty string.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ProcessInstanceHistoryLogImpl#getTenantId()}
+   * <p>
+   * Method under test: {@link ProcessInstanceHistoryLogImpl#getTenantId()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"java.lang.String ProcessInstanceHistoryLogImpl.getTenantId()"})
   public void testGetTenantId_thenReturnEmptyString() {
     // Arrange, Act and Assert
-    assertEquals(
-        "",
-        new ProcessInstanceHistoryLogImpl(new HistoricProcessInstanceEntityImpl()).getTenantId());
+    assertEquals("", (new ProcessInstanceHistoryLogImpl(new HistoricProcessInstanceEntityImpl())).getTenantId());
   }
 
   /**
-   * Test {@link ProcessInstanceHistoryLogImpl#addHistoricData(HistoricData)} with {@code
-   * historicEvent}.
-   *
-   * <p>Method under test: {@link ProcessInstanceHistoryLogImpl#addHistoricData(HistoricData)}
+   * Test {@link ProcessInstanceHistoryLogImpl#addHistoricData(HistoricData)} with {@code historicEvent}.
+   * <p>
+   * Method under test: {@link ProcessInstanceHistoryLogImpl#addHistoricData(HistoricData)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void ProcessInstanceHistoryLogImpl.addHistoricData(HistoricData)"})
   public void testAddHistoricDataWithHistoricEvent() {
     // Arrange
-    ProcessInstanceHistoryLogImpl processInstanceHistoryLogImpl =
-        new ProcessInstanceHistoryLogImpl(new HistoricProcessInstanceEntityImpl());
+    ProcessInstanceHistoryLogImpl processInstanceHistoryLogImpl = new ProcessInstanceHistoryLogImpl(
+        new HistoricProcessInstanceEntityImpl());
     HistoricData historicEvent = mock(HistoricData.class);
 
     // Act
@@ -307,19 +258,17 @@ public class ProcessInstanceHistoryLogImplDiffblueTest {
   }
 
   /**
-   * Test {@link ProcessInstanceHistoryLogImpl#addHistoricData(Collection)} with {@code
-   * historicEvents}.
-   *
-   * <p>Method under test: {@link ProcessInstanceHistoryLogImpl#addHistoricData(Collection)}
+   * Test {@link ProcessInstanceHistoryLogImpl#addHistoricData(Collection)} with {@code historicEvents}.
+   * <p>
+   * Method under test: {@link ProcessInstanceHistoryLogImpl#addHistoricData(Collection)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void ProcessInstanceHistoryLogImpl.addHistoricData(Collection)"})
   public void testAddHistoricDataWithHistoricEvents() {
     // Arrange
-    ProcessInstanceHistoryLogImpl processInstanceHistoryLogImpl =
-        new ProcessInstanceHistoryLogImpl(new HistoricProcessInstanceEntityImpl());
+    ProcessInstanceHistoryLogImpl processInstanceHistoryLogImpl = new ProcessInstanceHistoryLogImpl(
+        new HistoricProcessInstanceEntityImpl());
 
     // Act
     processInstanceHistoryLogImpl.addHistoricData(new ArrayList<>());
@@ -329,19 +278,17 @@ public class ProcessInstanceHistoryLogImplDiffblueTest {
   }
 
   /**
-   * Test {@link ProcessInstanceHistoryLogImpl#addHistoricData(Collection)} with {@code
-   * historicEvents}.
-   *
-   * <p>Method under test: {@link ProcessInstanceHistoryLogImpl#addHistoricData(Collection)}
+   * Test {@link ProcessInstanceHistoryLogImpl#addHistoricData(Collection)} with {@code historicEvents}.
+   * <p>
+   * Method under test: {@link ProcessInstanceHistoryLogImpl#addHistoricData(Collection)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void ProcessInstanceHistoryLogImpl.addHistoricData(Collection)"})
   public void testAddHistoricDataWithHistoricEvents2() {
     // Arrange
-    ProcessInstanceHistoryLogImpl processInstanceHistoryLogImpl =
-        new ProcessInstanceHistoryLogImpl(new HistoricProcessInstanceEntityImpl());
+    ProcessInstanceHistoryLogImpl processInstanceHistoryLogImpl = new ProcessInstanceHistoryLogImpl(
+        new HistoricProcessInstanceEntityImpl());
 
     ArrayList<HistoricData> historicEvents = new ArrayList<>();
     historicEvents.add(mock(HistoricData.class));
@@ -354,19 +301,17 @@ public class ProcessInstanceHistoryLogImplDiffblueTest {
   }
 
   /**
-   * Test {@link ProcessInstanceHistoryLogImpl#addHistoricData(Collection)} with {@code
-   * historicEvents}.
-   *
-   * <p>Method under test: {@link ProcessInstanceHistoryLogImpl#addHistoricData(Collection)}
+   * Test {@link ProcessInstanceHistoryLogImpl#addHistoricData(Collection)} with {@code historicEvents}.
+   * <p>
+   * Method under test: {@link ProcessInstanceHistoryLogImpl#addHistoricData(Collection)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void ProcessInstanceHistoryLogImpl.addHistoricData(Collection)"})
   public void testAddHistoricDataWithHistoricEvents3() {
     // Arrange
-    ProcessInstanceHistoryLogImpl processInstanceHistoryLogImpl =
-        new ProcessInstanceHistoryLogImpl(new HistoricProcessInstanceEntityImpl());
+    ProcessInstanceHistoryLogImpl processInstanceHistoryLogImpl = new ProcessInstanceHistoryLogImpl(
+        new HistoricProcessInstanceEntityImpl());
 
     ArrayList<HistoricData> historicEvents = new ArrayList<>();
     historicEvents.add(mock(HistoricData.class));
@@ -381,31 +326,26 @@ public class ProcessInstanceHistoryLogImplDiffblueTest {
 
   /**
    * Test {@link ProcessInstanceHistoryLogImpl#orderHistoricData()}.
-   *
    * <ul>
-   *   <li>Then calls {@link HistoricData#getTime()}.
+   *   <li>Then calls {@link HistoricData#getTime()}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ProcessInstanceHistoryLogImpl#orderHistoricData()}
+   * <p>
+   * Method under test: {@link ProcessInstanceHistoryLogImpl#orderHistoricData()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void ProcessInstanceHistoryLogImpl.orderHistoricData()"})
   public void testOrderHistoricData_thenCallsGetTime() {
     // Arrange
     HistoricData historicEvent = mock(HistoricData.class);
     when(historicEvent.getTime())
-        .thenReturn(
-            Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
-
+        .thenReturn(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
     HistoricData historicEvent2 = mock(HistoricData.class);
     when(historicEvent2.getTime())
-        .thenReturn(
-            Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
+        .thenReturn(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
 
-    ProcessInstanceHistoryLogImpl processInstanceHistoryLogImpl =
-        new ProcessInstanceHistoryLogImpl(new HistoricProcessInstanceEntityImpl());
+    ProcessInstanceHistoryLogImpl processInstanceHistoryLogImpl = new ProcessInstanceHistoryLogImpl(
+        new HistoricProcessInstanceEntityImpl());
     processInstanceHistoryLogImpl.addHistoricData(historicEvent2);
     processInstanceHistoryLogImpl.addHistoricData(historicEvent);
 
@@ -419,36 +359,29 @@ public class ProcessInstanceHistoryLogImplDiffblueTest {
 
   /**
    * Test {@link ProcessInstanceHistoryLogImpl#orderHistoricData()}.
-   *
    * <ul>
-   *   <li>Then calls {@link HistoricData#getTime()}.
+   *   <li>Then calls {@link HistoricData#getTime()}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ProcessInstanceHistoryLogImpl#orderHistoricData()}
+   * <p>
+   * Method under test: {@link ProcessInstanceHistoryLogImpl#orderHistoricData()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void ProcessInstanceHistoryLogImpl.orderHistoricData()"})
   public void testOrderHistoricData_thenCallsGetTime2() {
     // Arrange
     HistoricData historicEvent = mock(HistoricData.class);
     when(historicEvent.getTime())
-        .thenReturn(
-            Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
-
+        .thenReturn(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
     HistoricData historicEvent2 = mock(HistoricData.class);
     when(historicEvent2.getTime())
-        .thenReturn(
-            Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
-
+        .thenReturn(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
     HistoricData historicEvent3 = mock(HistoricData.class);
     when(historicEvent3.getTime())
-        .thenReturn(
-            Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
+        .thenReturn(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
 
-    ProcessInstanceHistoryLogImpl processInstanceHistoryLogImpl =
-        new ProcessInstanceHistoryLogImpl(new HistoricProcessInstanceEntityImpl());
+    ProcessInstanceHistoryLogImpl processInstanceHistoryLogImpl = new ProcessInstanceHistoryLogImpl(
+        new HistoricProcessInstanceEntityImpl());
     processInstanceHistoryLogImpl.addHistoricData(historicEvent3);
     processInstanceHistoryLogImpl.addHistoricData(historicEvent2);
     processInstanceHistoryLogImpl.addHistoricData(historicEvent);

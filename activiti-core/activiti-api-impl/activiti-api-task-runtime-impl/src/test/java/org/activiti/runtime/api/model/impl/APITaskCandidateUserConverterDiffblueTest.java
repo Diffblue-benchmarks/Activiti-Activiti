@@ -17,7 +17,6 @@ package org.activiti.runtime.api.model.impl;
 
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.api.task.model.TaskCandidateUser;
 import org.activiti.api.task.model.impl.TaskCandidateUserImpl;
@@ -34,26 +33,24 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 @ContextConfiguration(classes = {APITaskCandidateUserConverter.class})
 @ExtendWith(SpringExtension.class)
 class APITaskCandidateUserConverterDiffblueTest {
-  @Autowired private APITaskCandidateUserConverter aPITaskCandidateUserConverter;
+  @Autowired
+  private APITaskCandidateUserConverter aPITaskCandidateUserConverter;
 
   /**
    * Test {@link APITaskCandidateUserConverter#from(IdentityLink)} with {@code IdentityLink}.
-   *
    * <ul>
-   *   <li>Then return {@link TaskCandidateUserImpl}.
+   *   <li>Then return {@link TaskCandidateUserImpl}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link APITaskCandidateUserConverter#from(IdentityLink)}
+   * <p>
+   * Method under test: {@link APITaskCandidateUserConverter#from(IdentityLink)}
    */
   @Test
   @DisplayName("Test from(IdentityLink) with 'IdentityLink'; then return TaskCandidateUserImpl")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"TaskCandidateUser APITaskCandidateUserConverter.from(IdentityLink)"})
   void testFromWithIdentityLink_thenReturnTaskCandidateUserImpl() {
     // Arrange and Act
-    TaskCandidateUser actualFromResult =
-        aPITaskCandidateUserConverter.from(new IdentityLinkEntityImpl());
+    TaskCandidateUser actualFromResult = aPITaskCandidateUserConverter.from(new IdentityLinkEntityImpl());
 
     // Assert
     assertTrue(actualFromResult instanceof TaskCandidateUserImpl);

@@ -16,8 +16,7 @@
 package org.activiti.engine.impl.bpmn.parser.handler;
 
 import static org.junit.Assert.assertEquals;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.bpmn.model.BaseElement;
 import org.activiti.bpmn.model.EventSubProcess;
@@ -27,25 +26,19 @@ import org.junit.experimental.categories.Category;
 public class EventSubProcessParseHandlerDiffblueTest {
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>default or parameterless constructor of {@link EventSubProcessParseHandler}
    *   <li>{@link EventSubProcessParseHandler#getHandledType()}
    * </ul>
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void EventSubProcessParseHandler.<init>()",
-    "Class EventSubProcessParseHandler.getHandledType()"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void EventSubProcessParseHandler.<init>()", "Class EventSubProcessParseHandler.getHandledType()"})
   public void testGettersAndSetters() {
     // Arrange and Act
-    Class<? extends BaseElement> actualHandledType =
-        new EventSubProcessParseHandler().getHandledType();
+    Class<? extends BaseElement> actualHandledType = (new EventSubProcessParseHandler()).getHandledType();
 
     // Assert
     Class<EventSubProcess> expectedHandledType = EventSubProcess.class;

@@ -19,8 +19,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.Map;
 import org.junit.Test;
@@ -29,9 +28,8 @@ import org.junit.experimental.categories.Category;
 public class HistoricActivityInstanceEntityImplDiffblueTest {
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>default or parameterless constructor of {@link HistoricActivityInstanceEntityImpl}
    *   <li>{@link HistoricActivityInstanceEntityImpl#setActivityId(String)}
@@ -54,32 +52,28 @@ public class HistoricActivityInstanceEntityImplDiffblueTest {
    * </ul>
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void HistoricActivityInstanceEntityImpl.<init>()",
-    "String HistoricActivityInstanceEntityImpl.getActivityId()",
-    "String HistoricActivityInstanceEntityImpl.getActivityName()",
-    "String HistoricActivityInstanceEntityImpl.getActivityType()",
-    "String HistoricActivityInstanceEntityImpl.getAssignee()",
-    "String HistoricActivityInstanceEntityImpl.getCalledProcessInstanceId()",
-    "String HistoricActivityInstanceEntityImpl.getExecutionId()",
-    "String HistoricActivityInstanceEntityImpl.getTaskId()",
-    "String HistoricActivityInstanceEntityImpl.getTenantId()",
-    "void HistoricActivityInstanceEntityImpl.setActivityId(String)",
-    "void HistoricActivityInstanceEntityImpl.setActivityName(String)",
-    "void HistoricActivityInstanceEntityImpl.setActivityType(String)",
-    "void HistoricActivityInstanceEntityImpl.setAssignee(String)",
-    "void HistoricActivityInstanceEntityImpl.setCalledProcessInstanceId(String)",
-    "void HistoricActivityInstanceEntityImpl.setExecutionId(String)",
-    "void HistoricActivityInstanceEntityImpl.setTaskId(String)",
-    "void HistoricActivityInstanceEntityImpl.setTenantId(String)",
-    "String HistoricActivityInstanceEntityImpl.toString()"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void HistoricActivityInstanceEntityImpl.<init>()",
+      "String HistoricActivityInstanceEntityImpl.getActivityId()",
+      "String HistoricActivityInstanceEntityImpl.getActivityName()",
+      "String HistoricActivityInstanceEntityImpl.getActivityType()",
+      "String HistoricActivityInstanceEntityImpl.getAssignee()",
+      "String HistoricActivityInstanceEntityImpl.getCalledProcessInstanceId()",
+      "String HistoricActivityInstanceEntityImpl.getExecutionId()",
+      "String HistoricActivityInstanceEntityImpl.getTaskId()",
+      "String HistoricActivityInstanceEntityImpl.getTenantId()",
+      "void HistoricActivityInstanceEntityImpl.setActivityId(String)",
+      "void HistoricActivityInstanceEntityImpl.setActivityName(String)",
+      "void HistoricActivityInstanceEntityImpl.setActivityType(String)",
+      "void HistoricActivityInstanceEntityImpl.setAssignee(String)",
+      "void HistoricActivityInstanceEntityImpl.setCalledProcessInstanceId(String)",
+      "void HistoricActivityInstanceEntityImpl.setExecutionId(String)",
+      "void HistoricActivityInstanceEntityImpl.setTaskId(String)",
+      "void HistoricActivityInstanceEntityImpl.setTenantId(String)",
+      "String HistoricActivityInstanceEntityImpl.toString()"})
   public void testGettersAndSetters() {
     // Arrange and Act
-    HistoricActivityInstanceEntityImpl actualHistoricActivityInstanceEntityImpl =
-        new HistoricActivityInstanceEntityImpl();
+    HistoricActivityInstanceEntityImpl actualHistoricActivityInstanceEntityImpl = new HistoricActivityInstanceEntityImpl();
     actualHistoricActivityInstanceEntityImpl.setActivityId("42");
     actualHistoricActivityInstanceEntityImpl.setActivityName("Activity Name");
     actualHistoricActivityInstanceEntityImpl.setActivityType("Activity Type");
@@ -93,8 +87,7 @@ public class HistoricActivityInstanceEntityImplDiffblueTest {
     String actualActivityName = actualHistoricActivityInstanceEntityImpl.getActivityName();
     String actualActivityType = actualHistoricActivityInstanceEntityImpl.getActivityType();
     String actualAssignee = actualHistoricActivityInstanceEntityImpl.getAssignee();
-    String actualCalledProcessInstanceId =
-        actualHistoricActivityInstanceEntityImpl.getCalledProcessInstanceId();
+    String actualCalledProcessInstanceId = actualHistoricActivityInstanceEntityImpl.getCalledProcessInstanceId();
     String actualExecutionId = actualHistoricActivityInstanceEntityImpl.getExecutionId();
     String actualTaskId = actualHistoricActivityInstanceEntityImpl.getTaskId();
 
@@ -107,8 +100,7 @@ public class HistoricActivityInstanceEntityImplDiffblueTest {
     assertEquals("Activity Name", actualActivityName);
     assertEquals("Activity Type", actualActivityType);
     assertEquals("Assignee", actualAssignee);
-    assertEquals(
-        "HistoricActivityInstanceEntity[id=null, activityId=42, activityName=Activity Name]",
+    assertEquals("HistoricActivityInstanceEntity[id=null, activityId=42, activityName=Activity Name]",
         actualToStringResult);
     assertNull(actualHistoricActivityInstanceEntityImpl.getDurationInMillis());
     assertNull(actualHistoricActivityInstanceEntityImpl.getId());
@@ -124,16 +116,15 @@ public class HistoricActivityInstanceEntityImplDiffblueTest {
 
   /**
    * Test {@link HistoricActivityInstanceEntityImpl#getPersistentState()}.
-   *
-   * <p>Method under test: {@link HistoricActivityInstanceEntityImpl#getPersistentState()}
+   * <p>
+   * Method under test: {@link HistoricActivityInstanceEntityImpl#getPersistentState()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"Object HistoricActivityInstanceEntityImpl.getPersistentState()"})
   public void testGetPersistentState() {
     // Arrange and Act
-    Object actualPersistentState = new HistoricActivityInstanceEntityImpl().getPersistentState();
+    Object actualPersistentState = (new HistoricActivityInstanceEntityImpl()).getPersistentState();
 
     // Assert
     assertTrue(actualPersistentState instanceof Map);
@@ -147,15 +138,14 @@ public class HistoricActivityInstanceEntityImplDiffblueTest {
 
   /**
    * Test {@link HistoricActivityInstanceEntityImpl#getTime()}.
-   *
-   * <p>Method under test: {@link HistoricActivityInstanceEntityImpl#getTime()}
+   * <p>
+   * Method under test: {@link HistoricActivityInstanceEntityImpl#getTime()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"java.util.Date HistoricActivityInstanceEntityImpl.getTime()"})
   public void testGetTime() {
     // Arrange, Act and Assert
-    assertNull(new HistoricActivityInstanceEntityImpl().getTime());
+    assertNull((new HistoricActivityInstanceEntityImpl()).getTime());
   }
 }

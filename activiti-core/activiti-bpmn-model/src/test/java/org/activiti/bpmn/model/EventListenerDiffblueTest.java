@@ -18,8 +18,7 @@ package org.activiti.bpmn.model;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
@@ -27,16 +26,15 @@ import org.junit.experimental.categories.Category;
 public class EventListenerDiffblueTest {
   /**
    * Test {@link EventListener#clone()}.
-   *
-   * <p>Method under test: {@link EventListener#clone()}
+   * <p>
+   * Method under test: {@link EventListener#clone()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"EventListener EventListener.clone()"})
   public void testClone() {
     // Arrange and Act
-    EventListener actualCloneResult = new EventListener().clone();
+    EventListener actualCloneResult = (new EventListener()).clone();
 
     // Assert
     assertNull(actualCloneResult.getId());
@@ -52,9 +50,8 @@ public class EventListenerDiffblueTest {
 
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>default or parameterless constructor of {@link EventListener}
    *   <li>{@link EventListener#setEntityType(String)}
@@ -68,19 +65,12 @@ public class EventListenerDiffblueTest {
    * </ul>
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void EventListener.<init>()",
-    "String EventListener.getEntityType()",
-    "String EventListener.getEvents()",
-    "String EventListener.getImplementation()",
-    "String EventListener.getImplementationType()",
-    "void EventListener.setEntityType(String)",
-    "void EventListener.setEvents(String)",
-    "void EventListener.setImplementation(String)",
-    "void EventListener.setImplementationType(String)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void EventListener.<init>()", "String EventListener.getEntityType()",
+      "String EventListener.getEvents()", "String EventListener.getImplementation()",
+      "String EventListener.getImplementationType()", "void EventListener.setEntityType(String)",
+      "void EventListener.setEvents(String)", "void EventListener.setImplementation(String)",
+      "void EventListener.setImplementationType(String)"})
   public void testGettersAndSetters() {
     // Arrange and Act
     EventListener actualEventListener = new EventListener();

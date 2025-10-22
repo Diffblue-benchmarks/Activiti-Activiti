@@ -18,9 +18,9 @@ package org.activiti.engine.impl.persistence.entity.data.impl;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
+import org.activiti.engine.impl.TaskQueryImpl;
 import org.activiti.engine.impl.cfg.JtaProcessEngineConfiguration;
 import org.activiti.engine.impl.cfg.ProcessEngineConfigurationImpl;
 import org.activiti.engine.impl.persistence.entity.TaskEntity;
@@ -32,23 +32,19 @@ import org.junit.experimental.categories.Category;
 public class MybatisTaskDataManagerDiffblueTest {
   /**
    * Test {@link MybatisTaskDataManager#MybatisTaskDataManager(ProcessEngineConfigurationImpl)}.
-   *
-   * <p>Method under test: {@link
-   * MybatisTaskDataManager#MybatisTaskDataManager(ProcessEngineConfigurationImpl)}
+   * <p>
+   * Method under test: {@link MybatisTaskDataManager#MybatisTaskDataManager(ProcessEngineConfigurationImpl)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void MybatisTaskDataManager.<init>(ProcessEngineConfigurationImpl)"})
   public void testNewMybatisTaskDataManager() {
     // Arrange and Act
-    MybatisTaskDataManager actualMybatisTaskDataManager =
-        new MybatisTaskDataManager(new JtaProcessEngineConfiguration());
+    MybatisTaskDataManager actualMybatisTaskDataManager = new MybatisTaskDataManager(
+        new JtaProcessEngineConfiguration());
 
     // Assert
-    assertTrue(
-        actualMybatisTaskDataManager.tasksByExecutionIdMatcher
-            instanceof TasksByExecutionIdMatcher);
+    assertTrue(actualMybatisTaskDataManager.tasksByExecutionIdMatcher instanceof TasksByExecutionIdMatcher);
     assertNull(actualMybatisTaskDataManager.getManagedEntitySubClasses());
     Class<TaskEntityImpl> expectedManagedEntityClass = TaskEntityImpl.class;
     assertEquals(expectedManagedEntityClass, actualMybatisTaskDataManager.getManagedEntityClass());
@@ -56,20 +52,68 @@ public class MybatisTaskDataManagerDiffblueTest {
 
   /**
    * Test {@link MybatisTaskDataManager#getManagedEntityClass()}.
-   *
-   * <p>Method under test: {@link MybatisTaskDataManager#getManagedEntityClass()}
+   * <p>
+   * Method under test: {@link MybatisTaskDataManager#getManagedEntityClass()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"Class MybatisTaskDataManager.getManagedEntityClass()"})
   public void testGetManagedEntityClass() {
     // Arrange and Act
-    Class<? extends TaskEntity> actualManagedEntityClass =
-        new MybatisTaskDataManager(new JtaProcessEngineConfiguration()).getManagedEntityClass();
+    Class<? extends TaskEntity> actualManagedEntityClass = (new MybatisTaskDataManager(
+        new JtaProcessEngineConfiguration())).getManagedEntityClass();
 
     // Assert
     Class<TaskEntityImpl> expectedManagedEntityClass = TaskEntityImpl.class;
     assertEquals(expectedManagedEntityClass, actualManagedEntityClass);
+  }
+
+  /**
+   * Test {@link MybatisTaskDataManager#findTasksAndVariablesByQueryCriteria(TaskQueryImpl)}.
+   * <ul>
+   *   <li>Given minus one.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link MybatisTaskDataManager#findTasksAndVariablesByQueryCriteria(TaskQueryImpl)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"java.util.List MybatisTaskDataManager.findTasksAndVariablesByQueryCriteria(TaskQueryImpl)"})
+  public void testFindTasksAndVariablesByQueryCriteria_givenMinusOne() {
+    // Arrange
+    MybatisTaskDataManager mybatisTaskDataManager = new MybatisTaskDataManager(new JtaProcessEngineConfiguration());
+
+    TaskQueryImpl taskQuery = new TaskQueryImpl();
+    taskQuery.setFirstResult(-1);
+    taskQuery.setMaxResults(0);
+    taskQuery.limitTaskVariables(null);
+
+    // Act and Assert
+    assertTrue(mybatisTaskDataManager.findTasksAndVariablesByQueryCriteria(taskQuery).isEmpty());
+  }
+
+  /**
+   * Test {@link MybatisTaskDataManager#findTasksAndVariablesByQueryCriteria(TaskQueryImpl)}.
+   * <ul>
+   *   <li>Given {@code null}.</li>
+   *   <li>Then return Empty.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link MybatisTaskDataManager#findTasksAndVariablesByQueryCriteria(TaskQueryImpl)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"java.util.List MybatisTaskDataManager.findTasksAndVariablesByQueryCriteria(TaskQueryImpl)"})
+  public void testFindTasksAndVariablesByQueryCriteria_givenNull_thenReturnEmpty() {
+    // Arrange
+    MybatisTaskDataManager mybatisTaskDataManager = new MybatisTaskDataManager(new JtaProcessEngineConfiguration());
+
+    TaskQueryImpl taskQuery = new TaskQueryImpl();
+    taskQuery.setFirstResult(0);
+    taskQuery.setMaxResults(0);
+    taskQuery.limitTaskVariables(null);
+
+    // Act and Assert
+    assertTrue(mybatisTaskDataManager.findTasksAndVariablesByQueryCriteria(taskQuery).isEmpty());
   }
 }

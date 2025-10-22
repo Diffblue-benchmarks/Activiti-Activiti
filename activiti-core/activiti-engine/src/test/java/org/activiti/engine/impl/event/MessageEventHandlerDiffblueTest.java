@@ -17,8 +17,7 @@ package org.activiti.engine.impl.event;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.mock;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
@@ -26,26 +25,20 @@ import org.junit.experimental.categories.Category;
 public class MessageEventHandlerDiffblueTest {
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>{@link MessageEventHandler#MessageEventHandler(EventSubscriptionPayloadMappingProvider)}
    *   <li>{@link MessageEventHandler#getEventHandlerType()}
    * </ul>
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void MessageEventHandler.<init>(EventSubscriptionPayloadMappingProvider)",
-    "java.lang.String MessageEventHandler.getEventHandlerType()"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void MessageEventHandler.<init>(EventSubscriptionPayloadMappingProvider)",
+      "java.lang.String MessageEventHandler.getEventHandlerType()"})
   public void testGettersAndSetters() {
     // Arrange, Act and Assert
-    assertEquals(
-        MessageEventHandler.EVENT_HANDLER_TYPE,
-        new MessageEventHandler(mock(EventSubscriptionPayloadMappingProvider.class))
-            .getEventHandlerType());
+    assertEquals(MessageEventHandler.EVENT_HANDLER_TYPE,
+        (new MessageEventHandler(mock(EventSubscriptionPayloadMappingProvider.class))).getEventHandlerType());
   }
 }

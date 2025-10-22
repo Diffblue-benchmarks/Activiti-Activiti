@@ -20,7 +20,6 @@ import static org.mockito.ArgumentMatchers.isA;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
 import java.util.List;
@@ -38,65 +37,52 @@ import org.mockito.Mockito;
 class VariableUpdatedListenerDelegateDiffblueTest {
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
-   *   <li>{@link VariableUpdatedListenerDelegate#VariableUpdatedListenerDelegate(List,
-   *       ToVariableUpdatedConverter, VariableEventFilter)}
+   *   <li>{@link VariableUpdatedListenerDelegate#VariableUpdatedListenerDelegate(List, ToVariableUpdatedConverter, VariableEventFilter)}
    *   <li>{@link VariableUpdatedListenerDelegate#isFailOnException()}
    * </ul>
    */
   @Test
   @DisplayName("Test getters and setters")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({
-    "void VariableUpdatedListenerDelegate.<init>(List, ToVariableUpdatedConverter, VariableEventFilter)",
-    "boolean VariableUpdatedListenerDelegate.isFailOnException()"
-  })
+      "void VariableUpdatedListenerDelegate.<init>(List, ToVariableUpdatedConverter, VariableEventFilter)",
+      "boolean VariableUpdatedListenerDelegate.isFailOnException()"})
   void testGettersAndSetters() {
     // Arrange
     ArrayList<VariableEventListener<VariableUpdatedEvent>> listeners = new ArrayList<>();
     ToVariableUpdatedConverter converter = new ToVariableUpdatedConverter();
 
-    // Act
-    VariableUpdatedListenerDelegate actualVariableUpdatedListenerDelegate =
-        new VariableUpdatedListenerDelegate(listeners, converter, new VariableEventFilter());
-
-    // Assert
-    assertFalse(actualVariableUpdatedListenerDelegate.isFailOnException());
+    // Act and Assert
+    assertFalse(
+        (new VariableUpdatedListenerDelegate(listeners, converter, new VariableEventFilter())).isFailOnException());
   }
 
   /**
    * Test {@link VariableUpdatedListenerDelegate#onEvent(ActivitiEvent)}.
-   *
    * <ul>
-   *   <li>Given {@link VariableEventListener} {@link VariableEventListener#onEvent(RuntimeEvent)}
-   *       does nothing.
-   *   <li>Then calls {@link VariableEventListener#onEvent(RuntimeEvent)}.
+   *   <li>Given {@link VariableEventListener} {@link VariableEventListener#onEvent(RuntimeEvent)} does nothing.</li>
+   *   <li>Then calls {@link VariableEventListener#onEvent(RuntimeEvent)}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link VariableUpdatedListenerDelegate#onEvent(ActivitiEvent)}
+   * <p>
+   * Method under test: {@link VariableUpdatedListenerDelegate#onEvent(ActivitiEvent)}
    */
   @Test
-  @DisplayName(
-      "Test onEvent(ActivitiEvent); given VariableEventListener onEvent(RuntimeEvent) does nothing; then calls onEvent(RuntimeEvent)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test onEvent(ActivitiEvent); given VariableEventListener onEvent(RuntimeEvent) does nothing; then calls onEvent(RuntimeEvent)")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void VariableUpdatedListenerDelegate.onEvent(ActivitiEvent)"})
   void testOnEvent_givenVariableEventListenerOnEventDoesNothing_thenCallsOnEvent() {
     // Arrange
-    VariableEventListener<VariableUpdatedEvent> variableEventListener =
-        mock(VariableEventListener.class);
+    VariableEventListener<VariableUpdatedEvent> variableEventListener = mock(VariableEventListener.class);
     doNothing().when(variableEventListener).onEvent(Mockito.<VariableUpdatedEvent>any());
 
     ArrayList<VariableEventListener<VariableUpdatedEvent>> listeners = new ArrayList<>();
     listeners.add(variableEventListener);
     ToVariableUpdatedConverter converter = new ToVariableUpdatedConverter();
-
-    VariableUpdatedListenerDelegate variableUpdatedListenerDelegate =
-        new VariableUpdatedListenerDelegate(listeners, converter, new VariableEventFilter());
+    VariableUpdatedListenerDelegate variableUpdatedListenerDelegate = new VariableUpdatedListenerDelegate(listeners,
+        converter, new VariableEventFilter());
 
     ActivitiVariableUpdatedEventImpl event = new ActivitiVariableUpdatedEventImpl();
     event.setVariableType(new BigDecimalType());

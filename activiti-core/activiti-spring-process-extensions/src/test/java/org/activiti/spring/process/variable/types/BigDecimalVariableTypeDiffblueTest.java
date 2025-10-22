@@ -20,7 +20,6 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -33,88 +32,73 @@ import org.junit.jupiter.api.Test;
 class BigDecimalVariableTypeDiffblueTest {
   /**
    * Test {@link BigDecimalVariableType#parseFromValue(Object)}.
-   *
    * <ul>
-   *   <li>When {@link BigDecimal#BigDecimal(String)} with {@code 2.3}.
-   *   <li>Then return {@link BigDecimal#BigDecimal(String)} with {@code 2.3}.
+   *   <li>When {@link BigDecimal#BigDecimal(String)} with {@code 2.3}.</li>
+   *   <li>Then return {@link BigDecimal#BigDecimal(String)} with {@code 2.3}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link BigDecimalVariableType#parseFromValue(Object)}
+   * <p>
+   * Method under test: {@link BigDecimalVariableType#parseFromValue(Object)}
    */
   @Test
-  @DisplayName(
-      "Test parseFromValue(Object); when BigDecimal(String) with '2.3'; then return BigDecimal(String) with '2.3'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test parseFromValue(Object); when BigDecimal(String) with '2.3'; then return BigDecimal(String) with '2.3'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"Object BigDecimalVariableType.parseFromValue(Object)"})
-  void testParseFromValue_whenBigDecimalWith23_thenReturnBigDecimalWith23()
-      throws ActivitiException {
+  void testParseFromValue_whenBigDecimalWith23_thenReturnBigDecimalWith23() throws ActivitiException {
     // Arrange
     BigDecimalVariableType bigDecimalVariableType = new BigDecimalVariableType();
     BigDecimal bigDecimal = new BigDecimal("2.3");
 
-    // Act
-    Object actualParseFromValueResult = bigDecimalVariableType.parseFromValue(bigDecimal);
-
-    // Assert
-    assertSame(bigDecimal, actualParseFromValueResult);
+    // Act and Assert
+    assertSame(bigDecimal, bigDecimalVariableType.parseFromValue(bigDecimal));
   }
 
   /**
    * Test {@link BigDecimalVariableType#parseFromValue(Object)}.
-   *
    * <ul>
-   *   <li>When {@link Double#NaN}.
-   *   <li>Then throw {@link ActivitiException}.
+   *   <li>When {@link Double#NaN}.</li>
+   *   <li>Then throw {@link ActivitiException}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link BigDecimalVariableType#parseFromValue(Object)}
+   * <p>
+   * Method under test: {@link BigDecimalVariableType#parseFromValue(Object)}
    */
   @Test
   @DisplayName("Test parseFromValue(Object); when NaN; then throw ActivitiException")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"Object BigDecimalVariableType.parseFromValue(Object)"})
   void testParseFromValue_whenNaN_thenThrowActivitiException() throws ActivitiException {
     // Arrange, Act and Assert
-    assertThrows(
-        ActivitiException.class, () -> new BigDecimalVariableType().parseFromValue(Double.NaN));
+    assertThrows(ActivitiException.class, () -> (new BigDecimalVariableType()).parseFromValue(Double.NaN));
   }
 
   /**
    * Test {@link BigDecimalVariableType#parseFromValue(Object)}.
-   *
    * <ul>
-   *   <li>When {@code Value}.
-   *   <li>Then throw {@link ActivitiException}.
+   *   <li>When {@code Value}.</li>
+   *   <li>Then throw {@link ActivitiException}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link BigDecimalVariableType#parseFromValue(Object)}
+   * <p>
+   * Method under test: {@link BigDecimalVariableType#parseFromValue(Object)}
    */
   @Test
   @DisplayName("Test parseFromValue(Object); when 'Value'; then throw ActivitiException")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"Object BigDecimalVariableType.parseFromValue(Object)"})
   void testParseFromValue_whenValue_thenThrowActivitiException() throws ActivitiException {
     // Arrange, Act and Assert
-    assertThrows(
-        ActivitiException.class, () -> new BigDecimalVariableType().parseFromValue("Value"));
+    assertThrows(ActivitiException.class, () -> (new BigDecimalVariableType()).parseFromValue("Value"));
   }
 
   /**
    * Test {@link BigDecimalVariableType#validate(Object, List)}.
-   *
    * <ul>
-   *   <li>Then {@link ArrayList#ArrayList()} size is two.
+   *   <li>Then {@link ArrayList#ArrayList()} size is two.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link BigDecimalVariableType#validate(Object, List)}
+   * <p>
+   * Method under test: {@link BigDecimalVariableType#validate(Object, List)}
    */
   @Test
   @DisplayName("Test validate(Object, List); then ArrayList() size is two")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void BigDecimalVariableType.validate(Object, List)"})
   void testValidate_thenArrayListSizeIsTwo() {
     // Arrange
@@ -136,18 +120,16 @@ class BigDecimalVariableTypeDiffblueTest {
 
   /**
    * Test {@link BigDecimalVariableType#validate(Object, List)}.
-   *
    * <ul>
-   *   <li>When one.
-   *   <li>Then {@link ArrayList#ArrayList()} Empty.
+   *   <li>When one.</li>
+   *   <li>Then {@link ArrayList#ArrayList()} Empty.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link BigDecimalVariableType#validate(Object, List)}
+   * <p>
+   * Method under test: {@link BigDecimalVariableType#validate(Object, List)}
    */
   @Test
   @DisplayName("Test validate(Object, List); when one; then ArrayList() Empty")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void BigDecimalVariableType.validate(Object, List)"})
   void testValidate_whenOne_thenArrayListEmpty() {
     // Arrange
@@ -163,18 +145,16 @@ class BigDecimalVariableTypeDiffblueTest {
 
   /**
    * Test {@link BigDecimalVariableType#validate(Object, List)}.
-   *
    * <ul>
-   *   <li>When {@code Var}.
-   *   <li>Then {@link ArrayList#ArrayList()} size is one.
+   *   <li>When {@code Var}.</li>
+   *   <li>Then {@link ArrayList#ArrayList()} size is one.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link BigDecimalVariableType#validate(Object, List)}
+   * <p>
+   * Method under test: {@link BigDecimalVariableType#validate(Object, List)}
    */
   @Test
   @DisplayName("Test validate(Object, List); when 'Var'; then ArrayList() size is one")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void BigDecimalVariableType.validate(Object, List)"})
   void testValidate_whenVar_thenArrayListSizeIsOne() {
     // Arrange
@@ -195,16 +175,15 @@ class BigDecimalVariableTypeDiffblueTest {
 
   /**
    * Test new {@link BigDecimalVariableType} (default constructor).
-   *
-   * <p>Method under test: default or parameterless constructor of {@link BigDecimalVariableType}
+   * <p>
+   * Method under test: default or parameterless constructor of {@link BigDecimalVariableType}
    */
   @Test
   @DisplayName("Test new BigDecimalVariableType (default constructor)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void BigDecimalVariableType.<init>()"})
   void testNewBigDecimalVariableType() {
     // Arrange, Act and Assert
-    assertNull(new BigDecimalVariableType().getName());
+    assertNull((new BigDecimalVariableType()).getName());
   }
 }

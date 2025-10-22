@@ -18,8 +18,7 @@ package org.activiti.engine.impl.interceptor;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 import static org.mockito.Mockito.mock;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.engine.impl.cfg.TransactionContextFactory;
 import org.junit.Test;
@@ -28,33 +27,27 @@ import org.junit.experimental.categories.Category;
 public class TransactionContextInterceptorDiffblueTest {
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>{@link TransactionContextInterceptor#TransactionContextInterceptor()}
-   *   <li>{@link
-   *       TransactionContextInterceptor#setTransactionContextFactory(TransactionContextFactory)}
+   *   <li>{@link TransactionContextInterceptor#setTransactionContextFactory(TransactionContextFactory)}
    *   <li>{@link TransactionContextInterceptor#getTransactionContextFactory()}
    * </ul>
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void TransactionContextInterceptor.<init>()",
-    "void TransactionContextInterceptor.<init>(TransactionContextFactory)",
-    "TransactionContextFactory TransactionContextInterceptor.getTransactionContextFactory()",
-    "void TransactionContextInterceptor.setTransactionContextFactory(TransactionContextFactory)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void TransactionContextInterceptor.<init>()",
+      "void TransactionContextInterceptor.<init>(TransactionContextFactory)",
+      "TransactionContextFactory TransactionContextInterceptor.getTransactionContextFactory()",
+      "void TransactionContextInterceptor.setTransactionContextFactory(TransactionContextFactory)"})
   public void testGettersAndSetters() {
     // Arrange and Act
-    TransactionContextInterceptor actualTransactionContextInterceptor =
-        new TransactionContextInterceptor();
+    TransactionContextInterceptor actualTransactionContextInterceptor = new TransactionContextInterceptor();
     TransactionContextFactory transactionContextFactory = mock(TransactionContextFactory.class);
     actualTransactionContextInterceptor.setTransactionContextFactory(transactionContextFactory);
-    TransactionContextFactory actualTransactionContextFactory =
-        actualTransactionContextInterceptor.getTransactionContextFactory();
+    TransactionContextFactory actualTransactionContextFactory = actualTransactionContextInterceptor
+        .getTransactionContextFactory();
 
     // Assert
     assertNull(actualTransactionContextInterceptor.getNext());
@@ -63,38 +56,31 @@ public class TransactionContextInterceptorDiffblueTest {
 
   /**
    * Test getters and setters.
-   *
    * <ul>
-   *   <li>When {@link TransactionContextFactory}.
+   *   <li>When {@link TransactionContextFactory}.</li>
    * </ul>
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
-   *   <li>{@link
-   *       TransactionContextInterceptor#TransactionContextInterceptor(TransactionContextFactory)}
-   *   <li>{@link
-   *       TransactionContextInterceptor#setTransactionContextFactory(TransactionContextFactory)}
+   *   <li>{@link TransactionContextInterceptor#TransactionContextInterceptor(TransactionContextFactory)}
+   *   <li>{@link TransactionContextInterceptor#setTransactionContextFactory(TransactionContextFactory)}
    *   <li>{@link TransactionContextInterceptor#getTransactionContextFactory()}
    * </ul>
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void TransactionContextInterceptor.<init>()",
-    "void TransactionContextInterceptor.<init>(TransactionContextFactory)",
-    "TransactionContextFactory TransactionContextInterceptor.getTransactionContextFactory()",
-    "void TransactionContextInterceptor.setTransactionContextFactory(TransactionContextFactory)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void TransactionContextInterceptor.<init>()",
+      "void TransactionContextInterceptor.<init>(TransactionContextFactory)",
+      "TransactionContextFactory TransactionContextInterceptor.getTransactionContextFactory()",
+      "void TransactionContextInterceptor.setTransactionContextFactory(TransactionContextFactory)"})
   public void testGettersAndSetters_whenTransactionContextFactory() {
     // Arrange and Act
-    TransactionContextInterceptor actualTransactionContextInterceptor =
-        new TransactionContextInterceptor(mock(TransactionContextFactory.class));
+    TransactionContextInterceptor actualTransactionContextInterceptor = new TransactionContextInterceptor(
+        mock(TransactionContextFactory.class));
     TransactionContextFactory transactionContextFactory = mock(TransactionContextFactory.class);
     actualTransactionContextInterceptor.setTransactionContextFactory(transactionContextFactory);
-    TransactionContextFactory actualTransactionContextFactory =
-        actualTransactionContextInterceptor.getTransactionContextFactory();
+    TransactionContextFactory actualTransactionContextFactory = actualTransactionContextInterceptor
+        .getTransactionContextFactory();
 
     // Assert
     assertNull(actualTransactionContextInterceptor.getNext());

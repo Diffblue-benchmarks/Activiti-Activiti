@@ -15,12 +15,12 @@
  */
 package org.activiti.bpmn.converter.export;
 
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.atLeast;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -37,171 +37,16 @@ import org.mockito.Mockito;
 class DefinitionsRootExportDiffblueTest {
   /**
    * Test {@link DefinitionsRootExport#writeRootElement(BpmnModel, XMLStreamWriter, String)}.
-   *
-   * <p>Method under test: {@link DefinitionsRootExport#writeRootElement(BpmnModel, XMLStreamWriter,
-   * String)}
-   */
-  @Test
-  @DisplayName("Test writeRootElement(BpmnModel, XMLStreamWriter, String)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void DefinitionsRootExport.writeRootElement(BpmnModel, XMLStreamWriter, String)"
-  })
-  void testWriteRootElement() throws Exception {
-    // Arrange
-    ExtensionAttribute extensionAttribute = mock(ExtensionAttribute.class);
-    when(extensionAttribute.getName()).thenReturn("Name");
-    when(extensionAttribute.getNamespace()).thenReturn("Namespace");
-    when(extensionAttribute.getNamespacePrefix()).thenReturn("Namespace Prefix");
-    when(extensionAttribute.getValue()).thenReturn("42");
-
-    ArrayList<ExtensionAttribute> extensionAttributeList = new ArrayList<>();
-    extensionAttributeList.add(extensionAttribute);
-
-    HashMap<String, List<ExtensionAttribute>> stringListMap = new HashMap<>();
-    stringListMap.put("1.0", extensionAttributeList);
-
-    BpmnModel model = mock(BpmnModel.class);
-    when(model.getTargetNamespace()).thenReturn("not empty");
-    when(model.getNamespaces()).thenReturn(new HashMap<>());
-    when(model.getDefinitionsAttributes()).thenReturn(stringListMap);
-
-    IndentingXMLStreamWriter writer = mock(IndentingXMLStreamWriter.class);
-    doNothing()
-        .when(writer)
-        .writeAttribute(
-            Mockito.<String>any(),
-            Mockito.<String>any(),
-            Mockito.<String>any(),
-            Mockito.<String>any());
-    doNothing().when(writer).setDefaultNamespace(Mockito.<String>any());
-    doNothing().when(writer).writeAttribute(Mockito.<String>any(), Mockito.<String>any());
-    doNothing().when(writer).writeDefaultNamespace(Mockito.<String>any());
-    doNothing().when(writer).writeNamespace(Mockito.<String>any(), Mockito.<String>any());
-    doNothing().when(writer).writeCharacters(Mockito.<String>any());
-    doNothing().when(writer).writeStartDocument(Mockito.<String>any(), Mockito.<String>any());
-    doNothing()
-        .when(writer)
-        .writeStartElement(Mockito.<String>any(), Mockito.<String>any(), Mockito.<String>any());
-
-    // Act
-    DefinitionsRootExport.writeRootElement(model, new IndentingXMLStreamWriter(writer), "UTF-8");
-
-    // Assert
-    verify(writer).setDefaultNamespace("http://www.omg.org/spec/BPMN/20100524/MODEL");
-    verify(writer, atLeast(1)).writeAttribute(Mockito.<String>any(), Mockito.<String>any());
-    verify(writer).writeAttribute("Namespace Prefix", "Namespace", "Name", "42");
-    verify(writer).writeDefaultNamespace("http://www.omg.org/spec/BPMN/20100524/MODEL");
-    verify(writer, atLeast(1)).writeNamespace(Mockito.<String>any(), Mockito.<String>any());
-    verify(writer).writeCharacters("\n");
-    verify(writer).writeStartDocument("UTF-8", "1.0");
-    verify(writer)
-        .writeStartElement("bpmn2", "definitions", "http://www.omg.org/spec/BPMN/20100524/MODEL");
-    verify(model).getDefinitionsAttributes();
-    verify(model, atLeast(1)).getNamespaces();
-    verify(model, atLeast(1)).getTargetNamespace();
-    verify(extensionAttribute, atLeast(1)).getName();
-    verify(extensionAttribute, atLeast(1)).getNamespace();
-    verify(extensionAttribute, atLeast(1)).getNamespacePrefix();
-    verify(extensionAttribute).getValue();
-  }
-
-  /**
-   * Test {@link DefinitionsRootExport#writeRootElement(BpmnModel, XMLStreamWriter, String)}.
-   *
-   * <p>Method under test: {@link DefinitionsRootExport#writeRootElement(BpmnModel, XMLStreamWriter,
-   * String)}
-   */
-  @Test
-  @DisplayName("Test writeRootElement(BpmnModel, XMLStreamWriter, String)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void DefinitionsRootExport.writeRootElement(BpmnModel, XMLStreamWriter, String)"
-  })
-  void testWriteRootElement2() throws Exception {
-    // Arrange
-    ExtensionAttribute extensionAttribute = mock(ExtensionAttribute.class);
-    when(extensionAttribute.getName()).thenReturn("Name");
-    when(extensionAttribute.getNamespace()).thenReturn("Namespace");
-    when(extensionAttribute.getNamespacePrefix()).thenReturn("Namespace Prefix");
-    when(extensionAttribute.getValue()).thenReturn("42");
-
-    ArrayList<ExtensionAttribute> extensionAttributeList = new ArrayList<>();
-    extensionAttributeList.add(extensionAttribute);
-
-    HashMap<String, List<ExtensionAttribute>> stringListMap = new HashMap<>();
-    stringListMap.put("1.0", extensionAttributeList);
-
-    HashMap<String, String> stringStringMap = new HashMap<>();
-    stringStringMap.put("", "");
-    stringStringMap.putAll(new HashMap<>());
-
-    BpmnModel model = mock(BpmnModel.class);
-    when(model.getTargetNamespace()).thenReturn("not empty");
-    when(model.getNamespaces()).thenReturn(stringStringMap);
-    when(model.getDefinitionsAttributes()).thenReturn(stringListMap);
-
-    IndentingXMLStreamWriter writer = mock(IndentingXMLStreamWriter.class);
-    doNothing()
-        .when(writer)
-        .writeAttribute(
-            Mockito.<String>any(),
-            Mockito.<String>any(),
-            Mockito.<String>any(),
-            Mockito.<String>any());
-    doNothing().when(writer).setDefaultNamespace(Mockito.<String>any());
-    doNothing().when(writer).writeAttribute(Mockito.<String>any(), Mockito.<String>any());
-    doNothing().when(writer).writeDefaultNamespace(Mockito.<String>any());
-    doNothing().when(writer).writeNamespace(Mockito.<String>any(), Mockito.<String>any());
-    doNothing().when(writer).writeCharacters(Mockito.<String>any());
-    doNothing().when(writer).writeStartDocument(Mockito.<String>any(), Mockito.<String>any());
-    doNothing()
-        .when(writer)
-        .writeStartElement(Mockito.<String>any(), Mockito.<String>any(), Mockito.<String>any());
-
-    // Act
-    DefinitionsRootExport.writeRootElement(model, new IndentingXMLStreamWriter(writer), "UTF-8");
-
-    // Assert
-    verify(writer).setDefaultNamespace("http://www.omg.org/spec/BPMN/20100524/MODEL");
-    verify(writer, atLeast(1)).writeAttribute(Mockito.<String>any(), Mockito.<String>any());
-    verify(writer).writeAttribute("Namespace Prefix", "Namespace", "Name", "42");
-    verify(writer).writeDefaultNamespace("http://www.omg.org/spec/BPMN/20100524/MODEL");
-    verify(writer, atLeast(1)).writeNamespace(Mockito.<String>any(), Mockito.<String>any());
-    verify(writer).writeCharacters("\n");
-    verify(writer).writeStartDocument("UTF-8", "1.0");
-    verify(writer)
-        .writeStartElement("bpmn2", "definitions", "http://www.omg.org/spec/BPMN/20100524/MODEL");
-    verify(model).getDefinitionsAttributes();
-    verify(model, atLeast(1)).getNamespaces();
-    verify(model, atLeast(1)).getTargetNamespace();
-    verify(extensionAttribute, atLeast(1)).getName();
-    verify(extensionAttribute, atLeast(1)).getNamespace();
-    verify(extensionAttribute, atLeast(1)).getNamespacePrefix();
-    verify(extensionAttribute).getValue();
-  }
-
-  /**
-   * Test {@link DefinitionsRootExport#writeRootElement(BpmnModel, XMLStreamWriter, String)}.
-   *
    * <ul>
-   *   <li>Given {@link ArrayList#ArrayList()} add {@link
-   *       ExtensionAttribute#ExtensionAttribute(String)} with name is {@code 1.0}.
+   *   <li>Given {@link ArrayList#ArrayList()} add {@link ExtensionAttribute#ExtensionAttribute(String)} with name is {@code 1.0}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link DefinitionsRootExport#writeRootElement(BpmnModel, XMLStreamWriter,
-   * String)}
+   * <p>
+   * Method under test: {@link DefinitionsRootExport#writeRootElement(BpmnModel, XMLStreamWriter, String)}
    */
   @Test
-  @DisplayName(
-      "Test writeRootElement(BpmnModel, XMLStreamWriter, String); given ArrayList() add ExtensionAttribute(String) with name is '1.0'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void DefinitionsRootExport.writeRootElement(BpmnModel, XMLStreamWriter, String)"
-  })
+  @DisplayName("Test writeRootElement(BpmnModel, XMLStreamWriter, String); given ArrayList() add ExtensionAttribute(String) with name is '1.0'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void DefinitionsRootExport.writeRootElement(BpmnModel, XMLStreamWriter, String)"})
   void testWriteRootElement_givenArrayListAddExtensionAttributeWithNameIs10() throws Exception {
     // Arrange
     ArrayList<ExtensionAttribute> extensionAttributeList = new ArrayList<>();
@@ -209,35 +54,28 @@ class DefinitionsRootExportDiffblueTest {
 
     HashMap<String, List<ExtensionAttribute>> stringListMap = new HashMap<>();
     stringListMap.put("1.0", extensionAttributeList);
-
     BpmnModel model = mock(BpmnModel.class);
-    when(model.getTargetNamespace()).thenReturn("not empty");
-    when(model.getNamespaces()).thenReturn(new HashMap<>());
+    when(model.getTargetNamespace()).thenReturn("Target Namespace");
     when(model.getDefinitionsAttributes()).thenReturn(stringListMap);
-
-    IndentingXMLStreamWriter writer = mock(IndentingXMLStreamWriter.class);
-    doNothing().when(writer).setDefaultNamespace(Mockito.<String>any());
-    doNothing().when(writer).writeAttribute(Mockito.<String>any(), Mockito.<String>any());
-    doNothing().when(writer).writeDefaultNamespace(Mockito.<String>any());
-    doNothing().when(writer).writeNamespace(Mockito.<String>any(), Mockito.<String>any());
-    doNothing().when(writer).writeCharacters(Mockito.<String>any());
-    doNothing().when(writer).writeStartDocument(Mockito.<String>any(), Mockito.<String>any());
-    doNothing()
-        .when(writer)
-        .writeStartElement(Mockito.<String>any(), Mockito.<String>any(), Mockito.<String>any());
+    when(model.getNamespaces()).thenReturn(new HashMap<>());
+    IndentingXMLStreamWriter xtw = mock(IndentingXMLStreamWriter.class);
+    doNothing().when(xtw).setDefaultNamespace(Mockito.<String>any());
+    doNothing().when(xtw).writeAttribute(Mockito.<String>any(), Mockito.<String>any());
+    doNothing().when(xtw).writeDefaultNamespace(Mockito.<String>any());
+    doNothing().when(xtw).writeNamespace(Mockito.<String>any(), Mockito.<String>any());
+    doNothing().when(xtw).writeStartDocument(Mockito.<String>any(), Mockito.<String>any());
+    doNothing().when(xtw).writeStartElement(Mockito.<String>any(), Mockito.<String>any(), Mockito.<String>any());
 
     // Act
-    DefinitionsRootExport.writeRootElement(model, new IndentingXMLStreamWriter(writer), "UTF-8");
+    DefinitionsRootExport.writeRootElement(model, xtw, "UTF-8");
 
     // Assert
-    verify(writer).setDefaultNamespace("http://www.omg.org/spec/BPMN/20100524/MODEL");
-    verify(writer, atLeast(1)).writeAttribute(Mockito.<String>any(), Mockito.<String>any());
-    verify(writer).writeDefaultNamespace("http://www.omg.org/spec/BPMN/20100524/MODEL");
-    verify(writer, atLeast(1)).writeNamespace(Mockito.<String>any(), Mockito.<String>any());
-    verify(writer).writeCharacters("\n");
-    verify(writer).writeStartDocument("UTF-8", "1.0");
-    verify(writer)
-        .writeStartElement("bpmn2", "definitions", "http://www.omg.org/spec/BPMN/20100524/MODEL");
+    verify(xtw).setDefaultNamespace(eq("http://www.omg.org/spec/BPMN/20100524/MODEL"));
+    verify(xtw, atLeast(1)).writeAttribute(Mockito.<String>any(), Mockito.<String>any());
+    verify(xtw).writeDefaultNamespace(eq("http://www.omg.org/spec/BPMN/20100524/MODEL"));
+    verify(xtw, atLeast(1)).writeNamespace(Mockito.<String>any(), Mockito.<String>any());
+    verify(xtw).writeStartDocument(eq("UTF-8"), eq("1.0"));
+    verify(xtw).writeStartElement(eq("bpmn2"), eq("definitions"), eq("http://www.omg.org/spec/BPMN/20100524/MODEL"));
     verify(model).getDefinitionsAttributes();
     verify(model, atLeast(1)).getNamespaces();
     verify(model, atLeast(1)).getTargetNamespace();
@@ -245,51 +83,40 @@ class DefinitionsRootExportDiffblueTest {
 
   /**
    * Test {@link DefinitionsRootExport#writeRootElement(BpmnModel, XMLStreamWriter, String)}.
-   *
    * <ul>
-   *   <li>Given empty string.
+   *   <li>Given empty string.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link DefinitionsRootExport#writeRootElement(BpmnModel, XMLStreamWriter,
-   * String)}
+   * <p>
+   * Method under test: {@link DefinitionsRootExport#writeRootElement(BpmnModel, XMLStreamWriter, String)}
    */
   @Test
   @DisplayName("Test writeRootElement(BpmnModel, XMLStreamWriter, String); given empty string")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void DefinitionsRootExport.writeRootElement(BpmnModel, XMLStreamWriter, String)"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void DefinitionsRootExport.writeRootElement(BpmnModel, XMLStreamWriter, String)"})
   void testWriteRootElement_givenEmptyString() throws Exception {
     // Arrange
     BpmnModel model = mock(BpmnModel.class);
     when(model.getTargetNamespace()).thenReturn("");
-    when(model.getNamespaces()).thenReturn(new HashMap<>());
     when(model.getDefinitionsAttributes()).thenReturn(new HashMap<>());
-
-    IndentingXMLStreamWriter writer = mock(IndentingXMLStreamWriter.class);
-    doNothing().when(writer).setDefaultNamespace(Mockito.<String>any());
-    doNothing().when(writer).writeAttribute(Mockito.<String>any(), Mockito.<String>any());
-    doNothing().when(writer).writeDefaultNamespace(Mockito.<String>any());
-    doNothing().when(writer).writeNamespace(Mockito.<String>any(), Mockito.<String>any());
-    doNothing().when(writer).writeCharacters(Mockito.<String>any());
-    doNothing().when(writer).writeStartDocument(Mockito.<String>any(), Mockito.<String>any());
-    doNothing()
-        .when(writer)
-        .writeStartElement(Mockito.<String>any(), Mockito.<String>any(), Mockito.<String>any());
+    when(model.getNamespaces()).thenReturn(new HashMap<>());
+    IndentingXMLStreamWriter xtw = mock(IndentingXMLStreamWriter.class);
+    doNothing().when(xtw).setDefaultNamespace(Mockito.<String>any());
+    doNothing().when(xtw).writeAttribute(Mockito.<String>any(), Mockito.<String>any());
+    doNothing().when(xtw).writeDefaultNamespace(Mockito.<String>any());
+    doNothing().when(xtw).writeNamespace(Mockito.<String>any(), Mockito.<String>any());
+    doNothing().when(xtw).writeStartDocument(Mockito.<String>any(), Mockito.<String>any());
+    doNothing().when(xtw).writeStartElement(Mockito.<String>any(), Mockito.<String>any(), Mockito.<String>any());
 
     // Act
-    DefinitionsRootExport.writeRootElement(model, new IndentingXMLStreamWriter(writer), "UTF-8");
+    DefinitionsRootExport.writeRootElement(model, xtw, "UTF-8");
 
     // Assert
-    verify(writer).setDefaultNamespace("http://www.omg.org/spec/BPMN/20100524/MODEL");
-    verify(writer, atLeast(1)).writeAttribute(Mockito.<String>any(), Mockito.<String>any());
-    verify(writer).writeDefaultNamespace("http://www.omg.org/spec/BPMN/20100524/MODEL");
-    verify(writer, atLeast(1)).writeNamespace(Mockito.<String>any(), Mockito.<String>any());
-    verify(writer).writeCharacters("\n");
-    verify(writer).writeStartDocument("UTF-8", "1.0");
-    verify(writer)
-        .writeStartElement("bpmn2", "definitions", "http://www.omg.org/spec/BPMN/20100524/MODEL");
+    verify(xtw).setDefaultNamespace(eq("http://www.omg.org/spec/BPMN/20100524/MODEL"));
+    verify(xtw, atLeast(1)).writeAttribute(Mockito.<String>any(), Mockito.<String>any());
+    verify(xtw).writeDefaultNamespace(eq("http://www.omg.org/spec/BPMN/20100524/MODEL"));
+    verify(xtw, atLeast(1)).writeNamespace(Mockito.<String>any(), Mockito.<String>any());
+    verify(xtw).writeStartDocument(eq("UTF-8"), eq("1.0"));
+    verify(xtw).writeStartElement(eq("bpmn2"), eq("definitions"), eq("http://www.omg.org/spec/BPMN/20100524/MODEL"));
     verify(model).getDefinitionsAttributes();
     verify(model, atLeast(1)).getNamespaces();
     verify(model).getTargetNamespace();
@@ -297,30 +124,22 @@ class DefinitionsRootExportDiffblueTest {
 
   /**
    * Test {@link DefinitionsRootExport#writeRootElement(BpmnModel, XMLStreamWriter, String)}.
-   *
    * <ul>
-   *   <li>Given {@link ExtensionAttribute} {@link ExtensionAttribute#getNamespacePrefix()} return
-   *       empty string.
+   *   <li>Given {@link ExtensionAttribute} {@link ExtensionAttribute#getName()} return {@code Name}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link DefinitionsRootExport#writeRootElement(BpmnModel, XMLStreamWriter,
-   * String)}
+   * <p>
+   * Method under test: {@link DefinitionsRootExport#writeRootElement(BpmnModel, XMLStreamWriter, String)}
    */
   @Test
-  @DisplayName(
-      "Test writeRootElement(BpmnModel, XMLStreamWriter, String); given ExtensionAttribute getNamespacePrefix() return empty string")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void DefinitionsRootExport.writeRootElement(BpmnModel, XMLStreamWriter, String)"
-  })
-  void testWriteRootElement_givenExtensionAttributeGetNamespacePrefixReturnEmptyString()
-      throws Exception {
+  @DisplayName("Test writeRootElement(BpmnModel, XMLStreamWriter, String); given ExtensionAttribute getName() return 'Name'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void DefinitionsRootExport.writeRootElement(BpmnModel, XMLStreamWriter, String)"})
+  void testWriteRootElement_givenExtensionAttributeGetNameReturnName() throws Exception {
     // Arrange
     ExtensionAttribute extensionAttribute = mock(ExtensionAttribute.class);
     when(extensionAttribute.getName()).thenReturn("Name");
     when(extensionAttribute.getNamespace()).thenReturn("Namespace");
-    when(extensionAttribute.getNamespacePrefix()).thenReturn("");
+    when(extensionAttribute.getNamespacePrefix()).thenReturn("Namespace Prefix");
     when(extensionAttribute.getValue()).thenReturn("42");
 
     ArrayList<ExtensionAttribute> extensionAttributeList = new ArrayList<>();
@@ -328,345 +147,138 @@ class DefinitionsRootExportDiffblueTest {
 
     HashMap<String, List<ExtensionAttribute>> stringListMap = new HashMap<>();
     stringListMap.put("1.0", extensionAttributeList);
-
-    HashMap<String, String> stringStringMap = new HashMap<>();
-    stringStringMap.put("", "");
-    stringStringMap.putAll(new HashMap<>());
-
     BpmnModel model = mock(BpmnModel.class);
-    when(model.getTargetNamespace()).thenReturn("not empty");
-    when(model.getNamespaces()).thenReturn(stringStringMap);
+    when(model.getTargetNamespace()).thenReturn("Target Namespace");
     when(model.getDefinitionsAttributes()).thenReturn(stringListMap);
-
-    IndentingXMLStreamWriter writer = mock(IndentingXMLStreamWriter.class);
-    doNothing()
-        .when(writer)
-        .writeAttribute(
-            Mockito.<String>any(),
-            Mockito.<String>any(),
-            Mockito.<String>any(),
-            Mockito.<String>any());
-    doNothing().when(writer).setDefaultNamespace(Mockito.<String>any());
-    doNothing().when(writer).writeAttribute(Mockito.<String>any(), Mockito.<String>any());
-    doNothing().when(writer).writeDefaultNamespace(Mockito.<String>any());
-    doNothing().when(writer).writeNamespace(Mockito.<String>any(), Mockito.<String>any());
-    doNothing().when(writer).writeCharacters(Mockito.<String>any());
-    doNothing().when(writer).writeStartDocument(Mockito.<String>any(), Mockito.<String>any());
-    doNothing()
-        .when(writer)
-        .writeStartElement(Mockito.<String>any(), Mockito.<String>any(), Mockito.<String>any());
+    when(model.getNamespaces()).thenReturn(new HashMap<>());
+    IndentingXMLStreamWriter xtw = mock(IndentingXMLStreamWriter.class);
+    doNothing().when(xtw)
+        .writeAttribute(Mockito.<String>any(), Mockito.<String>any(), Mockito.<String>any(), Mockito.<String>any());
+    doNothing().when(xtw).setDefaultNamespace(Mockito.<String>any());
+    doNothing().when(xtw).writeAttribute(Mockito.<String>any(), Mockito.<String>any());
+    doNothing().when(xtw).writeDefaultNamespace(Mockito.<String>any());
+    doNothing().when(xtw).writeNamespace(Mockito.<String>any(), Mockito.<String>any());
+    doNothing().when(xtw).writeStartDocument(Mockito.<String>any(), Mockito.<String>any());
+    doNothing().when(xtw).writeStartElement(Mockito.<String>any(), Mockito.<String>any(), Mockito.<String>any());
 
     // Act
-    DefinitionsRootExport.writeRootElement(model, new IndentingXMLStreamWriter(writer), "UTF-8");
+    DefinitionsRootExport.writeRootElement(model, xtw, "UTF-8");
 
     // Assert
-    verify(writer).setDefaultNamespace("http://www.omg.org/spec/BPMN/20100524/MODEL");
-    verify(writer, atLeast(1)).writeAttribute(Mockito.<String>any(), Mockito.<String>any());
-    verify(writer).writeAttribute("", "Namespace", "Name", "42");
-    verify(writer).writeDefaultNamespace("http://www.omg.org/spec/BPMN/20100524/MODEL");
-    verify(writer, atLeast(1)).writeNamespace(Mockito.<String>any(), Mockito.<String>any());
-    verify(writer).writeCharacters("\n");
-    verify(writer).writeStartDocument("UTF-8", "1.0");
-    verify(writer)
-        .writeStartElement("bpmn2", "definitions", "http://www.omg.org/spec/BPMN/20100524/MODEL");
+    verify(xtw).setDefaultNamespace(eq("http://www.omg.org/spec/BPMN/20100524/MODEL"));
+    verify(xtw, atLeast(1)).writeAttribute(Mockito.<String>any(), Mockito.<String>any());
+    verify(xtw).writeAttribute(eq("Namespace Prefix"), eq("Namespace"), eq("Name"), eq("42"));
+    verify(xtw).writeDefaultNamespace(eq("http://www.omg.org/spec/BPMN/20100524/MODEL"));
+    verify(xtw, atLeast(1)).writeNamespace(Mockito.<String>any(), Mockito.<String>any());
+    verify(xtw).writeStartDocument(eq("UTF-8"), eq("1.0"));
+    verify(xtw).writeStartElement(eq("bpmn2"), eq("definitions"), eq("http://www.omg.org/spec/BPMN/20100524/MODEL"));
     verify(model).getDefinitionsAttributes();
     verify(model, atLeast(1)).getNamespaces();
     verify(model, atLeast(1)).getTargetNamespace();
     verify(extensionAttribute, atLeast(1)).getName();
-    verify(extensionAttribute).getNamespace();
+    verify(extensionAttribute, atLeast(1)).getNamespace();
     verify(extensionAttribute, atLeast(1)).getNamespacePrefix();
     verify(extensionAttribute).getValue();
   }
 
   /**
    * Test {@link DefinitionsRootExport#writeRootElement(BpmnModel, XMLStreamWriter, String)}.
-   *
    * <ul>
-   *   <li>Given {@link HashMap#HashMap()} {@code 1.0} is {@code 1.0}.
-   *   <li>Then calls {@link BpmnModel#getDefinitionsAttributes()}.
+   *   <li>Given {@link ExtensionAttribute} {@link ExtensionAttribute#getName()} return {@code typeLanguage}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link DefinitionsRootExport#writeRootElement(BpmnModel, XMLStreamWriter,
-   * String)}
+   * <p>
+   * Method under test: {@link DefinitionsRootExport#writeRootElement(BpmnModel, XMLStreamWriter, String)}
    */
   @Test
-  @DisplayName(
-      "Test writeRootElement(BpmnModel, XMLStreamWriter, String); given HashMap() '1.0' is '1.0'; then calls getDefinitionsAttributes()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void DefinitionsRootExport.writeRootElement(BpmnModel, XMLStreamWriter, String)"
-  })
-  void testWriteRootElement_givenHashMap10Is10_thenCallsGetDefinitionsAttributes()
-      throws Exception {
+  @DisplayName("Test writeRootElement(BpmnModel, XMLStreamWriter, String); given ExtensionAttribute getName() return 'typeLanguage'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void DefinitionsRootExport.writeRootElement(BpmnModel, XMLStreamWriter, String)"})
+  void testWriteRootElement_givenExtensionAttributeGetNameReturnTypeLanguage() throws Exception {
     // Arrange
-    HashMap<String, String> stringStringMap = new HashMap<>();
-    stringStringMap.put("1.0", "1.0");
+    ExtensionAttribute extensionAttribute = mock(ExtensionAttribute.class);
+    when(extensionAttribute.getName()).thenReturn("typeLanguage");
+    when(extensionAttribute.getNamespace()).thenReturn("Namespace");
+    when(extensionAttribute.getNamespacePrefix()).thenReturn("Namespace Prefix");
+    when(extensionAttribute.getValue()).thenReturn("42");
 
-    BpmnModel model = mock(BpmnModel.class);
-    when(model.getTargetNamespace()).thenReturn("not empty");
-    when(model.getNamespaces()).thenReturn(stringStringMap);
-    when(model.getDefinitionsAttributes()).thenReturn(new HashMap<>());
-
-    IndentingXMLStreamWriter writer = mock(IndentingXMLStreamWriter.class);
-    doNothing().when(writer).setDefaultNamespace(Mockito.<String>any());
-    doNothing().when(writer).writeAttribute(Mockito.<String>any(), Mockito.<String>any());
-    doNothing().when(writer).writeDefaultNamespace(Mockito.<String>any());
-    doNothing().when(writer).writeNamespace(Mockito.<String>any(), Mockito.<String>any());
-    doNothing().when(writer).writeCharacters(Mockito.<String>any());
-    doNothing().when(writer).writeStartDocument(Mockito.<String>any(), Mockito.<String>any());
-    doNothing()
-        .when(writer)
-        .writeStartElement(Mockito.<String>any(), Mockito.<String>any(), Mockito.<String>any());
-
-    // Act
-    DefinitionsRootExport.writeRootElement(model, new IndentingXMLStreamWriter(writer), "UTF-8");
-
-    // Assert
-    verify(writer).setDefaultNamespace("http://www.omg.org/spec/BPMN/20100524/MODEL");
-    verify(writer, atLeast(1)).writeAttribute(Mockito.<String>any(), Mockito.<String>any());
-    verify(writer).writeDefaultNamespace("http://www.omg.org/spec/BPMN/20100524/MODEL");
-    verify(writer, atLeast(1)).writeNamespace(Mockito.<String>any(), Mockito.<String>any());
-    verify(writer).writeCharacters("\n");
-    verify(writer).writeStartDocument("UTF-8", "1.0");
-    verify(writer)
-        .writeStartElement("bpmn2", "definitions", "http://www.omg.org/spec/BPMN/20100524/MODEL");
-    verify(model).getDefinitionsAttributes();
-    verify(model, atLeast(1)).getNamespaces();
-    verify(model, atLeast(1)).getTargetNamespace();
-  }
-
-  /**
-   * Test {@link DefinitionsRootExport#writeRootElement(BpmnModel, XMLStreamWriter, String)}.
-   *
-   * <ul>
-   *   <li>Given {@link HashMap#HashMap()} {@code 1.0} is {@link ArrayList#ArrayList()}.
-   *   <li>Then calls {@link BpmnModel#getDefinitionsAttributes()}.
-   * </ul>
-   *
-   * <p>Method under test: {@link DefinitionsRootExport#writeRootElement(BpmnModel, XMLStreamWriter,
-   * String)}
-   */
-  @Test
-  @DisplayName(
-      "Test writeRootElement(BpmnModel, XMLStreamWriter, String); given HashMap() '1.0' is ArrayList(); then calls getDefinitionsAttributes()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void DefinitionsRootExport.writeRootElement(BpmnModel, XMLStreamWriter, String)"
-  })
-  void testWriteRootElement_givenHashMap10IsArrayList_thenCallsGetDefinitionsAttributes()
-      throws Exception {
-    // Arrange
-    HashMap<String, List<ExtensionAttribute>> stringListMap = new HashMap<>();
-    stringListMap.put("1.0", new ArrayList<>());
-
-    BpmnModel model = mock(BpmnModel.class);
-    when(model.getTargetNamespace()).thenReturn("not empty");
-    when(model.getNamespaces()).thenReturn(new HashMap<>());
-    when(model.getDefinitionsAttributes()).thenReturn(stringListMap);
-
-    IndentingXMLStreamWriter writer = mock(IndentingXMLStreamWriter.class);
-    doNothing().when(writer).setDefaultNamespace(Mockito.<String>any());
-    doNothing().when(writer).writeAttribute(Mockito.<String>any(), Mockito.<String>any());
-    doNothing().when(writer).writeDefaultNamespace(Mockito.<String>any());
-    doNothing().when(writer).writeNamespace(Mockito.<String>any(), Mockito.<String>any());
-    doNothing().when(writer).writeCharacters(Mockito.<String>any());
-    doNothing().when(writer).writeStartDocument(Mockito.<String>any(), Mockito.<String>any());
-    doNothing()
-        .when(writer)
-        .writeStartElement(Mockito.<String>any(), Mockito.<String>any(), Mockito.<String>any());
-
-    // Act
-    DefinitionsRootExport.writeRootElement(model, new IndentingXMLStreamWriter(writer), "UTF-8");
-
-    // Assert
-    verify(writer).setDefaultNamespace("http://www.omg.org/spec/BPMN/20100524/MODEL");
-    verify(writer, atLeast(1)).writeAttribute(Mockito.<String>any(), Mockito.<String>any());
-    verify(writer).writeDefaultNamespace("http://www.omg.org/spec/BPMN/20100524/MODEL");
-    verify(writer, atLeast(1)).writeNamespace(Mockito.<String>any(), Mockito.<String>any());
-    verify(writer).writeCharacters("\n");
-    verify(writer).writeStartDocument("UTF-8", "1.0");
-    verify(writer)
-        .writeStartElement("bpmn2", "definitions", "http://www.omg.org/spec/BPMN/20100524/MODEL");
-    verify(model).getDefinitionsAttributes();
-    verify(model, atLeast(1)).getNamespaces();
-    verify(model, atLeast(1)).getTargetNamespace();
-  }
-
-  /**
-   * Test {@link DefinitionsRootExport#writeRootElement(BpmnModel, XMLStreamWriter, String)}.
-   *
-   * <ul>
-   *   <li>Given {@link HashMap#HashMap()} {@code bpmn2} is {@code bpmn2}.
-   *   <li>Then calls {@link BpmnModel#getDefinitionsAttributes()}.
-   * </ul>
-   *
-   * <p>Method under test: {@link DefinitionsRootExport#writeRootElement(BpmnModel, XMLStreamWriter,
-   * String)}
-   */
-  @Test
-  @DisplayName(
-      "Test writeRootElement(BpmnModel, XMLStreamWriter, String); given HashMap() 'bpmn2' is 'bpmn2'; then calls getDefinitionsAttributes()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void DefinitionsRootExport.writeRootElement(BpmnModel, XMLStreamWriter, String)"
-  })
-  void testWriteRootElement_givenHashMapBpmn2IsBpmn2_thenCallsGetDefinitionsAttributes()
-      throws Exception {
-    // Arrange
-    HashMap<String, List<ExtensionAttribute>> stringListMap = new HashMap<>();
-    stringListMap.put("1.0", new ArrayList<>());
-
-    HashMap<String, String> stringStringMap = new HashMap<>();
-    stringStringMap.put("bpmn2", "bpmn2");
-
-    BpmnModel model = mock(BpmnModel.class);
-    when(model.getTargetNamespace()).thenReturn("not empty");
-    when(model.getNamespaces()).thenReturn(stringStringMap);
-    when(model.getDefinitionsAttributes()).thenReturn(stringListMap);
-
-    IndentingXMLStreamWriter writer = mock(IndentingXMLStreamWriter.class);
-    doNothing().when(writer).setDefaultNamespace(Mockito.<String>any());
-    doNothing().when(writer).writeAttribute(Mockito.<String>any(), Mockito.<String>any());
-    doNothing().when(writer).writeDefaultNamespace(Mockito.<String>any());
-    doNothing().when(writer).writeNamespace(Mockito.<String>any(), Mockito.<String>any());
-    doNothing().when(writer).writeCharacters(Mockito.<String>any());
-    doNothing().when(writer).writeStartDocument(Mockito.<String>any(), Mockito.<String>any());
-    doNothing()
-        .when(writer)
-        .writeStartElement(Mockito.<String>any(), Mockito.<String>any(), Mockito.<String>any());
-
-    // Act
-    DefinitionsRootExport.writeRootElement(model, new IndentingXMLStreamWriter(writer), "UTF-8");
-
-    // Assert
-    verify(writer).setDefaultNamespace("http://www.omg.org/spec/BPMN/20100524/MODEL");
-    verify(writer, atLeast(1)).writeAttribute(Mockito.<String>any(), Mockito.<String>any());
-    verify(writer).writeDefaultNamespace("http://www.omg.org/spec/BPMN/20100524/MODEL");
-    verify(writer, atLeast(1)).writeNamespace(Mockito.<String>any(), Mockito.<String>any());
-    verify(writer).writeCharacters("\n");
-    verify(writer).writeStartDocument("UTF-8", "1.0");
-    verify(writer)
-        .writeStartElement("bpmn2", "definitions", "http://www.omg.org/spec/BPMN/20100524/MODEL");
-    verify(model).getDefinitionsAttributes();
-    verify(model, atLeast(1)).getNamespaces();
-    verify(model, atLeast(1)).getTargetNamespace();
-  }
-
-  /**
-   * Test {@link DefinitionsRootExport#writeRootElement(BpmnModel, XMLStreamWriter, String)}.
-   *
-   * <ul>
-   *   <li>Given {@link HashMap#HashMap()}.
-   *   <li>Then calls {@link BpmnModel#getDefinitionsAttributes()}.
-   * </ul>
-   *
-   * <p>Method under test: {@link DefinitionsRootExport#writeRootElement(BpmnModel, XMLStreamWriter,
-   * String)}
-   */
-  @Test
-  @DisplayName(
-      "Test writeRootElement(BpmnModel, XMLStreamWriter, String); given HashMap(); then calls getDefinitionsAttributes()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void DefinitionsRootExport.writeRootElement(BpmnModel, XMLStreamWriter, String)"
-  })
-  void testWriteRootElement_givenHashMap_thenCallsGetDefinitionsAttributes() throws Exception {
-    // Arrange
-    BpmnModel model = mock(BpmnModel.class);
-    when(model.getTargetNamespace()).thenReturn("not empty");
-    when(model.getNamespaces()).thenReturn(new HashMap<>());
-    when(model.getDefinitionsAttributes()).thenReturn(new HashMap<>());
-
-    IndentingXMLStreamWriter writer = mock(IndentingXMLStreamWriter.class);
-    doNothing().when(writer).setDefaultNamespace(Mockito.<String>any());
-    doNothing().when(writer).writeAttribute(Mockito.<String>any(), Mockito.<String>any());
-    doNothing().when(writer).writeDefaultNamespace(Mockito.<String>any());
-    doNothing().when(writer).writeNamespace(Mockito.<String>any(), Mockito.<String>any());
-    doNothing().when(writer).writeCharacters(Mockito.<String>any());
-    doNothing().when(writer).writeStartDocument(Mockito.<String>any(), Mockito.<String>any());
-    doNothing()
-        .when(writer)
-        .writeStartElement(Mockito.<String>any(), Mockito.<String>any(), Mockito.<String>any());
-
-    // Act
-    DefinitionsRootExport.writeRootElement(model, new IndentingXMLStreamWriter(writer), "UTF-8");
-
-    // Assert
-    verify(writer).setDefaultNamespace("http://www.omg.org/spec/BPMN/20100524/MODEL");
-    verify(writer, atLeast(1)).writeAttribute(Mockito.<String>any(), Mockito.<String>any());
-    verify(writer).writeDefaultNamespace("http://www.omg.org/spec/BPMN/20100524/MODEL");
-    verify(writer, atLeast(1)).writeNamespace(Mockito.<String>any(), Mockito.<String>any());
-    verify(writer).writeCharacters("\n");
-    verify(writer).writeStartDocument("UTF-8", "1.0");
-    verify(writer)
-        .writeStartElement("bpmn2", "definitions", "http://www.omg.org/spec/BPMN/20100524/MODEL");
-    verify(model).getDefinitionsAttributes();
-    verify(model, atLeast(1)).getNamespaces();
-    verify(model, atLeast(1)).getTargetNamespace();
-  }
-
-  /**
-   * Test {@link DefinitionsRootExport#writeRootElement(BpmnModel, XMLStreamWriter, String)}.
-   *
-   * <ul>
-   *   <li>Then calls {@link IndentingXMLStreamWriter#writeAttribute(String, String, String)}.
-   * </ul>
-   *
-   * <p>Method under test: {@link DefinitionsRootExport#writeRootElement(BpmnModel, XMLStreamWriter,
-   * String)}
-   */
-  @Test
-  @DisplayName(
-      "Test writeRootElement(BpmnModel, XMLStreamWriter, String); then calls writeAttribute(String, String, String)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void DefinitionsRootExport.writeRootElement(BpmnModel, XMLStreamWriter, String)"
-  })
-  void testWriteRootElement_thenCallsWriteAttribute() throws Exception {
-    // Arrange
     ArrayList<ExtensionAttribute> extensionAttributeList = new ArrayList<>();
-    extensionAttributeList.add(new ExtensionAttribute("1.0", "1.0"));
+    extensionAttributeList.add(extensionAttribute);
 
     HashMap<String, List<ExtensionAttribute>> stringListMap = new HashMap<>();
     stringListMap.put("1.0", extensionAttributeList);
-
     BpmnModel model = mock(BpmnModel.class);
-    when(model.getTargetNamespace()).thenReturn("not empty");
-    when(model.getNamespaces()).thenReturn(new HashMap<>());
+    when(model.getTargetNamespace()).thenReturn("Target Namespace");
     when(model.getDefinitionsAttributes()).thenReturn(stringListMap);
-
-    IndentingXMLStreamWriter writer = mock(IndentingXMLStreamWriter.class);
-    doNothing()
-        .when(writer)
-        .writeAttribute(Mockito.<String>any(), Mockito.<String>any(), Mockito.<String>any());
-    doNothing().when(writer).setDefaultNamespace(Mockito.<String>any());
-    doNothing().when(writer).writeAttribute(Mockito.<String>any(), Mockito.<String>any());
-    doNothing().when(writer).writeDefaultNamespace(Mockito.<String>any());
-    doNothing().when(writer).writeNamespace(Mockito.<String>any(), Mockito.<String>any());
-    doNothing().when(writer).writeCharacters(Mockito.<String>any());
-    doNothing().when(writer).writeStartDocument(Mockito.<String>any(), Mockito.<String>any());
-    doNothing()
-        .when(writer)
-        .writeStartElement(Mockito.<String>any(), Mockito.<String>any(), Mockito.<String>any());
+    when(model.getNamespaces()).thenReturn(new HashMap<>());
+    IndentingXMLStreamWriter xtw = mock(IndentingXMLStreamWriter.class);
+    doNothing().when(xtw)
+        .writeAttribute(Mockito.<String>any(), Mockito.<String>any(), Mockito.<String>any(), Mockito.<String>any());
+    doNothing().when(xtw).setDefaultNamespace(Mockito.<String>any());
+    doNothing().when(xtw).writeAttribute(Mockito.<String>any(), Mockito.<String>any());
+    doNothing().when(xtw).writeDefaultNamespace(Mockito.<String>any());
+    doNothing().when(xtw).writeNamespace(Mockito.<String>any(), Mockito.<String>any());
+    doNothing().when(xtw).writeStartDocument(Mockito.<String>any(), Mockito.<String>any());
+    doNothing().when(xtw).writeStartElement(Mockito.<String>any(), Mockito.<String>any(), Mockito.<String>any());
 
     // Act
-    DefinitionsRootExport.writeRootElement(model, new IndentingXMLStreamWriter(writer), "UTF-8");
+    DefinitionsRootExport.writeRootElement(model, xtw, "UTF-8");
 
     // Assert
-    verify(writer).setDefaultNamespace("http://www.omg.org/spec/BPMN/20100524/MODEL");
-    verify(writer, atLeast(1)).writeAttribute(Mockito.<String>any(), Mockito.<String>any());
-    verify(writer).writeAttribute("1.0", "1.0", null);
-    verify(writer).writeDefaultNamespace("http://www.omg.org/spec/BPMN/20100524/MODEL");
-    verify(writer, atLeast(1)).writeNamespace(Mockito.<String>any(), Mockito.<String>any());
-    verify(writer).writeCharacters("\n");
-    verify(writer).writeStartDocument("UTF-8", "1.0");
-    verify(writer)
-        .writeStartElement("bpmn2", "definitions", "http://www.omg.org/spec/BPMN/20100524/MODEL");
+    verify(xtw).setDefaultNamespace(eq("http://www.omg.org/spec/BPMN/20100524/MODEL"));
+    verify(xtw, atLeast(1)).writeAttribute(Mockito.<String>any(), Mockito.<String>any());
+    verify(xtw).writeAttribute(eq("Namespace Prefix"), eq("Namespace"), eq("typeLanguage"), eq("42"));
+    verify(xtw).writeDefaultNamespace(eq("http://www.omg.org/spec/BPMN/20100524/MODEL"));
+    verify(xtw, atLeast(1)).writeNamespace(Mockito.<String>any(), Mockito.<String>any());
+    verify(xtw).writeStartDocument(eq("UTF-8"), eq("1.0"));
+    verify(xtw).writeStartElement(eq("bpmn2"), eq("definitions"), eq("http://www.omg.org/spec/BPMN/20100524/MODEL"));
+    verify(model).getDefinitionsAttributes();
+    verify(model, atLeast(1)).getNamespaces();
+    verify(model, atLeast(1)).getTargetNamespace();
+    verify(extensionAttribute, atLeast(1)).getName();
+    verify(extensionAttribute, atLeast(1)).getNamespace();
+    verify(extensionAttribute, atLeast(1)).getNamespacePrefix();
+    verify(extensionAttribute).getValue();
+  }
+
+  /**
+   * Test {@link DefinitionsRootExport#writeRootElement(BpmnModel, XMLStreamWriter, String)}.
+   * <ul>
+   *   <li>Given {@link HashMap#HashMap()} {@code 1.0} is {@code 1.0}.</li>
+   *   <li>Then calls {@link BpmnModel#getDefinitionsAttributes()}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link DefinitionsRootExport#writeRootElement(BpmnModel, XMLStreamWriter, String)}
+   */
+  @Test
+  @DisplayName("Test writeRootElement(BpmnModel, XMLStreamWriter, String); given HashMap() '1.0' is '1.0'; then calls getDefinitionsAttributes()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void DefinitionsRootExport.writeRootElement(BpmnModel, XMLStreamWriter, String)"})
+  void testWriteRootElement_givenHashMap10Is10_thenCallsGetDefinitionsAttributes() throws Exception {
+    // Arrange
+    HashMap<String, String> stringStringMap = new HashMap<>();
+    stringStringMap.put("1.0", "1.0");
+    BpmnModel model = mock(BpmnModel.class);
+    when(model.getTargetNamespace()).thenReturn("Target Namespace");
+    when(model.getDefinitionsAttributes()).thenReturn(new HashMap<>());
+    when(model.getNamespaces()).thenReturn(stringStringMap);
+    IndentingXMLStreamWriter xtw = mock(IndentingXMLStreamWriter.class);
+    doNothing().when(xtw).setDefaultNamespace(Mockito.<String>any());
+    doNothing().when(xtw).writeAttribute(Mockito.<String>any(), Mockito.<String>any());
+    doNothing().when(xtw).writeDefaultNamespace(Mockito.<String>any());
+    doNothing().when(xtw).writeNamespace(Mockito.<String>any(), Mockito.<String>any());
+    doNothing().when(xtw).writeStartDocument(Mockito.<String>any(), Mockito.<String>any());
+    doNothing().when(xtw).writeStartElement(Mockito.<String>any(), Mockito.<String>any(), Mockito.<String>any());
+
+    // Act
+    DefinitionsRootExport.writeRootElement(model, xtw, "UTF-8");
+
+    // Assert
+    verify(xtw).setDefaultNamespace(eq("http://www.omg.org/spec/BPMN/20100524/MODEL"));
+    verify(xtw, atLeast(1)).writeAttribute(Mockito.<String>any(), Mockito.<String>any());
+    verify(xtw).writeDefaultNamespace(eq("http://www.omg.org/spec/BPMN/20100524/MODEL"));
+    verify(xtw, atLeast(1)).writeNamespace(Mockito.<String>any(), Mockito.<String>any());
+    verify(xtw).writeStartDocument(eq("UTF-8"), eq("1.0"));
+    verify(xtw).writeStartElement(eq("bpmn2"), eq("definitions"), eq("http://www.omg.org/spec/BPMN/20100524/MODEL"));
     verify(model).getDefinitionsAttributes();
     verify(model, atLeast(1)).getNamespaces();
     verify(model, atLeast(1)).getTargetNamespace();
@@ -674,49 +286,176 @@ class DefinitionsRootExportDiffblueTest {
 
   /**
    * Test {@link DefinitionsRootExport#writeRootElement(BpmnModel, XMLStreamWriter, String)}.
-   *
    * <ul>
-   *   <li>When {@link BpmnModel} (default constructor).
-   *   <li>Then calls {@link IndentingXMLStreamWriter#setDefaultNamespace(String)}.
+   *   <li>Given {@link HashMap#HashMap()} {@code 1.0} is {@link ArrayList#ArrayList()}.</li>
+   *   <li>Then calls {@link BpmnModel#getDefinitionsAttributes()}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link DefinitionsRootExport#writeRootElement(BpmnModel, XMLStreamWriter,
-   * String)}
+   * <p>
+   * Method under test: {@link DefinitionsRootExport#writeRootElement(BpmnModel, XMLStreamWriter, String)}
    */
   @Test
-  @DisplayName(
-      "Test writeRootElement(BpmnModel, XMLStreamWriter, String); when BpmnModel (default constructor); then calls setDefaultNamespace(String)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void DefinitionsRootExport.writeRootElement(BpmnModel, XMLStreamWriter, String)"
-  })
-  void testWriteRootElement_whenBpmnModel_thenCallsSetDefaultNamespace() throws Exception {
+  @DisplayName("Test writeRootElement(BpmnModel, XMLStreamWriter, String); given HashMap() '1.0' is ArrayList(); then calls getDefinitionsAttributes()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void DefinitionsRootExport.writeRootElement(BpmnModel, XMLStreamWriter, String)"})
+  void testWriteRootElement_givenHashMap10IsArrayList_thenCallsGetDefinitionsAttributes() throws Exception {
     // Arrange
-    BpmnModel model = new BpmnModel();
-
-    IndentingXMLStreamWriter writer = mock(IndentingXMLStreamWriter.class);
-    doNothing().when(writer).setDefaultNamespace(Mockito.<String>any());
-    doNothing().when(writer).writeAttribute(Mockito.<String>any(), Mockito.<String>any());
-    doNothing().when(writer).writeDefaultNamespace(Mockito.<String>any());
-    doNothing().when(writer).writeNamespace(Mockito.<String>any(), Mockito.<String>any());
-    doNothing().when(writer).writeCharacters(Mockito.<String>any());
-    doNothing().when(writer).writeStartDocument(Mockito.<String>any(), Mockito.<String>any());
-    doNothing()
-        .when(writer)
-        .writeStartElement(Mockito.<String>any(), Mockito.<String>any(), Mockito.<String>any());
+    HashMap<String, List<ExtensionAttribute>> stringListMap = new HashMap<>();
+    stringListMap.put("1.0", new ArrayList<>());
+    BpmnModel model = mock(BpmnModel.class);
+    when(model.getTargetNamespace()).thenReturn("Target Namespace");
+    when(model.getDefinitionsAttributes()).thenReturn(stringListMap);
+    when(model.getNamespaces()).thenReturn(new HashMap<>());
+    IndentingXMLStreamWriter xtw = mock(IndentingXMLStreamWriter.class);
+    doNothing().when(xtw).setDefaultNamespace(Mockito.<String>any());
+    doNothing().when(xtw).writeAttribute(Mockito.<String>any(), Mockito.<String>any());
+    doNothing().when(xtw).writeDefaultNamespace(Mockito.<String>any());
+    doNothing().when(xtw).writeNamespace(Mockito.<String>any(), Mockito.<String>any());
+    doNothing().when(xtw).writeStartDocument(Mockito.<String>any(), Mockito.<String>any());
+    doNothing().when(xtw).writeStartElement(Mockito.<String>any(), Mockito.<String>any(), Mockito.<String>any());
 
     // Act
-    DefinitionsRootExport.writeRootElement(model, new IndentingXMLStreamWriter(writer), "UTF-8");
+    DefinitionsRootExport.writeRootElement(model, xtw, "UTF-8");
 
     // Assert
-    verify(writer).setDefaultNamespace("http://www.omg.org/spec/BPMN/20100524/MODEL");
-    verify(writer, atLeast(1)).writeAttribute(Mockito.<String>any(), Mockito.<String>any());
-    verify(writer).writeDefaultNamespace("http://www.omg.org/spec/BPMN/20100524/MODEL");
-    verify(writer, atLeast(1)).writeNamespace(Mockito.<String>any(), Mockito.<String>any());
-    verify(writer).writeCharacters("\n");
-    verify(writer).writeStartDocument("UTF-8", "1.0");
-    verify(writer)
-        .writeStartElement("bpmn2", "definitions", "http://www.omg.org/spec/BPMN/20100524/MODEL");
+    verify(xtw).setDefaultNamespace(eq("http://www.omg.org/spec/BPMN/20100524/MODEL"));
+    verify(xtw, atLeast(1)).writeAttribute(Mockito.<String>any(), Mockito.<String>any());
+    verify(xtw).writeDefaultNamespace(eq("http://www.omg.org/spec/BPMN/20100524/MODEL"));
+    verify(xtw, atLeast(1)).writeNamespace(Mockito.<String>any(), Mockito.<String>any());
+    verify(xtw).writeStartDocument(eq("UTF-8"), eq("1.0"));
+    verify(xtw).writeStartElement(eq("bpmn2"), eq("definitions"), eq("http://www.omg.org/spec/BPMN/20100524/MODEL"));
+    verify(model).getDefinitionsAttributes();
+    verify(model, atLeast(1)).getNamespaces();
+    verify(model, atLeast(1)).getTargetNamespace();
+  }
+
+  /**
+   * Test {@link DefinitionsRootExport#writeRootElement(BpmnModel, XMLStreamWriter, String)}.
+   * <ul>
+   *   <li>Given {@link HashMap#HashMap()} {@code bpmn2} is {@code bpmn2}.</li>
+   *   <li>Then calls {@link BpmnModel#getDefinitionsAttributes()}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link DefinitionsRootExport#writeRootElement(BpmnModel, XMLStreamWriter, String)}
+   */
+  @Test
+  @DisplayName("Test writeRootElement(BpmnModel, XMLStreamWriter, String); given HashMap() 'bpmn2' is 'bpmn2'; then calls getDefinitionsAttributes()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void DefinitionsRootExport.writeRootElement(BpmnModel, XMLStreamWriter, String)"})
+  void testWriteRootElement_givenHashMapBpmn2IsBpmn2_thenCallsGetDefinitionsAttributes() throws Exception {
+    // Arrange
+    HashMap<String, String> stringStringMap = new HashMap<>();
+    stringStringMap.put("bpmn2", "bpmn2");
+    stringStringMap.put("1.0", "1.0");
+    BpmnModel model = mock(BpmnModel.class);
+    when(model.getTargetNamespace()).thenReturn("Target Namespace");
+    when(model.getDefinitionsAttributes()).thenReturn(new HashMap<>());
+    when(model.getNamespaces()).thenReturn(stringStringMap);
+    IndentingXMLStreamWriter xtw = mock(IndentingXMLStreamWriter.class);
+    doNothing().when(xtw).setDefaultNamespace(Mockito.<String>any());
+    doNothing().when(xtw).writeAttribute(Mockito.<String>any(), Mockito.<String>any());
+    doNothing().when(xtw).writeDefaultNamespace(Mockito.<String>any());
+    doNothing().when(xtw).writeNamespace(Mockito.<String>any(), Mockito.<String>any());
+    doNothing().when(xtw).writeStartDocument(Mockito.<String>any(), Mockito.<String>any());
+    doNothing().when(xtw).writeStartElement(Mockito.<String>any(), Mockito.<String>any(), Mockito.<String>any());
+
+    // Act
+    DefinitionsRootExport.writeRootElement(model, xtw, "UTF-8");
+
+    // Assert
+    verify(xtw).setDefaultNamespace(eq("http://www.omg.org/spec/BPMN/20100524/MODEL"));
+    verify(xtw, atLeast(1)).writeAttribute(Mockito.<String>any(), Mockito.<String>any());
+    verify(xtw).writeDefaultNamespace(eq("http://www.omg.org/spec/BPMN/20100524/MODEL"));
+    verify(xtw, atLeast(1)).writeNamespace(Mockito.<String>any(), Mockito.<String>any());
+    verify(xtw).writeStartDocument(eq("UTF-8"), eq("1.0"));
+    verify(xtw).writeStartElement(eq("bpmn2"), eq("definitions"), eq("http://www.omg.org/spec/BPMN/20100524/MODEL"));
+    verify(model).getDefinitionsAttributes();
+    verify(model, atLeast(1)).getNamespaces();
+    verify(model, atLeast(1)).getTargetNamespace();
+  }
+
+  /**
+   * Test {@link DefinitionsRootExport#writeRootElement(BpmnModel, XMLStreamWriter, String)}.
+   * <ul>
+   *   <li>Given {@link HashMap#HashMap()} empty string is {@code 1.0}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link DefinitionsRootExport#writeRootElement(BpmnModel, XMLStreamWriter, String)}
+   */
+  @Test
+  @DisplayName("Test writeRootElement(BpmnModel, XMLStreamWriter, String); given HashMap() empty string is '1.0'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void DefinitionsRootExport.writeRootElement(BpmnModel, XMLStreamWriter, String)"})
+  void testWriteRootElement_givenHashMapEmptyStringIs10() throws Exception {
+    // Arrange
+    HashMap<String, String> stringStringMap = new HashMap<>();
+    stringStringMap.put("bpmn2", "bpmn2");
+    stringStringMap.put("", "1.0");
+    BpmnModel model = mock(BpmnModel.class);
+    when(model.getTargetNamespace()).thenReturn("Target Namespace");
+    when(model.getDefinitionsAttributes()).thenReturn(new HashMap<>());
+    when(model.getNamespaces()).thenReturn(stringStringMap);
+    IndentingXMLStreamWriter xtw = mock(IndentingXMLStreamWriter.class);
+    doNothing().when(xtw).setDefaultNamespace(Mockito.<String>any());
+    doNothing().when(xtw).writeAttribute(Mockito.<String>any(), Mockito.<String>any());
+    doNothing().when(xtw).writeDefaultNamespace(Mockito.<String>any());
+    doNothing().when(xtw).writeNamespace(Mockito.<String>any(), Mockito.<String>any());
+    doNothing().when(xtw).writeStartDocument(Mockito.<String>any(), Mockito.<String>any());
+    doNothing().when(xtw).writeStartElement(Mockito.<String>any(), Mockito.<String>any(), Mockito.<String>any());
+
+    // Act
+    DefinitionsRootExport.writeRootElement(model, xtw, "UTF-8");
+
+    // Assert
+    verify(xtw).setDefaultNamespace(eq("http://www.omg.org/spec/BPMN/20100524/MODEL"));
+    verify(xtw, atLeast(1)).writeAttribute(Mockito.<String>any(), Mockito.<String>any());
+    verify(xtw).writeDefaultNamespace(eq("http://www.omg.org/spec/BPMN/20100524/MODEL"));
+    verify(xtw, atLeast(1)).writeNamespace(Mockito.<String>any(), Mockito.<String>any());
+    verify(xtw).writeStartDocument(eq("UTF-8"), eq("1.0"));
+    verify(xtw).writeStartElement(eq("bpmn2"), eq("definitions"), eq("http://www.omg.org/spec/BPMN/20100524/MODEL"));
+    verify(model).getDefinitionsAttributes();
+    verify(model, atLeast(1)).getNamespaces();
+    verify(model, atLeast(1)).getTargetNamespace();
+  }
+
+  /**
+   * Test {@link DefinitionsRootExport#writeRootElement(BpmnModel, XMLStreamWriter, String)}.
+   * <ul>
+   *   <li>Given {@code Target Namespace}.</li>
+   *   <li>Then calls {@link BpmnModel#getDefinitionsAttributes()}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link DefinitionsRootExport#writeRootElement(BpmnModel, XMLStreamWriter, String)}
+   */
+  @Test
+  @DisplayName("Test writeRootElement(BpmnModel, XMLStreamWriter, String); given 'Target Namespace'; then calls getDefinitionsAttributes()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void DefinitionsRootExport.writeRootElement(BpmnModel, XMLStreamWriter, String)"})
+  void testWriteRootElement_givenTargetNamespace_thenCallsGetDefinitionsAttributes() throws Exception {
+    // Arrange
+    BpmnModel model = mock(BpmnModel.class);
+    when(model.getTargetNamespace()).thenReturn("Target Namespace");
+    when(model.getDefinitionsAttributes()).thenReturn(new HashMap<>());
+    when(model.getNamespaces()).thenReturn(new HashMap<>());
+    IndentingXMLStreamWriter xtw = mock(IndentingXMLStreamWriter.class);
+    doNothing().when(xtw).setDefaultNamespace(Mockito.<String>any());
+    doNothing().when(xtw).writeAttribute(Mockito.<String>any(), Mockito.<String>any());
+    doNothing().when(xtw).writeDefaultNamespace(Mockito.<String>any());
+    doNothing().when(xtw).writeNamespace(Mockito.<String>any(), Mockito.<String>any());
+    doNothing().when(xtw).writeStartDocument(Mockito.<String>any(), Mockito.<String>any());
+    doNothing().when(xtw).writeStartElement(Mockito.<String>any(), Mockito.<String>any(), Mockito.<String>any());
+
+    // Act
+    DefinitionsRootExport.writeRootElement(model, xtw, "UTF-8");
+
+    // Assert
+    verify(xtw).setDefaultNamespace(eq("http://www.omg.org/spec/BPMN/20100524/MODEL"));
+    verify(xtw, atLeast(1)).writeAttribute(Mockito.<String>any(), Mockito.<String>any());
+    verify(xtw).writeDefaultNamespace(eq("http://www.omg.org/spec/BPMN/20100524/MODEL"));
+    verify(xtw, atLeast(1)).writeNamespace(Mockito.<String>any(), Mockito.<String>any());
+    verify(xtw).writeStartDocument(eq("UTF-8"), eq("1.0"));
+    verify(xtw).writeStartElement(eq("bpmn2"), eq("definitions"), eq("http://www.omg.org/spec/BPMN/20100524/MODEL"));
+    verify(model).getDefinitionsAttributes();
+    verify(model, atLeast(1)).getNamespaces();
+    verify(model, atLeast(1)).getTargetNamespace();
   }
 }

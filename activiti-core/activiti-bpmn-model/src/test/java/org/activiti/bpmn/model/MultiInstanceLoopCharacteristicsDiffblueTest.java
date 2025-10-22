@@ -19,8 +19,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
@@ -28,22 +27,19 @@ import org.junit.experimental.categories.Category;
 public class MultiInstanceLoopCharacteristicsDiffblueTest {
   /**
    * Test {@link MultiInstanceLoopCharacteristics#clone()}.
-   *
    * <ul>
-   *   <li>Given {@link MultiInstanceLoopCharacteristics} (default constructor).
-   *   <li>Then return not Sequential.
+   *   <li>Given {@link MultiInstanceLoopCharacteristics} (default constructor).</li>
+   *   <li>Then return not Sequential.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link MultiInstanceLoopCharacteristics#clone()}
+   * <p>
+   * Method under test: {@link MultiInstanceLoopCharacteristics#clone()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"MultiInstanceLoopCharacteristics MultiInstanceLoopCharacteristics.clone()"})
   public void testClone_givenMultiInstanceLoopCharacteristics_thenReturnNotSequential() {
     // Arrange and Act
-    MultiInstanceLoopCharacteristics actualCloneResult =
-        new MultiInstanceLoopCharacteristics().clone();
+    MultiInstanceLoopCharacteristics actualCloneResult = (new MultiInstanceLoopCharacteristics()).clone();
 
     // Assert
     assertNull(actualCloneResult.getId());
@@ -63,21 +59,18 @@ public class MultiInstanceLoopCharacteristicsDiffblueTest {
 
   /**
    * Test {@link MultiInstanceLoopCharacteristics#clone()}.
-   *
    * <ul>
-   *   <li>Then return Sequential.
+   *   <li>Then return Sequential.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link MultiInstanceLoopCharacteristics#clone()}
+   * <p>
+   * Method under test: {@link MultiInstanceLoopCharacteristics#clone()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"MultiInstanceLoopCharacteristics MultiInstanceLoopCharacteristics.clone()"})
   public void testClone_thenReturnSequential() {
     // Arrange
-    MultiInstanceLoopCharacteristics multiInstanceLoopCharacteristics =
-        new MultiInstanceLoopCharacteristics();
+    MultiInstanceLoopCharacteristics multiInstanceLoopCharacteristics = new MultiInstanceLoopCharacteristics();
     multiInstanceLoopCharacteristics.setSequential(true);
 
     // Act
@@ -101,9 +94,8 @@ public class MultiInstanceLoopCharacteristicsDiffblueTest {
 
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>default or parameterless constructor of {@link MultiInstanceLoopCharacteristics}
    *   <li>{@link MultiInstanceLoopCharacteristics#setCompletionCondition(String)}
@@ -125,31 +117,27 @@ public class MultiInstanceLoopCharacteristicsDiffblueTest {
    * </ul>
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void MultiInstanceLoopCharacteristics.<init>()",
-    "String MultiInstanceLoopCharacteristics.getCompletionCondition()",
-    "String MultiInstanceLoopCharacteristics.getElementIndexVariable()",
-    "String MultiInstanceLoopCharacteristics.getElementVariable()",
-    "String MultiInstanceLoopCharacteristics.getInputDataItem()",
-    "String MultiInstanceLoopCharacteristics.getLoopCardinality()",
-    "String MultiInstanceLoopCharacteristics.getLoopDataOutputRef()",
-    "String MultiInstanceLoopCharacteristics.getOutputDataItem()",
-    "boolean MultiInstanceLoopCharacteristics.isSequential()",
-    "void MultiInstanceLoopCharacteristics.setCompletionCondition(String)",
-    "void MultiInstanceLoopCharacteristics.setElementIndexVariable(String)",
-    "void MultiInstanceLoopCharacteristics.setElementVariable(String)",
-    "void MultiInstanceLoopCharacteristics.setInputDataItem(String)",
-    "void MultiInstanceLoopCharacteristics.setLoopCardinality(String)",
-    "void MultiInstanceLoopCharacteristics.setLoopDataOutputRef(String)",
-    "void MultiInstanceLoopCharacteristics.setOutputDataItem(String)",
-    "void MultiInstanceLoopCharacteristics.setSequential(boolean)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void MultiInstanceLoopCharacteristics.<init>()",
+      "String MultiInstanceLoopCharacteristics.getCompletionCondition()",
+      "String MultiInstanceLoopCharacteristics.getElementIndexVariable()",
+      "String MultiInstanceLoopCharacteristics.getElementVariable()",
+      "String MultiInstanceLoopCharacteristics.getInputDataItem()",
+      "String MultiInstanceLoopCharacteristics.getLoopCardinality()",
+      "String MultiInstanceLoopCharacteristics.getLoopDataOutputRef()",
+      "String MultiInstanceLoopCharacteristics.getOutputDataItem()",
+      "boolean MultiInstanceLoopCharacteristics.isSequential()",
+      "void MultiInstanceLoopCharacteristics.setCompletionCondition(String)",
+      "void MultiInstanceLoopCharacteristics.setElementIndexVariable(String)",
+      "void MultiInstanceLoopCharacteristics.setElementVariable(String)",
+      "void MultiInstanceLoopCharacteristics.setInputDataItem(String)",
+      "void MultiInstanceLoopCharacteristics.setLoopCardinality(String)",
+      "void MultiInstanceLoopCharacteristics.setLoopDataOutputRef(String)",
+      "void MultiInstanceLoopCharacteristics.setOutputDataItem(String)",
+      "void MultiInstanceLoopCharacteristics.setSequential(boolean)"})
   public void testGettersAndSetters() {
     // Arrange and Act
-    MultiInstanceLoopCharacteristics actualMultiInstanceLoopCharacteristics =
-        new MultiInstanceLoopCharacteristics();
+    MultiInstanceLoopCharacteristics actualMultiInstanceLoopCharacteristics = new MultiInstanceLoopCharacteristics();
     actualMultiInstanceLoopCharacteristics.setCompletionCondition("Completion Condition");
     actualMultiInstanceLoopCharacteristics.setElementIndexVariable("Element Index Variable");
     actualMultiInstanceLoopCharacteristics.setElementVariable("Element Variable");
@@ -158,10 +146,8 @@ public class MultiInstanceLoopCharacteristicsDiffblueTest {
     actualMultiInstanceLoopCharacteristics.setLoopDataOutputRef("Loop Data Output Ref");
     actualMultiInstanceLoopCharacteristics.setOutputDataItem("Output Data Item");
     actualMultiInstanceLoopCharacteristics.setSequential(true);
-    String actualCompletionCondition =
-        actualMultiInstanceLoopCharacteristics.getCompletionCondition();
-    String actualElementIndexVariable =
-        actualMultiInstanceLoopCharacteristics.getElementIndexVariable();
+    String actualCompletionCondition = actualMultiInstanceLoopCharacteristics.getCompletionCondition();
+    String actualElementIndexVariable = actualMultiInstanceLoopCharacteristics.getElementIndexVariable();
     String actualElementVariable = actualMultiInstanceLoopCharacteristics.getElementVariable();
     String actualInputDataItem = actualMultiInstanceLoopCharacteristics.getInputDataItem();
     String actualLoopCardinality = actualMultiInstanceLoopCharacteristics.getLoopCardinality();

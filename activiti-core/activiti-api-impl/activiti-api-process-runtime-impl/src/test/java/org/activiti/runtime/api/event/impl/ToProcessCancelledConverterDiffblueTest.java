@@ -22,7 +22,6 @@ import static org.mockito.Mockito.atLeast;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.time.LocalDate;
 import java.time.ZoneOffset;
@@ -42,83 +41,23 @@ import org.junit.jupiter.api.Test;
 
 class ToProcessCancelledConverterDiffblueTest {
   /**
-   * Test {@link ToProcessCancelledConverter#from(ActivitiProcessCancelledEvent)} with {@code
-   * ActivitiProcessCancelledEvent}.
-   *
-   * <ul>
-   *   <li>Then return {@link Optional#get()} Cause is {@code Internal Event}.
-   * </ul>
-   *
-   * <p>Method under test: {@link ToProcessCancelledConverter#from(ActivitiProcessCancelledEvent)}
+   * Test {@link ToProcessCancelledConverter#from(ActivitiProcessCancelledEvent)} with {@code ActivitiProcessCancelledEvent}.
+   * <p>
+   * Method under test: {@link ToProcessCancelledConverter#from(ActivitiProcessCancelledEvent)}
    */
   @Test
-  @DisplayName(
-      "Test from(ActivitiProcessCancelledEvent) with 'ActivitiProcessCancelledEvent'; then return get() Cause is 'Internal Event'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test from(ActivitiProcessCancelledEvent) with 'ActivitiProcessCancelledEvent'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"Optional ToProcessCancelledConverter.from(ActivitiProcessCancelledEvent)"})
-  void testFromWithActivitiProcessCancelledEvent_thenReturnGetCauseIsInternalEvent() {
+  void testFromWithActivitiProcessCancelledEvent() {
     // Arrange
-    ToProcessCancelledConverter toProcessCancelledConverter =
-        new ToProcessCancelledConverter(new APIProcessInstanceConverter());
-
-    ExecutionEntityImpl processInstance =
-        ExecutionEntityImpl.createWithEmptyRelationshipCollections();
-    processInstance.setEnded(false);
-    processInstance.setStartTime(null);
-
-    ActivitiProcessCancelledEventImpl internalEvent =
-        new ActivitiProcessCancelledEventImpl(processInstance);
-    internalEvent.setCause("Internal Event");
+    ToProcessCancelledConverter toProcessCancelledConverter = new ToProcessCancelledConverter(
+        new APIProcessInstanceConverter());
 
     // Act and Assert
-    ProcessCancelledEvent getResult = toProcessCancelledConverter.from(internalEvent).get();
-    ProcessInstance entity = getResult.getEntity();
-    assertTrue(entity instanceof ProcessInstanceImpl);
-    assertTrue(getResult instanceof ProcessCancelledImpl);
-    assertEquals("Internal Event", getResult.getCause());
-    assertNull(entity.getProcessDefinitionVersion());
-    assertNull(entity.getAppVersion());
-    assertNull(entity.getBusinessKey());
-    assertNull(entity.getId());
-    assertNull(entity.getInitiator());
-    assertNull(entity.getName());
-    assertNull(entity.getParentId());
-    assertNull(entity.getProcessDefinitionId());
-    assertNull(entity.getProcessDefinitionKey());
-    assertNull(entity.getProcessDefinitionName());
-    assertNull(entity.getStartDate());
-    assertEquals(ProcessInstanceStatus.CREATED, entity.getStatus());
-  }
-
-  /**
-   * Test {@link ToProcessCancelledConverter#from(ActivitiProcessCancelledEvent)} with {@code
-   * ActivitiProcessCancelledEvent}.
-   *
-   * <ul>
-   *   <li>Then return {@link Optional#get()} Entity StartDate is {@code null}.
-   * </ul>
-   *
-   * <p>Method under test: {@link ToProcessCancelledConverter#from(ActivitiProcessCancelledEvent)}
-   */
-  @Test
-  @DisplayName(
-      "Test from(ActivitiProcessCancelledEvent) with 'ActivitiProcessCancelledEvent'; then return get() Entity StartDate is 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"Optional ToProcessCancelledConverter.from(ActivitiProcessCancelledEvent)"})
-  void testFromWithActivitiProcessCancelledEvent_thenReturnGetEntityStartDateIsNull() {
-    // Arrange
-    ToProcessCancelledConverter toProcessCancelledConverter =
-        new ToProcessCancelledConverter(new APIProcessInstanceConverter());
-
-    // Act and Assert
-    ProcessCancelledEvent getResult =
-        toProcessCancelledConverter
-            .from(
-                new ActivitiProcessCancelledEventImpl(
-                    ExecutionEntityImpl.createWithEmptyRelationshipCollections()))
-            .get();
+    ProcessCancelledEvent getResult = toProcessCancelledConverter
+        .from(new ActivitiProcessCancelledEventImpl(ExecutionEntityImpl.createWithEmptyRelationshipCollections()))
+        .get();
     ProcessInstance entity = getResult.getEntity();
     assertTrue(entity instanceof ProcessInstanceImpl);
     assertTrue(getResult instanceof ProcessCancelledImpl);
@@ -137,31 +76,25 @@ class ToProcessCancelledConverterDiffblueTest {
   }
 
   /**
-   * Test {@link ToProcessCancelledConverter#from(ActivitiProcessCancelledEvent)} with {@code
-   * ActivitiProcessCancelledEvent}.
-   *
+   * Test {@link ToProcessCancelledConverter#from(ActivitiProcessCancelledEvent)} with {@code ActivitiProcessCancelledEvent}.
    * <ul>
-   *   <li>Then return {@link Optional#get()} Entity Status is {@code COMPLETED}.
+   *   <li>Given {@code Cause}.</li>
+   *   <li>Then return {@link Optional#get()} Cause is {@code Cause}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ToProcessCancelledConverter#from(ActivitiProcessCancelledEvent)}
+   * <p>
+   * Method under test: {@link ToProcessCancelledConverter#from(ActivitiProcessCancelledEvent)}
    */
   @Test
-  @DisplayName(
-      "Test from(ActivitiProcessCancelledEvent) with 'ActivitiProcessCancelledEvent'; then return get() Entity Status is 'COMPLETED'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test from(ActivitiProcessCancelledEvent) with 'ActivitiProcessCancelledEvent'; given 'Cause'; then return get() Cause is 'Cause'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"Optional ToProcessCancelledConverter.from(ActivitiProcessCancelledEvent)"})
-  void testFromWithActivitiProcessCancelledEvent_thenReturnGetEntityStatusIsCompleted() {
+  void testFromWithActivitiProcessCancelledEvent_givenCause_thenReturnGetCauseIsCause() {
     // Arrange
-    ToProcessCancelledConverter toProcessCancelledConverter =
-        new ToProcessCancelledConverter(new APIProcessInstanceConverter());
-
-    org.activiti.engine.runtime.ProcessInstance processInstance =
-        mock(org.activiti.engine.runtime.ProcessInstance.class);
-    when(processInstance.isSuspended()).thenReturn(false);
-    when(processInstance.getStartTime()).thenReturn(null);
-    when(processInstance.isEnded()).thenReturn(true);
+    ToProcessCancelledConverter toProcessCancelledConverter = new ToProcessCancelledConverter(
+        new APIProcessInstanceConverter());
+    org.activiti.engine.runtime.ProcessInstance processInstance = mock(
+        org.activiti.engine.runtime.ProcessInstance.class);
+    when(processInstance.isSuspended()).thenReturn(true);
     when(processInstance.getAppVersion()).thenReturn(1);
     when(processInstance.getProcessDefinitionVersion()).thenReturn(1);
     when(processInstance.getId()).thenReturn("42");
@@ -172,10 +105,82 @@ class ToProcessCancelledConverterDiffblueTest {
     when(processInstance.getProcessDefinitionKey()).thenReturn("Process Definition Key");
     when(processInstance.getProcessDefinitionName()).thenReturn("Process Definition Name");
     when(processInstance.getStartUserId()).thenReturn("42");
+    when(processInstance.getStartTime())
+        .thenReturn(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
+
+    ActivitiProcessCancelledEventImpl internalEvent = new ActivitiProcessCancelledEventImpl(processInstance);
+    internalEvent.setCause("Cause");
 
     // Act
-    Optional<ProcessCancelledEvent> actualFromResult =
-        toProcessCancelledConverter.from(new ActivitiProcessCancelledEventImpl(processInstance));
+    Optional<ProcessCancelledEvent> actualFromResult = toProcessCancelledConverter.from(internalEvent);
+
+    // Assert
+    verify(processInstance).getId();
+    verify(processInstance).getParentProcessInstanceId();
+    verify(processInstance).getAppVersion();
+    verify(processInstance).getBusinessKey();
+    verify(processInstance).getName();
+    verify(processInstance).getProcessDefinitionId();
+    verify(processInstance, atLeast(1)).getProcessDefinitionKey();
+    verify(processInstance).getProcessDefinitionName();
+    verify(processInstance, atLeast(1)).getProcessDefinitionVersion();
+    verify(processInstance).getStartTime();
+    verify(processInstance).getStartUserId();
+    verify(processInstance).isSuspended();
+    ProcessCancelledEvent getResult = actualFromResult.get();
+    ProcessInstance entity = getResult.getEntity();
+    assertTrue(entity instanceof ProcessInstanceImpl);
+    assertTrue(getResult instanceof ProcessCancelledImpl);
+    assertEquals("1", entity.getAppVersion());
+    assertEquals("42", entity.getId());
+    assertEquals("42", entity.getInitiator());
+    assertEquals("42", entity.getParentId());
+    assertEquals("42", entity.getProcessDefinitionId());
+    assertEquals("Business Key", entity.getBusinessKey());
+    assertEquals("Cause", getResult.getCause());
+    assertEquals("Name", entity.getName());
+    assertEquals("Process Definition Key", entity.getProcessDefinitionKey());
+    assertEquals("Process Definition Name", entity.getProcessDefinitionName());
+    assertEquals(1, entity.getProcessDefinitionVersion().intValue());
+    assertEquals(ProcessInstanceStatus.SUSPENDED, entity.getStatus());
+  }
+
+  /**
+   * Test {@link ToProcessCancelledConverter#from(ActivitiProcessCancelledEvent)} with {@code ActivitiProcessCancelledEvent}.
+   * <ul>
+   *   <li>Then return {@link Optional#get()} Entity Status is {@code COMPLETED}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link ToProcessCancelledConverter#from(ActivitiProcessCancelledEvent)}
+   */
+  @Test
+  @DisplayName("Test from(ActivitiProcessCancelledEvent) with 'ActivitiProcessCancelledEvent'; then return get() Entity Status is 'COMPLETED'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"Optional ToProcessCancelledConverter.from(ActivitiProcessCancelledEvent)"})
+  void testFromWithActivitiProcessCancelledEvent_thenReturnGetEntityStatusIsCompleted() {
+    // Arrange
+    ToProcessCancelledConverter toProcessCancelledConverter = new ToProcessCancelledConverter(
+        new APIProcessInstanceConverter());
+    org.activiti.engine.runtime.ProcessInstance processInstance = mock(
+        org.activiti.engine.runtime.ProcessInstance.class);
+    when(processInstance.isEnded()).thenReturn(true);
+    when(processInstance.isSuspended()).thenReturn(false);
+    when(processInstance.getAppVersion()).thenReturn(1);
+    when(processInstance.getProcessDefinitionVersion()).thenReturn(1);
+    when(processInstance.getId()).thenReturn("42");
+    when(processInstance.getParentProcessInstanceId()).thenReturn("42");
+    when(processInstance.getBusinessKey()).thenReturn("Business Key");
+    when(processInstance.getName()).thenReturn("Name");
+    when(processInstance.getProcessDefinitionId()).thenReturn("42");
+    when(processInstance.getProcessDefinitionKey()).thenReturn("Process Definition Key");
+    when(processInstance.getProcessDefinitionName()).thenReturn("Process Definition Name");
+    when(processInstance.getStartUserId()).thenReturn("42");
+    when(processInstance.getStartTime())
+        .thenReturn(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
+
+    // Act
+    Optional<ProcessCancelledEvent> actualFromResult = toProcessCancelledConverter
+        .from(new ActivitiProcessCancelledEventImpl(processInstance));
 
     // Assert
     verify(processInstance).getId();
@@ -204,82 +209,98 @@ class ToProcessCancelledConverterDiffblueTest {
     assertEquals("Name", entity.getName());
     assertEquals("Process Definition Key", entity.getProcessDefinitionKey());
     assertEquals("Process Definition Name", entity.getProcessDefinitionName());
+    assertNull(getResult.getCause());
     assertEquals(1, entity.getProcessDefinitionVersion().intValue());
     assertEquals(ProcessInstanceStatus.COMPLETED, entity.getStatus());
   }
 
   /**
-   * Test {@link ToProcessCancelledConverter#from(ActivitiProcessCancelledEvent)} with {@code
-   * ActivitiProcessCancelledEvent}.
-   *
+   * Test {@link ToProcessCancelledConverter#from(ActivitiProcessCancelledEvent)} with {@code ActivitiProcessCancelledEvent}.
    * <ul>
-   *   <li>Then return {@link Optional#get()} Entity Status is {@code RUNNING}.
+   *   <li>Then return {@link Optional#get()} Entity Status is {@code RUNNING}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ToProcessCancelledConverter#from(ActivitiProcessCancelledEvent)}
+   * <p>
+   * Method under test: {@link ToProcessCancelledConverter#from(ActivitiProcessCancelledEvent)}
    */
   @Test
-  @DisplayName(
-      "Test from(ActivitiProcessCancelledEvent) with 'ActivitiProcessCancelledEvent'; then return get() Entity Status is 'RUNNING'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test from(ActivitiProcessCancelledEvent) with 'ActivitiProcessCancelledEvent'; then return get() Entity Status is 'RUNNING'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"Optional ToProcessCancelledConverter.from(ActivitiProcessCancelledEvent)"})
   void testFromWithActivitiProcessCancelledEvent_thenReturnGetEntityStatusIsRunning() {
     // Arrange
-    ToProcessCancelledConverter toProcessCancelledConverter =
-        new ToProcessCancelledConverter(new APIProcessInstanceConverter());
+    ToProcessCancelledConverter toProcessCancelledConverter = new ToProcessCancelledConverter(
+        new APIProcessInstanceConverter());
+    org.activiti.engine.runtime.ProcessInstance processInstance = mock(
+        org.activiti.engine.runtime.ProcessInstance.class);
+    when(processInstance.isEnded()).thenReturn(false);
+    when(processInstance.isSuspended()).thenReturn(false);
+    when(processInstance.getAppVersion()).thenReturn(1);
+    when(processInstance.getProcessDefinitionVersion()).thenReturn(1);
+    when(processInstance.getId()).thenReturn("42");
+    when(processInstance.getParentProcessInstanceId()).thenReturn("42");
+    when(processInstance.getBusinessKey()).thenReturn("Business Key");
+    when(processInstance.getName()).thenReturn("Name");
+    when(processInstance.getProcessDefinitionId()).thenReturn("42");
+    when(processInstance.getProcessDefinitionKey()).thenReturn("Process Definition Key");
+    when(processInstance.getProcessDefinitionName()).thenReturn("Process Definition Name");
+    when(processInstance.getStartUserId()).thenReturn("42");
+    when(processInstance.getStartTime())
+        .thenReturn(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
 
-    ExecutionEntityImpl processInstance =
-        ExecutionEntityImpl.createWithEmptyRelationshipCollections();
-    processInstance.setEnded(false);
-    processInstance.setStartTime(
-        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
+    // Act
+    Optional<ProcessCancelledEvent> actualFromResult = toProcessCancelledConverter
+        .from(new ActivitiProcessCancelledEventImpl(processInstance));
 
-    ActivitiProcessCancelledEventImpl internalEvent =
-        new ActivitiProcessCancelledEventImpl(processInstance);
-    internalEvent.setCause(null);
-
-    // Act and Assert
-    ProcessCancelledEvent getResult = toProcessCancelledConverter.from(internalEvent).get();
+    // Assert
+    verify(processInstance).getId();
+    verify(processInstance).getParentProcessInstanceId();
+    verify(processInstance).isEnded();
+    verify(processInstance).getAppVersion();
+    verify(processInstance).getBusinessKey();
+    verify(processInstance).getName();
+    verify(processInstance).getProcessDefinitionId();
+    verify(processInstance, atLeast(1)).getProcessDefinitionKey();
+    verify(processInstance).getProcessDefinitionName();
+    verify(processInstance, atLeast(1)).getProcessDefinitionVersion();
+    verify(processInstance, atLeast(1)).getStartTime();
+    verify(processInstance).getStartUserId();
+    verify(processInstance).isSuspended();
+    ProcessCancelledEvent getResult = actualFromResult.get();
     ProcessInstance entity = getResult.getEntity();
     assertTrue(entity instanceof ProcessInstanceImpl);
     assertTrue(getResult instanceof ProcessCancelledImpl);
-    assertNull(entity.getProcessDefinitionVersion());
-    assertNull(entity.getAppVersion());
-    assertNull(entity.getBusinessKey());
-    assertNull(entity.getId());
-    assertNull(entity.getInitiator());
-    assertNull(entity.getName());
-    assertNull(entity.getParentId());
-    assertNull(entity.getProcessDefinitionId());
-    assertNull(entity.getProcessDefinitionKey());
-    assertNull(entity.getProcessDefinitionName());
+    assertEquals("1", entity.getAppVersion());
+    assertEquals("42", entity.getId());
+    assertEquals("42", entity.getInitiator());
+    assertEquals("42", entity.getParentId());
+    assertEquals("42", entity.getProcessDefinitionId());
+    assertEquals("Business Key", entity.getBusinessKey());
+    assertEquals("Name", entity.getName());
+    assertEquals("Process Definition Key", entity.getProcessDefinitionKey());
+    assertEquals("Process Definition Name", entity.getProcessDefinitionName());
+    assertNull(getResult.getCause());
+    assertEquals(1, entity.getProcessDefinitionVersion().intValue());
     assertEquals(ProcessInstanceStatus.RUNNING, entity.getStatus());
   }
 
   /**
-   * Test {@link ToProcessCancelledConverter#from(ActivitiProcessCancelledEvent)} with {@code
-   * ActivitiProcessCancelledEvent}.
-   *
+   * Test {@link ToProcessCancelledConverter#from(ActivitiProcessCancelledEvent)} with {@code ActivitiProcessCancelledEvent}.
    * <ul>
-   *   <li>Then return {@link Optional#get()} Entity Status is {@code SUSPENDED}.
+   *   <li>Then return {@link Optional#get()} Entity Status is {@code SUSPENDED}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ToProcessCancelledConverter#from(ActivitiProcessCancelledEvent)}
+   * <p>
+   * Method under test: {@link ToProcessCancelledConverter#from(ActivitiProcessCancelledEvent)}
    */
   @Test
-  @DisplayName(
-      "Test from(ActivitiProcessCancelledEvent) with 'ActivitiProcessCancelledEvent'; then return get() Entity Status is 'SUSPENDED'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test from(ActivitiProcessCancelledEvent) with 'ActivitiProcessCancelledEvent'; then return get() Entity Status is 'SUSPENDED'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"Optional ToProcessCancelledConverter.from(ActivitiProcessCancelledEvent)"})
   void testFromWithActivitiProcessCancelledEvent_thenReturnGetEntityStatusIsSuspended() {
     // Arrange
-    ToProcessCancelledConverter toProcessCancelledConverter =
-        new ToProcessCancelledConverter(new APIProcessInstanceConverter());
-
-    org.activiti.engine.runtime.ProcessInstance processInstance =
-        mock(org.activiti.engine.runtime.ProcessInstance.class);
+    ToProcessCancelledConverter toProcessCancelledConverter = new ToProcessCancelledConverter(
+        new APIProcessInstanceConverter());
+    org.activiti.engine.runtime.ProcessInstance processInstance = mock(
+        org.activiti.engine.runtime.ProcessInstance.class);
     when(processInstance.isSuspended()).thenReturn(true);
     when(processInstance.getAppVersion()).thenReturn(1);
     when(processInstance.getProcessDefinitionVersion()).thenReturn(1);
@@ -292,12 +313,11 @@ class ToProcessCancelledConverterDiffblueTest {
     when(processInstance.getProcessDefinitionName()).thenReturn("Process Definition Name");
     when(processInstance.getStartUserId()).thenReturn("42");
     when(processInstance.getStartTime())
-        .thenReturn(
-            Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
+        .thenReturn(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
 
     // Act
-    Optional<ProcessCancelledEvent> actualFromResult =
-        toProcessCancelledConverter.from(new ActivitiProcessCancelledEventImpl(processInstance));
+    Optional<ProcessCancelledEvent> actualFromResult = toProcessCancelledConverter
+        .from(new ActivitiProcessCancelledEventImpl(processInstance));
 
     // Assert
     verify(processInstance).getId();
@@ -325,6 +345,7 @@ class ToProcessCancelledConverterDiffblueTest {
     assertEquals("Name", entity.getName());
     assertEquals("Process Definition Key", entity.getProcessDefinitionKey());
     assertEquals("Process Definition Name", entity.getProcessDefinitionName());
+    assertNull(getResult.getCause());
     assertEquals(1, entity.getProcessDefinitionVersion().intValue());
     assertEquals(ProcessInstanceStatus.SUSPENDED, entity.getStatus());
   }

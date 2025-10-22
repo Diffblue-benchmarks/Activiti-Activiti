@@ -21,7 +21,6 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.mock;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
 import java.util.EnumSet;
@@ -56,13 +55,12 @@ import org.junit.jupiter.api.Test;
 class ParserDiffblueTest {
   /**
    * Test {@link Parser#Parser(Builder, String)}.
-   *
-   * <p>Method under test: {@link Parser#Parser(Builder, String)}
+   * <p>
+   * Method under test: {@link Parser#Parser(Builder, String)}
    */
   @Test
   @DisplayName("Test new Parser(Builder, String)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void Parser.<init>(Builder, String)"})
   void testNewParser() {
     // Arrange
@@ -90,18 +88,16 @@ class ParserDiffblueTest {
 
   /**
    * Test {@link Parser#createScanner(String)}.
-   *
-   * <p>Method under test: {@link Parser#createScanner(String)}
+   * <p>
+   * Method under test: {@link Parser#createScanner(String)}
    */
   @Test
   @DisplayName("Test createScanner(String)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"Scanner Parser.createScanner(String)"})
   void testCreateScanner() {
     // Arrange and Act
-    Scanner actualCreateScannerResult =
-        new Parser(new Builder(), "Input").createScanner("Expression");
+    Scanner actualCreateScannerResult = (new Parser(new Builder(), "Input")).createScanner("Expression");
 
     // Assert
     assertEquals("", actualCreateScannerResult.builder.toString());
@@ -113,13 +109,12 @@ class ParserDiffblueTest {
 
   /**
    * Test ParseException {@link ParseException#ParseException(int, String, String)}.
-   *
-   * <p>Method under test: {@link ParseException#ParseException(int, String, String)}
+   * <p>
+   * Method under test: {@link ParseException#ParseException(int, String, String)}
    */
   @Test
   @DisplayName("Test ParseException new ParseException(int, String, String)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void ParseException.<init>(int, String, String)"})
   void testParseExceptionNewParseException() {
     // Arrange and Act
@@ -128,12 +123,9 @@ class ParserDiffblueTest {
     // Assert
     assertEquals("3", actualParseException.encountered);
     assertEquals("Expected", actualParseException.expected);
-    assertEquals(
-        "syntax error at position 1, encountered 3, expected Expected",
+    assertEquals("syntax error at position 1, encountered 3, expected Expected",
         actualParseException.getLocalizedMessage());
-    assertEquals(
-        "syntax error at position 1, encountered 3, expected Expected",
-        actualParseException.getMessage());
+    assertEquals("syntax error at position 1, encountered 3, expected Expected", actualParseException.getMessage());
     assertNull(actualParseException.getCause());
     assertEquals(0, actualParseException.getSuppressed().length);
     assertEquals(1, actualParseException.position);
@@ -141,13 +133,12 @@ class ParserDiffblueTest {
 
   /**
    * Test {@link Parser#putExtensionHandler(ExtensionToken, ExtensionHandler)}.
-   *
-   * <p>Method under test: {@link Parser#putExtensionHandler(ExtensionToken, ExtensionHandler)}
+   * <p>
+   * Method under test: {@link Parser#putExtensionHandler(ExtensionToken, ExtensionHandler)}
    */
   @Test
   @DisplayName("Test putExtensionHandler(ExtensionToken, ExtensionHandler)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void Parser.putExtensionHandler(ExtensionToken, ExtensionHandler)"})
   void testPutExtensionHandler() {
     // Arrange
@@ -162,75 +153,65 @@ class ParserDiffblueTest {
 
   /**
    * Test {@link Parser#getExtensionHandler(Token)}.
-   *
-   * <p>Method under test: {@link Parser#getExtensionHandler(Token)}
+   * <p>
+   * Method under test: {@link Parser#getExtensionHandler(Token)}
    */
   @Test
   @DisplayName("Test getExtensionHandler(Token)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"ExtensionHandler Parser.getExtensionHandler(Token)"})
   void testGetExtensionHandler() {
     // Arrange
     Parser parser = new Parser(new Builder(), "Input");
 
-    // Act
-    ExtensionHandler actualExtensionHandler =
-        parser.getExtensionHandler(new Token(Symbol.EOF, "Image"));
-
-    // Assert
-    assertNull(actualExtensionHandler);
+    // Act and Assert
+    assertNull(parser.getExtensionHandler(new Token(Symbol.EOF, "Image")));
   }
 
   /**
    * Test {@link Parser#parseInteger(String)}.
-   *
    * <ul>
-   *   <li>When {@code 42}.
-   *   <li>Then return longValue is forty-two.
+   *   <li>When {@code 42}.</li>
+   *   <li>Then return longValue is forty-two.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link Parser#parseInteger(String)}
+   * <p>
+   * Method under test: {@link Parser#parseInteger(String)}
    */
   @Test
   @DisplayName("Test parseInteger(String); when '42'; then return longValue is forty-two")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"java.lang.Number Parser.parseInteger(String)"})
   void testParseInteger_when42_thenReturnLongValueIsFortyTwo() throws ParseException {
     // Arrange, Act and Assert
-    assertEquals(42L, new Parser(new Builder(), "Input").parseInteger("42").longValue());
+    assertEquals(42L, (new Parser(new Builder(), "Input")).parseInteger("42").longValue());
   }
 
   /**
    * Test {@link Parser#parseFloat(String)}.
-   *
    * <ul>
-   *   <li>When {@code 42}.
-   *   <li>Then return doubleValue is forty-two.
+   *   <li>When {@code 42}.</li>
+   *   <li>Then return doubleValue is forty-two.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link Parser#parseFloat(String)}
+   * <p>
+   * Method under test: {@link Parser#parseFloat(String)}
    */
   @Test
   @DisplayName("Test parseFloat(String); when '42'; then return doubleValue is forty-two")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"java.lang.Number Parser.parseFloat(String)"})
   void testParseFloat_when42_thenReturnDoubleValueIsFortyTwo() throws ParseException {
     // Arrange, Act and Assert
-    assertEquals(42.0d, new Parser(new Builder(), "Input").parseFloat("42").doubleValue());
+    assertEquals(42.0d, (new Parser(new Builder(), "Input")).parseFloat("42").doubleValue());
   }
 
   /**
    * Test {@link Parser#createAstBinary(AstNode, AstNode, Operator)}.
-   *
-   * <p>Method under test: {@link Parser#createAstBinary(AstNode, AstNode, Operator)}
+   * <p>
+   * Method under test: {@link Parser#createAstBinary(AstNode, AstNode, Operator)}
    */
   @Test
   @DisplayName("Test createAstBinary(AstNode, AstNode, Operator)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"AstBinary Parser.createAstBinary(AstNode, AstNode, Operator)"})
   void testCreateAstBinary() {
     // Arrange
@@ -251,27 +232,50 @@ class ParserDiffblueTest {
 
   /**
    * Test {@link Parser#createAstBracket(AstNode, AstNode, boolean, boolean)}.
-   *
    * <ul>
-   *   <li>Then return Cardinality is two.
+   *   <li>Given {@link Builder#Builder(Feature[])} with features is {@code IGNORE_RETURN_TYPE}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link Parser#createAstBracket(AstNode, AstNode, boolean, boolean)}
+   * <p>
+   * Method under test: {@link Parser#createAstBracket(AstNode, AstNode, boolean, boolean)}
    */
   @Test
-  @DisplayName(
-      "Test createAstBracket(AstNode, AstNode, boolean, boolean); then return Cardinality is two")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test createAstBracket(AstNode, AstNode, boolean, boolean); given Builder(Feature[]) with features is 'IGNORE_RETURN_TYPE'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"AstBracket Parser.createAstBracket(AstNode, AstNode, boolean, boolean)"})
-  void testCreateAstBracket_thenReturnCardinalityIsTwo() {
+  void testCreateAstBracket_givenBuilderWithFeaturesIsIgnoreReturnType() {
+    // Arrange
+    Parser parser = new Parser(new Builder(Feature.IGNORE_RETURN_TYPE), "Input");
+    AstNull base = new AstNull();
+
+    // Act
+    AstBracket actualCreateAstBracketResult = parser.createAstBracket(base, new AstNull(), true, true);
+
+    // Assert
+    assertEquals(2, actualCreateAstBracketResult.getCardinality());
+    assertFalse(actualCreateAstBracketResult.isLiteralText());
+    assertFalse(actualCreateAstBracketResult.isMethodInvocation());
+    assertTrue(actualCreateAstBracketResult.isLeftValue());
+  }
+
+  /**
+   * Test {@link Parser#createAstBracket(AstNode, AstNode, boolean, boolean)}.
+   * <ul>
+   *   <li>Given {@link Parser#Parser(Builder, String)} with context is {@link Builder#Builder()} and {@code Input}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link Parser#createAstBracket(AstNode, AstNode, boolean, boolean)}
+   */
+  @Test
+  @DisplayName("Test createAstBracket(AstNode, AstNode, boolean, boolean); given Parser(Builder, String) with context is Builder() and 'Input'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"AstBracket Parser.createAstBracket(AstNode, AstNode, boolean, boolean)"})
+  void testCreateAstBracket_givenParserWithContextIsBuilderAndInput() {
     // Arrange
     Parser parser = new Parser(new Builder(), "Input");
     AstNull base = new AstNull();
 
     // Act
-    AstBracket actualCreateAstBracketResult =
-        parser.createAstBracket(base, new AstNull(), true, true);
+    AstBracket actualCreateAstBracketResult = parser.createAstBracket(base, new AstNull(), true, true);
 
     // Assert
     assertEquals(2, actualCreateAstBracketResult.getCardinality());
@@ -282,13 +286,12 @@ class ParserDiffblueTest {
 
   /**
    * Test {@link Parser#createAstChoice(AstNode, AstNode, AstNode)}.
-   *
-   * <p>Method under test: {@link Parser#createAstChoice(AstNode, AstNode, AstNode)}
+   * <p>
+   * Method under test: {@link Parser#createAstChoice(AstNode, AstNode, AstNode)}
    */
   @Test
   @DisplayName("Test createAstChoice(AstNode, AstNode, AstNode)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"AstChoice Parser.createAstChoice(AstNode, AstNode, AstNode)"})
   void testCreateAstChoice() {
     // Arrange
@@ -308,19 +311,16 @@ class ParserDiffblueTest {
 
   /**
    * Test {@link Parser#createAstComposite(List)}.
-   *
    * <ul>
-   *   <li>Given {@link AstNull} (default constructor).
-   *   <li>Then return Cardinality is one.
+   *   <li>Given {@link AstNull} (default constructor).</li>
+   *   <li>Then return Cardinality is one.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link Parser#createAstComposite(List)}
+   * <p>
+   * Method under test: {@link Parser#createAstComposite(List)}
    */
   @Test
-  @DisplayName(
-      "Test createAstComposite(List); given AstNull (default constructor); then return Cardinality is one")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test createAstComposite(List); given AstNull (default constructor); then return Cardinality is one")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"AstComposite Parser.createAstComposite(List)"})
   void testCreateAstComposite_givenAstNull_thenReturnCardinalityIsOne() {
     // Arrange
@@ -341,19 +341,16 @@ class ParserDiffblueTest {
 
   /**
    * Test {@link Parser#createAstComposite(List)}.
-   *
    * <ul>
-   *   <li>Given {@link AstNull} (default constructor).
-   *   <li>Then return Cardinality is two.
+   *   <li>Given {@link AstNull} (default constructor).</li>
+   *   <li>Then return Cardinality is two.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link Parser#createAstComposite(List)}
+   * <p>
+   * Method under test: {@link Parser#createAstComposite(List)}
    */
   @Test
-  @DisplayName(
-      "Test createAstComposite(List); given AstNull (default constructor); then return Cardinality is two")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test createAstComposite(List); given AstNull (default constructor); then return Cardinality is two")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"AstComposite Parser.createAstComposite(List)"})
   void testCreateAstComposite_givenAstNull_thenReturnCardinalityIsTwo() {
     // Arrange
@@ -375,18 +372,16 @@ class ParserDiffblueTest {
 
   /**
    * Test {@link Parser#createAstComposite(List)}.
-   *
    * <ul>
-   *   <li>When {@link ArrayList#ArrayList()}.
-   *   <li>Then return Cardinality is zero.
+   *   <li>When {@link ArrayList#ArrayList()}.</li>
+   *   <li>Then return Cardinality is zero.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link Parser#createAstComposite(List)}
+   * <p>
+   * Method under test: {@link Parser#createAstComposite(List)}
    */
   @Test
   @DisplayName("Test createAstComposite(List); when ArrayList(); then return Cardinality is zero")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"AstComposite Parser.createAstComposite(List)"})
   void testCreateAstComposite_whenArrayList_thenReturnCardinalityIsZero() {
     // Arrange
@@ -404,19 +399,43 @@ class ParserDiffblueTest {
 
   /**
    * Test {@link Parser#createAstDot(AstNode, String, boolean)}.
-   *
    * <ul>
-   *   <li>Then return Cardinality is one.
+   *   <li>Given {@link Builder#Builder(Feature[])} with features is {@code IGNORE_RETURN_TYPE}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link Parser#createAstDot(AstNode, String, boolean)}
+   * <p>
+   * Method under test: {@link Parser#createAstDot(AstNode, String, boolean)}
    */
   @Test
-  @DisplayName("Test createAstDot(AstNode, String, boolean); then return Cardinality is one")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test createAstDot(AstNode, String, boolean); given Builder(Feature[]) with features is 'IGNORE_RETURN_TYPE'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"AstDot Parser.createAstDot(AstNode, String, boolean)"})
-  void testCreateAstDot_thenReturnCardinalityIsOne() {
+  void testCreateAstDot_givenBuilderWithFeaturesIsIgnoreReturnType() {
+    // Arrange
+    Parser parser = new Parser(new Builder(Feature.IGNORE_RETURN_TYPE), "Input");
+
+    // Act
+    AstDot actualCreateAstDotResult = parser.createAstDot(new AstNull(), "Property", true);
+
+    // Assert
+    assertEquals(1, actualCreateAstDotResult.getCardinality());
+    assertFalse(actualCreateAstDotResult.isLiteralText());
+    assertFalse(actualCreateAstDotResult.isMethodInvocation());
+    assertTrue(actualCreateAstDotResult.isLeftValue());
+  }
+
+  /**
+   * Test {@link Parser#createAstDot(AstNode, String, boolean)}.
+   * <ul>
+   *   <li>Given {@link Parser#Parser(Builder, String)} with context is {@link Builder#Builder()} and {@code Input}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link Parser#createAstDot(AstNode, String, boolean)}
+   */
+  @Test
+  @DisplayName("Test createAstDot(AstNode, String, boolean); given Parser(Builder, String) with context is Builder() and 'Input'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"AstDot Parser.createAstDot(AstNode, String, boolean)"})
+  void testCreateAstDot_givenParserWithContextIsBuilderAndInput() {
     // Arrange
     Parser parser = new Parser(new Builder(), "Input");
 
@@ -432,27 +451,24 @@ class ParserDiffblueTest {
 
   /**
    * Test {@link Parser#createAstFunction(String, int, AstParameters)}.
-   *
    * <ul>
-   *   <li>Given {@link Builder#Builder(Feature[])} with features is {@code VARARGS}.
-   *   <li>Then return VarArgs.
+   *   <li>Given {@link Builder#Builder(Feature[])} with features is {@code VARARGS}.</li>
+   *   <li>Then return VarArgs.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link Parser#createAstFunction(String, int, AstParameters)}
+   * <p>
+   * Method under test: {@link Parser#createAstFunction(String, int, AstParameters)}
    */
   @Test
-  @DisplayName(
-      "Test createAstFunction(String, int, AstParameters); given Builder(Feature[]) with features is 'VARARGS'; then return VarArgs")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test createAstFunction(String, int, AstParameters); given Builder(Feature[]) with features is 'VARARGS'; then return VarArgs")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"AstFunction Parser.createAstFunction(String, int, AstParameters)"})
   void testCreateAstFunction_givenBuilderWithFeaturesIsVarargs_thenReturnVarArgs() {
     // Arrange
     Parser parser = new Parser(new Builder(Feature.VARARGS), "Input");
 
     // Act
-    AstFunction actualCreateAstFunctionResult =
-        parser.createAstFunction("Name", 1, new AstParameters(new ArrayList<>()));
+    AstFunction actualCreateAstFunctionResult = parser.createAstFunction("Name", 1,
+        new AstParameters(new ArrayList<>()));
 
     // Assert
     assertEquals("Name", actualCreateAstFunctionResult.getName());
@@ -468,25 +484,23 @@ class ParserDiffblueTest {
 
   /**
    * Test {@link Parser#createAstFunction(String, int, AstParameters)}.
-   *
    * <ul>
-   *   <li>Then return not VarArgs.
+   *   <li>Then return not VarArgs.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link Parser#createAstFunction(String, int, AstParameters)}
+   * <p>
+   * Method under test: {@link Parser#createAstFunction(String, int, AstParameters)}
    */
   @Test
   @DisplayName("Test createAstFunction(String, int, AstParameters); then return not VarArgs")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"AstFunction Parser.createAstFunction(String, int, AstParameters)"})
   void testCreateAstFunction_thenReturnNotVarArgs() {
     // Arrange
     Parser parser = new Parser(new Builder(), "Input");
 
     // Act
-    AstFunction actualCreateAstFunctionResult =
-        parser.createAstFunction("Name", 1, new AstParameters(new ArrayList<>()));
+    AstFunction actualCreateAstFunctionResult = parser.createAstFunction("Name", 1,
+        new AstParameters(new ArrayList<>()));
 
     // Assert
     assertEquals("Name", actualCreateAstFunctionResult.getName());
@@ -502,25 +516,47 @@ class ParserDiffblueTest {
 
   /**
    * Test {@link Parser#createAstIdentifier(String, int)}.
-   *
    * <ul>
-   *   <li>Given {@link Parser#Parser(Builder, String)} with context is {@link Builder#Builder()}
-   *       and {@code Input}.
-   *   <li>Then return {@code Name}.
+   *   <li>Given {@link Builder#Builder(Feature[])} with features is {@code IGNORE_RETURN_TYPE}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link Parser#createAstIdentifier(String, int)}
+   * <p>
+   * Method under test: {@link Parser#createAstIdentifier(String, int)}
    */
   @Test
-  @DisplayName(
-      "Test createAstIdentifier(String, int); given Parser(Builder, String) with context is Builder() and 'Input'; then return 'Name'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test createAstIdentifier(String, int); given Builder(Feature[]) with features is 'IGNORE_RETURN_TYPE'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"AstIdentifier Parser.createAstIdentifier(String, int)"})
+  void testCreateAstIdentifier_givenBuilderWithFeaturesIsIgnoreReturnType() {
+    // Arrange and Act
+    AstIdentifier actualCreateAstIdentifierResult = (new Parser(new Builder(Feature.IGNORE_RETURN_TYPE), "Input"))
+        .createAstIdentifier("Name", 1);
+
+    // Assert
+    assertEquals("Name", actualCreateAstIdentifierResult.getName());
+    assertEquals("Name", actualCreateAstIdentifierResult.toString());
+    assertEquals(0, actualCreateAstIdentifierResult.getCardinality());
+    assertEquals(1, actualCreateAstIdentifierResult.getIndex());
+    assertFalse(actualCreateAstIdentifierResult.isLiteralText());
+    assertFalse(actualCreateAstIdentifierResult.isMethodInvocation());
+    assertTrue(actualCreateAstIdentifierResult.isLeftValue());
+  }
+
+  /**
+   * Test {@link Parser#createAstIdentifier(String, int)}.
+   * <ul>
+   *   <li>Given {@link Parser#Parser(Builder, String)} with context is {@link Builder#Builder()} and {@code Input}.</li>
+   *   <li>Then return {@code Name}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link Parser#createAstIdentifier(String, int)}
+   */
+  @Test
+  @DisplayName("Test createAstIdentifier(String, int); given Parser(Builder, String) with context is Builder() and 'Input'; then return 'Name'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"AstIdentifier Parser.createAstIdentifier(String, int)"})
   void testCreateAstIdentifier_givenParserWithContextIsBuilderAndInput_thenReturnName() {
     // Arrange and Act
-    AstIdentifier actualCreateAstIdentifierResult =
-        new Parser(new Builder(), "Input").createAstIdentifier("Name", 1);
+    AstIdentifier actualCreateAstIdentifierResult = (new Parser(new Builder(), "Input")).createAstIdentifier("Name", 1);
 
     // Assert
     assertEquals("Name", actualCreateAstIdentifierResult.getName());
@@ -534,13 +570,12 @@ class ParserDiffblueTest {
 
   /**
    * Test {@link Parser#createAstMethod(AstProperty, AstParameters)}.
-   *
-   * <p>Method under test: {@link Parser#createAstMethod(AstProperty, AstParameters)}
+   * <p>
+   * Method under test: {@link Parser#createAstMethod(AstProperty, AstParameters)}
    */
   @Test
   @DisplayName("Test createAstMethod(AstProperty, AstParameters)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"AstMethod Parser.createAstMethod(AstProperty, AstParameters)"})
   void testCreateAstMethod() {
     // Arrange
@@ -548,8 +583,7 @@ class ParserDiffblueTest {
     AstDot property = new AstDot(new AstNull(), "Property", true);
 
     // Act
-    AstMethod actualCreateAstMethodResult =
-        parser.createAstMethod(property, new AstParameters(new ArrayList<>()));
+    AstMethod actualCreateAstMethodResult = parser.createAstMethod(property, new AstParameters(new ArrayList<>()));
 
     // Assert
     assertEquals(2, actualCreateAstMethodResult.getCardinality());
@@ -560,13 +594,12 @@ class ParserDiffblueTest {
 
   /**
    * Test {@link Parser#createAstUnary(AstNode, Operator)}.
-   *
-   * <p>Method under test: {@link Parser#createAstUnary(AstNode, AstUnary.Operator)}
+   * <p>
+   * Method under test: {@link Parser#createAstUnary(AstNode, AstUnary.Operator)}
    */
   @Test
   @DisplayName("Test createAstUnary(AstNode, Operator)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"AstUnary Parser.createAstUnary(AstNode, AstUnary.Operator)"})
   void testCreateAstUnary() {
     // Arrange
@@ -586,9 +619,8 @@ class ParserDiffblueTest {
 
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>{@link Parser#getFunctions()}
    *   <li>{@link Parser#getIdentifiers()}
@@ -597,13 +629,8 @@ class ParserDiffblueTest {
    */
   @Test
   @DisplayName("Test getters and setters")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "List Parser.getFunctions()",
-    "List Parser.getIdentifiers()",
-    "Token Parser.getToken()"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"List Parser.getFunctions()", "List Parser.getIdentifiers()", "Token Parser.getToken()"})
   void testGettersAndSetters() {
     // Arrange
     Parser parser = new Parser(new Builder(), "Input");
@@ -620,13 +647,12 @@ class ParserDiffblueTest {
 
   /**
    * Test {@link Parser#lookahead(int)}.
-   *
-   * <p>Method under test: {@link Parser#lookahead(int)}
+   * <p>
+   * Method under test: {@link Parser#lookahead(int)}
    */
   @Test
   @DisplayName("Test lookahead(int)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"Token Parser.lookahead(int)"})
   void testLookahead() throws ParseException, ScanException {
     // Arrange
@@ -647,26 +673,49 @@ class ParserDiffblueTest {
 
   /**
    * Test {@link Parser#lookahead(int)}.
-   *
-   * <p>Method under test: {@link Parser#lookahead(int)}
+   * <p>
+   * Method under test: {@link Parser#lookahead(int)}
    */
   @Test
   @DisplayName("Test lookahead(int)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"Token Parser.lookahead(int)"})
   void testLookahead2() throws ParseException, ScanException {
     // Arrange
-    Parser parser =
-        new Parser(new Builder(), "org.activiti.core.el.juel.tree.impl.Parser$LookaheadToken");
+    Parser parser = new Parser(new Builder(), "");
 
     // Act
     Token actualLookaheadResult = parser.lookahead(1);
 
     // Assert
     Scanner scanner = parser.scanner;
-    assertEquals(
-        "org.activiti.core.el.juel.tree.impl.Parser$LookaheadToken", scanner.builder.toString());
+    assertEquals("", scanner.builder.toString());
+    assertNull(actualLookaheadResult.getImage());
+    assertEquals(0, scanner.getPosition());
+    assertEquals(0, actualLookaheadResult.getSize());
+    assertEquals(Symbol.EOF, actualLookaheadResult.getSymbol());
+    assertTrue(scanner.isEval());
+  }
+
+  /**
+   * Test {@link Parser#lookahead(int)}.
+   * <p>
+   * Method under test: {@link Parser#lookahead(int)}
+   */
+  @Test
+  @DisplayName("Test lookahead(int)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"Token Parser.lookahead(int)"})
+  void testLookahead3() throws ParseException, ScanException {
+    // Arrange
+    Parser parser = new Parser(new Builder(), "org.activiti.core.el.juel.tree.impl.Parser$LookaheadToken");
+
+    // Act
+    Token actualLookaheadResult = parser.lookahead(1);
+
+    // Assert
+    Scanner scanner = parser.scanner;
+    assertEquals("org.activiti.core.el.juel.tree.impl.Parser$LookaheadToken", scanner.builder.toString());
     assertNull(actualLookaheadResult.getImage());
     assertEquals(0, actualLookaheadResult.getSize());
     assertEquals(57, scanner.getPosition());
@@ -675,45 +724,13 @@ class ParserDiffblueTest {
   }
 
   /**
-   * Test {@link Parser#lookahead(int)}.
-   *
-   * <ul>
-   *   <li>When five.
-   * </ul>
-   *
-   * <p>Method under test: {@link Parser#lookahead(int)}
-   */
-  @Test
-  @DisplayName("Test lookahead(int); when five")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"Token Parser.lookahead(int)"})
-  void testLookahead_whenFive() throws ParseException, ScanException {
-    // Arrange
-    Parser parser = new Parser(new Builder(), "Input");
-
-    // Act
-    Token actualLookaheadResult = parser.lookahead(5);
-
-    // Assert
-    Scanner scanner = parser.scanner;
-    assertEquals("Input", scanner.builder.toString());
-    assertNull(actualLookaheadResult.getImage());
-    assertEquals(0, actualLookaheadResult.getSize());
-    assertEquals(5, scanner.getPosition());
-    assertEquals(Symbol.EOF, actualLookaheadResult.getSymbol());
-    assertTrue(scanner.isEval());
-  }
-
-  /**
    * Test {@link Parser#consumeToken()}.
-   *
-   * <p>Method under test: {@link Parser#consumeToken()}
+   * <p>
+   * Method under test: {@link Parser#consumeToken()}
    */
   @Test
   @DisplayName("Test consumeToken()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"Token Parser.consumeToken()"})
   void testConsumeToken() throws ParseException, ScanException {
     // Arrange
@@ -733,13 +750,12 @@ class ParserDiffblueTest {
 
   /**
    * Test {@link Parser#consumeToken()}.
-   *
-   * <p>Method under test: {@link Parser#consumeToken()}
+   * <p>
+   * Method under test: {@link Parser#consumeToken()}
    */
   @Test
   @DisplayName("Test consumeToken()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"Token Parser.consumeToken()"})
   void testConsumeToken2() throws ParseException, ScanException {
     // Arrange
@@ -760,26 +776,23 @@ class ParserDiffblueTest {
 
   /**
    * Test {@link Parser#consumeToken()}.
-   *
-   * <p>Method under test: {@link Parser#consumeToken()}
+   * <p>
+   * Method under test: {@link Parser#consumeToken()}
    */
   @Test
   @DisplayName("Test consumeToken()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"Token Parser.consumeToken()"})
   void testConsumeToken3() throws ParseException, ScanException {
     // Arrange
-    Parser parser =
-        new Parser(new Builder(), "org.activiti.core.el.juel.tree.impl.Parser$LookaheadToken");
+    Parser parser = new Parser(new Builder(), "org.activiti.core.el.juel.tree.impl.Parser$LookaheadToken");
 
     // Act
     parser.consumeToken();
 
     // Assert
     Scanner scanner = parser.scanner;
-    assertEquals(
-        "org.activiti.core.el.juel.tree.impl.Parser$LookaheadToken", scanner.builder.toString());
+    assertEquals("org.activiti.core.el.juel.tree.impl.Parser$LookaheadToken", scanner.builder.toString());
     Token token = parser.getToken();
     assertEquals("org.activiti.core.el.juel.tree.impl.Parser$LookaheadToken", token.getImage());
     assertEquals(57, token.getSize());
@@ -788,22 +801,17 @@ class ParserDiffblueTest {
 
   /**
    * Test {@link Parser#consumeToken()}.
-   *
    * <ul>
-   *   <li>Then {@link Parser#Parser(Builder, String)} with context is {@link Builder#Builder()} and
-   *       {@code Input} Token Symbol is {@code TEXT}.
+   *   <li>Then {@link Parser#Parser(Builder, String)} with context is {@link Builder#Builder()} and {@code Input} Token Symbol is {@code TEXT}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link Parser#consumeToken()}
+   * <p>
+   * Method under test: {@link Parser#consumeToken()}
    */
   @Test
-  @DisplayName(
-      "Test consumeToken(); then Parser(Builder, String) with context is Builder() and 'Input' Token Symbol is 'TEXT'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test consumeToken(); then Parser(Builder, String) with context is Builder() and 'Input' Token Symbol is 'TEXT'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"Token Parser.consumeToken()"})
-  void testConsumeToken_thenParserWithContextIsBuilderAndInputTokenSymbolIsText()
-      throws ParseException, ScanException {
+  void testConsumeToken_thenParserWithContextIsBuilderAndInputTokenSymbolIsText() throws ParseException, ScanException {
     // Arrange
     Parser parser = new Parser(new Builder(), "Input");
     parser.lookahead(1);
@@ -823,13 +831,12 @@ class ParserDiffblueTest {
 
   /**
    * Test {@link Parser#tree()}.
-   *
-   * <p>Method under test: {@link Parser#tree()}
+   * <p>
+   * Method under test: {@link Parser#tree()}
    */
   @Test
   @DisplayName("Test tree()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"org.activiti.core.el.juel.tree.Tree Parser.tree()"})
   void testTree() throws ParseException, ScanException {
     // Arrange
@@ -846,43 +853,37 @@ class ParserDiffblueTest {
 
   /**
    * Test {@link Parser#tree()}.
-   *
-   * <p>Method under test: {@link Parser#tree()}
+   * <p>
+   * Method under test: {@link Parser#tree()}
    */
   @Test
   @DisplayName("Test tree()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"org.activiti.core.el.juel.tree.Tree Parser.tree()"})
   void testTree2() throws ParseException, ScanException {
     // Arrange
-    Parser parser =
-        new Parser(new Builder(), "org.activiti.core.el.juel.tree.impl.Parser$LookaheadToken");
+    Parser parser = new Parser(new Builder(), "org.activiti.core.el.juel.tree.impl.Parser$LookaheadToken");
 
     // Act
     parser.tree();
 
     // Assert
     Scanner scanner = parser.scanner;
-    assertEquals(
-        "org.activiti.core.el.juel.tree.impl.Parser$LookaheadToken", scanner.builder.toString());
+    assertEquals("org.activiti.core.el.juel.tree.impl.Parser$LookaheadToken", scanner.builder.toString());
     assertEquals(57, scanner.getPosition());
   }
 
   /**
    * Test {@link Parser#tree()}.
-   *
    * <ul>
-   *   <li>Given {@link Parser#Parser(Builder, String)} with context is {@link Builder#Builder()}
-   *       and {@code Input}.
+   *   <li>Given {@link Parser#Parser(Builder, String)} with context is {@link Builder#Builder()} and {@code Input}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link Parser#tree()}
+   * <p>
+   * Method under test: {@link Parser#tree()}
    */
   @Test
   @DisplayName("Test tree(); given Parser(Builder, String) with context is Builder() and 'Input'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"org.activiti.core.el.juel.tree.Tree Parser.tree()"})
   void testTree_givenParserWithContextIsBuilderAndInput() throws ParseException, ScanException {
     // Arrange
@@ -899,22 +900,17 @@ class ParserDiffblueTest {
 
   /**
    * Test {@link Parser#tree()}.
-   *
    * <ul>
-   *   <li>Given {@link Parser#Parser(Builder, String)} with context is {@link Builder#Builder()}
-   *       and {@code Input} lookahead one.
+   *   <li>Given {@link Parser#Parser(Builder, String)} with context is {@link Builder#Builder()} and {@code Input} lookahead one.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link Parser#tree()}
+   * <p>
+   * Method under test: {@link Parser#tree()}
    */
   @Test
-  @DisplayName(
-      "Test tree(); given Parser(Builder, String) with context is Builder() and 'Input' lookahead one")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test tree(); given Parser(Builder, String) with context is Builder() and 'Input' lookahead one")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"org.activiti.core.el.juel.tree.Tree Parser.tree()"})
-  void testTree_givenParserWithContextIsBuilderAndInputLookaheadOne()
-      throws ParseException, ScanException {
+  void testTree_givenParserWithContextIsBuilderAndInputLookaheadOne() throws ParseException, ScanException {
     // Arrange
     Parser parser = new Parser(new Builder(), "Input");
     parser.lookahead(1);
@@ -930,27 +926,22 @@ class ParserDiffblueTest {
 
   /**
    * Test {@link Parser#function(String, AstParameters)}.
-   *
    * <ul>
-   *   <li>Then {@link Parser#Parser(Builder, String)} with context is {@link Builder#Builder()} and
-   *       {@code Input} Functions size is one.
+   *   <li>Then {@link Parser#Parser(Builder, String)} with context is {@link Builder#Builder()} and {@code Input} Functions size is one.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link Parser#function(String, AstParameters)}
+   * <p>
+   * Method under test: {@link Parser#function(String, AstParameters)}
    */
   @Test
-  @DisplayName(
-      "Test function(String, AstParameters); then Parser(Builder, String) with context is Builder() and 'Input' Functions size is one")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test function(String, AstParameters); then Parser(Builder, String) with context is Builder() and 'Input' Functions size is one")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"AstFunction Parser.function(String, AstParameters)"})
   void testFunction_thenParserWithContextIsBuilderAndInputFunctionsSizeIsOne() {
     // Arrange
     Parser parser = new Parser(new Builder(), "Input");
 
     // Act
-    AstFunction actualFunctionResult =
-        parser.function("Name", new AstParameters(new ArrayList<>()));
+    AstFunction actualFunctionResult = parser.function("Name", new AstParameters(new ArrayList<>()));
 
     // Assert
     assertEquals("Name", actualFunctionResult.getName());
@@ -968,27 +959,22 @@ class ParserDiffblueTest {
 
   /**
    * Test {@link Parser#function(String, AstParameters)}.
-   *
    * <ul>
-   *   <li>Then {@link Parser#Parser(Builder, String)} with context is {@link
-   *       Builder#Builder(Feature[])} and {@code Input} Functions size is one.
+   *   <li>Then {@link Parser#Parser(Builder, String)} with context is {@link Builder#Builder(Feature[])} and {@code Input} Functions size is one.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link Parser#function(String, AstParameters)}
+   * <p>
+   * Method under test: {@link Parser#function(String, AstParameters)}
    */
   @Test
-  @DisplayName(
-      "Test function(String, AstParameters); then Parser(Builder, String) with context is Builder(Feature[]) and 'Input' Functions size is one")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test function(String, AstParameters); then Parser(Builder, String) with context is Builder(Feature[]) and 'Input' Functions size is one")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"AstFunction Parser.function(String, AstParameters)"})
   void testFunction_thenParserWithContextIsBuilderAndInputFunctionsSizeIsOne2() {
     // Arrange
     Parser parser = new Parser(new Builder(Feature.VARARGS), "Input");
 
     // Act
-    AstFunction actualFunctionResult =
-        parser.function("Name", new AstParameters(new ArrayList<>()));
+    AstFunction actualFunctionResult = parser.function("Name", new AstParameters(new ArrayList<>()));
 
     // Assert
     assertEquals("Name", actualFunctionResult.getName());
@@ -1006,19 +992,15 @@ class ParserDiffblueTest {
 
   /**
    * Test {@link Parser#identifier(String)}.
-   *
    * <ul>
-   *   <li>Then {@link Parser#Parser(Builder, String)} with context is {@link Builder#Builder()} and
-   *       {@code Input} Identifiers size is one.
+   *   <li>Then {@link Parser#Parser(Builder, String)} with context is {@link Builder#Builder()} and {@code Input} Identifiers size is one.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link Parser#identifier(String)}
+   * <p>
+   * Method under test: {@link Parser#identifier(String)}
    */
   @Test
-  @DisplayName(
-      "Test identifier(String); then Parser(Builder, String) with context is Builder() and 'Input' Identifiers size is one")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test identifier(String); then Parser(Builder, String) with context is Builder() and 'Input' Identifiers size is one")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"AstIdentifier Parser.identifier(String)"})
   void testIdentifier_thenParserWithContextIsBuilderAndInputIdentifiersSizeIsOne() {
     // Arrange
@@ -1040,19 +1022,15 @@ class ParserDiffblueTest {
 
   /**
    * Test {@link Parser#identifier(String)}.
-   *
    * <ul>
-   *   <li>Then {@link Parser#Parser(Builder, String)} with context is {@link
-   *       Builder#Builder(Feature[])} and {@code Input} Identifiers size is one.
+   *   <li>Then {@link Parser#Parser(Builder, String)} with context is {@link Builder#Builder(Feature[])} and {@code Input} Identifiers size is one.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link Parser#identifier(String)}
+   * <p>
+   * Method under test: {@link Parser#identifier(String)}
    */
   @Test
-  @DisplayName(
-      "Test identifier(String); then Parser(Builder, String) with context is Builder(Feature[]) and 'Input' Identifiers size is one")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test identifier(String); then Parser(Builder, String) with context is Builder(Feature[]) and 'Input' Identifiers size is one")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"AstIdentifier Parser.identifier(String)"})
   void testIdentifier_thenParserWithContextIsBuilderAndInputIdentifiersSizeIsOne2() {
     // Arrange

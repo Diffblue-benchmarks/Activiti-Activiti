@@ -20,7 +20,6 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.mock;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import jakarta.el.ValueExpression;
 import java.util.HashMap;
@@ -34,73 +33,63 @@ import org.junit.jupiter.api.Test;
 class ActivitiVariablesMapperDiffblueTest {
   /**
    * Test {@link ActivitiVariablesMapper#ActivitiVariablesMapper()}.
-   *
-   * <p>Method under test: {@link ActivitiVariablesMapper#ActivitiVariablesMapper()}
+   * <p>
+   * Method under test: {@link ActivitiVariablesMapper#ActivitiVariablesMapper()}
    */
   @Test
   @DisplayName("Test new ActivitiVariablesMapper()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void ActivitiVariablesMapper.<init>()"})
   void testNewActivitiVariablesMapper() {
     // Arrange, Act and Assert
-    assertTrue(new ActivitiVariablesMapper().map.isEmpty());
+    assertTrue((new ActivitiVariablesMapper()).map.isEmpty());
   }
 
   /**
    * Test {@link ActivitiVariablesMapper#ActivitiVariablesMapper(Map)}.
-   *
-   * <p>Method under test: {@link ActivitiVariablesMapper#ActivitiVariablesMapper(Map)}
+   * <p>
+   * Method under test: {@link ActivitiVariablesMapper#ActivitiVariablesMapper(Map)}
    */
   @Test
   @DisplayName("Test new ActivitiVariablesMapper(Map)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void ActivitiVariablesMapper.<init>(Map)"})
   void testNewActivitiVariablesMapper2() {
     // Arrange, Act and Assert
-    assertTrue(new ActivitiVariablesMapper(new HashMap<>()).map.isEmpty());
+    assertTrue((new ActivitiVariablesMapper(new HashMap<>())).map.isEmpty());
   }
 
   /**
    * Test {@link ActivitiVariablesMapper#resolveVariable(String)}.
-   *
-   * <p>Method under test: {@link ActivitiVariablesMapper#resolveVariable(String)}
+   * <p>
+   * Method under test: {@link ActivitiVariablesMapper#resolveVariable(String)}
    */
   @Test
   @DisplayName("Test resolveVariable(String)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"ValueExpression ActivitiVariablesMapper.resolveVariable(String)"})
   void testResolveVariable() {
     // Arrange, Act and Assert
-    assertNull(new ActivitiVariablesMapper().resolveVariable("Variable"));
+    assertNull((new ActivitiVariablesMapper()).resolveVariable("Variable"));
   }
 
   /**
    * Test {@link ActivitiVariablesMapper#setVariable(String, ValueExpression)}.
-   *
    * <ul>
-   *   <li>Then {@link ActivitiVariablesMapper#ActivitiVariablesMapper()} {@link
-   *       ActivitiVariablesMapper#map} size is one.
+   *   <li>Then {@link ActivitiVariablesMapper#ActivitiVariablesMapper()} {@link ActivitiVariablesMapper#map} size is one.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ActivitiVariablesMapper#setVariable(String, ValueExpression)}
+   * <p>
+   * Method under test: {@link ActivitiVariablesMapper#setVariable(String, ValueExpression)}
    */
   @Test
-  @DisplayName(
-      "Test setVariable(String, ValueExpression); then ActivitiVariablesMapper() map size is one")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "ValueExpression ActivitiVariablesMapper.setVariable(String, ValueExpression)"
-  })
+  @DisplayName("Test setVariable(String, ValueExpression); then ActivitiVariablesMapper() map size is one")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"ValueExpression ActivitiVariablesMapper.setVariable(String, ValueExpression)"})
   void testSetVariable_thenActivitiVariablesMapperMapSizeIsOne() {
     // Arrange
     ActivitiVariablesMapper activitiVariablesMapper = new ActivitiVariablesMapper();
     TypeConverter converter = mock(TypeConverter.class);
     Class<Object> type = Object.class;
-
     ObjectValueExpression expression = new ObjectValueExpression(converter, "Object", type);
 
     // Act and Assert
@@ -112,35 +101,25 @@ class ActivitiVariablesMapperDiffblueTest {
 
   /**
    * Test {@link ActivitiVariablesMapper#setVariable(String, ValueExpression)}.
-   *
    * <ul>
-   *   <li>Then {@link ActivitiVariablesMapper#ActivitiVariablesMapper(Map)} with map is {@link
-   *       HashMap#HashMap()} {@link ActivitiVariablesMapper#map} size is two.
+   *   <li>Then {@link ActivitiVariablesMapper#ActivitiVariablesMapper(Map)} with map is {@link HashMap#HashMap()} {@link ActivitiVariablesMapper#map} size is two.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ActivitiVariablesMapper#setVariable(String, ValueExpression)}
+   * <p>
+   * Method under test: {@link ActivitiVariablesMapper#setVariable(String, ValueExpression)}
    */
   @Test
-  @DisplayName(
-      "Test setVariable(String, ValueExpression); then ActivitiVariablesMapper(Map) with map is HashMap() map size is two")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "ValueExpression ActivitiVariablesMapper.setVariable(String, ValueExpression)"
-  })
+  @DisplayName("Test setVariable(String, ValueExpression); then ActivitiVariablesMapper(Map) with map is HashMap() map size is two")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"ValueExpression ActivitiVariablesMapper.setVariable(String, ValueExpression)"})
   void testSetVariable_thenActivitiVariablesMapperWithMapIsHashMapMapSizeIsTwo() {
     // Arrange
     HashMap<String, ValueExpression> map = new HashMap<>();
     TypeConverter converter = mock(TypeConverter.class);
     Class<Object> type = Object.class;
-
-    ObjectValueExpression objectValueExpression =
-        new ObjectValueExpression(converter, "Object", type);
-    map.put("foo", objectValueExpression);
+    map.put("foo", new ObjectValueExpression(converter, "Object", type));
     ActivitiVariablesMapper activitiVariablesMapper = new ActivitiVariablesMapper(map);
     TypeConverter converter2 = mock(TypeConverter.class);
     Class<Object> type2 = Object.class;
-
     ObjectValueExpression expression = new ObjectValueExpression(converter2, "Object", type2);
 
     // Act and Assert

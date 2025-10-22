@@ -16,8 +16,7 @@
 package org.activiti.engine.impl.cmd;
 
 import static org.junit.Assert.assertEquals;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
@@ -25,23 +24,19 @@ import org.junit.experimental.categories.Category;
 public class MoveTimerToExecutableJobCmdDiffblueTest {
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>{@link MoveTimerToExecutableJobCmd#MoveTimerToExecutableJobCmd(String)}
    *   <li>{@link MoveTimerToExecutableJobCmd#getJobId()}
    * </ul>
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void MoveTimerToExecutableJobCmd.<init>(String)",
-    "String MoveTimerToExecutableJobCmd.getJobId()"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void MoveTimerToExecutableJobCmd.<init>(String)",
+      "String MoveTimerToExecutableJobCmd.getJobId()"})
   public void testGettersAndSetters() {
     // Arrange, Act and Assert
-    assertEquals("42", new MoveTimerToExecutableJobCmd("42").getJobId());
+    assertEquals("42", (new MoveTimerToExecutableJobCmd("42")).getJobId());
   }
 }

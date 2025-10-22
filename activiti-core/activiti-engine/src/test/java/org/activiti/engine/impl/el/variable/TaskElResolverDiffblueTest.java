@@ -16,8 +16,7 @@
 package org.activiti.engine.impl.el.variable;
 
 import static org.junit.Assert.assertSame;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.engine.delegate.VariableScope;
 import org.activiti.engine.impl.el.NoExecutionVariableScope;
@@ -27,21 +26,18 @@ import org.junit.experimental.categories.Category;
 public class TaskElResolverDiffblueTest {
   /**
    * Test {@link TaskElResolver#resolve(String, VariableScope)}.
-   *
-   * <p>Method under test: {@link TaskElResolver#resolve(String, VariableScope)}
+   * <p>
+   * Method under test: {@link TaskElResolver#resolve(String, VariableScope)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"Object TaskElResolver.resolve(String, VariableScope)"})
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"java.lang.Object TaskElResolver.resolve(String, VariableScope)"})
   public void testResolve() {
     // Arrange
+    TaskElResolver taskElResolver = new TaskElResolver();
     NoExecutionVariableScope variableScope = NoExecutionVariableScope.getSharedInstance();
 
-    // Act
-    Object actualResolveResult = new TaskElResolver().resolve("Property", variableScope);
-
-    // Assert
-    assertSame(variableScope, actualResolveResult);
+    // Act and Assert
+    assertSame(variableScope, taskElResolver.resolve("Property", variableScope));
   }
 }

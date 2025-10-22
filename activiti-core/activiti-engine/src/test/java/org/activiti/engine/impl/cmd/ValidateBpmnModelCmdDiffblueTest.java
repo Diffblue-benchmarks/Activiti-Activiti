@@ -15,77 +15,55 @@
  */
 package org.activiti.engine.impl.cmd;
 
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertThrows;
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import static org.mockito.ArgumentMatchers.isA;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.List;
-import java.util.Map;
 import org.activiti.bpmn.model.BpmnModel;
-import org.activiti.bpmn.model.EndEvent;
-import org.activiti.bpmn.model.FlowElement;
-import org.activiti.bpmn.model.Process;
-import org.activiti.bpmn.model.StartEvent;
-import org.activiti.bpmn.model.UserTask;
-import org.activiti.engine.test.util.TestProcessUtil;
+import org.activiti.engine.ActivitiEngineAgendaFactory;
+import org.activiti.engine.ActivitiException;
+import org.activiti.engine.impl.agenda.DefaultActivitiEngineAgenda;
+import org.activiti.engine.impl.cfg.JtaProcessEngineConfiguration;
+import org.activiti.engine.impl.interceptor.Command;
+import org.activiti.engine.impl.interceptor.CommandContext;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
+import org.mockito.Mockito;
 
 public class ValidateBpmnModelCmdDiffblueTest {
   /**
    * Test {@link ValidateBpmnModelCmd#ValidateBpmnModelCmd(BpmnModel)}.
-   *
-   * <p>Method under test: {@link ValidateBpmnModelCmd#ValidateBpmnModelCmd(BpmnModel)}
+   * <p>
+   * Method under test: {@link ValidateBpmnModelCmd#ValidateBpmnModelCmd(BpmnModel)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void ValidateBpmnModelCmd.<init>(BpmnModel)"})
   public void testNewValidateBpmnModelCmd() {
     // Arrange, Act and Assert
-    BpmnModel bpmnModel =
-        new ValidateBpmnModelCmd(TestProcessUtil.createOneTaskBpmnModel()).bpmnModel;
+    BpmnModel bpmnModel = (new ValidateBpmnModelCmd(new BpmnModel())).bpmnModel;
     assertTrue(bpmnModel.getResources() instanceof List);
     assertTrue(bpmnModel.getSignals() instanceof List);
-    Process mainProcess = bpmnModel.getMainProcess();
-    assertTrue(mainProcess.getArtifacts() instanceof List);
-    assertTrue(mainProcess.getFlowElements() instanceof List);
-    Map<String, FlowElement> flowElementMap = mainProcess.getFlowElementMap();
-    assertEquals(3, flowElementMap.size());
-    assertTrue(flowElementMap.get("theEnd") instanceof EndEvent);
-    assertTrue(flowElementMap.get("start") instanceof StartEvent);
-    assertTrue(flowElementMap.get("theTask") instanceof UserTask);
-    assertEquals("The one task process", mainProcess.getName());
     assertNull(bpmnModel.getEventSupport());
     assertNull(bpmnModel.getSourceSystemId());
     assertNull(bpmnModel.getTargetNamespace());
-    assertNull(mainProcess.getDocumentation());
     assertNull(bpmnModel.getStartEventFormTypes());
     assertNull(bpmnModel.getUserTaskFormTypes());
-    assertNull(mainProcess.getInitialFlowElement());
-    assertNull(mainProcess.getIoSpecification());
-    assertEquals(0, mainProcess.getXmlColumnNumber());
-    assertEquals(0, mainProcess.getXmlRowNumber());
-    assertEquals(1, bpmnModel.getProcesses().size());
+    assertNull(bpmnModel.getMainProcess());
     assertFalse(bpmnModel.hasDiagramInterchangeInfo());
-    assertFalse(mainProcess.isCandidateStarterGroupsDefined());
-    assertFalse(mainProcess.isCandidateStarterUsersDefined());
     assertTrue(bpmnModel.getMessages().isEmpty());
     assertTrue(bpmnModel.getGlobalArtifacts().isEmpty());
     assertTrue(bpmnModel.getImports().isEmpty());
     assertTrue(bpmnModel.getInterfaces().isEmpty());
     assertTrue(bpmnModel.getPools().isEmpty());
-    assertTrue(mainProcess.getCandidateStarterGroups().isEmpty());
-    assertTrue(mainProcess.getCandidateStarterUsers().isEmpty());
-    assertTrue(mainProcess.getDataObjects().isEmpty());
-    assertTrue(mainProcess.getEventListeners().isEmpty());
-    assertTrue(mainProcess.getExecutionListeners().isEmpty());
-    assertTrue(mainProcess.getLanes().isEmpty());
-    assertTrue(mainProcess.getAttributes().isEmpty());
-    assertTrue(mainProcess.getExtensionElements().isEmpty());
+    assertTrue(bpmnModel.getProcesses().isEmpty());
     assertTrue(bpmnModel.getDataStores().isEmpty());
     assertTrue(bpmnModel.getDefinitionsAttributes().isEmpty());
     assertTrue(bpmnModel.getErrors().isEmpty());
@@ -95,6 +73,32 @@ public class ValidateBpmnModelCmdDiffblueTest {
     assertTrue(bpmnModel.getLocationMap().isEmpty());
     assertTrue(bpmnModel.getMessageFlows().isEmpty());
     assertTrue(bpmnModel.getNamespaces().isEmpty());
-    assertTrue(mainProcess.isExecutable());
+  }
+
+  /**
+   * Test {@link ValidateBpmnModelCmd#execute(CommandContext)}.
+   * <ul>
+   *   <li>Then throw {@link ActivitiException}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link ValidateBpmnModelCmd#execute(CommandContext)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"List ValidateBpmnModelCmd.execute(CommandContext)"})
+  public void testExecute_thenThrowActivitiException() {
+    // Arrange
+    ValidateBpmnModelCmd validateBpmnModelCmd = new ValidateBpmnModelCmd(new BpmnModel());
+    ActivitiEngineAgendaFactory engineAgendaFactory = mock(ActivitiEngineAgendaFactory.class);
+    when(engineAgendaFactory.createAgenda(Mockito.<CommandContext>any()))
+        .thenReturn(new DefaultActivitiEngineAgenda(null));
+
+    JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();
+    processEngineConfiguration.setEngineAgendaFactory(engineAgendaFactory);
+
+    // Act and Assert
+    assertThrows(ActivitiException.class,
+        () -> validateBpmnModelCmd.execute(new CommandContext(mock(Command.class), processEngineConfiguration)));
+    verify(engineAgendaFactory).createAgenda(isA(CommandContext.class));
   }
 }

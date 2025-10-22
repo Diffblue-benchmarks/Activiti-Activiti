@@ -17,8 +17,7 @@ package org.activiti.engine.impl.persistence.entity;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
@@ -26,18 +25,15 @@ import org.junit.experimental.categories.Category;
 public class HistoricDetailAssignmentEntityImplDiffblueTest {
   /**
    * Test new {@link HistoricDetailAssignmentEntityImpl} (default constructor).
-   *
-   * <p>Method under test: default or parameterless constructor of {@link
-   * HistoricDetailAssignmentEntityImpl}
+   * <p>
+   * Method under test: default or parameterless constructor of {@link HistoricDetailAssignmentEntityImpl}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void HistoricDetailAssignmentEntityImpl.<init>()"})
   public void testNewHistoricDetailAssignmentEntityImpl() {
     // Arrange and Act
-    HistoricDetailAssignmentEntityImpl actualHistoricDetailAssignmentEntityImpl =
-        new HistoricDetailAssignmentEntityImpl();
+    HistoricDetailAssignmentEntityImpl actualHistoricDetailAssignmentEntityImpl = new HistoricDetailAssignmentEntityImpl();
 
     // Assert
     assertNull(actualHistoricDetailAssignmentEntityImpl.getId());

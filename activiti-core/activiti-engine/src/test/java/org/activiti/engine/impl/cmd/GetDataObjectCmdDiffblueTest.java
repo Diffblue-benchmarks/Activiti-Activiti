@@ -19,8 +19,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
@@ -28,21 +27,17 @@ import org.junit.experimental.categories.Category;
 public class GetDataObjectCmdDiffblueTest {
   /**
    * Test {@link GetDataObjectCmd#GetDataObjectCmd(String, String, boolean)}.
-   *
    * <ul>
-   *   <li>When {@code Data Object Name}.
-   *   <li>Then return {@link GetDataObjectCmd#locale} is {@code null}.
+   *   <li>When {@code Data Object Name}.</li>
+   *   <li>Then return {@link GetDataObjectCmd#locale} is {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link GetDataObjectCmd#GetDataObjectCmd(String, String, boolean)}
+   * <p>
+   * Method under test: {@link GetDataObjectCmd#GetDataObjectCmd(String, String, boolean)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void GetDataObjectCmd.<init>(String, String, boolean)",
-    "void GetDataObjectCmd.<init>(String, String, boolean, String, boolean)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void GetDataObjectCmd.<init>(String, String, boolean)",
+      "void GetDataObjectCmd.<init>(String, String, boolean, String, boolean)"})
   public void testNewGetDataObjectCmd_whenDataObjectName_thenReturnLocaleIsNull() {
     // Arrange and Act
     GetDataObjectCmd actualGetDataObjectCmd = new GetDataObjectCmd("42", "Data Object Name", true);
@@ -57,26 +52,20 @@ public class GetDataObjectCmdDiffblueTest {
 
   /**
    * Test {@link GetDataObjectCmd#GetDataObjectCmd(String, String, boolean, String, boolean)}.
-   *
    * <ul>
-   *   <li>When {@code en}.
-   *   <li>Then return {@link GetDataObjectCmd#locale} is {@code en}.
+   *   <li>When {@code en}.</li>
+   *   <li>Then return {@link GetDataObjectCmd#locale} is {@code en}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link GetDataObjectCmd#GetDataObjectCmd(String, String, boolean, String,
-   * boolean)}
+   * <p>
+   * Method under test: {@link GetDataObjectCmd#GetDataObjectCmd(String, String, boolean, String, boolean)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void GetDataObjectCmd.<init>(String, String, boolean)",
-    "void GetDataObjectCmd.<init>(String, String, boolean, String, boolean)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void GetDataObjectCmd.<init>(String, String, boolean)",
+      "void GetDataObjectCmd.<init>(String, String, boolean, String, boolean)"})
   public void testNewGetDataObjectCmd_whenEn_thenReturnLocaleIsEn() {
     // Arrange and Act
-    GetDataObjectCmd actualGetDataObjectCmd =
-        new GetDataObjectCmd("42", "Data Object Name", true, "en", true);
+    GetDataObjectCmd actualGetDataObjectCmd = new GetDataObjectCmd("42", "Data Object Name", true, "en", true);
 
     // Assert
     assertEquals("42", actualGetDataObjectCmd.executionId);

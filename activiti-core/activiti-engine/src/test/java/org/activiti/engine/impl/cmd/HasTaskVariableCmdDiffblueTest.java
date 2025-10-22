@@ -17,8 +17,7 @@ package org.activiti.engine.impl.cmd;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
@@ -26,17 +25,15 @@ import org.junit.experimental.categories.Category;
 public class HasTaskVariableCmdDiffblueTest {
   /**
    * Test {@link HasTaskVariableCmd#HasTaskVariableCmd(String, String, boolean)}.
-   *
-   * <p>Method under test: {@link HasTaskVariableCmd#HasTaskVariableCmd(String, String, boolean)}
+   * <p>
+   * Method under test: {@link HasTaskVariableCmd#HasTaskVariableCmd(String, String, boolean)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void HasTaskVariableCmd.<init>(String, String, boolean)"})
   public void testNewHasTaskVariableCmd() {
     // Arrange and Act
-    HasTaskVariableCmd actualHasTaskVariableCmd =
-        new HasTaskVariableCmd("42", "Variable Name", true);
+    HasTaskVariableCmd actualHasTaskVariableCmd = new HasTaskVariableCmd("42", "Variable Name", true);
 
     // Assert
     assertEquals("42", actualHasTaskVariableCmd.taskId);

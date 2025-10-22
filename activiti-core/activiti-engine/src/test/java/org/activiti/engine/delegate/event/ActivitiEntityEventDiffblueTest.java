@@ -16,8 +16,7 @@
 package org.activiti.engine.delegate.event;
 
 import static org.junit.Assert.assertNull;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.engine.delegate.event.impl.ActivitiProcessCancelledEventImpl;
 import org.activiti.engine.impl.persistence.entity.ExecutionEntityImpl;
@@ -27,18 +26,15 @@ import org.junit.experimental.categories.Category;
 public class ActivitiEntityEventDiffblueTest {
   /**
    * Test {@link ActivitiEntityEvent#getReason()}.
-   *
-   * <p>Method under test: {@link ActivitiEntityEvent#getReason()}
+   * <p>
+   * Method under test: {@link ActivitiEntityEvent#getReason()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"java.lang.String ActivitiEntityEvent.getReason()"})
   public void testGetReason() {
     // Arrange, Act and Assert
-    assertNull(
-        new ActivitiProcessCancelledEventImpl(
-                ExecutionEntityImpl.createWithEmptyRelationshipCollections())
-            .getReason());
+    assertNull((new ActivitiProcessCancelledEventImpl(ExecutionEntityImpl.createWithEmptyRelationshipCollections()))
+        .getReason());
   }
 }

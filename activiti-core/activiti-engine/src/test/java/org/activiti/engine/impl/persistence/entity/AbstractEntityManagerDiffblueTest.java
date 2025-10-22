@@ -20,14 +20,14 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.ArgumentMatchers.isA;
 import static org.mockito.Mockito.atLeast;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.Map;
 import org.activiti.engine.delegate.event.ActivitiEvent;
@@ -37,28 +37,34 @@ import org.activiti.engine.impl.cfg.JtaProcessEngineConfiguration;
 import org.activiti.engine.impl.cfg.ProcessEngineConfigurationImpl;
 import org.activiti.engine.impl.persistence.CountingExecutionEntity;
 import org.activiti.engine.impl.persistence.entity.data.AttachmentDataManager;
+import org.activiti.engine.impl.persistence.entity.data.DataManager;
 import org.activiti.engine.impl.persistence.entity.data.impl.MybatisAttachmentDataManager;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
 
 @RunWith(MockitoJUnitRunner.class)
 public class AbstractEntityManagerDiffblueTest {
-  @Mock private AttachmentDataManager attachmentDataManager;
+  @Mock
+  private AttachmentDataManager attachmentDataManager;
 
-  @Mock private ProcessEngineConfigurationImpl processEngineConfigurationImpl;
+  @InjectMocks
+  private AttachmentEntityManagerImpl attachmentEntityManagerImpl;
+
+  @Mock
+  private ProcessEngineConfigurationImpl processEngineConfigurationImpl;
 
   /**
    * Test {@link AbstractEntityManager#findById(String)}.
-   *
-   * <p>Method under test: {@link AbstractEntityManager#findById(String)}
+   * <p>
+   * Method under test: {@link AbstractEntityManager#findById(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"Entity AbstractEntityManager.findById(String)"})
   public void testFindById() {
     // Arrange
@@ -66,38 +72,31 @@ public class AbstractEntityManagerDiffblueTest {
     when(attachmentDataManager.findById(Mockito.<String>any())).thenReturn(attachmentEntityImpl);
 
     // Act
-    AttachmentEntity actualFindByIdResult =
-        new AttachmentEntityManagerImpl(processEngineConfigurationImpl, attachmentDataManager)
-            .findById("42");
+    AttachmentEntity actualFindByIdResult = attachmentEntityManagerImpl.findById("42");
 
     // Assert
-    verify(attachmentDataManager).findById("42");
+    verify(attachmentDataManager).findById(eq("42"));
     assertSame(attachmentEntityImpl, actualFindByIdResult);
   }
 
   /**
    * Test {@link AbstractEntityManager#create()}.
-   *
    * <ul>
-   *   <li>Then PersistentState return {@link Map}.
+   *   <li>Then PersistentState return {@link Map}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link AbstractEntityManager#create()}
+   * <p>
+   * Method under test: {@link AbstractEntityManager#create()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"Entity AbstractEntityManager.create()"})
   public void testCreate_thenPersistentStateReturnMap() {
     // Arrange
     JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();
-    AttachmentEntityManagerImpl attachmentEntityManagerImpl =
-        new AttachmentEntityManagerImpl(
-            processEngineConfiguration,
-            new MybatisAttachmentDataManager(new JtaProcessEngineConfiguration()));
 
     // Act
-    AttachmentEntity actualCreateResult = attachmentEntityManagerImpl.create();
+    AttachmentEntity actualCreateResult = (new AttachmentEntityManagerImpl(processEngineConfiguration,
+        new MybatisAttachmentDataManager(new JtaProcessEngineConfiguration()))).create();
 
     // Assert
     Object persistentState = actualCreateResult.getPersistentState();
@@ -126,407 +125,349 @@ public class AbstractEntityManagerDiffblueTest {
 
   /**
    * Test {@link AbstractEntityManager#insert(Entity)} with {@code entity}.
-   *
-   * <p>Method under test: {@link AbstractEntityManager#insert(Entity)}
+   * <p>
+   * Method under test: {@link AbstractEntityManager#insert(Entity)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void AbstractEntityManager.insert(Entity)"})
   public void testInsertWithEntity() {
     // Arrange
-    JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();
-    processEngineConfiguration.setEventDispatcher(new ActivitiEventDispatcherImpl());
-
+    ProcessEngineConfigurationImpl processEngineConfiguration = mock(ProcessEngineConfigurationImpl.class);
+    when(processEngineConfiguration.getEventDispatcher()).thenReturn(new ActivitiEventDispatcherImpl());
     AttachmentDataManager attachmentDataManager = mock(AttachmentDataManager.class);
     doNothing().when(attachmentDataManager).insert(Mockito.<AttachmentEntity>any());
-
-    AttachmentEntityManagerImpl attachmentEntityManagerImpl =
-        new AttachmentEntityManagerImpl(processEngineConfiguration, attachmentDataManager);
+    AttachmentEntityManagerImpl attachmentEntityManagerImpl = new AttachmentEntityManagerImpl(
+        processEngineConfiguration, attachmentDataManager);
 
     // Act
     attachmentEntityManagerImpl.insert(new AttachmentEntityImpl());
 
     // Assert
+    verify(processEngineConfiguration).getEventDispatcher();
     verify(attachmentDataManager).insert(isA(AttachmentEntity.class));
   }
 
   /**
-   * Test {@link AbstractEntityManager#insert(Entity, boolean)} with {@code entity}, {@code
-   * fireCreateEvent}.
-   *
-   * <p>Method under test: {@link AbstractEntityManager#insert(Entity, boolean)}
+   * Test {@link AbstractEntityManager#insert(Entity, boolean)} with {@code entity}, {@code fireCreateEvent}.
+   * <p>
+   * Method under test: {@link AbstractEntityManager#insert(Entity, boolean)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void AbstractEntityManager.insert(Entity, boolean)"})
   public void testInsertWithEntityFireCreateEvent() {
     // Arrange
-    JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();
-    processEngineConfiguration.setEventDispatcher(new ActivitiEventDispatcherImpl());
-
+    ProcessEngineConfigurationImpl processEngineConfiguration = mock(ProcessEngineConfigurationImpl.class);
+    when(processEngineConfiguration.getEventDispatcher()).thenReturn(new ActivitiEventDispatcherImpl());
     AttachmentDataManager attachmentDataManager = mock(AttachmentDataManager.class);
     doNothing().when(attachmentDataManager).insert(Mockito.<AttachmentEntity>any());
-
-    AttachmentEntityManagerImpl attachmentEntityManagerImpl =
-        new AttachmentEntityManagerImpl(processEngineConfiguration, attachmentDataManager);
+    AttachmentEntityManagerImpl attachmentEntityManagerImpl = new AttachmentEntityManagerImpl(
+        processEngineConfiguration, attachmentDataManager);
 
     // Act
     attachmentEntityManagerImpl.insert(new AttachmentEntityImpl(), true);
 
     // Assert
+    verify(processEngineConfiguration).getEventDispatcher();
     verify(attachmentDataManager).insert(isA(AttachmentEntity.class));
   }
 
   /**
-   * Test {@link AbstractEntityManager#insert(Entity, boolean)} with {@code entity}, {@code
-   * fireCreateEvent}.
-   *
-   * <p>Method under test: {@link AbstractEntityManager#insert(Entity, boolean)}
+   * Test {@link AbstractEntityManager#insert(Entity, boolean)} with {@code entity}, {@code fireCreateEvent}.
+   * <p>
+   * Method under test: {@link AbstractEntityManager#insert(Entity, boolean)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void AbstractEntityManager.insert(Entity, boolean)"})
   public void testInsertWithEntityFireCreateEvent2() {
     // Arrange
-    ActivitiEventDispatcher eventDispatcher = mock(ActivitiEventDispatcher.class);
-    when(eventDispatcher.isEnabled()).thenReturn(false);
-
-    JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();
-    processEngineConfiguration.setEventDispatcher(eventDispatcher);
-
+    ActivitiEventDispatcher activitiEventDispatcher = mock(ActivitiEventDispatcher.class);
+    when(activitiEventDispatcher.isEnabled()).thenReturn(false);
+    ProcessEngineConfigurationImpl processEngineConfiguration = mock(ProcessEngineConfigurationImpl.class);
+    when(processEngineConfiguration.getEventDispatcher()).thenReturn(activitiEventDispatcher);
     AttachmentDataManager attachmentDataManager = mock(AttachmentDataManager.class);
     doNothing().when(attachmentDataManager).insert(Mockito.<AttachmentEntity>any());
-
-    AttachmentEntityManagerImpl attachmentEntityManagerImpl =
-        new AttachmentEntityManagerImpl(processEngineConfiguration, attachmentDataManager);
+    AttachmentEntityManagerImpl attachmentEntityManagerImpl = new AttachmentEntityManagerImpl(
+        processEngineConfiguration, attachmentDataManager);
 
     // Act
     attachmentEntityManagerImpl.insert(new AttachmentEntityImpl(), true);
 
     // Assert
-    verify(eventDispatcher).isEnabled();
+    verify(activitiEventDispatcher).isEnabled();
+    verify(processEngineConfiguration).getEventDispatcher();
     verify(attachmentDataManager).insert(isA(AttachmentEntity.class));
   }
 
   /**
-   * Test {@link AbstractEntityManager#insert(Entity, boolean)} with {@code entity}, {@code
-   * fireCreateEvent}.
-   *
+   * Test {@link AbstractEntityManager#insert(Entity, boolean)} with {@code entity}, {@code fireCreateEvent}.
    * <ul>
-   *   <li>Then calls {@link ActivitiEventDispatcher#dispatchEvent(ActivitiEvent)}.
+   *   <li>Then calls {@link ActivitiEventDispatcher#dispatchEvent(ActivitiEvent)}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link AbstractEntityManager#insert(Entity, boolean)}
+   * <p>
+   * Method under test: {@link AbstractEntityManager#insert(Entity, boolean)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void AbstractEntityManager.insert(Entity, boolean)"})
   public void testInsertWithEntityFireCreateEvent_thenCallsDispatchEvent() {
     // Arrange
-    ActivitiEventDispatcher eventDispatcher = mock(ActivitiEventDispatcher.class);
-    doNothing().when(eventDispatcher).dispatchEvent(Mockito.<ActivitiEvent>any());
-    when(eventDispatcher.isEnabled()).thenReturn(true);
-
-    JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();
-    processEngineConfiguration.setEventDispatcher(eventDispatcher);
-
+    ActivitiEventDispatcher activitiEventDispatcher = mock(ActivitiEventDispatcher.class);
+    doNothing().when(activitiEventDispatcher).dispatchEvent(Mockito.<ActivitiEvent>any());
+    when(activitiEventDispatcher.isEnabled()).thenReturn(true);
+    ProcessEngineConfigurationImpl processEngineConfiguration = mock(ProcessEngineConfigurationImpl.class);
+    when(processEngineConfiguration.getEventDispatcher()).thenReturn(activitiEventDispatcher);
     AttachmentDataManager attachmentDataManager = mock(AttachmentDataManager.class);
     doNothing().when(attachmentDataManager).insert(Mockito.<AttachmentEntity>any());
-
-    AttachmentEntityManagerImpl attachmentEntityManagerImpl =
-        new AttachmentEntityManagerImpl(processEngineConfiguration, attachmentDataManager);
+    AttachmentEntityManagerImpl attachmentEntityManagerImpl = new AttachmentEntityManagerImpl(
+        processEngineConfiguration, attachmentDataManager);
 
     // Act
     attachmentEntityManagerImpl.insert(new AttachmentEntityImpl(), true);
 
     // Assert
-    verify(eventDispatcher, atLeast(1)).dispatchEvent(Mockito.<ActivitiEvent>any());
-    verify(eventDispatcher).isEnabled();
+    verify(activitiEventDispatcher, atLeast(1)).dispatchEvent(Mockito.<ActivitiEvent>any());
+    verify(activitiEventDispatcher).isEnabled();
+    verify(processEngineConfiguration).getEventDispatcher();
     verify(attachmentDataManager).insert(isA(AttachmentEntity.class));
   }
 
   /**
-   * Test {@link AbstractEntityManager#insert(Entity, boolean)} with {@code entity}, {@code
-   * fireCreateEvent}.
-   *
+   * Test {@link AbstractEntityManager#insert(Entity, boolean)} with {@code entity}, {@code fireCreateEvent}.
    * <ul>
-   *   <li>When {@code false}.
-   *   <li>Then calls {@link AttachmentDataManager#insert(Entity)}.
+   *   <li>When {@code false}.</li>
+   *   <li>Then calls {@link ProcessEngineConfigurationImpl#getEventDispatcher()}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link AbstractEntityManager#insert(Entity, boolean)}
+   * <p>
+   * Method under test: {@link AbstractEntityManager#insert(Entity, boolean)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void AbstractEntityManager.insert(Entity, boolean)"})
-  public void testInsertWithEntityFireCreateEvent_whenFalse_thenCallsInsert() {
+  public void testInsertWithEntityFireCreateEvent_whenFalse_thenCallsGetEventDispatcher() {
     // Arrange
-    JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();
-    processEngineConfiguration.setEventDispatcher(mock(ActivitiEventDispatcher.class));
-
+    ProcessEngineConfigurationImpl processEngineConfiguration = mock(ProcessEngineConfigurationImpl.class);
+    when(processEngineConfiguration.getEventDispatcher()).thenReturn(mock(ActivitiEventDispatcher.class));
     AttachmentDataManager attachmentDataManager = mock(AttachmentDataManager.class);
     doNothing().when(attachmentDataManager).insert(Mockito.<AttachmentEntity>any());
-
-    AttachmentEntityManagerImpl attachmentEntityManagerImpl =
-        new AttachmentEntityManagerImpl(processEngineConfiguration, attachmentDataManager);
+    AttachmentEntityManagerImpl attachmentEntityManagerImpl = new AttachmentEntityManagerImpl(
+        processEngineConfiguration, attachmentDataManager);
 
     // Act
     attachmentEntityManagerImpl.insert(new AttachmentEntityImpl(), false);
 
     // Assert
+    verify(processEngineConfiguration).getEventDispatcher();
     verify(attachmentDataManager).insert(isA(AttachmentEntity.class));
   }
 
   /**
    * Test {@link AbstractEntityManager#insert(Entity)} with {@code entity}.
-   *
    * <ul>
-   *   <li>Given {@link ActivitiEventDispatcher} {@link ActivitiEventDispatcher#isEnabled()} return
-   *       {@code false}.
+   *   <li>Given {@link ActivitiEventDispatcher} {@link ActivitiEventDispatcher#isEnabled()} return {@code false}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link AbstractEntityManager#insert(Entity)}
+   * <p>
+   * Method under test: {@link AbstractEntityManager#insert(Entity)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void AbstractEntityManager.insert(Entity)"})
   public void testInsertWithEntity_givenActivitiEventDispatcherIsEnabledReturnFalse() {
     // Arrange
-    ActivitiEventDispatcher eventDispatcher = mock(ActivitiEventDispatcher.class);
-    when(eventDispatcher.isEnabled()).thenReturn(false);
-
-    JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();
-    processEngineConfiguration.setEventDispatcher(eventDispatcher);
-
+    ActivitiEventDispatcher activitiEventDispatcher = mock(ActivitiEventDispatcher.class);
+    when(activitiEventDispatcher.isEnabled()).thenReturn(false);
+    ProcessEngineConfigurationImpl processEngineConfiguration = mock(ProcessEngineConfigurationImpl.class);
+    when(processEngineConfiguration.getEventDispatcher()).thenReturn(activitiEventDispatcher);
     AttachmentDataManager attachmentDataManager = mock(AttachmentDataManager.class);
     doNothing().when(attachmentDataManager).insert(Mockito.<AttachmentEntity>any());
-
-    AttachmentEntityManagerImpl attachmentEntityManagerImpl =
-        new AttachmentEntityManagerImpl(processEngineConfiguration, attachmentDataManager);
+    AttachmentEntityManagerImpl attachmentEntityManagerImpl = new AttachmentEntityManagerImpl(
+        processEngineConfiguration, attachmentDataManager);
 
     // Act
     attachmentEntityManagerImpl.insert(new AttachmentEntityImpl());
 
     // Assert
-    verify(eventDispatcher).isEnabled();
+    verify(activitiEventDispatcher).isEnabled();
+    verify(processEngineConfiguration).getEventDispatcher();
     verify(attachmentDataManager).insert(isA(AttachmentEntity.class));
   }
 
   /**
    * Test {@link AbstractEntityManager#insert(Entity)} with {@code entity}.
-   *
    * <ul>
-   *   <li>Then calls {@link ActivitiEventDispatcher#dispatchEvent(ActivitiEvent)}.
+   *   <li>Then calls {@link ActivitiEventDispatcher#dispatchEvent(ActivitiEvent)}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link AbstractEntityManager#insert(Entity)}
+   * <p>
+   * Method under test: {@link AbstractEntityManager#insert(Entity)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void AbstractEntityManager.insert(Entity)"})
   public void testInsertWithEntity_thenCallsDispatchEvent() {
     // Arrange
-    ActivitiEventDispatcher eventDispatcher = mock(ActivitiEventDispatcher.class);
-    doNothing().when(eventDispatcher).dispatchEvent(Mockito.<ActivitiEvent>any());
-    when(eventDispatcher.isEnabled()).thenReturn(true);
-
-    JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();
-    processEngineConfiguration.setEventDispatcher(eventDispatcher);
-
+    ActivitiEventDispatcher activitiEventDispatcher = mock(ActivitiEventDispatcher.class);
+    doNothing().when(activitiEventDispatcher).dispatchEvent(Mockito.<ActivitiEvent>any());
+    when(activitiEventDispatcher.isEnabled()).thenReturn(true);
+    ProcessEngineConfigurationImpl processEngineConfiguration = mock(ProcessEngineConfigurationImpl.class);
+    when(processEngineConfiguration.getEventDispatcher()).thenReturn(activitiEventDispatcher);
     AttachmentDataManager attachmentDataManager = mock(AttachmentDataManager.class);
     doNothing().when(attachmentDataManager).insert(Mockito.<AttachmentEntity>any());
-
-    AttachmentEntityManagerImpl attachmentEntityManagerImpl =
-        new AttachmentEntityManagerImpl(processEngineConfiguration, attachmentDataManager);
+    AttachmentEntityManagerImpl attachmentEntityManagerImpl = new AttachmentEntityManagerImpl(
+        processEngineConfiguration, attachmentDataManager);
 
     // Act
     attachmentEntityManagerImpl.insert(new AttachmentEntityImpl());
 
     // Assert
-    verify(eventDispatcher, atLeast(1)).dispatchEvent(Mockito.<ActivitiEvent>any());
-    verify(eventDispatcher).isEnabled();
+    verify(activitiEventDispatcher, atLeast(1)).dispatchEvent(Mockito.<ActivitiEvent>any());
+    verify(activitiEventDispatcher).isEnabled();
+    verify(processEngineConfiguration).getEventDispatcher();
     verify(attachmentDataManager).insert(isA(AttachmentEntity.class));
   }
 
   /**
    * Test {@link AbstractEntityManager#update(Entity)} with {@code entity}.
-   *
-   * <p>Method under test: {@link AbstractEntityManager#update(Entity)}
+   * <p>
+   * Method under test: {@link AbstractEntityManager#update(Entity)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"Entity AbstractEntityManager.update(Entity)"})
   public void testUpdateWithEntity() {
     // Arrange
-    JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();
-    processEngineConfiguration.setEventDispatcher(new ActivitiEventDispatcherImpl());
-
+    ProcessEngineConfigurationImpl processEngineConfiguration = mock(ProcessEngineConfigurationImpl.class);
+    when(processEngineConfiguration.getEventDispatcher()).thenReturn(new ActivitiEventDispatcherImpl());
     AttachmentDataManager attachmentDataManager = mock(AttachmentDataManager.class);
     AttachmentEntityImpl attachmentEntityImpl = new AttachmentEntityImpl();
-    when(attachmentDataManager.update(Mockito.<AttachmentEntity>any()))
-        .thenReturn(attachmentEntityImpl);
-
-    AttachmentEntityManagerImpl attachmentEntityManagerImpl =
-        new AttachmentEntityManagerImpl(processEngineConfiguration, attachmentDataManager);
+    when(attachmentDataManager.update(Mockito.<AttachmentEntity>any())).thenReturn(attachmentEntityImpl);
+    AttachmentEntityManagerImpl attachmentEntityManagerImpl = new AttachmentEntityManagerImpl(
+        processEngineConfiguration, attachmentDataManager);
 
     // Act
-    AttachmentEntity actualUpdateResult =
-        attachmentEntityManagerImpl.update(new AttachmentEntityImpl());
+    AttachmentEntity actualUpdateResult = attachmentEntityManagerImpl.update(new AttachmentEntityImpl());
 
     // Assert
+    verify(processEngineConfiguration, atLeast(1)).getEventDispatcher();
     verify(attachmentDataManager).update(isA(AttachmentEntity.class));
     assertSame(attachmentEntityImpl, actualUpdateResult);
   }
 
   /**
-   * Test {@link AbstractEntityManager#update(Entity, boolean)} with {@code entity}, {@code
-   * fireUpdateEvent}.
-   *
-   * <p>Method under test: {@link AbstractEntityManager#update(Entity, boolean)}
+   * Test {@link AbstractEntityManager#update(Entity, boolean)} with {@code entity}, {@code fireUpdateEvent}.
+   * <p>
+   * Method under test: {@link AbstractEntityManager#update(Entity, boolean)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"Entity AbstractEntityManager.update(Entity, boolean)"})
   public void testUpdateWithEntityFireUpdateEvent() {
     // Arrange
-    JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();
-    processEngineConfiguration.setEventDispatcher(new ActivitiEventDispatcherImpl());
-
+    ProcessEngineConfigurationImpl processEngineConfiguration = mock(ProcessEngineConfigurationImpl.class);
+    when(processEngineConfiguration.getEventDispatcher()).thenReturn(new ActivitiEventDispatcherImpl());
     AttachmentDataManager attachmentDataManager = mock(AttachmentDataManager.class);
     AttachmentEntityImpl attachmentEntityImpl = new AttachmentEntityImpl();
-    when(attachmentDataManager.update(Mockito.<AttachmentEntity>any()))
-        .thenReturn(attachmentEntityImpl);
-
-    AttachmentEntityManagerImpl attachmentEntityManagerImpl =
-        new AttachmentEntityManagerImpl(processEngineConfiguration, attachmentDataManager);
+    when(attachmentDataManager.update(Mockito.<AttachmentEntity>any())).thenReturn(attachmentEntityImpl);
+    AttachmentEntityManagerImpl attachmentEntityManagerImpl = new AttachmentEntityManagerImpl(
+        processEngineConfiguration, attachmentDataManager);
 
     // Act
-    AttachmentEntity actualUpdateResult =
-        attachmentEntityManagerImpl.update(new AttachmentEntityImpl(), true);
+    AttachmentEntity actualUpdateResult = attachmentEntityManagerImpl.update(new AttachmentEntityImpl(), true);
 
     // Assert
+    verify(processEngineConfiguration, atLeast(1)).getEventDispatcher();
     verify(attachmentDataManager).update(isA(AttachmentEntity.class));
     assertSame(attachmentEntityImpl, actualUpdateResult);
   }
 
   /**
-   * Test {@link AbstractEntityManager#update(Entity, boolean)} with {@code entity}, {@code
-   * fireUpdateEvent}.
-   *
-   * <p>Method under test: {@link AbstractEntityManager#update(Entity, boolean)}
+   * Test {@link AbstractEntityManager#update(Entity, boolean)} with {@code entity}, {@code fireUpdateEvent}.
+   * <p>
+   * Method under test: {@link AbstractEntityManager#update(Entity, boolean)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"Entity AbstractEntityManager.update(Entity, boolean)"})
   public void testUpdateWithEntityFireUpdateEvent2() {
     // Arrange
-    ActivitiEventDispatcher eventDispatcher = mock(ActivitiEventDispatcher.class);
-    when(eventDispatcher.isEnabled()).thenReturn(false);
-
-    JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();
-    processEngineConfiguration.setEventDispatcher(eventDispatcher);
-
+    ActivitiEventDispatcher activitiEventDispatcher = mock(ActivitiEventDispatcher.class);
+    when(activitiEventDispatcher.isEnabled()).thenReturn(false);
+    ProcessEngineConfigurationImpl processEngineConfiguration = mock(ProcessEngineConfigurationImpl.class);
+    when(processEngineConfiguration.getEventDispatcher()).thenReturn(activitiEventDispatcher);
     AttachmentDataManager attachmentDataManager = mock(AttachmentDataManager.class);
     AttachmentEntityImpl attachmentEntityImpl = new AttachmentEntityImpl();
-    when(attachmentDataManager.update(Mockito.<AttachmentEntity>any()))
-        .thenReturn(attachmentEntityImpl);
-
-    AttachmentEntityManagerImpl attachmentEntityManagerImpl =
-        new AttachmentEntityManagerImpl(processEngineConfiguration, attachmentDataManager);
+    when(attachmentDataManager.update(Mockito.<AttachmentEntity>any())).thenReturn(attachmentEntityImpl);
+    AttachmentEntityManagerImpl attachmentEntityManagerImpl = new AttachmentEntityManagerImpl(
+        processEngineConfiguration, attachmentDataManager);
 
     // Act
-    AttachmentEntity actualUpdateResult =
-        attachmentEntityManagerImpl.update(new AttachmentEntityImpl(), true);
+    AttachmentEntity actualUpdateResult = attachmentEntityManagerImpl.update(new AttachmentEntityImpl(), true);
 
     // Assert
-    verify(eventDispatcher).isEnabled();
+    verify(activitiEventDispatcher).isEnabled();
+    verify(processEngineConfiguration).getEventDispatcher();
     verify(attachmentDataManager).update(isA(AttachmentEntity.class));
     assertSame(attachmentEntityImpl, actualUpdateResult);
   }
 
   /**
-   * Test {@link AbstractEntityManager#update(Entity, boolean)} with {@code entity}, {@code
-   * fireUpdateEvent}.
-   *
+   * Test {@link AbstractEntityManager#update(Entity, boolean)} with {@code entity}, {@code fireUpdateEvent}.
    * <ul>
-   *   <li>Then calls {@link ActivitiEventDispatcher#dispatchEvent(ActivitiEvent)}.
+   *   <li>Then calls {@link ActivitiEventDispatcher#dispatchEvent(ActivitiEvent)}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link AbstractEntityManager#update(Entity, boolean)}
+   * <p>
+   * Method under test: {@link AbstractEntityManager#update(Entity, boolean)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"Entity AbstractEntityManager.update(Entity, boolean)"})
   public void testUpdateWithEntityFireUpdateEvent_thenCallsDispatchEvent() {
     // Arrange
-    ActivitiEventDispatcher eventDispatcher = mock(ActivitiEventDispatcher.class);
-    doNothing().when(eventDispatcher).dispatchEvent(Mockito.<ActivitiEvent>any());
-    when(eventDispatcher.isEnabled()).thenReturn(true);
-
-    JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();
-    processEngineConfiguration.setEventDispatcher(eventDispatcher);
-
+    ActivitiEventDispatcher activitiEventDispatcher = mock(ActivitiEventDispatcher.class);
+    doNothing().when(activitiEventDispatcher).dispatchEvent(Mockito.<ActivitiEvent>any());
+    when(activitiEventDispatcher.isEnabled()).thenReturn(true);
+    ProcessEngineConfigurationImpl processEngineConfiguration = mock(ProcessEngineConfigurationImpl.class);
+    when(processEngineConfiguration.getEventDispatcher()).thenReturn(activitiEventDispatcher);
     AttachmentDataManager attachmentDataManager = mock(AttachmentDataManager.class);
     AttachmentEntityImpl attachmentEntityImpl = new AttachmentEntityImpl();
-    when(attachmentDataManager.update(Mockito.<AttachmentEntity>any()))
-        .thenReturn(attachmentEntityImpl);
-
-    AttachmentEntityManagerImpl attachmentEntityManagerImpl =
-        new AttachmentEntityManagerImpl(processEngineConfiguration, attachmentDataManager);
+    when(attachmentDataManager.update(Mockito.<AttachmentEntity>any())).thenReturn(attachmentEntityImpl);
+    AttachmentEntityManagerImpl attachmentEntityManagerImpl = new AttachmentEntityManagerImpl(
+        processEngineConfiguration, attachmentDataManager);
 
     // Act
-    AttachmentEntity actualUpdateResult =
-        attachmentEntityManagerImpl.update(new AttachmentEntityImpl(), true);
+    AttachmentEntity actualUpdateResult = attachmentEntityManagerImpl.update(new AttachmentEntityImpl(), true);
 
     // Assert
-    verify(eventDispatcher).dispatchEvent(isA(ActivitiEvent.class));
-    verify(eventDispatcher).isEnabled();
+    verify(activitiEventDispatcher).dispatchEvent(isA(ActivitiEvent.class));
+    verify(activitiEventDispatcher).isEnabled();
+    verify(processEngineConfiguration, atLeast(1)).getEventDispatcher();
     verify(attachmentDataManager).update(isA(AttachmentEntity.class));
     assertSame(attachmentEntityImpl, actualUpdateResult);
   }
 
   /**
-   * Test {@link AbstractEntityManager#update(Entity, boolean)} with {@code entity}, {@code
-   * fireUpdateEvent}.
-   *
+   * Test {@link AbstractEntityManager#update(Entity, boolean)} with {@code entity}, {@code fireUpdateEvent}.
    * <ul>
-   *   <li>When {@code false}.
-   *   <li>Then return {@link AttachmentEntityImpl} (default constructor).
+   *   <li>When {@code false}.</li>
+   *   <li>Then return {@link AttachmentEntityImpl} (default constructor).</li>
    * </ul>
-   *
-   * <p>Method under test: {@link AbstractEntityManager#update(Entity, boolean)}
+   * <p>
+   * Method under test: {@link AbstractEntityManager#update(Entity, boolean)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"Entity AbstractEntityManager.update(Entity, boolean)"})
   public void testUpdateWithEntityFireUpdateEvent_whenFalse_thenReturnAttachmentEntityImpl() {
     // Arrange
-    JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();
-    processEngineConfiguration.setEventDispatcher(mock(ActivitiEventDispatcher.class));
-
     AttachmentDataManager attachmentDataManager = mock(AttachmentDataManager.class);
     AttachmentEntityImpl attachmentEntityImpl = new AttachmentEntityImpl();
-    when(attachmentDataManager.update(Mockito.<AttachmentEntity>any()))
-        .thenReturn(attachmentEntityImpl);
-
-    AttachmentEntityManagerImpl attachmentEntityManagerImpl =
-        new AttachmentEntityManagerImpl(processEngineConfiguration, attachmentDataManager);
+    when(attachmentDataManager.update(Mockito.<AttachmentEntity>any())).thenReturn(attachmentEntityImpl);
+    AttachmentEntityManagerImpl attachmentEntityManagerImpl = new AttachmentEntityManagerImpl(
+        mock(ProcessEngineConfigurationImpl.class), attachmentDataManager);
 
     // Act
-    AttachmentEntity actualUpdateResult =
-        attachmentEntityManagerImpl.update(new AttachmentEntityImpl(), false);
+    AttachmentEntity actualUpdateResult = attachmentEntityManagerImpl.update(new AttachmentEntityImpl(), false);
 
     // Assert
     verify(attachmentDataManager).update(isA(AttachmentEntity.class));
@@ -535,235 +476,201 @@ public class AbstractEntityManagerDiffblueTest {
 
   /**
    * Test {@link AbstractEntityManager#update(Entity)} with {@code entity}.
-   *
    * <ul>
-   *   <li>Given {@link ActivitiEventDispatcher} {@link ActivitiEventDispatcher#isEnabled()} return
-   *       {@code false}.
+   *   <li>Given {@link ActivitiEventDispatcher} {@link ActivitiEventDispatcher#isEnabled()} return {@code false}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link AbstractEntityManager#update(Entity)}
+   * <p>
+   * Method under test: {@link AbstractEntityManager#update(Entity)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"Entity AbstractEntityManager.update(Entity)"})
   public void testUpdateWithEntity_givenActivitiEventDispatcherIsEnabledReturnFalse() {
     // Arrange
-    ActivitiEventDispatcher eventDispatcher = mock(ActivitiEventDispatcher.class);
-    when(eventDispatcher.isEnabled()).thenReturn(false);
-
-    JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();
-    processEngineConfiguration.setEventDispatcher(eventDispatcher);
-
+    ActivitiEventDispatcher activitiEventDispatcher = mock(ActivitiEventDispatcher.class);
+    when(activitiEventDispatcher.isEnabled()).thenReturn(false);
+    ProcessEngineConfigurationImpl processEngineConfiguration = mock(ProcessEngineConfigurationImpl.class);
+    when(processEngineConfiguration.getEventDispatcher()).thenReturn(activitiEventDispatcher);
     AttachmentDataManager attachmentDataManager = mock(AttachmentDataManager.class);
     AttachmentEntityImpl attachmentEntityImpl = new AttachmentEntityImpl();
-    when(attachmentDataManager.update(Mockito.<AttachmentEntity>any()))
-        .thenReturn(attachmentEntityImpl);
-
-    AttachmentEntityManagerImpl attachmentEntityManagerImpl =
-        new AttachmentEntityManagerImpl(processEngineConfiguration, attachmentDataManager);
+    when(attachmentDataManager.update(Mockito.<AttachmentEntity>any())).thenReturn(attachmentEntityImpl);
+    AttachmentEntityManagerImpl attachmentEntityManagerImpl = new AttachmentEntityManagerImpl(
+        processEngineConfiguration, attachmentDataManager);
 
     // Act
-    AttachmentEntity actualUpdateResult =
-        attachmentEntityManagerImpl.update(new AttachmentEntityImpl());
+    AttachmentEntity actualUpdateResult = attachmentEntityManagerImpl.update(new AttachmentEntityImpl());
 
     // Assert
-    verify(eventDispatcher).isEnabled();
+    verify(activitiEventDispatcher).isEnabled();
+    verify(processEngineConfiguration).getEventDispatcher();
     verify(attachmentDataManager).update(isA(AttachmentEntity.class));
     assertSame(attachmentEntityImpl, actualUpdateResult);
   }
 
   /**
    * Test {@link AbstractEntityManager#update(Entity)} with {@code entity}.
-   *
    * <ul>
-   *   <li>Then calls {@link ActivitiEventDispatcher#dispatchEvent(ActivitiEvent)}.
+   *   <li>Then calls {@link ActivitiEventDispatcher#dispatchEvent(ActivitiEvent)}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link AbstractEntityManager#update(Entity)}
+   * <p>
+   * Method under test: {@link AbstractEntityManager#update(Entity)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"Entity AbstractEntityManager.update(Entity)"})
   public void testUpdateWithEntity_thenCallsDispatchEvent() {
     // Arrange
-    ActivitiEventDispatcher eventDispatcher = mock(ActivitiEventDispatcher.class);
-    doNothing().when(eventDispatcher).dispatchEvent(Mockito.<ActivitiEvent>any());
-    when(eventDispatcher.isEnabled()).thenReturn(true);
-
-    JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();
-    processEngineConfiguration.setEventDispatcher(eventDispatcher);
-
+    ActivitiEventDispatcher activitiEventDispatcher = mock(ActivitiEventDispatcher.class);
+    doNothing().when(activitiEventDispatcher).dispatchEvent(Mockito.<ActivitiEvent>any());
+    when(activitiEventDispatcher.isEnabled()).thenReturn(true);
+    ProcessEngineConfigurationImpl processEngineConfiguration = mock(ProcessEngineConfigurationImpl.class);
+    when(processEngineConfiguration.getEventDispatcher()).thenReturn(activitiEventDispatcher);
     AttachmentDataManager attachmentDataManager = mock(AttachmentDataManager.class);
     AttachmentEntityImpl attachmentEntityImpl = new AttachmentEntityImpl();
-    when(attachmentDataManager.update(Mockito.<AttachmentEntity>any()))
-        .thenReturn(attachmentEntityImpl);
-
-    AttachmentEntityManagerImpl attachmentEntityManagerImpl =
-        new AttachmentEntityManagerImpl(processEngineConfiguration, attachmentDataManager);
+    when(attachmentDataManager.update(Mockito.<AttachmentEntity>any())).thenReturn(attachmentEntityImpl);
+    AttachmentEntityManagerImpl attachmentEntityManagerImpl = new AttachmentEntityManagerImpl(
+        processEngineConfiguration, attachmentDataManager);
 
     // Act
-    AttachmentEntity actualUpdateResult =
-        attachmentEntityManagerImpl.update(new AttachmentEntityImpl());
+    AttachmentEntity actualUpdateResult = attachmentEntityManagerImpl.update(new AttachmentEntityImpl());
 
     // Assert
-    verify(eventDispatcher).dispatchEvent(isA(ActivitiEvent.class));
-    verify(eventDispatcher).isEnabled();
+    verify(activitiEventDispatcher).dispatchEvent(isA(ActivitiEvent.class));
+    verify(activitiEventDispatcher).isEnabled();
+    verify(processEngineConfiguration, atLeast(1)).getEventDispatcher();
     verify(attachmentDataManager).update(isA(AttachmentEntity.class));
     assertSame(attachmentEntityImpl, actualUpdateResult);
   }
 
   /**
    * Test {@link AbstractEntityManager#delete(Entity)} with {@code entity}.
-   *
-   * <p>Method under test: {@link AbstractEntityManager#delete(Entity)}
+   * <p>
+   * Method under test: {@link AbstractEntityManager#delete(Entity)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void AbstractEntityManager.delete(Entity)"})
   public void testDeleteWithEntity() {
     // Arrange
-    JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();
-    processEngineConfiguration.setEventDispatcher(new ActivitiEventDispatcherImpl());
-
+    ProcessEngineConfigurationImpl processEngineConfiguration = mock(ProcessEngineConfigurationImpl.class);
+    when(processEngineConfiguration.getEventDispatcher()).thenReturn(new ActivitiEventDispatcherImpl());
     AttachmentDataManager attachmentDataManager = mock(AttachmentDataManager.class);
     doNothing().when(attachmentDataManager).delete(Mockito.<AttachmentEntity>any());
-
-    AttachmentEntityManagerImpl attachmentEntityManagerImpl =
-        new AttachmentEntityManagerImpl(processEngineConfiguration, attachmentDataManager);
+    AttachmentEntityManagerImpl attachmentEntityManagerImpl = new AttachmentEntityManagerImpl(
+        processEngineConfiguration, attachmentDataManager);
 
     // Act
     attachmentEntityManagerImpl.delete(new AttachmentEntityImpl());
 
     // Assert
+    verify(processEngineConfiguration, atLeast(1)).getEventDispatcher();
     verify(attachmentDataManager).delete(isA(AttachmentEntity.class));
   }
 
   /**
-   * Test {@link AbstractEntityManager#delete(Entity, boolean)} with {@code entity}, {@code
-   * fireDeleteEvent}.
-   *
-   * <p>Method under test: {@link AbstractEntityManager#delete(Entity, boolean)}
+   * Test {@link AbstractEntityManager#delete(Entity, boolean)} with {@code entity}, {@code fireDeleteEvent}.
+   * <p>
+   * Method under test: {@link AbstractEntityManager#delete(Entity, boolean)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void AbstractEntityManager.delete(Entity, boolean)"})
   public void testDeleteWithEntityFireDeleteEvent() {
     // Arrange
-    JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();
-    processEngineConfiguration.setEventDispatcher(new ActivitiEventDispatcherImpl());
-
+    ProcessEngineConfigurationImpl processEngineConfiguration = mock(ProcessEngineConfigurationImpl.class);
+    when(processEngineConfiguration.getEventDispatcher()).thenReturn(new ActivitiEventDispatcherImpl());
     AttachmentDataManager attachmentDataManager = mock(AttachmentDataManager.class);
     doNothing().when(attachmentDataManager).delete(Mockito.<AttachmentEntity>any());
-
-    AttachmentEntityManagerImpl attachmentEntityManagerImpl =
-        new AttachmentEntityManagerImpl(processEngineConfiguration, attachmentDataManager);
+    AttachmentEntityManagerImpl attachmentEntityManagerImpl = new AttachmentEntityManagerImpl(
+        processEngineConfiguration, attachmentDataManager);
 
     // Act
     attachmentEntityManagerImpl.delete(new AttachmentEntityImpl(), true);
 
     // Assert
+    verify(processEngineConfiguration, atLeast(1)).getEventDispatcher();
     verify(attachmentDataManager).delete(isA(AttachmentEntity.class));
   }
 
   /**
-   * Test {@link AbstractEntityManager#delete(Entity, boolean)} with {@code entity}, {@code
-   * fireDeleteEvent}.
-   *
-   * <p>Method under test: {@link AbstractEntityManager#delete(Entity, boolean)}
+   * Test {@link AbstractEntityManager#delete(Entity, boolean)} with {@code entity}, {@code fireDeleteEvent}.
+   * <p>
+   * Method under test: {@link AbstractEntityManager#delete(Entity, boolean)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void AbstractEntityManager.delete(Entity, boolean)"})
   public void testDeleteWithEntityFireDeleteEvent2() {
     // Arrange
-    ActivitiEventDispatcher eventDispatcher = mock(ActivitiEventDispatcher.class);
-    when(eventDispatcher.isEnabled()).thenReturn(false);
-
-    JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();
-    processEngineConfiguration.setEventDispatcher(eventDispatcher);
-
+    ActivitiEventDispatcher activitiEventDispatcher = mock(ActivitiEventDispatcher.class);
+    when(activitiEventDispatcher.isEnabled()).thenReturn(false);
+    ProcessEngineConfigurationImpl processEngineConfiguration = mock(ProcessEngineConfigurationImpl.class);
+    when(processEngineConfiguration.getEventDispatcher()).thenReturn(activitiEventDispatcher);
     AttachmentDataManager attachmentDataManager = mock(AttachmentDataManager.class);
     doNothing().when(attachmentDataManager).delete(Mockito.<AttachmentEntity>any());
-
-    AttachmentEntityManagerImpl attachmentEntityManagerImpl =
-        new AttachmentEntityManagerImpl(processEngineConfiguration, attachmentDataManager);
+    AttachmentEntityManagerImpl attachmentEntityManagerImpl = new AttachmentEntityManagerImpl(
+        processEngineConfiguration, attachmentDataManager);
 
     // Act
     attachmentEntityManagerImpl.delete(new AttachmentEntityImpl(), true);
 
     // Assert
-    verify(eventDispatcher).isEnabled();
+    verify(activitiEventDispatcher).isEnabled();
+    verify(processEngineConfiguration).getEventDispatcher();
     verify(attachmentDataManager).delete(isA(AttachmentEntity.class));
   }
 
   /**
-   * Test {@link AbstractEntityManager#delete(Entity, boolean)} with {@code entity}, {@code
-   * fireDeleteEvent}.
-   *
+   * Test {@link AbstractEntityManager#delete(Entity, boolean)} with {@code entity}, {@code fireDeleteEvent}.
    * <ul>
-   *   <li>Then calls {@link ActivitiEventDispatcher#dispatchEvent(ActivitiEvent)}.
+   *   <li>Then calls {@link ActivitiEventDispatcher#dispatchEvent(ActivitiEvent)}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link AbstractEntityManager#delete(Entity, boolean)}
+   * <p>
+   * Method under test: {@link AbstractEntityManager#delete(Entity, boolean)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void AbstractEntityManager.delete(Entity, boolean)"})
   public void testDeleteWithEntityFireDeleteEvent_thenCallsDispatchEvent() {
     // Arrange
-    ActivitiEventDispatcher eventDispatcher = mock(ActivitiEventDispatcher.class);
-    doNothing().when(eventDispatcher).dispatchEvent(Mockito.<ActivitiEvent>any());
-    when(eventDispatcher.isEnabled()).thenReturn(true);
-
-    JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();
-    processEngineConfiguration.setEventDispatcher(eventDispatcher);
-
+    ActivitiEventDispatcher activitiEventDispatcher = mock(ActivitiEventDispatcher.class);
+    doNothing().when(activitiEventDispatcher).dispatchEvent(Mockito.<ActivitiEvent>any());
+    when(activitiEventDispatcher.isEnabled()).thenReturn(true);
+    ProcessEngineConfigurationImpl processEngineConfiguration = mock(ProcessEngineConfigurationImpl.class);
+    when(processEngineConfiguration.getEventDispatcher()).thenReturn(activitiEventDispatcher);
     AttachmentDataManager attachmentDataManager = mock(AttachmentDataManager.class);
     doNothing().when(attachmentDataManager).delete(Mockito.<AttachmentEntity>any());
-
-    AttachmentEntityManagerImpl attachmentEntityManagerImpl =
-        new AttachmentEntityManagerImpl(processEngineConfiguration, attachmentDataManager);
+    AttachmentEntityManagerImpl attachmentEntityManagerImpl = new AttachmentEntityManagerImpl(
+        processEngineConfiguration, attachmentDataManager);
 
     // Act
     attachmentEntityManagerImpl.delete(new AttachmentEntityImpl(), true);
 
     // Assert
-    verify(eventDispatcher).dispatchEvent(isA(ActivitiEvent.class));
-    verify(eventDispatcher).isEnabled();
+    verify(activitiEventDispatcher).dispatchEvent(isA(ActivitiEvent.class));
+    verify(activitiEventDispatcher).isEnabled();
+    verify(processEngineConfiguration, atLeast(1)).getEventDispatcher();
     verify(attachmentDataManager).delete(isA(AttachmentEntity.class));
   }
 
   /**
-   * Test {@link AbstractEntityManager#delete(Entity, boolean)} with {@code entity}, {@code
-   * fireDeleteEvent}.
-   *
+   * Test {@link AbstractEntityManager#delete(Entity, boolean)} with {@code entity}, {@code fireDeleteEvent}.
    * <ul>
-   *   <li>When {@code false}.
-   *   <li>Then calls {@link AttachmentDataManager#delete(Entity)}.
+   *   <li>When {@code false}.</li>
+   *   <li>Then calls {@link DataManager#delete(Entity)}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link AbstractEntityManager#delete(Entity, boolean)}
+   * <p>
+   * Method under test: {@link AbstractEntityManager#delete(Entity, boolean)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void AbstractEntityManager.delete(Entity, boolean)"})
   public void testDeleteWithEntityFireDeleteEvent_whenFalse_thenCallsDelete() {
     // Arrange
-    JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();
-    processEngineConfiguration.setEventDispatcher(mock(ActivitiEventDispatcher.class));
-
     AttachmentDataManager attachmentDataManager = mock(AttachmentDataManager.class);
     doNothing().when(attachmentDataManager).delete(Mockito.<AttachmentEntity>any());
-
-    AttachmentEntityManagerImpl attachmentEntityManagerImpl =
-        new AttachmentEntityManagerImpl(processEngineConfiguration, attachmentDataManager);
+    AttachmentEntityManagerImpl attachmentEntityManagerImpl = new AttachmentEntityManagerImpl(
+        mock(ProcessEngineConfigurationImpl.class), attachmentDataManager);
 
     // Act
     attachmentEntityManagerImpl.delete(new AttachmentEntityImpl(), false);
@@ -774,320 +681,253 @@ public class AbstractEntityManagerDiffblueTest {
 
   /**
    * Test {@link AbstractEntityManager#delete(Entity)} with {@code entity}.
-   *
    * <ul>
-   *   <li>Given {@link ActivitiEventDispatcher} {@link ActivitiEventDispatcher#isEnabled()} return
-   *       {@code false}.
+   *   <li>Given {@link ActivitiEventDispatcher} {@link ActivitiEventDispatcher#isEnabled()} return {@code false}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link AbstractEntityManager#delete(Entity)}
+   * <p>
+   * Method under test: {@link AbstractEntityManager#delete(Entity)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void AbstractEntityManager.delete(Entity)"})
   public void testDeleteWithEntity_givenActivitiEventDispatcherIsEnabledReturnFalse() {
     // Arrange
-    ActivitiEventDispatcher eventDispatcher = mock(ActivitiEventDispatcher.class);
-    when(eventDispatcher.isEnabled()).thenReturn(false);
-
-    JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();
-    processEngineConfiguration.setEventDispatcher(eventDispatcher);
-
+    ActivitiEventDispatcher activitiEventDispatcher = mock(ActivitiEventDispatcher.class);
+    when(activitiEventDispatcher.isEnabled()).thenReturn(false);
+    ProcessEngineConfigurationImpl processEngineConfiguration = mock(ProcessEngineConfigurationImpl.class);
+    when(processEngineConfiguration.getEventDispatcher()).thenReturn(activitiEventDispatcher);
     AttachmentDataManager attachmentDataManager = mock(AttachmentDataManager.class);
     doNothing().when(attachmentDataManager).delete(Mockito.<AttachmentEntity>any());
-
-    AttachmentEntityManagerImpl attachmentEntityManagerImpl =
-        new AttachmentEntityManagerImpl(processEngineConfiguration, attachmentDataManager);
+    AttachmentEntityManagerImpl attachmentEntityManagerImpl = new AttachmentEntityManagerImpl(
+        processEngineConfiguration, attachmentDataManager);
 
     // Act
     attachmentEntityManagerImpl.delete(new AttachmentEntityImpl());
 
     // Assert
-    verify(eventDispatcher).isEnabled();
+    verify(activitiEventDispatcher).isEnabled();
+    verify(processEngineConfiguration).getEventDispatcher();
     verify(attachmentDataManager).delete(isA(AttachmentEntity.class));
   }
 
   /**
    * Test {@link AbstractEntityManager#delete(Entity)} with {@code entity}.
-   *
    * <ul>
-   *   <li>Then calls {@link ActivitiEventDispatcher#dispatchEvent(ActivitiEvent)}.
+   *   <li>Then calls {@link ActivitiEventDispatcher#dispatchEvent(ActivitiEvent)}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link AbstractEntityManager#delete(Entity)}
+   * <p>
+   * Method under test: {@link AbstractEntityManager#delete(Entity)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void AbstractEntityManager.delete(Entity)"})
   public void testDeleteWithEntity_thenCallsDispatchEvent() {
     // Arrange
-    ActivitiEventDispatcher eventDispatcher = mock(ActivitiEventDispatcher.class);
-    doNothing().when(eventDispatcher).dispatchEvent(Mockito.<ActivitiEvent>any());
-    when(eventDispatcher.isEnabled()).thenReturn(true);
-
-    JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();
-    processEngineConfiguration.setEventDispatcher(eventDispatcher);
-
+    ActivitiEventDispatcher activitiEventDispatcher = mock(ActivitiEventDispatcher.class);
+    doNothing().when(activitiEventDispatcher).dispatchEvent(Mockito.<ActivitiEvent>any());
+    when(activitiEventDispatcher.isEnabled()).thenReturn(true);
+    ProcessEngineConfigurationImpl processEngineConfiguration = mock(ProcessEngineConfigurationImpl.class);
+    when(processEngineConfiguration.getEventDispatcher()).thenReturn(activitiEventDispatcher);
     AttachmentDataManager attachmentDataManager = mock(AttachmentDataManager.class);
     doNothing().when(attachmentDataManager).delete(Mockito.<AttachmentEntity>any());
-
-    AttachmentEntityManagerImpl attachmentEntityManagerImpl =
-        new AttachmentEntityManagerImpl(processEngineConfiguration, attachmentDataManager);
+    AttachmentEntityManagerImpl attachmentEntityManagerImpl = new AttachmentEntityManagerImpl(
+        processEngineConfiguration, attachmentDataManager);
 
     // Act
     attachmentEntityManagerImpl.delete(new AttachmentEntityImpl());
 
     // Assert
-    verify(eventDispatcher).dispatchEvent(isA(ActivitiEvent.class));
-    verify(eventDispatcher).isEnabled();
+    verify(activitiEventDispatcher).dispatchEvent(isA(ActivitiEvent.class));
+    verify(activitiEventDispatcher).isEnabled();
+    verify(processEngineConfiguration, atLeast(1)).getEventDispatcher();
     verify(attachmentDataManager).delete(isA(AttachmentEntity.class));
   }
 
   /**
    * Test {@link AbstractEntityManager#delete(String)} with {@code id}.
-   *
-   * <p>Method under test: {@link AbstractEntityManager#delete(String)}
+   * <p>
+   * Method under test: {@link AbstractEntityManager#delete(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void AbstractEntityManager.delete(String)"})
   public void testDeleteWithId() {
     // Arrange
-    when(attachmentDataManager.findById(Mockito.<String>any()))
-        .thenReturn(new AttachmentEntityImpl());
+    when(processEngineConfigurationImpl.getEventDispatcher()).thenReturn(new ActivitiEventDispatcherImpl());
+    when(attachmentDataManager.findById(Mockito.<String>any())).thenReturn(new AttachmentEntityImpl());
     doNothing().when(attachmentDataManager).delete(Mockito.<AttachmentEntity>any());
-    when(processEngineConfigurationImpl.getEventDispatcher())
-        .thenReturn(new ActivitiEventDispatcherImpl());
 
     // Act
-    new AttachmentEntityManagerImpl(processEngineConfigurationImpl, attachmentDataManager)
-        .delete("42");
+    attachmentEntityManagerImpl.delete("42");
 
     // Assert
     verify(processEngineConfigurationImpl, atLeast(1)).getEventDispatcher();
     verify(attachmentDataManager).delete(isA(AttachmentEntity.class));
-    verify(attachmentDataManager).findById("42");
+    verify(attachmentDataManager).findById(eq("42"));
   }
 
   /**
    * Test {@link AbstractEntityManager#delete(String)} with {@code id}.
-   *
    * <ul>
-   *   <li>Given {@link ActivitiEventDispatcher} {@link ActivitiEventDispatcher#isEnabled()} return
-   *       {@code false}.
+   *   <li>Given {@link ActivitiEventDispatcher} {@link ActivitiEventDispatcher#isEnabled()} return {@code false}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link AbstractEntityManager#delete(String)}
+   * <p>
+   * Method under test: {@link AbstractEntityManager#delete(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void AbstractEntityManager.delete(String)"})
   public void testDeleteWithId_givenActivitiEventDispatcherIsEnabledReturnFalse() {
     // Arrange
-    when(attachmentDataManager.findById(Mockito.<String>any()))
-        .thenReturn(new AttachmentEntityImpl());
-    doNothing().when(attachmentDataManager).delete(Mockito.<AttachmentEntity>any());
-
     ActivitiEventDispatcher activitiEventDispatcher = mock(ActivitiEventDispatcher.class);
     when(activitiEventDispatcher.isEnabled()).thenReturn(false);
     when(processEngineConfigurationImpl.getEventDispatcher()).thenReturn(activitiEventDispatcher);
+    when(attachmentDataManager.findById(Mockito.<String>any())).thenReturn(new AttachmentEntityImpl());
+    doNothing().when(attachmentDataManager).delete(Mockito.<AttachmentEntity>any());
 
     // Act
-    new AttachmentEntityManagerImpl(processEngineConfigurationImpl, attachmentDataManager)
-        .delete("42");
+    attachmentEntityManagerImpl.delete("42");
 
     // Assert
     verify(activitiEventDispatcher).isEnabled();
     verify(processEngineConfigurationImpl).getEventDispatcher();
     verify(attachmentDataManager).delete(isA(AttachmentEntity.class));
-    verify(attachmentDataManager).findById("42");
+    verify(attachmentDataManager).findById(eq("42"));
   }
 
   /**
    * Test {@link AbstractEntityManager#delete(String)} with {@code id}.
-   *
    * <ul>
-   *   <li>Then calls {@link ActivitiEventDispatcher#dispatchEvent(ActivitiEvent)}.
+   *   <li>Then calls {@link ActivitiEventDispatcher#dispatchEvent(ActivitiEvent)}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link AbstractEntityManager#delete(String)}
+   * <p>
+   * Method under test: {@link AbstractEntityManager#delete(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void AbstractEntityManager.delete(String)"})
   public void testDeleteWithId_thenCallsDispatchEvent() {
     // Arrange
-    when(attachmentDataManager.findById(Mockito.<String>any()))
-        .thenReturn(new AttachmentEntityImpl());
-    doNothing().when(attachmentDataManager).delete(Mockito.<AttachmentEntity>any());
-
     ActivitiEventDispatcher activitiEventDispatcher = mock(ActivitiEventDispatcher.class);
     doNothing().when(activitiEventDispatcher).dispatchEvent(Mockito.<ActivitiEvent>any());
     when(activitiEventDispatcher.isEnabled()).thenReturn(true);
     when(processEngineConfigurationImpl.getEventDispatcher()).thenReturn(activitiEventDispatcher);
+    when(attachmentDataManager.findById(Mockito.<String>any())).thenReturn(new AttachmentEntityImpl());
+    doNothing().when(attachmentDataManager).delete(Mockito.<AttachmentEntity>any());
 
     // Act
-    new AttachmentEntityManagerImpl(processEngineConfigurationImpl, attachmentDataManager)
-        .delete("42");
+    attachmentEntityManagerImpl.delete("42");
 
     // Assert
     verify(activitiEventDispatcher).dispatchEvent(isA(ActivitiEvent.class));
     verify(activitiEventDispatcher).isEnabled();
     verify(processEngineConfigurationImpl, atLeast(1)).getEventDispatcher();
     verify(attachmentDataManager).delete(isA(AttachmentEntity.class));
-    verify(attachmentDataManager).findById("42");
+    verify(attachmentDataManager).findById(eq("42"));
   }
 
   /**
    * Test {@link AbstractEntityManager#isExecutionRelatedEntityCountEnabledGlobally()}.
-   *
    * <ul>
-   *   <li>Then return {@code false}.
+   *   <li>Then return {@code false}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link
-   * AbstractEntityManager#isExecutionRelatedEntityCountEnabledGlobally()}
+   * <p>
+   * Method under test: {@link AbstractEntityManager#isExecutionRelatedEntityCountEnabledGlobally()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "boolean AbstractEntityManager.isExecutionRelatedEntityCountEnabledGlobally()"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean AbstractEntityManager.isExecutionRelatedEntityCountEnabledGlobally()"})
   public void testIsExecutionRelatedEntityCountEnabledGlobally_thenReturnFalse() {
     // Arrange
     JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();
-    AttachmentEntityManagerImpl attachmentEntityManagerImpl =
-        new AttachmentEntityManagerImpl(
-            processEngineConfiguration,
-            new MybatisAttachmentDataManager(new JtaProcessEngineConfiguration()));
 
     // Act and Assert
-    assertFalse(attachmentEntityManagerImpl.isExecutionRelatedEntityCountEnabledGlobally());
+    assertFalse((new AttachmentEntityManagerImpl(processEngineConfiguration,
+        new MybatisAttachmentDataManager(new JtaProcessEngineConfiguration())))
+        .isExecutionRelatedEntityCountEnabledGlobally());
   }
 
   /**
    * Test {@link AbstractEntityManager#isExecutionRelatedEntityCountEnabledGlobally()}.
-   *
    * <ul>
-   *   <li>Then return {@code true}.
+   *   <li>Then return {@code true}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link
-   * AbstractEntityManager#isExecutionRelatedEntityCountEnabledGlobally()}
+   * <p>
+   * Method under test: {@link AbstractEntityManager#isExecutionRelatedEntityCountEnabledGlobally()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "boolean AbstractEntityManager.isExecutionRelatedEntityCountEnabledGlobally()"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean AbstractEntityManager.isExecutionRelatedEntityCountEnabledGlobally()"})
   public void testIsExecutionRelatedEntityCountEnabledGlobally_thenReturnTrue() {
     // Arrange
     JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();
     processEngineConfiguration.setEnableExecutionRelationshipCounts(true);
-    AttachmentEntityManagerImpl attachmentEntityManagerImpl =
-        new AttachmentEntityManagerImpl(
-            processEngineConfiguration,
-            new MybatisAttachmentDataManager(new JtaProcessEngineConfiguration()));
 
     // Act and Assert
-    assertTrue(attachmentEntityManagerImpl.isExecutionRelatedEntityCountEnabledGlobally());
+    assertTrue((new AttachmentEntityManagerImpl(processEngineConfiguration,
+        new MybatisAttachmentDataManager(new JtaProcessEngineConfiguration())))
+        .isExecutionRelatedEntityCountEnabledGlobally());
   }
 
   /**
-   * Test {@link
-   * AbstractEntityManager#isExecutionRelatedEntityCountEnabled(CountingExecutionEntity)} with
-   * {@code CountingExecutionEntity}.
-   *
-   * <p>Method under test: {@link
-   * AbstractEntityManager#isExecutionRelatedEntityCountEnabled(CountingExecutionEntity)}
+   * Test {@link AbstractEntityManager#isExecutionRelatedEntityCountEnabled(CountingExecutionEntity)} with {@code CountingExecutionEntity}.
+   * <p>
+   * Method under test: {@link AbstractEntityManager#isExecutionRelatedEntityCountEnabled(CountingExecutionEntity)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "boolean AbstractEntityManager.isExecutionRelatedEntityCountEnabled(CountingExecutionEntity)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean AbstractEntityManager.isExecutionRelatedEntityCountEnabled(CountingExecutionEntity)"})
   public void testIsExecutionRelatedEntityCountEnabledWithCountingExecutionEntity() {
     // Arrange
     JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();
-    AttachmentEntityManagerImpl attachmentEntityManagerImpl =
-        new AttachmentEntityManagerImpl(
-            processEngineConfiguration,
-            new MybatisAttachmentDataManager(new JtaProcessEngineConfiguration()));
+    AttachmentEntityManagerImpl attachmentEntityManagerImpl = new AttachmentEntityManagerImpl(
+        processEngineConfiguration, new MybatisAttachmentDataManager(new JtaProcessEngineConfiguration()));
 
     // Act and Assert
-    assertFalse(
-        attachmentEntityManagerImpl.isExecutionRelatedEntityCountEnabled(
-            (CountingExecutionEntity)
-                ExecutionEntityImpl.createWithEmptyRelationshipCollections()));
+    assertFalse(attachmentEntityManagerImpl.isExecutionRelatedEntityCountEnabled(
+        (CountingExecutionEntity) ExecutionEntityImpl.createWithEmptyRelationshipCollections()));
   }
 
   /**
-   * Test {@link
-   * AbstractEntityManager#isExecutionRelatedEntityCountEnabled(CountingExecutionEntity)} with
-   * {@code CountingExecutionEntity}.
-   *
-   * <p>Method under test: {@link
-   * AbstractEntityManager#isExecutionRelatedEntityCountEnabled(CountingExecutionEntity)}
+   * Test {@link AbstractEntityManager#isExecutionRelatedEntityCountEnabled(CountingExecutionEntity)} with {@code CountingExecutionEntity}.
+   * <p>
+   * Method under test: {@link AbstractEntityManager#isExecutionRelatedEntityCountEnabled(CountingExecutionEntity)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "boolean AbstractEntityManager.isExecutionRelatedEntityCountEnabled(CountingExecutionEntity)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean AbstractEntityManager.isExecutionRelatedEntityCountEnabled(CountingExecutionEntity)"})
   public void testIsExecutionRelatedEntityCountEnabledWithCountingExecutionEntity2() {
     // Arrange
     JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();
     processEngineConfiguration.setEnableExecutionRelationshipCounts(true);
-    AttachmentEntityManagerImpl attachmentEntityManagerImpl =
-        new AttachmentEntityManagerImpl(
-            processEngineConfiguration,
-            new MybatisAttachmentDataManager(new JtaProcessEngineConfiguration()));
+    AttachmentEntityManagerImpl attachmentEntityManagerImpl = new AttachmentEntityManagerImpl(
+        processEngineConfiguration, new MybatisAttachmentDataManager(new JtaProcessEngineConfiguration()));
 
     // Act and Assert
-    assertFalse(
-        attachmentEntityManagerImpl.isExecutionRelatedEntityCountEnabled(
-            (CountingExecutionEntity)
-                ExecutionEntityImpl.createWithEmptyRelationshipCollections()));
+    assertFalse(attachmentEntityManagerImpl.isExecutionRelatedEntityCountEnabled(
+        (CountingExecutionEntity) ExecutionEntityImpl.createWithEmptyRelationshipCollections()));
   }
 
   /**
-   * Test {@link
-   * AbstractEntityManager#isExecutionRelatedEntityCountEnabled(CountingExecutionEntity)} with
-   * {@code CountingExecutionEntity}.
-   *
-   * <p>Method under test: {@link
-   * AbstractEntityManager#isExecutionRelatedEntityCountEnabled(CountingExecutionEntity)}
+   * Test {@link AbstractEntityManager#isExecutionRelatedEntityCountEnabled(CountingExecutionEntity)} with {@code CountingExecutionEntity}.
+   * <p>
+   * Method under test: {@link AbstractEntityManager#isExecutionRelatedEntityCountEnabled(CountingExecutionEntity)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "boolean AbstractEntityManager.isExecutionRelatedEntityCountEnabled(CountingExecutionEntity)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean AbstractEntityManager.isExecutionRelatedEntityCountEnabled(CountingExecutionEntity)"})
   public void testIsExecutionRelatedEntityCountEnabledWithCountingExecutionEntity3() {
     // Arrange
     JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();
     processEngineConfiguration.setEnableExecutionRelationshipCounts(true);
-    AttachmentEntityManagerImpl attachmentEntityManagerImpl =
-        new AttachmentEntityManagerImpl(
-            processEngineConfiguration,
-            new MybatisAttachmentDataManager(new JtaProcessEngineConfiguration()));
-
+    AttachmentEntityManagerImpl attachmentEntityManagerImpl = new AttachmentEntityManagerImpl(
+        processEngineConfiguration, new MybatisAttachmentDataManager(new JtaProcessEngineConfiguration()));
     CountingExecutionEntity executionEntity = mock(CountingExecutionEntity.class);
     when(executionEntity.isCountEnabled()).thenReturn(true);
 
     // Act
-    boolean actualIsExecutionRelatedEntityCountEnabledResult =
-        attachmentEntityManagerImpl.isExecutionRelatedEntityCountEnabled(executionEntity);
+    boolean actualIsExecutionRelatedEntityCountEnabledResult = attachmentEntityManagerImpl
+        .isExecutionRelatedEntityCountEnabled(executionEntity);
 
     // Assert
     verify(executionEntity).isCountEnabled();
@@ -1095,132 +935,65 @@ public class AbstractEntityManagerDiffblueTest {
   }
 
   /**
-   * Test {@link AbstractEntityManager#isExecutionRelatedEntityCountEnabled(ExecutionEntity)} with
-   * {@code ExecutionEntity}.
-   *
-   * <ul>
-   *   <li>Then return {@code false}.
-   * </ul>
-   *
-   * <p>Method under test: {@link
-   * AbstractEntityManager#isExecutionRelatedEntityCountEnabled(ExecutionEntity)}
+   * Test {@link AbstractEntityManager#isExecutionRelatedEntityCountEnabled(ExecutionEntity)} with {@code ExecutionEntity}.
+   * <p>
+   * Method under test: {@link AbstractEntityManager#isExecutionRelatedEntityCountEnabled(ExecutionEntity)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "boolean AbstractEntityManager.isExecutionRelatedEntityCountEnabled(ExecutionEntity)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean AbstractEntityManager.isExecutionRelatedEntityCountEnabled(ExecutionEntity)"})
+  public void testIsExecutionRelatedEntityCountEnabledWithExecutionEntity() {
+    // Arrange
+    JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();
+    processEngineConfiguration.setEnableExecutionRelationshipCounts(true);
+    AttachmentEntityManagerImpl attachmentEntityManagerImpl = new AttachmentEntityManagerImpl(
+        processEngineConfiguration, new MybatisAttachmentDataManager(new JtaProcessEngineConfiguration()));
+
+    // Act and Assert
+    assertFalse(attachmentEntityManagerImpl.isExecutionRelatedEntityCountEnabled(
+        (ExecutionEntity) ExecutionEntityImpl.createWithEmptyRelationshipCollections()));
+  }
+
+  /**
+   * Test {@link AbstractEntityManager#isExecutionRelatedEntityCountEnabled(ExecutionEntity)} with {@code ExecutionEntity}.
+   * <ul>
+   *   <li>Then return {@code false}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link AbstractEntityManager#isExecutionRelatedEntityCountEnabled(ExecutionEntity)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean AbstractEntityManager.isExecutionRelatedEntityCountEnabled(ExecutionEntity)"})
   public void testIsExecutionRelatedEntityCountEnabledWithExecutionEntity_thenReturnFalse() {
     // Arrange
     JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();
-    AttachmentEntityManagerImpl attachmentEntityManagerImpl =
-        new AttachmentEntityManagerImpl(
-            processEngineConfiguration,
-            new MybatisAttachmentDataManager(new JtaProcessEngineConfiguration()));
+    AttachmentEntityManagerImpl attachmentEntityManagerImpl = new AttachmentEntityManagerImpl(
+        processEngineConfiguration, new MybatisAttachmentDataManager(new JtaProcessEngineConfiguration()));
 
     // Act and Assert
-    assertFalse(
-        attachmentEntityManagerImpl.isExecutionRelatedEntityCountEnabled(
-            (ExecutionEntity) ExecutionEntityImpl.createWithEmptyRelationshipCollections()));
+    assertFalse(attachmentEntityManagerImpl.isExecutionRelatedEntityCountEnabled(
+        (ExecutionEntity) ExecutionEntityImpl.createWithEmptyRelationshipCollections()));
   }
 
   /**
-   * Test {@link AbstractEntityManager#isExecutionRelatedEntityCountEnabled(ExecutionEntity)} with
-   * {@code ExecutionEntity}.
-   *
+   * Test {@link AbstractEntityManager#isExecutionRelatedEntityCountEnabled(ExecutionEntity)} with {@code ExecutionEntity}.
    * <ul>
-   *   <li>Then return {@code false}.
+   *   <li>When {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link
-   * AbstractEntityManager#isExecutionRelatedEntityCountEnabled(ExecutionEntity)}
+   * <p>
+   * Method under test: {@link AbstractEntityManager#isExecutionRelatedEntityCountEnabled(ExecutionEntity)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "boolean AbstractEntityManager.isExecutionRelatedEntityCountEnabled(ExecutionEntity)"
-  })
-  public void testIsExecutionRelatedEntityCountEnabledWithExecutionEntity_thenReturnFalse2() {
-    // Arrange
-    JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();
-    processEngineConfiguration.setEnableExecutionRelationshipCounts(true);
-    AttachmentEntityManagerImpl attachmentEntityManagerImpl =
-        new AttachmentEntityManagerImpl(
-            processEngineConfiguration,
-            new MybatisAttachmentDataManager(new JtaProcessEngineConfiguration()));
-
-    // Act and Assert
-    assertFalse(
-        attachmentEntityManagerImpl.isExecutionRelatedEntityCountEnabled(
-            (ExecutionEntity) ExecutionEntityImpl.createWithEmptyRelationshipCollections()));
-  }
-
-  /**
-   * Test {@link AbstractEntityManager#isExecutionRelatedEntityCountEnabled(ExecutionEntity)} with
-   * {@code ExecutionEntity}.
-   *
-   * <ul>
-   *   <li>Then return {@code true}.
-   * </ul>
-   *
-   * <p>Method under test: {@link
-   * AbstractEntityManager#isExecutionRelatedEntityCountEnabled(ExecutionEntity)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "boolean AbstractEntityManager.isExecutionRelatedEntityCountEnabled(ExecutionEntity)"
-  })
-  public void testIsExecutionRelatedEntityCountEnabledWithExecutionEntity_thenReturnTrue() {
-    // Arrange
-    JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();
-    processEngineConfiguration.setEnableExecutionRelationshipCounts(true);
-    AttachmentEntityManagerImpl attachmentEntityManagerImpl =
-        new AttachmentEntityManagerImpl(
-            processEngineConfiguration,
-            new MybatisAttachmentDataManager(new JtaProcessEngineConfiguration()));
-
-    ExecutionEntityImpl executionEntity =
-        ExecutionEntityImpl.createWithEmptyRelationshipCollections();
-    executionEntity.setCountEnabled(true);
-
-    // Act and Assert
-    assertTrue(
-        attachmentEntityManagerImpl.isExecutionRelatedEntityCountEnabled(
-            (ExecutionEntity) executionEntity));
-  }
-
-  /**
-   * Test {@link AbstractEntityManager#isExecutionRelatedEntityCountEnabled(ExecutionEntity)} with
-   * {@code ExecutionEntity}.
-   *
-   * <ul>
-   *   <li>When {@code null}.
-   * </ul>
-   *
-   * <p>Method under test: {@link
-   * AbstractEntityManager#isExecutionRelatedEntityCountEnabled(ExecutionEntity)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "boolean AbstractEntityManager.isExecutionRelatedEntityCountEnabled(ExecutionEntity)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean AbstractEntityManager.isExecutionRelatedEntityCountEnabled(ExecutionEntity)"})
   public void testIsExecutionRelatedEntityCountEnabledWithExecutionEntity_whenNull() {
     // Arrange
     JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();
-    processEngineConfiguration.setEnableExecutionRelationshipCounts(true);
-    AttachmentEntityManagerImpl attachmentEntityManagerImpl =
-        new AttachmentEntityManagerImpl(
-            processEngineConfiguration,
-            new MybatisAttachmentDataManager(new JtaProcessEngineConfiguration()));
 
     // Act and Assert
-    assertFalse(
-        attachmentEntityManagerImpl.isExecutionRelatedEntityCountEnabled((ExecutionEntity) null));
+    assertFalse((new AttachmentEntityManagerImpl(processEngineConfiguration,
+        new MybatisAttachmentDataManager(new JtaProcessEngineConfiguration())))
+        .isExecutionRelatedEntityCountEnabled((ExecutionEntity) null));
   }
 }

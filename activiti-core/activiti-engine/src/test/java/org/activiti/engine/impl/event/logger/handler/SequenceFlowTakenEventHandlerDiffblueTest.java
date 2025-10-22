@@ -16,8 +16,7 @@
 package org.activiti.engine.impl.event.logger.handler;
 
 import static org.junit.Assert.assertNull;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
@@ -25,18 +24,15 @@ import org.junit.experimental.categories.Category;
 public class SequenceFlowTakenEventHandlerDiffblueTest {
   /**
    * Test new {@link SequenceFlowTakenEventHandler} (default constructor).
-   *
-   * <p>Method under test: default or parameterless constructor of {@link
-   * SequenceFlowTakenEventHandler}
+   * <p>
+   * Method under test: default or parameterless constructor of {@link SequenceFlowTakenEventHandler}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void SequenceFlowTakenEventHandler.<init>()"})
   public void testNewSequenceFlowTakenEventHandler() {
     // Arrange and Act
-    SequenceFlowTakenEventHandler actualSequenceFlowTakenEventHandler =
-        new SequenceFlowTakenEventHandler();
+    SequenceFlowTakenEventHandler actualSequenceFlowTakenEventHandler = new SequenceFlowTakenEventHandler();
 
     // Assert
     assertNull(actualSequenceFlowTakenEventHandler.objectMapper);

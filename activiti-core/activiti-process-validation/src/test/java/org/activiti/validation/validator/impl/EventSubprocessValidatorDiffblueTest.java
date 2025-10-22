@@ -21,20 +21,17 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.isA;
 import static org.mockito.ArgumentMatchers.isNull;
-import static org.mockito.Mockito.atLeast;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
-import org.activiti.bpmn.model.AdhocSubProcess;
 import org.activiti.bpmn.model.BpmnModel;
 import org.activiti.bpmn.model.CancelEventDefinition;
 import org.activiti.bpmn.model.ErrorEventDefinition;
-import org.activiti.bpmn.model.EventDefinition;
 import org.activiti.bpmn.model.EventSubProcess;
 import org.activiti.bpmn.model.MessageEventDefinition;
 import org.activiti.bpmn.model.Process;
@@ -52,23 +49,14 @@ import org.mockito.Mockito;
 class EventSubprocessValidatorDiffblueTest {
   /**
    * Test {@link EventSubprocessValidator#executeValidation(BpmnModel, Process, List)}.
-   *
-   * <ul>
-   *   <li>Given {@link ArrayList#ArrayList()} add {@link ErrorEventDefinition} (default
-   *       constructor).
-   *   <li>Then {@link ArrayList#ArrayList()} Empty.
-   * </ul>
-   *
-   * <p>Method under test: {@link EventSubprocessValidator#executeValidation(BpmnModel, Process,
-   * List)}
+   * <p>
+   * Method under test: {@link EventSubprocessValidator#executeValidation(BpmnModel, Process, List)}
    */
   @Test
-  @DisplayName(
-      "Test executeValidation(BpmnModel, Process, List); given ArrayList() add ErrorEventDefinition (default constructor); then ArrayList() Empty")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test executeValidation(BpmnModel, Process, List)")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void EventSubprocessValidator.executeValidation(BpmnModel, Process, List)"})
-  void testExecuteValidation_givenArrayListAddErrorEventDefinition_thenArrayListEmpty() {
+  void testExecuteValidation() {
     // Arrange
     EventSubprocessValidator eventSubprocessValidator = new EventSubprocessValidator();
     BpmnModel bpmnModel = new BpmnModel();
@@ -76,165 +64,59 @@ class EventSubprocessValidatorDiffblueTest {
     ArrayList<EventSubProcess> eventSubProcessList = new ArrayList<>();
     eventSubProcessList.add(new EventSubProcess());
 
-    ArrayList<EventDefinition> eventDefinitions = new ArrayList<>();
-    eventDefinitions.add(new ErrorEventDefinition());
-
     StartEvent startEvent = new StartEvent();
-    startEvent.setEventDefinitions(eventDefinitions);
+    startEvent.addEventDefinition(new CancelEventDefinition());
 
     ArrayList<StartEvent> startEventList = new ArrayList<>();
     startEventList.add(startEvent);
-
     Process process = mock(Process.class);
-    when(process.findFlowElementsInSubProcessOfType(
-            Mockito.<SubProcess>any(), Mockito.<Class<StartEvent>>any()))
+    when(process.getId()).thenReturn("42");
+    when(process.getName()).thenReturn("Name");
+    when(process.findFlowElementsInSubProcessOfType(Mockito.<SubProcess>any(), Mockito.<Class<StartEvent>>any()))
         .thenReturn(startEventList);
-    when(process.findFlowElementsOfType(Mockito.<Class<EventSubProcess>>any()))
-        .thenReturn(eventSubProcessList);
+    when(process.findFlowElementsOfType(Mockito.<Class<EventSubProcess>>any())).thenReturn(eventSubProcessList);
     ArrayList<ValidationError> errors = new ArrayList<>();
 
     // Act
     eventSubprocessValidator.executeValidation(bpmnModel, process, errors);
 
-    // Assert that nothing has changed
+    // Assert
+    verify(process).getId();
     verify(process).findFlowElementsInSubProcessOfType(isA(SubProcess.class), isA(Class.class));
     verify(process).findFlowElementsOfType(isA(Class.class));
+    verify(process).getName();
     Collection<Resource> resources = bpmnModel.getResources();
     assertTrue(resources instanceof List);
     Collection<Signal> signals = bpmnModel.getSignals();
     assertTrue(signals instanceof List);
-    assertTrue(errors.isEmpty());
+    assertEquals(1, errors.size());
+    ValidationError getResult = errors.get(0);
+    assertEquals("42", getResult.getProcessDefinitionId());
+    assertEquals("EVENT_SUBPROCESS_INVALID_START_EVENT_DEFINITION", getResult.getDefaultDescription());
+    assertEquals("EVENT_SUBPROCESS_INVALID_START_EVENT_DEFINITION", getResult.getKey());
+    assertEquals("EVENT_SUBPROCESS_INVALID_START_EVENT_DEFINITION", getResult.getProblem());
+    assertEquals("Name", getResult.getProcessDefinitionName());
+    assertNull(getResult.getActivityId());
+    assertNull(getResult.getActivityName());
+    assertNull(getResult.getValidatorSetName());
+    assertEquals(0, getResult.getXmlColumnNumber());
+    assertEquals(0, getResult.getXmlLineNumber());
+    assertFalse(getResult.isWarning());
     assertTrue(resources.isEmpty());
     assertTrue(signals.isEmpty());
+    assertTrue(getResult.getParams().isEmpty());
   }
 
   /**
    * Test {@link EventSubprocessValidator#executeValidation(BpmnModel, Process, List)}.
-   *
-   * <ul>
-   *   <li>Given {@link ArrayList#ArrayList()} add {@link EventSubProcess} (default constructor).
-   *   <li>Then {@link ArrayList#ArrayList()} Empty.
-   * </ul>
-   *
-   * <p>Method under test: {@link EventSubprocessValidator#executeValidation(BpmnModel, Process,
-   * List)}
+   * <p>
+   * Method under test: {@link EventSubprocessValidator#executeValidation(BpmnModel, Process, List)}
    */
   @Test
-  @DisplayName(
-      "Test executeValidation(BpmnModel, Process, List); given ArrayList() add EventSubProcess (default constructor); then ArrayList() Empty")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test executeValidation(BpmnModel, Process, List)")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void EventSubprocessValidator.executeValidation(BpmnModel, Process, List)"})
-  void testExecuteValidation_givenArrayListAddEventSubProcess_thenArrayListEmpty() {
-    // Arrange
-    EventSubprocessValidator eventSubprocessValidator = new EventSubprocessValidator();
-    BpmnModel bpmnModel = new BpmnModel();
-
-    ArrayList<EventSubProcess> eventSubProcessList = new ArrayList<>();
-    eventSubProcessList.add(new EventSubProcess());
-
-    ArrayList<StartEvent> startEventList = new ArrayList<>();
-    startEventList.add(new StartEvent());
-
-    Process process = mock(Process.class);
-    when(process.findFlowElementsInSubProcessOfType(
-            Mockito.<SubProcess>any(), Mockito.<Class<StartEvent>>any()))
-        .thenReturn(startEventList);
-    when(process.findFlowElementsOfType(Mockito.<Class<EventSubProcess>>any()))
-        .thenReturn(eventSubProcessList);
-    ArrayList<ValidationError> errors = new ArrayList<>();
-
-    // Act
-    eventSubprocessValidator.executeValidation(bpmnModel, process, errors);
-
-    // Assert that nothing has changed
-    verify(process).findFlowElementsInSubProcessOfType(isA(SubProcess.class), isA(Class.class));
-    verify(process).findFlowElementsOfType(isA(Class.class));
-    Collection<Resource> resources = bpmnModel.getResources();
-    assertTrue(resources instanceof List);
-    Collection<Signal> signals = bpmnModel.getSignals();
-    assertTrue(signals instanceof List);
-    assertTrue(errors.isEmpty());
-    assertTrue(resources.isEmpty());
-    assertTrue(signals.isEmpty());
-  }
-
-  /**
-   * Test {@link EventSubprocessValidator#executeValidation(BpmnModel, Process, List)}.
-   *
-   * <ul>
-   *   <li>Given {@link ArrayList#ArrayList()} add {@link MessageEventDefinition} (default
-   *       constructor).
-   *   <li>Then {@link ArrayList#ArrayList()} Empty.
-   * </ul>
-   *
-   * <p>Method under test: {@link EventSubprocessValidator#executeValidation(BpmnModel, Process,
-   * List)}
-   */
-  @Test
-  @DisplayName(
-      "Test executeValidation(BpmnModel, Process, List); given ArrayList() add MessageEventDefinition (default constructor); then ArrayList() Empty")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void EventSubprocessValidator.executeValidation(BpmnModel, Process, List)"})
-  void testExecuteValidation_givenArrayListAddMessageEventDefinition_thenArrayListEmpty() {
-    // Arrange
-    EventSubprocessValidator eventSubprocessValidator = new EventSubprocessValidator();
-    BpmnModel bpmnModel = new BpmnModel();
-
-    ArrayList<EventSubProcess> eventSubProcessList = new ArrayList<>();
-    eventSubProcessList.add(new EventSubProcess());
-
-    ArrayList<EventDefinition> eventDefinitions = new ArrayList<>();
-    eventDefinitions.add(new MessageEventDefinition());
-
-    StartEvent startEvent = new StartEvent();
-    startEvent.setEventDefinitions(eventDefinitions);
-
-    ArrayList<StartEvent> startEventList = new ArrayList<>();
-    startEventList.add(startEvent);
-
-    Process process = mock(Process.class);
-    when(process.findFlowElementsInSubProcessOfType(
-            Mockito.<SubProcess>any(), Mockito.<Class<StartEvent>>any()))
-        .thenReturn(startEventList);
-    when(process.findFlowElementsOfType(Mockito.<Class<EventSubProcess>>any()))
-        .thenReturn(eventSubProcessList);
-    ArrayList<ValidationError> errors = new ArrayList<>();
-
-    // Act
-    eventSubprocessValidator.executeValidation(bpmnModel, process, errors);
-
-    // Assert that nothing has changed
-    verify(process).findFlowElementsInSubProcessOfType(isA(SubProcess.class), isA(Class.class));
-    verify(process).findFlowElementsOfType(isA(Class.class));
-    Collection<Resource> resources = bpmnModel.getResources();
-    assertTrue(resources instanceof List);
-    Collection<Signal> signals = bpmnModel.getSignals();
-    assertTrue(signals instanceof List);
-    assertTrue(errors.isEmpty());
-    assertTrue(resources.isEmpty());
-    assertTrue(signals.isEmpty());
-  }
-
-  /**
-   * Test {@link EventSubprocessValidator#executeValidation(BpmnModel, Process, List)}.
-   *
-   * <ul>
-   *   <li>Given {@link ArrayList#ArrayList()} add {@code null}.
-   *   <li>Then {@link ArrayList#ArrayList()} size is one.
-   * </ul>
-   *
-   * <p>Method under test: {@link EventSubprocessValidator#executeValidation(BpmnModel, Process,
-   * List)}
-   */
-  @Test
-  @DisplayName(
-      "Test executeValidation(BpmnModel, Process, List); given ArrayList() add 'null'; then ArrayList() size is one")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void EventSubprocessValidator.executeValidation(BpmnModel, Process, List)"})
-  void testExecuteValidation_givenArrayListAddNull_thenArrayListSizeIsOne() {
+  void testExecuteValidation2() {
     // Arrange
     EventSubprocessValidator eventSubprocessValidator = new EventSubprocessValidator();
     BpmnModel bpmnModel = new BpmnModel();
@@ -242,23 +124,17 @@ class EventSubprocessValidatorDiffblueTest {
     ArrayList<EventSubProcess> eventSubProcessList = new ArrayList<>();
     eventSubProcessList.add(null);
 
-    ArrayList<EventDefinition> eventDefinitions = new ArrayList<>();
-    eventDefinitions.add(new CancelEventDefinition());
-
     StartEvent startEvent = new StartEvent();
-    startEvent.setEventDefinitions(eventDefinitions);
+    startEvent.addEventDefinition(new CancelEventDefinition());
 
     ArrayList<StartEvent> startEventList = new ArrayList<>();
     startEventList.add(startEvent);
-
     Process process = mock(Process.class);
     when(process.getId()).thenReturn("42");
     when(process.getName()).thenReturn("Name");
-    when(process.findFlowElementsInSubProcessOfType(
-            Mockito.<SubProcess>any(), Mockito.<Class<StartEvent>>any()))
+    when(process.findFlowElementsInSubProcessOfType(Mockito.<SubProcess>any(), Mockito.<Class<StartEvent>>any()))
         .thenReturn(startEventList);
-    when(process.findFlowElementsOfType(Mockito.<Class<EventSubProcess>>any()))
-        .thenReturn(eventSubProcessList);
+    when(process.findFlowElementsOfType(Mockito.<Class<EventSubProcess>>any())).thenReturn(eventSubProcessList);
     ArrayList<ValidationError> errors = new ArrayList<>();
 
     // Act
@@ -276,8 +152,7 @@ class EventSubprocessValidatorDiffblueTest {
     assertEquals(1, errors.size());
     ValidationError getResult = errors.get(0);
     assertEquals("42", getResult.getProcessDefinitionId());
-    assertEquals(
-        "EVENT_SUBPROCESS_INVALID_START_EVENT_DEFINITION", getResult.getDefaultDescription());
+    assertEquals("EVENT_SUBPROCESS_INVALID_START_EVENT_DEFINITION", getResult.getDefaultDescription());
     assertEquals("EVENT_SUBPROCESS_INVALID_START_EVENT_DEFINITION", getResult.getKey());
     assertEquals("EVENT_SUBPROCESS_INVALID_START_EVENT_DEFINITION", getResult.getProblem());
     assertEquals("Name", getResult.getProcessDefinitionName());
@@ -294,23 +169,18 @@ class EventSubprocessValidatorDiffblueTest {
 
   /**
    * Test {@link EventSubprocessValidator#executeValidation(BpmnModel, Process, List)}.
-   *
    * <ul>
-   *   <li>Given {@link ArrayList#ArrayList()} add {@link SignalEventDefinition} (default
-   *       constructor).
-   *   <li>Then {@link ArrayList#ArrayList()} Empty.
+   *   <li>Given {@link ArrayList#ArrayList()} add {@link StartEvent} (default constructor).</li>
+   *   <li>Then {@link ArrayList#ArrayList()} Empty.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link EventSubprocessValidator#executeValidation(BpmnModel, Process,
-   * List)}
+   * <p>
+   * Method under test: {@link EventSubprocessValidator#executeValidation(BpmnModel, Process, List)}
    */
   @Test
-  @DisplayName(
-      "Test executeValidation(BpmnModel, Process, List); given ArrayList() add SignalEventDefinition (default constructor); then ArrayList() Empty")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test executeValidation(BpmnModel, Process, List); given ArrayList() add StartEvent (default constructor); then ArrayList() Empty")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void EventSubprocessValidator.executeValidation(BpmnModel, Process, List)"})
-  void testExecuteValidation_givenArrayListAddSignalEventDefinition_thenArrayListEmpty() {
+  void testExecuteValidation_givenArrayListAddStartEvent_thenArrayListEmpty() {
     // Arrange
     EventSubprocessValidator eventSubprocessValidator = new EventSubprocessValidator();
     BpmnModel bpmnModel = new BpmnModel();
@@ -318,21 +188,12 @@ class EventSubprocessValidatorDiffblueTest {
     ArrayList<EventSubProcess> eventSubProcessList = new ArrayList<>();
     eventSubProcessList.add(new EventSubProcess());
 
-    ArrayList<EventDefinition> eventDefinitions = new ArrayList<>();
-    eventDefinitions.add(new SignalEventDefinition());
-
-    StartEvent startEvent = new StartEvent();
-    startEvent.setEventDefinitions(eventDefinitions);
-
     ArrayList<StartEvent> startEventList = new ArrayList<>();
-    startEventList.add(startEvent);
-
+    startEventList.add(new StartEvent());
     Process process = mock(Process.class);
-    when(process.findFlowElementsInSubProcessOfType(
-            Mockito.<SubProcess>any(), Mockito.<Class<StartEvent>>any()))
+    when(process.findFlowElementsInSubProcessOfType(Mockito.<SubProcess>any(), Mockito.<Class<StartEvent>>any()))
         .thenReturn(startEventList);
-    when(process.findFlowElementsOfType(Mockito.<Class<EventSubProcess>>any()))
-        .thenReturn(eventSubProcessList);
+    when(process.findFlowElementsOfType(Mockito.<Class<EventSubProcess>>any())).thenReturn(eventSubProcessList);
     ArrayList<ValidationError> errors = new ArrayList<>();
 
     // Act
@@ -352,82 +213,63 @@ class EventSubprocessValidatorDiffblueTest {
 
   /**
    * Test {@link EventSubprocessValidator#executeValidation(BpmnModel, Process, List)}.
-   *
    * <ul>
-   *   <li>Given {@link ArrayList#ArrayList()}.
-   *   <li>Then {@link ArrayList#ArrayList()} Empty.
+   *   <li>Given {@link ArrayList#ArrayList()}.</li>
+   *   <li>Then {@link ArrayList#ArrayList()} Empty.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link EventSubprocessValidator#executeValidation(BpmnModel, Process,
-   * List)}
+   * <p>
+   * Method under test: {@link EventSubprocessValidator#executeValidation(BpmnModel, Process, List)}
    */
   @Test
-  @DisplayName(
-      "Test executeValidation(BpmnModel, Process, List); given ArrayList(); then ArrayList() Empty")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test executeValidation(BpmnModel, Process, List); given ArrayList(); then ArrayList() Empty")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void EventSubprocessValidator.executeValidation(BpmnModel, Process, List)"})
   void testExecuteValidation_givenArrayList_thenArrayListEmpty() {
     // Arrange
     EventSubprocessValidator eventSubprocessValidator = new EventSubprocessValidator();
     BpmnModel bpmnModel = new BpmnModel();
-
     Process process = mock(Process.class);
-    when(process.findFlowElementsOfType(Mockito.<Class<EventSubProcess>>any()))
+    when(process.findFlowElementsOfType(Mockito.<Class<EventSubProcess>>any())).thenReturn(new ArrayList<>());
+    ArrayList<ValidationError> errors = new ArrayList<>();
+
+    // Act
+    eventSubprocessValidator.executeValidation(bpmnModel, process, errors);
+
+    // Assert that nothing has changed
+    verify(process).findFlowElementsOfType(isA(Class.class));
+    Collection<Resource> resources = bpmnModel.getResources();
+    assertTrue(resources instanceof List);
+    Collection<Signal> signals = bpmnModel.getSignals();
+    assertTrue(signals instanceof List);
+    assertTrue(errors.isEmpty());
+    assertTrue(resources.isEmpty());
+    assertTrue(signals.isEmpty());
+  }
+
+  /**
+   * Test {@link EventSubprocessValidator#executeValidation(BpmnModel, Process, List)}.
+   * <ul>
+   *   <li>Given {@link ArrayList#ArrayList()}.</li>
+   *   <li>Then {@link ArrayList#ArrayList()} Empty.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link EventSubprocessValidator#executeValidation(BpmnModel, Process, List)}
+   */
+  @Test
+  @DisplayName("Test executeValidation(BpmnModel, Process, List); given ArrayList(); then ArrayList() Empty")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void EventSubprocessValidator.executeValidation(BpmnModel, Process, List)"})
+  void testExecuteValidation_givenArrayList_thenArrayListEmpty2() {
+    // Arrange
+    EventSubprocessValidator eventSubprocessValidator = new EventSubprocessValidator();
+    BpmnModel bpmnModel = new BpmnModel();
+
+    ArrayList<EventSubProcess> eventSubProcessList = new ArrayList<>();
+    eventSubProcessList.add(new EventSubProcess());
+    Process process = mock(Process.class);
+    when(process.findFlowElementsInSubProcessOfType(Mockito.<SubProcess>any(), Mockito.<Class<StartEvent>>any()))
         .thenReturn(new ArrayList<>());
-    ArrayList<ValidationError> errors = new ArrayList<>();
-
-    // Act
-    eventSubprocessValidator.executeValidation(bpmnModel, process, errors);
-
-    // Assert that nothing has changed
-    verify(process).findFlowElementsOfType(isA(Class.class));
-    Collection<Resource> resources = bpmnModel.getResources();
-    assertTrue(resources instanceof List);
-    Collection<Signal> signals = bpmnModel.getSignals();
-    assertTrue(signals instanceof List);
-    assertTrue(errors.isEmpty());
-    assertTrue(resources.isEmpty());
-    assertTrue(signals.isEmpty());
-  }
-
-  /**
-   * Test {@link EventSubprocessValidator#executeValidation(BpmnModel, Process, List)}.
-   *
-   * <ul>
-   *   <li>Given {@link StartEvent} (default constructor) EventDefinitions is {@code null}.
-   *   <li>Then {@link ArrayList#ArrayList()} Empty.
-   * </ul>
-   *
-   * <p>Method under test: {@link EventSubprocessValidator#executeValidation(BpmnModel, Process,
-   * List)}
-   */
-  @Test
-  @DisplayName(
-      "Test executeValidation(BpmnModel, Process, List); given StartEvent (default constructor) EventDefinitions is 'null'; then ArrayList() Empty")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void EventSubprocessValidator.executeValidation(BpmnModel, Process, List)"})
-  void testExecuteValidation_givenStartEventEventDefinitionsIsNull_thenArrayListEmpty() {
-    // Arrange
-    EventSubprocessValidator eventSubprocessValidator = new EventSubprocessValidator();
-    BpmnModel bpmnModel = new BpmnModel();
-
-    ArrayList<EventSubProcess> eventSubProcessList = new ArrayList<>();
-    eventSubProcessList.add(new EventSubProcess());
-
-    StartEvent startEvent = new StartEvent();
-    startEvent.setEventDefinitions(null);
-
-    ArrayList<StartEvent> startEventList = new ArrayList<>();
-    startEventList.add(startEvent);
-
-    Process process = mock(Process.class);
-    when(process.findFlowElementsInSubProcessOfType(
-            Mockito.<SubProcess>any(), Mockito.<Class<StartEvent>>any()))
-        .thenReturn(startEventList);
-    when(process.findFlowElementsOfType(Mockito.<Class<EventSubProcess>>any()))
-        .thenReturn(eventSubProcessList);
+    when(process.findFlowElementsOfType(Mockito.<Class<EventSubProcess>>any())).thenReturn(eventSubProcessList);
     ArrayList<ValidationError> errors = new ArrayList<>();
 
     // Act
@@ -447,43 +289,41 @@ class EventSubprocessValidatorDiffblueTest {
 
   /**
    * Test {@link EventSubprocessValidator#executeValidation(BpmnModel, Process, List)}.
-   *
    * <ul>
-   *   <li>Given {@link SubProcess} (default constructor) addFlowElement {@link AdhocSubProcess}
-   *       (default constructor).
+   *   <li>Given {@link StartEvent} (default constructor) addEventDefinition {@link ErrorEventDefinition} (default constructor).</li>
    * </ul>
-   *
-   * <p>Method under test: {@link EventSubprocessValidator#executeValidation(BpmnModel, Process,
-   * List)}
+   * <p>
+   * Method under test: {@link EventSubprocessValidator#executeValidation(BpmnModel, Process, List)}
    */
   @Test
-  @DisplayName(
-      "Test executeValidation(BpmnModel, Process, List); given SubProcess (default constructor) addFlowElement AdhocSubProcess (default constructor)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test executeValidation(BpmnModel, Process, List); given StartEvent (default constructor) addEventDefinition ErrorEventDefinition (default constructor)")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void EventSubprocessValidator.executeValidation(BpmnModel, Process, List)"})
-  void testExecuteValidation_givenSubProcessAddFlowElementAdhocSubProcess() {
+  void testExecuteValidation_givenStartEventAddEventDefinitionErrorEventDefinition() {
     // Arrange
     EventSubprocessValidator eventSubprocessValidator = new EventSubprocessValidator();
     BpmnModel bpmnModel = new BpmnModel();
 
-    SubProcess element = new SubProcess();
-    element.addFlowElement(new AdhocSubProcess());
+    ArrayList<EventSubProcess> eventSubProcessList = new ArrayList<>();
+    eventSubProcessList.add(new EventSubProcess());
 
-    SubProcess element2 = new SubProcess();
-    element2.addFlowElement(element);
+    StartEvent startEvent = new StartEvent();
+    startEvent.addEventDefinition(new ErrorEventDefinition());
 
-    SubProcess element3 = new SubProcess();
-    element3.addFlowElement(element2);
-
-    Process process = new Process();
-    process.addFlowElement(element3);
+    ArrayList<StartEvent> startEventList = new ArrayList<>();
+    startEventList.add(startEvent);
+    Process process = mock(Process.class);
+    when(process.findFlowElementsInSubProcessOfType(Mockito.<SubProcess>any(), Mockito.<Class<StartEvent>>any()))
+        .thenReturn(startEventList);
+    when(process.findFlowElementsOfType(Mockito.<Class<EventSubProcess>>any())).thenReturn(eventSubProcessList);
     ArrayList<ValidationError> errors = new ArrayList<>();
 
     // Act
     eventSubprocessValidator.executeValidation(bpmnModel, process, errors);
 
     // Assert that nothing has changed
+    verify(process).findFlowElementsInSubProcessOfType(isA(SubProcess.class), isA(Class.class));
+    verify(process).findFlowElementsOfType(isA(Class.class));
     Collection<Resource> resources = bpmnModel.getResources();
     assertTrue(resources instanceof List);
     Collection<Signal> signals = bpmnModel.getSignals();
@@ -495,20 +335,17 @@ class EventSubprocessValidatorDiffblueTest {
 
   /**
    * Test {@link EventSubprocessValidator#executeValidation(BpmnModel, Process, List)}.
-   *
    * <ul>
-   *   <li>Then {@link ArrayList#ArrayList()} size is one.
+   *   <li>Given {@link StartEvent} (default constructor) addEventDefinition {@link MessageEventDefinition} (default constructor).</li>
    * </ul>
-   *
-   * <p>Method under test: {@link EventSubprocessValidator#executeValidation(BpmnModel, Process,
-   * List)}
+   * <p>
+   * Method under test: {@link EventSubprocessValidator#executeValidation(BpmnModel, Process, List)}
    */
   @Test
-  @DisplayName("Test executeValidation(BpmnModel, Process, List); then ArrayList() size is one")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test executeValidation(BpmnModel, Process, List); given StartEvent (default constructor) addEventDefinition MessageEventDefinition (default constructor)")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void EventSubprocessValidator.executeValidation(BpmnModel, Process, List)"})
-  void testExecuteValidation_thenArrayListSizeIsOne() {
+  void testExecuteValidation_givenStartEventAddEventDefinitionMessageEventDefinition() {
     // Arrange
     EventSubprocessValidator eventSubprocessValidator = new EventSubprocessValidator();
     BpmnModel bpmnModel = new BpmnModel();
@@ -516,70 +353,158 @@ class EventSubprocessValidatorDiffblueTest {
     ArrayList<EventSubProcess> eventSubProcessList = new ArrayList<>();
     eventSubProcessList.add(new EventSubProcess());
 
-    ArrayList<EventDefinition> eventDefinitions = new ArrayList<>();
-    eventDefinitions.add(new CancelEventDefinition());
-
     StartEvent startEvent = new StartEvent();
-    startEvent.setEventDefinitions(eventDefinitions);
+    startEvent.addEventDefinition(new MessageEventDefinition());
 
     ArrayList<StartEvent> startEventList = new ArrayList<>();
     startEventList.add(startEvent);
-
     Process process = mock(Process.class);
-    when(process.getId()).thenReturn("42");
-    when(process.getName()).thenReturn("Name");
-    when(process.findFlowElementsInSubProcessOfType(
-            Mockito.<SubProcess>any(), Mockito.<Class<StartEvent>>any()))
+    when(process.findFlowElementsInSubProcessOfType(Mockito.<SubProcess>any(), Mockito.<Class<StartEvent>>any()))
         .thenReturn(startEventList);
-    when(process.findFlowElementsOfType(Mockito.<Class<EventSubProcess>>any()))
-        .thenReturn(eventSubProcessList);
+    when(process.findFlowElementsOfType(Mockito.<Class<EventSubProcess>>any())).thenReturn(eventSubProcessList);
     ArrayList<ValidationError> errors = new ArrayList<>();
 
     // Act
     eventSubprocessValidator.executeValidation(bpmnModel, process, errors);
 
-    // Assert
-    verify(process).getId();
+    // Assert that nothing has changed
     verify(process).findFlowElementsInSubProcessOfType(isA(SubProcess.class), isA(Class.class));
     verify(process).findFlowElementsOfType(isA(Class.class));
-    verify(process).getName();
+    Collection<Resource> resources = bpmnModel.getResources();
+    assertTrue(resources instanceof List);
+    Collection<Signal> signals = bpmnModel.getSignals();
+    assertTrue(signals instanceof List);
+    assertTrue(errors.isEmpty());
+    assertTrue(resources.isEmpty());
+    assertTrue(signals.isEmpty());
+  }
+
+  /**
+   * Test {@link EventSubprocessValidator#executeValidation(BpmnModel, Process, List)}.
+   * <ul>
+   *   <li>Given {@link StartEvent} (default constructor) addEventDefinition {@link SignalEventDefinition} (default constructor).</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link EventSubprocessValidator#executeValidation(BpmnModel, Process, List)}
+   */
+  @Test
+  @DisplayName("Test executeValidation(BpmnModel, Process, List); given StartEvent (default constructor) addEventDefinition SignalEventDefinition (default constructor)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void EventSubprocessValidator.executeValidation(BpmnModel, Process, List)"})
+  void testExecuteValidation_givenStartEventAddEventDefinitionSignalEventDefinition() {
+    // Arrange
+    EventSubprocessValidator eventSubprocessValidator = new EventSubprocessValidator();
+    BpmnModel bpmnModel = new BpmnModel();
+
+    ArrayList<EventSubProcess> eventSubProcessList = new ArrayList<>();
+    eventSubProcessList.add(new EventSubProcess());
+
+    StartEvent startEvent = new StartEvent();
+    startEvent.addEventDefinition(new SignalEventDefinition());
+
+    ArrayList<StartEvent> startEventList = new ArrayList<>();
+    startEventList.add(startEvent);
+    Process process = mock(Process.class);
+    when(process.findFlowElementsInSubProcessOfType(Mockito.<SubProcess>any(), Mockito.<Class<StartEvent>>any()))
+        .thenReturn(startEventList);
+    when(process.findFlowElementsOfType(Mockito.<Class<EventSubProcess>>any())).thenReturn(eventSubProcessList);
+    ArrayList<ValidationError> errors = new ArrayList<>();
+
+    // Act
+    eventSubprocessValidator.executeValidation(bpmnModel, process, errors);
+
+    // Assert that nothing has changed
+    verify(process).findFlowElementsInSubProcessOfType(isA(SubProcess.class), isA(Class.class));
+    verify(process).findFlowElementsOfType(isA(Class.class));
+    Collection<Resource> resources = bpmnModel.getResources();
+    assertTrue(resources instanceof List);
+    Collection<Signal> signals = bpmnModel.getSignals();
+    assertTrue(signals instanceof List);
+    assertTrue(errors.isEmpty());
+    assertTrue(resources.isEmpty());
+    assertTrue(signals.isEmpty());
+  }
+
+  /**
+   * Test {@link EventSubprocessValidator#executeValidation(BpmnModel, Process, List)}.
+   * <ul>
+   *   <li>Then {@link ArrayList#ArrayList()} first ActivityId is {@code 42}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link EventSubprocessValidator#executeValidation(BpmnModel, Process, List)}
+   */
+  @Test
+  @DisplayName("Test executeValidation(BpmnModel, Process, List); then ArrayList() first ActivityId is '42'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void EventSubprocessValidator.executeValidation(BpmnModel, Process, List)"})
+  void testExecuteValidation_thenArrayListFirstActivityIdIs42() {
+    // Arrange
+    EventSubprocessValidator eventSubprocessValidator = new EventSubprocessValidator();
+    BpmnModel bpmnModel = new BpmnModel();
+
+    ArrayList<EventSubProcess> eventSubProcessList = new ArrayList<>();
+    eventSubProcessList.add(new EventSubProcess());
+    Process process = mock(Process.class);
+    when(process.findFlowElementsInSubProcessOfType(Mockito.<SubProcess>any(), Mockito.<Class<StartEvent>>any()))
+        .thenReturn(new ArrayList<>());
+    when(process.findFlowElementsOfType(Mockito.<Class<EventSubProcess>>any())).thenReturn(eventSubProcessList);
+
+    ValidationError validationError = new ValidationError();
+    validationError.setActivityId("42");
+    validationError.setActivityName("Activity Name");
+    validationError.setDefaultDescription("Default Description");
+    validationError.setKey("Key");
+    validationError.setParams(new HashMap<>());
+    validationError.setProblem("Problem");
+    validationError.setProcessDefinitionId("42");
+    validationError.setProcessDefinitionName("Process Definition Name");
+    validationError.setValidatorSetName("Validator Set Name");
+    validationError.setWarning(true);
+    validationError.setXmlColumnNumber(10);
+    validationError.setXmlLineNumber(2);
+
+    ArrayList<ValidationError> errors = new ArrayList<>();
+    errors.add(validationError);
+
+    // Act
+    eventSubprocessValidator.executeValidation(bpmnModel, process, errors);
+
+    // Assert that nothing has changed
+    verify(process).findFlowElementsInSubProcessOfType(isA(SubProcess.class), isA(Class.class));
+    verify(process).findFlowElementsOfType(isA(Class.class));
     Collection<Resource> resources = bpmnModel.getResources();
     assertTrue(resources instanceof List);
     Collection<Signal> signals = bpmnModel.getSignals();
     assertTrue(signals instanceof List);
     assertEquals(1, errors.size());
     ValidationError getResult = errors.get(0);
+    assertEquals("42", getResult.getActivityId());
     assertEquals("42", getResult.getProcessDefinitionId());
-    assertEquals(
-        "EVENT_SUBPROCESS_INVALID_START_EVENT_DEFINITION", getResult.getDefaultDescription());
-    assertEquals("EVENT_SUBPROCESS_INVALID_START_EVENT_DEFINITION", getResult.getKey());
-    assertEquals("EVENT_SUBPROCESS_INVALID_START_EVENT_DEFINITION", getResult.getProblem());
-    assertEquals("Name", getResult.getProcessDefinitionName());
-    assertNull(getResult.getActivityId());
-    assertNull(getResult.getActivityName());
-    assertNull(getResult.getValidatorSetName());
-    assertEquals(0, getResult.getXmlColumnNumber());
-    assertEquals(0, getResult.getXmlLineNumber());
-    assertFalse(getResult.isWarning());
+    assertEquals("Activity Name", getResult.getActivityName());
+    assertEquals("Default Description", getResult.getDefaultDescription());
+    assertEquals("Key", getResult.getKey());
+    assertEquals("Problem", getResult.getProblem());
+    assertEquals("Process Definition Name", getResult.getProcessDefinitionName());
+    assertEquals("Validator Set Name", getResult.getValidatorSetName());
+    assertEquals(10, getResult.getXmlColumnNumber());
+    assertEquals(2, getResult.getXmlLineNumber());
     assertTrue(resources.isEmpty());
     assertTrue(signals.isEmpty());
     assertTrue(getResult.getParams().isEmpty());
+    assertTrue(getResult.isWarning());
   }
 
   /**
    * Test {@link EventSubprocessValidator#executeValidation(BpmnModel, Process, List)}.
-   *
    * <ul>
-   *   <li>Then {@link ArrayList#ArrayList()} size is two.
+   *   <li>Then {@link ArrayList#ArrayList()} size is two.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link EventSubprocessValidator#executeValidation(BpmnModel, Process,
-   * List)}
+   * <p>
+   * Method under test: {@link EventSubprocessValidator#executeValidation(BpmnModel, Process, List)}
    */
   @Test
   @DisplayName("Test executeValidation(BpmnModel, Process, List); then ArrayList() size is two")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void EventSubprocessValidator.executeValidation(BpmnModel, Process, List)"})
   void testExecuteValidation_thenArrayListSizeIsTwo() {
     // Arrange
@@ -588,69 +513,83 @@ class EventSubprocessValidatorDiffblueTest {
 
     ArrayList<EventSubProcess> eventSubProcessList = new ArrayList<>();
     eventSubProcessList.add(new EventSubProcess());
-    eventSubProcessList.add(new EventSubProcess());
-
-    ArrayList<EventDefinition> eventDefinitions = new ArrayList<>();
-    eventDefinitions.add(new CancelEventDefinition());
-
-    StartEvent startEvent = new StartEvent();
-    startEvent.setEventDefinitions(eventDefinitions);
-
-    ArrayList<StartEvent> startEventList = new ArrayList<>();
-    startEventList.add(startEvent);
-
     Process process = mock(Process.class);
-    when(process.getId()).thenReturn("42");
-    when(process.getName()).thenReturn("Name");
-    when(process.findFlowElementsInSubProcessOfType(
-            Mockito.<SubProcess>any(), Mockito.<Class<StartEvent>>any()))
-        .thenReturn(startEventList);
-    when(process.findFlowElementsOfType(Mockito.<Class<EventSubProcess>>any()))
-        .thenReturn(eventSubProcessList);
+    when(process.findFlowElementsInSubProcessOfType(Mockito.<SubProcess>any(), Mockito.<Class<StartEvent>>any()))
+        .thenReturn(new ArrayList<>());
+    when(process.findFlowElementsOfType(Mockito.<Class<EventSubProcess>>any())).thenReturn(eventSubProcessList);
+
+    ValidationError validationError = new ValidationError();
+    validationError.setActivityId("42");
+    validationError.setActivityName("Activity Name");
+    validationError.setDefaultDescription("Default Description");
+    validationError.setKey("Key");
+    validationError.setParams(new HashMap<>());
+    validationError.setProblem("Problem");
+    validationError.setProcessDefinitionId("42");
+    validationError.setProcessDefinitionName("Process Definition Name");
+    validationError.setValidatorSetName("Validator Set Name");
+    validationError.setWarning(true);
+    validationError.setXmlColumnNumber(10);
+    validationError.setXmlLineNumber(2);
+
+    ValidationError validationError2 = new ValidationError();
+    validationError2.setActivityId("Activity Id");
+    validationError2.setActivityName("42");
+    validationError2.setDefaultDescription("42");
+    validationError2.setKey("42");
+    validationError2.setParams(new HashMap<>());
+    validationError2.setProblem("42");
+    validationError2.setProcessDefinitionId("Process Definition Id");
+    validationError2.setProcessDefinitionName("42");
+    validationError2.setValidatorSetName("42");
+    validationError2.setWarning(false);
+    validationError2.setXmlColumnNumber(1);
+    validationError2.setXmlLineNumber(10);
+
     ArrayList<ValidationError> errors = new ArrayList<>();
+    errors.add(validationError2);
+    errors.add(validationError);
 
     // Act
     eventSubprocessValidator.executeValidation(bpmnModel, process, errors);
 
-    // Assert
-    verify(process, atLeast(1)).getId();
-    verify(process, atLeast(1))
-        .findFlowElementsInSubProcessOfType(Mockito.<SubProcess>any(), isA(Class.class));
+    // Assert that nothing has changed
+    verify(process).findFlowElementsInSubProcessOfType(isA(SubProcess.class), isA(Class.class));
     verify(process).findFlowElementsOfType(isA(Class.class));
-    verify(process, atLeast(1)).getName();
+    Collection<Resource> resources = bpmnModel.getResources();
+    assertTrue(resources instanceof List);
+    Collection<Signal> signals = bpmnModel.getSignals();
+    assertTrue(signals instanceof List);
     assertEquals(2, errors.size());
-    ValidationError getResult = errors.get(1);
-    assertEquals("42", getResult.getProcessDefinitionId());
-    assertEquals(
-        "EVENT_SUBPROCESS_INVALID_START_EVENT_DEFINITION", getResult.getDefaultDescription());
-    assertEquals("EVENT_SUBPROCESS_INVALID_START_EVENT_DEFINITION", getResult.getKey());
-    assertEquals("EVENT_SUBPROCESS_INVALID_START_EVENT_DEFINITION", getResult.getProblem());
-    assertEquals("Name", getResult.getProcessDefinitionName());
-    assertNull(getResult.getActivityId());
-    assertNull(getResult.getActivityName());
-    assertNull(getResult.getValidatorSetName());
-    assertEquals(0, getResult.getXmlColumnNumber());
-    assertEquals(0, getResult.getXmlLineNumber());
+    ValidationError getResult = errors.get(0);
+    assertEquals("42", getResult.getActivityName());
+    assertEquals("42", getResult.getDefaultDescription());
+    assertEquals("42", getResult.getKey());
+    assertEquals("42", getResult.getProblem());
+    assertEquals("42", getResult.getProcessDefinitionName());
+    assertEquals("42", getResult.getValidatorSetName());
+    assertEquals("Activity Id", getResult.getActivityId());
+    assertEquals("Process Definition Id", getResult.getProcessDefinitionId());
+    assertEquals(1, getResult.getXmlColumnNumber());
+    assertEquals(10, getResult.getXmlLineNumber());
     assertFalse(getResult.isWarning());
+    assertTrue(resources.isEmpty());
+    assertTrue(signals.isEmpty());
     assertTrue(getResult.getParams().isEmpty());
   }
 
   /**
    * Test {@link EventSubprocessValidator#executeValidation(BpmnModel, Process, List)}.
-   *
    * <ul>
-   *   <li>When {@link Process} (default constructor).
-   *   <li>Then {@link ArrayList#ArrayList()} Empty.
+   *   <li>When {@link Process} (default constructor).</li>
+   *   <li>Then {@link ArrayList#ArrayList()} Empty.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link EventSubprocessValidator#executeValidation(BpmnModel, Process,
-   * List)}
+   * <p>
+   * Method under test: {@link EventSubprocessValidator#executeValidation(BpmnModel, Process, List)}
    */
   @Test
-  @DisplayName(
-      "Test executeValidation(BpmnModel, Process, List); when Process (default constructor); then ArrayList() Empty")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test executeValidation(BpmnModel, Process, List); when Process (default constructor); then ArrayList() Empty")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void EventSubprocessValidator.executeValidation(BpmnModel, Process, List)"})
   void testExecuteValidation_whenProcess_thenArrayListEmpty() {
     // Arrange

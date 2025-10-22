@@ -16,15 +16,12 @@
 package org.activiti.bpmn.converter;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
-import java.util.HashMap;
 import javax.xml.stream.XMLStreamWriter;
+import org.activiti.bpmn.model.ActivitiListener;
 import org.activiti.bpmn.model.BaseElement;
 import org.activiti.bpmn.model.BpmnModel;
 import org.activiti.bpmn.model.InclusiveGateway;
-import org.activiti.bpmn.model.Message;
-import org.activiti.bpmn.model.Message.Builder;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
@@ -32,64 +29,35 @@ import org.junit.jupiter.api.Test;
 class InclusiveGatewayXMLConverterDiffblueTest {
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>default or parameterless constructor of {@link InclusiveGatewayXMLConverter}
-   *   <li>{@link InclusiveGatewayXMLConverter#writeAdditionalAttributes(BaseElement, BpmnModel,
-   *       XMLStreamWriter)}
-   *   <li>{@link InclusiveGatewayXMLConverter#writeAdditionalChildElements(BaseElement, BpmnModel,
-   *       XMLStreamWriter)}
+   *   <li>{@link InclusiveGatewayXMLConverter#writeAdditionalAttributes(BaseElement, BpmnModel, XMLStreamWriter)}
+   *   <li>{@link InclusiveGatewayXMLConverter#writeAdditionalChildElements(BaseElement, BpmnModel, XMLStreamWriter)}
    *   <li>{@link InclusiveGatewayXMLConverter#getBpmnElementType()}
    *   <li>{@link InclusiveGatewayXMLConverter#getXMLElementName()}
    * </ul>
    */
   @Test
   @DisplayName("Test getters and setters")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void InclusiveGatewayXMLConverter.<init>()",
-    "Class InclusiveGatewayXMLConverter.getBpmnElementType()",
-    "java.lang.String InclusiveGatewayXMLConverter.getXMLElementName()",
-    "void InclusiveGatewayXMLConverter.writeAdditionalAttributes(BaseElement, BpmnModel, XMLStreamWriter)",
-    "void InclusiveGatewayXMLConverter.writeAdditionalChildElements(BaseElement, BpmnModel, XMLStreamWriter)"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void InclusiveGatewayXMLConverter.<init>()",
+      "Class InclusiveGatewayXMLConverter.getBpmnElementType()",
+      "java.lang.String InclusiveGatewayXMLConverter.getXMLElementName()",
+      "void InclusiveGatewayXMLConverter.writeAdditionalAttributes(BaseElement, BpmnModel, XMLStreamWriter)",
+      "void InclusiveGatewayXMLConverter.writeAdditionalChildElements(BaseElement, BpmnModel, XMLStreamWriter)"})
   void testGettersAndSetters() throws Exception {
     // Arrange and Act
-    InclusiveGatewayXMLConverter actualInclusiveGatewayXMLConverter =
-        new InclusiveGatewayXMLConverter();
-    Builder builderResult = Message.builder();
-    Builder attributesResult = builderResult.attributes(new HashMap<>());
-    Message element =
-        attributesResult
-            .extensionElements(new HashMap<>())
-            .id("42")
-            .itemRef("Item Ref")
-            .name("Name")
-            .xmlColumnNumber(10)
-            .xmlRowNumber(10)
-            .build();
+    InclusiveGatewayXMLConverter actualInclusiveGatewayXMLConverter = new InclusiveGatewayXMLConverter();
+    ActivitiListener element = new ActivitiListener();
     BpmnModel model = new BpmnModel();
-    actualInclusiveGatewayXMLConverter.writeAdditionalAttributes(
-        element, model, new IndentingXMLStreamWriter(null));
-    Builder builderResult2 = Message.builder();
-    Builder attributesResult2 = builderResult2.attributes(new HashMap<>());
-    Message element2 =
-        attributesResult2
-            .extensionElements(new HashMap<>())
-            .id("42")
-            .itemRef("Item Ref")
-            .name("Name")
-            .xmlColumnNumber(10)
-            .xmlRowNumber(10)
-            .build();
+    actualInclusiveGatewayXMLConverter.writeAdditionalAttributes(element, model, new IndentingXMLStreamWriter(null));
+    ActivitiListener element2 = new ActivitiListener();
     BpmnModel model2 = new BpmnModel();
-    actualInclusiveGatewayXMLConverter.writeAdditionalChildElements(
-        element2, model2, new IndentingXMLStreamWriter(null));
-    Class<? extends BaseElement> actualBpmnElementType =
-        actualInclusiveGatewayXMLConverter.getBpmnElementType();
+    actualInclusiveGatewayXMLConverter.writeAdditionalChildElements(element2, model2,
+        new IndentingXMLStreamWriter(null));
+    Class<? extends BaseElement> actualBpmnElementType = actualInclusiveGatewayXMLConverter.getBpmnElementType();
 
     // Assert
     assertEquals("inclusiveGateway", actualInclusiveGatewayXMLConverter.getXMLElementName());

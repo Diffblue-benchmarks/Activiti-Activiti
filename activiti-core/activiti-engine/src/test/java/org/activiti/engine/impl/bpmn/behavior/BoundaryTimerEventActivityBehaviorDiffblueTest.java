@@ -19,8 +19,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertThrows;
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.bpmn.model.TimerEventDefinition;
 import org.activiti.engine.ActivitiException;
@@ -31,28 +30,20 @@ import org.junit.experimental.categories.Category;
 
 public class BoundaryTimerEventActivityBehaviorDiffblueTest {
   /**
-   * Test {@link
-   * BoundaryTimerEventActivityBehavior#BoundaryTimerEventActivityBehavior(TimerEventDefinition,
-   * boolean)}.
-   *
-   * <p>Method under test: {@link
-   * BoundaryTimerEventActivityBehavior#BoundaryTimerEventActivityBehavior(TimerEventDefinition,
-   * boolean)}
+   * Test {@link BoundaryTimerEventActivityBehavior#BoundaryTimerEventActivityBehavior(TimerEventDefinition, boolean)}.
+   * <p>
+   * Method under test: {@link BoundaryTimerEventActivityBehavior#BoundaryTimerEventActivityBehavior(TimerEventDefinition, boolean)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void BoundaryTimerEventActivityBehavior.<init>(TimerEventDefinition, boolean)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void BoundaryTimerEventActivityBehavior.<init>(TimerEventDefinition, boolean)"})
   public void testNewBoundaryTimerEventActivityBehavior() {
     // Arrange and Act
-    BoundaryTimerEventActivityBehavior actualBoundaryTimerEventActivityBehavior =
-        new BoundaryTimerEventActivityBehavior(new TimerEventDefinition(), true);
+    BoundaryTimerEventActivityBehavior actualBoundaryTimerEventActivityBehavior = new BoundaryTimerEventActivityBehavior(
+        new TimerEventDefinition(), true);
 
     // Assert
-    TimerEventDefinition timerEventDefinition =
-        actualBoundaryTimerEventActivityBehavior.timerEventDefinition;
+    TimerEventDefinition timerEventDefinition = actualBoundaryTimerEventActivityBehavior.timerEventDefinition;
     assertNull(timerEventDefinition.getId());
     assertNull(timerEventDefinition.getCalendarName());
     assertNull(timerEventDefinition.getEndDate());
@@ -68,27 +59,22 @@ public class BoundaryTimerEventActivityBehaviorDiffblueTest {
 
   /**
    * Test {@link BoundaryTimerEventActivityBehavior#execute(DelegateExecution)}.
-   *
    * <ul>
-   *   <li>Then throw {@link ActivitiException}.
+   *   <li>Then throw {@link ActivitiException}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link BoundaryTimerEventActivityBehavior#execute(DelegateExecution)}
+   * <p>
+   * Method under test: {@link BoundaryTimerEventActivityBehavior#execute(DelegateExecution)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void BoundaryTimerEventActivityBehavior.execute(DelegateExecution)"})
   public void testExecute_thenThrowActivitiException() {
     // Arrange
-    BoundaryTimerEventActivityBehavior boundaryTimerEventActivityBehavior =
-        new BoundaryTimerEventActivityBehavior(new TimerEventDefinition(), true);
+    BoundaryTimerEventActivityBehavior boundaryTimerEventActivityBehavior = new BoundaryTimerEventActivityBehavior(
+        new TimerEventDefinition(), true);
 
     // Act and Assert
-    assertThrows(
-        ActivitiException.class,
-        () ->
-            boundaryTimerEventActivityBehavior.execute(
-                ExecutionEntityImpl.createWithEmptyRelationshipCollections()));
+    assertThrows(ActivitiException.class,
+        () -> boundaryTimerEventActivityBehavior.execute(ExecutionEntityImpl.createWithEmptyRelationshipCollections()));
   }
 }

@@ -19,8 +19,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.engine.impl.persistence.entity.HistoricDetailVariableInstanceUpdateEntityImpl;
 import org.activiti.engine.impl.util.json.JSONObject;
@@ -30,9 +29,8 @@ import org.junit.experimental.categories.Category;
 public class StringTypeDiffblueTest {
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>{@link StringType#StringType(int)}
    *   <li>{@link StringType#getTypeName()}
@@ -40,13 +38,9 @@ public class StringTypeDiffblueTest {
    * </ul>
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void StringType.<init>(int)",
-    "String StringType.getTypeName()",
-    "boolean StringType.isCachable()"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void StringType.<init>(int)", "String StringType.getTypeName()",
+      "boolean StringType.isCachable()"})
   public void testGettersAndSetters() {
     // Arrange and Act
     StringType actualStringType = new StringType(3);
@@ -59,17 +53,15 @@ public class StringTypeDiffblueTest {
 
   /**
    * Test {@link StringType#getValue(ValueFields)}.
-   *
    * <ul>
-   *   <li>When {@link HistoricDetailVariableInstanceUpdateEntityImpl} (default constructor).
-   *   <li>Then return {@code null}.
+   *   <li>When {@link HistoricDetailVariableInstanceUpdateEntityImpl} (default constructor).</li>
+   *   <li>Then return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link StringType#getValue(ValueFields)}
+   * <p>
+   * Method under test: {@link StringType#getValue(ValueFields)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"Object StringType.getValue(ValueFields)"})
   public void testGetValue_whenHistoricDetailVariableInstanceUpdateEntityImpl_thenReturnNull() {
     // Arrange
@@ -81,18 +73,16 @@ public class StringTypeDiffblueTest {
 
   /**
    * Test {@link StringType#setValue(Object, ValueFields)}.
-   *
-   * <p>Method under test: {@link StringType#setValue(Object, ValueFields)}
+   * <p>
+   * Method under test: {@link StringType#setValue(Object, ValueFields)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void StringType.setValue(Object, ValueFields)"})
   public void testSetValue() {
     // Arrange
     StringType stringType = new StringType(3);
-    HistoricDetailVariableInstanceUpdateEntityImpl valueFields =
-        new HistoricDetailVariableInstanceUpdateEntityImpl();
+    HistoricDetailVariableInstanceUpdateEntityImpl valueFields = new HistoricDetailVariableInstanceUpdateEntityImpl();
 
     // Act
     stringType.setValue("42", valueFields);
@@ -103,77 +93,69 @@ public class StringTypeDiffblueTest {
 
   /**
    * Test {@link StringType#isAbleToStore(Object)}.
-   *
    * <ul>
-   *   <li>When {@code 42}.
-   *   <li>Then return {@code true}.
+   *   <li>When {@code 42}.</li>
+   *   <li>Then return {@code true}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link StringType#isAbleToStore(Object)}
+   * <p>
+   * Method under test: {@link StringType#isAbleToStore(Object)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"boolean StringType.isAbleToStore(Object)"})
   public void testIsAbleToStore_when42_thenReturnTrue() {
     // Arrange, Act and Assert
-    assertTrue(new StringType(3).isAbleToStore("42"));
+    assertTrue((new StringType(3)).isAbleToStore("42"));
   }
 
   /**
    * Test {@link StringType#isAbleToStore(Object)}.
-   *
    * <ul>
-   *   <li>When {@link JSONObject#NULL}.
-   *   <li>Then return {@code false}.
+   *   <li>When {@link JSONObject#NULL}.</li>
+   *   <li>Then return {@code false}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link StringType#isAbleToStore(Object)}
+   * <p>
+   * Method under test: {@link StringType#isAbleToStore(Object)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"boolean StringType.isAbleToStore(Object)"})
   public void testIsAbleToStore_whenNull_thenReturnFalse() {
     // Arrange, Act and Assert
-    assertFalse(new StringType(3).isAbleToStore(JSONObject.NULL));
+    assertFalse((new StringType(3)).isAbleToStore(JSONObject.NULL));
   }
 
   /**
    * Test {@link StringType#isAbleToStore(Object)}.
-   *
    * <ul>
-   *   <li>When {@code null}.
-   *   <li>Then return {@code true}.
+   *   <li>When {@code null}.</li>
+   *   <li>Then return {@code true}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link StringType#isAbleToStore(Object)}
+   * <p>
+   * Method under test: {@link StringType#isAbleToStore(Object)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"boolean StringType.isAbleToStore(Object)"})
   public void testIsAbleToStore_whenNull_thenReturnTrue() {
     // Arrange, Act and Assert
-    assertTrue(new StringType(3).isAbleToStore(null));
+    assertTrue((new StringType(3)).isAbleToStore(null));
   }
 
   /**
    * Test {@link StringType#isAbleToStore(Object)}.
-   *
    * <ul>
-   *   <li>When {@code Value}.
-   *   <li>Then return {@code false}.
+   *   <li>When {@code Value}.</li>
+   *   <li>Then return {@code false}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link StringType#isAbleToStore(Object)}
+   * <p>
+   * Method under test: {@link StringType#isAbleToStore(Object)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"boolean StringType.isAbleToStore(Object)"})
   public void testIsAbleToStore_whenValue_thenReturnFalse() {
     // Arrange, Act and Assert
-    assertFalse(new StringType(3).isAbleToStore("Value"));
+    assertFalse((new StringType(3)).isAbleToStore("Value"));
   }
 }

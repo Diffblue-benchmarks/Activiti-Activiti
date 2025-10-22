@@ -17,8 +17,7 @@ package org.activiti.engine.impl.cmd;
 
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.io.UnsupportedEncodingException;
 import org.junit.Test;
@@ -27,18 +26,16 @@ import org.junit.experimental.categories.Category;
 public class AddEditorSourceForModelCmdDiffblueTest {
   /**
    * Test {@link AddEditorSourceForModelCmd#AddEditorSourceForModelCmd(String, byte[])}.
-   *
-   * <p>Method under test: {@link AddEditorSourceForModelCmd#AddEditorSourceForModelCmd(String,
-   * byte[])}
+   * <p>
+   * Method under test: {@link AddEditorSourceForModelCmd#AddEditorSourceForModelCmd(String, byte[])}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void AddEditorSourceForModelCmd.<init>(String, byte[])"})
   public void testNewAddEditorSourceForModelCmd() throws UnsupportedEncodingException {
     // Arrange and Act
-    AddEditorSourceForModelCmd actualAddEditorSourceForModelCmd =
-        new AddEditorSourceForModelCmd("42", "AXAXAXAX".getBytes("UTF-8"));
+    AddEditorSourceForModelCmd actualAddEditorSourceForModelCmd = new AddEditorSourceForModelCmd("42",
+        "AXAXAXAX".getBytes("UTF-8"));
 
     // Assert
     assertEquals("42", actualAddEditorSourceForModelCmd.modelId);

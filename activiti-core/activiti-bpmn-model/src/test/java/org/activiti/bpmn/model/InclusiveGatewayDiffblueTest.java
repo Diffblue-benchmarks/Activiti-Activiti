@@ -19,8 +19,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
@@ -28,17 +27,15 @@ import org.junit.experimental.categories.Category;
 public class InclusiveGatewayDiffblueTest {
   /**
    * Test {@link InclusiveGateway#clone()}.
-   *
    * <ul>
-   *   <li>Given {@link InclusiveGateway} (default constructor) Asynchronous is {@code true}.
-   *   <li>Then return Asynchronous.
+   *   <li>Given {@link InclusiveGateway} (default constructor) Asynchronous is {@code true}.</li>
+   *   <li>Then return Asynchronous.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link InclusiveGateway#clone()}
+   * <p>
+   * Method under test: {@link InclusiveGateway#clone()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"InclusiveGateway InclusiveGateway.clone()"})
   public void testClone_givenInclusiveGatewayAsynchronousIsTrue_thenReturnAsynchronous() {
     // Arrange
@@ -70,21 +67,19 @@ public class InclusiveGatewayDiffblueTest {
 
   /**
    * Test {@link InclusiveGateway#clone()}.
-   *
    * <ul>
-   *   <li>Given {@link InclusiveGateway} (default constructor).
-   *   <li>Then return not Asynchronous.
+   *   <li>Given {@link InclusiveGateway} (default constructor).</li>
+   *   <li>Then return not Asynchronous.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link InclusiveGateway#clone()}
+   * <p>
+   * Method under test: {@link InclusiveGateway#clone()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"InclusiveGateway InclusiveGateway.clone()"})
   public void testClone_givenInclusiveGateway_thenReturnNotAsynchronous() {
     // Arrange and Act
-    InclusiveGateway actualCloneResult = new InclusiveGateway().clone();
+    InclusiveGateway actualCloneResult = (new InclusiveGateway()).clone();
 
     // Assert
     assertNull(actualCloneResult.getBehavior());
@@ -108,12 +103,11 @@ public class InclusiveGatewayDiffblueTest {
 
   /**
    * Test new {@link InclusiveGateway} (default constructor).
-   *
-   * <p>Method under test: default or parameterless constructor of {@link InclusiveGateway}
+   * <p>
+   * Method under test: default or parameterless constructor of {@link InclusiveGateway}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void InclusiveGateway.<init>()"})
   public void testNewInclusiveGateway() {
     // Arrange and Act

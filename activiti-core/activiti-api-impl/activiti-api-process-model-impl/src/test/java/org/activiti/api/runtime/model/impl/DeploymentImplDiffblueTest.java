@@ -16,7 +16,6 @@
 package org.activiti.api.runtime.model.impl;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
@@ -25,9 +24,8 @@ import org.junit.jupiter.api.Test;
 class DeploymentImplDiffblueTest {
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>default or parameterless constructor of {@link DeploymentImpl}
    *   <li>{@link DeploymentImpl#setId(String)}
@@ -42,19 +40,11 @@ class DeploymentImplDiffblueTest {
    */
   @Test
   @DisplayName("Test getters and setters")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void DeploymentImpl.<init>()",
-    "String DeploymentImpl.getId()",
-    "String DeploymentImpl.getName()",
-    "String DeploymentImpl.getProjectReleaseVersion()",
-    "Integer DeploymentImpl.getVersion()",
-    "void DeploymentImpl.setId(String)",
-    "void DeploymentImpl.setName(String)",
-    "void DeploymentImpl.setProjectReleaseVersion(String)",
-    "void DeploymentImpl.setVersion(Integer)"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void DeploymentImpl.<init>()", "String DeploymentImpl.getId()", "String DeploymentImpl.getName()",
+      "String DeploymentImpl.getProjectReleaseVersion()", "Integer DeploymentImpl.getVersion()",
+      "void DeploymentImpl.setId(String)", "void DeploymentImpl.setName(String)",
+      "void DeploymentImpl.setProjectReleaseVersion(String)", "void DeploymentImpl.setVersion(Integer)"})
   void testGettersAndSetters() {
     // Arrange and Act
     DeploymentImpl actualDeploymentImpl = new DeploymentImpl();

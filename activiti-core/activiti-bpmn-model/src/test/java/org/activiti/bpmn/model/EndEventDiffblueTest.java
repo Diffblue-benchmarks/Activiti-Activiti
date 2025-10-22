@@ -19,8 +19,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
@@ -28,21 +27,19 @@ import org.junit.experimental.categories.Category;
 public class EndEventDiffblueTest {
   /**
    * Test {@link EndEvent#clone()}.
-   *
    * <ul>
-   *   <li>Given {@link EndEvent} (default constructor).
-   *   <li>Then return Behavior is {@code null}.
+   *   <li>Given {@link EndEvent} (default constructor).</li>
+   *   <li>Then return Behavior is {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link EndEvent#clone()}
+   * <p>
+   * Method under test: {@link EndEvent#clone()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"EndEvent EndEvent.clone()"})
   public void testClone_givenEndEvent_thenReturnBehaviorIsNull() {
     // Arrange and Act
-    EndEvent actualCloneResult = new EndEvent().clone();
+    EndEvent actualCloneResult = (new EndEvent()).clone();
 
     // Assert
     assertNull(actualCloneResult.getBehavior());
@@ -66,12 +63,11 @@ public class EndEventDiffblueTest {
 
   /**
    * Test new {@link EndEvent} (default constructor).
-   *
-   * <p>Method under test: default or parameterless constructor of {@link EndEvent}
+   * <p>
+   * Method under test: default or parameterless constructor of {@link EndEvent}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void EndEvent.<init>()"})
   public void testNewEndEvent() {
     // Arrange and Act

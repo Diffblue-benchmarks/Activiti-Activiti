@@ -19,7 +19,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -40,31 +39,26 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 @ExtendWith(SpringExtension.class)
 class ListConverterDiffblueTest {
   @Autowired
-  private ListConverter<
-          org.activiti.engine.impl.persistence.entity.VariableInstance, VariableInstance>
-      listConverter;
+  private ListConverter<org.activiti.engine.impl.persistence.entity.VariableInstance, VariableInstance> listConverter;
 
   /**
    * Test {@link ListConverter#from(Collection)} with {@code sources}.
-   *
    * <ul>
-   *   <li>Then return size is one.
+   *   <li>Then return size is one.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ListConverter#from(Collection)}
+   * <p>
+   * Method under test: {@link ListConverter#from(Collection)}
    */
   @Test
   @DisplayName("Test from(Collection) with 'sources'; then return size is one")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"List ListConverter.from(Collection)"})
   void testFromWithSources_thenReturnSizeIsOne() {
     // Arrange
     VariableInstanceEntityImpl variableInstanceEntityImpl = new VariableInstanceEntityImpl();
     variableInstanceEntityImpl.setType(new BigDecimalType());
 
-    ArrayList<org.activiti.engine.impl.persistence.entity.VariableInstance> sources =
-        new ArrayList<>();
+    ArrayList<org.activiti.engine.impl.persistence.entity.VariableInstance> sources = new ArrayList<>();
     sources.add(variableInstanceEntityImpl);
 
     // Act
@@ -84,18 +78,16 @@ class ListConverterDiffblueTest {
 
   /**
    * Test {@link ListConverter#from(Collection)} with {@code sources}.
-   *
    * <ul>
-   *   <li>When {@link ArrayList#ArrayList()}.
-   *   <li>Then return Empty.
+   *   <li>When {@link ArrayList#ArrayList()}.</li>
+   *   <li>Then return Empty.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ListConverter#from(Collection)}
+   * <p>
+   * Method under test: {@link ListConverter#from(Collection)}
    */
   @Test
   @DisplayName("Test from(Collection) with 'sources'; when ArrayList(); then return Empty")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"List ListConverter.from(Collection)"})
   void testFromWithSources_whenArrayList_thenReturnEmpty() {
     // Arrange, Act and Assert

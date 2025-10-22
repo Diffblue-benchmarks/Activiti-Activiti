@@ -19,7 +19,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.api.process.model.payloads.SignalPayload;
 import org.junit.jupiter.api.DisplayName;
@@ -29,9 +28,8 @@ import org.junit.jupiter.api.Test;
 class BPMNSignalImplDiffblueTest {
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>{@link BPMNSignalImpl#BPMNSignalImpl()}
    *   <li>{@link BPMNSignalImpl#setSignalPayload(SignalPayload)}
@@ -40,13 +38,9 @@ class BPMNSignalImplDiffblueTest {
    */
   @Test
   @DisplayName("Test getters and setters")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void BPMNSignalImpl.<init>()",
-    "SignalPayload BPMNSignalImpl.getSignalPayload()",
-    "void BPMNSignalImpl.setSignalPayload(SignalPayload)"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void BPMNSignalImpl.<init>()", "SignalPayload BPMNSignalImpl.getSignalPayload()",
+      "void BPMNSignalImpl.setSignalPayload(SignalPayload)"})
   void testGettersAndSetters() {
     // Arrange and Act
     BPMNSignalImpl actualBpmnSignalImpl = new BPMNSignalImpl();
@@ -63,13 +57,12 @@ class BPMNSignalImplDiffblueTest {
 
   /**
    * Test {@link BPMNSignalImpl#BPMNSignalImpl(String)}.
-   *
-   * <p>Method under test: {@link BPMNSignalImpl#BPMNSignalImpl(String)}
+   * <p>
+   * Method under test: {@link BPMNSignalImpl#BPMNSignalImpl(String)}
    */
   @Test
   @DisplayName("Test new BPMNSignalImpl(String)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void BPMNSignalImpl.<init>(String)"})
   void testNewBPMNSignalImpl() {
     // Arrange and Act
@@ -84,14 +77,12 @@ class BPMNSignalImplDiffblueTest {
 
   /**
    * Test {@link BPMNSignalImpl#equals(Object)}, and {@link BPMNSignalImpl#hashCode()}.
-   *
    * <ul>
-   *   <li>When other is equal.
-   *   <li>Then return equal.
+   *   <li>When other is equal.</li>
+   *   <li>Then return equal.</li>
    * </ul>
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>{@link BPMNSignalImpl#equals(Object)}
    *   <li>{@link BPMNSignalImpl#hashCode()}
@@ -99,8 +90,7 @@ class BPMNSignalImplDiffblueTest {
    */
   @Test
   @DisplayName("Test equals(Object), and hashCode(); when other is equal; then return equal")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"boolean BPMNSignalImpl.equals(Object)", "int BPMNSignalImpl.hashCode()"})
   void testEqualsAndHashCode_whenOtherIsEqual_thenReturnEqual() {
     // Arrange
@@ -109,19 +99,18 @@ class BPMNSignalImplDiffblueTest {
 
     // Act and Assert
     assertEquals(bpmnSignalImpl, bpmnSignalImpl2);
-    assertEquals(bpmnSignalImpl.hashCode(), bpmnSignalImpl2.hashCode());
+    int expectedHashCodeResult = bpmnSignalImpl.hashCode();
+    assertEquals(expectedHashCodeResult, bpmnSignalImpl2.hashCode());
   }
 
   /**
    * Test {@link BPMNSignalImpl#equals(Object)}, and {@link BPMNSignalImpl#hashCode()}.
-   *
    * <ul>
-   *   <li>When other is same.
-   *   <li>Then return equal.
+   *   <li>When other is same.</li>
+   *   <li>Then return equal.</li>
    * </ul>
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>{@link BPMNSignalImpl#equals(Object)}
    *   <li>{@link BPMNSignalImpl#hashCode()}
@@ -129,8 +118,7 @@ class BPMNSignalImplDiffblueTest {
    */
   @Test
   @DisplayName("Test equals(Object), and hashCode(); when other is same; then return equal")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"boolean BPMNSignalImpl.equals(Object)", "int BPMNSignalImpl.hashCode()"})
   void testEqualsAndHashCode_whenOtherIsSame_thenReturnEqual() {
     // Arrange
@@ -144,22 +132,20 @@ class BPMNSignalImplDiffblueTest {
 
   /**
    * Test {@link BPMNSignalImpl#equals(Object)}.
-   *
    * <ul>
-   *   <li>When other is different.
-   *   <li>Then return not equal.
+   *   <li>When other is different.</li>
+   *   <li>Then return not equal.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link BPMNSignalImpl#equals(Object)}
+   * <p>
+   * Method under test: {@link BPMNSignalImpl#equals(Object)}
    */
   @Test
   @DisplayName("Test equals(Object); when other is different; then return not equal")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"boolean BPMNSignalImpl.equals(Object)", "int BPMNSignalImpl.hashCode()"})
   void testEquals_whenOtherIsDifferent_thenReturnNotEqual() {
     // Arrange
-    BPMNSignalImpl bpmnSignalImpl = new BPMNSignalImpl();
+    BPMNSignalImpl bpmnSignalImpl = new BPMNSignalImpl("Element Id");
 
     // Act and Assert
     assertNotEquals(bpmnSignalImpl, new BPMNSignalImpl("42"));
@@ -167,18 +153,16 @@ class BPMNSignalImplDiffblueTest {
 
   /**
    * Test {@link BPMNSignalImpl#equals(Object)}.
-   *
    * <ul>
-   *   <li>When other is different.
-   *   <li>Then return not equal.
+   *   <li>When other is different.</li>
+   *   <li>Then return not equal.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link BPMNSignalImpl#equals(Object)}
+   * <p>
+   * Method under test: {@link BPMNSignalImpl#equals(Object)}
    */
   @Test
   @DisplayName("Test equals(Object); when other is different; then return not equal")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"boolean BPMNSignalImpl.equals(Object)", "int BPMNSignalImpl.hashCode()"})
   void testEquals_whenOtherIsDifferent_thenReturnNotEqual2() {
     // Arrange
@@ -191,18 +175,16 @@ class BPMNSignalImplDiffblueTest {
 
   /**
    * Test {@link BPMNSignalImpl#equals(Object)}.
-   *
    * <ul>
-   *   <li>When other is {@code null}.
-   *   <li>Then return not equal.
+   *   <li>When other is {@code null}.</li>
+   *   <li>Then return not equal.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link BPMNSignalImpl#equals(Object)}
+   * <p>
+   * Method under test: {@link BPMNSignalImpl#equals(Object)}
    */
   @Test
   @DisplayName("Test equals(Object); when other is 'null'; then return not equal")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"boolean BPMNSignalImpl.equals(Object)", "int BPMNSignalImpl.hashCode()"})
   void testEquals_whenOtherIsNull_thenReturnNotEqual() {
     // Arrange, Act and Assert
@@ -211,18 +193,16 @@ class BPMNSignalImplDiffblueTest {
 
   /**
    * Test {@link BPMNSignalImpl#equals(Object)}.
-   *
    * <ul>
-   *   <li>When other is wrong type.
-   *   <li>Then return not equal.
+   *   <li>When other is wrong type.</li>
+   *   <li>Then return not equal.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link BPMNSignalImpl#equals(Object)}
+   * <p>
+   * Method under test: {@link BPMNSignalImpl#equals(Object)}
    */
   @Test
   @DisplayName("Test equals(Object); when other is wrong type; then return not equal")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"boolean BPMNSignalImpl.equals(Object)", "int BPMNSignalImpl.hashCode()"})
   void testEquals_whenOtherIsWrongType_thenReturnNotEqual() {
     // Arrange, Act and Assert
@@ -231,23 +211,18 @@ class BPMNSignalImplDiffblueTest {
 
   /**
    * Test {@link BPMNSignalImpl#toString()}.
-   *
    * <ul>
-   *   <li>Then return {@code BPMNActivityImpl{, elementId='42', signalPayload='null'}}.
+   *   <li>Then return {@code BPMNActivityImpl{, elementId='42', signalPayload='null'}}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link BPMNSignalImpl#toString()}
+   * <p>
+   * Method under test: {@link BPMNSignalImpl#toString()}
    */
   @Test
-  @DisplayName(
-      "Test toString(); then return 'BPMNActivityImpl{, elementId='42', signalPayload='null'}'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test toString(); then return 'BPMNActivityImpl{, elementId='42', signalPayload='null'}'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"String BPMNSignalImpl.toString()"})
   void testToString_thenReturnBPMNActivityImplElementId42SignalPayloadNull() {
     // Arrange, Act and Assert
-    assertEquals(
-        "BPMNActivityImpl{, elementId='42', signalPayload='null'}",
-        new BPMNSignalImpl("42").toString());
+    assertEquals("BPMNActivityImpl{, elementId='42', signalPayload='null'}", (new BPMNSignalImpl("42")).toString());
   }
 }

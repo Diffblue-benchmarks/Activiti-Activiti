@@ -19,7 +19,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
 import java.util.List;
@@ -30,18 +29,16 @@ import org.junit.jupiter.api.Test;
 class RemoveProcessVariablesPayloadDiffblueTest {
   /**
    * Test {@link RemoveProcessVariablesPayload#RemoveProcessVariablesPayload()}.
-   *
-   * <p>Method under test: {@link RemoveProcessVariablesPayload#RemoveProcessVariablesPayload()}
+   * <p>
+   * Method under test: {@link RemoveProcessVariablesPayload#RemoveProcessVariablesPayload()}
    */
   @Test
   @DisplayName("Test new RemoveProcessVariablesPayload()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void RemoveProcessVariablesPayload.<init>()"})
   void testNewRemoveProcessVariablesPayload() {
     // Arrange and Act
-    RemoveProcessVariablesPayload actualRemoveProcessVariablesPayload =
-        new RemoveProcessVariablesPayload();
+    RemoveProcessVariablesPayload actualRemoveProcessVariablesPayload = new RemoveProcessVariablesPayload();
 
     // Assert
     assertNull(actualRemoveProcessVariablesPayload.getProcessInstanceId());
@@ -50,20 +47,16 @@ class RemoveProcessVariablesPayloadDiffblueTest {
 
   /**
    * Test {@link RemoveProcessVariablesPayload#RemoveProcessVariablesPayload(String, List)}.
-   *
    * <ul>
-   *   <li>Given {@code 42}.
-   *   <li>When {@link ArrayList#ArrayList()} add {@code 42}.
+   *   <li>Given {@code 42}.</li>
+   *   <li>When {@link ArrayList#ArrayList()} add {@code 42}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link
-   * RemoveProcessVariablesPayload#RemoveProcessVariablesPayload(String, List)}
+   * <p>
+   * Method under test: {@link RemoveProcessVariablesPayload#RemoveProcessVariablesPayload(String, List)}
    */
   @Test
-  @DisplayName(
-      "Test new RemoveProcessVariablesPayload(String, List); given '42'; when ArrayList() add '42'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test new RemoveProcessVariablesPayload(String, List); given '42'; when ArrayList() add '42'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void RemoveProcessVariablesPayload.<init>(String, List)"})
   void testNewRemoveProcessVariablesPayload_given42_whenArrayListAdd42() {
     // Arrange
@@ -72,8 +65,8 @@ class RemoveProcessVariablesPayloadDiffblueTest {
     variableNames.add("foo");
 
     // Act
-    RemoveProcessVariablesPayload actualRemoveProcessVariablesPayload =
-        new RemoveProcessVariablesPayload("42", variableNames);
+    RemoveProcessVariablesPayload actualRemoveProcessVariablesPayload = new RemoveProcessVariablesPayload("42",
+        variableNames);
 
     // Assert
     assertEquals("42", actualRemoveProcessVariablesPayload.getProcessInstanceId());
@@ -82,20 +75,16 @@ class RemoveProcessVariablesPayloadDiffblueTest {
 
   /**
    * Test {@link RemoveProcessVariablesPayload#RemoveProcessVariablesPayload(String, List)}.
-   *
    * <ul>
-   *   <li>Given {@code foo}.
-   *   <li>Then return VariableNames is {@link ArrayList#ArrayList()}.
+   *   <li>Given {@code foo}.</li>
+   *   <li>Then return VariableNames is {@link ArrayList#ArrayList()}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link
-   * RemoveProcessVariablesPayload#RemoveProcessVariablesPayload(String, List)}
+   * <p>
+   * Method under test: {@link RemoveProcessVariablesPayload#RemoveProcessVariablesPayload(String, List)}
    */
   @Test
-  @DisplayName(
-      "Test new RemoveProcessVariablesPayload(String, List); given 'foo'; then return VariableNames is ArrayList()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test new RemoveProcessVariablesPayload(String, List); given 'foo'; then return VariableNames is ArrayList()")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void RemoveProcessVariablesPayload.<init>(String, List)"})
   void testNewRemoveProcessVariablesPayload_givenFoo_thenReturnVariableNamesIsArrayList() {
     // Arrange
@@ -103,8 +92,8 @@ class RemoveProcessVariablesPayloadDiffblueTest {
     variableNames.add("foo");
 
     // Act
-    RemoveProcessVariablesPayload actualRemoveProcessVariablesPayload =
-        new RemoveProcessVariablesPayload("42", variableNames);
+    RemoveProcessVariablesPayload actualRemoveProcessVariablesPayload = new RemoveProcessVariablesPayload("42",
+        variableNames);
 
     // Assert
     assertEquals("42", actualRemoveProcessVariablesPayload.getProcessInstanceId());
@@ -113,25 +102,21 @@ class RemoveProcessVariablesPayloadDiffblueTest {
 
   /**
    * Test {@link RemoveProcessVariablesPayload#RemoveProcessVariablesPayload(String, List)}.
-   *
    * <ul>
-   *   <li>When {@link ArrayList#ArrayList()}.
-   *   <li>Then return VariableNames Empty.
+   *   <li>When {@link ArrayList#ArrayList()}.</li>
+   *   <li>Then return VariableNames Empty.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link
-   * RemoveProcessVariablesPayload#RemoveProcessVariablesPayload(String, List)}
+   * <p>
+   * Method under test: {@link RemoveProcessVariablesPayload#RemoveProcessVariablesPayload(String, List)}
    */
   @Test
-  @DisplayName(
-      "Test new RemoveProcessVariablesPayload(String, List); when ArrayList(); then return VariableNames Empty")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test new RemoveProcessVariablesPayload(String, List); when ArrayList(); then return VariableNames Empty")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void RemoveProcessVariablesPayload.<init>(String, List)"})
   void testNewRemoveProcessVariablesPayload_whenArrayList_thenReturnVariableNamesEmpty() {
     // Arrange and Act
-    RemoveProcessVariablesPayload actualRemoveProcessVariablesPayload =
-        new RemoveProcessVariablesPayload("42", new ArrayList<>());
+    RemoveProcessVariablesPayload actualRemoveProcessVariablesPayload = new RemoveProcessVariablesPayload("42",
+        new ArrayList<>());
 
     // Assert
     assertEquals("42", actualRemoveProcessVariablesPayload.getProcessInstanceId());
@@ -140,9 +125,8 @@ class RemoveProcessVariablesPayloadDiffblueTest {
 
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>{@link RemoveProcessVariablesPayload#setProcessInstanceId(String)}
    *   <li>{@link RemoveProcessVariablesPayload#setVariableNames(List)}
@@ -153,19 +137,15 @@ class RemoveProcessVariablesPayloadDiffblueTest {
    */
   @Test
   @DisplayName("Test getters and setters")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "String RemoveProcessVariablesPayload.getId()",
-    "String RemoveProcessVariablesPayload.getProcessInstanceId()",
-    "List RemoveProcessVariablesPayload.getVariableNames()",
-    "void RemoveProcessVariablesPayload.setProcessInstanceId(String)",
-    "void RemoveProcessVariablesPayload.setVariableNames(List)"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"String RemoveProcessVariablesPayload.getId()",
+      "String RemoveProcessVariablesPayload.getProcessInstanceId()",
+      "List RemoveProcessVariablesPayload.getVariableNames()",
+      "void RemoveProcessVariablesPayload.setProcessInstanceId(String)",
+      "void RemoveProcessVariablesPayload.setVariableNames(List)"})
   void testGettersAndSetters() {
     // Arrange
-    RemoveProcessVariablesPayload removeProcessVariablesPayload =
-        new RemoveProcessVariablesPayload();
+    RemoveProcessVariablesPayload removeProcessVariablesPayload = new RemoveProcessVariablesPayload();
 
     // Act
     removeProcessVariablesPayload.setProcessInstanceId("42");

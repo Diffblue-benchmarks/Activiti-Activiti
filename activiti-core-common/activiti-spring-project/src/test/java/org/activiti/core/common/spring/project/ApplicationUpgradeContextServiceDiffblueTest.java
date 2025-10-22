@@ -18,7 +18,6 @@ package org.activiti.core.common.spring.project;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.json.JsonMapper;
@@ -31,37 +30,30 @@ import org.springframework.core.io.support.ResourcePatternResolver;
 class ApplicationUpgradeContextServiceDiffblueTest {
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
-   *   <li>{@link ApplicationUpgradeContextService#ApplicationUpgradeContextService(String, Integer,
-   *       Boolean, ObjectMapper, ResourcePatternResolver)}
+   *   <li>{@link ApplicationUpgradeContextService#ApplicationUpgradeContextService(String, Integer, Boolean, ObjectMapper, ResourcePatternResolver)}
    *   <li>{@link ApplicationUpgradeContextService#getEnforcedAppVersion()}
    *   <li>{@link ApplicationUpgradeContextService#isRollbackDeployment()}
    * </ul>
    */
   @Test
   @DisplayName("Test getters and setters")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({
-    "void ApplicationUpgradeContextService.<init>(String, Integer, Boolean, ObjectMapper, ResourcePatternResolver)",
-    "Integer ApplicationUpgradeContextService.getEnforcedAppVersion()",
-    "boolean ApplicationUpgradeContextService.isRollbackDeployment()"
-  })
+      "void ApplicationUpgradeContextService.<init>(String, Integer, Boolean, ObjectMapper, ResourcePatternResolver)",
+      "Integer ApplicationUpgradeContextService.getEnforcedAppVersion()",
+      "boolean ApplicationUpgradeContextService.isRollbackDeployment()"})
   void testGettersAndSetters() {
     // Arrange
     JsonMapper objectMapper = JsonMapper.builder().findAndAddModules().build();
 
     // Act
-    ApplicationUpgradeContextService actualApplicationUpgradeContextService =
-        new ApplicationUpgradeContextService(
-            "Path", 1, true, objectMapper, new AnnotationConfigReactiveWebApplicationContext());
-    Integer actualEnforcedAppVersion =
-        actualApplicationUpgradeContextService.getEnforcedAppVersion();
-    boolean actualIsRollbackDeploymentResult =
-        actualApplicationUpgradeContextService.isRollbackDeployment();
+    ApplicationUpgradeContextService actualApplicationUpgradeContextService = new ApplicationUpgradeContextService(
+        "Path", 1, true, objectMapper, new AnnotationConfigReactiveWebApplicationContext());
+    Integer actualEnforcedAppVersion = actualApplicationUpgradeContextService.getEnforcedAppVersion();
+    boolean actualIsRollbackDeploymentResult = actualApplicationUpgradeContextService.isRollbackDeployment();
 
     // Assert
     assertEquals(1, actualEnforcedAppVersion.intValue());
@@ -70,51 +62,43 @@ class ApplicationUpgradeContextServiceDiffblueTest {
 
   /**
    * Test {@link ApplicationUpgradeContextService#hasEnforcedAppVersion()}.
-   *
    * <ul>
-   *   <li>Then return {@code false}.
+   *   <li>Then return {@code false}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ApplicationUpgradeContextService#hasEnforcedAppVersion()}
+   * <p>
+   * Method under test: {@link ApplicationUpgradeContextService#hasEnforcedAppVersion()}
    */
   @Test
   @DisplayName("Test hasEnforcedAppVersion(); then return 'false'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"boolean ApplicationUpgradeContextService.hasEnforcedAppVersion()"})
   void testHasEnforcedAppVersion_thenReturnFalse() {
     // Arrange
     JsonMapper objectMapper = JsonMapper.builder().findAndAddModules().build();
 
     // Act and Assert
-    assertFalse(
-        new ApplicationUpgradeContextService(
-                "Path", 0, true, objectMapper, new AnnotationConfigReactiveWebApplicationContext())
-            .hasEnforcedAppVersion());
+    assertFalse((new ApplicationUpgradeContextService("Path", 0, true, objectMapper,
+        new AnnotationConfigReactiveWebApplicationContext())).hasEnforcedAppVersion());
   }
 
   /**
    * Test {@link ApplicationUpgradeContextService#hasEnforcedAppVersion()}.
-   *
    * <ul>
-   *   <li>Then return {@code true}.
+   *   <li>Then return {@code true}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ApplicationUpgradeContextService#hasEnforcedAppVersion()}
+   * <p>
+   * Method under test: {@link ApplicationUpgradeContextService#hasEnforcedAppVersion()}
    */
   @Test
   @DisplayName("Test hasEnforcedAppVersion(); then return 'true'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"boolean ApplicationUpgradeContextService.hasEnforcedAppVersion()"})
   void testHasEnforcedAppVersion_thenReturnTrue() {
     // Arrange
     JsonMapper objectMapper = JsonMapper.builder().findAndAddModules().build();
 
     // Act and Assert
-    assertTrue(
-        new ApplicationUpgradeContextService(
-                "Path", 1, true, objectMapper, new AnnotationConfigReactiveWebApplicationContext())
-            .hasEnforcedAppVersion());
+    assertTrue((new ApplicationUpgradeContextService("Path", 1, true, objectMapper,
+        new AnnotationConfigReactiveWebApplicationContext())).hasEnforcedAppVersion());
   }
 }

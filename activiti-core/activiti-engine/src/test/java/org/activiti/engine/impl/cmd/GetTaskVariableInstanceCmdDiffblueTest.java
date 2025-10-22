@@ -17,8 +17,7 @@ package org.activiti.engine.impl.cmd;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
@@ -26,18 +25,16 @@ import org.junit.experimental.categories.Category;
 public class GetTaskVariableInstanceCmdDiffblueTest {
   /**
    * Test {@link GetTaskVariableInstanceCmd#GetTaskVariableInstanceCmd(String, String, boolean)}.
-   *
-   * <p>Method under test: {@link GetTaskVariableInstanceCmd#GetTaskVariableInstanceCmd(String,
-   * String, boolean)}
+   * <p>
+   * Method under test: {@link GetTaskVariableInstanceCmd#GetTaskVariableInstanceCmd(String, String, boolean)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void GetTaskVariableInstanceCmd.<init>(String, String, boolean)"})
   public void testNewGetTaskVariableInstanceCmd() {
     // Arrange and Act
-    GetTaskVariableInstanceCmd actualGetTaskVariableInstanceCmd =
-        new GetTaskVariableInstanceCmd("42", "Variable Name", true);
+    GetTaskVariableInstanceCmd actualGetTaskVariableInstanceCmd = new GetTaskVariableInstanceCmd("42", "Variable Name",
+        true);
 
     // Assert
     assertEquals("42", actualGetTaskVariableInstanceCmd.taskId);

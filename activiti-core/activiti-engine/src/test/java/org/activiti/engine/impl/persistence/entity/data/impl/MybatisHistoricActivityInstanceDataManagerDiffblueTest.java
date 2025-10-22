@@ -19,8 +19,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.Map;
 import org.activiti.engine.impl.cfg.JtaProcessEngineConfiguration;
@@ -33,73 +32,56 @@ import org.junit.experimental.categories.Category;
 
 public class MybatisHistoricActivityInstanceDataManagerDiffblueTest {
   /**
-   * Test {@link
-   * MybatisHistoricActivityInstanceDataManager#MybatisHistoricActivityInstanceDataManager(ProcessEngineConfigurationImpl)}.
-   *
-   * <p>Method under test: {@link
-   * MybatisHistoricActivityInstanceDataManager#MybatisHistoricActivityInstanceDataManager(ProcessEngineConfigurationImpl)}
+   * Test {@link MybatisHistoricActivityInstanceDataManager#MybatisHistoricActivityInstanceDataManager(ProcessEngineConfigurationImpl)}.
+   * <p>
+   * Method under test: {@link MybatisHistoricActivityInstanceDataManager#MybatisHistoricActivityInstanceDataManager(ProcessEngineConfigurationImpl)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void MybatisHistoricActivityInstanceDataManager.<init>(ProcessEngineConfigurationImpl)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void MybatisHistoricActivityInstanceDataManager.<init>(ProcessEngineConfigurationImpl)"})
   public void testNewMybatisHistoricActivityInstanceDataManager() {
     // Arrange and Act
-    MybatisHistoricActivityInstanceDataManager actualMybatisHistoricActivityInstanceDataManager =
-        new MybatisHistoricActivityInstanceDataManager(new JtaProcessEngineConfiguration());
+    MybatisHistoricActivityInstanceDataManager actualMybatisHistoricActivityInstanceDataManager = new MybatisHistoricActivityInstanceDataManager(
+        new JtaProcessEngineConfiguration());
 
     // Assert
     assertTrue(
-        actualMybatisHistoricActivityInstanceDataManager.unfinishedHistoricActivityInstanceMatcher
-            instanceof UnfinishedHistoricActivityInstanceMatcher);
+        actualMybatisHistoricActivityInstanceDataManager.unfinishedHistoricActivityInstanceMatcher instanceof UnfinishedHistoricActivityInstanceMatcher);
     assertNull(actualMybatisHistoricActivityInstanceDataManager.getManagedEntitySubClasses());
-    Class<HistoricActivityInstanceEntityImpl> expectedManagedEntityClass =
-        HistoricActivityInstanceEntityImpl.class;
-    assertEquals(
-        expectedManagedEntityClass,
-        actualMybatisHistoricActivityInstanceDataManager.getManagedEntityClass());
+    Class<HistoricActivityInstanceEntityImpl> expectedManagedEntityClass = HistoricActivityInstanceEntityImpl.class;
+    assertEquals(expectedManagedEntityClass, actualMybatisHistoricActivityInstanceDataManager.getManagedEntityClass());
   }
 
   /**
    * Test {@link MybatisHistoricActivityInstanceDataManager#getManagedEntityClass()}.
-   *
-   * <p>Method under test: {@link
-   * MybatisHistoricActivityInstanceDataManager#getManagedEntityClass()}
+   * <p>
+   * Method under test: {@link MybatisHistoricActivityInstanceDataManager#getManagedEntityClass()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"Class MybatisHistoricActivityInstanceDataManager.getManagedEntityClass()"})
   public void testGetManagedEntityClass() {
     // Arrange and Act
-    Class<? extends HistoricActivityInstanceEntity> actualManagedEntityClass =
-        new MybatisHistoricActivityInstanceDataManager(new JtaProcessEngineConfiguration())
-            .getManagedEntityClass();
+    Class<? extends HistoricActivityInstanceEntity> actualManagedEntityClass = (new MybatisHistoricActivityInstanceDataManager(
+        new JtaProcessEngineConfiguration())).getManagedEntityClass();
 
     // Assert
-    Class<HistoricActivityInstanceEntityImpl> expectedManagedEntityClass =
-        HistoricActivityInstanceEntityImpl.class;
+    Class<HistoricActivityInstanceEntityImpl> expectedManagedEntityClass = HistoricActivityInstanceEntityImpl.class;
     assertEquals(expectedManagedEntityClass, actualManagedEntityClass);
   }
 
   /**
    * Test {@link MybatisHistoricActivityInstanceDataManager#create()}.
-   *
-   * <p>Method under test: {@link MybatisHistoricActivityInstanceDataManager#create()}
+   * <p>
+   * Method under test: {@link MybatisHistoricActivityInstanceDataManager#create()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "HistoricActivityInstanceEntity MybatisHistoricActivityInstanceDataManager.create()"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"HistoricActivityInstanceEntity MybatisHistoricActivityInstanceDataManager.create()"})
   public void testCreate() {
     // Arrange and Act
-    HistoricActivityInstanceEntity actualCreateResult =
-        new MybatisHistoricActivityInstanceDataManager(new JtaProcessEngineConfiguration())
-            .create();
+    HistoricActivityInstanceEntity actualCreateResult = (new MybatisHistoricActivityInstanceDataManager(
+        new JtaProcessEngineConfiguration())).create();
 
     // Assert
     Object persistentState = actualCreateResult.getPersistentState();

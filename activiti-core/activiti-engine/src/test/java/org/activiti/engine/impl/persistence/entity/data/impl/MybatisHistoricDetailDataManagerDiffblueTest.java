@@ -20,8 +20,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertThrows;
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.engine.impl.cfg.JtaProcessEngineConfiguration;
 import org.activiti.engine.impl.cfg.ProcessEngineConfigurationImpl;
@@ -39,27 +38,21 @@ import org.junit.experimental.categories.Category;
 public class MybatisHistoricDetailDataManagerDiffblueTest {
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
-   *   <li>{@link
-   *       MybatisHistoricDetailDataManager#MybatisHistoricDetailDataManager(ProcessEngineConfigurationImpl)}
+   *   <li>{@link MybatisHistoricDetailDataManager#MybatisHistoricDetailDataManager(ProcessEngineConfigurationImpl)}
    *   <li>{@link MybatisHistoricDetailDataManager#getManagedEntityClass()}
    * </ul>
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void MybatisHistoricDetailDataManager.<init>(ProcessEngineConfigurationImpl)",
-    "Class MybatisHistoricDetailDataManager.getManagedEntityClass()"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void MybatisHistoricDetailDataManager.<init>(ProcessEngineConfigurationImpl)",
+      "Class MybatisHistoricDetailDataManager.getManagedEntityClass()"})
   public void testGettersAndSetters() {
     // Arrange and Act
-    Class<? extends HistoricDetailEntity> actualManagedEntityClass =
-        new MybatisHistoricDetailDataManager(new JtaProcessEngineConfiguration())
-            .getManagedEntityClass();
+    Class<? extends HistoricDetailEntity> actualManagedEntityClass = (new MybatisHistoricDetailDataManager(
+        new JtaProcessEngineConfiguration())).getManagedEntityClass();
 
     // Assert
     Class<HistoricDetailEntityImpl> expectedManagedEntityClass = HistoricDetailEntityImpl.class;
@@ -68,40 +61,34 @@ public class MybatisHistoricDetailDataManagerDiffblueTest {
 
   /**
    * Test {@link MybatisHistoricDetailDataManager#create()}.
-   *
-   * <p>Method under test: {@link MybatisHistoricDetailDataManager#create()}
+   * <p>
+   * Method under test: {@link MybatisHistoricDetailDataManager#create()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"HistoricDetailEntity MybatisHistoricDetailDataManager.create()"})
   public void testCreate() {
     // Arrange, Act and Assert
-    assertThrows(
-        UnsupportedOperationException.class,
-        () -> new MybatisHistoricDetailDataManager(new JtaProcessEngineConfiguration()).create());
+    assertThrows(UnsupportedOperationException.class,
+        () -> (new MybatisHistoricDetailDataManager(new JtaProcessEngineConfiguration())).create());
   }
 
   /**
    * Test {@link MybatisHistoricDetailDataManager#createHistoricDetailAssignment()}.
-   *
-   * <p>Method under test: {@link MybatisHistoricDetailDataManager#createHistoricDetailAssignment()}
+   * <p>
+   * Method under test: {@link MybatisHistoricDetailDataManager#createHistoricDetailAssignment()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({
-    "HistoricDetailAssignmentEntity MybatisHistoricDetailDataManager.createHistoricDetailAssignment()"
-  })
+      "HistoricDetailAssignmentEntity MybatisHistoricDetailDataManager.createHistoricDetailAssignment()"})
   public void testCreateHistoricDetailAssignment() {
     // Arrange and Act
-    HistoricDetailAssignmentEntity actualCreateHistoricDetailAssignmentResult =
-        new MybatisHistoricDetailDataManager(new JtaProcessEngineConfiguration())
-            .createHistoricDetailAssignment();
+    HistoricDetailAssignmentEntity actualCreateHistoricDetailAssignmentResult = (new MybatisHistoricDetailDataManager(
+        new JtaProcessEngineConfiguration())).createHistoricDetailAssignment();
 
     // Assert
-    assertTrue(
-        actualCreateHistoricDetailAssignmentResult instanceof HistoricDetailAssignmentEntityImpl);
+    assertTrue(actualCreateHistoricDetailAssignmentResult instanceof HistoricDetailAssignmentEntityImpl);
     assertNull(actualCreateHistoricDetailAssignmentResult.getActivityInstanceId());
     assertNull(actualCreateHistoricDetailAssignmentResult.getExecutionId());
     assertNull(actualCreateHistoricDetailAssignmentResult.getId());
@@ -116,26 +103,21 @@ public class MybatisHistoricDetailDataManagerDiffblueTest {
 
   /**
    * Test {@link MybatisHistoricDetailDataManager#createHistoricDetailTransitionInstance()}.
-   *
-   * <p>Method under test: {@link
-   * MybatisHistoricDetailDataManager#createHistoricDetailTransitionInstance()}
+   * <p>
+   * Method under test: {@link MybatisHistoricDetailDataManager#createHistoricDetailTransitionInstance()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({
-    "HistoricDetailTransitionInstanceEntity MybatisHistoricDetailDataManager.createHistoricDetailTransitionInstance()"
-  })
+      "HistoricDetailTransitionInstanceEntity MybatisHistoricDetailDataManager.createHistoricDetailTransitionInstance()"})
   public void testCreateHistoricDetailTransitionInstance() {
     // Arrange and Act
-    HistoricDetailTransitionInstanceEntity actualCreateHistoricDetailTransitionInstanceResult =
-        new MybatisHistoricDetailDataManager(new JtaProcessEngineConfiguration())
-            .createHistoricDetailTransitionInstance();
+    HistoricDetailTransitionInstanceEntity actualCreateHistoricDetailTransitionInstanceResult = (new MybatisHistoricDetailDataManager(
+        new JtaProcessEngineConfiguration())).createHistoricDetailTransitionInstance();
 
     // Assert
     assertTrue(
-        actualCreateHistoricDetailTransitionInstanceResult
-            instanceof HistoricDetailTransitionInstanceEntityImpl);
+        actualCreateHistoricDetailTransitionInstanceResult instanceof HistoricDetailTransitionInstanceEntityImpl);
     assertNull(actualCreateHistoricDetailTransitionInstanceResult.getActivityInstanceId());
     assertNull(actualCreateHistoricDetailTransitionInstanceResult.getExecutionId());
     assertNull(actualCreateHistoricDetailTransitionInstanceResult.getId());
@@ -150,29 +132,22 @@ public class MybatisHistoricDetailDataManagerDiffblueTest {
 
   /**
    * Test {@link MybatisHistoricDetailDataManager#createHistoricDetailVariableInstanceUpdate()}.
-   *
-   * <p>Method under test: {@link
-   * MybatisHistoricDetailDataManager#createHistoricDetailVariableInstanceUpdate()}
+   * <p>
+   * Method under test: {@link MybatisHistoricDetailDataManager#createHistoricDetailVariableInstanceUpdate()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({
-    "HistoricDetailVariableInstanceUpdateEntity MybatisHistoricDetailDataManager.createHistoricDetailVariableInstanceUpdate()"
-  })
+      "HistoricDetailVariableInstanceUpdateEntity MybatisHistoricDetailDataManager.createHistoricDetailVariableInstanceUpdate()"})
   public void testCreateHistoricDetailVariableInstanceUpdate() {
     // Arrange and Act
-    HistoricDetailVariableInstanceUpdateEntity
-        actualCreateHistoricDetailVariableInstanceUpdateResult =
-            new MybatisHistoricDetailDataManager(new JtaProcessEngineConfiguration())
-                .createHistoricDetailVariableInstanceUpdate();
+    HistoricDetailVariableInstanceUpdateEntity actualCreateHistoricDetailVariableInstanceUpdateResult = (new MybatisHistoricDetailDataManager(
+        new JtaProcessEngineConfiguration())).createHistoricDetailVariableInstanceUpdate();
 
     // Assert
     assertTrue(
-        actualCreateHistoricDetailVariableInstanceUpdateResult
-            instanceof HistoricDetailVariableInstanceUpdateEntityImpl);
-    assertEquals(
-        "VariableUpdate", actualCreateHistoricDetailVariableInstanceUpdateResult.getDetailType());
+        actualCreateHistoricDetailVariableInstanceUpdateResult instanceof HistoricDetailVariableInstanceUpdateEntityImpl);
+    assertEquals("VariableUpdate", actualCreateHistoricDetailVariableInstanceUpdateResult.getDetailType());
     assertNull(actualCreateHistoricDetailVariableInstanceUpdateResult.getBytes());
     assertNull(actualCreateHistoricDetailVariableInstanceUpdateResult.getDoubleValue());
     assertNull(actualCreateHistoricDetailVariableInstanceUpdateResult.getLongValue());

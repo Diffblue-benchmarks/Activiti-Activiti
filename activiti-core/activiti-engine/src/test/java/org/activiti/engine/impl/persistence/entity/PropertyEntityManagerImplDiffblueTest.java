@@ -20,8 +20,7 @@ import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
 import java.util.List;
@@ -35,61 +34,48 @@ import org.junit.experimental.categories.Category;
 public class PropertyEntityManagerImplDiffblueTest {
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
-   *   <li>{@link
-   *       PropertyEntityManagerImpl#PropertyEntityManagerImpl(ProcessEngineConfigurationImpl,
-   *       PropertyDataManager)}
+   *   <li>{@link PropertyEntityManagerImpl#PropertyEntityManagerImpl(ProcessEngineConfigurationImpl, PropertyDataManager)}
    *   <li>{@link PropertyEntityManagerImpl#getDataManager()}
    * </ul>
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void PropertyEntityManagerImpl.<init>(ProcessEngineConfigurationImpl, PropertyDataManager)",
-    "org.activiti.engine.impl.persistence.entity.data.DataManager PropertyEntityManagerImpl.getDataManager()"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void PropertyEntityManagerImpl.<init>(ProcessEngineConfigurationImpl, PropertyDataManager)",
+      "org.activiti.engine.impl.persistence.entity.data.DataManager PropertyEntityManagerImpl.getDataManager()"})
   public void testGettersAndSetters() {
     // Arrange
     JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();
-    MybatisPropertyDataManager propertyDataManager =
-        new MybatisPropertyDataManager(new JtaProcessEngineConfiguration());
+    MybatisPropertyDataManager propertyDataManager = new MybatisPropertyDataManager(
+        new JtaProcessEngineConfiguration());
 
-    // Act
-    PropertyEntityManagerImpl actualPropertyEntityManagerImpl =
-        new PropertyEntityManagerImpl(processEngineConfiguration, propertyDataManager);
-
-    // Assert
-    assertSame(propertyDataManager, actualPropertyEntityManagerImpl.getDataManager());
+    // Act and Assert
+    assertSame(propertyDataManager,
+        (new PropertyEntityManagerImpl(processEngineConfiguration, propertyDataManager)).getDataManager());
   }
 
   /**
    * Test {@link PropertyEntityManagerImpl#findAll()}.
-   *
    * <ul>
-   *   <li>Given {@link PropertyDataManager} {@link PropertyDataManager#findAll()} return {@link
-   *       ArrayList#ArrayList()}.
-   *   <li>Then return Empty.
+   *   <li>Given {@link PropertyDataManager} {@link PropertyDataManager#findAll()} return {@link ArrayList#ArrayList()}.</li>
+   *   <li>Then return Empty.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link PropertyEntityManagerImpl#findAll()}
+   * <p>
+   * Method under test: {@link PropertyEntityManagerImpl#findAll()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"List PropertyEntityManagerImpl.findAll()"})
   public void testFindAll_givenPropertyDataManagerFindAllReturnArrayList_thenReturnEmpty() {
     // Arrange
     PropertyDataManager propertyDataManager = mock(PropertyDataManager.class);
     when(propertyDataManager.findAll()).thenReturn(new ArrayList<>());
-    PropertyEntityManagerImpl propertyEntityManagerImpl =
-        new PropertyEntityManagerImpl(new JtaProcessEngineConfiguration(), propertyDataManager);
 
     // Act
-    List<PropertyEntity> actualFindAllResult = propertyEntityManagerImpl.findAll();
+    List<PropertyEntity> actualFindAllResult = (new PropertyEntityManagerImpl(new JtaProcessEngineConfiguration(),
+        propertyDataManager)).findAll();
 
     // Assert
     verify(propertyDataManager).findAll();

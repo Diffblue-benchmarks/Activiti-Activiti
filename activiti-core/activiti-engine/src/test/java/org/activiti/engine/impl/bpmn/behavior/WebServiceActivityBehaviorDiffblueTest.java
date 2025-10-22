@@ -24,8 +24,7 @@ import static org.mockito.Mockito.atLeast;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -45,20 +44,17 @@ import org.activiti.engine.impl.bpmn.webservice.BpmnInterface;
 import org.activiti.engine.impl.bpmn.webservice.MessageDefinition;
 import org.activiti.engine.impl.bpmn.webservice.MessageImplicitDataInputAssociation;
 import org.activiti.engine.impl.bpmn.webservice.MessageImplicitDataOutputAssociation;
-import org.activiti.engine.test.util.TestProcessUtil;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 
 public class WebServiceActivityBehaviorDiffblueTest {
   /**
    * Test new {@link WebServiceActivityBehavior} (default constructor).
-   *
-   * <p>Method under test: default or parameterless constructor of {@link
-   * WebServiceActivityBehavior}
+   * <p>
+   * Method under test: default or parameterless constructor of {@link WebServiceActivityBehavior}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void WebServiceActivityBehavior.<init>()"})
   public void testNewWebServiceActivityBehavior() {
     // Arrange and Act
@@ -66,8 +62,7 @@ public class WebServiceActivityBehaviorDiffblueTest {
 
     // Assert
     assertNull(actualWebServiceActivityBehavior.getMultiInstanceActivityBehavior());
-    Map<String, ItemDefinition> stringItemDefinitionMap =
-        actualWebServiceActivityBehavior.itemDefinitionMap;
+    Map<String, ItemDefinition> stringItemDefinitionMap = actualWebServiceActivityBehavior.itemDefinitionMap;
     assertEquals(1, stringItemDefinitionMap.size());
     assertFalse(actualWebServiceActivityBehavior.hasLoopCharacteristics());
     assertFalse(actualWebServiceActivityBehavior.hasMultiInstanceCharacteristics());
@@ -82,100 +77,87 @@ public class WebServiceActivityBehaviorDiffblueTest {
 
   /**
    * Test {@link WebServiceActivityBehavior#fillDefinitionMaps(BpmnModel)}.
-   *
-   * <p>Method under test: {@link WebServiceActivityBehavior#fillDefinitionMaps(BpmnModel)}
+   * <p>
+   * Method under test: {@link WebServiceActivityBehavior#fillDefinitionMaps(BpmnModel)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void WebServiceActivityBehavior.fillDefinitionMaps(BpmnModel)"})
   public void testFillDefinitionMaps() {
     // Arrange
     WebServiceActivityBehavior webServiceActivityBehavior = new WebServiceActivityBehavior();
 
-    BpmnModel bpmnModel = TestProcessUtil.createOneTaskBpmnModel();
-
+    BpmnModel bpmnModel = new BpmnModel();
     Builder builderResult = Message.builder();
-
     Builder attributesResult = builderResult.attributes(new HashMap<>());
-    bpmnModel.addMessage(
-        attributesResult
-            .extensionElements(new HashMap<>())
-            .id("42")
-            .itemRef("Item Ref")
-            .name("Name")
-            .xmlColumnNumber(10)
-            .xmlRowNumber(10)
-            .build());
+    Message message = attributesResult.extensionElements(new HashMap<>())
+        .id("42")
+        .itemRef("Item Ref")
+        .name("Name")
+        .xmlColumnNumber(10)
+        .xmlRowNumber(10)
+        .build();
+    bpmnModel.addMessage(message);
 
     // Act
     webServiceActivityBehavior.fillDefinitionMaps(bpmnModel);
 
     // Assert
-    Map<String, MessageDefinition> stringMessageDefinitionMap =
-        webServiceActivityBehavior.messageDefinitionMap;
+    Map<String, MessageDefinition> stringMessageDefinitionMap = webServiceActivityBehavior.messageDefinitionMap;
     assertEquals(1, stringMessageDefinitionMap.size());
     MessageDefinition getResult = stringMessageDefinitionMap.get("42");
     assertEquals("42", getResult.getId());
     assertNull(getResult.getItemDefinition());
-    Map<String, ItemDefinition> stringItemDefinitionMap =
-        webServiceActivityBehavior.itemDefinitionMap;
+    Map<String, ItemDefinition> stringItemDefinitionMap = webServiceActivityBehavior.itemDefinitionMap;
     assertEquals(1, stringItemDefinitionMap.size());
     assertTrue(stringItemDefinitionMap.containsKey("http://www.w3.org/2001/XMLSchema:string"));
   }
 
   /**
    * Test {@link WebServiceActivityBehavior#fillDefinitionMaps(BpmnModel)}.
-   *
-   * <p>Method under test: {@link WebServiceActivityBehavior#fillDefinitionMaps(BpmnModel)}
+   * <p>
+   * Method under test: {@link WebServiceActivityBehavior#fillDefinitionMaps(BpmnModel)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void WebServiceActivityBehavior.fillDefinitionMaps(BpmnModel)"})
   public void testFillDefinitionMaps2() {
     // Arrange
     WebServiceActivityBehavior webServiceActivityBehavior = new WebServiceActivityBehavior();
 
-    BpmnModel bpmnModel = TestProcessUtil.createOneTaskBpmnModel();
-
+    BpmnModel bpmnModel = new BpmnModel();
     Builder builderResult = Message.builder();
-
     Builder attributesResult = builderResult.attributes(new HashMap<>());
-    bpmnModel.addMessage(
-        attributesResult
-            .extensionElements(new HashMap<>())
-            .id("42")
-            .itemRef("")
-            .name("Name")
-            .xmlColumnNumber(10)
-            .xmlRowNumber(10)
-            .build());
+    Message message = attributesResult.extensionElements(new HashMap<>())
+        .id("42")
+        .itemRef("")
+        .name("Name")
+        .xmlColumnNumber(10)
+        .xmlRowNumber(10)
+        .build();
+    bpmnModel.addMessage(message);
 
     // Act
     webServiceActivityBehavior.fillDefinitionMaps(bpmnModel);
 
     // Assert
-    Map<String, MessageDefinition> stringMessageDefinitionMap =
-        webServiceActivityBehavior.messageDefinitionMap;
+    Map<String, MessageDefinition> stringMessageDefinitionMap = webServiceActivityBehavior.messageDefinitionMap;
     assertEquals(1, stringMessageDefinitionMap.size());
     MessageDefinition getResult = stringMessageDefinitionMap.get("42");
     assertEquals("42", getResult.getId());
     assertNull(getResult.getItemDefinition());
-    Map<String, ItemDefinition> stringItemDefinitionMap =
-        webServiceActivityBehavior.itemDefinitionMap;
+    Map<String, ItemDefinition> stringItemDefinitionMap = webServiceActivityBehavior.itemDefinitionMap;
     assertEquals(1, stringItemDefinitionMap.size());
     assertTrue(stringItemDefinitionMap.containsKey("http://www.w3.org/2001/XMLSchema:string"));
   }
 
   /**
    * Test {@link WebServiceActivityBehavior#fillDefinitionMaps(BpmnModel)}.
-   *
-   * <p>Method under test: {@link WebServiceActivityBehavior#fillDefinitionMaps(BpmnModel)}
+   * <p>
+   * Method under test: {@link WebServiceActivityBehavior#fillDefinitionMaps(BpmnModel)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void WebServiceActivityBehavior.fillDefinitionMaps(BpmnModel)"})
   public void testFillDefinitionMaps3() {
     // Arrange
@@ -184,15 +166,14 @@ public class WebServiceActivityBehaviorDiffblueTest {
     org.activiti.bpmn.model.ItemDefinition item = new org.activiti.bpmn.model.ItemDefinition();
     item.setStructureRef("Trying to load class with current thread context classloader: {}");
 
-    BpmnModel bpmnModel = TestProcessUtil.createOneTaskBpmnModel();
+    BpmnModel bpmnModel = new BpmnModel();
     bpmnModel.addItemDefinition("42", item);
 
     // Act
     webServiceActivityBehavior.fillDefinitionMaps(bpmnModel);
 
     // Assert
-    Map<String, ItemDefinition> stringItemDefinitionMap =
-        webServiceActivityBehavior.itemDefinitionMap;
+    Map<String, ItemDefinition> stringItemDefinitionMap = webServiceActivityBehavior.itemDefinitionMap;
     assertEquals(2, stringItemDefinitionMap.size());
     ItemDefinition getResult = stringItemDefinitionMap.get(null);
     assertNull(getResult.getId());
@@ -204,70 +185,27 @@ public class WebServiceActivityBehaviorDiffblueTest {
 
   /**
    * Test {@link WebServiceActivityBehavior#fillDefinitionMaps(BpmnModel)}.
-   *
-   * <p>Method under test: {@link WebServiceActivityBehavior#fillDefinitionMaps(BpmnModel)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void WebServiceActivityBehavior.fillDefinitionMaps(BpmnModel)"})
-  public void testFillDefinitionMaps4() {
-    // Arrange
-    WebServiceActivityBehavior webServiceActivityBehavior = new WebServiceActivityBehavior();
-
-    Import resultImport = new Import();
-    resultImport.setImportType("org.activiti.engine.impl.webservice.CxfWSDLImporter");
-
-    ArrayList<Import> imports = new ArrayList<>();
-    imports.add(resultImport);
-
-    Operation operation = new Operation();
-    operation.setOutMessageRef("not empty");
-
-    ArrayList<Operation> operations = new ArrayList<>();
-    operations.add(operation);
-
-    Interface resultInterface = new Interface();
-    resultInterface.setOperations(operations);
-
-    ArrayList<Interface> interfaces = new ArrayList<>();
-    interfaces.add(resultInterface);
-
-    BpmnModel bpmnModel = TestProcessUtil.createOneTaskBpmnModel();
-    bpmnModel.setImports(imports);
-    bpmnModel.setInterfaces(interfaces);
-
-    // Act and Assert
-    assertThrows(
-        ActivitiException.class, () -> webServiceActivityBehavior.fillDefinitionMaps(bpmnModel));
-  }
-
-  /**
-   * Test {@link WebServiceActivityBehavior#fillDefinitionMaps(BpmnModel)}.
-   *
    * <ul>
-   *   <li>Given {@link org.activiti.bpmn.model.ItemDefinition} (default constructor).
+   *   <li>Given {@link org.activiti.bpmn.model.ItemDefinition} (default constructor).</li>
    * </ul>
-   *
-   * <p>Method under test: {@link WebServiceActivityBehavior#fillDefinitionMaps(BpmnModel)}
+   * <p>
+   * Method under test: {@link WebServiceActivityBehavior#fillDefinitionMaps(BpmnModel)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void WebServiceActivityBehavior.fillDefinitionMaps(BpmnModel)"})
   public void testFillDefinitionMaps_givenItemDefinition() {
     // Arrange
     WebServiceActivityBehavior webServiceActivityBehavior = new WebServiceActivityBehavior();
 
-    BpmnModel bpmnModel = TestProcessUtil.createOneTaskBpmnModel();
+    BpmnModel bpmnModel = new BpmnModel();
     bpmnModel.addItemDefinition("42", new org.activiti.bpmn.model.ItemDefinition());
 
     // Act
     webServiceActivityBehavior.fillDefinitionMaps(bpmnModel);
 
     // Assert
-    Map<String, ItemDefinition> stringItemDefinitionMap =
-        webServiceActivityBehavior.itemDefinitionMap;
+    Map<String, ItemDefinition> stringItemDefinitionMap = webServiceActivityBehavior.itemDefinitionMap;
     assertEquals(2, stringItemDefinitionMap.size());
     ItemDefinition getResult = stringItemDefinitionMap.get(null);
     assertNull(getResult.getId());
@@ -279,24 +217,21 @@ public class WebServiceActivityBehaviorDiffblueTest {
 
   /**
    * Test {@link WebServiceActivityBehavior#fillDefinitionMaps(BpmnModel)}.
-   *
    * <ul>
-   *   <li>Given {@code Trying to load class with local classloader: {}}.
+   *   <li>Given {@code Trying to load class with local classloader: {}}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link WebServiceActivityBehavior#fillDefinitionMaps(BpmnModel)}
+   * <p>
+   * Method under test: {@link WebServiceActivityBehavior#fillDefinitionMaps(BpmnModel)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void WebServiceActivityBehavior.fillDefinitionMaps(BpmnModel)"})
   public void testFillDefinitionMaps_givenTryingToLoadClassWithLocalClassloader() {
     // Arrange
     WebServiceActivityBehavior webServiceActivityBehavior = new WebServiceActivityBehavior();
 
-    BpmnModel bpmnModel = TestProcessUtil.createOneTaskBpmnModel();
-    bpmnModel.addItemDefinition(
-        "Trying to load class with local classloader: {}",
+    BpmnModel bpmnModel = new BpmnModel();
+    bpmnModel.addItemDefinition("Trying to load class with local classloader: {}",
         new org.activiti.bpmn.model.ItemDefinition());
     bpmnModel.addItemDefinition("42", new org.activiti.bpmn.model.ItemDefinition());
 
@@ -304,8 +239,7 @@ public class WebServiceActivityBehaviorDiffblueTest {
     webServiceActivityBehavior.fillDefinitionMaps(bpmnModel);
 
     // Assert
-    Map<String, ItemDefinition> stringItemDefinitionMap =
-        webServiceActivityBehavior.itemDefinitionMap;
+    Map<String, ItemDefinition> stringItemDefinitionMap = webServiceActivityBehavior.itemDefinitionMap;
     assertEquals(2, stringItemDefinitionMap.size());
     ItemDefinition getResult = stringItemDefinitionMap.get(null);
     assertNull(getResult.getId());
@@ -317,72 +251,24 @@ public class WebServiceActivityBehaviorDiffblueTest {
 
   /**
    * Test {@link WebServiceActivityBehavior#fillDefinitionMaps(BpmnModel)}.
-   *
    * <ul>
-   *   <li>Then throw {@link ActivitiException}.
+   *   <li>Then {@link WebServiceActivityBehavior} (default constructor) {@link WebServiceActivityBehavior#messageDefinitionMap} Empty.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link WebServiceActivityBehavior#fillDefinitionMaps(BpmnModel)}
+   * <p>
+   * Method under test: {@link WebServiceActivityBehavior#fillDefinitionMaps(BpmnModel)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void WebServiceActivityBehavior.fillDefinitionMaps(BpmnModel)"})
-  public void testFillDefinitionMaps_thenThrowActivitiException() {
-    // Arrange
-    WebServiceActivityBehavior webServiceActivityBehavior = new WebServiceActivityBehavior();
-
-    Import resultImport = new Import();
-    resultImport.setImportType("http://schemas.xmlsoap.org/wsdl/");
-
-    ArrayList<Import> imports = new ArrayList<>();
-    imports.add(resultImport);
-
-    Operation operation = new Operation();
-    operation.setOutMessageRef("not empty");
-
-    ArrayList<Operation> operations = new ArrayList<>();
-    operations.add(operation);
-
-    Interface resultInterface = new Interface();
-    resultInterface.setOperations(operations);
-
-    ArrayList<Interface> interfaces = new ArrayList<>();
-    interfaces.add(resultInterface);
-
-    BpmnModel bpmnModel = TestProcessUtil.createOneTaskBpmnModel();
-    bpmnModel.setImports(imports);
-    bpmnModel.setInterfaces(interfaces);
-
-    // Act and Assert
-    assertThrows(
-        ActivitiException.class, () -> webServiceActivityBehavior.fillDefinitionMaps(bpmnModel));
-  }
-
-  /**
-   * Test {@link WebServiceActivityBehavior#fillDefinitionMaps(BpmnModel)}.
-   *
-   * <ul>
-   *   <li>Then {@link WebServiceActivityBehavior} (default constructor) {@link
-   *       WebServiceActivityBehavior#messageDefinitionMap} Empty.
-   * </ul>
-   *
-   * <p>Method under test: {@link WebServiceActivityBehavior#fillDefinitionMaps(BpmnModel)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void WebServiceActivityBehavior.fillDefinitionMaps(BpmnModel)"})
   public void testFillDefinitionMaps_thenWebServiceActivityBehaviorMessageDefinitionMapEmpty() {
     // Arrange
     WebServiceActivityBehavior webServiceActivityBehavior = new WebServiceActivityBehavior();
 
     // Act
-    webServiceActivityBehavior.fillDefinitionMaps(TestProcessUtil.createOneTaskBpmnModel());
+    webServiceActivityBehavior.fillDefinitionMaps(new BpmnModel());
 
     // Assert that nothing has changed
-    Map<String, ItemDefinition> stringItemDefinitionMap =
-        webServiceActivityBehavior.itemDefinitionMap;
+    Map<String, ItemDefinition> stringItemDefinitionMap = webServiceActivityBehavior.itemDefinitionMap;
     assertEquals(1, stringItemDefinitionMap.size());
     assertTrue(stringItemDefinitionMap.containsKey("http://www.w3.org/2001/XMLSchema:string"));
     assertTrue(webServiceActivityBehavior.messageDefinitionMap.isEmpty());
@@ -390,43 +276,39 @@ public class WebServiceActivityBehaviorDiffblueTest {
 
   /**
    * Test {@link WebServiceActivityBehavior#createItemDefinitions(BpmnModel)}.
-   *
-   * <p>Method under test: {@link WebServiceActivityBehavior#createItemDefinitions(BpmnModel)}
+   * <p>
+   * Method under test: {@link WebServiceActivityBehavior#createItemDefinitions(BpmnModel)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void WebServiceActivityBehavior.createItemDefinitions(BpmnModel)"})
   public void testCreateItemDefinitions() {
     // Arrange
     WebServiceActivityBehavior webServiceActivityBehavior = new WebServiceActivityBehavior();
 
     // Act
-    webServiceActivityBehavior.createItemDefinitions(TestProcessUtil.createOneTaskBpmnModel());
+    webServiceActivityBehavior.createItemDefinitions(new BpmnModel());
 
     // Assert that nothing has changed
-    Map<String, ItemDefinition> stringItemDefinitionMap =
-        webServiceActivityBehavior.itemDefinitionMap;
+    Map<String, ItemDefinition> stringItemDefinitionMap = webServiceActivityBehavior.itemDefinitionMap;
     assertEquals(1, stringItemDefinitionMap.size());
     assertTrue(stringItemDefinitionMap.containsKey("http://www.w3.org/2001/XMLSchema:string"));
   }
 
   /**
    * Test {@link WebServiceActivityBehavior#createItemDefinitions(BpmnModel)}.
-   *
-   * <p>Method under test: {@link WebServiceActivityBehavior#createItemDefinitions(BpmnModel)}
+   * <p>
+   * Method under test: {@link WebServiceActivityBehavior#createItemDefinitions(BpmnModel)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void WebServiceActivityBehavior.createItemDefinitions(BpmnModel)"})
   public void testCreateItemDefinitions2() {
     // Arrange
     WebServiceActivityBehavior webServiceActivityBehavior = new WebServiceActivityBehavior();
 
-    BpmnModel bpmnModel = TestProcessUtil.createOneTaskBpmnModel();
-    bpmnModel.addItemDefinition(
-        "Trying to load class with current thread context classloader: {}",
+    BpmnModel bpmnModel = new BpmnModel();
+    bpmnModel.addItemDefinition("Trying to load class with current thread context classloader: {}",
         new org.activiti.bpmn.model.ItemDefinition());
     bpmnModel.addItemDefinition("42", new org.activiti.bpmn.model.ItemDefinition());
 
@@ -434,8 +316,7 @@ public class WebServiceActivityBehaviorDiffblueTest {
     webServiceActivityBehavior.createItemDefinitions(bpmnModel);
 
     // Assert
-    Map<String, ItemDefinition> stringItemDefinitionMap =
-        webServiceActivityBehavior.itemDefinitionMap;
+    Map<String, ItemDefinition> stringItemDefinitionMap = webServiceActivityBehavior.itemDefinitionMap;
     assertEquals(2, stringItemDefinitionMap.size());
     ItemDefinition getResult = stringItemDefinitionMap.get(null);
     assertNull(getResult.getId());
@@ -447,12 +328,11 @@ public class WebServiceActivityBehaviorDiffblueTest {
 
   /**
    * Test {@link WebServiceActivityBehavior#createItemDefinitions(BpmnModel)}.
-   *
-   * <p>Method under test: {@link WebServiceActivityBehavior#createItemDefinitions(BpmnModel)}
+   * <p>
+   * Method under test: {@link WebServiceActivityBehavior#createItemDefinitions(BpmnModel)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void WebServiceActivityBehavior.createItemDefinitions(BpmnModel)"})
   public void testCreateItemDefinitions3() {
     // Arrange
@@ -461,15 +341,14 @@ public class WebServiceActivityBehaviorDiffblueTest {
     org.activiti.bpmn.model.ItemDefinition item = new org.activiti.bpmn.model.ItemDefinition();
     item.setStructureRef("Trying to load class with current thread context classloader: {}");
 
-    BpmnModel bpmnModel = TestProcessUtil.createOneTaskBpmnModel();
+    BpmnModel bpmnModel = new BpmnModel();
     bpmnModel.addItemDefinition("42", item);
 
     // Act
     webServiceActivityBehavior.createItemDefinitions(bpmnModel);
 
     // Assert
-    Map<String, ItemDefinition> stringItemDefinitionMap =
-        webServiceActivityBehavior.itemDefinitionMap;
+    Map<String, ItemDefinition> stringItemDefinitionMap = webServiceActivityBehavior.itemDefinitionMap;
     assertEquals(2, stringItemDefinitionMap.size());
     ItemDefinition getResult = stringItemDefinitionMap.get(null);
     assertNull(getResult.getId());
@@ -481,30 +360,27 @@ public class WebServiceActivityBehaviorDiffblueTest {
 
   /**
    * Test {@link WebServiceActivityBehavior#createItemDefinitions(BpmnModel)}.
-   *
    * <ul>
-   *   <li>Given {@link org.activiti.bpmn.model.ItemDefinition} (default constructor).
+   *   <li>Given {@link org.activiti.bpmn.model.ItemDefinition} (default constructor).</li>
    * </ul>
-   *
-   * <p>Method under test: {@link WebServiceActivityBehavior#createItemDefinitions(BpmnModel)}
+   * <p>
+   * Method under test: {@link WebServiceActivityBehavior#createItemDefinitions(BpmnModel)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void WebServiceActivityBehavior.createItemDefinitions(BpmnModel)"})
   public void testCreateItemDefinitions_givenItemDefinition() {
     // Arrange
     WebServiceActivityBehavior webServiceActivityBehavior = new WebServiceActivityBehavior();
 
-    BpmnModel bpmnModel = TestProcessUtil.createOneTaskBpmnModel();
+    BpmnModel bpmnModel = new BpmnModel();
     bpmnModel.addItemDefinition("42", new org.activiti.bpmn.model.ItemDefinition());
 
     // Act
     webServiceActivityBehavior.createItemDefinitions(bpmnModel);
 
     // Assert
-    Map<String, ItemDefinition> stringItemDefinitionMap =
-        webServiceActivityBehavior.itemDefinitionMap;
+    Map<String, ItemDefinition> stringItemDefinitionMap = webServiceActivityBehavior.itemDefinitionMap;
     assertEquals(2, stringItemDefinitionMap.size());
     ItemDefinition getResult = stringItemDefinitionMap.get(null);
     assertNull(getResult.getId());
@@ -516,38 +392,33 @@ public class WebServiceActivityBehaviorDiffblueTest {
 
   /**
    * Test {@link WebServiceActivityBehavior#createMessages(BpmnModel)}.
-   *
-   * <p>Method under test: {@link WebServiceActivityBehavior#createMessages(BpmnModel)}
+   * <p>
+   * Method under test: {@link WebServiceActivityBehavior#createMessages(BpmnModel)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void WebServiceActivityBehavior.createMessages(BpmnModel)"})
   public void testCreateMessages() {
     // Arrange
     WebServiceActivityBehavior webServiceActivityBehavior = new WebServiceActivityBehavior();
 
-    BpmnModel bpmnModel = TestProcessUtil.createOneTaskBpmnModel();
-
+    BpmnModel bpmnModel = new BpmnModel();
     Builder builderResult = Message.builder();
-
     Builder attributesResult = builderResult.attributes(new HashMap<>());
-    bpmnModel.addMessage(
-        attributesResult
-            .extensionElements(new HashMap<>())
-            .id("42")
-            .itemRef("Item Ref")
-            .name("Name")
-            .xmlColumnNumber(10)
-            .xmlRowNumber(10)
-            .build());
+    Message message = attributesResult.extensionElements(new HashMap<>())
+        .id("42")
+        .itemRef("Item Ref")
+        .name("Name")
+        .xmlColumnNumber(10)
+        .xmlRowNumber(10)
+        .build();
+    bpmnModel.addMessage(message);
 
     // Act
     webServiceActivityBehavior.createMessages(bpmnModel);
 
     // Assert
-    Map<String, MessageDefinition> stringMessageDefinitionMap =
-        webServiceActivityBehavior.messageDefinitionMap;
+    Map<String, MessageDefinition> stringMessageDefinitionMap = webServiceActivityBehavior.messageDefinitionMap;
     assertEquals(1, stringMessageDefinitionMap.size());
     MessageDefinition getResult = stringMessageDefinitionMap.get("42");
     assertEquals("42", getResult.getId());
@@ -556,38 +427,33 @@ public class WebServiceActivityBehaviorDiffblueTest {
 
   /**
    * Test {@link WebServiceActivityBehavior#createMessages(BpmnModel)}.
-   *
-   * <p>Method under test: {@link WebServiceActivityBehavior#createMessages(BpmnModel)}
+   * <p>
+   * Method under test: {@link WebServiceActivityBehavior#createMessages(BpmnModel)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void WebServiceActivityBehavior.createMessages(BpmnModel)"})
   public void testCreateMessages2() {
     // Arrange
     WebServiceActivityBehavior webServiceActivityBehavior = new WebServiceActivityBehavior();
 
-    BpmnModel bpmnModel = TestProcessUtil.createOneTaskBpmnModel();
-
+    BpmnModel bpmnModel = new BpmnModel();
     Builder builderResult = Message.builder();
-
     Builder attributesResult = builderResult.attributes(new HashMap<>());
-    bpmnModel.addMessage(
-        attributesResult
-            .extensionElements(new HashMap<>())
-            .id("42")
-            .itemRef("")
-            .name("Name")
-            .xmlColumnNumber(10)
-            .xmlRowNumber(10)
-            .build());
+    Message message = attributesResult.extensionElements(new HashMap<>())
+        .id("42")
+        .itemRef("")
+        .name("Name")
+        .xmlColumnNumber(10)
+        .xmlRowNumber(10)
+        .build();
+    bpmnModel.addMessage(message);
 
     // Act
     webServiceActivityBehavior.createMessages(bpmnModel);
 
     // Assert
-    Map<String, MessageDefinition> stringMessageDefinitionMap =
-        webServiceActivityBehavior.messageDefinitionMap;
+    Map<String, MessageDefinition> stringMessageDefinitionMap = webServiceActivityBehavior.messageDefinitionMap;
     assertEquals(1, stringMessageDefinitionMap.size());
     MessageDefinition getResult = stringMessageDefinitionMap.get("42");
     assertEquals("42", getResult.getId());
@@ -596,64 +462,21 @@ public class WebServiceActivityBehaviorDiffblueTest {
 
   /**
    * Test {@link WebServiceActivityBehavior#createMessages(BpmnModel)}.
-   *
-   * <p>Method under test: {@link WebServiceActivityBehavior#createMessages(BpmnModel)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void WebServiceActivityBehavior.createMessages(BpmnModel)"})
-  public void testCreateMessages3() {
-    // Arrange
-    WebServiceActivityBehavior webServiceActivityBehavior = new WebServiceActivityBehavior();
-
-    BpmnModel bpmnModel = TestProcessUtil.createOneTaskBpmnModel();
-
-    Builder builderResult = Message.builder();
-
-    Builder attributesResult = builderResult.attributes(new HashMap<>());
-    bpmnModel.addMessage(
-        attributesResult
-            .extensionElements(new HashMap<>())
-            .id("42")
-            .itemRef(null)
-            .name("Name")
-            .xmlColumnNumber(10)
-            .xmlRowNumber(10)
-            .build());
-
-    // Act
-    webServiceActivityBehavior.createMessages(bpmnModel);
-
-    // Assert
-    Map<String, MessageDefinition> stringMessageDefinitionMap =
-        webServiceActivityBehavior.messageDefinitionMap;
-    assertEquals(1, stringMessageDefinitionMap.size());
-    MessageDefinition getResult = stringMessageDefinitionMap.get("42");
-    assertEquals("42", getResult.getId());
-    assertNull(getResult.getItemDefinition());
-  }
-
-  /**
-   * Test {@link WebServiceActivityBehavior#createMessages(BpmnModel)}.
-   *
    * <ul>
-   *   <li>Then {@link WebServiceActivityBehavior} (default constructor) {@link
-   *       WebServiceActivityBehavior#messageDefinitionMap} Empty.
+   *   <li>Then {@link WebServiceActivityBehavior} (default constructor) {@link WebServiceActivityBehavior#messageDefinitionMap} Empty.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link WebServiceActivityBehavior#createMessages(BpmnModel)}
+   * <p>
+   * Method under test: {@link WebServiceActivityBehavior#createMessages(BpmnModel)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void WebServiceActivityBehavior.createMessages(BpmnModel)"})
   public void testCreateMessages_thenWebServiceActivityBehaviorMessageDefinitionMapEmpty() {
     // Arrange
     WebServiceActivityBehavior webServiceActivityBehavior = new WebServiceActivityBehavior();
 
     // Act
-    webServiceActivityBehavior.createMessages(TestProcessUtil.createOneTaskBpmnModel());
+    webServiceActivityBehavior.createMessages(new BpmnModel());
 
     // Assert that nothing has changed
     assertTrue(webServiceActivityBehavior.messageDefinitionMap.isEmpty());
@@ -661,147 +484,33 @@ public class WebServiceActivityBehaviorDiffblueTest {
 
   /**
    * Test {@link WebServiceActivityBehavior#createOperations(BpmnModel)}.
-   *
-   * <ul>
-   *   <li>Given {@link Operation} (default constructor) OutMessageRef is empty string.
-   * </ul>
-   *
-   * <p>Method under test: {@link WebServiceActivityBehavior#createOperations(BpmnModel)}
+   * <p>
+   * Method under test: {@link WebServiceActivityBehavior#createOperations(BpmnModel)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void WebServiceActivityBehavior.createOperations(BpmnModel)"})
-  public void testCreateOperations_givenOperationOutMessageRefIsEmptyString() {
+  public void testCreateOperations() {
     // Arrange
     WebServiceActivityBehavior webServiceActivityBehavior = new WebServiceActivityBehavior();
-
-    Operation operation = new Operation();
-    operation.setOutMessageRef("");
-
-    ArrayList<Operation> operations = new ArrayList<>();
-    operations.add(operation);
-
-    Interface resultInterface = new Interface();
-    resultInterface.setOperations(operations);
-
-    ArrayList<Interface> interfaces = new ArrayList<>();
-    interfaces.add(resultInterface);
-
-    BpmnModel bpmnModel = TestProcessUtil.createOneTaskBpmnModel();
-    bpmnModel.setInterfaces(interfaces);
-
-    // Act
-    webServiceActivityBehavior.createOperations(bpmnModel);
-
-    // Assert
-    Map<String, org.activiti.engine.impl.bpmn.webservice.Operation> stringOperationMap =
-        webServiceActivityBehavior.operationMap;
-    assertEquals(1, stringOperationMap.size());
-    org.activiti.engine.impl.bpmn.webservice.Operation getResult = stringOperationMap.get(null);
-    BpmnInterface resultInterface2 = getResult.getInterface();
-    assertNull(resultInterface2.getId());
-    assertNull(resultInterface2.getName());
-    assertNull(getResult.getId());
-    assertNull(getResult.getName());
-    assertNull(resultInterface2.getImplementation());
-    assertNull(getResult.getInMessage());
-    assertNull(getResult.getOutMessage());
-    assertNull(getResult.getImplementation());
-    assertTrue(resultInterface2.getOperations().isEmpty());
-  }
-
-  /**
-   * Test {@link WebServiceActivityBehavior#createOperations(BpmnModel)}.
-   *
-   * <ul>
-   *   <li>Given {@link Operation} (default constructor) OutMessageRef is {@code not empty}.
-   * </ul>
-   *
-   * <p>Method under test: {@link WebServiceActivityBehavior#createOperations(BpmnModel)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void WebServiceActivityBehavior.createOperations(BpmnModel)"})
-  public void testCreateOperations_givenOperationOutMessageRefIsNotEmpty() {
-    // Arrange
-    WebServiceActivityBehavior webServiceActivityBehavior = new WebServiceActivityBehavior();
-
-    Operation operation = new Operation();
-    operation.setOutMessageRef("not empty");
-
-    ArrayList<Operation> operations = new ArrayList<>();
-    operations.add(operation);
-
-    Interface resultInterface = new Interface();
-    resultInterface.setOperations(operations);
-
-    ArrayList<Interface> interfaces = new ArrayList<>();
-    interfaces.add(resultInterface);
-
-    BpmnModel bpmnModel = TestProcessUtil.createOneTaskBpmnModel();
-    bpmnModel.setInterfaces(interfaces);
-
-    // Act
-    webServiceActivityBehavior.createOperations(bpmnModel);
-
-    // Assert
-    Map<String, org.activiti.engine.impl.bpmn.webservice.Operation> stringOperationMap =
-        webServiceActivityBehavior.operationMap;
-    assertEquals(1, stringOperationMap.size());
-    org.activiti.engine.impl.bpmn.webservice.Operation getResult = stringOperationMap.get(null);
-    BpmnInterface resultInterface2 = getResult.getInterface();
-    assertNull(resultInterface2.getId());
-    assertNull(resultInterface2.getName());
-    assertNull(getResult.getId());
-    assertNull(getResult.getName());
-    assertNull(resultInterface2.getImplementation());
-    assertNull(getResult.getInMessage());
-    assertNull(getResult.getOutMessage());
-    assertNull(getResult.getImplementation());
-    assertTrue(resultInterface2.getOperations().isEmpty());
-  }
-
-  /**
-   * Test {@link WebServiceActivityBehavior#createOperations(BpmnModel)}.
-   *
-   * <ul>
-   *   <li>Given {@link Operation} (default constructor) OutMessageRef is {@code not empty}.
-   * </ul>
-   *
-   * <p>Method under test: {@link WebServiceActivityBehavior#createOperations(BpmnModel)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void WebServiceActivityBehavior.createOperations(BpmnModel)"})
-  public void testCreateOperations_givenOperationOutMessageRefIsNotEmpty2() {
-    // Arrange
-    WebServiceActivityBehavior webServiceActivityBehavior = new WebServiceActivityBehavior();
-
-    Operation operation = new Operation();
-    operation.setOutMessageRef("not empty");
 
     ArrayList<Operation> operations = new ArrayList<>();
     operations.add(new Operation());
-    operations.add(operation);
 
     Interface resultInterface = new Interface();
     resultInterface.setOperations(operations);
 
-    ArrayList<Interface> interfaces = new ArrayList<>();
-    interfaces.add(resultInterface);
-
-    BpmnModel bpmnModel = TestProcessUtil.createOneTaskBpmnModel();
-    bpmnModel.setInterfaces(interfaces);
+    ArrayList<Interface> resultInterfaceList = new ArrayList<>();
+    resultInterfaceList.add(resultInterface);
+    BpmnModel bpmnModel = mock(BpmnModel.class);
+    when(bpmnModel.getInterfaces()).thenReturn(resultInterfaceList);
 
     // Act
     webServiceActivityBehavior.createOperations(bpmnModel);
 
     // Assert
-    Map<String, org.activiti.engine.impl.bpmn.webservice.Operation> stringOperationMap =
-        webServiceActivityBehavior.operationMap;
+    verify(bpmnModel).getInterfaces();
+    Map<String, org.activiti.engine.impl.bpmn.webservice.Operation> stringOperationMap = webServiceActivityBehavior.operationMap;
     assertEquals(1, stringOperationMap.size());
     org.activiti.engine.impl.bpmn.webservice.Operation getResult = stringOperationMap.get(null);
     BpmnInterface resultInterface2 = getResult.getInterface();
@@ -818,23 +527,93 @@ public class WebServiceActivityBehaviorDiffblueTest {
 
   /**
    * Test {@link WebServiceActivityBehavior#createOperations(BpmnModel)}.
-   *
-   * <ul>
-   *   <li>Given {@link Operation} (default constructor) OutMessageRef is {@code null}.
-   * </ul>
-   *
-   * <p>Method under test: {@link WebServiceActivityBehavior#createOperations(BpmnModel)}
+   * <p>
+   * Method under test: {@link WebServiceActivityBehavior#createOperations(BpmnModel)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void WebServiceActivityBehavior.createOperations(BpmnModel)"})
-  public void testCreateOperations_givenOperationOutMessageRefIsNull() {
+  public void testCreateOperations2() {
     // Arrange
     WebServiceActivityBehavior webServiceActivityBehavior = new WebServiceActivityBehavior();
 
-    Operation operation = new Operation();
-    operation.setOutMessageRef(null);
+    ArrayList<Operation> operations = new ArrayList<>();
+    operations.add(new Operation());
+    operations.add(new Operation());
+
+    Interface resultInterface = new Interface();
+    resultInterface.setOperations(operations);
+
+    ArrayList<Interface> resultInterfaceList = new ArrayList<>();
+    resultInterfaceList.add(resultInterface);
+    BpmnModel bpmnModel = mock(BpmnModel.class);
+    when(bpmnModel.getInterfaces()).thenReturn(resultInterfaceList);
+
+    // Act
+    webServiceActivityBehavior.createOperations(bpmnModel);
+
+    // Assert
+    verify(bpmnModel).getInterfaces();
+    Map<String, org.activiti.engine.impl.bpmn.webservice.Operation> stringOperationMap = webServiceActivityBehavior.operationMap;
+    assertEquals(1, stringOperationMap.size());
+    org.activiti.engine.impl.bpmn.webservice.Operation getResult = stringOperationMap.get(null);
+    BpmnInterface resultInterface2 = getResult.getInterface();
+    assertNull(resultInterface2.getId());
+    assertNull(resultInterface2.getName());
+    assertNull(getResult.getId());
+    assertNull(getResult.getName());
+    assertNull(resultInterface2.getImplementation());
+    assertNull(getResult.getInMessage());
+    assertNull(getResult.getOutMessage());
+    assertNull(getResult.getImplementation());
+    assertTrue(resultInterface2.getOperations().isEmpty());
+  }
+
+  /**
+   * Test {@link WebServiceActivityBehavior#createOperations(BpmnModel)}.
+   * <ul>
+   *   <li>Given {@link ArrayList#ArrayList()}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link WebServiceActivityBehavior#createOperations(BpmnModel)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void WebServiceActivityBehavior.createOperations(BpmnModel)"})
+  public void testCreateOperations_givenArrayList() {
+    // Arrange
+    WebServiceActivityBehavior webServiceActivityBehavior = new WebServiceActivityBehavior();
+    BpmnModel bpmnModel = mock(BpmnModel.class);
+    when(bpmnModel.getInterfaces()).thenReturn(new ArrayList<>());
+
+    // Act
+    webServiceActivityBehavior.createOperations(bpmnModel);
+
+    // Assert that nothing has changed
+    verify(bpmnModel).getInterfaces();
+    assertTrue(webServiceActivityBehavior.operationMap.isEmpty());
+  }
+
+  /**
+   * Test {@link WebServiceActivityBehavior#createOperations(BpmnModel)}.
+   * <ul>
+   *   <li>Given {@link Operation} {@link Operation#getOutMessageRef()} return empty string.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link WebServiceActivityBehavior#createOperations(BpmnModel)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void WebServiceActivityBehavior.createOperations(BpmnModel)"})
+  public void testCreateOperations_givenOperationGetOutMessageRefReturnEmptyString() {
+    // Arrange
+    WebServiceActivityBehavior webServiceActivityBehavior = new WebServiceActivityBehavior();
+    Operation operation = mock(Operation.class);
+    when(operation.getId()).thenReturn("42");
+    when(operation.getImplementationRef()).thenReturn("Implementation Ref");
+    when(operation.getInMessageRef()).thenReturn("In Message Ref");
+    when(operation.getName()).thenReturn("Name");
+    when(operation.getOutMessageRef()).thenReturn("");
 
     ArrayList<Operation> operations = new ArrayList<>();
     operations.add(operation);
@@ -842,25 +621,29 @@ public class WebServiceActivityBehaviorDiffblueTest {
     Interface resultInterface = new Interface();
     resultInterface.setOperations(operations);
 
-    ArrayList<Interface> interfaces = new ArrayList<>();
-    interfaces.add(resultInterface);
-
-    BpmnModel bpmnModel = TestProcessUtil.createOneTaskBpmnModel();
-    bpmnModel.setInterfaces(interfaces);
+    ArrayList<Interface> resultInterfaceList = new ArrayList<>();
+    resultInterfaceList.add(resultInterface);
+    BpmnModel bpmnModel = mock(BpmnModel.class);
+    when(bpmnModel.getInterfaces()).thenReturn(resultInterfaceList);
 
     // Act
     webServiceActivityBehavior.createOperations(bpmnModel);
 
     // Assert
-    Map<String, org.activiti.engine.impl.bpmn.webservice.Operation> stringOperationMap =
-        webServiceActivityBehavior.operationMap;
+    verify(operation, atLeast(1)).getId();
+    verify(bpmnModel).getInterfaces();
+    verify(operation).getImplementationRef();
+    verify(operation).getInMessageRef();
+    verify(operation).getName();
+    verify(operation).getOutMessageRef();
+    Map<String, org.activiti.engine.impl.bpmn.webservice.Operation> stringOperationMap = webServiceActivityBehavior.operationMap;
     assertEquals(1, stringOperationMap.size());
-    org.activiti.engine.impl.bpmn.webservice.Operation getResult = stringOperationMap.get(null);
+    org.activiti.engine.impl.bpmn.webservice.Operation getResult = stringOperationMap.get("42");
+    assertEquals("42", getResult.getId());
+    assertEquals("Name", getResult.getName());
     BpmnInterface resultInterface2 = getResult.getInterface();
     assertNull(resultInterface2.getId());
     assertNull(resultInterface2.getName());
-    assertNull(getResult.getId());
-    assertNull(getResult.getName());
     assertNull(resultInterface2.getImplementation());
     assertNull(getResult.getInMessage());
     assertNull(getResult.getOutMessage());
@@ -870,24 +653,106 @@ public class WebServiceActivityBehaviorDiffblueTest {
 
   /**
    * Test {@link WebServiceActivityBehavior#createOperations(BpmnModel)}.
-   *
    * <ul>
-   *   <li>Then {@link WebServiceActivityBehavior} (default constructor) {@link
-   *       WebServiceActivityBehavior#operationMap} Empty.
+   *   <li>Given {@link Operation} {@link Operation#getOutMessageRef()} return {@code Out Message Ref}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link WebServiceActivityBehavior#createOperations(BpmnModel)}
+   * <p>
+   * Method under test: {@link WebServiceActivityBehavior#createOperations(BpmnModel)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void WebServiceActivityBehavior.createOperations(BpmnModel)"})
+  public void testCreateOperations_givenOperationGetOutMessageRefReturnOutMessageRef() {
+    // Arrange
+    WebServiceActivityBehavior webServiceActivityBehavior = new WebServiceActivityBehavior();
+    Operation operation = mock(Operation.class);
+    when(operation.getId()).thenReturn("42");
+    when(operation.getImplementationRef()).thenReturn("Implementation Ref");
+    when(operation.getInMessageRef()).thenReturn("In Message Ref");
+    when(operation.getName()).thenReturn("Name");
+    when(operation.getOutMessageRef()).thenReturn("Out Message Ref");
+
+    ArrayList<Operation> operations = new ArrayList<>();
+    operations.add(operation);
+
+    Interface resultInterface = new Interface();
+    resultInterface.setOperations(operations);
+
+    ArrayList<Interface> resultInterfaceList = new ArrayList<>();
+    resultInterfaceList.add(resultInterface);
+    BpmnModel bpmnModel = mock(BpmnModel.class);
+    when(bpmnModel.getInterfaces()).thenReturn(resultInterfaceList);
+
+    // Act
+    webServiceActivityBehavior.createOperations(bpmnModel);
+
+    // Assert
+    verify(operation, atLeast(1)).getId();
+    verify(bpmnModel).getInterfaces();
+    verify(operation).getImplementationRef();
+    verify(operation).getInMessageRef();
+    verify(operation).getName();
+    verify(operation, atLeast(1)).getOutMessageRef();
+    Map<String, org.activiti.engine.impl.bpmn.webservice.Operation> stringOperationMap = webServiceActivityBehavior.operationMap;
+    assertEquals(1, stringOperationMap.size());
+    org.activiti.engine.impl.bpmn.webservice.Operation getResult = stringOperationMap.get("42");
+    assertEquals("42", getResult.getId());
+    assertEquals("Name", getResult.getName());
+    BpmnInterface resultInterface2 = getResult.getInterface();
+    assertNull(resultInterface2.getId());
+    assertNull(resultInterface2.getName());
+    assertNull(resultInterface2.getImplementation());
+    assertNull(getResult.getInMessage());
+    assertNull(getResult.getOutMessage());
+    assertNull(getResult.getImplementation());
+    assertTrue(resultInterface2.getOperations().isEmpty());
+  }
+
+  /**
+   * Test {@link WebServiceActivityBehavior#createOperations(BpmnModel)}.
+   * <ul>
+   *   <li>Then {@link WebServiceActivityBehavior} (default constructor) {@link WebServiceActivityBehavior#operationMap} Empty.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link WebServiceActivityBehavior#createOperations(BpmnModel)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void WebServiceActivityBehavior.createOperations(BpmnModel)"})
   public void testCreateOperations_thenWebServiceActivityBehaviorOperationMapEmpty() {
     // Arrange
     WebServiceActivityBehavior webServiceActivityBehavior = new WebServiceActivityBehavior();
 
+    ArrayList<Interface> resultInterfaceList = new ArrayList<>();
+    resultInterfaceList.add(new Interface());
+    BpmnModel bpmnModel = mock(BpmnModel.class);
+    when(bpmnModel.getInterfaces()).thenReturn(resultInterfaceList);
+
     // Act
-    webServiceActivityBehavior.createOperations(TestProcessUtil.createOneTaskBpmnModel());
+    webServiceActivityBehavior.createOperations(bpmnModel);
+
+    // Assert that nothing has changed
+    verify(bpmnModel).getInterfaces();
+    assertTrue(webServiceActivityBehavior.operationMap.isEmpty());
+  }
+
+  /**
+   * Test {@link WebServiceActivityBehavior#createOperations(BpmnModel)}.
+   * <ul>
+   *   <li>When {@link BpmnModel} (default constructor).</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link WebServiceActivityBehavior#createOperations(BpmnModel)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void WebServiceActivityBehavior.createOperations(BpmnModel)"})
+  public void testCreateOperations_whenBpmnModel() {
+    // Arrange
+    WebServiceActivityBehavior webServiceActivityBehavior = new WebServiceActivityBehavior();
+
+    // Act
+    webServiceActivityBehavior.createOperations(new BpmnModel());
 
     // Assert that nothing has changed
     assertTrue(webServiceActivityBehavior.operationMap.isEmpty());
@@ -895,16 +760,14 @@ public class WebServiceActivityBehaviorDiffblueTest {
 
   /**
    * Test {@link WebServiceActivityBehavior#fillImporterInfo(Import, String)}.
-   *
    * <ul>
-   *   <li>Given {@code http://schemas.xmlsoap.org/wsdl/}.
+   *   <li>Given {@code http://schemas.xmlsoap.org/wsdl/}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link WebServiceActivityBehavior#fillImporterInfo(Import, String)}
+   * <p>
+   * Method under test: {@link WebServiceActivityBehavior#fillImporterInfo(Import, String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void WebServiceActivityBehavior.fillImporterInfo(Import, String)"})
   public void testFillImporterInfo_givenHttpSchemasXmlsoapOrgWsdl() {
     // Arrange
@@ -914,66 +777,53 @@ public class WebServiceActivityBehaviorDiffblueTest {
     theImport.setImportType("http://schemas.xmlsoap.org/wsdl/");
 
     // Act and Assert
-    assertThrows(
-        ActivitiException.class,
-        () -> webServiceActivityBehavior.fillImporterInfo(theImport, "42"));
+    assertThrows(ActivitiException.class, () -> webServiceActivityBehavior.fillImporterInfo(theImport, "42"));
   }
 
   /**
    * Test {@link WebServiceActivityBehavior#fillImporterInfo(Import, String)}.
-   *
    * <ul>
-   *   <li>Given {@code Import Type}.
-   *   <li>Then calls {@link Import#getImportType()}.
+   *   <li>Given {@code Import Type}.</li>
+   *   <li>Then calls {@link Import#getImportType()}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link WebServiceActivityBehavior#fillImporterInfo(Import, String)}
+   * <p>
+   * Method under test: {@link WebServiceActivityBehavior#fillImporterInfo(Import, String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void WebServiceActivityBehavior.fillImporterInfo(Import, String)"})
   public void testFillImporterInfo_givenImportType_thenCallsGetImportType() {
     // Arrange
     WebServiceActivityBehavior webServiceActivityBehavior = new WebServiceActivityBehavior();
-
     Import theImport = mock(Import.class);
     when(theImport.getImportType()).thenReturn("Import Type");
 
     // Act and Assert
-    assertThrows(
-        ActivitiException.class,
-        () -> webServiceActivityBehavior.fillImporterInfo(theImport, "42"));
+    assertThrows(ActivitiException.class, () -> webServiceActivityBehavior.fillImporterInfo(theImport, "42"));
     verify(theImport, atLeast(1)).getImportType();
   }
 
   /**
    * Test {@link WebServiceActivityBehavior#createDataInputAssociation(DataAssociation)}.
-   *
    * <ul>
-   *   <li>Then return {@link MessageImplicitDataInputAssociation}.
+   *   <li>Then return {@link MessageImplicitDataInputAssociation}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link
-   * WebServiceActivityBehavior#createDataInputAssociation(DataAssociation)}
+   * <p>
+   * Method under test: {@link WebServiceActivityBehavior#createDataInputAssociation(DataAssociation)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "AbstractDataAssociation WebServiceActivityBehavior.createDataInputAssociation(DataAssociation)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"AbstractDataAssociation WebServiceActivityBehavior.createDataInputAssociation(DataAssociation)"})
   public void testCreateDataInputAssociation_thenReturnMessageImplicitDataInputAssociation() {
     // Arrange
     WebServiceActivityBehavior webServiceActivityBehavior = new WebServiceActivityBehavior();
 
     // Act
-    AbstractDataAssociation actualCreateDataInputAssociationResult =
-        webServiceActivityBehavior.createDataInputAssociation(new DataAssociation());
+    AbstractDataAssociation actualCreateDataInputAssociationResult = webServiceActivityBehavior
+        .createDataInputAssociation(new DataAssociation());
 
     // Assert
-    assertTrue(
-        actualCreateDataInputAssociationResult instanceof MessageImplicitDataInputAssociation);
+    assertTrue(actualCreateDataInputAssociationResult instanceof MessageImplicitDataInputAssociation);
     assertNull(actualCreateDataInputAssociationResult.getSource());
     assertNull(actualCreateDataInputAssociationResult.getTarget());
     assertNull(actualCreateDataInputAssociationResult.getSourceExpression());
@@ -981,35 +831,29 @@ public class WebServiceActivityBehaviorDiffblueTest {
 
   /**
    * Test {@link WebServiceActivityBehavior#createDataOutputAssociation(DataAssociation)}.
-   *
    * <ul>
-   *   <li>Then return {@link MessageImplicitDataOutputAssociation}.
+   *   <li>Then return {@link MessageImplicitDataOutputAssociation}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link
-   * WebServiceActivityBehavior#createDataOutputAssociation(DataAssociation)}
+   * <p>
+   * Method under test: {@link WebServiceActivityBehavior#createDataOutputAssociation(DataAssociation)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "AbstractDataAssociation WebServiceActivityBehavior.createDataOutputAssociation(DataAssociation)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"AbstractDataAssociation WebServiceActivityBehavior.createDataOutputAssociation(DataAssociation)"})
   public void testCreateDataOutputAssociation_thenReturnMessageImplicitDataOutputAssociation() {
     // Arrange
     WebServiceActivityBehavior webServiceActivityBehavior = new WebServiceActivityBehavior();
 
     DataAssociation dataAssociationElement = new DataAssociation();
-    dataAssociationElement.setSourceRef("not empty");
+    dataAssociationElement.setSourceRef("Data Association Element");
 
     // Act
-    AbstractDataAssociation actualCreateDataOutputAssociationResult =
-        webServiceActivityBehavior.createDataOutputAssociation(dataAssociationElement);
+    AbstractDataAssociation actualCreateDataOutputAssociationResult = webServiceActivityBehavior
+        .createDataOutputAssociation(dataAssociationElement);
 
     // Assert
-    assertTrue(
-        actualCreateDataOutputAssociationResult instanceof MessageImplicitDataOutputAssociation);
-    assertEquals("not empty", actualCreateDataOutputAssociationResult.getSource());
+    assertTrue(actualCreateDataOutputAssociationResult instanceof MessageImplicitDataOutputAssociation);
+    assertEquals("Data Association Element", actualCreateDataOutputAssociationResult.getSource());
     assertNull(actualCreateDataOutputAssociationResult.getTarget());
     assertNull(actualCreateDataOutputAssociationResult.getSourceExpression());
   }

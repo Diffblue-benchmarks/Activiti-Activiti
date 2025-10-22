@@ -20,8 +20,7 @@ import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import jakarta.transaction.SystemException;
 import jakarta.transaction.Transaction;
@@ -33,46 +32,33 @@ import org.junit.experimental.categories.Category;
 
 public class TransactionCommandContextCloseListenerDiffblueTest {
   /**
-   * Test {@link
-   * TransactionCommandContextCloseListener#TransactionCommandContextCloseListener(TransactionContext)}.
-   *
-   * <p>Method under test: {@link
-   * TransactionCommandContextCloseListener#TransactionCommandContextCloseListener(TransactionContext)}
+   * Test {@link TransactionCommandContextCloseListener#TransactionCommandContextCloseListener(TransactionContext)}.
+   * <p>
+   * Method under test: {@link TransactionCommandContextCloseListener#TransactionCommandContextCloseListener(TransactionContext)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void TransactionCommandContextCloseListener.<init>(TransactionContext)",
-    "void TransactionCommandContextCloseListener.closed(CommandContext)",
-    "void TransactionCommandContextCloseListener.closing(CommandContext)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void TransactionCommandContextCloseListener.<init>(TransactionContext)",
+      "void TransactionCommandContextCloseListener.closed(CommandContext)",
+      "void TransactionCommandContextCloseListener.closing(CommandContext)"})
   public void testNewTransactionCommandContextCloseListener() {
-    // Arrange
-    JtaTransactionContext transactionContext =
-        new JtaTransactionContext(mock(TransactionManager.class));
-
-    // Act and Assert
-    assertTrue(
-        new TransactionCommandContextCloseListener(transactionContext).transactionContext
-            instanceof JtaTransactionContext);
+    // Arrange, Act and Assert
+    assertTrue((new TransactionCommandContextCloseListener(new JtaTransactionContext(
+        mock(TransactionManager.class)))).transactionContext instanceof JtaTransactionContext);
   }
 
   /**
    * Test {@link TransactionCommandContextCloseListener#closeFailure(CommandContext)}.
-   *
    * <ul>
-   *   <li>Given {@link Transaction} {@link Transaction#getStatus()} return one.
-   *   <li>When {@code null}.
-   *   <li>Then calls {@link Transaction#getStatus()}.
+   *   <li>Given {@link Transaction} {@link Transaction#getStatus()} return one.</li>
+   *   <li>When {@code null}.</li>
+   *   <li>Then calls {@link Transaction#getStatus()}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link
-   * TransactionCommandContextCloseListener#closeFailure(CommandContext)}
+   * <p>
+   * Method under test: {@link TransactionCommandContextCloseListener#closeFailure(CommandContext)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void TransactionCommandContextCloseListener.closeFailure(CommandContext)"})
   public void testCloseFailure_givenTransactionGetStatusReturnOne_whenNull_thenCallsGetStatus()
       throws SystemException, IllegalStateException {
@@ -80,13 +66,11 @@ public class TransactionCommandContextCloseListenerDiffblueTest {
     Transaction transaction = mock(Transaction.class);
     when(transaction.getStatus()).thenReturn(1);
     doNothing().when(transaction).setRollbackOnly();
-
     TransactionManager transactionManager = mock(TransactionManager.class);
     when(transactionManager.getTransaction()).thenReturn(transaction);
-    JtaTransactionContext transactionContext = new JtaTransactionContext(transactionManager);
 
     // Act
-    new TransactionCommandContextCloseListener(transactionContext).closeFailure(null);
+    (new TransactionCommandContextCloseListener(new JtaTransactionContext(transactionManager))).closeFailure(null);
 
     // Assert
     verify(transaction).getStatus();

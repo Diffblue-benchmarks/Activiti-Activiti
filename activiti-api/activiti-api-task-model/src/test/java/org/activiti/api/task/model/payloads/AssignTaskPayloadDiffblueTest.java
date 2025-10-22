@@ -17,7 +17,6 @@ package org.activiti.api.task.model.payloads;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
@@ -26,13 +25,12 @@ import org.junit.jupiter.api.Test;
 class AssignTaskPayloadDiffblueTest {
   /**
    * Test {@link AssignTaskPayload#AssignTaskPayload()}.
-   *
-   * <p>Method under test: {@link AssignTaskPayload#AssignTaskPayload()}
+   * <p>
+   * Method under test: {@link AssignTaskPayload#AssignTaskPayload()}
    */
   @Test
   @DisplayName("Test new AssignTaskPayload()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void AssignTaskPayload.<init>()"})
   void testNewAssignTaskPayload() {
     // Arrange and Act
@@ -45,13 +43,12 @@ class AssignTaskPayloadDiffblueTest {
 
   /**
    * Test {@link AssignTaskPayload#AssignTaskPayload(String, String)}.
-   *
-   * <p>Method under test: {@link AssignTaskPayload#AssignTaskPayload(String, String)}
+   * <p>
+   * Method under test: {@link AssignTaskPayload#AssignTaskPayload(String, String)}
    */
   @Test
   @DisplayName("Test new AssignTaskPayload(String, String)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void AssignTaskPayload.<init>(String, String)"})
   void testNewAssignTaskPayload2() {
     // Arrange and Act
@@ -64,9 +61,8 @@ class AssignTaskPayloadDiffblueTest {
 
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>{@link AssignTaskPayload#setAssignee(String)}
    *   <li>{@link AssignTaskPayload#setTaskId(String)}
@@ -77,15 +73,10 @@ class AssignTaskPayloadDiffblueTest {
    */
   @Test
   @DisplayName("Test getters and setters")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "String AssignTaskPayload.getAssignee()",
-    "String AssignTaskPayload.getId()",
-    "String AssignTaskPayload.getTaskId()",
-    "void AssignTaskPayload.setAssignee(String)",
-    "void AssignTaskPayload.setTaskId(String)"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"String AssignTaskPayload.getAssignee()", "String AssignTaskPayload.getId()",
+      "String AssignTaskPayload.getTaskId()", "void AssignTaskPayload.setAssignee(String)",
+      "void AssignTaskPayload.setTaskId(String)"})
   void testGettersAndSetters() {
     // Arrange
     AssignTaskPayload assignTaskPayload = new AssignTaskPayload();

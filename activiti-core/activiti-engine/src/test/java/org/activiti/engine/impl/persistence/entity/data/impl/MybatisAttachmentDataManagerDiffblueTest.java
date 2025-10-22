@@ -19,8 +19,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.Map;
 import org.activiti.engine.impl.cfg.JtaProcessEngineConfiguration;
@@ -33,27 +32,21 @@ import org.junit.experimental.categories.Category;
 public class MybatisAttachmentDataManagerDiffblueTest {
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
-   *   <li>{@link
-   *       MybatisAttachmentDataManager#MybatisAttachmentDataManager(ProcessEngineConfigurationImpl)}
+   *   <li>{@link MybatisAttachmentDataManager#MybatisAttachmentDataManager(ProcessEngineConfigurationImpl)}
    *   <li>{@link MybatisAttachmentDataManager#getManagedEntityClass()}
    * </ul>
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void MybatisAttachmentDataManager.<init>(ProcessEngineConfigurationImpl)",
-    "Class MybatisAttachmentDataManager.getManagedEntityClass()"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void MybatisAttachmentDataManager.<init>(ProcessEngineConfigurationImpl)",
+      "Class MybatisAttachmentDataManager.getManagedEntityClass()"})
   public void testGettersAndSetters() {
     // Arrange and Act
-    Class<? extends AttachmentEntity> actualManagedEntityClass =
-        new MybatisAttachmentDataManager(new JtaProcessEngineConfiguration())
-            .getManagedEntityClass();
+    Class<? extends AttachmentEntity> actualManagedEntityClass = (new MybatisAttachmentDataManager(
+        new JtaProcessEngineConfiguration())).getManagedEntityClass();
 
     // Assert
     Class<AttachmentEntityImpl> expectedManagedEntityClass = AttachmentEntityImpl.class;
@@ -62,17 +55,16 @@ public class MybatisAttachmentDataManagerDiffblueTest {
 
   /**
    * Test {@link MybatisAttachmentDataManager#create()}.
-   *
-   * <p>Method under test: {@link MybatisAttachmentDataManager#create()}
+   * <p>
+   * Method under test: {@link MybatisAttachmentDataManager#create()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"AttachmentEntity MybatisAttachmentDataManager.create()"})
   public void testCreate() {
     // Arrange and Act
-    AttachmentEntity actualCreateResult =
-        new MybatisAttachmentDataManager(new JtaProcessEngineConfiguration()).create();
+    AttachmentEntity actualCreateResult = (new MybatisAttachmentDataManager(new JtaProcessEngineConfiguration()))
+        .create();
 
     // Assert
     Object persistentState = actualCreateResult.getPersistentState();

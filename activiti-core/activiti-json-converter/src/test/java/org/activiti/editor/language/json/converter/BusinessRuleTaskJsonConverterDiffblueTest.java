@@ -20,14 +20,14 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.node.DoubleNode;
 import com.fasterxml.jackson.databind.node.JsonNodeFactory;
 import com.fasterxml.jackson.databind.node.JsonNodeType;
+import com.fasterxml.jackson.databind.node.MissingNode;
 import com.fasterxml.jackson.databind.node.NullNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import com.fasterxml.jackson.databind.node.TextNode;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -42,13 +42,12 @@ import org.junit.jupiter.api.Test;
 class BusinessRuleTaskJsonConverterDiffblueTest {
   /**
    * Test {@link BusinessRuleTaskJsonConverter#fillJsonTypes(Map)}.
-   *
-   * <p>Method under test: {@link BusinessRuleTaskJsonConverter#fillJsonTypes(Map)}
+   * <p>
+   * Method under test: {@link BusinessRuleTaskJsonConverter#fillJsonTypes(Map)}
    */
   @Test
   @DisplayName("Test fillJsonTypes(Map)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void BusinessRuleTaskJsonConverter.fillJsonTypes(Map)"})
   void testFillJsonTypes() {
     // Arrange
@@ -65,50 +64,34 @@ class BusinessRuleTaskJsonConverterDiffblueTest {
 
   /**
    * Test {@link BusinessRuleTaskJsonConverter#getStencilId(BaseElement)}.
-   *
-   * <p>Method under test: {@link BusinessRuleTaskJsonConverter#getStencilId(BaseElement)}
+   * <p>
+   * Method under test: {@link BusinessRuleTaskJsonConverter#getStencilId(BaseElement)}
    */
   @Test
   @DisplayName("Test getStencilId(BaseElement)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"String BusinessRuleTaskJsonConverter.getStencilId(BaseElement)"})
   void testGetStencilId() {
     // Arrange
-    BusinessRuleTaskJsonConverter businessRuleTaskJsonConverter =
-        new BusinessRuleTaskJsonConverter();
+    BusinessRuleTaskJsonConverter businessRuleTaskJsonConverter = new BusinessRuleTaskJsonConverter();
 
     // Act and Assert
-    assertEquals(
-        "BusinessRule", businessRuleTaskJsonConverter.getStencilId(new ActivitiListener()));
+    assertEquals("BusinessRule", businessRuleTaskJsonConverter.getStencilId(new ActivitiListener()));
   }
 
   /**
    * Test {@link BusinessRuleTaskJsonConverter#convertElementToJson(ObjectNode, BaseElement)}.
-   *
-   * <p>Method under test: {@link BusinessRuleTaskJsonConverter#convertElementToJson(ObjectNode,
-   * BaseElement)}
+   * <p>
+   * Method under test: {@link BusinessRuleTaskJsonConverter#convertElementToJson(ObjectNode, BaseElement)}
    */
   @Test
   @DisplayName("Test convertElementToJson(ObjectNode, BaseElement)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void BusinessRuleTaskJsonConverter.convertElementToJson(ObjectNode, BaseElement)"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void BusinessRuleTaskJsonConverter.convertElementToJson(ObjectNode, BaseElement)"})
   void testConvertElementToJson() {
     // Arrange
-    BusinessRuleTaskJsonConverter businessRuleTaskJsonConverter =
-        new BusinessRuleTaskJsonConverter();
-    JsonNodeFactory nc = JsonNodeFactory.withExactBigDecimals(true);
-
-    ObjectNode propertiesNode = new ObjectNode(nc);
-    propertiesNode.put("ruletask_class", DoubleNode.valueOf(10.0d));
-    propertiesNode.put("ruletask_variables_input", DoubleNode.valueOf(10.0d));
-    propertiesNode.put("ruletask_result", DoubleNode.valueOf(10.0d));
-    propertiesNode.put("ruletask_rules", DoubleNode.valueOf(10.0d));
-    DoubleNode value = DoubleNode.valueOf(10.0d);
-    propertiesNode.put("ruletask_exclude", value);
+    BusinessRuleTaskJsonConverter businessRuleTaskJsonConverter = new BusinessRuleTaskJsonConverter();
+    ObjectNode propertiesNode = new ObjectNode(JsonNodeFactory.withExactBigDecimals(true));
 
     BusinessRuleTask baseElement = new BusinessRuleTask();
     baseElement.setExclude(false);
@@ -124,65 +107,91 @@ class BusinessRuleTaskJsonConverterDiffblueTest {
     JsonNode actualNextResult = iteratorResult.next();
     JsonNode actualNextResult2 = iteratorResult.next();
     JsonNode actualNextResult3 = iteratorResult.next();
-    JsonNode actualNextResult4 = iteratorResult.next();
     boolean actualHasNextResult = iteratorResult.hasNext();
     assertTrue(nextResult instanceof NullNode);
     assertEquals("null", nextResult.toPrettyString());
     assertEquals(
-        "{\n"
-            + "  \"ruletask_class\" : null,\n"
-            + "  \"ruletask_variables_input\" : null,\n"
-            + "  \"ruletask_result\" : null,\n"
-            + "  \"ruletask_rules\" : null,\n"
-            + "  \"ruletask_exclude\" : 10.0\n"
-            + "}",
+        "{\n" + "  \"ruletask_class\" : null,\n" + "  \"ruletask_variables_input\" : null,\n"
+            + "  \"ruletask_result\" : null,\n" + "  \"ruletask_rules\" : null\n" + "}",
         propertiesNode.toPrettyString());
+    assertEquals(4, propertiesNode.size());
     assertEquals(JsonNodeType.NULL, nextResult.getNodeType());
     assertFalse(nextResult.isTextual());
     assertFalse(actualHasNextResult);
     assertTrue(nextResult.isNull());
-    assertSame(value, actualNextResult4);
     assertSame(nextResult, actualNextResult);
     assertSame(nextResult, actualNextResult2);
     assertSame(nextResult, actualNextResult3);
   }
 
   /**
-   * Test {@link BusinessRuleTaskJsonConverter#convertJsonToElement(JsonNode, JsonNode, Map)}.
-   *
-   * <ul>
-   *   <li>When {@link HashMap#HashMap()}.
-   *   <li>Then return {@link BusinessRuleTask}.
-   * </ul>
-   *
-   * <p>Method under test: {@link BusinessRuleTaskJsonConverter#convertJsonToElement(JsonNode,
-   * JsonNode, Map)}
+   * Test {@link BusinessRuleTaskJsonConverter#convertElementToJson(ObjectNode, BaseElement)}.
+   * <p>
+   * Method under test: {@link BusinessRuleTaskJsonConverter#convertElementToJson(ObjectNode, BaseElement)}
    */
   @Test
-  @DisplayName(
-      "Test convertJsonToElement(JsonNode, JsonNode, Map); when HashMap(); then return BusinessRuleTask")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "FlowElement BusinessRuleTaskJsonConverter.convertJsonToElement(JsonNode, JsonNode, Map)"
-  })
-  void testConvertJsonToElement_whenHashMap_thenReturnBusinessRuleTask() {
+  @DisplayName("Test convertElementToJson(ObjectNode, BaseElement)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void BusinessRuleTaskJsonConverter.convertElementToJson(ObjectNode, BaseElement)"})
+  void testConvertElementToJson2() {
     // Arrange
-    BusinessRuleTaskJsonConverter businessRuleTaskJsonConverter =
-        new BusinessRuleTaskJsonConverter();
-    DoubleNode elementNode = DoubleNode.valueOf(10.0d);
-    DoubleNode modelNode = DoubleNode.valueOf(10.0d);
+    BusinessRuleTaskJsonConverter businessRuleTaskJsonConverter = new BusinessRuleTaskJsonConverter();
+    ObjectNode propertiesNode = new ObjectNode(JsonNodeFactory.withExactBigDecimals(true));
+
+    BusinessRuleTask baseElement = new BusinessRuleTask();
+    baseElement.setExclude(false);
+    baseElement.setClassName("");
+    baseElement.setResultVariableName(null);
 
     // Act
-    FlowElement actualConvertJsonToElementResult =
-        businessRuleTaskJsonConverter.convertJsonToElement(elementNode, modelNode, new HashMap<>());
+    businessRuleTaskJsonConverter.convertElementToJson(propertiesNode, baseElement);
+
+    // Assert
+    Iterator<JsonNode> iteratorResult = propertiesNode.iterator();
+    JsonNode nextResult = iteratorResult.next();
+    JsonNode nextResult2 = iteratorResult.next();
+    JsonNode actualNextResult = iteratorResult.next();
+    JsonNode actualNextResult2 = iteratorResult.next();
+    boolean actualHasNextResult = iteratorResult.hasNext();
+    assertTrue(nextResult2 instanceof NullNode);
+    assertTrue(nextResult instanceof TextNode);
+    assertEquals(
+        "{\n" + "  \"ruletask_class\" : \"\",\n" + "  \"ruletask_variables_input\" : null,\n"
+            + "  \"ruletask_result\" : null,\n" + "  \"ruletask_rules\" : null\n" + "}",
+        propertiesNode.toPrettyString());
+    assertFalse(actualHasNextResult);
+    assertSame(nextResult2, actualNextResult);
+    assertSame(nextResult2, actualNextResult2);
+  }
+
+  /**
+   * Test {@link BusinessRuleTaskJsonConverter#convertJsonToElement(JsonNode, JsonNode, Map)}.
+   * <ul>
+   *   <li>When {@link HashMap#HashMap()}.</li>
+   *   <li>Then return {@link BusinessRuleTask}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link BusinessRuleTaskJsonConverter#convertJsonToElement(JsonNode, JsonNode, Map)}
+   */
+  @Test
+  @DisplayName("Test convertJsonToElement(JsonNode, JsonNode, Map); when HashMap(); then return BusinessRuleTask")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"FlowElement BusinessRuleTaskJsonConverter.convertJsonToElement(JsonNode, JsonNode, Map)"})
+  void testConvertJsonToElement_whenHashMap_thenReturnBusinessRuleTask() {
+    // Arrange
+    BusinessRuleTaskJsonConverter businessRuleTaskJsonConverter = new BusinessRuleTaskJsonConverter();
+    MissingNode elementNode = MissingNode.getInstance();
+    MissingNode modelNode = MissingNode.getInstance();
+
+    // Act
+    FlowElement actualConvertJsonToElementResult = businessRuleTaskJsonConverter.convertJsonToElement(elementNode,
+        modelNode, new HashMap<>());
 
     // Assert
     assertTrue(actualConvertJsonToElementResult instanceof BusinessRuleTask);
     assertNull(((BusinessRuleTask) actualConvertJsonToElementResult).getBehavior());
     assertNull(((BusinessRuleTask) actualConvertJsonToElementResult).getDefaultFlow());
-    assertNull(
-        ((BusinessRuleTask) actualConvertJsonToElementResult).getFailedJobRetryTimeCycleValue());
+    assertNull(((BusinessRuleTask) actualConvertJsonToElementResult).getFailedJobRetryTimeCycleValue());
     assertNull(actualConvertJsonToElementResult.getId());
     assertNull(((BusinessRuleTask) actualConvertJsonToElementResult).getClassName());
     assertNull(((BusinessRuleTask) actualConvertJsonToElementResult).getResultVariableName());
@@ -194,20 +203,14 @@ class BusinessRuleTaskJsonConverterDiffblueTest {
     assertNull(actualConvertJsonToElementResult.getSubProcess());
     assertEquals(0, actualConvertJsonToElementResult.getXmlColumnNumber());
     assertEquals(0, actualConvertJsonToElementResult.getXmlRowNumber());
-    assertFalse(
-        ((BusinessRuleTask) actualConvertJsonToElementResult)
-            .hasMultiInstanceLoopCharacteristics());
+    assertFalse(((BusinessRuleTask) actualConvertJsonToElementResult).hasMultiInstanceLoopCharacteristics());
     assertFalse(((BusinessRuleTask) actualConvertJsonToElementResult).isForCompensation());
     assertFalse(((BusinessRuleTask) actualConvertJsonToElementResult).isExclude());
     assertFalse(((BusinessRuleTask) actualConvertJsonToElementResult).isAsynchronous());
     assertFalse(((BusinessRuleTask) actualConvertJsonToElementResult).isNotExclusive());
     assertTrue(((BusinessRuleTask) actualConvertJsonToElementResult).getBoundaryEvents().isEmpty());
-    assertTrue(
-        ((BusinessRuleTask) actualConvertJsonToElementResult).getDataInputAssociations().isEmpty());
-    assertTrue(
-        ((BusinessRuleTask) actualConvertJsonToElementResult)
-            .getDataOutputAssociations()
-            .isEmpty());
+    assertTrue(((BusinessRuleTask) actualConvertJsonToElementResult).getDataInputAssociations().isEmpty());
+    assertTrue(((BusinessRuleTask) actualConvertJsonToElementResult).getDataOutputAssociations().isEmpty());
     assertTrue(((BusinessRuleTask) actualConvertJsonToElementResult).getMapExceptions().isEmpty());
     assertTrue(((BusinessRuleTask) actualConvertJsonToElementResult).getInputVariables().isEmpty());
     assertTrue(((BusinessRuleTask) actualConvertJsonToElementResult).getRuleNames().isEmpty());
@@ -221,19 +224,16 @@ class BusinessRuleTaskJsonConverterDiffblueTest {
 
   /**
    * Test new {@link BusinessRuleTaskJsonConverter} (default constructor).
-   *
-   * <p>Method under test: default or parameterless constructor of {@link
-   * BusinessRuleTaskJsonConverter}
+   * <p>
+   * Method under test: default or parameterless constructor of {@link BusinessRuleTaskJsonConverter}
    */
   @Test
   @DisplayName("Test new BusinessRuleTaskJsonConverter (default constructor)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void BusinessRuleTaskJsonConverter.<init>()"})
   void testNewBusinessRuleTaskJsonConverter() {
     // Arrange and Act
-    BusinessRuleTaskJsonConverter actualBusinessRuleTaskJsonConverter =
-        new BusinessRuleTaskJsonConverter();
+    BusinessRuleTaskJsonConverter actualBusinessRuleTaskJsonConverter = new BusinessRuleTaskJsonConverter();
 
     // Assert
     assertNull(actualBusinessRuleTaskJsonConverter.shapesArrayNode);

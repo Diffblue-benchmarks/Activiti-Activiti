@@ -18,7 +18,6 @@ package org.activiti.api.process.model.builders;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.HashMap;
 import java.util.Map;
@@ -30,69 +29,49 @@ import org.junit.jupiter.api.Test;
 class StartProcessPayloadBuilderDiffblueTest {
   /**
    * Test {@link StartProcessPayloadBuilder#withVariable(String, Object)}.
-   *
    * <ul>
-   *   <li>Given start withVariables {@code null}.
-   *   <li>When {@code Name}.
-   *   <li>Then return start.
+   *   <li>Given start.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link StartProcessPayloadBuilder#withVariable(String, Object)}
+   * <p>
+   * Method under test: {@link StartProcessPayloadBuilder#withVariable(String, Object)}
    */
   @Test
-  @DisplayName(
-      "Test withVariable(String, Object); given start withVariables 'null'; when 'Name'; then return start")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "StartProcessPayloadBuilder StartProcessPayloadBuilder.withVariable(String, Object)"
-  })
-  void testWithVariable_givenStartWithVariablesNull_whenName_thenReturnStart() {
+  @DisplayName("Test withVariable(String, Object); given start")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"StartProcessPayloadBuilder StartProcessPayloadBuilder.withVariable(String, Object)"})
+  void testWithVariable_givenStart() {
     // Arrange
     StartProcessPayloadBuilder startResult = ProcessPayloadBuilder.start();
-    startResult.withVariables(null);
 
-    // Act
-    StartProcessPayloadBuilder actualWithVariableResult = startResult.withVariable("Name", "Value");
-
-    // Assert
-    assertSame(startResult, actualWithVariableResult);
+    // Act and Assert
+    assertSame(startResult, startResult.withVariable("Name", "Value"));
   }
 
   /**
    * Test {@link StartProcessPayloadBuilder#withVariable(String, Object)}.
-   *
    * <ul>
-   *   <li>Given start.
-   *   <li>When {@code Name}.
-   *   <li>Then return start.
+   *   <li>Given start withVariables {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link StartProcessPayloadBuilder#withVariable(String, Object)}
+   * <p>
+   * Method under test: {@link StartProcessPayloadBuilder#withVariable(String, Object)}
    */
   @Test
-  @DisplayName("Test withVariable(String, Object); given start; when 'Name'; then return start")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "StartProcessPayloadBuilder StartProcessPayloadBuilder.withVariable(String, Object)"
-  })
-  void testWithVariable_givenStart_whenName_thenReturnStart() {
+  @DisplayName("Test withVariable(String, Object); given start withVariables 'null'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"StartProcessPayloadBuilder StartProcessPayloadBuilder.withVariable(String, Object)"})
+  void testWithVariable_givenStartWithVariablesNull() {
     // Arrange
     StartProcessPayloadBuilder startResult = ProcessPayloadBuilder.start();
+    startResult.withVariables(null);
 
-    // Act
-    StartProcessPayloadBuilder actualWithVariableResult = startResult.withVariable("Name", "Value");
-
-    // Assert
-    assertSame(startResult, actualWithVariableResult);
+    // Act and Assert
+    assertSame(startResult, startResult.withVariable("Name", "Value"));
   }
 
   /**
    * Test {@link StartProcessPayloadBuilder#build()}.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>{@link StartProcessPayloadBuilder#build()}
    *   <li>default or parameterless constructor of {@link StartProcessPayloadBuilder}
@@ -105,36 +84,32 @@ class StartProcessPayloadBuilderDiffblueTest {
    */
   @Test
   @DisplayName("Test build()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void StartProcessPayloadBuilder.<init>()",
-    "StartProcessPayload StartProcessPayloadBuilder.build()",
-    "StartProcessPayloadBuilder StartProcessPayloadBuilder.withBusinessKey(String)",
-    "StartProcessPayloadBuilder StartProcessPayloadBuilder.withName(String)",
-    "StartProcessPayloadBuilder StartProcessPayloadBuilder.withProcessDefinitionId(String)",
-    "StartProcessPayloadBuilder StartProcessPayloadBuilder.withProcessDefinitionKey(String)",
-    "StartProcessPayloadBuilder StartProcessPayloadBuilder.withVariables(Map)"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void StartProcessPayloadBuilder.<init>()",
+      "StartProcessPayload StartProcessPayloadBuilder.build()",
+      "StartProcessPayloadBuilder StartProcessPayloadBuilder.withBusinessKey(String)",
+      "StartProcessPayloadBuilder StartProcessPayloadBuilder.withName(String)",
+      "StartProcessPayloadBuilder StartProcessPayloadBuilder.withProcessDefinitionId(String)",
+      "StartProcessPayloadBuilder StartProcessPayloadBuilder.withProcessDefinitionKey(String)",
+      "StartProcessPayloadBuilder StartProcessPayloadBuilder.withVariables(Map)"})
   void testBuild() {
-    // Arrange and Act
-    StartProcessPayloadBuilder actualWithVariableResult =
-        new StartProcessPayloadBuilder()
-            .withBusinessKey("Business Key")
-            .withName("Name")
-            .withProcessDefinitionId("42")
-            .withProcessDefinitionKey("Process Definition Key")
-            .withVariable("Name", "Value");
+    // Arrange
+    StartProcessPayloadBuilder withVariableResult = (new StartProcessPayloadBuilder()).withBusinessKey("Business Key")
+        .withName("Name")
+        .withProcessDefinitionId("42")
+        .withProcessDefinitionKey("Process Definition Key")
+        .withVariable("Name", "Value");
     HashMap<String, Object> variables = new HashMap<>();
-    StartProcessPayload actualStartProcessPayload =
-        actualWithVariableResult.withVariables(variables).build();
+
+    // Act
+    StartProcessPayload actualBuildResult = withVariableResult.withVariables(variables).build();
 
     // Assert
-    assertEquals("42", actualStartProcessPayload.getProcessDefinitionId());
-    assertEquals("Business Key", actualStartProcessPayload.getBusinessKey());
-    assertEquals("Name", actualStartProcessPayload.getName());
-    assertEquals("Process Definition Key", actualStartProcessPayload.getProcessDefinitionKey());
-    Map<String, Object> variables2 = actualStartProcessPayload.getVariables();
+    assertEquals("42", actualBuildResult.getProcessDefinitionId());
+    assertEquals("Business Key", actualBuildResult.getBusinessKey());
+    assertEquals("Name", actualBuildResult.getName());
+    assertEquals("Process Definition Key", actualBuildResult.getProcessDefinitionKey());
+    Map<String, Object> variables2 = actualBuildResult.getVariables();
     assertTrue(variables2.isEmpty());
     assertSame(variables, variables2);
   }

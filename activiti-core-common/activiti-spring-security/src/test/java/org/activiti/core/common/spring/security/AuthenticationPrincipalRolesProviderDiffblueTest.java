@@ -21,7 +21,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.isA;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import com.sun.security.auth.UserPrincipal;
 import java.security.Principal;
@@ -41,40 +40,41 @@ import org.springframework.test.context.aot.DisabledInAotMode;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 @ContextConfiguration(classes = {AuthenticationPrincipalRolesProvider.class})
-@DisabledInAotMode
 @ExtendWith(SpringExtension.class)
+@DisabledInAotMode
 class AuthenticationPrincipalRolesProviderDiffblueTest {
-  @Autowired private AuthenticationPrincipalRolesProvider authenticationPrincipalRolesProvider;
+  @Autowired
+  private AuthenticationPrincipalRolesProvider authenticationPrincipalRolesProvider;
 
-  @MockBean private GrantedAuthoritiesResolver grantedAuthoritiesResolver;
+  @MockBean
+  private GrantedAuthoritiesResolver grantedAuthoritiesResolver;
 
-  @MockBean private GrantedAuthoritiesRolesMapper grantedAuthoritiesRolesMapper;
+  @MockBean
+  private GrantedAuthoritiesRolesMapper grantedAuthoritiesRolesMapper;
 
   /**
    * Test {@link AuthenticationPrincipalRolesProvider#getRoles(Principal)}.
-   *
    * <ul>
-   *   <li>Then return Empty.
+   *   <li>Then return Empty.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link AuthenticationPrincipalRolesProvider#getRoles(Principal)}
+   * <p>
+   * Method under test: {@link AuthenticationPrincipalRolesProvider#getRoles(Principal)}
    */
   @Test
   @DisplayName("Test getRoles(Principal); then return Empty")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"List AuthenticationPrincipalRolesProvider.getRoles(Principal)"})
   void testGetRoles_thenReturnEmpty() {
     // Arrange
-    Mockito.<Collection<? extends GrantedAuthority>>when(
+    Mockito
+        .<Collection<? extends GrantedAuthority>>when(
             grantedAuthoritiesResolver.getAuthorities(Mockito.<Principal>any()))
         .thenReturn(new ArrayList<>());
     when(grantedAuthoritiesRolesMapper.getRoles(Mockito.<Collection<GrantedAuthority>>any()))
         .thenReturn(new ArrayList<>());
 
     // Act
-    List<String> actualRoles =
-        authenticationPrincipalRolesProvider.getRoles(new UserPrincipal("principal"));
+    List<String> actualRoles = authenticationPrincipalRolesProvider.getRoles(new UserPrincipal("principal"));
 
     // Assert
     verify(grantedAuthoritiesResolver).getAuthorities(isA(Principal.class));
@@ -84,18 +84,16 @@ class AuthenticationPrincipalRolesProviderDiffblueTest {
 
   /**
    * Test {@link AuthenticationPrincipalRolesProvider#securityException()}.
-   *
-   * <p>Method under test: {@link AuthenticationPrincipalRolesProvider#securityException()}
+   * <p>
+   * Method under test: {@link AuthenticationPrincipalRolesProvider#securityException()}
    */
   @Test
   @DisplayName("Test securityException()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"SecurityException AuthenticationPrincipalRolesProvider.securityException()"})
   void testSecurityException() {
     // Arrange and Act
-    SecurityException actualSecurityExceptionResult =
-        authenticationPrincipalRolesProvider.securityException();
+    SecurityException actualSecurityExceptionResult = authenticationPrincipalRolesProvider.securityException();
 
     // Assert
     assertEquals("Invalid principal rolese", actualSecurityExceptionResult.getLocalizedMessage());

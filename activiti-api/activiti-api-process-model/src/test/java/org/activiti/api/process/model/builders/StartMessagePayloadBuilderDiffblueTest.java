@@ -19,7 +19,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.HashMap;
 import java.util.Map;
@@ -31,118 +30,89 @@ import org.junit.jupiter.api.Test;
 class StartMessagePayloadBuilderDiffblueTest {
   /**
    * Test {@link StartMessagePayloadBuilder#from(StartMessagePayload)}.
-   *
    * <ul>
-   *   <li>Then return build BusinessKey is {@code messagePayload must not be null}.
+   *   <li>Then return build BusinessKey is {@code messagePayload must not be null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link StartMessagePayloadBuilder#from(StartMessagePayload)}
+   * <p>
+   * Method under test: {@link StartMessagePayloadBuilder#from(StartMessagePayload)}
    */
   @Test
-  @DisplayName(
-      "Test from(StartMessagePayload); then return build BusinessKey is 'messagePayload must not be null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "StartMessagePayloadBuilder StartMessagePayloadBuilder.from(StartMessagePayload)"
-  })
+  @DisplayName("Test from(StartMessagePayload); then return build BusinessKey is 'messagePayload must not be null'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"StartMessagePayloadBuilder StartMessagePayloadBuilder.from(StartMessagePayload)"})
   void testFrom_thenReturnBuildBusinessKeyIsMessagePayloadMustNotBeNull() {
-    // Arrange
-    StartMessagePayload messagePayload =
-        new StartMessagePayload(
-            "messagePayload must not be null", "messagePayload must not be null", new HashMap<>());
-
-    // Act and Assert
-    StartMessagePayload startMessagePayload =
-        StartMessagePayloadBuilder.from(messagePayload).build();
-    assertEquals("messagePayload must not be null", startMessagePayload.getBusinessKey());
-    assertEquals("messagePayload must not be null", startMessagePayload.getName());
-    assertTrue(startMessagePayload.getVariables().isEmpty());
+    // Arrange, Act and Assert
+    StartMessagePayload buildResult = StartMessagePayloadBuilder
+        .from(new StartMessagePayload("messagePayload must not be null", "messagePayload must not be null",
+            new HashMap<>()))
+        .build();
+    assertEquals("messagePayload must not be null", buildResult.getBusinessKey());
+    assertEquals("messagePayload must not be null", buildResult.getName());
+    assertTrue(buildResult.getVariables().isEmpty());
   }
 
   /**
    * Test {@link StartMessagePayloadBuilder#start(String)}.
-   *
-   * <p>Method under test: {@link StartMessagePayloadBuilder#start(String)}
+   * <p>
+   * Method under test: {@link StartMessagePayloadBuilder#start(String)}
    */
   @Test
   @DisplayName("Test start(String)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"StartMessagePayloadBuilder StartMessagePayloadBuilder.start(String)"})
   void testStart() {
     // Arrange, Act and Assert
-    StartMessagePayload startMessagePayload = StartMessagePayloadBuilder.start("Name").build();
-    assertEquals("Name", startMessagePayload.getName());
-    assertNull(startMessagePayload.getBusinessKey());
-    assertNull(startMessagePayload.getVariables());
+    StartMessagePayload buildResult = StartMessagePayloadBuilder.start("Name").build();
+    assertEquals("Name", buildResult.getName());
+    assertNull(buildResult.getBusinessKey());
+    assertNull(buildResult.getVariables());
   }
 
   /**
    * Test {@link StartMessagePayloadBuilder#withVariable(String, Object)}.
-   *
    * <ul>
-   *   <li>Given {@link StartMessagePayloadBuilder} (default constructor).
+   *   <li>Given {@link StartMessagePayloadBuilder} (default constructor).</li>
    * </ul>
-   *
-   * <p>Method under test: {@link StartMessagePayloadBuilder#withVariable(String, Object)}
+   * <p>
+   * Method under test: {@link StartMessagePayloadBuilder#withVariable(String, Object)}
    */
   @Test
-  @DisplayName(
-      "Test withVariable(String, Object); given StartMessagePayloadBuilder (default constructor)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "StartMessagePayloadBuilder StartMessagePayloadBuilder.withVariable(String, Object)"
-  })
+  @DisplayName("Test withVariable(String, Object); given StartMessagePayloadBuilder (default constructor)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"StartMessagePayloadBuilder StartMessagePayloadBuilder.withVariable(String, Object)"})
   void testWithVariable_givenStartMessagePayloadBuilder() {
     // Arrange
     StartMessagePayloadBuilder startMessagePayloadBuilder = new StartMessagePayloadBuilder();
 
-    // Act
-    StartMessagePayloadBuilder actualWithVariableResult =
-        startMessagePayloadBuilder.withVariable("Name", "Value");
-
-    // Assert
-    assertSame(startMessagePayloadBuilder, actualWithVariableResult);
+    // Act and Assert
+    assertSame(startMessagePayloadBuilder, startMessagePayloadBuilder.withVariable("Name", "Value"));
   }
 
   /**
    * Test {@link StartMessagePayloadBuilder#withVariable(String, Object)}.
-   *
    * <ul>
-   *   <li>Given {@link StartMessagePayloadBuilder} (default constructor) withVariables {@link
-   *       HashMap#HashMap()}.
+   *   <li>Given {@link StartMessagePayloadBuilder} (default constructor) withVariables {@link HashMap#HashMap()}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link StartMessagePayloadBuilder#withVariable(String, Object)}
+   * <p>
+   * Method under test: {@link StartMessagePayloadBuilder#withVariable(String, Object)}
    */
   @Test
-  @DisplayName(
-      "Test withVariable(String, Object); given StartMessagePayloadBuilder (default constructor) withVariables HashMap()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "StartMessagePayloadBuilder StartMessagePayloadBuilder.withVariable(String, Object)"
-  })
+  @DisplayName("Test withVariable(String, Object); given StartMessagePayloadBuilder (default constructor) withVariables HashMap()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"StartMessagePayloadBuilder StartMessagePayloadBuilder.withVariable(String, Object)"})
   void testWithVariable_givenStartMessagePayloadBuilderWithVariablesHashMap() {
     // Arrange
     StartMessagePayloadBuilder startMessagePayloadBuilder = new StartMessagePayloadBuilder();
     startMessagePayloadBuilder.withVariables(new HashMap<>());
 
-    // Act
-    StartMessagePayloadBuilder actualWithVariableResult =
-        startMessagePayloadBuilder.withVariable("Name", "Value");
-
-    // Assert
-    assertSame(startMessagePayloadBuilder, actualWithVariableResult);
+    // Act and Assert
+    assertSame(startMessagePayloadBuilder, startMessagePayloadBuilder.withVariable("Name", "Value"));
   }
 
   /**
    * Test {@link StartMessagePayloadBuilder#build()}.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>{@link StartMessagePayloadBuilder#build()}
    *   <li>default or parameterless constructor of {@link StartMessagePayloadBuilder}
@@ -153,30 +123,26 @@ class StartMessagePayloadBuilderDiffblueTest {
    */
   @Test
   @DisplayName("Test build()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void StartMessagePayloadBuilder.<init>()",
-    "StartMessagePayload StartMessagePayloadBuilder.build()",
-    "StartMessagePayloadBuilder StartMessagePayloadBuilder.withBusinessKey(String)",
-    "StartMessagePayloadBuilder StartMessagePayloadBuilder.withName(String)",
-    "StartMessagePayloadBuilder StartMessagePayloadBuilder.withVariables(Map)"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void StartMessagePayloadBuilder.<init>()",
+      "StartMessagePayload StartMessagePayloadBuilder.build()",
+      "StartMessagePayloadBuilder StartMessagePayloadBuilder.withBusinessKey(String)",
+      "StartMessagePayloadBuilder StartMessagePayloadBuilder.withName(String)",
+      "StartMessagePayloadBuilder StartMessagePayloadBuilder.withVariables(Map)"})
   void testBuild() {
-    // Arrange and Act
-    StartMessagePayloadBuilder actualWithVariableResult =
-        new StartMessagePayloadBuilder()
-            .withBusinessKey("Business Key")
-            .withName("Name")
-            .withVariable("Name", "Value");
+    // Arrange
+    StartMessagePayloadBuilder withVariableResult = (new StartMessagePayloadBuilder()).withBusinessKey("Business Key")
+        .withName("Name")
+        .withVariable("Name", "Value");
     HashMap<String, Object> variables = new HashMap<>();
-    StartMessagePayload actualStartMessagePayload =
-        actualWithVariableResult.withVariables(variables).build();
+
+    // Act
+    StartMessagePayload actualBuildResult = withVariableResult.withVariables(variables).build();
 
     // Assert
-    assertEquals("Business Key", actualStartMessagePayload.getBusinessKey());
-    assertEquals("Name", actualStartMessagePayload.getName());
-    Map<String, Object> variables2 = actualStartMessagePayload.getVariables();
+    assertEquals("Business Key", actualBuildResult.getBusinessKey());
+    assertEquals("Name", actualBuildResult.getName());
+    Map<String, Object> variables2 = actualBuildResult.getVariables();
     assertTrue(variables2.isEmpty());
     assertSame(variables, variables2);
   }

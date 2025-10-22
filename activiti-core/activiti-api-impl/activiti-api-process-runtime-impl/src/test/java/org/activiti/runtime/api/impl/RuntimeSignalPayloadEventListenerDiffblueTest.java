@@ -19,7 +19,6 @@ import static org.mockito.ArgumentMatchers.isA;
 import static org.mockito.ArgumentMatchers.isNull;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.verify;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.Map;
 import org.activiti.api.process.model.payloads.SignalPayload;
@@ -36,34 +35,31 @@ import org.springframework.test.context.aot.DisabledInAotMode;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 @ContextConfiguration(classes = {RuntimeSignalPayloadEventListener.class})
-@DisabledInAotMode
 @ExtendWith(SpringExtension.class)
+@DisabledInAotMode
 class RuntimeSignalPayloadEventListenerDiffblueTest {
-  @MockBean private RuntimeService runtimeService;
+  @MockBean
+  private RuntimeService runtimeService;
 
-  @Autowired private RuntimeSignalPayloadEventListener runtimeSignalPayloadEventListener;
+  @Autowired
+  private RuntimeSignalPayloadEventListener runtimeSignalPayloadEventListener;
 
   /**
    * Test {@link RuntimeSignalPayloadEventListener#sendSignal(SignalPayload)}.
-   *
    * <ul>
-   *   <li>When {@link SignalPayload#SignalPayload()}.
-   *   <li>Then calls {@link RuntimeService#signalEventReceived(String, Map)}.
+   *   <li>When {@link SignalPayload#SignalPayload()}.</li>
+   *   <li>Then calls {@link RuntimeService#signalEventReceived(String, Map)}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link RuntimeSignalPayloadEventListener#sendSignal(SignalPayload)}
+   * <p>
+   * Method under test: {@link RuntimeSignalPayloadEventListener#sendSignal(SignalPayload)}
    */
   @Test
-  @DisplayName(
-      "Test sendSignal(SignalPayload); when SignalPayload(); then calls signalEventReceived(String, Map)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test sendSignal(SignalPayload); when SignalPayload(); then calls signalEventReceived(String, Map)")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void RuntimeSignalPayloadEventListener.sendSignal(SignalPayload)"})
   void testSendSignal_whenSignalPayload_thenCallsSignalEventReceived() {
     // Arrange
-    doNothing()
-        .when(runtimeService)
-        .signalEventReceived(Mockito.<String>any(), Mockito.<Map<String, Object>>any());
+    doNothing().when(runtimeService).signalEventReceived(Mockito.<String>any(), Mockito.<Map<String, Object>>any());
 
     // Act
     runtimeSignalPayloadEventListener.sendSignal(new SignalPayload());

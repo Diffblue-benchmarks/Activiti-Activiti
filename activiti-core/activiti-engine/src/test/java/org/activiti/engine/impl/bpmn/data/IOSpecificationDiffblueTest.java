@@ -26,11 +26,11 @@ import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.List;
 import org.activiti.engine.delegate.DelegateExecution;
+import org.activiti.engine.delegate.VariableScope;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import org.mockito.Mockito;
@@ -38,12 +38,11 @@ import org.mockito.Mockito;
 public class IOSpecificationDiffblueTest {
   /**
    * Test new {@link IOSpecification} (default constructor).
-   *
-   * <p>Method under test: default or parameterless constructor of {@link IOSpecification}
+   * <p>
+   * Method under test: default or parameterless constructor of {@link IOSpecification}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void IOSpecification.<init>()"})
   public void testNewIOSpecification() {
     // Arrange and Act
@@ -58,74 +57,31 @@ public class IOSpecificationDiffblueTest {
 
   /**
    * Test {@link IOSpecification#initialize(DelegateExecution)}.
-   *
-   * <p>Method under test: {@link IOSpecification#initialize(DelegateExecution)}
+   * <p>
+   * Method under test: {@link IOSpecification#initialize(DelegateExecution)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void IOSpecification.initialize(DelegateExecution)"})
   public void testInitialize() {
     // Arrange
     ItemDefinition definition = mock(ItemDefinition.class);
     ItemDefinition item = new ItemDefinition("42", new SimpleStructureDefinition("42"));
-    FieldBaseStructureInstance structureInstance =
-        new FieldBaseStructureInstance(new SimpleStructureDefinition("42"));
 
-    ItemInstance itemInstance = new ItemInstance(item, structureInstance);
-    when(definition.createInstance()).thenReturn(itemInstance);
-    Data data = new Data("42", "Name", definition);
-
-    IOSpecification ioSpecification = new IOSpecification();
-    ItemDefinition definition2 = new ItemDefinition("42", new SimpleStructureDefinition("42"));
-    Data data2 = new Data("42", "Name", definition2);
-    ioSpecification.addInput(data2);
-    ioSpecification.addOutput(data);
-
-    DelegateExecution execution = mock(DelegateExecution.class);
-    doNothing().when(execution).setVariable(Mockito.<String>any(), Mockito.<Object>any());
-
-    // Act
-    ioSpecification.initialize(execution);
-
-    // Assert
-    verify(execution, atLeast(1)).setVariable(eq("Name"), Mockito.<Object>any());
-    verify(definition).createInstance();
-  }
-
-  /**
-   * Test {@link IOSpecification#initialize(DelegateExecution)}.
-   *
-   * <p>Method under test: {@link IOSpecification#initialize(DelegateExecution)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void IOSpecification.initialize(DelegateExecution)"})
-  public void testInitialize2() {
-    // Arrange
-    ItemDefinition definition = mock(ItemDefinition.class);
-    ItemDefinition item = new ItemDefinition("42", new SimpleStructureDefinition("42"));
-    FieldBaseStructureInstance structureInstance =
-        new FieldBaseStructureInstance(new SimpleStructureDefinition("42"));
-
-    ItemInstance itemInstance = new ItemInstance(item, structureInstance);
-    when(definition.createInstance()).thenReturn(itemInstance);
+    when(definition.createInstance())
+        .thenReturn(new ItemInstance(item, new FieldBaseStructureInstance(new SimpleStructureDefinition("42"))));
     Data data = new Data("42", "Name", definition);
 
     ItemDefinition definition2 = mock(ItemDefinition.class);
     ItemDefinition item2 = new ItemDefinition("42", new SimpleStructureDefinition("42"));
-    FieldBaseStructureInstance structureInstance2 =
-        new FieldBaseStructureInstance(new SimpleStructureDefinition("42"));
 
-    ItemInstance itemInstance2 = new ItemInstance(item2, structureInstance2);
-    when(definition2.createInstance()).thenReturn(itemInstance2);
+    when(definition2.createInstance())
+        .thenReturn(new ItemInstance(item2, new FieldBaseStructureInstance(new SimpleStructureDefinition("42"))));
     Data data2 = new Data("42", "Name", definition2);
 
     IOSpecification ioSpecification = new IOSpecification();
-    ioSpecification.addInput(data2);
-    ioSpecification.addOutput(data);
-
+    ioSpecification.addOutput(data2);
+    ioSpecification.addInput(data);
     DelegateExecution execution = mock(DelegateExecution.class);
     doNothing().when(execution).setVariable(Mockito.<String>any(), Mockito.<Object>any());
 
@@ -140,34 +96,27 @@ public class IOSpecificationDiffblueTest {
 
   /**
    * Test {@link IOSpecification#initialize(DelegateExecution)}.
-   *
    * <ul>
-   *   <li>Then calls {@link DelegateExecution#setVariable(String, Object)}.
+   *   <li>Then calls {@link VariableScope#setVariable(String, Object)}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link IOSpecification#initialize(DelegateExecution)}
+   * <p>
+   * Method under test: {@link IOSpecification#initialize(DelegateExecution)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void IOSpecification.initialize(DelegateExecution)"})
   public void testInitialize_thenCallsSetVariable() {
     // Arrange
     ItemDefinition definition = mock(ItemDefinition.class);
     ItemDefinition item = new ItemDefinition("42", new SimpleStructureDefinition("42"));
-    FieldBaseStructureInstance structureInstance =
-        new FieldBaseStructureInstance(new SimpleStructureDefinition("42"));
 
-    ItemInstance itemInstance = new ItemInstance(item, structureInstance);
-    when(definition.createInstance()).thenReturn(itemInstance);
+    when(definition.createInstance())
+        .thenReturn(new ItemInstance(item, new FieldBaseStructureInstance(new SimpleStructureDefinition("42"))));
     Data data = new Data("42", "Name", definition);
 
     IOSpecification ioSpecification = new IOSpecification();
-    ItemDefinition definition2 = new ItemDefinition("42", new SimpleStructureDefinition("42"));
-    Data data2 = new Data("42", "Name", definition2);
-    ioSpecification.addOutput(data2);
-    ioSpecification.addOutput(data);
-
+    ioSpecification.addOutput(new Data("42", "Name", new ItemDefinition("42", new SimpleStructureDefinition("42"))));
+    ioSpecification.addInput(data);
     DelegateExecution execution = mock(DelegateExecution.class);
     doNothing().when(execution).setVariable(Mockito.<String>any(), Mockito.<Object>any());
 
@@ -181,33 +130,27 @@ public class IOSpecificationDiffblueTest {
 
   /**
    * Test {@link IOSpecification#initialize(DelegateExecution)}.
-   *
    * <ul>
-   *   <li>When {@link DelegateExecution} {@link DelegateExecution#setVariable(String, Object)} does
-   *       nothing.
-   *   <li>Then calls {@link DelegateExecution#setVariable(String, Object)}.
+   *   <li>When {@link DelegateExecution} {@link VariableScope#setVariable(String, Object)} does nothing.</li>
+   *   <li>Then calls {@link VariableScope#setVariable(String, Object)}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link IOSpecification#initialize(DelegateExecution)}
+   * <p>
+   * Method under test: {@link IOSpecification#initialize(DelegateExecution)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void IOSpecification.initialize(DelegateExecution)"})
   public void testInitialize_whenDelegateExecutionSetVariableDoesNothing_thenCallsSetVariable() {
     // Arrange
     ItemDefinition definition = mock(ItemDefinition.class);
     ItemDefinition item = new ItemDefinition("42", new SimpleStructureDefinition("42"));
-    FieldBaseStructureInstance structureInstance =
-        new FieldBaseStructureInstance(new SimpleStructureDefinition("42"));
 
-    ItemInstance itemInstance = new ItemInstance(item, structureInstance);
-    when(definition.createInstance()).thenReturn(itemInstance);
+    when(definition.createInstance())
+        .thenReturn(new ItemInstance(item, new FieldBaseStructureInstance(new SimpleStructureDefinition("42"))));
     Data data = new Data("42", "Name", definition);
 
     IOSpecification ioSpecification = new IOSpecification();
-    ioSpecification.addOutput(data);
-
+    ioSpecification.addInput(data);
     DelegateExecution execution = mock(DelegateExecution.class);
     doNothing().when(execution).setVariable(Mockito.<String>any(), Mockito.<Object>any());
 
@@ -221,46 +164,42 @@ public class IOSpecificationDiffblueTest {
 
   /**
    * Test {@link IOSpecification#getDataInputs()}.
-   *
-   * <p>Method under test: {@link IOSpecification#getDataInputs()}
+   * <p>
+   * Method under test: {@link IOSpecification#getDataInputs()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"List IOSpecification.getDataInputs()"})
   public void testGetDataInputs() {
     // Arrange, Act and Assert
-    assertTrue(new IOSpecification().getDataInputs().isEmpty());
+    assertTrue((new IOSpecification()).getDataInputs().isEmpty());
   }
 
   /**
    * Test {@link IOSpecification#getDataOutputs()}.
-   *
-   * <p>Method under test: {@link IOSpecification#getDataOutputs()}
+   * <p>
+   * Method under test: {@link IOSpecification#getDataOutputs()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"List IOSpecification.getDataOutputs()"})
   public void testGetDataOutputs() {
     // Arrange, Act and Assert
-    assertTrue(new IOSpecification().getDataOutputs().isEmpty());
+    assertTrue((new IOSpecification()).getDataOutputs().isEmpty());
   }
 
   /**
    * Test {@link IOSpecification#addInput(Data)}.
-   *
-   * <p>Method under test: {@link IOSpecification#addInput(Data)}
+   * <p>
+   * Method under test: {@link IOSpecification#addInput(Data)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void IOSpecification.addInput(Data)"})
   public void testAddInput() {
     // Arrange
     IOSpecification ioSpecification = new IOSpecification();
-    ItemDefinition definition = new ItemDefinition("42", new SimpleStructureDefinition("42"));
-    Data data = new Data("42", "Name", definition);
+    Data data = new Data("42", "Name", new ItemDefinition("42", new SimpleStructureDefinition("42")));
 
     // Act
     ioSpecification.addInput(data);
@@ -277,18 +216,16 @@ public class IOSpecificationDiffblueTest {
 
   /**
    * Test {@link IOSpecification#addOutput(Data)}.
-   *
-   * <p>Method under test: {@link IOSpecification#addOutput(Data)}
+   * <p>
+   * Method under test: {@link IOSpecification#addOutput(Data)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void IOSpecification.addOutput(Data)"})
   public void testAddOutput() {
     // Arrange
     IOSpecification ioSpecification = new IOSpecification();
-    ItemDefinition definition = new ItemDefinition("42", new SimpleStructureDefinition("42"));
-    Data data = new Data("42", "Name", definition);
+    Data data = new Data("42", "Name", new ItemDefinition("42", new SimpleStructureDefinition("42")));
 
     // Act
     ioSpecification.addOutput(data);
@@ -305,12 +242,11 @@ public class IOSpecificationDiffblueTest {
 
   /**
    * Test {@link IOSpecification#addInputRef(DataRef)}.
-   *
-   * <p>Method under test: {@link IOSpecification#addInputRef(DataRef)}
+   * <p>
+   * Method under test: {@link IOSpecification#addInputRef(DataRef)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void IOSpecification.addInputRef(DataRef)"})
   public void testAddInputRef() {
     // Arrange
@@ -328,12 +264,11 @@ public class IOSpecificationDiffblueTest {
 
   /**
    * Test {@link IOSpecification#addOutputRef(DataRef)}.
-   *
-   * <p>Method under test: {@link IOSpecification#addOutputRef(DataRef)}
+   * <p>
+   * Method under test: {@link IOSpecification#addOutputRef(DataRef)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void IOSpecification.addOutputRef(DataRef)"})
   public void testAddOutputRef() {
     // Arrange
@@ -351,23 +286,19 @@ public class IOSpecificationDiffblueTest {
 
   /**
    * Test {@link IOSpecification#getFirstDataInputName()}.
-   *
    * <ul>
-   *   <li>Then return {@code Name}.
+   *   <li>Then return {@code Name}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link IOSpecification#getFirstDataInputName()}
+   * <p>
+   * Method under test: {@link IOSpecification#getFirstDataInputName()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"String IOSpecification.getFirstDataInputName()"})
   public void testGetFirstDataInputName_thenReturnName() {
     // Arrange
     IOSpecification ioSpecification = new IOSpecification();
-    ItemDefinition definition = new ItemDefinition("42", new SimpleStructureDefinition("42"));
-    Data data = new Data("42", "Name", definition);
-    ioSpecification.addInput(data);
+    ioSpecification.addInput(new Data("42", "Name", new ItemDefinition("42", new SimpleStructureDefinition("42"))));
 
     // Act and Assert
     assertEquals("Name", ioSpecification.getFirstDataInputName());
@@ -375,42 +306,36 @@ public class IOSpecificationDiffblueTest {
 
   /**
    * Test {@link IOSpecification#getFirstDataOutputName()}.
-   *
    * <ul>
-   *   <li>Given {@link IOSpecification} (default constructor).
-   *   <li>Then return {@code null}.
+   *   <li>Given {@link IOSpecification} (default constructor).</li>
+   *   <li>Then return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link IOSpecification#getFirstDataOutputName()}
+   * <p>
+   * Method under test: {@link IOSpecification#getFirstDataOutputName()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"String IOSpecification.getFirstDataOutputName()"})
   public void testGetFirstDataOutputName_givenIOSpecification_thenReturnNull() {
     // Arrange, Act and Assert
-    assertNull(new IOSpecification().getFirstDataOutputName());
+    assertNull((new IOSpecification()).getFirstDataOutputName());
   }
 
   /**
    * Test {@link IOSpecification#getFirstDataOutputName()}.
-   *
    * <ul>
-   *   <li>Then return {@code Name}.
+   *   <li>Then return {@code Name}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link IOSpecification#getFirstDataOutputName()}
+   * <p>
+   * Method under test: {@link IOSpecification#getFirstDataOutputName()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"String IOSpecification.getFirstDataOutputName()"})
   public void testGetFirstDataOutputName_thenReturnName() {
     // Arrange
     IOSpecification ioSpecification = new IOSpecification();
-    ItemDefinition definition = new ItemDefinition("42", new SimpleStructureDefinition("42"));
-    Data data = new Data("42", "Name", definition);
-    ioSpecification.addOutput(data);
+    ioSpecification.addOutput(new Data("42", "Name", new ItemDefinition("42", new SimpleStructureDefinition("42"))));
 
     // Act and Assert
     assertEquals("Name", ioSpecification.getFirstDataOutputName());

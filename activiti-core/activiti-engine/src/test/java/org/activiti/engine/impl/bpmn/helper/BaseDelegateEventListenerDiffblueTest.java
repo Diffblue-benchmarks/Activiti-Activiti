@@ -18,8 +18,7 @@ package org.activiti.engine.impl.bpmn.helper;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.engine.delegate.event.ActivitiEvent;
 import org.activiti.engine.delegate.event.ActivitiEventType;
@@ -32,12 +31,11 @@ import org.junit.experimental.categories.Category;
 public class BaseDelegateEventListenerDiffblueTest {
   /**
    * Test {@link BaseDelegateEventListener#setEntityClass(Class)}.
-   *
-   * <p>Method under test: {@link BaseDelegateEventListener#setEntityClass(Class)}
+   * <p>
+   * Method under test: {@link BaseDelegateEventListener#setEntityClass(Class)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void BaseDelegateEventListener.setEntityClass(Class)"})
   public void testSetEntityClass() {
     // Arrange
@@ -54,44 +52,34 @@ public class BaseDelegateEventListenerDiffblueTest {
 
   /**
    * Test {@link BaseDelegateEventListener#isValidEvent(ActivitiEvent)}.
-   *
-   * <p>Method under test: {@link BaseDelegateEventListener#isValidEvent(ActivitiEvent)}
+   * <p>
+   * Method under test: {@link BaseDelegateEventListener#isValidEvent(ActivitiEvent)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"boolean BaseDelegateEventListener.isValidEvent(ActivitiEvent)"})
   public void testIsValidEvent() {
     // Arrange
+    ErrorThrowingEventListener errorThrowingEventListener = new ErrorThrowingEventListener();
     Class<Object> entityClass = Object.class;
+    errorThrowingEventListener.setEntityClass(entityClass);
 
-    DelegateActivitiEventListener delegateActivitiEventListener =
-        new DelegateActivitiEventListener("Class Name", entityClass);
-    Class<Object> entityClass2 = Object.class;
-    delegateActivitiEventListener.setEntityClass(entityClass2);
-
-    // Act
-    boolean actualIsValidEventResult =
-        delegateActivitiEventListener.isValidEvent(
-            new ActivitiEntityEventImpl(JSONObject.NULL, ActivitiEventType.ENTITY_CREATED));
-
-    // Assert
-    assertTrue(actualIsValidEventResult);
+    // Act and Assert
+    assertTrue(errorThrowingEventListener
+        .isValidEvent(new ActivitiEntityEventImpl(JSONObject.NULL, ActivitiEventType.ENTITY_CREATED)));
   }
 
   /**
    * Test {@link BaseDelegateEventListener#isValidEvent(ActivitiEvent)}.
-   *
    * <ul>
-   *   <li>Given {@link ErrorThrowingEventListener} (default constructor).
-   *   <li>Then return {@code true}.
+   *   <li>Given {@link ErrorThrowingEventListener} (default constructor).</li>
+   *   <li>Then return {@code true}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link BaseDelegateEventListener#isValidEvent(ActivitiEvent)}
+   * <p>
+   * Method under test: {@link BaseDelegateEventListener#isValidEvent(ActivitiEvent)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"boolean BaseDelegateEventListener.isValidEvent(ActivitiEvent)"})
   public void testIsValidEvent_givenErrorThrowingEventListener_thenReturnTrue() {
     // Arrange
@@ -103,18 +91,17 @@ public class BaseDelegateEventListenerDiffblueTest {
 
   /**
    * Test {@link BaseDelegateEventListener#isValidEvent(ActivitiEvent)}.
-   *
    * <ul>
-   *   <li>Then return {@code false}.
+   *   <li>Given {@code Object}.</li>
+   *   <li>Then return {@code false}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link BaseDelegateEventListener#isValidEvent(ActivitiEvent)}
+   * <p>
+   * Method under test: {@link BaseDelegateEventListener#isValidEvent(ActivitiEvent)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"boolean BaseDelegateEventListener.isValidEvent(ActivitiEvent)"})
-  public void testIsValidEvent_thenReturnFalse() {
+  public void testIsValidEvent_givenJavaLangObject_thenReturnFalse() {
     // Arrange
     ErrorThrowingEventListener errorThrowingEventListener = new ErrorThrowingEventListener();
     Class<Object> entityClass = Object.class;

@@ -23,8 +23,7 @@ import static org.mockito.ArgumentMatchers.isA;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
@@ -43,18 +42,14 @@ import org.mockito.Mockito;
 public class DebugInfoOperationExecutedDiffblueTest {
   /**
    * Test {@link DebugInfoOperationExecuted#DebugInfoOperationExecuted(AbstractOperation)}.
-   *
    * <ul>
-   *   <li>Then {@link DebugInfoOperationExecuted#dateFormat} NumberFormat return {@link
-   *       DecimalFormat}.
+   *   <li>Then {@link DebugInfoOperationExecuted#dateFormat} NumberFormat return {@link DecimalFormat}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link
-   * DebugInfoOperationExecuted#DebugInfoOperationExecuted(AbstractOperation)}
+   * <p>
+   * Method under test: {@link DebugInfoOperationExecuted#DebugInfoOperationExecuted(AbstractOperation)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void DebugInfoOperationExecuted.<init>(AbstractOperation)"})
   public void testNewDebugInfoOperationExecuted_thenDateFormatNumberFormatReturnDecimalFormat() {
     // Arrange
@@ -64,14 +59,11 @@ public class DebugInfoOperationExecutedDiffblueTest {
 
     JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();
     processEngineConfiguration.setEngineAgendaFactory(engineAgendaFactory);
-    CommandContext commandContext =
-        new CommandContext(mock(Command.class), processEngineConfiguration);
-    ExecuteInactiveBehaviorsOperation operation =
-        new ExecuteInactiveBehaviorsOperation(commandContext);
+    ExecuteInactiveBehaviorsOperation operation = new ExecuteInactiveBehaviorsOperation(
+        new CommandContext(mock(Command.class), processEngineConfiguration));
 
     // Act
-    DebugInfoOperationExecuted actualDebugInfoOperationExecuted =
-        new DebugInfoOperationExecuted(operation);
+    DebugInfoOperationExecuted actualDebugInfoOperationExecuted = new DebugInfoOperationExecuted(operation);
 
     // Assert
     verify(engineAgendaFactory).createAgenda(isA(CommandContext.class));

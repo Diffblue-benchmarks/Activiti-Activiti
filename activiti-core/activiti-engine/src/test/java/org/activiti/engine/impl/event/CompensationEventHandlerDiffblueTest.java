@@ -16,8 +16,7 @@
 package org.activiti.engine.impl.event;
 
 import static org.junit.Assert.assertEquals;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
@@ -25,23 +24,19 @@ import org.junit.experimental.categories.Category;
 public class CompensationEventHandlerDiffblueTest {
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>default or parameterless constructor of {@link CompensationEventHandler}
    *   <li>{@link CompensationEventHandler#getEventHandlerType()}
    * </ul>
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void CompensationEventHandler.<init>()",
-    "java.lang.String CompensationEventHandler.getEventHandlerType()"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void CompensationEventHandler.<init>()",
+      "java.lang.String CompensationEventHandler.getEventHandlerType()"})
   public void testGettersAndSetters() {
     // Arrange, Act and Assert
-    assertEquals("compensate", new CompensationEventHandler().getEventHandlerType());
+    assertEquals("compensate", (new CompensationEventHandler()).getEventHandlerType());
   }
 }

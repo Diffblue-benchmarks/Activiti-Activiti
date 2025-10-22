@@ -19,14 +19,16 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.Mockito.anyBoolean;
+import static org.mockito.Mockito.atLeast;
+import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.mock;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 import com.diffblue.cover.annotations.MethodsUnderTest;
-import jakarta.el.ArrayELResolver;
-import jakarta.el.BeanNameELResolver;
-import jakarta.el.BeanNameResolver;
-import jakarta.el.CompositeELResolver;
 import jakarta.el.ELContext;
+import jakarta.el.StandardELContext;
 import jakarta.el.StaticFieldELResolver;
 import java.beans.FeatureDescriptor;
 import java.beans.PropertyDescriptor;
@@ -38,21 +40,17 @@ import org.junit.jupiter.api.Test;
 class SimpleResolverDiffblueTest {
   /**
    * Test {@link SimpleResolver#getCommonPropertyType(ELContext, Object)}.
-   *
-   * <p>Method under test: {@link SimpleResolver#getCommonPropertyType(ELContext, Object)}
+   * <p>
+   * Method under test: {@link SimpleResolver#getCommonPropertyType(ELContext, Object)}
    */
   @Test
   @DisplayName("Test getCommonPropertyType(ELContext, Object)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"Class SimpleResolver.getCommonPropertyType(ELContext, Object)"})
   void testGetCommonPropertyType() {
-    // Arrange
-    SimpleResolver simpleResolver = new SimpleResolver(new SimpleResolver(), true);
-
-    // Act
-    Class<?> actualCommonPropertyType =
-        simpleResolver.getCommonPropertyType(new SimpleContext(), "Base");
+    // Arrange and Act
+    Class<?> actualCommonPropertyType = (new SimpleResolver(new SimpleResolver(), true)).getCommonPropertyType(null,
+        "Base");
 
     // Assert
     Class<Object> expectedCommonPropertyType = Object.class;
@@ -61,24 +59,21 @@ class SimpleResolverDiffblueTest {
 
   /**
    * Test {@link SimpleResolver#getCommonPropertyType(ELContext, Object)}.
-   *
    * <ul>
-   *   <li>Given {@link SimpleResolver#SimpleResolver()}.
-   *   <li>When {@code null}.
-   *   <li>Then return {@link Object}.
+   *   <li>Given {@link SimpleResolver#SimpleResolver()}.</li>
+   *   <li>When {@code null}.</li>
+   *   <li>Then return {@link Object}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link SimpleResolver#getCommonPropertyType(ELContext, Object)}
+   * <p>
+   * Method under test: {@link SimpleResolver#getCommonPropertyType(ELContext, Object)}
    */
   @Test
-  @DisplayName(
-      "Test getCommonPropertyType(ELContext, Object); given SimpleResolver(); when 'null'; then return Object")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getCommonPropertyType(ELContext, Object); given SimpleResolver(); when 'null'; then return Object")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"Class SimpleResolver.getCommonPropertyType(ELContext, Object)"})
   void testGetCommonPropertyType_givenSimpleResolver_whenNull_thenReturnObject() {
     // Arrange and Act
-    Class<?> actualCommonPropertyType = new SimpleResolver().getCommonPropertyType(null, "Base");
+    Class<?> actualCommonPropertyType = (new SimpleResolver()).getCommonPropertyType(null, "Base");
 
     // Assert
     Class<Object> expectedCommonPropertyType = Object.class;
@@ -87,28 +82,24 @@ class SimpleResolverDiffblueTest {
 
   /**
    * Test {@link SimpleResolver#getCommonPropertyType(ELContext, Object)}.
-   *
    * <ul>
-   *   <li>Given {@link SimpleResolver#SimpleResolver()}.
-   *   <li>When {@link SimpleContext#SimpleContext()}.
-   *   <li>Then return {@link Object}.
+   *   <li>Given {@link SimpleResolver#SimpleResolver()}.</li>
+   *   <li>When {@link SimpleContext#SimpleContext()}.</li>
+   *   <li>Then return {@link Object}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link SimpleResolver#getCommonPropertyType(ELContext, Object)}
+   * <p>
+   * Method under test: {@link SimpleResolver#getCommonPropertyType(ELContext, Object)}
    */
   @Test
-  @DisplayName(
-      "Test getCommonPropertyType(ELContext, Object); given SimpleResolver(); when SimpleContext(); then return Object")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getCommonPropertyType(ELContext, Object); given SimpleResolver(); when SimpleContext(); then return Object")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"Class SimpleResolver.getCommonPropertyType(ELContext, Object)"})
   void testGetCommonPropertyType_givenSimpleResolver_whenSimpleContext_thenReturnObject() {
     // Arrange
     SimpleResolver simpleResolver = new SimpleResolver();
 
     // Act
-    Class<?> actualCommonPropertyType =
-        simpleResolver.getCommonPropertyType(new SimpleContext(), "Base");
+    Class<?> actualCommonPropertyType = simpleResolver.getCommonPropertyType(new SimpleContext(), "Base");
 
     // Assert
     Class<Object> expectedCommonPropertyType = Object.class;
@@ -117,25 +108,20 @@ class SimpleResolverDiffblueTest {
 
   /**
    * Test {@link SimpleResolver#getCommonPropertyType(ELContext, Object)}.
-   *
    * <ul>
-   *   <li>Then return {@link String}.
+   *   <li>Then return {@link String}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link SimpleResolver#getCommonPropertyType(ELContext, Object)}
+   * <p>
+   * Method under test: {@link SimpleResolver#getCommonPropertyType(ELContext, Object)}
    */
   @Test
   @DisplayName("Test getCommonPropertyType(ELContext, Object); then return String")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"Class SimpleResolver.getCommonPropertyType(ELContext, Object)"})
   void testGetCommonPropertyType_thenReturnString() {
-    // Arrange
-    BeanNameELResolver resolver = new BeanNameELResolver(mock(BeanNameResolver.class));
-
-    // Act
-    Class<?> actualCommonPropertyType =
-        new SimpleResolver(resolver, true).getCommonPropertyType(null, "Base");
+    // Arrange and Act
+    Class<?> actualCommonPropertyType = (new SimpleResolver(new RootPropertyResolver(), true))
+        .getCommonPropertyType(null, "Base");
 
     // Assert
     Class<String> expectedCommonPropertyType = String.class;
@@ -144,21 +130,20 @@ class SimpleResolverDiffblueTest {
 
   /**
    * Test {@link SimpleResolver#getFeatureDescriptors(ELContext, Object)}.
-   *
-   * <p>Method under test: {@link SimpleResolver#getFeatureDescriptors(ELContext, Object)}
+   * <p>
+   * Method under test: {@link SimpleResolver#getFeatureDescriptors(ELContext, Object)}
    */
   @Test
   @DisplayName("Test getFeatureDescriptors(ELContext, Object)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"Iterator SimpleResolver.getFeatureDescriptors(ELContext, Object)"})
   void testGetFeatureDescriptors() {
     // Arrange
     SimpleResolver simpleResolver = new SimpleResolver();
 
     // Act
-    Iterator<FeatureDescriptor> actualFeatureDescriptors =
-        simpleResolver.getFeatureDescriptors(new SimpleContext(), "Base");
+    Iterator<FeatureDescriptor> actualFeatureDescriptors = simpleResolver.getFeatureDescriptors(new SimpleContext(),
+        "Base");
 
     // Assert
     assertTrue(actualFeatureDescriptors.next() instanceof PropertyDescriptor);
@@ -170,41 +155,19 @@ class SimpleResolverDiffblueTest {
 
   /**
    * Test {@link SimpleResolver#getType(ELContext, Object, Object)}.
-   *
-   * <p>Method under test: {@link SimpleResolver#getType(ELContext, Object, Object)}
-   */
-  @Test
-  @DisplayName("Test getType(ELContext, Object, Object)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"Class SimpleResolver.getType(ELContext, Object, Object)"})
-  void testGetType() {
-    // Arrange
-    SimpleResolver simpleResolver = new SimpleResolver(new CompositeELResolver(), true);
-
-    // Act and Assert
-    assertNull(simpleResolver.getType(new SimpleContext(), "Base", "Property"));
-  }
-
-  /**
-   * Test {@link SimpleResolver#getType(ELContext, Object, Object)}.
-   *
    * <ul>
-   *   <li>Given {@link ArrayELResolver#ArrayELResolver(boolean)} with isReadOnly is {@code true}.
-   *   <li>Then return {@code null}.
+   *   <li>Then return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link SimpleResolver#getType(ELContext, Object, Object)}
+   * <p>
+   * Method under test: {@link SimpleResolver#getType(ELContext, Object, Object)}
    */
   @Test
-  @DisplayName(
-      "Test getType(ELContext, Object, Object); given ArrayELResolver(boolean) with isReadOnly is 'true'; then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getType(ELContext, Object, Object); then return 'null'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"Class SimpleResolver.getType(ELContext, Object, Object)"})
-  void testGetType_givenArrayELResolverWithIsReadOnlyIsTrue_thenReturnNull() {
+  void testGetType_thenReturnNull() {
     // Arrange
-    SimpleResolver simpleResolver = new SimpleResolver(new ArrayELResolver(true), true);
+    SimpleResolver simpleResolver = new SimpleResolver(new RootPropertyResolver(), true);
 
     // Act and Assert
     assertNull(simpleResolver.getType(new SimpleContext(), "Base", "Property"));
@@ -212,41 +175,19 @@ class SimpleResolverDiffblueTest {
 
   /**
    * Test {@link SimpleResolver#getValue(ELContext, Object, Object)}.
-   *
-   * <p>Method under test: {@link SimpleResolver#getValue(ELContext, Object, Object)}
-   */
-  @Test
-  @DisplayName("Test getValue(ELContext, Object, Object)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"Object SimpleResolver.getValue(ELContext, Object, Object)"})
-  void testGetValue() {
-    // Arrange
-    SimpleResolver simpleResolver = new SimpleResolver(new CompositeELResolver(), true);
-
-    // Act and Assert
-    assertNull(simpleResolver.getValue(new SimpleContext(), "Base", "Property"));
-  }
-
-  /**
-   * Test {@link SimpleResolver#getValue(ELContext, Object, Object)}.
-   *
    * <ul>
-   *   <li>Given {@link ArrayELResolver#ArrayELResolver(boolean)} with isReadOnly is {@code true}.
-   *   <li>Then return {@code null}.
+   *   <li>Then return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link SimpleResolver#getValue(ELContext, Object, Object)}
+   * <p>
+   * Method under test: {@link SimpleResolver#getValue(ELContext, Object, Object)}
    */
   @Test
-  @DisplayName(
-      "Test getValue(ELContext, Object, Object); given ArrayELResolver(boolean) with isReadOnly is 'true'; then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test getValue(ELContext, Object, Object); then return 'null'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"Object SimpleResolver.getValue(ELContext, Object, Object)"})
-  void testGetValue_givenArrayELResolverWithIsReadOnlyIsTrue_thenReturnNull() {
+  void testGetValue_thenReturnNull() {
     // Arrange
-    SimpleResolver simpleResolver = new SimpleResolver(new ArrayELResolver(true), true);
+    SimpleResolver simpleResolver = new SimpleResolver(new RootPropertyResolver(), true);
 
     // Act and Assert
     assertNull(simpleResolver.getValue(new SimpleContext(), "Base", "Property"));
@@ -254,22 +195,19 @@ class SimpleResolverDiffblueTest {
 
   /**
    * Test {@link SimpleResolver#isReadOnly(ELContext, Object, Object)}.
-   *
    * <ul>
-   *   <li>Then not {@link SimpleContext#SimpleContext()} PropertyResolved.
+   *   <li>Then not {@link SimpleContext#SimpleContext()} PropertyResolved.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link SimpleResolver#isReadOnly(ELContext, Object, Object)}
+   * <p>
+   * Method under test: {@link SimpleResolver#isReadOnly(ELContext, Object, Object)}
    */
   @Test
-  @DisplayName(
-      "Test isReadOnly(ELContext, Object, Object); then not SimpleContext() PropertyResolved")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test isReadOnly(ELContext, Object, Object); then not SimpleContext() PropertyResolved")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"boolean SimpleResolver.isReadOnly(ELContext, Object, Object)"})
   void testIsReadOnly_thenNotSimpleContextPropertyResolved() {
     // Arrange
-    SimpleResolver simpleResolver = new SimpleResolver(new CompositeELResolver(), true);
+    SimpleResolver simpleResolver = new SimpleResolver(new RootPropertyResolver(), true);
     SimpleContext context = new SimpleContext();
 
     // Act
@@ -282,17 +220,15 @@ class SimpleResolverDiffblueTest {
 
   /**
    * Test {@link SimpleResolver#isReadOnly(ELContext, Object, Object)}.
-   *
    * <ul>
-   *   <li>Then {@link SimpleContext#SimpleContext()} PropertyResolved.
+   *   <li>Then {@link SimpleContext#SimpleContext()} PropertyResolved.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link SimpleResolver#isReadOnly(ELContext, Object, Object)}
+   * <p>
+   * Method under test: {@link SimpleResolver#isReadOnly(ELContext, Object, Object)}
    */
   @Test
   @DisplayName("Test isReadOnly(ELContext, Object, Object); then SimpleContext() PropertyResolved")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"boolean SimpleResolver.isReadOnly(ELContext, Object, Object)"})
   void testIsReadOnly_thenSimpleContextPropertyResolved() {
     // Arrange
@@ -309,246 +245,67 @@ class SimpleResolverDiffblueTest {
 
   /**
    * Test {@link SimpleResolver#setValue(ELContext, Object, Object, Object)}.
-   *
-   * <p>Method under test: {@link SimpleResolver#setValue(ELContext, Object, Object, Object)}
+   * <ul>
+   *   <li>Given {@code true}.</li>
+   *   <li>Then calls {@link ELContext#isPropertyResolved()}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link SimpleResolver#setValue(ELContext, Object, Object, Object)}
    */
   @Test
-  @DisplayName("Test setValue(ELContext, Object, Object, Object)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test setValue(ELContext, Object, Object, Object); given 'true'; then calls isPropertyResolved()")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void SimpleResolver.setValue(ELContext, Object, Object, Object)"})
-  void testSetValue() {
+  void testSetValue_givenTrue_thenCallsIsPropertyResolved() {
     // Arrange
-    SimpleResolver simpleResolver = new SimpleResolver(new CompositeELResolver(), true);
-    SimpleContext context = new SimpleContext();
+    SimpleResolver simpleResolver = new SimpleResolver();
+    StandardELContext context = mock(StandardELContext.class);
+    when(context.isPropertyResolved()).thenReturn(true);
+    doNothing().when(context).setPropertyResolved(anyBoolean());
 
     // Act
     simpleResolver.setValue(context, "Base", "Property", "Value");
-
-    // Assert that nothing has changed
-    assertFalse(context.isPropertyResolved());
-  }
-
-  /**
-   * Test {@link SimpleResolver#setValue(ELContext, Object, Object, Object)}.
-   *
-   * <ul>
-   *   <li>Given {@link ArrayELResolver#ArrayELResolver(boolean)} with isReadOnly is {@code true}.
-   * </ul>
-   *
-   * <p>Method under test: {@link SimpleResolver#setValue(ELContext, Object, Object, Object)}
-   */
-  @Test
-  @DisplayName(
-      "Test setValue(ELContext, Object, Object, Object); given ArrayELResolver(boolean) with isReadOnly is 'true'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void SimpleResolver.setValue(ELContext, Object, Object, Object)"})
-  void testSetValue_givenArrayELResolverWithIsReadOnlyIsTrue() {
-    // Arrange
-    SimpleResolver simpleResolver = new SimpleResolver(new ArrayELResolver(true), true);
-    SimpleContext context = new SimpleContext();
-
-    // Act
-    simpleResolver.setValue(context, "Base", "Property", "Value");
-
-    // Assert that nothing has changed
-    assertFalse(context.isPropertyResolved());
-  }
-
-  /**
-   * Test {@link SimpleResolver#setValue(ELContext, Object, Object, Object)}.
-   *
-   * <ul>
-   *   <li>Given {@link SimpleResolver#SimpleResolver(ELResolver, boolean)} with resolver is {@link
-   *       SimpleResolver#SimpleResolver()} and readOnly is {@code true}.
-   * </ul>
-   *
-   * <p>Method under test: {@link SimpleResolver#setValue(ELContext, Object, Object, Object)}
-   */
-  @Test
-  @DisplayName(
-      "Test setValue(ELContext, Object, Object, Object); given SimpleResolver(ELResolver, boolean) with resolver is SimpleResolver() and readOnly is 'true'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void SimpleResolver.setValue(ELContext, Object, Object, Object)"})
-  void testSetValue_givenSimpleResolverWithResolverIsSimpleResolverAndReadOnlyIsTrue() {
-    // Arrange
-    SimpleResolver simpleResolver = new SimpleResolver(new SimpleResolver(), true);
-    SimpleContext context = new SimpleContext();
-
-    // Act
-    simpleResolver.setValue(context, "Base", null, "Value");
-
-    // Assert that nothing has changed
-    assertFalse(context.isPropertyResolved());
-  }
-
-  /**
-   * Test {@link SimpleResolver#setValue(ELContext, Object, Object, Object)}.
-   *
-   * <ul>
-   *   <li>Given {@link SimpleResolver#SimpleResolver()}.
-   *   <li>When {@code null}.
-   *   <li>Then not {@link SimpleContext#SimpleContext()} PropertyResolved.
-   * </ul>
-   *
-   * <p>Method under test: {@link SimpleResolver#setValue(ELContext, Object, Object, Object)}
-   */
-  @Test
-  @DisplayName(
-      "Test setValue(ELContext, Object, Object, Object); given SimpleResolver(); when 'null'; then not SimpleContext() PropertyResolved")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void SimpleResolver.setValue(ELContext, Object, Object, Object)"})
-  void testSetValue_givenSimpleResolver_whenNull_thenNotSimpleContextPropertyResolved() {
-    // Arrange
-    SimpleResolver simpleResolver = new SimpleResolver();
-    SimpleContext context = new SimpleContext();
-
-    // Act
-    simpleResolver.setValue(context, "Base", null, "Value");
-
-    // Assert that nothing has changed
-    assertFalse(context.isPropertyResolved());
-  }
-
-  /**
-   * Test {@link SimpleResolver#setValue(ELContext, Object, Object, Object)}.
-   *
-   * <ul>
-   *   <li>Given {@link SimpleResolver#SimpleResolver()}.
-   *   <li>When {@code null}.
-   *   <li>Then {@link SimpleContext#SimpleContext()} PropertyResolved.
-   * </ul>
-   *
-   * <p>Method under test: {@link SimpleResolver#setValue(ELContext, Object, Object, Object)}
-   */
-  @Test
-  @DisplayName(
-      "Test setValue(ELContext, Object, Object, Object); given SimpleResolver(); when 'null'; then SimpleContext() PropertyResolved")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void SimpleResolver.setValue(ELContext, Object, Object, Object)"})
-  void testSetValue_givenSimpleResolver_whenNull_thenSimpleContextPropertyResolved() {
-    // Arrange
-    SimpleResolver simpleResolver = new SimpleResolver();
-    SimpleContext context = new SimpleContext();
-
-    // Act
-    simpleResolver.setValue(context, null, "Property", "Value");
 
     // Assert
-    assertTrue(context.isPropertyResolved());
-  }
-
-  /**
-   * Test {@link SimpleResolver#setValue(ELContext, Object, Object, Object)}.
-   *
-   * <ul>
-   *   <li>Given {@link SimpleResolver#SimpleResolver()}.
-   *   <li>When one.
-   *   <li>Then not {@link SimpleContext#SimpleContext()} PropertyResolved.
-   * </ul>
-   *
-   * <p>Method under test: {@link SimpleResolver#setValue(ELContext, Object, Object, Object)}
-   */
-  @Test
-  @DisplayName(
-      "Test setValue(ELContext, Object, Object, Object); given SimpleResolver(); when one; then not SimpleContext() PropertyResolved")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void SimpleResolver.setValue(ELContext, Object, Object, Object)"})
-  void testSetValue_givenSimpleResolver_whenOne_thenNotSimpleContextPropertyResolved() {
-    // Arrange
-    SimpleResolver simpleResolver = new SimpleResolver();
-    SimpleContext context = new SimpleContext();
-
-    // Act
-    simpleResolver.setValue(context, null, 1, "Value");
-
-    // Assert that nothing has changed
-    assertFalse(context.isPropertyResolved());
+    verify(context, atLeast(1)).isPropertyResolved();
+    verify(context, atLeast(1)).setPropertyResolved(eq(false));
   }
 
   /**
    * Test {@link SimpleResolver#invoke(ELContext, Object, Object, Class[], Object[])}.
-   *
-   * <p>Method under test: {@link SimpleResolver#invoke(ELContext, Object, Object, Class[],
-   * Object[])}
+   * <p>
+   * Method under test: {@link SimpleResolver#invoke(ELContext, Object, Object, Class[], Object[])}
    */
   @Test
   @DisplayName("Test invoke(ELContext, Object, Object, Class[], Object[])")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"Object SimpleResolver.invoke(ELContext, Object, Object, Class[], Object[])"})
   void testInvoke() {
+    // Arrange
+    SimpleResolver simpleResolver = new SimpleResolver(new RootPropertyResolver(), true);
+    SimpleContext context = new SimpleContext();
+    Class<Object> forNameResult = Object.class;
+
+    // Act and Assert
+    assertNull(simpleResolver.invoke(context, "Base", "Method", new Class[]{forNameResult}, new Object[]{"Params"}));
+  }
+
+  /**
+   * Test {@link SimpleResolver#invoke(ELContext, Object, Object, Class[], Object[])}.
+   * <p>
+   * Method under test: {@link SimpleResolver#invoke(ELContext, Object, Object, Class[], Object[])}
+   */
+  @Test
+  @DisplayName("Test invoke(ELContext, Object, Object, Class[], Object[])")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"Object SimpleResolver.invoke(ELContext, Object, Object, Class[], Object[])"})
+  void testInvoke2() {
     // Arrange
     SimpleResolver simpleResolver = new SimpleResolver(new StaticFieldELResolver(), true);
     SimpleContext context = new SimpleContext();
     Class<Object> forNameResult = Object.class;
 
     // Act and Assert
-    assertNull(
-        simpleResolver.invoke(
-            context, "Base", "Method", new Class[] {forNameResult}, new Object[] {"Params"}));
-  }
-
-  /**
-   * Test {@link SimpleResolver#invoke(ELContext, Object, Object, Class[], Object[])}.
-   *
-   * <ul>
-   *   <li>Given {@link ArrayELResolver#ArrayELResolver(boolean)} with isReadOnly is {@code true}.
-   *   <li>Then return {@code null}.
-   * </ul>
-   *
-   * <p>Method under test: {@link SimpleResolver#invoke(ELContext, Object, Object, Class[],
-   * Object[])}
-   */
-  @Test
-  @DisplayName(
-      "Test invoke(ELContext, Object, Object, Class[], Object[]); given ArrayELResolver(boolean) with isReadOnly is 'true'; then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"Object SimpleResolver.invoke(ELContext, Object, Object, Class[], Object[])"})
-  void testInvoke_givenArrayELResolverWithIsReadOnlyIsTrue_thenReturnNull() {
-    // Arrange
-    SimpleResolver simpleResolver = new SimpleResolver(new ArrayELResolver(true), true);
-    SimpleContext context = new SimpleContext();
-    Class<Object> forNameResult = Object.class;
-
-    // Act and Assert
-    assertNull(
-        simpleResolver.invoke(
-            context, "Base", "Method", new Class[] {forNameResult}, new Object[] {"Params"}));
-  }
-
-  /**
-   * Test {@link SimpleResolver#invoke(ELContext, Object, Object, Class[], Object[])}.
-   *
-   * <ul>
-   *   <li>Given {@link SimpleResolver#SimpleResolver(ELResolver, boolean)} with resolver is {@link
-   *       CompositeELResolver} (default constructor) and readOnly is {@code true}.
-   * </ul>
-   *
-   * <p>Method under test: {@link SimpleResolver#invoke(ELContext, Object, Object, Class[],
-   * Object[])}
-   */
-  @Test
-  @DisplayName(
-      "Test invoke(ELContext, Object, Object, Class[], Object[]); given SimpleResolver(ELResolver, boolean) with resolver is CompositeELResolver (default constructor) and readOnly is 'true'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"Object SimpleResolver.invoke(ELContext, Object, Object, Class[], Object[])"})
-  void testInvoke_givenSimpleResolverWithResolverIsCompositeELResolverAndReadOnlyIsTrue() {
-    // Arrange
-    SimpleResolver simpleResolver = new SimpleResolver(new CompositeELResolver(), true);
-    SimpleContext context = new SimpleContext();
-    Class<Object> forNameResult = Object.class;
-
-    // Act and Assert
-    assertNull(
-        simpleResolver.invoke(
-            context, "Base", "Method", new Class[] {forNameResult}, new Object[] {"Params"}));
+    assertNull(simpleResolver.invoke(context, "Base", "Method", new Class[]{forNameResult}, new Object[]{"Params"}));
   }
 }

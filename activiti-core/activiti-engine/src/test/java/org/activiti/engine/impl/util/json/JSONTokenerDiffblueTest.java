@@ -17,14 +17,14 @@ package org.activiti.engine.impl.util.json;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertThrows;
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
+import java.io.ByteArrayInputStream;
 import java.io.FileDescriptor;
 import java.io.FileReader;
+import java.io.InputStreamReader;
 import java.io.Reader;
 import java.io.StringReader;
 import org.junit.Test;
@@ -32,65 +32,65 @@ import org.junit.experimental.categories.Category;
 
 public class JSONTokenerDiffblueTest {
   /**
-   * Test {@link JSONTokener#JSONTokener(String)}.
-   *
-   * <p>Method under test: {@link JSONTokener#JSONTokener(String)}
+   * Test {@link JSONTokener#JSONTokener(Reader)}.
+   * <ul>
+   *   <li>When {@code A}.</li>
+   *   <li>Then return not end.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link JSONTokener#JSONTokener(Reader)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void JSONTokener.<init>(String)"})
-  public void testNewJSONTokener() {
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void JSONTokener.<init>(Reader)"})
+  public void testNewJSONTokener_whenA_thenReturnNotEnd() {
     // Arrange, Act and Assert
-    assertFalse(new JSONTokener("foo").end());
+    assertFalse(
+        (new JSONTokener(new InputStreamReader(new ByteArrayInputStream(new byte[]{'A', 1, 'A', 1, 'A', 1, 'A', 1}))))
+            .end());
   }
 
   /**
    * Test {@link JSONTokener#JSONTokener(Reader)}.
-   *
    * <ul>
-   *   <li>When {@link StringReader#StringReader(String)} with {@code foo}.
-   *   <li>Then return not end.
+   *   <li>When {@link StringReader#StringReader(String)} with {@code foo}.</li>
+   *   <li>Then return not end.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link JSONTokener#JSONTokener(Reader)}
+   * <p>
+   * Method under test: {@link JSONTokener#JSONTokener(Reader)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void JSONTokener.<init>(Reader)"})
   public void testNewJSONTokener_whenStringReaderWithFoo_thenReturnNotEnd() {
     // Arrange, Act and Assert
-    assertFalse(new JSONTokener(new StringReader("foo")).end());
+    assertFalse((new JSONTokener(new StringReader("foo"))).end());
   }
 
   /**
    * Test {@link JSONTokener#back()}.
-   *
-   * <p>Method under test: {@link JSONTokener#back()}
+   * <p>
+   * Method under test: {@link JSONTokener#back()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void JSONTokener.back()"})
   public void testBack() throws JSONException {
     // Arrange, Act and Assert
-    assertThrows(JSONException.class, () -> new JSONTokener("foo").back());
+    assertThrows(JSONException.class, () -> (new JSONTokener("foo")).back());
   }
 
   /**
    * Test {@link JSONTokener#dehexchar(char)}.
-   *
    * <ul>
-   *   <li>When {@code 0}.
-   *   <li>Then return zero.
+   *   <li>When {@code 0}.</li>
+   *   <li>Then return zero.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link JSONTokener#dehexchar(char)}
+   * <p>
+   * Method under test: {@link JSONTokener#dehexchar(char)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"int JSONTokener.dehexchar(char)"})
   public void testDehexchar_when0_thenReturnZero() {
     // Arrange, Act and Assert
@@ -99,17 +99,15 @@ public class JSONTokenerDiffblueTest {
 
   /**
    * Test {@link JSONTokener#dehexchar(char)}.
-   *
    * <ul>
-   *   <li>When {@code A}.
-   *   <li>Then return ten.
+   *   <li>When {@code A}.</li>
+   *   <li>Then return ten.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link JSONTokener#dehexchar(char)}
+   * <p>
+   * Method under test: {@link JSONTokener#dehexchar(char)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"int JSONTokener.dehexchar(char)"})
   public void testDehexchar_whenA_thenReturnTen() {
     // Arrange, Act and Assert
@@ -118,17 +116,15 @@ public class JSONTokenerDiffblueTest {
 
   /**
    * Test {@link JSONTokener#dehexchar(char)}.
-   *
    * <ul>
-   *   <li>When {@code a}.
-   *   <li>Then return ten.
+   *   <li>When {@code a}.</li>
+   *   <li>Then return ten.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link JSONTokener#dehexchar(char)}
+   * <p>
+   * Method under test: {@link JSONTokener#dehexchar(char)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"int JSONTokener.dehexchar(char)"})
   public void testDehexchar_whenA_thenReturnTen2() {
     // Arrange, Act and Assert
@@ -137,17 +133,15 @@ public class JSONTokenerDiffblueTest {
 
   /**
    * Test {@link JSONTokener#dehexchar(char)}.
-   *
    * <ul>
-   *   <li>When {@code G}.
-   *   <li>Then return minus one.
+   *   <li>When {@code G}.</li>
+   *   <li>Then return minus one.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link JSONTokener#dehexchar(char)}
+   * <p>
+   * Method under test: {@link JSONTokener#dehexchar(char)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"int JSONTokener.dehexchar(char)"})
   public void testDehexchar_whenG_thenReturnMinusOne() {
     // Arrange, Act and Assert
@@ -156,17 +150,15 @@ public class JSONTokenerDiffblueTest {
 
   /**
    * Test {@link JSONTokener#dehexchar(char)}.
-   *
    * <ul>
-   *   <li>When {@code g}.
-   *   <li>Then return minus one.
+   *   <li>When {@code g}.</li>
+   *   <li>Then return minus one.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link JSONTokener#dehexchar(char)}
+   * <p>
+   * Method under test: {@link JSONTokener#dehexchar(char)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"int JSONTokener.dehexchar(char)"})
   public void testDehexchar_whenG_thenReturnMinusOne2() {
     // Arrange, Act and Assert
@@ -175,17 +167,15 @@ public class JSONTokenerDiffblueTest {
 
   /**
    * Test {@link JSONTokener#dehexchar(char)}.
-   *
    * <ul>
-   *   <li>When {@code /}.
-   *   <li>Then return minus one.
+   *   <li>When {@code /}.</li>
+   *   <li>Then return minus one.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link JSONTokener#dehexchar(char)}
+   * <p>
+   * Method under test: {@link JSONTokener#dehexchar(char)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"int JSONTokener.dehexchar(char)"})
   public void testDehexchar_whenSlash_thenReturnMinusOne() {
     // Arrange, Act and Assert
@@ -194,53 +184,45 @@ public class JSONTokenerDiffblueTest {
 
   /**
    * Test {@link JSONTokener#end()}.
-   *
-   * <p>Method under test: {@link JSONTokener#end()}
+   * <p>
+   * Method under test: {@link JSONTokener#end()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"boolean JSONTokener.end()"})
   public void testEnd() {
     // Arrange, Act and Assert
-    assertFalse(new JSONTokener("foo").end());
+    assertFalse((new JSONTokener("foo")).end());
   }
 
   /**
    * Test {@link JSONTokener#more()}.
-   *
    * <ul>
-   *   <li>Given {@link FileReader#FileReader(FileDescriptor)} with {@link
-   *       FileDescriptor#FileDescriptor()}.
-   *   <li>Then throw {@link JSONException}.
+   *   <li>Given {@link FileReader#FileReader(FileDescriptor)} with {@link FileDescriptor#FileDescriptor()}.</li>
+   *   <li>Then throw {@link JSONException}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link JSONTokener#more()}
+   * <p>
+   * Method under test: {@link JSONTokener#more()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"boolean JSONTokener.more()"})
-  public void testMore_givenFileReaderWithFileDescriptor_thenThrowJSONException()
-      throws JSONException {
+  public void testMore_givenFileReaderWithFileDescriptor_thenThrowJSONException() throws JSONException {
     // Arrange, Act and Assert
-    assertThrows(
-        JSONException.class, () -> new JSONTokener(new FileReader(new FileDescriptor())).more());
+    assertThrows(JSONException.class, () -> (new JSONTokener(new FileReader(new FileDescriptor()))).more());
   }
 
   /**
    * Test {@link JSONTokener#more()}.
-   *
    * <ul>
-   *   <li>Given {@link JSONTokener#JSONTokener(String)} with s is empty string.
-   *   <li>Then return {@code false}.
+   *   <li>Given {@link JSONTokener#JSONTokener(String)} with s is empty string.</li>
+   *   <li>Then return {@code false}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link JSONTokener#more()}
+   * <p>
+   * Method under test: {@link JSONTokener#more()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"boolean JSONTokener.more()"})
   public void testMore_givenJSONTokenerWithSIsEmptyString_thenReturnFalse() throws JSONException {
     // Arrange
@@ -253,20 +235,17 @@ public class JSONTokenerDiffblueTest {
 
   /**
    * Test {@link JSONTokener#more()}.
-   *
    * <ul>
-   *   <li>Given {@link JSONTokener#JSONTokener(String)} with s is {@code foo}.
-   *   <li>Then not {@link JSONTokener#JSONTokener(String)} with s is {@code foo} end.
+   *   <li>Given {@link JSONTokener#JSONTokener(String)} with s is {@code foo}.</li>
+   *   <li>Then not {@link JSONTokener#JSONTokener(String)} with s is {@code foo} end.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link JSONTokener#more()}
+   * <p>
+   * Method under test: {@link JSONTokener#more()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"boolean JSONTokener.more()"})
-  public void testMore_givenJSONTokenerWithSIsFoo_thenNotJSONTokenerWithSIsFooEnd()
-      throws JSONException {
+  public void testMore_givenJSONTokenerWithSIsFoo_thenNotJSONTokenerWithSIsFooEnd() throws JSONException {
     // Arrange
     JSONTokener jsonTokener = new JSONTokener("foo");
 
@@ -280,209 +259,176 @@ public class JSONTokenerDiffblueTest {
 
   /**
    * Test {@link JSONTokener#next(char)} with {@code c}.
-   *
    * <ul>
-   *   <li>Given {@link FileReader#FileReader(FileDescriptor)} with {@link
-   *       FileDescriptor#FileDescriptor()}.
-   *   <li>When {@code A}.
-   *   <li>Then throw {@link JSONException}.
+   *   <li>Given {@link FileReader#FileReader(FileDescriptor)} with {@link FileDescriptor#FileDescriptor()}.</li>
+   *   <li>When {@code A}.</li>
+   *   <li>Then throw {@link JSONException}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link JSONTokener#next(char)}
+   * <p>
+   * Method under test: {@link JSONTokener#next(char)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"char JSONTokener.next(char)"})
-  public void testNextWithC_givenFileReaderWithFileDescriptor_whenA_thenThrowJSONException()
-      throws JSONException {
+  public void testNextWithC_givenFileReaderWithFileDescriptor_whenA_thenThrowJSONException() throws JSONException {
     // Arrange, Act and Assert
-    assertThrows(
-        JSONException.class, () -> new JSONTokener(new FileReader(new FileDescriptor())).next('A'));
+    assertThrows(JSONException.class, () -> (new JSONTokener(new FileReader(new FileDescriptor()))).next('A'));
   }
 
   /**
    * Test {@link JSONTokener#next(char)} with {@code c}.
-   *
    * <ul>
-   *   <li>Given {@link JSONTokener#JSONTokener(String)} with s is empty string.
-   *   <li>When {@code A}.
-   *   <li>Then throw {@link JSONException}.
+   *   <li>Given {@link JSONTokener#JSONTokener(String)} with s is empty string.</li>
+   *   <li>When {@code A}.</li>
+   *   <li>Then throw {@link JSONException}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link JSONTokener#next(char)}
+   * <p>
+   * Method under test: {@link JSONTokener#next(char)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"char JSONTokener.next(char)"})
-  public void testNextWithC_givenJSONTokenerWithSIsEmptyString_whenA_thenThrowJSONException()
-      throws JSONException {
+  public void testNextWithC_givenJSONTokenerWithSIsEmptyString_whenA_thenThrowJSONException() throws JSONException {
     // Arrange, Act and Assert
-    assertThrows(JSONException.class, () -> new JSONTokener("").next('A'));
+    assertThrows(JSONException.class, () -> (new JSONTokener("")).next('A'));
   }
 
   /**
    * Test {@link JSONTokener#next(char)} with {@code c}.
-   *
    * <ul>
-   *   <li>Given {@link JSONTokener#JSONTokener(String)} with s is {@code foo}.
-   *   <li>When {@code A}.
-   *   <li>Then throw {@link JSONException}.
+   *   <li>Given {@link JSONTokener#JSONTokener(String)} with s is {@code foo}.</li>
+   *   <li>When {@code A}.</li>
+   *   <li>Then throw {@link JSONException}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link JSONTokener#next(char)}
+   * <p>
+   * Method under test: {@link JSONTokener#next(char)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"char JSONTokener.next(char)"})
-  public void testNextWithC_givenJSONTokenerWithSIsFoo_whenA_thenThrowJSONException()
-      throws JSONException {
+  public void testNextWithC_givenJSONTokenerWithSIsFoo_whenA_thenThrowJSONException() throws JSONException {
     // Arrange, Act and Assert
-    assertThrows(JSONException.class, () -> new JSONTokener("foo").next('A'));
+    assertThrows(JSONException.class, () -> (new JSONTokener("foo")).next('A'));
   }
 
   /**
    * Test {@link JSONTokener#next(char)} with {@code c}.
-   *
    * <ul>
-   *   <li>Given {@link JSONTokener#JSONTokener(String)} with s is {@code foo}.
-   *   <li>When {@code f}.
-   *   <li>Then return {@code f}.
+   *   <li>Given {@link JSONTokener#JSONTokener(String)} with s is {@code foo}.</li>
+   *   <li>When {@code f}.</li>
+   *   <li>Then return {@code f}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link JSONTokener#next(char)}
+   * <p>
+   * Method under test: {@link JSONTokener#next(char)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"char JSONTokener.next(char)"})
   public void testNextWithC_givenJSONTokenerWithSIsFoo_whenF_thenReturnF() throws JSONException {
     // Arrange, Act and Assert
-    assertEquals('f', new JSONTokener("foo").next('f'));
+    assertEquals('f', (new JSONTokener("foo")).next('f'));
   }
 
   /**
    * Test {@link JSONTokener#next(int)} with {@code n}.
-   *
    * <ul>
-   *   <li>Given {@link FileReader#FileReader(FileDescriptor)} with {@link
-   *       FileDescriptor#FileDescriptor()}.
-   *   <li>When one.
-   *   <li>Then throw {@link JSONException}.
+   *   <li>Given {@link FileReader#FileReader(FileDescriptor)} with {@link FileDescriptor#FileDescriptor()}.</li>
+   *   <li>When one.</li>
+   *   <li>Then throw {@link JSONException}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link JSONTokener#next(int)}
+   * <p>
+   * Method under test: {@link JSONTokener#next(int)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String JSONTokener.next(int)"})
-  public void testNextWithN_givenFileReaderWithFileDescriptor_whenOne_thenThrowJSONException()
-      throws JSONException {
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"java.lang.String JSONTokener.next(int)"})
+  public void testNextWithN_givenFileReaderWithFileDescriptor_whenOne_thenThrowJSONException() throws JSONException {
     // Arrange, Act and Assert
-    assertThrows(
-        JSONException.class, () -> new JSONTokener(new FileReader(new FileDescriptor())).next(1));
+    assertThrows(JSONException.class, () -> (new JSONTokener(new FileReader(new FileDescriptor()))).next(1));
   }
 
   /**
    * Test {@link JSONTokener#next(int)} with {@code n}.
-   *
    * <ul>
-   *   <li>Given {@link JSONTokener#JSONTokener(String)} with s is {@code foo}.
-   *   <li>When four.
-   *   <li>Then throw {@link JSONException}.
+   *   <li>Given {@link JSONTokener#JSONTokener(String)} with s is empty string.</li>
+   *   <li>When one.</li>
+   *   <li>Then throw {@link JSONException}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link JSONTokener#next(int)}
+   * <p>
+   * Method under test: {@link JSONTokener#next(int)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String JSONTokener.next(int)"})
-  public void testNextWithN_givenJSONTokenerWithSIsFoo_whenFour_thenThrowJSONException()
-      throws JSONException {
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"java.lang.String JSONTokener.next(int)"})
+  public void testNextWithN_givenJSONTokenerWithSIsEmptyString_whenOne_thenThrowJSONException() throws JSONException {
     // Arrange, Act and Assert
-    assertThrows(JSONException.class, () -> new JSONTokener("foo").next(4));
+    assertThrows(JSONException.class, () -> (new JSONTokener("")).next(1));
   }
 
   /**
    * Test {@link JSONTokener#next(int)} with {@code n}.
-   *
    * <ul>
-   *   <li>Given {@link JSONTokener#JSONTokener(String)} with s is {@code foo}.
-   *   <li>When one.
-   *   <li>Then return {@code f}.
+   *   <li>Given {@link JSONTokener#JSONTokener(String)} with s is {@code foo}.</li>
+   *   <li>When one.</li>
+   *   <li>Then return {@code f}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link JSONTokener#next(int)}
+   * <p>
+   * Method under test: {@link JSONTokener#next(int)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String JSONTokener.next(int)"})
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"java.lang.String JSONTokener.next(int)"})
   public void testNextWithN_givenJSONTokenerWithSIsFoo_whenOne_thenReturnF() throws JSONException {
     // Arrange, Act and Assert
-    assertEquals("f", new JSONTokener("foo").next(1));
+    assertEquals("f", (new JSONTokener("foo")).next(1));
   }
 
   /**
    * Test {@link JSONTokener#next(int)} with {@code n}.
-   *
    * <ul>
-   *   <li>Given {@link JSONTokener#JSONTokener(String)} with s is {@code foo}.
-   *   <li>When zero.
-   *   <li>Then return empty string.
+   *   <li>Given {@link JSONTokener#JSONTokener(String)} with s is {@code foo}.</li>
+   *   <li>When zero.</li>
+   *   <li>Then return empty string.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link JSONTokener#next(int)}
+   * <p>
+   * Method under test: {@link JSONTokener#next(int)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String JSONTokener.next(int)"})
-  public void testNextWithN_givenJSONTokenerWithSIsFoo_whenZero_thenReturnEmptyString()
-      throws JSONException {
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"java.lang.String JSONTokener.next(int)"})
+  public void testNextWithN_givenJSONTokenerWithSIsFoo_whenZero_thenReturnEmptyString() throws JSONException {
     // Arrange, Act and Assert
-    assertEquals("", new JSONTokener("foo").next(0));
+    assertEquals("", (new JSONTokener("foo")).next(0));
   }
 
   /**
    * Test {@link JSONTokener#next()}.
-   *
    * <ul>
-   *   <li>Given {@link FileReader#FileReader(FileDescriptor)} with {@link
-   *       FileDescriptor#FileDescriptor()}.
-   *   <li>Then throw {@link JSONException}.
+   *   <li>Given {@link FileReader#FileReader(FileDescriptor)} with {@link FileDescriptor#FileDescriptor()}.</li>
+   *   <li>Then throw {@link JSONException}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link JSONTokener#next()}
+   * <p>
+   * Method under test: {@link JSONTokener#next()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"char JSONTokener.next()"})
-  public void testNext_givenFileReaderWithFileDescriptor_thenThrowJSONException()
-      throws JSONException {
+  public void testNext_givenFileReaderWithFileDescriptor_thenThrowJSONException() throws JSONException {
     // Arrange, Act and Assert
-    assertThrows(
-        JSONException.class, () -> new JSONTokener(new FileReader(new FileDescriptor())).next());
+    assertThrows(JSONException.class, () -> (new JSONTokener(new FileReader(new FileDescriptor()))).next());
   }
 
   /**
    * Test {@link JSONTokener#next()}.
-   *
    * <ul>
-   *   <li>Given {@link JSONTokener#JSONTokener(String)} with s is empty string.
-   *   <li>Then return null.
+   *   <li>Given {@link JSONTokener#JSONTokener(String)} with s is empty string.</li>
+   *   <li>Then return null.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link JSONTokener#next()}
+   * <p>
+   * Method under test: {@link JSONTokener#next()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"char JSONTokener.next()"})
   public void testNext_givenJSONTokenerWithSIsEmptyString_thenReturnNull() throws JSONException {
     // Arrange
@@ -495,17 +441,15 @@ public class JSONTokenerDiffblueTest {
 
   /**
    * Test {@link JSONTokener#next()}.
-   *
    * <ul>
-   *   <li>Given {@link JSONTokener#JSONTokener(String)} with s is {@code foo}.
-   *   <li>Then return {@code f}.
+   *   <li>Given {@link JSONTokener#JSONTokener(String)} with s is {@code foo}.</li>
+   *   <li>Then return {@code f}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link JSONTokener#next()}
+   * <p>
+   * Method under test: {@link JSONTokener#next()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"char JSONTokener.next()"})
   public void testNext_givenJSONTokenerWithSIsFoo_thenReturnF() throws JSONException {
     // Arrange
@@ -518,43 +462,34 @@ public class JSONTokenerDiffblueTest {
 
   /**
    * Test {@link JSONTokener#nextClean()}.
-   *
    * <ul>
-   *   <li>Given {@link FileReader#FileReader(FileDescriptor)} with {@link
-   *       FileDescriptor#FileDescriptor()}.
-   *   <li>Then throw {@link JSONException}.
+   *   <li>Given {@link FileReader#FileReader(FileDescriptor)} with {@link FileDescriptor#FileDescriptor()}.</li>
+   *   <li>Then throw {@link JSONException}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link JSONTokener#nextClean()}
+   * <p>
+   * Method under test: {@link JSONTokener#nextClean()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"char JSONTokener.nextClean()"})
-  public void testNextClean_givenFileReaderWithFileDescriptor_thenThrowJSONException()
-      throws JSONException {
+  public void testNextClean_givenFileReaderWithFileDescriptor_thenThrowJSONException() throws JSONException {
     // Arrange, Act and Assert
-    assertThrows(
-        JSONException.class,
-        () -> new JSONTokener(new FileReader(new FileDescriptor())).nextClean());
+    assertThrows(JSONException.class, () -> (new JSONTokener(new FileReader(new FileDescriptor()))).nextClean());
   }
 
   /**
    * Test {@link JSONTokener#nextClean()}.
-   *
    * <ul>
-   *   <li>Given {@link JSONTokener#JSONTokener(String)} with s is empty string.
-   *   <li>Then return null.
+   *   <li>Given {@link JSONTokener#JSONTokener(String)} with s is empty string.</li>
+   *   <li>Then return null.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link JSONTokener#nextClean()}
+   * <p>
+   * Method under test: {@link JSONTokener#nextClean()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"char JSONTokener.nextClean()"})
-  public void testNextClean_givenJSONTokenerWithSIsEmptyString_thenReturnNull()
-      throws JSONException {
+  public void testNextClean_givenJSONTokenerWithSIsEmptyString_thenReturnNull() throws JSONException {
     // Arrange
     JSONTokener jsonTokener = new JSONTokener("");
 
@@ -565,17 +500,15 @@ public class JSONTokenerDiffblueTest {
 
   /**
    * Test {@link JSONTokener#nextClean()}.
-   *
    * <ul>
-   *   <li>Given {@link JSONTokener#JSONTokener(String)} with s is {@code foo}.
-   *   <li>Then return {@code f}.
+   *   <li>Given {@link JSONTokener#JSONTokener(String)} with s is {@code foo}.</li>
+   *   <li>Then return {@code f}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link JSONTokener#nextClean()}
+   * <p>
+   * Method under test: {@link JSONTokener#nextClean()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"char JSONTokener.nextClean()"})
   public void testNextClean_givenJSONTokenerWithSIsFoo_thenReturnF() throws JSONException {
     // Arrange
@@ -588,125 +521,103 @@ public class JSONTokenerDiffblueTest {
 
   /**
    * Test {@link JSONTokener#nextString(char)}.
-   *
-   * <p>Method under test: {@link JSONTokener#nextString(char)}
+   * <p>
+   * Method under test: {@link JSONTokener#nextString(char)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String JSONTokener.nextString(char)"})
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"java.lang.String JSONTokener.nextString(char)"})
   public void testNextString() throws JSONException {
     // Arrange, Act and Assert
-    assertThrows(JSONException.class, () -> new JSONTokener(",:]}/\\\"[{;=#").nextString('A'));
+    assertThrows(JSONException.class, () -> (new JSONTokener(",:]}/\\\"[{;=#")).nextString('A'));
   }
 
   /**
    * Test {@link JSONTokener#nextString(char)}.
-   *
    * <ul>
-   *   <li>Given {@link FileReader#FileReader(FileDescriptor)} with {@link
-   *       FileDescriptor#FileDescriptor()}.
-   *   <li>When {@code A}.
-   *   <li>Then throw {@link JSONException}.
+   *   <li>Given {@link FileReader#FileReader(FileDescriptor)} with {@link FileDescriptor#FileDescriptor()}.</li>
+   *   <li>When {@code A}.</li>
+   *   <li>Then throw {@link JSONException}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link JSONTokener#nextString(char)}
+   * <p>
+   * Method under test: {@link JSONTokener#nextString(char)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String JSONTokener.nextString(char)"})
-  public void testNextString_givenFileReaderWithFileDescriptor_whenA_thenThrowJSONException()
-      throws JSONException {
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"java.lang.String JSONTokener.nextString(char)"})
+  public void testNextString_givenFileReaderWithFileDescriptor_whenA_thenThrowJSONException() throws JSONException {
     // Arrange, Act and Assert
-    assertThrows(
-        JSONException.class,
-        () -> new JSONTokener(new FileReader(new FileDescriptor())).nextString('A'));
+    assertThrows(JSONException.class, () -> (new JSONTokener(new FileReader(new FileDescriptor()))).nextString('A'));
   }
 
   /**
    * Test {@link JSONTokener#nextString(char)}.
-   *
    * <ul>
-   *   <li>Given {@link JSONTokener#JSONTokener(String)} with s is {@code foo}.
-   *   <li>When {@code A}.
-   *   <li>Then throw {@link JSONException}.
+   *   <li>Given {@link JSONTokener#JSONTokener(String)} with s is {@code foo}.</li>
+   *   <li>When {@code A}.</li>
+   *   <li>Then throw {@link JSONException}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link JSONTokener#nextString(char)}
+   * <p>
+   * Method under test: {@link JSONTokener#nextString(char)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String JSONTokener.nextString(char)"})
-  public void testNextString_givenJSONTokenerWithSIsFoo_whenA_thenThrowJSONException()
-      throws JSONException {
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"java.lang.String JSONTokener.nextString(char)"})
+  public void testNextString_givenJSONTokenerWithSIsFoo_whenA_thenThrowJSONException() throws JSONException {
     // Arrange, Act and Assert
-    assertThrows(JSONException.class, () -> new JSONTokener("foo").nextString('A'));
+    assertThrows(JSONException.class, () -> (new JSONTokener("foo")).nextString('A'));
   }
 
   /**
    * Test {@link JSONTokener#nextString(char)}.
-   *
    * <ul>
-   *   <li>Given {@link JSONTokener#JSONTokener(String)} with s is {@code foo}.
-   *   <li>When {@code f}.
-   *   <li>Then return empty string.
+   *   <li>Given {@link JSONTokener#JSONTokener(String)} with s is {@code foo}.</li>
+   *   <li>When {@code f}.</li>
+   *   <li>Then return empty string.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link JSONTokener#nextString(char)}
+   * <p>
+   * Method under test: {@link JSONTokener#nextString(char)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String JSONTokener.nextString(char)"})
-  public void testNextString_givenJSONTokenerWithSIsFoo_whenF_thenReturnEmptyString()
-      throws JSONException {
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"java.lang.String JSONTokener.nextString(char)"})
+  public void testNextString_givenJSONTokenerWithSIsFoo_whenF_thenReturnEmptyString() throws JSONException {
     // Arrange, Act and Assert
-    assertEquals("", new JSONTokener("foo").nextString('f'));
+    assertEquals("", (new JSONTokener("foo")).nextString('f'));
   }
 
   /**
    * Test {@link JSONTokener#nextTo(char)} with {@code d}.
-   *
    * <ul>
-   *   <li>Given {@link FileReader#FileReader(FileDescriptor)} with {@link
-   *       FileDescriptor#FileDescriptor()}.
-   *   <li>When {@code A}.
-   *   <li>Then throw {@link JSONException}.
+   *   <li>Given {@link FileReader#FileReader(FileDescriptor)} with {@link FileDescriptor#FileDescriptor()}.</li>
+   *   <li>When {@code A}.</li>
+   *   <li>Then throw {@link JSONException}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link JSONTokener#nextTo(char)}
+   * <p>
+   * Method under test: {@link JSONTokener#nextTo(char)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String JSONTokener.nextTo(char)"})
-  public void testNextToWithD_givenFileReaderWithFileDescriptor_whenA_thenThrowJSONException()
-      throws JSONException {
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"java.lang.String JSONTokener.nextTo(char)"})
+  public void testNextToWithD_givenFileReaderWithFileDescriptor_whenA_thenThrowJSONException() throws JSONException {
     // Arrange, Act and Assert
-    assertThrows(
-        JSONException.class,
-        () -> new JSONTokener(new FileReader(new FileDescriptor())).nextTo('A'));
+    assertThrows(JSONException.class, () -> (new JSONTokener(new FileReader(new FileDescriptor()))).nextTo('A'));
   }
 
   /**
    * Test {@link JSONTokener#nextTo(char)} with {@code d}.
-   *
    * <ul>
-   *   <li>Given {@link JSONTokener#JSONTokener(String)} with s is {@code foo}.
-   *   <li>When {@code A}.
-   *   <li>Then return {@code foo}.
+   *   <li>Given {@link JSONTokener#JSONTokener(String)} with s is {@code foo}.</li>
+   *   <li>When {@code A}.</li>
+   *   <li>Then return {@code foo}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link JSONTokener#nextTo(char)}
+   * <p>
+   * Method under test: {@link JSONTokener#nextTo(char)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String JSONTokener.nextTo(char)"})
-  public void testNextToWithD_givenJSONTokenerWithSIsFoo_whenA_thenReturnFoo()
-      throws JSONException {
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"java.lang.String JSONTokener.nextTo(char)"})
+  public void testNextToWithD_givenJSONTokenerWithSIsFoo_whenA_thenReturnFoo() throws JSONException {
     // Arrange
     JSONTokener jsonTokener = new JSONTokener("foo");
 
@@ -717,21 +628,18 @@ public class JSONTokenerDiffblueTest {
 
   /**
    * Test {@link JSONTokener#nextTo(char)} with {@code d}.
-   *
    * <ul>
-   *   <li>Given {@link JSONTokener#JSONTokener(String)} with s is {@code foo}.
-   *   <li>When {@code f}.
-   *   <li>Then return empty string.
+   *   <li>Given {@link JSONTokener#JSONTokener(String)} with s is {@code foo}.</li>
+   *   <li>When {@code f}.</li>
+   *   <li>Then return empty string.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link JSONTokener#nextTo(char)}
+   * <p>
+   * Method under test: {@link JSONTokener#nextTo(char)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String JSONTokener.nextTo(char)"})
-  public void testNextToWithD_givenJSONTokenerWithSIsFoo_whenF_thenReturnEmptyString()
-      throws JSONException {
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"java.lang.String JSONTokener.nextTo(char)"})
+  public void testNextToWithD_givenJSONTokenerWithSIsFoo_whenF_thenReturnEmptyString() throws JSONException {
     // Arrange
     JSONTokener jsonTokener = new JSONTokener("foo");
 
@@ -741,235 +649,132 @@ public class JSONTokenerDiffblueTest {
   }
 
   /**
-   * Test {@link JSONTokener#nextTo(String)} with {@code delimiters}.
-   *
-   * <ul>
-   *   <li>Given {@link JSONTokener#JSONTokener(String)} with s is {@code foo}.
-   *   <li>Then return {@code foo}.
-   * </ul>
-   *
-   * <p>Method under test: {@link JSONTokener#nextTo(String)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String JSONTokener.nextTo(String)"})
-  public void testNextToWithDelimiters_givenJSONTokenerWithSIsFoo_thenReturnFoo()
-      throws JSONException {
-    // Arrange, Act and Assert
-    assertEquals("foo", new JSONTokener("foo").nextTo("Delimiters"));
-  }
-
-  /**
-   * Test {@link JSONTokener#nextTo(String)} with {@code delimiters}.
-   *
-   * <ul>
-   *   <li>Then return {@code h}.
-   * </ul>
-   *
-   * <p>Method under test: {@link JSONTokener#nextTo(String)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String JSONTokener.nextTo(String)"})
-  public void testNextToWithDelimiters_thenReturnH() throws JSONException {
-    // Arrange, Act and Assert
-    assertEquals("h", new HTTPTokener("https://example.org/example").nextTo("Delimiters"));
-  }
-
-  /**
-   * Test {@link JSONTokener#nextTo(String)} with {@code delimiters}.
-   *
-   * <ul>
-   *   <li>Then throw {@link JSONException}.
-   * </ul>
-   *
-   * <p>Method under test: {@link JSONTokener#nextTo(String)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String JSONTokener.nextTo(String)"})
-  public void testNextToWithDelimiters_thenThrowJSONException() throws JSONException {
-    // Arrange, Act and Assert
-    assertThrows(
-        JSONException.class,
-        () -> new JSONTokener(new FileReader(new FileDescriptor())).nextTo("Delimiters"));
-  }
-
-  /**
    * Test {@link JSONTokener#nextValue()}.
-   *
-   * <p>Method under test: {@link JSONTokener#nextValue()}
+   * <p>
+   * Method under test: {@link JSONTokener#nextValue()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"Object JSONTokener.nextValue()"})
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"java.lang.Object JSONTokener.nextValue()"})
   public void testNextValue() throws JSONException {
-    // Arrange
-    HTTPTokener httpTokener = new HTTPTokener("https://example.org/example");
-
-    // Act
-    Object actualNextValueResult = httpTokener.nextValue();
-
-    // Assert
-    assertEquals("://example.org/example", httpTokener.nextToken());
-    assertEquals("https", actualNextValueResult);
-  }
-
-  /**
-   * Test {@link JSONTokener#nextValue()}.
-   *
-   * <p>Method under test: {@link JSONTokener#nextValue()}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"Object JSONTokener.nextValue()"})
-  public void testNextValue2() throws JSONException {
     // Arrange, Act and Assert
-    assertThrows(
-        JSONException.class, () -> new JSONTokener(new StringReader(",:]}/\\\"[{;=#")).nextValue());
+    assertThrows(JSONException.class, () -> (new JSONTokener(",:]}/\\\"[{;=#")).nextValue());
   }
 
   /**
    * Test {@link JSONTokener#nextValue()}.
-   *
    * <ul>
-   *   <li>Given {@link FileReader#FileReader(FileDescriptor)} with {@link
-   *       FileDescriptor#FileDescriptor()}.
-   *   <li>Then throw {@link JSONException}.
+   *   <li>Given {@link FileReader#FileReader(FileDescriptor)} with {@link FileDescriptor#FileDescriptor()}.</li>
+   *   <li>Then throw {@link JSONException}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link JSONTokener#nextValue()}
+   * <p>
+   * Method under test: {@link JSONTokener#nextValue()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"Object JSONTokener.nextValue()"})
-  public void testNextValue_givenFileReaderWithFileDescriptor_thenThrowJSONException()
-      throws JSONException {
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"java.lang.Object JSONTokener.nextValue()"})
+  public void testNextValue_givenFileReaderWithFileDescriptor_thenThrowJSONException() throws JSONException {
     // Arrange, Act and Assert
-    assertThrows(
-        JSONException.class,
-        () -> new JSONTokener(new FileReader(new FileDescriptor())).nextValue());
+    assertThrows(JSONException.class, () -> (new JSONTokener(new FileReader(new FileDescriptor()))).nextValue());
   }
 
   /**
    * Test {@link JSONTokener#nextValue()}.
-   *
    * <ul>
-   *   <li>Given {@link JSONTokener#JSONTokener(String)} with s is {@code 42}.
-   *   <li>Then return intValue is forty-two.
+   *   <li>Given {@link JSONTokener#JSONTokener(String)} with s is {@code 42}.</li>
+   *   <li>Then return intValue is forty-two.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link JSONTokener#nextValue()}
+   * <p>
+   * Method under test: {@link JSONTokener#nextValue()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"Object JSONTokener.nextValue()"})
-  public void testNextValue_givenJSONTokenerWithSIs42_thenReturnIntValueIsFortyTwo()
-      throws JSONException {
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"java.lang.Object JSONTokener.nextValue()"})
+  public void testNextValue_givenJSONTokenerWithSIs42_thenReturnIntValueIsFortyTwo() throws JSONException {
     // Arrange, Act and Assert
-    assertEquals(42, ((Integer) new JSONTokener("42").nextValue()).intValue());
+    assertEquals(42, ((Integer) (new JSONTokener("42")).nextValue()).intValue());
   }
 
   /**
    * Test {@link JSONTokener#nextValue()}.
-   *
    * <ul>
-   *   <li>Given {@link JSONTokener#JSONTokener(String)} with s is empty string.
-   *   <li>Then throw {@link JSONException}.
+   *   <li>Given {@link JSONTokener#JSONTokener(String)} with s is empty string.</li>
+   *   <li>Then throw {@link JSONException}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link JSONTokener#nextValue()}
+   * <p>
+   * Method under test: {@link JSONTokener#nextValue()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"Object JSONTokener.nextValue()"})
-  public void testNextValue_givenJSONTokenerWithSIsEmptyString_thenThrowJSONException()
-      throws JSONException {
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"java.lang.Object JSONTokener.nextValue()"})
+  public void testNextValue_givenJSONTokenerWithSIsEmptyString_thenThrowJSONException() throws JSONException {
     // Arrange, Act and Assert
-    assertThrows(JSONException.class, () -> new JSONTokener("").nextValue());
+    assertThrows(JSONException.class, () -> (new JSONTokener("")).nextValue());
   }
 
   /**
    * Test {@link JSONTokener#nextValue()}.
-   *
    * <ul>
-   *   <li>Given {@link JSONTokener#JSONTokener(String)} with s is {@link Boolean#FALSE} toString.
-   *   <li>Then return {@code false}.
+   *   <li>Given {@link JSONTokener#JSONTokener(String)} with s is {@link Boolean#FALSE} toString.</li>
+   *   <li>Then return {@code false}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link JSONTokener#nextValue()}
+   * <p>
+   * Method under test: {@link JSONTokener#nextValue()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"Object JSONTokener.nextValue()"})
-  public void testNextValue_givenJSONTokenerWithSIsFalseToString_thenReturnFalse()
-      throws JSONException {
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"java.lang.Object JSONTokener.nextValue()"})
+  public void testNextValue_givenJSONTokenerWithSIsFalseToString_thenReturnFalse() throws JSONException {
     // Arrange, Act and Assert
-    assertFalse((Boolean) new JSONTokener(Boolean.FALSE.toString()).nextValue());
+    assertFalse((Boolean) (new JSONTokener(Boolean.FALSE.toString())).nextValue());
   }
 
   /**
    * Test {@link JSONTokener#nextValue()}.
-   *
    * <ul>
-   *   <li>Given {@link JSONTokener#JSONTokener(String)} with s is {@code foo}.
-   *   <li>Then return {@code foo}.
+   *   <li>Given {@link JSONTokener#JSONTokener(String)} with s is {@code foo}.</li>
+   *   <li>Then return {@code foo}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link JSONTokener#nextValue()}
+   * <p>
+   * Method under test: {@link JSONTokener#nextValue()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"Object JSONTokener.nextValue()"})
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"java.lang.Object JSONTokener.nextValue()"})
   public void testNextValue_givenJSONTokenerWithSIsFoo_thenReturnFoo() throws JSONException {
     // Arrange, Act and Assert
-    assertEquals("foo", new JSONTokener("foo").nextValue());
+    assertEquals("foo", (new JSONTokener("foo")).nextValue());
   }
 
   /**
    * Test {@link JSONTokener#nextValue()}.
-   *
    * <ul>
-   *   <li>Given {@link JSONTokener#JSONTokener(String)} with s is {@link Boolean#TRUE} toString.
-   *   <li>Then return {@code true}.
+   *   <li>Given {@link JSONTokener#JSONTokener(String)} with s is {@link Boolean#TRUE} toString.</li>
+   *   <li>Then return {@code true}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link JSONTokener#nextValue()}
+   * <p>
+   * Method under test: {@link JSONTokener#nextValue()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"Object JSONTokener.nextValue()"})
-  public void testNextValue_givenJSONTokenerWithSIsTrueToString_thenReturnTrue()
-      throws JSONException {
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"java.lang.Object JSONTokener.nextValue()"})
+  public void testNextValue_givenJSONTokenerWithSIsTrueToString_thenReturnTrue() throws JSONException {
     // Arrange, Act and Assert
-    assertTrue((Boolean) new JSONTokener(Boolean.TRUE.toString()).nextValue());
+    assertTrue((Boolean) (new JSONTokener(Boolean.TRUE.toString())).nextValue());
   }
 
   /**
    * Test {@link JSONTokener#skipTo(char)}.
-   *
    * <ul>
-   *   <li>Given {@link JSONTokener#JSONTokener(String)} with s is {@code foo}.
-   *   <li>When {@code A}.
-   *   <li>Then return null.
+   *   <li>Given {@link JSONTokener#JSONTokener(String)} with s is {@code foo}.</li>
+   *   <li>When {@code A}.</li>
+   *   <li>Then return null.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link JSONTokener#skipTo(char)}
+   * <p>
+   * Method under test: {@link JSONTokener#skipTo(char)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"char JSONTokener.skipTo(char)"})
   public void testSkipTo_givenJSONTokenerWithSIsFoo_whenA_thenReturnNull() throws JSONException {
     // Arrange
@@ -982,18 +787,16 @@ public class JSONTokenerDiffblueTest {
 
   /**
    * Test {@link JSONTokener#skipTo(char)}.
-   *
    * <ul>
-   *   <li>Given {@link JSONTokener#JSONTokener(String)} with s is {@code foo}.
-   *   <li>When {@code f}.
-   *   <li>Then return {@code f}.
+   *   <li>Given {@link JSONTokener#JSONTokener(String)} with s is {@code foo}.</li>
+   *   <li>When {@code f}.</li>
+   *   <li>Then return {@code f}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link JSONTokener#skipTo(char)}
+   * <p>
+   * Method under test: {@link JSONTokener#skipTo(char)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"char JSONTokener.skipTo(char)"})
   public void testSkipTo_givenJSONTokenerWithSIsFoo_whenF_thenReturnF() throws JSONException {
     // Arrange
@@ -1005,41 +808,15 @@ public class JSONTokenerDiffblueTest {
   }
 
   /**
-   * Test {@link JSONTokener#syntaxError(String)}.
-   *
-   * <p>Method under test: {@link JSONTokener#syntaxError(String)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"JSONException JSONTokener.syntaxError(String)"})
-  public void testSyntaxError() {
-    // Arrange and Act
-    JSONException actualSyntaxErrorResult =
-        new JSONTokener("foo").syntaxError("Not all who wander are lost");
-
-    // Assert
-    assertEquals(
-        "Not all who wander are lost at 0 [character 1 line 1]",
-        actualSyntaxErrorResult.getLocalizedMessage());
-    assertEquals(
-        "Not all who wander are lost at 0 [character 1 line 1]",
-        actualSyntaxErrorResult.getMessage());
-    assertNull(actualSyntaxErrorResult.getCause());
-    assertEquals(0, actualSyntaxErrorResult.getSuppressed().length);
-  }
-
-  /**
    * Test {@link JSONTokener#toString()}.
-   *
-   * <p>Method under test: {@link JSONTokener#toString()}
+   * <p>
+   * Method under test: {@link JSONTokener#toString()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"String JSONTokener.toString()"})
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"java.lang.String JSONTokener.toString()"})
   public void testToString() {
     // Arrange, Act and Assert
-    assertEquals(" at 0 [character 1 line 1]", new JSONTokener("foo").toString());
+    assertEquals(" at 0 [character 1 line 1]", (new JSONTokener("foo")).toString());
   }
 }

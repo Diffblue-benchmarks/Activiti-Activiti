@@ -16,7 +16,6 @@
 package org.activiti.test;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.lang.Character.UnicodeScript;
 import org.activiti.api.model.shared.event.RuntimeEvent;
@@ -31,40 +30,37 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 @ContextConfiguration(classes = {LocalEventSource.class})
 @ExtendWith(SpringExtension.class)
 class LocalEventSourceDiffblueTest {
-  @Autowired private LocalEventSource localEventSource;
+  @Autowired
+  private LocalEventSource localEventSource;
 
   /**
    * Test {@link LocalEventSource#getEvents(Class)} with {@code eventType}.
-   *
    * <ul>
-   *   <li>Then return Empty.
+   *   <li>Then return Empty.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link LocalEventSource#getEvents(Class)}
+   * <p>
+   * Method under test: {@link LocalEventSource#getEvents(Class)}
    */
   @Test
   @DisplayName("Test getEvents(Class) with 'eventType'; then return Empty")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"java.util.List LocalEventSource.getEvents(Class)"})
   void testGetEventsWithEventType_thenReturnEmpty() {
     // Arrange
     Class<RuntimeEvent> forNameResult = RuntimeEvent.class;
 
     // Act and Assert
-    assertTrue(
-        localEventSource.getEvents((Class<RuntimeEvent<?, ?>>) (Class) forNameResult).isEmpty());
+    assertTrue(localEventSource.getEvents((Class<RuntimeEvent<?, ?>>) (Class) forNameResult).isEmpty());
   }
 
   /**
    * Test {@link LocalEventSource#getEvents(Enum[])} with {@code eventTypes}.
-   *
-   * <p>Method under test: {@link LocalEventSource#getEvents(Object[])}
+   * <p>
+   * Method under test: {@link LocalEventSource#getEvents(Object[])}
    */
   @Test
   @DisplayName("Test getEvents(Enum[]) with 'eventTypes'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"java.util.List LocalEventSource.getEvents(java.lang.Enum[])"})
   void testGetEventsWithEventTypes() {
     // Arrange, Act and Assert
@@ -73,13 +69,12 @@ class LocalEventSourceDiffblueTest {
 
   /**
    * Test {@link LocalEventSource#getTaskEvents()}.
-   *
-   * <p>Method under test: {@link LocalEventSource#getTaskEvents()}
+   * <p>
+   * Method under test: {@link LocalEventSource#getTaskEvents()}
    */
   @Test
   @DisplayName("Test getTaskEvents()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"java.util.List LocalEventSource.getTaskEvents()"})
   void testGetTaskEvents() {
     // Arrange, Act and Assert
@@ -88,13 +83,12 @@ class LocalEventSourceDiffblueTest {
 
   /**
    * Test {@link LocalEventSource#getProcessInstanceEvents()}.
-   *
-   * <p>Method under test: {@link LocalEventSource#getProcessInstanceEvents()}
+   * <p>
+   * Method under test: {@link LocalEventSource#getProcessInstanceEvents()}
    */
   @Test
   @DisplayName("Test getProcessInstanceEvents()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"java.util.List LocalEventSource.getProcessInstanceEvents()"})
   void testGetProcessInstanceEvents() {
     // Arrange, Act and Assert
@@ -103,13 +97,12 @@ class LocalEventSourceDiffblueTest {
 
   /**
    * Test {@link LocalEventSource#getTimerFiredEvents()}.
-   *
-   * <p>Method under test: {@link LocalEventSource#getTimerFiredEvents()}
+   * <p>
+   * Method under test: {@link LocalEventSource#getTimerFiredEvents()}
    */
   @Test
   @DisplayName("Test getTimerFiredEvents()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"java.util.List LocalEventSource.getTimerFiredEvents()"})
   void testGetTimerFiredEvents() {
     // Arrange, Act and Assert
@@ -118,13 +111,12 @@ class LocalEventSourceDiffblueTest {
 
   /**
    * Test {@link LocalEventSource#getTimerScheduledEvents()}.
-   *
-   * <p>Method under test: {@link LocalEventSource#getTimerScheduledEvents()}
+   * <p>
+   * Method under test: {@link LocalEventSource#getTimerScheduledEvents()}
    */
   @Test
   @DisplayName("Test getTimerScheduledEvents()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"java.util.List LocalEventSource.getTimerScheduledEvents()"})
   void testGetTimerScheduledEvents() {
     // Arrange, Act and Assert
@@ -133,13 +125,12 @@ class LocalEventSourceDiffblueTest {
 
   /**
    * Test {@link LocalEventSource#getTimerCancelledEvents()}.
-   *
-   * <p>Method under test: {@link LocalEventSource#getTimerCancelledEvents()}
+   * <p>
+   * Method under test: {@link LocalEventSource#getTimerCancelledEvents()}
    */
   @Test
   @DisplayName("Test getTimerCancelledEvents()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"java.util.List LocalEventSource.getTimerCancelledEvents()"})
   void testGetTimerCancelledEvents() {
     // Arrange, Act and Assert
@@ -148,9 +139,8 @@ class LocalEventSourceDiffblueTest {
 
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>default or parameterless constructor of {@link LocalEventSource}
    *   <li>{@link LocalEventSource#getEvents()}
@@ -158,14 +148,10 @@ class LocalEventSourceDiffblueTest {
    */
   @Test
   @DisplayName("Test getters and setters")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void LocalEventSource.<init>()",
-    "java.util.List LocalEventSource.getEvents()"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void LocalEventSource.<init>()", "java.util.List LocalEventSource.getEvents()"})
   void testGettersAndSetters() {
     // Arrange, Act and Assert
-    assertTrue(new LocalEventSource().getEvents().isEmpty());
+    assertTrue((new LocalEventSource()).getEvents().isEmpty());
   }
 }

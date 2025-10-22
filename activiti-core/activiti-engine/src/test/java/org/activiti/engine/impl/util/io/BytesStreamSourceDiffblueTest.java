@@ -17,8 +17,7 @@ package org.activiti.engine.impl.util.io;
 
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.io.IOException;
 import org.junit.Test;
@@ -27,12 +26,11 @@ import org.junit.experimental.categories.Category;
 public class BytesStreamSourceDiffblueTest {
   /**
    * Test {@link BytesStreamSource#BytesStreamSource(byte[])}.
-   *
-   * <p>Method under test: {@link BytesStreamSource#BytesStreamSource(byte[])}
+   * <p>
+   * Method under test: {@link BytesStreamSource#BytesStreamSource(byte[])}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void BytesStreamSource.<init>(byte[])"})
   public void testNewBytesStreamSource() throws IOException {
     // Arrange and Act
@@ -45,18 +43,16 @@ public class BytesStreamSourceDiffblueTest {
 
   /**
    * Test {@link BytesStreamSource#getInputStream()}.
-   *
-   * <p>Method under test: {@link BytesStreamSource#getInputStream()}
+   * <p>
+   * Method under test: {@link BytesStreamSource#getInputStream()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"java.io.InputStream BytesStreamSource.getInputStream()"})
   public void testGetInputStream() throws IOException {
     // Arrange, Act and Assert
     byte[] byteArray = new byte[8];
-    assertEquals(
-        8, new BytesStreamSource("AXAXAXAX".getBytes("UTF-8")).getInputStream().read(byteArray));
+    assertEquals(8, (new BytesStreamSource("AXAXAXAX".getBytes("UTF-8"))).getInputStream().read(byteArray));
     assertArrayEquals("AXAXAXAX".getBytes("UTF-8"), byteArray);
   }
 }

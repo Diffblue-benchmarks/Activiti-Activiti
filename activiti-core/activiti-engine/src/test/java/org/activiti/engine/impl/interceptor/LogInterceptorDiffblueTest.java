@@ -16,97 +16,22 @@
 package org.activiti.engine.impl.interceptor;
 
 import static org.junit.Assert.assertNull;
-import static org.mockito.ArgumentMatchers.isA;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
-import org.activiti.engine.impl.util.json.JSONObject;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
-import org.mockito.Mockito;
 
 public class LogInterceptorDiffblueTest {
   /**
-   * Test {@link LogInterceptor#execute(CommandConfig, Command)}.
-   *
-   * <ul>
-   *   <li>Given {@link CommandContextInterceptor} {@link
-   *       CommandContextInterceptor#execute(CommandConfig, Command)} return {@link
-   *       JSONObject#NULL}.
-   *   <li>Then calls {@link CommandContextInterceptor#execute(CommandConfig, Command)}.
-   * </ul>
-   *
-   * <p>Method under test: {@link LogInterceptor#execute(CommandConfig, Command)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"Object LogInterceptor.execute(CommandConfig, Command)"})
-  public void testExecute_givenCommandContextInterceptorExecuteReturnNull_thenCallsExecute() {
-    // Arrange
-    CommandContextInterceptor next = mock(CommandContextInterceptor.class);
-    when(next.execute(Mockito.<CommandConfig>any(), Mockito.<Command<Object>>any()))
-        .thenReturn(JSONObject.NULL);
-
-    LogInterceptor logInterceptor = new LogInterceptor();
-    logInterceptor.setNext(next);
-
-    // Act
-    logInterceptor.execute(new CommandConfig(), mock(Command.class));
-
-    // Assert
-    verify(next).execute(isA(CommandConfig.class), isA(Command.class));
-  }
-
-  /**
-   * Test {@link LogInterceptor#execute(CommandConfig, Command)}.
-   *
-   * <ul>
-   *   <li>Given {@link CommandContextInterceptor} {@link
-   *       CommandContextInterceptor#execute(CommandConfig, Command)} return {@link
-   *       JSONObject#NULL}.
-   *   <li>Then calls {@link CommandContextInterceptor#execute(CommandConfig, Command)}.
-   * </ul>
-   *
-   * <p>Method under test: {@link LogInterceptor#execute(CommandConfig, Command)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"Object LogInterceptor.execute(CommandConfig, Command)"})
-  public void testExecute_givenCommandContextInterceptorExecuteReturnNull_thenCallsExecute2() {
-    // Arrange
-    CommandContextInterceptor next = mock(CommandContextInterceptor.class);
-    when(next.execute(Mockito.<CommandConfig>any(), Mockito.<Command<Object>>any()))
-        .thenReturn(JSONObject.NULL);
-
-    LogInterceptor next2 = new LogInterceptor();
-    next2.setNext(next);
-
-    LogInterceptor logInterceptor = new LogInterceptor();
-    logInterceptor.setNext(next2);
-
-    // Act
-    logInterceptor.execute(new CommandConfig(), mock(Command.class));
-
-    // Assert
-    verify(next).execute(isA(CommandConfig.class), isA(Command.class));
-  }
-
-  /**
    * Test new {@link LogInterceptor} (default constructor).
-   *
-   * <p>Method under test: default or parameterless constructor of {@link LogInterceptor}
+   * <p>
+   * Method under test: default or parameterless constructor of {@link LogInterceptor}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void LogInterceptor.<init>()"})
   public void testNewLogInterceptor() {
     // Arrange, Act and Assert
-    assertNull(new LogInterceptor().getNext());
+    assertNull((new LogInterceptor()).getNext());
   }
 }

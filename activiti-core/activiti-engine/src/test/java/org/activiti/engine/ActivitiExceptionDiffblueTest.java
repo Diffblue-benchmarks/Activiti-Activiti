@@ -18,8 +18,7 @@ package org.activiti.engine;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
@@ -27,21 +26,16 @@ import org.junit.experimental.categories.Category;
 public class ActivitiExceptionDiffblueTest {
   /**
    * Test {@link ActivitiException#ActivitiException(String)}.
-   *
    * <ul>
-   *   <li>When {@code An error occurred}.
-   *   <li>Then return Cause is {@code null}.
+   *   <li>When {@code An error occurred}.</li>
+   *   <li>Then return Cause is {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ActivitiException#ActivitiException(String)}
+   * <p>
+   * Method under test: {@link ActivitiException#ActivitiException(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void ActivitiException.<init>(String)",
-    "void ActivitiException.<init>(String, Throwable)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void ActivitiException.<init>(String)", "void ActivitiException.<init>(String, Throwable)"})
   public void testNewActivitiException_whenAnErrorOccurred_thenReturnCauseIsNull() {
     // Arrange and Act
     ActivitiException actualActivitiException = new ActivitiException("An error occurred");
@@ -54,21 +48,16 @@ public class ActivitiExceptionDiffblueTest {
 
   /**
    * Test {@link ActivitiException#ActivitiException(String, Throwable)}.
-   *
    * <ul>
-   *   <li>When {@link Throwable#Throwable()}.
-   *   <li>Then return Cause is {@link Throwable#Throwable()}.
+   *   <li>When {@link Throwable#Throwable()}.</li>
+   *   <li>Then return Cause is {@link Throwable#Throwable()}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ActivitiException#ActivitiException(String, Throwable)}
+   * <p>
+   * Method under test: {@link ActivitiException#ActivitiException(String, Throwable)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void ActivitiException.<init>(String)",
-    "void ActivitiException.<init>(String, Throwable)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void ActivitiException.<init>(String)", "void ActivitiException.<init>(String, Throwable)"})
   public void testNewActivitiException_whenThrowable_thenReturnCauseIsThrowable() {
     // Arrange
     Throwable cause = new Throwable();

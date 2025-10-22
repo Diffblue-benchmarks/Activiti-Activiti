@@ -17,11 +17,11 @@ package org.activiti.engine.impl.persistence.entity;
 
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
 import java.util.List;
@@ -40,47 +40,40 @@ import org.mockito.junit.MockitoJUnitRunner;
 
 @RunWith(MockitoJUnitRunner.class)
 public class ResourceEntityManagerImplDiffblueTest {
-  @Mock private ResourceDataManager resourceDataManager;
+  @Mock
+  private ResourceDataManager resourceDataManager;
 
-  @InjectMocks private ResourceEntityManagerImpl resourceEntityManagerImpl;
+  @InjectMocks
+  private ResourceEntityManagerImpl resourceEntityManagerImpl;
 
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
-   *   <li>{@link
-   *       ResourceEntityManagerImpl#ResourceEntityManagerImpl(ProcessEngineConfigurationImpl,
-   *       ResourceDataManager)}
+   *   <li>{@link ResourceEntityManagerImpl#ResourceEntityManagerImpl(ProcessEngineConfigurationImpl, ResourceDataManager)}
    *   <li>{@link ResourceEntityManagerImpl#setResourceDataManager(ResourceDataManager)}
    *   <li>{@link ResourceEntityManagerImpl#getDataManager()}
    *   <li>{@link ResourceEntityManagerImpl#getResourceDataManager()}
    * </ul>
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void ResourceEntityManagerImpl.<init>(ProcessEngineConfigurationImpl, ResourceDataManager)",
-    "DataManager ResourceEntityManagerImpl.getDataManager()",
-    "ResourceDataManager ResourceEntityManagerImpl.getResourceDataManager()",
-    "void ResourceEntityManagerImpl.setResourceDataManager(ResourceDataManager)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void ResourceEntityManagerImpl.<init>(ProcessEngineConfigurationImpl, ResourceDataManager)",
+      "DataManager ResourceEntityManagerImpl.getDataManager()",
+      "ResourceDataManager ResourceEntityManagerImpl.getResourceDataManager()",
+      "void ResourceEntityManagerImpl.setResourceDataManager(ResourceDataManager)"})
   public void testGettersAndSetters() {
     // Arrange
     JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();
 
     // Act
-    ResourceEntityManagerImpl actualResourceEntityManagerImpl =
-        new ResourceEntityManagerImpl(
-            processEngineConfiguration,
-            new MybatisResourceDataManager(new JtaProcessEngineConfiguration()));
-    MybatisResourceDataManager resourceDataManager =
-        new MybatisResourceDataManager(new JtaProcessEngineConfiguration());
+    ResourceEntityManagerImpl actualResourceEntityManagerImpl = new ResourceEntityManagerImpl(
+        processEngineConfiguration, new MybatisResourceDataManager(new JtaProcessEngineConfiguration()));
+    MybatisResourceDataManager resourceDataManager = new MybatisResourceDataManager(
+        new JtaProcessEngineConfiguration());
     actualResourceEntityManagerImpl.setResourceDataManager(resourceDataManager);
-    DataManager<ResourceEntity> actualDataManager =
-        actualResourceEntityManagerImpl.getDataManager();
+    DataManager<ResourceEntity> actualDataManager = actualResourceEntityManagerImpl.getDataManager();
 
     // Assert
     assertSame(resourceDataManager, actualDataManager);
@@ -89,12 +82,11 @@ public class ResourceEntityManagerImplDiffblueTest {
 
   /**
    * Test {@link ResourceEntityManagerImpl#deleteResourcesByDeploymentId(String)}.
-   *
-   * <p>Method under test: {@link ResourceEntityManagerImpl#deleteResourcesByDeploymentId(String)}
+   * <p>
+   * Method under test: {@link ResourceEntityManagerImpl#deleteResourcesByDeploymentId(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void ResourceEntityManagerImpl.deleteResourcesByDeploymentId(String)"})
   public void testDeleteResourcesByDeploymentId() {
     // Arrange
@@ -104,58 +96,51 @@ public class ResourceEntityManagerImplDiffblueTest {
     resourceEntityManagerImpl.deleteResourcesByDeploymentId("42");
 
     // Assert
-    verify(resourceDataManager).deleteResourcesByDeploymentId("42");
+    verify(resourceDataManager).deleteResourcesByDeploymentId(eq("42"));
   }
 
   /**
-   * Test {@link ResourceEntityManagerImpl#findResourceByDeploymentIdAndResourceName(String,
-   * String)}.
-   *
-   * <p>Method under test: {@link
-   * ResourceEntityManagerImpl#findResourceByDeploymentIdAndResourceName(String, String)}
+   * Test {@link ResourceEntityManagerImpl#findResourceByDeploymentIdAndResourceName(String, String)}.
+   * <p>
+   * Method under test: {@link ResourceEntityManagerImpl#findResourceByDeploymentIdAndResourceName(String, String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({
-    "ResourceEntity ResourceEntityManagerImpl.findResourceByDeploymentIdAndResourceName(String, String)"
-  })
+      "ResourceEntity ResourceEntityManagerImpl.findResourceByDeploymentIdAndResourceName(String, String)"})
   public void testFindResourceByDeploymentIdAndResourceName() {
     // Arrange
     ResourceEntityImpl resourceEntityImpl = new ResourceEntityImpl();
-    when(resourceDataManager.findResourceByDeploymentIdAndResourceName(
-            Mockito.<String>any(), Mockito.<String>any()))
+    when(resourceDataManager.findResourceByDeploymentIdAndResourceName(Mockito.<String>any(), Mockito.<String>any()))
         .thenReturn(resourceEntityImpl);
 
     // Act
-    ResourceEntity actualFindResourceByDeploymentIdAndResourceNameResult =
-        resourceEntityManagerImpl.findResourceByDeploymentIdAndResourceName("42", "Resource Name");
+    ResourceEntity actualFindResourceByDeploymentIdAndResourceNameResult = resourceEntityManagerImpl
+        .findResourceByDeploymentIdAndResourceName("42", "Resource Name");
 
     // Assert
-    verify(resourceDataManager).findResourceByDeploymentIdAndResourceName("42", "Resource Name");
+    verify(resourceDataManager).findResourceByDeploymentIdAndResourceName(eq("42"), eq("Resource Name"));
     assertSame(resourceEntityImpl, actualFindResourceByDeploymentIdAndResourceNameResult);
   }
 
   /**
    * Test {@link ResourceEntityManagerImpl#findResourcesByDeploymentId(String)}.
-   *
-   * <p>Method under test: {@link ResourceEntityManagerImpl#findResourcesByDeploymentId(String)}
+   * <p>
+   * Method under test: {@link ResourceEntityManagerImpl#findResourcesByDeploymentId(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"List ResourceEntityManagerImpl.findResourcesByDeploymentId(String)"})
   public void testFindResourcesByDeploymentId() {
     // Arrange
-    when(resourceDataManager.findResourcesByDeploymentId(Mockito.<String>any()))
-        .thenReturn(new ArrayList<>());
+    when(resourceDataManager.findResourcesByDeploymentId(Mockito.<String>any())).thenReturn(new ArrayList<>());
 
     // Act
-    List<ResourceEntity> actualFindResourcesByDeploymentIdResult =
-        resourceEntityManagerImpl.findResourcesByDeploymentId("42");
+    List<ResourceEntity> actualFindResourcesByDeploymentIdResult = resourceEntityManagerImpl
+        .findResourcesByDeploymentId("42");
 
     // Assert
-    verify(resourceDataManager).findResourcesByDeploymentId("42");
+    verify(resourceDataManager).findResourcesByDeploymentId(eq("42"));
     assertTrue(actualFindResourcesByDeploymentIdResult.isEmpty());
   }
 }

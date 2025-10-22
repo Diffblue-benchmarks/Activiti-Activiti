@@ -17,8 +17,7 @@ package org.activiti.engine.impl;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
@@ -26,67 +25,39 @@ import org.junit.experimental.categories.Category;
 public class ExecutionQueryPropertyDiffblueTest {
   /**
    * Test {@link ExecutionQueryProperty#ExecutionQueryProperty(String)}.
-   *
-   * <p>Method under test: {@link ExecutionQueryProperty#ExecutionQueryProperty(String)}
+   * <p>
+   * Method under test: {@link ExecutionQueryProperty#ExecutionQueryProperty(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void ExecutionQueryProperty.<init>(String)"})
   public void testNewExecutionQueryProperty() {
     // Arrange, Act and Assert
-    assertEquals("Name", new ExecutionQueryProperty("Name").getName());
+    assertEquals("Name", (new ExecutionQueryProperty("Name")).getName());
   }
 
   /**
    * Test {@link ExecutionQueryProperty#getName()}.
-   *
-   * <p>Method under test: {@link ExecutionQueryProperty#getName()}
+   * <p>
+   * Method under test: {@link ExecutionQueryProperty#getName()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"String ExecutionQueryProperty.getName()"})
   public void testGetName() {
     // Arrange, Act and Assert
-    assertEquals("Name", new ExecutionQueryProperty("Name").getName());
+    assertEquals("Name", (new ExecutionQueryProperty("Name")).getName());
   }
 
   /**
    * Test {@link ExecutionQueryProperty#findByName(String)}.
-   *
-   * <ul>
-   *   <li>When {@code ProcessDefinitionId}.
-   *   <li>Then return Name is {@code ProcessDefinitionId}.
-   * </ul>
-   *
-   * <p>Method under test: {@link ExecutionQueryProperty#findByName(String)}
+   * <p>
+   * Method under test: {@link ExecutionQueryProperty#findByName(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"ExecutionQueryProperty ExecutionQueryProperty.findByName(String)"})
-  public void testFindByName_whenProcessDefinitionId_thenReturnNameIsProcessDefinitionId() {
-    // Arrange, Act and Assert
-    assertEquals(
-        "ProcessDefinitionId", ExecutionQueryProperty.findByName("ProcessDefinitionId").getName());
-  }
-
-  /**
-   * Test {@link ExecutionQueryProperty#findByName(String)}.
-   *
-   * <ul>
-   *   <li>When {@code Property Name}.
-   *   <li>Then return {@code null}.
-   * </ul>
-   *
-   * <p>Method under test: {@link ExecutionQueryProperty#findByName(String)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"ExecutionQueryProperty ExecutionQueryProperty.findByName(String)"})
-  public void testFindByName_whenPropertyName_thenReturnNull() {
+  public void testFindByName() {
     // Arrange, Act and Assert
     assertNull(ExecutionQueryProperty.findByName("Property Name"));
   }

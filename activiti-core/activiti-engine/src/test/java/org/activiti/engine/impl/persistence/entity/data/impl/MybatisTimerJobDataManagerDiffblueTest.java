@@ -19,8 +19,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.Map;
 import org.activiti.engine.impl.cfg.JtaProcessEngineConfiguration;
@@ -33,44 +32,37 @@ import org.junit.experimental.categories.Category;
 
 public class MybatisTimerJobDataManagerDiffblueTest {
   /**
-   * Test {@link
-   * MybatisTimerJobDataManager#MybatisTimerJobDataManager(ProcessEngineConfigurationImpl)}.
-   *
-   * <p>Method under test: {@link
-   * MybatisTimerJobDataManager#MybatisTimerJobDataManager(ProcessEngineConfigurationImpl)}
+   * Test {@link MybatisTimerJobDataManager#MybatisTimerJobDataManager(ProcessEngineConfigurationImpl)}.
+   * <p>
+   * Method under test: {@link MybatisTimerJobDataManager#MybatisTimerJobDataManager(ProcessEngineConfigurationImpl)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void MybatisTimerJobDataManager.<init>(ProcessEngineConfigurationImpl)"})
   public void testNewMybatisTimerJobDataManager() {
     // Arrange and Act
-    MybatisTimerJobDataManager actualMybatisTimerJobDataManager =
-        new MybatisTimerJobDataManager(new JtaProcessEngineConfiguration());
+    MybatisTimerJobDataManager actualMybatisTimerJobDataManager = new MybatisTimerJobDataManager(
+        new JtaProcessEngineConfiguration());
 
     // Assert
-    assertTrue(
-        actualMybatisTimerJobDataManager.timerJobsByExecutionIdMatcher
-            instanceof TimerJobsByExecutionIdMatcher);
+    assertTrue(actualMybatisTimerJobDataManager.timerJobsByExecutionIdMatcher instanceof TimerJobsByExecutionIdMatcher);
     assertNull(actualMybatisTimerJobDataManager.getManagedEntitySubClasses());
     Class<TimerJobEntityImpl> expectedManagedEntityClass = TimerJobEntityImpl.class;
-    assertEquals(
-        expectedManagedEntityClass, actualMybatisTimerJobDataManager.getManagedEntityClass());
+    assertEquals(expectedManagedEntityClass, actualMybatisTimerJobDataManager.getManagedEntityClass());
   }
 
   /**
    * Test {@link MybatisTimerJobDataManager#getManagedEntityClass()}.
-   *
-   * <p>Method under test: {@link MybatisTimerJobDataManager#getManagedEntityClass()}
+   * <p>
+   * Method under test: {@link MybatisTimerJobDataManager#getManagedEntityClass()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"Class MybatisTimerJobDataManager.getManagedEntityClass()"})
   public void testGetManagedEntityClass() {
     // Arrange and Act
-    Class<? extends TimerJobEntity> actualManagedEntityClass =
-        new MybatisTimerJobDataManager(new JtaProcessEngineConfiguration()).getManagedEntityClass();
+    Class<? extends TimerJobEntity> actualManagedEntityClass = (new MybatisTimerJobDataManager(
+        new JtaProcessEngineConfiguration())).getManagedEntityClass();
 
     // Assert
     Class<TimerJobEntityImpl> expectedManagedEntityClass = TimerJobEntityImpl.class;
@@ -79,17 +71,15 @@ public class MybatisTimerJobDataManagerDiffblueTest {
 
   /**
    * Test {@link MybatisTimerJobDataManager#create()}.
-   *
-   * <p>Method under test: {@link MybatisTimerJobDataManager#create()}
+   * <p>
+   * Method under test: {@link MybatisTimerJobDataManager#create()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"TimerJobEntity MybatisTimerJobDataManager.create()"})
   public void testCreate() {
     // Arrange and Act
-    TimerJobEntity actualCreateResult =
-        new MybatisTimerJobDataManager(new JtaProcessEngineConfiguration()).create();
+    TimerJobEntity actualCreateResult = (new MybatisTimerJobDataManager(new JtaProcessEngineConfiguration())).create();
 
     // Assert
     Object persistentState = actualCreateResult.getPersistentState();

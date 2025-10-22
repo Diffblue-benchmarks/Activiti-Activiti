@@ -16,8 +16,7 @@
 package org.activiti.engine.test.impl.logger;
 
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.engine.impl.persistence.entity.ExecutionEntity;
 import org.activiti.engine.impl.persistence.entity.ExecutionEntityImpl;
@@ -27,19 +26,16 @@ import org.junit.experimental.categories.Category;
 public class DebugInfoExecutionDeletedDiffblueTest {
   /**
    * Test {@link DebugInfoExecutionDeleted#DebugInfoExecutionDeleted(ExecutionEntity)}.
-   *
-   * <p>Method under test: {@link
-   * DebugInfoExecutionDeleted#DebugInfoExecutionDeleted(ExecutionEntity)}
+   * <p>
+   * Method under test: {@link DebugInfoExecutionDeleted#DebugInfoExecutionDeleted(ExecutionEntity)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void DebugInfoExecutionDeleted.<init>(ExecutionEntity)"})
   public void testNewDebugInfoExecutionDeleted() {
     // Arrange, Act and Assert
-    assertTrue(
-        new DebugInfoExecutionDeleted(ExecutionEntityImpl.createWithEmptyRelationshipCollections())
-            .getExecutionTrees()
-            .isEmpty());
+    assertTrue((new DebugInfoExecutionDeleted(ExecutionEntityImpl.createWithEmptyRelationshipCollections()))
+        .getExecutionTrees()
+        .isEmpty());
   }
 }

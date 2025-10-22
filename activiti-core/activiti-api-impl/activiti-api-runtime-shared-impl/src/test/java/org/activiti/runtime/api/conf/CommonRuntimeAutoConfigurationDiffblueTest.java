@@ -15,13 +15,11 @@
  */
 package org.activiti.runtime.api.conf;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.isA;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
 import java.util.List;
@@ -41,114 +39,27 @@ import org.mockito.Mockito;
 
 class CommonRuntimeAutoConfigurationDiffblueTest {
   /**
-   * Test {@link
-   * CommonRuntimeAutoConfiguration#registerVariableCreatedListenerDelegate(RuntimeService, List,
-   * VariableEventFilter)}.
-   *
+   * Test {@link CommonRuntimeAutoConfiguration#registerVariableCreatedListenerDelegate(RuntimeService, List, VariableEventFilter)}.
    * <ul>
-   *   <li>Then {@link ArrayList#ArrayList()} Empty.
+   *   <li>Given {@link VariableEventListener}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link
-   * CommonRuntimeAutoConfiguration#registerVariableCreatedListenerDelegate(RuntimeService, List,
-   * VariableEventFilter)}
+   * <p>
+   * Method under test: {@link CommonRuntimeAutoConfiguration#registerVariableCreatedListenerDelegate(RuntimeService, List, VariableEventFilter)}
    */
   @Test
-  @DisplayName(
-      "Test registerVariableCreatedListenerDelegate(RuntimeService, List, VariableEventFilter); then ArrayList() Empty")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test registerVariableCreatedListenerDelegate(RuntimeService, List, VariableEventFilter); given VariableEventListener")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({
-    "org.springframework.beans.factory.InitializingBean CommonRuntimeAutoConfiguration.registerVariableCreatedListenerDelegate(RuntimeService, List, VariableEventFilter)"
-  })
-  void testRegisterVariableCreatedListenerDelegate_thenArrayListEmpty() {
+      "org.springframework.beans.factory.InitializingBean CommonRuntimeAutoConfiguration.registerVariableCreatedListenerDelegate(RuntimeService, List, VariableEventFilter)"})
+  void testRegisterVariableCreatedListenerDelegate_givenVariableEventListener() throws Exception {
+    //   Diffblue Cover was unable to create a Spring-specific test for this Spring method.
+    //   Run dcover create --keep-partial-tests to gain insights into why
+    //   a non-Spring test was created.
+
     // Arrange
-    CommonRuntimeAutoConfiguration commonRuntimeAutoConfiguration =
-        new CommonRuntimeAutoConfiguration();
-    RuntimeServiceImpl runtimeService = new RuntimeServiceImpl();
-    ArrayList<VariableEventListener<VariableCreatedEvent>> listeners = new ArrayList<>();
-
-    // Act
-    commonRuntimeAutoConfiguration.registerVariableCreatedListenerDelegate(
-        runtimeService, listeners, new VariableEventFilter());
-
-    // Assert that nothing has changed
-    assertTrue(listeners.isEmpty());
-  }
-
-  /**
-   * Test {@link
-   * CommonRuntimeAutoConfiguration#registerVariableCreatedListenerDelegate(RuntimeService, List,
-   * VariableEventFilter)}.
-   *
-   * <ul>
-   *   <li>Then {@link ArrayList#ArrayList()} Empty.
-   * </ul>
-   *
-   * <p>Method under test: {@link
-   * CommonRuntimeAutoConfiguration#registerVariableCreatedListenerDelegate(RuntimeService, List,
-   * VariableEventFilter)}
-   */
-  @Test
-  @DisplayName(
-      "Test registerVariableCreatedListenerDelegate(RuntimeService, List, VariableEventFilter); then ArrayList() Empty")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "org.springframework.beans.factory.InitializingBean CommonRuntimeAutoConfiguration.registerVariableCreatedListenerDelegate(RuntimeService, List, VariableEventFilter)"
-  })
-  void testRegisterVariableCreatedListenerDelegate_thenArrayListEmpty2() throws Exception {
-    // Arrange
-    CommonRuntimeAutoConfiguration commonRuntimeAutoConfiguration =
-        new CommonRuntimeAutoConfiguration();
-
+    CommonRuntimeAutoConfiguration commonRuntimeAutoConfiguration = new CommonRuntimeAutoConfiguration();
     RuntimeServiceImpl runtimeService = mock(RuntimeServiceImpl.class);
-    doNothing()
-        .when(runtimeService)
-        .addEventListener(Mockito.<ActivitiEventListener>any(), isA(ActivitiEventType[].class));
-    ArrayList<VariableEventListener<VariableCreatedEvent>> listeners = new ArrayList<>();
-
-    // Act
-    commonRuntimeAutoConfiguration
-        .registerVariableCreatedListenerDelegate(
-            runtimeService, listeners, new VariableEventFilter())
-        .afterPropertiesSet();
-
-    // Assert that nothing has changed
-    verify(runtimeService)
-        .addEventListener(isA(ActivitiEventListener.class), isA(ActivitiEventType[].class));
-    assertTrue(listeners.isEmpty());
-  }
-
-  /**
-   * Test {@link
-   * CommonRuntimeAutoConfiguration#registerVariableCreatedListenerDelegate(RuntimeService, List,
-   * VariableEventFilter)}.
-   *
-   * <ul>
-   *   <li>Then {@link ArrayList#ArrayList()} size is one.
-   * </ul>
-   *
-   * <p>Method under test: {@link
-   * CommonRuntimeAutoConfiguration#registerVariableCreatedListenerDelegate(RuntimeService, List,
-   * VariableEventFilter)}
-   */
-  @Test
-  @DisplayName(
-      "Test registerVariableCreatedListenerDelegate(RuntimeService, List, VariableEventFilter); then ArrayList() size is one")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "org.springframework.beans.factory.InitializingBean CommonRuntimeAutoConfiguration.registerVariableCreatedListenerDelegate(RuntimeService, List, VariableEventFilter)"
-  })
-  void testRegisterVariableCreatedListenerDelegate_thenArrayListSizeIsOne() throws Exception {
-    // Arrange
-    CommonRuntimeAutoConfiguration commonRuntimeAutoConfiguration =
-        new CommonRuntimeAutoConfiguration();
-
-    RuntimeServiceImpl runtimeService = mock(RuntimeServiceImpl.class);
-    doNothing()
-        .when(runtimeService)
+    doNothing().when(runtimeService)
         .addEventListener(Mockito.<ActivitiEventListener>any(), isA(ActivitiEventType[].class));
 
     ArrayList<VariableEventListener<VariableCreatedEvent>> listeners = new ArrayList<>();
@@ -156,45 +67,35 @@ class CommonRuntimeAutoConfigurationDiffblueTest {
 
     // Act
     commonRuntimeAutoConfiguration
-        .registerVariableCreatedListenerDelegate(
-            runtimeService, listeners, new VariableEventFilter())
+        .registerVariableCreatedListenerDelegate(runtimeService, listeners, new VariableEventFilter())
         .afterPropertiesSet();
 
-    // Assert that nothing has changed
-    verify(runtimeService)
-        .addEventListener(isA(ActivitiEventListener.class), isA(ActivitiEventType[].class));
-    assertEquals(1, listeners.size());
+    // Assert
+    verify(runtimeService).addEventListener(isA(ActivitiEventListener.class), isA(ActivitiEventType[].class));
   }
 
   /**
-   * Test {@link
-   * CommonRuntimeAutoConfiguration#registerVariableCreatedListenerDelegate(RuntimeService, List,
-   * VariableEventFilter)}.
-   *
+   * Test {@link CommonRuntimeAutoConfiguration#registerVariableCreatedListenerDelegate(RuntimeService, List, VariableEventFilter)}.
    * <ul>
-   *   <li>Then {@link ArrayList#ArrayList()} size is two.
+   *   <li>Given {@link VariableEventListener}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link
-   * CommonRuntimeAutoConfiguration#registerVariableCreatedListenerDelegate(RuntimeService, List,
-   * VariableEventFilter)}
+   * <p>
+   * Method under test: {@link CommonRuntimeAutoConfiguration#registerVariableCreatedListenerDelegate(RuntimeService, List, VariableEventFilter)}
    */
   @Test
-  @DisplayName(
-      "Test registerVariableCreatedListenerDelegate(RuntimeService, List, VariableEventFilter); then ArrayList() size is two")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test registerVariableCreatedListenerDelegate(RuntimeService, List, VariableEventFilter); given VariableEventListener")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({
-    "org.springframework.beans.factory.InitializingBean CommonRuntimeAutoConfiguration.registerVariableCreatedListenerDelegate(RuntimeService, List, VariableEventFilter)"
-  })
-  void testRegisterVariableCreatedListenerDelegate_thenArrayListSizeIsTwo() throws Exception {
-    // Arrange
-    CommonRuntimeAutoConfiguration commonRuntimeAutoConfiguration =
-        new CommonRuntimeAutoConfiguration();
+      "org.springframework.beans.factory.InitializingBean CommonRuntimeAutoConfiguration.registerVariableCreatedListenerDelegate(RuntimeService, List, VariableEventFilter)"})
+  void testRegisterVariableCreatedListenerDelegate_givenVariableEventListener2() throws Exception {
+    //   Diffblue Cover was unable to create a Spring-specific test for this Spring method.
+    //   Run dcover create --keep-partial-tests to gain insights into why
+    //   a non-Spring test was created.
 
+    // Arrange
+    CommonRuntimeAutoConfiguration commonRuntimeAutoConfiguration = new CommonRuntimeAutoConfiguration();
     RuntimeServiceImpl runtimeService = mock(RuntimeServiceImpl.class);
-    doNothing()
-        .when(runtimeService)
+    doNothing().when(runtimeService)
         .addEventListener(Mockito.<ActivitiEventListener>any(), isA(ActivitiEventType[].class));
 
     ArrayList<VariableEventListener<VariableCreatedEvent>> listeners = new ArrayList<>();
@@ -203,125 +104,69 @@ class CommonRuntimeAutoConfigurationDiffblueTest {
 
     // Act
     commonRuntimeAutoConfiguration
-        .registerVariableCreatedListenerDelegate(
-            runtimeService, listeners, new VariableEventFilter())
+        .registerVariableCreatedListenerDelegate(runtimeService, listeners, new VariableEventFilter())
         .afterPropertiesSet();
 
-    // Assert that nothing has changed
-    verify(runtimeService)
-        .addEventListener(isA(ActivitiEventListener.class), isA(ActivitiEventType[].class));
-    assertEquals(2, listeners.size());
+    // Assert
+    verify(runtimeService).addEventListener(isA(ActivitiEventListener.class), isA(ActivitiEventType[].class));
   }
 
   /**
-   * Test {@link
-   * CommonRuntimeAutoConfiguration#registerVariableUpdatedListenerDelegate(RuntimeService, List,
-   * VariableEventFilter)}.
-   *
+   * Test {@link CommonRuntimeAutoConfiguration#registerVariableCreatedListenerDelegate(RuntimeService, List, VariableEventFilter)}.
    * <ul>
-   *   <li>Then {@link ArrayList#ArrayList()} Empty.
+   *   <li>When {@link ArrayList#ArrayList()}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link
-   * CommonRuntimeAutoConfiguration#registerVariableUpdatedListenerDelegate(RuntimeService, List,
-   * VariableEventFilter)}
+   * <p>
+   * Method under test: {@link CommonRuntimeAutoConfiguration#registerVariableCreatedListenerDelegate(RuntimeService, List, VariableEventFilter)}
    */
   @Test
-  @DisplayName(
-      "Test registerVariableUpdatedListenerDelegate(RuntimeService, List, VariableEventFilter); then ArrayList() Empty")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test registerVariableCreatedListenerDelegate(RuntimeService, List, VariableEventFilter); when ArrayList()")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({
-    "org.springframework.beans.factory.InitializingBean CommonRuntimeAutoConfiguration.registerVariableUpdatedListenerDelegate(RuntimeService, List, VariableEventFilter)"
-  })
-  void testRegisterVariableUpdatedListenerDelegate_thenArrayListEmpty() {
+      "org.springframework.beans.factory.InitializingBean CommonRuntimeAutoConfiguration.registerVariableCreatedListenerDelegate(RuntimeService, List, VariableEventFilter)"})
+  void testRegisterVariableCreatedListenerDelegate_whenArrayList() throws Exception {
+    //   Diffblue Cover was unable to create a Spring-specific test for this Spring method.
+    //   Run dcover create --keep-partial-tests to gain insights into why
+    //   a non-Spring test was created.
+
     // Arrange
-    CommonRuntimeAutoConfiguration commonRuntimeAutoConfiguration =
-        new CommonRuntimeAutoConfiguration();
-    RuntimeServiceImpl runtimeService = new RuntimeServiceImpl();
-    ArrayList<VariableEventListener<VariableUpdatedEvent>> listeners = new ArrayList<>();
-
-    // Act
-    commonRuntimeAutoConfiguration.registerVariableUpdatedListenerDelegate(
-        runtimeService, listeners, new VariableEventFilter());
-
-    // Assert that nothing has changed
-    assertTrue(listeners.isEmpty());
-  }
-
-  /**
-   * Test {@link
-   * CommonRuntimeAutoConfiguration#registerVariableUpdatedListenerDelegate(RuntimeService, List,
-   * VariableEventFilter)}.
-   *
-   * <ul>
-   *   <li>Then {@link ArrayList#ArrayList()} Empty.
-   * </ul>
-   *
-   * <p>Method under test: {@link
-   * CommonRuntimeAutoConfiguration#registerVariableUpdatedListenerDelegate(RuntimeService, List,
-   * VariableEventFilter)}
-   */
-  @Test
-  @DisplayName(
-      "Test registerVariableUpdatedListenerDelegate(RuntimeService, List, VariableEventFilter); then ArrayList() Empty")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "org.springframework.beans.factory.InitializingBean CommonRuntimeAutoConfiguration.registerVariableUpdatedListenerDelegate(RuntimeService, List, VariableEventFilter)"
-  })
-  void testRegisterVariableUpdatedListenerDelegate_thenArrayListEmpty2() throws Exception {
-    // Arrange
-    CommonRuntimeAutoConfiguration commonRuntimeAutoConfiguration =
-        new CommonRuntimeAutoConfiguration();
-
+    CommonRuntimeAutoConfiguration commonRuntimeAutoConfiguration = new CommonRuntimeAutoConfiguration();
     RuntimeServiceImpl runtimeService = mock(RuntimeServiceImpl.class);
-    doNothing()
-        .when(runtimeService)
+    doNothing().when(runtimeService)
         .addEventListener(Mockito.<ActivitiEventListener>any(), isA(ActivitiEventType[].class));
-    ArrayList<VariableEventListener<VariableUpdatedEvent>> listeners = new ArrayList<>();
+    ArrayList<VariableEventListener<VariableCreatedEvent>> listeners = new ArrayList<>();
 
     // Act
     commonRuntimeAutoConfiguration
-        .registerVariableUpdatedListenerDelegate(
-            runtimeService, listeners, new VariableEventFilter())
+        .registerVariableCreatedListenerDelegate(runtimeService, listeners, new VariableEventFilter())
         .afterPropertiesSet();
 
-    // Assert that nothing has changed
-    verify(runtimeService)
-        .addEventListener(isA(ActivitiEventListener.class), isA(ActivitiEventType[].class));
-    assertTrue(listeners.isEmpty());
+    // Assert
+    verify(runtimeService).addEventListener(isA(ActivitiEventListener.class), isA(ActivitiEventType[].class));
   }
 
   /**
-   * Test {@link
-   * CommonRuntimeAutoConfiguration#registerVariableUpdatedListenerDelegate(RuntimeService, List,
-   * VariableEventFilter)}.
-   *
+   * Test {@link CommonRuntimeAutoConfiguration#registerVariableUpdatedListenerDelegate(RuntimeService, List, VariableEventFilter)}.
    * <ul>
-   *   <li>Then {@link ArrayList#ArrayList()} size is one.
+   *   <li>Given {@link VariableEventListener}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link
-   * CommonRuntimeAutoConfiguration#registerVariableUpdatedListenerDelegate(RuntimeService, List,
-   * VariableEventFilter)}
+   * <p>
+   * Method under test: {@link CommonRuntimeAutoConfiguration#registerVariableUpdatedListenerDelegate(RuntimeService, List, VariableEventFilter)}
    */
   @Test
-  @DisplayName(
-      "Test registerVariableUpdatedListenerDelegate(RuntimeService, List, VariableEventFilter); then ArrayList() size is one")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test registerVariableUpdatedListenerDelegate(RuntimeService, List, VariableEventFilter); given VariableEventListener")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({
-    "org.springframework.beans.factory.InitializingBean CommonRuntimeAutoConfiguration.registerVariableUpdatedListenerDelegate(RuntimeService, List, VariableEventFilter)"
-  })
-  void testRegisterVariableUpdatedListenerDelegate_thenArrayListSizeIsOne() throws Exception {
-    // Arrange
-    CommonRuntimeAutoConfiguration commonRuntimeAutoConfiguration =
-        new CommonRuntimeAutoConfiguration();
+      "org.springframework.beans.factory.InitializingBean CommonRuntimeAutoConfiguration.registerVariableUpdatedListenerDelegate(RuntimeService, List, VariableEventFilter)"})
+  void testRegisterVariableUpdatedListenerDelegate_givenVariableEventListener() throws Exception {
+    //   Diffblue Cover was unable to create a Spring-specific test for this Spring method.
+    //   Run dcover create --keep-partial-tests to gain insights into why
+    //   a non-Spring test was created.
 
+    // Arrange
+    CommonRuntimeAutoConfiguration commonRuntimeAutoConfiguration = new CommonRuntimeAutoConfiguration();
     RuntimeServiceImpl runtimeService = mock(RuntimeServiceImpl.class);
-    doNothing()
-        .when(runtimeService)
+    doNothing().when(runtimeService)
         .addEventListener(Mockito.<ActivitiEventListener>any(), isA(ActivitiEventType[].class));
 
     ArrayList<VariableEventListener<VariableUpdatedEvent>> listeners = new ArrayList<>();
@@ -329,45 +174,35 @@ class CommonRuntimeAutoConfigurationDiffblueTest {
 
     // Act
     commonRuntimeAutoConfiguration
-        .registerVariableUpdatedListenerDelegate(
-            runtimeService, listeners, new VariableEventFilter())
+        .registerVariableUpdatedListenerDelegate(runtimeService, listeners, new VariableEventFilter())
         .afterPropertiesSet();
 
-    // Assert that nothing has changed
-    verify(runtimeService)
-        .addEventListener(isA(ActivitiEventListener.class), isA(ActivitiEventType[].class));
-    assertEquals(1, listeners.size());
+    // Assert
+    verify(runtimeService).addEventListener(isA(ActivitiEventListener.class), isA(ActivitiEventType[].class));
   }
 
   /**
-   * Test {@link
-   * CommonRuntimeAutoConfiguration#registerVariableUpdatedListenerDelegate(RuntimeService, List,
-   * VariableEventFilter)}.
-   *
+   * Test {@link CommonRuntimeAutoConfiguration#registerVariableUpdatedListenerDelegate(RuntimeService, List, VariableEventFilter)}.
    * <ul>
-   *   <li>Then {@link ArrayList#ArrayList()} size is two.
+   *   <li>Given {@link VariableEventListener}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link
-   * CommonRuntimeAutoConfiguration#registerVariableUpdatedListenerDelegate(RuntimeService, List,
-   * VariableEventFilter)}
+   * <p>
+   * Method under test: {@link CommonRuntimeAutoConfiguration#registerVariableUpdatedListenerDelegate(RuntimeService, List, VariableEventFilter)}
    */
   @Test
-  @DisplayName(
-      "Test registerVariableUpdatedListenerDelegate(RuntimeService, List, VariableEventFilter); then ArrayList() size is two")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test registerVariableUpdatedListenerDelegate(RuntimeService, List, VariableEventFilter); given VariableEventListener")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({
-    "org.springframework.beans.factory.InitializingBean CommonRuntimeAutoConfiguration.registerVariableUpdatedListenerDelegate(RuntimeService, List, VariableEventFilter)"
-  })
-  void testRegisterVariableUpdatedListenerDelegate_thenArrayListSizeIsTwo() throws Exception {
-    // Arrange
-    CommonRuntimeAutoConfiguration commonRuntimeAutoConfiguration =
-        new CommonRuntimeAutoConfiguration();
+      "org.springframework.beans.factory.InitializingBean CommonRuntimeAutoConfiguration.registerVariableUpdatedListenerDelegate(RuntimeService, List, VariableEventFilter)"})
+  void testRegisterVariableUpdatedListenerDelegate_givenVariableEventListener2() throws Exception {
+    //   Diffblue Cover was unable to create a Spring-specific test for this Spring method.
+    //   Run dcover create --keep-partial-tests to gain insights into why
+    //   a non-Spring test was created.
 
+    // Arrange
+    CommonRuntimeAutoConfiguration commonRuntimeAutoConfiguration = new CommonRuntimeAutoConfiguration();
     RuntimeServiceImpl runtimeService = mock(RuntimeServiceImpl.class);
-    doNothing()
-        .when(runtimeService)
+    doNothing().when(runtimeService)
         .addEventListener(Mockito.<ActivitiEventListener>any(), isA(ActivitiEventType[].class));
 
     ArrayList<VariableEventListener<VariableUpdatedEvent>> listeners = new ArrayList<>();
@@ -376,36 +211,64 @@ class CommonRuntimeAutoConfigurationDiffblueTest {
 
     // Act
     commonRuntimeAutoConfiguration
-        .registerVariableUpdatedListenerDelegate(
-            runtimeService, listeners, new VariableEventFilter())
+        .registerVariableUpdatedListenerDelegate(runtimeService, listeners, new VariableEventFilter())
         .afterPropertiesSet();
 
-    // Assert that nothing has changed
-    verify(runtimeService)
-        .addEventListener(isA(ActivitiEventListener.class), isA(ActivitiEventType[].class));
-    assertEquals(2, listeners.size());
+    // Assert
+    verify(runtimeService).addEventListener(isA(ActivitiEventListener.class), isA(ActivitiEventType[].class));
+  }
+
+  /**
+   * Test {@link CommonRuntimeAutoConfiguration#registerVariableUpdatedListenerDelegate(RuntimeService, List, VariableEventFilter)}.
+   * <ul>
+   *   <li>When {@link ArrayList#ArrayList()}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link CommonRuntimeAutoConfiguration#registerVariableUpdatedListenerDelegate(RuntimeService, List, VariableEventFilter)}
+   */
+  @Test
+  @DisplayName("Test registerVariableUpdatedListenerDelegate(RuntimeService, List, VariableEventFilter); when ArrayList()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({
+      "org.springframework.beans.factory.InitializingBean CommonRuntimeAutoConfiguration.registerVariableUpdatedListenerDelegate(RuntimeService, List, VariableEventFilter)"})
+  void testRegisterVariableUpdatedListenerDelegate_whenArrayList() throws Exception {
+    //   Diffblue Cover was unable to create a Spring-specific test for this Spring method.
+    //   Run dcover create --keep-partial-tests to gain insights into why
+    //   a non-Spring test was created.
+
+    // Arrange
+    CommonRuntimeAutoConfiguration commonRuntimeAutoConfiguration = new CommonRuntimeAutoConfiguration();
+    RuntimeServiceImpl runtimeService = mock(RuntimeServiceImpl.class);
+    doNothing().when(runtimeService)
+        .addEventListener(Mockito.<ActivitiEventListener>any(), isA(ActivitiEventType[].class));
+    ArrayList<VariableEventListener<VariableUpdatedEvent>> listeners = new ArrayList<>();
+
+    // Act
+    commonRuntimeAutoConfiguration
+        .registerVariableUpdatedListenerDelegate(runtimeService, listeners, new VariableEventFilter())
+        .afterPropertiesSet();
+
+    // Assert
+    verify(runtimeService).addEventListener(isA(ActivitiEventListener.class), isA(ActivitiEventType[].class));
   }
 
   /**
    * Test {@link CommonRuntimeAutoConfiguration#variableNameValidator()}.
-   *
-   * <p>Method under test: {@link CommonRuntimeAutoConfiguration#variableNameValidator()}
+   * <p>
+   * Method under test: {@link CommonRuntimeAutoConfiguration#variableNameValidator()}
    */
   @Test
   @DisplayName("Test variableNameValidator()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "VariableNameValidator CommonRuntimeAutoConfiguration.variableNameValidator()"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"VariableNameValidator CommonRuntimeAutoConfiguration.variableNameValidator()"})
   void testVariableNameValidator() {
     //   Diffblue Cover was unable to create a Spring-specific test for this Spring method.
     //   Run dcover create --keep-partial-tests to gain insights into why
     //   a non-Spring test was created.
 
     // Arrange and Act
-    VariableNameValidator actualVariableNameValidatorResult =
-        new CommonRuntimeAutoConfiguration().variableNameValidator();
+    VariableNameValidator actualVariableNameValidatorResult = (new CommonRuntimeAutoConfiguration())
+        .variableNameValidator();
 
     // Assert
     assertTrue(actualVariableNameValidatorResult.validateVariables(null).isEmpty());

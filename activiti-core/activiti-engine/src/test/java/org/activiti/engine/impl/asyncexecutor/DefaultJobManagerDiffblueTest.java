@@ -21,6 +21,7 @@ import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertThrows;
 import static org.junit.Assert.assertTrue;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.ArgumentMatchers.isA;
 import static org.mockito.ArgumentMatchers.isNull;
 import static org.mockito.Mockito.anyBoolean;
@@ -30,33 +31,30 @@ import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.time.LocalDate;
 import java.time.ZoneOffset;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.Map;
 import org.activiti.bpmn.model.AdhocSubProcess;
 import org.activiti.bpmn.model.BoundaryEvent;
-import org.activiti.bpmn.model.CancelEventDefinition;
-import org.activiti.bpmn.model.EventDefinition;
 import org.activiti.bpmn.model.Process;
-import org.activiti.bpmn.model.TimerEventDefinition;
 import org.activiti.engine.ActivitiException;
 import org.activiti.engine.ActivitiIllegalArgumentException;
+import org.activiti.engine.ProcessEngineConfiguration;
 import org.activiti.engine.delegate.VariableScope;
-import org.activiti.engine.impl.calendar.BusinessCalendarManager;
-import org.activiti.engine.impl.calendar.DefaultBusinessCalendar;
+import org.activiti.engine.delegate.event.ActivitiEventDispatcher;
+import org.activiti.engine.delegate.event.impl.ActivitiEventDispatcherImpl;
 import org.activiti.engine.impl.cfg.JtaProcessEngineConfiguration;
+import org.activiti.engine.impl.cfg.PerformanceSettings;
 import org.activiti.engine.impl.cfg.ProcessEngineConfigurationImpl;
 import org.activiti.engine.impl.el.NoExecutionVariableScope;
-import org.activiti.engine.impl.jobexecutor.JobHandler;
+import org.activiti.engine.impl.persistence.entity.AbstractEntity;
 import org.activiti.engine.impl.persistence.entity.AbstractJobEntity;
 import org.activiti.engine.impl.persistence.entity.DeadLetterJobEntity;
 import org.activiti.engine.impl.persistence.entity.DeadLetterJobEntityImpl;
+import org.activiti.engine.impl.persistence.entity.DeadLetterJobEntityManager;
 import org.activiti.engine.impl.persistence.entity.DeadLetterJobEntityManagerImpl;
 import org.activiti.engine.impl.persistence.entity.ExecutionEntity;
 import org.activiti.engine.impl.persistence.entity.ExecutionEntityImpl;
@@ -67,18 +65,22 @@ import org.activiti.engine.impl.persistence.entity.JobEntityManager;
 import org.activiti.engine.impl.persistence.entity.JobEntityManagerImpl;
 import org.activiti.engine.impl.persistence.entity.SuspendedJobEntity;
 import org.activiti.engine.impl.persistence.entity.SuspendedJobEntityImpl;
+import org.activiti.engine.impl.persistence.entity.SuspendedJobEntityManager;
 import org.activiti.engine.impl.persistence.entity.SuspendedJobEntityManagerImpl;
 import org.activiti.engine.impl.persistence.entity.TimerJobEntity;
 import org.activiti.engine.impl.persistence.entity.TimerJobEntityImpl;
+import org.activiti.engine.impl.persistence.entity.TimerJobEntityManager;
 import org.activiti.engine.impl.persistence.entity.TimerJobEntityManagerImpl;
+import org.activiti.engine.impl.persistence.entity.data.DataManager;
 import org.activiti.engine.impl.persistence.entity.data.ExecutionDataManager;
+import org.activiti.engine.impl.persistence.entity.data.JobDataManager;
 import org.activiti.engine.impl.persistence.entity.data.impl.MybatisDeadLetterJobDataManager;
 import org.activiti.engine.impl.persistence.entity.data.impl.MybatisJobDataManager;
 import org.activiti.engine.impl.persistence.entity.data.impl.MybatisSuspendedJobDataManager;
 import org.activiti.engine.impl.persistence.entity.data.impl.MybatisTimerJobDataManager;
 import org.activiti.engine.impl.util.DefaultClockImpl;
+import org.activiti.engine.runtime.Clock;
 import org.activiti.engine.runtime.Job;
-import org.activiti.engine.test.util.TestProcessUtil;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import org.mockito.Mockito;
@@ -86,9 +88,8 @@ import org.mockito.Mockito;
 public class DefaultJobManagerDiffblueTest {
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>{@link DefaultJobManager#DefaultJobManager()}
    *   <li>{@link DefaultJobManager#setProcessEngineConfiguration(ProcessEngineConfigurationImpl)}
@@ -96,14 +97,10 @@ public class DefaultJobManagerDiffblueTest {
    * </ul>
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void DefaultJobManager.<init>()",
-    "void DefaultJobManager.<init>(ProcessEngineConfigurationImpl)",
-    "ProcessEngineConfigurationImpl DefaultJobManager.getProcessEngineConfiguration()",
-    "void DefaultJobManager.setProcessEngineConfiguration(ProcessEngineConfigurationImpl)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void DefaultJobManager.<init>()", "void DefaultJobManager.<init>(ProcessEngineConfigurationImpl)",
+      "ProcessEngineConfigurationImpl DefaultJobManager.getProcessEngineConfiguration()",
+      "void DefaultJobManager.setProcessEngineConfiguration(ProcessEngineConfigurationImpl)"})
   public void testGettersAndSetters() {
     // Arrange and Act
     DefaultJobManager actualDefaultJobManager = new DefaultJobManager();
@@ -116,13 +113,11 @@ public class DefaultJobManagerDiffblueTest {
 
   /**
    * Test getters and setters.
-   *
    * <ul>
-   *   <li>When {@link JtaProcessEngineConfiguration} (default constructor).
+   *   <li>When {@link JtaProcessEngineConfiguration} (default constructor).</li>
    * </ul>
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>{@link DefaultJobManager#DefaultJobManager(ProcessEngineConfigurationImpl)}
    *   <li>{@link DefaultJobManager#setProcessEngineConfiguration(ProcessEngineConfigurationImpl)}
@@ -130,18 +125,13 @@ public class DefaultJobManagerDiffblueTest {
    * </ul>
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void DefaultJobManager.<init>()",
-    "void DefaultJobManager.<init>(ProcessEngineConfigurationImpl)",
-    "ProcessEngineConfigurationImpl DefaultJobManager.getProcessEngineConfiguration()",
-    "void DefaultJobManager.setProcessEngineConfiguration(ProcessEngineConfigurationImpl)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void DefaultJobManager.<init>()", "void DefaultJobManager.<init>(ProcessEngineConfigurationImpl)",
+      "ProcessEngineConfigurationImpl DefaultJobManager.getProcessEngineConfiguration()",
+      "void DefaultJobManager.setProcessEngineConfiguration(ProcessEngineConfigurationImpl)"})
   public void testGettersAndSetters_whenJtaProcessEngineConfiguration() {
     // Arrange and Act
-    DefaultJobManager actualDefaultJobManager =
-        new DefaultJobManager(new JtaProcessEngineConfiguration());
+    DefaultJobManager actualDefaultJobManager = new DefaultJobManager(new JtaProcessEngineConfiguration());
     JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();
     actualDefaultJobManager.setProcessEngineConfiguration(processEngineConfiguration);
 
@@ -151,101 +141,29 @@ public class DefaultJobManagerDiffblueTest {
 
   /**
    * Test {@link DefaultJobManager#createAsyncJob(ExecutionEntity, boolean)}.
-   *
-   * <p>Method under test: {@link DefaultJobManager#createAsyncJob(ExecutionEntity, boolean)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"JobEntity DefaultJobManager.createAsyncJob(ExecutionEntity, boolean)"})
-  public void testCreateAsyncJob() {
-    // Arrange
-    JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();
-    JtaProcessEngineConfiguration processEngineConfiguration2 = new JtaProcessEngineConfiguration();
-    JobEntityManagerImpl jobEntityManager =
-        new JobEntityManagerImpl(
-            processEngineConfiguration2,
-            new MybatisJobDataManager(new JtaProcessEngineConfiguration()));
-    processEngineConfiguration.setJobEntityManager(jobEntityManager);
-    processEngineConfiguration.setAsyncExecutor(new DefaultAsyncJobExecutor());
-
-    DefaultJobManager defaultJobManager =
-        new DefaultJobManager(new JtaProcessEngineConfiguration());
-    defaultJobManager.setProcessEngineConfiguration(processEngineConfiguration);
-
-    ExecutionEntityImpl execution = ExecutionEntityImpl.createWithEmptyRelationshipCollections();
-    execution.setTenantId(null);
-
-    // Act
-    JobEntity actualCreateAsyncJobResult = defaultJobManager.createAsyncJob(execution, true);
-
-    // Assert
-    Object persistentState = actualCreateAsyncJobResult.getPersistentState();
-    assertTrue(persistentState instanceof Map);
-    assertTrue(actualCreateAsyncJobResult instanceof JobEntityImpl);
-    assertEquals("", actualCreateAsyncJobResult.getTenantId());
-    assertEquals("async-continuation", actualCreateAsyncJobResult.getJobHandlerType());
-    assertEquals("message", actualCreateAsyncJobResult.getJobType());
-    assertNull(actualCreateAsyncJobResult.getExceptionStacktrace());
-    assertNull(actualCreateAsyncJobResult.getJobHandlerConfiguration());
-    assertNull(actualCreateAsyncJobResult.getRepeat());
-    assertNull(actualCreateAsyncJobResult.getId());
-    assertNull(actualCreateAsyncJobResult.getLockOwner());
-    assertNull(actualCreateAsyncJobResult.getExceptionMessage());
-    assertNull(actualCreateAsyncJobResult.getExecutionId());
-    assertNull(actualCreateAsyncJobResult.getProcessDefinitionId());
-    assertNull(actualCreateAsyncJobResult.getProcessInstanceId());
-    assertNull(actualCreateAsyncJobResult.getEndDate());
-    assertNull(actualCreateAsyncJobResult.getLockExpirationTime());
-    assertNull(actualCreateAsyncJobResult.getDuedate());
-    assertNull(actualCreateAsyncJobResult.getExceptionByteArrayRef());
-    assertEquals(0, actualCreateAsyncJobResult.getMaxIterations());
-    assertEquals(1, actualCreateAsyncJobResult.getRevision());
-    assertEquals(2, actualCreateAsyncJobResult.getRevisionNext());
-    assertEquals(3, actualCreateAsyncJobResult.getRetries());
-    assertEquals(5, ((Map<String, Integer>) persistentState).size());
-    assertFalse(actualCreateAsyncJobResult.isDeleted());
-    assertFalse(actualCreateAsyncJobResult.isInserted());
-    assertFalse(actualCreateAsyncJobResult.isUpdated());
-    assertTrue(((Map<String, Integer>) persistentState).containsKey("duedate"));
-    assertTrue(((Map<String, Integer>) persistentState).containsKey("exceptionMessage"));
-    assertTrue(((Map<String, Integer>) persistentState).containsKey("lockExpirationTime"));
-    assertTrue(((Map<String, Integer>) persistentState).containsKey("lockOwner"));
-    assertTrue(((Map<String, Integer>) persistentState).containsKey("retries"));
-    assertTrue(actualCreateAsyncJobResult.isExclusive());
-  }
-
-  /**
-   * Test {@link DefaultJobManager#createAsyncJob(ExecutionEntity, boolean)}.
-   *
    * <ul>
-   *   <li>Then PersistentState return {@link Map}.
+   *   <li>Then PersistentState return {@link Map}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link DefaultJobManager#createAsyncJob(ExecutionEntity, boolean)}
+   * <p>
+   * Method under test: {@link DefaultJobManager#createAsyncJob(ExecutionEntity, boolean)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"JobEntity DefaultJobManager.createAsyncJob(ExecutionEntity, boolean)"})
   public void testCreateAsyncJob_thenPersistentStateReturnMap() {
     // Arrange
     JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();
     JtaProcessEngineConfiguration processEngineConfiguration2 = new JtaProcessEngineConfiguration();
-    JobEntityManagerImpl jobEntityManager =
-        new JobEntityManagerImpl(
-            processEngineConfiguration2,
-            new MybatisJobDataManager(new JtaProcessEngineConfiguration()));
-    processEngineConfiguration.setJobEntityManager(jobEntityManager);
+    processEngineConfiguration.setJobEntityManager(new JobEntityManagerImpl(processEngineConfiguration2,
+        new MybatisJobDataManager(new JtaProcessEngineConfiguration())));
     processEngineConfiguration.setAsyncExecutor(new DefaultAsyncJobExecutor());
 
     DefaultJobManager defaultJobManager = new DefaultJobManager();
     defaultJobManager.setProcessEngineConfiguration(processEngineConfiguration);
 
     // Act
-    JobEntity actualCreateAsyncJobResult =
-        defaultJobManager.createAsyncJob(
-            ExecutionEntityImpl.createWithEmptyRelationshipCollections(), true);
+    JobEntity actualCreateAsyncJobResult = defaultJobManager
+        .createAsyncJob(ExecutionEntityImpl.createWithEmptyRelationshipCollections(), true);
 
     // Assert
     Object persistentState = actualCreateAsyncJobResult.getPersistentState();
@@ -285,20 +203,20 @@ public class DefaultJobManagerDiffblueTest {
 
   /**
    * Test {@link DefaultJobManager#scheduleAsyncJob(JobEntity)}.
-   *
-   * <p>Method under test: {@link DefaultJobManager#scheduleAsyncJob(JobEntity)}
+   * <ul>
+   *   <li>Then calls {@link ProcessEngineConfiguration#getAsyncExecutor()}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link DefaultJobManager#scheduleAsyncJob(JobEntity)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void DefaultJobManager.scheduleAsyncJob(JobEntity)"})
-  public void testScheduleAsyncJob() {
+  public void testScheduleAsyncJob_thenCallsGetAsyncExecutor() {
     // Arrange
     JobEntityManager jobEntityManager = mock(JobEntityManager.class);
     doNothing().when(jobEntityManager).insert(Mockito.<JobEntity>any());
-
-    JtaProcessEngineConfiguration processEngineConfiguration =
-        mock(JtaProcessEngineConfiguration.class);
+    JtaProcessEngineConfiguration processEngineConfiguration = mock(JtaProcessEngineConfiguration.class);
     when(processEngineConfiguration.getAsyncExecutor()).thenReturn(new DefaultAsyncJobExecutor());
     when(processEngineConfiguration.getJobEntityManager()).thenReturn(jobEntityManager);
 
@@ -315,57 +233,19 @@ public class DefaultJobManagerDiffblueTest {
   }
 
   /**
-   * Test {@link DefaultJobManager#scheduleAsyncJob(JobEntity)}.
-   *
-   * <ul>
-   *   <li>Then throw {@link ActivitiException}.
-   * </ul>
-   *
-   * <p>Method under test: {@link DefaultJobManager#scheduleAsyncJob(JobEntity)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void DefaultJobManager.scheduleAsyncJob(JobEntity)"})
-  public void testScheduleAsyncJob_thenThrowActivitiException() {
-    // Arrange
-    JobEntityManager jobEntityManager = mock(JobEntityManager.class);
-    doNothing().when(jobEntityManager).insert(Mockito.<JobEntity>any());
-
-    JtaProcessEngineConfiguration processEngineConfiguration =
-        mock(JtaProcessEngineConfiguration.class);
-    when(processEngineConfiguration.getAsyncExecutor())
-        .thenThrow(new ActivitiException("An error occurred"));
-    when(processEngineConfiguration.getJobEntityManager()).thenReturn(jobEntityManager);
-
-    DefaultJobManager defaultJobManager = new DefaultJobManager();
-    defaultJobManager.setProcessEngineConfiguration(processEngineConfiguration);
-
-    // Act and Assert
-    assertThrows(
-        ActivitiException.class, () -> defaultJobManager.scheduleAsyncJob(new JobEntityImpl()));
-    verify(processEngineConfiguration).getAsyncExecutor();
-    verify(processEngineConfiguration).getJobEntityManager();
-    verify(jobEntityManager).insert(isA(JobEntity.class));
-  }
-
-  /**
    * Test {@link DefaultJobManager#triggerExecutorIfNeeded(JobEntity)}.
-   *
    * <ul>
-   *   <li>Then calls {@link JtaProcessEngineConfiguration#getAsyncExecutor()}.
+   *   <li>Then calls {@link ProcessEngineConfiguration#getAsyncExecutor()}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link DefaultJobManager#triggerExecutorIfNeeded(JobEntity)}
+   * <p>
+   * Method under test: {@link DefaultJobManager#triggerExecutorIfNeeded(JobEntity)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void DefaultJobManager.triggerExecutorIfNeeded(JobEntity)"})
   public void testTriggerExecutorIfNeeded_thenCallsGetAsyncExecutor() {
     // Arrange
-    JtaProcessEngineConfiguration processEngineConfiguration =
-        mock(JtaProcessEngineConfiguration.class);
+    JtaProcessEngineConfiguration processEngineConfiguration = mock(JtaProcessEngineConfiguration.class);
     when(processEngineConfiguration.getAsyncExecutor()).thenReturn(new DefaultAsyncJobExecutor());
 
     DefaultJobManager defaultJobManager = new DefaultJobManager();
@@ -380,384 +260,1027 @@ public class DefaultJobManagerDiffblueTest {
 
   /**
    * Test {@link DefaultJobManager#scheduleTimerJob(TimerJobEntity)}.
-   *
    * <ul>
-   *   <li>Given {@link DefaultJobManager#DefaultJobManager()}.
-   *   <li>When {@code null}.
-   *   <li>Then throw {@link ActivitiException}.
+   *   <li>Given {@link DefaultJobManager#DefaultJobManager()}.</li>
+   *   <li>When {@code null}.</li>
+   *   <li>Then throw {@link ActivitiException}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link DefaultJobManager#scheduleTimerJob(TimerJobEntity)}
+   * <p>
+   * Method under test: {@link DefaultJobManager#scheduleTimerJob(TimerJobEntity)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void DefaultJobManager.scheduleTimerJob(TimerJobEntity)"})
   public void testScheduleTimerJob_givenDefaultJobManager_whenNull_thenThrowActivitiException() {
     // Arrange, Act and Assert
-    assertThrows(ActivitiException.class, () -> new DefaultJobManager().scheduleTimerJob(null));
+    assertThrows(ActivitiException.class, () -> (new DefaultJobManager()).scheduleTimerJob(null));
   }
 
   /**
    * Test {@link DefaultJobManager#moveTimerJobToExecutableJob(TimerJobEntity)}.
-   *
    * <ul>
-   *   <li>When {@code null}.
-   *   <li>Then throw {@link ActivitiException}.
+   *   <li>Then throw {@link ActivitiIllegalArgumentException}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link DefaultJobManager#moveTimerJobToExecutableJob(TimerJobEntity)}
+   * <p>
+   * Method under test: {@link DefaultJobManager#moveTimerJobToExecutableJob(TimerJobEntity)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"JobEntity DefaultJobManager.moveTimerJobToExecutableJob(TimerJobEntity)"})
+  public void testMoveTimerJobToExecutableJob_thenThrowActivitiIllegalArgumentException() {
+    // Arrange
+    AsyncExecutor asyncExecutor = mock(AsyncExecutor.class);
+    when(asyncExecutor.getTimerLockTimeInMillis()).thenThrow(new ActivitiIllegalArgumentException("An error occurred"));
+    when(asyncExecutor.isActive()).thenReturn(true);
+    JtaProcessEngineConfiguration processEngineConfiguration = mock(JtaProcessEngineConfiguration.class);
+    when(processEngineConfiguration.getClock()).thenReturn(new DefaultClockImpl());
+    when(processEngineConfiguration.getAsyncExecutor()).thenReturn(asyncExecutor);
+    JtaProcessEngineConfiguration processEngineConfiguration2 = new JtaProcessEngineConfiguration();
+    when(processEngineConfiguration.getJobEntityManager()).thenReturn(new JobEntityManagerImpl(
+        processEngineConfiguration2, new MybatisJobDataManager(new JtaProcessEngineConfiguration())));
+
+    DefaultJobManager defaultJobManager = new DefaultJobManager();
+    defaultJobManager.setProcessEngineConfiguration(processEngineConfiguration);
+
+    // Act and Assert
+    assertThrows(ActivitiIllegalArgumentException.class,
+        () -> defaultJobManager.moveTimerJobToExecutableJob(new TimerJobEntityImpl()));
+    verify(processEngineConfiguration, atLeast(1)).getAsyncExecutor();
+    verify(processEngineConfiguration).getClock();
+    verify(asyncExecutor).getTimerLockTimeInMillis();
+    verify(asyncExecutor).isActive();
+    verify(processEngineConfiguration).getJobEntityManager();
+  }
+
+  /**
+   * Test {@link DefaultJobManager#moveTimerJobToExecutableJob(TimerJobEntity)}.
+   * <ul>
+   *   <li>When {@code null}.</li>
+   *   <li>Then throw {@link ActivitiException}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link DefaultJobManager#moveTimerJobToExecutableJob(TimerJobEntity)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"JobEntity DefaultJobManager.moveTimerJobToExecutableJob(TimerJobEntity)"})
   public void testMoveTimerJobToExecutableJob_whenNull_thenThrowActivitiException() {
-    // Arrange, Act and Assert
-    assertThrows(
-        ActivitiException.class, () -> new DefaultJobManager().moveTimerJobToExecutableJob(null));
+    // Arrange
+    DefaultJobManager defaultJobManager = new DefaultJobManager();
+    defaultJobManager.setProcessEngineConfiguration(mock(JtaProcessEngineConfiguration.class));
+
+    // Act and Assert
+    assertThrows(ActivitiException.class, () -> defaultJobManager.moveTimerJobToExecutableJob(null));
+  }
+
+  /**
+   * Test {@link DefaultJobManager#moveJobToTimerJob(AbstractJobEntity)}.
+   * <ul>
+   *   <li>Then calls {@link ProcessEngineConfigurationImpl#getJobEntityManager()}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link DefaultJobManager#moveJobToTimerJob(AbstractJobEntity)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"TimerJobEntity DefaultJobManager.moveJobToTimerJob(AbstractJobEntity)"})
+  public void testMoveJobToTimerJob_thenCallsGetJobEntityManager() {
+    // Arrange
+    TimerJobEntityManager timerJobEntityManager = mock(TimerJobEntityManager.class);
+    when(timerJobEntityManager.insertTimerJobEntity(Mockito.<TimerJobEntity>any())).thenReturn(true);
+    when(timerJobEntityManager.create()).thenReturn(new TimerJobEntityImpl());
+    JobEntityManager jobEntityManager = mock(JobEntityManager.class);
+    doNothing().when(jobEntityManager).delete(Mockito.<JobEntity>any());
+    JtaProcessEngineConfiguration processEngineConfiguration = mock(JtaProcessEngineConfiguration.class);
+    when(processEngineConfiguration.getJobEntityManager()).thenReturn(jobEntityManager);
+    when(processEngineConfiguration.getTimerJobEntityManager()).thenReturn(timerJobEntityManager);
+
+    DefaultJobManager defaultJobManager = new DefaultJobManager();
+    defaultJobManager.setProcessEngineConfiguration(processEngineConfiguration);
+
+    JobEntityImpl job = new JobEntityImpl();
+    job.setDeleted(true);
+    job.setDuedate(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
+    job.setEndDate(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
+    job.setExceptionMessage("An error occurred");
+    job.setExclusive(true);
+    job.setExecutionId("42");
+    job.setId("42");
+    job.setInserted(true);
+    job.setJobHandlerConfiguration("stacktrace");
+    job.setJobHandlerType("stacktrace");
+    job.setJobType("stacktrace");
+    job.setLockExpirationTime(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
+    job.setLockOwner("stacktrace");
+    job.setMaxIterations(3);
+    job.setProcessDefinitionId("42");
+    job.setProcessInstanceId("42");
+    job.setRepeat("stacktrace");
+    job.setRetries(3);
+    job.setRevision(3);
+    job.setTenantId("42");
+    job.setUpdated(true);
+
+    // Act
+    TimerJobEntity actualMoveJobToTimerJobResult = defaultJobManager.moveJobToTimerJob(job);
+
+    // Assert
+    verify(processEngineConfiguration).getJobEntityManager();
+    verify(processEngineConfiguration, atLeast(1)).getTimerJobEntityManager();
+    verify(timerJobEntityManager).create();
+    verify(jobEntityManager).delete(isA(JobEntity.class));
+    verify(timerJobEntityManager).insertTimerJobEntity(isA(TimerJobEntity.class));
+    assertTrue(actualMoveJobToTimerJobResult.getPersistentState() instanceof Map);
+    assertTrue(actualMoveJobToTimerJobResult instanceof TimerJobEntityImpl);
+    assertEquals("42", actualMoveJobToTimerJobResult.getId());
+    assertEquals("42", actualMoveJobToTimerJobResult.getExecutionId());
+    assertEquals("42", actualMoveJobToTimerJobResult.getProcessDefinitionId());
+    assertEquals("42", actualMoveJobToTimerJobResult.getProcessInstanceId());
+    assertEquals("42", actualMoveJobToTimerJobResult.getTenantId());
+    assertEquals("An error occurred", actualMoveJobToTimerJobResult.getExceptionMessage());
+    assertEquals("stacktrace", actualMoveJobToTimerJobResult.getJobHandlerConfiguration());
+    assertEquals("stacktrace", actualMoveJobToTimerJobResult.getJobHandlerType());
+    assertEquals("stacktrace", actualMoveJobToTimerJobResult.getJobType());
+    assertEquals("stacktrace", actualMoveJobToTimerJobResult.getRepeat());
+    assertEquals(3, actualMoveJobToTimerJobResult.getRevision());
+    assertEquals(3, actualMoveJobToTimerJobResult.getMaxIterations());
+    assertEquals(3, actualMoveJobToTimerJobResult.getRetries());
+    assertEquals(4, actualMoveJobToTimerJobResult.getRevisionNext());
+  }
+
+  /**
+   * Test {@link DefaultJobManager#moveJobToTimerJob(AbstractJobEntity)}.
+   * <ul>
+   *   <li>Then return {@code null}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link DefaultJobManager#moveJobToTimerJob(AbstractJobEntity)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"TimerJobEntity DefaultJobManager.moveJobToTimerJob(AbstractJobEntity)"})
+  public void testMoveJobToTimerJob_thenReturnNull() {
+    // Arrange
+    TimerJobEntityManager timerJobEntityManager = mock(TimerJobEntityManager.class);
+    when(timerJobEntityManager.insertTimerJobEntity(Mockito.<TimerJobEntity>any())).thenReturn(false);
+    when(timerJobEntityManager.create()).thenReturn(new TimerJobEntityImpl());
+    JtaProcessEngineConfiguration processEngineConfiguration = mock(JtaProcessEngineConfiguration.class);
+    when(processEngineConfiguration.getTimerJobEntityManager()).thenReturn(timerJobEntityManager);
+
+    DefaultJobManager defaultJobManager = new DefaultJobManager();
+    defaultJobManager.setProcessEngineConfiguration(processEngineConfiguration);
+
+    // Act
+    TimerJobEntity actualMoveJobToTimerJobResult = defaultJobManager.moveJobToTimerJob(new DeadLetterJobEntityImpl());
+
+    // Assert
+    verify(processEngineConfiguration, atLeast(1)).getTimerJobEntityManager();
+    verify(timerJobEntityManager).create();
+    verify(timerJobEntityManager).insertTimerJobEntity(isA(TimerJobEntity.class));
+    assertNull(actualMoveJobToTimerJobResult);
+  }
+
+  /**
+   * Test {@link DefaultJobManager#moveJobToTimerJob(AbstractJobEntity)}.
+   * <ul>
+   *   <li>Then return TenantId is empty string.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link DefaultJobManager#moveJobToTimerJob(AbstractJobEntity)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"TimerJobEntity DefaultJobManager.moveJobToTimerJob(AbstractJobEntity)"})
+  public void testMoveJobToTimerJob_thenReturnTenantIdIsEmptyString() {
+    // Arrange
+    TimerJobEntityManager timerJobEntityManager = mock(TimerJobEntityManager.class);
+    when(timerJobEntityManager.insertTimerJobEntity(Mockito.<TimerJobEntity>any())).thenReturn(true);
+    when(timerJobEntityManager.create()).thenReturn(new TimerJobEntityImpl());
+    JtaProcessEngineConfiguration processEngineConfiguration = mock(JtaProcessEngineConfiguration.class);
+    when(processEngineConfiguration.getTimerJobEntityManager()).thenReturn(timerJobEntityManager);
+
+    DefaultJobManager defaultJobManager = new DefaultJobManager();
+    defaultJobManager.setProcessEngineConfiguration(processEngineConfiguration);
+
+    // Act
+    TimerJobEntity actualMoveJobToTimerJobResult = defaultJobManager.moveJobToTimerJob(new DeadLetterJobEntityImpl());
+
+    // Assert
+    verify(processEngineConfiguration, atLeast(1)).getTimerJobEntityManager();
+    verify(timerJobEntityManager).create();
+    verify(timerJobEntityManager).insertTimerJobEntity(isA(TimerJobEntity.class));
+    assertTrue(actualMoveJobToTimerJobResult.getPersistentState() instanceof Map);
+    assertTrue(actualMoveJobToTimerJobResult instanceof TimerJobEntityImpl);
+    assertEquals("", actualMoveJobToTimerJobResult.getTenantId());
+    assertNull(actualMoveJobToTimerJobResult.getJobHandlerConfiguration());
+    assertNull(actualMoveJobToTimerJobResult.getJobHandlerType());
+    assertNull(actualMoveJobToTimerJobResult.getJobType());
+    assertNull(actualMoveJobToTimerJobResult.getRepeat());
+    assertNull(actualMoveJobToTimerJobResult.getId());
+    assertNull(actualMoveJobToTimerJobResult.getExceptionMessage());
+    assertNull(actualMoveJobToTimerJobResult.getExecutionId());
+    assertNull(actualMoveJobToTimerJobResult.getProcessDefinitionId());
+    assertNull(actualMoveJobToTimerJobResult.getProcessInstanceId());
+    assertNull(actualMoveJobToTimerJobResult.getEndDate());
+    assertNull(actualMoveJobToTimerJobResult.getDuedate());
+    assertEquals(0, actualMoveJobToTimerJobResult.getMaxIterations());
+    assertEquals(0, actualMoveJobToTimerJobResult.getRetries());
+    assertEquals(1, actualMoveJobToTimerJobResult.getRevision());
+    assertEquals(2, actualMoveJobToTimerJobResult.getRevisionNext());
+  }
+
+  /**
+   * Test {@link DefaultJobManager#moveJobToTimerJob(AbstractJobEntity)}.
+   * <ul>
+   *   <li>When {@link TimerJobEntityImpl} (default constructor) Deleted is {@code true}.</li>
+   *   <li>Then return Id is {@code 42}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link DefaultJobManager#moveJobToTimerJob(AbstractJobEntity)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"TimerJobEntity DefaultJobManager.moveJobToTimerJob(AbstractJobEntity)"})
+  public void testMoveJobToTimerJob_whenTimerJobEntityImplDeletedIsTrue_thenReturnIdIs42() {
+    // Arrange
+    TimerJobEntityManager timerJobEntityManager = mock(TimerJobEntityManager.class);
+    when(timerJobEntityManager.insertTimerJobEntity(Mockito.<TimerJobEntity>any())).thenReturn(true);
+    when(timerJobEntityManager.create()).thenReturn(new TimerJobEntityImpl());
+    JtaProcessEngineConfiguration processEngineConfiguration = mock(JtaProcessEngineConfiguration.class);
+    when(processEngineConfiguration.getTimerJobEntityManager()).thenReturn(timerJobEntityManager);
+
+    DefaultJobManager defaultJobManager = new DefaultJobManager();
+    defaultJobManager.setProcessEngineConfiguration(processEngineConfiguration);
+
+    TimerJobEntityImpl job = new TimerJobEntityImpl();
+    job.setDeleted(true);
+    job.setDuedate(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
+    job.setEndDate(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
+    job.setExceptionMessage("An error occurred");
+    job.setExclusive(true);
+    job.setExecutionId("42");
+    job.setId("42");
+    job.setInserted(true);
+    job.setJobHandlerConfiguration("stacktrace");
+    job.setJobHandlerType("stacktrace");
+    job.setJobType("stacktrace");
+    job.setLockExpirationTime(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
+    job.setLockOwner("stacktrace");
+    job.setMaxIterations(3);
+    job.setProcessDefinitionId("42");
+    job.setProcessInstanceId("42");
+    job.setRepeat("stacktrace");
+    job.setRetries(3);
+    job.setRevision(3);
+    job.setTenantId("42");
+    job.setUpdated(true);
+
+    // Act
+    TimerJobEntity actualMoveJobToTimerJobResult = defaultJobManager.moveJobToTimerJob(job);
+
+    // Assert
+    verify(processEngineConfiguration, atLeast(1)).getTimerJobEntityManager();
+    verify(timerJobEntityManager).create();
+    verify(timerJobEntityManager).insertTimerJobEntity(isA(TimerJobEntity.class));
+    assertTrue(actualMoveJobToTimerJobResult.getPersistentState() instanceof Map);
+    assertTrue(actualMoveJobToTimerJobResult instanceof TimerJobEntityImpl);
+    assertEquals("42", actualMoveJobToTimerJobResult.getId());
+    assertEquals("42", actualMoveJobToTimerJobResult.getExecutionId());
+    assertEquals("42", actualMoveJobToTimerJobResult.getProcessDefinitionId());
+    assertEquals("42", actualMoveJobToTimerJobResult.getProcessInstanceId());
+    assertEquals("42", actualMoveJobToTimerJobResult.getTenantId());
+    assertEquals("An error occurred", actualMoveJobToTimerJobResult.getExceptionMessage());
+    assertEquals("stacktrace", actualMoveJobToTimerJobResult.getJobHandlerConfiguration());
+    assertEquals("stacktrace", actualMoveJobToTimerJobResult.getJobHandlerType());
+    assertEquals("stacktrace", actualMoveJobToTimerJobResult.getJobType());
+    assertEquals("stacktrace", actualMoveJobToTimerJobResult.getRepeat());
+    assertEquals(3, actualMoveJobToTimerJobResult.getRevision());
+    assertEquals(3, actualMoveJobToTimerJobResult.getMaxIterations());
+    assertEquals(3, actualMoveJobToTimerJobResult.getRetries());
+    assertEquals(4, actualMoveJobToTimerJobResult.getRevisionNext());
+  }
+
+  /**
+   * Test {@link DefaultJobManager#moveJobToSuspendedJob(AbstractJobEntity)}.
+   * <ul>
+   *   <li>Then calls {@link ProcessEngineConfigurationImpl#getTimerJobEntityManager()}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link DefaultJobManager#moveJobToSuspendedJob(AbstractJobEntity)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"SuspendedJobEntity DefaultJobManager.moveJobToSuspendedJob(AbstractJobEntity)"})
+  public void testMoveJobToSuspendedJob_thenCallsGetTimerJobEntityManager() {
+    // Arrange
+    SuspendedJobEntityManager suspendedJobEntityManager = mock(SuspendedJobEntityManager.class);
+    doNothing().when(suspendedJobEntityManager).insert(Mockito.<SuspendedJobEntity>any());
+    when(suspendedJobEntityManager.create()).thenReturn(new SuspendedJobEntityImpl());
+    TimerJobEntityManager timerJobEntityManager = mock(TimerJobEntityManager.class);
+    doNothing().when(timerJobEntityManager).delete(Mockito.<TimerJobEntity>any());
+    JtaProcessEngineConfiguration processEngineConfiguration = mock(JtaProcessEngineConfiguration.class);
+    when(processEngineConfiguration.getTimerJobEntityManager()).thenReturn(timerJobEntityManager);
+    when(processEngineConfiguration.getSuspendedJobEntityManager()).thenReturn(suspendedJobEntityManager);
+
+    DefaultJobManager defaultJobManager = new DefaultJobManager();
+    defaultJobManager.setProcessEngineConfiguration(processEngineConfiguration);
+
+    TimerJobEntityImpl job = new TimerJobEntityImpl();
+    job.setDeleted(true);
+    job.setDuedate(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
+    job.setEndDate(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
+    job.setExceptionMessage("An error occurred");
+    job.setExclusive(true);
+    job.setExecutionId("42");
+    job.setId("42");
+    job.setInserted(true);
+    job.setJobHandlerConfiguration("stacktrace");
+    job.setJobHandlerType("stacktrace");
+    job.setJobType("stacktrace");
+    job.setLockExpirationTime(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
+    job.setLockOwner("stacktrace");
+    job.setMaxIterations(3);
+    job.setProcessDefinitionId("42");
+    job.setProcessInstanceId("42");
+    job.setRepeat("stacktrace");
+    job.setRetries(3);
+    job.setRevision(3);
+    job.setTenantId("42");
+    job.setUpdated(true);
+
+    // Act
+    SuspendedJobEntity actualMoveJobToSuspendedJobResult = defaultJobManager.moveJobToSuspendedJob(job);
+
+    // Assert
+    verify(processEngineConfiguration, atLeast(1)).getSuspendedJobEntityManager();
+    verify(processEngineConfiguration).getTimerJobEntityManager();
+    verify(suspendedJobEntityManager).create();
+    verify(timerJobEntityManager).delete(isA(TimerJobEntity.class));
+    verify(suspendedJobEntityManager).insert(isA(SuspendedJobEntity.class));
+    assertTrue(actualMoveJobToSuspendedJobResult.getPersistentState() instanceof Map);
+    assertTrue(actualMoveJobToSuspendedJobResult instanceof SuspendedJobEntityImpl);
+    assertEquals("42", actualMoveJobToSuspendedJobResult.getId());
+    assertEquals("42", actualMoveJobToSuspendedJobResult.getExecutionId());
+    assertEquals("42", actualMoveJobToSuspendedJobResult.getProcessDefinitionId());
+    assertEquals("42", actualMoveJobToSuspendedJobResult.getProcessInstanceId());
+    assertEquals("42", actualMoveJobToSuspendedJobResult.getTenantId());
+    assertEquals("An error occurred", actualMoveJobToSuspendedJobResult.getExceptionMessage());
+    assertEquals("stacktrace", actualMoveJobToSuspendedJobResult.getJobHandlerConfiguration());
+    assertEquals("stacktrace", actualMoveJobToSuspendedJobResult.getJobHandlerType());
+    assertEquals("stacktrace", actualMoveJobToSuspendedJobResult.getJobType());
+    assertEquals("stacktrace", actualMoveJobToSuspendedJobResult.getRepeat());
+    assertEquals(3, actualMoveJobToSuspendedJobResult.getRevision());
+    assertEquals(3, actualMoveJobToSuspendedJobResult.getMaxIterations());
+    assertEquals(3, actualMoveJobToSuspendedJobResult.getRetries());
+    assertEquals(4, actualMoveJobToSuspendedJobResult.getRevisionNext());
+  }
+
+  /**
+   * Test {@link DefaultJobManager#moveJobToSuspendedJob(AbstractJobEntity)}.
+   * <ul>
+   *   <li>Then return TenantId is empty string.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link DefaultJobManager#moveJobToSuspendedJob(AbstractJobEntity)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"SuspendedJobEntity DefaultJobManager.moveJobToSuspendedJob(AbstractJobEntity)"})
+  public void testMoveJobToSuspendedJob_thenReturnTenantIdIsEmptyString() {
+    // Arrange
+    SuspendedJobEntityManager suspendedJobEntityManager = mock(SuspendedJobEntityManager.class);
+    doNothing().when(suspendedJobEntityManager).insert(Mockito.<SuspendedJobEntity>any());
+    when(suspendedJobEntityManager.create()).thenReturn(new SuspendedJobEntityImpl());
+    JtaProcessEngineConfiguration processEngineConfiguration = mock(JtaProcessEngineConfiguration.class);
+    when(processEngineConfiguration.getSuspendedJobEntityManager()).thenReturn(suspendedJobEntityManager);
+
+    DefaultJobManager defaultJobManager = new DefaultJobManager();
+    defaultJobManager.setProcessEngineConfiguration(processEngineConfiguration);
+
+    // Act
+    SuspendedJobEntity actualMoveJobToSuspendedJobResult = defaultJobManager
+        .moveJobToSuspendedJob(new DeadLetterJobEntityImpl());
+
+    // Assert
+    verify(processEngineConfiguration, atLeast(1)).getSuspendedJobEntityManager();
+    verify(suspendedJobEntityManager).create();
+    verify(suspendedJobEntityManager).insert(isA(SuspendedJobEntity.class));
+    assertTrue(actualMoveJobToSuspendedJobResult.getPersistentState() instanceof Map);
+    assertTrue(actualMoveJobToSuspendedJobResult instanceof SuspendedJobEntityImpl);
+    assertEquals("", actualMoveJobToSuspendedJobResult.getTenantId());
+    assertNull(actualMoveJobToSuspendedJobResult.getJobHandlerConfiguration());
+    assertNull(actualMoveJobToSuspendedJobResult.getJobHandlerType());
+    assertNull(actualMoveJobToSuspendedJobResult.getJobType());
+    assertNull(actualMoveJobToSuspendedJobResult.getRepeat());
+    assertNull(actualMoveJobToSuspendedJobResult.getId());
+    assertNull(actualMoveJobToSuspendedJobResult.getExceptionMessage());
+    assertNull(actualMoveJobToSuspendedJobResult.getExecutionId());
+    assertNull(actualMoveJobToSuspendedJobResult.getProcessDefinitionId());
+    assertNull(actualMoveJobToSuspendedJobResult.getProcessInstanceId());
+    assertNull(actualMoveJobToSuspendedJobResult.getEndDate());
+    assertNull(actualMoveJobToSuspendedJobResult.getDuedate());
+    assertEquals(0, actualMoveJobToSuspendedJobResult.getMaxIterations());
+    assertEquals(0, actualMoveJobToSuspendedJobResult.getRetries());
+    assertEquals(1, actualMoveJobToSuspendedJobResult.getRevision());
+    assertEquals(2, actualMoveJobToSuspendedJobResult.getRevisionNext());
+  }
+
+  /**
+   * Test {@link DefaultJobManager#moveJobToSuspendedJob(AbstractJobEntity)}.
+   * <ul>
+   *   <li>When {@link SuspendedJobEntityImpl} (default constructor) Deleted is {@code true}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link DefaultJobManager#moveJobToSuspendedJob(AbstractJobEntity)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"SuspendedJobEntity DefaultJobManager.moveJobToSuspendedJob(AbstractJobEntity)"})
+  public void testMoveJobToSuspendedJob_whenSuspendedJobEntityImplDeletedIsTrue() {
+    // Arrange
+    SuspendedJobEntityManager suspendedJobEntityManager = mock(SuspendedJobEntityManager.class);
+    doNothing().when(suspendedJobEntityManager).insert(Mockito.<SuspendedJobEntity>any());
+    when(suspendedJobEntityManager.create()).thenReturn(new SuspendedJobEntityImpl());
+    JtaProcessEngineConfiguration processEngineConfiguration = mock(JtaProcessEngineConfiguration.class);
+    when(processEngineConfiguration.getSuspendedJobEntityManager()).thenReturn(suspendedJobEntityManager);
+
+    DefaultJobManager defaultJobManager = new DefaultJobManager();
+    defaultJobManager.setProcessEngineConfiguration(processEngineConfiguration);
+
+    SuspendedJobEntityImpl job = new SuspendedJobEntityImpl();
+    job.setDeleted(true);
+    job.setDuedate(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
+    job.setEndDate(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
+    job.setExceptionMessage("An error occurred");
+    job.setExclusive(true);
+    job.setExecutionId("42");
+    job.setId("42");
+    job.setInserted(true);
+    job.setJobHandlerConfiguration("stacktrace");
+    job.setJobHandlerType("stacktrace");
+    job.setJobType("stacktrace");
+    job.setMaxIterations(3);
+    job.setProcessDefinitionId("42");
+    job.setProcessInstanceId("42");
+    job.setRepeat("stacktrace");
+    job.setRetries(3);
+    job.setRevision(3);
+    job.setTenantId("42");
+    job.setUpdated(true);
+
+    // Act
+    SuspendedJobEntity actualMoveJobToSuspendedJobResult = defaultJobManager.moveJobToSuspendedJob(job);
+
+    // Assert
+    verify(processEngineConfiguration, atLeast(1)).getSuspendedJobEntityManager();
+    verify(suspendedJobEntityManager).create();
+    verify(suspendedJobEntityManager).insert(isA(SuspendedJobEntity.class));
+    assertTrue(actualMoveJobToSuspendedJobResult.getPersistentState() instanceof Map);
+    assertTrue(actualMoveJobToSuspendedJobResult instanceof SuspendedJobEntityImpl);
+    assertEquals("42", actualMoveJobToSuspendedJobResult.getId());
+    assertEquals("42", actualMoveJobToSuspendedJobResult.getExecutionId());
+    assertEquals("42", actualMoveJobToSuspendedJobResult.getProcessDefinitionId());
+    assertEquals("42", actualMoveJobToSuspendedJobResult.getProcessInstanceId());
+    assertEquals("42", actualMoveJobToSuspendedJobResult.getTenantId());
+    assertEquals("An error occurred", actualMoveJobToSuspendedJobResult.getExceptionMessage());
+    assertEquals("stacktrace", actualMoveJobToSuspendedJobResult.getJobHandlerConfiguration());
+    assertEquals("stacktrace", actualMoveJobToSuspendedJobResult.getJobHandlerType());
+    assertEquals("stacktrace", actualMoveJobToSuspendedJobResult.getJobType());
+    assertEquals("stacktrace", actualMoveJobToSuspendedJobResult.getRepeat());
+    assertEquals(3, actualMoveJobToSuspendedJobResult.getRevision());
+    assertEquals(3, actualMoveJobToSuspendedJobResult.getMaxIterations());
+    assertEquals(3, actualMoveJobToSuspendedJobResult.getRetries());
+    assertEquals(4, actualMoveJobToSuspendedJobResult.getRevisionNext());
   }
 
   /**
    * Test {@link DefaultJobManager#activateSuspendedJob(SuspendedJobEntity)}.
-   *
    * <ul>
-   *   <li>Then throw {@link ActivitiException}.
+   *   <li>Then calls {@link ProcessEngineConfiguration#getAsyncExecutor()}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link DefaultJobManager#activateSuspendedJob(SuspendedJobEntity)}
+   * <p>
+   * Method under test: {@link DefaultJobManager#activateSuspendedJob(SuspendedJobEntity)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "AbstractJobEntity DefaultJobManager.activateSuspendedJob(SuspendedJobEntity)"
-  })
-  public void testActivateSuspendedJob_thenThrowActivitiException() {
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"AbstractJobEntity DefaultJobManager.activateSuspendedJob(SuspendedJobEntity)"})
+  public void testActivateSuspendedJob_thenCallsGetAsyncExecutor() {
     // Arrange
-    JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();
+    AsyncExecutor asyncExecutor = mock(AsyncExecutor.class);
+    when(asyncExecutor.getTimerLockTimeInMillis()).thenThrow(new ActivitiIllegalArgumentException("An error occurred"));
+    when(asyncExecutor.isActive()).thenReturn(true);
+    JtaProcessEngineConfiguration processEngineConfiguration = mock(JtaProcessEngineConfiguration.class);
+    when(processEngineConfiguration.getClock()).thenReturn(new DefaultClockImpl());
+    when(processEngineConfiguration.getAsyncExecutor()).thenReturn(asyncExecutor);
     JtaProcessEngineConfiguration processEngineConfiguration2 = new JtaProcessEngineConfiguration();
-    JobEntityManagerImpl jobEntityManager =
-        new JobEntityManagerImpl(
-            processEngineConfiguration2,
-            new MybatisJobDataManager(new JtaProcessEngineConfiguration()));
-    processEngineConfiguration.setJobEntityManager(jobEntityManager);
+    when(processEngineConfiguration.getJobEntityManager()).thenReturn(new JobEntityManagerImpl(
+        processEngineConfiguration2, new MybatisJobDataManager(new JtaProcessEngineConfiguration())));
 
     DefaultJobManager defaultJobManager = new DefaultJobManager();
     defaultJobManager.setProcessEngineConfiguration(processEngineConfiguration);
 
+    // Act and Assert
+    assertThrows(ActivitiIllegalArgumentException.class,
+        () -> defaultJobManager.activateSuspendedJob(new SuspendedJobEntityImpl()));
+    verify(processEngineConfiguration, atLeast(1)).getAsyncExecutor();
+    verify(processEngineConfiguration).getClock();
+    verify(asyncExecutor).getTimerLockTimeInMillis();
+    verify(asyncExecutor).isActive();
+    verify(processEngineConfiguration).getJobEntityManager();
+  }
+
+  /**
+   * Test {@link DefaultJobManager#activateSuspendedJob(SuspendedJobEntity)}.
+   * <ul>
+   *   <li>Then calls {@link AbstractJobEntity#getJobType()}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link DefaultJobManager#activateSuspendedJob(SuspendedJobEntity)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"AbstractJobEntity DefaultJobManager.activateSuspendedJob(SuspendedJobEntity)"})
+  public void testActivateSuspendedJob_thenCallsGetJobType() {
+    // Arrange
+    DefaultJobManager defaultJobManager = new DefaultJobManager();
+    defaultJobManager.setProcessEngineConfiguration(mock(JtaProcessEngineConfiguration.class));
     SuspendedJobEntity job = mock(SuspendedJobEntity.class);
-    when(job.getJobType()).thenThrow(new ActivitiException("An error occurred"));
+    when(job.getJobType()).thenThrow(new ActivitiIllegalArgumentException("An error occurred"));
 
     // Act and Assert
-    assertThrows(ActivitiException.class, () -> defaultJobManager.activateSuspendedJob(job));
+    assertThrows(ActivitiIllegalArgumentException.class, () -> defaultJobManager.activateSuspendedJob(job));
     verify(job).getJobType();
   }
 
   /**
-   * Test {@link DefaultJobManager#moveDeadLetterJobToExecutableJob(DeadLetterJobEntity, int)}.
-   *
+   * Test {@link DefaultJobManager#moveJobToDeadLetterJob(AbstractJobEntity)}.
    * <ul>
-   *   <li>Then throw {@link ActivitiIllegalArgumentException}.
+   *   <li>Then return TenantId is empty string.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link
-   * DefaultJobManager#moveDeadLetterJobToExecutableJob(DeadLetterJobEntity, int)}
+   * <p>
+   * Method under test: {@link DefaultJobManager#moveJobToDeadLetterJob(AbstractJobEntity)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "JobEntity DefaultJobManager.moveDeadLetterJobToExecutableJob(DeadLetterJobEntity, int)"
-  })
-  public void testMoveDeadLetterJobToExecutableJob_thenThrowActivitiIllegalArgumentException() {
-    // Arrange, Act and Assert
-    assertThrows(
-        ActivitiIllegalArgumentException.class,
-        () -> new DefaultJobManager().moveDeadLetterJobToExecutableJob(null, 1));
-  }
-
-  /**
-   * Test {@link DefaultJobManager#execute(Job)}.
-   *
-   * <ul>
-   *   <li>When {@link DeadLetterJobEntityImpl} (default constructor).
-   *   <li>Then throw {@link ActivitiException}.
-   * </ul>
-   *
-   * <p>Method under test: {@link DefaultJobManager#execute(Job)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void DefaultJobManager.execute(Job)"})
-  public void testExecute_whenDeadLetterJobEntityImpl_thenThrowActivitiException() {
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"DeadLetterJobEntity DefaultJobManager.moveJobToDeadLetterJob(AbstractJobEntity)"})
+  public void testMoveJobToDeadLetterJob_thenReturnTenantIdIsEmptyString() {
     // Arrange
-    DefaultJobManager defaultJobManager = new DefaultJobManager();
-
-    // Act and Assert
-    assertThrows(
-        ActivitiException.class, () -> defaultJobManager.execute(new DeadLetterJobEntityImpl()));
-  }
-
-  /**
-   * Test {@link DefaultJobManager#unacquire(Job)}.
-   *
-   * <ul>
-   *   <li>Then throw {@link ActivitiException}.
-   * </ul>
-   *
-   * <p>Method under test: {@link DefaultJobManager#unacquire(Job)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void DefaultJobManager.unacquire(Job)"})
-  public void testUnacquire_thenThrowActivitiException() {
-    // Arrange
-    JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();
-    JtaProcessEngineConfiguration processEngineConfiguration2 = new JtaProcessEngineConfiguration();
-    JobEntityManagerImpl jobEntityManager =
-        new JobEntityManagerImpl(
-            processEngineConfiguration2,
-            new MybatisJobDataManager(new JtaProcessEngineConfiguration()));
-    processEngineConfiguration.setJobEntityManager(jobEntityManager);
+    DeadLetterJobEntityManager deadLetterJobEntityManager = mock(DeadLetterJobEntityManager.class);
+    doNothing().when(deadLetterJobEntityManager).insert(Mockito.<DeadLetterJobEntity>any());
+    when(deadLetterJobEntityManager.create()).thenReturn(new DeadLetterJobEntityImpl());
+    JtaProcessEngineConfiguration processEngineConfiguration = mock(JtaProcessEngineConfiguration.class);
+    when(processEngineConfiguration.getDeadLetterJobEntityManager()).thenReturn(deadLetterJobEntityManager);
 
     DefaultJobManager defaultJobManager = new DefaultJobManager();
     defaultJobManager.setProcessEngineConfiguration(processEngineConfiguration);
 
-    JobEntityImpl job = mock(JobEntityImpl.class);
-    when(job.getId()).thenThrow(new ActivitiException("An error occurred"));
+    // Act
+    DeadLetterJobEntity actualMoveJobToDeadLetterJobResult = defaultJobManager
+        .moveJobToDeadLetterJob(new DeadLetterJobEntityImpl());
 
-    // Act and Assert
-    assertThrows(ActivitiException.class, () -> defaultJobManager.unacquire(job));
-    verify(job).getId();
+    // Assert
+    verify(processEngineConfiguration, atLeast(1)).getDeadLetterJobEntityManager();
+    verify(deadLetterJobEntityManager).create();
+    verify(deadLetterJobEntityManager).insert(isA(DeadLetterJobEntity.class));
+    assertTrue(actualMoveJobToDeadLetterJobResult.getPersistentState() instanceof Map);
+    assertTrue(actualMoveJobToDeadLetterJobResult instanceof DeadLetterJobEntityImpl);
+    assertEquals("", actualMoveJobToDeadLetterJobResult.getTenantId());
+    assertNull(actualMoveJobToDeadLetterJobResult.getJobHandlerConfiguration());
+    assertNull(actualMoveJobToDeadLetterJobResult.getJobHandlerType());
+    assertNull(actualMoveJobToDeadLetterJobResult.getJobType());
+    assertNull(actualMoveJobToDeadLetterJobResult.getRepeat());
+    assertNull(actualMoveJobToDeadLetterJobResult.getId());
+    assertNull(actualMoveJobToDeadLetterJobResult.getExceptionMessage());
+    assertNull(actualMoveJobToDeadLetterJobResult.getExecutionId());
+    assertNull(actualMoveJobToDeadLetterJobResult.getProcessDefinitionId());
+    assertNull(actualMoveJobToDeadLetterJobResult.getProcessInstanceId());
+    assertNull(actualMoveJobToDeadLetterJobResult.getEndDate());
+    assertNull(actualMoveJobToDeadLetterJobResult.getDuedate());
+    assertEquals(0, actualMoveJobToDeadLetterJobResult.getMaxIterations());
+    assertEquals(0, actualMoveJobToDeadLetterJobResult.getRetries());
+    assertEquals(1, actualMoveJobToDeadLetterJobResult.getRevision());
+    assertEquals(2, actualMoveJobToDeadLetterJobResult.getRevisionNext());
   }
 
   /**
-   * Test {@link DefaultJobManager#executeTimerJob(JobEntity)}.
-   *
-   * <p>Method under test: {@link DefaultJobManager#executeTimerJob(JobEntity)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void DefaultJobManager.executeTimerJob(JobEntity)"})
-  public void testExecuteTimerJob() {
-    // Arrange
-    JtaProcessEngineConfiguration processEngineConfiguration =
-        mock(JtaProcessEngineConfiguration.class);
-    when(processEngineConfiguration.getExecutionEntityManager())
-        .thenThrow(new ActivitiException("An error occurred"));
-    when(processEngineConfiguration.setJobHandlers(Mockito.<Map<String, JobHandler>>any()))
-        .thenReturn(new JtaProcessEngineConfiguration());
-    JtaProcessEngineConfiguration processEngineConfiguration2 = new JtaProcessEngineConfiguration();
-    TimerJobEntityManagerImpl timerJobEntityManagerImpl =
-        new TimerJobEntityManagerImpl(
-            processEngineConfiguration2,
-            new MybatisTimerJobDataManager(new JtaProcessEngineConfiguration()));
-    when(processEngineConfiguration.getTimerJobEntityManager())
-        .thenReturn(timerJobEntityManagerImpl);
-    processEngineConfiguration.setJobHandlers(new HashMap<>());
-    DefaultJobManager defaultJobManager = new DefaultJobManager(processEngineConfiguration);
-
-    JobEntityImpl timerEntity = new JobEntityImpl();
-    timerEntity.setDeleted(true);
-    timerEntity.setExceptionMessage("An error occurred");
-    timerEntity.setExclusive(true);
-    timerEntity.setId("42");
-    timerEntity.setInserted(true);
-    timerEntity.setJobHandlerConfiguration("Job Handler Configuration");
-    timerEntity.setJobType("Job Type");
-    timerEntity.setLockExpirationTime(
-        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
-    timerEntity.setLockOwner("Claimed By");
-    timerEntity.setMaxIterations(3);
-    timerEntity.setProcessInstanceId("42");
-    timerEntity.setRetries(1);
-    timerEntity.setRevision(1);
-    timerEntity.setTenantId("42");
-    timerEntity.setUpdated(true);
-    timerEntity.setExecutionId("42");
-    timerEntity.setDuedate(
-        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
-    timerEntity.setRepeat(null);
-    timerEntity.setJobHandlerType("timer-start-event");
-    timerEntity.setEndDate(null);
-    timerEntity.setProcessDefinitionId(null);
-
-    // Act and Assert
-    assertThrows(ActivitiException.class, () -> defaultJobManager.executeTimerJob(timerEntity));
-    verify(processEngineConfiguration).getExecutionEntityManager();
-    verify(processEngineConfiguration).getTimerJobEntityManager();
-    verify(processEngineConfiguration).setJobHandlers(isA(Map.class));
-  }
-
-  /**
-   * Test {@link DefaultJobManager#executeTimerJob(JobEntity)}.
-   *
+   * Test {@link DefaultJobManager#moveJobToDeadLetterJob(AbstractJobEntity)}.
    * <ul>
-   *   <li>Then calls {@link ExecutionDataManager#findById(String)}.
+   *   <li>When {@link TimerJobEntityImpl} (default constructor) Deleted is {@code true}.</li>
+   *   <li>Then return Id is {@code 42}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link DefaultJobManager#executeTimerJob(JobEntity)}
+   * <p>
+   * Method under test: {@link DefaultJobManager#moveJobToDeadLetterJob(AbstractJobEntity)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void DefaultJobManager.executeTimerJob(JobEntity)"})
-  public void testExecuteTimerJob_thenCallsFindById() {
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"DeadLetterJobEntity DefaultJobManager.moveJobToDeadLetterJob(AbstractJobEntity)"})
+  public void testMoveJobToDeadLetterJob_whenTimerJobEntityImplDeletedIsTrue_thenReturnIdIs42() {
     // Arrange
-    BusinessCalendarManager businessCalendarManager = mock(BusinessCalendarManager.class);
-    when(businessCalendarManager.getBusinessCalendar(Mockito.<String>any()))
-        .thenReturn(new DefaultBusinessCalendar());
+    DeadLetterJobEntityManager deadLetterJobEntityManager = mock(DeadLetterJobEntityManager.class);
+    doNothing().when(deadLetterJobEntityManager).insert(Mockito.<DeadLetterJobEntity>any());
+    when(deadLetterJobEntityManager.create()).thenReturn(new DeadLetterJobEntityImpl());
+    TimerJobEntityManager timerJobEntityManager = mock(TimerJobEntityManager.class);
+    doNothing().when(timerJobEntityManager).delete(Mockito.<TimerJobEntity>any());
+    JtaProcessEngineConfiguration processEngineConfiguration = mock(JtaProcessEngineConfiguration.class);
+    when(processEngineConfiguration.getTimerJobEntityManager()).thenReturn(timerJobEntityManager);
+    when(processEngineConfiguration.getDeadLetterJobEntityManager()).thenReturn(deadLetterJobEntityManager);
 
+    DefaultJobManager defaultJobManager = new DefaultJobManager();
+    defaultJobManager.setProcessEngineConfiguration(processEngineConfiguration);
+
+    TimerJobEntityImpl job = new TimerJobEntityImpl();
+    job.setDeleted(true);
+    job.setDuedate(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
+    job.setEndDate(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
+    job.setExceptionMessage("An error occurred");
+    job.setExclusive(true);
+    job.setExecutionId("42");
+    job.setId("42");
+    job.setInserted(true);
+    job.setJobHandlerConfiguration("stacktrace");
+    job.setJobHandlerType("stacktrace");
+    job.setJobType("stacktrace");
+    job.setLockExpirationTime(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
+    job.setLockOwner("stacktrace");
+    job.setMaxIterations(3);
+    job.setProcessDefinitionId("42");
+    job.setProcessInstanceId("42");
+    job.setRepeat("stacktrace");
+    job.setRetries(3);
+    job.setRevision(3);
+    job.setTenantId("42");
+    job.setUpdated(true);
+
+    // Act
+    DeadLetterJobEntity actualMoveJobToDeadLetterJobResult = defaultJobManager.moveJobToDeadLetterJob(job);
+
+    // Assert
+    verify(processEngineConfiguration, atLeast(1)).getDeadLetterJobEntityManager();
+    verify(processEngineConfiguration).getTimerJobEntityManager();
+    verify(deadLetterJobEntityManager).create();
+    verify(timerJobEntityManager).delete(isA(TimerJobEntity.class));
+    verify(deadLetterJobEntityManager).insert(isA(DeadLetterJobEntity.class));
+    assertTrue(actualMoveJobToDeadLetterJobResult.getPersistentState() instanceof Map);
+    assertTrue(actualMoveJobToDeadLetterJobResult instanceof DeadLetterJobEntityImpl);
+    assertEquals("42", actualMoveJobToDeadLetterJobResult.getId());
+    assertEquals("42", actualMoveJobToDeadLetterJobResult.getExecutionId());
+    assertEquals("42", actualMoveJobToDeadLetterJobResult.getProcessDefinitionId());
+    assertEquals("42", actualMoveJobToDeadLetterJobResult.getProcessInstanceId());
+    assertEquals("42", actualMoveJobToDeadLetterJobResult.getTenantId());
+    assertEquals("An error occurred", actualMoveJobToDeadLetterJobResult.getExceptionMessage());
+    assertEquals("stacktrace", actualMoveJobToDeadLetterJobResult.getJobHandlerConfiguration());
+    assertEquals("stacktrace", actualMoveJobToDeadLetterJobResult.getJobHandlerType());
+    assertEquals("stacktrace", actualMoveJobToDeadLetterJobResult.getJobType());
+    assertEquals("stacktrace", actualMoveJobToDeadLetterJobResult.getRepeat());
+    assertEquals(3, actualMoveJobToDeadLetterJobResult.getRevision());
+    assertEquals(3, actualMoveJobToDeadLetterJobResult.getMaxIterations());
+    assertEquals(3, actualMoveJobToDeadLetterJobResult.getRetries());
+    assertEquals(4, actualMoveJobToDeadLetterJobResult.getRevisionNext());
+  }
+
+  /**
+   * Test {@link DefaultJobManager#moveDeadLetterJobToExecutableJob(DeadLetterJobEntity, int)}.
+   * <ul>
+   *   <li>Then calls {@link ProcessEngineConfiguration#getAsyncExecutor()}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link DefaultJobManager#moveDeadLetterJobToExecutableJob(DeadLetterJobEntity, int)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"JobEntity DefaultJobManager.moveDeadLetterJobToExecutableJob(DeadLetterJobEntity, int)"})
+  public void testMoveDeadLetterJobToExecutableJob_thenCallsGetAsyncExecutor() {
+    // Arrange
+    AsyncExecutor asyncExecutor = mock(AsyncExecutor.class);
+    when(asyncExecutor.getTimerLockTimeInMillis()).thenThrow(new ActivitiIllegalArgumentException("An error occurred"));
+    when(asyncExecutor.isActive()).thenReturn(true);
+    JtaProcessEngineConfiguration processEngineConfiguration = mock(JtaProcessEngineConfiguration.class);
+    when(processEngineConfiguration.getClock()).thenReturn(new DefaultClockImpl());
+    when(processEngineConfiguration.getAsyncExecutor()).thenReturn(asyncExecutor);
+    JtaProcessEngineConfiguration processEngineConfiguration2 = new JtaProcessEngineConfiguration();
+    when(processEngineConfiguration.getJobEntityManager()).thenReturn(new JobEntityManagerImpl(
+        processEngineConfiguration2, new MybatisJobDataManager(new JtaProcessEngineConfiguration())));
+
+    DefaultJobManager defaultJobManager = new DefaultJobManager();
+    defaultJobManager.setProcessEngineConfiguration(processEngineConfiguration);
+
+    // Act and Assert
+    assertThrows(ActivitiIllegalArgumentException.class,
+        () -> defaultJobManager.moveDeadLetterJobToExecutableJob(new DeadLetterJobEntityImpl(), 1));
+    verify(processEngineConfiguration, atLeast(1)).getAsyncExecutor();
+    verify(processEngineConfiguration).getClock();
+    verify(asyncExecutor).getTimerLockTimeInMillis();
+    verify(asyncExecutor).isActive();
+    verify(processEngineConfiguration).getJobEntityManager();
+  }
+
+  /**
+   * Test {@link DefaultJobManager#moveDeadLetterJobToExecutableJob(DeadLetterJobEntity, int)}.
+   * <ul>
+   *   <li>When {@code null}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link DefaultJobManager#moveDeadLetterJobToExecutableJob(DeadLetterJobEntity, int)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"JobEntity DefaultJobManager.moveDeadLetterJobToExecutableJob(DeadLetterJobEntity, int)"})
+  public void testMoveDeadLetterJobToExecutableJob_whenNull() {
+    // Arrange
+    DefaultJobManager defaultJobManager = new DefaultJobManager();
+    defaultJobManager.setProcessEngineConfiguration(mock(JtaProcessEngineConfiguration.class));
+
+    // Act and Assert
+    assertThrows(ActivitiIllegalArgumentException.class,
+        () -> defaultJobManager.moveDeadLetterJobToExecutableJob(null, 1));
+  }
+
+  /**
+   * Test {@link DefaultJobManager#execute(Job)}.
+   * <ul>
+   *   <li>Given {@link DefaultJobManager#DefaultJobManager()}.</li>
+   *   <li>Then throw {@link ActivitiException}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link DefaultJobManager#execute(Job)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void DefaultJobManager.execute(Job)"})
+  public void testExecute_givenDefaultJobManager_thenThrowActivitiException() {
+    // Arrange
+    DefaultJobManager defaultJobManager = new DefaultJobManager();
+
+    // Act and Assert
+    assertThrows(ActivitiException.class, () -> defaultJobManager.execute(new DeadLetterJobEntityImpl()));
+  }
+
+  /**
+   * Test {@link DefaultJobManager#unacquire(Job)}.
+   * <ul>
+   *   <li>Given {@link ExecutionDataManager} {@link DataManager#findById(String)} return {@code null}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link DefaultJobManager#unacquire(Job)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void DefaultJobManager.unacquire(Job)"})
+  public void testUnacquire_givenExecutionDataManagerFindByIdReturnNull() {
+    // Arrange
+    ExecutionDataManager executionDataManager = mock(ExecutionDataManager.class);
+    when(executionDataManager.findById(Mockito.<String>any())).thenReturn(null);
+    ProcessEngineConfigurationImpl processEngineConfiguration = mock(ProcessEngineConfigurationImpl.class);
+    when(processEngineConfiguration.getExecutionEntityManager())
+        .thenReturn(new ExecutionEntityManagerImpl(new JtaProcessEngineConfiguration(), executionDataManager));
+    when(processEngineConfiguration.getEventDispatcher()).thenReturn(new ActivitiEventDispatcherImpl());
+    JobDataManager jobDataManager = mock(JobDataManager.class);
+    when(jobDataManager.create()).thenReturn(new JobEntityImpl());
+    doNothing().when(jobDataManager).delete(Mockito.<JobEntity>any());
+    when(jobDataManager.findById(Mockito.<String>any())).thenReturn(new JobEntityImpl());
+    ProcessEngineConfigurationImpl processEngineConfiguration2 = mock(ProcessEngineConfigurationImpl.class);
+    when(processEngineConfiguration2.getJobEntityManager())
+        .thenReturn(new JobEntityManagerImpl(processEngineConfiguration, jobDataManager));
+
+    DefaultJobManager defaultJobManager = new DefaultJobManager();
+    defaultJobManager.setProcessEngineConfiguration(processEngineConfiguration2);
+
+    JobEntityImpl job = new JobEntityImpl();
+    job.setDeleted(true);
+    job.setDuedate(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
+    job.setEndDate(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
+    job.setExceptionMessage("An error occurred");
+    job.setExclusive(true);
+    job.setExecutionId("42");
+    job.setId("42");
+    job.setInserted(true);
+    job.setJobHandlerConfiguration("Job Handler Configuration");
+    job.setJobHandlerType("Job Handler Type");
+    job.setJobType("Job Type");
+    job.setLockExpirationTime(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
+    job.setLockOwner("Claimed By");
+    job.setMaxIterations(3);
+    job.setProcessDefinitionId("42");
+    job.setProcessInstanceId("42");
+    job.setRepeat("Repeat");
+    job.setRetries(1);
+    job.setRevision(1);
+    job.setTenantId("42");
+    job.setUpdated(true);
+
+    // Act
+    defaultJobManager.unacquire(job);
+
+    // Assert
+    verify(processEngineConfiguration, atLeast(1)).getEventDispatcher();
+    verify(processEngineConfiguration).getExecutionEntityManager();
+    verify(processEngineConfiguration2, atLeast(1)).getJobEntityManager();
+    verify(jobDataManager).create();
+    verify(jobDataManager).delete(isA(JobEntity.class));
+    verify(executionDataManager).findById(eq("42"));
+    verify(jobDataManager).findById(eq("42"));
+  }
+
+  /**
+   * Test {@link DefaultJobManager#unacquire(Job)}.
+   * <ul>
+   *   <li>Then calls {@link ProcessEngineConfigurationImpl#getPerformanceSettings()}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link DefaultJobManager#unacquire(Job)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void DefaultJobManager.unacquire(Job)"})
+  public void testUnacquire_thenCallsGetPerformanceSettings() {
+    // Arrange
     ExecutionDataManager executionDataManager = mock(ExecutionDataManager.class);
     when(executionDataManager.findById(Mockito.<String>any()))
         .thenReturn(ExecutionEntityImpl.createWithEmptyRelationshipCollections());
-    ExecutionEntityManagerImpl executionEntityManagerImpl =
-        new ExecutionEntityManagerImpl(new JtaProcessEngineConfiguration(), executionDataManager);
+    ExecutionEntityManagerImpl executionEntityManagerImpl = new ExecutionEntityManagerImpl(
+        new JtaProcessEngineConfiguration(), executionDataManager);
 
-    JtaProcessEngineConfiguration processEngineConfiguration =
-        mock(JtaProcessEngineConfiguration.class);
-    when(processEngineConfiguration.getExecutionEntityManager())
-        .thenReturn(executionEntityManagerImpl);
-    when(processEngineConfiguration.getJobHandlers())
-        .thenThrow(new ActivitiException("An error occurred"));
-    when(processEngineConfiguration.getBusinessCalendarManager())
-        .thenReturn(businessCalendarManager);
-    when(processEngineConfiguration.setJobHandlers(Mockito.<Map<String, JobHandler>>any()))
-        .thenReturn(new JtaProcessEngineConfiguration());
-    JtaProcessEngineConfiguration processEngineConfiguration2 = new JtaProcessEngineConfiguration();
-    TimerJobEntityManagerImpl timerJobEntityManagerImpl =
-        new TimerJobEntityManagerImpl(
-            processEngineConfiguration2,
-            new MybatisTimerJobDataManager(new JtaProcessEngineConfiguration()));
-    when(processEngineConfiguration.getTimerJobEntityManager())
-        .thenReturn(timerJobEntityManagerImpl);
-    processEngineConfiguration.setJobHandlers(new HashMap<>());
-    DefaultJobManager defaultJobManager = new DefaultJobManager(processEngineConfiguration);
+    PerformanceSettings performanceSettings = new PerformanceSettings();
+    performanceSettings.setEnableEagerExecutionTreeFetching(true);
+    performanceSettings.setEnableExecutionRelationshipCounts(true);
+    performanceSettings.setEnableLocalization(true);
+    performanceSettings.setValidateExecutionRelationshipCountConfigOnBoot(true);
+    ProcessEngineConfigurationImpl processEngineConfiguration = mock(ProcessEngineConfigurationImpl.class);
+    when(processEngineConfiguration.getPerformanceSettings()).thenReturn(performanceSettings);
+    when(processEngineConfiguration.getExecutionEntityManager()).thenReturn(executionEntityManagerImpl);
+    when(processEngineConfiguration.getEventDispatcher()).thenReturn(new ActivitiEventDispatcherImpl());
+    JobDataManager jobDataManager = mock(JobDataManager.class);
+    doNothing().when(jobDataManager).insert(Mockito.<JobEntity>any());
+    when(jobDataManager.create()).thenReturn(new JobEntityImpl());
+    doNothing().when(jobDataManager).delete(Mockito.<JobEntity>any());
+    when(jobDataManager.findById(Mockito.<String>any())).thenReturn(new JobEntityImpl());
+    ProcessEngineConfigurationImpl processEngineConfiguration2 = mock(ProcessEngineConfigurationImpl.class);
+    when(processEngineConfiguration2.getJobEntityManager())
+        .thenReturn(new JobEntityManagerImpl(processEngineConfiguration, jobDataManager));
 
-    JobEntityImpl timerEntity = new JobEntityImpl();
-    timerEntity.setDeleted(true);
-    timerEntity.setExceptionMessage("An error occurred");
-    timerEntity.setExclusive(true);
-    timerEntity.setId("42");
-    timerEntity.setInserted(true);
-    timerEntity.setJobHandlerConfiguration("Job Handler Configuration");
-    timerEntity.setJobType("Job Type");
-    timerEntity.setLockExpirationTime(
-        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
-    timerEntity.setLockOwner("Claimed By");
-    timerEntity.setMaxIterations(3);
-    timerEntity.setProcessInstanceId("42");
-    timerEntity.setRetries(1);
-    timerEntity.setRevision(1);
-    timerEntity.setTenantId("42");
-    timerEntity.setUpdated(true);
-    timerEntity.setExecutionId("42");
-    timerEntity.setDuedate(
-        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
-    timerEntity.setRepeat(null);
-    timerEntity.setJobHandlerType("timer-start-event");
-    timerEntity.setEndDate(null);
-    timerEntity.setProcessDefinitionId(null);
+    DefaultJobManager defaultJobManager = new DefaultJobManager();
+    defaultJobManager.setProcessEngineConfiguration(processEngineConfiguration2);
 
-    // Act and Assert
-    assertThrows(ActivitiException.class, () -> defaultJobManager.executeTimerJob(timerEntity));
-    verify(businessCalendarManager).getBusinessCalendar("cycle");
-    verify(processEngineConfiguration).getBusinessCalendarManager();
-    verify(processEngineConfiguration, atLeast(1)).getExecutionEntityManager();
-    verify(processEngineConfiguration).getJobHandlers();
-    verify(processEngineConfiguration).getTimerJobEntityManager();
-    verify(processEngineConfiguration).setJobHandlers(isA(Map.class));
-    verify(executionDataManager, atLeast(1)).findById("42");
+    JobEntityImpl job = new JobEntityImpl();
+    job.setDeleted(true);
+    job.setDuedate(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
+    job.setEndDate(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
+    job.setExceptionMessage("An error occurred");
+    job.setExclusive(true);
+    job.setExecutionId("42");
+    job.setId("42");
+    job.setInserted(true);
+    job.setJobHandlerConfiguration("Job Handler Configuration");
+    job.setJobHandlerType("Job Handler Type");
+    job.setJobType("Job Type");
+    job.setLockExpirationTime(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
+    job.setLockOwner("Claimed By");
+    job.setMaxIterations(3);
+    job.setProcessDefinitionId("42");
+    job.setProcessInstanceId("42");
+    job.setRepeat("Repeat");
+    job.setRetries(1);
+    job.setRevision(1);
+    job.setTenantId("42");
+    job.setUpdated(true);
+
+    // Act
+    defaultJobManager.unacquire(job);
+
+    // Assert
+    verify(processEngineConfiguration, atLeast(1)).getEventDispatcher();
+    verify(processEngineConfiguration).getExecutionEntityManager();
+    verify(processEngineConfiguration2, atLeast(1)).getJobEntityManager();
+    verify(processEngineConfiguration).getPerformanceSettings();
+    verify(jobDataManager).create();
+    verify(jobDataManager).delete(isA(JobEntity.class));
+    verify(executionDataManager).findById(eq("42"));
+    verify(jobDataManager).findById(eq("42"));
+    verify(jobDataManager).insert(isA(JobEntity.class));
   }
 
   /**
-   * Test {@link DefaultJobManager#executeTimerJob(JobEntity)}.
-   *
+   * Test {@link DefaultJobManager#unacquire(Job)}.
    * <ul>
-   *   <li>Then calls {@link BusinessCalendarManager#getBusinessCalendar(String)}.
+   *   <li>Then calls {@link ActivitiEventDispatcher#isEnabled()}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link DefaultJobManager#executeTimerJob(JobEntity)}
+   * <p>
+   * Method under test: {@link DefaultJobManager#unacquire(Job)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void DefaultJobManager.executeTimerJob(JobEntity)"})
-  public void testExecuteTimerJob_thenCallsGetBusinessCalendar() {
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void DefaultJobManager.unacquire(Job)"})
+  public void testUnacquire_thenCallsIsEnabled() {
     // Arrange
-    BusinessCalendarManager businessCalendarManager = mock(BusinessCalendarManager.class);
-    when(businessCalendarManager.getBusinessCalendar(Mockito.<String>any()))
-        .thenReturn(new DefaultBusinessCalendar());
+    ActivitiEventDispatcher activitiEventDispatcher = mock(ActivitiEventDispatcher.class);
+    when(activitiEventDispatcher.isEnabled()).thenReturn(false);
+    ExecutionDataManager executionDataManager = mock(ExecutionDataManager.class);
+    when(executionDataManager.findById(Mockito.<String>any()))
+        .thenReturn(ExecutionEntityImpl.createWithEmptyRelationshipCollections());
+    ExecutionEntityManagerImpl executionEntityManagerImpl = new ExecutionEntityManagerImpl(
+        new JtaProcessEngineConfiguration(), executionDataManager);
 
-    JtaProcessEngineConfiguration processEngineConfiguration =
-        mock(JtaProcessEngineConfiguration.class);
-    when(processEngineConfiguration.getJobHandlers())
-        .thenThrow(new ActivitiException("An error occurred"));
-    when(processEngineConfiguration.getBusinessCalendarManager())
-        .thenReturn(businessCalendarManager);
-    when(processEngineConfiguration.setJobHandlers(Mockito.<Map<String, JobHandler>>any()))
-        .thenReturn(new JtaProcessEngineConfiguration());
-    JtaProcessEngineConfiguration processEngineConfiguration2 = new JtaProcessEngineConfiguration();
-    TimerJobEntityManagerImpl timerJobEntityManagerImpl =
-        new TimerJobEntityManagerImpl(
-            processEngineConfiguration2,
-            new MybatisTimerJobDataManager(new JtaProcessEngineConfiguration()));
-    when(processEngineConfiguration.getTimerJobEntityManager())
-        .thenReturn(timerJobEntityManagerImpl);
-    processEngineConfiguration.setJobHandlers(new HashMap<>());
-    DefaultJobManager defaultJobManager = new DefaultJobManager(processEngineConfiguration);
+    PerformanceSettings performanceSettings = new PerformanceSettings();
+    performanceSettings.setEnableEagerExecutionTreeFetching(true);
+    performanceSettings.setEnableExecutionRelationshipCounts(true);
+    performanceSettings.setEnableLocalization(true);
+    performanceSettings.setValidateExecutionRelationshipCountConfigOnBoot(true);
+    ProcessEngineConfigurationImpl processEngineConfiguration = mock(ProcessEngineConfigurationImpl.class);
+    when(processEngineConfiguration.getPerformanceSettings()).thenReturn(performanceSettings);
+    when(processEngineConfiguration.getExecutionEntityManager()).thenReturn(executionEntityManagerImpl);
+    when(processEngineConfiguration.getEventDispatcher()).thenReturn(activitiEventDispatcher);
+    JobDataManager jobDataManager = mock(JobDataManager.class);
+    doNothing().when(jobDataManager).insert(Mockito.<JobEntity>any());
+    when(jobDataManager.create()).thenReturn(new JobEntityImpl());
+    doNothing().when(jobDataManager).delete(Mockito.<JobEntity>any());
+    when(jobDataManager.findById(Mockito.<String>any())).thenReturn(new JobEntityImpl());
+    ProcessEngineConfigurationImpl processEngineConfiguration2 = mock(ProcessEngineConfigurationImpl.class);
+    when(processEngineConfiguration2.getJobEntityManager())
+        .thenReturn(new JobEntityManagerImpl(processEngineConfiguration, jobDataManager));
 
-    JobEntityImpl timerEntity = new JobEntityImpl();
-    timerEntity.setDeleted(true);
-    timerEntity.setExceptionMessage("An error occurred");
-    timerEntity.setExclusive(true);
-    timerEntity.setId("42");
-    timerEntity.setInserted(true);
-    timerEntity.setJobHandlerConfiguration("Job Handler Configuration");
-    timerEntity.setJobType("Job Type");
-    timerEntity.setLockExpirationTime(
-        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
-    timerEntity.setLockOwner("Claimed By");
-    timerEntity.setMaxIterations(3);
-    timerEntity.setProcessInstanceId("42");
-    timerEntity.setRetries(1);
-    timerEntity.setRevision(1);
-    timerEntity.setTenantId("42");
-    timerEntity.setUpdated(true);
-    timerEntity.setExecutionId(null);
-    timerEntity.setDuedate(
-        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
-    timerEntity.setRepeat(null);
-    timerEntity.setJobHandlerType("timer-start-event");
-    timerEntity.setEndDate(null);
-    timerEntity.setProcessDefinitionId(null);
+    DefaultJobManager defaultJobManager = new DefaultJobManager();
+    defaultJobManager.setProcessEngineConfiguration(processEngineConfiguration2);
 
-    // Act and Assert
-    assertThrows(ActivitiException.class, () -> defaultJobManager.executeTimerJob(timerEntity));
-    verify(businessCalendarManager).getBusinessCalendar("cycle");
-    verify(processEngineConfiguration).getBusinessCalendarManager();
-    verify(processEngineConfiguration).getJobHandlers();
-    verify(processEngineConfiguration).getTimerJobEntityManager();
-    verify(processEngineConfiguration).setJobHandlers(isA(Map.class));
+    JobEntityImpl job = new JobEntityImpl();
+    job.setDeleted(true);
+    job.setDuedate(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
+    job.setEndDate(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
+    job.setExceptionMessage("An error occurred");
+    job.setExclusive(true);
+    job.setExecutionId("42");
+    job.setId("42");
+    job.setInserted(true);
+    job.setJobHandlerConfiguration("Job Handler Configuration");
+    job.setJobHandlerType("Job Handler Type");
+    job.setJobType("Job Type");
+    job.setLockExpirationTime(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
+    job.setLockOwner("Claimed By");
+    job.setMaxIterations(3);
+    job.setProcessDefinitionId("42");
+    job.setProcessInstanceId("42");
+    job.setRepeat("Repeat");
+    job.setRetries(1);
+    job.setRevision(1);
+    job.setTenantId("42");
+    job.setUpdated(true);
+
+    // Act
+    defaultJobManager.unacquire(job);
+
+    // Assert
+    verify(activitiEventDispatcher, atLeast(1)).isEnabled();
+    verify(processEngineConfiguration, atLeast(1)).getEventDispatcher();
+    verify(processEngineConfiguration).getExecutionEntityManager();
+    verify(processEngineConfiguration2, atLeast(1)).getJobEntityManager();
+    verify(processEngineConfiguration).getPerformanceSettings();
+    verify(jobDataManager).create();
+    verify(jobDataManager).delete(isA(JobEntity.class));
+    verify(executionDataManager).findById(eq("42"));
+    verify(jobDataManager).findById(eq("42"));
+    verify(jobDataManager).insert(isA(JobEntity.class));
+  }
+
+  /**
+   * Test {@link DefaultJobManager#unacquire(Job)}.
+   * <ul>
+   *   <li>Then calls {@link JobDataManager#resetExpiredJob(String)}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link DefaultJobManager#unacquire(Job)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void DefaultJobManager.unacquire(Job)"})
+  public void testUnacquire_thenCallsResetExpiredJob() {
+    // Arrange
+    JobDataManager jobDataManager = mock(JobDataManager.class);
+    doNothing().when(jobDataManager).resetExpiredJob(Mockito.<String>any());
+    ProcessEngineConfigurationImpl processEngineConfiguration = mock(ProcessEngineConfigurationImpl.class);
+    when(processEngineConfiguration.getJobEntityManager())
+        .thenReturn(new JobEntityManagerImpl(new JtaProcessEngineConfiguration(), jobDataManager));
+
+    DefaultJobManager defaultJobManager = new DefaultJobManager();
+    defaultJobManager.setProcessEngineConfiguration(processEngineConfiguration);
+
+    // Act
+    defaultJobManager.unacquire(new DeadLetterJobEntityImpl());
+
+    // Assert
+    verify(processEngineConfiguration).getJobEntityManager();
+    verify(jobDataManager).resetExpiredJob(isNull());
   }
 
   /**
    * Test {@link DefaultJobManager#restoreExtraData(JobEntity, VariableScope)}.
-   *
    * <ul>
-   *   <li>Given {@code timer-start-event}.
-   *   <li>Then {@link JobEntityImpl} (default constructor) MaxIterations is one.
+   *   <li>Given {@code timer-start-event}.</li>
+   *   <li>Then {@link JobEntityImpl} (default constructor) MaxIterations is one.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link DefaultJobManager#restoreExtraData(JobEntity, VariableScope)}
+   * <p>
+   * Method under test: {@link DefaultJobManager#restoreExtraData(JobEntity, VariableScope)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void DefaultJobManager.restoreExtraData(JobEntity, VariableScope)"})
   public void testRestoreExtraData_givenTimerStartEvent_thenJobEntityImplMaxIterationsIsOne() {
     // Arrange
@@ -765,8 +1288,7 @@ public class DefaultJobManagerDiffblueTest {
 
     JobEntityImpl timerEntity = new JobEntityImpl();
     timerEntity.setDeleted(true);
-    timerEntity.setDuedate(
-        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
+    timerEntity.setDuedate(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
     timerEntity.setExceptionMessage("An error occurred");
     timerEntity.setExclusive(true);
     timerEntity.setExecutionId("42");
@@ -774,8 +1296,8 @@ public class DefaultJobManagerDiffblueTest {
     timerEntity.setInserted(true);
     timerEntity.setJobHandlerConfiguration("Job Handler Configuration");
     timerEntity.setJobType("Job Type");
-    timerEntity.setLockExpirationTime(
-        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
+    timerEntity
+        .setLockExpirationTime(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
     timerEntity.setLockOwner("Claimed By");
     timerEntity.setMaxIterations(3);
     timerEntity.setProcessInstanceId("42");
@@ -789,8 +1311,7 @@ public class DefaultJobManagerDiffblueTest {
     timerEntity.setProcessDefinitionId(null);
 
     // Act
-    defaultJobManager.restoreExtraData(
-        timerEntity, ExecutionEntityImpl.createWithEmptyRelationshipCollections());
+    defaultJobManager.restoreExtraData(timerEntity, ExecutionEntityImpl.createWithEmptyRelationshipCollections());
 
     // Assert
     assertEquals(1, timerEntity.getMaxIterations());
@@ -798,16 +1319,14 @@ public class DefaultJobManagerDiffblueTest {
 
   /**
    * Test {@link DefaultJobManager#restoreExtraData(JobEntity, VariableScope)}.
-   *
    * <ul>
-   *   <li>Given {@code trigger-timer}.
+   *   <li>Given {@code trigger-timer}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link DefaultJobManager#restoreExtraData(JobEntity, VariableScope)}
+   * <p>
+   * Method under test: {@link DefaultJobManager#restoreExtraData(JobEntity, VariableScope)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void DefaultJobManager.restoreExtraData(JobEntity, VariableScope)"})
   public void testRestoreExtraData_givenTriggerTimer() {
     // Arrange
@@ -815,8 +1334,7 @@ public class DefaultJobManagerDiffblueTest {
 
     JobEntityImpl timerEntity = new JobEntityImpl();
     timerEntity.setDeleted(true);
-    timerEntity.setDuedate(
-        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
+    timerEntity.setDuedate(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
     timerEntity.setExceptionMessage("An error occurred");
     timerEntity.setExclusive(true);
     timerEntity.setExecutionId("42");
@@ -824,8 +1342,8 @@ public class DefaultJobManagerDiffblueTest {
     timerEntity.setInserted(true);
     timerEntity.setJobHandlerConfiguration("Job Handler Configuration");
     timerEntity.setJobType("Job Type");
-    timerEntity.setLockExpirationTime(
-        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
+    timerEntity
+        .setLockExpirationTime(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
     timerEntity.setLockOwner("Claimed By");
     timerEntity.setMaxIterations(3);
     timerEntity.setProcessInstanceId("42");
@@ -839,8 +1357,7 @@ public class DefaultJobManagerDiffblueTest {
     timerEntity.setProcessDefinitionId(null);
 
     // Act
-    defaultJobManager.restoreExtraData(
-        timerEntity, ExecutionEntityImpl.createWithEmptyRelationshipCollections());
+    defaultJobManager.restoreExtraData(timerEntity, ExecutionEntityImpl.createWithEmptyRelationshipCollections());
 
     // Assert
     assertEquals(1, timerEntity.getMaxIterations());
@@ -848,33 +1365,26 @@ public class DefaultJobManagerDiffblueTest {
 
   /**
    * Test {@link DefaultJobManager#restoreExtraData(JobEntity, VariableScope)}.
-   *
    * <ul>
-   *   <li>Then throw {@link ActivitiException}.
+   *   <li>Then throw {@link ActivitiIllegalArgumentException}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link DefaultJobManager#restoreExtraData(JobEntity, VariableScope)}
+   * <p>
+   * Method under test: {@link DefaultJobManager#restoreExtraData(JobEntity, VariableScope)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void DefaultJobManager.restoreExtraData(JobEntity, VariableScope)"})
-  public void testRestoreExtraData_thenThrowActivitiException() {
+  public void testRestoreExtraData_thenThrowActivitiIllegalArgumentException() {
     // Arrange
     DefaultJobManager defaultJobManager = new DefaultJobManager();
-
     JobEntity timerEntity = mock(JobEntity.class);
-    when(timerEntity.getProcessDefinitionId())
-        .thenThrow(new ActivitiException("An error occurred"));
+    when(timerEntity.getProcessDefinitionId()).thenThrow(new ActivitiIllegalArgumentException("An error occurred"));
     when(timerEntity.getJobHandlerConfiguration()).thenReturn("Job Handler Configuration");
     when(timerEntity.getJobHandlerType()).thenReturn("Job Handler Type");
 
     // Act and Assert
-    assertThrows(
-        ActivitiException.class,
-        () ->
-            defaultJobManager.restoreExtraData(
-                timerEntity, NoExecutionVariableScope.getSharedInstance()));
+    assertThrows(ActivitiIllegalArgumentException.class,
+        () -> defaultJobManager.restoreExtraData(timerEntity, NoExecutionVariableScope.getSharedInstance()));
     verify(timerEntity).getJobHandlerConfiguration();
     verify(timerEntity, atLeast(1)).getJobHandlerType();
     verify(timerEntity).getProcessDefinitionId();
@@ -882,506 +1392,171 @@ public class DefaultJobManagerDiffblueTest {
 
   /**
    * Test {@link DefaultJobManager#getMaxIterations(Process, String)}.
-   *
    * <ul>
-   *   <li>Given {@link AdhocSubProcess} (default constructor).
+   *   <li>Given {@link AdhocSubProcess} (default constructor).</li>
    * </ul>
-   *
-   * <p>Method under test: {@link DefaultJobManager#getMaxIterations(Process, String)}
+   * <p>
+   * Method under test: {@link DefaultJobManager#getMaxIterations(Process, String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"int DefaultJobManager.getMaxIterations(Process, String)"})
   public void testGetMaxIterations_givenAdhocSubProcess() {
     // Arrange
     DefaultJobManager defaultJobManager = new DefaultJobManager();
-
     Process process = mock(Process.class);
-    when(process.getFlowElement(Mockito.<String>any(), anyBoolean()))
-        .thenReturn(new AdhocSubProcess());
+    when(process.getFlowElement(Mockito.<String>any(), anyBoolean())).thenReturn(new AdhocSubProcess());
 
     // Act
     int actualMaxIterations = defaultJobManager.getMaxIterations(process, "42");
 
     // Assert
-    verify(process).getFlowElement("42", true);
+    verify(process).getFlowElement(eq("42"), eq(true));
     assertEquals(-1, actualMaxIterations);
   }
 
   /**
    * Test {@link DefaultJobManager#getMaxIterations(Process, String)}.
-   *
    * <ul>
-   *   <li>Given {@link ArrayList#ArrayList()} add {@link CancelEventDefinition} (default
-   *       constructor).
+   *   <li>Given {@link BoundaryEvent} (default constructor).</li>
    * </ul>
-   *
-   * <p>Method under test: {@link DefaultJobManager#getMaxIterations(Process, String)}
+   * <p>
+   * Method under test: {@link DefaultJobManager#getMaxIterations(Process, String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"int DefaultJobManager.getMaxIterations(Process, String)"})
-  public void testGetMaxIterations_givenArrayListAddCancelEventDefinition() {
-    // Arrange
-    DefaultJobManager defaultJobManager = new DefaultJobManager();
-
-    ArrayList<EventDefinition> eventDefinitions = new ArrayList<>();
-    eventDefinitions.add(new CancelEventDefinition());
-
-    BoundaryEvent boundaryEvent = new BoundaryEvent();
-    boundaryEvent.setEventDefinitions(eventDefinitions);
-
-    Process process = mock(Process.class);
-    when(process.getFlowElement(Mockito.<String>any(), anyBoolean())).thenReturn(boundaryEvent);
-
-    // Act
-    int actualMaxIterations = defaultJobManager.getMaxIterations(process, "42");
-
-    // Assert
-    verify(process).getFlowElement("42", true);
-    assertEquals(-1, actualMaxIterations);
-  }
-
-  /**
-   * Test {@link DefaultJobManager#getMaxIterations(Process, String)}.
-   *
-   * <ul>
-   *   <li>Given {@link ArrayList#ArrayList()} add {@link TimerEventDefinition} (default
-   *       constructor).
-   * </ul>
-   *
-   * <p>Method under test: {@link DefaultJobManager#getMaxIterations(Process, String)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"int DefaultJobManager.getMaxIterations(Process, String)"})
-  public void testGetMaxIterations_givenArrayListAddTimerEventDefinition() {
-    // Arrange
-    DefaultJobManager defaultJobManager = new DefaultJobManager();
-
-    ArrayList<EventDefinition> eventDefinitions = new ArrayList<>();
-    eventDefinitions.add(new TimerEventDefinition());
-
-    BoundaryEvent boundaryEvent = new BoundaryEvent();
-    boundaryEvent.setEventDefinitions(eventDefinitions);
-
-    Process process = mock(Process.class);
-    when(process.getFlowElement(Mockito.<String>any(), anyBoolean())).thenReturn(boundaryEvent);
-
-    // Act
-    int actualMaxIterations = defaultJobManager.getMaxIterations(process, "42");
-
-    // Assert
-    verify(process).getFlowElement("42", true);
-    assertEquals(-1, actualMaxIterations);
-  }
-
-  /**
-   * Test {@link DefaultJobManager#getMaxIterations(Process, String)}.
-   *
-   * <ul>
-   *   <li>Given {@link BoundaryEvent} (default constructor).
-   * </ul>
-   *
-   * <p>Method under test: {@link DefaultJobManager#getMaxIterations(Process, String)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"int DefaultJobManager.getMaxIterations(Process, String)"})
   public void testGetMaxIterations_givenBoundaryEvent() {
     // Arrange
     DefaultJobManager defaultJobManager = new DefaultJobManager();
-
     Process process = mock(Process.class);
-    when(process.getFlowElement(Mockito.<String>any(), anyBoolean()))
-        .thenReturn(new BoundaryEvent());
+    when(process.getFlowElement(Mockito.<String>any(), anyBoolean())).thenReturn(new BoundaryEvent());
 
     // Act
     int actualMaxIterations = defaultJobManager.getMaxIterations(process, "42");
 
     // Assert
-    verify(process).getFlowElement("42", true);
+    verify(process).getFlowElement(eq("42"), eq(true));
     assertEquals(-1, actualMaxIterations);
   }
 
   /**
    * Test {@link DefaultJobManager#getMaxIterations(Process, String)}.
-   *
    * <ul>
-   *   <li>Given {@link BoundaryEvent} (default constructor) EventDefinitions is {@code null}.
+   *   <li>When {@link Process} (default constructor).</li>
+   *   <li>Then return minus one.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link DefaultJobManager#getMaxIterations(Process, String)}
+   * <p>
+   * Method under test: {@link DefaultJobManager#getMaxIterations(Process, String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"int DefaultJobManager.getMaxIterations(Process, String)"})
-  public void testGetMaxIterations_givenBoundaryEventEventDefinitionsIsNull() {
-    // Arrange
-    DefaultJobManager defaultJobManager = new DefaultJobManager();
-
-    BoundaryEvent boundaryEvent = new BoundaryEvent();
-    boundaryEvent.setEventDefinitions(null);
-
-    Process process = mock(Process.class);
-    when(process.getFlowElement(Mockito.<String>any(), anyBoolean())).thenReturn(boundaryEvent);
-
-    // Act
-    int actualMaxIterations = defaultJobManager.getMaxIterations(process, "42");
-
-    // Assert
-    verify(process).getFlowElement("42", true);
-    assertEquals(-1, actualMaxIterations);
-  }
-
-  /**
-   * Test {@link DefaultJobManager#getMaxIterations(Process, String)}.
-   *
-   * <ul>
-   *   <li>Given {@code null}.
-   *   <li>When {@link Process} {@link Process#getFlowElement(String, boolean)} return {@code null}.
-   * </ul>
-   *
-   * <p>Method under test: {@link DefaultJobManager#getMaxIterations(Process, String)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"int DefaultJobManager.getMaxIterations(Process, String)"})
-  public void testGetMaxIterations_givenNull_whenProcessGetFlowElementReturnNull() {
-    // Arrange
-    DefaultJobManager defaultJobManager = new DefaultJobManager();
-
-    Process process = mock(Process.class);
-    when(process.getFlowElement(Mockito.<String>any(), anyBoolean())).thenReturn(null);
-
-    // Act
-    int actualMaxIterations = defaultJobManager.getMaxIterations(process, "42");
-
-    // Assert
-    verify(process).getFlowElement("42", true);
-    assertEquals(-1, actualMaxIterations);
-  }
-
-  /**
-   * Test {@link DefaultJobManager#getMaxIterations(Process, String)}.
-   *
-   * <ul>
-   *   <li>Given {@link TimerEventDefinition} (default constructor) TimeCycle is {@code Flow
-   *       Element}.
-   * </ul>
-   *
-   * <p>Method under test: {@link DefaultJobManager#getMaxIterations(Process, String)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"int DefaultJobManager.getMaxIterations(Process, String)"})
-  public void testGetMaxIterations_givenTimerEventDefinitionTimeCycleIsFlowElement() {
-    // Arrange
-    DefaultJobManager defaultJobManager = new DefaultJobManager();
-
-    TimerEventDefinition timerEventDefinition = new TimerEventDefinition();
-    timerEventDefinition.setTimeCycle("Flow Element");
-
-    ArrayList<EventDefinition> eventDefinitions = new ArrayList<>();
-    eventDefinitions.add(timerEventDefinition);
-
-    BoundaryEvent boundaryEvent = new BoundaryEvent();
-    boundaryEvent.setEventDefinitions(eventDefinitions);
-
-    Process process = mock(Process.class);
-    when(process.getFlowElement(Mockito.<String>any(), anyBoolean())).thenReturn(boundaryEvent);
-
-    // Act
-    int actualMaxIterations = defaultJobManager.getMaxIterations(process, "42");
-
-    // Assert
-    verify(process).getFlowElement("42", true);
-    assertEquals(Integer.MAX_VALUE, actualMaxIterations);
-  }
-
-  /**
-   * Test {@link DefaultJobManager#getMaxIterations(Process, String)}.
-   *
-   * <ul>
-   *   <li>Given {@link TimerEventDefinition} (default constructor) TimeCycle is {@code foo/bar}.
-   * </ul>
-   *
-   * <p>Method under test: {@link DefaultJobManager#getMaxIterations(Process, String)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"int DefaultJobManager.getMaxIterations(Process, String)"})
-  public void testGetMaxIterations_givenTimerEventDefinitionTimeCycleIsFooBar() {
-    // Arrange
-    DefaultJobManager defaultJobManager = new DefaultJobManager();
-
-    TimerEventDefinition timerEventDefinition = new TimerEventDefinition();
-    timerEventDefinition.setTimeCycle("foo/bar");
-
-    ArrayList<EventDefinition> eventDefinitions = new ArrayList<>();
-    eventDefinitions.add(timerEventDefinition);
-
-    BoundaryEvent boundaryEvent = new BoundaryEvent();
-    boundaryEvent.setEventDefinitions(eventDefinitions);
-
-    Process process = mock(Process.class);
-    when(process.getFlowElement(Mockito.<String>any(), anyBoolean())).thenReturn(boundaryEvent);
-
-    // Act
-    int actualMaxIterations = defaultJobManager.getMaxIterations(process, "42");
-
-    // Assert
-    verify(process).getFlowElement("42", true);
-    assertEquals(Integer.MAX_VALUE, actualMaxIterations);
-  }
-
-  /**
-   * Test {@link DefaultJobManager#getMaxIterations(Process, String)}.
-   *
-   * <ul>
-   *   <li>Then throw {@link ActivitiException}.
-   * </ul>
-   *
-   * <p>Method under test: {@link DefaultJobManager#getMaxIterations(Process, String)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"int DefaultJobManager.getMaxIterations(Process, String)"})
-  public void testGetMaxIterations_thenThrowActivitiException() {
-    // Arrange
-    DefaultJobManager defaultJobManager = new DefaultJobManager();
-
-    BoundaryEvent boundaryEvent = mock(BoundaryEvent.class);
-    when(boundaryEvent.getEventDefinitions()).thenThrow(new ActivitiException("An error occurred"));
-
-    Process process = mock(Process.class);
-    when(process.getFlowElement(Mockito.<String>any(), anyBoolean())).thenReturn(boundaryEvent);
-
-    // Act and Assert
-    assertThrows(ActivitiException.class, () -> defaultJobManager.getMaxIterations(process, "42"));
-    verify(boundaryEvent).getEventDefinitions();
-    verify(process).getFlowElement("42", true);
-  }
-
-  /**
-   * Test {@link DefaultJobManager#getMaxIterations(Process, String)}.
-   *
-   * <ul>
-   *   <li>When createOneTaskProcessWithId {@code 42}.
-   *   <li>Then return minus one.
-   * </ul>
-   *
-   * <p>Method under test: {@link DefaultJobManager#getMaxIterations(Process, String)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"int DefaultJobManager.getMaxIterations(Process, String)"})
-  public void testGetMaxIterations_whenCreateOneTaskProcessWithId42_thenReturnMinusOne() {
+  public void testGetMaxIterations_whenProcess_thenReturnMinusOne() {
     // Arrange
     DefaultJobManager defaultJobManager = new DefaultJobManager();
 
     // Act and Assert
-    assertEquals(
-        -1,
-        defaultJobManager.getMaxIterations(TestProcessUtil.createOneTaskProcessWithId("42"), "42"));
+    assertEquals(-1, defaultJobManager.getMaxIterations(new Process(), "42"));
   }
 
   /**
    * Test {@link DefaultJobManager#calculateMaxIterationsValue(String)}.
-   *
    * <ul>
-   *   <li>When {@code foo/bar}.
-   *   <li>Then return {@link Integer#MAX_VALUE}.
+   *   <li>When {@code Original Expression}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link DefaultJobManager#calculateMaxIterationsValue(String)}
+   * <p>
+   * Method under test: {@link DefaultJobManager#calculateMaxIterationsValue(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"int DefaultJobManager.calculateMaxIterationsValue(String)"})
-  public void testCalculateMaxIterationsValue_whenFooBar_thenReturnMax_value() {
+  public void testCalculateMaxIterationsValue_whenOriginalExpression() {
     // Arrange, Act and Assert
-    assertEquals(Integer.MAX_VALUE, new DefaultJobManager().calculateMaxIterationsValue("foo/bar"));
+    assertEquals(Integer.MAX_VALUE, (new DefaultJobManager()).calculateMaxIterationsValue("Original Expression"));
   }
 
   /**
    * Test {@link DefaultJobManager#calculateMaxIterationsValue(String)}.
-   *
    * <ul>
-   *   <li>When {@code Original Expression}.
-   *   <li>Then return {@link Integer#MAX_VALUE}.
+   *   <li>When {@code /Original Expression}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link DefaultJobManager#calculateMaxIterationsValue(String)}
+   * <p>
+   * Method under test: {@link DefaultJobManager#calculateMaxIterationsValue(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"int DefaultJobManager.calculateMaxIterationsValue(String)"})
-  public void testCalculateMaxIterationsValue_whenOriginalExpression_thenReturnMax_value() {
+  public void testCalculateMaxIterationsValue_whenOriginalExpression2() {
     // Arrange, Act and Assert
-    assertEquals(
-        Integer.MAX_VALUE,
-        new DefaultJobManager().calculateMaxIterationsValue("Original Expression"));
+    assertEquals(Integer.MAX_VALUE, (new DefaultJobManager()).calculateMaxIterationsValue("/Original Expression"));
   }
 
   /**
    * Test {@link DefaultJobManager#getBusinessCalendarName(String, VariableScope)}.
-   *
    * <ul>
-   *   <li>When empty string.
-   *   <li>Then return {@code cycle}.
+   *   <li>When empty string.</li>
+   *   <li>Then return {@code cycle}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link DefaultJobManager#getBusinessCalendarName(String, VariableScope)}
+   * <p>
+   * Method under test: {@link DefaultJobManager#getBusinessCalendarName(String, VariableScope)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"String DefaultJobManager.getBusinessCalendarName(String, VariableScope)"})
   public void testGetBusinessCalendarName_whenEmptyString_thenReturnCycle() {
-    // Arrange, Act and Assert
-    assertEquals(
-        "cycle",
-        new DefaultJobManager()
-            .getBusinessCalendarName("", NoExecutionVariableScope.getSharedInstance()));
+    // Arrange
+    DefaultJobManager defaultJobManager = new DefaultJobManager();
+
+    // Act and Assert
+    assertEquals("cycle", defaultJobManager.getBusinessCalendarName("", NoExecutionVariableScope.getSharedInstance()));
   }
 
   /**
    * Test {@link DefaultJobManager#getBusinessCalendarName(String, VariableScope)}.
-   *
    * <ul>
-   *   <li>When {@code null}.
-   *   <li>Then return {@code cycle}.
+   *   <li>When {@code null}.</li>
+   *   <li>Then return {@code cycle}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link DefaultJobManager#getBusinessCalendarName(String, VariableScope)}
+   * <p>
+   * Method under test: {@link DefaultJobManager#getBusinessCalendarName(String, VariableScope)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"String DefaultJobManager.getBusinessCalendarName(String, VariableScope)"})
   public void testGetBusinessCalendarName_whenNull_thenReturnCycle() {
-    // Arrange, Act and Assert
-    assertEquals(
-        "cycle",
-        new DefaultJobManager()
-            .getBusinessCalendarName(null, NoExecutionVariableScope.getSharedInstance()));
-  }
-
-  /**
-   * Test {@link DefaultJobManager#internalCreateAsyncJob(ExecutionEntity, boolean)}.
-   *
-   * <p>Method under test: {@link DefaultJobManager#internalCreateAsyncJob(ExecutionEntity,
-   * boolean)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "JobEntity DefaultJobManager.internalCreateAsyncJob(ExecutionEntity, boolean)"
-  })
-  public void testInternalCreateAsyncJob() {
     // Arrange
-    JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();
-    JtaProcessEngineConfiguration processEngineConfiguration2 = new JtaProcessEngineConfiguration();
-    JobEntityManagerImpl jobEntityManager =
-        new JobEntityManagerImpl(
-            processEngineConfiguration2,
-            new MybatisJobDataManager(new JtaProcessEngineConfiguration()));
-    processEngineConfiguration.setJobEntityManager(jobEntityManager);
+    DefaultJobManager defaultJobManager = new DefaultJobManager();
 
-    DefaultJobManager defaultJobManager =
-        new DefaultJobManager(new JtaProcessEngineConfiguration());
-    defaultJobManager.setProcessEngineConfiguration(processEngineConfiguration);
-
-    ExecutionEntityImpl execution = ExecutionEntityImpl.createWithEmptyRelationshipCollections();
-    execution.setTenantId(null);
-
-    // Act
-    JobEntity actualInternalCreateAsyncJobResult =
-        defaultJobManager.internalCreateAsyncJob(execution, true);
-
-    // Assert
-    Object persistentState = actualInternalCreateAsyncJobResult.getPersistentState();
-    assertTrue(persistentState instanceof Map);
-    assertTrue(actualInternalCreateAsyncJobResult instanceof JobEntityImpl);
-    assertEquals("", actualInternalCreateAsyncJobResult.getTenantId());
-    assertEquals("async-continuation", actualInternalCreateAsyncJobResult.getJobHandlerType());
-    assertEquals("message", actualInternalCreateAsyncJobResult.getJobType());
-    assertNull(actualInternalCreateAsyncJobResult.getExceptionStacktrace());
-    assertNull(actualInternalCreateAsyncJobResult.getJobHandlerConfiguration());
-    assertNull(actualInternalCreateAsyncJobResult.getRepeat());
-    assertNull(actualInternalCreateAsyncJobResult.getId());
-    assertNull(actualInternalCreateAsyncJobResult.getLockOwner());
-    assertNull(actualInternalCreateAsyncJobResult.getExceptionMessage());
-    assertNull(actualInternalCreateAsyncJobResult.getExecutionId());
-    assertNull(actualInternalCreateAsyncJobResult.getProcessDefinitionId());
-    assertNull(actualInternalCreateAsyncJobResult.getProcessInstanceId());
-    assertNull(actualInternalCreateAsyncJobResult.getEndDate());
-    assertNull(actualInternalCreateAsyncJobResult.getLockExpirationTime());
-    assertNull(actualInternalCreateAsyncJobResult.getDuedate());
-    assertNull(actualInternalCreateAsyncJobResult.getExceptionByteArrayRef());
-    assertEquals(0, actualInternalCreateAsyncJobResult.getMaxIterations());
-    assertEquals(1, actualInternalCreateAsyncJobResult.getRevision());
-    assertEquals(2, actualInternalCreateAsyncJobResult.getRevisionNext());
-    assertEquals(3, actualInternalCreateAsyncJobResult.getRetries());
-    assertEquals(5, ((Map<String, Integer>) persistentState).size());
-    assertFalse(actualInternalCreateAsyncJobResult.isDeleted());
-    assertFalse(actualInternalCreateAsyncJobResult.isInserted());
-    assertFalse(actualInternalCreateAsyncJobResult.isUpdated());
-    assertTrue(((Map<String, Integer>) persistentState).containsKey("duedate"));
-    assertTrue(((Map<String, Integer>) persistentState).containsKey("exceptionMessage"));
-    assertTrue(((Map<String, Integer>) persistentState).containsKey("lockExpirationTime"));
-    assertTrue(((Map<String, Integer>) persistentState).containsKey("lockOwner"));
-    assertTrue(((Map<String, Integer>) persistentState).containsKey("retries"));
-    assertTrue(actualInternalCreateAsyncJobResult.isExclusive());
+    // Act and Assert
+    assertEquals("cycle",
+        defaultJobManager.getBusinessCalendarName(null, NoExecutionVariableScope.getSharedInstance()));
   }
 
   /**
    * Test {@link DefaultJobManager#internalCreateAsyncJob(ExecutionEntity, boolean)}.
-   *
    * <ul>
-   *   <li>Then PersistentState return {@link Map}.
+   *   <li>Then PersistentState return {@link Map}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link DefaultJobManager#internalCreateAsyncJob(ExecutionEntity,
-   * boolean)}
+   * <p>
+   * Method under test: {@link DefaultJobManager#internalCreateAsyncJob(ExecutionEntity, boolean)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "JobEntity DefaultJobManager.internalCreateAsyncJob(ExecutionEntity, boolean)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"JobEntity DefaultJobManager.internalCreateAsyncJob(ExecutionEntity, boolean)"})
   public void testInternalCreateAsyncJob_thenPersistentStateReturnMap() {
     // Arrange
     JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();
     JtaProcessEngineConfiguration processEngineConfiguration2 = new JtaProcessEngineConfiguration();
-    JobEntityManagerImpl jobEntityManager =
-        new JobEntityManagerImpl(
-            processEngineConfiguration2,
-            new MybatisJobDataManager(new JtaProcessEngineConfiguration()));
-    processEngineConfiguration.setJobEntityManager(jobEntityManager);
+    processEngineConfiguration.setJobEntityManager(new JobEntityManagerImpl(processEngineConfiguration2,
+        new MybatisJobDataManager(new JtaProcessEngineConfiguration())));
 
     DefaultJobManager defaultJobManager = new DefaultJobManager();
     defaultJobManager.setProcessEngineConfiguration(processEngineConfiguration);
 
     // Act
-    JobEntity actualInternalCreateAsyncJobResult =
-        defaultJobManager.internalCreateAsyncJob(
-            ExecutionEntityImpl.createWithEmptyRelationshipCollections(), true);
+    JobEntity actualInternalCreateAsyncJobResult = defaultJobManager
+        .internalCreateAsyncJob(ExecutionEntityImpl.createWithEmptyRelationshipCollections(), true);
 
     // Assert
     Object persistentState = actualInternalCreateAsyncJobResult.getPersistentState();
@@ -1421,121 +1596,31 @@ public class DefaultJobManagerDiffblueTest {
 
   /**
    * Test {@link DefaultJobManager#internalCreateLockedAsyncJob(ExecutionEntity, boolean)}.
-   *
-   * <p>Method under test: {@link DefaultJobManager#internalCreateLockedAsyncJob(ExecutionEntity,
-   * boolean)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "JobEntity DefaultJobManager.internalCreateLockedAsyncJob(ExecutionEntity, boolean)"
-  })
-  public void testInternalCreateLockedAsyncJob() {
-    // Arrange
-    JtaProcessEngineConfiguration processEngineConfiguration =
-        mock(JtaProcessEngineConfiguration.class);
-    when(processEngineConfiguration.getAsyncExecutorNumberOfRetries())
-        .thenThrow(new ActivitiException("An error occurred"));
-    JtaProcessEngineConfiguration processEngineConfiguration2 = new JtaProcessEngineConfiguration();
-    JobEntityManagerImpl jobEntityManagerImpl =
-        new JobEntityManagerImpl(
-            processEngineConfiguration2,
-            new MybatisJobDataManager(new JtaProcessEngineConfiguration()));
-    when(processEngineConfiguration.getJobEntityManager()).thenReturn(jobEntityManagerImpl);
-
-    DefaultJobManager defaultJobManager = new DefaultJobManager();
-    defaultJobManager.setProcessEngineConfiguration(processEngineConfiguration);
-
-    // Act and Assert
-    assertThrows(
-        ActivitiException.class,
-        () ->
-            defaultJobManager.internalCreateLockedAsyncJob(
-                ExecutionEntityImpl.createWithEmptyRelationshipCollections(), true));
-    verify(processEngineConfiguration).getAsyncExecutorNumberOfRetries();
-    verify(processEngineConfiguration).getJobEntityManager();
-  }
-
-  /**
-   * Test {@link DefaultJobManager#internalCreateLockedAsyncJob(ExecutionEntity, boolean)}.
-   *
-   * <p>Method under test: {@link DefaultJobManager#internalCreateLockedAsyncJob(ExecutionEntity,
-   * boolean)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "JobEntity DefaultJobManager.internalCreateLockedAsyncJob(ExecutionEntity, boolean)"
-  })
-  public void testInternalCreateLockedAsyncJob2() {
-    // Arrange
-    JtaProcessEngineConfiguration processEngineConfiguration =
-        mock(JtaProcessEngineConfiguration.class);
-    when(processEngineConfiguration.getAsyncExecutor())
-        .thenThrow(new ActivitiException("An error occurred"));
-    when(processEngineConfiguration.getAsyncExecutorNumberOfRetries()).thenReturn(10);
-    when(processEngineConfiguration.getClock()).thenReturn(new DefaultClockImpl());
-    JtaProcessEngineConfiguration processEngineConfiguration2 = new JtaProcessEngineConfiguration();
-    JobEntityManagerImpl jobEntityManagerImpl =
-        new JobEntityManagerImpl(
-            processEngineConfiguration2,
-            new MybatisJobDataManager(new JtaProcessEngineConfiguration()));
-    when(processEngineConfiguration.getJobEntityManager()).thenReturn(jobEntityManagerImpl);
-
-    DefaultJobManager defaultJobManager = new DefaultJobManager();
-    defaultJobManager.setProcessEngineConfiguration(processEngineConfiguration);
-
-    // Act and Assert
-    assertThrows(
-        ActivitiException.class,
-        () ->
-            defaultJobManager.internalCreateLockedAsyncJob(
-                ExecutionEntityImpl.createWithEmptyRelationshipCollections(), true));
-    verify(processEngineConfiguration).getAsyncExecutor();
-    verify(processEngineConfiguration).getClock();
-    verify(processEngineConfiguration).getAsyncExecutorNumberOfRetries();
-    verify(processEngineConfiguration).getJobEntityManager();
-  }
-
-  /**
-   * Test {@link DefaultJobManager#internalCreateLockedAsyncJob(ExecutionEntity, boolean)}.
-   *
    * <ul>
-   *   <li>Then PersistentState return {@link Map}.
+   *   <li>Then PersistentState return {@link Map}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link DefaultJobManager#internalCreateLockedAsyncJob(ExecutionEntity,
-   * boolean)}
+   * <p>
+   * Method under test: {@link DefaultJobManager#internalCreateLockedAsyncJob(ExecutionEntity, boolean)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "JobEntity DefaultJobManager.internalCreateLockedAsyncJob(ExecutionEntity, boolean)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"JobEntity DefaultJobManager.internalCreateLockedAsyncJob(ExecutionEntity, boolean)"})
   public void testInternalCreateLockedAsyncJob_thenPersistentStateReturnMap() {
     // Arrange
-    JtaProcessEngineConfiguration processEngineConfiguration =
-        mock(JtaProcessEngineConfiguration.class);
+    JtaProcessEngineConfiguration processEngineConfiguration = mock(JtaProcessEngineConfiguration.class);
     when(processEngineConfiguration.getAsyncExecutor()).thenReturn(new DefaultAsyncJobExecutor());
     when(processEngineConfiguration.getAsyncExecutorNumberOfRetries()).thenReturn(10);
     when(processEngineConfiguration.getClock()).thenReturn(new DefaultClockImpl());
     JtaProcessEngineConfiguration processEngineConfiguration2 = new JtaProcessEngineConfiguration();
-    JobEntityManagerImpl jobEntityManagerImpl =
-        new JobEntityManagerImpl(
-            processEngineConfiguration2,
-            new MybatisJobDataManager(new JtaProcessEngineConfiguration()));
-    when(processEngineConfiguration.getJobEntityManager()).thenReturn(jobEntityManagerImpl);
+    when(processEngineConfiguration.getJobEntityManager()).thenReturn(new JobEntityManagerImpl(
+        processEngineConfiguration2, new MybatisJobDataManager(new JtaProcessEngineConfiguration())));
 
     DefaultJobManager defaultJobManager = new DefaultJobManager();
     defaultJobManager.setProcessEngineConfiguration(processEngineConfiguration);
 
     // Act
-    JobEntity actualInternalCreateLockedAsyncJobResult =
-        defaultJobManager.internalCreateLockedAsyncJob(
-            ExecutionEntityImpl.createWithEmptyRelationshipCollections(), true);
+    JobEntity actualInternalCreateLockedAsyncJobResult = defaultJobManager
+        .internalCreateLockedAsyncJob(ExecutionEntityImpl.createWithEmptyRelationshipCollections(), true);
 
     // Assert
     verify(processEngineConfiguration, atLeast(1)).getAsyncExecutor();
@@ -1546,8 +1631,7 @@ public class DefaultJobManagerDiffblueTest {
     assertTrue(persistentState instanceof Map);
     assertTrue(actualInternalCreateLockedAsyncJobResult instanceof JobEntityImpl);
     assertEquals("", actualInternalCreateLockedAsyncJobResult.getTenantId());
-    assertEquals(
-        "async-continuation", actualInternalCreateLockedAsyncJobResult.getJobHandlerType());
+    assertEquals("async-continuation", actualInternalCreateLockedAsyncJobResult.getJobHandlerType());
     assertEquals("message", actualInternalCreateLockedAsyncJobResult.getJobType());
     assertNull(actualInternalCreateLockedAsyncJobResult.getExceptionStacktrace());
     assertNull(actualInternalCreateLockedAsyncJobResult.getJobHandlerConfiguration());
@@ -1578,22 +1662,16 @@ public class DefaultJobManagerDiffblueTest {
 
   /**
    * Test {@link DefaultJobManager#fillDefaultAsyncJobInfo(JobEntity, ExecutionEntity, boolean)}.
-   *
-   * <p>Method under test: {@link DefaultJobManager#fillDefaultAsyncJobInfo(JobEntity,
-   * ExecutionEntity, boolean)}
+   * <p>
+   * Method under test: {@link DefaultJobManager#fillDefaultAsyncJobInfo(JobEntity, ExecutionEntity, boolean)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void DefaultJobManager.fillDefaultAsyncJobInfo(JobEntity, ExecutionEntity, boolean)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void DefaultJobManager.fillDefaultAsyncJobInfo(JobEntity, ExecutionEntity, boolean)"})
   public void testFillDefaultAsyncJobInfo() {
     // Arrange
-    DefaultJobManager defaultJobManager =
-        new DefaultJobManager(new JtaProcessEngineConfiguration());
+    DefaultJobManager defaultJobManager = new DefaultJobManager(new JtaProcessEngineConfiguration());
     JobEntityImpl jobEntity = new JobEntityImpl();
-
     ExecutionEntityImpl execution = ExecutionEntityImpl.createWithEmptyRelationshipCollections();
     execution.setTenantId(null);
 
@@ -1616,20 +1694,15 @@ public class DefaultJobManagerDiffblueTest {
 
   /**
    * Test {@link DefaultJobManager#fillDefaultAsyncJobInfo(JobEntity, ExecutionEntity, boolean)}.
-   *
    * <ul>
-   *   <li>Then {@link JobEntityImpl} (default constructor) PersistentState {@link Map}.
+   *   <li>Then {@link JobEntityImpl} (default constructor) PersistentState {@link Map}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link DefaultJobManager#fillDefaultAsyncJobInfo(JobEntity,
-   * ExecutionEntity, boolean)}
+   * <p>
+   * Method under test: {@link DefaultJobManager#fillDefaultAsyncJobInfo(JobEntity, ExecutionEntity, boolean)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void DefaultJobManager.fillDefaultAsyncJobInfo(JobEntity, ExecutionEntity, boolean)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void DefaultJobManager.fillDefaultAsyncJobInfo(JobEntity, ExecutionEntity, boolean)"})
   public void testFillDefaultAsyncJobInfo_thenJobEntityImplPersistentStateMap() {
     // Arrange
     DefaultJobManager defaultJobManager = new DefaultJobManager();
@@ -1637,8 +1710,8 @@ public class DefaultJobManagerDiffblueTest {
     JobEntityImpl jobEntity = new JobEntityImpl();
 
     // Act
-    defaultJobManager.fillDefaultAsyncJobInfo(
-        jobEntity, ExecutionEntityImpl.createWithEmptyRelationshipCollections(), true);
+    defaultJobManager.fillDefaultAsyncJobInfo(jobEntity, ExecutionEntityImpl.createWithEmptyRelationshipCollections(),
+        true);
 
     // Assert
     Object persistentState = jobEntity.getPersistentState();
@@ -1656,218 +1729,243 @@ public class DefaultJobManagerDiffblueTest {
 
   /**
    * Test {@link DefaultJobManager#createExecutableJobFromOtherJob(AbstractJobEntity)}.
-   *
-   * <ul>
-   *   <li>Given {@code stacktrace}.
-   *   <li>Then return Id is {@code 42}.
-   * </ul>
-   *
-   * <p>Method under test: {@link
-   * DefaultJobManager#createExecutableJobFromOtherJob(AbstractJobEntity)}
+   * <p>
+   * Method under test: {@link DefaultJobManager#createExecutableJobFromOtherJob(AbstractJobEntity)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "JobEntity DefaultJobManager.createExecutableJobFromOtherJob(AbstractJobEntity)"
-  })
-  public void testCreateExecutableJobFromOtherJob_givenStacktrace_thenReturnIdIs42() {
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"JobEntity DefaultJobManager.createExecutableJobFromOtherJob(AbstractJobEntity)"})
+  public void testCreateExecutableJobFromOtherJob() {
     // Arrange
-    JtaProcessEngineConfiguration processEngineConfiguration =
-        mock(JtaProcessEngineConfiguration.class);
+    JtaProcessEngineConfiguration processEngineConfiguration = mock(JtaProcessEngineConfiguration.class);
     when(processEngineConfiguration.getAsyncExecutor()).thenReturn(new DefaultAsyncJobExecutor());
     JtaProcessEngineConfiguration processEngineConfiguration2 = new JtaProcessEngineConfiguration();
-    JobEntityManagerImpl jobEntityManagerImpl =
-        new JobEntityManagerImpl(
-            processEngineConfiguration2,
-            new MybatisJobDataManager(new JtaProcessEngineConfiguration()));
-    when(processEngineConfiguration.getJobEntityManager()).thenReturn(jobEntityManagerImpl);
+    when(processEngineConfiguration.getJobEntityManager()).thenReturn(new JobEntityManagerImpl(
+        processEngineConfiguration2, new MybatisJobDataManager(new JtaProcessEngineConfiguration())));
 
     DefaultJobManager defaultJobManager = new DefaultJobManager();
     defaultJobManager.setProcessEngineConfiguration(processEngineConfiguration);
 
-    JobEntityImpl job = new JobEntityImpl();
-    job.setDeleted(true);
-    job.setDuedate(
-        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
-    job.setEndDate(
-        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
-    job.setExceptionMessage("An error occurred");
-    job.setExclusive(true);
-    job.setExecutionId("42");
-    job.setId("42");
-    job.setInserted(true);
-    job.setJobHandlerConfiguration("stacktrace");
-    job.setJobHandlerType("stacktrace");
-    job.setJobType("stacktrace");
-    job.setLockExpirationTime(
-        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
-    job.setLockOwner("stacktrace");
-    job.setMaxIterations(3);
-    job.setProcessDefinitionId("42");
-    job.setProcessInstanceId("42");
-    job.setRepeat("stacktrace");
-    job.setRetries(1);
-    job.setRevision(1);
-    job.setTenantId("42");
-    job.setUpdated(true);
-
     // Act
-    JobEntity actualCreateExecutableJobFromOtherJobResult =
-        defaultJobManager.createExecutableJobFromOtherJob(job);
+    JobEntity actualCreateExecutableJobFromOtherJobResult = defaultJobManager
+        .createExecutableJobFromOtherJob(new DeadLetterJobEntityImpl());
 
     // Assert
     verify(processEngineConfiguration).getAsyncExecutor();
     verify(processEngineConfiguration).getJobEntityManager();
-    assertTrue(actualCreateExecutableJobFromOtherJobResult.getPersistentState() instanceof Map);
+    Object persistentState = actualCreateExecutableJobFromOtherJobResult.getPersistentState();
+    assertTrue(persistentState instanceof Map);
     assertTrue(actualCreateExecutableJobFromOtherJobResult instanceof JobEntityImpl);
-    assertEquals("42", actualCreateExecutableJobFromOtherJobResult.getId());
-    assertEquals("42", actualCreateExecutableJobFromOtherJobResult.getExecutionId());
-    assertEquals("42", actualCreateExecutableJobFromOtherJobResult.getProcessDefinitionId());
-    assertEquals("42", actualCreateExecutableJobFromOtherJobResult.getProcessInstanceId());
-    assertEquals("42", actualCreateExecutableJobFromOtherJobResult.getTenantId());
-    assertEquals(
-        "An error occurred", actualCreateExecutableJobFromOtherJobResult.getExceptionMessage());
-    assertEquals(
-        "stacktrace", actualCreateExecutableJobFromOtherJobResult.getJobHandlerConfiguration());
-    assertEquals("stacktrace", actualCreateExecutableJobFromOtherJobResult.getJobHandlerType());
-    assertEquals("stacktrace", actualCreateExecutableJobFromOtherJobResult.getJobType());
-    assertEquals("stacktrace", actualCreateExecutableJobFromOtherJobResult.getRepeat());
-    assertEquals(1, actualCreateExecutableJobFromOtherJobResult.getRetries());
-    assertEquals(3, actualCreateExecutableJobFromOtherJobResult.getMaxIterations());
+    assertEquals(6, ((Map<String, Integer>) persistentState).size());
+    assertNull(((Map<String, Integer>) persistentState).get("lockExpirationTime"));
+    assertNull(((Map<String, Integer>) persistentState).get("lockOwner"));
+    assertNull(actualCreateExecutableJobFromOtherJobResult.getLockOwner());
+    assertNull(actualCreateExecutableJobFromOtherJobResult.getLockExpirationTime());
+    assertTrue(((Map<String, Integer>) persistentState).containsKey("duedate"));
+    assertTrue(((Map<String, Integer>) persistentState).containsKey("exceptionByteArrayId"));
+    assertTrue(((Map<String, Integer>) persistentState).containsKey("exceptionMessage"));
+    assertTrue(((Map<String, Integer>) persistentState).containsKey("retries"));
   }
 
   /**
    * Test {@link DefaultJobManager#createExecutableJobFromOtherJob(AbstractJobEntity)}.
-   *
    * <ul>
-   *   <li>Then return TenantId is empty string.
+   *   <li>Then calls {@link AbstractEntity#setId(String)}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link
-   * DefaultJobManager#createExecutableJobFromOtherJob(AbstractJobEntity)}
+   * <p>
+   * Method under test: {@link DefaultJobManager#createExecutableJobFromOtherJob(AbstractJobEntity)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "JobEntity DefaultJobManager.createExecutableJobFromOtherJob(AbstractJobEntity)"
-  })
-  public void testCreateExecutableJobFromOtherJob_thenReturnTenantIdIsEmptyString() {
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"JobEntity DefaultJobManager.createExecutableJobFromOtherJob(AbstractJobEntity)"})
+  public void testCreateExecutableJobFromOtherJob_thenCallsSetId() {
     // Arrange
-    JtaProcessEngineConfiguration processEngineConfiguration =
-        mock(JtaProcessEngineConfiguration.class);
-    when(processEngineConfiguration.getAsyncExecutor()).thenReturn(new DefaultAsyncJobExecutor());
-    JtaProcessEngineConfiguration processEngineConfiguration2 = new JtaProcessEngineConfiguration();
-    JobEntityManagerImpl jobEntityManagerImpl =
-        new JobEntityManagerImpl(
-            processEngineConfiguration2,
-            new MybatisJobDataManager(new JtaProcessEngineConfiguration()));
+    JobEntityImpl jobEntityImpl = mock(JobEntityImpl.class);
+    doNothing().when(jobEntityImpl).setId(Mockito.<String>any());
+    doNothing().when(jobEntityImpl).setRevision(anyInt());
+    doNothing().when(jobEntityImpl).setDuedate(Mockito.<Date>any());
+    doNothing().when(jobEntityImpl).setEndDate(Mockito.<Date>any());
+    doNothing().when(jobEntityImpl).setExceptionMessage(Mockito.<String>any());
+    doNothing().when(jobEntityImpl).setExceptionStacktrace(Mockito.<String>any());
+    doNothing().when(jobEntityImpl).setExclusive(anyBoolean());
+    doNothing().when(jobEntityImpl).setExecutionId(Mockito.<String>any());
+    doNothing().when(jobEntityImpl).setJobHandlerConfiguration(Mockito.<String>any());
+    doNothing().when(jobEntityImpl).setJobHandlerType(Mockito.<String>any());
+    doNothing().when(jobEntityImpl).setJobType(Mockito.<String>any());
+    doNothing().when(jobEntityImpl).setMaxIterations(anyInt());
+    doNothing().when(jobEntityImpl).setProcessDefinitionId(Mockito.<String>any());
+    doNothing().when(jobEntityImpl).setProcessInstanceId(Mockito.<String>any());
+    doNothing().when(jobEntityImpl).setRepeat(Mockito.<String>any());
+    doNothing().when(jobEntityImpl).setRetries(anyInt());
+    doNothing().when(jobEntityImpl).setTenantId(Mockito.<String>any());
+    doNothing().when(jobEntityImpl).setLockExpirationTime(Mockito.<Date>any());
+    doNothing().when(jobEntityImpl).setLockOwner(Mockito.<String>any());
+    MybatisJobDataManager jobDataManager = mock(MybatisJobDataManager.class);
+    when(jobDataManager.create()).thenReturn(jobEntityImpl);
+    JobEntityManagerImpl jobEntityManagerImpl = new JobEntityManagerImpl(new JtaProcessEngineConfiguration(),
+        jobDataManager);
+
+    AsyncExecutor asyncExecutor = mock(AsyncExecutor.class);
+    when(asyncExecutor.getTimerLockTimeInMillis()).thenReturn(1);
+    when(asyncExecutor.getLockOwner()).thenReturn("Lock Owner");
+    when(asyncExecutor.isActive()).thenReturn(true);
+    Clock clock = mock(Clock.class);
+    when(clock.getCurrentTime())
+        .thenReturn(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
+    JtaProcessEngineConfiguration processEngineConfiguration = mock(JtaProcessEngineConfiguration.class);
+    when(processEngineConfiguration.getClock()).thenReturn(clock);
+    when(processEngineConfiguration.getAsyncExecutor()).thenReturn(asyncExecutor);
     when(processEngineConfiguration.getJobEntityManager()).thenReturn(jobEntityManagerImpl);
 
     DefaultJobManager defaultJobManager = new DefaultJobManager();
     defaultJobManager.setProcessEngineConfiguration(processEngineConfiguration);
 
     // Act
-    JobEntity actualCreateExecutableJobFromOtherJobResult =
-        defaultJobManager.createExecutableJobFromOtherJob(new DeadLetterJobEntityImpl());
+    defaultJobManager.createExecutableJobFromOtherJob(new DeadLetterJobEntityImpl());
 
     // Assert
-    verify(processEngineConfiguration).getAsyncExecutor();
+    verify(processEngineConfiguration, atLeast(1)).getAsyncExecutor();
+    verify(processEngineConfiguration).getClock();
+    verify(asyncExecutor).getLockOwner();
+    verify(asyncExecutor).getTimerLockTimeInMillis();
+    verify(asyncExecutor).isActive();
     verify(processEngineConfiguration).getJobEntityManager();
-    assertTrue(actualCreateExecutableJobFromOtherJobResult.getPersistentState() instanceof Map);
-    assertTrue(actualCreateExecutableJobFromOtherJobResult instanceof JobEntityImpl);
-    assertEquals("", actualCreateExecutableJobFromOtherJobResult.getTenantId());
-    assertNull(actualCreateExecutableJobFromOtherJobResult.getJobHandlerConfiguration());
-    assertNull(actualCreateExecutableJobFromOtherJobResult.getJobHandlerType());
-    assertNull(actualCreateExecutableJobFromOtherJobResult.getJobType());
-    assertNull(actualCreateExecutableJobFromOtherJobResult.getRepeat());
-    assertNull(actualCreateExecutableJobFromOtherJobResult.getId());
-    assertNull(actualCreateExecutableJobFromOtherJobResult.getExceptionMessage());
-    assertNull(actualCreateExecutableJobFromOtherJobResult.getExecutionId());
-    assertNull(actualCreateExecutableJobFromOtherJobResult.getProcessDefinitionId());
-    assertNull(actualCreateExecutableJobFromOtherJobResult.getProcessInstanceId());
-    assertNull(actualCreateExecutableJobFromOtherJobResult.getEndDate());
-    assertNull(actualCreateExecutableJobFromOtherJobResult.getDuedate());
-    assertEquals(0, actualCreateExecutableJobFromOtherJobResult.getMaxIterations());
-    assertEquals(0, actualCreateExecutableJobFromOtherJobResult.getRetries());
+    verify(jobEntityImpl).setId(isNull());
+    verify(jobEntityImpl).setRevision(eq(1));
+    verify(jobEntityImpl).setDuedate(isNull());
+    verify(jobEntityImpl).setEndDate(isNull());
+    verify(jobEntityImpl).setExceptionMessage(isNull());
+    verify(jobEntityImpl).setExceptionStacktrace(isNull());
+    verify(jobEntityImpl).setExclusive(eq(true));
+    verify(jobEntityImpl).setExecutionId(isNull());
+    verify(jobEntityImpl).setJobHandlerConfiguration(isNull());
+    verify(jobEntityImpl).setJobHandlerType(isNull());
+    verify(jobEntityImpl).setJobType(isNull());
+    verify(jobEntityImpl).setMaxIterations(eq(0));
+    verify(jobEntityImpl).setProcessDefinitionId(isNull());
+    verify(jobEntityImpl).setProcessInstanceId(isNull());
+    verify(jobEntityImpl).setRepeat(isNull());
+    verify(jobEntityImpl).setRetries(eq(0));
+    verify(jobEntityImpl).setTenantId(eq(""));
+    verify(jobEntityImpl).setLockExpirationTime(isA(Date.class));
+    verify(jobEntityImpl).setLockOwner(eq("Lock Owner"));
+    verify(jobDataManager).create();
+    verify(clock).getCurrentTime();
   }
 
   /**
    * Test {@link DefaultJobManager#createExecutableJobFromOtherJob(AbstractJobEntity)}.
-   *
    * <ul>
-   *   <li>Then throw {@link ActivitiException}.
+   *   <li>Then return {@code Lock Owner}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link
-   * DefaultJobManager#createExecutableJobFromOtherJob(AbstractJobEntity)}
+   * <p>
+   * Method under test: {@link DefaultJobManager#createExecutableJobFromOtherJob(AbstractJobEntity)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "JobEntity DefaultJobManager.createExecutableJobFromOtherJob(AbstractJobEntity)"
-  })
-  public void testCreateExecutableJobFromOtherJob_thenThrowActivitiException() {
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"JobEntity DefaultJobManager.createExecutableJobFromOtherJob(AbstractJobEntity)"})
+  public void testCreateExecutableJobFromOtherJob_thenReturnLockOwner() {
     // Arrange
-    JtaProcessEngineConfiguration processEngineConfiguration =
-        mock(JtaProcessEngineConfiguration.class);
-    when(processEngineConfiguration.getAsyncExecutor())
-        .thenThrow(new ActivitiException("An error occurred"));
+    AsyncExecutor asyncExecutor = mock(AsyncExecutor.class);
+    when(asyncExecutor.getTimerLockTimeInMillis()).thenReturn(1);
+    when(asyncExecutor.getLockOwner()).thenReturn("Lock Owner");
+    when(asyncExecutor.isActive()).thenReturn(true);
+    JtaProcessEngineConfiguration processEngineConfiguration = mock(JtaProcessEngineConfiguration.class);
+    when(processEngineConfiguration.getClock()).thenReturn(new DefaultClockImpl());
+    when(processEngineConfiguration.getAsyncExecutor()).thenReturn(asyncExecutor);
     JtaProcessEngineConfiguration processEngineConfiguration2 = new JtaProcessEngineConfiguration();
-    JobEntityManagerImpl jobEntityManagerImpl =
-        new JobEntityManagerImpl(
-            processEngineConfiguration2,
-            new MybatisJobDataManager(new JtaProcessEngineConfiguration()));
-    when(processEngineConfiguration.getJobEntityManager()).thenReturn(jobEntityManagerImpl);
+    when(processEngineConfiguration.getJobEntityManager()).thenReturn(new JobEntityManagerImpl(
+        processEngineConfiguration2, new MybatisJobDataManager(new JtaProcessEngineConfiguration())));
+
+    DefaultJobManager defaultJobManager = new DefaultJobManager();
+    defaultJobManager.setProcessEngineConfiguration(processEngineConfiguration);
+
+    // Act
+    JobEntity actualCreateExecutableJobFromOtherJobResult = defaultJobManager
+        .createExecutableJobFromOtherJob(new DeadLetterJobEntityImpl());
+
+    // Assert
+    verify(processEngineConfiguration, atLeast(1)).getAsyncExecutor();
+    verify(processEngineConfiguration).getClock();
+    verify(asyncExecutor).getLockOwner();
+    verify(asyncExecutor).getTimerLockTimeInMillis();
+    verify(asyncExecutor).isActive();
+    verify(processEngineConfiguration).getJobEntityManager();
+    Object persistentState = actualCreateExecutableJobFromOtherJobResult.getPersistentState();
+    assertTrue(persistentState instanceof Map);
+    assertTrue(actualCreateExecutableJobFromOtherJobResult instanceof JobEntityImpl);
+    assertEquals("Lock Owner", actualCreateExecutableJobFromOtherJobResult.getLockOwner());
+    assertEquals(6, ((Map<String, Object>) persistentState).size());
+    assertEquals("Lock Owner", ((Map<String, Object>) persistentState).get("lockOwner"));
+    assertTrue(((Map<String, Object>) persistentState).containsKey("duedate"));
+    assertTrue(((Map<String, Object>) persistentState).containsKey("exceptionByteArrayId"));
+    assertTrue(((Map<String, Object>) persistentState).containsKey("exceptionMessage"));
+    Date expectedGetResult = actualCreateExecutableJobFromOtherJobResult.getLockExpirationTime();
+    assertSame(expectedGetResult, ((Map<String, Object>) persistentState).get("lockExpirationTime"));
+  }
+
+  /**
+   * Test {@link DefaultJobManager#createExecutableJobFromOtherJob(AbstractJobEntity)}.
+   * <ul>
+   *   <li>Then throw {@link ActivitiIllegalArgumentException}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link DefaultJobManager#createExecutableJobFromOtherJob(AbstractJobEntity)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"JobEntity DefaultJobManager.createExecutableJobFromOtherJob(AbstractJobEntity)"})
+  public void testCreateExecutableJobFromOtherJob_thenThrowActivitiIllegalArgumentException() {
+    // Arrange
+    AsyncExecutor asyncExecutor = mock(AsyncExecutor.class);
+    when(asyncExecutor.getTimerLockTimeInMillis()).thenThrow(new ActivitiIllegalArgumentException("An error occurred"));
+    when(asyncExecutor.isActive()).thenReturn(true);
+    JtaProcessEngineConfiguration processEngineConfiguration = mock(JtaProcessEngineConfiguration.class);
+    when(processEngineConfiguration.getClock()).thenReturn(new DefaultClockImpl());
+    when(processEngineConfiguration.getAsyncExecutor()).thenReturn(asyncExecutor);
+    JtaProcessEngineConfiguration processEngineConfiguration2 = new JtaProcessEngineConfiguration();
+    when(processEngineConfiguration.getJobEntityManager()).thenReturn(new JobEntityManagerImpl(
+        processEngineConfiguration2, new MybatisJobDataManager(new JtaProcessEngineConfiguration())));
 
     DefaultJobManager defaultJobManager = new DefaultJobManager();
     defaultJobManager.setProcessEngineConfiguration(processEngineConfiguration);
 
     // Act and Assert
-    assertThrows(
-        ActivitiException.class,
+    assertThrows(ActivitiIllegalArgumentException.class,
         () -> defaultJobManager.createExecutableJobFromOtherJob(new DeadLetterJobEntityImpl()));
-    verify(processEngineConfiguration).getAsyncExecutor();
+    verify(processEngineConfiguration, atLeast(1)).getAsyncExecutor();
+    verify(processEngineConfiguration).getClock();
+    verify(asyncExecutor).getTimerLockTimeInMillis();
+    verify(asyncExecutor).isActive();
     verify(processEngineConfiguration).getJobEntityManager();
   }
 
   /**
    * Test {@link DefaultJobManager#createTimerJobFromOtherJob(AbstractJobEntity)}.
-   *
    * <ul>
-   *   <li>Given {@code stacktrace}.
-   *   <li>Then return Id is {@code 42}.
+   *   <li>Given {@code stacktrace}.</li>
+   *   <li>Then return Id is {@code 42}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link DefaultJobManager#createTimerJobFromOtherJob(AbstractJobEntity)}
+   * <p>
+   * Method under test: {@link DefaultJobManager#createTimerJobFromOtherJob(AbstractJobEntity)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "TimerJobEntity DefaultJobManager.createTimerJobFromOtherJob(AbstractJobEntity)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"TimerJobEntity DefaultJobManager.createTimerJobFromOtherJob(AbstractJobEntity)"})
   public void testCreateTimerJobFromOtherJob_givenStacktrace_thenReturnIdIs42() {
     // Arrange
     JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();
     JtaProcessEngineConfiguration processEngineConfiguration2 = new JtaProcessEngineConfiguration();
-    TimerJobEntityManagerImpl timerJobEntityManager =
-        new TimerJobEntityManagerImpl(
-            processEngineConfiguration2,
-            new MybatisTimerJobDataManager(new JtaProcessEngineConfiguration()));
-    processEngineConfiguration.setTimerJobEntityManager(timerJobEntityManager);
+    processEngineConfiguration.setTimerJobEntityManager(new TimerJobEntityManagerImpl(processEngineConfiguration2,
+        new MybatisTimerJobDataManager(new JtaProcessEngineConfiguration())));
 
     DefaultJobManager defaultJobManager = new DefaultJobManager();
     defaultJobManager.setProcessEngineConfiguration(processEngineConfiguration);
 
     TimerJobEntityImpl otherJob = new TimerJobEntityImpl();
     otherJob.setDeleted(true);
-    otherJob.setDuedate(
-        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
-    otherJob.setEndDate(
-        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
+    otherJob.setDuedate(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
+    otherJob.setEndDate(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
     otherJob.setExceptionMessage("An error occurred");
     otherJob.setExclusive(true);
     otherJob.setExecutionId("42");
@@ -1876,8 +1974,8 @@ public class DefaultJobManagerDiffblueTest {
     otherJob.setJobHandlerConfiguration("stacktrace");
     otherJob.setJobHandlerType("stacktrace");
     otherJob.setJobType("stacktrace");
-    otherJob.setLockExpirationTime(
-        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
+    otherJob
+        .setLockExpirationTime(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
     otherJob.setLockOwner("stacktrace");
     otherJob.setMaxIterations(3);
     otherJob.setProcessDefinitionId("42");
@@ -1889,8 +1987,7 @@ public class DefaultJobManagerDiffblueTest {
     otherJob.setUpdated(true);
 
     // Act
-    TimerJobEntity actualCreateTimerJobFromOtherJobResult =
-        defaultJobManager.createTimerJobFromOtherJob(otherJob);
+    TimerJobEntity actualCreateTimerJobFromOtherJobResult = defaultJobManager.createTimerJobFromOtherJob(otherJob);
 
     // Assert
     assertTrue(actualCreateTimerJobFromOtherJobResult.getPersistentState() instanceof Map);
@@ -1911,35 +2008,28 @@ public class DefaultJobManagerDiffblueTest {
 
   /**
    * Test {@link DefaultJobManager#createTimerJobFromOtherJob(AbstractJobEntity)}.
-   *
    * <ul>
-   *   <li>Then return TenantId is empty string.
+   *   <li>Then return TenantId is empty string.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link DefaultJobManager#createTimerJobFromOtherJob(AbstractJobEntity)}
+   * <p>
+   * Method under test: {@link DefaultJobManager#createTimerJobFromOtherJob(AbstractJobEntity)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "TimerJobEntity DefaultJobManager.createTimerJobFromOtherJob(AbstractJobEntity)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"TimerJobEntity DefaultJobManager.createTimerJobFromOtherJob(AbstractJobEntity)"})
   public void testCreateTimerJobFromOtherJob_thenReturnTenantIdIsEmptyString() {
     // Arrange
     JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();
     JtaProcessEngineConfiguration processEngineConfiguration2 = new JtaProcessEngineConfiguration();
-    TimerJobEntityManagerImpl timerJobEntityManager =
-        new TimerJobEntityManagerImpl(
-            processEngineConfiguration2,
-            new MybatisTimerJobDataManager(new JtaProcessEngineConfiguration()));
-    processEngineConfiguration.setTimerJobEntityManager(timerJobEntityManager);
+    processEngineConfiguration.setTimerJobEntityManager(new TimerJobEntityManagerImpl(processEngineConfiguration2,
+        new MybatisTimerJobDataManager(new JtaProcessEngineConfiguration())));
 
     DefaultJobManager defaultJobManager = new DefaultJobManager();
     defaultJobManager.setProcessEngineConfiguration(processEngineConfiguration);
 
     // Act
-    TimerJobEntity actualCreateTimerJobFromOtherJobResult =
-        defaultJobManager.createTimerJobFromOtherJob(new DeadLetterJobEntityImpl());
+    TimerJobEntity actualCreateTimerJobFromOtherJobResult = defaultJobManager
+        .createTimerJobFromOtherJob(new DeadLetterJobEntityImpl());
 
     // Assert
     assertTrue(actualCreateTimerJobFromOtherJobResult.getPersistentState() instanceof Map);
@@ -1962,40 +2052,30 @@ public class DefaultJobManagerDiffblueTest {
 
   /**
    * Test {@link DefaultJobManager#createSuspendedJobFromOtherJob(AbstractJobEntity)}.
-   *
    * <ul>
-   *   <li>Given {@code stacktrace}.
-   *   <li>Then return Id is {@code 42}.
+   *   <li>Given {@code stacktrace}.</li>
+   *   <li>Then return Id is {@code 42}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link
-   * DefaultJobManager#createSuspendedJobFromOtherJob(AbstractJobEntity)}
+   * <p>
+   * Method under test: {@link DefaultJobManager#createSuspendedJobFromOtherJob(AbstractJobEntity)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "SuspendedJobEntity DefaultJobManager.createSuspendedJobFromOtherJob(AbstractJobEntity)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"SuspendedJobEntity DefaultJobManager.createSuspendedJobFromOtherJob(AbstractJobEntity)"})
   public void testCreateSuspendedJobFromOtherJob_givenStacktrace_thenReturnIdIs42() {
     // Arrange
     JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();
     JtaProcessEngineConfiguration processEngineConfiguration2 = new JtaProcessEngineConfiguration();
-    SuspendedJobEntityManagerImpl suspendedJobEntityManager =
-        new SuspendedJobEntityManagerImpl(
-            processEngineConfiguration2,
-            new MybatisSuspendedJobDataManager(new JtaProcessEngineConfiguration()));
-    processEngineConfiguration.setSuspendedJobEntityManager(suspendedJobEntityManager);
+    processEngineConfiguration.setSuspendedJobEntityManager(new SuspendedJobEntityManagerImpl(
+        processEngineConfiguration2, new MybatisSuspendedJobDataManager(new JtaProcessEngineConfiguration())));
 
     DefaultJobManager defaultJobManager = new DefaultJobManager();
     defaultJobManager.setProcessEngineConfiguration(processEngineConfiguration);
 
     SuspendedJobEntityImpl otherJob = new SuspendedJobEntityImpl();
     otherJob.setDeleted(true);
-    otherJob.setDuedate(
-        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
-    otherJob.setEndDate(
-        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
+    otherJob.setDuedate(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
+    otherJob.setEndDate(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
     otherJob.setExceptionMessage("An error occurred");
     otherJob.setExclusive(true);
     otherJob.setExecutionId("42");
@@ -2014,8 +2094,8 @@ public class DefaultJobManagerDiffblueTest {
     otherJob.setUpdated(true);
 
     // Act
-    SuspendedJobEntity actualCreateSuspendedJobFromOtherJobResult =
-        defaultJobManager.createSuspendedJobFromOtherJob(otherJob);
+    SuspendedJobEntity actualCreateSuspendedJobFromOtherJobResult = defaultJobManager
+        .createSuspendedJobFromOtherJob(otherJob);
 
     // Assert
     assertTrue(actualCreateSuspendedJobFromOtherJobResult.getPersistentState() instanceof Map);
@@ -2025,10 +2105,8 @@ public class DefaultJobManagerDiffblueTest {
     assertEquals("42", actualCreateSuspendedJobFromOtherJobResult.getProcessDefinitionId());
     assertEquals("42", actualCreateSuspendedJobFromOtherJobResult.getProcessInstanceId());
     assertEquals("42", actualCreateSuspendedJobFromOtherJobResult.getTenantId());
-    assertEquals(
-        "An error occurred", actualCreateSuspendedJobFromOtherJobResult.getExceptionMessage());
-    assertEquals(
-        "stacktrace", actualCreateSuspendedJobFromOtherJobResult.getJobHandlerConfiguration());
+    assertEquals("An error occurred", actualCreateSuspendedJobFromOtherJobResult.getExceptionMessage());
+    assertEquals("stacktrace", actualCreateSuspendedJobFromOtherJobResult.getJobHandlerConfiguration());
     assertEquals("stacktrace", actualCreateSuspendedJobFromOtherJobResult.getJobHandlerType());
     assertEquals("stacktrace", actualCreateSuspendedJobFromOtherJobResult.getJobType());
     assertEquals("stacktrace", actualCreateSuspendedJobFromOtherJobResult.getRepeat());
@@ -2038,36 +2116,28 @@ public class DefaultJobManagerDiffblueTest {
 
   /**
    * Test {@link DefaultJobManager#createSuspendedJobFromOtherJob(AbstractJobEntity)}.
-   *
    * <ul>
-   *   <li>Then return TenantId is empty string.
+   *   <li>Then return TenantId is empty string.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link
-   * DefaultJobManager#createSuspendedJobFromOtherJob(AbstractJobEntity)}
+   * <p>
+   * Method under test: {@link DefaultJobManager#createSuspendedJobFromOtherJob(AbstractJobEntity)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "SuspendedJobEntity DefaultJobManager.createSuspendedJobFromOtherJob(AbstractJobEntity)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"SuspendedJobEntity DefaultJobManager.createSuspendedJobFromOtherJob(AbstractJobEntity)"})
   public void testCreateSuspendedJobFromOtherJob_thenReturnTenantIdIsEmptyString() {
     // Arrange
     JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();
     JtaProcessEngineConfiguration processEngineConfiguration2 = new JtaProcessEngineConfiguration();
-    SuspendedJobEntityManagerImpl suspendedJobEntityManager =
-        new SuspendedJobEntityManagerImpl(
-            processEngineConfiguration2,
-            new MybatisSuspendedJobDataManager(new JtaProcessEngineConfiguration()));
-    processEngineConfiguration.setSuspendedJobEntityManager(suspendedJobEntityManager);
+    processEngineConfiguration.setSuspendedJobEntityManager(new SuspendedJobEntityManagerImpl(
+        processEngineConfiguration2, new MybatisSuspendedJobDataManager(new JtaProcessEngineConfiguration())));
 
     DefaultJobManager defaultJobManager = new DefaultJobManager();
     defaultJobManager.setProcessEngineConfiguration(processEngineConfiguration);
 
     // Act
-    SuspendedJobEntity actualCreateSuspendedJobFromOtherJobResult =
-        defaultJobManager.createSuspendedJobFromOtherJob(new DeadLetterJobEntityImpl());
+    SuspendedJobEntity actualCreateSuspendedJobFromOtherJobResult = defaultJobManager
+        .createSuspendedJobFromOtherJob(new DeadLetterJobEntityImpl());
 
     // Assert
     assertTrue(actualCreateSuspendedJobFromOtherJobResult.getPersistentState() instanceof Map);
@@ -2090,36 +2160,28 @@ public class DefaultJobManagerDiffblueTest {
 
   /**
    * Test {@link DefaultJobManager#createDeadLetterJobFromOtherJob(AbstractJobEntity)}.
-   *
    * <ul>
-   *   <li>Then PersistentState return {@link Map}.
+   *   <li>Then PersistentState return {@link Map}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link
-   * DefaultJobManager#createDeadLetterJobFromOtherJob(AbstractJobEntity)}
+   * <p>
+   * Method under test: {@link DefaultJobManager#createDeadLetterJobFromOtherJob(AbstractJobEntity)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "DeadLetterJobEntity DefaultJobManager.createDeadLetterJobFromOtherJob(AbstractJobEntity)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"DeadLetterJobEntity DefaultJobManager.createDeadLetterJobFromOtherJob(AbstractJobEntity)"})
   public void testCreateDeadLetterJobFromOtherJob_thenPersistentStateReturnMap() {
     // Arrange
     JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();
     JtaProcessEngineConfiguration processEngineConfiguration2 = new JtaProcessEngineConfiguration();
-    DeadLetterJobEntityManagerImpl deadLetterJobEntityManager =
-        new DeadLetterJobEntityManagerImpl(
-            processEngineConfiguration2,
-            new MybatisDeadLetterJobDataManager(new JtaProcessEngineConfiguration()));
-    processEngineConfiguration.setDeadLetterJobEntityManager(deadLetterJobEntityManager);
+    processEngineConfiguration.setDeadLetterJobEntityManager(new DeadLetterJobEntityManagerImpl(
+        processEngineConfiguration2, new MybatisDeadLetterJobDataManager(new JtaProcessEngineConfiguration())));
 
     DefaultJobManager defaultJobManager = new DefaultJobManager();
     defaultJobManager.setProcessEngineConfiguration(processEngineConfiguration);
 
     // Act
-    DeadLetterJobEntity actualCreateDeadLetterJobFromOtherJobResult =
-        defaultJobManager.createDeadLetterJobFromOtherJob(new DeadLetterJobEntityImpl());
+    DeadLetterJobEntity actualCreateDeadLetterJobFromOtherJobResult = defaultJobManager
+        .createDeadLetterJobFromOtherJob(new DeadLetterJobEntityImpl());
 
     // Assert
     Object persistentState = actualCreateDeadLetterJobFromOtherJobResult.getPersistentState();
@@ -2155,28 +2217,22 @@ public class DefaultJobManagerDiffblueTest {
 
   /**
    * Test {@link DefaultJobManager#copyJobInfo(AbstractJobEntity, AbstractJobEntity)}.
-   *
    * <ul>
-   *   <li>Then {@link DeadLetterJobEntityImpl} (default constructor) PersistentState {@link Map}.
+   *   <li>Then {@link DeadLetterJobEntityImpl} (default constructor) PersistentState {@link Map}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link DefaultJobManager#copyJobInfo(AbstractJobEntity,
-   * AbstractJobEntity)}
+   * <p>
+   * Method under test: {@link DefaultJobManager#copyJobInfo(AbstractJobEntity, AbstractJobEntity)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "AbstractJobEntity DefaultJobManager.copyJobInfo(AbstractJobEntity, AbstractJobEntity)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"AbstractJobEntity DefaultJobManager.copyJobInfo(AbstractJobEntity, AbstractJobEntity)"})
   public void testCopyJobInfo_thenDeadLetterJobEntityImplPersistentStateMap() {
     // Arrange
     DefaultJobManager defaultJobManager = new DefaultJobManager();
     DeadLetterJobEntityImpl copyToJob = new DeadLetterJobEntityImpl();
 
     // Act
-    AbstractJobEntity actualCopyJobInfoResult =
-        defaultJobManager.copyJobInfo(copyToJob, new DeadLetterJobEntityImpl());
+    AbstractJobEntity actualCopyJobInfoResult = defaultJobManager.copyJobInfo(copyToJob, new DeadLetterJobEntityImpl());
 
     // Assert
     Object persistentState = copyToJob.getPersistentState();
@@ -2191,24 +2247,18 @@ public class DefaultJobManagerDiffblueTest {
 
   /**
    * Test {@link DefaultJobManager#copyJobInfo(AbstractJobEntity, AbstractJobEntity)}.
-   *
    * <ul>
-   *   <li>Then return {@link AbstractJobEntity}.
+   *   <li>Then return {@link AbstractJobEntity}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link DefaultJobManager#copyJobInfo(AbstractJobEntity,
-   * AbstractJobEntity)}
+   * <p>
+   * Method under test: {@link DefaultJobManager#copyJobInfo(AbstractJobEntity, AbstractJobEntity)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "AbstractJobEntity DefaultJobManager.copyJobInfo(AbstractJobEntity, AbstractJobEntity)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"AbstractJobEntity DefaultJobManager.copyJobInfo(AbstractJobEntity, AbstractJobEntity)"})
   public void testCopyJobInfo_thenReturnAbstractJobEntity() {
     // Arrange
     DefaultJobManager defaultJobManager = new DefaultJobManager();
-
     AbstractJobEntity copyToJob = mock(AbstractJobEntity.class);
     doNothing().when(copyToJob).setRevision(anyInt());
     doNothing().when(copyToJob).setDuedate(Mockito.<Date>any());
@@ -2229,42 +2279,39 @@ public class DefaultJobManagerDiffblueTest {
     doNothing().when(copyToJob).setId(Mockito.<String>any());
 
     // Act
-    AbstractJobEntity actualCopyJobInfoResult =
-        defaultJobManager.copyJobInfo(copyToJob, new DeadLetterJobEntityImpl());
+    AbstractJobEntity actualCopyJobInfoResult = defaultJobManager.copyJobInfo(copyToJob, new DeadLetterJobEntityImpl());
 
     // Assert
-    verify(copyToJob).setRevision(1);
+    verify(copyToJob).setRevision(eq(1));
     verify(copyToJob).setDuedate(isNull());
     verify(copyToJob).setEndDate(isNull());
-    verify(copyToJob).setExceptionMessage(null);
-    verify(copyToJob).setExceptionStacktrace(null);
-    verify(copyToJob).setExclusive(true);
-    verify(copyToJob).setExecutionId(null);
-    verify(copyToJob).setJobHandlerConfiguration(null);
-    verify(copyToJob).setJobHandlerType(null);
-    verify(copyToJob).setJobType(null);
-    verify(copyToJob).setMaxIterations(0);
-    verify(copyToJob).setProcessDefinitionId(null);
-    verify(copyToJob).setProcessInstanceId(null);
-    verify(copyToJob).setRepeat(null);
-    verify(copyToJob).setRetries(0);
-    verify(copyToJob).setTenantId("");
-    verify(copyToJob).setId(null);
+    verify(copyToJob).setExceptionMessage(isNull());
+    verify(copyToJob).setExceptionStacktrace(isNull());
+    verify(copyToJob).setExclusive(eq(true));
+    verify(copyToJob).setExecutionId(isNull());
+    verify(copyToJob).setJobHandlerConfiguration(isNull());
+    verify(copyToJob).setJobHandlerType(isNull());
+    verify(copyToJob).setJobType(isNull());
+    verify(copyToJob).setMaxIterations(eq(0));
+    verify(copyToJob).setProcessDefinitionId(isNull());
+    verify(copyToJob).setProcessInstanceId(isNull());
+    verify(copyToJob).setRepeat(isNull());
+    verify(copyToJob).setRetries(eq(0));
+    verify(copyToJob).setTenantId(eq(""));
+    verify(copyToJob).setId(isNull());
     assertSame(copyToJob, actualCopyJobInfoResult);
   }
 
   /**
    * Test {@link DefaultJobManager#isAsyncExecutorActive()}.
-   *
    * <ul>
-   *   <li>Then return {@code false}.
+   *   <li>Then return {@code false}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link DefaultJobManager#isAsyncExecutorActive()}
+   * <p>
+   * Method under test: {@link DefaultJobManager#isAsyncExecutorActive()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"boolean DefaultJobManager.isAsyncExecutorActive()"})
   public void testIsAsyncExecutorActive_thenReturnFalse() {
     // Arrange
@@ -2280,35 +2327,28 @@ public class DefaultJobManagerDiffblueTest {
 
   /**
    * Test {@link DefaultJobManager#getCommandContext()}.
-   *
-   * <p>Method under test: {@link DefaultJobManager#getCommandContext()}
+   * <p>
+   * Method under test: {@link DefaultJobManager#getCommandContext()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "org.activiti.engine.impl.interceptor.CommandContext DefaultJobManager.getCommandContext()"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"org.activiti.engine.impl.interceptor.CommandContext DefaultJobManager.getCommandContext()"})
   public void testGetCommandContext() {
     // Arrange, Act and Assert
-    assertNull(new DefaultJobManager().getCommandContext());
+    assertNull((new DefaultJobManager()).getCommandContext());
   }
 
   /**
    * Test {@link DefaultJobManager#getAsyncExecutor()}.
-   *
    * <ul>
-   *   <li>Then return {@code null}.
+   *   <li>Then return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link DefaultJobManager#getAsyncExecutor()}
+   * <p>
+   * Method under test: {@link DefaultJobManager#getAsyncExecutor()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "org.activiti.engine.impl.asyncexecutor.AsyncExecutor DefaultJobManager.getAsyncExecutor()"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"AsyncExecutor DefaultJobManager.getAsyncExecutor()"})
   public void testGetAsyncExecutor_thenReturnNull() {
     // Arrange
     DefaultJobManager defaultJobManager = new DefaultJobManager();
@@ -2320,16 +2360,14 @@ public class DefaultJobManagerDiffblueTest {
 
   /**
    * Test {@link DefaultJobManager#getExecutionEntityManager()}.
-   *
    * <ul>
-   *   <li>Then return {@code null}.
+   *   <li>Then return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link DefaultJobManager#getExecutionEntityManager()}
+   * <p>
+   * Method under test: {@link DefaultJobManager#getExecutionEntityManager()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"ExecutionEntityManager DefaultJobManager.getExecutionEntityManager()"})
   public void testGetExecutionEntityManager_thenReturnNull() {
     // Arrange

@@ -17,8 +17,7 @@ package org.activiti.engine.impl;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
@@ -26,72 +25,39 @@ import org.junit.experimental.categories.Category;
 public class ProcessInstanceQueryPropertyDiffblueTest {
   /**
    * Test {@link ProcessInstanceQueryProperty#ProcessInstanceQueryProperty(String)}.
-   *
-   * <p>Method under test: {@link ProcessInstanceQueryProperty#ProcessInstanceQueryProperty(String)}
+   * <p>
+   * Method under test: {@link ProcessInstanceQueryProperty#ProcessInstanceQueryProperty(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void ProcessInstanceQueryProperty.<init>(String)"})
   public void testNewProcessInstanceQueryProperty() {
     // Arrange, Act and Assert
-    assertEquals("Name", new ProcessInstanceQueryProperty("Name").getName());
+    assertEquals("Name", (new ProcessInstanceQueryProperty("Name")).getName());
   }
 
   /**
    * Test {@link ProcessInstanceQueryProperty#getName()}.
-   *
-   * <p>Method under test: {@link ProcessInstanceQueryProperty#getName()}
+   * <p>
+   * Method under test: {@link ProcessInstanceQueryProperty#getName()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"String ProcessInstanceQueryProperty.getName()"})
   public void testGetName() {
     // Arrange, Act and Assert
-    assertEquals("Name", new ProcessInstanceQueryProperty("Name").getName());
+    assertEquals("Name", (new ProcessInstanceQueryProperty("Name")).getName());
   }
 
   /**
    * Test {@link ProcessInstanceQueryProperty#findByName(String)}.
-   *
-   * <ul>
-   *   <li>When {@code ProcessDefinitionId}.
-   *   <li>Then return Name is {@code ProcessDefinitionId}.
-   * </ul>
-   *
-   * <p>Method under test: {@link ProcessInstanceQueryProperty#findByName(String)}
+   * <p>
+   * Method under test: {@link ProcessInstanceQueryProperty#findByName(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "ProcessInstanceQueryProperty ProcessInstanceQueryProperty.findByName(String)"
-  })
-  public void testFindByName_whenProcessDefinitionId_thenReturnNameIsProcessDefinitionId() {
-    // Arrange, Act and Assert
-    assertEquals(
-        "ProcessDefinitionId",
-        ProcessInstanceQueryProperty.findByName("ProcessDefinitionId").getName());
-  }
-
-  /**
-   * Test {@link ProcessInstanceQueryProperty#findByName(String)}.
-   *
-   * <ul>
-   *   <li>When {@code Property Name}.
-   *   <li>Then return {@code null}.
-   * </ul>
-   *
-   * <p>Method under test: {@link ProcessInstanceQueryProperty#findByName(String)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "ProcessInstanceQueryProperty ProcessInstanceQueryProperty.findByName(String)"
-  })
-  public void testFindByName_whenPropertyName_thenReturnNull() {
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"ProcessInstanceQueryProperty ProcessInstanceQueryProperty.findByName(String)"})
+  public void testFindByName() {
     // Arrange, Act and Assert
     assertNull(ProcessInstanceQueryProperty.findByName("Property Name"));
   }

@@ -17,13 +17,15 @@ package org.activiti.engine.impl.transformer;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.sql.Date;
 import java.text.Format;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 import org.apache.commons.lang3.time.FastDateFormat;
 import org.junit.Test;
@@ -31,166 +33,39 @@ import org.junit.experimental.categories.Category;
 
 public class DateToStringDiffblueTest {
   /**
-   * Test {@link DateToString#primTransform(Object)}.
-   *
-   * <ul>
-   *   <li>Then return {@code 01/02/1901}.
-   * </ul>
-   *
-   * <p>Method under test: {@link DateToString#primTransform(Object)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"Object DateToString.primTransform(Object)"})
-  public void testPrimTransform_thenReturn01021901() throws Exception {
-    // Arrange
-    DateToString dateToString = new DateToString();
-
-    // Act
-    Object actualPrimTransformResult = dateToString.primTransform(new Date(1, 1, 1));
-
-    // Assert
-    assertEquals("01/02/1901", actualPrimTransformResult);
-  }
-
-  /**
-   * Test {@link DateToString#primTransform(Object)}.
-   *
-   * <ul>
-   *   <li>Then return {@code 21/01/190690352}.
-   * </ul>
-   *
-   * <p>Method under test: {@link DateToString#primTransform(Object)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"Object DateToString.primTransform(Object)"})
-  public void testPrimTransform_thenReturn2101190690352() throws Exception {
-    // Arrange
-    DateToString dateToString = new DateToString();
-
-    // Act
-    Object actualPrimTransformResult =
-        dateToString.primTransform(new Date(Integer.MIN_VALUE, 1, 1));
-
-    // Assert
-    assertEquals("21/01/190690352", actualPrimTransformResult);
-  }
-
-  /**
    * Test new {@link DateToString} (default constructor).
-   *
-   * <p>Method under test: default or parameterless constructor of {@link DateToString}
+   * <p>
+   * Method under test: default or parameterless constructor of {@link DateToString}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void DateToString.<init>()"})
   public void testNewDateToString() {
     // Arrange and Act
     DateToString actualDateToString = new DateToString();
-    Date date = new Date(1, 1, 1);
-    Object actualTransformResult = actualDateToString.transform(date);
+    LocalDateTime atStartOfDayResult = LocalDate.ofYearDay(1, 1).atStartOfDay();
 
     // Assert
     Format format = actualDateToString.format;
     assertTrue(format instanceof FastDateFormat);
-    assertEquals("01/02/1901", actualTransformResult);
-    String actualFormatResult = new SimpleDateFormat("yyyy-MM-dd").format(date);
-    assertEquals("1901-02-01", actualFormatResult);
+    assertEquals("02/01/0001", actualDateToString
+        .transform(java.util.Date.from(atStartOfDayResult.atZone(ZoneOffset.ofTotalSeconds(1)).toInstant())));
     assertEquals("dd/MM/yyyy", ((FastDateFormat) format).getPattern());
     assertEquals(10, ((FastDateFormat) format).getMaxLengthEstimate());
   }
 
   /**
    * Test new {@link DateToString} (default constructor).
-   *
-   * <p>Method under test: default or parameterless constructor of {@link DateToString}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void DateToString.<init>()"})
-  public void testNewDateToString2() {
-    // Arrange and Act
-    DateToString actualDateToString = new DateToString();
-    Date date = new Date(Integer.MIN_VALUE, 1, 1);
-    Object actualTransformResult = actualDateToString.transform(date);
-
-    // Assert
-    Format format = actualDateToString.format;
-    assertTrue(format instanceof FastDateFormat);
-    String actualFormatResult = new SimpleDateFormat("yyyy-MM-dd").format(date);
-    assertEquals("190690352-01-21", actualFormatResult);
-    assertEquals("21/01/190690352", actualTransformResult);
-    assertEquals("dd/MM/yyyy", ((FastDateFormat) format).getPattern());
-    assertEquals(10, ((FastDateFormat) format).getMaxLengthEstimate());
-  }
-
-  /**
-   * Test new {@link DateToString} (default constructor).
-   *
    * <ul>
-   *   <li>Then {@link DateToString#format} return {@link FastDateFormat}.
+   *   <li>Then {@link DateToString#format} return {@link FastDateFormat}.</li>
    * </ul>
-   *
-   * <p>Method under test: default or parameterless constructor of {@link DateToString}
+   * <p>
+   * Method under test: default or parameterless constructor of {@link DateToString}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void DateToString.<init>()"})
   public void testNewDateToString_thenFormatReturnFastDateFormat() {
-    // Arrange, Act and Assert
-    Format format = new DateToString().format;
-    assertTrue(format instanceof FastDateFormat);
-    assertEquals("dd/MM/yyyy", ((FastDateFormat) format).getPattern());
-    assertEquals(10, ((FastDateFormat) format).getMaxLengthEstimate());
-  }
-
-  /**
-   * Test new {@link DateToString} (default constructor).
-   *
-   * <ul>
-   *   <li>Then {@link DateToString#format} return {@link FastDateFormat}.
-   * </ul>
-   *
-   * <p>Method under test: default or parameterless constructor of {@link DateToString}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void DateToString.<init>()"})
-  public void testNewDateToString_thenFormatReturnFastDateFormat2() {
-    // Arrange and Act
-    DateToString actualDateToString = new DateToString();
-    actualDateToString.transform(
-        java.util.Date.from(
-            LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
-
-    // Assert
-    Format format = actualDateToString.format;
-    assertTrue(format instanceof FastDateFormat);
-    assertEquals("dd/MM/yyyy", ((FastDateFormat) format).getPattern());
-    assertEquals(10, ((FastDateFormat) format).getMaxLengthEstimate());
-  }
-
-  /**
-   * Test new {@link DateToString} (default constructor).
-   *
-   * <ul>
-   *   <li>Then {@link DateToString#format} return {@link FastDateFormat}.
-   * </ul>
-   *
-   * <p>Method under test: default or parameterless constructor of {@link DateToString}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void DateToString.<init>()"})
-  public void testNewDateToString_thenFormatReturnFastDateFormat3() {
     // Arrange and Act
     DateToString actualDateToString = new DateToString();
     actualDateToString.transform(new java.util.Date());
@@ -204,27 +79,54 @@ public class DateToStringDiffblueTest {
 
   /**
    * Test new {@link DateToString} (default constructor).
-   *
    * <ul>
-   *   <li>Then {@link DateToString#format} return {@link FastDateFormat}.
+   *   <li>Then return transform {@link Date} is {@code 01/01/1970}.</li>
    * </ul>
-   *
-   * <p>Method under test: default or parameterless constructor of {@link DateToString}
+   * <p>
+   * Method under test: default or parameterless constructor of {@link DateToString}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void DateToString.<init>()"})
-  public void testNewDateToString_thenFormatReturnFastDateFormat4() {
+  public void testNewDateToString_thenReturnTransformDateIs01011970() {
     // Arrange and Act
     DateToString actualDateToString = new DateToString();
-    LocalDate ofYearDayResult = LocalDate.ofYearDay(1, 1);
-    actualDateToString.transform(
-        java.util.Date.from(ofYearDayResult.atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
+    Date date = mock(Date.class);
+    when(date.getTime()).thenReturn(10L);
+    Object actualTransformResult = actualDateToString.transform(date);
 
     // Assert
+    verify(date).getTime();
     Format format = actualDateToString.format;
     assertTrue(format instanceof FastDateFormat);
+    assertEquals("01/01/1970", actualTransformResult);
+    assertEquals("dd/MM/yyyy", ((FastDateFormat) format).getPattern());
+    assertEquals(10, ((FastDateFormat) format).getMaxLengthEstimate());
+  }
+
+  /**
+   * Test new {@link DateToString} (default constructor).
+   * <ul>
+   *   <li>Then return transform {@link Date} is {@code 17/08/292278994}.</li>
+   * </ul>
+   * <p>
+   * Method under test: default or parameterless constructor of {@link DateToString}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void DateToString.<init>()"})
+  public void testNewDateToString_thenReturnTransformDateIs1708292278994() {
+    // Arrange and Act
+    DateToString actualDateToString = new DateToString();
+    Date date = mock(Date.class);
+    when(date.getTime()).thenReturn(Long.MAX_VALUE);
+    Object actualTransformResult = actualDateToString.transform(date);
+
+    // Assert
+    verify(date).getTime();
+    Format format = actualDateToString.format;
+    assertTrue(format instanceof FastDateFormat);
+    assertEquals("17/08/292278994", actualTransformResult);
     assertEquals("dd/MM/yyyy", ((FastDateFormat) format).getPattern());
     assertEquals(10, ((FastDateFormat) format).getMaxLengthEstimate());
   }

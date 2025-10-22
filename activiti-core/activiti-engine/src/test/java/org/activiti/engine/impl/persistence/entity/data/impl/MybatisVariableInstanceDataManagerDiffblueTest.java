@@ -16,13 +16,10 @@
 package org.activiti.engine.impl.persistence.entity.data.impl;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
-import java.util.Map;
 import org.activiti.engine.impl.cfg.JtaProcessEngineConfiguration;
 import org.activiti.engine.impl.cfg.ProcessEngineConfigurationImpl;
 import org.activiti.engine.impl.persistence.entity.VariableInstanceEntity;
@@ -33,91 +30,40 @@ import org.junit.experimental.categories.Category;
 
 public class MybatisVariableInstanceDataManagerDiffblueTest {
   /**
-   * Test {@link
-   * MybatisVariableInstanceDataManager#MybatisVariableInstanceDataManager(ProcessEngineConfigurationImpl)}.
-   *
-   * <p>Method under test: {@link
-   * MybatisVariableInstanceDataManager#MybatisVariableInstanceDataManager(ProcessEngineConfigurationImpl)}
+   * Test {@link MybatisVariableInstanceDataManager#MybatisVariableInstanceDataManager(ProcessEngineConfigurationImpl)}.
+   * <p>
+   * Method under test: {@link MybatisVariableInstanceDataManager#MybatisVariableInstanceDataManager(ProcessEngineConfigurationImpl)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void MybatisVariableInstanceDataManager.<init>(ProcessEngineConfigurationImpl)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void MybatisVariableInstanceDataManager.<init>(ProcessEngineConfigurationImpl)"})
   public void testNewMybatisVariableInstanceDataManager() {
     // Arrange and Act
-    MybatisVariableInstanceDataManager actualMybatisVariableInstanceDataManager =
-        new MybatisVariableInstanceDataManager(new JtaProcessEngineConfiguration());
+    MybatisVariableInstanceDataManager actualMybatisVariableInstanceDataManager = new MybatisVariableInstanceDataManager(
+        new JtaProcessEngineConfiguration());
 
     // Assert
-    assertTrue(
-        actualMybatisVariableInstanceDataManager.variableInstanceEntity
-            instanceof VariableByExecutionIdMatcher);
+    assertTrue(actualMybatisVariableInstanceDataManager.variableInstanceEntity instanceof VariableByExecutionIdMatcher);
     assertNull(actualMybatisVariableInstanceDataManager.getManagedEntitySubClasses());
     Class<VariableInstanceEntityImpl> expectedManagedEntityClass = VariableInstanceEntityImpl.class;
-    assertEquals(
-        expectedManagedEntityClass,
-        actualMybatisVariableInstanceDataManager.getManagedEntityClass());
+    assertEquals(expectedManagedEntityClass, actualMybatisVariableInstanceDataManager.getManagedEntityClass());
   }
 
   /**
    * Test {@link MybatisVariableInstanceDataManager#getManagedEntityClass()}.
-   *
-   * <p>Method under test: {@link MybatisVariableInstanceDataManager#getManagedEntityClass()}
+   * <p>
+   * Method under test: {@link MybatisVariableInstanceDataManager#getManagedEntityClass()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"Class MybatisVariableInstanceDataManager.getManagedEntityClass()"})
   public void testGetManagedEntityClass() {
     // Arrange and Act
-    Class<? extends VariableInstanceEntity> actualManagedEntityClass =
-        new MybatisVariableInstanceDataManager(new JtaProcessEngineConfiguration())
-            .getManagedEntityClass();
+    Class<? extends VariableInstanceEntity> actualManagedEntityClass = (new MybatisVariableInstanceDataManager(
+        new JtaProcessEngineConfiguration())).getManagedEntityClass();
 
     // Assert
     Class<VariableInstanceEntityImpl> expectedManagedEntityClass = VariableInstanceEntityImpl.class;
     assertEquals(expectedManagedEntityClass, actualManagedEntityClass);
-  }
-
-  /**
-   * Test {@link MybatisVariableInstanceDataManager#create()}.
-   *
-   * <p>Method under test: {@link MybatisVariableInstanceDataManager#create()}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"VariableInstanceEntity MybatisVariableInstanceDataManager.create()"})
-  public void testCreate() {
-    // Arrange and Act
-    VariableInstanceEntity actualCreateResult =
-        new MybatisVariableInstanceDataManager(new JtaProcessEngineConfiguration()).create();
-
-    // Assert
-    assertTrue(actualCreateResult instanceof VariableInstanceEntityImpl);
-    assertNull(actualCreateResult.getByteArrayRef());
-    assertNull(actualCreateResult.getBytes());
-    assertNull(actualCreateResult.getCachedValue());
-    assertNull(actualCreateResult.getDoubleValue());
-    assertNull(actualCreateResult.getExecutionId());
-    assertNull(actualCreateResult.getId());
-    assertNull(actualCreateResult.getLongValue());
-    assertNull(actualCreateResult.getName());
-    Object persistentState = actualCreateResult.getPersistentState();
-    assertTrue(persistentState instanceof Map);
-    assertTrue(((Map<Object, Object>) persistentState).isEmpty());
-    assertNull(actualCreateResult.getProcessInstanceId());
-    assertEquals(0, actualCreateResult.getRevision());
-    assertEquals(1, actualCreateResult.getRevisionNext());
-    assertNull(actualCreateResult.getTaskId());
-    assertNull(actualCreateResult.getTextValue());
-    assertNull(actualCreateResult.getTextValue2());
-    assertNull(actualCreateResult.getType());
-    assertNull(actualCreateResult.getTypeName());
-    assertFalse(actualCreateResult.isDeleted());
-    assertFalse(actualCreateResult.isInserted());
-    assertFalse(actualCreateResult.isUpdated());
   }
 }

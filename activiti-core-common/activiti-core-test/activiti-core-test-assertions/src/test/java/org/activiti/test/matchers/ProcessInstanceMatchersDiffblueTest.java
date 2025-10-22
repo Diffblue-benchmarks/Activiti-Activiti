@@ -16,10 +16,10 @@
 package org.activiti.test.matchers;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
 import org.activiti.api.process.model.ProcessInstance;
@@ -35,22 +35,17 @@ import org.mockito.Mockito;
 class ProcessInstanceMatchersDiffblueTest {
   /**
    * Test {@link ProcessInstanceMatchers#status(ProcessInstanceStatus)}.
-   *
-   * <ul>
-   *   <li>Then calls {@link ProcessInstance#getStatus()}.
-   * </ul>
-   *
-   * <p>Method under test: {@link ProcessInstanceMatchers#status(ProcessInstanceStatus)}
+   * <p>
+   * Method under test: {@link ProcessInstanceMatchers#status(ProcessInstanceStatus)}
    */
   @Test
-  @DisplayName("Test status(ProcessInstanceStatus); then calls getStatus()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test status(ProcessInstanceStatus)")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"ProcessResultMatcher ProcessInstanceMatchers.status(ProcessInstanceStatus)"})
-  void testStatus_thenCallsGetStatus() {
+  void testStatus() {
     // Arrange and Act
-    ProcessResultMatcher actualStatusResult =
-        ProcessInstanceMatchers.processInstance().status(ProcessInstanceStatus.CREATED);
+    ProcessResultMatcher actualStatusResult = ProcessInstanceMatchers.processInstance()
+        .status(ProcessInstanceStatus.CREATED);
     ProcessInstance processInstance = mock(ProcessInstance.class);
     when(processInstance.getStatus()).thenReturn(ProcessInstanceStatus.CREATED);
     actualStatusResult.match(processInstance);
@@ -61,24 +56,22 @@ class ProcessInstanceMatchersDiffblueTest {
 
   /**
    * Test {@link ProcessInstanceMatchers#status(ProcessInstanceStatus)}.
-   *
    * <ul>
-   *   <li>Then throw {@link RuntimeException}.
+   *   <li>Then throw {@link RuntimeException}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ProcessInstanceMatchers#status(ProcessInstanceStatus)}
+   * <p>
+   * Method under test: {@link ProcessInstanceMatchers#status(ProcessInstanceStatus)}
    */
   @Test
   @DisplayName("Test status(ProcessInstanceStatus); then throw RuntimeException")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"ProcessResultMatcher ProcessInstanceMatchers.status(ProcessInstanceStatus)"})
   void testStatus_thenThrowRuntimeException() {
     // Arrange and Act
-    ProcessResultMatcher actualStatusResult =
-        ProcessInstanceMatchers.processInstance().status(ProcessInstanceStatus.CREATED);
+    ProcessResultMatcher actualStatusResult = ProcessInstanceMatchers.processInstance()
+        .status(ProcessInstanceStatus.CREATED);
     ProcessInstance processInstance = mock(ProcessInstance.class);
-    when(processInstance.getStatus()).thenThrow(new RuntimeException());
+    when(processInstance.getStatus()).thenThrow(new RuntimeException("foo"));
 
     // Assert
     assertThrows(RuntimeException.class, () -> actualStatusResult.match(processInstance));
@@ -87,19 +80,14 @@ class ProcessInstanceMatchersDiffblueTest {
 
   /**
    * Test {@link ProcessInstanceMatchers#name(String)}.
-   *
-   * <ul>
-   *   <li>Then calls {@link ProcessInstance#getName()}.
-   * </ul>
-   *
-   * <p>Method under test: {@link ProcessInstanceMatchers#name(String)}
+   * <p>
+   * Method under test: {@link ProcessInstanceMatchers#name(String)}
    */
   @Test
-  @DisplayName("Test name(String); then calls getName()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test name(String)")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"ProcessResultMatcher ProcessInstanceMatchers.name(String)"})
-  void testName_thenCallsGetName() {
+  void testName() {
     // Arrange and Act
     ProcessResultMatcher actualNameResult = ProcessInstanceMatchers.processInstance().name("Name");
     ProcessInstance processInstance = mock(ProcessInstance.class);
@@ -112,23 +100,21 @@ class ProcessInstanceMatchersDiffblueTest {
 
   /**
    * Test {@link ProcessInstanceMatchers#name(String)}.
-   *
    * <ul>
-   *   <li>Then throw {@link RuntimeException}.
+   *   <li>Then throw {@link RuntimeException}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ProcessInstanceMatchers#name(String)}
+   * <p>
+   * Method under test: {@link ProcessInstanceMatchers#name(String)}
    */
   @Test
   @DisplayName("Test name(String); then throw RuntimeException")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"ProcessResultMatcher ProcessInstanceMatchers.name(String)"})
   void testName_thenThrowRuntimeException() {
     // Arrange and Act
     ProcessResultMatcher actualNameResult = ProcessInstanceMatchers.processInstance().name("Name");
     ProcessInstance processInstance = mock(ProcessInstance.class);
-    when(processInstance.getName()).thenThrow(new RuntimeException());
+    when(processInstance.getName()).thenThrow(new RuntimeException("foo"));
 
     // Assert
     assertThrows(RuntimeException.class, () -> actualNameResult.match(processInstance));
@@ -137,22 +123,17 @@ class ProcessInstanceMatchersDiffblueTest {
 
   /**
    * Test {@link ProcessInstanceMatchers#businessKey(String)}.
-   *
-   * <ul>
-   *   <li>Then calls {@link ProcessInstance#getBusinessKey()}.
-   * </ul>
-   *
-   * <p>Method under test: {@link ProcessInstanceMatchers#businessKey(String)}
+   * <p>
+   * Method under test: {@link ProcessInstanceMatchers#businessKey(String)}
    */
   @Test
-  @DisplayName("Test businessKey(String); then calls getBusinessKey()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test businessKey(String)")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"ProcessResultMatcher ProcessInstanceMatchers.businessKey(String)"})
-  void testBusinessKey_thenCallsGetBusinessKey() {
+  void testBusinessKey() {
     // Arrange and Act
-    ProcessResultMatcher actualBusinessKeyResult =
-        ProcessInstanceMatchers.processInstance().businessKey("Business Key");
+    ProcessResultMatcher actualBusinessKeyResult = ProcessInstanceMatchers.processInstance()
+        .businessKey("Business Key");
     ProcessInstance processInstance = mock(ProcessInstance.class);
     when(processInstance.getBusinessKey()).thenReturn("Business Key");
     actualBusinessKeyResult.match(processInstance);
@@ -163,24 +144,22 @@ class ProcessInstanceMatchersDiffblueTest {
 
   /**
    * Test {@link ProcessInstanceMatchers#businessKey(String)}.
-   *
    * <ul>
-   *   <li>Then throw {@link RuntimeException}.
+   *   <li>Then throw {@link RuntimeException}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ProcessInstanceMatchers#businessKey(String)}
+   * <p>
+   * Method under test: {@link ProcessInstanceMatchers#businessKey(String)}
    */
   @Test
   @DisplayName("Test businessKey(String); then throw RuntimeException")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"ProcessResultMatcher ProcessInstanceMatchers.businessKey(String)"})
   void testBusinessKey_thenThrowRuntimeException() {
     // Arrange and Act
-    ProcessResultMatcher actualBusinessKeyResult =
-        ProcessInstanceMatchers.processInstance().businessKey("Business Key");
+    ProcessResultMatcher actualBusinessKeyResult = ProcessInstanceMatchers.processInstance()
+        .businessKey("Business Key");
     ProcessInstance processInstance = mock(ProcessInstance.class);
-    when(processInstance.getBusinessKey()).thenThrow(new RuntimeException());
+    when(processInstance.getBusinessKey()).thenThrow(new RuntimeException("foo"));
 
     // Assert
     assertThrows(RuntimeException.class, () -> actualBusinessKeyResult.match(processInstance));
@@ -189,67 +168,30 @@ class ProcessInstanceMatchersDiffblueTest {
 
   /**
    * Test {@link ProcessInstanceMatchers#hasTask(String, TaskStatus, TaskResultMatcher[])}.
-   *
    * <ul>
-   *   <li>Then calls {@link TaskSource#getTasks(String)}.
+   *   <li>Then throw {@link RuntimeException}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ProcessInstanceMatchers#hasTask(String, Task.TaskStatus,
-   * TaskResultMatcher[])}
+   * <p>
+   * Method under test: {@link ProcessInstanceMatchers#hasTask(String, Task.TaskStatus, TaskResultMatcher[])}
    */
   @Test
-  @DisplayName("Test hasTask(String, TaskStatus, TaskResultMatcher[]); then calls getTasks(String)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test hasTask(String, TaskStatus, TaskResultMatcher[]); then throw RuntimeException")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({
-    "ProcessTaskMatcher ProcessInstanceMatchers.hasTask(String, Task.TaskStatus, TaskResultMatcher[])"
-  })
-  void testHasTask_thenCallsGetTasks() {
+      "ProcessTaskMatcher ProcessInstanceMatchers.hasTask(String, Task.TaskStatus, TaskResultMatcher[])"})
+  void testHasTask_thenThrowRuntimeException() {
     // Arrange and Act
-    ProcessTaskMatcher actualHasTaskResult =
-        ProcessInstanceMatchers.processInstance()
-            .hasTask("Task Name", TaskStatus.CREATED, mock(TaskResultMatcher.class));
+    ProcessTaskMatcher actualHasTaskResult = ProcessInstanceMatchers.processInstance()
+        .hasTask("Task Name", TaskStatus.CREATED, mock(TaskResultMatcher.class));
     TaskSource taskSource = mock(TaskSource.class);
-    when(taskSource.getTasks(Mockito.<String>any())).thenThrow(new RuntimeException());
+    when(taskSource.getTasks(Mockito.<String>any())).thenThrow(new RuntimeException("foo"));
     when(taskSource.canHandle(Mockito.<TaskStatus>any())).thenReturn(true);
     ArrayList<TaskSource> taskSources = new ArrayList<>();
     taskSources.add(taskSource);
 
     // Assert
     assertThrows(RuntimeException.class, () -> actualHasTaskResult.match("42", taskSources));
-    verify(taskSource).canHandle(TaskStatus.CREATED);
-    verify(taskSource).getTasks("42");
-  }
-
-  /**
-   * Test {@link ProcessInstanceMatchers#hasTask(String, TaskStatus, TaskResultMatcher[])}.
-   *
-   * <ul>
-   *   <li>Then throw {@link RuntimeException}.
-   * </ul>
-   *
-   * <p>Method under test: {@link ProcessInstanceMatchers#hasTask(String, Task.TaskStatus,
-   * TaskResultMatcher[])}
-   */
-  @Test
-  @DisplayName("Test hasTask(String, TaskStatus, TaskResultMatcher[]); then throw RuntimeException")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "ProcessTaskMatcher ProcessInstanceMatchers.hasTask(String, Task.TaskStatus, TaskResultMatcher[])"
-  })
-  void testHasTask_thenThrowRuntimeException() {
-    // Arrange and Act
-    ProcessTaskMatcher actualHasTaskResult =
-        ProcessInstanceMatchers.processInstance()
-            .hasTask("Task Name", TaskStatus.CREATED, mock(TaskResultMatcher.class));
-    TaskSource taskSource = mock(TaskSource.class);
-    when(taskSource.canHandle(Mockito.<TaskStatus>any())).thenThrow(new RuntimeException());
-    ArrayList<TaskSource> taskSources = new ArrayList<>();
-    taskSources.add(taskSource);
-
-    // Assert
-    assertThrows(RuntimeException.class, () -> actualHasTaskResult.match("42", taskSources));
-    verify(taskSource).canHandle(TaskStatus.CREATED);
+    verify(taskSource).canHandle(eq(TaskStatus.CREATED));
+    verify(taskSource).getTasks(eq("42"));
   }
 }

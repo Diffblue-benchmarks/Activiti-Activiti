@@ -18,7 +18,6 @@ package org.activiti.runtime.api.event.impl;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.api.task.model.TaskCandidateUser;
 import org.activiti.api.task.model.events.TaskCandidateUserEvent;
@@ -31,18 +30,16 @@ import org.junit.jupiter.api.Test;
 class TaskCandidateUserAddedEventImplDiffblueTest {
   /**
    * Test {@link TaskCandidateUserAddedEventImpl#TaskCandidateUserAddedEventImpl()}.
-   *
-   * <p>Method under test: {@link TaskCandidateUserAddedEventImpl#TaskCandidateUserAddedEventImpl()}
+   * <p>
+   * Method under test: {@link TaskCandidateUserAddedEventImpl#TaskCandidateUserAddedEventImpl()}
    */
   @Test
   @DisplayName("Test new TaskCandidateUserAddedEventImpl()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void TaskCandidateUserAddedEventImpl.<init>()"})
   void testNewTaskCandidateUserAddedEventImpl() {
     // Arrange and Act
-    TaskCandidateUserAddedEventImpl actualTaskCandidateUserAddedEventImpl =
-        new TaskCandidateUserAddedEventImpl();
+    TaskCandidateUserAddedEventImpl actualTaskCandidateUserAddedEventImpl = new TaskCandidateUserAddedEventImpl();
 
     // Assert
     assertNull(actualTaskCandidateUserAddedEventImpl.getProcessDefinitionVersion());
@@ -52,30 +49,25 @@ class TaskCandidateUserAddedEventImplDiffblueTest {
     assertNull(actualTaskCandidateUserAddedEventImpl.getProcessDefinitionKey());
     assertNull(actualTaskCandidateUserAddedEventImpl.getProcessInstanceId());
     assertNull(actualTaskCandidateUserAddedEventImpl.getEntity());
-    assertEquals(
-        TaskCandidateUserEvents.TASK_CANDIDATE_USER_ADDED,
+    assertEquals(TaskCandidateUserEvents.TASK_CANDIDATE_USER_ADDED,
         actualTaskCandidateUserAddedEventImpl.getEventType());
   }
 
   /**
-   * Test {@link
-   * TaskCandidateUserAddedEventImpl#TaskCandidateUserAddedEventImpl(TaskCandidateUser)}.
-   *
-   * <p>Method under test: {@link
-   * TaskCandidateUserAddedEventImpl#TaskCandidateUserAddedEventImpl(TaskCandidateUser)}
+   * Test {@link TaskCandidateUserAddedEventImpl#TaskCandidateUserAddedEventImpl(TaskCandidateUser)}.
+   * <p>
+   * Method under test: {@link TaskCandidateUserAddedEventImpl#TaskCandidateUserAddedEventImpl(TaskCandidateUser)}
    */
   @Test
   @DisplayName("Test new TaskCandidateUserAddedEventImpl(TaskCandidateUser)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void TaskCandidateUserAddedEventImpl.<init>(TaskCandidateUser)"})
   void testNewTaskCandidateUserAddedEventImpl2() {
     // Arrange
     TaskCandidateUserImpl entity = new TaskCandidateUserImpl("42", "42");
 
     // Act
-    TaskCandidateUserAddedEventImpl actualTaskCandidateUserAddedEventImpl =
-        new TaskCandidateUserAddedEventImpl(entity);
+    TaskCandidateUserAddedEventImpl actualTaskCandidateUserAddedEventImpl = new TaskCandidateUserAddedEventImpl(entity);
 
     // Assert
     assertNull(actualTaskCandidateUserAddedEventImpl.getProcessDefinitionVersion());
@@ -84,28 +76,23 @@ class TaskCandidateUserAddedEventImplDiffblueTest {
     assertNull(actualTaskCandidateUserAddedEventImpl.getProcessDefinitionId());
     assertNull(actualTaskCandidateUserAddedEventImpl.getProcessDefinitionKey());
     assertNull(actualTaskCandidateUserAddedEventImpl.getProcessInstanceId());
-    assertEquals(
-        TaskCandidateUserEvents.TASK_CANDIDATE_USER_ADDED,
+    assertEquals(TaskCandidateUserEvents.TASK_CANDIDATE_USER_ADDED,
         actualTaskCandidateUserAddedEventImpl.getEventType());
     assertSame(entity, actualTaskCandidateUserAddedEventImpl.getEntity());
   }
 
   /**
    * Test {@link TaskCandidateUserAddedEventImpl#getEventType()}.
-   *
-   * <p>Method under test: {@link TaskCandidateUserAddedEventImpl#getEventType()}
+   * <p>
+   * Method under test: {@link TaskCandidateUserAddedEventImpl#getEventType()}
    */
   @Test
   @DisplayName("Test getEventType()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "TaskCandidateUserEvent.TaskCandidateUserEvents TaskCandidateUserAddedEventImpl.getEventType()"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"TaskCandidateUserEvent.TaskCandidateUserEvents TaskCandidateUserAddedEventImpl.getEventType()"})
   void testGetEventType() {
     // Arrange, Act and Assert
-    assertEquals(
-        TaskCandidateUserEvents.TASK_CANDIDATE_USER_ADDED,
-        new TaskCandidateUserAddedEventImpl().getEventType());
+    assertEquals(TaskCandidateUserEvents.TASK_CANDIDATE_USER_ADDED,
+        (new TaskCandidateUserAddedEventImpl()).getEventType());
   }
 }

@@ -16,14 +16,11 @@
 package org.activiti.bpmn.converter;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
-import java.util.HashMap;
 import javax.xml.stream.XMLStreamWriter;
+import org.activiti.bpmn.model.ActivitiListener;
 import org.activiti.bpmn.model.BaseElement;
 import org.activiti.bpmn.model.BpmnModel;
-import org.activiti.bpmn.model.Message;
-import org.activiti.bpmn.model.Message.Builder;
 import org.activiti.bpmn.model.ThrowEvent;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
@@ -32,46 +29,28 @@ import org.junit.jupiter.api.Test;
 class ThrowEventXMLConverterDiffblueTest {
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>default or parameterless constructor of {@link ThrowEventXMLConverter}
-   *   <li>{@link ThrowEventXMLConverter#writeAdditionalAttributes(BaseElement, BpmnModel,
-   *       XMLStreamWriter)}
+   *   <li>{@link ThrowEventXMLConverter#writeAdditionalAttributes(BaseElement, BpmnModel, XMLStreamWriter)}
    *   <li>{@link ThrowEventXMLConverter#getBpmnElementType()}
    *   <li>{@link ThrowEventXMLConverter#getXMLElementName()}
    * </ul>
    */
   @Test
   @DisplayName("Test getters and setters")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void ThrowEventXMLConverter.<init>()",
-    "Class ThrowEventXMLConverter.getBpmnElementType()",
-    "java.lang.String ThrowEventXMLConverter.getXMLElementName()",
-    "void ThrowEventXMLConverter.writeAdditionalAttributes(BaseElement, BpmnModel, XMLStreamWriter)"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void ThrowEventXMLConverter.<init>()", "Class ThrowEventXMLConverter.getBpmnElementType()",
+      "java.lang.String ThrowEventXMLConverter.getXMLElementName()",
+      "void ThrowEventXMLConverter.writeAdditionalAttributes(BaseElement, BpmnModel, XMLStreamWriter)"})
   void testGettersAndSetters() throws Exception {
     // Arrange and Act
     ThrowEventXMLConverter actualThrowEventXMLConverter = new ThrowEventXMLConverter();
-    Builder builderResult = Message.builder();
-    Builder attributesResult = builderResult.attributes(new HashMap<>());
-    Message element =
-        attributesResult
-            .extensionElements(new HashMap<>())
-            .id("42")
-            .itemRef("Item Ref")
-            .name("Name")
-            .xmlColumnNumber(10)
-            .xmlRowNumber(10)
-            .build();
+    ActivitiListener element = new ActivitiListener();
     BpmnModel model = new BpmnModel();
-    actualThrowEventXMLConverter.writeAdditionalAttributes(
-        element, model, new IndentingXMLStreamWriter(null));
-    Class<? extends BaseElement> actualBpmnElementType =
-        actualThrowEventXMLConverter.getBpmnElementType();
+    actualThrowEventXMLConverter.writeAdditionalAttributes(element, model, new IndentingXMLStreamWriter(null));
+    Class<? extends BaseElement> actualBpmnElementType = actualThrowEventXMLConverter.getBpmnElementType();
 
     // Assert
     assertEquals("intermediateThrowEvent", actualThrowEventXMLConverter.getXMLElementName());

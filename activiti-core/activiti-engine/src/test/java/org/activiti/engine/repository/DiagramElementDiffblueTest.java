@@ -17,38 +17,32 @@ package org.activiti.engine.repository;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
-import org.springframework.test.annotation.DirtiesContext;
-import org.springframework.test.annotation.DirtiesContext.ClassMode;
 
-@DirtiesContext(classMode = ClassMode.AFTER_EACH_TEST_METHOD)
 public class DiagramElementDiffblueTest {
   /**
    * Test {@link DiagramElement#getId()}.
-   *
-   * <p>Method under test: {@link DiagramElement#getId()}
+   * <p>
+   * Method under test: {@link DiagramElement#getId()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"String DiagramElement.getId()"})
   public void testGetId() {
     // Arrange, Act and Assert
-    assertNull(new DiagramEdge().getId());
+    assertNull((new DiagramEdge()).getId());
   }
 
   /**
    * Test {@link DiagramElement#setId(String)}.
-   *
-   * <p>Method under test: {@link DiagramElement#setId(String)}
+   * <p>
+   * Method under test: {@link DiagramElement#setId(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void DiagramElement.setId(String)"})
   public void testSetId() {
     // Arrange
@@ -63,15 +57,14 @@ public class DiagramElementDiffblueTest {
 
   /**
    * Test {@link DiagramElement#toString()}.
-   *
-   * <p>Method under test: {@link DiagramElement#toString()}
+   * <p>
+   * Method under test: {@link DiagramElement#toString()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"String DiagramElement.toString()"})
   public void testToString() {
     // Arrange, Act and Assert
-    assertEquals("id=null", new DiagramEdge().toString());
+    assertEquals("id=null", (new DiagramEdge()).toString());
   }
 }

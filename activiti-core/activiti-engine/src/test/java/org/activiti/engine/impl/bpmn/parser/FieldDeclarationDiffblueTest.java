@@ -17,8 +17,7 @@ package org.activiti.engine.impl.bpmn.parser;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.engine.impl.util.json.JSONObject;
 import org.junit.Test;
@@ -27,9 +26,8 @@ import org.junit.experimental.categories.Category;
 public class FieldDeclarationDiffblueTest {
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>{@link FieldDeclaration#FieldDeclaration()}
    *   <li>{@link FieldDeclaration#setName(String)}
@@ -41,18 +39,11 @@ public class FieldDeclarationDiffblueTest {
    * </ul>
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void FieldDeclaration.<init>()",
-    "void FieldDeclaration.<init>(String, String, Object)",
-    "String FieldDeclaration.getName()",
-    "String FieldDeclaration.getType()",
-    "Object FieldDeclaration.getValue()",
-    "void FieldDeclaration.setName(String)",
-    "void FieldDeclaration.setType(String)",
-    "void FieldDeclaration.setValue(Object)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void FieldDeclaration.<init>()", "void FieldDeclaration.<init>(String, String, Object)",
+      "String FieldDeclaration.getName()", "String FieldDeclaration.getType()", "Object FieldDeclaration.getValue()",
+      "void FieldDeclaration.setName(String)", "void FieldDeclaration.setType(String)",
+      "void FieldDeclaration.setValue(Object)"})
   public void testGettersAndSetters() {
     // Arrange and Act
     FieldDeclaration actualFieldDeclaration = new FieldDeclaration();
@@ -71,13 +62,11 @@ public class FieldDeclarationDiffblueTest {
 
   /**
    * Test getters and setters.
-   *
    * <ul>
-   *   <li>When {@code Name}.
+   *   <li>When {@code Name}.</li>
    * </ul>
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>{@link FieldDeclaration#FieldDeclaration(String, String, Object)}
    *   <li>{@link FieldDeclaration#setName(String)}
@@ -89,18 +78,11 @@ public class FieldDeclarationDiffblueTest {
    * </ul>
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void FieldDeclaration.<init>()",
-    "void FieldDeclaration.<init>(String, String, Object)",
-    "String FieldDeclaration.getName()",
-    "String FieldDeclaration.getType()",
-    "Object FieldDeclaration.getValue()",
-    "void FieldDeclaration.setName(String)",
-    "void FieldDeclaration.setType(String)",
-    "void FieldDeclaration.setValue(Object)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void FieldDeclaration.<init>()", "void FieldDeclaration.<init>(String, String, Object)",
+      "String FieldDeclaration.getName()", "String FieldDeclaration.getType()", "Object FieldDeclaration.getValue()",
+      "void FieldDeclaration.setName(String)", "void FieldDeclaration.setType(String)",
+      "void FieldDeclaration.setValue(Object)"})
   public void testGettersAndSetters_whenName() {
     // Arrange and Act
     FieldDeclaration actualFieldDeclaration = new FieldDeclaration("Name", "Type", JSONObject.NULL);

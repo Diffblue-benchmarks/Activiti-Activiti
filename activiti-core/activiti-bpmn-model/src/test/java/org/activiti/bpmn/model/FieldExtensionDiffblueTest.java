@@ -18,8 +18,7 @@ package org.activiti.bpmn.model;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
@@ -27,9 +26,8 @@ import org.junit.experimental.categories.Category;
 public class FieldExtensionDiffblueTest {
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>default or parameterless constructor of {@link FieldExtension}
    *   <li>{@link FieldExtension#setExpression(String)}
@@ -41,17 +39,11 @@ public class FieldExtensionDiffblueTest {
    * </ul>
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void FieldExtension.<init>()",
-    "String FieldExtension.getExpression()",
-    "String FieldExtension.getFieldName()",
-    "String FieldExtension.getStringValue()",
-    "void FieldExtension.setExpression(String)",
-    "void FieldExtension.setFieldName(String)",
-    "void FieldExtension.setStringValue(String)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void FieldExtension.<init>()", "String FieldExtension.getExpression()",
+      "String FieldExtension.getFieldName()", "String FieldExtension.getStringValue()",
+      "void FieldExtension.setExpression(String)", "void FieldExtension.setFieldName(String)",
+      "void FieldExtension.setStringValue(String)"})
   public void testGettersAndSetters() {
     // Arrange and Act
     FieldExtension actualFieldExtension = new FieldExtension();
@@ -74,16 +66,15 @@ public class FieldExtensionDiffblueTest {
 
   /**
    * Test {@link FieldExtension#clone()}.
-   *
-   * <p>Method under test: {@link FieldExtension#clone()}
+   * <p>
+   * Method under test: {@link FieldExtension#clone()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"FieldExtension FieldExtension.clone()"})
   public void testClone() {
     // Arrange and Act
-    FieldExtension actualCloneResult = new FieldExtension().clone();
+    FieldExtension actualCloneResult = (new FieldExtension()).clone();
 
     // Assert
     assertNull(actualCloneResult.getId());

@@ -18,7 +18,6 @@ package org.activiti.runtime.api.impl;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.HashMap;
 import java.util.Map;
@@ -34,22 +33,39 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 @ContextConfiguration(classes = {VariableNameValidator.class})
 @ExtendWith(SpringExtension.class)
 class VariableNameValidatorDiffblueTest {
-  @Autowired private VariableNameValidator variableNameValidator;
+  @Autowired
+  private VariableNameValidator variableNameValidator;
 
   /**
    * Test {@link VariableNameValidator#validate(String)}.
-   *
    * <ul>
-   *   <li>When {@code Name}.
-   *   <li>Then return {@code true}.
+   *   <li>When {@code (?i)[a-z][a-z0-9_]*}.</li>
+   *   <li>Then return {@code false}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link VariableNameValidator#validate(String)}
+   * <p>
+   * Method under test: {@link VariableNameValidator#validate(String)}
+   */
+  @Test
+  @DisplayName("Test validate(String); when '(?i)[a-z][a-z0-9_]*'; then return 'false'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean VariableNameValidator.validate(String)"})
+  void testValidate_whenIAZAZ09_thenReturnFalse() {
+    // Arrange, Act and Assert
+    assertFalse(variableNameValidator.validate("(?i)[a-z][a-z0-9_]*"));
+  }
+
+  /**
+   * Test {@link VariableNameValidator#validate(String)}.
+   * <ul>
+   *   <li>When {@code Name}.</li>
+   *   <li>Then return {@code true}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link VariableNameValidator#validate(String)}
    */
   @Test
   @DisplayName("Test validate(String); when 'Name'; then return 'true'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"boolean VariableNameValidator.validate(String)"})
   void testValidate_whenName_thenReturnTrue() {
     // Arrange, Act and Assert
@@ -58,38 +74,16 @@ class VariableNameValidatorDiffblueTest {
 
   /**
    * Test {@link VariableNameValidator#validate(String)}.
-   *
    * <ul>
-   *   <li>When {@code not empty}.
-   *   <li>Then return {@code false}.
+   *   <li>When {@code null}.</li>
+   *   <li>Then return {@code false}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link VariableNameValidator#validate(String)}
-   */
-  @Test
-  @DisplayName("Test validate(String); when 'not empty'; then return 'false'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"boolean VariableNameValidator.validate(String)"})
-  void testValidate_whenNotEmpty_thenReturnFalse() {
-    // Arrange, Act and Assert
-    assertFalse(variableNameValidator.validate("not empty"));
-  }
-
-  /**
-   * Test {@link VariableNameValidator#validate(String)}.
-   *
-   * <ul>
-   *   <li>When {@code null}.
-   *   <li>Then return {@code false}.
-   * </ul>
-   *
-   * <p>Method under test: {@link VariableNameValidator#validate(String)}
+   * <p>
+   * Method under test: {@link VariableNameValidator#validate(String)}
    */
   @Test
   @DisplayName("Test validate(String); when 'null'; then return 'false'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"boolean VariableNameValidator.validate(String)"})
   void testValidate_whenNull_thenReturnFalse() {
     // Arrange, Act and Assert
@@ -98,20 +92,17 @@ class VariableNameValidatorDiffblueTest {
 
   /**
    * Test {@link VariableNameValidator#validateVariables(Map)}.
-   *
    * <ul>
-   *   <li>Given {@code 42}.
-   *   <li>When {@link HashMap#HashMap()} {@code 42} is {@code 42}.
-   *   <li>Then return contains {@code 42}.
+   *   <li>Given {@code 42}.</li>
+   *   <li>When {@link HashMap#HashMap()} {@code 42} is {@code 42}.</li>
+   *   <li>Then return contains {@code 42}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link VariableNameValidator#validateVariables(Map)}
+   * <p>
+   * Method under test: {@link VariableNameValidator#validateVariables(Map)}
    */
   @Test
-  @DisplayName(
-      "Test validateVariables(Map); given '42'; when HashMap() '42' is '42'; then return contains '42'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test validateVariables(Map); given '42'; when HashMap() '42' is '42'; then return contains '42'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"Set VariableNameValidator.validateVariables(Map)"})
   void testValidateVariables_given42_whenHashMap42Is42_thenReturnContains42() {
     // Arrange
@@ -128,20 +119,17 @@ class VariableNameValidatorDiffblueTest {
 
   /**
    * Test {@link VariableNameValidator#validateVariables(Map)}.
-   *
    * <ul>
-   *   <li>Given {@code foo}.
-   *   <li>When {@link HashMap#HashMap()} {@code foo} is {@code 42}.
-   *   <li>Then return Empty.
+   *   <li>Given {@code foo}.</li>
+   *   <li>When {@link HashMap#HashMap()} {@code foo} is {@code 42}.</li>
+   *   <li>Then return Empty.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link VariableNameValidator#validateVariables(Map)}
+   * <p>
+   * Method under test: {@link VariableNameValidator#validateVariables(Map)}
    */
   @Test
-  @DisplayName(
-      "Test validateVariables(Map); given 'foo'; when HashMap() 'foo' is '42'; then return Empty")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test validateVariables(Map); given 'foo'; when HashMap() 'foo' is '42'; then return Empty")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"Set VariableNameValidator.validateVariables(Map)"})
   void testValidateVariables_givenFoo_whenHashMapFooIs42_thenReturnEmpty() {
     // Arrange
@@ -154,20 +142,17 @@ class VariableNameValidatorDiffblueTest {
 
   /**
    * Test {@link VariableNameValidator#validateVariables(Map)}.
-   *
    * <ul>
-   *   <li>Given {@code null}.
-   *   <li>When {@link HashMap#HashMap()} {@code null} is {@code 42}.
-   *   <li>Then return contains {@code null}.
+   *   <li>Given {@code null}.</li>
+   *   <li>When {@link HashMap#HashMap()} {@code null} is {@code 42}.</li>
+   *   <li>Then return contains {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link VariableNameValidator#validateVariables(Map)}
+   * <p>
+   * Method under test: {@link VariableNameValidator#validateVariables(Map)}
    */
   @Test
-  @DisplayName(
-      "Test validateVariables(Map); given 'null'; when HashMap() 'null' is '42'; then return contains 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test validateVariables(Map); given 'null'; when HashMap() 'null' is '42'; then return contains 'null'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"Set VariableNameValidator.validateVariables(Map)"})
   void testValidateVariables_givenNull_whenHashMapNullIs42_thenReturnContainsNull() {
     // Arrange
@@ -184,18 +169,16 @@ class VariableNameValidatorDiffblueTest {
 
   /**
    * Test {@link VariableNameValidator#validateVariables(Map)}.
-   *
    * <ul>
-   *   <li>When {@link HashMap#HashMap()}.
-   *   <li>Then return Empty.
+   *   <li>When {@link HashMap#HashMap()}.</li>
+   *   <li>Then return Empty.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link VariableNameValidator#validateVariables(Map)}
+   * <p>
+   * Method under test: {@link VariableNameValidator#validateVariables(Map)}
    */
   @Test
   @DisplayName("Test validateVariables(Map); when HashMap(); then return Empty")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"Set VariableNameValidator.validateVariables(Map)"})
   void testValidateVariables_whenHashMap_thenReturnEmpty() {
     // Arrange, Act and Assert
@@ -204,18 +187,16 @@ class VariableNameValidatorDiffblueTest {
 
   /**
    * Test {@link VariableNameValidator#validateVariables(Map)}.
-   *
    * <ul>
-   *   <li>When {@code null}.
-   *   <li>Then return Empty.
+   *   <li>When {@code null}.</li>
+   *   <li>Then return Empty.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link VariableNameValidator#validateVariables(Map)}
+   * <p>
+   * Method under test: {@link VariableNameValidator#validateVariables(Map)}
    */
   @Test
   @DisplayName("Test validateVariables(Map); when 'null'; then return Empty")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"Set VariableNameValidator.validateVariables(Map)"})
   void testValidateVariables_whenNull_thenReturnEmpty() {
     // Arrange, Act and Assert

@@ -19,7 +19,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.api.process.model.ProcessInstance;
 import org.activiti.api.process.model.events.ProcessRuntimeEvent;
@@ -32,13 +31,12 @@ import org.junit.jupiter.api.Test;
 class ProcessStartedEventImplDiffblueTest {
   /**
    * Test {@link ProcessStartedEventImpl#ProcessStartedEventImpl(ProcessInstance)}.
-   *
-   * <p>Method under test: {@link ProcessStartedEventImpl#ProcessStartedEventImpl(ProcessInstance)}
+   * <p>
+   * Method under test: {@link ProcessStartedEventImpl#ProcessStartedEventImpl(ProcessInstance)}
    */
   @Test
   @DisplayName("Test new ProcessStartedEventImpl(ProcessInstance)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void ProcessStartedEventImpl.<init>(ProcessInstance)"})
   void testNewProcessStartedEventImpl() {
     // Arrange
@@ -64,9 +62,8 @@ class ProcessStartedEventImplDiffblueTest {
 
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>{@link ProcessStartedEventImpl#setNestedProcessDefinitionId(String)}
    *   <li>{@link ProcessStartedEventImpl#setNestedProcessInstanceId(String)}
@@ -77,19 +74,14 @@ class ProcessStartedEventImplDiffblueTest {
    */
   @Test
   @DisplayName("Test getters and setters")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "String ProcessStartedEventImpl.getNestedProcessDefinitionId()",
-    "String ProcessStartedEventImpl.getNestedProcessInstanceId()",
-    "void ProcessStartedEventImpl.setNestedProcessDefinitionId(String)",
-    "void ProcessStartedEventImpl.setNestedProcessInstanceId(String)",
-    "String ProcessStartedEventImpl.toString()"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"String ProcessStartedEventImpl.getNestedProcessDefinitionId()",
+      "String ProcessStartedEventImpl.getNestedProcessInstanceId()",
+      "void ProcessStartedEventImpl.setNestedProcessDefinitionId(String)",
+      "void ProcessStartedEventImpl.setNestedProcessInstanceId(String)", "String ProcessStartedEventImpl.toString()"})
   void testGettersAndSetters() {
     // Arrange
-    ProcessStartedEventImpl processStartedEventImpl =
-        new ProcessStartedEventImpl(new ProcessInstanceImpl());
+    ProcessStartedEventImpl processStartedEventImpl = new ProcessStartedEventImpl(new ProcessInstanceImpl());
 
     // Act
     processStartedEventImpl.setNestedProcessDefinitionId("42");
@@ -104,18 +96,16 @@ class ProcessStartedEventImplDiffblueTest {
 
   /**
    * Test {@link ProcessStartedEventImpl#getEventType()}.
-   *
-   * <p>Method under test: {@link ProcessStartedEventImpl#getEventType()}
+   * <p>
+   * Method under test: {@link ProcessStartedEventImpl#getEventType()}
    */
   @Test
   @DisplayName("Test getEventType()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"ProcessRuntimeEvent.ProcessEvents ProcessStartedEventImpl.getEventType()"})
   void testGetEventType() {
     // Arrange, Act and Assert
-    assertEquals(
-        ProcessEvents.PROCESS_STARTED,
-        new ProcessStartedEventImpl(new ProcessInstanceImpl()).getEventType());
+    assertEquals(ProcessEvents.PROCESS_STARTED,
+        (new ProcessStartedEventImpl(new ProcessInstanceImpl())).getEventType());
   }
 }

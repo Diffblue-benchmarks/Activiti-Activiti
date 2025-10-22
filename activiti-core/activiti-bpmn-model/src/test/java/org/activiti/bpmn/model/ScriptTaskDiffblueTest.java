@@ -20,8 +20,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
 import java.util.List;
@@ -31,17 +30,15 @@ import org.junit.experimental.categories.Category;
 public class ScriptTaskDiffblueTest {
   /**
    * Test {@link ScriptTask#clone()}.
-   *
    * <ul>
-   *   <li>Given {@link ScriptTask} (default constructor) ForCompensation is {@code true}.
-   *   <li>Then return ForCompensation.
+   *   <li>Given {@link ScriptTask} (default constructor) ForCompensation is {@code true}.</li>
+   *   <li>Then return ForCompensation.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ScriptTask#clone()}
+   * <p>
+   * Method under test: {@link ScriptTask#clone()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"ScriptTask ScriptTask.clone()"})
   public void testClone_givenScriptTaskForCompensationIsTrue_thenReturnForCompensation() {
     // Arrange
@@ -63,21 +60,19 @@ public class ScriptTaskDiffblueTest {
 
   /**
    * Test {@link ScriptTask#clone()}.
-   *
    * <ul>
-   *   <li>Given {@link ScriptTask} (default constructor).
-   *   <li>Then return not ForCompensation.
+   *   <li>Given {@link ScriptTask} (default constructor).</li>
+   *   <li>Then return not ForCompensation.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ScriptTask#clone()}
+   * <p>
+   * Method under test: {@link ScriptTask#clone()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"ScriptTask ScriptTask.clone()"})
   public void testClone_givenScriptTask_thenReturnNotForCompensation() {
     // Arrange and Act
-    ScriptTask actualCloneResult = new ScriptTask().clone();
+    ScriptTask actualCloneResult = (new ScriptTask()).clone();
 
     // Assert
     assertNull(actualCloneResult.getIoSpecification());
@@ -91,16 +86,14 @@ public class ScriptTaskDiffblueTest {
 
   /**
    * Test {@link ScriptTask#clone()}.
-   *
    * <ul>
-   *   <li>Then return BoundaryEvents size is one.
+   *   <li>Then return BoundaryEvents size is one.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ScriptTask#clone()}
+   * <p>
+   * Method under test: {@link ScriptTask#clone()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"ScriptTask ScriptTask.clone()"})
   public void testClone_thenReturnBoundaryEventsSizeIsOne() {
     // Arrange
@@ -123,16 +116,14 @@ public class ScriptTaskDiffblueTest {
 
   /**
    * Test {@link ScriptTask#clone()}.
-   *
    * <ul>
-   *   <li>Then return DataInputAssociations size is one.
+   *   <li>Then return DataInputAssociations size is one.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ScriptTask#clone()}
+   * <p>
+   * Method under test: {@link ScriptTask#clone()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"ScriptTask ScriptTask.clone()"})
   public void testClone_thenReturnDataInputAssociationsSizeIsOne() {
     // Arrange
@@ -166,16 +157,14 @@ public class ScriptTaskDiffblueTest {
 
   /**
    * Test {@link ScriptTask#clone()}.
-   *
    * <ul>
-   *   <li>Then return DataOutputAssociations size is one.
+   *   <li>Then return DataOutputAssociations size is one.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ScriptTask#clone()}
+   * <p>
+   * Method under test: {@link ScriptTask#clone()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"ScriptTask ScriptTask.clone()"})
   public void testClone_thenReturnDataOutputAssociationsSizeIsOne() {
     // Arrange
@@ -209,16 +198,14 @@ public class ScriptTaskDiffblueTest {
 
   /**
    * Test {@link ScriptTask#clone()}.
-   *
    * <ul>
-   *   <li>Then return IoSpecification Id is {@code null}.
+   *   <li>Then return IoSpecification Id is {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ScriptTask#clone()}
+   * <p>
+   * Method under test: {@link ScriptTask#clone()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"ScriptTask ScriptTask.clone()"})
   public void testClone_thenReturnIoSpecificationIdIsNull() {
     // Arrange
@@ -247,16 +234,14 @@ public class ScriptTaskDiffblueTest {
 
   /**
    * Test {@link ScriptTask#clone()}.
-   *
    * <ul>
-   *   <li>Then return LoopCharacteristics Id is {@code null}.
+   *   <li>Then return LoopCharacteristics Id is {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ScriptTask#clone()}
+   * <p>
+   * Method under test: {@link ScriptTask#clone()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"ScriptTask ScriptTask.clone()"})
   public void testClone_thenReturnLoopCharacteristicsIdIsNull() {
     // Arrange
@@ -267,8 +252,7 @@ public class ScriptTaskDiffblueTest {
     ScriptTask actualCloneResult = scriptTask.clone();
 
     // Assert
-    MultiInstanceLoopCharacteristics loopCharacteristics =
-        actualCloneResult.getLoopCharacteristics();
+    MultiInstanceLoopCharacteristics loopCharacteristics = actualCloneResult.getLoopCharacteristics();
     assertNull(loopCharacteristics.getId());
     assertNull(loopCharacteristics.getCompletionCondition());
     assertNull(loopCharacteristics.getElementIndexVariable());
@@ -287,9 +271,8 @@ public class ScriptTaskDiffblueTest {
 
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>default or parameterless constructor of {@link ScriptTask}
    *   <li>{@link ScriptTask#setResultVariable(String)}
@@ -303,19 +286,12 @@ public class ScriptTaskDiffblueTest {
    * </ul>
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void ScriptTask.<init>()",
-    "String ScriptTask.getResultVariable()",
-    "String ScriptTask.getScript()",
-    "String ScriptTask.getScriptFormat()",
-    "boolean ScriptTask.isAutoStoreVariables()",
-    "void ScriptTask.setAutoStoreVariables(boolean)",
-    "void ScriptTask.setResultVariable(String)",
-    "void ScriptTask.setScript(String)",
-    "void ScriptTask.setScriptFormat(String)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void ScriptTask.<init>()", "String ScriptTask.getResultVariable()",
+      "String ScriptTask.getScript()", "String ScriptTask.getScriptFormat()",
+      "boolean ScriptTask.isAutoStoreVariables()", "void ScriptTask.setAutoStoreVariables(boolean)",
+      "void ScriptTask.setResultVariable(String)", "void ScriptTask.setScript(String)",
+      "void ScriptTask.setScriptFormat(String)"})
   public void testGettersAndSetters() {
     // Arrange and Act
     ScriptTask actualScriptTask = new ScriptTask();

@@ -17,8 +17,7 @@ package org.activiti.engine.test.impl.logger;
 
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.engine.impl.persistence.entity.ExecutionEntity;
 import org.activiti.engine.impl.persistence.entity.ExecutionEntityImpl;
@@ -28,23 +27,19 @@ import org.junit.experimental.categories.Category;
 public class DebugInfoExecutionCreatedDiffblueTest {
   /**
    * Test {@link DebugInfoExecutionCreated#DebugInfoExecutionCreated(ExecutionEntity)}.
-   *
    * <ul>
-   *   <li>Then {@link DebugInfoExecutionCreated#executionEntity} return {@link
-   *       ExecutionEntityImpl}.
+   *   <li>Then {@link DebugInfoExecutionCreated#executionEntity} return {@link ExecutionEntityImpl}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link
-   * DebugInfoExecutionCreated#DebugInfoExecutionCreated(ExecutionEntity)}
+   * <p>
+   * Method under test: {@link DebugInfoExecutionCreated#DebugInfoExecutionCreated(ExecutionEntity)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void DebugInfoExecutionCreated.<init>(ExecutionEntity)"})
   public void testNewDebugInfoExecutionCreated_thenExecutionEntityReturnExecutionEntityImpl() {
     // Arrange and Act
-    DebugInfoExecutionCreated actualDebugInfoExecutionCreated =
-        new DebugInfoExecutionCreated(ExecutionEntityImpl.createWithEmptyRelationshipCollections());
+    DebugInfoExecutionCreated actualDebugInfoExecutionCreated = new DebugInfoExecutionCreated(
+        ExecutionEntityImpl.createWithEmptyRelationshipCollections());
 
     // Assert
     assertTrue(actualDebugInfoExecutionCreated.executionEntity instanceof ExecutionEntityImpl);

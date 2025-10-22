@@ -17,8 +17,7 @@ package org.activiti.engine.impl.cfg.standalone;
 
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.engine.impl.cfg.TransactionContext;
 import org.activiti.engine.impl.interceptor.CommandContext;
@@ -28,31 +27,24 @@ import org.junit.experimental.categories.Category;
 public class StandaloneMybatisTransactionContextFactoryDiffblueTest {
   /**
    * Test {@link StandaloneMybatisTransactionContextFactory#openTransactionContext(CommandContext)}.
-   *
    * <ul>
-   *   <li>Then return {@link StandaloneMybatisTransactionContext}.
+   *   <li>Then return {@link StandaloneMybatisTransactionContext}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link
-   * StandaloneMybatisTransactionContextFactory#openTransactionContext(CommandContext)}
+   * <p>
+   * Method under test: {@link StandaloneMybatisTransactionContextFactory#openTransactionContext(CommandContext)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({
-    "TransactionContext StandaloneMybatisTransactionContextFactory.openTransactionContext(CommandContext)"
-  })
+      "TransactionContext StandaloneMybatisTransactionContextFactory.openTransactionContext(CommandContext)"})
   public void testOpenTransactionContext_thenReturnStandaloneMybatisTransactionContext() {
     // Arrange and Act
-    TransactionContext actualOpenTransactionContextResult =
-        new StandaloneMybatisTransactionContextFactory().openTransactionContext(null);
+    TransactionContext actualOpenTransactionContextResult = (new StandaloneMybatisTransactionContextFactory())
+        .openTransactionContext(null);
 
     // Assert
     assertTrue(actualOpenTransactionContextResult instanceof StandaloneMybatisTransactionContext);
-    assertNull(
-        ((StandaloneMybatisTransactionContext) actualOpenTransactionContextResult)
-            .stateTransactionListeners);
-    assertNull(
-        ((StandaloneMybatisTransactionContext) actualOpenTransactionContextResult).commandContext);
+    assertNull(((StandaloneMybatisTransactionContext) actualOpenTransactionContextResult).stateTransactionListeners);
+    assertNull(((StandaloneMybatisTransactionContext) actualOpenTransactionContextResult).commandContext);
   }
 }

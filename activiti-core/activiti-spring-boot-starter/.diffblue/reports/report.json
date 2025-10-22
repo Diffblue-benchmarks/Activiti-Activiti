@@ -1,21 +1,21 @@
 {
   "meta" : {
-    "reportVersion" : "2.7"
+    "reportVersion" : "2.6"
   },
   "run" : {
-    "version" : "2025.09.01-44e352d-licensed",
-    "creationTimestamp" : "2025-10-15T18:17:05.474751764Z",
+    "version" : "2025.02.02-08b2a5a-licensed",
+    "creationTimestamp" : "2025-10-21T18:36:58.703503864Z",
     "command" : "dcover create --exclude-modules=org.activiti:activiti-dependency-check,org.activiti:activiti-api-dependencies,org.activiti:activiti-core-common-dependencies,org.activiti:activiti-core-dependencies,org.activiti:activiti-dependencies,org.activiti:activiti-spring-conformance-set0,org.activiti:activiti-spring-conformance-set1,org.activiti:activiti-spring-conformance-set2,org.activiti:activiti-spring-conformance-set3,org.activiti:activiti-spring-conformance-set4,org.activiti:activiti-spring-conformance-set5,org.activiti:activiti-spring-conformance-variables,org.activiti:activiti-spring-conformance-signals --coverage-reports --upload http://localhost:8080 --project-name Activiti-Activiti --name with-diffblue-tests",
-    "totalTime" : 1693.971,
-    "environmentDetectionTime" : 0.289,
-    "indexingTime" : 0.558,
-    "entryPointsTime" : 0.273,
-    "generationTime" : 58628.838,
-    "timeToFirstTest" : 65746.418,
-    "timeToLastTest" : 61829.24,
-    "indexQueryTime" : 9.983,
-    "verificationTime" : 1219.902,
-    "validationTime" : 43.808
+    "totalTime" : 1112.993,
+    "environmentDetectionTime" : 0.865,
+    "indexingTime" : 0.43,
+    "entryPointsTime" : 0.858,
+    "generationTime" : 60291.626,
+    "timeToFirstTest" : 66892.746,
+    "timeToLastTest" : 63445.627,
+    "indexQueryTime" : 17.395,
+    "verificationTime" : 1159.437,
+    "validationTime" : 69.341
   },
   "codes" : {
     "F009" : "Internal error",
@@ -24,7 +24,6 @@
     "R005" : "Unable to load class",
     "R013" : "No inputs found that don't throw a trivial exception",
     "R026" : "Failed to create Spring context",
-    "R027" : "Missing beans when creating Spring context",
     "R081" : "Exception in arrange section",
     "T000" : "Method eligible for test creation",
     "T001" : "Trivial getter",
@@ -35,16 +34,15 @@
     "T010" : "Abstract or interface method",
     "T012" : "Synthetic method",
     "T021" : "Empty method body",
-    "T023" : "Testability unknown",
     "V000" : "Validated successfully",
     "V003" : "Tests discarded during validation"
   },
   "summary" : {
     "classesCount" : 28,
     "methodsCount" : 215,
-    "cumulativeDiffblueTestCount" : 90,
+    "cumulativeDiffblueTestCount" : 99,
     "cumulativeManualTestCount" : 67,
-    "completeTestCount" : 90,
+    "completeTestCount" : 99,
     "incompleteTestCount" : 0,
     "skeletonTestCount" : 0,
     "totalPhysicalLineCount" : 1470,
@@ -56,31 +54,28 @@
       "T004" : 2,
       "T005" : 14,
       "T010" : 6,
-      "T012" : 11,
-      "T021" : 5,
-      "T023" : 4
+      "T012" : 15,
+      "T021" : 5
     },
     "perMethodOutcome" : {
       "F009" : 1,
-      "R000" : 124,
-      "R002" : 10,
+      "R000" : 129,
+      "R002" : 12,
       "R005" : 2,
-      "R013" : 16,
-      "R026" : 21,
-      "R027" : 1,
+      "R013" : 13,
+      "R026" : 20,
       "R081" : 1,
       "T003" : 11,
       "T004" : 2,
-      "T005" : 5,
+      "T005" : 3,
       "T010" : 6,
-      "T012" : 11,
-      "T023" : 4
+      "T012" : 15
     },
     "perTestOutcome" : {
-      "R000" : 90
+      "R000" : 99
     },
     "perTestValidation" : {
-      "V000" : 90,
+      "V000" : 99,
       "V003" : 1
     }
   },
@@ -92,13 +87,13 @@
       "perMethodTestability" : {
         "T000" : 9,
         "T010" : 3,
-        "T023" : 1
+        "T012" : 1
       },
       "perMethodOutcome" : {
         "R000" : 5,
         "R026" : 4,
         "T010" : 3,
-        "T023" : 1
+        "T012" : 1
       },
       "perTestOutcome" : {
         "R000" : 5
@@ -112,17 +107,15 @@
         "T000" : 2,
         "T002" : 1,
         "T003" : 3,
-        "T012" : 1,
-        "T021" : 1,
-        "T023" : 1
+        "T012" : 2,
+        "T021" : 1
       },
       "perMethodOutcome" : {
         "R000" : 1,
         "R002" : 2,
         "R026" : 1,
         "T003" : 3,
-        "T012" : 1,
-        "T023" : 1
+        "T012" : 2
       },
       "perTestOutcome" : {
         "R000" : 3
@@ -171,15 +164,13 @@
       "incompleteTestCount" : 0,
       "perMethodTestability" : {
         "T000" : 2,
-        "T012" : 2,
-        "T021" : 1,
-        "T023" : 1
+        "T012" : 3,
+        "T021" : 1
       },
       "perMethodOutcome" : {
         "R000" : 2,
         "R002" : 1,
-        "T012" : 2,
-        "T023" : 1
+        "T012" : 3
       },
       "perTestOutcome" : {
         "R000" : 4
@@ -187,7 +178,7 @@
     },
     "org.activiti.spring.StartMessageDeployedEventProducer$DispatchStartMessageDeployedEvents" : {
       "methodsCount" : 2,
-      "completeTestCount" : 2,
+      "completeTestCount" : 1,
       "incompleteTestCount" : 0,
       "perMethodTestability" : {
         "T000" : 1,
@@ -198,7 +189,7 @@
         "R002" : 1
       },
       "perTestOutcome" : {
-        "R000" : 2
+        "R000" : 1
       }
     },
     "org.activiti.spring.StartMessageDeployedEventProducer$FindStartMessageEventSubscriptions" : {
@@ -218,19 +209,19 @@
     },
     "org.activiti.spring.boot.AbstractProcessEngineAutoConfiguration" : {
       "methodsCount" : 13,
-      "completeTestCount" : 5,
+      "completeTestCount" : 6,
       "incompleteTestCount" : 0,
       "perMethodTestability" : {
         "T000" : 12,
         "T010" : 1
       },
       "perMethodOutcome" : {
-        "R000" : 3,
-        "R026" : 9,
+        "R000" : 4,
+        "R026" : 8,
         "T010" : 1
       },
       "perTestOutcome" : {
-        "R000" : 5
+        "R000" : 6
       }
     },
     "org.activiti.spring.boot.AbstractProcessEngineConfiguration" : {
@@ -319,18 +310,17 @@
     },
     "org.activiti.spring.boot.CandidateStartersDeploymentConfigurer$CandidateStartersDeploymentHelper" : {
       "methodsCount" : 2,
-      "completeTestCount" : 1,
+      "completeTestCount" : 3,
       "incompleteTestCount" : 0,
       "perMethodTestability" : {
         "T000" : 1,
         "T005" : 1
       },
       "perMethodOutcome" : {
-        "R000" : 1,
-        "R013" : 1
+        "R000" : 2
       },
       "perTestOutcome" : {
-        "R000" : 1
+        "R000" : 3
       }
     },
     "org.activiti.spring.boot.DefaultActivityBehaviorFactoryMappingConfigurer" : {
@@ -358,13 +348,13 @@
         "T005" : 1
       },
       "perMethodOutcome" : {
-        "R013" : 1,
-        "T005" : 1
+        "R002" : 1,
+        "R013" : 1
       }
     },
     "org.activiti.spring.boot.ProcessDefinitionResourceFinderDescriptor" : {
       "methodsCount" : 7,
-      "completeTestCount" : 9,
+      "completeTestCount" : 8,
       "incompleteTestCount" : 0,
       "perMethodTestability" : {
         "T000" : 5,
@@ -375,12 +365,12 @@
         "R000" : 7
       },
       "perTestOutcome" : {
-        "R000" : 9
+        "R000" : 8
       }
     },
     "org.activiti.spring.boot.ProcessEngineAutoConfiguration" : {
       "methodsCount" : 15,
-      "completeTestCount" : 27,
+      "completeTestCount" : 28,
       "incompleteTestCount" : 0,
       "perMethodTestability" : {
         "T000" : 12,
@@ -390,13 +380,13 @@
       },
       "perMethodOutcome" : {
         "R000" : 10,
+        "R002" : 1,
         "R026" : 2,
         "T003" : 1,
-        "T005" : 1,
         "T012" : 1
       },
       "perTestOutcome" : {
-        "R000" : 27
+        "R000" : 28
       }
     },
     "org.activiti.spring.boot.ProcessEngineConfigurationConfigurer" : {
@@ -418,14 +408,12 @@
         "T000" : 1,
         "T001" : 1,
         "T005" : 1,
-        "T012" : 1,
-        "T023" : 1
+        "T012" : 2
       },
       "perMethodOutcome" : {
         "R000" : 1,
         "R005" : 2,
-        "T012" : 1,
-        "T023" : 1
+        "T012" : 2
       },
       "perTestOutcome" : {
         "R000" : 2
@@ -448,7 +436,7 @@
     },
     "org.activiti.spring.boot.process.validation.AsyncPropertyValidator" : {
       "methodsCount" : 4,
-      "completeTestCount" : 12,
+      "completeTestCount" : 14,
       "incompleteTestCount" : 0,
       "perMethodTestability" : {
         "T000" : 2,
@@ -461,7 +449,7 @@
         "T012" : 1
       },
       "perTestOutcome" : {
-        "R000" : 12
+        "R000" : 14
       }
     },
     "org.activiti.spring.integration.Activiti" : {
@@ -506,22 +494,22 @@
     },
     "org.activiti.spring.integration.IntegrationActivityBehavior" : {
       "methodsCount" : 4,
-      "completeTestCount" : 1,
+      "completeTestCount" : 3,
       "incompleteTestCount" : 0,
       "perMethodTestability" : {
         "T000" : 4
       },
       "perMethodOutcome" : {
-        "R000" : 1,
-        "R013" : 3
+        "R000" : 3,
+        "R013" : 1
       },
       "perTestOutcome" : {
-        "R000" : 1
+        "R000" : 3
       }
     },
     "org.activiti.spring.integration.ProcessVariableHeaderMapper" : {
       "methodsCount" : 6,
-      "completeTestCount" : 4,
+      "completeTestCount" : 7,
       "incompleteTestCount" : 0,
       "perMethodTestability" : {
         "T000" : 3,
@@ -529,13 +517,12 @@
         "T012" : 2
       },
       "perMethodOutcome" : {
-        "R000" : 2,
-        "R027" : 1,
+        "R000" : 3,
         "T003" : 1,
         "T012" : 2
       },
       "perTestOutcome" : {
-        "R000" : 4
+        "R000" : 7
       }
     }
   },
@@ -543,8 +530,11 @@
     "org.activiti.spring.AbstractActivitiSmartLifeCycle.<clinit>:()V" : {
       "completeTestCount" : 0,
       "incompleteTestCount" : 0,
-      "perMethodTestability" : "T023",
-      "perMethodOutcome" : "T023"
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        25
+      ]
     },
     "org.activiti.spring.AbstractActivitiSmartLifeCycle.<init>:()V" : {
       "completeTestCount" : 0,
@@ -692,8 +682,11 @@
     "org.activiti.spring.ApplicationDeployedEventProducer.<clinit>:()V" : {
       "completeTestCount" : 0,
       "incompleteTestCount" : 0,
-      "perMethodTestability" : "T023",
-      "perMethodOutcome" : "T023"
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        37
+      ]
     },
     "org.activiti.spring.ApplicationDeployedEventProducer.<init>:(Lorg/activiti/engine/RepositoryService;Lorg/activiti/runtime/api/model/impl/APIDeploymentConverter;Ljava/util/List;Lorg/springframework/context/ApplicationEventPublisher;)V" : {
       "completeTestCount" : 3,
@@ -1005,12 +998,12 @@
       ]
     },
     "org.activiti.spring.StartMessageDeployedEventProducer$DispatchStartMessageDeployedEvents.execute:(Lorg/activiti/engine/impl/interceptor/CommandContext;)Ljava/lang/Void;" : {
-      "completeTestCount" : 2,
+      "completeTestCount" : 1,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 2
+        "R000" : 1
       },
       "lineNumbers" : [
         103,
@@ -1059,8 +1052,11 @@
     "org.activiti.spring.StartMessageDeployedEventProducer.<clinit>:()V" : {
       "completeTestCount" : 0,
       "incompleteTestCount" : 0,
-      "perMethodTestability" : "T023",
-      "perMethodOutcome" : "T023"
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        42
+      ]
     },
     "org.activiti.spring.StartMessageDeployedEventProducer.<init>:(Lorg/activiti/engine/RepositoryService;Lorg/activiti/engine/ManagementService;Lorg/activiti/runtime/api/event/impl/StartMessageSubscriptionConverter;Lorg/activiti/runtime/api/model/impl/APIProcessDefinitionConverter;Ljava/util/List;Lorg/springframework/context/ApplicationEventPublisher;)V" : {
       "completeTestCount" : 3,
@@ -1245,10 +1241,13 @@
       ]
     },
     "org.activiti.spring.boot.AbstractProcessEngineAutoConfiguration.springRejectedJobsHandler:()Lorg/activiti/spring/SpringRejectedJobsHandler;" : {
-      "completeTestCount" : 0,
+      "completeTestCount" : 1,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
-      "perMethodOutcome" : "R026",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
       "lineNumbers" : [
         55
       ]
@@ -2444,10 +2443,13 @@
       ]
     },
     "org.activiti.spring.boot.CandidateStartersDeploymentConfigurer$CandidateStartersDeploymentHelper.addAuthorizationsForNewProcessDefinition:(Lorg/activiti/bpmn/model/Process;Lorg/activiti/engine/impl/persistence/entity/ProcessDefinitionEntity;)V" : {
-      "completeTestCount" : 0,
+      "completeTestCount" : 2,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
-      "perMethodOutcome" : "R013",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 2
+      },
       "lineNumbers" : [
         38,
         39,
@@ -2511,7 +2513,7 @@
       "completeTestCount" : 0,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T005",
-      "perMethodOutcome" : "T005",
+      "perMethodOutcome" : "R002",
       "lineNumbers" : [
         31
       ]
@@ -2588,12 +2590,12 @@
       ]
     },
     "org.activiti.spring.boot.ProcessDefinitionResourceFinderDescriptor.shouldLookUpResources:()Z" : {
-      "completeTestCount" : 2,
+      "completeTestCount" : 1,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 2
+        "R000" : 1
       },
       "lineNumbers" : [
         43
@@ -2615,7 +2617,7 @@
       "completeTestCount" : 0,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T005",
-      "perMethodOutcome" : "T005",
+      "perMethodOutcome" : "R002",
       "lineNumbers" : [
         84,
         85,
@@ -2623,12 +2625,12 @@
       ]
     },
     "org.activiti.spring.boot.ProcessEngineAutoConfiguration.addAsyncPropertyValidator:(Lorg/activiti/spring/boot/ActivitiProperties;Lorg/activiti/spring/SpringProcessEngineConfiguration;)V" : {
-      "completeTestCount" : 4,
+      "completeTestCount" : 2,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 4
+        "R000" : 2
       },
       "lineNumbers" : [
         184,
@@ -2794,12 +2796,12 @@
       ]
     },
     "org.activiti.spring.boot.ProcessEngineAutoConfiguration.springProcessEngineConfiguration:(Ljavax/sql/DataSource;Lorg/springframework/transaction/PlatformTransactionManager;Lorg/activiti/spring/SpringAsyncExecutor;Lorg/activiti/spring/boot/ActivitiProperties;Lorg/activiti/spring/resources/ResourceFinder;Ljava/util/List;Lorg/activiti/core/common/spring/project/ApplicationUpgradeContextService;Ljava/util/List;Ljava/util/List;)Lorg/activiti/spring/SpringProcessEngineConfiguration;" : {
-      "completeTestCount" : 4,
+      "completeTestCount" : 7,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 4
+        "R000" : 7
       },
       "lineNumbers" : [
         107,
@@ -2866,8 +2868,11 @@
     "org.activiti.spring.boot.ShutdownListener.<clinit>:()V" : {
       "completeTestCount" : 0,
       "incompleteTestCount" : 0,
-      "perMethodTestability" : "T023",
-      "perMethodOutcome" : "T023"
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        29
+      ]
     },
     "org.activiti.spring.boot.ShutdownListener.<init>:(Lorg/activiti/engine/impl/cfg/ProcessEngineConfigurationImpl;)V" : {
       "completeTestCount" : 0,
@@ -3000,12 +3005,12 @@
       ]
     },
     "org.activiti.spring.boot.process.validation.AsyncPropertyValidator.executeValidation:(Lorg/activiti/bpmn/model/BpmnModel;Lorg/activiti/bpmn/model/Process;Ljava/util/List;)V" : {
-      "completeTestCount" : 6,
+      "completeTestCount" : 7,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 6
+        "R000" : 7
       },
       "lineNumbers" : [
         36,
@@ -3026,12 +3031,12 @@
       ]
     },
     "org.activiti.spring.boot.process.validation.AsyncPropertyValidator.validateFlowElementsInContainer:(Lorg/activiti/bpmn/model/FlowElementsContainer;Ljava/util/List;Lorg/activiti/bpmn/model/Process;)V" : {
-      "completeTestCount" : 6,
+      "completeTestCount" : 7,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 6
+        "R000" : 7
       },
       "lineNumbers" : [
         40,
@@ -3185,10 +3190,13 @@
       ]
     },
     "org.activiti.spring.integration.IntegrationActivityBehavior.execute:(Lorg/activiti/engine/delegate/DelegateExecution;)V" : {
-      "completeTestCount" : 0,
+      "completeTestCount" : 1,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
-      "perMethodOutcome" : "R013",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
       "lineNumbers" : [
         32,
         33
@@ -3205,10 +3213,13 @@
       ]
     },
     "org.activiti.spring.integration.IntegrationActivityBehavior.trigger:(Lorg/activiti/engine/delegate/DelegateExecution;Ljava/lang/String;Ljava/lang/Object;)V" : {
-      "completeTestCount" : 0,
+      "completeTestCount" : 1,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
-      "perMethodOutcome" : "R013",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
       "lineNumbers" : [
         42,
         43
@@ -3239,10 +3250,13 @@
       ]
     },
     "org.activiti.spring.integration.ProcessVariableHeaderMapper.fromHeaders:(Lorg/springframework/messaging/MessageHeaders;Ljava/util/Map;)V" : {
-      "completeTestCount" : 0,
+      "completeTestCount" : 3,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
-      "perMethodOutcome" : "R027",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 3
+      },
       "lineNumbers" : [
         41,
         42

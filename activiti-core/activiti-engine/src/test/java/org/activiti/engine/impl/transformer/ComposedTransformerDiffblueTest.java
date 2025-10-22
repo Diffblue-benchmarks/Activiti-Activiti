@@ -16,8 +16,7 @@
 package org.activiti.engine.impl.transformer;
 
 import static org.junit.Assert.assertNull;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
@@ -25,15 +24,14 @@ import org.junit.experimental.categories.Category;
 public class ComposedTransformerDiffblueTest {
   /**
    * Test new {@link ComposedTransformer} (default constructor).
-   *
-   * <p>Method under test: default or parameterless constructor of {@link ComposedTransformer}
+   * <p>
+   * Method under test: default or parameterless constructor of {@link ComposedTransformer}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void ComposedTransformer.<init>()"})
   public void testNewComposedTransformer() {
     // Arrange, Act and Assert
-    assertNull(new ComposedTransformer().transformers);
+    assertNull((new ComposedTransformer()).transformers);
   }
 }

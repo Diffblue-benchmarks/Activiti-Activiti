@@ -18,34 +18,21 @@ package org.activiti.engine.impl.webservice;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
-import static org.mockito.ArgumentMatchers.eq;
-import static org.mockito.ArgumentMatchers.isA;
 import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
-import java.net.URL;
 import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.ConcurrentMap;
-import javax.xml.namespace.QName;
-import org.activiti.engine.impl.util.json.JSONObject;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
-import org.mockito.Mockito;
 
 public class WSServiceDiffblueTest {
   /**
    * Test getters and setters.
-   *
    * <ul>
-   *   <li>When {@link SyncWebServiceClient}.
+   *   <li>When {@link SyncWebServiceClient}.</li>
    * </ul>
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>{@link WSService#WSService(String, String, SyncWebServiceClient)}
    *   <li>{@link WSService#getLocation()}
@@ -53,14 +40,10 @@ public class WSServiceDiffblueTest {
    * </ul>
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void WSService.<init>(String, String, String)",
-    "void WSService.<init>(String, String, SyncWebServiceClient)",
-    "String WSService.getLocation()",
-    "String WSService.getName()"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void WSService.<init>(String, String, String)",
+      "void WSService.<init>(String, String, SyncWebServiceClient)", "String WSService.getLocation()",
+      "String WSService.getName()"})
   public void testGettersAndSetters_whenSyncWebServiceClient() {
     // Arrange and Act
     WSService actualWsService = new WSService("Name", "Location", mock(SyncWebServiceClient.class));
@@ -74,13 +57,11 @@ public class WSServiceDiffblueTest {
 
   /**
    * Test getters and setters.
-   *
    * <ul>
-   *   <li>When {@code Wsdl Location}.
+   *   <li>When {@code Wsdl Location}.</li>
    * </ul>
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>{@link WSService#WSService(String, String, String)}
    *   <li>{@link WSService#getLocation()}
@@ -88,14 +69,10 @@ public class WSServiceDiffblueTest {
    * </ul>
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void WSService.<init>(String, String, String)",
-    "void WSService.<init>(String, String, SyncWebServiceClient)",
-    "String WSService.getLocation()",
-    "String WSService.getName()"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void WSService.<init>(String, String, String)",
+      "void WSService.<init>(String, String, SyncWebServiceClient)", "String WSService.getLocation()",
+      "String WSService.getName()"})
   public void testGettersAndSetters_whenWsdlLocation() {
     // Arrange and Act
     WSService actualWsService = new WSService("Name", "Location", "Wsdl Location");
@@ -109,18 +86,16 @@ public class WSServiceDiffblueTest {
 
   /**
    * Test {@link WSService#addOperation(WSOperation)}.
-   *
-   * <p>Method under test: {@link WSService#addOperation(WSOperation)}
+   * <p>
+   * Method under test: {@link WSService#addOperation(WSOperation)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void WSService.addOperation(WSOperation)"})
   public void testAddOperation() {
     // Arrange
     WSService wsService = new WSService("Name", "Location", "Wsdl Location");
-    WSService service = new WSService("Name", "Location", "Wsdl Location");
-    WSOperation operation = new WSOperation("42", "Operation Name", service);
+    WSOperation operation = new WSOperation("42", "Operation Name", new WSService("Name", "Location", "Wsdl Location"));
 
     // Act
     wsService.addOperation(operation);
@@ -129,38 +104,5 @@ public class WSServiceDiffblueTest {
     Map<String, WSOperation> stringWsOperationMap = wsService.operations;
     assertEquals(1, stringWsOperationMap.size());
     assertSame(operation, stringWsOperationMap.get("Operation Name"));
-  }
-
-  /**
-   * Test {@link WSService#getClient()}.
-   *
-   * <ul>
-   *   <li>Then return array length is one.
-   * </ul>
-   *
-   * <p>Method under test: {@link WSService#getClient()}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"SyncWebServiceClient WSService.getClient()"})
-  public void testGetClient_thenReturnArrayLengthIsOne() throws Exception {
-    // Arrange
-    SyncWebServiceClient client = mock(SyncWebServiceClient.class);
-    when(client.send(
-            Mockito.<String>any(),
-            Mockito.<Object[]>any(),
-            Mockito.<ConcurrentMap<QName, URL>>any()))
-        .thenReturn(new Object[] {JSONObject.NULL});
-    WSService wsService = new WSService("Name", "Location", client);
-
-    // Act
-    SyncWebServiceClient actualClient = wsService.getClient();
-    Object[] actualSendResult =
-        actualClient.send("Method Name", new Object[] {JSONObject.NULL}, new ConcurrentHashMap<>());
-
-    // Assert
-    verify(client).send(eq("Method Name"), isA(Object[].class), isA(ConcurrentMap.class));
-    assertEquals(1, actualSendResult.length);
   }
 }

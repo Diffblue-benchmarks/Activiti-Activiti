@@ -1,21 +1,21 @@
 {
   "meta" : {
-    "reportVersion" : "2.7"
+    "reportVersion" : "2.6"
   },
   "run" : {
-    "version" : "2025.09.01-44e352d-licensed",
-    "creationTimestamp" : "2025-10-15T18:17:05.474751764Z",
+    "version" : "2025.02.02-08b2a5a-licensed",
+    "creationTimestamp" : "2025-10-21T18:36:58.703503864Z",
     "command" : "dcover create --exclude-modules=org.activiti:activiti-dependency-check,org.activiti:activiti-api-dependencies,org.activiti:activiti-core-common-dependencies,org.activiti:activiti-core-dependencies,org.activiti:activiti-dependencies,org.activiti:activiti-spring-conformance-set0,org.activiti:activiti-spring-conformance-set1,org.activiti:activiti-spring-conformance-set2,org.activiti:activiti-spring-conformance-set3,org.activiti:activiti-spring-conformance-set4,org.activiti:activiti-spring-conformance-set5,org.activiti:activiti-spring-conformance-variables,org.activiti:activiti-spring-conformance-signals --coverage-reports --upload http://localhost:8080 --project-name Activiti-Activiti --name with-diffblue-tests",
-    "totalTime" : 136.76,
-    "environmentDetectionTime" : 0.044,
-    "indexingTime" : 0.432,
-    "entryPointsTime" : 0.034,
-    "generationTime" : 287.101,
-    "timeToFirstTest" : 943.162,
-    "timeToLastTest" : 774.598,
-    "indexQueryTime" : 2.845,
-    "verificationTime" : 31.526,
-    "validationTime" : 12.1
+    "totalTime" : 121.621,
+    "environmentDetectionTime" : 0.264,
+    "indexingTime" : 0.336,
+    "entryPointsTime" : 0.258,
+    "generationTime" : 251.273,
+    "timeToFirstTest" : 889.156,
+    "timeToLastTest" : 727.989,
+    "indexQueryTime" : 3.039,
+    "verificationTime" : 29.067,
+    "validationTime" : 16.58
   },
   "codes" : {
     "R000" : "Success",
@@ -27,7 +27,6 @@
     "T005" : "Trivial constructor",
     "T010" : "Abstract or interface method",
     "T012" : "Synthetic method",
-    "T023" : "Testability unknown",
     "V000" : "Validated successfully"
   },
   "summary" : {
@@ -46,17 +45,14 @@
       "T003" : 5,
       "T005" : 8,
       "T010" : 12,
-      "T012" : 4,
-      "T023" : 1
+      "T012" : 5
     },
     "perMethodOutcome" : {
       "R000" : 40,
-      "R002" : 2,
+      "R002" : 3,
       "T003" : 5,
-      "T005" : 1,
       "T010" : 12,
-      "T012" : 4,
-      "T023" : 1
+      "T012" : 5
     },
     "perTestOutcome" : {
       "R000" : 37
@@ -204,13 +200,11 @@
       "incompleteTestCount" : 0,
       "perMethodTestability" : {
         "T003" : 1,
-        "T012" : 3,
-        "T023" : 1
+        "T012" : 4
       },
       "perMethodOutcome" : {
         "T003" : 1,
-        "T012" : 3,
-        "T023" : 1
+        "T012" : 4
       }
     },
     "org.activiti.core.common.spring.security.policies.conf.SecurityPoliciesProperties" : {
@@ -238,7 +232,7 @@
       },
       "perMethodOutcome" : {
         "R000" : 3,
-        "T005" : 1
+        "R002" : 1
       },
       "perTestOutcome" : {
         "R000" : 3
@@ -877,8 +871,14 @@
     "org.activiti.core.common.spring.security.policies.SecurityPolicyAccess.<clinit>:()V" : {
       "completeTestCount" : 0,
       "incompleteTestCount" : 0,
-      "perMethodTestability" : "T023",
-      "perMethodOutcome" : "T023"
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        19,
+        20,
+        21,
+        18
+      ]
     },
     "org.activiti.core.common.spring.security.policies.SecurityPolicyAccess.<init>:(Ljava/lang/String;I)V" : {
       "completeTestCount" : 0,
@@ -949,7 +949,7 @@
       "completeTestCount" : 0,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T005",
-      "perMethodOutcome" : "T005",
+      "perMethodOutcome" : "R002",
       "lineNumbers" : [
         34
       ]
@@ -990,6 +990,5 @@
         42
       ]
     }
-  },
-  "validationMetrics" : { }
+  }
 }

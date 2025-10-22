@@ -19,8 +19,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
@@ -28,17 +27,15 @@ import org.junit.experimental.categories.Category;
 public class ParallelGatewayDiffblueTest {
   /**
    * Test {@link ParallelGateway#clone()}.
-   *
    * <ul>
-   *   <li>Given {@link ParallelGateway} (default constructor) Asynchronous is {@code true}.
-   *   <li>Then return Asynchronous.
+   *   <li>Given {@link ParallelGateway} (default constructor) Asynchronous is {@code true}.</li>
+   *   <li>Then return Asynchronous.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ParallelGateway#clone()}
+   * <p>
+   * Method under test: {@link ParallelGateway#clone()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"ParallelGateway ParallelGateway.clone()"})
   public void testClone_givenParallelGatewayAsynchronousIsTrue_thenReturnAsynchronous() {
     // Arrange
@@ -70,21 +67,19 @@ public class ParallelGatewayDiffblueTest {
 
   /**
    * Test {@link ParallelGateway#clone()}.
-   *
    * <ul>
-   *   <li>Given {@link ParallelGateway} (default constructor).
-   *   <li>Then return not Asynchronous.
+   *   <li>Given {@link ParallelGateway} (default constructor).</li>
+   *   <li>Then return not Asynchronous.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ParallelGateway#clone()}
+   * <p>
+   * Method under test: {@link ParallelGateway#clone()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"ParallelGateway ParallelGateway.clone()"})
   public void testClone_givenParallelGateway_thenReturnNotAsynchronous() {
     // Arrange and Act
-    ParallelGateway actualCloneResult = new ParallelGateway().clone();
+    ParallelGateway actualCloneResult = (new ParallelGateway()).clone();
 
     // Assert
     assertNull(actualCloneResult.getBehavior());
@@ -108,12 +103,11 @@ public class ParallelGatewayDiffblueTest {
 
   /**
    * Test new {@link ParallelGateway} (default constructor).
-   *
-   * <p>Method under test: default or parameterless constructor of {@link ParallelGateway}
+   * <p>
+   * Method under test: default or parameterless constructor of {@link ParallelGateway}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void ParallelGateway.<init>()"})
   public void testNewParallelGateway() {
     // Arrange and Act

@@ -20,8 +20,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.time.LocalDate;
 import java.time.ZoneOffset;
@@ -33,16 +32,15 @@ import org.junit.experimental.categories.Category;
 public class IntegrationContextEntityImplDiffblueTest {
   /**
    * Test {@link IntegrationContextEntityImpl#getPersistentState()}.
-   *
-   * <p>Method under test: {@link IntegrationContextEntityImpl#getPersistentState()}
+   * <p>
+   * Method under test: {@link IntegrationContextEntityImpl#getPersistentState()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"Object IntegrationContextEntityImpl.getPersistentState()"})
   public void testGetPersistentState() {
     // Arrange and Act
-    Object actualPersistentState = new IntegrationContextEntityImpl().getPersistentState();
+    Object actualPersistentState = (new IntegrationContextEntityImpl()).getPersistentState();
 
     // Assert
     assertTrue(actualPersistentState instanceof Map);
@@ -51,9 +49,8 @@ public class IntegrationContextEntityImplDiffblueTest {
 
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>default or parameterless constructor of {@link IntegrationContextEntityImpl}
    *   <li>{@link IntegrationContextEntityImpl#setCreatedDate(Date)}
@@ -70,28 +67,21 @@ public class IntegrationContextEntityImplDiffblueTest {
    * </ul>
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void IntegrationContextEntityImpl.<init>()",
-    "Date IntegrationContextEntityImpl.getCreatedDate()",
-    "String IntegrationContextEntityImpl.getExecutionId()",
-    "String IntegrationContextEntityImpl.getFlowNodeId()",
-    "String IntegrationContextEntityImpl.getProcessDefinitionId()",
-    "String IntegrationContextEntityImpl.getProcessInstanceId()",
-    "void IntegrationContextEntityImpl.setCreatedDate(Date)",
-    "void IntegrationContextEntityImpl.setExecutionId(String)",
-    "void IntegrationContextEntityImpl.setFlowNodeId(String)",
-    "void IntegrationContextEntityImpl.setProcessDefinitionId(String)",
-    "void IntegrationContextEntityImpl.setProcessInstanceId(String)",
-    "String IntegrationContextEntityImpl.toString()"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void IntegrationContextEntityImpl.<init>()", "Date IntegrationContextEntityImpl.getCreatedDate()",
+      "String IntegrationContextEntityImpl.getExecutionId()", "String IntegrationContextEntityImpl.getFlowNodeId()",
+      "String IntegrationContextEntityImpl.getProcessDefinitionId()",
+      "String IntegrationContextEntityImpl.getProcessInstanceId()",
+      "void IntegrationContextEntityImpl.setCreatedDate(Date)",
+      "void IntegrationContextEntityImpl.setExecutionId(String)",
+      "void IntegrationContextEntityImpl.setFlowNodeId(String)",
+      "void IntegrationContextEntityImpl.setProcessDefinitionId(String)",
+      "void IntegrationContextEntityImpl.setProcessInstanceId(String)",
+      "String IntegrationContextEntityImpl.toString()"})
   public void testGettersAndSetters() {
     // Arrange and Act
-    IntegrationContextEntityImpl actualIntegrationContextEntityImpl =
-        new IntegrationContextEntityImpl();
-    Date createdDate =
-        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant());
+    IntegrationContextEntityImpl actualIntegrationContextEntityImpl = new IntegrationContextEntityImpl();
+    Date createdDate = Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant());
     actualIntegrationContextEntityImpl.setCreatedDate(createdDate);
     actualIntegrationContextEntityImpl.setExecutionId("42");
     actualIntegrationContextEntityImpl.setFlowNodeId("42");
@@ -108,8 +98,7 @@ public class IntegrationContextEntityImplDiffblueTest {
     assertEquals("42", actualFlowNodeId);
     assertEquals("42", actualProcessDefinitionId);
     assertEquals("42", actualIntegrationContextEntityImpl.getProcessInstanceId());
-    assertEquals(
-        "IntegrationContext[ executionId='42', processInstanceId='42', flowNodeId='42' ]",
+    assertEquals("IntegrationContext[ executionId='42', processInstanceId='42', flowNodeId='42' ]",
         actualToStringResult);
     assertNull(actualIntegrationContextEntityImpl.getId());
     assertEquals(1, actualIntegrationContextEntityImpl.getRevision());

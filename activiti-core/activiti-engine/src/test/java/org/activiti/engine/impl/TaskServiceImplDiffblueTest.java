@@ -20,8 +20,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertThrows;
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.engine.ActivitiIllegalArgumentException;
 import org.activiti.engine.impl.cfg.JtaProcessEngineConfiguration;
@@ -37,53 +36,48 @@ import org.mockito.junit.MockitoJUnitRunner;
 
 @RunWith(MockitoJUnitRunner.class)
 public class TaskServiceImplDiffblueTest {
-  @InjectMocks private TaskServiceImpl taskServiceImpl;
+  @InjectMocks
+  private TaskServiceImpl taskServiceImpl;
 
   /**
    * Test {@link TaskServiceImpl#TaskServiceImpl(ProcessEngineConfigurationImpl)}.
-   *
-   * <p>Method under test: {@link TaskServiceImpl#TaskServiceImpl(ProcessEngineConfigurationImpl)}
+   * <p>
+   * Method under test: {@link TaskServiceImpl#TaskServiceImpl(ProcessEngineConfigurationImpl)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void TaskServiceImpl.<init>(ProcessEngineConfigurationImpl)"})
   public void testNewTaskServiceImpl() {
     // Arrange and Act
-    TaskServiceImpl actualTaskServiceImpl =
-        new TaskServiceImpl(new JtaProcessEngineConfiguration());
+    TaskServiceImpl actualTaskServiceImpl = new TaskServiceImpl(new JtaProcessEngineConfiguration());
 
     // Assert
     assertNull(actualTaskServiceImpl.getCommandExecutor());
     assertNull(
-        ((TaskServiceImpl) actualTaskServiceImpl.processEngineConfiguration.getTaskService())
-            .getCommandExecutor());
+        ((TaskServiceImpl) actualTaskServiceImpl.processEngineConfiguration.getTaskService()).getCommandExecutor());
   }
 
   /**
    * Test {@link TaskServiceImpl#createTaskQuery()}.
-   *
    * <ul>
-   *   <li>Then return {@link TaskQueryImpl}.
+   *   <li>Then return {@link TaskQueryImpl}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link TaskServiceImpl#createTaskQuery()}
+   * <p>
+   * Method under test: {@link TaskServiceImpl#createTaskQuery()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"TaskQuery TaskServiceImpl.createTaskQuery()"})
   public void testCreateTaskQuery_thenReturnTaskQueryImpl() {
     // Arrange and Act
-    TaskQuery actualCreateTaskQueryResult =
-        new TaskServiceImpl(new JtaProcessEngineConfiguration()).createTaskQuery();
+    TaskQuery actualCreateTaskQueryResult = (new TaskServiceImpl(new JtaProcessEngineConfiguration()))
+        .createTaskQuery();
 
     // Assert
     assertTrue(actualCreateTaskQueryResult instanceof TaskQueryImpl);
     assertEquals("RES.ID_ asc", ((TaskQueryImpl) actualCreateTaskQueryResult).getOrderBy());
     assertEquals("RES.ID_ asc", ((TaskQueryImpl) actualCreateTaskQueryResult).getOrderByColumns());
-    assertEquals(
-        "TEMPRES_ID_ asc", ((TaskQueryImpl) actualCreateTaskQueryResult).getMssqlOrDB2OrderBy());
+    assertEquals("TEMPRES_ID_ asc", ((TaskQueryImpl) actualCreateTaskQueryResult).getMssqlOrDB2OrderBy());
     assertNull(((TaskQueryImpl) actualCreateTaskQueryResult).getMaxPriority());
     assertNull(((TaskQueryImpl) actualCreateTaskQueryResult).getMinPriority());
     assertNull(((TaskQueryImpl) actualCreateTaskQueryResult).getPriority());
@@ -115,15 +109,12 @@ public class TaskServiceImplDiffblueTest {
     assertNull(((TaskQueryImpl) actualCreateTaskQueryResult).getProcessDefinitionId());
     assertNull(((TaskQueryImpl) actualCreateTaskQueryResult).getProcessDefinitionKey());
     assertNull(((TaskQueryImpl) actualCreateTaskQueryResult).getProcessDefinitionKeyLike());
-    assertNull(
-        ((TaskQueryImpl) actualCreateTaskQueryResult).getProcessDefinitionKeyLikeIgnoreCase());
+    assertNull(((TaskQueryImpl) actualCreateTaskQueryResult).getProcessDefinitionKeyLikeIgnoreCase());
     assertNull(((TaskQueryImpl) actualCreateTaskQueryResult).getProcessDefinitionName());
     assertNull(((TaskQueryImpl) actualCreateTaskQueryResult).getProcessDefinitionNameLike());
     assertNull(((TaskQueryImpl) actualCreateTaskQueryResult).getProcessInstanceBusinessKey());
     assertNull(((TaskQueryImpl) actualCreateTaskQueryResult).getProcessInstanceBusinessKeyLike());
-    assertNull(
-        ((TaskQueryImpl) actualCreateTaskQueryResult)
-            .getProcessInstanceBusinessKeyLikeIgnoreCase());
+    assertNull(((TaskQueryImpl) actualCreateTaskQueryResult).getProcessInstanceBusinessKeyLikeIgnoreCase());
     assertNull(((TaskQueryImpl) actualCreateTaskQueryResult).getProcessInstanceId());
     assertNull(((TaskQueryImpl) actualCreateTaskQueryResult).getTaskId());
     assertNull(((TaskQueryImpl) actualCreateTaskQueryResult).getTaskParentTaskId());
@@ -178,17 +169,16 @@ public class TaskServiceImplDiffblueTest {
 
   /**
    * Test {@link TaskServiceImpl#createNativeTaskQuery()}.
-   *
-   * <p>Method under test: {@link TaskServiceImpl#createNativeTaskQuery()}
+   * <p>
+   * Method under test: {@link TaskServiceImpl#createNativeTaskQuery()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"NativeTaskQuery TaskServiceImpl.createNativeTaskQuery()"})
   public void testCreateNativeTaskQuery() {
     // Arrange and Act
-    NativeTaskQuery actualCreateNativeTaskQueryResult =
-        new TaskServiceImpl(new JtaProcessEngineConfiguration()).createNativeTaskQuery();
+    NativeTaskQuery actualCreateNativeTaskQueryResult = (new TaskServiceImpl(new JtaProcessEngineConfiguration()))
+        .createNativeTaskQuery();
 
     // Assert
     assertTrue(actualCreateNativeTaskQueryResult instanceof NativeTaskQueryImpl);
@@ -197,49 +187,42 @@ public class TaskServiceImplDiffblueTest {
     assertNull(((NativeTaskQueryImpl) actualCreateNativeTaskQueryResult).commandExecutor);
     assertEquals(0, ((NativeTaskQueryImpl) actualCreateNativeTaskQueryResult).firstResult);
     assertTrue(((NativeTaskQueryImpl) actualCreateNativeTaskQueryResult).getParameters().isEmpty());
-    assertEquals(
-        Integer.MAX_VALUE, ((NativeTaskQueryImpl) actualCreateNativeTaskQueryResult).maxResults);
+    assertEquals(Integer.MAX_VALUE, ((NativeTaskQueryImpl) actualCreateNativeTaskQueryResult).maxResults);
   }
 
   /**
    * Test {@link TaskServiceImpl#setVariable(String, String, Object)}.
-   *
    * <ul>
-   *   <li>When {@code null}.
-   *   <li>Then throw {@link ActivitiIllegalArgumentException}.
+   *   <li>When {@code null}.</li>
+   *   <li>Then throw {@link ActivitiIllegalArgumentException}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link TaskServiceImpl#setVariable(String, String, Object)}
+   * <p>
+   * Method under test: {@link TaskServiceImpl#setVariable(String, String, Object)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void TaskServiceImpl.setVariable(String, String, Object)"})
   public void testSetVariable_whenNull_thenThrowActivitiIllegalArgumentException() {
     // Arrange, Act and Assert
-    assertThrows(
-        ActivitiIllegalArgumentException.class,
+    assertThrows(ActivitiIllegalArgumentException.class,
         () -> taskServiceImpl.setVariable("42", null, JSONObject.NULL));
   }
 
   /**
    * Test {@link TaskServiceImpl#setVariableLocal(String, String, Object)}.
-   *
    * <ul>
-   *   <li>When {@code null}.
-   *   <li>Then throw {@link ActivitiIllegalArgumentException}.
+   *   <li>When {@code null}.</li>
+   *   <li>Then throw {@link ActivitiIllegalArgumentException}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link TaskServiceImpl#setVariableLocal(String, String, Object)}
+   * <p>
+   * Method under test: {@link TaskServiceImpl#setVariableLocal(String, String, Object)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void TaskServiceImpl.setVariableLocal(String, String, Object)"})
   public void testSetVariableLocal_whenNull_thenThrowActivitiIllegalArgumentException() {
     // Arrange, Act and Assert
-    assertThrows(
-        ActivitiIllegalArgumentException.class,
+    assertThrows(ActivitiIllegalArgumentException.class,
         () -> taskServiceImpl.setVariableLocal("42", null, JSONObject.NULL));
   }
 }

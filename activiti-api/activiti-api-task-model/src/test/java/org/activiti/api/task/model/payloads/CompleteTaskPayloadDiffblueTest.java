@@ -19,7 +19,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.HashMap;
 import java.util.Map;
@@ -30,13 +29,12 @@ import org.junit.jupiter.api.Test;
 class CompleteTaskPayloadDiffblueTest {
   /**
    * Test {@link CompleteTaskPayload#CompleteTaskPayload()}.
-   *
-   * <p>Method under test: {@link CompleteTaskPayload#CompleteTaskPayload()}
+   * <p>
+   * Method under test: {@link CompleteTaskPayload#CompleteTaskPayload()}
    */
   @Test
   @DisplayName("Test new CompleteTaskPayload()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void CompleteTaskPayload.<init>()"})
   void testNewCompleteTaskPayload() {
     // Arrange and Act
@@ -49,13 +47,12 @@ class CompleteTaskPayloadDiffblueTest {
 
   /**
    * Test {@link CompleteTaskPayload#CompleteTaskPayload(String, Map)}.
-   *
-   * <p>Method under test: {@link CompleteTaskPayload#CompleteTaskPayload(String, Map)}
+   * <p>
+   * Method under test: {@link CompleteTaskPayload#CompleteTaskPayload(String, Map)}
    */
   @Test
   @DisplayName("Test new CompleteTaskPayload(String, Map)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void CompleteTaskPayload.<init>(String, Map)"})
   void testNewCompleteTaskPayload2() {
     // Arrange and Act
@@ -68,9 +65,8 @@ class CompleteTaskPayloadDiffblueTest {
 
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>{@link CompleteTaskPayload#setTaskId(String)}
    *   <li>{@link CompleteTaskPayload#setVariables(Map)}
@@ -81,15 +77,10 @@ class CompleteTaskPayloadDiffblueTest {
    */
   @Test
   @DisplayName("Test getters and setters")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "String CompleteTaskPayload.getId()",
-    "String CompleteTaskPayload.getTaskId()",
-    "Map CompleteTaskPayload.getVariables()",
-    "void CompleteTaskPayload.setTaskId(String)",
-    "void CompleteTaskPayload.setVariables(Map)"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"String CompleteTaskPayload.getId()", "String CompleteTaskPayload.getTaskId()",
+      "Map CompleteTaskPayload.getVariables()", "void CompleteTaskPayload.setTaskId(String)",
+      "void CompleteTaskPayload.setVariables(Map)"})
   void testGettersAndSetters() {
     // Arrange
     CompleteTaskPayload completeTaskPayload = new CompleteTaskPayload();

@@ -16,8 +16,7 @@
 package org.activiti.engine.impl.bpmn.behavior;
 
 import static org.junit.Assert.assertFalse;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
@@ -25,16 +24,14 @@ import org.junit.experimental.categories.Category;
 public class BoundaryCancelEventActivityBehaviorDiffblueTest {
   /**
    * Test new {@link BoundaryCancelEventActivityBehavior} (default constructor).
-   *
-   * <p>Method under test: default or parameterless constructor of {@link
-   * BoundaryCancelEventActivityBehavior}
+   * <p>
+   * Method under test: default or parameterless constructor of {@link BoundaryCancelEventActivityBehavior}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void BoundaryCancelEventActivityBehavior.<init>()"})
   public void testNewBoundaryCancelEventActivityBehavior() {
     // Arrange, Act and Assert
-    assertFalse(new BoundaryCancelEventActivityBehavior().isInterrupting());
+    assertFalse((new BoundaryCancelEventActivityBehavior()).isInterrupting());
   }
 }

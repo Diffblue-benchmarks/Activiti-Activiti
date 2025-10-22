@@ -20,7 +20,6 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.api.process.model.ProcessInstance;
 import org.activiti.api.process.model.payloads.DeleteProcessPayload;
@@ -31,26 +30,21 @@ import org.junit.jupiter.api.Test;
 class DeleteProcessPayloadBuilderDiffblueTest {
   /**
    * Test {@link DeleteProcessPayloadBuilder#withProcessInstance(ProcessInstance)}.
-   *
-   * <p>Method under test: {@link DeleteProcessPayloadBuilder#withProcessInstance(ProcessInstance)}
+   * <p>
+   * Method under test: {@link DeleteProcessPayloadBuilder#withProcessInstance(ProcessInstance)}
    */
   @Test
   @DisplayName("Test withProcessInstance(ProcessInstance)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "DeleteProcessPayloadBuilder DeleteProcessPayloadBuilder.withProcessInstance(ProcessInstance)"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"DeleteProcessPayloadBuilder DeleteProcessPayloadBuilder.withProcessInstance(ProcessInstance)"})
   void testWithProcessInstance() {
     // Arrange
     DeleteProcessPayloadBuilder deleteResult = ProcessPayloadBuilder.delete();
-
     ProcessInstance processInstance = mock(ProcessInstance.class);
     when(processInstance.getId()).thenReturn("42");
 
     // Act
-    DeleteProcessPayloadBuilder actualWithProcessInstanceResult =
-        deleteResult.withProcessInstance(processInstance);
+    DeleteProcessPayloadBuilder actualWithProcessInstanceResult = deleteResult.withProcessInstance(processInstance);
 
     // Assert
     verify(processInstance).getId();
@@ -60,9 +54,8 @@ class DeleteProcessPayloadBuilderDiffblueTest {
 
   /**
    * Test {@link DeleteProcessPayloadBuilder#build()}.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>{@link DeleteProcessPayloadBuilder#build()}
    *   <li>default or parameterless constructor of {@link DeleteProcessPayloadBuilder}
@@ -72,25 +65,21 @@ class DeleteProcessPayloadBuilderDiffblueTest {
    */
   @Test
   @DisplayName("Test build()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void DeleteProcessPayloadBuilder.<init>()",
-    "DeleteProcessPayload DeleteProcessPayloadBuilder.build()",
-    "DeleteProcessPayloadBuilder DeleteProcessPayloadBuilder.withProcessInstanceId(String)",
-    "DeleteProcessPayloadBuilder DeleteProcessPayloadBuilder.withReason(String)"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void DeleteProcessPayloadBuilder.<init>()",
+      "DeleteProcessPayload DeleteProcessPayloadBuilder.build()",
+      "DeleteProcessPayloadBuilder DeleteProcessPayloadBuilder.withProcessInstanceId(String)",
+      "DeleteProcessPayloadBuilder DeleteProcessPayloadBuilder.withReason(String)"})
   void testBuild() {
     // Arrange and Act
-    DeleteProcessPayload actualDeleteProcessPayload =
-        new DeleteProcessPayloadBuilder()
-            .withProcessInstance(mock(ProcessInstance.class))
-            .withProcessInstanceId("42")
-            .withReason("Just cause")
-            .build();
+    DeleteProcessPayload actualBuildResult = (new DeleteProcessPayloadBuilder())
+        .withProcessInstance(mock(ProcessInstance.class))
+        .withProcessInstanceId("42")
+        .withReason("Just cause")
+        .build();
 
     // Assert
-    assertEquals("42", actualDeleteProcessPayload.getProcessInstanceId());
-    assertEquals("Just cause", actualDeleteProcessPayload.getReason());
+    assertEquals("42", actualBuildResult.getProcessInstanceId());
+    assertEquals("Just cause", actualBuildResult.getReason());
   }
 }

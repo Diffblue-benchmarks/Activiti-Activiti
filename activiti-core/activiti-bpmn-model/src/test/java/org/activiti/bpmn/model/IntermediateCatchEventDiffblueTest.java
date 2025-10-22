@@ -19,8 +19,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
@@ -28,21 +27,19 @@ import org.junit.experimental.categories.Category;
 public class IntermediateCatchEventDiffblueTest {
   /**
    * Test {@link IntermediateCatchEvent#clone()}.
-   *
    * <ul>
-   *   <li>Given {@link IntermediateCatchEvent} (default constructor).
-   *   <li>Then return Behavior is {@code null}.
+   *   <li>Given {@link IntermediateCatchEvent} (default constructor).</li>
+   *   <li>Then return Behavior is {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link IntermediateCatchEvent#clone()}
+   * <p>
+   * Method under test: {@link IntermediateCatchEvent#clone()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"IntermediateCatchEvent IntermediateCatchEvent.clone()"})
   public void testClone_givenIntermediateCatchEvent_thenReturnBehaviorIsNull() {
     // Arrange and Act
-    IntermediateCatchEvent actualCloneResult = new IntermediateCatchEvent().clone();
+    IntermediateCatchEvent actualCloneResult = (new IntermediateCatchEvent()).clone();
 
     // Assert
     assertNull(actualCloneResult.getBehavior());
@@ -66,12 +63,11 @@ public class IntermediateCatchEventDiffblueTest {
 
   /**
    * Test new {@link IntermediateCatchEvent} (default constructor).
-   *
-   * <p>Method under test: default or parameterless constructor of {@link IntermediateCatchEvent}
+   * <p>
+   * Method under test: default or parameterless constructor of {@link IntermediateCatchEvent}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void IntermediateCatchEvent.<init>()"})
   public void testNewIntermediateCatchEvent() {
     // Arrange and Act

@@ -16,8 +16,7 @@
 package org.activiti.image.impl.icon;
 
 import static org.junit.Assert.assertEquals;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
@@ -25,51 +24,45 @@ import org.junit.experimental.categories.Category;
 public class CompensateThrowIconTypeDiffblueTest {
   /**
    * Test {@link CompensateThrowIconType#getWidth()}.
-   *
-   * <p>Method under test: {@link CompensateThrowIconType#getWidth()}
+   * <p>
+   * Method under test: {@link CompensateThrowIconType#getWidth()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"java.lang.Integer CompensateThrowIconType.getWidth()"})
   public void testGetWidth() {
     // Arrange, Act and Assert
-    assertEquals(15, new CompensateThrowIconType().getWidth().intValue());
+    assertEquals(15, (new CompensateThrowIconType()).getWidth().intValue());
   }
 
   /**
    * Test {@link CompensateThrowIconType#getHeight()}.
-   *
-   * <p>Method under test: {@link CompensateThrowIconType#getHeight()}
+   * <p>
+   * Method under test: {@link CompensateThrowIconType#getHeight()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"java.lang.Integer CompensateThrowIconType.getHeight()"})
   public void testGetHeight() {
     // Arrange, Act and Assert
-    assertEquals(Short.SIZE, new CompensateThrowIconType().getHeight().intValue());
+    assertEquals(Short.SIZE, (new CompensateThrowIconType()).getHeight().intValue());
   }
 
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>default or parameterless constructor of {@link CompensateThrowIconType}
    *   <li>{@link CompensateThrowIconType#getFillValue()}
    * </ul>
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void CompensateThrowIconType.<init>()",
-    "java.lang.String CompensateThrowIconType.getFillValue()"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void CompensateThrowIconType.<init>()",
+      "java.lang.String CompensateThrowIconType.getFillValue()"})
   public void testGettersAndSetters() {
     // Arrange, Act and Assert
-    assertEquals("#585858", new CompensateThrowIconType().getFillValue());
+    assertEquals("#585858", (new CompensateThrowIconType()).getFillValue());
   }
 }

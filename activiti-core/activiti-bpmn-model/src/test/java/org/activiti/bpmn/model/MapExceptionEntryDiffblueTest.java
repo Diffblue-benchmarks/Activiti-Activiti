@@ -17,8 +17,7 @@ package org.activiti.bpmn.model;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
@@ -26,9 +25,8 @@ import org.junit.experimental.categories.Category;
 public class MapExceptionEntryDiffblueTest {
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>{@link MapExceptionEntry#MapExceptionEntry(String, String, boolean)}
    *   <li>{@link MapExceptionEntry#setAndChildren(boolean)}
@@ -40,21 +38,14 @@ public class MapExceptionEntryDiffblueTest {
    * </ul>
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void MapExceptionEntry.<init>(String, String, boolean)",
-    "String MapExceptionEntry.getClassName()",
-    "String MapExceptionEntry.getErrorCode()",
-    "boolean MapExceptionEntry.isAndChildren()",
-    "void MapExceptionEntry.setAndChildren(boolean)",
-    "void MapExceptionEntry.setClassName(String)",
-    "void MapExceptionEntry.setErrorCode(String)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void MapExceptionEntry.<init>(String, String, boolean)",
+      "String MapExceptionEntry.getClassName()", "String MapExceptionEntry.getErrorCode()",
+      "boolean MapExceptionEntry.isAndChildren()", "void MapExceptionEntry.setAndChildren(boolean)",
+      "void MapExceptionEntry.setClassName(String)", "void MapExceptionEntry.setErrorCode(String)"})
   public void testGettersAndSetters() {
     // Arrange and Act
-    MapExceptionEntry actualMapExceptionEntry =
-        new MapExceptionEntry("An error occurred", "Class Name", true);
+    MapExceptionEntry actualMapExceptionEntry = new MapExceptionEntry("An error occurred", "Class Name", true);
     actualMapExceptionEntry.setAndChildren(true);
     actualMapExceptionEntry.setClassName("Class Name");
     actualMapExceptionEntry.setErrorCode("An error occurred");

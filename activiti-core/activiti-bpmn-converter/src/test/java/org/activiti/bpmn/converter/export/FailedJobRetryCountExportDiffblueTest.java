@@ -15,10 +15,10 @@
  */
 package org.activiti.bpmn.converter.export;
 
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import javax.xml.stream.XMLStreamWriter;
 import org.activiti.bpmn.converter.IndentingXMLStreamWriter;
@@ -32,43 +32,32 @@ import org.mockito.Mockito;
 class FailedJobRetryCountExportDiffblueTest {
   /**
    * Test {@link FailedJobRetryCountExport#writeFailedJobRetryCount(Activity, XMLStreamWriter)}.
-   *
    * <ul>
-   *   <li>Given {@code 42}.
-   *   <li>Then calls {@link IndentingXMLStreamWriter#writeCharacters(String)}.
+   *   <li>Given {@code 42}.</li>
+   *   <li>Then calls {@link IndentingXMLStreamWriter#writeCharacters(String)}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link FailedJobRetryCountExport#writeFailedJobRetryCount(Activity,
-   * XMLStreamWriter)}
+   * <p>
+   * Method under test: {@link FailedJobRetryCountExport#writeFailedJobRetryCount(Activity, XMLStreamWriter)}
    */
   @Test
-  @DisplayName(
-      "Test writeFailedJobRetryCount(Activity, XMLStreamWriter); given '42'; then calls writeCharacters(String)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void FailedJobRetryCountExport.writeFailedJobRetryCount(Activity, XMLStreamWriter)"
-  })
+  @DisplayName("Test writeFailedJobRetryCount(Activity, XMLStreamWriter); given '42'; then calls writeCharacters(String)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void FailedJobRetryCountExport.writeFailedJobRetryCount(Activity, XMLStreamWriter)"})
   void testWriteFailedJobRetryCount_given42_thenCallsWriteCharacters() throws Exception {
     // Arrange
     AdhocSubProcess activity = new AdhocSubProcess();
     activity.setFailedJobRetryTimeCycleValue("42");
-
     IndentingXMLStreamWriter writer = mock(IndentingXMLStreamWriter.class);
     doNothing().when(writer).writeCharacters(Mockito.<String>any());
     doNothing().when(writer).writeEndElement();
-    doNothing()
-        .when(writer)
-        .writeStartElement(Mockito.<String>any(), Mockito.<String>any(), Mockito.<String>any());
+    doNothing().when(writer).writeStartElement(Mockito.<String>any(), Mockito.<String>any(), Mockito.<String>any());
 
     // Act
-    FailedJobRetryCountExport.writeFailedJobRetryCount(
-        activity, new IndentingXMLStreamWriter(writer));
+    FailedJobRetryCountExport.writeFailedJobRetryCount(activity, new IndentingXMLStreamWriter(writer));
 
     // Assert
-    verify(writer).writeCharacters("42");
+    verify(writer).writeCharacters(eq("42"));
     verify(writer).writeEndElement();
-    verify(writer)
-        .writeStartElement("activiti", "failedJobRetryTimeCycle", "http://activiti.org/bpmn");
+    verify(writer).writeStartElement(eq("activiti"), eq("failedJobRetryTimeCycle"), eq("http://activiti.org/bpmn"));
   }
 }

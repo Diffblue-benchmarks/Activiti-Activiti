@@ -18,7 +18,6 @@ package org.activiti.runtime.api.event.impl;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.Optional;
 import org.activiti.api.model.shared.event.VariableDeletedEvent;
@@ -35,20 +34,16 @@ import org.junit.jupiter.api.Test;
 
 class ToVariableDeletedConverterDiffblueTest {
   /**
-   * Test {@link ToVariableDeletedConverter#from(ActivitiVariableEvent)} with {@code
-   * ActivitiVariableEvent}.
-   *
+   * Test {@link ToVariableDeletedConverter#from(ActivitiVariableEvent)} with {@code ActivitiVariableEvent}.
    * <ul>
-   *   <li>Then {@link Optional#get()} return {@link VariableDeletedEventImpl}.
+   *   <li>Then {@link Optional#get()} return {@link VariableDeletedEventImpl}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ToVariableDeletedConverter#from(ActivitiVariableEvent)}
+   * <p>
+   * Method under test: {@link ToVariableDeletedConverter#from(ActivitiVariableEvent)}
    */
   @Test
-  @DisplayName(
-      "Test from(ActivitiVariableEvent) with 'ActivitiVariableEvent'; then get() return VariableDeletedEventImpl")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test from(ActivitiVariableEvent) with 'ActivitiVariableEvent'; then get() return VariableDeletedEventImpl")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"Optional ToVariableDeletedConverter.from(ActivitiVariableEvent)"})
   void testFromWithActivitiVariableEvent_thenGetReturnVariableDeletedEventImpl() {
     // Arrange
@@ -58,8 +53,7 @@ class ToVariableDeletedConverterDiffblueTest {
     internalEvent.setVariableType(new BigDecimalType());
 
     // Act
-    Optional<VariableDeletedEvent> actualFromResult =
-        toVariableDeletedConverter.from(internalEvent);
+    Optional<VariableDeletedEvent> actualFromResult = toVariableDeletedConverter.from(internalEvent);
 
     // Assert
     VariableDeletedEvent getResult = actualFromResult.get();

@@ -26,17 +26,14 @@ import static org.mockito.ArgumentMatchers.isA;
 import static org.mockito.ArgumentMatchers.isNull;
 import static org.mockito.Mockito.anyDouble;
 import static org.mockito.Mockito.atLeast;
-import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import com.mxgraph.model.mxCell;
 import com.mxgraph.model.mxGraphModel;
 import com.mxgraph.model.mxIGraphModel;
-import com.mxgraph.util.mxLine;
 import com.mxgraph.util.mxPoint;
 import com.mxgraph.util.mxRectangle;
 import com.mxgraph.view.mxGraph;
@@ -53,21 +50,18 @@ import java.util.Map;
 import org.activiti.bpmn.BpmnAutoLayout.CustomLayout;
 import org.activiti.bpmn.model.ActivitiListener;
 import org.activiti.bpmn.model.AdhocSubProcess;
-import org.activiti.bpmn.model.Artifact;
 import org.activiti.bpmn.model.Association;
 import org.activiti.bpmn.model.BaseElement;
 import org.activiti.bpmn.model.BooleanDataObject;
 import org.activiti.bpmn.model.BoundaryEvent;
 import org.activiti.bpmn.model.BpmnModel;
+import org.activiti.bpmn.model.BusinessRuleTask;
 import org.activiti.bpmn.model.CallActivity;
 import org.activiti.bpmn.model.ComplexGateway;
 import org.activiti.bpmn.model.FlowElement;
 import org.activiti.bpmn.model.FlowElementsContainer;
 import org.activiti.bpmn.model.GraphicInfo;
 import org.activiti.bpmn.model.Process;
-import org.activiti.bpmn.model.SubProcess;
-import org.activiti.bpmn.model.Task;
-import org.activiti.bpmn.model.TextAnnotation;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
@@ -76,13 +70,12 @@ import org.mockito.Mockito;
 class BpmnAutoLayoutDiffblueTest {
   /**
    * Test CustomLayout {@link CustomLayout#CustomLayout(mxGraph, int)}.
-   *
-   * <p>Method under test: {@link CustomLayout#CustomLayout(mxGraph, int)}
+   * <p>
+   * Method under test: {@link CustomLayout#CustomLayout(mxGraph, int)}
    */
   @Test
   @DisplayName("Test CustomLayout new CustomLayout(mxGraph, int)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void CustomLayout.<init>(mxGraph, int)"})
   void testCustomLayoutNewCustomLayout() {
     // Arrange
@@ -109,9 +102,8 @@ class BpmnAutoLayoutDiffblueTest {
 
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>{@link BpmnAutoLayout#BpmnAutoLayout(BpmnModel)}
    *   <li>{@link BpmnAutoLayout#setEventSize(int)}
@@ -130,23 +122,14 @@ class BpmnAutoLayoutDiffblueTest {
    */
   @Test
   @DisplayName("Test getters and setters")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void BpmnAutoLayout.<init>(BpmnModel)",
-    "int BpmnAutoLayout.getEventSize()",
-    "int BpmnAutoLayout.getGatewaySize()",
-    "mxGraph BpmnAutoLayout.getGraph()",
-    "int BpmnAutoLayout.getSubProcessMargin()",
-    "int BpmnAutoLayout.getTaskHeight()",
-    "int BpmnAutoLayout.getTaskWidth()",
-    "void BpmnAutoLayout.setEventSize(int)",
-    "void BpmnAutoLayout.setGatewaySize(int)",
-    "void BpmnAutoLayout.setGraph(mxGraph)",
-    "void BpmnAutoLayout.setSubProcessMargin(int)",
-    "void BpmnAutoLayout.setTaskHeight(int)",
-    "void BpmnAutoLayout.setTaskWidth(int)"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void BpmnAutoLayout.<init>(BpmnModel)", "int BpmnAutoLayout.getEventSize()",
+      "int BpmnAutoLayout.getGatewaySize()", "mxGraph BpmnAutoLayout.getGraph()",
+      "int BpmnAutoLayout.getSubProcessMargin()", "int BpmnAutoLayout.getTaskHeight()",
+      "int BpmnAutoLayout.getTaskWidth()", "void BpmnAutoLayout.setEventSize(int)",
+      "void BpmnAutoLayout.setGatewaySize(int)", "void BpmnAutoLayout.setGraph(mxGraph)",
+      "void BpmnAutoLayout.setSubProcessMargin(int)", "void BpmnAutoLayout.setTaskHeight(int)",
+      "void BpmnAutoLayout.setTaskWidth(int)"})
   void testGettersAndSetters() {
     // Arrange and Act
     BpmnAutoLayout actualBpmnAutoLayout = new BpmnAutoLayout(new BpmnModel());
@@ -200,15 +183,38 @@ class BpmnAutoLayoutDiffblueTest {
 
   /**
    * Test {@link BpmnAutoLayout#execute()}.
-   *
-   * <p>Method under test: {@link BpmnAutoLayout#execute()}
+   * <p>
+   * Method under test: {@link BpmnAutoLayout#execute()}
    */
   @Test
   @DisplayName("Test execute()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void BpmnAutoLayout.execute()"})
   void testExecute() {
+    // Arrange
+    BpmnAutoLayout bpmnAutoLayout = new BpmnAutoLayout(new BpmnModel());
+
+    // Act
+    bpmnAutoLayout.execute();
+
+    // Assert that nothing has changed
+    assertNull(bpmnAutoLayout.generatedAssociationEdges);
+    assertNull(bpmnAutoLayout.generatedVertices);
+    assertNull(bpmnAutoLayout.handledArtifacts);
+    assertNull(bpmnAutoLayout.associations);
+    assertNull(bpmnAutoLayout.handledFlowElements);
+  }
+
+  /**
+   * Test {@link BpmnAutoLayout#execute()}.
+   * <p>
+   * Method under test: {@link BpmnAutoLayout#execute()}
+   */
+  @Test
+  @DisplayName("Test execute()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void BpmnAutoLayout.execute()"})
+  void testExecute2() {
     // Arrange
     BpmnModel bpmnModel = new BpmnModel();
     bpmnModel.addProcess(new Process());
@@ -218,44 +224,44 @@ class BpmnAutoLayoutDiffblueTest {
     bpmnAutoLayout.execute();
 
     // Assert
-    mxGraph graph = bpmnAutoLayout.getGraph();
-    Object defaultParent = graph.getDefaultParent();
-    assertTrue(defaultParent instanceof mxCell);
-    Object object = bpmnAutoLayout.cellParent;
-    assertTrue(object instanceof mxCell);
-    mxIGraphModel model = graph.getModel();
-    assertTrue(model instanceof mxGraphModel);
-    Collection<FlowElement> flowElements =
-        bpmnAutoLayout.bpmnModel.getMainProcess().getFlowElements();
+    Rectangle rectangle = bpmnAutoLayout.getGraph().getGraphBounds().getRectangle();
+    Rectangle2D bounds2D = rectangle.getBounds2D();
+    assertTrue(bounds2D instanceof Rectangle);
+    Rectangle2D bounds2D2 = bounds2D.getBounds2D();
+    assertTrue(bounds2D2 instanceof Rectangle);
+    Rectangle bounds = bounds2D2.getBounds();
+    Rectangle2D frame = bounds.getFrame();
+    assertTrue(frame instanceof Double);
+    Collection<FlowElement> flowElements = bpmnAutoLayout.bpmnModel.getMainProcess().getFlowElements();
     assertTrue(flowElements instanceof List);
-    assertEquals(0, ((mxCell) defaultParent).getChildCount());
-    assertEquals(0, ((mxCell) object).getChildCount());
-    mxRectangle graphBounds = graph.getGraphBounds();
-    assertEquals(0.0d, graphBounds.getCenterX());
-    assertEquals(0.0d, graphBounds.getCenterY());
-    assertEquals(0.0d, graphBounds.getHeight());
-    assertEquals(0.0d, graphBounds.getWidth());
-    assertEquals(2, graph.getView().getStates().size());
-    Map<String, Object> cells = ((mxGraphModel) model).getCells();
-    assertEquals(2, cells.size());
+    assertEquals(0.0d, ((Rectangle) bounds2D2).getSize().getHeight());
+    Point location = ((Rectangle) bounds2D2).getLocation();
+    assertEquals(0.0d, location.getX());
+    assertEquals(0.0d, location.getY());
+    assertEquals(0.0d, bounds.getHeight());
+    assertEquals(0.0d, bounds.getWidth());
+    assertEquals(0.0d, bounds.getX());
+    assertEquals(0.0d, bounds.getY());
+    assertEquals(0.0d, bounds.getMaxX());
+    assertEquals(0.0d, bounds.getMaxY());
+    assertEquals(0.0d, bounds.getMinX());
+    assertEquals(0.0d, bounds.getMinY());
+    assertTrue(bounds.isEmpty());
     assertTrue(flowElements.isEmpty());
-    assertTrue(cells.containsKey("0"));
-    assertTrue(cells.containsKey("1"));
-    assertTrue(bpmnAutoLayout.generatedVertices.isEmpty());
     assertTrue(bpmnAutoLayout.handledFlowElements.isEmpty());
+    assertEquals(rectangle, frame);
   }
 
   /**
    * Test {@link BpmnAutoLayout#execute()}.
-   *
-   * <p>Method under test: {@link BpmnAutoLayout#execute()}
+   * <p>
+   * Method under test: {@link BpmnAutoLayout#execute()}
    */
   @Test
   @DisplayName("Test execute()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void BpmnAutoLayout.execute()"})
-  void testExecute2() {
+  void testExecute3() {
     // Arrange
     Process process = new Process();
     process.addFlowElement(new AdhocSubProcess());
@@ -268,37 +274,34 @@ class BpmnAutoLayoutDiffblueTest {
     bpmnAutoLayout.execute();
 
     // Assert
-    mxGraph graph = bpmnAutoLayout.getGraph();
-    Object defaultParent = graph.getDefaultParent();
-    assertTrue(defaultParent instanceof mxCell);
     Map<String, Object> stringObjectMap = bpmnAutoLayout.generatedVertices;
     assertEquals(1, stringObjectMap.size());
-    assertTrue(stringObjectMap.get(null) instanceof mxCell);
-    Object object = bpmnAutoLayout.cellParent;
-    assertTrue(object instanceof mxCell);
-    mxIGraphModel model = graph.getModel();
-    assertTrue(model instanceof mxGraphModel);
-    assertEquals(1, ((mxCell) defaultParent).getChildCount());
-    assertEquals(1, ((mxCell) object).getChildCount());
-    assertEquals(3, graph.getView().getStates().size());
-    Map<String, Object> cells = ((mxGraphModel) model).getCells();
-    assertEquals(3, cells.size());
-    assertTrue(cells.containsKey("0"));
-    assertTrue(cells.containsKey("1"));
-    assertTrue(cells.containsKey("2"));
+    Object getResult = stringObjectMap.get(null);
+    assertTrue(getResult instanceof mxCell);
+    Rectangle rectangle = ((mxCell) getResult).getGeometry().getRectangle();
+    Rectangle2D bounds2D = rectangle.getBounds2D();
+    assertTrue(bounds2D instanceof Rectangle);
+    Rectangle bounds = bpmnAutoLayout.getGraph().getGraphBounds().getRectangle().getBounds().getBounds();
+    assertTrue(bounds.getBounds2D() instanceof Rectangle);
+    Rectangle2D frame = rectangle.getFrame();
+    assertTrue(frame instanceof Double);
+    assertTrue(bounds.getFrame() instanceof Double);
+    assertEquals(20.0d, bounds2D.getCenterY());
+    assertEquals(20.0d, frame.getCenterY());
+    assertEquals(40.0d, bounds2D.getMaxY());
+    assertEquals(40.0d, frame.getMaxY());
   }
 
   /**
    * Test {@link BpmnAutoLayout#execute()}.
-   *
-   * <p>Method under test: {@link BpmnAutoLayout#execute()}
+   * <p>
+   * Method under test: {@link BpmnAutoLayout#execute()}
    */
   @Test
   @DisplayName("Test execute()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void BpmnAutoLayout.execute()"})
-  void testExecute3() {
+  void testExecute4() {
     // Arrange
     Process process = new Process();
     process.addArtifact(new Association());
@@ -321,19 +324,211 @@ class BpmnAutoLayoutDiffblueTest {
 
   /**
    * Test {@link BpmnAutoLayout#execute()}.
-   *
-   * <ul>
-   *   <li>Then {@link BpmnAutoLayout#BpmnAutoLayout(BpmnModel)} with bpmnModel is {@link BpmnModel}
-   *       (default constructor) {@link BpmnAutoLayout#associations} size is one.
-   * </ul>
-   *
-   * <p>Method under test: {@link BpmnAutoLayout#execute()}
+   * <p>
+   * Method under test: {@link BpmnAutoLayout#execute()}
    */
   @Test
-  @DisplayName(
-      "Test execute(); then BpmnAutoLayout(BpmnModel) with bpmnModel is BpmnModel (default constructor) associations size is one")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test execute()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void BpmnAutoLayout.execute()"})
+  void testExecute5() {
+    // Arrange
+    Process process = new Process();
+    ComplexGateway element = new ComplexGateway();
+    process.addFlowElement(element);
+
+    BpmnModel bpmnModel = new BpmnModel();
+    bpmnModel.addProcess(process);
+    BpmnAutoLayout bpmnAutoLayout = new BpmnAutoLayout(bpmnModel);
+
+    // Act
+    bpmnAutoLayout.execute();
+
+    // Assert
+    Map<String, Object> stringObjectMap = bpmnAutoLayout.generatedVertices;
+    assertEquals(1, stringObjectMap.size());
+    Object getResult = stringObjectMap.get(null);
+    assertTrue(getResult instanceof mxCell);
+    Rectangle2D bounds2D = bpmnAutoLayout.getGraph().getGraphBounds().getRectangle().getBounds().getBounds2D();
+    assertTrue(bounds2D instanceof Rectangle);
+    assertTrue(bounds2D.getBounds2D() instanceof Rectangle);
+    Map<String, FlowElement> stringFlowElementMap = bpmnAutoLayout.handledFlowElements;
+    assertEquals(1, stringFlowElementMap.size());
+    FlowElement getResult2 = stringFlowElementMap.get(null);
+    assertTrue(getResult2 instanceof ComplexGateway);
+    assertEquals("styleGateway", ((mxCell) getResult).getStyle());
+    assertNull(((ComplexGateway) getResult2).getDefaultFlow());
+    Map<String, GraphicInfo> locationMap = bpmnAutoLayout.bpmnModel.getLocationMap();
+    assertEquals(1, locationMap.size());
+    assertSame(element, getResult2);
+    assertSame(element, locationMap.get(null).getElement());
+  }
+
+  /**
+   * Test {@link BpmnAutoLayout#execute()}.
+   * <p>
+   * Method under test: {@link BpmnAutoLayout#execute()}
+   */
+  @Test
+  @DisplayName("Test execute()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void BpmnAutoLayout.execute()"})
+  void testExecute6() {
+    // Arrange
+    Process process = new Process();
+    BusinessRuleTask element = new BusinessRuleTask();
+    process.addFlowElement(element);
+
+    BpmnModel bpmnModel = new BpmnModel();
+    bpmnModel.addProcess(process);
+    BpmnAutoLayout bpmnAutoLayout = new BpmnAutoLayout(bpmnModel);
+
+    // Act
+    bpmnAutoLayout.execute();
+
+    // Assert
+    Map<String, GraphicInfo> locationMap = bpmnAutoLayout.bpmnModel.getLocationMap();
+    assertEquals(1, locationMap.size());
+    Map<String, FlowElement> stringFlowElementMap = bpmnAutoLayout.handledFlowElements;
+    assertEquals(1, stringFlowElementMap.size());
+    assertSame(element, stringFlowElementMap.get(null));
+    assertSame(element, locationMap.get(null).getElement());
+  }
+
+  /**
+   * Test {@link BpmnAutoLayout#execute()}.
+   * <p>
+   * Method under test: {@link BpmnAutoLayout#execute()}
+   */
+  @Test
+  @DisplayName("Test execute()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void BpmnAutoLayout.execute()"})
+  void testExecute7() {
+    // Arrange
+    Process process = new Process();
+    CallActivity element = new CallActivity();
+    process.addFlowElement(element);
+
+    BpmnModel bpmnModel = new BpmnModel();
+    bpmnModel.addProcess(process);
+    BpmnAutoLayout bpmnAutoLayout = new BpmnAutoLayout(bpmnModel);
+
+    // Act
+    bpmnAutoLayout.execute();
+
+    // Assert
+    Map<String, GraphicInfo> locationMap = bpmnAutoLayout.bpmnModel.getLocationMap();
+    assertEquals(1, locationMap.size());
+    Map<String, FlowElement> stringFlowElementMap = bpmnAutoLayout.handledFlowElements;
+    assertEquals(1, stringFlowElementMap.size());
+    assertSame(element, stringFlowElementMap.get(null));
+    assertSame(element, locationMap.get(null).getElement());
+  }
+
+  /**
+   * Test {@link BpmnAutoLayout#execute()}.
+   * <p>
+   * Method under test: {@link BpmnAutoLayout#execute()}
+   */
+  @Test
+  @DisplayName("Test execute()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void BpmnAutoLayout.execute()"})
+  void testExecute8() {
+    // Arrange
+    Process process = new Process();
+    BooleanDataObject element = new BooleanDataObject();
+    process.addFlowElement(element);
+
+    BpmnModel bpmnModel = new BpmnModel();
+    bpmnModel.addProcess(process);
+    BpmnAutoLayout bpmnAutoLayout = new BpmnAutoLayout(bpmnModel);
+
+    // Act
+    bpmnAutoLayout.execute();
+
+    // Assert
+    Map<String, FlowElement> stringFlowElementMap = bpmnAutoLayout.handledFlowElements;
+    assertEquals(1, stringFlowElementMap.size());
+    assertSame(element, stringFlowElementMap.get(null));
+  }
+
+  /**
+   * Test {@link BpmnAutoLayout#execute()}.
+   * <p>
+   * Method under test: {@link BpmnAutoLayout#execute()}
+   */
+  @Test
+  @DisplayName("Test execute()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void BpmnAutoLayout.execute()"})
+  void testExecute9() {
+    // Arrange
+    AdhocSubProcess element = new AdhocSubProcess();
+    element.addFlowElement(new AdhocSubProcess());
+
+    Process process = new Process();
+    process.addFlowElement(element);
+
+    BpmnModel bpmnModel = new BpmnModel();
+    bpmnModel.addProcess(process);
+    BpmnAutoLayout bpmnAutoLayout = new BpmnAutoLayout(bpmnModel);
+
+    // Act
+    bpmnAutoLayout.execute();
+
+    // Assert
+    Map<String, FlowElement> stringFlowElementMap = bpmnAutoLayout.handledFlowElements;
+    assertEquals(1, stringFlowElementMap.size());
+    FlowElement getResult = stringFlowElementMap.get(null);
+    Collection<FlowElement> flowElements = ((AdhocSubProcess) getResult).getFlowElements();
+    assertEquals(1, flowElements.size());
+    assertTrue(flowElements instanceof List);
+    assertTrue(getResult instanceof AdhocSubProcess);
+    mxRectangle graphBounds = bpmnAutoLayout.getGraph().getGraphBounds();
+    assertEquals(40.0d, graphBounds.getCenterX());
+    assertEquals(40.0d, graphBounds.getCenterY());
+    assertEquals(80.0d, graphBounds.getHeight());
+    assertEquals(80.0d, graphBounds.getWidth());
+  }
+
+  /**
+   * Test {@link BpmnAutoLayout#execute()}.
+   * <ul>
+   *   <li>Given {@link Process} (default constructor) addFlowElement {@link BoundaryEvent} (default constructor).</li>
+   *   <li>Then throw {@link RuntimeException}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link BpmnAutoLayout#execute()}
+   */
+  @Test
+  @DisplayName("Test execute(); given Process (default constructor) addFlowElement BoundaryEvent (default constructor); then throw RuntimeException")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void BpmnAutoLayout.execute()"})
+  void testExecute_givenProcessAddFlowElementBoundaryEvent_thenThrowRuntimeException() {
+    // Arrange
+    Process process = new Process();
+    process.addFlowElement(new BoundaryEvent());
+
+    BpmnModel bpmnModel = new BpmnModel();
+    bpmnModel.addProcess(process);
+
+    // Act and Assert
+    assertThrows(RuntimeException.class, () -> (new BpmnAutoLayout(bpmnModel)).execute());
+  }
+
+  /**
+   * Test {@link BpmnAutoLayout#execute()}.
+   * <ul>
+   *   <li>Then {@link BpmnAutoLayout#BpmnAutoLayout(BpmnModel)} with bpmnModel is {@link BpmnModel} (default constructor) {@link BpmnAutoLayout#associations} size is one.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link BpmnAutoLayout#execute()}
+   */
+  @Test
+  @DisplayName("Test execute(); then BpmnAutoLayout(BpmnModel) with bpmnModel is BpmnModel (default constructor) associations size is one")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void BpmnAutoLayout.execute()"})
   void testExecute_thenBpmnAutoLayoutWithBpmnModelIsBpmnModelAssociationsSizeIsOne() {
     // Arrange
@@ -356,19 +551,15 @@ class BpmnAutoLayoutDiffblueTest {
 
   /**
    * Test {@link BpmnAutoLayout#execute()}.
-   *
    * <ul>
-   *   <li>Then {@link BpmnAutoLayout#BpmnAutoLayout(BpmnModel)} with bpmnModel is {@link BpmnModel}
-   *       (default constructor) {@link BpmnAutoLayout#associations} size is one.
+   *   <li>Then {@link BpmnAutoLayout#BpmnAutoLayout(BpmnModel)} with bpmnModel is {@link BpmnModel} (default constructor) {@link BpmnAutoLayout#associations} size is one.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link BpmnAutoLayout#execute()}
+   * <p>
+   * Method under test: {@link BpmnAutoLayout#execute()}
    */
   @Test
-  @DisplayName(
-      "Test execute(); then BpmnAutoLayout(BpmnModel) with bpmnModel is BpmnModel (default constructor) associations size is one")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test execute(); then BpmnAutoLayout(BpmnModel) with bpmnModel is BpmnModel (default constructor) associations size is one")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void BpmnAutoLayout.execute()"})
   void testExecute_thenBpmnAutoLayoutWithBpmnModelIsBpmnModelAssociationsSizeIsOne2() {
     // Arrange
@@ -392,51 +583,15 @@ class BpmnAutoLayoutDiffblueTest {
 
   /**
    * Test {@link BpmnAutoLayout#execute()}.
-   *
    * <ul>
-   *   <li>Then {@link BpmnAutoLayout#BpmnAutoLayout(BpmnModel)} with bpmnModel is {@link BpmnModel}
-   *       (default constructor) {@link BpmnAutoLayout#cellParent} is {@code null}.
+   *   <li>Then {@link BpmnAutoLayout#BpmnAutoLayout(BpmnModel)} with bpmnModel is {@link BpmnModel} (default constructor) Graph Model Cells size is four.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link BpmnAutoLayout#execute()}
+   * <p>
+   * Method under test: {@link BpmnAutoLayout#execute()}
    */
   @Test
-  @DisplayName(
-      "Test execute(); then BpmnAutoLayout(BpmnModel) with bpmnModel is BpmnModel (default constructor) cellParent is 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void BpmnAutoLayout.execute()"})
-  void testExecute_thenBpmnAutoLayoutWithBpmnModelIsBpmnModelCellParentIsNull() {
-    // Arrange
-    BpmnAutoLayout bpmnAutoLayout = new BpmnAutoLayout(new BpmnModel());
-
-    // Act
-    bpmnAutoLayout.execute();
-
-    // Assert that nothing has changed
-    assertNull(bpmnAutoLayout.cellParent);
-    assertNull(bpmnAutoLayout.generatedAssociationEdges);
-    assertNull(bpmnAutoLayout.generatedVertices);
-    assertNull(bpmnAutoLayout.handledArtifacts);
-    assertNull(bpmnAutoLayout.associations);
-    assertNull(bpmnAutoLayout.handledFlowElements);
-  }
-
-  /**
-   * Test {@link BpmnAutoLayout#execute()}.
-   *
-   * <ul>
-   *   <li>Then {@link BpmnAutoLayout#BpmnAutoLayout(BpmnModel)} with bpmnModel is {@link BpmnModel}
-   *       (default constructor) Graph Model Cells size is four.
-   * </ul>
-   *
-   * <p>Method under test: {@link BpmnAutoLayout#execute()}
-   */
-  @Test
-  @DisplayName(
-      "Test execute(); then BpmnAutoLayout(BpmnModel) with bpmnModel is BpmnModel (default constructor) Graph Model Cells size is four")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test execute(); then BpmnAutoLayout(BpmnModel) with bpmnModel is BpmnModel (default constructor) Graph Model Cells size is four")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void BpmnAutoLayout.execute()"})
   void testExecute_thenBpmnAutoLayoutWithBpmnModelIsBpmnModelGraphModelCellsSizeIsFour() {
     // Arrange
@@ -470,13 +625,12 @@ class BpmnAutoLayoutDiffblueTest {
 
   /**
    * Test {@link BpmnAutoLayout#layout(FlowElementsContainer)}.
-   *
-   * <p>Method under test: {@link BpmnAutoLayout#layout(FlowElementsContainer)}
+   * <p>
+   * Method under test: {@link BpmnAutoLayout#layout(FlowElementsContainer)}
    */
   @Test
   @DisplayName("Test layout(FlowElementsContainer)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void BpmnAutoLayout.layout(FlowElementsContainer)"})
   void testLayout() {
     // Arrange
@@ -487,366 +641,47 @@ class BpmnAutoLayoutDiffblueTest {
     bpmnAutoLayout.layout(flowElementsContainer);
 
     // Assert
-    Rectangle2D bounds2D = bpmnAutoLayout.getGraph().getGraphBounds().getRectangle().getBounds2D();
+    Rectangle rectangle = bpmnAutoLayout.getGraph().getGraphBounds().getRectangle();
+    Rectangle2D bounds2D = rectangle.getBounds2D();
     assertTrue(bounds2D instanceof Rectangle);
-    Rectangle bounds = bounds2D.getBounds();
-    assertTrue(bounds.getBounds2D() instanceof Rectangle);
-    assertTrue(bounds2D.getBounds2D() instanceof Rectangle);
-    assertTrue(bounds.getFrame() instanceof Double);
-    Collection<Artifact> artifacts = flowElementsContainer.getArtifacts();
-    assertTrue(artifacts instanceof List);
+    Rectangle2D bounds2D2 = bounds2D.getBounds2D();
+    Rectangle bounds = bounds2D2.getBounds();
+    Rectangle2D bounds2D3 = bounds.getBounds2D();
+    assertTrue(bounds2D3 instanceof Rectangle);
+    assertTrue(bounds2D2 instanceof Rectangle);
+    Rectangle2D frame = bounds2D.getBounds().getFrame();
+    assertTrue(frame instanceof Double);
     Collection<FlowElement> flowElements = flowElementsContainer.getFlowElements();
     assertTrue(flowElements instanceof List);
-    assertTrue(artifacts.isEmpty());
+    assertEquals(0.0d, bounds.getCenterX());
+    assertEquals(0.0d, bounds.getCenterY());
+    assertEquals(0.0d, frame.getMinX());
+    assertEquals(0.0d, frame.getMinY());
+    assertEquals(0.0d, frame.getWidth());
+    assertEquals(0.0d, frame.getX());
+    assertEquals(0.0d, frame.getY());
+    assertTrue(frame.isEmpty());
     assertTrue(flowElements.isEmpty());
-    assertTrue(bpmnAutoLayout.handledArtifacts.isEmpty());
     assertTrue(bpmnAutoLayout.handledFlowElements.isEmpty());
+    assertEquals(rectangle, bounds.getBounds());
+    assertEquals(rectangle, bounds2D3);
   }
 
   /**
    * Test {@link BpmnAutoLayout#layout(FlowElementsContainer)}.
-   *
-   * <p>Method under test: {@link BpmnAutoLayout#layout(FlowElementsContainer)}
+   * <p>
+   * Method under test: {@link BpmnAutoLayout#layout(FlowElementsContainer)}
    */
   @Test
   @DisplayName("Test layout(FlowElementsContainer)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void BpmnAutoLayout.layout(FlowElementsContainer)"})
   void testLayout2() {
     // Arrange
     BpmnAutoLayout bpmnAutoLayout = new BpmnAutoLayout(new BpmnModel());
 
-    AdhocSubProcess element = new AdhocSubProcess();
-    element.addFlowElement(new AdhocSubProcess());
-    element.addArtifact(new Association());
-
-    Association artifact = new Association();
-    artifact.setId("Flow Elements Container");
-
     AdhocSubProcess flowElementsContainer = new AdhocSubProcess();
-    flowElementsContainer.addFlowElement(element);
-    flowElementsContainer.addArtifact(artifact);
-
-    // Act
-    bpmnAutoLayout.layout(flowElementsContainer);
-
-    // Assert
-    Map<String, Object> stringObjectMap = bpmnAutoLayout.generatedAssociationEdges;
-    assertEquals(1, stringObjectMap.size());
-    assertTrue(stringObjectMap.get("Flow Elements Container") instanceof mxCell);
-    Map<String, Association> stringAssociationMap = bpmnAutoLayout.associations;
-    assertEquals(1, stringAssociationMap.size());
-    Map<String, Artifact> stringArtifactMap = bpmnAutoLayout.handledArtifacts;
-    assertEquals(1, stringArtifactMap.size());
-    assertSame(artifact, stringArtifactMap.get("Flow Elements Container"));
-    assertSame(artifact, stringAssociationMap.get("Flow Elements Container"));
-  }
-
-  /**
-   * Test {@link BpmnAutoLayout#layout(FlowElementsContainer)}.
-   *
-   * <p>Method under test: {@link BpmnAutoLayout#layout(FlowElementsContainer)}
-   */
-  @Test
-  @DisplayName("Test layout(FlowElementsContainer)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void BpmnAutoLayout.layout(FlowElementsContainer)"})
-  void testLayout3() {
-    // Arrange
-    BpmnAutoLayout bpmnAutoLayout = new BpmnAutoLayout(new BpmnModel());
-
-    BooleanDataObject element = new BooleanDataObject();
-    element.setId(null);
-
-    TextAnnotation artifact = new TextAnnotation();
-    artifact.setId(null);
-
-    AdhocSubProcess flowElementsContainer = new AdhocSubProcess();
-    flowElementsContainer.addFlowElement(element);
-    flowElementsContainer.addArtifact(artifact);
-
-    // Act
-    bpmnAutoLayout.layout(flowElementsContainer);
-
-    // Assert
-    assertEquals(1, bpmnAutoLayout.handledArtifacts.size());
-    Map<String, FlowElement> stringFlowElementMap = bpmnAutoLayout.handledFlowElements;
-    assertEquals(1, stringFlowElementMap.size());
-    Map<String, Artifact> expectedStringTextAnnotationMap = bpmnAutoLayout.handledArtifacts;
-    assertEquals(expectedStringTextAnnotationMap, bpmnAutoLayout.textAnnotations);
-    assertSame(element, stringFlowElementMap.get(null));
-  }
-
-  /**
-   * Test {@link BpmnAutoLayout#layout(FlowElementsContainer)}.
-   *
-   * <p>Method under test: {@link BpmnAutoLayout#layout(FlowElementsContainer)}
-   */
-  @Test
-  @DisplayName("Test layout(FlowElementsContainer)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void BpmnAutoLayout.layout(FlowElementsContainer)"})
-  void testLayout4() {
-    // Arrange
-    BpmnAutoLayout bpmnAutoLayout = new BpmnAutoLayout(new BpmnModel());
-
-    AdhocSubProcess element = new AdhocSubProcess();
-    element.addArtifact(new Association());
-    element.addFlowElement(new AdhocSubProcess());
-    element.addFlowElement(new AdhocSubProcess());
-    element.addArtifact(new Association());
-
-    Association artifact = new Association();
-    artifact.setId(null);
-
-    AdhocSubProcess flowElementsContainer = new AdhocSubProcess();
-    flowElementsContainer.addFlowElement(element);
-    flowElementsContainer.addArtifact(artifact);
-
-    // Act
-    bpmnAutoLayout.layout(flowElementsContainer);
-
-    // Assert
-    assertEquals(1, bpmnAutoLayout.associations.size());
-    assertEquals(1, bpmnAutoLayout.generatedAssociationEdges.size());
-    assertEquals(1, bpmnAutoLayout.handledArtifacts.size());
-    assertEquals(3, bpmnAutoLayout.bpmnModel.getFlowLocationMap().size());
-  }
-
-  /**
-   * Test {@link BpmnAutoLayout#layout(FlowElementsContainer)}.
-   *
-   * <ul>
-   *   <li>Given {@link AdhocSubProcess} (default constructor) addFlowElement {@link
-   *       AdhocSubProcess} (default constructor).
-   * </ul>
-   *
-   * <p>Method under test: {@link BpmnAutoLayout#layout(FlowElementsContainer)}
-   */
-  @Test
-  @DisplayName(
-      "Test layout(FlowElementsContainer); given AdhocSubProcess (default constructor) addFlowElement AdhocSubProcess (default constructor)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void BpmnAutoLayout.layout(FlowElementsContainer)"})
-  void testLayout_givenAdhocSubProcessAddFlowElementAdhocSubProcess() {
-    // Arrange
-    BpmnAutoLayout bpmnAutoLayout = new BpmnAutoLayout(new BpmnModel());
-
-    AdhocSubProcess element = new AdhocSubProcess();
-    element.addFlowElement(new AdhocSubProcess());
-    element.addArtifact(new Association());
-
-    Association artifact = new Association();
-    artifact.setId(null);
-
-    AdhocSubProcess flowElementsContainer = new AdhocSubProcess();
-    flowElementsContainer.addFlowElement(element);
-    flowElementsContainer.addArtifact(artifact);
-
-    // Act
-    bpmnAutoLayout.layout(flowElementsContainer);
-
-    // Assert
-    assertEquals(1, bpmnAutoLayout.associations.size());
-    assertEquals(1, bpmnAutoLayout.generatedAssociationEdges.size());
-    assertEquals(1, bpmnAutoLayout.handledArtifacts.size());
-  }
-
-  /**
-   * Test {@link BpmnAutoLayout#layout(FlowElementsContainer)}.
-   *
-   * <ul>
-   *   <li>Given {@link AdhocSubProcess} (default constructor) addFlowElement {@link
-   *       AdhocSubProcess} (default constructor).
-   * </ul>
-   *
-   * <p>Method under test: {@link BpmnAutoLayout#layout(FlowElementsContainer)}
-   */
-  @Test
-  @DisplayName(
-      "Test layout(FlowElementsContainer); given AdhocSubProcess (default constructor) addFlowElement AdhocSubProcess (default constructor)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void BpmnAutoLayout.layout(FlowElementsContainer)"})
-  void testLayout_givenAdhocSubProcessAddFlowElementAdhocSubProcess2() {
-    // Arrange
-    BpmnAutoLayout bpmnAutoLayout = new BpmnAutoLayout(new BpmnModel());
-
-    AdhocSubProcess element = new AdhocSubProcess();
-    element.addFlowElement(new AdhocSubProcess());
-    element.addFlowElement(new AdhocSubProcess());
-    element.addArtifact(new Association());
-
-    Association artifact = new Association();
-    artifact.setId(null);
-
-    AdhocSubProcess flowElementsContainer = new AdhocSubProcess();
-    flowElementsContainer.addFlowElement(element);
-    flowElementsContainer.addArtifact(artifact);
-
-    // Act
-    bpmnAutoLayout.layout(flowElementsContainer);
-
-    // Assert
-    assertEquals(1, bpmnAutoLayout.associations.size());
-    assertEquals(1, bpmnAutoLayout.generatedAssociationEdges.size());
-    assertEquals(1, bpmnAutoLayout.handledArtifacts.size());
-  }
-
-  /**
-   * Test {@link BpmnAutoLayout#layout(FlowElementsContainer)}.
-   *
-   * <ul>
-   *   <li>Given {@link AdhocSubProcess} (default constructor) addFlowElement {@link CallActivity}
-   *       (default constructor).
-   * </ul>
-   *
-   * <p>Method under test: {@link BpmnAutoLayout#layout(FlowElementsContainer)}
-   */
-  @Test
-  @DisplayName(
-      "Test layout(FlowElementsContainer); given AdhocSubProcess (default constructor) addFlowElement CallActivity (default constructor)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void BpmnAutoLayout.layout(FlowElementsContainer)"})
-  void testLayout_givenAdhocSubProcessAddFlowElementCallActivity() {
-    // Arrange
-    BpmnAutoLayout bpmnAutoLayout = new BpmnAutoLayout(new BpmnModel());
-
-    AdhocSubProcess element = new AdhocSubProcess();
-    element.addFlowElement(new CallActivity());
-    element.addArtifact(new Association());
-
-    Association artifact = new Association();
-    artifact.setId(null);
-
-    AdhocSubProcess flowElementsContainer = new AdhocSubProcess();
-    flowElementsContainer.addFlowElement(element);
-    flowElementsContainer.addArtifact(artifact);
-
-    // Act
-    bpmnAutoLayout.layout(flowElementsContainer);
-
-    // Assert
-    assertEquals(1, bpmnAutoLayout.associations.size());
-    assertEquals(1, bpmnAutoLayout.generatedAssociationEdges.size());
-    assertEquals(1, bpmnAutoLayout.handledArtifacts.size());
-  }
-
-  /**
-   * Test {@link BpmnAutoLayout#layout(FlowElementsContainer)}.
-   *
-   * <ul>
-   *   <li>Given {@link AdhocSubProcess} (default constructor) addFlowElement {@link ComplexGateway}
-   *       (default constructor).
-   * </ul>
-   *
-   * <p>Method under test: {@link BpmnAutoLayout#layout(FlowElementsContainer)}
-   */
-  @Test
-  @DisplayName(
-      "Test layout(FlowElementsContainer); given AdhocSubProcess (default constructor) addFlowElement ComplexGateway (default constructor)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void BpmnAutoLayout.layout(FlowElementsContainer)"})
-  void testLayout_givenAdhocSubProcessAddFlowElementComplexGateway() {
-    // Arrange
-    BpmnAutoLayout bpmnAutoLayout = new BpmnAutoLayout(new BpmnModel());
-
-    AdhocSubProcess element = new AdhocSubProcess();
-    element.addFlowElement(new ComplexGateway());
-    element.addArtifact(new Association());
-
-    Association artifact = new Association();
-    artifact.setId(null);
-
-    AdhocSubProcess flowElementsContainer = new AdhocSubProcess();
-    flowElementsContainer.addFlowElement(element);
-    flowElementsContainer.addArtifact(artifact);
-
-    // Act
-    bpmnAutoLayout.layout(flowElementsContainer);
-
-    // Assert
-    assertEquals(1, bpmnAutoLayout.associations.size());
-    assertEquals(1, bpmnAutoLayout.generatedAssociationEdges.size());
-    assertEquals(1, bpmnAutoLayout.handledArtifacts.size());
-  }
-
-  /**
-   * Test {@link BpmnAutoLayout#layout(FlowElementsContainer)}.
-   *
-   * <ul>
-   *   <li>Given {@link AdhocSubProcess} (default constructor) addFlowElement {@link Task} (default
-   *       constructor).
-   * </ul>
-   *
-   * <p>Method under test: {@link BpmnAutoLayout#layout(FlowElementsContainer)}
-   */
-  @Test
-  @DisplayName(
-      "Test layout(FlowElementsContainer); given AdhocSubProcess (default constructor) addFlowElement Task (default constructor)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void BpmnAutoLayout.layout(FlowElementsContainer)"})
-  void testLayout_givenAdhocSubProcessAddFlowElementTask() {
-    // Arrange
-    BpmnAutoLayout bpmnAutoLayout = new BpmnAutoLayout(new BpmnModel());
-
-    AdhocSubProcess element = new AdhocSubProcess();
-    element.addFlowElement(new Task());
-    element.addArtifact(new Association());
-
-    Association artifact = new Association();
-    artifact.setId(null);
-
-    AdhocSubProcess flowElementsContainer = new AdhocSubProcess();
-    flowElementsContainer.addFlowElement(element);
-    flowElementsContainer.addArtifact(artifact);
-
-    // Act
-    bpmnAutoLayout.layout(flowElementsContainer);
-
-    // Assert
-    assertEquals(1, bpmnAutoLayout.associations.size());
-    assertEquals(1, bpmnAutoLayout.generatedAssociationEdges.size());
-    assertEquals(1, bpmnAutoLayout.handledArtifacts.size());
-  }
-
-  /**
-   * Test {@link BpmnAutoLayout#layout(FlowElementsContainer)}.
-   *
-   * <ul>
-   *   <li>Then {@link BpmnAutoLayout#BpmnAutoLayout(BpmnModel)} with bpmnModel is {@link BpmnModel}
-   *       (default constructor) {@link BpmnAutoLayout#generatedVertices} size is one.
-   * </ul>
-   *
-   * <p>Method under test: {@link BpmnAutoLayout#layout(FlowElementsContainer)}
-   */
-  @Test
-  @DisplayName(
-      "Test layout(FlowElementsContainer); then BpmnAutoLayout(BpmnModel) with bpmnModel is BpmnModel (default constructor) generatedVertices size is one")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void BpmnAutoLayout.layout(FlowElementsContainer)"})
-  void testLayout_thenBpmnAutoLayoutWithBpmnModelIsBpmnModelGeneratedVerticesSizeIsOne() {
-    // Arrange
-    BpmnAutoLayout bpmnAutoLayout = new BpmnAutoLayout(new BpmnModel());
-
-    AdhocSubProcess element = new AdhocSubProcess();
-    element.addFlowElement(new AdhocSubProcess());
-    element.addArtifact(new TextAnnotation());
-
-    Association artifact = new Association();
-    artifact.setId(null);
-
-    AdhocSubProcess flowElementsContainer = new AdhocSubProcess();
-    flowElementsContainer.addFlowElement(element);
-    flowElementsContainer.addArtifact(artifact);
+    flowElementsContainer.addFlowElement(new AdhocSubProcess());
 
     // Act
     bpmnAutoLayout.layout(flowElementsContainer);
@@ -854,216 +689,384 @@ class BpmnAutoLayoutDiffblueTest {
     // Assert
     Map<String, Object> stringObjectMap = bpmnAutoLayout.generatedVertices;
     assertEquals(1, stringObjectMap.size());
-    assertTrue(stringObjectMap.get(null) instanceof mxCell);
-    BpmnModel bpmnModel = bpmnAutoLayout.bpmnModel;
-    assertEquals(1, bpmnModel.getFlowLocationMap().size());
-    Map<String, GraphicInfo> locationMap = bpmnModel.getLocationMap();
-    assertEquals(1, locationMap.size());
-    assertEquals(1, bpmnAutoLayout.associations.size());
-    assertEquals(1, bpmnAutoLayout.generatedAssociationEdges.size());
-    assertEquals(1, bpmnAutoLayout.handledArtifacts.size());
-    assertTrue(locationMap.containsKey(null));
+    Object getResult = stringObjectMap.get(null);
+    assertTrue(getResult instanceof mxCell);
+    Rectangle rectangle = ((mxCell) getResult).getGeometry().getRectangle();
+    Rectangle2D bounds2D = rectangle.getBounds2D();
+    assertTrue(bounds2D instanceof Rectangle);
+    assertTrue(bpmnAutoLayout.getGraph()
+        .getGraphBounds()
+        .getRectangle()
+        .getBounds()
+        .getBounds()
+        .getBounds2D() instanceof Rectangle);
+    Rectangle2D frame = rectangle.getFrame();
+    assertTrue(frame instanceof Double);
+    assertEquals(20.0d, bounds2D.getCenterY());
+    assertEquals(20.0d, frame.getCenterY());
+    assertEquals(40.0d, bounds2D.getMaxY());
+    assertEquals(40.0d, frame.getMaxY());
   }
 
   /**
    * Test {@link BpmnAutoLayout#layout(FlowElementsContainer)}.
-   *
-   * <ul>
-   *   <li>Then throw {@link RuntimeException}.
-   * </ul>
-   *
-   * <p>Method under test: {@link BpmnAutoLayout#layout(FlowElementsContainer)}
+   * <p>
+   * Method under test: {@link BpmnAutoLayout#layout(FlowElementsContainer)}
    */
   @Test
-  @DisplayName("Test layout(FlowElementsContainer); then throw RuntimeException")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test layout(FlowElementsContainer)")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void BpmnAutoLayout.layout(FlowElementsContainer)"})
-  void testLayout_thenThrowRuntimeException() {
+  void testLayout3() {
     // Arrange
     BpmnAutoLayout bpmnAutoLayout = new BpmnAutoLayout(new BpmnModel());
 
-    AdhocSubProcess element = new AdhocSubProcess();
-    element.addFlowElement(new BoundaryEvent());
-    element.addArtifact(new Association());
+    AdhocSubProcess flowElementsContainer = new AdhocSubProcess();
+    flowElementsContainer.addArtifact(new Association());
+    flowElementsContainer.addArtifact(new Association());
+    flowElementsContainer.addFlowElement(new AdhocSubProcess());
 
-    Association artifact = new Association();
-    artifact.setId(null);
+    // Act
+    bpmnAutoLayout.layout(flowElementsContainer);
+
+    // Assert
+    assertEquals(2, bpmnAutoLayout.bpmnModel.getFlowLocationMap().size());
+    assertEquals(2, bpmnAutoLayout.associations.size());
+    assertEquals(2, bpmnAutoLayout.generatedAssociationEdges.size());
+    assertEquals(2, bpmnAutoLayout.handledArtifacts.size());
+  }
+
+  /**
+   * Test {@link BpmnAutoLayout#layout(FlowElementsContainer)}.
+   * <p>
+   * Method under test: {@link BpmnAutoLayout#layout(FlowElementsContainer)}
+   */
+  @Test
+  @DisplayName("Test layout(FlowElementsContainer)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void BpmnAutoLayout.layout(FlowElementsContainer)"})
+  void testLayout4() {
+    // Arrange
+    BpmnAutoLayout bpmnAutoLayout = new BpmnAutoLayout(new BpmnModel());
 
     AdhocSubProcess flowElementsContainer = new AdhocSubProcess();
+    ComplexGateway element = new ComplexGateway();
     flowElementsContainer.addFlowElement(element);
-    flowElementsContainer.addArtifact(artifact);
+
+    // Act
+    bpmnAutoLayout.layout(flowElementsContainer);
+
+    // Assert
+    Map<String, Object> stringObjectMap = bpmnAutoLayout.generatedVertices;
+    assertEquals(1, stringObjectMap.size());
+    Object getResult = stringObjectMap.get(null);
+    assertTrue(getResult instanceof mxCell);
+    assertTrue(
+        bpmnAutoLayout.getGraph().getGraphBounds().getRectangle().getBounds().getBounds2D() instanceof Rectangle);
+    assertEquals("styleGateway", ((mxCell) getResult).getStyle());
+    Map<String, GraphicInfo> locationMap = bpmnAutoLayout.bpmnModel.getLocationMap();
+    assertEquals(1, locationMap.size());
+    Map<String, FlowElement> stringFlowElementMap = bpmnAutoLayout.handledFlowElements;
+    assertEquals(1, stringFlowElementMap.size());
+    assertSame(element, stringFlowElementMap.get(null));
+    assertSame(element, locationMap.get(null).getElement());
+  }
+
+  /**
+   * Test {@link BpmnAutoLayout#layout(FlowElementsContainer)}.
+   * <p>
+   * Method under test: {@link BpmnAutoLayout#layout(FlowElementsContainer)}
+   */
+  @Test
+  @DisplayName("Test layout(FlowElementsContainer)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void BpmnAutoLayout.layout(FlowElementsContainer)"})
+  void testLayout5() {
+    // Arrange
+    BpmnAutoLayout bpmnAutoLayout = new BpmnAutoLayout(new BpmnModel());
+
+    AdhocSubProcess flowElementsContainer = new AdhocSubProcess();
+    BusinessRuleTask element = new BusinessRuleTask();
+    flowElementsContainer.addFlowElement(element);
+
+    // Act
+    bpmnAutoLayout.layout(flowElementsContainer);
+
+    // Assert
+    Map<String, FlowElement> stringFlowElementMap = bpmnAutoLayout.handledFlowElements;
+    assertEquals(1, stringFlowElementMap.size());
+    mxRectangle graphBounds = bpmnAutoLayout.getGraph().getGraphBounds();
+    assertEquals(100.0d, graphBounds.getWidth());
+    assertEquals(30.0d, graphBounds.getCenterY());
+    assertEquals(50.0d, graphBounds.getCenterX());
+    assertEquals(60.0d, graphBounds.getHeight());
+    assertSame(element, stringFlowElementMap.get(null));
+  }
+
+  /**
+   * Test {@link BpmnAutoLayout#layout(FlowElementsContainer)}.
+   * <p>
+   * Method under test: {@link BpmnAutoLayout#layout(FlowElementsContainer)}
+   */
+  @Test
+  @DisplayName("Test layout(FlowElementsContainer)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void BpmnAutoLayout.layout(FlowElementsContainer)"})
+  void testLayout6() {
+    // Arrange
+    BpmnAutoLayout bpmnAutoLayout = new BpmnAutoLayout(new BpmnModel());
+
+    AdhocSubProcess flowElementsContainer = new AdhocSubProcess();
+    CallActivity element = new CallActivity();
+    flowElementsContainer.addFlowElement(element);
+
+    // Act
+    bpmnAutoLayout.layout(flowElementsContainer);
+
+    // Assert
+    Map<String, FlowElement> stringFlowElementMap = bpmnAutoLayout.handledFlowElements;
+    assertEquals(1, stringFlowElementMap.size());
+    mxRectangle graphBounds = bpmnAutoLayout.getGraph().getGraphBounds();
+    assertEquals(100.0d, graphBounds.getWidth());
+    assertEquals(30.0d, graphBounds.getCenterY());
+    assertEquals(50.0d, graphBounds.getCenterX());
+    assertEquals(60.0d, graphBounds.getHeight());
+    assertSame(element, stringFlowElementMap.get(null));
+  }
+
+  /**
+   * Test {@link BpmnAutoLayout#layout(FlowElementsContainer)}.
+   * <ul>
+   *   <li>Given {@link BoundaryEvent} (default constructor).</li>
+   *   <li>Then throw {@link RuntimeException}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link BpmnAutoLayout#layout(FlowElementsContainer)}
+   */
+  @Test
+  @DisplayName("Test layout(FlowElementsContainer); given BoundaryEvent (default constructor); then throw RuntimeException")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void BpmnAutoLayout.layout(FlowElementsContainer)"})
+  void testLayout_givenBoundaryEvent_thenThrowRuntimeException() {
+    // Arrange
+    BpmnAutoLayout bpmnAutoLayout = new BpmnAutoLayout(new BpmnModel());
+
+    AdhocSubProcess flowElementsContainer = new AdhocSubProcess();
+    flowElementsContainer.addFlowElement(new BoundaryEvent());
 
     // Act and Assert
     assertThrows(RuntimeException.class, () -> bpmnAutoLayout.layout(flowElementsContainer));
   }
 
   /**
-   * Test {@link BpmnAutoLayout#handleEvent(FlowElement)}.
-   *
+   * Test {@link BpmnAutoLayout#layout(FlowElementsContainer)}.
    * <ul>
-   *   <li>Then throw {@link RuntimeException}.
+   *   <li>Then {@link BpmnAutoLayout#BpmnAutoLayout(BpmnModel)} with bpmnModel is {@link BpmnModel} (default constructor) {@link BpmnAutoLayout#associations} size is one.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link BpmnAutoLayout#handleEvent(FlowElement)}
+   * <p>
+   * Method under test: {@link BpmnAutoLayout#layout(FlowElementsContainer)}
+   */
+  @Test
+  @DisplayName("Test layout(FlowElementsContainer); then BpmnAutoLayout(BpmnModel) with bpmnModel is BpmnModel (default constructor) associations size is one")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void BpmnAutoLayout.layout(FlowElementsContainer)"})
+  void testLayout_thenBpmnAutoLayoutWithBpmnModelIsBpmnModelAssociationsSizeIsOne() {
+    // Arrange
+    BpmnAutoLayout bpmnAutoLayout = new BpmnAutoLayout(new BpmnModel());
+
+    AdhocSubProcess flowElementsContainer = new AdhocSubProcess();
+    flowElementsContainer.addArtifact(new Association());
+    flowElementsContainer.addFlowElement(new AdhocSubProcess());
+
+    // Act
+    bpmnAutoLayout.layout(flowElementsContainer);
+
+    // Assert
+    assertEquals(1, bpmnAutoLayout.associations.size());
+    assertEquals(1, bpmnAutoLayout.generatedAssociationEdges.size());
+    assertEquals(1, bpmnAutoLayout.handledArtifacts.size());
+  }
+
+  /**
+   * Test {@link BpmnAutoLayout#layout(FlowElementsContainer)}.
+   * <ul>
+   *   <li>Then {@link BpmnAutoLayout#BpmnAutoLayout(BpmnModel)} with bpmnModel is {@link BpmnModel} (default constructor) {@link BpmnAutoLayout#associations} size is one.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link BpmnAutoLayout#layout(FlowElementsContainer)}
+   */
+  @Test
+  @DisplayName("Test layout(FlowElementsContainer); then BpmnAutoLayout(BpmnModel) with bpmnModel is BpmnModel (default constructor) associations size is one")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void BpmnAutoLayout.layout(FlowElementsContainer)"})
+  void testLayout_thenBpmnAutoLayoutWithBpmnModelIsBpmnModelAssociationsSizeIsOne2() {
+    // Arrange
+    BpmnAutoLayout bpmnAutoLayout = new BpmnAutoLayout(new BpmnModel());
+
+    AdhocSubProcess flowElementsContainer = new AdhocSubProcess();
+    flowElementsContainer.addArtifact(new Association());
+    flowElementsContainer.addFlowElement(new AdhocSubProcess());
+    flowElementsContainer.addFlowElement(new AdhocSubProcess());
+
+    // Act
+    bpmnAutoLayout.layout(flowElementsContainer);
+
+    // Assert
+    assertEquals(1, bpmnAutoLayout.associations.size());
+    assertEquals(1, bpmnAutoLayout.generatedAssociationEdges.size());
+    assertEquals(1, bpmnAutoLayout.handledArtifacts.size());
+  }
+
+  /**
+   * Test {@link BpmnAutoLayout#layout(FlowElementsContainer)}.
+   * <ul>
+   *   <li>Then {@link BpmnAutoLayout#BpmnAutoLayout(BpmnModel)} with bpmnModel is {@link BpmnModel} (default constructor) Graph DefaultParent {@link mxCell}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link BpmnAutoLayout#layout(FlowElementsContainer)}
+   */
+  @Test
+  @DisplayName("Test layout(FlowElementsContainer); then BpmnAutoLayout(BpmnModel) with bpmnModel is BpmnModel (default constructor) Graph DefaultParent mxCell")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void BpmnAutoLayout.layout(FlowElementsContainer)"})
+  void testLayout_thenBpmnAutoLayoutWithBpmnModelIsBpmnModelGraphDefaultParentMxCell() {
+    // Arrange
+    BpmnAutoLayout bpmnAutoLayout = new BpmnAutoLayout(new BpmnModel());
+
+    AdhocSubProcess flowElementsContainer = new AdhocSubProcess();
+    BooleanDataObject element = new BooleanDataObject();
+    flowElementsContainer.addFlowElement(element);
+
+    // Act
+    bpmnAutoLayout.layout(flowElementsContainer);
+
+    // Assert
+    assertTrue(bpmnAutoLayout.getGraph().getDefaultParent() instanceof mxCell);
+    Object object = bpmnAutoLayout.cellParent;
+    assertTrue(object instanceof mxCell);
+    assertEquals(0, ((mxCell) object).getChildCount());
+    Map<String, FlowElement> stringFlowElementMap = bpmnAutoLayout.handledFlowElements;
+    assertEquals(1, stringFlowElementMap.size());
+    assertTrue(bpmnAutoLayout.bpmnModel.getLocationMap().isEmpty());
+    assertTrue(bpmnAutoLayout.generatedVertices.isEmpty());
+    assertSame(element, stringFlowElementMap.get(null));
+  }
+
+  /**
+   * Test {@link BpmnAutoLayout#layout(FlowElementsContainer)}.
+   * <ul>
+   *   <li>Then {@link BpmnAutoLayout#BpmnAutoLayout(BpmnModel)} with bpmnModel is {@link BpmnModel} (default constructor) Graph Model Cells size is four.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link BpmnAutoLayout#layout(FlowElementsContainer)}
+   */
+  @Test
+  @DisplayName("Test layout(FlowElementsContainer); then BpmnAutoLayout(BpmnModel) with bpmnModel is BpmnModel (default constructor) Graph Model Cells size is four")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void BpmnAutoLayout.layout(FlowElementsContainer)"})
+  void testLayout_thenBpmnAutoLayoutWithBpmnModelIsBpmnModelGraphModelCellsSizeIsFour() {
+    // Arrange
+    BpmnAutoLayout bpmnAutoLayout = new BpmnAutoLayout(new BpmnModel());
+
+    AdhocSubProcess flowElementsContainer = new AdhocSubProcess();
+    flowElementsContainer.addFlowElement(new AdhocSubProcess());
+    flowElementsContainer.addFlowElement(new AdhocSubProcess());
+
+    // Act
+    bpmnAutoLayout.layout(flowElementsContainer);
+
+    // Assert
+    mxGraph graph = bpmnAutoLayout.getGraph();
+    mxIGraphModel model = graph.getModel();
+    Map<String, Object> cells = ((mxGraphModel) model).getCells();
+    assertEquals(4, cells.size());
+    assertTrue(cells.get("2") instanceof mxCell);
+    assertTrue(model instanceof mxGraphModel);
+    Rectangle2D frame = graph.getGraphBounds().getRectangle().getFrame();
+    assertTrue(frame instanceof Double);
+    assertTrue(frame.getFrame() instanceof Double);
+    assertTrue(cells.containsKey("1"));
+    assertTrue(cells.containsKey("3"));
+  }
+
+  /**
+   * Test {@link BpmnAutoLayout#handleEvent(FlowElement)}.
+   * <ul>
+   *   <li>Then throw {@link RuntimeException}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link BpmnAutoLayout#handleEvent(FlowElement)}
    */
   @Test
   @DisplayName("Test handleEvent(FlowElement); then throw RuntimeException")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void BpmnAutoLayout.handleEvent(FlowElement)"})
   void testHandleEvent_thenThrowRuntimeException() {
     // Arrange
     mxGraph graph = mock(mxGraph.class);
-    when(graph.insertVertex(
-            Mockito.<Object>any(),
-            Mockito.<String>any(),
-            Mockito.<Object>any(),
-            anyDouble(),
-            anyDouble(),
-            anyDouble(),
-            anyDouble(),
-            Mockito.<String>any()))
-        .thenThrow(new RuntimeException());
+    when(graph.insertVertex(Mockito.<Object>any(), Mockito.<String>any(), Mockito.<Object>any(), anyDouble(),
+        anyDouble(), anyDouble(), anyDouble(), Mockito.<String>any())).thenThrow(new RuntimeException("styleEvent"));
     when(graph.getStylesheet()).thenReturn(new mxStylesheet());
-    doNothing().when(graph).addSelectionCell(Mockito.<Object>any());
-    doNothing().when(graph).enterGroup(Mockito.<Object>any());
-    graph.enterGroup("Cell");
-    graph.addSelectionCell("Cell");
 
     BpmnAutoLayout bpmnAutoLayout = new BpmnAutoLayout(new BpmnModel());
     bpmnAutoLayout.setGraph(graph);
 
-    SubProcess flowElement = mock(SubProcess.class);
-    when(flowElement.getId()).thenReturn("42");
-    doNothing().when(flowElement).addFlowElement(Mockito.<FlowElement>any());
-    flowElement.addFlowElement(new AdhocSubProcess());
-
     // Act and Assert
-    assertThrows(RuntimeException.class, () -> bpmnAutoLayout.handleEvent(flowElement));
-    verify(graph).addSelectionCell(isA(Object.class));
-    verify(graph).enterGroup(isA(Object.class));
+    assertThrows(RuntimeException.class, () -> bpmnAutoLayout.handleEvent(new AdhocSubProcess()));
     verify(graph, atLeast(1)).getStylesheet();
-    verify(graph)
-        .insertVertex(
-            isNull(),
-            eq("42"),
-            isA(Object.class),
-            eq(0.0d),
-            eq(0.0d),
-            eq(30.0d),
-            eq(30.0d),
-            eq("styleEvent"));
-    verify(flowElement).getId();
-    verify(flowElement).addFlowElement(isA(FlowElement.class));
-  }
-
-  /**
-   * Test {@link BpmnAutoLayout#handleSubProcess(FlowElement)}.
-   *
-   * <ul>
-   *   <li>Then throw {@link RuntimeException}.
-   * </ul>
-   *
-   * <p>Method under test: {@link BpmnAutoLayout#handleSubProcess(FlowElement)}
-   */
-  @Test
-  @DisplayName("Test handleSubProcess(FlowElement); then throw RuntimeException")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void BpmnAutoLayout.handleSubProcess(FlowElement)"})
-  void testHandleSubProcess_thenThrowRuntimeException() {
-    // Arrange
-    BpmnAutoLayout bpmnAutoLayout = new BpmnAutoLayout(new BpmnModel());
-
-    AdhocSubProcess element = new AdhocSubProcess();
-    element.addFlowElement(new BoundaryEvent());
-    element.addArtifact(new Association());
-
-    Association artifact = new Association();
-    artifact.setId(null);
-
-    AdhocSubProcess flowElement = new AdhocSubProcess();
-    flowElement.addFlowElement(element);
-    flowElement.addArtifact(artifact);
-
-    // Act and Assert
-    assertThrows(RuntimeException.class, () -> bpmnAutoLayout.handleSubProcess(flowElement));
+    verify(graph).insertVertex(isNull(), isNull(), isA(Object.class), eq(0.0d), eq(0.0d), eq(30.0d), eq(30.0d),
+        eq("styleEvent"));
   }
 
   /**
    * Test {@link BpmnAutoLayout#createEventVertex(FlowElement)}.
-   *
    * <ul>
-   *   <li>Then throw {@link RuntimeException}.
+   *   <li>Then throw {@link RuntimeException}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link BpmnAutoLayout#createEventVertex(FlowElement)}
+   * <p>
+   * Method under test: {@link BpmnAutoLayout#createEventVertex(FlowElement)}
    */
   @Test
   @DisplayName("Test createEventVertex(FlowElement); then throw RuntimeException")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void BpmnAutoLayout.createEventVertex(FlowElement)"})
   void testCreateEventVertex_thenThrowRuntimeException() {
     // Arrange
     mxGraph graph = mock(mxGraph.class);
-    when(graph.insertVertex(
-            Mockito.<Object>any(),
-            Mockito.<String>any(),
-            Mockito.<Object>any(),
-            anyDouble(),
-            anyDouble(),
-            anyDouble(),
-            anyDouble(),
-            Mockito.<String>any()))
-        .thenThrow(new RuntimeException());
+    when(graph.insertVertex(Mockito.<Object>any(), Mockito.<String>any(), Mockito.<Object>any(), anyDouble(),
+        anyDouble(), anyDouble(), anyDouble(), Mockito.<String>any())).thenThrow(new RuntimeException("styleEvent"));
     when(graph.getStylesheet()).thenReturn(new mxStylesheet());
 
     BpmnAutoLayout bpmnAutoLayout = new BpmnAutoLayout(new BpmnModel());
     bpmnAutoLayout.setGraph(graph);
 
     // Act and Assert
-    assertThrows(
-        RuntimeException.class, () -> bpmnAutoLayout.createEventVertex(new AdhocSubProcess()));
+    assertThrows(RuntimeException.class, () -> bpmnAutoLayout.createEventVertex(new AdhocSubProcess()));
     verify(graph, atLeast(1)).getStylesheet();
-    verify(graph)
-        .insertVertex(
-            isNull(),
-            isNull(),
-            isA(Object.class),
-            eq(0.0d),
-            eq(0.0d),
-            eq(30.0d),
-            eq(30.0d),
-            eq("styleEvent"));
+    verify(graph).insertVertex(isNull(), isNull(), isA(Object.class), eq(0.0d), eq(0.0d), eq(30.0d), eq(30.0d),
+        eq("styleEvent"));
   }
 
   /**
    * Test {@link BpmnAutoLayout#createGatewayVertex(FlowElement)}.
-   *
    * <ul>
-   *   <li>Then calls {@link mxStylesheet#getStyles()}.
+   *   <li>Then calls {@link mxStylesheet#getStyles()}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link BpmnAutoLayout#createGatewayVertex(FlowElement)}
+   * <p>
+   * Method under test: {@link BpmnAutoLayout#createGatewayVertex(FlowElement)}
    */
   @Test
   @DisplayName("Test createGatewayVertex(FlowElement); then calls getStyles()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void BpmnAutoLayout.createGatewayVertex(FlowElement)"})
   void testCreateGatewayVertex_thenCallsGetStyles() {
     // Arrange
     HashMap<String, Map<String, Object>> stringMapMap = new HashMap<>();
     stringMapMap.put("styleGateway", new HashMap<>());
-
     mxStylesheet mxStylesheet = mock(mxStylesheet.class);
-    doThrow(new RuntimeException())
-        .when(mxStylesheet)
+    doThrow(new RuntimeException("styleGateway")).when(mxStylesheet)
         .putCellStyle(Mockito.<String>any(), Mockito.<Map<String, Object>>any());
     when(mxStylesheet.getStyles()).thenReturn(stringMapMap);
-
     mxGraph graph = mock(mxGraph.class);
     when(graph.getStylesheet()).thenReturn(mxStylesheet);
 
@@ -1071,8 +1074,7 @@ class BpmnAutoLayoutDiffblueTest {
     bpmnAutoLayout.setGraph(graph);
 
     // Act and Assert
-    assertThrows(
-        RuntimeException.class, () -> bpmnAutoLayout.createGatewayVertex(new AdhocSubProcess()));
+    assertThrows(RuntimeException.class, () -> bpmnAutoLayout.createGatewayVertex(new AdhocSubProcess()));
     verify(graph, atLeast(1)).getStylesheet();
     verify(mxStylesheet).getStyles();
     verify(mxStylesheet).putCellStyle(eq("styleGateway"), isA(Map.class));
@@ -1080,68 +1082,45 @@ class BpmnAutoLayoutDiffblueTest {
 
   /**
    * Test {@link BpmnAutoLayout#createGatewayVertex(FlowElement)}.
-   *
    * <ul>
-   *   <li>Then calls {@link mxGraph#insertVertex(Object, String, Object, double, double, double,
-   *       double, String)}.
+   *   <li>Then calls {@link mxGraph#insertVertex(Object, String, Object, double, double, double, double, String)}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link BpmnAutoLayout#createGatewayVertex(FlowElement)}
+   * <p>
+   * Method under test: {@link BpmnAutoLayout#createGatewayVertex(FlowElement)}
    */
   @Test
-  @DisplayName(
-      "Test createGatewayVertex(FlowElement); then calls insertVertex(Object, String, Object, double, double, double, double, String)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test createGatewayVertex(FlowElement); then calls insertVertex(Object, String, Object, double, double, double, double, String)")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void BpmnAutoLayout.createGatewayVertex(FlowElement)"})
   void testCreateGatewayVertex_thenCallsInsertVertex() {
     // Arrange
     mxGraph graph = mock(mxGraph.class);
-    when(graph.insertVertex(
-            Mockito.<Object>any(),
-            Mockito.<String>any(),
-            Mockito.<Object>any(),
-            anyDouble(),
-            anyDouble(),
-            anyDouble(),
-            anyDouble(),
-            Mockito.<String>any()))
-        .thenThrow(new RuntimeException());
+    when(graph.insertVertex(Mockito.<Object>any(), Mockito.<String>any(), Mockito.<Object>any(), anyDouble(),
+        anyDouble(), anyDouble(), anyDouble(), Mockito.<String>any())).thenThrow(new RuntimeException("styleGateway"));
     when(graph.getStylesheet()).thenReturn(new mxStylesheet());
 
     BpmnAutoLayout bpmnAutoLayout = new BpmnAutoLayout(new BpmnModel());
     bpmnAutoLayout.setGraph(graph);
 
     // Act and Assert
-    assertThrows(
-        RuntimeException.class, () -> bpmnAutoLayout.createGatewayVertex(new AdhocSubProcess()));
+    assertThrows(RuntimeException.class, () -> bpmnAutoLayout.createGatewayVertex(new AdhocSubProcess()));
     verify(graph).getStylesheet();
-    verify(graph)
-        .insertVertex(
-            isNull(),
-            isNull(),
-            isA(Object.class),
-            eq(0.0d),
-            eq(0.0d),
-            eq(40.0d),
-            eq(40.0d),
-            eq("styleGateway"));
+    verify(graph).insertVertex(isNull(), isNull(), isA(Object.class), eq(0.0d), eq(0.0d), eq(40.0d), eq(40.0d),
+        eq("styleGateway"));
   }
 
   /**
    * Test {@link BpmnAutoLayout#euclidianDistance(mxPoint, mxPoint)}.
-   *
    * <ul>
-   *   <li>When {@link mxPoint#mxPoint()}.
-   *   <li>Then return zero.
+   *   <li>When {@link mxPoint#mxPoint()}.</li>
+   *   <li>Then return zero.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link BpmnAutoLayout#euclidianDistance(mxPoint, mxPoint)}
+   * <p>
+   * Method under test: {@link BpmnAutoLayout#euclidianDistance(mxPoint, mxPoint)}
    */
   @Test
   @DisplayName("Test euclidianDistance(mxPoint, mxPoint); when mxPoint(); then return zero")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"double BpmnAutoLayout.euclidianDistance(mxPoint, mxPoint)"})
   void testEuclidianDistance_whenMxPoint_thenReturnZero() {
     // Arrange
@@ -1154,203 +1133,17 @@ class BpmnAutoLayoutDiffblueTest {
 
   /**
    * Test {@link BpmnAutoLayout#optimizeEdgePoints(List)}.
-   *
-   * <p>Method under test: {@link BpmnAutoLayout#optimizeEdgePoints(List)}
-   */
-  @Test
-  @DisplayName("Test optimizeEdgePoints(List)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"List BpmnAutoLayout.optimizeEdgePoints(List)"})
-  void testOptimizeEdgePoints() {
-    // Arrange
-    BpmnAutoLayout bpmnAutoLayout = new BpmnAutoLayout(new BpmnModel());
-
-    ArrayList<mxPoint> unoptimizedPointsList = new ArrayList<>();
-    mxLine mxLine = new mxLine(10.0d, 10.0d, new mxPoint());
-    unoptimizedPointsList.add(mxLine);
-    unoptimizedPointsList.add(new mxPoint());
-    unoptimizedPointsList.add(new mxPoint());
-    unoptimizedPointsList.add(new mxPoint());
-    unoptimizedPointsList.add(new mxPoint());
-    unoptimizedPointsList.add(new mxPoint());
-    unoptimizedPointsList.add(new mxPoint());
-    unoptimizedPointsList.add(new mxPoint());
-    unoptimizedPointsList.add(new mxPoint());
-    unoptimizedPointsList.add(new mxPoint());
-    unoptimizedPointsList.add(new mxPoint());
-    unoptimizedPointsList.add(new mxPoint());
-    unoptimizedPointsList.add(new mxPoint());
-    unoptimizedPointsList.add(new mxPoint());
-    unoptimizedPointsList.add(new mxPoint());
-    unoptimizedPointsList.add(new mxPoint());
-    unoptimizedPointsList.add(new mxPoint());
-    unoptimizedPointsList.add(new mxPoint());
-    unoptimizedPointsList.add(new mxPoint());
-
-    // Act
-    List<mxPoint> actualOptimizeEdgePointsResult =
-        bpmnAutoLayout.optimizeEdgePoints(unoptimizedPointsList);
-
-    // Assert
-    assertEquals(3, actualOptimizeEdgePointsResult.size());
-    assertSame(mxLine, actualOptimizeEdgePointsResult.get(0));
-  }
-
-  /**
-   * Test {@link BpmnAutoLayout#optimizeEdgePoints(List)}.
-   *
    * <ul>
-   *   <li>Given {@link mxPoint#mxPoint()} X is ten.
-   *   <li>Then return first Point {@link Point#x} is ten.
+   *   <li>Given {@link mxPoint#mxPoint()}.</li>
+   *   <li>When {@link ArrayList#ArrayList()} add {@link mxPoint#mxPoint()}.</li>
+   *   <li>Then return {@link ArrayList#ArrayList()}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link BpmnAutoLayout#optimizeEdgePoints(List)}
+   * <p>
+   * Method under test: {@link BpmnAutoLayout#optimizeEdgePoints(List)}
    */
   @Test
-  @DisplayName(
-      "Test optimizeEdgePoints(List); given mxPoint() X is ten; then return first Point x is ten")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"List BpmnAutoLayout.optimizeEdgePoints(List)"})
-  void testOptimizeEdgePoints_givenMxPointXIsTen_thenReturnFirstPointXIsTen() {
-    // Arrange
-    BpmnAutoLayout bpmnAutoLayout = new BpmnAutoLayout(new BpmnModel());
-
-    mxPoint mxPoint = new mxPoint();
-    mxPoint.setX(10.0d);
-
-    ArrayList<mxPoint> unoptimizedPointsList = new ArrayList<>();
-    unoptimizedPointsList.add(mxPoint);
-    unoptimizedPointsList.add(new mxPoint());
-    unoptimizedPointsList.add(new mxPoint());
-    unoptimizedPointsList.add(new mxPoint());
-    unoptimizedPointsList.add(new mxPoint());
-    unoptimizedPointsList.add(new mxPoint());
-    unoptimizedPointsList.add(new mxPoint());
-    unoptimizedPointsList.add(new mxPoint());
-    unoptimizedPointsList.add(new mxPoint());
-    unoptimizedPointsList.add(new mxPoint());
-    unoptimizedPointsList.add(new mxPoint());
-    unoptimizedPointsList.add(new mxPoint());
-    unoptimizedPointsList.add(new mxPoint());
-    unoptimizedPointsList.add(new mxPoint());
-    unoptimizedPointsList.add(new mxPoint());
-    unoptimizedPointsList.add(new mxPoint());
-    unoptimizedPointsList.add(new mxPoint());
-    unoptimizedPointsList.add(new mxPoint());
-    unoptimizedPointsList.add(new mxPoint());
-
-    // Act
-    List<mxPoint> actualOptimizeEdgePointsResult =
-        bpmnAutoLayout.optimizeEdgePoints(unoptimizedPointsList);
-
-    // Assert
-    assertEquals(3, actualOptimizeEdgePointsResult.size());
-    mxPoint getResult = actualOptimizeEdgePointsResult.get(0);
-    Point point = getResult.getPoint();
-    assertEquals(10, point.x);
-    Point location = point.getLocation();
-    assertEquals(10, location.x);
-    Point location2 = location.getLocation();
-    assertEquals(10, location2.x);
-    Point location3 = location2.getLocation();
-    assertEquals(10, location3.x);
-    Point location4 = location3.getLocation();
-    assertEquals(10, location4.x);
-    assertEquals(10.0d, getResult.getX());
-    assertEquals(10.0d, point.getX());
-    assertEquals(10.0d, location.getX());
-    assertEquals(10.0d, location2.getX());
-    assertEquals(10.0d, location3.getX());
-    assertEquals(10.0d, location4.getX());
-  }
-
-  /**
-   * Test {@link BpmnAutoLayout#optimizeEdgePoints(List)}.
-   *
-   * <ul>
-   *   <li>Given {@link mxPoint#mxPoint()} Y is ten.
-   *   <li>Then return first Point {@link Point#y} is ten.
-   * </ul>
-   *
-   * <p>Method under test: {@link BpmnAutoLayout#optimizeEdgePoints(List)}
-   */
-  @Test
-  @DisplayName(
-      "Test optimizeEdgePoints(List); given mxPoint() Y is ten; then return first Point y is ten")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"List BpmnAutoLayout.optimizeEdgePoints(List)"})
-  void testOptimizeEdgePoints_givenMxPointYIsTen_thenReturnFirstPointYIsTen() {
-    // Arrange
-    BpmnAutoLayout bpmnAutoLayout = new BpmnAutoLayout(new BpmnModel());
-
-    mxPoint mxPoint = new mxPoint();
-    mxPoint.setY(10.0d);
-
-    ArrayList<mxPoint> unoptimizedPointsList = new ArrayList<>();
-    unoptimizedPointsList.add(mxPoint);
-    unoptimizedPointsList.add(new mxPoint());
-    unoptimizedPointsList.add(new mxPoint());
-    unoptimizedPointsList.add(new mxPoint());
-    unoptimizedPointsList.add(new mxPoint());
-    unoptimizedPointsList.add(new mxPoint());
-    unoptimizedPointsList.add(new mxPoint());
-    unoptimizedPointsList.add(new mxPoint());
-    unoptimizedPointsList.add(new mxPoint());
-    unoptimizedPointsList.add(new mxPoint());
-    unoptimizedPointsList.add(new mxPoint());
-    unoptimizedPointsList.add(new mxPoint());
-    unoptimizedPointsList.add(new mxPoint());
-    unoptimizedPointsList.add(new mxPoint());
-    unoptimizedPointsList.add(new mxPoint());
-    unoptimizedPointsList.add(new mxPoint());
-    unoptimizedPointsList.add(new mxPoint());
-    unoptimizedPointsList.add(new mxPoint());
-    unoptimizedPointsList.add(new mxPoint());
-
-    // Act
-    List<mxPoint> actualOptimizeEdgePointsResult =
-        bpmnAutoLayout.optimizeEdgePoints(unoptimizedPointsList);
-
-    // Assert
-    assertEquals(3, actualOptimizeEdgePointsResult.size());
-    mxPoint getResult = actualOptimizeEdgePointsResult.get(0);
-    Point point = getResult.getPoint();
-    assertEquals(10, point.y);
-    Point location = point.getLocation();
-    assertEquals(10, location.y);
-    Point location2 = location.getLocation();
-    assertEquals(10, location2.y);
-    Point location3 = location2.getLocation();
-    assertEquals(10, location3.y);
-    Point location4 = location3.getLocation();
-    assertEquals(10, location4.y);
-    assertEquals(10.0d, getResult.getY());
-    assertEquals(10.0d, point.getY());
-    assertEquals(10.0d, location.getY());
-    assertEquals(10.0d, location2.getY());
-    assertEquals(10.0d, location3.getY());
-    assertEquals(10.0d, location4.getY());
-  }
-
-  /**
-   * Test {@link BpmnAutoLayout#optimizeEdgePoints(List)}.
-   *
-   * <ul>
-   *   <li>Given {@link mxPoint#mxPoint()}.
-   *   <li>When {@link ArrayList#ArrayList()} add {@link mxPoint#mxPoint()}.
-   *   <li>Then return {@link ArrayList#ArrayList()}.
-   * </ul>
-   *
-   * <p>Method under test: {@link BpmnAutoLayout#optimizeEdgePoints(List)}
-   */
-  @Test
-  @DisplayName(
-      "Test optimizeEdgePoints(List); given mxPoint(); when ArrayList() add mxPoint(); then return ArrayList()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test optimizeEdgePoints(List); given mxPoint(); when ArrayList() add mxPoint(); then return ArrayList()")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"List BpmnAutoLayout.optimizeEdgePoints(List)"})
   void testOptimizeEdgePoints_givenMxPoint_whenArrayListAddMxPoint_thenReturnArrayList() {
     // Arrange
@@ -1360,67 +1153,53 @@ class BpmnAutoLayoutDiffblueTest {
     unoptimizedPointsList.add(new mxPoint());
     unoptimizedPointsList.add(new mxPoint());
 
-    // Act
-    List<mxPoint> actualOptimizeEdgePointsResult =
-        bpmnAutoLayout.optimizeEdgePoints(unoptimizedPointsList);
-
-    // Assert
-    assertEquals(unoptimizedPointsList, actualOptimizeEdgePointsResult);
+    // Act and Assert
+    assertEquals(unoptimizedPointsList, bpmnAutoLayout.optimizeEdgePoints(unoptimizedPointsList));
   }
 
   /**
    * Test {@link BpmnAutoLayout#optimizeEdgePoints(List)}.
-   *
    * <ul>
-   *   <li>Given {@link mxPoint#mxPoint()}.
-   *   <li>When {@link ArrayList#ArrayList()} add {@link mxPoint#mxPoint()}.
-   *   <li>Then return size is one.
+   *   <li>Given {@link mxPoint#mxPoint()}.</li>
+   *   <li>When {@link ArrayList#ArrayList()} add {@link mxPoint#mxPoint()}.</li>
+   *   <li>Then return size is one.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link BpmnAutoLayout#optimizeEdgePoints(List)}
+   * <p>
+   * Method under test: {@link BpmnAutoLayout#optimizeEdgePoints(List)}
    */
   @Test
-  @DisplayName(
-      "Test optimizeEdgePoints(List); given mxPoint(); when ArrayList() add mxPoint(); then return size is one")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test optimizeEdgePoints(List); given mxPoint(); when ArrayList() add mxPoint(); then return size is one")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"List BpmnAutoLayout.optimizeEdgePoints(List)"})
   void testOptimizeEdgePoints_givenMxPoint_whenArrayListAddMxPoint_thenReturnSizeIsOne() {
     // Arrange
     BpmnAutoLayout bpmnAutoLayout = new BpmnAutoLayout(new BpmnModel());
 
     ArrayList<mxPoint> unoptimizedPointsList = new ArrayList<>();
-    unoptimizedPointsList.add(new mxPoint());
+    mxPoint mxPoint = new mxPoint();
+    unoptimizedPointsList.add(mxPoint);
 
     // Act
-    List<mxPoint> actualOptimizeEdgePointsResult =
-        bpmnAutoLayout.optimizeEdgePoints(unoptimizedPointsList);
+    List<mxPoint> actualOptimizeEdgePointsResult = bpmnAutoLayout.optimizeEdgePoints(unoptimizedPointsList);
 
     // Assert
     assertEquals(1, actualOptimizeEdgePointsResult.size());
-    Point location = actualOptimizeEdgePointsResult.get(0).getPoint().getLocation();
-    assertEquals(0, location.x);
-    assertEquals(0, location.y);
-    assertEquals(0.0d, location.getX());
-    assertEquals(0.0d, location.getY());
+    assertSame(mxPoint, actualOptimizeEdgePointsResult.get(0));
   }
 
   /**
    * Test {@link BpmnAutoLayout#optimizeEdgePoints(List)}.
-   *
    * <ul>
-   *   <li>Given {@link mxPoint#mxPoint()}.
-   *   <li>When {@link ArrayList#ArrayList()} add {@link mxPoint#mxPoint()}.
-   *   <li>Then return size is two.
+   *   <li>Given {@link mxPoint#mxPoint()}.</li>
+   *   <li>When {@link ArrayList#ArrayList()} add {@link mxPoint#mxPoint()}.</li>
+   *   <li>Then return size is two.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link BpmnAutoLayout#optimizeEdgePoints(List)}
+   * <p>
+   * Method under test: {@link BpmnAutoLayout#optimizeEdgePoints(List)}
    */
   @Test
-  @DisplayName(
-      "Test optimizeEdgePoints(List); given mxPoint(); when ArrayList() add mxPoint(); then return size is two")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test optimizeEdgePoints(List); given mxPoint(); when ArrayList() add mxPoint(); then return size is two")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"List BpmnAutoLayout.optimizeEdgePoints(List)"})
   void testOptimizeEdgePoints_givenMxPoint_whenArrayListAddMxPoint_thenReturnSizeIsTwo() {
     // Arrange
@@ -1449,8 +1228,7 @@ class BpmnAutoLayoutDiffblueTest {
     unoptimizedPointsList.add(mxPoint);
 
     // Act
-    List<mxPoint> actualOptimizeEdgePointsResult =
-        bpmnAutoLayout.optimizeEdgePoints(unoptimizedPointsList);
+    List<mxPoint> actualOptimizeEdgePointsResult = bpmnAutoLayout.optimizeEdgePoints(unoptimizedPointsList);
 
     // Assert
     assertEquals(2, actualOptimizeEdgePointsResult.size());
@@ -1459,118 +1237,16 @@ class BpmnAutoLayoutDiffblueTest {
 
   /**
    * Test {@link BpmnAutoLayout#optimizeEdgePoints(List)}.
-   *
    * <ul>
-   *   <li>Then return size is five.
+   *   <li>When {@link ArrayList#ArrayList()}.</li>
+   *   <li>Then return Empty.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link BpmnAutoLayout#optimizeEdgePoints(List)}
-   */
-  @Test
-  @DisplayName("Test optimizeEdgePoints(List); then return size is five")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"List BpmnAutoLayout.optimizeEdgePoints(List)"})
-  void testOptimizeEdgePoints_thenReturnSizeIsFive() {
-    // Arrange
-    BpmnAutoLayout bpmnAutoLayout = new BpmnAutoLayout(new BpmnModel());
-
-    ArrayList<mxPoint> unoptimizedPointsList = new ArrayList<>();
-    unoptimizedPointsList.add(new mxPoint());
-    unoptimizedPointsList.add(new mxPoint());
-    mxLine mxLine = new mxLine(10.0d, 10.0d, new mxPoint());
-    unoptimizedPointsList.add(mxLine);
-    unoptimizedPointsList.add(new mxPoint());
-    unoptimizedPointsList.add(new mxPoint());
-    unoptimizedPointsList.add(new mxPoint());
-    unoptimizedPointsList.add(new mxPoint());
-    unoptimizedPointsList.add(new mxPoint());
-    unoptimizedPointsList.add(new mxPoint());
-    unoptimizedPointsList.add(new mxPoint());
-    unoptimizedPointsList.add(new mxPoint());
-    unoptimizedPointsList.add(new mxPoint());
-    unoptimizedPointsList.add(new mxPoint());
-    unoptimizedPointsList.add(new mxPoint());
-    unoptimizedPointsList.add(new mxPoint());
-    unoptimizedPointsList.add(new mxPoint());
-    unoptimizedPointsList.add(new mxPoint());
-    unoptimizedPointsList.add(new mxPoint());
-    mxPoint mxPoint = new mxPoint();
-    unoptimizedPointsList.add(mxPoint);
-
-    // Act
-    List<mxPoint> actualOptimizeEdgePointsResult =
-        bpmnAutoLayout.optimizeEdgePoints(unoptimizedPointsList);
-
-    // Assert
-    assertEquals(5, actualOptimizeEdgePointsResult.size());
-    assertSame(mxLine, actualOptimizeEdgePointsResult.get(2));
-    assertSame(mxPoint, actualOptimizeEdgePointsResult.get(4));
-  }
-
-  /**
-   * Test {@link BpmnAutoLayout#optimizeEdgePoints(List)}.
-   *
-   * <ul>
-   *   <li>Then return size is four.
-   * </ul>
-   *
-   * <p>Method under test: {@link BpmnAutoLayout#optimizeEdgePoints(List)}
-   */
-  @Test
-  @DisplayName("Test optimizeEdgePoints(List); then return size is four")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"List BpmnAutoLayout.optimizeEdgePoints(List)"})
-  void testOptimizeEdgePoints_thenReturnSizeIsFour() {
-    // Arrange
-    BpmnAutoLayout bpmnAutoLayout = new BpmnAutoLayout(new BpmnModel());
-
-    ArrayList<mxPoint> unoptimizedPointsList = new ArrayList<>();
-    unoptimizedPointsList.add(new mxPoint());
-    mxLine mxLine = new mxLine(10.0d, 10.0d, new mxPoint());
-    unoptimizedPointsList.add(mxLine);
-    unoptimizedPointsList.add(new mxPoint());
-    unoptimizedPointsList.add(new mxPoint());
-    unoptimizedPointsList.add(new mxPoint());
-    unoptimizedPointsList.add(new mxPoint());
-    unoptimizedPointsList.add(new mxPoint());
-    unoptimizedPointsList.add(new mxPoint());
-    unoptimizedPointsList.add(new mxPoint());
-    unoptimizedPointsList.add(new mxPoint());
-    unoptimizedPointsList.add(new mxPoint());
-    unoptimizedPointsList.add(new mxPoint());
-    unoptimizedPointsList.add(new mxPoint());
-    unoptimizedPointsList.add(new mxPoint());
-    unoptimizedPointsList.add(new mxPoint());
-    unoptimizedPointsList.add(new mxPoint());
-    unoptimizedPointsList.add(new mxPoint());
-    unoptimizedPointsList.add(new mxPoint());
-    unoptimizedPointsList.add(new mxPoint());
-
-    // Act
-    List<mxPoint> actualOptimizeEdgePointsResult =
-        bpmnAutoLayout.optimizeEdgePoints(unoptimizedPointsList);
-
-    // Assert
-    assertEquals(4, actualOptimizeEdgePointsResult.size());
-    assertSame(mxLine, actualOptimizeEdgePointsResult.get(1));
-  }
-
-  /**
-   * Test {@link BpmnAutoLayout#optimizeEdgePoints(List)}.
-   *
-   * <ul>
-   *   <li>When {@link ArrayList#ArrayList()}.
-   *   <li>Then return Empty.
-   * </ul>
-   *
-   * <p>Method under test: {@link BpmnAutoLayout#optimizeEdgePoints(List)}
+   * <p>
+   * Method under test: {@link BpmnAutoLayout#optimizeEdgePoints(List)}
    */
   @Test
   @DisplayName("Test optimizeEdgePoints(List); when ArrayList(); then return Empty")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"List BpmnAutoLayout.optimizeEdgePoints(List)"})
   void testOptimizeEdgePoints_whenArrayList_thenReturnEmpty() {
     // Arrange
@@ -1581,17 +1257,13 @@ class BpmnAutoLayoutDiffblueTest {
   }
 
   /**
-   * Test {@link BpmnAutoLayout#createDiagramInterchangeInformation(BaseElement, List)} with {@code
-   * element}, {@code waypoints}.
-   *
-   * <p>Method under test: {@link BpmnAutoLayout#createDiagramInterchangeInformation(BaseElement,
-   * List)}
+   * Test {@link BpmnAutoLayout#createDiagramInterchangeInformation(BaseElement, List)} with {@code element}, {@code waypoints}.
+   * <p>
+   * Method under test: {@link BpmnAutoLayout#createDiagramInterchangeInformation(BaseElement, List)}
    */
   @Test
-  @DisplayName(
-      "Test createDiagramInterchangeInformation(BaseElement, List) with 'element', 'waypoints'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test createDiagramInterchangeInformation(BaseElement, List) with 'element', 'waypoints'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void BpmnAutoLayout.createDiagramInterchangeInformation(BaseElement, List)"})
   void testCreateDiagramInterchangeInformationWithElementWaypoints() {
     // Arrange
@@ -1608,17 +1280,13 @@ class BpmnAutoLayoutDiffblueTest {
   }
 
   /**
-   * Test {@link BpmnAutoLayout#createDiagramInterchangeInformation(BaseElement, List)} with {@code
-   * element}, {@code waypoints}.
-   *
-   * <p>Method under test: {@link BpmnAutoLayout#createDiagramInterchangeInformation(BaseElement,
-   * List)}
+   * Test {@link BpmnAutoLayout#createDiagramInterchangeInformation(BaseElement, List)} with {@code element}, {@code waypoints}.
+   * <p>
+   * Method under test: {@link BpmnAutoLayout#createDiagramInterchangeInformation(BaseElement, List)}
    */
   @Test
-  @DisplayName(
-      "Test createDiagramInterchangeInformation(BaseElement, List) with 'element', 'waypoints'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test createDiagramInterchangeInformation(BaseElement, List) with 'element', 'waypoints'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void BpmnAutoLayout.createDiagramInterchangeInformation(BaseElement, List)"})
   void testCreateDiagramInterchangeInformationWithElementWaypoints2() {
     // Arrange
@@ -1648,28 +1316,22 @@ class BpmnAutoLayoutDiffblueTest {
   }
 
   /**
-   * Test {@link BpmnAutoLayout#createDiagramInterchangeInformation(FlowElement, int, int, int,
-   * int)} with {@code flowElement}, {@code x}, {@code y}, {@code width}, {@code height}.
-   *
-   * <p>Method under test: {@link BpmnAutoLayout#createDiagramInterchangeInformation(FlowElement,
-   * int, int, int, int)}
+   * Test {@link BpmnAutoLayout#createDiagramInterchangeInformation(FlowElement, int, int, int, int)} with {@code flowElement}, {@code x}, {@code y}, {@code width}, {@code height}.
+   * <p>
+   * Method under test: {@link BpmnAutoLayout#createDiagramInterchangeInformation(FlowElement, int, int, int, int)}
    */
   @Test
-  @DisplayName(
-      "Test createDiagramInterchangeInformation(FlowElement, int, int, int, int) with 'flowElement', 'x', 'y', 'width', 'height'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "GraphicInfo BpmnAutoLayout.createDiagramInterchangeInformation(FlowElement, int, int, int, int)"
-  })
+  @DisplayName("Test createDiagramInterchangeInformation(FlowElement, int, int, int, int) with 'flowElement', 'x', 'y', 'width', 'height'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"GraphicInfo BpmnAutoLayout.createDiagramInterchangeInformation(FlowElement, int, int, int, int)"})
   void testCreateDiagramInterchangeInformationWithFlowElementXYWidthHeight() {
     // Arrange
     BpmnAutoLayout bpmnAutoLayout = new BpmnAutoLayout(new BpmnModel());
     AdhocSubProcess flowElement = new AdhocSubProcess();
 
     // Act
-    GraphicInfo actualCreateDiagramInterchangeInformationResult =
-        bpmnAutoLayout.createDiagramInterchangeInformation(flowElement, 2, 3, 1, 1);
+    GraphicInfo actualCreateDiagramInterchangeInformationResult = bpmnAutoLayout
+        .createDiagramInterchangeInformation(flowElement, 2, 3, 1, 1);
 
     // Assert
     BaseElement element = actualCreateDiagramInterchangeInformationResult.getElement();

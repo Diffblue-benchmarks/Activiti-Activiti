@@ -21,7 +21,6 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.api.process.model.ProcessInstance;
 import org.activiti.api.process.model.payloads.ResumeProcessPayload;
@@ -32,26 +31,21 @@ import org.junit.jupiter.api.Test;
 class ResumeProcessPayloadBuilderDiffblueTest {
   /**
    * Test {@link ResumeProcessPayloadBuilder#withProcessInstance(ProcessInstance)}.
-   *
-   * <p>Method under test: {@link ResumeProcessPayloadBuilder#withProcessInstance(ProcessInstance)}
+   * <p>
+   * Method under test: {@link ResumeProcessPayloadBuilder#withProcessInstance(ProcessInstance)}
    */
   @Test
   @DisplayName("Test withProcessInstance(ProcessInstance)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "ResumeProcessPayloadBuilder ResumeProcessPayloadBuilder.withProcessInstance(ProcessInstance)"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"ResumeProcessPayloadBuilder ResumeProcessPayloadBuilder.withProcessInstance(ProcessInstance)"})
   void testWithProcessInstance() {
     // Arrange
     ResumeProcessPayloadBuilder resumeResult = ProcessPayloadBuilder.resume();
-
     ProcessInstance processInstance = mock(ProcessInstance.class);
     when(processInstance.getId()).thenReturn("42");
 
     // Act
-    ResumeProcessPayloadBuilder actualWithProcessInstanceResult =
-        resumeResult.withProcessInstance(processInstance);
+    ResumeProcessPayloadBuilder actualWithProcessInstanceResult = resumeResult.withProcessInstance(processInstance);
 
     // Assert
     verify(processInstance).getId();
@@ -61,9 +55,8 @@ class ResumeProcessPayloadBuilderDiffblueTest {
 
   /**
    * Test {@link ResumeProcessPayloadBuilder#build()}.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>{@link ResumeProcessPayloadBuilder#build()}
    *   <li>default or parameterless constructor of {@link ResumeProcessPayloadBuilder}
@@ -72,23 +65,19 @@ class ResumeProcessPayloadBuilderDiffblueTest {
    */
   @Test
   @DisplayName("Test build()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void ResumeProcessPayloadBuilder.<init>()",
-    "ResumeProcessPayload ResumeProcessPayloadBuilder.build()",
-    "ResumeProcessPayloadBuilder ResumeProcessPayloadBuilder.withProcessInstanceId(String)"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void ResumeProcessPayloadBuilder.<init>()",
+      "ResumeProcessPayload ResumeProcessPayloadBuilder.build()",
+      "ResumeProcessPayloadBuilder ResumeProcessPayloadBuilder.withProcessInstanceId(String)"})
   void testBuild() {
     // Arrange and Act
-    ResumeProcessPayload actualResumeProcessPayload =
-        new ResumeProcessPayloadBuilder()
-            .withProcessInstance(mock(ProcessInstance.class))
-            .withProcessInstanceId("42")
-            .build();
+    ResumeProcessPayload actualBuildResult = (new ResumeProcessPayloadBuilder())
+        .withProcessInstance(mock(ProcessInstance.class))
+        .withProcessInstanceId("42")
+        .build();
 
     // Assert
-    assertEquals("42", actualResumeProcessPayload.getProcessInstanceId());
-    assertNull(actualResumeProcessPayload.getId());
+    assertEquals("42", actualBuildResult.getProcessInstanceId());
+    assertNull(actualBuildResult.getId());
   }
 }

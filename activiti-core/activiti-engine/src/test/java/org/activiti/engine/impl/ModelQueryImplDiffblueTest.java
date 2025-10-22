@@ -21,29 +21,21 @@ import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertThrows;
 import static org.junit.Assert.assertTrue;
-import static org.mockito.Mockito.mock;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.engine.ActivitiIllegalArgumentException;
-import org.activiti.engine.impl.interceptor.CommandContext;
-import org.activiti.engine.query.QueryProperty;
 import org.activiti.engine.repository.ModelQuery;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
-import org.springframework.test.annotation.DirtiesContext;
-import org.springframework.test.annotation.DirtiesContext.ClassMode;
 
-@DirtiesContext(classMode = ClassMode.AFTER_EACH_TEST_METHOD)
 public class ModelQueryImplDiffblueTest {
   /**
    * Test {@link ModelQueryImpl#ModelQueryImpl()}.
-   *
-   * <p>Method under test: {@link ModelQueryImpl#ModelQueryImpl()}
+   * <p>
+   * Method under test: {@link ModelQueryImpl#ModelQueryImpl()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void ModelQueryImpl.<init>()"})
   public void testNewModelQueryImpl() {
     // Arrange and Act
@@ -78,18 +70,16 @@ public class ModelQueryImplDiffblueTest {
     assertFalse(actualModelQueryImpl.isWithoutTenantId());
     assertEquals(Integer.MAX_VALUE, actualModelQueryImpl.getLastRow());
     assertEquals(Integer.MAX_VALUE, actualModelQueryImpl.getMaxResults());
-    Object actualParameter = actualModelQueryImpl.getParameter();
-    assertSame(actualModelQueryImpl, actualParameter);
+    assertSame(actualModelQueryImpl, actualModelQueryImpl.getParameter());
   }
 
   /**
    * Test {@link ModelQueryImpl#modelId(String)}.
-   *
-   * <p>Method under test: {@link ModelQueryImpl#modelId(String)}
+   * <p>
+   * Method under test: {@link ModelQueryImpl#modelId(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"ModelQueryImpl ModelQueryImpl.modelId(String)"})
   public void testModelId() {
     // Arrange
@@ -105,17 +95,15 @@ public class ModelQueryImplDiffblueTest {
 
   /**
    * Test {@link ModelQueryImpl#modelCategory(String)}.
-   *
    * <ul>
-   *   <li>When {@code Category}.
-   *   <li>Then {@link ModelQueryImpl#ModelQueryImpl()} Category is {@code Category}.
+   *   <li>When {@code Category}.</li>
+   *   <li>Then {@link ModelQueryImpl#ModelQueryImpl()} Category is {@code Category}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ModelQueryImpl#modelCategory(String)}
+   * <p>
+   * Method under test: {@link ModelQueryImpl#modelCategory(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"ModelQueryImpl ModelQueryImpl.modelCategory(String)"})
   public void testModelCategory_whenCategory_thenModelQueryImplCategoryIsCategory() {
     // Arrange
@@ -131,44 +119,38 @@ public class ModelQueryImplDiffblueTest {
 
   /**
    * Test {@link ModelQueryImpl#modelCategory(String)}.
-   *
    * <ul>
-   *   <li>When {@code null}.
-   *   <li>Then throw {@link ActivitiIllegalArgumentException}.
+   *   <li>When {@code null}.</li>
+   *   <li>Then throw {@link ActivitiIllegalArgumentException}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ModelQueryImpl#modelCategory(String)}
+   * <p>
+   * Method under test: {@link ModelQueryImpl#modelCategory(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"ModelQueryImpl ModelQueryImpl.modelCategory(String)"})
   public void testModelCategory_whenNull_thenThrowActivitiIllegalArgumentException() {
     // Arrange, Act and Assert
-    assertThrows(
-        ActivitiIllegalArgumentException.class, () -> new ModelQueryImpl().modelCategory(null));
+    assertThrows(ActivitiIllegalArgumentException.class, () -> (new ModelQueryImpl()).modelCategory(null));
   }
 
   /**
    * Test {@link ModelQueryImpl#modelCategoryLike(String)}.
-   *
    * <ul>
-   *   <li>Then {@link ModelQueryImpl#ModelQueryImpl()} CategoryLike is {@code Category Like}.
+   *   <li>Then {@link ModelQueryImpl#ModelQueryImpl()} CategoryLike is {@code Category Like}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ModelQueryImpl#modelCategoryLike(String)}
+   * <p>
+   * Method under test: {@link ModelQueryImpl#modelCategoryLike(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"ModelQueryImpl ModelQueryImpl.modelCategoryLike(String)"})
   public void testModelCategoryLike_thenModelQueryImplCategoryLikeIsCategoryLike() {
     // Arrange
     ModelQueryImpl modelQueryImpl = new ModelQueryImpl();
 
     // Act
-    ModelQueryImpl actualModelCategoryLikeResult =
-        modelQueryImpl.modelCategoryLike("Category Like");
+    ModelQueryImpl actualModelCategoryLikeResult = modelQueryImpl.modelCategoryLike("Category Like");
 
     // Assert
     assertEquals("Category Like", modelQueryImpl.getCategoryLike());
@@ -177,40 +159,35 @@ public class ModelQueryImplDiffblueTest {
 
   /**
    * Test {@link ModelQueryImpl#modelCategoryLike(String)}.
-   *
    * <ul>
-   *   <li>When {@code null}.
-   *   <li>Then throw {@link ActivitiIllegalArgumentException}.
+   *   <li>When {@code null}.</li>
+   *   <li>Then throw {@link ActivitiIllegalArgumentException}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ModelQueryImpl#modelCategoryLike(String)}
+   * <p>
+   * Method under test: {@link ModelQueryImpl#modelCategoryLike(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"ModelQueryImpl ModelQueryImpl.modelCategoryLike(String)"})
   public void testModelCategoryLike_whenNull_thenThrowActivitiIllegalArgumentException() {
     // Arrange, Act and Assert
-    assertThrows(
-        ActivitiIllegalArgumentException.class, () -> new ModelQueryImpl().modelCategoryLike(null));
+    assertThrows(ActivitiIllegalArgumentException.class, () -> (new ModelQueryImpl()).modelCategoryLike(null));
   }
 
   /**
    * Test {@link ModelQueryImpl#modelCategoryNotEquals(String)}.
-   *
-   * <p>Method under test: {@link ModelQueryImpl#modelCategoryNotEquals(String)}
+   * <p>
+   * Method under test: {@link ModelQueryImpl#modelCategoryNotEquals(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"ModelQueryImpl ModelQueryImpl.modelCategoryNotEquals(String)"})
   public void testModelCategoryNotEquals() {
     // Arrange
     ModelQueryImpl modelQueryImpl = new ModelQueryImpl();
 
     // Act
-    ModelQueryImpl actualModelCategoryNotEqualsResult =
-        modelQueryImpl.modelCategoryNotEquals("Category Not Equals");
+    ModelQueryImpl actualModelCategoryNotEqualsResult = modelQueryImpl.modelCategoryNotEquals("Category Not Equals");
 
     // Assert
     assertEquals("Category Not Equals", modelQueryImpl.getCategoryNotEquals());
@@ -219,38 +196,32 @@ public class ModelQueryImplDiffblueTest {
 
   /**
    * Test {@link ModelQueryImpl#modelCategoryNotEquals(String)}.
-   *
    * <ul>
-   *   <li>When {@code null}.
-   *   <li>Then throw {@link ActivitiIllegalArgumentException}.
+   *   <li>When {@code null}.</li>
+   *   <li>Then throw {@link ActivitiIllegalArgumentException}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ModelQueryImpl#modelCategoryNotEquals(String)}
+   * <p>
+   * Method under test: {@link ModelQueryImpl#modelCategoryNotEquals(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"ModelQueryImpl ModelQueryImpl.modelCategoryNotEquals(String)"})
   public void testModelCategoryNotEquals_whenNull_thenThrowActivitiIllegalArgumentException() {
     // Arrange, Act and Assert
-    assertThrows(
-        ActivitiIllegalArgumentException.class,
-        () -> new ModelQueryImpl().modelCategoryNotEquals(null));
+    assertThrows(ActivitiIllegalArgumentException.class, () -> (new ModelQueryImpl()).modelCategoryNotEquals(null));
   }
 
   /**
    * Test {@link ModelQueryImpl#modelName(String)}.
-   *
    * <ul>
-   *   <li>When {@code Name}.
-   *   <li>Then {@link ModelQueryImpl#ModelQueryImpl()} Name is {@code Name}.
+   *   <li>When {@code Name}.</li>
+   *   <li>Then {@link ModelQueryImpl#ModelQueryImpl()} Name is {@code Name}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ModelQueryImpl#modelName(String)}
+   * <p>
+   * Method under test: {@link ModelQueryImpl#modelName(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"ModelQueryImpl ModelQueryImpl.modelName(String)"})
   public void testModelName_whenName_thenModelQueryImplNameIsName() {
     // Arrange
@@ -266,37 +237,32 @@ public class ModelQueryImplDiffblueTest {
 
   /**
    * Test {@link ModelQueryImpl#modelName(String)}.
-   *
    * <ul>
-   *   <li>When {@code null}.
-   *   <li>Then throw {@link ActivitiIllegalArgumentException}.
+   *   <li>When {@code null}.</li>
+   *   <li>Then throw {@link ActivitiIllegalArgumentException}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ModelQueryImpl#modelName(String)}
+   * <p>
+   * Method under test: {@link ModelQueryImpl#modelName(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"ModelQueryImpl ModelQueryImpl.modelName(String)"})
   public void testModelName_whenNull_thenThrowActivitiIllegalArgumentException() {
     // Arrange, Act and Assert
-    assertThrows(
-        ActivitiIllegalArgumentException.class, () -> new ModelQueryImpl().modelName(null));
+    assertThrows(ActivitiIllegalArgumentException.class, () -> (new ModelQueryImpl()).modelName(null));
   }
 
   /**
    * Test {@link ModelQueryImpl#modelNameLike(String)}.
-   *
    * <ul>
-   *   <li>When {@code Name Like}.
-   *   <li>Then {@link ModelQueryImpl#ModelQueryImpl()} NameLike is {@code Name Like}.
+   *   <li>When {@code Name Like}.</li>
+   *   <li>Then {@link ModelQueryImpl#ModelQueryImpl()} NameLike is {@code Name Like}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ModelQueryImpl#modelNameLike(String)}
+   * <p>
+   * Method under test: {@link ModelQueryImpl#modelNameLike(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"ModelQueryImpl ModelQueryImpl.modelNameLike(String)"})
   public void testModelNameLike_whenNameLike_thenModelQueryImplNameLikeIsNameLike() {
     // Arrange
@@ -312,37 +278,32 @@ public class ModelQueryImplDiffblueTest {
 
   /**
    * Test {@link ModelQueryImpl#modelNameLike(String)}.
-   *
    * <ul>
-   *   <li>When {@code null}.
-   *   <li>Then throw {@link ActivitiIllegalArgumentException}.
+   *   <li>When {@code null}.</li>
+   *   <li>Then throw {@link ActivitiIllegalArgumentException}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ModelQueryImpl#modelNameLike(String)}
+   * <p>
+   * Method under test: {@link ModelQueryImpl#modelNameLike(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"ModelQueryImpl ModelQueryImpl.modelNameLike(String)"})
   public void testModelNameLike_whenNull_thenThrowActivitiIllegalArgumentException() {
     // Arrange, Act and Assert
-    assertThrows(
-        ActivitiIllegalArgumentException.class, () -> new ModelQueryImpl().modelNameLike(null));
+    assertThrows(ActivitiIllegalArgumentException.class, () -> (new ModelQueryImpl()).modelNameLike(null));
   }
 
   /**
    * Test {@link ModelQueryImpl#modelKey(String)}.
-   *
    * <ul>
-   *   <li>When {@code Key}.
-   *   <li>Then {@link ModelQueryImpl#ModelQueryImpl()} Key is {@code Key}.
+   *   <li>When {@code Key}.</li>
+   *   <li>Then {@link ModelQueryImpl#ModelQueryImpl()} Key is {@code Key}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ModelQueryImpl#modelKey(String)}
+   * <p>
+   * Method under test: {@link ModelQueryImpl#modelKey(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"ModelQuery ModelQueryImpl.modelKey(String)"})
   public void testModelKey_whenKey_thenModelQueryImplKeyIsKey() {
     // Arrange
@@ -358,56 +319,49 @@ public class ModelQueryImplDiffblueTest {
 
   /**
    * Test {@link ModelQueryImpl#modelKey(String)}.
-   *
    * <ul>
-   *   <li>When {@code null}.
-   *   <li>Then throw {@link ActivitiIllegalArgumentException}.
+   *   <li>When {@code null}.</li>
+   *   <li>Then throw {@link ActivitiIllegalArgumentException}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ModelQueryImpl#modelKey(String)}
+   * <p>
+   * Method under test: {@link ModelQueryImpl#modelKey(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"ModelQuery ModelQueryImpl.modelKey(String)"})
   public void testModelKey_whenNull_thenThrowActivitiIllegalArgumentException() {
     // Arrange, Act and Assert
-    assertThrows(ActivitiIllegalArgumentException.class, () -> new ModelQueryImpl().modelKey(null));
+    assertThrows(ActivitiIllegalArgumentException.class, () -> (new ModelQueryImpl()).modelKey(null));
   }
 
   /**
    * Test {@link ModelQueryImpl#modelVersion(Integer)}.
-   *
    * <ul>
-   *   <li>When {@code null}.
-   *   <li>Then throw {@link ActivitiIllegalArgumentException}.
+   *   <li>When {@code null}.</li>
+   *   <li>Then throw {@link ActivitiIllegalArgumentException}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ModelQueryImpl#modelVersion(Integer)}
+   * <p>
+   * Method under test: {@link ModelQueryImpl#modelVersion(Integer)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"ModelQueryImpl ModelQueryImpl.modelVersion(Integer)"})
   public void testModelVersion_whenNull_thenThrowActivitiIllegalArgumentException() {
     // Arrange, Act and Assert
-    assertThrows(
-        ActivitiIllegalArgumentException.class, () -> new ModelQueryImpl().modelVersion(null));
+    assertThrows(ActivitiIllegalArgumentException.class, () -> (new ModelQueryImpl()).modelVersion(null));
   }
 
   /**
    * Test {@link ModelQueryImpl#modelVersion(Integer)}.
-   *
    * <ul>
-   *   <li>When one.
-   *   <li>Then {@link ModelQueryImpl#ModelQueryImpl()} Version intValue is one.
+   *   <li>When one.</li>
+   *   <li>Then {@link ModelQueryImpl#ModelQueryImpl()} Version intValue is one.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ModelQueryImpl#modelVersion(Integer)}
+   * <p>
+   * Method under test: {@link ModelQueryImpl#modelVersion(Integer)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"ModelQueryImpl ModelQueryImpl.modelVersion(Integer)"})
   public void testModelVersion_whenOne_thenModelQueryImplVersionIntValueIsOne() {
     // Arrange
@@ -423,37 +377,32 @@ public class ModelQueryImplDiffblueTest {
 
   /**
    * Test {@link ModelQueryImpl#modelVersion(Integer)}.
-   *
    * <ul>
-   *   <li>When zero.
-   *   <li>Then throw {@link ActivitiIllegalArgumentException}.
+   *   <li>When zero.</li>
+   *   <li>Then throw {@link ActivitiIllegalArgumentException}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ModelQueryImpl#modelVersion(Integer)}
+   * <p>
+   * Method under test: {@link ModelQueryImpl#modelVersion(Integer)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"ModelQueryImpl ModelQueryImpl.modelVersion(Integer)"})
   public void testModelVersion_whenZero_thenThrowActivitiIllegalArgumentException() {
     // Arrange, Act and Assert
-    assertThrows(
-        ActivitiIllegalArgumentException.class, () -> new ModelQueryImpl().modelVersion(0));
+    assertThrows(ActivitiIllegalArgumentException.class, () -> (new ModelQueryImpl()).modelVersion(0));
   }
 
   /**
    * Test {@link ModelQueryImpl#deploymentId(String)}.
-   *
    * <ul>
-   *   <li>When {@code 42}.
-   *   <li>Then {@link ModelQueryImpl#ModelQueryImpl()} DeploymentId is {@code 42}.
+   *   <li>When {@code 42}.</li>
+   *   <li>Then {@link ModelQueryImpl#ModelQueryImpl()} DeploymentId is {@code 42}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ModelQueryImpl#deploymentId(String)}
+   * <p>
+   * Method under test: {@link ModelQueryImpl#deploymentId(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"ModelQuery ModelQueryImpl.deploymentId(String)"})
   public void testDeploymentId_when42_thenModelQueryImplDeploymentIdIs42() {
     // Arrange
@@ -469,32 +418,28 @@ public class ModelQueryImplDiffblueTest {
 
   /**
    * Test {@link ModelQueryImpl#deploymentId(String)}.
-   *
    * <ul>
-   *   <li>When {@code null}.
-   *   <li>Then throw {@link ActivitiIllegalArgumentException}.
+   *   <li>When {@code null}.</li>
+   *   <li>Then throw {@link ActivitiIllegalArgumentException}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ModelQueryImpl#deploymentId(String)}
+   * <p>
+   * Method under test: {@link ModelQueryImpl#deploymentId(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"ModelQuery ModelQueryImpl.deploymentId(String)"})
   public void testDeploymentId_whenNull_thenThrowActivitiIllegalArgumentException() {
     // Arrange, Act and Assert
-    assertThrows(
-        ActivitiIllegalArgumentException.class, () -> new ModelQueryImpl().deploymentId(null));
+    assertThrows(ActivitiIllegalArgumentException.class, () -> (new ModelQueryImpl()).deploymentId(null));
   }
 
   /**
    * Test {@link ModelQueryImpl#notDeployed()}.
-   *
-   * <p>Method under test: {@link ModelQueryImpl#notDeployed()}
+   * <p>
+   * Method under test: {@link ModelQueryImpl#notDeployed()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"ModelQuery ModelQueryImpl.notDeployed()"})
   public void testNotDeployed() {
     // Arrange
@@ -510,12 +455,11 @@ public class ModelQueryImplDiffblueTest {
 
   /**
    * Test {@link ModelQueryImpl#deployed()}.
-   *
-   * <p>Method under test: {@link ModelQueryImpl#deployed()}
+   * <p>
+   * Method under test: {@link ModelQueryImpl#deployed()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"ModelQuery ModelQueryImpl.deployed()"})
   public void testDeployed() {
     // Arrange
@@ -531,17 +475,15 @@ public class ModelQueryImplDiffblueTest {
 
   /**
    * Test {@link ModelQueryImpl#modelTenantId(String)}.
-   *
    * <ul>
-   *   <li>When {@code 42}.
-   *   <li>Then {@link ModelQueryImpl#ModelQueryImpl()} TenantId is {@code 42}.
+   *   <li>When {@code 42}.</li>
+   *   <li>Then {@link ModelQueryImpl#ModelQueryImpl()} TenantId is {@code 42}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ModelQueryImpl#modelTenantId(String)}
+   * <p>
+   * Method under test: {@link ModelQueryImpl#modelTenantId(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"ModelQuery ModelQueryImpl.modelTenantId(String)"})
   public void testModelTenantId_when42_thenModelQueryImplTenantIdIs42() {
     // Arrange
@@ -557,36 +499,31 @@ public class ModelQueryImplDiffblueTest {
 
   /**
    * Test {@link ModelQueryImpl#modelTenantId(String)}.
-   *
    * <ul>
-   *   <li>When {@code null}.
-   *   <li>Then throw {@link ActivitiIllegalArgumentException}.
+   *   <li>When {@code null}.</li>
+   *   <li>Then throw {@link ActivitiIllegalArgumentException}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ModelQueryImpl#modelTenantId(String)}
+   * <p>
+   * Method under test: {@link ModelQueryImpl#modelTenantId(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"ModelQuery ModelQueryImpl.modelTenantId(String)"})
   public void testModelTenantId_whenNull_thenThrowActivitiIllegalArgumentException() {
     // Arrange, Act and Assert
-    assertThrows(
-        ActivitiIllegalArgumentException.class, () -> new ModelQueryImpl().modelTenantId(null));
+    assertThrows(ActivitiIllegalArgumentException.class, () -> (new ModelQueryImpl()).modelTenantId(null));
   }
 
   /**
    * Test {@link ModelQueryImpl#modelTenantIdLike(String)}.
-   *
    * <ul>
-   *   <li>Then {@link ModelQueryImpl#ModelQueryImpl()} TenantIdLike is {@code Tenant Id Like}.
+   *   <li>Then {@link ModelQueryImpl#ModelQueryImpl()} TenantIdLike is {@code Tenant Id Like}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ModelQueryImpl#modelTenantIdLike(String)}
+   * <p>
+   * Method under test: {@link ModelQueryImpl#modelTenantIdLike(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"ModelQuery ModelQueryImpl.modelTenantIdLike(String)"})
   public void testModelTenantIdLike_thenModelQueryImplTenantIdLikeIsTenantIdLike() {
     // Arrange
@@ -602,67 +539,18 @@ public class ModelQueryImplDiffblueTest {
 
   /**
    * Test {@link ModelQueryImpl#modelTenantIdLike(String)}.
-   *
    * <ul>
-   *   <li>When {@code null}.
-   *   <li>Then throw {@link ActivitiIllegalArgumentException}.
+   *   <li>When {@code null}.</li>
+   *   <li>Then throw {@link ActivitiIllegalArgumentException}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ModelQueryImpl#modelTenantIdLike(String)}
+   * <p>
+   * Method under test: {@link ModelQueryImpl#modelTenantIdLike(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"ModelQuery ModelQueryImpl.modelTenantIdLike(String)"})
   public void testModelTenantIdLike_whenNull_thenThrowActivitiIllegalArgumentException() {
     // Arrange, Act and Assert
-    assertThrows(
-        ActivitiIllegalArgumentException.class, () -> new ModelQueryImpl().modelTenantIdLike(null));
-  }
-
-  /**
-   * Test {@link ModelQueryImpl#executeCount(CommandContext)}.
-   *
-   * <ul>
-   *   <li>Then throw {@link ActivitiIllegalArgumentException}.
-   * </ul>
-   *
-   * <p>Method under test: {@link ModelQueryImpl#executeCount(CommandContext)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"long ModelQueryImpl.executeCount(CommandContext)"})
-  public void testExecuteCount_thenThrowActivitiIllegalArgumentException() {
-    // Arrange
-    ModelQueryImpl modelQueryImpl = new ModelQueryImpl();
-    modelQueryImpl.orderBy(mock(QueryProperty.class));
-
-    // Act and Assert
-    assertThrows(ActivitiIllegalArgumentException.class, () -> modelQueryImpl.executeCount(null));
-  }
-
-  /**
-   * Test {@link ModelQueryImpl#executeList(CommandContext, Page)}.
-   *
-   * <ul>
-   *   <li>Then throw {@link ActivitiIllegalArgumentException}.
-   * </ul>
-   *
-   * <p>Method under test: {@link ModelQueryImpl#executeList(CommandContext, Page)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"java.util.List ModelQueryImpl.executeList(CommandContext, Page)"})
-  public void testExecuteList_thenThrowActivitiIllegalArgumentException() {
-    // Arrange
-    ModelQueryImpl modelQueryImpl = new ModelQueryImpl();
-    modelQueryImpl.orderBy(mock(QueryProperty.class));
-
-    // Act and Assert
-    assertThrows(
-        ActivitiIllegalArgumentException.class,
-        () -> modelQueryImpl.executeList(null, new Page(1, 3)));
+    assertThrows(ActivitiIllegalArgumentException.class, () -> (new ModelQueryImpl()).modelTenantIdLike(null));
   }
 }

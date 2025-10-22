@@ -17,8 +17,7 @@ package org.activiti.engine.impl.cmd;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -29,18 +28,15 @@ import org.junit.experimental.categories.Category;
 public class GetTaskVariablesCmdDiffblueTest {
   /**
    * Test {@link GetTaskVariablesCmd#GetTaskVariablesCmd(String, Collection, boolean)}.
-   *
-   * <p>Method under test: {@link GetTaskVariablesCmd#GetTaskVariablesCmd(String, Collection,
-   * boolean)}
+   * <p>
+   * Method under test: {@link GetTaskVariablesCmd#GetTaskVariablesCmd(String, Collection, boolean)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void GetTaskVariablesCmd.<init>(String, Collection, boolean)"})
   public void testNewGetTaskVariablesCmd() {
     // Arrange and Act
-    GetTaskVariablesCmd actualGetTaskVariablesCmd =
-        new GetTaskVariablesCmd("42", new ArrayList<>(), true);
+    GetTaskVariablesCmd actualGetTaskVariablesCmd = new GetTaskVariablesCmd("42", new ArrayList<>(), true);
 
     // Assert
     Collection<String> collection = actualGetTaskVariablesCmd.variableNames;

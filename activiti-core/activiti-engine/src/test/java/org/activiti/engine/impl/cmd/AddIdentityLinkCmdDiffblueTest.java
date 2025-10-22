@@ -19,8 +19,7 @@ import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertThrows;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.io.UnsupportedEncodingException;
 import org.activiti.engine.ActivitiIllegalArgumentException;
@@ -30,18 +29,15 @@ import org.junit.experimental.categories.Category;
 public class AddIdentityLinkCmdDiffblueTest {
   /**
    * Test {@link AddIdentityLinkCmd#AddIdentityLinkCmd(String, String, int, String)}.
-   *
    * <ul>
-   *   <li>When {@code assignee}.
-   *   <li>Then return {@link AddIdentityLinkCmd#identityType} is {@code assignee}.
+   *   <li>When {@code assignee}.</li>
+   *   <li>Then return {@link AddIdentityLinkCmd#identityType} is {@code assignee}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link AddIdentityLinkCmd#AddIdentityLinkCmd(String, String, int,
-   * String)}
+   * <p>
+   * Method under test: {@link AddIdentityLinkCmd#AddIdentityLinkCmd(String, String, int, String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void AddIdentityLinkCmd.<init>(String, String, int, String)"})
   public void testNewAddIdentityLinkCmd_whenAssignee_thenReturnIdentityTypeIsAssignee() {
     // Arrange and Act
@@ -49,9 +45,7 @@ public class AddIdentityLinkCmdDiffblueTest {
 
     // Assert
     assertEquals("42", actualAddIdentityLinkCmd.taskId);
-    assertEquals(
-        "Cannot execute operation: task is suspended",
-        actualAddIdentityLinkCmd.getSuspendedTaskException());
+    assertEquals("Cannot execute operation: task is suspended", actualAddIdentityLinkCmd.getSuspendedTaskException());
     assertEquals("assignee", actualAddIdentityLinkCmd.identityType);
     assertNull(actualAddIdentityLinkCmd.details);
     assertNull(actualAddIdentityLinkCmd.identityId);
@@ -60,24 +54,21 @@ public class AddIdentityLinkCmdDiffblueTest {
 
   /**
    * Test {@link AddIdentityLinkCmd#AddIdentityLinkCmd(String, String, int, String, byte[])}.
-   *
    * <ul>
-   *   <li>When {@code assignee}.
-   *   <li>Then return {@link AddIdentityLinkCmd#identityType} is {@code assignee}.
+   *   <li>When {@code assignee}.</li>
+   *   <li>Then return {@link AddIdentityLinkCmd#identityType} is {@code assignee}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link AddIdentityLinkCmd#AddIdentityLinkCmd(String, String, int, String,
-   * byte[])}
+   * <p>
+   * Method under test: {@link AddIdentityLinkCmd#AddIdentityLinkCmd(String, String, int, String, byte[])}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void AddIdentityLinkCmd.<init>(String, String, int, String, byte[])"})
   public void testNewAddIdentityLinkCmd_whenAssignee_thenReturnIdentityTypeIsAssignee2()
       throws UnsupportedEncodingException {
     // Arrange and Act
-    AddIdentityLinkCmd actualAddIdentityLinkCmd =
-        new AddIdentityLinkCmd("42", null, 1, "assignee", "AXAXAXAX".getBytes("UTF-8"));
+    AddIdentityLinkCmd actualAddIdentityLinkCmd = new AddIdentityLinkCmd("42", null, 1, "assignee",
+        "AXAXAXAX".getBytes("UTF-8"));
 
     // Assert
     assertEquals("assignee", actualAddIdentityLinkCmd.identityType);
@@ -88,164 +79,100 @@ public class AddIdentityLinkCmdDiffblueTest {
 
   /**
    * Test {@link AddIdentityLinkCmd#AddIdentityLinkCmd(String, String, int, String)}.
-   *
    * <ul>
-   *   <li>When {@code null}.
-   *   <li>Then throw {@link ActivitiIllegalArgumentException}.
+   *   <li>When {@code null}.</li>
+   *   <li>Then throw {@link ActivitiIllegalArgumentException}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link AddIdentityLinkCmd#AddIdentityLinkCmd(String, String, int,
-   * String)}
+   * <p>
+   * Method under test: {@link AddIdentityLinkCmd#AddIdentityLinkCmd(String, String, int, String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void AddIdentityLinkCmd.<init>(String, String, int, String)"})
   public void testNewAddIdentityLinkCmd_whenNull_thenThrowActivitiIllegalArgumentException() {
     // Arrange, Act and Assert
-    assertThrows(
-        ActivitiIllegalArgumentException.class,
-        () -> new AddIdentityLinkCmd(null, "42", 1, "Identity Type"));
+    assertThrows(ActivitiIllegalArgumentException.class, () -> new AddIdentityLinkCmd(null, "42", 1, "Identity Type"));
+
   }
 
   /**
    * Test {@link AddIdentityLinkCmd#AddIdentityLinkCmd(String, String, int, String)}.
-   *
    * <ul>
-   *   <li>When {@code null}.
-   *   <li>Then throw {@link ActivitiIllegalArgumentException}.
+   *   <li>When {@code null}.</li>
+   *   <li>Then throw {@link ActivitiIllegalArgumentException}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link AddIdentityLinkCmd#AddIdentityLinkCmd(String, String, int,
-   * String)}
+   * <p>
+   * Method under test: {@link AddIdentityLinkCmd#AddIdentityLinkCmd(String, String, int, String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void AddIdentityLinkCmd.<init>(String, String, int, String)"})
   public void testNewAddIdentityLinkCmd_whenNull_thenThrowActivitiIllegalArgumentException2() {
     // Arrange, Act and Assert
-    assertThrows(
-        ActivitiIllegalArgumentException.class,
-        () -> new AddIdentityLinkCmd("42", null, 1, "Identity Type"));
-  }
+    assertThrows(ActivitiIllegalArgumentException.class, () -> new AddIdentityLinkCmd("42", null, 1, "Identity Type"));
 
-  /**
-   * Test {@link AddIdentityLinkCmd#AddIdentityLinkCmd(String, String, int, String)}.
-   *
-   * <ul>
-   *   <li>When {@code null}.
-   *   <li>Then throw {@link ActivitiIllegalArgumentException}.
-   * </ul>
-   *
-   * <p>Method under test: {@link AddIdentityLinkCmd#AddIdentityLinkCmd(String, String, int,
-   * String)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void AddIdentityLinkCmd.<init>(String, String, int, String)"})
-  public void testNewAddIdentityLinkCmd_whenNull_thenThrowActivitiIllegalArgumentException3() {
-    // Arrange, Act and Assert
-    assertThrows(
-        ActivitiIllegalArgumentException.class, () -> new AddIdentityLinkCmd("42", "42", 1, null));
   }
 
   /**
    * Test {@link AddIdentityLinkCmd#AddIdentityLinkCmd(String, String, int, String, byte[])}.
-   *
    * <ul>
-   *   <li>When {@code null}.
-   *   <li>Then throw {@link ActivitiIllegalArgumentException}.
+   *   <li>When {@code null}.</li>
+   *   <li>Then throw {@link ActivitiIllegalArgumentException}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link AddIdentityLinkCmd#AddIdentityLinkCmd(String, String, int, String,
-   * byte[])}
+   * <p>
+   * Method under test: {@link AddIdentityLinkCmd#AddIdentityLinkCmd(String, String, int, String, byte[])}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void AddIdentityLinkCmd.<init>(String, String, int, String, byte[])"})
+  public void testNewAddIdentityLinkCmd_whenNull_thenThrowActivitiIllegalArgumentException3()
+      throws UnsupportedEncodingException {
+    // Arrange, Act and Assert
+    assertThrows(ActivitiIllegalArgumentException.class,
+        () -> new AddIdentityLinkCmd(null, "42", 1, "Identity Type", "AXAXAXAX".getBytes("UTF-8")));
+
+  }
+
+  /**
+   * Test {@link AddIdentityLinkCmd#AddIdentityLinkCmd(String, String, int, String, byte[])}.
+   * <ul>
+   *   <li>When {@code null}.</li>
+   *   <li>Then throw {@link ActivitiIllegalArgumentException}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link AddIdentityLinkCmd#AddIdentityLinkCmd(String, String, int, String, byte[])}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void AddIdentityLinkCmd.<init>(String, String, int, String, byte[])"})
   public void testNewAddIdentityLinkCmd_whenNull_thenThrowActivitiIllegalArgumentException4()
       throws UnsupportedEncodingException {
     // Arrange, Act and Assert
-    assertThrows(
-        ActivitiIllegalArgumentException.class,
-        () -> new AddIdentityLinkCmd(null, "42", 1, "Identity Type", "AXAXAXAX".getBytes("UTF-8")));
-  }
-
-  /**
-   * Test {@link AddIdentityLinkCmd#AddIdentityLinkCmd(String, String, int, String, byte[])}.
-   *
-   * <ul>
-   *   <li>When {@code null}.
-   *   <li>Then throw {@link ActivitiIllegalArgumentException}.
-   * </ul>
-   *
-   * <p>Method under test: {@link AddIdentityLinkCmd#AddIdentityLinkCmd(String, String, int, String,
-   * byte[])}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void AddIdentityLinkCmd.<init>(String, String, int, String, byte[])"})
-  public void testNewAddIdentityLinkCmd_whenNull_thenThrowActivitiIllegalArgumentException5()
-      throws UnsupportedEncodingException {
-    // Arrange, Act and Assert
-    assertThrows(
-        ActivitiIllegalArgumentException.class,
+    assertThrows(ActivitiIllegalArgumentException.class,
         () -> new AddIdentityLinkCmd("42", null, 1, "Identity Type", "AXAXAXAX".getBytes("UTF-8")));
-  }
 
-  /**
-   * Test {@link AddIdentityLinkCmd#AddIdentityLinkCmd(String, String, int, String, byte[])}.
-   *
-   * <ul>
-   *   <li>When {@code null}.
-   *   <li>Then throw {@link ActivitiIllegalArgumentException}.
-   * </ul>
-   *
-   * <p>Method under test: {@link AddIdentityLinkCmd#AddIdentityLinkCmd(String, String, int, String,
-   * byte[])}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void AddIdentityLinkCmd.<init>(String, String, int, String, byte[])"})
-  public void testNewAddIdentityLinkCmd_whenNull_thenThrowActivitiIllegalArgumentException6()
-      throws UnsupportedEncodingException {
-    // Arrange, Act and Assert
-    assertThrows(
-        ActivitiIllegalArgumentException.class,
-        () -> new AddIdentityLinkCmd("42", "42", 1, null, "AXAXAXAX".getBytes("UTF-8")));
   }
 
   /**
    * Test {@link AddIdentityLinkCmd#AddIdentityLinkCmd(String, String, int, String)}.
-   *
    * <ul>
-   *   <li>When one.
-   *   <li>Then return {@link AddIdentityLinkCmd#identityId} is {@code 42}.
+   *   <li>When one.</li>
+   *   <li>Then return {@link AddIdentityLinkCmd#identityId} is {@code 42}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link AddIdentityLinkCmd#AddIdentityLinkCmd(String, String, int,
-   * String)}
+   * <p>
+   * Method under test: {@link AddIdentityLinkCmd#AddIdentityLinkCmd(String, String, int, String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void AddIdentityLinkCmd.<init>(String, String, int, String)"})
   public void testNewAddIdentityLinkCmd_whenOne_thenReturnIdentityIdIs42() {
     // Arrange and Act
-    AddIdentityLinkCmd actualAddIdentityLinkCmd =
-        new AddIdentityLinkCmd("42", "42", 1, "Identity Type");
+    AddIdentityLinkCmd actualAddIdentityLinkCmd = new AddIdentityLinkCmd("42", "42", 1, "Identity Type");
 
     // Assert
     assertEquals("42", actualAddIdentityLinkCmd.identityId);
     assertEquals("42", actualAddIdentityLinkCmd.taskId);
-    assertEquals(
-        "Cannot execute operation: task is suspended",
-        actualAddIdentityLinkCmd.getSuspendedTaskException());
+    assertEquals("Cannot execute operation: task is suspended", actualAddIdentityLinkCmd.getSuspendedTaskException());
     assertEquals("Identity Type", actualAddIdentityLinkCmd.identityType);
     assertNull(actualAddIdentityLinkCmd.details);
     assertEquals(1, actualAddIdentityLinkCmd.identityIdType);
@@ -253,31 +180,23 @@ public class AddIdentityLinkCmdDiffblueTest {
 
   /**
    * Test {@link AddIdentityLinkCmd#AddIdentityLinkCmd(String, String, int, String, byte[])}.
-   *
    * <ul>
-   *   <li>When one.
-   *   <li>Then return {@link AddIdentityLinkCmd#identityId} is {@code 42}.
+   *   <li>When one.</li>
+   *   <li>Then return {@link AddIdentityLinkCmd#identityId} is {@code 42}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link AddIdentityLinkCmd#AddIdentityLinkCmd(String, String, int, String,
-   * byte[])}
+   * <p>
+   * Method under test: {@link AddIdentityLinkCmd#AddIdentityLinkCmd(String, String, int, String, byte[])}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void AddIdentityLinkCmd.<init>(String, String, int, String, byte[])"})
-  public void testNewAddIdentityLinkCmd_whenOne_thenReturnIdentityIdIs422()
-      throws UnsupportedEncodingException {
+  public void testNewAddIdentityLinkCmd_whenOne_thenReturnIdentityIdIs422() throws UnsupportedEncodingException {
     // Arrange and Act
-    AddIdentityLinkCmd actualAddIdentityLinkCmd =
-        new AddIdentityLinkCmd("42", "42", 1, "Identity Type", "AXAXAXAX".getBytes("UTF-8"));
+    AddIdentityLinkCmd actualAddIdentityLinkCmd = new AddIdentityLinkCmd("42", "42", 1, "Identity Type",
+        "AXAXAXAX".getBytes("UTF-8"));
 
     // Assert
     assertEquals("42", actualAddIdentityLinkCmd.identityId);
-    assertEquals("42", actualAddIdentityLinkCmd.taskId);
-    assertEquals(
-        "Cannot execute operation: task is suspended",
-        actualAddIdentityLinkCmd.getSuspendedTaskException());
     assertEquals("Identity Type", actualAddIdentityLinkCmd.identityType);
     assertEquals(1, actualAddIdentityLinkCmd.identityIdType);
     assertArrayEquals("AXAXAXAX".getBytes("UTF-8"), actualAddIdentityLinkCmd.details);
@@ -285,18 +204,53 @@ public class AddIdentityLinkCmdDiffblueTest {
 
   /**
    * Test {@link AddIdentityLinkCmd#AddIdentityLinkCmd(String, String, int, String)}.
-   *
    * <ul>
-   *   <li>When {@code owner}.
-   *   <li>Then return {@link AddIdentityLinkCmd#identityType} is {@code owner}.
+   *   <li>When one.</li>
+   *   <li>Then throw {@link ActivitiIllegalArgumentException}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link AddIdentityLinkCmd#AddIdentityLinkCmd(String, String, int,
-   * String)}
+   * <p>
+   * Method under test: {@link AddIdentityLinkCmd#AddIdentityLinkCmd(String, String, int, String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void AddIdentityLinkCmd.<init>(String, String, int, String)"})
+  public void testNewAddIdentityLinkCmd_whenOne_thenThrowActivitiIllegalArgumentException() {
+    // Arrange, Act and Assert
+    assertThrows(ActivitiIllegalArgumentException.class, () -> new AddIdentityLinkCmd("42", "42", 1, null));
+
+  }
+
+  /**
+   * Test {@link AddIdentityLinkCmd#AddIdentityLinkCmd(String, String, int, String, byte[])}.
+   * <ul>
+   *   <li>When one.</li>
+   *   <li>Then throw {@link ActivitiIllegalArgumentException}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link AddIdentityLinkCmd#AddIdentityLinkCmd(String, String, int, String, byte[])}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void AddIdentityLinkCmd.<init>(String, String, int, String, byte[])"})
+  public void testNewAddIdentityLinkCmd_whenOne_thenThrowActivitiIllegalArgumentException2()
+      throws UnsupportedEncodingException {
+    // Arrange, Act and Assert
+    assertThrows(ActivitiIllegalArgumentException.class,
+        () -> new AddIdentityLinkCmd("42", "42", 1, null, "AXAXAXAX".getBytes("UTF-8")));
+
+  }
+
+  /**
+   * Test {@link AddIdentityLinkCmd#AddIdentityLinkCmd(String, String, int, String)}.
+   * <ul>
+   *   <li>When {@code owner}.</li>
+   *   <li>Then return {@link AddIdentityLinkCmd#identityType} is {@code owner}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link AddIdentityLinkCmd#AddIdentityLinkCmd(String, String, int, String)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void AddIdentityLinkCmd.<init>(String, String, int, String)"})
   public void testNewAddIdentityLinkCmd_whenOwner_thenReturnIdentityTypeIsOwner() {
     // Arrange and Act
@@ -304,9 +258,7 @@ public class AddIdentityLinkCmdDiffblueTest {
 
     // Assert
     assertEquals("42", actualAddIdentityLinkCmd.taskId);
-    assertEquals(
-        "Cannot execute operation: task is suspended",
-        actualAddIdentityLinkCmd.getSuspendedTaskException());
+    assertEquals("Cannot execute operation: task is suspended", actualAddIdentityLinkCmd.getSuspendedTaskException());
     assertEquals("owner", actualAddIdentityLinkCmd.identityType);
     assertNull(actualAddIdentityLinkCmd.details);
     assertNull(actualAddIdentityLinkCmd.identityId);
@@ -315,24 +267,20 @@ public class AddIdentityLinkCmdDiffblueTest {
 
   /**
    * Test {@link AddIdentityLinkCmd#AddIdentityLinkCmd(String, String, int, String, byte[])}.
-   *
    * <ul>
-   *   <li>When {@code owner}.
-   *   <li>Then return {@link AddIdentityLinkCmd#identityType} is {@code owner}.
+   *   <li>When {@code owner}.</li>
+   *   <li>Then return {@link AddIdentityLinkCmd#identityType} is {@code owner}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link AddIdentityLinkCmd#AddIdentityLinkCmd(String, String, int, String,
-   * byte[])}
+   * <p>
+   * Method under test: {@link AddIdentityLinkCmd#AddIdentityLinkCmd(String, String, int, String, byte[])}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void AddIdentityLinkCmd.<init>(String, String, int, String, byte[])"})
-  public void testNewAddIdentityLinkCmd_whenOwner_thenReturnIdentityTypeIsOwner2()
-      throws UnsupportedEncodingException {
+  public void testNewAddIdentityLinkCmd_whenOwner_thenReturnIdentityTypeIsOwner2() throws UnsupportedEncodingException {
     // Arrange and Act
-    AddIdentityLinkCmd actualAddIdentityLinkCmd =
-        new AddIdentityLinkCmd("42", null, 1, "owner", "AXAXAXAX".getBytes("UTF-8"));
+    AddIdentityLinkCmd actualAddIdentityLinkCmd = new AddIdentityLinkCmd("42", null, 1, "owner",
+        "AXAXAXAX".getBytes("UTF-8"));
 
     // Assert
     assertEquals("owner", actualAddIdentityLinkCmd.identityType);
@@ -343,75 +291,62 @@ public class AddIdentityLinkCmdDiffblueTest {
 
   /**
    * Test {@link AddIdentityLinkCmd#AddIdentityLinkCmd(String, String, int, String)}.
-   *
    * <ul>
-   *   <li>When three.
-   *   <li>Then throw {@link ActivitiIllegalArgumentException}.
+   *   <li>When three.</li>
+   *   <li>Then throw {@link ActivitiIllegalArgumentException}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link AddIdentityLinkCmd#AddIdentityLinkCmd(String, String, int,
-   * String)}
+   * <p>
+   * Method under test: {@link AddIdentityLinkCmd#AddIdentityLinkCmd(String, String, int, String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void AddIdentityLinkCmd.<init>(String, String, int, String)"})
   public void testNewAddIdentityLinkCmd_whenThree_thenThrowActivitiIllegalArgumentException() {
     // Arrange, Act and Assert
-    assertThrows(
-        ActivitiIllegalArgumentException.class,
-        () -> new AddIdentityLinkCmd("42", "42", 3, "Identity Type"));
+    assertThrows(ActivitiIllegalArgumentException.class, () -> new AddIdentityLinkCmd("42", "42", 3, "Identity Type"));
+
   }
 
   /**
    * Test {@link AddIdentityLinkCmd#AddIdentityLinkCmd(String, String, int, String, byte[])}.
-   *
    * <ul>
-   *   <li>When three.
-   *   <li>Then throw {@link ActivitiIllegalArgumentException}.
+   *   <li>When three.</li>
+   *   <li>Then throw {@link ActivitiIllegalArgumentException}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link AddIdentityLinkCmd#AddIdentityLinkCmd(String, String, int, String,
-   * byte[])}
+   * <p>
+   * Method under test: {@link AddIdentityLinkCmd#AddIdentityLinkCmd(String, String, int, String, byte[])}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void AddIdentityLinkCmd.<init>(String, String, int, String, byte[])"})
   public void testNewAddIdentityLinkCmd_whenThree_thenThrowActivitiIllegalArgumentException2()
       throws UnsupportedEncodingException {
     // Arrange, Act and Assert
-    assertThrows(
-        ActivitiIllegalArgumentException.class,
+    assertThrows(ActivitiIllegalArgumentException.class,
         () -> new AddIdentityLinkCmd("42", "42", 3, "Identity Type", "AXAXAXAX".getBytes("UTF-8")));
+
   }
 
   /**
    * Test {@link AddIdentityLinkCmd#AddIdentityLinkCmd(String, String, int, String)}.
-   *
    * <ul>
-   *   <li>When two.
-   *   <li>Then return {@link AddIdentityLinkCmd#identityIdType} is two.
+   *   <li>When two.</li>
+   *   <li>Then return {@link AddIdentityLinkCmd#identityIdType} is two.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link AddIdentityLinkCmd#AddIdentityLinkCmd(String, String, int,
-   * String)}
+   * <p>
+   * Method under test: {@link AddIdentityLinkCmd#AddIdentityLinkCmd(String, String, int, String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void AddIdentityLinkCmd.<init>(String, String, int, String)"})
   public void testNewAddIdentityLinkCmd_whenTwo_thenReturnIdentityIdTypeIsTwo() {
     // Arrange and Act
-    AddIdentityLinkCmd actualAddIdentityLinkCmd =
-        new AddIdentityLinkCmd("42", "42", 2, "Identity Type");
+    AddIdentityLinkCmd actualAddIdentityLinkCmd = new AddIdentityLinkCmd("42", "42", 2, "Identity Type");
 
     // Assert
     assertEquals("42", actualAddIdentityLinkCmd.identityId);
     assertEquals("42", actualAddIdentityLinkCmd.taskId);
-    assertEquals(
-        "Cannot execute operation: task is suspended",
-        actualAddIdentityLinkCmd.getSuspendedTaskException());
+    assertEquals("Cannot execute operation: task is suspended", actualAddIdentityLinkCmd.getSuspendedTaskException());
     assertEquals("Identity Type", actualAddIdentityLinkCmd.identityType);
     assertNull(actualAddIdentityLinkCmd.details);
     assertEquals(2, actualAddIdentityLinkCmd.identityIdType);
@@ -419,31 +354,23 @@ public class AddIdentityLinkCmdDiffblueTest {
 
   /**
    * Test {@link AddIdentityLinkCmd#AddIdentityLinkCmd(String, String, int, String, byte[])}.
-   *
    * <ul>
-   *   <li>When two.
-   *   <li>Then return {@link AddIdentityLinkCmd#identityIdType} is two.
+   *   <li>When two.</li>
+   *   <li>Then return {@link AddIdentityLinkCmd#identityIdType} is two.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link AddIdentityLinkCmd#AddIdentityLinkCmd(String, String, int, String,
-   * byte[])}
+   * <p>
+   * Method under test: {@link AddIdentityLinkCmd#AddIdentityLinkCmd(String, String, int, String, byte[])}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void AddIdentityLinkCmd.<init>(String, String, int, String, byte[])"})
-  public void testNewAddIdentityLinkCmd_whenTwo_thenReturnIdentityIdTypeIsTwo2()
-      throws UnsupportedEncodingException {
+  public void testNewAddIdentityLinkCmd_whenTwo_thenReturnIdentityIdTypeIsTwo2() throws UnsupportedEncodingException {
     // Arrange and Act
-    AddIdentityLinkCmd actualAddIdentityLinkCmd =
-        new AddIdentityLinkCmd("42", "42", 2, "Identity Type", "AXAXAXAX".getBytes("UTF-8"));
+    AddIdentityLinkCmd actualAddIdentityLinkCmd = new AddIdentityLinkCmd("42", "42", 2, "Identity Type",
+        "AXAXAXAX".getBytes("UTF-8"));
 
     // Assert
     assertEquals("42", actualAddIdentityLinkCmd.identityId);
-    assertEquals("42", actualAddIdentityLinkCmd.taskId);
-    assertEquals(
-        "Cannot execute operation: task is suspended",
-        actualAddIdentityLinkCmd.getSuspendedTaskException());
     assertEquals("Identity Type", actualAddIdentityLinkCmd.identityType);
     assertEquals(2, actualAddIdentityLinkCmd.identityIdType);
     assertArrayEquals("AXAXAXAX".getBytes("UTF-8"), actualAddIdentityLinkCmd.details);
@@ -451,166 +378,129 @@ public class AddIdentityLinkCmdDiffblueTest {
 
   /**
    * Test {@link AddIdentityLinkCmd#AddIdentityLinkCmd(String, String, int, String)}.
-   *
    * <ul>
-   *   <li>When two.
-   *   <li>Then throw {@link ActivitiIllegalArgumentException}.
+   *   <li>When two.</li>
+   *   <li>Then throw {@link ActivitiIllegalArgumentException}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link AddIdentityLinkCmd#AddIdentityLinkCmd(String, String, int,
-   * String)}
+   * <p>
+   * Method under test: {@link AddIdentityLinkCmd#AddIdentityLinkCmd(String, String, int, String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void AddIdentityLinkCmd.<init>(String, String, int, String)"})
   public void testNewAddIdentityLinkCmd_whenTwo_thenThrowActivitiIllegalArgumentException() {
     // Arrange, Act and Assert
-    assertThrows(
-        ActivitiIllegalArgumentException.class,
-        () -> new AddIdentityLinkCmd("42", null, 2, "Identity Type"));
+    assertThrows(ActivitiIllegalArgumentException.class, () -> new AddIdentityLinkCmd("42", null, 2, "Identity Type"));
+
   }
 
   /**
    * Test {@link AddIdentityLinkCmd#AddIdentityLinkCmd(String, String, int, String, byte[])}.
-   *
    * <ul>
-   *   <li>When two.
-   *   <li>Then throw {@link ActivitiIllegalArgumentException}.
+   *   <li>When two.</li>
+   *   <li>Then throw {@link ActivitiIllegalArgumentException}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link AddIdentityLinkCmd#AddIdentityLinkCmd(String, String, int, String,
-   * byte[])}
+   * <p>
+   * Method under test: {@link AddIdentityLinkCmd#AddIdentityLinkCmd(String, String, int, String, byte[])}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void AddIdentityLinkCmd.<init>(String, String, int, String, byte[])"})
   public void testNewAddIdentityLinkCmd_whenTwo_thenThrowActivitiIllegalArgumentException2()
       throws UnsupportedEncodingException {
     // Arrange, Act and Assert
-    assertThrows(
-        ActivitiIllegalArgumentException.class,
+    assertThrows(ActivitiIllegalArgumentException.class,
         () -> new AddIdentityLinkCmd("42", null, 2, "Identity Type", "AXAXAXAX".getBytes("UTF-8")));
+
   }
 
   /**
    * Test {@link AddIdentityLinkCmd#validateParams(String, String, int, String)}.
-   *
    * <ul>
-   *   <li>When {@code null}.
-   *   <li>Then throw {@link ActivitiIllegalArgumentException}.
+   *   <li>When {@code null}.</li>
+   *   <li>Then throw {@link ActivitiIllegalArgumentException}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link AddIdentityLinkCmd#validateParams(String, String, int, String)}
+   * <p>
+   * Method under test: {@link AddIdentityLinkCmd#validateParams(String, String, int, String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void AddIdentityLinkCmd.validateParams(String, String, int, String)"})
   public void testValidateParams_whenNull_thenThrowActivitiIllegalArgumentException() {
-    // Arrange
-    AddIdentityLinkCmd addIdentityLinkCmd = new AddIdentityLinkCmd("42", "42", 1, "Identity Type");
-
-    // Act and Assert
-    assertThrows(
-        ActivitiIllegalArgumentException.class,
-        () -> addIdentityLinkCmd.validateParams(null, "42", 1, "Identity Type"));
+    // Arrange, Act and Assert
+    assertThrows(ActivitiIllegalArgumentException.class,
+        () -> (new AddIdentityLinkCmd("42", "42", 1, "Identity Type")).validateParams(null, "42", 1, "Identity Type"));
   }
 
   /**
    * Test {@link AddIdentityLinkCmd#validateParams(String, String, int, String)}.
-   *
    * <ul>
-   *   <li>When {@code null}.
-   *   <li>Then throw {@link ActivitiIllegalArgumentException}.
+   *   <li>When {@code null}.</li>
+   *   <li>Then throw {@link ActivitiIllegalArgumentException}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link AddIdentityLinkCmd#validateParams(String, String, int, String)}
+   * <p>
+   * Method under test: {@link AddIdentityLinkCmd#validateParams(String, String, int, String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void AddIdentityLinkCmd.validateParams(String, String, int, String)"})
   public void testValidateParams_whenNull_thenThrowActivitiIllegalArgumentException2() {
-    // Arrange
-    AddIdentityLinkCmd addIdentityLinkCmd = new AddIdentityLinkCmd("42", "42", 1, "Identity Type");
-
-    // Act and Assert
-    assertThrows(
-        ActivitiIllegalArgumentException.class,
-        () -> addIdentityLinkCmd.validateParams("42", null, 1, "Identity Type"));
+    // Arrange, Act and Assert
+    assertThrows(ActivitiIllegalArgumentException.class,
+        () -> (new AddIdentityLinkCmd("42", "42", 1, "Identity Type")).validateParams("42", null, 1, "Identity Type"));
   }
 
   /**
    * Test {@link AddIdentityLinkCmd#validateParams(String, String, int, String)}.
-   *
    * <ul>
-   *   <li>When one.
-   *   <li>Then throw {@link ActivitiIllegalArgumentException}.
+   *   <li>When one.</li>
+   *   <li>Then throw {@link ActivitiIllegalArgumentException}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link AddIdentityLinkCmd#validateParams(String, String, int, String)}
+   * <p>
+   * Method under test: {@link AddIdentityLinkCmd#validateParams(String, String, int, String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void AddIdentityLinkCmd.validateParams(String, String, int, String)"})
   public void testValidateParams_whenOne_thenThrowActivitiIllegalArgumentException() {
-    // Arrange
-    AddIdentityLinkCmd addIdentityLinkCmd = new AddIdentityLinkCmd("42", "42", 1, "Identity Type");
-
-    // Act and Assert
-    assertThrows(
-        ActivitiIllegalArgumentException.class,
-        () -> addIdentityLinkCmd.validateParams("42", "42", 1, null));
+    // Arrange, Act and Assert
+    assertThrows(ActivitiIllegalArgumentException.class,
+        () -> (new AddIdentityLinkCmd("42", "42", 1, "Identity Type")).validateParams("42", "42", 1, null));
   }
 
   /**
    * Test {@link AddIdentityLinkCmd#validateParams(String, String, int, String)}.
-   *
    * <ul>
-   *   <li>When three.
-   *   <li>Then throw {@link ActivitiIllegalArgumentException}.
+   *   <li>When three.</li>
+   *   <li>Then throw {@link ActivitiIllegalArgumentException}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link AddIdentityLinkCmd#validateParams(String, String, int, String)}
+   * <p>
+   * Method under test: {@link AddIdentityLinkCmd#validateParams(String, String, int, String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void AddIdentityLinkCmd.validateParams(String, String, int, String)"})
   public void testValidateParams_whenThree_thenThrowActivitiIllegalArgumentException() {
-    // Arrange
-    AddIdentityLinkCmd addIdentityLinkCmd = new AddIdentityLinkCmd("42", "42", 1, "Identity Type");
-
-    // Act and Assert
-    assertThrows(
-        ActivitiIllegalArgumentException.class,
-        () -> addIdentityLinkCmd.validateParams("42", "42", 3, "Identity Type"));
+    // Arrange, Act and Assert
+    assertThrows(ActivitiIllegalArgumentException.class,
+        () -> (new AddIdentityLinkCmd("42", "42", 1, "Identity Type")).validateParams("42", "42", 3, "Identity Type"));
   }
 
   /**
    * Test {@link AddIdentityLinkCmd#validateParams(String, String, int, String)}.
-   *
    * <ul>
-   *   <li>When two.
-   *   <li>Then throw {@link ActivitiIllegalArgumentException}.
+   *   <li>When two.</li>
+   *   <li>Then throw {@link ActivitiIllegalArgumentException}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link AddIdentityLinkCmd#validateParams(String, String, int, String)}
+   * <p>
+   * Method under test: {@link AddIdentityLinkCmd#validateParams(String, String, int, String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void AddIdentityLinkCmd.validateParams(String, String, int, String)"})
   public void testValidateParams_whenTwo_thenThrowActivitiIllegalArgumentException() {
-    // Arrange
-    AddIdentityLinkCmd addIdentityLinkCmd = new AddIdentityLinkCmd("42", "42", 1, "Identity Type");
-
-    // Act and Assert
-    assertThrows(
-        ActivitiIllegalArgumentException.class,
-        () -> addIdentityLinkCmd.validateParams("42", null, 2, "Identity Type"));
+    // Arrange, Act and Assert
+    assertThrows(ActivitiIllegalArgumentException.class,
+        () -> (new AddIdentityLinkCmd("42", "42", 1, "Identity Type")).validateParams("42", null, 2, "Identity Type"));
   }
 }

@@ -16,8 +16,7 @@
 package org.activiti.engine.impl.cmd;
 
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.engine.impl.persistence.entity.SuspensionState;
 import org.activiti.engine.impl.persistence.entity.SuspensionState.SuspensionStateImpl;
@@ -27,23 +26,19 @@ import org.junit.experimental.categories.Category;
 public class SuspendProcessInstanceCmdDiffblueTest {
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>{@link SuspendProcessInstanceCmd#SuspendProcessInstanceCmd(String)}
    *   <li>{@link SuspendProcessInstanceCmd#getNewState()}
    * </ul>
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void SuspendProcessInstanceCmd.<init>(String)",
-    "SuspensionState SuspendProcessInstanceCmd.getNewState()"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void SuspendProcessInstanceCmd.<init>(String)",
+      "SuspensionState SuspendProcessInstanceCmd.getNewState()"})
   public void testGettersAndSetters() {
     // Arrange, Act and Assert
-    assertTrue(new SuspendProcessInstanceCmd("42").getNewState() instanceof SuspensionStateImpl);
+    assertTrue((new SuspendProcessInstanceCmd("42")).getNewState() instanceof SuspensionStateImpl);
   }
 }

@@ -18,17 +18,13 @@ package org.activiti.api.runtime.event.impl;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 import com.diffblue.cover.annotations.MethodsUnderTest;
-import java.time.LocalDate;
-import java.time.ZoneOffset;
-import java.util.Date;
 import org.activiti.api.process.model.MessageSubscription;
 import org.activiti.api.process.model.events.MessageSubscriptionEvent;
 import org.activiti.api.process.model.events.MessageSubscriptionEvent.MessageSubscriptionEvents;
-import org.activiti.api.runtime.model.impl.MessageSubscriptionImpl;
-import org.activiti.api.runtime.model.impl.MessageSubscriptionImpl.Builder;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
@@ -36,19 +32,16 @@ import org.junit.jupiter.api.Test;
 class MessageSubscriptionCancelledEventImplDiffblueTest {
   /**
    * Test {@link MessageSubscriptionCancelledEventImpl#MessageSubscriptionCancelledEventImpl()}.
-   *
-   * <p>Method under test: {@link
-   * MessageSubscriptionCancelledEventImpl#MessageSubscriptionCancelledEventImpl()}
+   * <p>
+   * Method under test: {@link MessageSubscriptionCancelledEventImpl#MessageSubscriptionCancelledEventImpl()}
    */
   @Test
   @DisplayName("Test new MessageSubscriptionCancelledEventImpl()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void MessageSubscriptionCancelledEventImpl.<init>()"})
   void testNewMessageSubscriptionCancelledEventImpl() {
     // Arrange and Act
-    MessageSubscriptionCancelledEventImpl actualMessageSubscriptionCancelledEventImpl =
-        new MessageSubscriptionCancelledEventImpl();
+    MessageSubscriptionCancelledEventImpl actualMessageSubscriptionCancelledEventImpl = new MessageSubscriptionCancelledEventImpl();
 
     // Assert
     assertNull(actualMessageSubscriptionCancelledEventImpl.getProcessDefinitionVersion());
@@ -58,58 +51,40 @@ class MessageSubscriptionCancelledEventImplDiffblueTest {
     assertNull(actualMessageSubscriptionCancelledEventImpl.getProcessDefinitionKey());
     assertNull(actualMessageSubscriptionCancelledEventImpl.getProcessInstanceId());
     assertNull(actualMessageSubscriptionCancelledEventImpl.getEntity());
-    assertEquals(
-        MessageSubscriptionEvents.MESSAGE_SUBSCRIPTION_CANCELLED,
+    assertEquals(MessageSubscriptionEvents.MESSAGE_SUBSCRIPTION_CANCELLED,
         actualMessageSubscriptionCancelledEventImpl.getEventType());
   }
 
   /**
-   * Test {@link
-   * MessageSubscriptionCancelledEventImpl#MessageSubscriptionCancelledEventImpl(MessageSubscription)}.
-   *
-   * <p>Method under test: {@link
-   * MessageSubscriptionCancelledEventImpl#MessageSubscriptionCancelledEventImpl(MessageSubscription)}
+   * Test {@link MessageSubscriptionCancelledEventImpl#MessageSubscriptionCancelledEventImpl(MessageSubscription)}.
+   * <p>
+   * Method under test: {@link MessageSubscriptionCancelledEventImpl#MessageSubscriptionCancelledEventImpl(MessageSubscription)}
    */
   @Test
   @DisplayName("Test new MessageSubscriptionCancelledEventImpl(MessageSubscription)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void MessageSubscriptionCancelledEventImpl.<init>(MessageSubscription)"})
   void testNewMessageSubscriptionCancelledEventImpl2() {
     // Arrange
-    Builder withConfigurationResult =
-        MessageSubscriptionImpl.builder()
-            .withActivityId("42")
-            .withBusinessKey("Business Key")
-            .withConfiguration("Configuration");
-    MessageSubscriptionImpl entity =
-        withConfigurationResult
-            .withCreated(
-                Date.from(
-                    LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()))
-            .withEventName("Event Name")
-            .withExecutionId("0123456789ABCDEF")
-            .withId("42")
-            .withProcessDefinitionId("42")
-            .withProcessInstanceId("42")
-            .build();
+    MessageSubscription entity = mock(MessageSubscription.class);
+    when(entity.getProcessDefinitionId()).thenReturn("42");
+    when(entity.getProcessInstanceId()).thenReturn("42");
 
     // Act
-    MessageSubscriptionCancelledEventImpl actualMessageSubscriptionCancelledEventImpl =
-        new MessageSubscriptionCancelledEventImpl(entity);
+    MessageSubscriptionCancelledEventImpl actualMessageSubscriptionCancelledEventImpl = new MessageSubscriptionCancelledEventImpl(
+        entity);
 
     // Assert
-    MessageSubscription entity2 = actualMessageSubscriptionCancelledEventImpl.getEntity();
-    assertTrue(entity2 instanceof MessageSubscriptionImpl);
+    verify(entity).getProcessDefinitionId();
+    verify(entity).getProcessInstanceId();
     assertEquals("42", actualMessageSubscriptionCancelledEventImpl.getProcessDefinitionId());
     assertEquals("42", actualMessageSubscriptionCancelledEventImpl.getProcessInstanceId());
     assertNull(actualMessageSubscriptionCancelledEventImpl.getProcessDefinitionVersion());
     assertNull(actualMessageSubscriptionCancelledEventImpl.getBusinessKey());
     assertNull(actualMessageSubscriptionCancelledEventImpl.getParentProcessInstanceId());
     assertNull(actualMessageSubscriptionCancelledEventImpl.getProcessDefinitionKey());
-    assertEquals(
-        MessageSubscriptionEvents.MESSAGE_SUBSCRIPTION_CANCELLED,
+    assertEquals(MessageSubscriptionEvents.MESSAGE_SUBSCRIPTION_CANCELLED,
         actualMessageSubscriptionCancelledEventImpl.getEventType());
-    assertSame(entity, entity2);
+    assertSame(entity, actualMessageSubscriptionCancelledEventImpl.getEntity());
   }
 }

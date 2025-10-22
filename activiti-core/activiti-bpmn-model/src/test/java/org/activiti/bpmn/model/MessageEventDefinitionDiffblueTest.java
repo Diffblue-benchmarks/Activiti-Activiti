@@ -19,8 +19,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
 import java.util.List;
@@ -30,16 +29,15 @@ import org.junit.experimental.categories.Category;
 public class MessageEventDefinitionDiffblueTest {
   /**
    * Test {@link MessageEventDefinition#clone()}.
-   *
-   * <p>Method under test: {@link MessageEventDefinition#clone()}
+   * <p>
+   * Method under test: {@link MessageEventDefinition#clone()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"MessageEventDefinition MessageEventDefinition.clone()"})
   public void testClone() {
     // Arrange and Act
-    MessageEventDefinition actualCloneResult = new MessageEventDefinition().clone();
+    MessageEventDefinition actualCloneResult = (new MessageEventDefinition()).clone();
 
     // Assert
     assertNull(actualCloneResult.getId());
@@ -55,9 +53,8 @@ public class MessageEventDefinitionDiffblueTest {
 
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>default or parameterless constructor of {@link MessageEventDefinition}
    *   <li>{@link MessageEventDefinition#setCorrelationKey(String)}
@@ -71,19 +68,12 @@ public class MessageEventDefinitionDiffblueTest {
    * </ul>
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void MessageEventDefinition.<init>()",
-    "String MessageEventDefinition.getCorrelationKey()",
-    "List MessageEventDefinition.getFieldExtensions()",
-    "String MessageEventDefinition.getMessageExpression()",
-    "String MessageEventDefinition.getMessageRef()",
-    "void MessageEventDefinition.setCorrelationKey(String)",
-    "void MessageEventDefinition.setFieldExtensions(List)",
-    "void MessageEventDefinition.setMessageExpression(String)",
-    "void MessageEventDefinition.setMessageRef(String)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void MessageEventDefinition.<init>()", "String MessageEventDefinition.getCorrelationKey()",
+      "List MessageEventDefinition.getFieldExtensions()", "String MessageEventDefinition.getMessageExpression()",
+      "String MessageEventDefinition.getMessageRef()", "void MessageEventDefinition.setCorrelationKey(String)",
+      "void MessageEventDefinition.setFieldExtensions(List)",
+      "void MessageEventDefinition.setMessageExpression(String)", "void MessageEventDefinition.setMessageRef(String)"})
   public void testGettersAndSetters() {
     // Arrange and Act
     MessageEventDefinition actualMessageEventDefinition = new MessageEventDefinition();

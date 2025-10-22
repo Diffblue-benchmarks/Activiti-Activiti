@@ -17,124 +17,63 @@ package org.activiti.engine.impl;
 
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
-import org.activiti.engine.impl.cfg.CommandExecutorImpl;
-import org.activiti.engine.impl.interceptor.CommandConfig;
 import org.activiti.engine.impl.interceptor.CommandContext;
-import org.activiti.engine.impl.interceptor.CommandContextInterceptor;
-import org.activiti.engine.impl.interceptor.CommandExecutor;
 import org.activiti.engine.impl.util.json.JSONObject;
-import org.activiti.engine.repository.Deployment;
-import org.activiti.engine.repository.NativeDeploymentQuery;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
+import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
+import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.annotation.DirtiesContext.ClassMode;
 
+@RunWith(MockitoJUnitRunner.class)
 @DirtiesContext(classMode = ClassMode.AFTER_EACH_TEST_METHOD)
 public class AbstractNativeQueryDiffblueTest {
-  /**
-   * Test {@link AbstractNativeQuery#setCommandExecutor(CommandExecutor)}.
-   *
-   * <p>Method under test: {@link AbstractNativeQuery#setCommandExecutor(CommandExecutor)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"AbstractNativeQuery AbstractNativeQuery.setCommandExecutor(CommandExecutor)"})
-  public void testSetCommandExecutor() {
-    // Arrange
-    NativeDeploymentQueryImpl nativeDeploymentQueryImpl =
-        new NativeDeploymentQueryImpl((CommandContext) null);
-    CommandConfig defaultConfig = new CommandConfig();
-    CommandContextInterceptor first = new CommandContextInterceptor();
-
-    CommandExecutorImpl commandExecutor = new CommandExecutorImpl(defaultConfig, first);
-
-    // Act
-    AbstractNativeQuery<NativeDeploymentQuery, Deployment> actualSetCommandExecutorResult =
-        nativeDeploymentQueryImpl.setCommandExecutor(commandExecutor);
-
-    // Assert
-    CommandExecutor commandExecutor2 = nativeDeploymentQueryImpl.commandExecutor;
-    assertTrue(commandExecutor2 instanceof CommandExecutorImpl);
-    assertSame(nativeDeploymentQueryImpl, actualSetCommandExecutorResult);
-    assertSame(defaultConfig, commandExecutor2.getDefaultConfig());
-    assertSame(first, ((CommandExecutorImpl) commandExecutor2).getFirst());
-  }
+  @InjectMocks
+  private NativeDeploymentQueryImpl nativeDeploymentQueryImpl;
 
   /**
    * Test {@link AbstractNativeQuery#sql(String)}.
-   *
-   * <ul>
-   *   <li>Then return {@link NativeDeploymentQueryImpl#NativeDeploymentQueryImpl(CommandContext)}
-   *       with commandContext is {@code null}.
-   * </ul>
-   *
-   * <p>Method under test: {@link AbstractNativeQuery#sql(String)}
+   * <p>
+   * Method under test: {@link AbstractNativeQuery#sql(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"org.activiti.engine.query.NativeQuery AbstractNativeQuery.sql(String)"})
-  public void testSql_thenReturnNativeDeploymentQueryImplWithCommandContextIsNull() {
-    // Arrange
-    NativeDeploymentQueryImpl nativeDeploymentQueryImpl =
-        new NativeDeploymentQueryImpl((CommandContext) null);
-
-    // Act
-    NativeDeploymentQuery actualSqlResult = nativeDeploymentQueryImpl.sql("Sql Statement");
-
-    // Assert
-    assertSame(nativeDeploymentQueryImpl, actualSqlResult);
+  public void testSql() {
+    // Arrange, Act and Assert
+    assertSame(nativeDeploymentQueryImpl, nativeDeploymentQueryImpl.sql("Sql Statement"));
   }
 
   /**
    * Test {@link AbstractNativeQuery#parameter(String, Object)}.
-   *
-   * <ul>
-   *   <li>Then return {@link NativeDeploymentQueryImpl#NativeDeploymentQueryImpl(CommandContext)}
-   *       with commandContext is {@code null}.
-   * </ul>
-   *
-   * <p>Method under test: {@link AbstractNativeQuery#parameter(String, Object)}
+   * <p>
+   * Method under test: {@link AbstractNativeQuery#parameter(String, Object)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "org.activiti.engine.query.NativeQuery AbstractNativeQuery.parameter(String, Object)"
-  })
-  public void testParameter_thenReturnNativeDeploymentQueryImplWithCommandContextIsNull() {
-    // Arrange
-    NativeDeploymentQueryImpl nativeDeploymentQueryImpl =
-        new NativeDeploymentQueryImpl((CommandContext) null);
-
-    // Act
-    NativeDeploymentQuery actualParameterResult =
-        nativeDeploymentQueryImpl.parameter("Name", JSONObject.NULL);
-
-    // Assert
-    assertSame(nativeDeploymentQueryImpl, actualParameterResult);
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"org.activiti.engine.query.NativeQuery AbstractNativeQuery.parameter(String, Object)"})
+  public void testParameter() {
+    // Arrange, Act and Assert
+    assertSame(nativeDeploymentQueryImpl, nativeDeploymentQueryImpl.parameter("Name", JSONObject.NULL));
   }
 
   /**
    * Test {@link AbstractNativeQuery#getParameters()}.
-   *
    * <ul>
-   *   <li>Then return Empty.
+   *   <li>Then return Empty.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link AbstractNativeQuery#getParameters()}
+   * <p>
+   * Method under test: {@link AbstractNativeQuery#getParameters()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"java.util.Map AbstractNativeQuery.getParameters()"})
   public void testGetParameters_thenReturnEmpty() {
     // Arrange, Act and Assert
-    assertTrue(new NativeDeploymentQueryImpl((CommandContext) null).getParameters().isEmpty());
+    assertTrue((new NativeDeploymentQueryImpl((CommandContext) null)).getParameters().isEmpty());
   }
 }

@@ -17,8 +17,7 @@ package org.activiti.engine.impl.persistence.entity.data.impl.cachematcher;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.engine.impl.persistence.entity.ExecutionEntity;
 import org.activiti.engine.impl.persistence.entity.ExecutionEntityImpl;
@@ -28,85 +27,65 @@ import org.junit.experimental.categories.Category;
 
 public class ExecutionsByRootProcessInstanceMatcherDiffblueTest {
   /**
-   * Test {@link ExecutionsByRootProcessInstanceMatcher#isRetained(ExecutionEntity, Object)} with
-   * {@code ExecutionEntity}, {@code Object}.
-   *
-   * <p>Method under test: {@link ExecutionsByRootProcessInstanceMatcher#isRetained(ExecutionEntity,
-   * Object)}
+   * Test {@link ExecutionsByRootProcessInstanceMatcher#isRetained(ExecutionEntity, Object)} with {@code ExecutionEntity}, {@code Object}.
+   * <p>
+   * Method under test: {@link ExecutionsByRootProcessInstanceMatcher#isRetained(ExecutionEntity, Object)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "boolean ExecutionsByRootProcessInstanceMatcher.isRetained(ExecutionEntity, Object)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean ExecutionsByRootProcessInstanceMatcher.isRetained(ExecutionEntity, Object)"})
   public void testIsRetainedWithExecutionEntityObject() {
     // Arrange
-    ExecutionsByRootProcessInstanceMatcher executionsByRootProcessInstanceMatcher =
-        new ExecutionsByRootProcessInstanceMatcher();
+    ExecutionsByRootProcessInstanceMatcher executionsByRootProcessInstanceMatcher = new ExecutionsByRootProcessInstanceMatcher();
 
     // Act and Assert
-    assertFalse(
-        executionsByRootProcessInstanceMatcher.isRetained(
-            ExecutionEntityImpl.createWithEmptyRelationshipCollections(), JSONObject.NULL));
+    assertFalse(executionsByRootProcessInstanceMatcher
+        .isRetained(ExecutionEntityImpl.createWithEmptyRelationshipCollections(), JSONObject.NULL));
   }
 
   /**
-   * Test {@link ExecutionsByRootProcessInstanceMatcher#isRetained(ExecutionEntity, Object)} with
-   * {@code ExecutionEntity}, {@code Object}.
-   *
+   * Test {@link ExecutionsByRootProcessInstanceMatcher#isRetained(ExecutionEntity, Object)} with {@code ExecutionEntity}, {@code Object}.
    * <ul>
-   *   <li>Given {@code Entity}.
+   *   <li>Given {@code 42}.</li>
+   *   <li>When {@code 42}.</li>
+   *   <li>Then return {@code true}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ExecutionsByRootProcessInstanceMatcher#isRetained(ExecutionEntity,
-   * Object)}
+   * <p>
+   * Method under test: {@link ExecutionsByRootProcessInstanceMatcher#isRetained(ExecutionEntity, Object)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "boolean ExecutionsByRootProcessInstanceMatcher.isRetained(ExecutionEntity, Object)"
-  })
-  public void testIsRetainedWithExecutionEntityObject_givenEntity() {
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean ExecutionsByRootProcessInstanceMatcher.isRetained(ExecutionEntity, Object)"})
+  public void testIsRetainedWithExecutionEntityObject_given42_when42_thenReturnTrue() {
     // Arrange
-    ExecutionsByRootProcessInstanceMatcher executionsByRootProcessInstanceMatcher =
-        new ExecutionsByRootProcessInstanceMatcher();
-
+    ExecutionsByRootProcessInstanceMatcher executionsByRootProcessInstanceMatcher = new ExecutionsByRootProcessInstanceMatcher();
     ExecutionEntityImpl entity = ExecutionEntityImpl.createWithEmptyRelationshipCollections();
-    entity.setRootProcessInstanceId("Entity");
+    entity.setRootProcessInstanceId("42");
+
+    // Act and Assert
+    assertTrue(executionsByRootProcessInstanceMatcher.isRetained(entity, "42"));
+  }
+
+  /**
+   * Test {@link ExecutionsByRootProcessInstanceMatcher#isRetained(ExecutionEntity, Object)} with {@code ExecutionEntity}, {@code Object}.
+   * <ul>
+   *   <li>Given {@code 42}.</li>
+   *   <li>When {@code Parameter}.</li>
+   *   <li>Then return {@code false}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link ExecutionsByRootProcessInstanceMatcher#isRetained(ExecutionEntity, Object)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean ExecutionsByRootProcessInstanceMatcher.isRetained(ExecutionEntity, Object)"})
+  public void testIsRetainedWithExecutionEntityObject_given42_whenParameter_thenReturnFalse() {
+    // Arrange
+    ExecutionsByRootProcessInstanceMatcher executionsByRootProcessInstanceMatcher = new ExecutionsByRootProcessInstanceMatcher();
+    ExecutionEntityImpl entity = ExecutionEntityImpl.createWithEmptyRelationshipCollections();
+    entity.setRootProcessInstanceId("42");
 
     // Act and Assert
     assertFalse(executionsByRootProcessInstanceMatcher.isRetained(entity, "Parameter"));
-  }
-
-  /**
-   * Test {@link ExecutionsByRootProcessInstanceMatcher#isRetained(ExecutionEntity, Object)} with
-   * {@code ExecutionEntity}, {@code Object}.
-   *
-   * <ul>
-   *   <li>Given {@code Parameter}.
-   *   <li>Then return {@code true}.
-   * </ul>
-   *
-   * <p>Method under test: {@link ExecutionsByRootProcessInstanceMatcher#isRetained(ExecutionEntity,
-   * Object)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "boolean ExecutionsByRootProcessInstanceMatcher.isRetained(ExecutionEntity, Object)"
-  })
-  public void testIsRetainedWithExecutionEntityObject_givenParameter_thenReturnTrue() {
-    // Arrange
-    ExecutionsByRootProcessInstanceMatcher executionsByRootProcessInstanceMatcher =
-        new ExecutionsByRootProcessInstanceMatcher();
-
-    ExecutionEntityImpl entity = ExecutionEntityImpl.createWithEmptyRelationshipCollections();
-    entity.setRootProcessInstanceId("Parameter");
-
-    // Act and Assert
-    assertTrue(executionsByRootProcessInstanceMatcher.isRetained(entity, "Parameter"));
   }
 }

@@ -16,8 +16,7 @@
 package org.activiti.engine.impl.db;
 
 import static org.junit.Assert.assertEquals;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
@@ -25,12 +24,11 @@ import org.junit.experimental.categories.Category;
 public class IdBlockDiffblueTest {
   /**
    * Test {@link IdBlock#IdBlock(long, long)}.
-   *
-   * <p>Method under test: {@link IdBlock#IdBlock(long, long)}
+   * <p>
+   * Method under test: {@link IdBlock#IdBlock(long, long)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void IdBlock.<init>(long, long)"})
   public void testNewIdBlock() {
     // Arrange and Act
@@ -43,17 +41,15 @@ public class IdBlockDiffblueTest {
 
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>{@link IdBlock#getLastId()}
    *   <li>{@link IdBlock#getNextId()}
    * </ul>
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"long IdBlock.getLastId()", "long IdBlock.getNextId()"})
   public void testGettersAndSetters() {
     // Arrange

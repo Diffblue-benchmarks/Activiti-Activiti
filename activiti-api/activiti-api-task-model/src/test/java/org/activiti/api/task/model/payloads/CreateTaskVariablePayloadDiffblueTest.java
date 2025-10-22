@@ -17,7 +17,6 @@ package org.activiti.api.task.model.payloads;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
@@ -26,13 +25,12 @@ import org.junit.jupiter.api.Test;
 class CreateTaskVariablePayloadDiffblueTest {
   /**
    * Test {@link CreateTaskVariablePayload#CreateTaskVariablePayload()}.
-   *
-   * <p>Method under test: {@link CreateTaskVariablePayload#CreateTaskVariablePayload()}
+   * <p>
+   * Method under test: {@link CreateTaskVariablePayload#CreateTaskVariablePayload()}
    */
   @Test
   @DisplayName("Test new CreateTaskVariablePayload()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void CreateTaskVariablePayload.<init>()"})
   void testNewCreateTaskVariablePayload() {
     // Arrange and Act
@@ -46,19 +44,16 @@ class CreateTaskVariablePayloadDiffblueTest {
 
   /**
    * Test {@link CreateTaskVariablePayload#CreateTaskVariablePayload(String, String, Object)}.
-   *
-   * <p>Method under test: {@link CreateTaskVariablePayload#CreateTaskVariablePayload(String,
-   * String, Object)}
+   * <p>
+   * Method under test: {@link CreateTaskVariablePayload#CreateTaskVariablePayload(String, String, Object)}
    */
   @Test
   @DisplayName("Test new CreateTaskVariablePayload(String, String, Object)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void CreateTaskVariablePayload.<init>(String, String, Object)"})
   void testNewCreateTaskVariablePayload2() {
     // Arrange and Act
-    CreateTaskVariablePayload actualCreateTaskVariablePayload =
-        new CreateTaskVariablePayload("42", "Name", "Value");
+    CreateTaskVariablePayload actualCreateTaskVariablePayload = new CreateTaskVariablePayload("42", "Name", "Value");
 
     // Assert
     assertEquals("42", actualCreateTaskVariablePayload.getTaskId());
@@ -68,9 +63,8 @@ class CreateTaskVariablePayloadDiffblueTest {
 
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>{@link CreateTaskVariablePayload#setName(String)}
    *   <li>{@link CreateTaskVariablePayload#setTaskId(String)}
@@ -83,17 +77,11 @@ class CreateTaskVariablePayloadDiffblueTest {
    */
   @Test
   @DisplayName("Test getters and setters")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "String CreateTaskVariablePayload.getId()",
-    "String CreateTaskVariablePayload.getName()",
-    "String CreateTaskVariablePayload.getTaskId()",
-    "Object CreateTaskVariablePayload.getValue()",
-    "void CreateTaskVariablePayload.setName(String)",
-    "void CreateTaskVariablePayload.setTaskId(String)",
-    "void CreateTaskVariablePayload.setValue(Object)"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"String CreateTaskVariablePayload.getId()", "String CreateTaskVariablePayload.getName()",
+      "String CreateTaskVariablePayload.getTaskId()", "Object CreateTaskVariablePayload.getValue()",
+      "void CreateTaskVariablePayload.setName(String)", "void CreateTaskVariablePayload.setTaskId(String)",
+      "void CreateTaskVariablePayload.setValue(Object)"})
   void testGettersAndSetters() {
     // Arrange
     CreateTaskVariablePayload createTaskVariablePayload = new CreateTaskVariablePayload();

@@ -17,10 +17,10 @@ package org.activiti.test.operations;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.isA;
+import static org.mockito.ArgumentMatchers.isNull;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.List;
 import org.activiti.api.task.model.Task;
@@ -43,28 +43,32 @@ import org.springframework.test.context.aot.DisabledInAotMode;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 @ContextConfiguration(classes = {TaskRuntimeOperations.class})
-@DisabledInAotMode
 @ExtendWith(SpringExtension.class)
+@DisabledInAotMode
 class TaskRuntimeOperationsDiffblueTest {
-  @MockBean private EventSource eventSource;
+  @MockBean
+  private EventSource eventSource;
 
-  @Autowired private List<TaskSource> list;
+  @Autowired
+  private List<TaskSource> list;
 
-  @MockBean private TaskRuntime taskRuntime;
+  @MockBean
+  private TaskRuntime taskRuntime;
 
-  @Autowired private TaskRuntimeOperations taskRuntimeOperations;
+  @Autowired
+  private TaskRuntimeOperations taskRuntimeOperations;
 
-  @MockBean private TaskSource taskSource;
+  @MockBean
+  private TaskSource taskSource;
 
   /**
    * Test {@link TaskRuntimeOperations#claim(ClaimTaskPayload)}.
-   *
-   * <p>Method under test: {@link TaskRuntimeOperations#claim(ClaimTaskPayload)}
+   * <p>
+   * Method under test: {@link TaskRuntimeOperations#claim(ClaimTaskPayload)}
    */
   @Test
   @DisplayName("Test claim(ClaimTaskPayload)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"TaskAssertions TaskRuntimeOperations.claim(ClaimTaskPayload)"})
   void testClaim() {
     // Arrange
@@ -80,19 +84,16 @@ class TaskRuntimeOperationsDiffblueTest {
 
   /**
    * Test {@link TaskRuntimeOperations#complete(CompleteTaskPayload)}.
-   *
    * <ul>
-   *   <li>When {@link CompleteTaskPayload#CompleteTaskPayload()}.
-   *   <li>Then return {@link TaskAssertionsImpl}.
+   *   <li>When {@link CompleteTaskPayload#CompleteTaskPayload()}.</li>
+   *   <li>Then return {@link TaskAssertionsImpl}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link TaskRuntimeOperations#complete(CompleteTaskPayload)}
+   * <p>
+   * Method under test: {@link TaskRuntimeOperations#complete(CompleteTaskPayload)}
    */
   @Test
-  @DisplayName(
-      "Test complete(CompleteTaskPayload); when CompleteTaskPayload(); then return TaskAssertionsImpl")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test complete(CompleteTaskPayload); when CompleteTaskPayload(); then return TaskAssertionsImpl")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"TaskAssertions TaskRuntimeOperations.complete(CompleteTaskPayload)"})
   void testComplete_whenCompleteTaskPayload_thenReturnTaskAssertionsImpl() {
     // Arrange
@@ -104,7 +105,7 @@ class TaskRuntimeOperationsDiffblueTest {
 
     // Assert
     verify(taskRuntime).complete(isA(CompleteTaskPayload.class));
-    verify(taskRuntime).task(null);
+    verify(taskRuntime).task(isNull());
     assertTrue(actualCompleteResult instanceof TaskAssertionsImpl);
   }
 }

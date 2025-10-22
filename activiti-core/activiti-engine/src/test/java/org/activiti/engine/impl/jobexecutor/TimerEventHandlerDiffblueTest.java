@@ -17,8 +17,7 @@ package org.activiti.engine.impl.jobexecutor;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
@@ -26,145 +25,108 @@ import org.junit.experimental.categories.Category;
 public class TimerEventHandlerDiffblueTest {
   /**
    * Test {@link TimerEventHandler#createConfiguration(String, String, String)}.
-   *
-   * <p>Method under test: {@link TimerEventHandler#createConfiguration(String, String, String)}
+   * <p>
+   * Method under test: {@link TimerEventHandler#createConfiguration(String, String, String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"String TimerEventHandler.createConfiguration(String, String, String)"})
   public void testCreateConfiguration() {
-    // Arrange and Act
-    String actualCreateConfigurationResult =
-        TimerEventHandler.createConfiguration("42", "2020-03-01", "Calendar Name");
-
-    // Assert
-    assertEquals(
-        "{\"activityId\":\"42\",\"calendarName\":\"Calendar Name\",\"timerEndDate\":\"2020-03-01\"}",
-        actualCreateConfigurationResult);
+    // Arrange, Act and Assert
+    assertEquals("{\"activityId\":\"42\",\"calendarName\":\"Calendar Name\",\"timerEndDate\":\"2020-03-01\"}",
+        TimerEventHandler.createConfiguration("42", "2020-03-01", "Calendar Name"));
   }
 
   /**
    * Test {@link TimerEventHandler#createConfiguration(String, String, String)}.
-   *
-   * <p>Method under test: {@link TimerEventHandler#createConfiguration(String, String, String)}
+   * <p>
+   * Method under test: {@link TimerEventHandler#createConfiguration(String, String, String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"String TimerEventHandler.createConfiguration(String, String, String)"})
   public void testCreateConfiguration2() {
-    // Arrange and Act
-    String actualCreateConfigurationResult =
-        TimerEventHandler.createConfiguration("", "2020-03-01", "Calendar Name");
-
-    // Assert
-    assertEquals(
-        "{\"activityId\":\"\",\"calendarName\":\"Calendar Name\",\"timerEndDate\":\"2020-03-01\"}",
-        actualCreateConfigurationResult);
+    // Arrange, Act and Assert
+    assertEquals("{\"activityId\":\"\",\"calendarName\":\"Calendar Name\",\"timerEndDate\":\"2020-03-01\"}",
+        TimerEventHandler.createConfiguration("", "2020-03-01", "Calendar Name"));
   }
 
   /**
    * Test {@link TimerEventHandler#createConfiguration(String, String, String)}.
-   *
-   * <p>Method under test: {@link TimerEventHandler#createConfiguration(String, String, String)}
+   * <p>
+   * Method under test: {@link TimerEventHandler#createConfiguration(String, String, String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"String TimerEventHandler.createConfiguration(String, String, String)"})
   public void testCreateConfiguration3() {
-    // Arrange and Act
-    String actualCreateConfigurationResult =
-        TimerEventHandler.createConfiguration("42", "2020/03/01", "Calendar Name");
-
-    // Assert
-    assertEquals(
-        "{\"activityId\":\"42\",\"calendarName\":\"Calendar Name\",\"timerEndDate\":\"2020/03/01\"}",
-        actualCreateConfigurationResult);
+    // Arrange, Act and Assert
+    assertEquals("{\"activityId\":\"42\",\"calendarName\":\"Calendar Name\",\"timerEndDate\":\"2020/03/01\"}",
+        TimerEventHandler.createConfiguration("42", "2020/03/01", "Calendar Name"));
   }
 
   /**
    * Test {@link TimerEventHandler#createConfiguration(String, String, String)}.
-   *
    * <ul>
-   *   <li>Then return {@code {"activityId":"","calendarName":"Calendar
-   *       Name","timerEndDate":"\"\""}}.
+   *   <li>Then return {@code {"activityId":"","calendarName":"Calendar Name","timerEndDate":"\"\""}}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link TimerEventHandler#createConfiguration(String, String, String)}
+   * <p>
+   * Method under test: {@link TimerEventHandler#createConfiguration(String, String, String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"String TimerEventHandler.createConfiguration(String, String, String)"})
   public void testCreateConfiguration_thenReturnActivityIdCalendarNameCalendarNameTimerEndDate() {
-    // Arrange and Act
-    String actualCreateConfigurationResult =
-        TimerEventHandler.createConfiguration("", "\"\"", "Calendar Name");
-
-    // Assert
-    assertEquals(
-        "{\"activityId\":\"\",\"calendarName\":\"Calendar Name\",\"timerEndDate\":\"\\\"\\\"\"}",
-        actualCreateConfigurationResult);
+    // Arrange, Act and Assert
+    assertEquals("{\"activityId\":\"\",\"calendarName\":\"Calendar Name\",\"timerEndDate\":\"\\\"\\\"\"}",
+        TimerEventHandler.createConfiguration("", "\"\"", "Calendar Name"));
   }
 
   /**
    * Test {@link TimerEventHandler#createConfiguration(String, String, String)}.
-   *
    * <ul>
-   *   <li>When {@code null}.
-   *   <li>Then return {@code {}}.
+   *   <li>When {@code null}.</li>
+   *   <li>Then return {@code {}}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link TimerEventHandler#createConfiguration(String, String, String)}
+   * <p>
+   * Method under test: {@link TimerEventHandler#createConfiguration(String, String, String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"String TimerEventHandler.createConfiguration(String, String, String)"})
   public void testCreateConfiguration_whenNull_thenReturnLeftCurlyBracketRightCurlyBracket() {
-    // Arrange and Act
-    String actualCreateConfigurationResult =
-        TimerEventHandler.createConfiguration(null, null, null);
-
-    // Assert
-    assertEquals("{}", actualCreateConfigurationResult);
+    // Arrange, Act and Assert
+    assertEquals("{}", TimerEventHandler.createConfiguration(null, null, null));
   }
 
   /**
    * Test {@link TimerEventHandler#setActivityIdToConfiguration(String, String)}.
-   *
    * <ul>
-   *   <li>Then return {@code Job Handler Configuration}.
+   *   <li>Then return {@code Job Handler Configuration}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link TimerEventHandler#setActivityIdToConfiguration(String, String)}
+   * <p>
+   * Method under test: {@link TimerEventHandler#setActivityIdToConfiguration(String, String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"String TimerEventHandler.setActivityIdToConfiguration(String, String)"})
   public void testSetActivityIdToConfiguration_thenReturnJobHandlerConfiguration() {
     // Arrange, Act and Assert
-    assertEquals(
-        "Job Handler Configuration",
+    assertEquals("Job Handler Configuration",
         TimerEventHandler.setActivityIdToConfiguration("Job Handler Configuration", "42"));
   }
 
   /**
    * Test {@link TimerEventHandler#setActivityIdToConfiguration(String, String)}.
-   *
    * <ul>
-   *   <li>When empty string.
-   *   <li>Then return empty string.
+   *   <li>When empty string.</li>
+   *   <li>Then return empty string.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link TimerEventHandler#setActivityIdToConfiguration(String, String)}
+   * <p>
+   * Method under test: {@link TimerEventHandler#setActivityIdToConfiguration(String, String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"String TimerEventHandler.setActivityIdToConfiguration(String, String)"})
   public void testSetActivityIdToConfiguration_whenEmptyString_thenReturnEmptyString() {
     // Arrange, Act and Assert
@@ -173,37 +135,32 @@ public class TimerEventHandlerDiffblueTest {
 
   /**
    * Test {@link TimerEventHandler#getActivityIdFromConfiguration(String)}.
-   *
    * <ul>
-   *   <li>Then return {@code Job Handler Configuration}.
+   *   <li>Then return {@code Job Handler Configuration}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link TimerEventHandler#getActivityIdFromConfiguration(String)}
+   * <p>
+   * Method under test: {@link TimerEventHandler#getActivityIdFromConfiguration(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"String TimerEventHandler.getActivityIdFromConfiguration(String)"})
   public void testGetActivityIdFromConfiguration_thenReturnJobHandlerConfiguration() {
     // Arrange, Act and Assert
-    assertEquals(
-        "Job Handler Configuration",
+    assertEquals("Job Handler Configuration",
         TimerEventHandler.getActivityIdFromConfiguration("Job Handler Configuration"));
   }
 
   /**
    * Test {@link TimerEventHandler#getActivityIdFromConfiguration(String)}.
-   *
    * <ul>
-   *   <li>When empty string.
-   *   <li>Then return empty string.
+   *   <li>When empty string.</li>
+   *   <li>Then return empty string.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link TimerEventHandler#getActivityIdFromConfiguration(String)}
+   * <p>
+   * Method under test: {@link TimerEventHandler#getActivityIdFromConfiguration(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"String TimerEventHandler.getActivityIdFromConfiguration(String)"})
   public void testGetActivityIdFromConfiguration_whenEmptyString_thenReturnEmptyString() {
     // Arrange, Act and Assert
@@ -212,16 +169,14 @@ public class TimerEventHandlerDiffblueTest {
 
   /**
    * Test {@link TimerEventHandler#geCalendarNameFromConfiguration(String)}.
-   *
    * <ul>
-   *   <li>When empty string.
+   *   <li>When empty string.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link TimerEventHandler#geCalendarNameFromConfiguration(String)}
+   * <p>
+   * Method under test: {@link TimerEventHandler#geCalendarNameFromConfiguration(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"String TimerEventHandler.geCalendarNameFromConfiguration(String)"})
   public void testGeCalendarNameFromConfiguration_whenEmptyString() {
     // Arrange, Act and Assert
@@ -230,92 +185,79 @@ public class TimerEventHandlerDiffblueTest {
 
   /**
    * Test {@link TimerEventHandler#geCalendarNameFromConfiguration(String)}.
-   *
    * <ul>
-   *   <li>When {@code Job Handler Configuration}.
+   *   <li>When {@code Job Handler Configuration}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link TimerEventHandler#geCalendarNameFromConfiguration(String)}
+   * <p>
+   * Method under test: {@link TimerEventHandler#geCalendarNameFromConfiguration(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"String TimerEventHandler.geCalendarNameFromConfiguration(String)"})
   public void testGeCalendarNameFromConfiguration_whenJobHandlerConfiguration() {
     // Arrange, Act and Assert
-    assertEquals(
-        "", TimerEventHandler.geCalendarNameFromConfiguration("Job Handler Configuration"));
+    assertEquals("", TimerEventHandler.geCalendarNameFromConfiguration("Job Handler Configuration"));
   }
 
   /**
    * Test {@link TimerEventHandler#setEndDateToConfiguration(String, String)}.
-   *
-   * <p>Method under test: {@link TimerEventHandler#setEndDateToConfiguration(String, String)}
+   * <p>
+   * Method under test: {@link TimerEventHandler#setEndDateToConfiguration(String, String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"String TimerEventHandler.setEndDateToConfiguration(String, String)"})
   public void testSetEndDateToConfiguration() {
     // Arrange, Act and Assert
-    assertEquals(
-        "{\"activityId\":\"Job Handler Configuration\",\"timerEndDate\":\"2020-03-01\"}",
+    assertEquals("{\"activityId\":\"Job Handler Configuration\",\"timerEndDate\":\"2020-03-01\"}",
         TimerEventHandler.setEndDateToConfiguration("Job Handler Configuration", "2020-03-01"));
   }
 
   /**
    * Test {@link TimerEventHandler#setEndDateToConfiguration(String, String)}.
-   *
-   * <p>Method under test: {@link TimerEventHandler#setEndDateToConfiguration(String, String)}
+   * <p>
+   * Method under test: {@link TimerEventHandler#setEndDateToConfiguration(String, String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"String TimerEventHandler.setEndDateToConfiguration(String, String)"})
   public void testSetEndDateToConfiguration2() {
     // Arrange, Act and Assert
-    assertEquals(
-        "{\"activityId\":\"Job Handler Configuration\",\"timerEndDate\":\"2020/03/01\"}",
+    assertEquals("{\"activityId\":\"Job Handler Configuration\",\"timerEndDate\":\"2020/03/01\"}",
         TimerEventHandler.setEndDateToConfiguration("Job Handler Configuration", "2020/03/01"));
   }
 
   /**
    * Test {@link TimerEventHandler#setEndDateToConfiguration(String, String)}.
-   *
    * <ul>
-   *   <li>Then return {@code {"activityId":"Job Handler Configuration"}}.
+   *   <li>Then return {@code {"activityId":"Job Handler Configuration"}}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link TimerEventHandler#setEndDateToConfiguration(String, String)}
+   * <p>
+   * Method under test: {@link TimerEventHandler#setEndDateToConfiguration(String, String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"String TimerEventHandler.setEndDateToConfiguration(String, String)"})
   public void testSetEndDateToConfiguration_thenReturnActivityIdJobHandlerConfiguration() {
     // Arrange, Act and Assert
-    assertEquals(
-        "{\"activityId\":\"Job Handler Configuration\"}",
+    assertEquals("{\"activityId\":\"Job Handler Configuration\"}",
         TimerEventHandler.setEndDateToConfiguration("Job Handler Configuration", null));
   }
 
   /**
    * Test {@link TimerEventHandler#setEndDateToConfiguration(String, String)}.
-   *
    * <ul>
-   *   <li>Then return {@code {"activityId":"","timerEndDate":"\"\""}}.
+   *   <li>Then return {@code {"activityId":"","timerEndDate":"\"\""}}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link TimerEventHandler#setEndDateToConfiguration(String, String)}
+   * <p>
+   * Method under test: {@link TimerEventHandler#setEndDateToConfiguration(String, String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"String TimerEventHandler.setEndDateToConfiguration(String, String)"})
   public void testSetEndDateToConfiguration_thenReturnActivityIdTimerEndDate() {
     // Arrange, Act and Assert
-    assertEquals(
-        "{\"activityId\":\"\",\"timerEndDate\":\"\\\"\\\"\"}",
+    assertEquals("{\"activityId\":\"\",\"timerEndDate\":\"\\\"\\\"\"}",
         TimerEventHandler.setEndDateToConfiguration("", "\"\""));
   }
 
@@ -328,48 +270,41 @@ public class TimerEventHandlerDiffblueTest {
    * Method under test: {@link TimerEventHandler#setEndDateToConfiguration(String, String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"String TimerEventHandler.setEndDateToConfiguration(String, String)"})
   public void testSetEndDateToConfiguration_thenReturnActivityIdTimerEndDate20200301() {
     // Arrange, Act and Assert
-    assertEquals(
-        "{\"activityId\":\"{\",\"timerEndDate\":\"2020-03-01\"}",
+    assertEquals("{\"activityId\":\"{\",\"timerEndDate\":\"2020-03-01\"}",
         TimerEventHandler.setEndDateToConfiguration("{", "2020-03-01"));
   }
 
   /**
    * Test {@link TimerEventHandler#setEndDateToConfiguration(String, String)}.
-   *
    * <ul>
-   *   <li>Then return {@code {"activityId":"","timerEndDate":"2020-03-01"}}.
+   *   <li>Then return {@code {"activityId":"","timerEndDate":"2020-03-01"}}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link TimerEventHandler#setEndDateToConfiguration(String, String)}
+   * <p>
+   * Method under test: {@link TimerEventHandler#setEndDateToConfiguration(String, String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"String TimerEventHandler.setEndDateToConfiguration(String, String)"})
   public void testSetEndDateToConfiguration_thenReturnActivityIdTimerEndDate202003012() {
     // Arrange, Act and Assert
-    assertEquals(
-        "{\"activityId\":\"\",\"timerEndDate\":\"2020-03-01\"}",
+    assertEquals("{\"activityId\":\"\",\"timerEndDate\":\"2020-03-01\"}",
         TimerEventHandler.setEndDateToConfiguration("", "2020-03-01"));
   }
 
   /**
    * Test {@link TimerEventHandler#getEndDateFromConfiguration(String)}.
-   *
    * <ul>
-   *   <li>When empty string.
+   *   <li>When empty string.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link TimerEventHandler#getEndDateFromConfiguration(String)}
+   * <p>
+   * Method under test: {@link TimerEventHandler#getEndDateFromConfiguration(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"String TimerEventHandler.getEndDateFromConfiguration(String)"})
   public void testGetEndDateFromConfiguration_whenEmptyString() {
     // Arrange, Act and Assert
@@ -378,16 +313,14 @@ public class TimerEventHandlerDiffblueTest {
 
   /**
    * Test {@link TimerEventHandler#getEndDateFromConfiguration(String)}.
-   *
    * <ul>
-   *   <li>When {@code Job Handler Configuration}.
+   *   <li>When {@code Job Handler Configuration}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link TimerEventHandler#getEndDateFromConfiguration(String)}
+   * <p>
+   * Method under test: {@link TimerEventHandler#getEndDateFromConfiguration(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"String TimerEventHandler.getEndDateFromConfiguration(String)"})
   public void testGetEndDateFromConfiguration_whenJobHandlerConfiguration() {
     // Arrange, Act and Assert

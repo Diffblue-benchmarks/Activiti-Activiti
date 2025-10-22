@@ -19,8 +19,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.Map;
 import org.junit.Test;
@@ -29,9 +28,8 @@ import org.junit.experimental.categories.Category;
 public class ProcessDefinitionInfoEntityImplDiffblueTest {
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>default or parameterless constructor of {@link ProcessDefinitionInfoEntityImpl}
    *   <li>{@link ProcessDefinitionInfoEntityImpl#setInfoJsonId(String)}
@@ -41,19 +39,15 @@ public class ProcessDefinitionInfoEntityImplDiffblueTest {
    * </ul>
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void ProcessDefinitionInfoEntityImpl.<init>()",
-    "String ProcessDefinitionInfoEntityImpl.getInfoJsonId()",
-    "String ProcessDefinitionInfoEntityImpl.getProcessDefinitionId()",
-    "void ProcessDefinitionInfoEntityImpl.setInfoJsonId(String)",
-    "void ProcessDefinitionInfoEntityImpl.setProcessDefinitionId(String)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void ProcessDefinitionInfoEntityImpl.<init>()",
+      "String ProcessDefinitionInfoEntityImpl.getInfoJsonId()",
+      "String ProcessDefinitionInfoEntityImpl.getProcessDefinitionId()",
+      "void ProcessDefinitionInfoEntityImpl.setInfoJsonId(String)",
+      "void ProcessDefinitionInfoEntityImpl.setProcessDefinitionId(String)"})
   public void testGettersAndSetters() {
     // Arrange and Act
-    ProcessDefinitionInfoEntityImpl actualProcessDefinitionInfoEntityImpl =
-        new ProcessDefinitionInfoEntityImpl();
+    ProcessDefinitionInfoEntityImpl actualProcessDefinitionInfoEntityImpl = new ProcessDefinitionInfoEntityImpl();
     actualProcessDefinitionInfoEntityImpl.setInfoJsonId("42");
     actualProcessDefinitionInfoEntityImpl.setProcessDefinitionId("42");
     String actualInfoJsonId = actualProcessDefinitionInfoEntityImpl.getInfoJsonId();
@@ -70,16 +64,15 @@ public class ProcessDefinitionInfoEntityImplDiffblueTest {
 
   /**
    * Test {@link ProcessDefinitionInfoEntityImpl#getPersistentState()}.
-   *
-   * <p>Method under test: {@link ProcessDefinitionInfoEntityImpl#getPersistentState()}
+   * <p>
+   * Method under test: {@link ProcessDefinitionInfoEntityImpl#getPersistentState()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"Object ProcessDefinitionInfoEntityImpl.getPersistentState()"})
   public void testGetPersistentState() {
     // Arrange and Act
-    Object actualPersistentState = new ProcessDefinitionInfoEntityImpl().getPersistentState();
+    Object actualPersistentState = (new ProcessDefinitionInfoEntityImpl()).getPersistentState();
 
     // Assert
     assertTrue(actualPersistentState instanceof Map);

@@ -19,7 +19,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.Optional;
 import org.activiti.api.process.model.events.BPMNActivityCancelledEvent;
@@ -37,24 +36,21 @@ import org.junit.jupiter.api.Test;
 
 class ToActivityCancelledConverterDiffblueTest {
   /**
-   * Test {@link ToActivityCancelledConverter#from(ActivitiActivityEvent)} with {@code
-   * ActivitiActivityEvent}.
-   *
+   * Test {@link ToActivityCancelledConverter#from(ActivitiActivityEvent)} with {@code ActivitiActivityEvent}.
    * <ul>
-   *   <li>Given empty string.
+   *   <li>Given empty string.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ToActivityCancelledConverter#from(ActivitiActivityEvent)}
+   * <p>
+   * Method under test: {@link ToActivityCancelledConverter#from(ActivitiActivityEvent)}
    */
   @Test
   @DisplayName("Test from(ActivitiActivityEvent) with 'ActivitiActivityEvent'; given empty string")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"Optional ToActivityCancelledConverter.from(ActivitiActivityEvent)"})
   void testFromWithActivitiActivityEvent_givenEmptyString() {
     // Arrange
-    ToActivityCancelledConverter toActivityCancelledConverter =
-        new ToActivityCancelledConverter(new ToActivityConverter());
+    ToActivityCancelledConverter toActivityCancelledConverter = new ToActivityCancelledConverter(
+        new ToActivityConverter());
 
     ActivitiActivityCancelledEventImpl internalEvent = new ActivitiActivityCancelledEventImpl();
     internalEvent.setActivityName("Activity Name");
@@ -73,25 +69,21 @@ class ToActivityCancelledConverterDiffblueTest {
   }
 
   /**
-   * Test {@link ToActivityCancelledConverter#from(ActivitiActivityEvent)} with {@code
-   * ActivitiActivityEvent}.
-   *
+   * Test {@link ToActivityCancelledConverter#from(ActivitiActivityEvent)} with {@code ActivitiActivityEvent}.
    * <ul>
-   *   <li>Then {@link Optional#get()} return {@link BPMNActivityCancelledEventImpl}.
+   *   <li>Then {@link Optional#get()} return {@link BPMNActivityCancelledEventImpl}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ToActivityCancelledConverter#from(ActivitiActivityEvent)}
+   * <p>
+   * Method under test: {@link ToActivityCancelledConverter#from(ActivitiActivityEvent)}
    */
   @Test
-  @DisplayName(
-      "Test from(ActivitiActivityEvent) with 'ActivitiActivityEvent'; then get() return BPMNActivityCancelledEventImpl")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test from(ActivitiActivityEvent) with 'ActivitiActivityEvent'; then get() return BPMNActivityCancelledEventImpl")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"Optional ToActivityCancelledConverter.from(ActivitiActivityEvent)"})
   void testFromWithActivitiActivityEvent_thenGetReturnBPMNActivityCancelledEventImpl() {
     // Arrange
-    ToActivityCancelledConverter toActivityCancelledConverter =
-        new ToActivityCancelledConverter(new ToActivityConverter());
+    ToActivityCancelledConverter toActivityCancelledConverter = new ToActivityCancelledConverter(
+        new ToActivityConverter());
 
     ActivitiActivityCancelledEventImpl internalEvent = new ActivitiActivityCancelledEventImpl();
     internalEvent.setActivityName("Activity Name");
@@ -106,8 +98,7 @@ class ToActivityCancelledConverterDiffblueTest {
     internalEvent.setActivityId("Internal Event");
 
     // Act
-    Optional<BPMNActivityCancelledEvent> actualFromResult =
-        toActivityCancelledConverter.from(internalEvent);
+    Optional<BPMNActivityCancelledEvent> actualFromResult = toActivityCancelledConverter.from(internalEvent);
 
     // Assert
     BPMNActivityCancelledEvent getResult = actualFromResult.get();
@@ -124,28 +115,23 @@ class ToActivityCancelledConverterDiffblueTest {
   }
 
   /**
-   * Test {@link ToActivityCancelledConverter#from(ActivitiActivityEvent)} with {@code
-   * ActivitiActivityEvent}.
-   *
+   * Test {@link ToActivityCancelledConverter#from(ActivitiActivityEvent)} with {@code ActivitiActivityEvent}.
    * <ul>
-   *   <li>When {@link ActivitiActivityCancelledEventImpl} (default constructor).
+   *   <li>When {@link ActivitiActivityCancelledEventImpl} (default constructor).</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ToActivityCancelledConverter#from(ActivitiActivityEvent)}
+   * <p>
+   * Method under test: {@link ToActivityCancelledConverter#from(ActivitiActivityEvent)}
    */
   @Test
-  @DisplayName(
-      "Test from(ActivitiActivityEvent) with 'ActivitiActivityEvent'; when ActivitiActivityCancelledEventImpl (default constructor)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test from(ActivitiActivityEvent) with 'ActivitiActivityEvent'; when ActivitiActivityCancelledEventImpl (default constructor)")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"Optional ToActivityCancelledConverter.from(ActivitiActivityEvent)"})
   void testFromWithActivitiActivityEvent_whenActivitiActivityCancelledEventImpl() {
     // Arrange
-    ToActivityCancelledConverter toActivityCancelledConverter =
-        new ToActivityCancelledConverter(new ToActivityConverter());
+    ToActivityCancelledConverter toActivityCancelledConverter = new ToActivityCancelledConverter(
+        new ToActivityConverter());
 
     // Act and Assert
-    assertFalse(
-        toActivityCancelledConverter.from(new ActivitiActivityCancelledEventImpl()).isPresent());
+    assertFalse(toActivityCancelledConverter.from(new ActivitiActivityCancelledEventImpl()).isPresent());
   }
 }

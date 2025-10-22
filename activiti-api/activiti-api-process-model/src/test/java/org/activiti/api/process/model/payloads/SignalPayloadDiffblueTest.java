@@ -19,7 +19,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.HashMap;
 import java.util.Map;
@@ -30,13 +29,12 @@ import org.junit.jupiter.api.Test;
 class SignalPayloadDiffblueTest {
   /**
    * Test {@link SignalPayload#SignalPayload()}.
-   *
-   * <p>Method under test: {@link SignalPayload#SignalPayload()}
+   * <p>
+   * Method under test: {@link SignalPayload#SignalPayload()}
    */
   @Test
   @DisplayName("Test new SignalPayload()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void SignalPayload.<init>()"})
   void testNewSignalPayload() {
     // Arrange and Act
@@ -49,13 +47,12 @@ class SignalPayloadDiffblueTest {
 
   /**
    * Test {@link SignalPayload#SignalPayload(String, Map)}.
-   *
-   * <p>Method under test: {@link SignalPayload#SignalPayload(String, Map)}
+   * <p>
+   * Method under test: {@link SignalPayload#SignalPayload(String, Map)}
    */
   @Test
   @DisplayName("Test new SignalPayload(String, Map)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void SignalPayload.<init>(String, Map)"})
   void testNewSignalPayload2() {
     // Arrange and Act
@@ -68,9 +65,8 @@ class SignalPayloadDiffblueTest {
 
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>{@link SignalPayload#setName(String)}
    *   <li>{@link SignalPayload#setVariables(Map)}
@@ -81,15 +77,9 @@ class SignalPayloadDiffblueTest {
    */
   @Test
   @DisplayName("Test getters and setters")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "String SignalPayload.getId()",
-    "String SignalPayload.getName()",
-    "Map SignalPayload.getVariables()",
-    "void SignalPayload.setName(String)",
-    "void SignalPayload.setVariables(Map)"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"String SignalPayload.getId()", "String SignalPayload.getName()",
+      "Map SignalPayload.getVariables()", "void SignalPayload.setName(String)", "void SignalPayload.setVariables(Map)"})
   void testGettersAndSetters() {
     // Arrange
     SignalPayload signalPayload = new SignalPayload();

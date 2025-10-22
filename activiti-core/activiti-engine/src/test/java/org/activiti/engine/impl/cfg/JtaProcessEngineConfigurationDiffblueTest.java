@@ -23,8 +23,7 @@ import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertThrows;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import jakarta.transaction.TransactionManager;
 import java.io.IOException;
@@ -49,56 +48,40 @@ import org.junit.experimental.categories.Category;
 public class JtaProcessEngineConfigurationDiffblueTest {
   /**
    * Test new {@link JtaProcessEngineConfiguration} (default constructor).
-   *
-   * <p>Method under test: default or parameterless constructor of {@link
-   * JtaProcessEngineConfiguration}
+   * <p>
+   * Method under test: default or parameterless constructor of {@link JtaProcessEngineConfiguration}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void JtaProcessEngineConfiguration.<init>()"})
   public void testNewJtaProcessEngineConfiguration() throws IOException {
     // Arrange and Act
-    JtaProcessEngineConfiguration actualJtaProcessEngineConfiguration =
-        new JtaProcessEngineConfiguration();
+    JtaProcessEngineConfiguration actualJtaProcessEngineConfiguration = new JtaProcessEngineConfiguration();
 
     // Assert
-    Collection<? extends Deployer> defaultDeployers =
-        actualJtaProcessEngineConfiguration.getDefaultDeployers();
+    Collection<? extends Deployer> defaultDeployers = actualJtaProcessEngineConfiguration.getDefaultDeployers();
     assertEquals(1, defaultDeployers.size());
     assertTrue(defaultDeployers instanceof List);
-    assertTrue(
-        actualJtaProcessEngineConfiguration.getDynamicBpmnService()
-            instanceof DynamicBpmnServiceImpl);
-    assertTrue(
-        actualJtaProcessEngineConfiguration.getHistoryService() instanceof HistoryServiceImpl);
-    assertTrue(
-        actualJtaProcessEngineConfiguration.getManagementService()
-            instanceof ManagementServiceImpl);
-    assertTrue(
-        actualJtaProcessEngineConfiguration.getRepositoryService()
-            instanceof RepositoryServiceImpl);
-    assertTrue(
-        actualJtaProcessEngineConfiguration.getRuntimeService() instanceof RuntimeServiceImpl);
+    assertTrue(actualJtaProcessEngineConfiguration.getDynamicBpmnService() instanceof DynamicBpmnServiceImpl);
+    assertTrue(actualJtaProcessEngineConfiguration.getHistoryService() instanceof HistoryServiceImpl);
+    assertTrue(actualJtaProcessEngineConfiguration.getManagementService() instanceof ManagementServiceImpl);
+    assertTrue(actualJtaProcessEngineConfiguration.getRepositoryService() instanceof RepositoryServiceImpl);
+    assertTrue(actualJtaProcessEngineConfiguration.getRuntimeService() instanceof RuntimeServiceImpl);
     assertTrue(actualJtaProcessEngineConfiguration.getTaskService() instanceof TaskServiceImpl);
     assertTrue(
-        actualJtaProcessEngineConfiguration.getIntegrationContextManager()
-            instanceof IntegrationContextManagerImpl);
+        actualJtaProcessEngineConfiguration.getIntegrationContextManager() instanceof IntegrationContextManagerImpl);
     assertTrue(
-        actualJtaProcessEngineConfiguration.getIntegrationContextService()
-            instanceof IntegrationContextServiceImpl);
+        actualJtaProcessEngineConfiguration.getIntegrationContextService() instanceof IntegrationContextServiceImpl);
     assertEquals("", actualJtaProcessEngineConfiguration.getDatabaseCatalog());
     assertEquals("", actualJtaProcessEngineConfiguration.getDatabaseTablePrefix());
     assertEquals("", actualJtaProcessEngineConfiguration.getJdbcPassword());
     assertEquals("@class", actualJtaProcessEngineConfiguration.getJavaClassFieldForJackson());
     assertEquals("UTF-8", actualJtaProcessEngineConfiguration.getXmlEncoding());
-    assertEquals(
-        "activiti@localhost", actualJtaProcessEngineConfiguration.getMailServerDefaultFrom());
+    assertEquals("activiti@localhost", actualJtaProcessEngineConfiguration.getMailServerDefaultFrom());
     assertEquals("audit", actualJtaProcessEngineConfiguration.getHistory());
     assertEquals("camelContext", actualJtaProcessEngineConfiguration.getDefaultCamelContext());
     assertEquals("default", actualJtaProcessEngineConfiguration.getProcessEngineName());
-    assertEquals(
-        "jdbc:h2:tcp://localhost/~/activiti", actualJtaProcessEngineConfiguration.getJdbcUrl());
+    assertEquals("jdbc:h2:tcp://localhost/~/activiti", actualJtaProcessEngineConfiguration.getJdbcUrl());
     assertEquals("localhost", actualJtaProcessEngineConfiguration.getMailServerHost());
     assertEquals("org.h2.Driver", actualJtaProcessEngineConfiguration.getJdbcDriver());
     assertEquals("sa", actualJtaProcessEngineConfiguration.getJdbcUsername());
@@ -245,27 +228,19 @@ public class JtaProcessEngineConfigurationDiffblueTest {
     assertEquals(0, actualJtaProcessEngineConfiguration.getJdbcMaxIdleConnections());
     assertEquals(0, actualJtaProcessEngineConfiguration.getJdbcMaxWaitTime());
     assertEquals(0, actualJtaProcessEngineConfiguration.getJdbcPingConnectionNotUsedFor());
-    assertEquals(
-        0, actualJtaProcessEngineConfiguration.getAsyncExecutorDefaultQueueSizeFullWaitTime());
-    assertEquals(
-        1, actualJtaProcessEngineConfiguration.getAsyncExecutorMaxAsyncJobsDuePerAcquisition());
-    assertEquals(
-        1, actualJtaProcessEngineConfiguration.getAsyncExecutorMaxTimerJobsPerAcquisition());
+    assertEquals(0, actualJtaProcessEngineConfiguration.getAsyncExecutorDefaultQueueSizeFullWaitTime());
+    assertEquals(1, actualJtaProcessEngineConfiguration.getAsyncExecutorMaxAsyncJobsDuePerAcquisition());
+    assertEquals(1, actualJtaProcessEngineConfiguration.getAsyncExecutorMaxTimerJobsPerAcquisition());
     assertEquals(10, actualJtaProcessEngineConfiguration.getAsyncFailedJobWaitTime());
     assertEquals(10, actualJtaProcessEngineConfiguration.getDefaultFailedJobWaitTime());
     assertEquals(10, actualJtaProcessEngineConfiguration.getAsyncExecutorMaxPoolSize());
     assertEquals(100, actualJtaProcessEngineConfiguration.getAsyncExecutorThreadPoolQueueSize());
     assertEquals(100, actualJtaProcessEngineConfiguration.getMaxNrOfStatementsInBulkInsert());
-    assertEquals(
-        10000,
-        actualJtaProcessEngineConfiguration.getAsyncExecutorDefaultAsyncJobAcquireWaitTime());
-    assertEquals(
-        10000,
-        actualJtaProcessEngineConfiguration.getAsyncExecutorDefaultTimerJobAcquireWaitTime());
+    assertEquals(10000, actualJtaProcessEngineConfiguration.getAsyncExecutorDefaultAsyncJobAcquireWaitTime());
+    assertEquals(10000, actualJtaProcessEngineConfiguration.getAsyncExecutorDefaultTimerJobAcquireWaitTime());
     assertEquals(2, actualJtaProcessEngineConfiguration.getAsyncExecutorCorePoolSize());
     assertEquals(20000, actualJtaProcessEngineConfiguration.getExecutionQueryLimit());
-    assertEquals(
-        20000, actualJtaProcessEngineConfiguration.getHistoricProcessInstancesQueryLimit());
+    assertEquals(20000, actualJtaProcessEngineConfiguration.getHistoricProcessInstancesQueryLimit());
     assertEquals(20000, actualJtaProcessEngineConfiguration.getHistoricTaskQueryLimit());
     assertEquals(20000, actualJtaProcessEngineConfiguration.getTaskQueryLimit());
     assertEquals(25, actualJtaProcessEngineConfiguration.getMailServerPort());
@@ -275,24 +250,16 @@ public class JtaProcessEngineConfigurationDiffblueTest {
     assertEquals(3, actualJtaProcessEngineConfiguration.getAsyncExecutorNumberOfRetries());
     assertEquals(3, actualJtaProcessEngineConfiguration.getAsyncExecutorResetExpiredJobsPageSize());
     assertEquals(30, actualJtaProcessEngineConfiguration.getDefaultBpmnParseHandlers().size());
-    assertEquals(
-        300000, actualJtaProcessEngineConfiguration.getAsyncExecutorAsyncJobLockTimeInMillis());
-    assertEquals(
-        300000, actualJtaProcessEngineConfiguration.getAsyncExecutorTimerLockTimeInMillis());
+    assertEquals(300000, actualJtaProcessEngineConfiguration.getAsyncExecutorAsyncJobLockTimeInMillis());
+    assertEquals(300000, actualJtaProcessEngineConfiguration.getAsyncExecutorTimerLockTimeInMillis());
     assertEquals(5000L, actualJtaProcessEngineConfiguration.getAsyncExecutorThreadKeepAliveTime());
     byte[] byteArray = new byte[51];
-    assertEquals(
-        51, actualJtaProcessEngineConfiguration.getMyBatisXmlConfigurationStream().read(byteArray));
+    assertEquals(51, actualJtaProcessEngineConfiguration.getMyBatisXmlConfigurationStream().read(byteArray));
     assertEquals(60, actualJtaProcessEngineConfiguration.getLockTimeAsyncJobWaitTime());
-    assertEquals(
-        60000, actualJtaProcessEngineConfiguration.getAsyncExecutorResetExpiredJobsInterval());
-    assertEquals(
-        60L, actualJtaProcessEngineConfiguration.getAsyncExecutorSecondsToWaitOnShutdown());
-    assertEquals(
-        70,
-        actualJtaProcessEngineConfiguration.DEFAULT_MAX_NR_OF_STATEMENTS_BULK_INSERT_SQL_SERVER);
-    assertEquals(
-        DelegateExpressionFieldInjectionMode.MIXED,
+    assertEquals(60000, actualJtaProcessEngineConfiguration.getAsyncExecutorResetExpiredJobsInterval());
+    assertEquals(60L, actualJtaProcessEngineConfiguration.getAsyncExecutorSecondsToWaitOnShutdown());
+    assertEquals(70, actualJtaProcessEngineConfiguration.DEFAULT_MAX_NR_OF_STATEMENTS_BULK_INSERT_SQL_SERVER);
+    assertEquals(DelegateExpressionFieldInjectionMode.MIXED,
         actualJtaProcessEngineConfiguration.getDelegateExpressionFieldInjectionMode());
     assertFalse(actualJtaProcessEngineConfiguration.getMailServerUseSSL());
     assertFalse(actualJtaProcessEngineConfiguration.getMailServerUseTLS());
@@ -318,45 +285,36 @@ public class JtaProcessEngineConfigurationDiffblueTest {
     assertTrue(actualJtaProcessEngineConfiguration.isBulkInsertEnabled());
     assertTrue(actualJtaProcessEngineConfiguration.isEnableConfiguratorServiceLoader());
     assertTrue(actualJtaProcessEngineConfiguration.isEnableEventDispatcher());
-    assertTrue(
-        actualJtaProcessEngineConfiguration.isSerializableVariableTypeTrackDeserializedObjects());
+    assertTrue(actualJtaProcessEngineConfiguration.isSerializableVariableTypeTrackDeserializedObjects());
     assertTrue(actualJtaProcessEngineConfiguration.isUsingRelationalDatabase());
-    assertEquals(
-        Boolean.FALSE.toString(), actualJtaProcessEngineConfiguration.getDatabaseSchemaUpdate());
-    assertEquals(
-        ProcessEngineConfigurationImpl.DEFAULT_GENERIC_MAX_LENGTH_STRING,
+    String expectedDatabaseSchemaUpdate = Boolean.FALSE.toString();
+    assertEquals(expectedDatabaseSchemaUpdate, actualJtaProcessEngineConfiguration.getDatabaseSchemaUpdate());
+    assertEquals(ProcessEngineConfigurationImpl.DEFAULT_GENERIC_MAX_LENGTH_STRING,
         actualJtaProcessEngineConfiguration.getMaxLengthString());
-    assertEquals(
-        ProcessEngineConfigurationImpl.DEFAULT_WS_SYNC_FACTORY,
+    assertEquals(ProcessEngineConfigurationImpl.DEFAULT_WS_SYNC_FACTORY,
         actualJtaProcessEngineConfiguration.getWsSyncFactoryClassName());
-    assertArrayEquals(
-        "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n\n<!DOCTYPE c".getBytes("UTF-8"), byteArray);
+    assertArrayEquals("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n\n<!DOCTYPE c".getBytes("UTF-8"), byteArray);
   }
 
   /**
    * Test {@link JtaProcessEngineConfiguration#createTransactionInterceptor()}.
-   *
    * <ul>
-   *   <li>Then return {@link JtaTransactionInterceptor}.
+   *   <li>Then return {@link JtaTransactionInterceptor}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link JtaProcessEngineConfiguration#createTransactionInterceptor()}
+   * <p>
+   * Method under test: {@link JtaProcessEngineConfiguration#createTransactionInterceptor()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "CommandInterceptor JtaProcessEngineConfiguration.createTransactionInterceptor()"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"CommandInterceptor JtaProcessEngineConfiguration.createTransactionInterceptor()"})
   public void testCreateTransactionInterceptor_thenReturnJtaTransactionInterceptor() {
     // Arrange
-    JtaProcessEngineConfiguration jtaProcessEngineConfiguration =
-        new JtaProcessEngineConfiguration();
+    JtaProcessEngineConfiguration jtaProcessEngineConfiguration = new JtaProcessEngineConfiguration();
     jtaProcessEngineConfiguration.setTransactionManager(mock(TransactionManager.class));
 
     // Act
-    CommandInterceptor actualCreateTransactionInterceptorResult =
-        jtaProcessEngineConfiguration.createTransactionInterceptor();
+    CommandInterceptor actualCreateTransactionInterceptorResult = jtaProcessEngineConfiguration
+        .createTransactionInterceptor();
 
     // Assert
     assertTrue(actualCreateTransactionInterceptorResult instanceof JtaTransactionInterceptor);
@@ -365,70 +323,55 @@ public class JtaProcessEngineConfigurationDiffblueTest {
 
   /**
    * Test {@link JtaProcessEngineConfiguration#createTransactionInterceptor()}.
-   *
    * <ul>
-   *   <li>Then throw {@link ActivitiException}.
+   *   <li>Then throw {@link ActivitiException}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link JtaProcessEngineConfiguration#createTransactionInterceptor()}
+   * <p>
+   * Method under test: {@link JtaProcessEngineConfiguration#createTransactionInterceptor()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "CommandInterceptor JtaProcessEngineConfiguration.createTransactionInterceptor()"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"CommandInterceptor JtaProcessEngineConfiguration.createTransactionInterceptor()"})
   public void testCreateTransactionInterceptor_thenThrowActivitiException() {
     // Arrange, Act and Assert
-    assertThrows(
-        ActivitiException.class,
-        () -> new JtaProcessEngineConfiguration().createTransactionInterceptor());
+    assertThrows(ActivitiException.class, () -> (new JtaProcessEngineConfiguration()).createTransactionInterceptor());
   }
 
   /**
    * Test {@link JtaProcessEngineConfiguration#initTransactionContextFactory()}.
-   *
-   * <p>Method under test: {@link JtaProcessEngineConfiguration#initTransactionContextFactory()}
+   * <p>
+   * Method under test: {@link JtaProcessEngineConfiguration#initTransactionContextFactory()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void JtaProcessEngineConfiguration.initTransactionContextFactory()"})
   public void testInitTransactionContextFactory() {
     // Arrange
-    JtaProcessEngineConfiguration jtaProcessEngineConfiguration =
-        new JtaProcessEngineConfiguration();
+    JtaProcessEngineConfiguration jtaProcessEngineConfiguration = new JtaProcessEngineConfiguration();
 
     // Act
     jtaProcessEngineConfiguration.initTransactionContextFactory();
 
     // Assert
-    assertTrue(
-        jtaProcessEngineConfiguration.getTransactionContextFactory()
-            instanceof JtaTransactionContextFactory);
+    assertTrue(jtaProcessEngineConfiguration.getTransactionContextFactory() instanceof JtaTransactionContextFactory);
   }
 
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>{@link JtaProcessEngineConfiguration#setTransactionManager(TransactionManager)}
    *   <li>{@link JtaProcessEngineConfiguration#getTransactionManager()}
    * </ul>
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "TransactionManager JtaProcessEngineConfiguration.getTransactionManager()",
-    "void JtaProcessEngineConfiguration.setTransactionManager(TransactionManager)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"TransactionManager JtaProcessEngineConfiguration.getTransactionManager()",
+      "void JtaProcessEngineConfiguration.setTransactionManager(TransactionManager)"})
   public void testGettersAndSetters() {
     // Arrange
-    JtaProcessEngineConfiguration jtaProcessEngineConfiguration =
-        new JtaProcessEngineConfiguration();
+    JtaProcessEngineConfiguration jtaProcessEngineConfiguration = new JtaProcessEngineConfiguration();
     TransactionManager transactionManager = mock(TransactionManager.class);
 
     // Act

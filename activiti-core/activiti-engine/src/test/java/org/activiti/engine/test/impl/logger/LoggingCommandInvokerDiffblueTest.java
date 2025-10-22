@@ -20,8 +20,7 @@ import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
@@ -29,23 +28,19 @@ import org.junit.experimental.categories.Category;
 public class LoggingCommandInvokerDiffblueTest {
   /**
    * Test {@link LoggingCommandInvoker#LoggingCommandInvoker(ProcessExecutionLogger)}.
-   *
-   * <p>Method under test: {@link
-   * LoggingCommandInvoker#LoggingCommandInvoker(ProcessExecutionLogger)}
+   * <p>
+   * Method under test: {@link LoggingCommandInvoker#LoggingCommandInvoker(ProcessExecutionLogger)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void LoggingCommandInvoker.<init>(ProcessExecutionLogger)"})
   public void testNewLoggingCommandInvoker() {
     // Arrange and Act
-    LoggingCommandInvoker actualLoggingCommandInvoker =
-        new LoggingCommandInvoker(new ProcessExecutionLogger());
+    LoggingCommandInvoker actualLoggingCommandInvoker = new LoggingCommandInvoker(new ProcessExecutionLogger());
 
     // Assert
     assertNull(actualLoggingCommandInvoker.getNext());
-    ProcessExecutionLogger processExecutionLogger =
-        actualLoggingCommandInvoker.processExecutionLogger;
+    ProcessExecutionLogger processExecutionLogger = actualLoggingCommandInvoker.processExecutionLogger;
     assertTrue(processExecutionLogger.createdExecutions.isEmpty());
     assertTrue(processExecutionLogger.debugInfoMap.isEmpty());
     assertTrue(processExecutionLogger.deletedExecutions.isEmpty());
@@ -53,18 +48,15 @@ public class LoggingCommandInvokerDiffblueTest {
 
   /**
    * Test {@link LoggingCommandInvoker#executeOperation(Runnable)}.
-   *
-   * <p>Method under test: {@link LoggingCommandInvoker#executeOperation(Runnable)}
+   * <p>
+   * Method under test: {@link LoggingCommandInvoker#executeOperation(Runnable)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void LoggingCommandInvoker.executeOperation(Runnable)"})
   public void testExecuteOperation() {
     // Arrange
-    LoggingCommandInvoker loggingCommandInvoker =
-        new LoggingCommandInvoker(new ProcessExecutionLogger());
-
+    LoggingCommandInvoker loggingCommandInvoker = new LoggingCommandInvoker(new ProcessExecutionLogger());
     Runnable runnable = mock(Runnable.class);
     doNothing().when(runnable).run();
 

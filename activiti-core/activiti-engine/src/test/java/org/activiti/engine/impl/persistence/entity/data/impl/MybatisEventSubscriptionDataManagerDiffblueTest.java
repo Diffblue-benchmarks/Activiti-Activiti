@@ -18,8 +18,7 @@ package org.activiti.engine.impl.persistence.entity.data.impl;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThrows;
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
 import java.util.List;
@@ -28,9 +27,7 @@ import org.activiti.engine.impl.cfg.ProcessEngineConfigurationImpl;
 import org.activiti.engine.impl.persistence.entity.CompensateEventSubscriptionEntityImpl;
 import org.activiti.engine.impl.persistence.entity.EventSubscriptionEntity;
 import org.activiti.engine.impl.persistence.entity.EventSubscriptionEntityImpl;
-import org.activiti.engine.impl.persistence.entity.MessageEventSubscriptionEntity;
 import org.activiti.engine.impl.persistence.entity.MessageEventSubscriptionEntityImpl;
-import org.activiti.engine.impl.persistence.entity.SignalEventSubscriptionEntity;
 import org.activiti.engine.impl.persistence.entity.SignalEventSubscriptionEntityImpl;
 import org.activiti.engine.impl.persistence.entity.data.impl.cachematcher.EventSubscriptionsByExecutionAndTypeMatcher;
 import org.activiti.engine.impl.persistence.entity.data.impl.cachematcher.EventSubscriptionsByExecutionIdMatcher;
@@ -45,251 +42,185 @@ import org.junit.experimental.categories.Category;
 
 public class MybatisEventSubscriptionDataManagerDiffblueTest {
   /**
-   * Test {@link
-   * MybatisEventSubscriptionDataManager#MybatisEventSubscriptionDataManager(ProcessEngineConfigurationImpl)}.
-   *
-   * <p>Method under test: {@link
-   * MybatisEventSubscriptionDataManager#MybatisEventSubscriptionDataManager(ProcessEngineConfigurationImpl)}
+   * Test {@link MybatisEventSubscriptionDataManager#MybatisEventSubscriptionDataManager(ProcessEngineConfigurationImpl)}.
+   * <p>
+   * Method under test: {@link MybatisEventSubscriptionDataManager#MybatisEventSubscriptionDataManager(ProcessEngineConfigurationImpl)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void MybatisEventSubscriptionDataManager.<init>(ProcessEngineConfigurationImpl)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void MybatisEventSubscriptionDataManager.<init>(ProcessEngineConfigurationImpl)"})
   public void testNewMybatisEventSubscriptionDataManager() {
     // Arrange and Act
-    MybatisEventSubscriptionDataManager actualMybatisEventSubscriptionDataManager =
-        new MybatisEventSubscriptionDataManager(new JtaProcessEngineConfiguration());
+    MybatisEventSubscriptionDataManager actualMybatisEventSubscriptionDataManager = new MybatisEventSubscriptionDataManager(
+        new JtaProcessEngineConfiguration());
 
     // Assert
     assertTrue(
-        actualMybatisEventSubscriptionDataManager.eventSubscriptionsByExecutionAndTypeMatcher
-            instanceof EventSubscriptionsByExecutionAndTypeMatcher);
+        actualMybatisEventSubscriptionDataManager.eventSubscriptionsByExecutionAndTypeMatcher instanceof EventSubscriptionsByExecutionAndTypeMatcher);
     assertTrue(
-        actualMybatisEventSubscriptionDataManager.eventSubscritionsByExecutionIdMatcher
-            instanceof EventSubscriptionsByExecutionIdMatcher);
+        actualMybatisEventSubscriptionDataManager.eventSubscritionsByExecutionIdMatcher instanceof EventSubscriptionsByExecutionIdMatcher);
     assertTrue(
-        actualMybatisEventSubscriptionDataManager.eventSubscriptionsByNameMatcher
-            instanceof EventSubscriptionsByNameMatcher);
+        actualMybatisEventSubscriptionDataManager.eventSubscriptionsByNameMatcher instanceof EventSubscriptionsByNameMatcher);
     assertTrue(
-        actualMybatisEventSubscriptionDataManager.eventSubscriptionsByProcInstTypeAndActivityMatcher
-            instanceof EventSubscriptionsByProcInstTypeAndActivityMatcher);
+        actualMybatisEventSubscriptionDataManager.eventSubscriptionsByProcInstTypeAndActivityMatcher instanceof EventSubscriptionsByProcInstTypeAndActivityMatcher);
     assertTrue(
-        actualMybatisEventSubscriptionDataManager
-                .messageEventSubscriptionsByProcInstAndEventNameMatcher
-            instanceof MessageEventSubscriptionsByProcInstAndEventNameMatcher);
+        actualMybatisEventSubscriptionDataManager.messageEventSubscriptionsByProcInstAndEventNameMatcher instanceof MessageEventSubscriptionsByProcInstAndEventNameMatcher);
     assertTrue(
-        actualMybatisEventSubscriptionDataManager.signalEventSubscriptionByEventNameMatcher
-            instanceof SignalEventSubscriptionByEventNameMatcher);
+        actualMybatisEventSubscriptionDataManager.signalEventSubscriptionByEventNameMatcher instanceof SignalEventSubscriptionByEventNameMatcher);
     assertTrue(
-        actualMybatisEventSubscriptionDataManager.signalEventSubscriptionByNameAndExecutionMatcher
-            instanceof SignalEventSubscriptionByNameAndExecutionMatcher);
+        actualMybatisEventSubscriptionDataManager.signalEventSubscriptionByNameAndExecutionMatcher instanceof SignalEventSubscriptionByNameAndExecutionMatcher);
     assertTrue(
-        actualMybatisEventSubscriptionDataManager
-                .signalEventSubscriptionByProcInstAndEventNameMatcher
-            instanceof SignalEventSubscriptionByProcInstAndEventNameMatcher);
-    List<Class<? extends EventSubscriptionEntity>> managedEntitySubClasses =
-        actualMybatisEventSubscriptionDataManager.getManagedEntitySubClasses();
+        actualMybatisEventSubscriptionDataManager.signalEventSubscriptionByProcInstAndEventNameMatcher instanceof SignalEventSubscriptionByProcInstAndEventNameMatcher);
+    List<Class<? extends EventSubscriptionEntity>> managedEntitySubClasses = actualMybatisEventSubscriptionDataManager
+        .getManagedEntitySubClasses();
     assertEquals(3, managedEntitySubClasses.size());
-    Class<CompensateEventSubscriptionEntityImpl> expectedGetResult =
-        CompensateEventSubscriptionEntityImpl.class;
+    Class<CompensateEventSubscriptionEntityImpl> expectedGetResult = CompensateEventSubscriptionEntityImpl.class;
     assertEquals(expectedGetResult, managedEntitySubClasses.get(2));
-    Class<EventSubscriptionEntityImpl> expectedManagedEntityClass =
-        EventSubscriptionEntityImpl.class;
-    assertEquals(
-        expectedManagedEntityClass,
-        actualMybatisEventSubscriptionDataManager.getManagedEntityClass());
-    Class<MessageEventSubscriptionEntityImpl> expectedGetResult2 =
-        MessageEventSubscriptionEntityImpl.class;
+    Class<EventSubscriptionEntityImpl> expectedManagedEntityClass = EventSubscriptionEntityImpl.class;
+    assertEquals(expectedManagedEntityClass, actualMybatisEventSubscriptionDataManager.getManagedEntityClass());
+    Class<MessageEventSubscriptionEntityImpl> expectedGetResult2 = MessageEventSubscriptionEntityImpl.class;
     assertEquals(expectedGetResult2, managedEntitySubClasses.get(0));
-    Class<SignalEventSubscriptionEntityImpl> expectedGetResult3 =
-        SignalEventSubscriptionEntityImpl.class;
+    Class<SignalEventSubscriptionEntityImpl> expectedGetResult3 = SignalEventSubscriptionEntityImpl.class;
     assertEquals(expectedGetResult3, managedEntitySubClasses.get(1));
   }
 
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>{@link MybatisEventSubscriptionDataManager#getManagedEntityClass()}
    *   <li>{@link MybatisEventSubscriptionDataManager#getManagedEntitySubClasses()}
    * </ul>
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "Class MybatisEventSubscriptionDataManager.getManagedEntityClass()",
-    "List MybatisEventSubscriptionDataManager.getManagedEntitySubClasses()"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Class MybatisEventSubscriptionDataManager.getManagedEntityClass()",
+      "List MybatisEventSubscriptionDataManager.getManagedEntitySubClasses()"})
   public void testGettersAndSetters() {
     // Arrange
-    MybatisEventSubscriptionDataManager mybatisEventSubscriptionDataManager =
-        new MybatisEventSubscriptionDataManager(new JtaProcessEngineConfiguration());
+    MybatisEventSubscriptionDataManager mybatisEventSubscriptionDataManager = new MybatisEventSubscriptionDataManager(
+        new JtaProcessEngineConfiguration());
 
     // Act
-    Class<? extends EventSubscriptionEntity> actualManagedEntityClass =
-        mybatisEventSubscriptionDataManager.getManagedEntityClass();
-    List<Class<? extends EventSubscriptionEntity>> actualManagedEntitySubClasses =
-        mybatisEventSubscriptionDataManager.getManagedEntitySubClasses();
+    Class<? extends EventSubscriptionEntity> actualManagedEntityClass = mybatisEventSubscriptionDataManager
+        .getManagedEntityClass();
+    List<Class<? extends EventSubscriptionEntity>> actualManagedEntitySubClasses = mybatisEventSubscriptionDataManager
+        .getManagedEntitySubClasses();
 
     // Assert
     assertEquals(3, actualManagedEntitySubClasses.size());
-    Class<CompensateEventSubscriptionEntityImpl> expectedGetResult =
-        CompensateEventSubscriptionEntityImpl.class;
+    Class<CompensateEventSubscriptionEntityImpl> expectedGetResult = CompensateEventSubscriptionEntityImpl.class;
     assertEquals(expectedGetResult, actualManagedEntitySubClasses.get(2));
-    Class<EventSubscriptionEntityImpl> expectedManagedEntityClass =
-        EventSubscriptionEntityImpl.class;
+    Class<EventSubscriptionEntityImpl> expectedManagedEntityClass = EventSubscriptionEntityImpl.class;
     assertEquals(expectedManagedEntityClass, actualManagedEntityClass);
-    Class<MessageEventSubscriptionEntityImpl> expectedGetResult2 =
-        MessageEventSubscriptionEntityImpl.class;
+    Class<MessageEventSubscriptionEntityImpl> expectedGetResult2 = MessageEventSubscriptionEntityImpl.class;
     assertEquals(expectedGetResult2, actualManagedEntitySubClasses.get(0));
-    Class<SignalEventSubscriptionEntityImpl> expectedGetResult3 =
-        SignalEventSubscriptionEntityImpl.class;
+    Class<SignalEventSubscriptionEntityImpl> expectedGetResult3 = SignalEventSubscriptionEntityImpl.class;
     assertEquals(expectedGetResult3, actualManagedEntitySubClasses.get(1));
   }
 
   /**
    * Test {@link MybatisEventSubscriptionDataManager#create()}.
-   *
-   * <p>Method under test: {@link MybatisEventSubscriptionDataManager#create()}
+   * <p>
+   * Method under test: {@link MybatisEventSubscriptionDataManager#create()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"EventSubscriptionEntity MybatisEventSubscriptionDataManager.create()"})
   public void testCreate() {
     // Arrange, Act and Assert
-    assertThrows(
-        UnsupportedOperationException.class,
-        () ->
-            new MybatisEventSubscriptionDataManager(new JtaProcessEngineConfiguration()).create());
+    assertThrows(UnsupportedOperationException.class,
+        () -> (new MybatisEventSubscriptionDataManager(new JtaProcessEngineConfiguration())).create());
   }
 
   /**
    * Test {@link MybatisEventSubscriptionDataManager#toSignalEventSubscriptionEntityList(List)}.
-   *
    * <ul>
-   *   <li>Given {@code null}.
-   *   <li>Then return {@link ArrayList#ArrayList()}.
+   *   <li>Given {@code null}.</li>
+   *   <li>Then return {@link ArrayList#ArrayList()}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link
-   * MybatisEventSubscriptionDataManager#toSignalEventSubscriptionEntityList(List)}
+   * <p>
+   * Method under test: {@link MybatisEventSubscriptionDataManager#toSignalEventSubscriptionEntityList(List)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "List MybatisEventSubscriptionDataManager.toSignalEventSubscriptionEntityList(List)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"List MybatisEventSubscriptionDataManager.toSignalEventSubscriptionEntityList(List)"})
   public void testToSignalEventSubscriptionEntityList_givenNull_thenReturnArrayList() {
     // Arrange
-    MybatisEventSubscriptionDataManager mybatisEventSubscriptionDataManager =
-        new MybatisEventSubscriptionDataManager(new JtaProcessEngineConfiguration());
+    MybatisEventSubscriptionDataManager mybatisEventSubscriptionDataManager = new MybatisEventSubscriptionDataManager(
+        new JtaProcessEngineConfiguration());
 
     ArrayList<EventSubscriptionEntity> result = new ArrayList<>();
     result.add(null);
 
-    // Act
-    List<SignalEventSubscriptionEntity> actualToSignalEventSubscriptionEntityListResult =
-        mybatisEventSubscriptionDataManager.toSignalEventSubscriptionEntityList(result);
-
-    // Assert
-    assertEquals(result, actualToSignalEventSubscriptionEntityListResult);
+    // Act and Assert
+    assertEquals(result, mybatisEventSubscriptionDataManager.toSignalEventSubscriptionEntityList(result));
   }
 
   /**
    * Test {@link MybatisEventSubscriptionDataManager#toSignalEventSubscriptionEntityList(List)}.
-   *
    * <ul>
-   *   <li>When {@link ArrayList#ArrayList()}.
-   *   <li>Then return Empty.
+   *   <li>When {@link ArrayList#ArrayList()}.</li>
+   *   <li>Then return Empty.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link
-   * MybatisEventSubscriptionDataManager#toSignalEventSubscriptionEntityList(List)}
+   * <p>
+   * Method under test: {@link MybatisEventSubscriptionDataManager#toSignalEventSubscriptionEntityList(List)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "List MybatisEventSubscriptionDataManager.toSignalEventSubscriptionEntityList(List)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"List MybatisEventSubscriptionDataManager.toSignalEventSubscriptionEntityList(List)"})
   public void testToSignalEventSubscriptionEntityList_whenArrayList_thenReturnEmpty() {
     // Arrange
-    MybatisEventSubscriptionDataManager mybatisEventSubscriptionDataManager =
-        new MybatisEventSubscriptionDataManager(new JtaProcessEngineConfiguration());
+    MybatisEventSubscriptionDataManager mybatisEventSubscriptionDataManager = new MybatisEventSubscriptionDataManager(
+        new JtaProcessEngineConfiguration());
 
     // Act and Assert
-    assertTrue(
-        mybatisEventSubscriptionDataManager
-            .toSignalEventSubscriptionEntityList(new ArrayList<>())
-            .isEmpty());
+    assertTrue(mybatisEventSubscriptionDataManager.toSignalEventSubscriptionEntityList(new ArrayList<>()).isEmpty());
   }
 
   /**
    * Test {@link MybatisEventSubscriptionDataManager#toMessageEventSubscriptionEntityList(List)}.
-   *
    * <ul>
-   *   <li>Given {@code null}.
-   *   <li>Then return {@link ArrayList#ArrayList()}.
+   *   <li>Given {@code null}.</li>
+   *   <li>Then return {@link ArrayList#ArrayList()}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link
-   * MybatisEventSubscriptionDataManager#toMessageEventSubscriptionEntityList(List)}
+   * <p>
+   * Method under test: {@link MybatisEventSubscriptionDataManager#toMessageEventSubscriptionEntityList(List)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "List MybatisEventSubscriptionDataManager.toMessageEventSubscriptionEntityList(List)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"List MybatisEventSubscriptionDataManager.toMessageEventSubscriptionEntityList(List)"})
   public void testToMessageEventSubscriptionEntityList_givenNull_thenReturnArrayList() {
     // Arrange
-    MybatisEventSubscriptionDataManager mybatisEventSubscriptionDataManager =
-        new MybatisEventSubscriptionDataManager(new JtaProcessEngineConfiguration());
+    MybatisEventSubscriptionDataManager mybatisEventSubscriptionDataManager = new MybatisEventSubscriptionDataManager(
+        new JtaProcessEngineConfiguration());
 
     ArrayList<EventSubscriptionEntity> result = new ArrayList<>();
     result.add(null);
 
-    // Act
-    List<MessageEventSubscriptionEntity> actualToMessageEventSubscriptionEntityListResult =
-        mybatisEventSubscriptionDataManager.toMessageEventSubscriptionEntityList(result);
-
-    // Assert
-    assertEquals(result, actualToMessageEventSubscriptionEntityListResult);
+    // Act and Assert
+    assertEquals(result, mybatisEventSubscriptionDataManager.toMessageEventSubscriptionEntityList(result));
   }
 
   /**
    * Test {@link MybatisEventSubscriptionDataManager#toMessageEventSubscriptionEntityList(List)}.
-   *
    * <ul>
-   *   <li>When {@link ArrayList#ArrayList()}.
-   *   <li>Then return Empty.
+   *   <li>When {@link ArrayList#ArrayList()}.</li>
+   *   <li>Then return Empty.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link
-   * MybatisEventSubscriptionDataManager#toMessageEventSubscriptionEntityList(List)}
+   * <p>
+   * Method under test: {@link MybatisEventSubscriptionDataManager#toMessageEventSubscriptionEntityList(List)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "List MybatisEventSubscriptionDataManager.toMessageEventSubscriptionEntityList(List)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"List MybatisEventSubscriptionDataManager.toMessageEventSubscriptionEntityList(List)"})
   public void testToMessageEventSubscriptionEntityList_whenArrayList_thenReturnEmpty() {
     // Arrange
-    MybatisEventSubscriptionDataManager mybatisEventSubscriptionDataManager =
-        new MybatisEventSubscriptionDataManager(new JtaProcessEngineConfiguration());
+    MybatisEventSubscriptionDataManager mybatisEventSubscriptionDataManager = new MybatisEventSubscriptionDataManager(
+        new JtaProcessEngineConfiguration());
 
     // Act and Assert
-    assertTrue(
-        mybatisEventSubscriptionDataManager
-            .toMessageEventSubscriptionEntityList(new ArrayList<>())
-            .isEmpty());
+    assertTrue(mybatisEventSubscriptionDataManager.toMessageEventSubscriptionEntityList(new ArrayList<>()).isEmpty());
   }
 }

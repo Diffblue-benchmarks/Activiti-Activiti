@@ -23,8 +23,7 @@ import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -53,45 +52,34 @@ import org.mockito.Mockito;
 public class ProcessEnginesDiffblueTest {
   /**
    * Test {@link ProcessEngines#initProcessEngineFromSpringResource(URL)}.
-   *
-   * <p>Method under test: {@link ProcessEngines#initProcessEngineFromSpringResource(URL)}
+   * <p>
+   * Method under test: {@link ProcessEngines#initProcessEngineFromSpringResource(URL)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void ProcessEngines.initProcessEngineFromSpringResource(URL)"})
   public void testInitProcessEngineFromSpringResource() throws MalformedURLException {
     // Arrange, Act and Assert
-    assertThrows(
-        ActivitiException.class,
-        () ->
-            ProcessEngines.initProcessEngineFromSpringResource(
-                Paths.get(System.getProperty("java.io.tmpdir"), "test.txt").toUri().toURL()));
+    assertThrows(ActivitiException.class, () -> ProcessEngines.initProcessEngineFromSpringResource(
+        Paths.get(System.getProperty("java.io.tmpdir"), "test.txt").toUri().toURL()));
   }
 
   /**
    * Test {@link ProcessEngines#registerProcessEngine(ProcessEngine)}.
-   *
    * <ul>
-   *   <li>Then calls {@link JtaProcessEngineConfiguration#getAsyncExecutor()}.
+   *   <li>Then calls {@link ProcessEngineConfiguration#getAsyncExecutor()}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ProcessEngines#registerProcessEngine(ProcessEngine)}
+   * <p>
+   * Method under test: {@link ProcessEngines#registerProcessEngine(ProcessEngine)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void ProcessEngines.registerProcessEngine(ProcessEngine)"})
   public void testRegisterProcessEngine_thenCallsGetAsyncExecutor() {
     // Arrange
-    ProcessEngineLifecycleListener processEngineLifecycleListener =
-        mock(ProcessEngineLifecycleListener.class);
-    doNothing()
-        .when(processEngineLifecycleListener)
-        .onProcessEngineBuilt(Mockito.<ProcessEngine>any());
-
-    JtaProcessEngineConfiguration processEngineConfiguration =
-        mock(JtaProcessEngineConfiguration.class);
+    ProcessEngineLifecycleListener processEngineLifecycleListener = mock(ProcessEngineLifecycleListener.class);
+    doNothing().when(processEngineLifecycleListener).onProcessEngineBuilt(Mockito.<ProcessEngine>any());
+    JtaProcessEngineConfiguration processEngineConfiguration = mock(JtaProcessEngineConfiguration.class);
     when(processEngineConfiguration.isUsingRelationalDatabase()).thenReturn(false);
     when(processEngineConfiguration.getProcessEngineName()).thenReturn("Process Engine Name");
     Mockito.<Map<Class<?>, SessionFactory>>when(processEngineConfiguration.getSessionFactories())
@@ -101,21 +89,17 @@ public class ProcessEnginesDiffblueTest {
     when(processEngineConfiguration.getHistoryService())
         .thenReturn(new HistoryServiceImpl(new JtaProcessEngineConfiguration()));
     when(processEngineConfiguration.getManagementService()).thenReturn(new ManagementServiceImpl());
-    when(processEngineConfiguration.getProcessEngineLifecycleListener())
-        .thenReturn(processEngineLifecycleListener);
+    when(processEngineConfiguration.getProcessEngineLifecycleListener()).thenReturn(processEngineLifecycleListener);
     when(processEngineConfiguration.getRepositoryService()).thenReturn(new RepositoryServiceImpl());
     when(processEngineConfiguration.getRuntimeService()).thenReturn(new RuntimeServiceImpl());
     when(processEngineConfiguration.getTaskService())
         .thenReturn(new TaskServiceImpl(new JtaProcessEngineConfiguration()));
-    when(processEngineConfiguration.getEventDispatcher())
-        .thenReturn(new ActivitiEventDispatcherImpl());
+    when(processEngineConfiguration.getEventDispatcher()).thenReturn(new ActivitiEventDispatcherImpl());
     when(processEngineConfiguration.getAsyncExecutor()).thenReturn(new DefaultAsyncJobExecutor());
-    when(processEngineConfiguration.getTransactionContextFactory())
-        .thenReturn(mock(TransactionContextFactory.class));
+    when(processEngineConfiguration.getTransactionContextFactory()).thenReturn(mock(TransactionContextFactory.class));
     CommandConfig defaultConfig = new CommandConfig();
-    CommandExecutorImpl commandExecutorImpl =
-        new CommandExecutorImpl(defaultConfig, new CommandContextInterceptor());
-    when(processEngineConfiguration.getCommandExecutor()).thenReturn(commandExecutorImpl);
+    when(processEngineConfiguration.getCommandExecutor())
+        .thenReturn(new CommandExecutorImpl(defaultConfig, new CommandContextInterceptor()));
 
     // Act
     ProcessEngines.registerProcessEngine(new ProcessEngineImpl(processEngineConfiguration));
@@ -140,27 +124,20 @@ public class ProcessEnginesDiffblueTest {
 
   /**
    * Test {@link ProcessEngines#unregister(ProcessEngine)}.
-   *
    * <ul>
-   *   <li>Then calls {@link JtaProcessEngineConfiguration#getAsyncExecutor()}.
+   *   <li>Then calls {@link ProcessEngineConfiguration#getAsyncExecutor()}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ProcessEngines#unregister(ProcessEngine)}
+   * <p>
+   * Method under test: {@link ProcessEngines#unregister(ProcessEngine)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void ProcessEngines.unregister(ProcessEngine)"})
   public void testUnregister_thenCallsGetAsyncExecutor() {
     // Arrange
-    ProcessEngineLifecycleListener processEngineLifecycleListener =
-        mock(ProcessEngineLifecycleListener.class);
-    doNothing()
-        .when(processEngineLifecycleListener)
-        .onProcessEngineBuilt(Mockito.<ProcessEngine>any());
-
-    JtaProcessEngineConfiguration processEngineConfiguration =
-        mock(JtaProcessEngineConfiguration.class);
+    ProcessEngineLifecycleListener processEngineLifecycleListener = mock(ProcessEngineLifecycleListener.class);
+    doNothing().when(processEngineLifecycleListener).onProcessEngineBuilt(Mockito.<ProcessEngine>any());
+    JtaProcessEngineConfiguration processEngineConfiguration = mock(JtaProcessEngineConfiguration.class);
     when(processEngineConfiguration.isUsingRelationalDatabase()).thenReturn(false);
     when(processEngineConfiguration.getProcessEngineName()).thenReturn("Process Engine Name");
     Mockito.<Map<Class<?>, SessionFactory>>when(processEngineConfiguration.getSessionFactories())
@@ -170,21 +147,17 @@ public class ProcessEnginesDiffblueTest {
     when(processEngineConfiguration.getHistoryService())
         .thenReturn(new HistoryServiceImpl(new JtaProcessEngineConfiguration()));
     when(processEngineConfiguration.getManagementService()).thenReturn(new ManagementServiceImpl());
-    when(processEngineConfiguration.getProcessEngineLifecycleListener())
-        .thenReturn(processEngineLifecycleListener);
+    when(processEngineConfiguration.getProcessEngineLifecycleListener()).thenReturn(processEngineLifecycleListener);
     when(processEngineConfiguration.getRepositoryService()).thenReturn(new RepositoryServiceImpl());
     when(processEngineConfiguration.getRuntimeService()).thenReturn(new RuntimeServiceImpl());
     when(processEngineConfiguration.getTaskService())
         .thenReturn(new TaskServiceImpl(new JtaProcessEngineConfiguration()));
-    when(processEngineConfiguration.getEventDispatcher())
-        .thenReturn(new ActivitiEventDispatcherImpl());
+    when(processEngineConfiguration.getEventDispatcher()).thenReturn(new ActivitiEventDispatcherImpl());
     when(processEngineConfiguration.getAsyncExecutor()).thenReturn(new DefaultAsyncJobExecutor());
-    when(processEngineConfiguration.getTransactionContextFactory())
-        .thenReturn(mock(TransactionContextFactory.class));
+    when(processEngineConfiguration.getTransactionContextFactory()).thenReturn(mock(TransactionContextFactory.class));
     CommandConfig defaultConfig = new CommandConfig();
-    CommandExecutorImpl commandExecutorImpl =
-        new CommandExecutorImpl(defaultConfig, new CommandContextInterceptor());
-    when(processEngineConfiguration.getCommandExecutor()).thenReturn(commandExecutorImpl);
+    when(processEngineConfiguration.getCommandExecutor())
+        .thenReturn(new CommandExecutorImpl(defaultConfig, new CommandContextInterceptor()));
 
     // Act
     ProcessEngines.unregister(new ProcessEngineImpl(processEngineConfiguration));
@@ -209,12 +182,11 @@ public class ProcessEnginesDiffblueTest {
 
   /**
    * Test {@link ProcessEngines#getProcessEngineInfo(String)}.
-   *
-   * <p>Method under test: {@link ProcessEngines#getProcessEngineInfo(String)}
+   * <p>
+   * Method under test: {@link ProcessEngines#getProcessEngineInfo(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"ProcessEngineInfo ProcessEngines.getProcessEngineInfo(String)"})
   public void testGetProcessEngineInfo() {
     // Arrange, Act and Assert
@@ -223,12 +195,11 @@ public class ProcessEnginesDiffblueTest {
 
   /**
    * Test {@link ProcessEngines#getProcessEngine(String)}.
-   *
-   * <p>Method under test: {@link ProcessEngines#getProcessEngine(String)}
+   * <p>
+   * Method under test: {@link ProcessEngines#getProcessEngine(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"ProcessEngine ProcessEngines.getProcessEngine(String)"})
   public void testGetProcessEngine() {
     // Arrange, Act and Assert
@@ -237,21 +208,18 @@ public class ProcessEnginesDiffblueTest {
 
   /**
    * Test {@link ProcessEngines#retry(String)}.
-   *
    * <ul>
-   *   <li>Then throw {@link ActivitiIllegalArgumentException}.
+   *   <li>Then throw {@link ActivitiIllegalArgumentException}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ProcessEngines#retry(String)}
+   * <p>
+   * Method under test: {@link ProcessEngines#retry(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"ProcessEngineInfo ProcessEngines.retry(String)"})
   public void testRetry_thenThrowActivitiIllegalArgumentException() {
     // Arrange, Act and Assert
-    assertThrows(
-        ActivitiIllegalArgumentException.class,
+    assertThrows(ActivitiIllegalArgumentException.class,
         () -> ProcessEngines.retry("retying initializing of resource {}"));
   }
 }

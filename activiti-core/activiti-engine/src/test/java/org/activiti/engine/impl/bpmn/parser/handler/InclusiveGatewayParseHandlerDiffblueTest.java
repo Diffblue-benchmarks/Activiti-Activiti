@@ -17,8 +17,7 @@ package org.activiti.engine.impl.bpmn.parser.handler;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.bpmn.model.BaseElement;
 import org.activiti.bpmn.model.InclusiveGateway;
@@ -31,22 +30,20 @@ import org.junit.experimental.categories.Category;
 
 public class InclusiveGatewayParseHandlerDiffblueTest {
   /**
-   * Test {@link InclusiveGatewayParseHandler#executeParse(BpmnParse, InclusiveGateway)} with {@code
-   * BpmnParse}, {@code InclusiveGateway}.
-   *
-   * <p>Method under test: {@link InclusiveGatewayParseHandler#executeParse(BpmnParse,
-   * InclusiveGateway)}
+   * Test {@link InclusiveGatewayParseHandler#executeParse(BpmnParse, InclusiveGateway)} with {@code BpmnParse}, {@code InclusiveGateway}.
+   * <p>
+   * Method under test: {@link InclusiveGatewayParseHandler#executeParse(BpmnParse, InclusiveGateway)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void InclusiveGatewayParseHandler.executeParse(BpmnParse, InclusiveGateway)"})
   public void testExecuteParseWithBpmnParseInclusiveGateway() {
     // Arrange
     InclusiveGatewayParseHandler inclusiveGatewayParseHandler = new InclusiveGatewayParseHandler();
 
-    BpmnParse bpmnParse = new BpmnParse(new BpmnParser());
-    bpmnParse.setActivityBehaviorFactory(new DefaultActivityBehaviorFactory());
+    BpmnParser parser = new BpmnParser();
+    parser.setActivityBehaviorFactory(new DefaultActivityBehaviorFactory());
+    BpmnParse bpmnParse = new BpmnParse(parser);
     InclusiveGateway gateway = new InclusiveGateway();
 
     // Act
@@ -58,25 +55,20 @@ public class InclusiveGatewayParseHandlerDiffblueTest {
 
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>default or parameterless constructor of {@link InclusiveGatewayParseHandler}
    *   <li>{@link InclusiveGatewayParseHandler#getHandledType()}
    * </ul>
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void InclusiveGatewayParseHandler.<init>()",
-    "Class InclusiveGatewayParseHandler.getHandledType()"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void InclusiveGatewayParseHandler.<init>()",
+      "Class InclusiveGatewayParseHandler.getHandledType()"})
   public void testGettersAndSetters() {
     // Arrange and Act
-    Class<? extends BaseElement> actualHandledType =
-        new InclusiveGatewayParseHandler().getHandledType();
+    Class<? extends BaseElement> actualHandledType = (new InclusiveGatewayParseHandler()).getHandledType();
 
     // Assert
     Class<InclusiveGateway> expectedHandledType = InclusiveGateway.class;

@@ -26,8 +26,7 @@ import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.engine.delegate.DelegateExecution;
 import org.activiti.engine.delegate.Expression;
@@ -36,8 +35,6 @@ import org.activiti.engine.impl.bpmn.data.ItemDefinition;
 import org.activiti.engine.impl.bpmn.data.ItemInstance;
 import org.activiti.engine.impl.bpmn.data.SimpleStructureDefinition;
 import org.activiti.engine.impl.el.FixedValue;
-import org.activiti.engine.impl.persistence.entity.ExecutionEntity;
-import org.activiti.engine.impl.persistence.entity.ExecutionEntityImpl;
 import org.activiti.engine.impl.util.json.JSONObject;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
@@ -45,27 +42,21 @@ import org.mockito.Mockito;
 
 public class MessageImplicitDataOutputAssociationDiffblueTest {
   /**
-   * Test {@link MessageImplicitDataOutputAssociation#MessageImplicitDataOutputAssociation(String,
-   * String)}.
-   *
+   * Test {@link MessageImplicitDataOutputAssociation#MessageImplicitDataOutputAssociation(String, String)}.
    * <ul>
-   *   <li>Then return Source is {@code Source Ref}.
+   *   <li>Then return Source is {@code Source Ref}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link
-   * MessageImplicitDataOutputAssociation#MessageImplicitDataOutputAssociation(String, String)}
+   * <p>
+   * Method under test: {@link MessageImplicitDataOutputAssociation#MessageImplicitDataOutputAssociation(String, String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void MessageImplicitDataOutputAssociation.<init>(String, String)",
-    "void MessageImplicitDataOutputAssociation.<init>(String, Expression)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void MessageImplicitDataOutputAssociation.<init>(String, String)",
+      "void MessageImplicitDataOutputAssociation.<init>(String, Expression)"})
   public void testNewMessageImplicitDataOutputAssociation_thenReturnSourceIsSourceRef() {
     // Arrange and Act
-    MessageImplicitDataOutputAssociation actualMessageImplicitDataOutputAssociation =
-        new MessageImplicitDataOutputAssociation("Target Ref", "Source Ref");
+    MessageImplicitDataOutputAssociation actualMessageImplicitDataOutputAssociation = new MessageImplicitDataOutputAssociation(
+        "Target Ref", "Source Ref");
 
     // Assert
     assertEquals("Source Ref", actualMessageImplicitDataOutputAssociation.getSource());
@@ -74,30 +65,24 @@ public class MessageImplicitDataOutputAssociationDiffblueTest {
   }
 
   /**
-   * Test {@link MessageImplicitDataOutputAssociation#MessageImplicitDataOutputAssociation(String,
-   * Expression)}.
-   *
+   * Test {@link MessageImplicitDataOutputAssociation#MessageImplicitDataOutputAssociation(String, Expression)}.
    * <ul>
-   *   <li>Then SourceExpression return {@link FixedValue}.
+   *   <li>Then SourceExpression return {@link FixedValue}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link
-   * MessageImplicitDataOutputAssociation#MessageImplicitDataOutputAssociation(String, Expression)}
+   * <p>
+   * Method under test: {@link MessageImplicitDataOutputAssociation#MessageImplicitDataOutputAssociation(String, Expression)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void MessageImplicitDataOutputAssociation.<init>(String, String)",
-    "void MessageImplicitDataOutputAssociation.<init>(String, Expression)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void MessageImplicitDataOutputAssociation.<init>(String, String)",
+      "void MessageImplicitDataOutputAssociation.<init>(String, Expression)"})
   public void testNewMessageImplicitDataOutputAssociation_thenSourceExpressionReturnFixedValue() {
     // Arrange
     FixedValue sourceExpression = new FixedValue(JSONObject.NULL);
 
     // Act
-    MessageImplicitDataOutputAssociation actualMessageImplicitDataOutputAssociation =
-        new MessageImplicitDataOutputAssociation("Target Ref", sourceExpression);
+    MessageImplicitDataOutputAssociation actualMessageImplicitDataOutputAssociation = new MessageImplicitDataOutputAssociation(
+        "Target Ref", sourceExpression);
 
     // Assert
     Expression sourceExpression2 = actualMessageImplicitDataOutputAssociation.getSourceExpression();
@@ -109,145 +94,91 @@ public class MessageImplicitDataOutputAssociationDiffblueTest {
 
   /**
    * Test {@link MessageImplicitDataOutputAssociation#evaluate(DelegateExecution)}.
-   *
-   * <p>Method under test: {@link MessageImplicitDataOutputAssociation#evaluate(DelegateExecution)}
+   * <p>
+   * Method under test: {@link MessageImplicitDataOutputAssociation#evaluate(DelegateExecution)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void MessageImplicitDataOutputAssociation.evaluate(DelegateExecution)"})
   public void testEvaluate() {
     // Arrange
-    MessageImplicitDataOutputAssociation messageImplicitDataOutputAssociation =
-        new MessageImplicitDataOutputAssociation(
-            "org.activiti.engine.impl.bpmn.CURRENT_MESSAGE", "Source Ref");
-
-    ExecutionEntityImpl execution = mock(ExecutionEntityImpl.class);
+    MessageImplicitDataOutputAssociation messageImplicitDataOutputAssociation = new MessageImplicitDataOutputAssociation(
+        "Target Ref", "Source Ref");
+    DelegateExecution execution = mock(DelegateExecution.class);
     doNothing().when(execution).setVariable(Mockito.<String>any(), Mockito.<Object>any());
     MessageDefinition message = new MessageDefinition("42");
     ItemDefinition item = new ItemDefinition("42", new SimpleStructureDefinition("42"));
-    FieldBaseStructureInstance structureInstance =
-        new FieldBaseStructureInstance(new SimpleStructureDefinition("42"));
 
-    ItemInstance item2 = new ItemInstance(item, structureInstance);
-
-    MessageInstance messageInstance = new MessageInstance(message, item2);
-    when(execution.getVariable(Mockito.<String>any())).thenReturn(messageInstance);
-    doNothing().when(execution).addChildExecution(Mockito.<ExecutionEntity>any());
-    doNothing()
-        .when(execution)
-        .setTransientVariableLocal(Mockito.<String>any(), Mockito.<Object>any());
-    execution.addChildExecution(ExecutionEntityImpl.createWithEmptyRelationshipCollections());
-    execution.setTransientVariableLocal(
-        "org.activiti.engine.impl.bpmn.CURRENT_MESSAGE", JSONObject.NULL);
+    when(execution.getVariable(Mockito.<String>any())).thenReturn(new MessageInstance(message,
+        new ItemInstance(item, new FieldBaseStructureInstance(new SimpleStructureDefinition("42")))));
 
     // Act
     messageImplicitDataOutputAssociation.evaluate(execution);
 
     // Assert
-    verify(execution).addChildExecution(isA(ExecutionEntity.class));
-    verify(execution).getVariable("org.activiti.engine.impl.bpmn.CURRENT_MESSAGE");
-    verify(execution)
-        .setTransientVariableLocal(
-            eq("org.activiti.engine.impl.bpmn.CURRENT_MESSAGE"), isA(Object.class));
-    verify(execution).setVariable(eq("org.activiti.engine.impl.bpmn.CURRENT_MESSAGE"), isNull());
+    verify(execution).getVariable(eq("org.activiti.engine.impl.bpmn.CURRENT_MESSAGE"));
+    verify(execution).setVariable(eq("Target Ref"), isNull());
   }
 
   /**
    * Test {@link MessageImplicitDataOutputAssociation#evaluate(DelegateExecution)}.
-   *
    * <ul>
-   *   <li>Given {@link ItemInstance#ItemInstance(ItemDefinition, StructureInstance)} with item is
-   *       {@link ItemDefinition#ItemDefinition(String, StructureDefinition)} and structureInstance
-   *       is {@code null}.
+   *   <li>Given {@link ItemInstance#ItemInstance(ItemDefinition, StructureInstance)} with item is {@link ItemDefinition#ItemDefinition(String, StructureDefinition)} and structureInstance is {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link MessageImplicitDataOutputAssociation#evaluate(DelegateExecution)}
+   * <p>
+   * Method under test: {@link MessageImplicitDataOutputAssociation#evaluate(DelegateExecution)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void MessageImplicitDataOutputAssociation.evaluate(DelegateExecution)"})
   public void testEvaluate_givenItemInstanceWithItemIsItemDefinitionAndStructureInstanceIsNull() {
     // Arrange
-    MessageImplicitDataOutputAssociation messageImplicitDataOutputAssociation =
-        new MessageImplicitDataOutputAssociation(
-            "org.activiti.engine.impl.bpmn.CURRENT_MESSAGE", "Source Ref");
-
-    ExecutionEntityImpl execution = mock(ExecutionEntityImpl.class);
+    MessageImplicitDataOutputAssociation messageImplicitDataOutputAssociation = new MessageImplicitDataOutputAssociation(
+        "Target Ref", "Source Ref");
+    DelegateExecution execution = mock(DelegateExecution.class);
     MessageDefinition message = new MessageDefinition("42");
-    ItemDefinition item = new ItemDefinition("42", new SimpleStructureDefinition("42"));
-    ItemInstance item2 = new ItemInstance(item, null);
-
-    MessageInstance messageInstance = new MessageInstance(message, item2);
-    when(execution.getVariable(Mockito.<String>any())).thenReturn(messageInstance);
-    doNothing().when(execution).addChildExecution(Mockito.<ExecutionEntity>any());
-    doNothing()
-        .when(execution)
-        .setTransientVariableLocal(Mockito.<String>any(), Mockito.<Object>any());
-    execution.addChildExecution(ExecutionEntityImpl.createWithEmptyRelationshipCollections());
-    execution.setTransientVariableLocal(
-        "org.activiti.engine.impl.bpmn.CURRENT_MESSAGE", JSONObject.NULL);
+    when(execution.getVariable(Mockito.<String>any())).thenReturn(new MessageInstance(message,
+        new ItemInstance(new ItemDefinition("42", new SimpleStructureDefinition("42")), null)));
 
     // Act
     messageImplicitDataOutputAssociation.evaluate(execution);
 
     // Assert
-    verify(execution).addChildExecution(isA(ExecutionEntity.class));
-    verify(execution).getVariable("org.activiti.engine.impl.bpmn.CURRENT_MESSAGE");
-    verify(execution)
-        .setTransientVariableLocal(
-            eq("org.activiti.engine.impl.bpmn.CURRENT_MESSAGE"), isA(Object.class));
+    verify(execution).getVariable(eq("org.activiti.engine.impl.bpmn.CURRENT_MESSAGE"));
   }
 
   /**
    * Test {@link MessageImplicitDataOutputAssociation#evaluate(DelegateExecution)}.
-   *
    * <ul>
-   *   <li>Then calls {@link FieldBaseStructureInstance#getFieldValue(String)}.
+   *   <li>Then calls {@link FieldBaseStructureInstance#getFieldValue(String)}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link MessageImplicitDataOutputAssociation#evaluate(DelegateExecution)}
+   * <p>
+   * Method under test: {@link MessageImplicitDataOutputAssociation#evaluate(DelegateExecution)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void MessageImplicitDataOutputAssociation.evaluate(DelegateExecution)"})
   public void testEvaluate_thenCallsGetFieldValue() {
     // Arrange
-    MessageImplicitDataOutputAssociation messageImplicitDataOutputAssociation =
-        new MessageImplicitDataOutputAssociation(
-            "org.activiti.engine.impl.bpmn.CURRENT_MESSAGE", "Source Ref");
-
+    MessageImplicitDataOutputAssociation messageImplicitDataOutputAssociation = new MessageImplicitDataOutputAssociation(
+        "Target Ref", "Source Ref");
     FieldBaseStructureInstance structureInstance = mock(FieldBaseStructureInstance.class);
     when(structureInstance.getFieldValue(Mockito.<String>any())).thenReturn(JSONObject.NULL);
-    ItemDefinition item = new ItemDefinition("42", new SimpleStructureDefinition("42"));
+    ItemInstance item = new ItemInstance(new ItemDefinition("42", new SimpleStructureDefinition("42")),
+        structureInstance);
 
-    ItemInstance item2 = new ItemInstance(item, structureInstance);
-    MessageInstance messageInstance = new MessageInstance(new MessageDefinition("42"), item2);
+    MessageInstance messageInstance = new MessageInstance(new MessageDefinition("42"), item);
 
-    ExecutionEntityImpl execution = mock(ExecutionEntityImpl.class);
+    DelegateExecution execution = mock(DelegateExecution.class);
     doNothing().when(execution).setVariable(Mockito.<String>any(), Mockito.<Object>any());
     when(execution.getVariable(Mockito.<String>any())).thenReturn(messageInstance);
-    doNothing().when(execution).addChildExecution(Mockito.<ExecutionEntity>any());
-    doNothing()
-        .when(execution)
-        .setTransientVariableLocal(Mockito.<String>any(), Mockito.<Object>any());
-    execution.addChildExecution(ExecutionEntityImpl.createWithEmptyRelationshipCollections());
-    execution.setTransientVariableLocal(
-        "org.activiti.engine.impl.bpmn.CURRENT_MESSAGE", JSONObject.NULL);
 
     // Act
     messageImplicitDataOutputAssociation.evaluate(execution);
 
     // Assert
-    verify(structureInstance).getFieldValue("Source Ref");
-    verify(execution).addChildExecution(isA(ExecutionEntity.class));
-    verify(execution).getVariable("org.activiti.engine.impl.bpmn.CURRENT_MESSAGE");
-    verify(execution)
-        .setTransientVariableLocal(
-            eq("org.activiti.engine.impl.bpmn.CURRENT_MESSAGE"), isA(Object.class));
-    verify(execution)
-        .setVariable(eq("org.activiti.engine.impl.bpmn.CURRENT_MESSAGE"), isA(Object.class));
+    verify(execution).getVariable(eq("org.activiti.engine.impl.bpmn.CURRENT_MESSAGE"));
+    verify(execution).setVariable(eq("Target Ref"), isA(Object.class));
+    verify(structureInstance).getFieldValue(eq("Source Ref"));
   }
 }

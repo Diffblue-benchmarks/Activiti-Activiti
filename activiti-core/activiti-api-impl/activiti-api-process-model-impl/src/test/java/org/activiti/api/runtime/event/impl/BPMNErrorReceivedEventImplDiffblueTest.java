@@ -19,7 +19,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.api.process.model.BPMNError;
 import org.activiti.api.process.model.events.BPMNErrorReceivedEvent;
@@ -32,13 +31,12 @@ import org.junit.jupiter.api.Test;
 class BPMNErrorReceivedEventImplDiffblueTest {
   /**
    * Test {@link BPMNErrorReceivedEventImpl#BPMNErrorReceivedEventImpl()}.
-   *
-   * <p>Method under test: {@link BPMNErrorReceivedEventImpl#BPMNErrorReceivedEventImpl()}
+   * <p>
+   * Method under test: {@link BPMNErrorReceivedEventImpl#BPMNErrorReceivedEventImpl()}
    */
   @Test
   @DisplayName("Test new BPMNErrorReceivedEventImpl()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void BPMNErrorReceivedEventImpl.<init>()"})
   void testNewBPMNErrorReceivedEventImpl() {
     // Arrange and Act
@@ -57,21 +55,19 @@ class BPMNErrorReceivedEventImplDiffblueTest {
 
   /**
    * Test {@link BPMNErrorReceivedEventImpl#BPMNErrorReceivedEventImpl(BPMNError)}.
-   *
-   * <p>Method under test: {@link BPMNErrorReceivedEventImpl#BPMNErrorReceivedEventImpl(BPMNError)}
+   * <p>
+   * Method under test: {@link BPMNErrorReceivedEventImpl#BPMNErrorReceivedEventImpl(BPMNError)}
    */
   @Test
   @DisplayName("Test new BPMNErrorReceivedEventImpl(BPMNError)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void BPMNErrorReceivedEventImpl.<init>(BPMNError)"})
   void testNewBPMNErrorReceivedEventImpl2() {
     // Arrange
     BPMNErrorImpl entity = new BPMNErrorImpl("42");
 
     // Act
-    BPMNErrorReceivedEventImpl actualBpmnErrorReceivedEventImpl =
-        new BPMNErrorReceivedEventImpl(entity);
+    BPMNErrorReceivedEventImpl actualBpmnErrorReceivedEventImpl = new BPMNErrorReceivedEventImpl(entity);
 
     // Assert
     BPMNError entity2 = actualBpmnErrorReceivedEventImpl.getEntity();
@@ -88,18 +84,15 @@ class BPMNErrorReceivedEventImplDiffblueTest {
 
   /**
    * Test {@link BPMNErrorReceivedEventImpl#getEventType()}.
-   *
-   * <p>Method under test: {@link BPMNErrorReceivedEventImpl#getEventType()}
+   * <p>
+   * Method under test: {@link BPMNErrorReceivedEventImpl#getEventType()}
    */
   @Test
   @DisplayName("Test getEventType()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "BPMNErrorReceivedEvent.ErrorEvents BPMNErrorReceivedEventImpl.getEventType()"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"BPMNErrorReceivedEvent.ErrorEvents BPMNErrorReceivedEventImpl.getEventType()"})
   void testGetEventType() {
     // Arrange, Act and Assert
-    assertEquals(ErrorEvents.ERROR_RECEIVED, new BPMNErrorReceivedEventImpl().getEventType());
+    assertEquals(ErrorEvents.ERROR_RECEIVED, (new BPMNErrorReceivedEventImpl()).getEventType());
   }
 }

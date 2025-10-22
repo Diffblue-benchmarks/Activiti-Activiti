@@ -1,21 +1,21 @@
 {
   "meta" : {
-    "reportVersion" : "2.7"
+    "reportVersion" : "2.6"
   },
   "run" : {
-    "version" : "2025.09.01-44e352d-licensed",
-    "creationTimestamp" : "2025-10-15T18:17:05.474751764Z",
+    "version" : "2025.02.02-08b2a5a-licensed",
+    "creationTimestamp" : "2025-10-21T18:36:58.703503864Z",
     "command" : "dcover create --exclude-modules=org.activiti:activiti-dependency-check,org.activiti:activiti-api-dependencies,org.activiti:activiti-core-common-dependencies,org.activiti:activiti-core-dependencies,org.activiti:activiti-dependencies,org.activiti:activiti-spring-conformance-set0,org.activiti:activiti-spring-conformance-set1,org.activiti:activiti-spring-conformance-set2,org.activiti:activiti-spring-conformance-set3,org.activiti:activiti-spring-conformance-set4,org.activiti:activiti-spring-conformance-set5,org.activiti:activiti-spring-conformance-variables,org.activiti:activiti-spring-conformance-signals --coverage-reports --upload http://localhost:8080 --project-name Activiti-Activiti --name with-diffblue-tests",
-    "totalTime" : 79.391,
-    "environmentDetectionTime" : 0.025,
-    "indexingTime" : 0.464,
-    "entryPointsTime" : 0.016,
-    "generationTime" : 1132.415,
-    "timeToFirstTest" : 2377.286,
-    "timeToLastTest" : 2007.633,
-    "indexQueryTime" : 1.701,
-    "verificationTime" : 63.51,
-    "validationTime" : 8.08
+    "totalTime" : 75.697,
+    "environmentDetectionTime" : 0.191,
+    "indexingTime" : 0.361,
+    "entryPointsTime" : 0.186,
+    "generationTime" : 741.801,
+    "timeToFirstTest" : 1940.896,
+    "timeToLastTest" : 1592.96,
+    "indexQueryTime" : 1.786,
+    "verificationTime" : 55.226,
+    "validationTime" : 10.519
   },
   "codes" : {
     "R000" : "Success",
@@ -279,6 +279,5 @@
         98
       ]
     }
-  },
-  "validationMetrics" : { }
+  }
 }

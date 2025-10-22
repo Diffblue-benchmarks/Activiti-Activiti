@@ -18,8 +18,7 @@ package org.activiti.bpmn.model;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
@@ -27,19 +26,13 @@ import org.junit.experimental.categories.Category;
 public class StringDataObjectDiffblueTest {
   /**
    * Test {@link StringDataObject#setValue(Object)}.
-   *
-   * <ul>
-   *   <li>When {@code Value}.
-   *   <li>Then {@link StringDataObject} (default constructor) Value is {@code Value}.
-   * </ul>
-   *
-   * <p>Method under test: {@link StringDataObject#setValue(Object)}
+   * <p>
+   * Method under test: {@link StringDataObject#setValue(Object)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void StringDataObject.setValue(Object)"})
-  public void testSetValue_whenValue_thenStringDataObjectValueIsValue() {
+  public void testSetValue() {
     // Arrange
     StringDataObject stringDataObject = new StringDataObject();
 
@@ -52,17 +45,15 @@ public class StringDataObjectDiffblueTest {
 
   /**
    * Test {@link StringDataObject#clone()}.
-   *
    * <ul>
-   *   <li>Given {@link StringDataObject} (default constructor) Value is {@code Value}.
-   *   <li>Then return {@code Value}.
+   *   <li>Given {@link StringDataObject} (default constructor) Value is {@code Value}.</li>
+   *   <li>Then return {@code Value}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link StringDataObject#clone()}
+   * <p>
+   * Method under test: {@link StringDataObject#clone()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"StringDataObject StringDataObject.clone()"})
   public void testClone_givenStringDataObjectValueIsValue_thenReturnValue() {
     // Arrange
@@ -89,21 +80,19 @@ public class StringDataObjectDiffblueTest {
 
   /**
    * Test {@link StringDataObject#clone()}.
-   *
    * <ul>
-   *   <li>Given {@link StringDataObject} (default constructor).
-   *   <li>Then return Value is {@code null}.
+   *   <li>Given {@link StringDataObject} (default constructor).</li>
+   *   <li>Then return Value is {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link StringDataObject#clone()}
+   * <p>
+   * Method under test: {@link StringDataObject#clone()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"StringDataObject StringDataObject.clone()"})
   public void testClone_givenStringDataObject_thenReturnValueIsNull() {
     // Arrange and Act
-    StringDataObject actualCloneResult = new StringDataObject().clone();
+    StringDataObject actualCloneResult = (new StringDataObject()).clone();
 
     // Assert
     assertNull(actualCloneResult.getValue());
@@ -122,12 +111,11 @@ public class StringDataObjectDiffblueTest {
 
   /**
    * Test new {@link StringDataObject} (default constructor).
-   *
-   * <p>Method under test: default or parameterless constructor of {@link StringDataObject}
+   * <p>
+   * Method under test: default or parameterless constructor of {@link StringDataObject}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void StringDataObject.<init>()"})
   public void testNewStringDataObject() {
     // Arrange and Act

@@ -1,21 +1,21 @@
 {
   "meta" : {
-    "reportVersion" : "2.7"
+    "reportVersion" : "2.6"
   },
   "run" : {
-    "version" : "2025.09.01-44e352d-licensed",
-    "creationTimestamp" : "2025-10-15T18:17:05.474751764Z",
+    "version" : "2025.02.02-08b2a5a-licensed",
+    "creationTimestamp" : "2025-10-21T18:36:58.703503864Z",
     "command" : "dcover create --exclude-modules=org.activiti:activiti-dependency-check,org.activiti:activiti-api-dependencies,org.activiti:activiti-core-common-dependencies,org.activiti:activiti-core-dependencies,org.activiti:activiti-dependencies,org.activiti:activiti-spring-conformance-set0,org.activiti:activiti-spring-conformance-set1,org.activiti:activiti-spring-conformance-set2,org.activiti:activiti-spring-conformance-set3,org.activiti:activiti-spring-conformance-set4,org.activiti:activiti-spring-conformance-set5,org.activiti:activiti-spring-conformance-variables,org.activiti:activiti-spring-conformance-signals --coverage-reports --upload http://localhost:8080 --project-name Activiti-Activiti --name with-diffblue-tests",
-    "totalTime" : 125.047,
-    "environmentDetectionTime" : 0.132,
-    "indexingTime" : 0.414,
-    "entryPointsTime" : 0.121,
-    "generationTime" : 126.394,
-    "timeToFirstTest" : 466.956,
-    "timeToLastTest" : 393.883,
-    "indexQueryTime" : 2.1270000000000002,
-    "verificationTime" : 17.985,
-    "validationTime" : 10.372
+    "totalTime" : 124.533,
+    "environmentDetectionTime" : 0.474,
+    "indexingTime" : 0.32,
+    "entryPointsTime" : 0.469,
+    "generationTime" : 117.439,
+    "timeToFirstTest" : 447.861,
+    "timeToLastTest" : 377.497,
+    "indexQueryTime" : 2.308,
+    "verificationTime" : 17.037,
+    "validationTime" : 14.432
   },
   "codes" : {
     "R000" : "Success",
@@ -26,7 +26,6 @@
     "T005" : "Trivial constructor",
     "T010" : "Abstract or interface method",
     "T012" : "Synthetic method",
-    "T023" : "Testability unknown",
     "V000" : "Validated successfully"
   },
   "summary" : {
@@ -45,16 +44,14 @@
       "T003" : 4,
       "T005" : 19,
       "T010" : 27,
-      "T012" : 12,
-      "T023" : 4
+      "T012" : 16
     },
     "perMethodOutcome" : {
       "R000" : 246,
       "T003" : 4,
       "T005" : 1,
       "T010" : 27,
-      "T012" : 12,
-      "T023" : 4
+      "T012" : 16
     },
     "perTestOutcome" : {
       "R000" : 129
@@ -81,13 +78,11 @@
       "incompleteTestCount" : 0,
       "perMethodTestability" : {
         "T003" : 1,
-        "T012" : 3,
-        "T023" : 1
+        "T012" : 4
       },
       "perMethodOutcome" : {
         "T003" : 1,
-        "T012" : 3,
-        "T023" : 1
+        "T012" : 4
       }
     },
     "org.activiti.api.task.model.TaskCandidate" : {
@@ -401,13 +396,11 @@
       "incompleteTestCount" : 0,
       "perMethodTestability" : {
         "T003" : 1,
-        "T012" : 3,
-        "T023" : 1
+        "T012" : 4
       },
       "perMethodOutcome" : {
         "T003" : 1,
-        "T012" : 3,
-        "T023" : 1
+        "T012" : 4
       }
     },
     "org.activiti.api.task.model.events.TaskCandidateUserEvent$TaskCandidateUserEvents" : {
@@ -416,13 +409,11 @@
       "incompleteTestCount" : 0,
       "perMethodTestability" : {
         "T003" : 1,
-        "T012" : 3,
-        "T023" : 1
+        "T012" : 4
       },
       "perMethodOutcome" : {
         "T003" : 1,
-        "T012" : 3,
-        "T023" : 1
+        "T012" : 4
       }
     },
     "org.activiti.api.task.model.events.TaskRuntimeEvent$TaskEvents" : {
@@ -431,13 +422,11 @@
       "incompleteTestCount" : 0,
       "perMethodTestability" : {
         "T003" : 1,
-        "T012" : 3,
-        "T023" : 1
+        "T012" : 4
       },
       "perMethodOutcome" : {
         "T003" : 1,
-        "T012" : 3,
-        "T023" : 1
+        "T012" : 4
       }
     },
     "org.activiti.api.task.model.payloads.AssignTaskPayload" : {
@@ -719,8 +708,17 @@
     "org.activiti.api.task.model.Task$TaskStatus.<clinit>:()V" : {
       "completeTestCount" : 0,
       "incompleteTestCount" : 0,
-      "perMethodTestability" : "T023",
-      "perMethodOutcome" : "T023"
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        26,
+        27,
+        28,
+        29,
+        30,
+        31,
+        25
+      ]
     },
     "org.activiti.api.task.model.Task$TaskStatus.<init>:(Ljava/lang/String;I)V" : {
       "completeTestCount" : 0,
@@ -2288,8 +2286,13 @@
     "org.activiti.api.task.model.events.TaskCandidateGroupEvent$TaskCandidateGroupEvents.<clinit>:()V" : {
       "completeTestCount" : 0,
       "incompleteTestCount" : 0,
-      "perMethodTestability" : "T023",
-      "perMethodOutcome" : "T023"
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        26,
+        28,
+        24
+      ]
     },
     "org.activiti.api.task.model.events.TaskCandidateGroupEvent$TaskCandidateGroupEvents.<init>:(Ljava/lang/String;I)V" : {
       "completeTestCount" : 0,
@@ -2330,8 +2333,13 @@
     "org.activiti.api.task.model.events.TaskCandidateUserEvent$TaskCandidateUserEvents.<clinit>:()V" : {
       "completeTestCount" : 0,
       "incompleteTestCount" : 0,
-      "perMethodTestability" : "T023",
-      "perMethodOutcome" : "T023"
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        25,
+        27,
+        23
+      ]
     },
     "org.activiti.api.task.model.events.TaskCandidateUserEvent$TaskCandidateUserEvents.<init>:(Ljava/lang/String;I)V" : {
       "completeTestCount" : 0,
@@ -2372,8 +2380,18 @@
     "org.activiti.api.task.model.events.TaskRuntimeEvent$TaskEvents.<clinit>:()V" : {
       "completeTestCount" : 0,
       "incompleteTestCount" : 0,
-      "perMethodTestability" : "T023",
-      "perMethodOutcome" : "T023"
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        26,
+        28,
+        30,
+        32,
+        34,
+        36,
+        38,
+        24
+      ]
     },
     "org.activiti.api.task.model.events.TaskRuntimeEvent$TaskEvents.<init>:(Ljava/lang/String;I)V" : {
       "completeTestCount" : 0,
@@ -4213,6 +4231,5 @@
       "perMethodTestability" : "T010",
       "perMethodOutcome" : "T010"
     }
-  },
-  "validationMetrics" : { }
+  }
 }

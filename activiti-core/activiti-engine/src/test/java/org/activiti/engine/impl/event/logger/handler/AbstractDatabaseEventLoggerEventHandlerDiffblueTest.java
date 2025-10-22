@@ -19,8 +19,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import com.fasterxml.jackson.core.JsonFactory;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -41,17 +40,15 @@ import org.junit.experimental.categories.Category;
 public class AbstractDatabaseEventLoggerEventHandlerDiffblueTest {
   /**
    * Test {@link AbstractDatabaseEventLoggerEventHandler#setEvent(ActivitiEvent)}.
-   *
-   * <p>Method under test: {@link AbstractDatabaseEventLoggerEventHandler#setEvent(ActivitiEvent)}
+   * <p>
+   * Method under test: {@link AbstractDatabaseEventLoggerEventHandler#setEvent(ActivitiEvent)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void AbstractDatabaseEventLoggerEventHandler.setEvent(ActivitiEvent)"})
   public void testSetEvent() {
     // Arrange
-    ActivityCompensatedEventHandler activityCompensatedEventHandler =
-        new ActivityCompensatedEventHandler();
+    ActivityCompensatedEventHandler activityCompensatedEventHandler = new ActivityCompensatedEventHandler();
 
     // Act
     activityCompensatedEventHandler.setEvent(new ActivitiActivityCancelledEventImpl());
@@ -73,18 +70,15 @@ public class AbstractDatabaseEventLoggerEventHandlerDiffblueTest {
 
   /**
    * Test {@link AbstractDatabaseEventLoggerEventHandler#setObjectMapper(ObjectMapper)}.
-   *
-   * <p>Method under test: {@link
-   * AbstractDatabaseEventLoggerEventHandler#setObjectMapper(ObjectMapper)}
+   * <p>
+   * Method under test: {@link AbstractDatabaseEventLoggerEventHandler#setObjectMapper(ObjectMapper)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void AbstractDatabaseEventLoggerEventHandler.setObjectMapper(ObjectMapper)"})
   public void testSetObjectMapper() {
     // Arrange
-    ActivityCompensatedEventHandler activityCompensatedEventHandler =
-        new ActivityCompensatedEventHandler();
+    ActivityCompensatedEventHandler activityCompensatedEventHandler = new ActivityCompensatedEventHandler();
     JsonMapper objectMapper = JsonMapper.builder().findAndAddModules().build();
 
     // Act
@@ -104,25 +98,20 @@ public class AbstractDatabaseEventLoggerEventHandlerDiffblueTest {
 
   /**
    * Test {@link AbstractDatabaseEventLoggerEventHandler#getEntityFromEvent()}.
-   *
    * <ul>
-   *   <li>Then return createWithEmptyRelationshipCollections.
+   *   <li>Then return createWithEmptyRelationshipCollections.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link AbstractDatabaseEventLoggerEventHandler#getEntityFromEvent()}
+   * <p>
+   * Method under test: {@link AbstractDatabaseEventLoggerEventHandler#getEntityFromEvent()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"Object AbstractDatabaseEventLoggerEventHandler.getEntityFromEvent()"})
   public void testGetEntityFromEvent_thenReturnCreateWithEmptyRelationshipCollections() {
     // Arrange
-    ActivityCompensatedEventHandler activityCompensatedEventHandler =
-        new ActivityCompensatedEventHandler();
-    ExecutionEntityImpl processInstance =
-        ExecutionEntityImpl.createWithEmptyRelationshipCollections();
-    activityCompensatedEventHandler.setEvent(
-        new ActivitiProcessCancelledEventImpl(processInstance));
+    ActivityCompensatedEventHandler activityCompensatedEventHandler = new ActivityCompensatedEventHandler();
+    ExecutionEntityImpl processInstance = ExecutionEntityImpl.createWithEmptyRelationshipCollections();
+    activityCompensatedEventHandler.setEvent(new ActivitiProcessCancelledEventImpl(processInstance));
 
     // Act and Assert
     assertSame(processInstance, activityCompensatedEventHandler.getEntityFromEvent());
@@ -130,25 +119,19 @@ public class AbstractDatabaseEventLoggerEventHandlerDiffblueTest {
 
   /**
    * Test {@link AbstractDatabaseEventLoggerEventHandler#putInMapIfNotNull(Map, String, Object)}.
-   *
    * <ul>
-   *   <li>When {@code null}.
-   *   <li>Then {@link HashMap#HashMap()} Empty.
+   *   <li>When {@code null}.</li>
+   *   <li>Then {@link HashMap#HashMap()} Empty.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link AbstractDatabaseEventLoggerEventHandler#putInMapIfNotNull(Map,
-   * String, Object)}
+   * <p>
+   * Method under test: {@link AbstractDatabaseEventLoggerEventHandler#putInMapIfNotNull(Map, String, Object)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void AbstractDatabaseEventLoggerEventHandler.putInMapIfNotNull(Map, String, Object)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void AbstractDatabaseEventLoggerEventHandler.putInMapIfNotNull(Map, String, Object)"})
   public void testPutInMapIfNotNull_whenNull_thenHashMapEmpty() {
     // Arrange
-    ActivityCompensatedEventHandler activityCompensatedEventHandler =
-        new ActivityCompensatedEventHandler();
+    ActivityCompensatedEventHandler activityCompensatedEventHandler = new ActivityCompensatedEventHandler();
     HashMap<String, Object> map = new HashMap<>();
 
     // Act
@@ -160,25 +143,19 @@ public class AbstractDatabaseEventLoggerEventHandlerDiffblueTest {
 
   /**
    * Test {@link AbstractDatabaseEventLoggerEventHandler#putInMapIfNotNull(Map, String, Object)}.
-   *
    * <ul>
-   *   <li>When {@link JSONObject#NULL}.
-   *   <li>Then {@link HashMap#HashMap()} size is one.
+   *   <li>When {@link JSONObject#NULL}.</li>
+   *   <li>Then {@link HashMap#HashMap()} size is one.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link AbstractDatabaseEventLoggerEventHandler#putInMapIfNotNull(Map,
-   * String, Object)}
+   * <p>
+   * Method under test: {@link AbstractDatabaseEventLoggerEventHandler#putInMapIfNotNull(Map, String, Object)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void AbstractDatabaseEventLoggerEventHandler.putInMapIfNotNull(Map, String, Object)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void AbstractDatabaseEventLoggerEventHandler.putInMapIfNotNull(Map, String, Object)"})
   public void testPutInMapIfNotNull_whenNull_thenHashMapSizeIsOne() {
     // Arrange
-    ActivityCompensatedEventHandler activityCompensatedEventHandler =
-        new ActivityCompensatedEventHandler();
+    ActivityCompensatedEventHandler activityCompensatedEventHandler = new ActivityCompensatedEventHandler();
     HashMap<String, Object> map = new HashMap<>();
     Object object = JSONObject.NULL;
 

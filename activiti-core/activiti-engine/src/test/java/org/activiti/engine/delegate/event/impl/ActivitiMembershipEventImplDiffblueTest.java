@@ -17,11 +17,8 @@ package org.activiti.engine.delegate.event.impl;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertThrows;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
-import org.activiti.engine.ActivitiIllegalArgumentException;
 import org.activiti.engine.delegate.event.ActivitiEventType;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
@@ -29,43 +26,20 @@ import org.junit.experimental.categories.Category;
 public class ActivitiMembershipEventImplDiffblueTest {
   /**
    * Test {@link ActivitiMembershipEventImpl#ActivitiMembershipEventImpl(ActivitiEventType)}.
-   *
    * <ul>
-   *   <li>Then throw {@link ActivitiIllegalArgumentException}.
+   *   <li>When {@code ENTITY_CREATED}.</li>
+   *   <li>Then return ExecutionId is {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link
-   * ActivitiMembershipEventImpl#ActivitiMembershipEventImpl(ActivitiEventType)}
+   * <p>
+   * Method under test: {@link ActivitiMembershipEventImpl#ActivitiMembershipEventImpl(ActivitiEventType)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void ActivitiMembershipEventImpl.<init>(ActivitiEventType)"})
-  public void testNewActivitiMembershipEventImpl_thenThrowActivitiIllegalArgumentException() {
-    // Arrange, Act and Assert
-    assertThrows(
-        ActivitiIllegalArgumentException.class, () -> new ActivitiMembershipEventImpl(null));
-  }
-
-  /**
-   * Test {@link ActivitiMembershipEventImpl#ActivitiMembershipEventImpl(ActivitiEventType)}.
-   *
-   * <ul>
-   *   <li>When {@code ENTITY_CREATED}.
-   *   <li>Then return ExecutionId is {@code null}.
-   * </ul>
-   *
-   * <p>Method under test: {@link
-   * ActivitiMembershipEventImpl#ActivitiMembershipEventImpl(ActivitiEventType)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void ActivitiMembershipEventImpl.<init>(ActivitiEventType)"})
   public void testNewActivitiMembershipEventImpl_whenEntityCreated_thenReturnExecutionIdIsNull() {
     // Arrange and Act
-    ActivitiMembershipEventImpl actualActivitiMembershipEventImpl =
-        new ActivitiMembershipEventImpl(ActivitiEventType.ENTITY_CREATED);
+    ActivitiMembershipEventImpl actualActivitiMembershipEventImpl = new ActivitiMembershipEventImpl(
+        ActivitiEventType.ENTITY_CREATED);
 
     // Assert
     assertNull(actualActivitiMembershipEventImpl.getExecutionId());
@@ -79,9 +53,8 @@ public class ActivitiMembershipEventImplDiffblueTest {
 
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>{@link ActivitiMembershipEventImpl#setGroupId(String)}
    *   <li>{@link ActivitiMembershipEventImpl#setUserId(String)}
@@ -90,18 +63,14 @@ public class ActivitiMembershipEventImplDiffblueTest {
    * </ul>
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "String ActivitiMembershipEventImpl.getGroupId()",
-    "String ActivitiMembershipEventImpl.getUserId()",
-    "void ActivitiMembershipEventImpl.setGroupId(String)",
-    "void ActivitiMembershipEventImpl.setUserId(String)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String ActivitiMembershipEventImpl.getGroupId()",
+      "String ActivitiMembershipEventImpl.getUserId()", "void ActivitiMembershipEventImpl.setGroupId(String)",
+      "void ActivitiMembershipEventImpl.setUserId(String)"})
   public void testGettersAndSetters() {
     // Arrange
-    ActivitiMembershipEventImpl activitiMembershipEventImpl =
-        new ActivitiMembershipEventImpl(ActivitiEventType.ENTITY_CREATED);
+    ActivitiMembershipEventImpl activitiMembershipEventImpl = new ActivitiMembershipEventImpl(
+        ActivitiEventType.ENTITY_CREATED);
 
     // Act
     activitiMembershipEventImpl.setGroupId("42");

@@ -22,11 +22,11 @@ import static org.mockito.ArgumentMatchers.isA;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.engine.delegate.DelegateExecution;
 import org.activiti.engine.delegate.Expression;
+import org.activiti.engine.delegate.VariableScope;
 import org.activiti.engine.impl.el.FixedValue;
 import org.activiti.engine.impl.util.json.JSONObject;
 import org.junit.Test;
@@ -35,22 +35,17 @@ import org.mockito.Mockito;
 
 public class TransformationDataOutputAssociationDiffblueTest {
   /**
-   * Test {@link TransformationDataOutputAssociation#TransformationDataOutputAssociation(String,
-   * String, Expression)}.
-   *
-   * <p>Method under test: {@link
-   * TransformationDataOutputAssociation#TransformationDataOutputAssociation(String, String,
-   * Expression)}
+   * Test {@link TransformationDataOutputAssociation#TransformationDataOutputAssociation(String, String, Expression)}.
+   * <p>
+   * Method under test: {@link TransformationDataOutputAssociation#TransformationDataOutputAssociation(String, String, Expression)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void TransformationDataOutputAssociation.<init>(String, String, Expression)"})
   public void testNewTransformationDataOutputAssociation() {
     // Arrange and Act
-    TransformationDataOutputAssociation actualTransformationDataOutputAssociation =
-        new TransformationDataOutputAssociation(
-            "Source Ref", "Target Ref", new FixedValue(JSONObject.NULL));
+    TransformationDataOutputAssociation actualTransformationDataOutputAssociation = new TransformationDataOutputAssociation(
+        "Source Ref", "Target Ref", new FixedValue(JSONObject.NULL));
 
     // Assert
     assertEquals("Source Ref", actualTransformationDataOutputAssociation.getSource());
@@ -60,25 +55,20 @@ public class TransformationDataOutputAssociationDiffblueTest {
 
   /**
    * Test {@link TransformationDataOutputAssociation#evaluate(DelegateExecution)}.
-   *
    * <ul>
-   *   <li>When {@link DelegateExecution} {@link DelegateExecution#setVariable(String, Object)} does
-   *       nothing.
-   *   <li>Then calls {@link DelegateExecution#setVariable(String, Object)}.
+   *   <li>When {@link DelegateExecution} {@link VariableScope#setVariable(String, Object)} does nothing.</li>
+   *   <li>Then calls {@link VariableScope#setVariable(String, Object)}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link TransformationDataOutputAssociation#evaluate(DelegateExecution)}
+   * <p>
+   * Method under test: {@link TransformationDataOutputAssociation#evaluate(DelegateExecution)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void TransformationDataOutputAssociation.evaluate(DelegateExecution)"})
   public void testEvaluate_whenDelegateExecutionSetVariableDoesNothing_thenCallsSetVariable() {
     // Arrange
-    TransformationDataOutputAssociation transformationDataOutputAssociation =
-        new TransformationDataOutputAssociation(
-            "Source Ref", "Target Ref", new FixedValue(JSONObject.NULL));
-
+    TransformationDataOutputAssociation transformationDataOutputAssociation = new TransformationDataOutputAssociation(
+        "Source Ref", "Target Ref", new FixedValue(JSONObject.NULL));
     DelegateExecution execution = mock(DelegateExecution.class);
     doNothing().when(execution).setVariable(Mockito.<String>any(), Mockito.<Object>any());
 

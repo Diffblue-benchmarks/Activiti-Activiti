@@ -16,8 +16,7 @@
 package org.activiti.engine.impl;
 
 import static org.junit.Assert.assertEquals;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
@@ -25,23 +24,19 @@ import org.junit.experimental.categories.Category;
 public class EventSubscriptionQueryPropertyDiffblueTest {
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>{@link EventSubscriptionQueryProperty#EventSubscriptionQueryProperty(String)}
    *   <li>{@link EventSubscriptionQueryProperty#getName()}
    * </ul>
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void EventSubscriptionQueryProperty.<init>(String)",
-    "String EventSubscriptionQueryProperty.getName()"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void EventSubscriptionQueryProperty.<init>(String)",
+      "String EventSubscriptionQueryProperty.getName()"})
   public void testGettersAndSetters() {
     // Arrange, Act and Assert
-    assertEquals("Property Name", new EventSubscriptionQueryProperty("Property Name").getName());
+    assertEquals("Property Name", (new EventSubscriptionQueryProperty("Property Name")).getName());
   }
 }

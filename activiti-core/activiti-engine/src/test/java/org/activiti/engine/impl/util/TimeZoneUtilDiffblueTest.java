@@ -18,8 +18,7 @@ package org.activiti.engine.impl.util;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -31,30 +30,28 @@ import org.junit.experimental.categories.Category;
 public class TimeZoneUtilDiffblueTest {
   /**
    * Test {@link TimeZoneUtil#convertToTimeZone(Calendar, TimeZone)}.
-   *
    * <ul>
-   *   <li>Then return {@link GregorianCalendar}.
+   *   <li>Then return {@link GregorianCalendar}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link TimeZoneUtil#convertToTimeZone(Calendar, TimeZone)}
+   * <p>
+   * Method under test: {@link TimeZoneUtil#convertToTimeZone(Calendar, TimeZone)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"Calendar TimeZoneUtil.convertToTimeZone(Calendar, TimeZone)"})
   public void testConvertToTimeZone_thenReturnGregorianCalendar() {
     // Arrange
+    GregorianCalendar time = new GregorianCalendar(1, 1, 1);
+
     TimeZone timeZone = TimeZone.getTimeZone("America/Los_Angeles");
 
     // Act
-    Calendar actualConvertToTimeZoneResult =
-        TimeZoneUtil.convertToTimeZone(new GregorianCalendar(1, 1, 1), timeZone);
+    Calendar actualConvertToTimeZoneResult = TimeZoneUtil.convertToTimeZone(time, timeZone);
 
     // Assert
     assertTrue(actualConvertToTimeZoneResult instanceof GregorianCalendar);
-    String actualFormatResult =
-        new SimpleDateFormat("yyyy-MM-dd").format(actualConvertToTimeZoneResult.getTime());
-    assertEquals("0001-02-01", actualFormatResult);
+    SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+    assertEquals("0001-02-01", simpleDateFormat.format(actualConvertToTimeZoneResult.getTime()));
     assertEquals("gregory", actualConvertToTimeZoneResult.getCalendarType());
     assertEquals(1, actualConvertToTimeZoneResult.getFirstDayOfWeek());
     assertEquals(1, actualConvertToTimeZoneResult.getMinimalDaysInFirstWeek());

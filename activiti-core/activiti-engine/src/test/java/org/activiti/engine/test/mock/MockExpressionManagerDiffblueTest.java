@@ -19,8 +19,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import jakarta.el.CompositeELResolver;
 import jakarta.el.ELResolver;
@@ -32,34 +31,34 @@ import org.junit.experimental.categories.Category;
 public class MockExpressionManagerDiffblueTest {
   /**
    * Test {@link MockExpressionManager#createElResolver(VariableScope)}.
-   *
-   * <p>Method under test: {@link MockExpressionManager#createElResolver(VariableScope)}
+   * <p>
+   * Method under test: {@link MockExpressionManager#createElResolver(VariableScope)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"ELResolver MockExpressionManager.createElResolver(VariableScope)"})
   public void testCreateElResolver() {
-    // Arrange and Act
-    ELResolver actualCreateElResolverResult =
-        new MockExpressionManager().createElResolver(NoExecutionVariableScope.getSharedInstance());
+    // Arrange
+    MockExpressionManager mockExpressionManager = new MockExpressionManager();
+
+    // Act
+    ELResolver actualCreateElResolverResult = mockExpressionManager
+        .createElResolver(NoExecutionVariableScope.getSharedInstance());
 
     // Assert
     assertTrue(actualCreateElResolverResult instanceof CompositeELResolver);
     assertFalse(actualCreateElResolverResult.getFeatureDescriptors(null, null).hasNext());
     Class<Object> expectedCommonPropertyType = Object.class;
-    assertEquals(
-        expectedCommonPropertyType, actualCreateElResolverResult.getCommonPropertyType(null, null));
+    assertEquals(expectedCommonPropertyType, actualCreateElResolverResult.getCommonPropertyType(null, null));
   }
 
   /**
    * Test new {@link MockExpressionManager} (default constructor).
-   *
-   * <p>Method under test: default or parameterless constructor of {@link MockExpressionManager}
+   * <p>
+   * Method under test: default or parameterless constructor of {@link MockExpressionManager}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void MockExpressionManager.<init>()"})
   public void testNewMockExpressionManager() {
     // Arrange and Act

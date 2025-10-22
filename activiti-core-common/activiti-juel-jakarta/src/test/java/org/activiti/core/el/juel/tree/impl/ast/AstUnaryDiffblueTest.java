@@ -23,7 +23,6 @@ import static org.mockito.ArgumentMatchers.isA;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import jakarta.el.ELContext;
 import jakarta.el.ELException;
@@ -42,9 +41,8 @@ import org.mockito.Mockito;
 class AstUnaryDiffblueTest {
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>{@link AstUnary#AstUnary(AstNode, Operator)}
    *   <li>{@link AstUnary#toString()}
@@ -54,14 +52,9 @@ class AstUnaryDiffblueTest {
    */
   @Test
   @DisplayName("Test getters and setters")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void AstUnary.<init>(AstNode, Operator)",
-    "int AstUnary.getCardinality()",
-    "Operator AstUnary.getOperator()",
-    "java.lang.String AstUnary.toString()"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void AstUnary.<init>(AstNode, Operator)", "int AstUnary.getCardinality()",
+      "Operator AstUnary.getOperator()", "java.lang.String AstUnary.toString()"})
   void testGettersAndSetters() {
     // Arrange
     Operator operator = mock(Operator.class);
@@ -78,36 +71,26 @@ class AstUnaryDiffblueTest {
 
   /**
    * Test {@link AstUnary#eval(Bindings, ELContext)}.
-   *
    * <ul>
-   *   <li>Given {@link Operator} {@link Operator#eval(Bindings, ELContext, AstNode)} return {@code
-   *       Eval}.
-   *   <li>Then return {@code Eval}.
+   *   <li>Given {@link Operator} {@link Operator#eval(Bindings, ELContext, AstNode)} return {@code Eval}.</li>
+   *   <li>Then return {@code Eval}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link AstUnary#eval(Bindings, ELContext)}
+   * <p>
+   * Method under test: {@link AstUnary#eval(Bindings, ELContext)}
    */
   @Test
-  @DisplayName(
-      "Test eval(Bindings, ELContext); given Operator eval(Bindings, ELContext, AstNode) return 'Eval'; then return 'Eval'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test eval(Bindings, ELContext); given Operator eval(Bindings, ELContext, AstNode) return 'Eval'; then return 'Eval'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"Object AstUnary.eval(Bindings, ELContext)"})
   void testEval_givenOperatorEvalReturnEval_thenReturnEval() throws ELException {
     // Arrange
     Operator operator = mock(Operator.class);
-    when(operator.eval(Mockito.<Bindings>any(), Mockito.<ELContext>any(), Mockito.<AstNode>any()))
-        .thenReturn("Eval");
+    when(operator.eval(Mockito.<Bindings>any(), Mockito.<ELContext>any(), Mockito.<AstNode>any())).thenReturn("Eval");
     AstUnary astUnary = new AstUnary(new AstNull(), operator);
-    Method[] functions = new Method[] {null};
     TypeConverter converter = mock(TypeConverter.class);
     Class<Object> type = Object.class;
-
-    ObjectValueExpression objectValueExpression =
-        new ObjectValueExpression(converter, "Object", type);
-    ValueExpression[] variables = new ValueExpression[] {objectValueExpression};
-
-    Bindings bindings = new Bindings(functions, variables);
+    Bindings bindings = new Bindings(new Method[]{null},
+        new ValueExpression[]{new ObjectValueExpression(converter, "Object", type)});
 
     // Act
     Object actualEvalResult = astUnary.eval(bindings, new SimpleContext());
@@ -119,17 +102,15 @@ class AstUnaryDiffblueTest {
 
   /**
    * Test {@link AstUnary#eval(Bindings, ELContext)}.
-   *
    * <ul>
-   *   <li>Then throw {@link ELException}.
+   *   <li>Then throw {@link ELException}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link AstUnary#eval(Bindings, ELContext)}
+   * <p>
+   * Method under test: {@link AstUnary#eval(Bindings, ELContext)}
    */
   @Test
   @DisplayName("Test eval(Bindings, ELContext); then throw ELException")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"Object AstUnary.eval(Bindings, ELContext)"})
   void testEval_thenThrowELException() throws ELException {
     // Arrange
@@ -137,15 +118,10 @@ class AstUnaryDiffblueTest {
     when(operator.eval(Mockito.<Bindings>any(), Mockito.<ELContext>any(), Mockito.<AstNode>any()))
         .thenThrow(new ELException("An error occurred"));
     AstUnary astUnary = new AstUnary(new AstNull(), operator);
-    Method[] functions = new Method[] {null};
     TypeConverter converter = mock(TypeConverter.class);
     Class<Object> type = Object.class;
-
-    ObjectValueExpression objectValueExpression =
-        new ObjectValueExpression(converter, "Object", type);
-    ValueExpression[] variables = new ValueExpression[] {objectValueExpression};
-
-    Bindings bindings = new Bindings(functions, variables);
+    Bindings bindings = new Bindings(new Method[]{null},
+        new ValueExpression[]{new ObjectValueExpression(converter, "Object", type)});
 
     // Act and Assert
     assertThrows(ELException.class, () -> astUnary.eval(bindings, new SimpleContext()));
@@ -154,48 +130,40 @@ class AstUnaryDiffblueTest {
 
   /**
    * Test {@link AstUnary#getChild(int)}.
-   *
    * <ul>
-   *   <li>When one.
-   *   <li>Then return {@code null}.
+   *   <li>When one.</li>
+   *   <li>Then return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link AstUnary#getChild(int)}
+   * <p>
+   * Method under test: {@link AstUnary#getChild(int)}
    */
   @Test
   @DisplayName("Test getChild(int); when one; then return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"AstNode AstUnary.getChild(int)"})
   void testGetChild_whenOne_thenReturnNull() {
-    // Arrange
-    AstUnary astUnary = new AstUnary(new AstNull(), mock(Operator.class));
-
-    // Act and Assert
-    assertNull(astUnary.getChild(1));
+    // Arrange, Act and Assert
+    assertNull((new AstUnary(new AstNull(), mock(Operator.class))).getChild(1));
   }
 
   /**
    * Test {@link AstUnary#getChild(int)}.
-   *
    * <ul>
-   *   <li>When zero.
-   *   <li>Then return {@link AstNull} (default constructor).
+   *   <li>When zero.</li>
+   *   <li>Then return {@link AstNull} (default constructor).</li>
    * </ul>
-   *
-   * <p>Method under test: {@link AstUnary#getChild(int)}
+   * <p>
+   * Method under test: {@link AstUnary#getChild(int)}
    */
   @Test
   @DisplayName("Test getChild(int); when zero; then return AstNull (default constructor)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"AstNode AstUnary.getChild(int)"})
   void testGetChild_whenZero_thenReturnAstNull() {
     // Arrange
     AstNull child = new AstNull();
-    AstUnary astUnary = new AstUnary(child, mock(Operator.class));
 
     // Act and Assert
-    assertSame(child, astUnary.getChild(0));
+    assertSame(child, (new AstUnary(child, mock(Operator.class))).getChild(0));
   }
 }

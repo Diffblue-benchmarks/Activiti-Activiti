@@ -18,7 +18,6 @@ package org.activiti.bpmn.converter.child;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.List;
 import org.activiti.bpmn.model.ActivitiListener;
@@ -32,23 +31,17 @@ import org.junit.jupiter.api.Test;
 class ExecutionListenerParserDiffblueTest {
   /**
    * Test {@link ExecutionListenerParser#addListenerToParent(ActivitiListener, BaseElement)}.
-   *
    * <ul>
-   *   <li>Given empty string.
-   *   <li>When {@link ActivitiListener} (default constructor) Event is empty string.
+   *   <li>Given empty string.</li>
+   *   <li>When {@link ActivitiListener} (default constructor) Event is empty string.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ExecutionListenerParser#addListenerToParent(ActivitiListener,
-   * BaseElement)}
+   * <p>
+   * Method under test: {@link ExecutionListenerParser#addListenerToParent(ActivitiListener, BaseElement)}
    */
   @Test
-  @DisplayName(
-      "Test addListenerToParent(ActivitiListener, BaseElement); given empty string; when ActivitiListener (default constructor) Event is empty string")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void ExecutionListenerParser.addListenerToParent(ActivitiListener, BaseElement)"
-  })
+  @DisplayName("Test addListenerToParent(ActivitiListener, BaseElement); given empty string; when ActivitiListener (default constructor) Event is empty string")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void ExecutionListenerParser.addListenerToParent(ActivitiListener, BaseElement)"})
   void testAddListenerToParent_givenEmptyString_whenActivitiListenerEventIsEmptyString() {
     // Arrange
     ExecutionListenerParser executionListenerParser = new ExecutionListenerParser();
@@ -69,23 +62,17 @@ class ExecutionListenerParserDiffblueTest {
 
   /**
    * Test {@link ExecutionListenerParser#addListenerToParent(ActivitiListener, BaseElement)}.
-   *
    * <ul>
-   *   <li>Given {@code Listener}.
-   *   <li>Then {@link ActivitiListener} (default constructor) Event is {@code Listener}.
+   *   <li>Given {@code Listener}.</li>
+   *   <li>Then {@link ActivitiListener} (default constructor) Event is {@code Listener}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ExecutionListenerParser#addListenerToParent(ActivitiListener,
-   * BaseElement)}
+   * <p>
+   * Method under test: {@link ExecutionListenerParser#addListenerToParent(ActivitiListener, BaseElement)}
    */
   @Test
-  @DisplayName(
-      "Test addListenerToParent(ActivitiListener, BaseElement); given 'Listener'; then ActivitiListener (default constructor) Event is 'Listener'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void ExecutionListenerParser.addListenerToParent(ActivitiListener, BaseElement)"
-  })
+  @DisplayName("Test addListenerToParent(ActivitiListener, BaseElement); given 'Listener'; then ActivitiListener (default constructor) Event is 'Listener'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void ExecutionListenerParser.addListenerToParent(ActivitiListener, BaseElement)"})
   void testAddListenerToParent_givenListener_thenActivitiListenerEventIsListener() {
     // Arrange
     ExecutionListenerParser executionListenerParser = new ExecutionListenerParser();
@@ -106,23 +93,17 @@ class ExecutionListenerParserDiffblueTest {
 
   /**
    * Test {@link ExecutionListenerParser#addListenerToParent(ActivitiListener, BaseElement)}.
-   *
    * <ul>
-   *   <li>Given {@code null}.
-   *   <li>When {@link ActivitiListener} (default constructor) Event is {@code null}.
+   *   <li>Given {@code null}.</li>
+   *   <li>When {@link ActivitiListener} (default constructor) Event is {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ExecutionListenerParser#addListenerToParent(ActivitiListener,
-   * BaseElement)}
+   * <p>
+   * Method under test: {@link ExecutionListenerParser#addListenerToParent(ActivitiListener, BaseElement)}
    */
   @Test
-  @DisplayName(
-      "Test addListenerToParent(ActivitiListener, BaseElement); given 'null'; when ActivitiListener (default constructor) Event is 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void ExecutionListenerParser.addListenerToParent(ActivitiListener, BaseElement)"
-  })
+  @DisplayName("Test addListenerToParent(ActivitiListener, BaseElement); given 'null'; when ActivitiListener (default constructor) Event is 'null'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void ExecutionListenerParser.addListenerToParent(ActivitiListener, BaseElement)"})
   void testAddListenerToParent_givenNull_whenActivitiListenerEventIsNull() {
     // Arrange
     ExecutionListenerParser executionListenerParser = new ExecutionListenerParser();
@@ -143,22 +124,16 @@ class ExecutionListenerParserDiffblueTest {
 
   /**
    * Test {@link ExecutionListenerParser#addListenerToParent(ActivitiListener, BaseElement)}.
-   *
    * <ul>
-   *   <li>Then {@link AdhocSubProcess} (default constructor) ExecutionListeners size is one.
+   *   <li>Then {@link AdhocSubProcess} (default constructor) ExecutionListeners size is one.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ExecutionListenerParser#addListenerToParent(ActivitiListener,
-   * BaseElement)}
+   * <p>
+   * Method under test: {@link ExecutionListenerParser#addListenerToParent(ActivitiListener, BaseElement)}
    */
   @Test
-  @DisplayName(
-      "Test addListenerToParent(ActivitiListener, BaseElement); then AdhocSubProcess (default constructor) ExecutionListeners size is one")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void ExecutionListenerParser.addListenerToParent(ActivitiListener, BaseElement)"
-  })
+  @DisplayName("Test addListenerToParent(ActivitiListener, BaseElement); then AdhocSubProcess (default constructor) ExecutionListeners size is one")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void ExecutionListenerParser.addListenerToParent(ActivitiListener, BaseElement)"})
   void testAddListenerToParent_thenAdhocSubProcessExecutionListenersSizeIsOne() {
     // Arrange
     ExecutionListenerParser executionListenerParser = new ExecutionListenerParser();
@@ -177,23 +152,17 @@ class ExecutionListenerParserDiffblueTest {
 
   /**
    * Test {@link ExecutionListenerParser#addListenerToParent(ActivitiListener, BaseElement)}.
-   *
    * <ul>
-   *   <li>When {@link ActivitiListener} (default constructor).
-   *   <li>Then {@link ActivitiListener} (default constructor) Event is {@code null}.
+   *   <li>When {@link ActivitiListener} (default constructor).</li>
+   *   <li>Then {@link ActivitiListener} (default constructor) Event is {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link ExecutionListenerParser#addListenerToParent(ActivitiListener,
-   * BaseElement)}
+   * <p>
+   * Method under test: {@link ExecutionListenerParser#addListenerToParent(ActivitiListener, BaseElement)}
    */
   @Test
-  @DisplayName(
-      "Test addListenerToParent(ActivitiListener, BaseElement); when ActivitiListener (default constructor); then ActivitiListener (default constructor) Event is 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void ExecutionListenerParser.addListenerToParent(ActivitiListener, BaseElement)"
-  })
+  @DisplayName("Test addListenerToParent(ActivitiListener, BaseElement); when ActivitiListener (default constructor); then ActivitiListener (default constructor) Event is 'null'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void ExecutionListenerParser.addListenerToParent(ActivitiListener, BaseElement)"})
   void testAddListenerToParent_whenActivitiListener_thenActivitiListenerEventIsNull() {
     // Arrange
     ExecutionListenerParser executionListenerParser = new ExecutionListenerParser();
@@ -208,9 +177,8 @@ class ExecutionListenerParserDiffblueTest {
 
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>default or parameterless constructor of {@link ExecutionListenerParser}
    *   <li>{@link ExecutionListenerParser#getElementName()}
@@ -218,14 +186,11 @@ class ExecutionListenerParserDiffblueTest {
    */
   @Test
   @DisplayName("Test getters and setters")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void ExecutionListenerParser.<init>()",
-    "java.lang.String ExecutionListenerParser.getElementName()"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void ExecutionListenerParser.<init>()",
+      "java.lang.String ExecutionListenerParser.getElementName()"})
   void testGettersAndSetters() {
     // Arrange, Act and Assert
-    assertEquals("executionListener", new ExecutionListenerParser().getElementName());
+    assertEquals("executionListener", (new ExecutionListenerParser()).getElementName());
   }
 }

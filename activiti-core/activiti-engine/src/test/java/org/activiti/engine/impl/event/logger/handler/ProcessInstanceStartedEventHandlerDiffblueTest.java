@@ -16,8 +16,7 @@
 package org.activiti.engine.impl.event.logger.handler;
 
 import static org.junit.Assert.assertNull;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
@@ -25,18 +24,15 @@ import org.junit.experimental.categories.Category;
 public class ProcessInstanceStartedEventHandlerDiffblueTest {
   /**
    * Test new {@link ProcessInstanceStartedEventHandler} (default constructor).
-   *
-   * <p>Method under test: default or parameterless constructor of {@link
-   * ProcessInstanceStartedEventHandler}
+   * <p>
+   * Method under test: default or parameterless constructor of {@link ProcessInstanceStartedEventHandler}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void ProcessInstanceStartedEventHandler.<init>()"})
   public void testNewProcessInstanceStartedEventHandler() {
     // Arrange and Act
-    ProcessInstanceStartedEventHandler actualProcessInstanceStartedEventHandler =
-        new ProcessInstanceStartedEventHandler();
+    ProcessInstanceStartedEventHandler actualProcessInstanceStartedEventHandler = new ProcessInstanceStartedEventHandler();
 
     // Assert
     assertNull(actualProcessInstanceStartedEventHandler.objectMapper);

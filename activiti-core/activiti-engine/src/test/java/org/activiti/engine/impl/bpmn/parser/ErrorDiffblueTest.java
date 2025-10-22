@@ -16,8 +16,7 @@
 package org.activiti.engine.impl.bpmn.parser;
 
 import static org.junit.Assert.assertEquals;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
@@ -25,9 +24,8 @@ import org.junit.experimental.categories.Category;
 public class ErrorDiffblueTest {
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
    *   <li>default or parameterless constructor of {@link Error}
    *   <li>{@link Error#setErrorCode(String)}
@@ -37,15 +35,9 @@ public class ErrorDiffblueTest {
    * </ul>
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void Error.<init>()",
-    "String Error.getErrorCode()",
-    "String Error.getId()",
-    "void Error.setErrorCode(String)",
-    "void Error.setId(String)"
-  })
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void Error.<init>()", "String Error.getErrorCode()", "String Error.getId()",
+      "void Error.setErrorCode(String)", "void Error.setId(String)"})
   public void testGettersAndSetters() {
     // Arrange and Act
     Error actualError = new Error();

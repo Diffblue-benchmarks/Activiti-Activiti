@@ -21,8 +21,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.io.UnsupportedEncodingException;
 import java.time.LocalDate;
@@ -31,28 +30,23 @@ import java.util.Date;
 import java.util.Map;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
-import org.springframework.test.annotation.DirtiesContext;
-import org.springframework.test.annotation.DirtiesContext.ClassMode;
 
-@DirtiesContext(classMode = ClassMode.AFTER_EACH_TEST_METHOD)
 public class AbstractJobEntityImplDiffblueTest {
   /**
    * Test {@link AbstractJobEntityImpl#getPersistentState()}.
-   *
    * <ul>
-   *   <li>Given {@link DeadLetterJobEntityImpl} (default constructor).
-   *   <li>Then return size is three.
+   *   <li>Given {@link DeadLetterJobEntityImpl} (default constructor).</li>
+   *   <li>Then return size is three.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link AbstractJobEntityImpl#getPersistentState()}
+   * <p>
+   * Method under test: {@link AbstractJobEntityImpl#getPersistentState()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"Object AbstractJobEntityImpl.getPersistentState()"})
   public void testGetPersistentState_givenDeadLetterJobEntityImpl_thenReturnSizeIsThree() {
     // Arrange and Act
-    Object actualPersistentState = new DeadLetterJobEntityImpl().getPersistentState();
+    Object actualPersistentState = (new DeadLetterJobEntityImpl()).getPersistentState();
 
     // Assert
     assertTrue(actualPersistentState instanceof Map);
@@ -64,16 +58,14 @@ public class AbstractJobEntityImplDiffblueTest {
 
   /**
    * Test {@link AbstractJobEntityImpl#getPersistentState()}.
-   *
    * <ul>
-   *   <li>Then return size is four.
+   *   <li>Then return size is four.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link AbstractJobEntityImpl#getPersistentState()}
+   * <p>
+   * Method under test: {@link AbstractJobEntityImpl#getPersistentState()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"Object AbstractJobEntityImpl.getPersistentState()"})
   public void testGetPersistentState_thenReturnSizeIsFour() {
     // Arrange
@@ -94,32 +86,29 @@ public class AbstractJobEntityImplDiffblueTest {
 
   /**
    * Test {@link AbstractJobEntityImpl#getDuedate()}.
-   *
-   * <p>Method under test: {@link AbstractJobEntityImpl#getDuedate()}
+   * <p>
+   * Method under test: {@link AbstractJobEntityImpl#getDuedate()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"Date AbstractJobEntityImpl.getDuedate()"})
   public void testGetDuedate() {
     // Arrange, Act and Assert
-    assertNull(new DeadLetterJobEntityImpl().getDuedate());
+    assertNull((new DeadLetterJobEntityImpl()).getDuedate());
   }
 
   /**
    * Test {@link AbstractJobEntityImpl#setDuedate(Date)}.
-   *
-   * <p>Method under test: {@link AbstractJobEntityImpl#setDuedate(Date)}
+   * <p>
+   * Method under test: {@link AbstractJobEntityImpl#setDuedate(Date)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void AbstractJobEntityImpl.setDuedate(Date)"})
   public void testSetDuedate() {
     // Arrange
     DeadLetterJobEntityImpl deadLetterJobEntityImpl = new DeadLetterJobEntityImpl();
-    Date duedate =
-        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant());
+    Date duedate = Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant());
 
     // Act
     deadLetterJobEntityImpl.setDuedate(duedate);
@@ -136,26 +125,24 @@ public class AbstractJobEntityImplDiffblueTest {
 
   /**
    * Test {@link AbstractJobEntityImpl#getExecutionId()}.
-   *
-   * <p>Method under test: {@link AbstractJobEntityImpl#getExecutionId()}
+   * <p>
+   * Method under test: {@link AbstractJobEntityImpl#getExecutionId()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"String AbstractJobEntityImpl.getExecutionId()"})
   public void testGetExecutionId() {
     // Arrange, Act and Assert
-    assertNull(new DeadLetterJobEntityImpl().getExecutionId());
+    assertNull((new DeadLetterJobEntityImpl()).getExecutionId());
   }
 
   /**
    * Test {@link AbstractJobEntityImpl#setExecutionId(String)}.
-   *
-   * <p>Method under test: {@link AbstractJobEntityImpl#setExecutionId(String)}
+   * <p>
+   * Method under test: {@link AbstractJobEntityImpl#setExecutionId(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void AbstractJobEntityImpl.setExecutionId(String)"})
   public void testSetExecutionId() {
     // Arrange
@@ -170,26 +157,24 @@ public class AbstractJobEntityImplDiffblueTest {
 
   /**
    * Test {@link AbstractJobEntityImpl#getRetries()}.
-   *
-   * <p>Method under test: {@link AbstractJobEntityImpl#getRetries()}
+   * <p>
+   * Method under test: {@link AbstractJobEntityImpl#getRetries()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"int AbstractJobEntityImpl.getRetries()"})
   public void testGetRetries() {
     // Arrange, Act and Assert
-    assertEquals(0, new DeadLetterJobEntityImpl().getRetries());
+    assertEquals(0, (new DeadLetterJobEntityImpl()).getRetries());
   }
 
   /**
    * Test {@link AbstractJobEntityImpl#setRetries(int)}.
-   *
-   * <p>Method under test: {@link AbstractJobEntityImpl#setRetries(int)}
+   * <p>
+   * Method under test: {@link AbstractJobEntityImpl#setRetries(int)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void AbstractJobEntityImpl.setRetries(int)"})
   public void testSetRetries() {
     // Arrange
@@ -210,26 +195,24 @@ public class AbstractJobEntityImplDiffblueTest {
 
   /**
    * Test {@link AbstractJobEntityImpl#getProcessInstanceId()}.
-   *
-   * <p>Method under test: {@link AbstractJobEntityImpl#getProcessInstanceId()}
+   * <p>
+   * Method under test: {@link AbstractJobEntityImpl#getProcessInstanceId()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"String AbstractJobEntityImpl.getProcessInstanceId()"})
   public void testGetProcessInstanceId() {
     // Arrange, Act and Assert
-    assertNull(new DeadLetterJobEntityImpl().getProcessInstanceId());
+    assertNull((new DeadLetterJobEntityImpl()).getProcessInstanceId());
   }
 
   /**
    * Test {@link AbstractJobEntityImpl#setProcessInstanceId(String)}.
-   *
-   * <p>Method under test: {@link AbstractJobEntityImpl#setProcessInstanceId(String)}
+   * <p>
+   * Method under test: {@link AbstractJobEntityImpl#setProcessInstanceId(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void AbstractJobEntityImpl.setProcessInstanceId(String)"})
   public void testSetProcessInstanceId() {
     // Arrange
@@ -244,17 +227,15 @@ public class AbstractJobEntityImplDiffblueTest {
 
   /**
    * Test {@link AbstractJobEntityImpl#isExclusive()}.
-   *
    * <ul>
-   *   <li>Given {@link DeadLetterJobEntityImpl} (default constructor) Exclusive is {@code false}.
-   *   <li>Then return {@code false}.
+   *   <li>Given {@link DeadLetterJobEntityImpl} (default constructor) Exclusive is {@code false}.</li>
+   *   <li>Then return {@code false}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link AbstractJobEntityImpl#isExclusive()}
+   * <p>
+   * Method under test: {@link AbstractJobEntityImpl#isExclusive()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"boolean AbstractJobEntityImpl.isExclusive()"})
   public void testIsExclusive_givenDeadLetterJobEntityImplExclusiveIsFalse_thenReturnFalse() {
     // Arrange
@@ -267,45 +248,41 @@ public class AbstractJobEntityImplDiffblueTest {
 
   /**
    * Test {@link AbstractJobEntityImpl#isExclusive()}.
-   *
    * <ul>
-   *   <li>Given {@link DeadLetterJobEntityImpl} (default constructor).
-   *   <li>Then return {@code true}.
+   *   <li>Given {@link DeadLetterJobEntityImpl} (default constructor).</li>
+   *   <li>Then return {@code true}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link AbstractJobEntityImpl#isExclusive()}
+   * <p>
+   * Method under test: {@link AbstractJobEntityImpl#isExclusive()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"boolean AbstractJobEntityImpl.isExclusive()"})
   public void testIsExclusive_givenDeadLetterJobEntityImpl_thenReturnTrue() {
     // Arrange, Act and Assert
-    assertTrue(new DeadLetterJobEntityImpl().isExclusive());
+    assertTrue((new DeadLetterJobEntityImpl()).isExclusive());
   }
 
   /**
    * Test {@link AbstractJobEntityImpl#getProcessDefinitionId()}.
-   *
-   * <p>Method under test: {@link AbstractJobEntityImpl#getProcessDefinitionId()}
+   * <p>
+   * Method under test: {@link AbstractJobEntityImpl#getProcessDefinitionId()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"String AbstractJobEntityImpl.getProcessDefinitionId()"})
   public void testGetProcessDefinitionId() {
     // Arrange, Act and Assert
-    assertNull(new DeadLetterJobEntityImpl().getProcessDefinitionId());
+    assertNull((new DeadLetterJobEntityImpl()).getProcessDefinitionId());
   }
 
   /**
    * Test {@link AbstractJobEntityImpl#setProcessDefinitionId(String)}.
-   *
-   * <p>Method under test: {@link AbstractJobEntityImpl#setProcessDefinitionId(String)}
+   * <p>
+   * Method under test: {@link AbstractJobEntityImpl#setProcessDefinitionId(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void AbstractJobEntityImpl.setProcessDefinitionId(String)"})
   public void testSetProcessDefinitionId() {
     // Arrange
@@ -320,26 +297,24 @@ public class AbstractJobEntityImplDiffblueTest {
 
   /**
    * Test {@link AbstractJobEntityImpl#getRepeat()}.
-   *
-   * <p>Method under test: {@link AbstractJobEntityImpl#getRepeat()}
+   * <p>
+   * Method under test: {@link AbstractJobEntityImpl#getRepeat()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"String AbstractJobEntityImpl.getRepeat()"})
   public void testGetRepeat() {
     // Arrange, Act and Assert
-    assertNull(new DeadLetterJobEntityImpl().getRepeat());
+    assertNull((new DeadLetterJobEntityImpl()).getRepeat());
   }
 
   /**
    * Test {@link AbstractJobEntityImpl#setRepeat(String)}.
-   *
-   * <p>Method under test: {@link AbstractJobEntityImpl#setRepeat(String)}
+   * <p>
+   * Method under test: {@link AbstractJobEntityImpl#setRepeat(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void AbstractJobEntityImpl.setRepeat(String)"})
   public void testSetRepeat() {
     // Arrange
@@ -354,32 +329,29 @@ public class AbstractJobEntityImplDiffblueTest {
 
   /**
    * Test {@link AbstractJobEntityImpl#getEndDate()}.
-   *
-   * <p>Method under test: {@link AbstractJobEntityImpl#getEndDate()}
+   * <p>
+   * Method under test: {@link AbstractJobEntityImpl#getEndDate()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"Date AbstractJobEntityImpl.getEndDate()"})
   public void testGetEndDate() {
     // Arrange, Act and Assert
-    assertNull(new DeadLetterJobEntityImpl().getEndDate());
+    assertNull((new DeadLetterJobEntityImpl()).getEndDate());
   }
 
   /**
    * Test {@link AbstractJobEntityImpl#setEndDate(Date)}.
-   *
-   * <p>Method under test: {@link AbstractJobEntityImpl#setEndDate(Date)}
+   * <p>
+   * Method under test: {@link AbstractJobEntityImpl#setEndDate(Date)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void AbstractJobEntityImpl.setEndDate(Date)"})
   public void testSetEndDate() {
     // Arrange
     DeadLetterJobEntityImpl deadLetterJobEntityImpl = new DeadLetterJobEntityImpl();
-    Date endDate =
-        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant());
+    Date endDate = Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant());
 
     // Act
     deadLetterJobEntityImpl.setEndDate(endDate);
@@ -390,26 +362,24 @@ public class AbstractJobEntityImplDiffblueTest {
 
   /**
    * Test {@link AbstractJobEntityImpl#getMaxIterations()}.
-   *
-   * <p>Method under test: {@link AbstractJobEntityImpl#getMaxIterations()}
+   * <p>
+   * Method under test: {@link AbstractJobEntityImpl#getMaxIterations()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"int AbstractJobEntityImpl.getMaxIterations()"})
   public void testGetMaxIterations() {
     // Arrange, Act and Assert
-    assertEquals(0, new DeadLetterJobEntityImpl().getMaxIterations());
+    assertEquals(0, (new DeadLetterJobEntityImpl()).getMaxIterations());
   }
 
   /**
    * Test {@link AbstractJobEntityImpl#setMaxIterations(int)}.
-   *
-   * <p>Method under test: {@link AbstractJobEntityImpl#setMaxIterations(int)}
+   * <p>
+   * Method under test: {@link AbstractJobEntityImpl#setMaxIterations(int)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void AbstractJobEntityImpl.setMaxIterations(int)"})
   public void testSetMaxIterations() {
     // Arrange
@@ -424,26 +394,24 @@ public class AbstractJobEntityImplDiffblueTest {
 
   /**
    * Test {@link AbstractJobEntityImpl#getJobHandlerType()}.
-   *
-   * <p>Method under test: {@link AbstractJobEntityImpl#getJobHandlerType()}
+   * <p>
+   * Method under test: {@link AbstractJobEntityImpl#getJobHandlerType()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"String AbstractJobEntityImpl.getJobHandlerType()"})
   public void testGetJobHandlerType() {
     // Arrange, Act and Assert
-    assertNull(new DeadLetterJobEntityImpl().getJobHandlerType());
+    assertNull((new DeadLetterJobEntityImpl()).getJobHandlerType());
   }
 
   /**
    * Test {@link AbstractJobEntityImpl#setJobHandlerType(String)}.
-   *
-   * <p>Method under test: {@link AbstractJobEntityImpl#setJobHandlerType(String)}
+   * <p>
+   * Method under test: {@link AbstractJobEntityImpl#setJobHandlerType(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void AbstractJobEntityImpl.setJobHandlerType(String)"})
   public void testSetJobHandlerType() {
     // Arrange
@@ -458,26 +426,24 @@ public class AbstractJobEntityImplDiffblueTest {
 
   /**
    * Test {@link AbstractJobEntityImpl#getJobHandlerConfiguration()}.
-   *
-   * <p>Method under test: {@link AbstractJobEntityImpl#getJobHandlerConfiguration()}
+   * <p>
+   * Method under test: {@link AbstractJobEntityImpl#getJobHandlerConfiguration()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"String AbstractJobEntityImpl.getJobHandlerConfiguration()"})
   public void testGetJobHandlerConfiguration() {
     // Arrange, Act and Assert
-    assertNull(new DeadLetterJobEntityImpl().getJobHandlerConfiguration());
+    assertNull((new DeadLetterJobEntityImpl()).getJobHandlerConfiguration());
   }
 
   /**
    * Test {@link AbstractJobEntityImpl#setJobHandlerConfiguration(String)}.
-   *
-   * <p>Method under test: {@link AbstractJobEntityImpl#setJobHandlerConfiguration(String)}
+   * <p>
+   * Method under test: {@link AbstractJobEntityImpl#setJobHandlerConfiguration(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void AbstractJobEntityImpl.setJobHandlerConfiguration(String)"})
   public void testSetJobHandlerConfiguration() {
     // Arrange
@@ -492,26 +458,24 @@ public class AbstractJobEntityImplDiffblueTest {
 
   /**
    * Test {@link AbstractJobEntityImpl#getJobType()}.
-   *
-   * <p>Method under test: {@link AbstractJobEntityImpl#getJobType()}
+   * <p>
+   * Method under test: {@link AbstractJobEntityImpl#getJobType()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"String AbstractJobEntityImpl.getJobType()"})
   public void testGetJobType() {
     // Arrange, Act and Assert
-    assertNull(new DeadLetterJobEntityImpl().getJobType());
+    assertNull((new DeadLetterJobEntityImpl()).getJobType());
   }
 
   /**
    * Test {@link AbstractJobEntityImpl#setJobType(String)}.
-   *
-   * <p>Method under test: {@link AbstractJobEntityImpl#setJobType(String)}
+   * <p>
+   * Method under test: {@link AbstractJobEntityImpl#setJobType(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void AbstractJobEntityImpl.setJobType(String)"})
   public void testSetJobType() {
     // Arrange
@@ -526,26 +490,24 @@ public class AbstractJobEntityImplDiffblueTest {
 
   /**
    * Test {@link AbstractJobEntityImpl#getTenantId()}.
-   *
-   * <p>Method under test: {@link AbstractJobEntityImpl#getTenantId()}
+   * <p>
+   * Method under test: {@link AbstractJobEntityImpl#getTenantId()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"String AbstractJobEntityImpl.getTenantId()"})
   public void testGetTenantId() {
     // Arrange, Act and Assert
-    assertEquals("", new DeadLetterJobEntityImpl().getTenantId());
+    assertEquals("", (new DeadLetterJobEntityImpl()).getTenantId());
   }
 
   /**
    * Test {@link AbstractJobEntityImpl#setTenantId(String)}.
-   *
-   * <p>Method under test: {@link AbstractJobEntityImpl#setTenantId(String)}
+   * <p>
+   * Method under test: {@link AbstractJobEntityImpl#setTenantId(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void AbstractJobEntityImpl.setTenantId(String)"})
   public void testSetTenantId() {
     // Arrange
@@ -560,35 +522,30 @@ public class AbstractJobEntityImplDiffblueTest {
 
   /**
    * Test {@link AbstractJobEntityImpl#getExceptionStacktrace()}.
-   *
    * <ul>
-   *   <li>Given {@link DeadLetterJobEntityImpl} (default constructor).
+   *   <li>Given {@link DeadLetterJobEntityImpl} (default constructor).</li>
    * </ul>
-   *
-   * <p>Method under test: {@link AbstractJobEntityImpl#getExceptionStacktrace()}
+   * <p>
+   * Method under test: {@link AbstractJobEntityImpl#getExceptionStacktrace()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"String AbstractJobEntityImpl.getExceptionStacktrace()"})
   public void testGetExceptionStacktrace_givenDeadLetterJobEntityImpl() {
     // Arrange, Act and Assert
-    assertNull(new DeadLetterJobEntityImpl().getExceptionStacktrace());
+    assertNull((new DeadLetterJobEntityImpl()).getExceptionStacktrace());
   }
 
   /**
    * Test {@link AbstractJobEntityImpl#getExceptionStacktrace()}.
-   *
    * <ul>
-   *   <li>Given {@link DeadLetterJobEntityImpl} (default constructor) ExceptionStacktrace is {@code
-   *       null}.
+   *   <li>Given {@link DeadLetterJobEntityImpl} (default constructor) ExceptionStacktrace is {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link AbstractJobEntityImpl#getExceptionStacktrace()}
+   * <p>
+   * Method under test: {@link AbstractJobEntityImpl#getExceptionStacktrace()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"String AbstractJobEntityImpl.getExceptionStacktrace()"})
   public void testGetExceptionStacktrace_givenDeadLetterJobEntityImplExceptionStacktraceIsNull() {
     // Arrange
@@ -600,93 +557,25 @@ public class AbstractJobEntityImplDiffblueTest {
   }
 
   /**
-   * Test {@link AbstractJobEntityImpl#setExceptionStacktrace(String)}.
-   *
-   * <p>Method under test: {@link AbstractJobEntityImpl#setExceptionStacktrace(String)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void AbstractJobEntityImpl.setExceptionStacktrace(String)"})
-  public void testSetExceptionStacktrace() {
-    // Arrange
-    DeadLetterJobEntityImpl deadLetterJobEntityImpl = new DeadLetterJobEntityImpl();
-
-    // Act
-    deadLetterJobEntityImpl.setExceptionStacktrace(null);
-
-    // Assert
-    Object persistentState = deadLetterJobEntityImpl.getPersistentState();
-    assertTrue(persistentState instanceof Map);
-    ByteArrayRef exceptionByteArrayRef = deadLetterJobEntityImpl.getExceptionByteArrayRef();
-    assertEquals("stacktrace", exceptionByteArrayRef.getName());
-    assertNull(exceptionByteArrayRef.getBytes());
-    assertEquals(4, ((Map<String, Integer>) persistentState).size());
-    assertNull(((Map<String, Integer>) persistentState).get("exceptionByteArrayId"));
-    assertNull(exceptionByteArrayRef.getId());
-    assertNull(exceptionByteArrayRef.getEntity());
-    assertFalse(exceptionByteArrayRef.isDeleted());
-    assertTrue(((Map<String, Integer>) persistentState).containsKey("duedate"));
-    assertTrue(((Map<String, Integer>) persistentState).containsKey("exceptionMessage"));
-    assertTrue(((Map<String, Integer>) persistentState).containsKey("retries"));
-  }
-
-  /**
-   * Test {@link AbstractJobEntityImpl#setExceptionStacktrace(String)}.
-   *
-   * <ul>
-   *   <li>Given {@link DeadLetterJobEntityImpl} (default constructor) ExceptionStacktrace is {@code
-   *       null}.
-   * </ul>
-   *
-   * <p>Method under test: {@link AbstractJobEntityImpl#setExceptionStacktrace(String)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void AbstractJobEntityImpl.setExceptionStacktrace(String)"})
-  public void testSetExceptionStacktrace_givenDeadLetterJobEntityImplExceptionStacktraceIsNull() {
-    // Arrange
-    DeadLetterJobEntityImpl deadLetterJobEntityImpl = new DeadLetterJobEntityImpl();
-    deadLetterJobEntityImpl.setExceptionStacktrace(null);
-
-    // Act
-    deadLetterJobEntityImpl.setExceptionStacktrace(null);
-
-    // Assert that nothing has changed
-    Object persistentState = deadLetterJobEntityImpl.getPersistentState();
-    assertTrue(persistentState instanceof Map);
-    ByteArrayRef exceptionByteArrayRef = deadLetterJobEntityImpl.getExceptionByteArrayRef();
-    assertEquals("stacktrace", exceptionByteArrayRef.getName());
-    assertEquals(4, ((Map<String, Integer>) persistentState).size());
-    assertFalse(exceptionByteArrayRef.isDeleted());
-    assertTrue(((Map<String, Integer>) persistentState).containsKey("duedate"));
-    assertTrue(((Map<String, Integer>) persistentState).containsKey("exceptionMessage"));
-    assertTrue(((Map<String, Integer>) persistentState).containsKey("retries"));
-  }
-
-  /**
    * Test {@link AbstractJobEntityImpl#getExceptionMessage()}.
-   *
-   * <p>Method under test: {@link AbstractJobEntityImpl#getExceptionMessage()}
+   * <p>
+   * Method under test: {@link AbstractJobEntityImpl#getExceptionMessage()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"String AbstractJobEntityImpl.getExceptionMessage()"})
   public void testGetExceptionMessage() {
     // Arrange, Act and Assert
-    assertNull(new DeadLetterJobEntityImpl().getExceptionMessage());
+    assertNull((new DeadLetterJobEntityImpl()).getExceptionMessage());
   }
 
   /**
    * Test {@link AbstractJobEntityImpl#setExceptionMessage(String)}.
-   *
-   * <p>Method under test: {@link AbstractJobEntityImpl#setExceptionMessage(String)}
+   * <p>
+   * Method under test: {@link AbstractJobEntityImpl#setExceptionMessage(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void AbstractJobEntityImpl.setExceptionMessage(String)"})
   public void testSetExceptionMessage() {
     // Arrange
@@ -700,25 +589,21 @@ public class AbstractJobEntityImplDiffblueTest {
     assertTrue(persistentState instanceof Map);
     assertEquals("An error occurred", deadLetterJobEntityImpl.getExceptionMessage());
     assertEquals(3, ((Map<String, Object>) persistentState).size());
-    assertEquals(
-        "An error occurred", ((Map<String, Object>) persistentState).get("exceptionMessage"));
+    assertEquals("An error occurred", ((Map<String, Object>) persistentState).get("exceptionMessage"));
     assertEquals(0, ((Integer) ((Map<String, Object>) persistentState).get("retries")).intValue());
     assertTrue(((Map<String, Object>) persistentState).containsKey("duedate"));
   }
 
   /**
    * Test {@link AbstractJobEntityImpl#setExceptionMessage(String)}.
-   *
    * <ul>
-   *   <li>Then {@link DeadLetterJobEntityImpl} (default constructor) ExceptionMessage is empty
-   *       string.
+   *   <li>Then {@link DeadLetterJobEntityImpl} (default constructor) ExceptionMessage is empty string.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link AbstractJobEntityImpl#setExceptionMessage(String)}
+   * <p>
+   * Method under test: {@link AbstractJobEntityImpl#setExceptionMessage(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void AbstractJobEntityImpl.setExceptionMessage(String)"})
   public void testSetExceptionMessage_thenDeadLetterJobEntityImplExceptionMessageIsEmptyString() {
     // Arrange
@@ -739,16 +624,14 @@ public class AbstractJobEntityImplDiffblueTest {
 
   /**
    * Test {@link AbstractJobEntityImpl#setExceptionMessage(String)}.
-   *
    * <ul>
-   *   <li>When {@code null}.
+   *   <li>When {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link AbstractJobEntityImpl#setExceptionMessage(String)}
+   * <p>
+   * Method under test: {@link AbstractJobEntityImpl#setExceptionMessage(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void AbstractJobEntityImpl.setExceptionMessage(String)"})
   public void testSetExceptionMessage_whenNull() {
     // Arrange
@@ -767,68 +650,65 @@ public class AbstractJobEntityImplDiffblueTest {
 
   /**
    * Test {@link AbstractJobEntityImpl#getExceptionByteArrayRef()}.
-   *
-   * <p>Method under test: {@link AbstractJobEntityImpl#getExceptionByteArrayRef()}
+   * <p>
+   * Method under test: {@link AbstractJobEntityImpl#getExceptionByteArrayRef()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"ByteArrayRef AbstractJobEntityImpl.getExceptionByteArrayRef()"})
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "org.activiti.engine.impl.persistence.entity.ByteArrayRef AbstractJobEntityImpl.getExceptionByteArrayRef()"})
   public void testGetExceptionByteArrayRef() {
     // Arrange, Act and Assert
-    assertNull(new DeadLetterJobEntityImpl().getExceptionByteArrayRef());
+    assertNull((new DeadLetterJobEntityImpl()).getExceptionByteArrayRef());
   }
 
   /**
    * Test {@link AbstractJobEntityImpl#getUtf8Bytes(String)}.
-   *
    * <ul>
-   *   <li>When {@code null}.
-   *   <li>Then return {@code null}.
+   *   <li>When {@code null}.</li>
+   *   <li>Then return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link AbstractJobEntityImpl#getUtf8Bytes(String)}
+   * <p>
+   * Method under test: {@link AbstractJobEntityImpl#getUtf8Bytes(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"byte[] AbstractJobEntityImpl.getUtf8Bytes(String)"})
   public void testGetUtf8Bytes_whenNull_thenReturnNull() {
     // Arrange, Act and Assert
-    assertNull(new DeadLetterJobEntityImpl().getUtf8Bytes(null));
+    assertNull((new DeadLetterJobEntityImpl()).getUtf8Bytes(null));
   }
 
   /**
    * Test {@link AbstractJobEntityImpl#getUtf8Bytes(String)}.
-   *
    * <ul>
-   *   <li>When {@code Str}.
-   *   <li>Then return {@code Str} Bytes is {@code UTF-8}.
+   *   <li>When {@code Str}.</li>
+   *   <li>Then return {@code Str} Bytes is {@code UTF-8}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link AbstractJobEntityImpl#getUtf8Bytes(String)}
+   * <p>
+   * Method under test: {@link AbstractJobEntityImpl#getUtf8Bytes(String)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"byte[] AbstractJobEntityImpl.getUtf8Bytes(String)"})
-  public void testGetUtf8Bytes_whenStr_thenReturnStrBytesIsUtf8()
-      throws UnsupportedEncodingException {
-    // Arrange, Act and Assert
-    assertArrayEquals("Str".getBytes("UTF-8"), new DeadLetterJobEntityImpl().getUtf8Bytes("Str"));
+  public void testGetUtf8Bytes_whenStr_thenReturnStrBytesIsUtf8() throws UnsupportedEncodingException {
+    // Arrange and Act
+    byte[] actualUtf8Bytes = (new DeadLetterJobEntityImpl()).getUtf8Bytes("Str");
+
+    // Assert
+    assertArrayEquals("Str".getBytes("UTF-8"), actualUtf8Bytes);
   }
 
   /**
    * Test {@link AbstractJobEntityImpl#toString()}.
-   *
-   * <p>Method under test: {@link AbstractJobEntityImpl#toString()}
+   * <p>
+   * Method under test: {@link AbstractJobEntityImpl#toString()}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"String AbstractJobEntityImpl.toString()"})
   public void testToString() {
     // Arrange, Act and Assert
-    assertEquals("DeadLetterJobEntity [id=null]", new DeadLetterJobEntityImpl().toString());
+    assertEquals("DeadLetterJobEntity [id=null]", (new DeadLetterJobEntityImpl()).toString());
   }
 }

@@ -17,22 +17,21 @@ package org.activiti.validation.validator.impl;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.ArgumentMatchers.isA;
+import static org.mockito.ArgumentMatchers.isNull;
 import static org.mockito.Mockito.anyBoolean;
 import static org.mockito.Mockito.atLeast;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import org.activiti.bpmn.model.AdhocSubProcess;
 import org.activiti.bpmn.model.BpmnModel;
+import org.activiti.bpmn.model.FlowElement;
 import org.activiti.bpmn.model.Process;
 import org.activiti.bpmn.model.SequenceFlow;
 import org.activiti.validation.ValidationError;
@@ -44,13 +43,12 @@ import org.mockito.Mockito;
 class SequenceflowValidatorDiffblueTest {
   /**
    * Test {@link SequenceflowValidator#executeValidation(BpmnModel, Process, List)}.
-   *
-   * <p>Method under test: {@link SequenceflowValidator#executeValidation(BpmnModel, Process, List)}
+   * <p>
+   * Method under test: {@link SequenceflowValidator#executeValidation(BpmnModel, Process, List)}
    */
   @Test
   @DisplayName("Test executeValidation(BpmnModel, Process, List)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void SequenceflowValidator.executeValidation(BpmnModel, Process, List)"})
   void testExecuteValidation() {
     // Arrange
@@ -58,43 +56,43 @@ class SequenceflowValidatorDiffblueTest {
     BpmnModel bpmnModel = new BpmnModel();
 
     ArrayList<SequenceFlow> sequenceFlowList = new ArrayList<>();
-    sequenceFlowList.add(new SequenceFlow("Source Ref", "Target Ref"));
-
+    sequenceFlowList.add(new SequenceFlow(null, "Target Ref"));
+    FlowElement flowElement = mock(FlowElement.class);
+    when(flowElement.getId()).thenReturn("42");
     Process process = mock(Process.class);
-    when(process.getFlowElementsContainer(Mockito.<String>any())).thenReturn(null);
+    when(process.getFlowElementsContainer(Mockito.<String>any())).thenReturn(new AdhocSubProcess());
     when(process.getId()).thenReturn("42");
     when(process.getName()).thenReturn("Name");
-    when(process.getFlowElement(Mockito.<String>any(), anyBoolean()))
-        .thenReturn(new AdhocSubProcess());
-    when(process.findFlowElementsOfType(Mockito.<Class<SequenceFlow>>any()))
-        .thenReturn(sequenceFlowList);
+    when(process.getFlowElement(Mockito.<String>any(), anyBoolean())).thenReturn(flowElement);
+    when(process.findFlowElementsOfType(Mockito.<Class<SequenceFlow>>any())).thenReturn(sequenceFlowList);
     ArrayList<ValidationError> errors = new ArrayList<>();
 
     // Act
     sequenceflowValidator.executeValidation(bpmnModel, process, errors);
 
     // Assert
-    verify(process, atLeast(1)).getId();
+    verify(process).getId();
+    verify(flowElement, atLeast(1)).getId();
     verify(process).findFlowElementsOfType(isA(Class.class));
     verify(process, atLeast(1)).getFlowElement(Mockito.<String>any(), eq(true));
-    verify(process, atLeast(1)).getFlowElementsContainer(null);
-    verify(process, atLeast(1)).getName();
-    assertEquals(2, errors.size());
-    ValidationError getResult = errors.get(1);
-    assertEquals("SEQ_FLOW_INVALID_TARGET", getResult.getDefaultDescription());
-    assertEquals("SEQ_FLOW_INVALID_TARGET", getResult.getKey());
-    assertEquals("SEQ_FLOW_INVALID_TARGET", getResult.getProblem());
+    verify(process, atLeast(1)).getFlowElementsContainer(eq("42"));
+    verify(process).getName();
+    assertEquals(1, errors.size());
+    ValidationError getResult = errors.get(0);
+    assertNull(getResult.getActivityId());
+    assertNull(getResult.getActivityName());
+    assertEquals(0, getResult.getXmlColumnNumber());
+    assertEquals(0, getResult.getXmlLineNumber());
   }
 
   /**
    * Test {@link SequenceflowValidator#executeValidation(BpmnModel, Process, List)}.
-   *
-   * <p>Method under test: {@link SequenceflowValidator#executeValidation(BpmnModel, Process, List)}
+   * <p>
+   * Method under test: {@link SequenceflowValidator#executeValidation(BpmnModel, Process, List)}
    */
   @Test
   @DisplayName("Test executeValidation(BpmnModel, Process, List)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void SequenceflowValidator.executeValidation(BpmnModel, Process, List)"})
   void testExecuteValidation2() {
     // Arrange
@@ -102,46 +100,43 @@ class SequenceflowValidatorDiffblueTest {
     BpmnModel bpmnModel = new BpmnModel();
 
     ArrayList<SequenceFlow> sequenceFlowList = new ArrayList<>();
-    sequenceFlowList.add(new SequenceFlow("Source Ref", "Target Ref"));
-
-    AdhocSubProcess adhocSubProcess = mock(AdhocSubProcess.class);
-    when(adhocSubProcess.getId()).thenReturn("42");
-
+    sequenceFlowList.add(new SequenceFlow("", "Target Ref"));
+    FlowElement flowElement = mock(FlowElement.class);
+    when(flowElement.getId()).thenReturn("42");
     Process process = mock(Process.class);
-    when(process.getFlowElementsContainer(Mockito.<String>any())).thenReturn(null);
+    when(process.getFlowElementsContainer(Mockito.<String>any())).thenReturn(new AdhocSubProcess());
     when(process.getId()).thenReturn("42");
     when(process.getName()).thenReturn("Name");
-    when(process.getFlowElement(Mockito.<String>any(), anyBoolean())).thenReturn(adhocSubProcess);
-    when(process.findFlowElementsOfType(Mockito.<Class<SequenceFlow>>any()))
-        .thenReturn(sequenceFlowList);
+    when(process.getFlowElement(Mockito.<String>any(), anyBoolean())).thenReturn(flowElement);
+    when(process.findFlowElementsOfType(Mockito.<Class<SequenceFlow>>any())).thenReturn(sequenceFlowList);
     ArrayList<ValidationError> errors = new ArrayList<>();
 
     // Act
     sequenceflowValidator.executeValidation(bpmnModel, process, errors);
 
     // Assert
-    verify(adhocSubProcess, atLeast(1)).getId();
-    verify(process, atLeast(1)).getId();
+    verify(process).getId();
+    verify(flowElement, atLeast(1)).getId();
     verify(process).findFlowElementsOfType(isA(Class.class));
     verify(process, atLeast(1)).getFlowElement(Mockito.<String>any(), eq(true));
-    verify(process, atLeast(1)).getFlowElementsContainer("42");
-    verify(process, atLeast(1)).getName();
-    assertEquals(2, errors.size());
-    ValidationError getResult = errors.get(1);
-    assertEquals("SEQ_FLOW_INVALID_TARGET", getResult.getDefaultDescription());
-    assertEquals("SEQ_FLOW_INVALID_TARGET", getResult.getKey());
-    assertEquals("SEQ_FLOW_INVALID_TARGET", getResult.getProblem());
+    verify(process, atLeast(1)).getFlowElementsContainer(eq("42"));
+    verify(process).getName();
+    assertEquals(1, errors.size());
+    ValidationError getResult = errors.get(0);
+    assertNull(getResult.getActivityId());
+    assertNull(getResult.getActivityName());
+    assertEquals(0, getResult.getXmlColumnNumber());
+    assertEquals(0, getResult.getXmlLineNumber());
   }
 
   /**
    * Test {@link SequenceflowValidator#executeValidation(BpmnModel, Process, List)}.
-   *
-   * <p>Method under test: {@link SequenceflowValidator#executeValidation(BpmnModel, Process, List)}
+   * <p>
+   * Method under test: {@link SequenceflowValidator#executeValidation(BpmnModel, Process, List)}
    */
   @Test
   @DisplayName("Test executeValidation(BpmnModel, Process, List)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void SequenceflowValidator.executeValidation(BpmnModel, Process, List)"})
   void testExecuteValidation3() {
     // Arrange
@@ -149,204 +144,96 @@ class SequenceflowValidatorDiffblueTest {
     BpmnModel bpmnModel = new BpmnModel();
 
     ArrayList<SequenceFlow> sequenceFlowList = new ArrayList<>();
-    sequenceFlowList.add(new SequenceFlow(null, "Target Ref"));
-
-    AdhocSubProcess adhocSubProcess = mock(AdhocSubProcess.class);
-    when(adhocSubProcess.getId()).thenReturn("42");
-
+    sequenceFlowList.add(new SequenceFlow("Source Ref", null));
+    FlowElement flowElement = mock(FlowElement.class);
+    when(flowElement.getId()).thenReturn("42");
     Process process = mock(Process.class);
-    when(process.getFlowElementsContainer(Mockito.<String>any())).thenReturn(null);
+    when(process.getFlowElementsContainer(Mockito.<String>any())).thenReturn(new AdhocSubProcess());
     when(process.getId()).thenReturn("42");
     when(process.getName()).thenReturn("Name");
-    when(process.getFlowElement(Mockito.<String>any(), anyBoolean())).thenReturn(adhocSubProcess);
-    when(process.findFlowElementsOfType(Mockito.<Class<SequenceFlow>>any()))
-        .thenReturn(sequenceFlowList);
+    when(process.getFlowElement(Mockito.<String>any(), anyBoolean())).thenReturn(flowElement);
+    when(process.findFlowElementsOfType(Mockito.<Class<SequenceFlow>>any())).thenReturn(sequenceFlowList);
     ArrayList<ValidationError> errors = new ArrayList<>();
 
     // Act
     sequenceflowValidator.executeValidation(bpmnModel, process, errors);
 
     // Assert
-    verify(adhocSubProcess, atLeast(1)).getId();
-    verify(process, atLeast(1)).getId();
+    verify(process).getId();
+    verify(flowElement, atLeast(1)).getId();
     verify(process).findFlowElementsOfType(isA(Class.class));
     verify(process, atLeast(1)).getFlowElement(Mockito.<String>any(), eq(true));
-    verify(process, atLeast(1)).getFlowElementsContainer("42");
-    verify(process, atLeast(1)).getName();
-    assertEquals(3, errors.size());
-    ValidationError getResult = errors.get(2);
-    assertNull(getResult.getActivityId());
-    assertNull(getResult.getActivityName());
-    assertEquals(0, getResult.getXmlColumnNumber());
-    assertEquals(0, getResult.getXmlLineNumber());
-  }
-
-  /**
-   * Test {@link SequenceflowValidator#executeValidation(BpmnModel, Process, List)}.
-   *
-   * <p>Method under test: {@link SequenceflowValidator#executeValidation(BpmnModel, Process, List)}
-   */
-  @Test
-  @DisplayName("Test executeValidation(BpmnModel, Process, List)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void SequenceflowValidator.executeValidation(BpmnModel, Process, List)"})
-  void testExecuteValidation4() {
-    // Arrange
-    SequenceflowValidator sequenceflowValidator = new SequenceflowValidator();
-    BpmnModel bpmnModel = new BpmnModel();
-
-    ArrayList<SequenceFlow> sequenceFlowList = new ArrayList<>();
-    sequenceFlowList.add(new SequenceFlow("", "Target Ref"));
-
-    AdhocSubProcess adhocSubProcess = mock(AdhocSubProcess.class);
-    when(adhocSubProcess.getId()).thenReturn("42");
-
-    Process process = mock(Process.class);
-    when(process.getFlowElementsContainer(Mockito.<String>any())).thenReturn(null);
-    when(process.getId()).thenReturn("42");
-    when(process.getName()).thenReturn("Name");
-    when(process.getFlowElement(Mockito.<String>any(), anyBoolean())).thenReturn(adhocSubProcess);
-    when(process.findFlowElementsOfType(Mockito.<Class<SequenceFlow>>any()))
-        .thenReturn(sequenceFlowList);
-    ArrayList<ValidationError> errors = new ArrayList<>();
-
-    // Act
-    sequenceflowValidator.executeValidation(bpmnModel, process, errors);
-
-    // Assert
-    verify(adhocSubProcess, atLeast(1)).getId();
-    verify(process, atLeast(1)).getId();
-    verify(process).findFlowElementsOfType(isA(Class.class));
-    verify(process, atLeast(1)).getFlowElement(Mockito.<String>any(), eq(true));
-    verify(process, atLeast(1)).getFlowElementsContainer("42");
-    verify(process, atLeast(1)).getName();
-    assertEquals(3, errors.size());
-    ValidationError getResult = errors.get(2);
-    assertNull(getResult.getActivityId());
-    assertNull(getResult.getActivityName());
-    assertEquals(0, getResult.getXmlColumnNumber());
-    assertEquals(0, getResult.getXmlLineNumber());
-  }
-
-  /**
-   * Test {@link SequenceflowValidator#executeValidation(BpmnModel, Process, List)}.
-   *
-   * <p>Method under test: {@link SequenceflowValidator#executeValidation(BpmnModel, Process, List)}
-   */
-  @Test
-  @DisplayName("Test executeValidation(BpmnModel, Process, List)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void SequenceflowValidator.executeValidation(BpmnModel, Process, List)"})
-  void testExecuteValidation5() {
-    // Arrange
-    SequenceflowValidator sequenceflowValidator = new SequenceflowValidator();
-    BpmnModel bpmnModel = new BpmnModel();
-
-    ArrayList<SequenceFlow> sequenceFlowList = new ArrayList<>();
-    SequenceFlow sequenceFlow = new SequenceFlow("Source Ref", null);
-    sequenceFlowList.add(sequenceFlow);
-
-    AdhocSubProcess adhocSubProcess = mock(AdhocSubProcess.class);
-    when(adhocSubProcess.getId()).thenReturn("42");
-
-    Process process = mock(Process.class);
-    when(process.getFlowElementsContainer(Mockito.<String>any())).thenReturn(null);
-    when(process.getId()).thenReturn("42");
-    when(process.getName()).thenReturn("Name");
-    when(process.getFlowElement(Mockito.<String>any(), anyBoolean())).thenReturn(adhocSubProcess);
-    when(process.findFlowElementsOfType(Mockito.<Class<SequenceFlow>>any()))
-        .thenReturn(sequenceFlowList);
-    ArrayList<ValidationError> errors = new ArrayList<>();
-
-    // Act
-    sequenceflowValidator.executeValidation(bpmnModel, process, errors);
-
-    // Assert
-    verify(adhocSubProcess, atLeast(1)).getId();
-    verify(process, atLeast(1)).getId();
-    verify(process).findFlowElementsOfType(isA(Class.class));
-    verify(process, atLeast(1)).getFlowElement(Mockito.<String>any(), eq(true));
-    verify(process, atLeast(1)).getFlowElementsContainer("42");
-    verify(process, atLeast(1)).getName();
-    assertEquals(3, errors.size());
+    verify(process, atLeast(1)).getFlowElementsContainer(eq("42"));
+    verify(process).getName();
+    assertEquals(1, errors.size());
     ValidationError getResult = errors.get(0);
     assertEquals("SEQ_FLOW_INVALID_TARGET", getResult.getDefaultDescription());
     assertEquals("SEQ_FLOW_INVALID_TARGET", getResult.getKey());
     assertEquals("SEQ_FLOW_INVALID_TARGET", getResult.getProblem());
-    ValidationError getResult2 = errors.get(2);
-    assertNull(getResult2.getActivityId());
-    assertNull(getResult2.getActivityName());
-    assertEquals(0, getResult2.getXmlColumnNumber());
-    assertEquals(0, getResult2.getXmlLineNumber());
+    assertNull(getResult.getActivityId());
+    assertNull(getResult.getActivityName());
+    assertEquals(0, getResult.getXmlColumnNumber());
+    assertEquals(0, getResult.getXmlLineNumber());
   }
 
   /**
    * Test {@link SequenceflowValidator#executeValidation(BpmnModel, Process, List)}.
-   *
    * <ul>
-   *   <li>Given {@link AdhocSubProcess} {@link AdhocSubProcess#getId()} throw {@link
-   *       RuntimeException#RuntimeException()}.
+   *   <li>Given {@link ArrayList#ArrayList()} add {@link SequenceFlow#SequenceFlow(String, String)} with {@code Source Ref} and {@code Target Ref}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link SequenceflowValidator#executeValidation(BpmnModel, Process, List)}
+   * <p>
+   * Method under test: {@link SequenceflowValidator#executeValidation(BpmnModel, Process, List)}
    */
   @Test
-  @DisplayName(
-      "Test executeValidation(BpmnModel, Process, List); given AdhocSubProcess getId() throw RuntimeException()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test executeValidation(BpmnModel, Process, List); given ArrayList() add SequenceFlow(String, String) with 'Source Ref' and 'Target Ref'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void SequenceflowValidator.executeValidation(BpmnModel, Process, List)"})
-  void testExecuteValidation_givenAdhocSubProcessGetIdThrowRuntimeException() {
+  void testExecuteValidation_givenArrayListAddSequenceFlowWithSourceRefAndTargetRef() {
     // Arrange
     SequenceflowValidator sequenceflowValidator = new SequenceflowValidator();
     BpmnModel bpmnModel = new BpmnModel();
 
     ArrayList<SequenceFlow> sequenceFlowList = new ArrayList<>();
     sequenceFlowList.add(new SequenceFlow("Source Ref", "Target Ref"));
-
-    AdhocSubProcess adhocSubProcess = mock(AdhocSubProcess.class);
-    when(adhocSubProcess.getId()).thenThrow(new RuntimeException());
-
+    FlowElement flowElement = mock(FlowElement.class);
+    when(flowElement.getId()).thenReturn("42");
     Process process = mock(Process.class);
-    when(process.getFlowElement(Mockito.<String>any(), anyBoolean())).thenReturn(adhocSubProcess);
-    when(process.findFlowElementsOfType(Mockito.<Class<SequenceFlow>>any()))
-        .thenReturn(sequenceFlowList);
+    when(process.getFlowElementsContainer(Mockito.<String>any())).thenReturn(new AdhocSubProcess());
+    when(process.getId()).thenReturn("42");
+    when(process.getFlowElement(Mockito.<String>any(), anyBoolean())).thenReturn(flowElement);
+    when(process.findFlowElementsOfType(Mockito.<Class<SequenceFlow>>any())).thenReturn(sequenceFlowList);
+    ArrayList<ValidationError> errors = new ArrayList<>();
 
-    // Act and Assert
-    assertThrows(
-        RuntimeException.class,
-        () -> sequenceflowValidator.executeValidation(bpmnModel, process, new ArrayList<>()));
-    verify(adhocSubProcess).getId();
+    // Act
+    sequenceflowValidator.executeValidation(bpmnModel, process, errors);
+
+    // Assert that nothing has changed
+    verify(flowElement, atLeast(1)).getId();
     verify(process).findFlowElementsOfType(isA(Class.class));
     verify(process, atLeast(1)).getFlowElement(Mockito.<String>any(), eq(true));
+    verify(process, atLeast(1)).getFlowElementsContainer(eq("42"));
+    assertTrue(errors.isEmpty());
   }
 
   /**
    * Test {@link SequenceflowValidator#executeValidation(BpmnModel, Process, List)}.
-   *
    * <ul>
-   *   <li>Given {@link ArrayList#ArrayList()}.
-   *   <li>Then {@link ArrayList#ArrayList()} Empty.
+   *   <li>Given {@link ArrayList#ArrayList()}.</li>
+   *   <li>Then {@link ArrayList#ArrayList()} Empty.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link SequenceflowValidator#executeValidation(BpmnModel, Process, List)}
+   * <p>
+   * Method under test: {@link SequenceflowValidator#executeValidation(BpmnModel, Process, List)}
    */
   @Test
-  @DisplayName(
-      "Test executeValidation(BpmnModel, Process, List); given ArrayList(); then ArrayList() Empty")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test executeValidation(BpmnModel, Process, List); given ArrayList(); then ArrayList() Empty")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void SequenceflowValidator.executeValidation(BpmnModel, Process, List)"})
   void testExecuteValidation_givenArrayList_thenArrayListEmpty() {
     // Arrange
     SequenceflowValidator sequenceflowValidator = new SequenceflowValidator();
     BpmnModel bpmnModel = new BpmnModel();
-
     Process process = mock(Process.class);
-    when(process.findFlowElementsOfType(Mockito.<Class<SequenceFlow>>any()))
-        .thenReturn(new ArrayList<>());
+    when(process.findFlowElementsOfType(Mockito.<Class<SequenceFlow>>any())).thenReturn(new ArrayList<>());
     ArrayList<ValidationError> errors = new ArrayList<>();
 
     // Act
@@ -359,24 +246,20 @@ class SequenceflowValidatorDiffblueTest {
 
   /**
    * Test {@link SequenceflowValidator#executeValidation(BpmnModel, Process, List)}.
-   *
    * <ul>
-   *   <li>Given {@link SequenceFlow} {@link SequenceFlow#getSourceRef()} return {@code null}.
+   *   <li>Given {@link SequenceFlow} {@link SequenceFlow#getSourceRef()} return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link SequenceflowValidator#executeValidation(BpmnModel, Process, List)}
+   * <p>
+   * Method under test: {@link SequenceflowValidator#executeValidation(BpmnModel, Process, List)}
    */
   @Test
-  @DisplayName(
-      "Test executeValidation(BpmnModel, Process, List); given SequenceFlow getSourceRef() return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test executeValidation(BpmnModel, Process, List); given SequenceFlow getSourceRef() return 'null'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void SequenceflowValidator.executeValidation(BpmnModel, Process, List)"})
   void testExecuteValidation_givenSequenceFlowGetSourceRefReturnNull() {
     // Arrange
     SequenceflowValidator sequenceflowValidator = new SequenceflowValidator();
     BpmnModel bpmnModel = new BpmnModel();
-
     SequenceFlow sequenceFlow = mock(SequenceFlow.class);
     when(sequenceFlow.getXmlColumnNumber()).thenReturn(10);
     when(sequenceFlow.getXmlRowNumber()).thenReturn(10);
@@ -388,38 +271,35 @@ class SequenceflowValidatorDiffblueTest {
 
     ArrayList<SequenceFlow> sequenceFlowList = new ArrayList<>();
     sequenceFlowList.add(sequenceFlow);
-
-    AdhocSubProcess adhocSubProcess = mock(AdhocSubProcess.class);
-    when(adhocSubProcess.getId()).thenReturn("42");
-
+    FlowElement flowElement = mock(FlowElement.class);
+    when(flowElement.getId()).thenReturn("42");
     Process process = mock(Process.class);
-    when(process.getFlowElementsContainer(Mockito.<String>any())).thenReturn(null);
+    when(process.getFlowElementsContainer(Mockito.<String>any())).thenReturn(new AdhocSubProcess());
     when(process.getId()).thenReturn("42");
     when(process.getName()).thenReturn("Name");
-    when(process.getFlowElement(Mockito.<String>any(), anyBoolean())).thenReturn(adhocSubProcess);
-    when(process.findFlowElementsOfType(Mockito.<Class<SequenceFlow>>any()))
-        .thenReturn(sequenceFlowList);
+    when(process.getFlowElement(Mockito.<String>any(), anyBoolean())).thenReturn(flowElement);
+    when(process.findFlowElementsOfType(Mockito.<Class<SequenceFlow>>any())).thenReturn(sequenceFlowList);
     ArrayList<ValidationError> errors = new ArrayList<>();
 
     // Act
     sequenceflowValidator.executeValidation(bpmnModel, process, errors);
 
     // Assert
-    verify(adhocSubProcess, atLeast(1)).getId();
-    verify(process, atLeast(1)).getId();
-    verify(sequenceFlow, atLeast(1)).getId();
-    verify(sequenceFlow, atLeast(1)).getXmlColumnNumber();
-    verify(sequenceFlow, atLeast(1)).getXmlRowNumber();
-    verify(sequenceFlow, atLeast(1)).getName();
+    verify(process).getId();
+    verify(sequenceFlow).getId();
+    verify(flowElement, atLeast(1)).getId();
+    verify(sequenceFlow).getXmlColumnNumber();
+    verify(sequenceFlow).getXmlRowNumber();
+    verify(sequenceFlow).getName();
     verify(process).findFlowElementsOfType(isA(Class.class));
     verify(process, atLeast(1)).getFlowElement(Mockito.<String>any(), eq(true));
-    verify(process, atLeast(1)).getFlowElementsContainer("42");
-    verify(process, atLeast(1)).getName();
+    verify(process, atLeast(1)).getFlowElementsContainer(eq("42"));
+    verify(process).getName();
     verify(sequenceFlow).getConditionExpression();
     verify(sequenceFlow).getSourceRef();
     verify(sequenceFlow).getTargetRef();
-    assertEquals(3, errors.size());
-    ValidationError getResult = errors.get(2);
+    assertEquals(1, errors.size());
+    ValidationError getResult = errors.get(0);
     assertEquals("42", getResult.getActivityId());
     assertEquals("Name", getResult.getActivityName());
     assertEquals(10, getResult.getXmlColumnNumber());
@@ -428,80 +308,67 @@ class SequenceflowValidatorDiffblueTest {
 
   /**
    * Test {@link SequenceflowValidator#executeValidation(BpmnModel, Process, List)}.
-   *
    * <ul>
-   *   <li>Given {@link SequenceFlow} {@link SequenceFlow#getSourceRef()} throw {@link
-   *       RuntimeException#RuntimeException()}.
+   *   <li>Given {@link SequenceFlow} {@link SequenceFlow#getSourceRef()} return {@code Source Ref}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link SequenceflowValidator#executeValidation(BpmnModel, Process, List)}
+   * <p>
+   * Method under test: {@link SequenceflowValidator#executeValidation(BpmnModel, Process, List)}
    */
   @Test
-  @DisplayName(
-      "Test executeValidation(BpmnModel, Process, List); given SequenceFlow getSourceRef() throw RuntimeException()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test executeValidation(BpmnModel, Process, List); given SequenceFlow getSourceRef() return 'Source Ref'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void SequenceflowValidator.executeValidation(BpmnModel, Process, List)"})
-  void testExecuteValidation_givenSequenceFlowGetSourceRefThrowRuntimeException() {
+  void testExecuteValidation_givenSequenceFlowGetSourceRefReturnSourceRef() {
     // Arrange
     SequenceflowValidator sequenceflowValidator = new SequenceflowValidator();
     BpmnModel bpmnModel = new BpmnModel();
-
     SequenceFlow sequenceFlow = mock(SequenceFlow.class);
-    when(sequenceFlow.getSourceRef()).thenThrow(new RuntimeException());
+    when(sequenceFlow.getId()).thenReturn("42");
+    when(sequenceFlow.getConditionExpression()).thenReturn("Condition Expression");
+    when(sequenceFlow.getSourceRef()).thenReturn("Source Ref");
+    when(sequenceFlow.getTargetRef()).thenReturn("Target Ref");
 
     ArrayList<SequenceFlow> sequenceFlowList = new ArrayList<>();
     sequenceFlowList.add(sequenceFlow);
-
+    FlowElement flowElement = mock(FlowElement.class);
+    when(flowElement.getId()).thenReturn("42");
     Process process = mock(Process.class);
-    when(process.findFlowElementsOfType(Mockito.<Class<SequenceFlow>>any()))
-        .thenReturn(sequenceFlowList);
-
-    ValidationError validationError = new ValidationError();
-    validationError.setActivityId("42");
-    validationError.setActivityName("Activity Name");
-    validationError.setDefaultDescription("Default Description");
-    validationError.setKey("Key");
-    validationError.setParams(new HashMap<>());
-    validationError.setProblem("Problem");
-    validationError.setProcessDefinitionId("42");
-    validationError.setProcessDefinitionName("Process Definition Name");
-    validationError.setValidatorSetName("Validator Set Name");
-    validationError.setWarning(true);
-    validationError.setXmlColumnNumber(10);
-    validationError.setXmlLineNumber(2);
-
+    when(process.getFlowElementsContainer(Mockito.<String>any())).thenReturn(new AdhocSubProcess());
+    when(process.getId()).thenReturn("42");
+    when(process.getFlowElement(Mockito.<String>any(), anyBoolean())).thenReturn(flowElement);
+    when(process.findFlowElementsOfType(Mockito.<Class<SequenceFlow>>any())).thenReturn(sequenceFlowList);
     ArrayList<ValidationError> errors = new ArrayList<>();
-    errors.add(validationError);
 
-    // Act and Assert
-    assertThrows(
-        RuntimeException.class,
-        () -> sequenceflowValidator.executeValidation(bpmnModel, process, errors));
+    // Act
+    sequenceflowValidator.executeValidation(bpmnModel, process, errors);
+
+    // Assert that nothing has changed
+    verify(flowElement, atLeast(1)).getId();
     verify(process).findFlowElementsOfType(isA(Class.class));
+    verify(process, atLeast(1)).getFlowElement(Mockito.<String>any(), eq(true));
+    verify(process, atLeast(1)).getFlowElementsContainer(eq("42"));
+    verify(sequenceFlow).getConditionExpression();
     verify(sequenceFlow).getSourceRef();
+    verify(sequenceFlow).getTargetRef();
+    assertTrue(errors.isEmpty());
   }
 
   /**
    * Test {@link SequenceflowValidator#executeValidation(BpmnModel, Process, List)}.
-   *
    * <ul>
-   *   <li>Given {@link SequenceFlow} {@link SequenceFlow#getTargetRef()} return {@code null}.
+   *   <li>Given {@link SequenceFlow} {@link SequenceFlow#getTargetRef()} return {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link SequenceflowValidator#executeValidation(BpmnModel, Process, List)}
+   * <p>
+   * Method under test: {@link SequenceflowValidator#executeValidation(BpmnModel, Process, List)}
    */
   @Test
-  @DisplayName(
-      "Test executeValidation(BpmnModel, Process, List); given SequenceFlow getTargetRef() return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test executeValidation(BpmnModel, Process, List); given SequenceFlow getTargetRef() return 'null'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void SequenceflowValidator.executeValidation(BpmnModel, Process, List)"})
   void testExecuteValidation_givenSequenceFlowGetTargetRefReturnNull() {
     // Arrange
     SequenceflowValidator sequenceflowValidator = new SequenceflowValidator();
     BpmnModel bpmnModel = new BpmnModel();
-
     SequenceFlow sequenceFlow = mock(SequenceFlow.class);
     when(sequenceFlow.getXmlColumnNumber()).thenReturn(10);
     when(sequenceFlow.getXmlRowNumber()).thenReturn(10);
@@ -513,68 +380,60 @@ class SequenceflowValidatorDiffblueTest {
 
     ArrayList<SequenceFlow> sequenceFlowList = new ArrayList<>();
     sequenceFlowList.add(sequenceFlow);
-
-    AdhocSubProcess adhocSubProcess = mock(AdhocSubProcess.class);
-    when(adhocSubProcess.getId()).thenReturn("42");
-
+    FlowElement flowElement = mock(FlowElement.class);
+    when(flowElement.getId()).thenReturn("42");
     Process process = mock(Process.class);
-    when(process.getFlowElementsContainer(Mockito.<String>any())).thenReturn(null);
+    when(process.getFlowElementsContainer(Mockito.<String>any())).thenReturn(new AdhocSubProcess());
     when(process.getId()).thenReturn("42");
     when(process.getName()).thenReturn("Name");
-    when(process.getFlowElement(Mockito.<String>any(), anyBoolean())).thenReturn(adhocSubProcess);
-    when(process.findFlowElementsOfType(Mockito.<Class<SequenceFlow>>any()))
-        .thenReturn(sequenceFlowList);
+    when(process.getFlowElement(Mockito.<String>any(), anyBoolean())).thenReturn(flowElement);
+    when(process.findFlowElementsOfType(Mockito.<Class<SequenceFlow>>any())).thenReturn(sequenceFlowList);
     ArrayList<ValidationError> errors = new ArrayList<>();
 
     // Act
     sequenceflowValidator.executeValidation(bpmnModel, process, errors);
 
     // Assert
-    verify(adhocSubProcess, atLeast(1)).getId();
-    verify(process, atLeast(1)).getId();
-    verify(sequenceFlow, atLeast(1)).getId();
-    verify(sequenceFlow, atLeast(1)).getXmlColumnNumber();
-    verify(sequenceFlow, atLeast(1)).getXmlRowNumber();
-    verify(sequenceFlow, atLeast(1)).getName();
+    verify(process).getId();
+    verify(sequenceFlow).getId();
+    verify(flowElement, atLeast(1)).getId();
+    verify(sequenceFlow).getXmlColumnNumber();
+    verify(sequenceFlow).getXmlRowNumber();
+    verify(sequenceFlow).getName();
     verify(process).findFlowElementsOfType(isA(Class.class));
     verify(process, atLeast(1)).getFlowElement(Mockito.<String>any(), eq(true));
-    verify(process, atLeast(1)).getFlowElementsContainer("42");
-    verify(process, atLeast(1)).getName();
+    verify(process, atLeast(1)).getFlowElementsContainer(eq("42"));
+    verify(process).getName();
     verify(sequenceFlow).getConditionExpression();
     verify(sequenceFlow).getSourceRef();
     verify(sequenceFlow).getTargetRef();
-    assertEquals(3, errors.size());
-    ValidationError getResult = errors.get(2);
+    assertEquals(1, errors.size());
+    ValidationError getResult = errors.get(0);
     assertEquals("42", getResult.getActivityId());
     assertEquals("Name", getResult.getActivityName());
-    ValidationError getResult2 = errors.get(0);
-    assertEquals("SEQ_FLOW_INVALID_TARGET", getResult2.getDefaultDescription());
-    assertEquals("SEQ_FLOW_INVALID_TARGET", getResult2.getKey());
-    assertEquals("SEQ_FLOW_INVALID_TARGET", getResult2.getProblem());
+    assertEquals("SEQ_FLOW_INVALID_TARGET", getResult.getDefaultDescription());
+    assertEquals("SEQ_FLOW_INVALID_TARGET", getResult.getKey());
+    assertEquals("SEQ_FLOW_INVALID_TARGET", getResult.getProblem());
     assertEquals(10, getResult.getXmlColumnNumber());
     assertEquals(10, getResult.getXmlLineNumber());
   }
 
   /**
    * Test {@link SequenceflowValidator#executeValidation(BpmnModel, Process, List)}.
-   *
    * <ul>
-   *   <li>Then {@link ArrayList#ArrayList()} first ActivityId is {@code 42}.
+   *   <li>Then {@link ArrayList#ArrayList()} second ActivityId is {@code 42}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link SequenceflowValidator#executeValidation(BpmnModel, Process, List)}
+   * <p>
+   * Method under test: {@link SequenceflowValidator#executeValidation(BpmnModel, Process, List)}
    */
   @Test
-  @DisplayName(
-      "Test executeValidation(BpmnModel, Process, List); then ArrayList() first ActivityId is '42'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test executeValidation(BpmnModel, Process, List); then ArrayList() second ActivityId is '42'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void SequenceflowValidator.executeValidation(BpmnModel, Process, List)"})
-  void testExecuteValidation_thenArrayListFirstActivityIdIs42() {
+  void testExecuteValidation_thenArrayListSecondActivityIdIs42() {
     // Arrange
     SequenceflowValidator sequenceflowValidator = new SequenceflowValidator();
     BpmnModel bpmnModel = new BpmnModel();
-
     SequenceFlow sequenceFlow = mock(SequenceFlow.class);
     when(sequenceFlow.getXmlColumnNumber()).thenReturn(10);
     when(sequenceFlow.getXmlRowNumber()).thenReturn(10);
@@ -586,24 +445,21 @@ class SequenceflowValidatorDiffblueTest {
 
     ArrayList<SequenceFlow> sequenceFlowList = new ArrayList<>();
     sequenceFlowList.add(sequenceFlow);
-
-    AdhocSubProcess adhocSubProcess = mock(AdhocSubProcess.class);
-    when(adhocSubProcess.getId()).thenReturn("42");
-
+    FlowElement flowElement = mock(FlowElement.class);
+    when(flowElement.getId()).thenReturn("42");
     Process process = mock(Process.class);
     when(process.getFlowElementsContainer(Mockito.<String>any())).thenReturn(null);
     when(process.getId()).thenReturn("42");
     when(process.getName()).thenReturn("Name");
-    when(process.getFlowElement(Mockito.<String>any(), anyBoolean())).thenReturn(adhocSubProcess);
-    when(process.findFlowElementsOfType(Mockito.<Class<SequenceFlow>>any()))
-        .thenReturn(sequenceFlowList);
+    when(process.getFlowElement(Mockito.<String>any(), anyBoolean())).thenReturn(flowElement);
+    when(process.findFlowElementsOfType(Mockito.<Class<SequenceFlow>>any())).thenReturn(sequenceFlowList);
     ArrayList<ValidationError> errors = new ArrayList<>();
 
     // Act
     sequenceflowValidator.executeValidation(bpmnModel, process, errors);
 
     // Assert
-    verify(adhocSubProcess, atLeast(1)).getId();
+    verify(flowElement, atLeast(1)).getId();
     verify(process, atLeast(1)).getId();
     verify(sequenceFlow, atLeast(1)).getId();
     verify(sequenceFlow, atLeast(1)).getXmlColumnNumber();
@@ -611,38 +467,109 @@ class SequenceflowValidatorDiffblueTest {
     verify(sequenceFlow, atLeast(1)).getName();
     verify(process).findFlowElementsOfType(isA(Class.class));
     verify(process, atLeast(1)).getFlowElement(Mockito.<String>any(), eq(true));
-    verify(process, atLeast(1)).getFlowElementsContainer("42");
+    verify(process, atLeast(1)).getFlowElementsContainer(eq("42"));
     verify(process, atLeast(1)).getName();
     verify(sequenceFlow).getConditionExpression();
     verify(sequenceFlow).getSourceRef();
     verify(sequenceFlow).getTargetRef();
     assertEquals(2, errors.size());
-    ValidationError getResult = errors.get(0);
+    ValidationError getResult = errors.get(1);
     assertEquals("42", getResult.getActivityId());
-    ValidationError getResult2 = errors.get(1);
-    assertEquals("42", getResult2.getActivityId());
     assertEquals("Name", getResult.getActivityName());
-    assertEquals("Name", getResult2.getActivityName());
     assertEquals(10, getResult.getXmlColumnNumber());
-    assertEquals(10, getResult2.getXmlColumnNumber());
     assertEquals(10, getResult.getXmlLineNumber());
-    assertEquals(10, getResult2.getXmlLineNumber());
   }
 
   /**
    * Test {@link SequenceflowValidator#executeValidation(BpmnModel, Process, List)}.
-   *
    * <ul>
-   *   <li>When {@link Process} {@link Process#getFlowElement(String, boolean)} return {@code null}.
+   *   <li>Then {@link ArrayList#ArrayList()} second ActivityId is {@code null}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link SequenceflowValidator#executeValidation(BpmnModel, Process, List)}
+   * <p>
+   * Method under test: {@link SequenceflowValidator#executeValidation(BpmnModel, Process, List)}
    */
   @Test
-  @DisplayName(
-      "Test executeValidation(BpmnModel, Process, List); when Process getFlowElement(String, boolean) return 'null'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test executeValidation(BpmnModel, Process, List); then ArrayList() second ActivityId is 'null'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void SequenceflowValidator.executeValidation(BpmnModel, Process, List)"})
+  void testExecuteValidation_thenArrayListSecondActivityIdIsNull() {
+    // Arrange
+    SequenceflowValidator sequenceflowValidator = new SequenceflowValidator();
+    BpmnModel bpmnModel = new BpmnModel();
+
+    ArrayList<SequenceFlow> sequenceFlowList = new ArrayList<>();
+    sequenceFlowList.add(new SequenceFlow("Source Ref", "Target Ref"));
+    Process process = mock(Process.class);
+    when(process.getFlowElementsContainer(Mockito.<String>any())).thenReturn(null);
+    when(process.getId()).thenReturn("42");
+    when(process.getName()).thenReturn("Name");
+    when(process.getFlowElement(Mockito.<String>any(), anyBoolean())).thenReturn(new AdhocSubProcess());
+    when(process.findFlowElementsOfType(Mockito.<Class<SequenceFlow>>any())).thenReturn(sequenceFlowList);
+    ArrayList<ValidationError> errors = new ArrayList<>();
+
+    // Act
+    sequenceflowValidator.executeValidation(bpmnModel, process, errors);
+
+    // Assert
+    verify(process, atLeast(1)).getId();
+    verify(process).findFlowElementsOfType(isA(Class.class));
+    verify(process, atLeast(1)).getFlowElement(Mockito.<String>any(), eq(true));
+    verify(process, atLeast(1)).getFlowElementsContainer(isNull());
+    verify(process, atLeast(1)).getName();
+    assertEquals(2, errors.size());
+    ValidationError getResult = errors.get(1);
+    assertNull(getResult.getActivityId());
+    assertNull(getResult.getActivityName());
+    assertEquals(0, getResult.getXmlColumnNumber());
+    assertEquals(0, getResult.getXmlLineNumber());
+  }
+
+  /**
+   * Test {@link SequenceflowValidator#executeValidation(BpmnModel, Process, List)}.
+   * <ul>
+   *   <li>When {@link Process} {@link Process#getFlowElement(String, boolean)} return {@link AdhocSubProcess} (default constructor).</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link SequenceflowValidator#executeValidation(BpmnModel, Process, List)}
+   */
+  @Test
+  @DisplayName("Test executeValidation(BpmnModel, Process, List); when Process getFlowElement(String, boolean) return AdhocSubProcess (default constructor)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void SequenceflowValidator.executeValidation(BpmnModel, Process, List)"})
+  void testExecuteValidation_whenProcessGetFlowElementReturnAdhocSubProcess() {
+    // Arrange
+    SequenceflowValidator sequenceflowValidator = new SequenceflowValidator();
+    BpmnModel bpmnModel = new BpmnModel();
+
+    ArrayList<SequenceFlow> sequenceFlowList = new ArrayList<>();
+    sequenceFlowList.add(new SequenceFlow("Source Ref", "Target Ref"));
+    Process process = mock(Process.class);
+    when(process.getFlowElementsContainer(Mockito.<String>any())).thenReturn(new AdhocSubProcess());
+    when(process.getFlowElement(Mockito.<String>any(), anyBoolean())).thenReturn(new AdhocSubProcess());
+    when(process.findFlowElementsOfType(Mockito.<Class<SequenceFlow>>any())).thenReturn(sequenceFlowList);
+    ArrayList<ValidationError> errors = new ArrayList<>();
+
+    // Act
+    sequenceflowValidator.executeValidation(bpmnModel, process, errors);
+
+    // Assert that nothing has changed
+    verify(process).findFlowElementsOfType(isA(Class.class));
+    verify(process, atLeast(1)).getFlowElement(Mockito.<String>any(), eq(true));
+    verify(process, atLeast(1)).getFlowElementsContainer(isNull());
+    assertTrue(errors.isEmpty());
+  }
+
+  /**
+   * Test {@link SequenceflowValidator#executeValidation(BpmnModel, Process, List)}.
+   * <ul>
+   *   <li>When {@link Process} {@link Process#getFlowElement(String, boolean)} return {@code null}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link SequenceflowValidator#executeValidation(BpmnModel, Process, List)}
+   */
+  @Test
+  @DisplayName("Test executeValidation(BpmnModel, Process, List); when Process getFlowElement(String, boolean) return 'null'")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void SequenceflowValidator.executeValidation(BpmnModel, Process, List)"})
   void testExecuteValidation_whenProcessGetFlowElementReturnNull() {
     // Arrange
@@ -651,13 +578,11 @@ class SequenceflowValidatorDiffblueTest {
 
     ArrayList<SequenceFlow> sequenceFlowList = new ArrayList<>();
     sequenceFlowList.add(new SequenceFlow("Source Ref", "Target Ref"));
-
     Process process = mock(Process.class);
-    when(process.getFlowElement(Mockito.<String>any(), anyBoolean())).thenReturn(null);
     when(process.getId()).thenReturn("42");
     when(process.getName()).thenReturn("Name");
-    when(process.findFlowElementsOfType(Mockito.<Class<SequenceFlow>>any()))
-        .thenReturn(sequenceFlowList);
+    when(process.getFlowElement(Mockito.<String>any(), anyBoolean())).thenReturn(null);
+    when(process.findFlowElementsOfType(Mockito.<Class<SequenceFlow>>any())).thenReturn(sequenceFlowList);
     ArrayList<ValidationError> errors = new ArrayList<>();
 
     // Act
@@ -670,146 +595,24 @@ class SequenceflowValidatorDiffblueTest {
     verify(process, atLeast(1)).getName();
     assertEquals(2, errors.size());
     ValidationError getResult = errors.get(1);
-    assertEquals("SEQ_FLOW_INVALID_TARGET", getResult.getDefaultDescription());
-    assertEquals("SEQ_FLOW_INVALID_TARGET", getResult.getKey());
-    assertEquals("SEQ_FLOW_INVALID_TARGET", getResult.getProblem());
+    assertNull(getResult.getActivityId());
+    assertNull(getResult.getActivityName());
+    assertEquals(0, getResult.getXmlColumnNumber());
+    assertEquals(0, getResult.getXmlLineNumber());
   }
 
   /**
    * Test {@link SequenceflowValidator#executeValidation(BpmnModel, Process, List)}.
-   *
    * <ul>
-   *   <li>When {@link Process} {@link Process#getFlowElement(String, boolean)} throw {@link
-   *       RuntimeException#RuntimeException()}.
+   *   <li>When {@link Process} (default constructor).</li>
+   *   <li>Then {@link ArrayList#ArrayList()} Empty.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link SequenceflowValidator#executeValidation(BpmnModel, Process, List)}
+   * <p>
+   * Method under test: {@link SequenceflowValidator#executeValidation(BpmnModel, Process, List)}
    */
   @Test
-  @DisplayName(
-      "Test executeValidation(BpmnModel, Process, List); when Process getFlowElement(String, boolean) throw RuntimeException()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void SequenceflowValidator.executeValidation(BpmnModel, Process, List)"})
-  void testExecuteValidation_whenProcessGetFlowElementThrowRuntimeException() {
-    // Arrange
-    SequenceflowValidator sequenceflowValidator = new SequenceflowValidator();
-    BpmnModel bpmnModel = new BpmnModel();
-
-    ArrayList<SequenceFlow> sequenceFlowList = new ArrayList<>();
-    sequenceFlowList.add(new SequenceFlow("Source Ref", "Target Ref"));
-
-    Process process = mock(Process.class);
-    when(process.getFlowElement(Mockito.<String>any(), anyBoolean()))
-        .thenThrow(new RuntimeException());
-    when(process.findFlowElementsOfType(Mockito.<Class<SequenceFlow>>any()))
-        .thenReturn(sequenceFlowList);
-
-    // Act and Assert
-    assertThrows(
-        RuntimeException.class,
-        () -> sequenceflowValidator.executeValidation(bpmnModel, process, new ArrayList<>()));
-    verify(process).findFlowElementsOfType(isA(Class.class));
-    verify(process).getFlowElement("Source Ref", true);
-  }
-
-  /**
-   * Test {@link SequenceflowValidator#executeValidation(BpmnModel, Process, List)}.
-   *
-   * <ul>
-   *   <li>When {@link Process} {@link Process#getFlowElementsContainer(String)} return {@link
-   *       AdhocSubProcess} (default constructor).
-   * </ul>
-   *
-   * <p>Method under test: {@link SequenceflowValidator#executeValidation(BpmnModel, Process, List)}
-   */
-  @Test
-  @DisplayName(
-      "Test executeValidation(BpmnModel, Process, List); when Process getFlowElementsContainer(String) return AdhocSubProcess (default constructor)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void SequenceflowValidator.executeValidation(BpmnModel, Process, List)"})
-  void testExecuteValidation_whenProcessGetFlowElementsContainerReturnAdhocSubProcess() {
-    // Arrange
-    SequenceflowValidator sequenceflowValidator = new SequenceflowValidator();
-    BpmnModel bpmnModel = new BpmnModel();
-
-    ArrayList<SequenceFlow> sequenceFlowList = new ArrayList<>();
-    sequenceFlowList.add(new SequenceFlow("Source Ref", "Target Ref"));
-
-    Process process = mock(Process.class);
-    when(process.getFlowElementsContainer(Mockito.<String>any())).thenReturn(new AdhocSubProcess());
-    when(process.getFlowElement(Mockito.<String>any(), anyBoolean()))
-        .thenReturn(new AdhocSubProcess());
-    when(process.findFlowElementsOfType(Mockito.<Class<SequenceFlow>>any()))
-        .thenReturn(sequenceFlowList);
-    ArrayList<ValidationError> errors = new ArrayList<>();
-
-    // Act
-    sequenceflowValidator.executeValidation(bpmnModel, process, errors);
-
-    // Assert that nothing has changed
-    verify(process).findFlowElementsOfType(isA(Class.class));
-    verify(process, atLeast(1)).getFlowElement(Mockito.<String>any(), eq(true));
-    verify(process, atLeast(1)).getFlowElementsContainer(null);
-    assertTrue(errors.isEmpty());
-  }
-
-  /**
-   * Test {@link SequenceflowValidator#executeValidation(BpmnModel, Process, List)}.
-   *
-   * <ul>
-   *   <li>When {@link Process} {@link Process#getFlowElementsContainer(String)} throw {@link
-   *       RuntimeException#RuntimeException()}.
-   * </ul>
-   *
-   * <p>Method under test: {@link SequenceflowValidator#executeValidation(BpmnModel, Process, List)}
-   */
-  @Test
-  @DisplayName(
-      "Test executeValidation(BpmnModel, Process, List); when Process getFlowElementsContainer(String) throw RuntimeException()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void SequenceflowValidator.executeValidation(BpmnModel, Process, List)"})
-  void testExecuteValidation_whenProcessGetFlowElementsContainerThrowRuntimeException() {
-    // Arrange
-    SequenceflowValidator sequenceflowValidator = new SequenceflowValidator();
-    BpmnModel bpmnModel = new BpmnModel();
-
-    ArrayList<SequenceFlow> sequenceFlowList = new ArrayList<>();
-    sequenceFlowList.add(new SequenceFlow("Source Ref", "Target Ref"));
-
-    Process process = mock(Process.class);
-    when(process.getFlowElementsContainer(Mockito.<String>any())).thenThrow(new RuntimeException());
-    when(process.getFlowElement(Mockito.<String>any(), anyBoolean()))
-        .thenReturn(new AdhocSubProcess());
-    when(process.findFlowElementsOfType(Mockito.<Class<SequenceFlow>>any()))
-        .thenReturn(sequenceFlowList);
-
-    // Act and Assert
-    assertThrows(
-        RuntimeException.class,
-        () -> sequenceflowValidator.executeValidation(bpmnModel, process, new ArrayList<>()));
-    verify(process).findFlowElementsOfType(isA(Class.class));
-    verify(process, atLeast(1)).getFlowElement(Mockito.<String>any(), eq(true));
-    verify(process).getFlowElementsContainer(null);
-  }
-
-  /**
-   * Test {@link SequenceflowValidator#executeValidation(BpmnModel, Process, List)}.
-   *
-   * <ul>
-   *   <li>When {@link Process} (default constructor).
-   *   <li>Then {@link ArrayList#ArrayList()} Empty.
-   * </ul>
-   *
-   * <p>Method under test: {@link SequenceflowValidator#executeValidation(BpmnModel, Process, List)}
-   */
-  @Test
-  @DisplayName(
-      "Test executeValidation(BpmnModel, Process, List); when Process (default constructor); then ArrayList() Empty")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test executeValidation(BpmnModel, Process, List); when Process (default constructor); then ArrayList() Empty")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void SequenceflowValidator.executeValidation(BpmnModel, Process, List)"})
   void testExecuteValidation_whenProcess_thenArrayListEmpty() {
     // Arrange

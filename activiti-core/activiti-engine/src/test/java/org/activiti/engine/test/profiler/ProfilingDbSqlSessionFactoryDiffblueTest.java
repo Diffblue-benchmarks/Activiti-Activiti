@@ -19,8 +19,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
@@ -28,18 +27,15 @@ import org.junit.experimental.categories.Category;
 public class ProfilingDbSqlSessionFactoryDiffblueTest {
   /**
    * Test new {@link ProfilingDbSqlSessionFactory} (default constructor).
-   *
-   * <p>Method under test: default or parameterless constructor of {@link
-   * ProfilingDbSqlSessionFactory}
+   * <p>
+   * Method under test: default or parameterless constructor of {@link ProfilingDbSqlSessionFactory}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void ProfilingDbSqlSessionFactory.<init>()"})
   public void testNewProfilingDbSqlSessionFactory() {
     // Arrange and Act
-    ProfilingDbSqlSessionFactory actualProfilingDbSqlSessionFactory =
-        new ProfilingDbSqlSessionFactory();
+    ProfilingDbSqlSessionFactory actualProfilingDbSqlSessionFactory = new ProfilingDbSqlSessionFactory();
 
     // Assert
     assertEquals("", actualProfilingDbSqlSessionFactory.getDatabaseTablePrefix());

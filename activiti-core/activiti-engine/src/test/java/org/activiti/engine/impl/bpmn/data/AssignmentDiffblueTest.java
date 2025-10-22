@@ -21,8 +21,7 @@ import static org.mockito.ArgumentMatchers.isA;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
-import com.diffblue.cover.annotations.ContributionFromDiffblue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.engine.delegate.DelegateExecution;
 import org.activiti.engine.delegate.Expression;
@@ -37,12 +36,11 @@ import org.mockito.Mockito;
 public class AssignmentDiffblueTest {
   /**
    * Test {@link Assignment#Assignment(Expression, Expression)}.
-   *
-   * <p>Method under test: {@link Assignment#Assignment(Expression, Expression)}
+   * <p>
+   * Method under test: {@link Assignment#Assignment(Expression, Expression)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void Assignment.<init>(Expression, Expression)"})
   public void testNewAssignment() {
     // Arrange
@@ -62,17 +60,15 @@ public class AssignmentDiffblueTest {
 
   /**
    * Test {@link Assignment#evaluate(DelegateExecution)}.
-   *
    * <ul>
-   *   <li>Given {@link FixedValue} {@link FixedValue#setValue(Object, VariableScope)} does nothing.
-   *   <li>Then calls {@link FixedValue#setValue(Object, VariableScope)}.
+   *   <li>Given {@link FixedValue} {@link FixedValue#setValue(Object, VariableScope)} does nothing.</li>
+   *   <li>Then calls {@link FixedValue#setValue(Object, VariableScope)}.</li>
    * </ul>
-   *
-   * <p>Method under test: {@link Assignment#evaluate(DelegateExecution)}
+   * <p>
+   * Method under test: {@link Assignment#evaluate(DelegateExecution)}
    */
   @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
+  @Category(MaintainedByDiffblue.class)
   @MethodsUnderTest({"void Assignment.evaluate(DelegateExecution)"})
   public void testEvaluate_givenFixedValueSetValueDoesNothing_thenCallsSetValue() {
     // Arrange

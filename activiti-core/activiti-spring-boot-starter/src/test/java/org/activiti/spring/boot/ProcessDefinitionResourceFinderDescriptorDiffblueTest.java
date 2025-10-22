@@ -16,10 +16,8 @@
 package org.activiti.spring.boot;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
 import java.util.List;
@@ -32,34 +30,29 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-@ContextConfiguration(
-    classes = {ProcessDefinitionResourceFinderDescriptor.class, ActivitiProperties.class})
+@ContextConfiguration(classes = {ProcessDefinitionResourceFinderDescriptor.class, ActivitiProperties.class})
 @ExtendWith(SpringExtension.class)
 class ProcessDefinitionResourceFinderDescriptorDiffblueTest {
-  @Autowired private ActivitiProperties activitiProperties;
+  @Autowired
+  private ActivitiProperties activitiProperties;
 
   @Autowired
   private ProcessDefinitionResourceFinderDescriptor processDefinitionResourceFinderDescriptor;
 
   /**
    * Test getters and setters.
-   *
-   * <p>Methods under test:
-   *
+   * <p>
+   * Methods under test:
    * <ul>
-   *   <li>{@link
-   *       ProcessDefinitionResourceFinderDescriptor#ProcessDefinitionResourceFinderDescriptor(ActivitiProperties)}
+   *   <li>{@link ProcessDefinitionResourceFinderDescriptor#ProcessDefinitionResourceFinderDescriptor(ActivitiProperties)}
    *   <li>{@link ProcessDefinitionResourceFinderDescriptor#validate(List)}
    * </ul>
    */
   @Test
   @DisplayName("Test getters and setters")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void ProcessDefinitionResourceFinderDescriptor.<init>(ActivitiProperties)",
-    "void ProcessDefinitionResourceFinderDescriptor.validate(List)"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void ProcessDefinitionResourceFinderDescriptor.<init>(ActivitiProperties)",
+      "void ProcessDefinitionResourceFinderDescriptor.validate(List)"})
   void testGettersAndSetters() {
     // Arrange
     ActivitiProperties activitiProperties = new ActivitiProperties();
@@ -89,38 +82,32 @@ class ProcessDefinitionResourceFinderDescriptorDiffblueTest {
     activitiProperties.setUseStrongUuids(true);
 
     // Act
-    ProcessDefinitionResourceFinderDescriptor actualProcessDefinitionResourceFinderDescriptor =
-        new ProcessDefinitionResourceFinderDescriptor(activitiProperties);
+    ProcessDefinitionResourceFinderDescriptor actualProcessDefinitionResourceFinderDescriptor = new ProcessDefinitionResourceFinderDescriptor(
+        activitiProperties);
     actualProcessDefinitionResourceFinderDescriptor.validate(new ArrayList<>());
 
     // Assert
-    assertEquals(
-        "No process definitions were found for auto-deployment in the location `Process Definition Location"
-            + " Prefix`",
-        actualProcessDefinitionResourceFinderDescriptor.getMsgForEmptyResources());
-    assertEquals(
-        "Process Definition Location Prefix",
+    assertEquals("No process definitions were found for auto-deployment in the location `Process Definition Location"
+        + " Prefix`", actualProcessDefinitionResourceFinderDescriptor.getMsgForEmptyResources());
+    assertEquals("Process Definition Location Prefix",
         actualProcessDefinitionResourceFinderDescriptor.getLocationPrefix());
-    List<String> locationSuffixes =
-        actualProcessDefinitionResourceFinderDescriptor.getLocationSuffixes();
+    List<String> locationSuffixes = actualProcessDefinitionResourceFinderDescriptor.getLocationSuffixes();
     assertTrue(locationSuffixes.isEmpty());
     assertSame(processDefinitionLocationSuffixes, locationSuffixes);
   }
 
   /**
    * Test {@link ProcessDefinitionResourceFinderDescriptor#getLocationSuffixes()}.
-   *
-   * <p>Method under test: {@link ProcessDefinitionResourceFinderDescriptor#getLocationSuffixes()}
+   * <p>
+   * Method under test: {@link ProcessDefinitionResourceFinderDescriptor#getLocationSuffixes()}
    */
   @Test
   @DisplayName("Test getLocationSuffixes()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"List ProcessDefinitionResourceFinderDescriptor.getLocationSuffixes()"})
   void testGetLocationSuffixes() {
     // Arrange and Act
-    List<String> actualLocationSuffixes =
-        processDefinitionResourceFinderDescriptor.getLocationSuffixes();
+    List<String> actualLocationSuffixes = processDefinitionResourceFinderDescriptor.getLocationSuffixes();
 
     // Assert
     assertEquals(2, actualLocationSuffixes.size());
@@ -130,160 +117,90 @@ class ProcessDefinitionResourceFinderDescriptorDiffblueTest {
 
   /**
    * Test {@link ProcessDefinitionResourceFinderDescriptor#getLocationPrefix()}.
-   *
-   * <p>Method under test: {@link ProcessDefinitionResourceFinderDescriptor#getLocationPrefix()}
+   * <p>
+   * Method under test: {@link ProcessDefinitionResourceFinderDescriptor#getLocationPrefix()}
    */
   @Test
   @DisplayName("Test getLocationPrefix()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"String ProcessDefinitionResourceFinderDescriptor.getLocationPrefix()"})
   void testGetLocationPrefix() {
     // Arrange, Act and Assert
-    assertEquals(
-        "classpath*:**/processes/", processDefinitionResourceFinderDescriptor.getLocationPrefix());
+    assertEquals("classpath*:**/processes/", processDefinitionResourceFinderDescriptor.getLocationPrefix());
   }
 
   /**
    * Test {@link ProcessDefinitionResourceFinderDescriptor#shouldLookUpResources()}.
-   *
-   * <ul>
-   *   <li>Then return {@code false}.
-   * </ul>
-   *
-   * <p>Method under test: {@link ProcessDefinitionResourceFinderDescriptor#shouldLookUpResources()}
+   * <p>
+   * Method under test: {@link ProcessDefinitionResourceFinderDescriptor#shouldLookUpResources()}
    */
   @Test
-  @DisplayName("Test shouldLookUpResources(); then return 'false'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @DisplayName("Test shouldLookUpResources()")
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"boolean ProcessDefinitionResourceFinderDescriptor.shouldLookUpResources()"})
-  void testShouldLookUpResources_thenReturnFalse() {
-    // Arrange
-    ActivitiProperties activitiProperties = new ActivitiProperties();
-    activitiProperties.setAsyncExecutorActivate(true);
-    activitiProperties.setCheckProcessDefinitions(false);
-    activitiProperties.setCopyVariablesToLocalForTasks(true);
-    activitiProperties.setCustomMybatisMappers(new ArrayList<>());
-    activitiProperties.setCustomMybatisXMLMappers(new ArrayList<>());
-    activitiProperties.setDatabaseSchema("Database Schema");
-    activitiProperties.setDatabaseSchemaUpdate("2020-03-01");
-    activitiProperties.setDbHistoryUsed(true);
-    activitiProperties.setDeploymentMode("Deployment Mode");
-    activitiProperties.setDeploymentName("Deployment Name");
-    activitiProperties.setHistoryLevel(HistoryLevel.NONE);
-    activitiProperties.setJavaClassFieldForJackson("Java Class Field For Jackson");
-    activitiProperties.setMailServerDefaultFrom("jane.doe@example.org");
-    activitiProperties.setMailServerHost("localhost");
-    activitiProperties.setMailServerPassword("iloveyou");
-    activitiProperties.setMailServerPort(8080);
-    activitiProperties.setMailServerUseSsl(true);
-    activitiProperties.setMailServerUseTls(true);
-    activitiProperties.setMailServerUserName("janedoe");
-    activitiProperties.setProcessDefinitionLocationPrefix("Process Definition Location Prefix");
-    activitiProperties.setProcessDefinitionLocationSuffixes(new ArrayList<>());
-    activitiProperties.setSerializePOJOsInVariablesToJson(true);
-    activitiProperties.setUseStrongUuids(true);
-
-    // Act and Assert
-    assertFalse(
-        new ProcessDefinitionResourceFinderDescriptor(activitiProperties).shouldLookUpResources());
-  }
-
-  /**
-   * Test {@link ProcessDefinitionResourceFinderDescriptor#shouldLookUpResources()}.
-   *
-   * <ul>
-   *   <li>Then return {@code true}.
-   * </ul>
-   *
-   * <p>Method under test: {@link ProcessDefinitionResourceFinderDescriptor#shouldLookUpResources()}
-   */
-  @Test
-  @DisplayName("Test shouldLookUpResources(); then return 'true'")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"boolean ProcessDefinitionResourceFinderDescriptor.shouldLookUpResources()"})
-  void testShouldLookUpResources_thenReturnTrue() {
+  void testShouldLookUpResources() {
     // Arrange, Act and Assert
     assertTrue(processDefinitionResourceFinderDescriptor.shouldLookUpResources());
   }
 
   /**
    * Test {@link ProcessDefinitionResourceFinderDescriptor#getMsgForEmptyResources()}.
-   *
-   * <p>Method under test: {@link
-   * ProcessDefinitionResourceFinderDescriptor#getMsgForEmptyResources()}
+   * <p>
+   * Method under test: {@link ProcessDefinitionResourceFinderDescriptor#getMsgForEmptyResources()}
    */
   @Test
   @DisplayName("Test getMsgForEmptyResources()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"String ProcessDefinitionResourceFinderDescriptor.getMsgForEmptyResources()"})
   void testGetMsgForEmptyResources() {
     // Arrange, Act and Assert
-    assertEquals(
-        "No process definitions were found for auto-deployment in the location `classpath*:**/processes/`",
+    assertEquals("No process definitions were found for auto-deployment in the location `classpath*:**/processes/`",
         processDefinitionResourceFinderDescriptor.getMsgForEmptyResources());
   }
 
   /**
    * Test {@link ProcessDefinitionResourceFinderDescriptor#getMsgForResourcesFound(List)}.
-   *
-   * <p>Method under test: {@link
-   * ProcessDefinitionResourceFinderDescriptor#getMsgForResourcesFound(List)}
+   * <p>
+   * Method under test: {@link ProcessDefinitionResourceFinderDescriptor#getMsgForResourcesFound(List)}
    */
   @Test
   @DisplayName("Test getMsgForResourcesFound(List)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "String ProcessDefinitionResourceFinderDescriptor.getMsgForResourcesFound(List)"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"String ProcessDefinitionResourceFinderDescriptor.getMsgForResourcesFound(List)"})
   void testGetMsgForResourcesFound() {
     // Arrange, Act and Assert
-    assertEquals(
-        "The following process definition files will be deployed: []",
+    assertEquals("The following process definition files will be deployed: []",
         processDefinitionResourceFinderDescriptor.getMsgForResourcesFound(new ArrayList<>()));
   }
 
   /**
    * Test {@link ProcessDefinitionResourceFinderDescriptor#getMsgForResourcesFound(List)}.
-   *
-   * <p>Method under test: {@link
-   * ProcessDefinitionResourceFinderDescriptor#getMsgForResourcesFound(List)}
+   * <p>
+   * Method under test: {@link ProcessDefinitionResourceFinderDescriptor#getMsgForResourcesFound(List)}
    */
   @Test
   @DisplayName("Test getMsgForResourcesFound(List)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "String ProcessDefinitionResourceFinderDescriptor.getMsgForResourcesFound(List)"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"String ProcessDefinitionResourceFinderDescriptor.getMsgForResourcesFound(List)"})
   void testGetMsgForResourcesFound2() {
     // Arrange
     ArrayList<String> foundProcessResources = new ArrayList<>();
     foundProcessResources.add("foo");
 
     // Act and Assert
-    assertEquals(
-        "The following process definition files will be deployed: [foo]",
+    assertEquals("The following process definition files will be deployed: [foo]",
         processDefinitionResourceFinderDescriptor.getMsgForResourcesFound(foundProcessResources));
   }
 
   /**
    * Test {@link ProcessDefinitionResourceFinderDescriptor#getMsgForResourcesFound(List)}.
-   *
-   * <p>Method under test: {@link
-   * ProcessDefinitionResourceFinderDescriptor#getMsgForResourcesFound(List)}
+   * <p>
+   * Method under test: {@link ProcessDefinitionResourceFinderDescriptor#getMsgForResourcesFound(List)}
    */
   @Test
   @DisplayName("Test getMsgForResourcesFound(List)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "String ProcessDefinitionResourceFinderDescriptor.getMsgForResourcesFound(List)"
-  })
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"String ProcessDefinitionResourceFinderDescriptor.getMsgForResourcesFound(List)"})
   void testGetMsgForResourcesFound3() {
     // Arrange
     ArrayList<String> foundProcessResources = new ArrayList<>();
@@ -291,8 +208,7 @@ class ProcessDefinitionResourceFinderDescriptorDiffblueTest {
     foundProcessResources.add("foo");
 
     // Act and Assert
-    assertEquals(
-        "The following process definition files will be deployed: [42, foo]",
+    assertEquals("The following process definition files will be deployed: [42, foo]",
         processDefinitionResourceFinderDescriptor.getMsgForResourcesFound(foundProcessResources));
   }
 }

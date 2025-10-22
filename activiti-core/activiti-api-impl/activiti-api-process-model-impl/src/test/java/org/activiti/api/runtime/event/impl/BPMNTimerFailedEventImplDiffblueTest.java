@@ -18,7 +18,6 @@ package org.activiti.api.runtime.event.impl;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
-import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.api.process.model.BPMNTimer;
 import org.activiti.api.process.model.events.BPMNTimerEvent;
@@ -31,13 +30,12 @@ import org.junit.jupiter.api.Test;
 class BPMNTimerFailedEventImplDiffblueTest {
   /**
    * Test {@link BPMNTimerFailedEventImpl#BPMNTimerFailedEventImpl()}.
-   *
-   * <p>Method under test: {@link BPMNTimerFailedEventImpl#BPMNTimerFailedEventImpl()}
+   * <p>
+   * Method under test: {@link BPMNTimerFailedEventImpl#BPMNTimerFailedEventImpl()}
    */
   @Test
   @DisplayName("Test new BPMNTimerFailedEventImpl()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void BPMNTimerFailedEventImpl.<init>()"})
   void testNewBPMNTimerFailedEventImpl() {
     // Arrange and Act
@@ -56,13 +54,12 @@ class BPMNTimerFailedEventImplDiffblueTest {
 
   /**
    * Test {@link BPMNTimerFailedEventImpl#BPMNTimerFailedEventImpl(BPMNTimer)}.
-   *
-   * <p>Method under test: {@link BPMNTimerFailedEventImpl#BPMNTimerFailedEventImpl(BPMNTimer)}
+   * <p>
+   * Method under test: {@link BPMNTimerFailedEventImpl#BPMNTimerFailedEventImpl(BPMNTimer)}
    */
   @Test
   @DisplayName("Test new BPMNTimerFailedEventImpl(BPMNTimer)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"void BPMNTimerFailedEventImpl.<init>(BPMNTimer)"})
   void testNewBPMNTimerFailedEventImpl2() {
     // Arrange
@@ -84,16 +81,15 @@ class BPMNTimerFailedEventImplDiffblueTest {
 
   /**
    * Test {@link BPMNTimerFailedEventImpl#getEventType()}.
-   *
-   * <p>Method under test: {@link BPMNTimerFailedEventImpl#getEventType()}
+   * <p>
+   * Method under test: {@link BPMNTimerFailedEventImpl#getEventType()}
    */
   @Test
   @DisplayName("Test getEventType()")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
+  @Tag("MaintainedByDiffblue")
   @MethodsUnderTest({"TimerEvents BPMNTimerFailedEventImpl.getEventType()"})
   void testGetEventType() {
     // Arrange, Act and Assert
-    assertEquals(TimerEvents.TIMER_FAILED, new BPMNTimerFailedEventImpl().getEventType());
+    assertEquals(TimerEvents.TIMER_FAILED, (new BPMNTimerFailedEventImpl()).getEventType());
   }
 }

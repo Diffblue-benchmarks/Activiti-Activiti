@@ -1,18 +1,18 @@
 {
   "meta" : {
-    "reportVersion" : "2.7"
+    "reportVersion" : "2.6"
   },
   "run" : {
-    "version" : "2025.09.01-44e352d-licensed",
-    "creationTimestamp" : "2025-10-15T17:03:55.966843946Z",
-    "command" : "dcover coverage-reports --exclude-modules=org.activiti:activiti-dependency-check,org.activiti:activiti-api-dependencies,org.activiti:activiti-core-common-dependencies,org.activiti:activiti-core-dependencies,org.activiti:activiti-dependencies,org.activiti:activiti-spring-conformance-set0,org.activiti:activiti-spring-conformance-set1,org.activiti:activiti-spring-conformance-set2,org.activiti:activiti-spring-conformance-set3,org.activiti:activiti-spring-conformance-set4,org.activiti:activiti-spring-conformance-set5,org.activiti:activiti-spring-conformance-variables,org.activiti:activiti-spring-conformance-signals upload --exclude-modules=org.activiti:activiti-dependency-check,org.activiti:activiti-api-dependencies,org.activiti:activiti-core-common-dependencies,org.activiti:activiti-core-dependencies,org.activiti:activiti-dependencies,org.activiti:activiti-spring-conformance-set0,org.activiti:activiti-spring-conformance-set1,org.activiti:activiti-spring-conformance-set2,org.activiti:activiti-spring-conformance-set3,org.activiti:activiti-spring-conformance-set4,org.activiti:activiti-spring-conformance-set5,org.activiti:activiti-spring-conformance-variables,org.activiti:activiti-spring-conformance-signals http://localhost:8080 --project-name Activiti-Activiti --name baseline-no-diffblue-tests",
-    "totalTime" : 49.779,
-    "environmentDetectionTime" : 38.588,
+    "version" : "2025.02.02-08b2a5a-licensed",
+    "creationTimestamp" : "2025-10-21T17:13:38.26961579Z",
+    "command" : "dcover coverage-reports --exclude-modules=org.activiti:activiti-dependency-check,org.activiti:activiti-api-dependencies,org.activiti:activiti-core-common-dependencies,org.activiti:activiti-core-dependencies,org.activiti:activiti-dependencies,org.activiti:activiti-spring-conformance-set0,org.activiti:activiti-spring-conformance-set1,org.activiti:activiti-spring-conformance-set2,org.activiti:activiti-spring-conformance-set3,org.activiti:activiti-spring-conformance-set4,org.activiti:activiti-spring-conformance-set5,org.activiti:activiti-spring-conformance-variables,org.activiti:activiti-spring-conformance-signals",
+    "totalTime" : 44.315,
+    "environmentDetectionTime" : 36.432,
     "indexingTime" : 0.0,
     "entryPointsTime" : 0.0,
     "generationTime" : 0.0,
-    "timeToFirstTest" : 49.78,
-    "timeToLastTest" : 49.78,
+    "timeToFirstTest" : 44.315,
+    "timeToLastTest" : 44.315,
     "indexQueryTime" : 0.0,
     "verificationTime" : 0.0,
     "validationTime" : 0.0
@@ -23,7 +23,7 @@
   "summary" : {
     "classesCount" : 4,
     "methodsCount" : 43,
-    "cumulativeDiffblueTestCount" : 0,
+    "cumulativeDiffblueTestCount" : 2,
     "cumulativeManualTestCount" : 0,
     "completeTestCount" : 0,
     "incompleteTestCount" : 0,
@@ -341,6 +341,5 @@
       "perMethodTestability" : "T010",
       "perMethodOutcome" : "T010"
     }
-  },
-  "validationMetrics" : { }
+  }
 }
